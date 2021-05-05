@@ -1,13 +1,13 @@
 ---
 layout: default
-title: Reindex Data
+title: Reindex data
 parent: OpenSearch
 nav_order: 6
 ---
 
 # Reindex data
 
-After creating an index, if you need to make an extensive change such as adding a new field to every document or combining multiple indices to form a new one, rather than deleting your index, making the change offline, and then indexing your data all over again, you can use the `reindex` operation.
+After creating an index, you might need to make an extensive change such as adding a new field to every document or combining multiple indices to form a new one. Rather than deleting your index, making the change offline, and then indexing your data all over again, you can use the `reindex` operation.
 
 With the `reindex` operation, you can copy all or a subset of documents that you select through a query to another index. Reindex is a `POST` operation. In its most basic form, you specify a source index and a destination index.
 
@@ -84,15 +84,15 @@ You can specify the following options:
 Options | Valid values | Description | Required
 :--- | :--- | :---
 `host` | String | The REST endpoint of the remote cluster. | Yes
-`username` | String | The username to login to the remote cluster. | No
-`password` | String | The password to login to the remote cluster. | No
+`username` | String | The username to log into the remote cluster. | No
+`password` | String | The password to log into the remote cluster. | No
 `socket_timeout` | Time Unit | The wait time for socket reads (default 30s). | No
 `connect_timeout` | Time Unit | The wait time for remote connection timeouts (default 30s). | No
 
 
 ## Reindex a subset of documents
 
-You can copy only a specific set of documents that match a search query.
+You can copy a specific set of documents that match a search query.
 
 This command copies only a subset of documents matched by a query operation to the destination index:
 
@@ -250,9 +250,9 @@ POST _reindex
 }
 ```
 
-## Update documents in current index
+## Update documents in the current index
 
-To update your data in your current index itself without copying it to a different index, use the `update_by_query` operation.
+To update the data in your current index itself without copying it to a different index, use the `update_by_query` operation.
 
 The `update_by_query` operation is `POST` operation that you can perform on a single index at a time.
 

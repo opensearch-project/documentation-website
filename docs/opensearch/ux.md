@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Search Experience
+title: Search experience
 parent: OpenSearch
 nav_order: 12
 ---
 
-# Search Experience
+# Search experience
 
 Expectations from search engines have evolved over the years. Just returning relevant results quickly is no longer enough for most users. OpenSearch includes many features that enhance the user’s search experience as follows:
 
@@ -25,7 +25,7 @@ Autocomplete shows suggestions to users while they type.
 
 For example, if a user types "pop," OpenSearch provides suggestions like "popcorn" or "popsicles." These suggestions preempt your user's intention and lead them to a possible search term more quickly.
 
-OpenSearch allows you to design autocomplete that updates with each keystroke, provides a few relevant suggestions, and tolerates typos.
+OpenSearch lets you design autocomplete that updates with each keystroke, provides a few relevant suggestions, and tolerates typos.
 
 Implement autocomplete using one of three methods:
 
@@ -33,7 +33,7 @@ Implement autocomplete using one of three methods:
 - Edge N-gram matching
 - Completion suggesters
 
-These methods are described below.
+These methods are described in the following sections.
 
 ### Prefix matching
 
@@ -866,9 +866,9 @@ To close all open scroll contexts:
 DELETE _search/scroll/_all
 ```
 
-The `scroll` operation corresponds to a specific timestamp. It does not consider documents added after that timestamp as potential results.
+The `scroll` operation corresponds to a specific timestamp. It doesn't consider documents added after that timestamp as potential results.
 
-Because open search contexts consume a lot of memory, we suggest you do not use the `scroll` operation for frequent user queries that don't need the search context open. Instead, use the `sort` parameter with the `search_after` parameter to scroll responses for user queries.
+Because open search contexts consume a lot of memory, we suggest you don't use the `scroll` operation for frequent user queries that don't need the search context open. Instead, use the `sort` parameter with the `search_after` parameter to scroll responses for user queries.
 
 ## Sort results
 
@@ -928,7 +928,7 @@ GET shakespeare/_search
 }
 ```
 
-You can continue to sort by any number of field values to get the results in just the right order. It doesn’t have to be a numerical value, you can also sort by date or timestamp fields:
+You can continue to sort by any number of field values to get the results in just the right order. It doesn’t have to be a numerical value---you can also sort by date or timestamp fields:
 
 ```json
 "sort": [

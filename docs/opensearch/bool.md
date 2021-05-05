@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Boolean Queries
+title: Boolean queries
 parent: OpenSearch
 nav_order: 11
 ---

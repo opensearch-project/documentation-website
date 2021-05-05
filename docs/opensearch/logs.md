@@ -155,7 +155,7 @@ PUT <some-index>/_settings
 }
 ```
 
-In this example, OpenSearch logs indexing operations that take 15 seconds or longer at the WARN level and operations that take between 10 and 14.*x* seconds at the INFO level. If you set a threshold to 0 seconds, OpenSearch logs all operations, which can be useful for testing that slow logs are indeed enabled.
+In this example, OpenSearch logs indexing operations that take 15 seconds or longer at the WARN level and operations that take between 10 and 14.*x* seconds at the INFO level. If you set a threshold to 0 seconds, OpenSearch logs all operations, which can be useful for testing whether slow logs are indeed enabled.
 
 - `reformat` specifies whether to log the document `_source` field as a single line (`true`) or let it span multiple lines (`false`).
 - `source` is the number of characters of the document `_source` field to log.

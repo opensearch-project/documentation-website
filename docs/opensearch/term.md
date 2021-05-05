@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Term-Level Queries
+title: Term-level queries
 parent: OpenSearch
 nav_order: 9
 ---
@@ -9,7 +9,7 @@ nav_order: 9
 
 OpenSearch supports two types of queries when you search for data: term-level queries and full-text queries.
 
-The following table shows the differences between them:
+The following table describes the differences between them:
 
 | | Term-level queries | Full-text queries
 :--- | :--- | :---

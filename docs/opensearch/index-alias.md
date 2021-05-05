@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Index Aliases
+title: Index aliases
 parent: OpenSearch
 nav_order: 4
 ---
 
-# Index alias
+# Index aliases
 
 An alias is a virtual index name that can point to one or more indices.
 
