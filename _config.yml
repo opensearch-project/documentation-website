@@ -1,0 +1,98 @@
+# Welcome to Jekyll!
+#
+# This config file is meant for settings that affect your whole blog, values
+# which you are expected to set up once and rarely edit after that. If you find
+# yourself editing this file very often, consider using Jekyll's data files
+# feature for the data you need to update frequently.
+#
+# For technical reasons, this file is *NOT* reloaded automatically when you use
+# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
+
+# Site settings
+# These are used to personalize your new site. If you look in the HTML files,
+# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
+# You can create any custom variable you would like, and they will be accessible
+# in the templates via {{ site.myvariable }}.
+title: OpenSearch documentation
+description: >- # this means to ignore newlines until "baseurl:"
+  Documentation for OpenSearch, the Apache 2.0 search, analytics, and visualization suite with advanced security, alerting, SQL support, automated index management, deep performance analysis, and more.
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://docs-beta.opensearch.org" # the base hostname & protocol for your site, e.g. http://example.com
+permalink: pretty
+
+opensearch_version: 1.0.0-beta1
+opensearch_major_minor_version: 1.0
+
+# Build settings
+markdown: kramdown
+remote_theme: pmarsceill/just-the-docs@v0.3.3
+
+# Kramdown settings
+kramdown:
+  toc_levels: 2..3
+
+logo: "/assets/images/fake-logo.svg"
+
+# Aux links for the upper right navigation
+aux_links:
+  "Back to OpenSearch.org":
+    - "https://opensearch.org/"
+color_scheme: opensearch
+
+# Enable or disable the site search
+# Supports true (default) or false
+search_enabled: true
+
+search:
+  # Split pages into sections that can be searched individually
+  # Supports 1 - 6, default: 2
+  heading_level: 2
+  # Maximum amount of previews per search result
+  # Default: 3
+  previews: 3
+  # Maximum amount of words to display before a matched word in the preview
+  # Default: 5
+  preview_words_before: 5
+  # Maximum amount of words to display after a matched word in the preview
+  # Default: 10
+  preview_words_after: 10
+  # Set the search token separator
+  # Default: /[\s\-/]+/
+  # Example: enable support for hyphenated search words
+  tokenizer_separator: /[\s/]+/
+  # Display the relative url in search results
+  # Supports true (default) or false
+  rel_url: true
+  # Enable or disable the search button that appears in the bottom right corner of every page
+  # Supports true or false (default)
+  button: false
+
+# Google Analytics Tracking (optional)
+# e.g, UA-1234567-89
+ga_tracking: UA-135423944-1
+
+# Disable the just-the-docs theme anchor links in favor of our custom ones
+# See _includes/head_custom.html
+heading_anchors: false
+
+# Adds on-hover anchor links to h2-h6
+anchor_links: true
+
+footer_content:
+
+plugins:
+  - jekyll-remote-theme
+  - jekyll-redirect-from
+
+# Exclude from processing.
+# The following items will not be processed, by default. Create a custom list
+# to override the default setting.
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - README.md

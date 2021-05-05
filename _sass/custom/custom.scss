@@ -1,0 +1,232 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,700');
+
+// Additional variables
+$table-border-color: $grey-lt-300;
+$toc-width: 232px !default;
+$red-dk-200: mix(black, $red-300, 25%);
+
+// Replaces xl size
+$media-queries: (
+  xs: 320px,
+  sm: 500px,
+  md: $content-width,
+  lg: $content-width + $nav-width,
+  xl: $content-width + $nav-width + $toc-width
+);
+
+body {
+  padding-bottom: 6rem;
+  font-family: 'Open Sans', sans-serif;
+  @include mq(md) {
+    padding-bottom: 0;
+  }
+}
+
+code {
+  font-family: "SFMono-Regular", Menlo, "DejaVu Sans Mono", "Droid Sans Mono", Consolas, Monospace;
+  font-size: 0.75rem;
+}
+
+.site-nav {
+  padding-top: 2rem;
+}
+
+.main-content {
+  ol {
+    > li {
+      &:before {
+        color: $grey-dk-100;
+      }
+    }
+  }
+  ul {
+    > li {
+      &:before {
+        color: $grey-dk-100;
+      }
+    }
+  }
+  h1, h2, h3, h4, h5, h6 {
+    margin-top: 2.4rem;
+    margin-bottom: 0.8rem;
+  }
+  .highlight {
+    line-height: 1.4;
+  }
+}
+
+.site-title {
+  @include mq(md) {
+    padding-top: 1rem;
+    padding-bottom: 0.6rem;
+    padding-left: $sp-5;
+  }
+}
+
+.external-arrow {
+  position: relative;
+  top: 0.125rem;
+  left: 0.25rem;
+}
+
+img {
+  padding: 1rem 0;
+}
+
+.img-border {
+  border: 1px solid $grey-lt-200;
+}
+
+// Note, tip, and warning blocks
+%callout {
+  border: 1px solid $grey-lt-200;
+  border-radius: 5px;
+  margin: 1rem 0;
+  padding: 1rem;
+  position: relative;
+}
+
+.note {
+  @extend %callout;
+  border-left: 5px solid $blue-300;
+}
+
+.tip {
+  @extend %callout;
+  border-left: 5px solid $green-300;
+}
+
+.warning {
+  @extend %callout;
+  border-left: 5px solid $red-dk-200;
+}
+
+// Labels
+.label,
+.label-blue {
+  background-color: $blue-300;
+}
+
+.label-green {
+  background-color: $green-300;
+}
+
+.label-purple {
+  background-color: $purple-300;
+}
+
+.label-red {
+  background-color: $red-300;
+}
+
+.label-yellow {
+  color: $grey-dk-200;
+  background-color: $yellow-300;
+}
+
+// Buttons
+.btn-primary {
+  @include btn-color($white, $btn-primary-color);
+}
+
+.btn-purple {
+  @include btn-color($white, $purple-300);
+}
+
+.btn-blue {
+  @include btn-color($white, $blue-300);
+}
+
+.btn-green {
+  @include btn-color($white, $green-300);
+}
+
+// Tables
+th,
+td {
+  border-bottom: $border rgba($table-border-color, 0.5);
+  border-left: $border $table-border-color;
+}
+
+thead {
+  th {
+    border-bottom: 1px solid $table-border-color;
+  }
+}
+td {
+  pre {
+    margin-bottom: 0;
+  }
+}
+
+// Keeps labels high and tight next to headers
+h1 + p.label {
+  margin: -23px 0 0 0;
+}
+h2 + p.label {
+  margin: -15px 0 0 0;
+}
+h3 + p.label {
+  margin: -10px 0 0 0;
+}
+h4 + p.label,
+h5 + p.label,
+h6 + p.label {
+  margin: -7px 0 0 0;
+}
+
+// Modifies margins in xl layout to support TOC
+.side-bar {
+  @include mq(xl) {
+    width: calc((100% - #{$nav-width + $content-width + $toc-width}) / 2 + #{$nav-width});
+    min-width: $nav-width;
+  }
+}
+
+.main {
+  @include mq(xl) {
+    margin-left: calc((100% - #{$nav-width + $content-width + $toc-width}) / 2 + #{$nav-width});
+  }
+}
+
+// Adds TOC to righthand side in xl layout
+.toc {
+  display: none;
+  @include mq(xl) {
+    z-index: 0;
+    display: block;
+    position: fixed;
+    top: 59px;
+    right: calc((100% - #{$nav-width + $content-width + $toc-width}) / 2);
+    width: $toc-width;
+    max-height: calc(100% - 118px);
+    overflow: auto;
+  }
+}
+
+.toc-list {
+  &:before {
+    content: "On this page";
+    // Basically duplicates h4 styling
+    font-size: 12px;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: $grey-dk-300;
+    line-height: 1.8;
+  }
+  border: 1px solid $border-color;
+  font-size: 14px;
+  list-style-type: none;
+  background-color: $sidebar-color;
+  padding: $sp-6 $sp-4;
+  margin-left: $sp-6;
+  margin-right: 0;
+  margin-bottom: 0;
+  overflow: auto;
+}
+
+.toc-item {
+  padding-top: .25rem;
+  padding-bottom: .25rem;
+}

@@ -1,0 +1,75 @@
+//
+// Brand colors
+//
+
+$white: #FFFFFF;
+
+$grey-dk-300: #241F21; // Error
+$grey-dk-250: mix(white, $grey-dk-300, 12.5%);
+$grey-dk-200: mix(white, $grey-dk-300, 25%);
+$grey-dk-100: mix(white, $grey-dk-300, 50%);
+$grey-dk-000: mix(white, $grey-dk-300, 75%);
+
+$grey-lt-300: #DBDBDB; // Cloud
+$grey-lt-200: mix(white, $grey-lt-300, 25%);
+$grey-lt-100: mix(white, $grey-lt-300, 50%);
+$grey-lt-000: mix(white, $grey-lt-300, 75%);
+
+$blue-300: #00007C; // Meta
+$blue-200: mix(white, $blue-300, 25%);
+$blue-100: mix(white, $blue-300, 50%);
+$blue-000: mix(white, $blue-300, 75%);
+
+$purple-300: #9600FF; // Prpl
+$purple-200: mix(white, $purple-300, 25%);
+$purple-100: mix(white, $purple-300, 50%);
+$purple-000: mix(white, $purple-300, 75%);
+
+$green-300: #00671A; // Element
+$green-200: mix(white, $green-300, 25%);
+$green-100: mix(white, $green-300, 50%);
+$green-000: mix(white, $green-300, 75%);
+
+$yellow-300: #FFDF00; // Kan-Banana
+$yellow-200: mix(white, $yellow-300, 25%);
+$yellow-100: mix(white, $yellow-300, 50%);
+$yellow-000: mix(white, $yellow-300, 75%);
+
+$red-300: #BD145A; // Ruby
+$red-200: mix(white, $red-300, 25%);
+$red-100: mix(white, $red-300, 50%);
+$red-000: mix(white, $red-300, 75%);
+
+$blue-lt-300: #0000FF; // Cascade
+$blue-lt-200: mix(white, $blue-lt-300, 25%);
+$blue-lt-100: mix(white, $blue-lt-300, 50%);
+$blue-lt-000: mix(white, $blue-lt-300, 75%);
+
+/*
+Other, unused brand colors
+
+Float #2797F4
+Firewall #0FF006B
+Hyper Pink #F261A1
+Cluster #ED20EB
+Back End #808080
+Python #25EE5C
+Warm Node #FEA501
+*/
+
+$body-background-color: $white;
+$sidebar-color: $grey-lt-000;
+$code-background-color: $grey-lt-000;
+
+$body-text-color: $grey-dk-200;
+$body-heading-color: $grey-dk-300;
+$nav-child-link-color: $grey-dk-200;
+$link-color: mix(black, $blue-lt-300, 37.5%);
+$btn-primary-color: $purple-300;
+$base-button-color: $grey-lt-000;
+
+// $border-color: $grey-dk-200;
+// $search-result-preview-color: $grey-dk-000;
+// $search-background-color: $grey-dk-250;
+// $table-background-color: $grey-dk-250;
+// $feedback-color: darken($sidebar-color, 3%);
