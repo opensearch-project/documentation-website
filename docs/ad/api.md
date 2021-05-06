@@ -446,7 +446,7 @@ If you specify a category field, each result is associated with an entity:
 
 ## Start detector job
 
-Starts a real-time or historical detector job.
+Starts a real-time or historical anomaly detector job.
 
 
 #### Request
@@ -589,7 +589,8 @@ POST _opensearch/_anomaly_detection/detectors/results/_search
 }
 ```
 
-In high cardinality detectors, the result contains entities’ information.
+In high cardinality detectors, the result contains entity information.
+
 To see an ordered set of anomaly records for an entity with an anomaly within a certain time range for a specific feature value:
 
 #### Request
@@ -1976,9 +1977,9 @@ GET _opensearch/_anomaly_detection/detectors/<detectorId>/_profile/total_size_in
 }
 ```
 
-If you have configured the category field, you can see the number of unique values in the field and also all the active entities with models running in memory.
-You can use this data to estimate the memory required for anomaly detection to help decide the size of your cluster.
-For example, if a detector has one million entities and only 10 of them are active in memory, then you need to scale up or scale out your cluster.
+If you configured the category field, you can see the number of unique values in the field and all active entities with models running in memory.
+
+You can use this data to estimate how much memory is required for anomaly detection so you can decide how to size your cluster. For example, if a detector has one million entities and only 10 of them are active in memory, you need to scale your cluster up or out.
 
 #### Request
 
@@ -2035,7 +2036,7 @@ GET /_opensearch/_anomaly_detection/detectors/<detectorId>/_profile?_all=true&pr
 
 The `profile` operation also provides information about each entity, such as the entity’s `last_sample_timestamp` and `last_active_timestamp`.
 
-No anomaly results for an entity indicates that either the entity doesn't have any sample data or its model is removed from the model cache.
+If there are no anomaly results for an entity, either the entity doesn't have any sample data or its model is removed from the model cache.
 
  `last_sample_timestamp` shows the last document in the input data source index containing the entity, while `last_active_timestamp` shows the timestamp when the entity’s model was last seen in the model cache.
 
