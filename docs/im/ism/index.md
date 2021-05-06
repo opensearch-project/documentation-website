@@ -73,7 +73,7 @@ PUT _index_template/<template_name>
 }
 ```
 
-The `opensearch.index_state_management.policy_id` setting is deprecated starting from version 1.13.0. You can continue to automatically manage newly created indices with the ISM template field.
+The `opensearch.index_state_management.policy_id` setting is deprecated. You can continue to automatically manage newly created indices with the ISM template field.
 {: .note }
 
 ### Step 2: Attach policies to indices
