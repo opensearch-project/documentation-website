@@ -74,14 +74,14 @@ You can mark users, role, role mappings, and action groups as reserved. Resource
 To mark a resource as reserved, add the following flag:
 
 ```yml
-opensearch_dashboards_user:
+kibana_user:
   reserved: true
 ```
 
 Likewise, you can mark users, role, role mappings, and action groups as hidden. Resources that have this flag set to true are not returned by the REST API and not visible in OpenSearch Dashboards:
 
 ```yml
-opensearch_dashboards_user:
+kibana_user:
   hidden: true
 ```
 
@@ -180,7 +180,7 @@ GET _opensearch/_security/api/actiongroups/<action-group>
     "reserved": false,
     "hidden": false,
     "allowed_actions": [
-      "opensearch_dashboards_all_read",
+      "kibana_all_read",
       "indices:admin/aliases/get",
       "indices:admin/aliases/exists"
     ],
@@ -532,7 +532,7 @@ GET _opensearch/_security/api/roles/<role>
         "human_resources"
       ],
       "allowed_actions": [
-        "opensearch_dashboards_all_read"
+        "kibana_all_read"
       ]
     }],
     "static": false
@@ -628,7 +628,7 @@ PUT _opensearch/_security/api/roles/<role>
       "human_resources"
     ],
     "allowed_actions": [
-      "opensearch_dashboards_all_read"
+      "kibana_all_read"
     ]
   }]
 }
@@ -1040,7 +1040,7 @@ PUT _opensearch/_security/api/securityconfig/config
     "respect_request_indices_options": false,
     "opensearch-dashboards": {
       "multitenancy_enabled": true,
-      "server_username": "opensearch-dashboardsserver",
+      "server_username": "kibanaserver",
       "index": ".opensearch-dashboards"
     },
     "http": {
@@ -1138,7 +1138,7 @@ PUT _opensearch/_security/api/securityconfig/config
     "respect_request_indices_options": false,
     "opensearch-dashboards": {
       "multitenancy_enabled": true,
-      "server_username": "opensearch-dashboardsserver",
+      "server_username": "kibanaserver",
       "index": ".opensearch-dashboards"
     },
     "http": {

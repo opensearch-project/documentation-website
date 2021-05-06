@@ -113,11 +113,11 @@ Name | Description
 
 ## OpenSearch Dashboards settings
 
-The Web Browser SSO Profile exchanges information through HTTP GET or POST. For example, after you log in to your IdP, it sends an HTTP POST back to OpenSearch Dashboards containing the SAML response. You must configure the base URL of your OpenSearch Dashboards installation where the HTTP requests are being sent to.
+The web browser SSO profile exchanges information through HTTP GET or POST. For example, after you log in to your IdP, it sends an HTTP POST back to OpenSearch Dashboards containing the SAML response. You must configure the base URL of your OpenSearch Dashboards installation where the HTTP requests are being sent to.
 
 Name | Description
 :--- | :---
-`opensearch_dashboards_url` | The OpenSearch Dashboards base URL. Required.
+`kibana_url` | The OpenSearch Dashboards base URL. Required.
 
 
 ## Username and Role attributes
@@ -290,7 +290,7 @@ authc:
           entity_id: http://idp.example.com/
         sp:
           entity_id: https://opensearch-dashboards.example.com
-        opensearch_dashboards_url: https://opensearch-dashboards.example.com:5601/
+        kibana_url: https://opensearch-dashboards.example.com:5601/
         roles_key: Role
         exchange_key: 'peuvgOLrjzuhXf ...'
     authentication_backend:

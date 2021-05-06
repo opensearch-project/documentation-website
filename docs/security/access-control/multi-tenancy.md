@@ -30,7 +30,7 @@ config:
   dynamic:
     opensearch-dashboards:
       multitenancy_enabled: true
-      server_username: opensearch-dashboardsserver
+      server_username: kibanaserver
       index: '.opensearch-dashboards'
     do_not_fail_on_forbidden: false
 ```
@@ -38,15 +38,15 @@ config:
 Setting | Description
 :--- | :---
 `multitenancy_enabled` | Enable or disable multi-tenancy. Default is true.
-`server_username` | Must match the name of the OpenSearch Dashboards server user from `opensearch_dashboards.yml`. Default is `opensearch-dashboardsserver`.
+`server_username` | Must match the name of the OpenSearch Dashboards server user from `opensearch_dashboards.yml`. Default is `kibanaserver`.
 `index` | Must match the name of the OpenSearch Dashboards index from `opensearch_dashboards.yml`. Default is `.opensearch-dashboards`.
 `do_not_fail_on_forbidden` | If true, the security plugin removes any content that a user is not allowed to see from search results. If false, the plugin returns a security exception. Default is false.
 
 `opensearch_dashboards.yml` has some additional settings:
 
 ```yml
-opensearch.username: opensearch-dashboardsserver
-opensearch.password: opensearch-dashboardsserver
+opensearch.username: kibanaserver
+opensearch.password: kibanaserver
 opensearch.requestHeadersWhitelist: ["securitytenant","Authorization"]
 opensearch_security.multitenancy.enabled: true
 opensearch_security.multitenancy.tenants.enable_global: true
@@ -101,8 +101,8 @@ admin_tenant:
 
 After creating a tenant, give a role access to it using OpenSearch Dashboards, the REST API, or `roles.yml`.
 
-- Read-write (`opensearch_dashboards_all_write`) permissions let the role view and modify objects in the tenant.
-- Read-only (`opensearch_dashboards_all_read`) permissions let the role view objects, but not modify them.
+- Read-write (`kibana_all_write`) permissions let the role view and modify objects in the tenant.
+- Read-only (`kibana_all_read`) permissions let the role view objects, but not modify them.
 
 
 #### OpenSearch Dashboards
@@ -139,7 +139,7 @@ test-role:
   - tenant_patterns:
     - "human_resources"
     allowed_actions:
-    - "opensearch_dashboards_all_read"
+    - "kibana_all_read"
   static: false
 _meta:
   type: "roles"

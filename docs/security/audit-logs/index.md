@@ -144,11 +144,11 @@ opensearch_security.audit.ignore_requests: ["indices:data/read/*", "SearchReques
 
 ## Exclude users
 
-By default, the security plugin logs events from all users, but excludes the internal OpenSearch Dashboards server user `opensearch-dashboardsserver`. You can exclude other users:
+By default, the security plugin logs events from all users, but excludes the internal OpenSearch Dashboards server user `kibanaserver`. You can exclude other users:
 
 ```yml
 opensearch_security.audit.ignore_users:
-  - opensearch-dashboardsserver
+  - kibanaserver
   - admin
 ```
 

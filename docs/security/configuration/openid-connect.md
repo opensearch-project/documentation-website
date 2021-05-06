@@ -294,8 +294,8 @@ opensearch_security.openid.client_secret: "a59c51f5-f052-4740-a3b0-e14ba355b520"
 opensearch.url: "https://<hostname>.com:<http port>"
 
 # Configure the OpenSearch Dashboards internal server user
-opensearch.username: "opensearch-dashboardsserver"
-opensearch.password: "opensearch-dashboardsserver"
+opensearch.username: "kibanaserver"
+opensearch.password: "kibanaserver"
 
 # Disable SSL verification when using self-signed demo certificates
 opensearch.ssl.verificationMode: none

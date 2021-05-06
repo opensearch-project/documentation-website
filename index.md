@@ -8,7 +8,7 @@ permalink: /
 
 # OpenSearch documentation
 
-This site contains the technical documentation for [OpenSearch](https://opensearch.org/), the search, analytics, and visualization suite with advanced security, alerting, SQL support, automated index management, deep performance analysis, and more.
+This site contains the technical documentation for [OpenSearch](https://opensearch.org/), the Apache 2.0-licensed search, analytics, and visualization suite with advanced security, alerting, SQL support, automated index management, deep performance analysis, and more.
 
 [Get started](#docker-quickstart){: .btn .btn-blue }
 
@@ -37,7 +37,7 @@ Component | Purpose
 [Anomaly Detection](docs/ad/) | Identify atypical data and receive automatic notifications
 [Asynchronous Search](docs/async/) | Run search requests in the background
 
-You can install OpenSearch plugins [individually](docs/install/plugins/) on existing clusters or use the [all-in-one packages](docs/install/) for new clusters. Most of these OpenSearch plugins have corresponding OpenSearch Dashboards plugins that provide a convenient, unified user interface.
+You can install OpenSearch plugins [individually](docs/install/plugins/) or use the [all-in-one packages](docs/install/). Most of these OpenSearch plugins have corresponding OpenSearch Dashboards plugins that provide a convenient, unified user interface.
 
 
 ---

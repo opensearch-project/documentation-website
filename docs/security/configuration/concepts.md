@@ -24,4 +24,4 @@ Understanding the authentication flow is a great way to get started with configu
 
    If the role mapping doesn't include the user (or the user's backend roles), the user is successfully authenticated, but has no permissions.
 
-5. The user can now perform actions as defined by the mapped security roles. For example, a user might map to the `opensearch_dashboards_user` role and thus have permissions to access OpenSearch Dashboards.
+5. The user can now perform actions as defined by the mapped security roles. For example, a user might map to the `kibana_user` role and thus have permissions to access OpenSearch Dashboards.

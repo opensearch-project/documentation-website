@@ -10,7 +10,7 @@ nav_order: 3
 
 Before running `securityadmin.sh` to load the settings into the `.opensearch_security` index, configure the YAML files in `plugins/opensearch-security/securityconfig`. You might want to back up these files so that you can reuse them on other clusters.
 
-The best use of these YAML files is to configure [reserved and hidden resources](../../access-control/api/#reserved-and-hidden-resources), such as the `admin` and `opensearch-dashboardsserver` users. You might find it easier to create other users, roles, mappings, action groups, and tenants using OpenSearch Dashboards or the REST API.
+The best use of these YAML files is to configure [reserved and hidden resources](../../access-control/api/#reserved-and-hidden-resources), such as the `admin` and `kibanaserver` users. You might find it easier to create other users, roles, mappings, action groups, and tenants using OpenSearch Dashboards or the REST API.
 
 
 ## internal_users.yml
@@ -50,22 +50,22 @@ admin:
   - "admin"
   description: "Demo admin user"
 
-opensearch-dashboardsserver:
+kibanaserver:
   hash: "$2a$12$4AcgAt3xwOWadA5s5blL6ev39OXDNhmOesEoo33eZtrq2N0YrU3H."
   reserved: true
-  description: "Demo opensearch-dashboardsserver user"
+  description: "Demo user for the OpenSearch Dashboards server"
 
-opensearch-dashboardsro:
+kibanaro:
   hash: "$2a$12$JJSXNfTowz7Uu5ttXfeYpeYE0arACvcwlPBStB1F.MI7f0U9Z4DGC"
   reserved: false
   backend_roles:
-  - "opensearch-dashboardsuser"
+  - "kibanauser"
   - "readall"
   attributes:
     attribute1: "value1"
     attribute2: "value2"
     attribute3: "value3"
-  description: "Demo opensearch-dashboardsro user"
+  description: "Demo read-only user for OpenSearch dashboards"
 
 logstash:
   hash: "$2a$12$u1ShR4l4uBS3Uv59Pa2y5.1uQuZBrZtmNfqB3iM/.jL0XoV9sghS2"
@@ -117,7 +117,7 @@ complex-role:
   - tenant_patterns:
     - "analyst_*"
     allowed_actions:
-    - "opensearch_dashboards_all_write"
+    - "kibana_all_write"
   static: false
 _meta:
   type: "roles"
@@ -154,15 +154,15 @@ own_index:
   - "*"
   and_backend_roles: []
   description: "Allow full access to an index named like the username"
-opensearch_dashboards_user:
+kibana_user:
   reserved: false
   hidden: false
   backend_roles:
-  - "opensearch-dashboardsuser"
+  - "kibanauser"
   hosts: []
   users: []
   and_backend_roles: []
-  description: "Maps opensearch-dashboardsuser to opensearch_dashboards_user"
+  description: "Maps kibanauser to kibana_user"
 complex-role:
   reserved: false
   hidden: false
@@ -192,13 +192,13 @@ readall:
   hosts: []
   users: []
   and_backend_roles: []
-opensearch_dashboards_server:
+kibana_server:
   reserved: true
   hidden: false
   backend_roles: []
   hosts: []
   users:
-  - "opensearch-dashboardsserver"
+  - "kibanaserver"
   and_backend_roles: []
 ```
 

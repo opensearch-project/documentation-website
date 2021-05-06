@@ -10,7 +10,7 @@ has_math: true
 # Exact k-NN with Scoring Script
 The k-NN plugin implements the OpenSearch score script plugin that you can use to find the exact k-nearest neighbors to a given query point. Using the k-NN score script, you can apply a filter on an index before executing the nearest neighbor search. This is useful for dynamic search cases where the index body may vary based on other conditions. Because this approach executes a brute force search, it does not scale as well as the [Approximate approach](../approximate-knn). In some cases, it may be better to think about refactoring your workflow or index structure to use the Approximate approach instead of this approach.
 
-## Getting started with the score script
+## Getting started with the score script for vectors
 
 Similar to approximate nearest neighbor search, in order to use the score script on a body of vectors, you must first create an index with one or more `knn_vector` fields. If you intend to just use the script score approach (and not the approximate approach) `index.knn` can be set to `false` and `index.knn.space_type` does not need to be set. The space type can be chosen during search. See the [spaces section](#spaces) to see what spaces the k-NN score script suppports. Here is an example that creates an index with two `knn_vector` fields:
 
@@ -31,8 +31,6 @@ PUT my-knn-index-1
   }
 }
 ```
-
-*Note* -- For binary spaces, such as the Hamming bit space, `type` needs to be either `binary` or `long`. The binary data then needs to be encoded either as a base64 string or as a long (if the data is 64 bits or less).
 
 If you *only* want to use the score script, you can omit `"index.knn": true`. The benefit of this approach is faster indexing speed and lower memory usage, but you lose the ability to perform standard k-NN queries on the index.
 {: .tip}
@@ -98,7 +96,8 @@ All parameters are required.
 - `space_type` corresponds to the distance function. See the [spaces section](#spaces).
 
 
-*Note* -- In later versions of the k-NN plugin, `vector` was replaced by `query_value` due to the addition of the `bithamming` space.
+In later versions of the k-NN plugin, `vector` was replaced by `query_value` due to the addition of the `bithamming` space.
+{ .note }
 
 
 The [post filter example in the approximate approach](../approximate-knn/#using-approximate-k-nn-with-filters) shows a search that returns fewer than `k` results. If you want to avoid this situation, the score script method lets you essentially invert the order of events. In other words, you can filter down the set of documents you want to execute the k-nearest neighbor search over.
@@ -165,6 +164,110 @@ GET my-knn-index-2/_search
           "field": "my_vector",
           "query_value": [9.9, 9.9],
           "space_type": "l2"
+        }
+      }
+    }
+  }
+}
+```
+
+## Getting started with the score script for binary data
+The k-NN score script also allows you to run k-NN search on your binary data with the Hamming distance space.
+In order to use Hamming distance, the field of interest must have either a `binary` or `long` field type. If you're using `binary` type, the data must be a base64-encoded string.
+
+This example shows how to use the Hamming distance space with a `binary` field type:
+
+```json
+PUT my-index
+{
+  "mappings": {
+    "properties": {
+      "my_binary": {
+        "type": "binary",
+        "doc_values": true
+      },
+      "color": {
+        "type": "keyword"
+      }
+    }
+  }
+}
+```
+
+Then add some documents:
+
+```json
+POST _bulk
+{ "index": { "_index": "my-index", "_id": "1" } }
+{ "my_binary": "SGVsbG8gV29ybGQh", "color" : "RED" }
+{ "index": { "_index": "my-index", "_id": "2" } }
+{ "my_binary": "ay1OTiBjdXN0b20gc2NvcmluZyE=", "color" : "RED" }
+{ "index": { "_index": "my-index", "_id": "3" } }
+{ "my_binary": "V2VsY29tZSB0byBrLU5O", "color" : "RED" }
+{ "index": { "_index": "my-index", "_id": "4" } }
+{ "my_binary": "SSBob3BlIHRoaXMgaXMgaGVscGZ1bA==", "color" : "BLUE" }
+{ "index": { "_index": "my-index", "_id": "5" } }
+{ "my_binary": "QSBjb3VwbGUgbW9yZSBkb2NzLi4u", "color" : "BLUE" }
+{ "index": { "_index": "my-index", "_id": "6" } }
+{ "my_binary":  "TGFzdCBvbmUh", "color" : "BLUE" }
+
+```
+
+Finally, use the `script_score` query to pre-filter your documents before identifying nearest neighbors:
+
+```json
+GET my-index/_search
+{
+  "size": 2,
+  "query": {
+    "script_score": {
+      "query": {
+        "bool": {
+          "filter": {
+            "term": {
+              "color": "BLUE"
+            }
+          }
+        }
+      },
+      "script": {
+        "lang": "knn",
+        "source": "knn_score",
+        "params": {
+          "field": "my_binary",
+          "query_value": "U29tZXRoaW5nIEltIGxvb2tpbmcgZm9y",
+          "space_type": "hammingbit"
+        }
+      }
+    }
+  }
+}
+```
+
+Similarly, you can encode your data with the `long` field and run a search:
+
+```json
+GET my-long-index/_search
+{
+  "size": 2,
+  "query": {
+    "script_score": {
+      "query": {
+        "bool": {
+          "filter": {
+            "term": {
+              "color": "BLUE"
+            }
+          }
+        }
+      },
+      "script": {
+        "lang": "knn",
+        "source": "knn_score",
+        "params": {
+          "field": "my_long",
+          "query_value": 23,
+          "space_type": "hammingbit"
         }
       }
     }

@@ -32,7 +32,7 @@ We provide a fully functional example that can help you understand how to use an
 
    * `roles_mapping.yml` maps the `Administrator` and `Developers` LDAP groups (as backend roles) to security roles so that users gain the appropriate permissions after authenticating.
 
-   * `internal_users.yml` removes all default users except `administrator` and `opensearch-dashboardsserver`.
+   * `internal_users.yml` removes all default users except `administrator` and `kibanaserver`.
 
    * `config.yml` includes all necessary LDAP settings.
 
@@ -42,7 +42,7 @@ We provide a fully functional example that can help you understand how to use an
    curl -XPUT https://localhost:9200/new-index/_doc/1 -H 'Content-Type: application/json' -d '{"title": "Spirited Away"}' -u psantos:password -k
    ```
 
-   If you try the same request as `jroe`, it fails. The `Developers` group is mapped to the `readall`, `manage_snapshots`, and `opensearch_dashboards_user` roles and has no write permissions.
+   If you try the same request as `jroe`, it fails. The `Developers` group is mapped to the `readall`, `manage_snapshots`, and `kibana_user` roles and has no write permissions.
 
 1. Search for the document as `jroe`:
 
@@ -469,7 +469,7 @@ In this case, it makes sense to exclude the OpenSearch Dashboards server user fr
 
 ```yml
 skip_users:
-  - opensearch-dashboardsserver
+  - kibanaserver
   - 'cn=Jane Doe,ou*people,o=TEST'
   - '/\S*/'
 ```
@@ -536,7 +536,7 @@ authz:
         rolename: cn
         resolve_nested_roles: true
         skip_users:
-          - opensearch-dashboardsserver
+          - kibanaserver
           - 'cn=Jane Doe,ou*people,o=TEST'
           - '/\S*/'
 ```
