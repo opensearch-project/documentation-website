@@ -85,7 +85,7 @@ opensearch_security.nodes_dn:
   - '/CN=.*regex/'
 ```
 
-If your node certificates have an OID identifier in the SAN section, you can omit this configuration.
+If your node certificates have an Object ID (OID) identifier in the SAN section, you can omit this configuration.
 
 
 ## Configure admin certificates
@@ -175,12 +175,12 @@ You can limit the allowed ciphers and TLS protocols for the REST layer. For exam
 
 If this setting is not enabled, the ciphers and TLS versions are negotiated between the browser and the security plugin automatically, which in some cases can lead to a weaker cipher suite being used. You can configure the ciphers and protocols using the following settings.
 
-Name | Description
-:--- | :---
-`opensearch_security.ssl.http.enabled_ciphers` | Array, enabled TLS cipher suites for the REST layer. Only Java format is supported.
-`opensearch_security.ssl.http.enabled_protocols` | Array, enabled TLS protocols for the REST layer. Only Java format is supported.
-`opensearch_security.ssl.transport.enabled_ciphers` | Array, enabled TLS cipher suites for the transport layer. Only Java format is supported.
-`opensearch_security.ssl.transport.enabled_protocols` | Array, enabled TLS protocols for the transport layer. Only Java format is supported.
+Name | Data Type | Description
+:--- | :--- | :---
+`opensearch_security.ssl.http.enabled_ciphers` | Array | Enabled TLS cipher suites for the REST layer. Only Java format is supported.
+`opensearch_security.ssl.http.enabled_protocols` | Array | Enabled TLS protocols for the REST layer. Only Java format is supported.
+`opensearch_security.ssl.transport.enabled_ciphers` | Array | Enabled TLS cipher suites for the transport layer. Only Java format is supported.
+`opensearch_security.ssl.transport.enabled_protocols` | Array | Enabled TLS protocols for the transport layer. Only Java format is supported.
 
 ### Example settings
 

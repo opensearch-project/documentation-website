@@ -357,7 +357,7 @@ authz:
       ...
 ```
 
-Authorization is the process of retrieving backend roles for an authenticated user from an LDAP server. This is typically the same servers that you use for authentication, but you can also use a different server. The only requirement is that the user to fetch the roles for actually exists on the LDAP server.
+Authorization is the process of retrieving backend roles for an authenticated user from an LDAP server. This is typically the same server that you use for authentication, but you can also use a different server. The only requirement is that the user you use to fetch the roles actually exists on the LDAP server.
 
 Because the security plugin always checks if a user exists in the LDAP server, you must also configure `userbase`, `usersearch` and `username_attribute` in the `authz` section.
 
@@ -423,7 +423,7 @@ userrolename: roles, otherroles
 
 This approach can be combined with querying the role subtree. The security plugin fetches the roles from the user's role attribute and then executes the role search.
 
-If you don't use or have a role subtree, you can disable the role search completely:
+If you don't use or have a role subtree, you can disable rolesearch completely:
 
 ```yml
 rolesearch_enabled: false
@@ -443,7 +443,7 @@ Example:
 
 ```yml
 authz:
-  ldap:  
+  ldap:
     http_enabled: true
     transport_enabled: true
     authorization_backend:
