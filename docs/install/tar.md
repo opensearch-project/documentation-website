@@ -7,44 +7,11 @@ nav_order: 50
 
 # Tarball
 
-The tarball installation works on Linux systems and provides a self-contained directory with everything you need to run OpenSearch, including an integrated Java Development Kit (JDK). The tarball is a good option for testing and development.
+The tarball installation provides a self-contained directory with everything you need to run OpenSearch, including an integrated Java Development Kit (JDK). The tarball is a good option for testing and development.
 
-The tarball supports CentOS 7, Amazon Linux 2, Ubuntu 18.04, and most other Linux distributions. If you have your own Java installation and you set `JAVA_HOME` in the terminal, macOS works as well.
+The tarball supports most Linux distributions, including CentOS 7, Amazon Linux 2, and Ubuntu 18.04. If you have your own Java installation and set `JAVA_HOME` in the terminal, macOS works, as well.
 
-1. Download the tarball:
-
-   ```bash
-   # x64
-   curl https://d3g5vo6xdbdb9a.cloudfront.net/tarball/opensearch/opensearch-{{site.opensearch_version}}-linux-x64.tar.gz -o opensearch-{{site.opensearch_version}}-linux-x64.tar.gz
-   # ARM64
-   curl https://d3g5vo6xdbdb9a.cloudfront.net/tarball/opensearch/opensearch-{{site.opensearch_version}}-linux-arm64.tar.gz -o opensearch-{{site.opensearch_version}}-linux-arm64.tar.gz
-   ```
-
-1. Download the checksum:
-
-   ```bash
-   # x86
-   curl https://d3g5vo6xdbdb9a.cloudfront.net/tarball/opensearch/opensearch-{{site.opensearch_version}}-linux-x64.tar.gz.sha512 -o opensearch-{{site.opensearch_version}}-linux-x64.tar.gz.sha512
-   # ARM64
-   curl https://d3g5vo6xdbdb9a.cloudfront.net/tarball/opensearch/opensearch-{{site.opensearch_version}}-linux-arm64.tar.gz.sha512 -o opensearch-{{site.opensearch_version}}-linux-arm64.tar.gz.sha512
-   ```
-
-1. Verify the tarball against the checksum:
-
-   ```bash
-   # x64
-   shasum -a 512 -c opensearch-{{site.opensearch_version}}-linux-x64.tar.gz.sha512
-   # ARM64
-   shasum -a 512 -c opensearch-{{site.opensearch_version}}-linux-arm64.tar.gz.sha512
-   ```
-
-   On CentOS, you might not have `shasum`. Install this package:
-
-   ```bash
-   sudo yum install perl-Digest-SHA
-   ```
-
-   Due to a [known issue](https://github.com/opensearch/opensearch-build/issues/81) with the checksum, this step might fail. You can still proceed with the installation.
+1. Download the tarball from the [OpenSearch downloads page](https://opensearch.org/downloads/){:target='\_blank'}.
 
 1. Extract the TAR file to a directory and change to that directory:
 
@@ -79,7 +46,7 @@ You can modify `config/opensearch.yml` or specify environment variables as argum
 ./opensearch-tar-install.sh -Ecluster.name=opensearch-cluster -Enode.name=opensearch-node1 -Ehttp.host=0.0.0.0 -Ediscovery.type=single-node
 ```
 
-For other settings, see [Important settings](../docker/#important-settings).
+For other settings, see [Important settings](../important-settings/).
 
 
 ### (Optional) Set up Performance Analyzer
@@ -172,7 +139,10 @@ In a tarball installation, Performance Analyzer collects data when it is enabled
    curl -XPOST https://localhost:9200/_opensearch/_performanceanalyzer/rca/cluster/config -H 'Content-Type: application/json' -d '{"enabled": true}' -u 'admin:admin' -k
    ```
 
+{% comment %}
 
 ### (Optional) Removing Performance Analyzer
 
 See [Clean up Performance Analyzer files](../plugins/#optional-clean-up-performance-analyzer-files).
+
+{% endcomment %}

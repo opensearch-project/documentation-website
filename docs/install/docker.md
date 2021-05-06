@@ -283,25 +283,6 @@ docker exec -it <container-id> /bin/bash
 ```
 
 
-## Important settings
-
-For production workloads, make sure the [Linux setting](https://www.kernel.org/doc/Documentation/sysctl/vm.txt) `vm.max_map_count` is set to at least 262144. On the OpenSearch Docker image, this setting is the default. To verify, start a Bash session in the container and run:
-
-```bash
-cat /proc/sys/vm/max_map_count
-```
-
-To increase this value, you have to modify the Docker image. For other install types, add this setting to the host machine's `/etc/sysctl.conf` file with the following line:
-
-```
-vm.max_map_count=262144
-```
-
-Then run `sudo sysctl -p` to reload.
-
-The `docker-compose.yml` file above also contains several key settings: `bootstrap.memory_lock=true`, `ES_JAVA_OPTS=-Xms512m -Xmx512m`, `nofile 65536` and `port 9600`. Respectively, these settings disable memory swapping (along with `memlock`), set the size of the Java heap (we recommend half of system RAM), set a limit of 65536 open files for the OpenSearch user, and allow you to access Performance Analyzer on port 9600.
-
-
 ## Customize the Docker image
 
 To run the image with a custom plugin, first create a [`Dockerfile`](https://docs.docker.com/engine/reference/builder/):

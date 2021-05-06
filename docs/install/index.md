@@ -7,4 +7,4 @@ has_children: true
 
 # Install and configure OpenSearch
 
-OpenSearch two installation options at this time: Docker images and tarballs.
+OpenSearch has two installation options at this time: Docker images and tarballs.

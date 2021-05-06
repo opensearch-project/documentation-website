@@ -8,7 +8,7 @@ has_toc: false
 
 # OpenSearch Dashboards
 
-OpenSearch Dashboards is the default visualization tool for data in OpenSearch. It also serves as a user interface for the OpenSearch [security](../security/configuration/), [alerting](../alerting/), and [Index State Management](../ism/) plugins.
+OpenSearch Dashboards is the default visualization tool for data in OpenSearch. It also serves as a user interface for many of the OpenSearch plugins, including security, alerting, Index State Management, SQL, and more.
 
 
 ## Run OpenSearch Dashboards using Docker
@@ -28,52 +28,10 @@ You *can* start OpenSearch Dashboards using `docker run` after [creating a Docke
 
 1. When finished, run `docker-compose down`.
 
-### Configuration
-
-To run OpenSearch Dashboards when the system starts:
-
-```bash
-sudo /bin/systemctl daemon-reload
-sudo /bin/systemctl enable opensearch-dashboards.service
-```
-
-You can also modify the values in `/etc/opensearch-dashboards/opensearch_dashboards.yml`.
-
 
 ## Run OpenSearch Dashboards using the tarball
 
-1. Download the tarball:
-
-   ```bash
-   # x64
-   curl https://d3g5vo6xdbdb9a.cloudfront.net/tarball/opensearch-dashboards/opensearch-dashboards-{{site.opensearch_version}}-linux-x64.tar.gz -o opensearch-dashboards-{{site.opensearch_version}}-linux-x64.tar.gz
-   # ARM64
-   curl https://d3g5vo6xdbdb9a.cloudfront.net/tarball/opensearch-dashboards/opensearch-dashboards-{{site.opensearch_version}}-linux-arm64.tar.gz -o opensearch-dashboards-{{site.opensearch_version}}-linux-arm64.tar.gz
-   ```
-
-1. Download the checksum:
-
-   ```bash
-   # x64
-   curl https://d3g5vo6xdbdb9a.cloudfront.net/tarball/opensearch-dashboards/opensearch-dashboards-{{site.opensearch_version}}-linux-x64.tar.gz.sha512 -o opensearch-dashboards-{{site.opensearch_version}}-linux-x64.tar.gz.sha512
-   # ARM64
-   curl https://d3g5vo6xdbdb9a.cloudfront.net/tarball/opensearch-dashboards/opensearch-dashboards-{{site.opensearch_version}}-linux-arm64.tar.gz.sha512 -o opensearch-dashboards-{{site.opensearch_version}}-linux-arm64.tar.gz.sha512
-   ```
-
-1. Verify the tarball against the checksum:
-
-   ```bash
-   # x64
-   shasum -a 512 -c opensearch-dashboards-{{site.opensearch_version}}-linux-x64.tar.gz.sha512
-   # ARM64
-   shasum -a 512 -c opensearch-dashboards-{{site.opensearch_version}}-linux-arm64.tar.gz.sha512
-   ```
-
-   On CentOS, you might not have `shasum`. Install this package:
-
-   ```bash
-   sudo yum install perl-Digest-SHA
-   ```
+1. Download the tarball from the [OpenSearch downloads page](https://opensearch.org/downloads/){:target='\_blank'}.
 
 1. Extract the TAR file to a directory and change to that directory:
 
@@ -93,6 +51,7 @@ You can also modify the values in `/etc/opensearch-dashboards/opensearch_dashboa
    ```bash
    ./bin/opensearch-dashboards
    ```
+
 
 ## Get started with OpenSearch Dashboards
 
