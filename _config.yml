@@ -36,7 +36,7 @@ logo: "/assets/images/fake-logo.svg"
 # Aux links for the upper right navigation
 aux_links:
   "Back to OpenSearch.org":
-    - "https://opensearch.org/"
+    - "https://opensearch.org"
 color_scheme: opensearch
 
 # Enable or disable the site search

@@ -10,8 +10,8 @@ has_toc: false
 
 OpenSearch has its own security plugin for authentication and access control. The plugin provides numerous features to help you secure your cluster.
 
-The security plugin contains several default users, roles, action groups, and permissions that use `kibana` in their names. We will change these names in a future release.
-{ .note }
+The security plugin has several default users, roles, action groups, permissions, and settings that use `kibana` in their names. We will change these names in a future release.
+{: .note }
 
 Feature | Description
 :--- | :---
