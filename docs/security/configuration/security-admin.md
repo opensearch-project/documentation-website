@@ -17,7 +17,7 @@ After the `.opensearch_security` index is initialized, you can use OpenSearch Da
 
 ## Configure the admin certificate
 
-You can configure all certificates that should have admin privileges in `opensearch.yml` by specifying their respective distinguished names (DNs). If you use the demo certificates, for example, you can use the `kirk` certificate:
+You can configure all certificates that should have admin privileges in `opensearch.yml` stating their respective distinguished names (DNs). If you use the demo certificates, for example, you can use the `kirk` certificate:
 
 ```yml
 opensearch_security.authcz.admin_dn:

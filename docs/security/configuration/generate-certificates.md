@@ -89,7 +89,7 @@ Just like the root certificate, use the `-days` option to specify an expiration 
 
 Follow the steps in [Generate an admin certificate](#generate-an-admin-certificate) with new file names to generate a new certificate for each node and as many client certificates as you need. Each certificate should use its own private key.
 
-If you generate node certificates and have `opensearch_security.ssl.transport.enforce_hostname_verification` set to `true` (default), be sure to specify a common name (CN) for the certificate that matches the hostname of the intended node. If you want to use the same node certificate on all nodes (not recommended), set hostname verification to `false`. For more information, see [Configure TLS certificates](../tls/#advanced-hostname-verification-and-dns-lookup).
+If you generate node certificates and have `opensearch_security.ssl.transport.enforce_hostname_verification` set to `true` (default), be sure to specify a common name (CN) for the certificate that matches the hostname of the intended node. If you want to use the same node certificate on all nodes (not recommended), set the hostname verification to `false`. For more information, see [Configure TLS certificates](../tls/#advanced-hostname-verification-and-dns-lookup).
 
 
 ### Sample script
