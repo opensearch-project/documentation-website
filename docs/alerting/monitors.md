@@ -258,8 +258,6 @@ if (score > 99) {
 
 Below are some variables you can include in your message using Mustache templates to see more information about your monitors.
 
-Below are some variables you can include in your message using Mustache templates to see more information about your monitors.
-
 ### Available variables
 
 #### Monitor variables
