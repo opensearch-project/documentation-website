@@ -90,7 +90,7 @@ If your node certificates have an OID identifier in the SAN section, you can omi
 
 ## Configure admin certificates
 
-Admin certificates are regular client certificates that have elevated rights to perform administrative tasks. You need an admin certificate to change the the security plugin configuration using `plugins/opensearch_security/tools/securityadmin.sh` or the REST API. Admin certificates are configured in `opensearch.yml` by stating their DN(s):
+Admin certificates are regular client certificates that have elevated rights to perform administrative tasks. You need an admin certificate to change the the security plugin configuration using `plugins/opensearch-security/tools/securityadmin.sh` or the REST API. Admin certificates are configured in `opensearch.yml` by stating their DN(s):
 
 ```yml
 opensearch_security.authcz.admin_dn:
@@ -123,7 +123,7 @@ Name | Description
   ```
 {% endcomment %}
 
-1. Download the statically-linked JAR that includes OpenSSL, Apache Portable Runtime, and `netty-tcnative` for [RPM-based distributions](https://bintray.com/floragunncom/netty-tcnative/download_file?file_path=netty-tcnative-openssl-1.1.0j-static-2.0.20.Final-fedora-linux-x86_64.jar) or [other distributions](https://bintray.com/floragunncom/netty-tcnative/download_file?file_path=netty-tcnative-openssl-1.1.0j-static-2.0.20.Final-non-fedora-linux-x86_64.jar) and place it in `plugins/opensearch_security/` on every node.
+1. Download the statically-linked JAR that includes OpenSSL, Apache Portable Runtime, and `netty-tcnative` for [RPM-based distributions](https://bintray.com/floragunncom/netty-tcnative/download_file?file_path=netty-tcnative-openssl-1.1.0j-static-2.0.20.Final-fedora-linux-x86_64.jar) or [other distributions](https://bintray.com/floragunncom/netty-tcnative/download_file?file_path=netty-tcnative-openssl-1.1.0j-static-2.0.20.Final-non-fedora-linux-x86_64.jar) and place it in `plugins/opensearch-security/` on every node.
 
 
 ## (Advanced) Hostname verification and DNS lookup

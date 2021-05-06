@@ -10,7 +10,7 @@ nav_order: 20
 
 The security plugin stores its configuration---including users, roles, and permissions---in an index on the OpenSearch cluster (`.opensearch_security`). Storing these settings in an index lets you change settings without restarting the cluster and eliminates the need to edit configuration files on every single node.
 
-After changing any of the configuration files in `plugins/opensearch_security/securityconfig`, however, you must run `plugins/opensearch_security/tools/securityadmin.sh` to load these new settings into the index. You must also run this script at least once to initialize the `.opensearch_security` index and configure your authentication and authorization methods.
+After changing any of the configuration files in `plugins/opensearch-security/securityconfig`, however, you must run `plugins/opensearch-security/tools/securityadmin.sh` to load these new settings into the index. You must also run this script at least once to initialize the `.opensearch_security` index and configure your authentication and authorization methods.
 
 After the `.opensearch_security` index is initialized, you can use OpenSearch Dashboards to manage your users, roles, and permissions.
 
@@ -32,16 +32,16 @@ You can't use node certificates as admin certificates. The two must be separate.
 
 The `securityadmin.sh` tool can be run from any machine that has access to the transport port of your OpenSearch cluster (the default is 9300). You can change the security plugin configuration without having to access your nodes through SSH.
 
-Each node also includes the tool at `plugins/opensearch_security/tools/securityadmin.sh`. You might need to make the script executable before running it:
+Each node also includes the tool at `plugins/opensearch-security/tools/securityadmin.sh`. You might need to make the script executable before running it:
 
 ```bash
-chmod +x plugins/opensearch_security/tools/securityadmin.sh
+chmod +x plugins/opensearch-security/tools/securityadmin.sh
 ```
 
 To print all available command line options, run the script with no arguments:
 
 ```bash
-./plugins/opensearch_security/tools/securityadmin.sh
+./plugins/opensearch-security/tools/securityadmin.sh
 ```
 
 To load configuration changes to the security plugin, you must provide your admin certificate to the tool:
@@ -73,7 +73,7 @@ Name | Description
 Apply configuration in `securityconfig` using PEM certificates:
 
 ```bash
-/usr/share/opensearch/plugins/opensearch_security/tools/securityadmin.sh -cacert /etc/opensearch/root-ca.pem -cert /etc/opensearch/kirk.pem -key /etc/opensearch/kirk-key.pem -cd /usr/share/opensearch/plugins/opensearch_security/securityconfig/
+/usr/share/opensearch/plugins/opensearch-security/tools/securityadmin.sh -cacert /etc/opensearch/root-ca.pem -cert /etc/opensearch/kirk.pem -key /etc/opensearch/kirk-key.pem -cd /usr/share/opensearch/plugins/opensearch-security/securityconfig/
 ```
 
 Apply configuration from a single file (`config.yml`) using PEM certificates:
@@ -86,7 +86,7 @@ Apply configuration in `securityconfig` with keystore and truststore files:
 
 ```bash
 ./securityadmin.sh \
-   -cd /usr/share/opensearch/plugins/opensearch_security/securityconfig/ \
+   -cd /usr/share/opensearch/plugins/opensearch-security/securityconfig/ \
    -ks /path/to/keystore.jks \
    -kspass changeit \
    -ts /path/to/truststore.jks \

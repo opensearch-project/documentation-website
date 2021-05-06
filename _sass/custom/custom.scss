@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,700');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:wght@700&display=swap');
 
 // Additional variables
 $table-border-color: $grey-lt-300;
 $toc-width: 232px !default;
-$red-dk-200: mix(black, $red-300, 25%);
 
 // Replaces xl size
 $media-queries: (
@@ -23,7 +23,7 @@ body {
 }
 
 code {
-  font-family: "SFMono-Regular", Menlo, "DejaVu Sans Mono", "Droid Sans Mono", Consolas, Monospace;
+  font-family: "SFMono-Regular", Menlo, "DejaVu Sans Mono", "Droid Sans Mono", Consolas, monospace;
   font-size: 0.75rem;
 }
 
@@ -47,8 +47,13 @@ code {
     }
   }
   h1, h2, h3, h4, h5, h6 {
+    font-family: "Open Sans Condensed", "Open Sans", sans-serif;
+    font-weight: 400;
     margin-top: 2.4rem;
     margin-bottom: 0.8rem;
+  }
+  h4 {
+    font-size: 14px !important;
   }
   .highlight {
     line-height: 1.4;
@@ -74,12 +79,12 @@ img {
 }
 
 .img-border {
-  border: 1px solid $grey-lt-200;
+  border: 1px solid $grey-lt-300;
 }
 
 // Note, tip, and warning blocks
 %callout {
-  border: 1px solid $grey-lt-200;
+  border: 1px solid $grey-lt-300;
   border-radius: 5px;
   margin: 1rem 0;
   padding: 1rem;
@@ -93,12 +98,12 @@ img {
 
 .tip {
   @extend %callout;
-  border-left: 5px solid $green-300;
+  border-left: 5px solid $green-100;
 }
 
 .warning {
   @extend %callout;
-  border-left: 5px solid $red-dk-200;
+  border-left: 5px solid $red-100;
 }
 
 // Labels
@@ -112,16 +117,16 @@ img {
 }
 
 .label-purple {
-  background-color: $purple-300;
+  background-color: $purple-200;
 }
 
 .label-red {
-  background-color: $red-300;
+  background-color: $red-100;
 }
 
 .label-yellow {
-  color: $grey-dk-200;
-  background-color: $yellow-300;
+  color: $grey-dk-300;
+  background-color: $yellow-000;
 }
 
 // Buttons
@@ -130,7 +135,7 @@ img {
 }
 
 .btn-purple {
-  @include btn-color($white, $purple-300);
+  @include btn-color($white, $purple-200);
 }
 
 .btn-blue {

@@ -10,7 +10,7 @@ nav_order: 2
 
 One of the first steps to using the security plugin is to decide on an authentication backend, which handles [steps 2-3 of the authentication flow](../concepts/#authentication-flow). The plugin has an internal user database, but many people prefer to use an existing authentication backend, such as an LDAP server, or some combination of the two.
 
-The main configuration file for authentication and authorization backends is `plugins/opensearch_security/securityconfig/config.yml`. It defines how the security plugin retrieves the user credentials, how it verifies these credentials, and how to fetch additional roles from backend systems (optional).
+The main configuration file for authentication and authorization backends is `plugins/opensearch-security/securityconfig/config.yml`. It defines how the security plugin retrieves the user credentials, how it verifies these credentials, and how to fetch additional roles from backend systems (optional).
 
 `config.yml` has three main parts:
 
@@ -124,7 +124,7 @@ These are the possible values for `type`:
 
 ## Examples
 
-The default `plugins/opensearch_security/securityconfig/config.yml` that ships with OpenSearch contains many configuration examples. Use these examples as a starting point, and customize them to your needs.
+The default `plugins/opensearch-security/securityconfig/config.yml` that ships with OpenSearch contains many configuration examples. Use these examples as a starting point, and customize them to your needs.
 
 
 ## HTTP basic

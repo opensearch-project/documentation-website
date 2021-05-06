@@ -40,7 +40,7 @@ We provide a fully functional example that can help you understand how to use SA
 
 ## Activating SAML
 
-To use SAML for authentication, you need to configure a respective authentication domain in the `authc` section of `plugins/opensearch_security/securityconfig/config.yml`. Because SAML works solely on the HTTP layer, you do not need any `authentication_backend` and can set it to `noop`. Place all SAML-specific configuration options in this chapter in the `config` section of the SAML HTTP authenticator:
+To use SAML for authentication, you need to configure a respective authentication domain in the `authc` section of `plugins/opensearch-security/securityconfig/config.yml`. Because SAML works solely on the HTTP layer, you do not need any `authentication_backend` and can set it to `noop`. Place all SAML-specific configuration options in this chapter in the `config` section of the SAML HTTP authenticator:
 
 ```yml
 authc:

@@ -58,7 +58,7 @@ We provide a fully functional example that can help you understand how to use an
 
 ## Connection settings
 
-To enable LDAP authentication and authorization, add the following lines to `plugins/opensearch_security/securityconfig/config.yml`:
+To enable LDAP authentication and authorization, add the following lines to `plugins/opensearch-security/securityconfig/config.yml`:
 
 ```yml
 authc:
@@ -250,7 +250,7 @@ Name | Description
 
 ## Use Active Directory and LDAP for authentication
 
-To use Active Directory/LDAP for authentication, first configure a respective authentication domain in the `authc` section of `plugins/opensearch_security/securityconfig/config.yml`:
+To use Active Directory/LDAP for authentication, first configure a respective authentication domain in the `authc` section of `plugins/opensearch-security/securityconfig/config.yml`:
 
 ```yml
 authc:

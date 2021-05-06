@@ -14,7 +14,7 @@ You might want to temporarily disable the security plugin to make testing or int
 opensearch_security.disabled: true
 ```
 
-A more permanent option is to remove the security plugin entirely. Delete the `plugins/opensearch_security` folder on all nodes, and delete the `opensearch_security` configuration entries from `opensearch.yml`.
+A more permanent option is to remove the security plugin entirely. Delete the `plugins/opensearch-security` folder on all nodes, and delete the `opensearch_security` configuration entries from `opensearch.yml`.
 
 To perform these steps on the Docker image, see [Customize the Docker image](../../../install/docker/#customize-the-docker-image).
 

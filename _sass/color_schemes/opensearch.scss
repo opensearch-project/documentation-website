@@ -2,60 +2,55 @@
 // Brand colors
 //
 
+$blue-300: #0055A6;
+$blue-200: #005EB8; // Pacific Blue
+$blue-100: #337EC6;
+$blue-000: #80AFDC;
+
+$blue-dk-300: #003b5c; // Deep Blue Sea
+$blue-dk-200: #47738D;
+$blue-dk-100: #A3BDCC;
+$blue-dk-000: #E6EEF2;
+
+$blue-vibrant-300: #00a3e0; // Open Sky
+$blue-vibrant-200: #46BDE9;
+$blue-vibrant-100: #92D9F3;
+$blue-vibrant-000: #CCF1FF;
+
+$blue-lt-300: #b9d9eb; // Pacific Sky
+$blue-lt-200: #C0DDED;
+$blue-lt-100: #D5E8F3;
+$blue-lt-000: #EAF4F9;
+
 $white: #FFFFFF;
 
-$grey-dk-300: #002A3A; //
-$grey-dk-250: mix(white, $grey-dk-300, 12.5%);
-$grey-dk-200: mix(white, $grey-dk-300, 25%);
-$grey-dk-100: mix(white, $grey-dk-300, 50%);
-$grey-dk-000: mix(white, $grey-dk-300, 75%);
+$grey-dk-300: #002A3A; // Midnight Sky
+$grey-dk-200: #1B4859;
+$grey-dk-100: #346173;
+$grey-dk-000: #4D8399;
 
-$grey-lt-300: #D9E1E2; //
-$grey-lt-200: mix(white, $grey-lt-300, 25%);
-$grey-lt-100: mix(white, $grey-lt-300, 50%);
-$grey-lt-000: mix(white, $grey-lt-300, 75%);
+$grey-lt-300: #D9E1E2; // San Francisco Fog
+$grey-lt-000: #F5F7F7;
 
-$blue-300: #005eb8; //
-$blue-200: mix(white, $blue-300, 25%);
-$blue-100: mix(white, $blue-300, 50%);
-$blue-000: mix(white, $blue-300, 75%);
+$purple-000: #963CBD; // Purple Sage
+$purple-100: #8736AA;
+$purple-200: #692A84;
+$purple-300: #4B1E5F;
 
-$purple-300: #963CBD; //
-$purple-200: mix(white, $purple-300, 25%);
-$purple-100: mix(white, $purple-300, 50%);
-$purple-000: mix(white, $purple-300, 75%);
+$green-000: #2CD5C4; // Seafoam Mint
+$green-100: #28C0B0;
+$green-200: #1F9589;
+$green-300: #166B62;
 
-$green-300: #2cd5c4; //
-$green-200: mix(white, $green-300, 25%);
-$green-100: mix(white, $green-300, 50%);
-$green-000: mix(white, $green-300, 75%);
+$yellow-000: #FFB81C; // Golden Poppy
+$yellow-100: #CC9316;
+$yellow-200: #996E11;
+$yellow-300: #664A0B;
 
-$yellow-300: #FFDF00; //
-$yellow-200: mix(white, $yellow-300, 25%);
-$yellow-100: mix(white, $yellow-300, 50%);
-$yellow-000: mix(white, $yellow-300, 75%);
-
-$red-300: #F65275; //
-$red-200: mix(white, $red-300, 25%);
-$red-100: mix(white, $red-300, 50%);
-$red-000: mix(white, $red-300, 75%);
-
-$blue-lt-300: #00A3E0; //
-$blue-lt-200: mix(white, $blue-lt-300, 25%);
-$blue-lt-100: mix(white, $blue-lt-300, 50%);
-$blue-lt-000: mix(white, $blue-lt-300, 75%);
-
-/*
-Other, unused brand colors
-
-Float #2797F4
-Firewall #0FF006B
-Hyper Pink #F261A1
-Cluster #ED20EB
-Back End #808080
-Python #25EE5C
-Warm Node #FEA501
-*/
+$red-000: #F65275; // Malibu Sunrise
+$red-100: #DD4A69;
+$red-200: #AC3952;
+$red-300: #7B293B;
 
 $body-background-color: $white;
 $sidebar-color: $grey-lt-000;
@@ -63,10 +58,10 @@ $code-background-color: $grey-lt-000;
 
 $body-text-color: $grey-dk-200;
 $body-heading-color: $grey-dk-300;
-$nav-child-link-color: $grey-dk-200;
-$link-color: mix(black, $blue-lt-300, 37.5%);
+$nav-child-link-color: $blue-200;
+$link-color: $blue-300;
 $btn-primary-color: $purple-300;
-$base-button-color: $grey-lt-000;
+$base-button-color: $grey-lt-300;
 
 // $border-color: $grey-dk-200;
 // $search-result-preview-color: $grey-dk-000;

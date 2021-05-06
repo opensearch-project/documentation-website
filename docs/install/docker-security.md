@@ -42,11 +42,11 @@ services:
       - ./admin.pem:/usr/share/opensearch/config/admin.pem
       - ./admin-key.pem:/usr/share/opensearch/config/admin-key.pem
       - ./custom-opensearch.yml:/usr/share/opensearch/config/opensearch.yml
-      - ./internal_users.yml:/usr/share/opensearch/plugins/opensearch_security/securityconfig/internal_users.yml
-      - ./roles_mapping.yml:/usr/share/opensearch/plugins/opensearch_security/securityconfig/roles_mapping.yml
-      - ./tenants.yml:/usr/share/opensearch/plugins/opensearch_security/securityconfig/tenants.yml
-      - ./roles.yml:/usr/share/opensearch/plugins/opensearch_security/securityconfig/roles.yml
-      - ./action_groups.yml:/usr/share/opensearch/plugins/opensearch_security/securityconfig/action_groups.yml
+      - ./internal_users.yml:/usr/share/opensearch/plugins/opensearch-security/securityconfig/internal_users.yml
+      - ./roles_mapping.yml:/usr/share/opensearch/plugins/opensearch-security/securityconfig/roles_mapping.yml
+      - ./tenants.yml:/usr/share/opensearch/plugins/opensearch-security/securityconfig/tenants.yml
+      - ./roles.yml:/usr/share/opensearch/plugins/opensearch-security/securityconfig/roles.yml
+      - ./action_groups.yml:/usr/share/opensearch/plugins/opensearch-security/securityconfig/action_groups.yml
     ports:
       - 9200:9200
       - 9600:9600 # required for Performance Analyzer
@@ -78,11 +78,11 @@ services:
       - ./admin.pem:/usr/share/opensearch/config/admin.pem
       - ./admin-key.pem:/usr/share/opensearch/config/admin-key.pem
       - ./custom-opensearch.yml:/usr/share/opensearch/config/opensearch.yml
-      - ./internal_users.yml:/usr/share/opensearch/plugins/opensearch_security/securityconfig/internal_users.yml
-      - ./roles_mapping.yml:/usr/share/opensearch/plugins/opensearch_security/securityconfig/roles_mapping.yml
-      - ./tenants.yml:/usr/share/opensearch/plugins/opensearch_security/securityconfig/tenants.yml
-      - ./roles.yml:/usr/share/opensearch/plugins/opensearch_security/securityconfig/roles.yml
-      - ./action_groups.yml:/usr/share/opensearch/plugins/opensearch_security/securityconfig/action_groups.yml
+      - ./internal_users.yml:/usr/share/opensearch/plugins/opensearch-security/securityconfig/internal_users.yml
+      - ./roles_mapping.yml:/usr/share/opensearch/plugins/opensearch-security/securityconfig/roles_mapping.yml
+      - ./tenants.yml:/usr/share/opensearch/plugins/opensearch-security/securityconfig/tenants.yml
+      - ./roles.yml:/usr/share/opensearch/plugins/opensearch-security/securityconfig/roles.yml
+      - ./action_groups.yml:/usr/share/opensearch/plugins/opensearch-security/securityconfig/action_groups.yml
     networks:
       - opensearch-net
   opensearch-dashboards
@@ -133,7 +133,7 @@ opensearch_security.audit.config.disabled_rest_categories: NONE
 opensearch_security.audit.config.disabled_transport_categories: NONE
 ```
 
-Use this same override process to specify new [authentication settings](../../security/configuration/configuration/) in `/usr/share/opensearch/plugins/opensearch_security/securityconfig/config.yml`, as well as new default [internal users, roles, mappings, action groups, and tenants](../../security/configuration/yaml/).
+Use this same override process to specify new [authentication settings](../../security/configuration/configuration/) in `/usr/share/opensearch/plugins/opensearch-security/securityconfig/config.yml`, as well as new default [internal users, roles, mappings, action groups, and tenants](../../security/configuration/yaml/).
 
 To start the cluster, run `docker-compose up`.
 

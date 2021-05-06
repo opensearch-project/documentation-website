@@ -72,7 +72,7 @@ Navigate to the OpenSearch home directory (most likely, it is `/usr/share/opense
 sudo bin/opensearch-plugin install https://d3g5vo6xdbdb9a.cloudfront.net/downloads/opensearch-plugins/opensearch-security/opensearch-security-{{site.opensearch_major_minor_version}}.1.0.zip
 ```
 
-After installing the security plugin, you can run `sudo sh /usr/share/opensearch/plugins/opensearch_security/tools/install_demo_configuration.sh` to quickly get started with demo certificates. Otherwise, you must configure it manually and run [securityadmin.sh](../../security/configuration/security-admin/).
+After installing the security plugin, you can run `sudo sh /usr/share/opensearch/plugins/opensearch-security/tools/install_demo_configuration.sh` to quickly get started with demo certificates. Otherwise, you must configure it manually and run [securityadmin.sh](../../security/configuration/security-admin/).
 
 The security plugin has a corresponding [OpenSearch Dashboards plugin](../../opensearch-dashboards/plugins) that you probably want to install as well.
 
