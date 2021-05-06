@@ -20,8 +20,8 @@ has_children: false
 Term | Definition
 :--- | :---
 Monitor | A job that runs on a defined schedule and queries OpenSearch. The results of these queries are then used as input for one or more *triggers*.
-Trigger | Conditions that, if met, generate *alerts* and can perform some *action*.
-Alert | A notification that a monitor's trigger condition has been met.
+Trigger | Conditions that, if met, generate *alerts*.
+Alert | An event associated with a trigger. When an alert is created, the trigger performs *actions*, which can include sending a notification.
 Action | The information that you want the monitor to send out after being triggered. Actions have a *destination*, a message subject, and a message body.
 Destination | A reusable location for an action, such as Amazon Chime, Slack, or a webhook URL.
 
@@ -256,18 +256,60 @@ if (score > 99) {
 }
 ```
 
+Below are some variables you can include in your message using Mustache templates to see more information about your monitors.
 
-#### Available variables
+### Available variables
 
-Variable | Description
-:--- | :---
-`ctx.results` | An array with one element (i.e. `ctx.results[0]`). Contains the query results. This variable is empty if the trigger was unable to retrieve results. See `ctx.error`.
-`ctx.monitor` | Includes `ctx.monitor.name`, `ctx.monitor.type`, `ctx.monitor.enabled`, `ctx.monitor.enabled_time`, `ctx.monitor.schedule`, `ctx.monitor.inputs`, `triggers` and `ctx.monitor.last_update_time`.
-`ctx.trigger` | Includes `ctx.trigger.name`, `ctx.trigger.severity`, `ctx.trigger.condition`, and `ctx.trigger.actions`.
-`ctx.periodStart` | Unix timestamp for the beginning of the period during which the alert triggered. For example, if a monitor runs every ten minutes, a period might begin at 10:40 and end at 10:50.
-`ctx.periodEnd` | The end of the period during which the alert triggered.
-`ctx.error` | The error message if the trigger was unable to retrieve results or unable to evaluate the trigger, typically due to a compile error or null pointer exception. Null otherwise.
-`ctx.alert` | The current, active alert (if it exists). Includes `ctx.alert.id`, `ctx.alert.version`, and `ctx.alert.isAcknowledged`. Null if no alert is active.
+#### Monitor variables
+
+Variable | Data Type | Description
+:--- | :--- | :---
+`ctx.monitor` | JSON | Includes `ctx.monitor.name`, `ctx.monitor.type`, `ctx.monitor.enabled`, `ctx.monitor.enabled_time`, `ctx.monitor.schedule`, `ctx.monitor.inputs`, `triggers` and `ctx.monitor.last_update_time`.
+`ctx.monitor.user` | JSON | Includes information about the user who created the monitor. Includes `ctx.monitor.user.backend_roles` and `ctx.monitor.user.roles`, which are arrays that contain the backend roles and roles assigned to the user. See [alerting security](../security.md/) for more information.
+`ctx.monitor.enabled` | Boolean | Whether the monitor is enabled.
+`ctx.monitor.enabled_time` | Milliseconds | Unix epoch time of when the monitor was last enabled.
+`ctx.monitor.schedule` | JSON | Contains a schedule of how often or when the monitor should run.
+`ctx.monitor.schedule.period.interval` | Integer | The interval at which the monitor runs.
+`ctx.monitor.schedule.period.unit` | String | The interval's unit of time.
+`ctx.monitor.inputs` | Array | An array that contains the indices and definition used to create the monitor.
+`ctx.monitor.inputs.search.indices` | Array | An array that contains the indices the monitor observes.
+`ctx.monitor.inputs.search.query` | N/A | The definition used to define the monitor.
+
+#### Trigger variables
+
+Variable | Data Type | Description
+:--- | :--- | : ---
+`ctx.trigger.id` | String | The trigger's ID.
+`ctx.trigger.name` | String | The trigger's name.
+`ctx.trigger.severity` | String | The trigger's severity.
+`ctx.trigger.condition`| JSON | Contains the Painless script used when creating the monitor.
+`ctx.trigger.condition.script.source` | String | The language used to define the script. Must be painless.
+`ctx.trigger.condition.script.lang` | String | The script used to define the trigger.
+`ctx.trigger.actions`| Array | An array with one element that contains information about the action the monitor needs to trigger.
+
+#### Action variables
+
+Variable | Data Type | Description
+:--- | :--- | : ---
+`ctx.trigger.actions.id` | String | The action's ID.
+`ctx.trigger.actions.name` | String | The action's name.
+`ctx.trigger.actions.destination_id`| String | The alert destination's ID.
+`ctx.trigger.actions.message_template.source` | String | The message to send in the alert.
+`ctx.trigger.actions.message_template.lang` | String | The scripting language used to define the message. Must be Mustache.
+`ctx.trigger.actions.throttle_enabled` | Boolean | Whether throttling is enabled for this trigger. See [adding actions](#add-actions/) for more information about throttling.
+`ctx.trigger.actions.subject_template.source` | String | The message's subject in the alert.
+`ctx.trigger.actions.subject_template.lang` | String | The scripting language used to define the subject. Must be mustache.
+
+#### Other variables
+
+Variable | Data Type | Description
+:--- | :--- : :---
+`ctx.results` | Array | An array with one element (i.e. `ctx.results[0]`). Contains the query results. This variable is empty if the trigger was unable to retrieve results. See `ctx.error`.
+`ctx.last_update_time` | Milliseconds | Unix epoch time of when the monitor was last updated.
+`ctx.periodStart` | String | Unix timestamp for the beginning of the period during which the alert triggered. For example, if a monitor runs every ten minutes, a period might begin at 10:40 and end at 10:50.
+`ctx.periodEnd` | String | The end of the period during which the alert triggered.
+`ctx.error` | String | The error message if the trigger was unable to retrieve results or unable to evaluate the trigger, typically due to a compile error or null pointer exception. Null otherwise.
+`ctx.alert` | JSON | The current, active alert (if it exists). Includes `ctx.alert.id`, `ctx.alert.version`, and `ctx.alert.isAcknowledged`. Null if no alert is active.
 
 
 ---
