@@ -16,7 +16,7 @@ The following request returns information about all of your tasks:
 GET _tasks
 ```
 
-By including a task ID, you can get information that's specific to a particular task. Note that a task ID consists of a node's identifying string and the task's numerical ID. For example, if your node's identifying string is `nodestring` and the task's numerical ID is `1234`, then your task ID is `nodestring:1234`. You can find this information by running the `tasks` operation.
+By including a task ID, you can get information specific to a particular task. Note that a task ID consists of a node's identifying string and the task's numerical ID. For example, if your node's identifying string is `nodestring` and the task's numerical ID is `1234`, then your task ID is `nodestring:1234`. You can find this information by running the `tasks` operation:
 
 ```
 GET _tasks/<task_id>
@@ -80,16 +80,16 @@ You can also use the following parameters with your query.
 
 Parameter | Data type | Description |
 :--- | :--- | :---
-nodes | List | A comma-separated list of node IDs or names to limit the returned information. Use `_local` to return information from the node you're connecting to, specify the node name to get information from specific nodes, or keep the parameter empty to get information from all nodes.
-actions | List | A comma-separated list of actions that should be returned. Keep empty to return all.
-detailed | Boolean | Returns detailed task information. (Default: false)
-parent_task_id | String | Returns tasks with a specified parent task ID (node_id:task_number). Keep empty or set to -1 to return all.
-wait_for_completion | Boolean | Waits for the matching tasks to complete. (Default: false)
-group_by | Enum | Groups tasks by parent/child relationships or nodes. (Default: nodes)
-timeout | Time | An explicit operation timeout. (Default: 30 seconds)
-master_timeout | Time | The time to wait for a connection to the primary node. (Default: 30 seconds)
+`nodes` | List | A comma-separated list of node IDs or names to limit the returned information. Use `_local` to return information from the node you're connecting to, specify the node name to get information from specific nodes, or keep the parameter empty to get information from all nodes.
+`actions` | List | A comma-separated list of actions that should be returned. Keep empty to return all.
+`detailed` | Boolean | Returns detailed task information. (Default: false)
+`parent_task_id` | String | Returns tasks with a specified parent task ID (node_id:task_number). Keep empty or set to -1 to return all.
+`wait_for_completion` | Boolean | Waits for the matching tasks to complete. (Default: false)
+`group_by` | Enum | Groups tasks by parent/child relationships or nodes. (Default: nodes)
+`timeout` | Time | An explicit operation timeout. (Default: 30 seconds)
+`master_timeout` | Time | The time to wait for a connection to the primary node. (Default: 30 seconds)
 
-For example, this request returns tasks currently running on a node named `opensearch-node1`.
+For example, this request returns tasks currently running on a node named `opensearch-node1`:
 
 **Sample Request**
 
@@ -225,7 +225,7 @@ content-length: 768
   }
 }
 ```
-This operation supports the same parameters as the `tasks` operation. The following example shows how you can associate `X-Opaque-Id` with specific tasks.
+This operation supports the same parameters as the `tasks` operation. The following example shows how you can associate `X-Opaque-Id` with specific tasks:
 
 ```bash
 curl -i -H "X-Opaque-Id: 123456" "https://localhost:9200/_tasks?nodes=opensearch-node1" -u 'admin:admin' --insecure

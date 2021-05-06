@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Supported Units
+title: Supported units
 parent: OpenSearch
 nav_order: 90
 ---

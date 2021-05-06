@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Index Data
+title: Index data
 parent: OpenSearch
 nav_order: 3
 ---
@@ -16,9 +16,9 @@ For situations in which new data arrives incrementally (for example, customer or
 
 Before you can search data, you must *index* it. Indexing is the method by which search engines organize data for fast retrieval. The resulting structure is called, fittingly, an index.
 
-In OpenSearch, the basic unit of data is a JSON *document*. Within an index, OpenSearch identifies each document using a unique *ID*.
+In OpenSearch, the basic unit of data is a JSON *document*. Within an index, OpenSearch identifies each document using a unique ID.
 
-A request to the index API looks like the following:
+A request to the index API looks like this:
 
 ```json
 PUT <index>/_doc/<id>
@@ -31,7 +31,6 @@ A request to the `_bulk` API looks a little different, because you specify the i
 POST _bulk
 { "index": { "_index": "<index>", "_id": "<id>" } }
 { "A JSON": "document" }
-
 ```
 
 Bulk data must conform to a specific format, which requires a newline character (`\n`) at the end of every line, including the last line. This is the basic format:
@@ -41,10 +40,9 @@ Action and metadata\n
 Optional document\n
 Action and metadata\n
 Optional document\n
-
 ```
 
-The document is optional, because `delete` actions do not require a document. The other actions (`index`, `create`, and `update`) all require a document. If you specifically want the action to fail if the document already exists, use the `create` action instead of the `index` action.
+The document is optional, because `delete` actions don't require a document. The other actions (`index`, `create`, and `update`) all require a document. If you specifically want the action to fail if the document already exists, use the `create` action instead of the `index` action.
 {: .note }
 
 To index bulk data using the `curl` command, navigate to the folder where you have your file saved and run the following command:
@@ -55,14 +53,14 @@ curl -H "Content-Type: application/x-ndjson" -POST https://localhost:9200/data/_
 
 If any one of the actions in the `_bulk` API fail, OpenSearch continues to execute the other actions. Examine the `items` array in the response to figure out what went wrong. The entries in the `items` array are in the same order as the actions specified in the request.
 
-OpenSearch features automatic index creation when you add a document to an index that doesn't already exist. It also features automatic ID generation if you don't specify an ID in the request. This simple example automatically creates the movies index, indexes the document, and assigns it a unique ID:
+OpenSearch automatically creates an index when you add a document to an index that doesn't already exist. It also automatically generates an ID if you don't specify an ID in the request. This simple example automatically creates the movies index, indexes the document, and assigns it a unique ID:
 
 ```json
 POST movies/_doc
 { "title": "Spirited Away" }
 ```
 
-Automatic ID generation has a clear downside: because the indexing request didn't specify a document ID, you can't easily update the document at a later time. Also, if you run this request 10 times, OpenSearch indexes this document as 10 different documents with unique IDs. To specify an ID of 1, use the following request, and note the use of PUT instead of POST:
+Automatic ID generation has a clear downside: because the indexing request didn't specify a document ID, you can't easily update the document at a later time. Also, if you run this request 10 times, OpenSearch indexes this document as 10 different documents with unique IDs. To specify an ID of 1, use the following request (note the use of PUT instead of POST):
 
 ```json
 PUT movies/_doc/1
@@ -83,7 +81,7 @@ PUT more-movies
 OpenSearch indices have the following naming restrictions:
 
 - All letters must be lowercase.
-- Index names can't begin with `_` (underscore) or `-` (hyphen).
+- Index names can't begin with underscores (`_`) or hyphens (`-`).
 - Index names can't contain spaces, commas, or the following characters:
 
   `:`, `"`, `*`, `+`, `/`, `\`, `|`, `?`, `#`, `>`, or `<`

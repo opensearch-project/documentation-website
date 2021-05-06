@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Cluster Formation
+title: Cluster formation
 parent: OpenSearch
 nav_order: 2
 ---
@@ -13,17 +13,17 @@ OpenSearch can operate as a single-node or multi-node cluster. The steps to conf
 
 To create and deploy an OpenSearch cluster according to your requirements, it’s important to understand how node discovery and cluster formation work and what settings govern them.
 
-There are many ways that you can design a cluster. The following illustration shows a basic architecture.
+There are many ways to design a cluster. The following illustration shows a basic architecture:
 
 ![multi-node cluster architecture diagram](../../images/cluster.png)
 
 This is a four-node cluster that has one dedicated master node, one dedicated coordinating node, and two data nodes that are master-eligible and also used for ingesting data.
 
-The following table provides brief descriptions of the node types.
+The following table provides brief descriptions of the node types:
 
 Node type | Description | Best practices for production
 :--- | :--- | :-- |
-`Master` | Manages the overall operation of a cluster and keeps track of the cluster state. This includes creating and deleting indices, keeping track of the nodes that join and leave the cluster, checking the health of each node in the cluster (by running ping requests), and allocating shards to nodes. | Three dedicated master nodes in three different zones is the right approach for almost all production use cases. This makes sure your cluster never loses quorum. Two nodes will be idle for most of the time except when one node goes down or needs some maintenance.
+`Master` | Manages the overall operation of a cluster and keeps track of the cluster state. This includes creating and deleting indices, keeping track of the nodes that join and leave the cluster, checking the health of each node in the cluster (by running ping requests), and allocating shards to nodes. | Three dedicated master nodes in three different zones is the right approach for almost all production use cases. This configuration ensures your cluster never loses quorum. Two nodes will be idle for most of the time except when one node goes down or needs some maintenance.
 `Master-eligible` | Elects one node among them as the master node through a voting process. | For production clusters, make sure you have dedicated master nodes. The way to achieve a dedicated node type is to mark all other node types as false. In this case, you have to mark all the other nodes as not master-eligible.
 `Data` | Stores and searches data. Performs all data-related operations (indexing, searching, aggregating) on local shards. These are the worker nodes of your cluster and need more disk space than any other node type. | As you add data nodes, keep them balanced between zones. For example, if you have three zones, add data nodes in multiples of three, one for each zone. We recommend using storage and RAM-heavy nodes.
 `Ingest` | Preprocesses data before storing it in the cluster. Runs an ingest pipeline that transforms your data before adding it to an index. | If you plan to ingest a lot of data and run complex ingest pipelines, we recommend you use dedicated ingest nodes. You can also optionally offload your indexing from the data nodes so that your data nodes are used exclusively for searching and aggregating.
@@ -37,11 +37,9 @@ This page demonstrates how to work with the different node types. It assumes tha
 
 ## Prerequisites
 
-Before you get started, you must install and configure OpenSearch on all of your nodes. For information about the available options, see [Install and Configure](../../install/).
+Before you get started, you must install and configure OpenSearch on all of your nodes. For information about the available options, see [Install and configure OpenSearch](../../install/).
 
-After you are done, use SSH to connect to each node, and then open the `config/opensearch.yml` file.
-
-You can set all configurations for your cluster in this file.
+After you're done, use SSH to connect to each node, then open the `config/opensearch.yml` file. You can set all configurations for your cluster in this file.
 
 ## Step 1: Name a cluster
 
@@ -132,7 +130,7 @@ node.ingest: false
 
 ## Step 3: Bind a cluster to specific IP addresses
 
-`network_host` defines the IP address that's used to bind the node. By default, OpenSearch listens on a local host, which limits the cluster to a single node. You can also use `_local_` and `_site_` to bind to any loopback or site-local address, whether IPv4 or IPv6:
+`network_host` defines the IP address used to bind the node. By default, OpenSearch listens on a local host, which limits the cluster to a single node. You can also use `_local_` and `_site_` to bind to any loopback or site-local address, whether IPv4 or IPv6:
 
 ```yml
 network.host: [_local_, _site_]
@@ -154,7 +152,7 @@ Now that you've configured the network hosts, you need to configure the discover
 
 Zen Discovery is the built-in, default mechanism that uses [unicast](https://en.wikipedia.org/wiki/Unicast) to find other nodes in the cluster.
 
-You can generally just add all of your master-eligible nodes to the `discovery.seed_hosts` array. When a node starts up, it finds the other master-eligible nodes, determines which one is the master, and asks to join the cluster.
+You can generally just add all your master-eligible nodes to the `discovery.seed_hosts` array. When a node starts up, it finds the other master-eligible nodes, determines which one is the master, and asks to join the cluster.
 
 For example, for `opensearch-master` the line looks something like this:
 
@@ -165,7 +163,7 @@ discovery.seed_hosts: ["<private IP of opensearch-d1>", "<private IP of opensear
 
 ## Step 5: Start the cluster
 
-After you set the configurations, start OpenSearch on all nodes.
+After you set the configurations, start OpenSearch on all nodes:
 
 ```bash
 sudo systemctl start opensearch.service
@@ -220,9 +218,9 @@ PUT _cluster/settings
 }
 ```
 
-You can either use `persistent` or `transient` settings. We recommend the `persistent` setting because it persists through a cluster reboot. Transient settings do not persist through a cluster reboot.
+You can either use `persistent` or `transient` settings. We recommend the `persistent` setting because it persists through a cluster reboot. Transient settings don't persist through a cluster reboot.
 
-Shard allocation awareness attempts to separate primary and replica shards across multiple zones. But, if only one zone is available (such as after a zone failure), OpenSearch allocates replica shards to the only remaining zone.
+Shard allocation awareness attempts to separate primary and replica shards across multiple zones. However, if only one zone is available (such as after a zone failure), OpenSearch allocates replica shards to the only remaining zone.
 
 Another option is to require that primary and replica shards are never allocated to the same zone. This is called forced awareness.
 
@@ -238,7 +236,7 @@ PUT _cluster/settings
 }
 ```
 
-Now, if a data node fails, forced awareness does not allocate the replicas to a node in the same zone. Instead, the cluster enters a yellow state and only allocates the replicas when nodes in another zone come online.
+Now, if a data node fails, forced awareness doesn't allocate the replicas to a node in the same zone. Instead, the cluster enters a yellow state and only allocates the replicas when nodes in another zone come online.
 
 In our two-zone architecture, we can use allocation awareness if `opensearch-d1` and `opensearch-d2` are less than 50% utilized, so that each of them have the storage capacity to allocate replicas in the same zone.
 If that is not the case, and `opensearch-d1` and `opensearch-d2` do not have the capacity to contain all primary and replica shards, we can use forced awareness. This approach helps to make sure that, in the event of a failure, OpenSearch doesn't overload your last remaining zone and lock up your cluster due to lack of storage.

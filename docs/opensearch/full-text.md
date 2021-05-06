@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Full-Text Queries
+title: Full-text queries
 parent: OpenSearch
 nav_order: 10
 ---
@@ -421,10 +421,10 @@ Option | Valid values | Description
 `fuzziness` | `AUTO`, `0`, or a positive integer | The number of character edits (insert, delete, substitute) that it takes to change one word to another when determining whether a term matched a value. For example, the distance between `wined` and `wind` is 1. The default, `AUTO`, chooses a value based on the length of each term and is a good choice for most use cases.
 `fuzzy_transpositions` | Boolean | Setting `fuzzy_transpositions` to true (default) adds swaps of adjacent characters to the insert, delete, and substitute operations of the `fuzziness` option. For example, the distance between `wind` and `wnid` is 1 if `fuzzy_transpositions` is true (swap "n" and "i") and 2 if it is false (delete "n", insert "n"). <br /><br />If `fuzzy_transpositions` is false, `rewind` and `wnid` have the same distance (2) from `wind`, despite the more human-centric opinion that `wnid` is an obvious typo. The default is a good choice for most use cases.
 `lenient` | Boolean | Setting `lenient` to true lets you ignore data type mismatches between the query and the document field. For example, a query string of "8.2" could match a field of type `float`. The default is false.
-`low_freq_operator` | `and, or` | The operator for low-frequency terms. The default is `or`. See [Common Terms](#common-terms) queries and `operator` in this table.
+`low_freq_operator` | `and, or` | The operator for low-frequency terms. The default is `or`. See [Common terms](#common-terms) queries and `operator` in this table.
 `max_determinized_states` | Positive integer | The maximum number of "[states](https://lucene.apache.org/core/8_4_0/core/org/apache/lucene/util/automaton/Operations.html#DEFAULT_MAX_DETERMINIZED_STATES)" (a measure of complexity) that Lucene can create for query strings that contain regular expressions (e.g. `"query": "/wind.+?/"`). Larger numbers allow for queries that use more memory. The default is 10,000.
 `max_expansions` | Positive integer | Fuzzy queries "expand to" a number of matching terms that are within the distance specified in `fuzziness`. Then OpenSearch tries to match those terms against its indices. `max_expansions` specifies the maximum number of terms that the fuzzy query expands to. The default is 50.
-`minimum_should_match` | Positive or negative integer, positive or negative percentage, combination | If the query string contains multiple search terms and you used the `or` operator, the number of terms that need to match for the document to be considered a match. For example, if `minimum_should_match` is 2, "wind often rising" does not match "The Wind Rises." If `minimum_should_match` is 1, it matches. This option also has `low_freq` and `high_freq` properties for [Common Terms](#common-terms) queries.
+`minimum_should_match` | Positive or negative integer, positive or negative percentage, combination | If the query string contains multiple search terms and you used the `or` operator, the number of terms that need to match for the document to be considered a match. For example, if `minimum_should_match` is 2, "wind often rising" does not match "The Wind Rises." If `minimum_should_match` is 1, it matches. This option also has `low_freq` and `high_freq` properties for [Common terms](#common-terms) queries.
 `operator` | `or, and` | If the query string contains multiple search terms, whether all terms need to match (`and`) or only one term needs to match (`or`) for a document to be considered a match.
 `phrase_slop` | `0` (default) or a positive integer | See `slop`.
 `prefix_length` | `0` (default) or a positive integer | The number of leading characters that are not considered in fuzziness.

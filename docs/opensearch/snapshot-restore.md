@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Take and Restore Snapshots
+title: Take and restore snapshots
 parent: OpenSearch
 nav_order: 30
 ---
@@ -85,12 +85,12 @@ You probably only need to specify `location`, but the following table summarizes
 
 Setting | Description
 :--- | :---
-location | The shared file system for snapshots. Required.
-chunk_size | Breaks large files into chunks during snapshot operations (e.g. `64mb`, `1gb`), which is important for cloud storage providers and far less important for shared file systems. Default is `null` (unlimited). Optional.
-compress | Whether to compress metadata files. This setting does not affect data files, which might already be compressed, depending on your index settings. Default is `false`. Optional.
-max_restore_bytes_per_sec | The maximum rate at which snapshots restore. Default is 40 MB per second (`40m`). Optional.
-max_snapshot_bytes_per_sec | The maximum rate at which snapshots take. Default is 40 MB per second (`40m`). Optional.
-readonly | Whether the repository is read-only. Useful when migrating from one cluster (`"readonly": false` when registering) to another cluster (`"readonly": true` when registering). Optional.
+`location` | The shared file system for snapshots. Required.
+`chunk_size` | Breaks large files into chunks during snapshot operations (e.g. `64mb`, `1gb`), which is important for cloud storage providers and far less important for shared file systems. Default is `null` (unlimited). Optional.
+`compress` | Whether to compress metadata files. This setting does not affect data files, which might already be compressed, depending on your index settings. Default is `false`. Optional.
+`max_restore_bytes_per_sec` | The maximum rate at which snapshots restore. Default is 40 MB per second (`40m`). Optional.
+`max_snapshot_bytes_per_sec` | The maximum rate at which snapshots take. Default is 40 MB per second (`40m`). Optional.
+`readonly` | Whether the repository is read-only. Useful when migrating from one cluster (`"readonly": false` when registering) to another cluster (`"readonly": true` when registering). Optional.
 
 
 ### Amazon S3
@@ -200,18 +200,18 @@ You probably don't need to specify anything but `bucket` and `base_path`, but th
 
 Setting | Description
 :--- | :---
-base_path | The path within the bucket where you want to store snapshots (e.g. `my/snapshot/directory`). Optional. If not specified, snapshots are stored in the bucket root.
-bucket | Name of the S3 bucket. Required.
-buffer_size | The threshold beyond which chunks (of `chunk_size`) should be broken into pieces (of `buffer_size`) and sent to S3 using a different API. Default is the smaller of two values: 100 MB or 5% of the Java heap. Valid values are between `5mb` and `5gb`. We don't recommend changing this option.
-canned_acl | S3 has several [canned ACLs](https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl) that the `repository-s3` plugin can add to objects as it creates them in S3. Default is `private`. Optional.
-chunk_size | Breaks files into chunks during snapshot operations (e.g. `64mb`, `1gb`), which is important for cloud storage providers and far less important for shared file systems. Default is `1gb`. Optional.
-client | When specifying client settings (e.g. `s3.client.default.access_key`), you can use a string other than `default` (e.g. `s3.client.backup-role.access_key`). If you used an alternate name, change this value to match. Default and recommended value is `default`. Optional.
-compress | Whether to compress metadata files. This setting does not affect data files, which might already be compressed, depending on your index settings. Default is `false`. Optional.
-max_restore_bytes_per_sec | The maximum rate at which snapshots restore. Default is 40 MB per second (`40m`). Optional.
-max_snapshot_bytes_per_sec | The maximum rate at which snapshots take. Default is 40 MB per second (`40m`). Optional.
-readonly | Whether the repository is read-only. Useful when migrating from one cluster (`"readonly": false` when registering) to another cluster (`"readonly": true` when registering). Optional.
-server_side_encryption | Whether to encrypt snapshot files in the S3 bucket. This setting uses AES-256 with S3-managed keys. See [Protecting Data Using Server-Side Encryption](https://docs.aws.amazon.com/AmazonS3/latest/dev/serv-side-encryption.html). Default is false. Optional.
-storage_class | Specifies the [S3 storage class](https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html) for the snapshots files. Default is `standard`. Do not use the `glacier` and `deep_archive` storage classes. Optional.
+`base_path` | The path within the bucket where you want to store snapshots (e.g. `my/snapshot/directory`). Optional. If not specified, snapshots are stored in the bucket root.
+`bucket` | Name of the S3 bucket. Required.
+`buffer_size` | The threshold beyond which chunks (of `chunk_size`) should be broken into pieces (of `buffer_size`) and sent to S3 using a different API. Default is the smaller of two values: 100 MB or 5% of the Java heap. Valid values are between `5mb` and `5gb`. We don't recommend changing this option.
+`canned_acl` | S3 has several [canned ACLs](https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl) that the `repository-s3` plugin can add to objects as it creates them in S3. Default is `private`. Optional.
+`chunk_size` | Breaks files into chunks during snapshot operations (e.g. `64mb`, `1gb`), which is important for cloud storage providers and far less important for shared file systems. Default is `1gb`. Optional.
+`client` | When specifying client settings (e.g. `s3.client.default.access_key`), you can use a string other than `default` (e.g. `s3.client.backup-role.access_key`). If you used an alternate name, change this value to match. Default and recommended value is `default`. Optional.
+`compress` | Whether to compress metadata files. This setting does not affect data files, which might already be compressed, depending on your index settings. Default is `false`. Optional.
+`max_restore_bytes_per_sec` | The maximum rate at which snapshots restore. Default is 40 MB per second (`40m`). Optional.
+`max_snapshot_bytes_per_sec` | The maximum rate at which snapshots take. Default is 40 MB per second (`40m`). Optional.
+`readonly` | Whether the repository is read-only. Useful when migrating from one cluster (`"readonly": false` when registering) to another cluster (`"readonly": true` when registering). Optional.
+`server_side_encryption` | Whether to encrypt snapshot files in the S3 bucket. This setting uses AES-256 with S3-managed keys. See [Protecting data using server-side encryption](https://docs.aws.amazon.com/AmazonS3/latest/dev/serv-side-encryption.html). Default is false. Optional.
+`storage_class` | Specifies the [S3 storage class](https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html) for the snapshots files. Default is `standard`. Do not use the `glacier` and `deep_archive` storage classes. Optional.
 
 
 ## Take snapshots
@@ -241,10 +241,10 @@ PUT _snapshot/my-repository/2
 
 Setting | Description
 :--- | :---
-indices | The indices you want to include in the snapshot. You can use `,` to create a list of indices, `*` to specify an index pattern, and `-` to exclude certain indices. Don't put spaces between items. Default is all indices.
-ignore_unavailable | If an index from the `indices` list doesn't exist, whether to ignore it rather than fail the snapshot. Default is false.
-include_global_state | Whether to include cluster state in the snapshot. Default is true.
-partial | Whether to allow partial snapshots. Default is false, which fails the entire snapshot if one or more shards fails to store.
+`indices` | The indices you want to include in the snapshot. You can use `,` to create a list of indices, `*` to specify an index pattern, and `-` to exclude certain indices. Don't put spaces between items. Default is all indices.
+`ignore_unavailable` | If an index from the `indices` list doesn't exist, whether to ignore it rather than fail the snapshot. Default is false.
+`include_global_state` | Whether to include cluster state in the snapshot. Default is true.
+`partial` | Whether to allow partial snapshots. Default is false, which fails the entire snapshot if one or more shards fails to store.
 
 If you request the snapshot immediately after taking it, you might see something like this:
 
@@ -333,15 +333,15 @@ POST _snapshot/my-repository/2/_restore
 
 Setting | Description
 :--- | :---
-indices | The indices you want to restore. You can use `,` to create a list of indices, `*` to specify an index pattern, and `-` to exclude certain indices. Don't put spaces between items. Default is all indices.
-ignore_unavailable | If an index from the `indices` list doesn't exist, whether to ignore it rather than fail the restore operation. Default is false.
-include_global_state | Whether to restore the cluster state. Default is false.
-include_aliases | Whether to restore aliases alongside their associated indices. Default is true.
-partial | Whether to allow the restoration of partial snapshots. Default is false.
-rename_pattern | If you want to rename indices as you restore them, use this option to specify a regular expression that matches all indices you want to restore. Use capture groups (`()`) to reuse portions of the index name.
-rename_replacement | If you want to rename indices as you restore them, use this option to specify the replacement pattern. Use `$0` to include the entire matching index name, `$1` to include the content of the first capture group, etc.
-index_settings | If you want to change index settings on restore, specify them here.
-ignore_index_settings | Rather than explicitly specifying new settings with `index_settings`, you can ignore certain index settings in the snapshot and use the cluster defaults on restore.
+`indices` | The indices you want to restore. You can use `,` to create a list of indices, `*` to specify an index pattern, and `-` to exclude certain indices. Don't put spaces between items. Default is all indices.
+`ignore_unavailable` | If an index from the `indices` list doesn't exist, whether to ignore it rather than fail the restore operation. Default is false.
+`include_global_state` | Whether to restore the cluster state. Default is false.
+`include_aliases` | Whether to restore aliases alongside their associated indices. Default is true.
+`partial` | Whether to allow the restoration of partial snapshots. Default is false.
+`rename_pattern` | If you want to rename indices as you restore them, use this option to specify a regular expression that matches all indices you want to restore. Use capture groups (`()`) to reuse portions of the index name.
+`rename_replacement` | If you want to rename indices as you restore them, use this option to specify the replacement pattern. Use `$0` to include the entire matching index name, `$1` to include the content of the first capture group, etc.
+`index_settings` | If you want to change index settings on restore, specify them here.
+`ignore_index_settings` | Rather than explicitly specifying new settings with `index_settings`, you can ignore certain index settings in the snapshot and use the cluster defaults on restore.
 
 
 ### Conflicts and compatibility
@@ -356,10 +356,7 @@ We recommend ceasing write requests to a cluster before restoring from a snapsho
 1. A write request to the now-deleted alias creates a new index with the same name as the alias.
 1. The alias from the snapshot fails to restore due to a naming conflict with the new index.
 
-Snapshots are only forward-compatible by one major version. For example, you can't restore snapshots taken on a 2.x cluster to a 1.x cluster or a 6.x cluster, but you *can* restore them on a 2.x or 5.x cluster.
-
-If you have an old snapshot, you can sometimes restore it into an intermediate cluster, reindex all indices, take a new snapshot, and repeat until you arrive at your desired version, but you might find it easier to just manually index your data on the new cluster.
-
+Snapshots are only forward-compatible by one major version. If you have an old snapshot, you can sometimes restore it into an intermediate cluster, reindex all indices, take a new snapshot, and repeat until you arrive at your desired version, but you might find it easier to just manually index your data on the new cluster.
 
 ## Security plugin considerations
 
