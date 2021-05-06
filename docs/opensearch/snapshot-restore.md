@@ -104,7 +104,7 @@ Setting | Description
    If you're using the Docker installation, see [Customize the Docker image](../../install/docker/#customize-the-docker-image). Your `Dockerfile` should look something like this:
 
    ```
-   FROM amazon/opensearch:{{site.opensearch_version}}
+   FROM opensearch/opensearch:{{site.opensearch_version}}
 
    ENV AWS_ACCESS_KEY_ID <access-key>
    ENV AWS_SECRET_ACCESS_KEY <secret-key>

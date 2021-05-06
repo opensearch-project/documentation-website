@@ -10,11 +10,11 @@ nav_order: 1
 You can pull the OpenSearch Docker image just like any other image:
 
 ```bash
-docker pull amazon/opensearch:{{site.opensearch_version}}
-docker pull amazon/opensearch-dashboards{{site.opensearch_version}}
+docker pull opensearch/opensearch:{{site.opensearch_version}}
+docker pull opensearch/opensearch-dashboards{{site.opensearch_version}}
 ```
 
-To check available versions, see [Docker Hub](https://hub.docker.com/r/amazon/opensearch/tags).
+To check available versions, see [Docker Hub](https://hub.docker.com/u/opensearch).
 
 OpenSearch images use `centos:7` as the base image. If you run Docker locally, we recommend allowing Docker to use at least 4 GB of RAM in **Preferences** > **Resources**.
 
@@ -33,7 +33,7 @@ OpenSearch images use `centos:7` as the base image. If you run Docker locally, w
 To run the image for local development:
 
 ```bash
-docker run -p 9200:9200 -p 9600:9600 -e "discovery.type=single-node" amazon/opensearch:{{site.opensearch_version}}
+docker run -p 9200:9200 -p 9600:9600 -e "discovery.type=single-node" opensearch/opensearch:{{site.opensearch_version}}
 ```
 
 Then send requests to the server to verify that OpenSearch is up and running:
@@ -86,7 +86,7 @@ This sample file starts two data nodes and a container for OpenSearch Dashboards
 version: '3'
 services:
   opensearch-node1:
-    image: opensearchstaging/opensearch:latest
+    image: opensearch/opensearch:latest
     container_name: opensearch-node1
     environment:
       - cluster.name=opensearch-cluster
@@ -110,7 +110,7 @@ services:
     networks:
       - opensearch-net
   opensearch-node2:
-    image: opensearchstaging/opensearch:latest
+    image: opensearch/opensearch:latest
     container_name: opensearch-node2
     environment:
       - cluster.name=opensearch-cluster
@@ -131,7 +131,7 @@ services:
     networks:
       - opensearch-net
   opensearch-dashboards:
-    image: opensearchstaging/opensearch-dashboards:latest
+    image: opensearch/opensearch-dashboards:latest
     container_name: opensearch-dashboards
     ports:
       - 5601:5601
@@ -164,7 +164,7 @@ docker run \
 -p 9200:9200 -p 9600:9600 \
 -e "discovery.type=single-node" \
 -v /<full-path-to>/custom-opensearch.yml:/usr/share/opensearch/config/opensearch.yml \
-amazon/opensearch:{{site.opensearch_version}}
+opensearch/opensearch:{{site.opensearch_version}}
 ```
 
 You can perform the same operation in `docker-compose.yml` using a relative path:
@@ -307,7 +307,7 @@ The `docker-compose.yml` file above also contains several key settings: `bootstr
 To run the image with a custom plugin, first create a [`Dockerfile`](https://docs.docker.com/engine/reference/builder/):
 
 ```
-FROM amazon/opensearch:{{site.opensearch_version}}
+FROM opensearch/opensearch:{{site.opensearch_version}}
 RUN /usr/share/opensearch/bin/opensearch-plugin install --batch <plugin-name-or-url>
 ```
 
@@ -321,7 +321,7 @@ docker run -p 9200:9200 -p 9600:9600 -v /usr/share/opensearch/data opensearch-cu
 You can also use a `Dockerfile` to pass your own certificates for use with the [Security](../../security/) plugin, similar to the `-v` argument in [Configure OpenSearch](#configure-opensearch):
 
 ```
-FROM amazon/opensearch:{{site.opensearch_version}}
+FROM opensearch/opensearch:{{site.opensearch_version}}
 COPY --chown=opensearch:opensearch opensearch.yml /usr/share/opensearch/config/
 COPY --chown=opensearch:opensearch my-key-file.pem /usr/share/opensearch/config/
 COPY --chown=opensearch:opensearch my-certificate-chain.pem /usr/share/opensearch/config/
@@ -331,7 +331,7 @@ COPY --chown=opensearch:opensearch my-root-cas.pem /usr/share/opensearch/config/
 Alternately, you might want to remove a plugin. This `Dockerfile` removes the security plugin:
 
 ```
-FROM amazon/opensearch:{{site.opensearch_version}}
+FROM opensearch/opensearch:{{site.opensearch_version}}
 RUN /usr/share/opensearch/bin/opensearch-plugin remove opensearch_security
 COPY --chown=opensearch:opensearch opensearch.yml /usr/share/opensearch/config/
 ```

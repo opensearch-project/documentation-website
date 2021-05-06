@@ -50,8 +50,8 @@ Docker
 1. Run the following commands:
 
    ```bash
-   docker pull amazon/opensearch:{{site.opensearch_version}}
-   docker run -p 9200:9200 -p 9600:9600 -e "discovery.type=single-node" amazon/opensearch:{{site.opensearch_version}}
+   docker pull opensearch/opensearch:{{site.opensearch_version}}
+   docker run -p 9200:9200 -p 9600:9600 -e "discovery.type=single-node" opensearch/opensearch:{{site.opensearch_version}}
    ```
 
 1. In a new terminal session, run:
