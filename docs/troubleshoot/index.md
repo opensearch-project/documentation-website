@@ -78,7 +78,7 @@ The security plugin blocks the update by script operation (`POST <index>/_update
 
 ## Illegal reflective access operation in logs
 
-This is a [known issue](https://github.com/opensearch-project/performance-analyzer/issues/21) with Performance Analyzer that shouldn't affect functionality.
+This is a known issue with Performance Analyzer that shouldn't affect functionality.
 
 
 ## Multi-tenancy issues in OpenSearch Dashboards

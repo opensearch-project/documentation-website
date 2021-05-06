@@ -24,9 +24,9 @@ If these roles don’t meet your needs, mix and match individual asynchronous se
 
 Use backend roles to configure fine-grained access to asynchronous searches based on roles. For example, users of different departments in an organization can view asynchronous searches owned by their own department.
 
-First, make sure that your users have the appropriate [backend roles](../../security/access-control/). Backend roles usually come from an [LDAP server](../../security/configuration/ldap/) or [SAML provider](../../security/configuration/saml/). However, if you use the internal user database, you can use the REST API to [add them manually](../../security/access-control/api/#create-user).
+First, make sure your users have the appropriate [backend roles](../../security/access-control/). Backend roles usually come from an [LDAP server](../../security/configuration/ldap/) or [SAML provider](../../security/configuration/saml/). However, if you use the internal user database, you can use the REST API to [add them manually](../../security/access-control/api/#create-user).
 
-Now when users view asynchronous search resources in OpenSearch Dashboards (or make REST API calls), they only see asynchronous searches that are submitted by users who have a subset of the backend role.
+Now when users view asynchronous search resources in OpenSearch Dashboards (or make REST API calls), they only see asynchronous searches submitted by users who have a subset of the backend role.
 For example, consider two users: `judy` and `elon`.
 
 `judy` has an IT backend role:
@@ -73,4 +73,4 @@ Because they have different backend roles, an asynchronous search submitted by `
 
 `judy` needs to have at least the superset of all roles that `elon` has to see `elon`'s asynchronous searches.
 
-For example, if `judy` has five backend roles and `elon` one has one of these roles, then `judy` can see asynchronous searches submitted by `elon`, but `elon` can’t see the asynchronous searches submitted by `judy`. This means that `judy` can perform GET and DELETE operations on asynchronous searches that are submitted by `elon`, but not the reverse.
+For example, if `judy` has five backend roles and `elon` has one of these roles, then `judy` can see asynchronous searches submitted by `elon`, but `elon` can’t see the asynchronous searches submitted by `judy`. This means that `judy` can perform GET and DELETE operations on asynchronous searches submitted by `elon`, but not the reverse.
