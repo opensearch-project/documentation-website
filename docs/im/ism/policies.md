@@ -521,8 +521,6 @@ You can use the same options for `ctx` variables as the [notification](#notifica
 
 ## Sample policy with ISM template
 
-The following sample template policy is for a rollover use case:
-
 The following sample template policy is for a rollover use case.
 
 1. Create a policy with an `ism_template` field:
