@@ -14,16 +14,16 @@ Notebooks have a known issue with [tenants](../../security/access-control/multi-
 
 An OpenSearch Dashboards notebook is an interface that lets you easily combine live visualizations and narrative text in a single notebook interface.
 
-With OpenSearch Dashboards notebooks, you can interactively explore data by running different visualizations and share your work with team members to collaborate on a project.
+Notebooks let you interactively explore data by running different visualizations that you can share with team members to collaborate on a project.
 
 A notebook is a document composed of two elements: OpenSearch Dashboards visualizations and paragraphs (Markdown). Choose multiple timelines to compare and contrast visualizations.
 
 Common use cases include creating postmortem reports, designing runbooks, building live infrastructure reports, and writing documentation.
 
 
-## Get Started with Notebooks
+## Get Started with notebooks
 
-To get started, choose **OpenSearch Dashboards Notebooks** in OpenSearch Dashboards.
+To get started, choose **OpenSearch Dashboards Notebooks** within OpenSearch Dashboards.
 
 
 ### Step 1: Create a notebook
@@ -52,11 +52,8 @@ Paragraphs combine text and visualizations for describing data.
 #### Add a visualization paragraph
 
 1. To add a visualization, choose **Add OpenSearch Dashboards visualization paragraph**.
-1. In **Title**, select your visualization and choose a date range.
-
-You can choose multiple timelines to compare and contrast visualizations.
-
-To run and save a paragraph, choose **Run**.
+1. In **Title**, select your visualization and choose a date range. You can choose multiple timelines to compare and contrast visualizations.
+1. To run and save a paragraph, choose **Run**.
 
 You can perform the following actions on paragraphs:
 

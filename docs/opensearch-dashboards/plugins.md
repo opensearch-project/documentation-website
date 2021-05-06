@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Standalone OpenSearch Dashboards Plugin Install
+title: Standalone OpenSearch Dashboards plugin install
 parent: OpenSearch Dashboards
 nav_order: 1
 ---
@@ -156,17 +156,19 @@ sudo bin/opensearch-dashboards-plugin list
 
 ## Remove plugins
 
+To remove a plugin:
+
 ```bash
 sudo bin/opensearch-dashboards-plugin remove <plugin-name>
 ```
 
-For certain plugins, you must also remove the "optimze" bundle. Here is a sample command for the Anomaly Detection plugin:
+For certain plugins, you must also remove the "optimze" bundle. This is a sample command for the Anomaly Detection plugin:
 
 ```bash
 sudo rm /usr/share/opensearch-dashboards/optimize/bundles/opensearch-anomaly-detection-opensearch-dashboards.*
 ```
 
-Then restart OpenSearch Dashboards. After the removal of any plugin, OpenSearch Dashboards performs an optimize operation the next time you start it. This operation takes several minutes even on fast machines, so be patient.
+Then restart OpenSearch Dashboards. After you remove any plugin, OpenSearch Dashboards performs an optimize operation the next time you start it. This operation takes several minutes even on fast machines, so be patient.
 
 
 ## Update plugins

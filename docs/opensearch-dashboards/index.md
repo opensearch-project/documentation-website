@@ -28,20 +28,6 @@ You *can* start OpenSearch Dashboards using `docker run` after [creating a Docke
 
 1. When finished, run `docker-compose down`.
 
-
-## Run OpenSearch Dashboards using the RPM or Debian package
-
-1. If you haven't already, add the `yum` repositories specified in steps 1--2 in [RPM](../install/rpm) or the `apt` repositories in steps 2--3 of [Debian package](../install/deb).
-1. `sudo yum install opensearch-dashboards` or `sudo apt install opensearch-dashboards`
-1. Modify `/etc/opensearch-dashboards/opensearch_dashboards.yml` to use `opensearch.hosts` rather than `opensearch.url`.
-1. `sudo systemctl start opensearch-dashboards.service`
-1. To stop OpenSearch Dashboards:
-
-   ```bash
-   sudo systemctl stop opensearch-dashboards.service
-   ```
-
-
 ### Configuration
 
 To run OpenSearch Dashboards when the system starts:
@@ -107,39 +93,6 @@ You can also modify the values in `/etc/opensearch-dashboards/opensearch_dashboa
    ```bash
    ./bin/opensearch-dashboards
    ```
-
-
-## Run OpenSearch Dashboards on Windows (ZIP)
-
-1. Download the ZIP.
-
-1. Extract [the ZIP file](https://d3g5vo6xdbdb9a.cloudfront.net/downloads/opensearch-windows/ode-windows-zip/opensearch-dashboards-{{site.opensearch_version}}-windows-x64.zip) to a directory and open that directory at the command prompt.
-
-1. If desired, modify `config/opensearch_dashboards.yml`.
-
-1. Run OpenSearch Dashboards:
-
-   ```
-   .\bin\opensearch-dashboards.bat
-   ```
-
-
-## Run OpenSearch Dashboards on Windows (EXE)
-
-1. Download [the EXE file](https://d3g5vo6xdbdb9a.cloudfront.net/downloads/opensearch-windows/opensearch-executables/opensearch-dashboards-{{site.opensearch_version}}-windows-x64.exe), run it, and click through the steps.
-
-1. Open the command prompt.
-
-1. Navigate to the OpenSearch Dashboards install directory.
-
-1. If desired, modify `config/opensearch_dashboards.yml`.
-
-1. Run OpenSearch Dashboards:
-
-   ```
-   .\bin\opensearch-dashboards.bat
-   ```
-
 
 ## Get started with OpenSearch Dashboards
 
