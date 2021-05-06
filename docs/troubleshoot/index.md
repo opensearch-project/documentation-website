@@ -23,7 +23,52 @@ If you encounter the error `FATAL  Error: Request Timeout after 30000ms` during 
 
 ## Can't open OpenSearch Dashboards on Windows
 
-OpenSearch Dashboards doesn't support Microsoft Edge and many versions of Internet Explorer. We recommend using Firefox or Chrome.
+OpenSearch Dashboards doesn't support Microsoft Edge and many versions of Internet Explorer. We recommend Firefox or Chrome.
+
+
+## Beats
+
+If you encounter compatibility issues when attempting to connect Beats to OpenSearch, make sure you're using the Apache 2.0 distribution of Beats, not the default distribution, which uses a proprietary license.
+
+Try this minimal output configuration for using Beats with the security plugin:
+
+```yml
+output.elasticsearch:
+  hosts: ["localhost:9200"]
+  protocol: https
+  username: "admin"
+  password: "admin"
+  ssl.certificate_authorities:
+    - /full/path/to/root-ca.pem
+  ssl.certificate: "/full/path/to/client.pem"
+  ssl.key: "/full/path/to/client-key.pem"
+```
+
+Even if you use the OSS version, Beats might check for a proprietary plugin on the OpenSearch server and throw an error during startup. To disable the check, try adding these settings:
+
+```yml
+setup.ilm.enabled: false
+setup.ilm.check_exists: false
+```
+
+
+## Logstash
+
+If you have trouble connecting Logstash to OpenSearch, try this minimal output configuration, which works with the security plugin:
+
+```conf
+output {
+  elasticsearch {
+    hosts => ["localhost:9200"]
+    index => "logstash-index-test"
+    user => "admin"
+    password => "admin"
+    ssl => true
+    cacert => "/full/path/to/root-ca.pem"
+    ilm_enabled => false
+  }
+}
+```
 
 
 ## Can't update by script when FLS, DLS, or field masking is active

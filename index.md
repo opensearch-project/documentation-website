@@ -39,6 +39,8 @@ Component | Purpose
 
 You can install OpenSearch plugins [individually](docs/install/plugins/) or use the [all-in-one packages](docs/install/). Most of these OpenSearch plugins have corresponding OpenSearch Dashboards plugins that provide a convenient, unified user interface.
 
+For specifics around the project, see the [FAQ](https://opensearch.org/faq/).
+
 
 ---
 
