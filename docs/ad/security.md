@@ -8,7 +8,7 @@ has_children: false
 
 # Anomaly detection security
 
-You can use the security plugin with anomaly detection to limit non-admin users to specific actions. For example, you might want some users to only be able to create, update, or delete detectors, while others to only view detectors.
+You can use the security plugin with anomaly detection in OpenSearch to limit non-admin users to specific actions. For example, you might want some users to only be able to create, update, or delete detectors, while others to only view detectors.
 
 All anomaly detection indices are protected as system indices. Only a super admin user or an admin user with a TLS certificate can access system indices. For more information, see [System indices](../../security/configuration/system-indices/).
 
@@ -17,7 +17,7 @@ Security for anomaly detection works the same as [security for alerting](../../a
 
 ## Basic permissions
 
-As an admin user, you can use the security plugin to assign specific permissions to users based on which APIs they need access to. For a list of supported APIs, see [Anomaly Detection API](../api/).
+As an admin user, you can use the security plugin to assign specific permissions to users based on which APIs they need access to. For a list of supported APIs, see [Anomaly detection API](../api/).
 
 The security plugin has two built-in roles that cover most anomaly detection use cases: `anomaly_full_access` and `anomaly_read_access`. For descriptions of each, see [Predefined roles](../../security/access-control/users-roles/#predefined-roles).
 
@@ -27,7 +27,7 @@ If these roles don't meet your needs, mix and match individual anomaly detection
 
 Use backend roles to configure fine-grained access to individual detectors based on roles. For example, users of different departments in an organization can view detectors owned by their own department.
 
-First, make sure that your users have the appropriate [backend roles](../../security/access-control/). Backend roles usually come from an [LDAP server](../../security/configuration/ldap/) or [SAML provider](../../security/configuration/saml/), but if you use the internal user database, you can use the REST API to [add them manually](../../security/access-control/api/#create-user).
+First, make sure your users have the appropriate [backend roles](../../security/access-control/). Backend roles usually come from an [LDAP server](../../security/configuration/ldap/) or [SAML provider](../../security/configuration/saml/), but if you use the internal user database, you can use the REST API to [add them manually](../../security/access-control/api/#create-user).
 
 Next, enable the following setting:
 
@@ -83,4 +83,4 @@ PUT _opensearch/_security/api/rolesmapping/anomaly_full_access
 }
 ```
 
-Because they have different backend roles, `alice` and `bob` cannot view each other's detectors and its results.
+Because they have different backend roles, `alice` and `bob` cannot view each other's detectors or their results.
