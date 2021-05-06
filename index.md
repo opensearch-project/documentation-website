@@ -7,33 +7,15 @@ permalink: /
 ---
 
 # OpenSearch documentation
-Some Label
-{: .label .label-yellow }
-
-This site contains the technical documentation for [OpenSearch](https://opensearch.org/), the search, analytics, and visualization suite with advanced security, alerting, SQL support, automated index management, deep performance analysis, and more.
-
-## Header 2
-Stuff about Docker
-{: .label .label-green }
 
 This site contains the technical documentation for [OpenSearch](https://opensearch.org/), the search, analytics, and visualization suite with advanced security, alerting, SQL support, automated index management, deep performance analysis, and more.
 
 [Get started](#docker-quickstart){: .btn .btn-blue }
 
-[Get started](#docker-quickstart){: .btn .btn-purple }
-
-Older versions of OpenSearch used arbitrary document *types*, but indices created in current versions of OpenSearch should use a single type named `_doc`. Store different document types in different indices.
-{: .note }
-
-Older versions of OpenSearch used arbitrary document *types*, but indices created in current versions of OpenSearch should use a single type named `_doc`.
-{: .tip }
-
 
 ---
 
 ## Why use OpenSearch?
-Some Label
-{: .label .label-yellow }
 
 OpenSearch is well-suited to the following use cases:
 
@@ -79,26 +61,6 @@ Docker
    ```
 
 To learn more, see [Install](docs/install/).
-
-### Lots of deeper headers
-
-[OpenSearch](https://opensearch.org) is supported by Amazon Web Services. All components are available under the [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0.html) on [GitHub](https://github.com/opensearch-project/).
-
-The project welcomes GitHub issues, bug fixes, features, plugins, documentation---anything at all. To get involved, see [Contribute](https://opensearch.org/contribute.html) on the OpenSearch website.
-
-#### Some file
-
-```
-[Contribute](https://opensearch.org/contribute.html) on the OpenSearch website.
-```
-
-##### An h5 for some odd reason
-
-The project welcomes GitHub issues, bug fixes, features, plugins, documentation---anything at all. To get involved, see [Contribute](https://opensearch.org/contribute.html) on the OpenSearch website.
-
-###### Hm this seems excessive
-
-The project welcomes GitHub issues, bug fixes, features, plugins, documentation---anything at all. To get involved, see [Contribute](https://opensearch.org/contribute.html) on the OpenSearch website.
 
 
 ---
