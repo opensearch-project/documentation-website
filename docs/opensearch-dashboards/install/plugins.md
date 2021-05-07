@@ -32,15 +32,16 @@ If you don't want to use the all-in-one installation options, you can install th
   <tr>
     <td>1.0.0-beta1</td>
     <td>
-      <pre>opensearchDashboardsAlerting          1.0.0-beta1
-opensearchDashboardsAnomalyDetection  1.0.0-beta1
-opensearchDashboardsGanttChart        1.0.0-beta1
-opensearchDashboardsIndexManagement   1.0.0-beta1
-opensearchDashboardsNotebooks         1.0.0-beta1
-opensearchDashboardsQueryWorkbench    1.0.0-beta1
-opensearchDashboardsReports           1.0.0-beta1
-opensearchDashboardsSecurity          1.0.0-beta1
-opensearchDashboardsTraceAnalytics    1.0.0-beta1
+      <pre>
+alertingDashboards          1.0.0.0-beta1
+anomalyDetectionDashboards  1.0.0.0-beta1
+ganttChartDashboards        1.0.0.0-beta1
+indexManagementDashboards   1.0.0.0-beta1
+notebooksDashboards         1.0.0.0-beta1
+queryWorkbenchDashboards    1.0.0.0-beta1
+reportsDashboards           1.0.0.0-beta1
+securityDashboards          1.0.0.0-beta1
+traceAnalyticsDashboards    1.0.0.0-beta1
 </pre>
     </td>
   </tr>

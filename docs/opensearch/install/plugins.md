@@ -33,23 +33,27 @@ If you don't want to use the all-in-one OpenSearch installation options, you can
   <tr>
     <td>1.0.0-beta1</td>
     <td>
-      <pre>opensearch-alerting             1.13.1.0
-opensearch-anomaly-detection    1.13.0.0
-opensearch-asynchronous-search  1.13.0.1
-opensearch-index-management     1.13.2.0
-opensearch-job-scheduler        1.13.0.0
-opensearch-knn                  1.13.0.0
-opensearch-performance-analyzer 1.13.0.0
-opensearch-reports-scheduler    1.13.0.0
-opensearch-sql                  1.13.2.0
-opensearch_security             1.13.1.0
+      <pre>opensearch-alerting             1.0.0.0-beta1
+opensearch-anomaly-detection    1.0.0.0-beta1
+opensearch-asynchronous-search  1.0.0.0-beta1
+opensearch-index-management     1.0.0.0-beta1
+opensearch-job-scheduler        1.0.0.0-beta1
+opensearch-knn                  1.0.0.0-beta1
+opensearch-performance-analyzer 1.0.0.0-beta1
+opensearch-reports-scheduler    1.0.0.0-beta1
+opensearch-security             1.0.0.0-beta1
+opensearch-sql                  1.0.0.0-beta1
 </pre>
     </td>
   </tr>
   </tbody>
 </table>
 
-To install plugins manually, you must have the exact OSS version of OpenSearch installed (for example, 6.6.2 and not 6.6.1). To get a list of available OpenSearch versions on CentOS 7 and Amazon Linux 2, run the following command:
+To install plugins manually, you must have the exact version of OpenSearch installed, down to the minor version.
+
+{% comment %}
+
+To get a list of available OpenSearch versions on CentOS 7 and Amazon Linux 2, run the following command:
 
 ```bash
 sudo yum list opensearch-oss --showduplicates
@@ -60,6 +64,8 @@ Then you can specify the version that you need:
 ```bash
 sudo yum install opensearch-oss-6.7.1
 ```
+
+{% endcomment %}
 
 
 ## Install plugins
