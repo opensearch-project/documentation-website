@@ -37,7 +37,7 @@ Component | Purpose
 [Anomaly Detection](docs/ad/) | Identify atypical data and receive automatic notifications
 [Asynchronous Search](docs/async/) | Run search requests in the background
 
-You can install OpenSearch plugins [individually](docs/install/plugins/) or use the [all-in-one packages](docs/install/). Most of these OpenSearch plugins have corresponding OpenSearch Dashboards plugins that provide a convenient, unified user interface.
+You can install OpenSearch plugins [individually](docs/opensearch/install/plugins/) or use the [all-in-one packages](docs/opensearch/install/). Most of these OpenSearch plugins have corresponding OpenSearch Dashboards plugins that provide a convenient, unified user interface.
 
 For specifics around the project, see the [FAQ](https://opensearch.org/faq/).
 
@@ -62,7 +62,7 @@ Docker
    curl -XGET --insecure https://localhost:9200 -u admin:admin
    ```
 
-To learn more, see [Install](docs/install/).
+To learn more, see [Install OpenSearch](docs/opensearch/install/).
 
 
 ---
@@ -71,4 +71,4 @@ To learn more, see [Install](docs/install/).
 
 [OpenSearch](https://opensearch.org) is supported by Amazon Web Services. All components are available under the [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0.html) on [GitHub](https://github.com/opensearch-project/).
 
-The project welcomes GitHub issues, bug fixes, features, plugins, documentation---anything at all. To get involved, see [Contribute](https://opensearch.org/contribute.html) on the OpenSearch website.
+The project welcomes GitHub issues, bug fixes, features, plugins, documentation---anything at all. To get involved, see [Contributing](https://opensearch.org/source.html) on the OpenSearch website.

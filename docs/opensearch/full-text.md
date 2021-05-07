@@ -2,7 +2,7 @@
 layout: default
 title: Full-text queries
 parent: OpenSearch
-nav_order: 10
+nav_order: 40
 ---
 
 # Full-text queries

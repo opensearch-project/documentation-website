@@ -2,7 +2,7 @@
 layout: default
 title: Index templates
 parent: OpenSearch
-nav_order: 5
+nav_order: 14
 ---
 
 # Index templates

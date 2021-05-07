@@ -2,7 +2,7 @@
 layout: default
 title: Boolean queries
 parent: OpenSearch
-nav_order: 11
+nav_order: 45
 ---
 
 # Boolean queries

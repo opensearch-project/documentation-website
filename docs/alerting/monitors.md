@@ -265,7 +265,7 @@ Below are some variables you can include in your message using Mustache template
 Variable | Data Type | Description
 :--- | :--- | :---
 `ctx.monitor` | JSON | Includes `ctx.monitor.name`, `ctx.monitor.type`, `ctx.monitor.enabled`, `ctx.monitor.enabled_time`, `ctx.monitor.schedule`, `ctx.monitor.inputs`, `triggers` and `ctx.monitor.last_update_time`.
-`ctx.monitor.user` | JSON | Includes information about the user who created the monitor. Includes `ctx.monitor.user.backend_roles` and `ctx.monitor.user.roles`, which are arrays that contain the backend roles and roles assigned to the user. See [alerting security](../security.md/) for more information.
+`ctx.monitor.user` | JSON | Includes information about the user who created the monitor. Includes `ctx.monitor.user.backend_roles` and `ctx.monitor.user.roles`, which are arrays that contain the backend roles and roles assigned to the user. See [alerting security](../security/) for more information.
 `ctx.monitor.enabled` | Boolean | Whether the monitor is enabled.
 `ctx.monitor.enabled_time` | Milliseconds | Unix epoch time of when the monitor was last enabled.
 `ctx.monitor.schedule` | JSON | Contains a schedule of how often or when the monitor should run.

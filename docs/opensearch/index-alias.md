@@ -2,7 +2,7 @@
 layout: default
 title: Index aliases
 parent: OpenSearch
-nav_order: 4
+nav_order: 12
 ---
 
 # Index aliases

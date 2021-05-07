@@ -1,7 +1,8 @@
 ---
 layout: default
-title: OpenSearch plugin install
-parent: Install and configure
+title: OpenSearch plugins
+parent: Install OpenSearch
+grand_parent: OpenSearch
 nav_order: 90
 ---
 
@@ -72,9 +73,9 @@ Navigate to the OpenSearch home directory (most likely, it is `/usr/share/opense
 sudo bin/opensearch-plugin install https://d3g5vo6xdbdb9a.cloudfront.net/downloads/opensearch-plugins/opensearch-security/opensearch-security-{{site.opensearch_major_minor_version}}.1.0.zip
 ```
 
-After installing the security plugin, you can run `sudo sh /usr/share/opensearch/plugins/opensearch-security/tools/install_demo_configuration.sh` to quickly get started with demo certificates. Otherwise, you must configure it manually and run [securityadmin.sh](../../security/configuration/security-admin/).
+After installing the security plugin, you can run `sudo sh /usr/share/opensearch/plugins/opensearch-security/tools/install_demo_configuration.sh` to quickly get started with demo certificates. Otherwise, you must configure it manually and run [securityadmin.sh](../../../security/configuration/security-admin/).
 
-The security plugin has a corresponding [OpenSearch Dashboards plugin](../../opensearch-dashboards/plugins) that you probably want to install as well.
+The security plugin has a corresponding [OpenSearch Dashboards plugin](../../../opensearch-dashboards/install/plugins) that you probably want to install as well.
 
 
 ### Job scheduler
@@ -90,7 +91,7 @@ sudo bin/opensearch-plugin install https://d3g5vo6xdbdb9a.cloudfront.net/downloa
 sudo bin/opensearch-plugin install https://d3g5vo6xdbdb9a.cloudfront.net/downloads/opensearch-plugins/opensearch-alerting/opensearch-alerting-{{site.opensearch_major_minor_version}}.1.0.zip
 ```
 
-To install Alerting, you must first install the Job Scheduler plugin. Alerting has a corresponding [OpenSearch Dashboards plugin](../../opensearch-dashboards/plugins) that you probably want to install as well.
+To install Alerting, you must first install the Job Scheduler plugin. Alerting has a corresponding [OpenSearch Dashboards plugin](../../../opensearch-dashboards/install/plugins/) that you probably want to install as well.
 
 
 ### SQL
@@ -113,7 +114,7 @@ sudo bin/opensearch-plugin install https://d3g5vo6xdbdb9a.cloudfront.net/downloa
 sudo bin/opensearch-plugin install https://d3g5vo6xdbdb9a.cloudfront.net/downloads/opensearch-plugins/opensearch-index-management/opensearch-index-management-{{site.opensearch_major_minor_version}}.2.0.zip
 ```
 
-To install Index State Management, you must first install the Job Scheduler plugin. ISM has a corresponding [OpenSearch Dashboards plugin](../../opensearch-dashboards/plugins) that you probably want to install as well.
+To install Index State Management, you must first install the Job Scheduler plugin. ISM has a corresponding [OpenSearch Dashboards plugin](../../../opensearch-dashboards/install/plugins/) that you probably want to install as well.
 
 
 ### k-NN

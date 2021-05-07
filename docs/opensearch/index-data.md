@@ -2,7 +2,7 @@
 layout: default
 title: Index data
 parent: OpenSearch
-nav_order: 3
+nav_order: 10
 ---
 
 # Index data

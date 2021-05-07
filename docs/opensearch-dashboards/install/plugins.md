@@ -1,8 +1,9 @@
 ---
 layout: default
-title: Standalone OpenSearch Dashboards plugin install
-parent: OpenSearch Dashboards
-nav_order: 1
+title: OpenSearch Dashboards plugins
+parent: Install OpenSearch Dashboards
+grand_parent: OpenSearch Dashboards
+nav_order: 50
 ---
 
 # Standalone plugin install

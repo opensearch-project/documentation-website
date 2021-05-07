@@ -2,7 +2,7 @@
 layout: default
 title: Tasks API
 parent: OpenSearch
-nav_order:  8
+nav_order:  25
 has_math: false
 ---
 

@@ -2,7 +2,7 @@
 layout: default
 title: Search templates
 parent: OpenSearch
-nav_order: 11
+nav_order: 50
 ---
 
 # Search templates

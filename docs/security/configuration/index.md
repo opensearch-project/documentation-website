@@ -11,7 +11,7 @@ has_toc: false
 
 The plugin includes demo certificates so that you can get up and running quickly, but before using OpenSearch in a production environment, you must configure it manually:
 
-1. [Replace the demo certificates](../../install/docker-security/)
+1. [Replace the demo certificates](../../opensearch/install/docker-security/)
 1. [Reconfigure opensearch.yml to use your certificates](tls/)
 1. [Reconfigure config.yml to use your authentication backend](configuration/) (if you don't plan to use the internal user database)
 1. [Modify the configuration YAML files](yaml/)

@@ -1,7 +1,9 @@
 ---
 layout: default
-title: Install and configure
-nav_order: 3
+title: Install OpenSearch
+nav_order: 1
+parent: OpenSearch
+redirect_from: /docs/install/
 has_children: true
 ---
 

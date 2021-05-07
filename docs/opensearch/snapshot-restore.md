@@ -2,7 +2,7 @@
 layout: default
 title: Take and restore snapshots
 parent: OpenSearch
-nav_order: 30
+nav_order: 65
 ---
 
 # Take and restore snapshots

@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Docker
-parent: Install and configure
+parent: Install OpenSearch
+grand_parent: OpenSearch
 nav_order: 1
 ---
 
@@ -184,7 +185,7 @@ services:
       - ./custom-opensearch_dashboards.yml:/usr/share/opensearch-dashboards/config/opensearch_dashboards.yml
 ```
 
-You can use this same method to [pass your own certificates](../docker-security/) to the containers for use with the [Security](../../security/configuration/) plugin.
+You can use this same method to [pass your own certificates](../docker-security/) to the containers for use with the [Security](../../../security/configuration/) plugin.
 
 
 ### (Optional) Set up Performance Analyzer
@@ -299,7 +300,7 @@ docker build --tag=opensearch-custom-plugin .
 docker run -p 9200:9200 -p 9600:9600 -v /usr/share/opensearch/data opensearch-custom-plugin
 ```
 
-You can also use a `Dockerfile` to pass your own certificates for use with the [Security](../../security/) plugin, similar to the `-v` argument in [Configure OpenSearch](#configure-opensearch):
+You can also use a `Dockerfile` to pass your own certificates for use with the [Security](../../../security/) plugin, similar to the `-v` argument in [Configure OpenSearch](#configure-opensearch):
 
 ```
 FROM opensearch/opensearch:{{site.opensearch_version}}

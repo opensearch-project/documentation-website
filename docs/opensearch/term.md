@@ -2,7 +2,7 @@
 layout: default
 title: Term-level queries
 parent: OpenSearch
-nav_order: 9
+nav_order: 30
 ---
 
 # Term-level queries

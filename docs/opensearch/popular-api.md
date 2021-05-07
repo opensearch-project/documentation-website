@@ -2,7 +2,7 @@
 layout: default
 title: Popular APIs
 parent: OpenSearch
-nav_order: 98
+nav_order: 96
 ---
 
 # Popular APIs

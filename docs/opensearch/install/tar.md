@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Tarball
-parent: Install and configure
+parent: Install OpenSearch
+grand_parent: OpenSearch
 nav_order: 50
 ---
 

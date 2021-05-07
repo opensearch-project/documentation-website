@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Docker security configuration
-parent: Install and configure
+parent: Install OpenSearch
+grand_parent: OpenSearch
 nav_order: 5
 ---
 
@@ -108,7 +109,7 @@ networks:
   opensearch-net:
 ```
 
-Then make your changes to `opensearch.yml`. For a full list of settings, see [Security](../../security/configuration/). This example adds (extremely) verbose audit logging:
+Then make your changes to `opensearch.yml`. For a full list of settings, see [Security](../../../security/configuration/). This example adds (extremely) verbose audit logging:
 
 ```yml
 opensearch_security.ssl.transport.pemcert_filepath: node.pem
@@ -133,7 +134,7 @@ opensearch_security.audit.config.disabled_rest_categories: NONE
 opensearch_security.audit.config.disabled_transport_categories: NONE
 ```
 
-Use this same override process to specify new [authentication settings](../../security/configuration/configuration/) in `/usr/share/opensearch/plugins/opensearch-security/securityconfig/config.yml`, as well as new default [internal users, roles, mappings, action groups, and tenants](../../security/configuration/yaml/).
+Use this same override process to specify new [authentication settings](../../../security/configuration/configuration/) in `/usr/share/opensearch/plugins/opensearch-security/securityconfig/config.yml`, as well as new default [internal users, roles, mappings, action groups, and tenants](../../../security/configuration/yaml/).
 
 To start the cluster, run `docker-compose up`.
 

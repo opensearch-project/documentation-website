@@ -2,7 +2,7 @@
 layout: default
 title: Logs
 parent: OpenSearch
-nav_order: 20
+nav_order: 60
 ---
 
 # Logs

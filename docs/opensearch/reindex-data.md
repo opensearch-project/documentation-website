@@ -2,7 +2,7 @@
 layout: default
 title: Reindex data
 parent: OpenSearch
-nav_order: 6
+nav_order: 16
 ---
 
 # Reindex data

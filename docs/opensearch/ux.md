@@ -2,7 +2,7 @@
 layout: default
 title: Search experience
 parent: OpenSearch
-nav_order: 12
+nav_order: 55
 ---
 
 # Search experience

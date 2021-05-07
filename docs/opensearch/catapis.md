@@ -2,7 +2,7 @@
 layout: default
 title: CAT API
 parent: OpenSearch
-nav_order:  7
+nav_order:  20
 ---
 
 # cat API

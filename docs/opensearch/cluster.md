@@ -2,7 +2,7 @@
 layout: default
 title: Cluster formation
 parent: OpenSearch
-nav_order: 2
+nav_order: 7
 ---
 
 # Cluster formation
