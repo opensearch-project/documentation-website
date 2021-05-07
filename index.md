@@ -67,6 +67,11 @@ To learn more, see [Install OpenSearch](docs/opensearch/install/).
 
 ---
 
+## Looking for the Javadoc?
+
+See [opensearch.org/javadoc](https://opensearch.org/javadoc/).
+
+
 ## Get involved
 
 [OpenSearch](https://opensearch.org) is supported by Amazon Web Services. All components are available under the [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0.html) on [GitHub](https://github.com/opensearch-project/).
