@@ -8,7 +8,7 @@ nav_order: 30
 
 # Run OpenSearch Dashboards using the tarball
 
-1. Download the tarball from the [OpenSearch downloads page](https://opensearch.org/downloads/){:target='\_blank'}.
+1. Download the tarball from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'}.
 
 1. Extract the TAR file to a directory and change to that directory:
 

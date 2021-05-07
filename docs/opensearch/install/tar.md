@@ -12,7 +12,7 @@ The tarball installation provides a self-contained directory with everything you
 
 The tarball supports most Linux distributions, including CentOS 7, Amazon Linux 2, and Ubuntu 18.04. If you have your own Java installation and set `JAVA_HOME` in the terminal, macOS works, as well.
 
-1. Download the tarball from the [OpenSearch downloads page](https://opensearch.org/downloads/){:target='\_blank'}.
+1. Download the tarball from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'}.
 
 1. Extract the TAR file to a directory and change to that directory:
 
