@@ -31,7 +31,7 @@ remote_theme: pmarsceill/just-the-docs@v0.3.3
 kramdown:
   toc_levels: 2..3
 
-logo: "/assets/images/fake-logo.svg"
+logo: "/assets/images/logo.svg"
 
 # Aux links for the upper right navigation
 aux_links:
