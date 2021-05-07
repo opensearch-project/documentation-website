@@ -33,7 +33,7 @@ If you encounter compatibility issues when attempting to connect Beats to OpenSe
 Try this minimal output configuration for using Beats with the security plugin:
 
 ```yml
-output.elasticsearch:
+output.opensearch:
   hosts: ["localhost:9200"]
   protocol: https
   username: "admin"
@@ -58,7 +58,7 @@ If you have trouble connecting Logstash to OpenSearch, try this minimal output c
 
 ```conf
 output {
-  elasticsearch {
+  opensearch {
     hosts => ["localhost:9200"]
     index => "logstash-index-test"
     user => "admin"
