@@ -97,9 +97,9 @@ opensearch_security.audit.log_request_body: false
 
 ## Log index names
 
-By default, the security plugin logs all indices affected by a request. Because index names can be an aliases and contain wildcards/date patterns, the security plugin logs the index name that the user submitted *and* the actual index name to which it resolves.
+By default, the security plugin logs all indices affected by a request. Because index names can be aliases and contain wildcards/date patterns, the security plugin logs the index name that the user submitted *and* the actual index name to which it resolves.
 
-For example, if you use an alias or a wildcard, the the audit event might look like:
+For example, if you use an alias or a wildcard, the audit event might look like:
 
 ```json
 audit_trace_indices: [

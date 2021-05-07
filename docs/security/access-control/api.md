@@ -431,7 +431,7 @@ PUT _opensearch/_security/api/internalusers/<username>
 
 ### Patch user
 
-Updates individual attributes of an internal user. 
+Updates individual attributes of an internal user.
 
 #### Request
 
@@ -755,6 +755,8 @@ GET _opensearch/_security/api/rolesmapping
 
 ### Delete role mapping
 
+Deletes the specified role mapping.
+
 #### Request
 
 ```
@@ -911,6 +913,8 @@ GET _opensearch/_security/api/tenants/
 
 
 ### Delete tenant
+
+Deletes the specified tenant.
 
 #### Request
 
