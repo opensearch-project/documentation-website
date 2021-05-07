@@ -1,6 +1,6 @@
 # OpenSearch documentation
 
-This repository contains the documentation for OpenSearch, the search, analytics, and visualization suite with advanced security, alerting, SQL support, automated index management, deep performance analysis, and more. You can find the rendered documentation at [docs-beta.opensearch.org](docs-beta.opensearch.org).
+This repository contains the documentation for OpenSearch, the search, analytics, and visualization suite with advanced security, alerting, SQL support, automated index management, deep performance analysis, and more. You can find the rendered documentation at [docs-beta.opensearch.org](https://docs-beta.opensearch.org).
 
 Community contributions remain essential in keeping this documentation comprehensive, useful, well-organized, and up-to-date.
 
