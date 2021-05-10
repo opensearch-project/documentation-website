@@ -123,7 +123,7 @@ serverPort: 1234
 **Docker**
 
 ```bash
-docker run --name data-prepper --expose 21890 -v /full/path/to/pipelines.yaml:/usr/share/data-prepper/pipelines.yaml -v /full/path/to/data-prepper-config.yaml:/usr/share/data-prepper/data-prepper-config.yaml opensearch/opensearch-data-prepper:latest
+docker run --name data-prepper --expose 21890 -v /full/path/to/pipelines.yaml:/usr/share/data-prepper/pipelines.yaml -v /full/path/to/data-prepper-config.yaml:/usr/share/data-prepper/data-prepper-config.yaml opensearchproject/opensearch-data-prepper:latest
 ```
 
 **macOS and Linux**

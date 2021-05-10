@@ -18,7 +18,7 @@ Additionally, you can set the Docker environment variable `DISABLE_INSTALL_DEMO_
 version: '3'
 services:
   opensearch-node1:
-    image: opensearch/opensearch:{{site.opensearch_version}}
+    image: opensearchproject/opensearch:{{site.opensearch_version}}
     container_name: opensearch-node1
     environment:
       - cluster.name=opensearch-cluster
@@ -54,7 +54,7 @@ services:
     networks:
       - opensearch-net
   opensearch-node2:
-    image: opensearch/opensearch:{{site.opensearch_version}}
+    image: opensearchproject/opensearch:{{site.opensearch_version}}
     container_name: opensearch-node2
     environment:
       - cluster.name=opensearch-cluster
@@ -87,7 +87,7 @@ services:
     networks:
       - opensearch-net
   opensearch-dashboards
-    image: opensearch/opensearch-dashboards{{site.opensearch_version}}
+    image: opensearchproject/opensearch-dashboards:{{site.opensearch_version}}
     container_name: opensearch-dashboards
     ports:
       - 5601:5601

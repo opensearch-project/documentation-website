@@ -34,7 +34,7 @@ If you disable the security plugin in `opensearch.yml` (or delete the plugin ent
 1. Create a new `Dockerfile`:
 
    ```
-   FROM opensearch/opensearch-dashboards:{{site.opensearch_version}}
+   FROM opensearchproject/opensearch-dashboards:{{site.opensearch_version}}
    RUN /usr/share/opensearch-dashboards/bin/opensearch-dashboards-plugin remove opensearchSecurityOpenSearch Dashboards
    COPY --chown=opensearch-dashboards:opensearch-dashboards opensearch_dashboards.yml /usr/share/opensearch-dashboards/config/
    ```
@@ -55,6 +55,6 @@ If you disable the security plugin in `opensearch.yml` (or delete the plugin ent
    docker build --tag=opensearch-dashboards-no-security .
    ```
 
-1. In `docker-compose.yml`, change `opensearch/opensearch-dashboards:{{site.opensearch_version}}` to `opensearch-dashboards-no-security`.
+1. In `docker-compose.yml`, change `opensearchproject/opensearch-dashboards:{{site.opensearch_version}}` to `opensearch-dashboards-no-security`.
 1. Change `OPENSEARCH_HOSTS` or `opensearch.hosts` to `http://` rather than `https://`.
 1. Enter `docker-compose up`.

@@ -67,7 +67,7 @@ Save this file as `docker-compose.yml` and run `docker-compose up` to start two 
 version: '3'
 services:
   opensearch-node1:
-    image: opensearch/opensearch:{{site.opensearch_version}}
+    image: opensearchproject/opensearch:{{site.opensearch_version}}
     container_name: opensearch-node1
     environment:
       - cluster.name=opensearch-cluster1
@@ -87,7 +87,7 @@ services:
       - opensearch-net
 
   opensearch-node2:
-    image: opensearch/opensearch:{{site.opensearch_version}}
+    image: opensearchproject/opensearch:{{site.opensearch_version}}
     container_name: opensearch-node2
     environment:
       - cluster.name=opensearch-cluster2
@@ -137,8 +137,8 @@ To get the IP address for the remote cluster, first identify its container ID:
 ```bash
 docker ps
 CONTAINER ID    IMAGE                                       PORTS                                                      NAMES
-6fe89ebc5a8e    opensearch/opensearch:{{site.opensearch_version}}   0.0.0.0:9200->9200/tcp, 0.0.0.0:9600->9600/tcp, 9300/tcp   opensearch-node1
-2da08b6c54d8    opensearch/opensearch:{{site.opensearch_version}}   9300/tcp, 0.0.0.0:9250->9200/tcp, 0.0.0.0:9700->9600/tcp   opensearch-node2
+6fe89ebc5a8e    opensearchproject/opensearch:{{site.opensearch_version}}   0.0.0.0:9200->9200/tcp, 0.0.0.0:9600->9600/tcp, 9300/tcp   opensearch-node1
+2da08b6c54d8    opensearchproject/opensearch:{{site.opensearch_version}}   9300/tcp, 0.0.0.0:9250->9200/tcp, 0.0.0.0:9700->9600/tcp   opensearch-node2
 ```
 
 Then get that container's IP address:
