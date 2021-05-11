@@ -185,7 +185,7 @@ services:
       - ./custom-opensearch_dashboards.yml:/usr/share/opensearch-dashboards/config/opensearch_dashboards.yml
 ```
 
-You can use this same method to [pass your own certificates](../docker-security/) to the containers for use with the [Security](../../../security/configuration/) plugin.
+You can also configure `docker-compose.yml` and `opensearch.yml` [to take your own certificates](../docker-security/) for use with the [Security](../../security/configuration/) plugin.
 
 
 ### (Optional) Set up Performance Analyzer

@@ -12,7 +12,7 @@ Before deploying to a production environment, you should replace the demo securi
 
 Additionally, you can set the Docker environment variable `DISABLE_INSTALL_DEMO_CONFIG` to `true`. This change completely disables the demo installer.
 
-#### Sample Docker Compose file
+## Sample Docker Compose file
 
 ```yml
 version: '3'
@@ -142,3 +142,38 @@ If you encounter any `File /usr/share/opensearch/config/opensearch.yml has insec
 {: .note }
 
 Finally, you can reach OpenSearch Dashboards at http://localhost:5601, sign in, and use the **Security** panel to perform other management tasks.
+
+## Using certificates with Docker
+
+To use your own certificates in your configuration, add all of the necessary certificates to the volumes section of the Docker Compose file:
+
+```yml
+volumes:
+- ./root-ca.pem:/full/path/to/certificate.pem
+- ./admin.pem:/full/path/to/certificate.pem
+- ./admin-key.pem:/full/path/to/certificate.pem
+#Add other certificates
+```
+
+After replacing the demo certificates with your own, you must also include a custom `opensearch.yml` in your setup, which you need to specify in the volumes section.
+
+```yml
+volumes:
+#Add certificates here
+- ./custom-opensearch.yml: /full/path/to/custom-opensearch.yml
+```
+
+Remember that the certificates you specify in your Docker Compose file must be the same as the certificates listed in your custom `opensearch.yml` file. At a minimum, you should replace the root, admin, and node certificates with your own. For more information about adding and using certificates, see [Configure TLS certificates](../security/configuration/tls.md).
+
+```yml
+opensearch_security.ssl.transport.pemcert_filepath: new-node-cert.pem
+opensearch_security.ssl.transport.pemkey_filepath: new-node-cert-key.pem
+opensearch_security.ssl.transport.pemtrustedcas_filepath: new-root-ca.pem
+opensearch_security.ssl.http.pemcert_filepath: new-node-cert.pem
+opensearch_security.ssl.http.pemkey_filepath: new-node-cert-key.pem
+opensearch_security.ssl.http.pemtrustedcas_filepath: new-root-ca.pem
+opensearch_security.authcz.admin_dn:
+  - CN=admin,OU=SSL,O=Test,L=Test,C=DE
+```
+
+To start the cluster, run `docker-compose up` as usual.

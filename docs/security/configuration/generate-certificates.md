@@ -170,7 +170,7 @@ This process generates many files, but these are the ones you need to add to you
 - (Optional) `each-node-cert.pem`
 - (Optional) `each-node-key.pem`
 
-For information about adding and configuring these certificates, see [Docker security configuration](../../../install/docker-security/) and [Configure TLS certificates](../tls/).
+For information about adding and using these certificates in your own setup, see [Docker security configuration](../../../install/docker-security/) and [Configure TLS certificates](../tls/).
 
 
 ## Run securityadmin.sh
