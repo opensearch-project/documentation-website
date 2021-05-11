@@ -69,7 +69,7 @@ search:
 
 # Google Analytics Tracking (optional)
 # e.g, UA-1234567-89
-ga_tracking: UA-135423944-1
+ga_tracking: G-BQV14XK08F
 
 # Disable the just-the-docs theme anchor links in favor of our custom ones
 # See _includes/head_custom.html
