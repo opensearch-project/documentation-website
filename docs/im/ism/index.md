@@ -67,13 +67,13 @@ PUT _index_template/<template_name>
   ],
   "template": {
     "settings": {
-      "opensearch.index_state_management.policy_id": "policy_id"
+      "opendistro.index_state_management.policy_id": "policy_id"
     }
   }
 }
 ```
 
-The `opensearch.index_state_management.policy_id` setting is deprecated. You can continue to automatically manage newly created indices with the ISM template field.
+The `opendistro.index_state_management.policy_id` setting is deprecated. You can continue to automatically manage newly created indices with the ISM template field.
 {: .note }
 
 ### Step 2: Attach policies to indices

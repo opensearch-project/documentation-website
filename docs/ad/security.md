@@ -35,7 +35,7 @@ Next, enable the following setting:
 PUT _cluster/settings
 {
   "transient": {
-    "opensearch.anomaly_detection.filter_by_backend_roles": "true"
+    "opendistro.anomaly_detection.filter_by_backend_roles": "true"
   }
 }
 ```

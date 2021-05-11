@@ -63,7 +63,7 @@ To resolve this error:
     PUT _cluster/settings
     {
       "persistent" : {
-          "opensearch.sql.query.analysis.enabled" : false
+          "opendistro.sql.query.analysis.enabled" : false
       }
     }
     ```

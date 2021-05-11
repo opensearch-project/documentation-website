@@ -44,7 +44,7 @@ Next, enable the following setting:
 PUT _cluster/settings
 {
   "transient": {
-    "opensearch.alerting.filter_by_backend_roles": "true"
+    "opendistro.alerting.filter_by_backend_roles": "true"
   }
 }
 ```

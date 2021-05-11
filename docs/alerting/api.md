@@ -1071,7 +1071,7 @@ DELETE _opensearch/_alerting/destinations/<destination-id>
 
 ```json
 {
-  "_index": ".opensearch-alerting-config",
+  "_index": ".opendistro-alerting-config",
   "_type": "_doc",
   "_id": "Zu-zFmkB8NzS6aXjLeBI",
   "_version": 2,
@@ -1192,7 +1192,7 @@ DELETE _opensearch/_alerting/destinations/email_accounts/<email_account_id>
 
 ```json
 {
-  "_index" : ".opensearch-alerting-config",
+  "_index" : ".opendistro-alerting-config",
   "_type" : "_doc",
   "_id" : "email_account_id",
   "_version" : 1,
@@ -1248,7 +1248,7 @@ POST _opensearch/_alerting/destinations/email_accounts/_search
     "max_score" : null,
     "hits" : [
       {
-        "_index" : ".opensearch-alerting-config",
+        "_index" : ".opendistro-alerting-config",
         "_type" : "_doc",
         "_id" : "email_account_id",
         "_seq_no" : 8,
@@ -1383,7 +1383,7 @@ DELETE _opensearch/_alerting/destinations/email_groups/<email_group_id>
 
 ```json
 {
-  "_index" : ".opensearch-alerting-config",
+  "_index" : ".opendistro-alerting-config",
   "_type" : "_doc",
   "_id" : "email_group_id",
   "_version" : 1,
@@ -1439,7 +1439,7 @@ POST _opensearch/_alerting/destinations/email_groups/_search
     "max_score" : null,
     "hits" : [
       {
-        "_index" : ".opensearch-alerting-config",
+        "_index" : ".opendistro-alerting-config",
         "_type" : "_doc",
         "_id" : "email_group_id",
         "_seq_no" : 10,

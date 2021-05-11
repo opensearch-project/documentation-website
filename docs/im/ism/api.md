@@ -452,12 +452,12 @@ GET _opensearch/_ism/explain/index_1
 ```json
 {
   "index_1": {
-    "index.opensearch.index_state_management.policy_id": "policy_1"
+    "index.opendistro.index_state_management.policy_id": "policy_1"
   }
 }
 ```
 
-The `opensearch.index_state_management.policy_id` setting is deprecated starting from version 1.13.0.
+The `opendistro.index_state_management.policy_id` setting is deprecated starting from version 1.13.0.
 We retain this field in the response API for consistency. 
 
 ---
@@ -477,7 +477,7 @@ DELETE _opensearch/_ism/policies/policy_1
 
 ```json
 {
-  "_index": ".opensearch-ism-config",
+  "_index": ".opendistro-ism-config",
   "_type": "_doc",
   "_id": "policy_1",
   "_version": 3,

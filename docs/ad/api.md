@@ -533,7 +533,7 @@ POST _opensearch/_anomaly_detection/detectors/results/_search
     "max_score": 1,
     "hits": [
       {
-        "_index": ".opensearch-anomaly-results-history-2020.04.30-1",
+        "_index": ".opendistro-anomaly-results-history-2020.04.30-1",
         "_type": "_doc",
         "_id": "_KBrzXEBbpoKkFM5mStm",
         "_version": 1,
@@ -559,7 +559,7 @@ POST _opensearch/_anomaly_detection/detectors/results/_search
         }
       },
       {
-        "_index": ".opensearch-anomaly-results-history-2020.04.30-1",
+        "_index": ".opendistro-anomaly-results-history-2020.04.30-1",
         "_type": "_doc",
         "_id": "EqB1zXEBbpoKkFM5qyyE",
         "_version": 1,
@@ -664,7 +664,7 @@ POST _opensearch/_anomaly_detection/detectors/results/_search
     "max_score": null,
     "hits": [
       {
-        "_index": ".opensearch-anomaly-results-history-2020.11.07-1",
+        "_index": ".opendistro-anomaly-results-history-2020.11.07-1",
         "_type": "_doc",
         "_id": "BiItoHUBTpMGN-4KARY5",
         "_version": 1,
@@ -700,7 +700,7 @@ POST _opensearch/_anomaly_detection/detectors/results/_search
         ]
       },
       {
-        "_index": ".opensearch-anomaly-results-history-2020.11.07-1",
+        "_index": ".opendistro-anomaly-results-history-2020.11.07-1",
         "_type": "_doc",
         "_id": "wiImoHUBTpMGN-4KlhXs",
         "_version": 1,
@@ -736,7 +736,7 @@ POST _opensearch/_anomaly_detection/detectors/results/_search
         ]
       },
       {
-        "_index": ".opensearch-anomaly-results-history-2020.11.07-1",
+        "_index": ".opendistro-anomaly-results-history-2020.11.07-1",
         "_type": "_doc",
         "_id": "ZiIcoHUBTpMGN-4KhhVA",
         "_version": 1,
@@ -822,7 +822,7 @@ GET _opensearch/_anomaly_detection/detectors/results/_search
     "max_score": 2.1366,
     "hits": [
       {
-        "_index": ".opensearch-anomaly-detection-state",
+        "_index": ".opendistro-anomaly-detection-state",
         "_type": "_doc",
         "_id": "CoM8WncBtt2qvI-LZO7_",
         "_version": 8,
@@ -948,7 +948,7 @@ DELETE _opensearch/_anomaly_detection/detectors/<detectorId>
 
 ```json
 {
-  "_index" : ".opensearch-anomaly-detectors",
+  "_index" : ".opendistro-anomaly-detectors",
   "_type" : "_doc",
   "_id" : "m4ccEnIBTXsGi3mvMt9p",
   "_version" : 2,
@@ -1525,7 +1525,7 @@ Sample Input:
     "max_score": 3.5410638,
     "hits": [
       {
-        "_index": ".opensearch-anomaly-detectors",
+        "_index": ".opendistro-anomaly-detectors",
         "_type": "_doc",
         "_id": "m4ccEnIBTXsGi3mvMt9p",
         "_version": 2,
@@ -1712,7 +1712,7 @@ POST _opensearch/_alerting/monitors
     {
       "search": {
         "indices": [
-          ".opensearch-anomaly-results*"
+          ".opendistro-anomaly-results*"
         ],
         "query": {
           "size": 1,
@@ -1818,7 +1818,7 @@ POST _opensearch/_alerting/monitors
       {
         "search": {
           "indices": [
-            ".opensearch-anomaly-results*"
+            ".opendistro-anomaly-results*"
           ],
           "query": {
             "size": 1,
