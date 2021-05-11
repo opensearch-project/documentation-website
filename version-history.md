@@ -9,7 +9,7 @@ permalink: /version-history/
 
 OpenSearch version | Release highlights | Release date
 :--- | :--- | :--- | :---
-[1.0.0-beta1](https://github.com/opensearch-project/) | Initial beta release. | 10 May 2021
+[1.0.0-beta1](https://github.com/opensearch-project/) | Initial beta release. | 12 May 2021
 
 
 For detailed release notes, see these GitHub repositories:
