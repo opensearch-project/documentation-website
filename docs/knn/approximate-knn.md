@@ -1,27 +1,27 @@
 ---
 layout: default
-title: Approximate Search
+title: Approximate search
 nav_order: 1
 parent: k-NN
 has_children: false
 has_math: true
 ---
 
-# Approximate k-NN Search
+# Approximate k-NN search
 
-The approximate k-NN method uses [nmslib's](https://github.com/nmslib/nmslib/) implementation of the HNSW algorithm to power k-NN search. In this case, approximate means that for a given search, the neighbors returned are an estimate of the true k-nearest neighbors. Of the three methods, this method offers the best search scalability for large data sets. Generally speaking, once the data set gets into the hundreds of thousands of vectors, this approach should be preferred.
+The approximate k-NN method uses [nmslib's](https://github.com/nmslib/nmslib/) implementation of the Hierarchical Navigable Small World (HNSW) algorithm to power k-NN search. In this case, approximate means that for a given search, the neighbors returned are an estimate of the true k-nearest neighbors. Of the three methods, this method offers the best search scalability for large data sets. Generally speaking, once the data set gets into the hundreds of thousands of vectors, this approach is preferred.
 
-This plugin builds an HNSW graph of the vectors for each "knn-vector field"/ "Lucene segment" pair during indexing that can be used to efficiently find the k-nearest neighbors to a query vector during search. To learn more about Lucene segments, please refer to [Apache Lucene's documentation](https://lucene.apache.org/core/8_7_0/core/org/apache/lucene/codecs/lucene87/package-summary.html#package.description). These graphs are loaded into native memory during search and managed by a cache. To learn more about pre-loading graphs into memory, refer to the [warmup API](../api#warmup). Additionally, you can see what graphs are already loaded in memory, which you can learn more about in the [stats API section](../api#stats).
+The k-NN plugin builds an HNSW graph of the vectors for each "knn-vector field"/ "Lucene segment" pair during indexing that can be used to efficiently find the k-nearest neighbors to a query vector during search. To learn more about Lucene segments, please refer to [Apache Lucene's documentation](https://lucene.apache.org/core/8_7_0/core/org/apache/lucene/codecs/lucene87/package-summary.html#package.description). These graphs are loaded into native memory during search and managed by a cache. To learn more about pre-loading graphs into memory, refer to the [warmup API](../api#warmup). Additionally, you can see what graphs are already loaded in memory, which you can learn more about in the [stats API section](../api#stats).
 
-Because the graphs are constructed during indexing, it is not possible to apply a filter on an index and then use this search method. All filters will be applied on the results produced by the approximate nearest neighbor search.
+Because the graphs are constructed during indexing, it is not possible to apply a filter on an index and then use this search method. All filters are applied on the results produced by the approximate nearest neighbor search.
 
 ## Get started with approximate k-NN
 
 To use the k-NN plugin's approximate search functionality, you must first create a k-NN index with setting `index.knn` to `true`. This setting tells the plugin to create HNSW graphs for the index.
 
-Additionally, if you are using the approximate k-nearest neighbor method, you should specify `knn.space_type` to the space that you are interested in. This setting cannot be changed after it is set. To see what spaces we support, please refer to the [spaces section](#spaces). By default, `index.knn.space_type` is `l2`. For more information on index settings, such as algorithm parameters that can be tweaked to tune performance, please refer to the [documentation](../settings#index-settings).
+Additionally, if you're using the approximate k-nearest neighbor method, specify `knn.space_type` to the space you're interested in. You can't change this setting after it's set. To see what spaces we support, see [spaces](#spaces). By default, `index.knn.space_type` is `l2`. For more information about index settings, such as algorithm parameters you can tweak to tune performance, see [Index settings](../settings#index-settings).
 
-Next, you must add one or more fields of the `knn_vector` data type. Here is an example that creates an index with two `knn_vector` fields and uses cosine similarity:
+Next, you must add one or more fields of the `knn_vector` data type. This example creates an index with two `knn_vector` fields and uses cosine similarity:
 
 ```json
 PUT my-knn-index-1
@@ -94,7 +94,7 @@ GET my-knn-index-1/_search
 }
 ```
 
-`k` is the number of neighbors the search of each graph will return. You must also include the `size` option. This option indicates how many results the query actually returns. The plugin returns `k` amount of results for each shard (and each segment) and `size` amount of results for the entire query. The plugin supports a maximum `k` value of 10,000.
+`k` is the number of neighbors the search of each graph will return. You must also include the `size` option, which indicates how many results the query actually returns. The plugin returns `k` amount of results for each shard (and each segment) and `size` amount of results for the entire query. The plugin supports a maximum `k` value of 10,000.
 
 ### Using approximate k-NN with filters
 If you use the `knn` query alongside filters or other clauses (e.g. `bool`, `must`, `match`), you might receive fewer than `k` results. In this example, `post_filter` reduces the number of results from 2 to 1:
@@ -124,7 +124,7 @@ GET my-knn-index-1/_search
 
 ## Spaces
 
-A space corresponds to the function used to measure the distance between 2 points in order to determine the k-nearest neighbors. From the k-NN perspective, a lower score equates to a closer and better result. This is the opposite of how OpenSearch scores results, where a greater score equates to a better result. To convert distances to OpenSearch scores, we take 1 / (1 + distance). Currently, the k-NN plugin supports the following spaces:
+A space corresponds to the function used to measure the distance between two points in order to determine the k-nearest neighbors. From the k-NN perspective, a lower score equates to a closer and better result. This is the opposite of how OpenSearch scores results, where a greater score equates to a better result. To convert distances to OpenSearch scores, we take 1 / (1 + distance). Currently, the k-NN plugin supports the following spaces:
 
 <table>
   <thead style="text-align: left">
@@ -158,5 +158,5 @@ A space corresponds to the function used to measure the distance between 2 point
   </tr>
 </table>
 
-The cosine similarity formula does not include the `1 - ` prefix. However, because nmslib equates smaller scores with closer results, they return `1 - cosineSimilarity` for their cosine similarity space---that's why `1 - ` is included in the distance function.
+The cosine similarity formula does not include the `1 -` prefix. However, because nmslib equates smaller scores with closer results, they return `1 - cosineSimilarity` for their cosine similarity space---that's why `1 -` is included in the distance function.
 {: .note }
