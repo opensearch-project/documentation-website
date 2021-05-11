@@ -105,3 +105,7 @@ output.opensearch:
   ssl.certificate: "/full/path/to/client-cert.pem"
   ssl.key: "/full/path/to/to/client-cert-key.pem"
 ```
+
+## Using certificates with Docker
+
+While we recommend using the [tarball](../../../install/tar) installation of ODFE to test client certificate authentication configurations, you can also use any of the other install types. For instructions on using Docker, for example, see [Docker security configuration](../../../install/docker-security).
