@@ -69,7 +69,7 @@ To learn more, see [Install OpenSearch](docs/opensearch/install/).
 
 ## Looking for the Javadoc?
 
-See [opensearch.org/javadoc](https://opensearch.org/javadoc/).
+See [opensearch.org/docs/javadocs/](https://opensearch.org/docs/javadocs/).
 
 
 ## Get involved
