@@ -52,7 +52,7 @@ Then, the query fails because of the field mapping conflict. The query `SELECT *
 
 ```sql
 Error occurred in OpenSearch engine: Different mappings are not allowed for the same field[a]: found [{properties:{b:{type:long},c:{type:long}}}] and [{properties:{b:{type:long}}}] ",
-    "details": "com.amazon.opensearchforopensearch.sql.rewriter.matchtoterm.VerificationException: Different mappings are not allowed for the same field[a]: found [{properties:{b:{type:long},c:{type:long}}}] and [{properties:{b:{type:long}}}] \nFor more details, please send request for Json format to see the raw response from opensearch engine.",
+    "details": "com.amazon.opensearch.sql.rewriter.matchtoterm.VerificationException: Different mappings are not allowed for the same field[a]: found [{properties:{b:{type:long},c:{type:long}}}] and [{properties:{b:{type:long}}}] \nFor more details, please send request for Json format to see the raw response from opensearch engine.",
     "type": "VerificationException
 ```
 

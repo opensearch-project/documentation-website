@@ -7,7 +7,7 @@ nav_order: 5
 
 # Configure WMS map server
 
-Due to licensing restrictions, the default installation of OpenSearch Dashboards doesn't include a map server for tile map visualizations. To configure OpenSearch Dashboards to use a WMS map server:
+OpenSearch Dashboards includes default map tiles, but if you need more specialized maps, you can configure OpenSearch Dashboards to use a WMS map server:
 
 1. Open OpenSearch Dashboards at `https://<host>:<port>`. For example, [https://localhost:5601](https://localhost:5601).
 1. If necessary, log in.
