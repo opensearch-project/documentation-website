@@ -16,19 +16,19 @@ This plugin supports three different methods for obtaining the k-nearest neighbo
 
 1. **Approximate k-NN**
 
-    The first method takes an approximate nearest neighbor approach; it uses the HNSW algorithm to return the approximate k-nearest neighbors to a query vector. This algorithm sacrifices indexing speed and search accuracy in return for lower latency and more scalable search. To learn more about the algorithm, please refer to [nmslib's documentation](https://github.com/nmslib/nmslib/) or [the paper introducing the algorithm](https://arxiv.org/abs/1603.09320).
+    The first method takes an approximate nearest neighbor approach---it uses the HNSW algorithm to return the approximate k-nearest neighbors to a query vector. This algorithm sacrifices indexing speed and search accuracy in return for lower latency and more scalable search. To learn more about the algorithm, please refer to [nmslib's documentation](https://github.com/nmslib/nmslib/) or [the paper introducing the algorithm](https://arxiv.org/abs/1603.09320).
 
     Approximate k-NN is the best choice for searches over large indices (i.e. hundreds of thousands of vectors or more) that require low latency. You should not use approximate k-NN if you want to apply a filter on the index before the k-NN search, which greatly reduces the number of vectors to be searched. In this case, you should use either the script scoring method or painless extensions.
 
-    For more details about this method, refer to the [Approximate k-NN section](approximate-knn).
+    For more details about this method, see [Approximate k-NN search](approximate-knn).
 
 2. **Script Score k-NN**
 
     The second method extends OpenSearch's script scoring functionality to execute a brute force, exact k-NN search over "knn_vector" fields or fields that can represent binary objects. With this approach, you can run k-NN search on a subset of vectors in your index (sometimes referred to as a pre-filter search).
 
-    This approach should be used for searches over smaller bodies of documents or when a pre-filter is needed. Using this approach on large indices may lead to high latencies.
+    Use this approach for searches over smaller bodies of documents or when a pre-filter is needed. Using this approach on large indices may lead to high latencies.
 
-    For more details about this method, refer to the [k-NN Script Score section](knn-score-script).
+    For more details about this method, see [Exact k-NN with scoring script](knn-score-script).
 
 3. **Painless extensions**
 
@@ -36,7 +36,7 @@ This plugin supports three different methods for obtaining the k-nearest neighbo
 
     This approach has slightly slower query performance compared to the k-NN Script Score. If your use case requires more customization over the final score, you should use this approach over Script Score k-NN.
 
-    For more details about this method, refer to the [painless functions section](painless-functions).
+    For more details about this method, see [Painless scripting functions](painless-functions).
 
 
 Overall, for larger data sets, you should generally choose the approximate nearest neighbor method because it scales significantly better. For smaller data sets, where you may want to apply a filter, you should choose the custom scoring approach. If you have a more complex use case where you need to use a distance function as part of their scoring method, you should use the painless scripting approach.

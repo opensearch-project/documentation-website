@@ -1,18 +1,24 @@
 ---
 layout: default
-title: Exact k-NN with Scoring Script
+title: Exact k-NN with scoring script
 nav_order: 2
 parent: k-NN
 has_children: false
 has_math: true
 ---
 
-# Exact k-NN with Scoring Script
-The k-NN plugin implements the OpenSearch score script plugin that you can use to find the exact k-nearest neighbors to a given query point. Using the k-NN score script, you can apply a filter on an index before executing the nearest neighbor search. This is useful for dynamic search cases where the index body may vary based on other conditions. Because this approach executes a brute force search, it does not scale as well as the [Approximate approach](../approximate-knn). In some cases, it may be better to think about refactoring your workflow or index structure to use the Approximate approach instead of this approach.
+# Exact k-NN with scoring script
+The k-NN plugin implements the OpenSearch score script plugin that you can use to find the exact k-nearest neighbors to a given query point. Using the k-NN score script, you can apply a filter on an index before executing the nearest neighbor search. This is useful for dynamic search cases where the index body may vary based on other conditions. 
+
+Because the score script approach executes a brute force search, it doesn't scale as well as the [approximate approach](../approximate-knn). In some cases, it might be better to think about refactoring your workflow or index structure to use the approximate approach instead of the score script approach.
 
 ## Getting started with the score script for vectors
 
-Similar to approximate nearest neighbor search, in order to use the score script on a body of vectors, you must first create an index with one or more `knn_vector` fields. If you intend to just use the script score approach (and not the approximate approach) `index.knn` can be set to `false` and `index.knn.space_type` does not need to be set. The space type can be chosen during search. See the [spaces section](#spaces) to see what spaces the k-NN score script suppports. Here is an example that creates an index with two `knn_vector` fields:
+Similar to approximate nearest neighbor search, in order to use the score script on a body of vectors, you must first create an index with one or more `knn_vector` fields. 
+
+If you intend to just use the score script approach (and not the approximate approach) you can set `index.knn` to `false` and not set `index.knn.space_type`. You can choose the space type during search. See [spaces](#spaces) for the spaces the k-NN score script suppports. 
+
+This example creates an index with two `knn_vector` fields:
 
 ```json
 PUT my-knn-index-1
@@ -95,12 +101,7 @@ All parameters are required.
 - `query_value` is the point you want to find the nearest neighbors for. For the Euclidean and cosine similarity spaces, the value must be an array of floats that matches the dimension set in the field's mapping. For Hamming bit distance, this value can be either of type signed long or a base64-encoded string (for the long and binary field types, respectively).
 - `space_type` corresponds to the distance function. See the [spaces section](#spaces).
 
-
-In later versions of the k-NN plugin, `vector` was replaced by `query_value` due to the addition of the `bithamming` space.
-{ .note }
-
-
-The [post filter example in the approximate approach](../approximate-knn/#using-approximate-k-nn-with-filters) shows a search that returns fewer than `k` results. If you want to avoid this situation, the score script method lets you essentially invert the order of events. In other words, you can filter down the set of documents you want to execute the k-nearest neighbor search over.
+The [post filter example in the approximate approach](../approximate-knn/#using-approximate-k-nn-with-filters) shows a search that returns fewer than `k` results. If you want to avoid this situation, the score script method lets you essentially invert the order of events. In other words, you can filter down the set of documents over which to execute the k-nearest neighbor search.
 
 This example shows a pre-filter approach to k-NN search with the score script approach. First, create the index:
 
@@ -277,7 +278,7 @@ GET my-long-index/_search
 
 ## Spaces
 
-A space corresponds to the function used to measure the distance between 2 points in order to determine the k-nearest neighbors. From the k-NN perspective, a lower score equates to a closer and better result. This is the opposite of how OpenSearch scores results, where a greater score equates to a better result. We include the conversions to OpenSearch scores in the table below:
+A space corresponds to the function used to measure the distance between two points in order to determine the k-nearest neighbors. From the k-NN perspective, a lower score equates to a closer and better result. This is the opposite of how OpenSearch scores results, where a greater score equates to a better result. The following table illustrates how OpenSearch converts spaces to scores:
 
 <table>
   <thead style="text-align: left">
