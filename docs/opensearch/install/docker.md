@@ -81,7 +81,7 @@ docker-compose down -v
 
 #### Sample Docker Compose file
 
-This sample file starts two data nodes and a container for OpenSearch Dashboards. There may be a delay (30 seconds to 1 minute) before OpenSearch is ready to respond to requests.
+This sample file starts two data nodes and a container for OpenSearch Dashboards.
 
 ```yml
 version: '3'
