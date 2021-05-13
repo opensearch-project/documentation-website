@@ -28,7 +28,7 @@ The [sample docker-compose.yml](../docker/#sample-docker-compose-file) file also
 
   Disbles swapping (along with `memlock`). Swapping can dramatically decrease performance and stability, so you should ensure it is disabled on production clusters.
 
-- `ES_JAVA_OPTS=-Xms512m -Xmx512m`
+- `OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m`
 
   Sets the size of the Java heap (we recommend half of system RAM).
 

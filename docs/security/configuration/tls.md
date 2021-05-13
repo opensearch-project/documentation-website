@@ -205,4 +205,4 @@ opensearch_security.ssl.http.enabled_protocols:
 
 ## (Advanced) Disable client initiated renegotiation for Java 8
 
-Set `-Djdk.tls.rejectClientInitiatedRenegotiation=true` to disable secure client initiated renegotiation, which is enabled by default. This can be set via `ES_JAVA_OPTS` in `config/jvm.options`.
+Set `-Djdk.tls.rejectClientInitiatedRenegotiation=true` to disable secure client initiated renegotiation, which is enabled by default. This can be set via `OPENSEARCH_JAVA_OPTS` in `config/jvm.options`.
