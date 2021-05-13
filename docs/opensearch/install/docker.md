@@ -81,7 +81,7 @@ docker-compose down -v
 
 #### Sample Docker Compose file
 
-This sample file starts two data nodes and a container for OpenSearch Dashboards.
+This sample file starts two data nodes and a container for OpenSearch Dashboards. There may be a delay (30 seconds to 1 minute) before OpenSearch is ready to respond to requests.
 
 ```yml
 version: '3'
@@ -95,7 +95,7 @@ services:
       - discovery.seed_hosts=opensearch-node1,opensearch-node2
       - cluster.initial_master_nodes=opensearch-node1,opensearch-node2
       - bootstrap.memory_lock=true # along with the memlock settings below, disables swapping
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m" # minimum and maximum Java heap size, recommend setting both to 50% of system RAM
+      - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" # minimum and maximum Java heap size, recommend setting both to 50% of system RAM
     ulimits:
       memlock:
         soft: -1
@@ -119,7 +119,7 @@ services:
       - discovery.seed_hosts=opensearch-node1,opensearch-node2
       - cluster.initial_master_nodes=opensearch-node1,opensearch-node2
       - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
     ulimits:
       memlock:
         soft: -1
@@ -149,7 +149,6 @@ volumes:
 
 networks:
   opensearch-net:
-
 ```
 
 If you override `opensearch_dashboards.yml` settings using environment variables, as seen above, use all uppercase letters and periods in place of underscores (e.g. for `opensearch.url`, specify `OPENSEARCH_URL`).
