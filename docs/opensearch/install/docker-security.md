@@ -26,7 +26,7 @@ services:
       - discovery.seed_hosts=opensearch-node1,opensearch-node2
       - cluster.initial_master_nodes=opensearch-node1,opensearch-node2
       - bootstrap.memory_lock=true # along with the memlock settings below, disables swapping
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m" # minimum and maximum Java heap size, recommend setting both to 50% of system RAM
+      - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" # minimum and maximum Java heap size, recommend setting both to 50% of system RAM
       - network.host=0.0.0.0 # required if not using the demo security configuration
     ulimits:
       memlock:
@@ -62,7 +62,7 @@ services:
       - discovery.seed_hosts=opensearch-node1,opensearch-node2
       - cluster.initial_master_nodes=opensearch-node1,opensearch-node2
       - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
       - network.host=0.0.0.0
     ulimits:
       memlock:
