@@ -26,6 +26,17 @@ If you encounter the error `FATAL  Error: Request Timeout after 30000ms` during 
 OpenSearch Dashboards doesn't support Microsoft Edge and many versions of Internet Explorer. We recommend Firefox or Chrome.
 
 
+## Encryption at rest
+
+The operating system for each OpenSearch node handles encryption of data at rest. To enable encryption at rest in most Linux distributions, use the `cryptsetup` command:
+
+```bash
+cryptsetup luksFormat --key-file <key> <partition>
+```
+
+For full documentation on the command, see [the Linux man page](http://man7.org/linux/man-pages/man8/cryptsetup.8.html).
+
+
 ## Beats
 
 If you encounter compatibility issues when attempting to connect Beats to OpenSearch, make sure you're using the Apache 2.0 distribution of Beats, not the default distribution, which uses a proprietary license.
