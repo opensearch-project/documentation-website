@@ -96,7 +96,7 @@ All actions support the same metadata: `_index`, `_id`, and `_require_alias`.
 
   ```json
   { "index": { "_index": "movies", "_id": "tt1979320" } }
-  { "title": "Rush", "year":2013}
+  { "title": "Rush", "year": 2013}
   ```
 
 - Update
