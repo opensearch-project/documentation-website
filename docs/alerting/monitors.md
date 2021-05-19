@@ -32,14 +32,68 @@ Destination | A reusable location for an action, such as Amazon Chime, Slack, or
 
 1. Choose **Alerting**, **Destinations**, **Add destination**.
 1. Specify a name for the destination so that you can identify it later.
-1. For **Type**, choose Slack, Amazon Chime, custom webhook, or [email](#email-as-a-destination).
+1. For **Type**, choose Slack, Amazon Chime, Amazon Simple Notification Service (SNS), custom webhook, or [email](#email-as-a-destination).
 
-For Email type, refer to [Email as a destination](#email-as-a-destination) section below. For all other types, specify the webhook URL. For more information about webhooks, see the documentation for [Slack](https://api.slack.com/incoming-webhooks) and [Chime](https://docs.aws.amazon.com/chime/latest/ug/webhooks.html).
+For more information about Amazon SNS or email type, refer to their respective sections below. For Amazon Chime, Slack, or custom webhook, specify the webhook URL. For more information about webhooks, see the documentation for [Slack](https://api.slack.com/incoming-webhooks) and [Chime](https://docs.aws.amazon.com/chime/latest/ug/webhooks.html).
 
 For custom webhooks, you must specify more information: parameters and headers. For example, if your endpoint requires basic authentication, you might need to add a header with a key of `Authorization` and a value of `Basic <Base64-encoded-credential-string>`. You might also need to change `Content-Type` to whatever your webhook requires. Popular values are `application/json`, `application/xml`, and `text/plain`.
 
 This information is stored in plain text in the OpenSearch cluster. We will improve this design in the future, but for now, the encoded credentials (which are neither encrypted nor hashed) might be visible to other OpenSearch users.
 
+### Amazon SNS as a destination
+
+OpenSearch supports Amazon SNS for notifications. This integration with Amazon SNS means that, in addition to the other destinations, the alerting plugin can send emails, text messages, and even run AWS Lambda functions using SNS topics. For more information about Amazon SNS, see the [Amazon Simple Notification Service Developer Guide](https://docs.aws.amazon.com/sns/latest/dg/welcome.html).
+
+To use Amazon SNS as a destination:
+
+1. Enter a unique name for your destination.
+1. For **destination type**, choose **Amazon SNS**.
+1. Specify the SNS topic ARN that you want to use.
+
+The alerting plugin currently supports user authentication through OpenSearch's keystore and IAM in Amazon Web Services. If you run your OpenSearch cluster on AWS infrastructure (an Amazon EC2 instance), the alerting plugin automatically retrieves the credentials of an IAM role associated with your EC2 instance. If you're not running your cluster on Amazon EC2, you must add your IAM user's access key and secret key to OpenSearch's keystore.
+
+To use either method, first ensure that the IAM role you want to use has the following trust relationship and permissions:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [{
+    "Effect": "Allow",
+    "Principal": {
+      "Service": "ec2.amazonaws.com"
+    },
+    "Action": "sts:AssumeRole"
+  }]
+}
+```
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [{
+    "Effect": "Allow",
+    "Action": "sns:Publish",
+    "Resource": "sns-topic-arn"
+  }]
+}
+```
+
+#### Using an IAM role's credentials
+
+If you're running your OpenSearch cluster on AWS infrastructure, Amazon EC2 will automatically retrieve your IAM role's credentials and access the SNS topic, so you don't have to add any user ceredentials.
+
+In OpenSearch Dashboards, choose **Create**.
+
+#### Adding access key and secret access key
+
+After ensuring that your IAM user has the necessary trust relationship and permissions, run the following commands in your terminal and follow the prompts to add your IAM user's access key and secret key.
+
+```
+./bin/opensearch-keystore add opensearch.alerting.destination.sns.access.key
+./bin/opensearch-keystore add opensearch.alerting.destination.sns.secret.key
+```
+
+In OpenSearch Dashboards, choose **Create**.
 
 ### Email as a destination
 
@@ -78,8 +132,8 @@ You can enter individual email addresses or an email group in the **Recipients**
 If your email provider requires SSL or TLS, you must authenticate each sender account before you can send an email. Enter these credentials in the OpenSearch keystore using the CLI. Run the following commands (in your OpenSearch directory) to enter your username and password. The `<sender_name>` is the name you entered for **Sender** earlier.
 
 ```bash
-./bin/opensearch-keystore add opendistro.alerting.destination.email.<sender_name>.username
-./bin/opensearch-keystore add opendistro.alerting.destination.email.<sender_name>.password
+./bin/opensearch-keystore add opensearch.alerting.destination.email.<sender_name>.username
+./bin/opensearch-keystore add opensearch.alerting.destination.email.<sender_name>.password
 ```
 
 **Note**: Keystore settings are node-specific. You must run these commands on each node.
@@ -93,7 +147,6 @@ POST _nodes/reload_secure_settings
   "secure_settings_password": "1234"
 }
 ```
-
 
 ---
 
@@ -316,7 +369,7 @@ Variable | Data Type | Description
 
 ## Add actions
 
-The final step in creating a monitor is to add one or more actions. Actions send notifications when trigger conditions are met and support [Slack](https://slack.com/), [Amazon Chime](https://aws.amazon.com/chime/), and webhooks.
+The final step in creating a monitor is to add one or more actions. Actions send notifications when trigger conditions are met and support [Slack](https://slack.com/), [Amazon Chime](https://aws.amazon.com/chime/), [Amazon Simple Notification Service](https://aws.amazon.com/sns/), and webhooks.
 
 If you don't want to receive notifications for alerts, you don't have to add actions to your triggers. Instead, you can periodically check OpenSearch Dashboards.
 {: .tip }
