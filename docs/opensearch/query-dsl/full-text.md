@@ -1,13 +1,12 @@
 ---
 layout: default
 title: Full-text queries
-parent: OpenSearch
+parent: Query DSL
+grand_parent: OpenSearch
 nav_order: 40
 ---
 
 # Full-text queries
-
-Although you can use HTTP request parameters to perform simple searches, the OpenSearch query domain-specific language (DSL) lets you specify the full range of search options. The query DSL uses the HTTP request body. Queries specified in this way have the added advantage of being more explicit in their intent and easier to tune over time.
 
 This page lists all full-text query types and common options. Given the sheer number of options and subtle behaviors, the best method of ensuring useful search results is to test different queries against representative indices and verify the output.
 
