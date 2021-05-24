@@ -28,7 +28,7 @@ This command creates a detector named `http_requests` that finds anomalies based
 #### Request
 
 ```json
-POST _opensearch/_anomaly_detection/detectors
+POST _plugins/_anomaly_detection/detectors
 {
   "name": "test-detector",
   "description": "Test detector",
@@ -143,7 +143,7 @@ To set a category field for high cardinality:
 #### Request
 
 ```json
-POST _opensearch/_anomaly_detection/detectors
+POST _plugins/_anomaly_detection/detectors
 {
   "name": "Host OK Rate Detector",
   "description": "ok rate",
@@ -243,7 +243,7 @@ To create a historical detector:
 #### Request
 
 ```json
-POST _opensearch/_anomaly_detection/detectors
+POST _plugins/_anomaly_detection/detectors
 {
   "name": "test1",
   "description": "test historical detector",
@@ -312,7 +312,7 @@ Passes a date range to the anomaly detector to return any anomalies within that 
 #### Request
 
 ```json
-POST _opensearch/_anomaly_detection/detectors/<detectorId>/_preview
+POST _plugins/_anomaly_detection/detectors/<detectorId>/_preview
 {
   "period_start": 1588838250000,
   "period_end": 1589443050000
@@ -452,7 +452,7 @@ Starts a real-time or historical anomaly detector job.
 #### Request
 
 ```json
-POST _opensearch/_anomaly_detection/detectors/<detectorId>/_start
+POST _plugins/_anomaly_detection/detectors/<detectorId>/_start
 ```
 
 #### Sample response
@@ -476,7 +476,7 @@ Stops a real-time or historical anomaly detector job.
 #### Request
 
 ```json
-POST _opensearch/_anomaly_detection/detectors/<detectorId>/_stop
+POST _plugins/_anomaly_detection/detectors/<detectorId>/_stop
 ```
 
 #### Sample response
@@ -494,8 +494,8 @@ Returns all results for a search query.
 #### Request
 
 ```json
-GET _opensearch/_anomaly_detection/detectors/results/_search
-POST _opensearch/_anomaly_detection/detectors/results/_search
+GET _plugins/_anomaly_detection/detectors/results/_search
+POST _plugins/_anomaly_detection/detectors/results/_search
 
 {
   "query": {
@@ -596,7 +596,7 @@ To see an ordered set of anomaly records for an entity with an anomaly within a 
 #### Request
 
 ```json
-POST _opensearch/_anomaly_detection/detectors/results/_search
+POST _plugins/_anomaly_detection/detectors/results/_search
 {
   "query": {
     "bool": {
@@ -782,7 +782,7 @@ To get the latest task:
 #### Request
 
 ```json
-GET _opensearch/_anomaly_detection/detectors/<detector_id>?task=true
+GET _plugins/_anomaly_detection/detectors/<detector_id>?task=true
 ```
 
 To query the anomaly results with `task_id`:
@@ -790,7 +790,7 @@ To query the anomaly results with `task_id`:
 #### Request
 
 ```json
-GET _opensearch/_anomaly_detection/detectors/results/_search
+GET _plugins/_anomaly_detection/detectors/results/_search
 {
   "query": {
     "term": {
@@ -940,7 +940,7 @@ To delete a detector, you need to first stop the detector.
 #### Request
 
 ```json
-DELETE _opensearch/_anomaly_detection/detectors/<detectorId>
+DELETE _plugins/_anomaly_detection/detectors/<detectorId>
 ```
 
 
@@ -975,7 +975,7 @@ To update a detector, you need to first stop the detector.
 #### Request
 
 ```json
-PUT _opensearch/_anomaly_detection/detectors/<detectorId>
+PUT _plugins/_anomaly_detection/detectors/<detectorId>
 {
   "name": "test-detector",
   "description": "Test detector",
@@ -1091,7 +1091,7 @@ To update a historical detector:
 #### Request
 
 ```json
-PUT _opensearch/_anomaly_detection/detectors/<detectorId>
+PUT _plugins/_anomaly_detection/detectors/<detectorId>
 {
   "name": "test1",
   "description": "test historical detector",
@@ -1145,7 +1145,7 @@ Returns all information about a detector based on the `detector_id`.
 #### Request
 
 ```json
-GET _opensearch/_anomaly_detection/detectors/<detectorId>
+GET _plugins/_anomaly_detection/detectors/<detectorId>
 ```
 
 #### Sample response
@@ -1215,7 +1215,7 @@ Use `job=true` to get anomaly detection job information.
 #### Request
 
 ```json
-GET _opensearch/_anomaly_detection/detectors/<detectorId>?job=true
+GET _plugins/_anomaly_detection/detectors/<detectorId>?job=true
 ```
 
 #### Sample response
@@ -1304,7 +1304,7 @@ Use `task=true` to get historical detector task information.
 #### Request
 
 ```json
-GET _opensearch/_anomaly_detection/detectors/<detectorId>?task=true
+GET _plugins/_anomaly_detection/detectors/<detectorId>?task=true
 ```
 
 #### Sample response
@@ -1491,8 +1491,8 @@ Returns all anomaly detectors for a search query.
 #### Request
 
 ```json
-GET _opensearch/_anomaly_detection/detectors/_search
-POST _opensearch/_anomaly_detection/detectors/_search
+GET _plugins/_anomaly_detection/detectors/_search
+POST _plugins/_anomaly_detection/detectors/_search
 
 Sample Input:
 {
@@ -1597,10 +1597,10 @@ Provides information about how the plugin is performing.
 #### Request
 
 ```json
-GET _opensearch/_anomaly_detection/stats
-GET _opensearch/_anomaly_detection/<nodeId>/stats
-GET _opensearch/_anomaly_detection/<nodeId>/stats/<stat>
-GET _opensearch/_anomaly_detection/stats/<stat>
+GET _plugins/_anomaly_detection/stats
+GET _plugins/_anomaly_detection/<nodeId>/stats
+GET _plugins/_anomaly_detection/<nodeId>/stats/<stat>
+GET _plugins/_anomaly_detection/stats/<stat>
 ```
 
 #### Sample response
@@ -1697,7 +1697,7 @@ Create a monitor to set up alerts for the detector.
 #### Request
 
 ```json
-POST _opensearch/_alerting/monitors
+POST _plugins/_alerting/monitors
 {
   "type": "monitor",
   "name": "test-monitor",
@@ -1919,23 +1919,23 @@ It also helps track the initialization percentage, the required shingles, and th
 #### Request
 
 ```json
-GET _opensearch/_anomaly_detection/detectors/<detectorId>/_profile/
-GET _opensearch/_anomaly_detection/detectors/<detectorId>/_profile?_all=true
-GET _opensearch/_anomaly_detection/detectors/<detectorId>/_profile/<type>
-GET /_opensearch/_anomaly_detection/detectors/<detectorId>/_profile/<type1>,<type2>
+GET _plugins/_anomaly_detection/detectors/<detectorId>/_profile/
+GET _plugins/_anomaly_detection/detectors/<detectorId>/_profile?_all=true
+GET _plugins/_anomaly_detection/detectors/<detectorId>/_profile/<type>
+GET /_plugins/_anomaly_detection/detectors/<detectorId>/_profile/<type1>,<type2>
 ```
 
 #### Sample Responses
 
 ```json
-GET _opensearch/_anomaly_detection/detectors/<detectorId>/_profile
+GET _plugins/_anomaly_detection/detectors/<detectorId>/_profile
 
 {
     "state":"DISABLED",
     "error":"Stopped detector: AD models memory usage exceeds our limit."
 }
 
-GET _opensearch/_anomaly_detection/detectors/<detectorId>/_profile?_all=true&pretty
+GET _plugins/_anomaly_detection/detectors/<detectorId>/_profile?_all=true&pretty
 
 {
   "state": "RUNNING",
@@ -1970,7 +1970,7 @@ GET _opensearch/_anomaly_detection/detectors/<detectorId>/_profile?_all=true&pre
   }
 }
 
-GET _opensearch/_anomaly_detection/detectors/<detectorId>/_profile/total_size_in_bytes
+GET _plugins/_anomaly_detection/detectors/<detectorId>/_profile/total_size_in_bytes
 
 {
   "total_size_in_bytes" : 13369344
@@ -1984,7 +1984,7 @@ You can use this data to estimate how much memory is required for anomaly detect
 #### Request
 
 ```json
-GET /_opensearch/_anomaly_detection/detectors/<detectorId>/_profile?_all=true&pretty
+GET /_plugins/_anomaly_detection/detectors/<detectorId>/_profile?_all=true&pretty
 
 {
   "state": "RUNNING",
@@ -2043,7 +2043,7 @@ If there are no anomaly results for an entity, either the entity doesn't have an
 #### Request
 
 ```json
-GET /_opensearch/_anomaly_detection/detectors/<detectorId>/_profile?_all=true&entity=i-00f28ec1eb8997686
+GET /_plugins/_anomaly_detection/detectors/<detectorId>/_profile?_all=true&entity=i-00f28ec1eb8997686
 {
   "category_field": "host",
   "value": "i-00f28ec1eb8997686",
@@ -2067,8 +2067,8 @@ For a historical detector, specify `_all` or `ad_task` to see information about 
 #### Request
 
 ```json
-GET _opensearch/_anomaly_detection/detectors/<detectorId>/_profile?_all
-GET _opensearch/_anomaly_detection/detectors/<detectorId>/_profile/ad_task
+GET _plugins/_anomaly_detection/detectors/<detectorId>/_profile?_all
+GET _plugins/_anomaly_detection/detectors/<detectorId>/_profile/ad_task
 ```
 
 #### Sample Responses
