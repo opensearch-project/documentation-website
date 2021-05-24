@@ -1,14 +1,14 @@
 ---
 layout: default
-title: Workbench
+title: Query Workbench
 parent: SQL
 nav_order: 1
 ---
 
 
-# Workbench
+# Query Workbench
 
-Use the SQL workbench to easily run on-demand SQL queries, translate SQL into its REST equivalent, and view and save results as text, JSON, JDBC, or CSV.
+Use the Query workbench to easily run on-demand SQL queries, translate SQL into its REST equivalent, and view and save results as text, JSON, JDBC, or CSV.
 
 
 ## Quick start
@@ -38,9 +38,9 @@ To list all your indices:
 SHOW TABLES LIKE %
 ```
 
-| id | TABLE_NAME
-:--- | :---
-0 | accounts
+| TABLE_NAME
+| :---
+| accounts
 
 
 ### Read data
@@ -53,9 +53,9 @@ FROM accounts
 WHERE _id = 1
 ```
 
-| id | account_number | firstname | gender | city | balance | employer | state | email | address | lastname | age
-:--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :---
-0 | 1 | Amber | M | Brogan | 39225 | Pyrami | IL | amberduke@pyrami.com | 880 Holmes Lane | Duke | 32
+| account_number | firstname | gender | city | balance | employer | state | email | address | lastname | age
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :---
+| 1 | Amber | M | Brogan | 39225 | Pyrami | IL | amberduke@pyrami.com | 880 Holmes Lane | Duke | 32
 
 
 ### Delete data
@@ -68,6 +68,6 @@ FROM accounts
 WHERE _id = 0
 ```
 
-| id | deleted_rows
-:--- | :---
-0 | 1
+| deleted_rows
+| :---
+| 1

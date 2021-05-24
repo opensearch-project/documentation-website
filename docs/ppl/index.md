@@ -48,11 +48,11 @@ search source=accounts
 
 #### Sample Response
 
-| id | firstname | lastname |
-:--- | :--- | :--- |
-| 0    | Amber       | Duke     
-| 1    | Hattie      | Bond     
-| 2    | Nanette     | Bates    
-| 3    | Dale        | Adams    
+firstname | lastname |
+:--- | :--- |
+Amber       | Duke     
+Hattie      | Bond     
+Nanette     | Bates    
+Dale        | Adams    
 
 ![PPL query workbench](../images/ppl.png)

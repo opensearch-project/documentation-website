@@ -46,7 +46,7 @@ search source=accounts;
 ```
 
 | account_number | firstname | address | balance | gender | city | employer | state | age | email | lastname |
-:--- | :--- |
+:--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :---
 | 1  | Amber  | 880 Holmes Lane | 39225 | M | Brogan | Pyrami | IL | 32 | amberduke@pyrami.com  | Duke       
 | 6  | Hattie | 671 Bristol Street | 5686 | M | Dante | Netagy | TN | 36  | hattiebond@netagy.com | Bond
 | 13 | Nanette | 789 Madison Street | 32838 | F | Nogal | Quility | VA | 28 | null | Bates
@@ -61,7 +61,7 @@ search source=accounts account_number=1 or gender="F";
 ```
 
 | account_number | firstname | address | balance | gender | city | employer | state | age | email | lastname |
-:--- | :--- |
+:--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :---
 | 1 | Amber | 880 Holmes Lane | 39225 | M | Brogan | Pyrami | IL | 32 | amberduke@pyrami.com | Duke |
 | 13 | Nanette | 789 Madison Street | 32838 | F | Nogal | Quility | VA | 28 | null | Bates |
 
@@ -513,13 +513,11 @@ Use the `head` command to return the first N number of results in a specified se
 ### Syntax
 
 ```sql
-head [keeplast = (true | false)] [while "("<boolean-expression>")"] [N]
+head [N]
 ```
 
 Field | Description | Required | Default
 :--- | :--- |:---
-`keeplast` | Use along with the `while` argument to check if the last result in the result set is retained. The last result is what caused the `while` condition to evaluate to false or NULL. Set `keeplast` to true to retain the last result and false to discard it. | No | True
-`while` | An expression that evaluates to either true or false. You cannot use statistical functions in this expression. | No | False
 `N` | Specify the number of results to return. | No | 10
 
 *Example 1*: Get the first 10 results
@@ -548,31 +546,6 @@ search source=accounts | fields firstname, age | head 2;
 :--- | :--- |
 | Amber  | 32
 | Hattie | 36
-
-*Example 3*: Get the first N results that match a while condition
-
-To get the first 3 results from all accounts with age less than 30:
-
-```sql
-search source=accounts | fields firstname, age | sort age | head while(age < 30) 3;
-```
-
-| firstname | age
-:--- | :--- |
-| Nanette  | 28
-| Amber  | 32
-
-*Example 4*: Get the first N results with a while condition with the last result that failed the condition
-
-To get the first 3 results from all accounts with age less than 30 and include the last failed condition:
-
-```sql
-search source=accounts | fields firstname, age | sort age | head keeplast=false while(age < 30) 3;
-```
-
-| firstname | age
-:--- | :--- |
-| Nanette  | 28  
 
 ## rare
 
@@ -617,7 +590,7 @@ search source=accounts | rare age by gender;
 | M  | 32
 | M  | 33
 
-## top {#top-command}
+## top
 
 Use the `top` command to find the most common values of all fields in the field list.
 
