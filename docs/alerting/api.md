@@ -24,7 +24,7 @@ Use the alerting API to programmatically manage monitors and alerts.
 #### Request
 
 ```json
-POST _opensearch/_alerting/monitors
+POST _plugins/_alerting/monitors
 {
   "type": "monitor",
   "name": "test-monitor",
@@ -252,7 +252,7 @@ When you update a monitor, include the current version number as a parameter. Op
 #### Request
 
 ```json
-PUT _opensearch/_alerting/monitors/<monitor_id>
+PUT _plugins/_alerting/monitors/<monitor_id>
 {
   "type": "monitor",
   "name": "test-monitor",
@@ -372,7 +372,7 @@ PUT _opensearch/_alerting/monitors/<monitor_id>
 #### Request
 
 ```
-GET _opensearch/_alerting/monitors/<monitor_id>
+GET _plugins/_alerting/monitors/<monitor_id>
 ```
 
 #### Sample response
@@ -439,15 +439,15 @@ GET _opensearch/_alerting/monitors/<monitor_id>
 
 ## Monitor stats
 
-Returns statistics about the alerting feature. Use `_opensearch/_alerting/stats` to find node IDs and metrics. Then you can drill down using those values.
+Returns statistics about the alerting feature. Use `_plugins/_alerting/stats` to find node IDs and metrics. Then you can drill down using those values.
 
 #### Request
 
 ```json
-GET _opensearch/_alerting/stats
-GET _opensearch/_alerting/stats/<metric>
-GET _opensearch/_alerting/<node-id>/stats
-GET _opensearch/_alerting/<node-id>/stats/<metric>
+GET _plugins/_alerting/stats
+GET _plugins/_alerting/stats/<metric>
+GET _plugins/_alerting/<node-id>/stats
+GET _plugins/_alerting/<node-id>/stats/<metric>
 ```
 
 #### Sample response
@@ -631,7 +631,7 @@ GET _opensearch/_alerting/<node-id>/stats/<metric>
 #### Request
 
 ```
-DELETE _opensearch/_alerting/monitors/<monitor_id>
+DELETE _plugins/_alerting/monitors/<monitor_id>
 ```
 
 #### Sample response
@@ -662,7 +662,7 @@ DELETE _opensearch/_alerting/monitors/<monitor_id>
 #### Request
 
 ```json
-GET _opensearch/_alerting/monitors/_search
+GET _plugins/_alerting/monitors/_search
 {
   "query": {
     "match" : {
@@ -762,7 +762,7 @@ You can add the optional `?dryrun=true` parameter to the URL to show the results
 #### Request
 
 ```json
-POST _opensearch/_alerting/monitors/<monitor_id>/_execute
+POST _plugins/_alerting/monitors/<monitor_id>/_execute
 ```
 
 #### Sample response
@@ -793,7 +793,7 @@ Returns an array of all alerts.
 #### Request
 
 ```json
-GET _opensearch/_alerting/monitors/alerts
+GET _plugins/_alerting/monitors/alerts
 ```
 
 #### Response
@@ -862,7 +862,7 @@ GET _opensearch/_alerting/monitors/alerts
 #### Request
 
 ```json
-POST _opensearch/_alerting/monitors/<monitor-id>/_acknowledge/alerts
+POST _plugins/_alerting/monitors/<monitor-id>/_acknowledge/alerts
 {
   "alerts": ["eQURa3gBKo1jAh6qUo49"]
 }
@@ -886,7 +886,7 @@ POST _opensearch/_alerting/monitors/<monitor-id>/_acknowledge/alerts
 #### Requests
 
 ```json
-POST _opensearch/_alerting/destinations
+POST _plugins/_alerting/destinations
 {
   "name": "my-destination",
   "type": "slack",
@@ -895,7 +895,7 @@ POST _opensearch/_alerting/destinations
   }
 }
 
-POST _opensearch/_alerting/destinations
+POST _plugins/_alerting/destinations
 {
   "type": "custom_webhook",
   "name": "my-custom-destination",
@@ -939,7 +939,7 @@ POST _opensearch/_alerting/destinations
 #### Request
 
 ```json
-PUT _opensearch/_alerting/destinations/<destination-id>
+PUT _plugins/_alerting/destinations/<destination-id>
 {
   "name": "my-updated-destination",
   "type": "slack",
@@ -976,7 +976,7 @@ Retrieve one destination.
 #### Requests
 
 ```json
-GET _opensearch/_alerting/destinations/<destination-id>
+GET _plugins/_alerting/destinations/<destination-id>
 ```
 
 #### Sample response
@@ -1021,7 +1021,7 @@ Retrieve all destinations.
 #### Requests
 
 ```json
-GET _opensearch/_alerting/destinations
+GET _plugins/_alerting/destinations
 ```
 
 #### Sample response
@@ -1064,7 +1064,7 @@ GET _opensearch/_alerting/destinations
 #### Request
 
 ```
-DELETE _opensearch/_alerting/destinations/<destination-id>
+DELETE _plugins/_alerting/destinations/<destination-id>
 ```
 
 #### Sample response
@@ -1092,7 +1092,7 @@ DELETE _opensearch/_alerting/destinations/<destination-id>
 
 #### Request
 ```json
-POST _opensearch/_alerting/destinations/email_accounts
+POST _plugins/_alerting/destinations/email_accounts
 {
   "name": "example_account",
   "email": "example@email.com",
@@ -1124,7 +1124,7 @@ POST _opensearch/_alerting/destinations/email_accounts
 
 #### Request
 ```json
-PUT _opensearch/_alerting/destinations/email_accounts/<email_account_id>
+PUT _plugins/_alerting/destinations/email_accounts/<email_account_id>
 {
   "name": "example_account",
   "email": "example@email.com",
@@ -1155,7 +1155,7 @@ PUT _opensearch/_alerting/destinations/email_accounts/<email_account_id>
 
 #### Request
 ```json
-GET _opensearch/_alerting/destinations/email_accounts/<email_account_id>
+GET _plugins/_alerting/destinations/email_accounts/<email_account_id>
 {
   "name": "example_account",
   "email": "example@email.com",
@@ -1186,7 +1186,7 @@ GET _opensearch/_alerting/destinations/email_accounts/<email_account_id>
 
 #### Request
 ```
-DELETE _opensearch/_alerting/destinations/email_accounts/<email_account_id>
+DELETE _plugins/_alerting/destinations/email_accounts/<email_account_id>
 ```
 #### Sample response
 
@@ -1213,7 +1213,7 @@ DELETE _opensearch/_alerting/destinations/email_accounts/<email_account_id>
 #### Request
 
 ```json
-POST _opensearch/_alerting/destinations/email_accounts/_search
+POST _plugins/_alerting/destinations/email_accounts/_search
 {
   "from": 0,
   "size": 20,
@@ -1279,7 +1279,7 @@ POST _opensearch/_alerting/destinations/email_accounts/_search
 #### Request
 
 ```json
-POST _opensearch/_alerting/destinations/email_groups
+POST _plugins/_alerting/destinations/email_groups
 {
   "name": "example_email_group",
   "emails": [{
@@ -1313,7 +1313,7 @@ POST _opensearch/_alerting/destinations/email_groups
 #### Request
 
 ```json
-PUT _opensearch/_alerting/destinations/email_groups/<email_group_id>
+PUT _plugins/_alerting/destinations/email_groups/<email_group_id>
 {
   "name": "example_email_group",
   "emails": [{
@@ -1345,7 +1345,7 @@ PUT _opensearch/_alerting/destinations/email_groups/<email_group_id>
 
 #### Request
 ```json
-GET _opensearch/_alerting/destinations/email_groups/<email_group_id>
+GET _plugins/_alerting/destinations/email_groups/<email_group_id>
 {
   "name": "example_email_group",
   "emails": [{
@@ -1377,7 +1377,7 @@ GET _opensearch/_alerting/destinations/email_groups/<email_group_id>
 
 #### Request
 ```
-DELETE _opensearch/_alerting/destinations/email_groups/<email_group_id>
+DELETE _plugins/_alerting/destinations/email_groups/<email_group_id>
 ```
 #### Sample response
 
@@ -1404,7 +1404,7 @@ DELETE _opensearch/_alerting/destinations/email_groups/<email_group_id>
 #### Request
 
 ```json
-POST _opensearch/_alerting/destinations/email_groups/_search
+POST _plugins/_alerting/destinations/email_groups/_search
 {
   "from": 0,
   "size": 20,
