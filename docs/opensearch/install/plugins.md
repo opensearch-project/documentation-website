@@ -227,7 +227,7 @@ Performance Analyzer requires some manual configuration after installing the plu
 1. Send a test request:
 
    ```bash
-   curl -XGET "localhost:9600/_opensearch/_performanceanalyzer/metrics?metrics=Latency,CPU_Utilization&agg=avg,max&dim=ShardID&nodes=all"
+   curl -XGET "localhost:9600/_plugins/_performanceanalyzer/metrics?metrics=Latency,CPU_Utilization&agg=avg,max&dim=ShardID&nodes=all"
    ```
 
 

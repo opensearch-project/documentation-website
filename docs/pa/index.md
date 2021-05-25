@@ -25,25 +25,25 @@ npm install -g @aws/opensearch-perftop
 The basic syntax is:
 
 ```bash
-./perf-top-<operating_system> --dashboard <dashboard>.json --endpoint <endpoint>
+./opensearch-perf-top-<operating_system> --dashboard <dashboard>.json --endpoint <endpoint>
 ```
 
 If you're using npm, the syntax is similar:
 
 ```bash
-perf-top --dashboard <dashboard> --endpoint <endpoint>
+opensearch-perf-top --dashboard <dashboard> --endpoint <endpoint>
 ```
 
 If you're running PerfTop from a node (i.e. locally), specify port 9600:
 
 ```bash
-./perf-top-linux --dashboard dashboards/<dashboard>.json --endpoint localhost:9600
+./opensearch-perf-top-linux --dashboard dashboards/<dashboard>.json --endpoint localhost:9600
 ```
 
 Otherwise, just specify the OpenSearch endpoint:
 
 ```bash
-./perf-top-macos --dashboard dashboards/<dashboard>.json --endpoint my-cluster.my-domain.com
+./opensearch-perf-top-macos --dashboard dashboards/<dashboard>.json --endpoint my-cluster.my-domain.com
 ```
 
 PerfTop has four pre-built dashboards in the `dashboards` directory, but you can also [create your own](dashboards/).
@@ -83,10 +83,10 @@ mount -o remount /dev/shm
 
 ### Security
 
-Performance Analyzer supports encryption in transit for requests. It currently does *not* support client or server authentication for requests. To enable encryption in transit, edit `performance-analyzer.properties` in your `$ES_HOME` directory:
+Performance Analyzer supports encryption in transit for requests. It currently does *not* support client or server authentication for requests. To enable encryption in transit, edit `performance-analyzer.properties` in your `$OPENSEARCH_HOME` directory:
 
 ```bash
-vi $ES_HOME/plugins/opensearch_performance_analyzer/pa_config/performance-analyzer.properties
+vi $OPENSEARCH_HOME/plugins/opensearch-performance-analyzer/pa_config/performance-analyzer.properties
 ```
 
 Change the following lines to configure encryption in transit. Note that `certificate-file-path` must be a certificate for the server, not a root CA:
