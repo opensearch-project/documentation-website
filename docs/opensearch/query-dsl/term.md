@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Term-level queries
-parent: OpenSearch
+parent: Query DSL
+grand_parent: OpenSearch
 nav_order: 30
 ---
 

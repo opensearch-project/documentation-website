@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Boolean queries
-parent: OpenSearch
+parent: Query DSL
+grand_parent: OpenSearch
 nav_order: 45
 ---
 
