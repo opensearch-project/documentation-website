@@ -46,7 +46,7 @@ For example, consider two users: `alice` and `bob`.
 `alice` has an analyst backend role:
 
 ```json
-PUT _opensearch/_security/api/internalusers/alice
+PUT _plugins/_security/api/internalusers/alice
 {
   "password": "alice",
   "backend_roles": [
@@ -59,7 +59,7 @@ PUT _opensearch/_security/api/internalusers/alice
 `bob` has a human-resources backend role:
 
 ```json
-PUT _opensearch/_security/api/internalusers/bob
+PUT _plugins/_security/api/internalusers/bob
 {
   "password": "bob",
   "backend_roles": [
@@ -72,7 +72,7 @@ PUT _opensearch/_security/api/internalusers/bob
 Both `alice` and `bob` have full access to anomaly detection:
 
 ```json
-PUT _opensearch/_security/api/rolesmapping/anomaly_full_access
+PUT _plugins/_security/api/rolesmapping/anomaly_full_access
 {
   "backend_roles": [],
   "hosts": [],
