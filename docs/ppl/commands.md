@@ -590,7 +590,7 @@ search source=accounts | rare age by gender;
 | M  | 32
 | M  | 33
 
-## top
+## top {#top-command}
 
 Use the `top` command to find the most common values of all fields in the field list.
 

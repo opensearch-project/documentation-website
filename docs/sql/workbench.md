@@ -8,7 +8,7 @@ nav_order: 1
 
 # Query Workbench
 
-Use the Query workbench to easily run on-demand SQL queries, translate SQL into its REST equivalent, and view and save results as text, JSON, JDBC, or CSV.
+Use the Query Workbench to easily run on-demand SQL queries, translate SQL into its REST equivalent, and view and save results as text, JSON, JDBC, or CSV.
 
 
 ## Quick start
