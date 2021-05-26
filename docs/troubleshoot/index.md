@@ -36,7 +36,7 @@ cryptsetup luksFormat --key-file <key> <partition>
 
 For full documentation on the command, see [the Linux man page](http://man7.org/linux/man-pages/man8/cryptsetup.8.html).
 
-
+{% comment %}
 ## Beats
 
 If you encounter compatibility issues when attempting to connect Beats to OpenSearch, make sure you're using the Apache 2.0 distribution of Beats, not the default distribution, which uses a proprietary license.
@@ -80,7 +80,7 @@ output {
   }
 }
 ```
-
+{% endcomment %}
 
 ## Can't update by script when FLS, DLS, or field masking is active
 

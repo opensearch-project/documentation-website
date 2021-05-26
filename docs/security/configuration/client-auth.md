@@ -87,6 +87,7 @@ response = requests.get(url, cert = (cert_file_path, key_file_path), verify=root
 print(response.text)
 ```
 
+{% comment %}
 ## Configuring Beats
 
 You can also configure your Beats so that it uses a client certificate for authentication with OpenSearch. Afterwards, it can start sending output to OpenSearch.
@@ -105,6 +106,7 @@ output.opensearch:
   ssl.certificate: "/full/path/to/client-cert.pem"
   ssl.key: "/full/path/to/to/client-cert-key.pem"
 ```
+{% endcomment %}
 
 ## Using certificates with Docker
 
