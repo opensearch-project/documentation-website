@@ -219,7 +219,7 @@ Create an index rollup job.
 This example picks the `order_date`, `customer_gender`, `geoip.city_name`, `geoip.region_name`, and `day_of_week` fields and rolls them into an `example_rollup` target index:
 
 ```json
-PUT _opensearch/_rollup/jobs/example
+PUT _plugins/_rollup/jobs/example
 {
   "rollup": {
     "enabled": true,

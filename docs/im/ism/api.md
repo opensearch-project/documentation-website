@@ -28,7 +28,7 @@ Creates a policy.
 #### Request
 
 ```json
-PUT _opensearch/_ism/policies/policy_1
+PUT _plugins/_ism/policies/policy_1
 {
   "policy": {
     "description": "ingesting logs",
@@ -145,7 +145,7 @@ Adds a policy to an index. This operation does not change the policy if the inde
 #### Request
 
 ```json
-POST _opensearch/_ism/add/index_1
+POST _plugins/_ism/add/index_1
 {
   "policy_id": "policy_1"
 }
@@ -171,7 +171,7 @@ Updates a policy. Use the `seq_no` and `primary_term` parameters to update an ex
 #### Request
 
 ```json
-PUT _opensearch/_ism/policies/policy_1?if_seq_no=7&if_primary_term=1
+PUT _plugins/_ism/policies/policy_1?if_seq_no=7&if_primary_term=1
 {
   "policy": {
     "description": "ingesting logs",
@@ -288,7 +288,7 @@ Gets the policy by `policy_id`.
 #### Request
 
 ```json
-GET _opensearch/_ism/policies/policy_1
+GET _plugins/_ism/policies/policy_1
 ```
 
 
@@ -358,7 +358,7 @@ Removes any ISM policy from the index.
 #### Request
 
 ```json
-POST _opensearch/_ism/remove/index_1
+POST _plugins/_ism/remove/index_1
 ```
 
 
@@ -385,7 +385,7 @@ In this example, the policy applied on the `index_1` index is changed to `policy
 #### Request
 
 ```json
-POST _opensearch/_ism/change_policy/index_1
+POST _plugins/_ism/change_policy/index_1
 {
   "policy_id": "policy_1",
   "state": "delete",
@@ -417,7 +417,7 @@ Retries the failed action for an index. For the retry call to succeed, ISM must 
 #### Request
 
 ```json
-POST _opensearch/_ism/retry/index_1
+POST _plugins/_ism/retry/index_1
 {
   "state": "delete"
 }
@@ -443,7 +443,7 @@ Gets the current state of the index. You can use index patterns to get the statu
 #### Request
 
 ```json
-GET _opensearch/_ism/explain/index_1
+GET _plugins/_ism/explain/index_1
 ```
 
 
@@ -469,7 +469,7 @@ Deletes the policy by `policy_id`.
 #### Request
 
 ```json
-DELETE _opensearch/_ism/policies/policy_1
+DELETE _plugins/_ism/policies/policy_1
 ```
 
 

@@ -41,7 +41,7 @@ After you create a policy, your next step is to attach this policy to an index o
 You can set up an `ism_template` in the policy so when you create an index that matches the ISM template pattern, the index will have this policy attached to it:
 
 ```json
-PUT _opensearch/_ism/policies/policy_id
+PUT _plugins/_ism/policies/policy_id
 {
   "policy": {
     "description": "Example policy.",
