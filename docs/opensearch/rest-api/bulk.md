@@ -71,7 +71,7 @@ Optional document\n
 
 The optional JSON document doesn't need to be minified---spaces are fine---but it does need to be on a single line. OpenSearch uses newline characters to parse bulk requests and requires that the request body end with a newline character.
 
-All actions support the same metadata: `_index`, `_id`, and `_require_alias`.
+All actions support the same metadata: `_index`, `_id`, and `_require_alias`. If you don't provide an ID, OpenSearch generates one automatically, which can make it challenging to update the document at a later time.
 
 - Create
 
