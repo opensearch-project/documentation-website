@@ -273,4 +273,4 @@ This project is licensed under the Apache-2.0 License.
 
 ## Copyright
 
-Copyright Amazon.com, Inc. or its affiliates. All rights reserved.
+Copyright 2021 OpenSearch contributors.
