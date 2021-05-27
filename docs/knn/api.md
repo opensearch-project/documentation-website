@@ -15,7 +15,7 @@ The k-NN plugin adds two API operations to help you better manage the plugin's f
 
 The k-NN `stats` API provides information about the current status of the k-NN plugin. The plugin keeps track of both cluster-level and node-level statistics. Cluster-level statistics have a single value for the entire cluster. Node-level statistics have a single value for each node in the cluster. You can filter the query by `nodeId` and `statName`:
 ```
-GET /_opensearch/_knn/nodeId1,nodeId2/stats/statName1,statName2
+GET /_plugins/_knn/nodeId1,nodeId2/stats/statName1,statName2
 ```
 
 Statistic |  Description
@@ -45,7 +45,7 @@ Statistic |  Description
 ### Usage
 
 ```json
-GET /_opensearch/_knn/stats?pretty
+GET /_plugins/_knn/stats?pretty
 {
     "_nodes" : {
         "total" : 1,
@@ -87,7 +87,7 @@ GET /_opensearch/_knn/stats?pretty
 ```
 
 ```json
-GET /_opensearch/_knn/HYMrXXsBSamUkcAjhjeN0w/stats/circuit_breaker_triggered,graph_memory_usage?pretty
+GET /_plugins/_knn/HYMrXXsBSamUkcAjhjeN0w/stats/circuit_breaker_triggered,graph_memory_usage?pretty
 {
     "_nodes" : {
         "total" : 1,
@@ -121,7 +121,7 @@ After the process finishes, you can start searching against the indices with no 
 This request performs a warmup on three indices:
 
 ```json
-GET /_opensearch/_knn/warmup/index1,index2,index3?pretty
+GET /_plugins/_knn/warmup/index1,index2,index3?pretty
 {
   "_shards" : {
     "total" : 6,
