@@ -64,7 +64,7 @@ Take the following steps to improve search performance:
    To avoid this latency penalty during your first queries, you can use the warmup API operation on the indices you want to search:
 
    ```json
-   GET /_opensearch/_knn/warmup/index1,index2,index3?pretty
+   GET /_plugins/_knn/warmup/index1,index2,index3?pretty
    {
      "_shards" : {
        "total" : 6,
