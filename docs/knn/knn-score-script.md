@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Exact k-NN with scoring script
-nav_order: 2
+nav_order: 3
 parent: k-NN
 has_children: false
 has_math: true
@@ -299,11 +299,21 @@ A space corresponds to the function used to measure the distance between two poi
     <td>1 / (1 + Distance Function)</td>
   </tr>
   <tr>
+    <td>linf</td>
+    <td>\[ Distance(X, Y) = Max(X_i - Y_i) \]</td>
+    <td>1 / (1 + Distance Function)</td>
+  </tr>
+  <tr>
     <td>cosinesimil</td>
     <td>\[ {A &middot; B \over \|A\| &middot; \|B\|} =
     {\sum_{i=1}^n (A_i &middot; B_i) \over \sqrt{\sum_{i=1}^n A_i^2} &middot; \sqrt{\sum_{i=1}^n B_i^2}}\]
     where \(\|A\|\) and \(\|B\|\) represent normalized vectors.</td>
     <td>1 + Distance Function</td>
+  </tr>
+  <tr>
+    <td>innerproduct</td>
+    <td>\[ Distance(X, Y) = \sum_{i=1}^n (X_i - Y_i) \]</td>
+    <td>1 / (1 + Distance Function)</td>
   </tr>
   <tr>
     <td>hammingbit</td>

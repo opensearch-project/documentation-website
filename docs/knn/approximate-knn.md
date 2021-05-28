@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Approximate search
-nav_order: 1
+nav_order: 2
 parent: k-NN
 has_children: false
 has_math: true
@@ -19,7 +19,7 @@ Because the graphs are constructed during indexing, it is not possible to apply 
 
 To use the k-NN plugin's approximate search functionality, you must first create a k-NN index with setting `index.knn` to `true`. This setting tells the plugin to create HNSW graphs for the index.
 
-Additionally, if you're using the approximate k-nearest neighbor method, specify `knn.space_type` to the space you're interested in. You can't change this setting after it's set. To see what spaces we support, see [spaces](#spaces). By default, `index.knn.space_type` is `l2`. For more information about index settings, such as algorithm parameters you can tweak to tune performance, see [Index settings](../settings#index-settings).
+Additionally, if you're using the approximate k-nearest neighbor method, specify `knn.space_type` to the space you're interested in. You can't change this setting after it's set. To see what spaces we support, see [spaces](#spaces). By default, `index.knn.space_type` is `l2`. For more information about index settings, such as algorithm parameters you can tweak to tune performance, see [Index settings](../knn-index#index-settings).
 
 Next, you must add one or more fields of the `knn_vector` data type. This example creates an index with two `knn_vector` fields and uses cosine similarity:
 
@@ -29,19 +29,37 @@ PUT my-knn-index-1
   "settings": {
     "index": {
       "knn": true,
-      "knn.space_type": "cosinesimil"
+      "knn.algo_param.ef_search": 100
     }
   },
   "mappings": {
     "properties": {
-      "my_vector1": {
-        "type": "knn_vector",
-        "dimension": 2
-      },
-      "my_vector2": {
-        "type": "knn_vector",
-        "dimension": 4
-      }
+        "my_vector1": {
+          "type": "knn_vector",
+          "dimension": 4,
+          "method": {
+            "name": "hnsw",
+            "space_type": "l2",
+            "engine": "nmslib",
+            "parameters": {
+              "ef_construction": 128,
+              "m": 24
+            } 
+          }
+        },
+        "my_vector2": {
+          "type": "knn_vector",
+          "dimension": 4,
+          "method": {
+            "name": "hnsw",
+            "space_type": "cosinesimil",
+            "engine": "nmslib",
+            "parameters": {
+              "ef_construction": 256,
+              "m": 48
+            } 
+          }
+        }
     }
   }
 }
@@ -145,6 +163,11 @@ A space corresponds to the function used to measure the distance between two poi
     <td>1 / (1 + Distance Function)</td>
   </tr>
   <tr>
+    <td>linf</td>
+    <td>\[ Distance(X, Y) = Max(X_i - Y_i) \]</td>
+    <td>1 / (1 + Distance Function)</td>
+  </tr>
+  <tr>
     <td>cosinesimil</td>
     <td>\[ 1 - {A &middot; B \over \|A\| &middot; \|B\|} = 1 -
     {\sum_{i=1}^n (A_i &middot; B_i) \over \sqrt{\sum_{i=1}^n A_i^2} &middot; \sqrt{\sum_{i=1}^n B_i^2}}\]
@@ -152,9 +175,9 @@ A space corresponds to the function used to measure the distance between two poi
     <td>1 / (1 + Distance Function)</td>
   </tr>
   <tr>
-    <td>hammingbit</td>
-    <td style="text-align:center">Distance = countSetBits(X \(\oplus\) Y)</td>
-    <td>1 / (1 + Distance Function)</td>
+    <td>innerproduct</td>
+    <td>\[ Distance(X, Y) = {A &middot; B} \]</td>
+    <td>if (Distance Function >= 0) 1 / (1 + Distance Function) else -Distance Function + 1</td>
   </tr>
 </table>
 
