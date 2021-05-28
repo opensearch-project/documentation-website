@@ -71,7 +71,7 @@ For example, after running a transform job that transforms the source index base
 **Sample Request**
 
 ```json
-GET kc_test_job/_search
+GET sample_target_index/_search
 {
   "query": {
     "match": {
@@ -101,7 +101,7 @@ GET kc_test_job/_search
     "max_score" : 0.9808291,
     "hits" : [
       {
-        "_index" : "kc_test_job",
+        "_index" : "sample_target_index",
         "_type" : "_doc",
         "_id" : "w5oN7gnx5nw2PJaS6zDlCw",
         "_score" : 0.9808291,
