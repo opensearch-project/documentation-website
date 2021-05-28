@@ -1,7 +1,7 @@
 ---
 layout: default
 title: k-NN Painless extensions
-nav_order: 3
+nav_order: 4
 parent: k-NN
 has_children: false
 has_math: true
