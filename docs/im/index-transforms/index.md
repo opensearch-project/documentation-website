@@ -106,67 +106,67 @@ GET sample_target_index/_search
         "_id" : "w5oN7gnx5nw2PJaS6zDlCw",
         "_score" : 0.9808291,
         "_source" : {
-          "transform._id" : "kc_test_job",
+          "transform._id" : "sample_target_index",
           "transform._doc_count" : 23,
           "customer_gender_terms" : "FEMALE",
           "category.keyword_terms" : "Men's Shoes"
         }
       },
       {
-        "_index" : "kc_test_job",
+        "_index" : "sample_target_index",
         "_type" : "_doc",
         "_id" : "r4xZ81gHD1hZG-5HJpcNaw",
         "_score" : 0.9808291,
         "_source" : {
-          "transform._id" : "kc_test_job",
+          "transform._id" : "sample_target_index",
           "transform._doc_count" : 19,
           "customer_gender_terms" : "FEMALE",
           "category.keyword_terms" : "Men's Accessories"
         }
       },
       {
-        "_index" : "kc_test_job",
+        "_index" : "sample_target_index",
         "_type" : "_doc",
         "_id" : "sJLR4dGCws_jsUKjNj3u-Q",
         "_score" : 0.2876821,
         "_source" : {
-          "transform._id" : "kc_test_job",
+          "transform._id" : "sample_target_index",
           "transform._doc_count" : 61,
           "customer_gender_terms" : "FEMALE",
           "category.keyword_terms" : "Men's Clothing"
         }
       },
       {
-        "_index" : "kc_test_job",
+        "_index" : "sample_target_index",
         "_type" : "_doc",
         "_id" : "nrkzdJOQU7p1BB4fPUT6Ag",
         "_score" : 0.13353139,
         "_source" : {
-          "transform._id" : "kc_test_job",
+          "transform._id" : "sample_target_index",
           "transform._doc_count" : 730,
           "customer_gender_terms" : "FEMALE",
           "category.keyword_terms" : "Women's Accessories"
         }
       },
       {
-        "_index" : "kc_test_job",
+        "_index" : "sample_target_index",
         "_type" : "_doc",
         "_id" : "1raYCebejLhqCvA81fytpg",
         "_score" : 0.13353139,
         "_source" : {
-          "transform._id" : "kc_test_job",
+          "transform._id" : "sample_target_index",
           "transform._doc_count" : 1903,
           "customer_gender_terms" : "FEMALE",
           "category.keyword_terms" : "Women's Clothing"
         }
       },
       {
-        "_index" : "kc_test_job",
+        "_index" : "sample_target_index",
         "_type" : "_doc",
         "_id" : "X1fLVivgCgLKmctQid3L5A",
         "_score" : 0.13353139,
         "_source" : {
-          "transform._id" : "kc_test_job",
+          "transform._id" : "sample_target_index",
           "transform._doc_count" : 1136,
           "customer_gender_terms" : "FEMALE",
           "category.keyword_terms" : "Women's Shoes"
