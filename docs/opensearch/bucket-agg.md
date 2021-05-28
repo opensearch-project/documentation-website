@@ -11,7 +11,7 @@ has_children: false
 
 Bucket aggregations categorize sets of documents as buckets. The type of bucket aggregation determines whether a given document falls into a bucket or not.
 
-You can use bucket aggregations to implement faceted navigation (usually placed as a sidebar on a search result landing page) to help you're users narrow down the results.
+You can use bucket aggregations to implement faceted navigation (usually placed as a sidebar on a search result landing page) to help your users narrow down the results.
 
 ## terms
 
