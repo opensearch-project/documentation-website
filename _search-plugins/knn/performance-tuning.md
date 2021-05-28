@@ -49,7 +49,7 @@ Take the following steps to improve search performance:
 
 * **Reduce segment count**
 
-   To improve search performance, you must keep the number of segments under control. Lucene's IndexSearcher searches over all of the segments in a shard to find the 'size' best results. However, because the complexity of search for the HNSW algorithm is logarithmic with respect to the number of vectors, searching over five graphs with 100 vectors each and then taking the top 'size' results from 5*k results will take longer than searching over one graph with 500 vectors and then taking the top size results from k results. 
+   To improve search performance, you must keep the number of segments under control. Lucene's IndexSearcher searches over all of the segments in a shard to find the 'size' best results. However, because the complexity of search for the HNSW algorithm is logarithmic with respect to the number of vectors, searching over five graphs with 100 vectors each and then taking the top 'size' results from 5*k results will take longer than searching over one graph with 500 vectors and then taking the top size results from k results.
 
    Ideally, having one segment per shard provides the optimal performance with respect to search latency. You can configure an index to have multiple shards to avoid giant shards and achieve more parallelism.
 
@@ -86,7 +86,7 @@ Take the following steps to improve search performance:
 
 Recall depends on multiple factors like number of vectors, number of dimensions, segments, and so on. Searching over a large number of small segments and aggregating the results leads to better recall than searching over a small number of large segments and aggregating results. The larger the graph, the more chances of losing recall if you're using smaller algorithm parameters. Choosing larger values for algorithm parameters should help solve this issue but sacrifices search latency and indexing time. That being said, it's important to understand your system's requirements for latency and accuracy, and then choose the number of segments you want your index to have based on experimentation.
 
-To configure recall, adjust the algorithm parameters of the HNSW algorithm exposed through index settings. Algorithm parameters that control recall are `m`, `ef_construction`, and `ef_search`. For more information about how algorithm parameters influence indexing and search recall, see [HNSW algorithm parameters](https://github.com/nmslib/hnswlib/blob/master/ALGO_PARAMS.md). Increasing these values can help recall and lead to better search results, but at the cost of higher memory utilization and increased indexing time. 
+To configure recall, adjust the algorithm parameters of the HNSW algorithm exposed through index settings. Algorithm parameters that control recall are `m`, `ef_construction`, and `ef_search`. For more information about how algorithm parameters influence indexing and search recall, see [HNSW algorithm parameters](https://github.com/nmslib/hnswlib/blob/master/ALGO_PARAMS.md). Increasing these values can help recall and lead to better search results, but at the cost of higher memory utilization and increased indexing time.
 
 The default recall values work on a broader set of use cases, but make sure to run your own experiments on your data sets and choose the appropriate values. For index-level settings, see [Index settings](../knn-index#index-settings).
 
@@ -102,7 +102,8 @@ As an example, assume you have a million vectors with a dimension of 256 and M o
 1.1 * (4 *256 + 8 * 16) * 1,000,000 ~= 1.26 GB
 ```
 
-**Note**: Remember that having a replica doubles the total number of vectors.
+Having a replica doubles the total number of vectors.
+{: .note }
 
 ## Approximate nearest neighbor versus score script
 
