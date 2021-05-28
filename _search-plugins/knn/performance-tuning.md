@@ -2,7 +2,7 @@
 layout: default
 title: Performance tuning
 parent: k-NN
-nav_order: 7
+nav_order: 8
 ---
 
 # Performance tuning
@@ -88,7 +88,7 @@ Recall depends on multiple factors like number of vectors, number of dimensions,
 
 To configure recall, adjust the algorithm parameters of the HNSW algorithm exposed through index settings. Algorithm parameters that control recall are `m`, `ef_construction`, and `ef_search`. For more information about how algorithm parameters influence indexing and search recall, see [HNSW algorithm parameters](https://github.com/nmslib/hnswlib/blob/master/ALGO_PARAMS.md). Increasing these values can help recall and lead to better search results, but at the cost of higher memory utilization and increased indexing time. 
 
-The default recall values work on a broader set of use cases, but make sure to run your own experiments on your data sets and choose the appropriate values. For index-level settings, see [Index settings](../settings#index-settings).
+The default recall values work on a broader set of use cases, but make sure to run your own experiments on your data sets and choose the appropriate values. For index-level settings, see [Index settings](../knn-index#index-settings).
 
 ## Estimating memory usage
 

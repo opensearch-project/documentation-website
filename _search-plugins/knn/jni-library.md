@@ -1,7 +1,7 @@
 ---
 layout: default
 title: JNI library
-nav_order: 5
+nav_order: 6
 parent: k-NN
 has_children: false
 ---

@@ -2,25 +2,12 @@
 layout: default
 title: Settings
 parent: k-NN
-nav_order: 6
+nav_order: 7
 ---
 
 # k-NN settings
 
-The k-NN plugin adds several new index and cluster settings.
-
-
-## Index settings
-
-The default values work well for most use cases, but you can change these settings when you create the index.
-
-Setting | Default | Description
-:--- | :--- | :---
-`index.knn.algo_param.ef_search` | 512 | The size of the dynamic list used during k-NN searches. Higher values lead to more accurate but slower searches.
-`index.knn.algo_param.ef_construction` | 512 | The size of the dynamic list used during k-NN graph creation. Higher values lead to a more accurate graph, but slower indexing speed.
-`index.knn.algo_param.m` | 16 | The number of bidirectional links that the plugin creates for each new element. Increasing and decreasing this value can have a large impact on memory consumption. Keep this value between 2-100.
-`index.knn.space_type` | "l2" | The vector space used to calculate the distance between vectors. Currently, the k-NN plugin supports the `l2` space (Euclidean distance) and `cosinesimil` space (cosine similarity). For more information on these spaces, see the [nmslib documentation](https://github.com/nmslib/nmslib/blob/master/manual/spaces.md).
-
+The k-NN plugin adds several new cluster settings.
 
 ## Cluster settings
 
