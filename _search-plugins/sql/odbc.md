@@ -3,6 +3,7 @@ layout: default
 title: ODBC Driver
 parent: SQL
 nav_order: 72
+redirect_from: /docs/sql/obdc/
 ---
 
 # ODBC driver

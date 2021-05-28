@@ -3,6 +3,7 @@ layout: default
 title: Backend Configuration
 parent: Configuration
 nav_order: 2
+redirect_from: /docs/security/configuration/configuration/
 ---
 
 # Backend configuration

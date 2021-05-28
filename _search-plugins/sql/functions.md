@@ -3,6 +3,7 @@ layout: default
 title: Functions
 parent: SQL
 nav_order: 10
+redirect_from: /docs/sql/functions/
 ---
 
 # Functions

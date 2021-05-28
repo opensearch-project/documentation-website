@@ -3,6 +3,7 @@ layout: default
 title: TLS Certificates
 parent: Configuration
 nav_order: 10
+redirect_from: /docs/security/configuration/tls/
 ---
 
 # Configure TLS certificates

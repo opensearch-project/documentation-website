@@ -3,6 +3,7 @@ layout: default
 title: Active Directory and LDAP
 parent: Configuration
 nav_order: 30
+redirect_from: /docs/security/configuration/ldap/
 ---
 
 # Active Directory and LDAP

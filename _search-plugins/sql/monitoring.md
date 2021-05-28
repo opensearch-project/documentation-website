@@ -3,6 +3,7 @@ layout: default
 title: Monitoring
 parent: SQL
 nav_order: 15
+redirect_from: /docs/sql/monitoring/
 ---
 
 # Monitoring

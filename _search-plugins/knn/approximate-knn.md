@@ -5,6 +5,7 @@ nav_order: 2
 parent: k-NN
 has_children: false
 has_math: true
+redirect_from: /docs/knn/approximate-knn/
 ---
 
 # Approximate k-NN search
@@ -44,7 +45,7 @@ PUT my-knn-index-1
             "parameters": {
               "ef_construction": 128,
               "m": 24
-            } 
+            }
           }
         },
         "my_vector2": {
@@ -57,7 +58,7 @@ PUT my-knn-index-1
             "parameters": {
               "ef_construction": 256,
               "m": 48
-            } 
+            }
           }
         }
     }

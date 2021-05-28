@@ -3,6 +3,7 @@ layout: default
 title: Troubleshooting
 parent: SQL
 nav_order: 17
+redirect_from: /docs/sql/troubleshoot/
 ---
 
 # Troubleshooting

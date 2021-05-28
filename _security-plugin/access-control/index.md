@@ -4,6 +4,7 @@ title: Access Control
 nav_order: 10
 has_children: true
 has_toc: false
+redirect_from: /docs/security/access-control/
 ---
 
 # Access control

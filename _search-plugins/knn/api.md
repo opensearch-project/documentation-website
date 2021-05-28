@@ -4,6 +4,7 @@ title: API
 nav_order: 5
 parent: k-NN
 has_children: false
+redirect_from: /docs/knn/api/
 ---
 
 # k-NN plugin API
@@ -22,7 +23,7 @@ Statistic |  Description
 :--- | :---
 `circuit_breaker_triggered` | Indicates whether the circuit breaker is triggered. This statistic is only relevant to approximate k-NN search.
 `total_load_time` | The time in nanoseconds that k-NN has taken to load graphs into the cache. This statistic is only relevant to approximate k-NN search.
-`eviction_count` | The number of graphs that have been evicted from the cache due to memory constraints or idle time. This statistic is only relevant to approximate k-NN search. <br /> **Note**: Explicit evictions that occur because of index deletion aren't counted. 
+`eviction_count` | The number of graphs that have been evicted from the cache due to memory constraints or idle time. This statistic is only relevant to approximate k-NN search. <br /> **Note**: Explicit evictions that occur because of index deletion aren't counted.
 `hit_count` | The number of cache hits. A cache hit occurs when a user queries a graph that's already loaded into memory. This statistic is only relevant to approximate k-NN search.
 `miss_count` | The number of cache misses. A cache miss occurs when a user queries a graph that isn't loaded into memory yet. This statistic is only relevant to approximate k-NN search.
 `graph_memory_usage` | Current cache size (total size of all graphs in memory) in kilobytes. This statistic is only relevant to approximate k-NN search.

@@ -3,6 +3,7 @@ layout: default
 title: Permissions
 parent: Access Control
 nav_order: 50
+redirect_from: /docs/security/access-control/permissions/
 ---
 
 # Permissions

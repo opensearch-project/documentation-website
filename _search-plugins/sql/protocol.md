@@ -3,6 +3,7 @@ layout: default
 title: Protocol
 parent: SQL
 nav_order: 14
+redirect_from: /docs/sql/protocol/
 ---
 
 # Protocol

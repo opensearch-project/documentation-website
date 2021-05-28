@@ -3,8 +3,8 @@ layout: default
 title: Workbench
 parent: SQL
 nav_order: 1
+redirect_from: /docs/sql/workbench/
 ---
-
 
 # Workbench
 

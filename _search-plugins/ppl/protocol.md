@@ -3,6 +3,7 @@ layout: default
 title: Protocol
 parent: Piped processing language
 nav_order: 2
+redirect_from: /docs/ppl/protocol/
 ---
 
 # Protocol

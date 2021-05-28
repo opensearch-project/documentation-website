@@ -3,6 +3,7 @@ layout: default
 title: JDBC Driver
 parent: SQL
 nav_order: 71
+redirect_from: /docs/sql/jdbc/
 ---
 
 # JDBC driver

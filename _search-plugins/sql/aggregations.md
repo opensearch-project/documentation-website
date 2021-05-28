@@ -3,6 +3,7 @@ layout: default
 title: Aggregation Functions
 parent: SQL
 nav_order: 11
+redirect_from: /docs/sql/aggregations/
 ---
 
 # Aggregation functions

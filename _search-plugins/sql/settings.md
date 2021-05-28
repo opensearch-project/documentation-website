@@ -3,6 +3,7 @@ layout: default
 title: Settings
 parent: SQL
 nav_order: 16
+redirect_from: /docs/sql/settings/
 ---
 
 # Settings

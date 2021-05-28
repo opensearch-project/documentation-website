@@ -5,6 +5,7 @@ nav_order: 3
 parent: k-NN
 has_children: false
 has_math: true
+redirect_from: /docs/knn/knn-score-script/
 ---
 
 # Exact k-NN with scoring script
@@ -313,8 +314,8 @@ A space corresponds to the function used to measure the distance between two poi
   </tr>
   <tr>
     <td>innerproduct</td>
-    <td>\[ Distance(X, Y) = -{A &middot; B} \]</td>
-    <td>if (Distance Function >= 0) 1 / (1 + Distance Function) else -Distance Function + 1</td>
+    <td>\[ Distance(X, Y) = \sum_{i=1}^n (X_i - Y_i) \]</td>
+    <td>1 / (1 + Distance Function)</td>
   </tr>
   <tr>
     <td>hammingbit</td>
