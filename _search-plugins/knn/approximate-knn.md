@@ -176,7 +176,7 @@ A space corresponds to the function used to measure the distance between two poi
   </tr>
   <tr>
     <td>innerproduct</td>
-    <td>\[ Distance(X, Y) = {A &middot; B} \]</td>
+    <td>\[ Distance(X, Y) = - {A &middot; B} \]</td>
     <td>if (Distance Function >= 0) 1 / (1 + Distance Function) else -Distance Function + 1</td>
   </tr>
 </table>
