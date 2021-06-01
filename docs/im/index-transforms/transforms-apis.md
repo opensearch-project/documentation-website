@@ -135,9 +135,9 @@ source_index | String | The source index whose data to transform. | Yes
 target_index | String | The target index the newly transformed data is added into. You can create a new index or update an existing one. | Yes
 data_selection_query | JSON | The query DSL to use to filter a subset of the source index for the transform job. See [query DSL](../../../opensearch/query-dsl) for more information. | Yes
 page_size | Integer | The number of fields to transform at a time. Higher number means higher performance but requires more memory and can cause higher latency. (Default: 1) | Yes
-groups | Array | Specifies the grouping(s) to use in the transform job. Supported groups are `terms`, `histogram`, and `date_histogram`. For more information, see [Bucket Aggregations](../../../opensearch/bucket-agg). | Yes
+groups | Array | Specifies the grouping(s) to use in the transform job. Supported groups are `terms`, `histogram`, and `date_histogram`. For more information, see [Bucket Aggregations](../../../opensearch/bucket-agg). | Yes if not using aggregations
 source_field | String | The field(s) to transform | Yes
-aggregations | JSON | The aggregations to use in the transform job. Supported aggregations are: `sum`, `max`, `min`, `value_count`, `avg`, `scripted_metric`, and `percentiles`. For more information, see [Metric Aggregations](../../../opensearch/metric-agg). | No
+aggregations | JSON | The aggregations to use in the transform job. Supported aggregations are: `sum`, `max`, `min`, `value_count`, `avg`, `scripted_metric`, and `percentiles`. For more information, see [Metric Aggregations](../../../opensearch/metric-agg). | Yes if not using groups
 
 ## Update a transform job
 

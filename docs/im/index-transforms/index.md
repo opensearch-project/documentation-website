@@ -24,25 +24,26 @@ Your use cases will help you decide which method to use to create transform jobs
 
 ## Create a transform job
 
-If you don't have any data in your cluster, you can add the sample data within OpenSearch Dashboards to try out transform jobs. Otherwise, after launching OpenSearch Dashboards, choose **Index Management**. Select **Transform Jobs**, and choose **Create Transform Job**.
+If you don't have any data in your cluster, you can use the sample data within OpenSearch Dashboards to try out transform jobs. Otherwise, after launching OpenSearch Dashboards, choose **Index Management**. Select **Transform Jobs**, and choose **Create Transform Job**.
 
 ### Step 1: Choose indices
 
 1. In the **Job name and description** section, specify a name and an optional description for your job.
-2. In the **Indices** section, select the source and target index. You can either select an existing target index or create a new one by entering a name for your new index. If you want to transform just a subset of your source index, choose **Add Data Filter** and use the OpenSearch query DSL to specify a subset of your source index. For more information about the OpenSearch query DSL, see [query DSL](../../opensearch/query-dsl/).
+2. In the **Indices** section, select the source and target index. You can either select an existing target index or create a new one by entering a name for your new index. If you want to transform just a subset of your source index, choose **Add Data Filter**, and use the OpenSearch query DSL to specify a subset of your source index. For more information about the OpenSearch query DSL, see [query DSL](../../opensearch/query-dsl/).
 3. Choose **Next**.
 
 ### Step 2: Select fields to transform
 
-After specifying the indices, you can select the fields you want to transform, as well as whether to transform them using groupings or aggregations.
+After specifying the indices, you can select the fields you want to use in your transform job, as well as whether to use groupings or aggregations.
 
 You can use groupings to place your data into separate buckets in your transformed index. For example, if you want to see how many people logged in to a system separated into days of the week, you can group the `day_of_week` field into a target field of `day`, and your transformed index will sort your data into separate groups.
 
 On the other hand, aggregations let you perform simple calculations. For example, you can include an aggregation in your transform job to define a new field of `sum_of_total_ticket_price` that calculates the sum of all airplane tickets, and then analyze the newly summer data within your transformed index.
 
-1. In the data table, select the fields you want to transform and expand the drop-down menu to choose the grouping or aggregation you want to use.
+1. In the data table, select the fields you want to transform and expand the drop-down menu within the column header to choose the grouping or aggregation you want to use.
 
     Currently, transform jobs support histogram, date_histogram, and terms groupings. For more information about groupings, see [Bucket Aggregations](../../opensearch/bucket-agg/). In terms of aggregations, you can select from `sum`, `avg`, `max`, `min`, `value_count`, `percentiles`, and `scripted_metric`. For more information about aggregations, see [Metric Aggregations](../../opensearch/metric-agg/).
+
 2. Repeat step 1 for any other fields that you want to transform.
 3. After selecting the fields that you want to transform and verifying the transformation, choose **Next**.
 
@@ -60,7 +61,7 @@ After confirming your transform job’s details are correct, choose **Create Tra
 
 ### Step 5: Search through the transformed index.
 
-Once the transform job finishes, you can use the _search API operation to search the target index.
+Once the transform job finishes, you can use the `_search` API operation to search the target index.
 
 ```json
 GET target_index/_search
