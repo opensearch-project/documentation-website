@@ -36,7 +36,7 @@ This page demonstrates how to work with the different node types. It assumes tha
 
 ## Prerequisites
 
-Before you get started, you must install and configure OpenSearch on all of your nodes. For information about the available options, see [Install and configure OpenSearch](../../install/).
+Before you get started, you must install and configure OpenSearch on all of your nodes. For information about the available options, see [Install and configure OpenSearch](../install/).
 
 After you're done, use SSH to connect to each node, then open the `config/opensearch.yml` file. You can set all configurations for your cluster in this file.
 
@@ -324,7 +324,7 @@ In this case, all primary shards are allocated to `opensearch-d2`. Again, all re
 
 A popular approach is to configure your [index templates](../index-templates/) to set the `index.routing.allocation.require.temp` value to `hot`. This way, OpenSearch stores your most recent data on your hot nodes.
 
-You can then use the [Index State Management (ISM)](../../ism/index/) plugin to periodically check the age of an index and specify actions to take on it. For example, when the index reaches a specific age, change the `index.routing.allocation.require.temp` setting to `warm` to automatically move your data from hot nodes to warm nodes.
+You can then use the [Index State Management (ISM)](../../im-plugin/) plugin to periodically check the age of an index and specify actions to take on it. For example, when the index reaches a specific age, change the `index.routing.allocation.require.temp` setting to `warm` to automatically move your data from hot nodes to warm nodes.
 
 
 ## Next steps

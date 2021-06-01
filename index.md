@@ -26,18 +26,18 @@ OpenSearch is well-suited to the following use cases:
 
 Component | Purpose
 :--- | :---
-[OpenSearch](docs/opensearch/) | Data store and search engine
-[OpenSearch Dashboards](docs/opensearch-dashboards/) | Search frontend and visualizations
-[Security](docs/security/) | Authentication and access control for your cluster
-[Alerting](docs/alerting/) | Receive notifications when your data meets certain conditions
-[SQL](docs/sql/) | Use SQL or a piped processing language to query your data
-[Index State Management](docs/ism/) | Automate index operations
-[KNN](docs/knn/) | Find “nearest neighbors” in your vector data
-[Performance Analyzer](docs/pa/) | Monitor and optimize your cluster
-[Anomaly Detection](docs/ad/) | Identify atypical data and receive automatic notifications
-[Asynchronous Search](docs/async/) | Run search requests in the background
+[OpenSearch](opensearch/) | Data store and search engine
+[OpenSearch Dashboards](opensearch-dashboards/) | Search frontend and visualizations
+[Security](security-plugin/) | Authentication and access control for your cluster
+[Alerting](monitoring-plugins/alerting/) | Receive notifications when your data meets certain conditions
+[SQL](search-plugins/sql/) | Use SQL or a piped processing language to query your data
+[Index State Management](im-plugin/) | Automate index operations
+[KNN](search-plugins/knn/) | Find “nearest neighbors” in your vector data
+[Performance Analyzer](monitoring-plugins/pa/) | Monitor and optimize your cluster
+[Anomaly Detection](monitoring-plugins/ad/) | Identify atypical data and receive automatic notifications
+[Asynchronous Search](search-plugins/async/) | Run search requests in the background
 
-You can install OpenSearch plugins [individually](docs/opensearch/install/plugins/) or use the [all-in-one packages](docs/opensearch/install/). Most of these OpenSearch plugins have corresponding OpenSearch Dashboards plugins that provide a convenient, unified user interface.
+You can install OpenSearch plugins [individually](opensearch/install/plugins/) or use the [all-in-one packages](opensearch/install/). Most of these OpenSearch plugins have corresponding OpenSearch Dashboards plugins that provide a convenient, unified user interface.
 
 For specifics around the project, see the [FAQ](https://opensearch.org/faq/).
 
@@ -62,7 +62,7 @@ Docker
    curl -XGET --insecure https://localhost:9200 -u admin:admin
    ```
 
-To learn more, see [Install OpenSearch](docs/opensearch/install/) and [Install OpenSearch Dashboards](docs/opensearch-dashboards/install/).
+To learn more, see [Install OpenSearch](opensearch/install/) and [Install OpenSearch Dashboards](dashboards/install/).
 
 
 ---

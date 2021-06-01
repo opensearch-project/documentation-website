@@ -28,31 +28,31 @@ color_scheme: opensearch
 collections:
   # Define a collection named "tests", its documents reside in the "_tests" directory
   opensearch:
-    permalink: "/:collection/:path/"
+    permalink: "/:collection/:path"
     output: true
   dashboards:
-    permalink: "/:collection/:path/"
+    permalink: "/:collection/:path"
     output: true
   security-plugin:
-    permalink: "/:collection/:path/"
+    permalink: "/:collection/:path"
     output: true
   search-plugins:
-    permalink: "/:collection/:path/"
+    permalink: "/:collection/:path"
     output: true
   im-plugin:
-    permalink: "/:collection/:path/"
+    permalink: "/:collection/:path"
     output: true
   monitoring-plugins:
-    permalink: "/:collection/:path/"
+    permalink: "/:collection/:path"
     output: true
   clients:
-    permalink: "/:collection/:path/"
+    permalink: "/:collection/:path"
     output: true
   troubleshoot:
-    permalink: "/:collection/:path/"
+    permalink: "/:collection/:path"
     output: true
   external_links:
-    permalink: "/:collection/:path/"
+    permalink: "/:collection/:path"
     output: true
 
 just_the_docs:
