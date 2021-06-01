@@ -21,11 +21,6 @@ You might see `[ERROR][c.a.o.s.s.t.OpenSearchSecuritySSLNettyTransport] [opensea
 If you encounter the error `FATAL  Error: Request Timeout after 30000ms` during startup, try running OpenSearch Dashboards on a more powerful machine. We recommend four CPU cores and 8 GB of RAM.
 
 
-## Can't open OpenSearch Dashboards on Windows
-
-OpenSearch Dashboards doesn't support Microsoft Edge and many versions of Internet Explorer. We recommend Firefox or Chrome.
-
-
 ## Encryption at rest
 
 The operating system for each OpenSearch node handles encryption of data at rest. To enable encryption at rest in most Linux distributions, use the `cryptsetup` command:
