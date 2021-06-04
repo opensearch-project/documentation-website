@@ -15,7 +15,7 @@ Historically there have been multiple popular agents and ingestion tools that wo
 
 So far we have built compatibility matrices for OpenSearch, Elasticsearch OSS 7.x, Open Distro for Elasticsearch (ODFE) 1.x, Logstash OSS 7.x, and Beats OSS 7.x. **This page is a living document. If there are other versions or software you would like to add to the page okease [submit a PR](https://github.com/opensearch-project/documentation-website/edit/main/docs/agents-and-ingestion-tools/index.md) that includes them and feel free to add yourself to the Credits and Thanks you at the bottom of the page. We greatly appreciate the help!** 
 
-Note that if a cell in any of the matrices is *italicized* that means the value is theoretically what it should be based on other documentation or release notes, but it is still pending testing. Also note that for Logstash we have included a column for version 7.13.x with the [planned OpenSearch output plugin]().
+Note that if a cell in any of the matrices is *italicized* that means the value is theoretically what it should be based on other documentation or release notes, but it is still pending testing. Also note that for Logstash we have included a column for version 7.13.x with the [planned OpenSearch output plugin](https://github.com/opensearch-project/OpenSearch/issues/820).
 
 ### Compatibility Matrix for Logstash
 
