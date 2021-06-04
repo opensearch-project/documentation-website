@@ -8,18 +8,18 @@ has_toc: false
 
 # Agents and Ingestion Tools
 
-Historically there have been multiple popular agents and ingestion tools that work with Elasticsearch. Some of which are Beats, Logstash, Fluentd, FluentBit, and Open Telemetry. OpenSearch aims to continue to support a broad set of agents and ingestion tools, but not all have been tested or have explicitly added OpenSearch compatibility. To make getting started with OpenSearch easier a [set version YML configuration](https://github.com/opensearch-project/OpenSearch/issues/693) is being added so that you can set OpenSearch 1.x clusters to report open source Elasticsearch 7.10.2. This will enable it to connect with tools that do version checking while need OpenSource compatibilities are added to your tools.
+Historically, there have been multiple popular agents and ingestion tools that work with Elasticsearch. Some of which are Beats, Logstash, Fluentd, FluentBit, and Open Telemetry. OpenSearch aims to continue to support a broad set of agents and ingestion tools, but not all have been tested or have explicitly added OpenSearch compatibility. To make getting started with OpenSearch easier, a [version value](https://github.com/opensearch-project/OpenSearch/issues/693) is being added to the OpenSearch YML. This will let you set OpenSearch 1.x clusters to report open source Elasticsearch 7.10.2. By reporting 7.10.2, the cluster will be able to connect with tools that do version checking. This is intended to be an intermediate solution while OpenSearch support is added to more tools.
 
 
 ## Compatibility Matrices
 
-So far we have built compatibility matrices for OpenSearch, Elasticsearch OSS 7.x, Open Distro for Elasticsearch (ODFE) 1.x, Logstash OSS 7.x, and Beats OSS 7.x. **This page is a living document. If there are other versions or software you would like to add to the page please [submit a PR](https://github.com/opensearch-project/documentation-website/edit/main/docs/agents-and-ingestion-tools/index.md) that includes them and feel free to add yourself to the Credits and Thanks you at the bottom of the page. We greatly appreciate the help!** 
+So far we have built compatibility matrices for OpenSearch, Elasticsearch OSS 7.x, Open Distro for Elasticsearch (ODFE) 1.x, Logstash OSS 7.x, and Beats OSS 7.x. **This page is a living document. If there are other versions or software you would like to add to the page please [submit a PR](https://github.com/opensearch-project/documentation-website/edit/main/docs/agents-and-ingestion-tools/index.md) and add yourself to the "Credits and Thanks you" section at the bottom of the page. We greatly appreciate the help!** 
 
-Note that if a cell in any of the matrices is *italicized* that means the value is theoretically what it should be based on other documentation or release notes, but it is still pending testing. Also note that for Logstash we have included a column for version 7.13.x with the [planned OpenSearch output plugin](https://github.com/opensearch-project/OpenSearch/issues/820).
+Note that if a cell in any of the matrices is *italicized* that means the value is theoretically what it should be based on other documentation or release notes, but it is still pending testing. Also note that for Logstash we have included a column for version 7.13.x with the [proposed OpenSearch output plugin](https://github.com/opensearch-project/OpenSearch/issues/820).
 
 ### Compatibility Matrix for Logstash
 
-|	|Logstash OSS 7.x to 7.11.x*	|Logstash OSS 7.12.x**	|Logstash 7.13.x without OpenSearch output plugin^	|Logstash 7.13.x with OpenSearch output plugin***^	|
+|	|Logstash OSS 7.x to 7.11.x	|Logstash OSS 7.12.x*	|Logstash 7.13.x without OpenSearch output plugin^	|Logstash 7.13.x with OpenSearch output plugin**^	|
 |---	|---	|---	|---	|---	|
 |Elasticsearch OSS v7.x to v7.9.x	|*Yes*	|*Yes*	|*No*	|*Yes*	|
 |Elasticsearch OSS v7.10.2^	|*Yes*	|*Yes*	|*No*	|*Yes*	|
@@ -31,9 +31,8 @@ Note that if a cell in any of the matrices is *italicized* that means the value 
 |Amazon Elasticsearch Service 7.10 with IAM^	|[Yes with Amazon ES output plugin](https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-managedomains-logstash.html)	|[Yes with Amazon ES output plugin](https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-managedomains-logstash.html)	|No	|*Yes*	|
 |OpenSearch 1.0^	|[Yes via version setting](https://github.com/opensearch-project/OpenSearch/issues/693)	|[Yes via version setting](https://github.com/opensearch-project/OpenSearch/issues/693)	|*No*	|*Yes*	|
 
-\*Beats OSS includes all Apache 2.0 Beats agents (Filebeat, Metricbeat, Auditbeat, Heartbeat, Winlogbeat, Packetbeat)\
-\*\*Most current compatible version with Elasticsearch OSS\
-\*\*\*Planning to build\
+\*Most current compatible version with Elasticsearch OSS\
+\*\*Planning to build\
 ^ Most current version of software\
 *Italicized cells are based on documentation or release notes but are still pending testing to validate*
 
