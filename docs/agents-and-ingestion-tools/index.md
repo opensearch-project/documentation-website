@@ -31,10 +31,10 @@ Note that if a cell in any of the matrices is *italicized* that means the value 
 |Amazon Elasticsearch Service 7.10 with IAM^	|[Yes with Amazon ES output plugin](https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-managedomains-logstash.html)	|[Yes with Amazon ES output plugin](https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-managedomains-logstash.html)	|No	|*Yes*	|
 |OpenSearch 1.0^	|[Yes via version setting](https://github.com/opensearch-project/OpenSearch/issues/693)	|[Yes via version setting](https://github.com/opensearch-project/OpenSearch/issues/693)	|*No*	|*Yes*	|
 
-*Beats OSS includes all Apache 2.0 Beats agents (Filebeat, Metricbeat, Auditbeat, Heartbeat, Winlogbeat, Packetbeat)
-**Most current compatible version with Elasticsearch OSS
-***Planning to build
-^ Most current version of software
+\*Beats OSS includes all Apache 2.0 Beats agents (Filebeat, Metricbeat, Auditbeat, Heartbeat, Winlogbeat, Packetbeat)\
+\*\*Most current compatible version with Elasticsearch OSS\
+\*\*\*Planning to build\
+^ Most current version of software\
 *Italicized cells are based on documentation or release notes but are still pending testing to validate*
 
 ### Compatibility Matrix for Beats
@@ -52,9 +52,9 @@ Note that if a cell in any of the matrices is *italicized* that means the value 
 |Logstash OSS 7.12.x**	|*Yes*	|*Yes*	|*Yes*	|
 |Logstash 7.13.x with OpenSearch output plugin	|*Yes*	|*Yes*	|*Yes*	|
 
-*Beats OSS includes all Apache 2.0 Beats agents (Filebeat, Metricbeat, Auditbeat, Heartbeat, Winlogbeat, Packetbeat)
-**Most current compatible version with Elasticsearch OSS
-^ Most current version of software
+\*Beats OSS includes all Apache 2.0 Beats agents (Filebeat, Metricbeat, Auditbeat, Heartbeat, Winlogbeat, Packetbeat)\
+\*\*Most current compatible version with Elasticsearch OSS\
+^ Most current version of software\
 *Italicized cells are based on documentation or release notes but are still pending testing to validate*
 
 ### Credits and Thank You for Contributing and Testing
