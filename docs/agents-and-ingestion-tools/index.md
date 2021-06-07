@@ -50,8 +50,8 @@ For a longer term solution, we plan to create an OpenSearch output plugin for Lo
 | Amazon Elasticsearch Service 7.x to 7.9 | *Yes* | *Yes* | No |
 | Amazon Elasticsearch Service 7.10 | *Yes* | *Yes* | No |
 | OpenSearch 1.0 | [Yes via version setting](https://github.com/opensearch-project/OpenSearch/issues/693) | [Yes via version setting](https://github.com/opensearch-project/OpenSearch/issues/693) | No |
-| Logstash OSS 7.x to 7.11.x* | *Yes* | *Yes* | *Yes* |
-| Logstash OSS 7.12.x** | *Yes* | *Yes* | *Yes* |
+| Logstash OSS 7.x to 7.11.x | *Yes* | *Yes* | *Yes* |
+| Logstash OSS 7.12.x\* | *Yes* | *Yes* | *Yes* |
 | Logstash 7.13.x with OpenSearch output plugin | *Yes* | *Yes* | *Yes* |
 
 \* Most current compatible version with Elasticsearch OSS.
