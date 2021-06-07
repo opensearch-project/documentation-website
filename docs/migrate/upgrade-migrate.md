@@ -17,7 +17,7 @@ Elasticsearch OSS supports two types of upgrades: rolling and cluster restart.
 
 - Cluster restart upgrades require you to shut down all nodes, perform the upgrade, and restart the cluster.
 
-  Cluster restart upgrades work between minor versions (e.g. 6.5 to 6.8) and the next major version (for example, 6.x to 7.10.2). Cluster restart upgrades are simpler to perform, but require downtime.
+  Cluster restart upgrades work between minor versions (e.g. 6.5 to 6.8) and the next major version (for example, 6.x to 7.10.2). Cluster restart upgrades are faster to perform and require fewer intermediate upgrades, but require downtime.
 
 To safeguard against data loss, we recommend that you take a [snapshot](../../opensearch/snapshot-restore/) of all indices prior to any upgrade.
 {: .tip }
