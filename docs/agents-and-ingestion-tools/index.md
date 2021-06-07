@@ -8,7 +8,7 @@ has_toc: false
 
 # Agents and Ingestion Tools
 
-Historically, there have been multiple popular agents and ingestion tools that work with Elasticsearch. Some of which are Beats, Logstash, Fluentd, FluentBit, and Open Telemetry. OpenSearch aims to continue to support a broad set of agents and ingestion tools, but not all have been tested or have explicitly added OpenSearch compatibility. To make getting started with OpenSearch easier, a [version value](https://github.com/opensearch-project/OpenSearch/issues/693) is being added to the OpenSearch YML. This will let you set OpenSearch 1.x clusters to report open source Elasticsearch 7.10.2. By reporting 7.10.2, the cluster will be able to connect with tools that do version checking. This is intended to be an intermediate solution while OpenSearch support is added to more tools.
+Historically, there have been multiple popular agents and ingestion tools that work with Elasticsearch. Some of which are Beats, Logstash, Fluentd, FluentBit, and Open Telemetry. OpenSearch aims to continue to support a broad set of agents and ingestion tools, but not all have been tested or have explicitly added OpenSearch compatibility. To make getting started with OpenSearch easier, a [version value](https://github.com/opensearch-project/OpenSearch/issues/693) is being added to the OpenSearch YML. This will let you set OpenSearch 1.x clusters to report version 7.10.2. By reporting 7.10.2, the cluster will be able to connect with tools that do version checking for that version number. This is intended to be an intermediate solution while OpenSearch support is added to more tools.
 
 
 ## Compatibility Matrices
