@@ -20,7 +20,7 @@ baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://docs-beta.opensearch.org" # the base hostname & protocol for your site, e.g. http://example.com
 permalink: pretty
 
-opensearch_version: 1.0.0-beta1
+opensearch_version: 1.0.0-rc1
 opensearch_major_minor_version: 1.0
 
 # Build settings
