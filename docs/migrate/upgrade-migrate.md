@@ -5,9 +5,9 @@ parent: Migrate to OpenSearch
 nav_order: 15
 ---
 
-# Upgrade approach (Linux)
+# Upgrade to OpenSearch (Linux)
 
-If you want to upgrade your existing Elasticsearch OSS cluster to OpenSearch and find the [snapshot approach](../snapshot-migrate/) unappealing, you must first upgrade your Elasticsearch OSS cluster to version 6.x or 7.x.
+If you want to migrate an existing Elasticsearch OSS cluster to OpenSearch and find the [snapshot approach](../snapshot-migrate/) unappealing, you can upgrade the cluster instead. The first step is to upgrade your Elasticsearch OSS cluster to version 6.x or 7.x.
 
 Elasticsearch OSS supports two types of upgrades: rolling and cluster restart.
 
@@ -80,11 +80,11 @@ Elasticsearch OSS version | Rolling upgrade path | Cluster restart upgrade path
    ```bash
    # Elasticsearch OSS
    curl -XGET 'localhost:9200/_nodes/_all?pretty=true'
-   # Open Distro for Elasticsearch
+   # Open Distro for Elasticsearch with security plugin enabled
    curl -XGET 'https://localhost:9200/_nodes/_all?pretty=true' -u 'admin:admin' -k
    ```
 
-   Specifically, check the `nodes.node-id.version` portion of the response.
+   Specifically, check the `nodes.<node-id>.version` portion of the response.
 
 1. (Rolling) Repeat steps 2--5 until all nodes are using the new version.
 
@@ -135,7 +135,7 @@ Elasticsearch OSS version | Rolling upgrade path | Cluster restart upgrade path
 
    1. Set the `OPENSEARCH_PATH_CONF` environment variable to the directory that contains `opensearch.yml` (e.g. `/etc/opensearch`).
 
-   1. In `opensearch.yml`, set `path.data` and `path.logs`. If you are migrating from Elasticsearch OSS, you might also want to disable the security plugin for the time being. `opensearch.yml` might look something like this:
+   1. In `opensearch.yml`, set `path.data` and `path.logs`. You might also want to disable the security plugin for now. `opensearch.yml` might look something like this:
 
       ```yml
       path.data: /var/lib/opensearch
@@ -157,10 +157,10 @@ Elasticsearch OSS version | Rolling upgrade path | Cluster restart upgrade path
    # Security plugin disabled
    curl -XGET 'localhost:9200/_nodes/_all?pretty=true'
    # Security plugin enabled
-   curl -XGET 'https://localhost:9200/_nodes/_all?pretty=true' -u 'admin:admin' -k
+   curl -XGET -k -u 'admin:admin' 'https://localhost:9200/_nodes/_all?pretty=true'
    ```
 
-   Specifically, check the `nodes.node-id.version` portion of the response.
+   Specifically, check the `nodes.<node-id>.version` portion of the response.
 
 1. (Rolling) Repeat steps 2--5 until all nodes are using OpenSearch.
 
