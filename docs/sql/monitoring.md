@@ -33,7 +33,7 @@ The meaning of fields in the response is as follows:
 SQL query:
 
 ```console
->> curl -H 'Content-Type: application/json' -X GET localhost:9200/_opensearch/_sql/stats
+>> curl -H 'Content-Type: application/json' -X GET localhost:9200/_plugins/_sql/stats
 ```
 
 Result set:

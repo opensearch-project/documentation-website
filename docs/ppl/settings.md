@@ -15,7 +15,7 @@ You can update these settings like any other cluster setting:
 PUT _cluster/settings
 {
   "transient": {
-    "opensearch": {
+    "plugins": {
       "ppl": {
         "enabled": "false"
       }
@@ -24,12 +24,26 @@ PUT _cluster/settings
 }
 ```
 
-Requests to `_opensearch/_ppl` include index names in the request body, so they have the same access policy considerations as the `bulk`, `mget`, and `msearch` operations. If you set the `rest.action.multi.allow_explicit_index` parameter to `false`, the PPL plugin is disabled.
+Similarly, you can also update the settings by sending request to the plugin setting endpoint `_plugins/_query/settings` :
+```json
+PUT _plugins/_query/settings
+{
+  "transient": {
+    "plugins": {
+      "ppl": {
+        "enabled": "false"
+      }
+    }
+  }
+}
+```
+
+Requests to `_plugins/_ppl` include index names in the request body, so they have the same access policy considerations as the `bulk`, `mget`, and `msearch` operations. If you set the `rest.action.multi.allow_explicit_index` parameter to `false`, the PPL plugin is disabled.
 
 You can specify the settings shown in the following table:
 
 Setting | Description | Default
 :--- | :--- | :---
-`opensearch.ppl.enabled` | Change to `false` to disable the plugin. | True
-`opensearch.ppl.query.memory_limit` | Set heap memory usage limit. If a query crosses this limit, it's terminated. | 85%
-`opensearch.query.size_limit` | Set the maximum number of results that you want to see. This impacts the accuracy of aggregation operations. For example, if you have 1000 documents in an index, by default, only 200 documents are extracted from the index for aggregation. | 200
+`plugins.ppl.enabled` | Change to `false` to disable the PPL component. | True
+`plugins.query.memory_limit` | Set heap memory usage limit. If a query crosses this limit, it's terminated. | 85%
+`plugins.query.size_limit` | Set the maximum number of results that you want to see. This impacts the accuracy of aggregation operations. For example, if you have 1000 documents in an index, by default, only 200 documents are extracted from the index for aggregation. | 200
