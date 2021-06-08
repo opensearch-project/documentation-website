@@ -44,7 +44,7 @@ Next, enable the following setting:
 PUT _cluster/settings
 {
   "transient": {
-    "opendistro.alerting.filter_by_backend_roles": "true"
+    "plugins.alerting.filter_by_backend_roles": "true"
   }
 }
 ```

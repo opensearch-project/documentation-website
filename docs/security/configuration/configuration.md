@@ -151,15 +151,15 @@ Due to the nature of Kerberos, you must define some settings in `opensearch.yml`
 In `opensearch.yml`, define the following:
 
 ```yml
-opensearch_security.kerberos.krb5_filepath: '/etc/krb5.conf'
-opensearch_security.kerberos.acceptor_keytab_filepath: 'eskeytab.tab'
+plugins.security.kerberos.krb5_filepath: '/etc/krb5.conf'
+plugins.security.kerberos.acceptor_keytab_filepath: 'eskeytab.tab'
 ```
 
-`opensearch_security.kerberos.krb5_filepath` defines the path to your Kerberos configuration file. This file contains various settings regarding your Kerberos installation, for example, the realm names, hostnames, and ports of the Kerberos key distribution center (KDC).
+`plugins.security.kerberos.krb5_filepath` defines the path to your Kerberos configuration file. This file contains various settings regarding your Kerberos installation, for example, the realm names, hostnames, and ports of the Kerberos key distribution center (KDC).
 
-`opensearch_security.kerberos.acceptor_keytab_filepath` defines the path to the keytab file, which contains the principal that the security plugin uses to issue requests against Kerberos.
+`plugins.security.kerberos.acceptor_keytab_filepath` defines the path to the keytab file, which contains the principal that the security plugin uses to issue requests against Kerberos.
 
-`opensearch_security.kerberos.acceptor_principal: 'HTTP/localhost'` defines the principal that the security plugin uses to issue requests against Kerberos. This value must be present in the keytab file.
+`plugins.security.kerberos.acceptor_principal: 'HTTP/localhost'` defines the principal that the security plugin uses to issue requests against Kerberos. This value must be present in the keytab file.
 
 Due to security restrictions, the keytab file must be placed in `config` or a subdirectory, and the path in `opensearch.yml` must be relative, not absolute.
 {: .warning }
@@ -273,7 +273,7 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWRtaW4iLCJpYXQiOjE0MjI
 
 ### Configure JSON web tokens
 
-If JSON web tokens are the only authentication method that you use, disable the user cache by setting `opensearch_security.cache.ttl_minutes: 0`.
+If JSON web tokens are the only authentication method that you use, disable the user cache by setting `plugins.security.cache.ttl_minutes: 0`.
 {: .warning }
 
 Set up an authentication domain and choose `jwt` as the HTTP authentication type. Because the tokens already contain all required information to verify the request, `challenge` must be set to `false` and `authentication_backend` to `noop`.

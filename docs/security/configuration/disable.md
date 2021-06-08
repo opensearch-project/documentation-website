@@ -11,7 +11,7 @@ nav_order: 99
 You might want to temporarily disable the security plugin to make testing or internal usage more straightforward. To disable the plugin, add the following line in `opensearch.yml`:
 
 ```yml
-opensearch_security.disabled: true
+plugins.security.disabled: true
 ```
 
 A more permanent option is to remove the security plugin entirely. Delete the `plugins/opensearch-security` folder on all nodes, and delete the `opensearch_security` configuration entries from `opensearch.yml`.

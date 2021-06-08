@@ -299,7 +299,7 @@ docker build --tag=opensearch-custom-plugin .
 docker run -p 9200:9200 -p 9600:9600 -v /usr/share/opensearch/data opensearch-custom-plugin
 ```
 
-You can also use a `Dockerfile` to pass your own certificates for use with the [Security](../../../security/) plugin, similar to the `-v` argument in [Configure OpenSearch](#configure-opensearch):
+You can also use a `Dockerfile` to pass your own certificates for use with the [security](../../../security/) plugin, similar to the `-v` argument in [Configure OpenSearch](#configure-opensearch):
 
 ```
 FROM opensearchproject/opensearch:{{site.opensearch_version}}
@@ -313,11 +313,11 @@ Alternately, you might want to remove a plugin. This `Dockerfile` removes the se
 
 ```
 FROM opensearchproject/opensearch:{{site.opensearch_version}}
-RUN /usr/share/opensearch/bin/opensearch-plugin remove opensearch_security
+RUN /usr/share/opensearch/bin/opensearch-plugin remove opensearch-security
 COPY --chown=opensearch:opensearch opensearch.yml /usr/share/opensearch/config/
 ```
 
-In this case, `opensearch.yml` is a "vanilla" version of the file with no OpenSearch entries. It might look like this:
+In this case, `opensearch.yml` is a "vanilla" version of the file with no plugin entries. It might look like this:
 
 ```yml
 cluster.name: "docker-cluster"

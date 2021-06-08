@@ -244,7 +244,7 @@ Name | Description
 Activate OpenID Connect by adding the following to `opensearch_dashboards.yml`:
 
 ```
-opensearch_security.auth.type: "openid"
+plugins.security.auth.type: "openid"
 ```
 
 
@@ -266,29 +266,29 @@ OpenID Connect providers usually publish their configuration in JSON format unde
 
 Name | Description
 :--- | :---
-`opensearch_security.openid.connect_url` | The URL where the IdP publishes the OpenID metadata. Required.
-`opensearch_security.openid.client_id` | The ID of the OpenID Connect client configured in your IdP. Required.
-`opensearch_security.openid.client_secret` | The client secret of the OpenID Connect client configured in your IdP. Required.
-`opensearch_security.openid.scope` | The [scope of the identity token](https://auth0.com/docs/scopes/current) issued by the IdP. Optional. Default is `openid profile email address phone`.
-`opensearch_security.openid.header` | HTTP header name of the JWT token. Optional. Default is `Authorization`.
-`opensearch_security.openid.logout_url` | The logout URL of your IdP. Optional. Only necessary if your IdP does not publish the logout URL in its metadata.
-`opensearch_security.openid.base_redirect_url` | The base of the redirect URL that will be sent to your IdP. Optional. Only necessary when OpenSearch Dashboards is behind a reverse proxy, in which case it should be different than `server.host` and `server.port` in `opensearch_dashboards.yml`.
+`plugins.security.openid.connect_url` | The URL where the IdP publishes the OpenID metadata. Required.
+`plugins.security.openid.client_id` | The ID of the OpenID Connect client configured in your IdP. Required.
+`plugins.security.openid.client_secret` | The client secret of the OpenID Connect client configured in your IdP. Required.
+`plugins.security.openid.scope` | The [scope of the identity token](https://auth0.com/docs/scopes/current) issued by the IdP. Optional. Default is `openid profile email address phone`.
+`plugins.security.openid.header` | HTTP header name of the JWT token. Optional. Default is `Authorization`.
+`plugins.security.openid.logout_url` | The logout URL of your IdP. Optional. Only necessary if your IdP does not publish the logout URL in its metadata.
+`plugins.security.openid.base_redirect_url` | The base of the redirect URL that will be sent to your IdP. Optional. Only necessary when OpenSearch Dashboards is behind a reverse proxy, in which case it should be different than `server.host` and `server.port` in `opensearch_dashboards.yml`.
 
 
 ### Configuration example
 
 ```yml
 # Enable OpenID authentication
-opensearch_security.auth.type: "openid"
+plugins.security.auth.type: "openid"
 
 # The IdP metadata endpoint
-opensearch_security.openid.connect_url: "http://keycloak.example.com:8080/auth/realms/master/.well-known/openid-configuration"
+plugins.security.openid.connect_url: "http://keycloak.example.com:8080/auth/realms/master/.well-known/openid-configuration"
 
 # The ID of the OpenID Connect client in your IdP
-opensearch_security.openid.client_id: "opensearch-dashboards-sso"
+plugins.security.openid.client_id: "opensearch-dashboards-sso"
 
 # The client secret of the OpenID Connect client
-opensearch_security.openid.client_secret: "a59c51f5-f052-4740-a3b0-e14ba355b520"
+plugins.security.openid.client_secret: "a59c51f5-f052-4740-a3b0-e14ba355b520"
 
 # Use HTTPS instead of HTTP
 opensearch.url: "https://<hostname>.com:<http port>"

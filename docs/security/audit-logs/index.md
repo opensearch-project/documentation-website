@@ -16,7 +16,7 @@ To enable audit logging:
 1. Add the following line to `opensearch.yml` on each node:
 
    ```yml
-   opensearch_security.audit.type: internal_opensearch
+   plugins.security.audit.type: internal_opensearch
    ```
 
    This setting stores audit logs on the current cluster. For other storage options, see [Audit Log Storage Types](storage-types/).
@@ -57,22 +57,22 @@ These default log settings work well for most use cases, but you can change sett
 To exclude categories, set:
 
 ```yml
-opensearch_security.audit.config.disabled_rest_categories: <disabled categories>
-opensearch_security.audit.config.disabled_transport_categories: <disabled categories>
+plugins.security.audit.config.disabled_rest_categories: <disabled categories>
+plugins.security.audit.config.disabled_transport_categories: <disabled categories>
 ```
 
 For example:
 
 ```yml
-opensearch_security.audit.config.disabled_rest_categories: AUTHENTICATED, opensearch_SECURITY_INDEX_ATTEMPT
-opensearch_security.audit.config.disabled_transport_categories: GRANTED_PRIVILEGES
+plugins.security.audit.config.disabled_rest_categories: AUTHENTICATED, opensearch_SECURITY_INDEX_ATTEMPT
+plugins.security.audit.config.disabled_transport_categories: GRANTED_PRIVILEGES
 ```
 
 If you want to log events in all categories, use `NONE`:
 
 ```yml
-opensearch_security.audit.config.disabled_rest_categories: NONE
-opensearch_security.audit.config.disabled_transport_categories: NONE
+plugins.security.audit.config.disabled_rest_categories: NONE
+plugins.security.audit.config.disabled_transport_categories: NONE
 ```
 
 
@@ -81,8 +81,8 @@ opensearch_security.audit.config.disabled_transport_categories: NONE
 By default, the security plugin logs events on both REST and the transport layer. You can disable either type:
 
 ```yml
-opensearch_security.audit.enable_rest: false
-opensearch_security.audit.enable_transport: false
+plugins.security.audit.enable_rest: false
+plugins.security.audit.enable_transport: false
 ```
 
 
@@ -91,7 +91,7 @@ opensearch_security.audit.enable_transport: false
 By default, the security plugin includes the body of the request (if available) for both REST and the transport layer. If you do not want or need the request body, you can disable it:
 
 ```yml
-opensearch_security.audit.log_request_body: false
+plugins.security.audit.log_request_body: false
 ```
 
 
@@ -113,10 +113,10 @@ audit_trace_resolved_indices: [
 You can disable this feature by setting:
 
 ```yml
-opensearch_security.audit.resolve_indices: false
+plugins.security.audit.resolve_indices: false
 ```
 
-Disabling this feature only takes effect if `opensearch_security.audit.log_request_body` is also set to `false`.
+Disabling this feature only takes effect if `plugins.security.audit.log_request_body` is also set to `false`.
 {: .note }
 
 
@@ -127,7 +127,7 @@ Bulk requests can contain many indexing operations. By default, the security plu
 The security plugin can be configured to log each indexing operation as a separate event:
 
 ```yml
-opensearch_security.audit.resolve_bulk_requests: true
+plugins.security.audit.resolve_bulk_requests: true
 ```
 
 This change can create a massive number of events in the audit logs, so we don't recommend enabling this setting if you make heavy use of the `_bulk` API.
@@ -138,7 +138,7 @@ This change can create a massive number of events in the audit logs, so we don't
 You can exclude certain requests from being logged completely, by either configuring actions (for transport requests) and/or HTTP request paths (REST):
 
 ```yml
-opensearch_security.audit.ignore_requests: ["indices:data/read/*", "SearchRequest"]
+plugins.security.audit.ignore_requests: ["indices:data/read/*", "SearchRequest"]
 ```
 
 
@@ -147,7 +147,7 @@ opensearch_security.audit.ignore_requests: ["indices:data/read/*", "SearchReques
 By default, the security plugin logs events from all users, but excludes the internal OpenSearch Dashboards server user `kibanaserver`. You can exclude other users:
 
 ```yml
-opensearch_security.audit.ignore_users:
+plugins.security.audit.ignore_users:
   - kibanaserver
   - admin
 ```
@@ -155,7 +155,7 @@ opensearch_security.audit.ignore_users:
 If requests from all users should be logged, use `NONE`:
 
 ```yml
-opensearch_security.audit.ignore_users: NONE
+plugins.security.audit.ignore_users: NONE
 ```
 
 
@@ -164,13 +164,13 @@ opensearch_security.audit.ignore_users: NONE
 By default, the security plugin stores audit events in a daily rolling index named `auditlog-YYYY.MM.dd`. You can configure the name of the index in `opensearch.yml`:
 
 ```yml
-opensearch_security.audit.config.index: myauditlogindex
+plugins.security.audit.config.index: myauditlogindex
 ```
 
 Use a date pattern in the index name to configure daily, weekly, or monthly rolling indices:
 
 ```yml
-opensearch_security.audit.config.index: "'auditlog-'YYYY.MM.dd"
+plugins.security.audit.config.index: "'auditlog-'YYYY.MM.dd"
 ```
 
 For a reference on the date pattern format, see the [Joda DateTimeFormat documentation](http://www.joda.org/joda-time/apidocs/org/joda/time/format/DateTimeFormat.html).
@@ -181,11 +181,11 @@ For a reference on the date pattern format, see the [Joda DateTimeFormat documen
 The Search plugin logs events asynchronously, which keeps performance impact on your cluster minimal. The plugin uses a fixed thread pool to log events. You can define the number of threads in the pool in `opensearch.yml`:
 
 ```yml
-opensearch_security.audit.threadpool.size: <integer>
+plugins.security.audit.threadpool.size: <integer>
 ```
 
 The default setting is `10`. Setting this value to `0` disables the thread pool, which means the plugin logs events synchronously. To set the maximum queue length per thread:
 
 ```yml
-opensearch_security.audit.threadpool.max_queue_len: 100000
+plugins.security.audit.threadpool.max_queue_len: 100000
 ```
