@@ -118,25 +118,25 @@ In a tarball installation, Performance Analyzer collects data when it is enabled
 1. In a separate window, enable the Performance Analyzer plugin:
 
    ```bash
-   curl -XPOST localhost:9200/_opensearch/_performanceanalyzer/cluster/config -H 'Content-Type: application/json' -d '{"enabled": true}'
+   curl -XPOST localhost:9200/_plugins/_performanceanalyzer/cluster/config -H 'Content-Type: application/json' -d '{"enabled": true}'
    ```
 
    If you receive the `curl: (52) Empty reply from server` error, you are likely protecting your cluster with the security plugin and you need to provide credentials. Modify the following command to use your username and password:
 
    ```bash
-   curl -XPOST https://localhost:9200/_opensearch/_performanceanalyzer/cluster/config -H 'Content-Type: application/json' -d '{"enabled": true}' -u 'admin:admin' -k
+   curl -XPOST https://localhost:9200/_plugins/_performanceanalyzer/cluster/config -H 'Content-Type: application/json' -d '{"enabled": true}' -u 'admin:admin' -k
    ```
 
 1. Finally, enable the Root Cause Analyzer (RCA) framework
 
    ```bash
-   curl -XPOST localhost:9200/_opensearch/_performanceanalyzer/rca/cluster/config -H 'Content-Type: application/json' -d '{"enabled": true}'
+   curl -XPOST localhost:9200/_plugins/_performanceanalyzer/rca/cluster/config -H 'Content-Type: application/json' -d '{"enabled": true}'
    ```
 
    Similar to step 4, if you run into `curl: (52) Empty reply from server`, run the command below to enable RCA
 
    ```bash
-   curl -XPOST https://localhost:9200/_opensearch/_performanceanalyzer/rca/cluster/config -H 'Content-Type: application/json' -d '{"enabled": true}' -u 'admin:admin' -k
+   curl -XPOST https://localhost:9200/_plugins/_performanceanalyzer/rca/cluster/config -H 'Content-Type: application/json' -d '{"enabled": true}' -u 'admin:admin' -k
    ```
 
 {% comment %}

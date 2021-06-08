@@ -12,10 +12,10 @@ nav_order: 1
 
 ```
 # Request all available RCAs
-GET localhost:9600/_opensearch/_performanceanalyzer/rca
+GET localhost:9600/_plugins/_performanceanalyzer/rca
 
 # Request a specific RCA
-GET localhost:9600/_opensearch/_performanceanalyzer/rca?name=HighHeapUsageClusterRca
+GET localhost:9600/_plugins/_performanceanalyzer/rca?name=HighHeapUsageClusterRca
 ```
 
 

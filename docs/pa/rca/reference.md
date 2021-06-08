@@ -8,4 +8,4 @@ nav_order: 3
 
 # RCA reference
 
-You can find a reference of available RCAs and their purposes on [Github](https://github.com/opensearch-project/performance-analyzer-rca/tree/master/docs).
+You can find a reference of available RCAs and their purposes on [Github](https://github.com/opensearch-project/performance-analyzer-rca/tree/main/docs).
