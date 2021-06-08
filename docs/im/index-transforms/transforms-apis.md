@@ -22,7 +22,7 @@ Creates a transform job.
 **Sample Request**
 
 ```json
-PUT _opendistro/_transform/<transform_id>
+PUT _plugins/_transform/<transform_id>
 
 {
   "transform": {
@@ -146,7 +146,7 @@ Updates a transform job if `transform_id` already exists.
 **Sample Request**
 
 ```json
-PUT _opendistro/_transform/<transform_id>
+PUT _plugins/_transform/<transform_id>
 
 {
   "transform": {
@@ -261,7 +261,7 @@ Returns a transform job's details.
 **Sample Request**
 
 ```json
-GET _opendistro/_transform/<transform_id>
+GET _plugins/_transform/<transform_id>
 ```
 
 **Sample Response**
@@ -326,7 +326,7 @@ You can also get details of all transform jobs by omitting `transform_id`.
 **Sample Request**
 
 ```json
-GET _opendistro/_transform/
+GET _plugins/_transform/
 ```
 
 **Sample Response**
@@ -405,7 +405,7 @@ For example, this request returns two results starting from the eighth index.
 **Sample Request**
 
 ```json
-GET /_opendistro/_transform/?size=2&from=8
+GET _plugins/_transform?size=2&from=8
 ```
 
 **Sample Response**
@@ -527,7 +527,7 @@ Transform jobs created using the API are automatically enabled, but if you ever 
 **Sample Request**
 
 ```json
-POST _opendistro/<transform_id>/_start
+POST _plugins/_transform/<transform_id>/_start
 ```
 
 **Sample Response**
@@ -545,7 +545,7 @@ Stops/disables a transform job.
 **Sample Request**
 
 ```json
-POST _opendistro/<transform_id>/_stop
+POST _plugins/_transform/<transform_id>/_stop
 ```
 
 **Sample Response**
@@ -563,7 +563,7 @@ Returns the status and metadata of a transform job.
 **Sample Request**
 
 ```json
-GET _opendistro/<transform_id>/_explain
+GET _plugins/_transform/<transform_id>/_explain
 ```
 
 **Sample Response**
@@ -596,7 +596,7 @@ Returns a preview of what a transformed index would look like.
 **Sample Request**
 
 ```json
-POST _opendistro/_transform/_preview
+POST _plugins/_transform/_preview
 
 {
   "transform": {
@@ -681,7 +681,7 @@ Deletes a transform job. This operation does not delete the source or target ind
 **Sample Request**
 
 ```json
-DELETE _opendistro/_transform/<transform_id>
+DELETE _plugins/_transform/<transform_id>
 ```
 
 **Sample Response**
@@ -693,7 +693,7 @@ DELETE _opendistro/_transform/<transform_id>
   "items": [
     {
       "delete": {
-        "_index": ".opendistro-ism-config",
+        "_index": ".opensearch-ism-config",
         "_type": "_doc",
         "_id": "sample",
         "_version": 4,
