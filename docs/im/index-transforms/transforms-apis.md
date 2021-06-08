@@ -2,7 +2,7 @@
 layout: default
 title: Transforms APIs
 nav_order: 45
-parent: Index Transforms
+parent: Index transforms
 grand_parent: Index management
 has_toc: true
 ---
