@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Index Transforms
+title: Index transforms
 nav_order: 40
 parent: Index management
 has_children: true
@@ -15,16 +15,16 @@ For example, suppose that you have airline data that’s scattered across multip
 
 You can use transform jobs in two ways:
 
-1. Use the OpenSearch Dashboards UI to specify the index you want to transform and any optional data filters you want to use to filter the original index. Then, select the fields you want to transform, aggregations to use in the transformations, and define a schedule for your job to follow.
+1. Use the OpenSearch Dashboards UI to specify the index you want to transform and any optional data filters you want to use to filter the original index. Then select the fields you want to transform and the aggregations to use in the transformation. Finally, define a schedule for your job to follow.
 2. Use the transforms API to specify all the details about your job: the index you want to transform, target groups you want the transformed index to have, any aggregations you want to use to group columns, and a schedule for your job to follow.
 
-OpenSearch Dashboards provides a nice view of the jobs you created and their relevant information, such as associated indices and job statuses. You can review and edit your job’s details and selections before creation, and even preview a transformed index’s data as you’re choosing which fields to transform. However, you can also use the REST API to create transform jobs and preview transform job results, but you must know all of the necessary settings and parameters to submit them as part of the HTTP request body. Submitting your transform job configurations as JSON scripts offers you more portability, allowing you to share and replicate your transform jobs, which is harder to do using OpenSearch Dashboards.
+OpenSearch Dashboards provides a summarized view of the jobs you created and their relevant information, such as associated indices and job statuses. You can review and edit your job’s details and selections before creation, and even preview a transformed index’s data as you’re choosing which fields to transform. However, you can also use the REST API to create transform jobs and preview transform job results, but you must know all of the necessary settings and parameters to submit them as part of the HTTP request body. Submitting your transform job configurations as JSON scripts offers you more portability, allowing you to share and replicate your transform jobs, which is harder to do using OpenSearch Dashboards.
 
 Your use cases will help you decide which method to use to create transform jobs.
 
 ## Create a transform job
 
-If you don't have any data in your cluster, you can use the sample data within OpenSearch Dashboards to try out transform jobs. Otherwise, after launching OpenSearch Dashboards, choose **Index Management**. Select **Transform Jobs**, and choose **Create Transform Job**.
+If you don't have any data in your cluster, you can use the sample flight data within OpenSearch Dashboards to try out transform jobs. Otherwise, after launching OpenSearch Dashboards, choose **Index Management**. Select **Transform Jobs**, and choose **Create Transform Job**.
 
 ### Step 1: Choose indices
 
@@ -36,7 +36,7 @@ If you don't have any data in your cluster, you can use the sample data within O
 
 After specifying the indices, you can select the fields you want to use in your transform job, as well as whether to use groupings or aggregations.
 
-You can use groupings to place your data into separate buckets in your transformed index. For example, if you want to see how many people logged in to a system separated into days of the week, you can group the `day_of_week` field into a target field of `day`, and your transformed index will sort your data into separate groups.
+You can use groupings to place your data into separate buckets in your transformed index. For example, if you want to group all of the airport destinations within the sample flight data, you can group the `DestAirportID` field into a target field of `DestAirportID_terms` field, and you can find the grouped airport IDs in your transformed index after the transform job finishes.
 
 On the other hand, aggregations let you perform simple calculations. For example, you can include an aggregation in your transform job to define a new field of `sum_of_total_ticket_price` that calculates the sum of all airplane tickets, and then analyze the newly summer data within your transformed index.
 
@@ -64,19 +64,19 @@ After confirming your transform job’s details are correct, choose **Create Tra
 Once the transform job finishes, you can use the `_search` API operation to search the target index.
 
 ```json
-GET target_index/_search
+GET <target_index>/_search
 ```
 
-For example, after running a transform job that transforms the source index based on a `customer_gender field`, you can run the following request that returns all of the fields that have a value of `FEMALE`.
+For example, after running a transform job that transforms the flight data based on a `DestAirportID` field, you can run the following request that returns all of the fields that have a value of `SFO`.
 
 **Sample Request**
 
 ```json
-GET sample_target_index/_search
+GET finished_flight_job/_search
 {
   "query": {
     "match": {
-      "customer_gender_terms" : "FEMALE"
+      "DestAirportID_terms" : "SFO"
     }
   }
 }
@@ -86,7 +86,7 @@ GET sample_target_index/_search
 
 ```json
 {
-  "took" : 9,
+  "took" : 3,
   "timed_out" : false,
   "_shards" : {
     "total" : 5,
@@ -96,84 +96,61 @@ GET sample_target_index/_search
   },
   "hits" : {
     "total" : {
-      "value" : 6,
+      "value" : 4,
       "relation" : "eq"
     },
-    "max_score" : 0.9808291,
+    "max_score" : 3.845883,
     "hits" : [
       {
-        "_index" : "sample_target_index",
+        "_index" : "finished_flight_job",
         "_type" : "_doc",
-        "_id" : "w5oN7gnx5nw2PJaS6zDlCw",
-        "_score" : 0.9808291,
+        "_id" : "dSNKGb8U3OJOmC4RqVCi1Q",
+        "_score" : 3.845883,
         "_source" : {
-          "transform._id" : "sample_target_index",
-          "transform._doc_count" : 23,
-          "customer_gender_terms" : "FEMALE",
-          "category.keyword_terms" : "Men's Shoes"
+          "transform._id" : "sample_flight_job",
+          "transform._doc_count" : 14,
+          "Carrier_terms" : "Kibana Airlines",
+          "DestAirportID_terms" : "SFO"
         }
       },
       {
-        "_index" : "sample_target_index",
+        "_index" : "finished_flight_job",
         "_type" : "_doc",
-        "_id" : "r4xZ81gHD1hZG-5HJpcNaw",
-        "_score" : 0.9808291,
+        "_id" : "_D7oqOy7drx9E-MG96U5RA",
+        "_score" : 3.845883,
         "_source" : {
-          "transform._id" : "sample_target_index",
-          "transform._doc_count" : 19,
-          "customer_gender_terms" : "FEMALE",
-          "category.keyword_terms" : "Men's Accessories"
+          "transform._id" : "sample_flight_job",
+          "transform._doc_count" : 14,
+          "Carrier_terms" : "Logstash Airways",
+          "DestAirportID_terms" : "SFO"
         }
       },
       {
-        "_index" : "sample_target_index",
+        "_index" : "finished_flight_job",
         "_type" : "_doc",
-        "_id" : "sJLR4dGCws_jsUKjNj3u-Q",
-        "_score" : 0.2876821,
+        "_id" : "YuZ8tOt1OsBA54e84WuAEw",
+        "_score" : 3.6988301,
         "_source" : {
-          "transform._id" : "sample_target_index",
-          "transform._doc_count" : 61,
-          "customer_gender_terms" : "FEMALE",
-          "category.keyword_terms" : "Men's Clothing"
+          "transform._id" : "sample_flight_job",
+          "transform._doc_count" : 11,
+          "Carrier_terms" : "ES-Air",
+          "DestAirportID_terms" : "SFO"
         }
       },
       {
-        "_index" : "sample_target_index",
+        "_index" : "finished_flight_job",
         "_type" : "_doc",
-        "_id" : "nrkzdJOQU7p1BB4fPUT6Ag",
-        "_score" : 0.13353139,
+        "_id" : "W_-e7bVmH6eu8veJeK8ZxQ",
+        "_score" : 3.6988301,
         "_source" : {
-          "transform._id" : "sample_target_index",
-          "transform._doc_count" : 730,
-          "customer_gender_terms" : "FEMALE",
-          "category.keyword_terms" : "Women's Accessories"
-        }
-      },
-      {
-        "_index" : "sample_target_index",
-        "_type" : "_doc",
-        "_id" : "1raYCebejLhqCvA81fytpg",
-        "_score" : 0.13353139,
-        "_source" : {
-          "transform._id" : "sample_target_index",
-          "transform._doc_count" : 1903,
-          "customer_gender_terms" : "FEMALE",
-          "category.keyword_terms" : "Women's Clothing"
-        }
-      },
-      {
-        "_index" : "sample_target_index",
-        "_type" : "_doc",
-        "_id" : "X1fLVivgCgLKmctQid3L5A",
-        "_score" : 0.13353139,
-        "_source" : {
-          "transform._id" : "sample_target_index",
-          "transform._doc_count" : 1136,
-          "customer_gender_terms" : "FEMALE",
-          "category.keyword_terms" : "Women's Shoes"
+          "transform._id" : "sample_flight_job",
+          "transform._doc_count" : 10,
+          "Carrier_terms" : "JetBeats",
+          "DestAirportID_terms" : "SFO"
         }
       }
     ]
   }
 }
+
 ```

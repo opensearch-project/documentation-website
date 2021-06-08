@@ -398,7 +398,7 @@ from | The starting index to search from. (Default: 0) | No
 size | Specifies the amount of results to return (Default: 10) | No
 search |The search term to use to filter results. | No
 sortField | The field to sort results with. | No
-sortDirection | Specifies the direction to sort results in. (Default: ASC) | No
+sortDirection | Specifies the direction to sort results in. Can be `ASC` or `DESC`. (Default: ASC) | No
 
 For example, this request returns two results starting from the eighth index.
 
