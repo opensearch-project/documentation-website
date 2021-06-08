@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Refresh Search Analyzer
-nav_order: 40
+nav_order: 50
 parent: Index management
 has_children: false
 redirect_from: /docs/ism/refresh-analyzer/
