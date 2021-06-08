@@ -28,10 +28,6 @@ For a longer term solution, we plan to create an OpenSearch output plugin for Lo
 | Elasticsearch OSS v7.10.2 | *Yes* | *Yes* | *No* | *Yes* |
 | ODFE OSS v1.x to 1.12 | *Yes* | *Yes* | *No* | *Yes* |
 | ODFE 1.13 | *Yes* | *Yes* | *No* | *Yes* |
-| Amazon Elasticsearch Service 7.x to 7.9 | Yes | Yes | *No* | *Yes* |
-| Amazon Elasticsearch Service 7.10 | Yes | Yes | *No* | *Yes* |
-| Amazon Elasticsearch Service 7.x to 7.9 with IAM | [Yes with Amazon ES output plugin](https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-managedomains-logstash.html) | [Yes with Amazon ES output plugin](https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-managedomains-logstash.html) | No | *Yes* |
-| Amazon Elasticsearch Service 7.10 with IAM | [Yes with Amazon ES output plugin](https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-managedomains-logstash.html) | [Yes with Amazon ES output plugin](https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-managedomains-logstash.html) | No | *Yes* |
 | OpenSearch 1.0 | [Yes via version setting](https://github.com/opensearch-project/OpenSearch/issues/693) | [Yes via version setting](https://github.com/opensearch-project/OpenSearch/issues/693) | *No* | *Yes* |
 
 \* Most current compatible version with Elasticsearch OSS.
@@ -47,8 +43,6 @@ For a longer term solution, we plan to create an OpenSearch output plugin for Lo
 | Elasticsearch OSS v7.10.2 | *Yes* | *Yes* | No |
 | ODFE OSS v1.x to 1.12 | *Yes* | *Yes* | No |
 | ODFE 1.13 | *Yes* | *Yes* | No |
-| Amazon Elasticsearch Service 7.x to 7.9 | *Yes* | *Yes* | No |
-| Amazon Elasticsearch Service 7.10 | *Yes* | *Yes* | No |
 | OpenSearch 1.0 | [Yes via version setting](https://github.com/opensearch-project/OpenSearch/issues/693) | [Yes via version setting](https://github.com/opensearch-project/OpenSearch/issues/693) | No |
 | Logstash OSS 7.x to 7.11.x | *Yes* | *Yes* | *Yes* |
 | Logstash OSS 7.12.x\* | *Yes* | *Yes* | *Yes* |
