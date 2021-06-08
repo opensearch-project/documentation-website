@@ -326,7 +326,7 @@ You can also get details of all transform jobs by omitting `transform_id`.
 **Sample Request**
 
 ```json
-GET _plugins/_transform/<transform_id>
+GET _plugins/_transform/
 ```
 
 **Sample Response**
