@@ -109,7 +109,7 @@ GET finished_flight_job/_search
         "_source" : {
           "transform._id" : "sample_flight_job",
           "transform._doc_count" : 14,
-          "Carrier_terms" : "Kibana Airlines",
+          "Carrier_terms" : "Dashboards Airlines",
           "DestAirportID_terms" : "SFO"
         }
       },
