@@ -51,7 +51,7 @@ On the other hand, aggregations let you perform simple calculations. For example
 
 You can configure transform jobs to run once or multiple times on a schedule. Transform jobs are enabled by default.
 
-1. For **transformation execution frequency**, select either **Define by fixed interval** and specify a **transform interval**.
+1. For **transformation execution frequency**, select **Define by fixed interval** and specify a **transform interval**.
 2. Under **Advanced**, specify an optional amount for **Pages per execution**. A larger number means more data is processed in each search request, but also uses more memory and causes higher latency. Exceeding allowed memory limits can cause exceptions and errors to occur.
 3. Choose **Next**.
 
