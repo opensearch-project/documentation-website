@@ -10,7 +10,7 @@ nav_order: 1
 Performance Analyzer uses a single HTTP method and URI for most requests:
 
 ```
-GET <endpoint>:9600/_opensearch/_performanceanalyzer/metrics
+GET <endpoint>:9600/_plugins/_performanceanalyzer/metrics
 ```
 
 Note the use of port 9600. Provide parameters for metrics, aggregations, dimensions, and nodes (optional):
@@ -25,7 +25,7 @@ For a full list of metrics, see [Metrics reference](../reference/). Performance 
 #### Sample request
 
 ```
-GET localhost:9600/_opensearch/_performanceanalyzer/metrics?metrics=Latency,CPU_Utilization&agg=avg,max&dim=ShardID&nodes=all
+GET localhost:9600/_plugins/_performanceanalyzer/metrics?metrics=Latency,CPU_Utilization&agg=avg,max&dim=ShardID&nodes=all
 ```
 
 
@@ -104,7 +104,7 @@ Performance Analyzer has one additional URI that returns the unit for each metri
 #### Sample request
 
 ```
-GET localhost:9600/_opensearch/_performanceanalyzer/metrics/units
+GET localhost:9600/_plugins/_performanceanalyzer/metrics/units
 ```
 
 

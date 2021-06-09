@@ -15,7 +15,7 @@ The PPL plugin provides responses in JDBC format. The JDBC format is widely used
 The body of HTTP POST request can take a few more additional fields with the PPL query:
 
 ```json
-curl -H 'Content-Type: application/json' -X POST localhost:9200/_opensearch/_ppl \
+curl -H 'Content-Type: application/json' -X POST localhost:9200/_plugins/_ppl \
 ... -d '{"query" : "source=accounts | fields firstname, lastname"}'
 ```
 
@@ -59,7 +59,7 @@ The following example shows a normal response where the schema includes a field 
 If any error occurred, error message and the cause will be returned instead:
 
 ```json
-curl -H 'Content-Type: application/json' -X POST localhost:9200/_opensearch/_ppl \
+curl -H 'Content-Type: application/json' -X POST localhost:9200/_plugins/_ppl \
 ... -d '{"query" : "source=unknown | fields firstname, lastname"}'
 {
   "error": {

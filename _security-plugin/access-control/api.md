@@ -24,13 +24,13 @@ The security plugin REST API lets you programmatically create and manage users, 
 Just like OpenSearch permissions, you control access to the security plugin REST API using roles. Specify roles in `opensearch.yml`:
 
 ```yml
-opensearch_security.restapi.roles_enabled: ["<role>", ...]
+plugins.security.restapi.roles_enabled: ["<role>", ...]
 ```
 
 These roles can now access all APIs. To prevent access to certain APIs:
 
 ```yml
-opensearch_security.restapi.endpoints_disabled.<role>.<endpoint>: ["<method>", ...]
+plugins.security.restapi.endpoints_disabled.<role>.<endpoint>: ["<method>", ...]
 ```
 
 Possible values for `endpoint` are:
@@ -55,15 +55,15 @@ Possible values for `method` are:
 For example, the following configuration grants three roles access to the REST API, but then prevents `test-role` from making PUT, POST, DELETE, or PATCH requests to `_opensearch/_security/api/roles` or `_opensearch/_security/api/internalusers`:
 
 ```yml
-opensearch_security.restapi.roles_enabled: ["all_access", "security_rest_api_access", "test-role"]
-opensearch_security.restapi.endpoints_disabled.test-role.ROLES: ["PUT", "POST", "DELETE", "PATCH"]
-opensearch_security.restapi.endpoints_disabled.test-role.INTERNALUSERS: ["PUT", "POST", "DELETE", "PATCH"]
+plugins.security.restapi.roles_enabled: ["all_access", "security_rest_api_access", "test-role"]
+plugins.security.restapi.endpoints_disabled.test-role.ROLES: ["PUT", "POST", "DELETE", "PATCH"]
+plugins.security.restapi.endpoints_disabled.test-role.INTERNALUSERS: ["PUT", "POST", "DELETE", "PATCH"]
 ```
 
 To use the PUT and PATCH methods for the [configuration APIs](#configuration), add the following line to `opensearch.yml`:
 
 ```yml
-opensearch_security.unsupported.restapi.allow_securityconfig_modification: true
+plugins.security.unsupported.restapi.allow_securityconfig_modification: true
 ```
 
 

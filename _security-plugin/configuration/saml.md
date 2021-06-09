@@ -302,7 +302,7 @@ authc:
 Because most of the SAML-specific configuration is done in the security plugin, just activate SAML in your `opensearch_dashboards.yml` by adding the following:
 
 ```
-opensearch_security.auth.type: "saml"
+plugins.security.auth.type: "saml"
 ```
 
 In addition, the OpenSearch Dashboards endpoint for validating the SAML assertions must be whitelisted:

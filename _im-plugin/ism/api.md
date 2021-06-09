@@ -451,13 +451,12 @@ GET _plugins/_ism/explain/index_1
 ```json
 {
   "index_1": {
-    "index.opendistro.index_state_management.policy_id": "policy_1"
+    "index.plugins.index_state_management.policy_id": "policy_1"
   }
 }
 ```
 
-The `opendistro.index_state_management.policy_id` setting is deprecated starting from version 1.13.0.
-We retain this field in the response API for consistency.
+The `plugins.index_state_management.policy_id` setting is deprecated starting from ODFE version 1.13.0. We retain this field in the response API for consistency.
 
 ---
 

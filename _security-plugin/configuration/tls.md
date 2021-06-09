@@ -23,20 +23,20 @@ The following tables contain the settings you can use to configure the location 
 
 Name | Description
 :--- | :---
-`opensearch_security.ssl.transport.pemkey_filepath` | Path to the certificate's key file (PKCS \#8), which must be under the `config` directory, specified using a relative path. Required.
-`opensearch_security.ssl.transport.pemkey_password` | Key password. Omit this setting if the key has no password. Optional.
-`opensearch_security.ssl.transport.pemcert_filepath` | Path to the X.509 node certificate chain (PEM format), which must be under the `config` directory, specified using a relative path. Required.
-`opensearch_security.ssl.transport.pemtrustedcas_filepath` | Path to the root CAs (PEM format), which must be under the `config` directory, specified using a relative path. Required.
+`plugins.security.ssl.transport.pemkey_filepath` | Path to the certificate's key file (PKCS \#8), which must be under the `config` directory, specified using a relative path. Required.
+`plugins.security.ssl.transport.pemkey_password` | Key password. Omit this setting if the key has no password. Optional.
+`plugins.security.ssl.transport.pemcert_filepath` | Path to the X.509 node certificate chain (PEM format), which must be under the `config` directory, specified using a relative path. Required.
+`plugins.security.ssl.transport.pemtrustedcas_filepath` | Path to the root CAs (PEM format), which must be under the `config` directory, specified using a relative path. Required.
 
 
 ### REST layer TLS
 
 Name | Description
 :--- | :---
-`opensearch_security.ssl.http.pemkey_filepath` | Path to the certificate's key file (PKCS \#8), which must be under the `config` directory, specified using a relative path. Required.
-`opensearch_security.ssl.http.pemkey_password` | Key password. Omit this setting if the key has no password. Optional.
-`opensearch_security.ssl.http.pemcert_filepath` | Path to the X.509 node certificate chain (PEM format), which must be under the `config` directory, specified using a relative path. Required.
-`opensearch_security.ssl.http.pemtrustedcas_filepath` | Path to the root CAs (PEM format), which must be under the `config` directory, specified using a relative path. Required.
+`plugins.security.ssl.http.pemkey_filepath` | Path to the certificate's key file (PKCS \#8), which must be under the `config` directory, specified using a relative path. Required.
+`plugins.security.ssl.http.pemkey_password` | Key password. Omit this setting if the key has no password. Optional.
+`plugins.security.ssl.http.pemcert_filepath` | Path to the X.509 node certificate chain (PEM format), which must be under the `config` directory, specified using a relative path. Required.
+`plugins.security.ssl.http.pemtrustedcas_filepath` | Path to the root CAs (PEM format), which must be under the `config` directory, specified using a relative path. Required.
 
 
 ## Keystore and truststore files
@@ -50,29 +50,29 @@ The following settings configure the location and password of your keystore and 
 
 Name | Description
 :--- | :---
-`opensearch_security.ssl.transport.keystore_type` | The type of the keystore file, JKS or PKCS12/PFX. Optional. Default is JKS.
-`opensearch_security.ssl.transport.keystore_filepath` | Path to the keystore file, which must be under the `config` directory, specified using a relative path. Required.
-`opensearch_security.ssl.transport.keystore_alias: my_alias` | Alias name. Optional. Default is the first alias.
-`opensearch_security.ssl.transport.keystore_password` | Keystore password. Default is `changeit`.
-`opensearch_security.ssl.transport.truststore_type` | The type of the truststore file, JKS or PKCS12/PFX. Default is JKS.
-`opensearch_security.ssl.transport.truststore_filepath` | Path to the truststore file, which must be under the `config` directory, specified using a relative path. Required.
-`opensearch_security.ssl.transport.truststore_alias` | Alias name. Optional. Default is all certificates.
-`opensearch_security.ssl.transport.truststore_password` | Truststore password. Default is `changeit`.
+`plugins.security.ssl.transport.keystore_type` | The type of the keystore file, JKS or PKCS12/PFX. Optional. Default is JKS.
+`plugins.security.ssl.transport.keystore_filepath` | Path to the keystore file, which must be under the `config` directory, specified using a relative path. Required.
+`plugins.security.ssl.transport.keystore_alias: my_alias` | Alias name. Optional. Default is the first alias.
+`plugins.security.ssl.transport.keystore_password` | Keystore password. Default is `changeit`.
+`plugins.security.ssl.transport.truststore_type` | The type of the truststore file, JKS or PKCS12/PFX. Default is JKS.
+`plugins.security.ssl.transport.truststore_filepath` | Path to the truststore file, which must be under the `config` directory, specified using a relative path. Required.
+`plugins.security.ssl.transport.truststore_alias` | Alias name. Optional. Default is all certificates.
+`plugins.security.ssl.transport.truststore_password` | Truststore password. Default is `changeit`.
 
 
 ### REST layer TLS
 
 Name | Description
 :--- | :---
-`opensearch_security.ssl.http.enabled` | Whether to enable TLS on the REST layer. If enabled, only HTTPS is allowed. Optional. Default is false.
-`opensearch_security.ssl.http.keystore_type` | The type of the keystore file, JKS or PKCS12/PFX. Optional. Default is JKS.
-`opensearch_security.ssl.http.keystore_filepath` | Path to the keystore file, which must be under the `config` directory, specified using a relative path. Required.
-`opensearch_security.ssl.http.keystore_alias` | Alias name. Optional. Default is the first alias.
-`opensearch_security.ssl.http.keystore_password` | Keystore password. Default is `changeit`.
-`opensearch_security.ssl.http.truststore_type` | The type of the truststore file, JKS or PKCS12/PFX. Default is JKS.
-`opensearch_security.ssl.http.truststore_filepath` | Path to the truststore file, which must be under the `config` directory, specified using a relative path. Required.
-`opensearch_security.ssl.http.truststore_alias` | Alias name. Optional. Default is all certificates.
-`opensearch_security.ssl.http.truststore_password` | Truststore password. Default is `changeit`.
+`plugins.security.ssl.http.enabled` | Whether to enable TLS on the REST layer. If enabled, only HTTPS is allowed. Optional. Default is false.
+`plugins.security.ssl.http.keystore_type` | The type of the keystore file, JKS or PKCS12/PFX. Optional. Default is JKS.
+`plugins.security.ssl.http.keystore_filepath` | Path to the keystore file, which must be under the `config` directory, specified using a relative path. Required.
+`plugins.security.ssl.http.keystore_alias` | Alias name. Optional. Default is the first alias.
+`plugins.security.ssl.http.keystore_password` | Keystore password. Default is `changeit`.
+`plugins.security.ssl.http.truststore_type` | The type of the truststore file, JKS or PKCS12/PFX. Default is JKS.
+`plugins.security.ssl.http.truststore_filepath` | Path to the truststore file, which must be under the `config` directory, specified using a relative path. Required.
+`plugins.security.ssl.http.truststore_alias` | Alias name. Optional. Default is all certificates.
+`plugins.security.ssl.http.truststore_password` | Truststore password. Default is `changeit`.
 
 
 ## Configure node certificates
@@ -80,7 +80,7 @@ Name | Description
 The security plugin needs to identify inter-cluster requests (i.e. requests between the nodes). The simplest way of configuring node certificates is to list the Distinguished Names (DNs) of these certificates in `opensearch.yml`. All DNs must be included in `opensearch.yml` on all nodes. The security plugin supports wildcards and regular expressions:
 
 ```yml
-opensearch_security.nodes_dn:
+plugins.security.nodes_dn:
   - 'CN=node.other.com,OU=SSL,O=Test,L=Test,C=DE'
   - 'CN=*.example.com,OU=SSL,O=Test,L=Test,C=DE'
   - 'CN=elk-devcluster*'
@@ -95,7 +95,7 @@ If your node certificates have an Object ID (OID) identifier in the SAN section,
 Admin certificates are regular client certificates that have elevated rights to perform administrative tasks. You need an admin certificate to change the the security plugin configuration using `plugins/opensearch-security/tools/securityadmin.sh` or the REST API. Admin certificates are configured in `opensearch.yml` by stating their DN(s):
 
 ```yml
-opensearch_security.authcz.admin_dn:
+plugins.security.authcz.admin_dn:
   - CN=admin,OU=SSL,O=Test,L=Test,C=DE
 ```
 
@@ -112,8 +112,8 @@ If OpenSSL is enabled, but for one reason or another the installation does not w
 
 Name | Description
 :--- | :---
-`opensearch_security.ssl.transport.enable_openssl_if_available` | Enable OpenSSL on the transport layer if available. Optional. Default is true.
-`opensearch_security.ssl.http.enable_openssl_if_available` | Enable OpenSSL on the REST layer if available. Optional. Default is true.
+`plugins.security.ssl.transport.enable_openssl_if_available` | Enable OpenSSL on the transport layer if available. Optional. Default is true.
+`plugins.security.ssl.http.enable_openssl_if_available` | Enable OpenSSL on the REST layer if available. Optional. Default is true.
 
 
 {% comment %}
@@ -144,8 +144,8 @@ In addition, when `resolve_hostnames` is enabled, the security plugin resolves t
 
 Name | Description
 :--- | :---
-`opensearch_security.ssl.transport.enforce_hostname_verification` | Whether to verify hostnames on the transport layer. Optional. Default is true.
-`opensearch_security.ssl.transport.resolve_hostname` | Whether to resolve hostnames against DNS on the transport layer. Optional. Default is true. Only works if hostname verification is also enabled.
+`plugins.security.ssl.transport.enforce_hostname_verification` | Whether to verify hostnames on the transport layer. Optional. Default is true.
+`plugins.security.ssl.transport.resolve_hostname` | Whether to resolve hostnames against DNS on the transport layer. Optional. Default is true. Only works if hostname verification is also enabled.
 
 
 ## (Advanced) Client authentication
@@ -168,7 +168,7 @@ You can configure the client authentication mode by using the following setting:
 
 Name | Description
 :--- | :---
-opensearch_security.ssl.http.clientauth_mode | The TLS client authentication mode to use. Can be one of `NONE`, `OPTIONAL` (default) or `REQUIRE`. Optional.
+plugins.security.ssl.http.clientauth_mode | The TLS client authentication mode to use. Can be one of `NONE`, `OPTIONAL` (default) or `REQUIRE`. Optional.
 
 
 ## (Advanced) Enabled ciphers and protocols
@@ -179,18 +179,18 @@ If this setting is not enabled, the ciphers and TLS versions are negotiated betw
 
 Name | Data Type | Description
 :--- | :--- | :---
-`opensearch_security.ssl.http.enabled_ciphers` | Array | Enabled TLS cipher suites for the REST layer. Only Java format is supported.
-`opensearch_security.ssl.http.enabled_protocols` | Array | Enabled TLS protocols for the REST layer. Only Java format is supported.
-`opensearch_security.ssl.transport.enabled_ciphers` | Array | Enabled TLS cipher suites for the transport layer. Only Java format is supported.
-`opensearch_security.ssl.transport.enabled_protocols` | Array | Enabled TLS protocols for the transport layer. Only Java format is supported.
+`plugins.security.ssl.http.enabled_ciphers` | Array | Enabled TLS cipher suites for the REST layer. Only Java format is supported.
+`plugins.security.ssl.http.enabled_protocols` | Array | Enabled TLS protocols for the REST layer. Only Java format is supported.
+`plugins.security.ssl.transport.enabled_ciphers` | Array | Enabled TLS cipher suites for the transport layer. Only Java format is supported.
+`plugins.security.ssl.transport.enabled_protocols` | Array | Enabled TLS protocols for the transport layer. Only Java format is supported.
 
 ### Example settings
 
 ```yml
-opensearch_security.ssl.http.enabled_ciphers:
+plugins.security.ssl.http.enabled_ciphers:
   - "TLS_DHE_RSA_WITH_AES_256_CBC_SHA"
   - "TLS_DHE_DSS_WITH_AES_128_CBC_SHA256"
-opensearch_security.ssl.http.enabled_protocols:
+plugins.security.ssl.http.enabled_protocols:
   - "TLSv1.1"
   - "TLSv1.2"
 ```
@@ -198,7 +198,7 @@ opensearch_security.ssl.http.enabled_protocols:
 Because it is insecure, the security plugin disables `TLSv1` by default. If you need to use `TLSv1` and accept the risks, you can still enable it:
 
 ```yml
-opensearch_security.ssl.http.enabled_protocols:
+plugins.security.ssl.http.enabled_protocols:
   - "TLSv1"
   - "TLSv1.1"
   - "TLSv1.2"

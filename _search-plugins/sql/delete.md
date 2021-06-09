@@ -12,6 +12,19 @@ redirect_from: /docs/sql/delete/
 The `DELETE` statement deletes documents that satisfy the predicates in the `WHERE` clause.
 If you don't specify the `WHERE` clause, all documents are deleted.
 
+### Setting
+
+The `DELETE` statement is disabled by default. To enable the `DELETE` functionality in SQL, you need to update the configuration by sending the following request:
+
+```json
+PUT _plugins/_query/settings 
+{
+  "transient": {
+    "plugins.sql.delete.enabled": "true"
+  }
+}
+```
+
 ### Syntax
 
 Rule `singleDeleteStatement`:

@@ -48,7 +48,7 @@ The security plugin uses the [string representation of Distinguished Names (RFC1
 If parts of your DN contain special characters (e.g. a comma), make sure you escape it in your configuration:
 
 ```yml
-opensearch_security.nodes_dn:
+plugins.security.nodes_dn:
   - 'CN=node-0.example.com,OU=SSL,O=My\, Test,L=Test,C=DE'
 ```
 
@@ -57,14 +57,14 @@ You can have whitespace within a field, but not between fields.
 #### Bad configuration
 
 ```yml
-opensearch_security.nodes_dn:
+plugins.security.nodes_dn:
   - 'CN=node-0.example.com, OU=SSL,O=My\, Test, L=Test, C=DE'
 ```
 
 #### Good configuration
 
 ```yml
-opensearch_security.nodes_dn:
+plugins.security.nodes_dn:
   - 'CN=node-0.example.com,OU=SSL,O=My\, Test,L=Test,C=DE'
 ```
 
@@ -196,7 +196,7 @@ ExtendedKeyUsages [
 The security plugin disables TLS version 1.0 by default; it is outdated, insecure, and vulnerable. If you need to use `TLSv1` and accept the risks, you can enable it in `opensearch.yml`:
 
 ```yml
-opensearch_security.ssl.http.enabled_protocols:
+plugins.security.ssl.http.enabled_protocols:
   - "TLSv1"
   - "TLSv1.1"
   - "TLSv1.2"

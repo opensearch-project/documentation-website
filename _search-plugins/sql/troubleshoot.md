@@ -13,7 +13,7 @@ The SQL plugin is stateless, so troubleshooting is mostly focused on why a parti
 The most common error is the dreaded null pointer exception, which can occur during parsing errors or when using the wrong HTTP method (POST vs. GET and vice versa). The POST method and HTTP request body offer the most consistent results:
 
 ```json
-POST _opensearch/_sql
+POST _plugins/_sql
 {
   "query": "SELECT * FROM my-index WHERE ['name.firstname']='saanvi' LIMIT 5"
 }
@@ -24,7 +24,7 @@ If a query isn't behaving the way you expect, use the `_explain` API to see the 
 #### Sample request
 
 ```json
-POST _opensearch/_sql/_explain
+POST _plugins/_sql/_explain
 {
   "query": "SELECT * FROM my-index LIMIT  50"
 }
@@ -39,37 +39,6 @@ POST _opensearch/_sql/_explain
   "size": 50
 }
 ```
-
-## Syntax analysis exception
-
-You might receive the following error if the plugin can't parse your query:
-
-```json
-{
-  "reason": "Invalid SQL query",
-  "details": "Failed to parse query due to offending symbol [:] at: 'SELECT * FROM xxx WHERE xxx:' <--- HERE...
-    More details: Expecting tokens in {<EOF>, 'AND', 'BETWEEN', 'GROUP', 'HAVING', 'IN', 'IS', 'LIKE', 'LIMIT',
-    'NOT', 'OR', 'ORDER', 'REGEXP', '*', '/', '%', '+', '-', 'DIV', 'MOD', '=', '>', '<', '!',
-    '|', '&', '^', '.', DOT_ID}",
-  "type": "SyntaxAnalysisException"
-}
-```
-
-To resolve this error:
-
-1. Check if your syntax follows the [MySQL grammar](https://dev.mysql.com/doc/refman/8.0/en/).
-2. If your syntax is correct, disable strict query analysis:
-
-    ```json
-    PUT _cluster/settings
-    {
-      "persistent" : {
-          "opendistro.sql.query.analysis.enabled" : false
-      }
-    }
-    ```
-
-3. Run the query again to see if it works.
 
 ## Index mapping verification exception
 

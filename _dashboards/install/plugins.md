@@ -29,10 +29,24 @@ If you don't want to use the all-in-one installation options, you can install th
   </thead>
   <tbody>
   <tr>
+    <td>1.0.0-rc1</td>
+    <td>
+      <pre>alertingDashboards          1.0.0.0-rc1
+anomalyDetectionDashboards  1.0.0.0-rc1
+ganttChartDashboards        1.0.0.0-rc1
+indexManagementDashboards   1.0.0.0-rc1
+notebooksDashboards         1.0.0.0-rc1
+queryWorkbenchDashboards    1.0.0.0-rc1
+reportsDashboards           1.0.0.0-rc1
+securityDashboards          1.0.0.0-rc1
+traceAnalyticsDashboards    1.0.0.0-rc1
+</pre>
+    </td>
+  </tr>
+  <tr>
     <td>1.0.0-beta1</td>
     <td>
-      <pre>
-alertingDashboards          1.0.0.0-beta1
+      <pre>alertingDashboards          1.0.0.0-beta1
 anomalyDetectionDashboards  1.0.0.0-beta1
 ganttChartDashboards        1.0.0.0-beta1
 indexManagementDashboards   1.0.0.0-beta1
@@ -59,6 +73,7 @@ traceAnalyticsDashboards    1.0.0.0-beta1
 
 Navigate to the OpenSearch Dashboards home directory (likely `/usr/share/opensearch-dashboards`) and run the install command for each plugin.
 
+{% comment %}
 
 #### Security OpenSearch Dashboards
 
@@ -145,6 +160,7 @@ sudo bin/opensearch-dashboards-plugin install https://d3g5vo6xdbdb9a.cloudfront.
 
 This plugin adds a new Gantt chart visualization.
 
+{% endcomment %}
 
 ## List installed plugins
 

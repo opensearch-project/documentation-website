@@ -89,7 +89,7 @@ Just like the root certificate, use the `-days` option to specify an expiration 
 
 Follow the steps in [Generate an admin certificate](#generate-an-admin-certificate) with new file names to generate a new certificate for each node and as many client certificates as you need. Each certificate should use its own private key.
 
-If you generate node certificates and have `opensearch_security.ssl.transport.enforce_hostname_verification` set to `true` (default), be sure to specify a common name (CN) for the certificate that matches the hostname of the intended node. If you want to use the same node certificate on all nodes (not recommended), set hostname verification to `false`. For more information, see [Configure TLS certificates](../tls/#advanced-hostname-verification-and-dns-lookup).
+If you generate node certificates and have `plugins.security.ssl.transport.enforce_hostname_verification` set to `true` (default), be sure to specify a common name (CN) for the certificate that matches the hostname of the intended node. If you want to use the same node certificate on all nodes (not recommended), set hostname verification to `false`. For more information, see [Configure TLS certificates](../tls/#advanced-hostname-verification-and-dns-lookup).
 
 
 ### Sample script
@@ -134,9 +134,9 @@ openssl req -new -key node-key.pem -subj "/C=CA/ST=ONTARIO/L=TORONTO/O=ORG/OU=UN
 If you created admin and node certificates, you must specify their distinguished names (DNs) in `opensearch.yml` on all nodes:
 
 ```yml
-opensearch_security.authcz.admin_dn:
+plugins.security.authcz.admin_dn:
   - 'CN=ADMIN,OU=UNIT,O=ORG,L=TORONTO,ST=ONTARIO,C=CA'
-opensearch_security.nodes_dn:
+plugins.security.nodes_dn:
   - 'CN=node1.example.com,OU=UNIT,O=ORG,L=TORONTO,ST=ONTARIO,C=CA'
   - 'CN=node2.example.com,OU=UNIT,O=ORG,L=TORONTO,ST=ONTARIO,C=CA'
 ```

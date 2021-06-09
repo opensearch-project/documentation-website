@@ -19,7 +19,7 @@ Another benefit of client certificate authentication is you can use it along wit
 To enable client certificate authentication, you must first set `clientauth_mode` in `opensearch.yml` to either `OPTIONAL` or `REQUIRE`:
 
 ```yml
-opensearch_security.ssl.http.clientauth_mode: OPTIONAL
+plugins.security.ssl.http.clientauth_mode: OPTIONAL
 ```
 
 Next, enable client certificate authentication in the `client_auth_domain` section of `config.yml`.

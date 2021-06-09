@@ -114,7 +114,7 @@ ORDER BY _score
 
 
 | account_number | address | score
-:--- | :---
+:--- | :--- | :---
 1 | 880 Holmes Lane | 0.5
 6 | 671 Bristol Street | 100
 13 | 789 Madison Street | 100

@@ -15,13 +15,13 @@ OpenSearch can perform aggregations on massive datasets in milliseconds. Compare
 
 ## Aggregations on text fields
 
-By default, OpenSearch doesn't support aggregations on a text field.
-Because text fields are tokenized, an aggregation on a text field has to reverse the tokenization process back to its original string and then formulate an aggregation based on that. Such an operation consumes significant memory and degrades cluster performance.
+By default, OpenSearch doesn't support aggregations on a text field. Because text fields are tokenized, an aggregation on a text field has to reverse the tokenization process back to its original string and then formulate an aggregation based on that. This kind of an operation consumes significant memory and degrades cluster performance.
 
 While you can enable aggregations on text fields by setting the `fielddata` parameter to `true` in the mapping, the aggregations are still based on the tokenized words and not on the raw text.
 
 We recommend keeping a raw version of the text field as a `keyword` field that you can aggregate on.
-In this case, you can perform aggregations on the `title.raw` field, instead of the `title` field:
+
+In this case, you can perform aggregations on the `title.raw` field, instead of on the `title` field:
 
 ```json
 PUT movies
@@ -60,15 +60,13 @@ GET _search
 
 If you’re only interested in the aggregation result and not in the results of the query, set `size` to 0.
 
-In the `aggs` property (you can use `aggregations` if you want), you can define any number of aggregations.
-Each aggregation is defined by its name and one of the types of aggregations that OpenSearch supports.
+In the `aggs` property (you can use `aggregations` if you want), you can define any number of aggregations. Each aggregation is defined by its name and one of the types of aggregations that OpenSearch supports.
 
-The name of the aggregation helps you to distinguish between different aggregations in the response.
-The `AGG_TYPE` property is where you specify the type of aggregation.
+The name of the aggregation helps you to distinguish between different aggregations in the response. The `AGG_TYPE` property is where you specify the type of aggregation.
 
 ## Sample aggregation
 
-This section uses the OpenSearch Dashboards sample e-commerce data and web log data. To add the sample data, log in to OpenSearch Dashboards, choose **Home** and **Try our sample data**. For **Sample eCommerce orders** and **Sample web logs**, choose **Add data**.
+This section uses the OpenSearch Dashboards sample ecommerce data and web log data. To add the sample data, log in to OpenSearch Dashboards, choose **Home**, and then choose **Try our sample data**. For **Sample eCommerce orders** and **Sample web logs**, choose **Add data**.
 
 ### avg
 
@@ -128,7 +126,7 @@ There are three main types of aggregations:
 
 ## Nested aggregations
 
-Aggregations within aggregations are called nested or sub aggregations.
+Aggregations within aggregations are called nested or subaggregations.
 
 Metric aggregations produce simple results and can't contain nested aggregations.
 

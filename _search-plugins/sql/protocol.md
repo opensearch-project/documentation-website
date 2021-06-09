@@ -29,7 +29,7 @@ OpenSearch DSL directly.
 SQL query:
 
 ```console
->> curl -H 'Content-Type: application/json' -X POST localhost:9200/_opensearch/_sql -d '{
+>> curl -H 'Content-Type: application/json' -X POST localhost:9200/_plugins/_sql -d '{
   "query" : "SELECT firstname, lastname, balance FROM accounts",
   "filter" : {
     "range" : {
@@ -89,7 +89,7 @@ in prepared SQL query.
 SQL query:
 
 ```console
->> curl -H 'Content-Type: application/json' -X POST localhost:9200/_opensearch/_sql -d '{
+>> curl -H 'Content-Type: application/json' -X POST localhost:9200/_plugins/_sql -d '{
   "query": "SELECT * FROM accounts WHERE age = ?",
   "parameters": [{
     "type": "integer",
@@ -125,13 +125,96 @@ Explain:
     }
   }
 }
+
+```
+## JDBC Format
+
+### Description
+
+By default, the plugin returns the JDBC standard format. This format
+is provided for JDBC driver and clients that need both schema and 
+result set well formatted.
+
+### Example 1
+
+Here is an example for normal response. The
+`schema` includes field name and its type
+and `datarows` includes the result set.
+
+SQL query:
+
+```console
+>> curl -H 'Content-Type: application/json' -X POST localhost:9200/_plugins/_sql -d '{
+  "query" : "SELECT firstname, lastname, age FROM accounts ORDER BY age LIMIT 2"
+}'
+```
+
+Result set:
+
+```json
+{
+  "schema": [{
+      "name": "firstname",
+      "type": "text"
+    },
+    {
+      "name": "lastname",
+      "type": "text"
+    },
+    {
+      "name": "age",
+      "type": "long"
+    }
+  ],
+  "total": 4,
+  "datarows": [
+    [
+      "Nanette",
+      "Bates",
+      28
+    ],
+    [
+      "Amber",
+      "Duke",
+      32
+    ]
+  ],
+  "size": 2,
+  "status": 200
+}
+```
+
+### Example 2
+
+If any error occurred, error message and the cause will be returned
+instead.
+
+SQL query:
+
+```console
+>> curl -H 'Content-Type: application/json' -X POST localhost:9200/_plugins/_sql -d '{
+  "query" : "SELECT unknown FROM accounts"
+}'
+```
+
+Result set:
+
+```json
+{
+  "error": {
+    "reason": "Invalid SQL query",
+    "details": "Field [unknown] cannot be found or used here.",
+    "type": "SemanticAnalysisException"
+  },
+  "status": 400
+}
 ```
 
 ## OpenSearch DSL
 
 ### Description
 
-By default the plugin returns original response from OpenSearch in
+The `json` format returns original response from OpenSearch in
 JSON. Because this is the native response from OpenSearch, extra
 efforts are needed to parse and interpret it.
 
@@ -140,7 +223,7 @@ efforts are needed to parse and interpret it.
 SQL query:
 
 ```console
->> curl -H 'Content-Type: application/json' -X POST localhost:9200/_opensearch/_sql -d '{
+>> curl -H 'Content-Type: application/json' -X POST localhost:9200/_plugins/_sql?format=json -d '{
   "query" : "SELECT firstname, lastname, age FROM accounts ORDER BY age LIMIT 2"
 }'
 ```
@@ -196,88 +279,6 @@ Result set:
 }
 ```
 
-## JDBC Format
-
-### Description
-
-JDBC format is provided for JDBC driver and client side that needs both
-schema and result set well formatted.
-
-### Example 1
-
-Here is an example for normal response. The
-`schema` includes field name and its type
-and `datarows` includes the result set.
-
-SQL query:
-
-```console
->> curl -H 'Content-Type: application/json' -X POST localhost:9200/_opensearch/_sql?format=jdbc -d '{
-  "query" : "SELECT firstname, lastname, age FROM accounts ORDER BY age LIMIT 2"
-}'
-```
-
-Result set:
-
-```json
-{
-  "schema": [{
-      "name": "firstname",
-      "type": "text"
-    },
-    {
-      "name": "lastname",
-      "type": "text"
-    },
-    {
-      "name": "age",
-      "type": "long"
-    }
-  ],
-  "total": 4,
-  "datarows": [
-    [
-      "Nanette",
-      "Bates",
-      28
-    ],
-    [
-      "Amber",
-      "Duke",
-      32
-    ]
-  ],
-  "size": 2,
-  "status": 200
-}
-```
-
-### Example 2
-
-If any error occurred, error message and the cause will be returned
-instead.
-
-SQL query:
-
-```console
->> curl -H 'Content-Type: application/json' -X POST localhost:9200/_opensearch/_sql?format=jdbc -d '{
-  "query" : "SELECT unknown FROM accounts"
-}'
-```
-
-Result set:
-
-```json
-{
-  "error": {
-    "reason": "Invalid SQL query",
-    "details": "Field [unknown] cannot be found or used here.",
-    "type": "SemanticAnalysisException"
-  },
-  "status": 400
-}
-```
-
 ## CSV Format
 
 ### Description
@@ -289,7 +290,7 @@ You can also use CSV format to download result set as CSV.
 SQL query:
 
 ```console
->> curl -H 'Content-Type: application/json' -X POST localhost:9200/_opensearch/_sql?format=csv -d '{
+>> curl -H 'Content-Type: application/json' -X POST localhost:9200/_plugins/_sql?format=csv -d '{
   "query" : "SELECT firstname, lastname, age FROM accounts ORDER BY age"
 }'
 ```
@@ -316,7 +317,7 @@ line tool for post processing.
 SQL query:
 
 ```console
->> curl -H 'Content-Type: application/json' -X POST localhost:9200/_opensearch/_sql?format=raw -d '{
+>> curl -H 'Content-Type: application/json' -X POST localhost:9200/_plugins/_sql?format=raw -d '{
   "query" : "SELECT firstname, lastname, age FROM accounts ORDER BY age"
 }'
 ```

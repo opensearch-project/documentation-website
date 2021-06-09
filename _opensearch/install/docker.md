@@ -191,25 +191,25 @@ You can also configure `docker-compose.yml` and `opensearch.yml` [to take your o
 1. Enable the Performance Analyzer plugin:
 
    ```bash
-   curl -XPOST localhost:9200/_opensearch/_performanceanalyzer/cluster/config -H 'Content-Type: application/json' -d '{"enabled": true}'
+   curl -XPOST localhost:9200/_plugins/_performanceanalyzer/cluster/config -H 'Content-Type: application/json' -d '{"enabled": true}'
    ```
 
    If you receive the `curl: (52) Empty reply from server` error, you are likely protecting your cluster with the security plugin and you need to provide credentials. Modify the following command to use your username and password:
 
    ```bash
-   curl -XPOST https://localhost:9200/_opensearch/_performanceanalyzer/cluster/config -H 'Content-Type: application/json' -d '{"enabled": true}' -u 'admin:admin' -k
+   curl -XPOST https://localhost:9200/_plugins/_performanceanalyzer/cluster/config -H 'Content-Type: application/json' -d '{"enabled": true}' -u 'admin:admin' -k
    ```
 
 1. Enable the Root Cause Analyzer (RCA) framework
 
    ```bash
-   curl -XPOST localhost:9200/_opensearch/_performanceanalyzer/rca/cluster/config -H 'Content-Type: application/json' -d '{"enabled": true}'
+   curl -XPOST localhost:9200/_plugins/_performanceanalyzer/rca/cluster/config -H 'Content-Type: application/json' -d '{"enabled": true}'
    ```
 
    Similar to step 1, if you run into `curl: (52) Empty reply from server`, run the command below to enable RCA
 
    ```bash
-   curl -XPOST https://localhost:9200/_opensearch/_performanceanalyzer/rca/cluster/config -H 'Content-Type: application/json' -d '{"enabled": true}' -u 'admin:admin' -k
+   curl -XPOST https://localhost:9200/_plugins/_performanceanalyzer/rca/cluster/config -H 'Content-Type: application/json' -d '{"enabled": true}' -u 'admin:admin' -k
    ```
 
 1. By default, Performance Analyzer's endpoints are not accessible from outside the Docker container.
@@ -298,7 +298,7 @@ docker build --tag=opensearch-custom-plugin .
 docker run -p 9200:9200 -p 9600:9600 -v /usr/share/opensearch/data opensearch-custom-plugin
 ```
 
-You can also use a `Dockerfile` to pass your own certificates for use with the [Security](../../../security/) plugin, similar to the `-v` argument in [Configure OpenSearch](#configure-opensearch):
+You can also use a `Dockerfile` to pass your own certificates for use with the [security](../../../security/) plugin, similar to the `-v` argument in [Configure OpenSearch](#configure-opensearch):
 
 ```
 FROM opensearchproject/opensearch:{{site.opensearch_version}}
@@ -312,11 +312,11 @@ Alternately, you might want to remove a plugin. This `Dockerfile` removes the se
 
 ```
 FROM opensearchproject/opensearch:{{site.opensearch_version}}
-RUN /usr/share/opensearch/bin/opensearch-plugin remove opensearch_security
+RUN /usr/share/opensearch/bin/opensearch-plugin remove opensearch-security
 COPY --chown=opensearch:opensearch opensearch.yml /usr/share/opensearch/config/
 ```
 
-In this case, `opensearch.yml` is a "vanilla" version of the file with no OpenSearch entries. It might look like this:
+In this case, `opensearch.yml` is a "vanilla" version of the file with no plugin entries. It might look like this:
 
 ```yml
 cluster.name: "docker-cluster"

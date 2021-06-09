@@ -82,12 +82,12 @@ SELECT *
 FROM accounts
 ```
 
-| id | account_number | firstname | gender | city | balance | employer | state | email | address | lastname | age
-:--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :---
-0 | 1 | Amber | M | Brogan | 39225 | Pyrami | IL | amberduke@pyrami.com | 880 Holmes Lane | Duke | 32
-1 | 16 | Hattie | M | Dante | 5686 | Netagy | TN | hattiebond@netagy.com | 671 Bristol Street | 	Bond | 36
-2 | 13 | Nanette | F | Nogal | 32838 | Quility | VA | nanettebates@quility.com | 789 Madison Street | Bates | 28
-3 | 18 | Dale | M | Orick | 4180 |  | MD | daleadams@boink.com | 467 Hutchinson Court | Adams | 33
+| account_number | firstname | gender | city | balance | employer | state | email | address | lastname | age
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :---
+| 1 | Amber | M | Brogan | 39225 | Pyrami | IL | amberduke@pyrami.com | 880 Holmes Lane | Duke | 32
+| 16 | Hattie | M | Dante | 5686 | Netagy | TN | hattiebond@netagy.com | 671 Bristol Street | 	Bond | 36
+| 13 | Nanette | F | Nogal | 32838 | Quility | VA | nanettebates@quility.com | 789 Madison Street | Bates | 28
+| 18 | Dale | M | Orick | 4180 |  | MD | daleadams@boink.com | 467 Hutchinson Court | Adams | 33
 
 *Example 2*: Use field name(s) to retrieve only specific fields:
 
@@ -96,12 +96,12 @@ SELECT firstname, lastname
 FROM accounts
 ```
 
-| id | firstname | lastname
-:--- | :--- | :---
-0 | Amber | Duke
-1 | Hattie | Bond
-2 | Nanette | Bates
-3 | Dale | Adams
+| firstname | lastname
+| :--- | :---
+| Amber | Duke
+| Hattie | Bond
+| Nanette | Bates
+| Dale | Adams
 
 *Example 3*: Use field aliases instead of field names. Field aliases are used to make field names more readable:
 
@@ -110,12 +110,12 @@ SELECT account_number AS num
 FROM accounts
 ```
 
-| id | num
-:--- | :---
-0 | 1
-1 | 6
-2 | 13
-3 | 18
+| num
+:---
+| 1
+| 6
+| 13
+| 18
 
 *Example 4*: Use the `DISTINCT` clause to get back only unique field values. You can specify one or more field names:
 
@@ -124,12 +124,12 @@ SELECT DISTINCT age
 FROM accounts
 ```
 
-| id | age
-:--- | :---
-0 | 28
-1 | 32
-2 | 33
-3 | 36
+| age
+:---
+| 28
+| 32
+| 33
+| 36
 
 ## From
 
@@ -157,12 +157,12 @@ SELECT account_number, acc.age
 FROM accounts acc
 ```
 
-| id | account_number | age
-:--- | :--- | :---
-0 | 1 | 32
-1 | 6 | 36
-2 | 13 | 28
-3 | 18 | 33
+| account_number | age
+| :--- | :---
+| 1 | 32
+| 6 | 36
+| 13 | 28
+| 18 | 33
 
 *Example 2*: Use index patterns to query indices that match a specific pattern:
 
@@ -171,12 +171,12 @@ SELECT account_number
 FROM account*
 ```
 
-| id | account_number
-:--- | :---
-0 | 1
-1 | 6
-2 | 13
-3 | 18
+| account_number
+:---
+| 1
+| 6
+| 13
+| 18
 
 ## Where
 
@@ -206,11 +206,11 @@ FROM accounts
 WHERE account_number = 1
 ```
 
-| id | account_number
-:--- | :---
-0 | 1
+| account_number
+| :---
+| 1
 
-*Example 2*: OpenSearch allows for flexible schema so documents in an index may have different fields. Use `IS NULL` or `IS NOT NULL` to retrieve only missing fields or existing fields. We do not differentiate between missing fields and fields explicitly set to `NULL`:
+*Example 2*: OpenSearch allows for flexible schema， so documents in an index may have different fields. Use `IS NULL` or `IS NOT NULL` to retrieve only missing fields or existing fields. We do not differentiate between missing fields and fields explicitly set to `NULL`:
 
 ```sql
 SELECT account_number, employer
@@ -218,9 +218,9 @@ FROM accounts
 WHERE employer IS NULL
 ```
 
-| id | account_number | employer
-:--- | :--- | :---
-0 | 18 |
+| account_number | employer
+| :--- | :---
+| 18 |
 
 *Example 3*: Deletes a document that satisfies the predicates in the `WHERE` clause:
 
@@ -308,12 +308,12 @@ FROM accounts
 ORDER BY account_number DESC
 ```
 
-| id | account_number
-:--- | :---
-0 | 18
-1 | 13
-2 | 6
-3 | 1
+| account_number
+| :---
+| 18
+| 13
+| 6
+| 1
 
 *Example 2*: Specify if documents with missing fields are to be put at the beginning or at the end of the results. The default behavior of OpenSearch is to return nulls or missing fields at the end. To push them before non-nulls, use the `IS NOT NULL` operator:
 
@@ -323,12 +323,12 @@ FROM accounts
 ORDER BY employer IS NOT NULL
 ```
 
-| id | employer
-:--- | :---
-0 |
-1 | Netagy
-2 | Pyrami
-3 | Quility
+| employer
+| :---
+||
+| Netagy
+| Pyrami
+| Quility
 
 ## Limit
 
@@ -342,9 +342,9 @@ FROM accounts
 ORDER BY account_number LIMIT 1
 ```
 
-| id | account_number
-:--- | :---
-0 | 1
+| account_number
+| :---
+| 1
 
 *Example 2*: If you pass in two arguments, the first is mapped to the `from` parameter and the second to the `size` parameter in OpenSearch. You can use this for simple pagination for small indices, as it's inefficient for large indices.
 Use `ORDER BY` to ensure the same order between pages:
@@ -355,6 +355,6 @@ FROM accounts
 ORDER BY account_number LIMIT 1, 1
 ```
 
-| id | account_number
-:--- | :---
-0 | 6
+| account_number
+| :---
+| 6

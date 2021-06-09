@@ -111,26 +111,26 @@ networks:
 Then make your changes to `opensearch.yml`. For a full list of settings, see [Security](../../../security/configuration/). This example adds (extremely) verbose audit logging:
 
 ```yml
-opensearch_security.ssl.transport.pemcert_filepath: node.pem
-opensearch_security.ssl.transport.pemkey_filepath: node-key.pem
-opensearch_security.ssl.transport.pemtrustedcas_filepath: root-ca.pem
-opensearch_security.ssl.transport.enforce_hostname_verification: false
-opensearch_security.ssl.http.enabled: true
-opensearch_security.ssl.http.pemcert_filepath: node.pem
-opensearch_security.ssl.http.pemkey_filepath: node-key.pem
-opensearch_security.ssl.http.pemtrustedcas_filepath: root-ca.pem
-opensearch_security.allow_default_init_securityindex: true
-opensearch_security.authcz.admin_dn:
+plugins.security.ssl.transport.pemcert_filepath: node.pem
+plugins.security.ssl.transport.pemkey_filepath: node-key.pem
+plugins.security.ssl.transport.pemtrustedcas_filepath: root-ca.pem
+plugins.security.ssl.transport.enforce_hostname_verification: false
+plugins.security.ssl.http.enabled: true
+plugins.security.ssl.http.pemcert_filepath: node.pem
+plugins.security.ssl.http.pemkey_filepath: node-key.pem
+plugins.security.ssl.http.pemtrustedcas_filepath: root-ca.pem
+plugins.security.allow_default_init_securityindex: true
+plugins.security.authcz.admin_dn:
   - CN=A,OU=UNIT,O=ORG,L=TORONTO,ST=ONTARIO,C=CA
-opensearch_security.nodes_dn:
+plugins.security.nodes_dn:
   - 'CN=N,OU=UNIT,O=ORG,L=TORONTO,ST=ONTARIO,C=CA'
-opensearch_security.audit.type: internal_opensearch
-opensearch_security.enable_snapshot_restore_privilege: true
-opensearch_security.check_snapshot_restore_write_privileges: true
-opensearch_security.restapi.roles_enabled: ["all_access", "security_rest_api_access"]
+plugins.security.audit.type: internal_opensearch
+plugins.security.enable_snapshot_restore_privilege: true
+plugins.security.check_snapshot_restore_write_privileges: true
+plugins.security.restapi.roles_enabled: ["all_access", "security_rest_api_access"]
 cluster.routing.allocation.disk.threshold_enabled: false
-opensearch_security.audit.config.disabled_rest_categories: NONE
-opensearch_security.audit.config.disabled_transport_categories: NONE
+plugins.security.audit.config.disabled_rest_categories: NONE
+plugins.security.audit.config.disabled_transport_categories: NONE
 ```
 
 Use this same override process to specify new [authentication settings](../../../security/configuration/configuration/) in `/usr/share/opensearch/plugins/opensearch-security/securityconfig/config.yml`, as well as new default [internal users, roles, mappings, action groups, and tenants](../../../security/configuration/yaml/).
@@ -165,13 +165,13 @@ volumes:
 Remember that the certificates you specify in your Docker Compose file must be the same as the certificates listed in your custom `opensearch.yml` file. At a minimum, you should replace the root, admin, and node certificates with your own. For more information about adding and using certificates, see [Configure TLS certificates](../security/configuration/tls.md).
 
 ```yml
-opensearch_security.ssl.transport.pemcert_filepath: new-node-cert.pem
-opensearch_security.ssl.transport.pemkey_filepath: new-node-cert-key.pem
-opensearch_security.ssl.transport.pemtrustedcas_filepath: new-root-ca.pem
-opensearch_security.ssl.http.pemcert_filepath: new-node-cert.pem
-opensearch_security.ssl.http.pemkey_filepath: new-node-cert-key.pem
-opensearch_security.ssl.http.pemtrustedcas_filepath: new-root-ca.pem
-opensearch_security.authcz.admin_dn:
+plugins.security.ssl.transport.pemcert_filepath: new-node-cert.pem
+plugins.security.ssl.transport.pemkey_filepath: new-node-cert-key.pem
+plugins.security.ssl.transport.pemtrustedcas_filepath: new-root-ca.pem
+plugins.security.ssl.http.pemcert_filepath: new-node-cert.pem
+plugins.security.ssl.http.pemkey_filepath: new-node-cert-key.pem
+plugins.security.ssl.http.pemtrustedcas_filepath: new-root-ca.pem
+plugins.security.authcz.admin_dn:
   - CN=admin,OU=SSL,O=Test,L=Test,C=DE
 ```
 

@@ -143,7 +143,7 @@ The `explain` output is complicated, because a `JOIN` clause is associated with 
 Result set:
 
 | a.account_number | a.firstname | a.lastname | e.id | e.name
-:--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :---
+:--- | :--- | :--- | :--- | :---
 6 | Hattie | Bond | 6 | Jane Smith
 
 ### Example 2: Cross join
@@ -168,7 +168,7 @@ JOIN employees_nested e
 Result set:
 
 | a.account_number | a.firstname | a.lastname | e.id | e.name
-:--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :---
+:--- | :--- | :--- | :--- | :---
 1 | Amber | Duke | 3 | Bob Smith
 1 | Amber | Duke | 4 | Susan Smith
 1 | Amber | Duke | 6 | Jane Smith
@@ -200,7 +200,7 @@ LEFT JOIN employees_nested e
 Result set:
 
 | a.account_number | a.firstname | a.lastname | e.id | e.name
-:--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :---
+:--- | :--- | :--- | :--- | :---
 1 | Amber | Duke | null | null
 6 | Hattie | Bond | 6 | Jane Smith
 13 | Nanette | Bates | null | null
@@ -351,7 +351,7 @@ Explain:
 Result set:
 
 | a1.firstname | a1.lastname | a1.balance
-:--- | :--- | :--- | :--- | :--- | :---
+:--- | :--- | :---
 Amber | Duke | 39225
 Nanette | Bates | 32838
 

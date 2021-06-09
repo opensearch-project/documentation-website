@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Index Rollups
+title: Index rollups
 nav_order: 35
 has_children: true
 redirect_from: /docs/ism/index-rollups/
