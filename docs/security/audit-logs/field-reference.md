@@ -18,7 +18,7 @@ The following attributes are logged for all event categories, independent of the
 Name | Description
 :--- | :---
 `audit_format_version` | The audit log message format version.
-`audit_category` | The audit log category, one of FAILED_LOGIN, MISSING_PRIVILEGES, BAD_HEADERS, SSL_EXCEPTION, opensearch_SECURITY_INDEX_ATTEMPT, AUTHENTICATED or GRANTED_PRIVILEGES.
+`audit_category` | The audit log category. FAILED_LOGIN, MISSING_PRIVILEGES, BAD_HEADERS, SSL_EXCEPTION, OPENSEARCH_SECURITY_INDEX_ATTEMPT, AUTHENTICATED, or GRANTED_PRIVILEGES.
 `audit_node_id ` | The ID of the node where the event was generated.
 `audit_node_name` | The name of the node where the event was generated.
 `audit_node_host_address` | The host address of the node where the event was generated.

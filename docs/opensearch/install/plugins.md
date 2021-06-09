@@ -31,6 +31,23 @@ If you don't want to use the all-in-one OpenSearch installation options, you can
   </thead>
   <tbody>
   <tr>
+    <td>1.0.0-rc1</td>
+    <td>
+      <pre>opensearch-alerting             1.0.0.0-rc1
+opensearch-anomaly-detection    1.0.0.0-rc1
+opensearch-asynchronous-search  1.0.0.0-rc1
+opensearch-index-management     1.0.0.0-rc1
+opensearch-job-scheduler        1.0.0.0-rc1
+opensearch-knn                  1.0.0.0-rc1
+opensearch-notebooks            1.0.0.0-rc1
+opensearch-performance-analyzer 1.0.0.0-rc1
+opensearch-reports-scheduler    1.0.0.0-rc1
+opensearch-security             1.0.0.0-rc1
+opensearch-sql                  1.0.0.0-rc1
+</pre>
+    </td>
+  </tr>
+  <tr>
     <td>1.0.0-beta1</td>
     <td>
       <pre>opensearch-alerting             1.0.0.0-beta1
@@ -65,7 +82,7 @@ Then you can specify the version that you need:
 sudo yum install opensearch-oss-6.7.1
 ```
 
-{% endcomment %}
+
 
 
 ## Install plugins
@@ -227,9 +244,9 @@ Performance Analyzer requires some manual configuration after installing the plu
 1. Send a test request:
 
    ```bash
-   curl -XGET "localhost:9600/_opensearch/_performanceanalyzer/metrics?metrics=Latency,CPU_Utilization&agg=avg,max&dim=ShardID&nodes=all"
+   curl -XGET "localhost:9600/_plugins/_performanceanalyzer/metrics?metrics=Latency,CPU_Utilization&agg=avg,max&dim=ShardID&nodes=all"
    ```
-
+{% endcomment %}
 
 ## List installed plugins
 

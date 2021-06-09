@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Index Rollups
+title: Index rollups
 nav_order: 35
 parent: Index management
 has_children: true

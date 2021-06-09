@@ -20,7 +20,7 @@ Impersonation can occur on either the REST interface or at the transport layer.
 To allow one user to impersonate another, add the following to `opensearch.yml`:
 
 ```yml
-opensearch_security.authcz.rest_impersonation_user:
+plugins.security.authcz.rest_impersonation_user:
   <AUTHENTICATED_USER>:
     - <IMPERSONATED_USER_1>
     - <IMPERSONATED_USER_2>
@@ -34,7 +34,7 @@ The impersonated user field supports wildcards. Setting it to `*` allows `AUTHEN
 In a similar fashion, add the following to enable transport layer impersonation:
 
 ```yml
-opensearch_security.authcz.impersonation_dn:
+plugins.security.authcz.impersonation_dn:
   "CN=spock,OU=client,O=client,L=Test,C=DE":
     - worf
 ```

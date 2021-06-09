@@ -460,7 +460,7 @@ GET _plugins/_alerting/<node-id>/stats/<metric>
     "failed": 0
   },
   "cluster_name": "475300751431:alerting65-dont-delete",
-  "opensearch.scheduled_jobs.enabled": true,
+  "plugins.scheduled_jobs.enabled": true,
   "scheduled_job_index_exists": true,
   "scheduled_job_index_status": "green",
   "nodes_on_schedule": 9,

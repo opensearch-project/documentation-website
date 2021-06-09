@@ -78,8 +78,8 @@ You can enter individual email addresses or an email group in the **Recipients**
 If your email provider requires SSL or TLS, you must authenticate each sender account before you can send an email. Enter these credentials in the OpenSearch keystore using the CLI. Run the following commands (in your OpenSearch directory) to enter your username and password. The `<sender_name>` is the name you entered for **Sender** earlier.
 
 ```bash
-./bin/opensearch-keystore add opendistro.alerting.destination.email.<sender_name>.username
-./bin/opensearch-keystore add opendistro.alerting.destination.email.<sender_name>.password
+./bin/opensearch-keystore add plugins.alerting.destination.email.<sender_name>.username
+./bin/opensearch-keystore add plugins.alerting.destination.email.<sender_name>.password
 ```
 
 **Note**: Keystore settings are node-specific. You must run these commands on each node.

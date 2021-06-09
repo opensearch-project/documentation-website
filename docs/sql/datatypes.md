@@ -79,7 +79,7 @@ timestamp | `yyyy-MM-dd hh:mm:ss[.fraction]` | `0001-01-01 00:00:01.000000` UTC 
 The `interval` type represents a temporal duration or a period.
 
 | Type | Syntax
-:--- | :--- | :---
+:--- | :---
 interval | `INTERVAL expr unit`
 
 The `expr` unit is any expression that eventually iterates to a quantity value. It represents a unit for interpreting the quantity, including `MICROSECOND`, `SECOND`, `MINUTE`, `HOUR`, `DAY`, `WEEK`, `MONTH`, `QUARTER`, and `YEAR`. The `INTERVAL` keyword and the unit specifier are not case sensitive.

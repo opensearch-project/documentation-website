@@ -26,7 +26,7 @@ You can send HTTP GET request with your query embedded in URL parameter.
 SQL query:
 
 ```console
->> curl -H 'Content-Type: application/json' -X GET localhost:9200/_opensearch/_sql?sql=SELECT * FROM accounts
+>> curl -H 'Content-Type: application/json' -X GET localhost:9200/_plugins/_sql?sql=SELECT * FROM accounts
 ```
 
 ## POST
@@ -40,7 +40,7 @@ You can also send HTTP POST request with your query in request body.
 SQL query:
 
 ```console
->> curl -H 'Content-Type: application/json' -X POST localhost:9200/_opensearch/_sql -d '{
+>> curl -H 'Content-Type: application/json' -X POST localhost:9200/_plugins/_sql -d '{
   "query" : "SELECT * FROM accounts"
 }'
 ```
@@ -59,7 +59,7 @@ directly.
 Explain query:
 
 ```console
->> curl -H 'Content-Type: application/json' -X POST localhost:9200/_opensearch/_sql/_explain -d '{
+>> curl -H 'Content-Type: application/json' -X POST localhost:9200/_plugins/_sql/_explain -d '{
   "query" : "SELECT firstname, lastname FROM accounts WHERE age > 20"
 }'
 ```
@@ -119,7 +119,7 @@ The `fetch_size` parameter is only supported for the JDBC response format.
 SQL query:
 
 ```console
->> curl -H 'Content-Type: application/json' -X POST localhost:9200/_opensearch/_sql -d '{
+>> curl -H 'Content-Type: application/json' -X POST localhost:9200/_plugins/_sql -d '{
   "fetch_size" : 5,
   "query" : "SELECT firstname, lastname FROM accounts WHERE age > 20 ORDER BY state ASC"
 }'
@@ -171,7 +171,7 @@ Result set:
 To fetch subsequent pages, use the `cursor` from last response:
 
 ```console
->> curl -H 'Content-Type: application/json' -X POST localhost:9200/_opensearch/_sql -d '{
+>> curl -H 'Content-Type: application/json' -X POST localhost:9200/_plugins/_sql -d '{
    "cursor": "d:eyJhIjp7fSwicyI6IkRYRjFaWEo1UVc1a1JtVjBZMmdCQUFBQUFBQUFBQU1XZWpkdFRFRkZUMlpTZEZkeFdsWnJkRlZoYnpaeVVRPT0iLCJjIjpbeyJuYW1lIjoiZmlyc3RuYW1lIiwidHlwZSI6InRleHQifSx7Im5hbWUiOiJsYXN0bmFtZSIsInR5cGUiOiJ0ZXh0In1dLCJmIjo1LCJpIjoiYWNjb3VudHMiLCJsIjo5NTF9"
 }'
 ```
@@ -182,7 +182,7 @@ The `datarows` can have more than the `fetch_size` number of records in case the
 
 ```json
 {
-   "cursor": "d:eyJhIjp7fSwicyI6IkRYRjFaWEo1UVc1a1JtVjBZMmdCQUFBQUFBQUFBQU1XZWpkdFRFRkZUMlpTZEZkeFdsWnJkRlZoYnpaeVVRPT0iLCJjIjpbeyJuYW1lIjoiZmlyc3RuYW1lIiwidHlwZSI6InRleHQifSx7Im5hbWUiOiJsYXN0bmFtZSIsInR5cGUiOiJ0ZXh0In1dLCJmIjo1LCJpIjoiYWNjb3VudHMabcde12345",
+  "cursor": "d:eyJhIjp7fSwicyI6IkRYRjFaWEo1UVc1a1JtVjBZMmdCQUFBQUFBQUFBQU1XZWpkdFRFRkZUMlpTZEZkeFdsWnJkRlZoYnpaeVVRPT0iLCJjIjpbeyJuYW1lIjoiZmlyc3RuYW1lIiwidHlwZSI6InRleHQifSx7Im5hbWUiOiJsYXN0bmFtZSIsInR5cGUiOiJ0ZXh0In1dLCJmIjo1LCJpIjoiYWNjb3VudHMabcde12345", 
   "datarows": [
     [
       "Abbey",
@@ -209,10 +209,10 @@ The `datarows` can have more than the `fetch_size` number of records in case the
 ```
 
 The `cursor` context is automatically cleared on the last page.
-To explicitly clear cursor context, use the `_opensearch/_sql/close endpoint` operation.
+To explicitly clear cursor context, use the `_plugins/_sql/close endpoint` operation.
 
 ```console
->> curl -H 'Content-Type: application/json' -X POST localhost:9200/_opensearch/_sql/close -d '{
+>> curl -H 'Content-Type: application/json' -X POST localhost:9200/_plugins/_sql/close -d '{
    "cursor": "d:eyJhIjp7fSwicyI6IkRYRjFaWEo1UVc1a1JtVjBZMmdCQUFBQUFBQUFBQU1XZWpkdFRFRkZUMlpTZEZkeFdsWnJkRlZoYnpaeVVRPT0iLCJjIjpbeyJuYW1lIjoiZmlyc3RuYW1lIiwidHlwZSI6InRleHQifSx7Im5hbWUiOiJsYXN0bmFtZSIsInR5cGUiOiJ0ZXh0In1dLCJmIjo1LCJpIjoiYWNjb3VudHMiLCJsIjo5NTF9"
 }'
 ```
