@@ -17,7 +17,7 @@ For a longer term solution, we plan to create an OpenSearch output plugin for Lo
 
 ## Compatibility Matrices
 
-*Italicized* cells are untested, but indicate what a value theoretically what it should be based on existing information.
+*Italicized* cells are untested, but indicate what a value theoretically should be based on existing information.
 
 
 ### Compatibility Matrix for Logstash
