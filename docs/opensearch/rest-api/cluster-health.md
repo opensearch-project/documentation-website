@@ -41,12 +41,13 @@ local | boolean | Whether to return information from the local node only instead
 master_timeout | time | The amount of time to wait for a connection to the master node. Default is 30 seconds.
 timeout | time | The amount of time to wait for a response. If the timeout expires, the request fails. Default is 30 seconds.
 wait_for_active_shards | string | Wait until the specified number of shards is active before returning a response. `all` for all shards. Default is `0`. 
-wait_for_nodes | string | Wait until the specified number of nodes is available. Also supports operators <=, >=, <, and >. 
 wait_for_events | enum | Wait until all currently queued events with the given priority are processed. Supported values are `immediate`, `urgent`, `high`, `normal`, `low`, and `languid`.
 wait_for_no_relocating_shards | boolean | Whether to wait until there are no relocating shards in the cluster. Default is false.
 wait_for_no_initializing_shards | boolean | Whether to wait until there are no initializing shards in the cluster. Default is false.
 wait_for_status | enum | Wait until the cluster is in a specific state or better. Supported values are `green`, `yellow`, and `red`.
 
+<!-- wait_for_nodes | string | Wait until the specified number of nodes is available. Also supports operators <=, >=, <, and > 
+# Not working properly when tested -->
 
 ## Response
 
