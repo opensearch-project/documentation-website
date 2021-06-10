@@ -308,13 +308,13 @@ plugins.security.auth.type: "saml"
 In addition, the OpenSearch Dashboards endpoint for validating the SAML assertions must be whitelisted:
 
 ```
-server.xsrf.whitelist: ["/_opensearch/_security/saml/acs"]
+server.xsrf.whitelist: ["/_plugins/_security/saml/acs"]
 ```
 
 If you use the logout POST binding, you also need to whitelist the logout endpoint:
 
 ```yml
-server.xsrf.whitelist: ["/_opensearch/_security/saml/acs", "/_opensearch/_security/saml/logout"]
+server.xsrf.whitelist: ["/_plugins/_security/saml/acs", "/_plugins/_security/saml/logout"]
 ```
 
 ### IdP-initiated SSO
@@ -322,11 +322,11 @@ server.xsrf.whitelist: ["/_opensearch/_security/saml/acs", "/_opensearch/_securi
 To use IdP-initiated SSO, set the Assertion Consumer Service endpoint of your IdP to this:
 
 ```
-/_opensearch/_security/saml/acs/idpinitiated
+/_plugins/_security/saml/acs/idpinitiated
 ```
 
 Then add this endpoint to `server.xsrf.whitelist` in `opensearch_dashboards.yml`:
 
 ```yml
-server.xsrf.whitelist: ["/_opensearch/_security/saml/acs/idpinitiated", "/_opensearch/_security/saml/acs", "/_opensearch/_security/saml/logout"]
+server.xsrf.whitelist: ["/_plugins/_security/saml/acs/idpinitiated", "/_plugins/_security/saml/acs", "/_plugins/_security/saml/logout"]
 ```

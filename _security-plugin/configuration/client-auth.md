@@ -48,7 +48,7 @@ After deciding which role you want to map your certificate's CN to, you can use 
 **Sample request**
 
 ```json
-PUT _opensearch/_security/api/rolesmapping/readall
+PUT _plugins/_security/api/rolesmapping/readall
 {
   "backend_roles" : ["sample_role" ],
   "hosts" : [ "example.host.com" ],

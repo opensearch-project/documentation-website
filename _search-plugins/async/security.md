@@ -33,7 +33,7 @@ For example, consider two users: `judy` and `elon`.
 `judy` has an IT backend role:
 
 ```json
-PUT _opensearch/_security/api/internalusers/judy
+PUT _plugins/_security/api/internalusers/judy
 {
   "password": "judy",
   "backend_roles": [
@@ -46,7 +46,7 @@ PUT _opensearch/_security/api/internalusers/judy
 `elon` has an admin backend role:
 
 ```json
-PUT _opensearch/_security/api/internalusers/elon
+PUT _plugins/_security/api/internalusers/elon
 {
   "password": "elon",
   "backend_roles": [
@@ -59,7 +59,7 @@ PUT _opensearch/_security/api/internalusers/elon
 Both `judy` and `elon` have full access to asynchronous search:
 
 ```json
-PUT _opensearch/_security/api/rolesmapping/async_full_access
+PUT _plugins/_security/api/rolesmapping/async_full_access
 {
   "backend_roles": [],
   "hosts": [],

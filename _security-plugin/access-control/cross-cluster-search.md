@@ -190,8 +190,8 @@ curl -XGET -k -u 'admin:admin' 'https://localhost:9250/opensearch-cluster1:books
 To continue testing, create a new user on both clusters:
 
 ```bash
-curl -XPUT -k -u 'admin:admin' 'https://localhost:9200/_opensearch/_security/api/internalusers/booksuser' -H 'Content-Type: application/json' -d '{"password":"password"}'
-curl -XPUT -k -u 'admin:admin' 'https://localhost:9250/_opensearch/_security/api/internalusers/booksuser' -H 'Content-Type: application/json' -d '{"password":"password"}'
+curl -XPUT -k -u 'admin:admin' 'https://localhost:9200/_plugins/_security/api/internalusers/booksuser' -H 'Content-Type: application/json' -d '{"password":"password"}'
+curl -XPUT -k -u 'admin:admin' 'https://localhost:9250/_plugins/_security/api/internalusers/booksuser' -H 'Content-Type: application/json' -d '{"password":"password"}'
 ```
 
 Then run the same search as before with `booksuser`:
@@ -216,8 +216,8 @@ curl -XGET -k -u booksuser:password 'https://localhost:9250/opensearch-cluster1:
 Note the permissions error. On the remote cluster, create a role with the appropriate permissions, and map `booksuser` to that role:
 
 ```bash
-curl -XPUT -k -u 'admin:admin' -H 'Content-Type: application/json' 'https://localhost:9200/_opensearch/_security/api/roles/booksrole' -d '{"index_permissions":[{"index_patterns":["books"],"allowed_actions":["indices:admin/shards/search_shards","indices:data/read/search"]}]}'
-curl -XPUT -k -u 'admin:admin' -H 'Content-Type: application/json' 'https://localhost:9200/_opensearch/_security/api/rolesmapping/booksrole' -d '{"users" : ["booksuser"]}'
+curl -XPUT -k -u 'admin:admin' -H 'Content-Type: application/json' 'https://localhost:9200/_plugins/_security/api/roles/booksrole' -d '{"index_permissions":[{"index_patterns":["books"],"allowed_actions":["indices:admin/shards/search_shards","indices:data/read/search"]}]}'
+curl -XPUT -k -u 'admin:admin' -H 'Content-Type: application/json' 'https://localhost:9200/_plugins/_security/api/rolesmapping/booksrole' -d '{"users" : ["booksuser"]}'
 ```
 
 Both clusters must have the user, but only the remote cluster needs the role and mapping; in this case, the coordinating cluster handles authentication (i.e. "Does this request include valid user credentials?"), and the remote cluster handles authorization (i.e. "Can this user access this data?").

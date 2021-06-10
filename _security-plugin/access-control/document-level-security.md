@@ -36,7 +36,7 @@ A typical request to the `_search` API includes `{ "query": { ... } }` around th
 In the REST API, you provide the query as a string, so you must escape your quotes. This role allows a user to read any document in any index with the field `public` set to `true`:
 
 ```json
-PUT _opensearch/_security/api/roles/public_data
+PUT _plugins/_security/api/roles/public_data
 {
   "cluster_permissions": [
     "*"
@@ -64,7 +64,7 @@ A number of variables exist that you can use to enforce rules based on the prope
 This rule allows a user to read any document where the username is a value of the `readable_by` field:
 
 ```json
-PUT _opensearch/_security/api/roles/user_data
+PUT _plugins/_security/api/roles/user_data
 {
   "cluster_permissions": [
     "*"
@@ -99,7 +99,7 @@ You can use roles and parameter substitution with the `terms_set` query to enabl
 #### User definition
 
 ```json
-PUT _opensearch/_security/api/internalusers/user1
+PUT _plugins/_security/api/internalusers/user1
 {
   "password": "asdf",
   "backend_roles": ["abac"],
@@ -112,7 +112,7 @@ PUT _opensearch/_security/api/internalusers/user1
 #### Role definition
 
 ```json
-PUT _opensearch/_security/api/roles/abac
+PUT _plugins/_security/api/roles/abac
 {
   "index_permissions": [{
     "index_patterns": [

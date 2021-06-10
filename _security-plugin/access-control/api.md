@@ -52,7 +52,7 @@ Possible values for `method` are:
 - DELETE
 - PATCH
 
-For example, the following configuration grants three roles access to the REST API, but then prevents `test-role` from making PUT, POST, DELETE, or PATCH requests to `_opensearch/_security/api/roles` or `_opensearch/_security/api/internalusers`:
+For example, the following configuration grants three roles access to the REST API, but then prevents `test-role` from making PUT, POST, DELETE, or PATCH requests to `_plugins/_security/api/roles` or `_plugins/_security/api/internalusers`:
 
 ```yml
 plugins.security.restapi.roles_enabled: ["all_access", "security_rest_api_access", "test-role"]
@@ -102,7 +102,7 @@ Returns account details for the current user. For example, if you sign the reque
 #### Request
 
 ```
-GET _opensearch/_security/api/account
+GET _plugins/_security/api/account
 ```
 
 #### Sample response
@@ -139,7 +139,7 @@ Changes the password for the current user.
 #### Request
 
 ```json
-PUT _opensearch/_security/api/account
+PUT _plugins/_security/api/account
 {
     "current_password" : "old-password",
     "password" : "new-password"
@@ -169,7 +169,7 @@ Retrieves one action group.
 #### Request
 
 ```
-GET _opensearch/_security/api/actiongroups/<action-group>
+GET _plugins/_security/api/actiongroups/<action-group>
 ```
 
 #### Sample response
@@ -199,7 +199,7 @@ Retrieves all action groups.
 #### Request
 
 ```
-GET _opensearch/_security/api/actiongroups/
+GET _plugins/_security/api/actiongroups/
 ```
 
 
@@ -228,7 +228,7 @@ GET _opensearch/_security/api/actiongroups/
 #### Request
 
 ```
-DELETE _opensearch/_security/api/actiongroups/<action-group>
+DELETE _plugins/_security/api/actiongroups/<action-group>
 ```
 
 #### Sample response
@@ -248,7 +248,7 @@ Creates or replaces the specified action group.
 #### Request
 
 ```json
-PUT _opensearch/_security/api/actiongroups/<action-group>
+PUT _plugins/_security/api/actiongroups/<action-group>
 {
   "allowed_actions": [
     "indices:data/write/index*",
@@ -278,7 +278,7 @@ Updates individual attributes of an action group.
 #### Request
 
 ```json
-PATCH _opensearch/_security/api/actiongroups/<action-group>
+PATCH _plugins/_security/api/actiongroups/<action-group>
 [
   {
     "op": "replace", "path": "/allowed_actions", "value": ["indices:admin/create", "indices:admin/mapping/put"]
@@ -303,7 +303,7 @@ Creates, updates, or deletes multiple action groups in a single call.
 #### Request
 
 ```json
-PATCH _opensearch/_security/api/actiongroups
+PATCH _plugins/_security/api/actiongroups
 [
   {
     "op": "add", "path": "/CREATE_INDEX", "value": { "allowed_actions": ["indices:admin/create", "indices:admin/mapping/put"] }
@@ -336,7 +336,7 @@ These calls let you create, update, and delete internal users. If you use an ext
 #### Request
 
 ```
-GET _opensearch/_security/api/internalusers/<username>
+GET _plugins/_security/api/internalusers/<username>
 ```
 
 
@@ -361,7 +361,7 @@ GET _opensearch/_security/api/internalusers/<username>
 #### Request
 
 ```
-GET _opensearch/_security/api/internalusers/
+GET _plugins/_security/api/internalusers/
 ```
 
 #### Sample response
@@ -385,7 +385,7 @@ GET _opensearch/_security/api/internalusers/
 #### Request
 
 ```
-DELETE _opensearch/_security/api/internalusers/<username>
+DELETE _plugins/_security/api/internalusers/<username>
 ```
 
 #### Sample response
@@ -407,7 +407,7 @@ Note that any role you supply in the `opensearch_security_roles` array must alre
 #### Request
 
 ```json
-PUT _opensearch/_security/api/internalusers/<username>
+PUT _plugins/_security/api/internalusers/<username>
 {
   "password": "kirkpass",
   "opensearch_security_roles": ["maintenance_staff", "weapons"],
@@ -436,7 +436,7 @@ Updates individual attributes of an internal user.
 #### Request
 
 ```json
-PATCH _opensearch/_security/api/internalusers/<username>
+PATCH _plugins/_security/api/internalusers/<username>
 [
   {
     "op": "replace", "path": "/backend_roles", "value": ["klingons"]
@@ -466,7 +466,7 @@ Creates, updates, or deletes multiple internal users in a single call.
 #### Request
 
 ```json
-PATCH _opensearch/_security/api/internalusers
+PATCH _plugins/_security/api/internalusers
 [
   {
     "op": "add", "path": "/spock", "value": { "password": "testpassword1", "backend_roles": ["testrole1"] }
@@ -502,7 +502,7 @@ Retrieves one role.
 #### Request
 
 ```
-GET _opensearch/_security/api/roles/<role>
+GET _plugins/_security/api/roles/<role>
 ```
 
 #### Sample response
@@ -548,7 +548,7 @@ Retrieves all roles.
 #### Request
 
 ```
-GET _opensearch/_security/api/roles/
+GET _plugins/_security/api/roles/
 ```
 
 #### Sample response
@@ -586,7 +586,7 @@ GET _opensearch/_security/api/roles/
 #### Request
 
 ```
-DELETE _opensearch/_security/api/roles/<role>
+DELETE _plugins/_security/api/roles/<role>
 ```
 
 #### Sample response
@@ -606,7 +606,7 @@ Creates or replaces the specified role.
 #### Request
 
 ```json
-PUT _opensearch/_security/api/roles/<role>
+PUT _plugins/_security/api/roles/<role>
 {
   "cluster_permissions": [
     "cluster_composite_ops",
@@ -651,7 +651,7 @@ Updates individual attributes of a role.
 #### Request
 
 ```json
-PATCH _opensearch/_security/api/roles/<role>
+PATCH _plugins/_security/api/roles/<role>
 [
   {
     "op": "replace", "path": "/index_permissions/0/fls", "value": ["myfield1", "myfield2"]
@@ -679,7 +679,7 @@ Creates, updates, or deletes multiple roles in a single call.
 #### Request
 
 ```json
-PATCH _opensearch/_security/api/roles
+PATCH _plugins/_security/api/roles
 [
   {
     "op": "replace", "path": "/role1/index_permissions/0/fls", "value": ["test1", "test2"]
@@ -714,7 +714,7 @@ Retrieves one role mapping.
 #### Request
 
 ```
-GET _opensearch/_security/api/rolesmapping/<role>
+GET _plugins/_security/api/rolesmapping/<role>
 ```
 
 #### Sample response
@@ -737,7 +737,7 @@ Retrieves all role mappings.
 #### Request
 
 ```
-GET _opensearch/_security/api/rolesmapping
+GET _plugins/_security/api/rolesmapping
 ```
 
 #### Sample response
@@ -760,7 +760,7 @@ Deletes the specified role mapping.
 #### Request
 
 ```
-DELETE _opensearch/_security/api/rolesmapping/<role>
+DELETE _plugins/_security/api/rolesmapping/<role>
 ```
 
 #### Sample response
@@ -780,7 +780,7 @@ Creates or replaces the specified role mapping.
 #### Request
 
 ```json
-PUT _opensearch/_security/api/rolesmapping/<role>
+PUT _plugins/_security/api/rolesmapping/<role>
 {
   "backend_roles" : [ "starfleet", "captains", "defectors", "cn=ldaprole,ou=groups,dc=example,dc=com" ],
   "hosts" : [ "*.starfleetintranet.com" ],
@@ -805,7 +805,7 @@ Updates individual attributes of a role mapping.
 #### Request
 
 ```json
-PATCH _opensearch/_security/api/rolesmapping/<role>
+PATCH _plugins/_security/api/rolesmapping/<role>
 [
   {
     "op": "replace", "path": "/users", "value": ["myuser"]
@@ -833,7 +833,7 @@ Creates or updates multiple role mappings in a single call.
 #### Request
 
 ```json
-PATCH _opensearch/_security/api/rolesmapping
+PATCH _plugins/_security/api/rolesmapping
 [
   {
     "op": "add", "path": "/human_resources", "value": { "users": ["user1"], "backend_roles": ["backendrole2"] }
@@ -865,7 +865,7 @@ Retrieves one tenant.
 #### Request
 
 ```
-GET _opensearch/_security/api/tenants/<tenant>
+GET _plugins/_security/api/tenants/<tenant>
 ```
 
 #### Sample response
@@ -889,7 +889,7 @@ Retrieves all tenants.
 #### Request
 
 ```
-GET _opensearch/_security/api/tenants/
+GET _plugins/_security/api/tenants/
 ```
 
 #### Sample response
@@ -919,7 +919,7 @@ Deletes the specified tenant.
 #### Request
 
 ```
-DELETE _opensearch/_security/api/tenants/<tenant>
+DELETE _plugins/_security/api/tenants/<tenant>
 ```
 
 #### Sample response
@@ -939,7 +939,7 @@ Creates or replaces the specified tenant.
 #### Request
 
 ```json
-PUT _opensearch/_security/api/tenants/<tenant>
+PUT _plugins/_security/api/tenants/<tenant>
 {
   "description": "A tenant for the human resources team."
 }
@@ -962,7 +962,7 @@ Add, delete, or modify a single tenant.
 #### Request
 
 ```json
-PATCH _opensearch/_security/api/tenants/<tenant>
+PATCH _plugins/_security/api/tenants/<tenant>
 [
   {
     "op": "replace", "path": "/description", "value": "An updated description"
@@ -987,7 +987,7 @@ Add, delete, or modify multiple tenants in a single call.
 #### Request
 
 ```json
-PATCH _opensearch/_security/api/tenants/
+PATCH _plugins/_security/api/tenants/
 [
   {
     "op": "replace",
@@ -1024,7 +1024,7 @@ Retrieves the current security plugin configuration in JSON format.
 #### Request
 
 ```
-GET _opensearch/_security/api/securityconfig
+GET _plugins/_security/api/securityconfig
 ```
 
 
@@ -1035,7 +1035,7 @@ Creates or updates the existing configuration using the REST API. This operation
 #### Request
 
 ```json
-PUT _opensearch/_security/api/securityconfig/config
+PUT _plugins/_security/api/securityconfig/config
 {
   "dynamic": {
     "filtered_alias_mode": "warn",
@@ -1093,7 +1093,7 @@ Updates the existing configuration using the REST API. This operation can easily
 #### Request
 
 ```json
-PATCH _opensearch/_security/api/securityconfig
+PATCH _plugins/_security/api/securityconfig
 [
   {
     "op": "replace", "path": "/config/dynamic/authc/basic_internal_auth_domain/transport_enabled", "value": "true"
@@ -1122,7 +1122,7 @@ Retrieves the current security plugin configuration in JSON format.
 #### Request
 
 ```
-GET _opensearch/_security/api/securityconfig
+GET _plugins/_security/api/securityconfig
 ```
 
 
@@ -1133,7 +1133,7 @@ Creates or updates the existing configuration using the REST API rather than `se
 #### Request
 
 ```json
-PUT _opensearch/_security/api/securityconfig/config
+PUT _plugins/_security/api/securityconfig/config
 {
   "dynamic": {
     "filtered_alias_mode": "warn",
@@ -1191,7 +1191,7 @@ Updates the existing configuration using the REST API rather than `securityadmin
 #### Request
 
 ```json
-PATCH _opensearch/_security/api/securityconfig
+PATCH _plugins/_security/api/securityconfig
 [
   {
     "op": "replace", "path": "/config/dynamic/authc/basic_internal_auth_domain/transport_enabled", "value": "true"
@@ -1220,7 +1220,7 @@ Flushes the security plugin user, authentication, and authorization cache.
 #### Request
 
 ```
-DELETE _opensearch/_security/api/cache
+DELETE _plugins/_security/api/cache
 ```
 
 
@@ -1246,7 +1246,7 @@ Checks to see if the security plugin is up and running. If you operate your clus
 #### Request
 
 ```
-GET _opensearch/_security/health
+GET _plugins/_security/health
 ```
 
 
