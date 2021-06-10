@@ -156,7 +156,7 @@ If you override `opensearch_dashboards.yml` settings using environment variables
 
 ## Configure OpenSearch
 
-You can pass a custom `opensearch.yml` file to the Docker container using the [`-v` flag](https://docs.docker.com/engine/reference/commandline/run/#mount-volume--v---read-only) for `docker run`:
+You can pass a custom `opensearch.yml` file to the Docker container using the [`-v` flag](https://docs.docker.com/engine/reference/commandline/run#mount-volume--v---read-only) for `docker run`:
 
 ```bash
 docker run \

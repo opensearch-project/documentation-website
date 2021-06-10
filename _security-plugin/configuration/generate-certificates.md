@@ -89,7 +89,7 @@ Just like the root certificate, use the `-days` option to specify an expiration 
 
 Follow the steps in [Generate an admin certificate](#generate-an-admin-certificate) with new file names to generate a new certificate for each node and as many client certificates as you need. Each certificate should use its own private key.
 
-If you generate node certificates and have `plugins.security.ssl.transport.enforce_hostname_verification` set to `true` (default), be sure to specify a common name (CN) for the certificate that matches the hostname of the intended node. If you want to use the same node certificate on all nodes (not recommended), set hostname verification to `false`. For more information, see [Configure TLS certificates]({{site.url}}{{site.baseurl}}/security-plugin/configuration/tls/#advanced-hostname-verification-and-dns-lookup).
+If you generate node certificates and have `plugins.security.ssl.transport.enforce_hostname_verification` set to `true` (default), be sure to specify a common name (CN) for the certificate that matches the hostname of the intended node. If you want to use the same node certificate on all nodes (not recommended), set hostname verification to `false`. For more information, see [Configure TLS certificates]({{site.url}}{{site.baseurl}}/security-plugin/configuration/tls#advanced-hostname-verification-and-dns-lookup).
 
 
 ### Sample script
@@ -184,7 +184,7 @@ After configuring your certificates and starting OpenSearch, run `securityadmin.
 For more information about what this command does, see [Apply configuration changes]({{site.url}}{{site.baseurl}}/security-plugin/configuration/security-admin/).
 {: .tip }
 
-If you use Docker, see [Bash access to containers]({{site.url}}{{site.baseurl}}/opensearch/install/docker/#bash-access-to-containers).
+If you use Docker, see [Bash access to containers]({{site.url}}{{site.baseurl}}/opensearch/install/docker#bash-access-to-containers).
 
 
 ## OpenSearch Dashboards

@@ -7,7 +7,7 @@ nav_order: 20
 
 # Reporting
 
-You can use OpenSearch Dashboards to create PNG, PDF, and CSV reports. To create reports, you must have the correct permissions. For a summary of the predefined roles and the permissions they grant, see the [security plugin]({{site.url}}{{site.baseurl}}/security-plugin/access-control/users-roles/#predefined-roles).
+You can use OpenSearch Dashboards to create PNG, PDF, and CSV reports. To create reports, you must have the correct permissions. For a summary of the predefined roles and the permissions they grant, see the [security plugin]({{site.url}}{{site.baseurl}}/security-plugin/access-control/users-roles#predefined-roles).
 
 
 ## Create reports from Discovery, Visualize, or Dashboard

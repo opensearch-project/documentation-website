@@ -17,7 +17,7 @@ plugins.security.system_indices.enabled: true
 plugins.security.system_indices.indices: [".opendistro-alerting-config", ".opendistro-alerting-alert*", ".opendistro-anomaly-results*", ".opendistro-anomaly-detector*", ".opendistro-anomaly-checkpoints", ".opendistro-anomaly-detection-state", ".opendistro-reports-*", ".opendistro-notifications-*", ".opendistro-notebooks", ".opendistro-asynchronous-search-response*"]
 ```
 
-To access these indices, you must authenticate with an [admin certificate]({{site.url}}{{site.baseurl}}/security-plugin/configuration/tls/#configure-admin-certificates):
+To access these indices, you must authenticate with an [admin certificate]({{site.url}}{{site.baseurl}}/security-plugin/configuration/tls#configure-admin-certificates):
 
 ```bash
 curl -k --cert ./kirk.pem --key ./kirk-key.pem -XGET 'https://localhost:9200/.opensearch_security/_search'

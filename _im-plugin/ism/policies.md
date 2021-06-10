@@ -159,7 +159,7 @@ Parameter | Description | Type | Required
 }
 ```
 
-For information about setting replicas, see [Primary and replica shards]({{site.url}}{{site.baseurl}}/opensearch/#primary-and-replica-shards).
+For information about setting replicas, see [Primary and replica shards]({{site.url}}{{site.baseurl}}/opensearch#primary-and-replica-shards).
 
 ### close
 
