@@ -12,7 +12,7 @@ SQL CLI is a stand-alone Python application that you can launch with the `opense
 
 Install the SQL plugin to your OpenSearch instance, run the CLI using MacOS or Linux, and connect to any valid OpenSearch end-point.
 
-![SQL CLI](../../images/cli.gif)
+![SQL CLI]({{site.url}}{{site.baseurl}}/images/cli.gif)
 
 ## Features
 
@@ -68,11 +68,11 @@ You can configure the following connection properties:
 - `-u/-w`: Supports username and password for HTTP basic authentication, such as with the security plugin or fine-grained access control for Amazon OpenSearch Service.
 - `--aws-auth`: Turns on AWS sigV4 authentication to connect to an Amazon OpenSearch endpoint. Use with the AWS CLI (`aws configure`) to retrieve the local AWS configuration to authenticate and connect.
 
-For a list of all available configurations, see [clirc](https://github.com/opensearch-project/sql-cli/blob/master/src/conf/clirc).
+For a list of all available configurations, see [clirc](https://github.com/opensearch-project/sql/blob/main/sql-cli/src/opensearch_sql_cli/conf/clirc).
 
 ## Using the CLI
 
-1. Save the sample [accounts test data](https://github.com/opensearch-project/sql/blob/master/src/test/resources/doctest/testdata/accounts.json) file.
+1. Save the sample [accounts test data](https://github.com/opensearch-project/sql/blob/main/doctest/test_data/accounts.json) file.
 
 1. Index the sample data.
 ```

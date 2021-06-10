@@ -36,7 +36,7 @@ Mapping Pararameter | Required | Default | Updateable | Description
 `dimension` | true | n/a | false | The vector dimension for the field
 `method` | false | null | false | The configuration for the Approximate nearest neighbor method
 `method.name` | true, if `method` is specified | n/a | false | The identifier for the nearest neighbor method. Currently, "hnsw" is the only valid method.
-`method.space_type` | false | "l2" | false | The vector space used to calculate the distance between vectors. Refer to [here](../approximate-knn#spaces)) to see available spaces.
+`method.space_type` | false | "l2" | false | The vector space used to calculate the distance between vectors. Refer to [here]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn#spaces)) to see available spaces.
 `method.engine` | false | "nmslib" | false | The approximate k-NN library to use for indexing and search. Currently, "nmslib" is the only valid engine.
 `method.parameters` | false | null | false | The parameters used for the nearest neighbor method.
 `method.parameters.ef_construction` | false | 512 | false | The size of the dynamic list used during k-NN graph creation. Higher values lead to a more accurate graph, but slower indexing speed. Only valid for "hnsw" method.

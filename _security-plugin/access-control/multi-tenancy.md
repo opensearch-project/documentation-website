@@ -80,7 +80,7 @@ To create tenants, use OpenSearch Dashboards, the REST API, or `tenants.yml`.
 
 #### REST API
 
-See [Create tenant](../api/#create-tenant).
+See [Create tenant]({{site.url}}{{site.baseurl}}/security-plugin/access-control/api#create-tenant).
 
 
 #### tenants.yml
@@ -114,7 +114,7 @@ After creating a tenant, give a role access to it using OpenSearch Dashboards, t
 
 #### REST API
 
-See [Create role](../api/#create-role).
+See [Create role]({{site.url}}{{site.baseurl}}/security-plugin/access-control/api#create-role).
 
 
 #### roles.yml
@@ -159,4 +159,4 @@ The open source version of OpenSearch Dashboards saves all objects to a single i
 The security plugin scrubs these index names of special characters, so they might not be a perfect match of tenant names and usernames.
 {: .tip }
 
-To back up your OpenSearch Dashboards data, [take a snapshot](../../opensearch/snapshot-restore/) of all tenant indices using an index pattern such as `.opensearch-dashboards*`.
+To back up your OpenSearch Dashboards data, [take a snapshot]({{site.url}}{{site.baseurl}}/opensearch/snapshot-restore/) of all tenant indices using an index pattern such as `.opensearch-dashboards*`.

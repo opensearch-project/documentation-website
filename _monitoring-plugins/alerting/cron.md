@@ -4,6 +4,9 @@ title: Cron
 nav_order: 20
 parent: Alerting
 has_children: false
+redirect_from:
+  - /alerting/cron/
+  - /docs/alerting/cron/
 ---
 
 # Cron expression reference
@@ -61,4 +64,4 @@ Every three hours on the first day of every other month:
 
 ## API
 
-For an example of how to use a custom cron expression in an API call, see the [create monitor API operation](../api/#request-1).
+For an example of how to use a custom cron expression in an API call, see the [create monitor API operation]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/api/#request-1).

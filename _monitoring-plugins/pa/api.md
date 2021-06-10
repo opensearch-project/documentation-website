@@ -19,7 +19,7 @@ Note the use of port 9600. Provide parameters for metrics, aggregations, dimensi
 ?metrics=<metrics>&agg=<aggregations>&dim=<dimensions>&nodes=all"
 ```
 
-For a full list of metrics, see [Metrics reference](../reference/). Performance Analyzer updates its data every five seconds. If you create a custom client, we recommend using that same interval for calls to the API.
+For a full list of metrics, see [Metrics reference]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/reference/). Performance Analyzer updates its data every five seconds. If you create a custom client, we recommend using that same interval for calls to the API.
 
 
 #### Sample request

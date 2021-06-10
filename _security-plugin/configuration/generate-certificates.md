@@ -89,7 +89,7 @@ Just like the root certificate, use the `-days` option to specify an expiration 
 
 Follow the steps in [Generate an admin certificate](#generate-an-admin-certificate) with new file names to generate a new certificate for each node and as many client certificates as you need. Each certificate should use its own private key.
 
-If you generate node certificates and have `plugins.security.ssl.transport.enforce_hostname_verification` set to `true` (default), be sure to specify a common name (CN) for the certificate that matches the hostname of the intended node. If you want to use the same node certificate on all nodes (not recommended), set hostname verification to `false`. For more information, see [Configure TLS certificates](../tls/#advanced-hostname-verification-and-dns-lookup).
+If you generate node certificates and have `plugins.security.ssl.transport.enforce_hostname_verification` set to `true` (default), be sure to specify a common name (CN) for the certificate that matches the hostname of the intended node. If you want to use the same node certificate on all nodes (not recommended), set hostname verification to `false`. For more information, see [Configure TLS certificates]({{site.url}}{{site.baseurl}}/security-plugin/configuration/tls/#advanced-hostname-verification-and-dns-lookup).
 
 
 ### Sample script
@@ -170,7 +170,7 @@ This process generates many files, but these are the ones you need to add to you
 - (Optional) `each-node-cert.pem`
 - (Optional) `each-node-key.pem`
 
-For information about adding and using these certificates in your own setup, see [Docker security configuration](../../../install/docker-security/) and [Configure TLS certificates](../tls/).
+For information about adding and using these certificates in your own setup, see [Docker security configuration]({{site.url}}{{site.baseurl}}//opensearch/install/docker-security/) and [Configure TLS certificates]({{site.url}}{{site.baseurl}}/security-plugin/configuration/tls/).
 
 
 ## Run securityadmin.sh
@@ -178,13 +178,13 @@ For information about adding and using these certificates in your own setup, see
 After configuring your certificates and starting OpenSearch, run `securityadmin.sh` to initialize the security plugin:
 
 ```
-./securityadmin.sh -cd ../securityconfig/ -icl -nhnv -cacert ../../../config/root-ca.pem -cert ../../../config/admin.pem -key ../../../config/admin-key.pem
+./securityadmin.sh -cd {{site.url}}{{site.baseurl}}/securityconfig/ -icl -nhnv -cacert {{site.url}}{{site.baseurl}}/config/root-ca.pem -cert {{site.url}}{{site.baseurl}}/config/admin.pem -key {{site.url}}{{site.baseurl}}/config/admin-key.pem
 ```
 
-For more information about what this command does, see [Apply configuration changes](../security-admin/).
+For more information about what this command does, see [Apply configuration changes]({{site.url}}{{site.baseurl}}/security-plugin/configuration/security-admin/).
 {: .tip }
 
-If you use Docker, see [Bash access to containers](../../../install/docker/#bash-access-to-containers).
+If you use Docker, see [Bash access to containers]({{site.url}}{{site.baseurl}}/opensearch/install/docker/#bash-access-to-containers).
 
 
 ## OpenSearch Dashboards

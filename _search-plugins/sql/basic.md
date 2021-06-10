@@ -35,17 +35,17 @@ With arithmetic operators and SQL functions, use literals and identifiers to bui
 
 Rule `expressionAtom`:
 
-![expressionAtom](../../images/expressionAtom.png)
+![expressionAtom]({{site.url}}{{site.baseurl}}/images/expressionAtom.png)
 
 The expression in turn can be combined into a predicate with logical operator. Use a predicate in the `WHERE` and `HAVING` clause to filter out data by specific conditions.
 
 Rule `expression`:
 
-![expression](../../images/expression.png)
+![expression]({{site.url}}{{site.baseurl}}/images/expression.png)
 
 Rule `predicate`:
 
-![expression](../../images/predicate.png)
+![expression]({{site.url}}{{site.baseurl}}/images/predicate.png)
 
 ### Execution Order
 
@@ -69,11 +69,11 @@ Specify the fields to be retrieved.
 
 Rule `selectElements`:
 
-![selectElements](../../images/selectElements.png)
+![selectElements]({{site.url}}{{site.baseurl}}/images/selectElements.png)
 
 Rule `selectElement`:
 
-![selectElements](../../images/selectElement.png)
+![selectElements]({{site.url}}{{site.baseurl}}/images/selectElement.png)
 
 *Example 1*: Use `*` to retrieve all fields in an index:
 
@@ -140,9 +140,9 @@ You can specify subqueries within the `FROM` clause.
 
 Rule `tableName`:
 
-![tableName](../../images/tableName.png)
+![tableName]({{site.url}}{{site.baseurl}}/images/tableName.png)
 
-*Example 1*: Use index aliases to query across indexes. To learn about index aliases, see [Index Alias](../opensearch/index-alias/).
+*Example 1*: Use index aliases to query across indexes. To learn about index aliases, see [Index Alias]({{site.url}}{{site.baseurl}}/opensearch/index-alias/).
 In this sample query, `acc` is an alias for the `accounts` index:
 
 ```sql
@@ -191,8 +191,8 @@ Specify a condition to filter the results.
 `>=` | Greater than or equal to.
 `<=` | Less than or equal to.
 `IN` | Specify multiple `OR` operators.
-`BETWEEN` | Similar to a range query. For more information about range queries, see [Range query](../opensearch/term/#range).
-`LIKE` | Use for full text search. For more information about full-text queries, see [Full-text queries](../opensearch/full-text/).
+`BETWEEN` | Similar to a range query. For more information about range queries, see [Range query]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/term#range).
+`LIKE` | Use for full text search. For more information about full-text queries, see [Full-text queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/).
 `IS NULL` | Check if the field value is `NULL`.
 `IS NOT NULL` | Check if the field value is `NOT NULL`.
 

@@ -14,4 +14,4 @@ A single operation, such as a user clicking a button, can trigger an extended se
 
 Trace Analytics can help you visualize this flow of events and identify performance problems.
 
-![Detailed trace view](../images/ta-trace.png)
+![Detailed trace view]({{site.url}}{{site.baseurl}}/images/ta-trace.png)

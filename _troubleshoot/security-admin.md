@@ -92,7 +92,7 @@ Connected as CN=node-0.example.com,OU=SSL,O=Test,L=Test,C=DE
 ERR: CN=node-0.example.com,OU=SSL,O=Test,L=Test,C=DE is not an admin user
 ```
 
-You must use an admin certificate when executing the script. To learn more, see [Configure admin certificates](../../security/configuration/tls/#configure-admin-certificates).
+You must use an admin certificate when executing the script. To learn more, see [Configure admin certificates]({{site.url}}{{site.baseurl}}/security-plugin/configuration/tls/#configure-admin-certificates).
 
 
 ## Use the diagnose option
@@ -100,7 +100,7 @@ You must use an admin certificate when executing the script. To learn more, see 
 For more information on why `securityadmin.sh` is not executing, add the `--diagnose` option:
 
 ```
-./securityadmin.sh -diagnose -cd ../securityconfig/ -cacert ... -cert ... -key ... -keypass ...
+./securityadmin.sh -diagnose -cd {{site.url}}{{site.baseurl}}/securityconfig/ -cacert ... -cert ... -key ... -keypass ...
 ```
 
 The script prints the location of the generated diagnostic file.

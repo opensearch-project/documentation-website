@@ -88,7 +88,7 @@ The following example action has a timeout period of one hour. The policy retrie
 }
 ```
 
-For a list of available unit types, see [Supported units](../../../opensearch/units/).
+For a list of available unit types, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).
 
 ## ISM supported operations
 
@@ -159,7 +159,7 @@ Parameter | Description | Type | Required
 }
 ```
 
-For information about setting replicas, see [Primary and replica shards](../../../opensearch/#primary-and-replica-shards).
+For information about setting replicas, see [Primary and replica shards]({{site.url}}{{site.baseurl}}/opensearch/#primary-and-replica-shards).
 
 ### close
 
@@ -308,7 +308,7 @@ Parameter | Description | Type
 
 ### snapshot
 
-Backup your cluster’s indices and state. For more information about snapshots, see [Take and restore snapshots](../../../opensearch/snapshot-restore/).
+Backup your cluster’s indices and state. For more information about snapshots, see [Take and restore snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshot-restore/).
 
 The `snapshot` operation has the following parameters:
 
@@ -435,7 +435,7 @@ Note that this condition does not execute at exactly 5:00 PM; the job still exec
 
 A window of an hour, which this example uses, is generally sufficient, but you might increase it to 2--3 hours to avoid missing the window and having to wait a week for the transition to occur. Alternately, you could use a broader expression such as `* * * * SAT,SUN` to have the transition occur at any time during the weekend.
 
-For information on writing cron expressions, see [Cron expression reference](../../../alerting/cron/).
+For information on writing cron expressions, see [Cron expression reference]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/cron/).
 
 ---
 
@@ -662,4 +662,4 @@ After 30 days, the policy moves this index into a `delete` state. The service se
 
 This diagram shows the `states`, `transitions`, and `actions` of the above policy as a finite-state machine. For more information about finite-state machines, see [Wikipedia](https://en.wikipedia.org/wiki/Finite-state_machine).  
 
-![Policy State Machine](../../images/ism.png)
+![Policy State Machine]({{site.baseurl}}/images/ism.png)

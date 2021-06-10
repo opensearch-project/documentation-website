@@ -19,7 +19,7 @@ For example, you can define a policy that moves your index into a `read_only` st
 
 You might want to perform an index rollover after a certain amount of time or run a `force_merge` operation on an index during off-peak hours to improve search performance during peak hours.
 
-To use the ISM plugin, your user role needs to be mapped to the `all_access` role that gives you full access to the cluster. To learn more, see [Users and roles](../security/access-control/users-roles/).
+To use the ISM plugin, your user role needs to be mapped to the `all_access` role that gives you full access to the cluster. To learn more, see [Users and roles]({{site.url}}{{site.baseurl}}/security-plugin/access-control/users-roles/).
 {: .note }
 
 ## Get started with ISM
@@ -28,7 +28,7 @@ To get started, choose **Index Management** in OpenSearch Dashboards.
 
 ### Step 1: Set up policies
 
-A policy is a set of rules that describes how an index should be managed. For information about creating a policy, see [Policies](policies/).
+A policy is a set of rules that describes how an index should be managed. For information about creating a policy, see [Policies]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/).
 
 1. Choose the **Index Policies** tab.
 2. Choose **Create policy**.
@@ -54,7 +54,7 @@ PUT _plugins/_ism/policies/policy_id
 }
 ```
 
-For an example ISM template policy, see [Sample policy with ISM template](policies/#sample-policy-with-ism-template).
+For an example ISM template policy, see [Sample policy with ISM template]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies#sample-policy-with-ism-template).
 
 Older versions of the plugin include the `policy_id` in an index template, so when an index is created that matches the index template pattern, the index will have the policy attached to it:
 
@@ -83,20 +83,20 @@ The `opendistro.index_state_management.policy_id` setting is deprecated. You can
 4. From the **Policy ID** menu, choose the policy that you created.
 You can see a preview of your policy.
 5. If your policy includes a rollover operation, specify a rollover alias.
-Make sure that the alias that you enter already exists. For more information about the rollover operation, see [rollover](policies/#rollover).
+Make sure that the alias that you enter already exists. For more information about the rollover operation, see [rollover]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies#rollover).
 6. Choose **Apply**.
 
-After you attach a policy to an index, ISM creates a job that runs every 5 minutes by default to perform policy actions, check conditions, and transition the index into different states. To change the default time interval for this job, see [Settings](settings/).
+After you attach a policy to an index, ISM creates a job that runs every 5 minutes by default to perform policy actions, check conditions, and transition the index into different states. To change the default time interval for this job, see [Settings]({{site.url}}{{site.baseurl}}/im-plugin/ism/settings/).
 
-If you want to use an OpenSearch operation to create an index with a policy already attached to it, see [create index](api/#create-index).
+If you want to use an OpenSearch operation to create an index with a policy already attached to it, see [create index]({{site.url}}{{site.baseurl}}/im-plugin/ism/api#create-index).
 
 ### Step 3: Manage indices
 
 1. Choose **Managed Indices**.
-2. To change your policy, see [Change Policy](managedindices/#change-policy).
+2. To change your policy, see [Change Policy]({{site.url}}{{site.baseurl}}/im-plugin/ism/managedindices#change-policy).
 3. To attach a rollover alias to your index, select your policy and choose **Add rollover alias**.
-Make sure that the alias that you enter already exists. For more information about the rollover operation, see [rollover](policies/#rollover).
+Make sure that the alias that you enter already exists. For more information about the rollover operation, see [rollover]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies#rollover).
 4. To remove a policy, choose your policy, and then choose **Remove policy**.
 5. To retry a policy, choose your policy, and then choose **Retry policy**.
 
-For information about managing your policies, see [Managed Indices](managedindices/).
+For information about managing your policies, see [Managed Indices]({{site.url}}{{site.baseurl}}/im-plugin/ism/managedindices/).

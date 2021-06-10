@@ -7,7 +7,7 @@ nav_order: 20
 
 # Reporting
 
-You can use OpenSearch Dashboards to create PNG, PDF, and CSV reports. To create reports, you must have the correct permissions. For a summary of the predefined roles and the permissions they grant, see the [security plugin](../../security/access-control/users-roles/#predefined-roles).
+You can use OpenSearch Dashboards to create PNG, PDF, and CSV reports. To create reports, you must have the correct permissions. For a summary of the predefined roles and the permissions they grant, see the [security plugin]({{site.url}}{{site.baseurl}}/security-plugin/access-control/users-roles/#predefined-roles).
 
 
 ## Create reports from Discovery, Visualize, or Dashboard
@@ -35,7 +35,7 @@ Definitions let you generate reports on a periodic schedule.
 1. (Optional) Add a header or footer to the report. Headers and footers are only available for dashboard or visualization reports.
 1. Under **Report trigger**, choose either **On-demand** or **Schedule**.
 
-   For scheduled reports, select either **Recurring** or **Cron based**. You can receive reports daily or at some other time interval. Cron expressions give you even more flexiblity. See [Cron expression reference](../../alerting/cron/) for more information.
+   For scheduled reports, select either **Recurring** or **Cron based**. You can receive reports daily or at some other time interval. Cron expressions give you even more flexiblity. See [Cron expression reference]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/cron/) for more information.
 
 1. Choose **Create**.
 
@@ -45,7 +45,7 @@ Definitions let you generate reports on a periodic schedule.
 
 While creating a report for dashboards or visualizations, you might see a the following error:
 
-![OpenSearch Dashboards reporting pop-up error message](../../images/reporting-error.png)
+![OpenSearch Dashboards reporting pop-up error message]({{site.url}}{{site.baseurl}}/images/reporting-error.png)
 
 This problem can occur for two reasons:
 

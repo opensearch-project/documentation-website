@@ -8,7 +8,7 @@ redirect_from: /docs/security/access-control/field-masking/
 
 # Field masking
 
-If you don't want to remove fields from a document using [field-level security](../field-level-security/), you can mask their values. Currently, field masking is only available for string-based fields and replaces the field's value with a cryptographic hash.
+If you don't want to remove fields from a document using [field-level security]({{site.url}}{{site.baseurl}}/security-plugin/access-control/field-level-security/), you can mask their values. Currently, field masking is only available for string-based fields and replaces the field's value with a cryptographic hash.
 
 Field masking works alongside field-level security on the same per-role, per-index basis. You can allow certain roles to see sensitive fields in plain text and mask them for others. A search result with a masked field might look like this:
 
@@ -70,7 +70,7 @@ someonerole:
 
 ### REST API
 
-See [Create role](../api/#create-role).
+See [Create role]({{site.url}}{{site.baseurl}}/security-plugin/access-control/api/#create-role).
 
 
 ## (Advanced) Use an alternative hash algorithm

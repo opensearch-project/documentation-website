@@ -402,7 +402,7 @@ DELETE _opensearch/_security/api/internalusers/<username>
 
 Creates or replaces the specified user. You must specify either `password` (plain text) or `hash` (the hashed user password). If you specify `password`, the security plugin automatically hashes the password before storing it.
 
-Note that any role you supply in the `opensearch_security_roles` array must already exist for the security plugin to map the user to that role. To see predefined roles, refer to [the list of predefined roles](../users-roles/#predefined-roles). For instructions on how to create a role, refer to [creating a role](./#create-role).
+Note that any role you supply in the `opensearch_security_roles` array must already exist for the security plugin to map the user to that role. To see predefined roles, refer to [the list of predefined roles]({{site.url}}{{site.baseurl}}/security-plugin/access-control/users-roles#predefined-roles). For instructions on how to create a role, refer to [creating a role](#create-role).
 
 #### Request
 

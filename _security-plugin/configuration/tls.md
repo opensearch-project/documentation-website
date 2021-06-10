@@ -10,7 +10,7 @@ redirect_from: /docs/security/configuration/tls/
 
 TLS is configured in `opensearch.yml`. There are two main configuration sections: the transport layer and the REST layer. TLS is optional for the REST layer and mandatory for the transport layer.
 
-You can find an example configuration template with all options on [GitHub](https://www.github.com/opensearch-project/security-ssl/blob/master/opensearchsecurity-ssl-config-template.yml).
+You can find an example configuration template with all options on [GitHub](https://github.com/opensearch-project/security/blob/main/securityconfig/opensearch.yml.example).
 {: .note }
 
 
@@ -115,7 +115,6 @@ Name | Description
 `plugins.security.ssl.transport.enable_openssl_if_available` | Enable OpenSSL on the transport layer if available. Optional. Default is true.
 `plugins.security.ssl.http.enable_openssl_if_available` | Enable OpenSSL on the REST layer if available. Optional. Default is true.
 
-
 {% comment %}
 1. Install [OpenSSL 1.1.0](https://www.openssl.org/community/binaries.html) on every node.
 1. Install [Apache Portable Runtime](https://apr.apache.org) on every node:
@@ -124,8 +123,6 @@ Name | Description
   sudo yum install apr
   ```
 {% endcomment %}
-
-1. Download the statically-linked JAR that includes OpenSSL, Apache Portable Runtime, and `netty-tcnative` for [RPM-based distributions](https://bintray.com/floragunncom/netty-tcnative/download_file?file_path=netty-tcnative-openssl-1.1.0j-static-2.0.20.Final-fedora-linux-x86_64.jar) or [other distributions](https://bintray.com/floragunncom/netty-tcnative/download_file?file_path=netty-tcnative-openssl-1.1.0j-static-2.0.20.Final-non-fedora-linux-x86_64.jar) and place it in `plugins/opensearch-security/` on every node.
 
 
 ## (Advanced) Hostname verification and DNS lookup

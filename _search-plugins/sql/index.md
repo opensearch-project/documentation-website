@@ -9,14 +9,14 @@ redirect_from: /docs/sql/
 
 # SQL
 
-OpenSearch SQL lets you write queries in SQL rather than the [OpenSearch query domain-specific language (DSL)](../opensearch/full-text). If you're already familiar with SQL and don't want to learn the query DSL, this feature is a great option.
+OpenSearch SQL lets you write queries in SQL rather than the [OpenSearch query domain-specific language (DSL)]({{site.url}}{{site.baseurl}}/opensearch/full-text). If you're already familiar with SQL and don't want to learn the query DSL, this feature is a great option.
 
 
 ## Workbench
 
-The easiest way to get familiar with the SQL plugin is to use **Query Workbench** in OpenSearch Dashboards to test various queries. To learn more, see [Workbench](workbench/).
+The easiest way to get familiar with the SQL plugin is to use **Query Workbench** in OpenSearch Dashboards to test various queries. To learn more, see [Workbench]({{site.url}}{{site.baseurl}}/search-plugins/sql/workbench/).
 
-![OpenSearch Dashboards SQL UI plugin](../images/sql.png)
+![OpenSearch Dashboards SQL UI plugin]({{site.url}}{{site.baseurl}}/images/sql.png)
 
 
 ## REST API
@@ -72,4 +72,4 @@ See the rest of this guide for detailed information on request parameters, setti
 
 ## Contributing
 
-To get involved and help us improve the SQL plugin, see the [development guide](https://github.com/opensearch-project/sql/blob/master/docs/developing.rst) for instructions on setting up your development environment and building the project.
+To get involved and help us improve the SQL plugin, see the [development guide](https://github.com/opensearch-project/sql/blob/main/DEVELOPER_GUIDE.rst) for instructions on setting up your development environment and building the project.

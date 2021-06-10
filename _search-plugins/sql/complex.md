@@ -45,11 +45,11 @@ The `JOIN` clause combines columns from one or more indices using values common 
 
 Rule `tableSource`:
 
-![tableSource](../../images/tableSource.png)
+![tableSource]({{site.url}}{{site.baseurl}}/images/tableSource.png)
 
 Rule `joinPart`:
 
-![joinPart](../../images/joinPart.png)
+![joinPart]({{site.url}}{{site.baseurl}}/images/joinPart.png)
 
 ### Example 1: Inner join
 

@@ -13,7 +13,7 @@ It can be challenging to discover anomalies using conventional methods such as c
 
 Anomaly detection  automatically detects anomalies in your OpenSearch data in near real-time using the Random Cut Forest (RCF) algorithm. RCF is an unsupervised machine learning algorithm that models a sketch of your incoming data stream to compute an `anomaly grade` and `confidence score` value for each incoming data point. These values are used to differentiate an anomaly from normal variations. For more information about how RCF works, see [Random Cut Forests](https://pdfs.semanticscholar.org/8bba/52e9797f2e2cc9a823dbd12514d02f29c8b9.pdf?_ga=2.56302955.1913766445.1574109076-1059151610.1574109076).
 
-You can pair the anomaly detection plugin with the [alerting plugin](../alerting/) to notify you as soon as an anomaly is detected.
+You can pair the anomaly detection plugin with the [alerting plugin]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/) to notify you as soon as an anomaly is detected.
 
 To use the anomaly detection plugin, your computer needs to have more than one CPU core.
 {: .note }
@@ -100,11 +100,11 @@ Examine the sample preview and use it to fine-tune your feature configurations (
 Choose the **Anomaly results** tab. You need to wait for some time to see the anomaly results. If the detector interval is 10 minutes, the detector might take more than an hour to start, as it's waiting for sufficient data to generate anomalies.
 
 A shorter interval means the model passes the shingle process more quickly and starts to generate the anomaly results sooner.
-Use the [profile detector](./api#profile-detector) operation to make sure you have sufficient data points.
+Use the [profile detector]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/api#profile-detector) operation to make sure you have sufficient data points.
 
 If you see the detector pending in "initialization" for longer than a day, aggregate your existing data using the detector interval to check for any missing data points. If you find a lot of missing data points from the aggregated data, consider increasing the detector interval.
 
-![Anomaly detection results](../images/ad.png)
+![Anomaly detection results]({{site.url}}{{site.baseurl}}/images/ad.png)
 
 Analize anomalies with the following visualizations:
 
@@ -113,7 +113,7 @@ Analize anomalies with the following visualizations:
 - **Feature breakdown** - plots the features based on the aggregation method. You can vary the date-time range of the detector.
 - **Anomaly occurrence** - shows the `Start time`, `End time`, `Data confidence`, and `Anomaly grade` for each detected anomaly.
 
-`Anomaly grade` is a number between 0 and 1 that indicates how anomalous a data point is. An anomaly grade of 0 represents “not an anomaly,” and a non-zero value represents the relative severity of the anomaly. 
+`Anomaly grade` is a number between 0 and 1 that indicates how anomalous a data point is. An anomaly grade of 0 represents “not an anomaly,” and a non-zero value represents the relative severity of the anomaly.
 
 `Data confidence` is an estimate of the probability that the reported anomaly grade matches the expected anomaly grade. Confidence increases as the model observes more data and learns the data behavior and trends. Note that confidence is distinct from model accuracy.
 
@@ -124,7 +124,7 @@ Choose a filled rectangle to see a more detailed view of the anomaly.
 
 ### Step 4: Set up alerts
 
-Choose **Set up alerts** and configure a monitor to notify you when anomalies are detected. For steps to create a monitor and set up notifications based on your anomaly detector, see [Monitors](../alerting/monitors/).
+Choose **Set up alerts** and configure a monitor to notify you when anomalies are detected. For steps to create a monitor and set up notifications based on your anomaly detector, see [Monitors]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/).
 
 If you stop or delete a detector, make sure to delete any monitors associated with it.
 

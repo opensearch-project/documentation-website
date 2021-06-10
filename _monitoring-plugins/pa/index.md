@@ -17,7 +17,7 @@ You can also install it using [npm](https://www.npmjs.com/):
 npm install -g @aws/opensearch-perftop
 ```
 
-![PerfTop screenshot](../images/perftop.png)
+![PerfTop screenshot]({{site.url}}{{site.baseurl}}/images/perftop.png)
 
 
 ## Get started with PerfTop
@@ -46,7 +46,7 @@ Otherwise, just specify the OpenSearch endpoint:
 ./opensearch-perf-top-macos --dashboard dashboards/<dashboard>.json --endpoint my-cluster.my-domain.com
 ```
 
-PerfTop has four pre-built dashboards in the `dashboards` directory, but you can also [create your own](dashboards/).
+PerfTop has four pre-built dashboards in the `dashboards` directory, but you can also [create your own]({{site.url}}{{site.baseurl}}/dashboards/).
 
 You can also load the pre-built dashboards (ClusterOverview, ClusterNetworkMemoryAnalysis, ClusterThreadAnalysis, or NodeAnalysis) without the JSON files, such as `--dashboard ClusterThreadAnalysis`.
 

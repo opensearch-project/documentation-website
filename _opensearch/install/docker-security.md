@@ -108,7 +108,7 @@ networks:
   opensearch-net:
 ```
 
-Then make your changes to `opensearch.yml`. For a full list of settings, see [Security](../../../security/configuration/). This example adds (extremely) verbose audit logging:
+Then make your changes to `opensearch.yml`. For a full list of settings, see [Security]({{site.url}}{{site.baseurl}}/security-plugin/configuration/). This example adds (extremely) verbose audit logging:
 
 ```yml
 plugins.security.ssl.transport.pemcert_filepath: node.pem
@@ -133,7 +133,7 @@ plugins.security.audit.config.disabled_rest_categories: NONE
 plugins.security.audit.config.disabled_transport_categories: NONE
 ```
 
-Use this same override process to specify new [authentication settings](../../../security/configuration/configuration/) in `/usr/share/opensearch/plugins/opensearch-security/securityconfig/config.yml`, as well as new default [internal users, roles, mappings, action groups, and tenants](../../../security/configuration/yaml/).
+Use this same override process to specify new [authentication settings]({{site.url}}{{site.baseurl}}/security-plugin/configuration/configuration/) in `/usr/share/opensearch/plugins/opensearch-security/securityconfig/config.yml`, as well as new default [internal users, roles, mappings, action groups, and tenants]({{site.url}}{{site.baseurl}}/security-plugin/configuration/yaml/).
 
 To start the cluster, run `docker-compose up`.
 
@@ -162,7 +162,7 @@ volumes:
 - ./custom-opensearch.yml: /full/path/to/custom-opensearch.yml
 ```
 
-Remember that the certificates you specify in your Docker Compose file must be the same as the certificates listed in your custom `opensearch.yml` file. At a minimum, you should replace the root, admin, and node certificates with your own. For more information about adding and using certificates, see [Configure TLS certificates](../security/configuration/tls.md).
+Remember that the certificates you specify in your Docker Compose file must be the same as the certificates listed in your custom `opensearch.yml` file. At a minimum, you should replace the root, admin, and node certificates with your own. For more information about adding and using certificates, see [Configure TLS certificates]({{site.url}}{{site.baseurl}}/security-plugin/configuration/tls).
 
 ```yml
 plugins.security.ssl.transport.pemcert_filepath: new-node-cert.pem

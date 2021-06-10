@@ -61,7 +61,7 @@ Some IdPs do not sign the SAML documents by default. Make sure the IdP signs all
 
 #### Keycloak
 
-![Keycloak UI](../../images/saml-keycloak-sign-documents.png)
+![Keycloak UI]({{site.url}}{{site.baseurl}}/images/saml-keycloak-sign-documents.png)
 
 
 ## Role settings

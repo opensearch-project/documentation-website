@@ -13,4 +13,4 @@ The alerting feature notifies you when data from one or more OpenSearch indices 
 
 To get started, choose **Alerting** in OpenSearch Dashboards.
 
-![OpenSearch Dashboards side bar with link](../images/alerting.png)
+![OpenSearch Dashboards side bar with link]({{site.url}}{{site.baseurl}}/images/alerting.png)

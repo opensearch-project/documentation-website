@@ -34,4 +34,4 @@ array |	nested |	STRUCT
 In addition to this list, the PPL plugin also supports the `datetime` type, though it doesn't have a corresponding mapping with OpenSearch.
 To use a function without a corresponding mapping, you must explicitly convert the data type to one that does.
 
-The PPL plugin supports all SQL date and time types. To learn more, see [SQL Data Types](../../sql/datatypes/).
+The PPL plugin supports all SQL date and time types. To learn more, see [SQL Data Types]({{site.url}}{{site.baseurl}}/search-plugins/sql/datatypes/).

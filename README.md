@@ -263,7 +263,7 @@ This project has adopted an [Open Source Code of Conduct](https://opensearch.org
 
 ## Security
 
-See [CONTRIBUTING](CONTRIBUTING.md#security-issue-notifications) for more information.
+See [CONTRIBUTING]({{site.url}}{{site.baseurl}}/CONTRIBUTING.md#security-issue-notifications) for more information.
 
 
 ## License

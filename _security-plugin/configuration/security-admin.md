@@ -47,10 +47,10 @@ To print all available command line options, run the script with no arguments:
 To load configuration changes to the security plugin, you must provide your admin certificate to the tool:
 
 ```bash
-./securityadmin.sh -cd ../securityconfig/ -icl -nhnv \
-   -cacert ../../../config/root-ca.pem \
-   -cert ../../../config/kirk.pem \
-   -key ../../../config/kirk-key.pem
+./securityadmin.sh -cd {{site.url}}{{site.baseurl}}/securityconfig/ -icl -nhnv \
+   -cacert {{site.url}}{{site.baseurl}}/config/root-ca.pem \
+   -cert {{site.url}}{{site.baseurl}}/config/kirk.pem \
+   -key {{site.url}}{{site.baseurl}}/config/kirk-key.pem
 ```
 
 - The `-cd` option specifies where the security plugin configuration files to upload to the cluster can be found.
@@ -79,7 +79,7 @@ Apply configuration in `securityconfig` using PEM certificates:
 Apply configuration from a single file (`config.yml`) using PEM certificates:
 
 ```bash
-./securityadmin.sh -f ../securityconfig/config.yml -icl -nhnv -cert /etc/opensearch/kirk.pem -cacert /etc/opensearch/root-ca.pem -key /etc/opensearch/kirk-key.pem -t config
+./securityadmin.sh -f {{site.url}}{{site.baseurl}}/securityconfig/config.yml -icl -nhnv -cert /etc/opensearch/kirk.pem -cacert /etc/opensearch/root-ca.pem -key /etc/opensearch/kirk-key.pem -t config
 ```
 
 Apply configuration in `securityconfig` with keystore and truststore files:
@@ -101,7 +101,7 @@ Apply configuration in `securityconfig` with keystore and truststore files:
 You can also use keystore files in JKS format in conjunction with `securityadmin.sh`:
 
 ```bash
-./securityadmin.sh -cd ../securityconfig -icl -nhnv
+./securityadmin.sh -cd {{site.url}}{{site.baseurl}}/securityconfig -icl -nhnv
   -ts <path/to/truststore> -tspass <truststore password>
   -ks <path/to/keystore> -kspass <keystore password>
 ```
@@ -159,13 +159,13 @@ Name | Description
 To upload all configuration files in a directory, use this:
 
 ```bash
-./securityadmin.sh -cd ../securityconfig -ts ... -tspass ... -ks ... -kspass ...
+./securityadmin.sh -cd {{site.url}}{{site.baseurl}}/securityconfig -ts ... -tspass ... -ks ... -kspass ...
 ```
 
 If you want to push a single configuration file, use this:
 
 ```bash
-./securityadmin.sh -f ../securityconfig/internal_users.yml -t internalusers  \
+./securityadmin.sh -f {{site.url}}{{site.baseurl}}/securityconfig/internal_users.yml -t internalusers  \
     -ts ... -tspass ... -ks ... -kspass ...
 ```
 
@@ -199,7 +199,7 @@ You can download all current configuration files from your cluster with the foll
 This command dumps the current security plugin configuration from your cluster to individual files in the directory you specify. You can then use these files as backups or to load the configuration into a different cluster. This command is useful when moving a proof-of-concept to production:
 
 ```bash
-./securityadmin.sh -backup ~ -icl -nhnv -cacert ../../../config/root-ca.pem -cert ../../../config/kirk.pem -key ../../../config/kirk-key.pem
+./securityadmin.sh -backup ~ -icl -nhnv -cacert {{site.url}}{{site.baseurl}}/config/root-ca.pem -cert {{site.url}}{{site.baseurl}}/config/kirk.pem -key {{site.url}}{{site.baseurl}}/config/kirk-key.pem
 ```
 
 To upload the dumped files to another cluster:
@@ -211,7 +211,7 @@ To upload the dumped files to another cluster:
 To migrate configuration YAML files from the OpenSearch 0.x.x format to the 1.x.x format:
 
 ```bash
-./securityadmin.sh -migrate ../securityconfig -ts ... -tspass ... -ks ... -kspass ...
+./securityadmin.sh -migrate {{site.url}}{{site.baseurl}}/securityconfig -ts ... -tspass ... -ks ... -kspass ...
 ```
 
 Name | Description

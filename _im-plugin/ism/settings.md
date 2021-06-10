@@ -10,7 +10,7 @@ nav_order: 4
 
 We don't recommend changing these settings; the defaults should work well for most use cases.
 
-Index State Management (ISM) stores its configuration in the `.opendistro-ism-config` index. Don't modify this index without using the [ISM API operations](../api/).
+Index State Management (ISM) stores its configuration in the `.opendistro-ism-config` index. Don't modify this index without using the [ISM API operations]({{site.url}}{{site.baseurl}}/im-plugin/ism/api/).
 
 All settings are available using the OpenSearch `_cluster/settings` operation. None require a restart, and all can be marked `persistent` or `transient`.
 
@@ -31,7 +31,7 @@ Setting | Default | Description
 
 ## Audit history indices
 
-If you don't want to disable ISM audit history or shorten the retention period, you can create an [index template](../../../opensearch/index-templates/) to reduce the shard count of the history indices:
+If you don't want to disable ISM audit history or shorten the retention period, you can create an [index template]({{site.url}}{{site.baseurl}}/opensearch/index-templates/) to reduce the shard count of the history indices:
 
 ```json
 PUT _index_template/ism_history_indices

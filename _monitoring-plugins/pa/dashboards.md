@@ -32,7 +32,7 @@ The best way to get started with building custom dashboards is to duplicate and 
 
 PerfTop positions elements within a grid. For example, consider this 12 * 12 grid.
 
-![Dashboard grid](../../images/perftop-grid.png)
+![Dashboard grid]({{site.url}}{{site.baseurl}}/images/perftop-grid.png)
 
 The upper-left of the grid represents row 0, column 0, so the starting positions for the three boxes are:
 
@@ -95,7 +95,7 @@ At this point, however, all the JSON does is define the size and position of thr
 
 ## Add queries
 
-Queries use the same elements as the [REST API](../api/), just in JSON form:
+Queries use the same elements as the [REST API]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/api/), just in JSON form:
 
 ```json
 {
@@ -108,7 +108,7 @@ Queries use the same elements as the [REST API](../api/), just in JSON form:
 }
 ```
 
-For details on available metrics, see [Metrics reference](../reference/).
+For details on available metrics, see [Metrics reference]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/reference/).
 
 
 ## Add options

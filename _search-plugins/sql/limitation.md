@@ -15,17 +15,17 @@ The SQL plugin has the following limitations:
 ### Select literal is not supported
 
 The select literal expression is not supported. For example, `Select 1` is not supported.
-Here's a link to the Github issue - [Issue #256](https://github.com/opensearch-project/sql/issues/256).
+
 
 ### Where clause does not support arithmetic operations
 
 The `WHERE` clause does not support expressions. For example, `SELECT FlightNum FROM opensearch_dashboards_sample_data_flights where (AvgTicketPrice + 100) <= 1000` is not supported.
-Here's a link to the Github issue - [Issue #234](https://github.com/opensearch-project/sql/issues/234).
+
 
 ### Aggregation over expression is not supported
 
 You can only apply aggregation on fields, aggregations can't accept an expression as a parameter. For example, `avg(log(age))` is not supported.
-Here's a link to the Github issue - [Issue #288](https://github.com/opensearch-project/sql/issues/288).
+
 
 ### Conflict type in multiple index query
 
@@ -57,7 +57,6 @@ Error occurred in OpenSearch engine: Different mappings are not allowed for the 
     "type": "VerificationException
 ```
 
-Here's a link to the Github issue - [Issue #445](https://github.com/opensearch-project/sql/issues/445).
 
 ## Subquery in the FROM clause
 
@@ -77,7 +76,7 @@ But, if the outer query has `GROUP BY` or `ORDER BY`, then it's not supported.
 
 The `join` query does not support aggregations on the joined result.
 For example, e.g. `SELECT depo.name, avg(empo.age) FROM empo JOIN depo WHERE empo.id == depo.id GROUP BY depo.name` is not supported.
-Here's a link to the Github issue - [Issue 110](https://github.com/opensearch-project/sql/issues/110).
+
 
 ## Pagination only supports basic queries
 

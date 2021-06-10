@@ -51,7 +51,7 @@ The order in which you select attributes is critical. A city followed by a demog
 Specify a schedule to roll up your indices as it’s being ingested. The index rollup job is enabled by default.
 
 1. Specify if the data is continuous or not.
-3. For roll up execution frequency, select **Define by fixed interval** and specify the **Rollup interval** and the time unit or **Define by cron expression** and add in a cron expression to select the interval. To learn how to define a cron expression, see [Alerting](../alerting/cron/).
+3. For roll up execution frequency, select **Define by fixed interval** and specify the **Rollup interval** and the time unit or **Define by cron expression** and add in a cron expression to select the interval. To learn how to define a cron expression, see [Alerting]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/cron/).
 4. Specify the number of pages per execution process. A larger number means faster execution and more cost for memory.
 5. (Optional) Add a delay to the roll up executions. This is the amount of time the job waits for data ingestion to accommodate any processing time. For example, if you set this value to 10 minutes, an index rollup that executes at 2 PM to roll up 1 PM to 2 PM of data starts at 2:10 PM.
 6. Choose **Next**.

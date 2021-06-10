@@ -26,18 +26,18 @@ OpenSearch is well-suited to the following use cases:
 
 Component | Purpose
 :--- | :---
-[OpenSearch](opensearch/) | Data store and search engine
-[OpenSearch Dashboards](opensearch-dashboards/) | Search frontend and visualizations
-[Security](security-plugin/) | Authentication and access control for your cluster
-[Alerting](monitoring-plugins/alerting/) | Receive notifications when your data meets certain conditions
-[SQL](search-plugins/sql/) | Use SQL or a piped processing language to query your data
-[Index State Management](im-plugin/) | Automate index operations
-[KNN](search-plugins/knn/) | Find “nearest neighbors” in your vector data
-[Performance Analyzer](monitoring-plugins/pa/) | Monitor and optimize your cluster
-[Anomaly Detection](monitoring-plugins/ad/) | Identify atypical data and receive automatic notifications
-[Asynchronous Search](search-plugins/async/) | Run search requests in the background
+[OpenSearch]({{site.url}}{{site.baseurl}}/opensearch/) | Data store and search engine
+[OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/) | Search frontend and visualizations
+[Security]({{site.url}}{{site.baseurl}}/security-plugin/) | Authentication and access control for your cluster
+[Alerting]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/) | Receive notifications when your data meets certain conditions
+[SQL]({{site.url}}{{site.baseurl}}/search-plugins/sql/) | Use SQL or a piped processing language to query your data
+[Index State Management]({{site.url}}{{site.baseurl}}/im-plugin/) | Automate index operations
+[KNN]({{site.url}}{{site.baseurl}}/search-plugins/knn/) | Find “nearest neighbors” in your vector data
+[Performance Analyzer]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/) | Monitor and optimize your cluster
+[Anomaly Detection]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/) | Identify atypical data and receive automatic notifications
+[Asynchronous Search]({{site.url}}{{site.baseurl}}/search-plugins/async/) | Run search requests in the background
 
-You can install OpenSearch plugins [individually](opensearch/install/plugins/) or use the [all-in-one packages](opensearch/install/). Most of these OpenSearch plugins have corresponding OpenSearch Dashboards plugins that provide a convenient, unified user interface.
+You can install OpenSearch plugins [individually]({{site.url}}{{site.baseurl}}/opensearch/install/plugins/) or use the [all-in-one packages]({{site.url}}{{site.baseurl}}/opensearch/install/). Most of these OpenSearch plugins have corresponding OpenSearch Dashboards plugins that provide a convenient, unified user interface.
 
 For specifics around the project, see the [FAQ](https://opensearch.org/faq/).
 
@@ -62,7 +62,7 @@ Docker
    curl -XGET --insecure https://localhost:9200 -u admin:admin
    ```
 
-To learn more, see [Install OpenSearch](opensearch/install/) and [Install OpenSearch Dashboards](dashboards/install/).
+To learn more, see [Install OpenSearch]({{site.url}}{{site.baseurl}}/opensearch/install/) and [Install OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/install/).
 
 
 ---

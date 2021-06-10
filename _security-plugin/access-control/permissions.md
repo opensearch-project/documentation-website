@@ -10,7 +10,7 @@ redirect_from: /docs/security/access-control/permissions/
 
 This page is a complete list of available permissions in the security plugin. Each permission controls access to a data type or API.
 
-Rather than creating new action groups from individual permissions, you can often achieve your desired security posture using some combination of the default action groups. To learn more, see [Default Action Groups](../default-action-groups).
+Rather than creating new action groups from individual permissions, you can often achieve your desired security posture using some combination of the default action groups. To learn more, see [Default Action Groups]({{site.url}}{{site.baseurl}}/security-plugin/access-control/default-action-groups/).
 {: .tip }
 
 

@@ -133,7 +133,7 @@ Subjects (for example, user names) are usually stored in the `NameID` element of
 
 If your IdP is compliant with the SAML 2.0 specification, you do not need to set anything special. If your IdP uses a different element name, you can also specify its name explicitly.
 
-Role attributes are optional. However, most IdPs can be configured to add roles in the SAML assertions as well. If present, you can use these roles in your [role mappings](../concepts):
+Role attributes are optional. However, most IdPs can be configured to add roles in the SAML assertions as well. If present, you can use these roles in your [role mappings]({{site.url}}{{site.baseurl}}/security-plugin/configuration/concepts/):
 
 ```
 <saml2:Attribute Name='Role'>

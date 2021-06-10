@@ -13,9 +13,9 @@ If you use the security plugin alongside alerting, you might want to limit certa
 
 ## Basic permissions
 
-The security plugin has three built-in roles that cover most alerting use cases: `alerting_read_access`, `alerting_ack_alerts`, and `alerting_full_access`. For descriptions of each, see [Predefined roles](../../security/access-control/users-roles/#predefined-roles).
+The security plugin has three built-in roles that cover most alerting use cases: `alerting_read_access`, `alerting_ack_alerts`, and `alerting_full_access`. For descriptions of each, see [Predefined roles]({{site.url}}{{site.baseurl}}/security-plugin/access-control/users-roles/#predefined-roles).
 
-If these roles don't meet your needs, mix and match individual alerting [permissions](../../security/access-control/permissions/) to suit your use case. Each action corresponds to an operation in the REST API. For example, the `cluster:admin/opensearch/alerting/destination/delete` permission lets you delete destinations.
+If these roles don't meet your needs, mix and match individual alerting [permissions]({{site.url}}{{site.baseurl}}/security-plugin/access-control/permissions/) to suit your use case. Each action corresponds to an operation in the REST API. For example, the `cluster:admin/opensearch/alerting/destination/delete` permission lets you delete destinations.
 
 
 ## How monitors access data
@@ -29,14 +29,14 @@ Later, the user `psantos` wants to edit the monitor to run every two hours, but 
 - Update the monitor so that it only checks `store1-returns`.
 - Ask an administrator for read access to the other two indices.
 
-After making the change, the monitor now runs with the same permissions as `psantos`, including any [document-level security](../../security/access-control/document-level-security/) queries, [excluded fields](../../security/access-control/field-level-security/), and [masked fields](../../security/access-control/field-masking/). If you use an extraction query to define your monitor, use the **Run** button to ensure that the response includes the fields you need.
+After making the change, the monitor now runs with the same permissions as `psantos`, including any [document-level security]({{site.url}}{{site.baseurl}}/security-plugin/access-control/document-level-security/) queries, [excluded fields]({{site.url}}{{site.baseurl}}/security-plugin/access-control/field-level-security/), and [masked fields]({{site.url}}{{site.baseurl}}/security-plugin/access-control/field-masking/). If you use an extraction query to define your monitor, use the **Run** button to ensure that the response includes the fields you need.
 
 
 ## (Advanced) Limit access by backend role
 
 Out of the box, the alerting plugin has no concept of ownership. For example, if you have the `cluster:admin/opensearch/alerting/monitor/write` permission, you can edit *all* monitors, regardless of whether you created them. If a small number of trusted users manage your monitors and destinations, this lack of ownership generally isn't a problem. A larger organization might need to segment access by backend role.
 
-First, make sure that your users have the appropriate [backend roles](../../security/access-control/). Backend roles usually come from an [LDAP server](../../security/configuration/ldap/) or [SAML provider](../../security/configuration/saml/). However, if you use the internal user database, you can use the REST API to [add them manually](../../security/access-control/api/#create-user).
+First, make sure that your users have the appropriate [backend roles]({{site.url}}{{site.baseurl}}/security-plugin/access-control/). Backend roles usually come from an [LDAP server]({{site.url}}{{site.baseurl}}/security-plugin/configuration/ldap/) or [SAML provider]({{site.url}}{{site.baseurl}}/security-plugin/configuration/saml/). However, if you use the internal user database, you can use the REST API to [add them manually]({{site.url}}{{site.baseurl}}/security-plugin/access-control/api/#create-user).
 
 Next, enable the following setting:
 
@@ -58,7 +58,7 @@ If `jdoe` creates a monitor, `jroe` can see and modify it, but `psantos` can't. 
 
 <!-- ## (Advanced) Limit access by individual
 
-If you only want users to be able to see and modify their own monitors and destinations, duplicate the `alerting_full_access` role and add the following [DLS query](../../security/access-control/document-level-security/) to it:
+If you only want users to be able to see and modify their own monitors and destinations, duplicate the `alerting_full_access` role and add the following [DLS query]({{site.url}}{{site.baseurl}}/security-plugin/access-control/document-level-security/) to it:
 
 ```json
 {

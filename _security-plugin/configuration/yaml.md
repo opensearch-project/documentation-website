@@ -10,14 +10,14 @@ redirect_from: /docs/security/configuration/yaml/
 
 Before running `securityadmin.sh` to load the settings into the `.opensearch_security` index, configure the YAML files in `plugins/opensearch-security/securityconfig`. You might want to back up these files so that you can reuse them on other clusters.
 
-The best use of these YAML files is to configure [reserved and hidden resources](../../access-control/api/#reserved-and-hidden-resources), such as the `admin` and `kibanaserver` users. You might find it easier to create other users, roles, mappings, action groups, and tenants using OpenSearch Dashboards or the REST API.
+The best use of these YAML files is to configure [reserved and hidden resources]({{site.url}}{{site.baseurl}}/security-plugin/access-control/api#reserved-and-hidden-resources), such as the `admin` and `kibanaserver` users. You might find it easier to create other users, roles, mappings, action groups, and tenants using OpenSearch Dashboards or the REST API.
 
 
 ## internal_users.yml
 
 This file contains any initial users that you want to add to the security plugin's internal user database.
 
-The file format requires a hashed password. To generate one, run `plugins/opensearch-security/tools/hash.sh -p <new-password>`. If you decide to keep any of the demo users, *change their passwords* and re-run [securityadmin.sh](../security-admin/) to apply the new passwords.
+The file format requires a hashed password. To generate one, run `plugins/opensearch-security/tools/hash.sh -p <new-password>`. If you decide to keep any of the demo users, *change their passwords* and re-run [securityadmin.sh]({{site.url}}{{site.baseurl}}/security-plugin/configuration/security-admin/) to apply the new passwords.
 
 ```yml
 ---

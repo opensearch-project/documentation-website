@@ -8,4 +8,4 @@ redirect_from: /docs/ppl/functions/
 
 # Functions
 
-The PPL plugin supports all SQL functions. To learn more, see [SQL Functions](../../sql/functions/).
+The PPL plugin supports all SQL functions. To learn more, see [SQL Functions]({{site.url}}{{site.baseurl}}/search-plugins/sql/functions/).

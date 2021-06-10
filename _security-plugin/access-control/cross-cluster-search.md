@@ -56,7 +56,7 @@ humanresources:
 
 #### Sample role in OpenSearch Dashboards
 
-![OpenSearch Dashboards UI for creating a cross-cluster search role](../../../images/security-ccs.png)
+![OpenSearch Dashboards UI for creating a cross-cluster search role]({{site.url}}{{site.baseurl}}/images/security-ccs.png)
 
 
 ## Walkthrough

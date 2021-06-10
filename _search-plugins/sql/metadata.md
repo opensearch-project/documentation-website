@@ -14,11 +14,11 @@ To see basic metadata about your indices, use the `SHOW` and `DESCRIBE` commands
 
 Rule `showStatement`:
 
-![showStatement](../../images/showStatement.png)
+![showStatement]({{site.url}}{{site.baseurl}}/images/showStatement.png)
 
 Rule `showFilter`:
 
-![showFilter](../../images/showFilter.png)
+![showFilter]({{site.url}}{{site.baseurl}}/images/showFilter.png)
 
 ### Example 1: See metadata for indices
 

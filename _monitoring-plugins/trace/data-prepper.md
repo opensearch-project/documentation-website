@@ -105,7 +105,7 @@ service-map-pipeline:
         trace_analytics_service_map: true
 ```
 
-To learn more, see the [Data Prepper configuration reference](../data-prepper-reference/).
+To learn more, see the [Data Prepper configuration reference]({{site.url}}{{site.baseurl}}/monitoring-plugins/trace/data-prepper-reference/).
 
 ## Configure the Data Prepper server
 Data Prepper itself provides administrative HTTP endpoints such as `/list` to list pipelines and `/metrics/prometheus` to provide Prometheus-compatible metrics data. The port which serves these endpoints, as well as TLS configuration, is specified by a separate YAML file. Example:

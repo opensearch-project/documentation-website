@@ -14,7 +14,7 @@ To create and deploy an OpenSearch cluster according to your requirements, it’
 
 There are many ways to design a cluster. The following illustration shows a basic architecture:
 
-![multi-node cluster architecture diagram](../../images/cluster.png)
+![multi-node cluster architecture diagram]({{site.url}}{{site.baseurl}}/images/cluster.png)
 
 This is a four-node cluster that has one dedicated master node, one dedicated coordinating node, and two data nodes that are master-eligible and also used for ingesting data.
 
@@ -36,7 +36,7 @@ This page demonstrates how to work with the different node types. It assumes tha
 
 ## Prerequisites
 
-Before you get started, you must install and configure OpenSearch on all of your nodes. For information about the available options, see [Install and configure OpenSearch](../install/).
+Before you get started, you must install and configure OpenSearch on all of your nodes. For information about the available options, see [Install and configure OpenSearch]({{site.url}}{{site.baseurl}}/opensearch/install/).
 
 After you're done, use SSH to connect to each node, then open the `config/opensearch.yml` file. You can set all configurations for your cluster in this file.
 
@@ -188,7 +188,7 @@ x.x.x.x           34          38   0    0.12    0.07     0.06 md        -      o
 x.x.x.x           23          38   0    0.12    0.07     0.06 md        -      opensearch-c1
 ```
 
-To better understand and monitor your cluster, use the [cat API](../catapis/).
+To better understand and monitor your cluster, use the [cat API]({{site.url}}{{site.baseurl}}/opensearch/catapis/).
 
 
 ## (Advanced) Step 6: Configure shard allocation awareness or forced awareness
@@ -322,9 +322,9 @@ old_index 0     r      UNASSIGNED
 
 In this case, all primary shards are allocated to `opensearch-d2`. Again, all replica shards are unassigned because we only have one warm node.
 
-A popular approach is to configure your [index templates](../index-templates/) to set the `index.routing.allocation.require.temp` value to `hot`. This way, OpenSearch stores your most recent data on your hot nodes.
+A popular approach is to configure your [index templates]({{site.url}}{{site.baseurl}}/opensearch/index-templates/) to set the `index.routing.allocation.require.temp` value to `hot`. This way, OpenSearch stores your most recent data on your hot nodes.
 
-You can then use the [Index State Management (ISM)](../../im-plugin/) plugin to periodically check the age of an index and specify actions to take on it. For example, when the index reaches a specific age, change the `index.routing.allocation.require.temp` setting to `warm` to automatically move your data from hot nodes to warm nodes.
+You can then use the [Index State Management (ISM)]({{site.url}}{{site.baseurl}}/im-plugin/) plugin to periodically check the age of an index and specify actions to take on it. For example, when the index reaches a specific age, change the `index.routing.allocation.require.temp` setting to `warm` to automatically move your data from hot nodes to warm nodes.
 
 
 ## Next steps
@@ -332,7 +332,7 @@ You can then use the [Index State Management (ISM)](../../im-plugin/) plugin to 
 If you are using the security plugin, the previous request to `_cat/nodes?v` might have failed with an initialization error. To initialize the plugin, run `opensearch/plugins/opensearch-security/tools/securityadmin.sh`. A sample command that uses the demo certificates might look like this:
 
 ```bash
-sudo ./securityadmin.sh -cd ../securityconfig/ -icl -nhnv -cacert /etc/opensearch/root-ca.pem -cert /etc/opensearch/kirk.pem -key /etc/opensearch/kirk-key.pem -h <private-ip>
+sudo ./securityadmin.sh -cd {{site.url}}{{site.baseurl}}/securityconfig/ -icl -nhnv -cacert /etc/opensearch/root-ca.pem -cert /etc/opensearch/kirk.pem -key /etc/opensearch/kirk-key.pem -h <private-ip>
 ```
 
-For full guidance around configuration options, see [Security configuration](../../security/configuration).
+For full guidance around configuration options, see [Security configuration]({{site.url}}{{site.baseurl}}/security-plugin/configuration).

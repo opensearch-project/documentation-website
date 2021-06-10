@@ -183,7 +183,7 @@ services:
       - ./custom-opensearch_dashboards.yml:/usr/share/opensearch-dashboards/config/opensearch_dashboards.yml
 ```
 
-You can also configure `docker-compose.yml` and `opensearch.yml` [to take your own certificates](../docker-security/) for use with the [Security](../../security/configuration/) plugin.
+You can also configure `docker-compose.yml` and `opensearch.yml` [to take your own certificates]({{site.url}}{{site.baseurl}}/opensearch/install/docker-security/) for use with the [Security]({{site.url}}{{site.baseurl}}/security-plugin/configuration/) plugin.
 
 
 ### (Optional) Set up Performance Analyzer
@@ -298,7 +298,7 @@ docker build --tag=opensearch-custom-plugin .
 docker run -p 9200:9200 -p 9600:9600 -v /usr/share/opensearch/data opensearch-custom-plugin
 ```
 
-You can also use a `Dockerfile` to pass your own certificates for use with the [security](../../../security/) plugin, similar to the `-v` argument in [Configure OpenSearch](#configure-opensearch):
+You can also use a `Dockerfile` to pass your own certificates for use with the [security]({{site.url}}{{site.baseurl}}/security-plugin/) plugin, similar to the `-v` argument in [Configure OpenSearch](#configure-opensearch):
 
 ```
 FROM opensearchproject/opensearch:{{site.opensearch_version}}

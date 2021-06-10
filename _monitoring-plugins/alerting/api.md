@@ -174,7 +174,7 @@ If you use a custom webhook for your destination and need to embed JSON in the m
 }
 ```
 
-If you want to specify a timezone, you can do so by including a [cron expression](../cron/) with a timezone name in the `schedule` section of your request.
+If you want to specify a timezone, you can do so by including a [cron expression]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/cron/) with a timezone name in the `schedule` section of your request.
 
 The following example creates a monitor that runs at 12:10 PM Pacific Time on the 1st day of every month.
 

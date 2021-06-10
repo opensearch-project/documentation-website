@@ -29,7 +29,7 @@ PUT _plugins/_query/settings
 
 Rule `singleDeleteStatement`:
 
-![singleDeleteStatement](../../images/singleDeleteStatement.png)
+![singleDeleteStatement]({{site.url}}{{site.baseurl}}/images/singleDeleteStatement.png)
 
 ### Example
 

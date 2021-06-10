@@ -8,7 +8,7 @@ has_children: false
 
 # OpenSearch Dashboards notebooks (experimental)
 
-Notebooks have a known issue with [tenants](../../security/access-control/multi-tenancy/). If you open a notebook and can't see its visualizations, you might be under the wrong tenant, or you might not have access to the tenant at all.
+Notebooks have a known issue with [tenants]({{site.url}}{{site.baseurl}}/security-plugin/access-control/multi-tenancy/). If you open a notebook and can't see its visualizations, you might be under the wrong tenant, or you might not have access to the tenant at all.
 {: .warning }
 
 An OpenSearch Dashboards notebook is an interface that lets you easily combine live visualizations and narrative text in a single notebook interface.
@@ -45,7 +45,7 @@ Paragraphs combine text and visualizations for describing data.
 1. To add text, choose **Add markdown paragraph**.
 1. Add rich text with markdown syntax.
 
-![Markdown paragraph](../../images/markdown-notebook.png)
+![Markdown paragraph]({{site.url}}{{site.baseurl}}/images/markdown-notebook.png)
 
 
 #### Add a visualization paragraph

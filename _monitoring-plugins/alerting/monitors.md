@@ -102,7 +102,7 @@ POST _nodes/reload_secure_settings
 1. Choose **Alerting**, **Monitors**, **Create monitor**.
 1. Specify a name for the monitor.
 
-The anomaly detection option is for pairing with the anomaly detection plugin. See [Anomaly Detection](../../ad/).
+The anomaly detection option is for pairing with the anomaly detection plugin. See [Anomaly Detection]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/).
 For anomaly detector, choose an appropriate schedule for the monitor based on the detector interval. Otherwise, the alerting monitor might miss reading the results.
 
 For example, assume you set the monitor interval and the detector interval as 5 minutes, and you start the detector at 12:00. If an anomaly is detected at 12:05, it might be available at 12:06 because of the delay between writing the anomaly and it being available for queries. The monitor reads the anomaly results between 12:00 and 12:05, so it does not get the anomaly results available at 12:06.
@@ -114,13 +114,13 @@ Whenever you update a detector’s interval, make sure to update the associated 
 
 1. Choose one or more indices. You can also use `*` as a wildcard to specify an index pattern.
 
-   If you use the security plugin, you can only choose indices that you have permission to access. For details, see [Alerting security](../security/).
+   If you use the security plugin, you can only choose indices that you have permission to access. For details, see [Alerting security]({{site.url}}{{site.baseurl}}/security-plugin/).
 
 1. Define the monitor in one of three ways: visually, using a query, or using an anomaly detector.
 
    - Visual definition works well for monitors that you can define as "some value is above or below some threshold for some amount of time."
 
-   - Query definition gives you flexibility in terms of what you query for (using [the OpenSearch query DSL](../../opensearch/full-text)) and how you evaluate the results of that query (Painless scripting).
+   - Query definition gives you flexibility in terms of what you query for (using [the OpenSearch query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text)) and how you evaluate the results of that query (Painless scripting).
 
      This example averages the `cpu_usage` field:
 
@@ -172,12 +172,12 @@ Whenever you update a detector’s interval, make sure to update the associated 
 
 1. To define a monitor visually, choose **Define using visual graph**. Then choose an aggregation (for example, `count()` or `average()`), a set of documents, and a timeframe. Visual definition works well for most monitors.
 
-   To use a query, choose **Define using extraction query**, add your query (using [the OpenSearch query DSL](../../opensearch/full-text/)), and test it using the **Run** button.
+   To use a query, choose **Define using extraction query**, add your query (using [the OpenSearch query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/)), and test it using the **Run** button.
 
    The monitor makes this query to OpenSearch as often as the schedule dictates; check the **Query Performance** section and make sure you're comfortable with the performance implications.
 
    To use an anomaly detector, choose **Define using Anomaly detector** and select your **Detector**.
-1. Choose a frequency and timezone for your monitor. Note that you can only pick a timezone if you choose Daily, Weekly, Monthly, or [custom cron expression](../cron/) for frequency.
+1. Choose a frequency and timezone for your monitor. Note that you can only pick a timezone if you choose Daily, Weekly, Monthly, or [custom cron expression]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/cron/) for frequency.
 1. Choose **Create**.
 
 
@@ -265,7 +265,7 @@ Below are some variables you can include in your message using Mustache template
 Variable | Data Type | Description
 :--- | :--- | :---
 `ctx.monitor` | JSON | Includes `ctx.monitor.name`, `ctx.monitor.type`, `ctx.monitor.enabled`, `ctx.monitor.enabled_time`, `ctx.monitor.schedule`, `ctx.monitor.inputs`, `triggers` and `ctx.monitor.last_update_time`.
-`ctx.monitor.user` | JSON | Includes information about the user who created the monitor. Includes `ctx.monitor.user.backend_roles` and `ctx.monitor.user.roles`, which are arrays that contain the backend roles and roles assigned to the user. See [alerting security](../security/) for more information.
+`ctx.monitor.user` | JSON | Includes information about the user who created the monitor. Includes `ctx.monitor.user.backend_roles` and `ctx.monitor.user.roles`, which are arrays that contain the backend roles and roles assigned to the user. See [alerting security]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/security/) for more information.
 `ctx.monitor.enabled` | Boolean | Whether the monitor is enabled.
 `ctx.monitor.enabled_time` | Milliseconds | Unix epoch time of when the monitor was last enabled.
 `ctx.monitor.schedule` | JSON | Contains a schedule of how often or when the monitor should run.

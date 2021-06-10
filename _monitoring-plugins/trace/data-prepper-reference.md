@@ -7,7 +7,7 @@ nav_order: 25
 
 # Data Prepper configuration reference
 
-This page lists all supported Data Prepper sources, buffers, preppers, and sinks, along with their associated options. For example configuration files, see [Data Prepper](../data-prepper/).
+This page lists all supported Data Prepper sources, buffers, preppers, and sinks, along with their associated options. For example configuration files, see [Data Prepper]({{site.url}}{{site.baseurl}}/monitoring-plugins/trace/data-prepper/).
 
 
 ## Data Prepper server options
@@ -149,7 +149,7 @@ aws_region | No | String, AWS region for the cluster (e.g. `"us-east-1"`) if you
 trace_analytics_raw | No | Boolean, default false. Whether to export as trace data to the `otel-v1-apm-span-*` index pattern (alias `otel-v1-apm-span`) for use with the Trace Analytics OpenSearch Dashboards plugin.
 trace_analytics_service_map | No | Boolean, default false. Whether to export as trace data to the `otel-v1-apm-service-map` index for use with the service map component of the Trace Analytics OpenSearch Dashboards plugin.
 index | No | String, name of the index to export to. Only required if you don't use the `trace_analytics_raw` or `trace_analytics_service_map` presets.
-template_file | No | String, the path to a JSON [index template](../../opensearch/index-templates/) file (e.g. `/your/local/template-file.json` if you do not use the `trace_analytics_raw` or `trace_analytics_service_map`. See [otel-v1-apm-span-index-template.json](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/opensearch/src/main/resources/otel-v1-apm-span-index-template.json) for an example.
+template_file | No | String, the path to a JSON [index template]({{site.url}}{{site.baseurl}}/opensearch/index-templates/) file (e.g. `/your/local/template-file.json` if you do not use the `trace_analytics_raw` or `trace_analytics_service_map`. See [otel-v1-apm-span-index-template.json](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/opensearch/src/main/resources/otel-v1-apm-span-index-template.json) for an example.
 document_id_field | No | String, the field from the source data to use for the OpenSearch document ID (e.g. `"my-field"`) if you don't use the `trace_analytics_raw` or `trace_analytics_service_map` presets.
 dlq_file | No | String, the path to your preferred dead letter queue file (e.g. `/your/local/dlq-file`). Data Prepper writes to this file when it fails to index a document on the OpenSearch cluster.
 bulk_size | No | Integer (long), default 5. The maximum size (in MiB) of bulk requests to the OpenSearch cluster. Values below 0 indicate an unlimited size. If a single document exceeds the maximum bulk request size, Data Prepper sends it individually.

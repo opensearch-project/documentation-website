@@ -65,8 +65,8 @@ traceAnalyticsDashboards    1.0.0.0-beta1
 ## Prerequisites
 
 - A compatible OpenSearch cluster
-- The corresponding OpenSearch plugins [installed on that cluster](../../install/plugins)
-- The corresponding version of [OpenSearch Dashboards](../) (e.g. OpenSearch Dashboards 1.0.0 works with OpenSearch 1.0.0)
+- The corresponding OpenSearch plugins [installed on that cluster]({{site.url}}{{site.baseurl}}/opensearch/install/plugins/)
+- The corresponding version of [OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/) (e.g. OpenSearch Dashboards 1.0.0 works with OpenSearch 1.0.0)
 
 
 ## Install

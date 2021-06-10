@@ -12,7 +12,7 @@ OpenSearch Trace Analytics consists of two components---Data Prepper and the Tra
 
 ## Basic flow of data
 
-![Data flow diagram from a distributed application to OpenSearch](../../images/ta.svg)
+![Data flow diagram from a distributed application to OpenSearch]({{site.url}}{{site.baseurl}}/images/ta.svg)
 
 1. Trace Analytics relies on you adding instrumentation to your application and generating trace data. The [OpenTelemetry documentation](https://opentelemetry.io/docs/) contains example applications for many programming languages that can help you get started, including Java, Python, Go, and JavaScript.
 
@@ -20,9 +20,9 @@ OpenSearch Trace Analytics consists of two components---Data Prepper and the Tra
 
 1. The [OpenTelemetry Collector](https://opentelemetry.io/docs/collector/getting-started/) receives data from the application and formats it into OpenTelemetry data.
 
-1. [Data Prepper](../data-prepper/) processes the OpenTelemetry data, transforms it for use in OpenSearch, and indexes it on an OpenSearch cluster.
+1. [Data Prepper]({{site.url}}{{site.baseurl}}/monitoring-plugins/trace/data-prepper/) processes the OpenTelemetry data, transforms it for use in OpenSearch, and indexes it on an OpenSearch cluster.
 
-1. The [Trace Analytics OpenSearch Dashboards plugin](../ta-opensearch-dashboards/) displays the data in near real-time as a series of charts and tables, with an emphasis on service architecture, latency, error rate, and throughput.
+1. The [Trace Analytics OpenSearch Dashboards plugin]({{site.url}}{{site.baseurl}}/monitoring-plugins/trace/ta-dashboards/) displays the data in near real-time as a series of charts and tables, with an emphasis on service architecture, latency, error rate, and throughput.
 
 
 ## Jaeger HotROD
@@ -39,7 +39,7 @@ Download or clone the [Data Prepper repository](https://github.com/opensearch-pr
 
 Close the file and run `docker-compose up --build`. After the containers start, navigate to `http://localhost:8080` in a web browser.
 
-![HotROD web interface](../../images/hot-rod.png)
+![HotROD web interface]({{site.url}}{{site.baseurl}}/images/hot-rod.png)
 
 Click one of the buttons in the web interface to send a request to the application. Each request starts a series of operations across the services that make up the application. From the console logs, you can see that these operations share the same `trace-id`, which lets you track all of the operations in the request as a single *trace*:
 
@@ -80,4 +80,4 @@ curl -X GET -u 'admin:admin' -k 'https://localhost:9200/otel-v1-apm-span-000001/
 
 Navigate to `http://localhost:5601` in a web browser and choose **Trace Analytics**. You can see the results of your single click in the Jaeger HotROD web interface: the number of traces per API and HTTP method, latency trends, a color-coded map of the service architecture, and a list of trace IDs that you can use to drill down on individual operations.
 
-If you don't see your trace, adjust the timeframe in OpenSearch Dashboards. For more information on using the plugin, see [OpenSearch Dashboards plugin](../ta-opensearch-dashboards/).
+If you don't see your trace, adjust the timeframe in OpenSearch Dashboards. For more information on using the plugin, see [OpenSearch Dashboards plugin]({{site.url}}{{site.baseurl}}/monitoring-plugins/trace/ta-dashboards/).

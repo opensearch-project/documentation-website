@@ -19,7 +19,7 @@ To enable audit logging:
    plugins.security.audit.type: internal_opensearch
    ```
 
-   This setting stores audit logs on the current cluster. For other storage options, see [Audit Log Storage Types](storage-types/).
+   This setting stores audit logs on the current cluster. For other storage options, see [Audit Log Storage Types]({{site.url}}{{site.baseurl}}/security-plugin/audit-logs/storage-types/).
 
 2. Restart each node.
 

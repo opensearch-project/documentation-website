@@ -40,7 +40,7 @@ Take the following steps to improve indexing performance, especially when you pl
 
 * **Increase the number of indexing threads**
 
-   If the hardware you choose has multiple cores, you can allow multiple threads in graph construction by speeding up the indexing process. Determine the number of threads to allot with the [knn.algo_param.index_thread_qty](../settings/#Cluster-settings) setting.
+   If the hardware you choose has multiple cores, you can allow multiple threads in graph construction by speeding up the indexing process. Determine the number of threads to allot with the [knn.algo_param.index_thread_qty]({{site.url}}{{site.baseurl}}/search-plugins/knn/settings#cluster-settings) setting.
 
   Keep an eye on CPU utilization and choose the correct number of threads. Because graph construction is costly, having multiple threads can cause additional CPU load.
 
@@ -89,7 +89,7 @@ Recall depends on multiple factors like number of vectors, number of dimensions,
 
 To configure recall, adjust the algorithm parameters of the HNSW algorithm exposed through index settings. Algorithm parameters that control recall are `m`, `ef_construction`, and `ef_search`. For more information about how algorithm parameters influence indexing and search recall, see [HNSW algorithm parameters](https://github.com/nmslib/hnswlib/blob/master/ALGO_PARAMS.md). Increasing these values can help recall and lead to better search results, but at the cost of higher memory utilization and increased indexing time.
 
-The default recall values work on a broader set of use cases, but make sure to run your own experiments on your data sets and choose the appropriate values. For index-level settings, see [Index settings](../knn-index#index-settings).
+The default recall values work on a broader set of use cases, but make sure to run your own experiments on your data sets and choose the appropriate values. For index-level settings, see [Index settings]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index#index-settings).
 
 ## Estimating memory usage
 
@@ -110,4 +110,4 @@ Having a replica doubles the total number of vectors.
 
 The standard k-NN query and custom scoring option perform differently. Test with a representative set of documents to see if the search results and latencies match your expectations.
 
-Custom scoring works best if the initial filter reduces the number of documents to no more than 20,000. Increasing shard count can improve latency, but be sure to keep shard size within the [recommended guidelines](../../opensearch/#primary-and-replica-shards).
+Custom scoring works best if the initial filter reduces the number of documents to no more than 20,000. Increasing shard count can improve latency, but be sure to keep shard size within the [recommended guidelines]({{site.url}}{{site.baseurl}}/opensearch#primary-and-replica-shards).

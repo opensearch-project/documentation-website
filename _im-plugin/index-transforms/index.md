@@ -29,7 +29,7 @@ If you don't have any data in your cluster, you can use the sample flight data w
 ### Step 1: Choose indices
 
 1. In the **Job name and description** section, specify a name and an optional description for your job.
-2. In the **Indices** section, select the source and target index. You can either select an existing target index or create a new one by entering a name for your new index. If you want to transform just a subset of your source index, choose **Add Data Filter**, and use the OpenSearch query DSL to specify a subset of your source index. For more information about the OpenSearch query DSL, see [query DSL](../../opensearch/query-dsl/).
+2. In the **Indices** section, select the source and target index. You can either select an existing target index or create a new one by entering a name for your new index. If you want to transform just a subset of your source index, choose **Add Data Filter**, and use the OpenSearch query DSL to specify a subset of your source index. For more information about the OpenSearch query DSL, see [query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/).
 3. Choose **Next**.
 
 ### Step 2: Select fields to transform
@@ -42,7 +42,7 @@ On the other hand, aggregations let you perform simple calculations. For example
 
 1. In the data table, select the fields you want to transform and expand the drop-down menu within the column header to choose the grouping or aggregation you want to use.
 
-    Currently, transform jobs support histogram, date_histogram, and terms groupings. For more information about groupings, see [Bucket Aggregations](../../opensearch/bucket-agg/). In terms of aggregations, you can select from `sum`, `avg`, `max`, `min`, `value_count`, `percentiles`, and `scripted_metric`. For more information about aggregations, see [Metric Aggregations](../../opensearch/metric-agg/).
+    Currently, transform jobs support histogram, date_histogram, and terms groupings. For more information about groupings, see [Bucket Aggregations]({{site.url}}{{site.baseurl}}/opensearch/bucket-agg/). In terms of aggregations, you can select from `sum`, `avg`, `max`, `min`, `value_count`, `percentiles`, and `scripted_metric`. For more information about aggregations, see [Metric Aggregations]({{site.url}}{{site.baseurl}}/opensearch/metric-agg/).
 
 2. Repeat step 1 for any other fields that you want to transform.
 3. After selecting the fields that you want to transform and verifying the transformation, choose **Next**.

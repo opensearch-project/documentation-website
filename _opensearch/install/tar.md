@@ -45,7 +45,7 @@ You can modify `config/opensearch.yml` or specify environment variables as argum
 ./opensearch-tar-install.sh -Ecluster.name=opensearch-cluster -Enode.name=opensearch-node1 -Ehttp.host=0.0.0.0 -Ediscovery.type=single-node
 ```
 
-For other settings, see [Important settings](../important-settings/).
+For other settings, see [Important settings]({{site.url}}{{site.baseurl}}/opensearch/install/important-settings/).
 
 
 ### (Optional) Set up Performance Analyzer
@@ -142,6 +142,6 @@ In a tarball installation, Performance Analyzer collects data when it is enabled
 
 ### (Optional) Removing Performance Analyzer
 
-See [Clean up Performance Analyzer files](../plugins/#optional-clean-up-performance-analyzer-files).
+See [Clean up Performance Analyzer files]({{site.url}}{{site.baseurl}}/plugins/#optional-clean-up-performance-analyzer-files).
 
 {% endcomment %}

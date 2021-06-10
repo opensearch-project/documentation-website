@@ -12,7 +12,7 @@ The security plugin includes an internal user database. Use this database in pla
 
 Roles are the core way of controlling access to your cluster. Roles contain any combination of cluster-wide permissions, index-specific permissions, document- and field-level security, and tenants. Then you map users to these roles so that users gain those permissions.
 
-Unless you need to create new [read-only or hidden users](../api/#read-only-and-hidden-resources), we **highly** recommend using OpenSearch Dashboards or the REST API to create new users, roles, and role mappings. The `.yml` files are for initial setup, not ongoing use.
+Unless you need to create new [read-only or hidden users]({{site.url}}{{site.baseurl}}/security-plugin/access-control/api#read-only-and-hidden-resources), we **highly** recommend using OpenSearch Dashboards or the REST API to create new users, roles, and role mappings. The `.yml` files are for initial setup, not ongoing use.
 {: .warning }
 
 ---
@@ -40,12 +40,12 @@ You can create users using OpenSearch Dashboards, `internal_users.yml`, or the R
 
 ### internal_users.yml
 
-See [YAML files](../../configuration/yaml/#internal_usersyml).
+See [YAML files]({{site.url}}{{site.baseurl}}/security-plugin/configuration/yaml#internal_usersyml).
 
 
 ### REST API
 
-See [Create user](../api/#create-user).
+See [Create user]({{site.url}}{{site.baseurl}}/security-plugin/access-control/api#create-user).
 
 
 ## Create roles
@@ -66,12 +66,12 @@ Just like users, you can create roles using OpenSearch Dashboards, `roles.yml`, 
 
 ### roles.yml
 
-See [YAML files](../../configuration/yaml/#rolesyml).
+See [YAML files]({{site.url}}{{site.baseurl}}/security-plugin/configuration/yaml#rolesyml).
 
 
 ### REST API
 
-See [Create role](../api/#create-role).
+See [Create role]({{site.url}}{{site.baseurl}}/security-plugin/access-control/api#create-role).
 
 
 ## Map users to roles
@@ -90,12 +90,12 @@ Just like users and roles, you create role mappings using OpenSearch Dashboards,
 
 ### roles_mapping.yml
 
-See [YAML files](../../configuration/yaml/#roles_mappingyml).
+See [YAML files]({{site.url}}{{site.baseurl}}/security-plugin/configuration/yaml#roles_mappingyml).
 
 
 ### REST API
 
-See [Create role mapping](../api/#create-role-mapping).
+See [Create role mapping]({{site.url}}{{site.baseurl}}/security-plugin/access-control/api#create-role-mapping).
 
 
 ## Predefined roles
@@ -116,7 +116,7 @@ Role | Description
 `manage_snapshots` | Grants permissions to manage snapshot repositories, take snapshots, and restore snapshots.
 `readall` | Grants permissions for cluster-wide searches like `msearch` and search permissions for all indices.
 `readall_and_monitor` | Same as `readall`, but with added cluster monitoring permissions.
-`security_rest_api_access` | A special role that allows access to the REST API. See `plugins.security.restapi.roles_enabled` in `opensearch.yml` and [Access control for the API](../api/#access-control-for-the-api).
+`security_rest_api_access` | A special role that allows access to the REST API. See `plugins.security.restapi.roles_enabled` in `opensearch.yml` and [Access control for the API]({{site.url}}{{site.baseurl}}/security-plugin/access-control/api#access-control-for-the-api).
 `reports_read_access` | Grants permissions to generate on-demand reports, download existing reports, and view report definitions, but not to create report definitions.
 `reports_instances_read_access` | Grants permissions to generate on-demand reports and download existing reports, but not to view or create report definitions.
 `reports_full_access` | Grants full permissions to reports.
@@ -124,7 +124,7 @@ Role | Description
 `asynchronous_search_read_access` | Grants permissions to view asynchronous searches, but not to submit, modify, or delete async searches.
 
 
-For more detailed summaries of the permissions for each role, reference their action groups against the descriptions in [Default action groups](../default-action-groups/).
+For more detailed summaries of the permissions for each role, reference their action groups against the descriptions in [Default action groups]({{site.url}}{{site.baseurl}}/security-plugin/access-control/default-action-groups/).
 
 
 ## Sample roles
