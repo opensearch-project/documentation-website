@@ -3,7 +3,9 @@ layout: default
 title: Index State Management
 nav_order: 3
 has_children: true
-redirect_from: /docs/ism/
+redirect_from:
+  - /docs/im/ism/
+  - /docs/ism/
 has_toc: false
 ---
 
