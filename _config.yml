@@ -3,7 +3,7 @@ description: >- # this means to ignore newlines until "baseurl:"
   Documentation for OpenSearch, the Apache 2.0 search, analytics, and visualization suite with advanced security, alerting, SQL support, automated index management, deep performance analysis, and more.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://docs-beta.opensearch.org" # the base hostname & protocol for your site, e.g. http://example.com
-permalink: /:collection/:path/:name
+permalink: /:collection/:path/:name/
 
 opensearch_version: 1.0.0-rc1
 opensearch_major_minor_version: 1.0
