@@ -3,7 +3,7 @@ description: >- # this means to ignore newlines until "baseurl:"
   Documentation for OpenSearch, the Apache 2.0 search, analytics, and visualization suite with advanced security, alerting, SQL support, automated index management, deep performance analysis, and more.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://docs-beta.opensearch.org" # the base hostname & protocol for your site, e.g. http://example.com
-permalink: /:collection/:path/:name/
+permalink: /:path/
 
 opensearch_version: 1.0.0-rc1
 opensearch_major_minor_version: 1.0
@@ -31,28 +31,28 @@ collections:
     permalink: "/:collection/:path"
     output: true
   dashboards:
-    permalink: "/:collection/:path"
+    permalink: "/:collection/:path/"
     output: true
   security-plugin:
-    permalink: "/:collection/:path"
+    permalink: "/:collection/:path/"
     output: true
   search-plugins:
-    permalink: "/:collection/:path"
+    permalink: "/:collection/:path/"
     output: true
   im-plugin:
-    permalink: "/:collection/:path"
+    permalink: "/:collection/:path/"
     output: true
   monitoring-plugins:
-    permalink: "/:collection/:path"
+    permalink: "/:collection/:path/"
     output: true
   clients:
-    permalink: "/:collection/:path"
+    permalink: "/:collection/:path/"
     output: true
   troubleshoot:
-    permalink: "/:collection/:path"
+    permalink: "/:collection/:path/"
     output: true
   external_links:
-    permalink: "/:collection/:path"
+    permalink: "/:collection/:path/"
     output: true
 
 just_the_docs:
