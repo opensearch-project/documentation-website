@@ -28,7 +28,7 @@ color_scheme: opensearch
 collections:
   # Define a collection named "tests", its documents reside in the "_tests" directory
   opensearch:
-    permalink: "/:collection/:path"
+    permalink: "/:collection/:path/"
     output: true
   dashboards:
     permalink: "/:collection/:path/"
