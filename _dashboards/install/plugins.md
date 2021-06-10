@@ -179,6 +179,8 @@ To remove a plugin:
 sudo bin/opensearch-dashboards-plugin remove <plugin-name>
 ```
 
+Then remove all associated entries from `opensearch_dashboards.yml`.
+
 For certain plugins, you must also remove the "optimze" bundle. This is a sample command for the Anomaly Detection plugin:
 
 ```bash
