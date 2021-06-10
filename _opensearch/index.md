@@ -4,6 +4,8 @@ title: About OpenSearch
 nav_order: 1
 has_children: false
 has_toc: false
+redirect_from:
+  - /opensearch/
 ---
 
 # Introduction to OpenSearch

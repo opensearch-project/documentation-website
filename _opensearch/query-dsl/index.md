@@ -3,6 +3,8 @@ layout: default
 title: Query DSL
 nav_order: 27
 has_children: true
+redirect_from:
+  - /opensearch/query-dsl/
 ---
 
 # Query DSL

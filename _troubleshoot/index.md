@@ -3,6 +3,7 @@ layout: default
 title: Common issues
 nav_order: 1
 has_toc: false
+redirect_from: /troubleshoot/
 ---
 
 # Common issues

@@ -4,7 +4,9 @@ title: k-NN
 nav_order: 50
 has_children: true
 has_toc: false
-redirect_from: /docs/knn/
+redirect_from:
+  - /docs/knn/
+  - /search-plugins/knn/
 ---
 
 # k-NN

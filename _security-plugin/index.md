@@ -4,7 +4,9 @@ title: About the security plugin
 nav_order: 1
 has_children: false
 has_toc: false
-redirect_from: /docs/security/
+redirect_from:
+  - /docs/security/
+  - /security-plugin/
 ---
 
 # About the security plugin

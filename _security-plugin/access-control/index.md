@@ -4,12 +4,14 @@ title: Access Control
 nav_order: 10
 has_children: true
 has_toc: false
-redirect_from: /docs/security/access-control/
+redirect_from:
+  - /docs/security/access-control/
+  - /security-plugin/access-control/
 ---
 
 # Access control
 
-After you [configure the security plugin]({{site.url}}{{site.baseurl}}/security-plugin/configuration/) to use your own certificates and preferred authentication backend, you can start adding users, creating roles, and mapping roles to users.
+After you [configure the security plugin]({{site.url}}{{site.baseurl}}/security-plugin/configuration/index/) to use your own certificates and preferred authentication backend, you can start adding users, creating roles, and mapping roles to users.
 
 This section of the documentation covers what a user is allowed to see and do after successfully authenticating.
 

@@ -108,7 +108,7 @@ networks:
   opensearch-net:
 ```
 
-Then make your changes to `opensearch.yml`. For a full list of settings, see [Security]({{site.url}}{{site.baseurl}}/security-plugin/configuration/). This example adds (extremely) verbose audit logging:
+Then make your changes to `opensearch.yml`. For a full list of settings, see [Security]({{site.url}}{{site.baseurl}}/security-plugin/configuration/index/). This example adds (extremely) verbose audit logging:
 
 ```yml
 plugins.security.ssl.transport.pemcert_filepath: node.pem

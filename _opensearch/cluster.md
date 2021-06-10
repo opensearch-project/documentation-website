@@ -335,4 +335,4 @@ If you are using the security plugin, the previous request to `_cat/nodes?v` mig
 sudo ./securityadmin.sh -cd {{site.url}}{{site.baseurl}}/securityconfig/ -icl -nhnv -cacert /etc/opensearch/root-ca.pem -cert /etc/opensearch/kirk.pem -key /etc/opensearch/kirk-key.pem -h <private-ip>
 ```
 
-For full guidance around configuration options, see [Security configuration]({{site.url}}{{site.baseurl}}/security-plugin/configuration).
+For full guidance around configuration options, see [Security configuration]({{site.url}}{{site.baseurl}}/security-plugin/configuration/index/).

@@ -7,6 +7,7 @@ has_toc: false
 redirect_from:
   - /docs/opensearch-dashboards/
   - /opensearch-dashboards/
+  - /dashboards/
 ---
 
 # OpenSearch Dashboards

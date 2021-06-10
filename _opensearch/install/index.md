@@ -2,7 +2,9 @@
 layout: default
 title: Install OpenSearch
 nav_order: 2
-redirect_from: /docs/install/
+redirect_from:
+  - /docs/install/
+  - /opensearch/install/
 has_children: true
 ---
 

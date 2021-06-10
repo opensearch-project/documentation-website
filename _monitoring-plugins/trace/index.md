@@ -4,6 +4,8 @@ title: Trace analytics
 nav_order: 48
 has_children: true
 has_toc: false
+redirect_from:
+  - /monitoring-plugins/trace/
 ---
 
 # Trace Analytics

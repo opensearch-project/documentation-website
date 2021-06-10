@@ -3,6 +3,8 @@ layout: default
 title: REST API reference
 nav_order: 99
 has_children: true
+redirect_from:
+  - /opensearch/rest-api/
 ---
 
 # REST API reference

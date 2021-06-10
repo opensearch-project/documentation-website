@@ -3,6 +3,8 @@ layout: default
 title: Performance Analyzer
 nav_order: 58
 has_children: true
+redirect_from:
+  - /monitoring-plugins/pa/
 ---
 
 # Performance Analyzer
