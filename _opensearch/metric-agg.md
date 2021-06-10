@@ -6,7 +6,7 @@ nav_order: 1
 has_children: false
 ---
 
-# Metric Aggregations
+# Metric aggregations
 
 Metric aggregations let you perform simple calculations such as finding the minimum, maximum, and average values of a field.
 

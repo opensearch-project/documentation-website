@@ -62,7 +62,7 @@ Docker
    curl -XGET --insecure https://localhost:9200 -u admin:admin
    ```
 
-To learn more, see [Install OpenSearch]({{site.url}}{{site.baseurl}}/opensearch/install/) and [Install OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/install/).
+To learn more, see [Install and configure OpenSearch]({{site.url}}{{site.baseurl}}/opensearch/install/) and [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/install/).
 
 
 ---

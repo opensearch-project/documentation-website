@@ -6,7 +6,7 @@ redirect_from: /docs/ism/settings/
 nav_order: 4
 ---
 
-# ISM Settings
+# ISM settings
 
 We don't recommend changing these settings; the defaults should work well for most use cases.
 

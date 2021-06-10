@@ -6,7 +6,7 @@ redirect_from: /docs/ism/rollup-api/
 nav_order: 9
 ---
 
-# Index Rollups API
+# Index rollups API
 
 Use the index rollup operations to programmatically work with index rollup jobs.
 

@@ -6,7 +6,7 @@ nav_order: 2
 has_children: false
 ---
 
-# Bucket Aggregations
+# Bucket aggregations
 
 Bucket aggregations categorize sets of documents as buckets. The type of bucket aggregation determines whether a given document falls into a bucket or not.
 

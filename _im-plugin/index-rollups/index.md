@@ -7,7 +7,7 @@ redirect_from: /docs/ism/index-rollups/
 has_toc: false
 ---
 
-# Index Rollups
+# Index rollups
 
 Time series data increases storage costs, strains cluster health, and slows down aggregations over time. Index rollup lets you periodically reduce data granularity by rolling up old data into summarized indices.
 

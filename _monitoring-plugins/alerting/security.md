@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Alerting Security
+title: Alerting security
 nav_order: 10
 parent: Alerting
 has_children: false

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Trace analytics
+title: Trace Analytics
 nav_order: 48
 has_children: true
 has_toc: false

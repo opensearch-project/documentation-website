@@ -6,7 +6,7 @@ nav_order: 4
 has_children: false
 ---
 
-# Pipeline Aggregations
+# Pipeline aggregations
 
 With pipeline aggregations, you can chain aggregations by piping the results of one aggregation as an input to another for a more nuanced output.
 

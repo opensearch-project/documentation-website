@@ -1,6 +1,6 @@
 ---
 layout: default
-title: API
+title: k-NN API
 nav_order: 5
 parent: k-NN
 has_children: false
