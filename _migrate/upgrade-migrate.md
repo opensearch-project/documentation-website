@@ -80,7 +80,7 @@ Elasticsearch OSS version | Rolling upgrade path | Cluster restart upgrade path
    curl -XGET 'https://localhost:9200/_nodes/_all?pretty=true' -u 'admin:admin' -k
    ```
 
-   Specifically, check the `nodes.<node-id>.version` portion of the response.
+   Specifically, check the `nodes.<node-id>.version` portion of the response. Also check `_cat/indices?v` for a green status on all indices.
 
 1. (Rolling) Repeat steps 2--5 until all nodes are using the new version.
 
@@ -156,7 +156,7 @@ Elasticsearch OSS version | Rolling upgrade path | Cluster restart upgrade path
    curl -XGET -k -u 'admin:admin' 'https://localhost:9200/_nodes/_all?pretty=true'
    ```
 
-   Specifically, check the `nodes.<node-id>.version` portion of the response.
+   Specifically, check the `nodes.<node-id>.version` portion of the response. Also check `_cat/indices?v` for a green status on all indices.
 
 1. (Rolling) Repeat steps 2--5 until all nodes are using OpenSearch.
 
