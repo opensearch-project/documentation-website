@@ -4,7 +4,7 @@ title: Upgrade from Elasticsearch OSS to OpenSearch
 nav_order: 15
 ---
 
-# Upgrade to OpenSearch (Linux)
+# Upgrade from Elasticsearch OSS to OpenSearch (Linux)
 
 If you want to migrate an existing Elasticsearch OSS cluster to OpenSearch and find the [snapshot approach]({{site.url}}{{site.baseurl}}/migrate/snapshot-migrate/) unappealing, you can upgrade the cluster instead. The first step is to upgrade your Elasticsearch OSS cluster to version 6.x or 7.x.
 
