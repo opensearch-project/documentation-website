@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Upgrade migration
+title: Upgrade from Elasticsearch OSS to OpenSearch
 nav_order: 15
 ---
 
