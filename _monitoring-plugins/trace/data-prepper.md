@@ -15,7 +15,7 @@ Data Prepper is an independent component, not an OpenSearch plugin, that convert
 To use the Docker image, pull it like any other image:
 
 ```bash
-docker pull opensearch/opensearch-data-prepper:latest
+docker pull opensearchproject/data-prepper:latest
 ```
 
 Otherwise, [download](https://opensearch.org/downloads.html) the appropriate archive for your operating system and unzip it.
