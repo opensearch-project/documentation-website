@@ -2,13 +2,15 @@
 layout: default
 title: Upgrade from Elasticsearch OSS to OpenSearch
 nav_order: 15
+redirect_from:
+  - /migrate/upgrade-migrate/
 ---
 
-# Upgrade from Elasticsearch OSS to OpenSearch (Linux)
+# Upgrade from Elasticsearch OSS to OpenSearch
 
-If you want to migrate an existing Elasticsearch OSS cluster to OpenSearch and find the [snapshot approach]({{site.url}}{{site.baseurl}}/migrate/snapshot-migrate/) unappealing, you can upgrade the cluster instead. The first step is to upgrade your Elasticsearch OSS cluster to version 6.x or 7.x.
+If you want to upgrade from an existing Elasticsearch OSS cluster to OpenSearch and find the [snapshot approach]({{site.url}}{{site.baseurl}}/migrate/snapshot-migrate/) unappealing, you can upgrade your existing nodes from Elasticsearch OSS to OpenSearch.
 
-Elasticsearch OSS supports two types of upgrades: rolling and cluster restart.
+If your existing cluster runs an older version of Elasticsearch OSS, the first step is to upgrade to version 6.x or 7.x. Elasticsearch OSS supports two types of upgrades: rolling and cluster restart.
 
 - Rolling upgrades let you shut down one node at a time for minimal disruption of service.
 
@@ -121,7 +123,7 @@ Elasticsearch OSS version | Rolling upgrade path | Cluster restart upgrade path
    sudo systemctl stop elasticsearch.service
    ```
 
-   For tarball installations, find the process ID and kill it.
+   For tarball installations, find the process ID (`ps aux`) and kill it (`kill <pid>`).
 
 1. Upgrade the node (rolling) or all nodes (cluster restart).
 
