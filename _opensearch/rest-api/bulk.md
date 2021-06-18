@@ -2,7 +2,7 @@
 layout: default
 title: Bulk
 parent: REST API reference
-nav_order: 15
+nav_order: 5
 ---
 
 # Bulk

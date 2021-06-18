@@ -1,10 +1,11 @@
 ---
 layout: default
-title: Tasks API
-nav_order: 25
+title: Tasks
+parent: REST API reference
+nav_order: 80
 ---
 
-# Tasks API operation
+# Tasks
 
 A task is any operation you run in a cluster. For example, searching your data collection of books for a title or author name is a task. When you run OpenSearch, a task is automatically created to monitor your cluster's health and performance. For more information about all of the tasks currently executing in your cluster, you can use the `tasks` API operation.
 

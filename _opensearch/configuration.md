@@ -8,7 +8,7 @@ nav_order: 5
 
 Most OpenSearch configuration can take place in the cluster settings API. Certain operations require you to modify `opensearch.yml` and restart the cluster.
 
-Whenever possible, use the cluster settings API instead; `opensearch.yml` is local to each node, whereas the API applies the setting to all nodes in the cluster.
+Whenever possible, use the cluster settings API instead; `opensearch.yml` is local to each node, whereas the API applies the setting to all nodes in the cluster. Certain settings, however, require `opensearch.yml`. In general, these settings relate to networking, cluster formation, and the local file system. To learn more, see [Cluster formation]({{site.url}}{{site.baseurl}}/opensearch/cluster/).
 
 
 ## Cluster settings API
