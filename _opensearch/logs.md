@@ -9,7 +9,7 @@ nav_order: 60
 The OpenSearch logs include valuable information for monitoring cluster operations and troubleshooting issues. The location of the logs differs based on the installation type:
 
 - On Docker, OpenSearch writes most logs to the console and stores the remainder in `opensearch/logs/`. The tarball installation also uses `opensearch/logs/`.
-- On the RPM and Debian installations, OpenSearch writes logs to `/var/log/opensearch/`.
+- On most Linux installations, OpenSearch writes logs to `/var/log/opensearch/`.
 
 Logs are available as `.log` (plain text) and `.json` files.
 

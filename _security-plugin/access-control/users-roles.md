@@ -31,7 +31,7 @@ You can create users using OpenSearch Dashboards, `internal_users.yml`, or the R
 ### OpenSearch Dashboards
 
 1. Choose **Security**, **Internal Users**, and **Create internal user**.
-1. Provide a username and password. The security plugin automatically hashes the password and stores it in the `.opensearch_security` index.
+1. Provide a username and password. The security plugin automatically hashes the password and stores it in the `.opendistro_security` index.
 1. If desired, specify user attributes.
 
    Attributes are optional user properties that you can use for variable substitution in index permissions or document-level security.

@@ -362,19 +362,19 @@ Snapshots are only forward-compatible by one major version. If you have an old s
 If you're using the security plugin, snapshots have some additional restrictions:
 
 - To perform snapshot and restore operations, users must have the built-in `manage_snapshots` role.
-- You can't restore snapshots that contain global state or the `.opensearch_security` index.
+- You can't restore snapshots that contain global state or the `.opendistro_security` index.
 
-If a snapshot contains global state, you must exclude it when performing the restore. If your snapshot also contains the `.opensearch_security` index, either exclude it or list all the other indices you want to include:
+If a snapshot contains global state, you must exclude it when performing the restore. If your snapshot also contains the `.opendistro_security` index, either exclude it or list all the other indices you want to include:
 
 ```json
 POST _snapshot/my-repository/3/_restore
 {
-  "indices": "-.opensearch_security",
+  "indices": "-.opendistro_security",
   "include_global_state": false
 }
 ```
 
-The `.opensearch_security` index contains sensitive data, so we recommend excluding it when you take a snapshot. If you do need to restore the index from a snapshot, you must include an admin certificate in the request:
+The `.opendistro_security` index contains sensitive data, so we recommend excluding it when you take a snapshot. If you do need to restore the index from a snapshot, you must include an admin certificate in the request:
 
 ```bash
 curl -k --cert ./kirk.pem --key ./kirk-key.pem -XPOST 'https://localhost:9200/_snapshot/my-repository/3/_restore?pretty'

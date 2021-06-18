@@ -8,11 +8,11 @@ redirect_from: /docs/security/configuration/security-admin/
 
 # Apply configuration changes using securityadmin.sh
 
-The security plugin stores its configuration---including users, roles, and permissions---in an index on the OpenSearch cluster (`.opensearch_security`). Storing these settings in an index lets you change settings without restarting the cluster and eliminates the need to edit configuration files on every single node.
+The security plugin stores its configuration---including users, roles, and permissions---in an index on the OpenSearch cluster (`.opendistro_security`). Storing these settings in an index lets you change settings without restarting the cluster and eliminates the need to edit configuration files on every single node.
 
-After changing any of the configuration files in `plugins/opensearch-security/securityconfig`, however, you must run `plugins/opensearch-security/tools/securityadmin.sh` to load these new settings into the index. You must also run this script at least once to initialize the `.opensearch_security` index and configure your authentication and authorization methods.
+After changing any of the configuration files in `plugins/opensearch-security/securityconfig`, however, you must run `plugins/opensearch-security/tools/securityadmin.sh` to load these new settings into the index. You must also run this script at least once to initialize the `.opendistro_security` index and configure your authentication and authorization methods.
 
-After the `.opensearch_security` index is initialized, you can use OpenSearch Dashboards to manage your users, roles, and permissions.
+After the `.opendistro_security` index is initialized, you can use OpenSearch Dashboards to manage your users, roles, and permissions.
 
 
 ## Configure the admin certificate
@@ -228,7 +228,7 @@ Name | Description
 `-esa` | Enable shard allocation and exit. This option is useful if you disabled shard allocation while performing a full cluster restart and need to recreate the security plugin index.
 `-w` | Displays information about the used admin certificate.
 `-rl` | By default, the security plugin caches authenticated users, along with their roles and permissions, for one hour. This option reloads the current security plugin configuration stored in your cluster, invalidating any cached users, roles, and permissions.
-`-i` | The security plugin index name. Default is `.opensearch_security`.
+`-i` | The security plugin index name. Default is `.opendistro_security`.
 `-er` | Set explicit number of replicas or auto-expand expression for the `opensearch_security` index.
 `-era` | Enable replica auto-expand.
 `-dra` | Disable replica auto-expand.

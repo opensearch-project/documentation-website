@@ -6,7 +6,7 @@ nav_order: 96
 
 # Popular APIs
 
-This page contains sample requests for popular OpenSearch APIs.
+This page contains sample requests for popular OpenSearch operations.
 
 
 ---
@@ -80,7 +80,7 @@ POST _bulk
 ## List all indices
 
 ```
-GET _cat/indices?v
+GET _cat/indices?v&expand_wildcards=all
 ```
 
 
@@ -183,7 +183,7 @@ PUT _snapshot/my-repository/my-snapshot
 ```json
 POST _snapshot/my-repository/my-snapshot/_restore
 {
-  "indices": "-.opensearch_security",
+  "indices": "-.opendistro_security",
   "include_global_state": false
 }
 ```
