@@ -15,7 +15,7 @@ If you add some options, you can instead get information on a specific shard, in
 ## Example
 
 ```json
-GET /_cluster/allocation/explain?include_yes_decisions=true
+GET _cluster/allocation/explain?include_yes_decisions=true
 {
   "index": "movies",
   "shard": 0,

@@ -11,7 +11,7 @@ Most OpenSearch configuration can take place in the cluster settings API. Certai
 Whenever possible, use the cluster settings API instead; `opensearch.yml` is local to each node, whereas the API applies the setting to all nodes in the cluster. Certain settings, however, require `opensearch.yml`. In general, these settings relate to networking, cluster formation, and the local file system. To learn more, see [Cluster formation]({{site.url}}{{site.baseurl}}/opensearch/cluster/).
 
 
-## Cluster settings API
+## Update cluster settings using the API
 
 The first step in changing a setting is to view the current settings:
 
@@ -37,7 +37,7 @@ If you specify the same setting in multiple places, OpenSearch uses the followin
 To change a setting, just specify the new one as either persistent or transient. This example shows the flat settings form:
 
 ```json
-PUT /_cluster/settings
+PUT _cluster/settings
 {
   "persistent" : {
     "action.auto_create_index" : false
@@ -48,7 +48,7 @@ PUT /_cluster/settings
 You can also use the expanded form, which lets you copy and paste from the GET response and change existing values:
 
 ```json
-PUT /_cluster/settings
+PUT _cluster/settings
 {
   "persistent": {
     "action": {
