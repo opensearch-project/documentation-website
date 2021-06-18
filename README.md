@@ -34,7 +34,7 @@ If you encounter problems or have questions when contributing to the documentati
 
 After each commit to this repository, GitHub Pages automatically uses [Jekyll](https://jekyllrb.com) to rebuild the [website](https://docs-beta.opensearch.org). The whole process takes around 30 seconds.
 
-This repository contains many [Markdown](https://guides.github.com/features/mastering-markdown/) files in the `/docs` directory. Each Markdown file correlates with one page on the website. For example, the Markdown file for [this page](https://docs-beta.opensearch.org/docs/opensearch/) is [here](https://github.com/opensearch-project/documentation-website/blob/master/docs/opensearch/index.md).
+This repository contains many [Markdown](https://guides.github.com/features/mastering-markdown/) files in the `/docs` directory. Each Markdown file correlates with one page on the website.
 
 Using plain text on GitHub has many advantages:
 
