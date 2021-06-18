@@ -93,8 +93,7 @@ services:
     expose:
       - "5601"
     environment:
-      OPENSEARCH_URL: https://opensearch-node1:9200
-      OPENSEARCH_HOSTS: https://opensearch-node1:9200
+      OPENSEARCH_HOSTS: '["https://opensearch-node1:9200","https://opensearch-node2:9200"]' # must be a string with no spaces when specified as an environment variable
     volumes:
       - ./custom-opensearch_dashboards.yml:/usr/share/opensearch-dashboards/config/opensearch_dashboards.yml
     networks:
