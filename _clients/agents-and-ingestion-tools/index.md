@@ -15,6 +15,19 @@ As an intermediate solution, we are adding a [version value](https://github.com/
 For a longer term solution, we plan to create an OpenSearch output plugin for Logstash. This plugin *does not exist yet*, but we've included it in the compatibility matrices below based on its expected behavior.
 
 
+## Downloads
+
+These versions of Logstash and Beats offer the best compatibility with OpenSearch. For more information, see the [compatibility matrices](#compatibility-matrices).
+
+- [Logstash OSS 7.12.1](https://www.elastic.co/downloads/past-releases/logstash-oss-7-12-1)
+- [Filebeat OSS 7.12.1](https://www.elastic.co/downloads/past-releases/filebeat-oss-7-12-1)
+- [Metricbeat OSS 7.12.1](https://www.elastic.co/downloads/past-releases/metricbeat-oss-7-12-1)
+- [Packetbeat OSS 7.12.1](https://www.elastic.co/downloads/past-releases/packetbeat-oss-7-12-1)
+- [Heartbeat OSS 7.12.1](https://elastic.co/downloads/past-releases/heartbeat-oss-7-12-1)
+- [Winlogbeat OSS 7.12.1](https://www.elastic.co/downloads/past-releases/winlogbeat-oss-7-12-1)
+- [Auditbeat OSS 7.12.1](https://elastic.co/downloads/past-releases/auditbeat-oss-7-12-1)
+
+
 ## Compatibility Matrices
 
 *Italicized* cells are untested, but indicate what a value theoretically should be based on existing information.
