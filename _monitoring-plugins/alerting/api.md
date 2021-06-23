@@ -933,7 +933,6 @@ POST _plugins/_alerting/destinations
 }
 
 // The email_account_id and email_group_id will be the document IDs of the email_account and email_group you have created.
-
 ```
 
 #### Sample response
