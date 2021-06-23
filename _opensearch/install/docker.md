@@ -2,7 +2,7 @@
 layout: default
 title: Docker
 parent: Install OpenSearch
-nav_order: 1
+nav_order: 3
 ---
 
 # Docker image
@@ -16,7 +16,7 @@ docker pull opensearchproject/opensearch-dashboards:{{site.opensearch_version}}
 
 To check available versions, see [Docker Hub](https://hub.docker.com/u/opensearchproject).
 
-OpenSearch images use `centos:7` as the base image. If you run Docker locally, we recommend allowing Docker to use at least 4 GB of RAM in **Preferences** > **Resources**.
+OpenSearch images use `amazonlinux:2` as the base image. If you run Docker locally, set Docker to use at least 4 GB of RAM in **Preferences** > **Resources**.
 
 
 ---
