@@ -912,6 +912,28 @@ POST _plugins/_alerting/destinations
     "host": "hooks.chime.aws"
   }
 }
+
+POST _plugins/_alerting/destinations
+{
+  "type": "email",
+  "name": "my-email-destination",
+  "email": {
+    "email_account_id": "YjY7mXMBx015759_IcfW",
+    "recipients": [
+      {
+        "type": "email_group",
+        "email_group_id": "YzY-mXMBx015759_dscs"
+      },
+      {
+        "type": "email",
+        "email": "example@email.com"
+      }
+    ]
+  }
+}
+
+// The email_account_id and email_group_id will be the document IDs of the email_account and email_group you have created.
+
 ```
 
 #### Sample response
