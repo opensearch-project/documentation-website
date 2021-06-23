@@ -60,7 +60,7 @@ timeout | Time | How long to wait for the request to return. Default `30s`.
 
 ## Request body
 
-As part of your request, you can supply parameters in your request's body that specify index settings, mappings, and aliases for your newly created index. The following sections provide more information about index settings and mappings. An alias is a virtual index name that references one or more indices. Because changing an alias's reference index is an atomic operation, aliases offer the benefit of reindexing data without any downtime. See [Index Aliases] (../index-alias) to learn more.
+As part of your request, you can supply parameters in your request's body that specify index settings, mappings, and aliases for your newly created index. The following sections provide more information about index settings and mappings. An alias is a virtual index name that references one or more indices. Because changing an alias's reference index is an atomic operation, aliases offer the benefit of reindexing data without any downtime. See [Index Aliases](../../index-alias) to learn more.
 
 ### Index settings
 
