@@ -3,7 +3,7 @@ layout: default
 title: Create index
 parent: REST API reference
 grand_parent: OpenSearch
-nav_order: 5
+nav_order: 7
 ---
 
 # Create index
