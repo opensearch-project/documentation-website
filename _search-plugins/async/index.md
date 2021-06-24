@@ -16,10 +16,10 @@ Asynchronous search in OpenSearch lets you send search requests that run in the 
 
 ## REST API
 
-To perform an asynchronous search, send requests to `_opensearch/_asynchronous_search`, with your query in the request body:
+To perform an asynchronous search, send requests to `_plugins/_asynchronous_search`, with your query in the request body:
 
 ```json
-POST _opensearch/_asynchronous_search
+POST _plugins/_asynchronous_search
 ```
 
 You can specify the following options.
@@ -33,7 +33,7 @@ Options | Description | Default value | Required
 #### Sample request
 
 ```json
-POST _opensearch/_asynchronous_search/?pretty&size=10&wait_for_completion_timeout=1ms&keep_on_completion=true&request_cache=false
+POST _plugins/_asynchronous_search/?pretty&size=10&wait_for_completion_timeout=1ms&keep_on_completion=true&request_cache=false
 {
   "aggs": {
     "city": {
@@ -116,7 +116,7 @@ Options | Description
 After you submit an asynchronous search request, you can request partial responses with the ID that you see in the asynchronous search response.
 
 ```json
-GET _opensearch/_asynchronous_search/<ID>?pretty
+GET _plugins/_asynchronous_search/<ID>?pretty
 ```
 
 #### Sample response
@@ -192,7 +192,7 @@ For asynchronous searches with `keep_on_completion` as `true` and a sufficiently
 You can use the DELETE API operation to delete any ongoing asynchronous search by its ID. If the search is still running, it’s canceled. If the search is complete, the saved search results are deleted.
 
 ```json
-DELETE _opensearch/_asynchronous_search/<ID>?pretty
+DELETE _plugins/_asynchronous_search/<ID>?pretty
 ```
 
 #### Sample response
@@ -208,7 +208,7 @@ DELETE _opensearch/_asynchronous_search/<ID>?pretty
 You can use the stats API operation to monitor asynchronous searches that are running, completed, and/or persisted.
 
 ```json
-GET _opensearch/_asynchronous_search/stats
+GET _plugins/_asynchronous_search/stats
 ```
 
 #### Sample response
