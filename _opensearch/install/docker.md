@@ -150,7 +150,7 @@ networks:
   opensearch-net:
 ```
 
-If you override `opensearch_dashboards.yml` settings using environment variables, as seen above, use all uppercase letters and periods in place of underscores (e.g. for `opensearch.url`, specify `OPENSEARCH_URL`).
+If you override `opensearch_dashboards.yml` settings using environment variables, as seen above, use all uppercase letters and periods in place of underscores (e.g. for `opensearch.hosts`, use `OPENSEARCH_HOSTS`).
 {: .note}
 
 

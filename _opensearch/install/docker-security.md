@@ -7,9 +7,10 @@ nav_order: 5
 
 # Docker security configuration
 
-Before deploying to a production environment, you should replace the demo security certificates and configuration YAML files with your own. With the tarball, you have direct access to the file system, but the Docker image requires modifying the Docker storage volumes include the replacement files.
+Before deploying to a production environment, you should replace the demo security certificates and configuration YAML files with your own. With the tarball, you have direct access to the file system, but the Docker image requires modifying the Docker storage volumes to include the replacement files.
 
 Additionally, you can set the Docker environment variable `DISABLE_INSTALL_DEMO_CONFIG` to `true`. This change completely disables the demo installer.
+
 
 ## Sample Docker Compose file
 
@@ -140,6 +141,7 @@ If you encounter any `File /usr/share/opensearch/config/opensearch.yml has insec
 {: .note }
 
 Finally, you can reach OpenSearch Dashboards at http://localhost:5601, sign in, and use the **Security** panel to perform other management tasks.
+
 
 ## Using certificates with Docker
 
