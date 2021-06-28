@@ -84,8 +84,8 @@ GET _search/scroll
 POST _search/scroll
 ```
 ```
-GET _search//scroll/<scroll-id>
-POST _search//scroll/<scroll-id>
+GET _search/scroll/<scroll-id>
+POST _search/scroll/<scroll-id>
 ```
 
 ## URL parameters
