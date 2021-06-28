@@ -1,14 +1,15 @@
 ---
 layout: default
-title: Create alias
+title: Alias
 parent: REST API reference
 grand_parent: OpenSearch
 nav_order: 8
 ---
 
-# Create alias
+# Alias
 
-An alias is a virtual pointer that you can use to reference one or more indices. For example, if you have continuous streams of incoming data but only want to search through the past seven days at any time, you can use an alias to point to only indices created within the past seven days.
+An alias is a virtual pointer that you can use to reference one or more indices.
+
 
 ## Example
 
@@ -21,14 +22,27 @@ POST _aliases
         "index": "movies",
         "alias": "movies-alias1"
       }
+    },
+    {
+      "remove": {
+        "index": "old-index",
+        "alias": "old-index-alias"
+      }
     }
+
   ]
 }
 ```
 
+## Path and HTTP Methods
+
+```
+POST _aliases
+```
+
 ## URL parameters
 
-Both create alias parameters are optional.
+All alias parameters are optional.
 
 Parameter | Data Type | Description
 :--- | :--- | :---
