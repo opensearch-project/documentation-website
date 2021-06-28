@@ -37,6 +37,12 @@ PUT /sample-index1
 }
 ```
 
+## Path and HTTP methods
+
+```
+PUT <index-name>
+```
+
 ## Index naming restrictions
 
 OpenSearch indices have the following naming restrictions:
