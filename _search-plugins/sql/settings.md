@@ -21,7 +21,7 @@ PUT _cluster/settings
 }
 ```
 
-Similarly, you can also update the settings by sending the request to the plugin setting endpoing `_plugins/_query/setting`:
+Similarly, you can also update the settings by sending the request to the plugin setting endpoint `_plugins/_query/setting`:
 ```json
 PUT _plugins/_query/settings
 {
