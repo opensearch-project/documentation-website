@@ -34,7 +34,7 @@ POST _aliases
 }
 ```
 
-## Path and HTTP Methods
+## Path and HTTP methods
 
 ```
 POST _aliases
