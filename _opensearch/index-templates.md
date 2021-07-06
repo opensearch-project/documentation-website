@@ -8,16 +8,7 @@ nav_order: 14
 
 Index templates let you initialize new indices with predefined mappings and settings. For example, if you continuously index log data, you can define an index template so that all of these indices have the same number of shards and replicas.
 
----
-
-#### Table of contents
-1. TOC
-{:toc}
-
-
----
-
-## Create a template
+### Create a template
 
 To create an index template, use a POST request:
 
@@ -106,7 +97,7 @@ GET logs-2020-01-01
 
 Any additional indices that match this pattern---`logs-2020-01-02`, `logs-2020-01-03`, and so on---will inherit the same mappings and settings.
 
-## Retrieve a template
+### Retrieve a template
 
 To list all index templates:
 
@@ -138,7 +129,7 @@ To check if a specific template exists:
 HEAD _index_template/<name>
 ```
 
-## Configure multiple templates
+### Configure multiple templates
 
 You can create multiple index templates for your indices. If the index name matches more than one template, OpenSearch merges all mappings and settings from all matching templates and applies them to the index.
 
@@ -184,12 +175,223 @@ PUT _index_template/template-02
 
 Because `template-02` has a higher `priority` value, it takes precedence over `template-01` . The `logs-2020-01-02` index would have the `number_of_shards` value as 3.
 
-## Delete a template
+### Delete a template
 
 You can delete an index template using its name:
 
 ```json
 DELETE _index_template/daily_logs
+```
+
+## Composable index templates
+
+Managing multiple index templates has the following challenges:
+
+- If you have duplication between index templates, storing these index templates results in a bigger cluster state.
+- If you want to make a change across all your index templates, you have to manually make the change for each template.
+- If an index matches multiple templates, OpenSearch might merge the templates in an unexpected way that you discover only after an index is created.
+
+You can use composable index templates to overcome these challenges. Composable index templates let you abstract common settings, mappings, and aliases into a reusable building block called a component template.
+
+You can combine component templates to compose an index template.
+
+Settings and mappings that you specify directly in the [create index]({{site.url}}{{site.baseurl}}/opensearch/rest-api/create-index/) request override any settings or mappings specified in an index template and its component templates.
+{: .note }
+
+### Create a component template
+
+Let's define two component templates⁠---`component_template_1` and `component_template_2`:
+
+#### Component template 1
+
+```json
+PUT _component_template/component_template_1
+{
+  "template": {
+    "mappings": {
+      "properties": {
+        "@timestamp": {
+          "type": "date"
+        }
+      }
+    }
+  }
+}
+```
+
+#### Component template 2
+
+```json
+PUT _component_template/component_template_2
+{
+  "template": {
+    "mappings": {
+      "properties": {
+        "ip_address": {
+          "type": "ip"
+        }
+      }
+    }
+  }
+}
+```
+
+### Use component templates to create an index template
+
+When creating index templates, you need to include the component templates in a `composed_of` list.
+
+OpenSearch applies the component templates in the order in which you specify them within the index template. The settings, mappings, and aliases that you specify inside the index template are applied last.
+
+```json
+PUT _index_template/daily_logs
+{
+  "index_patterns": [
+    "logs-2020-01-*"
+  ],
+  "template": {
+    "aliases": {
+      "my_logs": {}
+    },
+    "settings": {
+      "number_of_shards": 2,
+      "number_of_replicas": 1
+    },
+    "mappings": {
+      "properties": {
+        "timestamp": {
+          "type": "date",
+          "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
+        },
+        "value": {
+          "type": "double"
+        }
+      }
+    }
+  },
+  "priority": 200,
+  "composed_of": [
+    "component_template_1",
+    "component_template_2"
+  ],
+  "version": 3,
+  "_meta": {
+    "description": "using component templates"
+  }
+}
+```
+
+If you create an index named `logs-2020-01-01`, you can see that it derives its mappings and settings from both the component templates:
+
+```json
+PUT logs-2020-01-01
+GET logs-2020-01-01
+```
+
+#### Sample response
+
+```json
+{
+  "logs-2020-01-01": {
+    "aliases": {
+      "my_logs": {}
+    },
+    "mappings": {
+      "properties": {
+        "@timestamp": {
+          "type": "date"
+        },
+        "ip_address": {
+          "type": "ip"
+        },
+        "timestamp": {
+          "type": "date",
+          "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
+        },
+        "value": {
+          "type": "double"
+        }
+      }
+    },
+    "settings": {
+      "index": {
+        "creation_date": "1625382479459",
+        "number_of_shards": "2",
+        "number_of_replicas": "1",
+        "uuid": "rYUlpOXDSUSuZifQLPfa5A",
+        "version": {
+          "created": "7100299"
+        },
+        "provided_name": "logs-2020-01-01"
+      }
+    }
+  }
+}
+```
+
+### Simulate multi-component templates
+
+For index templates composed of multiple component templates, you can simulate applying a new template to verify whether the settings are applied as you expect.
+
+To simulate the settings that would be applied to a specific index name:
+
+```json
+POST _index_template/_simulate_index/<index_name>
+```
+
+To simulate the settings that would be applied from an existing template:
+
+```json
+POST _index_template/_simulate/<index_template>
+```
+
+You can also specify a template definition in the simulate request:
+
+```json
+POST _index_template/_simulate
+{
+  "index_patterns": [
+    "logs-2020-01-*"
+  ],
+  "template": {
+    "settings" : {
+        "index.number_of_shards" : 3
+    }
+  },
+  "composed_of": ["component_template_1", "component_template_2"]
+}
+```
+
+The `_simulate` API returns the final settings, mappings, and aliases that will be applied to indices that match the index pattern. You can also see any overlapping templates whose configuration is superseded by the simulated template body or higher priority templates:
+
+```json
+{
+  "template" : {
+    "settings" : {
+      "index" : {
+        "number_of_shards" : "3"
+      }
+    },
+    "mappings" : {
+      "properties" : {
+        "@timestamp" : {
+          "type" : "date"
+        },
+        "ip_address" : {
+          "type" : "ip"
+        }
+      }
+    },
+    "aliases" : { }
+  },
+  "overlapping" : [
+    {
+      "name" : "daily_logs",
+      "index_patterns" : [
+        "logs-2020-01-*"
+      ]
+    }
+  ]
+}
 ```
 
 ## Index template options
@@ -198,5 +400,8 @@ You can specify the following template options:
 
 Option | Type | Description | Required
 :--- | :--- | :--- | :---
-`priority` | `Number` | The priority of the index template.  | No
-`create` | `Boolean` | Whether this index template should replace an existing one. | No
+`template` | `Object` |  Specify index settings, mappings, and aliases. | No
+`priority` | `Integer` | The priority of the index template.  | No
+`composed_of` | `String array` |  The names of component templates applied on a new index together with the current template.  | No
+`version` | `Integer` | Specify a version number to simplify template management. Default is `null`. | No
+`_meta ` | `Object` | Specify meta information about the template. | No
