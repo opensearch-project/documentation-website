@@ -7,9 +7,9 @@ nav_order: 220
 
 # Send events to Opensearch
 
-You can send Logstash events to an Opensearch cluster and then visualize your log data with Kibana.
+You can send Logstash events to an Opensearch cluster and then visualize your events with Kibana.
 
-Make sure you have Logstash, Opensearch, and Kibana installed.
+Make sure you have [Logstash]({{site.url}}{{site.baseurl}}/logstash/index/#install-logstash-on-mac--linux), [OpenSearch]({{site.url}}{{site.baseurl}}/opensearch/install/index/), and [OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/install/index/).
 {: .note }
 
 ## Opensearch output plugin

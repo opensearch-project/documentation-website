@@ -11,7 +11,7 @@ This page contains a list of common filter plugins.
 
 ## mutate
 
-You can use the `mutate` filter to change the data type of a field. For example, you can use the `mutate` filter if you're sending events to Opensearch and you need to change the data type of a field to match any existing mappings.
+You can use the `mutate` filter to change the data type of a field. For example, you can use the `mutate` filter if you're sending events to OpenSearch and you need to change the data type of a field to match any existing mappings.
 
 To convert the `quantity` field from a `string` type to an `integer` type:
 
@@ -154,4 +154,4 @@ http_status: 200
 num_bytes: 12798
 ```
 
-For common log formats, you use the predefined patterns defined here - [Logstash patterns](https://github.com/logstash-plugins/logstash-patterns-core/blob/master/patterns/ecs-v1). You cam make any adjustments to the results with the `mutate` filter.
+For common log formats, you use the predefined patterns defined here⁠---[Logstash patterns](https://github.com/logstash-plugins/logstash-patterns-core/blob/master/patterns/ecs-v1). You can make any adjustments to the results with the `mutate` filter.

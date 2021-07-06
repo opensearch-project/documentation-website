@@ -8,9 +8,9 @@ has_toc: true
 
 # Logstash
 
-Logstash is a real-time event processing engine. It's part of the Opensearch stack which includes Opensearch, Beats, and Opensearch Dashboards.
+Logstash is a real-time event processing engine. It's part of the OpenSearch stack which includes OpenSearch, Beats, and OpenSearch Dashboards.
 
-You can send events to Logstash from many different sources. Logstash processes the events and sends it one or more destinations. For example, you can send access logs from a web server to Logstash. Logstash extracts useful information from each log and sends it to a destination like Opensearch.
+You can send events to Logstash from many different sources. Logstash processes the events and sends it one or more destinations. For example, you can send access logs from a web server to Logstash. Logstash extracts useful information from each log and sends it to a destination like OpenSearch.
 
 Sending events to Logstash lets you decouple event processing from your app. Your app only needs to send events to Logstash and doesn’t need to know anything about what happens to the events afterwards.
 
@@ -18,7 +18,7 @@ The open-source community originally built Logstash for processing log data but 
 
 ## Structure of a pipeline
 
-The way that Logstash works is that you configure a pipeline that has three phases—inputs, filters, and outputs.
+The way that Logstash works is that you configure a pipeline that has three phases⁠---inputs, filters, and outputs.
 
 Each phase uses one or more plugins. Logstash has over 200 built-in plugins so chances are that you’ll find what you need. Apart from the built-in plugins, you can use plugins from the community or even write your own.
 
@@ -42,7 +42,7 @@ where:
 
 * `input` receives events like logs from multiple sources simultaneously. Logstash supports a number of input plugins for TCP/UDP, files, syslog, Microsoft Windows EventLogs, stdin, HTTP, and so on. You can also use an open source collection of input tools called Beats to gather events. The input plugin sends the events to a filter.
 * `filter` parses and enriches the events in one way or the other. Logstash has a large collection of filter plugins that modify events and pass them on to an output. For example, a `grok` filter parses unstructured events into fields and a `mutate` filter changes fields. Filters are executed sequentially.
-* `output` ships the filtered events to one or more destinations. Logstash supports a wide range of output plugins for destinations like Opensearch, TCP/UDP, emails, files, stdout, HTTP, Nagios, and so on.
+* `output` ships the filtered events to one or more destinations. Logstash supports a wide range of output plugins for destinations like OpenSearch, TCP/UDP, emails, files, stdout, HTTP, Nagios, and so on.
 
 Both the input and output phases support codecs to process events as they enter or exit the pipeline.
 Some of the popular codecs are `json` and `multiline`. The `json` codec processes data that’s in JSON format and the `multiline` codec merges multiple line events into a single line.
@@ -53,7 +53,8 @@ You can also write conditional statements within pipeline configurations to perf
 
 Make sure you have [Java Development Kit (JDK)](https://www.oracle.com/java/technologies/javase-downloads.html) version 8 or 11 installed.
 
-1. Download the Logstash tarball from --.
+1. Download the Logstash tarball from [OpenSearch downloads](https://opensearch.org/downloads.html).
+
 2. Navigate to the downloaded folder in the terminal and extract the files:
 
      ```bash
