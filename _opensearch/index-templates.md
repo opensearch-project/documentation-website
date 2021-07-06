@@ -189,7 +189,7 @@ Managing multiple index templates has the following challenges:
 
 - If you have duplication between index templates, storing these index templates results in a bigger cluster state.
 - If you want to make a change across all your index templates, you have to manually make the change for each template.
-- If an index matches multiple templates, Opensearch might merge the templates in an unexpected way that you discover only after an index is created.
+- If an index matches multiple templates, OpenSearch might merge the templates in an unexpected way that you discover only after an index is created.
 
 You can use composable index templates to overcome these challenges. Composable index templates let you abstract common settings, mappings, and aliases into a reusable building block called a component template.
 
@@ -240,7 +240,7 @@ PUT _component_template/component_template_2
 
 When creating index templates, you need to include the component templates in a `composed_of` list.
 
-Opensearch applies the component templates in the order in which you specify them within the index template. The setting, mappings, and aliases that you specify inside the index template are applied last.
+OpenSearch applies the component templates in the order in which you specify them within the index template. The setting, mappings, and aliases that you specify inside the index template are applied last.
 
 ```json
 PUT _index_template/daily_logs
