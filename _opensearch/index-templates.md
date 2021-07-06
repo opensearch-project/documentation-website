@@ -195,7 +195,7 @@ You can use composable index templates to overcome these challenges. Composable 
 
 You can combine component templates to compose an index template.
 
-Settings and mappings that you specify directly in the [create index]({{site.url}}{{site.baseurl}}/opensearch/rest-api/create-index/) request overrides any settings or mappings specified in an index template and its component templates.
+Settings and mappings that you specify directly in the [create index]({{site.url}}{{site.baseurl}}/opensearch/rest-api/create-index/) request override any settings or mappings specified in an index template and its component templates.
 {: .note }
 
 ### Create a component template
@@ -240,7 +240,7 @@ PUT _component_template/component_template_2
 
 When creating index templates, you need to include the component templates in a `composed_of` list.
 
-OpenSearch applies the component templates in the order in which you specify them within the index template. The setting, mappings, and aliases that you specify inside the index template are applied last.
+OpenSearch applies the component templates in the order in which you specify them within the index template. The settings, mappings, and aliases that you specify inside the index template are applied last.
 
 ```json
 PUT _index_template/daily_logs
@@ -280,7 +280,7 @@ PUT _index_template/daily_logs
 }
 ```
 
-If you create an index named `logs-2020-01-01`, you can see that it derives it’s mappings and settings from both the component templates:
+If you create an index named `logs-2020-01-01`, you can see that it derives its mappings and settings from both the component templates:
 
 ```json
 PUT logs-2020-01-01
@@ -361,7 +361,7 @@ POST _index_template/_simulate
 }
 ```
 
-The `_simulate` API returns the final settings, mappings, and aliases that will be applied to indices that match the index pattern. You can also see any overlapping templates whose configuration is superseded by the simulated template body or higher-priority templates:
+The `_simulate` API returns the final settings, mappings, and aliases that will be applied to indices that match the index pattern. You can also see any overlapping templates whose configuration is superseded by the simulated template body or higher priority templates:
 
 ```json
 {
