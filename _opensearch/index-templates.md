@@ -195,12 +195,12 @@ You can use composable index templates to overcome these challenges. Composable 
 
 You can combine component templates to compose an index template.
 
-Settings and mappings that you specify directly in the [create index]({{site.url}}{{site.baseurl}}/rest-api/create-index/) request overrides any settings or mappings specified in an index template and its component templates.
+Settings and mappings that you specify directly in the [create index]({{site.url}}{{site.baseurl}}/opensearch/rest-api/create-index/) request overrides any settings or mappings specified in an index template and its component templates.
 {: .note }
 
 ### Create a component template
 
-Let's define two component templates⁠—`component_template_1` and `component_template_2`:
+Let's define two component templates⁠---`component_template_1` and `component_template_2`:
 
 #### Component template 1
 
@@ -280,7 +280,7 @@ PUT _index_template/daily_logs
 }
 ```
 
-If you create an index named `logs-2020-01-01`, you can see that it derives it’s the mappings and settings from both the component templates:
+If you create an index named `logs-2020-01-01`, you can see that it derives it’s mappings and settings from both the component templates:
 
 ```json
 PUT logs-2020-01-01
@@ -402,6 +402,6 @@ Option | Type | Description | Required
 :--- | :--- | :--- | :---
 `template` | `Object` |  Specify index settings, mappings, and aliases. | No
 `priority` | `Integer` | The priority of the index template.  | No
-`composed_of` | `String array` |  The names of components templates applied on a new index together with the current template.  | No
-`version` | `Integer` | Specify a version number to simplify template management. Defaults is `null`. | No
+`composed_of` | `String array` |  The names of component templates applied on a new index together with the current template.  | No
+`version` | `Integer` | Specify a version number to simplify template management. Default is `null`. | No
 `_meta ` | `Object` | Specify meta information about the template. | No
