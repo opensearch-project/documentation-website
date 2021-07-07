@@ -151,7 +151,7 @@ file {
 This is the date stored within the @timestamp fields, which is the time and date of the event.
 Send a request to the pipeline and verify that a filename is outputted that contains the events date.
 
-You can embed the date in other outputs as well, for example into the index name in Opensearch.
+You can embed the date in other outputs as well, for example into the index name in OpenSearch.
 
 ## Sending time information
 
@@ -199,7 +199,7 @@ Users might be using a wide range of browsers, devices, and OS's. Doing this man
 
 You can't use `grok` patterns because the `grok` pattern only matches the usage in the string as whole and doesn't figure out which browser the visitor used for instance.
 
-Logstash ships with a file containing regular expressions for this purpose. This makes it really easy to extract user agent information, which you could send to Opensearch and run aggregations on.
+Logstash ships with a file containing regular expressions for this purpose. This makes it really easy to extract user agent information, which you could send to OpenSearch and run aggregations on.
 
 To do this, add a `source` option that contains the name of the field. In this case, that's the `agent` field.
 By default the user agent plugin, adds a number of fields at the top-level of the event.
@@ -216,7 +216,7 @@ Start Logstah and send an HTTP request.
 
 You can see a field named `ua` with a number of keys including the browser name and version, the OS, and the device.
 
-You could Opensearch Dashboards to create a pie chart that shows how many visitors are from mobile devices and how many are desktop users. Or, you could get statistics on which browser versions are popular.
+You could OpenSearch Dashboards to create a pie chart that shows how many visitors are from mobile devices and how many are desktop users. Or, you could get statistics on which browser versions are popular.
 
 ## Enriching geographical data
 
@@ -241,6 +241,6 @@ If you only need the country name for instance, include an option named `fields`
 
 Some of the fields are not always available such as city name and region because translating IP addresses into geographical locations is generally not that accurate. If the `geoip` plugin fails to look up the geographical location, it adds a tag named `geoip_lookup_failure`.
 
-You can use the `geoip` plugin with the Opensearch output because `location` object within the `geoip` object, is a standard format for representing geospatial data in JSON. This is the same format as Opensearch uses for its `geo_point` data type.
+You can use the `geoip` plugin with the OpenSearch output because `location` object within the `geoip` object, is a standard format for representing geospatial data in JSON. This is the same format as OpenSearch uses for its `geo_point` data type.
 
-You can use the powerful geospatial queries of Opensearch for working with geographical data.
+You can use the powerful geospatial queries of OpenSearch for working with geographical data.

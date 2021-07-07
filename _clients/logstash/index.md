@@ -49,7 +49,9 @@ Some of the popular codecs are `json` and `multiline`. The `json` codec processe
 
 You can also write conditional statements within pipeline configurations to perform certain actions, if a certain criteria is met.
 
-## Install Logstash on MAC / Linux
+## Install Logstash
+
+The OpenSearch Logstash plugin has two installation options at this time: Linux (ARM64/X64) and Docker (ARM64/X64).
 
 Make sure you have [Java Development Kit (JDK)](https://www.oracle.com/java/technologies/javase-downloads.html) version 8 or 11 installed.
 
@@ -58,7 +60,7 @@ Make sure you have [Java Development Kit (JDK)](https://www.oracle.com/java/tech
 2. Navigate to the downloaded folder in the terminal and extract the files:
 
      ```bash
-     tar -zxvf logstash-7.13.2-darwin-x86_64.tar.gz
+     tar -zxvf logstash-oss-with-opensearch-output-plugin-7.13.2-linux-x64.tar.gz
      ```
 
 3. Navigate to the `logstash-7.13.2` directory.

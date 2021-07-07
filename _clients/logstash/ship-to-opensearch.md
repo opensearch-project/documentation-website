@@ -1,20 +1,20 @@
 ---
 layout: default
-title: Send events to Opensearch
+title: Ship events to OpenSearch
 parent: Logstash
 nav_order: 220
 ---
 
-# Send events to Opensearch
+# Ship events to OpenSearch
 
-You can send Logstash events to an Opensearch cluster and then visualize your events with Kibana.
+You can Ship Logstash events to an OpenSearch cluster and then visualize your events with OpenSearch Dashboards.
 
 Make sure you have [Logstash]({{site.url}}{{site.baseurl}}/logstash/index/#install-logstash-on-mac--linux), [OpenSearch]({{site.url}}{{site.baseurl}}/opensearch/install/index/), and [OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/install/index/).
 {: .note }
 
-## Opensearch output plugin
+## OpenSearch output plugin
 
-To run the Opensearch output plugin, add the following configuration in your `pipeline.conf` file:
+To run the OpenSearch output plugin, add the following configuration in your `pipeline.conf` file:
 
 ```yml
 output {
@@ -38,11 +38,6 @@ output {
       stdin {
         codec => json
       }
-
-      http {
-        host => "127.0.0.1"
-        port => 8080
-      }
     }
 
     output {
@@ -55,6 +50,8 @@ output {
       }
     }
     ```
+
+    The Logstash pipeline accepts JSON input through the terminal and ships the events to an OpenSearch cluster running locally. Logstash writes the events to an index with the `logstash-logs-%{+YYYY.MM.dd}` naming convention.
 
 2. Start Logstash:
 
@@ -70,7 +67,7 @@ output {
     { "amount": 10, "quantity": 2}
     ```
 
-4. Open Opensearch and search for the processed event:
+4. Start OpenSearch Dashboards and choose **Dev Tools**:
 
     ```json
     GET _cat/indices?v
