@@ -29,6 +29,21 @@ If you don't want to use the all-in-one installation options, you can install th
   </thead>
   <tbody>
   <tr>
+    <td>1.0.0</td>
+    <td>
+      <pre>alertingDashboards          1.0.0.0
+anomalyDetectionDashboards  1.0.0.0
+ganttChartDashboards        1.0.0.0
+indexManagementDashboards   1.0.0.0
+notebooksDashboards         1.0.0.0
+queryWorkbenchDashboards    1.0.0.0
+reportsDashboards           1.0.0.0
+securityDashboards          1.0.0.0
+traceAnalyticsDashboards    1.0.0.0
+</pre>
+    </td>
+  </tr>
+  <tr>
     <td>1.0.0-rc1</td>
     <td>
       <pre>alertingDashboards          1.0.0.0-rc1

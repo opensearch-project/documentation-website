@@ -8,9 +8,9 @@ redirect_from: /docs/sql/obdc/
 
 # ODBC driver
 
-The Open Database Connectivity (ODBC) driver is a read-only ODBC driver for Windows and macOS that lets you connect business intelligence (BI) and data visualization applications like [Tableau](https://github.com/opensearch-project/sql/blob/develop/sql-odbc/docs/user/tableau_support.md), [Microsoft Excel](https://github.com/opensearch-project/sql/blob/develop/sql-odbc/docs/user/microsoft_excel_support.md), and [Power BI](https://github.com/opensearch-project/sql/blob/main/sql-odbc/docs/user/power_bi_support.md) to the SQL plugin.
+The Open Database Connectivity (ODBC) driver is a read-only ODBC driver for Windows and macOS that lets you connect business intelligence (BI) and data visualization applications like [Tableau](https://github.com/opensearch-project/sql/blob/main/sql-odbc/docs/user/tableau_support.md), [Microsoft Excel](https://github.com/opensearch-project/sql/blob/main/sql-odbc/docs/user/microsoft_excel_support.md), and [Power BI](https://github.com/opensearch-project/sql/blob/main/sql-odbc/docs/user/power_bi_support.md) to the SQL plugin.
 
-For information on downloading and using the JAR file, see [the SQL repository on GitHub](https://github.com/opensearch-project/sql/tree/master/sql-odbc).
+For information on downloading and using the JAR file, see [the SQL repository on GitHub](https://github.com/opensearch-project/sql/tree/main/sql-odbc).
 
 {% comment %}
 
