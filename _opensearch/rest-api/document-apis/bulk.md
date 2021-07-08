@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Bulk
-parent: REST API reference
-nav_order: 5
+parent: Document APIs
+grand_parent: REST API reference
+nav_order: 20
 ---
 
 # Bulk
@@ -32,7 +33,7 @@ POST _bulk
 POST {index}/_bulk
 ```
 
-Specifying the index in the path means you don't need to include it in the [request body](#request-body).
+Specifying the index in the path means you don't need to include it in the [request body]({{site.url}}{{site.baseurl}}/opensearch/rest-api/document-apis/bulk/#request-body).
 
 OpenSearch also accepts PUT requests to the `_bulk` path, but we highly recommend using POST. The accepted usage of PUT---adding or replacing a single resource at a given path---doesn't make sense for bulk requests.
 {: .note }
