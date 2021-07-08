@@ -4,13 +4,28 @@ title: Agents and ingestion tools
 nav_order: 100
 has_children: false
 has_toc: false
+redirect_from:
+  - /clients/agents-and-ingestion-tools/
 ---
 
 # Agents and ingestion tools
 
 Historically, many multiple popular agents and ingestion tools have worked with Elasticsearch OSS, such as Beats, Logstash, Fluentd, FluentBit, and OpenTelemetry. OpenSearch aims to continue to support a broad set of agents and ingestion tools, but not all have been tested or have explicitly added OpenSearch compatibility.
 
-As an intermediate solution, we are adding a [version value](https://github.com/opensearch-project/OpenSearch/issues/693) to `opensearch.yml`. This change will let you set OpenSearch 1.x clusters to report version 7.10.2 (or any other arbitrary value). By reporting 7.10.2, the cluster will be able to connect with tools that check for a particular version number.
+As an intermediate compatibility solution, OpenSearch has a setting that instructs the cluster to return version 7.10.2 rather than its actual version.
+
+If you use clients that include a version check, such as recent versions of Logstash OSS or Filebeat OSS, enable the setting:
+
+```json
+PUT _cluster/settings
+{
+  "persistent": {
+    "compatibility": {
+      "override_main_response_version": true
+    }
+  }
+}
+```
 
 For a longer term solution, we plan to create an OpenSearch output plugin for Logstash. This plugin *does not exist yet*, but we've included it in the compatibility matrices below based on its expected behavior.
 
