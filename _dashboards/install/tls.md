@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Configure SSL
+title: Configure TLS
 parent: Install OpenSearch Dashboards
 nav_order: 40
 ---
