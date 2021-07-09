@@ -118,11 +118,11 @@ node.max_local_storage_nodes: 3
 
 If you want to run your users' passwords against some validation, you can specify the necessary regex in this file. You can also include an error message that loads if any passwords don't pass validation. The following example demonstrates how to include a regex so OpenSearch requires new passwords to be a minimum of eight characters with at least one uppercase, one lowercase, one digit, and one special character.
 
-Note that OpenSearch validates only users and passwords created through OpenSearch Dashboards or the REST API.
+Note that OpenSearch only validates users and passwords created through OpenSearch Dashboards or the REST API.
 
 ```yml
 plugins.restapi.password_validation_regex: '(?=.*[A-Z])(?=.*[^a-zA-Z\d])(?=.*[0-9])(?=.*[a-z]).{8,}'
-plugins.restapi.password_validation_error_message: "Password must be minimum 8 characters long and must contain minimum one uppercase letter, one lowercase letter, one digit, and one special character."
+plugins.restapi.password_validation_error_message: "Password must be minimum 8 characters long and must contain at least one uppercase letter, one lowercase letter, one digit, and one special character."
 ```
 
 ## roles.yml
