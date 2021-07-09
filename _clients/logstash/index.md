@@ -55,6 +55,8 @@ The OpenSearch Logstash plugin has two installation options at this time: Linux 
 
 Make sure you have [Java Development Kit (JDK)](https://www.oracle.com/java/technologies/javase-downloads.html) version 8 or 11 installed.
 
+### Tarball
+
 1. Download the Logstash tarball from [OpenSearch downloads](https://opensearch.org/downloads.html).
 
 2. Navigate to the downloaded folder in the terminal and extract the files:
@@ -65,6 +67,22 @@ Make sure you have [Java Development Kit (JDK)](https://www.oracle.com/java/tech
 
 3. Navigate to the `logstash-7.13.2` directory.
 - You can add your pipeline configurations to the `config` directory. Logstash saves any data from the plugins in the `data` directory. The `bin` directory contains the binaries for starting Logstash and managing plugins.
+
+### Docker image
+
+You can pull the OpenSearch Docker image just like any other image:
+
+```bash
+docker pull openseach-project/logstash-oss-with-opensearch-output-plugin:7.13.2-x64
+```
+
+To check available versions, see [Docker Hub](https://hub.docker.com/u/opensearchproject).
+
+To run the image for local development:
+
+```bash
+docker run <>
+```
 
 ## Process text from the terminal
 
