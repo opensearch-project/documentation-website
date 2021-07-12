@@ -62,6 +62,7 @@ public class RESTClientSample {
     System.setProperty("javax.net.ssl.trustStorePassword", password-to-keystore);
 
     //Establish credentials to use basic authentication.
+    //Only for demo purposes. Do not specify your credentials in code.
     final CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
 
     credentialsProvider.setCredentials(AuthScope.ANY,
