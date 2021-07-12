@@ -15,6 +15,8 @@ Consider exporting all Kibana objects prior to starting the upgrade. In Kibana, 
 
 1. After you upgrade your Elasticsearch OSS cluster to OpenSearch, stop Kibana.
 
+1. For safety, make a backup copy of `<kibana-dir>/config/kibana.yml`.
+
 1. Extract the OpenSearch Dashboards tarball to a new directory.
 
 1. Port your settings from `<kibana-dir>/config/kibana.yml` to `<dashboards-dir>/config/opensearch_dashboards.yml`.
