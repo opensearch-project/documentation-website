@@ -274,8 +274,11 @@ You also don’t need to provide the `rollover_alias` setting, because the ISM p
 To manage data streams from OpenSearch Dashboards, open **OpenSearch Dashboards**, choose **Index Management**, select **Indices** or **Policy managed indices**.
 
 You see a toggle switch for data streams that you can use to show or hide indices belonging to a data stream.
+
 When you enable this switch, you see a data stream multi-select dropdown menu that you can use for filtering data streams.
 You also see a data stream column that shows you the name of the parent data stream the index is contained in.
+
+![data stream toggle]({{site.url}}{{site.baseurl}}/images/data_streams_toggle.png)
 
 You can select one or more data streams and apply an ISM policy on them. You can also apply a policy on any individual backing index.
 
