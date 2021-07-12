@@ -11,7 +11,7 @@ The OpenSearch logs include valuable information for monitoring cluster operatio
 - On Docker, OpenSearch writes most logs to the console and stores the remainder in `opensearch/logs/`. The tarball installation also uses `opensearch/logs/`.
 - On most Linux installations, OpenSearch writes logs to `/var/log/opensearch/`.
 
-Logs are available as `.log` (plain text) and `.json` files.
+Logs are available as `.log` (plain text) and `.json` files. Permissions for the OpenSearch logs are `-rw-r--r--` by default, meaning that any user account on the node can read them. You can change this behavior _for each log type_ in `log4j2.properties` using the `filePermissions` option. For example, you might add `appender.rolling.filePermissions = rw-r-----` to change permissions for the JSON server log. For details, see the [Log4j 2 documentation](https://logging.apache.org/log4j/2.x/manual/appenders.html#RollingFileAppender).
 
 
 ## Application logs

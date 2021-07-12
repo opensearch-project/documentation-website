@@ -91,7 +91,7 @@ snapshotrestore:
 
 ## opensearch.yml
 
-This file contains relative file paths to TLS certificates and their attributes, such as distinguished names and trusted certificate authorities.
+In addition to many OpenSearch settings, this file contains paths to TLS certificates and their attributes, such as distinguished names and trusted certificate authorities.
 
 ```yml
 plugins.security.ssl.transport.pemcert_filepath: esnode.pem
@@ -116,7 +116,7 @@ plugins.security.system_indices.indices: [".opendistro-alerting-config", ".opend
 node.max_local_storage_nodes: 3
 ```
 
-If you want to run your users' passwords against some validation, you can specify the necessary regex in this file. You can also include an error message that loads if any passwords don't pass validation. The following example demonstrates how to include a regex so OpenSearch requires new passwords to be a minimum of eight characters with at least one uppercase, one lowercase, one digit, and one special character.
+If you want to run your users' passwords against some validation, specify a regular expression (regex) in this file. You can also include an error message that loads when passwords don't pass validation. The following example demonstrates how to include a regex so OpenSearch requires new passwords to be a minimum of eight characters with at least one uppercase, one lowercase, one digit, and one special character.
 
 Note that OpenSearch validates only users and passwords created through OpenSearch Dashboards or the REST API.
 
@@ -124,6 +124,7 @@ Note that OpenSearch validates only users and passwords created through OpenSear
 plugins.restapi.password_validation_regex: '(?=.*[A-Z])(?=.*[^a-zA-Z\d])(?=.*[0-9])(?=.*[a-z]).{8,}'
 plugins.restapi.password_validation_error_message: "Password must be minimum 8 characters long and must contain at least one uppercase letter, one lowercase letter, one digit, and one special character."
 ```
+
 
 ## roles.yml
 
