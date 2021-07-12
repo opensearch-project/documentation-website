@@ -1,0 +1,49 @@
+columns:
+  -
+    title: 'Get Involved'
+    links:
+      -
+        title: Code of Conduct
+        url: '/codeofconduct.html'
+      -
+        title: 'Forums'
+        url: 'https://discuss.opendistrocommunity.dev/'
+      -
+        title: 'Github'
+        url: 'https://github.com/opensearch-project'
+      -
+        title: 'Partners'
+        url: '/partners/'
+      -
+        title: 'Community Projects'
+        url: '/community_projects'
+  -
+    title: 'Resources'
+    links:
+      #- 
+      #  title: 'Documentation'
+      #  url: 'https://github.com/opensearch/documentation'
+      - 
+        title: FAQ
+        url: '/faq/'
+      -
+        title: 'Brand Guidelines'
+        url: '/brand.html'
+      -
+        title: 'Trademark Usage Policy'
+        url: '/trademark-usage.html'
+      - 
+        title: OpenSearch Disambiguation
+        url: '/disambiguation.html'
+  -
+    title: 'Connect'
+    links:
+      # -
+      #  title: 'Twitter'
+      #  url: 'https://twitter.com/opensearch_project'
+      #-
+      #  title: 'Facebook'
+      #  url: 'http://www.facebook.com/opensearch'
+      -
+        title: 'E-mail'
+        url: 'mailto:opensearch@amazon.com'

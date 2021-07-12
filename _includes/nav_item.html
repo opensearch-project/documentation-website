@@ -1,0 +1,7 @@
+<li>
+  {% if url_full == include.url_full %} {{ include.text }} {% else %}
+    <a href="{{ include.href }}" {% if url_parts[1] == {{include.url_fragment}} %} class="in-category" {% endif %}>
+      {{ include.text }}
+    </a>
+  {% endif %}
+</li>
