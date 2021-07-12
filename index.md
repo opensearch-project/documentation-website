@@ -37,7 +37,7 @@ Component | Purpose
 [Anomaly Detection]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/) | Identify atypical data and receive automatic notifications
 [Asynchronous Search]({{site.url}}{{site.baseurl}}/search-plugins/async/) | Run search requests in the background
 
-You can install OpenSearch plugins [individually]({{site.url}}{{site.baseurl}}/opensearch/install/plugins/) or use the [all-in-one packages]({{site.url}}{{site.baseurl}}/opensearch/install/). Most of these OpenSearch plugins have corresponding OpenSearch Dashboards plugins that provide a convenient, unified user interface.
+Most of OpenSearch plugins have a corresponding OpenSearch Dashboards plugin that provide a convenient, unified user interface.
 
 For specifics around the project, see the [FAQ](https://opensearch.org/faq/).
 
@@ -65,7 +65,10 @@ Docker
 To learn more, see [Install and configure OpenSearch]({{site.url}}{{site.baseurl}}/opensearch/install/) and [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/install/).
 
 
----
+## The secure path forward
+
+OpenSearch includes a demo configuration so that you can get up and running quickly, but before using OpenSearch in a production environment, you must [configure the security plugin manually]({{site.url}}{{site.baseurl}}/security-plugin/configuration/index/): your own certificates, your own authentication method, your own users, and your own passwords.
+
 
 ## Looking for the Javadoc?
 
