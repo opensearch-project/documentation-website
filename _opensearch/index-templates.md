@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Index templates
-nav_order: 14
+nav_order: 15
 ---
 
 # Index templates
