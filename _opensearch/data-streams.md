@@ -17,7 +17,7 @@ A typical workflow to manage time-series data is as follows:
 - To split your data into an index for each day, use the rollover operation.
 - To perform searches on a virtual index name that gets expanded to the underlying indices, create an [index alias]({{site.url}}{{site.baseurl}}/opensearch/index-alias/).
 - To perform a write operation on an index alias, configure the latest index as the write index.
-- To configure new indices, extract common mappings and settings into an [index template]({{site.url}}{{site.baseurl}}/opensearch/index-templates/)).
+- To configure new indices, extract common mappings and settings into an [index template]({{site.url}}{{site.baseurl}}/opensearch/index-templates/).
 
 Even after you perform all these operations, you’re still not enforcing the best practices when dealing with time-series data. For example, you can modify the indices directly. You’re able to ingest documents without a timestamp field, which might result in slower queries.
 
