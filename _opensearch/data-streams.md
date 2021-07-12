@@ -23,7 +23,7 @@ Even after you perform all these operations, you’re still not enforcing the be
 
 Data streams abstract the complexity and enforce the best practices for managing time-series data.
 
-With data streams, you can store append-only time-series data across multiple indices with a single end-point for ingesting and searching data. It replaces index aliases for time-series data.
+With data streams, you can store append-only time-series data across multiple indices with a single endpoint for ingesting and searching data. It replaces index aliases for time-series data.
 
 ## About data streams
 
@@ -105,11 +105,6 @@ PUT _data_stream/logs-nginx
 
 You can also directly start ingesting data without creating a data stream.
 
-```json
-PUT _data_stream/logs-redis
-PUT _data_stream/logs-nginx
-```
-
 Because we have a matching index template with a data_stream object, OpenSearch automatically creates the data stream:
 
 ```json
@@ -183,7 +178,7 @@ GET _data_stream/logs-nginx/_stats
 
 ### Step 3: Ingest data into the data stream
 
-To ingest data into a data stream, you can use the regular indexing APIs. Make sure every document that you index has a timestamp field. If you try to ingest a document that doesn't have a timestamp field, you'll get an error.
+To ingest data into a data stream, you can use the regular indexing APIs. Make sure every document that you index has a timestamp field. If you try to ingest a document that doesn't have a timestamp field, you get an error.
 
 ```json
 POST logs-redis/_doc
@@ -196,7 +191,7 @@ POST logs-redis/_doc
 ### Step 4: Searching a data stream
 
 You can search a data stream just like you search a regular index or an index alias.
-The search operation applies to all of the backing indices, that’s all of the data present in the data stream.
+The search operation applies to all of the backing indices (all data present in the stream).
 
 ```json
 GET logs-redis/_search
@@ -272,7 +267,7 @@ If you now perform a `GET` operation on the `logs-redis` data stream, you see th
 You can also set up an [Index State Management (ISM) policy]({{site.url}}{{site.baseurl}}/ism/policies/) to automate the rollover process for the data stream.  
 The ISM policy is applied to the backing indices at the time of their creation. When you associate a policy to a data stream, it only affects the future backing indices of that data stream.
 
-You also don’t need to provide the `rollover_alias` setting because the ISM policy infers this information from the backing index.
+You also don’t need to provide the `rollover_alias` setting, because the ISM policy infers this information from the backing index.
 
 ### Step 6: Manage data streams in OpenSearch Dashboards
 
