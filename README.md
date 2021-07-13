@@ -1,6 +1,6 @@
 # OpenSearch documentation
 
-This repository contains the documentation for OpenSearch, the search, analytics, and visualization suite with advanced security, alerting, SQL support, automated index management, deep performance analysis, and more. You can find the rendered documentation at [docs-beta.opensearch.org](https://docs-beta.opensearch.org).
+This repository contains the documentation for OpenSearch, the search, analytics, and visualization suite with advanced security, alerting, SQL support, automated index management, deep performance analysis, and more. You can find the rendered documentation at [opensearch.org/docs](https://opensearch.org/docs).
 
 Community contributions remain essential in keeping this documentation comprehensive, useful, well-organized, and up-to-date.
 
@@ -11,9 +11,9 @@ Community contributions remain essential in keeping this documentation comprehen
 
   Often, engineering teams can keep existing documentation up-to-date with minimal effort, thus freeing up the documentation team to focus on larger projects.
 
-- Do you have expertise in a particular area of OpenSearch? Cluster sizing? The query DSL? Painless scripting? Aggregations? JVM settings? Take a look at the [current content](https://docs-beta.opensearch.org/docs/opensearch/) and see where you can add value. The [documentation team](#points-of-contact) is happy to help you polish and organize your drafts.
+- Do you have expertise in a particular area of OpenSearch? Cluster sizing? The query DSL? Painless scripting? Aggregations? JVM settings? Take a look at the [current content](https://opensearch.org/docs/opensearch/) and see where you can add value. The [documentation team](#points-of-contact) is happy to help you polish and organize your drafts.
 
-- Are you an OpenSearch Dashboards expert? How did you set up your visualizations? Why is a particular dashboard so valuable to your organization? We have [very little](https://docs-beta.opensearch.org/docs/opensearch-dashboards/) on how to use OpenSearch Dashboards, only how to install it.
+- Are you an OpenSearch Dashboards expert? How did you set up your visualizations? Why is a particular dashboard so valuable to your organization? We have [very little](https://opensearch.org/docs/opensearch-dashboards/) on how to use OpenSearch Dashboards, only how to install it.
 
 - Are you a web developer? Do you want to add an optional dark mode to the documentation? A "copy to clipboard" button for our code samples? Other improvements to the design or usability? See [major changes](#major-changes) for information on building the website locally.
 
