@@ -30,9 +30,7 @@ If you encounter problems or have questions when contributing to the documentati
 - [snyder114](https://github.com/snyder114)
 
 
-## How we build the website
-
-After each commit to this repository, GitHub Pages automatically uses [Jekyll](https://jekyllrb.com) to rebuild the [website](https://docs-beta.opensearch.org). The whole process takes around 30 seconds.
+## How the website works
 
 This repository contains many [Markdown](https://guides.github.com/features/mastering-markdown/) files in the `/docs` directory. Each Markdown file correlates with one page on the website.
 
