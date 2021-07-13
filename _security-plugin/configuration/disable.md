@@ -38,7 +38,7 @@ If you disable the security plugin in `opensearch.yml` (or delete the plugin ent
 
    ```
    FROM opensearchproject/opensearch-dashboards:{{site.opensearch_version}}
-   RUN /usr/share/opensearch-dashboards/bin/opensearch-dashboards-plugin remove security-dashboards
+   RUN /usr/share/opensearch-dashboards/bin/opensearch-dashboards-plugin remove securityDashboards
    COPY --chown=opensearch-dashboards:opensearch-dashboards opensearch_dashboards.yml /usr/share/opensearch-dashboards/config/
    ```
 
