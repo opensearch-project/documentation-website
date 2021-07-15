@@ -7,7 +7,7 @@ nav_order: 6
 
 # Update mapping
 
-If you want to update an index's type mappings after its creation, you can do so with the update mapping API operation.
+If you want to update an index's mappings after creating the index, you can do so with the update mapping API operation.
 
 ## Example
 
