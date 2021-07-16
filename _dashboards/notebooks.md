@@ -36,6 +36,7 @@ A notebook is an interface for creating reports.
 
 Choose **Actions** to rename, duplicate, or delete a notebook.
 
+![Create notebook]({{site.url}}{{site.baseurl}}/images/create_notebook.gif)
 
 ### Step 2: Add a paragraph
 
@@ -55,7 +56,7 @@ For example, type `%md` for markdown, `%sql` for SQL, and `%ppl` for PPL.
 Add in text formatted in markdown.
 ```
 
-![Markdown paragraph]({{site.url}}{{site.baseurl}}/images/markdown-notebook.png)
+![Markdown paragraph]({{site.url}}{{site.baseurl}}/images/markdown_notebooks.gif)
 
 ##### Sample SQL block
 
@@ -64,7 +65,7 @@ Add in text formatted in markdown.
 Select * from opensearch_dashboards_sample_data_flights limit 20;
 ```
 
-![SQL paragraph]({{site.url}}{{site.baseurl}}/images/sql-notebook.png)
+![SQL paragraph]({{site.url}}{{site.baseurl}}/images/sql_notebooks.gif)
 
 ##### Sample PPL block
 
@@ -73,7 +74,7 @@ Select * from opensearch_dashboards_sample_data_flights limit 20;
 source=opensearch_dashboards_sample_data_logs | head 20
 ```
 
-![PPL paragraph]({{site.url}}{{site.baseurl}}/images/ppl-notebook.png)
+![PPL paragraph]({{site.url}}{{site.baseurl}}/images/ppl_notebooks.gif)
 
 
 #### Add a visualization
@@ -82,7 +83,7 @@ source=opensearch_dashboards_sample_data_logs | head 20
 1. In **Title**, select your visualization and choose a date range. You can choose multiple timelines to compare and contrast visualizations.
 1. To run and save a paragraph, choose **Run**.
 
-![Visualization paragraph]({{site.url}}{{site.baseurl}}/images/visualization-notebook.png)
+![Visualization paragraph]({{site.url}}{{site.baseurl}}/images/visualization_notebooks.gif)
 
 ## Paragraph actions
 
@@ -93,7 +94,8 @@ You can perform the following actions on paragraphs:
 - Run all the paragraphs at the same time.
 - Clear the outputs of all paragraphs.
 - Delete all the paragraphs.
-- Move paragraphs up and down.
+
+![Sample notebooks]({{site.url}}{{site.baseurl}}/images/paragraphs_notebooks.gif)
 
 ## Sample notebooks
 
@@ -104,6 +106,8 @@ We prepared the following sample notebooks that showcase a variety of use cases:
 - Using PPL and visualizations to perform sample root cause event analysis on the OpenSearch Dashboards sample web logs data.
 
 To add a sample notebook, choose **Actions** and select **Add sample notebooks**.
+
+![Sample notebooks]({{site.url}}{{site.baseurl}}/images/sample_notebooks.gif)
 
 ## Create a report
 
@@ -116,3 +120,5 @@ You can use notebooks to create PNG and PDF reports:
 
 1. To create a schedule-based report, choose **Create report definition**. For steps to create a report definition, see [Create reports using a definition]({{site.url}}{{site.baseurl}}/dashboards/reporting#create-reports-using-a-definition).
 1. To see all your reports, choose **View all reports**.
+
+![Report notebooks]({{site.url}}{{site.baseurl}}/images/report_notebooks.gif)
