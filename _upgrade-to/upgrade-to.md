@@ -29,6 +29,9 @@ Elasticsearch OSS version | Rolling upgrade path | Cluster restart upgrade path
 6.x | Upgrade to 6.8, upgrade to 7.10.2, and upgrade to OpenSearch. | Upgrade to OpenSearch.
 7.x | Upgrade to OpenSearch. | Upgrade to OpenSearch.
 
+If you are upgrading an Open Distro for Elasticsearch cluster, we recommend first upgrading to ODFE 1.13 and then upgrading to OpenSearch.
+{: .note }
+
 
 ## Upgrade Elasticsearch OSS
 
