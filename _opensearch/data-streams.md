@@ -23,7 +23,7 @@ Even after you perform all these operations, you’re still not enforcing the be
 
 Data streams abstract the complexity and enforce the best practices for managing time-series data.
 
-With data streams, you can store append-only time-series data across multiple indices with a single endpoint for ingesting and searching data. It replaces index aliases for time-series data.
+With data streams, you can store append-only time-series data across multiple indices with a single endpoint for ingesting and searching data. We recommend using data streams in place of index aliases for time-series data.
 
 ## About data streams
 
