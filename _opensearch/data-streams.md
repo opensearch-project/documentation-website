@@ -12,7 +12,7 @@ If you're ingesting continuously generated time-series data such as logs, events
 - You don’t need to update older documents.
 - Your searches generally target the newer documents.
 
-A typical workflow to manage time-series data consists of setting up aliases, performing rollover operations, configuring read and write indices, and defining common mapping fields such as a timestamp field. Data streams simplifies this process.
+A typical workflow to manage time-series data consists of setting up an alias, configuring a rollover operation, defining a write index, and creating common mapping fields in an index template. Data streams simplifies this process.
 
 With data streams, you can store append-only time-series data across multiple indices with a single endpoint for ingesting and searching data. We recommend using data streams in place of index aliases for time-series data.
 
