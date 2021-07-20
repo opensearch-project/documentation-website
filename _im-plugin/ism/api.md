@@ -160,6 +160,10 @@ POST _plugins/_ism/add/index_1
 }
 ```
 
+If you use a wildcard `*` while adding a policy to an index, the ISM plugin interprets `*` as all indices, including system indices like `.opendistro-security`, which stores users, roles, and tenants. A delete action in your policy might accidentally delete all user roles and tenants in your cluster.
+Don't use the broad `*` wildcard, and instead add a prefix, such as `my-logs*`, when specifying indices with the `_ism/add` API.
+{: .warning }
+
 ---
 
 
