@@ -1,3 +1,5 @@
+<img src="https://opensearch.org/assets/img/opensearch-logo-themed.svg" height="64px">
+
 # OpenSearch documentation
 
 This repository contains the documentation for OpenSearch, the search, analytics, and visualization suite with advanced security, alerting, SQL support, automated index management, deep performance analysis, and more. You can find the rendered documentation at [opensearch.org/docs](https://opensearch.org/docs).
