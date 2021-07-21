@@ -7,7 +7,9 @@ nav_order: 6
 
 # Update mapping
 
-If you want to update an index's mappings after creating the index, you can do so with the update mapping API operation.
+If you want to update an index's mappings to add or update field types after index creation, you can do so with the update mapping API operation.
+
+Note that you cannot use this operation to update mappings that already map to existing data in the index. You must first create a new index with your desired mappings, and then use the [reindex API operation]({{site.url}}{{site.baseurl}}/opensearch/reindex-data) to map all the documents from your old index to the new index. If you don't want any downtime while reindexing your indices, you can use [aliases]({{site.url}}{{site.baseurl}}/opensearch/index-alias).
 
 ## Example
 
