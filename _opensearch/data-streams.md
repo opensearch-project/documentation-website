@@ -12,16 +12,7 @@ If you're ingesting continuously generated time-series data such as logs, events
 - You don’t need to update older documents.
 - Your searches generally target the newer documents.
 
-A typical workflow to manage time-series data is as follows:
-
-- To split your data into an index for each day, use the rollover operation.
-- To perform searches on a virtual index name that gets expanded to the underlying indices, create an [index alias]({{site.url}}{{site.baseurl}}/opensearch/index-alias/).
-- To perform a write operation on an index alias, configure the latest index as the write index.
-- To configure new indices, extract common mappings and settings into an [index template]({{site.url}}{{site.baseurl}}/opensearch/index-templates/).
-
-Even after you perform all these operations, you’re still not enforcing the best practices when dealing with time-series data. For example, you can modify the indices directly. You’re able to ingest documents without a timestamp field, which might result in slower queries.
-
-Data streams abstract the complexity and enforce the best practices for managing time-series data.
+A typical workflow to manage time-series data consists of setting up an alias, configuring a rollover operation, defining a write index, and creating common mapping fields in an index template. Data streams simplifies this process.
 
 With data streams, you can store append-only time-series data across multiple indices with a single endpoint for ingesting and searching data. We recommend using data streams in place of index aliases for time-series data.
 
@@ -276,7 +267,7 @@ To manage data streams from OpenSearch Dashboards, open **OpenSearch Dashboards*
 You see a toggle switch for data streams that you can use to show or hide indices belonging to a data stream.
 
 When you enable this switch, you see a data stream multi-select dropdown menu that you can use for filtering data streams.
-You also see a data stream column that shows you the name of the parent data stream the index is contained in.
+You also see a data stream column that shows you the name of the data stream the index is contained in.
 
 ![data stream toggle]({{site.url}}{{site.baseurl}}/images/data_streams_toggle.png)
 
