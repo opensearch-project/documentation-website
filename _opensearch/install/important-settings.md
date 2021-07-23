@@ -7,13 +7,13 @@ nav_order: 70
 
 # Important settings
 
-For production workloads, make sure the [Linux setting](https://www.kernel.org/doc/Documentation/sysctl/vm.txt) `vm.max_map_count` is set to at least 262144. On the OpenSearch Docker image, this setting is the default. To check, start a Bash session in the container and run:
+For production workloads, make sure the [Linux setting](https://www.kernel.org/doc/Documentation/sysctl/vm.txt) `vm.max_map_count` is set to at least 262144. Even if you use the Docker image, set this value on the *host machine*. To check the current value, run this command:
 
 ```bash
 cat /proc/sys/vm/max_map_count
 ```
 
-To increase this value, you have to modify the Docker image. For other install types, add this setting to the host machine's `/etc/sysctl.conf` file with the following line:
+To increase the value, add the following line to `/etc/sysctl.conf`:
 
 ```
 vm.max_map_count=262144
