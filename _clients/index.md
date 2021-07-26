@@ -18,7 +18,7 @@ Java high-level REST client | 7.13.4
 Python Elasticsearch client | 7.13.4
 Elasticsearch Node.js client | 7.13.0
 
-Many clients exist, so if you test a client and verify that it works, please [submit a PR](https://github.com/opensearch-project/documentation-website/pulls) and add it to this table.
+Clients exist for a wide variety of languages, so if you test a client and verify that it works, please [submit a PR](https://github.com/opensearch-project/documentation-website/pulls) and add it to this table.
 
 
 {% comment %}
