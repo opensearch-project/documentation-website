@@ -21,6 +21,8 @@ Use the index state management operations to programmatically work with policies
 
 
 ## Create policy
+Introduced 1.0
+{: .label .label-purple }
 
 Creates a policy.
 
@@ -138,6 +140,8 @@ PUT _plugins/_ism/policies/policy_1
 ---
 
 ## Add policy
+Introduced 1.0
+{: .label .label-purple }
 
 Adds a policy to an index. This operation does not change the policy if the index already has one.
 
@@ -168,6 +172,8 @@ Don't use the broad `*` wildcard, and instead add a prefix, such as `my-logs*`, 
 
 
 ## Update policy
+Introduced 1.0
+{: .label .label-purple }
 
 Updates a policy. Use the `seq_no` and `primary_term` parameters to update an existing policy. If these numbers don't match the existing policy or the policy doesn't exist, ISM throws an error.
 
@@ -285,6 +291,8 @@ PUT _plugins/_ism/policies/policy_1?if_seq_no=7&if_primary_term=1
 ---
 
 ## Get policy
+Introduced 1.0
+{: .label .label-purple }
 
 Gets the policy by `policy_id`.
 
@@ -355,6 +363,8 @@ GET _plugins/_ism/policies/policy_1
 ---
 
 ## Remove policy from index
+Introduced 1.0
+{: .label .label-purple }
 
 Removes any ISM policy from the index.
 
@@ -378,6 +388,8 @@ POST _plugins/_ism/remove/index_1
 ---
 
 ## Update managed index policy
+Introduced 1.0
+{: .label .label-purple }
 
 Updates the managed index policy to a new policy (or to a new version of the policy). You can use an index pattern to update multiple indices at once. When updating multiple indices, you might want to include a state filter to only affect certain managed indices. The change policy filters out all the existing managed indices and only applies the change to the ones in the state that you specify. You can also explicitly specify the state that the managed index transitions to after the change policy takes effect.
 
@@ -414,6 +426,8 @@ POST _plugins/_ism/change_policy/index_1
 ---
 
 ## Retry failed index
+Introduced 1.0
+{: .label .label-purple }
 
 Retries the failed action for an index. For the retry call to succeed, ISM must manage the index, and the index must be in a failed state. You can use index patterns (`*`) to retry multiple failed indices.
 
@@ -440,6 +454,8 @@ POST _plugins/_ism/retry/index_1
 ---
 
 ## Explain index
+Introduced 1.0
+{: .label .label-purple }
 
 Gets the current state of the index. You can use index patterns to get the status of multiple indices.
 
@@ -465,6 +481,8 @@ The `plugins.index_state_management.policy_id` setting is deprecated starting fr
 ---
 
 ## Delete policy
+Introduced 1.0
+{: .label .label-purple }
 
 Deletes the policy by `policy_id`.
 

@@ -19,6 +19,8 @@ Use these anomaly detection operations to programmatically create and manage det
 ---
 
 ## Create anomaly detector
+Introduced 1.0
+{: .label .label-purple }
 
 Creates an anomaly detector.
 
@@ -306,6 +308,8 @@ Options | Description | Type | Required
 ---
 
 ## Preview detector
+Introduced 1.0
+{: .label .label-purple }
 
 Passes a date range to the anomaly detector to return any anomalies within that date range.
 
@@ -445,6 +449,8 @@ If you specify a category field, each result is associated with an entity:
 ---
 
 ## Start detector job
+Introduced 1.0
+{: .label .label-purple }
 
 Starts a real-time or historical anomaly detector job.
 
@@ -470,6 +476,8 @@ POST _plugins/_anomaly_detection/detectors/<detectorId>/_start
 ---
 
 ## Stop detector job
+Introduced 1.0
+{: .label .label-purple }
 
 Stops a real-time or historical anomaly detector job.
 
@@ -488,6 +496,8 @@ Stopped detector: m4ccEnIBTXsGi3mvMt9p
 ---
 
 ## Search detector result
+Introduced 1.0
+{: .label .label-purple }
 
 Returns all results for a search query.
 
@@ -933,6 +943,8 @@ GET _plugins/_anomaly_detection/detectors/results/_search
 ---
 
 ## Delete detector
+Introduced 1.0
+{: .label .label-purple }
 
 Deletes a detector based on the `detector_id`.
 To delete a detector, you need to first stop the detector.
@@ -968,6 +980,8 @@ DELETE _plugins/_anomaly_detection/detectors/<detectorId>
 ---
 
 ## Update detector
+Introduced 1.0
+{: .label .label-purple }
 
 Updates a detector with any changes, including the description or adding or removing of features.
 To update a detector, you need to first stop the detector.
@@ -1139,6 +1153,8 @@ PUT _plugins/_anomaly_detection/detectors/<detectorId>
 ---
 
 ## Get detector
+Introduced 1.0
+{: .label .label-purple }
 
 Returns all information about a detector based on the `detector_id`.
 
@@ -1485,6 +1501,8 @@ GET _plugins/_anomaly_detection/detectors/<detectorId>?task=true
 ---
 
 ## Search detector
+Introduced 1.0
+{: .label .label-purple }
 
 Returns all anomaly detectors for a search query.
 
@@ -1591,6 +1609,8 @@ Sample Input:
 ---
 
 ## Get detector stats
+Introduced 1.0
+{: .label .label-purple }
 
 Provides information about how the plugin is performing.
 
@@ -1691,6 +1711,8 @@ Historical detectors contain additional fields:
 ---
 
 ## Create monitor
+Introduced 1.0
+{: .label .label-purple }
 
 Create a monitor to set up alerts for the detector.
 
@@ -1909,6 +1931,8 @@ POST _plugins/_alerting/monitors
 ---
 
 ## Profile detector
+Introduced 1.0
+{: .label .label-purple }
 
 Returns information related to the current state of the detector and memory usage, including current errors and shingle size, to help troubleshoot the detector.
 

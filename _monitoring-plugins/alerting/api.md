@@ -20,6 +20,8 @@ Use the alerting API to programmatically manage monitors and alerts.
 ---
 
 ## Create monitor
+Introduced 1.0
+{: .label .label-purple }
 
 #### Request
 
@@ -246,6 +248,8 @@ For a full list of timezone names, refer to [Wikipedia](https://en.wikipedia.org
 ---
 
 ## Update monitor
+Introduced 1.0
+{: .label .label-purple }
 
 When you update a monitor, include the current version number as a parameter. OpenSearch increments the version number automatically (see the sample response).
 
@@ -368,6 +372,8 @@ PUT _plugins/_alerting/monitors/<monitor_id>
 ---
 
 ## Get monitor
+Introduced 1.0
+{: .label .label-purple }
 
 #### Request
 
@@ -438,6 +444,8 @@ GET _plugins/_alerting/monitors/<monitor_id>
 ---
 
 ## Monitor stats
+Introduced 1.0
+{: .label .label-purple }
 
 Returns statistics about the alerting feature. Use `_plugins/_alerting/stats` to find node IDs and metrics. Then you can drill down using those values.
 
@@ -627,6 +635,8 @@ GET _plugins/_alerting/<node-id>/stats/<metric>
 ---
 
 ## Delete monitor
+Introduced 1.0
+{: .label .label-purple }
 
 #### Request
 
@@ -658,6 +668,8 @@ DELETE _plugins/_alerting/monitors/<monitor_id>
 ---
 
 ## Search monitors
+Introduced 1.0
+{: .label .label-purple }
 
 #### Request
 
@@ -755,6 +767,8 @@ GET _plugins/_alerting/monitors/_search
 ---
 
 ## Run monitor
+Introduced 1.0
+{: .label .label-purple }
 
 You can add the optional `?dryrun=true` parameter to the URL to show the results of a run without actions sending any message.
 
@@ -787,6 +801,8 @@ POST _plugins/_alerting/monitors/<monitor_id>/_execute
 ---
 
 ## Get alerts
+Introduced 1.0
+{: .label .label-purple }
 
 Returns an array of all alerts.
 
@@ -855,6 +871,8 @@ GET _plugins/_alerting/monitors/alerts
 ---
 
 ## Acknowledge alert
+Introduced 1.0
+{: .label .label-purple }
 
 [After getting your alerts](#get-alerts/), you can acknowledge any number of active alerts in one call. If the alert is already in an ERROR, COMPLETED, or ACKNOWLEDGED state, it appears in the `failed` array.
 
@@ -882,6 +900,8 @@ POST _plugins/_alerting/monitors/<monitor-id>/_acknowledge/alerts
 ---
 
 ## Create destination
+Introduced 1.0
+{: .label .label-purple }
 
 #### Requests
 
@@ -956,6 +976,8 @@ POST _plugins/_alerting/destinations
 ---
 
 ## Update destination
+Introduced 1.0
+{: .label .label-purple }
 
 #### Request
 
@@ -991,6 +1013,8 @@ PUT _plugins/_alerting/destinations/<destination-id>
 ---
 
 ## Get destination
+Introduced 1.0
+{: .label .label-purple }
 
 Retrieve one destination.
 
@@ -1036,6 +1060,8 @@ GET _plugins/_alerting/destinations/<destination-id>
 ---
 
 ## Get destinations
+Introduced 1.0
+{: .label .label-purple }
 
 Retrieve all destinations.
 
@@ -1081,6 +1107,8 @@ GET _plugins/_alerting/destinations
 ---
 
 ## Delete destination
+Introduced 1.0
+{: .label .label-purple }
 
 #### Request
 
@@ -1110,6 +1138,8 @@ DELETE _plugins/_alerting/destinations/<destination-id>
 ---
 
 ## Create email account
+Introduced 1.0
+{: .label .label-purple }
 
 #### Request
 ```json
@@ -1142,6 +1172,8 @@ POST _plugins/_alerting/destinations/email_accounts
 ```
 
 ## Update email account
+Introduced 1.0
+{: .label .label-purple }
 
 #### Request
 ```json
@@ -1173,6 +1205,8 @@ PUT _plugins/_alerting/destinations/email_accounts/<email_account_id>
 ```
 
 ## Get email account
+Introduced 1.0
+{: .label .label-purple }
 
 #### Request
 ```json
@@ -1204,6 +1238,8 @@ GET _plugins/_alerting/destinations/email_accounts/<email_account_id>
 ```
 
 ## Delete email account
+Introduced 1.0
+{: .label .label-purple }
 
 #### Request
 ```
@@ -1230,6 +1266,8 @@ DELETE _plugins/_alerting/destinations/email_accounts/<email_account_id>
 ```
 
 ## Search email account
+Introduced 1.0
+{: .label .label-purple }
 
 #### Request
 
@@ -1296,6 +1334,8 @@ POST _plugins/_alerting/destinations/email_accounts/_search
 ---
 
 ## Create email group
+Introduced 1.0
+{: .label .label-purple }
 
 #### Request
 
@@ -1330,6 +1370,8 @@ POST _plugins/_alerting/destinations/email_groups
 ```
 
 ## Update email group
+Introduced 1.0
+{: .label .label-purple }
 
 #### Request
 
@@ -1363,6 +1405,8 @@ PUT _plugins/_alerting/destinations/email_groups/<email_group_id>
 ```
 
 ## Get email group
+Introduced 1.0
+{: .label .label-purple }
 
 #### Request
 ```json
@@ -1395,6 +1439,8 @@ GET _plugins/_alerting/destinations/email_groups/<email_group_id>
 ```
 
 ## Delete email group
+Introduced 1.0
+{: .label .label-purple }
 
 #### Request
 ```
@@ -1421,6 +1467,8 @@ DELETE _plugins/_alerting/destinations/email_groups/<email_group_id>
 ```
 
 ## Search email group
+Introduced 1.0
+{: .label .label-purple }
 
 #### Request
 

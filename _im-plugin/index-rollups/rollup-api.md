@@ -20,6 +20,8 @@ Use the index rollup operations to programmatically work with index rollup jobs.
 ---
 
 ## Create or update an index rollup job
+Introduced 1.0
+{: .label .label-purple }
 
 Creates or updates an index rollup job.
 You must provide the `seq_no` and `primary_term` parameters.
@@ -134,6 +136,8 @@ Options | Description | Type | Required
 
 
 ## Get an index rollup job
+Introduced 1.0
+{: .label .label-purple }
 
 Returns all information about an index rollup job based on the `rollup_id`.
 
@@ -159,6 +163,8 @@ GET _plugins/_rollup/jobs/<rollup_id>
 ---
 
 ## Delete an index rollup job
+Introduced 1.0
+{: .label .label-purple }
 
 Deletes an index rollup job based on the `rollup_id`.
 
@@ -178,6 +184,8 @@ DELETE _plugins/_rollup/jobs/<rollup_id>
 
 
 ## Start or stop an index rollup job
+Introduced 1.0
+{: .label .label-purple }
 
 Start or stop an index rollup job.
 
@@ -199,6 +207,8 @@ POST _plugins/_rollup/jobs/<rollup_id>/_stop
 ---
 
 ## Explain an index rollup job
+Introduced 1.0
+{: .label .label-purple }
 
 Returns detailed metadata information about the index rollup job and its current progress.
 

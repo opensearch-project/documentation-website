@@ -8,6 +8,8 @@ has_children: false
 ---
 
 # cat templates
+Introduced 1.0
+{: .label .label-purple }
 
 The cat templates operation lists the names, patterns, order numbers, and version numbers of index templates.
 

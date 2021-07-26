@@ -15,6 +15,8 @@ Aside from using OpenSearch Dashboards, you can also use the REST API to create,
 {:toc}
 
 ## Create a transform job
+Introduced 1.0
+{: .label .label-purple }
 
 Creates a transform job.
 
@@ -139,6 +141,8 @@ source_field | String | The field(s) to transform | Yes
 aggregations | JSON | The aggregations to use in the transform job. Supported aggregations are: `sum`, `max`, `min`, `value_count`, `avg`, `scripted_metric`, and `percentiles`. For more information, see [Metric Aggregations]({{site.url}}{{site.baseurl}}/opensearch/metric-agg). | Yes if not using groups
 
 ## Update a transform job
+Introduced 1.0
+{: .label .label-purple }
 
 Updates a transform job if `transform_id` already exists.
 
@@ -254,6 +258,8 @@ Parameter | Description | Required
 `if_primary_term` | Only perform the transform operation if the last operation that changed the transform job has the specified sequence term. | No
 
 ## Get a transform job's details
+Introduced 1.0
+{: .label .label-purple }
 
 Returns a transform job's details.
 
@@ -520,6 +526,8 @@ GET _plugins/_transform?size=2&from=8
 ```
 
 ## Start a transform job
+Introduced 1.0
+{: .label .label-purple }
 
 Transform jobs created using the API are automatically enabled, but if you ever need to enable a job, you can use the `start` API operation.
 
@@ -538,6 +546,8 @@ POST _plugins/_transform/<transform_id>/_start
 ```
 
 ## Stop a transform job
+Introduced 1.0
+{: .label .label-purple }
 
 Stops/disables a transform job.
 
@@ -556,6 +566,8 @@ POST _plugins/_transform/<transform_id>/_stop
 ```
 
 ## Get the status of a transform job
+Introduced 1.0
+{: .label .label-purple }
 
 Returns the status and metadata of a transform job.
 
@@ -589,6 +601,8 @@ GET _plugins/_transform/<transform_id>/_explain
 ```
 
 ## Preview a transform job's results
+Introduced 1.0
+{: .label .label-purple }
 
 Returns a preview of what a transformed index would look like.
 
@@ -674,6 +688,8 @@ POST _plugins/_transform/_preview
 ```
 
 ## Delete a transform job
+Introduced 1.0
+{: .label .label-purple }
 
 Deletes a transform job. This operation does not delete the source or target indices.
 

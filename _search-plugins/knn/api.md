@@ -13,6 +13,8 @@ The k-NN plugin adds two API operations to help you better manage the plugin's f
 
 
 ## Stats
+Introduced 1.0
+{: .label .label-purple }
 
 The k-NN `stats` API provides information about the current status of the k-NN plugin. The plugin keeps track of both cluster-level and node-level statistics. Cluster-level statistics have a single value for the entire cluster. Node-level statistics have a single value for each node in the cluster. You can filter the query by `nodeId` and `statName`:
 ```
@@ -107,6 +109,8 @@ GET /_plugins/_knn/HYMrXXsBSamUkcAjhjeN0w/stats/circuit_breaker_triggered,graph_
 
 
 ## Warmup operation
+Introduced 1.0
+{: .label .label-purple }
 
 The Hierarchical Navigable Small World (HNSW) graphs used to perform an approximate k-Nearest Neighbor (k-NN) search are stored as `.hnsw` files with other Apache Lucene segment files. In order for you to perform a search on these graphs using the k-NN plugin, the plugin needs to load these files into native memory.
 

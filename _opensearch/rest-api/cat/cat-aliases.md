@@ -8,6 +8,8 @@ has_children: false
 ---
 
 # cat aliases
+Introduced 1.0
+{: .label .label-purple }
 
 The cat aliases operation lists the mapping of aliases to indices, plus routing and filtering information.
 
