@@ -2,8 +2,7 @@
 layout: default
 title: Alias
 parent: REST API reference
-grand_parent: OpenSearch
-nav_order: 8
+nav_order: 5
 ---
 
 # Alias
