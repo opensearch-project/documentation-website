@@ -2,7 +2,8 @@
 layout: default
 title: Delete document
 parent: Document APIs
-nav_order: 10
+grand_parent: REST API reference
+nav_order: 15
 ---
 
 # Get document

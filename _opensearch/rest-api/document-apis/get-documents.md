@@ -2,6 +2,7 @@
 layout: default
 title: Get document
 parent: Document APIs
+grand_parent: REST API reference
 nav_order: 5
 ---
 
