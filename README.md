@@ -133,15 +133,15 @@ If you're making major changes to the documentation and need to see the rendered
    sh build.sh
    ```
 
-1. If the build script doesn't automatically open your web browser (it should), open [http://localhost:4000/](http://localhost:4000/).
+1. If the build script doesn't automatically open your web browser (it should), open [http://localhost:4000/docs/](http://localhost:4000/docs/).
 
 1. Create a new branch.
 
-1. Edit the Markdown files in `/docs`.
+1. Edit the Markdown files in each collection (e.g. `_security-plugin/`).
 
    If you're a web developer, you can customize `_layouts/default.html` and `_sass/custom/custom.scss`.
 
-1. When you save a file, marvel as Jekyll automatically rebuilds the site and refreshes your web browser. This process takes roughly 30 seconds.
+1. When you save a file, marvel as Jekyll automatically rebuilds the site and refreshes your web browser. This process can take anywhere from 10-30 seconds.
 
 1. When you're happy with how everything looks, commit, push your changes to your fork, and submit a pull request.
 
