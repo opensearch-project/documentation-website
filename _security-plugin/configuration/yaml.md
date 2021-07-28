@@ -127,7 +127,9 @@ plugins.security.restapi.password_validation_error_message: "Password must be mi
 
 ## whitelist.yml
 
-You can use `whitelist.yml` to whitelist any endpoints and associated HTTP requests. If enabled, all users except the SuperAdmin are allowed access to only the specified endpoints and HTTP requests, and all other HTTP requests associated with the endpoint are not allowed. For example, if `_cluster/settings` is whitelisted with the GET operation, users are not allowed to submit PUT requests to `_cluster/settings` to update cluster settings.
+You can use `whitelist.yml` to allow list any endpoints and HTTP requests. If enabled, all users except the SuperAdmin are allowed access to only the specified endpoints and HTTP requests, and all other HTTP requests associated with the endpoint are denied. For example, if GET `_cluster/settings` is allow listed, users cannot submit PUT requests to `_cluster/settings` to update cluster settings.
+
+Note that while you can configure access to endpoints this way, for most cases, it is still best to configure permissions using the security plugin's users and roles, which have more granular settings.
 
 ```yml
 ---
@@ -137,13 +139,13 @@ _meta:
 
 # Description:
 # enabled - feature flag.
-# if enabled is false, whitelisting is disabled.
-# if enabled is true, whitelisting is enabled, and all users except SuperAdmin can submit requests only to the specified endpoints.
+# if enabled is false, all endpoints are accessible.
+# if enabled is true, all users except the SuperAdmin can only submit the allowed requests to the specified endpoints.
 # SuperAdmin can access all APIs.
 # SuperAdmin is defined by the SuperAdmin certificate, which is configured with the opensearch.yml setting plugins.security.authcz.admin_dn:
 # Refer to the example setting in opensearch.yml to learn more about configuring SuperAdmin.
 #
-# requests - map of whitelisted endpoints and HTTP requests
+# requests - map of allow listed endpoints and HTTP requests
 
 #this name must be config
 config:
@@ -164,7 +166,7 @@ requests:
     - PUT
 ```
 
-You can also whitelist custom indices. `whitelist.yml` doesn't support wildcards, so you must manually specify all of the indices you want to whitelist.
+You can also allow list custom indices. `whitelist.yml` doesn't support wildcards, so you must manually specify all of the indices you want to allow list.
 
 ```yml
 requests: # Only allow GET requests to /sample-index1/_doc/1 and /sample-index2/_doc/1
