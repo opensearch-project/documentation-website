@@ -18,9 +18,7 @@ The date math syntax for an index name is as follows:
 <static_name{date_math_expr{date_format|time_zone}}>
 ```
 
-where:
-
-- `static_name` is the unchanged or static portion of the index name. To use the characters `{` and `}` in the static part of an index name, escape them with a backslash `\`.
+- `static_name`: The unchanged or static portion of the index name. To use the characters `{` and `}` in the static part of an index name, escape them with a backslash `\`.
 - `date_math_expr`: The changing or dynamic portion of the index name that’s computed by the date math expression. For example, `now+1h` adds one hour, `now-1d` subtracts one hour, and `now/d` rounds down to the nearest day, where `now` represents the current timestamp.
 - `date_format`: (Optional) Specify the format for the computed date. The default value is `YYYY.MM.dd`. Make sure that you’re using the correct small or capital letters in the date format. For example, `mm` denotes minute of hour, while `MM` denotes month of year. Similarly, `hh` denotes the hour in the `1-12` range in combination with AM/PM, while `HH` denotes the hour in the `0-23` 24-hour range.
 - `time_zone`: (Optional) Specify the timezone offset. The default value is UTC. For example, the UTC time offset for PST is `-08:00`.
@@ -50,6 +48,7 @@ Special characters | URI format
 `+` | %2B
 `:` | %3A
 `,` | %2C
+`\` | %5C
 
 If you are searching for errors in your daily logs with the default Logstash index name format `logstash-YYYY.MM.dd`, you can use date math to restrict the search to indices of the past three days:
 
