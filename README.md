@@ -225,7 +225,7 @@ This documentation uses a modified version of the [just-the-docs](https://github
 
 ## Get started
 New
-{: .label .label-green :}
+{: .label .label-green }
 ```
 
 * Labels come in default (blue), green, purple, yellow, and red.
@@ -236,6 +236,27 @@ New
 These classes can help with readability, but should be used *sparingly*. Each addition of a class damages the portability of the Markdown files and makes moving to a different Jekyll theme (or a different static site generator) more difficult.
 
 Besides, standard Markdown elements suffice for most documentation.
+
+
+## Labels for APIs
+
+Each API operation has a label indicating when it was introduced. For most operations, this label is 1.0:
+
+```
+## Get roles
+Introduced 1.0
+{: .label .label-purple }
+```
+
+If we introduce a breaking change to an operation, add an additional label with a link to the release note for that breaking change:
+
+```
+## Get roles
+Introduced 1.0
+{: .label .label-purple }
+[Last breaking change 2.0](https://example.com)
+{: .label .label-red }
+```
 
 
 ## Math

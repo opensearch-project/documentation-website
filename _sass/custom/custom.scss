@@ -214,6 +214,15 @@ h6 + p.label, h6 + p.label + p.label {
   margin: -20px 0 0 0;
 }
 
+p.label {
+  a {
+    color: inherit;
+    background-image: none;
+    &:hover { background-image: none; }
+  }
+}
+
+
 // Modifies margins in xl layout to support TOC
 .side-bar {
   @include mq(xl) {
