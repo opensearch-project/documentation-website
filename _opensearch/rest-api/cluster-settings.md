@@ -6,6 +6,8 @@ nav_order: 20
 ---
 
 # Cluster settings
+Introduced 1.0
+{: .label .label-purple }
 
 The cluster settings operation lets you check the current settings for your cluster, review default settings, and change settings. When you update a setting using the API, OpenSearch applies it to all nodes in the cluster.
 

@@ -6,7 +6,9 @@ grand_parent: REST API reference
 nav_order: 15
 ---
 
-# Get document
+# Delete document
+Introduced 1.0
+{: .label .label-purple }
 
 If you no longer need a document in your index, you can use the delete document API operation to delete it.
 

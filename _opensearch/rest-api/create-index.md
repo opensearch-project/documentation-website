@@ -6,6 +6,8 @@ nav_order: 3
 ---
 
 # Create index
+Introduced 1.0
+{: .label .label-purple }
 
 While you can create an index by using a document as a base, you can also just create an empty index for use later.
 

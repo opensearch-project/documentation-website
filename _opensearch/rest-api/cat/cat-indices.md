@@ -8,6 +8,8 @@ has_children: false
 ---
 
 # cat indices
+Introduced 1.0
+{: .label .label-purple }
 
 The cat indices operation lists information related to indices⁠—how much disk space they are using, how many shards they have, their health status, and so on.
 

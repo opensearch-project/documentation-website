@@ -8,6 +8,8 @@ has_children: false
 ---
 
 # cat segments
+Introduced 1.0
+{: .label .label-purple }
 
 The cat segments operation lists Lucene segment-level information for each index.
 

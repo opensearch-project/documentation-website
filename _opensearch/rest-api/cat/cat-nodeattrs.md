@@ -8,6 +8,8 @@ has_children: false
 ---
 
 # cat nodeattrs
+Introduced 1.0
+{: .label .label-purple }
 
 The cat nodeattrs operation lists the attributes of custom nodes.
 

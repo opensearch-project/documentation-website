@@ -205,19 +205,13 @@ td {
 }
 
 // Keeps labels high and tight next to headers
-h1 + p.label {
-  margin: -23px 0 0 0;
-}
-h2 + p.label {
-  margin: -15px 0 0 0;
-}
-h3 + p.label {
-  margin: -10px 0 0 0;
-}
-h4 + p.label,
-h5 + p.label,
-h6 + p.label {
-  margin: -7px 0 0 0;
+h1 + p.label, h1 + p.label + p.label,
+h2 + p.label, h2 + p.label + p.label,
+h3 + p.label, h3 + p.label + p.label,
+h4 + p.label, h4 + p.label + p.label,
+h5 + p.label, h5 + p.label + p.label,
+h6 + p.label, h6 + p.label + p.label {
+  margin: -20px 0 0 0;
 }
 
 // Modifies margins in xl layout to support TOC

@@ -8,6 +8,8 @@ has_children: false
 ---
 
 # cat repositories
+Introduced 1.0
+{: .label .label-purple }
 
 The cat repositories operation lists all completed and ongoing index and shard recoveries.
 

@@ -8,6 +8,8 @@ has_children: false
 ---
 
 # cat shards
+Introduced 1.0
+{: .label .label-purple }
 
 The cat shards operation lists the state of all primary and replica shards and how they are distributed.
 

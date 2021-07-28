@@ -8,6 +8,8 @@ has_children: false
 ---
 
 # cat pending tasks
+Introduced 1.0
+{: .label .label-purple }
 
 The cat pending tasks operation lists the progress of all pending tasks, including task priority and time in queue.
 

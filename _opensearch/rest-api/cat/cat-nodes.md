@@ -8,6 +8,8 @@ has_children: false
 ---
 
 # cat nodes
+Introduced 1.0
+{: .label .label-purple }
 
 The cat nodes operation lists node-level information, including node roles and load metrics.
 

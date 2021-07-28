@@ -95,6 +95,8 @@ To add or remove these flags, you need to modify `plugins/opensearch-security/se
 ## Account
 
 ### Get account details
+Introduced 1.0
+{: .label .label-purple }
 
 Returns account details for the current user. For example, if you sign the request as the `admin` user, the response includes details for that user.
 
@@ -132,6 +134,8 @@ GET _plugins/_security/api/account
 
 
 ### Change password
+Introduced 1.0
+{: .label .label-purple }
 
 Changes the password for the current user.
 
@@ -162,6 +166,8 @@ PUT _plugins/_security/api/account
 ## Action groups
 
 ### Get action group
+Introduced 1.0
+{: .label .label-purple }
 
 Retrieves one action group.
 
@@ -192,6 +198,8 @@ GET _plugins/_security/api/actiongroups/<action-group>
 
 
 ### Get action groups
+Introduced 1.0
+{: .label .label-purple }
 
 Retrieves all action groups.
 
@@ -224,6 +232,8 @@ GET _plugins/_security/api/actiongroups/
 
 
 ### Delete action group
+Introduced 1.0
+{: .label .label-purple }
 
 #### Request
 
@@ -242,6 +252,8 @@ DELETE _plugins/_security/api/actiongroups/<action-group>
 
 
 ### Create action group
+Introduced 1.0
+{: .label .label-purple }
 
 Creates or replaces the specified action group.
 
@@ -272,6 +284,8 @@ PUT _plugins/_security/api/actiongroups/<action-group>
 
 
 ### Patch action group
+Introduced 1.0
+{: .label .label-purple }
 
 Updates individual attributes of an action group.
 
@@ -297,6 +311,8 @@ PATCH _plugins/_security/api/actiongroups/<action-group>
 
 
 ### Patch action groups
+Introduced 1.0
+{: .label .label-purple }
 
 Creates, updates, or deletes multiple action groups in a single call.
 
@@ -332,6 +348,8 @@ These calls let you create, update, and delete internal users. If you use an ext
 
 
 ### Get user
+Introduced 1.0
+{: .label .label-purple }
 
 #### Request
 
@@ -357,6 +375,8 @@ GET _plugins/_security/api/internalusers/<username>
 
 
 ### Get users
+Introduced 1.0
+{: .label .label-purple }
 
 #### Request
 
@@ -381,6 +401,8 @@ GET _plugins/_security/api/internalusers/
 
 
 ### Delete user
+Introduced 1.0
+{: .label .label-purple }
 
 #### Request
 
@@ -399,6 +421,8 @@ DELETE _plugins/_security/api/internalusers/<username>
 
 
 ### Create user
+Introduced 1.0
+{: .label .label-purple }
 
 Creates or replaces the specified user. You must specify either `password` (plain text) or `hash` (the hashed user password). If you specify `password`, the security plugin automatically hashes the password before storing it.
 
@@ -430,6 +454,8 @@ PUT _plugins/_security/api/internalusers/<username>
 
 
 ### Patch user
+Introduced 1.0
+{: .label .label-purple }
 
 Updates individual attributes of an internal user.
 
@@ -460,6 +486,8 @@ PATCH _plugins/_security/api/internalusers/<username>
 ```
 
 ### Patch users
+Introduced 1.0
+{: .label .label-purple }
 
 Creates, updates, or deletes multiple internal users in a single call.
 
@@ -496,6 +524,8 @@ PATCH _plugins/_security/api/internalusers
 
 
 ### Get role
+Introduced 1.0
+{: .label .label-purple }
 
 Retrieves one role.
 
@@ -542,6 +572,8 @@ GET _plugins/_security/api/roles/<role>
 
 
 ### Get roles
+Introduced 1.0
+{: .label .label-purple }
 
 Retrieves all roles.
 
@@ -582,6 +614,8 @@ GET _plugins/_security/api/roles/
 
 
 ### Delete role
+Introduced 1.0
+{: .label .label-purple }
 
 #### Request
 
@@ -600,6 +634,8 @@ DELETE _plugins/_security/api/roles/<role>
 
 
 ### Create role
+Introduced 1.0
+{: .label .label-purple }
 
 Creates or replaces the specified role.
 
@@ -645,6 +681,8 @@ PUT _plugins/_security/api/roles/<role>
 
 
 ### Patch role
+Introduced 1.0
+{: .label .label-purple }
 
 Updates individual attributes of a role.
 
@@ -673,6 +711,8 @@ PATCH _plugins/_security/api/roles/<role>
 
 
 ### Patch roles
+Introduced 1.0
+{: .label .label-purple }
 
 Creates, updates, or deletes multiple roles in a single call.
 
@@ -708,6 +748,8 @@ PATCH _plugins/_security/api/roles
 ## Role mappings
 
 ### Get role mapping
+Introduced 1.0
+{: .label .label-purple }
 
 Retrieves one role mapping.
 
@@ -731,6 +773,8 @@ GET _plugins/_security/api/rolesmapping/<role>
 
 
 ### Get role mappings
+Introduced 1.0
+{: .label .label-purple }
 
 Retrieves all role mappings.
 
@@ -754,6 +798,8 @@ GET _plugins/_security/api/rolesmapping
 
 
 ### Delete role mapping
+Introduced 1.0
+{: .label .label-purple }
 
 Deletes the specified role mapping.
 
@@ -774,6 +820,8 @@ DELETE _plugins/_security/api/rolesmapping/<role>
 
 
 ### Create role mapping
+Introduced 1.0
+{: .label .label-purple }
 
 Creates or replaces the specified role mapping.
 
@@ -799,6 +847,8 @@ PUT _plugins/_security/api/rolesmapping/<role>
 
 
 ### Patch role mapping
+Introduced 1.0
+{: .label .label-purple }
 
 Updates individual attributes of a role mapping.
 
@@ -827,6 +877,8 @@ PATCH _plugins/_security/api/rolesmapping/<role>
 
 
 ### Patch role mappings
+Introduced 1.0
+{: .label .label-purple }
 
 Creates or updates multiple role mappings in a single call.
 
@@ -859,6 +911,8 @@ PATCH _plugins/_security/api/rolesmapping
 ## Tenants
 
 ### Get tenant
+Introduced 1.0
+{: .label .label-purple }
 
 Retrieves one tenant.
 
@@ -883,6 +937,8 @@ GET _plugins/_security/api/tenants/<tenant>
 
 
 ### Get tenants
+Introduced 1.0
+{: .label .label-purple }
 
 Retrieves all tenants.
 
@@ -913,6 +969,8 @@ GET _plugins/_security/api/tenants/
 
 
 ### Delete tenant
+Introduced 1.0
+{: .label .label-purple }
 
 Deletes the specified tenant.
 
@@ -933,6 +991,8 @@ DELETE _plugins/_security/api/tenants/<tenant>
 
 
 ### Create tenant
+Introduced 1.0
+{: .label .label-purple }
 
 Creates or replaces the specified tenant.
 
@@ -956,6 +1016,8 @@ PUT _plugins/_security/api/tenants/<tenant>
 
 
 ### Patch tenant
+Introduced 1.0
+{: .label .label-purple }
 
 Add, delete, or modify a single tenant.
 
@@ -981,6 +1043,8 @@ PATCH _plugins/_security/api/tenants/<tenant>
 
 
 ### Patch tenants
+Introduced 1.0
+{: .label .label-purple }
 
 Add, delete, or modify multiple tenants in a single call.
 
@@ -1018,6 +1082,8 @@ PATCH _plugins/_security/api/tenants/
 ## Configuration
 
 ### Get configuration
+Introduced 1.0
+{: .label .label-purple }
 
 Retrieves the current security plugin configuration in JSON format.
 
@@ -1029,6 +1095,8 @@ GET _plugins/_security/api/securityconfig
 
 
 ### Update configuration
+Introduced 1.0
+{: .label .label-purple }
 
 Creates or updates the existing configuration using the REST API. This operation can easily break your existing configuration, so we recommend using `securityadmin.sh` instead, which is far safer. See [Access control for the API](#access-control-for-the-api) for how to enable this operation.
 
@@ -1087,6 +1155,8 @@ PUT _plugins/_security/api/securityconfig/config
 
 
 ### Patch configuration
+Introduced 1.0
+{: .label .label-purple }
 
 Updates the existing configuration using the REST API. This operation can easily break your existing configuration, so we recommend using `securityadmin.sh` instead, which is far safer. See [Access control for the API](#access-control-for-the-api) for how to enable this operation.
 
@@ -1116,6 +1186,8 @@ PATCH _plugins/_security/api/securityconfig
 ## Certificates
 
 ### Get certificates
+Introduced 1.0
+{: .label .label-purple }
 
 Retrieves the current security plugin configuration in JSON format.
 
@@ -1127,6 +1199,8 @@ GET _plugins/_security/api/securityconfig
 
 
 ### Update configuration
+Introduced 1.0
+{: .label .label-purple }
 
 Creates or updates the existing configuration using the REST API rather than `securityadmin.sh`. This operation can easily break your existing configuration, so we recommend using `securityadmin.sh` instead. See [Access control for the API](#access-control-for-the-api) for how to enable this operation.
 
@@ -1185,6 +1259,8 @@ PUT _plugins/_security/api/securityconfig/config
 
 
 ### Patch configuration
+Introduced 1.0
+{: .label .label-purple }
 
 Updates the existing configuration using the REST API rather than `securityadmin.sh`. This operation can easily break your existing configuration, so we recommend using `securityadmin.sh` instead. See [Access control for the API](#access-control-for-the-api) for how to enable this operation.
 
@@ -1213,6 +1289,8 @@ PATCH _plugins/_security/api/securityconfig
 ## Cache
 
 ### Flush cache
+Introduced 1.0
+{: .label .label-purple }
 
 Flushes the security plugin user, authentication, and authorization cache.
 
@@ -1239,6 +1317,8 @@ DELETE _plugins/_security/api/cache
 ## Health
 
 ### Health check
+Introduced 1.0
+{: .label .label-purple }
 
 Checks to see if the security plugin is up and running. If you operate your cluster behind a load balancer, this operation is useful for determining node health and doesn't require a signed request.
 

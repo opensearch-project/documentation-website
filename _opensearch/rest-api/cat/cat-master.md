@@ -8,6 +8,8 @@ has_children: false
 ---
 
 # cat master
+Introduced 1.0
+{: .label .label-purple }
 
 The cat master operation lists information that helps identify the elected master node.
 
