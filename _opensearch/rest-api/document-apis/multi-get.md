@@ -8,6 +8,8 @@ nav_order: 20
 
 # Multi-get documents
 
+Introduced 1.0 {: .label .label-purple }
+
 You can use the multi-get operation to get back multiple documents from one index or multiple indices in one request.
 
 ## Example without specifying index in URL
