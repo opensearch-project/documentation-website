@@ -95,39 +95,30 @@ If you generate node certificates and have `plugins.security.ssl.transport.enfor
 ### Sample script
 
 ```bash
-# Root CA
+#!/bin/sh
+
+#set this in opensearch.yml or change both the -subj options and the configuration options in opensearch.yml
+#plugins.security.nodes_dn:
+#  - CN=node-0.example.com,OU=node,O=node,L=test,DC=de
+#plugins.security.authcz.admin_dn:
+  #- CN=Admin,OU=Admin,O=Admin,L=Admin,C=NL
+
 openssl genrsa -out root-ca-key.pem 2048
-openssl req -new -x509 -sha256 -key root-ca-key.pem -out root-ca.pem -days 30
-# Admin cert
+openssl req -new -x509 -sha256 -key root-ca-key.pem -subj "/DC=com/DC=example/O=Example Com Inc./OU=Example Com Inc. Root CA/CN=Example Com Inc. Root CA" -out root-ca.pem
 openssl genrsa -out admin-key-temp.pem 2048
 openssl pkcs8 -inform PEM -outform PEM -in admin-key-temp.pem -topk8 -nocrypt -v1 PBE-SHA1-3DES -out admin-key.pem
-openssl req -new -key admin-key.pem -out admin.csr
-openssl x509 -req -in admin.csr -CA root-ca.pem -CAkey root-ca-key.pem -CAcreateserial -sha256 -out admin.pem -days 30
-# Node cert
-openssl genrsa -out node-key-temp.pem 2048
-openssl pkcs8 -inform PEM -outform PEM -in node-key-temp.pem -topk8 -nocrypt -v1 PBE-SHA1-3DES -out node-key.pem
-openssl req -new -key node-key.pem -out node.csr
-openssl x509 -req -in node.csr -CA root-ca.pem -CAkey root-ca-key.pem -CAcreateserial -sha256 -out node.pem -days 30
-#Client cert
-openssl genrsa -out client-key-temp.pem 2048
-openssl pkcs8 -inform PEM -outform PEM -in client-key-temp.pem -topk8 -nocrypt -v1 PBE-SHA1-3DES -out client-key.pem
-openssl req -new -key client-key.pem -out client.csr
-openssl x509 -req -in client.csr -CA root-ca.pem -CAkey root-ca-key.pem -CAcreateserial -sha256 -out client.pem -days 30
-# Cleanup
+openssl req -new -key admin-key.pem -subj "/C=NL/L=Admin/O=Admin/OU=Admin/CN=Admin" -out admin.csr
+openssl x509 -req -in admin.csr -CA root-ca.pem -CAkey root-ca-key.pem -CAcreateserial -sha256 -out admin.pem
+openssl genrsa -out esnode-key-temp.pem 2048
+openssl pkcs8 -inform PEM -outform PEM -in esnode-key-temp.pem -topk8 -nocrypt -v1 PBE-SHA1-3DES -out esnode-key.pem
+openssl req -new -key esnode-key.pem -subj "/DC=de/L=test/O=node/OU=node/CN=node-0.example.com" -out esnode.csr
+openssl x509 -req -in esnode.csr -CA root-ca.pem -CAkey root-ca-key.pem -CAcreateserial -sha256 -out esnode.pem
 rm admin-key-temp.pem
 rm admin.csr
-rm node-key-temp.pem
-rm node.csr
-rm client-key-temp.pem
-rm client.csr
+rm esnode-key-temp.pem
+rm esnode.csr
+rm root-ca.srl
 ```
-
-If you already know the certificate details and don't want to specify them as the script runs, use the `-subj` option in your `root-ca.pem` and CSR commands:
-
-```bash
-openssl req -new -key node-key.pem -subj "/C=CA/ST=ONTARIO/L=TORONTO/O=ORG/OU=UNIT/CN=node1.example.com" -out node.csr
-```
-
 
 ## Get distinguished names
 
