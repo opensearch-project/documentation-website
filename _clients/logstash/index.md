@@ -70,18 +70,31 @@ Make sure you have [Java Development Kit (JDK)](https://www.oracle.com/java/tech
 
 ### Docker image
 
-You can pull the OpenSearch Docker image just like any other image:
+1. Create a Docker network:
 
-```bash
-docker pull openseach-project/logstash-oss-with-opensearch-output-plugin:7.13.2-x64
+```
+docker network create test
 ```
 
-To check available versions, see [Docker Hub](https://hub.docker.com/u/opensearchproject).
+1. Start OpenSearch with this network:
 
-To run the image for local development:
+```
+docker run -p 9200:9200 -p 9600:9600 --name opensearch --net mynet -e "discovery.type=single-node" opensearchproject/opensearch:1.0.0
+```
 
-```bash
-docker run <>
+1. Start Logstash:
+
+```
+docker run -it --rm --name logstash1 --net mynet opensearchstaging/logstash-oss-with-opensearch-output-plugin:7.13.2 -e 'input { stdin { } } output {
+  opensearch {
+    hosts => ["https://opensearch:9200"]
+    index => "opensearch-logstash-mac-x64-docker-%{+YYYY.MM.dd}"
+    user => "admin"
+    password => "admin"
+    ssl => true
+    ssl_certificate_verification => false
+  }
+}'
 ```
 
 ## Process text from the terminal
