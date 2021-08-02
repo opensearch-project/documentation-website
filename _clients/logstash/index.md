@@ -68,7 +68,7 @@ Make sure you have [Java Development Kit (JDK)](https://www.oracle.com/java/tech
 3. Navigate to the `logstash-7.13.2` directory.
 - You can add your pipeline configurations to the `config` directory. Logstash saves any data from the plugins in the `data` directory. The `bin` directory contains the binaries for starting Logstash and managing plugins.
 
-### Docker image
+### Docker
 
 1. Create a Docker network:
 
