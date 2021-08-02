@@ -70,6 +70,12 @@ Make sure you have [Java Development Kit (JDK)](https://www.oracle.com/java/tech
 
 ### Docker
 
+1. Pull the Logstash oss package with the OpenSearch output plugin image:
+
+```
+docker pull opensearchproject/logstash-oss-with-opensearch-output-plugin:7.13.2
+```
+
 1. Create a Docker network:
 
 ```
