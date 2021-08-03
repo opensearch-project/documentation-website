@@ -85,7 +85,7 @@ docker network create test
 1. Start OpenSearch with this network:
 
 ```
-docker run -p 9200:9200 -p 9600:9600 --name opensearch --net mynet -e "discovery.type=single-node" opensearchproject/opensearch:1.0.0
+docker run -p 9200:9200 -p 9600:9600 --name opensearch --net test -e "discovery.type=single-node" opensearchproject/opensearch:1.0.0
 ```
 
 1. Start Logstash:
