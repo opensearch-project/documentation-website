@@ -94,7 +94,7 @@ docker run -p 9200:9200 -p 9600:9600 --name opensearch --net test -e "discovery.
 docker run -it --rm --name logstash --net test opensearchstaging/logstash-oss-with-opensearch-output-plugin:7.13.2 -e 'input { stdin { } } output {
   opensearch {
     hosts => ["https://opensearch:9200"]
-    index => "opensearch-logstash-mac-x64-docker-%{+YYYY.MM.dd}"
+    index => "opensearch-logstash-docker-%{+YYYY.MM.dd}"
     user => "admin"
     password => "admin"
     ssl => true
