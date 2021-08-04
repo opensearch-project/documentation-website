@@ -10,7 +10,7 @@ nav_order: 20
 
 Introduced 1.0 {: .label .label-purple }
 
-You can use the multi-get operation to get back multiple documents from one index or multiple indices in one request.
+The multi-get operation allows you to execute multiple GET operations in one request, so you can get back all documents that match your criteria.
 
 ## Example without specifying index in URL
 
@@ -69,7 +69,7 @@ All multi-get URL parameters are optional.
 Parameter | Type | Description
 :--- | :--- | :--- | :---
 &lt;index&gt; | String | Name of the index to retrieve documents from.
-preference | String | The node or shard OpenSearch should perform the operation on. Default is random.
+preference | String | The node or shard that OpenSearch should perform the operation on. Default is random.
 realtime | Boolean | Specifies whether the operation should run in realtime. If false, the operation waits for the index to refresh to analyze the source to retrieve data, which makes the operation near-realtime. Default is true.
 refresh | Boolean | If true, OpenSearch refreshes shards to make the operation visible to searching. Default is false.
 routing | String | A value used to route the operation to a specific shard.
