@@ -3,7 +3,7 @@ layout: default
 title: Bulk
 parent: Document APIs
 grand_parent: REST API reference
-nav_order: 20
+nav_order: 25
 ---
 
 # Bulk
