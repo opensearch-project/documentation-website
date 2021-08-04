@@ -3,7 +3,7 @@ layout: default
 title: Client certificate authentication
 parent: Configuration
 nav_order: 50
-redirect_from: /docs/security/configuration/client-auth/
+redirect_from: /security/configuration/client-auth/
 ---
 
 # Client certificate authentication

@@ -3,7 +3,7 @@ layout: default
 title: Limitations
 parent: SQL
 nav_order: 18
-redirect_from: /docs/sql/limitation/
+redirect_from: /sql/limitation/
 ---
 
 # Limitations

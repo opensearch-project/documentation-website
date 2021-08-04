@@ -3,7 +3,7 @@ layout: default
 title: User Impersonation
 parent: Access Control
 nav_order: 20
-redirect_from: /docs/security/access-control/impersonation/
+redirect_from: /security/access-control/impersonation/
 ---
 
 # User impersonation

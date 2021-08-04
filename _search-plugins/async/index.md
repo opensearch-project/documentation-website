@@ -4,7 +4,7 @@ title: Asynchronous search
 nav_order: 51
 has_children: true
 redirect_from:
-  - /docs/async/
+  - /async/
   - /search-plugins/async/
 ---
 

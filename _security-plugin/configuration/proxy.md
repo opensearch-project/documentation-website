@@ -3,7 +3,7 @@ layout: default
 title: Proxy-based authentication
 parent: Configuration
 nav_order: 40
-redirect_from: /docs/security/configuration/proxy/
+redirect_from: /security/configuration/proxy/
 ---
 
 # Proxy-based authentication

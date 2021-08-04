@@ -3,9 +3,7 @@ layout: default
 title: Full-text queries
 parent: Query DSL
 nav_order: 40
-redirect_from:
-  - /docs/opensearch/full-text/
-  - /opensearch/full-text/
+redirect_from: /opensearch/full-text/
 ---
 
 # Full-text queries

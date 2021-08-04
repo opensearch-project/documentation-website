@@ -3,7 +3,7 @@ layout: default
 title: Policies
 nav_order: 1
 parent: Index State Management
-redirect_from: /docs/ism/policies/
+redirect_from: /ism/policies/
 has_children: false
 ---
 

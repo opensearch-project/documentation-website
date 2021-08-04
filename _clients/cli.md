@@ -4,8 +4,8 @@ title: OpenSearch CLI
 nav_order: 52
 has_children: false
 redirect_from:
-  - /docs/odfe-cli/
-  - /docs/cli/
+  - /odfe-cli/
+  - /cli/
 ---
 
 # OpenSearch CLI

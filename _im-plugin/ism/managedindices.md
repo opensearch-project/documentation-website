@@ -3,7 +3,7 @@ layout: default
 title: Managed Indices
 nav_order: 3
 parent: Index State Management
-redirect_from: /docs/ism/managedindices/
+redirect_from: /ism/managedindices/
 has_children: false
 ---
 
