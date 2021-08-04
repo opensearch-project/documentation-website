@@ -70,11 +70,11 @@ Parameter | Type | Description
 :--- | :--- | :--- | :---
 &lt;index&gt; | String | Name of the index to retrieve documents from.
 preference | String | The node or shard that OpenSearch should perform the operation on. Default is random.
-realtime | Boolean | Specifies whether the operation should run in realtime. If false, the operation waits for the index to refresh to analyze the source to retrieve data, which makes the operation near-realtime. Default is true.
-refresh | Boolean | If true, OpenSearch refreshes shards to make the operation visible to searching. Default is false.
+realtime | Boolean | Specifies whether the operation should run in realtime. If false, the operation waits for the index to refresh to analyze the source to retrieve data, which makes the operation near-realtime. Default is `true`.
+refresh | Boolean | If true, OpenSearch refreshes shards to make the operation visible to searching. Default is `false`.
 routing | String | A value used to route the operation to a specific shard.
-stored_fields | Boolean | If true, the operation retrieves document fields stored in the index rather than the document's `_source`. Default is false.
-_source | String | Whether to include the `_source` field in the query response. Default is true.
+stored_fields | Boolean | If true, the operation retrieves document fields stored in the index rather than the document's `_source`. Default is `false`.
+_source | String | Whether to include the `_source` field in the query response. Default is `true`.
 _source_excludes | String | A comma-separated list of source fields to exclude in the query response.
 _source_includes | String | A comma-separated list of source fields to include in the query response.
 
