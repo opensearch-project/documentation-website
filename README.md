@@ -294,4 +294,4 @@ This project is licensed under the Apache-2.0 License.
 
 ## Copyright
 
-Copyright 2021 OpenSearch contributors.
+Copyright OpenSearch contributors.
