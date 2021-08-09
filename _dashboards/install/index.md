@@ -9,4 +9,4 @@ redirect_from:
 
 # Install and configure OpenSearch Dashboards
 
-OpenSearch Dashboards has two installation options at this time: Docker images and tarballs.
+OpenSearch Dashboards has three installation options at this time: Docker images, tarballs, and Helm charts.
