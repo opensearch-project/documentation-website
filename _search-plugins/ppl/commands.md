@@ -3,7 +3,7 @@ layout: default
 title: Commands
 parent: Piped processing language
 nav_order: 4
-redirect_from: /docs/ppl/commands/
+redirect_from: /ppl/commands/
 ---
 
 

@@ -3,7 +3,7 @@ layout: default
 title: Authentication flow
 parent: Configuration
 nav_order: 1
-redirect_from: /docs/security/configuration/concepts/
+redirect_from: /security/configuration/concepts/
 ---
 
 # Authentication flow

@@ -3,7 +3,7 @@ layout: default
 title: Complex Queries
 parent: SQL
 nav_order: 6
-redirect_from: /docs/sql/complex/
+redirect_from: /sql/complex/
 ---
 
 # Complex queries

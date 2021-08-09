@@ -5,7 +5,7 @@ nav_order: 50
 has_children: true
 has_toc: false
 redirect_from:
-  - /docs/knn/
+  - /knn/
   - /search-plugins/knn/
 ---
 

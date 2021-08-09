@@ -5,7 +5,7 @@ nav_order: 4
 parent: k-NN
 has_children: false
 has_math: true
-redirect_from: /docs/knn/painless-functions/
+redirect_from: /knn/painless-functions/
 ---
 
 # k-NN Painless Scripting extensions

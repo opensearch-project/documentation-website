@@ -3,7 +3,7 @@ layout: default
 title: Full-Text Search
 parent: SQL
 nav_order: 8
-redirect_from: /docs/sql/sql-full-text/
+redirect_from: /sql/sql-full-text/
 ---
 
 # Full-text search

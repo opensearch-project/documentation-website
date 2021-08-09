@@ -3,7 +3,7 @@ layout: default
 title: Apply Changes with securityadmin.sh
 parent: Configuration
 nav_order: 20
-redirect_from: /docs/security/configuration/security-admin/
+redirect_from: /security/configuration/security-admin/
 ---
 
 # Apply configuration changes using securityadmin.sh

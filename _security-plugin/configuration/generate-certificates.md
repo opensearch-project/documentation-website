@@ -3,7 +3,7 @@ layout: default
 title: Generate Certificates
 parent: Configuration
 nav_order: 11
-redirect_from: /docs/security/configuration/generate-certificates/
+redirect_from: /security/configuration/generate-certificates/
 ---
 
 # Generate certificates

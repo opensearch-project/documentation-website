@@ -3,7 +3,7 @@ layout: default
 title: YAML Files
 parent: Configuration
 nav_order: 3
-redirect_from: /docs/security/configuration/yaml/
+redirect_from: /security/configuration/yaml/
 ---
 
 # YAML files

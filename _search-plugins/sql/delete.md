@@ -3,7 +3,7 @@ layout: default
 title: Delete
 parent: SQL
 nav_order: 12
-redirect_from: /docs/sql/delete/
+redirect_from: /sql/delete/
 ---
 
 

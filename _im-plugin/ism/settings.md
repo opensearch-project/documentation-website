@@ -2,7 +2,7 @@
 layout: default
 title: Settings
 parent: Index State Management
-redirect_from: /docs/ism/settings/
+redirect_from: /ism/settings/
 nav_order: 4
 ---
 

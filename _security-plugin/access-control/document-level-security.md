@@ -3,7 +3,7 @@ layout: default
 title: Document-Level Security
 parent: Access Control
 nav_order: 10
-redirect_from: /docs/security/access-control/document-level-security/
+redirect_from: /security/access-control/document-level-security/
 ---
 
 # Document-level security

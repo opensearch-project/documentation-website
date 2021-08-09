@@ -3,7 +3,7 @@ layout: default
 title: OpenSearch Dashboards Multi-Tenancy
 parent: Access Control
 nav_order: 30
-redirect_from: /docs/security/access-control/multi-tenancy/
+redirect_from: /security/access-control/multi-tenancy/
 ---
 
 # OpenSearch Dashboards multi-tenancy

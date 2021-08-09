@@ -4,7 +4,7 @@ title: k-NN Index
 nav_order: 1
 parent: k-NN
 has_children: false
-redirect_from: /docs/knn/knn-index/
+redirect_from: /knn/knn-index/
 ---
 
 # k-NN Index

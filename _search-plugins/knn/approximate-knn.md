@@ -5,7 +5,7 @@ nav_order: 2
 parent: k-NN
 has_children: false
 has_math: true
-redirect_from: /docs/knn/approximate-knn/
+redirect_from: /knn/approximate-knn/
 ---
 
 # Approximate k-NN search

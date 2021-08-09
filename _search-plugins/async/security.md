@@ -4,7 +4,7 @@ title: Asynchronous search security
 nav_order: 2
 parent: Asynchronous search
 has_children: false
-redirect_from: /docs/async/security/
+redirect_from: /async/security/
 ---
 
 # Asynchronous search security

@@ -3,7 +3,7 @@ layout: default
 title: Settings
 parent: Asynchronous search
 nav_order: 4
-redirect_from: /docs/async/settings/
+redirect_from: /async/settings/
 ---
 
 # Settings

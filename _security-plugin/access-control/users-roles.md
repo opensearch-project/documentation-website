@@ -3,7 +3,7 @@ layout: default
 title: Users and Roles
 parent: Access Control
 nav_order: 1
-redirect_from: /docs/security/access-control/users-roles/
+redirect_from: /security/access-control/users-roles/
 ---
 
 # Users and roles

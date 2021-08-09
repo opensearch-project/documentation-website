@@ -3,7 +3,7 @@ layout: default
 title: Settings
 parent: Piped processing language
 nav_order: 3
-redirect_from: /docs/ppl/settings/
+redirect_from: /ppl/settings/
 ---
 
 # Settings

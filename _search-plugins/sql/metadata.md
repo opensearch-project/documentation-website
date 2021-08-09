@@ -3,7 +3,7 @@ layout: default
 title: Metadata Queries
 parent: SQL
 nav_order: 9
-redirect_from: /docs/sql/metadata/
+redirect_from: /sql/metadata/
 ---
 
 # Metadata queries

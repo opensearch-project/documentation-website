@@ -3,7 +3,7 @@ layout: default
 title: API
 parent: Access Control
 nav_order: 90
-redirect_from: /docs/security/access-control/api/
+redirect_from: /security/access-control/api/
 ---
 
 # API
