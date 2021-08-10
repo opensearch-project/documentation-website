@@ -14,7 +14,7 @@ With the k-NN plugin's Painless Scripting extensions, you can use k-NN distance 
 
 ## Get started with k-NN's Painless Scripting functions
 
-To use k-NN's Painless Scripting functions, first create an index with `knn_vector` fields like in [k-NN score script]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-score-script#getting-started-with-the-score-script). Once the index is created and you ingest some data, you can use the painless extensions:
+To use k-NN's Painless Scripting functions, first create an index with `knn_vector` fields like in [k-NN score script]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-score-script#getting-started-with-the-score-script-for-vectors). Once the index is created and you ingest some data, you can use the painless extensions:
 
 ```json
 GET my-knn-index-2/_search
