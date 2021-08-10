@@ -87,7 +87,7 @@ kibana_user:
 
 Hidden resources are automatically reserved.
 
-To add or remove these flags, you need to modify `plugins/opensearch-security/securityconfig/internal_users.yml` and run `plugins/opensearch-security/tools/securityadmin.sh`.
+To add or remove these flags, modify `plugins/opensearch-security/securityconfig/internal_users.yml` and run `plugins/opensearch-security/tools/securityadmin.sh`.
 
 
 ---
