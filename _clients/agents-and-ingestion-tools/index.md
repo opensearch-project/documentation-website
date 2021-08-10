@@ -29,7 +29,7 @@ PUT _cluster/settings
 
 ## Downloads
 
-You can download the OpenSearch output plugin for Logstash from [OpenSearch downloads](https://opensearch.org/downloads.html). The Logstash output plugin is compatible with OpenSearch and open source versions of Elasticsearch (7.10.2 or lower).
+You can download the OpenSearch output plugin for Logstash from [OpenSearch downloads](https://opensearch.org/downloads.html). The Logstash output plugin is compatible with OpenSearch and Elasticsearch OSS (7.10.2 or lower).
 
 These versions of Beats offer the best compatibility with OpenSearch. For more information, see the [compatibility matrices](#compatibility-matrices).
 
