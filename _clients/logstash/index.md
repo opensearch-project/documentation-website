@@ -72,36 +72,36 @@ Make sure you have [Java Development Kit (JDK)](https://www.oracle.com/java/tech
 
 1. Pull the Logstash oss package with the OpenSearch output plugin image:
 
-```
-docker pull opensearchproject/logstash-oss-with-opensearch-output-plugin:7.13.2
-```
+    ```
+    docker pull opensearchproject/logstash-oss-with-opensearch-output-plugin:7.13.2
+    ```
 
 1. Create a Docker network:
 
-```
-docker network create test
-```
+    ```
+    docker network create test
+    ```
 
 1. Start OpenSearch with this network:
 
-```
-docker run -p 9200:9200 -p 9600:9600 --name opensearch --net test -e "discovery.type=single-node" opensearchproject/opensearch:1.0.0
-```
+    ```
+    docker run -p 9200:9200 -p 9600:9600 --name opensearch --net test -e "discovery.type=single-node" opensearchproject/opensearch:1.0.0
+    ```
 
 1. Start Logstash:
 
-```
-docker run -it --rm --name logstash --net test openserachproject/logstash-oss-with-opensearch-output-plugin:7.13.2 -e 'input { stdin { } } output {
-  opensearch {
-    hosts => ["https://opensearch:9200"]
-    index => "opensearch-logstash-docker-%{+YYYY.MM.dd}"
-    user => "admin"
-    password => "admin"
-    ssl => true
-    ssl_certificate_verification => false
-  }
-}'
-```
+    ```
+    docker run -it --rm --name logstash --net test opensearchproject/logstash-oss-with-opensearch-output-plugin:7.13.2 -e 'input { stdin { } } output {
+      opensearch {
+        hosts => ["https://opensearch:9200"]
+        index => "opensearch-logstash-docker-%{+YYYY.MM.dd}"
+        user => "admin"
+        password => "admin"
+        ssl => true
+        ssl_certificate_verification => false
+      }
+    }'
+    ```
 
 ## Process text from the terminal
 
