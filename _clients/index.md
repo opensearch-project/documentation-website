@@ -13,10 +13,10 @@ Most clients that work with Elasticsearch OSS 7.10.2 *should* work with OpenSear
 
 Client | Recommended version
 :--- | :---
-Java low-level REST client | 7.13.4
-Java high-level REST client | 7.13.4
-Python Elasticsearch client | 7.13.4
-Elasticsearch Node.js client | 7.13.0
+[Java low-level REST client](https://search.maven.org/artifact/org.elasticsearch.client/elasticsearch-rest-client/7.13.4/jar) | 7.13.4
+[Java high-level REST client](https://search.maven.org/artifact/org.elasticsearch.client/elasticsearch-rest-high-level-client/7.13.4/jar) | 7.13.4
+[Python Elasticsearch client](https://pypi.org/project/elasticsearch/7.13.4/) | 7.13.4
+[Elasticsearch Node.js client](https://www.npmjs.com/package/@elastic/elasticsearch/v/7.13.0) | 7.13.0
 
 Clients exist for a wide variety of languages, so if you test a client and verify that it works, please [submit a PR](https://github.com/opensearch-project/documentation-website/pulls) and add it to this table.
 
