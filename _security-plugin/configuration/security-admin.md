@@ -50,7 +50,7 @@ If you use the `-f` argument rather than `-cd`, you can load single YAML files i
 
 ## Configure the admin certificate
 
-In order to use `securityadmin.sh`, you must add the distinguished names (DNs) of all admin certificates `opensearch.yml`. If you use the demo certificates, for example, `opensearch.yml` might contain the following lines for the `kirk` certificate:
+In order to use `securityadmin.sh`, you must add the distinguished names (DNs) of all admin certificates to `opensearch.yml`. If you use the demo certificates, for example, `opensearch.yml` might contain the following lines for the `kirk` certificate:
 
 ```yml
 plugins.security.authcz.admin_dn:
