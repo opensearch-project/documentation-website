@@ -3,7 +3,6 @@ layout: default
 title: Endpoint
 parent: Piped processing language
 nav_order: 1
-redirect_from: /ppl/endpoint/
 ---
 
 # Endpoint

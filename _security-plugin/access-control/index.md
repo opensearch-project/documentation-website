@@ -5,7 +5,6 @@ nav_order: 10
 has_children: true
 has_toc: false
 redirect_from:
-  - /security/access-control/
   - /security-plugin/access-control/
 ---
 

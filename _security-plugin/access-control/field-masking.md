@@ -3,7 +3,6 @@ layout: default
 title: Field Masking
 parent: Access Control
 nav_order: 12
-redirect_from: /security/access-control/field-masking/
 ---
 
 # Field masking

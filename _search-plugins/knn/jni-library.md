@@ -4,7 +4,6 @@ title: JNI library
 nav_order: 6
 parent: k-NN
 has_children: false
-redirect_from: /knn/jni-library/
 ---
 
 # JNI library

@@ -4,6 +4,8 @@ title: Document APIs
 parent: REST API reference
 has_children: true
 nav_order: 7
+redirect_from:
+  - /opensearch/rest-api/document-apis/
 ---
 
 # Document APIs

@@ -3,7 +3,6 @@ layout: default
 title: Endpoint
 parent: SQL
 nav_order: 13
-redirect_from: /sql/endpoints/
 ---
 
 

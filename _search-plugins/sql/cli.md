@@ -3,7 +3,6 @@ layout: default
 title: SQL CLI
 parent: SQL
 nav_order: 2
-redirect_from: /sql/cli/
 ---
 
 # SQL CLI

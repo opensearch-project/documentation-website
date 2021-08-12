@@ -3,7 +3,6 @@ layout: default
 title: SAML
 parent: Configuration
 nav_order: 31
-redirect_from: /security/configuration/saml/
 ---
 
 # SAML

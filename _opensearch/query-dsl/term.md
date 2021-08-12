@@ -3,7 +3,6 @@ layout: default
 title: Term-level queries
 parent: Query DSL
 nav_order: 30
-redirect_from: /opensearch/term/
 ---
 
 # Term-level queries
@@ -145,7 +144,7 @@ The search query “To be, or not to be” is analyzed and tokenized into an arr
 ...
 ```
 
-For a list of all full-text queries, see [Full-text queries]({{site.url}}{{site.baseurl}}/opensearch/full-text/).
+For a list of all full-text queries, see [Full-text queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/).
 
 If you want to query for an exact term like “HAMLET” in the speaker field and don't need the results to be sorted by relevance scores, a term-level query is more efficient:
 

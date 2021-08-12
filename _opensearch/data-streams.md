@@ -255,7 +255,7 @@ POST logs-redis/_rollover
 
 If you now perform a `GET` operation on the `logs-redis` data stream, you see that the generation ID is incremented from 1 to 2.
 
-You can also set up an [Index State Management (ISM) policy]({{site.url}}{{site.baseurl}}/ism/policies/) to automate the rollover process for the data stream.  
+You can also set up an [Index State Management (ISM) policy]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/) to automate the rollover process for the data stream.  
 The ISM policy is applied to the backing indices at the time of their creation. When you associate a policy to a data stream, it only affects the future backing indices of that data stream.
 
 You also don’t need to provide the `rollover_alias` setting, because the ISM policy infers this information from the backing index.

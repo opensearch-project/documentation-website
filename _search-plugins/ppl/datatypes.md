@@ -3,7 +3,6 @@ layout: default
 title: Data Types
 parent: Piped processing language
 nav_order: 6
-redirect_from: /ppl/datatypes/
 ---
 
 

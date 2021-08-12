@@ -5,13 +5,12 @@ nav_order: 38
 has_children: true
 has_toc: false
 redirect_from:
-  - /sql/
   - /search-plugins/sql/
 ---
 
 # SQL
 
-OpenSearch SQL lets you write queries in SQL rather than the [OpenSearch query domain-specific language (DSL)]({{site.url}}{{site.baseurl}}/opensearch/full-text). If you're already familiar with SQL and don't want to learn the query DSL, this feature is a great option.
+OpenSearch SQL lets you write queries in SQL rather than the [OpenSearch query domain-specific language (DSL)]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text). If you're already familiar with SQL and don't want to learn the query DSL, this feature is a great option.
 
 
 ## Workbench
