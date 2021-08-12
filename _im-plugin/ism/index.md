@@ -4,8 +4,7 @@ title: Index State Management
 nav_order: 3
 has_children: true
 redirect_from:
-  - /im/ism/
-  - /ism/
+  - /im-plugin/ism/
 has_toc: false
 ---
 

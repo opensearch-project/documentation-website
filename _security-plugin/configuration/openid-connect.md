@@ -3,7 +3,6 @@ layout: default
 title: OpenID Connect
 parent: Configuration
 nav_order: 32
-redirect_from: /security/configuration/openid-connect/
 ---
 
 # OpenID Connect

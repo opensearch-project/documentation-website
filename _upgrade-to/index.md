@@ -3,7 +3,6 @@ layout: default
 title: About the process
 nav_order: 1
 redirect_from:
-  - /migrate/
   - /upgrade-to/
 ---
 

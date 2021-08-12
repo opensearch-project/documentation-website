@@ -3,7 +3,6 @@ layout: default
 title: Settings
 parent: k-NN
 nav_order: 7
-redirect_from: /knn/settings/
 ---
 
 # k-NN settings

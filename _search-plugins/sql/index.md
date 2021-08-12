@@ -5,7 +5,6 @@ nav_order: 38
 has_children: true
 has_toc: false
 redirect_from:
-  - /sql/
   - /search-plugins/sql/
 ---
 

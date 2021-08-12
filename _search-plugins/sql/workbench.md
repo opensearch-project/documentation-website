@@ -3,9 +3,7 @@ layout: default
 title: Query Workbench
 parent: SQL
 nav_order: 1
-redirect_from: /sql/workbench/
 ---
-
 
 # Query Workbench
 

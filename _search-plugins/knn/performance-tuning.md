@@ -3,7 +3,6 @@ layout: default
 title: Performance tuning
 parent: k-NN
 nav_order: 8
-redirect_from: /knn/performance-tuning/
 ---
 
 # Performance tuning

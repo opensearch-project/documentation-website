@@ -3,7 +3,6 @@ layout: default
 title: Basic Queries
 parent: SQL
 nav_order: 5
-redirect_from: /sql/basic/
 ---
 
 

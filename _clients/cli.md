@@ -3,9 +3,6 @@ layout: default
 title: OpenSearch CLI
 nav_order: 52
 has_children: false
-redirect_from:
-  - /odfe-cli/
-  - /cli/
 ---
 
 # OpenSearch CLI

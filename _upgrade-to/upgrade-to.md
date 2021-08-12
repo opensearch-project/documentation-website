@@ -2,8 +2,6 @@
 layout: default
 title: Upgrade from Elasticsearch OSS to OpenSearch
 nav_order: 15
-redirect_from:
-  - /migrate/upgrade-migrate/
 ---
 
 # Upgrade from Elasticsearch OSS to OpenSearch

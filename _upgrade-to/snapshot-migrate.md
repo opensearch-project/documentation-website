@@ -2,8 +2,6 @@
 layout: default
 title: Use snapshots to migrate data
 nav_order: 5
-redirect_from:
-  - /migrate/snapshot-migrate/
 ---
 
 # Use snapshots to migrate data

@@ -2,8 +2,6 @@
 layout: default
 title: Upgrade from Kibana OSS to OpenSearch Dashboards
 nav_order: 50
-redirect_from:
-  - /migrate/dashboards/
 ---
 
 # Upgrade from Kibana OSS to OpenSearch Dashboards

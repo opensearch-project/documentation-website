@@ -3,7 +3,6 @@ layout: default
 title: Data Types
 parent: SQL
 nav_order: 73
-redirect_from: /sql/datatypes/
 ---
 
 # Data types

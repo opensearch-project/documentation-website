@@ -5,7 +5,6 @@ nav_order: 3
 parent: k-NN
 has_children: false
 has_math: true
-redirect_from: /knn/knn-score-script/
 ---
 
 # Exact k-NN with scoring script

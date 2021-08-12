@@ -4,7 +4,6 @@ title: k-NN API
 nav_order: 5
 parent: k-NN
 has_children: false
-redirect_from: /knn/api/
 ---
 
 # k-NN plugin API

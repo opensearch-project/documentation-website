@@ -2,8 +2,6 @@
 layout: default
 title: Upgrade Docker clusters to OpenSearch
 nav_order: 25
-redirect_from:
-  - /migrate/docker-migrate/
 ---
 
 # Upgrade Docker clusters to OpenSearch
