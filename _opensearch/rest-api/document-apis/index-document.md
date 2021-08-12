@@ -7,16 +7,18 @@ nav_order: 1
 ---
 
 # Index document
-
 Introduced 1.0
 {: .label .label-purple}
 
-Before you can search for data, you must first add a document by indexing it.
+Before you can search for data, you must first add documents. This operation adds a single document to your index.
 
 ## Example
 
 ```json
-GET sample-index/_doc/1
+PUT sample-index/_doc/1
+{
+  "Description": "To be or not to be, that is the question."
+}
 ```
 
 ## Path and HTTP methods
@@ -36,7 +38,7 @@ In your request, you must specify the index you want to add your document to. If
 Parameter | Type | Description | Required
 :--- | :--- | :--- | :---
 &lt;index&gt; | String | Name of the index. | Yes
-&lt;_id&gt; | String | A unique identifier to attach to the document. To automatically generate an ID, use `POST <target/_doc` in your request. | No
+&lt;_id&gt; | String | A unique identifier to attach to the document. To automatically generate an ID, use `POST <target>/doc` in your request instead of PUT. | No
 if_seq_no | Integer | Only perform the operation if the document has the specified sequence number. | No
 if_primary_term | Integer | Only perform the operation if the document has the specified primary term. | No
 op_type | Enum | Specifies the type of operation to complete with the document. Valid values are `create` (create the index if it doesn't exist) and `index`. If a document ID is included in the request, then the default is `index`. Otherwise, the default is `create`. | No
@@ -45,7 +47,7 @@ routing | String | Value used to assign operations to specific shards. | No
 timeout | Time | How long to wait for a response from the cluster. Default is `1m`. | No
 version | Integer | The document's version number. | No
 version_type | Enum | Assigns a specific type to the document. Valid options are `external` (retrieve the document if the specified version number is greater than the document's current version) and `external_gte` (retrieve the document if the specified version number is greater than or equal to the document's current version). For example, to index version 3 of a document, use `/_doc/1?version=3&version_type=external`. | No
-wait_for_active_shards | The number of active shards that must be available before OpenSearch processes the request. Default is 1 (only the primary shard). Set to `all` or a positive integer. Values greater than 1 require replicas. For example, if you specify a value of 3, the index must have two replicas distributed across two additional nodes for the operation to succeed. | No
+wait_for_active_shards | String | The number of active shards that must be available before OpenSearch processes the request. Default is 1 (only the primary shard). Set to `all` or a positive integer. Values greater than 1 require replicas. For example, if you specify a value of 3, the index must have two replicas distributed across two additional nodes for the operation to succeed. | No
 require_alias | Boolean | Specifies whether the target index must be an index alias. Default is false. | No
 
 ## Request body
