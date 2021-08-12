@@ -72,7 +72,7 @@ OpenSearch includes a demo configuration so that you can get up and running quic
 
 ## Looking for the Javadoc?
 
-See [opensearch.org/docs/javadocs/](https://opensearch.org/docs/javadocs/).
+See [opensearch.org/javadocs/](https://opensearch.org/javadocs/).
 
 
 ## Get involved
