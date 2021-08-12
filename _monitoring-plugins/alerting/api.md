@@ -874,7 +874,7 @@ GET _plugins/_alerting/monitors/alerts
 Introduced 1.0
 {: .label .label-purple }
 
-[After getting your alerts](#get-alerts/), you can acknowledge any number of active alerts in one call. If the alert is already in an ERROR, COMPLETED, or ACKNOWLEDGED state, it appears in the `failed` array.
+[After getting your alerts](#get-alerts), you can acknowledge any number of active alerts in one call. If the alert is already in an ERROR, COMPLETED, or ACKNOWLEDGED state, it appears in the `failed` array.
 
 
 #### Request

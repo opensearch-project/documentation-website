@@ -93,7 +93,7 @@ For a list of available unit types, see [Supported units]({{site.url}}{{site.bas
 
 ISM supports the following operations:
 
-- [force_merge](#forcemerge)
+- [force_merge](#force_merge)
 - [read_only](#read_only)
 - [read_write](#read_write)
 - [replica_count](#replica_count)
