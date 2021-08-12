@@ -89,7 +89,6 @@ Make sure that the alias that you enter already exists. For more information abo
 
 After you attach a policy to an index, ISM creates a job that runs every 5 minutes by default to perform policy actions, check conditions, and transition the index into different states. To change the default time interval for this job, see [Settings]({{site.url}}{{site.baseurl}}/im-plugin/ism/settings/).
 
-If you want to use an OpenSearch operation to create an index with a policy already attached to it, see [create index]({{site.url}}{{site.baseurl}}/im-plugin/ism/api#create-index).
 
 ### Step 3: Manage indices
 

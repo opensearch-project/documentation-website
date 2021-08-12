@@ -27,4 +27,4 @@ nav_order: 30
    ./bin/opensearch-dashboards
    ```
 
-1. See the [OpenSearch Dashboards documentation]({{site.url}}{{site.baseurl}}/opensearch-dashboards/).
+1. See the [OpenSearch Dashboards documentation]({{site.url}}{{site.baseurl}}/dashboards/index/).

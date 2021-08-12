@@ -9,7 +9,7 @@ nav_order: 8
 
 Use SQL commands for full-text search. The SQL plugin supports a subset of the full-text queries available in OpenSearch.
 
-To learn about full-text queries in OpenSearch, see [Full-text queries]({{site.url}}{{site.baseurl}}/opensearch/full-text/).
+To learn about full-text queries in OpenSearch, see [Full-text queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/).
 
 ## Match
 
