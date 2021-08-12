@@ -21,7 +21,7 @@ This page includes troubleshooting steps for configuring TLS certificates with t
 
 ## Validate YAML
 
-`opensearch.yml` and the files in `opensearch_security/securityconfig/` are in the YAML format. A linter like [YAML Lint](http://www.yamllint.com/) can help verify that you don't have any formatting errors.
+`opensearch.yml` and the files in `opensearch_security/securityconfig/` are in the YAML format. A linter like [YAML Validator](https://codebeautify.org/yaml-validator) can help verify that you don't have any formatting errors.
 
 
 ## View contents of PEM certificates
@@ -207,7 +207,7 @@ plugins.security.ssl.http.enabled_protocols:
 
 TLS relies on the server and client negotiating a common cipher suite. Depending on your system, the available ciphers will vary. They depend on the JDK or OpenSSL version you're using, and  whether or not the `JCE Unlimited Strength Jurisdiction Policy Files` are installed.
 
-For legal reasons, the JDK does not include strong ciphers like AES256. In order to use strong ciphers you need to download and install the [Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files](http://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html). If you don't have them installed, you might see an error message on startup:
+For legal reasons, the JDK does not include strong ciphers like AES256. In order to use strong ciphers you need to download and install the [Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files](https://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html). If you don't have them installed, you might see an error message on startup:
 
 ```
 [INFO ] AES-256 not supported, max key length for AES is 128 bit.

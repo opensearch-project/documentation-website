@@ -4,6 +4,8 @@ title: Logstash
 nav_order: 200
 has_children: true
 has_toc: true
+redirect_from:
+- /logstash/
 ---
 
 # Logstash
