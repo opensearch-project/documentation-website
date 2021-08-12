@@ -6,7 +6,7 @@ nav_order: 65
 
 # Take and restore snapshots
 
-Snapshots are backups of a cluster's indices and state. State includes cluster settings, node information, index settings, and shard allocation.
+Snapshots are backups of a cluster's indices and state. State includes cluster settings, node information, index metadata (mappings, settings, templates, etc.), and shard allocation.
 
 Snapshots have two main uses:
 
