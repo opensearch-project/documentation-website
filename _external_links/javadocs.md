@@ -1,7 +1,6 @@
 ---
 layout: default
-title: Javadoc
-nav_order: 1
-permalink: /javadoc/
+nav_exclude: true
+permalink: /javadocs/
 redirect_to: https://opensearch.org/javadocs/
 ---
