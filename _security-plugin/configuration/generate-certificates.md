@@ -3,7 +3,6 @@ layout: default
 title: Generate Certificates
 parent: Configuration
 nav_order: 11
-redirect_from: /security/configuration/generate-certificates/
 ---
 
 # Generate certificates
@@ -175,16 +174,7 @@ For information about adding and using these certificates in your own setup, see
 
 ## Run securityadmin.sh
 
-After configuring your certificates and starting OpenSearch, run `securityadmin.sh` to initialize the security plugin:
-
-```
-./securityadmin.sh -cd {{site.url}}{{site.baseurl}}/securityconfig/ -icl -nhnv -cacert {{site.url}}{{site.baseurl}}/config/root-ca.pem -cert {{site.url}}{{site.baseurl}}/config/admin.pem -key {{site.url}}{{site.baseurl}}/config/admin-key.pem
-```
-
-For more information about what this command does, see [Apply configuration changes]({{site.url}}{{site.baseurl}}/security-plugin/configuration/security-admin/).
-{: .tip }
-
-If you use Docker, see [Bash access to containers]({{site.url}}{{site.baseurl}}/opensearch/install/docker#bash-access-to-containers).
+After configuring your certificates and starting OpenSearch, run `securityadmin.sh` to initialize the security plugin. For information about how to use this script, see [Apply configuration changes]({{site.url}}{{site.baseurl}}/security-plugin/configuration/security-admin/).
 
 
 ## OpenSearch Dashboards
