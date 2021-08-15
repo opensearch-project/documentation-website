@@ -33,10 +33,10 @@ The instructions here assume you have a Kubernetes cluster with Helm preinstalle
    git clone https://github.com/opensearch-project/opensearch-devops.git
    ```
 
-1. Change to the `opensearch-dashboards` directory:
+1. Change to the `opensearch` directory:
 
    ```bash
-   cd Helm/opensearch-dashboards
+   cd Helm/opensearch
    ```
 
 1. Package the Helm chart:
@@ -48,36 +48,37 @@ The instructions here assume you have a Kubernetes cluster with Helm preinstalle
 1. Deploy Elasticsearch:
 
    ```bash
-   helm install --generate-name opensearch-dashboards-1.0.0.tgz
+   helm install --generate-name opensearch-1.0.0.tgz
    ```
 
 The output shows you the specifications instantiated from the install.
 To customize the deployment, pass in the values that you want to override with a custom YAML file:
 
 ```bash
-helm install --values=customvalues.yaml opensearch-dashboards-1.0.0.tgz
+helm install --values=customvalues.yaml opensearch-1.0.0.tgz
 ```
 
 #### Sample output
 
 ```yaml
-NAME: opensearch-dashboards-1-1628184200
-LAST DEPLOYED: Thu Aug  5 13:23:25 2021
+NAME: opensearch-1-1628710514
+LAST DEPLOYED: Wed Aug 11 19:35:15 2021
 NAMESPACE: default
 STATUS: deployed
 REVISION: 1
 TEST SUITE: None
+NOTES:
+Watch all cluster members come up.
 ```
 
 To make sure your Elasticsearch pod is up and running, run the following command:
 
 ```bash
 $ kubectl get pods
-NAME                                                  READY   STATUS    RESTARTS   AGE
-opensearch-cluster-master-0                           1/1     Running   0          3m56s
-opensearch-cluster-master-1                           1/1     Running   0          3m56s
-opensearch-cluster-master-2                           1/1     Running   0          3m56s
-opensearch-dashboards-1-1628184109-584ff47c54-gghf2   1/1     Running   0          5m25s
+NAME                          READY   STATUS              RESTARTS   AGE
+opensearch-cluster-master-0   0/1     ContainerCreating   0          34s
+opensearch-cluster-master-1   0/1     ContainerCreating   0          34s
+opensearch-cluster-master-2   0/1     ContainerCreating   0          34s
 ```
 
 To access the Elasticsearch shell:
