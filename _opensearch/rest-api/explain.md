@@ -13,7 +13,7 @@ Wondering why a specific document ranks higher (or lower) for a query? You can u
 
 OpenSearch uses a probabilistic ranking framework called [Okapi BM25](https://en.wikipedia.org/wiki/Okapi_BM25) to calculate relevance scores. Okapi BM25 is based on the original [TF/IDF](http://lucene.apache.org/core/4_0_0/core/org/apache/lucene/search/package-summary.html#scoring) framework used by Apache Lucene.
 
-The explain API is an expensive operation in terms of both resources and time. We recommend you don't use it for production workloads.
+The explain API is an expensive operation in terms of both resources and time. On production clusters, we recommend using it sparingly for the purpose of troubleshooting.
 {: .warning }
 
 
@@ -32,7 +32,7 @@ POST kibana_sample_data_ecommerce/_search?explain=true
 }
 ```
 
-To see the explain output for a specific document, specify the document ID in the URL:
+More often, you want the output for a single document. In that case, specify the document ID in the URL:
 
 ```json
 POST kibana_sample_data_ecommerce/_explain/EVz1Q3sBgg5eWQP6RSte
