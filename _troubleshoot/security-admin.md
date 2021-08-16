@@ -80,7 +80,7 @@ If your cluster state is red, you can still execute `securityadmin.sh`, but you 
 
 ### Check the security index name
 
-By default, the security plugin uses `opensearch_security` as the name of the configuration index. If you configured a different index name in `opensearch.yml`, specify it using the `-i` option.
+By default, the security plugin uses `.opendistro_security` as the name of the configuration index. If you configured a different index name in `opensearch.yml`, specify it using the `-i` option.
 
 
 ## "ERR: DN is not an admin user"
@@ -100,7 +100,7 @@ You must use an admin certificate when executing the script. To learn more, see 
 For more information on why `securityadmin.sh` is not executing, add the `--diagnose` option:
 
 ```
-./securityadmin.sh -diagnose -cd {{site.url}}{{site.baseurl}}/securityconfig/ -cacert ... -cert ... -key ... -keypass ...
+./securityadmin.sh -diagnose -cd ../securityconfig/ -cacert ... -cert ... -key ... -keypass ...
 ```
 
 The script prints the location of the generated diagnostic file.

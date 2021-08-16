@@ -3,7 +3,6 @@ layout: default
 title: API
 parent: Access Control
 nav_order: 90
-redirect_from: /security/access-control/api/
 ---
 
 # API
@@ -426,7 +425,7 @@ Introduced 1.0
 
 Creates or replaces the specified user. You must specify either `password` (plain text) or `hash` (the hashed user password). If you specify `password`, the security plugin automatically hashes the password before storing it.
 
-Note that any role you supply in the `opensearch_security_roles` array must already exist for the security plugin to map the user to that role. To see predefined roles, refer to [the list of predefined roles]({{site.url}}{{site.baseurl}}/security-plugin/access-control/users-roles#predefined-roles). For instructions on how to create a role, refer to [creating a role](#create-role).
+Note that any role you supply in the `opendistro_security_roles` array must already exist for the security plugin to map the user to that role. To see predefined roles, refer to [the list of predefined roles]({{site.url}}{{site.baseurl}}/security-plugin/access-control/users-roles#predefined-roles). For instructions on how to create a role, refer to [creating a role](#create-role).
 
 #### Request
 
@@ -434,7 +433,7 @@ Note that any role you supply in the `opensearch_security_roles` array must alre
 PUT _plugins/_security/api/internalusers/<username>
 {
   "password": "kirkpass",
-  "opensearch_security_roles": ["maintenance_staff", "weapons"],
+  "opendistro_security_roles": ["maintenance_staff", "weapons"],
   "backend_roles": ["captains", "starfleet"],
   "attributes": {
     "attribute1": "value1",
@@ -468,7 +467,7 @@ PATCH _plugins/_security/api/internalusers/<username>
     "op": "replace", "path": "/backend_roles", "value": ["klingons"]
   },
   {
-    "op": "replace", "path": "/opensearch_security_roles", "value": ["ship_manager"]
+    "op": "replace", "path": "/opendistro_security_roles", "value": ["ship_manager"]
   },
   {
     "op": "replace", "path": "/attributes", "value": { "newattribute": "newvalue" }

@@ -329,10 +329,4 @@ You can then use the [Index State Management (ISM)]({{site.url}}{{site.baseurl}}
 
 ## Next steps
 
-If you are using the security plugin, the previous request to `_cat/nodes?v` might have failed with an initialization error. To initialize the plugin, run `opensearch/plugins/opensearch-security/tools/securityadmin.sh`. A sample command that uses the demo certificates might look like this:
-
-```bash
-sudo ./securityadmin.sh -cd {{site.url}}{{site.baseurl}}/securityconfig/ -icl -nhnv -cacert /etc/opensearch/root-ca.pem -cert /etc/opensearch/kirk.pem -key /etc/opensearch/kirk-key.pem -h <private-ip>
-```
-
-For full guidance around configuration options, see [Security configuration]({{site.url}}{{site.baseurl}}/security-plugin/configuration/index/).
+If you are using the security plugin, the previous request to `_cat/nodes?v` might have failed with an initialization error. For full guidance around using the security plugin, see [Security configuration]({{site.url}}{{site.baseurl}}/security-plugin/configuration/index/).
