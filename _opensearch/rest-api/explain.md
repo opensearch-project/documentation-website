@@ -65,7 +65,7 @@ Parameter | Type | Description | Required
 `default_operator` | String | Indicates whether the default operator for a string query should be AND or OR. Default is OR. | No
 `df` | String | The default field in case a field prefix is not provided in the query string. | No
 `lenient` | Boolean | Specifies whether OpenSearch should ignore format-based query failures (for example, querying a text field for an integer). Default is false. | No
-`preference` | String | Specifies a preference of which shard to retrieve results from. Available options are `_local`, which tells the operation to retrieve results from a locally allocated shard replica, and a custom string value assigned to a specific shard replica. By default, OpenSearch executes get document operations on random shards. | No
+`preference` | String | Specifies a preference of which shard to retrieve results from. Available options are `_local`, which tells the operation to retrieve results from a locally allocated shard replica, and a custom string value assigned to a specific shard replica. By default, OpenSearch executes the explain operation on random shards. | No
 `q` | String | Query in the Lucene query string syntax. | No
 `stored_fields` | Boolean | If true, the operation retrieves document fields stored in the index rather than the document’s `_source`. Default is false. | No
 `routing` | String | Value used to route the operation to a specific shard. | No
