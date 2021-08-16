@@ -155,7 +155,7 @@ Field | Description
 `matched` | Indicates if the document is a match for the query.
 `explanation` | The `explanation` object has three properties: `value`, `description`, and `details`. The `value` shows the result of the calculation, the `description` explains what type of calculation is performed, and the `details` shows any subcalculations performed.
 Term frequency (`tf`) | How many times the term appears in a field for a given document. The more times the term occurs the higher is the relevance score.
-Inverse document frequency (`idf`) | How often the term appears within the index (across all the documents). The more often the term appears the lower the relevance score.
+Inverse document frequency (`idf`) | How often the term appears within the index (across all the documents). The more often the term appears the lower is the relevance score.
 Field normalization factor (`fieldNorm`) | The length of the field. OpenSearch assigns a higher relevance score to a term appearing in a relatively short field.
 
 The `tf`, `idf`, and `fieldNorm` values are calculated and stored at index time when a document is added or updated. The values might have some (typically small) inaccuracies as it’s based on summing the samples returned from each shard.  
