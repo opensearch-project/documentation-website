@@ -12,7 +12,7 @@ A typical workflow to manage time-series data involves multiple steps such as cr
 
 Data streams simplify this bootstrapping process and enforce a setup that best suits time-series data, such as being designed primarily for append-only data, and ensuring that each document has a timestamp field.
 
-A data stream is internally composed of multiple backing indices. Search requests are routed to all the backing indices, while indexing requests are routed to the latest write index. You can use [ISM]({{site.url}}{{site.baseurl}}/im-plugin/ism/index.md/) policies to automatically handle rollovers or deletion of indices in a data stream, based on your use case.
+A data stream is internally composed of multiple backing indices. Search requests are routed to all the backing indices, while indexing requests are routed to the latest write index. You can use [ISM]({{site.url}}{{site.baseurl}}/im-plugin/ism/index/) policies to automatically handle rollovers or deletion of indices in a data stream, based on your use case.
 
 
 ## About data streams
