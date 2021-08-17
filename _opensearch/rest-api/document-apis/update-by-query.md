@@ -10,7 +10,7 @@ nav_order: 50
 Introduced 1.0
 {: .label .label-purple}
 
-You can include a query as part of your update request so OpenSearch updates all documents that match that query.
+You can include a query and a script as part of your update request so OpenSearch can run the script to update all of the documents that match the query.
 
 ## Example
 
