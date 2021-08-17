@@ -60,7 +60,7 @@ code {
 }
 
 .site-nav {
-  padding-top: 2rem;
+  padding-top: 1rem;
 }
 
 .nav-category {
@@ -389,7 +389,7 @@ html {
 
 body {
   @include serif;
-  @include font-size(18);
+  @include font-size(16);
   background: $background-lightest;
   color: $text;
   line-height: 1.6;
@@ -962,6 +962,7 @@ main {
     line-height: 1.3;
     padding: 1px 0 6px;
     margin: .45em 0 .35em;
+    letter-spacing: -1px;
 
     @include mq(md) {
       @include font-size(32, true);
@@ -975,6 +976,7 @@ main {
     a {
       font-weight: 300;
       background: none;
+      color: $text-link-alternate;
 
       &:hover, :active {
         background: none;
@@ -1101,4 +1103,18 @@ main {
       background: none;
     }
   }
+}
+
+.version-wrapper {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+version-selector {
+  z-index: 1;
+  font-size: .9rem;
+
+  --normal-bg: linear-gradient(#{lighten($blue-300, 5%)}, #{darken($blue-300, 2%)});
+  --hover-bg: linear-gradient(#{lighten($blue-300, 2%)}, #{darken($blue-300, 4%)});
+  --link-color: #{$blue-300};
 }
