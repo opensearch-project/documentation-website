@@ -3,7 +3,7 @@ layout: default
 title: Multi-get document
 parent: Document APIs
 grand_parent: REST API reference
-nav_order: 25
+nav_order: 30
 ---
 
 # Multi-get documents
