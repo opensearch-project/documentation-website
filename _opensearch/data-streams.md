@@ -6,15 +6,14 @@ nav_order: 13
 
 # Data streams
 
-If you're ingesting continuously generated time-series data such as logs, events, and metrics into OpenSearch, you're likely in a scenario where:
+If you're ingesting continuously generated time-series data such as logs, events, and metrics into OpenSearch, you're likely in a scenario where the number of documents grows rapidly and you don't need to update older documents.
 
-- You’re ingesting documents that grow rapidly.
-- You don’t need to update older documents.
-- Your searches generally target the newer documents.
+A typical workflow to manage time-series data involves multiple steps such as creating a rollover index alias, defining a write index, and defining common mappings and settings for the backing indices.
 
-A typical workflow to manage time-series data consists of setting up an alias, configuring a rollover operation, defining a write index, and creating common mapping fields in an index template. Data streams simplifies this process.
+Data streams simplify this bootstrapping process and enforce a setup that best suits time-series data, such as being designed primarily for append-only data, and ensuring that each document has a timestamp field.
 
-With data streams, you can store append-only time-series data across multiple indices with a single endpoint for ingesting and searching data. We recommend using data streams in place of index aliases for time-series data.
+A data stream is internally composed of multiple backing indices. Search requests are routed to all the backing indices, while indexing requests are routed to the latest write index. You can use [ISM]({{site.url}}{{site.baseurl}}/im-plugin/ism/index/) policies to automatically handle rollovers or deletion of indices in a data stream, based on your use case.
+
 
 ## About data streams
 
