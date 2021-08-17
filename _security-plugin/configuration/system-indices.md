@@ -1,6 +1,6 @@
 ---
 layout: default
-title: System Indices
+title: System indices
 parent: Configuration
 nav_order: 15
 ---

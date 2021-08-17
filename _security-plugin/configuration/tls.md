@@ -1,6 +1,6 @@
 ---
 layout: default
-title: TLS Certificates
+title: TLS certificates
 parent: Configuration
 nav_order: 10
 ---

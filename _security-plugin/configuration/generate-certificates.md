@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Generate Certificates
+title: Generate certificates
 parent: Configuration
 nav_order: 11
 ---
@@ -93,44 +93,48 @@ If you generate node certificates and have `plugins.security.ssl.transport.enfor
 
 ### Sample script
 
+If you already know the certificate details and don't want to specify them interactively, use the `-subj` option in your `root-ca.pem` and CSR commands. This script creates a root certificate, admin certificate, two node certificates, and a client certificate, all with an expiration dates of two years (730 days):
+
 ```bash
+#!/bin/sh
 # Root CA
 openssl genrsa -out root-ca-key.pem 2048
-openssl req -new -x509 -sha256 -key root-ca-key.pem -out root-ca.pem -days 30
+openssl req -new -x509 -sha256 -key root-ca-key.pem -subj "/C=CA/ST=ONTARIO/L=TORONTO/O=ORG/OU=UNIT/CN=ROOT" -out root-ca.pem -days 730
 # Admin cert
 openssl genrsa -out admin-key-temp.pem 2048
 openssl pkcs8 -inform PEM -outform PEM -in admin-key-temp.pem -topk8 -nocrypt -v1 PBE-SHA1-3DES -out admin-key.pem
-openssl req -new -key admin-key.pem -out admin.csr
-openssl x509 -req -in admin.csr -CA root-ca.pem -CAkey root-ca-key.pem -CAcreateserial -sha256 -out admin.pem -days 30
-# Node cert
-openssl genrsa -out node-key-temp.pem 2048
-openssl pkcs8 -inform PEM -outform PEM -in node-key-temp.pem -topk8 -nocrypt -v1 PBE-SHA1-3DES -out node-key.pem
-openssl req -new -key node-key.pem -out node.csr
-openssl x509 -req -in node.csr -CA root-ca.pem -CAkey root-ca-key.pem -CAcreateserial -sha256 -out node.pem -days 30
-#Client cert
+openssl req -new -key admin-key.pem -subj "/C=CA/ST=ONTARIO/L=TORONTO/O=ORG/OU=UNIT/CN=ADMIN" -out admin.csr
+openssl x509 -req -in admin.csr -CA root-ca.pem -CAkey root-ca-key.pem -CAcreateserial -sha256 -out admin.pem -days 730
+# Node cert 1
+openssl genrsa -out node1-key-temp.pem 2048
+openssl pkcs8 -inform PEM -outform PEM -in node1-key-temp.pem -topk8 -nocrypt -v1 PBE-SHA1-3DES -out node1-key.pem
+openssl req -new -key node1-key.pem -subj "/C=CA/ST=ONTARIO/L=TORONTO/O=ORG/OU=UNIT/CN=node1.example.com" -out node1.csr
+openssl x509 -req -in node1.csr -CA root-ca.pem -CAkey root-ca-key.pem -CAcreateserial -sha256 -out node1.pem -days 730
+# Node cert 2
+openssl genrsa -out node2-key-temp.pem 2048
+openssl pkcs8 -inform PEM -outform PEM -in node2-key-temp.pem -topk8 -nocrypt -v1 PBE-SHA1-3DES -out node2-key.pem
+openssl req -new -key node2-key.pem -subj "/C=CA/ST=ONTARIO/L=TORONTO/O=ORG/OU=UNIT/CN=node2.example.com" -out node2.csr
+openssl x509 -req -in node2.csr -CA root-ca.pem -CAkey root-ca-key.pem -CAcreateserial -sha256 -out node2.pem -days 730
+# Client cert
 openssl genrsa -out client-key-temp.pem 2048
 openssl pkcs8 -inform PEM -outform PEM -in client-key-temp.pem -topk8 -nocrypt -v1 PBE-SHA1-3DES -out client-key.pem
-openssl req -new -key client-key.pem -out client.csr
-openssl x509 -req -in client.csr -CA root-ca.pem -CAkey root-ca-key.pem -CAcreateserial -sha256 -out client.pem -days 30
+openssl req -new -key client-key.pem -subj "/C=CA/ST=ONTARIO/L=TORONTO/O=ORG/OU=UNIT/CN=CLIENT" -out client.csr
+openssl x509 -req -in client.csr -CA root-ca.pem -CAkey root-ca-key.pem -CAcreateserial -sha256 -out client.pem -days 730
 # Cleanup
 rm admin-key-temp.pem
 rm admin.csr
-rm node-key-temp.pem
-rm node.csr
+rm node1-key-temp.pem
+rm node1.csr
+rm node2-key-temp.pem
+rm node2.csr
 rm client-key-temp.pem
 rm client.csr
 ```
 
-If you already know the certificate details and don't want to specify them as the script runs, use the `-subj` option in your `root-ca.pem` and CSR commands:
 
-```bash
-openssl req -new -key node-key.pem -subj "/C=CA/ST=ONTARIO/L=TORONTO/O=ORG/OU=UNIT/CN=node1.example.com" -out node.csr
-```
+## Add distinguished names to opensearch.yml
 
-
-## Get distinguished names
-
-If you created admin and node certificates, you must specify their distinguished names (DNs) in `opensearch.yml` on all nodes:
+You must specify the distinguished names (DNs) for all admin and node certificates in `opensearch.yml` on all nodes. Using the certificates from the sample script above, part of `opensearch.yml` might look like this:
 
 ```yml
 plugins.security.authcz.admin_dn:
@@ -146,30 +150,44 @@ But if you look at the `subject` of the certificate after creating it, you might
 subject=/C=CA/ST=ONTARIO/L=TORONTO/O=ORG/OU=UNIT/CN=node1.example.com
 ```
 
-If you compare this string to the ones in `opensearch.yml` above, you can see that you need to invert the order of elements and use commas rather than slashes. Enter this command to get the correct string:
+If you compare this string to the ones above, you can see that you need to invert the order of elements and use commas rather than slashes. Enter this command to get the correct string:
 
 ```bash
 openssl x509 -subject -nameopt RFC2253 -noout -in node.pem
 ```
 
-Then you can copy and paste the output into `opensearch.yml`:
-
-```
-subject= CN=node1.example.com,OU=UNIT,O=ORG,L=TORONTO,ST=ONTARIO,C=CA
-```
+Then copy and paste the output into `opensearch.yml`.
 
 
-## Configure certificates
+## Add certificate files to opensearch.yml
 
-This process generates many files, but these are the ones you need to add to your cluster configuration:
+This process generates many files, but these are the ones you need to add to each node:
 
 - `root-ca.pem`
 - `admin.pem`
 - `admin-key.pem`
-- (Optional) `each-node-cert.pem`
-- (Optional) `each-node-key.pem`
+- (Optional) `one-node-cert.pem`
+- (Optional) `one-node-key.pem`
 
-For information about adding and using these certificates in your own setup, see [Docker security configuration]({{site.url}}{{site.baseurl}}//opensearch/install/docker-security/) and [Configure TLS certificates]({{site.url}}{{site.baseurl}}/security-plugin/configuration/tls/).
+On one node, the security configuration portion of `opensearch.yml` might look like this:
+
+```yml
+plugins.security.ssl.transport.pemcert_filepath: node1.pem
+plugins.security.ssl.transport.pemkey_filepath: node1-key.pem
+plugins.security.ssl.transport.pemtrustedcas_filepath: root-ca.pem
+plugins.security.ssl.transport.enforce_hostname_verification: false
+plugins.security.ssl.http.enabled: true
+plugins.security.ssl.http.pemcert_filepath: node1.pem
+plugins.security.ssl.http.pemkey_filepath: node1-key.pem
+plugins.security.ssl.http.pemtrustedcas_filepath: root-ca.pem
+plugins.security.authcz.admin_dn:
+  - 'CN=ADMIN,OU=UNIT,O=ORG,L=TORONTO,ST=ONTARIO,C=CA'
+plugins.security.nodes_dn:
+  - 'CN=node1.example.com,OU=UNIT,O=ORG,L=TORONTO,ST=ONTARIO,C=CA'
+  - 'CN=node2.example.com,OU=UNIT,O=ORG,L=TORONTO,ST=ONTARIO,C=CA'
+```
+
+For more information about adding and using these certificates in your own setup, see [Docker security configuration]({{site.url}}{{site.baseurl}}//opensearch/install/docker-security/), [Configure TLS certificates]({{site.url}}{{site.baseurl}}/security-plugin/configuration/tls/), and [Client certificate authentication]({{site.url}}{{site.baseurl}}/security-plugin/configuration/client-auth/).
 
 
 ## Run securityadmin.sh

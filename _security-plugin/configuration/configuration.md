@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Backend Configuration
+title: Backend configuration
 parent: Configuration
 nav_order: 2
 ---

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Audit Log Storage Types
+title: Audit log storage types
 parent: Audit Logs
 nav_order: 10
 ---

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: YAML Files
+title: YAML files
 parent: Configuration
 nav_order: 3
 ---

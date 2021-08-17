@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Apply Changes with securityadmin.sh
+title: Apply changes with securityadmin.sh
 parent: Configuration
 nav_order: 20
 ---
@@ -35,7 +35,7 @@ To avoid this situation, back up your current configuration before making change
   -key ../../../config/kirk-key.pem
 ```
 
-If you use the `-f` argument rather than `-cd`, you can load single YAML files into the index rather than the entire directory of YAML files. For example, if you create ten new roles, you can safely load `internal_users.yml` into the index without losing your roles; only the internal users get overwritten.
+If you use the `-f` argument rather than `-cd`, you can load a single YAML file into the index rather than the entire directory of YAML files. For example, if you create ten new roles, you can safely load `internal_users.yml` into the index without losing your roles; only the internal users get overwritten.
 
 ```bash
 ./securityadmin.sh -f ../securityconfig/internal_users.yml \

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Disable Security
+title: Disable security
 parent: Configuration
 nav_order: 99
 ---

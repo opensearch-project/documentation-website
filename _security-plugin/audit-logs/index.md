@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Audit Logs
+title: Audit logs
 nav_order: 90
 has_children: true
 has_toc: false
