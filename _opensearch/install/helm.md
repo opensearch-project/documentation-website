@@ -5,9 +5,9 @@ parent: Install OpenSearch
 nav_order: 6
 ---
 
-# Helm
+# Run OpenSearch using Helm
 
-Helm is a package manager that allows you to easily install and manage Elasticsearch in a Kubernetes cluster. You can define your Elasticsearch configurations in a YAML file and use Helm to deploy your applications in a version-controlled and reproducible way.
+Helm is a package manager that allows you to easily install and manage OpenSearch in a Kubernetes cluster. You can define your OpenSearch configurations in a YAML file and use Helm to deploy your applications in a version-controlled and reproducible way.
 
 The Helm chart contains the resources described in the following table.
 
@@ -25,9 +25,13 @@ For information about the default configuration, steps to configure security, an
 The instructions here assume you have a Kubernetes cluster with Helm preinstalled. See the [Kubernetes documentation](https://kubernetes.io/docs/setup/) for steps to configure a Kubernetes cluster and the [Helm documentation](https://helm.sh/docs/intro/install/) to install Helm.
 {: .note }
 
+## Prerequisites
+
+The default Helm chart deploys a 3-node cluster. We recommend that you have 8 GiB of memory available for this deployment. You can expect the deployment to fail if, say, you have less than 4 GiB of memory available.
+
 ## Install OpenSearch using Helm
 
-1. Clone the [Helm/opensearch](https://github.com/opensearch-project/opensearch-devops/) repository:
+1. Clone the [opensearch-devops](https://github.com/opensearch-project/opensearch-devops/) repository:
 
    ```bash
    git clone https://github.com/opensearch-project/opensearch-devops.git
@@ -45,31 +49,33 @@ The instructions here assume you have a Kubernetes cluster with Helm preinstalle
    helm package .
    ```
 
-1. Deploy Elasticsearch:
+1. Deploy OpenSearch:
 
    ```bash
    helm install --generate-name opensearch-1.0.0.tgz
    ```
+   The output shows you the specifications instantiated from the install.
+   To customize the deployment, pass in the values that you want to override with a custom YAML file:
 
-The output shows you the specifications instantiated from the install.
-To customize the deployment, pass in the values that you want to override with a custom YAML file:
-
-```bash
-helm install --values=customvalues.yaml opensearch-1.0.0.tgz
-```
+   ```bash
+   helm install --values=customvalues.yaml opensearch-1.0.0.tgz
+   ```
 
 #### Sample output
 
-```yaml
-NAME: opensearch-1-1628184200
-LAST DEPLOYED: Thu Aug  5 13:23:25 2021
-NAMESPACE: default
-STATUS: deployed
-REVISION: 1
-TEST SUITE: None
-```
+  ```yaml
+  NAME: opensearch-1-1629223146
+  LAST DEPLOYED: Tue Aug 17 17:59:07 2021
+  NAMESPACE: default
+  STATUS: deployed
+  REVISION: 1
+  TEST SUITE: None
+  NOTES:
+  Watch all cluster members come up.
+    $ kubectl get pods --namespace=default -l app=opensearch-cluster-master -w
+  ```
 
-To make sure your Elasticsearch pod is up and running, run the following command:
+To make sure your OpenSearch pod is up and running, run the following command:
 
 ```bash
 $ kubectl get pods
@@ -77,93 +83,51 @@ NAME                                                  READY   STATUS    RESTARTS
 opensearch-cluster-master-0                           1/1     Running   0          3m56s
 opensearch-cluster-master-1                           1/1     Running   0          3m56s
 opensearch-cluster-master-2                           1/1     Running   0          3m56s
-opensearch-dashboards-1-1628184109-584ff47c54-gghf2   1/1     Running   0          5m25s
 ```
 
-To access the Elasticsearch shell:
+To access the OpenSearch shell:
 
 ```bash
 $ kubectl exec -it opensearch-cluster-master-0 -- /bin/bash
 ```
 
-You can send requests to the pod to verify that Elasticsearch is up and running:
+You can send requests to the pod to verify that OpenSearch is up and running:
 
-```bash
+```json
 $ curl -XGET https://localhost:9200 -u 'admin:admin' --insecure
+{
+  "name" : "opensearch-cluster-master-1",
+  "cluster_name" : "opensearch-cluster",
+  "cluster_uuid" : "hP2gq5bPS3SLp8Z7wXm8YQ",
+  "version" : {
+    "distribution" : "opensearch",
+    "number" : "1.0.0",
+    "build_type" : "tar",
+    "build_hash" : "34550c5b17124ddc59458ef774f6b43a086522e3",
+    "build_date" : "2021-07-02T23:22:21.383695Z",
+    "build_snapshot" : false,
+    "lucene_version" : "8.8.2",
+    "minimum_wire_compatibility_version" : "6.8.0",
+    "minimum_index_compatibility_version" : "6.0.0-beta1"
+  },
+  "tagline" : "The OpenSearch Project: https://opensearch.org/"
+}
 ```
-
-## Install OpenSearch Dashboards using Helm
-
-1. Clone the [Helm/opensearch-dashboards](https://github.com/opensearch-project/opensearch-devops/tree/main/Helm/opensearch) repository:
-
-   ```bash
-   git clone https://github.com/opensearch-project/opensearch-devops/tree/main/Helm/opensearch-dashboards
-   ```
-
-1. Change to the `opensearch-dashboards` directory:
-
-   ```bash
-   cd opensearch-dashboards
-   ```
-
-1. Package the Helm chart:
-
-   ```bash
-   helm package .
-   ```
-
-1. Deploy Elasticsearch:
-
-   ```bash
-   helm install --generate-name opensearch-dashboards-1.0.0.tgz
-   ```
-
-The output shows you the specifications instantiated from the install.
-To customize the deployment, pass in the values that you want to override with a custom YAML file:
-
-```bash
-helm install --values=customvalues.yaml opensearch-dashboards-1.0.0.tgz
-```
-
-#### Sample output
-
-```yaml
-NAME: opensearch-dashboards-1-1628184109
-LAST DEPLOYED: Thu Aug  5 13:21:55 2021
-NAMESPACE: default
-STATUS: deployed
-REVISION: 1
-TEST SUITE: None
-```
-
-To get the the application URL, run the following commands:
-
-```
-export POD_NAME=$(kubectl get pods --namespace default -l "app.kubernetes.io/name=opensearch-dashboards,app.kubernetes.io/instance=opensearch-dashboards-1-1628184109" -o jsonpath="{.items[0].metadata.name}")
-
-export CONTAINER_PORT=$(kubectl get pod --namespace default $POD_NAME -o jsonpath="{.spec.containers[0].ports[0].containerPort}")
-
-echo "Visit http://127.0.0.1:8080 to use your application"
-kubectl --namespace default port-forward $POD_NAME 8080:$CONTAINER_PORT
-```
-
-To set up port forwarding to access Kibana, exit the Elasticsearch shell and run the following command:
-```bash
-$ kubectl port-forward deployment/opensearch-dashboards-1-1628184109 5601
-```
-
-You can now access Kibana from your browser at: http://localhost:5601.
 
 ## Uninstall using Helm
 
-To identify the opendistro-es deployment to be deleted:
+To identify the OpenSearch deployment that you want to delete:
 
 ```bash
-helm list
+$ helm list
+NAME  NAMESPACEREVISIONUPDATED  STATUS  CHART APP VERSION
+opensearch-1-1629223146 default 1 2021-08-17 17:59:07.664498239 +0000 UTCdeployedopensearch-1.0.0    1.0.0       
 ```
 
-To delete or uninstall this deployment, run the following command:
+To delete or uninstall a deployment, run the following command:
 
 ```bash
-helm delete <opendistro-es deployment>
+helm delete opensearch-1-1629223146
 ```
+
+For steps to install OpenSearch Dashboards, see [Helm to install OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/install/helm/).
