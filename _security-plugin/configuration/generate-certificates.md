@@ -86,7 +86,7 @@ Just like the root certificate, use the `-days` option to specify an expiration 
 
 ## (Optional) Generate node and client certificates
 
-Follow the steps in [Generate an admin certificate](#generate-an-admin-certificate) with new file names to generate a new certificate for each node and as many client certificates as you need. Each certificate should use its own private key.
+Follow the steps in [Generate an admin certificate](#generate-an-admin-certificate) with new file names to generate a new certificate for each node and as many client certificates as you need. For example, you might generate one client certificate for OpenSearch Dashboards and another for a Python client. Each certificate should use its own private key.
 
 If you generate node certificates and have `plugins.security.ssl.transport.enforce_hostname_verification` set to `true` (default), be sure to specify a common name (CN) for the certificate that matches the hostname of the intended node. If you want to use the same node certificate on all nodes (not recommended), set hostname verification to `false`. For more information, see [Configure TLS certificates]({{site.url}}{{site.baseurl}}/security-plugin/configuration/tls#advanced-hostname-verification-and-dns-lookup).
 
@@ -197,17 +197,4 @@ After configuring your certificates and starting OpenSearch, run `securityadmin.
 
 ## OpenSearch Dashboards
 
-Depending on your settings in `opensearch_dashboards.yml`, you might need to add `root-ca.pem` to your OpenSearch Dashboards node. You have two options: disable SSL verification or add the root CA.
-
-- Disable SSL verification:
-
-  ```yml
-  opensearch.ssl.verificationMode: none
-  ```
-
-- Add the root CA:
-
-  ```yml
-  opensearch.ssl.certificateAuthorities: ["/usr/share/opensearch-dashboards/config/root-ca.pem"]
-  opensearch.ssl.verificationMode: full
-  ```
+For information on using your root CA and a client certificate to enable TLS for OpenSearch Dashboards, see [Configure TLS for OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/install/tls/).

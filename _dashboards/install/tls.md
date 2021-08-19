@@ -12,9 +12,9 @@ By default, for ease of testing and getting started, OpenSearch Dashboards runs 
 Setting | Description
 :--- | :---
 opensearch.ssl.verificationMode | This setting is for communications between OpenSearch and OpenSearch Dashboards. Valid values are `full`, `certificate`, or `none`. We recommend `full` if you enable TLS, which enables hostname verification. `certificate` just checks the certificate, not the hostname, and `none` performs no checks (suitable for HTTP). Default is `full`.
-opensearch.ssl.certificateAuthorities | If `opensearch.ssl.verificationMode` is `full` or `certificate`, specify the full path (e.g. `[ "/usr/share/opensearch-dashboards-1.0.0/config/root-ca.pem" ]` to the certificate authority for your OpenSearch cluster.
+opensearch.ssl.certificateAuthorities | If `opensearch.ssl.verificationMode` is `full` or `certificate`, specify the full path to one or more CA certificates that comprise a trusted chain for your OpenSearch cluster. For example, you might need to include a root CA _and_ an intermediate CA if you used the intermediate CA to issue your admin, client, and node certificates.
 server.ssl.enabled | This setting is for communications between OpenSearch Dashboards and the web browser. Set to true for HTTPS, false for HTTP.
-server.ssl.certificate | If `server.ssl.enabled` is true, specify the full path (e.g. `/usr/share/opensearch-dashboards-1.0.0/config/my-client-cert.pem` to a valid client certificate for your OpenSearch cluster. You can [generate your own]({{site.url}}{{site.baseurl}}/security-plugin/configuration/generate-certificates/) or get one from a certificate authority.
+server.ssl.certificate | If `server.ssl.enabled` is true, specify the full path to a valid client certificate for your OpenSearch cluster. You can [generate your own]({{site.url}}{{site.baseurl}}/security-plugin/configuration/generate-certificates/) or get one from a certificate authority.
 server.ssl.key | If `server.ssl.enabled` is true, specify the full path (e.g. `/usr/share/opensearch-dashboards-1.0.0/config/my-client-cert-key.pem` to the key for your client certificate. You can [generate your own]({{site.url}}{{site.baseurl}}/security-plugin/configuration/generate-certificates/) or get one from a certificate authority.
 opensearch_security.cookie.secure | If you enable TLS for OpenSearch Dashboards, change this setting to `true`. For HTTP, set it to `false`.
 
@@ -27,9 +27,9 @@ opensearch.username: "kibanaserver"
 opensearch.password: "kibanaserver"
 opensearch.requestHeadersWhitelist: [ authorization,securitytenant ]
 server.ssl.enabled: true
-server.ssl.certificate: /usr/share/opensearch-1.0.0/config/client-cert.pem
-server.ssl.key: /usr/share/opensearch-1.0.0/config/client-cert-key.pem
-opensearch.ssl.certificateAuthorities: [ "/usr/share/opensearch-1.0.0/config/root-ca.pem" ]
+server.ssl.certificate: /usr/share/opensearch-dashboards/config/client-cert.pem
+server.ssl.key: /usr/share/opensearch-dashboards/config/client-cert-key.pem
+opensearch.ssl.certificateAuthorities: [ "/usr/share/opensearch-dashboards/config/root-ca.pem", "/usr/share/opensearch-dashboards/config/intermediate-ca.pem" ]
 opensearch_security.multitenancy.enabled: true
 opensearch_security.multitenancy.tenants.preferred: ["Private", "Global"]
 opensearch_security.readonly_mode.roles: ["kibana_read_only"]
