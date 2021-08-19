@@ -6,7 +6,7 @@ nav_order: 70
 
 # Python client
 
-The OpenSearch Python client provides a more natural syntax for interacting with your cluster. Rather than sending HTTP requests raw JSON bodies to a given URL, you can create an OpenSearch client for your cluster and call the client's built-in functions.
+The OpenSearch Python client provides a more natural syntax for interacting with your cluster. Rather than sending HTTP requests with raw JSON bodies to a given URL, you can create an OpenSearch client for your cluster and call the client's built-in functions.
 
 
 ## Setup
