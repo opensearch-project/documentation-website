@@ -79,7 +79,7 @@ public class RESTClientSample {
     RestHighLevelClient client = new RestHighLevelClient(builder);
 
     //Create a non-default index with custom settings and mappings.
-    CreateIndexRequest createIndexRequest = new CreateIndexRequest("test-index");
+    CreateIndexRequest createIndexRequest = new CreateIndexRequest("custom-index");
 
     createIndexRequest.settings(Settings.builder() //Specify in the settings how many shards you want in the index.
       .put("index.number_of_shards", 4)
