@@ -27,7 +27,7 @@ The instructions here assume you have a Kubernetes cluster with Helm preinstalle
 
 ## Prerequisites
 
-The default Helm chart deploys a 3-node cluster. We recommend that you have 8 GiB of memory available for this deployment. You can expect the deployment to fail if, say, you have less than 4 GiB of memory available.
+The default Helm chart deploys a three-node cluster. We recommend that you have at least 8 GiB of memory available for this deployment. You can expect the deployment to fail if, say, you have less than 4 GiB of memory available.
 
 ## Install OpenSearch using Helm
 
