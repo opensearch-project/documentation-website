@@ -54,7 +54,7 @@ body {
 
 code {
   @include monospace;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   -webkit-font-smoothing: subpixel-antialiased;
   -moz-osx-font-smoothing: auto;
 }
@@ -228,6 +228,13 @@ p.label {
   @include mq(xl) {
     width: calc((100% - #{$nav-width + $content-width + $toc-width}) / 2 + #{$nav-width});
     min-width: $nav-width;
+  }
+}
+
+.site-footer {
+  display: none;
+  @include mq(md) {
+    display: block;
   }
 }
 
@@ -460,6 +467,7 @@ main {
 }
 
 .main-content {
+  font-size: 1rem;
   h1, h2, h3, h4, h5, h6 {
     a {
       @include link-alternate;
