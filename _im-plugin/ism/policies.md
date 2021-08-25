@@ -347,7 +347,7 @@ Parameter | Description | Type | Required | Default
 
 ### allocation
 
-Allocate the index to a node with a specific attribute.
+Allocate the index to a node with a specific attribute set like this {{site.url}}{{site.baseurl}}/opensearch/cluster/#advanced-step-7-set-up-a-hot-warm-architecture
 For example, setting `require` to `warm` moves your data only to "warm" nodes.
 
 The `allocation` operation has the following parameters:
@@ -363,7 +363,7 @@ Parameter | Description | Type | Required
 "actions": [
   {
     "allocation": {
-      "require": { "box_type": "warm" }
+      "require": { "temp": "warm" }
     }
   }
 ]
