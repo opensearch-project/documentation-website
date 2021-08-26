@@ -56,6 +56,7 @@ var client = new Client({
     node: protocol + '://' + auth + '@' + host + ':' + port,
     ssl: {
         ca: fs.readFileSync(ca_certs_path),
+        // You can turn off certificate verification (rejectUnauthorized: false) if you're using self-signed certificates with a hostname mismatch.
         // cert: fs.readFileSync(client_cert_path),
         // key: fs.readFileSync(client_key_path)
     }
