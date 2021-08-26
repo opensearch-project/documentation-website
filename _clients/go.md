@@ -55,8 +55,8 @@ func main() {
 		fmt.Println("cannot initialize", err)
 	}
 
-	// Print OpenSearch version information.
-	log.Println(client.Info())
+	// Print OpenSearch version information on console.
+	fmt.Println(client.Info())
 
 	// Define a mapping.
 	mapping := strings.NewReader(`{
