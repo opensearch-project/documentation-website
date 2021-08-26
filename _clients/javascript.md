@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Javascript client
-nav_order: 80
+nav_order: 90
 ---
 
 # Javascript client
