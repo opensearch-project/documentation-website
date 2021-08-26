@@ -95,16 +95,12 @@ async function search() {
     var response = await client.index({
         id: id,
         index: index_name,
-        body: document
+        body: document,
+        refresh: true
     })
 
     console.log('Adding document:')
     console.log(response.body)
-
-    // Force an index refresh so the subsequent search returns results.
-    client.indices.refresh({
-        index: index_name
-    })
 
     // Search for the document.
     var query = {
