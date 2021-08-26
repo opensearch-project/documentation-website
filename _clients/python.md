@@ -11,7 +11,7 @@ The OpenSearch Python client provides a more natural syntax for interacting with
 
 ## Setup
 
-To add the client to your project, install it using pip:
+To add the client to your project, install it using [pip](https://pip.pypa.io/):
 
 ```bash
 pip install <TBD>
