@@ -19,6 +19,12 @@ To add the client to your project, install it from npm:
 npm install @opensearch/opensearch
 ```
 
+To install a specific major version of the client, run the following command:
+
+```bash
+npm install @opensearch/opensearch@<version>
+```
+
 If you prefer to add the client manually or just want to examine the source code, see [opensearch-js](https://github.com/opensearch-project/opensearch-js) on GitHub.
 
 Then require the client:
