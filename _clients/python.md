@@ -23,6 +23,8 @@ Then import it like any other module:
 from opensearch import OpenSearch
 ```
 
+If you prefer to add the client manually or just want to examine the source code, see [opensearch-py on GitHub](https://github.com/opensearch-project/opensearch-py).
+
 
 ## Sample code
 
