@@ -11,10 +11,15 @@ The OpenSearch Go client lets you programmatically interact with data in your Op
 
 ## Setup
 
-To add the client to your project, import it like any other module:
+If you're creating a new project:
 
 ```go
 go mod init
+```
+
+To add the client to your project, import it like any other module:
+
+```go
 go get github.com/opensearch-project/opensearch-go
 ```
 
