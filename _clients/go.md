@@ -25,6 +25,8 @@ go get github.com/opensearch-project/opensearch-go
 
 ## Sample code
 
+This sample code creates a client, adds an index with non-default settings, inserts a document, searches for the document, deletes the document, and finally deletes the index:
+
 ```go
 package main
 
