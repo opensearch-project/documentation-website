@@ -19,14 +19,14 @@ DELETE /sample-index1/_doc/1
 ## Path and HTTP methods
 
 ```
-DELETE /<index-name>/_doc/<_id>
+DELETE /<index>/_doc/<_id>
 ```
 
 ## URL parameters
 
 Parameter | Type | Description | Required
 :--- | :--- | :--- | :---
-&lt;index-name&gt; | String | The index to delete from. | Yes
+&lt;index&gt; | String | The index to delete from. | Yes
 &lt;_id&gt; | String | The ID of the document to delete. | Yes
 if_seq_no | Integer | Only perform the delete operation if the document's version number matches the specified number. | No
 if_primary_term | Integer | Only perform the delete operation if the document has the specified primary term. | No
