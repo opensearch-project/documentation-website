@@ -3,7 +3,7 @@ layout: default
 title: Delete by query
 parent: Document APIs
 grand_parent: REST API reference
-nav_order: 25
+nav_order: 30
 ---
 
 # Delete by query
