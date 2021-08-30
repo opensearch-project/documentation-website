@@ -28,7 +28,7 @@ POST sample-index1/_delete_by_query
 ## Path and HTTP methods
 
 ```
-POST <index>/_delete_by_query
+POST <target>/_delete_by_query
 ```
 
 ## URL parameters
