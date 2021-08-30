@@ -17,7 +17,7 @@ POST /sample-index1/_update/1
 {
   "doc": {
     "first_name" : "Bruce",
-    "last_name" : "Wayne",
+    "last_name" : "Wayne"
   }
 }
 ```
@@ -28,7 +28,7 @@ POST /sample-index1/_update/1
 POST /test-index1/_update/1
 {
   "script" : {
-    "source": "ctx._source.secret_identity = \"Batman\"",
+    "source": "ctx._source.secret_identity = \"Batman\""
   }
 }
 ```
@@ -36,14 +36,14 @@ POST /test-index1/_update/1
 ## Path and HTTP methods
 
 ```
-POST /<index-name>/_update/<_id>
+POST /<index>/_update/<_id>
 ```
 
 ## URL parameters
 
 Parameter | Type | Description | Required
 :--- | :--- | :--- | :---
-&lt;index-name&gt; | String | Name of the index. | Yes
+&lt;index&gt; | String | Name of the index. | Yes
 &lt;_id&gt; | String | The ID of the document to update. | Yes
 if_seq_no | Integer | Only perform the delete operation if the document's version number matches the specified number. | No
 if_primary_term | Integer | Perform the update operation if the document has the specified primary term. | No
