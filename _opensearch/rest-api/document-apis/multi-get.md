@@ -16,7 +16,6 @@ The multi-get operation allows you to execute multiple GET operations in one req
 
 ```json
 GET _mget
-
 {
   "docs": [
   {
