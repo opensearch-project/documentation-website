@@ -15,32 +15,6 @@ Data streams simplify this bootstrapping process and enforce a setup that best s
 A data stream is internally composed of multiple backing indices. Search requests are routed to all the backing indices, while indexing requests are routed to the latest write index. You can use [ISM]({{site.url}}{{site.baseurl}}/im-plugin/ism/index/) policies to automatically handle rollovers or deletion of indices in a data stream, based on your use case.
 
 
-## About data streams
-
-A data stream consists of one or more hidden auto-generated backing indices. These backing indices are named using the following convention:
-
-```
-.ds-<data-stream-name>-<generation-id>
-```
-
-For example, `.ds-logs-redis-000003`, where generation-id is a six-digit, zero-padded integer that acts as a cumulative count of the data stream’s rollovers, starting at `000001`.
-
-The most recently created backing index is the data stream’s write index. You can’t add documents directly to any of the backing indices. You can only add them via the data stream handle:
-
-![data stream indexing diagram]({{site.url}}{{site.baseurl}}/images/data_stream_indexing.png)
-
-The data stream routes search requests to all of its backing indices. It uses the timestamp field to intelligently route search requests to the right set of indices and shards:
-
-![data stream indexing diagram]({{site.url}}{{site.baseurl}}/images/data_stream_searching.png)
-
-The following operations are not supported on the write index because they might hinder the indexing operation:
-
-- close
-- clone
-- delete
-- shrink
-- split
-
 ## Get started with data streams
 
 ### Step 1: Create an index template
