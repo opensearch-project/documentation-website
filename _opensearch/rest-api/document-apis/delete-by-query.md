@@ -38,8 +38,7 @@ All URL parameters are optional.
 Parameter | Type | Description
 :--- | :--- | :--- | :---
 &lt;index&gt; | String | Name or list of the data streams, indices, or aliases to delete from. Supports wildcards. If left blank, OpenSearch searches all indices.
-allow_no_indices - Whether to ignore wildcards that don’t match any indices. Default is `true`.
-allow_no_indices | Boolean | False indicates to OpenSearch the request should return an error if any wildcard expression or index alias targets only missing or closed indices. Default is true.
+allow_no_indices | Boolean | Whether to ignore wildcards that don’t match any indices. Default is `true`.
 analyzer | String | The analyzer to use in the query string.
 analyze_wildcard | Boolean | Specifies whether to analyze wildcard and prefix queries. Default is false.
 conflicts | String | Indicates to OpenSearch what should happen if the delete by query operation runs into a version conflict. Valid options are `abort` and `proceed`. Default is `abort`.

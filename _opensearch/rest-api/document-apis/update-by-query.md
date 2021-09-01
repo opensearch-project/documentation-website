@@ -45,7 +45,7 @@ All URL parameters are optional.
 Parameter | Type | Description
 :--- | :--- | :--- | :---
 &lt;index&gt; | String | Comma-separated list of indices to update. To update all indices, use * or omit this parameter.
-allow_no_indices | String | Whether to ignore wildcards that don’t match any indices. Default is true.
+allow_no_indices | Boolean | Whether to ignore wildcards that don’t match any indices. Default is `true`.
 analyzer | String | Analyzer to use in the query string.
 analyze_wildcard | Boolean | Whether the update operation should include wildcard and prefix queries in the analysis. Default is false.
 conflicts | String | Indicates to OpenSearch what should happen if the update by query operation runs into a version conflict. Valid options are `abort` and `proceed`. Default is `abort`.

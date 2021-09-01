@@ -7,6 +7,7 @@ permalink: /:path/
 
 opensearch_version: 1.0.1
 opensearch_major_minor_version: 1.0
+lucene_version: 8_8_2
 
 # Build settings
 markdown: kramdown
