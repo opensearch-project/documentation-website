@@ -27,6 +27,12 @@ PUT _cluster/settings
 }
 ```
 
+[Just like any other setting]({{site.url}}{{site.baseurl}}/opensearch/configuration/), the alternative is to add the following line to `opensearch.yml` on each node and then restart the node:
+
+```yml
+compatibility.override_main_response_version: true
+```
+
 
 ## Downloads
 
