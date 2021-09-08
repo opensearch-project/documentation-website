@@ -144,6 +144,12 @@ If you are upgrading an Open Distro for Elasticsearch cluster, we recommend firs
 
    1. Port your settings from `elasticsearch.yml` to `opensearch.yml`. Most settings use the same names. At a minimum, specify `cluster.name`, `node.name`, `discovery.seed_hosts`, and `cluster.initial_master_nodes`.
 
+   1. (Optional) If you're actively connecting to the cluster with legacy clients that check for a particular version number, such as Logstash OSS, add a [compatibility setting]({{site.url}}{{site.baseurl}}/clients/agents-and-ingestion-tools/) to `opensearch.yml`:
+
+      ```yml
+      compatibility.override_main_response_version: true
+      ```
+
    1. (Optional) Add your certificates to your `config` directory, add them to `opensearch.yml`, and initialize the security plugin.
 
 1. Start OpenSearch on the node (rolling) or all nodes (cluster restart).
