@@ -14,7 +14,7 @@ The OpenSearch Python client provides a more natural syntax for interacting with
 To add the client to your project, install it using [pip](https://pip.pypa.io/):
 
 ```bash
-pip install <TBD>
+pip install opensearch
 ```
 
 Then import it like any other module:
