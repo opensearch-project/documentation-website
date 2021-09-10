@@ -121,6 +121,8 @@ Role | Description
 `reports_full_access` | Grants full permissions to reports.
 `asynchronous_search_full_access` | Grants full permissions to all asynchronous search actions.
 `asynchronous_search_read_access` | Grants permissions to view asynchronous searches, but not to submit, modify, or delete async searches.
+`ism_read_access` | Grants users permissions to view policies and current index states, but they are unable to create, add, update, or remove policies.
+`ism_full_access` | Grants full permissions to all ISM actions.
 
 
 For more detailed summaries of the permissions for each role, reference their action groups against the descriptions in [Default action groups]({{site.url}}{{site.baseurl}}/security-plugin/access-control/default-action-groups/).
