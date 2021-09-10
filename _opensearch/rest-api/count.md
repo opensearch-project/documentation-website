@@ -28,7 +28,7 @@ GET opensearch_dashboards_sample_data_logs/_count
 }
 ```
 
-You can also use the search API for the same result:
+The following call to the search API produces equivalent results:
 
 ```json
 GET opensearch_dashboards_sample_data_logs/_search
