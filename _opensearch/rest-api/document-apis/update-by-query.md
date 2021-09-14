@@ -80,7 +80,7 @@ wait_for_active_shards | String | The number of shards that must be active befor
 
 ## Request body
 
-To update your indices and documents by query, you must include a [query]({{site.baseurl}}{{site.url}}/opensearch/query-dsl/index) and a script in the request body that OpenSearch can run to update your documents. If you don't specify a query, then every document in the index gets updated.
+To update your indices and documents by query, you must include a [query]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index) and a script in the request body that OpenSearch can run to update your documents. If you don't specify a query, then every document in the index gets updated.
 
 ```json
 {
