@@ -104,7 +104,7 @@ Options | Description | Type | Required
 `enabled` | When true, the index rollup job is scheduled. Default is true. | Boolean | Yes
 `continuous` | Specify whether or not the index rollup job continuously rolls up data forever or just executes over the current data set once and stops. Default is false. | Boolean | Yes
 `error_notification` | Set up a Mustache message template sent for error notifications. For example, if an index rollup job fails, the system sends a message to a Slack channel. | Object | No
-`page_size` | Specify the number of buckets to paginate through at a time while rolling up. | Integer | Yes
+`page_size` | Specify the number of buckets to paginate through at a time while rolling up. | Number | Yes
 `delay` | The number of milliseconds to delay execution of the index rollup job. | Long | No
 `dimensions` | Specify aggregations to create dimensions for the roll up time window. | Object | Yes
 `dimensions.date_histogram` | Specify either fixed_interval or calendar_interval, but not both. Either one limits what you can query in the target index. | Object | No
