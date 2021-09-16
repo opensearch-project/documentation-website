@@ -96,10 +96,10 @@ index.auto_expand_replicas | Whether the cluster should automatically add replic
 index.search.idle.after | Amount of time a shard should wait for a search or get request until it goes idle. Default is `30s`.
 index.refresh_interval | How often the index should refresh, which publishes its most recent changes and makes them available for searching. Can be set to `-1` to disable refreshing. Default is `1s`.
 index.max_result_window | The maximum value of `from` + `size` for searches to the index. `from` is the starting index to search from, and `size` is the amount of results to return. Default: 10000.
-index.max_inner_result_window | aximum value of `from` + `size` to return nested search hits and most relevant document aggregated during the query. `from` is the starting index to search from, and `size` is the amount of top hits to return. Default is 100.
+index.max_inner_result_window | Maximum value of `from` + `size` to return nested search hits and most relevant document aggregated during the query. `from` is the starting index to search from, and `size` is the amount of top hits to return. Default is 100.
 index.max_rescore_window | The maximum value of `window_size` for rescore requests to the index. Rescore requests reorder the index's documents and return a new score, which can be more precise. Default is the same as index.max_inner_result_window or 10000 by default.
 index.max_docvalue_fields_search | Maximum amount of `docvalue_fields` allowed in a query. Default is 100.
-index.max_script_fields | Maximum amount of`script_fields` allowed in a query. Default is 32.
+index.max_script_fields | Maximum amount of `script_fields` allowed in a query. Default is 32.
 index.max_ngram_diff | Maximum difference between `min_gram` and `max_gram` values for `NGramTokenizer` and `NGramTokenFilter` fields. Default is 1.
 index.max_shingle_diff | Maximum difference between `max_shingle_size` and `min_shingle_size` to feed into the `shingle` token filter. Default is 3.
 index.max_refresh_listeners | Maximum amount of refresh listeners each shard is allowed to have.
@@ -109,11 +109,11 @@ index.max_terms_count | The maximum amount of terms a terms query can accept. De
 index.max_regex_length | The maximum character length of regex that can be in a regexp query. Default is 1000.
 index.query.default_field | A field or list of fields that OpenSearch uses in queries in case a field isn't specified in the parameters.
 index.routing.allocation.enable | Specifies options for the index’s shard allocation. Available options are all (allow allocation for all shards), primaries (allow allocation only for primary shards), new_primaries (allow allocation only for new primary shards), and none (do not allow allocation). Default is all.
-index.routing.rebalance.enable - Shard rebalancing for the index. Available options are `all` (allow  rebalancing for all shards), `primaries` (allow rebalancing only for primary shards), `replicas` (allow rebalancing only for replicas), and `none` (do not allow rebalancing). Default is `all`.
-index.routing.rebalance.enable | Enables shard rebalancing for the index. Available options are `all` (allow shard rebalancing for all shards), `primaries`, (allow shard rebalancing only for primary shards), `replicas` (allow shard rebalancing only for replicas), and `none` (do not allow shard rebalancing). Default is `all`.
+index.routing.rebalance.enable | Enables shard rebalancing for the index. Available options are `all` (allow rebalancing for all shards), `primaries` (allow rebalancing only for primary shards), `replicas` (allow rebalancing only for replicas), and `none` (do not allow rebalancing). Default is `all`.
 index.gc_deletes | Amount of time to retain a deleted document's version number. Default is `60s`.
 index.default_pipeline | The default ingest node pipeline for the index. If the default pipeline is set and the pipeline does not exist, then index requests fail. The pipeline name `_none` specifies that the index does not have an ingest pipeline.
 index.final_pipeline | The final ingest node pipeline for the index. If the final pipeline is set and the pipeline does not exist, then index requests fail. The pipeline name `_none` specifies that the index does not have an ingest pipeline.
+
 
 ### Mappings
 
