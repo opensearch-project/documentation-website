@@ -15,7 +15,7 @@ All index management data are protected as system indices, and only a super admi
 
 The security plugin comes with one role that offers full access to index management: `index_management_full_access`. For a description of the role's permissions, see [Predefined roles]({{site.url}}{{site.baseurl}}/security-plugin/access-control/users-roles#predefined-roles).
 
-With security enabled, users not only need the correct index management permissions, but they also need permissions to execute actions to involved indices. For example, if a user wants to use the REST API to attach a policy that executes a transform job to an index named `system-logs`, they would need the permissions to attach a policy and execute a transform job, as well as access to `system-logs`.
+With security enabled, users not only need the correct index management permissions, but they also need permissions to execute actions to involved indices. For example, if a user wants to use the REST API to attach a policy that executes a rollup job to an index named `system-logs`, they would need the permissions to attach a policy and execute a rollup job, as well as access to `system-logs`.
 
 Finally, with the exceptions of Create Policy, Get Policy, and Delete Policy, users also need the `indices:admin/opensearch/ism/managedindex` permission to execute [ISM APIs]({{site.url}}{{site.baseurl}}/im-plugin/ism/api).
 
