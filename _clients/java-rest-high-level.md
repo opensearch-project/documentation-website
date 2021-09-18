@@ -1,10 +1,10 @@
 ---
 layout: default
-title: Java high-level REST client
+title: Elasticsearch OSS Java high-level REST client
 nav_order: 97
 ---
 
-# Java high-level REST client
+# Elasticsearch OSS Java high-level REST client
 
 The Elasticsearch OSS Java high-level REST client allows you to interact with your OpenSearch clusters and indices through Java methods and data structures rather than HTTP methods and JSON.
 
@@ -22,7 +22,7 @@ To start using the Elasticsearch OSS Java high-level REST client, ensure that yo
 </dependency>
 ```
 
-You can now start your OpenSearch cluster. The 7.10.2 high-level REST client works with the 1.x versions of OpenSearch.
+You can now start your OpenSearch cluster. The 7.10.2 Elasticsearch OSS high-level REST client works with the 1.x versions of OpenSearch.
 
 ## Sample code
 

@@ -1,0 +1,101 @@
+---
+layout: default
+title: OpenSearch Java client
+nav_order: 65
+---
+
+# Java client
+
+The OpenSearch Java client allows you to interact with your OpenSearch clusters through Java methods and data structures rather than HTTP methods and raw JSON. For example, you can submit requests to your cluster using objects to create indices, add data to documents, or complete some other operation using the client's built-in methods.
+
+## Setup
+
+To start using the OpenSearch Java client, ensure that you have the following dependency in your project's `pom.xml` file:
+
+```
+<dependency>
+  <TBD>
+</dependency>
+```
+
+You can now start your OpenSearch cluster.
+
+## Sample code
+
+```java
+import org.apache.http.HttpHost;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.CredentialsProvider;
+import org.apache.http.impl.client.BasicCredentialsProvider;
+import org.apache.http.impl.nio.client.HttpAsyncClientBuilder;
+import org.opensearch.client.RestClient;
+import org.opensearch.client.RestClientBuilder;
+import org.opensearch.clients.base.RestClientTransport;
+import org.opensearch.clients.base.Transport;
+import org.opensearch.clients.json.jackson.JacksonJsonpMapper;
+import org.opensearch.clients.opensearch.OpenSearchClient;
+import org.opensearch.clients.opensearch._global.IndexRequest;
+import org.opensearch.clients.opensearch._global.IndexResponse;
+import org.opensearch.clients.opensearch._global.SearchResponse;
+import org.opensearch.clients.opensearch.indices.*;
+import org.opensearch.clients.opensearch.indices.put_settings.IndexSettingsBody;
+
+import java.io.IOException;
+
+
+public class Main {
+  public static void main(String[] args) throws IOException{
+    System.setProperty("javax.net.ssl.trustStore", "/full/path/to/keystore");
+    System.setProperty("javax.net.ssl.trustStorePassword", password-to-keystore);
+
+    //Only for demo purposes. Don't specify your credentials in code.
+    final CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
+    credentialsProvider.setCredentials(AuthScope.ANY,
+        new UsernamePasswordCredentials("admin", "admin"));
+
+    //Initialize the client with SSL and TLS enabled
+    RestClient restClient = RestClient.builder(new HttpHost("localhost", 9200, "https")).
+        setHttpClientConfigCallback(new RestClientBuilder.HttpClientConfigCallback() {
+          @Override
+          public HttpAsyncClientBuilder customizeHttpClient(HttpAsyncClientBuilder httpClientBuilder) {
+            return httpClientBuilder.setDefaultCredentialsProvider(credentialsProvider);
+          }
+        }).build();
+    Transport transport = new RestClientTransport(restClient, new JacksonJsonpMapper());
+    OpenSearchClient client = new OpenSearchClient(transport);
+
+    //Create the index
+    String index = "sample-index";
+    CreateRequest createIndexRequest = new CreateRequest.Builder().index(index).build();
+    client.indices().create(createIndexRequest);
+
+    //Add some settings to the index
+    IndexSettings indexSettings = new IndexSettings.Builder().autoExpandReplicas("0-all").build();
+    IndexSettingsBody settingsBody = new IndexSettingsBody.Builder().settings(indexSettings).build();
+    PutSettingsRequest putSettingsRequest = new PutSettingsRequest.Builder().index(index).value(settingsBody).build();
+    client.indices().putSettings(putSettingsRequest);
+
+    //Index some data
+    IndexData indexData = new IndexData("first_name", "Bruce");
+    IndexRequest<IndexData> indexRequest = new IndexRequest.Builder<IndexData>().index(index).id("1").value(indexData).build();
+    client.index(indexRequest);
+
+    //Search for the document
+    SearchResponse<IndexData> searchResponse = client.search(s -> s.index(index), IndexData.class);
+    for (int i = 0; i< searchResponse.hits().hits().size(); i++) {
+      System.out.println(searchResponse.hits().hits().get(i).source());
+    }
+
+    //Delete the document
+    client.delete(b -> b.index(index).id("1"));
+
+    // Delete the index
+    DeleteRequest deleteRequest = new DeleteRequest.Builder().index(index).build();
+    DeleteResponse deleteResponse = client.indices().delete(deleteRequest);
+
+    restClient.close();
+  }
+}
+
+```
