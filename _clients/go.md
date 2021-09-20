@@ -6,7 +6,7 @@ nav_order: 80
 
 # Go client
 
-The OpenSearch Go client lets you programmatically interact with data in your OpenSearch cluster as part of your Go application.
+The OpenSearch Go client lets you build a Go application that interacts with the data in your OpenSearch cluster.
 
 
 ## Setup
