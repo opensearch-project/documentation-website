@@ -19,11 +19,11 @@ has_children: false
 
 Term | Definition
 :--- | :---
-Monitor | A job that runs on a defined schedule and queries OpenSearch. The results of these queries are then used as input for one or more *triggers*.
+Monitor | A job that runs on a defined schedule and queries OpenSearch indices. The results of these queries are then used as input for one or more *triggers*.
 Trigger | Conditions that, if met, generate *alerts*.
 Alert | An event associated with a trigger. When an alert is created, the trigger performs *actions*, which can include sending a notification.
 Action | The information that you want the monitor to send out after being triggered. Actions have a *destination*, a message subject, and a message body.
-Destination | A reusable location for an action, such as Amazon Chime, Slack, or a webhook URL.
+Destination | A reusable location for an action. Supported locations are Amazon Chime, Email, Slack, or custom webhook.
 
 
 ---
@@ -34,9 +34,9 @@ Destination | A reusable location for an action, such as Amazon Chime, Slack, or
 1. Specify a name for the destination so that you can identify it later.
 1. For **Type**, choose Slack, Amazon Chime, custom webhook, or [email](#email-as-a-destination).
 
-For Email type, refer to [Email as a destination](#email-as-a-destination) section below. For all other types, specify the webhook URL. For more information about webhooks, see the documentation for [Slack](https://api.slack.com/incoming-webhooks) and [Amazon Chime](https://docs.aws.amazon.com/chime/latest/ug/webhooks.html).
+For Email, refer to the [Email as a destination](#email-as-a-destination) section below. For all other types, specify the webhook URL. See the documentation for [Slack](https://api.slack.com/incoming-webhooks) and [Amazon Chime](https://docs.aws.amazon.com/chime/latest/ug/webhooks.html) to learn more about webhooks.
 
-For custom webhooks, you must specify more information: parameters and headers. For example, if your endpoint requires basic authentication, you might need to add a header with a key of `Authorization` and a value of `Basic <Base64-encoded-credential-string>`. You might also need to change `Content-Type` to whatever your webhook requires. Popular values are `application/json`, `application/xml`, and `text/plain`.
+If you're using custom webhooks, you must specify more information: parameters and headers. For example, if your endpoint requires basic authentication, you might need to add a header with a key of `Authorization` and a value of `Basic <Base64-encoded-credential-string>`. You might also need to change `Content-Type` to whatever your webhook requires. Popular values are `application/json`, `application/xml`, and `text/plain`.
 
 This information is stored in plain text in the OpenSearch cluster. We will improve this design in the future, but for now, the encoded credentials (which are neither encrypted nor hashed) might be visible to other OpenSearch users.
 
@@ -55,7 +55,7 @@ To configure a sender email, do the following:
 1. After you choose **Email** as the destination type, choose **Manage senders**.
 1. Choose **Add sender**, **New sender** and enter a unique name.
 1. Enter the email address, SMTP host (e.g. `smtp.gmail.com` for a Gmail account), and the port.
-1. Choose an encryption method, or use the default value of **None**. However, most email providers require SSL or TLS, which requires a username and password in OpenSearch keystore. Refer to [Authenticate sender account](#authenticate-sender-account) to learn more.
+1. Choose an encryption method, or use the default value of **None**. However, most email providers require SSL or TLS, which require a username and password in OpenSearch keystore. Refer to [Authenticate sender account](#authenticate-sender-account) to learn more.
 1. Choose **Save** to save the configuration and create the sender. You can create a sender even before you add your credentials to the OpenSearch keystore. However, you must [authenticate each sender account](#authenticate-sender-account) before you use the destination to send your alert.
 
 You can reuse senders across many different destinations, but each destination only supports one sender.
@@ -101,20 +101,9 @@ POST _nodes/reload_secure_settings
 
 1. Choose **Alerting**, **Monitors**, **Create monitor**.
 1. Specify a name for the monitor.
+1. Choose either **Per query monitor** or **Per bucket monitor**.
 
-The anomaly detection option is for pairing with the anomaly detection plugin. See [Anomaly Detection]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/).
-For anomaly detector, choose an appropriate schedule for the monitor based on the detector interval. Otherwise, the alerting monitor might miss reading the results.
-
-For example, assume you set the monitor interval and the detector interval as 5 minutes, and you start the detector at 12:00. If an anomaly is detected at 12:05, it might be available at 12:06 because of the delay between writing the anomaly and it being available for queries. The monitor reads the anomaly results between 12:00 and 12:05, so it does not get the anomaly results available at 12:06.
-
-To avoid this issue, make sure the alerting monitor is at least twice the detector interval.
-When you create a monitor using OpenSearch Dashboards, the anomaly detector plugin generates a default monitor schedule that's twice the detector interval.
-
-Whenever you update a detector’s interval, make sure to update the associated monitor interval as well, as the anomaly detection plugin does not do this automatically.
-
-1. Choose one or more indices. You can also use `*` as a wildcard to specify an index pattern.
-
-   If you use the security plugin, you can only choose indices that you have permission to access. For details, see [Alerting security]({{site.url}}{{site.baseurl}}/security-plugin/).
+Whereas per query monitors run your specifed query and then check whether the query's results triggers any alerts, per bucket monitors let you select fields to create buckets and categorize your results into those buckets. Doing so gives you finer control over which results should trigger alerts, and trigger conditions get evaluated per bucket.
 
 1. Define the monitor in one of three ways: visually, using a query, or using an anomaly detector.
 
@@ -170,27 +159,45 @@ Whenever you update a detector’s interval, make sure to update the associated 
      "Start" and "end" refer to the interval at which the monitor runs. See [Available variables](#available-variables).
 
 
-1. To define a monitor visually, choose **Define using visual graph**. Then choose an aggregation (for example, `count()` or `average()`), a set of documents, and a timeframe. Visual definition works well for most monitors.
-
-   To use a query, choose **Define using extraction query**, add your query (using [the OpenSearch query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/)), and test it using the **Run** button.
-
-   The monitor makes this query to OpenSearch as often as the schedule dictates; check the **Query Performance** section and make sure you're comfortable with the performance implications.
-
-   To use an anomaly detector, choose **Define using Anomaly detector** and select your **Detector**.
 1. Choose a frequency and timezone for your monitor. Note that you can only pick a timezone if you choose Daily, Weekly, Monthly, or [custom cron expression]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/cron/) for frequency.
-1. Choose **Create**.
 
+1. Choose one or more indices. You can also use `*` as a wildcard to specify an index pattern.
+
+    If you use the security plugin, you can only choose indices that you have permission to access. For details, see [Alerting security]({{site.url}}{{site.baseurl}}/security-plugin/).
+
+    To define a monitor visually, choose **Visual editor**. Then choose an aggregation (for example, `count()` or `average()`), a set of documents, a timeframe, a data filter if you want to monitor a subset of your source index, and a group-by field if you want to categorize your query results into separate buckets, and trigger conditions get evaluated per bucket. At least one group-by field is required if you are creating a per bucket monitor. Visual definition works well for most monitors.
+
+    To use a query, choose **Extraction query editor**, add your query (using [the OpenSearch query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/)), and test it using the **Run** button.
+
+    The monitor makes this query to OpenSearch as often as the schedule dictates; check the **Query Performance** section and make sure you're comfortable with the performance implications.
+
+    To use an anomaly detector, choose **Anomaly detector** and select your **Detector**.
+
+    The anomaly detection option is for pairing with the anomaly detection plugin. See [Anomaly Detection]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/).
+    For anomaly detector, choose an appropriate schedule for the monitor based on the detector interval. Otherwise, the alerting monitor might miss reading the results.
+
+    For example, assume you set the monitor interval and the detector interval as 5 minutes, and you start the detector at 12:00. If an anomaly is detected at 12:05, it might be available at 12:06 because of the delay between writing the anomaly and it being available for queries. The monitor reads the anomaly results between 12:00 and 12:05, so it does not get the anomaly results available at 12:06.
+
+    To avoid this issue, make sure the alerting monitor is at least twice the detector interval.
+    When you create a monitor using OpenSearch Dashboards, the anomaly detector plugin generates a default monitor schedule that's twice the detector interval.
+
+    Whenever you update a detector’s interval, make sure to update the associated monitor interval as well, as the anomaly detection plugin does not do this automatically.
+
+    **Note**: Anomaly detection is available only if you are defining a per query monitor.
+    {: .note}
+
+1. Add a trigger to your monitor.
 
 ---
 
 ## Create triggers
 
-The next step in creating a monitor is to create a trigger. These steps differ depending on whether you chose **Define using visual graph** or **Define using extraction query** or **Define using Anomaly detector** when you created the monitor.
+Steps to create a trigger differ depending on whether you chose **Visual editor**, **Extraction query editor**, or **Anomaly detector** when you created the monitor.
 
-Either way, you begin by specifying a name and severity level for the trigger. Severity levels help you manage alerts. A trigger with a high severity level (e.g. 1) might page a specific individual, whereas a trigger with a low severity level might message a chat room.
+You begin by specifying a name and severity level for the trigger. Severity levels help you manage alerts. A trigger with a high severity level (e.g. 1) might page a specific individual, whereas a trigger with a low severity level might message a chat room.
 
 
-### Visual graph
+### Visual editor
 
 For **Trigger condition**, specify a threshold for the aggregation and timeframe you chose earlier, such as "is below 1,000" or "is exactly 10."
 
@@ -264,11 +271,11 @@ Below are some variables you can include in your message using Mustache template
 
 Variable | Data Type | Description
 :--- | :--- | :---
-`ctx.monitor` | JSON | Includes `ctx.monitor.name`, `ctx.monitor.type`, `ctx.monitor.enabled`, `ctx.monitor.enabled_time`, `ctx.monitor.schedule`, `ctx.monitor.inputs`, `triggers` and `ctx.monitor.last_update_time`.
-`ctx.monitor.user` | JSON | Includes information about the user who created the monitor. Includes `ctx.monitor.user.backend_roles` and `ctx.monitor.user.roles`, which are arrays that contain the backend roles and roles assigned to the user. See [alerting security]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/security/) for more information.
+`ctx.monitor` | Object | Includes `ctx.monitor.name`, `ctx.monitor.type`, `ctx.monitor.enabled`, `ctx.monitor.enabled_time`, `ctx.monitor.schedule`, `ctx.monitor.inputs`, `triggers` and `ctx.monitor.last_update_time`.
+`ctx.monitor.user` | Object | Includes information about the user who created the monitor. Includes `ctx.monitor.user.backend_roles` and `ctx.monitor.user.roles`, which are arrays that contain the backend roles and roles assigned to the user. See [alerting security]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/security/) for more information.
 `ctx.monitor.enabled` | Boolean | Whether the monitor is enabled.
 `ctx.monitor.enabled_time` | Milliseconds | Unix epoch time of when the monitor was last enabled.
-`ctx.monitor.schedule` | JSON | Contains a schedule of how often or when the monitor should run.
+`ctx.monitor.schedule` | Object | Contains a schedule of how often or when the monitor should run.
 `ctx.monitor.schedule.period.interval` | Integer | The interval at which the monitor runs.
 `ctx.monitor.schedule.period.unit` | String | The interval's unit of time.
 `ctx.monitor.inputs` | Array | An array that contains the indices and definition used to create the monitor.
@@ -282,7 +289,7 @@ Variable | Data Type | Description
 `ctx.trigger.id` | String | The trigger's ID.
 `ctx.trigger.name` | String | The trigger's name.
 `ctx.trigger.severity` | String | The trigger's severity.
-`ctx.trigger.condition`| JSON | Contains the Painless script used when creating the monitor.
+`ctx.trigger.condition`| Object | Contains the Painless script used when creating the monitor.
 `ctx.trigger.condition.script.source` | String | The language used to define the script. Must be painless.
 `ctx.trigger.condition.script.lang` | String | The script used to define the trigger.
 `ctx.trigger.actions`| Array | An array with one element that contains information about the action the monitor needs to trigger.
@@ -309,7 +316,13 @@ Variable | Data Type | Description
 `ctx.periodStart` | String | Unix timestamp for the beginning of the period during which the alert triggered. For example, if a monitor runs every ten minutes, a period might begin at 10:40 and end at 10:50.
 `ctx.periodEnd` | String | The end of the period during which the alert triggered.
 `ctx.error` | String | The error message if the trigger was unable to retrieve results or unable to evaluate the trigger, typically due to a compile error or null pointer exception. Null otherwise.
-`ctx.alert` | JSON | The current, active alert (if it exists). Includes `ctx.alert.id`, `ctx.alert.version`, and `ctx.alert.isAcknowledged`. Null if no alert is active.
+`ctx.alert` | Object | The current, active alert (if it exists). Includes `ctx.alert.id`, `ctx.alert.version`, and `ctx.alert.isAcknowledged`. Null if no alert is active.
+`ctx.dedupedAlerts` | Object | Alerts that have already been triggered. OpenSearch keeps the existing alert to prevent the plugin from creating endless amounts of the same alerts. Only available with bucket-level monitors.
+`ctx.newAlerts` | Object | Newly created alerts. Only available with bucket-level monitors.
+`ctx.completedAlerts` | Object | Alerts that are no longer ongoing. Only available with bucket-level monitors.
+`bucket_keys` | String | Comma-separated list of the monitor's bucket key values. Available only for `ctx.dedupedAlerts`, `ctx.newAlerts`, and `ctx.completedAlerts`. Accessed through `ctx.dedupedAlerts[0].bucket_keys`.
+`parent_bucket_path` | String | The parent bucket path of the bucket that triggered the alert. Accessed through `ctx.dedupedAlerts[0].parent_bucket_path`.
+
 
 
 ---

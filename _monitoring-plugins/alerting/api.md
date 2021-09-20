@@ -19,9 +19,10 @@ Use the alerting API to programmatically manage monitors and alerts.
 
 ---
 
-## Create monitor
+## Create query-level monitor
 Introduced 1.0
 {: .label .label-purple }
+
 
 #### Request
 
@@ -30,6 +31,7 @@ POST _plugins/_alerting/monitors
 {
   "type": "monitor",
   "name": "test-monitor",
+  "monitor_type": "query_level_monitor",
   "enabled": true,
   "schedule": {
     "period": {
@@ -166,7 +168,7 @@ If you use a custom webhook for your destination and need to embed JSON in the m
         },
         "throttle_enabled": false,
         "subject_template": {
-          "source": "TheSubject",
+          "source": "Subject",
           "lang": "mustache"
         }
       }]
@@ -186,6 +188,7 @@ The following example creates a monitor that runs at 12:10 PM Pacific Time on th
 {
   "type": "monitor",
   "name": "test-monitor",
+  "monitor_type": "query_level_monitor",
   "enabled": true,
   "schedule": {
     "cron" : {
@@ -228,7 +231,7 @@ The following example creates a monitor that runs at 12:10 PM Pacific Time on th
       "name": "test-action",
       "destination_id": "ld7912sBlQ5JUWWFThoW",
       "message_template": {
-        "source": "This is my message body."
+        "source": "This is a message body."
       },
       "throttle_enabled": true,
       "throttle": {
@@ -236,7 +239,7 @@ The following example creates a monitor that runs at 12:10 PM Pacific Time on th
         "unit": "MINUTES"
       },
       "subject_template": {
-        "source": "TheSubject"
+        "source": "Subject"
       }
     }]
   }]
@@ -246,6 +249,263 @@ The following example creates a monitor that runs at 12:10 PM Pacific Time on th
 For a full list of timezone names, refer to [Wikipedia](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones). The alerting plugin uses the Java [TimeZone](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/TimeZone.html) class to convert a [`ZoneId`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/time/ZoneId.html) to a valid timezone.
 
 ---
+
+## Create bucket-level monitor
+
+```json
+POST _plugins/_alerting/monitors
+{
+  "type": "monitor",
+  "name": "test-bucket-level-monitor",
+  "monitor_type": "bucket_level_monitor",
+  "enabled": true,
+  "schedule": {
+    "period": {
+      "interval": 1,
+      "unit": "MINUTES"
+    }
+  },
+  "inputs": [
+    {
+      "search": {
+        "indices": [
+          "movies"
+        ],
+        "query": {
+          "size": 0,
+          "query": {
+            "bool": {
+              "filter": [
+                {
+                  "range": {
+                    "order_date": {
+                      "from": "{{period_end}}||-1h",
+                      "to": "{{period_end}}",
+                      "include_lower": true,
+                      "include_upper": true,
+                      "format": "epoch_millis"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "aggregations": {
+            "composite_agg": {
+              "composite": {
+                "sources": [
+                  {
+                    "user": {
+                      "terms": {
+                        "field": "user"
+                      }
+                    }
+                  }
+                ]
+              },
+              "aggregations": {
+                "avg_products_base_price": {
+                  "avg": {
+                    "field": "products.base_price"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "triggers": [
+    {
+      "bucket_level_trigger": {
+        "name": "test-trigger",
+        "severity": "1",
+        "condition": {
+          "buckets_path": {
+            "_count": "_count",
+            "avg_products_base_price": "avg_products_base_price"
+          },
+          "parent_bucket_path": "composite_agg",
+          "script": {
+            "source": "params._count > 50 || params.avg_products_base_price < 35",
+            "lang": "painless"
+          }
+        },
+        "actions": [
+          {
+            "name": "test-action",
+            "destination_id": "E4o5hnsB6KjPKmHtpfCA",
+            "message_template": {
+              "source": """Monitor {{ctx.monitor.name}} just entered alert status. Please investigate the issue.   - Trigger: {{ctx.trigger.name}}   - Severity: {{ctx.trigger.severity}}   - Period start: {{ctx.periodStart}}   - Period end: {{ctx.periodEnd}}    - Deduped Alerts:   {{ctx.dedupedAlerts}}     * {{id}} : {{bucket_keys}}   {{ctx.dedupedAlerts}}    - New Alerts:   {{ctx.newAlerts}}     * {{id}} : {{bucket_keys}}   {{ctx.newAlerts}}    - Completed Alerts:   {{ctx.completedAlerts}}     * {{id}} : {{bucket_keys}}   {{ctx.completedAlerts}}""",
+              "lang": "mustache"
+            },
+            "throttle_enabled": false,
+            "action_execution_policy": {
+              "throttle": {
+                "value": 10,
+                "unit": "MINUTES"
+              },
+              "action_execution_scope": {
+                "per_alert": {
+                  "actionable_alerts": [
+                    "DEDUPED",
+                    "NEW"
+                  ]
+                }
+              }
+            },
+            "subject_template": {
+              "source": "Sample subject",
+              "lang": "mustache"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
+```
+
+#### Sample response
+```json
+{
+  "_id" : "Dfxr63sBwex6DxEhHV5N",
+  "_version" : 1,
+  "_seq_no" : 3,
+  "_primary_term" : 1,
+  "monitor" : {
+    "type" : "monitor",
+    "schema_version" : 4,
+    "name" : "test-bucket-level-monitor",
+    "monitor_type" : "bucket_level_monitor",
+    "user" : {
+      "name" : "",
+      "backend_roles" : [ ],
+      "roles" : [ ],
+      "custom_attribute_names" : [ ],
+      "user_requested_tenant" : null
+    },
+    "enabled" : true,
+    "enabled_time" : 1631742270785,
+    "schedule" : {
+      "period" : {
+        "interval" : 1,
+        "unit" : "MINUTES"
+      }
+    },
+    "inputs" : [
+      {
+        "search" : {
+          "indices" : [
+            "opensearch_dashboards_sample_data_flights"
+          ],
+          "query" : {
+            "size" : 0,
+            "query" : {
+              "bool" : {
+                "filter" : [
+                  {
+                    "range" : {
+                      "order_date" : {
+                        "from" : "{{period_end}}||-1h",
+                        "to" : "{{period_end}}",
+                        "include_lower" : true,
+                        "include_upper" : true,
+                        "format" : "epoch_millis",
+                        "boost" : 1.0
+                      }
+                    }
+                  }
+                ],
+                "adjust_pure_negative" : true,
+                "boost" : 1.0
+              }
+            },
+            "aggregations" : {
+              "composite_agg" : {
+                "composite" : {
+                  "size" : 10,
+                  "sources" : [
+                    {
+                      "user" : {
+                        "terms" : {
+                          "field" : "user",
+                          "missing_bucket" : false,
+                          "order" : "asc"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "aggregations" : {
+                  "avg_products_base_price" : {
+                    "avg" : {
+                      "field" : "products.base_price"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    ],
+    "triggers" : [
+      {
+        "bucket_level_trigger" : {
+          "id" : "C_xr63sBwex6DxEhHV5B",
+          "name" : "test-trigger",
+          "severity" : "1",
+          "condition" : {
+            "buckets_path" : {
+              "_count" : "_count",
+              "avg_products_base_price" : "avg_products_base_price"
+            },
+            "parent_bucket_path" : "composite_agg",
+            "script" : {
+              "source" : "params._count > 50 || params.avg_products_base_price < 35",
+              "lang" : "painless"
+            },
+            "gap_policy" : "skip"
+          },
+          "actions" : [
+            {
+              "id" : "DPxr63sBwex6DxEhHV5B",
+              "name" : "test-action",
+              "destination_id" : "E4o5hnsB6KjPKmHtpfCA",
+              "message_template" : {
+                "source" : "Monitor {{ctx.monitor.name}} just entered alert status. Please investigate the issue.   - Trigger: {{ctx.trigger.name}}   - Severity: {{ctx.trigger.severity}}   - Period start: {{ctx.periodStart}}   - Period end: {{ctx.periodEnd}}    - Deduped Alerts:   {{ctx.dedupedAlerts}}     * {{id}} : {{bucket_keys}}   {{ctx.dedupedAlerts}}    - New Alerts:   {{ctx.newAlerts}}     * {{id}} : {{bucket_keys}}   {{ctx.newAlerts}}    - Completed Alerts:   {{ctx.completedAlerts}}     * {{id}} : {{bucket_keys}}   {{ctx.completedAlerts}}",
+                "lang" : "mustache"
+              },
+              "throttle_enabled" : false,
+              "subject_template" : {
+                "source" : "The Subject",
+                "lang" : "mustache"
+              },
+              "throttle" : {
+                "value" : 10,
+                "unit" : "MINUTES"
+              },
+              "action_execution_policy" : {
+                "action_execution_scope" : {
+                  "per_alert" : {
+                    "actionable_alerts" : [
+                      "DEDUPED",
+                      "NEW"
+                    ]
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "last_update_time" : 1631742270785
+  }
+}
+```
 
 ## Update monitor
 Introduced 1.0
