@@ -1,7 +1,7 @@
 ---
 layout: default
-title: OpenSearch Dashboards Multi-Tenancy
-parent: Access Control
+title: OpenSearch Dashboards multi-tenancy
+parent: Access control
 nav_order: 30
 ---
 

@@ -1,7 +1,7 @@
 ---
 layout: default
-title: Users and Roles
-parent: Access Control
+title: Users and roles
+parent: Access control
 nav_order: 1
 ---
 

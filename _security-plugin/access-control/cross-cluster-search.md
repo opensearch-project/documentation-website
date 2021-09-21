@@ -1,7 +1,7 @@
 ---
 layout: default
-title: Cross-Cluster Search
-parent: Access Control
+title: Cross-cluster search
+parent: Access control
 nav_order: 40
 ---
 

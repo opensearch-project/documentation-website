@@ -1,7 +1,7 @@
 ---
 layout: default
 title: API
-parent: Access Control
+parent: Access control
 nav_order: 90
 ---
 
