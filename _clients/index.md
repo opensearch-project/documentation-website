@@ -15,8 +15,8 @@ For example, a 1.0.0 client works with an OpenSearch 1.1.0 cluster, but might no
 
 * [OpenSearch Java client]({{site.url}}{{site.baseurl}}/clients/java/)
 * [OpenSearch Python client]({{site.url}}{{site.baseurl}}/clients/python/)
-* [OpenSearch JavaScript (Node.js) client]({{site.url}}{{site.baseurl}}/clients/nodejs/)
-* [OpenSearch Go client]({{site.url}}{{site.baseurl}}/clients/golang/)
+* [OpenSearch JavaScript (Node.js) client]({{site.url}}{{site.baseurl}}/clients/javascript/)
+* [OpenSearch Go client]({{site.url}}{{site.baseurl}}/clients/go/)
 
 
 ## Legacy clients
