@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Create Dashboards
+title: Create PerfTop Dashboards
 parent: Performance Analyzer
 nav_order: 2
 ---

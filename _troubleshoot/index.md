@@ -11,14 +11,30 @@ redirect_from: /troubleshoot/
 This page contains a list of common issues and workarounds.
 
 
-## Java error during startup
-
-You might see `[ERROR][c.a.o.s.s.t.OpenSearchSecuritySSLNettyTransport] [opensearch-node1] SSL Problem Insufficient buffer remaining for AEAD cipher fragment (2). Needs to be more than tag size (16)` when starting OpenSearch. This problem is a [known issue with Java](https://bugs.openjdk.java.net/browse/JDK-8221218) and doesn't affect the operation of the cluster.
-
-
 ## OpenSearch Dashboards fails to start
 
 If you encounter the error `FATAL  Error: Request Timeout after 30000ms` during startup, try running OpenSearch Dashboards on a more powerful machine. We recommend four CPU cores and 8 GB of RAM.
+
+
+## Multi-tenancy issues in OpenSearch Dashboards
+
+If you're testing multiple users in OpenSearch Dashboards and encounter unexpected changes in tenant, use Google Chrome in an Incognito window or Firefox in a Private window.
+
+
+## Expired certificates
+
+If your certificates have expired, you might receive the following error or something similar:
+
+```
+ERROR org.opensearch.security.ssl.transport.SecuritySSLNettyTransport - Exception during establishing a SSL connection: javax.net.ssl.SSLHandshakeException: PKIX path validation failed: java.security.cert.CertPathValidatorException: validity check failed
+Caused by: java.security.cert.CertificateExpiredException: NotAfter: Thu Sep 16 11:27:55 PDT 2021
+```
+
+To check the expiration date for a certificate, run this command:
+
+```bash
+openssl x509 -enddate -noout -in <certificate>
+```
 
 
 ## Encryption at rest
@@ -85,8 +101,3 @@ The security plugin blocks the update by script operation (`POST <index>/_update
 ## Illegal reflective access operation in logs
 
 This is a known issue with Performance Analyzer that shouldn't affect functionality.
-
-
-## Multi-tenancy issues in OpenSearch Dashboards
-
-If you're testing multiple users in OpenSearch Dashboards and encounter unexpected changes in tenant, use Google Chrome in an Incognito window or Firefox in a Private window.
