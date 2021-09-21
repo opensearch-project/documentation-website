@@ -79,13 +79,11 @@ This formula provides a good starting point, but make sure to test with a repres
 
 For example, for a cluster with 3 data nodes, each with 8G of JVM heap size, a maximum memory percentage of 10% (default), and the entity size of the detector as 1MB: the total number of unique entities supported is (8.096 * 10^9 * 0.1 / 1M ) * 3 = 2429.
 
-#### Set a window size
+#### Set a shingle size
 
-Set the number of aggregation intervals from your data stream to consider in a detection window. It's best to choose this value based on your actual data to see which one leads to the best results for your use case.
+Set the number of aggregation intervals from your data stream to consider in a detection window. It’s best to choose this value based on your actual data to see which one leads to the best results for your use case.
 
-Based on experiments performed on a wide variety of one-dimensional data streams, we recommend using a window size between 1 and 16. The default window size is 8. If you set the category field for high cardinality, the default window size is 1.
-
-If you expect missing values in your data or if you want to base the anomalies on the current interval, choose 1. If your data is continuously ingested and you want to base the anomalies on multiple intervals, choose a larger window size.
+The anomaly detector expects the shingle size to be in the range of 1 and 60. The default shingle size is 8. We recommend that you don't choose 1 unless you have two or more features. Smaller values might increase [recall](https://en.wikipedia.org/wiki/Precision_and_recall) but also false positives. Larger values might be useful for ignoring noise in a signal.
 
 #### Preview sample anomalies
 

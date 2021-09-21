@@ -27,12 +27,18 @@ PUT _cluster/settings
 }
 ```
 
+[Just like any other setting]({{site.url}}{{site.baseurl}}/opensearch/configuration/), the alternative is to add the following line to `opensearch.yml` on each node and then restart the node:
+
+```yml
+compatibility.override_main_response_version: true
+```
+
 
 ## Downloads
 
 You can download the OpenSearch output plugin for Logstash from [OpenSearch downloads](https://opensearch.org/downloads.html). The Logstash output plugin is compatible with OpenSearch and Elasticsearch OSS (7.10.2 or lower).
 
-These versions of Beats offer the best compatibility with OpenSearch. For more information, see the [compatibility matrices](#compatibility-matrices).
+These are the latest versions of Beats OSS with OpenSearch compatibility. For more information, see the [compatibility matrices](#compatibility-matrices).
 
 - [Filebeat OSS 7.12.1](https://www.elastic.co/downloads/past-releases/filebeat-oss-7-12-1)
 - [Metricbeat OSS 7.12.1](https://www.elastic.co/downloads/past-releases/metricbeat-oss-7-12-1)
@@ -41,7 +47,7 @@ These versions of Beats offer the best compatibility with OpenSearch. For more i
 - [Winlogbeat OSS 7.12.1](https://www.elastic.co/downloads/past-releases/winlogbeat-oss-7-12-1)
 - [Auditbeat OSS 7.12.1](https://elastic.co/downloads/past-releases/auditbeat-oss-7-12-1)
 
-Some users report compatibility issues with ingest pipelines on these versions of Beats. If you use ingest pipelines with OpenSearch, consider using the 7.10.2 versions of Beats OSS instead.
+Some users report compatibility issues with ingest pipelines on these versions of Beats. If you use ingest pipelines with OpenSearch, consider using the 7.10.2 versions of Beats instead.
 {: .note }
 
 

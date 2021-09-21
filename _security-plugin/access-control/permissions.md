@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Permissions
-parent: Access Control
+parent: Access control
 nav_order: 50
 ---
 

@@ -48,11 +48,11 @@ Otherwise, just specify the OpenSearch endpoint:
 ./opensearch-perf-top-macos --dashboard dashboards/<dashboard>.json --endpoint my-cluster.my-domain.com
 ```
 
-PerfTop has four pre-built dashboards in the `dashboards` directory, but you can also [create your own]({{site.url}}{{site.baseurl}}/dashboards/).
+PerfTop has four pre-built dashboards in the `dashboards` directory, but you can also [create your own]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/dashboards/).
 
 You can also load the pre-built dashboards (ClusterOverview, ClusterNetworkMemoryAnalysis, ClusterThreadAnalysis, or NodeAnalysis) without the JSON files, such as `--dashboard ClusterThreadAnalysis`.
 
-PerfTop has no interactivity. Start the application, monitor the dashboard, and press esc, q, or Ctrl + C to quit.
+PerfTop has no interactivity. Start the application, monitor the dashboard, and press Esc, Q, or Ctrl + C to quit.
 {: .note }
 
 

@@ -39,11 +39,11 @@ Parameter | Type | Description | Required
 :--- | :--- | :--- | :---
 &lt;index&gt; | String | Name of the index. | Yes
 &lt;_id&gt; | String | A unique identifier to attach to the document. To automatically generate an ID, use `POST <target>/doc` in your request instead of PUT. | No
-if_seq_no | Integer | Only perform the operation if the document has the specified sequence number. | No
-if_primary_term | Integer | Only perform the operation if the document has the specified primary term. | No
+if_seq_no | Integer | Only perform the index operation if the document has the specified sequence number. | No
+if_primary_term | Integer | Only perform the index operation if the document has the specified primary term.| No
 op_type | Enum | Specifies the type of operation to complete with the document. Valid values are `create` (create the index if it doesn't exist) and `index`. If a document ID is included in the request, then the default is `index`. Otherwise, the default is `create`. | No
-pipeline | String | ID used to route the indexing operation to a certain pipeline. | No
-routing | String | Value used to assign operations to specific shards. | No
+pipeline | String | Route the index operation to a certain pipeline. | No
+routing | String | value used to assign the index operation to a specific shard. | No
 timeout | Time | How long to wait for a response from the cluster. Default is `1m`. | No
 version | Integer | The document's version number. | No
 version_type | Enum | Assigns a specific type to the document. Valid options are `external` (retrieve the document if the specified version number is greater than the document's current version) and `external_gte` (retrieve the document if the specified version number is greater than or equal to the document's current version). For example, to index version 3 of a document, use `/_doc/1?version=3&version_type=external`. | No
@@ -86,7 +86,7 @@ _index | The name of the index.
 _type | The document's type. OpenSearch supports only one type, which is `_doc`.
 _id | The document's ID.
 _version | The document's version.
-_result | The result of the index operation.
+result | The result of the index operation.
 _shards | Detailed information about the cluster's shards.
 total | The total number of shards.
 successful | The number of shards OpenSearch succssfully added the document to.

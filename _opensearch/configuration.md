@@ -65,4 +65,12 @@ PUT _cluster/settings
 
 You can find `opensearch.yml` in `/usr/share/opensearch/config/opensearch.yml` (Docker) or `/etc/opensearch/opensearch.yml` (most Linux distributions) on each node.
 
+You don't mark settings in `opensearch.yml` as persistent or transient, and settings use the flat form:
+
+```yml
+cluster.name: my-application
+action.auto_create_index: true
+compatibility.override_main_response_version: true
+```
+
 The demo configuration includes a number of settings for the security plugin that you should modify before using OpenSearch for a production workload. To learn more, see [Security]({{site.url}}{{site.baseurl}}/security-plugin/).
