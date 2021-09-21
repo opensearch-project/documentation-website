@@ -8,19 +8,23 @@ nav_order: 70
 
 The OpenSearch Python client provides a more natural syntax for interacting with your cluster. Rather than sending HTTP requests with raw JSON bodies to a given URL, you can create an OpenSearch client for your cluster and call the client's built-in functions.
 
+{% comment %}
+`opensearch-py` is the lower-level of the two Python clients. If you want a general client for assorted operations, it's a great choice. If you want a higher-level client strictly for indexing and search operations, consider [opensearch-dsl-py]({{site.url}}{{site.baseurl}}/clients/python-dsl/).
+{% endcomment %}
+
 
 ## Setup
 
 To add the client to your project, install it using [pip](https://pip.pypa.io/):
 
 ```bash
-pip install opensearch
+pip install opensearch-py
 ```
 
 Then import it like any other module:
 
 ```python
-from opensearch import OpenSearch
+from opensearchpy import OpenSearch
 ```
 
 If you prefer to add the client manually or just want to examine the source code, see [opensearch-py on GitHub](https://github.com/opensearch-project/opensearch-py).
@@ -29,7 +33,7 @@ If you prefer to add the client manually or just want to examine the source code
 ## Sample code
 
 ```python
-from opensearch import OpenSearch
+from opensearchpy import OpenSearch
 
 host = 'localhost'
 port = 9200
@@ -55,7 +59,7 @@ client = OpenSearch(
 )
 
 # Create an index with non-default settings.
-index_name = 'python-test-index3'
+index_name = 'python-test-index'
 index_body = {
   'settings': {
     'index': {
