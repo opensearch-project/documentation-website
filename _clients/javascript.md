@@ -48,7 +48,7 @@ var ca_certs_path = "/full/path/to/root-ca.pem";
 // var client_key_path = '/full/path/to/client-key.pem'
 
 // Create a client with SSL/TLS enabled.
-var { Client } = require("@opensearch/opensearch");
+var { Client } = require("@opensearch-project/opensearch");
 var fs = require("fs");
 var client = new Client({
   node: protocol + "://" + auth + "@" + host + ":" + port,
