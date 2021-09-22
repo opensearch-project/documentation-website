@@ -111,7 +111,7 @@ In a tarball installation, Performance Analyzer collects data when it is enabled
 1. Launch the agent CLI:
 
    ```bash
-   ES_HOME="$PWD" ./bin/performance-analyzer-agent-cli
+   OPENSEARCH_HOME="$PWD" ./bin/performance-analyzer-agent-cli
    ```
 
 1. In a separate window, enable the Performance Analyzer plugin:
