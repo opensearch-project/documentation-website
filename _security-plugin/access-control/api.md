@@ -1288,7 +1288,7 @@ DELETE _plugins/_security/api/nodesdn/<cluster-name>
 Introduced 1.0
 {: .label .label-purple }
 
-Retrieves the cluster's certificates.
+Retrieves the cluster's security certificates.
 
 #### Request
 
