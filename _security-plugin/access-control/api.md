@@ -1235,9 +1235,9 @@ GET _plugins/_security/api/nodesdn/<cluster-name>
 ```
 
 
-### Add distinguished names
+### Update distinguished names
 
-Adds the specified distinguished names to the cluster's or node's allow list.
+Adds or updates the specified distinguished names in the cluster's or node's allow list.
 
 #### Request
 
@@ -1256,17 +1256,6 @@ PUT _plugins/_security/api/nodesdn/<cluster-name>
 {
   "status": "CREATED",
   "message": "'cluster3' created."
-}
-```
-
-If the specified cluster or node already has an allow list of distinguished names, the PUT request updates the list instead.
-
-#### Sample response
-
-```json
-{
-  "status": "OK",
-  "message": "'cluster7' updated."
 }
 ```
 
