@@ -65,11 +65,11 @@ Save this file as `docker-compose.yml` and run `docker-compose up` to start two 
 ```yml
 version: '3'
 services:
-  opensearch-node1:
+  opensearch-ccs-node1:
     image: opensearchproject/opensearch:{{site.opensearch_version}}
-    container_name: opensearch-node1
+    container_name: opensearch-ccs-node1
     environment:
-      - cluster.name=opensearch-cluster1
+      - cluster.name=opensearch-ccs-cluster1
       - discovery.type=single-node
       - bootstrap.memory_lock=true # along with the memlock settings below, disables swapping
       - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" # minimum and maximum Java heap size, recommend setting both to 50% of system RAM
@@ -85,11 +85,11 @@ services:
     networks:
       - opensearch-net
 
-  opensearch-node2:
+  opensearch-ccs-node2:
     image: opensearchproject/opensearch:{{site.opensearch_version}}
-    container_name: opensearch-node2
+    container_name: opensearch-ccs-node2
     environment:
-      - cluster.name=opensearch-cluster2
+      - cluster.name=opensearch-ccs-cluster2
       - discovery.type=single-node
       - bootstrap.memory_lock=true # along with the memlock settings below, disables swapping
       - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" # minimum and maximum Java heap size, recommend setting both to 50% of system RAM
@@ -118,26 +118,26 @@ After the clusters start, verify the names of each:
 ```json
 curl -XGET -u 'admin:admin' -k 'https://localhost:9200'
 {
-  "cluster_name" : "opensearch-cluster1",
+  "cluster_name" : "opensearch-ccs-cluster1",
   ...
 }
 
 curl -XGET -u 'admin:admin' -k 'https://localhost:9250'
 {
-  "cluster_name" : "opensearch-cluster2",
+  "cluster_name" : "opensearch-ccs-cluster2",
   ...
 }
 ```
 
-Both clusters run on `localhost`, so the important identifier is the port number. In this case, use port 9200 (`opensearch-node1`) as the remote cluster, and port 9250 (`opensearch-node2`) as the coordinating cluster.
+Both clusters run on `localhost`, so the important identifier is the port number. In this case, use port 9200 (`opensearch-ccs-node1`) as the remote cluster, and port 9250 (`opensearch-ccs-node2`) as the coordinating cluster.
 
 To get the IP address for the remote cluster, first identify its container ID:
 
 ```bash
 docker ps
 CONTAINER ID    IMAGE                                       PORTS                                                      NAMES
-6fe89ebc5a8e    opensearchproject/opensearch:{{site.opensearch_version}}   0.0.0.0:9200->9200/tcp, 0.0.0.0:9600->9600/tcp, 9300/tcp   opensearch-node1
-2da08b6c54d8    opensearchproject/opensearch:{{site.opensearch_version}}   9300/tcp, 0.0.0.0:9250->9200/tcp, 0.0.0.0:9700->9600/tcp   opensearch-node2
+6fe89ebc5a8e    opensearchproject/opensearch:{{site.opensearch_version}}   0.0.0.0:9200->9200/tcp, 0.0.0.0:9600->9600/tcp, 9300/tcp   opensearch-ccs-node1
+2da08b6c54d8    opensearchproject/opensearch:{{site.opensearch_version}}   9300/tcp, 0.0.0.0:9250->9200/tcp, 0.0.0.0:9700->9600/tcp   opensearch-ccs-node2
 ```
 
 Then get that container's IP address:
@@ -154,7 +154,7 @@ curl -k -XPUT -H 'Content-Type: application/json' -u 'admin:admin' 'https://loca
 {
   "persistent": {
     "search.remote": {
-      "opensearch-cluster1": {
+      "opensearch-ccs-cluster1": {
         "seeds": ["172.31.0.3:9300"]
       }
     }
@@ -171,11 +171,11 @@ curl -XPUT -k -H 'Content-Type: application/json' -u 'admin:admin' 'https://loca
 At this point, cross-cluster search works. You can test it using the `admin` user:
 
 ```bash
-curl -XGET -k -u 'admin:admin' 'https://localhost:9250/opensearch-cluster1:books/_search?pretty'
+curl -XGET -k -u 'admin:admin' 'https://localhost:9250/opensearch-ccs-cluster1:books/_search?pretty'
 {
   ...
   "hits": [{
-    "_index": "opensearch-cluster1:books",
+    "_index": "opensearch-ccs-cluster1:books",
     "_type": "_doc",
     "_id": "1",
     "_score": 1.0,
@@ -196,7 +196,7 @@ curl -XPUT -k -u 'admin:admin' 'https://localhost:9250/_plugins/_security/api/in
 Then run the same search as before with `booksuser`:
 
 ```json
-curl -XGET -k -u booksuser:password 'https://localhost:9250/opensearch-cluster1:books/_search?pretty'
+curl -XGET -k -u booksuser:password 'https://localhost:9250/opensearch-ccs-cluster1:books/_search?pretty'
 {
   "error" : {
     "root_cause" : [
@@ -225,11 +225,11 @@ Both clusters must have the user, but only the remote cluster needs the role and
 Finally, repeat the search:
 
 ```bash
-curl -XGET -k -u booksuser:password 'https://localhost:9250/opensearch-cluster1:books/_search?pretty'
+curl -XGET -k -u booksuser:password 'https://localhost:9250/opensearch-ccs-cluster1:books/_search?pretty'
 {
   ...
   "hits": [{
-    "_index": "opensearch-cluster1:books",
+    "_index": "opensearch-ccs-cluster1:books",
     "_type": "_doc",
     "_id": "1",
     "_score": 1.0,
