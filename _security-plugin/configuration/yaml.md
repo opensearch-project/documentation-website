@@ -315,6 +315,10 @@ _meta:
 
 ## tenants.yml
 
+You can use this file to specify and add any number of OpenSearch Dashboards tenants to your OpenSearch cluster. For more information about tenants, see [OpenSearch Dashboards multi-tenancy]({{site.url}}{{site.baseurl}}/security-plugin/access-control/multi-tenancy).
+
+Like all of the other YAML files, we recommend you use `tenants.yml` to add any tenants you must have in your cluster, and then use OpenSearch Dashboards or the [REST API]({{site.url}}{{site.baseurl}}/security-plugin/access-control/api/#tenants) if you need to further configure or create any other tenants.
+
 ```yml
 ---
 _meta:
@@ -325,8 +329,11 @@ admin_tenant:
   description: "Demo tenant for admin user"
 ```
 
-
 ## nodes_dn.yml
+
+`nodes_dn.yml` lets you allow list certificates' [distinguished names (DNs)]({{site.url}}{{site.baseurl}}/security-plugin/configuration/generate-certificates/#add-distinguished-names-to-opensearchyml) to enable communication between any number of nodes and/or clusters. For example, a node that allow lists the DN `CN=node1.example.com` accepts communication from any other node or certificate that uses that DN.
+
+The DNs get indexed into a [system index]({{site.url}}{{site.baseurl}}/security-plugin/configuration/system-indices) that only a super admin or an admin with a Transport Layer Security (TLS) certificate can access. If you want to programmatically allow list DNs, use the [REST API]({{site.url}}{{site.baseurl}}/security-plugin/access-control/api/#distinguished-names).
 
 ```yml
 ---
