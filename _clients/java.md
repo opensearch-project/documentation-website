@@ -14,7 +14,9 @@ To start using the OpenSearch Java client, ensure that you have the following de
 
 ```
 <dependency>
-  <TBD>
+  <groupId>org.opensearch.client</groupId>
+  <artifactId>opensearch-rest-client</artifactId>
+  <version>1.0.0</version>
 </dependency>
 ```
 
