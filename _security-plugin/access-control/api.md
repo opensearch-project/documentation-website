@@ -1183,9 +1183,9 @@ PATCH _plugins/_security/api/securityconfig
 
 ## Distinguished names
 
-These REST APIs let a super admin allow list distinguished names to enable communication between clusters and/or nodes.
+These REST APIs let a super admin add, retrieve, update, or delete any distinguished names from an allow list to enable communication between clusters and/or nodes.
 
-Before you can use the REST API to add, retrieve, update, or delete any distinguished names, you must first add the following line to `opensearch.yml`:
+Before you can use the REST API to configure the allow list, you must first add the following line to `opensearch.yml`:
 
 ```yml
 plugins.security.nodes_dn_dynamic_config_enabled: true
@@ -1194,7 +1194,7 @@ plugins.security.nodes_dn_dynamic_config_enabled: true
 
 ### Get distinguished names
 
-Retrieves all allow listed distinguished names.
+Retrieves all distinguished names in the allow list.
 
 #### Request
 
@@ -1214,7 +1214,7 @@ GET _plugins/_security/api/nodesdn
 }
 ```
 
-To get the distinguished names from a specific cluster or node, include its name in the request's URL.
+To get the distinguished names from a specific cluster's or node's allow list, include the cluster's name in the request path.
 
 #### Request
 
@@ -1262,7 +1262,7 @@ PUT _plugins/_security/api/nodesdn/<cluster-name>
 
 ### Delete distinguished names
 
-Deletes the cluster's allow listed distinguished names.
+Deletes all distinguished names in the specified cluster's or node's allow list.
 
 #### Request
 
