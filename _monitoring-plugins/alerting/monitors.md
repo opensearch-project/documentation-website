@@ -82,7 +82,7 @@ If your email provider requires SSL or TLS, you must authenticate each sender ac
 ./bin/opensearch-keystore add plugins.alerting.destination.email.<sender_name>.password
 ```
 
-**Note**: Keystore settings are node-specific. You must run these commands on each node.
+Note: Keystore settings are node-specific. You must run these commands on each node.
 {: .note}
 
 To change or update your credentials (after you've added them to the keystore on every node), call the reload API to automatically update those credentials without restarting OpenSearch:
@@ -103,7 +103,7 @@ POST _nodes/reload_secure_settings
 1. Specify a name for the monitor.
 1. Choose either **Per query monitor** or **Per bucket monitor**.
 
-Whereas per query monitors run your specifed query and then check whether the query's results triggers any alerts, per bucket monitors let you select fields to create buckets and categorize your results into those buckets. Doing so gives you finer control over which results should trigger alerts, and trigger conditions get evaluated per bucket.
+Whereas per-query monitors run your specified query and then check whether the query's results triggers any alerts, per-bucket monitors let you select fields to create buckets and categorize your results into those buckets. Doing so gives you finer control over which results should trigger alerts, as the alerting plugin uses each bucket's results to see if they should trigger any alerts.
 
 1. Define the monitor in one of three ways: visually, using a query, or using an anomaly detector.
 

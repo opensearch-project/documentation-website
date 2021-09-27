@@ -23,6 +23,7 @@ Use the alerting API to programmatically manage monitors and alerts.
 Introduced 1.0
 {: .label .label-purple }
 
+Query-level monitors run the query and check whether the results should trigger any alerts. For more information about query-level monitors versus bucket-level monitors, see [Create monitors]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/#create-monitors). 
 
 #### Request
 
@@ -251,6 +252,8 @@ For a full list of timezone names, refer to [Wikipedia](https://en.wikipedia.org
 ---
 
 ## Create bucket-level monitor
+
+Bucket-level monitors categorize results into buckets separated by fields. For more information about bucket-level monitors versus query-level monitors, see [Create monitors]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/#create-monitors).
 
 ```json
 POST _plugins/_alerting/monitors
