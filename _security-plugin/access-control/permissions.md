@@ -101,6 +101,10 @@ These permissions are for the cluster and can't be applied granularly. For examp
 - cluster:admin/opendistro/alerting/monitor/get
 - cluster:admin/opendistro/alerting/monitor/search
 - cluster:admin/opendistro/alerting/monitor/write
+- cluster:admin/opendistro/asynchronous_search/stats
+- cluster:admin/opendistro/asynchronous_search/delete
+- cluster:admin/opendistro/asynchronous_search/get
+- cluster:admin/opendistro/asynchronous_search/submit
 - cluster:admin/opendistro/ism/managedindex/add
 - cluster:admin/opendistro/ism/managedindex/change
 - cluster:admin/opendistro/ism/managedindex/remove
