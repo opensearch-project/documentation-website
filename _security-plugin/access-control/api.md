@@ -1159,6 +1159,12 @@ Introduced 1.0
 
 Updates the existing configuration using the REST API. This operation can easily break your existing configuration, so we recommend using `securityadmin.sh` instead, which is far safer. See [Access control for the API](#access-control-for-the-api) for how to enable this operation.
 
+Before you can execute the operation, you must first add the following line to `opensearch.yml`:
+
+```yml
+plugins.security.unsupported.restapi.allow_securityconfig_modification: true
+```
+
 #### Request
 
 ```json
