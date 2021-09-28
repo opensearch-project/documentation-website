@@ -103,7 +103,7 @@ POST _nodes/reload_secure_settings
 1. Specify a name for the monitor.
 1. Choose either **Per query monitor** or **Per bucket monitor**.
 
-Whereas per-query monitors run your specified query and then check whether the query's results triggers any alerts, per-bucket monitors let you select fields to create buckets and categorize your results into those buckets. Doing so gives you finer control over which results should trigger alerts, as the alerting plugin uses each bucket's results to see if they should trigger any alerts.
+Whereas per-query monitors run your specified query and then check whether the query's results triggers any alerts, per-bucket monitors let you select fields to create buckets and categorize your results into those buckets. The alerting plugin runs each bucket's unique results against a script you define later, so you have finer control over which results should trigger alerts. Each of those buckets can trigger an alert, but per-query monitors can only trigger one alert at a time.
 
 1. Define the monitor in one of three ways: visually, using a query, or using an anomaly detector.
 
@@ -156,16 +156,11 @@ Whereas per-query monitors run your specified query and then check whether the q
      }
      ```
 
-     "Start" and "end" refer to the interval at which the monitor runs. See [Available variables](#available-variables).
+    "Start" and "end" refer to the interval at which the monitor runs. See [Available variables](#available-variables).
 
-
-1. Choose a frequency and timezone for your monitor. Note that you can only pick a timezone if you choose Daily, Weekly, Monthly, or [custom cron expression]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/cron/) for frequency.
-
-1. Choose one or more indices. You can also use `*` as a wildcard to specify an index pattern.
+    To define a monitor visually, choose **Visual editor**. Then choose a source index, a timeframe, an aggregation (for example, `count()` or `average()`), a data filter if you want to monitor a subset of your source index, and a group-by field if you want to include an aggregation field in your query. Visual definition works well for most monitors.
 
     If you use the security plugin, you can only choose indices that you have permission to access. For details, see [Alerting security]({{site.url}}{{site.baseurl}}/security-plugin/).
-
-    To define a monitor visually, choose **Visual editor**. Then choose an aggregation (for example, `count()` or `average()`), a set of documents, a timeframe, a data filter if you want to monitor a subset of your source index, and a group-by field if you want to categorize your query results into separate buckets, and trigger conditions get evaluated per bucket. At least one group-by field is required if you are creating a per bucket monitor. Visual definition works well for most monitors.
 
     To use a query, choose **Extraction query editor**, add your query (using [the OpenSearch query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/)), and test it using the **Run** button.
 
@@ -186,6 +181,8 @@ Whereas per-query monitors run your specified query and then check whether the q
     **Note**: Anomaly detection is available only if you are defining a per query monitor.
     {: .note}
 
+1. Choose a frequency and timezone for your monitor. Note that you can only pick a timezone if you choose Daily, Weekly, Monthly, or [custom cron expression]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/cron/) for frequency.
+
 1. Add a trigger to your monitor.
 
 ---
@@ -196,6 +193,7 @@ Steps to create a trigger differ depending on whether you chose **Visual editor*
 
 You begin by specifying a name and severity level for the trigger. Severity levels help you manage alerts. A trigger with a high severity level (e.g. 1) might page a specific individual, whereas a trigger with a low severity level might message a chat room.
 
+Remember that per-query monitors run your trigger's script just once against the query's results, but per-bucket monitors execute your trigger's script on each bucket, so you should create a trigger that best fits the monitor you chose. If you want to execute multiple scripts, you must create multiple triggers.
 
 ### Visual editor
 
@@ -316,7 +314,7 @@ Variable | Data Type | Description
 `ctx.periodStart` | String | Unix timestamp for the beginning of the period during which the alert triggered. For example, if a monitor runs every ten minutes, a period might begin at 10:40 and end at 10:50.
 `ctx.periodEnd` | String | The end of the period during which the alert triggered.
 `ctx.error` | String | The error message if the trigger was unable to retrieve results or unable to evaluate the trigger, typically due to a compile error or null pointer exception. Null otherwise.
-`ctx.alert` | Object | The current, active alert (if it exists). Includes `ctx.alert.id`, `ctx.alert.version`, and `ctx.alert.isAcknowledged`. Null if no alert is active.
+`ctx.alert` | Object | The current, active alert (if it exists). Includes `ctx.alert.id`, `ctx.alert.version`, and `ctx.alert.isAcknowledged`. Null if no alert is active. Only available with per-query monitors.
 `ctx.dedupedAlerts` | Object | Alerts that have already been triggered. OpenSearch keeps the existing alert to prevent the plugin from creating endless amounts of the same alerts. Only available with bucket-level monitors.
 `ctx.newAlerts` | Object | Newly created alerts. Only available with bucket-level monitors.
 `ctx.completedAlerts` | Object | Alerts that are no longer ongoing. Only available with bucket-level monitors.

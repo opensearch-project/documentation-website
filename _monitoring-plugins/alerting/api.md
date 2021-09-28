@@ -23,7 +23,7 @@ Use the alerting API to programmatically manage monitors and alerts.
 Introduced 1.0
 {: .label .label-purple }
 
-Query-level monitors run the query and check whether the results should trigger any alerts. For more information about query-level monitors versus bucket-level monitors, see [Create monitors]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/#create-monitors). 
+Query-level monitors run the query and check whether the results should trigger any alerts. As such, query-level monitors can only trigger one alert at a time. For more information about query-level monitors versus bucket-level monitors, see [Create monitors]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/#create-monitors).
 
 #### Request
 
@@ -253,7 +253,7 @@ For a full list of timezone names, refer to [Wikipedia](https://en.wikipedia.org
 
 ## Create bucket-level monitor
 
-Bucket-level monitors categorize results into buckets separated by fields. For more information about bucket-level monitors versus query-level monitors, see [Create monitors]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/#create-monitors).
+Bucket-level monitors categorize results into buckets separated by fields. The monitor then runs your script with each bucket's results and evaluates whether to trigger an alert. For more information about bucket-level monitors versus query-level monitors, see [Create monitors]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/#create-monitors).
 
 ```json
 POST _plugins/_alerting/monitors
@@ -344,11 +344,11 @@ POST _plugins/_alerting/monitors
               "lang": "mustache"
             },
             "throttle_enabled": false,
+            "throttle": {
+              "value": 10,
+              "unit": "MINUTES"
+            },
             "action_execution_policy": {
-              "throttle": {
-                "value": 10,
-                "unit": "MINUTES"
-              },
               "action_execution_scope": {
                 "per_alert": {
                   "actionable_alerts": [
@@ -359,7 +359,7 @@ POST _plugins/_alerting/monitors
               }
             },
             "subject_template": {
-              "source": "Sample subject",
+              "source": "The Subject",
               "lang": "mustache"
             }
           }
