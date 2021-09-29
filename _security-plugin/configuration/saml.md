@@ -11,7 +11,6 @@ The security plugin supports user authentication through SAML single sign-on. Th
 
 This profile is meant for use with web browsers. It is not a general-purpose way of authenticating users against the security plugin, so its primary use case is to support OpenSearch Dashboards single sign-on.
 
-{% comment %}
 
 ## Docker example
 
@@ -35,7 +34,6 @@ We provide a fully functional example that can help you understand how to use SA
 
    In particular, you might find it helpful to review the contents of the `/var/www/simplesamlphp/config/` and `/var/www/simplesamlphp/metadata/` directories.
 
-{% endcomment %}
 
 ## Activating SAML
 
@@ -300,13 +298,13 @@ authc:
 
 Because most of the SAML-specific configuration is done in the security plugin, just activate SAML in your `opensearch_dashboards.yml` by adding the following:
 
-```
-plugins.security.auth.type: "saml"
+```yml
+opensearch_security.auth.type: "saml"
 ```
 
 In addition, the OpenSearch Dashboards endpoint for validating the SAML assertions must be whitelisted:
 
-```
+```yml
 server.xsrf.whitelist: ["/_plugins/_security/saml/acs"]
 ```
 
