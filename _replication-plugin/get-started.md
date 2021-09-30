@@ -6,7 +6,7 @@ nav_order: 10
 
 # Get started with cross-cluster replication
 
-With cross-cluster replication, you index data to a leader index and that data is replicated to one or more read-only follower indices. All subsequnt operations on the leader are replicated on the follower, such as creating, updating, or deleting documents.
+With cross-cluster replication, you index data to a leader index and that data is replicated to one or more read-only follower indices. All subsequent operations on the leader are replicated on the follower, such as creating, updating, or deleting documents.
 
 ## Prerequisites
 
@@ -147,7 +147,7 @@ To get started, create an index called `leader-01` on the remote (leader) cluste
 curl -XPUT -k -H 'Content-Type: application/json' -u 'admin:admin' 'https://localhost:9201/leader-01?pretty'
 ```
 
-Start replication of that index from the follower cluster. Starting replication creates the provided follower index from scratch; you can't convert an existing index to a follower index. 
+Start replication of that index from the follower cluster. Starting replication creates a follower index from scratch; you can't convert an existing index to a follower index. 
 
 Provide the leader cluster and index that you want to replicate:
 
