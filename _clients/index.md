@@ -13,7 +13,9 @@ OpenSearch provides clients for several popular programming languages, with more
 
 For example, a 1.0.0 client works with an OpenSearch 1.1.0 cluster, but might not support any non-breaking API changes in OpenSearch 1.1.0. A 1.2.0 client works with the same cluster, but might allow you to pass unsupported options in certain functions. We recommend using the same version for both, but if your tests pass after a cluster upgrade, you don't necessarily need to upgrade your clients immediately.
 
+{% comment %}
 * [OpenSearch Java client]({{site.url}}{{site.baseurl}}/clients/java/)
+{% endcomment %}
 * [OpenSearch Python client]({{site.url}}{{site.baseurl}}/clients/python/)
 * [OpenSearch JavaScript (Node.js) client]({{site.url}}{{site.baseurl}}/clients/javascript/)
 * [OpenSearch Go client]({{site.url}}{{site.baseurl}}/clients/go/)

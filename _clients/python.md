@@ -6,7 +6,7 @@ nav_order: 70
 
 # Python client
 
-The OpenSearch Python client provides a more natural syntax for interacting with your cluster. Rather than sending HTTP requests with raw JSON bodies to a given URL, you can create an OpenSearch client for your cluster and call the client's built-in functions.
+The OpenSearch Python client provides a more natural syntax for interacting with your cluster. Rather than sending HTTP requests to a given URL, you can create an OpenSearch client for your cluster and call the client's built-in functions.
 
 {% comment %}
 `opensearch-py` is the lower-level of the two Python clients. If you want a general client for assorted operations, it's a great choice. If you want a higher-level client strictly for indexing and search operations, consider [opensearch-dsl-py]({{site.url}}{{site.baseurl}}/clients/python-dsl/).
