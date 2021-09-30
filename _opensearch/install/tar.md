@@ -18,9 +18,10 @@ The tarball supports most Linux distributions, including CentOS 7, Amazon Linux 
    ```bash
    # x64
    tar -zxf opensearch-{{site.opensearch_version}}-linux-x64.tar.gz
-   cd opensearch-{{site.opensearch_version}}{% comment %}# ARM64
+   cd opensearch-{{site.opensearch_version}}
+   # ARM64
    tar -zxf opensearch-{{site.opensearch_version}}-linux-arm64.tar.gz
-   cd opensearch-{{site.opensearch_version}}{% endcomment %}
+   cd opensearch-{{site.opensearch_version}}
    ```
 
 1. Run OpenSearch:
