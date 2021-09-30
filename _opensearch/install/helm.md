@@ -31,16 +31,16 @@ The default Helm chart deploys a three-node cluster. We recommend that you have 
 
 ## Install OpenSearch using Helm
 
-1. Clone the [opensearch-devops](https://github.com/opensearch-project/opensearch-devops/) repository:
+1. Clone the [helm-charts](https://github.com/opensearch-project/helm-charts) repository:
 
    ```bash
-   git clone https://github.com/opensearch-project/opensearch-devops.git
+   git clone https://github.com/opensearch-project/helm-charts
    ```
 
 1. Change to the `opensearch` directory:
 
    ```bash
-   cd Helm/opensearch
+   cd charts/opensearch
    ```
 
 1. Package the Helm chart:
