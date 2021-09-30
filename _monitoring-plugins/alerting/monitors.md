@@ -103,7 +103,7 @@ POST _nodes/reload_secure_settings
 1. Specify a name for the monitor.
 1. Choose either **Per query monitor** or **Per bucket monitor**.
 
-Whereas per-query monitors run your specified query and then check whether the query's results triggers any alerts, per-bucket monitors let you select fields to create buckets and categorize your results into those buckets. The alerting plugin runs each bucket's unique results against a script you define later, so you have finer control over which results should trigger alerts. Each of those buckets can trigger an alert, but per-query monitors can only trigger one alert at a time.
+Whereas query-level monitors run your specified query and then check whether the query's results triggers any alerts, bucket-level monitors let you select fields to create buckets and categorize your results into those buckets. The alerting plugin runs each bucket's unique results against a script you define later, so you have finer control over which results should trigger alerts. Each of those buckets can trigger an alert, but query-level monitors can only trigger one alert at a time.
 
 1. Define the monitor in one of three ways: visually, using a query, or using an anomaly detector.
 
@@ -158,7 +158,7 @@ Whereas per-query monitors run your specified query and then check whether the q
 
     "Start" and "end" refer to the interval at which the monitor runs. See [Available variables](#available-variables).
 
-    To define a monitor visually, choose **Visual editor**. Then choose a source index, a timeframe, an aggregation (for example, `count()` or `average()`), a data filter if you want to monitor a subset of your source index, and a group-by field if you want to include an aggregation field in your query. Visual definition works well for most monitors.
+    To define a monitor visually, choose **Visual editor**. Then choose a source index, a timeframe, an aggregation (for example, `count()` or `average()`), a data filter if you want to monitor a subset of your source index, and a group-by field if you want to include an aggregation field in your query. At least one group-by field is required if you're defining a bucket-level monitor. Visual definition works well for most monitors.
 
     If you use the security plugin, you can only choose indices that you have permission to access. For details, see [Alerting security]({{site.url}}{{site.baseurl}}/security-plugin/).
 
@@ -193,18 +193,20 @@ Steps to create a trigger differ depending on whether you chose **Visual editor*
 
 You begin by specifying a name and severity level for the trigger. Severity levels help you manage alerts. A trigger with a high severity level (e.g. 1) might page a specific individual, whereas a trigger with a low severity level might message a chat room.
 
-Remember that per-query monitors run your trigger's script just once against the query's results, but per-bucket monitors execute your trigger's script on each bucket, so you should create a trigger that best fits the monitor you chose. If you want to execute multiple scripts, you must create multiple triggers.
+Remember that query-level monitors run your trigger's script just once against the query's results, but bucket-level monitors execute your trigger's script on each bucket, so you should create a trigger that best fits the monitor you chose. If you want to execute multiple scripts, you must create multiple triggers.
 
 ### Visual editor
 
-For **Trigger condition**, specify a threshold for the aggregation and timeframe you chose earlier, such as "is below 1,000" or "is exactly 10."
+For a query-level monitor's **Trigger condition**, specify a threshold for the aggregation and timeframe you chose earlier, such as "is below 1,000" or "is exactly 10."
 
 The line moves up and down as you increase and decrease the threshold. Once this line is crossed, the trigger evaluates to true.
+
+Bucket-level monitors also require you to specify a threshold and value for your aggregation and timeframe, but you can use a maximum of five conditions to better refine your trigger. Optionally, you can also use a keyword filter to filter for a specific field in your index.
 
 
 ### Extraction query
 
-For **Trigger condition**, specify a Painless script that returns true or false. Painless is the default OpenSearch scripting language and has a syntax similar to Groovy.
+If you're using a query-level monitor, specify a Painless script that returns true or false. Painless is the default OpenSearch scripting language and has a syntax similar to Groovy.
 
 Trigger condition scripts revolve around the `ctx.results[0]` variable, which corresponds to the extraction query response. For example, your script might reference `ctx.results[0].hits.total.value` or `ctx.results[0].hits.hits[i]._source.error_code`.
 
@@ -213,6 +215,27 @@ A return value of true means the trigger condition has been met, and the trigger
 The **Info** link next to **Trigger condition** contains a useful summary of the variables and results available to your query.
 {: .tip }
 
+Bucket-level monitors require you to specify more information in your trigger condition. At a minimum, you must have the following fields:
+
+- `buckets_path`, which maps variable names to metrics to use in your script.
+- `parent_bucket_path`, which is a path to a multi-bucket aggregation. The path can include single-bucket aggregations, but the last aggregation must be multi-bucket. For example, if you have a pipeline such as `agg1>agg2>agg3`, `agg1` and `agg2` are single-bucket aggregations, but `agg3` must be a multi-bucket aggregation.
+- `script`, which is the script that OpenSearch runs to evaluate whether to trigger any alerts.
+
+For example, you might have a script that looks like the following:
+
+```json
+{
+  "buckets_path": {
+    "count_var": "_count"
+  },
+  "parent_bucket_path": "composite_agg",
+  "script": {
+    "source": "params.count_var > 5"
+  }
+}
+```
+
+After mapping the `count_var` variable to the `_count` metric, you can use `count_var` in your script and reference `_count` data. Finally, `composite_agg` is a path to a multi-bucket aggregation.
 
 ### Anomaly detector
 
@@ -314,7 +337,7 @@ Variable | Data Type | Description
 `ctx.periodStart` | String | Unix timestamp for the beginning of the period during which the alert triggered. For example, if a monitor runs every ten minutes, a period might begin at 10:40 and end at 10:50.
 `ctx.periodEnd` | String | The end of the period during which the alert triggered.
 `ctx.error` | String | The error message if the trigger was unable to retrieve results or unable to evaluate the trigger, typically due to a compile error or null pointer exception. Null otherwise.
-`ctx.alert` | Object | The current, active alert (if it exists). Includes `ctx.alert.id`, `ctx.alert.version`, and `ctx.alert.isAcknowledged`. Null if no alert is active. Only available with per-query monitors.
+`ctx.alert` | Object | The current, active alert (if it exists). Includes `ctx.alert.id`, `ctx.alert.version`, and `ctx.alert.isAcknowledged`. Null if no alert is active. Only available with query-level monitors.
 `ctx.dedupedAlerts` | Object | Alerts that have already been triggered. OpenSearch keeps the existing alert to prevent the plugin from creating endless amounts of the same alerts. Only available with bucket-level monitors.
 `ctx.newAlerts` | Object | Newly created alerts. Only available with bucket-level monitors.
 `ctx.completedAlerts` | Object | Alerts that are no longer ongoing. Only available with bucket-level monitors.
@@ -345,6 +368,7 @@ If you don't want to receive notifications for alerts, you don't have to add act
    ```
 
    In this case, the message content must conform to the `Content-Type` header in the [custom webhook](#create-destinations).
+1. If you're using a bucket-level monitor, you can choose whether the monitor should perform an action for each execution or for each alert.
 
 1. (Optional) Use action throttling to limit the number of notifications you receive within a given span of time.
 
