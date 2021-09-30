@@ -1,18 +1,18 @@
 ---
 layout: default
-title: Javascript client
+title: JavaScript client
 nav_order: 90
 ---
 
-# Javascript client
+# JavaScript client
 
-The OpenSearch Javascript client provides a safer and easier way to interact with your OpenSearch cluster. Rather than using OpenSearch from the browser and potentially exposing your data to the public, you can build an OpenSearch client that takes care of sending requests to your cluster.
+The OpenSearch JavaScript client provides a safer and easier way to interact with your OpenSearch cluster. Rather than using OpenSearch from the browser and potentially exposing your data to the public, you can build an OpenSearch client that takes care of sending requests to your cluster.
 
 The client contains a library of APIs that let you perform different operations on your cluster and return a standard response body. The example here demonstrates some basic operations like creating an index, adding documents, and searching your data.
 
 ## Setup
 
-To add the client to your project, install it from npm:
+To add the client to your project, install it from [npm](https://www.npmjs.com):
 
 ```bash
 npm install @opensearch-project/opensearch
