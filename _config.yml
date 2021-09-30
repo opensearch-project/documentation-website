@@ -45,6 +45,9 @@ collections:
   im-plugin:
     permalink: /:collection/:path/
     output: true
+  replication-plugin:
+    permalink: /:collection/:path/
+    output: true
   monitoring-plugins:
     permalink: /:collection/:path/
     output: true
@@ -80,6 +83,9 @@ just_the_docs:
       nav_fold: true
     im-plugin:
       name: Index management plugin
+      nav_fold: true
+    replication-plugin:
+      name: Replication plugin
       nav_fold: true
     monitoring-plugins:
       name: Monitoring plugins

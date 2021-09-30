@@ -59,6 +59,7 @@ Rather than creating new action groups from individual permissions, you can ofte
 - cluster:admin/opensearch/reports/instance/get
 - cluster:admin/opensearch/reports/instance/list
 - cluster:admin/opensearch/reports/menu/download
+- cluster:admin/plugins/replication/autofollow/update
 - cluster:admin/reindex/rethrottle
 - cluster:admin/repository/delete
 - cluster:admin/repository/get
@@ -114,6 +115,13 @@ Rather than creating new action groups from individual permissions, you can ofte
 - indices:admin/mappings/fields/get*
 - indices:admin/mappings/get
 - indices:admin/open
+- indices:admin/plugins/replication/index/setup/validate
+- indices:admin/plugins/replication/index/start
+- indices:admin/plugins/replication/index/pause
+- indices:admin/plugins/replication/index/resume
+- indices:admin/plugins/replication/index/stop
+- indices:admin/plugins/replication/index/update
+- indices:admin/plugins/replication/index/status_check
 - indices:admin/refresh
 - indices:admin/refresh*
 - indices:admin/resolve/index
@@ -139,6 +147,8 @@ Rather than creating new action groups from individual permissions, you can ofte
 - indices:data/read/msearch/template
 - indices:data/read/mtv
 - indices:data/read/mtv*
+- indices:data/read/plugins/replication/file_chunk
+- indices:data/read/plugins/replication/changes
 - indices:data/read/scroll
 - indices:data/read/scroll/clear
 - indices:data/read/search
@@ -150,6 +160,7 @@ Rather than creating new action groups from individual permissions, you can ofte
 - indices:data/write/delete
 - indices:data/write/delete/byquery
 - indices:data/write/index
+- indices:data/write/plugins/replication/changes
 - indices:data/write/reindex
 - indices:data/write/update
 - indices:data/write/update/byquery
