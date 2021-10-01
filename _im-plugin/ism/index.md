@@ -31,14 +31,21 @@ To get started, choose **Index Management** in OpenSearch Dashboards.
 
 A policy is a set of rules that describes how an index should be managed. For information about creating a policy, see [Policies]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/).
 
+You can use the JSON editor or visual editor to create policies. Compared to the JSON editor, the visual editor offers a more structured way of defining policies by separating the process into creating error notifications, defining ISM templates, and adding states. We recommend using the visual editor if you want to see pre-defined fields such as which actions you can assign to a state or under what conditions a state can transition into a destination state.
+
+#### JSON editor
+
 1. Choose the **Index Policies** tab.
 2. Choose **Create policy**.
-3. In the **Name policy** section, enter a policy ID.
-4. In the **Define policy** section, enter your policy.
-5. Choose **Create**.
+3. Choose **JSON editor**.
+4. In the **Name policy** section, enter a policy ID.
+5. In the **Define policy** section, enter your policy.
+6. Choose **Create**.
 
-After you create a policy, your next step is to attach this policy to an index or indices.
-You can set up an `ism_template` in the policy so when you create an index that matches the ISM template pattern, the index will have this policy attached to it:
+After you create a policy, your next step is to attach it to an index or indices.
+You can set up an `ism_template` in the policy so when an index that matches the ISM template pattern is created, the plugin automatically attaches the policy to the index.
+
+The following example demonstrates how to create a policy that automatically gets attached to all indices whose names start with `index_name-`.
 
 ```json
 PUT _plugins/_ism/policies/policy_id
