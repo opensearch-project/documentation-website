@@ -240,56 +240,6 @@ POST _plugins/_anomaly_detection/detectors
 }
 ```
 
-To create a historical detector:
-
-#### Request
-
-```json
-POST _plugins/_anomaly_detection/detectors
-{
-  "name": "test1",
-  "description": "test historical detector",
-  "time_field": "timestamp",
-  "indices": [
-    "host-cloudwatch"
-  ],
-  "filter_query": {
-    "match_all": {
-      "boost": 1
-    }
-  },
-  "detection_interval": {
-    "period": {
-      "interval": 1,
-      "unit": "Minutes"
-    }
-  },
-  "window_delay": {
-    "period": {
-      "interval": 1,
-      "unit": "Minutes"
-    }
-  },
-  "feature_attributes": [
-    {
-      "feature_name": "F1",
-      "feature_enabled": true,
-      "aggregation_query": {
-        "f_1": {
-          "sum": {
-            "field": "value"
-          }
-        }
-      }
-    }
-  ],
-  "detection_date_range": {
-    "start_time": 1577840401000,
-    "end_time": 1606121925000
-  }
-}
-```
-
 You can specify the following options.
 
 Options | Description | Type | Required
@@ -303,7 +253,6 @@ Options | Description | Type | Required
 `detection_interval` | The time interval for your anomaly detector. | `object` | Yes
 `window_delay` | Add extra processing time for data collection. | `object` | No
 `category_field` | Categorizes or slices data with a dimension. Similar to `GROUP BY` in SQL. | `list` | No
-`detection_date_range` | Specify the start time and end time for a historical detector. | `object` | No
 
 ---
 
@@ -316,10 +265,44 @@ Passes a date range to the anomaly detector to return any anomalies within that 
 #### Request
 
 ```json
-POST _plugins/_anomaly_detection/detectors/<detectorId>/_preview
+POST _plugins/_anomaly_detection/detectors/_preview
+
 {
-  "period_start": 1588838250000,
-  "period_end": 1589443050000
+  "period_start": 1612982516000,
+  "period_end": 1614278539000,
+  "detector": {
+    "name": "test-detector",
+    "description": "test nab_art_daily_jumpsdown",
+    "time_field": "timestamp",
+    "indices": [
+      "nab_art_daily_jumpsdown"
+    ],
+    "detection_interval": {
+      "period": {
+        "interval": 1,
+        "unit": "Minutes"
+      }
+    },
+    "window_delay": {
+      "period": {
+        "interval": 1,
+        "unit": "Minutes"
+      }
+    },
+    "feature_attributes": [
+      {
+        "feature_name": "F1",
+        "feature_enabled": true,
+        "aggregation_query": {
+          "f_1": {
+            "sum": {
+              "field": "value"
+            }
+          }
+        }
+      }
+    ]
+  }
 }
 ```
 
@@ -446,6 +429,17 @@ If you specify a category field, each result is associated with an entity:
 
 ```
 
+Or, you can specify the detector ID:
+
+```json
+POST _plugins/_anomaly_detection/detectors/_preview
+{
+    "detector_id": "sYkUvHcBiZv51f-Lv8QN",
+    "period_start": 1612982516000,
+    "period_end": 1614278539000
+}
+```
+
 ---
 
 ## Start detector job
@@ -472,6 +466,15 @@ POST _plugins/_anomaly_detection/detectors/<detectorId>/_start
 }
 ```
 
+To start historical analysis:
+
+```json
+POST _plugins/_anomaly_detection/detectors/<detectorId>/_start
+{
+    "start_time": 1503168590000,
+    "end_time": 1617301324000
+}
+```
 
 ---
 
@@ -491,6 +494,12 @@ POST _plugins/_anomaly_detection/detectors/<detectorId>/_stop
 
 ```json
 Stopped detector: m4ccEnIBTXsGi3mvMt9p
+```
+
+To stop historical analysis:
+
+```jsom
+POST _plugins/_anomaly_detection/detectors/<detectorId>/_stop?historical=true
 ```
 
 ---
@@ -784,15 +793,6 @@ POST _plugins/_anomaly_detection/detectors/results/_search
     ]
   }
 }
-```
-
-In historical detectors, specify the `detector_id`.
-To get the latest task:
-
-#### Request
-
-```json
-GET _plugins/_anomaly_detection/detectors/<detector_id>?task=true
 ```
 
 To query the anomaly results with `task_id`:
