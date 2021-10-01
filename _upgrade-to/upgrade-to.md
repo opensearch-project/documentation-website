@@ -227,12 +227,12 @@ Check [Upgrade paths]({{site.url}}{{site.baseurl}}/upgrade-to/upgrade-to/#upgrad
 
 1. The `opensearch-upgrade` tool is in the `bin` directory of the distribution. Run the following command from the distribution home:
 
-    Make sure you run this tool as the same user running the current Elasticsearch service.
-    {: .note }
+  Make sure you run this tool as the same user running the current Elasticsearch service.
+  {: .note }
 
-   ```json
-     ./bin/opensearch-upgrade
-   ```
+  ```json
+  ./bin/opensearch-upgrade
+  ```
 
 1. Stop Elasticsearch OSS on the node.
 
