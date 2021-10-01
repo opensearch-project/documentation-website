@@ -16,7 +16,7 @@ Use these replication operations to programmatically manage cross-cluster replic
 Introduced 1.1
 {: .label .label-purple }
 
-Initiate replication of an index from the leader cluster to the follower cluster. Run this operation on the follower cluster.
+Initiate replication of an index from the leader cluster to the follower cluster. Send this request to the follower cluster.
 
 
 #### Request
@@ -37,7 +37,7 @@ Specify the following options:
 
 Options | Description | Type | Required
 :--- | :--- |:--- |:--- |
-`leader_alias` |  The name of the leader cluster. | `string` | Yes
+`leader_alias` |  The name of the leader cluster. This alias is the same as the remote cluster name used to set up a cross-cluster connection. | `string` | Yes
 `leader_index` |  The index on the leader cluster that you want to replicate. | `string` | Yes
 `use_roles` |  The roles to use for all subsequent backend replication tasks between the indices. Specify a `leader_cluster_role` and `follower_cluster_role`. See [Map the leader and follower cluster roles]({{site.url}}{{site.baseurl}}/replication-plugin/permissions/#map-the-leader-and-follower-cluster-roles). | `string` | If security plugin is enabled
 
@@ -53,12 +53,13 @@ Options | Description | Type | Required
 Introduced 1.1
 {: .label .label-purple }
 
-Terminates replication and converts the follower index to a standard index.
+Terminates replication and converts the follower index to a standard index. Send this request to the follower cluster.
 
 #### Request
 
 ```json
 POST /_plugins/_replication/<follower-index>/_stop
+{}
 ```
 
 #### Sample response
@@ -73,12 +74,13 @@ POST /_plugins/_replication/<follower-index>/_stop
 Introduced 1.1
 {: .label .label-purple }
 
-Pauses replication of the leader index. If you don't resume replication after 12 hours, it stops completely and the follower index is converted to a standard index.
+Pauses replication of the leader index. Send this request to the follower cluster.
 
 #### Request
 
 ```json
-PUT /_plugins/_replication/<follower-index>/_pause
+POST /_plugins/_replication/<follower-index>/_pause 
+{}
 ```
 
 #### Sample response
@@ -93,12 +95,13 @@ PUT /_plugins/_replication/<follower-index>/_pause
 Introduced 1.1
 {: .label .label-purple }
 
-Resumes replication of the leader index. 
+Resumes replication of the leader index. Send this request to the follower cluster.
 
 #### Request
 
 ```json
-PUT /_plugins/_replication/<follower-index>/_resume
+POST /_plugins/_replication/<follower-index>/_resume
+{}
 ```
 
 #### Sample response
@@ -113,7 +116,7 @@ PUT /_plugins/_replication/<follower-index>/_resume
 Introduced 1.1
 {: .label .label-purple }
 
-Gets the status of index replication. You can use this API to measure replication lag. Run this command from the leader cluster.
+Gets the status of index replication. Possible statuses are `SYNCING`, `BOOTSTRAPING`, `PAUSED`, and `REPLICATION NOT IN PROGRESS`. Use the syncing details to measure replication lag. Send this request to the follower cluster.
 
 #### Request
 
@@ -125,20 +128,20 @@ GET /_plugins/_replication/<follower-index>/_status
 
 ```json
 {
-   "status":"SYNCING",
-   "reason":"User initiated",
-   "remote_cluster":"remote-cluster",
-   "leader_index":"leader-01",
-   "follower_index":"follower-01",
-   "syncing_details":{
-      "remote_checkpoint": 19,
-      "local_checkpoint": 19,
-      "seq_no": 20
-   }
+  "status" : "SYNCING",
+  "reason" : "User initiated",
+  "leader_alias" : "leader-cluster",
+  "leader_index" : "leader-01",
+  "follower_index" : "follower-01",
+  "syncing_details" : {
+    "leader_checkpoint" : 19,
+    "follower_checkpoint" : 19,
+    "seq_no" : 0
+  }
 }
 ```
 
-To include shard replication details in the response, add `&verbose=true`.
+To include shard replication details in the response, add the `&verbose=true` parameter.
 
 ## Update settings
 Introduced 1.1
@@ -170,9 +173,9 @@ PUT /_plugins/_replication/<follower-index>/_update
 Introduced 1.1
 {: .label .label-purple }
 
-Automatically starts replication on indices matching a specified pattern. Newly created indices on the remote cluster that match one of the specified patterns will be automatically configured as follower indices. You can also use this API to update existing auto-follow patterns.
+Automatically starts replication on indices matching a specified pattern. If a new index on the leader cluster matches the pattern, OpenSearch automatically creates a follower index and begins replication. You can also use this API to update existing replication rules.
 
-Run this command on the follower cluster.
+Send this request to the follower cluster.
 
 Make sure to note the names of all auto-follow patterns after you create them. The replication plugin currently does not include an API operation to retrieve a list of existing patterns.
 {: .tip }
@@ -215,7 +218,7 @@ Introduced 1.1
 
 Deletes the specified replication rule. This operation prevents any new indices from being replicated but does not stop existing replication that the rule has already initiated.
 
-Run this command on the follower cluster.
+Send this request to the follower cluster.
 
 #### Request
 

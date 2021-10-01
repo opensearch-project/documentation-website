@@ -42,7 +42,7 @@ curl -XPOST -k -H 'Content-Type: application/json' -u 'admin:admin' 'https://loc
 }'
 ```
 
-If the security plugin is disabled, you can leave out the `use_roles` parameter. If it's enabled, however, you need to specify the leader and follower cluster roles that OpenSearch will use to authenticate the request. This example uses `all_access` for simplicity, but we recommend creating a replication user on each cluster and [mapping it accordingly]({{site.url}}{{site.baseurl}}/replication-plugin/permissions/#map-the-leader-and-follower-cluster-roles).
+If the security plugin is disabled, you can leave out the `use_roles` parameter. If it's enabled, however, you need to specify the leader and follower cluster roles that OpenSearch uses to authenticate requests. This example uses `all_access` for simplicity, but we recommend creating a replication user on each cluster and [mapping it accordingly]({{site.url}}{{site.baseurl}}/replication-plugin/permissions/#map-the-leader-and-follower-cluster-roles).
 {: .tip }
 
 To test the rule, create a matching index on the leader cluster:
@@ -64,7 +64,7 @@ yellow open   movies-0001  kHOxYYHxRMeszLjTD9rvSQ     1   1          0          
 
 ## Delete a replication rule
 
-When you delete a replication rule, OpenSearch stops replicating *new* indices that match the pattern, but replication of existing indices that the rule previously created will continue. If you need to stop existing replication activity, use the [stop replication API operation]({{site.url}}{{site.baseurl}}/replication-plugin/api/#stop-replication).
+When you delete a replication rule, OpenSearch stops replicating *new* indices that match the pattern, but existing indices that the rule previously created continue to replicate. If you need to stop existing replication activity, use the [stop replication API operation]({{site.url}}{{site.baseurl}}/replication-plugin/api/#stop-replication).
 
 ```bash
 curl -XDELETE -k -H 'Content-Type: application/json' -u 'admin:admin' 'https://localhost:9200/_plugins/_replication/_autofollow?pretty' -d '

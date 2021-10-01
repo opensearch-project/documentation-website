@@ -14,24 +14,26 @@ Because cross-cluster replication involves multiple clusters, it's possible that
 - Security plugin enabled only for TLS on both clusters (`plugins.security.ssl_only`)
 - Security plugin absent or disabled on both clusters (not recommended)
 
-You can enable node-to-node encryption on both the leader and the follower cluster to ensure that replication traffic between the clusters is encrypted.
+Enable node-to-node encryption on both the leader and the follower cluster to ensure that replication traffic between the clusters is encrypted.
 
 ## Basic permissions
 
-In order for non-admin users to perform replication activities, they need to be mapped to the appropriate permissions.  
+In order for non-admin users to perform replication activities, they be mapped to the appropriate permissions.  
 
-The security plugin has two built-in roles that cover most replication use cases: `cross_cluster_replication_leader_full_access` which provides replication permissions on the leader cluster, and `cross_cluster_replication_follower_full_access` which provides replication permissions on the follower cluster. For descriptions of each, see [Predefined roles]({{site.url}}{{site.baseurl}}/security-plugin/access-control/users-roles#predefined-roles).
+The security plugin has two built-in roles that cover most replication use cases: `cross_cluster_replication_leader_full_access`, which provides replication permissions on the leader cluster, and `cross_cluster_replication_follower_full_access`, which provides replication permissions on the follower cluster. For descriptions of each, see [Predefined roles]({{site.url}}{{site.baseurl}}/security-plugin/access-control/users-roles#predefined-roles).
 
 If you don't want to use the default roles, you can combine individual replication [permissions]({{site.url}}{{site.baseurl}}/replication-plugin/permissions/#replication-permissions) to meet your needs. Most permissions correspond to specific REST API operations. For example, the `indices:admin/plugins/replication/index/pause` permission lets you pause replication.
 
 ## Map the leader and follower cluster roles
 
-The [start replication]({{site.url}}{{site.baseurl}}/replication-plugin/api/#start-replication) and [create replication rule]({{site.url}}{{site.baseurl}}/replication-plugin/api/#start-replication) are special cases because they involve background processes that require permissions on both the leader and the follower cluster. Therefore, when you perform one of these actions, you need to explicitly pass the  `leader_cluster_role` and
-`follower_cluster_role` in the request, which OpenSearch will then use in all backend replication tasks.
+associates roles passed in the request to these replication jobs to run in the background
 
-To enable non-admins to start replication and create replication rules, create an identical user on each cluster (for example, `replication_user`) and map them to the `cross_cluster_replication_leader_full_access` role on the remote cluster and `cross_cluster_replication_follower_full_access` on the follower cluster. For instructions, see [Map users to roles]({{site.url}}{{site.baseurl}}/access-control/users-roles/#map-users-to-roles).
+The [start replication]({{site.url}}{{site.baseurl}}/replication-plugin/api/#start-replication) and [create replication rule]({{site.url}}{{site.baseurl}}/replication-plugin/api/#create-replication-rule) operations are special cases. They involve background processes on the leader and follower clusters that must be associated with roles. When you perform one of these actions, you must explicitly pass the  `leader_cluster_role` and
+`follower_cluster_role` in the request, which OpenSearch then uses in all backend replication tasks.
 
-You can then pass those roles into the request along with the appropriate credentials:
+To enable non-admins to start replication and create replication rules, create an identical user on each cluster (for example, `replication_user`) and map them to the `cross_cluster_replication_leader_full_access` role on the remote cluster and `cross_cluster_replication_follower_full_access` on the follower cluster. For instructions, see [Map users to roles]({{site.url}}{{site.baseurl}}/security-plugin/access-control/users-roles/#map-users-to-roles).
+
+Then add those roles to the request, and sign it with the appropriate credentials:
 
 ```bash
 curl -XPUT -k -H 'Content-Type: application/json' -u 'replication_user:password' 'https://localhost:9200/_plugins/_replication/follower-01/_start?pretty' -d '
@@ -45,7 +47,7 @@ curl -XPUT -k -H 'Content-Type: application/json' -u 'replication_user:password'
 }'
 ```
 
-You can instead choose to create your own leader and follower cluster roles to meet your needs, but we recommend using the default roles.
+You can create your own, custom leader and follower cluster roles using individual permissions, but we recommend using the default roles, which are a good fit for most use cases.
 
 ## Replication permissions
 
@@ -53,7 +55,7 @@ The following sections list the available index and cluster-level permissions fo
 
 ### Follower cluster
 
-Users can have the following permissions for the follower cluster:
+The security plugin supports these permissions for the follower cluster:
 
 ```
 indices:admin/plugins/replication/index/setup/validate
@@ -69,7 +71,7 @@ cluster:admin/plugins/replication/autofollow/update
 
 ### Leader cluster
 
-Users can have the following permissions for the leader cluster:
+The security plugin supports these permissions for the leader cluster:
 
 ```
 indices:admin/plugins/replication/validate

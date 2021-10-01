@@ -6,13 +6,13 @@ nav_order: 10
 
 # Get started with cross-cluster replication
 
-With cross-cluster replication, you index data to a leader index and that data is replicated to one or more read-only follower indices. All subsequent operations on the leader are replicated on the follower, such as creating, updating, or deleting documents.
+With cross-cluster replication, you index data to a leader index, and OpenSearch replicates that data to one or more read-only follower indices. All subsequent operations on the leader are replicated on the follower, such as creating, updating, or deleting documents.
 
 ## Prerequisites
 
 Cross-cluster replication has the following prerequisites:
-- Install the replication plugin on all nodes of both the leader and the follower cluster.
-- If you've overridden `node.roles` in opensearch.yml on the remote cluster, make sure it also includes the `remote_cluster_client` role:
+- Both the leader and follower cluster must have the replication plugin installed.
+- If you've overridden `node.roles` in `opensearch.yml` on the remote cluster, make sure it also includes the `remote_cluster_client` role:
 
    ```yaml
    node.roles: [<other_roles>, remote_cluster_client]
@@ -20,17 +20,20 @@ Cross-cluster replication has the following prerequisites:
 
 ## Permissions
 
-Make sure the security plugin is either enabled on both clusters or disabled on both clusters. If you disabled the security plugin, you can skip this section.
+Make sure the security plugin is either enabled on both clusters or disabled on both clusters. If you disabled the security plugin, you can skip this section. However, we strongly recommend enabling the security plugin in production scenarios.
 
 If the security plugin is enabled, non-admin users need to be mapped to the appropriate permissions in order to perform replication actions. For index and cluster-level permissions requirements, see [Cross-cluster replication permissions]({{site.url}}{{site.baseurl}}/replication-plugin/permissions/).
 
-In addition, add the following setting to opensearch.yml on the leader cluster so it allows connections from the follower cluster: 
+In addition, add the following setting to `opensearch.yml` on the leader cluster so it allows connections from the follower cluster: 
 
 ```yml
 plugins.security.nodes_dn_dynamic_config_enabled: true
 ```
 
 ## Example setup
+
+The following example demonstrates how to replicate data between two single-node clusters: `leader-cluster` on port 9201, and `follower-cluster` on port 9200.
+{% comment %}
 
 Save this sample file as `docker-compose.yml` and run `docker-compose up` to start two single-node clusters on the same network:
 
@@ -86,6 +89,8 @@ networks:
 
 After the clusters start, verify the names of each:
 
+{% endcomment %}
+
 ```bash
 curl -XGET -u 'admin:admin' -k 'https://localhost:9201'
 {
@@ -101,6 +106,8 @@ curl -XGET -u 'admin:admin' -k 'https://localhost:9200'
   ...
 }
 ```
+
+{% comment %}
 
 For this example, use port 9201 (`replication-node1`) as the leader and port 9200 (`replication-node2`) as the follower cluster.
 
@@ -119,10 +126,13 @@ Then get that container's IP address:
 docker inspect --format='{% raw %}{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}{% endraw %}' 731f5e8b0f4b
 172.22.0.3
 ```
+{% endcomment %}
 
 ## Set up a cross-cluster connection
 
-On the follower cluster, add the leader cluster name and the IP address (with port 9300) for each seed node. In this case, you only have one seed node:
+Cross-cluster replication follows a "pull" model, so most changes occur on the follower cluster, not the leader cluster. 
+
+On the follower cluster, add the leader cluster name and the IP address (with port 9300) for each seed node. Because this is a single-node cluster, you only have one seed node:
 
 ```bash
 curl -XPUT -k -H 'Content-Type: application/json' -u 'admin:admin' 'https://localhost:9200/_cluster/settings?pretty' -d '
@@ -141,15 +151,13 @@ curl -XPUT -k -H 'Content-Type: application/json' -u 'admin:admin' 'https://loca
 
 ## Start replication
 
-To get started, create an index called `leader-01` on the remote (leader) cluster:
+To get started, create an index called `leader-01` on the leader cluster:
 
 ```bash
 curl -XPUT -k -H 'Content-Type: application/json' -u 'admin:admin' 'https://localhost:9201/leader-01?pretty'
 ```
 
-Start replication of that index from the follower cluster. Starting replication creates a follower index from scratch; you can't convert an existing index to a follower index. 
-
-Provide the leader cluster and index that you want to replicate:
+Then start replication of that index from the follower cluster. In the request body, provide the leader cluster and index, along with the security roles that you want to use:
 
 ```bash
 curl -XPUT -k -H 'Content-Type: application/json' -u 'admin:admin' 'https://localhost:9200/_plugins/_replication/follower-01/_start?pretty' -d '
@@ -163,10 +171,12 @@ curl -XPUT -k -H 'Content-Type: application/json' -u 'admin:admin' 'https://loca
 }'
 ```
 
-If the security plugin is disabled, you can leave out the `use_roles` parameter. If it's enabled, however, you need to specify the leader and follower cluster roles that OpenSearch will use to authenticate the request. This example uses `all_access` for simplicity, but we recommend creating a replication user on each cluster and [mapping it accordingly]({{site.url}}{{site.baseurl}}/replication-plugin/permissions/#map-the-leader-and-follower-cluster-roles).
+If the security plugin is disabled, omit the `use_roles` parameter. If it's enabled, however, you must specify the leader and follower cluster roles that OpenSearch will use to authenticate the request. This example uses `all_access` for simplicity, but we recommend creating a replication user on each cluster and [mapping it accordingly]({{site.url}}{{site.baseurl}}/replication-plugin/permissions/#map-the-leader-and-follower-cluster-roles).
 {: .tip }
 
-This command creates an identical read-only index named "follower-01" on the local cluster that continuously stays updated with changes to the "leader-01" index on the remote cluster.
+This command creates an identical read-only index named `follower-01` on the local cluster that continuously stays updated with changes to the `leader-01` index on the remote cluster. Starting replication creates a follower index from scratch; you can't convert an existing index to a follower index. 
+
+## Confirm replication
 
 After replication starts, get the status:
 
@@ -187,7 +197,7 @@ curl -XGET -k -u 'admin:admin' 'https://localhost:9200/_plugins/_replication/fol
 }
 ```
 
-## Confirm replication
+Possible statuses are `SYNCING`, `BOOTSTRAPING`, `PAUSED`, and `REPLICATION NOT IN PROGRESS`. The leader and follower checkpoint values increment with each  change and illustrate how many updates the follower is behind the leader. If the indices are fully synced, the values are the same.
 
 To confirm that replication is actually happening, add a document to the leader index:
 
@@ -244,8 +254,6 @@ curl -XPOST -k -H 'Content-Type: application/json' -u 'admin:admin' 'https://loc
 
 When replication resumes, the follower index picks up any changes that were made to the leader index while replication was paused.
 
-If you don't resume replication within 12 hours, replication stops completely and the follower index is converted to a standard index.
-
 ## Stop replication
 
 Terminate replication of a specified index from the follower cluster:
@@ -254,7 +262,7 @@ Terminate replication of a specified index from the follower cluster:
 curl -XPOST -k -H 'Content-Type: application/json' -u 'admin:admin' 'https://localhost:9200/_plugins/_replication/follower-01/_stop' -d '{}'
 ```
 
-When you stop replication, the follower index un-follows the leader and becomes a standard index that you can write to. You can't restart replication after it's been terminated. 
+When you stop replication, the follower index un-follows the leader and becomes a standard index that you can write to. You can't restart replication after stopping it. 
 
 Get the status to confirm that the index is no longer being replicated:
 
