@@ -73,10 +73,14 @@ Only a certain number of unique entities are supported in the category field. Us
 (data nodes * heap size * anomaly detection maximum memory percentage) / (entity model size of a detector)
 ```
 
+To get the entity model size of a detector, use the [profile detector API]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/api/#profile-detector). You can adjust the maximum memory percentage with the `plugins.anomaly_detection.model_max_size_percent` setting.
+
 This formula provides a good starting point, but make sure to test with a representative workload.
 {: .note }
 
-For example, for a cluster with 3 data nodes, each with 8G of JVM heap size, a maximum memory percentage of 10% (default), and the entity size of the detector as 1MB: the total number of unique entities supported is (8.096 * 10^9 * 0.1 / 1M ) * 3 = 2429.
+For example, for a cluster with 3 data nodes, each with 8G of JVM heap size, a maximum memory percentage of 10% (default), and the entity model size of the detector as 1MB: the total number of unique entities supported is (8.096 * 10^9 * 0.1 / 1M ) * 3 = 2429.
+
+If you set the total number of unique entities higher than this number that you calculate (in this case: 2429), the anomaly detector makes its best effort to model the extra entities. The detector prioritizes entities that occur more often and are more recent.
 
 #### (Advanced settings) Set a shingle size
 
@@ -111,7 +115,7 @@ Review your model configuration and select **Create detector**.
 
 ### Step 5: Observe the results
 
-Choose the **Anomaly results** tab. You need to wait for some time to see the anomaly results. If the detector interval is 10 minutes, the detector might take more than an hour to start, as it's waiting for sufficient data to generate anomalies.
+Choose the **Real-time results** or **Historical analysis** tab. For real-time results, you need to wait for some time to see the anomaly results. If the detector interval is 10 minutes, the detector might take more than an hour to start, as it's waiting for sufficient data to generate anomalies.
 
 A shorter interval means the model passes the shingle process more quickly and starts to generate the anomaly results sooner.
 Use the [profile detector]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/api#profile-detector) operation to make sure you have sufficient data points.
@@ -123,7 +127,7 @@ If you see the detector pending in "initialization" for longer than a day, aggre
 Analyze anomalies with the following visualizations:
 
 - **Live anomalies** - displays live anomaly results for the last 60 intervals. For example, if the interval is 10, it shows results for the last 600 minutes. The chart refreshes every 30 seconds.
-- **Anomaly history** - plots the anomaly grade with the corresponding measure of confidence.
+- **Anomaly history** (for historical analysis) / **Anomaly overview** (for real-time results) - plots the anomaly grade with the corresponding measure of confidence.
 - **Feature breakdown** - plots the features based on the aggregation method. You can vary the date-time range of the detector.
 - **Anomaly occurrence** - shows the `Start time`, `End time`, `Data confidence`, and `Anomaly grade` for each detected anomaly.
 
@@ -133,12 +137,13 @@ Analyze anomalies with the following visualizations:
 
 If you set the category field, you see an additional **Heat map** chart. The heat map correlates results for anomalous entities. This chart is empty until you select an anomalous entity. You also see the anomaly and feature line chart for the time period of the anomaly (`anomaly_grade` > 0).
 
-Choose a filled rectangle to see a more detailed view of the anomaly.
+Choose and drag over the anomaly line chart to zoom in and see a more detailed view of an anomaly.
 {: .note }
+
 
 ### Step 4: Set up alerts
 
-Choose **Set up alerts** and configure a monitor to notify you when anomalies are detected. For steps to create a monitor and set up notifications based on your anomaly detector, see [Monitors]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/).
+Under **Real-time results**, choose **Set up alerts** and configure a monitor to notify you when anomalies are detected. For steps to create a monitor and set up notifications based on your anomaly detector, see [Monitors]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/).
 
 If you stop or delete a detector, make sure to delete any monitors associated with it.
 
@@ -147,7 +152,7 @@ If you stop or delete a detector, make sure to delete any monitors associated wi
 To see all the configuration settings for a detector, choose the **Detector configuration** tab.
 
 1. To make any changes to the detector configuration, or fine tune the time interval to minimize any false positives, go to the **Detector configuration** section and choose **Edit**.
-- You need to stop the detector to change its configuration. Confirm that you want to stop the detector and proceed.
+- You need to stop a real-time or historical detector to change its configuration. Confirm that you want to stop the detector and proceed.
 1. To enable or disable features, in the **Features** section, choose **Edit** and adjust the feature settings as needed. After you make your changes, choose **Save and start detector**.
 
 ### Step 8: Manage your detectors
@@ -155,4 +160,4 @@ To see all the configuration settings for a detector, choose the **Detector conf
 To start, stop, or delete a detector, go to the **Detectors** page.
 
 1. Choose the detector name.
-2. Choose **Actions** and select **Start real-time detectors**, **Stop real-time detectors**, or **Delete detectors**. 
+2. Choose **Actions** and select **Start real-time detectors**, **Stop real-time detectors**, or **Delete detectors**.
