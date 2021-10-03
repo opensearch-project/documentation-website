@@ -221,18 +221,37 @@ Check [Upgrade paths]({{site.url}}{{site.baseurl}}/upgrade-to/upgrade-to/#upgrad
 1. Make sure the following environment variables are set:
 
     - `ES_HOME` - Path to the existing Elasticsearch installation home.
+
+      ```bash
+      export ES_HOME = /home/workspace/upgrade-demo/node1/elasticsearch-7.10.2
+      ```
+
     - `ES_PATH_CONF` - Path to the existing Elasticsearch config directory.
+
+      ```bash
+      export ES_PATH_CONF = /home/workspace/upgrade-demo/node1/os-config
+      ```
+
     - `OPENSEARCH_HOME` - Path to the OpenSearch installation home.
+
+      ```bash
+      export OPENSEARCH_HOME = /home/workspace/upgrade-demo/node1/opensearch-1.0.0
+      ```
+
     - `OPENSEARCH_PATH_CONF` - Path to the OpenSearch config directory.
+
+      ```bash
+      export OPENSEARCH_PATH_CONF = /home/workspace/upgrade-demo/node1/opensearch-config
+      ```
 
 1. The `opensearch-upgrade` tool is in the `bin` directory of the distribution. Run the following command from the distribution home:
 
-  Make sure you run this tool as the same user running the current Elasticsearch service.
-  {: .note }
+   Make sure you run this tool as the same user running the current Elasticsearch service.
+   {: .note }
 
-  ```json
-  ./bin/opensearch-upgrade
-  ```
+   ```json
+   ./bin/opensearch-upgrade
+   ```
 
 1. Stop Elasticsearch OSS on the node.
 
@@ -270,6 +289,6 @@ Behind the scenes, the `opensearch-upgrade` tool performs the following tasks in
 1. Looks for a valid Elasticsearch installation on the current node. After it finds the installation, it reads the `elasticsearch.yml` file to get the endpoint details and connects to the locally running Elasticsearch service. If the tool can't find an Elasticsearch installation, it tries to get the path from the `ES_HOME` location.
 1. Verifies if the existing version of Elasticsearch is compatible with the OpenSearch version. It prints a summary of the information gathered to the console and prompts you for a confirmation to proceed.
 1. Imports the settings from the `elasticsearch.yml` config file into the `opensearch.yml` config file.
-1. Copies across any custom JVM options from the `$ES_PATH_CONF/jvm.options.d` directory into the `$OPENSEARCH_PATH_CONF/jvm.options.d` directory . Similarly, it also imports the logging configurations from the `$ES_PATH_CONF/log4j2.properties` file into the `$OPENSEARCH_PATH_CONF/log4j2.properties` file.
+1. Copies across any custom JVM options from the `$ES_PATH_CONF/jvm.options.d` directory into the `$OPENSEARCH_PATH_CONF/jvm.options.d` directory. Similarly, it also imports the logging configurations from the `$ES_PATH_CONF/log4j2.properties` file into the `$OPENSEARCH_PATH_CONF/log4j2.properties` file.
 1. Installs the core plugins that you’ve currently installed in the `$ES_HOME/plugins` directory. You must install all other third-party community plugins manually.
 1. Imports the secure settings from the `elasticsearch.keystore` file (if any) into the `opensearch.keystore` file. If the keystore file is password protected, the `opensearch-upgrade` tool prompts you to enter the password.
