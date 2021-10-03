@@ -265,22 +265,22 @@ Check [Upgrade paths]({{site.url}}{{site.baseurl}}/upgrade-to/upgrade-to/#upgrad
 
 1. Start OpenSearch on the node:
 
-    ```json
-    ./bin/opensearch -d.
-    ```
+   ```json
+   ./bin/opensearch -d.
+   ```
 
 1. Repeat steps 2--6 until all nodes are using the new version.
 
 1. After all nodes are using the new version, re-enable shard allocation:
 
-     ```json
-     PUT _cluster/settings
-     {
-       "persistent": {
-         "cluster.routing.allocation.enable": "all"
-       }
+   ```json
+   PUT _cluster/settings
+   {
+    "persistent": {
+       "cluster.routing.allocation.enable": "all"
      }
-     ```
+   }
+   ```
 
 ### How it works
 
