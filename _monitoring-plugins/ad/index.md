@@ -26,12 +26,11 @@ To first test with sample streaming data, you can try out one of the preconfigur
 
 A detector is an individual anomaly detection task. You can define multiple detectors, and all the detectors can run simultaneously, with each analyzing data from different sources.
 
-1. Choose **Create Detector**.
+1. Choose **Create detector**.
 1. Enter a name and brief description. Make sure the name is unique and descriptive enough to help you to identify the purpose of the detector.
 1. For **Data source**, choose the index you want to use as the data source. You can optionally use index patterns to choose multiple indices.
-1. (Optional) For **Data filter**, filter the index you chose as the data source. From the **Data filter** menu, design your filter query by selecting **Field**, **Operator**, and **Value**, or choose **Use query DSL** and add your own JSON filter query.
+1. (Optional) For **Data filter**, filter the index you chose as the data source. From the **Data filter** menu, choose **Add data filter**, and then design your filter query by selecting **Field**, **Operator**, and **Value**, or choose **Use query DSL** and add your own JSON filter query.
 1. Select the **Timestamp field** in your index.
-1. (Optional) For **Data filter**, filter the index you chose as the data source. From the **Filter type** menu, choose  **Visual filter**, and then design your filter query by selecting **Fields**, **Operator**, and **Value**, or choose **Custom Expression** and add your own JSON filter query.
 1. For **Operation settings**, define the **Detector interval**, which is the time interval at which the detector collects data.
 - The detector aggregates the data in this interval, then feeds the aggregated result into the anomaly detection model.
 The shorter you set this interval, the fewer data points the detector aggregates.
@@ -46,7 +45,9 @@ Setting the window delay to 1 minute shifts the interval window to 1:49 - 1:59, 
 
 After you define the detector, the next step is to configure the model.
 
-### Step 2: Add features to your detector
+### Step 2: Configure the model
+
+#### Add features to your detector
 
 A feature is the field in your index that you want to check for anomalies. A detector can discover anomalies across one or more features. You must choose an aggregation method for each feature: `average()`, `count()`, `sum()`, `min()`, or `max()`. The aggregation method determines what constitutes an anomaly.
 
@@ -55,7 +56,7 @@ For example, if you choose `min()`, the detector focuses on finding anomalies ba
 A multi-feature model correlates anomalies across all its features. The [curse of dimensionality](https://en.wikipedia.org/wiki/Curse_of_dimensionality) makes it less likely for multi-feature models to identify smaller anomalies as compared to a single-feature model. Adding more features might negatively impact the [precision and recall](https://en.wikipedia.org/wiki/Precision_and_recall) of a model. A higher proportion of noise in your data might further amplify this negative impact. Selecting the optimal feature set is usually an iterative process. By default, the maximum number of features for a detector is 5. You can adjust this limit with the `plugins.anomaly_detection.max_anomaly_features` setting.
 {: .note }
 
-1. On the **Configure Model** page, enter the **Feature name** and check **Enabled feature name**.
+1. On the **Configure Model** page, enter the **Feature name** and check **Enable feature**.
 1. For **Find anomalies based on**, choose the method to find anomalies. For **Field Value**, choose the **aggregation method**. Or choose **Custom expression**, and add your own JSON aggregation query.
 1. Select a field.
 
@@ -128,8 +129,8 @@ Analyze anomalies with the following visualizations:
 
 - **Live anomalies** - displays live anomaly results for the last 60 intervals. For example, if the interval is 10, it shows results for the last 600 minutes. The chart refreshes every 30 seconds.
 - **Anomaly history** (for historical analysis) / **Anomaly overview** (for real-time results) - plots the anomaly grade with the corresponding measure of confidence.
-- **Feature breakdown** - plots the features based on the aggregation method. You can vary the date-time range of the detector.
 - **Anomaly occurrence** - shows the `Start time`, `End time`, `Data confidence`, and `Anomaly grade` for each detected anomaly.
+- **Feature breakdown** - plots the features based on the aggregation method. You can vary the date-time range of the detector.
 
 `Anomaly grade` is a number between 0 and 1 that indicates how anomalous a data point is. An anomaly grade of 0 represents “not an anomaly,” and a non-zero value represents the relative severity of the anomaly.
 

@@ -24,7 +24,7 @@ Introduced 1.0
 
 Creates an anomaly detector.
 
-This command creates a detector named `http_requests` that finds anomalies based on the sum and average number of failed HTTP requests:
+This command creates a detector named `test-detector` that finds anomalies based on the sum of the `value` field:
 
 
 #### Request
@@ -266,7 +266,6 @@ Passes a date range to the anomaly detector to return any anomalies within that 
 
 ```json
 POST _plugins/_anomaly_detection/detectors/_preview
-
 {
   "period_start": 1612982516000,
   "period_end": 1614278539000,
@@ -426,7 +425,6 @@ If you specify a category field, each result is associated with an entity:
   ]
 }
 ...
-
 ```
 
 Or, you can specify the detector ID:
@@ -434,9 +432,9 @@ Or, you can specify the detector ID:
 ```json
 POST _plugins/_anomaly_detection/detectors/_preview
 {
-    "detector_id": "sYkUvHcBiZv51f-Lv8QN",
-    "period_start": 1612982516000,
-    "period_end": 1614278539000
+  "detector_id": "sYkUvHcBiZv51f-Lv8QN",
+  "period_start": 1612982516000,
+  "period_end": 1614278539000
 }
 ```
 
@@ -471,8 +469,8 @@ To start historical analysis:
 ```json
 POST _plugins/_anomaly_detection/detectors/<detectorId>/_start
 {
-    "start_time": 1503168590000,
-    "end_time": 1617301324000
+  "start_time": 1503168590000,
+  "end_time": 1617301324000
 }
 ```
 
@@ -498,9 +496,10 @@ Stopped detector: m4ccEnIBTXsGi3mvMt9p
 
 To stop historical analysis:
 
-```jsom
+```json
 POST _plugins/_anomaly_detection/detectors/<detectorId>/_stop?historical=true
 ```
+
 
 ---
 
@@ -515,7 +514,6 @@ Returns all results for a search query.
 ```json
 GET _plugins/_anomaly_detection/detectors/results/_search
 POST _plugins/_anomaly_detection/detectors/results/_search
-
 {
   "query": {
     "bool": {
@@ -552,7 +550,7 @@ POST _plugins/_anomaly_detection/detectors/results/_search
     "max_score": 1,
     "hits": [
       {
-        "_index": ".opendistro-anomaly-results-history-2020.04.30-1",
+        "_index": ".opensearch-anomaly-results-history-2020.04.30-1",
         "_type": "_doc",
         "_id": "_KBrzXEBbpoKkFM5mStm",
         "_version": 1,
@@ -578,7 +576,7 @@ POST _plugins/_anomaly_detection/detectors/results/_search
         }
       },
       {
-        "_index": ".opendistro-anomaly-results-history-2020.04.30-1",
+        "_index": ".opensearch-anomaly-results-history-2020.04.30-1",
         "_type": "_doc",
         "_id": "EqB1zXEBbpoKkFM5qyyE",
         "_version": 1,
@@ -683,7 +681,7 @@ POST _plugins/_anomaly_detection/detectors/results/_search
     "max_score": null,
     "hits": [
       {
-        "_index": ".opendistro-anomaly-results-history-2020.11.07-1",
+        "_index": ".opensearch-anomaly-results-history-2020.11.07-1",
         "_type": "_doc",
         "_id": "BiItoHUBTpMGN-4KARY5",
         "_version": 1,
@@ -719,7 +717,7 @@ POST _plugins/_anomaly_detection/detectors/results/_search
         ]
       },
       {
-        "_index": ".opendistro-anomaly-results-history-2020.11.07-1",
+        "_index": ".opensearch-anomaly-results-history-2020.11.07-1",
         "_type": "_doc",
         "_id": "wiImoHUBTpMGN-4KlhXs",
         "_version": 1,
@@ -755,7 +753,7 @@ POST _plugins/_anomaly_detection/detectors/results/_search
         ]
       },
       {
-        "_index": ".opendistro-anomaly-results-history-2020.11.07-1",
+        "_index": ".opensearch-anomaly-results-history-2020.11.07-1",
         "_type": "_doc",
         "_id": "ZiIcoHUBTpMGN-4KhhVA",
         "_version": 1,
@@ -832,7 +830,7 @@ GET _plugins/_anomaly_detection/detectors/results/_search
     "max_score": 2.1366,
     "hits": [
       {
-        "_index": ".opendistro-anomaly-detection-state",
+        "_index": ".opensearch-anomaly-detection-state",
         "_type": "_doc",
         "_id": "CoM8WncBtt2qvI-LZO7_",
         "_version": 8,
@@ -943,10 +941,10 @@ You can specify the following options.
 
 Options | Description | Type | Required
 :--- | :--- |:--- |:--- |
-`anomalyThreshold` |  Filter out low anomaly grade results. Default is -1. The lowest possible anomaly grade is 0. -1 means that the detector returns all results. | `float` | No
-`dateRangeFilter` |  Specify the date range in: <br> - `startTime` (int): Start time to collect results. Recorded in milliseconds since the Unix Epoch. <br> - `endTime` (int): End time to collect results. Recorded in milliseconds since the Unix Epoch. <br> - `fieldName` (string): The field that you want to match the start and end time. | `object` | Yes
-`entity` | If not empty, the parameter contains the entity name and value. Default is empty. <br> - `name` (string): Field name that you want to search in. <br> - `value` (string): Entity value that you want to search for. | `object` | No
-`sort`  |  If not empty, sorts the result by a field in a certain order.  Default is empty. Properties of `sort`:<br> - `direction` (string): Specify "desc" or "asc" for descending or ascending order. <br> - `field` (string): Order the results by a field. | `object` | No
+`anomalyThreshold` |  Specify a threshold to filter out low anomaly grade results. Default is -1. Because the lowest possible anomaly grade is 0, -1 means that the detector returns all results. | `float` | No
+`dateRangeFilter` |  Specify the date range in: <br> - `startTime` (int): Start time to collect results. Add in milliseconds since the Unix Epoch. <br> - `endTime` (int): End time to collect results. Add in milliseconds since the Unix Epoch. <br> - `fieldName` (string): The field that you want to match the start and end time. | `object` | Yes
+`entity` | Specify the entity name and value. Default is empty. <br> - `name` (string): Field name that you want to search in. <br> - `value` (string): Entity value that you want to search for. | `object` | No
+`sort`  |  Sort the result by a field in a certain order.  Default is empty. Properties of `sort`:<br> - `direction` (string): Specify "desc" or "asc" for descending or ascending order. <br> - `field` (string): Order the results by a field. | `object` | No
 
 ---
 
@@ -996,127 +994,127 @@ POST _plugins/_anomaly_detection/detectors/tasks/_search
 
 ```json
 {
-  "took" : 5,
-  "timed_out" : false,
-  "_shards" : {
-    "total" : 1,
-    "successful" : 1,
-    "skipped" : 0,
-    "failed" : 0
+  "took": 5,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
   },
-  "hits" : {
-    "total" : {
-      "value" : 1,
-      "relation" : "eq"
+  "hits": {
+    "total": {
+      "value": 1,
+      "relation": "eq"
     },
-    "max_score" : null,
-    "hits" : [
+    "max_score": null,
+    "hits": [
       {
-        "_index" : ".opendistro-anomaly-detection-state",
-        "_type" : "_doc",
-        "_id" : "TM3tOHwBCi2h__AOXlyQ",
-        "_version" : 3,
-        "_seq_no" : 14,
-        "_primary_term" : 1,
-        "_score" : null,
-        "_source" : {
-          "detector_id" : "rlDtOHwBD5tpxlbyW7Nt",
-          "error" : "",
-          "detection_date_range" : {
-            "start_time" : 1632437852100,
-            "end_time" : 1633042652100
+        "_index": ".opensearch-anomaly-detection-state",
+        "_type": "_doc",
+        "_id": "TM3tOHwBCi2h__AOXlyQ",
+        "_version": 3,
+        "_seq_no": 14,
+        "_primary_term": 1,
+        "_score": null,
+        "_source": {
+          "detector_id": "rlDtOHwBD5tpxlbyW7Nt",
+          "error": "",
+          "detection_date_range": {
+            "start_time": 1632437852100,
+            "end_time": 1633042652100
           },
-          "task_progress" : 0.5,
-          "last_update_time" : 1633042667358,
-          "execution_start_time" : 1633042652810,
-          "state" : "RUNNING",
-          "coordinating_node" : "2hEGbUw6ShaiKe05n_xLdA",
-          "task_type" : "HISTORICAL_HC_DETECTOR",
-          "started_by" : "admin",
-          "init_progress" : 0.0,
-          "is_latest" : true,
-          "detector" : {
-            "category_field" : [
+          "task_progress": 0.5,
+          "last_update_time": 1633042667358,
+          "execution_start_time": 1633042652810,
+          "state": "RUNNING",
+          "coordinating_node": "2hEGbUw6ShaiKe05n_xLdA",
+          "task_type": "HISTORICAL_HC_DETECTOR",
+          "started_by": "admin",
+          "init_progress": 0,
+          "is_latest": true,
+          "detector": {
+            "category_field": [
               "type"
             ],
-            "description" : "test",
-            "ui_metadata" : {
-              "features" : {
-                "test-feature" : {
-                  "aggregationBy" : "sum",
-                  "aggregationOf" : "value",
-                  "featureType" : "simple_aggs"
+            "description": "test",
+            "ui_metadata": {
+              "features": {
+                "test-feature": {
+                  "aggregationBy": "sum",
+                  "aggregationOf": "value",
+                  "featureType": "simple_aggs"
                 }
               },
-              "filters" : [ ]
+              "filters": []
             },
-            "feature_attributes" : [
+            "feature_attributes": [
               {
-                "feature_id" : "7VDtOHwBD5tpxlbyWqPs",
-                "feature_enabled" : true,
-                "feature_name" : "test-feature",
-                "aggregation_query" : {
-                  "test_feature" : {
-                    "sum" : {
-                      "field" : "value"
+                "feature_id": "7VDtOHwBD5tpxlbyWqPs",
+                "feature_enabled": true,
+                "feature_name": "test-feature",
+                "aggregation_query": {
+                  "test_feature": {
+                    "sum": {
+                      "field": "value"
                     }
                   }
                 }
               }
             ],
-            "schema_version" : 0,
-            "time_field" : "timestamp",
-            "last_update_time" : 1633042652012,
-            "indices" : [
+            "schema_version": 0,
+            "time_field": "timestamp",
+            "last_update_time": 1633042652012,
+            "indices": [
               "server_log"
             ],
-            "window_delay" : {
-              "period" : {
-                "unit" : "Minutes",
-                "interval" : 1
+            "window_delay": {
+              "period": {
+                "unit": "Minutes",
+                "interval": 1
               }
             },
-            "detection_interval" : {
-              "period" : {
-                "unit" : "Minutes",
-                "interval" : 5
+            "detection_interval": {
+              "period": {
+                "unit": "Minutes",
+                "interval": 5
               }
             },
-            "name" : "test-detector",
-            "filter_query" : {
-              "match_all" : {
-                "boost" : 1.0
+            "name": "test-detector",
+            "filter_query": {
+              "match_all": {
+                "boost": 1
               }
             },
-            "shingle_size" : 8,
-            "user" : {
-              "backend_roles" : [
+            "shingle_size": 8,
+            "user": {
+              "backend_roles": [
                 "admin"
               ],
-              "custom_attribute_names" : [ ],
-              "roles" : [
+              "custom_attribute_names": [],
+              "roles": [
                 "own_index",
                 "all_access"
               ],
-              "name" : "admin",
-              "user_requested_tenant" : null
+              "name": "admin",
+              "user_requested_tenant": null
             },
-            "detector_type" : "MULTI_ENTITY"
+            "detector_type": "MULTI_ENTITY"
           },
-          "user" : {
-            "backend_roles" : [
+          "user": {
+            "backend_roles": [
               "admin"
             ],
-            "custom_attribute_names" : [ ],
-            "roles" : [
+            "custom_attribute_names": [],
+            "roles": [
               "own_index",
               "all_access"
             ],
-            "name" : "admin",
-            "user_requested_tenant" : "__user__"
+            "name": "admin",
+            "user_requested_tenant": "__user__"
           }
         },
-        "sort" : [
+        "sort": [
           1633042652810
         ]
       }
@@ -1146,19 +1144,19 @@ DELETE _plugins/_anomaly_detection/detectors/<detectorId>
 
 ```json
 {
-  "_index" : ".opendistro-anomaly-detectors",
-  "_type" : "_doc",
-  "_id" : "m4ccEnIBTXsGi3mvMt9p",
-  "_version" : 2,
-  "result" : "deleted",
-  "forced_refresh" : true,
-  "_shards" : {
-    "total" : 2,
-    "successful" : 2,
-    "failed" : 0
+  "_index": ".opensearch-anomaly-detectors",
+  "_type": "_doc",
+  "_id": "m4ccEnIBTXsGi3mvMt9p",
+  "_version": 2,
+  "result": "deleted",
+  "forced_refresh": true,
+  "_shards": {
+    "total": 2,
+    "successful": 2,
+    "failed": 0
   },
-  "_seq_no" : 6,
-  "_primary_term" : 1
+  "_seq_no": 6,
+  "_primary_term": 1
 }
 ```
 
@@ -1168,13 +1166,12 @@ DELETE _plugins/_anomaly_detection/detectors/<detectorId>
 Introduced 1.1
 {: .label .label-purple }
 
-Deletes a detector results based on a query.
+Deletes the results of a detector based on a query.
 
 #### Request
 
 ```json
 DELETE _plugins/_anomaly_detection/detectors/results
-
 {
   "query": {
     "bool": {
@@ -1211,23 +1208,23 @@ DELETE _plugins/_anomaly_detection/detectors/results
 
 ```json
 {
-  "took" : 48,
-  "timed_out" : false,
-  "total" : 28,
-  "updated" : 0,
-  "created" : 0,
-  "deleted" : 28,
-  "batches" : 1,
-  "version_conflicts" : 0,
-  "noops" : 0,
-  "retries" : {
-    "bulk" : 0,
-    "search" : 0
+  "took": 48,
+  "timed_out": false,
+  "total": 28,
+  "updated": 0,
+  "created": 0,
+  "deleted": 28,
+  "batches": 1,
+  "version_conflicts": 0,
+  "noops": 0,
+  "retries": {
+    "bulk": 0,
+    "search": 0
   },
-  "throttled_millis" : 0,
-  "requests_per_second" : -1.0,
-  "throttled_until_millis" : 0,
-  "failures" : [ ]
+  "throttled_millis": 0,
+  "requests_per_second": -1,
+  "throttled_until_millis": 0,
+  "failures": []
 }
 ```
 
@@ -1237,7 +1234,7 @@ DELETE _plugins/_anomaly_detection/detectors/results
 Introduced 1.1
 {: .label .label-purple }
 
-Validates detector before creating. This API shows you any invalid fields in your configuration and also recommendations on how to fix it.
+Validates detector before creating. Lists any invalid fields in your configuration and recommends ways to fix these invalid fields.
 
 #### Request
 
@@ -1312,8 +1309,7 @@ POST _plugins/_anomaly_detection/detectors/_validate/detector,model
       "message": "should be set|not_exist|empty"
     },
     "feature_attributes": {
-      // exist when message is "there exists non-numeric field"
-      [Optional]"problematic_feature_name1": {
+      "problematic_feature_name1": {
         "message": "{field} is invalid with {exceptionMessage}"
       }
       "problematic_feature_name2": {
@@ -1336,8 +1332,7 @@ POST _plugins/_anomaly_detection/detectors/_validate/detector,model
       "message": "data is too sparse after filter_query is applied"
     },
     "detection_interval": {
-      // exists when suggested value can be found
-      [Optional]"suggested_value": {
+      "suggested_value": {
         "period": {
           "interval": 1,
           "unit": "Minutes"
@@ -1361,8 +1356,7 @@ POST _plugins/_anomaly_detection/detectors/_validate/detector,model
       "message": "model size exceeds memory limit, please stop/delete unused detectors, or reduce shingle size or number of features"
     },
     "window_delay": {
-      // exists when suggested value can be found
-      [Optional]"suggested_value": {
+      "suggested_value": {
         "period": {
           "interval": 1,
           "unit": "Minutes"
@@ -1372,7 +1366,6 @@ POST _plugins/_anomaly_detection/detectors/_validate/detector,model
     }
   }
 }
-
 ```
 
 ---
@@ -1586,133 +1579,133 @@ GET _plugins/_anomaly_detection/detectors/<detectorId>?job=true
 
 ```json
 {
-    "_id": "LJxGsXcBoDQA8W1Q--A1",
-    "_version": 1,
-    "_primary_term": 1,
-    "_seq_no": 0,
-    "anomaly_detector": {
-        "name": "test2",
-        "description": "test",
-        "time_field": "timestamp",
-        "indices": [
-            "server_log"
-        ],
-        "filter_query": {
-            "match_all": {
-                "boost": 1.0
-            }
-        },
-        "detection_interval": {
-            "period": {
-                "interval": 1,
-                "unit": "Minutes"
-            }
-        },
-        "window_delay": {
-            "period": {
-                "interval": 1,
-                "unit": "Minutes"
-            }
-        },
-        "shingle_size": 8,
-        "schema_version": 0,
-        "feature_attributes": [
-            {
-                "feature_id": "K5xGsXcBoDQA8W1Q-uCF",
-                "feature_name": "F1",
-                "feature_enabled": *true*,
-                "aggregation_query": {
-                    "f_1": {
-                        "sum": {
-                            "field": "value"
-                        }
-                    }
-                }
-            }
-        ],
-        "last_update_time": 1613586955060,
-        "detector_type": "MULTI_ENTITY"
+  "_id": "LJxGsXcBoDQA8W1Q--A1",
+  "_version": 1,
+  "_primary_term": 1,
+  "_seq_no": 0,
+  "anomaly_detector": {
+    "name": "test2",
+    "description": "test",
+    "time_field": "timestamp",
+    "indices": [
+      "server_log"
+    ],
+    "filter_query": {
+      "match_all": {
+        "boost": 1
+      }
     },
-    "anomaly_detector_job": {
-        "name": "LJxGsXcBoDQA8W1Q--A1",
-        "schedule": {
-            "interval": {
-                "start_time": 1613587220387,
-                "period": 1,
-                "unit": "Minutes"
-            }
-        },
-        "window_delay": {
-            "period": {
-                "interval": 1,
-                "unit": "Minutes"
-            }
-        },
-        "enabled": *false*,
-        "enabled_time": 1613587220387,
-        "last_update_time": 1613587289169,
-        "lock_duration_seconds": 60,
-        "disabled_time": 1613587289169
+    "detection_interval": {
+      "period": {
+        "interval": 1,
+        "unit": "Minutes"
+      }
     },
-    "anomaly_detection_task": {
-        "task_id": "WZ5LsXcBoDQA8W1QmUa3",
-        "last_update_time": 1613587349022,
-        "error": "Task cancelled by user",
-        "state": "STOPPED",
-        "detector_id": "LJxGsXcBoDQA8W1Q--A1",
-        "task_progress": 0.26321793,
-        "init_progress": 1.0,
-        "current_piece": 1611030900000,
-        "execution_start_time": 1613587257783,
-        "execution_end_time": 1613587349022,
-        "is_latest": *true*,
-        "task_type": "HISTORICAL",
-        "coordinating_node": "NSw5j-3YQeGkH8KESVKlzw",
-        "worker_node": "NSw5j-3YQeGkH8KESVKlzw",
-        "detector": {
-            "name": "test2",
-            "description": "test",
-            "time_field": "timestamp",
-            "indices": [
-                "server_log"
-            ],
-            "filter_query": {
-                "match_all": {
-                    "boost": 1.0
-                }
-            },
-            "detection_interval": {
-                "period": {
-                    "interval": 1,
-                    "unit": "Minutes"
-                }
-            },
-            "window_delay": {
-                "period": {
-                    "interval": 1,
-                    "unit": "Minutes"
-                }
-            },
-            "shingle_size": 8,
-            "schema_version": 0,
-            "feature_attributes": [
-                {
-                    "feature_id": "K5xGsXcBoDQA8W1Q-uCF",
-                    "feature_name": "F1",
-                    "feature_enabled": *true*,
-                    "aggregation_query": {
-                        "f_1": {
-                            "sum": {
-                                "field": "value"
-                            }
-                        }
-                    }
-                }
-            ],
-            "last_update_time": 1613586955060,
-            "detector_type": "MULTI_ENTITY"
+    "window_delay": {
+      "period": {
+        "interval": 1,
+        "unit": "Minutes"
+      }
+    },
+    "shingle_size": 8,
+    "schema_version": 0,
+    "feature_attributes": [
+      {
+        "feature_id": "K5xGsXcBoDQA8W1Q-uCF",
+        "feature_name": "F1",
+        "feature_enabled": "true",
+        "aggregation_query": {
+          "f_1": {
+            "sum": {
+              "field": "value"
+            }
+          }
         }
+      }
+    ],
+    "last_update_time": 1613586955060,
+    "detector_type": "MULTI_ENTITY"
+  },
+  "anomaly_detector_job": {
+    "name": "LJxGsXcBoDQA8W1Q--A1",
+    "schedule": {
+      "interval": {
+        "start_time": 1613587220387,
+        "period": 1,
+        "unit": "Minutes"
+      }
+    },
+    "window_delay": {
+      "period": {
+        "interval": 1,
+        "unit": "Minutes"
+      }
+    },
+    "enabled": "false",
+    "enabled_time": 1613587220387,
+    "last_update_time": 1613587289169,
+    "lock_duration_seconds": 60,
+    "disabled_time": 1613587289169
+  },
+  "anomaly_detection_task": {
+    "task_id": "WZ5LsXcBoDQA8W1QmUa3",
+    "last_update_time": 1613587349022,
+    "error": "Task cancelled by user",
+    "state": "STOPPED",
+    "detector_id": "LJxGsXcBoDQA8W1Q--A1",
+    "task_progress": 0.26321793,
+    "init_progress": 1,
+    "current_piece": 1611030900000,
+    "execution_start_time": 1613587257783,
+    "execution_end_time": 1613587349022,
+    "is_latest": "true",
+    "task_type": "HISTORICAL",
+    "coordinating_node": "NSw5j-3YQeGkH8KESVKlzw",
+    "worker_node": "NSw5j-3YQeGkH8KESVKlzw",
+    "detector": {
+      "name": "test2",
+      "description": "test",
+      "time_field": "timestamp",
+      "indices": [
+        "server_log"
+      ],
+      "filter_query": {
+        "match_all": {
+          "boost": 1
+        }
+      },
+      "detection_interval": {
+        "period": {
+          "interval": 1,
+          "unit": "Minutes"
+        }
+      },
+      "window_delay": {
+        "period": {
+          "interval": 1,
+          "unit": "Minutes"
+        }
+      },
+      "shingle_size": 8,
+      "schema_version": 0,
+      "feature_attributes": [
+        {
+          "feature_id": "K5xGsXcBoDQA8W1Q-uCF",
+          "feature_name": "F1",
+          "feature_enabled": "true",
+          "aggregation_query": {
+            "f_1": {
+              "sum": {
+                "field": "value"
+              }
+            }
+          }
+        }
+      ],
+      "last_update_time": 1613586955060,
+      "detector_type": "MULTI_ENTITY"
     }
+  }
 }
 ```
 
@@ -1912,9 +1905,6 @@ Returns all anomaly detectors for a search query.
 ```json
 GET _plugins/_anomaly_detection/detectors/_search
 POST _plugins/_anomaly_detection/detectors/_search
-
-Sample Input:
-
 {
   "query": {
     "bool": {
@@ -1936,70 +1926,62 @@ Sample Input:
 
 ```json
 {
-  "took": 13,
+  "took": 2,
   "timed_out": false,
   "_shards": {
-    "total": 5,
-    "successful": 5,
+    "total": 1,
+    "successful": 1,
     "skipped": 0,
     "failed": 0
   },
   "hits": {
     "total": {
-      "value": 994,
+      "value": 1,
       "relation": "eq"
     },
-    "max_score": 3.5410638,
+    "max_score": 0,
     "hits": [
       {
-        "_index": ".opendistro-anomaly-detectors",
+        "_index": ".opensearch-anomaly-detectors",
         "_type": "_doc",
-        "_id": "m4ccEnIBTXsGi3mvMt9p",
-        "_version": 2,
-        "_seq_no": 221,
+        "_id": "rlDtOHwBD5tpxlbyW7Nt",
+        "_version": 1,
+        "_seq_no": 0,
         "_primary_term": 1,
-        "_score": 3.5410638,
+        "_score": 0,
         "_source": {
           "name": "test-detector",
-          "description": "Test detector",
+          "description": "test",
           "time_field": "timestamp",
           "indices": [
-            "order*"
+            "server_log"
           ],
           "filter_query": {
-            "bool": {
-              "filter": [
-                {
-                  "exists": {
-                    "field": "value",
-                    "boost": 1
-                  }
-                }
-              ],
-              "adjust_pure_negative": true,
+            "match_all": {
               "boost": 1
             }
           },
           "detection_interval": {
             "period": {
-              "interval": 10,
-              "unit": "MINUTES"
+              "interval": 5,
+              "unit": "Minutes"
             }
           },
           "window_delay": {
             "period": {
               "interval": 1,
-              "unit": "MINUTES"
+              "unit": "Minutes"
             }
           },
+          "shingle_size": 8,
           "schema_version": 0,
           "feature_attributes": [
             {
-              "feature_id": "xxokEnIBcpeWMD987A1X",
-              "feature_name": "total_order",
+              "feature_id": "7VDtOHwBD5tpxlbyWqPs",
+              "feature_name": "test-feature",
               "feature_enabled": true,
               "aggregation_query": {
-                "total_order": {
+                "test_feature": {
                   "sum": {
                     "field": "value"
                   }
@@ -2007,7 +1989,23 @@ Sample Input:
               }
             }
           ],
-          "last_update_time": 1589442309241
+          "last_update_time": 1633042652012,
+          "category_field": [
+            "type"
+          ],
+          "user": {
+            "name": "admin",
+            "backend_roles": [
+              "admin"
+            ],
+            "roles": [
+              "own_index",
+              "all_access"
+            ],
+            "custom_attribute_names": [],
+            "user_requested_tenant": null
+          },
+          "detector_type": "MULTI_ENTITY"
         }
       }
     ]
@@ -2062,261 +2060,6 @@ GET _plugins/_anomaly_detection/stats/<stat>
             {
               "name": "service",
               "value": "app_6"
-            }
-          ]
-        },
-        {
-          "detector_id": "mmZFeXsB7JcKN0mdnMf4",
-          "model_type": "entity",
-          "last_used_time": 1629827578975,
-          "model_id": "mmZFeXsB7JcKN0mdnMf4_entity_k2gq2eRP0vTV2LNNyFdIqg",
-          "last_checkpoint_time": 1629827339733,
-          "entity": [
-            {
-              "name": "host",
-              "value": "server_1"
-            },
-            {
-              "name": "service",
-              "value": "app_0"
-            }
-          ]
-        },
-        {
-          "detector_id": "mmZFeXsB7JcKN0mdnMf4",
-          "model_type": "entity",
-          "last_used_time": 1629827578980,
-          "model_id": "mmZFeXsB7JcKN0mdnMf4_entity_DOze7d0HnK3K54g3Emk1XA",
-          "last_checkpoint_time": 1629827343186,
-          "entity": [
-            {
-              "name": "host",
-              "value": "server_2"
-            },
-            {
-              "name": "service",
-              "value": "app_3"
-            }
-          ]
-        },
-        {
-          "detector_id": "mmZFeXsB7JcKN0mdnMf4",
-          "model_type": "entity",
-          "last_used_time": 1629827578977,
-          "model_id": "mmZFeXsB7JcKN0mdnMf4_entity_NgGmglQvOMQQciDdPxN_Ig",
-          "last_checkpoint_time": 1629827340961,
-          "entity": [
-            {
-              "name": "host",
-              "value": "server_3"
-            },
-            {
-              "name": "service",
-              "value": "app_5"
-            }
-          ]
-        },
-        {
-          "detector_id": "mmZFeXsB7JcKN0mdnMf4",
-          "model_type": "entity",
-          "last_used_time": 1629827578977,
-          "model_id": "mmZFeXsB7JcKN0mdnMf4_entity_oTdcenY1L5bqa6chUxg7xw",
-          "last_checkpoint_time": 1629827340263,
-          "entity": [
-            {
-              "name": "host",
-              "value": "server_1"
-            },
-            {
-              "name": "service",
-              "value": "app_1"
-            }
-          ]
-        },
-        {
-          "detector_id": "mmZFeXsB7JcKN0mdnMf4",
-          "model_type": "entity",
-          "last_used_time": 1629827578979,
-          "model_id": "mmZFeXsB7JcKN0mdnMf4_entity_zxSqAWv5Iz19v-Hnqhrwrw",
-          "last_checkpoint_time": 1629827342814,
-          "entity": [
-            {
-              "name": "host",
-              "value": "server_1"
-            },
-            {
-              "name": "service",
-              "value": "app_5"
-            }
-          ]
-        },
-        {
-          "detector_id": "mmZFeXsB7JcKN0mdnMf4",
-          "model_type": "entity",
-          "last_used_time": 1629827578976,
-          "model_id": "mmZFeXsB7JcKN0mdnMf4_entity_Yu8X2rA39lhjYzqebjLxhQ",
-          "last_checkpoint_time": 1629827339992,
-          "entity": [
-            {
-              "name": "host",
-              "value": "server_2"
-            },
-            {
-              "name": "service",
-              "value": "app_1"
-            }
-          ]
-        },
-        {
-          "detector_id": "mmZFeXsB7JcKN0mdnMf4",
-          "model_type": "entity",
-          "last_used_time": 1629827578978,
-          "model_id": "mmZFeXsB7JcKN0mdnMf4_entity_6SvF11RCqf7HYbY56BnFKA",
-          "last_checkpoint_time": 1629827341806,
-          "entity": [
-            {
-              "name": "host",
-              "value": "server_3"
-            },
-            {
-              "name": "service",
-              "value": "app_2"
-            }
-          ]
-        },
-        {
-          "detector_id": "mmZFeXsB7JcKN0mdnMf4",
-          "model_type": "entity",
-          "last_used_time": 1629827578980,
-          "model_id": "mmZFeXsB7JcKN0mdnMf4_entity_3S8k6q_DLFhw3hboko3dfw",
-          "last_checkpoint_time": 1629827343371,
-          "entity": [
-            {
-              "name": "host",
-              "value": "server_1"
-            },
-            {
-              "name": "service",
-              "value": "app_3"
-            }
-          ]
-        },
-        {
-          "detector_id": "mmZFeXsB7JcKN0mdnMf4",
-          "model_type": "entity",
-          "last_used_time": 1629827578978,
-          "model_id": "mmZFeXsB7JcKN0mdnMf4_entity_0uafBokvEYuncGbjP3D2qA",
-          "last_checkpoint_time": 1629827342302,
-          "entity": [
-            {
-              "name": "host",
-              "value": "server_2"
-            },
-            {
-              "name": "service",
-              "value": "app_5"
-            }
-          ]
-        },
-        {
-          "detector_id": "mmZFeXsB7JcKN0mdnMf4",
-          "model_type": "entity",
-          "last_used_time": 1629827578977,
-          "model_id": "mmZFeXsB7JcKN0mdnMf4_entity_93DEK2PooWlHF6gkh-0hIA",
-          "last_checkpoint_time": 1629827340727,
-          "entity": [
-            {
-              "name": "host",
-              "value": "server_2"
-            },
-            {
-              "name": "service",
-              "value": "app_4"
-            }
-          ]
-        },
-        {
-          "detector_id": "mmZFeXsB7JcKN0mdnMf4",
-          "model_type": "entity",
-          "last_used_time": 1629827578975,
-          "model_id": "mmZFeXsB7JcKN0mdnMf4_entity_FuqXh0HBXlPhKepOc6JADQ",
-          "last_checkpoint_time": 1629827338908,
-          "entity": [
-            {
-              "name": "host",
-              "value": "server_3"
-            },
-            {
-              "name": "service",
-              "value": "app_6"
-            }
-          ]
-        },
-        {
-          "detector_id": "mmZFeXsB7JcKN0mdnMf4",
-          "model_type": "entity",
-          "last_used_time": 1629827578979,
-          "model_id": "mmZFeXsB7JcKN0mdnMf4_entity_B4zrbSQ1-pvdBLx0FzQxvw",
-          "last_checkpoint_time": 1629827342611,
-          "entity": [
-            {
-              "name": "host",
-              "value": "server_3"
-            },
-            {
-              "name": "service",
-              "value": "app_3"
-            }
-          ]
-        },
-        {
-          "detector_id": "mmZFeXsB7JcKN0mdnMf4",
-          "model_type": "entity",
-          "last_used_time": 1629827578978,
-          "model_id": "mmZFeXsB7JcKN0mdnMf4_entity_xm_gKBMKlgymKcoqZyXT8A",
-          "last_checkpoint_time": 1629827341365,
-          "entity": [
-            {
-              "name": "host",
-              "value": "server_2"
-            },
-            {
-              "name": "service",
-              "value": "app_0"
-            }
-          ]
-        },
-        {
-          "detector_id": "mmZFeXsB7JcKN0mdnMf4",
-          "model_type": "entity",
-          "last_used_time": 1629827578978,
-          "model_id": "mmZFeXsB7JcKN0mdnMf4_entity_OnZ4CP-yJF5llO57gUjM6w",
-          "last_checkpoint_time": 1629827341599,
-          "entity": [
-            {
-              "name": "host",
-              "value": "server_3"
-            },
-            {
-              "name": "service",
-              "value": "app_1"
-            }
-          ]
-        },
-        {
-          "detector_id": "mmZFeXsB7JcKN0mdnMf4",
-          "model_type": "entity",
-          "last_used_time": 1629827578977,
-          "model_id": "mmZFeXsB7JcKN0mdnMf4_entity_E_uWreoeJpGrAMMaitg8BA",
-          "last_checkpoint_time": 1629827340418,
-          "entity": [
-            {
-              "name": "host",
-              "value": "server_3"
-            },
-            {
-              "name": "service",
-              "value": "app_4"
             }
           ]
         },
@@ -2420,7 +2163,7 @@ GET _plugins/_anomaly_detection/stats/<stat>
 ```
 
 The `model_count` parameter shows the total number of models running on each node’s memory.
-Historical detectors contain additional fields:
+Historical detectors contain the following additional fields:
 
 - `ad_total_batch_task_execution_count`
 - `ad_executing_batch_task_count`
@@ -2466,71 +2209,6 @@ Historical detectors contain additional fields:
             {
               "name": "type",
               "value": "error31"
-            }
-          ]
-        },
-        {
-          "detector_id": "rlDtOHwBD5tpxlbyW7Nt",
-          "model_type": "entity",
-          "last_used_time": 1633044152729,
-          "model_id": "rlDtOHwBD5tpxlbyW7Nt_entity_error21",
-          "last_checkpoint_time": 1633043555143,
-          "entity": [
-            {
-              "name": "type",
-              "value": "error21"
-            }
-          ]
-        },
-        {
-          "detector_id": "rlDtOHwBD5tpxlbyW7Nt",
-          "model_type": "entity",
-          "last_used_time": 1633044152727,
-          "model_id": "rlDtOHwBD5tpxlbyW7Nt_entity_error13",
-          "last_checkpoint_time": 1633043554046,
-          "entity": [
-            {
-              "name": "type",
-              "value": "error13"
-            }
-          ]
-        },
-        {
-          "detector_id": "rlDtOHwBD5tpxlbyW7Nt",
-          "model_type": "entity",
-          "last_used_time": 1633044152753,
-          "model_id": "rlDtOHwBD5tpxlbyW7Nt_entity_error24",
-          "last_checkpoint_time": 1633043853986,
-          "entity": [
-            {
-              "name": "type",
-              "value": "error24"
-            }
-          ]
-        },
-        {
-          "detector_id": "rlDtOHwBD5tpxlbyW7Nt",
-          "model_type": "entity",
-          "last_used_time": 1633044152792,
-          "model_id": "rlDtOHwBD5tpxlbyW7Nt_entity_error25",
-          "last_checkpoint_time": 1633043857320,
-          "entity": [
-            {
-              "name": "type",
-              "value": "error25"
-            }
-          ]
-        },
-        {
-          "detector_id": "rlDtOHwBD5tpxlbyW7Nt",
-          "model_type": "entity",
-          "last_used_time": 1633044152779,
-          "model_id": "rlDtOHwBD5tpxlbyW7Nt_entity_error28",
-          "last_checkpoint_time": 1633043856244,
-          "entity": [
-            {
-              "name": "type",
-              "value": "error28"
             }
           ]
         },
@@ -2602,97 +2280,6 @@ Historical detectors contain additional fields:
         {
           "detector_id": "rlDtOHwBD5tpxlbyW7Nt",
           "model_type": "entity",
-          "last_used_time": 1633044152750,
-          "model_id": "rlDtOHwBD5tpxlbyW7Nt_entity_error32",
-          "last_checkpoint_time": 1633043854080,
-          "entity": [
-            {
-              "name": "type",
-              "value": "error32"
-            }
-          ]
-        },
-        {
-          "detector_id": "rlDtOHwBD5tpxlbyW7Nt",
-          "model_type": "entity",
-          "last_used_time": 1633044152784,
-          "model_id": "rlDtOHwBD5tpxlbyW7Nt_entity_error23",
-          "last_checkpoint_time": 1633043857463,
-          "entity": [
-            {
-              "name": "type",
-              "value": "error23"
-            }
-          ]
-        },
-        {
-          "detector_id": "rlDtOHwBD5tpxlbyW7Nt",
-          "model_type": "entity",
-          "last_used_time": 1633044152774,
-          "model_id": "rlDtOHwBD5tpxlbyW7Nt_entity_error26",
-          "last_checkpoint_time": 1633043856308,
-          "entity": [
-            {
-              "name": "type",
-              "value": "error26"
-            }
-          ]
-        },
-        {
-          "detector_id": "rlDtOHwBD5tpxlbyW7Nt",
-          "model_type": "entity",
-          "last_used_time": 1633044152734,
-          "model_id": "rlDtOHwBD5tpxlbyW7Nt_entity_error14",
-          "last_checkpoint_time": 1633043555939,
-          "entity": [
-            {
-              "name": "type",
-              "value": "error14"
-            }
-          ]
-        },
-        {
-          "detector_id": "rlDtOHwBD5tpxlbyW7Nt",
-          "model_type": "entity",
-          "last_used_time": 1633044152731,
-          "model_id": "rlDtOHwBD5tpxlbyW7Nt_entity_error9",
-          "last_checkpoint_time": 1633043257214,
-          "entity": [
-            {
-              "name": "type",
-              "value": "error9"
-            }
-          ]
-        },
-        {
-          "detector_id": "rlDtOHwBD5tpxlbyW7Nt",
-          "model_type": "entity",
-          "last_used_time": 1633044152730,
-          "model_id": "rlDtOHwBD5tpxlbyW7Nt_entity_error19",
-          "last_checkpoint_time": 1633043553882,
-          "entity": [
-            {
-              "name": "type",
-              "value": "error19"
-            }
-          ]
-        },
-        {
-          "detector_id": "rlDtOHwBD5tpxlbyW7Nt",
-          "model_type": "entity",
-          "last_used_time": 1633044152732,
-          "model_id": "rlDtOHwBD5tpxlbyW7Nt_entity_error18",
-          "last_checkpoint_time": 1633043554874,
-          "entity": [
-            {
-              "name": "type",
-              "value": "error18"
-            }
-          ]
-        },
-        {
-          "detector_id": "rlDtOHwBD5tpxlbyW7Nt",
-          "model_type": "entity",
           "last_used_time": 1633044152763,
           "model_id": "rlDtOHwBD5tpxlbyW7Nt_entity_error29",
           "last_checkpoint_time": 1633043855226,
@@ -2726,123 +2313,6 @@ Historical detectors contain additional fields:
             {
               "name": "type",
               "value": "error5"
-            }
-          ]
-        },
-        {
-          "detector_id": "rlDtOHwBD5tpxlbyW7Nt",
-          "model_type": "entity",
-          "last_used_time": 1633044152711,
-          "model_id": "rlDtOHwBD5tpxlbyW7Nt_entity_error6",
-          "last_checkpoint_time": 1633043254281,
-          "entity": [
-            {
-              "name": "type",
-              "value": "error6"
-            }
-          ]
-        },
-        {
-          "detector_id": "rlDtOHwBD5tpxlbyW7Nt",
-          "model_type": "entity",
-          "last_used_time": 1633044152716,
-          "model_id": "rlDtOHwBD5tpxlbyW7Nt_entity_error4",
-          "last_checkpoint_time": 1633043257797,
-          "entity": [
-            {
-              "name": "type",
-              "value": "error4"
-            }
-          ]
-        },
-        {
-          "detector_id": "rlDtOHwBD5tpxlbyW7Nt",
-          "model_type": "entity",
-          "last_used_time": 1633044152709,
-          "model_id": "rlDtOHwBD5tpxlbyW7Nt_entity_error2",
-          "last_checkpoint_time": 1633043260938,
-          "entity": [
-            {
-              "name": "type",
-              "value": "error2"
-            }
-          ]
-        },
-        {
-          "detector_id": "rlDtOHwBD5tpxlbyW7Nt",
-          "model_type": "entity",
-          "last_used_time": 1633044152742,
-          "model_id": "rlDtOHwBD5tpxlbyW7Nt_entity_error30",
-          "last_checkpoint_time": 1633043853983,
-          "entity": [
-            {
-              "name": "type",
-              "value": "error30"
-            }
-          ]
-        },
-        {
-          "detector_id": "rlDtOHwBD5tpxlbyW7Nt",
-          "model_type": "entity",
-          "last_used_time": 1633044152725,
-          "model_id": "rlDtOHwBD5tpxlbyW7Nt_entity_error11",
-          "last_checkpoint_time": 1633043263038,
-          "entity": [
-            {
-              "name": "type",
-              "value": "error11"
-            }
-          ]
-        },
-        {
-          "detector_id": "rlDtOHwBD5tpxlbyW7Nt",
-          "model_type": "entity",
-          "last_used_time": 1633044152712,
-          "model_id": "rlDtOHwBD5tpxlbyW7Nt_entity_error10",
-          "last_checkpoint_time": 1633043255533,
-          "entity": [
-            {
-              "name": "type",
-              "value": "error10"
-            }
-          ]
-        },
-        {
-          "detector_id": "rlDtOHwBD5tpxlbyW7Nt",
-          "model_type": "entity",
-          "last_used_time": 1633044152719,
-          "model_id": "rlDtOHwBD5tpxlbyW7Nt_entity_error7",
-          "last_checkpoint_time": 1633043258826,
-          "entity": [
-            {
-              "name": "type",
-              "value": "error7"
-            }
-          ]
-        },
-        {
-          "detector_id": "rlDtOHwBD5tpxlbyW7Nt",
-          "model_type": "entity",
-          "last_used_time": 1633044152708,
-          "model_id": "rlDtOHwBD5tpxlbyW7Nt_entity_error8",
-          "last_checkpoint_time": 1633043259841,
-          "entity": [
-            {
-              "name": "type",
-              "value": "error8"
-            }
-          ]
-        },
-        {
-          "detector_id": "rlDtOHwBD5tpxlbyW7Nt",
-          "model_type": "entity",
-          "last_used_time": 1633044152721,
-          "model_id": "rlDtOHwBD5tpxlbyW7Nt_entity_error12",
-          "last_checkpoint_time": 1633043261989,
-          "entity": [
-            {
-              "name": "type",
-              "value": "error12"
             }
           ]
         },
@@ -2925,7 +2395,7 @@ POST _plugins/_alerting/monitors
     {
       "search": {
         "indices": [
-          ".opendistro-anomaly-results*"
+          ".opensearch-anomaly-results*"
         ],
         "query": {
           "size": 1,
@@ -3031,7 +2501,7 @@ POST _plugins/_alerting/monitors
       {
         "search": {
           "indices": [
-            ".opendistro-anomaly-results*"
+            ".opensearch-anomaly-results*"
           ],
           "query": {
             "size": 1,
@@ -3144,14 +2614,12 @@ GET _plugins/_anomaly_detection/detectors/<detectorId>/_profile/<type1>,<type2>
 
 ```json
 GET _plugins/_anomaly_detection/detectors/<detectorId>/_profile
-
 {
-    "state":"DISABLED",
-    "error":"Stopped detector: AD models memory usage exceeds our limit."
+  "state": "DISABLED",
+  "error": "Stopped detector: AD models memory usage exceeds our limit."
 }
 
 GET _plugins/_anomaly_detection/detectors/<detectorId>/_profile?_all=true&pretty
-
 {
   "state": "RUNNING",
   "error": "",
@@ -3256,246 +2724,253 @@ GET _plugins/_anomaly_detection/detectors/<detectorId>/_profile?_all=true&pretty
       "node_id": "dIyavWhmSYWGz65b4u-lpQ"
     },
     {
-      "model_id": "rlDtOHwBD5tpxlbyW7Nt_entity_error1",
+      "model_id": "rlDtOHwBD5tpxlbyW7Nt_entity_error27",
       "entity": [
         {
           "name": "type",
-          "value": "error1"
-        }
-      ],
-      "model_size_in_bytes": 403491,
-      "node_id": "dIyavWhmSYWGz65b4u-lpQ"
-    },
-    {
-      "model_id": "rlDtOHwBD5tpxlbyW7Nt_entity_error22",
-      "entity": [
-        {
-          "name": "type",
-          "value": "error22"
-        }
-      ],
-      "model_size_in_bytes": 403491,
-      "node_id": "dIyavWhmSYWGz65b4u-lpQ"
-    },
-    {
-      "model_id": "rlDtOHwBD5tpxlbyW7Nt_entity_error32",
-      "entity": [
-        {
-          "name": "type",
-          "value": "error32"
-        }
-      ],
-      "model_size_in_bytes": 403491,
-      "node_id": "dIyavWhmSYWGz65b4u-lpQ"
-    },
-    {
-      "model_id": "rlDtOHwBD5tpxlbyW7Nt_entity_error23",
-      "entity": [
-        {
-          "name": "type",
-          "value": "error23"
-        }
-      ],
-      "model_size_in_bytes": 403491,
-      "node_id": "dIyavWhmSYWGz65b4u-lpQ"
-    },
-    {
-      "model_id": "rlDtOHwBD5tpxlbyW7Nt_entity_error26",
-      "entity": [
-        {
-          "name": "type",
-          "value": "error26"
-        }
-      ],
-      "model_size_in_bytes": 403491,
-      "node_id": "dIyavWhmSYWGz65b4u-lpQ"
-    },
-    {
-      "model_id": "rlDtOHwBD5tpxlbyW7Nt_entity_error14",
-      "entity": [
-        {
-          "name": "type",
-          "value": "error14"
-        }
-      ],
-      "model_size_in_bytes": 403491,
-      "node_id": "dIyavWhmSYWGz65b4u-lpQ"
-    },
-    {
-      "model_id": "rlDtOHwBD5tpxlbyW7Nt_entity_error9",
-      "entity": [
-        {
-          "name": "type",
-          "value": "error9"
-        }
-      ],
-      "model_size_in_bytes": 403491,
-      "node_id": "dIyavWhmSYWGz65b4u-lpQ"
-    },
-    {
-      "model_id": "rlDtOHwBD5tpxlbyW7Nt_entity_error19",
-      "entity": [
-        {
-          "name": "type",
-          "value": "error19"
-        }
-      ],
-      "model_size_in_bytes": 403491,
-      "node_id": "dIyavWhmSYWGz65b4u-lpQ"
-    },
-    {
-      "model_id": "rlDtOHwBD5tpxlbyW7Nt_entity_error18",
-      "entity": [
-        {
-          "name": "type",
-          "value": "error18"
-        }
-      ],
-      "model_size_in_bytes": 403491,
-      "node_id": "dIyavWhmSYWGz65b4u-lpQ"
-    },
-    {
-      "model_id": "rlDtOHwBD5tpxlbyW7Nt_entity_error29",
-      "entity": [
-        {
-          "name": "type",
-          "value": "error29"
-        }
-      ],
-      "model_size_in_bytes": 403491,
-      "node_id": "dIyavWhmSYWGz65b4u-lpQ"
-    },
-    {
-      "model_id": "rlDtOHwBD5tpxlbyW7Nt_entity_error5",
-      "entity": [
-        {
-          "name": "type",
-          "value": "error5"
+          "value": "error27"
         }
       ],
       "model_size_in_bytes": 403491,
       "node_id": "2hEGbUw6ShaiKe05n_xLdA"
+    }
+  ],
+  "total_size_in_bytes": 12911712,
+  "init_progress": {
+    "percentage": "100%"
+  },
+  "total_entities": 33,
+  "active_entities": 32,
+  "ad_task": {
+    "ad_task": {
+      "task_id": "Os4HOXwBCi2h__AONgpc",
+      "last_update_time": 1633044347855,
+      "started_by": "admin",
+      "state": "RUNNING",
+      "detector_id": "rlDtOHwBD5tpxlbyW7Nt",
+      "task_progress": 0,
+      "init_progress": 0,
+      "execution_start_time": 1633044346460,
+      "is_latest": true,
+      "task_type": "HISTORICAL_HC_DETECTOR",
+      "coordinating_node": "2hEGbUw6ShaiKe05n_xLdA",
+      "detector": {
+        "name": "test-detector",
+        "description": "test",
+        "time_field": "timestamp",
+        "indices": [
+          "server_log"
+        ],
+        "filter_query": {
+          "match_all": {
+            "boost": 1
+          }
+        },
+        "detection_interval": {
+          "period": {
+            "interval": 5,
+            "unit": "Minutes"
+          }
+        },
+        "window_delay": {
+          "period": {
+            "interval": 1,
+            "unit": "Minutes"
+          }
+        },
+        "shingle_size": 8,
+        "schema_version": 0,
+        "feature_attributes": [
+          {
+            "feature_id": "7VDtOHwBD5tpxlbyWqPs",
+            "feature_name": "test-feature",
+            "feature_enabled": true,
+            "aggregation_query": {
+              "test_feature": {
+                "sum": {
+                  "field": "value"
+                }
+              }
+            }
+          }
+        ],
+        "ui_metadata": {
+          "features": {
+            "test-feature": {
+              "aggregationBy": "sum",
+              "aggregationOf": "value",
+              "featureType": "simple_aggs"
+            }
+          },
+          "filters": []
+        },
+        "last_update_time": 1633042652012,
+        "category_field": [
+          "type"
+        ],
+        "user": {
+          "name": "admin",
+          "backend_roles": [
+            "admin"
+          ],
+          "roles": [
+            "own_index",
+            "all_access"
+          ],
+          "custom_attribute_names": [],
+          "user_requested_tenant": null
+        },
+        "detector_type": "MULTI_ENTITY"
+      },
+      "detection_date_range": {
+        "start_time": 1632437820000,
+        "end_time": 1633042620000
+      },
+      "user": {
+        "name": "admin",
+        "backend_roles": [
+          "admin"
+        ],
+        "roles": [
+          "own_index",
+          "all_access"
+        ],
+        "custom_attribute_names": [],
+        "user_requested_tenant": "__user__"
+      }
     },
+    "node_id": "2hEGbUw6ShaiKe05n_xLdA",
+    "task_id": "Os4HOXwBCi2h__AONgpc",
+    "task_type": "HISTORICAL_HC_DETECTOR",
+    "detector_task_slots": 10,
+    "total_entities_count": 32,
+    "pending_entities_count": 22,
+    "running_entities_count": 10,
+    "running_entities": [
+      "error9",
+      "error8",
+      "error7",
+      "error6",
+      "error5",
+      "error4",
+      "error32",
+      "error31",
+      "error30",
+      "error3"
+    ],
+    "entity_task_profiles": [
+      {
+        "shingle_size": 8,
+        "rcf_total_updates": 994,
+        "threshold_model_trained": true,
+        "threshold_model_training_data_size": 0,
+        "model_size_in_bytes": 1593240,
+        "node_id": "bCtWtxWPThq0BIn5P5I4Xw",
+        "entity": [
+          {
+            "name": "type",
+            "value": "error6"
+          }
+        ],
+        "task_id": "P84HOXwBCi2h__AOOgrC",
+        "task_type": "HISTORICAL_HC_ENTITY"
+      },
+      {
+        "shingle_size": 8,
+        "rcf_total_updates": 994,
+        "threshold_model_trained": true,
+        "threshold_model_training_data_size": 0,
+        "model_size_in_bytes": 1593240,
+        "node_id": "dIyavWhmSYWGz65b4u-lpQ",
+        "entity": [
+          {
+            "name": "type",
+            "value": "error4"
+          }
+        ],
+        "task_id": "Kc4HOXwBCi2h__AOOw6Y",
+        "task_type": "HISTORICAL_HC_ENTITY"
+      },
+      {
+        "shingle_size": 8,
+        "rcf_total_updates": 994,
+        "threshold_model_trained": true,
+        "threshold_model_training_data_size": 0,
+        "model_size_in_bytes": 1593240,
+        "node_id": "dIyavWhmSYWGz65b4u-lpQ",
+        "entity": [
+          {
+            "name": "type",
+            "value": "error8"
+          }
+        ],
+        "task_id": "Pc4HOXwBCi2h__AOOgqJ",
+        "task_type": "HISTORICAL_HC_ENTITY"
+      },
+      {
+        "shingle_size": 8,
+        "rcf_total_updates": 994,
+        "threshold_model_trained": true,
+        "threshold_model_training_data_size": 0,
+        "model_size_in_bytes": 1593240,
+        "node_id": "2hEGbUw6ShaiKe05n_xLdA",
+        "entity": [
+          {
+            "name": "type",
+            "value": "error7"
+          }
+        ],
+        "task_id": "Ps4HOXwBCi2h__AOOgqh",
+        "task_type": "HISTORICAL_HC_ENTITY"
+      }
+    ]
+  },
+  "model_count": 32
+}
+
+GET _plugins/_anomaly_detection/detectors/<detectorId>/_profile/total_size_in_bytes
+{
+  "total_size_in_bytes": 13369344
+}
+```
+
+You can see the `ad_task` field only for a historical detector.
+
+The `model_count` parameter shows the total number of models that a detector runs in memory. This is useful if you have several models running on your cluster and want to know the count.
+
+If you configured the category field, you can see the number of unique values in the field and all active entities with models running in memory.
+
+You can use this data to estimate how much memory is required for anomaly detection so you can decide how to size your cluster. For example, if a detector has one million entities and only 10 of them are active in memory, you need to scale your cluster up or out.
+
+#### Request
+
+```json
+GET _plugins/_anomaly_detection/detectors/<detectorId>/_profile?_all=true&pretty
+{
+  "state": "RUNNING",
+  "error": "",
+  "models": [
     {
-      "model_id": "rlDtOHwBD5tpxlbyW7Nt_entity_error6",
+      "model_id": "rlDtOHwBD5tpxlbyW7Nt_entity_error20",
       "entity": [
         {
           "name": "type",
-          "value": "error6"
+          "value": "error20"
         }
       ],
       "model_size_in_bytes": 403491,
-      "node_id": "2hEGbUw6ShaiKe05n_xLdA"
+      "node_id": "bCtWtxWPThq0BIn5P5I4Xw"
     },
     {
-      "model_id": "rlDtOHwBD5tpxlbyW7Nt_entity_error4",
+      "model_id": "rlDtOHwBD5tpxlbyW7Nt_entity_error13",
       "entity": [
         {
           "name": "type",
-          "value": "error4"
+          "value": "error13"
         }
       ],
       "model_size_in_bytes": 403491,
-      "node_id": "2hEGbUw6ShaiKe05n_xLdA"
-    },
-    {
-      "model_id": "rlDtOHwBD5tpxlbyW7Nt_entity_error2",
-      "entity": [
-        {
-          "name": "type",
-          "value": "error2"
-        }
-      ],
-      "model_size_in_bytes": 403491,
-      "node_id": "2hEGbUw6ShaiKe05n_xLdA"
-    },
-    {
-      "model_id": "rlDtOHwBD5tpxlbyW7Nt_entity_error30",
-      "entity": [
-        {
-          "name": "type",
-          "value": "error30"
-        }
-      ],
-      "model_size_in_bytes": 403491,
-      "node_id": "2hEGbUw6ShaiKe05n_xLdA"
-    },
-    {
-      "model_id": "rlDtOHwBD5tpxlbyW7Nt_entity_error11",
-      "entity": [
-        {
-          "name": "type",
-          "value": "error11"
-        }
-      ],
-      "model_size_in_bytes": 403491,
-      "node_id": "2hEGbUw6ShaiKe05n_xLdA"
-    },
-    {
-      "model_id": "rlDtOHwBD5tpxlbyW7Nt_entity_error10",
-      "entity": [
-        {
-          "name": "type",
-          "value": "error10"
-        }
-      ],
-      "model_size_in_bytes": 403491,
-      "node_id": "2hEGbUw6ShaiKe05n_xLdA"
-    },
-    {
-      "model_id": "rlDtOHwBD5tpxlbyW7Nt_entity_error7",
-      "entity": [
-        {
-          "name": "type",
-          "value": "error7"
-        }
-      ],
-      "model_size_in_bytes": 403491,
-      "node_id": "2hEGbUw6ShaiKe05n_xLdA"
-    },
-    {
-      "model_id": "rlDtOHwBD5tpxlbyW7Nt_entity_error8",
-      "entity": [
-        {
-          "name": "type",
-          "value": "error8"
-        }
-      ],
-      "model_size_in_bytes": 403491,
-      "node_id": "2hEGbUw6ShaiKe05n_xLdA"
-    },
-    {
-      "model_id": "rlDtOHwBD5tpxlbyW7Nt_entity_error12",
-      "entity": [
-        {
-          "name": "type",
-          "value": "error12"
-        }
-      ],
-      "model_size_in_bytes": 403491,
-      "node_id": "2hEGbUw6ShaiKe05n_xLdA"
-    },
-    {
-      "model_id": "rlDtOHwBD5tpxlbyW7Nt_entity_error15",
-      "entity": [
-        {
-          "name": "type",
-          "value": "error15"
-        }
-      ],
-      "model_size_in_bytes": 403491,
-      "node_id": "2hEGbUw6ShaiKe05n_xLdA"
-    },
-    {
-      "model_id": "rlDtOHwBD5tpxlbyW7Nt_entity_error17",
-      "entity": [
-        {
-          "name": "type",
-          "value": "error17"
-        }
-      ],
-      "model_size_in_bytes": 403491,
-      "node_id": "2hEGbUw6ShaiKe05n_xLdA"
+      "node_id": "bCtWtxWPThq0BIn5P5I4Xw"
     },
     {
       "model_id": "rlDtOHwBD5tpxlbyW7Nt_entity_error27",
@@ -3687,70 +3162,6 @@ GET _plugins/_anomaly_detection/detectors/<detectorId>/_profile?_all=true&pretty
         "threshold_model_trained": true,
         "threshold_model_training_data_size": 0,
         "model_size_in_bytes": 1593240,
-        "node_id": "dIyavWhmSYWGz65b4u-lpQ",
-        "entity": [
-          {
-            "name": "type",
-            "value": "error31"
-          }
-        ],
-        "task_id": "LM4HOXwBCi2h__AOOw7v",
-        "task_type": "HISTORICAL_HC_ENTITY"
-      },
-      {
-        "shingle_size": 8,
-        "rcf_total_updates": 994,
-        "threshold_model_trained": true,
-        "threshold_model_training_data_size": 0,
-        "model_size_in_bytes": 1593240,
-        "node_id": "dIyavWhmSYWGz65b4u-lpQ",
-        "entity": [
-          {
-            "name": "type",
-            "value": "error4"
-          }
-        ],
-        "task_id": "Kc4HOXwBCi2h__AOOw6Y",
-        "task_type": "HISTORICAL_HC_ENTITY"
-      },
-      {
-        "shingle_size": 8,
-        "rcf_total_updates": 994,
-        "threshold_model_trained": true,
-        "threshold_model_training_data_size": 0,
-        "model_size_in_bytes": 1593240,
-        "node_id": "dIyavWhmSYWGz65b4u-lpQ",
-        "entity": [
-          {
-            "name": "type",
-            "value": "error30"
-          }
-        ],
-        "task_id": "Lc4HOXwBCi2h__AOPA4R",
-        "task_type": "HISTORICAL_HC_ENTITY"
-      },
-      {
-        "shingle_size": 8,
-        "rcf_total_updates": 994,
-        "threshold_model_trained": true,
-        "threshold_model_training_data_size": 0,
-        "model_size_in_bytes": 1593240,
-        "node_id": "dIyavWhmSYWGz65b4u-lpQ",
-        "entity": [
-          {
-            "name": "type",
-            "value": "error8"
-          }
-        ],
-        "task_id": "Pc4HOXwBCi2h__AOOgqJ",
-        "task_type": "HISTORICAL_HC_ENTITY"
-      },
-      {
-        "shingle_size": 8,
-        "rcf_total_updates": 994,
-        "threshold_model_trained": true,
-        "threshold_model_training_data_size": 0,
-        "model_size_in_bytes": 1593240,
         "node_id": "2hEGbUw6ShaiKe05n_xLdA",
         "entity": [
           {
@@ -3797,70 +3208,125 @@ GET _plugins/_anomaly_detection/detectors/<detectorId>/_profile?_all=true&pretty
   },
   "model_count": 32
 }
-
-GET _plugins/_anomaly_detection/detectors/<detectorId>/_profile/total_size_in_bytes
-
-{
-  "total_size_in_bytes" : 13369344
-}
 ```
 
-The `model_count` parameter shows the total number of models that a detector runs in memory. This is useful if you have several models running on your cluster and want to know the count.
+For a single-entity detector:
 
-If you configured the category field, you can see the number of unique values in the field and all active entities with models running in memory.
-
-You can use this data to estimate how much memory is required for anomaly detection so you can decide how to size your cluster. For example, if a detector has one million entities and only 10 of them are active in memory, you need to scale your cluster up or out.
-
-#### Request
+#### Sample response
 
 ```json
-GET _plugins/_anomaly_detection/detectors/<detectorId>/_profile?_all=true&pretty
-
 {
-  "state": "RUNNING",
-  "models": [
-    {
-      "model_id": "T4c3dXUBj-2IZN7itix__entity_i-00f28ec1eb8997684",
-      "model_size_in_bytes": 712480,
-      "node_id": "g6pmr547QR-CfpEvO67M4g"
-    },
-    {
-      "model_id": "T4c3dXUBj-2IZN7itix__entity_i-00f28ec1eb8997685",
-      "model_size_in_bytes": 712480,
-      "node_id": "g6pmr547QR-CfpEvO67M4g"
-    },
-    {
-      "model_id": "T4c3dXUBj-2IZN7itix__entity_i-00f28ec1eb8997686",
-      "model_size_in_bytes": 712480,
-      "node_id": "g6pmr547QR-CfpEvO67M4g"
-    },
-    {
-      "model_id": "T4c3dXUBj-2IZN7itix__entity_i-00f28ec1eb8997680",
-      "model_size_in_bytes": 712480,
-      "node_id": "g6pmr547QR-CfpEvO67M4g"
-    },
-    {
-      "model_id": "T4c3dXUBj-2IZN7itix__entity_i-00f28ec1eb8997681",
-      "model_size_in_bytes": 712480,
-      "node_id": "g6pmr547QR-CfpEvO67M4g"
-    },
-    {
-      "model_id": "T4c3dXUBj-2IZN7itix__entity_i-00f28ec1eb8997682",
-      "model_size_in_bytes": 712480,
-      "node_id": "g6pmr547QR-CfpEvO67M4g"
-    },
-    {
-      "model_id": "T4c3dXUBj-2IZN7itix__entity_i-00f28ec1eb8997683",
-      "model_size_in_bytes": 712480,
-      "node_id": "g6pmr547QR-CfpEvO67M4g"
-    }
-  ],
-  "total_size_in_bytes": 4987360,
+  "state": "INIT",
+  "total_size_in_bytes": 0,
   "init_progress": {
-    "percentage": "100%"
+    "percentage": "0%",
+    "needed_shingles": 128
   },
-  "total_entities": 7,
-  "active_entities": 7
+  "ad_task": {
+    "ad_task": {
+      "task_id": "cfUNOXwBFLNqSEcxAlde",
+      "last_update_time": 1633044731640,
+      "started_by": "admin",
+      "state": "RUNNING",
+      "detector_id": "qL4NOXwB__6eNorTAKtJ",
+      "task_progress": 0.49603173,
+      "init_progress": 1,
+      "current_piece": 1632739800000,
+      "execution_start_time": 1633044726365,
+      "is_latest": true,
+      "task_type": "HISTORICAL_SINGLE_ENTITY",
+      "coordinating_node": "bCtWtxWPThq0BIn5P5I4Xw",
+      "worker_node": "dIyavWhmSYWGz65b4u-lpQ",
+      "detector": {
+        "name": "detector1",
+        "description": "test",
+        "time_field": "timestamp",
+        "indices": [
+          "server_log"
+        ],
+        "filter_query": {
+          "match_all": {
+            "boost": 1
+          }
+        },
+        "detection_interval": {
+          "period": {
+            "interval": 5,
+            "unit": "Minutes"
+          }
+        },
+        "window_delay": {
+          "period": {
+            "interval": 1,
+            "unit": "Minutes"
+          }
+        },
+        "shingle_size": 8,
+        "schema_version": 0,
+        "feature_attributes": [
+          {
+            "feature_id": "p74NOXwB__6eNorTAKss",
+            "feature_name": "test-feature",
+            "feature_enabled": true,
+            "aggregation_query": {
+              "test_feature": {
+                "sum": {
+                  "field": "value"
+                }
+              }
+            }
+          }
+        ],
+        "ui_metadata": {
+          "features": {
+            "test-feature": {
+              "aggregationBy": "sum",
+              "aggregationOf": "value",
+              "featureType": "simple_aggs"
+            }
+          },
+          "filters": []
+        },
+        "last_update_time": 1633044725832,
+        "user": {
+          "name": "admin",
+          "backend_roles": [
+            "admin"
+          ],
+          "roles": [
+            "own_index",
+            "all_access"
+          ],
+          "custom_attribute_names": [],
+          "user_requested_tenant": "__user__"
+        },
+        "detector_type": "SINGLE_ENTITY"
+      },
+      "detection_date_range": {
+        "start_time": 1632439925885,
+        "end_time": 1633044725885
+      },
+      "user": {
+        "name": "admin",
+        "backend_roles": [
+          "admin"
+        ],
+        "roles": [
+          "own_index",
+          "all_access"
+        ],
+        "custom_attribute_names": [],
+        "user_requested_tenant": "__user__"
+      }
+    },
+    "shingle_size": 8,
+    "rcf_total_updates": 1994,
+    "threshold_model_trained": true,
+    "threshold_model_training_data_size": 0,
+    "model_size_in_bytes": 1593240,
+    "node_id": "dIyavWhmSYWGz65b4u-lpQ",
+    "detector_task_slots": 1
+  }
 }
 ```
 
@@ -3868,11 +3334,10 @@ The `total_entities` parameter shows you the total number of entities including 
 
 Getting the total count of entities is an expensive operation for a detector with more than one category field. By default, a real-time detector counts the number of entities up to a value of 10,000 and a historical detector counts the number of entities up to a value of 1,000.
 
-The `profile` operation also provides information about each entity, such as the entity’s `last_sample_timestamp` and `last_active_timestamp`.
+The `profile` operation also provides information about each entity, such as the entity’s `last_sample_timestamp` and `last_active_timestamp`. `last_sample_timestamp` shows the last document in the input data source index containing the entity, while `last_active_timestamp` shows the timestamp when the entity’s model was last seen in the model cache.
 
 If there are no anomaly results for an entity, either the entity doesn't have any sample data or its model is removed from the model cache.
 
- `last_sample_timestamp` shows the last document in the input data source index containing the entity, while `last_active_timestamp` shows the timestamp when the entity’s model was last seen in the model cache.
 
 #### Request
 
