@@ -2024,12 +2024,14 @@ GET _plugins/_anomaly_detection/stats/<stat>
 ```
 
 The `model_count` parameter shows the total number of models running on each node’s memory.
-Historical detectors contain the following additional fields:
+For historical analysis, you see the values for the following fields:
 
 - `ad_total_batch_task_execution_count`
 - `ad_executing_batch_task_count`
 - `ad_canceled_batch_task_count`
 - `ad_batch_task_failure_count`
+
+For real-time analysis, these values are 0.
 
 #### Sample response
 
@@ -2795,7 +2797,7 @@ GET _plugins/_anomaly_detection/detectors/<detectorId>/_profile/total_size_in_by
 }
 ```
 
-You can see the `ad_task` field only for a historical detector.
+You can see the `ad_task` field only for historical analysis.
 
 The `model_count` parameter shows the total number of models that a detector runs in memory. This is useful if you have several models running on your cluster and want to know the count.
 
