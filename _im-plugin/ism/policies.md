@@ -558,9 +558,11 @@ The following sample template policy is for a rollover use case.
    PUT _index_template/ism_rollover
    {
      "index_patterns": ["log*"],
-     "settings": {
+     "template": {
+      "settings": {
        "plugins.index_state_management.rollover_alias": "log"
-     }
+      }
+    }
    }
    ```
 
@@ -584,6 +586,12 @@ The following sample template policy is for a rollover use case.
    {
      "message": "dummy"
    }
+   ```
+
+5. Verify if the policy is attached to the `log-000001` index:
+
+   ```json
+   GET _plugins/_ism/explain/log-000001?pretty
    ```
 
 ## Example policy
