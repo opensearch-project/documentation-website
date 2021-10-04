@@ -3186,7 +3186,7 @@ For a single-entity detector:
 
 The `total_entities` parameter shows you the total number of entities including the number of category fields for a detector.
 
-Getting the total count of entities is an expensive operation for a detector with more than one category field. By default, a real-time detector counts the number of entities up to a value of 10,000 and historical analysis counts the number of entities up to a value of 1,000.
+Getting the total count of entities is an expensive operation for real-time analysis of a detector with more than one category field. By default, for a real-time detection profile, a detector counts the number of entities up to a value of 10,000 and historical analysis counts the number of entities up to a value of 1,000.
 
 The `profile` operation also provides information about each entity, such as the entity’s `last_sample_timestamp` and `last_active_timestamp`. `last_sample_timestamp` shows the last document in the input data source index containing the entity, while `last_active_timestamp` shows the timestamp when the entity’s model was last seen in the model cache.
 
@@ -3228,7 +3228,8 @@ GET _plugins/_anomaly_detection/detectors/<detectorId>/_profile?_all=true
 }
 ```
 
-To get profile information for only historical analysis, specify `ad_task`:
+To get profile information for only historical analysis, specify `ad_task`.
+Specifying `_all` is an expensive operation for multi-category high cardinality detectors.
 
 #### Request
 
