@@ -588,6 +588,12 @@ The following sample template policy is for a rollover use case.
    }
    ```
 
+5. Verify if the policy is attached to the `log-000001` index:
+
+   ```json
+   GET _plugins/_ism/explain/log-000001?pretty
+   ```
+
 ## Example policy
 
 The following example policy implements a `hot`, `warm`, and `delete` workflow. You can use this policy as a template to prioritize resources to your indices based on their levels of activity.
