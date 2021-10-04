@@ -793,7 +793,7 @@ POST _plugins/_anomaly_detection/detectors/results/_search
 }
 ```
 
-You can query the anomaly results of a historical detector with the `task_id`:
+You can query the anomaly results for historical analysis with the `task_id`:
 
 #### Request
 
@@ -1570,7 +1570,7 @@ GET _plugins/_anomaly_detection/detectors/<detectorId>?job=true
 }
 ```
 
-Use `task=true` to get historical detector task information.
+Use `task=true` to get historical analysis task information.
 
 #### Request
 
@@ -3195,7 +3195,7 @@ For a single-entity detector:
 
 The `total_entities` parameter shows you the total number of entities including the number of category fields for a detector.
 
-Getting the total count of entities is an expensive operation for a detector with more than one category field. By default, a real-time detector counts the number of entities up to a value of 10,000 and a historical detector counts the number of entities up to a value of 1,000.
+Getting the total count of entities is an expensive operation for a detector with more than one category field. By default, a real-time detector counts the number of entities up to a value of 10,000 and historical analysis counts the number of entities up to a value of 1,000.
 
 The `profile` operation also provides information about each entity, such as the entity’s `last_sample_timestamp` and `last_active_timestamp`. `last_sample_timestamp` shows the last document in the input data source index containing the entity, while `last_active_timestamp` shows the timestamp when the entity’s model was last seen in the model cache.
 
@@ -3237,7 +3237,7 @@ GET _plugins/_anomaly_detection/detectors/<detectorId>/_profile?_all=true
 }
 ```
 
-For a historical detector, specify `_all` or `ad_task` to see information about its latest task:
+For historical analysis, specify `_all` or `ad_task` to see information about its latest task:
 
 #### Request
 
