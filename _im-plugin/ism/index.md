@@ -31,7 +31,7 @@ To get started, choose **Index Management** in OpenSearch Dashboards.
 
 A policy is a set of rules that describes how an index should be managed. For information about creating a policy, see [Policies]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/).
 
-You can use the JSON editor or visual editor to create policies. Compared to the JSON editor, the visual editor offers a more structured way of defining policies by separating the process into creating error notifications, defining ISM templates, and adding states. We recommend using the visual editor if you want to see pre-defined fields such as which actions you can assign to a state or under what conditions a state can transition into a destination state.
+You can use the JSON editor or visual editor to create policies. Compared to the JSON editor, the visual editor offers a more structured way of defining policies by separating the process into creating error notifications, defining ISM templates, and adding states. We recommend using the visual editor if you want to see pre-defined fields, such as which actions you can assign to a state or under what conditions a state can transition into a destination state.
 
 #### JSON editor
 
