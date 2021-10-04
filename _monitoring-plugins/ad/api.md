@@ -2790,7 +2790,7 @@ GET _plugins/_anomaly_detection/detectors/<detectorId>/_profile/total_size_in_by
 
 You can see the `ad_task` field only for historical analysis.
 
-The `model_count` parameter shows the total number of models that a detector runs in memory. This is useful if you have several models running on your cluster and want to know the count.
+The `model_count` parameter shows the total number of models that a detector runs on each node’s memory. This is useful if you have several models running on your cluster and want to know the count.
 
 If you configured the category field, you can see the number of unique values in the field and all active entities with models running in memory.
 
@@ -3186,7 +3186,7 @@ For a single-entity detector:
 
 The `total_entities` parameter shows you the total number of entities including the number of category fields for a detector.
 
-Getting the total count of entities is an expensive operation for real-time analysis of a detector with more than one category field. By default, for a real-time detection profile, a detector counts the number of entities up to a value of 10,000 and historical analysis counts the number of entities up to a value of 1,000.
+Getting the total count of entities is an expensive operation for real-time analysis of a detector with more than one category field. By default, for a real-time detection profile, a detector counts the number of entities up to a value of 10,000. For historical analysis, the anomaly detection plugin only detects the top 1,000 entities by default and caches the top entities in memory to reduce the cost of getting the total count of entities for historical analysis.
 
 The `profile` operation also provides information about each entity, such as the entity’s `last_sample_timestamp` and `last_active_timestamp`. `last_sample_timestamp` shows the last document in the input data source index containing the entity, while `last_active_timestamp` shows the timestamp when the entity’s model was last seen in the model cache.
 
