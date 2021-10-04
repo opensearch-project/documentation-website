@@ -560,7 +560,7 @@ The following sample template policy is for a rollover use case.
      "index_patterns": ["log*"],
      "template": {
       "settings": {
-       "opendistro.index_state_management.rollover_alias": "log"
+       "plugins.index_state_management.rollover_alias": "log"
       }
     }
    }
@@ -586,12 +586,6 @@ The following sample template policy is for a rollover use case.
    {
      "message": "dummy"
    }
-   ```
-
-5. Verify if the policy is attached to the `log-000001` index:
-
-   ```json
-   GET _opendistro/_ism/explain/log-000001?pretty
    ```
 
 ## Example policy
