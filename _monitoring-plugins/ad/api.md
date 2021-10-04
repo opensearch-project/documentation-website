@@ -265,7 +265,7 @@ Passes a date range to the anomaly detector to return any anomalies within that 
 #### Request
 
 ```json
-POST _plugins/_anomaly_detection/detectors/_preview
+POST _plugins/_anomaly_detection/detectors/<detectorId>/_preview
 {
   "period_start": 1612982516000,
   "period_end": 1614278539000,
