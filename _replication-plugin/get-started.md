@@ -132,7 +132,7 @@ docker inspect --format='{% raw %}{{range .NetworkSettings.Networks}}{{.IPAddres
 
 Cross-cluster replication follows a "pull" model, so most changes occur on the follower cluster, not the leader cluster. 
 
-On the follower cluster, add the leader cluster name and the IP address (with port 9300) for each seed node. Because this is a single-node cluster, you only have one seed node:
+On the follower cluster, add the IP address (with port 9300) for each seed node. Because this is a single-node cluster, you only have one seed node. Provide a descriptive name for the connection, which you'll use in the request to start replication:
 
 ```bash
 curl -XPUT -k -H 'Content-Type: application/json' -u 'admin:admin' 'https://localhost:9200/_cluster/settings?pretty' -d '
@@ -140,7 +140,7 @@ curl -XPUT -k -H 'Content-Type: application/json' -u 'admin:admin' 'https://loca
   "persistent": {
     "cluster": {
       "remote": {
-        "leader-cluster": {
+        "my-connection-alias": {
           "seeds": ["172.22.0.3:9300"]
         }
       }
@@ -157,12 +157,12 @@ To get started, create an index called `leader-01` on the leader cluster:
 curl -XPUT -k -H 'Content-Type: application/json' -u 'admin:admin' 'https://localhost:9201/leader-01?pretty'
 ```
 
-Then start replication of that index from the follower cluster. In the request body, provide the leader cluster and index, along with the security roles that you want to use:
+Then start replication from the follower cluster. In the request body, provide the connection name and leader index that you want to replicate, along with the security roles you want to use:
 
 ```bash
 curl -XPUT -k -H 'Content-Type: application/json' -u 'admin:admin' 'https://localhost:9200/_plugins/_replication/follower-01/_start?pretty' -d '
 {
-   "leader_alias": "leader-cluster",
+   "leader_alias": "my-connection-alias",
    "leader_index": "leader-01",
    "use_roles":{
       "leader_cluster_role": "all_access",
@@ -186,7 +186,7 @@ curl -XGET -k -u 'admin:admin' 'https://localhost:9200/_plugins/_replication/fol
 {
   "status" : "SYNCING",
   "reason" : "User initiated",
-  "leader_alias" : "leader-cluster",
+  "leader_alias" : "my-connection-alias",
   "leader_index" : "leader-01",
   "follower_index" : "follower-01",
   "syncing_details" : {
@@ -197,7 +197,9 @@ curl -XGET -k -u 'admin:admin' 'https://localhost:9200/_plugins/_replication/fol
 }
 ```
 
-Possible statuses are `SYNCING`, `BOOTSTRAPING`, `PAUSED`, and `REPLICATION NOT IN PROGRESS`. The leader and follower checkpoint values increment with each  change and illustrate how many updates the follower is behind the leader. If the indices are fully synced, the values are the same.
+Possible statuses are `SYNCING`, `BOOTSTRAPING`, `PAUSED`, and `REPLICATION NOT IN PROGRESS`. 
+
+The leader and follower checkpoint values begin as negative numbers and reflect the number of shards you have (-1 for one shard, -5 for five shards, and so on). The values increment with each change and illustrate how many updates the follower is behind the leader. If the indices are fully synced, the values are the same.
 
 To confirm that replication is actually happening, add a document to the leader index:
 
@@ -240,7 +242,7 @@ curl -XGET -k -u 'admin:admin' 'https://localhost:9200/_plugins/_replication/fol
 {
   "status" : "PAUSED",
   "reason" : "User initiated",
-  "leader_alias" : "leader-cluster",
+  "leader_alias" : "my-connection-alias",
   "leader_index" : "leader-01",
   "follower_index" : "follower-01"
 }

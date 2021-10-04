@@ -32,7 +32,7 @@ Create a replication rule on the follower cluster:
 ```bash
 curl -XPOST -k -H 'Content-Type: application/json' -u 'admin:admin' 'https://localhost:9200/_plugins/_replication/_autofollow?pretty' -d '
 {
-   "leader_alias" : "leader-cluster",
+   "leader_alias" : "my-connection-alias",
    "name": "my-replication-rule",
    "pattern": "movies*",
    "use_roles":{
@@ -69,7 +69,7 @@ When you delete a replication rule, OpenSearch stops replicating *new* indices t
 ```bash
 curl -XDELETE -k -H 'Content-Type: application/json' -u 'admin:admin' 'https://localhost:9200/_plugins/_replication/_autofollow?pretty' -d '
 {
-   "leader_alias" : "leader-cluster",
+   "leader_alias" : "my-conection-alias",
    "name": "my-replication-rule"
 }'
 ```

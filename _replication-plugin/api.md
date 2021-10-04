@@ -24,7 +24,7 @@ Initiate replication of an index from the leader cluster to the follower cluster
 ```json
 PUT /_plugins/_replication/<follower-index>/_start
 {
-   "leader_alias":"<leader-cluster-name>",
+   "leader_alias":"<connection-alias-name>",
    "leader_index":"<index-name>",
    "use_roles":{
       "leader_cluster_role":"<role-name>",
@@ -37,7 +37,7 @@ Specify the following options:
 
 Options | Description | Type | Required
 :--- | :--- |:--- |:--- |
-`leader_alias` |  The name of the leader cluster. This alias is the same as the remote cluster name used to set up a cross-cluster connection. | `string` | Yes
+`leader_alias` |  The name of the cross-cluster connection. You define this alias when you [set up a cross-cluster connection]({{site.url}}{{site.baseurl}}/replication-plugin/get-started/#set-up-a-cross-cluster-connection). | `string` | Yes
 `leader_index` |  The index on the leader cluster that you want to replicate. | `string` | Yes
 `use_roles` |  The roles to use for all subsequent backend replication tasks between the indices. Specify a `leader_cluster_role` and `follower_cluster_role`. See [Map the leader and follower cluster roles]({{site.url}}{{site.baseurl}}/replication-plugin/permissions/#map-the-leader-and-follower-cluster-roles). | `string` | If security plugin is enabled
 
@@ -130,7 +130,7 @@ GET /_plugins/_replication/<follower-index>/_status
 {
   "status" : "SYNCING",
   "reason" : "User initiated",
-  "leader_alias" : "leader-cluster",
+  "leader_alias" : "my-connection-name",
   "leader_index" : "leader-01",
   "follower_index" : "follower-01",
   "syncing_details" : {
@@ -140,8 +140,9 @@ GET /_plugins/_replication/<follower-index>/_status
   }
 }
 ```
-
 To include shard replication details in the response, add the `&verbose=true` parameter.
+
+The leader and follower checkpoint values begin as negative integers and reflect the number of shards you have (-1 for one shard, -5 for five shards, and so on). The values increment to positive integers with each change that you make. For example, when you make a change on the leader index, the `leader_checkpoint` becomes `0`. The `follower_checkpoint` is initially still `-1` until the follower index pulls the change from the leader, at which point it increments to `0`. If the values are the same, it means the indices are fully synced.
 
 ## Update settings
 Introduced 1.1
@@ -185,7 +186,7 @@ Make sure to note the names of all auto-follow patterns after you create them. T
 ```json
 POST /_plugins/_replication/_autofollow
 {
-   "leader_alias" : "<leader-cluster-name>",
+   "leader_alias" : "<connection-alias-name>",
    "name": "<auto-follow-pattern-name>",
    "pattern": "<pattern>",
    "use_roles":{
@@ -199,7 +200,7 @@ Specify the following options:
 
 Options | Description | Type | Required
 :--- | :--- |:--- |:--- |
-`leader_alias` |  The name of the remote cluster to associate the pattern with. | `string` | Yes
+`leader_alias` |  The name of the cross-cluster connection. You define this alias when you [set up a cross-cluster connection]({{site.url}}{{site.baseurl}}/replication-plugin/get-started/#set-up-a-cross-cluster-connection). | `string` | Yes
 `name` |  A name for the auto-follow pattern. | `string` | Yes
 `pattern` |  An array of index patterns to match against indices in the specified leader cluster. Supports wildcard characters. For example, `leader-*`. | `string` | Yes
 `use_roles` |  The roles to use for all subsequent backend replication tasks between the indices. Specify a `leader_cluster_role` and `follower_cluster_role`. See [Map the leader and follower cluster roles]({{site.url}}{{site.baseurl}}/replication-plugin/permissions/#map-the-leader-and-follower-cluster-roles). | `string` | If security plugin is enabled
@@ -225,7 +226,7 @@ Send this request to the follower cluster.
 ```json
 DELETE /_plugins/_replication/_autofollow
 {
-   "leader_alias" : "<leader-cluster-name>",
+   "leader_alias" : "<connection-alias-name>",
    "name": "<auto-follow-pattern-name>",
 }
 ```
@@ -234,7 +235,7 @@ Specify the following options:
 
 Options | Description | Type | Required
 :--- | :--- |:--- |:--- |
-`leader_alias` |  The name of the remote cluster that the pattern is associated with. | `string` | Yes
+`leader_alias` |  The name of the cross-cluster connection. You define this alias when you [set up a cross-cluster connection]({{site.url}}{{site.baseurl}}/replication-plugin/get-started/#set-up-a-cross-cluster-connection). | `string` | Yes
 `name` |  The name of the pattern. | `string` | Yes
 
 #### Sample response

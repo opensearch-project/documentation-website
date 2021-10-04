@@ -18,7 +18,7 @@ Enable node-to-node encryption on both the leader and the follower cluster to en
 
 ## Basic permissions
 
-In order for non-admin users to perform replication activities, they be mapped to the appropriate permissions.  
+In order for non-admin users to perform replication activities, they must be mapped to the appropriate permissions.  
 
 The security plugin has two built-in roles that cover most replication use cases: `cross_cluster_replication_leader_full_access`, which provides replication permissions on the leader cluster, and `cross_cluster_replication_follower_full_access`, which provides replication permissions on the follower cluster. For descriptions of each, see [Predefined roles]({{site.url}}{{site.baseurl}}/security-plugin/access-control/users-roles#predefined-roles).
 
@@ -26,9 +26,7 @@ If you don't want to use the default roles, you can combine individual replicati
 
 ## Map the leader and follower cluster roles
 
-associates roles passed in the request to these replication jobs to run in the background
-
-The [start replication]({{site.url}}{{site.baseurl}}/replication-plugin/api/#start-replication) and [create replication rule]({{site.url}}{{site.baseurl}}/replication-plugin/api/#create-replication-rule) operations are special cases. They involve background processes on the leader and follower clusters that must be associated with roles. When you perform one of these actions, you must explicitly pass the  `leader_cluster_role` and
+The [start replication]({{site.url}}{{site.baseurl}}/replication-plugin/api/#start-replication) and [create replication rule]({{site.url}}{{site.baseurl}}/replication-plugin/api/#create-replication-rule) operations are special cases. They involve background processes on the leader and follower clusters that must be associated with roles. When you perform one of these actions, you must explicitly pass the `leader_cluster_role` and
 `follower_cluster_role` in the request, which OpenSearch then uses in all backend replication tasks.
 
 To enable non-admins to start replication and create replication rules, create an identical user on each cluster (for example, `replication_user`) and map them to the `cross_cluster_replication_leader_full_access` role on the remote cluster and `cross_cluster_replication_follower_full_access` on the follower cluster. For instructions, see [Map users to roles]({{site.url}}{{site.baseurl}}/security-plugin/access-control/users-roles/#map-users-to-roles).
