@@ -93,7 +93,7 @@ public class RESTClientSample {
     HashMap<String, Object> mapping = new HashMap<String, Object>();
     mapping.put("properties", ageMapping);
     createIndexRequest.mapping(mapping);
-    CreateIndexResponse createIndexResponse = client.indices().create(createIndexRequest, RequestOptions.DEFAULT
+    CreateIndexResponse createIndexResponse = client.indices().create(createIndexRequest, RequestOptions.DEFAULT);
 
     //Adding data to the index.
     IndexRequest request = new IndexRequest("custom-index"); //Add a document to the custom-index we created.
