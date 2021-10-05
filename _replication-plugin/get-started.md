@@ -189,7 +189,7 @@ curl -XGET -k -u 'admin:admin' 'https://localhost:9200/_plugins/_replication/fol
 
 Possible statuses are `SYNCING`, `BOOTSTRAPING`, `PAUSED`, and `REPLICATION NOT IN PROGRESS`. 
 
-The leader and follower checkpoint values begin as negative numbers and reflect the number of shards you have (-1 for one shard, -5 for five shards, and so on). The values increment with each change and illustrate how many updates the follower is behind the leader. If the indices are fully synced, the values are the same.
+The leader and follower checkpoint values begin as negative numbers and reflect the shard count (-1 for one shard, -5 for five shards, and so on). The values increment with each change and illustrate how many updates the follower is behind the leader. If the indices are fully synced, the values are the same.
 
 To confirm that replication is actually happening, add a document to the leader index:
 
@@ -245,6 +245,8 @@ curl -XPOST -k -H 'Content-Type: application/json' -u 'admin:admin' 'https://loc
 ```
 
 When replication resumes, the follower index picks up any changes that were made to the leader index while replication was paused.
+
+Note that you can't resume replication after it's been paused for more than 12 hours. You must [stop replication]({{site.url}}{{site.baseurl}}/replication-plugin/api/#stop-replication), delete the follower index, and restart replication of the leader.
 
 ## Stop replication
 

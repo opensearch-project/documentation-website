@@ -24,9 +24,6 @@ If the security plugin is enabled, non-admin users need to be mapped to the appr
 
 Replication rules are a collection of patterns that you create against a single remote cluster. When you create a replication rule, it automatically starts replicating any *new* indices that match the pattern, but does not replicate matching indices that were previously created. 
 
-Make sure to note the names of all rules when you create them. The replication plugin currently does not include an API operation to retrieve a list of existing rules.
-{: .tip }
-
 Create a replication rule on the follower cluster:
 
 ```bash
@@ -57,9 +54,40 @@ And confirm its replica shows up on the follower cluster:
 curl -XGET -u 'admin:admin' -k 'https://localhost:9200/_cat/indices?v'
 ```
 
+It might take several seconds for the index to appear.
+
 ```bash
 health status index        uuid                     pri rep docs.count docs.deleted store.size pri.store.size
 yellow open   movies-0001  kHOxYYHxRMeszLjTD9rvSQ     1   1          0            0       208b           208b
+```
+
+## Retrieve replication rules
+
+To retrieve a list of existing replication rules configured on a cluster, send the following request:
+
+```bash
+curl -XGET -u 'admin:admin' -k 'https://localhost:9200/_plugins/_replication/autofollow_stats'
+
+{
+   "num_success_start_replication": 1,
+   "num_failed_start_replication": 0,
+   "num_failed_leader_calls": 0,
+   "failed_indices":[
+      
+   ],
+   "autofollow_stats":[
+      {
+         "name":"my-replication-rule",
+         "pattern":"movies*",
+         "num_success_start_replication": 1,
+         "num_failed_start_replication": 0,
+         "num_failed_leader_calls": 0,
+         "failed_indices":[
+            
+         ]
+      }
+   ]
+}
 ```
 
 ## Delete a replication rule

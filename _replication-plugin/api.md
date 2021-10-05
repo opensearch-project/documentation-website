@@ -83,6 +83,8 @@ POST /_plugins/_replication/<follower-index>/_pause
 {}
 ```
 
+You can't resume replication after it's been paused for more than 12 hours. You must [stop replication]({{site.url}}{{site.baseurl}}/replication-plugin/api/#stop-replication), delete the follower index, and restart replication of the leader.
+
 #### Sample response
 
 ```json
@@ -142,7 +144,149 @@ GET /_plugins/_replication/<follower-index>/_status
 ```
 To include shard replication details in the response, add the `&verbose=true` parameter.
 
-The leader and follower checkpoint values begin as negative integers and reflect the number of shards you have (-1 for one shard, -5 for five shards, and so on). The values increment to positive integers with each change that you make. For example, when you make a change on the leader index, the `leader_checkpoint` becomes `0`. The `follower_checkpoint` is initially still `-1` until the follower index pulls the change from the leader, at which point it increments to `0`. If the values are the same, it means the indices are fully synced.
+The leader and follower checkpoint values begin as negative integers and reflect the shard count (-1 for one shard, -5 for five shards, and so on). The values increment toward positive integers with each change that you make. For example, when you make a change on the leader index, the `leader_checkpoint` becomes `0`. The `follower_checkpoint` is initially still `-1` until the follower index pulls the change from the leader, at which point it increments to `0`. If the values are the same, it means the indices are fully synced.
+
+## Get leader cluster stats
+Introduced 1.1
+{: .label .label-purple }
+
+Gets information about replicated leader indices on a specified cluster. 
+
+#### Request
+
+```json
+GET /_plugins/_replication/leader_stats
+```
+
+#### Sample response
+
+```json
+{
+   "num_replicated_indices": 2,
+   "operations_read": 15,
+   "translog_size_bytes": 1355,
+   "operations_read_lucene": 0,
+   "operations_read_translog": 15,
+   "total_read_time_lucene_millis": 0,
+   "total_read_time_translog_millis": 659,
+   "bytes_read": 1000,
+   "index_stats":{
+      "leader-index-1":{
+         "operations_read": 7,
+         "translog_size_bytes": 639,
+         "operations_read_lucene": 0,
+         "operations_read_translog": 7,
+         "total_read_time_lucene_millis": 0,
+         "total_read_time_translog_millis": 353,
+         "bytes_read":466
+      },
+      "leader-index-2":{
+         "operations_read": 8,
+         "translog_size_bytes": 716,
+         "operations_read_lucene": 0,
+         "operations_read_translog": 8,
+         "total_read_time_lucene_millis": 0,
+         "total_read_time_translog_millis": 306,
+         "bytes_read": 534
+      }
+   }
+}
+```
+
+## Get follower cluster stats
+Introduced 1.1
+{: .label .label-purple }
+
+Gets information about follower (syncing) indices on a specified cluster. 
+
+#### Request
+
+```json
+GET /_plugins/_replication/follower_stats
+```
+
+#### Sample response
+
+```json
+{
+   "num_syncing_indices": 2,
+   "num_bootstrapping_indices": 0,
+   "num_paused_indices": 0,
+   "num_failed_indices": 0,
+   "num_shard_tasks": 2,
+   "num_index_tasks": 2,
+   "operations_written": 3,
+   "operations_read": 3,
+   "failed_read_requests": 0,
+   "throttled_read_requests": 0,
+   "failed_write_requests": 0,
+   "throttled_write_requests": 0,
+   "follower_checkpoint": 1,
+   "leader_checkpoint": 1,
+   "total_write_time_millis": 2290,
+   "index_stats":{
+      "follower-index-1":{
+         "operations_written": 2,
+         "operations_read": 2,
+         "failed_read_requests": 0,
+         "throttled_read_requests": 0,
+         "failed_write_requests": 0,
+         "throttled_write_requests": 0,
+         "follower_checkpoint": 1,
+         "leader_checkpoint": 1,
+         "total_write_time_millis": 1355
+      },
+      "follower-index-2":{
+         "operations_written": 1,
+         "operations_read": 1,
+         "failed_read_requests": 0,
+         "throttled_read_requests": 0,
+         "failed_write_requests": 0,
+         "throttled_write_requests": 0,
+         "follower_checkpoint": 0,
+         "leader_checkpoint": 0,
+         "total_write_time_millis": 935
+      }
+   }
+}
+```
+
+## Get auto-follow stats
+Introduced 1.1
+{: .label .label-purple }
+
+Gets information about auto-follow activity and any replication rules configured on the specified cluster.
+
+#### Request
+
+```json
+GET /_plugins/_replication/autofollow_stats
+```
+
+#### Sample response
+
+```json
+{
+   "num_success_start_replication": 2,
+   "num_failed_start_replication": 0,
+   "num_failed_leader_calls": 0,
+   "failed_indices":[
+      
+   ],
+   "autofollow_stats":[
+      {
+         "name":"my-replication-rule",
+         "pattern":"movies*",
+         "num_success_start_replication": 2,
+         "num_failed_start_replication": 0,
+         "num_failed_leader_calls": 0,
+         "failed_indices":[
+            
+         ]
+      }
+   ]
+}
+```
 
 ## Update settings
 Introduced 1.1
