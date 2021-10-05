@@ -153,7 +153,7 @@ If you stop or delete a detector, make sure to delete any monitors associated wi
 To see all the configuration settings for a detector, choose the **Detector configuration** tab.
 
 1. To make any changes to the detector configuration, or fine tune the time interval to minimize any false positives, go to the **Detector configuration** section and choose **Edit**.
-- You need to stop real-time or historical analysis to change its configuration. Confirm that you want to stop the detector and proceed.
+- You need to stop real-time and historical analysis to change its configuration. Confirm that you want to stop the detector and proceed.
 1. To enable or disable features, in the **Features** section, choose **Edit** and adjust the feature settings as needed. After you make your changes, choose **Save and start detector**.
 
 ### Step 8: Manage your detectors

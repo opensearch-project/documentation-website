@@ -24,7 +24,7 @@ Introduced 1.0
 
 Creates an anomaly detector.
 
-This command creates a single-flow detector named `test-detector` that finds anomalies based on the sum of the `value` field:
+This command creates a single-entity detector named `test-detector` that finds anomalies based on the sum of the `value` field:
 
 #### Request
 
@@ -544,8 +544,7 @@ GET _plugins/_anomaly_detection/detectors/<detectorId>?job=true
 }
 ```
 
-Use `task=true` to get historical analysis task information.
-You can set both `job=true` and `task=true` to get information for both real-time and historical analysis tasks.
+Use `task=true` to get information for both real-time and historical analysis task information.
 
 #### Request
 
@@ -1019,7 +1018,7 @@ Introduced 1.0
 
 Passes a date range to the anomaly detector to return any anomalies within that date range.
 
-To preview a single-flow detector:
+To preview a single-entity detector:
 
 #### Request
 
@@ -1165,7 +1164,7 @@ If you specify a category field, each result is associated with an entity:
 #### Request
 
 ```json
-POST _plugins/_anomaly_detection/detectors/<detectorId>/_preview
+POST _plugins/_anomaly_detection/detectors/_preview
 {
   "period_start": 1633048868000,
   "period_end": 1633394468000,
@@ -1662,7 +1661,7 @@ Introduced 1.1
 
 Searches detector tasks.
 
-To search for the latest detector task for a high cardinality detector:
+To search for the latest detector level historical analysis task for a high cardinality detector
 
 #### Request
 
@@ -1825,7 +1824,7 @@ POST _plugins/_anomaly_detection/detectors/tasks/_search
 }
 ```
 
-To search for the latest entity-level task for a high cardinality detector:
+To search for the latest entity-level tasks for the historical analysis of a high cardinality detector:
 
 #### Request
 
@@ -1865,7 +1864,12 @@ POST _plugins/_anomaly_detection/detectors/tasks/_search
 }
 ```
 
-To search for all entity-level batch task stats:
+To search and aggregate states for all entity-level historical tasks:
+
+The `parent_task_id` is the same as the task ID that you can get with the profile detector API:
+`GET _plugins/_anomaly_detection/detectors/<detector_ID>/_profile/ad_task`.
+{: .note }
+
 
 #### Request
 
@@ -1994,7 +1998,7 @@ POST _plugins/_anomaly_detection/detectors/results/_search
 }
 ```
 
-Because real-time analysis doesn't have a batch task, the task ID in the anomaly result is null.
+Real-time detection doesn't persist the task ID in the anomaly result, so the task ID will be null.
 
 #### Sample response
 
@@ -2309,6 +2313,11 @@ To get specific stats for a node:
 
 ```json
 GET _plugins/_anomaly_detection/<nodeId>/stats/<stat>
+```
+
+For example:
+
+```json
 GET _plugins/_anomaly_detection/<nodeId>/stats/ad_execute_request_count
 ```
 
@@ -2330,6 +2339,11 @@ To get a specific type of stats:
 
 ```json
 GET _plugins/_anomaly_detection/stats/<stat>
+```
+
+For example:
+
+```json
 GET _plugins/_anomaly_detection/stats/ad_executing_batch_task_count
 ```
 
@@ -2687,7 +2701,7 @@ Getting the total count of entities is an expensive operation for real-time anal
 
 The `profile` operation also provides information about each entity, such as the entity’s `last_sample_timestamp` and `last_active_timestamp`. `last_sample_timestamp` shows the last document in the input data source index containing the entity, while `last_active_timestamp` shows the timestamp when the entity’s model was last seen in the model cache.
 
-If there are no anomaly results for an entity, either the entity doesn't have any sample data or its model is removed from the model cache.
+If there are no anomaly results for an entity, either the entity doesn't have any sample data or resources such as memory and disk IO are constrained relative to the number of entities.
 
 #### Request
 
