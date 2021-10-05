@@ -30,6 +30,24 @@ If you don't want to use the all-in-one OpenSearch installation options, you can
   </thead>
   <tbody>
   <tr>
+    <td>1.1.0</td>
+    <td>
+      <pre>opensearch-alerting                  1.1.0.0
+opensearch-anomaly-detection         1.1.0.0
+opensearch-asynchronous-search       1.1.0.0
+opensearch-cross-cluster-replication 1.1.0.0
+opensearch-index-management          1.1.0.0
+opensearch-job-scheduler             1.1.0.0
+opensearch-knn                       1.1.0.0
+opensearch-notebooks                 1.1.0.0
+opensearch-performance-analyzer      1.1.0.0
+opensearch-reports-scheduler         1.1.0.0
+opensearch-security                  1.1.0.0
+opensearch-sql                       1.1.0.0
+</pre>
+    </td>
+  </tr>
+  <tr>
     <td>1.0.1</td>
     <td>
       <pre>opensearch-alerting             1.0.0.0
