@@ -1084,6 +1084,11 @@ main {
   @include sans-serif;
   @include warning-stripes;
 
+  /* To match the website */
+  font-size: 1.125rem;
+  text-decoration-thickness: 0.5px;
+  text-underline-offset: 1px;
+
   a {
     color: $text;
 
