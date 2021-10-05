@@ -32,9 +32,6 @@ plugins.security.nodes_dn_dynamic_config_enabled: true
 
 ## Example setup
 
-The following example demonstrates how to replicate data between two single-node clusters: `leader-cluster` on port 9201, and `follower-cluster` on port 9200.
-{% comment %}
-
 Save this sample file as `docker-compose.yml` and run `docker-compose up` to start two single-node clusters on the same network:
 
 ```yml
@@ -89,25 +86,19 @@ networks:
 
 After the clusters start, verify the names of each:
 
-{% endcomment %}
-
 ```bash
 curl -XGET -u 'admin:admin' -k 'https://localhost:9201'
 {
-  "name" : "replication-node1",
   "cluster_name" : "leader-cluster",
   ...
 }
 
 curl -XGET -u 'admin:admin' -k 'https://localhost:9200'
 {
-  "name" : "replication-node2",
   "cluster_name" : "follower-cluster",
   ...
 }
 ```
-
-{% comment %}
 
 For this example, use port 9201 (`replication-node1`) as the leader and port 9200 (`replication-node2`) as the follower cluster.
 
@@ -116,8 +107,8 @@ To get the IP address for the leader cluster, first identify its container ID:
 ```bash
 docker ps
 CONTAINER ID    IMAGE                                       PORTS                                                      NAMES
-3b8cdc698be5    opensearchproject/opensearch:{{site.opensearch_version}}   0.0.0.0:9200->9200/tcp, 0.0.0.0:9600->9600/tcp, 9300/tcp   replication-node1
-731f5e8b0f4b    opensearchproject/opensearch:{{site.opensearch_version}}   9300/tcp, 0.0.0.0:9201->9200/tcp, 0.0.0.0:9700->9600/tcp   replication-node2
+3b8cdc698be5    opensearchproject/opensearch:{{site.opensearch_version}}   0.0.0.0:9200->9200/tcp, 0.0.0.0:9600->9600/tcp, 9300/tcp   replication-node2
+731f5e8b0f4b    opensearchproject/opensearch:{{site.opensearch_version}}   9300/tcp, 0.0.0.0:9201->9200/tcp, 0.0.0.0:9700->9600/tcp   replication-node1
 ```
 
 Then get that container's IP address:
@@ -126,7 +117,6 @@ Then get that container's IP address:
 docker inspect --format='{% raw %}{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}{% endraw %}' 731f5e8b0f4b
 172.22.0.3
 ```
-{% endcomment %}
 
 ## Set up a cross-cluster connection
 
@@ -261,7 +251,7 @@ When replication resumes, the follower index picks up any changes that were made
 Terminate replication of a specified index from the follower cluster:
 
 ```bash
-curl -XPOST -k -H 'Content-Type: application/json' -u 'admin:admin' 'https://localhost:9200/_plugins/_replication/follower-01/_stop' -d '{}'
+curl -XPOST -k -H 'Content-Type: application/json' -u 'admin:admin' 'https://localhost:9200/_plugins/_replication/follower-01/_stop?pretty' -d '{}'
 ```
 
 When you stop replication, the follower index un-follows the leader and becomes a standard index that you can write to. You can't restart replication after stopping it. 

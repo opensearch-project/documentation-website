@@ -48,7 +48,7 @@ If the security plugin is disabled, you can leave out the `use_roles` parameter.
 To test the rule, create a matching index on the leader cluster:
 
 ```bash
-curl -XPUT -k -H 'Content-Type: application/json' -u 'admin:admin' 'https://localhost:9201/movies-0001'
+curl -XPUT -k -H 'Content-Type: application/json' -u 'admin:admin' 'https://localhost:9201/movies-0001?pretty'
 ```
 
 And confirm its replica shows up on the follower cluster:
