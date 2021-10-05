@@ -4,9 +4,6 @@ title: Cron
 nav_order: 20
 parent: Alerting
 has_children: false
-redirect_from:
-  - /alerting/cron/
-  - /docs/alerting/cron/
 ---
 
 # Cron expression reference

@@ -1,9 +1,8 @@
 ---
 layout: default
-title: Audit Log Field Reference
+title: Audit log field reference
 parent: Audit Logs
 nav_order: 1
-redirect_from: /docs/security/audit-logs/field-reference/
 ---
 
 # Audit log field reference

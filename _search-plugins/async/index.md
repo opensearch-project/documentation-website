@@ -4,7 +4,6 @@ title: Asynchronous search
 nav_order: 51
 has_children: true
 redirect_from:
-  - /docs/async/
   - /search-plugins/async/
 ---
 
@@ -15,6 +14,8 @@ Searching large volumes of data can take a long time, especially if you're searc
 Asynchronous search in OpenSearch lets you send search requests that run in the background. You can monitor the progress of these searches and get back partial results as they become available. After the search finishes, you can save the results to examine at a later time.
 
 ## REST API
+Introduced 1.0
+{: .label .label-purple }
 
 To perform an asynchronous search, send requests to `_plugins/_asynchronous_search`, with your query in the request body:
 
@@ -112,6 +113,8 @@ Options | Description
 `aggregations` | The partial aggregation results that have been completed by the shards so far.
 
 ## Get partial results
+Introduced 1.0
+{: .label .label-purple }
 
 After you submit an asynchronous search request, you can request partial responses with the ID that you see in the asynchronous search response.
 
@@ -188,12 +191,18 @@ You can poll the ID with the `wait_for_completion_timeout` parameter to wait for
 For asynchronous searches with `keep_on_completion` as `true` and a sufficiently long `keep_alive` time, you can keep polling the IDs until the search finishes. If you don’t want to periodically poll each ID, you can retain the results in your cluster with the `keep_alive` parameter and come back to it at a later time.
 
 ## Delete searches and results
+Introduced 1.0
+{: .label .label-purple }
 
-You can use the DELETE API operation to delete any ongoing asynchronous search by its ID. If the search is still running, it’s canceled. If the search is complete, the saved search results are deleted.
+To delete an asynchronous search:
 
-```json
+```
 DELETE _plugins/_asynchronous_search/<ID>?pretty
 ```
+
+- If the search is still running, OpenSearch cancels it.
+- If the search is complete, OpenSearch deletes the saved results.
+
 
 #### Sample response
 
@@ -204,6 +213,8 @@ DELETE _plugins/_asynchronous_search/<ID>?pretty
 ```
 
 ## Monitor stats
+Introduced 1.0
+{: .label .label-purple }
 
 You can use the stats API operation to monitor asynchronous searches that are running, completed, and/or persisted.
 

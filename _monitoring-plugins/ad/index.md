@@ -13,7 +13,7 @@ An anomaly in OpenSearch is any unusual behavior change in your time-series data
 
 It can be challenging to discover anomalies using conventional methods such as creating visualizations and dashboards. You could configure an alert based on a static threshold, but this requires prior domain knowledge and isn't adaptive to data that exhibits organic growth or seasonal behavior.
 
-Anomaly detection  automatically detects anomalies in your OpenSearch data in near real-time using the Random Cut Forest (RCF) algorithm. RCF is an unsupervised machine learning algorithm that models a sketch of your incoming data stream to compute an `anomaly grade` and `confidence score` value for each incoming data point. These values are used to differentiate an anomaly from normal variations. For more information about how RCF works, see [Random Cut Forests](https://pdfs.semanticscholar.org/8bba/52e9797f2e2cc9a823dbd12514d02f29c8b9.pdf?_ga=2.56302955.1913766445.1574109076-1059151610.1574109076).
+Anomaly detection  automatically detects anomalies in your OpenSearch data in near real-time using the Random Cut Forest (RCF) algorithm. RCF is an unsupervised machine learning algorithm that models a sketch of your incoming data stream to compute an `anomaly grade` and `confidence score` value for each incoming data point. These values are used to differentiate an anomaly from normal variations. For more information about how RCF works, see [Random Cut Forests](https://api.semanticscholar.org/CorpusID:927435).
 
 You can pair the anomaly detection plugin with the [alerting plugin]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/) to notify you as soon as an anomaly is detected.
 
@@ -79,13 +79,11 @@ This formula provides a good starting point, but make sure to test with a repres
 
 For example, for a cluster with 3 data nodes, each with 8G of JVM heap size, a maximum memory percentage of 10% (default), and the entity size of the detector as 1MB: the total number of unique entities supported is (8.096 * 10^9 * 0.1 / 1M ) * 3 = 2429.
 
-#### Set a window size
+#### Set a shingle size
 
-Set the number of aggregation intervals from your data stream to consider in a detection window. It's best to choose this value based on your actual data to see which one leads to the best results for your use case.
+Set the number of aggregation intervals from your data stream to consider in a detection window. It’s best to choose this value based on your actual data to see which one leads to the best results for your use case.
 
-Based on experiments performed on a wide variety of one-dimensional data streams, we recommend using a window size between 1 and 16. The default window size is 8. If you set the category field for high cardinality, the default window size is 1.
-
-If you expect missing values in your data or if you want to base the anomalies on the current interval, choose 1. If your data is continuously ingested and you want to base the anomalies on multiple intervals, choose a larger window size.
+The anomaly detector expects the shingle size to be in the range of 1 and 60. The default shingle size is 8. We recommend that you don't choose 1 unless you have two or more features. Smaller values might increase [recall](https://en.wikipedia.org/wiki/Precision_and_recall) but also false positives. Larger values might be useful for ignoring noise in a signal.
 
 #### Preview sample anomalies
 

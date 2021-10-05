@@ -3,10 +3,11 @@ layout: default
 title: Endpoint
 parent: Piped processing language
 nav_order: 1
-redirect_from: /docs/ppl/endpoint/
 ---
 
 # Endpoint
+Introduced 1.0
+{: .label .label-purple }
 
 To send a query request to PPL plugin, use the HTTP POST request.
 We recommend a POST request because it doesn't have any length limit and it allows you to pass other parameters to the plugin for other functionality.

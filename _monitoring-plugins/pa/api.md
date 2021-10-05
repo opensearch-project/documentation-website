@@ -6,6 +6,8 @@ nav_order: 1
 ---
 
 # Performance Analyzer API
+Introduced 1.0
+{: .label .label-purple }
 
 Performance Analyzer uses a single HTTP method and URI for most requests:
 

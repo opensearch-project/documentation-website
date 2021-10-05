@@ -12,7 +12,7 @@ For example, if you use OpenSearch as a backend search engine for your applicati
 
 When you're writing code to convert user input into OpenSearch queries, you can simplify your code with search templates. If you need to add fields to your search query, you can just modify the template without making changes to your code.
 
-Search templates use the Mustache language. For a list of all syntax options, see the [Mustache manual](http://mustache.github.io/mustache.5.html).
+Search templates use the Mustache language. For a list of all syntax options, see the [Mustache manual](https://mustache.github.io/mustache.5.html).
 {: .note }
 
 ## Create search templates

@@ -3,7 +3,6 @@ layout: default
 title: Functions
 parent: Piped processing language
 nav_order: 10
-redirect_from: /docs/ppl/functions/
 ---
 
 # Functions

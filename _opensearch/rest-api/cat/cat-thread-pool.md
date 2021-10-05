@@ -8,6 +8,8 @@ has_children: false
 ---
 
 # cat thread pool
+Introduced 1.0
+{: .label .label-purple }
 
 The cat thread pool operation lists the active, queued, and rejected threads of different thread pools on each node.
 
@@ -47,5 +49,5 @@ master_timeout | Time | The amount of time to wait for a connection to the maste
 node_name  name                      active queue rejected
 odfe-node2 ad-batch-task-threadpool    0     0        0
 odfe-node2 ad-threadpool               0     0        0
-odfe-node2 analyze                     0     0        0s 
+odfe-node2 analyze                     0     0        0s
 ```

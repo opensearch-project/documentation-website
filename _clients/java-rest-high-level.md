@@ -1,10 +1,10 @@
 ---
 layout: default
-title: Java high-level REST client
-nav_order: 97
+title: Elasticsearch OSS Java high-level REST client
+nav_order: 60
 ---
 
-# Java high-level REST client
+# Elasticsearch OSS Java high-level REST client
 
 The Elasticsearch OSS Java high-level REST client allows you to interact with your OpenSearch clusters and indices through Java methods and data structures rather than HTTP methods and JSON.
 
@@ -22,7 +22,7 @@ To start using the Elasticsearch OSS Java high-level REST client, ensure that yo
 </dependency>
 ```
 
-You can now start your OpenSearch cluster. The 7.10.2 high-level REST client works with the 1.x versions of OpenSearch.
+You can now start your OpenSearch cluster. The 7.10.2 Elasticsearch OSS high-level REST client works with the 1.x versions of OpenSearch.
 
 ## Sample code
 
@@ -79,7 +79,7 @@ public class RESTClientSample {
     RestHighLevelClient client = new RestHighLevelClient(builder);
 
     //Create a non-default index with custom settings and mappings.
-    CreateIndexRequest createIndexRequest = new CreateIndexRequest("test-index");
+    CreateIndexRequest createIndexRequest = new CreateIndexRequest("custom-index");
 
     createIndexRequest.settings(Settings.builder() //Specify in the settings how many shards you want in the index.
       .put("index.number_of_shards", 4)
@@ -93,7 +93,7 @@ public class RESTClientSample {
     HashMap<String, Object> mapping = new HashMap<String, Object>();
     mapping.put("properties", ageMapping);
     createIndexRequest.mapping(mapping);
-    CreateIndexResponse createIndexResponse = client.indices().create(createIndexRequest, RequestOptions.DEFAULT
+    CreateIndexResponse createIndexResponse = client.indices().create(createIndexRequest, RequestOptions.DEFAULT);
 
     //Adding data to the index.
     IndexRequest request = new IndexRequest("custom-index"); //Add a document to the custom-index we created.

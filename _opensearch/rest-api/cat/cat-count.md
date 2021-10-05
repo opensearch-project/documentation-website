@@ -8,6 +8,8 @@ has_children: false
 ---
 
 # cat count
+Introduced 1.0
+{: .label .label-purple }
 
 The cat count operation lists the number of documents in your cluster.
 

@@ -1,9 +1,8 @@
 ---
 layout: default
-title: Users and Roles
-parent: Access Control
+title: Users and roles
+parent: Access control
 nav_order: 1
-redirect_from: /docs/security/access-control/users-roles/
 ---
 
 # Users and roles
@@ -12,7 +11,7 @@ The security plugin includes an internal user database. Use this database in pla
 
 Roles are the core way of controlling access to your cluster. Roles contain any combination of cluster-wide permissions, index-specific permissions, document- and field-level security, and tenants. Then you map users to these roles so that users gain those permissions.
 
-Unless you need to create new [read-only or hidden users]({{site.url}}{{site.baseurl}}/security-plugin/access-control/api#read-only-and-hidden-resources), we **highly** recommend using OpenSearch Dashboards or the REST API to create new users, roles, and role mappings. The `.yml` files are for initial setup, not ongoing use.
+Unless you need to create new [reserved or hidden users]({{site.url}}{{site.baseurl}}/security-plugin/access-control/api#reserved-and-hidden-resources), we **highly** recommend using OpenSearch Dashboards or the REST API to create new users, roles, and role mappings. The `.yml` files are for initial setup, not ongoing use.
 {: .warning }
 
 ---
@@ -110,7 +109,7 @@ Role | Description
 `anomaly_full_access` | Grants full permissions to all anomaly detection actions.
 `anomaly_read_access` | Grants permissions to view detectors, but not create, modify, or delete detectors.
 `all_access` | Grants full access to the cluster: all cluster-wide operations, write to all indices, write to all tenants.
-`kibana_read_only` | A special role that prevents users from making changes to visualizations, dashboards, and other OpenSearch Dashboards objects. See `plugins.security.readonly_mode.roles` in `opensearch_dashboards.yml`. Pair with the `kibana_user` role.
+`kibana_read_only` | A special role that prevents users from making changes to visualizations, dashboards, and other OpenSearch Dashboards objects. See `opensearch_security.readonly_mode.roles` in `opensearch_dashboards.yml`. Pair with the `kibana_user` role.
 `kibana_user` | Grants permissions to use OpenSearch Dashboards: cluster-wide searches, index monitoring, and write to various OpenSearch Dashboards indices.
 `logstash` | Grants permissions for Logstash to interact with the cluster: cluster-wide searches, cluster monitoring, and write to the various Logstash indices.
 `manage_snapshots` | Grants permissions to manage snapshot repositories, take snapshots, and restore snapshots.

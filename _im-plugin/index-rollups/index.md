@@ -3,7 +3,7 @@ layout: default
 title: Index rollups
 nav_order: 35
 has_children: true
-redirect_from: /docs/ism/index-rollups/
+redirect_from: /im-plugin/index-rollups/
 has_toc: false
 ---
 

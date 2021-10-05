@@ -69,4 +69,12 @@ You can edit the `OPENSEARCH_PATH_CONF=/etc/opensearch` to change the config dir
 
 If you set your customized `OPENSEARCH_PATH_CONF` variable, be aware that other default environment variables will not be loaded.
 
+You don't mark settings in `opensearch.yml` as persistent or transient, and settings use the flat form:
+
+```yml
+cluster.name: my-application
+action.auto_create_index: true
+compatibility.override_main_response_version: true
+```
+
 The demo configuration includes a number of settings for the security plugin that you should modify before using OpenSearch for a production workload. To learn more, see [Security]({{site.url}}{{site.baseurl}}/security-plugin/).

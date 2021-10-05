@@ -3,7 +3,6 @@ layout: default
 title: Boolean queries
 parent: Query DSL
 nav_order: 45
-redirect_from: /docs/opensearch/bool/
 ---
 
 # Boolean queries

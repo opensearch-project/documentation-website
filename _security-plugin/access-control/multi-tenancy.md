@@ -1,9 +1,8 @@
 ---
 layout: default
-title: OpenSearch Dashboards Multi-Tenancy
-parent: Access Control
+title: OpenSearch Dashboards multi-tenancy
+parent: Access control
 nav_order: 30
-redirect_from: /docs/security/access-control/multi-tenancy/
 ---
 
 # OpenSearch Dashboards multi-tenancy
@@ -48,21 +47,21 @@ Setting | Description
 opensearch.username: kibanaserver
 opensearch.password: kibanaserver
 opensearch.requestHeadersWhitelist: ["securitytenant","Authorization"]
-plugins.security.multitenancy.enabled: true
-plugins.security.multitenancy.tenants.enable_global: true
-plugins.security.multitenancy.tenants.enable_private: true
-plugins.security.multitenancy.tenants.preferred: ["Private", "Global"]
-plugins.security.multitenancy.enable_filter: false
+opensearch_security.multitenancy.enabled: true
+opensearch_security.multitenancy.tenants.enable_global: true
+opensearch_security.multitenancy.tenants.enable_private: true
+opensearch_security.multitenancy.tenants.preferred: ["Private", "Global"]
+opensearch_security.multitenancy.enable_filter: false
 ```
 
 Setting | Description
 :--- | :---
 `opensearch.requestHeadersWhitelist` | OpenSearch Dashboards requires that you whitelist all HTTP headers that it passes to OpenSearch. Multi-tenancy uses a specific header, `securitytenant`, that must be present with the standard `Authorization` header. If the `securitytenant` header is not whitelisted, OpenSearch Dashboards starts with a red status.
-`plugins.security.multitenancy.enabled` | Enables or disables multi-tenancy in OpenSearch Dashboards. Default is true.
-`plugins.security.multitenancy.tenants.enable_global` | Enables or disables the global tenant. Default is true.
-`plugins.security.multitenancy.tenants.enable_private` | Enables or disables the private tenant. Default is true.
-`plugins.security.multitenancy.tenants.preferred` | Lets you change ordering in the **Tenants** tab of OpenSearch Dashboards. By default, the list starts with global and private (if enabled) and then proceeds alphabetically. You can add tenants here to move them to the top of the list.
-`plugins.security.multitenancy.enable_filter` | If you have many tenants, you can add a search bar to the top of the list. Default is false.
+`opensearch_security.multitenancy.enabled` | Enables or disables multi-tenancy in OpenSearch Dashboards. Default is true.
+`opensearch_security.multitenancy.tenants.enable_global` | Enables or disables the global tenant. Default is true.
+`opensearch_security.multitenancy.tenants.enable_private` | Enables or disables the private tenant. Default is true.
+`opensearch_security.multitenancy.tenants.preferred` | Lets you change ordering in the **Tenants** tab of OpenSearch Dashboards. By default, the list starts with global and private (if enabled) and then proceeds alphabetically. You can add tenants here to move them to the top of the list.
+`opensearch_security.multitenancy.enable_filter` | If you have many tenants, you can add a search bar to the top of the list. Default is false.
 
 
 ## Add tenants

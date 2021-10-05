@@ -1,9 +1,8 @@
 ---
 layout: default
-title: System Indices
+title: System indices
 parent: Configuration
 nav_order: 15
-redirect_from: /docs/security/configuration/system-indices/
 ---
 
 # System indices

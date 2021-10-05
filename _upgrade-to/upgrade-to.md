@@ -2,13 +2,11 @@
 layout: default
 title: Upgrade from Elasticsearch OSS to OpenSearch
 nav_order: 15
-redirect_from:
-  - /migrate/upgrade-migrate/
 ---
 
 # Upgrade from Elasticsearch OSS to OpenSearch
 
-If you want to upgrade from an existing Elasticsearch OSS cluster to OpenSearch and find the [snapshot approach]({{site.url}}{{site.baseurl}}/migrate/snapshot-migrate/) unappealing, you can upgrade your existing nodes from Elasticsearch OSS to OpenSearch.
+If you want to upgrade from an existing Elasticsearch OSS cluster to OpenSearch and find the [snapshot approach]({{site.url}}{{site.baseurl}}/upgrade-to/snapshot-migrate/) unappealing, you can upgrade your existing nodes from Elasticsearch OSS to OpenSearch.
 
 If your existing cluster runs an older version of Elasticsearch OSS, the first step is to upgrade to version 6.x or 7.x. Elasticsearch OSS supports two types of upgrades: rolling and cluster restart.
 
@@ -145,6 +143,12 @@ If you are upgrading an Open Distro for Elasticsearch cluster, we recommend firs
       ```
 
    1. Port your settings from `elasticsearch.yml` to `opensearch.yml`. Most settings use the same names. At a minimum, specify `cluster.name`, `node.name`, `discovery.seed_hosts`, and `cluster.initial_master_nodes`.
+
+   1. (Optional) If you're actively connecting to the cluster with legacy clients that check for a particular version number, such as Logstash OSS, add a [compatibility setting]({{site.url}}{{site.baseurl}}/clients/agents-and-ingestion-tools/) to `opensearch.yml`:
+
+      ```yml
+      compatibility.override_main_response_version: true
+      ```
 
    1. (Optional) Add your certificates to your `config` directory, add them to `opensearch.yml`, and initialize the security plugin.
 

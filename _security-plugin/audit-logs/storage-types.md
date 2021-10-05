@@ -1,9 +1,8 @@
 ---
 layout: default
-title: Audit Log Storage Types
+title: Audit log storage types
 parent: Audit Logs
 nav_order: 10
-redirect_from: /docs/security/audit-logs/storage-types/
 ---
 
 # Audit log storage types

@@ -7,6 +7,8 @@ nav_order: 20
 ---
 
 # Bulk
+Introduced 1.0
+{: .label .label-purple }
 
 The bulk operation lets you add, update, or delete many documents in a single request. Compared to individual OpenSearch indexing requests, the bulk operation has significant performance benefits. Whenever practical, we recommend batching indexing operations into bulk requests.
 
@@ -30,7 +32,7 @@ POST _bulk
 
 ```
 POST _bulk
-POST {index}/_bulk
+POST <index>/_bulk
 ```
 
 Specifying the index in the path means you don't need to include it in the [request body]({{site.url}}{{site.baseurl}}/opensearch/rest-api/document-apis/bulk/#request-body).

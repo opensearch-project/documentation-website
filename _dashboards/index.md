@@ -6,9 +6,10 @@ has_children: false
 has_toc: false
 redirect_from:
   - /docs/opensearch-dashboards/
-  - /opensearch-dashboards/
   - /dashboards/
 ---
+
+{%- comment -%}The `/docs/opensearch-dashboards/` redirect is specifically to support the UI links in OpenSearch Dashboards 1.0.0.{%- endcomment -%}
 
 # OpenSearch Dashboards
 

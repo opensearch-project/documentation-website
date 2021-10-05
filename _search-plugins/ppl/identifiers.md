@@ -3,7 +3,6 @@ layout: default
 title: Identifiers
 parent: Piped processing language
 nav_order: 7
-redirect_from: /docs/ppl/identifiers/
 ---
 
 

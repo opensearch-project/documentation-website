@@ -1,11 +1,10 @@
 ---
 layout: default
-title: Audit Logs
+title: Audit logs
 nav_order: 90
 has_children: true
 has_toc: false
 redirect_from:
-  - /docs/security/audit-logs/
   - /security-plugin/audit-logs/
 ---
 
@@ -175,7 +174,7 @@ Use a date pattern in the index name to configure daily, weekly, or monthly roll
 plugins.security.audit.config.index: "'auditlog-'YYYY.MM.dd"
 ```
 
-For a reference on the date pattern format, see the [Joda DateTimeFormat documentation](http://www.joda.org/joda-time/apidocs/org/joda/time/format/DateTimeFormat.html).
+For a reference on the date pattern format, see the [Joda DateTimeFormat documentation](https://www.joda.org/joda-time/apidocs/org/joda/time/format/DateTimeFormat.html).
 
 
 ## (Advanced) Tune the thread pool

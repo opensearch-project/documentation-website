@@ -1,36 +1,69 @@
 ---
 layout: default
-title: Apply Changes with securityadmin.sh
+title: Apply changes with securityadmin.sh
 parent: Configuration
 nav_order: 20
-redirect_from: /docs/security/configuration/security-admin/
 ---
 
-# Apply configuration changes using securityadmin.sh
+# Apply changes using securityadmin.sh
 
 The security plugin stores its configuration---including users, roles, and permissions---in an index on the OpenSearch cluster (`.opendistro_security`). Storing these settings in an index lets you change settings without restarting the cluster and eliminates the need to edit configuration files on every single node.
 
-After changing any of the configuration files in `plugins/opensearch-security/securityconfig`, however, you must run `plugins/opensearch-security/tools/securityadmin.sh` to load these new settings into the index. You must also run this script at least once to initialize the `.opendistro_security` index and configure your authentication and authorization methods.
+To initialize the `.opendistro_security` index, however, you must run `plugins/opensearch-security/tools/securityadmin.sh`. This script loads your initial configuration into the index using the configuration files in `plugins/opensearch-security/securityconfig`. After the `.opendistro_security` index is initialized, use OpenSearch Dashboards or the REST API to manage your users, roles, and permissions.
 
-After the `.opendistro_security` index is initialized, you can use OpenSearch Dashboards to manage your users, roles, and permissions.
+
+## A word of caution
+
+If you make changes to the configuration files in `plugins/opensearch-security/securityconfig`, OpenSearch does _not_ automatically apply these changes. Instead, you must run `securityadmin.sh` to load the updated files into the index.
+
+Running `securityadmin.sh` **overwrites** one or more portions of the `.opendistro_security` index. Run it with extreme care to avoid losing your existing resources. Consider the following example:
+
+1. You initialize the `.opendistro_security` index.
+1. You create ten users using the REST API.
+1. You decide to create a new [reserved user]({{site.url}}{{site.baseurl}}/security-plugin/access-control/api/#reserved-and-hidden-resources) using `internal_users.yml`.
+1. You run `securityadmin.sh` again to load the new reserved user into the index.
+1. You lose all ten users that you created using the REST API.
+
+To avoid this situation, back up your current configuration before making changes and re-running the script:
+
+```bash
+./securityadmin.sh -backup my-backup-directory \
+  -icl \
+  -nhnv \
+  -cacert ../../../config/root-ca.pem \
+  -cert ../../../config/kirk.pem \
+  -key ../../../config/kirk-key.pem
+```
+
+If you use the `-f` argument rather than `-cd`, you can load a single YAML file into the index rather than the entire directory of YAML files. For example, if you create ten new roles, you can safely load `internal_users.yml` into the index without losing your roles; only the internal users get overwritten.
+
+```bash
+./securityadmin.sh -f ../securityconfig/internal_users.yml \
+  -t internalusers \
+  -icl \
+  -nhnv \
+  -cacert ../../../config/root-ca.pem \
+  -cert ../../../config/kirk.pem \
+  -key ../../../config/kirk-key.pem
+```
 
 
 ## Configure the admin certificate
 
-You can configure all certificates that should have admin privileges in `opensearch.yml` by specifying respective distinguished names (DNs). If you use the demo certificates, for example, you can use the `kirk` certificate:
+In order to use `securityadmin.sh`, you must add the distinguished names (DNs) of all admin certificates to `opensearch.yml`. If you use the demo certificates, for example, `opensearch.yml` might contain the following lines for the `kirk` certificate:
 
 ```yml
 plugins.security.authcz.admin_dn:
   - CN=kirk,OU=client,O=client,L=test,C=DE
 ```
 
-You can't use node certificates as admin certificates. The two must be separate. Also, do not use any whitespace between the parts of the DN.
+You can't use node certificates as admin certificates. The two must be separate. Also, do not add whitespace between the parts of the DN.
 {: .warning }
 
 
 ## Basic usage
 
-The `securityadmin.sh` tool can be run from any machine that has access to the transport port of your OpenSearch cluster (the default is 9300). You can change the security plugin configuration without having to access your nodes through SSH.
+The `securityadmin.sh` tool can be run from any machine that has access to the transport port of your OpenSearch cluster (the default port is 9300). You can change the security plugin configuration without having to access your nodes through SSH.
 
 Each node also includes the tool at `plugins/opensearch-security/tools/securityadmin.sh`. You might need to make the script executable before running it:
 
@@ -44,18 +77,18 @@ To print all available command line options, run the script with no arguments:
 ./plugins/opensearch-security/tools/securityadmin.sh
 ```
 
-To load configuration changes to the security plugin, you must provide your admin certificate to the tool:
+To load your initial configuration (all YAML files), you might use the following command:
 
 ```bash
 ./securityadmin.sh -cd ../securityconfig/ -icl -nhnv \
-   -cacert ../../../config/root-ca.pem \
-   -cert ../../../config/kirk.pem \
-   -key ../../../config/kirk-key.pem
+  -cacert ../../../config/root-ca.pem \
+  -cert ../../../config/kirk.pem \
+  -key ../../../config/kirk-key.pem
 ```
 
-- The `-cd` option specifies where the security plugin configuration files to upload to the cluster can be found.
+- The `-cd` option specifies where the security plugin configuration files can be found.
 - The `-icl` (`--ignore-clustername`) option tells the security plugin to upload the configuration regardless of the cluster name. As an alternative, you can also specify the cluster name with the `-cn` (`--clustername`) option.
-- Because the demo certificates are self-signed, we also disable hostname verification with the `-nhnv` (`--disable-host-name-verification`) option.
+- Because the demo certificates are self-signed, this command disables hostname verification with the `-nhnv` (`--disable-host-name-verification`) option.
 - The `-cacert`, `-cert` and `-key` options define the location of your root CA certificate, the admin certificate, and the private key for the admin certificate. If the private key has a password, specify it with the `-keypass` option.
 
 The following table shows the PEM options.
@@ -70,29 +103,38 @@ Name | Description
 
 ## Sample commands
 
-Apply configuration in `securityconfig` using PEM certificates:
+Apply all YAML files in `securityconfig` using PEM certificates:
 
 ```bash
-/usr/share/opensearch/plugins/opensearch-security/tools/securityadmin.sh -cacert /etc/opensearch/root-ca.pem -cert /etc/opensearch/kirk.pem -key /etc/opensearch/kirk-key.pem -cd /usr/share/opensearch/plugins/opensearch-security/securityconfig/
+/usr/share/opensearch/plugins/opensearch-security/tools/securityadmin.sh \
+  -cacert /etc/opensearch/root-ca.pem \
+  -cert /etc/opensearch/kirk.pem \
+  -key /etc/opensearch/kirk-key.pem \
+  -cd /usr/share/opensearch/plugins/opensearch-security/securityconfig/
 ```
 
-Apply configuration from a single file (`config.yml`) using PEM certificates:
-
-```bash
-./securityadmin.sh -f ../securityconfig/config.yml -icl -nhnv -cert /etc/opensearch/kirk.pem -cacert /etc/opensearch/root-ca.pem -key /etc/opensearch/kirk-key.pem -t config
-```
-
-Apply configuration in `securityconfig` with keystore and truststore files:
+Apply a single YAML file (`config.yml`) using PEM certificates:
 
 ```bash
 ./securityadmin.sh \
-   -cd /usr/share/opensearch/plugins/opensearch-security/securityconfig/ \
-   -ks /path/to/keystore.jks \
-   -kspass changeit \
-   -ts /path/to/truststore.jks \
-   -tspass changeit
-   -nhnv
-   -icl
+  -f ../securityconfig/config.yml \
+  -icl -nhnv -cert /etc/opensearch/kirk.pem \
+  -cacert /etc/opensearch/root-ca.pem \
+  -key /etc/opensearch/kirk-key.pem \
+  -t config
+```
+
+Apply all YAML files in `securityconfig` with keystore and truststore files:
+
+```bash
+./securityadmin.sh \
+  -cd /usr/share/opensearch/plugins/opensearch-security/securityconfig/ \
+  -ks /path/to/keystore.jks \
+  -kspass changeit \
+  -ts /path/to/truststore.jks \
+  -tspass changeit
+  -nhnv
+  -icl
 ```
 
 
@@ -193,13 +235,19 @@ Name | Description
 You can download all current configuration files from your cluster with the following command:
 
 ```bash
-./securityadmin.sh -backup /file/path -ts ... -tspass ... -ks ... -kspass ...
+./securityadmin.sh -backup my-backup-directory -ts ... -tspass ... -ks ... -kspass ...
 ```
 
-This command dumps the current security plugin configuration from your cluster to individual files in the directory you specify. You can then use these files as backups or to load the configuration into a different cluster. This command is useful when moving a proof-of-concept to production:
+This command dumps the current security plugin configuration from your cluster to individual files in the directory you specify. You can then use these files as backups or to load the configuration into a different cluster. This command is useful when moving a proof-of-concept to production or if you need to add additional [reserved or hidden resources]({{site.url}}{{site.baseurl}}/security-plugin/access-control/api/#reserved-and-hidden-resources):
 
 ```bash
-./securityadmin.sh -backup ~ -icl -nhnv -cacert ../../../config/root-ca.pem -cert ../../../config/kirk.pem -key ../../../config/kirk-key.pem
+./securityadmin.sh \
+  -backup my-backup-directory \
+  -icl \
+  -nhnv \
+  -cacert ../../../config/root-ca.pem \
+  -cert ../../../config/kirk.pem \
+  -key ../../../config/kirk-key.pem
 ```
 
 To upload the dumped files to another cluster:
@@ -208,7 +256,7 @@ To upload the dumped files to another cluster:
 ./securityadmin.sh -h production.example.com -p 9301 -cd /etc/backup/ -ts ... -tspass ... -ks ... -kspass ...
 ```
 
-To migrate configuration YAML files from the OpenSearch 0.x.x format to the 1.x.x format:
+To migrate configuration YAML files from the Open Distro for Elasticsearch 0.x.x format to the OpenSearch 1.x.x format:
 
 ```bash
 ./securityadmin.sh -migrate ../securityconfig -ts ... -tspass ... -ks ... -kspass ...
@@ -217,7 +265,7 @@ To migrate configuration YAML files from the OpenSearch 0.x.x format to the 1.x.
 Name | Description
 :--- | :---
 `-backup` | Retrieve the current security plugin configuration from a running cluster and dump it to the working directory.
-`-migrate` | Migrate configuration YAML files from version 0.x.x to 1.x.x.
+`-migrate` | Migrate configuration YAML files from Open Distro for Elasticsearch 0.x.x to OpenSearch 1.x.x.
 
 
 ### Other options

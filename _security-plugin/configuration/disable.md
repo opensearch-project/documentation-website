@@ -1,9 +1,8 @@
 ---
 layout: default
-title: Disable Security
+title: Disable security
 parent: Configuration
 nav_order: 99
-redirect_from: /docs/security/configuration/disable/
 ---
 
 # Disable security

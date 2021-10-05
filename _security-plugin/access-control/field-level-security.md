@@ -1,9 +1,8 @@
 ---
 layout: default
-title: Field-Level Security
-parent: Access Control
+title: Field-level security
+parent: Access control
 nav_order: 11
-redirect_from: /docs/security/access-control/field-level-security/
 ---
 
 # Field-level security

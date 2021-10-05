@@ -3,7 +3,6 @@ layout: default
 title: JSON Support
 parent: SQL
 nav_order: 7
-redirect_from: /docs/sql/partiql/
 ---
 
 # JSON Support

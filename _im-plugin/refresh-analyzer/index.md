@@ -3,7 +3,7 @@ layout: default
 title: Refresh search analyzer
 nav_order: 40
 has_children: false
-redirect_from: /docs/ism/refresh-analyzer/
+redirect_from: /im-plugin/refresh-analyzer/
 has_toc: false
 ---
 

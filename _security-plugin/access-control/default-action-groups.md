@@ -1,9 +1,8 @@
 ---
 layout: default
-title: Default Action Groups
-parent: Access Control
+title: Default action groups
+parent: Access control
 nav_order: 51
-redirect_from: /docs/security/access-control/default-action-groups/
 ---
 
 # Default action groups

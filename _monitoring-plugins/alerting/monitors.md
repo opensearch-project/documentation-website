@@ -34,7 +34,7 @@ Destination | A reusable location for an action, such as Amazon Chime, Slack, or
 1. Specify a name for the destination so that you can identify it later.
 1. For **Type**, choose Slack, Amazon Chime, custom webhook, or [email](#email-as-a-destination).
 
-For Email type, refer to [Email as a destination](#email-as-a-destination) section below. For all other types, specify the webhook URL. For more information about webhooks, see the documentation for [Slack](https://api.slack.com/incoming-webhooks) and [Chime](https://docs.aws.amazon.com/chime/latest/ug/webhooks.html).
+For Email type, refer to [Email as a destination](#email-as-a-destination) section below. For all other types, specify the webhook URL. For more information about webhooks, see the documentation for [Slack](https://api.slack.com/incoming-webhooks) and [Amazon Chime](https://docs.aws.amazon.com/chime/latest/ug/webhooks.html).
 
 For custom webhooks, you must specify more information: parameters and headers. For example, if your endpoint requires basic authentication, you might need to add a header with a key of `Authorization` and a value of `Basic <Base64-encoded-credential-string>`. You might also need to change `Content-Type` to whatever your webhook requires. Popular values are `application/json`, `application/xml`, and `text/plain`.
 
@@ -296,7 +296,7 @@ Variable | Data Type | Description
 `ctx.trigger.actions.destination_id`| String | The alert destination's ID.
 `ctx.trigger.actions.message_template.source` | String | The message to send in the alert.
 `ctx.trigger.actions.message_template.lang` | String | The scripting language used to define the message. Must be Mustache.
-`ctx.trigger.actions.throttle_enabled` | Boolean | Whether throttling is enabled for this trigger. See [adding actions](#add-actions/) for more information about throttling.
+`ctx.trigger.actions.throttle_enabled` | Boolean | Whether throttling is enabled for this trigger. See [adding actions](#add-actions) for more information about throttling.
 `ctx.trigger.actions.subject_template.source` | String | The message's subject in the alert.
 `ctx.trigger.actions.subject_template.lang` | String | The scripting language used to define the subject. Must be mustache.
 

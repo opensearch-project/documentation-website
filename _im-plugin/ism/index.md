@@ -4,8 +4,7 @@ title: Index State Management
 nav_order: 3
 has_children: true
 redirect_from:
-  - /docs/im/ism/
-  - /docs/ism/
+  - /im-plugin/ism/
 has_toc: false
 ---
 
@@ -56,6 +55,8 @@ PUT _plugins/_ism/policies/policy_id
 }
 ```
 
+If you have more than one template that matches an index pattern, ISM uses the priority value to determine which template to apply.
+
 For an example ISM template policy, see [Sample policy with ISM template]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies#sample-policy-with-ism-template).
 
 Older versions of the plugin include the `policy_id` in an index template, so when an index is created that matches the index template pattern, the index will have the policy attached to it:
@@ -90,7 +91,7 @@ Make sure that the alias that you enter already exists. For more information abo
 
 After you attach a policy to an index, ISM creates a job that runs every 5 minutes by default to perform policy actions, check conditions, and transition the index into different states. To change the default time interval for this job, see [Settings]({{site.url}}{{site.baseurl}}/im-plugin/ism/settings/).
 
-If you want to use an OpenSearch operation to create an index with a policy already attached to it, see [create index]({{site.url}}{{site.baseurl}}/im-plugin/ism/api#create-index).
+ISM does not run jobs if the cluster state is red.
 
 ### Step 3: Manage indices
 

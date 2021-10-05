@@ -3,7 +3,6 @@ layout: default
 title: Active Directory and LDAP
 parent: Configuration
 nav_order: 30
-redirect_from: /docs/security/configuration/ldap/
 ---
 
 # Active Directory and LDAP
@@ -12,7 +11,6 @@ Active Directory and LDAP can be used for both authentication and authorization 
 
 In most cases, you want to configure both authentication and authorization. You can also use authentication only and map the users retrieved from LDAP directly to security plugin roles.
 
-{% comment %}
 
 ## Docker example
 
@@ -39,7 +37,7 @@ We provide a fully functional example that can help you understand how to use an
 1. Index a document as `psantos`:
 
    ```bash
-   curl -XPUT https://localhost:9200/new-index/_doc/1 -H 'Content-Type: application/json' -d '{"title": "Spirited Away"}' -u psantos:password -k
+   curl -XPUT 'https://localhost:9200/new-index/_doc/1' -H 'Content-Type: application/json' -d '{"title": "Spirited Away"}' -u 'psantos:password' -k
    ```
 
    If you try the same request as `jroe`, it fails. The `Developers` group is mapped to the `readall`, `manage_snapshots`, and `kibana_user` roles and has no write permissions.
@@ -47,14 +45,13 @@ We provide a fully functional example that can help you understand how to use an
 1. Search for the document as `jroe`:
 
    ```bash
-   curl -XGET https://localhost:9200/new-index/_search?pretty -u jroe:password -k
+   curl -XGET 'https://localhost:9200/new-index/_search?pretty' -u 'jroe:password' -k
    ```
 
    This request succeeds, because the `Developers` group is mapped to the `readall` role.
 
 1. If you want to examine the contents of the various containers, run `docker ps` to find the container ID and then `docker exec -it <container-id> /bin/bash`.
 
-{% endcomment %}
 
 ## Connection settings
 

@@ -3,7 +3,6 @@ layout: default
 title: Protocol
 parent: SQL
 nav_order: 14
-redirect_from: /docs/sql/protocol/
 ---
 
 # Protocol
@@ -132,7 +131,7 @@ Explain:
 ### Description
 
 By default, the plugin returns the JDBC standard format. This format
-is provided for JDBC driver and clients that need both schema and 
+is provided for JDBC driver and clients that need both schema and
 result set well formatted.
 
 ### Example 1

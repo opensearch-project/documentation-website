@@ -8,6 +8,8 @@ has_children: false
 ---
 
 # cat tasks
+Introduced 1.0
+{: .label .label-purple }
 
 The cat tasks operation lists the progress of all tasks currently running on your cluster.
 

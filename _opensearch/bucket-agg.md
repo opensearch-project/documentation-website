@@ -660,7 +660,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 ```
 
 The `ip_range` aggregation is for IP addresses.
-It works on `ip` type fields. You can define the IP ranges and masks in the [CIDR](http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) notation.
+It works on `ip` type fields. You can define the IP ranges and masks in the [CIDR](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) notation.
 
 ```json
 GET opensearch_dashboards_sample_data_logs/_search
@@ -1026,7 +1026,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 
 The `geohash_grid` aggregation buckets documents for geographical analysis. It organizes a geographical region into a grid of smaller regions of different sizes or precisions. Lower values of precision represent larger geographical areas and higher values represent smaller, more precise geographical areas.
 
-The number of results returned by a query might be far too many to display each geo point individually on a map. The `geohash_grid` aggregation buckets nearby geo points together by calculating the Geohash for each point, at the level of precision that you define (between 1 to 12; the default is 5). To learn more about Geohash, see [Wikipedia](http://en.wikipedia.org/wiki/Geohash).
+The number of results returned by a query might be far too many to display each geo point individually on a map. The `geohash_grid` aggregation buckets nearby geo points together by calculating the Geohash for each point, at the level of precision that you define (between 1 to 12; the default is 5). To learn more about Geohash, see [Wikipedia](https://en.wikipedia.org/wiki/Geohash).
 
 The web logs example data is spread over a large geographical area, so you can use a lower precision value. You can zoom in on this map by increasing the precision value:
 

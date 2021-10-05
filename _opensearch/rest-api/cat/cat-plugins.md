@@ -8,6 +8,8 @@ has_children: false
 ---
 
 # cat plugins
+Introduced 1.0
+{: .label .label-purple }
 
 The cat plugins operation lists the names, components, and versions of the installed plugins.
 

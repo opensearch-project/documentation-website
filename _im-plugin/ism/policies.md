@@ -3,7 +3,6 @@ layout: default
 title: Policies
 nav_order: 1
 parent: Index State Management
-redirect_from: /docs/ism/policies/
 has_children: false
 ---
 
@@ -94,7 +93,7 @@ For a list of available unit types, see [Supported units]({{site.url}}{{site.bas
 
 ISM supports the following operations:
 
-- [force_merge](#forcemerge)
+- [force_merge](#force_merge)
 - [read_only](#read_only)
 - [read_write](#read_write)
 - [replica_count](#replica_count)
@@ -348,7 +347,7 @@ Parameter | Description | Type | Required | Default
 
 ### allocation
 
-Allocate the index to a node with a specific attribute.
+Allocate the index to a node with a specific attribute set [like this]({{site.url}}{{site.baseurl}}/opensearch/cluster/#advanced-step-7-set-up-a-hot-warm-architecture).
 For example, setting `require` to `warm` moves your data only to "warm" nodes.
 
 The `allocation` operation has the following parameters:
@@ -364,7 +363,7 @@ Parameter | Description | Type | Required
 "actions": [
   {
     "allocation": {
-      "require": { "box_type": "warm" }
+      "require": { "temp": "warm" }
     }
   }
 ]
@@ -559,9 +558,11 @@ The following sample template policy is for a rollover use case.
    PUT _index_template/ism_rollover
    {
      "index_patterns": ["log*"],
-     "settings": {
+     "template": {
+      "settings": {
        "plugins.index_state_management.rollover_alias": "log"
-     }
+      }
+    }
    }
    ```
 
@@ -585,6 +586,12 @@ The following sample template policy is for a rollover use case.
    {
      "message": "dummy"
    }
+   ```
+
+5. Verify if the policy is attached to the `log-000001` index:
+
+   ```json
+   GET _plugins/_ism/explain/log-000001?pretty
    ```
 
 ## Example policy

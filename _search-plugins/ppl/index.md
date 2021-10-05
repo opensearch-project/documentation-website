@@ -5,7 +5,6 @@ nav_order: 42
 has_children: true
 has_toc: false
 redirect_from:
-  - /docs/ppl/
   - /search-plugins/ppl/
 ---
 
