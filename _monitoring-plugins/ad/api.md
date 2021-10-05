@@ -160,7 +160,7 @@ POST _plugins/_anomaly_detection/detectors
 }
 ```
 
-To create high cardinality detector by specifying a category field:
+To create a high cardinality detector by specifying a category field:
 
 #### Request
 
@@ -424,7 +424,7 @@ GET _plugins/_anomaly_detection/detectors/<detectorId>
 }
 ```
 
-Use `task=true` to get real-time analysis task information.
+Use `job=true` to get real-time analysis task information.
 
 #### Request
 

@@ -81,7 +81,7 @@ This formula provides a good starting point, but make sure to test with a repres
 
 For example, for a cluster with three data nodes, each with 8 GB of JVM heap size, a maximum memory percentage of 10% (default), and the entity model size of the detector as 1MB: the total number of unique entities supported is (8.096 * 10^9 * 0.1 / 1 MB ) * 3 = 2429.
 
-If you set the total number of unique entities higher than this number that you calculate (in this case: 2429), the anomaly detector makes its best effort to model the extra entities. The detector prioritizes entities that occur more often and are more recent.
+If the actual total number of unique entities higher than this number that you calculate (in this case: 2429), the anomaly detector makes its best effort to model the extra entities. The detector prioritizes entities that occur more often and are more recent.
 
 #### (Advanced settings) Set a shingle size
 
