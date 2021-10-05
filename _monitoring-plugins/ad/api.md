@@ -424,6 +424,15 @@ GET _plugins/_anomaly_detection/detectors/<detectorId>
 }
 ```
 
+A "job" is something that you schedule to run periodically, so it's only applicable for real-time anomaly detection and not historical analysis that you run just one time.
+
+When you start a real-time detector, the anomaly detection plugin creates a job or if the job already exists updates it.
+When you start or a restart a real-time detector, the plugin creates a new real-time task that records run-time information like detector configuration snapshot, real-time job states (initializing/running/stopped), init progress, and so on.
+
+A single detector can only have one real-time job (job ID is the same as detector ID), but it can have multiple real-time tasks because each restart of a real-time job creates a new real-time task. You can limit the number of real-time tasks with the `plugins.anomaly_detection.max_old_ad_task_docs_per_detector` setting.
+
+Historical analysis doesn't have an associated job. When you start or rerun historical analysis for a detector, the anomaly detection plugin creates a new historical batch task that tracks the historical analysis runtime information like state, coordinating/worker node, task progress, and so on. You can limit the historical task number with the `plugins.anomaly_detection.max_old_ad_task_docs_per_detector` setting.
+
 Use `job=true` to get real-time analysis task information.
 
 #### Request
@@ -994,7 +1003,7 @@ DELETE _plugins/_anomaly_detection/detectors/<detectorId>
 
 ```json
 {
-  "_index": ".opendistro-anomaly-detectors",
+  "_index": ".opensearch-anomaly-detectors",
   "_type": "_doc",
   "_id": "70TxTXwBjd8s6RK4j1Pj",
   "_version": 2,
@@ -1023,7 +1032,7 @@ To preview a single-entity detector:
 #### Request
 
 ```json
-POST _plugins/_anomaly_detection/detectors/<detectorId>/_preview
+POST _plugins/_anomaly_detection/detectors/_preview
 {
   "period_start": 1633048868000,
   "period_end": 1633394468000,
@@ -1520,6 +1529,9 @@ POST _plugins/_anomaly_detection/detectors/<detectorId>/_stop
 
 To stop historical analysis:
 
+Introduced 1.1
+{: .label .label-purple }
+
 ```json
 POST _plugins/_anomaly_detection/detectors/<detectorId>/_stop?historical=true
 ```
@@ -1581,7 +1593,7 @@ POST _plugins/_anomaly_detection/detectors/_search
     "max_score": 1,
     "hits": [
       {
-        "_index": ".opendistro-anomaly-detectors",
+        "_index": ".opensearch-anomaly-detectors",
         "_type": "_doc",
         "_id": "Zi5zTXwBwf_U8gjUTfJG",
         "_version": 1,
@@ -1713,7 +1725,7 @@ POST _plugins/_anomaly_detection/detectors/tasks/_search
     "max_score": 0,
     "hits": [
       {
-        "_index": ".opendistro-anomaly-detection-state",
+        "_index": ".opensearch-anomaly-detection-state",
         "_type": "_doc",
         "_id": "fm-RTXwBYwCbWecgB753",
         "_version": 34,
@@ -2020,7 +2032,7 @@ Real-time detection doesn't persist the task ID in the anomaly result, so the ta
     "max_score": 0,
     "hits": [
       {
-        "_index": ".opendistro-anomaly-results-history-2021.10.04-1",
+        "_index": ".opensearch-anomaly-results-history-2021.10.04-1",
         "_type": "_doc",
         "_id": "686KTXwB6HknB84SMr6G",
         "_version": 1,
@@ -2129,7 +2141,7 @@ POST _plugins/_anomaly_detection/detectors/results/_search
     "max_score": 0,
     "hits": [
       {
-        "_index": ".opendistro-anomaly-results-history-2021.10.04-1",
+        "_index": ".opensearch-anomaly-results-history-2021.10.04-1",
         "_type": "_doc",
         "_id": "VRyRTXwBDx7vzPBV8jYC",
         "_version": 1,
@@ -2315,10 +2327,10 @@ To get specific stats for a node:
 GET _plugins/_anomaly_detection/<nodeId>/stats/<stat>
 ```
 
-For example:
+For example, to get the `ad_execute_request_count` value for node `SWD7ihu9TaaW1zKwFZNVNg`:
 
 ```json
-GET _plugins/_anomaly_detection/<nodeId>/stats/ad_execute_request_count
+GET _plugins/_anomaly_detection/SWD7ihu9TaaW1zKwFZNVNg/stats/ad_execute_request_count
 ```
 
 #### Sample response
