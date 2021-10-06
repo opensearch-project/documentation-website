@@ -2733,8 +2733,6 @@ GET _plugins/_anomaly_detection/detectors/<detectorId>/_profile?_all=true
 
 ```json
 {
-  "category_field": "host",
-  "value": "i-00f28ec1eb8997686",
   "is_active": true,
   "last_active_timestamp": 1604026394879,
   "last_sample_timestamp": 1604026394879,
