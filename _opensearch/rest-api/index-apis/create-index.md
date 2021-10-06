@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Create index
-parent: REST API reference
-nav_order: 3
+parent: Index APIs
+grand_parent: REST API reference
+nav_order: 1
 ---
 
 # Create index
