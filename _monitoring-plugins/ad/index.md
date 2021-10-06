@@ -17,12 +17,10 @@ Anomaly detection  automatically detects anomalies in your OpenSearch data in ne
 
 You can pair the anomaly detection plugin with the [alerting plugin]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/) to notify you as soon as an anomaly is detected.
 
-## Get started with Anomaly Detection
-
 To get started, choose **Anomaly Detection** in OpenSearch Dashboards.
 To first test with sample streaming data, you can try out one of the preconfigured detectors with one of the sample datasets.
 
-### Step 1: Define a detector
+## Step 1: Define a detector
 
 A detector is an individual anomaly detection task. You can define multiple detectors, and all the detectors can run simultaneously, with each analyzing data from different sources.
 
@@ -45,7 +43,7 @@ Setting the window delay to 1 minute shifts the interval window to 1:49 - 1:59, 
 
 After you define the detector, the next step is to configure the model.
 
-### Step 2: Configure the model
+## Step 2: Configure the model
 
 #### Add features to your detector
 
@@ -100,7 +98,7 @@ Examine the sample preview and use it to fine-tune your feature configurations (
     - If you don't see any sample anomaly result, check the detector interval and make sure you have more than 400 data points for some entities during the preview date range.
 1. Choose **Next**.
 
-### Step 3: Set up detector jobs
+## Step 3: Set up detector jobs
 
 To start a real-time detector to find anomalies in your data in near real-time, check **Start real-time detector automatically (recommended)**.
 
@@ -110,11 +108,11 @@ Analyzing historical data helps you get familiar with the anomaly detection plug
 
 We recommend experimenting with historical analysis with different feature sets and checking the precision before moving on to real-time detectors.
 
-### Step 4: Review and create
+## Step 4: Review and create
 
 Review your model configuration and select **Create detector**.
 
-### Step 5: Observe the results
+## Step 5: Observe the results
 
 Choose the **Real-time results** or **Historical analysis** tab. For real-time results, you need to wait for some time to see the anomaly results. If the detector interval is 10 minutes, the detector might take more than an hour to start, as it's waiting for sufficient data to generate anomalies.
 
@@ -141,14 +139,13 @@ If you set the category field, you see an additional **Heat map** chart. The hea
 Choose and drag over the anomaly line chart to zoom in and see a more detailed view of an anomaly.
 {: .note }
 
-
-### Step 4: Set up alerts
+## Step 6: Set up alerts
 
 Under **Real-time results**, choose **Set up alerts** and configure a monitor to notify you when anomalies are detected. For steps to create a monitor and set up notifications based on your anomaly detector, see [Monitors]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/).
 
 If you stop or delete a detector, make sure to delete any monitors associated with it.
 
-### Step 5: Adjust the model
+## Step 7: Adjust the model
 
 To see all the configuration settings for a detector, choose the **Detector configuration** tab.
 
@@ -156,7 +153,7 @@ To see all the configuration settings for a detector, choose the **Detector conf
 - You need to stop real-time and historical analysis to change its configuration. Confirm that you want to stop the detector and proceed.
 1. To enable or disable features, in the **Features** section, choose **Edit** and adjust the feature settings as needed. After you make your changes, choose **Save and start detector**.
 
-### Step 8: Manage your detectors
+## Step 8: Manage your detectors
 
 To start, stop, or delete a detector, go to the **Detectors** page.
 
