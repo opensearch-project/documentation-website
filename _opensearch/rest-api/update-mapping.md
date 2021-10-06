@@ -6,6 +6,8 @@ nav_order: 6
 ---
 
 # Update mapping
+Introduced 1.0
+{: .label .label-purple }
 
 If you want to update an index's mappings to add or update field types after index creation, you can do so with the update mapping API operation.
 
