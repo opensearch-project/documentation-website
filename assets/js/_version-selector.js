@@ -1,3 +1,7 @@
+/* During build, DOC_VERSIONS is prefixed to convey all the versions available, informed by `_data/versions.json`
+ * Example:
+ *    const DOC_VERSIONS = ["1.1","1.0"];
+ */
 const PREFIX = "OpenSearch ";
 const tpl = `
     <style>
@@ -160,6 +164,16 @@ class VersionSelector extends HTMLElement {
     _instrument(shadowRoot) {
         shadowRoot.querySelector('#root').addEventListener('click', e => {
             this._expand(this.getAttribute('aria-expanded') !== 'true');
+        });
+
+        /* On some devices, `blur` is fired on the component before navigation occurs when choosing a version from the
+         * dropdown; this ends up hiding the dropdown and preventing the navigation. The `pointerup` on the anchor
+         * element is always fired before the `blur` is dispatched on the component and that is used here to trigger
+         * the navigation before the dropdown is hidden.
+         */
+        shadowRoot.querySelector('#dropdown').addEventListener('pointerup', e => {
+            const {target} = e;
+            if (target.matches('a[href]') && target.href) document.location.href = target.href;
         });
     }
 
