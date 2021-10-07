@@ -54,7 +54,7 @@ body {
 
 code {
   @include monospace;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   -webkit-font-smoothing: subpixel-antialiased;
   -moz-osx-font-smoothing: auto;
 }
@@ -105,6 +105,13 @@ code {
     padding-top: 1rem;
     padding-bottom: 0.6rem;
     padding-left: $sp-5;
+  }
+}
+
+.site-footer {
+  display: none;
+  @include mq(lg) {
+    display: block;
   }
 }
 
