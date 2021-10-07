@@ -31,7 +31,19 @@ To get started, choose **Index Management** in OpenSearch Dashboards.
 
 A policy is a set of rules that describes how an index should be managed. For information about creating a policy, see [Policies]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/).
 
-You can use the JSON editor or visual editor to create policies. Compared to the JSON editor, the visual editor offers a more structured way of defining policies by separating the process into creating error notifications, defining ISM templates, and adding states. We recommend using the visual editor if you want to see pre-defined fields, such as which actions you can assign to a state or under what conditions a state can transition into a destination state.
+You can use the visual editor or JSON editor to create policies. Compared to the JSON editor, the visual editor offers a more structured way of defining policies by separating the process into creating error notifications, defining ISM templates, and adding states. We recommend using the visual editor if you want to see pre-defined fields, such as which actions you can assign to a state or under what conditions a state can transition into a destination state.
+
+#### Visual editor
+
+1. Choose the **Index Policies** tab.
+2. Choose **Create policy**.
+3. Choose **Visual editor**.
+4. In the **Policy info** section, enter a policy ID and an optional description.
+5. In the **Error notification** section, set up an optional error notification that gets sent whenever a policy execution fails. For more information, see [Error notifications]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies#error-notifications).
+6. In **ISM templates**, enter any ISM template patterns to automatically apply this policy to existing and future indices. For example, if you specify a template of `sample-index*`, the ISM plugin automatically applies this policy to any indices whose names start with `sample-index`.
+7. In **States**, add any states you want to include in the policy. Each state has [actions]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/#actions) the plugin executes when the index enters a certain state, and [transitions]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/#transitions), which have conditions that, when met, transition the index into a destination state. The first state you create in a policy is automatically set as the initial state. Each policy must have at least one state, but actions and transitions are optional.
+8. Choose **Create**.
+
 
 #### JSON editor
 

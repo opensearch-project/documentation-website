@@ -39,7 +39,7 @@ Field | Description | Type | Required | Read Only
 
 ---
 
-## States  
+## States
 
 A state is the description of the status that the managed index is currently in. A managed index can be in only one state at a time. Each state has associated actions that are executed sequentially on entering a state and transitions that are checked after all the actions have been completed.
 
@@ -71,7 +71,7 @@ The `retry` operation has the following parameters:
 Parameter | Description | Type | Required | Default
 :--- | :--- |:--- |:--- |
 `count` | The number of retry counts. | `number` | Yes | -
-`backoff` | The backoff policy type to use when retrying. | `string` | No | Exponential
+`backoff` | The backoff policy type to use when retrying. Valid values are Exponential, Constant, and Linear. | `string` | No | Exponential
 `delay` | The time to wait between retries. Accepts time units for minutes, hours, and days. | `time unit` | No | 1 minute
 
 The following example action has a timeout period of one hour. The policy retries this action three times with an exponential backoff policy, with a delay of 10 minutes between each retry:
@@ -659,6 +659,6 @@ After 30 days, the policy moves this index into a `delete` state. The service se
 }
 ```
 
-This diagram shows the `states`, `transitions`, and `actions` of the above policy as a finite-state machine. For more information about finite-state machines, see [Wikipedia](https://en.wikipedia.org/wiki/Finite-state_machine).  
+This diagram shows the `states`, `transitions`, and `actions` of the above policy as a finite-state machine. For more information about finite-state machines, see [Wikipedia](https://en.wikipedia.org/wiki/Finite-state_machine).
 
 ![Policy State Machine]({{site.baseurl}}/images/ism.png)
