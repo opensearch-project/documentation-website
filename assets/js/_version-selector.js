@@ -143,10 +143,10 @@ class VersionSelector extends HTMLElement {
         const {shadowRoot} = this;
         const frag = this._makeFragment(tpl);
 
-        frag.querySelector('#selected').textContent = `${PREFIX}${this.getAttribute('selected')}`;
+        frag.querySelector('#selected').textContent = `${PREFIX}${this.getAttribute('selected')}.x`;
 
         const pathName = location.pathname.replace(/\/docs(\/((latest|\d+\.\d+)\/?)?)?/, '');
-        const versionsDOMText = DOC_VERSIONS.map((v, idx) => `<a href="/docs/${v}/${pathName}"${idx === 0 ? ' class="latest"' : ''}>${PREFIX}${v}</a>`)
+        const versionsDOMText = DOC_VERSIONS.map((v, idx) => `<a href="/docs/${v}/${pathName}"${idx === 0 ? ' class="latest"' : ''}>${PREFIX}${v}.x</a>`)
             .join('');
 
         frag.querySelector('#dropdown').appendChild(this._makeFragment(versionsDOMText));
