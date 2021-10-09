@@ -57,6 +57,9 @@ The OpenSearch Logstash plugin has two installation options at this time: Linux 
 
 Make sure you have [Java Development Kit (JDK)](https://www.oracle.com/java/technologies/javase-downloads.html) version 8 or 11 installed.
 
+If you're migrating from from Elasticsearch or Open Distro for Elasticsearch, make sure you use the `opensearch` Logstash output plugin.
+{: .note }
+
 ### Tarball
 
 1. Download the Logstash tarball from [OpenSearch downloads](https://opensearch.org/downloads.html).
