@@ -58,7 +58,7 @@ The default Helm chart deploys a three-node cluster. We recommend that you have 
 1. Deploy OpenSearch:
 
    ```bash
-   helm install my-release opensearch/opensearch
+   helm install my-deployment opensearch/opensearch
    ```
 
 You can also build the `opensearch-1.0.0.tgz` file manually:
