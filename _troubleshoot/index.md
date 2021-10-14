@@ -16,6 +16,21 @@ This page contains a list of common issues and workarounds.
 If you encounter the error `FATAL  Error: Request Timeout after 30000ms` during startup, try running OpenSearch Dashboards on a more powerful machine. We recommend four CPU cores and 8 GB of RAM.
 
 
+## Requests to OpenSearch Dashboards fail with "Request must contain a osd-xsrf header"
+
+If you run legacy Kibana OSS scripts against OpenSearch Dashboards---for example, curl commands that import saved objects from a file---they might fail with the following error:
+
+```json
+{"status": 400, "body": "Request must contain a osd-xsrf header."}
+```
+
+In this case, your scripts likely include the `"kbn-xsrf: true"` header. Switch it to the `osd-xsrf: true` header:
+
+```
+curl -XPOST -u 'admin:admin' 'https://DASHBOARDS_ENDPOINT/api/saved_objects/_import' -H 'osd-xsrf:true' --form file=@export.ndjson
+```
+
+
 ## Multi-tenancy issues in OpenSearch Dashboards
 
 If you're testing multiple users in OpenSearch Dashboards and encounter unexpected changes in tenant, use Google Chrome in an Incognito window or Firefox in a Private window.
