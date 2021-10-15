@@ -43,7 +43,7 @@ Option | Required | Description
 port | No | Integer, the port OTel trace source is running on. Default is `21890`.
 request_timeout | No | Integer, the request timeout in millis. Default is `10_000`.
 health_check_service | No | Boolean, enables a gRPC health check service under `grpc.health.v1/Health/Check`. Default is `false`.
-proto_reflection_service | No | Boolean, enables a reflection service for Protobuf services (see ProtoReflectionService and gRPC reflection docs). Default is `false`.
+proto_reflection_service | No | Boolean, enables a reflection service for Protobuf services (see [gRPC reflection](https://github.com/grpc/grpc/blob/master/doc/server-reflection.md) and [gRPC Server Reflection Tutorial](https://github.com/grpc/grpc-java/blob/master/documentation/server-reflection-tutorial.md) docs). Default is `false`.
 unframed_requests | No | Boolean, enable requests not framed using the gRPC wire protocol.
 thread_count | No | Integer, the number of threads to keep in the ScheduledThreadPool. Default is `200`.
 max_connection_count | No | Integer, the maximum allowed number of open connections. Default is `500`.
