@@ -1,28 +1,28 @@
 ---
 layout: default
-title: Elasticsearch OSS Java high-level REST client
+title: OpenSearch Java high-level REST client
 nav_order: 60
 ---
 
-# Elasticsearch OSS Java high-level REST client
+# OpenSearch Java high-level REST client
 
-The Elasticsearch OSS Java high-level REST client allows you to interact with your OpenSearch clusters and indices through Java methods and data structures rather than HTTP methods and JSON.
+The OpenSearch Java high-level REST client allows you to interact with your OpenSearch clusters and indices through Java methods and data structures rather than HTTP methods and JSON.
 
 You submit requests to your cluster using request objects, which allows you to create indices, add data to documents, or complete other operations with your cluster. In return, you get back response objects that have all of the available information, such as the associated index or ID, from your cluster.
 
 ## Setup
 
-To start using the Elasticsearch OSS Java high-level REST client, ensure that you have the following dependency in your project's `pom.xml` file:
+To start using the OpenSearch Java high-level REST client, ensure that you have the following dependency in your project's `pom.xml` file:
 
 ```
 <dependency>
-  <groupId>org.elasticsearch.client</groupId>
-  <artifactId>elasticsearch-rest-high-level-client</artifactId>
-  <version>7.10.2</version>
+  <groupId>org.opensearch.client</groupId>
+  <artifactId>opensearch-rest-high-level-client</artifactId>
+  <version>1.1.0</version>
 </dependency>
 ```
 
-You can now start your OpenSearch cluster. The 7.10.2 Elasticsearch OSS high-level REST client works with the 1.x versions of OpenSearch.
+You can now start your OpenSearch cluster. The OpenSearch 1.x high-level REST client works with the 1.x versions of OpenSearch.
 
 ## Sample code
 
@@ -33,22 +33,21 @@ import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.CredentialsProvider;
 import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.nio.client.HttpAsyncClientBuilder;
-import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
-import org.elasticsearch.action.delete.DeleteRequest;
-import org.elasticsearch.action.delete.DeleteResponse;
-import org.elasticsearch.action.get.GetRequest;
-import org.elasticsearch.action.get.GetResponse;
-import org.elasticsearch.action.index.IndexRequest;
-import org.elasticsearch.action.index.IndexResponse;
-import org.elasticsearch.action.support.master.AcknowledgedResponse;
-import org.elasticsearch.client.RequestOptions;
-import org.elasticsearch.client.RestClient;
-import org.elasticsearch.client.RestClientBuilder;
-import org.elasticsearch.client.RestHighLevelClient;
-import org.elasticsearch.client.indices.CreateIndexRequest;
-import org.elasticsearch.client.indices.CreateIndexResponse;
-import org.elasticsearch.common.settings.Settings;
-import org.elasticsearch.common.xcontent.XContentType;
+import org.opensearch.action.admin.indices.delete.DeleteIndexRequest;
+import org.opensearch.action.delete.DeleteRequest;
+import org.opensearch.action.delete.DeleteResponse;
+import org.opensearch.action.get.GetRequest;
+import org.opensearch.action.get.GetResponse;
+import org.opensearch.action.index.IndexRequest;
+import org.opensearch.action.index.IndexResponse;
+import org.opensearch.action.support.master.AcknowledgedResponse;
+import org.opensearch.client.RequestOptions;
+import org.opensearch.client.RestClient;
+import org.opensearch.client.RestClientBuilder;
+import org.opensearch.client.RestHighLevelClient;
+import org.opensearch.client.indices.CreateIndexRequest;
+import org.opensearch.client.indices.CreateIndexResponse;
+import org.opensearch.common.settings.Settings;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -59,7 +58,7 @@ public class RESTClientSample {
 
     //Point to keystore with appropriate certificates for security.
     System.setProperty("javax.net.ssl.trustStore", "/full/path/to/keystore");
-    System.setProperty("javax.net.ssl.trustStorePassword", password-to-keystore);
+    System.setProperty("javax.net.ssl.trustStorePassword", "password-to-keystore");
 
     //Establish credentials to use basic authentication.
     //Only for demo purposes. Do not specify your credentials in code.
@@ -122,3 +121,40 @@ public class RESTClientSample {
   }
 }
 ```
+
+# Elasticsearch OSS Java high-level REST client
+
+You may also continue to use the Elasticsearch OSS Java high-level REST client. Existing clients which have not yet migrated to using the OpenSearch Java high-level REST client should continue to work.
+
+The 7.10.2 Elasticsearch OSS high-level REST client works with the 1.x versions of OpenSearch.
+
+## Migrating to the OpenSearch Java high-level REST client
+
+Migrating to the OpenSearch high-level REST client from the Elasticsearch OSS client is often a straightforward process of changing Maven groupIds and Java packages.
+
+
+## Maven Dependencies
+
+Change:
+
+```
+<dependency>
+  <groupId>org.elasticsearch.client</groupId>
+  <artifactId>elasticsearch-rest-high-level-client</artifactId>
+  <version>7.10.2</version>
+</dependency>
+```
+
+to:
+
+```
+<dependency>
+  <groupId>org.opensearch.client</groupId>
+  <artifactId>opensearch-rest-high-level-client</artifactId>
+  <version>1.1.0</version>
+</dependency>
+```
+
+## Java code
+
+Once you have the OpenSearch client setup in your project, you should change existing Java package imports to `org.opensearch` from `org.elasticsearch`.
