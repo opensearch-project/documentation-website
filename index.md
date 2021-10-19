@@ -60,10 +60,18 @@ Docker
 1. In a new terminal session, run:
 
    ```bash
-   curl -XGET --insecure https://localhost:9200 -u admin:admin
+   curl -XGET --insecure -u 'admin:admin' 'https://localhost:9200'
    ```
 
-To learn more, see [Install and configure OpenSearch]({{site.url}}{{site.baseurl}}/opensearch/install/) and [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/install/).
+To learn more, see [Docker image]({{site.url}}{{site.baseurl}}/opensearch/install/docker/) and [Docker security configuration]({{site.url}}{{site.baseurl}}/opensearch/install/docker-security/).
+
+
+## Installation
+
+For more comprehensive installation instructions for other download types, such as tarballs, see these pages:
+
+- [Install and configure OpenSearch]({{site.url}}{{site.baseurl}}/opensearch/install/)
+- [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/install/)
 
 
 ## The secure path forward
