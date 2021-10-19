@@ -8,7 +8,7 @@ nav_order: 99
 
 Similar to the [Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index) that lets you use the HTTP request body to search for data, you can use the Dashbaords Query Language (DQL) in OpenSearch Dashboards to search for data and visualizations.
 
-For example, if you want to see all visualizations that relate to Windows 8, enter `win 8` into the search field, and Dashboards refreshes to display all data related to Windows 8.
+For example, if you want to see all visualizations of visits to a host based in the US, enter `geo.dest:US` into the search field, and Dashboards refreshes to display all related data.
 
 Just like query DSL, DQL comes in a handful of varieties, so use whichever best fits your use case.
 
@@ -25,19 +25,19 @@ Just like query DSL, DQL comes in a handful of varieties, so use whichever best 
 The most basic query is to just specify the term you're searching for.
 
 ```
-machine.os.keyword:win 8
+host.keyword:www.example.com
 ```
 
 DQL also supports wildcards, so you can search for any terms that match your pattern.
 
 ```
-machine.os.keyword:win*
+host.keyword:www.example.*
 ```
 
 To check if a field exists or has any data, use a wildcard to see if Dashboards returns any results.
 
 ```
-machine.os.keyword:*
+host.keyword:*
 ```
 
 ## Boolean query
@@ -45,21 +45,21 @@ machine.os.keyword:*
 To mix and match, or even combine, multiple queries for more refined results, you can use the boolean operators `and`, `or`, and `not`. DQL is not case sensitive, so `AND` and `and` are the same.
 
 ```
-machine.os.keyword:win 8 and response.keyword:200
+host.keyword:www.example.com and response.keyword:200
 ```
 
 The following example demonstrates how to use multiple operators in one query.
 
 ```
-machine.os.keyword:win 8 or response.keyword:200 and host.keyword:www.example.com
+geo.dest:US or response.keyword:200 and host.keyword:www.example.com
 ```
 
-Remember that logical precedence for boolean operators follows the order `not`, `and`, and `or`, so if you have an expression like the previous example, `response.keyword:200 and host.keyword:www.example.com` gets evaluated first, and then Dashboards uses that result to compare with `machine.os.keyword:win 8`.
+Remember that boolean operators follow the logical precedence order of `not`, `and`, and `or`, so if you have an expression like the previous example, `response.keyword:200 and host.keyword:www.example.com` gets evaluated first, and then Dashboards uses that result to compare with `geo.dest:US`.
 
-To avoid confusion, we recommend using parentheses to dictate the order you want to evaluate in. If you want to evaluate `machine.os.keyword:win 8 or response.keyword:200` first, your expression becomes:
+To avoid confusion, we recommend using parentheses to dictate the order you want to evaluate in. If you want to evaluate `geo.dest:US or response.keyword:200` first, your expression becomes:
 
 ```
-(machine.os.keyword:win 8 or response.keyword:200) and host.keyword:www.example.com
+(geo.dest:US or response.keyword:200) and host.keyword:www.example.com
 ```
 
 ## Date and range queries
