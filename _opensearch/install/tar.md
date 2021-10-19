@@ -24,11 +24,13 @@ The tarball supports most Linux distributions, including CentOS 7, Amazon Linux 
    cd opensearch-{{site.opensearch_version}}
    ```
 
-1. Run OpenSearch:
+1. Run OpenSearch with the demo security configuration:
 
    ```bash
    ./opensearch-tar-install.sh
    ```
+
+   If you configure the security plugin for production use (or disable it), you can run OpenSearch using `./bin/opensearch`.
 
 1. Open a second terminal session, and send requests to the server to verify that OpenSearch is up and running:
 
