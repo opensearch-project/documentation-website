@@ -36,7 +36,7 @@ PUT my-knn-index-1
     "properties": {
         "my_vector1": {
           "type": "knn_vector",
-          "dimension": 4,
+          "dimension": 2,
           "method": {
             "name": "hnsw",
             "space_type": "l2",
