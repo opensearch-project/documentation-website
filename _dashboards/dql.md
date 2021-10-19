@@ -10,7 +10,9 @@ Similar to the [Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/ind
 
 For example, if you want to see all visualizations of visits to a host based in the US, enter `geo.dest:US` into the search field, and Dashboards refreshes to display all related data.
 
-Just like query DSL, DQL comes in a handful of varieties, so use whichever best fits your use case.
+Just like the query DSL, DQL has a handful of query types, so use whichever best fits your use case.
+
+This section uses the OpenSearch Dashbaords sample web log data. To add sample data in Dashboards, log in to OpenSearch Dashboards, choose **Home**, **Add sample data**, and then **Add data**.
 
 ---
 
@@ -25,13 +27,19 @@ Just like query DSL, DQL comes in a handful of varieties, so use whichever best 
 The most basic query is to just specify the term you're searching for.
 
 ```
-host.keyword:www.example.com
+host:www.example.com
 ```
 
-DQL also supports wildcards, so you can search for any terms that match your pattern.
+To access an object's nested field, list the complete path to the field separated by periods. For example, to retrieve the `lat` field in the `coordinates` object:
 
 ```
-host.keyword:www.example.*
+coordinates.lat:43.7102
+```
+
+DQL also supports leading and trailing wildcards, so you can search for any terms that match your pattern.
+
+```
+host.keyword:*.example.com/*
 ```
 
 To check if a field exists or has any data, use a wildcard to see if Dashboards returns any results.
