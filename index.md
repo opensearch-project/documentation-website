@@ -66,6 +66,8 @@ Docker
 To learn more, see [Docker image]({{site.url}}{{site.baseurl}}/opensearch/install/docker/) and [Docker security configuration]({{site.url}}{{site.baseurl}}/opensearch/install/docker-security/).
 
 
+---
+
 ## Installation
 
 For more comprehensive installation instructions for other download types, such as tarballs, see these pages:
