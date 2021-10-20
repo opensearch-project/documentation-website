@@ -122,39 +122,12 @@ public class RESTClientSample {
 }
 ```
 
-# Elasticsearch OSS Java high-level REST client
+## Elasticsearch OSS Java high-level REST client
 
-You may also continue to use the Elasticsearch OSS Java high-level REST client. Existing clients which have not yet migrated to using the OpenSearch Java high-level REST client should continue to work.
+We recommend using the OpenSearch client to connect to OpenSearch clusters, but if you must use the Elasticsearch OSS Java high-level REST client, version 7.10.2 of the Elasticsearch OSS client also works with the 1.x versions of OpenSearch.
 
-The 7.10.2 Elasticsearch OSS high-level REST client works with the 1.x versions of OpenSearch.
+### Migrating to the OpenSearch Java high-level REST client
 
-## Migrating to the OpenSearch Java high-level REST client
+Migrating from the Elasticsearch OSS client to the OpenSearch high-level REST client is as simple as changing your Maven dependency to one that references [OpenSearch's dependency](#setup).
 
-Migrating to the OpenSearch high-level REST client from the Elasticsearch OSS client is often a straightforward process of changing Maven groupIds and Java packages.
-
-
-## Maven Dependencies
-
-Change:
-
-```
-<dependency>
-  <groupId>org.elasticsearch.client</groupId>
-  <artifactId>elasticsearch-rest-high-level-client</artifactId>
-  <version>7.10.2</version>
-</dependency>
-```
-
-to:
-
-```
-<dependency>
-  <groupId>org.opensearch.client</groupId>
-  <artifactId>opensearch-rest-high-level-client</artifactId>
-  <version>1.1.0</version>
-</dependency>
-```
-
-## Java code
-
-Once you have the OpenSearch client setup in your project, you should change existing Java package imports to `org.opensearch` from `org.elasticsearch`.
+Afterward, change all references of `org.elasticsearch` to `org.opensearch`, and you're ready to start submitting requests to your OpenSearch cluster.
