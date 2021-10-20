@@ -37,13 +37,13 @@ The default Helm chart deploys a three-node cluster. We recommend that you have 
    helm repo add opensearch https://opensearch-project.github.io/helm-charts/
    ```
 
-1. Update the available charts locally from Charts repositories:
+1. Update the available charts locally from charts repositories:
 
    ```bash
    helm repo update
    ```
 
-1. To search for the OpenSearch-related Helm Charts:
+1. To search for the OpenSearch-related Helm charts:
 
    ```bash
    helm search repo opensearch
