@@ -12,7 +12,7 @@ For example, if you want to see all visualizations of visits to a host based in 
 
 Just like the query DSL, DQL has a handful of query types, so use whichever best fits your use case.
 
-This section uses the OpenSearch Dashbaords sample web log data. To add sample data in Dashboards, log in to OpenSearch Dashboards, choose **Home**, **Add sample data**, and then **Add data**.
+This section uses the OpenSearch Dashboards sample web log data. To add sample data in Dashboards, log in to OpenSearch Dashboards, choose **Home**, **Add sample data**, and then **Add data**.
 
 ---
 
