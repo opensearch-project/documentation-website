@@ -6,7 +6,9 @@ nav_order: 65
 
 # Java client
 
-The OpenSearch Java client allows you to interact with your OpenSearch clusters through Java methods and data structures rather than HTTP methods and raw JSON. For example, you can submit requests to your cluster using objects to create indices, add data to documents, or complete some other operation using the client's built-in methods.
+The OpenSearch Java client allows you to interact with your OpenSearch clusters through Java methods and data structures rather than HTTP methods and raw JSON.
+
+For example, you can submit requests to your cluster using objects to create indices, add data to documents, or complete some other operation using the client's built-in methods.
 
 ## Setup
 
@@ -15,8 +17,8 @@ To start using the OpenSearch Java client, ensure that you have the following de
 ```
 <dependency>
   <groupId>org.opensearch.client</groupId>
-  <artifactId>opensearch-rest-client</artifactId>
-  <version>1.0.0</version>
+  <artifactId>opensearch-java</artifactId>
+  <version>0.1.0</version>
 </dependency>
 ```
 

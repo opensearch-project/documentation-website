@@ -6,9 +6,10 @@ nav_order: 60
 
 # OpenSearch Java high-level REST client
 
-The OpenSearch Java high-level REST client allows you to interact with your OpenSearch clusters and indices through Java methods and data structures rather than HTTP methods and JSON.
+Although the OpenSearch Java high-level REST client is still usable, we recommend that you use the [OpenSearch Java client]({{site.url}}{{site.baseurl}}/clients/java/), which replaces the existing Java high-level REST client.
+{: .note}
 
-You submit requests to your cluster using request objects, which allows you to create indices, add data to documents, or complete other operations with your cluster. In return, you get back response objects that have all of the available information, such as the associated index or ID, from your cluster.
+The OpenSearch Java high-level REST client lets you interact with your OpenSearch clusters and indices through Java methods and data structures rather than HTTP methods and JSON.
 
 ## Setup
 
