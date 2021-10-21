@@ -34,10 +34,11 @@ Component | Purpose
 [Index State Management]({{site.url}}{{site.baseurl}}/im-plugin/) | Automate index operations
 [KNN]({{site.url}}{{site.baseurl}}/search-plugins/knn/) | Find “nearest neighbors” in your vector data
 [Performance Analyzer]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/) | Monitor and optimize your cluster
-[Anomaly Detection]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/) | Identify atypical data and receive automatic notifications
-[Asynchronous Search]({{site.url}}{{site.baseurl}}/search-plugins/async/) | Run search requests in the background
+[Anomaly detection]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/) | Identify atypical data and receive automatic notifications
+[Asynchronous search]({{site.url}}{{site.baseurl}}/search-plugins/async/) | Run search requests in the background
+[Cross-cluster replication]({{site.url}}{{site.baseurl}}/replication-plugin/index/) | Replicate your data across multiple OpenSearch clusters
 
-Most of OpenSearch plugins have a corresponding OpenSearch Dashboards plugin that provide a convenient, unified user interface.
+Most OpenSearch plugins have corresponding OpenSearch Dashboards plugins that provide a convenient, unified user interface.
 
 For specifics around the project, see the [FAQ](https://opensearch.org/faq/).
 
@@ -59,10 +60,20 @@ Docker
 1. In a new terminal session, run:
 
    ```bash
-   curl -XGET --insecure https://localhost:9200 -u admin:admin
+   curl -XGET --insecure -u 'admin:admin' 'https://localhost:9200'
    ```
 
-To learn more, see [Install and configure OpenSearch]({{site.url}}{{site.baseurl}}/opensearch/install/) and [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/install/).
+To learn more, see [Docker image]({{site.url}}{{site.baseurl}}/opensearch/install/docker/) and [Docker security configuration]({{site.url}}{{site.baseurl}}/opensearch/install/docker-security/).
+
+
+---
+
+## Installation
+
+For more comprehensive installation instructions for other download types, such as tarballs, see these pages:
+
+- [Install and configure OpenSearch]({{site.url}}{{site.baseurl}}/opensearch/install/)
+- [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/install/)
 
 
 ## The secure path forward

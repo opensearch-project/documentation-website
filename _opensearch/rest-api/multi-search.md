@@ -1,63 +1,94 @@
 ---
 layout: default
-title: Multi search
+title: Multi-search
 parent: REST API reference
 nav_order: 130
 ---
 
-# Multi search
+# Multi-search
 Introduced 1.0
 {: .label .label-purple }
 
-The multi-search operation lets you bundle multiple search requests and send them to your OpenSearch cluster in a single request. This operation executes searches in parallel, so you get back the response more quickly as compared to independent search requests. It also executes each request independently, so the failure of one request doesn't affect the others.
+As the name suggests, the multi-search operation lets you bundle multiple search requests into a single request. OpenSearch then executes the searches in parallel, so you get back the response more quickly compared to sending one request per search. OpenSearch executes each search independently, so the failure of one doesn't affect the others.
 
-The multi-search request body follows this pattern:
-
-```
-header\n
-body\n
-header\n
-body\n
-```
-
-OpenSearch uses newline characters to parse multi-search requests and requires that each request ends with a newline character.
 
 ## Example
 
 ```json
 GET _msearch
-{"index":"opensearch_dashboards_sample_data_logs"}
-{"query":{"match_all":{}},"from":0,"size":10}
-{"index":"opensearch_dashboards_sample_data_ecommerce","search_type":"dfs_query_then_fetch"}
-{"query":{"match_all":{}}}
+{ "index": "opensearch_dashboards_sample_data_logs"}
+{ "query": { "match_all": {} }, "from": 0, "size": 10}
+{ "index": "opensearch_dashboards_sample_data_ecommerce", "search_type": "dfs_query_then_fetch"}
+{ "query": { "match_all": {} } }
+
 ```
+
 
 ## Path and HTTP methods
 
 ```
-GET <target>/_msearch
+GET _msearch
+GET <indices>/_msearch
+POST _msearch
+POST <indices>/_msearch
 ```
 
-## URL parameters
 
-All multi-search URL parameters are optional.
+## Request body
 
-Parameter | Type | Description
+The multi-search request body follows this pattern:
+
+```
+Metadata\n
+Query\n
+Metadata\n
+Query\n
+
+```
+
+- Metadata lines include options, such as which indices to search and the type of search.
+- Query lines use the [query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/).
+
+Just like the [bulk]({{site.url}}{{site.baseurl}}/opensearch/rest-api/document-apis/bulk/) operation, the JSON doesn't need to be minified---spaces are fine---but it does need to be on a single line. OpenSearch uses newline characters to parse multi-search requests and requires that the request body end with a newline character.
+
+
+## URL parameters and metadata options
+
+All multi-search URL parameters are optional. Some can also be applied per-search as part of each metadata line.
+
+Parameter | Type | Description | Supported in metadata line
 :--- | :--- | :---
-`allow_no_indices` | Boolean | Whether to ignore wildcards that don't match any indices. Default is `true`.
-`css_minimize_roundtrips` | Boolean | If true, network roundtrips between the local node and remote clusters are minimized for cross-cluster search requests. Default is `true`.
-`expand_wildcards` | Enum | Expands wildcard expressions to concrete indices. Combine multiple values with commas. Supported values are `all`, `open`, `closed`, `hidden`, and `none`. Default is `open`.
-`ignore_unavailable` | Boolean | If an index from the indices list doesn’t exist, whether to ignore it rather than fail the query. Default is `false`.
-`max_concurrent_searches` | Integer | Maximum number of searches executed in parallel. Default is `max(1, (number of of data nodes * min(search thread pool size, 10)))`.
-`max_concurrent_shard_requests` | Integer | Maximum number of concurrent shard requests that each sub-search request executes per node. Default is 5. If you have an environment where a very low number of concurrent search requests is expected, a higher value of this parameter might improve performance.
-`pre_filter_shard_size` | Integer | Defines a threshold that enforces a round-trip to pre-filter search shards that cannot possibly match. This filter phase can limit the number of searched shards significantly. For instance, if a date range filter is applied, then all indices that don't contain documents within that date range are skipped. Default is 128.
-`rest_total_hits_as_int` | String | Whether the `hits.total` property is returned as an integer or an object. Default is `false`.
-`search_type` | String | Whether global term and document frequencies are used when calculating the relevance score. Valid choices are `query_then_fetch` and `dfs_query_then_fetch`. `query_then_fetch` scores documents using local term and document frequencies for the shard. It's usually faster but less accurate. `dfs_query_then_fetch` scores documents using global term and document frequencies across all shards. It's usually slower but more accurate. Default is `query_then_fetch`.
-`typed_keys` | Boolean | Whether aggregation names are prefixed by their internal types in the response. Default is `false`.
+allow_no_indices | Boolean | Whether to ignore wildcards that don't match any indices. Default is `true`. | Yes
+css_minimize_roundtrips | Boolean | Whether OpenSearch should try to minimize the number of network round trips between the coordinating node and remote clusters (only applicable to cross-cluster search requests). Default is `true`. | No
+expand_wildcards | Enum | Expands wildcard expressions to concrete indices. Combine multiple values with commas. Supported values are `all`, `open`, `closed`, `hidden`, and `none`. Default is `open`. | Yes
+ignore_unavailable | Boolean | If an index from the indices list doesn’t exist, whether to ignore it rather than fail the query. Default is `false`. | Yes
+max_concurrent_searches | Integer | The maximum number of concurrent searches. The default depends on your node count and search thread pool size. Higher values can improve performance, but risk overloading the cluster. | No
+max_concurrent_shard_requests | Integer | Maximum number of concurrent shard requests that each search executes per node. Default is 5. Higher values can improve performance, but risk overloading the cluster. | No
+pre_filter_shard_size | Integer | Default is 128. | No
+rest_total_hits_as_int | String | Whether the `hits.total` property is returned as an integer (`true`) or an object (`false`). Default is `false`. | No
+search_type | String | Affects relevance score. Valid options are `query_then_fetch` and `dfs_query_then_fetch`. `query_then_fetch` scores documents using term and document frequencies for the shard (faster, less accurate), whereas `dfs_query_then_fetch` uses term and document frequencies across all shards (slower, more accurate). Default is `query_then_fetch`. | Yes
+typed_keys | Boolean | Whether to prefix aggregation names with their internal types in the response. Default is `false`. | No
+
+{% comment %}Regarding `pre_filter_shard_size`: The description from the REST API specification is unintelligible---to me, anyway. I wasn't able to learn anything from reading the source code, either, so I've included the default value and nothing else in the table above. - aetter
+
+From the REST API specification: A threshold that enforces a pre-filter round trip to prefilter search shards based on query rewriting if the number of shards the search request expands to exceeds the threshold. This filter roundtrip can limit the number of shards significantly if for instance a shard can not match any documents based on its rewrite method ie. if date filters are mandatory to match but the shard bounds and the query are disjoint.{% endcomment %}
+
+
+## Metadata-only options
+
+Some options can't be applied as URL parameters to the entire request. Instead, you can apply them per-search as part of each metadata line. All are optional.
+
+Option | Type | Description
+:--- | :--- | :---
+index | String, string array | If you don't specify an index or multiple indices as part of the URL (or want to override the URL value for an individual search), you can include it here. Examples include `"logs-*"` and `["my-store", "sample_data_ecommerce"]`.
+preference | String | The nodes or shards that you'd like to perform the search. This setting can be useful for testing, but in most situations, the default behavior provides the best search latencies. Options include `_local`, `_only_local`, `_prefer_nodes`, `_only_nodes`, and `_shards`. These last three options accept a list of nodes or shards. Examples include `"_only_nodes:data-node1,data-node2"` and `"_shards:0,1`.
+request_cache | Boolean | Whether to cache results, which can improve latency for repeat searches. Default is to use the `index.requests.cache.enable` setting for the index (which defaults to `true` for new indices).
+routing | String | Comma-separated custom routing values (e.g. `"routing": "value1,value2,value3"`.
+
 
 ## Response
 
-You get back the responses in an array form, where the search response for each search request matches its order in the original multi-search request.
+OpenSearch returns an array with the results of each search in the same order as the multi-search request.
 
 ```json
 {

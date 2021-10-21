@@ -6,6 +6,8 @@ nav_order: 6
 ---
 
 # Update mapping
+Introduced 1.0
+{: .label .label-purple }
 
 If you want to update an index's mappings to add or update field types after index creation, you can do so with the update mapping API operation.
 
@@ -47,12 +49,12 @@ All update mapping parameters are optional.
 
 Parameter | Data Type | Description
 :--- | :--- | :---
-allow_no_indices | Boolean | If false, the request returns an error if any wildcard expresion or index alias targets any closed or missing indices. Defaults to false.
+allow_no_indices | Boolean | Whether to ignore wildcards that don’t match any indices. Default is `true`.
 expand_wildcards | String | Expands wildcard expressions to different indices. Combine multiple values with commas. Available values are `all` (match all indices), `open` (match open indices), `closed` (match closed indices), `hidden` (match hidden indices), and `none` (do not accept wildcard expressions), which must be used with `open`, `closed`, or both. Default is `open`.
 ignore_unavailable | Boolean | If true, OpenSearch does not include missing or closed indices in the response.
 master_timeout | Time | How long to wait for a connection to the master node. Default is `30s`.
 timeout | Time | How long to wait for the response to return. Default is `30s`.
-write_index_only | Boolean | If true, the specified mappings are applied only to the write index.
+write_index_only | Boolean | Whether OpenSearch should apply mapping updates only to the write index.
 
 ## Request body
 

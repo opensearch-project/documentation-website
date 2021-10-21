@@ -30,11 +30,7 @@ POST /sample-index1/_update/1
 POST /test-index1/_update/1
 {
   "script" : {
-    "source": "ctx._source.oldValue += params.newValue",
-    "lang": "painless",
-    "params" : {
-      "newValue" : 10
-    }
+    "source": "ctx._source.secret_identity = \"Batman\""
   }
 }
 ```
@@ -42,22 +38,22 @@ POST /test-index1/_update/1
 ## Path and HTTP methods
 
 ```
-POST /<index-name>/_update/<_id>
+POST /<index>/_update/<_id>
 ```
 
 ## URL parameters
 
 Parameter | Type | Description | Required
 :--- | :--- | :--- | :---
-&lt;index-name&gt; | String | Name of the index. | Yes
+&lt;index&gt; | String | Name of the index. | Yes
 &lt;_id&gt; | String | The ID of the document to update. | Yes
 if_seq_no | Integer | Only perform the delete operation if the document's version number matches the specified number. | No
-if_primary_term | Integer | Only perform the delete operation if the document has the specified primary term. | No
+if_primary_term | Integer | Perform the update operation if the document has the specified primary term. | No
 lang | String | Language of the script. Default is `painless`. | No
 require_alias | Boolean | Specifies whether the destination must be an index alias. Default is false. | No
-refresh | Enum | If true, OpenSearch refreshes shards to make the operation visible to searching. Valid options are `true`, `false`, and `wait_for`, which tells OpenSearch to wait for a refresh before executing the operation. Default is false. | No
+refresh | Enum | If true, OpenSearch refreshes shards to make the operation visible to searching. Valid options are `true`, `false`, and `wait_for`, which tells OpenSearch to wait for a refresh before executing the operation. Default is `false`. | No
 retry_on_conflict | Integer | The amount of times OpenSearch should retry the operation if there's a document conflict. Default is 0. | No
-routing | String | Value used to route the operation to a specific shard. | No
+routing | String | Value to route the update operation to a specific shard. | No
 _source | List | Whether to include the `_source` field in the response body. Default is true. | No
 _source_excludes | List | A comma-separated list of source fields to exclude in the query response. | No
 _source_includes | List | A comma-separated list of source fields to include in the query response. | No

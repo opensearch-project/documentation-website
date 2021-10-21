@@ -195,7 +195,7 @@ You can use composable index templates to overcome these challenges. Composable 
 
 You can combine component templates to compose an index template.
 
-Settings and mappings that you specify directly in the [create index]({{site.url}}{{site.baseurl}}/opensearch/rest-api/create-index/) request override any settings or mappings specified in an index template and its component templates.
+Settings and mappings that you specify directly in the [create index]({{site.url}}{{site.baseurl}}/opensearch/rest-api/index-apis/create-index/) request override any settings or mappings specified in an index template and its component templates.
 {: .note }
 
 ### Create a component template
@@ -328,71 +328,6 @@ GET logs-2020-01-01
 }
 ```
 
-### Simulate multi-component templates
-
-For index templates composed of multiple component templates, you can simulate applying a new template to verify whether the settings are applied as you expect.
-
-To simulate the settings that would be applied to a specific index name:
-
-```json
-POST _index_template/_simulate_index/<index_name>
-```
-
-To simulate the settings that would be applied from an existing template:
-
-```json
-POST _index_template/_simulate/<index_template>
-```
-
-You can also specify a template definition in the simulate request:
-
-```json
-POST _index_template/_simulate
-{
-  "index_patterns": [
-    "logs-2020-01-*"
-  ],
-  "template": {
-    "settings" : {
-        "index.number_of_shards" : 3
-    }
-  },
-  "composed_of": ["component_template_1", "component_template_2"]
-}
-```
-
-The `_simulate` API returns the final settings, mappings, and aliases that will be applied to indices that match the index pattern. You can also see any overlapping templates whose configuration is superseded by the simulated template body or higher priority templates:
-
-```json
-{
-  "template" : {
-    "settings" : {
-      "index" : {
-        "number_of_shards" : "3"
-      }
-    },
-    "mappings" : {
-      "properties" : {
-        "@timestamp" : {
-          "type" : "date"
-        },
-        "ip_address" : {
-          "type" : "ip"
-        }
-      }
-    },
-    "aliases" : { }
-  },
-  "overlapping" : [
-    {
-      "name" : "daily_logs",
-      "index_patterns" : [
-        "logs-2020-01-*"
-      ]
-    }
-  ]
-}
-```
 
 ## Index template options
 

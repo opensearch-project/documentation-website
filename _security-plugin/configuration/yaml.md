@@ -126,7 +126,7 @@ plugins.security.restapi.password_validation_error_message: "Password must be mi
 
 ## whitelist.yml
 
-You can use `whitelist.yml` to allow list any endpoints and HTTP requests. If enabled, all users except the SuperAdmin are allowed access to only the specified endpoints and HTTP requests, and all other HTTP requests associated with the endpoint are denied. For example, if GET `_cluster/settings` is allow listed, users cannot submit PUT requests to `_cluster/settings` to update cluster settings.
+You can use `whitelist.yml` to add any endpoints and HTTP requests to a list of allowed endpoints and requests. If enabled, all users except the super admin are allowed access to only the specified endpoints and HTTP requests, and all other HTTP requests associated with the endpoint are denied. For example, if GET `_cluster/settings` is added to the allow list, users cannot submit PUT requests to `_cluster/settings` to update cluster settings.
 
 Note that while you can configure access to endpoints this way, for most cases, it is still best to configure permissions using the security plugin's users and roles, which have more granular settings.
 
@@ -165,7 +165,7 @@ requests:
     - PUT
 ```
 
-You can also allow list custom indices. `whitelist.yml` doesn't support wildcards, so you must manually specify all of the indices you want to allow list.
+You can also add custom indices to the allow list. `whitelist.yml` doesn't support wildcards, so you must manually specify all of the indices you want to add.
 
 ```yml
 requests: # Only allow GET requests to /sample-index1/_doc/1 and /sample-index2/_doc/1
@@ -315,6 +315,10 @@ _meta:
 
 ## tenants.yml
 
+You can use this file to specify and add any number of OpenSearch Dashboards tenants to your OpenSearch cluster. For more information about tenants, see [OpenSearch Dashboards multi-tenancy]({{site.url}}{{site.baseurl}}/security-plugin/access-control/multi-tenancy).
+
+Like all of the other YAML files, we recommend you use `tenants.yml` to add any tenants you must have in your cluster, and then use OpenSearch Dashboards or the [REST API]({{site.url}}{{site.baseurl}}/security-plugin/access-control/api/#tenants) if you need to further configure or create any other tenants.
+
 ```yml
 ---
 _meta:
@@ -325,8 +329,11 @@ admin_tenant:
   description: "Demo tenant for admin user"
 ```
 
-
 ## nodes_dn.yml
+
+`nodes_dn.yml` lets you add certificates' [distinguished names (DNs)]({{site.url}}{{site.baseurl}}/security-plugin/configuration/generate-certificates/#add-distinguished-names-to-opensearchyml) an allow list to enable communication between any number of nodes and/or clusters. For example, a node that has the DN `CN=node1.example.com` in its allow list accepts communication from any other node or certificate that uses that DN.
+
+The DNs get indexed into a [system index]({{site.url}}{{site.baseurl}}/security-plugin/configuration/system-indices) that only a super admin or an admin with a Transport Layer Security (TLS) certificate can access. If you want to programmatically add DNs to your allow lists, use the [REST API]({{site.url}}{{site.baseurl}}/security-plugin/access-control/api/#distinguished-names).
 
 ```yml
 ---
