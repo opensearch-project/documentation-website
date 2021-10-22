@@ -24,7 +24,48 @@ To start using the OpenSearch Java client, ensure that you have the following de
 
 You can now start your OpenSearch cluster.
 
+The following example uses credentials that come with the default OpenSearch configuration. If you're using the OpenSearch Java client with your own OpenSearch cluster, be sure to change the code to use your own credentials.
+
 ## Sample code
+
+This section uses a class called `IndexData`, which is a simple Java class that stores basic data and methods. For your own OpenSearch cluster, you might find that you need a more robust class to store your data.
+
+### IndexData class
+
+```java
+static class IndexData {
+  private String firstName;
+  private String lastName;
+
+  public IndexData(String firstName, String lastName) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+  }
+
+  public String getFirstName() {
+    return firstName;
+  }
+
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
+  }
+
+  public String getLastName() {
+    return lastName;
+  }
+
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
+  }
+
+  @Override
+  public String toString() {
+    return String.format("IndexData{first name='%s', last name='%s'}", firstName, lastName);
+  }
+}
+```
+
+### OpenSearch client example
 
 ```java
 import org.apache.http.HttpHost;
@@ -47,25 +88,25 @@ import org.opensearch.clients.opensearch.indices.put_settings.IndexSettingsBody;
 
 import java.io.IOException;
 
-
-public class Main {
-  public static void main(String[] args) throws IOException{
+public class OpenSearchClientExample {
+  public static void main(String[] args) {
+    try{
     System.setProperty("javax.net.ssl.trustStore", "/full/path/to/keystore");
     System.setProperty("javax.net.ssl.trustStorePassword", "password-to-keystore");
 
     //Only for demo purposes. Don't specify your credentials in code.
     final CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
     credentialsProvider.setCredentials(AuthScope.ANY,
-        new UsernamePasswordCredentials("admin", "admin"));
+      new UsernamePasswordCredentials("admin", "admin"));
 
     //Initialize the client with SSL and TLS enabled
     RestClient restClient = RestClient.builder(new HttpHost("localhost", 9200, "https")).
-        setHttpClientConfigCallback(new RestClientBuilder.HttpClientConfigCallback() {
-          @Override
-          public HttpAsyncClientBuilder customizeHttpClient(HttpAsyncClientBuilder httpClientBuilder) {
-            return httpClientBuilder.setDefaultCredentialsProvider(credentialsProvider);
-          }
-        }).build();
+      setHttpClientConfigCallback(new RestClientBuilder.HttpClientConfigCallback() {
+        @Override
+        public HttpAsyncClientBuilder customizeHttpClient(HttpAsyncClientBuilder httpClientBuilder) {
+        return httpClientBuilder.setDefaultCredentialsProvider(credentialsProvider);
+        }
+      }).build();
     Transport transport = new RestClientTransport(restClient, new JacksonJsonpMapper());
     OpenSearchClient client = new OpenSearchClient(transport);
 
@@ -99,7 +140,10 @@ public class Main {
     DeleteResponse deleteResponse = client.indices().delete(deleteRequest);
 
     restClient.close();
+    }
+    catch (IOException e){
+      System.out.println(e.toString());
+    }
   }
 }
-
 ```

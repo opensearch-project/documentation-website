@@ -19,7 +19,7 @@ To start using the OpenSearch Java high-level REST client, ensure that you have 
 <dependency>
   <groupId>org.opensearch.client</groupId>
   <artifactId>opensearch-rest-high-level-client</artifactId>
-  <version>1.1.0</version>
+  <version>{{site.opensearch_version}}</version>
 </dependency>
 ```
 
