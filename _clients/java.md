@@ -140,10 +140,17 @@ public class OpenSearchClientExample {
     DeleteResponse deleteResponse = client.indices().delete(deleteRequest);
 
     restClient.close();
-    }
-    catch (IOException e){
+    } catch (IOException e){
       System.out.println(e.toString());
-    }
+    } finally {
+			try {
+				if (client != null) {
+					client.close();
+				}
+			} catch (IOException e) {
+				System.out.println(e.toString());
+			}
+		}
   }
 }
 ```
