@@ -53,10 +53,10 @@ The `authc` section has the following format:
   http_enabled: <true|false>
   transport_enabled: <true|false>
   order: <integer>
-    http_authenticator:
-      ...
-    authentication_backend:
-      ...
+  http_authenticator:
+    ...
+  authentication_backend:
+    ...
 ```
 
 An entry in the `authc` section is called an *authentication domain*. It specifies where to get the user credentials and against which backend they should be authenticated.

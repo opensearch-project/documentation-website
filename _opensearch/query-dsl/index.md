@@ -5,7 +5,10 @@ nav_order: 27
 has_children: true
 redirect_from:
   - /opensearch/query-dsl/
+  - /docs/opensearch/query-dsl/
 ---
+
+{%- comment -%}The `/docs/opensearch/query-dsl/` redirect is specifically to support the UI links in OpenSearch Dashboards 1.0.0.{%- endcomment -%}
 
 # Query DSL
 

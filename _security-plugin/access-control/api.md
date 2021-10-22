@@ -1,7 +1,7 @@
 ---
 layout: default
 title: API
-parent: Access Control
+parent: Access control
 nav_order: 90
 ---
 
@@ -1159,6 +1159,12 @@ Introduced 1.0
 
 Updates the existing configuration using the REST API. This operation can easily break your existing configuration, so we recommend using `securityadmin.sh` instead, which is far safer. See [Access control for the API](#access-control-for-the-api) for how to enable this operation.
 
+Before you can execute the operation, you must first add the following line to `opensearch.yml`:
+
+```yml
+plugins.security.unsupported.restapi.allow_securityconfig_modification: true
+```
+
 #### Request
 
 ```json
@@ -1176,6 +1182,106 @@ PATCH _plugins/_security/api/securityconfig
 {
   "status": "OK",
   "message": "Resource updated."
+}
+```
+
+---
+
+## Distinguished names
+
+These REST APIs let a super admin add, retrieve, update, or delete any distinguished names from an allow list to enable communication between clusters and/or nodes.
+
+Before you can use the REST API to configure the allow list, you must first add the following line to `opensearch.yml`:
+
+```yml
+plugins.security.nodes_dn_dynamic_config_enabled: true
+```
+
+
+### Get distinguished names
+
+Retrieves all distinguished names in the allow list.
+
+#### Request
+
+```
+GET _plugins/_security/api/nodesdn
+```
+
+#### Sample response
+
+```json
+{
+  "cluster1": {
+    "nodes_dn": [
+      "CN=cluster1.example.com"
+    ]
+  }
+}
+```
+
+To get the distinguished names from a specific cluster's or node's allow list, include the cluster's name in the request path.
+
+#### Request
+
+```
+GET _plugins/_security/api/nodesdn/<cluster-name>
+```
+
+#### Sample response
+
+```json
+{
+  "cluster3": {
+    "nodes_dn": [
+      "CN=cluster3.example.com"
+    ]
+  }
+}
+```
+
+
+### Update distinguished names
+
+Adds or updates the specified distinguished names in the cluster's or node's allow list.
+
+#### Request
+
+```json
+PUT _plugins/_security/api/nodesdn/<cluster-name>
+{
+  "nodes_dn": [
+    "CN=cluster3.example.com"
+  ]
+}
+```
+
+#### Sample response
+
+```json
+{
+  "status": "CREATED",
+  "message": "'cluster3' created."
+}
+```
+
+
+### Delete distinguished names
+
+Deletes all distinguished names in the specified cluster's or node's allow list.
+
+#### Request
+
+```
+DELETE _plugins/_security/api/nodesdn/<cluster-name>
+```
+
+#### Sample response
+
+```json
+{
+  "status": "OK",
+  "message": "'cluster3' deleted."
 }
 ```
 
@@ -1188,101 +1294,38 @@ PATCH _plugins/_security/api/securityconfig
 Introduced 1.0
 {: .label .label-purple }
 
-Retrieves the current security plugin configuration in JSON format.
+Retrieves the cluster's security certificates.
 
 #### Request
 
 ```
-GET _plugins/_security/api/securityconfig
-```
-
-
-### Update configuration
-Introduced 1.0
-{: .label .label-purple }
-
-Creates or updates the existing configuration using the REST API rather than `securityadmin.sh`. This operation can easily break your existing configuration, so we recommend using `securityadmin.sh` instead. See [Access control for the API](#access-control-for-the-api) for how to enable this operation.
-
-#### Request
-
-```json
-PUT _plugins/_security/api/securityconfig/config
-{
-  "dynamic": {
-    "filtered_alias_mode": "warn",
-    "disable_rest_auth": false,
-    "disable_intertransport_auth": false,
-    "respect_request_indices_options": false,
-    "opensearch-dashboards": {
-      "multitenancy_enabled": true,
-      "server_username": "kibanaserver",
-      "index": ".opensearch-dashboards"
-    },
-    "http": {
-      "anonymous_auth_enabled": false
-    },
-    "authc": {
-      "basic_internal_auth_domain": {
-        "http_enabled": true,
-        "transport_enabled": true,
-        "order": 0,
-        "http_authenticator": {
-          "challenge": true,
-          "type": "basic",
-          "config": {}
-        },
-        "authentication_backend": {
-          "type": "intern",
-          "config": {}
-        },
-        "description": "Authenticate via HTTP Basic against internal users database"
-      }
-    },
-    "auth_failure_listeners": {},
-    "do_not_fail_on_forbidden": false,
-    "multi_rolespan_enabled": true,
-    "hosts_resolver_mode": "ip-only",
-    "do_not_fail_on_forbidden_empty": false
-  }
-}
+GET _opendistro/_security/api/ssl/certs
 ```
 
 #### Sample response
 
 ```json
 {
-  "status": "OK",
-  "message": "'config' updated."
+  "http_certificates_list": [
+    {
+      "issuer_dn": "CN=Example Com Inc. Root CA,OU=Example Com Inc. Root CA,O=Example Com Inc.,DC=example,DC=com",
+      "subject_dn": "CN=node-0.example.com,OU=node,O=node,L=test,DC=de",
+      "san": "[[8, 1.2.3.4.5.5], [2, node-0.example.com]",
+      "not_before": "2018-04-22T03:43:47Z",
+      "not_after": "2028-04-19T03:43:47Z"
+    }
+  ],
+  "transport_certificates_list": [
+    {
+      "issuer_dn": "CN=Example Com Inc. Root CA,OU=Example Com Inc. Root CA,O=Example Com Inc.,DC=example,DC=com",
+      "subject_dn": "CN=node-0.example.com,OU=node,O=node,L=test,DC=de",
+      "san": "[[8, 1.2.3.4.5.5], [2, node-0.example.com]",
+      "not_before": "2018-04-22T03:43:47Z",
+      "not_after": "2028-04-19T03:43:47Z"
+    }
+  ]
 }
 ```
-
-
-### Patch configuration
-Introduced 1.0
-{: .label .label-purple }
-
-Updates the existing configuration using the REST API rather than `securityadmin.sh`. This operation can easily break your existing configuration, so we recommend using `securityadmin.sh` instead. See [Access control for the API](#access-control-for-the-api) for how to enable this operation.
-
-#### Request
-
-```json
-PATCH _plugins/_security/api/securityconfig
-[
-  {
-    "op": "replace", "path": "/config/dynamic/authc/basic_internal_auth_domain/transport_enabled", "value": "true"
-  }
-]
-```
-
-#### Sample response
-
-```json
-{
-  "status": "OK",
-  "message": "Resource updated."
-}
-```
-
 ---
 
 ## Cache

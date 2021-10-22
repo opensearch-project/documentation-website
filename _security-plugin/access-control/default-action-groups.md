@@ -1,7 +1,7 @@
 ---
 layout: default
-title: Default Action Groups
-parent: Access Control
+title: Default action groups
+parent: Access control
 nav_order: 51
 ---
 

@@ -5,8 +5,11 @@ nav_order: 1
 has_children: false
 has_toc: false
 redirect_from:
+  - /docs/opensearch/
   - /opensearch/
 ---
+
+{%- comment -%}The `/docs/opensearch/` redirect is specifically to support the UI links in OpenSearch Dashboards 1.0.0.{%- endcomment -%}
 
 # Introduction to OpenSearch
 

@@ -88,8 +88,8 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 }
 ```
 
-The cardinality count is approximate.
-If you had tens of thousands of products in your store, an accurate cardinality calculation requires loading all the values into a hash set and returning its size. This approach doesn't scale well because it requires more memory and causes high latency.
+Cardinality count is approximate.
+If you have tens of thousands of products in your hypothetical store, an accurate cardinality calculation requires loading all the values into a hash set and returning its size. This approach doesn't scale well; it requires huge amounts of memory and can cause high latencies.
 
 You can control the trade-off between memory and accuracy with the `precision_threshold` setting. This setting defines the threshold below which counts are expected to be close to accurate. Above this value, counts might become a bit less accurate. The default value of `precision_threshold` is 3,000. The maximum supported value is 40,000.
 

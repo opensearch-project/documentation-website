@@ -32,7 +32,7 @@ POST _bulk
 
 ```
 POST _bulk
-POST {index}/_bulk
+POST <index>/_bulk
 ```
 
 Specifying the index in the path means you don't need to include it in the [request body]({{site.url}}{{site.baseurl}}/opensearch/rest-api/document-apis/bulk/#request-body).

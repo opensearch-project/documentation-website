@@ -18,16 +18,19 @@ The tarball supports most Linux distributions, including CentOS 7, Amazon Linux 
    ```bash
    # x64
    tar -zxf opensearch-{{site.opensearch_version}}-linux-x64.tar.gz
-   cd opensearch-{{site.opensearch_version}}{% comment %}# ARM64
+   cd opensearch-{{site.opensearch_version}}
+   # ARM64
    tar -zxf opensearch-{{site.opensearch_version}}-linux-arm64.tar.gz
-   cd opensearch-{{site.opensearch_version}}{% endcomment %}
+   cd opensearch-{{site.opensearch_version}}
    ```
 
-1. Run OpenSearch:
+1. Run OpenSearch with the demo security configuration:
 
    ```bash
    ./opensearch-tar-install.sh
    ```
+
+   If you configure the security plugin for production use (or disable it), you can run OpenSearch using `./bin/opensearch`.
 
 1. Open a second terminal session, and send requests to the server to verify that OpenSearch is up and running:
 
@@ -111,7 +114,7 @@ In a tarball installation, Performance Analyzer collects data when it is enabled
 1. Launch the agent CLI:
 
    ```bash
-   ES_HOME="$PWD" ./bin/performance-analyzer-agent-cli
+   OPENSEARCH_HOME="$PWD" ./bin/performance-analyzer-agent-cli
    ```
 
 1. In a separate window, enable the Performance Analyzer plugin:

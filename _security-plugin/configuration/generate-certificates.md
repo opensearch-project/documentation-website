@@ -42,10 +42,10 @@ You can optionally add the `-aes256` option to encrypt the key using the AES-256
 Next, use the key to generate a self-signed certificate for the root CA:
 
 ```bash
-openssl req -new -x509 -sha256 -key root-ca-key.pem -out root-ca.pem -days 30
+openssl req -new -x509 -sha256 -key root-ca-key.pem -out root-ca.pem -days 730
 ```
 
-Change `-days 30` to 3650 (10 years) or some other number to set a non-default expiration date. The default value of 30 days is best for testing purposes.
+The default `-days` value of 30 is only useful for testing purposes. This sample command specifies 730 (two years) for the certificate expiration date, but use whatever value makes sense for your organization.
 
 - The `-x509` option specifies that you want a self-signed certificate rather than a certificate request.
 - The `-sha256` option sets the hash algorithm to SHA-256. SHA-256 is the default in later versions of OpenSSL, but earlier versions might use SHA-1.
@@ -78,7 +78,7 @@ Follow the prompts to fill in the details. You don't need to specify a challenge
 Finally, generate the certificate itself:
 
 ```bash
-openssl x509 -req -in admin.csr -CA root-ca.pem -CAkey root-ca-key.pem -CAcreateserial -sha256 -out admin.pem -days 30
+openssl x509 -req -in admin.csr -CA root-ca.pem -CAkey root-ca-key.pem -CAcreateserial -sha256 -out admin.pem -days 730
 ```
 
 Just like the root certificate, use the `-days` option to specify an expiration date of longer than 30 days.
@@ -91,7 +91,7 @@ Follow the steps in [Generate an admin certificate](#generate-an-admin-certifica
 If you generate node certificates and have `plugins.security.ssl.transport.enforce_hostname_verification` set to `true` (default), be sure to specify a common name (CN) for the certificate that matches the hostname of the intended node. If you want to use the same node certificate on all nodes (not recommended), set hostname verification to `false`. For more information, see [Configure TLS certificates]({{site.url}}{{site.baseurl}}/security-plugin/configuration/tls#advanced-hostname-verification-and-dns-lookup).
 
 
-### Sample script
+## Sample script
 
 If you already know the certificate details and don't want to specify them interactively, use the `-subj` option in your `root-ca.pem` and CSR commands. This script creates a root certificate, admin certificate, two node certificates, and a client certificate, all with an expiration dates of two years (730 days):
 

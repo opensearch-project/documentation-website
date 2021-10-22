@@ -19,68 +19,53 @@ require "pathname"
 
 module Jekyll::LinkChecker
 
-  ##
   # The collection that will get stores as the output
-
   @urls = {}
 
-  ##
   # Pattern to identify documents that should be excluded based on their URL
+  @excluded_paths = /(\.(css|js|json|map|xml|txt|yml)$|\/version-selector\.tpl$)/i.freeze
 
-  @excluded_paths = /(\.(css|js|json|map|xml|txt|yml)$)/i.freeze
-
-  ##
   # Pattern to identify certain HTML tags whose content should be excluded from indexing
-
   @href_matcher = /<a[^>]+href=(['"])(.+?)\1/im.freeze
 
-  ##
   # Pattern to check for external URLs
-
   @external_matcher = /^https?:\/\//.freeze
 
-  ##
   # List of domains to ignore
   @ignored_domains = %w[localhost]
 
-  ##
   # Pattern of local paths to ignore
   @ignored_paths = /(^\/javadocs\/)/.freeze
 
-  ##
+  # Pattern to exclude when adding the `index.html` suffix to paths
+  @need_no_suffix = /\.(?!html)[^\/]+$/.freeze
+
   # Valid response codes for successful links
   @success_codes = %w[200 302]
 
-  ##
   # Questionable response codes for successful links
   @questionable_codes = %w[301 403 429]
 
-  ##
   # Holds the list of failures
   @failures = []
 
-  ##
   # Driven by environment variables, it indicates a need to check external links
   @check_external_links
 
-  ##
   # Driven by environment variables, it indicates the need to fail the build for dead links
   @should_build_fatally
 
-
-  ##
   # Initializes the singleton by recording the site
-
+  # return [void]
   def self.init(site)
     @site = site
     @urls = {}
     @failures = []
   end
 
-  ##
   # Processes a Document or Page and adds the links to a collection
-  # It also checks for anchors to parts of the same page/doc
-
+  # It also checks for anchors that link to parts of the same page/doc
+  # return [void]
   def self.process(page)
     return if @excluded_paths.match(page.path)
 
@@ -98,9 +83,8 @@ module Jekyll::LinkChecker
     end
   end
 
-  ##
-  # Saves the collection as a JSON file
-
+  # Verifies the validity of all the destinations gathered in @urls
+  # return [void]
   def self.verify(site)
     if ENV.key?('JEKYLL_CHECK_EXTERNAL_LINKS')
       @check_external_links = true
@@ -132,9 +116,9 @@ module Jekyll::LinkChecker
     end
   end
 
-  ##
-  # Check if URL is accessible
-
+  # Check if an internal or external URL is accessible
+  # @param url [String] the url to check
+  # @return [Boolean]
   def self.check(url)
     match = @base_url_matcher.match(url)
     unless match.nil?
@@ -149,9 +133,9 @@ module Jekyll::LinkChecker
     return self.check_internal(url)
   end
 
-  ##
   # Check if an external URL is accessible by making a HEAD call
-
+  # @param url [String] the url to check
+  # @return [Boolean]
   def self.check_external(url)
     uri = URI(url)
     return true if @ignored_domains.include? uri.host
@@ -172,61 +156,62 @@ module Jekyll::LinkChecker
     end
   end
 
-  ##
   # Check if an internal link is accessible
-
+  # @param url [String] the url to check
+  # @return [Boolean]
   def self.check_internal(url)
     return true if @ignored_paths =~ url
 
     path, hash = url.split('#')
 
-    unless path.end_with? 'index.html'
-      path << '/' unless path.end_with? '/'
-      path << 'index.html' unless path.end_with? 'index.html'
+    if @need_no_suffix =~ path
+        filename = File.join(@site.config["destination"], path)
+        return File.file?(filename)
+    else
+        unless path.end_with? 'index.html'
+          path << '/' unless path.end_with? '/'
+          path << 'index.html' unless path.end_with? 'index.html'
+        end
+
+        filename = File.join(@site.config["destination"], path)
+
+        return false unless File.file?(filename)
+
+        content = File.read(filename)
+        unless content.include? "<title>Redirecting"
+          return true if hash.nil? || hash.empty?
+          return !(content =~ /<[a-z0-9-]+[^>]+id="#{hash}"/i).nil?
+        end
+
+        match = content.match(@href_matcher)
+        if match.nil?
+          puts "LinkChecker: [Warning] Cannot check #{url} due to an unfollowable redirect"
+          return true
+        end
+
+        redirect = match[2]
+        redirect << '#' + hash unless hash.nil? || hash.empty?
+        return self.check(redirect)
     end
-
-    filename = File.join(@site.config["destination"], path)
-
-    return false unless File.file?(filename)
-
-    content = File.read(filename)
-    unless content.include? "<title>Redirecting"
-      return true if hash.nil? || hash.empty?
-      return !(content =~ /<[a-z0-9-]+[^>]+id="#{hash}"/i).nil?
-    end
-
-    match = content.match(@href_matcher)
-    if match.nil?
-      puts "LinkChecker: [Warning] Cannot check #{url} due to an unfollowable redirect"
-      return true
-    end
-
-    redirect = match[2]
-    redirect << '#' + hash unless hash.nil? || hash.empty?
-    return self.check(redirect)
   end
 end
 
 # Before any Document or Page is processed, initialize the LinkChecker
-
 Jekyll::Hooks.register :site, :pre_render do |site|
   Jekyll::LinkChecker.init(site)
 end
 
 # Process a Page as soon as its content is ready
-
 Jekyll::Hooks.register :pages, :post_convert do |page|
   Jekyll::LinkChecker.process(page)
 end
 
 # Process a Document as soon as its content is ready
-
 Jekyll::Hooks.register :documents, :post_convert do |document|
   Jekyll::LinkChecker.process(document)
 end
 
 # Verify gathered links after Jekyll is done writing all its stuff
-
 Jekyll::Hooks.register :site, :post_write do |site|
   Jekyll::LinkChecker.verify(site)
 end

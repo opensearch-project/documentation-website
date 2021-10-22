@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Refresh search analyzer
-nav_order: 40
+nav_order: 50
 has_children: false
 redirect_from: /im-plugin/refresh-analyzer/
 has_toc: false

@@ -1,7 +1,7 @@
 ---
 layout: default
-title: Users and Roles
-parent: Access Control
+title: Users and roles
+parent: Access control
 nav_order: 1
 ---
 
@@ -109,7 +109,9 @@ Role | Description
 `anomaly_full_access` | Grants full permissions to all anomaly detection actions.
 `anomaly_read_access` | Grants permissions to view detectors, but not create, modify, or delete detectors.
 `all_access` | Grants full access to the cluster: all cluster-wide operations, write to all indices, write to all tenants.
-`kibana_read_only` | A special role that prevents users from making changes to visualizations, dashboards, and other OpenSearch Dashboards objects. See `plugins.security.readonly_mode.roles` in `opensearch_dashboards.yml`. Pair with the `kibana_user` role.
+`cross_cluster_replication_follower_full_access` | Grants full access to perform cross-cluster replication actions on the follower cluster.
+`cross_cluster_replication_leader_full_access` | Grants full access to perform cross-cluster replication actions on the leader cluster.
+`kibana_read_only` | A special role that prevents users from making changes to visualizations, dashboards, and other OpenSearch Dashboards objects. See `opensearch_security.readonly_mode.roles` in `opensearch_dashboards.yml`. Pair with the `kibana_user` role.
 `kibana_user` | Grants permissions to use OpenSearch Dashboards: cluster-wide searches, index monitoring, and write to various OpenSearch Dashboards indices.
 `logstash` | Grants permissions for Logstash to interact with the cluster: cluster-wide searches, cluster monitoring, and write to the various Logstash indices.
 `manage_snapshots` | Grants permissions to manage snapshot repositories, take snapshots, and restore snapshots.
@@ -121,6 +123,7 @@ Role | Description
 `reports_full_access` | Grants full permissions to reports.
 `asynchronous_search_full_access` | Grants full permissions to all asynchronous search actions.
 `asynchronous_search_read_access` | Grants permissions to view asynchronous searches, but not to submit, modify, or delete async searches.
+`index_management_full_access` | Grants full permissions to all index management actions, including ISM, transforms, and rollups.
 
 
 For more detailed summaries of the permissions for each role, reference their action groups against the descriptions in [Default action groups]({{site.url}}{{site.baseurl}}/security-plugin/access-control/default-action-groups/).
