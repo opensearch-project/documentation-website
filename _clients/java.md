@@ -22,6 +22,15 @@ To start using the OpenSearch Java client, ensure that you have the following de
 </dependency>
 ```
 
+If you're using Gradle, add the following dependencies to your project.
+
+```
+dependencies {
+    implementation 'org.opensearch.client:opensearch-rest-client: {{site.opensearch_version}}'
+    implementation 'org.opensearch.client:opensearch-java:0.1.0'
+}
+```
+
 You can now start your OpenSearch cluster.
 
 The following example uses credentials that come with the default OpenSearch configuration. If you're using the OpenSearch Java client with your own OpenSearch cluster, be sure to change the code to use your own credentials.
