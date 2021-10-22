@@ -63,6 +63,36 @@ Docker
    curl -XGET --insecure -u 'admin:admin' 'https://localhost:9200'
    ```
 
+1. [Create]({{site.url}}{{site.baseurl}}/opensearch/rest-api/index-apis/create-index/) your first index.
+
+   ```bash
+   curl -XPUT --insecure -u 'admin:admin' 'https://localhost:9200/my-first-index'
+   ```
+
+1. [Add some data]({{site.url}}{{site.baseurl}}/opensearch/index-data/) to your newly created index.
+
+   ```bash
+   curl -XPUT --insecure -u 'admin:admin' 'https://localhost:9200/my-first-index/_doc/1' -H 'Content-Type: application/json' -d '{"Description": "To be or not to be, that is the question."}'
+   ```
+
+1. [Retrieve the data]({{site.url}}{{site.baseurl}}/opensearch/index-data/#read-data) to see that it was added properly.
+
+   ```bash
+   curl -XGET --insecure -u 'admin:admin' 'https://localhost:9200/my-first-index/_doc/1'
+   ```
+
+1. After verifying that the data is correct, [delete the document]({{site.url}}{{site.baseurl}}/opensearch/index-data/#delete-data).
+
+   ```bash
+   curl -XDELETE --insecure -u 'admin:admin' 'https://localhost:9200/my-first-index/_doc/1'
+   ```
+
+1. Finally, [delete the index]({{site.url}}{{site.baseurl}}/opensearch/rest-api/index-apis/delete-index).
+
+   ```bash
+   curl -XDELETE --insecure -u 'admin:admin' 'https://localhost:9200/my-first-index/'
+   ```
+
 To learn more, see [Docker image]({{site.url}}{{site.baseurl}}/opensearch/install/docker/) and [Docker security configuration]({{site.url}}{{site.baseurl}}/opensearch/install/docker-security/).
 
 
