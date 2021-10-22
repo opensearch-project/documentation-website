@@ -1,6 +1,6 @@
 ---
 layout: default
-title: OpenSearch Java client
+title: Java client
 nav_order: 65
 ---
 
@@ -152,14 +152,14 @@ public class OpenSearchClientExample {
     } catch (IOException e){
       System.out.println(e.toString());
     } finally {
-			try {
-				if (client != null) {
-					client.close();
-				}
-			} catch (IOException e) {
-				System.out.println(e.toString());
-			}
-		}
+      try {
+        if (client != null) {
+          client.close();
+        }
+      } catch (IOException e) {
+        System.out.println(e.toString());
+      }
+    }
   }
 }
 ```

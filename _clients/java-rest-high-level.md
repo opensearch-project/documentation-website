@@ -1,10 +1,10 @@
 ---
 layout: default
-title: OpenSearch Java high-level REST client
+title: Java high-level REST client
 nav_order: 60
 ---
 
-# OpenSearch Java high-level REST client
+# Java high-level REST client
 
 Although the OpenSearch Java high-level REST client is still usable, we recommend that you use the [OpenSearch Java client]({{site.url}}{{site.baseurl}}/clients/java/), which replaces the existing Java high-level REST client.
 {: .note}
