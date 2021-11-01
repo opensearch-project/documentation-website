@@ -517,9 +517,9 @@ The destination system **must** return a response otherwise the `error_notificat
 
 You can use the same options for `ctx` variables as the [notification](#notification) operation.
 
-## Sample policy with ISM template
+## Sample policy with ISM template for auto rollover
 
-The following sample template policy is for a rollover use case.
+If you want to skip the rollover action for an index, you can set this index setting `index.plugins.index_state_management.rollover_skip` to true.
 
 1. Create a policy with an `ism_template` field:
 
