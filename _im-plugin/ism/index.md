@@ -39,7 +39,7 @@ You can use the visual editor or JSON editor to create policies. Compared to the
 2. Choose **Create policy**.
 3. Choose **Visual editor**.
 4. In the **Policy info** section, enter a policy ID and an optional description.
-5. In the **Error notification** section, set up an optional error notification that gets sent whenever a policy execution fails. For more information, see [Error notifications]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies#error-notifications).
+5. In the **Error notification** section, set up an optional error notification that gets sent whenever a policy execution fails. For more information, see [Error notifications]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies#error-notifications). If you're using auto rollovers in your policy, we recommend setting up error notifications, which notify you of unexpectedly large indices if rollovers fail. 
 6. In **ISM templates**, enter any ISM template patterns to automatically apply this policy to existing and future indices. For example, if you specify a template of `sample-index*`, the ISM plugin automatically applies this policy to any indices whose names start with `sample-index`.
 7. In **States**, add any states you want to include in the policy. Each state has [actions]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/#actions) the plugin executes when the index enters a certain state, and [transitions]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/#transitions), which have conditions that, when met, transition the index into a destination state. The first state you create in a policy is automatically set as the initial state. Each policy must have at least one state, but actions and transitions are optional.
 8. Choose **Create**.
@@ -76,7 +76,7 @@ PUT _plugins/_ism/policies/policy_id
 
 If you have more than one template that matches an index pattern, ISM uses the priority value to determine which template to apply.
 
-For an example ISM template policy, see [Sample policy with ISM template]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies#sample-policy-with-ism-template).
+For an example ISM template policy, see [Sample policy with ISM template for auto rollover]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies#sample-policy-with-ism-template-for-auto-rollover).
 
 Older versions of the plugin include the `policy_id` in an index template, so when an index is created that matches the index template pattern, the index will have the policy attached to it:
 

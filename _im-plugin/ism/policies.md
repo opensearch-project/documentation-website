@@ -517,9 +517,11 @@ The destination system **must** return a response otherwise the `error_notificat
 
 You can use the same options for `ctx` variables as the [notification](#notification) operation.
 
-## Sample policy with ISM template
+## Sample policy with ISM template for auto rollover
 
 The following sample template policy is for a rollover use case.
+
+If you want to skip rollovers for an index, use the [update cluster settings API]({{site.url}}{{site.baseurl}}/opensearch/configuration/#update-cluster-settings-using-the-api) to set `index.plugins.index_state_management.rollover_skip` to true.
 
 1. Create a policy with an `ism_template` field:
 
