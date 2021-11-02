@@ -55,8 +55,12 @@ Make sure you have direct SSH access into the root user of the target node.
 
    You can set the passwords for reserved users (`admin` and `kibanaserver`) using the `admin_password` and `kibanaserver_password` variables.
 
-2. After the deployment process is complete, you can access OpenSearch and OpenSearch Dashboards with the username `admin` and the password that you set for the `admin_password` variable:
+2. After the deployment process is complete, you can access OpenSearch and OpenSearch Dashboards with the username `admin` and the password that you set for the `admin_password` variable.
+
+   If you bind `ip` to a private IP or localhost, make sure you're logged into the server that deployed the playbook to access OpenSearch and OpenSearch Dashboards:
 
    ```bash
    curl https://localhost:9200 -u 'admin:Test@123' --insecure
    ```
+
+   If you bind `ip` to 0.0.0.0, then replace `localhost` with the public IP or the private IP (if it's in the same network).
