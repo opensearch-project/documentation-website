@@ -314,7 +314,7 @@ The `snapshot` operation has the following parameters:
 Parameter | Description | Type | Required | Default
 :--- | :--- |:--- |:--- |
 `repository` | The repository name that you register through the native snapshot API operations.  | `string` | Yes | -
-`snapshot` | The name of the snapshot. Accepts strings and the Mustache variables `{{ctx.IndexName}}` and `{{ctx.IndexUuid}}`. If the Mustache variables are invalid, then the snapshot name is defaulted to the index's name. | `string` or Mustache template | Yes | -
+`snapshot` | The name of the snapshot. Accepts strings and the Mustache variables `{{ctx.index}}` and `{{ctx.indexUuid}}`. If the Mustache variables are invalid, then the snapshot name defaults to the index's name. | `string` or Mustache template | Yes | -
 
 ```json
 {
