@@ -320,7 +320,7 @@ Parameter | Description | Type | Required | Default
 {
   "snapshot": {
     "repository": "my_backup",
-    "snapshot": "{{ctx.IndexUuid}}"
+    "snapshot": "{{ctx.indexUuid}}"
   }
 }
 ```
