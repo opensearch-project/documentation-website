@@ -25,6 +25,8 @@ To start using the OpenSearch Java high-level REST client, ensure that you have 
 
 You can now start your OpenSearch cluster. The OpenSearch 1.x high-level REST client works with the 1.x versions of OpenSearch.
 
+The following example uses credentials that come with the default OpenSearch configuration. If you’re using the high-level REST client with your own OpenSearch cluster, be sure to change the code to use your own credentials.
+
 ## Sample code
 
 ```java
