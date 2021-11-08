@@ -26,7 +26,6 @@ Community contributions remain essential in keeping this documentation comprehen
 
 If you encounter problems or have questions when contributing to the documentation, these people can help:
 
-- [aetter](https://github.com/aetter)
 - [ashwinkumar12345](https://github.com/ashwinkumar12345)
 - [keithhc2](https://github.com/keithhc2)
 - [snyder114](https://github.com/snyder114)
