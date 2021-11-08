@@ -338,9 +338,9 @@ Introduced 1.2
 
 Returns whether the detector configuration has any issues that might prevent OpenSearch from creating the detector.
 
-You can use the validate API to identify issues in your model configuration before creating the detector.
+You can use the validate API to identify issues in your detector configuration before creating the detector.
 
-The request body consists of the detector configuration and follows the same format as the request body of the create detector API:
+The request body consists of the detector configuration and follows the same format as the request body of the [create detector API]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/api#create-anomaly-detector). You can pass an additional detector parameter to validate a specific detector.
 
 #### Request
 
@@ -405,7 +405,7 @@ If the validate API doesn’t find any issue in the detector configuration, it r
 {}
 ```
 
-If the validate API finds an issue, it returns a message explaining what's wrong with the configuration. In this example, the feature query is aggregating over a field that doesn’t exist in the data source:
+If the validate API finds an issue, it returns a message explaining what's wrong with the configuration. In this example, the feature query aggregates over a field that doesn’t exist in the data source:
 
 #### Sample response
 
