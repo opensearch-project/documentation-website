@@ -110,7 +110,12 @@ We recommend experimenting with historical analysis with different feature sets 
 
 ## Step 4: Review and create
 
-Review your model configuration and select **Create detector**.
+Review your detector settings and model configurations to make sure that they're valid and then proceed to select **Create detector**.
+
+![Anomaly detection results]({{site.url}}{{site.baseurl}}/images/review_ad.png)
+
+If you see any validation errors, edit the settings to fix the errors and then return back to this page.
+{: .note }
 
 ## Step 5: Observe the results
 

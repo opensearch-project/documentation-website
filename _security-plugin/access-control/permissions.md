@@ -80,8 +80,10 @@ These permissions are for the cluster and can't be applied granularly. For examp
 - cluster:admin/opendistro/ad/detector/search
 - cluster:admin/opendistro/ad/detector/stats
 - cluster:admin/opendistro/ad/detector/write
+- cluster:admin/opendistro/ad/detector/validate
 - cluster:admin/opendistro/ad/detectors/get
 - cluster:admin/opendistro/ad/result/search
+- cluster:admin/opendistro/ad/result/topAnomalies
 - cluster:admin/opendistro/ad/tasks/search
 - cluster:admin/opendistro/alerting/alerts/ack (acknowledge)
 - cluster:admin/opendistro/alerting/alerts/get
