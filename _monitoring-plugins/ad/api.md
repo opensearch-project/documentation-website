@@ -340,7 +340,7 @@ Returns whether the detector configuration has any issues that might prevent Ope
 
 You can use the validate API to identify issues in your detector configuration before creating the detector.
 
-The request body consists of the detector configuration and follows the same format as the request body of the [create detector API]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/api#create-anomaly-detector). You can pass an additional detector parameter to validate a specific detector.
+The request body consists of the detector configuration and follows the same format as the request body of the [create detector API]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/api#create-anomaly-detector). 
 
 #### Request
 
