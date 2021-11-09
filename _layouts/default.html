@@ -105,15 +105,20 @@ layout: table_wrappers
     <div class="copy-banner">
       <div class="container">
         <h1><a href="#">Documentation</a></h1>
-        {% if site.search_enabled != false %}
         <div class="search">
           <div class="search-input-wrap">
-            <input type="text" id="search-input" class="search-input" tabindex="0" placeholder="Search..." aria-label="Search {{ site.title }}" autocomplete="off">
+            <input type="text" id="search-input" class="search-input"
+                   tabindex="0" placeholder="Search..." aria-label="Search {{ site.title }}"
+                   data-docs-version="{{ site.data.versions.current }}" autocomplete="off">
+            <div class="search-spinner"><i></i></div>
             <label for="search-input" class="search-label"><svg viewBox="0 0 24 24" class="search-icon"><use xlink:href="#svg-search"></use></svg></label>
           </div>
-          <div id="search-results" class="search-results"></div>
+          {% if site.search_enabled != false %}
+            <div id="search-results" class="search-results"></div>
+          {% else %}
+            <div id="search-results" class="search-results custom-search-results"></div>
+          {% endif %}
         </div>
-        {% endif %}
       </div>
       <div class="search-overlay"></div>
     </div>
@@ -213,5 +218,8 @@ layout: table_wrappers
     </script>
   {% endif %}
   <script src="{{ '/assets/js/header-nav.js' | relative_url }}"></script>
+  {% if site.search_enabled == false %}
+    <script src="{{ '/assets/js/search.js' | relative_url }}"></script>
+  {% endif %}
 </body>
 </html>
