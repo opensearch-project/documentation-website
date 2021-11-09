@@ -2,7 +2,11 @@
 layout: default
 title: WMS map server
 nav_order: 5
+redirect_from:
+  - /docs/opensearch-dashboards/maptiles/
 ---
+
+{%- comment -%}The `/docs/opensearch-dashboards/maptiles/` redirect is specifically to support the UI links in OpenSearch Dashboards 1.0.0.{%- endcomment -%}
 
 # Configure WMS map server
 

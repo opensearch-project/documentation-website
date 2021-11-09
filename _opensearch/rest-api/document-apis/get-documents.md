@@ -37,9 +37,9 @@ Parameter | Type | Description
 :--- | :--- | :---
 preference | String | Specifies a preference of which shard to retrieve results from. Available options are `_local`, which tells the operation to retrieve results from a locally allocated shard replica, and a custom string value assigned to a specific shard replica. By default, OpenSearch executes get document operations on random shards.
 realtime | Boolean | Specifies whether the operation should run in realtime. If false, the operation waits for the index to refresh to analyze the source to retrieve data, which makes the operation near-realtime. Default is true.
-refresh | Boolean | If true, OpenSearch refreshes shards to make the operation visible to searching. Default is false.
+refresh | Boolean | If true, OpenSearch refreshes shards to make the get operation available to search results. Valid options are `true`, `false`, and `wait_for`, which tells OpenSearch to wait for a refresh before executing the operation. Default is `false`.
 routing | String | A value used to route the operation to a specific shard.
-stored_fields | Boolean | If true, the operation retrieves document fields stored in the index rather than the document's `_source`. Default is false.
+stored_fields | Boolean | Whether the get operation should retrieve fields stored in the index. Default is false.
 _source | String | Whether to include the `_source` field in the response body. Default is true.
 _source_excludes | String | A comma-separated list of source fields to exclude in the query response.
 _source_includes | String | A comma-separated list of source fields to include in the query response.

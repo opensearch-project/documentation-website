@@ -194,11 +194,15 @@ For asynchronous searches with `keep_on_completion` as `true` and a sufficiently
 Introduced 1.0
 {: .label .label-purple }
 
-You can use the DELETE API operation to delete any ongoing asynchronous search by its ID. If the search is still running, it’s canceled. If the search is complete, the saved search results are deleted.
+To delete an asynchronous search:
 
-```json
+```
 DELETE _plugins/_asynchronous_search/<ID>?pretty
 ```
+
+- If the search is still running, OpenSearch cancels it.
+- If the search is complete, OpenSearch deletes the saved results.
+
 
 #### Sample response
 

@@ -24,8 +24,7 @@ Introduced 1.0
 
 Creates an anomaly detector.
 
-This command creates a detector named `http_requests` that finds anomalies based on the sum and average number of failed HTTP requests:
-
+This command creates a single-entity detector named `test-detector` that finds anomalies based on the sum of the `value` field:
 
 #### Request
 
@@ -36,14 +35,14 @@ POST _plugins/_anomaly_detection/detectors
   "description": "Test detector",
   "time_field": "timestamp",
   "indices": [
-    "order*"
+    "server_log*"
   ],
   "feature_attributes": [
     {
-      "feature_name": "total_order",
+      "feature_name": "test",
       "feature_enabled": true,
       "aggregation_query": {
-        "total_order": {
+        "test": {
           "sum": {
             "field": "value"
           }
@@ -55,9 +54,10 @@ POST _plugins/_anomaly_detection/detectors
     "bool": {
       "filter": [
         {
-          "exists": {
-            "field": "value",
-            "boost": 1
+          "range": {
+            "value": {
+              "gt": 1
+            }
           }
         }
       ],
@@ -84,24 +84,28 @@ POST _plugins/_anomaly_detection/detectors
 
 ```json
 {
-  "_id": "m4ccEnIBTXsGi3mvMt9p",
+  "_id": "VEHKTXwBwf_U8gjUXY2s",
   "_version": 1,
-  "_seq_no": 3,
-  "_primary_term": 1,
+  "_seq_no": 5,
   "anomaly_detector": {
     "name": "test-detector",
     "description": "Test detector",
     "time_field": "timestamp",
     "indices": [
-      "order*"
+      "server_log*"
     ],
     "filter_query": {
       "bool": {
         "filter": [
           {
-            "exists": {
-              "field": "value",
-              "boost": 1
+            "range": {
+              "value": {
+                "from": 1,
+                "to": null,
+                "include_lower": false,
+                "include_upper": true,
+                "boost": 1
+              }
             }
           }
         ],
@@ -121,140 +125,79 @@ POST _plugins/_anomaly_detection/detectors
         "unit": "Minutes"
       }
     },
+    "shingle_size": 8,
     "schema_version": 0,
     "feature_attributes": [
       {
-        "feature_id": "mYccEnIBTXsGi3mvMd8_",
-        "feature_name": "total_order",
+        "feature_id": "U0HKTXwBwf_U8gjUXY2m",
+        "feature_name": "test",
         "feature_enabled": true,
         "aggregation_query": {
-          "total_order": {
+          "test": {
             "sum": {
               "field": "value"
             }
           }
         }
       }
-    ]
-  }
-}
-```
-
-To set a category field for high cardinality:
-
-#### Request
-
-```json
-POST _plugins/_anomaly_detection/detectors
-{
-  "name": "Host OK Rate Detector",
-  "description": "ok rate",
-  "time_field": "@timestamp",
-  "indices": [
-    "host-cloudwatch"
-  ],
-  "category_field": [
-    "host"
-  ],
-  "feature_attributes": [
-    {
-      "feature_name": "latency_max",
-      "feature_enabled": true,
-      "aggregation_query": {
-        "latency_max": {
-          "max": {
-            "field": "latency"
-          }
-        }
-      }
-    }
-  ],
-  "window_delay": {
-    "period": {
-      "interval": 10,
-      "unit": "MINUTES"
-    }
-  },
-  "detection_interval": {
-    "period": {
-      "interval": 1,
-      "unit": "MINUTES"
-    }
-  }
-}
-```
-
-#### Sample response
-
-```json
-{
-  "_id": "4CIGoHUBTpMGN-4KzBQg",
-  "_version": 1,
-  "_seq_no": 0,
-  "anomaly_detector": {
-    "name": "Host OK Rate Detector",
-    "description": "ok rate",
-    "time_field": "@timestamp",
-    "indices": [
-      "server-metrics"
     ],
-    "filter_query": {
-      "match_all": {
-        "boost": 1
-      }
+    "last_update_time": 1633392680364,
+    "user": {
+      "name": "admin",
+      "backend_roles": [
+        "admin"
+      ],
+      "roles": [
+        "own_index",
+        "all_access"
+      ],
+      "custom_attribute_names": [],
+      "user_requested_tenant": "__user__"
     },
-    "detection_interval": {
-      "period": {
-        "interval": 1,
-        "unit": "Minutes"
-      }
-    },
-    "window_delay": {
-      "period": {
-        "interval": 10,
-        "unit": "MINUTES"
-      }
-    },
-    "shingle_size": 1,
-    "schema_version": 2,
-    "feature_attributes": [
-      {
-        "feature_id": "0Kld3HUBhpHMyt2e_UHn",
-        "feature_name": "latency_max",
-        "feature_enabled": true,
-        "aggregation_query": {
-          "latency_max": {
-            "max": {
-              "field": "latency"
-            }
-          }
-        }
-      }
-    ],
-    "last_update_time": 1604707601438,
-    "category_field": [
-      "host"
-    ]
+    "detector_type": "SINGLE_ENTITY"
   },
   "_primary_term": 1
 }
 ```
 
-To create a historical detector:
+To create a high cardinality detector by specifying a category field:
 
 #### Request
 
 ```json
 POST _plugins/_anomaly_detection/detectors
 {
-  "name": "test1",
-  "description": "test historical detector",
+  "name": "test-hc-detector",
+  "description": "Test detector",
   "time_field": "timestamp",
   "indices": [
-    "host-cloudwatch"
+    "server_log*"
+  ],
+  "feature_attributes": [
+    {
+      "feature_name": "test",
+      "feature_enabled": true,
+      "aggregation_query": {
+        "test": {
+          "sum": {
+            "field": "value"
+          }
+        }
+      }
+    }
   ],
   "filter_query": {
-    "match_all": {
+    "bool": {
+      "filter": [
+        {
+          "range": {
+            "value": {
+              "gt": 1
+            }
+          }
+        }
+      ],
+      "adjust_pure_negative": true,
       "boost": 1
     }
   },
@@ -270,24 +213,107 @@ POST _plugins/_anomaly_detection/detectors
       "unit": "Minutes"
     }
   },
-  "feature_attributes": [
-    {
-      "feature_name": "F1",
-      "feature_enabled": true,
-      "aggregation_query": {
-        "f_1": {
-          "sum": {
-            "field": "value"
+  "category_field": [
+    "ip"
+  ]
+}
+```
+
+#### Sample response
+
+```json
+{
+  "_id": "b0HRTXwBwf_U8gjUw43R",
+  "_version": 1,
+  "_seq_no": 6,
+  "anomaly_detector": {
+    "name": "test-hc-detector",
+    "description": "Test detector",
+    "time_field": "timestamp",
+    "indices": [
+      "server_log*"
+    ],
+    "filter_query": {
+      "bool": {
+        "filter": [
+          {
+            "range": {
+              "value": {
+                "from": 1,
+                "to": null,
+                "include_lower": false,
+                "include_upper": true,
+                "boost": 1
+              }
+            }
+          }
+        ],
+        "adjust_pure_negative": true,
+        "boost": 1
+      }
+    },
+    "detection_interval": {
+      "period": {
+        "interval": 1,
+        "unit": "Minutes"
+      }
+    },
+    "window_delay": {
+      "period": {
+        "interval": 1,
+        "unit": "Minutes"
+      }
+    },
+    "shingle_size": 8,
+    "schema_version": 0,
+    "feature_attributes": [
+      {
+        "feature_id": "bkHRTXwBwf_U8gjUw43K",
+        "feature_name": "test",
+        "feature_enabled": true,
+        "aggregation_query": {
+          "test": {
+            "sum": {
+              "field": "value"
+            }
           }
         }
       }
-    }
-  ],
-  "detection_date_range": {
-    "start_time": 1577840401000,
-    "end_time": 1606121925000
-  }
+    ],
+    "last_update_time": 1633393165265,
+    "category_field": [
+      "ip"
+    ],
+    "user": {
+      "name": "admin",
+      "backend_roles": [
+        "admin"
+      ],
+      "roles": [
+        "own_index",
+        "all_access"
+      ],
+      "custom_attribute_names": [],
+      "user_requested_tenant": "__user__"
+    },
+    "detector_type": "MULTI_ENTITY"
+  },
+  "_primary_term": 1
 }
+```
+
+You can specify a maximum of two category fields:
+
+```json
+"category_field": [
+  "ip"
+]
+```
+
+```json
+"category_field": [
+  "ip", "error_type"
+]
 ```
 
 You can specify the following options.
@@ -303,62 +329,48 @@ Options | Description | Type | Required
 `detection_interval` | The time interval for your anomaly detector. | `object` | Yes
 `window_delay` | Add extra processing time for data collection. | `object` | No
 `category_field` | Categorizes or slices data with a dimension. Similar to `GROUP BY` in SQL. | `list` | No
-`detection_date_range` | Specify the start time and end time for a historical detector. | `object` | No
 
 ---
 
-## Preview detector
+## Get detector
 Introduced 1.0
 {: .label .label-purple }
 
-Passes a date range to the anomaly detector to return any anomalies within that date range.
+Returns all information about a detector based on the `detector_id`.
 
 #### Request
 
 ```json
-POST _plugins/_anomaly_detection/detectors/<detectorId>/_preview
-{
-  "period_start": 1588838250000,
-  "period_end": 1589443050000
-}
+GET _plugins/_anomaly_detection/detectors/<detectorId>
 ```
 
 #### Sample response
 
 ```json
 {
-  "anomaly_result": [
-    ...
-    {
-      "detector_id": "m4ccEnIBTXsGi3mvMt9p",
-      "data_start_time": 1588843020000,
-      "data_end_time": 1588843620000,
-      "feature_data": [
-        {
-          "feature_id": "xxokEnIBcpeWMD987A1X",
-          "feature_name": "total_order",
-          "data": 489.9929131106
-        }
-      ],
-      "anomaly_grade": 0,
-      "confidence": 0.99
-    }
-    ...
-  ],
+  "_id": "VEHKTXwBwf_U8gjUXY2s",
+  "_version": 1,
+  "_primary_term": 1,
+  "_seq_no": 5,
   "anomaly_detector": {
     "name": "test-detector",
     "description": "Test detector",
     "time_field": "timestamp",
     "indices": [
-      "order*"
+      "server_log*"
     ],
     "filter_query": {
       "bool": {
         "filter": [
           {
-            "exists": {
-              "field": "value",
-              "boost": 1
+            "range": {
+              "value": {
+                "from": 1,
+                "to": null,
+                "include_lower": false,
+                "include_upper": true,
+                "boost": 1
+              }
             }
           }
         ],
@@ -368,24 +380,25 @@ POST _plugins/_anomaly_detection/detectors/<detectorId>/_preview
     },
     "detection_interval": {
       "period": {
-        "interval": 10,
-        "unit": "MINUTES"
+        "interval": 1,
+        "unit": "Minutes"
       }
     },
     "window_delay": {
       "period": {
         "interval": 1,
-        "unit": "MINUTES"
+        "unit": "Minutes"
       }
     },
+    "shingle_size": 8,
     "schema_version": 0,
     "feature_attributes": [
       {
-        "feature_id": "xxokEnIBcpeWMD987A1X",
-        "feature_name": "total_order",
+        "feature_id": "U0HKTXwBwf_U8gjUXY2m",
+        "feature_name": "test",
         "feature_enabled": true,
         "aggregation_query": {
-          "total_order": {
+          "test": {
             "sum": {
               "field": "value"
             }
@@ -393,12 +406,686 @@ POST _plugins/_anomaly_detection/detectors/<detectorId>/_preview
         }
       }
     ],
-    "last_update_time": 1589442309241
+    "last_update_time": 1633392680364,
+    "user": {
+      "name": "admin",
+      "backend_roles": [
+        "admin"
+      ],
+      "roles": [
+        "own_index",
+        "all_access"
+      ],
+      "custom_attribute_names": [],
+      "user_requested_tenant": "__user__"
+    },
+    "detector_type": "SINGLE_ENTITY"
   }
 }
 ```
 
-If you specify a category field, each result is associated with an entity:
+A "job" is something that you schedule to run periodically, so it's only applicable for real-time anomaly detection and not historical analysis that you run just one time.
+
+When you start a real-time detector, the anomaly detection plugin creates a job or if the job already exists updates it.
+When you start or a restart a real-time detector, the plugin creates a new real-time task that records run-time information like detector configuration snapshot, real-time job states (initializing/running/stopped), init progress, and so on.
+
+A single detector can only have one real-time job (job ID is the same as detector ID), but it can have multiple real-time tasks because each restart of a real-time job creates a new real-time task. You can limit the number of real-time tasks with the `plugins.anomaly_detection.max_old_ad_task_docs_per_detector` setting.
+
+Historical analysis doesn't have an associated job. When you start or rerun historical analysis for a detector, the anomaly detection plugin creates a new historical batch task that tracks the historical analysis runtime information like state, coordinating/worker node, task progress, and so on. You can limit the historical task number with the `plugins.anomaly_detection.max_old_ad_task_docs_per_detector` setting.
+
+Use `job=true` to get real-time analysis task information.
+
+#### Request
+
+```json
+GET _plugins/_anomaly_detection/detectors/<detectorId>?job=true
+```
+
+#### Sample response
+
+```json
+{
+  "_id": "VEHKTXwBwf_U8gjUXY2s",
+  "_version": 1,
+  "_primary_term": 1,
+  "_seq_no": 5,
+  "anomaly_detector": {
+    "name": "test-detector",
+    "description": "Test detector",
+    "time_field": "timestamp",
+    "indices": [
+      "server_log*"
+    ],
+    "filter_query": {
+      "bool": {
+        "filter": [
+          {
+            "range": {
+              "value": {
+                "from": 1,
+                "to": null,
+                "include_lower": false,
+                "include_upper": true,
+                "boost": 1
+              }
+            }
+          }
+        ],
+        "adjust_pure_negative": true,
+        "boost": 1
+      }
+    },
+    "detection_interval": {
+      "period": {
+        "interval": 1,
+        "unit": "Minutes"
+      }
+    },
+    "window_delay": {
+      "period": {
+        "interval": 1,
+        "unit": "Minutes"
+      }
+    },
+    "shingle_size": 8,
+    "schema_version": 0,
+    "feature_attributes": [
+      {
+        "feature_id": "U0HKTXwBwf_U8gjUXY2m",
+        "feature_name": "test",
+        "feature_enabled": true,
+        "aggregation_query": {
+          "test": {
+            "sum": {
+              "field": "value"
+            }
+          }
+        }
+      }
+    ],
+    "last_update_time": 1633392680364,
+    "user": {
+      "name": "admin",
+      "backend_roles": [
+        "admin"
+      ],
+      "roles": [
+        "own_index",
+        "all_access"
+      ],
+      "custom_attribute_names": [],
+      "user_requested_tenant": "__user__"
+    },
+    "detector_type": "SINGLE_ENTITY"
+  },
+  "anomaly_detector_job": {
+    "name": "VEHKTXwBwf_U8gjUXY2s",
+    "schedule": {
+      "interval": {
+        "start_time": 1633393656357,
+        "period": 1,
+        "unit": "Minutes"
+      }
+    },
+    "window_delay": {
+      "period": {
+        "interval": 1,
+        "unit": "Minutes"
+      }
+    },
+    "enabled": true,
+    "enabled_time": 1633393656357,
+    "last_update_time": 1633393656357,
+    "lock_duration_seconds": 60,
+    "user": {
+      "name": "admin",
+      "backend_roles": [
+        "admin"
+      ],
+      "roles": [
+        "own_index",
+        "all_access"
+      ],
+      "custom_attribute_names": [],
+      "user_requested_tenant": "__user__"
+    }
+  }
+}
+```
+
+Use `task=true` to get information for both real-time and historical analysis task information.
+
+#### Request
+
+```json
+GET _plugins/_anomaly_detection/detectors/<detectorId>?task=true
+```
+
+#### Sample response
+
+```json
+{
+  "_id": "VEHKTXwBwf_U8gjUXY2s",
+  "_version": 1,
+  "_primary_term": 1,
+  "_seq_no": 5,
+  "anomaly_detector": {
+    "name": "test-detector",
+    "description": "Test detector",
+    "time_field": "timestamp",
+    "indices": [
+      "server_log*"
+    ],
+    "filter_query": {
+      "bool": {
+        "filter": [
+          {
+            "range": {
+              "value": {
+                "from": 1,
+                "to": null,
+                "include_lower": false,
+                "include_upper": true,
+                "boost": 1
+              }
+            }
+          }
+        ],
+        "adjust_pure_negative": true,
+        "boost": 1
+      }
+    },
+    "detection_interval": {
+      "period": {
+        "interval": 1,
+        "unit": "Minutes"
+      }
+    },
+    "window_delay": {
+      "period": {
+        "interval": 1,
+        "unit": "Minutes"
+      }
+    },
+    "shingle_size": 8,
+    "schema_version": 0,
+    "feature_attributes": [
+      {
+        "feature_id": "U0HKTXwBwf_U8gjUXY2m",
+        "feature_name": "test",
+        "feature_enabled": true,
+        "aggregation_query": {
+          "test": {
+            "sum": {
+              "field": "value"
+            }
+          }
+        }
+      }
+    ],
+    "last_update_time": 1633392680364,
+    "user": {
+      "name": "admin",
+      "backend_roles": [
+        "admin"
+      ],
+      "roles": [
+        "own_index",
+        "all_access"
+      ],
+      "custom_attribute_names": [],
+      "user_requested_tenant": "__user__"
+    },
+    "detector_type": "SINGLE_ENTITY"
+  },
+  "realtime_detection_task": {
+    "task_id": "nkTZTXwBjd8s6RK4QlMq",
+    "last_update_time": 1633393776375,
+    "started_by": "admin",
+    "error": "",
+    "state": "RUNNING",
+    "detector_id": "VEHKTXwBwf_U8gjUXY2s",
+    "task_progress": 0,
+    "init_progress": 1,
+    "execution_start_time": 1633393656362,
+    "is_latest": true,
+    "task_type": "REALTIME_SINGLE_ENTITY",
+    "coordinating_node": "SWD7ihu9TaaW1zKwFZNVNg",
+    "detector": {
+      "name": "test-detector",
+      "description": "Test detector",
+      "time_field": "timestamp",
+      "indices": [
+        "server_log*"
+      ],
+      "filter_query": {
+        "bool": {
+          "filter": [
+            {
+              "range": {
+                "value": {
+                  "from": 1,
+                  "to": null,
+                  "include_lower": false,
+                  "include_upper": true,
+                  "boost": 1
+                }
+              }
+            }
+          ],
+          "adjust_pure_negative": true,
+          "boost": 1
+        }
+      },
+      "detection_interval": {
+        "period": {
+          "interval": 1,
+          "unit": "Minutes"
+        }
+      },
+      "window_delay": {
+        "period": {
+          "interval": 1,
+          "unit": "Minutes"
+        }
+      },
+      "shingle_size": 8,
+      "schema_version": 0,
+      "feature_attributes": [
+        {
+          "feature_id": "U0HKTXwBwf_U8gjUXY2m",
+          "feature_name": "test",
+          "feature_enabled": true,
+          "aggregation_query": {
+            "test": {
+              "sum": {
+                "field": "value"
+              }
+            }
+          }
+        }
+      ],
+      "last_update_time": 1633392680364,
+      "user": {
+        "name": "admin",
+        "backend_roles": [
+          "admin"
+        ],
+        "roles": [
+          "own_index",
+          "all_access"
+        ],
+        "custom_attribute_names": [],
+        "user_requested_tenant": "__user__"
+      },
+      "detector_type": "SINGLE_ENTITY"
+    },
+    "estimated_minutes_left": 0,
+    "user": {
+      "name": "admin",
+      "backend_roles": [
+        "admin"
+      ],
+      "roles": [
+        "own_index",
+        "all_access"
+      ],
+      "custom_attribute_names": [],
+      "user_requested_tenant": "__user__"
+    }
+  },
+  "historical_analysis_task": {
+    "task_id": "99DaTXwB6HknB84StRN1",
+    "last_update_time": 1633393797040,
+    "started_by": "admin",
+    "state": "RUNNING",
+    "detector_id": "VEHKTXwBwf_U8gjUXY2s",
+    "task_progress": 0.89285713,
+    "init_progress": 1,
+    "current_piece": 1633328940000,
+    "execution_start_time": 1633393751412,
+    "is_latest": true,
+    "task_type": "HISTORICAL_SINGLE_ENTITY",
+    "coordinating_node": "SWD7ihu9TaaW1zKwFZNVNg",
+    "worker_node": "2Z4q22BySEyzakYt_A0A2A",
+    "detector": {
+      "name": "test-detector",
+      "description": "Test detector",
+      "time_field": "timestamp",
+      "indices": [
+        "server_log*"
+      ],
+      "filter_query": {
+        "bool": {
+          "filter": [
+            {
+              "range": {
+                "value": {
+                  "from": 1,
+                  "to": null,
+                  "include_lower": false,
+                  "include_upper": true,
+                  "boost": 1
+                }
+              }
+            }
+          ],
+          "adjust_pure_negative": true,
+          "boost": 1
+        }
+      },
+      "detection_interval": {
+        "period": {
+          "interval": 1,
+          "unit": "Minutes"
+        }
+      },
+      "window_delay": {
+        "period": {
+          "interval": 1,
+          "unit": "Minutes"
+        }
+      },
+      "shingle_size": 8,
+      "schema_version": 0,
+      "feature_attributes": [
+        {
+          "feature_id": "U0HKTXwBwf_U8gjUXY2m",
+          "feature_name": "test",
+          "feature_enabled": true,
+          "aggregation_query": {
+            "test": {
+              "sum": {
+                "field": "value"
+              }
+            }
+          }
+        }
+      ],
+      "last_update_time": 1633392680364,
+      "user": {
+        "name": "admin",
+        "backend_roles": [
+          "admin"
+        ],
+        "roles": [
+          "own_index",
+          "all_access"
+        ],
+        "custom_attribute_names": [],
+        "user_requested_tenant": "__user__"
+      },
+      "detector_type": "SINGLE_ENTITY"
+    },
+    "detection_date_range": {
+      "start_time": 1632788951329,
+      "end_time": 1633393751329
+    },
+    "user": {
+      "name": "admin",
+      "backend_roles": [
+        "admin"
+      ],
+      "roles": [
+        "own_index",
+        "all_access"
+      ],
+      "custom_attribute_names": [],
+      "user_requested_tenant": "__user__"
+    }
+  }
+}
+```
+
+---
+
+## Update detector
+Introduced 1.0
+{: .label .label-purple }
+
+Updates a detector with any changes, including the description or adding or removing of features.
+To update a detector, you need to first stop both real-time detection and historical analysis.
+
+You can't update a category field.
+{: .note }
+
+#### Request
+
+```json
+PUT _plugins/_anomaly_detection/detectors/<detectorId>
+{
+  "name": "test-detector",
+  "description": "Test update detector",
+  "time_field": "timestamp",
+  "indices": [
+    "server_log*"
+  ],
+  "feature_attributes": [
+    {
+      "feature_name": "test",
+      "feature_enabled": true,
+      "aggregation_query": {
+        "test": {
+          "sum": {
+            "field": "value"
+          }
+        }
+      }
+    }
+  ],
+  "filter_query": {
+    "bool": {
+      "filter": [
+        {
+          "range": {
+            "value": {
+              "gt": 1
+            }
+          }
+        }
+      ],
+      "adjust_pure_negative": true,
+      "boost": 1
+    }
+  },
+  "detection_interval": {
+    "period": {
+      "interval": 1,
+      "unit": "Minutes"
+    }
+  },
+  "window_delay": {
+    "period": {
+      "interval": 1,
+      "unit": "Minutes"
+    }
+  }
+}
+```
+
+
+#### Sample response
+
+```json
+{
+  "_id": "VEHKTXwBwf_U8gjUXY2s",
+  "_version": 2,
+  "_seq_no": 7,
+  "anomaly_detector": {
+    "name": "test-detector",
+    "description": "Test update detector",
+    "time_field": "timestamp",
+    "indices": [
+      "server_log*"
+    ],
+    "filter_query": {
+      "bool": {
+        "filter": [
+          {
+            "range": {
+              "value": {
+                "from": 1,
+                "to": null,
+                "include_lower": false,
+                "include_upper": true,
+                "boost": 1
+              }
+            }
+          }
+        ],
+        "adjust_pure_negative": true,
+        "boost": 1
+      }
+    },
+    "detection_interval": {
+      "period": {
+        "interval": 1,
+        "unit": "Minutes"
+      }
+    },
+    "window_delay": {
+      "period": {
+        "interval": 1,
+        "unit": "Minutes"
+      }
+    },
+    "shingle_size": 8,
+    "schema_version": 0,
+    "feature_attributes": [
+      {
+        "feature_id": "3kHiTXwBwf_U8gjUlY15",
+        "feature_name": "test",
+        "feature_enabled": true,
+        "aggregation_query": {
+          "test": {
+            "sum": {
+              "field": "value"
+            }
+          }
+        }
+      }
+    ],
+    "last_update_time": 1633394267522,
+    "user": {
+      "name": "admin",
+      "backend_roles": [
+        "admin"
+      ],
+      "roles": [
+        "own_index",
+        "all_access"
+      ],
+      "custom_attribute_names": [],
+      "user_requested_tenant": "__user__"
+    },
+    "detector_type": "SINGLE_ENTITY"
+  },
+  "_primary_term": 1
+}
+```
+
+---
+
+## Delete detector
+Introduced 1.0
+{: .label .label-purple }
+
+Deletes a detector based on the `detector_id`.
+To delete a detector, you need to first stop both real-time detection and historical analysis.
+
+#### Request
+
+```json
+DELETE _plugins/_anomaly_detection/detectors/<detectorId>
+```
+
+#### Sample response
+
+```json
+{
+  "_index": ".opensearch-anomaly-detectors",
+  "_type": "_doc",
+  "_id": "70TxTXwBjd8s6RK4j1Pj",
+  "_version": 2,
+  "result": "deleted",
+  "forced_refresh": true,
+  "_shards": {
+    "total": 2,
+    "successful": 2,
+    "failed": 0
+  },
+  "_seq_no": 9,
+  "_primary_term": 1
+}
+```
+
+---
+
+## Preview detector
+Introduced 1.0
+{: .label .label-purple }
+
+Passes a date range to the anomaly detector to return any anomalies within that date range.
+
+To preview a single-entity detector:
+
+#### Request
+
+```json
+POST _plugins/_anomaly_detection/detectors/_preview
+{
+  "period_start": 1633048868000,
+  "period_end": 1633394468000,
+  "detector": {
+    "name": "test-detector",
+    "description": "Test update detector",
+    "time_field": "timestamp",
+    "indices": [
+      "server_log*"
+    ],
+    "feature_attributes": [
+      {
+        "feature_name": "test",
+        "feature_enabled": true,
+        "aggregation_query": {
+          "test": {
+            "sum": {
+              "field": "value"
+            }
+          }
+        }
+      }
+    ],
+    "filter_query": {
+      "bool": {
+        "filter": [
+          {
+            "range": {
+              "value": {
+                "gt": 1
+              }
+            }
+          }
+        ],
+        "adjust_pure_negative": true,
+        "boost": 1
+      }
+    },
+    "detection_interval": {
+      "period": {
+        "interval": 1,
+        "unit": "Minutes"
+      }
+    },
+    "window_delay": {
+      "period": {
+        "interval": 1,
+        "unit": "Minutes"
+      }
+    }
+  }
+}
+```
 
 #### Sample response
 
@@ -406,44 +1093,359 @@ If you specify a category field, each result is associated with an entity:
 {
   "anomaly_result": [
     {
-      "detector_id": "4CIGoHUBTpMGN-4KzBQg",
-      "data_start_time": 1604277960000,
-      "data_end_time": 1604278020000,
+      "detector_id": null,
+      "data_start_time": 1633049280000,
+      "data_end_time": 1633049340000,
       "schema_version": 0,
+      "feature_data": [
+        {
+          "feature_id": "8EHmTXwBwf_U8gjU0Y0u",
+          "feature_name": "test",
+          "data": 0
+        }
+      ],
       "anomaly_grade": 0,
-      "confidence": 0.99
-    }
+      "confidence": 0
+    },
+    ...
   ],
-  "entity": [
-    {
-      "name": "host",
-      "value": "i-00f28ec1eb8997686"
-    }
-  ]
-},
-{
-  "detector_id": "4CIGoHUBTpMGN-4KzBQg",
-  "data_start_time": 1604278020000,
-  "data_end_time": 1604278080000,
-  "schema_version": 0,
-  "feature_data": [
-    {
-      "feature_id": "0Kld3HUBhpHMyt2e_UHn",
-      "feature_name": "latency_max",
-      "data": -17
-    }
-  ],
-  "anomaly_grade": 0,
-  "confidence": 0.99,
-  "entity": [
-    {
-      "name": "host",
-      "value": "i-00f28ec1eb8997686"
-    }
-  ]
+  "anomaly_detector": {
+    "name": "test-detector",
+    "description": "Test update detector",
+    "time_field": "timestamp",
+    "indices": [
+      "server_log*"
+    ],
+    "filter_query": {
+      "bool": {
+        "filter": [
+          {
+            "range": {
+              "value": {
+                "from": 1,
+                "to": null,
+                "include_lower": false,
+                "include_upper": true,
+                "boost": 1
+              }
+            }
+          }
+        ],
+        "adjust_pure_negative": true,
+        "boost": 1
+      }
+    },
+    "detection_interval": {
+      "period": {
+        "interval": 1,
+        "unit": "Minutes"
+      }
+    },
+    "window_delay": {
+      "period": {
+        "interval": 1,
+        "unit": "Minutes"
+      }
+    },
+    "shingle_size": 8,
+    "schema_version": 0,
+    "feature_attributes": [
+      {
+        "feature_id": "8EHmTXwBwf_U8gjU0Y0u",
+        "feature_name": "test",
+        "feature_enabled": true,
+        "aggregation_query": {
+          "test": {
+            "sum": {
+              "field": "value"
+            }
+          }
+        }
+      }
+    ],
+    "detector_type": "SINGLE_ENTITY"
+  }
 }
-...
+```
 
+If you specify a category field, each result is associated with an entity:
+
+#### Request
+
+```json
+POST _plugins/_anomaly_detection/detectors/_preview
+{
+  "period_start": 1633048868000,
+  "period_end": 1633394468000,
+  "detector": {
+    "name": "test-detector",
+    "description": "Test update detector",
+    "time_field": "timestamp",
+    "indices": [
+      "server_log*"
+    ],
+    "feature_attributes": [
+      {
+        "feature_name": "test",
+        "feature_enabled": true,
+        "aggregation_query": {
+          "test": {
+            "sum": {
+              "field": "value"
+            }
+          }
+        }
+      }
+    ],
+    "filter_query": {
+      "bool": {
+        "filter": [
+          {
+            "range": {
+              "value": {
+                "gt": 1
+              }
+            }
+          }
+        ],
+        "adjust_pure_negative": true,
+        "boost": 1
+      }
+    },
+    "detection_interval": {
+      "period": {
+        "interval": 1,
+        "unit": "Minutes"
+      }
+    },
+    "window_delay": {
+      "period": {
+        "interval": 1,
+        "unit": "Minutes"
+      }
+    },
+    "category_field": [
+      "error_type"
+    ]
+  }
+}
+```
+
+#### Sample response
+
+```json
+{
+  "anomaly_result": [
+    {
+      "detector_id": null,
+      "data_start_time": 1633049280000,
+      "data_end_time": 1633049340000,
+      "schema_version": 0,
+      "feature_data": [
+        {
+          "feature_id": "tkTpTXwBjd8s6RK4DlOZ",
+          "feature_name": "test",
+          "data": 0
+        }
+      ],
+      "anomaly_grade": 0,
+      "confidence": 0,
+      "entity": [
+        {
+          "name": "error_type",
+          "value": "error1"
+        }
+      ]
+    },
+    ...
+  ],
+  "anomaly_detector": {
+    "name": "test-detector",
+    "description": "Test update detector",
+    "time_field": "timestamp",
+    "indices": [
+      "server_log*"
+    ],
+    "filter_query": {
+      "bool": {
+        "filter": [
+          {
+            "range": {
+              "value": {
+                "from": 1,
+                "to": null,
+                "include_lower": false,
+                "include_upper": true,
+                "boost": 1
+              }
+            }
+          }
+        ],
+        "adjust_pure_negative": true,
+        "boost": 1
+      }
+    },
+    "detection_interval": {
+      "period": {
+        "interval": 1,
+        "unit": "Minutes"
+      }
+    },
+    "window_delay": {
+      "period": {
+        "interval": 1,
+        "unit": "Minutes"
+      }
+    },
+    "shingle_size": 8,
+    "schema_version": 0,
+    "feature_attributes": [
+      {
+        "feature_id": "tkTpTXwBjd8s6RK4DlOZ",
+        "feature_name": "test",
+        "feature_enabled": true,
+        "aggregation_query": {
+          "test": {
+            "sum": {
+              "field": "value"
+            }
+          }
+        }
+      }
+    ],
+    "category_field": [
+      "error_type"
+    ],
+    "detector_type": "MULTI_ENTITY"
+  }
+}
+```
+
+You can preview a detector with the detector ID:
+
+```json
+POST _plugins/_anomaly_detection/detectors/_preview
+{
+  "detector_id": "VEHKTXwBwf_U8gjUXY2s",
+  "period_start": 1633048868000,
+  "period_end": 1633394468000
+}
+```
+
+Or:
+
+```json
+POST _opendistro/_anomaly_detection/detectors/VEHKTXwBwf_U8gjUXY2s/_preview
+{
+  "period_start": 1633048868000,
+  "period_end": 1633394468000
+}
+```
+
+#### Sample response
+
+```json
+{
+  "anomaly_result": [
+    {
+      "detector_id": "VEHKTXwBwf_U8gjUXY2s",
+      "data_start_time": 1633049280000,
+      "data_end_time": 1633049340000,
+      "schema_version": 0,
+      "feature_data": [
+        {
+          "feature_id": "3kHiTXwBwf_U8gjUlY15",
+          "feature_name": "test",
+          "data": 0
+        }
+      ],
+      "anomaly_grade": 0,
+      "confidence": 0,
+      "user": {
+        "name": "admin",
+        "backend_roles": [
+          "admin"
+        ],
+        "roles": [
+          "own_index",
+          "all_access"
+        ],
+        "custom_attribute_names": [],
+        "user_requested_tenant": "__user__"
+      }
+    },
+    ...
+  ],
+  "anomaly_detector": {
+    "name": "test-detector",
+    "description": "Test update detector",
+    "time_field": "timestamp",
+    "indices": [
+      "server_log*"
+    ],
+    "filter_query": {
+      "bool": {
+        "filter": [
+          {
+            "range": {
+              "value": {
+                "from": 1,
+                "to": null,
+                "include_lower": false,
+                "include_upper": true,
+                "boost": 1
+              }
+            }
+          }
+        ],
+        "adjust_pure_negative": true,
+        "boost": 1
+      }
+    },
+    "detection_interval": {
+      "period": {
+        "interval": 1,
+        "unit": "Minutes"
+      }
+    },
+    "window_delay": {
+      "period": {
+        "interval": 1,
+        "unit": "Minutes"
+      }
+    },
+    "shingle_size": 8,
+    "schema_version": 0,
+    "feature_attributes": [
+      {
+        "feature_id": "3kHiTXwBwf_U8gjUlY15",
+        "feature_name": "test",
+        "feature_enabled": true,
+        "aggregation_query": {
+          "test": {
+            "sum": {
+              "field": "value"
+            }
+          }
+        }
+      }
+    ],
+    "last_update_time": 1633394267522,
+    "user": {
+      "name": "admin",
+      "backend_roles": [
+        "admin"
+      ],
+      "roles": [
+        "own_index",
+        "all_access"
+      ],
+      "custom_attribute_names": [],
+      "user_requested_tenant": "__user__"
+    },
+    "detector_type": "SINGLE_ENTITY"
+  }
+}
 ```
 
 ---
@@ -454,6 +1456,7 @@ Introduced 1.0
 
 Starts a real-time or historical anomaly detector job.
 
+To start a real-time detector job:
 
 #### Request
 
@@ -465,13 +1468,37 @@ POST _plugins/_anomaly_detection/detectors/<detectorId>/_start
 
 ```json
 {
-  "_id" : "m4ccEnIBTXsGi3mvMt9p",
-  "_version" : 1,
-  "_seq_no" : 6,
-  "_primary_term" : 1
+  "_id": "VEHKTXwBwf_U8gjUXY2s",
+  "_version": 3,
+  "_seq_no": 6,
+  "_primary_term": 1
 }
 ```
 
+The `_id` represents the real-time job ID, which is the same as the detector ID.
+
+To start historical analysis:
+
+```json
+POST _plugins/_anomaly_detection/detectors/<detectorId>/_start
+{
+  "start_time": 1633048868000,
+  "end_time": 1633394468000
+}
+```
+
+#### Sample response
+
+```json
+{
+  "_id": "f9DsTXwB6HknB84SoRTY",
+  "_version": 1,
+  "_seq_no": 958,
+  "_primary_term": 1
+}
+```
+
+The `_id` represents the historical batch task ID, which is a random universally unique identifier (UUID).
 
 ---
 
@@ -480,6 +1507,8 @@ Introduced 1.0
 {: .label .label-purple }
 
 Stops a real-time or historical anomaly detector job.
+
+To stop a real-time detector job:
 
 #### Request
 
@@ -490,33 +1519,54 @@ POST _plugins/_anomaly_detection/detectors/<detectorId>/_stop
 #### Sample response
 
 ```json
-Stopped detector: m4ccEnIBTXsGi3mvMt9p
+{
+  "_id": "VEHKTXwBwf_U8gjUXY2s",
+  "_version": 0,
+  "_seq_no": 0,
+  "_primary_term": 0
+}
+```
+
+To stop historical analysis:
+
+Introduced 1.1
+{: .label .label-purple }
+
+```json
+POST _plugins/_anomaly_detection/detectors/<detectorId>/_stop?historical=true
+```
+
+#### Sample response
+
+```json
+{
+  "_id": "f9DsTXwB6HknB84SoRTY",
+  "_version": 0,
+  "_seq_no": 0,
+  "_primary_term": 0
+}
 ```
 
 ---
 
-## Search detector result
+## Search detector
 Introduced 1.0
 {: .label .label-purple }
 
-Returns all results for a search query.
+Returns all anomaly detectors for a search query.
+
+To search detectors using the `server_log*` index:
 
 #### Request
 
 ```json
-GET _plugins/_anomaly_detection/detectors/results/_search
-POST _plugins/_anomaly_detection/detectors/results/_search
-
+GET _plugins/_anomaly_detection/detectors/_search
+POST _plugins/_anomaly_detection/detectors/_search
 {
   "query": {
-    "bool": {
-      "must": {
-        "range": {
-          "anomaly_score": {
-            "gte": 0.6,
-            "lte": 1
-          }
-        }
+    "wildcard": {
+      "indices": {
+        "value": "server_log*"
       }
     }
   }
@@ -527,138 +1577,7 @@ POST _plugins/_anomaly_detection/detectors/results/_search
 
 ```json
 {
-  "took": 9,
-  "timed_out": false,
-  "_shards": {
-    "total": 25,
-    "successful": 25,
-    "skipped": 0,
-    "failed": 0
-  },
-  "hits": {
-    "total": {
-      "value": 2,
-      "relation": "eq"
-    },
-    "max_score": 1,
-    "hits": [
-      {
-        "_index": ".opendistro-anomaly-results-history-2020.04.30-1",
-        "_type": "_doc",
-        "_id": "_KBrzXEBbpoKkFM5mStm",
-        "_version": 1,
-        "_seq_no": 58,
-        "_primary_term": 1,
-        "_score": 1,
-        "_source": {
-          "detector_id": "2KDozHEBbpoKkFM58yr6",
-          "anomaly_score": 0.8995068350366767,
-          "execution_start_time": 1588289313114,
-          "data_end_time": 1588289313114,
-          "confidence": 0.84214852704501,
-          "data_start_time": 1588289253114,
-          "feature_data": [
-            {
-              "feature_id": "X0fpzHEB5NGZmIRkXKcy",
-              "feature_name": "total_error",
-              "data": 20
-            }
-          ],
-          "execution_end_time": 1588289313126,
-          "anomaly_grade": 0
-        }
-      },
-      {
-        "_index": ".opendistro-anomaly-results-history-2020.04.30-1",
-        "_type": "_doc",
-        "_id": "EqB1zXEBbpoKkFM5qyyE",
-        "_version": 1,
-        "_seq_no": 61,
-        "_primary_term": 1,
-        "_score": 1,
-        "_source": {
-          "detector_id": "2KDozHEBbpoKkFM58yr6",
-          "anomaly_score": 0.7086834513354907,
-          "execution_start_time": 1588289973113,
-          "data_end_time": 1588289973113,
-          "confidence": 0.42162017029510446,
-          "data_start_time": 1588289913113,
-          "feature_data": [
-            {
-              "feature_id": "X0fpzHEB5NGZmIRkXKcy",
-              "feature_name": "memory_usage",
-              "data": 20.0347333108
-            }
-          ],
-          "execution_end_time": 1588289973124,
-          "anomaly_grade": 0
-        }
-      }
-    ]
-  }
-}
-```
-
-In high cardinality detectors, the result contains entity information.
-
-To see an ordered set of anomaly records for an entity with an anomaly within a certain time range for a specific feature value:
-
-#### Request
-
-```json
-POST _plugins/_anomaly_detection/detectors/results/_search
-{
-  "query": {
-    "bool": {
-      "filter": [
-        {
-          "term": {
-            "detector_id": "4CIGoHUBTpMGN-4KzBQg"
-          }
-        },
-        {
-          "range": {
-            "anomaly_grade": {
-              "gt": 0
-            }
-          }
-        },
-        {
-          "nested": {
-            "path": "entity",
-            "query": {
-              "bool": {
-                "must": [
-                  {
-                    "term": {
-                      "entity.value": "i-00f28ec1eb8997685"
-                    }
-                  }
-                ]
-              }
-            }
-          }
-        }
-      ]
-    }
-  },
-  "size": 8,
-  "sort": [
-    {
-      "execution_end_time": {
-        "order": "desc"
-      }
-    }
-  ],
-  "track_total_hits": true
-}
-```
-
-#### Sample response
-
-```json
-{
-  "took": 443,
+  "took": 2,
   "timed_out": false,
   "_shards": {
     "total": 1,
@@ -668,145 +1587,119 @@ POST _plugins/_anomaly_detection/detectors/results/_search
   },
   "hits": {
     "total": {
-      "value": 7,
+      "value": 4,
       "relation": "eq"
     },
-    "max_score": null,
+    "max_score": 1,
     "hits": [
       {
-        "_index": ".opendistro-anomaly-results-history-2020.11.07-1",
+        "_index": ".opensearch-anomaly-detectors",
         "_type": "_doc",
-        "_id": "BiItoHUBTpMGN-4KARY5",
+        "_id": "Zi5zTXwBwf_U8gjUTfJG",
         "_version": 1,
-        "_seq_no": 206,
+        "_seq_no": 1,
         "_primary_term": 1,
-        "_score": null,
+        "_score": 1,
         "_source": {
-          "detector_id": "4CIGoHUBTpMGN-4KzBQg",
-          "schema_version": 2,
-          "anomaly_score": 2.462550517055763,
-          "execution_start_time": 1604710105400,
-          "data_end_time": 1604710094516,
-          "confidence": 0.8246254862573076,
-          "data_start_time": 1604710034516,
-          "feature_data": [
+          "name": "test",
+          "description": "test",
+          "time_field": "timestamp",
+          "indices": [
+            "server_log"
+          ],
+          "filter_query": {
+            "match_all": {
+              "boost": 1
+            }
+          },
+          "detection_interval": {
+            "period": {
+              "interval": 5,
+              "unit": "Minutes"
+            }
+          },
+          "window_delay": {
+            "period": {
+              "interval": 1,
+              "unit": "Minutes"
+            }
+          },
+          "shingle_size": 8,
+          "schema_version": 0,
+          "feature_attributes": [
             {
-              "feature_id": "0Kld3HUBhpHMyt2e_UHn",
-              "feature_name": "latency_max",
-              "data": 3526
+              "feature_id": "ZS5zTXwBwf_U8gjUTfIn",
+              "feature_name": "test_feature",
+              "feature_enabled": true,
+              "aggregation_query": {
+                "test_feature": {
+                  "sum": {
+                    "field": "value"
+                  }
+                }
+              }
             }
           ],
-          "execution_end_time": 1604710105401,
-          "anomaly_grade": 0.08045977011494891,
-          "entity": [
-            {
-              "name": "host",
-              "value": "i-00f28ec1eb8997685"
-            }
-          ]
-        },
-        "sort": [
-          1604710105401
-        ]
+          "last_update_time": 1633386974533,
+          "category_field": [
+            "error_type"
+          ],
+          "user": {
+            "name": "admin",
+            "backend_roles": [
+              "admin"
+            ],
+            "roles": [
+              "own_index",
+              "all_access"
+            ],
+            "custom_attribute_names": [],
+            "user_requested_tenant": "__user__"
+          },
+          "detector_type": "MULTI_ENTITY"
+        }
       },
-      {
-        "_index": ".opendistro-anomaly-results-history-2020.11.07-1",
-        "_type": "_doc",
-        "_id": "wiImoHUBTpMGN-4KlhXs",
-        "_version": 1,
-        "_seq_no": 156,
-        "_primary_term": 1,
-        "_score": null,
-        "_source": {
-          "detector_id": "4CIGoHUBTpMGN-4KzBQg",
-          "schema_version": 2,
-          "anomaly_score": 4.892453213261217,
-          "execution_start_time": 1604709684971,
-          "data_end_time": 1604709674522,
-          "confidence": 0.8313735633713821,
-          "data_start_time": 1604709614522,
-          "feature_data": [
-            {
-              "feature_id": "0Kld3HUBhpHMyt2e_UHn",
-              "feature_name": "latency_max",
-              "data": 5709
-            }
-          ],
-          "execution_end_time": 1604709684971,
-          "anomaly_grade": 0.06542056074767538,
-          "entity": [
-            {
-              "name": "host",
-              "value": "i-00f28ec1eb8997685"
-            }
-          ]
-        },
-        "sort": [
-          1604709684971
-        ]
-      },
-      {
-        "_index": ".opendistro-anomaly-results-history-2020.11.07-1",
-        "_type": "_doc",
-        "_id": "ZiIcoHUBTpMGN-4KhhVA",
-        "_version": 1,
-        "_seq_no": 79,
-        "_primary_term": 1,
-        "_score": null,
-        "_source": {
-          "detector_id": "4CIGoHUBTpMGN-4KzBQg",
-          "schema_version": 2,
-          "anomaly_score": 3.187717536855158,
-          "execution_start_time": 1604709025343,
-          "data_end_time": 1604709014520,
-          "confidence": 0.8301116064308817,
-          "data_start_time": 1604708954520,
-          "feature_data": [
-            {
-              "feature_id": "0Kld3HUBhpHMyt2e_UHn",
-              "feature_name": "latency_max",
-              "data": 441
-            }
-          ],
-          "execution_end_time": 1604709025344,
-          "anomaly_grade": 0.040767386091133916,
-          "entity": [
-            {
-              "name": "host",
-              "value": "i-00f28ec1eb8997685"
-            }
-          ]
-        },
-        "sort": [
-          1604709025344
-        ]
-      }
+      ...
     ]
   }
 }
 ```
 
-In historical detectors, specify the `detector_id`.
-To get the latest task:
+---
+
+## Search detector tasks
+Introduced 1.1
+{: .label .label-purple }
+
+Searches detector tasks.
+
+To search for the latest detector level historical analysis task for a high cardinality detector
 
 #### Request
 
 ```json
-GET _plugins/_anomaly_detection/detectors/<detector_id>?task=true
-```
-
-To query the anomaly results with `task_id`:
-
-#### Request
-
-```json
-GET _plugins/_anomaly_detection/detectors/results/_search
+GET _plugins/_anomaly_detection/detectors/tasks/_search
+POST _plugins/_anomaly_detection/detectors/tasks/_search
 {
   "query": {
-    "term": {
-      "task_id": {
-        "value": "NnlV9HUBQxqfQ7vBJNzy"
-      }
+    "bool": {
+      "filter": [
+        {
+          "term": {
+            "detector_id": "Zi5zTXwBwf_U8gjUTfJG"
+          }
+        },
+        {
+          "term": {
+            "task_type": "HISTORICAL_HC_DETECTOR"
+          }
+        },
+        {
+          "term": {
+            "is_latest": "true"
+          }
+        }
+      ]
     }
   }
 }
@@ -829,51 +1722,55 @@ GET _plugins/_anomaly_detection/detectors/results/_search
       "value": 1,
       "relation": "eq"
     },
-    "max_score": 2.1366,
+    "max_score": 0,
     "hits": [
       {
-        "_index": ".opendistro-anomaly-detection-state",
+        "_index": ".opensearch-anomaly-detection-state",
         "_type": "_doc",
-        "_id": "CoM8WncBtt2qvI-LZO7_",
-        "_version": 8,
-        "_seq_no": 1351,
-        "_primary_term": 3,
-        "_score": 2.1366,
+        "_id": "fm-RTXwBYwCbWecgB753",
+        "_version": 34,
+        "_seq_no": 928,
+        "_primary_term": 1,
+        "_score": 0,
         "_source": {
-          "detector_id": "dZc8WncBgO2zoQoFWVBA",
-          "worker_node": "dk6-HuKQRMKm2fi8TSDHsg",
-          "task_progress": 0.09486946,
-          "last_update_time": 1612126667008,
-          "execution_start_time": 1612126643455,
-          "state": "RUNNING",
-          "coordinating_node": "gs213KqjS4q7H4Bmn_ZuLA",
-          "current_piece": 1583503800000,
-          "task_type": "HISTORICAL",
+          "detector_id": "Zi5zTXwBwf_U8gjUTfJG",
+          "error": "",
+          "detection_date_range": {
+            "start_time": 1630794960000,
+            "end_time": 1633386960000
+          },
+          "task_progress": 1,
+          "last_update_time": 1633389090738,
+          "execution_start_time": 1633388922742,
+          "state": "FINISHED",
+          "coordinating_node": "2Z4q22BySEyzakYt_A0A2A",
+          "task_type": "HISTORICAL_HC_DETECTOR",
+          "execution_end_time": 1633389090738,
           "started_by": "admin",
-          "init_progress": 1,
+          "init_progress": 0,
           "is_latest": true,
           "detector": {
+            "category_field": [
+              "error_type"
+            ],
             "description": "test",
             "ui_metadata": {
               "features": {
-                "F1": {
+                "test_feature": {
                   "aggregationBy": "sum",
                   "aggregationOf": "value",
                   "featureType": "simple_aggs"
                 }
-              }
-            },
-            "detection_date_range": {
-              "start_time": 1580504240308,
-              "end_time": 1612126640308
+              },
+              "filters": []
             },
             "feature_attributes": [
               {
-                "feature_id": "dJc8WncBgO2zoQoFWVAt",
+                "feature_id": "ZS5zTXwBwf_U8gjUTfIn",
                 "feature_enabled": true,
-                "feature_name": "F1",
+                "feature_name": "test_feature",
                 "aggregation_query": {
-                  "f_1": {
+                  "test_feature": {
                     "sum": {
                       "field": "value"
                     }
@@ -883,9 +1780,9 @@ GET _plugins/_anomaly_detection/detectors/results/_search
             ],
             "schema_version": 0,
             "time_field": "timestamp",
-            "last_update_time": 1612126640448,
+            "last_update_time": 1633386974533,
             "indices": [
-              "nab_art_daily_jumpsdown"
+              "server_log"
             ],
             "window_delay": {
               "period": {
@@ -896,10 +1793,10 @@ GET _plugins/_anomaly_detection/detectors/results/_search
             "detection_interval": {
               "period": {
                 "unit": "Minutes",
-                "interval": 10
+                "interval": 5
               }
             },
-            "name": "test-historical-detector",
+            "name": "testhc",
             "filter_query": {
               "match_all": {
                 "boost": 1
@@ -912,13 +1809,13 @@ GET _plugins/_anomaly_detection/detectors/results/_search
               ],
               "custom_attribute_names": [],
               "roles": [
-                "all_access",
-                "own_index"
+                "own_index",
+                "all_access"
               ],
               "name": "admin",
               "user_requested_tenant": "__user__"
             },
-            "detector_type": "HISTORICAL_SINGLE_ENTITY"
+            "detector_type": "MULTI_ENTITY"
           },
           "user": {
             "backend_roles": [
@@ -926,8 +1823,8 @@ GET _plugins/_anomaly_detection/detectors/results/_search
             ],
             "custom_attribute_names": [],
             "roles": [
-              "all_access",
-              "own_index"
+              "own_index",
+              "all_access"
             ],
             "name": "admin",
             "user_requested_tenant": "__user__"
@@ -939,668 +1836,358 @@ GET _plugins/_anomaly_detection/detectors/results/_search
 }
 ```
 
-
----
-
-## Delete detector
-Introduced 1.0
-{: .label .label-purple }
-
-Deletes a detector based on the `detector_id`.
-To delete a detector, you need to first stop the detector.
+To search for the latest entity-level tasks for the historical analysis of a high cardinality detector:
 
 #### Request
 
 ```json
-DELETE _plugins/_anomaly_detection/detectors/<detectorId>
-```
-
-
-#### Sample response
-
-```json
+GET _plugins/_anomaly_detection/detectors/tasks/_search
+POST _plugins/_anomaly_detection/detectors/tasks/_search
 {
-  "_index" : ".opendistro-anomaly-detectors",
-  "_type" : "_doc",
-  "_id" : "m4ccEnIBTXsGi3mvMt9p",
-  "_version" : 2,
-  "result" : "deleted",
-  "forced_refresh" : true,
-  "_shards" : {
-    "total" : 2,
-    "successful" : 2,
-    "failed" : 0
-  },
-  "_seq_no" : 6,
-  "_primary_term" : 1
-}
-```
-
-
----
-
-## Update detector
-Introduced 1.0
-{: .label .label-purple }
-
-Updates a detector with any changes, including the description or adding or removing of features.
-To update a detector, you need to first stop the detector.
-
-#### Request
-
-```json
-PUT _plugins/_anomaly_detection/detectors/<detectorId>
-{
-  "name": "test-detector",
-  "description": "Test detector",
-  "time_field": "timestamp",
-  "indices": [
-    "order*"
-  ],
-  "feature_attributes": [
-    {
-      "feature_name": "total_order",
-      "feature_enabled": true,
-      "aggregation_query": {
-        "total_order": {
-          "sum": {
-            "field": "value"
-          }
-        }
-      }
-    }
-  ],
-  "filter_query": {
+  "query": {
     "bool": {
       "filter": [
         {
-          "exists": {
-            "field": "value",
+          "term": {
+            "detector_id": "Zi5zTXwBwf_U8gjUTfJG"
+          }
+        },
+        {
+          "term": {
+            "task_type": "HISTORICAL_HC_ENTITY"
+          }
+        },
+        {
+          "term": {
+            "is_latest": "true"
+          }
+        }
+      ]
+    }
+  },
+  "sort": [
+    {
+      "execution_start_time": {
+        "order": "desc"
+      }
+    }
+  ],
+  "size": 100
+}
+```
+
+To search and aggregate states for all entity-level historical tasks:
+
+The `parent_task_id` is the same as the task ID that you can get with the profile detector API:
+`GET _plugins/_anomaly_detection/detectors/<detector_ID>/_profile/ad_task`.
+{: .note }
+
+
+#### Request
+
+```json
+GET _plugins/_anomaly_detection/detectors/tasks/_search
+POST _plugins/_anomaly_detection/detectors/tasks/_search
+{
+  "size": 0,
+  "query": {
+    "bool": {
+      "filter": [
+        {
+          "term": {
+            "detector_id": {
+              "value": "Zi5zTXwBwf_U8gjUTfJG",
+              "boost": 1
+            }
+          }
+        },
+        {
+          "term": {
+            "parent_task_id": {
+              "value": "fm-RTXwBYwCbWecgB753",
+              "boost": 1
+            }
+          }
+        },
+        {
+          "terms": {
+            "task_type": [
+              "HISTORICAL_HC_ENTITY"
+            ],
             "boost": 1
           }
         }
-      ],
-      "adjust_pure_negative": true,
-      "boost": 1
+      ]
     }
   },
-  "detection_interval": {
-    "period": {
-      "interval": 10,
-      "unit": "MINUTES"
-    }
-  },
-  "window_delay": {
-    "period": {
-      "interval": 1,
-      "unit": "MINUTES"
+  "aggs": {
+    "test": {
+      "terms": {
+        "field": "state",
+        "size": 100
+      }
     }
   }
 }
-```
-
-
-#### Sample response
-
-```json
-{
-  "_id" : "m4ccEnIBTXsGi3mvMt9p",
-  "_version" : 2,
-  "_seq_no" : 4,
-  "_primary_term" : 1,
-  "anomaly_detector" : {
-    "name" : "test-detector",
-    "description" : "Test detector",
-    "time_field" : "timestamp",
-    "indices" : [
-      "order*"
-    ],
-    "filter_query" : {
-      "bool" : {
-        "filter" : [
-          {
-            "exists" : {
-              "field" : "value",
-              "boost" : 1.0
-            }
-          }
-        ],
-        "adjust_pure_negative" : true,
-        "boost" : 1.0
-      }
-    },
-    "detection_interval" : {
-      "period" : {
-        "interval" : 10,
-        "unit" : "Minutes"
-      }
-    },
-    "window_delay" : {
-      "period" : {
-        "interval" : 1,
-        "unit" : "Minutes"
-      }
-    },
-    "schema_version" : 0,
-    "feature_attributes" : [
-      {
-        "feature_id" : "xxokEnIBcpeWMD987A1X",
-        "feature_name" : "total_order",
-        "feature_enabled" : true,
-        "aggregation_query" : {
-          "total_order" : {
-            "sum" : {
-              "field" : "value"
-            }
-          }
-        }
-      }
-    ]
-  }
-}
-```
-
-To update a historical detector:
-
-#### Request
-
-```json
-PUT _plugins/_anomaly_detection/detectors/<detectorId>
-{
-  "name": "test1",
-  "description": "test historical detector",
-  "time_field": "timestamp",
-  "indices": [
-    "nab_art_daily_jumpsdown"
-  ],
-  "filter_query": {
-    "match_all": {
-      "boost": 1
-    }
-  },
-  "detection_interval": {
-    "period": {
-      "interval": 1,
-      "unit": "Minutes"
-    }
-  },
-  "window_delay": {
-    "period": {
-      "interval": 1,
-      "unit": "Minutes"
-    }
-  },
-  "feature_attributes": [
-    {
-      "feature_name": "F1",
-      "feature_enabled": true,
-      "aggregation_query": {
-        "f_1": {
-          "sum": {
-            "field": "value"
-          }
-        }
-      }
-    }
-  ],
-  "detection_date_range": {
-    "start_time": 1577840401000,
-    "end_time": 1606121925000
-  }
-}
-```
-
----
-
-## Get detector
-Introduced 1.0
-{: .label .label-purple }
-
-Returns all information about a detector based on the `detector_id`.
-
-#### Request
-
-```json
-GET _plugins/_anomaly_detection/detectors/<detectorId>
 ```
 
 #### Sample response
 
 ```json
 {
-  "_id" : "m4ccEnIBTXsGi3mvMt9p",
-  "_version" : 1,
-  "_primary_term" : 1,
-  "_seq_no" : 3,
-  "anomaly_detector" : {
-    "name" : "test-detector",
-    "description" : "Test detector",
-    "time_field" : "timestamp",
-    "indices" : [
-      "order*"
-    ],
-    "filter_query" : {
-      "bool" : {
-        "filter" : [
-          {
-            "exists" : {
-              "field" : "value",
-              "boost" : 1.0
-            }
-          }
-        ],
-        "adjust_pure_negative" : true,
-        "boost" : 1.0
-      }
-    },
-    "detection_interval" : {
-      "period" : {
-        "interval" : 1,
-        "unit" : "Minutes"
-      }
-    },
-    "window_delay" : {
-      "period" : {
-        "interval" : 1,
-        "unit" : "Minutes"
-      }
-    },
-    "schema_version" : 0,
-    "feature_attributes" : [
-      {
-        "feature_id" : "mYccEnIBTXsGi3mvMd8_",
-        "feature_name" : "total_order",
-        "feature_enabled" : true,
-        "aggregation_query" : {
-          "total_order" : {
-            "sum" : {
-              "field" : "value"
-            }
-          }
-        }
-      }
-    ],
-    "last_update_time" : 1589441737319
-  }
-}
-```
-
-
-Use `job=true` to get anomaly detection job information.
-
-#### Request
-
-```json
-GET _plugins/_anomaly_detection/detectors/<detectorId>?job=true
-```
-
-#### Sample response
-
-```json
-{
-  "_id" : "m4ccEnIBTXsGi3mvMt9p",
-  "_version" : 1,
-  "_primary_term" : 1,
-  "_seq_no" : 3,
-  "anomaly_detector" : {
-    "name" : "test-detector",
-    "description" : "Test detector",
-    "time_field" : "timestamp",
-    "indices" : [
-      "order*"
-    ],
-    "filter_query" : {
-      "bool" : {
-        "filter" : [
-          {
-            "exists" : {
-              "field" : "value",
-              "boost" : 1.0
-            }
-          }
-        ],
-        "adjust_pure_negative" : true,
-        "boost" : 1.0
-      }
-    },
-    "detection_interval" : {
-      "period" : {
-        "interval" : 1,
-        "unit" : "Minutes"
-      }
-    },
-    "window_delay" : {
-      "period" : {
-        "interval" : 1,
-        "unit" : "Minutes"
-      }
-    },
-    "schema_version" : 0,
-    "feature_attributes" : [
-      {
-        "feature_id" : "mYccEnIBTXsGi3mvMd8_",
-        "feature_name" : "total_order",
-        "feature_enabled" : true,
-        "aggregation_query" : {
-          "total_order" : {
-            "sum" : {
-              "field" : "value"
-            }
-          }
-        }
-      }
-    ],
-    "last_update_time" : 1589441737319
-  },
-  "anomaly_detector_job" : {
-    "name" : "m4ccEnIBTXsGi3mvMt9p",
-    "schedule" : {
-      "interval" : {
-        "start_time" : 1589442051271,
-        "period" : 1,
-        "unit" : "Minutes"
-      }
-    },
-    "window_delay" : {
-      "period" : {
-        "interval" : 1,
-        "unit" : "Minutes"
-      }
-    },
-    "enabled" : true,
-    "enabled_time" : 1589442051271,
-    "last_update_time" : 1589442051271,
-    "lock_duration_seconds" : 60
-  }
-}
-```
-
-Use `task=true` to get historical detector task information.
-
-#### Request
-
-```json
-GET _plugins/_anomaly_detection/detectors/<detectorId>?task=true
-```
-
-#### Sample response
-
-```json
-{
-  "_id": "BwzKQXcB89DLS7G9rg7Y",
-  "_version": 1,
-  "_primary_term": 2,
-  "_seq_no": 10,
-  "anomaly_detector": {
-    "name": "test-ylwu1",
-    "description": "test",
-    "time_field": "timestamp",
-    "indices": [
-      "nab*"
-    ],
-    "filter_query": {
-      "match_all": {
-        "boost": 1
-      }
-    },
-    "detection_interval": {
-      "period": {
-        "interval": 10,
-        "unit": "Minutes"
-      }
-    },
-    "window_delay": {
-      "period": {
-        "interval": 1,
-        "unit": "Minutes"
-      }
-    },
-    "shingle_size": 8,
-    "schema_version": 0,
-    "feature_attributes": [
-      {
-        "feature_id": "BgzKQXcB89DLS7G9rg7G",
-        "feature_name": "F1",
-        "feature_enabled": true,
-        "aggregation_query": {
-          "f_1": {
-            "sum": {
-              "field": "value"
-            }
-          }
-        }
-      }
-    ],
-    "ui_metadata": {
-      "features": {
-        "F1": {
-          "aggregationBy": "sum",
-          "aggregationOf": "value",
-          "featureType": "simple_aggs"
-        }
-      }
-    },
-    "last_update_time": 1611716538071,
-    "user": {
-      "name": "admin",
-      "backend_roles": [
-        "admin"
-      ],
-      "roles": [
-        "all_access",
-        "own_index"
-      ],
-      "custom_attribute_names": [],
-      "user_requested_tenant": "__user__"
-    },
-    "detector_type": "HISTORICAL_SINGLE_ENTITY",
-    "detection_date_range": {
-      "start_time": 1580094137997,
-      "end_time": 1611716537997
-    }
-  },
-  "anomaly_detection_task": {
-    "task_id": "sgxaRXcB89DLS7G9RfIO",
-    "last_update_time": 1611776648699,
-    "started_by": "admin",
-    "state": "FINISHED",
-    "detector_id": "BwzKQXcB89DLS7G9rg7Y",
-    "task_progress": 1,
-    "init_progress": 1,
-    "current_piece": 1611716400000,
-    "execution_start_time": 1611776279822,
-    "execution_end_time": 1611776648679,
-    "is_latest": true,
-    "task_type": "HISTORICAL",
-    "coordinating_node": "gs213KqjS4q7H4Bmn_ZuLA",
-    "worker_node": "PgfR3JhbT7yJMx7bwQ6E3w",
-    "detector": {
-      "name": "test-ylwu1",
-      "description": "test",
-      "time_field": "timestamp",
-      "indices": [
-        "nab*"
-      ],
-      "filter_query": {
-        "match_all": {
-          "boost": 1
-        }
-      },
-      "detection_interval": {
-        "period": {
-          "interval": 10,
-          "unit": "Minutes"
-        }
-      },
-      "window_delay": {
-        "period": {
-          "interval": 1,
-          "unit": "Minutes"
-        }
-      },
-      "shingle_size": 8,
-      "schema_version": 0,
-      "feature_attributes": [
-        {
-          "feature_id": "BgzKQXcB89DLS7G9rg7G",
-          "feature_name": "F1",
-          "feature_enabled": true,
-          "aggregation_query": {
-            "f_1": {
-              "sum": {
-                "field": "value"
-              }
-            }
-          }
-        }
-      ],
-      "ui_metadata": {
-        "features": {
-          "F1": {
-            "aggregationBy": "sum",
-            "aggregationOf": "value",
-            "featureType": "simple_aggs"
-          }
-        }
-      },
-      "last_update_time": 1611716538071,
-      "user": {
-        "name": "admin",
-        "backend_roles": [
-          "admin"
-        ],
-        "roles": [
-          "all_access",
-          "own_index"
-        ],
-        "custom_attribute_names": [],
-        "user_requested_tenant": "__user__"
-      },
-      "detector_type": "HISTORICAL_SINGLE_ENTITY",
-      "detection_date_range": {
-        "start_time": 1580094137997,
-        "end_time": 1611716537997
-      }
-    },
-    "user": {
-      "name": "admin",
-      "backend_roles": [
-        "admin"
-      ],
-      "roles": [
-        "all_access",
-        "own_index"
-      ],
-      "custom_attribute_names": [],
-      "user_requested_tenant": "__user__"
-    }
-  }
-}
-```
-
----
-
-## Search detector
-Introduced 1.0
-{: .label .label-purple }
-
-Returns all anomaly detectors for a search query.
-
-#### Request
-
-```json
-GET _plugins/_anomaly_detection/detectors/_search
-POST _plugins/_anomaly_detection/detectors/_search
-
-Sample Input:
-{
-  "query": {
-    "match": {
-      "name": "test-detector"
-    }
-  }
-}
-```
-
-
-#### Sample response
-
-```json
-{
-  "took": 13,
+  "took": 2,
   "timed_out": false,
   "_shards": {
-    "total": 5,
-    "successful": 5,
+    "total": 1,
+    "successful": 1,
     "skipped": 0,
     "failed": 0
   },
   "hits": {
     "total": {
-      "value": 994,
+      "value": 32,
       "relation": "eq"
     },
-    "max_score": 3.5410638,
+    "max_score": null,
+    "hits": []
+  },
+  "aggregations": {
+    "test": {
+      "doc_count_error_upper_bound": 0,
+      "sum_other_doc_count": 0,
+      "buckets": [
+        {
+          "key": "FINISHED",
+          "doc_count": 32
+        }
+      ]
+    }
+  }
+}
+```
+
+---
+
+## Search detector result
+Introduced 1.0
+{: .label .label-purple }
+
+Returns all results for a search query.
+
+To search anomaly results for `grade` greater than 0 for real-time analysis:
+
+#### Request
+
+```json
+GET _plugins/_anomaly_detection/detectors/results/_search
+POST _plugins/_anomaly_detection/detectors/results/_search
+{
+  "query": {
+    "bool": {
+      "filter": [
+        {
+          "term": {
+            "detector_id": "Zi5zTXwBwf_U8gjUTfJG"
+          }
+        },
+        {
+          "range": {
+            "anomaly_grade": {
+              "gt": 0
+            }
+          }
+        }
+      ],
+      "must_not": [
+        {
+          "exists": {
+            "field": "task_id"
+          }
+        }
+      ]
+    }
+  }
+}
+```
+
+Real-time detection doesn't persist the task ID in the anomaly result, so the task ID will be null.
+
+#### Sample response
+
+```json
+{
+  "took": 4,
+  "timed_out": false,
+  "_shards": {
+    "total": 3,
+    "successful": 3,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 90,
+      "relation": "eq"
+    },
+    "max_score": 0,
     "hits": [
       {
-        "_index": ".opendistro-anomaly-detectors",
+        "_index": ".opensearch-anomaly-results-history-2021.10.04-1",
         "_type": "_doc",
-        "_id": "m4ccEnIBTXsGi3mvMt9p",
-        "_version": 2,
-        "_seq_no": 221,
+        "_id": "686KTXwB6HknB84SMr6G",
+        "_version": 1,
+        "_seq_no": 103622,
         "_primary_term": 1,
-        "_score": 3.5410638,
+        "_score": 0,
         "_source": {
-          "name": "test-detector",
-          "description": "Test detector",
-          "time_field": "timestamp",
-          "indices": [
-            "order*"
-          ],
-          "filter_query": {
-            "bool": {
-              "filter": [
-                {
-                  "exists": {
-                    "field": "value",
-                    "boost": 1
-                  }
-                }
-              ],
-              "adjust_pure_negative": true,
-              "boost": 1
-            }
-          },
-          "detection_interval": {
-            "period": {
-              "interval": 10,
-              "unit": "MINUTES"
-            }
-          },
-          "window_delay": {
-            "period": {
-              "interval": 1,
-              "unit": "MINUTES"
-            }
-          },
-          "schema_version": 0,
-          "feature_attributes": [
+          "detector_id": "Zi5zTXwBwf_U8gjUTfJG",
+          "confidence": 0.918886275269358,
+          "model_id": "Zi5zTXwBwf_U8gjUTfJG_entity_error16",
+          "schema_version": 4,
+          "anomaly_score": 1.1093755891885446,
+          "execution_start_time": 1633388475001,
+          "data_end_time": 1633388414989,
+          "data_start_time": 1633388114989,
+          "feature_data": [
             {
-              "feature_id": "xxokEnIBcpeWMD987A1X",
-              "feature_name": "total_order",
-              "feature_enabled": true,
-              "aggregation_query": {
-                "total_order": {
-                  "sum": {
-                    "field": "value"
-                  }
-                }
-              }
+              "feature_id": "ZS5zTXwBwf_U8gjUTfIn",
+              "feature_name": "test_feature",
+              "data": 0.532
             }
           ],
-          "last_update_time": 1589442309241
+          "execution_end_time": 1633388475014,
+          "user": {
+            "backend_roles": [
+              "admin"
+            ],
+            "custom_attribute_names": [],
+            "roles": [
+              "own_index",
+              "all_access"
+            ],
+            "name": "admin",
+            "user_requested_tenant": "__user__"
+          },
+          "anomaly_grade": 0.031023547546561225,
+          "entity": [
+            {
+              "name": "error_type",
+              "value": "error16"
+            }
+          ]
         }
-      }
+      },
+      ...
+    ]
+  }
+}
+```
+
+You can run historical analysis as many times as you like. So, multiple tasks might exist for the same detector.
+
+You can search for the latest historical batch task first and then search the historical batch task results.
+
+To search anomaly results for `grade` greater than 0 for historical analysis with the `task_id`:
+
+#### Request
+
+```json
+GET _plugins/_anomaly_detection/detectors/results/_search
+POST _plugins/_anomaly_detection/detectors/results/_search
+{
+  "query": {
+    "bool": {
+      "filter": [
+        {
+          "term": {
+            "detector_id": "Zi5zTXwBwf_U8gjUTfJG"
+          }
+        },
+        {
+          "range": {
+            "anomaly_grade": {
+              "gt": 0
+            }
+          }
+        },
+        {
+          "term": {
+            "task_id": "fm-RTXwBYwCbWecgB753"
+          }
+        }
+      ]
+    }
+  }
+}
+```
+
+#### Sample response
+
+```json
+{
+  "took": 915,
+  "timed_out": false,
+  "_shards": {
+    "total": 3,
+    "successful": 3,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 4115,
+      "relation": "eq"
+    },
+    "max_score": 0,
+    "hits": [
+      {
+        "_index": ".opensearch-anomaly-results-history-2021.10.04-1",
+        "_type": "_doc",
+        "_id": "VRyRTXwBDx7vzPBV8jYC",
+        "_version": 1,
+        "_seq_no": 149657,
+        "_primary_term": 1,
+        "_score": 0,
+        "_source": {
+          "detector_id": "Zi5zTXwBwf_U8gjUTfJG",
+          "confidence": 0.9642989263957601,
+          "task_id": "fm-RTXwBYwCbWecgB753",
+          "model_id": "Zi5zTXwBwf_U8gjUTfJG_entity_error24",
+          "schema_version": 4,
+          "anomaly_score": 1.2260712437521946,
+          "execution_start_time": 1633388982692,
+          "data_end_time": 1631721300000,
+          "data_start_time": 1631721000000,
+          "feature_data": [
+            {
+              "feature_id": "ZS5zTXwBwf_U8gjUTfIn",
+              "feature_name": "test_feature",
+              "data": 10
+            }
+          ],
+          "execution_end_time": 1633388982709,
+          "user": {
+            "backend_roles": [
+              "admin"
+            ],
+            "custom_attribute_names": [],
+            "roles": [
+              "own_index",
+              "all_access"
+            ],
+            "name": "admin",
+            "user_requested_tenant": "__user__"
+          },
+          "anomaly_grade": 0.14249628345655782,
+          "entity": [
+            {
+              "name": "error_type",
+              "value": "error1"
+            }
+          ]
+        }
+      },
+      ...
     ]
   }
 }
@@ -1614,64 +2201,740 @@ Introduced 1.0
 
 Provides information about how the plugin is performing.
 
+To get all stats:
+
 #### Request
 
 ```json
 GET _plugins/_anomaly_detection/stats
-GET _plugins/_anomaly_detection/<nodeId>/stats
-GET _plugins/_anomaly_detection/<nodeId>/stats/<stat>
-GET _plugins/_anomaly_detection/stats/<stat>
 ```
 
 #### Sample response
 
 ```json
 {
-  "_nodes" : {
-    "total" : 3,
-    "successful" : 3,
-    "failed" : 0
-  },
-  "cluster_name" : "multi-node-run",
-  "anomaly_detectors_index_status" : "green",
-  "detector_count" : 1,
-  "models_checkpoint_index_status" : "green",
-  "anomaly_results_index_status" : "green",
-  "nodes" : {
-    "IgWDUfzFRzW0FWAXM5FGJw" : {
-      "ad_execute_request_count" : 8,
-      "ad_execute_failure_count" : 7,
-      "models" : [
+  "anomaly_detectors_index_status": "green",
+  "anomaly_detection_state_status": "green",
+  "single_entity_detector_count": 2,
+  "detector_count": 5,
+  "multi_entity_detector_count": 3,
+  "anomaly_detection_job_index_status": "green",
+  "models_checkpoint_index_status": "green",
+  "anomaly_results_index_status": "green",
+  "nodes": {
+    "2Z4q22BySEyzakYt_A0A2A": {
+      "ad_execute_request_count": 95,
+      "models": [
         {
-          "detector_id" : "m4ccEnIBTXsGi3mvMt9p",
-          "model_type" : "rcf",
-          "model_id" : "m4ccEnIBTXsGi3mvMt9p_model_rcf_0"
+          "detector_id": "WTBnTXwBjd8s6RK4b1Sz",
+          "model_type": "rcf",
+          "last_used_time": 1633398197185,
+          "model_id": "WTBnTXwBjd8s6RK4b1Sz_model_rcf_0",
+          "last_checkpoint_time": 1633396573679
+        },
+        ...
+      ],
+      "ad_canceled_batch_task_count": 0,
+      "ad_hc_execute_request_count": 75,
+      "ad_hc_execute_failure_count": 0,
+      "model_count": 28,
+      "ad_execute_failure_count": 1,
+      "ad_batch_task_failure_count": 0,
+      "ad_total_batch_task_execution_count": 27,
+      "ad_executing_batch_task_count": 3
+    },
+    "SWD7ihu9TaaW1zKwFZNVNg": {
+      "ad_execute_request_count": 12,
+      "models": [
+        {
+          "detector_id": "Zi5zTXwBwf_U8gjUTfJG",
+          "model_type": "entity",
+          "last_used_time": 1633398375008,
+          "model_id": "Zi5zTXwBwf_U8gjUTfJG_entity_error13",
+          "last_checkpoint_time": 1633392973682,
+          "entity": [
+            {
+              "name": "error_type",
+              "value": "error13"
+            }
+          ]
+        },
+        ...
+      ],
+      "ad_canceled_batch_task_count": 1,
+      "ad_hc_execute_request_count": 0,
+      "ad_hc_execute_failure_count": 0,
+      "model_count": 15,
+      "ad_execute_failure_count": 2,
+      "ad_batch_task_failure_count": 0,
+      "ad_total_batch_task_execution_count": 27,
+      "ad_executing_batch_task_count": 4
+    },
+    "TQDUXEzyTJyV0H6_T4hYUw": {
+      "ad_execute_request_count": 0,
+      "models": [
+        {
+          "detector_id": "Zi5zTXwBwf_U8gjUTfJG",
+          "model_type": "entity",
+          "last_used_time": 1633398375004,
+          "model_id": "Zi5zTXwBwf_U8gjUTfJG_entity_error24",
+          "last_checkpoint_time": 1633388177359,
+          "entity": [
+            {
+              "name": "error_type",
+              "value": "error24"
+            }
+          ]
+        },
+        ...
+      ],
+      "ad_canceled_batch_task_count": 0,
+      "ad_hc_execute_request_count": 0,
+      "ad_hc_execute_failure_count": 0,
+      "model_count": 22,
+      "ad_execute_failure_count": 0,
+      "ad_batch_task_failure_count": 0,
+      "ad_total_batch_task_execution_count": 28,
+      "ad_executing_batch_task_count": 3
+    }
+  }
+}
+```
+
+The `model_count` parameter shows the total number of models running on each node’s memory.
+For historical analysis, you see the values for the following fields:
+
+- `ad_total_batch_task_execution_count`
+- `ad_executing_batch_task_count`
+- `ad_canceled_batch_task_count`
+- `ad_batch_task_failure_count`
+
+If haven't run any historical analysis, these values show up as 0.
+
+To get all stats for a specific node:
+
+#### Request
+
+```json
+GET _plugins/_anomaly_detection/<nodeId>/stats
+```
+
+To get specific stats for a node:
+
+#### Request
+
+```json
+GET _plugins/_anomaly_detection/<nodeId>/stats/<stat>
+```
+
+For example, to get the `ad_execute_request_count` value for node `SWD7ihu9TaaW1zKwFZNVNg`:
+
+```json
+GET _plugins/_anomaly_detection/SWD7ihu9TaaW1zKwFZNVNg/stats/ad_execute_request_count
+```
+
+#### Sample response
+
+```json
+{
+  "nodes": {
+    "SWD7ihu9TaaW1zKwFZNVNg": {
+      "ad_execute_request_count": 12
+    }
+  }
+}
+```
+
+To get a specific type of stats:
+
+#### Request
+
+```json
+GET _plugins/_anomaly_detection/stats/<stat>
+```
+
+For example:
+
+```json
+GET _plugins/_anomaly_detection/stats/ad_executing_batch_task_count
+```
+
+#### Sample response
+
+```json
+{
+  "nodes": {
+    "2Z4q22BySEyzakYt_A0A2A": {
+      "ad_executing_batch_task_count": 3
+    },
+    "SWD7ihu9TaaW1zKwFZNVNg": {
+      "ad_executing_batch_task_count": 3
+    },
+    "TQDUXEzyTJyV0H6_T4hYUw": {
+      "ad_executing_batch_task_count": 4
+    }
+  }
+}
+```
+
+---
+
+## Profile detector
+Introduced 1.0
+{: .label .label-purple }
+
+Returns information related to the current state of the detector and memory usage, including current errors and shingle size, to help troubleshoot the detector.
+
+This command helps locate logs by identifying the nodes that run the anomaly detector job for each detector.
+
+It also helps track the initialization percentage, the required shingles, and the estimated time left.  
+
+#### Request
+
+```json
+GET _plugins/_anomaly_detection/detectors/<detectorId>/_profile/
+GET _plugins/_anomaly_detection/detectors/<detectorId>/_profile?_all=true
+GET _plugins/_anomaly_detection/detectors/<detectorId>/_profile/<type>
+GET _plugins/_anomaly_detection/detectors/<detectorId>/_profile/<type1>,<type2>
+```
+
+#### Sample Responses
+
+```json
+GET _plugins/_anomaly_detection/detectors/<detectorId>/_profile
+
+{
+  "state": "DISABLED",
+  "error": "Stopped detector: AD models memory usage exceeds our limit."
+}
+
+GET _plugins/_anomaly_detection/detectors/<detectorId>/_profile?_all=true&pretty
+
+{
+  "state": "RUNNING",
+  "error": "",
+  "models": [
+    {
+      "model_id": "3Dh6TXwBwf_U8gjURE0F_entity_KSLSh0Wv05RQXiBAQHTEZg",
+      "entity": [
+        {
+          "name": "ip",
+          "value": "192.168.1.1"
         },
         {
-          "detector_id" : "m4ccEnIBTXsGi3mvMt9p",
-          "model_type" : "threshold",
-          "model_id" : "m4ccEnIBTXsGi3mvMt9p_model_threshold"
+          "name": "error_type",
+          "value": "error8"
         }
-      ]
+      ],
+      "model_size_in_bytes": 403491,
+      "node_id": "2Z4q22BySEyzakYt_A0A2A"
     },
-    "y7YUQWukQEWOYbfdEq13hQ" : {
-      "ad_execute_request_count" : 0,
-      "ad_execute_failure_count" : 0,
-      "models" : [ ]
+    ...
+  ],
+  "total_size_in_bytes": 12911712,
+  "init_progress": {
+    "percentage": "100%"
+  },
+  "total_entities": 33,
+  "active_entities": 32,
+  "ad_task": {
+    "ad_task": {
+      "task_id": "D3I5TnwBYwCbWecg7lN9",
+      "last_update_time": 1633399993685,
+      "started_by": "admin",
+      "state": "RUNNING",
+      "detector_id": "3Dh6TXwBwf_U8gjURE0F",
+      "task_progress": 0,
+      "init_progress": 0,
+      "execution_start_time": 1633399991933,
+      "is_latest": true,
+      "task_type": "HISTORICAL_HC_DETECTOR",
+      "coordinating_node": "2Z4q22BySEyzakYt_A0A2A",
+      "detector": {
+        "name": "testhc-mc",
+        "description": "test",
+        "time_field": "timestamp",
+        "indices": [
+          "server_log"
+        ],
+        "filter_query": {
+          "match_all": {
+            "boost": 1
+          }
+        },
+        "detection_interval": {
+          "period": {
+            "interval": 5,
+            "unit": "Minutes"
+          }
+        },
+        "window_delay": {
+          "period": {
+            "interval": 1,
+            "unit": "Minutes"
+          }
+        },
+        "shingle_size": 8,
+        "schema_version": 0,
+        "feature_attributes": [
+          {
+            "feature_id": "2zh6TXwBwf_U8gjUQ039",
+            "feature_name": "test",
+            "feature_enabled": true,
+            "aggregation_query": {
+              "test": {
+                "sum": {
+                  "field": "value"
+                }
+              }
+            }
+          }
+        ],
+        "ui_metadata": {
+          "features": {
+            "test": {
+              "aggregationBy": "sum",
+              "aggregationOf": "value",
+              "featureType": "simple_aggs"
+            }
+          },
+          "filters": []
+        },
+        "last_update_time": 1633387430916,
+        "category_field": [
+          "ip",
+          "error_type"
+        ],
+        "user": {
+          "name": "admin",
+          "backend_roles": [
+            "admin"
+          ],
+          "roles": [
+            "own_index",
+            "all_access"
+          ],
+          "custom_attribute_names": [],
+          "user_requested_tenant": "__user__"
+        },
+        "detector_type": "MULTI_ENTITY"
+      },
+      "detection_date_range": {
+        "start_time": 1632793800000,
+        "end_time": 1633398600000
+      },
+      "user": {
+        "name": "admin",
+        "backend_roles": [
+          "admin"
+        ],
+        "roles": [
+          "own_index",
+          "all_access"
+        ],
+        "custom_attribute_names": [],
+        "user_requested_tenant": "__user__"
+      }
     },
-    "cDcGNsPoRAyRMlPP1m-vZw" : {
-      "ad_execute_request_count" : 0,
-      "ad_execute_failure_count" : 0,
-      "models" : [
+    "node_id": "2Z4q22BySEyzakYt_A0A2A",
+    "task_id": "D3I5TnwBYwCbWecg7lN9",
+    "task_type": "HISTORICAL_HC_DETECTOR",
+    "detector_task_slots": 10,
+    "total_entities_count": 32,
+    "pending_entities_count": 22,
+    "running_entities_count": 10,
+    "running_entities": [      """[{"name":"ip","value":"192.168.1.1"},{"name":"error_type","value":"error9"}]""",
+          ...],
+    "entity_task_profiles": [
+      {
+        "shingle_size": 8,
+        "rcf_total_updates": 1994,
+        "threshold_model_trained": true,
+        "threshold_model_training_data_size": 0,
+        "model_size_in_bytes": 1593240,
+        "node_id": "2Z4q22BySEyzakYt_A0A2A",
+        "entity": [
+          {
+            "name": "ip",
+            "value": "192.168.1.1"
+          },
+          {
+            "name": "error_type",
+            "value": "error7"
+          }
+        ],
+        "task_id": "E3I5TnwBYwCbWecg9FMm",
+        "task_type": "HISTORICAL_HC_ENTITY"
+      },
+      ...
+    ]
+  },
+  "model_count": 32
+}
+
+GET _plugins/_anomaly_detection/detectors/<detectorId>/_profile/total_size_in_bytes
+
+{
+  "total_size_in_bytes": 13369344
+}
+```
+
+You can see the `ad_task` field only for historical analysis.
+
+The `model_count` parameter shows the total number of models that a detector runs on each node’s memory. This is useful if you have several models running on your cluster and want to know the count.
+
+If you configured the category field, you can see the number of unique values in the field and all active entities with models running in memory.
+
+You can use this data to estimate how much memory is required for anomaly detection so you can decide how to size your cluster. For example, if a detector has one million entities and only 10 of them are active in memory, you need to scale your cluster up or out.
+
+For a single-entity detector:
+
+#### Sample response
+
+```json
+{
+  "state": "INIT",
+  "total_size_in_bytes": 0,
+  "init_progress": {
+    "percentage": "0%",
+    "needed_shingles": 128
+  },
+  "ad_task": {
+    "ad_task": {
+      "task_id": "cfUNOXwBFLNqSEcxAlde",
+      "last_update_time": 1633044731640,
+      "started_by": "admin",
+      "state": "RUNNING",
+      "detector_id": "qL4NOXwB__6eNorTAKtJ",
+      "task_progress": 0.49603173,
+      "init_progress": 1,
+      "current_piece": 1632739800000,
+      "execution_start_time": 1633044726365,
+      "is_latest": true,
+      "task_type": "HISTORICAL_SINGLE_ENTITY",
+      "coordinating_node": "bCtWtxWPThq0BIn5P5I4Xw",
+      "worker_node": "dIyavWhmSYWGz65b4u-lpQ",
+      "detector": {
+        "name": "detector1",
+        "description": "test",
+        "time_field": "timestamp",
+        "indices": [
+          "server_log"
+        ],
+        "filter_query": {
+          "match_all": {
+            "boost": 1
+          }
+        },
+        "detection_interval": {
+          "period": {
+            "interval": 5,
+            "unit": "Minutes"
+          }
+        },
+        "window_delay": {
+          "period": {
+            "interval": 1,
+            "unit": "Minutes"
+          }
+        },
+        "shingle_size": 8,
+        "schema_version": 0,
+        "feature_attributes": [
+          {
+            "feature_id": "p74NOXwB__6eNorTAKss",
+            "feature_name": "test-feature",
+            "feature_enabled": true,
+            "aggregation_query": {
+              "test_feature": {
+                "sum": {
+                  "field": "value"
+                }
+              }
+            }
+          }
+        ],
+        "ui_metadata": {
+          "features": {
+            "test-feature": {
+              "aggregationBy": "sum",
+              "aggregationOf": "value",
+              "featureType": "simple_aggs"
+            }
+          },
+          "filters": []
+        },
+        "last_update_time": 1633044725832,
+        "user": {
+          "name": "admin",
+          "backend_roles": [
+            "admin"
+          ],
+          "roles": [
+            "own_index",
+            "all_access"
+          ],
+          "custom_attribute_names": [],
+          "user_requested_tenant": "__user__"
+        },
+        "detector_type": "SINGLE_ENTITY"
+      },
+      "detection_date_range": {
+        "start_time": 1632439925885,
+        "end_time": 1633044725885
+      },
+      "user": {
+        "name": "admin",
+        "backend_roles": [
+          "admin"
+        ],
+        "roles": [
+          "own_index",
+          "all_access"
+        ],
+        "custom_attribute_names": [],
+        "user_requested_tenant": "__user__"
+      }
+    },
+    "shingle_size": 8,
+    "rcf_total_updates": 1994,
+    "threshold_model_trained": true,
+    "threshold_model_training_data_size": 0,
+    "model_size_in_bytes": 1593240,
+    "node_id": "dIyavWhmSYWGz65b4u-lpQ",
+    "detector_task_slots": 1
+  }
+}
+```
+
+The `total_entities` parameter shows you the total number of entities including the number of category fields for a detector.
+
+Getting the total count of entities is an expensive operation for real-time analysis of a detector with more than one category field. By default, for a real-time detection profile, a detector counts the number of entities up to a value of 10,000. For historical analysis, the anomaly detection plugin only detects the top 1,000 entities by default and caches the top entities in memory, so it doesn't cost much to get the total count of entities for historical analysis.
+
+The `profile` operation also provides information about each entity, such as the entity’s `last_sample_timestamp` and `last_active_timestamp`. `last_sample_timestamp` shows the last document in the input data source index containing the entity, while `last_active_timestamp` shows the timestamp when the entity’s model was last seen in the model cache.
+
+If there are no anomaly results for an entity, either the entity doesn't have any sample data or resources such as memory and disk IO are constrained relative to the number of entities.
+
+#### Request
+
+```json
+GET _plugins/_anomaly_detection/detectors/<detectorId>/_profile?_all=true
+{
+  "entity": [
+    {
+      "name": "host",
+      "value": "i-00f28ec1eb8997686"
+    }
+  ]
+}
+```
+
+#### Sample Responses
+
+```json
+{
+  "is_active": true,
+  "last_active_timestamp": 1604026394879,
+  "last_sample_timestamp": 1604026394879,
+  "init_progress": {
+    "percentage": "100%"
+  },
+  "model": {
+    "model_id": "TFUdd3UBBwIAGQeRh5IS_entity_i-00f28ec1eb8997686",
+    "model_size_in_bytes": 712480,
+    "node_id": "MQ-bTBW3Q2uU_2zX3pyEQg"
+  },
+  "state": "RUNNING"
+}
+```
+
+To get profile information for only historical analysis, specify `ad_task`.
+Specifying `_all` is an expensive operation for multi-category high cardinality detectors.
+
+#### Request
+
+```json
+GET _plugins/_anomaly_detection/detectors/<detectorId>/_profile?_all
+GET _plugins/_anomaly_detection/detectors/<detectorId>/_profile/ad_task
+```
+
+#### Sample Responses
+
+```json
+{
+  "ad_task": {
+    "ad_task": {
+      "task_id": "CHI0TnwBYwCbWecgqgRA",
+      "last_update_time": 1633399648413,
+      "started_by": "admin",
+      "state": "RUNNING",
+      "detector_id": "3Dh6TXwBwf_U8gjURE0F",
+      "task_progress": 0,
+      "init_progress": 0,
+      "execution_start_time": 1633399646784,
+      "is_latest": true,
+      "task_type": "HISTORICAL_HC_DETECTOR",
+      "coordinating_node": "2Z4q22BySEyzakYt_A0A2A",
+      "detector": {
+        "name": "testhc-mc",
+        "description": "test",
+        "time_field": "timestamp",
+        "indices": [
+          "server_log"
+        ],
+        "filter_query": {
+          "match_all": {
+            "boost": 1
+          }
+        },
+        "detection_interval": {
+          "period": {
+            "interval": 5,
+            "unit": "Minutes"
+          }
+        },
+        "window_delay": {
+          "period": {
+            "interval": 1,
+            "unit": "Minutes"
+          }
+        },
+        "shingle_size": 8,
+        "schema_version": 0,
+        "feature_attributes": [
+          {
+            "feature_id": "2zh6TXwBwf_U8gjUQ039",
+            "feature_name": "test",
+            "feature_enabled": true,
+            "aggregation_query": {
+              "test": {
+                "sum": {
+                  "field": "value"
+                }
+              }
+            }
+          }
+        ],
+        "ui_metadata": {
+          "features": {
+            "test": {
+              "aggregationBy": "sum",
+              "aggregationOf": "value",
+              "featureType": "simple_aggs"
+            }
+          },
+          "filters": []
+        },
+        "last_update_time": 1633387430916,
+        "category_field": [
+          "ip",
+          "error_type"
+        ],
+        "user": {
+          "name": "admin",
+          "backend_roles": [
+            "admin"
+          ],
+          "roles": [
+            "own_index",
+            "all_access"
+          ],
+          "custom_attribute_names": [],
+          "user_requested_tenant": "__user__"
+        },
+        "detector_type": "MULTI_ENTITY"
+      },
+      "detection_date_range": {
+        "start_time": 1632793800000,
+        "end_time": 1633398600000
+      },
+      "user": {
+        "name": "admin",
+        "backend_roles": [
+          "admin"
+        ],
+        "roles": [
+          "own_index",
+          "all_access"
+        ],
+        "custom_attribute_names": [],
+        "user_requested_tenant": "__user__"
+      }
+    },
+    "node_id": "2Z4q22BySEyzakYt_A0A2A",
+    "task_id": "CHI0TnwBYwCbWecgqgRA",
+    "task_type": "HISTORICAL_HC_DETECTOR",
+    "detector_task_slots": 10,
+    "total_entities_count": 32,
+    "pending_entities_count": 22,
+    "running_entities_count": 10,
+    "running_entities" : [
+      """[{"name":"ip","value":"192.168.1.1"},{"name":"error_type","value":"error9"}]""",
+      ...
+    ],
+    "entity_task_profiles": [
+      {
+        "shingle_size": 8,
+        "rcf_total_updates": 994,
+        "threshold_model_trained": true,
+        "threshold_model_training_data_size": 0,
+        "model_size_in_bytes": 1593240,
+        "node_id": "2Z4q22BySEyzakYt_A0A2A",
+        "entity": [
+          {
+            "name": "ip",
+            "value": "192.168.1.1"
+          },
+          {
+            "name": "error_type",
+            "value": "error6"
+          }
+        ],
+        "task_id": "9XI0TnwBYwCbWecgsAd6",
+        "task_type": "HISTORICAL_HC_ENTITY"
+      },
+      ...
+    ]
+  }
+}
+```
+
+---
+
+## Delete detector results
+Introduced 1.1
+{: .label .label-purple }
+
+Deletes the results of a detector based on a query.
+
+#### Request
+
+```json
+DELETE _plugins/_anomaly_detection/detectors/results
+{
+  "query": {
+    "bool": {
+      "filter": [
         {
-          "detector_id" : "m4ccEnIBTXsGi3mvMt9p",
-          "model_type" : "rcf",
-          "model_id" : "m4ccEnIBTXsGi3mvMt9p_model_rcf_2"
+          "term": {
+            "detector_id": {
+              "value": "rlDtOHwBD5tpxlbyW7Nt"
+            }
+          }
         },
         {
-          "detector_id" : "m4ccEnIBTXsGi3mvMt9p",
-          "model_type" : "rcf",
-          "model_id" : "m4ccEnIBTXsGi3mvMt9p_model_rcf_1"
+          "term": {
+            "task_id": {
+              "value": "TM3tOHwBCi2h__AOXlyQ"
+            }
+          }
+        },
+        {
+          "range": {
+            "data_start_time": {
+              "lte": 1632441600000
+            }
+          }
         }
       ]
     }
@@ -1679,32 +2942,27 @@ GET _plugins/_anomaly_detection/stats/<stat>
 }
 ```
 
-Historical detectors contain additional fields:
-
 #### Sample response
 
 ```json
 {
-  "anomaly_detectors_index_status": "yellow",
-  "anomaly_detection_state_status": "yellow",
-  "historical_detector_count": 3,
-  "detector_count": 7,
-  "anomaly_detection_job_index_status": "yellow",
-  "models_checkpoint_index_status": "yellow",
-  "anomaly_results_index_status": "yellow",
-  "nodes": {
-    "Mz9HDZnuQwSCw0UiisxwWg": {
-      "ad_execute_request_count": 0,
-      "models": [],
-      "ad_canceled_batch_task_count": 2,
-      "ad_hc_execute_request_count": 0,
-      "ad_hc_execute_failure_count": 0,
-      "ad_execute_failure_count": 0,
-      "ad_batch_task_failure_count": 0,
-      "ad_executing_batch_task_count": 1,
-      "ad_total_batch_task_count": 8
-    }
-  }
+  "took": 48,
+  "timed_out": false,
+  "total": 28,
+  "updated": 0,
+  "created": 0,
+  "deleted": 28,
+  "batches": 1,
+  "version_conflicts": 0,
+  "noops": 0,
+  "retries": {
+    "bulk": 0,
+    "search": 0
+  },
+  "throttled_millis": 0,
+  "requests_per_second": -1,
+  "throttled_until_millis": 0,
+  "failures": []
 }
 ```
 
@@ -1734,7 +2992,7 @@ POST _plugins/_alerting/monitors
     {
       "search": {
         "indices": [
-          ".opendistro-anomaly-results*"
+          ".opensearch-anomaly-results*"
         ],
         "query": {
           "size": 1,
@@ -1840,7 +3098,7 @@ POST _plugins/_alerting/monitors
       {
         "search": {
           "indices": [
-            ".opendistro-anomaly-results*"
+            ".opensearch-anomaly-results*"
           ],
           "query": {
             "size": 1,
@@ -1924,274 +3182,6 @@ POST _plugins/_alerting/monitors
       }
     ],
     "last_update_time": 1589445384043
-  }
-}
-```
-
----
-
-## Profile detector
-Introduced 1.0
-{: .label .label-purple }
-
-Returns information related to the current state of the detector and memory usage, including current errors and shingle size, to help troubleshoot the detector.
-
-This command helps locate logs by identifying the nodes that run the anomaly detector job for each detector.
-
-It also helps track the initialization percentage, the required shingles, and the estimated time left.  
-
-#### Request
-
-```json
-GET _plugins/_anomaly_detection/detectors/<detectorId>/_profile/
-GET _plugins/_anomaly_detection/detectors/<detectorId>/_profile?_all=true
-GET _plugins/_anomaly_detection/detectors/<detectorId>/_profile/<type>
-GET /_plugins/_anomaly_detection/detectors/<detectorId>/_profile/<type1>,<type2>
-```
-
-#### Sample Responses
-
-```json
-GET _plugins/_anomaly_detection/detectors/<detectorId>/_profile
-
-{
-    "state":"DISABLED",
-    "error":"Stopped detector: AD models memory usage exceeds our limit."
-}
-
-GET _plugins/_anomaly_detection/detectors/<detectorId>/_profile?_all=true&pretty
-
-{
-  "state": "RUNNING",
-  "models": [
-    {
-      "model_id": "cneh7HEBHPICjJIdXdrR_model_rcf_2",
-      "model_size_in_bytes": 4456448,
-      "node_id": "VS29z70PSzOdHiEw4SoV9Q"
-    },
-    {
-      "model_id": "cneh7HEBHPICjJIdXdrR_model_rcf_1",
-      "model_size_in_bytes": 4456448,
-      "node_id": "VS29z70PSzOdHiEw4SoV9Q"
-    },
-    {
-      "model_id": "cneh7HEBHPICjJIdXdrR_model_threshold",
-      "node_id": "Og23iUroTdKrkwS-y89zLw"
-    },
-    {
-      "model_id": "cneh7HEBHPICjJIdXdrR_model_rcf_0",
-      "model_size_in_bytes": 4456448,
-      "node_id": "Og23iUroTdKrkwS-y89zLw"
-    }
-  ],
-  "shingle_size": 8,
-  "coordinating_node": "Og23iUroTdKrkwS-y89zLw",
-  "total_size_in_bytes": 13369344,
-  "init_progress": {
-    "percentage": "70%",
-    "estimated_minutes_left": 77,
-    "needed_shingles": 77
-  }
-}
-
-GET _plugins/_anomaly_detection/detectors/<detectorId>/_profile/total_size_in_bytes
-
-{
-  "total_size_in_bytes" : 13369344
-}
-```
-
-If you configured the category field, you can see the number of unique values in the field and all active entities with models running in memory.
-
-You can use this data to estimate how much memory is required for anomaly detection so you can decide how to size your cluster. For example, if a detector has one million entities and only 10 of them are active in memory, you need to scale your cluster up or out.
-
-#### Request
-
-```json
-GET /_plugins/_anomaly_detection/detectors/<detectorId>/_profile?_all=true&pretty
-
-{
-  "state": "RUNNING",
-  "models": [
-    {
-      "model_id": "T4c3dXUBj-2IZN7itix__entity_i-00f28ec1eb8997684",
-      "model_size_in_bytes": 712480,
-      "node_id": "g6pmr547QR-CfpEvO67M4g"
-    },
-    {
-      "model_id": "T4c3dXUBj-2IZN7itix__entity_i-00f28ec1eb8997685",
-      "model_size_in_bytes": 712480,
-      "node_id": "g6pmr547QR-CfpEvO67M4g"
-    },
-    {
-      "model_id": "T4c3dXUBj-2IZN7itix__entity_i-00f28ec1eb8997686",
-      "model_size_in_bytes": 712480,
-      "node_id": "g6pmr547QR-CfpEvO67M4g"
-    },
-    {
-      "model_id": "T4c3dXUBj-2IZN7itix__entity_i-00f28ec1eb8997680",
-      "model_size_in_bytes": 712480,
-      "node_id": "g6pmr547QR-CfpEvO67M4g"
-    },
-    {
-      "model_id": "T4c3dXUBj-2IZN7itix__entity_i-00f28ec1eb8997681",
-      "model_size_in_bytes": 712480,
-      "node_id": "g6pmr547QR-CfpEvO67M4g"
-    },
-    {
-      "model_id": "T4c3dXUBj-2IZN7itix__entity_i-00f28ec1eb8997682",
-      "model_size_in_bytes": 712480,
-      "node_id": "g6pmr547QR-CfpEvO67M4g"
-    },
-    {
-      "model_id": "T4c3dXUBj-2IZN7itix__entity_i-00f28ec1eb8997683",
-      "model_size_in_bytes": 712480,
-      "node_id": "g6pmr547QR-CfpEvO67M4g"
-    }
-  ],
-  "total_size_in_bytes": 4987360,
-  "init_progress": {
-    "percentage": "100%"
-  },
-  "total_entities": 7,
-  "active_entities": 7
-}
-```
-
-The `profile` operation also provides information about each entity, such as the entity’s `last_sample_timestamp` and `last_active_timestamp`.
-
-If there are no anomaly results for an entity, either the entity doesn't have any sample data or its model is removed from the model cache.
-
- `last_sample_timestamp` shows the last document in the input data source index containing the entity, while `last_active_timestamp` shows the timestamp when the entity’s model was last seen in the model cache.
-
-#### Request
-
-```json
-GET /_plugins/_anomaly_detection/detectors/<detectorId>/_profile?_all=true&entity=i-00f28ec1eb8997686
-{
-  "category_field": "host",
-  "value": "i-00f28ec1eb8997686",
-  "is_active": true,
-  "last_active_timestamp": 1604026394879,
-  "last_sample_timestamp": 1604026394879,
-  "init_progress": {
-    "percentage": "100%"
-  },
-  "model": {
-    "model_id": "TFUdd3UBBwIAGQeRh5IS_entity_i-00f28ec1eb8997686",
-    "model_size_in_bytes": 712480,
-    "node_id": "MQ-bTBW3Q2uU_2zX3pyEQg"
-  },
-  "state": "RUNNING"
-}
-```
-
-For a historical detector, specify `_all` or `ad_task` to see information about its latest task:
-
-#### Request
-
-```json
-GET _plugins/_anomaly_detection/detectors/<detectorId>/_profile?_all
-GET _plugins/_anomaly_detection/detectors/<detectorId>/_profile/ad_task
-```
-
-#### Sample Responses
-
-```json
-{
-  "ad_task": {
-    "ad_task": {
-      "task_id": "JXxyG3YBv5IHYYfMlFS2",
-      "last_update_time": 1606778263543,
-      "state": "STOPPED",
-      "detector_id": "SwvxCHYBPhugfWD9QAL6",
-      "task_progress": 0.010480972,
-      "init_progress": 1,
-      "current_piece": 1578140400000,
-      "execution_start_time": 1606778262709,
-      "is_latest": true,
-      "task_type": "HISTORICAL",
-      "detector": {
-        "name": "historical_test1",
-        "description": "test",
-        "time_field": "timestamp",
-        "indices": [
-          "nab_art_daily_jumpsdown"
-        ],
-        "filter_query": {
-          "match_all": {
-            "boost": 1
-          }
-        },
-        "detection_interval": {
-          "period": {
-            "interval": 5,
-            "unit": "Minutes"
-          }
-        },
-        "window_delay": {
-          "period": {
-            "interval": 1,
-            "unit": "Minutes"
-          }
-        },
-        "shingle_size": 8,
-        "schema_version": 0,
-        "feature_attributes": [
-          {
-            "feature_id": "zgvyCHYBPhugfWD9Ap_F",
-            "feature_name": "sum",
-            "feature_enabled": true,
-            "aggregation_query": {
-              "sum": {
-                "sum": {
-                  "field": "value"
-                }
-              }
-            }
-          },
-          {
-            "feature_id": "zwvyCHYBPhugfWD9Ap_G",
-            "feature_name": "max",
-            "feature_enabled": true,
-            "aggregation_query": {
-              "max": {
-                "max": {
-                  "field": "value"
-                }
-              }
-            }
-          }
-        ],
-        "ui_metadata": {
-          "features": {
-            "max": {
-              "aggregationBy": "max",
-              "aggregationOf": "value",
-              "featureType": "simple_aggs"
-            },
-            "sum": {
-              "aggregationBy": "sum",
-              "aggregationOf": "value",
-              "featureType": "simple_aggs"
-            }
-          },
-          "filters": [],
-          "filterType": "simple_filter"
-        },
-        "last_update_time": 1606467935713,
-        "detector_type": "HISTORICAL_SIGLE_ENTITY",
-        "detection_date_range": {
-          "start_time": 1577840400000,
-          "end_time": 1606463775000
-        }
-      }
-    },
-    "shingle_size": 8,
-    "rcf_total_updates": 1994,
-    "threshold_model_trained": true,
-    "threshold_model_training_data_size": 0,
-    "node_id": "Q9yznwxvTz-yJxtz7rJlLg"
   }
 }
 ```

@@ -20,7 +20,7 @@ Resource | Description
 The specification in the default Helm chart supports many standard use cases and setups. You can modify the default chart to configure your desired specifications and set Transport Layer Security (TLS) and role-based access control (RBAC).
 
 For information about the default configuration, steps to configure security, and configurable parameters, see the
-[README](https://github.com/opensearch-project/opensearch-devops/blob/main/Helm/README.md).
+[README](https://github.com/opensearch-project/helm-charts/tree/main/charts).
 
 The instructions here assume you have a Kubernetes cluster with Helm preinstalled. See the [Kubernetes documentation](https://kubernetes.io/docs/setup/) for steps to configure a Kubernetes cluster and the [Helm documentation](https://helm.sh/docs/intro/install/) to install Helm.
 {: .note }
@@ -31,16 +31,42 @@ The default Helm chart deploys a three-node cluster. We recommend that you have 
 
 ## Install OpenSearch using Helm
 
-1. Clone the [opensearch-devops](https://github.com/opensearch-project/opensearch-devops/) repository:
+1. Add `opensearch` [helm-charts](https://github.com/opensearch-project/helm-charts) repository to Helm:
 
    ```bash
-   git clone https://github.com/opensearch-project/opensearch-devops.git
+   helm repo add opensearch https://opensearch-project.github.io/helm-charts/
    ```
+
+1. Update the available charts locally from charts repositories:
+
+   ```bash
+   helm repo update
+   ```
+
+1. To search for the OpenSearch-related Helm charts:
+
+   ```bash
+   helm search repo opensearch
+   ```
+
+   ```bash
+   NAME                            	CHART VERSION	APP VERSION	DESCRIPTION                           
+   opensearch/opensearch           	1.0.7        	1.0.0      	A Helm chart for OpenSearch           
+   opensearch/opensearch-dashboards	1.0.4        	1.0.0      	A Helm chart for OpenSearch Dashboards
+   ```
+
+1. Deploy OpenSearch:
+
+   ```bash
+   helm install my-deployment opensearch/opensearch
+   ```
+
+You can also build the `opensearch-1.0.0.tgz` file manually:
 
 1. Change to the `opensearch` directory:
 
    ```bash
-   cd Helm/opensearch
+   cd charts/opensearch
    ```
 
 1. Package the Helm chart:

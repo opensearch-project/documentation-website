@@ -156,28 +156,6 @@ POST _reindex
 }
 ```
 
-## Reindex sorted documents
-
-You can copy certain documents after sorting specific fields in the document.
-
-This command copies the last 10 documents based on the `timestamp` field:
-
-```json
-POST _reindex
-{
-   "size":10,
-   "source":{
-      "index":"source",
-      "sort":{
-         "timestamp":"desc"
-      }
-   },
-   "dest":{
-      "index":"destination"
-   }
-}
-```
-
 ## Transform documents during reindexing
 
 You can transform your data during the reindexing process using the `script` option.
@@ -272,7 +250,6 @@ Option | Valid values | Description | Required
 `query` | Object | The search query to use for the reindex operation. | No
 `size` | Integer | The number of documents to reindex. | No
 `slice` | String | Specify manual or automatic slicing to parallelize reindexing. | No
-`sort` | List | Sort specific fields in the document before reindexing. | No
 
 ## Destination index options
 

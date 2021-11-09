@@ -26,7 +26,6 @@ Community contributions remain essential in keeping this documentation comprehen
 
 If you encounter problems or have questions when contributing to the documentation, these people can help:
 
-- [aetter](https://github.com/aetter)
 - [ashwinkumar12345](https://github.com/ashwinkumar12345)
 - [keithhc2](https://github.com/keithhc2)
 - [snyder114](https://github.com/snyder114)
@@ -196,17 +195,17 @@ If you're making major changes to the documentation and need to see the rendered
 ## New releases
 
 1. Branch.
-1. Change the `opensearch_version` and `opensearch_major_version` variables in `_config.yml`.
+1. Change the `opensearch_version`, `opensearch_major_minor_version`, and `lucene_version` variables in `_config.yml`.
 1. Start up a new cluster using the updated Docker Compose file in `docs/install/docker.md`.
 1. Update the version table in `version-history.md`.
 
-   Use `curl -XGET https://localhost:9200 -u admin:admin -k` to verify the OpenSearch version.
+   Use `curl -XGET https://localhost:9200 -u admin:admin -k` to verify the OpenSearch and Lucene versions.
 
-1. Update the plugin compatibility table in `docs/install/plugin.md`.
+1. Update the plugin compatibility table in `_opensearch/install/plugin.md`.
 
    Use `curl -XGET https://localhost:9200/_cat/plugins -u admin:admin -k` to get the correct version strings.
 
-1. Update the plugin compatibility table in `docs/opensearch-dashboards/plugins.md`.
+1. Update the plugin compatibility table in `_dashboards/install/plugins.md`.
 
    Use `docker ps` to find the ID for the OpenSearch Dashboards node. Then use `docker exec -it <opensearch-dashboards-node-id> /bin/bash` to get shell access. Finally, run `./bin/opensearch-dashboards-plugin list` to get the plugins and version strings.
 

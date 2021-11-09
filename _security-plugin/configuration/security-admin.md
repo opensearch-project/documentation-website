@@ -47,6 +47,21 @@ If you use the `-f` argument rather than `-cd`, you can load a single YAML file 
   -key ../../../config/kirk-key.pem
 ```
 
+To resolve all environment variables before applying the security configurations, use the `-rev` parameter.
+
+```bash
+./securityadmin.sh -cd ../securityconfig/ \
+ -rev \
+ -cacert ../../../root-ca.pem \
+ -cert ../../../kirk.pem \
+ -key ../../../kirk.key.pem
+```
+
+Here’s an example of an environment variable in the `config.yml` file:
+
+```yml
+password: ${env.LDAP_PASSWORD}
+```
 
 ## Configure the admin certificate
 

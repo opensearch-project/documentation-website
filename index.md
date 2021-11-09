@@ -34,10 +34,11 @@ Component | Purpose
 [Index State Management]({{site.url}}{{site.baseurl}}/im-plugin/) | Automate index operations
 [KNN]({{site.url}}{{site.baseurl}}/search-plugins/knn/) | Find “nearest neighbors” in your vector data
 [Performance Analyzer]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/) | Monitor and optimize your cluster
-[Anomaly Detection]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/) | Identify atypical data and receive automatic notifications
-[Asynchronous Search]({{site.url}}{{site.baseurl}}/search-plugins/async/) | Run search requests in the background
+[Anomaly detection]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/) | Identify atypical data and receive automatic notifications
+[Asynchronous search]({{site.url}}{{site.baseurl}}/search-plugins/async/) | Run search requests in the background
+[Cross-cluster replication]({{site.url}}{{site.baseurl}}/replication-plugin/index/) | Replicate your data across multiple OpenSearch clusters
 
-Most of OpenSearch plugins have a corresponding OpenSearch Dashboards plugin that provide a convenient, unified user interface.
+Most OpenSearch plugins have corresponding OpenSearch Dashboards plugins that provide a convenient, unified user interface.
 
 For specifics around the project, see the [FAQ](https://opensearch.org/faq/).
 
@@ -59,10 +60,50 @@ Docker
 1. In a new terminal session, run:
 
    ```bash
-   curl -XGET --insecure https://localhost:9200 -u admin:admin
+   curl -XGET --insecure -u 'admin:admin' 'https://localhost:9200'
    ```
 
-To learn more, see [Install and configure OpenSearch]({{site.url}}{{site.baseurl}}/opensearch/install/) and [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/install/).
+1. [Create]({{site.url}}{{site.baseurl}}/opensearch/rest-api/index-apis/create-index/) your first index.
+
+   ```bash
+   curl -XPUT --insecure -u 'admin:admin' 'https://localhost:9200/my-first-index'
+   ```
+
+1. [Add some data]({{site.url}}{{site.baseurl}}/opensearch/index-data/) to your newly created index.
+
+   ```bash
+   curl -XPUT --insecure -u 'admin:admin' 'https://localhost:9200/my-first-index/_doc/1' -H 'Content-Type: application/json' -d '{"Description": "To be or not to be, that is the question."}'
+   ```
+
+1. [Retrieve the data]({{site.url}}{{site.baseurl}}/opensearch/index-data/#read-data) to see that it was added properly.
+
+   ```bash
+   curl -XGET --insecure -u 'admin:admin' 'https://localhost:9200/my-first-index/_doc/1'
+   ```
+
+1. After verifying that the data is correct, [delete the document]({{site.url}}{{site.baseurl}}/opensearch/index-data/#delete-data).
+
+   ```bash
+   curl -XDELETE --insecure -u 'admin:admin' 'https://localhost:9200/my-first-index/_doc/1'
+   ```
+
+1. Finally, [delete the index]({{site.url}}{{site.baseurl}}/opensearch/rest-api/index-apis/delete-index).
+
+   ```bash
+   curl -XDELETE --insecure -u 'admin:admin' 'https://localhost:9200/my-first-index/'
+   ```
+
+To learn more, see [Docker image]({{site.url}}{{site.baseurl}}/opensearch/install/docker/) and [Docker security configuration]({{site.url}}{{site.baseurl}}/opensearch/install/docker-security/).
+
+
+---
+
+## Installation
+
+For more comprehensive installation instructions for other download types, such as tarballs, see these pages:
+
+- [Install and configure OpenSearch]({{site.url}}{{site.baseurl}}/opensearch/install/)
+- [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/install/)
 
 
 ## The secure path forward

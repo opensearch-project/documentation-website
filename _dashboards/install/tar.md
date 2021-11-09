@@ -14,9 +14,10 @@ nav_order: 30
    ```bash
    # x64
    tar -zxf opensearch-dashboards-{{site.opensearch_version}}-linux-x64.tar.gz
-   cd opensearch-dashboards{% comment %}# ARM64
+   cd opensearch-dashboards
+   # ARM64
    tar -zxf opensearch-dashboards-{{site.opensearch_version}}-linux-arm64.tar.gz
-   cd opensearch-dashboards{% endcomment %}
+   cd opensearch-dashboards
    ```
 
 1. If desired, modify `config/opensearch_dashboards.yml`.
@@ -26,5 +27,3 @@ nav_order: 30
    ```bash
    ./bin/opensearch-dashboards
    ```
-
-1. See the [OpenSearch Dashboards documentation]({{site.url}}{{site.baseurl}}/dashboards/index/).

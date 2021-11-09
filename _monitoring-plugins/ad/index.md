@@ -17,24 +17,19 @@ Anomaly detection  automatically detects anomalies in your OpenSearch data in ne
 
 You can pair the anomaly detection plugin with the [alerting plugin]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/) to notify you as soon as an anomaly is detected.
 
-To use the anomaly detection plugin, your computer needs to have more than one CPU core.
-{: .note }
-
-## Get started with Anomaly Detection
-
 To get started, choose **Anomaly Detection** in OpenSearch Dashboards.
-To first test with sample streaming data, choose **Sample Detectors** and try out one of the preconfigured detectors.
+To first test with sample streaming data, you can try out one of the preconfigured detectors with one of the sample datasets.
 
-### Step 1: Create a detector
+## Step 1: Define a detector
 
-A detector is an individual anomaly detection task. You can create multiple detectors, and all the detectors can run simultaneously, with each analyzing data from different sources.
+A detector is an individual anomaly detection task. You can define multiple detectors, and all the detectors can run simultaneously, with each analyzing data from different sources.
 
-1. Choose **Create Detector**.
+1. Choose **Create detector**.
 1. Enter a name and brief description. Make sure the name is unique and descriptive enough to help you to identify the purpose of the detector.
 1. For **Data source**, choose the index you want to use as the data source. You can optionally use index patterns to choose multiple indices.
+1. (Optional) For **Data filter**, filter the index you chose as the data source. From the **Data filter** menu, choose **Add data filter**, and then design your filter query by selecting **Field**, **Operator**, and **Value**, or choose **Use query DSL** and add your own JSON filter query.
 1. Select the **Timestamp field** in your index.
-1. (Optional) For **Data filter**, filter the index you chose as the data source. From the **Filter type** menu, choose  **Visual filter**, and then design your filter query by selecting **Fields**, **Operator**, and **Value**, or choose **Custom Expression** and add your own JSON filter query.
-1. For **Detector operation settings**, define the **Detector interval**, which is the time interval at which the detector collects data.
+1. For **Operation settings**, define the **Detector interval**, which is the time interval at which the detector collects data.
 - The detector aggregates the data in this interval, then feeds the aggregated result into the anomaly detection model.
 The shorter you set this interval, the fewer data points the detector aggregates.
 The anomaly detection model uses a shingling process, a technique that uses consecutive data points to create a sample for the model. This process needs a certain number of aggregated data points from contiguous intervals.
@@ -44,48 +39,53 @@ Set the window delay to shift the detector interval to account for this delay.
 - For example, say the detector interval is 10 minutes and data is ingested into your cluster with a general delay of 1 minute.
 Assume the detector runs at 2:00. The detector attempts to get the last 10 minutes of data from 1:50 to 2:00, but because of the 1-minute delay, it only gets 9 minutes of data and misses the data from 1:59 to 2:00.
 Setting the window delay to 1 minute shifts the interval window to 1:49 - 1:59, so the detector accounts for all 10 minutes of the detector interval time.
-1. Choose **Create**.
+1. Choose **Next**.
 
-After you create the detector, the next step is to add features to it.
+After you define the detector, the next step is to configure the model.
 
-### Step 2: Add features to your detector
+## Step 2: Configure the model
+
+#### Add features to your detector
 
 A feature is the field in your index that you want to check for anomalies. A detector can discover anomalies across one or more features. You must choose an aggregation method for each feature: `average()`, `count()`, `sum()`, `min()`, or `max()`. The aggregation method determines what constitutes an anomaly.
 
 For example, if you choose `min()`, the detector focuses on finding anomalies based on the minimum values of your feature. If you choose `average()`, the detector finds anomalies based on the average values of your feature.
 
-A multi-feature model correlates anomalies across all its features. The [curse of dimensionality](https://en.wikipedia.org/wiki/Curse_of_dimensionality) makes it less likely for multi-feature models to identify smaller anomalies as compared to a single-feature model. Adding more features might negatively impact the [precision and recall](https://en.wikipedia.org/wiki/Precision_and_recall) of a model. A higher proportion of noise in your data might further amplify this negative impact. Selecting the optimal feature set is usually an iterative process. We recommend experimenting with a historical detector with different feature sets and checking the precision before moving on to real-time detectors. By default, the maximum number of features for a detector is 5. You can adjust this limit with the `plugins.anomaly_detection.max_anomaly_features` setting.
+A multi-feature model correlates anomalies across all its features. The [curse of dimensionality](https://en.wikipedia.org/wiki/Curse_of_dimensionality) makes it less likely for multi-feature models to identify smaller anomalies as compared to a single-feature model. Adding more features might negatively impact the [precision and recall](https://en.wikipedia.org/wiki/Precision_and_recall) of a model. A higher proportion of noise in your data might further amplify this negative impact. Selecting the optimal feature set is usually an iterative process. By default, the maximum number of features for a detector is 5. You can adjust this limit with the `plugins.anomaly_detection.max_anomaly_features` setting.
 {: .note }
 
-1. On the **Model configuration** page, enter the **Feature name**.
-1. For **Find anomalies based on**, choose the method to find anomalies. For **Field Value** menu, choose the **field** and the **aggregation method**. Or choose **Custom expression**, and add your own JSON aggregation query.
+1. On the **Configure Model** page, enter the **Feature name** and check **Enable feature**.
+1. For **Find anomalies based on**, choose the method to find anomalies. For **Field Value**, choose the **aggregation method**. Or choose **Custom expression**, and add your own JSON aggregation query.
+1. Select a field.
 
-#### (Optional) Set a category field for high cardinality
+#### (Optional) Set category fields for high cardinality
 
 You can categorize anomalies based on a keyword or IP field type.
 
 The category field categorizes or slices the source time series with a dimension like IP addresses, product IDs, country codes, and so on. This helps to see a granular view of anomalies within each entity of the category field to isolate and debug issues.
 
-To set a category field, choose **Enable a category field** and select a field.
+To set a category field, choose **Enable a category field** and select a field. You can’t change the category fields after you create the detector.
 
 Only a certain number of unique entities are supported in the category field. Use the following equation to calculate the recommended total number of entities supported in a cluster:
 
 ```
-(data nodes * heap size * anomaly detection maximum memory percentage) / (entity size of a detector)
+(data nodes * heap size * anomaly detection maximum memory percentage) / (entity model size of a detector)
 ```
+
+To get the entity model size of a detector, use the [profile detector API]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/api/#profile-detector). You can adjust the maximum memory percentage with the `plugins.anomaly_detection.model_max_size_percent` setting.
 
 This formula provides a good starting point, but make sure to test with a representative workload.
 {: .note }
 
-For example, for a cluster with 3 data nodes, each with 8G of JVM heap size, a maximum memory percentage of 10% (default), and the entity size of the detector as 1MB: the total number of unique entities supported is (8.096 * 10^9 * 0.1 / 1M ) * 3 = 2429.
+For example, for a cluster with three data nodes, each with 8 GB of JVM heap size, a maximum memory percentage of 10% (default), and the entity model size of the detector as 1MB: the total number of unique entities supported is (8.096 * 10^9 * 0.1 / 1 MB ) * 3 = 2429.
 
-#### Set a window size
+If the actual total number of unique entities higher than this number that you calculate (in this case: 2429), the anomaly detector makes its best effort to model the extra entities. The detector prioritizes entities that occur more often and are more recent.
 
-Set the number of aggregation intervals from your data stream to consider in a detection window. It's best to choose this value based on your actual data to see which one leads to the best results for your use case.
+#### (Advanced settings) Set a shingle size
 
-Based on experiments performed on a wide variety of one-dimensional data streams, we recommend using a window size between 1 and 16. The default window size is 8. If you set the category field for high cardinality, the default window size is 1.
+Set the number of aggregation intervals from your data stream to consider in a detection window. It’s best to choose this value based on your actual data to see which one leads to the best results for your use case.
 
-If you expect missing values in your data or if you want to base the anomalies on the current interval, choose 1. If your data is continuously ingested and you want to base the anomalies on multiple intervals, choose a larger window size.
+The anomaly detector expects the shingle size to be in the range of 1 and 60. The default shingle size is 8. We recommend that you don't choose 1 unless you have two or more features. Smaller values might increase [recall](https://en.wikipedia.org/wiki/Precision_and_recall) but also false positives. Larger values might be useful for ignoring noise in a signal.
 
 #### Preview sample anomalies
 
@@ -94,12 +94,27 @@ For sample previews, the anomaly detection plugin selects a small number of data
 
 Examine the sample preview and use it to fine-tune your feature configurations (for example, enable or disable features) to get more accurate results.
 
-1. Choose **Save and start detector**.
-1. Choose between automatically starting the detector (recommended) or manually starting the detector at a later time.
+1. Choose **Preview sample anomalies**.
+    - If you don't see any sample anomaly result, check the detector interval and make sure you have more than 400 data points for some entities during the preview date range.
+1. Choose **Next**.
 
-### Step 3: Observe the results
+## Step 3: Set up detector jobs
 
-Choose the **Anomaly results** tab. You need to wait for some time to see the anomaly results. If the detector interval is 10 minutes, the detector might take more than an hour to start, as it's waiting for sufficient data to generate anomalies.
+To start a real-time detector to find anomalies in your data in near real-time, check **Start real-time detector automatically (recommended)**.
+
+Alternatively, if you want to perform historical analysis and find patterns in long historical data windows (weeks or months), check **Run historical analysis detection** and select a date range (at least 128 detection intervals).
+
+Analyzing historical data helps you get familiar with the anomaly detection plugin. You can also evaluate the performance of a detector with historical data to further fine-tune it.
+
+We recommend experimenting with historical analysis with different feature sets and checking the precision before moving on to real-time detectors.
+
+## Step 4: Review and create
+
+Review your model configuration and select **Create detector**.
+
+## Step 5: Observe the results
+
+Choose the **Real-time results** or **Historical analysis** tab. For real-time results, you need to wait for some time to see the anomaly results. If the detector interval is 10 minutes, the detector might take more than an hour to start, as it's waiting for sufficient data to generate anomalies.
 
 A shorter interval means the model passes the shingle process more quickly and starts to generate the anomaly results sooner.
 Use the [profile detector]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/api#profile-detector) operation to make sure you have sufficient data points.
@@ -108,12 +123,12 @@ If you see the detector pending in "initialization" for longer than a day, aggre
 
 ![Anomaly detection results]({{site.url}}{{site.baseurl}}/images/ad.png)
 
-Analize anomalies with the following visualizations:
+Analyze anomalies with the following visualizations:
 
 - **Live anomalies** - displays live anomaly results for the last 60 intervals. For example, if the interval is 10, it shows results for the last 600 minutes. The chart refreshes every 30 seconds.
-- **Anomaly history** - plots the anomaly grade with the corresponding measure of confidence.
-- **Feature breakdown** - plots the features based on the aggregation method. You can vary the date-time range of the detector.
+- **Anomaly history** (for historical analysis) / **Anomaly overview** (for real-time results) - plots the anomaly grade with the corresponding measure of confidence.
 - **Anomaly occurrence** - shows the `Start time`, `End time`, `Data confidence`, and `Anomaly grade` for each detected anomaly.
+- **Feature breakdown** - plots the features based on the aggregation method. You can vary the date-time range of the detector.
 
 `Anomaly grade` is a number between 0 and 1 that indicates how anomalous a data point is. An anomaly grade of 0 represents “not an anomaly,” and a non-zero value represents the relative severity of the anomaly.
 
@@ -121,47 +136,26 @@ Analize anomalies with the following visualizations:
 
 If you set the category field, you see an additional **Heat map** chart. The heat map correlates results for anomalous entities. This chart is empty until you select an anomalous entity. You also see the anomaly and feature line chart for the time period of the anomaly (`anomaly_grade` > 0).
 
-Choose a filled rectangle to see a more detailed view of the anomaly.
+Choose and drag over the anomaly line chart to zoom in and see a more detailed view of an anomaly.
 {: .note }
 
-### Step 4: Set up alerts
+## Step 6: Set up alerts
 
-Choose **Set up alerts** and configure a monitor to notify you when anomalies are detected. For steps to create a monitor and set up notifications based on your anomaly detector, see [Monitors]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/).
+Under **Real-time results**, choose **Set up alerts** and configure a monitor to notify you when anomalies are detected. For steps to create a monitor and set up notifications based on your anomaly detector, see [Monitors]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/).
 
 If you stop or delete a detector, make sure to delete any monitors associated with it.
 
-### Step 5: Adjust the model
+## Step 7: Adjust the model
 
 To see all the configuration settings for a detector, choose the **Detector configuration** tab.
 
 1. To make any changes to the detector configuration, or fine tune the time interval to minimize any false positives, go to the **Detector configuration** section and choose **Edit**.
-- You need to stop the detector to change its configuration. Confirm that you want to stop the detector and proceed.
+- You need to stop real-time and historical analysis to change its configuration. Confirm that you want to stop the detector and proceed.
 1. To enable or disable features, in the **Features** section, choose **Edit** and adjust the feature settings as needed. After you make your changes, choose **Save and start detector**.
-- Choose between automatically starting the detector (recommended) or manually starting the detector at a later time.
 
-### Step 6: Analyze historical data
+## Step 8: Manage your detectors
 
-Analyzing historical data helps you get familiar with the anomaly detection plugin. You can also evaluate the performance of a detector with historical data to further fine-tune it.
+To start, stop, or delete a detector, go to the **Detectors** page.
 
-To use a historical detector, you need to specify a date range that has data present in at least 1,000 detection intervals.
-{: .note }
-
-1. Choose **Historical detectors** and **Create historical detector**.
-1. Enter the **Name** of the detector and a brief **Description**.
-1. For **Data source**, choose the index to use as the data source. You can optionally use index patterns to choose multiple indices.
-1. For **Time range**, select a time range for historical analysis.
-1. For **Detector settings**, choose to use the settings of an existing detector. Or choose the **Timestamp field** in your index, add individual features to the detector, and set the detector interval.
-1. (Optional) Choose to run the historical detector automatically after creating it.
-1. Choose **Create**.
-   - You can stop the historical detector even before it completes.
-
-### Step 7: Manage your detectors
-
-To change or delete a detector, go to the **Detector details** page.
-
-1. To make changes to your detector, choose the detector name.
-1. Choose **Actions** and **Edit detector**.
-   - You need to stop the detector to change its configuration. Confirm that you want to stop the detector and proceed.
-1. Make your changes and choose **Save changes**.
-
-To delete your detector, choose **Actions** and **Delete detector**. In the pop-up box, type `delete` to confirm and choose **Delete**.
+1. Choose the detector name.
+2. Choose **Actions** and select **Start real-time detectors**, **Stop real-time detectors**, or **Delete detectors**.
