@@ -100,9 +100,9 @@ just_the_docs:
       name: External links
 
 
-# Enable or disable the site search
+# Enable or disable the off-the-shelf site search
 # Supports true (default) or false
-search_enabled: true
+search_enabled: false
 
 search:
   # Split pages into sections that can be searched individually
