@@ -24,7 +24,7 @@ Introduced 1.0
 
 Creates an anomaly detector.
 
-This command creates a single-entity detector named `test-detector` that finds anomalies based on the sum of the `value` field:
+This command creates a single-entity detector named `test-detector` that finds anomalies based on the sum of the `value` field and stores the result in a custom `opensearch-ad-plugin-result-test` index:
 
 #### Request
 
@@ -76,7 +76,8 @@ POST _plugins/_anomaly_detection/detectors
       "interval": 1,
       "unit": "Minutes"
     }
-  }
+  },
+  "result_index" : "opensearch-ad-plugin-result-test"
 }
 ```
 
@@ -1974,20 +1975,26 @@ Introduced 1.0
 
 Returns all results for a search query.
 
-To search anomaly results for `grade` greater than 0 for real-time analysis:
+Specify the `only_query_custom_result_index` parameter (default value is `false`) to search both the custom result index and default result index. To search only the custom result index, set this parameter to `true`:
+
+```json
+POST _plugins/_anomaly_detection/detectors/results/_search/<custom_result_index>?only_query_custom_result_index=true
+```
+
+The following example searches anomaly results for grade greater than 0 for real-time analysis:
 
 #### Request
 
 ```json
-GET _plugins/_anomaly_detection/detectors/results/_search
-POST _plugins/_anomaly_detection/detectors/results/_search
+GET_plugins/_anomaly_detection/detectors/results/_search/opensearch-ad-plugin-result-test
+POST _plugins/_anomaly_detection/detectors/results/_search/opensearch-ad-plugin-result-test
 {
   "query": {
     "bool": {
       "filter": [
         {
           "term": {
-            "detector_id": "Zi5zTXwBwf_U8gjUTfJG"
+            "detector_id": "EWy02nwBm38sXcF2AiFJ"
           }
         },
         {
@@ -2009,6 +2016,10 @@ POST _plugins/_anomaly_detection/detectors/results/_search
   }
 }
 ```
+
+If you specify the custom result index like in this example, the search results API searches both the default result indices and custom result indices.
+
+If you don't specify the custom result index and you just use the `_plugins/_anomaly_detection/detectors/results/_search` URL, the anomaly detection plugin searches only the default result indices.
 
 Real-time detection doesn't persist the task ID in the anomaly result, so the task ID will be null.
 
@@ -2906,6 +2917,8 @@ Introduced 1.1
 {: .label .label-purple }
 
 Deletes the results of a detector based on a query.
+
+This command doesn't delete any custom result indices. You need to manually delete any custom result indices that you don’t need anymore.
 
 #### Request
 

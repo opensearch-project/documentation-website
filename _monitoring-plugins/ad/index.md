@@ -25,21 +25,37 @@ To first test with sample streaming data, you can try out one of the preconfigur
 A detector is an individual anomaly detection task. You can define multiple detectors, and all the detectors can run simultaneously, with each analyzing data from different sources.
 
 1. Choose **Create detector**.
-1. Enter a name and brief description. Make sure the name is unique and descriptive enough to help you to identify the purpose of the detector.
-1. For **Data source**, choose the index you want to use as the data source. You can optionally use index patterns to choose multiple indices.
-1. (Optional) For **Data filter**, filter the index you chose as the data source. From the **Data filter** menu, choose **Add data filter**, and then design your filter query by selecting **Field**, **Operator**, and **Value**, or choose **Use query DSL** and add your own JSON filter query.
-1. Select the **Timestamp field** in your index.
-1. For **Operation settings**, define the **Detector interval**, which is the time interval at which the detector collects data.
-- The detector aggregates the data in this interval, then feeds the aggregated result into the anomaly detection model.
-The shorter you set this interval, the fewer data points the detector aggregates.
-The anomaly detection model uses a shingling process, a technique that uses consecutive data points to create a sample for the model. This process needs a certain number of aggregated data points from contiguous intervals.
-- We recommend setting the detector interval based on your actual data. If it's too long it might delay the results, and if it's too short it might miss some data. It also won't have a sufficient number of consecutive data points for the shingle process.
-1. (Optional) To add extra processing time for data collection, specify a **Window delay** value. This value tells the detector that the data is not ingested into OpenSearch in real time but with a certain delay.
-Set the window delay to shift the detector interval to account for this delay.
-- For example, say the detector interval is 10 minutes and data is ingested into your cluster with a general delay of 1 minute.
-Assume the detector runs at 2:00. The detector attempts to get the last 10 minutes of data from 1:50 to 2:00, but because of the 1-minute delay, it only gets 9 minutes of data and misses the data from 1:59 to 2:00.
-Setting the window delay to 1 minute shifts the interval window to 1:49 - 1:59, so the detector accounts for all 10 minutes of the detector interval time.
-1. Choose **Next**.
+1. Add in the detector details.
+   - Enter a name and brief description. Make sure the name is unique and descriptive enough to help you to identify the purpose of the detector.
+1. Specify the data source.   
+   - For **Data source**, choose the index you want to use as the data source. You can optionally use index patterns to choose multiple indices.
+   - (Optional) For **Data filter**, filter the index you chose as the data source. From the **Data filter** menu, choose **Add data filter**, and then design your filter query by selecting **Field**, **Operator**, and **Value**, or choose **Use query DSL** and add your own JSON filter query.
+1. Specify a timestamp.    
+   - Select the **Timestamp field** in your index.
+1. Define operation settings.
+   - For **Operation settings**, define the **Detector interval**, which is the time interval at which the detector collects data.
+      - The detector aggregates the data in this interval, then feeds the aggregated result into the anomaly detection model.
+      The shorter you set this interval, the fewer data points the detector aggregates.
+      The anomaly detection model uses a shingling process, a technique that uses consecutive data points to create a sample for the model. This process needs a certain number of aggregated data points from contiguous intervals.
+
+      - We recommend setting the detector interval based on your actual data. If it's too long it might delay the results, and if it's too short it might miss some data. It also won't have a sufficient number of consecutive data points for the shingle process.
+
+   - (Optional) To add extra processing time for data collection, specify a **Window delay** value.
+      - This value tells the detector that the data is not ingested into OpenSearch in real time but with a certain delay. Set the window delay to shift the detector interval to account for this delay.
+      - For example, say the detector interval is 10 minutes and data is ingested into your cluster with a general delay of 1 minute. Assume the detector runs at 2:00. The detector attempts to get the last 10 minutes of data from 1:50 to 2:00, but because of the 1-minute delay, it only gets 9 minutes of data and misses the data from 1:59 to 2:00. Setting the window delay to 1 minute shifts the interval window to 1:49 - 1:59, so the detector accounts for all 10 minutes of the detector interval time.
+1. Specify custom result index.
+   - If you want to store the anomaly detection results in your own index, choose **Enable custom result index** and specify the custom index to store the result.
+      - If the custom index you specify doesn’t already exist, the anomaly detection plugin creates this index when you create the detector and start your real-time or historical analysis.
+      - If the custom index already exists, the plugin checks if the index mapping of the custom index matches the anomaly result file. You need to make sure the custom index has valid mapping as shown here: [anomaly-results.json](https://github.com/opensearch-project/anomaly-detection/blob/main/src/main/resources/mappings/anomaly-results.json).
+   - To use the custom result index option, you need the following permissions:
+      - `indices:admin/create` - If the custom index already exists, you don't need this.
+      - `indices:data/write/index` - You need the `write` permission for the anomaly detection plugin to write results into the custom index for a single-entity detector.
+      - `indices:data/write/delete` - Because the detector might generate a large number of anomaly results, you need the `delete` permission to delete old data and save disk space.
+      - `indices:data/write/bulk*` -  You need the `bulk*` permission because the anomaly detection plugin uses the bulk API to write results into the custom index.
+   - Managing the custom result index:
+      - The anomaly detection dashboard queries all detectors’ results from all custom result indices. Having too many custom result indices might impact the performance of the anomaly detection plugin.
+      - We recommend you use [Index State Management]({{site.url}}{{site.baseurl}}/im-plugin/ism/index/) to rollover old result indices. You can also manually delete or archive any old result indices.
+1. Choose **Next**.   
 
 After you define the detector, the next step is to configure the model.
 
