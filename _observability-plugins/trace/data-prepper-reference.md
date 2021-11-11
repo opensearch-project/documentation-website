@@ -7,7 +7,7 @@ nav_order: 25
 
 # Data Prepper configuration reference
 
-This page lists all supported Data Prepper sources, buffers, preppers, and sinks, along with their associated options. For example configuration files, see [Data Prepper]({{site.url}}{{site.baseurl}}/monitoring-plugins/trace/data-prepper/).
+This page lists all supported Data Prepper sources, buffers, preppers, and sinks, along with their associated options. For example configuration files, see [Data Prepper]({{site.url}}{{site.baseurl}}/observability-plugins/trace/data-prepper/).
 
 
 ## Data Prepper server options
