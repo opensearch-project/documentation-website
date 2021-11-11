@@ -223,25 +223,25 @@ Check [Upgrade paths]({{site.url}}{{site.baseurl}}/upgrade-to/upgrade-to/#upgrad
     - `ES_HOME` - Path to the existing Elasticsearch installation home.
 
       ```bash
-      export ES_HOME = /home/workspace/upgrade-demo/node1/elasticsearch-7.10.2
+      export ES_HOME=/home/workspace/upgrade-demo/node1/elasticsearch-7.10.2
       ```
 
     - `ES_PATH_CONF` - Path to the existing Elasticsearch config directory.
 
       ```bash
-      export ES_PATH_CONF = /home/workspace/upgrade-demo/node1/os-config
+      export ES_PATH_CONF=/home/workspace/upgrade-demo/node1/os-config
       ```
 
     - `OPENSEARCH_HOME` - Path to the OpenSearch installation home.
 
       ```bash
-      export OPENSEARCH_HOME = /home/workspace/upgrade-demo/node1/opensearch-1.0.0
+      export OPENSEARCH_HOME=/home/workspace/upgrade-demo/node1/opensearch-1.0.0
       ```
 
     - `OPENSEARCH_PATH_CONF` - Path to the OpenSearch config directory.
 
       ```bash
-      export OPENSEARCH_PATH_CONF = /home/workspace/upgrade-demo/node1/opensearch-config
+      export OPENSEARCH_PATH_CONF=/home/workspace/upgrade-demo/node1/opensearch-config
       ```
 
 1. The `opensearch-upgrade` tool is in the `bin` directory of the distribution. Run the following command from the distribution home:
