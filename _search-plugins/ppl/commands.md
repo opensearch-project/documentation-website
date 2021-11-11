@@ -80,7 +80,7 @@ Field | Description | Type | Required | Default
 `int` |  Retain the specified number of duplicate events for each combination. The number must be greater than 0. If you do not specify a number, only the first occurring event is kept and all other duplicates are removed from the results. | `string` | No | 1
 `keepempty` | If true, keep the document if any field in the field list has a null value or a field missing. | `nested list of objects` | No | False
 `consecutive` | If true, remove only consecutive events with duplicate combinations of values. | `Boolean` | No | False
-`field-list` | Specify a comma-delimited field list. At least one field is required. | Yes | - | -
+`field-list` | Specify a comma-delimited field list. At least one field is required. | `string` or comma-separated list of strings | Yes | -
 
 *Example 1*: Dedup by one field
 
