@@ -498,7 +498,7 @@ Field | Description | Required
 To get all documents from the `accounts` index where `account_number` is 1 or gender is `F`:
 
 ```sql
-search source=accounts | where account_number=1 or gender="F" | fields account_number, gender;
+search source=accounts | where account_number=1 or gender=\"F\" | fields account_number, gender;
 ```
 
 | account_number | gender
