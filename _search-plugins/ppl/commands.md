@@ -57,7 +57,7 @@ search source=accounts;
 To get all documents from the `accounts` index that have either `account_number` equal to 1 or have `gender` as `F`:
 
 ```sql
-search source=accounts account_number=1 or gender="F";
+search source=accounts account_number=1 or gender=\"F\";
 ```
 
 | account_number | firstname | address | balance | gender | city | employer | state | age | email | lastname |
