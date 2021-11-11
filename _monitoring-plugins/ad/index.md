@@ -44,7 +44,11 @@ A detector is an individual anomaly detection task. You can define multiple dete
       - This value tells the detector that the data is not ingested into OpenSearch in real time but with a certain delay. Set the window delay to shift the detector interval to account for this delay.
       - For example, say the detector interval is 10 minutes and data is ingested into your cluster with a general delay of 1 minute. Assume the detector runs at 2:00. The detector attempts to get the last 10 minutes of data from 1:50 to 2:00, but because of the 1-minute delay, it only gets 9 minutes of data and misses the data from 1:59 to 2:00. Setting the window delay to 1 minute shifts the interval window to 1:49 - 1:59, so the detector accounts for all 10 minutes of the detector interval time.
 1. Specify custom result index.
-   - If you want to store the anomaly detection results in your own index, choose **Enable custom result index** and specify the custom index to store the result.
+   - If you want to store the anomaly detection results in your own index, choose **Enable custom result index** and specify the custom index to store the result. The anomaly detection plugin adds an `opensearch-ad-plugin-result-` prefix to the index name that you input. For example, if you input `abc` as the result index name, the final index name is `opensearch-ad-plugin-result-abc`.
+
+   You can use the dash “-” sign to separate the namespace to manage custom result index permissions. For example, if you use `opensearch-ad-plugin-result-financial-us-group1` as the result index, you can create a permission role based on the pattern `opensearch-ad-plugin-result-financial-us-*` to represent the "financial" department at a granular level for the "us" area. 
+   {: .note }
+
       - If the custom index you specify doesn’t already exist, the anomaly detection plugin creates this index when you create the detector and start your real-time or historical analysis.
       - If the custom index already exists, the plugin checks if the index mapping of the custom index matches the anomaly result file. You need to make sure the custom index has valid mapping as shown here: [anomaly-results.json](https://github.com/opensearch-project/anomaly-detection/blob/main/src/main/resources/mappings/anomaly-results.json).
    - To use the custom result index option, you need the following permissions:
@@ -54,7 +58,7 @@ A detector is an individual anomaly detection task. You can define multiple dete
       - `indices:data/write/bulk*` -  You need the `bulk*` permission because the anomaly detection plugin uses the bulk API to write results into the custom index.
    - Managing the custom result index:
       - The anomaly detection dashboard queries all detectors’ results from all custom result indices. Having too many custom result indices might impact the performance of the anomaly detection plugin.
-      - We recommend you use [Index State Management]({{site.url}}{{site.baseurl}}/im-plugin/ism/index/) to rollover old result indices. You can also manually delete or archive any old result indices.
+      - You can use [Index State Management]({{site.url}}{{site.baseurl}}/im-plugin/ism/index/) to rollover old result indices. You can also manually delete or archive any old result indices. We recommend reusing a custom result index for multiple detectors.
 1. Choose **Next**.   
 
 After you define the detector, the next step is to configure the model.

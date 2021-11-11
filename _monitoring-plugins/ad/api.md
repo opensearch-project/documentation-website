@@ -1975,18 +1975,38 @@ Introduced 1.0
 
 Returns all results for a search query.
 
-Specify the `only_query_custom_result_index` parameter (default value is `false`) to search both the custom result index and default result index. To search only the custom result index, set this parameter to `true`:
+You have the following search options:
 
-```json
-POST _plugins/_anomaly_detection/detectors/results/_search/<custom_result_index>?only_query_custom_result_index=true
-```
+- To search only the default result index, simply use the search API:
+
+  ```json
+  POST _plugins/_anomaly_detection/detectors/results/_search/
+  ```
+
+- To search both the custom result index and default result index, you can either add the custom result index to the search API:
+
+  ```json
+  POST _plugins/_anomaly_detection/detectors/results/_search/<custom_result_index>
+  ```
+
+  Or, add the custom result index and set the `only_query_custom_result_index` parameter to `false`:
+
+  ```json
+  POST _plugins/_anomaly_detection/detectors/results/_search/<custom_result_index>?only_query_custom_result_index=false
+  ```  
+
+- To search only the custom result index, add the custom result index to the search API and set the `only_query_custom_result_index` parameter to `true`:
+
+  ```json
+  POST _plugins/_anomaly_detection/detectors/results/_search/<custom_result_index>?only_query_custom_result_index=true
+  ```
 
 The following example searches anomaly results for grade greater than 0 for real-time analysis:
 
 #### Request
 
 ```json
-GET_plugins/_anomaly_detection/detectors/results/_search/opensearch-ad-plugin-result-test
+GET _plugins/_anomaly_detection/detectors/results/_search/opensearch-ad-plugin-result-test
 POST _plugins/_anomaly_detection/detectors/results/_search/opensearch-ad-plugin-result-test
 {
   "query": {
@@ -2918,7 +2938,9 @@ Introduced 1.1
 
 Deletes the results of a detector based on a query.
 
-This command doesn't delete any custom result indices. You need to manually delete any custom result indices that you don’t need anymore.
+The delete detector results API only deletes anomaly result documents in the default result index. It doesn't support deleting anomaly result documents stored in any custom result indices.
+
+You need to manually delete anomaly result documents that you don't need from custom result indices.
 
 #### Request
 
