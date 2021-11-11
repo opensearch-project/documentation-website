@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Notebooks
-nav_order: 85
+nav_order: 50
 redirect_from: /notebooks/
 has_children: false
 ---
