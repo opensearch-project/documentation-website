@@ -79,7 +79,7 @@ Field | Description | Type | Required | Default
 :--- | :--- |:--- |:--- |:---
 `int` |  Retain the specified number of duplicate events for each combination. The number must be greater than 0. If you do not specify a number, only the first occurring event is kept and all other duplicates are removed from the results. | `string` | No | 1
 `keepempty` | If true, keep the document if any field in the field list has a null value or a field missing. | `nested list of objects` | No | False
-`consecutive` | If true, remove only consecutive events with duplicate combinations of values. | No | False | -
+`consecutive` | If true, remove only consecutive events with duplicate combinations of values. | `Boolean` | No | False
 `field-list` | Specify a comma-delimited field list. At least one field is required. | Yes | - | -
 
 *Example 1*: Dedup by one field
@@ -213,12 +213,12 @@ search source=accounts | eval doubleAge = age * 2, ddAge = doubleAge * 2 | field
 
 ## fields
 
-Use the `field` command to keep or remove fields from a search result.
+Use the `fields` command to keep or remove fields from a search result.
 
 ### Syntax
 
 ```sql
-field [+|-] <field-list>
+fields [+|-] <field-list>
 ```
 
 Field | Description | Required | Default
