@@ -178,9 +178,9 @@ For the warmup operation to function properly, follow these best practices:
 Introduced 1.2
 {: .label .label-purple }
 
-Used to retrieve information about models present in the cluster. Some native library index configurations require [a training step](ADD ME) before indexing and querying can begin. The 
-output of training is a model that can then be used to initialize native library index files during indexing. The model
-is serialized in the [k-NN model system index](ADD ME).  
+Used to retrieve information about models present in the cluster. Some native library index configurations require a 
+training step before indexing and querying can begin. The output of training is a model that can then be used to 
+initialize native library index files during indexing. The model is serialized in the k-NN model system index.  
 
 ```
 GET /_plugins/_knn/models/{model_id}
@@ -291,10 +291,6 @@ DELETE /_plugins/_knn/models/{model_id}
 }
 ```
 
-
-
-### Usage
-
 ## Train Model
 Introduced 1.2
 {: .label .label-purple }
@@ -302,7 +298,7 @@ Introduced 1.2
 Create and train a model that can be used for initializing k-NN native library indices during indexing. This API will 
 pull training data from a `knn_vector` field in a training index and then create and train a model and then serialize it
 to the model system index. Training data must match the dimension passed into the body of the request. This request 
-will return when training begins. To monitor the state of the model, use the [get model API](ADD ME).  
+will return when training begins. To monitor the state of the model, use the [Get model API](#get-model).  
 
 Query Parameter |  Description
 :--- | :---
@@ -317,7 +313,7 @@ Request Parameter |  Description
 `max_training_vector_count` | (Optional) Maximum number of vectors from the training index to use for training. Defaults to all of the vectors in the index.
 `search_size` | (Optional) Training data is pulled from the training index with scroll queries. Defines the number of results to return per scroll query. Defaults to 10,000.
 `description` | (Optional) User provided description of the model.
-`method` | Configuration of ANN method used for search. For more information on possible methods, refer to the [method documentation](ADD ME). Method must require training to be valid.
+`method` | Configuration of ANN method used for search. For more information on possible methods, refer to the [method documentation]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index#method-definitions). Method must require training to be valid.
    
 
 ### Usage
