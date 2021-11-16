@@ -2195,6 +2195,73 @@ POST _plugins/_anomaly_detection/detectors/results/_search
 
 ---
 
+## Search top anomalies
+Introduced 1.2
+{: .label .label-purple }
+
+Returns the top anomaly results for a high-cardinality detector, bucketed by categorical field values.
+
+You can pass a `historical` boolean parameter to specify whether you want to analyze real-time or historical results.
+
+#### Request
+
+```json
+GET _plugins/_anomaly_detection/detectors/<detectorId>/results/_topAnomalies?historical=false
+{
+  "size": 3,
+  "category_field": [
+    "ip"
+  ],
+  "order": "severity",
+  "task_id": "example-task-id",
+  "start_time_ms": 123456789000,
+  "end_time_ms": 987654321000
+}
+```
+
+#### Sample response
+
+```json
+{
+  "buckets": [
+    {
+      "key": {
+        "ip": "1.2.3.4"
+      },
+      "doc_count": 10,
+      "max_anomaly_grade": 0.8
+    },
+    {
+      "key": {
+        "ip": "5.6.7.8"
+      },
+      "doc_count": 12,
+      "max_anomaly_grade": 0.6
+    },
+    {
+      "key": {
+        "ip": "9.10.11.12"
+      },
+      "doc_count": 3,
+      "max_anomaly_grade": 0.5
+    }
+  ]
+}
+```
+
+You can specify the following options.
+
+Options | Description | Type | Required
+:--- | :--- |:--- |:--- |
+`size` |  Specify the number of top buckets that you want to see. Default is 10. The maximum number is 10,000. | `integer` | No
+`category_field` |  Specify the set of category fields that you want to aggregate on. Defaults to all category fields for the detector. | `list` | No
+`order` |  Specify `severity` (anomaly grade) or `occurrence` (number of anomalies). Default is `severity`. | `string` | No
+`task_id`  |  Specify a historical task ID to see results only from that specific task. Use only when `historical=true`, otherwise the anomaly detection plugin ignores this parameter. | `string` | No
+`start_time_ms` | Specify the time to start analyzing results, in Epoch milliseconds. | `long` | Yes
+`end_time_ms` |  Specify the time to end analyzing results, in Epoch milliseconds. | `long` | Yes
+
+---
+
 ## Get detector stats
 Introduced 1.0
 {: .label .label-purple }
