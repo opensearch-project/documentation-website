@@ -194,7 +194,7 @@ If a detector detects an anomaly late, the result has the following additional f
 Field | Description
 :--- | :---
 `past_values` | The actual input that triggered an anomaly. If `past_values` is null, the attributions or expected values are from the current input. If `past_values` is not null, the attributions or expected values are from a past input (for example, the previous two steps of the data [1,2,3]).
-`approx_anomaly_start_time` | The approximate time of the actual input that triggers an anomaly. This field helps you understand when a detector flags an anomaly. If the data is not continuous, the actual time that the detector detects the anomaly can be earlier. Single-stream detectors query previous anomaly results of a few data points while high-cardinality detectors don't do this because querying previous results is an expensive operation when performed on a lot of entities. So, the accuracy of this field is less for high-cardinality detectors as compared to single-stream detectors.
+`approx_anomaly_start_time` | The approximate time of the actual input that triggers an anomaly. This field helps you understand when a detector flags an anomaly. If the data is not continuous, the actual time that the detector detects the anomaly can be earlier. Both single-stream and high-cardinality detectors don't query previous anomaly results because these queries are expensive operations, especially when a detector has a lot of entities. This is why the accuracy of this field is low.
 
 ```json
 {
