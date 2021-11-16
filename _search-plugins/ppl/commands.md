@@ -688,7 +688,7 @@ PPL query:
 search source=my_index | match field=message query="this is a test"
 ```
 
-*Example 2*: Search the `message` field with the `and` parameter:
+*Example 2*: Search the `message` field with the `operator` parameter:
 
 ```json
 GET my_index/_search
@@ -710,7 +710,7 @@ PPL query:
 search source=my_index | match field=message query="this is a test" operator=and
 ```
 
-*Example 3*: Search the `message` field with the `and` and `zero_terms_query` parameters:
+*Example 3*: Search the `message` field with the `operator` and `zero_terms_query` parameters:
 
 ```json
 GET my_index/_search
