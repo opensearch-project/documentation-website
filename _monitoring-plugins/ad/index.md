@@ -46,7 +46,7 @@ A detector is an individual anomaly detection task. You can define multiple dete
 1. Specify custom result index.
    - If you want to store the anomaly detection results in your own index, choose **Enable custom result index** and specify the custom index to store the result. The anomaly detection plugin adds an `opensearch-ad-plugin-result-` prefix to the index name that you input. For example, if you input `abc` as the result index name, the final index name is `opensearch-ad-plugin-result-abc`.
 
-   You can use the dash “-” sign to separate the namespace to manage custom result index permissions. For example, if you use `opensearch-ad-plugin-result-financial-us-group1` as the result index, you can create a permission role based on the pattern `opensearch-ad-plugin-result-financial-us-*` to represent the "financial" department at a granular level for the "us" area. 
+   You can use the dash “-” sign to separate the namespace to manage custom result index permissions. For example, if you use `opensearch-ad-plugin-result-financial-us-group1` as the result index, you can create a permission role based on the pattern `opensearch-ad-plugin-result-financial-us-*` to represent the "financial" department at a granular level for the "us" area.
    {: .note }
 
       - If the custom index you specify doesn’t already exist, the anomaly detection plugin creates this index when you create the detector and start your real-time or historical analysis.
@@ -54,6 +54,7 @@ A detector is an individual anomaly detection task. You can define multiple dete
    - To use the custom result index option, you need the following permissions:
       - `indices:admin/create` - If the custom index already exists, you don't need this.
       - `indices:data/write/index` - You need the `write` permission for the anomaly detection plugin to write results into the custom index for a single-entity detector.
+      - `indices:data/read/search` - You need the `search` permission because the anomaly detection plugin needs to search custom result indices to show results on the anomaly detection UI.
       - `indices:data/write/delete` - Because the detector might generate a large number of anomaly results, you need the `delete` permission to delete old data and save disk space.
       - `indices:data/write/bulk*` -  You need the `bulk*` permission because the anomaly detection plugin uses the bulk API to write results into the custom index.
    - Managing the custom result index:
