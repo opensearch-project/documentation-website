@@ -13,7 +13,7 @@ To learn about full-text queries in OpenSearch, see [Full-text queries]({{site.u
 
 ## Match
 
-Use the `match` command to search documents that match a `string`, `number`, `date`, or `boolean` value for a given field.
+Use the `match` command to search documents that match a `string`, `number`, `date`, or `boolean` value for a given field. 
 
 ### Syntax
 
