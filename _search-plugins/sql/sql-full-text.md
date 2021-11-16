@@ -49,13 +49,13 @@ GET my_index/_search
 }
 ```
 
-You can use the following SQL query:
+SQL query:
 
 ```sql
 SELECT message FROM my_index WHERE match(message, "this is a test")
 ```
 
-#### Sample search query 2
+*Example 2*: Search the `message` field with the `and` parameter:
 
 ```json
 GET my_index/_search
@@ -71,13 +71,13 @@ GET my_index/_search
 }
 ```
 
-You can use the following SQL query:
+SQL query:
 
 ```sql
 SELECT message FROM my_index WHERE match(message, "this is a test", operator=and)
 ```
 
-#### Sample search query 3
+*Example 3*: Search the `message` field with the `and` and `zero_terms_query` parameters:
 
 ```json
 GET my_index/_search
@@ -94,16 +94,10 @@ GET my_index/_search
 }
 ```
 
-#### Sample SQL query
+SQL query:
 
 ```sql
 SELECT message FROM my_index WHERE match(message, "this is a test", operator=and, zero_terms_query=all)
-```
-
-#### Sample PPL query
-
-```ppl
-search source=my_index | where match(message, "this is a test", operator=and, zero_terms_query=all)
 ```
 
 To search for text in a single field, use `MATCHQUERY` or `MATCH_QUERY` functions.

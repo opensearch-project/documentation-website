@@ -682,7 +682,7 @@ GET my_index/_search
 }
 ```
 
-You can use the following PPL query:
+PPL query:
 
 ```sql
 search source=my_index | match field=message query="this is a test"
@@ -704,7 +704,7 @@ GET my_index/_search
 }
 ```
 
-You can use the following PPL query:
+PPL query:
 
 ```sql
 search source=my_index | match field=message query="this is a test" operator=and
@@ -727,7 +727,7 @@ GET my_index/_search
 }
 ```
 
-You can use the following PPL query:
+PPL query:
 
 ```ppl
 search source=my_index | where match(message, "this is a test", operator=and, zero_terms_query=all)
