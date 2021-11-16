@@ -1,6 +1,10 @@
-/* During build, DOC_VERSIONS is prefixed to convey all the versions available, informed by `_data/versions.json`
+/* global DOC_VERSIONS, LATEST_DOC_VERSION */
+/*
+ * During build, informed by `_data/versions.json`, DOC_VERSIONS and LATEST_DOC_VERSION are prefixed to this file to
+ * convey all the versions available as well as the current "latest" version.
  * Example:
- *    const DOC_VERSIONS = ["1.1","1.0"];
+ *    const DOC_VERSIONS = ["1.2","1.1","1.0"];
+ *    const LATEST_DOC_VERSION = "1.1";
  */
 const PREFIX = "OpenSearch ";
 const tpl = `
@@ -122,7 +126,7 @@ const tpl = `
     }
     </style>
     <a id="root" role="button" aria-labelledby="selected" aria-controls="dropdown" tabindex="0">
-      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6l6-6"/></g></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6l6-6"/></g></svg>
       <span id="selected"></span>
     </a>
     <div id="dropdown" role="navigation"></div>
@@ -150,7 +154,7 @@ class VersionSelector extends HTMLElement {
         frag.querySelector('#selected').textContent = `${PREFIX}${this.getAttribute('selected')}.x`;
 
         const pathName = location.pathname.replace(/\/docs(\/((latest|\d+\.\d+)\/?)?)?/, '');
-        const versionsDOMText = DOC_VERSIONS.map((v, idx) => `<a href="/docs/${v}/${pathName}"${idx === 0 ? ' class="latest"' : ''}>${PREFIX}${v}.x</a>`)
+        const versionsDOMText = DOC_VERSIONS.map(v => `<a href="/docs/${v}/${pathName}"${v === LATEST_DOC_VERSION ? ' class="latest"' : ''}>${PREFIX}${v}.x</a>`)
             .join('');
 
         frag.querySelector('#dropdown').appendChild(this._makeFragment(versionsDOMText));
