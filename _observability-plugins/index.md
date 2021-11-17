@@ -13,7 +13,7 @@ OpenSearch Dashboards
 
 The Observability plugins are a collection of plugins that let you visualize data-driven events by using Piped Processing Language to explore, discover, and query data stored in OpenSearch.
 
-Your experience of exploring data might differ, but if you're new to exploring data to create visualizations, we recommend trying a work flow like the following:
+Your experience of exploring data might differ, but if you're new to exploring data to create visualizations, we recommend trying a workflow like the following:
 
 1. Explore data over a certain timeframe using [Piped Processing Language]({{site.url}}{{site.baseurl}}/observability-plugins/ppl/index).
 1. Use [event analytics]({{site.url}}{{site.baseurl}}/observability-plugins/event-analytics) to turn data-driven events into visualizations.
