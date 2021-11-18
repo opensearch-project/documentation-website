@@ -89,8 +89,10 @@ Paramater Name | Required | Default | Updatable | Description
 
 Method Name | Requires Training? | Supported Spaces | Description
 :--- | :--- | :--- | :---
-`hnsw` | false | "l2", "innerproduct" | Hierarchical proximity graph approach to Approximate k-NN search.
+`hnsw` | false | "l2", "innerproduct"* | Hierarchical proximity graph approach to Approximate k-NN search.
 `ivf` | true | "l2", "innerproduct" | Bucketing approach where vectors are assigned different buckets based on clustering and, during search, only a subset of the buckets are searched.
+
+**Note** --- For *hnsw*, "innerproduct" is not available when PQ is used.
 
 #### HNSW Parameters
 
@@ -150,7 +152,7 @@ Encoder Name | Requires Training? | Description
 Paramater Name | Required | Default | Updatable | Description
 :--- | :--- | :--- | :--- | :---
 `m` | false | 1 | false |  Determine how many many sub-vectors to break the vector into. sub-vectors are encoded independently of each other. This dimension of the vector must be divisible by `m`. Max value is 1024.
-`code_size` | false | 8 | false | Determines the number of bits to encode a sub-vector into. Max value is 128. **Note** --- for IVF, this value must be less than or equal to 8.
+`code_size` | false | 8 | false | Determines the number of bits to encode a sub-vector into. Max value is 8. **Note** --- for IVF, this value must be less than or equal to 8. For HNSW, this value can only be 8.
 
 ### Choosing the right method
 
