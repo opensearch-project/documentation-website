@@ -31,6 +31,7 @@ Client | Recommended version
 [Java high-level REST client](https://search.maven.org/artifact/org.elasticsearch.client/elasticsearch-rest-high-level-client/7.13.4/jar) | 7.13.4
 [Python Elasticsearch client](https://pypi.org/project/elasticsearch/7.13.4/) | 7.13.4
 [Elasticsearch Node.js client](https://www.npmjs.com/package/@elastic/elasticsearch/v/7.13.0) | 7.13.0
+[Ruby Elasticsearch client](https://rubygems.org/gems/elasticsearch/versions/7.13.0) | 7.13.0
 
 If you test a legacy client and verify that it works, please [submit a PR](https://github.com/opensearch-project/documentation-website/pulls) and add it to this table.
 
