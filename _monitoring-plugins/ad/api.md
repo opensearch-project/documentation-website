@@ -333,6 +333,97 @@ Options | Description | Type | Required
 
 ---
 
+## Validate detector
+Introduced 1.2
+{: .label .label-purple }
+
+Returns whether the detector configuration has any issues that might prevent OpenSearch from creating the detector.
+
+You can use the validate API to identify issues in your detector configuration before creating the detector.
+
+The request body consists of the detector configuration and follows the same format as the request body of the [create detector API]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/api#create-anomaly-detector). 
+
+#### Request
+
+```json
+POST _plugins/_anomaly_detection/detectors/_validate
+POST _plugins/_anomaly_detection/detectors/_validate/detector
+{
+  "name": "test-detector",
+  "description": "Test detector",
+  "time_field": "timestamp",
+  "indices": [
+    "server_log*"
+  ],
+  "feature_attributes": [
+    {
+      "feature_name": "test",
+      "feature_enabled": true,
+      "aggregation_query": {
+        "test": {
+          "sum": {
+            "field": "value"
+          }
+        }
+      }
+    }
+  ],
+  "filter_query": {
+    "bool": {
+      "filter": [
+        {
+          "range": {
+            "value": {
+              "gt": 1
+            }
+          }
+        }
+      ],
+      "adjust_pure_negative": true,
+      "boost": 1
+    }
+  },
+  "detection_interval": {
+    "period": {
+      "interval": 1,
+      "unit": "Minutes"
+    }
+  },
+  "window_delay": {
+    "period": {
+      "interval": 1,
+      "unit": "Minutes"
+    }
+  }
+}
+```
+
+If the validate API doesn’t find any issue in the detector configuration, it returns an empty response:
+
+#### Sample response
+
+```json
+{}
+```
+
+If the validate API finds an issue, it returns a message explaining what's wrong with the configuration. In this example, the feature query aggregates over a field that doesn’t exist in the data source:
+
+#### Sample response
+
+```json
+{
+  "detector": {
+    "feature_attributes": {
+      "message": "Feature has invalid query returning empty aggregated data: average_total_rev",
+      "sub_issues": {
+        "average_total_rev": "Feature has invalid query returning empty aggregated data"
+      }
+    }
+  }
+}
+```
+---
+
 ## Get detector
 Introduced 1.0
 {: .label .label-purple }
