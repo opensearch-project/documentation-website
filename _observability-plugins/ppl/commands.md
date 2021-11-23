@@ -47,7 +47,7 @@ search source=accounts;
 
 | account_number | firstname | address | balance | gender | city | employer | state | age | email | lastname |
 :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :---
-| 1  | Amber  | 880 Holmes Lane | 39225 | M | Brogan | Pyrami | IL | 32 | amberduke@pyrami.com  | Duke       
+| 1  | Amber  | 880 Holmes Lane | 39225 | M | Brogan | Pyrami | IL | 32 | amberduke@pyrami.com  | Duke
 | 6  | Hattie | 671 Bristol Street | 5686 | M | Dante | Netagy | TN | 36  | hattiebond@netagy.com | Bond
 | 13 | Nanette | 789 Madison Street | 32838 | F | Nogal | Quility | VA | 28 | null | Bates
 | 18 | Dale  | 467 Hutchinson Court | 4180 | M | Orick | null | MD | 33 | daleadams@boink.com | Adams
@@ -80,7 +80,7 @@ Field | Description | Type | Required | Default
 `int` |  Retain the specified number of duplicate events for each combination. The number must be greater than 0. If you do not specify a number, only the first occurring event is kept and all other duplicates are removed from the results. | `string` | No | 1
 `keepempty` | If true, keep the document if any field in the field list has a null value or a field missing. | `nested list of objects` | No | False
 `consecutive` | If true, remove only consecutive events with duplicate combinations of values. | `Boolean` | No | False
-`field-list` | Specify a comma-delimited field list. At least one field is required. | `string` or comma-separated list of strings | Yes | -
+`field-list` | Specify a comma-delimited field list. At least one field is required. | `String` or comma-separated list of strings | Yes | -
 
 *Example 1*: Dedup by one field
 
@@ -90,7 +90,7 @@ To remove duplicate documents with the same gender:
 search source=accounts | dedup gender | fields account_number, gender;
 ```
 
-| account_number | gender  
+| account_number | gender
 :--- | :--- |
 1 | M
 13 | F
@@ -104,7 +104,7 @@ To keep two duplicate documents with the same gender:
 search source=accounts | dedup 2 gender | fields account_number, gender;
 ```
 
-| account_number | gender  
+| account_number | gender
 :--- | :--- |
 1 | M
 6 | M
@@ -145,7 +145,7 @@ To remove duplicates of consecutive documents:
 search source=accounts | dedup gender consecutive=true | fields account_number, gender;
 ```
 
-| account_number | gender  
+| account_number | gender
 :--- | :--- |
 1 | M
 13 | F
@@ -176,9 +176,9 @@ search source=accounts | eval doubleAge = age * 2 | fields age, doubleAge;
 
 | age | doubleAge
 :--- | :--- |
-32    | 64          
-36    | 72          
-28    | 56          
+32    | 64
+36    | 72
+28    | 56
 33    | 66
 
 *Example 2*: Overwrite the existing field
@@ -191,10 +191,10 @@ search source=accounts | eval age = age + 1 | fields age;
 
 | age
 :--- |
-| 33          
-| 37            
-| 29           
-| 34   
+| 33
+| 37
+| 29
+| 34
 
 *Example 3*: Create a new field with a field defined with the `eval` command
 
@@ -206,10 +206,10 @@ search source=accounts | eval doubleAge = age * 2, ddAge = doubleAge * 2 | field
 
 | age | doubleAge | ddAge
 :--- | :--- |
-| 32    | 64   | 128     
-| 36    | 72   | 144     
-| 28    | 56   | 112     
-| 33    | 66   | 132     
+| 32    | 64   | 128
+| 36    | 72   | 144
+| 28    | 56   | 112
+| 33    | 66   | 132
 
 ## fields
 
@@ -234,11 +234,11 @@ To get `account_number`, `firstname`, and `lastname` fields from a search result
 search source=accounts | fields account_number, firstname, lastname;
 ```
 
-| account_number | firstname  | lastname  
+| account_number | firstname  | lastname
 :--- | :--- |
-| 1   | Amber       | Duke       
-| 6   | Hattie      | Bond       
-| 13  | Nanette     | Bates      
+| 1   | Amber       | Duke
+| 6   | Hattie      | Bond
+| 13  | Nanette     | Bates
 | 18  | Dale        | Adams
 
 *Example 2*: Remove specified fields from a search result
@@ -251,10 +251,10 @@ search source=accounts | fields account_number, firstname, lastname | fields - a
 
 | firstname | lastname
 :--- | :--- |
-| Amber   | Duke       
-| Hattie  | Bond       
-| Nanette | Bates      
-| Dale    | Adams         
+| Amber   | Duke
+| Hattie  | Bond
+| Nanette | Bates
+| Dale    | Adams
 
 ## rename
 
@@ -281,9 +281,9 @@ search source=accounts | rename account_number as an | fields an;
 
 | an
 :--- |
-| 1    
-| 6    
-| 13   
+| 1
+| 6
+| 13
 | 18
 
 *Example 2*: Rename multiple fields
@@ -296,10 +296,10 @@ search source=accounts | rename account_number as an, employer as emp | fields a
 
 | an   | emp
 :--- | :--- |
-| 1    | Pyrami  
-| 6    | Netagy  
+| 1    | Pyrami
+| 6    | Netagy
 | 13   | Quility
-| 18   | null    
+| 18   | null
 
 ## sort
 
@@ -327,9 +327,9 @@ search source=accounts | sort age | fields account_number, age;
 
 | account_number | age |
 :--- | :--- |
-| 13 | 28    
-| 1  | 32    
-| 18 | 33    
+| 13 | 28
+| 1  | 32
+| 18 | 33
 | 6  | 36
 
 *Example 2*: Sort by one field and return all results
@@ -342,9 +342,9 @@ search source=accounts | sort 0 age | fields account_number, age;
 
 | account_number | age |
 :--- | :--- |
-| 13 | 28    
-| 1  | 32    
-| 18 | 33    
+| 13 | 28
+| 1  | 32
+| 18 | 33
 | 6  | 36
 
 *Example 3*: Sort by one field in descending order
@@ -357,9 +357,9 @@ search source=accounts | sort - age | fields account_number, age;
 
 | account_number | age |
 :--- | :--- |
-| 6 | 36    
-| 18  | 33    
-| 1 | 32    
+| 6 | 36
+| 18  | 33
+| 1 | 32
 | 13  | 28
 
 *Example 4*: Specify the number of sorted documents to return
@@ -372,8 +372,8 @@ search source=accounts | sort 2 age | fields account_number, age;
 
 | account_number | age |
 :--- | :--- |
-| 13 | 28    
-| 1  | 32    
+| 13 | 28
+| 1  | 32
 
 *Example 5*: Sort by multiple fields
 
@@ -385,9 +385,9 @@ search source=accounts | sort + gender, - age | fields account_number, gender, a
 
 | account_number | gender | age |
 :--- | :--- | :--- |
-| 13 | F | 28    
-| 6  | M | 36    
-| 18 | M | 33    
+| 13 | F | 28
+| 6  | M | 36
+| 18 | M | 33
 | 1  | M | 32
 
 ## stats
@@ -438,7 +438,7 @@ search source=accounts | stats avg(age) by gender;
 
 | gender | avg(age)
 :--- | :--- |
-| F  | 28.0         
+| F  | 28.0
 | M  | 33.666666666666664
 
 *Example 3*: Calculate the average and sum of a field by group
@@ -451,7 +451,7 @@ search source=accounts | stats avg(age), sum(age) by gender;
 
 | gender | avg(age) | sum(age)
 :--- | :--- |
-| F  | 28   | 28         
+| F  | 28   | 28
 | M  | 33.666666666666664 | 101
 
 *Example 4*: Calculate the maximum value of a field
@@ -464,7 +464,7 @@ search source=accounts | stats max(age);
 
 | max(age)
 :--- |
-| 36  
+| 36
 
 *Example 5*: Calculate the maximum and minimum value of a field by group
 
@@ -476,7 +476,7 @@ search source=accounts | stats max(age), min(age) by gender;
 
 | gender | min(age) | max(age)
 :--- | :--- | :--- |
-| F  | 28 | 28         
+| F  | 28 | 28
 | M  | 32 | 36
 
 ## where
@@ -503,7 +503,7 @@ search source=accounts | where account_number=1 or gender=\"F\" | fields account
 
 | account_number | gender
 :--- | :--- |
-| 1  | M        
+| 1  | M
 | 13 | F
 
 ## head
@@ -573,7 +573,7 @@ search source=accounts | rare gender;
 
 | gender
 :--- |
-| F  
+| F
 | M
 
 *Example 2*: Find the least common values grouped by gender
@@ -586,7 +586,7 @@ search source=accounts | rare age by gender;
 
 | gender | age
 :--- | :--- |
-| F  | 28  
+| F  | 28
 | M  | 32
 | M  | 33
 
@@ -616,7 +616,7 @@ search source=accounts | top gender;
 
 | gender
 :--- |
-| M  
+| M
 | F
 
 *Example 2*: Find the most common value in a field
@@ -629,7 +629,7 @@ search source=accounts | top 1 gender;
 
 | gender
 :--- |
-| M          
+| M
 
 *Example 2*: Find the most common values grouped by gender
 
@@ -641,5 +641,5 @@ search source=accounts | top 1 age by gender;
 
 | gender | age
 :--- | :--- |
-| F  | 28  
+| F  | 28
 | M  | 32

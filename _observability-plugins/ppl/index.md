@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Piped processing language
-nav_order: 42
+nav_order: 40
 has_children: true
 has_toc: false
 redirect_from:
@@ -52,9 +52,9 @@ search source=accounts
 
 firstname | lastname |
 :--- | :--- |
-Amber       | Duke     
-Hattie      | Bond     
-Nanette     | Bates    
-Dale        | Adams    
+Amber       | Duke
+Hattie      | Bond
+Nanette     | Bates
+Dale        | Adams
 
 ![PPL query workbench]({{site.url}}{{site.baseurl}}/images/ppl.png)
