@@ -160,6 +160,12 @@ If you set the category field, you see an additional **Heat map** chart. The hea
 Choose and drag over the anomaly line chart to zoom in and see a more detailed view of an anomaly.
 {: .note }
 
+If you have set multiple category fields, you can select a subset of fields to filter and sort the fields by. Selecting a subset of fields lets you see the top values of one field that share a common value with another field.
+
+For example, if you have a detector with the category fields `ip` and `endpoint`, you can select `endpoint` in the **View by** dropdown menu. Then, select a specific cell to overlay the top 20 values of `ip` on the charts. The anomaly detection plugin selects the top `ip` by default. You can see a maximum of 5 individual time-series values at the same time.
+
+![Anomaly detection results]({{site.url}}{{site.baseurl}}/images/multi-category-ad.png)
+
 ## Step 6: Set up alerts
 
 Under **Real-time results**, choose **Set up alerts** and configure a monitor to notify you when anomalies are detected. For steps to create a monitor and set up notifications based on your anomaly detector, see [Monitors]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/).
