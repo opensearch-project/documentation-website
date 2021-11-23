@@ -331,6 +331,7 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
       <td>Indexing_Pressure_Current_Limits
       </td>
       <td rowspan="5">ShardID, IndexName, IndexingStage
+      </td>
       <td>Total heap size (in bytes) that is available for utilization by a shard of an index in a particular indexing stage (Coordinating, Primary or Replica).
       </td>
     </tr>
