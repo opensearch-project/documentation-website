@@ -13,10 +13,96 @@ To learn about full-text queries in OpenSearch, see [Full-text queries]({{site.u
 
 ## Match
 
+Use the `match` command to search documents that match a `string`, `number`, `date`, or `boolean` value for a given field.
+
+### Syntax
+
+```sql
+match(field_expression, query_expression[, option=<option_value>]*)
+```
+
+You can specify the following options:
+
+- `analyzer`
+- `auto_generate_synonyms_phrase`
+- `fuzziness`
+- `max_expansions`
+- `prefix_length`
+- `fuzzy_transpositions`
+- `fuzzy_rewrite`
+- `lenient`
+- `operator`
+- `minimum_should_match`
+- `zero_terms_query`
+- `boost`
+
+*Example 1*: Search the `message` field:
+
+```json
+GET my_index/_search
+{
+  "query": {
+    "match": {
+      "message": "this is a test"
+    }
+  }
+}
+```
+
+SQL query:
+
+```sql
+SELECT message FROM my_index WHERE match(message, "this is a test")
+```
+
+*Example 2*: Search the `message` field with the `operator` parameter:
+
+```json
+GET my_index/_search
+{
+  "query": {
+    "match": {
+      "message": {
+        "query": "this is a test",
+        "operator": "and"
+      }
+    }
+  }
+}
+```
+
+SQL query:
+
+```sql
+SELECT message FROM my_index WHERE match(message, "this is a test", operator=and)
+```
+
+*Example 3*: Search the `message` field with the `operator` and `zero_terms_query` parameters:
+
+```json
+GET my_index/_search
+{
+  "query": {
+    "match": {
+      "message": {
+        "query": "to be or not to be",
+        "operator": "and",
+        "zero_terms_query": "all"
+      }
+    }
+  }
+}
+```
+
+SQL query:
+
+```sql
+SELECT message FROM my_index WHERE match(message, "this is a test", operator=and, zero_terms_query=all)
+```
+
 To search for text in a single field, use `MATCHQUERY` or `MATCH_QUERY` functions.
 
 Pass in your search query and the field name that you want to search against.
-
 
 ```sql
 SELECT account_number, address
