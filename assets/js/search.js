@@ -73,6 +73,11 @@
         if (query.length < 3) return hideResults(true);
         if (query === lastQuery) return;
 
+        recordEvent('search', {
+            search_term: query,
+            docs_version: docsVersion
+        });
+
         lastQuery = query;
 
         abortPreviousCalls();
@@ -83,8 +88,17 @@
         try {
             const controller = new AbortController();
             abortControllers.unshift(abortControllers);
+            const startTime = Date.now();
             const response = await fetch(`https://search-api.opensearch.org/search?q=${query}&v=${docsVersion}`, {signal: controller.signal});
             const data = await response.json();
+
+            recordEvent('view_search_results', {
+                search_term: query,
+                docs_version: docsVersion,
+                duration: Date.now() - startTime,
+                results_num: data?.results?.length || 0
+            });
+
             if (!Array.isArray(data?.results) || data.results.length === 0) {
                 return showNoResults();
             }
@@ -214,4 +228,13 @@
     const navToHighlightedResult = () => {
         elResults.querySelector('.custom-search-result.highlighted a[href]')?.click?.();
     };
+
+    const recordEvent = (name, data) => {
+        try {
+            gtag?.('event', name, data);
+        } catch (e) {
+            // Do nothing
+        }
+
+    }
 })();
