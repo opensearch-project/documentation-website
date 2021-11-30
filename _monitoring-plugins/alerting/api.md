@@ -514,12 +514,12 @@ POST _plugins/_alerting/monitors
 Introduced 1.0
 {: .label .label-purple }
 
-When you update a monitor, include the current version number as a parameter. OpenSearch increments the version number automatically (see the sample response).
+When you update a monitor, you can use the `seq_no` and `primary_term` parameters to update an existing policy with optimistic lock. If these numbers don’t match the existing policy or the policy doesn’t exist, Alerting throws an error. OpenSearch increments the version number and the sequence number automatically (see the sample response).
 
 #### Request
 
 ```json
-PUT _plugins/_alerting/monitors/<monitor_id>
+PUT _plugins/_alerting/monitors/<monitor_id>?if_seq_no=3&if_primary_term=1
 {
   "type": "monitor",
   "name": "test-monitor",
@@ -578,6 +578,8 @@ PUT _plugins/_alerting/monitors/<monitor_id>
 {
   "_id": "Q9aXOmkBC25HCRGmzfw-",
   "_version": 4,
+  "_seq_no": 4,
+  "_primary_term": 1,
   "monitor": {
     "type": "monitor",
     "name": "test-monitor",
