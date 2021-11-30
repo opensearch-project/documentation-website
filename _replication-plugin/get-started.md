@@ -12,7 +12,7 @@ With cross-cluster replication, you index data to a leader index, and OpenSearch
 
 Cross-cluster replication has the following prerequisites:
 - Both the leader and follower cluster must have the replication plugin installed.
-- If you've overridden `node.roles` in `opensearch.yml` on the remote cluster, make sure it also includes the `remote_cluster_client` role:
+- If you've overridden `node.roles` in `opensearch.yml` on the follower cluster, make sure it also includes the `remote_cluster_client` role:
 
    ```yaml
    node.roles: [<other_roles>, remote_cluster_client]
@@ -24,12 +24,29 @@ Make sure the security plugin is either enabled on both clusters or disabled on 
 
 If the security plugin is enabled, non-admin users need to be mapped to the appropriate permissions in order to perform replication actions. For index and cluster-level permissions requirements, see [Cross-cluster replication permissions]({{site.url}}{{site.baseurl}}/replication-plugin/permissions/).
 
-In addition, add the following setting to `opensearch.yml` on the leader cluster so it allows connections from the follower cluster: 
+In addition, verify and add Distinguished name(DN) of follower cluster nodes on the leader cluster to allow connections from follower cluster at the leader cluster 
 
-```yml
-plugins.security.nodes_dn_dynamic_config_enabled: true
+- Get the nodes DN from the follower cluster:
+```json
+GET '/_opendistro/_security/api/ssl/certs?pretty'
+{
+  "transport_certificates_list" : [
+    {
+      "issuer_dn" : "CN=Test,OU=Server CA 1B,O=Test,C=US",
+      "subject_dn" : "CN=follower.test.com", # To be added under leader's nodes_dn configuration
+      "not_before" : "2021-11-12T00:00:00Z",
+      "not_after" : "2022-12-11T23:59:59Z"
+    }
+  ]
+}
 ```
 
+- Verify that they are part of leader cluster configuration under opensearch.yml, otherwise add them under the following setting:
+```yaml
+plugins.security.nodes_dn:
+  - "CN=*.leader.com, OU=SSL, O=Test, L=Test, C=DE" # Already part of the configuration
+  - "CN=follower.test.com" # From the above response at follower
+```
 ## Example setup
 
 Save this sample file as `docker-compose.yml` and run `docker-compose up` to start two single-node clusters on the same network:
@@ -164,7 +181,7 @@ curl -XPUT -k -H 'Content-Type: application/json' -u 'admin:admin' 'https://loca
 If the security plugin is disabled, omit the `use_roles` parameter. If it's enabled, however, you must specify the leader and follower cluster roles that OpenSearch will use to authenticate the request. This example uses `all_access` for simplicity, but we recommend creating a replication user on each cluster and [mapping it accordingly]({{site.url}}{{site.baseurl}}/replication-plugin/permissions/#map-the-leader-and-follower-cluster-roles).
 {: .tip }
 
-This command creates an identical read-only index named `follower-01` on the local cluster that continuously stays updated with changes to the `leader-01` index on the remote cluster. Starting replication creates a follower index from scratch; you can't convert an existing index to a follower index. 
+This command creates an identical read-only index named `follower-01` on the follower cluster that continuously stays updated with changes to the `leader-01` index on the leader cluster. Starting replication creates a follower index from scratch; you can't convert an existing index to a follower index. 
 
 ## Confirm replication
 
