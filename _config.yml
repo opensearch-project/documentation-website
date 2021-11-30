@@ -107,8 +107,15 @@ just_the_docs:
 
 
 # Enable or disable the site search
-# Supports true (default) or false
-search_enabled: true
+# By default, just-the-docs enables its JSON file-based search. We also have an OpenSearch-driven search functionality.
+# To disable any search from appearing, both `search_enabled` and `use_custom_search` need to be false.
+# To use the OpenSearch-driven search, `search_enabled` has to be false and `use_custom_search` needs to be true.
+# If `search_enabled` is true, irrespective of the value of `use_custom_search`, the JSON file-based search appears.
+#
+# `search_enabled` defaults to true
+# `use_custom_search` defaults to false
+search_enabled: false
+use_custom_search: true
 
 search:
   # Split pages into sections that can be searched individually
