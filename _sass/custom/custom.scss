@@ -1130,3 +1130,104 @@ version-selector {
   --hover-bg: linear-gradient(#{lighten($blue-300, 2%)}, #{darken($blue-300, 4%)});
   --link-color: #{$blue-300};
 }
+.custom-search-results {
+  & > div {
+    padding: 1rem;
+  }
+
+  cite {
+    @include font-size(12);
+    @include sans-serif;
+    color: $grey-dk-300;
+    text-decoration: none;
+    font-style: normal;
+    display: block;
+    line-height: 1;
+    font-weight: normal;
+  }
+
+  a {
+    @include font-size(20);
+    @include heading-sans-serif;
+    line-height: 1.6;
+    font-weight: bold;
+    outline: none;
+  }
+
+  span {
+    @include font-size(14);
+    color: $grey-dk-200;
+    line-height: 1.4;
+    display: block;
+    overflow-wrap: break-word;
+
+    &:only-child {
+      text-align: center;
+      padding: 1rem;
+    }
+  }
+
+  .highlighted {
+    background: #EAF4F9;
+  }
+}
+
+.banner-alert ~ main .custom-search-results {
+  max-height: calc(100vh - 200% - 60px - 3.6rem) !important;
+}
+
+.search-spinner {
+  display: none;
+  font-weight: 700;
+  outline: 0;
+  user-select: none;
+
+  position: absolute;
+  padding-left: 0.6rem;
+  height: 100%;
+
+  &.spinning {
+    display: flex;
+
+    & ~ .search-label {
+      display: none;
+    }
+  }
+}
+
+.search-spinner > i {
+  border-color: rgba($grey-dk-000, 0.2);
+  position: relative;
+  animation: spin 0.6s infinite linear;
+  border-width: 3px;
+  border-style: solid;
+  border-radius: 100%;
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  vertical-align: middle;
+  align-self: center;
+
+  &:before {
+    content: "";
+    border: 3px solid rgba($grey-dk-000, 0);
+    border-top-color: rgba($grey-dk-000, 0.8);
+    border-radius: 100%;
+    display: block;
+    left: -3px;
+    position: absolute;
+    top: -3px;
+    height: 100%;
+    width: 100%;
+    box-sizing: content-box;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg)
+  }
+  to {
+    transform: rotate(359deg)
+  }
+}
