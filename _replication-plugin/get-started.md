@@ -24,29 +24,32 @@ Make sure the security plugin is either enabled on both clusters or disabled on 
 
 If the security plugin is enabled, non-admin users need to be mapped to the appropriate permissions in order to perform replication actions. For index and cluster-level permissions requirements, see [Cross-cluster replication permissions]({{site.url}}{{site.baseurl}}/replication-plugin/permissions/).
 
-In addition, verify and add Distinguished name(DN) of follower cluster nodes on the leader cluster to allow connections from follower cluster at the leader cluster 
+In addition, verify and add the Distinguished names (DNs) of each follower cluster node on the leader cluster to allow connections from the followers to the leader.
 
-- Get the nodes DN from the follower cluster:
-```json
-GET '/_opendistro/_security/api/ssl/certs?pretty'
+First, get the node's DN from each follower cluster:
+
+  ```bash
+curl -XGET -k -u 'admin:admin' 'https://localhost:9200/_plugins/_security/api/ssl/certs?pretty'
+
 {
-  "transport_certificates_list" : [
-    {
-      "issuer_dn" : "CN=Test,OU=Server CA 1B,O=Test,C=US",
-      "subject_dn" : "CN=follower.test.com", # To be added under leader's nodes_dn configuration
-      "not_before" : "2021-11-12T00:00:00Z",
-      "not_after" : "2022-12-11T23:59:59Z"
-    }
-  ]
+   "transport_certificates_list": [
+      {
+         "issuer_dn" : "CN=Test,OU=Server CA 1B,O=Test,C=US",
+         "subject_dn" : "CN=follower.test.com", # To be added under leader's nodes_dn configuration
+         "not_before" : "2021-11-12T00:00:00Z",
+         "not_after" : "2022-12-11T23:59:59Z"
+      }
+   ]
 }
-```
+  ```
 
-- Verify that they are part of leader cluster configuration under opensearch.yml, otherwise add them under the following setting:
-```yaml
+Then verify that it's part of the leader cluster configuration in `opensearch.yml`, otherwise add it under the following setting:
+
+  ```yaml
 plugins.security.nodes_dn:
   - "CN=*.leader.com, OU=SSL, O=Test, L=Test, C=DE" # Already part of the configuration
-  - "CN=follower.test.com" # From the above response at follower
-```
+  - "CN=follower.test.com" # From the above response from follower
+  ```
 ## Example setup
 
 Save this sample file as `docker-compose.yml` and run `docker-compose up` to start two single-node clusters on the same network:
