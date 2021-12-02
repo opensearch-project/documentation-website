@@ -55,3 +55,7 @@ This problem can occur for two reasons:
 - You don't have the correct version of `headless-chrome` to match the operating system on which OpenSearch Dashboards is running. Download the correct version [here](https://github.com/opensearch-project/dashboards-reports/releases/tag/chromium-1.12.0.0).
 
 - You're missing additional dependencies. Install the required dependencies for your operating system from the [additional libraries](https://github.com/opensearch-project/dashboards-reports/blob/main/dashboards-reports/rendering-engine/headless-chrome/README.md#additional-libaries) section.
+
+### Characters not loading in reports
+
+If your report contains any UTF-8 encoded characters that are more than three bytes, you may encounter an issue where the characters look fine in your browser, but they do not load in your generated reports. Install the [missing font dependencies](https://github.com/opensearch-project/dashboards-reports#missing-font-dependencies), and then generate your reports again.
