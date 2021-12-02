@@ -322,3 +322,59 @@ In this case, `opensearch.yml` is a "vanilla" version of the file with no plugin
 cluster.name: "docker-cluster"
 network.host: 0.0.0.0
 ```
+
+## Sample Docker Compose file for development
+
+This sample file starts one OpenSearch node and a container for OpenSearch Dashboards for development by disabling security plugin.
+
+```yml
+version: '3'
+services:
+  opensearch-node1:
+    image: opensearchproject/opensearch:{{site.opensearch_version}}
+    container_name: opensearch-node1
+    environment:
+      - cluster.name=opensearch-cluster
+      - node.name=opensearch-node1
+      - bootstrap.memory_lock=true # along with the memlock settings below, disables swapping
+      - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" # minimum and maximum Java heap size, recommend setting both to 50% of system RAM
+      - "DISABLE_INSTALL_DEMO_CONFIG=true" # disables execution of install_demo_configuration.sh bundled with security plugin, which installs demo certificates and security configurations to OpenSearch
+      - "DISABLE_SECURITY_PLUGIN=true" # disables security plugin entirely in OpenSearch by setting plugins.security.disabled: true in opensearch.yml
+      - "discovery.type=single-node" # disables bootstrap checks that are enabled when network.host is set to a non-loopback address
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536 # maximum number of open files for the OpenSearch user, set to at least 65536 on modern systems
+        hard: 65536
+    volumes:
+      - opensearch-data1:/usr/share/opensearch/data
+    ports:
+      - 9200:9200
+      - 9600:9600 # required for Performance Analyzer
+    networks:
+      - opensearch-net
+
+  opensearch-dashboards:
+    image: opensearchproject/opensearch-dashboards:{{site.opensearch_version}}
+    container_name: opensearch-dashboards
+    ports:
+      - 5601:5601
+    expose:
+      - "5601"
+    environment:
+      - 'OPENSEARCH_HOSTS=["http://opensearch-node1:9200"]'
+      - "DISABLE_SECURITY_DASHBOARDS_PLUGIN=true" # disables security dashboards plugin in OpenSearch Dashboards
+    networks:
+      - opensearch-net
+
+volumes:
+  opensearch-data1:
+
+networks:
+  opensearch-net:
+```
+
+The `"DISABLE_SECURITY_DASHBOARDS_PLUGIN=true"` disables security dashboards Plugin in OpenSearch Dashboards by removing security dashboards plugin folder, removing all related settings in `opensearch_dashboards.yml`, and sets `opensearch.hosts` entry protocol from HTTPS to HTTP. This step is not reversible as the security dashboards plugin is removed in the process. If you want to re-enable security for OpenSearch Dashboards, you need to start a new container with `DISABLE_SECURITY_DASHBOARDS_PLUGIN` unset, or false.
+{: .note}
