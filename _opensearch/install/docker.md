@@ -325,7 +325,9 @@ network.host: 0.0.0.0
 
 ## Sample Docker Compose file for development
 
-This sample file starts one OpenSearch node and a container for OpenSearch Dashboards for development by disabling security plugin.
+You can use this sample file as a development environment.
+
+This sample file starts one OpenSearch node and a container for OpenSearch Dashboards with the security plugin disabled.
 
 ```yml
 version: '3'
@@ -376,5 +378,7 @@ networks:
   opensearch-net:
 ```
 
-The enviroment variable `"DISABLE_SECURITY_DASHBOARDS_PLUGIN=true"` disables security dashboards plugin in OpenSearch Dashboards by removing security dashboards plugin folder, removing all related settings in `opensearch_dashboards.yml`, and sets `opensearch.hosts` entry protocol from HTTPS to HTTP. This step is not reversible as the security dashboards plugin is removed in the process. If you want to re-enable security for OpenSearch Dashboards, you need to start a new container with `DISABLE_SECURITY_DASHBOARDS_PLUGIN` unset, or false.
+The environment variable `"DISABLE_SECURITY_DASHBOARDS_PLUGIN=true"` disables the security dashboards plugin in OpenSearch Dashboards by removing the security dashboards plugin folder, removing all related settings in the `opensearch_dashboards.yml` file, and setting the `opensearch.hosts` entry protocol from HTTPS to HTTP. 
+You can't reverse this step as the security dashboards plugin is removed in the process. 
+To re-enable security for OpenSearch Dashboards, start a new container and set `DISABLE_SECURITY_DASHBOARDS_PLUGIN` to false or leave it unset.
 {: .note}
