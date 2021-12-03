@@ -74,8 +74,17 @@
         debounceTimer = setTimeout(doSearch, 300);
     };
 
-    function abortPreviousCalls() {
+    const abortPreviousCalls = () => {
         while (abortControllers.length) abortControllers.pop()?.abort?.();
+    };
+
+    const getBreadcrumbs = result => {
+        const crumbs = [...result.ancestors];
+
+        if (result.type === 'DOCS') crumbs.unshift(`OpenSearch ${result.versionLabel || result.version}`);
+        else if (result.type) crumbs.unshift(result.type);
+
+        return sanitizeText(crumbs.join(' › '));
     }
 
     const doSearch = async () => {
@@ -116,11 +125,8 @@
                 ? `
                 <div class="custom-search-result">
                     <a href="${sanitizeAttribute(result.url)}">
-                        <cite>
-                            ${result.type === 'DOCS' ? `OpenSearch ${sanitizeText(result.version)} › ` : ''}
-                            ${sanitizeText(result.ancestors?.join?.(' › '))}
-                        </cite>
-                        ${sanitizeText(result.title)}
+                        <cite>${getBreadcrumbs(result)}</cite>
+                        ${sanitizeText(result.title || 'Unnamed Document')}
                     </a>
                     <span>${sanitizeText(result.content?.replace?.(/\n/g, '&hellip; '))}</span>
                 </div>
