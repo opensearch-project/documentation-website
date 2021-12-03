@@ -376,5 +376,5 @@ networks:
   opensearch-net:
 ```
 
-The `"DISABLE_SECURITY_DASHBOARDS_PLUGIN=true"` disables security dashboards Plugin in OpenSearch Dashboards by removing security dashboards plugin folder, removing all related settings in `opensearch_dashboards.yml`, and sets `opensearch.hosts` entry protocol from HTTPS to HTTP. This step is not reversible as the security dashboards plugin is removed in the process. If you want to re-enable security for OpenSearch Dashboards, you need to start a new container with `DISABLE_SECURITY_DASHBOARDS_PLUGIN` unset, or false.
+The enviroment variable `"DISABLE_SECURITY_DASHBOARDS_PLUGIN=true"` disables security dashboards plugin in OpenSearch Dashboards by removing security dashboards plugin folder, removing all related settings in `opensearch_dashboards.yml`, and sets `opensearch.hosts` entry protocol from HTTPS to HTTP. This step is not reversible as the security dashboards plugin is removed in the process. If you want to re-enable security for OpenSearch Dashboards, you need to start a new container with `DISABLE_SECURITY_DASHBOARDS_PLUGIN` unset, or false.
 {: .note}
