@@ -1,27 +1,11 @@
 ---
 layout: default
-title: Data Prepper
-parent: Trace analytics
-nav_order: 20
+title: Pipelines
+parent: Data Prepper
+nav_order: 2
 ---
 
-# Data Prepper
-
-Data Prepper is an independent component, not an OpenSearch plugin, that converts data for use with OpenSearch. It's not bundled with the all-in-one OpenSearch installation packages.
-
-
-## Install Data Prepper
-
-To use the Docker image, pull it like any other image:
-
-```bash
-docker pull opensearchproject/data-prepper:latest
-```
-
-Otherwise, [download](https://opensearch.org/downloads.html) the appropriate archive for your operating system and unzip it.
-
-
-## Configure pipelines
+# Pipelines
 
 To use Data Prepper, you define pipelines in a configuration YAML file. Each pipeline is a combination of a source, a buffer, zero or more preppers, and one or more sinks:
 
@@ -61,7 +45,39 @@ sample-pipeline:
 
 - Sinks define where your data goes. In this case, the sink is an OpenSearch cluster.
 
-Pipelines can act as the source for other pipelines. In the following example, a pipeline takes data from the OpenTelemetry Collector and uses two other pipelines as sinks:
+## Examples
+
+This section provides some pipeline examples that you can use to start creating your own pipelines. For more information, see [Data Prepper configuration reference]({{site.url}}{{site.baseurl}}/observability-plugins/data-prepper/data-prepper-reference/) guide.
+
+The Data Prepper repository has several [sample applications](https://github.com/opensearch-project/data-prepper/tree/main/examples) to help you get started.
+
+### Log ingestion pipeline
+
+The following example demonstrates how to use HTTP source and Grok prepper plugins to process unstructured log data.
+
+```yaml
+log-pipeline:
+  source:
+    http:
+      ssl: false
+  processor:
+    - grok:
+        match:
+          log: [ "%{COMMONAPACHELOG}" ]
+  sink:
+    - opensearch:
+        hosts: [ "https://opensearch:9200" ]
+        insecure: true
+        username: admin
+        password: admin
+        index: apache_logs
+```
+
+Note: This example uses weak security. We strongly recommend securing all plugins which open external ports in production environments.
+
+### Trace Analytics pipeline
+
+The following example demonstrates how to build a pipeline that supports the [Trace Analytics OpenSearch Dashboards plugin]({{site.url}}{{site.baseurl}}/observability-plugins/trace/ta-dashboards/). This pipeline takes data from the OpenTelemetry Collector and uses two other pipelines as sinks. These two separate pipelines index trace and the service map documents for the dashboard plugin.
 
 ```yml
 entry-pipeline:
@@ -104,32 +120,3 @@ service-map-pipeline:
         password: "ta-password"
         trace_analytics_service_map: true
 ```
-
-To learn more, see the [Data Prepper configuration reference]({{site.url}}{{site.baseurl}}/observability-plugins/trace/data-prepper-reference/).
-
-## Configure the Data Prepper server
-Data Prepper itself provides administrative HTTP endpoints such as `/list` to list pipelines and `/metrics/prometheus` to provide Prometheus-compatible metrics data. The port which serves these endpoints, as well as TLS configuration, is specified by a separate YAML file. Example:
-
-```yml
-ssl: true
-keyStoreFilePath: "/usr/share/data-prepper/keystore.jks"
-keyStorePassword: "password"
-privateKeyPassword: "other_password"
-serverPort: 1234
-```
-
-## Start Data Prepper
-
-**Docker**
-
-```bash
-docker run --name data-prepper --expose 21890 -v /full/path/to/pipelines.yaml:/usr/share/data-prepper/pipelines.yaml -v /full/path/to/data-prepper-config.yaml:/usr/share/data-prepper/data-prepper-config.yaml opensearchproject/opensearch-data-prepper:latest
-```
-
-**macOS and Linux**
-
-```bash
-./data-prepper-tar-install.sh config/pipelines.yaml config/data-prepper-config.yaml
-```
-
-For production workloads, you likely want to run Data Prepper on a dedicated machine, which makes connectivity a concern. Data Prepper uses port 21890 and must be able to connect to both the OpenTelemetry Collector and the OpenSearch cluster. In the [sample applications](https://github.com/opensearch-project/Data-Prepper/tree/main/examples), you can see that all components use the same Docker network and expose the appropriate ports.

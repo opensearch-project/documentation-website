@@ -9,7 +9,6 @@ nav_order: 1
 
 OpenSearch Trace Analytics consists of two components---Data Prepper and the Trace Analytics OpenSearch Dashboards plugin---that fit into the OpenTelemetry and OpenSearch ecosystems. The Data Prepper repository has several [sample applications](https://github.com/opensearch-project/data-prepper/tree/main/examples) to help you get started.
 
-
 ## Basic flow of data
 
 ![Data flow diagram from a distributed application to OpenSearch]({{site.url}}{{site.baseurl}}/images/ta.svg)
@@ -20,10 +19,9 @@ OpenSearch Trace Analytics consists of two components---Data Prepper and the Tra
 
 1. The [OpenTelemetry Collector](https://opentelemetry.io/docs/collector/getting-started/) receives data from the application and formats it into OpenTelemetry data.
 
-1. [Data Prepper]({{site.url}}{{site.baseurl}}/observability-plugins/trace/data-prepper/) processes the OpenTelemetry data, transforms it for use in OpenSearch, and indexes it on an OpenSearch cluster.
+1. [Data Prepper]({{site.url}}{{site.baseurl}}/observability-plugins/data-prepper/index/) processes the OpenTelemetry data, transforms it for use in OpenSearch, and indexes it on an OpenSearch cluster.
 
 1. The [Trace Analytics OpenSearch Dashboards plugin]({{site.url}}{{site.baseurl}}/observability-plugins/trace/ta-dashboards/) displays the data in near real-time as a series of charts and tables, with an emphasis on service architecture, latency, error rate, and throughput.
-
 
 ## Jaeger HotROD
 
