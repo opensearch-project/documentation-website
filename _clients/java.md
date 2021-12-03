@@ -12,9 +12,14 @@ For example, you can submit requests to your cluster using objects to create ind
 
 ## Setup
 
-To start using the OpenSearch Java client, ensure that you have the following dependency in your project's `pom.xml` file:
+To start using the OpenSearch Java client, ensure that you have the following dependencies in your project's `pom.xml` file:
 
 ```
+<dependency>
+  <groupId>org.opensearch.client</groupId>
+  <artifactId>opensearch-rest-client</artifactId>
+  <version>{{site.opensearch_version}}</version>
+</dependency>
 <dependency>
   <groupId>org.opensearch.client</groupId>
   <artifactId>opensearch-java</artifactId>
