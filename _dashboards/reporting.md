@@ -58,4 +58,4 @@ This problem can occur for two reasons:
 
 ### Characters not loading in reports
 
-If your report contains any UTF-8 encoded characters that are more than three bytes, you may encounter an issue where the characters look fine in your browser, but they do not load in your generated reports. Install the [missing font dependencies](https://github.com/opensearch-project/dashboards-reports#missing-font-dependencies), and then generate your reports again.
+You might encounter an issue where UTF-8 encoded characters look fine in your browser, but they don't load in your generated reports because you're missing the required font dependencies. Install the [font dependencies](https://github.com/opensearch-project/dashboards-reports#missing-font-dependencies), and then generate your reports again.
