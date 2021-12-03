@@ -108,9 +108,13 @@ layout: table_wrappers
         {% if site.search_enabled != false or site.use_custom_search == true %}
         <div class="search">
           <div class="search-input-wrap">
+            {% assign docs_version = site.data.versions.current %}
+            {% if site.baseurl == '/docs/latest' %}
+              {% assign docs_version = "latest" %}
+            {% endif %}
             <input type="text" id="search-input" class="search-input"
                    tabindex="0" placeholder="Search..." aria-label="Search {{ site.title }}"
-                   data-docs-version="{{ site.data.versions.current }}" autocomplete="off">
+                   data-docs-version="{{ docs_version }}" autocomplete="off">
             <div class="search-spinner"><i></i></div>
             <label for="search-input" class="search-label"><svg viewBox="0 0 24 24" class="search-icon"><use xlink:href="#svg-search"></use></svg></label>
           </div>

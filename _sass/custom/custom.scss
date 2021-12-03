@@ -1,3 +1,5 @@
+$content-width: 740px !default;
+
 @import "../../assets/fonts/open-sans/webfont.css";
 @import "../../assets/fonts/open-sans-condensed/webfont.css";
 @import "../../assets/fonts/noto-serif/webfont.css";
@@ -921,7 +923,7 @@ main {
   @include clearfix;
 }
 
-@media screen and (max-width: 799px) {
+@media screen and (max-width: 46.24rem) {
   [role="banner"] .nav-menu-on .small-nav {
 
     li {
