@@ -16,4 +16,4 @@ nav_order: 2
 
 OpenSearch version | Compatible Java versions | Recommended operating systems
 :--- | :--- | :---
-1.x | 8, 11 | Red Hat Enterprise Linux 7, 8; CentOS 7, 8; Amazon Linux 2; Ubuntu 16.04, 18.04, 20.04
+1.x | 8, 11, 15 | Red Hat Enterprise Linux 7, 8; CentOS 7, 8; Amazon Linux 2; Ubuntu 16.04, 18.04, 20.04
