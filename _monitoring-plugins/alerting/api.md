@@ -514,7 +514,7 @@ POST _plugins/_alerting/monitors
 Introduced 1.0
 {: .label .label-purple }
 
-When you update a monitor, you can use the `seq_no` and `primary_term` parameters to update an existing policy with optimistic lock. If these numbers don’t match the existing policy or the policy doesn’t exist, Alerting throws an error. OpenSearch increments the version number and the sequence number automatically (see the sample response).
+When you update a monitor, you can use the `seq_no` and `primary_term` parameters to update an existing policy. If these numbers don’t match the existing policy or the policy doesn’t exist, alerting throws an error. OpenSearch increments the version number and the sequence number automatically (see the sample response).
 
 #### Request
 
