@@ -76,8 +76,6 @@ For more information about transient settings, persistent settings, and preceden
          "max_shards_per_node":"500"
       }
    },
-   "transient":{
-      
-   }
+   "transient":{}
 }
 ```
