@@ -39,6 +39,11 @@ const tpl = `
         background-image: var(--hover-bg);
     }
     
+    #root:focus {
+        outline: none;
+    }
+    
+    :host(:not([aria-expanded="true"])) #root:focus,
     #root:focus:hover {
         box-shadow: 0 0 0 3px rgba(0, 0, 255, 0.25);
     }
@@ -136,7 +141,7 @@ class VersionSelector extends HTMLElement {
 
     constructor() {
         super();
-        this.attachShadow({mode: 'open'});
+        this.attachShadow({mode: 'open', delegatesFocus: true});
         this._onBlur = (e => {
             this._expand(false);
             this.removeEventListener('blur', this._onBlur);
