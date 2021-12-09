@@ -92,7 +92,7 @@ curl -XGET -u 'admin:admin' -k 'https://localhost:9200/_plugins/_replication/aut
 
 ## Delete a replication rule
 
-When you delete a replication rule, OpenSearch stops replicating *new* indices that match the pattern, but existing indices that the rule previously created continue to replicate. If you need to stop existing replication activity, use the [stop replication API operation]({{site.url}}{{site.baseurl}}/replication-plugin/api/#stop-replication).
+To delete a replication rule, send the following request:
 
 ```bash
 curl -XDELETE -k -H 'Content-Type: application/json' -u 'admin:admin' 'https://localhost:9200/_plugins/_replication/_autofollow?pretty' -d '
@@ -101,4 +101,6 @@ curl -XDELETE -k -H 'Content-Type: application/json' -u 'admin:admin' 'https://l
    "name": "my-replication-rule"
 }'
 ```
+
+OpenSearch stops replicating *new* indices that match the pattern, but existing indices that the rule previously created remain read-only and continue to replicate. If you need to stop existing replication activity and open the indices up for writes, use the [stop replication API operation]({{site.url}}{{site.baseurl}}/replication-plugin/api/#stop-replication).
 
