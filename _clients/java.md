@@ -46,7 +46,7 @@ You can now start your OpenSearch cluster.
 This code example uses basic credentials that come with the default OpenSearch configuration. If you’re using the OpenSearch Java client with your own OpenSearch cluster, be sure to change the code to use your own credentials.
 {: .note}
 
-Before you can securely connect to an OpenSearch cluster, you need to first add your root certificates to a truststore:
+Before you can securely connect to an OpenSearch cluster, you must first add your root certificates to a truststore. If you don't already have a custom truststore, the following command creates a truststore and adds in a certificate.
 
 ```bash
 keytool -import <path-to-cert> -alias <alias-to-call-cert> -keystore <truststore-name>
