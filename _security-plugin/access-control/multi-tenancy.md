@@ -151,8 +151,8 @@ _meta:
 The open source version of OpenSearch Dashboards saves all objects to a single index: `.opensearch-dashboards`. The security plugin uses this index for the global tenant, but separate indices for every other tenant. Each user also has a private tenant, so you might see a large number of indices that follow two patterns:
 
 ```
-.opensearch_dashboards_<hash>_<tenant_name>
-.opensearch_dashboards_<hash>_<username>
+.kibana_<hash>_<tenant_name>
+.kibana_<hash>_<username>
 ```
 
 The security plugin scrubs these index names of special characters, so they might not be a perfect match of tenant names and usernames.
