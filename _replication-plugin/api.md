@@ -361,7 +361,7 @@ Options | Description | Type | Required
 Introduced 1.1
 {: .label .label-purple }
 
-Deletes the specified replication rule. This operation prevents any new indices from being replicated but does not stop existing replication that the rule has already initiated.
+Deletes the specified replication rule. This operation prevents any new indices from being replicated but does not stop existing replication that the rule has already initiated. Replicated indices remain read-only until you stop replication.
 
 Send this request to the follower cluster.
 
