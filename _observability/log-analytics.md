@@ -6,13 +6,11 @@ nav_order: 70
 
 # Log Ingestion
 
-Log ingestion provides a way to transform unstructured log data into a structure data and ingestion into OpenSearch. This data can help improve your log collection in distributed applications.
-
-Structured log data allows for improved queries and filtering based on the data format when you are searching logs for an event.
+Log ingestion provides a way to transform unstructured log data into structured data and ingest into OpenSearch. Structured log data allows for improved queries and filtering based on the data format when searching logs for an event.
 
 ## Get started with log ingestion
 
-OpenSearch Log Ingestion consists of three components---[Data Prepper]({{site.url}}{{site.baseurl}}/observability-plugins/data-prepper/index/), [OpenSearch]({{site.url}}{{site.baseurl}}/) and [OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/)---that fit into the OpenSearch ecosystem. The Data Prepper repository has several [sample applications](https://github.com/opensearch-project/data-prepper/tree/main/examples) to help you get started.
+OpenSearch Log Ingestion consists of three components---[Data Prepper]({{site.url}}{{site.baseurl}}/observability/data-prepper/index/), [OpenSearch]({{site.url}}{{site.baseurl}}/) and [OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/)---that fit into the OpenSearch ecosystem. The Data Prepper repository has several [sample applications](https://github.com/opensearch-project/data-prepper/tree/main/examples) to help you get started.
 
 ### Basic flow of data
 
@@ -22,7 +20,7 @@ OpenSearch Log Ingestion consists of three components---[Data Prepper]({{site.ur
 
    (In the [example](#example) below, [FluentBit](https://docs.fluentbit.io/manual/) is used as a log collector that collects log data from a file and sends the log data to Data Prepper).
 
-2. [Data Prepper]({{site.url}}{{site.baseurl}}/observability-plugins/data-prepper/index/) receives the log data, transforms the data into a structure format, and indexes it on an OpenSearch cluster.
+2. [Data Prepper]({{site.url}}{{site.baseurl}}/observability/data-prepper/index/) receives the log data, transforms the data into a structure format, and indexes it on an OpenSearch cluster.
 
 3. The data can then be explored through OpenSearch search queries or the **Discover** page in OpenSearch Dashboards.
 
@@ -92,4 +90,4 @@ The response should show the parsed log data:
     ]
 ```
 
-The same data can be viewed in OpenSearch Dashboards by visiting the **Discover** page and searching the `apache_logs` index. Remember, you must create the index in OpensSearch Dashboards if this is your first time searching for the index.
+The same data can be viewed in OpenSearch Dashboards by visiting the **Discover** page and searching the `apache_logs` index. Remember, you must create the index in OpenSearch Dashboards if this is your first time searching for the index.
