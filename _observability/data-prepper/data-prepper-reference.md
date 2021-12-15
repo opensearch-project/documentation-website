@@ -1,14 +1,13 @@
 ---
 layout: default
 title: Configuration reference
-parent: Trace analytics
-nav_order: 25
+parent: Data Prepper
+nav_order: 3
 ---
 
 # Data Prepper configuration reference
 
-This page lists all supported Data Prepper sources, buffers, preppers, and sinks, along with their associated options. For example configuration files, see [Data Prepper]({{site.url}}{{site.baseurl}}/observability-plugins/trace/data-prepper/).
-
+This page lists all supported Data Prepper server, sources, buffers, preppers, and sinks, along with their associated options. For example configuration files, see [Data Prepper]({{site.url}}{{site.baseurl}}/observability/data-prepper/pipelines/).
 
 ## Data Prepper server options
 
@@ -19,7 +18,7 @@ keyStoreFilePath | No | String, path to a .jks or .p12 keystore file. Required i
 keyStorePassword | No | String, password for keystore. Optional, defaults to empty string.
 privateKeyPassword | No | String, password for private key within keystore. Optional, defaults to empty string.
 serverPort | No | Integer, port number to use for server APIs. Defaults to 4900
-
+metricRegistries | No | List, metrics registries for publishing the generated metrics. Defaults to Prometheus; Prometheus and CloudWatch are currently supported.
 
 ## General pipeline options
 
@@ -53,7 +52,20 @@ sslKeyFile | Conditionally | String, file-system path or AWS S3 path to the secu
 useAcmCertForSSL | No | Boolean, enables TLS/SSL using certificate and private key from AWS Certificate Manager (ACM). Default is `false`.
 acmCertificateArn | Conditionally | String, represents the ACM certificate ARN. ACM certificate take preference over S3 or local file system certificate. Required if `useAcmCertForSSL` is set to `true`.
 awsRegion | Conditionally | String, represents the AWS region to use ACM or S3. Required if `useAcmCertForSSL` is set to `true` or `sslKeyCertChainFile` and `sslKeyFile` are AWS S3 paths.
+authentication | No | An authentication configuration. By default, this runs an unauthenticated server. This uses pluggable authentication for HTTPS. To use basic authentication define the ```http_basic``` plugin with a `username` and `password`. To provide customer authentication use or create a plugin which implements: [GrpcAuthenticationProvider](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/armeria-common/src/main/java/com/amazon/dataprepper/armeria/authentication/GrpcAuthenticationProvider.java).
 
+### http_source
+
+This is a source plugin that supports HTTP protocol. Currently ONLY support Json UTF-8 codec for incoming request, e.g. `[{"key1": "value1"}, {"key2": "value2"}]`.
+
+Option | Required | Description
+:--- | :--- | :---
+port | No | Integer, the port the source is running on. Default is `2021`. Valid options are between `0` and `65535`.
+request_timeout | No | Integer, the request timeout in millis. Default is `10_000`.
+thread_count | No | Integer, the number of threads to keep in the ScheduledThreadPool. Default is `200`.
+max_connection_count | No | Integer, the maximum allowed number of open connections. Default is `500`.
+max_pending_requests | No | Ingeger, the maximum number of allowed tasks in ScheduledThreadPool work queue. Default is `1024`.
+authentication | No | An authentication configuration. By default, this runs an unauthenticated server. This uses pluggable authentication for HTTPS. To use basic authentication define the ```http_basic``` plugin with a `username` and `password`. To provide customer authentication use or create a plugin which implements: [ArmeriaHttpAuthenticationProvider](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/armeria-common/src/main/java/com/amazon/dataprepper/armeria/authentication/ArmeriaHttpAuthenticationProvider.java).
 
 ### file
 
@@ -62,7 +74,8 @@ Source for flat file input.
 Option | Required | Description
 :--- | :--- | :---
 path | Yes | String, path to the input file (e.g. `logs/my-log.log`).
-
+format | No | String, format of each line in the file. Valid options are `json` or `plain`. Default is `plain`.
+record_type | No | String, the record type that will be stored. Valid options are `string` or `event`. Default is `string`. If you would like to use the file source for log analytics use cases like grok, change this to `event`.
 
 ### pipeline
 
@@ -144,6 +157,22 @@ Option | Required | Description
 :--- | :--- | :---
 upper_case | No | Boolean, whether to convert to uppercase (`true`) or lowercase (`false`).
 
+### grok_prepper
+
+Takes unstructured data and utilizes pattern matching to structure and extract important keys and make data more structured and queryable.
+
+Option | Required | Description
+:--- | :--- | :---
+match | No | Map, specifies which keys to match specific patterns against. Default is an empty body.
+keep_empty_captures | No | Boolean, enables preserving `null` captures. Default value is `false`.
+named_captures_only | No | Boolean, enables whether to keep only named captures. Default value is `true`.
+break_on_match | No | Boolean, specifies wether to match all patterns or stop once the first successful match is found. Default is `true`.
+keys_to_overwrite | No | List, specifies which existing keys are to be overwritten if there is a capture with the same key value. Default is `[]`.
+pattern_definitions | No | Map, that allows for custom pattern use inline. Default value is `{}`.
+patterns_directories | No | List, specifies the path of directories that contain customer pattern files. Default value is `[]`.
+pattern_files_glob | No | String, specifies which pattern files to use from the directories specified for `pattern_directories`. Default is `*`.
+target_key | No | String, specifies a parent level key to store all captures. Default value is `null`.
+timeout_millis | No | Integer, the maximum amount of time that matching will be performed. Setting to `0` will disable the timeout. Default value is `30,000`.
 
 ## Sinks
 
