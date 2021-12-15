@@ -13,7 +13,7 @@ To use Data Prepper, you define pipelines in a configuration YAML file. Each pip
 
 ```yml
 simple-sample-pipeline:
-  workers: 2  # the number of workers
+  workers: 2 # the number of workers
   delay: 5000 # in milliseconds, how long workers wait between read attempts
   source:
     random:
@@ -50,7 +50,7 @@ The Data Prepper repository has several [sample applications](https://github.com
 
 The following example demonstrates how to use HTTP source and Grok prepper plugins to process unstructured log data.
 
-```yaml
+```yml
 log-pipeline:
   source:
     http:
@@ -68,7 +68,8 @@ log-pipeline:
         index: apache_logs
 ```
 
-Note: This example uses weak security. We strongly recommend securing all plugins which open external ports in production environments.
+This example uses weak security. We strongly recommend securing all plugins which open external ports in production environments.
+{: .note}
 
 ### Trace Analytics pipeline
 
@@ -93,7 +94,7 @@ raw-pipeline:
     - otel_trace_raw_prepper:
   sink:
     - opensearch:
-        hosts: ["https://localhost:9200" ]
+        hosts: ["https://localhost:9200"]
         insecure: true
         username: admin
         password: admin
@@ -132,7 +133,8 @@ This feature is limited by feature parity of Data Prepper. As of Data Prepper 1.
 - Amazon Elasticsearch Output plugin
 
 ## Configure the Data Prepper server
-Data Prepper itself provides administrative HTTP endpoints such as `/list` to list pipelines and `/metrics/prometheus` to provide Prometheus-compatible metrics data. The port which serves these endpoints has a TLS configuration and is specified by a separate YAML file. Data Prepper docker images secures these endpoints by default. We strongly recommend providing your own configuration file for securing production environments. Here is an example `data-prepper-config.yaml`:
+
+Data Prepper itself provides administrative HTTP endpoints such as `/list` to list pipelines and `/metrics/prometheus` to provide Prometheus-compatible metrics data. The port that has these endpoints has a TLS configuration and is specified by a separate YAML file. By default, these endpoints are secured by Data Prepper docker images. We strongly recommend providing your own configuration file for securing production environments. Here is an example `data-prepper-config.yaml`:
 
 ```yml
 ssl: true
@@ -144,7 +146,7 @@ serverPort: 1234
 
 To configure the Data Prepper server, run Data Prepper with the additional yaml file.
 
-```yaml
+```bash
 docker run --name data-prepper -v /full/path/to/pipelines.yaml:/usr/share/data-prepper/pipelines.yaml \
     /full/path/to/data-prepper-config.yaml:/usr/share/data-prepper/data-prepper-config.yaml \
     opensearchproject/opensearch-data-prepper:latest

@@ -19,9 +19,9 @@ docker pull opensearchproject/data-prepper:latest
 
 ## 2. Define a pipeline
 
-Create a Data Prepper pipeline file, `pipelines.yaml`, with:
+Create a Data Prepper pipeline file, `pipelines.yaml`, with the following configuration:
 
-```yaml
+```yml
 simple-sample-pipeline:
   workers: 2
   delay: "5000"
@@ -41,9 +41,11 @@ docker run --name data-prepper \
     opensearchproject/opensearch-data-prepper:latest
 ```
 
-You should see log output and after a few seconds some UUIDs in the output. It should look something like the following:
+This sample pipeline configuration above demonstrates a simple pipeline with a source (`random`) sending data to a sink (`stdout`). For more examples and details on more advanced pipeline configurations, see [Pipelines]({{site.url}}{{site.baseurl}}/observability/data-prepper/pipelines).
 
-```yaml
+After starting Data Prepper, you should see log output and some UUIDs after a few seconds:
+
+```yml
 2021-09-30T20:19:44,147 [main] INFO  com.amazon.dataprepper.pipeline.server.DataPrepperServer - Data Prepper server running at :4900
 2021-09-30T20:19:44,681 [random-source-pool-0] INFO  com.amazon.dataprepper.plugins.source.RandomStringSource - Writing to buffer
 2021-09-30T20:19:45,183 [random-source-pool-0] INFO  com.amazon.dataprepper.plugins.source.RandomStringSource - Writing to buffer
@@ -59,5 +61,3 @@ You should see log output and after a few seconds some UUIDs in the output. It s
 e51e700e-5cab-4f6d-879a-1c3235a77d18
 b4ed2d7e-cf9c-4e9d-967c-b18e8af35c90
 ```
-
-This sample pipeline configuration above demonstrates a simple pipeline with a source (`random`) sending data to a sink (`stdout`). For more examples and details on more advanced pipeline configurations see the [Pipelines]({{site.url}}{{site.baseurl}}/observability/data-prepper/pipelines) guide.
