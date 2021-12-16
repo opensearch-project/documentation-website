@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Audit log field reference
-parent: Audit Logs
+parent: Audit logs
 nav_order: 1
 ---
 

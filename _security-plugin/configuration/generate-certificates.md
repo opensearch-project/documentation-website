@@ -166,8 +166,8 @@ This process generates many files, but these are the ones you need to add to eac
 - `root-ca.pem`
 - `admin.pem`
 - `admin-key.pem`
-- (Optional) `one-node-cert.pem`
-- (Optional) `one-node-key.pem`
+- (Optional) `node1.pem`
+- (Optional) `node1-key.pem`
 
 On one node, the security configuration portion of `opensearch.yml` might look like this:
 
