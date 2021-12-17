@@ -4,7 +4,7 @@ title: Custom branding
 nav_order: 200
 ---
 
-# Dashboards custom branding
+# OpenSearch Dashboards custom branding
 Introduced 1.2
 {: .label .label-purple }
 
@@ -17,7 +17,9 @@ volumes:
   - ./opensearch_dashboards.yml:/usr/share/opensearch-dashboards/config/opensearch_dashboards.yml
 ```
 
-Restart your OpenSearch cluster, open OpenSearch Dashboards in your browser again, and OpenSearch Dashboards now uses your custom elements.
+Doing so replaces the Docker image's default `opensearch_dashboards.yml` with your custom `opensearch_dashboards.yml` file, so be sure to include your desired as well. For example, if you want to configure TLS for OpenSearch Dashboards, see [Configure TLS for OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/install/tls).
+
+Re-launch OpenSearch Dashboards, and OpenSearch Dashboards now uses your custom elements.
 
 The following elements in OpenSearch Dashboards are customizable:
 
@@ -68,7 +70,7 @@ logo:
 applicationTitle: "My custom application"
 ```
 
-We recommend linking to images that are hosted on some web server, but if you really want to use locally hosted images, save your images inside `src/core/server/core_app/assets`, and then configure `opensearch_dashboards.yml`. You can access locally stored images through the `ui` folder.
+We recommend linking to images that are hosted on a web server, but if you really want to use locally hosted images, save your images inside `src/core/server/core_app/assets`, and then configure `opensearch_dashboards.yml`. You can access locally stored images through the `ui` folder.
 
 The following example assumes the default port of 5601 that Dashboards uses and demonstrates how to link to locally stored images.
 
@@ -86,4 +88,4 @@ mark:
 applicationTitle: "My custom application"
 ```
 
-We don't recommend this workaround because new versions of Dashboards would revert all customized elements back to default branding elements, so you would have to re-upload your assets to access them again.
+We don't recommend this workaround because new versions of Dashboards would revert all customized elements back to default branding elements, and you would have to re-upload your assets to access them again.
