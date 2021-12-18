@@ -6,7 +6,7 @@ url: "https://opensearch.org" # the base hostname & protocol for your site, e.g.
 permalink: /:path/
 
 opensearch_version: 1.2.0
-opensearch_major_minor_version: 1.2
+opensearch_major_minor_version: 1.2.2
 lucene_version: 8_9_0
 
 # Build settings
