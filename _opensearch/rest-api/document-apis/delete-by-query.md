@@ -59,6 +59,7 @@ scroll | Time | Amount of time the search context should be open.
 scroll_size | Integer | Size of the operation's scroll requests. Default is 1000.
 search_type | String | Whether OpenSearch should use global term and document frequencies calculating revelance scores. Valid choices are `query_then_fetch` and `dfs_query_then_fetch`. `query_then_fetch` scores documents using local term and document frequencies for the shard. It’s usually faster but less accurate. `dfs_query_then_fetch` scores documents using global term and document frequencies across all shards. It’s usually slower but more accurate. Default is `query_then_fetch`.
 search_timeout | Time | How long to wait until OpenSearch deems the request timed out. Default is no timeout.
+slices | String or Integer | How many slices to cut the operation into for faster processing. Available options are `auto`, which tells OpenSearch it should decide how many slices to divide into, or any number of shards. If you have a lot of shards in your index, set a lower number for better efficiency. Default is 1, which means the task should not be divided.
 sort | String | A comma-separated list of &lt;field&gt; : &lt;direction&gt; pairs to sort by.
 _source | String | Specifies whether to include the `_source` field in the response.
 _source_excludes | String | A comma-separated list of source fields to exclude from the response.
@@ -68,6 +69,8 @@ terminate_after | Integer | The maximum number of documents OpenSearch should pr
 timeout | Time | How long the operation should wait from a response from active shards. Default is `1m`.
 version | Boolean | Whether to include the document version as a match.
 wait_for_active_shards | String | The number of shards that must be active before OpenSearch executes the operation. Valid values are `all` or any integer up to the total number of shards in the index. Default is 1, which is the primary shard.
+wait_for_completion | Boolean | Setting this parameter to false indicates to OpenSearch it should not wait for completion and perform this request asynchronously. Asynchronous requests run in the background, and you can use the [Tasks API operation]({{site.url}}{{site.baseurl}}/opensearch/rest-api/tasks) to monitor progress.
+
 
 ## Request body
 
