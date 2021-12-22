@@ -12,7 +12,7 @@ The client contains a library of APIs that let you perform different operations 
 
 ## Setup
 
-To add the client to your project, install it using [composer]](https://getcomposer.org/):
+To add the client to your project, install it using [composer](https://getcomposer.org/):
 
 ```bash
 composer require opensearch-project/opensearch-php
