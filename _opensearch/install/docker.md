@@ -10,8 +10,8 @@ nav_order: 3
 You can pull the OpenSearch Docker image just like any other image:
 
 ```bash
-docker pull opensearchproject/opensearch:{{site.opensearch_version}}
-docker pull opensearchproject/opensearch-dashboards:{{site.opensearch_dashboards_version}}
+docker pull opensearchproject/opensearch:latest
+docker pull opensearchproject/opensearch-dashboards:latest
 ```
 
 To check available versions, see [Docker Hub](https://hub.docker.com/u/opensearchproject).
@@ -378,7 +378,7 @@ networks:
   opensearch-net:
 ```
 
-The environment variable `"DISABLE_SECURITY_DASHBOARDS_PLUGIN=true"` disables the security dashboards plugin in OpenSearch Dashboards by removing the security dashboards plugin folder, removing all related settings in the `opensearch_dashboards.yml` file, and setting the `opensearch.hosts` entry protocol from HTTPS to HTTP. 
-You can't reverse this step as the security dashboards plugin is removed in the process. 
+The environment variable `"DISABLE_SECURITY_DASHBOARDS_PLUGIN=true"` disables the security dashboards plugin in OpenSearch Dashboards by removing the security dashboards plugin folder, removing all related settings in the `opensearch_dashboards.yml` file, and setting the `opensearch.hosts` entry protocol from HTTPS to HTTP.
+You can't reverse this step as the security dashboards plugin is removed in the process.
 To re-enable security for OpenSearch Dashboards, start a new container and set `DISABLE_SECURITY_DASHBOARDS_PLUGIN` to false or leave it unset.
 {: .note}
