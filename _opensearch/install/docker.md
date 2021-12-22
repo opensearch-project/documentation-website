@@ -11,7 +11,7 @@ You can pull the OpenSearch Docker image just like any other image:
 
 ```bash
 docker pull opensearchproject/opensearch:{{site.opensearch_version}}
-docker pull opensearchproject/opensearch-dashboards:{{site.opensearch_version}}
+docker pull opensearchproject/opensearch-dashboards:{{site.opensearch_dashboards_version}}
 ```
 
 To check available versions, see [Docker Hub](https://hub.docker.com/u/opensearchproject).
@@ -131,7 +131,7 @@ services:
     networks:
       - opensearch-net
   opensearch-dashboards:
-    image: opensearchproject/opensearch-dashboards:{{site.opensearch_version}}
+    image: opensearchproject/opensearch-dashboards:{{site.opensearch_dashboards_version}}
     container_name: opensearch-dashboards
     ports:
       - 5601:5601
@@ -359,7 +359,7 @@ services:
       - opensearch-net
 
   opensearch-dashboards:
-    image: opensearchproject/opensearch-dashboards:{{site.opensearch_version}}
+    image: opensearchproject/opensearch-dashboards:{{site.opensearch_dashboards_version}}
     container_name: opensearch-dashboards
     ports:
       - 5601:5601
