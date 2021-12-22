@@ -9,6 +9,7 @@ permalink: /version-history/
 
 OpenSearch version | Release highlights | Release date
 :--- | :--- | :--- | :---
+[1.2.3](https://github.com/opensearch-project/opensearch-build/blob/main/release-notes/opensearch-release-notes-1.2.3.md) Upgrades to log4j 2.17.0 | 22 December 2021 
 [1.2.2](https://github.com/opensearch-project/OpenSearch/blob/main/release-notes/opensearch.release-notes-1.2.2.md) | Upgrades to log4j 2.16.0 | 16 December 2021
 [1.2.1](https://github.com/opensearch-project/OpenSearch/blob/main/release-notes/opensearch.release-notes-1.2.1.md) | Upgrades to log4j 2.15.0 | 14 December 2021
 [1.2.0](https://github.com/opensearch-project/OpenSearch/blob/main/release-notes/opensearch.release-notes-1.2.0.md) | Adds observability, new attribution ratio API for Anomaly Detection, shard-level indexing back-pressure, new "match" query type for SQL and PPL, support for Faiss libraries in k-NN, and custom Dashboards branding. | 23 November 2021
