@@ -293,7 +293,7 @@ PUT _plugins/_ism/policies/policy_1?if_seq_no=7&if_primary_term=1
 Introduced 1.0
 {: .label .label-purple }
 
-Gets the policy by `policy_id`.
+Gets the policy by `policy_id`. 
 
 #### Request
 
@@ -301,6 +301,11 @@ Gets the policy by `policy_id`.
 GET _plugins/_ism/policies/policy_1
 ```
 
+If you don't specify a policy, OpenSearch returns a maximum of 20 policies. To get more policies, specify the `from` and `size` parameters:
+
+```json
+GET _plugins/_ism/policies?from=0&size=30
+```
 
 #### Sample response
 
