@@ -52,7 +52,7 @@ bin/opensearch-plugin list
   </thead>
   <tbody>
   <tr>
-    <td>1.1.0</td>
+    <td>1.2.0</td>
     <td>
       <pre>analysis-icu                         1.1.0
 analysis-kuromoji                    1.1.0
@@ -87,6 +87,24 @@ repository-s3                        1.1.0
 store-smb                            1.1.0
 transport-nio                        1.1.0
 </pre>
+<tr>
+  <td>1.1.0</td>
+  <td>
+    <pre>opensearch-alerting                  1.1.0.0
+opensearch-anomaly-detection         1.1.0.0
+opensearch-asynchronous-search       1.1.0.0
+opensearch-cross-cluster-replication 1.1.0.0
+opensearch-index-management          1.1.0.0
+opensearch-job-scheduler             1.1.0.0
+opensearch-knn                       1.1.0.0
+opensearch-notebooks                 1.1.0.0
+opensearch-performance-analyzer      1.1.0.0
+opensearch-reports-scheduler         1.1.0.0
+opensearch-security                  1.1.0.0
+opensearch-sql                       1.1.0.0
+</pre>
+  </td>
+</tr>
     </td>
   </tr>
   <tr>
