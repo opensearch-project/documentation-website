@@ -514,12 +514,64 @@ POST _plugins/_alerting/monitors
 Introduced 1.0
 {: .label .label-purple }
 
-When you update a monitor, include the current version number as a parameter. OpenSearch increments the version number automatically (see the sample response).
+When you update a monitor, you can use the `seq_no` and `primary_term` to update an existing monitor. If these numbers don’t match the existing monitor or the monitor doesn’t exist, alerting throws an error. OpenSearch increments the version number and the sequence number automatically (see the sample response).
 
 #### Request
 
 ```json
 PUT _plugins/_alerting/monitors/<monitor_id>
+{
+  "type": "monitor",
+  "name": "test-monitor",
+  "enabled": true,
+  "enabled_time": 1551466220455,
+  "schedule": {
+    "period": {
+      "interval": 1,
+      "unit": "MINUTES"
+    }
+  },
+  "inputs": [{
+    "search": {
+      "indices": [
+        "*"
+      ],
+      "query": {
+        "query": {
+          "match_all": {
+            "boost": 1
+          }
+        }
+      }
+    }
+  }],
+  "triggers": [{
+    "id": "StaeOmkBC25HCRGmL_y-",
+    "name": "test-trigger",
+    "severity": "1",
+    "condition": {
+      "script": {
+        "source": "return true",
+        "lang": "painless"
+      }
+    },
+    "actions": [{
+      "name": "test-action",
+      "destination_id": "RtaaOmkBC25HCRGm0fxi",
+      "subject_template": {
+        "source": "My Message Subject",
+        "lang": "mustache"
+      },
+      "message_template": {
+        "source": "This is my message body.",
+        "lang": "mustache"
+      }
+    }]
+  }],
+  "last_update_time": 1551466639295
+}
+
+PUT _plugins/_alerting/monitors/<monitor_id>?if_seq_no=3&if_primary_term=1
 {
   "type": "monitor",
   "name": "test-monitor",
@@ -578,6 +630,8 @@ PUT _plugins/_alerting/monitors/<monitor_id>
 {
   "_id": "Q9aXOmkBC25HCRGmzfw-",
   "_version": 4,
+  "_seq_no": 4,
+  "_primary_term": 1,
   "monitor": {
     "type": "monitor",
     "name": "test-monitor",
@@ -650,6 +704,8 @@ GET _plugins/_alerting/monitors/<monitor_id>
 {
   "_id": "Q9aXOmkBC25HCRGmzfw-",
   "_version": 3,
+  "_seq_no": 3,
+  "_primary_term": 1,
   "monitor": {
     "type": "monitor",
     "name": "test-monitor",
@@ -1223,7 +1279,9 @@ POST _plugins/_alerting/destinations
 ```json
 {
   "_id": "nO-yFmkB8NzS6aXjJdiI",
-  "_version": 1,
+  "_version" : 1,
+  "_seq_no" : 3,
+  "_primary_term" : 1,
   "destination": {
     "type": "slack",
     "name": "my-destination",
@@ -1242,10 +1300,21 @@ POST _plugins/_alerting/destinations
 Introduced 1.0
 {: .label .label-purple }
 
+When you update a destination, you can use the `seq_no` and `primary_term` to update an existing destination. If these numbers don’t match the existing destination or the destination doesn’t exist, alerting throws an error. OpenSearch increments the version number and the sequence number automatically (see the sample response).
+
 #### Request
 
 ```json
 PUT _plugins/_alerting/destinations/<destination-id>
+{
+  "name": "my-updated-destination",
+  "type": "slack",
+  "slack": {
+    "url": "http://www.example.com"
+  }
+}
+
+PUT _plugins/_alerting/destinations/<destination-id>?if_seq_no=3&if_primary_term=1
 {
   "name": "my-updated-destination",
   "type": "slack",
@@ -1260,7 +1329,9 @@ PUT _plugins/_alerting/destinations/<destination-id>
 ```json
 {
   "_id": "pe-1FmkB8NzS6aXjqvVY",
-  "_version": 4,
+  "_version" : 2,
+  "_seq_no" : 4,
+  "_primary_term" : 1,
   "destination": {
     "type": "slack",
     "name": "my-updated-destination",
@@ -1438,9 +1509,20 @@ POST _plugins/_alerting/destinations/email_accounts
 Introduced 1.0
 {: .label .label-purple }
 
+When you update an email account, you can use the `seq_no` and `primary_term` to update an existing email account. If these numbers don’t match the existing email account or the email account doesn’t exist, alerting throws an error. OpenSearch increments the version number and the sequence number automatically (see the sample response).
+
 #### Request
 ```json
 PUT _plugins/_alerting/destinations/email_accounts/<email_account_id>
+{
+  "name": "example_account",
+  "email": "example@email.com",
+  "host": "smtp.email.com",
+  "port": 465,
+  "method": "ssl"
+}
+
+PUT _plugins/_alerting/destinations/email_accounts/<email_account_id>?if_seq_no=18&if_primary_term=2
 {
   "name": "example_account",
   "email": "example@email.com",
@@ -1636,10 +1718,20 @@ POST _plugins/_alerting/destinations/email_groups
 Introduced 1.0
 {: .label .label-purple }
 
+When you update an email group, you can use the `seq_no` and `primary_term` to update an existing email group. If these numbers don’t match the existing email group or the email group doesn’t exist, alerting throws an error. OpenSearch increments the version number and the sequence number automatically (see the sample response).
+
 #### Request
 
 ```json
 PUT _plugins/_alerting/destinations/email_groups/<email_group_id>
+{
+  "name": "example_email_group",
+  "emails": [{
+    "email": "example@email.com"
+  }]
+}
+
+PUT _plugins/_alerting/destinations/email_groups/<email_group_id>?if_seq_no=16&if_primary_term=2
 {
   "name": "example_email_group",
   "emails": [{
