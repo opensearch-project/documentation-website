@@ -41,7 +41,7 @@ All URL parameters are optional.
 Parameter | Type | Description
 :--- | :--- | :---
 allow_no_indexes | Boolean | Whether to ignore wildcards that don’t match any indexes. Default is true.
-allow_partial_search_results | Boolean | Whether to return partial results if the request runs into an error or timeouts. Default is true.
+allow_partial_search_results | Boolean | Whether to return partial results if the request runs into an error or times out. Default is true.
 analyzer | String | Analyzer to use in the query string.
 analyze_wildcard | Boolean | Whether the update operation should include wildcard and prefix queries in the analysis. Default is false.
 batched_reduce_size | Integer | How many shard results to reduce on a node. Default is 512.
@@ -55,7 +55,7 @@ from | Integer | The starting index to search from. Default is 0.
 ignore_throttled | Boolean | Whether to ignore concrete, expanded, or indexes with aliases if indexes are frozen. Default is true.
 ignore_unavailable | Boolean | Specifies whether to include missing or closed indexes in the response. Default is false.
 lenient | Boolean | Specifies whether OpenSearch should accept requests if queries have format errors (for example, querying a text field for an integer). Default is false.
-max_concurrent_shard_requests | Integer | The number of how many concurrent shard requests this request should execute on each node. Default is 5.
+max_concurrent_shard_requests | Integer | How many concurrent shard requests this request should execute on each node. Default is 5.
 pre_filter_shard_size | Integer | A prefilter size threshold that triggers a prefilter operation if the request exceeds the threshold. Default is 128 shards.
 preference | String | Specifies which shard or node OpenSearch should perform the count operation on.
 q | String | Lucene query string’s query.
@@ -63,7 +63,7 @@ request_cache | Boolean | Specifies whether OpenSearch should use the request ca
 rest_total_hits_as_int | Boolean | Whether to return `hits.total` as an integer. Returns an object otherwise. Default is false.
 routing | String | Value used to route the update by query operation to a specific shard.
 scroll | Time | How long to keep the search context open.
-search_type | String | Whether OpenSearch should use global term and document frequencies calculating revelance scores. Valid choices are `query_then_fetch` and `dfs_query_then_fetch`. `query_then_fetch` scores documents using local term and document frequencies for the shard. It’s usually faster but less accurate. `dfs_query_then_fetch` scores documents using global term and document frequencies across all shards. It’s usually slower but more accurate. Default is `query_then_fetch`.
+search_type | String | Whether OpenSearch should use global term and document frequencies when calculating revelance scores. Valid choices are `query_then_fetch` and `dfs_query_then_fetch`. `query_then_fetch` scores documents using local term and document frequencies for the shard. It’s usually faster but less accurate. `dfs_query_then_fetch` scores documents using global term and document frequencies across all shards. It’s usually slower but more accurate. Default is `query_then_fetch`.
 seq_no_primary_term | Boolean | Whether to return sequence number and primary term of the last operation of each document hit.
 size | Integer | How many results to include in the response.
 sort | List | A comma-separated list of &lt;field&gt; : &lt;direction&gt; pairs to sort by.
@@ -77,7 +77,7 @@ suggest_mode | String | The mode to use when searching. Available options are `a
 suggest_size | Integer | How many suggestions to return.
 suggest_text | String | The source that suggestions should be based off of.
 terminate_after | Integer | The maximum number of documents OpenSearch should process before terminating the request. Default is 0.
-timeout | Time | How long the operation should wait from a response from active shards. Default is `1m`.
+timeout | Time | How long the operation should wait for a response from active shards. Default is `1m`.
 track_scores | Boolean | Whether to return document scores. Default is false.
 track_total_hits | Boolean or Integer | Whether to return how many documents matched the query.
 typed_keys | Boolean | Whether returned aggregations and suggested terms should include their types in the response. Default is true.
