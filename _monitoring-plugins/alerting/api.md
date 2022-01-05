@@ -514,7 +514,7 @@ POST _plugins/_alerting/monitors
 Introduced 1.0
 {: .label .label-purple }
 
-When you update a monitor, you can use the `seq_no` and `primary_term` to update an existing monitor. If these numbers don’t match the existing monitor or the monitor doesn’t exist, alerting throws an error. OpenSearch increments the version number and the sequence number automatically (see the sample response).
+When updating a monitor, you can optionally include `seq_no` and `primary_term` as URL parameters. If these numbers don't match the existing monitor or the monitor doesn't exist, the alerting plugin throws an error. OpenSearch increments the version number and the sequence number automatically (see the sample response).
 
 #### Request
 
@@ -1300,7 +1300,7 @@ POST _plugins/_alerting/destinations
 Introduced 1.0
 {: .label .label-purple }
 
-When you update a destination, you can use the `seq_no` and `primary_term` to update an existing destination. If these numbers don’t match the existing destination or the destination doesn’t exist, alerting throws an error. OpenSearch increments the version number and the sequence number automatically (see the sample response).
+When updating a destination, you can optionally include `seq_no` and `primary_term` as URL parameters. If these numbers don't match the existing destination or the destination doesn't exist, the alerting plugin throws an error. OpenSearch increments the version number and the sequence number automatically (see the sample response).
 
 #### Request
 
@@ -1509,7 +1509,7 @@ POST _plugins/_alerting/destinations/email_accounts
 Introduced 1.0
 {: .label .label-purple }
 
-When you update an email account, you can use the `seq_no` and `primary_term` to update an existing email account. If these numbers don’t match the existing email account or the email account doesn’t exist, alerting throws an error. OpenSearch increments the version number and the sequence number automatically (see the sample response).
+When updating an email account, you can optionally include `seq_no` and `primary_term` as URL parameters. If these numbers don't match the existing email account or the email account doesn't exist, the alerting plugin throws an error. OpenSearch increments the version number and the sequence number automatically (see the sample response).
 
 #### Request
 ```json
@@ -1718,7 +1718,7 @@ POST _plugins/_alerting/destinations/email_groups
 Introduced 1.0
 {: .label .label-purple }
 
-When you update an email group, you can use the `seq_no` and `primary_term` to update an existing email group. If these numbers don’t match the existing email group or the email group doesn’t exist, alerting throws an error. OpenSearch increments the version number and the sequence number automatically (see the sample response).
+When updating an email group, you can optionally include `seq_no` and `primary_term` as URL parameters. If these numbers don't match the existing email group or the email group doesn't exist, the alerting plugin throws an error. OpenSearch increments the version number and the sequence number automatically (see the sample response).
 
 #### Request
 
