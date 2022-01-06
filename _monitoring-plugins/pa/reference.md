@@ -26,7 +26,7 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
     <tr>
       <td>CPU_Utilization
       </td>
-      <td rowspan="18">ShardID, IndexName, Operation, ShardRole
+      <td rowspan="20">ShardID, IndexName, Operation, ShardRole
       </td>
       <td>CPU usage ratio. CPU time (in milliseconds) used by the associated thread(s) in the past five seconds, divided by 5000 milliseconds.
       </td>
@@ -119,6 +119,18 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
       <td>Thread_Blocked_Event
       </td>
       <td>The total number of times that the associated thread(s) blocked to enter or reenter a monitor (i.e. the number of times a thread has been in the blocked state).
+      </td>
+    </tr>
+    <tr>
+      <td>Thread_Waited_Time
+      </td>
+      <td>Average time (seconds) that the associated thread(s) waited to enter or reenter a monitor in WAITING or TIMED_WAITING state.
+      </td>
+    </tr>
+    <tr>
+      <td>Thread_Waited_Event
+      </td>
+      <td>The total number of times that the associated thread(s) waited to enter or reenter a monitor (i.e. the number of times a thread has been in the WAITING or TIMED_WAITING state).
       </td>
     </tr>
     <tr>
@@ -316,6 +328,38 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
       </td>
     </tr>
     <tr>
+      <td>Indexing_Pressure_Current_Limits
+      </td>
+      <td rowspan="5">ShardID, IndexName, IndexingStage
+      </td>
+      <td>Total heap size (in bytes) that is available for utilization by a shard of an index in a particular indexing stage (Coordinating, Primary or Replica).
+      </td>
+    </tr>
+    <tr>
+      <td>Indexing_Pressure_Current_Bytes
+      </td>
+      <td>Total heap size (in bytes) occupied by a shard of an index in a particular indexing stage (Coordinating, Primary or Replica).
+      </td>
+    </tr>
+    <tr>
+      <td>Indexing_Pressure_Last_Successful_Timestamp
+      </td>
+      <td>Timestamp of a request that was successful for a shard of an index in a particular indexing stage (Coordinating, Primary or Replica).
+      </td>
+    </tr>
+    <tr>
+      <td>Indexing_Pressure_Rejection_Count
+      </td>
+      <td>Total rejections performed by OpenSearch for a shard of an index in a particular indexing stage (Coordinating, Primary or Replica).
+      </td>
+    </tr>
+    <tr>
+      <td>Indexing_Pressure_Average_Window_Throughput
+      </td>
+      <td>Average throughput of the last n requests (The value of n is determined by `shard_indexing_pressure.secondary_parameter.throughput.request_size_window` setting) for a shard of an index in a particular indexing stage (Coordinating, Primary or Replica).
+      </td>
+    </tr>
+    <tr>
       <td>Latency
       </td>
       <td>Operation, Exception, Indices, HTTPRespCode, ShardID, IndexName, ShardRole
@@ -424,7 +468,7 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
       </td>
       <td rowspan="5">Direction
       </td>
-      <td>The total number of IPv4 datagrams transmitted/received from/by interfaces per second, including those transmitted or received in error
+      <td>The total number of IPv4 datagrams transmitted/received from/by interfaces per second, including those transmitted or received in error.
       </td>
     </tr>
     <tr>
@@ -454,7 +498,7 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
     <tr>
       <td>ThreadPool_QueueSize
       </td>
-      <td rowspan="4">ThreadPoolType
+      <td rowspan="6">ThreadPoolType
       </td>
       <td>The size of the task queue.
       </td>
@@ -478,9 +522,21 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
       </td>
     </tr>
     <tr>
+      <td>ThreadPool_QueueLatency
+      </td>
+      <td>The latency of the task queue.
+      </td>
+    </tr>
+    <tr>
+      <td>ThreadPool_QueueCapacity
+      </td>
+      <td>The current capacity of the task queue.
+      </td>
+    </tr>
+    <tr>
       <td>Master_PendingQueueSize
       </td>
-      <td>N/A
+      <td>Master_PendingTaskType
       </td>
       <td>The current number of pending tasks in the cluster state update thread. Each node has a cluster state update thread that submits cluster state update tasks (create index, update mapping, allocate shard, fail shard, etc.).
       </td>
@@ -533,6 +589,108 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
       <td>The time (milliseconds) that a master task has been executed.
       </td>
     </tr>
+    <tr>
+      <td>Cache_MaxSize
+      </td>
+      <td>CacheType
+      </td>
+      <td>The max size of the cache in bytes.
+      </td>
+    </tr>
+    <tr>
+      <td>AdmissionControl_RejectionCount (WIP)
+      </td>
+      <td rowspan="3">ControllerName
+      </td>
+      <td>Total rejections performed by a Controller of Admission Control.
+      </td>
+    </tr>
+    <tr>
+      <td>AdmissionControl_CurrentValue (WIP)
+      </td>
+      <td>Current value for Controller of Admission Control.
+      </td>
+    </tr>
+    <tr>
+      <td>AdmissionControl_ThresholdValue (WIP)
+      </td>
+      <td>Threshold value for Controller of Admission Control.
+      </td>
+    </tr>
+    <tr>
+      <td>Data_RetryingPendingTasksCount (WIP)
+      </td>
+      <td rowspan="2"> NodeID
+      </td>
+      <td>Number of throttled pending tasks on which data node is actively performing retries. It will be an absolute metric at that point of time.
+      </td>
+    </tr>
+    <tr>
+      <td>Master_ThrottledPendingTasksCount (WIP)
+      </td>
+      <td>Sum of total pending tasks which got throttled by node (master node). It is a cumulative metric so look at the max aggregation.
+      </td>
+    </tr>
+    <tr>
+      <td>Election_Term (WIP)
+      </td>
+      <td rowspan="5">N/A
+      </td>
+      <td>Monotonically increasing number with every master election.
+      </td>
+    </tr>
+    <tr>
+      <td>PublishClusterState_Latency (WIP)
+      </td>
+      <td>The time taken by quorum of nodes to publish new cluster state. This metric is available for current master.
+      </td>
+    </tr>
+    <tr>
+      <td>PublishClusterState_Failure (WIP)
+      </td>
+      <td>The number of times publish new cluster state action failed on master node.
+      </td>
+    </tr>
+    <tr>
+      <td>ClusterApplierService_Latency (WIP)
+      </td>
+      <td>The time taken by each node to apply cluster state sent by master.
+      </td>
+    </tr>
+    <tr>
+      <td>ClusterApplierService_Failure (WIP)
+      </td>
+      <td>The number of times apply cluster state action failed on each node.
+      </td>
+    </tr>
+    <tr>
+      <td>Shard_State (WIP)
+      </td>
+      <td>IndexName, NodeName, ShardType, ShardID
+      </td>
+      <td>The state of each shard - whether it is STARTED, UNASSIGNED, RELOCATING etc.
+      </td>
+    </tr>
+    <tr>
+      <td>LeaderCheck_Latency (WIP)
+      </td>
+      <td rowspan="4">WIP
+      </td>
+      <td rowspan="4">WIP
+      </td>
+    </tr>
+    <tr>
+      <td>FollowerCheck_Failure (WIP)
+      </td>
+    </tr>
+    <tr>
+      <td>LeaderCheck_Failure (WIP)
+      </td>
+    </tr>
+    <tr>
+      <td>FollowerCheck_Latency (WIP)
+      </td>
+    </tr>
   </tbody>
 </table>
 
@@ -558,3 +716,4 @@ MasterTaskInsertOrder | The order in which the task was inserted (e.g. `3691`).
 MasterTaskPriority | Priority of the task (e.g. `URGENT`). OpenSearch executes higher priority tasks before lower priority ones, regardless of `insert_order`.
 MasterTaskType | `shard-started`, `create-index`, `delete-index`, `refresh-mapping`, `put-mapping`, `CleanupSnapshotRestoreState`, `Update snapshot state`
 MasterTaskMetadata | Metadata for the task (if any).
+CacheType | `Field_Data_Cache`, `Shard_Request_Cache`, `Node_Query_Cache`

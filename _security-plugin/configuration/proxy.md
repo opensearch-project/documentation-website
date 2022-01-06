@@ -201,7 +201,7 @@ opensearch.requestHeadersWhitelist: ["securitytenant","Authorization","x-forward
 You must also enable the authentication type in `opensearch_dashboards.yml`:
 
 ```yml
-plugins.security.auth.type: "proxy"
-plugins.security.proxycache.user_header: "x-proxy-user"
-plugins.security.proxycache.roles_header: "x-proxy-roles"
+opensearch_security.auth.type: "proxy"
+opensearch_security.proxycache.user_header: "x-proxy-user"
+opensearch_security.proxycache.roles_header: "x-proxy-roles"
 ```

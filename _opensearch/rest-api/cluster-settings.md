@@ -21,11 +21,9 @@ GET _cluster/settings?include_defaults=true
 ```json
 PUT _cluster/settings
 {
-  "persistent": {
-    "action": {
-      "auto_create_index": false
-    }
-  }
+   "persistent":{
+      "action.auto_create_index": false
+   }
 }
 ```
 
@@ -59,11 +57,9 @@ For a PUT operation, the request body must contain `transient` or `persistent`, 
 ```json
 PUT _cluster/settings
 {
-  "persistent": {
-    "cluster": {
-      "max_shards_per_node": 500
-    }
-  }
+   "persistent":{
+      "cluster.max_shards_per_node": 500
+   }
 }
 ```
 
@@ -74,12 +70,12 @@ For more information about transient settings, persistent settings, and preceden
 
 ```json
 {
-  "acknowledged": true,
-  "persistent": {
-    "cluster": {
-      "max_shards_per_node": "500"
-    }
-  },
-  "transient": {}
+   "acknowledged":true,
+   "persistent":{
+      "cluster":{
+         "max_shards_per_node":"500"
+      }
+   },
+   "transient":{}
 }
 ```

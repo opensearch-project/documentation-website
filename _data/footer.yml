@@ -20,19 +20,22 @@ columns:
   -
     title: 'Resources'
     links:
-      #- 
+      #-
       #  title: 'Documentation'
       #  url: 'https://github.com/opensearch/documentation'
-      - 
+      -
         title: FAQ
         url: '/faq/'
+      -
+        title: Testimonials
+        url: '/testimonials.html'
       -
         title: 'Brand Guidelines'
         url: '/brand.html'
       -
         title: 'Trademark Usage Policy'
         url: '/trademark-usage.html'
-      - 
+      -
         title: OpenSearch Disambiguation
         url: '/disambiguation.html'
   -
@@ -45,5 +48,5 @@ columns:
       #  title: 'Facebook'
       #  url: 'http://www.facebook.com/opensearch'
       -
-        title: 'E-mail'
-        url: 'mailto:opensearch@amazon.com'
+        title: 'Connect'
+        url: 'https://opensearch.org/connect.html'

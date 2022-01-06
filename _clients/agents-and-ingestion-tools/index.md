@@ -58,7 +58,7 @@ Some users report compatibility issues with ingest pipelines on these versions o
 
 ### Compatibility Matrix for Logstash
 
-| | Logstash OSS 7.x to 7.11.x | Logstash OSS 7.12.x\* | Logstash 7.13.x without OpenSearch output plugin | Logstash 7.13.x with OpenSearch output plugin |
+| | Logstash OSS 7.x to 7.11.x | Logstash OSS 7.12.x\* | Logstash 7.13.x-7.16.x without OpenSearch output plugin | Logstash 7.13.x-7.16.x with OpenSearch output plugin |
 | :---| :--- | :--- | :--- | :--- |
 | Elasticsearch OSS 7.x to 7.9.x | *Yes* | *Yes* | *No* | *Yes* |
 | Elasticsearch OSS 7.10.2 | *Yes* | *Yes* | *No* | *Yes* |

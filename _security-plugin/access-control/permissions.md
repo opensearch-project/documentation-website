@@ -80,8 +80,10 @@ These permissions are for the cluster and can't be applied granularly. For examp
 - cluster:admin/opendistro/ad/detector/search
 - cluster:admin/opendistro/ad/detector/stats
 - cluster:admin/opendistro/ad/detector/write
+- cluster:admin/opendistro/ad/detector/validate
 - cluster:admin/opendistro/ad/detectors/get
 - cluster:admin/opendistro/ad/result/search
+- cluster:admin/opendistro/ad/result/topAnomalies
 - cluster:admin/opendistro/ad/tasks/search
 - cluster:admin/opendistro/alerting/alerts/ack (acknowledge)
 - cluster:admin/opendistro/alerting/alerts/get
@@ -130,6 +132,7 @@ These permissions are for the cluster and can't be applied granularly. For examp
 - cluster:admin/opendistro/reports/instance/list
 - cluster:admin/opendistro/reports/instance/get
 - cluster:admin/opendistro/reports/menu/download
+- cluster:admin/plugins/replication/autofollow/update
 - cluster:admin/reindex/rethrottle
 - cluster:admin/repository/delete
 - cluster:admin/repository/get
@@ -196,6 +199,13 @@ These permissions apply to an index or index pattern. You might want a user to h
 - indices:admin/mappings/fields/get*
 - indices:admin/mappings/get
 - indices:admin/open
+- indices:admin/plugins/replication/index/setup/validate
+- indices:admin/plugins/replication/index/start
+- indices:admin/plugins/replication/index/pause
+- indices:admin/plugins/replication/index/resume
+- indices:admin/plugins/replication/index/stop
+- indices:admin/plugins/replication/index/update
+- indices:admin/plugins/replication/index/status_check
 - indices:admin/refresh
 - indices:admin/refresh*
 - indices:admin/resolve/index
@@ -221,6 +231,8 @@ These permissions apply to an index or index pattern. You might want a user to h
 - indices:data/read/msearch/template
 - indices:data/read/mtv (multi-term vectors)
 - indices:data/read/mtv*
+- indices:data/read/plugins/replication/file_chunk
+- indices:data/read/plugins/replication/changes
 - indices:data/read/scroll
 - indices:data/read/scroll/clear
 - indices:data/read/search
@@ -231,6 +243,7 @@ These permissions apply to an index or index pattern. You might want a user to h
 - indices:data/write/bulk*
 - indices:data/write/delete (delete documents)
 - indices:data/write/delete/byquery
+- indices:data/write/plugins/replication/changes
 - indices:data/write/index (add documents to existing indices)
 - indices:data/write/reindex
 - indices:data/write/update

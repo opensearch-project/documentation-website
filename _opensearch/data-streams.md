@@ -228,7 +228,7 @@ POST logs-redis/_rollover
 
 If you now perform a `GET` operation on the `logs-redis` data stream, you see that the generation ID is incremented from 1 to 2.
 
-You can also set up an [Index State Management (ISM) policy]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/) to automate the rollover process for the data stream.  
+You can also set up an [Index State Management (ISM) policy]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/) to automate the rollover process for the data stream.
 The ISM policy is applied to the backing indices at the time of their creation. When you associate a policy to a data stream, it only affects the future backing indices of that data stream.
 
 You also don’t need to provide the `rollover_alias` setting, because the ISM policy infers this information from the backing index.
@@ -262,4 +262,4 @@ You can use wildcards to delete more than one data stream.
 
 We recommend deleting data from a data stream using an ISM policy.
 
-You can also use [asynchronous search]({{site.url}}{{site.baseurl}}/search-plugins/async/index/) and [SQL]({{site.url}}{{site.baseurl}}/search-plugins/sql/index/) and [PPL]({{site.url}}{{site.baseurl}}/search-plugins/ppl/index/) to query your data stream directly. You can also use the security plugin to define granular permissions on the data stream name.
+You can also use [asynchronous search]({{site.url}}{{site.baseurl}}/search-plugins/async/index/) and [SQL]({{site.url}}{{site.baseurl}}/search-plugins/sql/index/) and [PPL]({{site.url}}{{site.baseurl}}/observability/ppl/index/) to query your data stream directly. You can also use the security plugin to define granular permissions on the data stream name.

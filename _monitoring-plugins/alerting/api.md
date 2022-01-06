@@ -19,9 +19,11 @@ Use the alerting API to programmatically manage monitors and alerts.
 
 ---
 
-## Create monitor
+## Create query-level monitor
 Introduced 1.0
 {: .label .label-purple }
+
+Query-level monitors run the query and check whether the results should trigger any alerts. As such, query-level monitors can only trigger one alert at a time. For more information about query-level monitors versus bucket-level monitors, see [Create monitors]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/#create-monitors).
 
 #### Request
 
@@ -30,6 +32,7 @@ POST _plugins/_alerting/monitors
 {
   "type": "monitor",
   "name": "test-monitor",
+  "monitor_type": "query_level_monitor",
   "enabled": true,
   "schedule": {
     "period": {
@@ -166,7 +169,7 @@ If you use a custom webhook for your destination and need to embed JSON in the m
         },
         "throttle_enabled": false,
         "subject_template": {
-          "source": "TheSubject",
+          "source": "Subject",
           "lang": "mustache"
         }
       }]
@@ -186,6 +189,7 @@ The following example creates a monitor that runs at 12:10 PM Pacific Time on th
 {
   "type": "monitor",
   "name": "test-monitor",
+  "monitor_type": "query_level_monitor",
   "enabled": true,
   "schedule": {
     "cron" : {
@@ -228,7 +232,7 @@ The following example creates a monitor that runs at 12:10 PM Pacific Time on th
       "name": "test-action",
       "destination_id": "ld7912sBlQ5JUWWFThoW",
       "message_template": {
-        "source": "This is my message body."
+        "source": "This is a message body."
       },
       "throttle_enabled": true,
       "throttle": {
@@ -236,7 +240,7 @@ The following example creates a monitor that runs at 12:10 PM Pacific Time on th
         "unit": "MINUTES"
       },
       "subject_template": {
-        "source": "TheSubject"
+        "source": "Subject"
       }
     }]
   }]
@@ -247,16 +251,327 @@ For a full list of timezone names, refer to [Wikipedia](https://en.wikipedia.org
 
 ---
 
+## Create bucket-level monitor
+
+Bucket-level monitors categorize results into buckets separated by fields. The monitor then runs your script with each bucket's results and evaluates whether to trigger an alert. For more information about bucket-level monitors versus query-level monitors, see [Create monitors]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/#create-monitors).
+
+```json
+POST _plugins/_alerting/monitors
+{
+  "type": "monitor",
+  "name": "test-bucket-level-monitor",
+  "monitor_type": "bucket_level_monitor",
+  "enabled": true,
+  "schedule": {
+    "period": {
+      "interval": 1,
+      "unit": "MINUTES"
+    }
+  },
+  "inputs": [
+    {
+      "search": {
+        "indices": [
+          "movies"
+        ],
+        "query": {
+          "size": 0,
+          "query": {
+            "bool": {
+              "filter": [
+                {
+                  "range": {
+                    "order_date": {
+                      "from": "{{period_end}}||-1h",
+                      "to": "{{period_end}}",
+                      "include_lower": true,
+                      "include_upper": true,
+                      "format": "epoch_millis"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "aggregations": {
+            "composite_agg": {
+              "composite": {
+                "sources": [
+                  {
+                    "user": {
+                      "terms": {
+                        "field": "user"
+                      }
+                    }
+                  }
+                ]
+              },
+              "aggregations": {
+                "avg_products_base_price": {
+                  "avg": {
+                    "field": "products.base_price"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "triggers": [
+    {
+      "bucket_level_trigger": {
+        "name": "test-trigger",
+        "severity": "1",
+        "condition": {
+          "buckets_path": {
+            "_count": "_count",
+            "avg_products_base_price": "avg_products_base_price"
+          },
+          "parent_bucket_path": "composite_agg",
+          "script": {
+            "source": "params._count > 50 || params.avg_products_base_price < 35",
+            "lang": "painless"
+          }
+        },
+        "actions": [
+          {
+            "name": "test-action",
+            "destination_id": "E4o5hnsB6KjPKmHtpfCA",
+            "message_template": {
+              "source": """Monitor {{ctx.monitor.name}} just entered alert status. Please investigate the issue.   - Trigger: {{ctx.trigger.name}}   - Severity: {{ctx.trigger.severity}}   - Period start: {{ctx.periodStart}}   - Period end: {{ctx.periodEnd}}    - Deduped Alerts:   {{ctx.dedupedAlerts}}     * {{id}} : {{bucket_keys}}   {{ctx.dedupedAlerts}}    - New Alerts:   {{ctx.newAlerts}}     * {{id}} : {{bucket_keys}}   {{ctx.newAlerts}}    - Completed Alerts:   {{ctx.completedAlerts}}     * {{id}} : {{bucket_keys}}   {{ctx.completedAlerts}}""",
+              "lang": "mustache"
+            },
+            "throttle_enabled": false,
+            "throttle": {
+              "value": 10,
+              "unit": "MINUTES"
+            },
+            "action_execution_policy": {
+              "action_execution_scope": {
+                "per_alert": {
+                  "actionable_alerts": [
+                    "DEDUPED",
+                    "NEW"
+                  ]
+                }
+              }
+            },
+            "subject_template": {
+              "source": "The Subject",
+              "lang": "mustache"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
+```
+
+#### Sample response
+```json
+{
+  "_id" : "Dfxr63sBwex6DxEhHV5N",
+  "_version" : 1,
+  "_seq_no" : 3,
+  "_primary_term" : 1,
+  "monitor" : {
+    "type" : "monitor",
+    "schema_version" : 4,
+    "name" : "test-bucket-level-monitor",
+    "monitor_type" : "bucket_level_monitor",
+    "user" : {
+      "name" : "",
+      "backend_roles" : [ ],
+      "roles" : [ ],
+      "custom_attribute_names" : [ ],
+      "user_requested_tenant" : null
+    },
+    "enabled" : true,
+    "enabled_time" : 1631742270785,
+    "schedule" : {
+      "period" : {
+        "interval" : 1,
+        "unit" : "MINUTES"
+      }
+    },
+    "inputs" : [
+      {
+        "search" : {
+          "indices" : [
+            "opensearch_dashboards_sample_data_flights"
+          ],
+          "query" : {
+            "size" : 0,
+            "query" : {
+              "bool" : {
+                "filter" : [
+                  {
+                    "range" : {
+                      "order_date" : {
+                        "from" : "{{period_end}}||-1h",
+                        "to" : "{{period_end}}",
+                        "include_lower" : true,
+                        "include_upper" : true,
+                        "format" : "epoch_millis",
+                        "boost" : 1.0
+                      }
+                    }
+                  }
+                ],
+                "adjust_pure_negative" : true,
+                "boost" : 1.0
+              }
+            },
+            "aggregations" : {
+              "composite_agg" : {
+                "composite" : {
+                  "size" : 10,
+                  "sources" : [
+                    {
+                      "user" : {
+                        "terms" : {
+                          "field" : "user",
+                          "missing_bucket" : false,
+                          "order" : "asc"
+                        }
+                      }
+                    }
+                  ]
+                },
+                "aggregations" : {
+                  "avg_products_base_price" : {
+                    "avg" : {
+                      "field" : "products.base_price"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    ],
+    "triggers" : [
+      {
+        "bucket_level_trigger" : {
+          "id" : "C_xr63sBwex6DxEhHV5B",
+          "name" : "test-trigger",
+          "severity" : "1",
+          "condition" : {
+            "buckets_path" : {
+              "_count" : "_count",
+              "avg_products_base_price" : "avg_products_base_price"
+            },
+            "parent_bucket_path" : "composite_agg",
+            "script" : {
+              "source" : "params._count > 50 || params.avg_products_base_price < 35",
+              "lang" : "painless"
+            },
+            "gap_policy" : "skip"
+          },
+          "actions" : [
+            {
+              "id" : "DPxr63sBwex6DxEhHV5B",
+              "name" : "test-action",
+              "destination_id" : "E4o5hnsB6KjPKmHtpfCA",
+              "message_template" : {
+                "source" : "Monitor {{ctx.monitor.name}} just entered alert status. Please investigate the issue.   - Trigger: {{ctx.trigger.name}}   - Severity: {{ctx.trigger.severity}}   - Period start: {{ctx.periodStart}}   - Period end: {{ctx.periodEnd}}    - Deduped Alerts:   {{ctx.dedupedAlerts}}     * {{id}} : {{bucket_keys}}   {{ctx.dedupedAlerts}}    - New Alerts:   {{ctx.newAlerts}}     * {{id}} : {{bucket_keys}}   {{ctx.newAlerts}}    - Completed Alerts:   {{ctx.completedAlerts}}     * {{id}} : {{bucket_keys}}   {{ctx.completedAlerts}}",
+                "lang" : "mustache"
+              },
+              "throttle_enabled" : false,
+              "subject_template" : {
+                "source" : "The Subject",
+                "lang" : "mustache"
+              },
+              "throttle" : {
+                "value" : 10,
+                "unit" : "MINUTES"
+              },
+              "action_execution_policy" : {
+                "action_execution_scope" : {
+                  "per_alert" : {
+                    "actionable_alerts" : [
+                      "DEDUPED",
+                      "NEW"
+                    ]
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "last_update_time" : 1631742270785
+  }
+}
+```
+
 ## Update monitor
 Introduced 1.0
 {: .label .label-purple }
 
-When you update a monitor, include the current version number as a parameter. OpenSearch increments the version number automatically (see the sample response).
+When updating a monitor, you can optionally include `seq_no` and `primary_term` as URL parameters. If these numbers don't match the existing monitor or the monitor doesn't exist, the alerting plugin throws an error. OpenSearch increments the version number and the sequence number automatically (see the sample response).
 
 #### Request
 
 ```json
 PUT _plugins/_alerting/monitors/<monitor_id>
+{
+  "type": "monitor",
+  "name": "test-monitor",
+  "enabled": true,
+  "enabled_time": 1551466220455,
+  "schedule": {
+    "period": {
+      "interval": 1,
+      "unit": "MINUTES"
+    }
+  },
+  "inputs": [{
+    "search": {
+      "indices": [
+        "*"
+      ],
+      "query": {
+        "query": {
+          "match_all": {
+            "boost": 1
+          }
+        }
+      }
+    }
+  }],
+  "triggers": [{
+    "id": "StaeOmkBC25HCRGmL_y-",
+    "name": "test-trigger",
+    "severity": "1",
+    "condition": {
+      "script": {
+        "source": "return true",
+        "lang": "painless"
+      }
+    },
+    "actions": [{
+      "name": "test-action",
+      "destination_id": "RtaaOmkBC25HCRGm0fxi",
+      "subject_template": {
+        "source": "My Message Subject",
+        "lang": "mustache"
+      },
+      "message_template": {
+        "source": "This is my message body.",
+        "lang": "mustache"
+      }
+    }]
+  }],
+  "last_update_time": 1551466639295
+}
+
+PUT _plugins/_alerting/monitors/<monitor_id>?if_seq_no=3&if_primary_term=1
 {
   "type": "monitor",
   "name": "test-monitor",
@@ -315,6 +630,8 @@ PUT _plugins/_alerting/monitors/<monitor_id>
 {
   "_id": "Q9aXOmkBC25HCRGmzfw-",
   "_version": 4,
+  "_seq_no": 4,
+  "_primary_term": 1,
   "monitor": {
     "type": "monitor",
     "name": "test-monitor",
@@ -387,6 +704,8 @@ GET _plugins/_alerting/monitors/<monitor_id>
 {
   "_id": "Q9aXOmkBC25HCRGmzfw-",
   "_version": 3,
+  "_seq_no": 3,
+  "_primary_term": 1,
   "monitor": {
     "type": "monitor",
     "name": "test-monitor",
@@ -960,7 +1279,9 @@ POST _plugins/_alerting/destinations
 ```json
 {
   "_id": "nO-yFmkB8NzS6aXjJdiI",
-  "_version": 1,
+  "_version" : 1,
+  "_seq_no" : 3,
+  "_primary_term" : 1,
   "destination": {
     "type": "slack",
     "name": "my-destination",
@@ -979,10 +1300,21 @@ POST _plugins/_alerting/destinations
 Introduced 1.0
 {: .label .label-purple }
 
+When updating a destination, you can optionally include `seq_no` and `primary_term` as URL parameters. If these numbers don't match the existing destination or the destination doesn't exist, the alerting plugin throws an error. OpenSearch increments the version number and the sequence number automatically (see the sample response).
+
 #### Request
 
 ```json
 PUT _plugins/_alerting/destinations/<destination-id>
+{
+  "name": "my-updated-destination",
+  "type": "slack",
+  "slack": {
+    "url": "http://www.example.com"
+  }
+}
+
+PUT _plugins/_alerting/destinations/<destination-id>?if_seq_no=3&if_primary_term=1
 {
   "name": "my-updated-destination",
   "type": "slack",
@@ -997,7 +1329,9 @@ PUT _plugins/_alerting/destinations/<destination-id>
 ```json
 {
   "_id": "pe-1FmkB8NzS6aXjqvVY",
-  "_version": 4,
+  "_version" : 2,
+  "_seq_no" : 4,
+  "_primary_term" : 1,
   "destination": {
     "type": "slack",
     "name": "my-updated-destination",
@@ -1175,9 +1509,20 @@ POST _plugins/_alerting/destinations/email_accounts
 Introduced 1.0
 {: .label .label-purple }
 
+When updating an email account, you can optionally include `seq_no` and `primary_term` as URL parameters. If these numbers don't match the existing email account or the email account doesn't exist, the alerting plugin throws an error. OpenSearch increments the version number and the sequence number automatically (see the sample response).
+
 #### Request
 ```json
 PUT _plugins/_alerting/destinations/email_accounts/<email_account_id>
+{
+  "name": "example_account",
+  "email": "example@email.com",
+  "host": "smtp.email.com",
+  "port": 465,
+  "method": "ssl"
+}
+
+PUT _plugins/_alerting/destinations/email_accounts/<email_account_id>?if_seq_no=18&if_primary_term=2
 {
   "name": "example_account",
   "email": "example@email.com",
@@ -1373,10 +1718,20 @@ POST _plugins/_alerting/destinations/email_groups
 Introduced 1.0
 {: .label .label-purple }
 
+When updating an email group, you can optionally include `seq_no` and `primary_term` as URL parameters. If these numbers don't match the existing email group or the email group doesn't exist, the alerting plugin throws an error. OpenSearch increments the version number and the sequence number automatically (see the sample response).
+
 #### Request
 
 ```json
 PUT _plugins/_alerting/destinations/email_groups/<email_group_id>
+{
+  "name": "example_email_group",
+  "emails": [{
+    "email": "example@email.com"
+  }]
+}
+
+PUT _plugins/_alerting/destinations/email_groups/<email_group_id>?if_seq_no=16&if_primary_term=2
 {
   "name": "example_email_group",
   "emails": [{

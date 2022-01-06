@@ -87,7 +87,7 @@ services:
     networks:
       - opensearch-net
   opensearch-dashboards
-    image: opensearchproject/opensearch-dashboards:{{site.opensearch_version}}
+    image: opensearchproject/opensearch-dashboards:{{site.opensearch_dashboards_version}}
     container_name: opensearch-dashboards
     ports:
       - 5601:5601
@@ -129,8 +129,8 @@ plugins.security.enable_snapshot_restore_privilege: true
 plugins.security.check_snapshot_restore_write_privileges: true
 plugins.security.restapi.roles_enabled: ["all_access", "security_rest_api_access"]
 cluster.routing.allocation.disk.threshold_enabled: false
-plugins.security.audit.config.disabled_rest_categories: NONE
-plugins.security.audit.config.disabled_transport_categories: NONE
+opendistro_security.audit.config.disabled_rest_categories: NONE
+opendistro_security.audit.config.disabled_transport_categories: NONE
 ```
 
 Use this same override process to specify new [authentication settings]({{site.url}}{{site.baseurl}}/security-plugin/configuration/configuration/) in `/usr/share/opensearch/plugins/opensearch-security/securityconfig/config.yml`, as well as new default [internal users, roles, mappings, action groups, and tenants]({{site.url}}{{site.baseurl}}/security-plugin/configuration/yaml/).

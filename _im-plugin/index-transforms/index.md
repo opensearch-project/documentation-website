@@ -29,7 +29,7 @@ If you don't have any data in your cluster, you can use the sample flight data w
 ### Step 1: Choose indices
 
 1. In the **Job name and description** section, specify a name and an optional description for your job.
-2. In the **Indices** section, select the source and target index. You can either select an existing target index or create a new one by entering a name for your new index. If you want to transform just a subset of your source index, choose **Add Data Filter**, and use the OpenSearch query DSL to specify a subset of your source index. For more information about the OpenSearch query DSL, see [query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/).
+2. In the **Indices** section, select the source and target index. You can either select an existing target index or create a new one by entering a name for your new index. If you want to transform just a subset of your source index, choose **Edit data filter**, and use the OpenSearch query DSL to specify a subset of your source index. For more information about the OpenSearch query DSL, see [query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/).
 3. Choose **Next**.
 
 ### Step 2: Select fields to transform
@@ -51,7 +51,7 @@ On the other hand, aggregations let you perform simple calculations. For example
 
 You can configure transform jobs to run once or multiple times on a schedule. Transform jobs are enabled by default.
 
-1. For **transformation execution frequency**, select **Define by fixed interval** and specify a **transform interval**.
+1. For **transformation execution interval**, specify a transform interval in minutes, hours, or days.
 2. Under **Advanced**, specify an optional amount for **Pages per execution**. A larger number means more data is processed in each search request, but also uses more memory and causes higher latency. Exceeding allowed memory limits can cause exceptions and errors to occur.
 3. Choose **Next**.
 
