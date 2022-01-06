@@ -67,10 +67,10 @@ If you're migrating from an existing Logstash installation, you can install the 
 2. Navigate to the downloaded folder in the terminal and extract the files:
 
      ```bash
-     tar -zxvf logstash-oss-with-opensearch-output-plugin-7.13.2-linux-x64.tar.gz
+     tar -zxvf logstash-oss-with-opensearch-output-plugin-7.16.2-linux-x64.tar.gz
      ```
 
-3. Navigate to the `logstash-7.13.2` directory.
+3. Navigate to the `logstash-7.16.2` directory.
 - You can add your pipeline configurations to the `config` directory. Logstash saves any data from the plugins in the `data` directory. The `bin` directory contains the binaries for starting Logstash and managing plugins.
 
 ### Docker
@@ -78,7 +78,7 @@ If you're migrating from an existing Logstash installation, you can install the 
 1. Pull the Logstash oss package with the OpenSearch output plugin image:
 
     ```
-    docker pull opensearchproject/logstash-oss-with-opensearch-output-plugin:7.13.4
+    docker pull opensearchproject/logstash-oss-with-opensearch-output-plugin:7.16.2
     ```
 
 1. Create a Docker network:
