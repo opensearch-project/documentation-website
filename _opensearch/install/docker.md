@@ -77,6 +77,8 @@ To stop the cluster and delete all data volumes, run:
 docker-compose down -v
 ```
 
+If you're running your cluster in a production environment, be sure to refer to [Important settings]({{site.url}}{{site.baseurl}}/opensearch/install/important-settings) when configuring your machine and cluster.
+{: .note}
 
 #### Sample Docker Compose file
 
@@ -378,7 +380,7 @@ networks:
   opensearch-net:
 ```
 
-The environment variable `"DISABLE_SECURITY_DASHBOARDS_PLUGIN=true"` disables the security dashboards plugin in OpenSearch Dashboards by removing the security dashboards plugin folder, removing all related settings in the `opensearch_dashboards.yml` file, and setting the `opensearch.hosts` entry protocol from HTTPS to HTTP. 
-You can't reverse this step as the security dashboards plugin is removed in the process. 
+The environment variable `"DISABLE_SECURITY_DASHBOARDS_PLUGIN=true"` disables the security dashboards plugin in OpenSearch Dashboards by removing the security dashboards plugin folder, removing all related settings in the `opensearch_dashboards.yml` file, and setting the `opensearch.hosts` entry protocol from HTTPS to HTTP.
+You can't reverse this step as the security dashboards plugin is removed in the process.
 To re-enable security for OpenSearch Dashboards, start a new container and set `DISABLE_SECURITY_DASHBOARDS_PLUGIN` to false or leave it unset.
 {: .note}
