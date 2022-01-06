@@ -22,7 +22,7 @@ The explain API is an expensive operation in terms of both resources and time. O
 To see the explain output for all results, set the `explain` flag to `true` either in the URL or in the body of the request:
 
 ```json
-POST kibana_sample_data_ecommerce/_search?explain=true
+POST opensearch_dashboards_sample_data_ecommerce/_search?explain=true
 {
   "query": {
     "match": {
@@ -35,7 +35,7 @@ POST kibana_sample_data_ecommerce/_search?explain=true
 More often, you want the output for a single document. In that case, specify the document ID in the URL:
 
 ```json
-POST kibana_sample_data_ecommerce/_explain/EVz1Q3sBgg5eWQP6RSte
+POST opensearch_dashboards_sample_data_ecommerce/_explain/EVz1Q3sBgg5eWQP6RSte
 {
   "query": {
     "match": {
@@ -158,6 +158,6 @@ Term frequency (`tf`) | How many times the term appears in a field for a given d
 Inverse document frequency (`idf`) | How often the term appears within the index (across all the documents). The more often the term appears the lower is the relevance score.
 Field normalization factor (`fieldNorm`) | The length of the field. OpenSearch assigns a higher relevance score to a term appearing in a relatively short field.
 
-The `tf`, `idf`, and `fieldNorm` values are calculated and stored at index time when a document is added or updated. The values might have some (typically small) inaccuracies as it’s based on summing the samples returned from each shard.  
+The `tf`, `idf`, and `fieldNorm` values are calculated and stored at index time when a document is added or updated. The values might have some (typically small) inaccuracies as it’s based on summing the samples returned from each shard.
 
 Individual queries include other factors for calculating the relevance score, such as term proximity, fuzziness, and so on.

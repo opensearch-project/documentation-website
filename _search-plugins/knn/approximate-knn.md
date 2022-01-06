@@ -16,13 +16,9 @@ neighbors. Of the three search methods the plugin provides, this method offers t
 data sets. Generally speaking, once the data set gets into the hundreds of thousands of vectors, this approach is 
 preferred.
 
-The k-NN plugin builds a native library index of the vectors for each "knn-vector field"/ "Lucene segment" pair during 
-indexing that can be used to efficiently find the k-nearest neighbors to a query vector during search. To learn more about 
-Lucene segments, see the [Apache Lucene documentation](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/codecs/lucene87/package-summary.html#package.description). 
+The k-NN plugin builds a native library index of the vectors for each "knn-vector field"/ "Lucene segment" pair during indexing that can be used to efficiently find the k-nearest neighbors to a query vector during search. To learn more about Lucene segments, see the [Apache Lucene documentation](https://lucene.apache.org/core/8_11_1/core/org/apache/lucene/codecs/lucene87/package-summary.html#package.description). 
 These native library indices are loaded into native memory during search and managed by a cache. To learn more about
-pre-loading native library indices into memory, refer to the [warmup API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#warmup-operation). 
-Additionally, you can see what native library indices are already loaded in memory, which you can learn more about in the 
-[stats API section]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#stats).
+pre-loading native library indices into memory, refer to the [warmup API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#warmup-operation). Additionally, you can see what native library indices are already loaded in memory, which you can learn more about in the [stats API section]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#stats).
 
 Because the native library indices are constructed during indexing, it is not possible to apply a filter on an index
  and then use this search method. All filters are applied on the results produced by the approximate nearest neighbor 
