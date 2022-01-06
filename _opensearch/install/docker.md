@@ -77,6 +77,8 @@ To stop the cluster and delete all data volumes, run:
 docker-compose down -v
 ```
 
+If you're running your cluster in a production environment, be sure to refer to [Important settings]({{site.url}}{{site.baseurl}}/opensearch/install/important-settings) when configuring your machine and cluster.
+{: .note}
 
 #### Sample Docker Compose file
 
