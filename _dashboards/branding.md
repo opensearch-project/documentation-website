@@ -21,6 +21,8 @@ Doing so replaces the Docker image's default `opensearch_dashboards.yml` with yo
 
 Re-launch OpenSearch Dashboards, and OpenSearch Dashboards now uses your custom elements.
 
+## Branding elements
+
 The following elements in OpenSearch Dashboards are customizable:
 
 ![OpenSearch customizable branding elements]({{site.url}}{{site.baseurl}}/images/dashboards-branding-labels.png)
@@ -89,3 +91,35 @@ applicationTitle: "My custom application"
 ```
 
 We don't recommend this workaround because new versions of Dashboards would revert all customized elements back to default branding elements, and you would have to re-upload your assets to access them again.
+
+## Sample configuration
+
+The following configuration enables the security plugin within OpenSearch Dashboards and uses custom branding elements to replace the OpenSearch logo and application title.
+
+```yml
+server.host: "0"
+opensearch.hosts: ["https://localhost:9200"]
+opensearch.ssl.verificationMode: none
+opensearch.username: "kibanaserver"
+opensearch.password: "kibanaserver"
+opensearch.requestHeadersWhitelist: [ authorization,securitytenant ]
+
+opensearch_security.multitenancy.enabled: true
+opensearch_security.multitenancy.tenants.preferred: ["Private", "Global"]
+opensearch_security.readonly_mode.roles: ["kibana_read_only"]
+# Use this setting if you are running opensearch-dashboards without https
+opensearch_security.cookie.secure: false
+
+opensearchDashboards.branding:
+  logo:
+    defaultUrl: "https://example.com/sample.svg"
+    darkModeUrl: "https://example.com/sample.svg"
+  # mark:
+  #   defaultUrl: ""
+  #   darkModeUrl: ""
+  # loadingLogo:
+  #   defaultUrl: ""
+  #   darkModeUrl: ""
+  # faviconUrl: ""
+  applicationTitle: "Just some testing"
+```
