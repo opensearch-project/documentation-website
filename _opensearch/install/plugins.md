@@ -54,38 +54,18 @@ bin/opensearch-plugin list
   <tr>
     <td>1.2.0</td>
     <td>
-      <pre>analysis-icu                         1.1.0
-analysis-kuromoji                    1.1.0
-analysis-nori                        1.1.0
-analysis-phonetic                    1.1.0
-analysis-smartcn                     1.1.0
-analysis-stempel                     1.1.0
-analysis-ukrainian                   1.1.0
-discovery-azure-classic              1.1.0
-discovery-ec2                        1.1.0
-discovery-gce                        1.1.0
-ingest-attachment                    1.1.0
-mapper-annotated-text                1.1.0
-mapper-murmur3                       1.1.0
-mapper-size                          1.1.0
-opensearch-alerting                  1.2.0.0
+      <pre>opensearch-alerting                  1.2.0.0
 opensearch-anomaly-detection         1.2.0.0
 opensearch-asynchronous-search       1.2.0.0
 opensearch-cross-cluster-replication 1.2.0.0
 opensearch-index-management          1.2.0.0
 opensearch-job-scheduler             1.2.0.0
 opensearch-knn                       1.2.0.0
-opensearch-notebooks                 1.2.0.0
+opensearch-observability             1.2.0.0
 opensearch-performance-analyzer      1.2.0.0
 opensearch-reports-scheduler         1.2.0.0
 opensearch-security                  1.2.0.0
 opensearch-sql                       1.2.0.0
-repository-azure                     1.1.0
-repository-gcs                       1.1.0
-repository-hdfs                      1.1.0
-repository-s3                        1.1.0
-store-smb                            1.1.0
-transport-nio                        1.1.0
 </pre>
 <tr>
   <td>1.1.0</td>
