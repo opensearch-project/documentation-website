@@ -73,6 +73,14 @@ func main() {
         Body:  mapping,
     }
     fmt.Println("creating index", res)
+    
+    createIndexResp, err := res.Do(context.Background(), client)
+    if err != nil {
+        fmt.Println("failed to create index ", err)
+        os.Exit(1)
+    }
+    
+    fmt.Println(createIndexResp)
 
     // Add a document to the index.
     document := strings.NewReader(`{
