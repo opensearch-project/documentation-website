@@ -144,3 +144,27 @@ output {
     - Instance profile credentials delivered through the Amazon EC2 metadata service
 - template (path) - You can set the path to your own template here, if you so desire. If not set, the included template will be used.
 - template_name (string, default => "logstash") - defines how the template is named inside Opensearch
+
+## Data streams
+
+The OpenSearch output plugin can store both time series datasets (such as logs, events, and metrics) and non-time series data in OpenSearch.
+The data stream is recommended to index time series datasets (such as logs, metrics, and events) into OpenSearch.
+
+To know more about data streams, refer to this [documentation](https://opensearch.org/docs/latest/opensearch/data-streams/).
+
+We can ingest data into a data stream through logstash. We need to create the data stream and specify the name of data stream and the `op_type` of `create` in the output configuration. The sample configuration is shown below:
+
+```yml
+output {    
+    opensearch {        
+          hosts  => ["https://hostname:port"]     
+          auth_type => {            
+              type => 'basic'           
+              user => 'admin'           
+              password => 'admin'           
+          }
+          index => "my-data-stream"
+          action => "create"
+   }            
+}               
+```
