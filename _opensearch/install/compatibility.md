@@ -12,7 +12,7 @@ nav_order: 2
 
 {% comment %}`./jdk/bin/java -version` doesn't work on macOS with zsh at the moment, and I have no idea why. Maybe we need a macOS artifact. Regardless, the command works on Amazon Linux 2 with bash and presumably other distros. - aetter{% endcomment %}
 
-  To use a different Java installation, set the `OPENSEARCH_JAVA_HOME` environment variable to the Java install location. We recommend Java 11 (LTS), but OpenSearch also works with Java 8.
+  To use a different Java installation, set the `JAVA_HOME` environment variable to the Java install location. We recommend Java 11 (LTS), but OpenSearch also works with Java 8.
 
 OpenSearch version | Compatible Java versions | Recommended operating systems
 :--- | :--- | :---
