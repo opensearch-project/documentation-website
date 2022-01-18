@@ -31,6 +31,8 @@ Later, the user `psantos` wants to edit the monitor to run every two hours, but 
 
 After making the change, the monitor now runs with the same permissions as `psantos`, including any [document-level security]({{site.url}}{{site.baseurl}}/security-plugin/access-control/document-level-security/) queries, [excluded fields]({{site.url}}{{site.baseurl}}/security-plugin/access-control/field-level-security/), and [masked fields]({{site.url}}{{site.baseurl}}/security-plugin/access-control/field-masking/). If you use an extraction query to define your monitor, use the **Run** button to ensure that the response includes the fields you need.
 
+Once a monitor is created, the Alerting plugin will continue executing the monitor, even if the user who created the monitor has write access permissions removed. To stop a monitor, a user with at least `alerting_write_access` permissions must manually disable or delete the monitor. This rule applies to all types of monitors, regardless of destination or any other setting.
+{: .note}
 
 ## (Advanced) Limit access by backend role
 
@@ -54,7 +56,6 @@ Now when users view alerting resources in OpenSearch Dashboards (or make REST AP
 `jdoe` and `jroe` are on the same team at work and both have the `analyst` backend role. `psantos` has the `human-resources` backend role.
 
 If `jdoe` creates a monitor, `jroe` can see and modify it, but `psantos` can't. If that monitor generates an alert, the situation is the same: `jroe` can see and acknowledge it, but `psantos` can't. If `psantos` creates a destination, `jdoe` and `jroe` can't see or modify it.
-
 
 <!-- ## (Advanced) Limit access by individual
 
