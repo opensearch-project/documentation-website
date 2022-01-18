@@ -31,8 +31,9 @@ Later, the user `psantos` wants to edit the monitor to run every two hours, but 
 
 After making the change, the monitor now runs with the same permissions as `psantos`, including any [document-level security]({{site.url}}{{site.baseurl}}/security-plugin/access-control/document-level-security/) queries, [excluded fields]({{site.url}}{{site.baseurl}}/security-plugin/access-control/field-level-security/), and [masked fields]({{site.url}}{{site.baseurl}}/security-plugin/access-control/field-masking/). If you use an extraction query to define your monitor, use the **Run** button to ensure that the response includes the fields you need.
 
-Once a monitor is created, the Alerting plugin will continue executing the monitor, even if the user who created the monitor has write access permissions removed. To stop a monitor, a user with at least `alerting_write_access` permissions must manually disable or delete the monitor. This rule applies to all types of monitors, regardless of destination or any other setting. If your monitor's trigger has alerts configured, the Alerting plugin continues to send out alerts unless the trigger's action is manually deleted.
-{: .note}
+Once a monitor is created, the Alerting plugin will continue executing the monitor, even if the user who created the monitor has write access permissions removed. To stop a monitor, a user with at least `alerting_write_access` permissions must manually disable or delete the monitor. This rule applies to all types of monitors, regardless of destination or any other setting.
+
+If your monitor's trigger has alerts configured, the Alerting plugin continues to send out alerts regardless of destination type. To stop alerts, the trigger's action must be manually deleted or disabled.
 
 ## (Advanced) Limit access by backend role
 
