@@ -52,7 +52,7 @@ plugins.security.nodes_dn:
   ```
 ## Example setup
 
-Save this sample file as `docker-compose.yml` and run `docker-compose up` to start two single-node clusters on the same network:
+To start two single-node clusters on the same network, save this sample file as `docker-compose.yml` and run `docker-compose up`:
 
 ```yml
 version: '3'
