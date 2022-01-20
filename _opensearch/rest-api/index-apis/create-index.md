@@ -47,7 +47,7 @@ PUT <index-name>
 
 ## Index naming restrictions
 
-OpenSearch indices have the following naming restrictions:
+OpenSearch indexes have the following naming restrictions:
 
 - All letters must be lowercase.
 - Index names can't begin with underscores (`_`) or hyphens (`-`).
