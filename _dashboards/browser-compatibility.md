@@ -1,7 +1,6 @@
 ---
 layout: default
 title: Browser compatibility
-parent: OpenSearch Dashboards
 nav_order: 3
 ---
 

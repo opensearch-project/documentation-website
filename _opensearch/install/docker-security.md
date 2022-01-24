@@ -86,7 +86,7 @@ services:
       - ./action_groups.yml:/usr/share/opensearch/plugins/opensearch-security/securityconfig/action_groups.yml
     networks:
       - opensearch-net
-  opensearch-dashboards
+  opensearch-dashboards:
     image: opensearchproject/opensearch-dashboards:{{site.opensearch_dashboards_version}}
     container_name: opensearch-dashboards
     ports:
