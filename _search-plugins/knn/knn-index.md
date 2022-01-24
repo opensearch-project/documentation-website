@@ -184,7 +184,7 @@ The memory required for HNSW is estimated to be `1.1 * (4 * dimension + 8 * M)` 
 As an example, assume you have a million vectors with a dimension of 256 and M of 16. The memory requirement can be estimated as follows:
 
 ```
-1.1 * (4 *256 + 8 * 16) * 1,000,000 ~= 1.26 GB
+1.1 * (4 * 256 + 8 * 16) * 1,000,000 ~= 1.267 GB
 ```
 
 #### IVF memory estimation
@@ -194,7 +194,7 @@ The memory required for IVF is estimated to be `1.1 * (((4 * dimension) * num_ve
 As an example, assume you have a million vectors with a dimension of 256 and nlist of 128. The memory requirement can be estimated as follows:
 
 ```
-1.1 * (((4 * 128) * 1000000) + (4 * 128 * 256))  ~= 563 MB
+1.1 * (((4 * 256) * 1,000,000) + (4 * 128 * 256))  ~= 1.126 GB
 
 ```
 
