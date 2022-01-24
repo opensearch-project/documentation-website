@@ -34,11 +34,13 @@ After you assess all these requirements, we recommend you use a benchmark testin
 
 This page demonstrates how to work with the different node types. It assumes that you have a four-node cluster similar to the preceding illustration.
 
+
 ## Prerequisites
 
 Before you get started, you must install and configure OpenSearch on all of your nodes. For information about the available options, see [Install and configure OpenSearch]({{site.url}}{{site.baseurl}}/opensearch/install/).
 
 After you're done, use SSH to connect to each node, then open the `config/opensearch.yml` file. You can set all configurations for your cluster in this file.
+
 
 ## Step 1: Name a cluster
 
@@ -72,23 +74,12 @@ Give your master node a name. If you don't specify a name, OpenSearch assigns a 
 node.name: opensearch-master
 ```
 
-You can also explicitly specify that this node is a master node. This is already true by default, but adding it makes it easier to identify the master node:
+You can also explicitly specify that this node is a master node. This is already true by default, but adding it makes it easier to identify the master node.
 
 ```yml
-node.master: true
+node.roles: [ master ]
 ```
 
-Then make the node a dedicated master that won’t perform double-duty as a data node:
-
-```yml
-node.data: false
-```
-
-Specify that this node will not be used for ingesting data:
-
-```yml
-node.ingest: false
-```
 
 #### Data nodes
 
@@ -104,12 +95,11 @@ node.name: opensearch-d2
 You can make them master-eligible data nodes that will also be used for ingesting data:
 
 ```yml
-node.master: true
-node.data: true
-node.ingest: true
+node.roles: [ data, ingest ]
 ```
 
 You can also specify any other attributes that you'd like to set for the data nodes.
+
 
 #### Coordinating node
 
@@ -119,13 +109,12 @@ Change the name of the coordinating node to `opensearch-c1`:
 node.name: opensearch-c1
 ```
 
-Every node is a coordinating node by default, so to make this node a dedicated coordinating node, set `node.master`, `node.data`, and `node.ingest` to `false`:
+Every node is a coordinating node by default, so to make this node a dedicated coordinating node, set `node.roles` to an empty list:
 
 ```yml
-node.master: false
-node.data: false
-node.ingest: false
+node.roles: []
 ```
+
 
 ## Step 3: Bind a cluster to specific IP addresses
 
@@ -140,7 +129,6 @@ To form a multi-node cluster, specify the IP address of the node:
 ```yml
 network.host: <IP address of the node>
 ```
-
 
 Make sure to configure these settings on all of your nodes.
 
