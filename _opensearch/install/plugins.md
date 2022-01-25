@@ -52,6 +52,78 @@ bin/opensearch-plugin list
   </thead>
   <tbody>
   <tr>
+  <tr>
+    <td>1.2.4</td>
+    <td>
+      <pre>opensearch-alerting                  1.2.4.0
+opensearch-anomaly-detection         1.2.4.0
+opensearch-asynchronous-search       1.2.4.0
+opensearch-cross-cluster-replication 1.2.4.0
+opensearch-index-management          1.2.4.0
+opensearch-job-scheduler             1.2.4.0
+opensearch-knn                       1.2.4.0
+opensearch-observability             1.2.4.0
+opensearch-performance-analyzer      1.2.4.0
+opensearch-reports-scheduler         1.2.4.0
+opensearch-security                  1.2.4.0
+opensearch-sql                       1.2.4.0
+</pre>
+</td>
+</tr>
+    <td>1.2.3</td>
+    <td>
+      <pre>opensearch-alerting                  1.2.3.0
+opensearch-anomaly-detection         1.2.3.0
+opensearch-asynchronous-search       1.2.3.0
+opensearch-cross-cluster-replication 1.2.3.0
+opensearch-index-management          1.2.3.0
+opensearch-job-scheduler             1.2.3.0
+opensearch-knn                       1.2.3.0
+opensearch-observability             1.2.3.0
+opensearch-performance-analyzer      1.2.3.0
+opensearch-reports-scheduler         1.2.3.0
+opensearch-security                  1.2.3.0
+opensearch-sql                       1.2.3.0
+</pre>
+</td>
+</tr>
+  <tr>
+    <td>1.2.2</td>
+    <td>
+      <pre>opensearch-alerting                  1.2.2.0
+opensearch-anomaly-detection         1.2.2.0
+opensearch-asynchronous-search       1.2.2.0
+opensearch-cross-cluster-replication 1.2.2.0
+opensearch-index-management          1.2.2.0
+opensearch-job-scheduler             1.2.2.0
+opensearch-knn                       1.2.2.0
+opensearch-observability             1.2.2.0
+opensearch-performance-analyzer      1.2.2.0
+opensearch-reports-scheduler         1.2.2.0
+opensearch-security                  1.2.2.0
+opensearch-sql                       1.2.2.0
+</pre>
+</td>
+</tr>
+  <tr>
+    <td>1.2.1</td>
+    <td>
+      <pre>opensearch-alerting                  1.2.1.0
+opensearch-anomaly-detection         1.2.1.0
+opensearch-asynchronous-search       1.2.1.0
+opensearch-cross-cluster-replication 1.2.1.0
+opensearch-index-management          1.2.1.0
+opensearch-job-scheduler             1.2.1.0
+opensearch-knn                       1.2.1.0
+opensearch-observability             1.2.1.0
+opensearch-performance-analyzer      1.2.1.0
+opensearch-reports-scheduler         1.2.1.0
+opensearch-security                  1.2.1.0
+opensearch-sql                       1.2.1.0
+</pre>
+</td>
+</tr>
+  <tr>
     <td>1.2.0</td>
     <td>
       <pre>opensearch-alerting                  1.2.0.0
@@ -67,6 +139,8 @@ opensearch-reports-scheduler         1.2.0.0
 opensearch-security                  1.2.0.0
 opensearch-sql                       1.2.0.0
 </pre>
+</td>
+</tr>
 <tr>
   <td>1.1.0</td>
   <td>
@@ -83,8 +157,6 @@ opensearch-reports-scheduler         1.1.0.0
 opensearch-security                  1.1.0.0
 opensearch-sql                       1.1.0.0
 </pre>
-  </td>
-</tr>
     </td>
   </tr>
   <tr>
