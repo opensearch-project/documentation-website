@@ -180,7 +180,7 @@ services:
     volumes:
       - opensearch-data2:/usr/share/opensearch/data
       - ./custom-opensearch.yml:/usr/share/opensearch/config/opensearch.yml
-  opensearch-dashboards
+  opensearch-dashboards:
     volumes:
       - ./custom-opensearch_dashboards.yml:/usr/share/opensearch-dashboards/config/opensearch_dashboards.yml
 ```
