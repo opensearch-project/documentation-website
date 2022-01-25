@@ -21,7 +21,7 @@ This page lists all full-text query types and common options. Given the sheer nu
 
 ## Match
 
-Creates a [boolean query](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/BooleanQuery.html) that returns results if the search term is present in the field.
+Creates a [boolean query](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/BooleanQuery.html) that returns results if the search term is present in the field.
 
 The most basic form of the query provides only a field (`title`) and a term (`wind`):
 
@@ -126,7 +126,7 @@ GET _search
 
 ## Match boolean prefix
 
-Similar to [match](#match), but creates a [prefix query](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/PrefixQuery.html) out of the last term in the query string.
+Similar to [match](#match), but creates a [prefix query](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/PrefixQuery.html) out of the last term in the query string.
 
 ```json
 GET _search
@@ -164,7 +164,7 @@ GET _search
 
 ## Match phrase
 
-Creates a [phrase query](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/PhraseQuery.html) that matches a sequence of terms.
+Creates a [phrase query](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/PhraseQuery.html) that matches a sequence of terms.
 
 ```json
 GET _search
@@ -198,7 +198,7 @@ GET _search
 
 ## Match phrase prefix
 
-Similar to [match phrase](#match-phrase), but creates a [prefix query](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/PrefixQuery.html) out of the last term in the query string.
+Similar to [match phrase](#match-phrase), but creates a [prefix query](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/PrefixQuery.html) out of the last term in the query string.
 
 ```json
 GET _search
@@ -410,7 +410,7 @@ Option | Valid values | Description
 `allow_leading_wildcard` | Boolean | Whether `*` and `?` are allowed as the first character of a search term. The default is true.
 `analyze_wildcard` | Boolean | Whether OpenSearch should attempt to analyze wildcard terms. Some analyzers do a poor job at this task, so the default is false.
 `analyzer` | `standard, simple, whitespace, stop, keyword, pattern, <language>, fingerprint` | The analyzer you want to use for the query. Different analyzers have different character filters, tokenizers, and token filters. The `stop` analyzer, for example, removes stop words (e.g. "an," "but," "this") from the query string.
-`auto_generate_synonyms_phrase_query` | Boolean | A value of true (default) automatically generates [phrase queries](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/PhraseQuery.html) for multi-term synonyms. For example, if you have the synonym `"ba, batting average"` and search for "ba," OpenSearch searches for `ba OR "batting average"` (if this option is true) or `ba OR (batting AND average)` (if this option is false).
+`auto_generate_synonyms_phrase_query` | Boolean | A value of true (default) automatically generates [phrase queries](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/PhraseQuery.html) for multi-term synonyms. For example, if you have the synonym `"ba, batting average"` and search for "ba," OpenSearch searches for `ba OR "batting average"` (if this option is true) or `ba OR (batting AND average)` (if this option is false).
 `boost` | Floating-point | Boosts the clause by the given multiplier. Useful for weighing clauses in compound queries. The default is 1.0.
 `cutoff_frequency` | Between `0.0` and `1.0` or a positive integer | This value lets you define high and low frequency terms based on number of occurrences in the index. Numbers between 0 and 1 are treated as a percentage. For example, 0.10 is 10%. This value means that if a word occurs within the search field in more than 10% of the documents on the shard, OpenSearch considers the word "high frequency" and deemphasizes it when calculating search score.<br /><br />Because this setting is *per shard*, testing its impact on search results can be challenging unless a cluster has many documents.
 `enable_position_increments` | Boolean | When true, result queries are aware of position increments. This setting is useful when the removal of stop words leaves an unwanted "gap" between terms. The default is true.
@@ -420,7 +420,7 @@ Option | Valid values | Description
 `fuzzy_transpositions` | Boolean | Setting `fuzzy_transpositions` to true (default) adds swaps of adjacent characters to the insert, delete, and substitute operations of the `fuzziness` option. For example, the distance between `wind` and `wnid` is 1 if `fuzzy_transpositions` is true (swap "n" and "i") and 2 if it is false (delete "n", insert "n"). <br /><br />If `fuzzy_transpositions` is false, `rewind` and `wnid` have the same distance (2) from `wind`, despite the more human-centric opinion that `wnid` is an obvious typo. The default is a good choice for most use cases.
 `lenient` | Boolean | Setting `lenient` to true lets you ignore data type mismatches between the query and the document field. For example, a query string of "8.2" could match a field of type `float`. The default is false.
 `low_freq_operator` | `and, or` | The operator for low-frequency terms. The default is `or`. See [Common terms](#common-terms) queries and `operator` in this table.
-`max_determinized_states` | Positive integer | The maximum number of "[states](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/util/automaton/Operations.html#DEFAULT_MAX_DETERMINIZED_STATES)" (a measure of complexity) that Lucene can create for query strings that contain regular expressions (e.g. `"query": "/wind.+?/"`). Larger numbers allow for queries that use more memory. The default is 10,000.
+`max_determinized_states` | Positive integer | The maximum number of "[states](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/util/automaton/Operations.html#DEFAULT_MAX_DETERMINIZED_STATES)" (a measure of complexity) that Lucene can create for query strings that contain regular expressions (e.g. `"query": "/wind.+?/"`). Larger numbers allow for queries that use more memory. The default is 10,000.
 `max_expansions` | Positive integer | Fuzzy queries "expand to" a number of matching terms that are within the distance specified in `fuzziness`. Then OpenSearch tries to match those terms against its indices. `max_expansions` specifies the maximum number of terms that the fuzzy query expands to. The default is 50.
 `minimum_should_match` | Positive or negative integer, positive or negative percentage, combination | If the query string contains multiple search terms and you used the `or` operator, the number of terms that need to match for the document to be considered a match. For example, if `minimum_should_match` is 2, "wind often rising" does not match "The Wind Rises." If `minimum_should_match` is 1, it matches. This option also has `low_freq` and `high_freq` properties for [Common terms](#common-terms) queries.
 `operator` | `or, and` | If the query string contains multiple search terms, whether all terms need to match (`and`) or only one term needs to match (`or`) for a document to be considered a match.
@@ -428,7 +428,7 @@ Option | Valid values | Description
 `prefix_length` | `0` (default) or a positive integer | The number of leading characters that are not considered in fuzziness.
 `quote_field_suffix` | String | This option lets you search different fields depending on whether terms are wrapped in quotes. For example, if `quote_field_suffix` is `".exact"` and you search for `"lightly"` (in quotes) in the `title` field, OpenSearch searches the `title.exact` field. This second field might use a different type (e.g. `keyword` rather than `text`) or a different analyzer. The default is null.
 `rewrite` | `constant_score, scoring_boolean, constant_score_boolean, top_terms_N, top_terms_boost_N, top_terms_blended_freqs_N` | Determines how OpenSearch rewrites and scores multi-term queries. The default is `constant_score`.
-`slop` | `0` (default) or a positive integer | Controls the degree to which words in a query can be misordered and still be considered a match. From the [Lucene documentation](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/PhraseQuery.html#getSlop--): "The number of other words permitted between words in query phrase. For example, to switch the order of two words requires two moves (the first move places the words atop one another), so to permit re-orderings of phrases, the slop must be at least two. A value of zero requires an exact match."
+`slop` | `0` (default) or a positive integer | Controls the degree to which words in a query can be misordered and still be considered a match. From the [Lucene documentation](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/PhraseQuery.html#getSlop--): "The number of other words permitted between words in query phrase. For example, to switch the order of two words requires two moves (the first move places the words atop one another), so to permit re-orderings of phrases, the slop must be at least two. A value of zero requires an exact match."
 `tie_breaker` | `0.0` (default) to `1.0` | Changes the way OpenSearch scores searches. For example, a `type` of `best_fields` typically uses the highest score from any one field. If you specify a `tie_breaker` value between 0.0 and 1.0, the score changes to highest score + `tie_breaker` * score for all other matching fields. If you specify a value of 1.0, OpenSearch adds together the scores for all matching fields (effectively defeating the purpose of `best_fields`).
 `time_zone` | UTC offset | The time zone to use (e.g. `-08:00`) if the query string contains a date range (e.g. `"query": "wind rises release_date[2012-01-01 TO 2014-01-01]"`). The default is `UTC`.
 `type` | `best_fields, most_fields, cross-fields, phrase, phrase_prefix` | Determines how OpenSearch executes the query and scores the results. The default is `best_fields`.

@@ -11,33 +11,28 @@ has_children: false
 ## knn_vector data type
 
 The k-NN plugin introduces a custom data type, the `knn_vector`, that allows users to ingest their k-NN vectors
-into an OpenSearch index and perform different kinds of k-NN search. The `knn_vector` field is highly configurable and 
-can serve many different k-NN workloads. In general, a `knn_vector` field can be built either by providing a method 
-definition or specifying a model id.
+into an OpenSearch index and perform different kinds of k-NN search. The `knn_vector` field is highly configurable and can serve many different k-NN workloads. In general, a `knn_vector` field can be built either by providing a method definition or specifying a model id.
 
-Method definitions are used when the underlying Approximate k-NN algorithm does not 
-require training. For example, the following `knn_vector` field specifies that *nmslib*'s implementation of *hnsw* 
-should be used for Approximate k-NN search. During indexing, *nmslib* will build the corresponding *hnsw* segment 
-files.
+Method definitions are used when the underlying Approximate k-NN algorithm does not require training. For example, the following `knn_vector` field specifies that *nmslib*'s implementation of *hnsw* should be used for Approximate k-NN search. During indexing, *nmslib* will build the corresponding *hnsw* segment files.
 
 ```json
 "my_vector": {
   "type": "knn_vector",
   "dimension": 4,
   "method": {
-    "name": "hnsw",
-    "space_type": "l2",
-    "engine": "nmslib",
-    "parameters": {
-      "ef_construction": 128,
-      "m": 24
-    }
+  "name": "hnsw",
+  "space_type": "l2",
+  "engine": "nmslib",
+  "parameters": {
+    "ef_construction": 128,
+    "m": 24
+  }
   }
 }
-```   
- 
-Model id's are used when the underlying Approximate k-NN algorithm requires a training step. As a prerequisite, the 
-model has to be created with the [Train API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#train-model). The 
+```
+
+Model IDs are used when the underlying Approximate k-NN algorithm requires a training step. As a prerequisite, the
+model has to be created with the [Train API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#train-model). The
 model contains the information needed to initialize the native library segment files.
 
 ```json
@@ -55,13 +50,10 @@ However, if you intend to just use painless scripting or a k-NN score script, yo
 
 ## Method Definitions
 
-A method definition refers to the underlying configuration of the Approximate k-NN algorithm you want to use. Method 
-definitions are used to either create a `knn_vector` field (when the method does not require training) or 
-[create a model during training]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#train-model) that can then be 
-used to [create a `knn_vector` field]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/#building-a-k-nn-index-from-a-model).
+A method definition refers to the underlying configuration of the Approximate k-NN algorithm you want to use. Method definitions are used to either create a `knn_vector` field (when the method does not require training) or [create a model during training]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#train-model) that can then be used to [create a `knn_vector` field]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/#building-a-k-nn-index-from-a-model).
 
-A method definition will always contain the name of the method, the space_type the method is built for, the engine 
-(the native library) to use, and a map of parameters.  
+A method definition will always contain the name of the method, the space_type the method is built for, the engine
+(the native library) to use, and a map of parameters.
 
 Mapping Parameter | Required | Default | Updatable | Description
 :--- | :--- | :--- | :--- | :---
@@ -107,45 +99,46 @@ Paramater Name | Required | Default | Updatable | Description
 
 Paramater Name | Required | Default | Updatable | Description
 :--- | :--- | :--- | :--- | :---
-`nlists` | false | 4 | false | Number of buckets to partition vectors into. Higher values may lead to more accurate searches, at the expense of memory and training latency. For more information about choosing the right value, refer to [*faiss*'s documentation](https://github.com/facebookresearch/faiss/wiki/Guidelines-to-choose-an-index). 
-`nprobes` | false | 1 | false | Number of buckets to search over during query. Higher values lead to more accurate but slower searches. 
+`nlists` | false | 4 | false | Number of buckets to partition vectors into. Higher values may lead to more accurate searches, at the expense of memory and training latency. For more information about choosing the right value, refer to [*faiss*'s documentation](https://github.com/facebookresearch/faiss/wiki/Guidelines-to-choose-an-index).
+`nprobes` | false | 1 | false | Number of buckets to search over during query. Higher values lead to more accurate but slower searches.
 `encoder` | false | flat | false | Encoder definition for encoding vectors. Encoders can reduce the memory footprint of your index, at the expense of search accuracy.
 
 For more information about setting these parameters, please refer to [*faiss*'s documentation](https://github.com/facebookresearch/faiss/wiki/Faiss-indexes).
 
 #### IVF training requirements
 
-The IVF algorithm requires a training step. To create an index that uses IVF, you need to train a model with the 
-[Train API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#train-model), passing the IVF method definition. IVF requires that, at a minimum, there should be `nlist` training 
-data points, but it is [recommended to use more](https://github.com/facebookresearch/faiss/wiki/Guidelines-to-choose-an-index#how-big-is-the-dataset). 
+The IVF algorithm requires a training step. To create an index that uses IVF, you need to train a model with the
+[Train API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#train-model), passing the IVF method definition. IVF requires that, at a minimum, there should be `nlist` training
+data points, but it is [recommended to use more](https://github.com/facebookresearch/faiss/wiki/Guidelines-to-choose-an-index#how-big-is-the-dataset).
 Training data can either the same data that is going to be ingested or a separate set of data.
 
 ### Supported faiss encoders
 
-Encoders can be used to reduce the memory footprint of a k-NN index at the expense of search accuracy. *faiss* has 
-several different encoder types, but currently, the plugin only supports *flat* and *pq* encoding.
+You can use encoders to reduce the memory footprint of a k-NN index at the expense of search accuracy. *faiss* has
+several encoder types, but currently, the plugin only supports *flat* and *pq* encoding.
 
 An example method definition that specifies an encoder may look something like this:
+
 ```json
 "method": {
-    "name":"hnsw",
-    "engine":"faiss",
-    "parameters":{
-        "encoder":{
-            "name":"pq",
-            "parameters":{
-              "code_size": 8,
-              "m": 8
-            }
-        }
+  "name":"hnsw",
+  "engine":"faiss",
+  "parameters":{
+    "encoder":{
+      "name":"pq",
+      "parameters":{
+        "code_size": 8,
+        "m": 8
+      }
     }
+  }
 }
 ```
 
 Encoder Name | Requires Training? | Description
 :--- | :--- | :---
 `flat` | false | Encode vectors as floating point arrays. This encoding does not reduce memory footprint.
-`pq` | true | Short for product quantization, it is a lossy compression technique that encodes a vector into a fixed size of bytes using clustering, with the goal of minimizing the drop in k-NN search accuracy. From a high level, vectors are broken up into `m` subvectors, and then each subvector is represented by a `code_size` code obtained from a code book produced during training. For more details on product quantization, here is a [great blog post](https://medium.com/dotstar/understanding-faiss-part-2-79d90b1e5388)!  
+`pq` | true | Short for product quantization, it is a lossy compression technique that encodes a vector into a fixed size of bytes using clustering, with the goal of minimizing the drop in k-NN search accuracy. From a high level, vectors are broken up into `m` subvectors, and then each subvector is represented by a `code_size` code obtained from a code book produced during training. For more details on product quantization, here is a [great blog post](https://medium.com/dotstar/understanding-faiss-part-2-79d90b1e5388)!
 
 #### PQ Parameters
 
@@ -156,22 +149,18 @@ Paramater Name | Required | Default | Updatable | Description
 
 ### Choosing the right method
 
-There are a lot of options to choose from when building your `knn_vector` field. To determine the correct methods and 
-parameters to choose, you should first understand what requirements you have for your workload and what trade-offs you 
-are willing to make. Factors to consider are (1) query latency, (2) query quality, (3) memory limits, 
-(4) indexing latency. 
+There are a lot of options to choose from when building your `knn_vector` field. To determine the correct methods and parameters to choose, you should first understand what requirements you have for your workload and what trade-offs you are willing to make. Factors to consider are (1) query latency, (2) query quality, (3) memory limits, (4) indexing latency.
 
 If memory is not a concern, HNSW offers a very strong query latency/query quality tradeoff.
 
 If you want to use less memory and index faster than HNSW, while maintaining similar query quality, you should evaluate IVF.
 
-If memory is a concern, consider adding a PQ encoder to your HNSW or IVF index. Because PQ is a lossy encoding, query 
-quality will drop.
+If memory is a concern, consider adding a PQ encoder to your HNSW or IVF index. Because PQ is a lossy encoding, query quality will drop.
 
 ### Memory Estimation
 
-In a typical OpenSearch cluster, a certain portion of RAM is set aside for the JVM heap. The k-NN plugin allocates 
-native library indices to a portion of the remaining RAM. This portion's size is determined by 
+In a typical OpenSearch cluster, a certain portion of RAM is set aside for the JVM heap. The k-NN plugin allocates
+native library indices to a portion of the remaining RAM. This portion's size is determined by
 the `circuit_breaker_limit` cluster setting. By default, the limit is set at 50%.
 
 Having a replica doubles the total number of vectors.
@@ -202,10 +191,7 @@ As an example, assume you have a million vectors with a dimension of 256 and nli
 
 Additionally, the k-NN plugin introduces several index settings that can be used to configure the k-NN structure as well.
 
-At the moment, several parameters defined in the settings are in the deprecation process. Those parameters should be set
-in the mapping instead of the index settings. Parameters set in the mapping will override the parameters set in the
-index settings. Setting the parameters in the mapping allows an index to have multiple `knn_vector` fields with
-different parameters.
+At the moment, several parameters defined in the settings are in the deprecation process. Those parameters should be set in the mapping instead of the index settings. Parameters set in the mapping will override the parameters set in the index settings. Setting the parameters in the mapping allows an index to have multiple `knn_vector` fields with different parameters.
 
 Setting | Default | Updateable | Description
 :--- | :--- | :--- | :---
