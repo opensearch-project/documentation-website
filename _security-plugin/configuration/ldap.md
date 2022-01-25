@@ -540,7 +540,7 @@ authz:
 
 ### (Advanced) Configuring multiple user and role bases
 
-If you need to configure multiple user bases in authc and/or authz section, this can be done using below syntax:
+To configure multiple user bases in the authc and/or authz section, use the following syntax:
 
 ```yml
         ...
@@ -557,7 +557,7 @@ If you need to configure multiple user bases in authc and/or authz section, this
         ...
 ```
 
-Similarly, multiple role bases in authz section can be configured with:
+Similarly, use the following setup to configure multiple role bases in the authz section:
 
 ```yml
         ...
