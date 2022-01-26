@@ -46,8 +46,8 @@ allow_no_indices | Boolean | Whether to ignore wildcards that don’t match any 
 expand_wildcards | String | Expands wildcard expressions to different indices. Combine multiple values with commas. Available values are `all` (match all indices), `open` (match open indices), `closed` (match closed indices), `hidden` (match hidden indices), and `none` (do not accept wildcard expressions), which must be used with `open`, `closed`, or both. Default is `open`.
 ignore_unavailable | Boolean | If true, OpenSearch does not include missing or closed indices in the response.
 master_timeout | Time | How long to wait for a connection to the master node. Default is `30s`.
-timeout | Time | How long to wait for the response to return. Default is `30s`.
-write_index_only | Boolean | Whether OpenSearch should add the mapping only to the write index.
+timeout | Time | How long to wait for a response from the cluster. Default is `30s`.
+write_index_only | Boolean | Whether OpenSearch should add the mapping only to write indexes. If false, OpenSearch can add the mapping to all indexes with the same alias. See [alias]({{site.url}}{{site.baseurl}}/opensearch/rest-api/alias/#request-body) for more information. Default is false.
 
 ## Request body
 
