@@ -2,7 +2,7 @@
 layout: default
 title: Cluster health
 parent: REST API reference
-nav_order: 15
+nav_order: 55
 ---
 
 # Cluster health

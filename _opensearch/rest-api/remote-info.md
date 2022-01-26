@@ -2,7 +2,7 @@
 layout: default
 title: Remote cluster information
 parent: REST API reference
-nav_order: 25
+nav_order: 70
 ---
 
 # Remote cluster information

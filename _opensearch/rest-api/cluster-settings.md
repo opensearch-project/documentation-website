@@ -2,7 +2,7 @@
 layout: default
 title: Cluster settings
 parent: REST API reference
-nav_order: 20
+nav_order: 60
 ---
 
 # Cluster settings

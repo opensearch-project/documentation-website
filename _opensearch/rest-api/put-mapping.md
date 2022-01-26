@@ -1,23 +1,20 @@
 ---
 layout: default
-title: Update mapping
+title: Put mapping
 parent: REST API reference
-nav_order: 35
+nav_order: 30
 ---
 
-# Update mapping
+# Put mapping
 Introduced 1.0
 {: .label .label-purple }
 
-If you want to update an index's mappings to add or update field types after index creation, you can do so with the update mapping API operation.
-
-Note that you cannot use this operation to update mappings that already map to existing data in the index. You must first create a new index with your desired mappings, and then use the [reindex API operation]({{site.url}}{{site.baseurl}}/opensearch/reindex-data) to map all the documents from your old index to the new index. If you don't want any downtime while reindexing your indices, you can use [aliases]({{site.url}}{{site.baseurl}}/opensearch/index-alias).
+The put mapping API operation lets you add new mappings and fields to an index.
 
 ## Example
 
 ```json
 PUT /sample-index/_mapping
-
 {
   "properties": {
     "age": {
@@ -35,30 +32,26 @@ PUT /sample-index/_mapping
 
 ```
 PUT /<target-index>/_mapping
-```
-
-You can also use the update mapping operation to update multiple indices with one request.
-
-```
-PUT /<target-index1>,<target-index2>/_mapping
+PUT /_mapping
 ```
 
 ## URL parameters
 
-All update mapping parameters are optional.
+All put mapping parameters are optional.
 
 Parameter | Data Type | Description
 :--- | :--- | :---
+&lt;target-index&gt; | Data Type | The index to add the mapping to. If you do not specify this parameter, OpenSearch adds the mapping to all indices within the cluster.
 allow_no_indices | Boolean | Whether to ignore wildcards that don’t match any indices. Default is `true`.
 expand_wildcards | String | Expands wildcard expressions to different indices. Combine multiple values with commas. Available values are `all` (match all indices), `open` (match open indices), `closed` (match closed indices), `hidden` (match hidden indices), and `none` (do not accept wildcard expressions), which must be used with `open`, `closed`, or both. Default is `open`.
 ignore_unavailable | Boolean | If true, OpenSearch does not include missing or closed indices in the response.
 master_timeout | Time | How long to wait for a connection to the master node. Default is `30s`.
 timeout | Time | How long to wait for the response to return. Default is `30s`.
-write_index_only | Boolean | Whether OpenSearch should apply mapping updates only to the write index.
+write_index_only | Boolean | Whether OpenSearch should add the mapping only to the write index.
 
 ## Request body
 
-The request body must contain `properties`, which has all of the mappings that you want to update.
+The request body must contain the `properties` object, which has all of the mappings that you want to add.
 
 ```json
 {

@@ -2,7 +2,7 @@
 layout: default
 title: Alias
 parent: REST API reference
-nav_order: 5
+nav_order: 20
 ---
 
 # Alias
