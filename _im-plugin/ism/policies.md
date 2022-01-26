@@ -57,7 +57,7 @@ Field | Description | Type | Required
 
 Actions are the steps that the policy sequentially executes on entering a specific state.
 
-They are executed in the order in which they are defined.
+ISM executes actions in the order in which they are defined. For example, if you define actions: [A,B,C,D], ISM executes A and then enters into a timeout period. After the timeout period is over, ISM executes B, and this process repeats.
 
 This table lists the parameters that you can define for an action.
 
@@ -375,7 +375,7 @@ Parameter | Description | Type | Required
 
 Transitions define the conditions that need to be met for a state to change. After all actions in the current state are completed, the policy starts checking the conditions for transitions.
 
-Transitions are evaluated in the order in which they are defined. For example, if the conditions for the first transition are met, then this transition takes place and the rest of the transitions are dismissed.
+ISM evaluates transitions in the order in which they are defined. For example, if you define transitions: [A,B,C,D], ISM iterates through this list of transitions until it finds a transition that evaluates to `true`, it then stops and sets the next state to the one defined in that transition. On its next execution, ISM dismisses the rest of the transitions and starts in that new state.
 
 If you don't specify any conditions in a transition and leave it empty, then it's assumed to be the equivalent of always true. This means that the policy transitions the index to this state the moment it checks.
 
