@@ -76,7 +76,7 @@ If you just need to fix a typo or add a sentence, this web-based method works we
 
 1. Make your changes.
 
-1. Sign off on the commit by including the text "Signed-off by: GitHub Username <your-email-here>" in the optional description. Be sure to use an email that's added to your GitHub account.
+1. Sign off on the commit by including the text "Signed-off by: <GitHub Username> <your-email-here>" in the optional description. Be sure to use an email that's added to your GitHub account.
 
 1. Choose **Create a new branch for this commit and start a pull request** and **Commit changes**.
 
