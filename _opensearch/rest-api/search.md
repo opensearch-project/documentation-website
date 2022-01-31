@@ -2,7 +2,7 @@
 layout: default
 title: Search
 parent: REST API reference
-nav_order: 4
+nav_order: 10
 ---
 
 # Search

@@ -2,7 +2,7 @@
 layout: default
 title: Cluster allocation explain
 parent: REST API reference
-nav_order: 10
+nav_order: 50
 ---
 
 # Cluster allocation explain

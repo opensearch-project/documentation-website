@@ -3,7 +3,7 @@ layout: default
 title: Document APIs
 parent: REST API reference
 has_children: true
-nav_order: 7
+nav_order: 40
 redirect_from:
   - /opensearch/rest-api/document-apis/
 ---
