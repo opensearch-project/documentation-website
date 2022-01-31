@@ -266,7 +266,7 @@ start_time | Integer | The Unix epoch start time of the transform job.
 period | Integer | How often to execute the transform job.
 unit | String | The unit of time associated with the execution period. Available options are `Minutes`, `Hours`, and `Days`.
 description | Integer | Describes the transform job.
-page_size | Integer | The number of fields to transform at a time. Higher number means higher performance but requires more memory and can cause higher latency. Default is 1.
+page_size | Integer | The number of fields to transform at a time. Higher number means higher performance but requires more memory and can cause higher latency.
 
 ## Get a transform job's details
 Introduced 1.0
