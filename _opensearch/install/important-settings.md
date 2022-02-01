@@ -25,7 +25,7 @@ The [sample docker-compose.yml]({{site.url}}{{site.baseurl}}/opensearch/install/
 
 - `bootstrap.memory_lock=true`
 
-  Disbles swapping (along with `memlock`). Swapping can dramatically decrease performance and stability, so you should ensure it is disabled on production clusters.
+  Disables swapping (along with `memlock`). Swapping can dramatically decrease performance and stability, so you should ensure it is disabled on production clusters.
 
 - `OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m`
 
