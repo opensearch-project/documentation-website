@@ -6,7 +6,7 @@ nav_order: 99
 
 # Dashboards Query Language
 
-Similar to the [Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index) that lets you use the HTTP request body to search for data, you can use the Dashbaords Query Language (DQL) in OpenSearch Dashboards to search for data and visualizations.
+Similar to the [Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index) that lets you use the HTTP request body to search for data, you can use the Dashboards Query Language (DQL) in OpenSearch Dashboards to search for data and visualizations.
 
 For example, if you want to see all visualizations of visits to a host based in the US, enter `geo.dest:US` into the search field, and Dashboards refreshes to display all related data.
 
