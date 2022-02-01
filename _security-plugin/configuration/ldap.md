@@ -537,3 +537,105 @@ authz:
           - 'cn=Jane Doe,ou*people,o=TEST'
           - '/\S*/'
 ```
+
+### (Advanced) Configuring multiple user and role bases
+
+To configure multiple user bases in the authc and/or authz section, use the following syntax:
+
+```yml
+        ...
+        bind_dn: cn=admin,dc=example,dc=com
+        password: password
+        users:
+          primary-userbase:
+             base: 'ou=people,dc=example,dc=com'
+             search: '(uid={0})'
+          secondary-userbase:
+             base: 'cn=users,dc=example,dc=com'
+             search: '(uid={0})'
+        username_attribute: uid
+        ...
+```
+
+Similarly, use the following setup to configure multiple role bases in the authz section:
+
+```yml
+        ...
+        username_attribute: uid
+        roles:
+          primary-rolebase:
+            base: 'ou=groups,dc=example,dc=com'
+            search: '(uniqueMember={0})'
+          secondary-rolebase:
+            base: 'ou=othergroups,dc=example,dc=com'
+            search: '(member={0})'
+        userroleattribute: null
+        ...
+```
+
+### Complete authentication and authorization with multiple user and role bases example:
+
+```yml
+authc:
+  ...
+  ldap:
+    http_enabled: true
+    transport_enabled: true
+    order: 1
+    http_authenticator:
+      type: basic
+      challenge: true
+    authentication_backend:
+      type: ldap
+      config:
+        enable_ssl: true
+        enable_start_tls: false
+        enable_ssl_client_auth: false
+        verify_hostnames: true
+        hosts:
+          - ldap.example.com:636
+        bind_dn: cn=admin,dc=example,dc=com
+        password: password
+        users:
+          primary-userbase:
+             base: 'ou=people,dc=example,dc=com'
+             search: '(uid={0})'
+          secondary-userbase:
+             base: 'cn=users,dc=example,dc=com'
+             search: '(uid={0})'
+        username_attribute: uid
+authz:
+  ldap:
+    http_enabled: true
+    transport_enabled: true
+    authorization_backend:
+      type: ldap
+      config:
+        enable_ssl: true
+        enable_start_tls: false
+        enable_ssl_client_auth: false
+        verify_hostnames: true
+        hosts:
+          - ldap.example.com:636
+        bind_dn: cn=admin,dc=example,dc=com
+        password: password
+        users:
+          primary-userbase:
+             base: 'ou=people,dc=example,dc=com'
+             search: '(uid={0})'
+          secondary-userbase:
+             base: 'cn=users,dc=example,dc=com'
+             search: '(uid={0})'
+        username_attribute: uid
+        roles:
+          primary-rolebase:
+            base: 'ou=groups,dc=example,dc=com'
+            search: '(uniqueMember={0})'
+          secondary-rolebase:
+            base: 'ou=othergroups,dc=example,dc=com'
+            search: '(member={0})'
+        userroleattribute: null
+        userrolename: none
+        rolename: cn
+        resolve_nested_roles: true
+```
