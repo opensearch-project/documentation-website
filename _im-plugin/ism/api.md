@@ -289,6 +289,84 @@ PUT _plugins/_ism/policies/policy_1?if_seq_no=7&if_primary_term=1
 
 ---
 
+## Get policies
+Introduced 1.13
+{: .label .label-purple }
+
+Get all policies defined in your cluster.
+
+#### Request
+
+```json
+GET _plugins/_ism/policies
+```
+
+
+#### Sample response
+
+```json
+{
+  "policies" : [
+    {
+      "_id" : "policy_1",
+      "_seq_no" : 10,
+      "_primary_term" : 1,
+      "policy" : {
+        "policy_id" : "policy_1",
+        "description" : "ingesting logs",
+        "last_updated_time" : 1643792276738,
+        "schema_version" : 12,
+        "error_notification" : null,
+        "default_state" : "ingest",
+        "states" : [
+          {
+            "name" : "ingest",
+            "actions" : [
+              {
+                "rollover" : {
+                  "min_doc_count" : 5
+                }
+              }
+            ],
+            "transitions" : [
+              {
+                "state_name" : "search"
+              }
+            ]
+          },
+          {
+            "name" : "search",
+            "actions" : [ ],
+            "transitions" : [
+              {
+                "state_name" : "delete",
+                "conditions" : {
+                  "min_index_age" : "5m"
+                }
+              }
+            ]
+          },
+          {
+            "name" : "delete",
+            "actions" : [
+              {
+                "delete" : { }
+              }
+            ],
+            "transitions" : [ ]
+          }
+        ],
+        "ism_template" : null
+      }
+    }
+  ],
+  "total_policies" : 1
+}
+```
+
+
+---
+
 ## Get policy
 Introduced 1.0
 {: .label .label-purple }
