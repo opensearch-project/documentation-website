@@ -12,7 +12,7 @@ If you no longer want to use an ingest pipeline, use the delete ingest pipeline 
 
 ## Example
 
-```curl
+```
 DELETE _ingest/pipeline/{id}
 ```
 

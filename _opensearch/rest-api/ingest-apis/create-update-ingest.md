@@ -8,7 +8,7 @@ nav_order: 11
 
 # Create and update a pipeline
 
-The create ingest pipeline API operation creates or updates an ingest pipeline. Each pipeline requires an ingest definition defining how each processors transforms your documents. 
+The create ingest pipeline API operation creates or updates an ingest pipeline. Each pipeline requires an ingest definition defining how each processor transforms your documents. 
 
 ## Example
 
