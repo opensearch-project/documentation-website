@@ -8,7 +8,7 @@ nav_order: 10
 
 ## Get ingest pipeline
 
-Returns all the information related to the specified ingest pipeline. 
+After you create a pipeline, use the get ingest pipeline API operation to return all the information about a specific ingest pipeline.
 
 ## Example
 
@@ -32,6 +32,8 @@ GET _ingest/pipeline/{id}
 ```
 
 ## URL parameters
+
+All parameters are optional.
 
 Parameter | Type | Description
 :--- | :--- | :---

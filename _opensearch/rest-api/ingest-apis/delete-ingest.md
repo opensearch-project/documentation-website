@@ -8,7 +8,7 @@ nav_order: 14
 
 # Delete a pipeline
 
-Deletes an ingest pipeline. 
+If you no longer want to use an ingest pipeline, use the delete ingest pipeline API operation.
 
 ## Example
 
