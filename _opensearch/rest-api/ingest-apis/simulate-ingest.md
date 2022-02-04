@@ -36,7 +36,7 @@ POST /_ingest/pipeline/{id}/_simulate
 
 ## Path and HTTP methods
 
-Simulate the last ingest pipeline created
+Simulate the last ingest pipeline created.
 
 ```
 GET _ingest/pipeline/_simulate
