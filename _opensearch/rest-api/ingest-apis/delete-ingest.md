@@ -21,8 +21,8 @@ DELETE _ingest/pipeline/{id}
 
 Parameter | Type | Description
 :--- | :--- | :---
-master_timeout | time | Explicit operation timeout for connection to master node
-timeout | time | Explicit operation timeout
+master_timeout | time | How long to wait for a connection to the master node.
+timeout | time | How long to wait for the request to return.
 
 ## Response
 

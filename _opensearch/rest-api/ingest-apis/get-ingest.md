@@ -37,7 +37,7 @@ All parameters are optional.
 
 Parameter | Type | Description
 :--- | :--- | :---
-master_timeout | time | Explicit operation timeout for connection to master node
+master_timeout | time | How long to wait for a connection to the master node.
 
 ## Response
 

@@ -8,7 +8,7 @@ nav_order: 13
 
 # Simulate a pipeline
 
-Simulates an ingest pipeline with any example documents set you specify.
+Simulates an ingest pipeline with any example documents you specify.
 
 ## Example
 
@@ -54,7 +54,7 @@ POST _ingest/pipeline/{id}/_simulate
 
 Parameter | Type | Description
 :--- | :--- | :---
-verbose | boolean | Verbose mode. Display data output for each processor in executed pipeline
+verbose | boolean | Verbose mode. Display data output for each processor in executed pipeline.
 
 ## Request body fields
 
@@ -67,9 +67,9 @@ The `docs` field can include the following subfields:
 
 Field | Type | Description
 :--- | :--- | :---
-`id` (Optional) | string | An optional identifier for the document. Cannot be used elsewhere in the index
-`index` (Optional) | string |The index where the documents transformed data will be stored
-`source` | object | The documents JSON body
+`id` (Optional) | string | An optional identifier for the document. The identifier cannot be used elsewhere in the index.
+`index` (Optional) | string | The index where the document's transformed data will be stored.
+`source` | object | The document's JSON body.
 
 ## Response
 
