@@ -12,7 +12,7 @@ has_toc: false
 OpenSearch Dashboards
 {: .label .label-yellow :}
 
-If you analyze time-series data, you likely prioritize new data over old data. You might periodically perform certain operations on older indices, such as reducing replica count or deleting them.
+If you analyze time-series data, you likely prioritize new data over old data. You might periodically perform certain operations on older indexes, such as reducing replica count or deleting them.
 
 Index State Management (ISM) is a plugin that lets you automate these periodic, administrative operations by triggering them based on changes in the index age, index size, or number of documents. Using the ISM plugin, you can define *policies* that automatically handle index rollovers or deletions to fit your use case.
 
@@ -39,8 +39,8 @@ You can use the visual editor or JSON editor to create policies. Compared to the
 2. Choose **Create policy**.
 3. Choose **Visual editor**.
 4. In the **Policy info** section, enter a policy ID and an optional description.
-5. In the **Error notification** section, set up an optional error notification that gets sent whenever a policy execution fails. For more information, see [Error notifications]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies#error-notifications). If you're using auto rollovers in your policy, we recommend setting up error notifications, which notify you of unexpectedly large indices if rollovers fail. 
-6. In **ISM templates**, enter any ISM template patterns to automatically apply this policy to existing and future indices. For example, if you specify a template of `sample-index*`, the ISM plugin automatically applies this policy to any indices whose names start with `sample-index`.
+5. In the **Error notification** section, set up an optional error notification that gets sent whenever a policy execution fails. For more information, see [Error notifications]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies#error-notifications). If you're using auto rollovers in your policy, we recommend setting up error notifications, which notify you of unexpectedly large indexes if rollovers fail.
+6. In **ISM templates**, enter any ISM template patterns to automatically apply this policy to existing and future indexes. For example, if you specify a template of `sample-index*`, the ISM plugin automatically applies this policy to any indexes whose names start with `sample-index`. Your pattern cannot contain any of the following characters: `:`, `"`, `*`, `+`, `/`, `\`, `|`, `?`, `#`, `>`, and `<`.
 7. In **States**, add any states you want to include in the policy. Each state has [actions]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/#actions) the plugin executes when the index enters a certain state, and [transitions]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/#transitions), which have conditions that, when met, transition the index into a destination state. The first state you create in a policy is automatically set as the initial state. Each policy must have at least one state, but actions and transitions are optional.
 8. Choose **Create**.
 
@@ -54,10 +54,10 @@ You can use the visual editor or JSON editor to create policies. Compared to the
 5. In the **Define policy** section, enter your policy.
 6. Choose **Create**.
 
-After you create a policy, your next step is to attach it to an index or indices.
+After you create a policy, your next step is to attach it to an index or indexes.
 You can set up an `ism_template` in the policy so when an index that matches the ISM template pattern is created, the plugin automatically attaches the policy to the index.
 
-The following example demonstrates how to create a policy that automatically gets attached to all indices whose names start with `index_name-`.
+The following example demonstrates how to create a policy that automatically gets attached to all indexes whose names start with `index_name-`.
 
 ```json
 PUT _plugins/_ism/policies/policy_id
@@ -94,13 +94,13 @@ PUT _index_template/<template_name>
 }
 ```
 
-The `opendistro.index_state_management.policy_id` setting is deprecated. You can continue to automatically manage newly created indices with the ISM template field.
+The `opendistro.index_state_management.policy_id` setting is deprecated. You can continue to automatically manage newly created indexes with the ISM template field.
 {: .note }
 
-### Step 2: Attach policies to indices
+### Step 2: Attach policies to indexes
 
-1. Choose **Indices**.
-2. Choose the index or indices that you want to attach your policy to.
+1. Choose **indexes**.
+2. Choose the index or indexes that you want to attach your policy to.
 3. Choose **Apply policy**.
 4. From the **Policy ID** menu, choose the policy that you created.
 You can see a preview of your policy.
@@ -112,13 +112,13 @@ After you attach a policy to an index, ISM creates a job that runs every 5 minut
 
 ISM does not run jobs if the cluster state is red.
 
-### Step 3: Manage indices
+### Step 3: Manage indexes
 
-1. Choose **Managed Indices**.
-2. To change your policy, see [Change Policy]({{site.url}}{{site.baseurl}}/im-plugin/ism/managedindices#change-policy).
+1. Choose **Managed indexes**.
+2. To change your policy, see [Change Policy]({{site.url}}{{site.baseurl}}/im-plugin/ism/managedindexes#change-policy).
 3. To attach a rollover alias to your index, select your policy and choose **Add rollover alias**.
 Make sure that the alias that you enter already exists. For more information about the rollover operation, see [rollover]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies#rollover).
 4. To remove a policy, choose your policy, and then choose **Remove policy**.
 5. To retry a policy, choose your policy, and then choose **Retry policy**.
 
-For information about managing your policies, see [Managed Indices]({{site.url}}{{site.baseurl}}/im-plugin/ism/managedindices/).
+For information about managing your policies, see [Managed indexes]({{site.url}}{{site.baseurl}}/im-plugin/ism/managedindexes/).
