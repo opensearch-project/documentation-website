@@ -60,8 +60,8 @@ verbose | boolean | Verbose mode. Display data output for each processor in exec
 
 Field | Type | Description
 :--- | :--- | :---
-`pipeline` | object | The pipeline you want to simulate. When included without the pipeline `{id}` inside the request path, the response simulates the last pipeline created
-`docs` | array of objects | The documents you want to use to test the pipeline
+`pipeline` | object | The pipeline you want to simulate. When included without the pipeline `{id}` inside the request path, the response simulates the last pipeline created.
+`docs` | array of objects | The documents you want to use to test the pipeline.
 
 The `docs` field can include the following subfields:
 
