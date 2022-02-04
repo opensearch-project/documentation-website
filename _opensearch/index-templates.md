@@ -16,7 +16,7 @@ To create an index template, use a POST request:
 POST _index_template
 ```
 
-This command creates a template named `daily_logs` and applies it to any new index whose name matches the regular expression `logs-2020-01-*` and also adds it to the `my_logs` alias:
+This command creates a template named `daily_logs` and applies it to any new index whose name matches the pattern `logs-2020-01-*` and also adds it to the `my_logs` alias:
 
 ```json
 PUT _index_template/daily_logs
@@ -96,6 +96,8 @@ GET logs-2020-01-01
 ```
 
 Any additional indices that match this pattern---`logs-2020-01-02`, `logs-2020-01-03`, and so on---will inherit the same mappings and settings.
+
+Index patterns cannot contain any of the following characters: `:`, `"`, `*`, `+`, `/`, `\`, `|`, `?`, `#`, `>`, and `<`.
 
 ### Retrieve a template
 
