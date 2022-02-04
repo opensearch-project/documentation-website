@@ -212,7 +212,7 @@ useragent {
 }
 ```
 
-Start Logstah and send an HTTP request.
+Start Logstash and send an HTTP request.
 
 You can see a field named `ua` with a number of keys including the browser name and version, the OS, and the device.
 

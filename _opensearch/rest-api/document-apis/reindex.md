@@ -67,7 +67,7 @@ socket_timeout | The wait time for socket reads. Default is 30s.
 connect_timeout | The wait time for remote connection timeouts. Default is 30s.
 size | The number of documents to reindex.
 slice | Whether to manually or automatically slice the reindex operation so it executes in parallel.
-_source | Whether to reindex source fields. Speicfy a list of fields to reindex or true to reindex all fields. Default is true.
+_source | Whether to reindex source fields. Specify a list of fields to reindex or true to reindex all fields. Default is true.
 id | The ID to associate with manual slicing.
 max | Maximum number of slices.
 dest | Information about the destination index. Valid values are `index`, `version_type`, and `op_type`.
