@@ -97,7 +97,7 @@ GET logs-2020-01-01
 
 Any additional indices that match this pattern---`logs-2020-01-02`, `logs-2020-01-03`, and so on---will inherit the same mappings and settings.
 
-Index patterns cannot contain any of the following characters: `:`, `"`, `*`, `+`, `/`, `\`, `|`, `?`, `#`, `>`, and `<`.
+Index patterns cannot contain any of the following characters: `:`, `"`, `+`, `/`, `\`, `|`, `?`, `#`, `>`, and `<`.
 
 ### Retrieve a template
 
