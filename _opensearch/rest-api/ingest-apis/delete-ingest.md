@@ -13,11 +13,20 @@ If you no longer want to use an ingest pipeline, use the delete ingest pipeline 
 ## Example
 
 ```
-DELETE _ingest/pipeline/{id}
+DELETE _ingest/pipeline/12345
 ```
 
+## Path and HTTP methods
+
+Delete an ingest pipeline based on that pipeline's ID.
+
+```
+DELETE _ingest/pipeline/
+```
 
 ## URL parameters
+
+All URL parameters are optional.
 
 Parameter | Type | Description
 :--- | :--- | :---

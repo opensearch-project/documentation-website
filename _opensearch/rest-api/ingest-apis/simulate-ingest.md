@@ -13,7 +13,7 @@ Simulates an ingest pipeline with any example documents you specify.
 ## Example
 
 ```
-POST /_ingest/pipeline/{id}/_simulate
+POST /_ingest/pipeline/35678/_simulate
 {
   "docs": [
     {
@@ -52,26 +52,30 @@ POST _ingest/pipeline/{id}/_simulate
 
 ## URL parameters
 
+All URL parameters are optional.
+
 Parameter | Type | Description
 :--- | :--- | :---
 verbose | boolean | Verbose mode. Display data output for each processor in executed pipeline.
 
 ## Request body fields
 
-Field | Type | Description
-:--- | :--- | :---
-`pipeline` | object | The pipeline you want to simulate. When included without the pipeline `{id}` inside the request path, the response simulates the last pipeline created.
-`docs` | array of objects | The documents you want to use to test the pipeline.
+Field | Required | Type | Description
+:--- | :--- | :--- | :---
+`pipeline` | Optional | object | The pipeline you want to simulate. When included without the pipeline `{id}` inside the request path, the response simulates the last pipeline created.
+`docs` | Required | array of objects | The documents you want to use to test the pipeline.
 
 The `docs` field can include the following subfields:
 
-Field | Type | Description
+Field | Required | Type | Description
 :--- | :--- | :---
-`id` (Optional) | string | An optional identifier for the document. The identifier cannot be used elsewhere in the index.
-`index` (Optional) | string | The index where the document's transformed data will be stored.
-`source` | object | The document's JSON body.
+`id` | Optional |string | An optional identifier for the document. The identifier cannot be used elsewhere in the index.
+`index` | Optional | string | The index where the document's transformed data appears.
+`source` | Required | object | The document's JSON body.
 
 ## Response
+
+Responses vary based on on which path and HTTP method you choose. 
 
 ### Specify pipeline in request body
 
@@ -88,7 +92,7 @@ Field | Type | Description
           "field2" : "_value"
         },
         "_ingest" : {
-          "timestamp" : "2022-02-03T23:12:11.337706671Z"
+          "timestamp" : "2022-02-07T18:47:57.479230835Z"
         }
       }
     },
@@ -102,15 +106,14 @@ Field | Type | Description
           "field2" : "_value"
         },
         "_ingest" : {
-          "timestamp" : "2022-02-03T23:12:11.337721296Z"
+          "timestamp" : "2022-02-07T18:47:57.47933496Z"
         }
       }
     }
   ]
 }
-```
 
-### Specify pipeline ID inside path
+### Specify pipeline ID inside HTTP path
 
 ```json
 {
@@ -149,7 +152,7 @@ Field | Type | Description
 
 ### Receive verbose response 
 
-With the `verbose` parameter set to `true`, the response shows how each processor transform the specified document. 
+With the `verbose` parameter set to `true`, the response shows how each processor transforms the specified document. 
 
 ```json
 {

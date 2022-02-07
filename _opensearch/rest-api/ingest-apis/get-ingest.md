@@ -13,7 +13,7 @@ After you create a pipeline, use the get ingest pipeline API operation to return
 ## Example
 
 ```
-GET _ingest/pipeline/{id}
+GET _ingest/pipeline/12345
 ```
 
 ## Path and HTTP methods
@@ -23,7 +23,6 @@ Return all ingest pipelines.
 ```
 GET _ingest/pipeline
 ```
-
 
 Returns a single ingest pipeline based on the pipeline's ID.
 

@@ -13,7 +13,7 @@ The create ingest pipeline API operation creates or updates an ingest pipeline. 
 ## Example
 
 ```
-PUT _ingest/pipeline/{id}
+PUT _ingest/pipeline/12345
 {
   "description" : "A description for your pipeline",
   "processors" : [
@@ -34,10 +34,10 @@ PUT _ingest/pipeline/{id}
 
 ## Request body fields
 
-Field | Type | Description
-:--- | :--- | :---
-`description` (optional) | string | Description of your ingest pipeline. 
-`processors` | processor objects | A processor that transforms documents. Runs in the order specified. Appears in index once ran.
+Field | Required | Type | Description
+:--- | :--- | :--- | :---
+description | Optional | string | Description of your ingest pipeline. 
+processors | **Required** | Array of processor objects | A processor that transforms documents. Runs in the order specified. Appears in index once ran.
 
 ```json
 {
@@ -54,6 +54,8 @@ Field | Type | Description
 ```
 
 ## URL parameters
+
+All URL parameters are optional.
 
 Parameter | Type | Description
 :--- | :--- | :---
