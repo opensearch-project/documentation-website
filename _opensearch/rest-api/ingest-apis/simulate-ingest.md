@@ -75,7 +75,7 @@ Field | Required | Type | Description
 
 ## Response
 
-Responses vary based on on which path and HTTP method you choose. 
+Responses vary based on which path and HTTP method you choose. 
 
 ### Specify pipeline in request body
 
@@ -112,6 +112,7 @@ Responses vary based on on which path and HTTP method you choose.
     }
   ]
 }
+```
 
 ### Specify pipeline ID inside HTTP path
 

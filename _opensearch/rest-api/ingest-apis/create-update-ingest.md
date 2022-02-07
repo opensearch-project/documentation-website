@@ -37,7 +37,7 @@ PUT _ingest/pipeline/{id}
 Field | Required | Type | Description
 :--- | :--- | :--- | :---
 description | Optional | string | Description of your ingest pipeline. 
-processors | **Required** | Array of processor objects | A processor that transforms documents. Runs in the order specified. Appears in index once ran.
+processors | Required | Array of processor objects | A processor that transforms documents. Runs in the order specified. Appears in index once ran.
 
 ```json
 {
