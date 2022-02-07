@@ -64,7 +64,7 @@ Some users report compatibility issues with ingest pipelines on these versions o
 | Elasticsearch OSS 7.10.2 | *Yes* | *Yes* | *No* | *Yes* |
 | ODFE 1.x to 1.12 | *Yes* | *Yes* | *No* | *Yes* |
 | ODFE 1.13 | *Yes* | *Yes* | *No* | *Yes* |
-| OpenSearch 1.0 | Yes via version setting | Yes via version setting | *No* | *Yes* |
+| OpenSearch 1.x | Yes via version setting | Yes via version setting | *No* | *Yes* |
 
 \* Most current compatible version with Elasticsearch OSS.
 
@@ -77,7 +77,7 @@ Some users report compatibility issues with ingest pipelines on these versions o
 | Elasticsearch OSS 7.10.2 | *Yes* | *Yes* | No |
 | ODFE 1.x to 1.12 | *Yes* | *Yes* | No |
 | ODFE 1.13 | *Yes* | *Yes* | No |
-| OpenSearch 1.0 | Yes via version setting | Yes via version setting | No |
+| OpenSearch 1.x | Yes via version setting | Yes via version setting | No |
 | Logstash OSS 7.x to 7.11.x | *Yes* | *Yes* | *Yes* |
 | Logstash OSS 7.12.x\* | *Yes* | *Yes* | *Yes* |
 | Logstash 7.13.x with OpenSearch output plugin | *Yes* | *Yes* | *Yes* |

@@ -7,7 +7,7 @@ nav_order: 20
 
 # ISM API
 
-Use the index state management operations to programmatically work with policies and managed indices.
+Use the index state management operations to programmatically work with policies and managed indexes.
 
 ---
 
@@ -163,8 +163,8 @@ POST _plugins/_ism/add/index_1
 }
 ```
 
-If you use a wildcard `*` while adding a policy to an index, the ISM plugin interprets `*` as all indices, including system indices like `.opendistro-security`, which stores users, roles, and tenants. A delete action in your policy might accidentally delete all user roles and tenants in your cluster.
-Don't use the broad `*` wildcard, and instead add a prefix, such as `my-logs*`, when specifying indices with the `_ism/add` API.
+If you use a wildcard `*` while adding a policy to an index, the ISM plugin interprets `*` as all indexes, including system indexes like `.opendistro-security`, which stores users, roles, and tenants. A delete action in your policy might accidentally delete all user roles and tenants in your cluster.
+Don't use the broad `*` wildcard, and instead add a prefix, such as `my-logs*`, when specifying indexes with the `_ism/add` API.
 {: .warning }
 
 ---
@@ -390,9 +390,9 @@ POST _plugins/_ism/remove/index_1
 Introduced 1.0
 {: .label .label-purple }
 
-Updates the managed index policy to a new policy (or to a new version of the policy). You can use an index pattern to update multiple indices at once. When updating multiple indices, you might want to include a state filter to only affect certain managed indices. The change policy filters out all the existing managed indices and only applies the change to the ones in the state that you specify. You can also explicitly specify the state that the managed index transitions to after the change policy takes effect.
+Updates the managed index policy to a new policy (or to a new version of the policy). You can use an index pattern to update multiple indexes at once. When updating multiple indexes, you might want to include a state filter to only affect certain managed indexes. The change policy filters out all the existing managed indexes and only applies the change to the ones in the state that you specify. You can also explicitly specify the state that the managed index transitions to after the change policy takes effect.
 
-A policy change is an asynchronous background process. The changes are queued and are not executed immediately by the background process. This delay in execution protects the currently running managed indices from being put into a broken state. If the policy you are changing to has only some small configuration changes, then the change takes place immediately. For example, if the policy changes the `min_index_age` parameter in a rollover condition from `1000d` to `100d`, this change takes place immediately in its next execution. If the change modifies the state, actions, or the order of actions of the current state the index is in, then the change happens at the end of its current state before transitioning to a new state.
+A policy change is an asynchronous background process. The changes are queued and are not executed immediately by the background process. This delay in execution protects the currently running managed indexes from being put into a broken state. If the policy you are changing to has only some small configuration changes, then the change takes place immediately. For example, if the policy changes the `min_index_age` parameter in a rollover condition from `1000d` to `100d`, this change takes place immediately in its next execution. If the change modifies the state, actions, or the order of actions of the current state the index is in, then the change happens at the end of its current state before transitioning to a new state.
 
 In this example, the policy applied on the `index_1` index is changed to `policy_1`, which could either be a completely new policy or an updated version of its existing policy. The process only applies the change if the index is currently in the `searches` state. After this change in policy takes place, `index_1` transitions to the `delete` state.
 
@@ -428,7 +428,7 @@ POST _plugins/_ism/change_policy/index_1
 Introduced 1.0
 {: .label .label-purple }
 
-Retries the failed action for an index. For the retry call to succeed, ISM must manage the index, and the index must be in a failed state. You can use index patterns (`*`) to retry multiple failed indices.
+Retries the failed action for an index. For the retry call to succeed, ISM must manage the index, and the index must be in a failed state. You can use index patterns (`*`) to retry multiple failed indexes.
 
 #### Request
 
@@ -456,7 +456,7 @@ POST _plugins/_ism/retry/index_1
 Introduced 1.0
 {: .label .label-purple }
 
-Gets the current state of the index. You can use index patterns to get the status of multiple indices.
+Gets the current state of the index. You can use index patterns to get the status of multiple indexes.
 
 #### Request
 
