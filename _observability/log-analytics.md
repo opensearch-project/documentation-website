@@ -10,7 +10,7 @@ Log ingestion provides a way to transform unstructured log data into structured 
 
 ## Get started with log ingestion
 
-OpenSearch Log Ingestion consists of three components---[Data Prepper]({{site.url}}{{site.baseurl}}/observability/data-prepper/index/), [OpenSearch]({{site.url}}{{site.baseurl}}/) and [OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/)---that fit into the OpenSearch ecosystem. The Data Prepper repository has several [sample applications](https://github.com/opensearch-project/data-prepper/tree/main/examples) to help you get started.
+OpenSearch Log Ingestion consists of three components---[Data Prepper]({{site.url}}{{site.baseurl}}/clients/data-prepper/index/), [OpenSearch]({{site.url}}{{site.baseurl}}/) and [OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/)---that fit into the OpenSearch ecosystem. The Data Prepper repository has several [sample applications](https://github.com/opensearch-project/data-prepper/tree/main/examples) to help you get started.
 
 ### Basic flow of data
 
@@ -20,7 +20,7 @@ OpenSearch Log Ingestion consists of three components---[Data Prepper]({{site.ur
 
    (In the [example](#example) below, [FluentBit](https://docs.fluentbit.io/manual/) is used as a log collector that collects log data from a file and sends the log data to Data Prepper).
 
-2. [Data Prepper]({{site.url}}{{site.baseurl}}/observability/data-prepper/index/) receives the log data, transforms the data into a structure format, and indexes it on an OpenSearch cluster.
+2. [Data Prepper]({{site.url}}{{site.baseurl}}/clients/data-prepper/index/) receives the log data, transforms the data into a structure format, and indexes it on an OpenSearch cluster.
 
 3. The data can then be explored through OpenSearch search queries or the **Discover** page in OpenSearch Dashboards.
 
