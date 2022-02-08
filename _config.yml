@@ -49,7 +49,7 @@ collections:
   replication-plugin:
     permalink: /:collection/:path/
     output: true
-  observability:
+  observability-plugin:
     permalink: /:collection/:path/
     output: true
   monitoring-plugins:
@@ -91,8 +91,8 @@ just_the_docs:
     replication-plugin:
       name: Replication plugin
       nav_fold: true
-    observability:
-      name: Observability
+    observability-plugin:
+      name: Observability plugin
       nav_fold: true
     monitoring-plugins:
       name: Monitoring plugins
