@@ -31,6 +31,12 @@ Later, the user `psantos` wants to edit the monitor to run every two hours, but 
 
 After making the change, the monitor now runs with the same permissions as `psantos`, including any [document-level security]({{site.url}}{{site.baseurl}}/security-plugin/access-control/document-level-security/) queries, [excluded fields]({{site.url}}{{site.baseurl}}/security-plugin/access-control/field-level-security/), and [masked fields]({{site.url}}{{site.baseurl}}/security-plugin/access-control/field-masking/). If you use an extraction query to define your monitor, use the **Run** button to ensure that the response includes the fields you need.
 
+Once a monitor is created, the Alerting plugin will continue executing the monitor, even if the user who created the monitor has their permissions removed. Only a user with the correct cluster permissions can manually disable or delete a monitor to stop it from executing:
+
+- Disable a monitor: `cluster:admin/opendistro/alerting/monitor/write`
+- Delete a monitor: `cluster:admin/opendistro/alerting/monitor/delete`
+
+If your monitor's trigger has notifications configured, the Alerting plugin continues to send out notifications regardless of destination type. To stop notifications, a user must manually delete them in the trigger's actions.
 
 ## (Advanced) Limit access by backend role
 
@@ -54,7 +60,6 @@ Now when users view alerting resources in OpenSearch Dashboards (or make REST AP
 `jdoe` and `jroe` are on the same team at work and both have the `analyst` backend role. `psantos` has the `human-resources` backend role.
 
 If `jdoe` creates a monitor, `jroe` can see and modify it, but `psantos` can't. If that monitor generates an alert, the situation is the same: `jroe` can see and acknowledge it, but `psantos` can't. If `psantos` creates a destination, `jdoe` and `jroe` can't see or modify it.
-
 
 <!-- ## (Advanced) Limit access by individual
 
