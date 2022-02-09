@@ -19,9 +19,9 @@ OpenSearch Trace Analytics consists of two components---Data Prepper and the Tra
 
 1. The [OpenTelemetry Collector](https://opentelemetry.io/docs/collector/getting-started/) receives data from the application and formats it into OpenTelemetry data.
 
-1. [Data Prepper]({{site.url}}{{site.baseurl}}/observability/data-prepper/index/) processes the OpenTelemetry data, transforms it for use in OpenSearch, and indexes it on an OpenSearch cluster.
+1. [Data Prepper]({{site.url}}{{site.baseurl}}/clients/data-prepper/index/) processes the OpenTelemetry data, transforms it for use in OpenSearch, and indexes it on an OpenSearch cluster.
 
-1. The [Trace Analytics OpenSearch Dashboards plugin]({{site.url}}{{site.baseurl}}/observability/trace/ta-dashboards/) displays the data in near real-time as a series of charts and tables, with an emphasis on service architecture, latency, error rate, and throughput.
+1. The [Trace Analytics OpenSearch Dashboards plugin]({{site.url}}{{site.baseurl}}/observability-plugin/trace/ta-dashboards/) displays the data in near real-time as a series of charts and tables, with an emphasis on service architecture, latency, error rate, and throughput.
 
 ## Jaeger HotROD
 
@@ -78,4 +78,4 @@ curl -X GET -u 'admin:admin' -k 'https://localhost:9200/otel-v1-apm-span-000001/
 
 Navigate to `http://localhost:5601` in a web browser and choose **Trace Analytics**. You can see the results of your single click in the Jaeger HotROD web interface: the number of traces per API and HTTP method, latency trends, a color-coded map of the service architecture, and a list of trace IDs that you can use to drill down on individual operations.
 
-If you don't see your trace, adjust the timeframe in OpenSearch Dashboards. For more information on using the plugin, see [OpenSearch Dashboards plugin]({{site.url}}{{site.baseurl}}/observability/trace/ta-dashboards/).
+If you don't see your trace, adjust the timeframe in OpenSearch Dashboards. For more information on using the plugin, see [OpenSearch Dashboards plugin]({{site.url}}{{site.baseurl}}/observability-plugin/trace/ta-dashboards/).
