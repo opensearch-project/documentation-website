@@ -120,7 +120,7 @@ This is a known issue with Performance Analyzer that shouldn't affect functional
 
 ## bootstrap checks failed: max virtual memory areas vm.max_map_count is too low
 
-If you're using a production workload, be sure to set the [Linux setting](https://www.kernel.org/doc/Documentation/sysctl/vm.txt) ```vm.max_map_count``` to 262144.
+If you're using a production workload, be sure to set the [Linux setting](https://www.kernel.org/doc/Documentation/sysctl/vm.txt) ```vm.max_map_count``` to 262144
 
 To increase memory and make a change permanent
 edit /etc/sysctl.conf and set ```vm.max_map_count``` to 262144
