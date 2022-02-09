@@ -116,3 +116,10 @@ The security plugin blocks the update by script operation (`POST <index>/_update
 ## Illegal reflective access operation in logs
 
 This is a known issue with Performance Analyzer that shouldn't affect functionality.
+
+
+## bootstrap checks failed: max virtual memory areas vm.max_map_count is too low
+
+To increase memory and make a change permanent
+edit /etc/sysctl.conf and set vm.max_map_count to 262144
+you can check it using sysctl vm.max_map_count
