@@ -57,7 +57,7 @@ Field | Description | Type | Required
 
 Actions are the steps that the policy sequentially executes on entering a specific state.
 
-ISM executes actions in the order in which they are defined. For example, if you define actions: [A,B,C,D], ISM executes A and then enters into a timeout period. After the timeout period is over, ISM executes B, and this process repeats.
+ISM executes actions in the order in which they are defined. If ISM cannot complete an action or cannot finish within a defined timeout, the entire policy fails, and remaining actions do not get executed. For example, if you define actions [A,B,C,D] with a timeout of 10 minutes, ISM has 10 minutes to execute action A. If successful, ISM proceeds to execute the remaining actions. However, if 10 minutes pass and ISM does not finish executing action A, the operation ends, and actions B, C, and D do not get executed.
 
 This table lists the parameters that you can define for an action.
 
