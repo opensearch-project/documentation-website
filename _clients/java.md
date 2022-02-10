@@ -109,15 +109,15 @@ import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.nio.client.HttpAsyncClientBuilder;
 import org.opensearch.client.RestClient;
 import org.opensearch.client.RestClientBuilder;
-import org.opensearch.clients.base.RestClientTransport;
-import org.opensearch.clients.base.Transport;
-import org.opensearch.clients.json.jackson.JacksonJsonpMapper;
-import org.opensearch.clients.opensearch.OpenSearchClient;
-import org.opensearch.clients.opensearch._global.IndexRequest;
-import org.opensearch.clients.opensearch._global.IndexResponse;
-import org.opensearch.clients.opensearch._global.SearchResponse;
-import org.opensearch.clients.opensearch.indices.*;
-import org.opensearch.clients.opensearch.indices.put_settings.IndexSettingsBody;
+import org.opensearch.client.base.RestClientTransport;
+import org.opensearch.client.base.Transport;
+import org.opensearch.client.json.jackson.JacksonJsonpMapper;
+import org.opensearch.client.opensearch.OpenSearchClient;
+import org.opensearch.client.opensearch._global.IndexRequest;
+import org.opensearch.client.opensearch._global.IndexResponse;
+import org.opensearch.client.opensearch._global.SearchResponse;
+import org.opensearch.client.opensearch.indices.*;
+import org.opensearch.client.opensearch.indices.put_settings.IndexSettingsBody;
 
 import java.io.IOException;
 
