@@ -70,7 +70,8 @@ POST _reindex
          "host":"https://<REST_endpoint_of_remote_cluster>:9200",
          "username":"YOUR_USERNAME",
          "password":"YOUR_PASSWORD"
-      }
+      },
+      "index": "source"
    },
    "dest":{
       "index":"destination"
