@@ -123,6 +123,7 @@ import java.io.IOException;
 
 public class OpenSearchClientExample {
   public static void main(String[] args) {
+    RestClient restClient = null;
     try{
     System.setProperty("javax.net.ssl.trustStore", "/full/path/to/keystore");
     System.setProperty("javax.net.ssl.trustStorePassword", "password-to-keystore");
@@ -133,7 +134,7 @@ public class OpenSearchClientExample {
         new UsernamePasswordCredentials("admin", "admin"));
 
     //Initialize the client with SSL and TLS enabled
-    RestClient restClient = RestClient.builder(new HttpHost("localhost", 9200, "https")).
+    restClient = RestClient.builder(new HttpHost("localhost", 9200, "https")).
       setHttpClientConfigCallback(new RestClientBuilder.HttpClientConfigCallback() {
         @Override
         public HttpAsyncClientBuilder customizeHttpClient(HttpAsyncClientBuilder httpClientBuilder) {
@@ -214,28 +215,11 @@ restClient.close();
 ## Complete code sample
 
 ```java
-import org.apache.http.HttpHost;
-import org.apache.http.auth.AuthScope;
-import org.apache.http.auth.UsernamePasswordCredentials;
-import org.apache.http.client.CredentialsProvider;
-import org.apache.http.impl.client.BasicCredentialsProvider;
-import org.apache.http.impl.nio.client.HttpAsyncClientBuilder;
-import org.opensearch.client.RestClient;
-import org.opensearch.client.RestClientBuilder;
-import org.opensearch.clients.base.RestClientTransport;
-import org.opensearch.clients.base.Transport;
-import org.opensearch.clients.json.jackson.JacksonJsonpMapper;
-import org.opensearch.clients.opensearch.OpenSearchClient;
-import org.opensearch.clients.opensearch._global.IndexRequest;
-import org.opensearch.clients.opensearch._global.IndexResponse;
-import org.opensearch.clients.opensearch._global.SearchResponse;
-import org.opensearch.clients.opensearch.indices.*;
-import org.opensearch.clients.opensearch.indices.put_settings.IndexSettingsBody;
-
-import java.io.IOException;
-
 public class OpenSearchClientExample {
   public static void main(String[] args) {
+
+	RestClient restClient = null;
+
     try{
     System.setProperty("javax.net.ssl.trustStore", "/full/path/to/keystore");
     System.setProperty("javax.net.ssl.trustStorePassword", "password-to-keystore");
@@ -246,7 +230,7 @@ public class OpenSearchClientExample {
       new UsernamePasswordCredentials("admin", "admin"));
 
     //Initialize the client with SSL and TLS enabled
-    RestClient restClient = RestClient.builder(new HttpHost("localhost", 9200, "https")).
+    restClient = RestClient.builder(new HttpHost("localhost", 9200, "https")).
       setHttpClientConfigCallback(new RestClientBuilder.HttpClientConfigCallback() {
         @Override
         public HttpAsyncClientBuilder customizeHttpClient(HttpAsyncClientBuilder httpClientBuilder) {
@@ -290,8 +274,8 @@ public class OpenSearchClientExample {
       System.out.println(e.toString());
     } finally {
       try {
-        if (client != null) {
-          client.close();
+        if (restClient != null) {
+          restClient.close();
         }
       } catch (IOException e) {
         System.out.println(e.toString());
@@ -299,4 +283,6 @@ public class OpenSearchClientExample {
     }
   }
 }
+
+
 ```
