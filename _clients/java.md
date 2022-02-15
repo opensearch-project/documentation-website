@@ -196,13 +196,12 @@ client.delete(b -> b.index(index).id("1"));
 DeleteRequest deleteRequest = new DeleteRequest.Builder().index(index).build();
 DeleteResponse deleteResponse = client.indices().delete(deleteRequest);
 
-restClient.close();
 } catch (IOException e){
     System.out.println(e.toString());
 } finally {
     try {
-      if (client != null) {
-        client.close();
+      if (restClient != null) {
+        restClient.close();
       }
     } catch (IOException e) {
         System.out.println(e.toString());
@@ -215,11 +214,29 @@ restClient.close();
 ## Complete code sample
 
 ```java
+import org.apache.http.HttpHost;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.CredentialsProvider;
+import org.apache.http.impl.client.BasicCredentialsProvider;
+import org.apache.http.impl.nio.client.HttpAsyncClientBuilder;
+import org.opensearch.client.RestClient;
+import org.opensearch.client.RestClientBuilder;
+import org.opensearch.client.base.RestClientTransport;
+import org.opensearch.client.base.Transport;
+import org.opensearch.client.json.jackson.JacksonJsonpMapper;
+import org.opensearch.client.opensearch.OpenSearchClient;
+import org.opensearch.client.opensearch._global.IndexRequest;
+import org.opensearch.client.opensearch._global.IndexResponse;
+import org.opensearch.client.opensearch._global.SearchResponse;
+import org.opensearch.client.opensearch.indices.*;
+import org.opensearch.client.opensearch.indices.put_settings.IndexSettingsBody;
+
+import java.io.IOException;
+
 public class OpenSearchClientExample {
   public static void main(String[] args) {
-
-	RestClient restClient = null;
-
+    RestClient restClient = null;
     try{
     System.setProperty("javax.net.ssl.trustStore", "/full/path/to/keystore");
     System.setProperty("javax.net.ssl.trustStorePassword", "password-to-keystore");
@@ -269,7 +286,6 @@ public class OpenSearchClientExample {
     DeleteRequest deleteRequest = new DeleteRequest.Builder().index(index).build();
     DeleteResponse deleteResponse = client.indices().delete(deleteRequest);
 
-    restClient.close();
     } catch (IOException e){
       System.out.println(e.toString());
     } finally {
@@ -283,6 +299,4 @@ public class OpenSearchClientExample {
     }
   }
 }
-
-
 ```
