@@ -18,4 +18,4 @@ OpenSearch version | Compatible Java versions | Recommended operating systems
 :--- | :--- | :---
 1.x | 8, 11, 15 | Red Hat Enterprise Linux 7, 8; CentOS 7, 8; Amazon Linux 2; Ubuntu 16.04, 18.04, 20.04
 
-If you plan on running applications besides OpenSearch with different Java requirements, set the `OPENSEARCH_JAVA_HOME` environment variable to the location of the Java installation to be used by OpenSearch. The `OPENSEARCH_JAVA_HOME` supersedes the `JAVA_HOME` environment variable.
+If you plan on running applications besides OpenSearch with different Java requirements, set the `OPENSEARCH_JAVA_HOME` environment variable to the location of the Java installation to be used by OpenSearch. `OPENSEARCH_JAVA_HOME` supersedes the `JAVA_HOME` environment variable.
