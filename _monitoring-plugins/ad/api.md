@@ -341,7 +341,7 @@ Returns whether the detector configuration has any issues that might prevent Ope
 
 You can use the validate API to identify issues in your detector configuration before creating the detector.
 
-The request body consists of the detector configuration and follows the same format as the request body of the [create detector API]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/api#create-anomaly-detector). 
+The request body consists of the detector configuration and follows the same format as the request body of the [create detector API]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/api#create-anomaly-detector).
 
 #### Request
 
@@ -2084,7 +2084,7 @@ You have the following search options:
 
   ```json
   POST _plugins/_anomaly_detection/detectors/results/_search/<custom_result_index>?only_query_custom_result_index=false
-  ```  
+  ```
 
 - To search only the custom result index, add the custom result index to the search API and set the `only_query_custom_result_index` parameter to `true`:
 
@@ -2134,6 +2134,8 @@ If you don't specify the custom result index and you just use the `_plugins/_ano
 
 Real-time detection doesn't persist the task ID in the anomaly result, so the task ID will be null.
 
+For information about the response body fields, see [Anomaly result mapping]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/result-mapping/#response-body-fields).
+
 #### Sample response
 
 ```json
@@ -2162,9 +2164,9 @@ Real-time detection doesn't persist the task ID in the anomaly result, so the ta
         "_primary_term": 1,
         "_score": 0,
         "_source": {
-          "detector_id": "Zi5zTXwBwf_U8gjUTfJG",
+          "detector_id": "EWy02nwBm38sXcF2AiFJ",
           "confidence": 0.918886275269358,
-          "model_id": "Zi5zTXwBwf_U8gjUTfJG_entity_error16",
+          "model_id": "EWy02nwBm38sXcF2AiFJ_entity_error16",
           "schema_version": 4,
           "anomaly_score": 1.1093755891885446,
           "execution_start_time": 1633388475001,
@@ -2175,6 +2177,23 @@ Real-time detection doesn't persist the task ID in the anomaly result, so the ta
               "feature_id": "ZS5zTXwBwf_U8gjUTfIn",
               "feature_name": "test_feature",
               "data": 0.532
+            }
+          ],
+          "relevant_attribution": [
+            {
+              "feature_id": "ZS5zTXwBwf_U8gjUTfIn",
+              "data": 1.0
+            }
+          ],
+          "expected_values": [
+            {
+              "likelihood": 1,
+              "value_list": [
+                {
+                  "feature_id": "ZS5zTXwBwf_U8gjUTfIn",
+                  "data": 2
+                }
+              ]
             }
           ],
           "execution_end_time": 1633388475014,
@@ -2576,7 +2595,7 @@ Returns information related to the current state of the detector and memory usag
 
 This command helps locate logs by identifying the nodes that run the anomaly detector job for each detector.
 
-It also helps track the initialization percentage, the required shingles, and the estimated time left.  
+It also helps track the initialization percentage, the required shingles, and the estimated time left.
 
 #### Request
 
