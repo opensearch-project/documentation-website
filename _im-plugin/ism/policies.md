@@ -10,7 +10,7 @@ has_children: false
 
 Policies are JSON documents that define the following:
 
-- The *states* that an index can be in, including the default state for new indices. For example, you might name your states "hot," "warm," "delete," and so on. For more information, see [States](#states).
+- The *states* that an index can be in, including the default state for new indexes. For example, you might name your states "hot," "warm," "delete," and so on. For more information, see [States](#states).
 - Any *actions* that you want the plugin to take when an index enters a state, such as performing a rollover. For more information, see [Actions](#actions).
 - The conditions that must be met for an index to move into a new state, known as *transitions*. For example, if an index is more than eight weeks old, you might want to move it to the "delete" state. For more information, see [Transitions](#transitions).
 
@@ -57,7 +57,9 @@ Field | Description | Type | Required
 
 Actions are the steps that the policy sequentially executes on entering a specific state.
 
-ISM executes actions in the order in which they are defined. For example, if you define actions: [A,B,C,D], ISM executes A and then enters into a timeout period. After the timeout period is over, ISM executes B, and this process repeats.
+ISM executes actions in the order in which they are defined. For example, if you define actions [A,B,C,D], ISM executes action A, and then goes into a sleep period based on the cluster setting `plugins.index_state_management.job_interval`. Once the sleep period ends, ISM continues to execute the remaining actions. However, if ISM cannot successfully execute action A, the operation ends, and actions B, C, and D do not get executed.
+
+Optionally, you can define an action's timeout period, which, if exceeded, forcibly fails the action. For example, if timeout is set to `1d`, and ISM has not completed the action within one day, even after retries, the action fails.
 
 This table lists the parameters that you can define for an action.
 
@@ -170,7 +172,7 @@ Closes the managed index.
 }
 ```
 
-Closed indices remain on disk, but consume no CPU or memory. You can't read from, write to, or search closed indices.
+Closed indexes remain on disk, but consume no CPU or memory. You can't read from, write to, or search closed indexes.
 
 Closing an index is a good option if you need to retain data for longer than you need to actively search it and have sufficient disk space on your data nodes. If you need to search the data again, reopening a closed index is simpler than restoring an index from a snapshot.
 
@@ -203,7 +205,7 @@ Set `index.plugins.index_state_management.rollover_alias` as the alias to rollov
 
 Parameter | Description | Type | Example | Required
 :--- | :--- |:--- |:--- |
-`min_size` | The minimum size of the total primary shard storage (not counting replicas) required to roll over the index. For example, if you set `min_size` to 100 GiB and your index has 5 primary shards and 5 replica shards of 20 GiB each, the total size of all primary shards is 100 GiB, so the rollover occurs. ISM doesn't check indices continually, so it doesn't roll over indices at exactly 100 GiB. Instead, if an index is continuously growing, ISM might check it at 99 GiB, not perform the rollover, check again when the shards reach 105 GiB, and then perform the operation. | `string` | `20gb` or `5mb` | No
+`min_size` | The minimum size of the total primary shard storage (not counting replicas) required to roll over the index. For example, if you set `min_size` to 100 GiB and your index has 5 primary shards and 5 replica shards of 20 GiB each, the total size of all primary shards is 100 GiB, so the rollover occurs. ISM doesn't check indexes continually, so it doesn't roll over indexes at exactly 100 GiB. Instead, if an index is continuously growing, ISM might check it at 99 GiB, not perform the rollover, check again when the shards reach 105 GiB, and then perform the operation. | `string` | `20gb` or `5mb` | No
 `min_doc_count` |  The minimum number of documents required to roll over the index. | `number` | `2000000` | No
 `min_index_age` |  The minimum age required to roll over the index. Index age is the time between its creation and the present. | `string` | `5d` or `7h` | No
 
@@ -307,7 +309,7 @@ Parameter | Description | Type
 
 ### snapshot
 
-Backup your cluster’s indices and state. For more information about snapshots, see [Take and restore snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshot-restore/).
+Backup your cluster’s indexes and state. For more information about snapshots, see [Take and restore snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshot-restore/).
 
 The `snapshot` operation has the following parameters:
 
@@ -327,7 +329,7 @@ Parameter | Description | Type | Required | Default
 
 ### index_priority
 
-Set the priority for the index in a specific state. Unallocated shards of indices are recovered in the order of their priority, whenever possible. The indices with higher priority values are recovered first followed by the indices with lower priority values.
+Set the priority for the index in a specific state. Unallocated shards of indexes are recovered in the order of their priority, whenever possible. The indexes with higher priority values are recovered first followed by the indexes with lower priority values.
 
 The `index_priority` operation has the following parameter:
 
@@ -412,7 +414,7 @@ The following example transitions the index to a `cold` state after a period of 
 
 ISM checks the conditions on every execution of the policy based on the set interval.
 
-This example uses the `cron` condition to transition indices every Saturday at 5:00 PT:
+This example uses the `cron` condition to transition indexes every Saturday at 5:00 PT:
 
 ```json
 "transitions": [
@@ -598,7 +600,7 @@ If you want to skip rollovers for an index, set `index.plugins.index_state_manag
 
 ## Example policy
 
-The following example policy implements a `hot`, `warm`, and `delete` workflow. You can use this policy as a template to prioritize resources to your indices based on their levels of activity.
+The following example policy implements a `hot`, `warm`, and `delete` workflow. You can use this policy as a template to prioritize resources to your indexes based on their levels of activity.
 
 In this case, an index is initially in a `hot` state. After a day, it changes to a `warm` state, where the number of replicas increases to 5 to improve the read performance.
 
