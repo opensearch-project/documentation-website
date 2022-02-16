@@ -59,7 +59,7 @@ Actions are the steps that the policy sequentially executes on entering a specif
 
 ISM executes actions in the order in which they are defined. For example, if you define actions [A,B,C,D], ISM executes action A, and then goes into a sleep period based on the cluster setting `plugins.index_state_management.job_interval`. Once the sleep period ends, ISM continues to execute the remaining actions. However, if ISM cannot successfully execute action A, the operation ends, and actions B, C, and D do not get executed.
 
-Optionally, you can define an action's timeout period, which, if exceeded, forcibly fails the action. For example, if timeout is set to `1d`, and ISM has not completed the action within one day, even after retries, then the action fails.
+Optionally, you can define an action's timeout period, which, if exceeded, forcibly fails the action. For example, if timeout is set to `1d`, and ISM has not completed the action within one day, even after retries, the action fails.
 
 This table lists the parameters that you can define for an action.
 
