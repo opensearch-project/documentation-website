@@ -375,6 +375,196 @@ GET _search
 ```
 
 
+## Intervals
+
+Returns documents based on the order and proximity of matching terms.
+
+The `intervals` query uses *matching rules*, constructed from a small set of definitions. These rules are then applied to terms from a specified `field`.
+
+The definitions produce sequences of minimal intervals that span terms in a body of text. These intervals can be further combined and filtered by parent sources.
+
+The following `intervals` search returns documents containing `my favorite food` immediately followed by `hot water` or `cold porridge` in the `my_text_field` field.
+
+This search would match a `my_text_field` value of `my favorite food is cold porridge` but not `when it's cold my favorite food is porridge`.
+
+```json
+GET _search
+{
+  "query": {
+    "intervals" : {
+      "my_text_field" : {
+        "all_of" : {
+          "mode" : "ordered",
+          "intervals" : [
+            {
+              "match" : {
+                "query" : "my favorite food",
+                "max_gaps" : 0,
+                "mode" : "ordered"
+              }
+            },
+            {
+              "any_of" : {
+                "intervals" : [
+                  { "match" : { "query" : "hot water" } },
+                  { "match" : { "query" : "cold porridge" } }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}
+```
+
+The following search includes a `filter` rule. It returns documents that have the words `hot` and `porridge` within 10 positions of each other, without the word `salty` in between:
+
+```json
+GET _search
+{
+  "query": {
+    "intervals" : {
+      "my_text_field" : {
+        "match" : {
+          "query" : "hot porridge",
+          "max_gaps" : 10,
+          "filter" : {
+            "not_containing" : {
+              "match" : {
+                "query" : "salty"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+You can use a script to filter intervals based on their start position, end position, and internal gap count. The following `filter` script uses the `interval` variable with the `start`, `end`, and `gaps` methods:
+
+```json
+GET _search
+{
+  "query": {
+    "intervals" : {
+      "my_text_field" : {
+        "match" : {
+          "query" : "hot porridge",
+          "filter" : {
+            "script" : {
+              "source" : "interval.start > 10 && interval.end < 20 && interval.gaps == 0"
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+***Minimization Warning***:<br />
+The intervals query always minimizes intervals, to ensure that queries can run in linear time. This can sometimes cause surprising results, particularly when using `max_gaps` restrictions or filters.
+
+
+### match rule
+
+The `match` rule matches analyzed text.
+
+Option | Type | Description
+:--- | :--- | :---
+`query` | string, **required** | Text you wish to find in the provided `<field>`.
+`max_gaps` | integer | Maximum number of positions between the matching terms.  Terms further apart than this are not considered matches.<br /><br />If unspecified or set to `-1`, there is no width restriction on the match. If set to `0`, the terms must appear next to each other. Defaults to `-1`.
+`mode` | `ordered`, `unordered`, or `unordered_no_overlap` | The matching mode between terms.<br />{::nomarkdown}<ul><li><b>ordered</b>: the terms must match in order.</li><li><b>unordered</b>: the terms can match in any order.</li><li><b>unordered_no_overlap</b>: the terms can appear in any order as long as they don't overlap any of the other terms.</li></ul>{:/}Defaults to `unordered`.
+`analyzer` | string | The analyzer used to analyze terms in the `query`. Defaults to the field's analyzer.
+`filter` | interval filter rule object |  An optional interval filter.
+`use_field` | string | If specified, then match intervals from this field rather than the top-level field. Terms are analyzed using the search analyzer from this field. This allows you to search across multiple fields as if they were all the same field; for example, you could index the same text into stemmed and unstemmed fields, and search for stemmed tokens near unstemmed ones.
+
+### prefix rule
+
+The `prefix` rule matches terms that start with a specified set of characters. This prefix can expand to match at most 128 terms. If the prefix matches more than 128 terms, an error will be returned. You can use the `index-prefixes` option in the field mapping to avoid this limit.
+
+Option | Type | Description
+:--- | :--- | :---
+`prefix` | string, **required** | Beginning characters of terms you wish to find in the top-level `<field>`.
+`analyzer` | string | The analyzer used to normalize the `prefix`. Defaults to the field's analyzer.
+`use_field` | string | If specified, then match intervals from this field rather than the top-level field. The `prefix` is normalized using the search analyzer from this field, unless a separate `analyzer` is specified.
+
+### wildcard rule
+
+The `wildcard` rule matches terms using a wildcard pattern. This pattern can expand to match at most 128 terms by default.  This behavior can be changed using the `max_expansions` option.
+
+Option | Type | Description
+:--- | :--- | :---
+`pattern` | string, **required** | Wildcard pattern used to find matching terms.<br /><br />This parameter supports two wildcard operators:<br />{::nomarkdown}<ul><li><b>?</b> matches any single character</li><li><b>*</b> which can match zero or more characters, including an empty one</li></ul>{:/}<br />WARNING: Avoid beginning patterns with `*` or `?`. This can increase the iterations needed to find matching terms and slow search performance.
+`analyzer` | string | The analyzer used to normalize the `pattern`. Defaults to the field's analyzer.
+`use_field` | string | If specified, then match intervals from this field rather than the top-level field. The `pattern` is normalized using the search analyzer from this field, unless a separate `analyzer` is specified.
+`max_expansions` | integer | The max number of terms the wildcard can expand to.  Default is `128`, the max is bounded by Lucene's `BooleanQuery.getMaxClauseCount()`.
+
+### regexp rule
+
+The `regexp` rule matches terms using a regular expression. This pattern can expand to match at most 128 terms by default.  This behavior can be changed using the `max_expansions` option.
+
+Option | Type | Description
+:--- | :--- | :---
+`pattern` | string, **required** | The regular expression used to find matching terms.<br /><br />WARNING: The performance of the `regexp` rule can vary based on the regular expression provided. To improve performance, avoid using regex patterns, such as `.*` or`.*?+`, without a prefix or suffix.
+`flags` | string  | The regular expression syntax flags. One or more of the following OR'd together with a `|`.<br />{::nomarkdown}<ul><li><b>INTERSECTION</b>: Support for intersection notation</li><li><b>COMPLEMENT</b>: Support for complement notation</li><li><b>EMPTY</b>: Support for the empty language symbol</li><li><b>ANYSTRING</b>: Support for the any string symbol</li><li><b>INTERVAL</b>: Support for numerical interval notation</li><li><b>NONE</b>: Disable support for all syntax options</li><li><b>ALL</b>: Enables support for all syntax options</li></ul>{:/} Defaults to `ALL`.
+`use_field` | string | If specified, then match intervals from this field rather than the top-level field.
+`max_expansions` | integer | The max number of terms the regex pattern can expand to.  Default is `128`, the max is bounded by Lucene's `BooleanQuery.getMaxClauseCount()`.
+
+### fuzzy rule
+
+The `fuzzy` rule matches terms that are similar to the provided term, within an edit distance defined by fuzziness.  If the fuzzy expansion matches more than 128 terms, an error is returned.
+
+Option | Type | Description
+:--- | :--- | :---
+`term` | string, **required** | The term to match in the top-level `<field>`.
+`prefix_length` | integer | Number of beginning characters left unchanged when creating expansions. Defaults to `0`.
+`transpositions` | boolean | Indicates whether edits include transpositions of two adjacent characters (ab → ba). Defaults to `true`.
+`fuzziness` | `0`, `1`, `2`, `auto` | Maximum edit distance allowed for matching. Use `0`, `1`, or `2` to set the maximum allowed edit distance or `auto` to set edit distance based on string length. Defaults to `auto`.
+`analyzer` | string | The analyzer used to normalize the `term`. Defaults to the field's analyzer.
+`use_field` | string | If specified, then match intervals from this field rather than the top-level field. The `term` is normalized using the search analyzer from this field, unless a separate `analyzer` is specified.
+
+### all_of rule
+
+The `all_of` rule returns matches that span a combination of other rules.
+
+Option | Type | Description
+:--- | :--- | :---
+`intervals` | array of rule objects, **required** | An array of rules to combine. All rules must produce a match in a document's `<field>` for the overall source to match.
+`max_gaps` | integer | Maximum number of positions between the matching rules.  Rules further apart than this are not considered matches.<br /><br />If unspecified or set to `-1`, there is no width restriction on the match. If set to `0`, the rules must appear next to each other. Defaults to `-1`.
+`mode` | `ordered`, `unordered`, or `unordered_no_overlap` | The matching mode between rules.<br />{::nomarkdown}<ul><li><b>ordered</b>: the rules must match in order.</li><li><b>unordered</b>: the rules can match in any order.</li><li><b>unordered_no_overlap</b>: the rules can appear in any order as long as they don't overlap any of the other rules.</li></ul>{:/}Defaults to `unordered`.
+`filter` | interval filter rule object |  Rule used to filter returned intervals.
+
+### any_of rule
+
+The `any_of` returns intervals produced by any of its sub-rules.
+
+Option | Type | Description
+:--- | :--- | :---
+`intervals` | array of rule objects, **required** | An array of rules to match in agaomst a document's `<field>`.
+`filter` | interval filter rule object |  Rule used to filter returned intervals.
+
+### filter rules
+
+The `filter` rule filters returned intervals based on other rules.
+
+Filter | Type | Description
+:--- | :--- | :---
+`after` | rule object | return intervals that follow an interval from the source rule.
+`before` | rule object | return intervals that occur before an interval from the source rule.
+`contained_by` | rule object | return intervals that are contained by an interval from the source rule.
+`containing` | rule object | return intervals that contain an interval from the source rule.
+`not_contained_by` | rule object | return intervals that are *not* contained by an interval from the source rule.
+`not_containing` | rule object | return intervals that do *not* contain an interval from the source rule.
+`not_overlapping` | rule object | return intervals that do *not* overlap with an interval from the source rule.
+`overlapping` | rule object | return intervals that overlap with an interval from the source rule.
+`script` | script object | Script used to return matching documents. This script must return a boolean value, `true` or `false`.
+
+
 ## Match all
 
 Matches all documents. Can be useful for testing.
