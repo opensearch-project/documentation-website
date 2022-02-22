@@ -21,8 +21,14 @@ You can install individual plugins on an OpenSearch cluster.
 
 ## Install a plugin
 
+The install command takes a plugin id, which may be any of the following:
+
+- An official OpenSearch plugin name
+- Maven coordinates to a plugin zip file
+- A URL to a plugin zip file
+
 ```
-bin/opensearch-plugin install <plugin-name>
+bin/opensearch-plugin install <name|Zip File|Url>
 ```
 Restart your OpenSearch node after installing a plugin.
 
