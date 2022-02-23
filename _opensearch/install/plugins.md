@@ -27,9 +27,16 @@ The install command takes a plugin id, which may be any of the following:
 - Maven coordinates to a plugin zip file
 - A URL to a plugin zip file
 
+If you're installing an official OpenSearch plugin, use:
+```
+bin/opensearch-plugin install <plugin-name>
+```
+
+For a plugin installed via zip, use:
 ```
 bin/opensearch-plugin install <name|Zip File|Url>
 ```
+
 Restart your OpenSearch node after installing a plugin.
 
 ## Remove a plugin
