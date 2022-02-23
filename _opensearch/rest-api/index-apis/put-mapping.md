@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Put mapping
-parent: REST API reference
-nav_order: 30
+parent: Index APIs
+grand_parent: REST API reference
+nav_order: 200
 ---
 
 # Put mapping

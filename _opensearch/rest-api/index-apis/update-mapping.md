@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Update mapping
-parent: REST API reference
-nav_order: 35
+parent: Index APIs
+grand_parent: REST API reference
+nav_order: 220
 ---
 
 # Update mapping
