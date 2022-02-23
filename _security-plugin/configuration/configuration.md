@@ -145,7 +145,7 @@ If `challenge` is set to `false` and no `Authorization` header field is set, the
 
 ## Kerberos
 
-Kerberos authentication will not work with OpenSearch Dashboards. To track OpenSearch's progress adding support for Kerberos in OpenSearch Dashboards, see [issue #907 Kerberos Auth does not exist](https://github.com/opensearch-project/security-dashboards-plugin/issues/907) in the Dashboard's Security Plugin repository. {: .warning }
+Kerberos authentication does not work with OpenSearch Dashboards. To track OpenSearch's progress in adding support for Kerberos in OpenSearch Dashboards, see [issue #907 Kerberos Auth does not exist](https://github.com/opensearch-project/security-dashboards-plugin/issues/907) in the Dashboard's Security Plugin repository. {: .warning }
 
 Due to the nature of Kerberos, you must define some settings in `opensearch.yml` and some in `config.yml`.
 
