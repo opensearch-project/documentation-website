@@ -109,6 +109,7 @@ batch_size | No | Integer | The maximum number of records the buffer drains afte
 ## Processors
 
 Processors perform some action on your data: filter, transform, enrich, etc.
+> Note: Prior to Data Prepper 1.3, Processors were named Preppers. Starting in Data Prepper 1.3, the term Prepper is deprecated in favor or Processor. Data Prepper will continue to support the term "Prepper" until 2.0 where it will be removed.
 
 
 ### otel_trace_raw_prepper
@@ -164,8 +165,8 @@ Groups events together based on the keys provided and performs a action on each 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
 identification_keys | Yes | List | A unordered list by which to group Events. Events with the same values for these keys are put into the same group. If an Event does not contain one of the `identification_keys`, then the value of that key is considered to be equal to `null`. At least one identification_key is required.
-action | Yes | Object | The action to be performed for each group. One of the Aggregate Actions must be provided. `remove_duplicates` and `put_all` are existing actions.
-group_duration | No | String | The amount of time that a group should exist before it is concluded automatically. Supports ISO_8601 notation Strings ("PT20.345S", "PT15M", etc.) as well as simple notation Strings for seconds (`"60s"`) and milliseconds (`"1500ms"`). Default value is `180s`.
+action | Yes | AggregateAction | The action to be performed for each group. One of the Aggregate Actions must be provided. `remove_duplicates` and `put_all` are existing actions.
+group_duration | No | String | The amount of time that a group should exist before it is concluded automatically. Supports ISO_8601 notation strings ("PT20.345S", "PT15M", etc.) as well as simple notation for seconds (`"60s"`) and milliseconds (`"1500ms"`). Default value is `180s`.
 
 ### date
 
@@ -173,16 +174,12 @@ Adds a default timestamp to the event or parses timestamp fields, and converts i
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
-match | Conditionally | List | List of `key` and `patterns` where patterns is a list. List can of only of size 1. There is no default value. `from_time_received` and `match` are mutually exclusive options. Use multiple date processor instance if both options should be used.
-from_time_received | Conditionally | Boolean | A boolean that is used for adding default timestamp to event data from event metadata which is the time when source receives the event. Default value is `false`. `from_time_received` and `match` are mutually exclusive options. Use multiple date processor instance if both options should be used.
+match | Conditionally | List | List of `key` and `patterns` where patterns is a list. The list of match can have exactly one `key` and `patterns`. There is no default value. `from_time_received` and `match` are mutually exclusive options. Include multiple date processors in your pipeline if both options should be used.
+from_time_received | Conditionally | Boolean | A boolean that is used for adding default timestamp to event data from event metadata which is the time when source receives the event. Default value is `false`. `from_time_received` and `match` are mutually exclusive options. Include multiple date processors in your pipeline if both options should be used.
 destination | No | String | Field to store the timestamp parsed by date processor. It can be used with both `match` and `from_time_received`. Default value is `@timestamp`.
 source_timezone | No | String | Timezone used for parsing dates. It will be used in case of zone or offset cannot be extracted from value. If zone or offset is part of the value timezone will be ignored. Find all the available timezones [here](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List) in "TZ database name" column.
 destination_timezone | No | String | Timezone used for storing timestamp in `destination` field. The available timezone values are the same as `source_timestamp`.
-locale | No | String | <todo> Locale is used for parsing dates. It's commonly used for parsing month names(`MMM`). It can have language, country and variant fields using IETF BCP 47 or String representation of [Locale](https://docs.oracle.com/javase/8/docs/api/java/util/Locale.html) object. For example `en-US` for IETF BCP 47 and `en_US` for string representation of Locale. Full list of locale fields which includes language, country and variant can be found [here](https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry). Default value is `Locale.ROOT`.
-
-### drop_events
-
-Drops all the events that are passed into this processor. No options.
+locale | No | String | Locale is used for parsing dates. It's commonly used for parsing month names(`MMM`). It can have language, country and variant fields using IETF BCP 47 or String representation of [Locale](https://docs.oracle.com/javase/8/docs/api/java/util/Locale.html) object. For example `en-US` for IETF BCP 47 and `en_US` for string representation of Locale. Full list of locale fields which includes language, country and variant can be found [here](https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry). Default value is `Locale.ROOT`.
 
 ### grok_prepper
 
