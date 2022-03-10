@@ -72,7 +72,7 @@ logo:
 applicationTitle: "My custom application"
 ```
 
-We recommend linking to images that are hosted on a web server, but if you really want to use locally hosted images, save your images inside `assets`, and then configure `opensearch_dashboards.yml`. You can access locally stored images through the `ui/assets` folder.
+We recommend linking to images that are hosted on a web server, but if you really want to use locally hosted images, save your images inside `assets`, and then configure `opensearch_dashboards.yml` to use the correct paths. You can access locally stored images through the `ui/assets` folder.
 
 The following example assumes the default port of 5601 that Dashboards uses and demonstrates how to link to locally stored images.
 
