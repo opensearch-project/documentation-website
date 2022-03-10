@@ -72,17 +72,17 @@ logo:
 applicationTitle: "My custom application"
 ```
 
-We recommend linking to images that are hosted on a web server, but if you really want to use locally hosted images, save your images inside `src/core/server/core_app/assets`, and then configure `opensearch_dashboards.yml`. You can access locally stored images through the `ui` folder.
+We recommend linking to images that are hosted on a web server, but if you really want to use locally hosted images, save your images inside `assets`, and then configure `opensearch_dashboards.yml`. You can access locally stored images through the `ui/assets` folder.
 
 The following example assumes the default port of 5601 that Dashboards uses and demonstrates how to link to locally stored images.
 
 ```yml
 logo:
-  defaultUrl: "https://localhost:5601/ui/my-own-image.svg"
-  darkModeUrl: "https://localhost:5601/ui/my-own-image.svg"
+  defaultUrl: "https://localhost:5601/ui/assets/my-own-image.svg"
+  darkModeUrl: "https://localhost:5601/ui/assets/my-own-image.svg"
 mark:
-  defaultUrl: "https://localhost:5601/ui/my-own-image2.svg"
-  darkModeUrl: "https://localhost:5601/ui/my-own-image2.svg"
+  defaultUrl: "https://localhost:5601/ui/assets/my-own-image2.svg"
+  darkModeUrl: "https://localhost:5601/ui/assets/my-own-image2.svg"
 # loadingLogo:
 #   defaultUrl: ""
 #   darkModeUrl: ""
@@ -90,11 +90,9 @@ mark:
 applicationTitle: "My custom application"
 ```
 
-We don't recommend this workaround because new versions of Dashboards would revert all customized elements back to default branding elements, and you would have to re-upload your assets to access them again.
-
 ## Sample configuration
 
-The following configuration enables the security plugin within OpenSearch Dashboards and uses custom branding elements to replace the OpenSearch logo and application title.
+The following configuration enables SSL within OpenSearch Dashboards and uses custom branding elements to replace the OpenSearch logo and application title.
 
 ```yml
 server.host: "0"
@@ -103,6 +101,9 @@ opensearch.ssl.verificationMode: none
 opensearch.username: "kibanaserver"
 opensearch.password: "kibanaserver"
 opensearch.requestHeadersWhitelist: [ authorization,securitytenant ]
+#server.ssl.enabled: true
+#server.ssl.certificate: /path/to/your/server/certificate
+#server.ssl.key: /path/to/your/server/key
 
 opensearch_security.multitenancy.enabled: true
 opensearch_security.multitenancy.tenants.preferred: ["Private", "Global"]
