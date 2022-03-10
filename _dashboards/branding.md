@@ -54,7 +54,7 @@ To start using your own branding elements in OpenSearch Dashboards, first uncomm
 
 Add the URLs you want to use as branding elements to the appropriate setting. Valid image types are `SVG`, `PNG`, and `GIF`.
 
-Customization of dark mode Dashboards is also available, but you first must supply a valid link to `defaultUrl`, and then link to your preferred image with `darkModeUrl`. You are not required to customize all branding elements, so if you wanted to, it's perfectly valid to change just the logo. Leave unchanged elements as commented.
+Customization of dark mode Dashboards is also available, but you first must supply a valid link to `defaultUrl`, and then link to your preferred image with `darkModeUrl`. If you don't provide a `darkModeUrl` link, then Dashboards uses the provided `defaultUrl` element for dark mode. You are not required to customize all branding elements, so if you wanted to, it's perfectly valid to change just the logo or any other element. Leave unchanged elements as commented.
 
 The following example demonstrates how to use `SVG` files as logos but leaves the other elements as defaults.
 
@@ -79,10 +79,10 @@ The following example assumes the default port of 5601 that Dashboards uses and 
 ```yml
 logo:
   defaultUrl: "https://localhost:5601/ui/assets/my-own-image.svg"
-  darkModeUrl: "https://localhost:5601/ui/assets/my-own-image.svg"
+  darkModeUrl: "https://localhost:5601/ui/assets/dark-mode-my-own-image.svg"
 mark:
   defaultUrl: "https://localhost:5601/ui/assets/my-own-image2.svg"
-  darkModeUrl: "https://localhost:5601/ui/assets/my-own-image2.svg"
+  darkModeUrl: "https://localhost:5601/ui/assets/dark-mode-my-own-image2.svg"
 # loadingLogo:
 #   defaultUrl: ""
 #   darkModeUrl: ""
@@ -92,7 +92,7 @@ applicationTitle: "My custom application"
 
 ## Sample configuration
 
-The following configuration enables SSL within OpenSearch Dashboards and uses custom branding elements to replace the OpenSearch logo and application title.
+The following configuration enables the security plugin and SSL within OpenSearch Dashboards and uses custom branding elements to replace the OpenSearch logo and application title.
 
 ```yml
 server.host: "0"
@@ -114,7 +114,7 @@ opensearch_security.cookie.secure: false
 opensearchDashboards.branding:
   logo:
     defaultUrl: "https://example.com/sample.svg"
-    darkModeUrl: "https://example.com/sample.svg"
+    darkModeUrl: "https://example.com/dark-mode-sample.svg"
   # mark:
   #   defaultUrl: ""
   #   darkModeUrl: ""
