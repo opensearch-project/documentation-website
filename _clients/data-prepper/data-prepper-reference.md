@@ -164,8 +164,8 @@ Groups events together based on the keys provided and performs a action on each 
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
-identification_keys | Yes | List | A unordered list by which to group Events. Events with the same values for these keys are put into the same group. If an Event does not contain one of the `identification_keys`, then the value of that key is considered to be equal to `null`. At least one identification_key is required.
-action | Yes | AggregateAction | The action to be performed for each group. One of the Aggregate Actions must be provided. `remove_duplicates` and `put_all` are existing actions.
+identification_keys | Yes | List | A unordered list by which to group Events. Events with the same values for these keys are put into the same group. If an Event does not contain one of the `identification_keys`, then the value of that key is considered to be equal to `null`. At least one identification_key is required. (e.g. `["sourceIp", "destinationIp", "port"]`).
+action | Yes | AggregateAction | The action to be performed for each group. One of the available Aggregate Actions must be provided or you can create custom aggregate actions. `remove_duplicates` and `put_all` are available actions. For more information, see [creating custom aggregate actions](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/aggregate-processor#creating-new-aggregate-actions).
 group_duration | No | String | The amount of time that a group should exist before it is concluded automatically. Supports ISO_8601 notation strings ("PT20.345S", "PT15M", etc.) as well as simple notation for seconds (`"60s"`) and milliseconds (`"1500ms"`). Default value is `180s`.
 
 ### date
@@ -205,7 +205,7 @@ Takes in a field and parses it into key/value pairs.
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
 source | No | String | The key in the event that will be parsed. Default value is `message`.
-destination | No | String | The key where parsed source will be output to. This will overwrite value of the kye if it exists. Default value is `parsed_message`
+destination | No | String | The key where parsed source will be output to. This will overwrite value of the key if it exists. Default value is `parsed_message`
 field_delimiter_regex | Conditionally | String | A regex specifying the delimiter between key/value pairs. Special regex characters such as `[` and `]` must be escaped using `\\`. This cannot be defined at the same time as `field_split_characters`.
 field_split_characters | Conditionally | String | A string of characters to split between key/value pairs. Special regex characters such as `[` and `]` must be escaped using `\\`. Default value is `&`. This cannot be defined at the same time as `field_delimiter_regex`.
 key_value_delimiter_regex| Conditionally | String | A regex specifying the delimiter between a key and a value. Special regex characters such as `[` and `]` must be escaped using `\\`. Default value is `=`. This cannot be defined at the same time as `value_split_characters`.
