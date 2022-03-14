@@ -285,7 +285,7 @@ The regular expression is used to match the whole text field of each document wi
 
 *Example 1*: Create new field
 
-The example shows how to create new field `host` for each document. `host` will be the host name after `@` in `email` field. Parsing a null field will return an empty string.
+The example shows how to create new field `host` for each document. `host` will be the hostname after `@` in `email` field. Parsing a null field will return an empty string.
 
 ```sql
 os> source=accounts | parse email '.+@(?<host>.+)' | fields email, host ;
@@ -337,7 +337,7 @@ A few limitations exist when using the parse command:
 - Fields defined by parse cannot be parsed again. For example, `source=accounts | parse address '\d+ (?<street>.+)' | parse street '\w+ (?<road>\w+)' ;` will fail to return any expressions.
 - Fields defined by parse cannot be overridden with other commands. For example, when entering `source=accounts | parse address '\d+ (?<street>.+)' | eval street='1' | where street='1' ;` `where` will not match any documents since `street` cannot be overridden.
 - The text field used by parse cannot be overridden. For example, when entering `source=accounts | parse address '\d+ (?<street>.+)' | eval address='1' ;` `street` will not be parse since address is overridden. 
-- Fields defined by parse cannot be filtered/sorted after using them in stats command. For example, `source=accounts | parse email '.+@(?<host>.+)' | stats avg(age) by host | where host=pyrami.com ;` `where` will not parse the domain listed.
+- Fields defined by parse cannot be filtered/sorted after using them in the `stats` command. For example, `source=accounts | parse email '.+@(?<host>.+)' | stats avg(age) by host | where host=pyrami.com ;` `where` will not parse the domain listed.
 
 ## rename
 
