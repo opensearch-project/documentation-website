@@ -176,6 +176,8 @@ Introduced 1.0
 
 Updates a policy. Use the `seq_no` and `primary_term` parameters to update an existing policy. If these numbers don't match the existing policy or the policy doesn't exist, ISM throws an error.
 
+It's possible that the policy currently applied to your index isn't the most up-to-date policy available. To see what policy is currently applied to your index, see [Explain index]({{site.url}}{{site.baseurl}}/im-plugin/ism/api/#explain-index). To get the most up-to-date version of a policy, see [Get policy]({{site.url}}{{site.baseurl}}/im-plugin/ism/api/#get-policy).
+
 #### Request
 
 ```json
@@ -472,6 +474,87 @@ GET _plugins/_ism/explain/index_1
   "index_1": {
     "index.plugins.index_state_management.policy_id": "policy_1"
   }
+}
+```
+
+Optionally, you can add the `show_policy` parameter to your request's path to get the policy that is currently applied to your index, which is useful for seeing whether the policy applied to your index is the latest one. To get the most up-to-date policy, see [Get Policy API]({{site.url}}{{site.baseurl}}/im-plugin/ism/api/#get-policy).
+
+#### Request
+
+```json
+GET _plugins/_ism/explain/index_1?show_policy=true
+```
+
+#### Sample response
+
+```json
+{
+  "index_1": {
+    "index.plugins.index_state_management.policy_id": "sample-policy",
+    "index.opendistro.index_state_management.policy_id": "sample-policy",
+    "index": "index_1",
+    "index_uuid": "gCFlS_zcTdih8xyxf3jQ-A",
+    "policy_id": "sample-policy",
+    "enabled": true,
+    "policy": {
+      "policy_id": "sample-policy",
+      "description": "ingesting logs",
+      "last_updated_time": 1647284980148,
+      "schema_version": 13,
+      "error_notification": null,
+      "default_state": "ingest",
+      "states": [
+        {
+          "name": "ingest",
+          "actions": [
+            {
+              "retry": {
+                "count": 3,
+                "backoff": "exponential",
+                "delay": "1m"
+              },
+              "rollover": {
+                "min_doc_count": 5
+              }
+            }
+          ],
+          "transitions": [
+            {
+              "state_name": "search"
+            }
+          ]
+        },
+        {
+          "name": "search",
+          "actions": [],
+          "transitions": [
+            {
+              "state_name": "delete",
+              "conditions": {
+                "min_index_age": "5m"
+              }
+            }
+          ]
+        },
+        {
+          "name": "delete",
+          "actions": [
+            {
+              "retry": {
+                "count": 3,
+                "backoff": "exponential",
+                "delay": "1m"
+              },
+              "delete": {}
+            }
+          ],
+          "transitions": []
+        }
+      ],
+      "ism_template": null
+    }
+  },
+  "total_managed_indices": 1
 }
 ```
 
