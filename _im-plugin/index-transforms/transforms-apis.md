@@ -79,6 +79,7 @@ PUT _plugins/_transform/<transform_id>
   "transform": {
     "transform_id": "sample",
     "schema_version": 7,
+    "continuous": true,
     "schedule": {
       "interval": {
         "start_time": 1621467964243,
@@ -361,6 +362,7 @@ GET _plugins/_transform/
       "transform": {
         "transform_id": "sample",
         "schema_version": 7,
+        "continuous": true,
         "schedule": {
           "interval": {
             "start_time": 1621467964243,
@@ -599,10 +601,10 @@ GET _plugins/_transform/<transform_id>/_explain
     "metadata_id": "PzmjweME5xbgkenl9UpsYw",
     "transform_metadata": {
       "continuous_stats": {
-      "last_timestamp": 1621883525672,
-      "documents_behind": {
-        "sample_index": 72
-        }
+        "last_timestamp": 1621883525672,
+        "documents_behind": {
+          "sample_index": 72
+          }
       },
       "transform_id": "sample",
       "last_updated_at": 1621883525873,
