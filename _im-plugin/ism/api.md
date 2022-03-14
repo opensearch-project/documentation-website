@@ -503,54 +503,7 @@ GET _plugins/_ism/explain/index_1?show_policy=true
       "schema_version": 13,
       "error_notification": null,
       "default_state": "ingest",
-      "states": [
-        {
-          "name": "ingest",
-          "actions": [
-            {
-              "retry": {
-                "count": 3,
-                "backoff": "exponential",
-                "delay": "1m"
-              },
-              "rollover": {
-                "min_doc_count": 5
-              }
-            }
-          ],
-          "transitions": [
-            {
-              "state_name": "search"
-            }
-          ]
-        },
-        {
-          "name": "search",
-          "actions": [],
-          "transitions": [
-            {
-              "state_name": "delete",
-              "conditions": {
-                "min_index_age": "5m"
-              }
-            }
-          ]
-        },
-        {
-          "name": "delete",
-          "actions": [
-            {
-              "retry": {
-                "count": 3,
-                "backoff": "exponential",
-                "delay": "1m"
-              },
-              "delete": {}
-            }
-          ],
-          "transitions": []
-        }
-      ],
+      "states": [...],
       "ism_template": null
     }
   },
