@@ -151,6 +151,10 @@ search source=accounts | dedup gender consecutive=true | fields account_number, 
 13 | F
 18 | M
 
+### Limitations
+
+The `dedup` command is not rewritten to OpenSearch DSL, it is only executed on the coordination node.
+
 ## eval
 
 The `eval` command evaluates an expression and appends its result to the search result.
@@ -211,6 +215,11 @@ search source=accounts | eval doubleAge = age * 2, ddAge = doubleAge * 2 | field
 | 28    | 56   | 112
 | 33    | 66   | 132
 
+
+### Limitation
+
+The ``eval`` command is not rewritten to OpenSearch DSL, it is only executed on the coordination node.
+
 ## fields
 
 Use the `fields` command to keep or remove fields from a search result.
@@ -256,6 +265,80 @@ search source=accounts | fields account_number, firstname, lastname | fields - a
 | Nanette | Bates
 | Dale    | Adams
 
+
+## parse
+
+Use the `parse` command to parse a text field using regular expression and append the result to the search result. 
+
+### Syntax
+
+```sql
+parse <field> <regular-expression>
+```
+
+Field | Description | Required
+:--- | :--- |:---
+field | A text field. | Yes
+regular-expression | The regular expression used to extract new fields from the given test field. If a new field name exists, it will replace the original field. | Yes
+
+The regular expression is used to match the whole text field of each document with Java regex engine. Each named capture group in the expression will become a new ``STRING`` field.
+
+*Example 1*: Create new field
+
+The example shows how to create new field `host` for each document. `host` will be the host name after `@` in `email` field. Parsing a null field will return an empty string.
+
+```sql
+os> source=accounts | parse email '.+@(?<host>.+)' | fields email, host ;
+fetched rows / total rows = 4/4
+```
+
+| email | host  
+:--- | :--- |
+| amberduke@pyrami.com  | pyrami.com 
+| hattiebond@netagy.com | netagy.com 
+| null                  | null          
+| daleadams@boink.com   | boink.com  
+
+*Example 2*: Override the existing field
+
+The example shows how to override the existing address field with street number removed.
+
+```sql
+os> source=accounts | parse address '\d+ (?<address>.+)' | fields address ;
+fetched rows / total rows = 4/4
+```
+
+| address
+:--- |
+| Holmes Lane      
+| Bristol Street   
+| Madison Street   
+| Hutchinson Court
+
+*Example 3*: Filter and sort be casted parsed field
+
+The example shows how to sort street numbers that are higher than 500 in address field.
+
+```sql
+os> source=accounts | parse address '(?<streetNumber>\d+) (?<street>.+)' | where cast(streetNumber as int) > 500 | sort num(streetNumber) | fields streetNumber, street ;
+fetched rows / total rows = 3/3
+```
+
+| streetNumber | street  
+:--- | :--- |
+| 671 | Bristol Street 
+| 789 | Madison Street 
+| 880 | Holmes Lane  
+
+### Limitations
+
+A few limitations exist when using the parse command:
+
+- Fields defined by parse cannot be parsed again. For example, `source=accounts | parse address '\d+ (?<street>.+)' | parse street '\w+ (?<road>\w+)' ;` will fail to return any expressions.
+- Fields defined by parse cannot be overridden with other commands. For example, when entering `source=accounts | parse address '\d+ (?<street>.+)' | eval street='1' | where street='1' ;` `where` will not match any documents since `street` cannot be overridden.
+- The text field used by parse cannot be overridden. For example, when entering `source=accounts | parse address '\d+ (?<street>.+)' | eval address='1' ;` `street` will not be parse since address is overridden. 
+- Fields defined by parse cannot be filtered/sorted after using them in stats command. For example, `source=accounts | parse email '.+@(?<host>.+)' | stats avg(age) by host | where host=pyrami.com ;` `where` will not parse the domain listed.
+
 ## rename
 
 Use the `rename` command to rename one or more fields in the search result.
@@ -300,6 +383,10 @@ search source=accounts | rename account_number as an, employer as emp | fields a
 | 6    | Netagy
 | 13   | Quility
 | 18   | null
+
+### Limitations
+
+The `rename` command is not rewritten to OpenSearch DSL, it is only executed on the coordination node.
 
 ## sort
 
@@ -547,6 +634,10 @@ search source=accounts | fields firstname, age | head 2;
 | Amber  | 32
 | Hattie | 36
 
+### Limitations
+
+The `head` command is not rewritten to OpenSearch DSL, it is only executed on the coordination node.
+
 ## rare
 
 Use the `rare` command to find the least common values of all fields in a field list.
@@ -589,6 +680,10 @@ search source=accounts | rare age by gender;
 | F  | 28
 | M  | 32
 | M  | 33
+
+### Limitations
+
+The `rare` command is not rewritten to OpenSearch DSL, it is only executed on the coordination node.
 
 ## top {#top-command}
 
@@ -643,6 +738,10 @@ search source=accounts | top 1 age by gender;
 :--- | :--- |
 | F  | 28
 | M  | 32
+
+### Limitations
+
+The `top` command is not rewritten to OpenSearch DSL, it is only executed on the coordination node.
 
 ## match
 
