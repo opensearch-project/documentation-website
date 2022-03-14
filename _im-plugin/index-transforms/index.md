@@ -9,7 +9,7 @@ has_toc: false
 
 # Index transforms
 
-Whereas index rollup jobs let you reduce data granularity by rolling up old data into condensed indices, transform jobs let you create a different, summarized view of your data centered around certain fields, so you can visualize or analyze the data in different ways.
+Whereas index rollup jobs let you reduce data granularity by rolling up old data into condensed indexes, transform jobs let you create a different, summarized view of your data centered around certain fields, so you can visualize or analyze the data in different ways.
 
 For example, suppose that you have airline data that’s scattered across multiple fields and categories, and you want to view a summary of the data that’s organized by airline, quarter, and then price. You can use a transform job to create a new, summarized index that’s organized by those specific categories.
 
@@ -18,7 +18,7 @@ You can use transform jobs in two ways:
 1. Use the OpenSearch Dashboards UI to specify the index you want to transform and any optional data filters you want to use to filter the original index. Then select the fields you want to transform and the aggregations to use in the transformation. Finally, define a schedule for your job to follow.
 2. Use the transforms API to specify all the details about your job: the index you want to transform, target groups you want the transformed index to have, any aggregations you want to use to group columns, and a schedule for your job to follow.
 
-OpenSearch Dashboards provides a detailed summary of the jobs you created and their relevant information, such as associated indices and job statuses. You can review and edit your job’s details and selections before creation, and even preview a transformed index’s data as you’re choosing which fields to transform. However, you can also use the REST API to create transform jobs and preview transform job results, but you must know all of the necessary settings and parameters to submit them as part of the HTTP request body. Submitting your transform job configurations as JSON scripts offers you more portability, allowing you to share and replicate your transform jobs, which is harder to do using OpenSearch Dashboards.
+OpenSearch Dashboards provides a detailed summary of the jobs you created and their relevant information, such as associated indexes and job statuses. You can review and edit your job’s details and selections before creation, and even preview a transformed index’s data as you’re choosing which fields to transform. However, you can also use the REST API to create transform jobs and preview transform job results, but you must know all of the necessary settings and parameters to submit them as part of the HTTP request body. Submitting your transform job configurations as JSON scripts offers you more portability, allowing you to share and replicate your transform jobs, which is harder to do using OpenSearch Dashboards.
 
 Your use cases will help you decide which method to use to create transform jobs.
 
@@ -26,7 +26,7 @@ Your use cases will help you decide which method to use to create transform jobs
 
 If you don't have any data in your cluster, you can use the sample flight data within OpenSearch Dashboards to try out transform jobs. Otherwise, after launching OpenSearch Dashboards, choose **Index Management**. Select **Transform Jobs**, and choose **Create Transform Job**.
 
-### Step 1: Choose indices
+### Step 1: Choose indexes
 
 1. In the **Job name and description** section, specify a name and an optional description for your job.
 2. In the **Indices** section, select the source and target index. You can either select an existing target index or create a new one by entering a name for your new index. If you want to transform just a subset of your source index, choose **Edit data filter**, and use the OpenSearch query DSL to specify a subset of your source index. For more information about the OpenSearch query DSL, see [query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/).
@@ -34,7 +34,7 @@ If you don't have any data in your cluster, you can use the sample flight data w
 
 ### Step 2: Select fields to transform
 
-After specifying the indices, you can select the fields you want to use in your transform job, as well as whether to use groupings or aggregations.
+After specifying the indexes, you can select the fields you want to use in your transform job, as well as whether to use groupings or aggregations.
 
 You can use groupings to place your data into separate buckets in your transformed index. For example, if you want to group all of the airport destinations within the sample flight data, you can group the `DestAirportID` field into a target field of `DestAirportID_terms` field, and you can find the grouped airport IDs in your transformed index after the transform job finishes.
 
