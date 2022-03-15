@@ -31,3 +31,11 @@ For more information about building PPL queries, see [Piped Processing Language]
 After Dashboards generates a visualization, you must save it if you want to return to it at a later time or if you want to add it to an [operational panel]({{site.url}}{{site.baseurl}}/observability-plugin/operational-panels).
 
 To save a visualization, expand the save dropdown menu next to **Run**, enter a name for your visualization, then choose **Save**. You can reopen any saved visualizations on the event analytics page.
+
+## View logs
+
+### Trace ID correlation
+
+### Surrounding events
+
+### Live Tail
