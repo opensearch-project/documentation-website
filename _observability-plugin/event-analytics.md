@@ -34,8 +34,20 @@ To save a visualization, expand the save dropdown menu next to **Run**, enter a 
 
 ## View logs
 
-### Trace ID correlation
+### Trace log correlation
+
+Users who regularly track events across applications have the capability to correlate Logs and Traces. To view the correlation, users have to index the traces as per the Open Telemetry standards (similar to trace analytics). Once users add a TraceId field to their logs, they can view the correlated trace information in the event explorer log details.  This will allow users to correlate logs and traces that correspond to the same execution context.
+
+![Trace Log Correlation]({{site.url}}{{site.baseurl}}/images/trace_log_correlation.gif)
 
 ### Surrounding events
 
+When users want to know more about a log event that they are looking at, they can select **View surrounding events** to get a bigger picture of what was happening around the time of interest. 
+
+![Surrounding Events]({{site.url}}{{site.baseurl}}/images/surrounding_events.gif)
+
 ### Live Tail
+
+When users are watching a live event take place, they no longer have to manually refresh their view. Users can now configure the interval in which content is refreshed saving the hassle of manually refreshing.
+
+![Live Tail]({{site.url}}{{site.baseurl}}/images/live_tail.gif)

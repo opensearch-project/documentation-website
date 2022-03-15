@@ -50,5 +50,4 @@ To create an availability level you must configure the following
 
 ![Configuring availability]({{site.url}}{{site.baseurl}}/images/app_availability_level.gif)
 
-
 By default, Application analytics shows results from the last 24 hours of your data. To see data from a different timeframe, use the date and time selector.
