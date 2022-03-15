@@ -18,8 +18,10 @@ To get started, choose **Observability** in OpenSearch Dashboards, and then choo
 1. Enter a name for your application and optionally add a description
 1. Do at least one of the following
 - Use [PPL]({{site.url}}{{site.baseurl}}/observability-plugin/ppl/index) to specify the base query.
+
 You can't change the base query after the application is created.
 {: .note }
+
 - Select services & entities from the dropdown or the service map.
 - Select trace groups from the dropdown or the table.
 1. Choose **Create**.
