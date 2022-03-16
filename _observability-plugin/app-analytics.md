@@ -31,18 +31,13 @@ You can't change the base query after the application is created.
 1. Choose the **Log Events** tab
 1. Use [PPL]({{site.url}}{{site.baseurl}}/observability-plugin/ppl/index) to build upon your base query
 1. Move to the **Visualizations** tab to see your visualizations
-1. Expand the **Save** dropdown menu, enter a nem for your visualization, then choose **Save**.
+1. Expand the **Save** dropdown menu, enter a name for your visualization, then choose **Save**.
 
 To see your visualizations, move to the **Panel** tab. 
 
 ### Configure availability
 
-In order to configure availability, you must add availability levels to a line type time series metric. Users can use the power of the PPL language to define arbitrary conditions on their logs to create a time series metric.
-
-##### Example
-```
-source = <index_name> | ... | ... | stats ... by span(<timestamp_field>, 1h)
-```
+Availability is the status of your application determined by availability levels set on a [time series metric]({{site.url}}{{site.baseurl}}/observability-plugin/app-analytics/#time-series-metric). 
 
 To create an availability level you must configure the following
 - color: The color of the availability badge on the home page.
@@ -53,3 +48,16 @@ To create an availability level you must configure the following
 ![Configuring availability]({{site.url}}{{site.baseurl}}/images/app_availability_level.gif)
 
 By default, Application analytics shows results from the last 24 hours of your data. To see data from a different timeframe, use the date and time selector.
+
+#### Time series metric
+
+A time series metric is any visualization that has a query that spans over a timestamp and is a line chart. Users can use the power of the PPL language to define arbitrary conditions on their logs to create a visualization over time.
+
+##### Example
+```
+source = <index_name> | ... | ... | stats ... by span(<timestamp_field>, 1h)
+```
+
+Users can then choose **Line** in visualization configurations to create a time series metric.
+
+![Changing visualization to line chart]({{site.url}}{{site.baseurl}}/images/visualization-line-type.gif)

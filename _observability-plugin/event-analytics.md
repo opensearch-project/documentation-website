@@ -38,7 +38,7 @@ Users have several ways to view their logs.
 
 ### Trace log correlation
 
-Users who regularly track events across applications have the capability to correlate Logs and Traces. To view the correlation, users have to index the traces as per the Open Telemetry standards (similar to trace analytics). Once users add a TraceId field to their logs, they can view the correlated trace information in the event explorer log details.  This will allow users to correlate logs and traces that correspond to the same execution context.
+Users who regularly track events across applications have the capability to correlate logs and traces. To view the correlation, users have to index the traces as per the Open Telemetry standards (similar to Trace analytics). Once users add a **TraceId** field to their logs, they can view the trace information that corresponds to the same execution context as the log.
 
 ![Trace Log Correlation]({{site.url}}{{site.baseurl}}/images/trace_log_correlation.gif)
 
@@ -50,7 +50,6 @@ Users who want to know more about a log event that they are looking at can selec
 
 ### Live Tail
 
-
-Users watching a live event take place no longer have to manually refresh their view. Users can now configure the interval in which content is refreshed saving the hassle of manually refreshing. Live Tail feature will allow users to stream live logs on OpenSearch Observability Event Analytics based on provided PPL query, as well as provide rich functionality such as applying filters. This feature provides users with a faster debugging experience, and allows them to monitor their logs in real-time without relying on manual refresh. Users also have the convenience of choosing an interval and even switching between intervals on how often the live tail should stream live logs. As this feature mimics the "tail -f" command in command line, it only retrieves the most recent live logs by possibly eliminating a heavy load of live logs. Live Tail also provides users with the total count of live logs received by Opensearch during live streaming, which can be a useful tool in understanding the incoming traffic.
+Users watching a live event take place can now configure the interval in which content is refreshed saving the hassle of manually refreshing. This provides users with a faster debugging experience, and allows them to monitor their logs in real-time. Users also have the convenience of choosing the interval at which live tail should update. As this feature mimics the "tail -f" command in command line, it only retrieves the most recent live logs by possibly eliminating a heavy load of live logs.
 
 ![Live Tail]({{site.url}}{{site.baseurl}}/images/live_tail.gif)
