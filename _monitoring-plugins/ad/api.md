@@ -370,47 +370,47 @@ POST _plugins/_anomaly_detection/detectors/_validate/detector
   "description": "Test detector",
   "time_field": "timestamp",
   "indices": [
-  "server_log*"
+    "server_log*"
   ],
   "feature_attributes": [
-  {
-    "feature_name": "test",
-    "feature_enabled": true,
-    "aggregation_query": {
-    "test": {
-      "sum": {
-      "field": "value"
+    {
+      "feature_name": "test",
+      "feature_enabled": true,
+      "aggregation_query": {
+        "test": {
+          "sum": {
+            "field": "value"
+          }
+        }
       }
     }
-    }
-  }
   ],
   "filter_query": {
-  "bool": {
-    "filter": [
-    {
-      "range": {
-      "value": {
-        "gt": 1
-      }
-      }
+    "bool": {
+      "filter": [
+        {
+          "range": {
+            "value": {
+              "gt": 1
+            }
+          }
+        }
+      ],
+      "adjust_pure_negative": true,
+      "boost": 1
     }
-    ],
-    "adjust_pure_negative": true,
-    "boost": 1
-  }
   },
   "detection_interval": {
-  "period": {
-    "interval": 1,
-    "unit": "Minutes"
-  }
+    "period": {
+      "interval": 1,
+      "unit": "Minutes"
+    }
   },
   "window_delay": {
-  "period": {
-    "interval": 1,
-    "unit": "Minutes"
-  }
+    "period": {
+      "interval": 1,
+      "unit": "Minutes"
+    }
   }
 }
 ```
@@ -449,56 +449,56 @@ POST _plugins/_anomaly_detection/detectors/_validate/model
   "description": "Test detector",
   "time_field": "timestamp",
   "indices": [
-  "server_log*"
+    "server_log*"
   ],
   "feature_attributes": [
-  {
-    "feature_name": "test",
-    "feature_enabled": true,
-    "aggregation_query": {
-    "test": {
-      "sum": {
-      "field": "value"
+    {
+      "feature_name": "test",
+      "feature_enabled": true,
+      "aggregation_query": {
+        "test": {
+          "sum": {
+            "field": "value"
+          }
+        }
       }
     }
-    }
-  }
   ],
   "filter_query": {
-  "bool": {
-    "filter": [
-    {
-      "range": {
-      "value": {
-        "gt": 1
-      }
-      }
+    "bool": {
+      "filter": [
+        {
+          "range": {
+            "value": {
+              "gt": 1
+            }
+          }
+        }
+      ],
+      "adjust_pure_negative": true,
+      "boost": 1
     }
-    ],
-    "adjust_pure_negative": true,
-    "boost": 1
-  }
   },
   "detection_interval": {
-  "period": {
-    "interval": 1,
-    "unit": "Minutes"
-  }
+    "period": {
+      "interval": 1,
+      "unit": "Minutes"
+    }
   },
   "window_delay": {
-  "period": {
-    "interval": 1,
-    "unit": "Minutes"
-  }
+    "period": {
+      "interval": 1,
+      "unit": "Minutes"
+    }
   }
 }
 ```
 
-If the validate detector API finds areas of improvement with your configuration, it returns a response with suggestions about how you can change your configuration to improve model training chances.
+If the validate detector API finds areas of improvement with your configuration, it returns a response with suggestions about how you can change your configuration to improve model training.
 
 #### Sample Responses
 
-In this example, the validate detector API return a responses with indicating that changing the detector interval length to at least 4 minutes can increase the chances of successful model training.
+In this example, the validate detector API return a response indicating that changing the detector interval length to at least four minutes can increase the chances of successful model training.
 
 ```json
 {
@@ -516,7 +516,7 @@ In this example, the validate detector API return a responses with indicating th
 }
 ```
 
-Another response might indicate that you can change `filter_query` (data filter) because the currently filtered data is too sparse for the model to train correctly, which can happen because there is data with a value less than 1 being ingested. Using another `filter_query` can make your data more dense.
+Another response might indicate that you can change `filter_query` (data filter) because the currently filtered data is too sparse for the model to train correctly, which can happen because the index is also ingesting data that falls outside the chosen filter. Using another `filter_query` can make your data more dense.
 
 ```json
 {
