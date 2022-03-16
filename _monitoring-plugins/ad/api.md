@@ -322,7 +322,7 @@ You can specify the following options.
 Options | Description | Type | Required
 :--- | :--- |:--- |:--- |
 `name` |  The name of the detector. | `string` | Yes
-`description` |  A description of the detector. | `string` | Yes
+`description` |  A description of the detector. | `string` | No
 `time_field` |  The name of the time field. | `string` | Yes
 `indices`  |  A list of indices to use as the data source. | `list` | Yes
 `feature_attributes` | Specify a `feature_name`, set the `enabled` parameter to `true`, and specify an aggregation query. | `list` | Yes
@@ -339,9 +339,26 @@ Introduced 1.2
 
 Returns whether the detector configuration has any issues that might prevent OpenSearch from creating the detector.
 
-You can use the validate API to identify issues in your detector configuration before creating the detector.
+You can use the validate detector API operation to identify issues in your detector configuration before creating the detector.
 
 The request body consists of the detector configuration and follows the same format as the request body of the [create detector API]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/api#create-anomaly-detector).
+
+You have the following validation options:
+
+- Only validate against the detector configuration and find any issues that would completely block detector creation:
+
+```
+POST _plugins/_anomaly_detection/detectors/_validate
+POST _plugins/_anomaly_detection/detectors/_validate/detector
+```
+
+- Validate against the source data to see how likely the detector would complete model training.
+
+```
+POST _plugins/_anomaly_detection/detectors/_validate/model
+```
+
+Responses from this API operation return either blocking issues as detector type responses or a response indicating a field that could be revised to increase likelihood of model training completing successfully. Model type issues don’t need to be fixed for detector creation to succeed, but the detector would likely not train successfully if they aren’t addressed.
 
 #### Request
 
@@ -353,52 +370,52 @@ POST _plugins/_anomaly_detection/detectors/_validate/detector
   "description": "Test detector",
   "time_field": "timestamp",
   "indices": [
-    "server_log*"
+  "server_log*"
   ],
   "feature_attributes": [
-    {
-      "feature_name": "test",
-      "feature_enabled": true,
-      "aggregation_query": {
-        "test": {
-          "sum": {
-            "field": "value"
-          }
-        }
+  {
+    "feature_name": "test",
+    "feature_enabled": true,
+    "aggregation_query": {
+    "test": {
+      "sum": {
+      "field": "value"
       }
     }
+    }
+  }
   ],
   "filter_query": {
-    "bool": {
-      "filter": [
-        {
-          "range": {
-            "value": {
-              "gt": 1
-            }
-          }
-        }
-      ],
-      "adjust_pure_negative": true,
-      "boost": 1
+  "bool": {
+    "filter": [
+    {
+      "range": {
+      "value": {
+        "gt": 1
+      }
+      }
     }
+    ],
+    "adjust_pure_negative": true,
+    "boost": 1
+  }
   },
   "detection_interval": {
-    "period": {
-      "interval": 1,
-      "unit": "Minutes"
-    }
+  "period": {
+    "interval": 1,
+    "unit": "Minutes"
+  }
   },
   "window_delay": {
-    "period": {
-      "interval": 1,
-      "unit": "Minutes"
-    }
+  "period": {
+    "interval": 1,
+    "unit": "Minutes"
+  }
   }
 }
 ```
 
-If the validate API doesn’t find any issue in the detector configuration, it returns an empty response:
+If the validate detector API doesn’t find any issue in the detector configuration, it returns an empty response:
 
 #### Sample response
 
@@ -406,22 +423,111 @@ If the validate API doesn’t find any issue in the detector configuration, it r
 {}
 ```
 
-If the validate API finds an issue, it returns a message explaining what's wrong with the configuration. In this example, the feature query aggregates over a field that doesn’t exist in the data source:
+If the validate detector API finds an issue, it returns a message explaining what's wrong with the configuration. In this example, the feature query aggregates over a field that doesn’t exist in the data source:
 
 #### Sample response
 
 ```json
 {
   "detector": {
-    "feature_attributes": {
-      "message": "Feature has invalid query returning empty aggregated data: average_total_rev",
-      "sub_issues": {
-        "average_total_rev": "Feature has invalid query returning empty aggregated data"
+  "feature_attributes": {
+    "message": "Feature has invalid query returning empty aggregated data: average_total_rev",
+    "sub_issues": {
+    "average_total_rev": "Feature has invalid query returning empty aggregated data"
+    }
+  }
+  }
+}
+```
+
+The following request validates against the source data to see if model training might succeed. In this example, the data is ingested at a rate of every 5 minutes, and detector interval is set to 1 minute.
+
+```json
+POST _plugins/_anomaly_detection/detectors/_validate/model
+{
+  "name": "test-detector",
+  "description": "Test detector",
+  "time_field": "timestamp",
+  "indices": [
+  "server_log*"
+  ],
+  "feature_attributes": [
+  {
+    "feature_name": "test",
+    "feature_enabled": true,
+    "aggregation_query": {
+    "test": {
+      "sum": {
+      "field": "value"
+      }
+    }
+    }
+  }
+  ],
+  "filter_query": {
+  "bool": {
+    "filter": [
+    {
+      "range": {
+      "value": {
+        "gt": 1
+      }
+      }
+    }
+    ],
+    "adjust_pure_negative": true,
+    "boost": 1
+  }
+  },
+  "detection_interval": {
+  "period": {
+    "interval": 1,
+    "unit": "Minutes"
+  }
+  },
+  "window_delay": {
+  "period": {
+    "interval": 1,
+    "unit": "Minutes"
+  }
+  }
+}
+```
+
+If the validate detector API finds areas of improvement with your configuration, it returns a response with suggestions about how you can change your configuration to improve model training chances.
+
+#### Sample Responses
+
+In this example, the validate detector API return a responses with indicating that changing the detector interval length to at least 4 minutes can increase the chances of successful model training.
+
+```json
+{
+  "model": {
+    "detection_interval": {
+      "message": "The selected detector interval might collect sparse data. Consider changing interval length to: 4",
+      "suggested_value": {
+        "period": {
+          "interval": 4,
+          "unit": "Minutes"
+        }
       }
     }
   }
 }
 ```
+
+Another response might indicate that you can change `filter_query` (data filter) because the currently filtered data is too sparse for the model to train correctly, which can happen because there is data with a value less than 1 being ingested. Using another `filter_query` can make your data more dense.
+
+```json
+{
+  "model": {
+    "filter_query": {
+      "message": "Data is too sparse after data filter is applied. Consider changing the data filter"
+    }
+  }
+}
+```
+
 ---
 
 ## Get detector
