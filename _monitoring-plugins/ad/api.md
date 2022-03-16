@@ -498,7 +498,7 @@ If the validate detector API finds areas of improvement with your configuration,
 
 #### Sample Responses
 
-In this example, the validate detector API return a response indicating that changing the detector interval length to at least four minutes can increase the chances of successful model training.
+In this example, the validate detector API returns a response indicating that changing the detector interval length to at least four minutes can increase the chances of successful model training.
 
 ```json
 {
