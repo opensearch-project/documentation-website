@@ -7,7 +7,7 @@ nav_order: 3
 
 # Data Prepper configuration reference
 
-This page lists all supported Data Prepper server, sources, buffers, preppers, and sinks, along with their associated options. For example configuration files, see [Data Prepper]({{site.url}}{{site.baseurl}}/clients/data-prepper/pipelines/).
+This page lists all supported Data Prepper server, sources, buffers, processors, and sinks, along with their associated options. For example configuration files, see [Data Prepper]({{site.url}}{{site.baseurl}}/clients/data-prepper/pipelines/).
 
 ## Data Prepper server options
 
@@ -46,7 +46,7 @@ proto_reflection_service | No | Boolean | Enables a reflection service for Proto
 unframed_requests | No | Boolean | Enable requests not framed using the gRPC wire protocol.
 thread_count | No | Integer | The number of threads to keep in the ScheduledThreadPool. Default is `200`.
 max_connection_count | No | Integer | The maximum allowed number of open connections. Default is `500`.
-ssl | No | Boolea | Enables connections to the OTel source port over TLS/SSL. Defaults to `true`.
+ssl | No | Boolean | Enables connections to the OTel source port over TLS/SSL. Defaults to `true`.
 sslKeyCertChainFile | Conditionally | String | File-system path or AWS S3 path to the security certificate (e.g. `"config/demo-data-prepper.crt"` or `"s3://my-secrets-bucket/demo-data-prepper.crt"`). Required if ssl is set to `true`.
 sslKeyFile | Conditionally | String | File-system path or AWS S3 path to the security key (e.g. `"config/demo-data-prepper.key"` or `"s3://my-secrets-bucket/demo-data-prepper.key"`). Required if ssl is set to `true`.
 useAcmCertForSSL | No | Boolean | Whether to enable TLS/SSL using certificate and private key from AWS Certificate Manager (ACM). Default is `false`.
@@ -106,9 +106,10 @@ buffer_size | No | Integer | The maximum number of records the buffer accepts. D
 batch_size | No | Integer | The maximum number of records the buffer drains after each read. Default is 8.
 
 
-## Preppers
+## Processors
 
-Preppers perform some action on your data: filter, transform, enrich, etc.
+Processors perform some action on your data: filter, transform, enrich, etc.
+> Note: Prior to Data Prepper 1.3, Processors were named Preppers. Starting in Data Prepper 1.3, the term Prepper is deprecated in favor or Processor. Data Prepper will continue to support the term "Prepper" until 2.0 where it will be removed.
 
 
 ### otel_trace_raw_prepper
@@ -117,7 +118,7 @@ Converts OpenTelemetry data to OpenSearch-compatible JSON documents.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
-root_span_flush_delay | No | Integer | Represents the time interval in seconds to flush all the root spans in the prepper together with their descendants. Default is 30.
+root_span_flush_delay | No | Integer | Represents the time interval in seconds to flush all the root spans in the processor together with their descendants. Default is 30.
 trace_flush_interval | No | Integer | Represents the time interval in seconds to flush all the descendant spans without any root span. Default is 180.
 
 
@@ -151,11 +152,34 @@ acmCertificateArn | Conditionally | String | Represents the ACM certificate ARN.
 
 ### string_converter
 
-Converts strings to uppercase or lowercase. Mostly useful as an example if you want to develop your own prepper.
+Converts string to uppercase or lowercase. Mostly useful as an example if you want to develop your own processor.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
 upper_case | No | Boolean | Whether to convert to uppercase (`true`) or lowercase (`false`).
+
+### aggregate
+
+Groups events together based on the keys provided and performs a action on each group.
+
+Option | Required | Type | Description
+:--- | :--- | :--- | :---
+identification_keys | Yes | List | A unordered list by which to group Events. Events with the same values for these keys are put into the same group. If an Event does not contain one of the `identification_keys`, then the value of that key is considered to be equal to `null`. At least one identification_key is required. (e.g. `["sourceIp", "destinationIp", "port"]`).
+action | Yes | AggregateAction | The action to be performed for each group. One of the available Aggregate Actions must be provided or you can create custom aggregate actions. `remove_duplicates` and `put_all` are available actions. For more information, see [creating custom aggregate actions](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/aggregate-processor#creating-new-aggregate-actions).
+group_duration | No | String | The amount of time that a group should exist before it is concluded automatically. Supports ISO_8601 notation strings ("PT20.345S", "PT15M", etc.) as well as simple notation for seconds (`"60s"`) and milliseconds (`"1500ms"`). Default value is `180s`.
+
+### date
+
+Adds a default timestamp to the event or parses timestamp fields, and converts it to ISO 8601 format which can be used as event timestamp.
+
+Option | Required | Type | Description
+:--- | :--- | :--- | :---
+match | Conditionally | List | List of `key` and `patterns` where patterns is a list. The list of match can have exactly one `key` and `patterns`. There is no default value. `from_time_received` and `match` are mutually exclusive options. Include multiple date processors in your pipeline if both options should be used.
+from_time_received | Conditionally | Boolean | A boolean that is used for adding default timestamp to event data from event metadata which is the time when source receives the event. Default value is `false`. `from_time_received` and `match` are mutually exclusive options. Include multiple date processors in your pipeline if both options should be used.
+destination | No | String | Field to store the timestamp parsed by date processor. It can be used with both `match` and `from_time_received`. Default value is `@timestamp`.
+source_timezone | No | String | Timezone used for parsing dates. It will be used in case of zone or offset cannot be extracted from value. If zone or offset is part of the value timezone will be ignored. Find all the available timezones [here](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List) in "TZ database name" column.
+destination_timezone | No | String | Timezone used for storing timestamp in `destination` field. The available timezone values are the same as `source_timestamp`.
+locale | No | String | Locale is used for parsing dates. It's commonly used for parsing month names(`MMM`). It can have language, country and variant fields using IETF BCP 47 or String representation of [Locale](https://docs.oracle.com/javase/8/docs/api/java/util/Locale.html) object. For example `en-US` for IETF BCP 47 and `en_US` for string representation of Locale. Full list of locale fields which includes language, country and variant can be found [here](https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry). Default value is `Locale.ROOT`.
 
 ### grok_prepper
 
@@ -166,7 +190,7 @@ Option | Required | Type | Description
 match | No | Map | Specifies which keys to match specific patterns against. Default is an empty body.
 keep_empty_captures | No | Boolean | Enables preserving `null` captures. Default value is `false`.
 named_captures_only | No | Boolean | enables whether to keep only named captures. Default value is `true`.
-break_on_match | No | Boolean | Specifies wether to match all patterns or stop once the first successful match is found. Default is `true`.
+break_on_match | No | Boolean | Specifies whether to match all patterns or stop once the first successful match is found. Default is `true`.
 keys_to_overwrite | No | List | Specifies which existing keys are to be overwritten if there is a capture with the same key value. Default is `[]`.
 pattern_definitions | No | Map | Allows for custom pattern use inline. Default value is an empty body.
 patterns_directories | No | List | Specifies the path of directories that contain customer pattern files. Default value is an empty list.
@@ -174,12 +198,29 @@ pattern_files_glob | No | String | Specifies which pattern files to use from the
 target_key | No | String | Specifies a parent level key to store all captures. Default value is `null`.
 timeout_millis | No | Integer | Maximum amount of time that should take place for the matching. Setting to `0` disables the timeout. Default value is `30,000`.
 
+### key_value
+
+Takes in a field and parses it into key/value pairs.
+
+Option | Required | Type | Description
+:--- | :--- | :--- | :---
+source | No | String | The key in the event that will be parsed. Default value is `message`.
+destination | No | String | The key where parsed source will be output to. This will overwrite value of the key if it exists. Default value is `parsed_message`
+field_delimiter_regex | Conditionally | String | A regex specifying the delimiter between key/value pairs. Special regex characters such as `[` and `]` must be escaped using `\\`. This cannot be defined at the same time as `field_split_characters`.
+field_split_characters | Conditionally | String | A string of characters to split between key/value pairs. Special regex characters such as `[` and `]` must be escaped using `\\`. Default value is `&`. This cannot be defined at the same time as `field_delimiter_regex`.
+key_value_delimiter_regex| Conditionally | String | A regex specifying the delimiter between a key and a value. Special regex characters such as `[` and `]` must be escaped using `\\`. Default value is `=`. This cannot be defined at the same time as `value_split_characters`.
+value_split_characters | Conditionally | String | A string of characters to split between keys and values. Special regex characters such as `[` and `]` must be escaped using `\\`. Default value is `&`. This cannot be defined at the same time as `key_value_delimiter_regex`.
+non_match_value | No | String | When a key/value cannot be successfully split, the key/value will be placed in the key field and the specified value in the value field. Default value is `null`.
+prefix | No | String | A prefix given to all keys. Default value is empty string.
+delete_key_regex | No | String | A regex that will be used to delete characters from the key. Special regex characters such as `[` and `]` must be escaped using `\\`. There is no default value.
+delete_value_regex | No | String | A regex that will be used to delete characters from the value. Special regex characters such as `[` and `]` must be escaped using `\\`. There is no default value.
+
 ## Sinks
 
 Sinks define where Data Prepper writes your data to.
 
 
-### OpenSearch
+### opensearch
 
 Sink for an OpenSearch cluster.
 
@@ -197,7 +238,7 @@ connect_timeout | No | Integer | The timeout in milliseconds used when requestin
 insecure | No | Boolean | Whether to verify SSL certificates. If set to true, CA certificate verification is disabled and insecure HTTP requests are sent instead. Default is false.
 proxy | No | String | The address of a [forward HTTP proxy server](https://en.wikipedia.org/wiki/Proxy_server). The format is "&lt;host name or IP&gt;:&lt;port&gt;". Examples: "example.com:8100", "http://example.com:8100", "112.112.112.112:8100". Port number cannot be omitted.
 trace_analytics_raw | No | Boolean | Deprecated in favor of `index_type`. Whether to export as trace data to the `otel-v1-apm-span-*` index pattern (alias `otel-v1-apm-span`) for use with the Trace Analytics OpenSearch Dashboards plugin. Default is false.
-trace_analytics_service_map | No | Boolean | Deprecated in favor of `index_type`. Whether to export as trace data to the `otel-v1-apm-service-map` index for use with the service map component of the Trace Analytics OpenSearch Dashboards plugin. | Default is false.
+trace_analytics_service_map | No | Boolean | Deprecated in favor of `index_type`. Whether to export as trace data to the `otel-v1-apm-service-map` index for use with the service map component of the Trace Analytics OpenSearch Dashboards plugin. Default is `false`.
 index | No | String | Name of the index to export to. Only required if you don't use the `trace-analytics-raw` or `trace-analytics-service-map` presets. In other words, this parameter is applicable and required only if index_type is explicitly `custom` or defaults to `custom`.
 index_type | No | String | This index type instructs the Sink plugin what type of data it is handling. Valid values: `custom`, `trace-analytics-raw`, `trace-analytics-service-map`. Default is `custom`.
 template_file | No | String | Path to a JSON [index template]({{site.url}}{{site.baseurl}}/opensearch/index-templates/) file (e.g. `/your/local/template-file.json` if you do not use the `trace_analytics_raw` or `trace_analytics_service_map`.) See [otel-v1-apm-span-index-template.json](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/opensearch/src/main/resources/otel-v1-apm-span-index-template.json) for an example.
