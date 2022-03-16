@@ -430,12 +430,12 @@ If the validate detector API finds an issue, it returns a message explaining wha
 ```json
 {
   "detector": {
-  "feature_attributes": {
-    "message": "Feature has invalid query returning empty aggregated data: average_total_rev",
-    "sub_issues": {
-    "average_total_rev": "Feature has invalid query returning empty aggregated data"
+    "feature_attributes": {
+      "message": "Feature has invalid query returning empty aggregated data: average_total_rev",
+      "sub_issues": {
+        "average_total_rev": "Feature has invalid query returning empty aggregated data"
+      }
     }
-  }
   }
 }
 ```
