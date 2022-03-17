@@ -732,3 +732,84 @@ PPL query:
 ```ppl
 search source=my_index | where match(message, "this is a test", operator=and, zero_terms_query=all)
 ```
+
+## ad
+
+The `ad` command applies Random Cut Forest (RCF) algorithm in ml-commons plugin on the search result returned by a PPL command.Based on the input, two types of RCF algorithms will be utilized: fixed in time RCF for processing time-series data, batch RCF for processing non-time-series data.
+
+### Fixed In Time RCF For Time-series Data Command Syntax
+
+```sql
+ad \<shingle\_size\> \<time\_decay\> \<time\_field\>
+```
+
+Field | Description | Required
+:--- | :--- |:---
+`shingle\_size` | A consecutive sequence of the most recent records. The default value is 8. | No
+`time\_decay` | Specifies how much of the recent past to consider when computing an anomaly score. The default value is 0.001. | No
+`time\_field` | Specifies the time filed for RCF to use as time-series data. | Yes
+
+### Batch RCF for Non-time-series Data Command Syntax
+
+```sql
+ad \<shingle\_size\> \<time\_decay\>
+```
+
+Field | Description | Required
+:--- | :--- |:---
+`shingle\_size` | A consecutive sequence of the most recent records. The default value is 8. | No
+`time\_decay` | Specifies how much of the recent past to consider when computing an anomaly score. The default value is 0.001. | No
+
+*Example 1*: Detecting events in New York City from taxi ridership data with time-series data
+
+The example trains a RCF model and use the model to detect anomalies in the time-series ridership data.
+
+PPL query:
+
+```sql
+os> source=nyc_taxi | fields value, timestamp | AD time_field='timestamp' | where value=10844.0'
+```
+
+value | timestamp | score | anomaly_grade
+:--- | :--- |:--- | :---
+10844.0 | 1404172800000 | 0.0 | 0.0    
+
+*Example 2*: Detecting events in New York City from taxi ridership data with non-time-series data
+
+PPL query:
+
+```sql
+os> source=nyc_taxi | fields value | AD | where value=10844.0'
+```
+
+value | score | anomalous
+:--- | :--- |:--- 
+| 10844.0 | 0.0 | false  
+
+## kmeans
+
+The kmeans command applies kmeans algorithm in ml-commons plugin on the search result returned by a PPL command.
+
+## Syntax
+
+```sql
+kmeans <cluster-number>
+```
+
+For `cluster-number`, enter the number of clusters you want to group your data points into.
+
+*Example*
+
+The example shows how to classify three Iris species (Iris setosa, Iris virginica and Iris versicolor) based on the combination of four features measured from each sample: the length and the width of the sepals and petals.
+
+PPL query:
+
+```sql
+os> source=iris_data | fields sepal_length_in_cm, sepal_width_in_cm, petal_length_in_cm, petal_width_in_cm | kmeans 3
+```
+
+sepal_length_in_cm | sepal_width_in_cm | petal_length_in_cm | petal_width_in_cm | ClusterID
+:--- | :--- |:--- | :--- | :--- 
+| 5.1 | 3.5 | 1.4 | 0.2 | 1   
+| 5.6 | 3.0 | 4.1 | 1.3 | 0
+| 6.7 | 2.5 | 5.8 | 1.8 | 2
