@@ -30,4 +30,26 @@ For more information about building PPL queries, see [Piped Processing Language]
 
 After Dashboards generates a visualization, you must save it if you want to return to it at a later time or if you want to add it to an [operational panel]({{site.url}}{{site.baseurl}}/observability-plugin/operational-panels).
 
-To save a visualization, expand the save dropdown menu next to **Run**, enter a name for your visualization, then choose **Save**. You can reopen any saved visualizations on the event analytics page.
+To save a visualization, expand the save dropdown menu next to **Refresh**, enter a name for your visualization, then choose **Save**. You can reopen any saved visualizations on the event analytics page.
+
+## View logs
+
+Users have several ways to view their logs.
+
+### Trace log correlation
+
+Users who regularly track events across applications have the capability to correlate logs and traces. To view the correlation, users have to index the traces as per the Open Telemetry standards (similar to Trace analytics). Once users add a **TraceId** field to their logs, they can view the trace information that corresponds to the same execution context as the log.
+
+![Trace Log Correlation]({{site.url}}{{site.baseurl}}/images/trace_log_correlation.gif)
+
+### Surrounding events
+
+Users who want to know more about a log event that they are looking at can select **View surrounding events** to get a bigger picture of what was happening around the time of interest. 
+
+![Surrounding Events]({{site.url}}{{site.baseurl}}/images/surrounding_events.gif)
+
+### Live Tail
+
+Users watching a live event take place can now configure the interval in which content is refreshed saving the hassle of manually refreshing. This provides users with a faster debugging experience, and allows them to monitor their logs in real-time. Users also have the convenience of choosing the interval at which live tail should update. As this feature mimics the "tail -f" command in command line, it only retrieves the most recent live logs by possibly eliminating a heavy load of live logs.
+
+![Live Tail]({{site.url}}{{site.baseurl}}/images/live_tail.gif)
