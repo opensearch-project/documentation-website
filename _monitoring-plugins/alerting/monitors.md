@@ -410,7 +410,7 @@ Deleted | Someone deleted the monitor or trigger associated with this alert whil
 
 ## Create cluster metrics monitor
 
-In addition to monitoring conditions for indexes, the alerting plugin allows monitoring conditions on clusters. Alerts that can be set by ClusterMetrics to watch for when: 
+In addition to monitoring conditions for indexes, the alerting plugin allows monitoring conditions on clusters. Alerts can be set by cluster metrics to watch for when: 
 
 - The health of your cluster reaches a status of yellow or red.
 - CPU usages reaches a specified threshold.
@@ -423,9 +423,9 @@ To create a cluster metrics monitor:
 2. Select the **Per cluster metrics monitor** option. 
 3. In the Query section, pick the **Request type** from the dropdown.
 4. (Optional) If you want to filter the API response to use only certain path parameters, enter those parameters under **Query parameters**. Most APIs that can be used to monitor cluster status support path parameters as described in their documentation (e.g., comma-separated lists of index names).
-5. In the Triggers section, indicate what conditions trigger an alert. The trigger condition autopopulates a painless ctx variable. For example, a cluster monitor watching for Cluster Stats uses the trigger condition `ctx.results[0].indices.count <= 0`, which triggers an alert based on the number of indices returned by the query. For more specificity, add any additional painless conditions supported by the API. To see an example of the condition response, select **Preview condition response**. 
+5. In the Triggers section, indicate what conditions trigger an alert. The trigger condition autopopulates a painless ctx variable. For example, a cluster monitor watching for Cluster Stats uses the trigger condition `ctx.results[0].indices.count <= 0`, which triggers an alert based on the number of indexes returned by the query. For more specificity, add any additional painless conditions supported by the API. To see an example of the condition response, select **Preview condition response**. 
 6. In the Actions sections, indicate how you want your users to be notified when a trigger condition is met.
-7. Select **Create**. Your new monitor appears in **Monitors** list.
+7. Select **Create**. Your new monitor appears in the **Monitors** list.
 
 ### Supported APIs
 
@@ -442,9 +442,9 @@ Trigger conditions use responses from the following APIs. Most APIs that can be 
 
 ### Restrict API fields
 
-If you want to hide fields from the API response that you do not want exposed for alerting, create a `supported_json_payloads.json` file in the alerting plugin. The file functions as an allow list for the API fields you want to use in an alert. Cluster metric monitors can only be created for API's referenced by the supported payloads file. Furthermore, only fields reference in the supported files can create trigger conditions.
+If you want to hide fields from the API response that you do not want exposed for alerting, create a `supported_json_payloads.json` file in the alerting plugin. The file functions as an allow list for the API fields you want to use in an alert. Cluster metric monitors can only be created for APIs referenced by the supported payloads file. Furthermore, only fields referenced in the supported files can create trigger conditions.
 
-This ``supported_json_payloads.json` allows for a cluster metrics monitor to be created for the `_cluster/stats` API, and triggers conditions for the `indices.shards.total` and `indices.shards.index.shards.min` fields.
+This `supported_json_payloads.json` allows for a cluster metrics monitor to be created for the `_cluster/stats` API, and triggers conditions for the `indices.shards.total` and `indices.shards.index.shards.min` fields.
 
 ```json
 "/_cluster/stats": {
@@ -457,7 +457,7 @@ This ``supported_json_payloads.json` allows for a cluster metrics monitor to be 
 
 ### Painless triggers
 
-Painless scripts define triggers for cluster metrics monitors, similar to query or bucket-level monitors that are defined using the extraction query definition option. Painless scripts are compromised of at least one statement and any additional functions you wish to execute.
+Painless scripts define triggers for cluster metrics monitors, similar to query or bucket-level monitors that are defined using the extraction query definition option. Painless scripts are comprised of at least one statement and any additional functions you wish to execute.
 
 The cluster metrics monitor supports up to **ten** triggers.
 
@@ -510,7 +510,7 @@ See [trigger variables](#trigger-variables), for more painless ctx options.
 
 Currently, the cluster metrics monitor has the following limitations: 
 
-- You cannot create monitor for remote clusters.
-- The OpenSearch cluster must be in a state where an indexes conditions can be monitored and actions can be executed against the index.
+- You cannot create monitors for remote clusters.
+- The OpenSearch cluster must be in a state where an index's conditions can be monitored and actions can be executed against the index.
 - Removing resource permissions from a user will not prevent that user’s preexisting monitors for that resource from executing.
 - Users with permissions to create monitors are not blocked from creating monitors for resources for which they do not have permissions; however, those monitors will not execute.
