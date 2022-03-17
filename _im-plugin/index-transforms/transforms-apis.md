@@ -713,7 +713,7 @@ POST _plugins/_transform/_preview
 Introduced 1.0
 {: .label .label-purple }
 
-Deletes a transform job. This operation does not delete the source or target indices.
+Deletes a transform job. This operation does not delete the source or target indexes.
 
 **Sample Request**
 
