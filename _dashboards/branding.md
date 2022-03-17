@@ -54,7 +54,7 @@ To start using your own branding elements in OpenSearch Dashboards, first uncomm
 
 Add the URLs you want to use as branding elements to the appropriate setting. Valid image types are `SVG`, `PNG`, and `GIF`.
 
-Customization of dark mode Dashboards is also available, but you first must supply a valid link to `defaultUrl`, and then link to your preferred image with `darkModeUrl`. You are not required to customize all branding elements, so if you wanted to, it's perfectly valid to change just the logo. Leave unchanged elements as commented.
+Customization of dark mode Dashboards is also available, but you first must supply a valid link to `defaultUrl`, and then link to your preferred image with `darkModeUrl`. If you don't provide a `darkModeUrl` link, then Dashboards uses the provided `defaultUrl` element for dark mode. You are not required to customize all branding elements, so if you wanted to, it's perfectly valid to change just the logo or any other element. Leave unchanged elements as commented.
 
 The following example demonstrates how to use `SVG` files as logos but leaves the other elements as defaults.
 
@@ -72,17 +72,17 @@ logo:
 applicationTitle: "My custom application"
 ```
 
-We recommend linking to images that are hosted on a web server, but if you really want to use locally hosted images, save your images inside `src/core/server/core_app/assets`, and then configure `opensearch_dashboards.yml`. You can access locally stored images through the `ui` folder.
+We recommend linking to images that are hosted on a web server, but if you really want to use locally hosted images, save your images inside `assets`, and then configure `opensearch_dashboards.yml` to use the correct paths. You can access locally stored images through the `ui/assets` folder.
 
 The following example assumes the default port of 5601 that Dashboards uses and demonstrates how to link to locally stored images.
 
 ```yml
 logo:
-  defaultUrl: "https://localhost:5601/ui/my-own-image.svg"
-  darkModeUrl: "https://localhost:5601/ui/my-own-image.svg"
+  defaultUrl: "https://localhost:5601/ui/assets/my-own-image.svg"
+  darkModeUrl: "https://localhost:5601/ui/assets/dark-mode-my-own-image.svg"
 mark:
-  defaultUrl: "https://localhost:5601/ui/my-own-image2.svg"
-  darkModeUrl: "https://localhost:5601/ui/my-own-image2.svg"
+  defaultUrl: "https://localhost:5601/ui/assets/my-own-image2.svg"
+  darkModeUrl: "https://localhost:5601/ui/assets/dark-mode-my-own-image2.svg"
 # loadingLogo:
 #   defaultUrl: ""
 #   darkModeUrl: ""
@@ -90,11 +90,9 @@ mark:
 applicationTitle: "My custom application"
 ```
 
-We don't recommend this workaround because new versions of Dashboards would revert all customized elements back to default branding elements, and you would have to re-upload your assets to access them again.
-
 ## Sample configuration
 
-The following configuration enables the security plugin within OpenSearch Dashboards and uses custom branding elements to replace the OpenSearch logo and application title.
+The following configuration enables the security plugin and SSL within OpenSearch Dashboards and uses custom branding elements to replace the OpenSearch logo and application title.
 
 ```yml
 server.host: "0"
@@ -103,6 +101,9 @@ opensearch.ssl.verificationMode: none
 opensearch.username: "kibanaserver"
 opensearch.password: "kibanaserver"
 opensearch.requestHeadersWhitelist: [ authorization,securitytenant ]
+#server.ssl.enabled: true
+#server.ssl.certificate: /path/to/your/server/certificate
+#server.ssl.key: /path/to/your/server/key
 
 opensearch_security.multitenancy.enabled: true
 opensearch_security.multitenancy.tenants.preferred: ["Private", "Global"]
@@ -113,7 +114,7 @@ opensearch_security.cookie.secure: false
 opensearchDashboards.branding:
   logo:
     defaultUrl: "https://example.com/sample.svg"
-    darkModeUrl: "https://example.com/sample.svg"
+    darkModeUrl: "https://example.com/dark-mode-sample.svg"
   # mark:
   #   defaultUrl: ""
   #   darkModeUrl: ""
