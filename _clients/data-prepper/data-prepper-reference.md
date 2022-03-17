@@ -109,7 +109,8 @@ batch_size | No | Integer | The maximum number of records the buffer drains afte
 ## Processors
 
 Processors perform some action on your data: filter, transform, enrich, etc.
-> Note: Prior to Data Prepper 1.3, Processors were named Preppers. Starting in Data Prepper 1.3, the term Prepper is deprecated in favor or Processor. Data Prepper will continue to support the term "Prepper" until 2.0 where it will be removed.
+Prior to Data Prepper 1.3, Processors were named Preppers. Starting in Data Prepper 1.3, the term Prepper is deprecated in favor or Processor. Data Prepper will continue to support the term "Prepper" until 2.0 where it will be removed. 
+{: .note }
 
 
 ### otel_trace_raw_prepper
@@ -174,12 +175,21 @@ Adds a default timestamp to the event or parses timestamp fields, and converts i
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
-match | Conditionally | List | List of `key` and `patterns` where patterns is a list. The list of match can have exactly one `key` and `patterns`. There is no default value. `from_time_received` and `match` are mutually exclusive options. Include multiple date processors in your pipeline if both options should be used.
-from_time_received | Conditionally | Boolean | A boolean that is used for adding default timestamp to event data from event metadata which is the time when source receives the event. Default value is `false`. `from_time_received` and `match` are mutually exclusive options. Include multiple date processors in your pipeline if both options should be used.
+match | Conditionally | List | List of `key` and `patterns` where patterns is a list. The list of match can have exactly one `key` and `patterns`. There is no default value. `from_time_received` and `match` are mutually exclusive options, so you can use either one, but not both at the same time. Include multiple date processors in your pipeline if both options should be used.
+from_time_received | Conditionally | Boolean | A boolean that is used for adding default timestamp to event data from event metadata which is the time when source receives the event. Default value is `false`. `from_time_received` and `match` are mutually exclusive options, so you can use either one, but not both at the same time. Include multiple date processors in your pipeline if both options should be used.
 destination | No | String | Field to store the timestamp parsed by date processor. It can be used with both `match` and `from_time_received`. Default value is `@timestamp`.
 source_timezone | No | String | Timezone used for parsing dates. It will be used in case of zone or offset cannot be extracted from value. If zone or offset is part of the value timezone will be ignored. Find all the available timezones [here](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List) in "TZ database name" column.
 destination_timezone | No | String | Timezone used for storing timestamp in `destination` field. The available timezone values are the same as `source_timestamp`.
 locale | No | String | Locale is used for parsing dates. It's commonly used for parsing month names(`MMM`). It can have language, country and variant fields using IETF BCP 47 or String representation of [Locale](https://docs.oracle.com/javase/8/docs/api/java/util/Locale.html) object. For example `en-US` for IETF BCP 47 and `en_US` for string representation of Locale. Full list of locale fields which includes language, country and variant can be found [here](https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry). Default value is `Locale.ROOT`.
+
+### drop_events
+
+Drops all the events that are passed into this processor.
+
+Option | Required | Type | Description
+:--- | :--- | :--- | :---
+drop_when | Yes | String | Accepts a Data Prepper Expression string following the [Data Prepper Expression Syntax](https://github.com/opensearch-project/data-prepper/blob/main/docs/expression_syntax.md). Configuring `drop_events` with `drop_when: true` will drop all the events received.
+handle_failed_events | No | Enum | Used when an exception occurs while evaluating an event which specifies how the exception will be handled. Default value is `drop`. Available options are `drop`, `drop_silenly`, `skip`, `skip_silently`. For more information, see [handle_failed_events](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/drop-events-processor#handle_failed_events).
 
 ### grok_prepper
 
@@ -214,6 +224,78 @@ non_match_value | No | String | When a key/value cannot be successfully split, t
 prefix | No | String | A prefix given to all keys. Default value is empty string.
 delete_key_regex | No | String | A regex that will be used to delete characters from the key. Special regex characters such as `[` and `]` must be escaped using `\\`. There is no default value.
 delete_value_regex | No | String | A regex that will be used to delete characters from the value. Special regex characters such as `[` and `]` must be escaped using `\\`. There is no default value.
+
+### add_entries
+
+Adds an entry to event. `add_entries` is part of [mutate event](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/mutate-event-processors#mutate-event-processors) processors.
+
+Option | Required | Type | Description
+:--- | :--- | :--- | :---
+entries | Yes | List | List of `key`: key of new event to be added <br> `value`: value of new entry to be added. Strings, booleans, numbers, null, nested objects, and arrays containing the aforementioned data types are valid to use. <br> `overwrite_if_key_exists`: boolean and optional, when set to `true`, if `key` already exists in the event, then the existing value will be overwritten. The default is `false`.
+
+### copy_values
+
+Copy values within an event. `copy_values`  is part of [mutate event](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/mutate-event-processors#mutate-event-processors) processors.
+
+Option | Required | Type | Description
+:--- | :--- | :--- | :---
+entries | Yes | List | List of `from_key`: The key of the entry to be copied <br> `to_key`: The key of the new entry to be added <br> `overwrite_if_to_key_exists`: boolean and optional, when set to `true`, if `to_key` already exists in the event, then the existing value will be overwritten. The default is `false`.
+
+### delete_entries
+
+Delete entries in an event. `delete_entries` is part of [mutate event](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/mutate-event-processors#mutate-event-processors) processors.
+
+Option | Required | Type | Description
+:--- | :--- | :--- | :---
+with_keys | Yes | List |  An array of keys of the entries to be deleted.
+
+### rename_keys
+
+Rename keys in an event. `rename_keys` is part of [mutate event](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/mutate-event-processors#mutate-event-processors) processors.
+
+Option | Required | Type | Description
+:--- | :--- | :--- | :---
+entries | Yes | List | List of `from_key`: The key of the entry to be renamed <br> `to_key`: The new key of the entry <br> `overwrite_if_to_key_exists`: boolean and optional, when set to `true`, if `to_key` already exists in the event, then the existing value will be overwritten. The default is `false`. <br> Renaming operation occurs in the order defined.
+
+### substitute_string
+
+Matches a key's value against a regular expression and replaces all matches with a replacement string. `substitute_string` is part of [mutate string](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/mutate-string-processors#mutate-string-processors) processors.
+
+Option | Required | Type | Description
+:--- | :--- | :--- | :---
+entries | Yes | List | List of `source`: The key to be modified. <br> `from`: The Regex String to be replaced. Special regex characters such as `[` and `]` must be escaped using `\\` when using double quotes and `\ ` when using single quotes. See [here](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/regex/Pattern.html) for more information. <br>`to`: The String to be substituted for each match of `from`.
+
+### split_string
+
+Splits a field into an array using a delimiter character. `split_string` is part of [mutate string](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/mutate-string-processors#mutate-string-processors) processors.
+
+Option | Required | Type | Description
+:--- | :--- | :--- | :---
+entries | Yes | List | List of `source`: The key to be split <br> `delimiter` (optional): The separator character responsible for the split. Cannot be defined at the same time as delimiter_regex. At least `delimiter` or `delimiter_regex` must be defined. <br> `delimiter_regex` (optional): A regex string responsible for the split. Cannot be defined at the same time as delimiter. At least `delimiter` or `delimiter_regex` must be defined.
+
+### uppercase_string
+
+Converts a string to its uppercase counterpart. `uppercase_string` is part of [mutate string](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/mutate-string-processors#mutate-string-processors) processors.
+
+Option | Required | Type | Description
+:--- | :--- | :--- | :---
+with_keys | Yes | List | A list of keys to convert to uppercase.
+
+### lowercase_string
+
+Converts a string to its lowercase counterpart. `lowercase_string` is part of [mutate string](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/mutate-string-processors#mutate-string-processors) processors.
+
+Option | Required | Type | Description
+:--- | :--- | :--- | :---
+with_keys | Yes | List | A list of keys to convert to lowercase.
+
+### trim_string
+
+Strips whitespace from the beginning and end of a key. `trim_string` is part of [mutate string](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/mutate-string-processors#mutate-string-processors) processors.
+
+Option | Required | Type | Description
+:--- | :--- | :--- | :---
+with_keys | Yes | List | A list of keys to trim the whitespace from.
 
 ## Sinks
 
