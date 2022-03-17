@@ -16,7 +16,7 @@ For example, suppose that you have airline data that’s scattered across multip
 You can use transform jobs in two ways:
 
 1. Use the OpenSearch Dashboards UI to specify the index you want to transform and any optional data filters you want to use to filter the original index. Then select the fields you want to transform and the aggregations to use in the transformation. Finally, define a schedule for your job to follow.
-2. Use the transforms API to specify all the details about your job: the index you want to transform, target groups you want the transformed index to have, any aggregations you want to use to group columns, and a schedule for your job to follow.
+1. Use the transforms API to specify all the details about your job: the index you want to transform, target groups you want the transformed index to have, any aggregations you want to use to group columns, and a schedule for your job to follow.
 
 OpenSearch Dashboards provides a detailed summary of the jobs you created and their relevant information, such as associated indices and job statuses. You can review and edit your job’s details and selections before creation, and even preview a transformed index’s data as you’re choosing which fields to transform. However, you can also use the REST API to create transform jobs and preview transform job results, but you must know all of the necessary settings and parameters to submit them as part of the HTTP request body. Submitting your transform job configurations as JSON scripts offers you more portability, allowing you to share and replicate your transform jobs, which is harder to do using OpenSearch Dashboards.
 
@@ -44,16 +44,17 @@ On the other hand, aggregations let you perform simple calculations. For example
 
     Currently, transform jobs support histogram, date_histogram, and terms groupings. For more information about groupings, see [Bucket Aggregations]({{site.url}}{{site.baseurl}}/opensearch/bucket-agg/). In terms of aggregations, you can select from `sum`, `avg`, `max`, `min`, `value_count`, `percentiles`, and `scripted_metric`. For more information about aggregations, see [Metric Aggregations]({{site.url}}{{site.baseurl}}/opensearch/metric-agg/).
 
-2. Repeat step 1 for any other fields that you want to transform.
-3. After selecting the fields that you want to transform and verifying the transformation, choose **Next**.
+1. Repeat step 1 for any other fields that you want to transform.
+1. After selecting the fields that you want to transform and verifying the transformation, choose **Next**.
 
 ### Step 3: Specify a schedule
 
 You can configure transform jobs to run once or multiple times on a schedule. Transform jobs are enabled by default.
 
-1. For **transformation execution interval**, specify a transform interval in minutes, hours, or days.
-2. Under **Advanced**, specify an optional amount for **Pages per execution**. A larger number means more data is processed in each search request, but also uses more memory and causes higher latency. Exceeding allowed memory limits can cause exceptions and errors to occur.
-3. Choose **Next**.
+1. Choose whether the job should be **continuous**. Continuous jobs execute at each **transform execution interval** and incrementally transform newly modified buckets, which can include new data added to the source indexes. Non-continuous jobs execute only once.
+1. For **transformation execution interval**, specify a transform interval in minutes, hours, or days. This interval dicatates how often continuous jobs should execute, and non-continuous jobs execute once after the interval elapses.
+1. Under **Advanced**, specify an optional amount for **Pages per execution**. A larger number means more data is processed in each search request, but also uses more memory and causes higher latency. Exceeding allowed memory limits can cause exceptions and errors to occur.
+1. Choose **Next**.
 
 ### Step 4: Review and confirm details
 

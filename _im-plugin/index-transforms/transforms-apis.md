@@ -28,6 +28,7 @@ PUT _plugins/_transform/<transform_id>
 {
   "transform": {
   "enabled": true,
+  "continuous": true,
   "schedule": {
     "interval": {
     "period": 1,
@@ -78,6 +79,7 @@ PUT _plugins/_transform/<transform_id>
   "transform": {
     "transform_id": "sample",
     "schema_version": 7,
+    "continuous": true,
     "schedule": {
       "interval": {
         "start_time": 1621467964243,
@@ -128,6 +130,7 @@ You can specify the following options in the HTTP request body:
 Option | Data Type | Description | Required
 :--- | :--- | :--- | :---
 enabled | Boolean | If true, the transform job is enabled at creation. | No
+continuous | Boolean | Specifies whether the transform job should be continuous. Continuous jobs execute every time they are scheduled according to the `schedule` option and run based off of newly transformed buckets and any new data added to source indexes. Non-continuous jobs execute only once. Default is false. | No
 schedule | Object | The schedule the transform job runs on. | Yes
 start_time | Integer | The Unix epoch time of the transform job's start time. | Yes
 description | String | Describes the transform job. | No
@@ -291,6 +294,7 @@ GET _plugins/_transform/<transform_id>
   "transform": {
     "transform_id": "sample",
     "schema_version": 7,
+    "continuous": true,
     "schedule": {
       "interval": {
         "start_time": 1621467964243,
@@ -358,6 +362,7 @@ GET _plugins/_transform/
       "transform": {
         "transform_id": "sample",
         "schema_version": 7,
+        "continuous": true,
         "schedule": {
           "interval": {
             "start_time": 1621467964243,
@@ -595,6 +600,12 @@ GET _plugins/_transform/<transform_id>/_explain
   "sample": {
     "metadata_id": "PzmjweME5xbgkenl9UpsYw",
     "transform_metadata": {
+      "continuous_stats": {
+        "last_timestamp": 1621883525672,
+        "documents_behind": {
+          "sample_index": 72
+          }
+      },
       "transform_id": "sample",
       "last_updated_at": 1621883525873,
       "status": "finished",
