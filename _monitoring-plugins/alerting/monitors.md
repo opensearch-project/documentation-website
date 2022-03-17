@@ -431,20 +431,20 @@ To create a cluster metrics monitor:
 
 Trigger conditions use responses from the following APIs. Most APIs that can be used to monitor cluster status support path parameters as described in their documentation (e.g., comma-separated lists of index names). However, they do not support query parameters. 
 
-1. [_cluster/health](https://opensearch.org/docs/latest/opensearch/rest-api/cluster-health/)
-2. [_cluster/stats](https://opensearch.org/docs/latest/opensearch/rest-api/cluster-stats/
-3. [_cluster/settings](https://opensearch.org/docs/latest/opensearch/rest-api/cluster-settings/)
-4. [_nodes/stats](https://opensearch.org/docs/latest/opensearch/popular-api/#get-node-statistics)
-5. _[cat/pending_tasks](https://opensearch.org/docs/latest/opensearch/rest-api/cat/cat-pending-tasks/)
-6. [_cat/recovery](https://opensearch.org/docs/latest/opensearch/rest-api/cat/cat-recovery/
-7. [_cat/snapshots](https://opensearch.org/docs/latest/opensearch/rest-api/cat/cat-snapshots/)
-8. [_cat/tasks](https://opensearch.org/docs/latest/opensearch/rest-api/cat/cat-tasks/)
+1. [_cluster/health]({{site.url}}{{site.baseurl}}/opensearch/rest-api/cluster-health/)
+2. [_cluster/stats]({{site.url}}{{site.baseurl}}/opensearch/rest-api/cluster-stats/
+3. [_cluster/settings]({{site.url}}{{site.baseurl}}/opensearch/rest-api/cluster-settings/)
+4. [_nodes/stats]({{site.url}}{{site.baseurl}}/opensearch/popular-api/#get-node-statistics)
+5. _[cat/pending_tasks]({{site.url}}{{site.baseurl}}/opensearch/rest-api/cat/cat-pending-tasks/)
+6. [_cat/recovery]({{site.url}}{{site.baseurl}}/opensearch/rest-api/cat/cat-recovery/
+7. [_cat/snapshots]({{site.url}}{{site.baseurl}}/opensearch/rest-api/cat/cat-snapshots/)
+8. [_cat/tasks]({{site.url}}{{site.baseurl}}/opensearch/rest-api/cat/cat-tasks/)
 
 ### Restrict API fields
 
-If you want to hide fields from the API response that you do not want exposed for alerting, create a `supported_json_payloads.json` file in the alerting plugin. The file functions as an allow list for the API fields you want to use in an alert. Cluster metric monitors can only be created for APIs referenced by the supported payloads file. Furthermore, only fields referenced in the supported files can create trigger conditions.
+If you want to hide fields from the API response that you do not want exposed for alerting, reconfigure the [supported_json_payloads.json](https://github.com/opensearch-project/alerting/blob/main/alerting/src/main/resources/org/opensearch/alerting/settings/supported_json_payloads.json) inside your alerting plugin. The file functions as an allow list for the API fields you want to use in an alert. By default, all APIs and their parameters can be used for monitors and trigger conditions. 
 
-This `supported_json_payloads.json` allows for a cluster metrics monitor to be created for the `_cluster/stats` API, and triggers conditions for the `indices.shards.total` and `indices.shards.index.shards.min` fields.
+However, you can modify the file so that cluster metric monitors can only be created for APIs referenced. Furthermore, only fields referenced in the supported files can create trigger conditions. This `supported_json_payloads.json` allows for a cluster metrics monitor to be created for the `_cluster/stats` API, and triggers conditions for the `indices.shards.total` and `indices.shards.index.shards.min` fields. 
 
 ```json
 "/_cluster/stats": {
