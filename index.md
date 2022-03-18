@@ -35,7 +35,7 @@ Component | Purpose
 [KNN]({{site.url}}{{site.baseurl}}/search-plugins/knn/) | Find “nearest neighbors” in your vector data
 [Performance Analyzer]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/) | Monitor and optimize your cluster
 [Anomaly detection]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/) | Identify atypical data and receive automatic notifications
-[ML Commons plugin]({{site.url}}{{site.baseurl}}/ml-commons-plugin/) | Train and execute machine-learning models
+[ML Commons plugin]({{site.url}}{{site.baseurl}}/ml-commons-plugin/index/) | Train and execute machine-learning models
 [Asynchronous search]({{site.url}}{{site.baseurl}}/search-plugins/async/) | Run search requests in the background
 [Cross-cluster replication]({{site.url}}{{site.baseurl}}/replication-plugin/index/) | Replicate your data across multiple OpenSearch clusters
 

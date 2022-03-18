@@ -1,7 +1,7 @@
 ---
 layout: default
-title: About ML Commons
-nav_order: 38
+title: About ML Commons 
+nav_order: 1
 has_children: false
 has_toc: false
 ---

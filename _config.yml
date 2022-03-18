@@ -52,6 +52,9 @@ collections:
   observability-plugin:
     permalink: /:collection/:path/
     output: true
+  ml-commons-plugin:
+    permalink: /:collection/:path/
+    output: true
   monitoring-plugins:
     permalink: /:collection/:path/
     output: true

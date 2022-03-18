@@ -104,8 +104,6 @@ You can retrieve information on your model using the model_id.
 GET /_plugins/_ml/models/<model-id>
 ```
 
-### Response
-
 The API returns information on the model, the algorithm used, and the content found within the model.
 
 ```json
@@ -124,8 +122,6 @@ You can retrieve information about a task using the task_id.
 ```json
 GET /_plugins/_ml/tasks/<task_id>
 ```
-
-### Response
 
 The response includes information about the task.
 
