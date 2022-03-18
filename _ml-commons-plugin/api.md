@@ -91,8 +91,6 @@ For asynchronous responses, the API returns the task_id, which can be used to ge
 
 You can retrieve information on your model using the model_id.
 
-### Request
-
 ```json
 GET /_plugins/_ml/models/<model-id>
 ```
@@ -113,8 +111,6 @@ The API returns information on the model, the algorithm used, and the content fo
 ## Get task information
 
 You can retrieve information about a task using the task_id.
-
-### Request
 
 ```json
 GET /_plugins/_ml/tasks/<task_id>
@@ -140,7 +136,7 @@ The response includes information about the task.
 
 ## Predict
 
-Should you trained a synchronous, ML commons can predict new data with your trained model either from indexed data or a data frame.
+ML commons can predict new data with your trained model either from indexed data or a data frame.
 
 ```json
 POST /_plugins/_ml/_predict/<algorithm_name>/<model_id>
@@ -149,7 +145,7 @@ POST /_plugins/_ml/_predict/<algorithm_name>/<model_id>
 ### Request
 
 ```json
-POST /_plugins/_ml/_predict/kmeans/eQlomX8Br-2Nu7fWjUu3
+POST /_plugins/_ml/_predict/kmeans/<model-id>
 {
     "input_query": {
         "_source": ["petal_length_in_cm", "petal_width_in_cm"],
@@ -227,8 +223,472 @@ POST /_plugins/_ml/_predict/kmeans/eQlomX8Br-2Nu7fWjUu3
 ```
 
 
+## Train and Predict
+
+Use to train and then immediately predict against the same training data set. Can only be used with synchronous models and the kmeans algorithm. 
+
+### Example: Train and predict with Indexed data
+
+
+```json
+POST /_plugins/_ml/_train_predict/kmeans
+{
+    "parameters": {
+        "centroids": 2,
+        "iterations": 10,
+        "distance_type": "COSINE"
+    },
+    "input_query": {
+        "query": {
+            "bool": {
+                "filter": [
+                    {
+                        "range": {
+                            "k1": {
+                                "gte": 0
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        "size": 10
+    },
+    "input_index": [
+        "test_data"
+    ]
+}
+```
+
+### Example: Train and predict with data directly
+
+```json
+POST /_plugins/_ml/_train_predict/kmeans
+{
+    "parameters": {
+        "centroids": 2,
+        "iterations": 1,
+        "distance_type": "EUCLIDEAN"
+    },
+    "input_data": {
+        "column_metas": [
+            {
+                "name": "k1",
+                "column_type": "DOUBLE"
+            },
+            {
+                "name": "k2",
+                "column_type": "DOUBLE"
+            }
+        ],
+        "rows": [
+            {
+                "values": [
+                    {
+                        "column_type": "DOUBLE",
+                        "value": 1.00
+                    },
+                    {
+                        "column_type": "DOUBLE",
+                        "value": 2.00
+                    }
+                ]
+            },
+            {
+                "values": [
+                    {
+                        "column_type": "DOUBLE",
+                        "value": 1.00
+                    },
+                    {
+                        "column_type": "DOUBLE",
+                        "value": 4.00
+                    }
+                ]
+            },
+            {
+                "values": [
+                    {
+                        "column_type": "DOUBLE",
+                        "value": 1.00
+                    },
+                    {
+                        "column_type": "DOUBLE",
+                        "value": 0.00
+                    }
+                ]
+            },
+            {
+                "values": [
+                    {
+                        "column_type": "DOUBLE",
+                        "value": 10.00
+                    },
+                    {
+                        "column_type": "DOUBLE",
+                        "value": 2.00
+                    }
+                ]
+            },
+            {
+                "values": [
+                    {
+                        "column_type": "DOUBLE",
+                        "value": 10.00
+                    },
+                    {
+                        "column_type": "DOUBLE",
+                        "value": 4.00
+                    }
+                ]
+            },
+            {
+                "values": [
+                    {
+                        "column_type": "DOUBLE",
+                        "value": 10.00
+                    },
+                    {
+                        "column_type": "DOUBLE",
+                        "value": 0.00
+                    }
+                ]
+            }
+        ]
+    }
+}
+```
+
+
+### Response
+
+**Response for index data**
+
+```json
+{
+  "status" : "COMPLETED",
+  "prediction_result" : {
+    "column_metas" : [
+      {
+        "name" : "ClusterID",
+        "column_type" : "INTEGER"
+      }
+    ],
+    "rows" : [
+      {
+        "values" : [
+          {
+            "column_type" : "INTEGER",
+            "value" : 0
+          }
+        ]
+      },
+      {
+        "values" : [
+          {
+            "column_type" : "INTEGER",
+            "value" : 0
+          }
+        ]
+      },
+      {
+        "values" : [
+          {
+            "column_type" : "INTEGER",
+            "value" : 0
+          }
+        ]
+      },
+      {
+        "values" : [
+          {
+            "column_type" : "INTEGER",
+            "value" : 0
+          }
+        ]
+      },
+      {
+        "values" : [
+          {
+            "column_type" : "INTEGER",
+            "value" : 0
+          }
+        ]
+      },
+      {
+        "values" : [
+          {
+            "column_type" : "INTEGER",
+            "value" : 0
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Response for data input directly**
+
+```json
+{
+  "status" : "COMPLETED",
+  "prediction_result" : {
+    "column_metas" : [
+      {
+        "name" : "score",
+        "column_type" : "DOUBLE"
+      },
+      {
+        "name" : "anomaly_grade",
+        "column_type" : "DOUBLE"
+      },
+      {
+        "name" : "timestamp",
+        "column_type" : "LONG"
+      }
+    ],
+    "rows" : [
+      {
+        "values" : [
+          {
+            "column_type" : "DOUBLE",
+            "value" : 0.0
+          },
+          {
+            "column_type" : "DOUBLE",
+            "value" : 0.0
+          },
+          {
+            "column_type" : "LONG",
+            "value" : 1404187200000
+          }
+        ]
+      },
+      ...
+    ]
+  }
+}
+```
+
+## Execute
+
+Use the Execute API to run no-model-based algorithms. You do not need to train a model in order to receive results from your chosen algorithm.
+
+```json
+POST _plugins/_ml/_execute/<algorithm_name>
+```
+
+### Example: Execute sample calculator, supported "operation": max/min/sum
+
+```json
+POST _plugins/_ml/_execute/local_sample_calculator
+{
+    "operation": "max",
+    "input_data": [1.0, 2.0, 3.0]
+}
+```
+
+
+### Example: Execute anomaly localization
+
+```json
+POST /_plugins/_ml/_execute/anomaly_localization
+{
+  "index_name": "rca-index",
+  "attribute_field_names": [
+    "attribute"
+  ],
+  "aggregations": [
+    {
+      "sum": {
+        "sum": {
+          "field": "value"
+        }
+      }
+    }
+  ],
+  "time_field_name": "timestamp",
+  "start_time": 1620630000000,
+  "end_time": 1621234800000,
+  "min_time_interval": 86400000,
+  "num_outputs": 2
+}
+```
+
+### Response
+
+**Sample calculator response**
+
+```json
+{
+  "sample_result" : 3.0
+}
+```
+
+**Sample anomaly response**
+
+```json
+{
+  "results" : [
+    {
+      "name" : "sum",
+      "result" : {
+        "buckets" : [
+          {
+            "start_time" : 1620630000000,
+            "end_time" : 1620716400000,
+            "overall_aggregate_value" : 65.0
+          },
+          {
+            "start_time" : 1620716400000,
+            "end_time" : 1620802800000,
+            "overall_aggregate_value" : 75.0,
+            "entities" : [
+              {
+                "key" : [
+                  "attr0"
+                ],
+                "contribution_value" : 1.0,
+                "base_value" : 2.0,
+                "new_value" : 3.0
+              },
+              {
+                "key" : [
+                  "attr1"
+                ],
+                "contribution_value" : 1.0,
+                "base_value" : 3.0,
+                "new_value" : 4.0
+              }
+            ]
+          },
+          {
+            "start_time" : 1620802800000,
+            "end_time" : 1620889200000,
+            "overall_aggregate_value" : 85.0,
+            "entities" : [
+              {
+                "key" : [
+                  "attr0"
+                ],
+                "contribution_value" : 2.0,
+                "base_value" : 2.0,
+                "new_value" : 4.0
+              },
+              {
+                "key" : [
+                  "attr1"
+                ],
+                "contribution_value" : 2.0,
+                "base_value" : 3.0,
+                "new_value" : 5.0
+              }
+            ]
+          },
+          {
+            "start_time" : 1620889200000,
+            "end_time" : 1620975600000,
+            "overall_aggregate_value" : 95.0,
+            "entities" : [
+              {
+                "key" : [
+                  "attr0"
+                ],
+                "contribution_value" : 3.0,
+                "base_value" : 2.0,
+                "new_value" : 5.0
+              },
+              {
+                "key" : [
+                  "attr1"
+                ],
+                "contribution_value" : 3.0,
+                "base_value" : 3.0,
+                "new_value" : 6.0
+              }
+            ]
+          },
+          {
+            "start_time" : 1620975600000,
+            "end_time" : 1621062000000,
+            "overall_aggregate_value" : 105.0,
+            "entities" : [
+              {
+                "key" : [
+                  "attr0"
+                ],
+                "contribution_value" : 4.0,
+                "base_value" : 2.0,
+                "new_value" : 6.0
+              },
+              {
+                "key" : [
+                  "attr1"
+                ],
+                "contribution_value" : 4.0,
+                "base_value" : 3.0,
+                "new_value" : 7.0
+              }
+            ]
+          },
+          {
+            "start_time" : 1621062000000,
+            "end_time" : 1621148400000,
+            "overall_aggregate_value" : 115.0,
+            "entities" : [
+              {
+                "key" : [
+                  "attr0"
+                ],
+                "contribution_value" : 5.0,
+                "base_value" : 2.0,
+                "new_value" : 7.0
+              },
+              {
+                "key" : [
+                  "attr1"
+                ],
+                "contribution_value" : 5.0,
+                "base_value" : 3.0,
+                "new_value" : 8.0
+              }
+            ]
+          },
+          {
+            "start_time" : 1621148400000,
+            "end_time" : 1621234800000,
+            "overall_aggregate_value" : 125.0,
+            "entities" : [
+              {
+                "key" : [
+                  "attr0"
+                ],
+                "contribution_value" : 6.0,
+                "base_value" : 2.0,
+                "new_value" : 8.0
+              },
+              {
+                "key" : [
+                  "attr1"
+                ],
+                "contribution_value" : 6.0,
+                "base_value" : 3.0,
+                "new_value" : 9.0
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
+```
 
 ## Search model
+
+Use this command to search models you're already created.
+
 
 ```json
 POST /_plugins/_ml/models/_search
@@ -248,7 +708,7 @@ POST /_plugins/_ml/models/_search
 }
 ```
 
-### Example 2: query models with algorithm "BATCh_RCF"
+### Example 2: Query models with algorithm "BATCh_RCF"
 
 ```json
 POST /_plugins/_ml/models/_search
@@ -319,6 +779,8 @@ POST /_plugins/_ml/models/_search
 
 ## Delete task
 
+Delete a task based on the task_id.
+
 ```json
 DELETE /_plugins/_ml/tasks/{task_id}
 ```
@@ -344,13 +806,15 @@ DELETE /_plugins/_ml/tasks/{task_id}
 
 ## Search task
 
+Search tasks based on parameters indicated in the request body.
+
 ```json
 GET /_plugins/_ml/tasks/_search
 {query body}
 ```
 
 
-### Example: search task which "function_name" is "KMEANS"
+### Example: Search task which "function_name" is "KMEANS"
 
 ```json
 GET /_plugins/_ml/tasks/_search
@@ -431,17 +895,36 @@ GET /_plugins/_ml/tasks/_search
 }
 ```
 
-Stats
+## Stats
+
+Get statistics related to the number of tasks. 
+
+To receive all stats, use:
 
 ```json
 GET /_plugins/_ml/stats
+```
+
+To receive stats for a specific node, use:
+
+```json
 GET /_plugins/_ml/<nodeId>/stats/
+```
+
+To receive starts for a specific node and  return a specified stat, use:
+
+```json
 GET /_plugins/_ml/<nodeId>/stats/<stat>
+```
+
+To receive information on a specific stat from all nodes, use:
+
+```json
 GET /_plugins/_ml/stats/<stat>
 ```
 
 
-### Example1: get all stats
+### Example: Get all stats
 
 ```json
 GET /_plugins/_ml/stats
