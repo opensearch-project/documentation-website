@@ -7,6 +7,15 @@ nav_order: 99
 
 # ML Commons API 
 
+---
+
+#### Table of contents
+- TOC
+{:toc}
+
+
+---
+
 The Machine Learning (ML) commons API lets you create, train, and store machine learning algorithms both synchronously and asynchronously.  
 
 In order to train tasks through the API, three inputs are required. 
