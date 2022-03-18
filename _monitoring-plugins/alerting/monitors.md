@@ -413,8 +413,8 @@ Deleted | Someone deleted the monitor or trigger associated with this alert whil
 In addition to monitoring conditions for indexes, the alerting plugin allows monitoring conditions on clusters. Alerts can be set by cluster metrics to watch for when: 
 
 - The health of your cluster reaches a status of yellow or red.
-- CPU usages reaches a specified threshold.
-- JVM memory usage reaches a specified threshold.
+- Cluster-level metrics, such as CPU usage and JVM memory usage, reach specified thresholds.
+- Node-level metrics, such as available disk space, JVM memory usage, and CPU usage, reach a specified threshold.
 - The total number of documents stores reaches a specified amount.
 
 To create a cluster metrics monitor:
