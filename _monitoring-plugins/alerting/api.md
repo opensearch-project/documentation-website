@@ -9,7 +9,6 @@ nav_order: 15
 
 Use the alerting API to programmatically manage monitors and alerts.
 
-
 ---
 
 #### Table of contents

@@ -23,6 +23,7 @@ double | double | DOUBLE
 keyword |	string | VARCHAR
 text | text | VARCHAR
 date | timestamp | TIMESTAMP
+date_nanos | timestamp | TIMESTAMP
 ip | ip | VARCHAR
 date | timestamp | TIMESTAMP
 binary | binary | VARBINARY
@@ -54,7 +55,7 @@ The `time` type represents the time of a clock regardless of its timezone. The `
 
 | Type | Syntax | Range
 :--- | :--- | :---
-time | `hh:mm:ss[.fraction]` | `00:00:00.000000` to `23:59:59.999999`
+time | `hh:mm:ss[.fraction]` | `00:00:00.0000000000` to `23:59:59.9999999999`
 
 ### Datetime
 
@@ -62,7 +63,7 @@ The `datetime` type is a combination of date and time. It doesn't contain timezo
 
 | Type | Syntax | Range
 :--- | :--- | :---
-datetime | `yyyy-MM-dd hh:mm:ss[.fraction]` | `0001-01-01 00:00:00.000000` to `9999-12-31 23:59:59.999999`
+datetime | `yyyy-MM-dd hh:mm:ss[.fraction]` | `0001-01-01 00:00:00.0000000000` to `9999-12-31 23:59:59.9999999999`
 
 ### Timestamp
 
@@ -72,7 +73,7 @@ The `timestamp` type is stored differently from the other types. It's converted 
 
 | Type | Syntax | Range
 :--- | :--- | :---
-timestamp | `yyyy-MM-dd hh:mm:ss[.fraction]` | `0001-01-01 00:00:01.000000` UTC to `9999-12-31 23:59:59.999999`
+timestamp | `yyyy-MM-dd hh:mm:ss[.fraction]` | `0001-01-01 00:00:01.9999999999` UTC to `9999-12-31 23:59:59.9999999999`
 
 ### Interval
 

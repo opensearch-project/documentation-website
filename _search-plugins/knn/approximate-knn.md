@@ -168,7 +168,7 @@ POST _bulk
 After indexing into the training index completes, we can call the Train API:
 
 ```json
-POST /_plugins/_knn/models/_train/my-model
+POST /_plugins/_knn/models/my-model/_train
 {
   "training_index": "train-index",
   "training_field": "train-field",
