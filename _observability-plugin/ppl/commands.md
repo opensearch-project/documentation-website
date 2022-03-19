@@ -834,30 +834,30 @@ search source=my_index | where match(message, "this is a test", operator=and, ze
 
 ## ad
 
-The `ad` command applies Random Cut Forest (RCF) algorithm in ml-commons plugin on the search result returned by a PPL command.Based on the input, two types of RCF algorithms will be utilized: fixed in time RCF for processing time-series data, batch RCF for processing non-time-series data.
+The `ad` command applies the Random Cut Forest (RCF) algorithm in the ML Commons plugin on the search result returned by a PPL command. Based on the input, the plugin uses two types of RCF algorithms: fixed in time RCF for processing time-series data and batch RCF for processing non-time-series data.
 
 ### Fixed In Time RCF For Time-series Data Command Syntax
 
 ```sql
-ad \<shingle\_size\> \<time\_decay\> \<time\_field\>
+ad \<shingle_size\> \<time_decay\> \<time_field\>
 ```
 
 Field | Description | Required
 :--- | :--- |:---
-`shingle\_size` | A consecutive sequence of the most recent records. The default value is 8. | No
-`time\_decay` | Specifies how much of the recent past to consider when computing an anomaly score. The default value is 0.001. | No
-`time\_field` | Specifies the time filed for RCF to use as time-series data. | Yes
+`shingle_size` | A consecutive sequence of the most recent records. The default value is 8. | No
+`time_decay` | Specifies how much of the recent past to consider when computing an anomaly score. The default value is 0.001. | No
+`time_field` | Specifies the time filed for RCF to use as time-series data. Must be either a long value, such as the timestamp in miliseconds, or a string value in yyyy-MM-dd HH:mm:ss.| Yes
 
 ### Batch RCF for Non-time-series Data Command Syntax
 
 ```sql
-ad \<shingle\_size\> \<time\_decay\>
+ad \<shingle_size\> \<time_decay\>
 ```
 
 Field | Description | Required
 :--- | :--- |:---
-`shingle\_size` | A consecutive sequence of the most recent records. The default value is 8. | No
-`time\_decay` | Specifies how much of the recent past to consider when computing an anomaly score. The default value is 0.001. | No
+`shingle_size` | A consecutive sequence of the most recent records. The default value is 8. | No
+`time_decay` | Specifies how much of the recent past to consider when computing an anomaly score. The default value is 0.001. | No
 
 *Example 1*: Detecting events in New York City from taxi ridership data with time-series data
 
@@ -887,7 +887,7 @@ value | score | anomalous
 
 ## kmeans
 
-The kmeans command applies kmeans algorithm in ml-commons plugin on the search result returned by a PPL command.
+The kmeans command applies the ML Commons plugin's kmeans algorithm to the provided PPL command's search results.
 
 ## Syntax
 

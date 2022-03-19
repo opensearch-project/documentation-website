@@ -16,13 +16,13 @@ nav_order: 99
 
 ---
 
-The Machine Learning (ML) commons API lets you create, train, and store machine learning algorithms both synchronously and asynchronously.  
+The Machine Learning (ML) commons API lets you train ML algorithms synchronously and asynchronously, and then store that model in an ML model index.
 
 In order to train tasks through the API, three inputs are required. 
 
 - Algorithm name: Usually `FunctionaName`. This determines what algorithm the ML Engine runs.
-- Model hyper parameters: Adjust these parameters to make the model train better.  You can also implement `MLAgoParamas` to build custom parameters for each model.
-- Input data: The data input that teaches the ML model. To input data, query against your index or use data frame.
+- Model hyper parameters: Adjust these parameters to make the model train better.  
+- Input data: The data input that trains the ML model, or applies the ML models to predictions. To input data, query against your index or use data frame.
 
 ## Train model
 
@@ -76,7 +76,7 @@ POST /_plugins/_ml/_train/kmeans?async=true
 
 **Synchronously**
 
-For synchronous responses, the API returns the model_id, which can be used to get info or modify the model.
+For synchronous responses, the API returns the model_id, which can be used to get info on the model or modify the model. 
 
 ```json
 {
@@ -141,7 +141,7 @@ The response includes information about the task.
 
 ## Predict
 
-ML commons can predict new data with your trained model either from indexed data or a data frame.
+ML commons can predict new data with your trained model either from indexed data or a data frame. The model_id is required to use the Predict API.
 
 ```json
 POST /_plugins/_ml/_predict/<algorithm_name>/<model_id>
@@ -230,7 +230,11 @@ POST /_plugins/_ml/_predict/kmeans/<model-id>
 
 ## Train and Predict
 
-Use to train and then immediately predict against the same training data set. Can only be used with synchronous models and the kmeans algorithm. 
+Use to train and then immediately predict against the same training data set. Can only be used with synchronous models and the following algorithms:
+
+- BATCH_RCF
+- FIT_RCF
+- kmeans
 
 ### Example: Train and predict with Indexed data
 
@@ -364,10 +368,7 @@ POST /_plugins/_ml/_train_predict/kmeans
 }
 ```
 
-
 ### Response
-
-**Response for index data**
 
 ```json
 {
@@ -433,263 +434,6 @@ POST /_plugins/_ml/_train_predict/kmeans
 }
 ```
 
-**Response for data input directly**
-
-```json
-{
-  "status" : "COMPLETED",
-  "prediction_result" : {
-    "column_metas" : [
-      {
-        "name" : "score",
-        "column_type" : "DOUBLE"
-      },
-      {
-        "name" : "anomaly_grade",
-        "column_type" : "DOUBLE"
-      },
-      {
-        "name" : "timestamp",
-        "column_type" : "LONG"
-      }
-    ],
-    "rows" : [
-      {
-        "values" : [
-          {
-            "column_type" : "DOUBLE",
-            "value" : 0.0
-          },
-          {
-            "column_type" : "DOUBLE",
-            "value" : 0.0
-          },
-          {
-            "column_type" : "LONG",
-            "value" : 1404187200000
-          }
-        ]
-      },
-      ...
-    ]
-  }
-}
-```
-
-## Execute
-
-Use the Execute API to run no-model-based algorithms. You do not need to train a model in order to receive results from your chosen algorithm.
-
-```json
-POST _plugins/_ml/_execute/<algorithm_name>
-```
-
-### Example: Execute sample calculator, supported "operation": max/min/sum
-
-```json
-POST _plugins/_ml/_execute/local_sample_calculator
-{
-    "operation": "max",
-    "input_data": [1.0, 2.0, 3.0]
-}
-```
-
-
-### Example: Execute anomaly localization
-
-```json
-POST /_plugins/_ml/_execute/anomaly_localization
-{
-  "index_name": "rca-index",
-  "attribute_field_names": [
-    "attribute"
-  ],
-  "aggregations": [
-    {
-      "sum": {
-        "sum": {
-          "field": "value"
-        }
-      }
-    }
-  ],
-  "time_field_name": "timestamp",
-  "start_time": 1620630000000,
-  "end_time": 1621234800000,
-  "min_time_interval": 86400000,
-  "num_outputs": 2
-}
-```
-
-### Response
-
-**Sample calculator response**
-
-```json
-{
-  "sample_result" : 3.0
-}
-```
-
-**Sample anomaly response**
-
-```json
-{
-  "results" : [
-    {
-      "name" : "sum",
-      "result" : {
-        "buckets" : [
-          {
-            "start_time" : 1620630000000,
-            "end_time" : 1620716400000,
-            "overall_aggregate_value" : 65.0
-          },
-          {
-            "start_time" : 1620716400000,
-            "end_time" : 1620802800000,
-            "overall_aggregate_value" : 75.0,
-            "entities" : [
-              {
-                "key" : [
-                  "attr0"
-                ],
-                "contribution_value" : 1.0,
-                "base_value" : 2.0,
-                "new_value" : 3.0
-              },
-              {
-                "key" : [
-                  "attr1"
-                ],
-                "contribution_value" : 1.0,
-                "base_value" : 3.0,
-                "new_value" : 4.0
-              }
-            ]
-          },
-          {
-            "start_time" : 1620802800000,
-            "end_time" : 1620889200000,
-            "overall_aggregate_value" : 85.0,
-            "entities" : [
-              {
-                "key" : [
-                  "attr0"
-                ],
-                "contribution_value" : 2.0,
-                "base_value" : 2.0,
-                "new_value" : 4.0
-              },
-              {
-                "key" : [
-                  "attr1"
-                ],
-                "contribution_value" : 2.0,
-                "base_value" : 3.0,
-                "new_value" : 5.0
-              }
-            ]
-          },
-          {
-            "start_time" : 1620889200000,
-            "end_time" : 1620975600000,
-            "overall_aggregate_value" : 95.0,
-            "entities" : [
-              {
-                "key" : [
-                  "attr0"
-                ],
-                "contribution_value" : 3.0,
-                "base_value" : 2.0,
-                "new_value" : 5.0
-              },
-              {
-                "key" : [
-                  "attr1"
-                ],
-                "contribution_value" : 3.0,
-                "base_value" : 3.0,
-                "new_value" : 6.0
-              }
-            ]
-          },
-          {
-            "start_time" : 1620975600000,
-            "end_time" : 1621062000000,
-            "overall_aggregate_value" : 105.0,
-            "entities" : [
-              {
-                "key" : [
-                  "attr0"
-                ],
-                "contribution_value" : 4.0,
-                "base_value" : 2.0,
-                "new_value" : 6.0
-              },
-              {
-                "key" : [
-                  "attr1"
-                ],
-                "contribution_value" : 4.0,
-                "base_value" : 3.0,
-                "new_value" : 7.0
-              }
-            ]
-          },
-          {
-            "start_time" : 1621062000000,
-            "end_time" : 1621148400000,
-            "overall_aggregate_value" : 115.0,
-            "entities" : [
-              {
-                "key" : [
-                  "attr0"
-                ],
-                "contribution_value" : 5.0,
-                "base_value" : 2.0,
-                "new_value" : 7.0
-              },
-              {
-                "key" : [
-                  "attr1"
-                ],
-                "contribution_value" : 5.0,
-                "base_value" : 3.0,
-                "new_value" : 8.0
-              }
-            ]
-          },
-          {
-            "start_time" : 1621148400000,
-            "end_time" : 1621234800000,
-            "overall_aggregate_value" : 125.0,
-            "entities" : [
-              {
-                "key" : [
-                  "attr0"
-                ],
-                "contribution_value" : 6.0,
-                "base_value" : 2.0,
-                "new_value" : 8.0
-              },
-              {
-                "key" : [
-                  "attr1"
-                ],
-                "contribution_value" : 6.0,
-                "base_value" : 3.0,
-                "new_value" : 9.0
-              }
-            ]
-          }
-        ]
-      }
-    }
-  ]
-}
-```
-
 ## Search model
 
 Use this command to search models you're already created.
@@ -713,7 +457,7 @@ POST /_plugins/_ml/models/_search
 }
 ```
 
-### Example 2: Query models with algorithm "BATCh_RCF"
+### Example 2: Query models with algorithm "FIT_RCF"
 
 ```json
 POST /_plugins/_ml/models/_search
@@ -721,7 +465,7 @@ POST /_plugins/_ml/models/_search
   "query": {
     "term": {
       "algorithm": {
-        "value": "BATCH_RCF"
+        "value": "FIT_RCF"
       }
     }
   }
