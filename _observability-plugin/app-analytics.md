@@ -49,11 +49,11 @@ To create an availability level, you must configure the following:
 
 ![Configuring availability]({{site.url}}{{site.baseurl}}/images/app_availability_level.gif)
 
-By default, application analytics shows results from the last 24 hours of your data. To see data from a different timeframe, use the date and time selector.
+By default, application analytics shows results from the last 24 hours of your data. To see data from a different time frame, use the date and time selector.
 
 #### Time series metric
 
-A time series metric is any visualization that has a query that spans over a timestamp and is a line chart. You can then use PPL to define arbitrary conditions on their logs to create a visualization over time.
+A time series metric is any visualization that has a query that spans over a timestamp and is a line chart. You can then use PPL to define arbitrary conditions on your logs to create a visualization over time.
 
 ##### Example
 ```
