@@ -76,7 +76,7 @@ POST /_plugins/_ml/_train/kmeans?async=true
 
 **Synchronously**
 
-For synchronous responses, the API returns the model_id, which can be used to get info on the model or modify the model. 
+For synchronous responses, the API returns the model_id, which can be used to get or delete a task.
 
 ```json
 {
@@ -87,7 +87,7 @@ For synchronous responses, the API returns the model_id, which can be used to ge
 
 **Asynchronously**
 
-For asynchronous responses, the API returns the task_id, which can be used to get info or modify a task.
+For asynchronous responses, the API returns the task_id, which can be used to get or delete a tasks.
 
 ```json
 {
@@ -230,7 +230,7 @@ POST /_plugins/_ml/_predict/kmeans/<model-id>
 
 ## Train and Predict
 
-Use to train and then immediately predict against the same training data set. Can only be used with synchronous models and the following algorithms:
+Use to train and then immediately predict against the same training data set. Can only be used with unsupervised learning models and the following algorithms:
 
 - BATCH_RCF
 - FIT_RCF
@@ -633,7 +633,7 @@ To receive stats for a specific node, use:
 GET /_plugins/_ml/<nodeId>/stats/
 ```
 
-To receive starts for a specific node and  return a specified stat, use:
+To receive stats for a specific node and  return a specified stat, use:
 
 ```json
 GET /_plugins/_ml/<nodeId>/stats/<stat>
