@@ -846,7 +846,7 @@ Field | Description | Required
 :--- | :--- |:---
 `shingle_size` | A consecutive sequence of the most recent records. The default value is 8. | No
 `time_decay` | Specifies how much of the recent past to consider when computing an anomaly score. The default value is 0.001. | No
-`time_field` | Specifies the time filed for RCF to use as time-series data. Must be either a long value, such as the timestamp in miliseconds, or a string value in yyyy-MM-dd HH:mm:ss.| Yes
+`time_field` | Specifies the time filed for RCF to use as time-series data. Must be either a long value, such as the timestamp in miliseconds, or a string value in "yyyy-MM-dd HH:mm:ss".| Yes
 
 ### Batch RCF for Non-time-series Data Command Syntax
 
@@ -866,7 +866,7 @@ The example trains a RCF model and use the model to detect anomalies in the time
 PPL query:
 
 ```sql
-os> source=nyc_taxi | fields value, timestamp | AD time_field='timestamp' | where value=10844.0'
+os> source=nyc_taxi | fields value, timestamp | AD time_field='timestamp' | where value=10844.0
 ```
 
 value | timestamp | score | anomaly_grade
@@ -878,7 +878,7 @@ value | timestamp | score | anomaly_grade
 PPL query:
 
 ```sql
-os> source=nyc_taxi | fields value | AD | where value=10844.0'
+os> source=nyc_taxi | fields value | AD | where value=10844.0
 ```
 
 value | score | anomalous

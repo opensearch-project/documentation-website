@@ -16,11 +16,11 @@ nav_order: 99
 
 ---
 
-The Machine Learning (ML) commons API lets you train ML algorithms synchronously and asynchronously, and then store that model in an ML model index.
+The Machine Learning (ML) commons API lets you train ML algorithms synchronously and asynchronously, make predictions with that trained model, train and predict with the same data set, and then store that model in an ML model index.
 
 In order to train tasks through the API, three inputs are required. 
 
-- Algorithm name: Usually `FunctionaName`. This determines what algorithm the ML Engine runs.
+- Algorithm name: Must be one of a [FunctionaName](https://github.com/opensearch-project/ml-commons/blob/1.3/common/src/main/java/org/opensearch/ml/common/parameter/FunctionName.java). This determines what algorithm the ML Engine runs.
 - Model hyper parameters: Adjust these parameters to make the model train better.  
 - Input data: The data input that trains the ML model, or applies the ML models to predictions. To input data, query against your index or use data frame.
 
@@ -385,7 +385,7 @@ POST /_plugins/_ml/_train_predict/kmeans
         "values" : [
           {
             "column_type" : "INTEGER",
-            "value" : 0
+            "value" : 1
           }
         ]
       },
@@ -393,7 +393,7 @@ POST /_plugins/_ml/_train_predict/kmeans
         "values" : [
           {
             "column_type" : "INTEGER",
-            "value" : 0
+            "value" : 1
           }
         ]
       },
@@ -401,7 +401,7 @@ POST /_plugins/_ml/_train_predict/kmeans
         "values" : [
           {
             "column_type" : "INTEGER",
-            "value" : 0
+            "value" : 1
           }
         ]
       },
@@ -524,33 +524,6 @@ POST /_plugins/_ml/models/_search
       ]
     }
   }
-```
-
-## Delete task
-
-Delete a task based on the task_id.
-
-```json
-DELETE /_plugins/_ml/tasks/{task_id}
-```
-
-### Response
-
-```json
-{
-  "_index" : ".plugins-ml-task",
-  "_type" : "_doc",
-  "_id" : "xQRYLX8BydmmU1x6nuD3",
-  "_version" : 4,
-  "result" : "deleted",
-  "_shards" : {
-    "total" : 2,
-    "successful" : 2,
-    "failed" : 0
-  },
-  "_seq_no" : 42,
-  "_primary_term" : 7
-}
 ```
 
 ## Search task
@@ -706,6 +679,62 @@ GET /_plugins/_ml/stats
   }
 }
 ```
+
+## Delete task
+
+Delete a task based on the task_id.
+
+```json
+DELETE /_plugins/_ml/tasks/{task_id}
+```
+
+The API returns the following:
+
+```json
+{
+  "_index" : ".plugins-ml-task",
+  "_type" : "_doc",
+  "_id" : "xQRYLX8BydmmU1x6nuD3",
+  "_version" : 4,
+  "result" : "deleted",
+  "_shards" : {
+    "total" : 2,
+    "successful" : 2,
+    "failed" : 0
+  },
+  "_seq_no" : 42,
+  "_primary_term" : 7
+}
+```
+
+## Delete model
+
+Deletes a model based on the model_id
+
+```json
+DELETE /_plugins/_ml/models/<model_id>
+```
+
+The API returns the following:
+
+```json
+{
+  "_index" : ".plugins-ml-model",
+  "_type" : "_doc",
+  "_id" : "MzcIJX8BA7mbufL6DOwl",
+  "_version" : 2,
+  "result" : "deleted",
+  "_shards" : {
+    "total" : 2,
+    "successful" : 2,
+    "failed" : 0
+  },
+  "_seq_no" : 27,
+  "_primary_term" : 18
+}
+```
+
+
 
 
 
