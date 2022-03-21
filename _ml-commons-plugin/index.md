@@ -12,7 +12,6 @@ ML Commons for OpenSearch eases the development of machine learning features by 
 
 Models trained through the ML Commons plugin support model-based algorithms such as kmeans or Linear Regression. To get the best results, make sure you train your model first, then use the model to apply predictions. Linear Regression is only supported for synchronous models.
 
-
 Interaction with the ML commons plugin occurs through either the [REST API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api) or [AD]({{site.url}}{{site.baseurl}}/ppl/commands#ad) and [kmeans]({{site.url}}{{site.baseurl}}/observability-plugin/ppl/commands#kmeans) PPL commands.
 
 ## Permissions
