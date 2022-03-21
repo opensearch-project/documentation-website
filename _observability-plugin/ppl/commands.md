@@ -839,7 +839,7 @@ The `ad` command applies the Random Cut Forest (RCF) algorithm in the ML Commons
 ### Fixed In Time RCF For Time-series Data Command Syntax
 
 ```sql
-ad \<shingle_size\> \<time_decay\> \<time_field\>
+ad <shingle_size> <time_decay> <time_field>
 ```
 
 Field | Description | Required
@@ -851,7 +851,7 @@ Field | Description | Required
 ### Batch RCF for Non-time-series Data Command Syntax
 
 ```sql
-ad \<shingle_size\> \<time_decay\>
+ad <shingle_size> <time_decay>
 ```
 
 Field | Description | Required
