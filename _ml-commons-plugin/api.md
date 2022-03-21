@@ -22,7 +22,7 @@ In order to train tasks through the API, three inputs are required.
 
 - Algorithm name: Must be one of a [FunctionaName](https://github.com/opensearch-project/ml-commons/blob/1.3/common/src/main/java/org/opensearch/ml/common/parameter/FunctionName.java). This determines what algorithm the ML Engine runs.
 - Model hyper parameters: Adjust these parameters to make the model train better.  
-- Input data: The data input that trains the ML model, or applies the ML models to predictions. To input data, query against your index or use data frame.
+- Input data: The data input that trains the ML model, or applies the ML models to predictions. You can input data in two ways, query against your index or use data frame.
 
 ## Train model
 
