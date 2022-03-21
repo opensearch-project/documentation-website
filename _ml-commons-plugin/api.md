@@ -115,27 +115,121 @@ The API returns information on the model, the algorithm used, and the content fo
 }
 ```
 
-## Get task information
+## Search model
 
-You can retrieve information about a task using the task_id.
+Use this command to search models you're already created.
+
 
 ```json
-GET /_plugins/_ml/tasks/<task_id>
+POST /_plugins/_ml/models/_search
+{query}
 ```
 
-The response includes information about the task.
+### Example 1: Query all models
+
+```json
+POST /_plugins/_ml/models/_search
+{
+  "query": {
+    "match_all": {}
+  },
+  "size": 1000
+}
+```
+
+### Example 2: Query models with algorithm "FIT_RCF"
+
+```json
+POST /_plugins/_ml/models/_search
+{
+  "query": {
+    "term": {
+      "algorithm": {
+        "value": "FIT_RCF"
+      }
+    }
+  }
+}
+```
+
+### Response
 
 ```json
 {
-  "model_id" : "l7lamX8BO5w8y8Ra2oty",
-  "task_type" : "TRAINING",
-  "function_name" : "KMEANS",
-  "state" : "COMPLETED",
-  "input_type" : "SEARCH_QUERY",
-  "worker_node" : "54xOe0w8Qjyze00UuLDfdA",
-  "create_time" : 1647545342556,
-  "last_update_time" : 1647545342587,
-  "is_async" : true
+    "took" : 8,
+    "timed_out" : false,
+    "_shards" : {
+      "total" : 1,
+      "successful" : 1,
+      "skipped" : 0,
+      "failed" : 0
+    },
+    "hits" : {
+      "total" : {
+        "value" : 2,
+        "relation" : "eq"
+      },
+      "max_score" : 2.4159138,
+      "hits" : [
+        {
+          "_index" : ".plugins-ml-model",
+          "_type" : "_doc",
+          "_id" : "-QkKJX8BvytMh9aUeuLD",
+          "_version" : 1,
+          "_seq_no" : 12,
+          "_primary_term" : 15,
+          "_score" : 2.4159138,
+          "_source" : {
+            "name" : "FIT_RCF",
+            "version" : 1,
+            "content" : "xxx",
+            "algorithm" : "FIT_RCF"
+          }
+        },
+        {
+          "_index" : ".plugins-ml-model",
+          "_type" : "_doc",
+          "_id" : "OxkvHn8BNJ65KnIpck8x",
+          "_version" : 1,
+          "_seq_no" : 2,
+          "_primary_term" : 8,
+          "_score" : 2.4159138,
+          "_source" : {
+            "name" : "FIT_RCF",
+            "version" : 1,
+            "content" : "xxx",
+            "algorithm" : "FIT_RCF"
+          }
+        }
+      ]
+    }
+  }
+```
+
+## Delete model
+
+Deletes a model based on the model_id
+
+```json
+DELETE /_plugins/_ml/models/<model_id>
+```
+
+The API returns the following:
+
+```json
+{
+  "_index" : ".plugins-ml-model",
+  "_type" : "_doc",
+  "_id" : "MzcIJX8BA7mbufL6DOwl",
+  "_version" : 2,
+  "result" : "deleted",
+  "_shards" : {
+    "total" : 2,
+    "successful" : 2,
+    "failed" : 0
+  },
+  "_seq_no" : 27,
+  "_primary_term" : 18
 }
 ```
 
@@ -434,96 +528,28 @@ POST /_plugins/_ml/_train_predict/kmeans
 }
 ```
 
-## Search model
+## Get task information
 
-Use this command to search models you're already created.
-
+You can retrieve information about a task using the task_id.
 
 ```json
-POST /_plugins/_ml/models/_search
-{query}
+GET /_plugins/_ml/tasks/<task_id>
 ```
 
-
-### Example 1: Query all models
+The response includes information about the task.
 
 ```json
-POST /_plugins/_ml/models/_search
 {
-  "query": {
-    "match_all": {}
-  },
-  "size": 1000
+  "model_id" : "l7lamX8BO5w8y8Ra2oty",
+  "task_type" : "TRAINING",
+  "function_name" : "KMEANS",
+  "state" : "COMPLETED",
+  "input_type" : "SEARCH_QUERY",
+  "worker_node" : "54xOe0w8Qjyze00UuLDfdA",
+  "create_time" : 1647545342556,
+  "last_update_time" : 1647545342587,
+  "is_async" : true
 }
-```
-
-### Example 2: Query models with algorithm "FIT_RCF"
-
-```json
-POST /_plugins/_ml/models/_search
-{
-  "query": {
-    "term": {
-      "algorithm": {
-        "value": "FIT_RCF"
-      }
-    }
-  }
-}
-```
-
-### Response
-
-```json
-{
-    "took" : 8,
-    "timed_out" : false,
-    "_shards" : {
-      "total" : 1,
-      "successful" : 1,
-      "skipped" : 0,
-      "failed" : 0
-    },
-    "hits" : {
-      "total" : {
-        "value" : 2,
-        "relation" : "eq"
-      },
-      "max_score" : 2.4159138,
-      "hits" : [
-        {
-          "_index" : ".plugins-ml-model",
-          "_type" : "_doc",
-          "_id" : "-QkKJX8BvytMh9aUeuLD",
-          "_version" : 1,
-          "_seq_no" : 12,
-          "_primary_term" : 15,
-          "_score" : 2.4159138,
-          "_source" : {
-            "name" : "FIT_RCF",
-            "version" : 1,
-            "content" : "xxx",
-            "algorithm" : "FIT_RCF"
-          }
-        },
-        {
-          "_index" : ".plugins-ml-model",
-          "_type" : "_doc",
-          "_id" : "OxkvHn8BNJ65KnIpck8x",
-          "_version" : 1,
-          "_seq_no" : 2,
-          "_primary_term" : 8,
-          "_score" : 2.4159138,
-          "_source" : {
-            "name" : "FIT_RCF",
-            "version" : 1,
-            "content" : "xxx",
-            "algorithm" : "FIT_RCF"
-          }
-        }
-      ]
-    }
-  }
 ```
 
 ## Search task
@@ -617,6 +643,33 @@ GET /_plugins/_ml/tasks/_search
 }
 ```
 
+## Delete task
+
+Delete a task based on the task_id.
+
+```json
+DELETE /_plugins/_ml/tasks/{task_id}
+```
+
+The API returns the following:
+
+```json
+{
+  "_index" : ".plugins-ml-task",
+  "_type" : "_doc",
+  "_id" : "xQRYLX8BydmmU1x6nuD3",
+  "_version" : 4,
+  "result" : "deleted",
+  "_shards" : {
+    "total" : 2,
+    "successful" : 2,
+    "failed" : 0
+  },
+  "_seq_no" : 42,
+  "_primary_term" : 7
+}
+```
+
 ## Stats
 
 Get statistics related to the number of tasks. 
@@ -677,60 +730,6 @@ GET /_plugins/_ml/stats
   "A_IiqoloTDK01uZvCjREaA" : {
     "ml_executing_task_count" : 0
   }
-}
-```
-
-## Delete task
-
-Delete a task based on the task_id.
-
-```json
-DELETE /_plugins/_ml/tasks/{task_id}
-```
-
-The API returns the following:
-
-```json
-{
-  "_index" : ".plugins-ml-task",
-  "_type" : "_doc",
-  "_id" : "xQRYLX8BydmmU1x6nuD3",
-  "_version" : 4,
-  "result" : "deleted",
-  "_shards" : {
-    "total" : 2,
-    "successful" : 2,
-    "failed" : 0
-  },
-  "_seq_no" : 42,
-  "_primary_term" : 7
-}
-```
-
-## Delete model
-
-Deletes a model based on the model_id
-
-```json
-DELETE /_plugins/_ml/models/<model_id>
-```
-
-The API returns the following:
-
-```json
-{
-  "_index" : ".plugins-ml-model",
-  "_type" : "_doc",
-  "_id" : "MzcIJX8BA7mbufL6DOwl",
-  "_version" : 2,
-  "result" : "deleted",
-  "_shards" : {
-    "total" : 2,
-    "successful" : 2,
-    "failed" : 0
-  },
-  "_seq_no" : 27,
-  "_primary_term" : 18
 }
 ```
 
