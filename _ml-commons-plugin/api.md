@@ -125,7 +125,7 @@ POST /_plugins/_ml/models/_search
 {query}
 ```
 
-### Example 1: Query all models
+### Example: Query all models
 
 ```json
 POST /_plugins/_ml/models/_search
@@ -137,7 +137,7 @@ POST /_plugins/_ml/models/_search
 }
 ```
 
-### Example 2: Query models with algorithm "FIT_RCF"
+### Example: Query models with algorithm "FIT_RCF"
 
 ```json
 POST /_plugins/_ml/models/_search
@@ -322,7 +322,7 @@ POST /_plugins/_ml/_predict/kmeans/<model-id>
 ```
 
 
-## Train and Predict
+## Train and predict
 
 Use to train and then immediately predict against the same training data set. Can only be used with unsupervised learning models and the following algorithms:
 
@@ -330,7 +330,7 @@ Use to train and then immediately predict against the same training data set. Ca
 - FIT_RCF
 - kmeans
 
-### Example: Train and predict with Indexed data
+### Example: Train and predict with indexed data
 
 
 ```json
@@ -580,6 +580,8 @@ GET /_plugins/_ml/tasks/_search
   }
 }
 ```
+
+### Response
 
 ```json
 {
