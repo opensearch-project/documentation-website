@@ -76,7 +76,7 @@ POST /_plugins/_ml/_train/kmeans?async=true
 
 **Synchronously**
 
-For synchronous responses, the API returns the model_id, which can be used to get or delete a task.
+For synchronous responses, the API returns the model_id, which can be used to get or delete a model.
 
 ```json
 {
@@ -87,7 +87,7 @@ For synchronous responses, the API returns the model_id, which can be used to ge
 
 **Asynchronously**
 
-For asynchronous responses, the API returns the task_id, which can be used to get or delete a tasks.
+For asynchronous responses, the API returns the task_id, which can be used to get or delete a task.
 
 ```json
 {
