@@ -14,7 +14,7 @@ You can use pipeline aggregations to compute complex statistical and mathematica
 
 ## Pipeline aggregation syntax
 
-A pipeline aggregation uses the the `buckets_path` property to access the results of other aggregations.
+A pipeline aggregation uses the `buckets_path` property to access the results of other aggregations.
 The `buckets_path` property has a specific syntax:
 
 ```

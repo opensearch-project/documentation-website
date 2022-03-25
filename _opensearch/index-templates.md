@@ -113,12 +113,6 @@ To find a template by its name:
 GET _index_template/daily_logs
 ```
 
-To get a list of all your templates:
-
-```json
-GET _index_template/daily_logs
-```
-
 To get a list of all templates that match a pattern:
 
 ```json
