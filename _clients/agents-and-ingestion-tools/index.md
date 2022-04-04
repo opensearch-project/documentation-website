@@ -33,7 +33,7 @@ PUT _cluster/settings
 compatibility.override_main_response_version: true
 ```
 
-Logstash OSS 8.0 introduces a breaking change where all plugins run in ECS compatibility mode by [default](https://www.elastic.co/guide/en/logstash/current/ecs-ls.html#_specific_plugin_instance). If you use a compatible [OSS client](#compatibility-matrices) you must override the default value to maintain legacy behavior:
+Logstash OSS 8.0 introduces a breaking change where all plugins run in ECS compatibility mode by default. If you use a compatible [OSS client](#compatibility-matrices) you must override the default value to maintain legacy behavior:
 
 ```yml
 ecs_compatibility => disabled
