@@ -14,7 +14,7 @@ Historically, many multiple popular agents and ingestion tools have worked with 
 
 As an intermediate compatibility solution, OpenSearch has a setting that instructs the cluster to return version 7.10.2 rather than its actual version.
 
-If you use clients that include a version check, such as recent versions of Logstash OSS or Filebeat OSS, enable the setting:
+If you use clients that include a version check, such as versions of Logstash OSS or Filebeat OSS between 7.x - 7.12.x, enable the setting:
 
 ```json
 PUT _cluster/settings
@@ -33,6 +33,11 @@ PUT _cluster/settings
 compatibility.override_main_response_version: true
 ```
 
+Logstash OSS 8.0 introduces a breaking change where all plugins run in ECS compatibility mode by default. If you use a compatible [OSS client](#compatibility-matrices) you must override the default value to maintain legacy behavior:
+
+```yml
+ecs_compatibility => disabled
+```
 
 ## Downloads
 
@@ -58,13 +63,13 @@ Some users report compatibility issues with ingest pipelines on these versions o
 
 ### Compatibility Matrix for Logstash
 
-| | Logstash OSS 7.x to 7.11.x | Logstash OSS 7.12.x\* | Logstash 7.13.x-7.16.x without OpenSearch output plugin | Logstash 7.13.x-7.16.x with OpenSearch output plugin |
-| :---| :--- | :--- | :--- | :--- |
-| Elasticsearch OSS 7.x to 7.9.x | *Yes* | *Yes* | *No* | *Yes* |
-| Elasticsearch OSS 7.10.2 | *Yes* | *Yes* | *No* | *Yes* |
-| ODFE 1.x to 1.12 | *Yes* | *Yes* | *No* | *Yes* |
-| ODFE 1.13 | *Yes* | *Yes* | *No* | *Yes* |
-| OpenSearch 1.x | Yes via version setting | Yes via version setting | *No* | *Yes* |
+| | Logstash OSS 7.x to 7.11.x | Logstash OSS 7.12.x\* | Logstash 7.13.x-7.16.x without OpenSearch output plugin | Logstash 7.13.x-7.16.x with OpenSearch output plugin | Logstash 8.x+ with OpenSearch output plugin 
+| :---| :--- | :--- | :--- | :--- | :--- |
+| Elasticsearch OSS 7.x to 7.9.x | *Yes* | *Yes* | *No* | *Yes* | *Yes* |
+| Elasticsearch OSS 7.10.2 | *Yes* | *Yes* | *No* | *Yes* | *Yes* |
+| ODFE 1.x to 1.12 | *Yes* | *Yes* | *No* | *Yes* | *Yes* |
+| ODFE 1.13 | *Yes* | *Yes* | *No* | *Yes* | *Yes* |
+| OpenSearch 1.x | Yes via version setting | Yes via version setting | *No* | *Yes* | Yes, with Elastic Common Schema Setting |
 
 \* Most current compatible version with Elasticsearch OSS.
 
