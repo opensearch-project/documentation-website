@@ -196,12 +196,12 @@ Allows you to reduce the number of primary shards in your indexes. With this act
 
 Parameter | Description | Type | Example | Required
 :--- | :--- |:--- |:--- |
-`num_new_shards` | The maximum number of primary shards in the shrunken index | integer | `5` | Yes, however cannot be used with `max_shard_size` or `percentage_of_source_shards`.
-`max_shard_size` | The maximum size in bytes of a shard on in the target index. | keyword | `5gb` | Yes, however cannot be used with `max_shard_size` or `percentage_of_source_shards`.
-`percentage_of_source_shards` | Percentage of the number of original primary shards. This indicates the minimum percentage by which the number of primary shards will shrink. Must be between 0.0 and 1.0 exclusive  | Percentage | `0.5` | Yes, however cannot be used with `max_shard_size` or `percentage_of_source_shards`.
-`target_index_suffix` | Suffix that will be appended to the target index to by shrunk | text | `shrunken` | No
-`aliases` | Aliases which will be added to the new index | object | `myalias` | No
-`force_unsafe` | If true, executes the shrink action even if there are no replicas | boolean | `false` | No
+`num_new_shards` | The maximum number of primary shards in the shrunken index. | integer | `5` | Yes, however cannot be used with `max_shard_size` or `percentage_of_source_shards`
+`max_shard_size` | The maximum size in bytes of a shard for the target index. | keyword | `5gb` | Yes, however cannot be used with `max_shard_size` or `percentage_of_source_shards`
+`percentage_of_source_shards` | Percentage of the number of original primary shards that will be shrunk. This indicates the minimum percentage by which the number of primary shards will shrink. Must be between 0.0 and 1.0 exclusive.  | Percentage | `0.5` | Yes, however cannot be used with `max_shard_size` or `percentage_of_source_shards`
+`target_index_suffix` | Suffix that will be appended to the target index to by shrunk. | text | `shrunken` | No
+`aliases` | Aliases which will be added to the new index. | object | `myalias` | No
+`force_unsafe` | If true, executes the shrink action even if there are no replicas. | boolean | `false` | No
 
 ### close
 
