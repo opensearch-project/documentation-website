@@ -36,6 +36,7 @@ PUT /sample-index/_mapping
 
 ```
 PUT /<target-index>/_mapping
+PUT /_mapping
 ```
 
 You can also use the update mapping operation to update multiple indices with one request.
