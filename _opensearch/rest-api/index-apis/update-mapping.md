@@ -51,6 +51,7 @@ All update mapping parameters are optional.
 
 Parameter | Data Type | Description
 :--- | :--- | :---
+&lt;target-index&gt; | Data Type | The index to add the mapping to. If you do not specify this parameter, OpenSearch adds the mapping to all indices within the cluster.
 allow_no_indices | Boolean | Whether to ignore wildcards that don’t match any indices. Default is `true`.
 expand_wildcards | String | Expands wildcard expressions to different indices. Combine multiple values with commas. Available values are `all` (match all indices), `open` (match open indices), `closed` (match closed indices), `hidden` (match hidden indices), and `none` (do not accept wildcard expressions), which must be used with `open`, `closed`, or both. Default is `open`.
 ignore_unavailable | Boolean | If true, OpenSearch does not include missing or closed indices in the response.
