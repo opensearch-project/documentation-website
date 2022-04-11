@@ -132,6 +132,10 @@ These permissions are for the cluster and can't be applied granularly. For examp
 - cluster:admin/opendistro/reports/instance/list
 - cluster:admin/opendistro/reports/instance/get
 - cluster:admin/opendistro/reports/menu/download
+- cluster:admin/opensearch/observability/create
+- cluster:admin/opensearch/observability/update
+- cluster:admin/opensearch/observability/delete
+- cluster:admin/opensearch/observability/get
 - cluster:admin/plugins/replication/autofollow/update
 - cluster:admin/reindex/rethrottle
 - cluster:admin/repository/delete
