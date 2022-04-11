@@ -130,6 +130,10 @@ saml:
       roles_key: Role
 ```
 
+The security plugin expects the Roles in the SAML response are contained as multiple values of a single Role attribute. Some SAML IdPs sends multiple Role attributes containing single attribute value. For example Keycloak sends multiple Role attributes by default. For Keycloak it is possible to change the settings of `role_list` mapper. The mapper might be deployed at several levels (client, realm).
+
+![Keycloak UI - role list mapper]({{site.url}}{{site.baseurl}}/images/saml-keycloak-role-list-mapper.png)
+
 
 ## Inspect the JWT token
 
