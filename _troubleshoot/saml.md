@@ -45,12 +45,12 @@ The endpoint the OpenSearch Dashboards security plugin provides is:
 /_plugins/_security/saml/acs
 ```
 
-Make sure that you have configured this endpoint correctly in your IdP. Some IdPs also require you to whitelist all endpoints that they send requests to. Ensure that the ACS endpoint is listed.
+Make sure that you have configured this endpoint correctly in your IdP. Some IdPs also require you to allowlist all endpoints that they send requests to. Ensure that the ACS endpoint is listed.
 
-OpenSearch Dashboards also requires you to whitelist this endpoint. Make sure you have the following entry in `opensearch_dashboards.yml`:
+OpenSearch Dashboards also requires you to allowlist this endpoint. Make sure you have the following entry in `opensearch_dashboards.yml`:
 
 ```
-server.xsrf.whitelist: [/_plugins/_security/saml/acs]
+server.xsrf.allowlist: [/_plugins/_security/saml/acs]
 ```
 
 
