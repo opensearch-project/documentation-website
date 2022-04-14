@@ -41,7 +41,6 @@ GET _search?q=speaker:queen
   "hits": [
     {
     "_index": "new_shakespeare",
-    "_type": "_doc",
     "_id": "28559",
     "_score": 4.4368687,
     "_source": {
@@ -90,7 +89,6 @@ With query DSL, however, you can include an HTTP request body to look for result
     "hits": [
       {
         "_index": "new_shakespeare",
-        "_type": "_doc",
         "_id": "100763",
         "_score": 7.8623476,
         "_source": {
@@ -105,7 +103,6 @@ With query DSL, however, you can include an HTTP request body to look for result
       },
       {
         "_index": "shakespeare",
-        "_type": "_doc",
         "_id": "28559",
         "_score": 5.8923807,
         "_source": {

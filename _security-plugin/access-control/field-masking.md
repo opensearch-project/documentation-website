@@ -14,7 +14,6 @@ Field masking works alongside field-level security on the same per-role, per-ind
 ```json
 {
   "_index": "movies",
-  "_type": "_doc",
   "_source": {
     "year": 2013,
     "directors": [

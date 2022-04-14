@@ -1202,7 +1202,6 @@ DELETE _plugins/_anomaly_detection/detectors/<detectorId>
 ```json
 {
   "_index": ".opensearch-anomaly-detectors",
-  "_type": "_doc",
   "_id": "70TxTXwBjd8s6RK4j1Pj",
   "_version": 2,
   "result": "deleted",
@@ -1792,7 +1791,6 @@ POST _plugins/_anomaly_detection/detectors/_search
     "hits": [
       {
         "_index": ".opensearch-anomaly-detectors",
-        "_type": "_doc",
         "_id": "Zi5zTXwBwf_U8gjUTfJG",
         "_version": 1,
         "_seq_no": 1,
@@ -1924,7 +1922,6 @@ POST _plugins/_anomaly_detection/detectors/tasks/_search
     "hits": [
       {
         "_index": ".opensearch-anomaly-detection-state",
-        "_type": "_doc",
         "_id": "fm-RTXwBYwCbWecgB753",
         "_version": 34,
         "_seq_no": 928,
@@ -2263,7 +2260,6 @@ For information about the response body fields, see [Anomaly result mapping]({{s
     "hits": [
       {
         "_index": ".opensearch-anomaly-results-history-2021.10.04-1",
-        "_type": "_doc",
         "_id": "686KTXwB6HknB84SMr6G",
         "_version": 1,
         "_seq_no": 103622,
@@ -2389,7 +2385,6 @@ POST _plugins/_anomaly_detection/detectors/results/_search
     "hits": [
       {
         "_index": ".opensearch-anomaly-results-history-2021.10.04-1",
-        "_type": "_doc",
         "_id": "VRyRTXwBDx7vzPBV8jYC",
         "_version": 1,
         "_seq_no": 149657,

@@ -64,7 +64,6 @@ Your request body must contain the information you want to index.
 ```json
 {
   "_index": "sample-index",
-  "_type": "_doc",
   "_id": "1",
   "_version": 1,
   "result": "created",
@@ -83,7 +82,6 @@ Your request body must contain the information you want to index.
 Field | Description
 :--- | :---
 _index | The name of the index.
-_type | The document's type. OpenSearch supports only one type, which is `_doc`.
 _id | The document's ID.
 _version | The document's version.
 result | The result of the index operation.

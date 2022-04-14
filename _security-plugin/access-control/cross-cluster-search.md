@@ -176,7 +176,6 @@ curl -XGET -k -u 'admin:admin' 'https://localhost:9250/opensearch-ccs-cluster1:b
   ...
   "hits": [{
     "_index": "opensearch-ccs-cluster1:books",
-    "_type": "_doc",
     "_id": "1",
     "_score": 1.0,
     "_source": {
@@ -230,7 +229,6 @@ curl -XGET -k -u booksuser:password 'https://localhost:9250/opensearch-ccs-clust
   ...
   "hits": [{
     "_index": "opensearch-ccs-cluster1:books",
-    "_type": "_doc",
     "_id": "1",
     "_score": 1.0,
     "_source": {
