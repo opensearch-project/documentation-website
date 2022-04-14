@@ -7,10 +7,10 @@ nav_order: 30
 
 # OpenSearch Dashboards multi-tenancy
 
-*Tenants* in OpenSearch Dashboards are spaces for saving index patterns, visualizations, dashboards, and other OpenSearch Dashboards objects. By default, all OpenSearch Dashboards users have access to two tenants:
+*Tenants* in OpenSearch Dashboards are spaces for saving index patterns, visualizations, dashboards, and other OpenSearch Dashboards objects. By default, all OpenSearch Dashboards users have access to two independent tenants:
 
-- **Private -** This tenant is exclusive to each user and can't be shared.
-- **Global -** This tenant is shared between every OpenSearch Dashboards user.
+- **Private -** This tenant is exclusive to each user and can't be shared. It is independent from the global tenant, and can't be used to access routes or index patterns made by the global tenant.
+- **Global -** This tenant is shared between every OpenSearch Dashboards user, however your global tenant operates independently from your private tenant.
 
 **Note:** The global tenant is not a *primary* tenant such that any action done within the global tenant is not replicated to a user's private tenant. If you make a change to your global tenant, you won't see that change reflected in your private tenant. Some example changes include, but are not limited to:
 
