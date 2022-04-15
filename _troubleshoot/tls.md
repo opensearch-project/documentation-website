@@ -21,7 +21,7 @@ This page includes troubleshooting steps for configuring TLS certificates with t
 
 ## Validate YAML
 
-`opensearch.yml` and the files in `opensearch_security/securityconfig/` are in the YAML format. A linter like [YAML Validator](https://codebeautify.org/yaml-validator) can help verify that you don't have any formatting errors.
+`opensearch.yml` and the files in `config/opensearch-security/` are in the YAML format. A linter like [YAML Validator](https://codebeautify.org/yaml-validator) can help verify that you don't have any formatting errors.
 
 
 ## View contents of PEM certificates
