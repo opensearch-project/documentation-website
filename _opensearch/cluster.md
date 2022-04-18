@@ -16,19 +16,19 @@ There are many ways to design a cluster. The following illustration shows a basi
 
 ![multi-node cluster architecture diagram]({{site.url}}{{site.baseurl}}/images/cluster.png)
 
-This is a four-node cluster that has one dedicated master node, one dedicated coordinating node, and two data nodes that are master-eligible and also used for ingesting data.
+This is a four-node cluster that has one dedicated cluster_manager node, one dedicated coordinating node, and two data nodes that are cluster_manager-eligible and also used for ingesting data.
 
 The following table provides brief descriptions of the node types:
 
 Node type | Description | Best practices for production
 :--- | :--- | :-- |
-`Master` | Manages the overall operation of a cluster and keeps track of the cluster state. This includes creating and deleting indices, keeping track of the nodes that join and leave the cluster, checking the health of each node in the cluster (by running ping requests), and allocating shards to nodes. | Three dedicated master nodes in three different zones is the right approach for almost all production use cases. This configuration ensures your cluster never loses quorum. Two nodes will be idle for most of the time except when one node goes down or needs some maintenance.
-`Master-eligible` | Elects one node among them as the master node through a voting process. | For production clusters, make sure you have dedicated master nodes. The way to achieve a dedicated node type is to mark all other node types as false. In this case, you have to mark all the other nodes as not master-eligible.
+`Cluster_manager` | Manages the overall operation of a cluster and keeps track of the cluster state. This includes creating and deleting indices, keeping track of the nodes that join and leave the cluster, checking the health of each node in the cluster (by running ping requests), and allocating shards to nodes. | Three dedicated cluster_manager nodes in three different zones is the right approach for almost all production use cases. This configuration ensures your cluster never loses quorum. Two nodes will be idle for most of the time except when one node goes down or needs some maintenance.
+`Cluster_manager-eligible` | Elects one node among them as the cluster_manager node through a voting process. | For production clusters, make sure you have dedicated cluster_manager nodes. The way to achieve a dedicated node type is to mark all other node types as false. In this case, you have to mark all the other nodes as not cluster_manager-eligible.
 `Data` | Stores and searches data. Performs all data-related operations (indexing, searching, aggregating) on local shards. These are the worker nodes of your cluster and need more disk space than any other node type. | As you add data nodes, keep them balanced between zones. For example, if you have three zones, add data nodes in multiples of three, one for each zone. We recommend using storage and RAM-heavy nodes.
 `Ingest` | Preprocesses data before storing it in the cluster. Runs an ingest pipeline that transforms your data before adding it to an index. | If you plan to ingest a lot of data and run complex ingest pipelines, we recommend you use dedicated ingest nodes. You can also optionally offload your indexing from the data nodes so that your data nodes are used exclusively for searching and aggregating.
 `Coordinating` | Delegates client requests to the shards on the data nodes, collects and aggregates the results into one final result, and sends this result back to the client. | A couple of dedicated coordinating-only nodes is appropriate to prevent bottlenecks for search-heavy workloads. We recommend using CPUs with as many cores as you can.
 
-By default, each node is a master-eligible, data, ingest, and coordinating node. Deciding on the number of nodes, assigning node types, and choosing the hardware for each node type depends on your use case. You must take into account factors like the amount of time you want to hold on to your data, the average size of your documents, your typical workload (indexing, searches, aggregations), your expected price-performance ratio, your risk tolerance, and so on.
+By default, each node is a cluster_manager-eligible, data, ingest, and coordinating node. Deciding on the number of nodes, assigning node types, and choosing the hardware for each node type depends on your use case. You must take into account factors like the amount of time you want to hold on to your data, the average size of your documents, your typical workload (indexing, searches, aggregations), your expected price-performance ratio, your risk tolerance, and so on.
 
 After you assess all these requirements, we recommend you use a benchmark testing tool like Rally to provision a small sample cluster and run tests with varying workloads and configurations. Compare and analyze the system and query metrics for these tests to design an optimum architecture. To get started with Rally, see the [Rally documentation](https://esrally.readthedocs.io/en/stable/).
 
@@ -66,18 +66,18 @@ Make the same change on all the nodes to make sure that they'll join to form a c
 After you name the cluster, set node attributes for each node in your cluster.
 
 
-#### Master node
+#### Cluster manager node
 
-Give your master node a name. If you don't specify a name, OpenSearch assigns a machine-generated name that makes the node difficult to monitor and troubleshoot.
+Give your cluster_manager node a name. If you don't specify a name, OpenSearch assigns a machine-generated name that makes the node difficult to monitor and troubleshoot.
 
 ```yml
-node.name: opensearch-master
+node.name: opensearch-cluster_manager
 ```
 
-You can also explicitly specify that this node is a master node. This is already true by default, but adding it makes it easier to identify the master node.
+You can also explicitly specify that this node is a cluster_manager node. This is already true by default, but adding it makes it easier to identify the cluster_manager node.
 
 ```yml
-node.roles: [ master ]
+node.roles: [ cluster_manager ]
 ```
 
 
@@ -92,7 +92,7 @@ node.name: opensearch-d1
 node.name: opensearch-d2
 ```
 
-You can make them master-eligible data nodes that will also be used for ingesting data:
+You can make them cluster_manager-eligible data nodes that will also be used for ingesting data:
 
 ```yml
 node.roles: [ data, ingest ]
@@ -139,9 +139,9 @@ Now that you've configured the network hosts, you need to configure the discover
 
 Zen Discovery is the built-in, default mechanism that uses [unicast](https://en.wikipedia.org/wiki/Unicast) to find other nodes in the cluster.
 
-You can generally just add all your master-eligible nodes to the `discovery.seed_hosts` array. When a node starts up, it finds the other master-eligible nodes, determines which one is the master, and asks to join the cluster.
+You can generally just add all your cluster_manager-eligible nodes to the `discovery.seed_hosts` array. When a node starts up, it finds the other cluster_manager-eligible nodes, determines which one is the cluster_manager, and asks to join the cluster.
 
-For example, for `opensearch-master` the line looks something like this:
+For example, for `opensearch-cluster_manager` the line looks something like this:
 
 ```yml
 discovery.seed_hosts: ["<private IP of opensearch-d1>", "<private IP of opensearch-d2>", "<private IP of opensearch-c1>"]
@@ -169,8 +169,8 @@ curl -XGET https://<private-ip>:9200/_cat/nodes?v -u 'admin:admin' --insecure
 ```
 
 ```
-ip             heap.percent ram.percent cpu load_1m load_5m load_15m node.role master name
-x.x.x.x           13          61   0    0.02    0.04     0.05 mi        *      opensearch-master
+ip             heap.percent ram.percent cpu load_1m load_5m load_15m node.role cluster_manager name
+x.x.x.x           13          61   0    0.02    0.04     0.05 mi        *      opensearch-cluster_manager
 x.x.x.x           16          60   0    0.06    0.05     0.05 md        -      opensearch-d1
 x.x.x.x           34          38   0    0.12    0.07     0.06 md        -      opensearch-d2
 x.x.x.x           23          38   0    0.12    0.07     0.06 md        -      opensearch-c1

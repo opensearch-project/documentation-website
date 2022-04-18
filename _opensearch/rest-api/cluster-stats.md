@@ -14,7 +14,7 @@ The cluster stats API operation returns statistics about your cluster.
 ## Examples
 
 ```json
-GET _cluster/stats/nodes/_master
+GET _cluster/stats/nodes/_cluster_manager
 ```
 
 ## Path and HTTP methods
@@ -31,7 +31,7 @@ All cluster stats parameters are optional.
 
 Parameter | Type | Description
 :--- | :--- | :---
-&lt;node-filters&gt; | List | A comma-separated list of node-filters that OpenSearch uses to filter results. Available options are `all`, `_local`, `_master`, a node name or ID, `master:true`, `master:false`, `data:true`, `data:false`, `ingest:true`, `ingest:false`, `voting_only:true`, `voting_only:false`, `ml:true`, `ml:false`, `coordinating_only:true`, `coordinating_only:false`, and &lt;custom node attributes&gt; : &lt;attribute values&gt; pairs.
+&lt;node-filters&gt; | List | A comma-separated list of node-filters that OpenSearch uses to filter results. Available options are `all`, `_local`, `_cluster_manager`, a node name or ID, `cluster_manager:true`, `cluster_manager:false`, `data:true`, `data:false`, `ingest:true`, `ingest:false`, `voting_only:true`, `voting_only:false`, `ml:true`, `ml:false`, `coordinating_only:true`, `coordinating_only:false`, and &lt;custom node attributes&gt; : &lt;attribute values&gt; pairs.
 
 
 ## Response
@@ -217,7 +217,7 @@ Parameter | Type | Description
             "coordinating_only": 0,
             "data": 1,
             "ingest": 1,
-            "master": 1,
+            "cluster_manager": 1,
             "remote_cluster_client": 1
         },
         "versions": [
