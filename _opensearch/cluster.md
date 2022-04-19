@@ -69,13 +69,13 @@ After you name the cluster, set node attributes for each node in your cluster.
 
 #### Cluster manager node
 
-Give your cluster_manager node a name. If you don't specify a name, OpenSearch assigns a machine-generated name that makes the node difficult to monitor and troubleshoot.
+Give your cluster manager node a name. If you don't specify a name, OpenSearch assigns a machine-generated name that makes the node difficult to monitor and troubleshoot.
 
 ```yml
 node.name: opensearch-cluster_manager
 ```
 
-You can also explicitly specify that this node is a `cluster_manager` node. This is already true by default, but adding it makes it easier to identify the `cluster_manager` node.
+You can also explicitly specify that this node is a cluster manager node, even though it is already set to true by default. Set the node role to `cluster_manager` to make it easier to identify the cluster manager node.
 
 ```yml
 node.roles: [ cluster_manager ]
