@@ -14,10 +14,10 @@ To create and deploy an OpenSearch cluster according to your requirements, it’
 
 There are many ways to design a cluster. The following illustration shows a basic architecture that includes a four-node cluster that has one dedicated cluster manager node, one dedicated coordinating node, and two data nodes that are cluster manager-eligible and also used for ingesting data.
 
-  **Note:** The nomenclature recently changed for the master node, it is now called the cluster manager node.
-   {: .tip }
+  The nomenclature recently changed for the master node, it is now called the cluster manager node.
+   {: .note }
 
-![multi-node cluster architecture diagram]({{site.url}}{{site.baseurl}}/images/cluster.v2.png)
+![multi-node cluster architecture diagram]({{site.url}}{{site.baseurl}}/images/cluster.png)
 
 ### Nodes
 

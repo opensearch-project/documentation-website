@@ -36,7 +36,7 @@ All cluster health parameters are optional.
 
 Parameter | Type | Description
 :--- | :--- | :---
-expand_wildcards | Enum | Expands wildcard expressions to concrete indices. Combine multiple values with commas. Supported values are `all`, `open`, `closed`, `hidden`, and `none`. Default is `open`.
+expand_wildcards | Enum | Expands wildcard expressions to concrete indexes. Combine multiple values with commas. Supported values are `all`, `open`, `closed`, `hidden`, and `none`. Default is `open`.
 level | Enum | The level of detail for returned health information. Supported values are `cluster`, `indices`, and `shards`. Default is `cluster`.
 local | Boolean | Whether to return information from the local node only instead of from the cluster_manager node. Default is false.
 cluster_manager_timeout | Time | The amount of time to wait for a connection to the cluster_manager node. Default is 30 seconds.
