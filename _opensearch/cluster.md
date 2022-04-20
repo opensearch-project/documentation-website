@@ -19,6 +19,8 @@ There are many ways to design a cluster. The following illustration shows a basi
 
 ![multi-node cluster architecture diagram]({{site.url}}{{site.baseurl}}/images/cluster.v2.png)
 
+### Nodes
+
 The following table provides brief descriptions of the node types:
 
 Node type | Description | Best practices for production
@@ -29,7 +31,7 @@ Data | Stores and searches data. Performs all data-related operations (indexing,
 Ingest | Pre-processes data before storing it in the cluster. Runs an ingest pipeline that transforms your data before adding it to an index. | If you plan to ingest a lot of data and run complex ingest pipelines, we recommend you use dedicated ingest nodes. You can also optionally offload your indexing from the data nodes so that your data nodes are used exclusively for searching and aggregating.
 Coordinating | Delegates client requests to the shards on the data nodes, collects and aggregates the results into one final result, and sends this result back to the client. | A couple of dedicated coordinating-only nodes is appropriate to prevent bottlenecks for search-heavy workloads. We recommend using CPUs with as many cores as you can.
 
-By default, each node is a management-eligible, data, ingest, and coordinating node. Deciding on the number of nodes, assigning node types, and choosing the hardware for each node type depends on your use case. You must take into account factors like the amount of time you want to hold on to your data, the average size of your documents, your typical workload (indexing, searches, aggregations), your expected price-performance ratio, your risk tolerance, and so on.
+By default, each node is a cluster manager-eligible, data, ingest, and coordinating node. Deciding on the number of nodes, assigning node types, and choosing the hardware for each node type depends on your use case. You must take into account factors like the amount of time you want to hold on to your data, the average size of your documents, your typical workload (indexing, searches, aggregations), your expected price-performance ratio, your risk tolerance, and so on.
 
 After you assess all these requirements, we recommend you use a benchmark testing tool like Rally to provision a small sample cluster and run tests with varying workloads and configurations. Compare and analyze the system and query metrics for these tests to design an optimum architecture. To get started with Rally, see the [Rally documentation](https://esrally.readthedocs.io/en/stable/).
 
