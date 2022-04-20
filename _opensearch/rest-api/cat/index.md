@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Compact and aligned text (CAT) API
+title: CAT API
 parent: REST API reference
 nav_order: 100
 has_children: true
@@ -8,7 +8,7 @@ redirect_from:
   - /opensearch/catapis/
 ---
 
-# CAT API
+# Compact and aligned text (CAT) API
 
 You can get essential statistics about your cluster in an easy-to-understand, tabular format using the compact and aligned text (CAT) API. The CAT API is a human-readable interface that returns plain text instead of traditional JSON.
 
