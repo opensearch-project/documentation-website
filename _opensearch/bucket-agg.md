@@ -684,19 +684,6 @@ GET opensearch_dashboards_sample_data_logs/_search
   }
 }
 ```
-You can use the `ignore_malformed` parameter set to `true` to ignore any malformed IP ranges if your index mappings include the `ip_range` type.
-
-```json
-...
-"mappings": {
-    "properties": {
-        "ips": {
-            "type": "ip_range",
-            "ignore_malformed": true
-        }
-    }
-}
-```
 
 #### Sample response
 
@@ -722,7 +709,19 @@ You can use the `ignore_malformed` parameter set to `true` to ignore any malform
  }
 }
 ```
+When you add a document to an index with `ip_range` mappings set, if there are any malformed fields in the document, the entire document will get rejected. You can use the `ignore_malformed` parameter set to `true` to ignore any malformed IP ranges. This allows you to add the document and ignore the malformed fields.
 
+```json
+...
+"mappings": {
+    "properties": {
+        "ips": {
+            "type": "ip_range",
+            "ignore_malformed": true
+        }
+    }
+}
+```
 ## filter, filters
 
 A `filter` aggregation is a query clause, exactly like a search query — `match` or `term` or `range`. You can use the `filter` aggregation to narrow down the entire set of documents to a specific set before creating buckets.
