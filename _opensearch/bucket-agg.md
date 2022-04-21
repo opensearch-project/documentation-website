@@ -684,6 +684,19 @@ GET opensearch_dashboards_sample_data_logs/_search
   }
 }
 ```
+You can use the `ignore_malformed` parameter set to `true` to ignore any malformed IP ranges if your index mappings include the `ip_range` type.
+
+```json
+...
+"mappings": {
+    "properties": {
+        "ips": {
+            "type": "ip_range",
+            "ignore_malformed": true
+        }
+    }
+}
+```
 
 #### Sample response
 
