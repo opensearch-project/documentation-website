@@ -5,7 +5,7 @@ parent: Access control
 nav_order: 10
 ---
 
-# Document-level security
+# Document-level security (DLS)
 
 Document-level security lets you restrict a role to a subset of documents in an index. The easiest way to get started with document- and field-level security is open OpenSearch Dashboards and choose **Security**. Then choose **Roles**, create a new role, and review the **Index permissions** section.
 
@@ -124,3 +124,22 @@ PUT _plugins/_security/api/roles/abac
   }]
 }
 ```
+## Term Lookup Query (TLQ) modes
+
+You can perform term lookup queries (TQLs) with Document-level security using either of two DLS modes: Lucene-level or Filter-level. By default, OpenSearch Security will detect if a DLS query contains a TLQ or not, and chooses the appropriate mode automatically at runtime.
+### Lucene-level DLS mode
+
+Lucene-level mode modifies Lucene queries and data structures directly to implement DLS. This is the most efficient mode but does not allow certain advanced constructs in DLS queries, including TLQs.
+### Filter-level DLS mode
+
+When OpenSearch receives modifying queries, DLS is applied to them. This allows term lookup queries in DLS queries, but you can only use the following operations to retrieve data from the protected index:
+`get`, `search`, `mget`, and `msearch`. Additionally, cross-cluster searches are limited with this mode. 
+#### How to set the DLS evaluation mode in opensearch.yml
+
+By default, the DLS evaluation mode is set to "adaptive." You can also explicitly set the mode in opensearch.yml. Add a line to opensearch.yml in the following format:
+```
+plugins.security.dls.mode: <lucene-level | filter-level | adaptive>
+```
+- **lucene-level** - This setting makes all DLS queries apply to the Lucene level.
+- **filter-level** - This setting makes all DLS queries apply to the filter level.
+- **adaptive** - The default setting that allows OpenSearch to automatically choose the mode. DLS queries without TLQ are executed on Lucene level, while DLS queries that contain TLQ are executed on filter level.
