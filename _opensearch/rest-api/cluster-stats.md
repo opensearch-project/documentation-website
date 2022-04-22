@@ -31,7 +31,7 @@ All cluster stats parameters are optional.
 
 Parameter | Type | Description
 :--- | :--- | :---
-&lt;node-filters&gt; | List | A comma-separated list of node-filters that OpenSearch uses to filter results. Available options are `all`, `_local`, `_master`, a node name or ID, `master:true`, `master:false`, `data:true`, `data:false`, `ingest:true`, `ingest:false`, `voting_only:true`, `voting_only:false`, `ml:true`, `ml:false`, `coordinating_only:true`, `coordinating_only:false`, and &lt;custom node attributes&gt; : &lt;attribute values&gt; pairs.
+&lt;node-filters&gt; | List | A comma-separated list of [node-filters](../nodes-apis/index/#node-filters) that OpenSearch uses to filter results.
 
 
 ## Response
