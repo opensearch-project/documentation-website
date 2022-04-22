@@ -9,12 +9,12 @@ nav_order: 20
 
 The security plugin stores its configuration---including users, roles, and permissions---in an index on the OpenSearch cluster (`.opendistro_security`). Storing these settings in an index lets you change settings without restarting the cluster and eliminates the need to edit configuration files on every single node.
 
-To initialize the `.opendistro_security` index, however, you must run `plugins/opensearch-security/tools/securityadmin.sh`. This script loads your initial configuration into the index using the configuration files in `plugins/opensearch-security/securityconfig`. After the `.opendistro_security` index is initialized, use OpenSearch Dashboards or the REST API to manage your users, roles, and permissions.
+To initialize the `.opendistro_security` index, however, you must run `plugins/opensearch-security/tools/securityadmin.sh`. This script loads your initial configuration into the index using the configuration files in `config/opensearch-security`. After the `.opendistro_security` index is initialized, use OpenSearch Dashboards or the REST API to manage your users, roles, and permissions.
 
 
 ## A word of caution
 
-If you make changes to the configuration files in `plugins/opensearch-security/securityconfig`, OpenSearch does _not_ automatically apply these changes. Instead, you must run `securityadmin.sh` to load the updated files into the index.
+If you make changes to the configuration files in `config/opensearch-security`, OpenSearch does _not_ automatically apply these changes. Instead, you must run `securityadmin.sh` to load the updated files into the index.
 
 Running `securityadmin.sh` **overwrites** one or more portions of the `.opendistro_security` index. Run it with extreme care to avoid losing your existing resources. Consider the following example:
 
@@ -38,7 +38,7 @@ To avoid this situation, back up your current configuration before making change
 If you use the `-f` argument rather than `-cd`, you can load a single YAML file into the index rather than the entire directory of YAML files. For example, if you create ten new roles, you can safely load `internal_users.yml` into the index without losing your roles; only the internal users get overwritten.
 
 ```bash
-./securityadmin.sh -f ../securityconfig/internal_users.yml \
+./securityadmin.sh -f ../../../config/opensearch-security/internal_users.yml \
   -t internalusers \
   -icl \
   -nhnv \
@@ -50,7 +50,7 @@ If you use the `-f` argument rather than `-cd`, you can load a single YAML file 
 To resolve all environment variables before applying the security configurations, use the `-rev` parameter.
 
 ```bash
-./securityadmin.sh -cd ../securityconfig/ \
+./securityadmin.sh -cd ../../../config/opensearch-security/ \
  -rev \
  -cacert ../../../root-ca.pem \
  -cert ../../../kirk.pem \
@@ -95,7 +95,7 @@ To print all available command line options, run the script with no arguments:
 To load your initial configuration (all YAML files), you might use the following command:
 
 ```bash
-./securityadmin.sh -cd ../securityconfig/ -icl -nhnv \
+./securityadmin.sh -cd ../../../config/opensearch-security/ -icl -nhnv \
   -cacert ../../../config/root-ca.pem \
   -cert ../../../config/kirk.pem \
   -key ../../../config/kirk-key.pem
@@ -118,32 +118,32 @@ Name | Description
 
 ## Sample commands
 
-Apply all YAML files in `securityconfig` using PEM certificates:
+Apply all YAML files in `config/opensearch-security/` using PEM certificates:
 
 ```bash
 /usr/share/opensearch/plugins/opensearch-security/tools/securityadmin.sh \
   -cacert /etc/opensearch/root-ca.pem \
   -cert /etc/opensearch/kirk.pem \
   -key /etc/opensearch/kirk-key.pem \
-  -cd /usr/share/opensearch/plugins/opensearch-security/securityconfig/
+  -cd /usr/share/opensearch/config/opensearch-security/
 ```
 
 Apply a single YAML file (`config.yml`) using PEM certificates:
 
 ```bash
 ./securityadmin.sh \
-  -f ../securityconfig/config.yml \
+  -f ../../../config/opensearch-security/config.yml \
   -icl -nhnv -cert /etc/opensearch/kirk.pem \
   -cacert /etc/opensearch/root-ca.pem \
   -key /etc/opensearch/kirk-key.pem \
   -t config
 ```
 
-Apply all YAML files in `securityconfig` with keystore and truststore files:
+Apply all YAML files in `config/opensearch-security/` with keystore and truststore files:
 
 ```bash
 ./securityadmin.sh \
-  -cd /usr/share/opensearch/plugins/opensearch-security/securityconfig/ \
+  -cd /usr/share/opensearch/config/opensearch-security/ \
   -ks /path/to/keystore.jks \
   -kspass changeit \
   -ts /path/to/truststore.jks \
@@ -158,7 +158,7 @@ Apply all YAML files in `securityconfig` with keystore and truststore files:
 You can also use keystore files in JKS format in conjunction with `securityadmin.sh`:
 
 ```bash
-./securityadmin.sh -cd ../securityconfig -icl -nhnv
+./securityadmin.sh -cd ../../../config/opensearch-security -icl -nhnv
   -ts <path/to/truststore> -tspass <truststore password>
   -ks <path/to/keystore> -kspass <keystore password>
 ```
@@ -216,13 +216,13 @@ Name | Description
 To upload all configuration files in a directory, use this:
 
 ```bash
-./securityadmin.sh -cd ../securityconfig -ts ... -tspass ... -ks ... -kspass ...
+./securityadmin.sh -cd ../../../config/opensearch-security -ts ... -tspass ... -ks ... -kspass ...
 ```
 
 If you want to push a single configuration file, use this:
 
 ```bash
-./securityadmin.sh -f ../securityconfig/internal_users.yml -t internalusers  \
+./securityadmin.sh -f ../../../config/opensearch-security/internal_users.yml -t internalusers  \
     -ts ... -tspass ... -ks ... -kspass ...
 ```
 
@@ -274,7 +274,7 @@ To upload the dumped files to another cluster:
 To migrate configuration YAML files from the Open Distro for Elasticsearch 0.x.x format to the OpenSearch 1.x.x format:
 
 ```bash
-./securityadmin.sh -migrate ../securityconfig -ts ... -tspass ... -ks ... -kspass ...
+./securityadmin.sh -migrate ../../../config/opensearch-security -ts ... -tspass ... -ks ... -kspass ...
 ```
 
 Name | Description
