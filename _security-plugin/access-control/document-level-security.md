@@ -126,17 +126,19 @@ PUT _plugins/_security/api/roles/abac
 ```
 ## Term Lookup Query (TLQ) modes
 
-You can perform term lookup queries (TQLs) with Document-level security using either of two DLS modes: Lucene-level or Filter-level. By default, OpenSearch Security will detect if a DLS query contains a TLQ or not, and chooses the appropriate mode automatically at runtime.
+You can perform term lookup queries (TLQs) with Document-level security using either of two DLS modes: Lucene-level or Filter-level. By default, the security plugin detects if a DLS query contains a TLQ or not, and chooses the appropriate mode automatically at runtime.
+
 ### Lucene-level DLS mode
 
 Lucene-level mode modifies Lucene queries and data structures directly to implement DLS. This is the most efficient mode but does not allow certain advanced constructs in DLS queries, including TLQs.
+
 ### Filter-level DLS mode
 
-When OpenSearch receives modifying queries, DLS is applied to them. This allows term lookup queries in DLS queries, but you can only use the following operations to retrieve data from the protected index:
-`get`, `search`, `mget`, and `msearch`. Additionally, cross-cluster searches are limited with this mode. 
+OpenSearch automatically applies DLS when it receives modifying queries. This allows for term lookup queries in DLS queries, but you can only use the`get`, `search`, `mget`, and `msearch` operations to retrieve data from the protected index. Additionally, cross-cluster searches are limited with this mode.
+
 #### How to set the DLS evaluation mode in opensearch.yml
 
-By default, the DLS evaluation mode is set to "adaptive." You can also explicitly set the mode in opensearch.yml. Add a line to opensearch.yml in the following format:
+By default, the DLS evaluation mode is set to `adaptive`. You can also explicitly set the mode in `opensearch.yml`. Add a line to `opensearch.yml` in the following format:
 ```
 plugins.security.dls.mode: <lucene-level | filter-level | adaptive>
 ```
