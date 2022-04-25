@@ -96,7 +96,7 @@ If you're migrating from an existing Logstash installation, you can install the 
 1. Start Logstash:
 
     ```
-    docker run -it --rm --name logstash --net test opensearchproject/logstash-oss-with-opensearch-output-plugin:7.13.4 -e 'input { stdin { } } output {
+    docker run -it --rm --name logstash --net test opensearchproject/logstash-oss-with-opensearch-output-plugin:7.16.2 -e 'input { stdin { } } output {
       opensearch {
         hosts => ["https://opensearch:9200"]
         index => "opensearch-logstash-docker-%{+YYYY.MM.dd}"
