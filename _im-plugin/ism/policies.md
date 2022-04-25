@@ -182,8 +182,8 @@ Allows you to reduce the number of primary shards in your indexes. With this act
     "percentage_of_source_shards": {
         "type": "double"
     },
-    "target_index_suffix": {
-        "type": "text"
+    "target_index_name_template": {
+        "source": "the index is {{index-name}}"
     },
     "aliases": {
         "type": "object"
@@ -197,10 +197,10 @@ Allows you to reduce the number of primary shards in your indexes. With this act
 Parameter | Description | Type | Example | Required
 :--- | :--- |:--- |:--- |
 `num_new_shards` | The maximum number of primary shards in the shrunken index. | integer | `5` | Yes, however cannot be used with `max_shard_size` or `percentage_of_source_shards`
-`max_shard_size` | The maximum size in bytes of a shard for the target index. | keyword | `5gb` | Yes, however cannot be used with `max_shard_size` or `percentage_of_source_shards`
-`percentage_of_source_shards` | Percentage of the number of original primary shards that will be shrunk. This indicates the minimum percentage by which the number of primary shards will shrink. Must be between 0.0 and 1.0 exclusive.  | Percentage | `0.5` | Yes, however cannot be used with `max_shard_size` or `percentage_of_source_shards`
+`max_shard_size` | The maximum size in bytes of a shard for the target index. | keyword | `5gb` | Yes, however cannot be used with `num_new_shards` or `percentage_of_source_shards`
+`percentage_of_source_shards` | Percentage of the number of original primary shards to shrink. This parameter indicates the minimum percentage to use when shrinking the number of primary shards. Must be between 0.0 and 1.0 exclusive.  | Percentage | `0.5` | Yes, however cannot be used with `max_shard_size` or `num_new_shards`
 `target_index_suffix` | Suffix that will be appended to the target index to by shrunk. | text | `shrunken` | No
-`aliases` | Aliases which will be added to the new index. | object | `myalias` | No
+`aliases` | Aliases to add to the new index. | object | `myalias` | No
 `force_unsafe` | If true, executes the shrink action even if there are no replicas. | boolean | `false` | No
 
 ### close
