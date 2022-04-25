@@ -22,7 +22,7 @@ If the security plugin is enabled, make sure that non-admin users are mapped to 
 
 ## Get started with auto-follow
 
-Replication rules are a collection of patterns that you create against a single remote cluster. When you create a replication rule, it automatically starts replicating any *new* indexes that match the pattern, but does not replicate matching indexes that were previously created. 
+Replication rules are a collection of patterns that you create against a single follower cluster. When you create a replication rule, it starts by automatically replicating any *existing* indexes that match the pattern. It will then continue to replicate any *new* indexes that you create that match the pattern.
 
 Create a replication rule on the follower cluster:
 
@@ -92,7 +92,7 @@ curl -XGET -u 'admin:admin' -k 'https://localhost:9200/_plugins/_replication/aut
 
 ## Delete a replication rule
 
-To delete a replication rule, send the following request:
+To delete a replication rule, send the following request to the follower cluster:
 
 ```bash
 curl -XDELETE -k -H 'Content-Type: application/json' -u 'admin:admin' 'https://localhost:9200/_plugins/_replication/_autofollow?pretty' -d '
@@ -102,5 +102,4 @@ curl -XDELETE -k -H 'Content-Type: application/json' -u 'admin:admin' 'https://l
 }'
 ```
 
-OpenSearch stops replicating *new* indexes that match the pattern, but existing indexes that the rule previously created remain read-only and continue to replicate. If you need to stop existing replication activity and open the indexes up for writes, use the [stop replication API operation]({{site.url}}{{site.baseurl}}/replication-plugin/api/#stop-replication).
-
+When you delete a replication rule, OpenSearch stops replicating *new* indexes that match the pattern, but existing indexes that the rule previously created remain read-only and continue to replicate. If you need to stop existing replication activity and open the indexes up for writes, use the [stop replication API operation]({{site.url}}{{site.baseurl}}/replication-plugin/api/#stop-replication).
