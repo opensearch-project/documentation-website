@@ -709,17 +709,17 @@ GET opensearch_dashboards_sample_data_logs/_search
  }
 }
 ```
-When you add a document to an index with `ip_range` mappings set, if there are any malformed fields in the document, the entire document will get rejected. You can use the `ignore_malformed` parameter set to `true` to ignore any malformed IP ranges. This allows you to add the document and ignore the malformed fields.
+If you add a document with malformed fields to an index that has `ip_range` set to `false` in its mappings, OpenSearch rejects the entire document. You can set `ignore_malformed` to `true` to specify that OpenSearch should ignore malformed fields. The default is `false`.
 
 ```json
 ...
 "mappings": {
-    "properties": {
-        "ips": {
-            "type": "ip_range",
-            "ignore_malformed": true
-        }
+  "properties": {
+    "ips": {
+      "type": "ip_range",
+      "ignore_malformed": true
     }
+  }
 }
 ```
 ## filter, filters
