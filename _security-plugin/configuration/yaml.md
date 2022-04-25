@@ -165,7 +165,7 @@ requests:
     - PUT
 ```
 
-You can also add custom indices to the allow list. `allowlist.yml` doesn't support wildcards, so you must manually specify all of the indices you want to add.
+You can also add custom indices to the allow list. `allowlist.yml` doesn't support wildcards, so you must manually specify all of the indexes you want to add.
 
 ```yml
 requests: # Only allow GET requests to /sample-index1/_doc/1 and /sample-index2/_doc/1
