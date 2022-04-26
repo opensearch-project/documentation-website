@@ -33,6 +33,8 @@ Parameter | Type | Description
 :--- | :--- | :---
 &lt;node-filters&gt; | List | A comma-separated list of node-filters that OpenSearch uses to filter results. Available options are `all`, `_local`, `_cluster_manager`, a node name or ID, `cluster_manager:true`, `cluster_manager:false`, `data:true`, `data:false`, `ingest:true`, `ingest:false`, `voting_only:true`, `voting_only:false`, `ml:true`, `ml:false`, `coordinating_only:true`, `coordinating_only:false`, and &lt;custom node attributes&gt; : &lt;attribute values&gt; pairs.
 
+  Although the `master` node is now called `cluster_manager` for version 2.0, we retained the `master` field for backwards compatibility. If you have a node that has either a `master` role or a `cluster_manager` role, the `count` increases for both fields by 1. To see an example node count increase, see the Response sample.
+   {: .note }
 
 ## Response
 
@@ -217,6 +219,7 @@ Parameter | Type | Description
             "coordinating_only": 0,
             "data": 1,
             "ingest": 1,
+            "master": 1,
             "cluster_manager": 1,
             "remote_cluster_client": 1
         },
