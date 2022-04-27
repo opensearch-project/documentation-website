@@ -11,7 +11,7 @@ has_children: false
 Introduced 1.0
 {: .label .label-purple }
 
-The cat cluster manager operation lists information that helps identify the elected cluster_manager node.
+The cat cluster manager operation lists information that helps identify the elected cluster manager node.
 
 ## Example
 
@@ -33,7 +33,7 @@ In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/opensear
 
 Parameter | Type | Description
 :--- | :--- | :---
-cluster_manager_timeout | Time | The amount of time to wait for a connection to the cluster_manager node. Default is 30 seconds.
+cluster_manager_timeout | Time | The amount of time to wait for a connection to the cluster manager node. Default is 30 seconds.
 
 
 ## Response
