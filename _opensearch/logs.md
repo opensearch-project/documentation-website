@@ -172,3 +172,23 @@ Slow logs can consume considerable disk space if you set thresholds or levels to
 ## Deprecation logs
 
 Deprecation logs record when clients make deprecated API calls to your cluster. These logs can help you identify and fix issues prior to upgrading to a new major version. By default, OpenSearch logs deprecated API calls at the WARN level, which works well for almost all use cases. If desired, configure `logger.deprecation.level` using `_cluster/settings`, `opensearch.yml`, or `log4j2.properties`.
+
+
+## GC logging settings
+
+By default, OpenSearch enables garbage collection (GC) logs. These are configured in `jvm.options` and output to the same default location as the OpenSearch logs. The default configuration rotates the logs every 64 MB (x32 files) and can consume up to 2 GB of disk space.
+
+You can reconfigure JVM logging using the command line options described in [JEP 158: Unified JVM Logging](https://openjdk.java.net/jeps/158). Unless you change the default `jvm.options` file directly, the OpenSearch default configuration is applied in addition to your own settings. To disable the default configuration, first disable logging with the option `-Xlog:disable`, then supply your own command line options. This disables __all__ JVM logging, so be sure to review the available options and enable everything that you require.
+
+To see further options take a look at [Enable Logging with the JVM Unified Logging Framework](https://docs.oracle.com/en/java/javase/13/docs/specs/man/java.html#enable-logging-with-the-jvm-unified-logging-framework).
+
+### Example
+Changing the default GC log output location to `/opt/my-app-example/gc.log` by creating `/etc/opensearch/config/jvm.options.d/gc.options` config:
+```
+# Turn off all previous logging configurations
+-Xlog:disable
+
+# Default settings from JEP 158, but with `utctime` instead of `uptime` to match the next line
+-Xlog:all=warning:stderr:utctime,level,tags
+
+# Enable GC logging to a custom location with a variety of options
