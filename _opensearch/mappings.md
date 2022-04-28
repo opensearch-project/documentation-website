@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Mapping
-nav_order: 14
+nav_order: 13
 ---
 
 # About Mappings
@@ -68,9 +68,9 @@ If you know exactly what your field data types need to be, you can specify them 
 ---
 ## Mapping example usage
 
-The following example shows how to add the ip_range field and specify `ignore_malformed` parameter to prevent ip addresses that do not conform to your `ip_range` data type.
+The following example shows how to create a mapping to specify that OpenSearch should ignore any documents with malformed ip addresses that do not conform to the `ip_range` data type. You accomplish this by setting the `ignore_malformed` parameter to `true`.
 
-### Create an index with ip_range mapping
+### Create an index with an ip_range mapping
 
 To create an index, use a PUT request:
 
@@ -79,17 +79,17 @@ PUT _index_ip
 {
   "mappings": {
     "dynamic_templates": [
-      {
+     {
         "ip_range": {
         "match": "*ip_range",
         "mapping": {
            "type": "ip_range",
            "ignore_malformed": true
-          }
-        }
       }
-     ]
-   }
+     }
+    }
+   ]
+  }
 }
 ```
 
