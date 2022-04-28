@@ -145,7 +145,7 @@ raw-pipeline:
     bounded_blocking:
       buffer_size: 10240
       batch_size: 160
-  prepper:
+  processor:
     - otel_trace_raw:
   sink:
     - opensearch:
@@ -163,7 +163,7 @@ service-map-pipeline:
     bounded_blocking:
       buffer_size: 10240
       batch_size: 160
-  prepper:
+  processor:
     - service_map_stateful:
   sink:
     - opensearch:
@@ -174,7 +174,7 @@ service-map-pipeline:
         trace_analytics_service_map: true
 ```
 
-It is recommended to scale the `buffer_size` and `batch_size` by the estimated maximum batch size in the client request payload to maintain similar ingestion throughput and latency as in [Classic](#classic). 
+Note that it is recommended to scale the `buffer_size` and `batch_size` by the estimated maximum batch size in the client request payload to maintain similar ingestion throughput and latency as in [Classic](#classic). 
 
 ## Migrating from Logstash
 
