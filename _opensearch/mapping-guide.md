@@ -4,16 +4,15 @@ title: Mapping
 nav_order: 14
 ---
 
-# About Mapping with OpenSearch
+# About Mappings
 
-You can define how documents and their fields are stored and indexed by creating a mapping. 
+You can define how documents and their fields are stored and indexed by creating a mapping.
 
-Each field has its own data type. The mapping definition defines metadata fields that specify how to 
+If you're just starting to build out your cluster and data, you may not know exactly how your data should be stored. In those cases, you can use dynamic mappings, which tell OpenSearch to dynamically add data and their fields. However, if you know exactly what types your data fall under and want to enforce that standard, then you can use explicit mappings.
+
+For example, if you want to indicate that `year` should be of type `text` instead of an `integer`, and `age` should be an `integer`, you can do so with explicit mappings. Using dynamic mapping, OpenSearch might interpret both `year` and `age` as integers.
 
 This section provides an example for how to create an index mapping, and how to add a document to it that will get ip_range validated.
-
-
----
 
 #### Table of contents
 1. TOC
@@ -23,7 +22,53 @@ This section provides an example for how to create an index mapping, and how to 
 ---
 ## Dynamic mapping
 
-When you index a document, OpenSearch adds fields automatically. You can also explicitly add fields to an index mapping. The following example shows how to add the ip_range field and specify `ignore_malformed` parameter to prevent ip addresses that do not conform to your ip_range data type.
+When you index a document, OpenSearch adds fields automatically with dynamic mapping. You can also explicitly add fields to an index mapping.
+
+#### Dynamic mapping types
+
+Type | Description
+:--- | :---
+null | A `null` field can't be indexed or searched. When a field is set to null, OpenSearch behaves as if that field has no values.
+boolean | OpenSearch accepts `true` and `false` as boolean values. An empty string is equal to `false.`
+float | A single-precision 32-bit floating point number.
+double | A double-precision 64-bit floating point number.
+integer | A signed 32-bit number.
+object | Objects are standard JSON objects, which can have fields and mappings of their own. For example, a `movies` object can have additional properties such as `title`, `year`, and `director`.
+array | Arrays in OpenSearch can only store values of one type, such as an array of just integers or strings. Empty arrays are treated as though they are fields with no values.
+text | A string sequence of characters that represent full-text values.
+keyword | A string sequence of structured characters, such as an email or ZIP code.
+date detection string | Enabled by default, if new string fields match a date's format, then the string is processed as a `date` field. For example, `date: "2012/03/11"` is processed as a date.
+numeric detection string | If disabled, OpenSearch may automatically process numeric values as strings when they should be processed as numbers. When enabled, OpenSearch can process strings into `long`, `integer`, `short`, `byte`, `double`, `float`, `half_float`, `scaled_float`, `unsigned_long`. Default is disabled.
+
+## Explicit mapping
+
+If you know exactly what your field data types need to be, you can specify them in your request body when creating your index.
+
+```json
+{
+  "mappings": {
+    "properties": {
+      "year":    { "type" : "text" },
+      "age":     { "type" : "integer" },
+      "director":{ "type" : "text" }
+    }
+  }
+}
+```
+
+### Response
+```json
+{
+    "acknowledged": true,
+    "shards_acknowledged": true,
+    "index": "sample-index1"
+}
+```
+
+---
+## Mapping example usage
+
+The following example shows how to add the ip_range field and specify `ignore_malformed` parameter to prevent ip addresses that do not conform to your `ip_range` data type.
 
 ### Create an index with ip_range mapping
 
@@ -48,7 +93,7 @@ PUT _index_ip
 }
 ```
 
-You can add a document to your index that has an ip_range specified:
+You can add a document to your index that has an ip range specified:
 
 ```json
 PUT _index_ip/_doc/<id>
@@ -58,17 +103,3 @@ PUT _index_ip/_doc/<id>
 ```
 
 This indexed ip_range does not throw an error because `ignore_malformed` is set to true.
-
-
-
-<!---## Index alias options
-
-You can specify the options shown in the following table.
-
-Option | Valid values | Description | Required
-:--- | :--- | :---
-`index` | String | The name of the index that the alias points to. | Yes
-`alias` | String | The name of the alias. | No
-`filter` | Object | Add a filter to the alias. | No
-`routing` | String | Limit search to an associated shard value. You can specify `search_routing` and `index_routing` independently. | No
-`is_write_index` | String | Specify the index that accepts any write operations to the alias. If this value is not specified, then no write operations are allowed. | No
