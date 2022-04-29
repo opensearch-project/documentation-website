@@ -75,6 +75,8 @@ This example uses weak security. We strongly recommend securing all plugins whic
 
 The following example demonstrates how to build a pipeline that supports the [Trace Analytics OpenSearch Dashboards plugin]({{site.url}}{{site.baseurl}}/observability-plugin/trace/ta-dashboards/). This pipeline takes data from the OpenTelemetry Collector and uses two other pipelines as sinks. These two separate pipelines index trace and the service map documents for the dashboard plugin.
 
+#### Classic
+
 ```yml
 entry-pipeline:
   delay: "100"
@@ -114,6 +116,65 @@ service-map-pipeline:
         password: admin
         trace_analytics_service_map: true
 ```
+
+#### Event record type
+
+Starting from Data Prepper 1.4, we support event record type in trace analytics pipeline source, buffer and processors.
+
+```yml
+entry-pipeline:
+  delay: "100"
+  source:
+    otel_trace_source:
+      ssl: false
+      record_type: event
+  buffer:
+    bounded_blocking:
+      buffer_size: 10240
+      batch_size: 160
+  sink:
+    - pipeline:
+        name: "raw-pipeline"
+    - pipeline:
+        name: "service-map-pipeline"
+raw-pipeline:
+  source:
+    pipeline:
+      name: "entry-pipeline"
+  buffer:
+    bounded_blocking:
+      buffer_size: 10240
+      batch_size: 160
+  processor:
+    - otel_trace_raw:
+  sink:
+    - opensearch:
+        hosts: ["https://localhost:9200"]
+        insecure: true
+        username: admin
+        password: admin
+        trace_analytics_raw: true
+service-map-pipeline:
+  delay: "100"
+  source:
+    pipeline:
+      name: "entry-pipeline"
+  buffer:
+    bounded_blocking:
+      buffer_size: 10240
+      batch_size: 160
+  processor:
+    - service_map_stateful:
+  sink:
+    - opensearch:
+        hosts: ["https://localhost:9200"]
+        insecure: true
+        username: admin
+        password: admin
+        trace_analytics_service_map: true
+```
+
+Note that it is recommended to scale the `buffer_size` and `batch_size` by the estimated maximum batch size in the client request payload to maintain similar ingestion throughput and latency as in [Classic](#classic). 
 
 ## Migrating from Logstash
 
