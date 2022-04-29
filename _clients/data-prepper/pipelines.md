@@ -77,6 +77,8 @@ The following example demonstrates how to build a pipeline that supports the [Tr
 
 #### Classic
 
+This pipeline definition will be deprecated in 2.0. Users are recommended to use [Event record type](#event-record-type) pipeline definition.
+
 ```yml
 entry-pipeline:
   delay: "100"
