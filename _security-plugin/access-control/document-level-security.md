@@ -142,8 +142,8 @@ plugins.security.dls.mode: filter-level
 
 #### DLS Evaluation modes
 
-Evaluation mode | Parameter | Description | Usage
-:--- | :--- | :---
+| Evaluation mode | Parameter | Description | Usage |
+:--- | :--- | :--- | :--- |
 Lucene level DLS | `lucene-level` | This setting makes all DLS queries apply to the Lucene level. | Lucene level DLS modifies Lucene queries and data structures directly. This is the most efficient mode but does not allow certain advanced constructs in DLS queries, including TLQs.
 Filter level DLS | `filter-level` | This setting makes all DLS queries apply to the filter level. | In this mode, OpenSearch applies DLS by modifying queries that OpenSearch receives. This allows for term-level lookup queries in DLS queries, but you can only use the `get`, `search`, `mget`, and `msearch` operations to retrieve data from the protected index. Additionally, cross-cluster searches are limited with this mode.
 Adaptive | `adaptive-level` | The default setting that allows OpenSearch to automatically choose the mode. | DLS queries without TLQ are executed on Lucene level, while DLS queries that contain TLQ are executed on filter level.
