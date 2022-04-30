@@ -124,16 +124,13 @@ PUT _plugins/_security/api/roles/abac
   }]
 }
 ```
-## Term-level lookup query (TLQ) modes
+## Use term-level lookup queries (TLQs) with DLS 
 
-You can perform term-level lookup queries (TLQs) with Document-level security using either of two DLS modes: Lucene-level or Filter-level. Lucene level mode modifies Lucene queries and data structures directly to implement DLS. OpenSearch automatically applies DLS when it receives modifying queries at the filter level. By default, the security plugin detects if a DLS query contains a TLQ or not, and chooses the appropriate mode automatically at runtime.
+You can perform term-level lookup queries (TLQs) with document-level security (DLS) using either of two modes: adaptive or filter-level. The default mode is adaptive, where OpenSearch automatically switches between Lucene level or filter level mode depending on whether or not there is a term-level lookup query. DLS queries without TLQs are executed at the Lucene level mode, whereas DLS queries with TLQs are executed on filter level mode.
+
+By default, the security plugin detects if a DLS query contains a TLQ or not, and chooses the appropriate mode automatically at runtime.
 
 To learn more about OpenSearch queries, see [Term-level queries](https://opensearch.org/docs/latest/opensearch/query-dsl/term/).
-
-<!--
-### Lucene-level DLS mode
-### Filter-level DLS mode
--->
 
 ### How to set the DLS evaluation mode in `opensearch.yml`
 
@@ -147,6 +144,6 @@ plugins.security.dls.mode: filter-level
 
 Evaluation mode | Parameter | Description | Usage
 :--- | :--- | :---
-Lucene level | `lucene-level` | This setting makes all DLS queries apply to the Lucene level. | This is the most efficient mode but does not allow certain advanced constructs in DLS queries, including TLQs.
-Filter level | `filter-level` | This setting makes all DLS queries apply to the filter level. | This allows for term-level lookup queries in DLS queries, but you can only use the `get`, `search`, `mget`, and `msearch` operations to retrieve data from the protected index. Additionally, cross-cluster searches are limited with this mode.
-Lucene level | `adaptive-level` | The default setting that allows OpenSearch to automatically choose the mode. | DLS queries without TLQ are executed on Lucene level, while DLS queries that contain TLQ are executed on filter level.
+Lucene level | `lucene-level` | This setting makes all DLS queries apply to the Lucene level. | Lucene level DLS modifies Lucene queries and data structures directly. This is the most efficient mode but does not allow certain advanced constructs in DLS queries, including TLQs.
+Filter level | `filter-level` | This setting makes all DLS queries apply to the filter level. | In this mode, OpenSearch applies DLS by modifying queries that OpenSearch receives. This allows for term-level lookup queries in DLS queries, but you can only use the `get`, `search`, `mget`, and `msearch` operations to retrieve data from the protected index. Additionally, cross-cluster searches are limited with this mode.
+Adaptive level | `adaptive-level` | The default setting that allows OpenSearch to automatically choose the mode. | DLS queries without TLQ are executed on Lucene level, while DLS queries that contain TLQ are executed on filter level.
