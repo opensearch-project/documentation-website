@@ -8,9 +8,9 @@ nav_order: 13
 
 You can define how documents and their fields are stored and indexed by creating a mapping.
 
-If you're just starting to build out your cluster and data, you may not know exactly how your data should be stored. In those cases, you can use dynamic mappings, which tell OpenSearch to dynamically add data and their fields. However, if you know exactly what types your data fall under and want to enforce that standard, then you can use explicit mappings.
+If you're just starting to build out your cluster and data, you may not know exactly how your data should be stored. In those cases, you can use dynamic mappings, which tell OpenSearch to dynamically add data and its fields. However, if you know exactly what types your data falls under and want to enforce that standard, then you can use explicit mappings.
 
-For example, if you want to indicate that `year` should be of type `text` instead of an `integer`, and `age` should be an `integer`, you can do so with explicit mappings. Using dynamic mapping, OpenSearch might interpret both `year` and `age` as integers.
+For example, if you want to indicate that `year` should be of type `text` instead of an `integer`, and `age` should be an `integer`, you can do so with explicit mappings. Using dynamic mapping OpenSearch might interpret both `year` and `age` as integers.
 
 This section provides an example for how to create an index mapping, and how to add a document to it that will get ip_range validated.
 
@@ -36,9 +36,9 @@ integer | A signed 32-bit number.
 object | Objects are standard JSON objects, which can have fields and mappings of their own. For example, a `movies` object can have additional properties such as `title`, `year`, and `director`.
 array | Arrays in OpenSearch can only store values of one type, such as an array of just integers or strings. Empty arrays are treated as though they are fields with no values.
 text | A string sequence of characters that represent full-text values.
-keyword | A string sequence of structured characters, such as an email or ZIP code.
+keyword | A string sequence of structured characters, such as an email address or ZIP code.
 date detection string | Enabled by default, if new string fields match a date's format, then the string is processed as a `date` field. For example, `date: "2012/03/11"` is processed as a date.
-numeric detection string | If disabled, OpenSearch may automatically process numeric values as strings when they should be processed as numbers. When enabled, OpenSearch can process strings into `long`, `integer`, `short`, `byte`, `double`, `float`, `half_float`, `scaled_float`, `unsigned_long`. Default is disabled.
+numeric detection string | If disabled, OpenSearch may automatically process numeric values as strings when they should be processed as numbers. When enabled, OpenSearch can process strings into `long`, `integer`, `short`, `byte`, `double`, `float`, `half_float`, `scaled_float`, and `unsigned_long`. Default is disabled.
 
 ## Explicit mapping
 
@@ -93,7 +93,7 @@ PUT _index_ip
 }
 ```
 
-You can add a document to your index that has an ip range specified:
+You can add a document to your index that has an IP range specified:
 
 ```json
 PUT _index_ip/_doc/<id>
