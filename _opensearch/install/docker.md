@@ -222,7 +222,7 @@ You can also configure `docker-compose.yml` and `opensearch.yml` [to take your o
    docker ps # Look up the container id
    docker exec -it <container-id> /bin/bash
    # Inside container
-   cd plugins/opensearch_performance_analyzer/pa_config/
+   cd config/opensearch-performance-analyzer/
    vi performance-analyzer.properties
    ```
 

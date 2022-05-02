@@ -59,7 +59,7 @@ In a tarball installation, Performance Analyzer collects data when it is enabled
 
    ```bash
    cd /usr/share/opensearch # navigate to the OpenSearch home directory
-   cd plugins/opensearch_performance_analyzer/pa_config/
+   cd config/opensearch-performance-analyzer/
    vi performance-analyzer.properties
    ```
 
@@ -114,7 +114,7 @@ In a tarball installation, Performance Analyzer collects data when it is enabled
 1. Launch the agent CLI:
 
    ```bash
-   OPENSEARCH_HOME="$PWD" ./bin/performance-analyzer-agent-cli
+   OPENSEARCH_HOME="$PWD" OPENSEARCH_PATH_CONF="$PWD/config" ./bin/performance-analyzer-agent-cli
    ```
 
 1. In a separate window, enable the Performance Analyzer plugin:
