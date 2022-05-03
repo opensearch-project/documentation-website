@@ -192,7 +192,7 @@ config:
         internalProxies: '<opensearch-dashboards-ip-address>'
 ```
 
-To pass the user and role headers that the authenticating proxy adds from OpenSearch Dashboards to the security plugin, add them to the HTTP header allowlist in `opensearch_dashboards.yml`:
+To pass the user and role headers that the authenticating proxy adds from OpenSearch Dashboards to the security plugin, add them to the HTTP header allow list in `opensearch_dashboards.yml`:
 
 ```yml
 opensearch.requestHeadersAllowlist: ["securitytenant","Authorization","x-forwarded-for","x-proxy-user","x-proxy-roles"]

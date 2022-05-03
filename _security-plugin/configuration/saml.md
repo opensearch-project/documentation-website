@@ -302,13 +302,13 @@ Because most of the SAML-specific configuration is done in the security plugin, 
 opensearch_security.auth.type: "saml"
 ```
 
-In addition, the OpenSearch Dashboards endpoint for validating the SAML assertions must be allowlisted:
+In addition, you must add the OpenSearch Dashboards endpoint for validating the SAML assertions to your allow list:
 
 ```yml
 server.xsrf.allowlist: ["/_plugins/_security/saml/acs"]
 ```
 
-If you use the logout POST binding, you also need to allowlist the logout endpoint:
+If you use the logout POST binding, you also need to ad the logout endpoint to your allow list:
 
 ```yml
 server.xsrf.allowlist: ["/_plugins/_security/saml/acs", "/_plugins/_security/saml/logout"]
