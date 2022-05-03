@@ -1,6 +1,9 @@
 /* During build, DOC_VERSIONS is prefixed to convey all the versions available, informed by `_data/versions.json`
  * Example:
  *    const DOC_VERSIONS = ["1.1","1.0"];
+ *
+ * DOC_VERSION_LATEST will pick `latest`, or in its absence the `current` version.
+ *    const DOC_VERSION_LATEST = "2.0";
  */
 const PREFIX = "OpenSearch ";
 const tpl = `
@@ -155,7 +158,7 @@ class VersionSelector extends HTMLElement {
         frag.querySelector('#selected').textContent = `${PREFIX}${this.getAttribute('selected')}.x`;
 
         const pathName = location.pathname.replace(/\/docs(\/((latest|\d+\.\d+)\/?)?)?/, '');
-        const versionsDOMText = DOC_VERSIONS.map((v, idx) => `<a href="/docs/${v}/${pathName}"${idx === 0 ? ' class="latest"' : ''}>${PREFIX}${v}.x</a>`)
+        const versionsDOMText = DOC_VERSIONS.map((v, idx) => `<a href="/docs/${v}/${pathName}"${v === DOC_VERSION_LATEST ? ' class="latest"' : ''}>${PREFIX}${v}.x</a>`)
             .join('');
 
         frag.querySelector('#dropdown').appendChild(this._makeFragment(versionsDOMText));
