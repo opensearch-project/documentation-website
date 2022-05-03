@@ -5,11 +5,11 @@ parent: Install OpenSearch
 nav_order: 51
 ---
 
-The RPM installation provides everything you need to run OpenSearch inside a Linux distribution. As such, you can also make use of YUM to install a compatible RPM OpenSearch package.
+The RPM installation provides everything you need to run OpenSearch inside a RHEL distribution. 
 
-RPM supports CentOS 7 and 8, and Amazon Linux 2. If you have your own Java installation and set `JAVA_HOME` in the terminal, macOS works, as well.
+RPM supports CentOS 7 and 8, and Amazon Linux 2. If you have your own Java installation and set `JAVA_HOME` in your terminal application, macOS works, as well.
 
-There are two methods for installing OpenSearch on RPM. 
+There are two methods for installing OpenSearch on RPM: 
 
 ## Manual method
 
@@ -70,13 +70,13 @@ YUM allows you to pull the RPM package from the YUM repository library.
   sudo yum clean all
   ```
 
-3. With the repository file downloaded, list all available versions of OpenSearch:
+4. With the repository file downloaded, list all available versions of OpenSearch:
 
   ```curl
   sudo yum list | grep opensearch
   ```
 
-3. Chose the version of OpenSearch you want to install: 
+5. Chose the version of OpenSearch you want to install: 
 
   ```bash
   yum install opensearch
@@ -91,7 +91,7 @@ YUM allows you to pull the RPM package from the YUM repository library.
   yum install 'opensearch-{{site.opensearch_version}}'
   ```
 
-5. During installation, the installer stops to see if the GPG key matches the OpenSearch project. Verify that the `Fingerprint` matches the following:
+6. During installation, the installer stops to see if the GPG key matches the OpenSearch project. Verify that the `Fingerprint` matches the following:
 
   ```
   Fingerprint: c5b7 4989 65ef d1c2 924b a9d5 39d3 1987 9310 d3fc
@@ -99,7 +99,7 @@ YUM allows you to pull the RPM package from the YUM repository library.
 
   If correct, enter `yes`. The OpenSearch installation continues.
 
-6. Run OpenSearch and OpenSearch Dashboards using `systemctl`.
+7. Run OpenSearch and OpenSearch Dashboards using `systemctl`.
 
   ```bash
   systemctl start opensearch.service
@@ -108,7 +108,7 @@ YUM allows you to pull the RPM package from the YUM repository library.
 
   If you configure the security plugin for production use (or disable it), you can run OpenSearch using `./bin/opensearch`.
 
-7. Open a second terminal session, and send requests to the server to verify that OpenSearch is running:
+8. Open a second terminal session, and send requests to the server to verify that OpenSearch is running:
 
   ```bash
   curl -XGET https://localhost:9200 -u 'admin:admin' --insecure
