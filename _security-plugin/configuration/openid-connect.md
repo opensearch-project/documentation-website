@@ -309,7 +309,7 @@ opensearch.password: "kibanaserver"
 opensearch.ssl.verificationMode: none
 
 # allowlist basic headers and multi-tenancy header
-opensearch.requestHeadersallowlist: ["Authorization", "security_tenant"]
+opensearch.requestHeadersAllowlist: ["Authorization", "security_tenant"]
 ```
 
 
