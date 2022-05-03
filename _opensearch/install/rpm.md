@@ -54,7 +54,7 @@ There are two methods for installing OpenSearch on RPM:
 
 ## YUM method
 
-YUM allows you to pull the RPM package from the YUM repository library. 
+YUM, an RPM package management tool, allows you to pull the RPM package from the YUM repository library. 
 
 1. Create a repository file for both OpenSearch and OpenSearch Dashboards:
 
@@ -89,7 +89,7 @@ YUM allows you to pull the RPM package from the YUM repository library.
 
    Unless otherwise indicated, the highest minor version of OpenSearch installs.
 
-   To install a specific version of OpenSearch
+   To install a specific version of OpenSearch:
 
    ```bash
    sudo yum install 'opensearch-{{site.opensearch_version}}'
@@ -129,7 +129,7 @@ YUM allows you to pull the RPM package from the YUM repository library.
    ```
 
 
-## (Optional) Set up Performance Analyzer
+## *(Optional)* Set up Performance Analyzer
 
 When enabled, the Performance Analyzer plugin collects data related to the performance of your OpenSearch instance. To start the Performance Analyzer plugin, enter:
 
@@ -154,4 +154,4 @@ Download the new version of OpenSearch you want to use, and then use `rmp -Uvh` 
 
 ### YUM
 
-To upgrade to the latest version of OpenSearch with YUM, use `yum upgrade`. You can also upgrade to a specific OpenSearch version by using `yum upgrade opensearch-<version-number>`.
+To upgrade to the latest version of OpenSearch with YUM, use `sudo yum update`. You can also upgrade to a specific OpenSearch version by using `sudo yum upgrade opensearch-<version-number>`.
