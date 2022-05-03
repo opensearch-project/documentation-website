@@ -5,7 +5,7 @@ parent: Install OpenSearch
 nav_order: 51
 ---
 
-The RPM installation provides everything you need to run OpenSearch inside a RHEL distribution. 
+The RPM Package Manager (RPM) installation provides everything you need to run OpenSearch inside Red Hat or CentOS Linux distributions. 
 
 RPM supports CentOS 7 and 8, and Amazon Linux 2. If you have your own Java installation and set `JAVA_HOME` in your terminal application, macOS works, as well.
 
