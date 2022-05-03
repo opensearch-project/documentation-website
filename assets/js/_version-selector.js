@@ -1,8 +1,8 @@
 /* During build, DOC_VERSIONS is prefixed to convey all the versions available, informed by `_data/versions.json`
  * Example:
  *    const DOC_VERSIONS = ["1.1","1.0"];
- * 
- * DOC_VERSION_LATEST will picl `latest`, or in its absence the `current` version.
+ *
+ * DOC_VERSION_LATEST will pick `latest`, or in its absence the `current` version.
  *    const DOC_VERSION_LATEST = "2.0";
  */
 const PREFIX = "OpenSearch ";
