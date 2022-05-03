@@ -51,7 +51,6 @@ version_type | Enum | Retrieves a specifically typed document. Available options
 ```json
 {
   "_index": "sample-index1",
-  "_type": "_doc",
   "_id": "1",
   "_version": 1,
   "_seq_no": 0,
@@ -68,7 +67,6 @@ version_type | Enum | Retrieves a specifically typed document. Available options
 Field | Description
 :--- | :---
 _index | The name of the index.
-_type | The document's type. OpenSearch only supports one type, which is `_doc`.
 _id | The document's ID.
 _version | The document's version number. Updated whenever the document changes.
 _seq_no | The sequnce number assigned when the document is indexed.

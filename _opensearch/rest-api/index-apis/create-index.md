@@ -61,7 +61,6 @@ You can include the following URL parameters in your request. All parameters are
 
 Parameter | Type | Description
 :--- | :--- | :---
-include_type_name | Boolean | If `true`, the request expects a type in the body of mappings. Because OpenSearch indices all have a type of `_doc`, we recommend that this parameter is left as the default of `false.`
 wait_for_active_shards | String | Specifies the number of active shards that must be available before OpenSearch processes the request. Default is 1 (only the primary shard). Set to `all` or a positive integer. Values greater than 1 require replicas. For example, if you specify a value of 3, the index must have two replicas distributed across two additional nodes for the request to succeed.
 master_timeout | Time | How long to wait for a connection to the master node. Default is `30s`.
 timeout | Time | How long to wait for the request to return. Default is `30s`.

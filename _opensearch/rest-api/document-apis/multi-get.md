@@ -41,12 +41,10 @@ GET sample-index1/_mget
 {
   "docs": [
     {
-      "_type": "_doc",
       "_id": "1",
       "_source": false
     },
     {
-      "_type": "_doc",
       "_id": "2",
       "_source": [ "Director", "Title" ]
     }
@@ -98,7 +96,6 @@ ids | Array | IDs of the documents to retrieve. Only allowed when an index is sp
   "docs": [
     {
       "_index": "sample-index1",
-      "_type": "_doc",
       "_id": "1",
       "_version": 4,
       "_seq_no": 5,
@@ -111,7 +108,6 @@ ids | Array | IDs of the documents to retrieve. Only allowed when an index is sp
     },
     {
       "_index": "sample-index2",
-      "_type": "_doc",
       "_id": "1",
       "_version": 1,
       "_seq_no": 6,
@@ -131,7 +127,6 @@ ids | Array | IDs of the documents to retrieve. Only allowed when an index is sp
 Field | Description
 :--- | :---
 _index | The name of the index.
-_type | The document's type. OpenSearch only supports one type, which is `_doc`.
 _id | The document's ID.
 _version | The document's version number. Updated whenever the document changes.
 _seq_no | The sequnce number assigned when the document is indexed.

@@ -533,7 +533,6 @@ DELETE _plugins/_ism/policies/policy_1
 ```json
 {
   "_index": ".opendistro-ism-config",
-  "_type": "_doc",
   "_id": "policy_1",
   "_version": 3,
   "result": "deleted",
