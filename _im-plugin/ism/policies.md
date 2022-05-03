@@ -126,7 +126,7 @@ Parameter | Description | Type | Required
 
 ### read_only
 
-Sets a managed index to be read only.
+Sets a managed index to be read only. When an index is read only it doesn't refresh.
 
 ```json
 {
