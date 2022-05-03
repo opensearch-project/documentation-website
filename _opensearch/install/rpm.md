@@ -80,7 +80,7 @@ YUM, an RPM package management tool, allows you to pull the RPM package from the
    sudo yum list | grep opensearch
    ```
 
-4. Chose the version of OpenSearch you want to install: 
+4. Choose the version of OpenSearch you want to install: 
 
    ```bash
    sudo yum install opensearch
