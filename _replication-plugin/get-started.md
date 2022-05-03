@@ -226,7 +226,6 @@ curl -XGET -k -u 'admin:admin' 'https://localhost:9200/follower-01/_search?prett
   ...
   "hits": [{
     "_index": "follower-01",
-    "_type": "_doc",
     "_id": "1",
     "_score": 1.0,
     "_source": {

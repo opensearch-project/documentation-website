@@ -37,13 +37,11 @@ After you assess all these requirements, we recommend you use a benchmark testin
 
 This page demonstrates how to work with the different node types. It assumes that you have a four-node cluster similar to the preceding illustration.
 
-
 ## Prerequisites
 
 Before you get started, you must install and configure OpenSearch on all of your nodes. For information about the available options, see [Install and configure OpenSearch]({{site.url}}{{site.baseurl}}/opensearch/install/).
 
 After you're done, use SSH to connect to each node, then open the `config/opensearch.yml` file. You can set all configurations for your cluster in this file.
-
 
 ## Step 1: Name a cluster
 
@@ -63,11 +61,9 @@ cluster.name: opensearch-cluster
 
 Make the same change on all the nodes to make sure that they'll join to form a cluster.
 
-
 ## Step 2: Set node attributes for each node in a cluster
 
 After you name the cluster, set node attributes for each node in your cluster.
-
 
 #### Cluster manager node
 
@@ -83,7 +79,6 @@ You can also explicitly specify that this node is a cluster manager node, even t
 node.roles: [ cluster_manager ]
 ```
 
-
 #### Data nodes
 
 Change the name of two nodes to `opensearch-d1` and `opensearch-d2`, respectively:
@@ -91,6 +86,7 @@ Change the name of two nodes to `opensearch-d1` and `opensearch-d2`, respectivel
 ```yml
 node.name: opensearch-d1
 ```
+
 ```yml
 node.name: opensearch-d2
 ```
@@ -102,7 +98,6 @@ node.roles: [ data, ingest ]
 ```
 
 You can also specify any other attributes that you'd like to set for the data nodes.
-
 
 #### Coordinating node
 
@@ -117,7 +112,6 @@ Every node is a coordinating node by default, so to make this node a dedicated c
 ```yml
 node.roles: []
 ```
-
 
 ## Step 3: Bind a cluster to specific IP addresses
 
@@ -135,7 +129,6 @@ network.host: <IP address of the node>
 
 Make sure to configure these settings on all of your nodes.
 
-
 ## Step 4: Configure discovery hosts for a cluster
 
 Now that you've configured the network hosts, you need to configure the discovery hosts.
@@ -149,7 +142,6 @@ For example, for `opensearch-cluster_manager` the line looks something like this
 ```yml
 discovery.seed_hosts: ["<private IP of opensearch-d1>", "<private IP of opensearch-d2>", "<private IP of opensearch-c1>"]
 ```
-
 
 ## Step 5: Start the cluster
 
@@ -181,7 +173,6 @@ x.x.x.x           23          38   0    0.12    0.07     0.06 md        -      o
 
 To better understand and monitor your cluster, use the [cat API]({{site.url}}{{site.baseurl}}/opensearch/catapis/).
 
-
 ## (Advanced) Step 6: Configure shard allocation awareness or forced awareness
 
 If your nodes are spread across several geographical zones, you can configure shard allocation awareness to allocate all replica shards to a zone that’s different from their primary shard.
@@ -193,6 +184,7 @@ To configure shard allocation awareness, add zone attributes to `opensearch-d1` 
 ```yml
 node.attr.zone: zoneA
 ```
+
 ```yml
 node.attr.zone: zoneB
 ```
@@ -233,7 +225,6 @@ If that is not the case, and `opensearch-d1` and `opensearch-d2` do not have the
 
 Choosing allocation awareness or forced awareness depends on how much space you might need in each zone to balance your primary and replica shards.
 
-
 ## (Advanced) Step 7: Set up a hot-warm architecture
 
 You can design a hot-warm architecture where you first index your data to hot nodes---fast and expensive---and after a certain period of time move them to warm nodes---slow and cheap.
@@ -247,6 +238,7 @@ To configure a hot-warm storage architecture, add `temp` attributes to `opensear
 ```yml
 node.attr.temp: hot
 ```
+
 ```yml
 node.attr.temp: warm
 ```
@@ -316,7 +308,6 @@ In this case, all primary shards are allocated to `opensearch-d2`. Again, all re
 A popular approach is to configure your [index templates]({{site.url}}{{site.baseurl}}/opensearch/index-templates/) to set the `index.routing.allocation.require.temp` value to `hot`. This way, OpenSearch stores your most recent data on your hot nodes.
 
 You can then use the [Index State Management (ISM)]({{site.url}}{{site.baseurl}}/im-plugin/) plugin to periodically check the age of an index and specify actions to take on it. For example, when the index reaches a specific age, change the `index.routing.allocation.require.temp` setting to `warm` to automatically move your data from hot nodes to warm nodes.
-
 
 ## Next steps
 

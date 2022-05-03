@@ -78,7 +78,6 @@ Parameter | Type | Description | Required
 ```json
 {
   "_index" : "kibana_sample_data_ecommerce",
-  "_type" : "_doc",
   "_id" : "EVz1Q3sBgg5eWQP6RSte",
   "matched" : true,
   "explanation" : {

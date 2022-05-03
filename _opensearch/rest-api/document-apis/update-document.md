@@ -91,7 +91,6 @@ You can also use a script to tell OpenSearch how to update your document.
 ```json
 {
   "_index": "sample-index1",
-  "_type": "_doc",
   "_id": "1",
   "_version": 3,
   "result": "updated",
@@ -110,7 +109,6 @@ You can also use a script to tell OpenSearch how to update your document.
 Field | Description
 :--- | :---
 _index | The name of the index.
-_type | The document's type. OpenSearch only supports one type, which is `_doc`.
 _id | The document's ID.
 _version | The document's version.
 _result | The result of the delete operation.

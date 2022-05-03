@@ -125,7 +125,6 @@ version | Boolean | Whether to include the document version in the response.
     "hits": [
       {
         "_index": "superheroes",
-        "_type": "_doc",
         "_id": "1",
         "_score": 1.0,
         "_source": {

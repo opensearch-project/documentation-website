@@ -55,7 +55,7 @@ We provide a fully functional example that can help you understand how to use an
 
 ## Connection settings
 
-To enable LDAP authentication and authorization, add the following lines to `plugins/opensearch-security/securityconfig/config.yml`:
+To enable LDAP authentication and authorization, add the following lines to `config/opensearch-security/config.yml`:
 
 ```yml
 authc:
@@ -247,7 +247,7 @@ Name | Description
 
 ## Use Active Directory and LDAP for authentication
 
-To use Active Directory/LDAP for authentication, first configure a respective authentication domain in the `authc` section of `plugins/opensearch-security/securityconfig/config.yml`:
+To use Active Directory/LDAP for authentication, first configure a respective authentication domain in the `authc` section of `config/opensearch-security/config.yml`:
 
 ```yml
 authc:
@@ -433,7 +433,7 @@ By default, the security plugin reads all LDAP user attributes and makes them av
 
 Name | Description
 :--- | :---
-`custom_attr_whitelist`  | String array. Specifies the LDAP attributes that should be made available for variable substitution.
+`custom_attr_allowlist`  | String array. Specifies the LDAP attributes that should be made available for variable substitution.
 `custom_attr_maxval_len`  | Integer. Specifies the maximum allowed length of each attribute. All attributes longer than this value are discarded. A value of `0` disables custom attributes altogether. Default is 36.
 
 Example:
@@ -446,7 +446,7 @@ authz:
     authorization_backend:
       type: ldap
       config:
-        custom_attr_whitelist:
+        custom_attr_allowlist:
           - attribute1
           - attribute2
         custom_attr_maxval_len: 36
@@ -501,7 +501,7 @@ Name | Description
 `skip_users`  | Array of users that should be skipped when retrieving roles. Wildcards and regular expressions are supported.
 `nested_role_filter`  | Array of role DNs that should be filtered before resolving nested roles. Wildcards and regular expressions are supported.
 `rolesearch_enabled`  | Boolean. Enable or disable the role search. Default is `true`.
-`custom_attr_whitelist`  | String array. Specifies the LDAP attributes that should be made available for variable substitution.
+`custom_attr_allowlist`  | String array. Specifies the LDAP attributes that should be made available for variable substitution.
 `custom_attr_maxval_len`  | Integer. Specifies the maximum allowed length of each attribute. All attributes longer than this value are discarded. A value of `0` disables custom attributes altogether. Default is 36.
 
 

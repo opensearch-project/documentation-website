@@ -967,7 +967,6 @@ DELETE _plugins/_alerting/monitors/<monitor_id>
 ```json
 {
   "_index": ".opensearch-scheduled-jobs",
-  "_type": "_doc",
   "_id": "OYAHOmgBl3cmwnqZl_yH",
   "_version": 2,
   "result": "deleted",

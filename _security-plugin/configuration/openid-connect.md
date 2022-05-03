@@ -308,8 +308,8 @@ opensearch.password: "kibanaserver"
 # Disable SSL verification when using self-signed demo certificates
 opensearch.ssl.verificationMode: none
 
-# Whitelist basic headers and multi-tenancy header
-opensearch.requestHeadersWhitelist: ["Authorization", "security_tenant"]
+# allowlist basic headers and multi-tenancy header
+opensearch.requestHeadersAllowlist: ["Authorization", "security_tenant"]
 ```
 
 

@@ -85,7 +85,6 @@ Responses vary based on which path and HTTP method you choose.
     {
       "doc" : {
         "_index" : "index",
-        "_type" : "_doc",
         "_id" : "id",
         "_source" : {
           "location" : "new-new",
@@ -99,7 +98,6 @@ Responses vary based on which path and HTTP method you choose.
     {
       "doc" : {
         "_index" : "index",
-        "_type" : "_doc",
         "_id" : "id",
         "_source" : {
           "location" : "new-new",
@@ -122,7 +120,6 @@ Responses vary based on which path and HTTP method you choose.
     {
       "doc" : {
         "_index" : "index",
-        "_type" : "_doc",
         "_id" : "id",
         "_source" : {
           "field-name" : "value",
@@ -136,7 +133,6 @@ Responses vary based on which path and HTTP method you choose.
     {
       "doc" : {
         "_index" : "index",
-        "_type" : "_doc",
         "_id" : "id",
         "_source" : {
           "field-name" : "value",
@@ -165,7 +161,6 @@ With the `verbose` parameter set to `true`, the response shows how each processo
           "status" : "success",
           "doc" : {
             "_index" : "index",
-            "_type" : "_doc",
             "_id" : "id",
             "_source" : {
               "field-name" : "value",
@@ -186,7 +181,6 @@ With the `verbose` parameter set to `true`, the response shows how each processo
           "status" : "success",
           "doc" : {
             "_index" : "index",
-            "_type" : "_doc",
             "_id" : "id",
             "_source" : {
               "field-name" : "value",

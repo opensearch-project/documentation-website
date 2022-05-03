@@ -29,7 +29,7 @@ http://<opensearch_dashboards_host>:5601/app/opensearch-dashboards?security_tena
 
 ## Configuration
 
-Multi-tenancy is enabled by default, but you can disable it or change its settings using `plugins/opensearch-security/securityconfig/config.yml`:
+Multi-tenancy is enabled by default, but you can disable it or change its settings using `config/opensearch-security/config.yml`:
 
 ```yml
 config:
@@ -53,7 +53,7 @@ Setting | Description
 ```yml
 opensearch.username: kibanaserver
 opensearch.password: kibanaserver
-opensearch.requestHeadersWhitelist: ["securitytenant","Authorization"]
+opensearch.requestHeadersAllowlist: ["securitytenant","Authorization"]
 opensearch_security.multitenancy.enabled: true
 opensearch_security.multitenancy.tenants.enable_global: true
 opensearch_security.multitenancy.tenants.enable_private: true
@@ -63,7 +63,7 @@ opensearch_security.multitenancy.enable_filter: false
 
 Setting | Description
 :--- | :---
-`opensearch.requestHeadersWhitelist` | OpenSearch Dashboards requires that you whitelist all HTTP headers that it passes to OpenSearch. Multi-tenancy uses a specific header, `securitytenant`, that must be present with the standard `Authorization` header. If the `securitytenant` header is not whitelisted, OpenSearch Dashboards starts with a red status.
+`opensearch.requestHeadersAllowlist` | OpenSearch Dashboards requires that you add all HTTP headers to the allow list so that the headers pass to OpenSearch. Multi-tenancy uses a specific header, `securitytenant`, that must be present with the standard `Authorization` header. If the `securitytenant` header is not on the allow list, OpenSearch Dashboards starts with a red status.
 `opensearch_security.multitenancy.enabled` | Enables or disables multi-tenancy in OpenSearch Dashboards. Default is true.
 `opensearch_security.multitenancy.tenants.enable_global` | Enables or disables the global tenant. Default is true.
 `opensearch_security.multitenancy.tenants.enable_private` | Enables or disables the private tenant. Default is true.

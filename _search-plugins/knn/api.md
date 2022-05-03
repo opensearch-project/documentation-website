@@ -256,7 +256,6 @@ GET/POST /_plugins/_knn/models/_search?pretty&_source_excludes=model_blob
     "hits" : [
       {
         "_index" : ".opensearch-knn-models",
-        "_type" : "_doc",
         "_id" : "test-model",
         "_score" : 1.0,
         "_source" : {

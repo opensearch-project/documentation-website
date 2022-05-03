@@ -99,6 +99,7 @@ ISM supports the following operations:
 - [read_only](#read_only)
 - [read_write](#read_write)
 - [replica_count](#replica_count)
+- [shrink](#shrink)
 - [close](#close)
 - [open](#open)
 - [delete](#delete)
@@ -161,6 +162,59 @@ Parameter | Description | Type | Required
 ```
 
 For information about setting replicas, see [Primary and replica shards]({{site.url}}{{site.baseurl}}/opensearch#primary-and-replica-shards).
+
+### shrink
+
+Allows you to reduce the number of primary shards in your indexes. With this action, you can specify:
+
+- The number of primary shards that the target index should contain.
+- A max shard size for the primary shards in the target index.
+- Specify a percentage to shrink the number of primary shards in the target index.
+
+```json
+"shrink": {
+    "num_new_shards": 1,
+    "target_index_name_template": {
+        "source": "{{ctx.index}}_shrunken"
+    },
+    "aliases": [
+       "my-alias": {}
+    ],
+    "force_unsafe": false
+}
+```
+
+Parameter | Description | Type | Example | Required
+:--- | :--- |:--- |:--- |
+`num_new_shards` | The maximum number of primary shards in the shrunken index. | integer | `5` | Yes, however it cannot be used with `max_shard_size` or `percentage_of_source_shards`
+`max_shard_size` | The maximum size in bytes of a shard for the target index. | keyword | `5gb` | Yes, however it cannot be used with `num_new_shards` or `percentage_of_source_shards`
+`percentage_of_source_shards` | Percentage of the number of original primary shards to shrink. This parameter indicates the minimum percentage to use when shrinking the number of primary shards. Must be between 0.0 and 1.0, exclusive.  | Percentage | `0.5` | Yes, however it cannot be used with `max_shard_size` or `num_new_shards`
+`target_index_name_template` | The name of the shrunken index. Accepts strings and the Mustache variables `{{ctx.index}}` and `{{ctx.indexUuid}}`. | `string` or Mustache template | `{"source": "{{ctx.index}}_shrunken"}` | No
+`aliases` | Aliases to add to the new index. | object | `myalias` | No, but must be an array of alias objects
+`force_unsafe` | If true, executes the shrink action even if there are no replicas. | boolean | `false` | No
+
+If you want to add `aliases` to the action, the parameter must include an array of [alias objects]({{site.url}}{{site.baseurl}}/opensearch/rest-api/alias/). For example,
+
+```json
+"aliases": [
+  {
+    "my-alias": {}
+  },
+  {
+    "my-second-alias": {
+      "is_write_index": false,
+      "filter": {
+        "multi_match": {
+          "query": "QUEEN",
+          "fields": ["speaker", "text_entry"]
+        }
+      },
+      "index_routing" : "1",
+      "search_routing" : "1"
+    }
+  },
+]
+```
 
 ### close
 

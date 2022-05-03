@@ -37,7 +37,7 @@ We provide a fully functional example that can help you understand how to use SA
 
 ## Activating SAML
 
-To use SAML for authentication, you need to configure a respective authentication domain in the `authc` section of `plugins/opensearch-security/securityconfig/config.yml`. Because SAML works solely on the HTTP layer, you do not need any `authentication_backend` and can set it to `noop`. Place all SAML-specific configuration options in this chapter in the `config` section of the SAML HTTP authenticator:
+To use SAML for authentication, you need to configure a respective authentication domain in the `authc` section of `config/opensearch-security/config.yml`. Because SAML works solely on the HTTP layer, you do not need any `authentication_backend` and can set it to `noop`. Place all SAML-specific configuration options in this chapter in the `config` section of the SAML HTTP authenticator:
 
 ```yml
 authc:
@@ -302,16 +302,16 @@ Because most of the SAML-specific configuration is done in the security plugin, 
 opensearch_security.auth.type: "saml"
 ```
 
-In addition, the OpenSearch Dashboards endpoint for validating the SAML assertions must be whitelisted:
+In addition, you must add the OpenSearch Dashboards endpoint for validating the SAML assertions to your allow list:
 
 ```yml
-server.xsrf.whitelist: ["/_plugins/_security/saml/acs"]
+server.xsrf.allowlist: ["/_plugins/_security/saml/acs"]
 ```
 
-If you use the logout POST binding, you also need to whitelist the logout endpoint:
+If you use the logout POST binding, you also need to ad the logout endpoint to your allow list:
 
 ```yml
-server.xsrf.whitelist: ["/_plugins/_security/saml/acs", "/_plugins/_security/saml/logout"]
+server.xsrf.allowlist: ["/_plugins/_security/saml/acs", "/_plugins/_security/saml/logout"]
 ```
 
 ### IdP-initiated SSO
@@ -322,8 +322,8 @@ To use IdP-initiated SSO, set the Assertion Consumer Service endpoint of your Id
 /_plugins/_security/saml/acs/idpinitiated
 ```
 
-Then add this endpoint to `server.xsrf.whitelist` in `opensearch_dashboards.yml`:
+Then add this endpoint to `server.xsrf.allowlist` in `opensearch_dashboards.yml`:
 
 ```yml
-server.xsrf.whitelist: ["/_plugins/_security/saml/acs/idpinitiated", "/_plugins/_security/saml/acs", "/_plugins/_security/saml/logout"]
+server.xsrf.allowlist: ["/_plugins/_security/saml/acs/idpinitiated", "/_plugins/_security/saml/acs", "/_plugins/_security/saml/logout"]
 ```

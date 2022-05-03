@@ -7,7 +7,7 @@ nav_order: 3
 
 # YAML files
 
-Before running `securityadmin.sh` to load the settings into the `.opendistro_security` index, configure the YAML files in `plugins/opensearch-security/securityconfig`. You might want to back up these files so that you can reuse them on other clusters.
+Before running `securityadmin.sh` to load the settings into the `.opendistro_security` index, configure the YAML files in `config/opensearch-security`. You might want to back up these files so that you can reuse them on other clusters.
 
 The best use of these YAML files is to configure [reserved and hidden resources]({{site.url}}{{site.baseurl}}/security-plugin/access-control/api#reserved-and-hidden-resources), such as the `admin` and `kibanaserver` users. You might find it easier to create other users, roles, mappings, action groups, and tenants using OpenSearch Dashboards or the REST API.
 
@@ -124,16 +124,16 @@ plugins.security.restapi.password_validation_regex: '(?=.*[A-Z])(?=.*[^a-zA-Z\d]
 plugins.security.restapi.password_validation_error_message: "Password must be minimum 8 characters long and must contain at least one uppercase letter, one lowercase letter, one digit, and one special character."
 ```
 
-## whitelist.yml
+## allowlist.yml
 
-You can use `whitelist.yml` to add any endpoints and HTTP requests to a list of allowed endpoints and requests. If enabled, all users except the super admin are allowed access to only the specified endpoints and HTTP requests, and all other HTTP requests associated with the endpoint are denied. For example, if GET `_cluster/settings` is added to the allow list, users cannot submit PUT requests to `_cluster/settings` to update cluster settings.
+You can use `allowlist.yml` to add any endpoints and HTTP requests to a list of allowed endpoints and requests. If enabled, all users except the super admin are allowed access to only the specified endpoints and HTTP requests, and all other HTTP requests associated with the endpoint are denied. For example, if GET `_cluster/settings` is added to the allow list, users cannot submit PUT requests to `_cluster/settings` to update cluster settings.
 
 Note that while you can configure access to endpoints this way, for most cases, it is still best to configure permissions using the security plugin's users and roles, which have more granular settings.
 
 ```yml
 ---
 _meta:
-  type: "whitelist"
+  type: "allowlist"
   config_version: 2
 
 # Description:
@@ -165,7 +165,7 @@ requests:
     - PUT
 ```
 
-You can also add custom indices to the allow list. `whitelist.yml` doesn't support wildcards, so you must manually specify all of the indices you want to add.
+You can also add custom indices to the allow list. `allowlist.yml` doesn't support wildcards, so you must manually specify all of the indexes you want to add.
 
 ```yml
 requests: # Only allow GET requests to /sample-index1/_doc/1 and /sample-index2/_doc/1

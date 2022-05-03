@@ -112,7 +112,6 @@ OpenSearch returns an array with the results of each search in the same order as
         "hits" : [
           {
             "_index" : "opensearch_dashboards_sample_data_logs",
-            "_type" : "_doc",
             "_id" : "_fnhBXsBgv2Zxgu9dZ8Y",
             "_score" : 1.0,
             "_source" : {
@@ -177,7 +176,6 @@ OpenSearch returns an array with the results of each search in the same order as
         "hits" : [
           {
             "_index" : "opensearch_dashboards_sample_data_ecommerce",
-            "_type" : "_doc",
             "_id" : "efnhBXsBgv2Zxgu9ap7e",
             "_score" : 1.0,
             "_source" : {
