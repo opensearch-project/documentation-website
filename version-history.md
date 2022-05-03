@@ -9,6 +9,7 @@ permalink: /version-history/
 
 OpenSearch version | Release highlights | Release date
 :--- | :--- | :--- | :---
+[2.0.0-RC1](https://github.com/opensearch-project/OpenSearch/blob/2.0/release-notes/opensearch.release-notes-2.0.0-rc1.md) | The Release Candidate for 2.0.0. This version allows you to preview the upcoming 2.0.0 release before it's in GA | 2 May 2022
 [1.3.1](https://github.com/opensearch-project/opensearch-build/blob/main/release-notes/opensearch-release-notes-1.3.1.md) | Bug fixes when using document-level security, and adjusted ML Commons to use the latest RCF jar and protostuff to RCF model serialization. | 30 March 2022 
 [1.3.0](https://github.com/opensearch-project/opensearch-build/blob/main/release-notes/opensearch-release-notes-1.3.0.md) | Adds Model Type Validation to Validate Detector API, continuous transforms, custom actions, applied policy parameter to Explain API, default action retries, and new rollover and transition conditions to Index Management, new ML Commons plugin, parse command to SQL, Application Analytics, Live Tail, Correlation, and Events Flyout to Observbility, and auto backport and support for OPENSEARCH_JAVA_HOME to Performance Analyzer. Bug fixes. | 17 March 2022
 [1.2.4](https://github.com/opensearch-project/opensearch-build/blob/main/release-notes/opensearch-release-notes-1.2.4.md) | Updates Performance Analyzer, SQL, and Security plugins to Log4j 2.17.1, Alerting and Job Scheduler to cron-utils 9.1.6, and gson in Anomaly Detection and SQL. | 18 January 2022
