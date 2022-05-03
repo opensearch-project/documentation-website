@@ -154,4 +154,4 @@ Download the new version of OpenSearch you want to use, and then use `rmp -Uvh` 
 
 ### YUM
 
-To upgrade to the latest version of OpenSearch with YUM, use `sudo yum update`. You can also upgrade to a specific OpenSearch version by using `sudo yum upgrade opensearch-<version-number>`.
+To upgrade to the latest version of OpenSearch with YUM, use `sudo yum update`. You can also upgrade to a specific OpenSearch version by using `sudo yum update opensearch-<version-number>`.
