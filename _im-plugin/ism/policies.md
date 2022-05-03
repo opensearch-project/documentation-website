@@ -174,22 +174,22 @@ Allows you to reduce the number of primary shards in your indexes. With this act
 ```json
 "shrink": {
     "num_new_shards": {
-        "type": "integer"
+        "type": "5"
     },
     "max_shard_size": {
-        "type": "keyword"
+        "type": "5gb"
     },
     "percentage_of_source_shards": {
-        "type": "double"
+        "type": "0.5"
     },
     "target_index_name_template": {
         "source": "{{ctx.index}}_shrunken"
     },
     "aliases": {
-        "type": "array"
+       "my-alias": {}
     },
     "force_unsafe": {
-        "type": "boolean"
+        "type": "false"
     }
 }
 ```
