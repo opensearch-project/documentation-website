@@ -27,30 +27,16 @@ There are two methods for installing OpenSearch on RPM:
 3. On your host, use `sudo yum install` or `sudo rpm -ivh` to install the package. 
 
    ```bash
-   yum install opensearch-{{site.opensearch_version}}-linux-x64.rpm
-   yum install opensearch-dashboards-{{site.opensearch_version}}-linux-x64.rpm
+   sudo yum install opensearch-{{site.opensearch_version}}-linux-x64.rpm
+   sudo yum install opensearch-dashboards-{{site.opensearch_version}}-linux-x64.rpm
    ```
 
    ```bash
-   rpm -ivh opensearch-{{site.opensearch_version}}-linux-x64.rpm
-   rpm -ivh opensearch-dashboards-{{site.opensearch_version}}-linux-x64.rpm
+   sudo rpm -ivh opensearch-{{site.opensearch_version}}-linux-x64.rpm
+   sudo rpm -ivh opensearch-dashboards-{{site.opensearch_version}}-linux-x64.rpm
    ```
-
-4. Run OpenSearch and OpenSearch Dashboards using `systemctl`.
-
-   ```bash
-   systemctl start opensearch
-   systemctl start opensearch-dashboards
-   ```
-
-   If you configure the security plugin for production use (or disable it), you can run OpenSearch using `./bin/opensearch`.
-
-4. Open a second terminal session, and send requests to the server to verify that OpenSearch is running:
-
-   ```bash
-   curl -XGET https://localhost:9200 -u 'admin:admin' --insecure
-   curl -XGET https://localhost:9200/_cat/plugins?v -u 'admin:admin' --insecure
-   ```
+  
+   Once complete, you can run OpenSearch inside your distribution.
 
 ## YUM method
 
@@ -87,8 +73,8 @@ YUM allows you to pull the RPM package from the YUM repository library.
 5. Chose the version of OpenSearch you want to install: 
 
    ```bash
-   yum install opensearch
-   yum install opensearch-dashboards
+   sudo yum install opensearch
+   sudo yum install opensearch-dashboards
    ```
 
    Unless otherwise indicated, the highest minor version of OpenSearch installs.
@@ -96,7 +82,7 @@ YUM allows you to pull the RPM package from the YUM repository library.
    To install a specific version of OpenSearch
 
    ```bash
-   yum install 'opensearch-{{site.opensearch_version}}'
+   sudo yum install 'opensearch-{{site.opensearch_version}}'
    ```
 
 6. During installation, the installer stops to see if the GPG key matches the OpenSearch project. Verify that the `Fingerprint` matches the following:
@@ -105,104 +91,49 @@ YUM allows you to pull the RPM package from the YUM repository library.
    Fingerprint: c5b7 4989 65ef d1c2 924b a9d5 39d3 1987 9310 d3fc
    ```
 
-   If correct, enter `yes`. The OpenSearch installation continues.
+   If correct, enter `yes` or `y`. The OpenSearch installation continues.
+  
+   Once complete, you can run OpenSearch inside your distribution. 
 
-7. Run OpenSearch and OpenSearch Dashboards using `systemctl`.
+## Run OpenSearch
+
+1. Run OpenSearch and OpenSearch Dashboards using `systemctl`.
 
    ```bash
-   systemctl start opensearch.service
-   systemctl start opensearch-dashboards.service
+   sudo systemctl start opensearch.service
+   sudo systemctl start opensearch-dashboards.service
    ```
 
   If you configure the security plugin for production use (or disable it), you can run OpenSearch using `./bin/opensearch`.
 
-8. Send requests to the server to verify that OpenSearch is running:
+2. Send requests to the server to verify that OpenSearch is running:
 
    ```bash
    curl -XGET https://localhost:9200 -u 'admin:admin' --insecure
-   curl -XGET https://localhost:9200/_cat/plugins?v -u 'admin:admin' --insecure
+   curl -XGET https://localhost:9200/_cat/config?v -u 'admin:admin' --insecure
    ```
 
-   To stop running OpenSearch, enter:
+3. To stop running OpenSearch, enter:
 
    ```bash
-   systemctl stop opensearch.service
-   systemctl stop opensearch-dashboards.service
+   sudo systemctl stop opensearch.service
+   sudo systemctl stop opensearch-dashboards.service
    ```
 
 
 ## (Optional) Set up Performance Analyzer
 
-When enabled, the Performance Analyzer plugin collects data related to the performance of your OpenSearch instance. By default, the Performance Analyzer endpoints are not accessible outside the host machine.
+When enabled, the Performance Analyzer plugin collects data related to the performance of your OpenSearch instance. To start the Performance Analyzer plugin, enter:
 
-1. Make Performance Analyzer accessible outside of the host machine
+```bash
+sudo systemctl start opensearch-performance-analyzer.service
+```
 
-   ```bash
-   cd /usr/share/opensearch # navigate to the OpenSearch home directory
-   cd plugins/opensearch_performance_analyzer/pa_config/
-   vi performance-analyzer.properties
-   ```
+To stop the Performance Analyzer, enter:
 
-   Uncomment the line `#webservice-bind-host` and set it to `0.0.0.0`:
-
-   ```
-   # ======================== OpenSearch performance analyzer plugin config =========================
-
-   # NOTE: this is an example for Linux. Please modify the config accordingly if you are using it under other OS.
-
-   # WebService bind host; default to all interfaces
-   webservice-bind-host = 0.0.0.0
-
-   # Metrics data location
-   metrics-location = /dev/shm/performanceanalyzer/
-
-   # Metrics deletion interval (minutes) for metrics data.
-   # Interval should be between 1 to 60.
-   metrics-deletion-interval = 1
-
-   # If set to true, the system cleans up the files behind it. So at any point, we should expect only 2
-   # metrics-db-file-prefix-path files. If set to false, no files are cleaned up. This can be useful, if you are archiving
-   # the files and wouldn't like for them to be cleaned up.
-   cleanup-metrics-db-files = true
-
-   # WebService exposed by App's port
-   webservice-listener-port = 9600
-
-   # Metric DB File Prefix Path location
-   metrics-db-file-prefix-path = /tmp/metricsdb_
-
-   https-enabled = false
-
-   #Setup the correct path for certificates
-   certificate-file-path = specify_path
-
-   private-key-file-path = specify_path
-
-   # Plugin Stats Metadata file name, expected to be in the same location
-   plugin-stats-metadata = plugin-stats-metadata
-
-   # Agent Stats Metadata file name, expected to be in the same location
-   agent-stats-metadata = agent-stats-metadata
-   ```
-
-2. Restart the OpenSearch service:
-
-   ```bash
-   systemctl restart opensearch.service
-   ```
-
-3. After OpenSearch is running, start the Performance Analyzer plugin:
-
-  ```bash
-  sudo systemctl start opensearch-performance-analyzer.service
-  ```
-
-  To stop the Performance Analyzer, enter:
-
-  ```bash
-  sudo systemctl stop opensearch-performance-analyzer.service
-  ```
-
+```bash
+sudo systemctl stop opensearch-performance-analyzer.service
+```
 
 ## Upgrade RPM
 
