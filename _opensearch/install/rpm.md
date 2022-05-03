@@ -9,13 +9,19 @@ The RPM installation provides everything you need to run OpenSearch inside a Lin
 
 RPM supports CentOS 7 and 8, and Amazon Linux 2. If you have your own Java installation and set `JAVA_HOME` in the terminal, macOS works, as well.
 
-There are two methods for installing OpenSearch on RPM. These steps assume that you already have `wget` installed.
+There are two methods for installing OpenSearch on RPM. 
 
 ## Manual method
 
+
 1. Download the RPM package directly from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'}.
 
-2. On your host, use `rpm -ivh` to install the package. 
+2. On your host, use `yum install` or `rpm -ivh` to install the package. We recommend using `yum install`, so that the required dependecies can be pulled from the YUM library. 
+
+  ```bash
+  yum install opensearch-{{site.opensearch_version}}-linux-x64.rpm
+  yum install opensearch-dashboards-{{site.opensearch_version}}-linux-x64.rpm
+  ```
 
   ```bash
   rpm -ivh opensearch-{{site.opensearch_version}}-linux-x64.rpm
@@ -29,14 +35,14 @@ There are two methods for installing OpenSearch on RPM. These steps assume that 
   systemctl start opensearch-dashboards
   ```
 
-   If you configure the security plugin for production use (or disable it), you can run OpenSearch using `./bin/opensearch`.
+  If you configure the security plugin for production use (or disable it), you can run OpenSearch using `./bin/opensearch`.
 
 4. Open a second terminal session, and send requests to the server to verify that OpenSearch is running:
 
-   ```bash
-   curl -XGET https://localhost:9200 -u 'admin:admin' --insecure
-   curl -XGET https://localhost:9200/_cat/plugins?v -u 'admin:admin' --insecure
-   ```
+  ```bash
+  curl -XGET https://localhost:9200 -u 'admin:admin' --insecure
+  curl -XGET https://localhost:9200/_cat/plugins?v -u 'admin:admin' --insecure
+  ```
 
 ## YUM method
 
