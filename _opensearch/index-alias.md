@@ -6,13 +6,13 @@ nav_order: 12
 
 # Index aliases
 
-An alias is a virtual index name that can point to one or more indices.
+An alias is a virtual index name that can point to one or more indexes.
 
-If your data is spread across multiple indices, rather than keeping track of which indices to query, you can create an alias and query it instead.
+If your data is spread across multiple indexes, rather than keeping track of which indexes to query, you can create an alias and query it instead.
 
-For example, if you’re storing logs into indices based on the month and you frequently query the logs for the previous two months, you can create a `last_2_months` alias and update the indices it points to each month.
+For example, if you’re storing logs into indexes based on the month and you frequently query the logs for the previous two months, you can create a `last_2_months` alias and update the indexes it points to each month.
 
-Because you can change the indices an alias points to at any time, referring to indices using aliases in your applications allows you to reindex your data without any downtime.
+Because you can change the indexes an alias points to at any time, referring to indexes using aliases in your applications allows you to reindex your data without any downtime.
 
 ---
 
@@ -63,7 +63,7 @@ To check if `alias1` refers to `index-1`, run the following command:
 GET alias1
 ```
 
-## Add or remove indices
+## Add or remove indexes
 
 You can perform multiple actions in the same `_aliases` operation.
 For example, the following command removes `index-1` and adds `index-2` to `alias1`:
@@ -90,7 +90,7 @@ POST _aliases
 
 The `add` and `remove` actions occur atomically, which means that at no point will `alias1` point to both `index-1` and `index-2`.
 
-You can also add indices based on an index pattern:
+You can also add indexes based on an index pattern:
 
 ```json
 POST _aliases
@@ -108,7 +108,7 @@ POST _aliases
 
 ## Manage aliases
 
-To list the mapping of aliases to indices, run the following command:
+To list the mapping of aliases to indexes, run the following command:
 
 ```json
 GET _cat/aliases?v
@@ -121,7 +121,7 @@ alias     index   filter    routing.index   routing.search
 alias1    index-1   *             -                 -
 ```
 
-To check which indices an alias points to, run the following command:
+To check which indexes an alias points to, run the following command:
 
 ```json
 GET _alias/alias1
@@ -166,7 +166,7 @@ PUT index-1
 
 ## Create filtered aliases
 
-You can create a filtered alias to access a subset of documents or fields from the underlying indices.
+You can create a filtered alias to access a subset of documents or fields from the underlying indexes.
 
 This command adds only a specific timestamp field to `alias1`:
 
