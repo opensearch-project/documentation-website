@@ -26,13 +26,13 @@ PUT _cluster/settings
   }
 }
 ```
-
+<!-- This setting is deprecated in 1.0 and removed from 2.0
 [Just like any other setting]({{site.url}}{{site.baseurl}}/opensearch/configuration/), the alternative is to add the following line to `opensearch.yml` on each node and then restart the node:
 
 ```yml
 compatibility.override_main_response_version: true
 ```
-
+-->
 Logstash OSS 8.0 introduces a breaking change where all plugins run in ECS compatibility mode by default. If you use a compatible [OSS client](#compatibility-matrices) you must override the default value to maintain legacy behavior:
 
 ```yml
