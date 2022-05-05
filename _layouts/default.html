@@ -57,7 +57,6 @@ layout: table_wrappers
         </a>
       </div>
       <nav role="navigation" aria-label="Main" id="site-nav" class="site-nav">
-        {% assign past_versions = site.data.versions.past | join: ";" %}
         <div class="version-wrapper">
           <version-selector selected="{{ site.data.versions.current }}"></version-selector>
         </div>
