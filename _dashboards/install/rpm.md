@@ -10,7 +10,7 @@ nav_order: 31
 1. Create a repository file for OpenSearch Dashboards:
 
    ```bash
-   sudo curl -SL https://artifacts.opensearch.org/releases/bundle/opensearch-dashboards/2.x/opensearch-dashboards-2.x.repo -o /etc/yum.repos.d/opensearch-dashboards-2.x.repo
+   sudo curl -SL https://artifacts.opensearch.org/releases/bundle/opensearch-dashboards/2.x/opensearch-dashboards-2.x.repo -o /etc/yum.repos.d/opensearch-2.x.repo
    ```
 
 2. Clean your YUM cache, to ensure a smooth installation:
