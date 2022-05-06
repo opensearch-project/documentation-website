@@ -124,11 +124,11 @@ PUT _plugins/_security/api/roles/abac
   }]
 }
 ```
-## Use term-level lookup queries with DLS 
+## Use term lookup queries (TLQs) with DLS 
 
-You can perform term-level queries with document-level security (DLS) using either of two modes: adaptive or filter level. The default mode is adaptive, where OpenSearch automatically switches between Lucene-level or filter-level mode depending on whether or not there is a term-level query. DLS queries that do not contain a term-level query are executed in Lucene-level mode, whereas DLS queries with term-level queries are executed in filter-level mode.
+You can perform term lookup queries (TLQs) with document-level security (DLS) using either of two modes: adaptive or filter level. The default mode is adaptive, where OpenSearch automatically switches between Lucene-level or filter-level mode depending on whether or not there is a TLQ. DLS queries that do not contain a TLQ are executed in Lucene-level mode, whereas DLS queries with TLQs are executed in filter-level mode.
 
-By default, the security plugin detects if a DLS query contains a term-level query or not and chooses the appropriate mode automatically at runtime.
+By default, the security plugin detects if a DLS query contains a TLQ or not and chooses the appropriate mode automatically at runtime.
 
 To learn more about OpenSearch queries, see [Term-level queries](https://opensearch.org/docs/latest/opensearch/query-dsl/term/).
 
