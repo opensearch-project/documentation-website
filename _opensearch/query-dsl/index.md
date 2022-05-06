@@ -22,9 +22,9 @@ OpenSearch supports two types of queries when you search for data: term-level qu
 
 The following table describes the differences between them:
 
-| | Term-level queries | Full-text queries
+| Metrics | Term-level queries | Full-text queries
 :--- | :--- | :---
-*Description* | Term-level queries answer which documents match a query. | Full-text queries answer how well the documents match a query.
+*Query results* | Term-level queries answer which documents match a query. | Full-text queries answer how well the documents match a query.
 *Analyzer* | The search term isn't analyzed. This means that the term query searches for your search term as it is.  | The search term is analyzed by the same analyzer that was used for the specific field of the document at the time it was indexed. This means that your search term goes through the same analysis process that the document's field did.
 *Relevance* | Term-level queries simply return documents that match without sorting them based on the relevance score. They still calculate the relevance score, but this score is the same for all the documents that are returned. | Full-text queries calculate a relevance score for each match and sort the results by decreasing order of relevance.
 *Use Case* | Use term-level queries when you want to match exact values such as numbers, dates, tags, and so on, and don't need the matches to be sorted by relevance. | Use full-text queries to match text fields and sort by relevance after taking into account factors like casing and stemming variants.
