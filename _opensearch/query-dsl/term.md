@@ -307,9 +307,9 @@ You get back documents that match any of the terms.
 }
 ```
 
-### Terms lookup query (TQL)
+### Terms lookup query (TLQ)
 
-Use a terms lookup query (TQL) to retrieve multiple field values in a specific document within a specific index. Use the `terms` operation, and specify the index name, document Id and specify the field you want to look up with the `path` parameter.
+Use a terms lookup query (TLQ) to retrieve multiple field values in a specific document within a specific index. Use the `terms` operation, and specify the index name, document Id and specify the field you want to look up with the `path` parameter.
 
 Parameter | Behavior
 :--- | :---
