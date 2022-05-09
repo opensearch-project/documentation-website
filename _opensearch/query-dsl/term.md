@@ -265,6 +265,33 @@ GET shakespeare/_search
 
 You get back documents that match any of the terms.
 
+### Terms Lookup
+
+You can use a `terms` query with a `lookup` to match values based on a field in a document in another index.
+
+Parameter | Behavior
+:--- | :---
+`index` | The index from which the document is read.
+`id` | The id of the documented.
+`path` | Path to the field from which the values are used in the terms query.
+
+E.g. to get all lines from the shakespeare play for a role (or roles) specified in the index `play-assignments` for the entry `42`:
+
+```json
+GET shakespeare/_search
+{
+  "query": {
+    "terms": {
+      "speaker": {
+        "index": "play-assignments",
+        "id": "42",
+        "path": "role"
+      }
+    }
+  }
+}
+```
+
 ## IDs
 
 Use the `ids` query to search for one or more document ID values.
