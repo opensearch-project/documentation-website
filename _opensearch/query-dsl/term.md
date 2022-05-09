@@ -238,7 +238,7 @@ GET shakespeare/_search
 
 ## Multiple terms
 
-Use the `terms` query to search for multiple terms in the same field.
+Use the `terms` operation to search for multiple values for same query field.
 
 ```json
 GET shakespeare/_search
@@ -255,16 +255,67 @@ GET shakespeare/_search
 ```
 
 You get back documents that match any of the terms.
+#### Sample response
 
-### Terms Lookup
+```json
+{
+  "took" : 11,
+  "timed_out" : false,
+  "_shards" : {
+    "total" : 1,
+    "successful" : 1,
+    "skipped" : 0,
+    "failed" : 0
+  },
+  "hits" : {
+    "total" : {
+      "value" : 2,
+      "relation" : "eq"
+    },
+    "max_score" : 1.0,
+    "hits" : [
+      {
+        "_index" : "shakespeare",
+        "_id" : "61808",
+        "_score" : 1.0,
+        "_source" : {
+          "type" : "line",
+          "line_id" : 61809,
+          "play_name" : "Merchant of Venice",
+          "speech_number" : 33,
+          "line_number" : "1.3.115",
+          "speaker" : "SHYLOCK",
+          "text_entry" : "Go to, then; you come to me, and you say"
+        }
+      },
+      {
+        "_index" : "shakespeare",
+        "_id" : "61809",
+        "_score" : 1.0,
+        "_source" : {
+          "type" : "line",
+          "line_id" : 61810,
+          "play_name" : "Merchant of Venice",
+          "speech_number" : 33,
+          "line_number" : "1.3.116",
+          "speaker" : "SHYLOCK",
+          "text_entry" : "Shylock, we would have moneys: you say so;"
+        }
+      }
+    ]
+  }
+}
+```
 
-You can use a `terms` query with a `lookup` to match values based on a field in a document in another index.
+### Terms lookup query (TQL)
+
+Use a terms lookup query (TQL) to retrieve multiple field values in a specific document within a specific index. Use the `terms` operation, and specify the index name, document Id and specify the term you want to look up with the `path` parameter.
 
 Parameter | Behavior
 :--- | :---
-`index` | The index from which the document is read.
-`id` | The id of the documented.
-`path` | Path to the field from which the values are used in the terms query.
+`index` | The index name that contains the document that you want search.
+`id` | Specifies the exact document to query for terms.
+`path` | Specifies the field name for the query.
 
 E.g. to get all lines from the shakespeare play for a role (or roles) specified in the index `play-assignments` for the entry `42`:
 
