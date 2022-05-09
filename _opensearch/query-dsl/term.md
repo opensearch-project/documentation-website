@@ -317,7 +317,7 @@ Parameter | Behavior
 `id` | Specifies the exact document to query for terms.
 `path` | Specifies the field name for the query.
 
-E.g. to get all lines from the shakespeare play for a role (or roles) specified in the index `play-assignments` for the entry `42`:
+To get all the lines from a Shakespeare play for a role (or roles) specified in the index `play-assignments` for the document `42`:
 
 ```json
 GET shakespeare/_search
