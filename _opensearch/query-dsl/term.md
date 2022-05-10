@@ -7,20 +7,6 @@ nav_order: 30
 
 # Term-level queries
 
-OpenSearch supports two types of queries when you search for data: term-level queries and full-text queries.
-
-The following table describes the differences between them:
-
-| | Term-level queries | Full-text queries
-:--- | :--- | :---
-*Description* | Term-level queries answer which documents match a query. | Full-text queries answer how well the documents match a query.
-*Analyzer* | The search term isn't analyzed. This means that the term query searches for your search term as it is.  | The search term is analyzed by the same analyzer that was used for the specific field of the document at the time it was indexed. This means that your search term goes through the same analysis process that the document's field did.
-*Relevance* | Term-level queries simply return documents that match without sorting them based on the relevance score. They still calculate the relevance score, but this score is the same for all the documents that are returned. | Full-text queries calculate a relevance score for each match and sort the results by decreasing order of relevance.
-*Use Case* | Use term-level queries when you want to match exact values such as numbers, dates, tags, and so on, and don't need the matches to be sorted by relevance. | Use full-text queries to match text fields and sort by relevance after taking into account factors like casing and stemming variants.
-
-OpenSearch uses a probabilistic ranking framework called Okapi BM25 to calculate relevance scores. To learn more about Okapi BM25, see [Wikipedia](https://en.wikipedia.org/wiki/Okapi_BM25).
-{: .note }
-
 Assume that you have the complete works of Shakespeare indexed in an OpenSearch cluster. We use a term-level query to search for the phrase "To be, or not to be" in the `text_entry` field:
 
 ```json
@@ -228,7 +214,12 @@ The search query “HAMLET” is also searched literally. So, to get a match on 
 
 ---
 
-## Term
+## Term-level query operations
+
+This section provides examples for term-level query operations that you can use for specific search use cases.
+
+
+## Single term
 
 Use the `term` query to search for an exact term in a field.
 
@@ -245,9 +236,9 @@ GET shakespeare/_search
 }
 ```
 
-## Terms
+## Multiple terms
 
-Use the `terms` query to search for multiple terms in the same field.
+Use the `terms` operation to search for multiple values for same query field.
 
 ```json
 GET shakespeare/_search
@@ -264,18 +255,69 @@ GET shakespeare/_search
 ```
 
 You get back documents that match any of the terms.
+#### Sample response
 
-### Terms Lookup
+```json
+{
+  "took" : 11,
+  "timed_out" : false,
+  "_shards" : {
+    "total" : 1,
+    "successful" : 1,
+    "skipped" : 0,
+    "failed" : 0
+  },
+  "hits" : {
+    "total" : {
+      "value" : 2,
+      "relation" : "eq"
+    },
+    "max_score" : 1.0,
+    "hits" : [
+      {
+        "_index" : "shakespeare",
+        "_id" : "61808",
+        "_score" : 1.0,
+        "_source" : {
+          "type" : "line",
+          "line_id" : 61809,
+          "play_name" : "Merchant of Venice",
+          "speech_number" : 33,
+          "line_number" : "1.3.115",
+          "speaker" : "SHYLOCK",
+          "text_entry" : "Go to, then; you come to me, and you say"
+        }
+      },
+      {
+        "_index" : "shakespeare",
+        "_id" : "61809",
+        "_score" : 1.0,
+        "_source" : {
+          "type" : "line",
+          "line_id" : 61810,
+          "play_name" : "Merchant of Venice",
+          "speech_number" : 33,
+          "line_number" : "1.3.116",
+          "speaker" : "SHYLOCK",
+          "text_entry" : "Shylock, we would have moneys: you say so;"
+        }
+      }
+    ]
+  }
+}
+```
 
-You can use a `terms` query with a `lookup` to match values based on a field in a document in another index.
+## Terms lookup query (TLQ)
+
+Use a terms lookup query (TLQ) to retrieve multiple field values in a specific document within a specific index. Use the `terms` operation, and specify the index name, document Id and specify the field you want to look up with the `path` parameter.
 
 Parameter | Behavior
 :--- | :---
-`index` | The index from which the document is read.
-`id` | The id of the documented.
-`path` | Path to the field from which the values are used in the terms query.
+`index` | The index name that contains the document that you want search.
+`id` | Specifies the exact document to query for terms.
+`path` | Specifies the field name for the query.
 
-E.g. to get all lines from the shakespeare play for a role (or roles) specified in the index `play-assignments` for the entry `42`:
+To get all the lines from a Shakespeare play for a role (or roles) specified in the index `play-assignments` for the document `42`:
 
 ```json
 GET shakespeare/_search
@@ -292,7 +334,7 @@ GET shakespeare/_search
 }
 ```
 
-## IDs
+## Document IDs
 
 Use the `ids` query to search for one or more document ID values.
 
@@ -310,7 +352,7 @@ GET shakespeare/_search
 }
 ```
 
-## Range
+## Range of values
 
 Use the `range` query to search for a range of values in a field.
 
@@ -391,7 +433,7 @@ GET products/_search
 
 The keyword `now` refers to the current date and time.
 
-## Prefix
+## Multiple terms by prefix
 
 Use the `prefix` query to search for terms that begin with a specific prefix.
 
@@ -406,7 +448,7 @@ GET shakespeare/_search
 }
 ```
 
-## Exists
+## All instances of a specific field in a document
 
 Use the `exists` query to search for documents that contain a specific field.
 
@@ -421,7 +463,7 @@ GET shakespeare/_search
 }
 ```
 
-## Wildcards
+## Wildcard patterns
 
 Use wildcard queries to search for terms that match a wildcard pattern.
 
@@ -449,7 +491,7 @@ If we change `*` to `?`, we get no matches, because `?` refers to a single chara
 
 Wildcard queries tend to be slow because they need to iterate over a lot of terms. Avoid placing wildcard characters at the beginning of a query because it could be a very expensive operation in terms of both resources and time.
 
-## Regex
+## Regular expressions (Regex)
 
 Use the `regexp` query to search for terms that match a regular expression.
 
