@@ -405,8 +405,8 @@ GET _search
 
 ## Options
 
-Option | Valid values | Description
-:--- | :--- | :---
+| Option | Valid values | Description |
+:--- | :--- | :--- |
 `allow_leading_wildcard` | Boolean | Whether `*` and `?` are allowed as the first character of a search term. The default is true.
 `analyze_wildcard` | Boolean | Whether OpenSearch should attempt to analyze wildcard terms. Some analyzers do a poor job at this task, so the default is false.
 `analyzer` | `standard, simple, whitespace, stop, keyword, pattern, <language>, fingerprint` | The analyzer you want to use for the query. Different analyzers have different character filters, tokenizers, and token filters. The `stop` analyzer, for example, removes stop words (e.g. "an," "but," "this") from the query string.

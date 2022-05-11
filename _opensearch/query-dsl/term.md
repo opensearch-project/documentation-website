@@ -214,7 +214,7 @@ The search query “HAMLET” is also searched literally. So, to get a match on 
 
 ---
 
-## Term-level query operations
+# Term-level query operations
 
 This section provides examples for term-level query operations that you can use for specific search use cases.
 
@@ -309,13 +309,13 @@ You get back documents that match any of the terms.
 
 ## Terms lookup query (TLQ)
 
-Use a terms lookup query (TLQ) to retrieve multiple field values in a specific document within a specific index. Use the `terms` operation, and specify the index name, document Id and specify the field you want to look up with the `path` parameter.
+Use a terms lookup query (TLQ) to retrieve multiple field values in a specific document within a specific index. Use the `terms` operation and specify the index name, document ID and field you want to look up with the `path` parameter.
 
 Parameter | Behavior
 :--- | :---
-`index` | The index name that contains the document that you want search.
-`id` | Specifies the exact document to query for terms.
-`path` | Specifies the field name for the query.
+`index` | The index name that contains the document you want search.
+`id` | The exact document to query for terms.
+`path` | The field name for the query.
 
 To get all the lines from a Shakespeare play for a role (or roles) specified in the index `play-assignments` for the document `42`:
 
