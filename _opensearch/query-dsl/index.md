@@ -12,22 +12,22 @@ redirect_from:
 
 # Query DSL
 
-OpenSearch provides a query domain-specific language (DSL) that you can use to search with more options than a simple search via HTTP request parameter alone. The query DSL uses the HTTP request body, so you can more easily customize your queries to get the exact results that you want.
+OpenSearch provides a query domain-specific language (DSL) that you can use to search with more options than a simple search with an HTTP request parameter alone. The query DSL uses the HTTP request body, so you can more easily customize your queries to get the exact results that you want.
 
 The OpenSearch query DSL provides three query options: term-level queries, full-text queries, and boolean queries. You can even perform more complicated searches by using different elements from each variety to find whatever data you need.
 
-## DSL Query Types
+## DSL query types
 
 OpenSearch supports two types of queries when you search for data: term-level queries and full-text queries.
 
-The following table describes the differences between them:
+The following table describes the differences between them.
 
 | Metrics | Term-level queries | Full-text queries
 :--- | :--- | :---
 *Query results* | Term-level queries answer which documents match a query. | Full-text queries answer how well the documents match a query.
-*Analyzer* | The search term isn't analyzed. This means that the term query searches for your search term as it is.  | The search term is analyzed by the same analyzer that was used for the specific field of the document at the time it was indexed. This means that your search term goes through the same analysis process that the document's field did.
+*Analyzer* | The search term isn't analyzed. This means that the term query searches for your search term as it is.  | The search term is analyzed by the same analyzer that was used for the specific field of the document at the time it was indexed. This means that your search term goes through the same analysis process as the document's field.
 *Relevance* | Term-level queries simply return documents that match without sorting them based on the relevance score. They still calculate the relevance score, but this score is the same for all the documents that are returned. | Full-text queries calculate a relevance score for each match and sort the results by decreasing order of relevance.
-*Use Case* | Use term-level queries when you want to match exact values such as numbers, dates, tags, and so on, and don't need the matches to be sorted by relevance. | Use full-text queries to match text fields and sort by relevance after taking into account factors like casing and stemming variants.
+*Use Case* | Use term-level queries when you want to match exact values, such as numbers, dates, tags, and so on, and don't need the matches to be sorted by relevance. | Use full-text queries to match text fields and sort by relevance after taking into account factors like casing and stemming variants.
 
 OpenSearch uses a probabilistic ranking framework called Okapi BM25 to calculate relevance scores. To learn more about Okapi BM25, see [Wikipedia](https://en.wikipedia.org/wiki/Okapi_BM25).
 {: .note }

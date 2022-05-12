@@ -405,12 +405,13 @@ GET _search
 
 ## Options
 
+You can increase the specificity of your query by adding the following options.
+
 Option | Valid values | Description
 :--- | :--- | :---
 `allow_leading_wildcard` | Boolean | Whether `*` and `?` are allowed as the first character of a search term. The default is true.
 `analyze_wildcard` | Boolean | Whether OpenSearch should attempt to analyze wildcard terms. Some analyzers do a poor job at this task, so the default is false.
 `analyzer` | `standard, simple, whitespace, stop, keyword, pattern, <language>, fingerprint` | The analyzer you want to use for the query. Different analyzers have different character filters, tokenizers, and token filters. The `stop` analyzer, for example, removes stop words (e.g. "an," "but," "this") from the query string.
-`auto_generate_synonyms_phrase_query` | Boolean | A value of true (default) automatically generates [phrase queries](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/PhraseQuery.html) for multi-term synonyms. For example, if you have the synonym `"ba, batting average"` and search for "ba," OpenSearch searches for `ba OR "batting average"` (if this option is true) or `ba OR (batting AND average)` (if this option is false).
 `boost` | Floating-point | Boosts the clause by the given multiplier. Useful for weighing clauses in compound queries. The default is 1.0.
 `cutoff_frequency` | Between `0.0` and `1.0` or a positive integer | This value lets you define high and low frequency terms based on number of occurrences in the index. Numbers between 0 and 1 are treated as a percentage. For example, 0.10 is 10%. This value means that if a word occurs within the search field in more than 10% of the documents on the shard, OpenSearch considers the word "high frequency" and deemphasizes it when calculating search score.<br /><br />Because this setting is *per shard*, testing its impact on search results can be challenging unless a cluster has many documents.
 `enable_position_increments` | Boolean | When true, result queries are aware of position increments. This setting is useful when the removal of stop words leaves an unwanted "gap" between terms. The default is true.
@@ -433,3 +434,16 @@ Option | Valid values | Description
 `time_zone` | UTC offset | The time zone to use (e.g. `-08:00`) if the query string contains a date range (e.g. `"query": "wind rises release_date[2012-01-01 TO 2014-01-01]"`). The default is `UTC`.
 `type` | `best_fields, most_fields, cross_fields, phrase, phrase_prefix` | Determines how OpenSearch executes the query and scores the results. The default is `best_fields`.
 `zero_terms_query` | `none, all` | If the analyzer removes all terms from a query string, whether to match no documents (default) or all documents. For example, the `stop` analyzer removes all terms from the string "an but this."
+
+#### Multi-term synonym query
+
+If you are searching for multiple terms such as synonyms, but you only require one term to match, you can use the `auto_generate_synonyms_phrase_query` option to perform your search with logical `OR` operation. This automatically searches for multi-term synonyms in a phrase query.
+
+This option takes boolean values; `true` is the default value.
+
+Consider this example search for the synonym `"ba, batting average"`:
+
+* set to `true` - OpenSearch looks for `ba OR "batting average"`
+* set to `false` - OpenSearch looks for `ba OR (batting AND average)`.
+
+For more details about multi-term synonyms, see [phrase queries](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/PhraseQuery.html).
