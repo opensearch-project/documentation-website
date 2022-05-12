@@ -407,8 +407,6 @@ GET _search
 
 You can increase the specificity of your query by adding the following options.
 
-
-
 Option | Valid values | Description
 :--- | :--- | :---
 `allow_leading_wildcard` | Boolean | Whether `*` and `?` are allowed as the first character of a search term. The default is true.
