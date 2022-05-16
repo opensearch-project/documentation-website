@@ -26,6 +26,8 @@ PUT _cluster/settings
   }
 }
 ```
+{: .note}
+The Override main response setting `compatibility.override_main_response_version` is removed from OpenSearch 2.0.0. This setting is no longer supported for compatibility with legacy clients.
 <!-- This setting is deprecated in 1.0 and removed from 2.0
 [Just like any other setting]({{site.url}}{{site.baseurl}}/opensearch/configuration/), the alternative is to add the following line to `opensearch.yml` on each node and then restart the node:
 
