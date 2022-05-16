@@ -12,8 +12,14 @@ redirect_from:
 
 Historically, many multiple popular agents and ingestion tools have worked with Elasticsearch OSS, such as Beats, Logstash, Fluentd, FluentBit, and OpenTelemetry. OpenSearch aims to continue to support a broad set of agents and ingestion tools, but not all have been tested or have explicitly added OpenSearch compatibility.
 
-As an intermediate compatibility solution, OpenSearch has a setting that instructs the cluster to return version 7.10.2 rather than its actual version.
+Previously, an intermediate compatibility solution was available. OpenSearch had a setting that instructs the cluster to return version 7.10.2 rather than its actual version.
 
+The Override main response setting `compatibility.override_main_response_version` is deprecated from OpenSearch version 1.x and removed from OpenSearch 2.0.0. This setting is no longer supported for compatibility with legacy clients.
+{: .note}
+
+{: .note}
+
+<!--
 If you use clients that include a version check, such as versions of Logstash OSS or Filebeat OSS between 7.x - 7.12.x, enable the setting:
 
 ```json
@@ -26,9 +32,7 @@ PUT _cluster/settings
   }
 }
 ```
-{: .note}
-The Override main response setting `compatibility.override_main_response_version` is removed from OpenSearch 2.0.0. This setting is no longer supported for compatibility with legacy clients.
-<!-- This setting is deprecated in 1.0 and removed from 2.0
+
 [Just like any other setting]({{site.url}}{{site.baseurl}}/opensearch/configuration/), the alternative is to add the following line to `opensearch.yml` on each node and then restart the node:
 
 ```yml
