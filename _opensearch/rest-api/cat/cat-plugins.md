@@ -41,24 +41,24 @@ master_timeout | Time | The amount of time to wait for a connection to the maste
 
 ```json
 name       component                       version
-odfe-node2 opendistro-alerting             1.13.1.0
-odfe-node2 opendistro-anomaly-detection    1.13.0.0
-odfe-node2 opendistro-asynchronous-search  1.13.0.1
-odfe-node2 opendistro-index-management     1.13.2.0
-odfe-node2 opendistro-job-scheduler        1.13.0.0
-odfe-node2 opendistro-knn                  1.13.0.0
-odfe-node2 opendistro-performance-analyzer 1.13.0.0
-odfe-node2 opendistro-reports-scheduler    1.13.0.0
-odfe-node2 opendistro-sql                  1.13.2.0
-odfe-node2 opendistro_security             1.13.1.0
-odfe-node1 opendistro-alerting             1.13.1.0
-odfe-node1 opendistro-anomaly-detection    1.13.0.0
-odfe-node1 opendistro-asynchronous-search  1.13.0.1
-odfe-node1 opendistro-index-management     1.13.2.0
-odfe-node1 opendistro-job-scheduler        1.13.0.0
-odfe-node1 opendistro-knn                  1.13.0.0
-odfe-node1 opendistro-performance-analyzer 1.13.0.0
-odfe-node1 opendistro-reports-scheduler    1.13.0.0
-odfe-node1 opendistro-sql                  1.13.2.0
-odfe-node1 opendistro_security             1.13.1.0
+opensearch-node2 opendistro-alerting             1.13.1.0
+opensearch-node2 opendistro-anomaly-detection    1.13.0.0
+opensearch-node2 opendistro-asynchronous-search  1.13.0.1
+opensearch-node2 opendistro-index-management     1.13.2.0
+opensearch-node2 opendistro-job-scheduler        1.13.0.0
+opensearch-node2 opendistro-knn                  1.13.0.0
+opensearch-node2 opendistro-performance-analyzer 1.13.0.0
+opensearch-node2 opendistro-reports-scheduler    1.13.0.0
+opensearch-node2 opendistro-sql                  1.13.2.0
+opensearch-node2 opendistro_security             1.13.1.0
+opensearch-node1 opendistro-alerting             1.13.1.0
+opensearch-node1 opendistro-anomaly-detection    1.13.0.0
+opensearch-node1 opendistro-asynchronous-search  1.13.0.1
+opensearch-node1 opendistro-index-management     1.13.2.0
+opensearch-node1 opendistro-job-scheduler        1.13.0.0
+opensearch-node1 opendistro-knn                  1.13.0.0
+opensearch-node1 opendistro-performance-analyzer 1.13.0.0
+opensearch-node1 opendistro-reports-scheduler    1.13.0.0
+opensearch-node1 opendistro-sql                  1.13.2.0
+opensearch-node1 opendistro_security             1.13.1.0
 ```

@@ -41,5 +41,5 @@ master_timeout | Time | The amount of time to wait for a connection to the maste
 
 ```json
 node | host | ip | attr | value
-odfe-node2 | 172.18.0.3 | 172.18.0.3 | testattr | test
+opensearch-node2 | 172.18.0.3 | 172.18.0.3 | testattr | test
 ```
