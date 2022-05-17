@@ -178,6 +178,33 @@ service-map-pipeline:
 
 Note that it is recommended to scale the `buffer_size` and `batch_size` by the estimated maximum batch size in the client request payload to maintain similar ingestion throughput and latency as in [Classic](#classic). 
 
+### Metrics Pipeline
+
+Data Prepper supports metrics ingestion using OTel. It currently supports the following metric types:
+
+* Guage
+* Sum
+* Summary
+* Histogram
+
+Other types are not support and Data Prepper will drop these types, including Exponential Histogram and Summary. Additionally,
+Data Prepper does not support Scope instrumentation.
+
+To setup a Metrics pipeline:
+
+```
+metrics-pipeline:
+  source:
+    otel_trace_source:
+  processor:
+    - otel_metrics_raw_processor:
+  sink:
+    - opensearch:
+      hosts: ["https://localhost:9200"]
+      username: admin
+      password: admin
+```
+
 ## Migrating from Logstash
 
 Data Prepper supports Logstash configuration files for a limited set of plugins. Simply use the logstash config to run Data Prepper.
