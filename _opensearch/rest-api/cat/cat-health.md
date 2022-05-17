@@ -40,5 +40,5 @@ ts | Boolean | If true, returns HH:MM:SS and Unix epoch timestamps. Default is t
 GET _cat/health?v&time=5d
 
 epoch | timestamp | cluster | status | node.total | node.data | shards | pri | relo | init | unassign | pending_tasks | max_task_wait_time | active_shards_percent
-1624248112 | 04:01:52 | odfe-cluster | green | 2 | 2 | 16 | 8 | 0 | 0 | 0 | 0 | - | 100.0%
+1624248112 | 04:01:52 | opensearch-cluster | green | 2 | 2 | 16 | 8 | 0 | 0 | 0 | 0 | - | 100.0%
 ```
