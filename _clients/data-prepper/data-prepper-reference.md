@@ -75,7 +75,7 @@ authentication | No | Object | An authentication configuration. By default, this
 Source for the OpenTelemetry Collector for collecting metric data.
 
 Option | Required | Type | Description
-:--- |:--- |:--- | :---
+:--- | :--- | :--- | :---
 port | No | Integer | The port OTel metrics source is running on. Default is `21891`.
 request_timeout | No | Integer | The request timeout in milliseconds. Default is `10_000`.
 health_check_service | No | Boolean | Enables a gRPC health check service under `grpc.health.v1/Health/Check`. Default is `false`.
