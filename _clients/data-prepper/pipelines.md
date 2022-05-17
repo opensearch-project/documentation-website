@@ -71,7 +71,7 @@ log-pipeline:
 This example uses weak security. We strongly recommend securing all plugins which open external ports in production environments.
 {: .note}
 
-### Trace Analytics pipeline
+### Trace analytics pipeline
 
 The following example demonstrates how to build a pipeline that supports the [Trace Analytics OpenSearch Dashboards plugin]({{site.url}}{{site.baseurl}}/observability-plugin/trace/ta-dashboards/). This pipeline takes data from the OpenTelemetry Collector and uses two other pipelines as sinks. These two separate pipelines index trace and the service map documents for the dashboard plugin.
 
@@ -121,7 +121,7 @@ service-map-pipeline:
 
 #### Event record type
 
-Starting from Data Prepper 1.4, we support event record type in trace analytics pipeline source, buffer and processors.
+Starting from Data Prepper 1.4, Data Prepper supports event record type in trace analytics pipeline source, buffer, and processors.
 
 ```yml
 entry-pipeline:
@@ -176,9 +176,9 @@ service-map-pipeline:
         trace_analytics_service_map: true
 ```
 
-Note that it is recommended to scale the `buffer_size` and `batch_size` by the estimated maximum batch size in the client request payload to maintain similar ingestion throughput and latency as in [Classic](#classic). 
+Note that it is recommended to scale the `buffer_size` and `batch_size` by the estimated maximum batch size in the client request payload to maintain similar ingestion throughput and latency as in [Classic](#classic).
 
-### Metrics Pipeline
+### Metrics pipeline
 
 Data Prepper supports metrics ingestion using OTel. It currently supports the following metric types:
 
@@ -187,12 +187,11 @@ Data Prepper supports metrics ingestion using OTel. It currently supports the fo
 * Summary
 * Histogram
 
-Other types are not support and Data Prepper will drop these types, including Exponential Histogram and Summary. Additionally,
-Data Prepper does not support Scope instrumentation.
+Other types are not supported. Data Prepper drops all other types, including Exponential Histogram and Summary. Additionally, Data Prepper does not support Scope instrumentation.
 
-To setup a Metrics pipeline:
+To set up a metrics pipeline:
 
-```
+```yml
 metrics-pipeline:
   source:
     otel_trace_source:
