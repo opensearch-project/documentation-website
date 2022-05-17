@@ -131,7 +131,7 @@ You can create multiple index templates for your indexes. If the index name matc
 
 The settings from the more recently created index templates override the settings of older index templates. So, you can first define a few common settings in a generic template that can act as a catch-all and then add more specialized settings as required.
 
-An even better approach is to explicitly specify template priority using the `order` parameter. OpenSearch applies templates with lower priority numbers first and then overrides them with templates with higher priority numbers.
+An even better approach is to explicitly specify template priority using the `priority` parameter. OpenSearch applies templates with lower priority numbers first and then overrides them with templates with higher priority numbers.
 
 For example, say you have the following two templates that both match the `logs-2020-01-02` index and there’s a conflict in the `number_of_shards` field:
 
