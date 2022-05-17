@@ -32,11 +32,11 @@ The following table describes the differences between them.
 OpenSearch uses a probabilistic ranking framework called Okapi BM25 to calculate relevance scores. To learn more about Okapi BM25, see [Wikipedia](https://en.wikipedia.org/wiki/Okapi_BM25).
 {: .note }
 
-To show the difference between a simple HTTP search versus a search via query DSL, we have an example of each one so that you can see how they differ.
+The following examples show the difference between a simple HTTP search and a search with query DSL.
 
 ## Example: HTTP simple search
 
-The following request performs a simple search to search for a `speaker` field that has a value of `queen`.
+The following request performs a simple search for a `speaker` field that has a value of `queen`.
 
 **Sample request**
 ```json
