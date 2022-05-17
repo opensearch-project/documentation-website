@@ -14,7 +14,7 @@ This page lists all supported Data Prepper server, sources, buffers, processors,
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
 ssl | No | Boolean | Indicates whether TLS should be used for server APIs. Defaults to true.
-keyStoreFilePath | No | String | Path to a .jks or .p12 keystore file. Required if ssl is true.
+keyStoreFilePath | No | String | Path to a .jks or .p12 keystore file. Required if `ssl` is true.
 keyStorePassword | No | String | Password for keystore. Optional, defaults to empty string.
 privateKeyPassword | No | String | Password for private key within keystore. Optional, defaults to empty string.
 serverPort | No | Integer | Port number to use for server APIs. Defaults to 4900
@@ -38,7 +38,7 @@ Sources define where your data comes from.
 Source for the OpenTelemetry Collector.
 
 Option | Required | Type | Description
-:--- |:--- |:--- | :---
+:--- | :--- | :--- | :---
 port | No | Integer | The port OTel trace source is running on. Default is `21890`.
 request_timeout | No | Integer | The request timeout in milliseconds. Default is `10_000`.
 health_check_service | No | Boolean | Enables a gRPC health check service under `grpc.health.v1/Health/Check`. Default is `false`.
@@ -48,7 +48,7 @@ thread_count | No | Integer | The number of threads to keep in the ScheduledThre
 max_connection_count | No | Integer | The maximum allowed number of open connections. Default is `500`.
 ssl | No | Boolean | Enables connections to the OTel source port over TLS/SSL. Defaults to `true`.
 sslKeyCertChainFile | Conditionally | String | File-system path or AWS S3 path to the security certificate (e.g. `"config/demo-data-prepper.crt"` or `"s3://my-secrets-bucket/demo-data-prepper.crt"`). Required if `ssl` is set to `true`.
-sslKeyFile | Conditionally | String | File-system path or AWS S3 path to the security key (e.g. `"config/demo-data-prepper.key"` or `"s3://my-secrets-bucket/demo-data-prepper.key"`). Required if ssl is set to `true`.
+sslKeyFile | Conditionally | String | File-system path or AWS S3 path to the security key (e.g. `"config/demo-data-prepper.key"` or `"s3://my-secrets-bucket/demo-data-prepper.key"`). Required if `ssl` is set to `true`.
 useAcmCertForSSL | No | Boolean | Whether to enable TLS/SSL using certificate and private key from AWS Certificate Manager (ACM). Default is `false`.
 acmCertificateArn | Conditionally | String | Represents the ACM certificate ARN. ACM certificate take preference over S3 or local file system certificate. Required if `useAcmCertForSSL` is set to `true`.
 awsRegion | Conditionally | String | Represents the AWS region to use ACM or S3. Required if `useAcmCertForSSL` is set to `true` or `sslKeyCertChainFile` and `sslKeyFile` are AWS S3 paths.
@@ -84,11 +84,11 @@ unframed_requests | No | Boolean | Enable requests not framed using the gRPC wir
 thread_count | No | Integer | The number of threads to keep in the ScheduledThreadPool. Default is `200`.
 max_connection_count | No | Integer | The maximum allowed number of open connections. Default is `500`.
 ssl | No | Boolean | Enables connections to the OTel source port over TLS/SSL. Defaults to `true`.
-sslKeyCertChainFile | Conditionally | String | File-system path or AWS S3 path to the security certificate (e.g. `"config/demo-data-prepper.crt"` or `"s3://my-secrets-bucket/demo-data-prepper.crt"`). Required if ssl is set to `true`.
-sslKeyFile | Conditionally | String | File-system path or AWS S3 path to the security key (e.g. `"config/demo-data-prepper.key"` or `"s3://my-secrets-bucket/demo-data-prepper.key"`). Required if ssl is set to `true`.
+sslKeyCertChainFile | Conditionally | String | File-system path or AWS S3 path to the security certificate (e.g. `"config/demo-data-prepper.crt"` or `"s3://my-secrets-bucket/demo-data-prepper.crt"`). Required if `ssl` is set to `true`.
+sslKeyFile | Conditionally | String | File-system path or AWS S3 path to the security key (e.g. `"config/demo-data-prepper.key"` or `"s3://my-secrets-bucket/demo-data-prepper.key"`). Required if `ssl` is set to `true`.
 useAcmCertForSSL | No | Boolean | Whether to enable TLS/SSL using certificate and private key from AWS Certificate Manager (ACM). Default is `false`.
-acmCertificateArn | Conditionally | String | Represents the ACM certificate ARN. ACM certificate take preference over S3 or local file system certificate. Required if `useAcmCertForSSL` is set to `true`.
-awsRegion | Conditionally | String | Represents the AWS region to use ACM or S3. Required if `useAcmCertForSSL` is set to `true` or `sslKeyCertChainFile` and `sslKeyFile` are AWS S3 paths.
+acmCertificateArn | Conditionally | String | Represents the ACM certificate ARN. ACM certificate take preference over S3 or local file system certificates. Required if `useAcmCertForSSL` is set to `true`.
+awsRegion | Conditionally | String | Represents the AWS Region to use ACM or S3. Required if `useAcmCertForSSL` is set to `true` or `sslKeyCertChainFile` and `sslKeyFile` are AWS S3 paths.
 authentication | No | Object | An authentication configuration. By default, an unauthenticated server is created for the pipeline. This uses pluggable authentication for HTTPS. To use basic authentication, define the `http_basic` plugin with a `username` and `password`. To provide customer authentication, use or create a plugin that implements [GrpcAuthenticationProvider](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/armeria-common/src/main/java/com/amazon/dataprepper/armeria/authentication/GrpcAuthenticationProvider.java).
 
 
@@ -181,7 +181,7 @@ awsCloudMapNamespaceName | Conditionally | String | Name of your CloudMap Namesp
 awsCloudMapServiceName | Conditionally | String | Service name within your CloudMap Namespace. Required if `discovery_mode` is set to `aws_cloud_map`.
 sslKeyCertChainFile | Conditionally | String | Represents the SSL certificate chain file path or AWS S3 path. S3 path example `s3://<bucketName>/<path>`. Required if `ssl` is set to `true`.
 useAcmCertForSSL | No | Boolean | Enables TLS/SSL using certificate and private key from AWS Certificate Manager (ACM). Default is `false`.
-awsRegion | Conditionally | String | Represents the AWS region to use ACM, S3, or CloudMap. Required if `useAcmCertForSSL` is set to `true` or `sslKeyCertChainFile` and `sslKeyFile` are AWS S3 paths.
+awsRegion | Conditionally | String | Represents the AWS Region to use ACM, S3, or CloudMap. Required if `useAcmCertForSSL` is set to `true` or `sslKeyCertChainFile` and `sslKeyFile` are AWS S3 paths.
 acmCertificateArn | Conditionally | String | Represents the ACM certificate ARN. ACM certificate take preference over S3 or local file system certificate. Required if `useAcmCertForSSL` is set to `true`.
 
 ### string_converter

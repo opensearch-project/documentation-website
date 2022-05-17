@@ -182,7 +182,7 @@ Note that it is recommended to scale the `buffer_size` and `batch_size` by the e
 
 Data Prepper supports metrics ingestion using OTel. It currently supports the following metric types:
 
-* Guage
+* Gauge
 * Sum
 * Summary
 * Histogram
