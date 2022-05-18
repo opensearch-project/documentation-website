@@ -47,6 +47,6 @@ include_unloaded_segments | Boolean | Whether to include information from segmen
 
 ```json
 ip         | heap.percent | ram.percent | cpu load_1m | load_5m | load_15m | node.role | cluster_manager | name
-172.18.0.3 |     31       |     97      |       3     |  0.03   |   0.10   |  0.14 dimr |  *    |  odfe-node2
-172.18.0.4 |     45       |     97      |       3     |  0.19   |   0.14   |  0.15 dimr |  -    |  odfe-node1
+172.18.0.3 |     31       |     97      |       3     |  0.03   |   0.10   |  0.14 dimr |  *    |  opensearch-node2
+172.18.0.4 |     45       |     97      |       3     |  0.19   |   0.14   |  0.15 dimr |  -    |  opensearch-node1
 ```
