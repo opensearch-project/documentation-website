@@ -441,7 +441,7 @@ For information on writing cron expressions, see [Cron expression reference]({{s
 ## Error notifications
 
 The `error_notification` operation sends you a notification if your managed index fails.
-It notifies a single destination with a custom message.
+It notifies a single destination or [notification channel]({{site.url}}{{site.baseurl}}/notifications-plugin/index) with a custom message.
 
 Set up error notifications at the policy level:
 
@@ -459,7 +459,8 @@ Set up error notifications at the policy level:
 
 Parameter | Description | Type | Required
 :--- | :--- |:--- |:--- |
-`destination` | The destination URL. | `Slack, Amazon Chime, or webhook URL` | Yes
+`destination` | The destination URL. | `Slack, Amazon Chime, or webhook URL` | Yes if `channel` isn't specified
+`channel` | A notification channel's ID | `string` | Yes if `destination` isn't specified`
 `message_template` |  The text of the message. You can add variables to your messages using [Mustache templates](https://mustache.github.io/mustache.5.html). | `object` | Yes
 
 The destination system **must** return a response otherwise the `error_notification` operation throws an error.
@@ -507,6 +508,21 @@ The destination system **must** return a response otherwise the `error_notificat
       "slack": {
         "url": "https://hooks.slack.com/services/xxx/xxxxxx"
       }
+    },
+    "message_template": {
+      "source": "The index {% raw %}{{ctx.index}}{% endraw %} failed during policy execution."
+    }
+  }
+}
+```
+
+#### Example 4: Using a notification channel
+
+```json
+{
+  "error_notification": {
+    "channel": {
+      "id": "some-channel-config-id"
     },
     "message_template": {
       "source": "The index {% raw %}{{ctx.index}}{% endraw %} failed during policy execution."

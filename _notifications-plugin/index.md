@@ -9,7 +9,7 @@ redirect_from:
 
 # Notifications
 
-The notifications plugin provides a central location for all of your notifications from OpenSearch plugins. Using the plugin, you can configure which communication service you want to use as well as see relevant statistics and troubleshooting information. Currently, the plugin supports sending notifications from the Alerting, Index State Management (ISM), and Reporting plugins.
+The notifications plugin provides a central location for all of your notifications from OpenSearch plugins. Using the plugin, you can configure which communication service you want to use as well as see relevant statistics and troubleshooting information. Currently, the plugin supports sending notifications from the Alerting and Index State Management (ISM) plugins.
 
 You can use either OpenSearch Dashboards or the REST API to configure notifications. Dashboards offers a more organized way of selecting a channel type and selecting which OpenSearch plugin sources you want to use, whereas the REST API lets you programmatically define your notification channels for better versioning and reuse later on.
 
@@ -18,7 +18,7 @@ You can use either OpenSearch Dashboards or the REST API to configure notificati
 
 ## Create a channel
 
-In OpenSearch Dashboards, choose **Notifications**, **Channels**, and then **Create channel**.
+In OpenSearch Dashboards, choose **Notifications**, **Channels**, and **Create channel**.
 
 1. In the **Name and description** section, specify a name and optional description for your channel.
 2. In the **Configurations** section, select the channel type and enter the necessary information for each type. For more information about configuring a channel that uses Amazon SNS or emails, refer to the sections below. If you want to use Amazon Chime or Slack, you need to specify the webhook URL. For more information about using webhooks, see the documentation for [Slack](https://api.slack.com/messaging/webhooks) and [Amazon Chime](https://docs.aws.amazon.com/chime/latest/ug/webhooks.html).
@@ -101,16 +101,16 @@ Then add this policy into the IAM user’s trust relationship to actually assume
 
 ## Email as a channel type
 
-To send or receive notifications with emails, choose **Email** as the channel type. Next, select at least one sender and default recipient. If you want to send notifications to more than a few people at a time, select a recipient group. If the Notifications plugin doesn’t currently have the necessary senders or groups, you can add them by choosing **Create sender** or **Create recipient group**.
+To send or receive notifications with emails, choose **Email** as the channel type. Next, select at least one sender and default recipient. To send notifications to more than a few people at a time, select a recipient group. If the Notifications plugin doesn’t currently have the necessary senders or groups, you can add them by first selecting **SMTP sender**, then choose **Create SMTP sender** or **Create recipient group**. Choose **SES sender** to use Amazon Simple Email Service (SES).
 
-### Create a sender
+### Create email sender
 
 1. Specify a unique name to associate with the sender.
-2. Enter an email address, its host (for example, smtp.gmail.com), and the port.
-3. Choose an encryption method, or use the default value of None. However, most email providers require SSL or TLS, which requires a username and password in the OpenSearch keystore. Refer to Authenticate sender account to learn more.
-4. Choose **Create** to save the configuration and create the sender. You can create a sender even before you add your credentials to the OpenSearch keystore. However, you must authenticate each sender account before you use the the sender in your channel configuration.
+2. Enter an email address, and, if applicable, its host (for example, smtp.gmail.com), and the port. If you're using SES, enter the IAM role ARN of the AWS account to send notifications from, along with the region.
+3. Choose an encryption method. Most email providers require SSL or TLS, which requires a username and password in the OpenSearch keystore. See [Authenticate sender account](#authenticate-sender-account) to learn more. Selecting an encryption method is only applicable if you're creating an SMTP sender.
+4. Choose **Create** to save the configuration and create the sender. You can create a sender before you add your credentials to the OpenSearch keystore; however, you must [authenticate each sender account](#authenticate-sender-account) before you use the sender in your channel configuration.
 
-### Create a recipient group
+### Create email recipient group
 
 1. After choosing **Create recipient group**, enter a unique name to associate with the email group and an optional description.
 2. Select or enter the emails you want to add to the recipient group.
