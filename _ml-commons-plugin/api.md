@@ -16,11 +16,11 @@ nav_order: 99
 
 ---
 
-The Machine Learning (ML) commons API lets you train ML algorithms synchronously and asynchronously, make predictions with that trained model, and train and predict with the same data set.
+The Machine Learning (ML) aacommons API lets you train ML algorithms synchronously and asynchronously, make predictions with that trained model, and train and predict with the same data set.
 
 In order to train tasks through the API, three inputs are required. 
 
-- Algorithm name: Must be one of a [FunctionaName](https://github.com/opensearch-project/ml-commons/blob/1.3/common/src/main/java/org/opensearch/ml/common/parameter/FunctionName.java). This determines what algorithm the ML Engine runs. To add a new function, see [How To Add a New Function](https://github.com/opensearch-project/ml-commons/blob/main/docs/how-to-add-new-function.md).
+- Algorithm name: Must be one of a [FunctionName](https://github.com/opensearch-project/ml-commons/blob/1.3/common/src/main/java/org/opensearch/ml/common/parameter/FunctionName.java). This determines what algorithm the ML Engine runs. To add a new function, see [How To Add a New Function](https://github.com/opensearch-project/ml-commons/blob/main/docs/how-to-add-new-function.md).
 - Model hyper parameters: Adjust these parameters to make the model train better.  
 - Input data: The data input that trains the ML model, or applies the ML models to predictions. You can input data in two ways, query against your index or use data frame.
 
