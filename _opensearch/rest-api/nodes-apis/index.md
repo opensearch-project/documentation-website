@@ -56,12 +56,12 @@ GET /_nodes/data:true/stats
 
 ### Order of resolution mechanisms
 
-The order of resolution mechanisms is applied sequentially, and each can add or remove nodes. The following examples means yield different results:
+The order of resolution mechanisms is applied sequentially, and each can add or remove nodes. The following examples yield different results:
 
-If you want to get statistics from all the nodes but the cluster-manager node, use:
+If you want to get statistics from all the nodes but the cluster manager node, use:
 
 ```bash
-GET /_nodes/_all,cluster_namager:false/stats
+GET /_nodes/_all,cluster_manager:false/stats
 ```
 
 However, if we switch the resolution mechanisms, then the result will include all the cluster nodes including the cluster manager node. 

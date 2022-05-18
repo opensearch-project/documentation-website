@@ -8,8 +8,7 @@ nav_order: 10
 
 # Nodes hot threads
 
-This REST API provide information about busy JVM threads for selected cluster nodes.
-It provides a unique view of what activity each node spends time on.
+The nodes hot threads endpoint provides information about busy JVM threads for selected cluster nodes. It provides a unique view of the of activity each node.
 
 ## Example
 
@@ -40,7 +39,7 @@ timeout | TimeValue | A request [timeout](../index/#timeout). Defaults to `30s`.
 
 ## Response
 
-Unlike majority of OpenSearch API responses, this response is in a text format.
+Unlike the majority of OpenSearch API responses, this response is in a text format.
 
 It consists of one section per each cluster node included in the response.
 
