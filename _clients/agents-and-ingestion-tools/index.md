@@ -17,9 +17,10 @@ Previously, an intermediate compatibility solution was available. OpenSearch had
 The Override main response setting `compatibility.override_main_response_version` is deprecated from OpenSearch version 1.x and removed from OpenSearch 2.0.0. This setting is no longer supported for compatibility with legacy clients.
 {: .note}
 
+<!--
 {: .note}
 
-<!--
+
 If you use clients that include a version check, such as versions of Logstash OSS or Filebeat OSS between 7.x - 7.12.x, enable the setting:
 
 ```json
