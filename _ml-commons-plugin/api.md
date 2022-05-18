@@ -16,7 +16,7 @@ nav_order: 99
 
 ---
 
-The Machine Learning (ML) aacommons API lets you train ML algorithms synchronously and asynchronously, make predictions with that trained model, and train and predict with the same data set.
+The Machine Learning (ML) commons API lets you train ML algorithms synchronously and asynchronously, make predictions with that trained model, and train and predict with the same data set.
 
 In order to train tasks through the API, three inputs are required. 
 
