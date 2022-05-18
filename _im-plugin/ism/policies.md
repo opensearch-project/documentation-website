@@ -460,7 +460,7 @@ Set up error notifications at the policy level:
 Parameter | Description | Type | Required
 :--- | :--- |:--- |:--- |
 `destination` | The destination URL. | `Slack, Amazon Chime, or webhook URL` | Yes if `channel` isn't specified
-`channel` | A notification channel's ID | `string` | Yes if `destination` isn't specified`
+`channel` | A notification channel's ID | `string` | Yes if `destination` isn't specified
 `message_template` |  The text of the message. You can add variables to your messages using [Mustache templates](https://mustache.github.io/mustache.5.html). | `object` | Yes
 
 The destination system **must** return a response otherwise the `error_notification` operation throws an error.
