@@ -19,7 +19,7 @@ GET /_nodes/hot_threads
 
 ## Path and HTTP methods
 
-```text
+```bash
 GET /_nodes/hot_threads
 GET /_nodes/{nodeId}/hot_threads
 ```
@@ -28,19 +28,20 @@ GET /_nodes/{nodeId}/hot_threads
 
 You can include the following URL parameters in your request. All parameters are optional.
 
-Parameter | Type      | Description
+Parameter | Type     | Description
 :--- |:----------| :---
-nodeId | String    | A comma-separated list of nodeIds to filter results. Supports [node filters](../index/#node-filters).<br>Defaults to `_all`.
-snapshots | Integer   | Number of samples of thread stacktraces.<br>Defaults to `10`.
-interval | TimeValue | Interval between consecutive samples.<br>Defaults to `500ms`.
-threads | Integer   | A number of top bussiest threads to return information about. Defaults to `3`.
-ignore_idle_threads | Boolean   | Don’t show threads that are in known-idle states, such as waiting on a socket select or pulling from an empty task queue.<br>Defaults to `true`.
-type | String    | Supported thread types are `cpu`, `wait`, or `block`.<br>Defaults to `cpu`.
-timeout | TimeValue | A request [timeout](../index/#timeout).<br>Defaults to `30s`.
+nodeId | String    | A comma-separated list of nodeIds to filter results. Supports [node filters](../index/#node-filters). Defaults to `_all`.
+snapshots | Integer  | Number of samples of thread stacktraces.Defaults to `10`.
+interval | TimeValue | Interval between consecutive samples. Defaults to `500ms`.
+threads | Integer   | A number of top busiest threads to return information about. Defaults to `3`.
+ignore_idle_threads | Boolean   | Don’t show threads that are in known-idle states, such as waiting on a socket select or pulling from an empty task queue. Defaults to `true`.
+type | String    | Supported thread types are `cpu`, `wait`, or `block`. Defaults to `cpu`.
+timeout | TimeValue | A request [timeout](../index/#timeout). Defaults to `30s`.
 
 ## Response
 
-Unlike majority of OpenSearch responses this response is in text format.
+Unlike majority of OpenSearch API responses, this response is in a text format.
+
 It consists of one section per each cluster node included in the response.
 
 Each section starts with a single line containing the following segments:
@@ -58,7 +59,7 @@ Line segment | Description
 
 Then follows information about threads of selected type.
 
-```text
+```bash
 ::: {global-eu-35}{uFPbKLDOTlOmdnwUlKW8sw}{OAM8OT5CQAyasWuIDeVyUA}{global-eu-35.local}{[gdv2:a284:2acv:5fa6:0:3a2:7260:74cf]:9300}{dimr}{zone=west-a2, shard_indexing_pressure_enabled=true}
    Hot threads at 2022-04-01T15:15:27.658Z, interval=500ms, busiestThreads=3, ignoreIdleThreads=true:
    
@@ -96,6 +97,4 @@ Then follows information about threads of selected type.
 
 ## Required permissions
 
-If you use the security plugin, make sure you have the appropriate permissions:
-`cluster:monitor/nodes/hot_threads`
-{: .note }
+If you use the security plugin, make sure you set the following permissions: `cluster:monitor/nodes/hot_threads`.

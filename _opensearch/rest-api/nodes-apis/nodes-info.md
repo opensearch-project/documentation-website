@@ -8,23 +8,32 @@ nav_order: 20
 
 # Nodes info
 
-Represents mostly static information about cluster nodes.
-Such as host system information, JVM, processor type, or specific
-node information like node settings, thread pools settings, installed plugins, and more.
+Represents mostly static information about your cluster's nodes, including but not limited to:
+
+- Host system information 
+- JVM 
+- Processor Type 
+- Node settings 
+- Thread pools settings 
+- Installed plugins
 
 ## Example
 
-```json
-# Get information from all cluster nodes
-GET /_nodes
+To get information on all nodes in a cluster:
 
-# Get thread pool information from the cluster manager node only
+```bash
+GET /_nodes
+```
+
+To get thread pool information from the cluster manager node only:
+
+```bash
 GET /_nodes/master:true/thread_pool?pretty
 ```
 
 ## Path and HTTP methods
 
-```text
+```bash
 GET /_nodes
 GET /_nodes/{nodeId}
 GET /_nodes/{metrics}
@@ -39,11 +48,11 @@ You can include the following URL parameters in your request. All parameters are
 
 Parameter | Type   | Description
 :--- |:-------| :---
-nodeId | String | A comma-separated list of nodeIds to filter results. Supports [node filters](../index/#node-filters).<br>Defaults to `_all`.
-metrics | String | A comma-separated list of metric groups that will be included in the response. For example `jvm,thread_pools`.<br>Defaults to all metrics.
-timeout | TimeValue | A request [timeout](../index/#timeout).<br>Defaults to `30s`.
+nodeId | String | A comma-separated list of nodeIds to filter results. Supports [node filters](../index/#node-filters). Defaults to `_all`.
+metrics | String | A comma-separated list of metric groups that will be included in the response. For example `jvm,thread_pools`. Defaults to all metrics.
+timeout | TimeValue | A request [timeout](../index/#timeout). Defaults to `30s`.
 
-The following are listed all available metric groups:
+The following are listed for all available metric groups:
 
 Metric | Description
 :--- |:----
@@ -71,12 +80,12 @@ transport_address | A node transport address.
 host | A node host address.
 ip | A node host ip address.
 version | A node OpenSearch version.
-build_type | A build type, like `rpm`,`docker`, `zip` ... etc.
+build_type | A build type, like `rpm`,`docker`, `zip`, etc.
 build_hash | A git commit hash of the build.
 roles | A node roles.
 attributes | A node attributes.
 
-On top of that it will contain one or more metric groups depending on `{metrics}` request parameter.
+The response also contains one or more metric groups depending on `{metrics}` request parameter.
 
 ```json
 GET /_nodes/master:true/process,transport?pretty
@@ -126,6 +135,4 @@ GET /_nodes/master:true/process,transport?pretty
 
 ## Required permissions
 
-If you use the security plugin, make sure you have the appropriate permissions:
-`cluster:monitor/nodes/info`
-{: .note }
+If you use the security plugin, make sure you have the appropriate permissions: `cluster:monitor/nodes/info`.
