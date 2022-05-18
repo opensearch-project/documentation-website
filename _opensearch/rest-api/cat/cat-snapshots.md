@@ -41,6 +41,6 @@ time | Time | Specify the units for time. For example, `5d` or `7h`. For more in
 
 ```json
 index | shard | prirep | state   | docs | store | ip |       | node
-plugins | 0   |   p    | STARTED |   0  |  208b | 172.18.0.4 | opensearch-node1
-plugins | 0   |   r    | STARTED |   0  |  208b | 172.18.0.3 | opensearch-node2          
+plugins | 0   |   p    | STARTED |   0  |  208b | 172.18.0.4 | odfe-node1
+plugins | 0   |   r    | STARTED |   0  |  208b | 172.18.0.3 |  odfe-node2          
 ```

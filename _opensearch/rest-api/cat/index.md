@@ -1,6 +1,6 @@
 ---
 layout: default
-title: CAT
+title: CAT API
 parent: REST API reference
 nav_order: 100
 has_children: true
@@ -8,15 +8,15 @@ redirect_from:
   - /opensearch/catapis/
 ---
 
-# cat API
+# Compact and aligned text (CAT) API
 
-You can get essential statistics about your cluster in an easy-to-understand, tabular format using the compact and aligned text (CAT) API. The cat API is a human-readable interface that returns plain text instead of traditional JSON.
+You can get essential statistics about your cluster in an easy-to-understand, tabular format using the compact and aligned text (CAT) API. The CAT API is a human-readable interface that returns plain text instead of traditional JSON.
 
-Using the cat API, you can answer questions like which node is the elected master, what state is the cluster in, how many documents are in each index, and so on.
+Using the CAT API, you can answer questions like which node is the elected master, what state is the cluster in, how many documents are in each index, and so on.
 
 ## Example
 
-To see the available operations in the cat API, use the following command:
+To see the available operations in the CAT API, use the following command:
 
 ```
 GET _cat

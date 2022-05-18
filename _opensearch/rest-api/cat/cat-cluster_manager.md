@@ -1,39 +1,39 @@
 ---
 layout: default
-title: cat master
+title: CAT cluster manager
 parent: CAT
 grand_parent: REST API reference
 nav_order: 30
 has_children: false
 ---
 
-# cat master
+# CAT cluster_manager
 Introduced 1.0
 {: .label .label-purple }
 
-The cat master operation lists information that helps identify the elected master node.
+The cat cluster manager operation lists information that helps identify the elected cluster manager node.
 
 ## Example
 
 ```
-GET _cat/master?v
+GET _cat/cluster_manager?v
 ```
 
 ## Path and HTTP methods
 
 ```
-GET _cat/master
+GET _cat/cluster_manager
 ```
 
 ## URL parameters
 
-All cat master URL parameters are optional.
+All cat cluster manager URL parameters are optional.
 
 In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/opensearch/rest-api/cat/index#common-url-parameters), you can specify the following parameters:
 
 Parameter | Type | Description
 :--- | :--- | :---
-master_timeout | Time | The amount of time to wait for a connection to the master node. Default is 30 seconds.
+cluster_manager_timeout | Time | The amount of time to wait for a connection to the cluster manager node. Default is 30 seconds.
 
 
 ## Response

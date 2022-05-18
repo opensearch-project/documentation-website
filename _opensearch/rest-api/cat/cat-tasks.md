@@ -43,5 +43,5 @@ time | Time | Specify the units for time. For example, `5d` or `7h`. For more in
 
 ```json
 action | task_id | parent_task_id | type | start_time | timestamp | running_time | ip | node
-cluster:monitor/tasks/lists | 1vo54NuxSxOrbPEYdkSF0w:168062 | - | transport | 1624337809471 | 04:56:49 | 489.5ms | 172.18.0.4 | opensearch-node1     
+cluster:monitor/tasks/lists | 1vo54NuxSxOrbPEYdkSF0w:168062 | - | transport | 1624337809471 | 04:56:49 | 489.5ms | 172.18.0.4 | odfe-node1     
 ```

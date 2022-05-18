@@ -54,6 +54,6 @@ The following response shows the memory size for all fields as 284 bytes:
 
 ```json
 id                     host       ip         node       field size
-1vo54NuxSxOrbPEYdkSF0w 172.18.0.4 172.18.0.4 opensearch-node1 _id   284b
-ZaIkkUd4TEiAihqJGkp5CA 172.18.0.3 172.18.0.3 opensearch-node2 _id   284b
+1vo54NuxSxOrbPEYdkSF0w 172.18.0.4 172.18.0.4 odfe-node1 _id   284b
+ZaIkkUd4TEiAihqJGkp5CA 172.18.0.3 172.18.0.3 odfe-node2 _id   284b
 ```

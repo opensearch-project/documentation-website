@@ -47,7 +47,7 @@ master_timeout | Time | The amount of time to wait for a connection to the maste
 
 ```json
 node_name  name                      active queue rejected
-opensearch-node2 ad-batch-task-threadpool    0     0        0
-opensearch-node2 ad-threadpool               0     0        0
-opensearch-node2 analyze                     0     0        0s
+odfe-node2 ad-batch-task-threadpool    0     0        0
+odfe-node2 ad-threadpool               0     0        0
+odfe-node2 analyze                     0     0        0s
 ```

@@ -12,31 +12,9 @@ redirect_from:
 
 # Query DSL
 
-OpenSearch provides a query domain-specific language (DSL) that you can use to search with more options than a simple search with an HTTP request parameter alone. The query DSL uses the HTTP request body, so you can more easily customize your queries to get the exact results that you want.
+While you can use HTTP request parameters to perform simple searches, you can also use the OpenSearch query domain-specific language (DSL), which provides a wider range of search options. The query DSL uses the HTTP request body, so you can more easily customize your queries to get the exact results that you want.
 
-The OpenSearch query DSL provides three query options: term-level queries, full-text queries, and boolean queries. You can even perform more complicated searches by using different elements from each variety to find whatever data you need.
-
-## DSL query types
-
-OpenSearch supports two types of queries when you search for data: term-level queries and full-text queries.
-
-The following table describes the differences between them.
-
-| Metrics | Term-level queries | Full-text queries
-:--- | :--- | :---
-*Query results* | Term-level queries answer which documents match a query. | Full-text queries answer how well the documents match a query.
-*Analyzer* | The search term isn't analyzed. This means that the term query searches for your search term as it is.  | The search term is analyzed by the same analyzer that was used for the specific field of the document at the time it was indexed. This means that your search term goes through the same analysis process as the document's field.
-*Relevance* | Term-level queries simply return documents that match without sorting them based on the relevance score. They still calculate the relevance score, but this score is the same for all the documents that are returned. | Full-text queries calculate a relevance score for each match and sort the results by decreasing order of relevance.
-*Use Case* | Use term-level queries when you want to match exact values, such as numbers, dates, tags, and so on, and don't need the matches to be sorted by relevance. | Use full-text queries to match text fields and sort by relevance after taking into account factors like casing and stemming variants.
-
-OpenSearch uses a probabilistic ranking framework called Okapi BM25 to calculate relevance scores. To learn more about Okapi BM25, see [Wikipedia](https://en.wikipedia.org/wiki/Okapi_BM25).
-{: .note }
-
-The following examples show the difference between a simple HTTP search and a search with query DSL.
-
-## Example: HTTP simple search
-
-The following request performs a simple search for a `speaker` field that has a value of `queen`.
+For example, the following request performs a simple search to search for a `speaker` field that has a value of `queen`.
 
 **Sample request**
 ```json
@@ -77,9 +55,7 @@ GET _search?q=speaker:queen
     }
 ```
 
-## Example: Query DSL search
-
-With a query DSL search, you can include an HTTP request body to look for results more tailored to your needs. The following example shows how to search for `speaker` and `text_entry` fields that have a value of `QUEEN`.
+With query DSL, however, you can include an HTTP request body to look for results more tailored to your needs. The following example shows how to search for `speaker` and `text_entry` fields that have a value of `QUEEN`.
 
 **Sample request**
 ```json
@@ -143,3 +119,4 @@ With a query DSL search, you can include an HTTP request body to look for result
   }
 }
 ```
+The OpenSearch query DSL comes in three varieties: term-level queries, full-text queries, and boolean queries. You can even perform more complicated searches by using different elements from each variety to find whatever data you need.
