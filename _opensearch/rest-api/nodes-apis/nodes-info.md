@@ -56,15 +56,15 @@ The following are listed for all available metric groups:
 
 Metric | Description
 :--- |:----
-`settings` | A node settings. This is combination of the default settings, custom settings from [configuration file](../../../configuration/#configuration-file) and dynamically [updated settings](../../../configuration/#update-cluster-settings-using-the-api).
-`os` | Static information about host os, including version, processor architecture and available/allocated processors.
-`process` | Contains process id.
+`settings` | A node's settings. This is combination of the default settings, custom settings from [configuration file](../../../configuration/#configuration-file) and dynamically [updated settings](../../../configuration/#update-cluster-settings-using-the-api).
+`os` | Static information about the host OS, including version, processor architecture and available/allocated processors.
+`process` | Contains process OD.
 `jvm` | Detailed static information about running JVM, including arguments.
-`thread_pool` | Configured options for all individual thread pools (type, size ... etc).
+`thread_pool` | Configured options for all individual thread pools.
 `transport` | Mostly static information about transport layer.
 `http` | Mostly static information about http layer.
 `plugins` | Information about installed plugins and modules.
-`ingest` | Information about ingets pipelines and available ingest processors.
+`ingest` | Information about ingest pipelines and available ingest processors.
 `aggregations` | Information about available [aggregations](../../../aggregations).
 `indices` | Static index settings configured at the node level.
 
