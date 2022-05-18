@@ -216,7 +216,7 @@ The search query “HAMLET” is also searched literally. So, to get a match on 
 
 # Term-level query operations
 
-This section provides examples for term-level query operations that you can use for specific search use cases.
+This section provides examples of term-level query operations that you can use for specific search use cases.
 
 
 ## Single term
@@ -238,7 +238,7 @@ GET shakespeare/_search
 
 ## Multiple terms
 
-Use the `terms` operation to search for multiple values for same query field.
+Use the `terms` operation to search for multiple value matches for the same query field.
 
 ```json
 GET shakespeare/_search
