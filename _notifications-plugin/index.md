@@ -14,7 +14,7 @@ The notifications plugin provides a central location for all of your notificatio
 You can use either OpenSearch Dashboards or the REST API to configure notifications. Dashboards offers a more organized way of selecting a channel type and selecting which OpenSearch plugin sources you want to use, whereas the REST API lets you programmatically define your notification channels for better versioning and reuse later on.
 
 1. Use the Dashboards UI to first create a channel that receives notifications from other plugins. Supported communication channels include Amazon Chime, Amazon SNS, Email, Slack, and custom webhooks when selecting how you want the plugin to send notifications. After you’ve configured your channel and plugin sources, send messages and start tracking your notifications from the notifications plugin’s Dashboard.
-2. Use the Notifications REST API to configure all of the settings of your channel. To use the API, you must prepare your notification’s details beforehand, which contains the notification’s name, description, channel type, which OpenSearch plugins to use as sources, and other associated URLs or groups.
+2. Use the Notifications REST API to configure all of the settings of your channel. To use the API, you must have your notification’s details that contain the notification’s name, description, channel type, which OpenSearch plugins to use as sources, and other associated URLs or groups.
 
 ## Create a channel
 
@@ -36,8 +36,8 @@ OpenSearch supports Amazon SNS for notifications. This integration with Amazon S
 
 The notifications plugin currently supports two ways of user authentication:
 
-1. Providing the user with full access to Amazon SNS.
-2. Letting the user assume an IAM role that has permissions to Amazon SNS. Once you configure the notification channel to use the right Amazon SNS permissions, select the OpenSearch plugins that can trigger notifications.
+1. Provide the user with full access to Amazon SNS.
+2. Let the user assume an IAM role that has permissions to access Amazon SNS. Once you configure the notification channel to use the right Amazon SNS permissions, select the OpenSearch plugins that can trigger notifications.
 
 ### Provide full Amazon SNS access permissions
 

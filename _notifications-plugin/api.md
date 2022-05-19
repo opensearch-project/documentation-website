@@ -8,7 +8,7 @@ redirect_from:
 
 # Notifications API
 
-If you want to programmatically define your notifications channels and sources for versioning and reuse, you can use the REST API to  define, configure, and delete notification channels, as well as send test messages.
+If you want to programmatically define your notifications channels and sources for versioning and reuse, you can use the Notifications REST API to define, configure, and delete notification channels, as well as send test messages.
 
 ---
 
@@ -20,7 +20,7 @@ If you want to programmatically define your notifications channels and sources f
 
 ## List supported channel types
 
-Lists supported channel types.
+Returns a list of supported channel types.
 
 #### Sample Request
 
@@ -102,15 +102,15 @@ You can include query parameters in your request path to filter the notification
 
 Parameter	| Description
 :--- | :---
-config_id | identifier of a channel.
-config_id_list | Comma-separated list of channel IDs.
+config_id | Specifies the channel identifier.
+config_id_list | Specifies a comma-separated list of channel IDs.
 from_index | The starting index to search from.
 max_items | The maximum amount of items to return in your request.
-sort_order | Specifies the direction to sort results in. Valid options are asc and desc.
+sort_order | Specifies the direction to sort results in. Valid options are `asc` and `desc`.
 sort_field | Field to sort results with.
 last_updated_time_ms | The unix time in milliseconds of when the channel was last updated.
 created_time_ms | The unix time in milliseconds of when the channel was created.
-is_enabled | Whether the channel is enabled.
+is_enabled | Indicates whether the channel is enabled.
 config_type | The channel type. Valid options are `sns`, `slack`, `chime`, `webhook`, `smtp_account`, `ses_account`, `email_group`, `email`.
 name | The channel's name.
 description	| The channel's description.
@@ -163,7 +163,7 @@ config | Object |	Contains all of relevant information such as channel name, con
 name | String |	Name of the channel. | Yes
 description |	String | The channel's description. | No
 config_type |	String | The destination of your notification. Valid options are `sns`, `slack`, `chime`, `webhook`, `smtp_account`, `ses_account`, `email_group`, `email`. | Yes
-is_enabled | Boolean | Whether to enable to channel for sending and receiving notifications. Default is true.	| No
+is_enabled | Boolean | Whether the channel is enabled for sending and receiving notifications. Default is true.	| No
 
 The create channel operation accepts multiple `config_types` as possible notification destinations, so follow the format for your preferred `config_type`.
 
