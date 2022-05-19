@@ -7,7 +7,7 @@ nav_order: 40
 
 # Full-text queries
 
-This page lists all full-text query types and common options. There are many options for full-text queries, each with its own subtle behavior difference, so the best method to ensure that you obtain useful search results is to test different queries against representative indexes and verify the outputs individually.
+This page lists all full-text query types and common options. Given the sheer number of options and subtle behaviors, the best method of ensuring useful search results is to test different queries against representative indices and verify the output.
 
 
 ---
