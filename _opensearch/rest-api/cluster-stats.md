@@ -31,7 +31,7 @@ All cluster stats parameters are optional.
 
 Parameter | Type | Description
 :--- | :--- | :---
-&lt;node-filters&gt; | List | A comma-separated list of [node-filters](../nodes-apis/index/#node-filters) that OpenSearch uses to filter results.
+&lt;node-filters&gt; | List | A comma-separated list of [node filters](../nodes-apis/index/#node-filters) that OpenSearch uses to filter results.
 
 
 ## Response

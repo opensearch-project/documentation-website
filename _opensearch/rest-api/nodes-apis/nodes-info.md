@@ -61,8 +61,8 @@ Metric | Description
 `process` | Contains process OD.
 `jvm` | Detailed static information about running JVM, including arguments.
 `thread_pool` | Configured options for all individual thread pools.
-`transport` | Mostly static information about transport layer.
-`http` | Mostly static information about http layer.
+`transport` | Mostly static information about the transport layer.
+`http` | Mostly static information about the HTTP layer.
 `plugins` | Information about installed plugins and modules.
 `ingest` | Information about ingest pipelines and available ingest processors.
 `aggregations` | Information about available [aggregations](../../../aggregations).
@@ -82,10 +82,10 @@ ip | A node host ip address.
 version | A node OpenSearch version.
 build_type | A build type, like `rpm`,`docker`, `zip`, etc.
 build_hash | A git commit hash of the build.
-roles | A node roles.
+roles | A node's role.
 attributes | A node attributes.
 
-The response also contains one or more metric groups depending on `{metrics}` request parameter.
+The response also contains one or more metric groups, depending on the `{metrics}` request parameter.
 
 ```json
 GET /_nodes/master:true/process,transport?pretty

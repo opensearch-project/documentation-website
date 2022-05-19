@@ -1,12 +1,12 @@
 ---
 layout: default
-title: Nodes APIs
+title: Nodes API
 parent: REST API reference
 has_children: true
 nav_order: 5
 ---
 
-# Nodes APIs
+# Nodes API
 
 The nodes API makes it possible to retrieve information about individual nodes within your cluster. It supports standard parameters such `{timeout}` and `{node-filters}`.
 
@@ -26,10 +26,10 @@ Parameter | Type   | Description
 :--- |:-------| :---
 {node-filters} | String | A comma-separated list of resolution mechanisms that OpenSearch uses to identify cluster nodes.
 
-Node filters support several node resolution mechanisms:
+Node filters support several node resolution mechanisms.
 
-- Pre-defined constants: `_local`, `_cluster_manager`, or `_all`
-- Exact match for `nodeID`
+- Pre defined constants: `_local`, `_cluster_manager`, or `_all`
+- An exact match for `nodeID`
 - A simple case-sensitive wildcard pattern matching for `node-name`, `host-name`, or `host-IP-address`
 - Node roles where the `<bool>` value is set either to `true` or `false`):
   - `cluster_manager:<bool>` 
@@ -42,13 +42,13 @@ Node filters support several node resolution mechanisms:
 
 Resolution mechanisms are applied sequentially in the order specified by the client. Each mechanism specification can either add or remove nodes.
 
-If you want to get statistics from the elected cluster-manager node only, use:
+If you want to get statistics from the elected cluster manager node only, use the following:
 
 ```bash
 GET /_nodes/_cluster_manager/stats
 ```
 
-If you want to get statistics from nodes that are data-only nodes, use:
+If you want to get statistics from nodes that are data-only nodes, use the following:
 
 ```bash
 GET /_nodes/data:true/stats
@@ -58,7 +58,7 @@ GET /_nodes/data:true/stats
 
 The order of resolution mechanisms is applied sequentially, and each can add or remove nodes. The following examples yield different results:
 
-If you want to get statistics from all the nodes but the cluster manager node, use:
+If you want to get statistics from all the nodes but the cluster manager node, use the following:
 
 ```bash
 GET /_nodes/_all,cluster_manager:false/stats
