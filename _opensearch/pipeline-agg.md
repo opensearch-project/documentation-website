@@ -35,6 +35,9 @@ You can also specify the following additional parameters:
 - `gap_policy`: Real-world data can contain gaps or null values. You can specify the policy to deal with such missing data with the `gap_policy` property. You can either set the `gap_policy` property to `skip` to skip the missing data and continue from the next available value, or `insert_zeros` to replace the missing values with zero and continue running.
 - `format`: The type of format for the output value. For example, `yyyy-MM-dd` for a date value.
 
+
+A change. 
+
 ## Quick example
 
 To sum all the buckets returned by the `sum_total_memory` aggregation:
