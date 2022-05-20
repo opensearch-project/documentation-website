@@ -9,22 +9,22 @@ nav_order: 30
 
 You can use search telemetry to analyze performance for success or failed search requests in OpenSearch Dashboards. OpenSearch stores telemetry data in the `.kibana_1` index.
 
-Because there are thousands of concurrent search request from OpenSearch Dashboards, the large traffic causes significant load in an OpenSearch cluster.
+Because there are thousands of concurrent search requests from OpenSearch Dashboards, the large traffic can cause significant load in an OpenSearch cluster.
 
 OpenSearch clusters perform better with search telemetry turned off.
 {: .tip }
 
 ## Enable search telemetry
 
-Search usage telemetry is disabled by default. To enable it, you need to change the OpenSearch Dashboards YAML file `opensearch_dashboards.yml` setting `data.search.usageTelemetry.enabled` to `true`.
+Search usage telemetry is disabled by default. To enable it, you need to set `data.search.usageTelemetry.enabled` to `true` in the `opensearch_dashboards.yml` file.
 
-You can find the OpenSearch Dashboards YAML file in the opensearch-project GitHub directory: `OpenSearch-Dashboards/config/opensearch_dashboards.yml`.
+You can find the [OpenSearch Dashboards YAML file](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/config/opensearch_dashboards.yml) in the opensearch-project on GitHub.
 
-When you enable telemetry in the OpenSearch Dashboards YAML file, this overrides the default `false` telemetry setting in the [Data plugin configuration file](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/src/plugins/data/config.ts).
+Enabling telemetry in the `opensearch_dashboards.yml` file overrides the default search telemetry setting of `false` in the [Data plugin configuration file](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/src/plugins/data/config.ts).
 {: .note }
 ### To opt-in or opt-out of search telemetry data
 
-The following table shows the OpenSearch Dashboards YAML file setting `data.search.usageTelemetry.enabled` values you can choose to opt-in or opt-out of search telemetry.
+The following table shows the `data.search.usageTelemetry.enabled` values you can set in `opensearch_dashboards.yml` to opt-in or opt-out of search telemetry.
 
 OpenSearch Dashboards YAML value  | Opt-in or Opt-out of search telemetry
 :--- |  :---
