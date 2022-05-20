@@ -17,6 +17,9 @@ To improve performance for your OpenSearch cluster, you can turn off search tele
 
 You can suppress the search usage telemetry by enabling the `data.search.usageTelemetry.enabled` setting in your `opensearch_dashboard.yml` file.
 
+{: note}
+You can find the OpenSearch Dashboards YAML file in the opensearch-project GitHub directory: OpenSearch-Dashboards/config/opensearch_dashboards.yml
+
 Alternatively, you can modify the Data plugin config file to opt out of search telemetry.
 
 ### To opt-in or opt-out of search telemetry data
@@ -27,7 +30,7 @@ The following table shows the combination of values for the OpenSearch Dashboard
 This table refers to these settings:
 
 * OpenSearch Dashboards YAML file setting `data.search.usageTelemetry.enabled` value is either `true`, `false` or `none`.
-* Data plugin configuration file value is either `true`, or `false`.
+* Data plugin configuration file setting `search.usageTelemetry.enabled` value is either `true`, or `false`.
 
 OpenSearch Dashboards YML value | Data plugin config value | Opt-in or Opt-out of search telemetry
 :--- | :--- | :---
@@ -38,3 +41,12 @@ OpenSearch Dashboards YML value | Data plugin config value | Opt-in or Opt-out o
  `none`  |  `false` | Opt-out
  `false` |  `true`  | Opt-out
  `false` |  `false` | Opt-out
+
+ #### Sample opensearch_dashboards.yml
+
+ This OpenSearch Dashboards YAML file excerpt shows the telemetry setting set to `false` to opt-out:
+
+ ```json
+ # Set the value of this setting to false to suppress search usage telemetry to reduce the load of the OpenSearch cluster.
+# data.search.usageTelemetry.enabled: false
+```
