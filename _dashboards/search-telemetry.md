@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Search telemetry
-nav_order: 21
+nav_order: 30
 ---
 
 
