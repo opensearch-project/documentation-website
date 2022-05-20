@@ -48,15 +48,15 @@ You can include the following URL parameters in your request. All parameters are
 
 Parameter | Type   | Description
 :--- |:-------| :---
-nodeId | String | A comma-separated list of nodeIds to filter results. Supports [node filters](../index/#node-filters). Defaults to `_all`.
+nodeId | String | A comma-separated list of nodeIds to filter results. Supports [node filters]({{site.url}}{{site.baseurl}}/opensearch/rest-api/nodes-apis/index/#node-filters). Defaults to `_all`.
 metrics | String | A comma-separated list of metric groups that will be included in the response. For example `jvm,thread_pools`. Defaults to all metrics.
-timeout | TimeValue | A request [timeout](../index/#timeout). Defaults to `30s`.
+timeout | TimeValue | A request [timeout]({{site.url}}{{site.baseurl}}/opensearch/rest-api/nodes-apis/index/#timeout). Defaults to `30s`.
 
 The following are listed for all available metric groups:
 
 Metric | Description
 :--- |:----
-`settings` | A node's settings. This is combination of the default settings, custom settings from [configuration file](../../../configuration/#configuration-file) and dynamically [updated settings](../../../configuration/#update-cluster-settings-using-the-api).
+`settings` | A node's settings. This is combination of the default settings, custom settings from [configuration file]({{site.url}}{{site.baseurl}}/opensearch/configuration/#configuration-file) and dynamically [updated settings]({{site.url}}{{site.baseurl}}/opensearch/configuration/#update-cluster-settings-using-the-api).
 `os` | Static information about the host OS, including version, processor architecture and available/allocated processors.
 `process` | Contains process OD.
 `jvm` | Detailed static information about running JVM, including arguments.
@@ -65,7 +65,7 @@ Metric | Description
 `http` | Mostly static information about the HTTP layer.
 `plugins` | Information about installed plugins and modules.
 `ingest` | Information about ingest pipelines and available ingest processors.
-`aggregations` | Information about available [aggregations](../../../aggregations).
+`aggregations` | Information about available [aggregations]({{site.url}}{{site.baseurl}}/opensearch/aggregations).
 `indices` | Static index settings configured at the node level.
 
 ## Response

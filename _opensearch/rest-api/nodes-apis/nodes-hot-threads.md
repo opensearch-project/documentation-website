@@ -29,13 +29,13 @@ You can include the following URL parameters in your request. All parameters are
 
 Parameter | Type     | Description
 :--- |:----------| :---
-nodeId | String  | A comma-separated list of node IDs to filter results. Supports [node filters](../index/#node-filters). Defaults to `_all`.
+nodeId | String  | A comma-separated list of node IDs to filter results. Supports [node filters]({{site.url}}{{site.baseurl}}/opensearch/rest-api/nodes-apis/index/#node-filters). Defaults to `_all`.
 snapshots | Integer  | Number of samples of thread stacktraces. Defaults to `10`.
 interval | TimeValue | Interval between consecutive samples. Defaults to `500ms`.
 threads | Integer   | A number of top busiest threads to return information about. Defaults to `3`.
 ignore_idle_threads | Boolean   | Don’t show threads that are in known-idle states, such as waiting on a socket select or pulling from an empty task queue. Defaults to `true`.
 type | String    | Supported thread types are `cpu`, `wait`, or `block`. Defaults to `cpu`.
-timeout | TimeValue | A request [timeout](../index/#timeout). Defaults to `30s`.
+timeout | TimeValue | A request [timeout]({{site.url}}{{site.baseurl}}/opensearch/rest-api/nodes-apis/index/#timeout). Defaults to `30s`.
 
 ## Response
 
