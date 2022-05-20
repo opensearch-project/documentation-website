@@ -31,11 +31,7 @@ Alternatively, you can modify the Data plugin config file to opt out of search t
 
 You can opt-in or opt-out of using search telemetry in your cluster by changing the configuration values in both the OpenSearch Dashboards YAML and Data plugin configuration files.
 
-The following table shows the combination of values for the OpenSearch Dashboards YAML file setting `data.search.usageTelemetry.enabled` and the Data plugin configuration file src/plugins/data/config.ts setting `search.usageTelemetry.enabled` values that will result in search telemetry opt-in or opt-out.
-
-In the data configuration file (), 
-
-
+The following table shows the combination of values for the OpenSearch Dashboards YAML file setting `data.search.usageTelemetry.enabled` and the Data plugin configuration file OpenSearch-Dashboards/src/plugins/data/config.ts setting `usageTelemetry` values that will result in search telemetry opt-in or opt-out.
 
 OpenSearch Dashboards YAML value  | Data plugin config value | Opt-in or Opt-out of search telemetry
 :--- | :--- | :---
@@ -56,11 +52,11 @@ OpenSearch Dashboards YAML value  | Data plugin config value | Opt-in or Opt-out
  data.search.usageTelemetry.enabled: false
 ```
 
-#### Sample data configuration file with telemetry enabled
+#### Sample data configuration file with telemetry disabled
 
-This excerpt shows the `/src/plugins/data/config.ts` file with telemetry set to enabled:
+By default, the data plugin configuration file sets telemetry to `false`. This excerpt shows the OpenSearch-Dashboards/src/plugins/data/config.ts file with telemetry enabled:
 ```json
 . . .
 usageTelemetry: schema.object({
-   enabled: schema.boolean({ defaultValue: false }),
+   enabled: schema.boolean({ defaultValue: true }),
 ```
