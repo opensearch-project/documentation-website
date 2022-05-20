@@ -11,8 +11,6 @@ You can use search telemetry to analyze performance for success or failed search
 
 Because there are thousands of concurrent search request from OpenSearch Dashboards, the large traffic causes significant load in an OpenSearch cluster.
 
-By default it is disabled, so you need to do some configuration changes to enable it.
-
 OpenSearch clusters perform better with search telemetry turned off.
 {: .tip }
 
@@ -26,7 +24,7 @@ When you enable telemetry in the OpenSearch Dashboards YAML file, this overrides
 {: .note }
 ### To opt-in or opt-out of search telemetry data
 
-The following table shows the values to opt-in or opt-out of search telemetry data in the OpenSearch Dashboards YAML file setting `data.search.usageTelemetry.enabled`.
+The following table shows the OpenSearch Dashboards YAML file setting `data.search.usageTelemetry.enabled` values you can choose to opt-in or opt-out of search telemetry.
 
 OpenSearch Dashboards YAML value  | Opt-in or Opt-out of search telemetry
 :--- |  :---
