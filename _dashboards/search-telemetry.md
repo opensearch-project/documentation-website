@@ -24,25 +24,15 @@ You can find the OpenSearch Dashboards YAML file in the opensearch-project GitHu
 
 When you enable telemetry in the OpenSearch Dashboards YAML file, this overrides the default `false` telemetry setting in the [Data plugin configuration file](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/src/plugins/data/config.ts).
 {: .note }
-
-<!-- they don't need this table after all. the .yml file changed to 'true' will override the detault setting in the data plugin config file. but saving in-case SMEs decide they can change the data plugin config file at a later date.
-
 ### To opt-in or opt-out of search telemetry data
 
-You can opt-in or opt-out of using search telemetry in your cluster by changing the configuration values in both the OpenSearch Dashboards YAML and Data plugin configuration files.
+The following table shows the values to opt-in or opt-out of search telemetry data in the OpenSearch Dashboards YAML file setting `data.search.usageTelemetry.enabled`.
 
-The following table shows the combination of values for the OpenSearch Dashboards YAML file setting `data.search.usageTelemetry.enabled` and the 
- values that will result in search telemetry opt-in or opt-out.
-
-OpenSearch Dashboards YAML value  | Data plugin config value | Opt-in or Opt-out of search telemetry
-:--- | :--- | :---
- `true`  |  `false` | Opt-in
- `true`  |  `true`  | Opt-in
- `none`  |  `true`  | Opt-in
- `none`  |  `false` | Opt-out
- `false` |  `true`  | Opt-out
- `false` |  `false` | Opt-out
- -->
+OpenSearch Dashboards YAML value  | Opt-in or Opt-out of search telemetry
+:--- |  :---
+ `true`  | Opt-in
+ `false` | Opt-out
+ `none`  | Opt-out
 
 #### Sample opensearch_dashboards.yml with telemetry enabled
 
