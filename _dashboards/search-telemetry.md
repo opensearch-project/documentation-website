@@ -18,10 +18,11 @@ OpenSearch clusters perform better with search telemetry turned off.
 
 Search usage telemetry is disabled by default. To enable it, you need to set `data.search.usageTelemetry.enabled` to `true` in the `opensearch_dashboards.yml` file.
 
-You can find the [OpenSearch Dashboards YAML file](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/config/opensearch_dashboards.yml) in the opensearch-project on GitHub.
+You can find the [OpenSearch Dashboards YAML file](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/config/opensearch_dashboards.yml) in the opensearch-project repository on GitHub.
 
 Enabling telemetry in the `opensearch_dashboards.yml` file overrides the default search telemetry setting of `false` in the [Data plugin configuration file](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/src/plugins/data/config.ts).
 {: .note }
+
 ### To opt-in or opt-out of search telemetry data
 
 The following table shows the `data.search.usageTelemetry.enabled` values you can set in `opensearch_dashboards.yml` to opt-in or opt-out of search telemetry.
