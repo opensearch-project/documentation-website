@@ -123,7 +123,7 @@ POST _nodes/reload_secure_settings
 
 Per query monitors run your specified query and then check whether the query's results triggers any alerts. Per bucket monitors let you select fields to create buckets and categorize your results into those buckets. The Alerting plugin runs each bucket's unique results against a script you define later, so you have finer control over which results should trigger alerts. Each of those buckets can trigger an alert, but query-level monitors can only trigger one alert at a time.
 
-1. Decide how you want to define your query and triggers. You can use either of three methods: visual editor, query editor, or anomaly detector.
+1. Decide how you want to define your query and triggers. You can use any of the following methods: visual editor, query editor, or anomaly detector.
 
    - Visual definition works well for monitors that you can define as "some value is above or below some threshold for some amount of time."
 
@@ -227,7 +227,7 @@ To create a multiple query combination trigger:
 1. Create a per document monitor with more than one query.
 2. Create the first query with field, operator and value. For example, set the query to search for the `region` field with either operator: "is" or "is not", and set the value "us-west-2".)
 3. Select **Add Tag** and give it a name.
-3. Create the second query add the same tag to it.
+3. Create the second query and add the same tag to it.
 4. Now you can create the trigger condition and specify the tag name. This creates a combination trigger that checks two queries that both contain the same tag. The monitor checks both queries by a logical OR operation if either query's conditions are met, then it will generate the alert notification.
 
 ### Extraction query
