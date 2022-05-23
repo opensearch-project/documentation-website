@@ -12,9 +12,9 @@ redirect_from:
 
 Historically, many multiple popular agents and ingestion tools have worked with Elasticsearch OSS, such as Beats, Logstash, Fluentd, FluentBit, and OpenTelemetry. OpenSearch aims to continue to support a broad set of agents and ingestion tools, but not all have been tested or have explicitly added OpenSearch compatibility.
 
-Previously, an intermediate compatibility solution was available. OpenSearch had a setting that instructs the cluster to return version 7.10.2 rather than its actual version.
+Previously, an intermediate compatibility solution was available. OpenSearch had a setting that instructed the cluster to return version 7.10.2 rather than its actual version.
 
-The Override main response setting `compatibility.override_main_response_version` is deprecated from OpenSearch version 1.x and removed from OpenSearch 2.0.0. This setting is no longer supported for compatibility with legacy clients.
+The override main response setting `compatibility.override_main_response_version` is deprecated from OpenSearch version 1.x and removed from OpenSearch 2.0.0. This setting is no longer supported for compatibility with legacy clients.
 {: .note}
 
 <!--
