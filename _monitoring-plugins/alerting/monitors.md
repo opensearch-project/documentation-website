@@ -40,7 +40,7 @@ Term | Definition
 :--- | :---
 Monitor | A job that runs on a defined schedule and queries OpenSearch indexes. The results of these queries are then used as input for one or more *triggers*.
 Trigger | Conditions that, if met, generate *alerts*.
-Tag | Label that can be applied to multiple queries to combine them with the logical OR operation.
+Tag | Label that can be applied to multiple queries to combine them with the logical OR operation in a per document monitor. You can't use tags with other monitor types.
 Alert | An event associated with a trigger. When an alert is created, the trigger performs *actions*, which can include sending a notification.
 Action | The information that you want the monitor to send out after being triggered. Actions have a *destination*, a message subject, and a message body.
 Destination | A reusable location for an action. Supported locations are Amazon Chime, Email, Slack, or custom webhook.
@@ -222,11 +222,13 @@ Bucket-level monitors also require you to specify a threshold and value for your
 
 Document-level monitors provide the added option to use tags that represent multiple queries connected by the logical OR operator.
 
-To create a per document monitor trigger:
+To create a multiple query combination trigger:
 
-1. Provide a trigger name, and set the severity.
-2. Set a single query with field, operator and value. For example, set the query to search for the `region` field with either operator: "is" or "is not", and set the value "us-west-2".)
-3. _(Optional)_: You can also create a combination trigger that checks two queries that both contain the same tag. For example, first create query 1, and add the tag name. Next, create query 2 and apply the same tag to it. Now when you create the trigger, you can specify the tag name, and it will perform logical OR operation if either query's conditions are met, it will generate the alert notification.
+1. Create a per document monitor with more than one query.
+2. Set the first query with field, operator and value. For example, set the query to search for the `region` field with either operator: "is" or "is not", and set the value "us-west-2".)
+3. Create a tag and give it a name.
+3. Set an additional query and add the same tag to it.
+4. Create the trigger condition and specify the tag name. This creates a combination trigger that checks two queries that both contain the same tag. The monitor checks both queries by a logical OR operation if either query's conditions are met, then it will generate the alert notification.
 
 ### Extraction query
 
