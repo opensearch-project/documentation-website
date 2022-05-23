@@ -21,14 +21,37 @@ K-Means is a simple and popular unsupervised clustering ML algorithm. K-Means wi
 
 Parameter | Type   | Description | Default Value
 :--- |:--- | :--- | :---
+centriods | integer | The number of clusters to group the generated data | `2` 
+iterations | integar | The number of iterations to perform against the data until a mean generates | `10`
+distance_type | enum, such as `EUCLIDEAN`, `COSINE`, or `L1` | Type of measurement from which to measure the distance between centriods | `EUCLIDEAN`
 
 ### APIs
 
-* train
-* predict
-* train and predict
+* [Train](https://opensearch.org/docs/latest/ml-commons-plugin/api/#train-model)
+* [Predict](https://opensearch.org/docs/latest/ml-commons-plugin/api/#predict)
+* [Train and predict](https://opensearch.org/docs/latest/ml-commons-plugin/api/#train-and-predict)
 
 ### Example
+
+The following example uses the Iris Data index to train K-Means sychronously. 
+
+```json
+POST /_plugins/_ml/_train/kmeans
+{
+    "parameters": {
+        "centroids": 3,
+        "iterations": 10,
+        "distance_type": "COSINE"
+    },
+    "input_query": {
+        "_source": ["petal_length_in_cm", "petal_width_in_cm"],
+        "size": 10000
+    },
+    "input_index": [
+        "iris_data"
+    ]
+}
+```
 
 ### Limitations
 
@@ -36,20 +59,93 @@ Training process supports multi-threads, but thread number is less than half of 
 
 ## Linear Regression
 
-Linear Regression maps the linear relationship between inputs and outputs. In ml-common, the linear regression algorithm is adopted from the public machine learning library Tribuo (https://tribuo.org/), which offers multidimensional linear regression models.  The model supports linear optimizer in training, including popular approaches like Linear Decay, SQRT_DECAY, ADA (http://chrome-extension//gphandlahdpffmccakmbngmbjnjiiahp/https://www.jmlr.org/papers/volume12/duchi11a/duchi11a.pdf), ADAM (https://tribuo.org/learn/4.1/javadoc/org/tribuo/math/optimisers/Adam.html), RMS_DROP (https://tribuo.org/learn/4.1/javadoc/org/tribuo/math/optimisers/RMSProp.html). 
+Linear Regression maps the linear relationship between inputs and outputs. In ml-common, the linear regression algorithm is adopted from the public machine learning library [Tribuo](https://tribuo.org/), which offers multidimensional linear regression models.  The model supports the linear optimizer in training, including popular approaches like Linear Decay, SQRT_DECAY, [ADA](http://chrome-extension//gphandlahdpffmccakmbngmbjnjiiahp/https://www.jmlr.org/papers/volume12/duchi11a/duchi11a.pdf), [ADAM](https://tribuo.org/learn/4.1/javadoc/org/tribuo/math/optimisers/Adam.html), and [RMS_DROP](https://tribuo.org/learn/4.1/javadoc/org/tribuo/math/optimisers/RMSProp.html). 
 
 ### Parameters
 
 Parameter | Type   | Description | Default Value
 :--- |:--- | :--- | :---
+learningRate | Double | The rate of speed that the gradient moves during descent | 0.01
+momentumFactor | Double | The medium term from which the regressor rises or falls | 0
+epsilon | Double | The criteria in which a lenear model is identified | 1.00E-06 
+beta1 | Double | The estimated exponential decay for the moment |  0.9
+beta2 | Double | The estimated exponential decay for the moment |  0.99
+decayRate | Double | The rate in which the model decays exponentially | 0.9
+momentumType | MomentumType | The momentum with SDG to help accelerate gradients vectors in the right directions, leading to a faster convergence | STANDARD
+optimizerType | OptimizerType | The optimizer used in the model | SIMPLE_SGD
 
 
 ### APIs
 
-* train
-* predict
+* [Train](https://opensearch.org/docs/latest/ml-commons-plugin/api/#train-model)
+* [Predict](https://opensearch.org/docs/latest/ml-commons-plugin/api/#predict)
 
 ### Example
+
+The following example makes a prediction based on previously trained linear regression model.
+
+**Request**
+
+```json
+POST _plugins/_ml/_predict/LINEAR_REGRESSION/ROZs-38Br5eVE0lTsoD9
+{
+  "parameters": {
+    "target": "price"
+  },
+  "input_data": {
+    "column_metas": [
+      {
+        "name": "A",
+        "column_type": "DOUBLE"
+      },
+      {
+        "name": "B",
+        "column_type": "DOUBLE"
+      }
+    ],
+    "rows": [
+      {
+        "values": [
+          {
+            "column_type": "DOUBLE",
+            "value": 3
+          },
+          {
+            "column_type": "DOUBLE",
+            "value": 5
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Response**
+
+```json
+{
+  "status": "COMPLETED",
+  "prediction_result": {
+    "column_metas": [
+      {
+        "name": "price",
+        "column_type": "DOUBLE"
+      }
+    ],
+    "rows": [
+      {
+        "values": [
+          {
+            "column_type": "DOUBLE",
+            "value": 17.25701855310131
+          }
+        ]
+      }
+    ]
+  }
+}
+```
 
 ### Limitations
 
@@ -57,12 +153,10 @@ As of now, ml-commons only supports linear Stochastic gradient trainer or optimi
 
 ## RCF
 
-Random Cut Forest(RCF) is a probabilistic data structure (refer to the https://quip-amazon.com/1SnsA4gbMECc/Supported-algorithms#temp:C:MeN75517f455b564b69ae5972516, and Github repo (https://github.com/aws/random-cut-forest-by-aws)) used primarily for unsupervised anomaly detection, but extends to density estimation and forecasting. OpenSearch leverages RCF for anomaly detection and ml-commons supports two new variants of RCF for different use cases:
+[Random Cut Forest](https://github.com/aws/random-cut-forest-by-aws) (RCF) is probabilistic data structure used primarily for unsupervised anomaly detection, but extends to density estimation and forecasting. OpenSearch leverages RCF for anomaly detection and ml-commons supports two new variants of RCF for different use cases:
 
-* Batch RCF: this is to detect anomalies in non-time-series data. 
-* Fixed in time (FIT) RCF: this is to detect anomalies in time-series data
-
-
+* Batch RCF: Detect anomalies in non-time-series data 
+* Fixed in time (FIT) RCF: Detect anomalies in time-series data
 
 ### Parameters
 
@@ -70,19 +164,33 @@ Random Cut Forest(RCF) is a probabilistic data structure (refer to the https://q
 
 Parameter | Type   | Description | Default Value
 :--- |:--- | :--- | :---
+number_of_trees | integar | Number of trees in the forest | 30
+sample_size | integar | The same size used by the stream samplers in the forest | 256
+output_after | integar | The number of points required by stream samplers before results return | 32
+training_data_size | integer | The size of your training data | Data set size
+anamoly_score_threshold | double | The threshold of the anomaly score | 1.0 
 
 #### Fit RCF
 
 Parameter | Type   | Description | Default Value
 :--- |:--- | :--- | :---
+number_of_trees | integar | Number of trees in the forest | 30
+shingle_size | integer | A shingle, or consecutive sequence of the most recent records | 8
+sample_size | integar | The sample size used by stream samplers in the forest | 256
+output_after | integar | The number of points required by stream samplers before results return | 32
+time_decay | double | The decay factor used by stream samplers in the forest | 0.0001 
+anomaly_rate | double | The anomaly rate | 0.005
+time_field | string | (**Required**) The time filed for RCF to use as time-series data | N/A
+date_format | string | The date and time formatting for the time_field field | "yyyy-MM-ddHH:mm:ss"
+time_zone | string | The time zone for the time_field field | "UTC" 
+
 
 ### APIs
 
-* train
-* predict
-* train and predict
+* [Train](https://opensearch.org/docs/latest/ml-commons-plugin/api/#train-model)
+* [Predict](https://opensearch.org/docs/latest/ml-commons-plugin/api/#predict)
+* [Train and predict](https://opensearch.org/docs/latest/ml-commons-plugin/api/#train-and-predict)
 
-### Example
 
 ### Limitations
 
@@ -95,10 +203,17 @@ Finding subset level information for aggregate data (for example, aggregated ove
 ### Parameters
 
 Parameter | Type   | Description | Default Value
-:--- |:--- | :--- | :---
-
-
-### Example
+:--- | :--- | :--- | :---
+index_name | String | The data collection to analyze | N/A
+attribute_field_names | List<String> | The fields for entity kets | N/A
+aggregations | List<AggregationBuilder> | The fields and aggregation for values | N/A
+time_field_name | String | The timestamp field | null
+start_time | Long | The beginning of the time range | 0 
+end_time | Long | The end of time range | 0
+min_time_interval | Long | The minimal time interval/scale for analysis | 0
+num_outputs | integer | The maximum number of values from localization/slicing | 0
+filter_query | Long | (Optional) Reduces the collection of data for analysis | Optional.empty()
+anomaly_star | QueryBuilder | (Optional) The time from which after the data will be analyzed | Optional.empty()
 
 ### Limitations
 
