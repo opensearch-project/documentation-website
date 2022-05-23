@@ -225,10 +225,10 @@ Document-level monitors provide the added option to use tags that represent mult
 To create a multiple query combination trigger:
 
 1. Create a per document monitor with more than one query.
-2. Set the first query with field, operator and value. For example, set the query to search for the `region` field with either operator: "is" or "is not", and set the value "us-west-2".)
-3. Create a tag and give it a name.
-3. Set an additional query and add the same tag to it.
-4. Create the trigger condition and specify the tag name. This creates a combination trigger that checks two queries that both contain the same tag. The monitor checks both queries by a logical OR operation if either query's conditions are met, then it will generate the alert notification.
+2. Create the first query with field, operator and value. For example, set the query to search for the `region` field with either operator: "is" or "is not", and set the value "us-west-2".)
+3. Select **Add Tag** and give it a name.
+3. Create the second query add the same tag to it.
+4. Now you can create the trigger condition and specify the tag name. This creates a combination trigger that checks two queries that both contain the same tag. The monitor checks both queries by a logical OR operation if either query's conditions are met, then it will generate the alert notification.
 
 ### Extraction query
 
