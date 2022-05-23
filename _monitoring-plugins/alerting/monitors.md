@@ -199,7 +199,7 @@ Per query monitors run your specified query and then check whether the query's r
     **Note**: Anomaly detection is available only if you are defining a per query monitor.
     {: .note}
 
-1. Choose a frequency to run your monitor. You can run it either by time intervals (minutes, hours, or days), or on a schedule. If you run it on a schedule such as daily, weekly, monthly, or [custom cron expression]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/cron/), then you need to also provide the timezone.
+1. Choose a frequency to run your monitor. You can run it either by time intervals (minutes, hours, or days), or on a schedule. If you run it on a schedule such as daily, weekly, monthly, or [custom cron expression]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/cron/), then you need to also provide the time zone.
 
 1. Add a trigger to your monitor.
 

@@ -11,7 +11,7 @@ redirect_from:
 OpenSearch Dashboards
 {: .label .label-yellow :}
 
-OpenSearch Dashboards provides the Alerting plugin that allows you to monitor your data and create alert notifications that trigger when conditions occur in one or more indexes.
+You can use the Alerting plugin in OpenSearch Dashboards to monitor your data and create alert notifications that trigger when conditions occur in one or more indexes.
 
 You create a monitor with trigger conditions that generate various alert notifications through the message channel you select as a destination. Notifications can be sent to email, Slack, or Amazon Chime.
 
