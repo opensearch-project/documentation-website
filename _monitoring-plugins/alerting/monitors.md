@@ -23,23 +23,26 @@ OpenSearch Dashboard alerting plugin provides four monitor types:
 * per-document - Runs a query to return the amount of documents indexed within the last hour, then it evaluates newly indexed data and returns the documents that match the criteria to generate an alert notification.
 ### Document-level monitors
 
-You can set an alert for individual documents within an index. The query returns specific documents that contain the fields that match the trigger criteria that you want to monitor.
+You can set an alert for individual documents within an index with a per document monitor. The query returns specific documents that contain the fields that match the trigger criteria that you want to monitor.
 
-To create a document-level monitor that generates notifications when the trigger conditions are met.
-Select the data source that you want to monitor, such as the index.
-Create the query with name, field, 
+To create a per document monitor that generates notifications when the trigger conditions are met, follow these steps:
+1. Select the data source that you want to monitor, such as the index.
+2. Set the frequency for how often to run the monitor.
+3. Create the query and set the alert trigger condition. Optionally, you can combine two separate query conditions by adding the same tag to both queries.
 
-The document findings data contains metadata about which document matches the query. The metadata provided for each document includes:
+The Alerting plugin also creates document findings data that contain metadata about which document matches each query. Security analytics can use the document findings data to keep track and analyze the query data separate from the alert processes.
 
-* The document ID and index name
-* The query name
-* The timestamp that indicates the time the document was found during the runtime
+ The metadata provided for each document finding includes:
+
+* document - The document ID and index name
+* Query - The query name that matched the document
+* Time found - The timestamp that indicates the time the document was found during the runtime
 
 Per document monitors allow you to define tags that combine trigger criteria by logical operators. You can't do this with the per bucket or per query monitors.
 
-Trigger conditions are defined based on the results of the queries.
-You can also add tags to each query to fine tune your trigger conditions.
-You can create a tag that aggregates two conditions by logical operators, then add the tag as a single trigger condition. For example, you could create a tag called "sigma" with a trigger condition that requires two query criterion to be met.
+You can also add tags to each query to fine tune your trigger conditions, and perform combination triggers that return logical OR operation on two queries marked with the same tag.
+
+You can create a tag that aggregates two conditions by logical operators, then add the tag as a single trigger condition. For example, you could create a tag called "sigma" with a trigger condition that returns requires either of two separate query criterion to be met.
 ## Key terms
 
 Term | Definition
@@ -49,7 +52,6 @@ Trigger | Conditions that, if met, generate *alerts*.
 Alert | An event associated with a trigger. When an alert is created, the trigger performs *actions*, which can include sending a notification.
 Action | The information that you want the monitor to send out after being triggered. Actions have a *destination*, a message subject, and a message body.
 Destination | A reusable location for an action. Supported locations are Amazon Chime, Email, Slack, or custom webhook.
-
 
 ---
 
@@ -69,7 +71,6 @@ This information is stored in plain text in the OpenSearch cluster. We will impr
 ### Email as a destination
 
 To send or receive an alert notification as an email, choose **Email** as the destination type. Next, add at least one sender and recipient. We recommend adding email groups if you want to notify more than a few people of an alert. You can configure senders and recipients using **Manage senders** and **Manage email groups**.
-
 
 #### Manage senders
 
@@ -206,7 +207,7 @@ Per query monitors run your specified query and then check whether the query's r
     **Note**: Anomaly detection is available only if you are defining a per query monitor.
     {: .note}
 
-1. Choose a frequency and timezone for your monitor. The timezone option is only available for frequencies: Daily, Weekly, Monthly, or [custom cron expression]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/cron/).
+1. Choose a frequency to run your monitor. You can run it either by time intervals (minutes, hours, or days), or on a schedule. If you run it on a schedule such as daily, weekly, monthly, or [custom cron expression]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/cron/), then you need to also provide the timezone.
 
 1. Add a trigger to your monitor.
 
@@ -227,6 +228,13 @@ The line moves up and down as you increase and decrease the threshold. Once this
 
 Bucket-level monitors also require you to specify a threshold and value for your aggregation and timeframe, but you can use a maximum of five conditions to better refine your trigger. Optionally, you can also use a keyword filter to filter for a specific field in your index.
 
+Document-level monitors provide the added option to use tags that represent multiple queries connected by logical operators.
+
+To create a per document monitor trigger:
+
+1. Provide a trigger name, and set the severity.
+2. Set a single query with field, operator and value. For example, set the query to search for the `region` field with either operator: "is" or "is not", and set the value "us-west-2".)
+3. _(Optional)_: You can also create a combination trigger that checks two queries that both contain the same tag. For example, first create query 1, and add the tag name. Next, create query 2 and apply the same tag to it. Now when you create the trigger, you can specify the tag name, and it will perform logical OR operation if either query's conditions are met, it will generate the alert notification.
 
 ### Extraction query
 
