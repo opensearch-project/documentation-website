@@ -200,7 +200,7 @@ Deletes a managed index.
 
 Rolls an alias over to a new index when the managed index meets one of the rollover conditions.
 
-**Important**: ISM checks the conditions for operations on **every execution of the policy** based on the **set interval**, _not_ continuously. The rollover will not be performed before the value is **above** the configured limit **when the check is performed**. For example for `min_size`, with a value of 100GiB, ISM might check the index at 99 GiB, not perform the rollover, check again when the shards reach 105 GiB, and then perform the operation.
+**Important**: ISM checks the conditions for operations on **every execution of the policy** based on the **set interval**, _not_ continuously. The rollover will not be performed before the value **has reached** or exceeded the configured limit **when the check is performed**. For example for `min_size`, with a value of 100GiB, ISM might check the index at 99 GiB, not perform the rollover, check again when the shards reach 105 GiB, and then perform the operation.
 
 The index format must match the pattern: `^.*-\d+$`. For example, `(logs-000001)`.
 Set `index.plugins.index_state_management.rollover_alias` as the alias to rollover.
