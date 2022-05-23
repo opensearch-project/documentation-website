@@ -17,22 +17,19 @@ has_children: false
 ## Monitor types
 
 OpenSearch Dashboard alerting plugin provides four monitor types:
-* per-query - This monitor runs a query and generates alert notifications based on criteria that matches.
-* per-bucket - This monitor runs a query that evaluates trigger criteria based on aggregated values in the data set. 
-* per-cluster metrics - Runs API requests on the cluster to monitor its health.
-* per-document - Runs a query to return the amount of documents indexed within the last hour, then it evaluates newly indexed data and returns the documents that match the criteria to generate an alert notification.
-### Document-level monitors
+* per query - This monitor runs a query and generates alert notifications based on criteria that matches.
+* per bucket - This monitor runs a query that evaluates trigger criteria based on aggregated values in the data set. 
+* per cluster metrics - Runs API requests on the cluster to monitor its health.
+* per document - Runs a query at the document level that returns the amount of documents indexed within the last hour, then it evaluates newly indexed data and returns the documents that match the criteria to generate an alert notification.
+### More about per document monitors
 
 You can set an alert for individual documents within an index with a per document monitor. The query returns specific documents that contain the fields that match the trigger criteria that you want to monitor.
 
-To create a per document monitor that generates notifications when the trigger conditions are met, follow these steps:
-1. Select the data source that you want to monitor, such as the index.
-2. Set the frequency for how often to run the monitor.
-3. Create the query and set the alert trigger condition. Optionally, you can combine two separate query conditions by adding the same tag to both queries.
+The per query and per bucket monitors can only take a single query with one trigger condition. Per document monitors allow you to combine multiple query trigger conditions by adding the same tag to all queries. By default, the Alerting plugin processes the trigger conditions from all queries as a logical OR operation, so if any of the conditions are met, it generates the alert notification.
 
 The Alerting plugin also creates document findings data that contain metadata about which document matches each query. Security analytics can use the document findings data to keep track and analyze the query data separate from the alert processes.
 
- The metadata provided for each document finding includes:
+The metadata provided for each document finding includes:
 
 * document - The document ID and index name
 * Query - The query name that matched the document
@@ -228,7 +225,7 @@ The line moves up and down as you increase and decrease the threshold. Once this
 
 Bucket-level monitors also require you to specify a threshold and value for your aggregation and timeframe, but you can use a maximum of five conditions to better refine your trigger. Optionally, you can also use a keyword filter to filter for a specific field in your index.
 
-Document-level monitors provide the added option to use tags that represent multiple queries connected by logical operators.
+Document-level monitors provide the added option to use tags that represent multiple queries connected by the logical OR operator.
 
 To create a per document monitor trigger:
 
