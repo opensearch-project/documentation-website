@@ -16,7 +16,7 @@ has_children: false
 
 ## Monitor types
 
-OpenSearch Dashboard alerting plugin provides four monitor types:
+OpenSearch Dashboard Alerting plugin provides four monitor types:
 * **per query** - This monitor runs a query and generates alert notifications based on criteria that matches.
 * **per bucket** - This monitor runs a query that evaluates trigger criteria based on aggregated values in the data set.
 * **per cluster metrics** - This monitor runs API requests on the cluster to monitor its health.
@@ -66,7 +66,7 @@ To send or receive an alert notification as an email, choose **Email** as the de
 
 #### Manage senders
 
-Senders are email accounts from which the alerting plugin sends notifications.
+You need to specify an email account from which the Alerting plugin can send notifications.
 
 To configure a sender email, do the following:
 
@@ -437,7 +437,7 @@ Deleted | Someone deleted the monitor or trigger associated with this alert whil
 
 ## Create cluster metrics monitor
 
-In addition to monitoring conditions for indexes, the alerting plugin allows monitoring conditions on clusters. Alerts can be set by cluster metrics to watch for when:
+In addition to monitoring conditions for indexes, the Alerting plugin allows monitoring conditions on clusters. Alerts can be set by cluster metrics to watch for when:
 
 - The health of your cluster reaches a status of yellow or red.
 - Cluster-level metrics, such as CPU usage and JVM memory usage, reach specified thresholds.
@@ -469,7 +469,7 @@ Trigger conditions use responses from the following APIs. Most APIs that can be 
 
 ### Restrict API fields
 
-If you want to hide fields from the API response that you do not want exposed for alerting, reconfigure the [supported_json_payloads.json](https://github.com/opensearch-project/alerting/blob/main/alerting/src/main/resources/org/opensearch/alerting/settings/supported_json_payloads.json) inside your alerting plugin. The file functions as an allow list for the API fields you want to use in an alert. By default, all APIs and their parameters can be used for monitors and trigger conditions.
+If you want to hide fields from the API response that you do not want exposed for alerting, reconfigure the [supported_json_payloads.json](https://github.com/opensearch-project/alerting/blob/main/alerting/src/main/resources/org/opensearch/alerting/settings/supported_json_payloads.json) inside the Alerting plugin. The file functions as an allow list for the API fields you want to use in an alert. By default, all APIs and their parameters can be used for monitors and trigger conditions.
 
 However, you can modify the file so that cluster metric monitors can only be created for APIs referenced. Furthermore, only fields referenced in the supported files can create trigger conditions. This `supported_json_payloads.json` allows for a cluster metrics monitor to be created for the `_cluster/stats` API, and triggers conditions for the `indices.shards.total` and `indices.shards.index.shards.min` fields.
 
