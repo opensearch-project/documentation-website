@@ -200,15 +200,17 @@ Deletes a managed index.
 
 Rolls an alias over to a new index when the managed index meets one of the rollover conditions.
 
+**Important**: ISM checks the conditions for operations on **every execution of the policy** based on the **set interval**, _not_ continuously. If the condition is checked and the value is **close to but not above** the configured value the rollover will not be performed before the value is above the configured limit. For example for `min_size`, with a value of 100GiB, ISM might check the index at 99 GiB, not perform the rollover, check again when the shards reach 105 GiB, and then perform the operation.
+
 The index format must match the pattern: `^.*-\d+$`. For example, `(logs-000001)`.
 Set `index.plugins.index_state_management.rollover_alias` as the alias to rollover.
 
 Parameter | Description | Type | Example | Required
 :--- | :--- |:--- |:--- |
-`min_size` | The minimum size of the total primary shard storage (not counting replicas) required to roll over the index. For example, if you set `min_size` to 100 GiB and your index has 5 primary shards and 5 replica shards of 20 GiB each, the total size of all primary shards is 100 GiB, so the rollover occurs. ISM doesn't check indexes continually, so it doesn't roll over indexes at exactly 100 GiB. Instead, if an index is continuously growing, ISM might check it at 99 GiB, not perform the rollover, check again when the shards reach 105 GiB, and then perform the operation. | `string` | `20gb` or `5mb` | No
-`min_primary_shard_size` | The minimum size of a *single primary shard* storage (not counting replicas) required to roll over the index. For example, if you set `min_primary_shard_size` to 30 GiB and there is a *single primary shard* that has a size greater than the condition, the rollover occurs. ISM doesn't check indexes continually, so it doesn't roll over indexes at exactly 30 GiB. Instead, if an index shard is continuously growing, ISM might check it at 29 GiB, not perform the rollover, check again when the shards reach 32 GiB, and then perform the operation. | `string` | `20gb` or `5mb` | No
-`min_doc_count` |  The minimum number of documents required to roll over the index. | `number` | `2000000` | No
-`min_index_age` |  The minimum age required to roll over the index. Index age is the time between its creation and the present. | `string` | `5d` or `7h` | No
+`min_size` | The minimum size of the total primary shard storage (not counting replicas) required to roll over the index. For example, if you set `min_size` to 100 GiB and your index has 5 primary shards and 5 replica shards of 20 GiB each, the total size of all primary shards is 100 GiB, so the rollover occurs. See **Important** note above. | `string` | `20gb` or `5mb` | No
+`min_primary_shard_size` | The minimum storage size of a **single primary shard** required to roll over the index. For example, if you set `min_primary_shard_size` to 30 GiB and **one of** the primary shards in the index has a size greater than the condition, the rollover occurs. See **Important** note above. | `string` | `20gb` or `5mb` | No
+`min_doc_count` |  The minimum number of documents required to roll over the index. See **Important** note above. | `number` | `2000000` | No
+`min_index_age` |  The minimum age required to roll over the index. Index age is the time between its creation and the present. See **Important** note above. | `string` | `5d` or `7h` | No
 
 ```json
 {
