@@ -12,14 +12,39 @@ has_children: false
 - TOC
 {:toc}
 
-
 ---
 
+## Monitor types
+
+OpenSearch Dashboard alerting plugin provides four monitor types:
+* per-query - This monitor runs a query and generates alert notifications based on criteria that matches.
+* per-bucket - This monitor runs a query that evaluates trigger criteria based on aggregated values in the data set. 
+* per-cluster metrics - Runs API requests on the cluster to monitor its health.
+* per-document - Runs a query to return the amount of documents indexed within the last hour, then it evaluates newly indexed data and returns the documents that match the criteria to generate an alert notification.
+### Document-level monitors
+
+You can set an alert for individual documents within an index. The query returns specific documents that contain the fields that match the trigger criteria that you want to monitor.
+
+To create a document-level monitor that generates notifications when the trigger conditions are met.
+Select the data source that you want to monitor, such as the index.
+Create the query with name, field, 
+
+The document findings data contains metadata about which document matches the query. The metadata provided for each document includes:
+
+* The document ID and index name
+* The query name
+* The timestamp that indicates the time the document was found during the runtime
+
+Per document monitors allow you to define tags that combine trigger criteria by logical operators. You can't do this with the per bucket or per query monitors.
+
+Trigger conditions are defined based on the results of the queries.
+You can also add tags to each query to fine tune your trigger conditions.
+You can create a tag that aggregates two conditions by logical operators, then add the tag as a single trigger condition. For example, you could create a tag called "sigma" with a trigger condition that requires two query criterion to be met.
 ## Key terms
 
 Term | Definition
 :--- | :---
-Monitor | A job that runs on a defined schedule and queries OpenSearch indices. The results of these queries are then used as input for one or more *triggers*.
+Monitor | A job that runs on a defined schedule and queries OpenSearch indexes. The results of these queries are then used as input for one or more *triggers*.
 Trigger | Conditions that, if met, generate *alerts*.
 Alert | An event associated with a trigger. When an alert is created, the trigger performs *actions*, which can include sending a notification.
 Action | The information that you want the monitor to send out after being triggered. Actions have a *destination*, a message subject, and a message body.
@@ -97,15 +122,15 @@ POST _nodes/reload_secure_settings
 
 ---
 
-## Create monitors
+## Create a monitor
 
 1. Choose **Alerting**, **Monitors**, **Create monitor**.
 1. Specify a name for the monitor.
-1. Choose either **Per query monitor** or **Per bucket monitor**.
+1. Choose either **Per query monitor**, **Per bucket monitor**, **Per cluster metrics monitor**, or **Per document monitor**.
 
-Whereas query-level monitors run your specified query and then check whether the query's results triggers any alerts, bucket-level monitors let you select fields to create buckets and categorize your results into those buckets. The alerting plugin runs each bucket's unique results against a script you define later, so you have finer control over which results should trigger alerts. Each of those buckets can trigger an alert, but query-level monitors can only trigger one alert at a time.
+Per query monitors run your specified query and then check whether the query's results triggers any alerts. Per bucket monitors let you select fields to create buckets and categorize your results into those buckets. The Alerting plugin runs each bucket's unique results against a script you define later, so you have finer control over which results should trigger alerts. Each of those buckets can trigger an alert, but query-level monitors can only trigger one alert at a time.
 
-1. Define the monitor in one of three ways: visually, using a query, or using an anomaly detector.
+1. Decide how you want to define your query and triggers. You can use either of three methods: visual editor, query editor, or anomaly detector.
 
    - Visual definition works well for monitors that you can define as "some value is above or below some threshold for some amount of time."
 
@@ -160,7 +185,7 @@ Whereas query-level monitors run your specified query and then check whether the
 
     To define a monitor visually, choose **Visual editor**. Then choose a source index, a timeframe, an aggregation (for example, `count()` or `average()`), a data filter if you want to monitor a subset of your source index, and a group-by field if you want to include an aggregation field in your query. At least one group-by field is required if you're defining a bucket-level monitor. Visual definition works well for most monitors.
 
-    If you use the security plugin, you can only choose indices that you have permission to access. For details, see [Alerting security]({{site.url}}{{site.baseurl}}/security-plugin/).
+    If you use the security plugin, you can only choose indexes that you have permission to access. For details, see [Alerting security]({{site.url}}{{site.baseurl}}/security-plugin/).
 
     To use a query, choose **Extraction query editor**, add your query (using [the OpenSearch query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/)), and test it using the **Run** button.
 
@@ -181,7 +206,7 @@ Whereas query-level monitors run your specified query and then check whether the
     **Note**: Anomaly detection is available only if you are defining a per query monitor.
     {: .note}
 
-1. Choose a frequency and timezone for your monitor. Note that you can only pick a timezone if you choose Daily, Weekly, Monthly, or [custom cron expression]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/cron/) for frequency.
+1. Choose a frequency and timezone for your monitor. The timezone option is only available for frequencies: Daily, Weekly, Monthly, or [custom cron expression]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/cron/).
 
 1. Add a trigger to your monitor.
 
@@ -298,8 +323,8 @@ Variable | Data Type | Description
 `ctx.monitor.schedule` | Object | Contains a schedule of how often or when the monitor should run.
 `ctx.monitor.schedule.period.interval` | Integer | The interval at which the monitor runs.
 `ctx.monitor.schedule.period.unit` | String | The interval's unit of time.
-`ctx.monitor.inputs` | Array | An array that contains the indices and definition used to create the monitor.
-`ctx.monitor.inputs.search.indices` | Array | An array that contains the indices the monitor observes.
+`ctx.monitor.inputs` | Array | An array that contains the indexes and definition used to create the monitor.
+`ctx.monitor.inputs.search.indices` | Array | An array that contains the indexes the monitor observes.
 `ctx.monitor.inputs.search.query` | N/A | The definition used to define the monitor.
 
 #### Trigger variables
