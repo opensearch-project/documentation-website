@@ -508,6 +508,78 @@ POST _plugins/_alerting/monitors
   }
 }
 ```
+## Create document-level monitor
+Introduced 2.0
+{: .label .label-purple }
+
+Document-level monitors, aka "per document monitors," run the query and check whether or not the results should trigger an alert notification based on individual documents within an index.
+
+You can combine multiple queries in a document-level monitor by adding a tag to each query, and then setting the trigger condition to that tag.
+
+For more information about document-level monitors, see [Monitor types]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/#monitor-types).
+
+#### Sample request
+
+To create a per document monitor with the following example POST HTTP request:
+
+```json
+POST _plugins/_alerting/monitors
+{
+  "type": "monitor",
+  "monitor_type": "doc_level_monitor",
+  "name": "iad-monitor",
+  "enabled": true,
+  "createdBy": "chip",
+  "schedule": {
+    "period": {
+      "interval": 1,
+      "unit": "MINUTES"
+    }
+  },
+  "inputs": [
+    {
+      "doc_level_input": {
+        "description": "windows-powershell",
+        "indices": [
+          "test-logs"
+        ],
+        "queries": [
+          {
+            "id": "sigma-123",
+            "query": "region:\"us-west-2\"",
+            "tags": [
+              "MITRE:8500"
+            ],
+          },
+          {
+            "id": "sigma-456",
+            "query": "region:\"us-east-1\"",
+            "tags": [
+              "MITRE:8600"
+            ],
+          }
+        ]
+      }
+    }
+  ],
+    "triggers": [ { "document_level_trigger": {
+      "name": "test-trigger",
+      "severity": "1",
+      "condition": {
+        "script": {
+          "source": "'sigma-123' && !'sigma-456'",
+          "lang": "painless"
+        }
+      },
+      "actions": []
+  }}]
+}
+```
+
+### Limitations
+
+If you run a document-level query while the index is getting reindexed, the results will not return the reindexed results. You would need to run the query again to get the updates.
+{: .tip}
 
 ## Update monitor
 Introduced 1.0
