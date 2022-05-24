@@ -13,7 +13,7 @@ The `type` parameter has been removed from all OpenSearch API endpoints. Instead
 
 ### Removal of outdated nomenclature 
 
-In order for OpenSearch to include more inclusive naming conventions, we've replaced the following terms in our code with a more inclusive term:
+In order for OpenSearch to include more inclusive naming conventions, we've replaced the following terms in our code with more inclusive terms:
 
 - "White list" is now "Allow list"
 - "Black list" is now "Block list"
