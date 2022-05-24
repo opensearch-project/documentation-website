@@ -23,7 +23,7 @@ Monitor | A job that runs on a defined schedule and queries OpenSearch indices. 
 Trigger | Conditions that, if met, generate *alerts*.
 Alert | An event associated with a trigger. When an alert is created, the trigger performs *actions*, which can include sending a notification.
 Action | The information that you want the monitor to send out after being triggered. Actions have a *destination*, a message subject, and a message body.
-Channel | A notifications channel to use in an action. See [notifications]({{site.url}}{{site.baseurl}}/notifications-plugin/index) for more information.
+Channel | A notification channel to use in an action. See [notifications]({{site.url}}{{site.baseurl}}/notifications-plugin/index) for more information.
 
 
 ---
@@ -280,7 +280,7 @@ Variable | Data Type | Description
 
 ## Add actions
 
-The final step in creating a monitor is to add one or more actions. Actions send notifications when trigger conditions are met and support [Slack](https://slack.com/), [Amazon Chime](https://aws.amazon.com/chime/), and webhooks.
+The final step in creating a monitor is to add one or more actions. Actions send notifications when trigger conditions are met. See the [Notifications plugin]({{site.url}}{{site.baseurl}}/notifications-plugin/index) to see what communication channels are supported.
 
 If you don't want to receive notifications for alerts, you don't have to add actions to your triggers. Instead, you can periodically check OpenSearch Dashboards.
 {: .tip }
@@ -321,6 +321,24 @@ After an action sends a message, the content of that message has left the purvie
 
 If you want to use the `ctx.results` variable in a message, use `{% raw %}{{ctx.results.0}}{% endraw %}` rather than `{% raw %}{{ctx.results[0]}}{% endraw %}`. This difference is due to how Mustache handles bracket notation.
 {: .note }
+
+### Questions about destinations
+
+Q: What plugins do I need installed besides Alerting?
+
+A: To continue using the notification action in the Alerting plugin, you need to install the backend plugins `notifications-core` and `notifications`. You can also install the Notifications Dashboards plugin to manage Notification channels via OpenSearch Dasboards.
+
+Q: Can I still create destinations?
+A: No, destinations have been deprecated and can no longer be created/edited.
+
+Q: Will I need to move my destinations to the Notifications plugin?
+A: No. To upgrade users, a background process will automatically move destinations to notification channels. These channels will have the same ID as the destinations, and monitor execution will choose the correct ID, so you don't have to make any changes to the monitor's definition. The migrated destinations will be deleted.
+
+Q: What happens if any destinations fail to migrate?
+A: If a destination failed to migrate, the monitor will continue using it until the monitor is migrated to a notification channel. You don't need to do anything in this case.
+
+Q: Do I need to install the Notifications plugins if monitors can still use destinations?
+A: Yes. The fallback on destination is to prevent failures in sending messages if migration fails; however, the Notification plugin is what actually sends the message. Not having the Notification plugin installed will lead to the action failing.
 
 
 ---

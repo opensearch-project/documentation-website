@@ -8,7 +8,7 @@ redirect_from:
 
 # Notifications API
 
-If you want to programmatically define your notifications channels and sources for versioning and reuse, you can use the Notifications REST API to define, configure, and delete notification channels, as well as send test messages.
+If you want to programmatically define your notification channels and sources for versioning and reuse, you can use the Notifications REST API to define, configure, and delete notification channels and send test messages.
 
 ---
 
@@ -18,9 +18,9 @@ If you want to programmatically define your notifications channels and sources f
 
 ---
 
-## List supported channel types
+## List supported channel configurations
 
-Returns a list of supported channel types.
+To retrieve a list of all supported notification configuration types, send a GET request to the `features` resource.
 
 #### Sample Request
 
@@ -48,9 +48,9 @@ GET /_plugins/_notifications/features
 }
 ```
 
-## List all configurations
+## List all notification configurations
 
-Lists all configurations.
+To retrieve a list of all notification configurations, send a GET request to the `configs` resource.
 
 #### Sample Request
 
@@ -98,7 +98,7 @@ GET _plugins/_notifications/configs
 }
 ```
 
-You can include query parameters in your request path to filter the notification channels this request returns. All parameters are optional.
+To filter the notification configuration types this request returns, you can refine your query with the following optional path parameters.
 
 Parameter	| Description
 :--- | :---
@@ -108,13 +108,13 @@ from_index | The starting index to search from.
 max_items | The maximum amount of items to return in your request.
 sort_order | Specifies the direction to sort results in. Valid options are `asc` and `desc`.
 sort_field | Field to sort results with.
-last_updated_time_ms | The unix time in milliseconds of when the channel was last updated.
-created_time_ms | The unix time in milliseconds of when the channel was created.
+last_updated_time_ms | The Unix time in milliseconds of when the channel was last updated.
+created_time_ms | The Unix time in milliseconds of when the channel was created.
 is_enabled | Indicates whether the channel is enabled.
-config_type | The channel type. Valid options are `sns`, `slack`, `chime`, `webhook`, `smtp_account`, `ses_account`, `email_group`, `email`.
+config_type | The channel type. Valid options are `sns`, `slack`, `chime`, `webhook`, `smtp_account`, `ses_account`, `email_group`, and `email`.
 name | The channel's name.
 description	| The channel's description.
-email.email_account_id | The sender emails the channel uses.
+email.email_account_id | The sender email addresses the channel uses.
 email.email_group_id_list | The email groups the channel uses.
 email.recipient_list | The channel's recipient list.
 email_group.recipient_list | The channel's list of email recipient groups.
@@ -122,18 +122,18 @@ smtp_account.method | The email encryption method.
 slack.url	| The Slack channel's URL.
 chime.url	| The Amazon Chime connection's URL.
 webhook.url	| The webhook's URL.
-smtp_account.host	| The domain of the smtp account.
+smtp_account.host	| The domain of the SMTP account.
 smtp_account.from_address	| The email account's sender address.
-smtp_account.method | The smtp account's encryption method.
-sns.topic_arn	| The Amazon SNS topic's ARN.
+smtp_account.method | The SMTP account's encryption method.
+sns.topic_arn	| The Amazon Simple Notification Service (SNS) topic's ARN.
 sns.role_arn | The Amazon SNS topic's role ARN.
-ses_account.region | The Amazon SES account's region.
+ses_account.region | The Amazon Simple Email Service (SES) account's AWS Region.
 ses_account.role_arn | The Amazon SES account's role ARN.
 ses_account.from_address | The Amazon SES account's sender email address.
 
 ## Create channel configuration
 
-Creates a notification channel.
+To create a notification channel configuration, send a POST request to the `configs` resource.
 
 #### Sample Request
 
@@ -158,12 +158,12 @@ The create channel API operation accepts the following fields in its request bod
 
 Field |	Data Type |	Description |	Required
 :--- | :--- | :--- | :---
-config_id | String | The config's custom ID. | No
-config | Object |	Contains all of relevant information such as channel name, configuration type, and plugin source. |	Yes
+config_id | String | The configuration's custom ID. | No
+config | Object |	Contains all relevant information, such as channel name, configuration type, and plugin source. |	Yes
 name | String |	Name of the channel. | Yes
 description |	String | The channel's description. | No
-config_type |	String | The destination of your notification. Valid options are `sns`, `slack`, `chime`, `webhook`, `smtp_account`, `ses_account`, `email_group`, `email`. | Yes
-is_enabled | Boolean | Whether the channel is enabled for sending and receiving notifications. Default is true.	| No
+config_type |	String | The destination of your notification. Valid options are `sns`, `slack`, `chime`, `webhook`, `smtp_account`, `ses_account`, `email_group`, and `email`. | Yes
+is_enabled | Boolean | Indicates whether the channel is enabled for sending and receiving notifications. Default is true.	| No
 
 The create channel operation accepts multiple `config_types` as possible notification destinations, so follow the format for your preferred `config_type`.
 
@@ -246,7 +246,7 @@ POST /_plugins/_notifications/configs/
 
 ## Get channel configuration
 
-Get a channel’s configuration by config_id.
+To get a channel configuration by `config_id`, send a GET request and specify the `config_id` as a path parameter.
 
 #### Sample Request
 
@@ -283,7 +283,7 @@ GET _plugins/_notifications/configs/<config_id>
 
 ## Update channel configuration
 
-Updates a channel’s configuration.
+To update a channel configuration, send a POST request to the `configs` resource and specify the channel's `config_id` as a path parameter. Specify the new configuration details in the request body.
 
 #### Sample Request
 
@@ -313,7 +313,7 @@ PUT _plugins/_notifications/configs/<config_id>
 
 ## Delete channel configuration
 
-Deletes a channel.
+To delete a channel configuration, send a DELETE request to the `configs` resource and specify the `config_id` as a path parameter.
 
 #### Sample Request
 
@@ -321,7 +321,7 @@ Deletes a channel.
 DELETE /_plugins/_notifications/configs/<config_id>
 ```
 
-#### Sample Response*
+#### Sample Response
 
 ```json
 {
@@ -354,7 +354,7 @@ DELETE /_plugins/_notifications/configs/?config_id_list=<config_id1>,<config_id2
 
 ## Send test notification
 
-Sends a test notification to a channel.
+To send a test notification, send a GET request to `/feature/test/` and specify the channel configuration's `config_id` as a path parameter.
 
 #### Sample Request
 
