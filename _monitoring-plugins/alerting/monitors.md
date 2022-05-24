@@ -12,19 +12,38 @@ has_children: false
 - TOC
 {:toc}
 
-
 ---
+
+## Monitor types
+
+The OpenSearch Dashboard Alerting plugin provides four monitor types:
+* **per query** – This monitor runs a query and generates alert notifications based on criteria that matches.
+* **per bucket** – This monitor runs a query that evaluates trigger criteria based on aggregated values in the dataset.
+* **per cluster metrics** – This monitor runs API requests on the cluster to monitor its health.
+* **per document** – This monitor runs a query (or multiple queries combined by a tag) that returns individual documents that match the alert notification trigger condition.
+
+### More about per document monitors
+
+The per query and per bucket monitors can only take a single query with one trigger condition. Per document monitors allow you to combine multiple query trigger conditions by adding a tag to the queries. Then you can add the tag as a single trigger condition instead of specifying a single query. The Alerting plugin processes the trigger conditions from all queries as a logical OR operation, so if any of the query conditions are met, it generates the alert notification.
+
+The Alerting plugin also creates a list of document findings data that contains metadata about which document matches each query. Security analytics can use the document findings data to keep track of and analyze the query data separately from the alert processes.
+
+The following metadata is provided for each document finding entry:
+
+* **Document** – The document ID and index name.
+* **Query** – The query name that matched the document.
+* **Time found** – The timestamp that indicates when the document was found during the runtime.
 
 ## Key terms
 
 Term | Definition
 :--- | :---
-Monitor | A job that runs on a defined schedule and queries OpenSearch indices. The results of these queries are then used as input for one or more *triggers*.
+Monitor | A job that runs on a defined schedule and queries OpenSearch indexes. The results of these queries are then used as input for one or more *triggers*.
 Trigger | Conditions that, if met, generate *alerts*.
+Tag | A label that can be applied to multiple queries to combine them with the logical OR operation in a per document monitor. You can't use tags with other monitor types.
 Alert | An event associated with a trigger. When an alert is created, the trigger performs *actions*, which can include sending a notification.
 Action | The information that you want the monitor to send out after being triggered. Actions have a *destination*, a message subject, and a message body.
 Destination | A reusable location for an action. Supported locations are Amazon Chime, Email, Slack, or custom webhook.
-
 
 ---
 
@@ -45,10 +64,9 @@ This information is stored in plain text in the OpenSearch cluster. We will impr
 
 To send or receive an alert notification as an email, choose **Email** as the destination type. Next, add at least one sender and recipient. We recommend adding email groups if you want to notify more than a few people of an alert. You can configure senders and recipients using **Manage senders** and **Manage email groups**.
 
-
 #### Manage senders
 
-Senders are email accounts from which the alerting plugin sends notifications.
+You need to specify an email account from which the Alerting plugin can send notifications.
 
 To configure a sender email, do the following:
 
@@ -97,15 +115,15 @@ POST _nodes/reload_secure_settings
 
 ---
 
-## Create monitors
+## Create a monitor
 
 1. Choose **Alerting**, **Monitors**, **Create monitor**.
 1. Specify a name for the monitor.
-1. Choose either **Per query monitor** or **Per bucket monitor**.
+1. Choose either **Per query monitor**, **Per bucket monitor**, **Per cluster metrics monitor**, or **Per document monitor**.
 
-Whereas query-level monitors run your specified query and then check whether the query's results triggers any alerts, bucket-level monitors let you select fields to create buckets and categorize your results into those buckets. The alerting plugin runs each bucket's unique results against a script you define later, so you have finer control over which results should trigger alerts. Each of those buckets can trigger an alert, but query-level monitors can only trigger one alert at a time.
+Per query monitors run your specified query and then check whether the query's results trigger any alerts. Per bucket monitors let you select which fields to create buckets and categorize your results into those buckets. The Alerting plugin runs each bucket's unique results against a script you define later, so you have finer control over which results should trigger alerts. Each of those buckets can trigger an alert, but query-level monitors can only trigger one alert at a time.
 
-1. Define the monitor in one of three ways: visually, using a query, or using an anomaly detector.
+1. Decide how you want to define your query and triggers. You can use any of the following methods: visual editor, query editor, or anomaly detector.
 
    - Visual definition works well for monitors that you can define as "some value is above or below some threshold for some amount of time."
 
@@ -160,7 +178,7 @@ Whereas query-level monitors run your specified query and then check whether the
 
     To define a monitor visually, choose **Visual editor**. Then choose a source index, a timeframe, an aggregation (for example, `count()` or `average()`), a data filter if you want to monitor a subset of your source index, and a group-by field if you want to include an aggregation field in your query. At least one group-by field is required if you're defining a bucket-level monitor. Visual definition works well for most monitors.
 
-    If you use the security plugin, you can only choose indices that you have permission to access. For details, see [Alerting security]({{site.url}}{{site.baseurl}}/security-plugin/).
+    If you use the Security plugin, you can only choose indexes that you have permission to access. For details, see [Alerting security]({{site.url}}{{site.baseurl}}/security-plugin/).
 
     To use a query, choose **Extraction query editor**, add your query (using [the OpenSearch query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/)), and test it using the **Run** button.
 
@@ -181,7 +199,7 @@ Whereas query-level monitors run your specified query and then check whether the
     **Note**: Anomaly detection is available only if you are defining a per query monitor.
     {: .note}
 
-1. Choose a frequency and timezone for your monitor. Note that you can only pick a timezone if you choose Daily, Weekly, Monthly, or [custom cron expression]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/cron/) for frequency.
+1. Choose how frequently to run your monitor. You can run it either by time intervals (minutes, hours, or days) or on a schedule. If you run it on a daily, weekly or monthly schedule or according to a custom [custom cron expression]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/cron/), then you need to also provide the time zone.
 
 1. Add a trigger to your monitor.
 
@@ -202,6 +220,15 @@ The line moves up and down as you increase and decrease the threshold. Once this
 
 Bucket-level monitors also require you to specify a threshold and value for your aggregation and timeframe, but you can use a maximum of five conditions to better refine your trigger. Optionally, you can also use a keyword filter to filter for a specific field in your index.
 
+Document-level monitors provide the added option to use tags that represent multiple queries connected by the logical OR operator.
+
+To create a multiple query combination trigger, do the following steps:
+
+1. Create a per document monitor with more than one query.
+2. Create the first query with a field, an operator, and a value. For example, set the query to search for the `region` field with either operator: "is" or "is not", and set the value "us-west-2".
+3. Select **Add Tag** and give the tag a name.
+3. Create the second query and add the same tag to it.
+4. Now you can create the trigger condition and specify the tag name. This creates a combination trigger that checks two queries that both contain the same tag. The monitor checks both queries with a logical OR operation and if either query's conditions are met, then it will generate the alert notification.
 
 ### Extraction query
 
@@ -298,8 +325,8 @@ Variable | Data Type | Description
 `ctx.monitor.schedule` | Object | Contains a schedule of how often or when the monitor should run.
 `ctx.monitor.schedule.period.interval` | Integer | The interval at which the monitor runs.
 `ctx.monitor.schedule.period.unit` | String | The interval's unit of time.
-`ctx.monitor.inputs` | Array | An array that contains the indices and definition used to create the monitor.
-`ctx.monitor.inputs.search.indices` | Array | An array that contains the indices the monitor observes.
+`ctx.monitor.inputs` | Array | An array that contains the indexes and definition used to create the monitor.
+`ctx.monitor.inputs.search.indices` | Array | An array that contains the indexes the monitor observes.
 `ctx.monitor.inputs.search.query` | N/A | The definition used to define the monitor.
 
 #### Trigger variables
@@ -410,12 +437,12 @@ Deleted | Someone deleted the monitor or trigger associated with this alert whil
 
 ## Create cluster metrics monitor
 
-In addition to monitoring conditions for indexes, the alerting plugin allows monitoring conditions on clusters. Alerts can be set by cluster metrics to watch for when:
+In addition to monitoring conditions for indexes, the Alerting plugin allows monitoring conditions for clusters. Alerts can be set by cluster metrics to watch for the following conditions:
 
-- The health of your cluster reaches a status of yellow or red.
-- Cluster-level metrics, such as CPU usage and JVM memory usage, reach specified thresholds.
-- Node-level metrics, such as available disk space, JVM memory usage, and CPU usage, reach a specified threshold.
-- The total number of documents stores reaches a specified amount.
+- The health of your cluster reaches a status of yellow or red
+- Cluster-level metrics, such as CPU usage and JVM memory usage, reach specified thresholds
+- Node-level metrics, such as available disk space, JVM memory usage, and CPU usage, reach a specified threshold
+- The total number of documents stores reaches a specified amount
 
 To create a cluster metrics monitor:
 
@@ -442,7 +469,7 @@ Trigger conditions use responses from the following APIs. Most APIs that can be 
 
 ### Restrict API fields
 
-If you want to hide fields from the API response that you do not want exposed for alerting, reconfigure the [supported_json_payloads.json](https://github.com/opensearch-project/alerting/blob/main/alerting/src/main/resources/org/opensearch/alerting/settings/supported_json_payloads.json) inside your alerting plugin. The file functions as an allow list for the API fields you want to use in an alert. By default, all APIs and their parameters can be used for monitors and trigger conditions.
+If you want to hide fields from the API response that you do not want exposed for alerting, reconfigure the [supported_json_payloads.json](https://github.com/opensearch-project/alerting/blob/main/alerting/src/main/resources/org/opensearch/alerting/settings/supported_json_payloads.json) file inside the Alerting plugin. The file functions as an allow list for the API fields you want to use in an alert. By default, all APIs and their parameters can be used for monitors and trigger conditions.
 
 However, you can modify the file so that cluster metric monitors can only be created for APIs referenced. Furthermore, only fields referenced in the supported files can create trigger conditions. This `supported_json_payloads.json` allows for a cluster metrics monitor to be created for the `_cluster/stats` API, and triggers conditions for the `indices.shards.total` and `indices.shards.index.shards.min` fields.
 
