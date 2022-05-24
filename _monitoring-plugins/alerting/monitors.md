@@ -326,7 +326,7 @@ If you want to use the `ctx.results` variable in a message, use `{% raw %}{{ctx.
 
 Q: What plugins do I need installed besides Alerting?
 
-A: To continue using the notification action in the Alerting plugin, you need to install the backend plugins `notifications-core` and `notifications`. You can also install the Notifications Dashboards plugin to manage Notification channels via OpenSearch Dasboards.
+A: To continue using the notification action in the Alerting plugin, you need to install the backend plugins `notifications-core` and `notifications`. You can also install the Notifications Dashboards plugin to manage Notification channels via OpenSearch Dashboards.
 
 Q: Can I still create destinations?
 A: No, destinations have been deprecated and can no longer be created/edited.
