@@ -508,11 +508,11 @@ POST _plugins/_alerting/monitors
   }
 }
 ```
-## Create a per document monitor
+## Create a document-level monitor
 Introduced 2.0
 {: .label .label-purple }
 
-You can create a per document monitor to run a query and check whether or not the results should trigger an alert notification based on individual documents within an index.
+You can create a document-level monitor programmatically that functions the same as a per document monitor in the OpenSearch Dashboards. The document-level monitor runs a query that checks whether or not the results should trigger an alert notification based on individual documents within an index.
 
 You can combine multiple queries in a per document monitor by adding a tag to each query, and then setting the trigger condition to that tag.
 
