@@ -8,7 +8,7 @@ has_children: false
 
 # Auto-follow for cross-cluster replication
 
-Auto-follow lets you automatically replicate indices created on the leader cluster based on matching patterns. When you create an index on the leader cluster with a name that matches a specified pattern (for example, `index-01*`), a corresponding follower index is automatically created on the follower cluster. 
+Auto-follow lets you automatically replicate indexes created on the leader cluster based on matching patterns. When you create an index on the leader cluster with a name that matches a specified pattern (for example, `index-01*`), a corresponding follower index is automatically created on the follower cluster. 
 
 You can configure multiple replication rules for a single cluster. The patterns currently only support wildcard matching. 
 
@@ -18,11 +18,11 @@ You need to [set up a cross-cluster connection]({{site.url}}{{site.baseurl}}/rep
 
 ## Permissions
 
-If the security plugin is enabled, non-admin users need to be mapped to the appropriate permissions in order to perform replication actions. For index and cluster-level permissions requirements, see [Cross-cluster replication permissions]({{site.url}}{{site.baseurl}}/replication-plugin/permissions/).
+If the security plugin is enabled, make sure that non-admin users are mapped to the appropriate permissions so they can perform replication actions. For index and cluster-level permissions requirements, see [Cross-cluster replication permissions]({{site.url}}{{site.baseurl}}/replication-plugin/permissions/).
 
 ## Get started with auto-follow
 
-Replication rules are a collection of patterns that you create against a single remote cluster. When you create a replication rule, it automatically starts replicating any *new* indices that match the pattern, but does not replicate matching indices that were previously created. 
+Replication rules are a collection of patterns that you create against a single follower cluster. When you create a replication rule, it starts by automatically replicating any *existing* indexes that match the pattern. It will then continue to replicate any *new* indexes that you create that match the pattern.
 
 Create a replication rule on the follower cluster:
 
@@ -63,7 +63,7 @@ yellow open   movies-0001  kHOxYYHxRMeszLjTD9rvSQ     1   1          0          
 
 ## Retrieve replication rules
 
-To retrieve a list of existing replication rules configured on a cluster, send the following request:
+To retrieve a list of existing replication rules that are configured on a cluster, send the following request:
 
 ```bash
 curl -XGET -u 'admin:admin' -k 'https://localhost:9200/_plugins/_replication/autofollow_stats'
@@ -92,7 +92,7 @@ curl -XGET -u 'admin:admin' -k 'https://localhost:9200/_plugins/_replication/aut
 
 ## Delete a replication rule
 
-When you delete a replication rule, OpenSearch stops replicating *new* indices that match the pattern, but existing indices that the rule previously created continue to replicate. If you need to stop existing replication activity, use the [stop replication API operation]({{site.url}}{{site.baseurl}}/replication-plugin/api/#stop-replication).
+To delete a replication rule, send the following request to the follower cluster:
 
 ```bash
 curl -XDELETE -k -H 'Content-Type: application/json' -u 'admin:admin' 'https://localhost:9200/_plugins/_replication/_autofollow?pretty' -d '
@@ -102,3 +102,4 @@ curl -XDELETE -k -H 'Content-Type: application/json' -u 'admin:admin' 'https://l
 }'
 ```
 
+When you delete a replication rule, OpenSearch stops replicating *new* indexes that match the pattern, but existing indexes that the rule previously created remain read-only and continue to replicate. If you need to stop existing replication activity and open the indexes up for writes, use the [stop replication API operation]({{site.url}}{{site.baseurl}}/replication-plugin/api/#stop-replication).

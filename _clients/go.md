@@ -68,8 +68,8 @@ func main() {
      }`)
 
     // Create an index with non-default settings.
-    res := opensearchapi.CreateRequest{
-        Index: IndexName,
+    res := opensearchapi.IndicesCreateRequest{
+        Index: IndexName, 
         Body:  mapping,
     }
     fmt.Println("creating index", res)

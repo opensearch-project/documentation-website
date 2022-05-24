@@ -3,7 +3,7 @@ layout: default
 title: Delete index
 parent: Index APIs
 grand_parent: REST API reference
-nav_order: 5
+nav_order: 10
 ---
 
 # Delete index

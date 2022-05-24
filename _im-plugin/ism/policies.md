@@ -10,7 +10,7 @@ has_children: false
 
 Policies are JSON documents that define the following:
 
-- The *states* that an index can be in, including the default state for new indices. For example, you might name your states "hot," "warm," "delete," and so on. For more information, see [States](#states).
+- The *states* that an index can be in, including the default state for new indexes. For example, you might name your states "hot," "warm," "delete," and so on. For more information, see [States](#states).
 - Any *actions* that you want the plugin to take when an index enters a state, such as performing a rollover. For more information, see [Actions](#actions).
 - The conditions that must be met for an index to move into a new state, known as *transitions*. For example, if an index is more than eight weeks old, you might want to move it to the "delete" state. For more information, see [Transitions](#transitions).
 
@@ -57,7 +57,9 @@ Field | Description | Type | Required
 
 Actions are the steps that the policy sequentially executes on entering a specific state.
 
-They are executed in the order in which they are defined.
+ISM executes actions in the order in which they are defined. For example, if you define actions [A,B,C,D], ISM executes action A, and then goes into a sleep period based on the cluster setting `plugins.index_state_management.job_interval`. Once the sleep period ends, ISM continues to execute the remaining actions. However, if ISM cannot successfully execute action A, the operation ends, and actions B, C, and D do not get executed.
+
+Optionally, you can define an action's timeout period, which, if exceeded, forcibly fails the action. For example, if timeout is set to `1d`, and ISM has not completed the action within one day, even after retries, the action fails.
 
 This table lists the parameters that you can define for an action.
 
@@ -97,6 +99,7 @@ ISM supports the following operations:
 - [read_only](#read_only)
 - [read_write](#read_write)
 - [replica_count](#replica_count)
+- [shrink](#shrink)
 - [close](#close)
 - [open](#open)
 - [delete](#delete)
@@ -160,6 +163,59 @@ Parameter | Description | Type | Required
 
 For information about setting replicas, see [Primary and replica shards]({{site.url}}{{site.baseurl}}/opensearch#primary-and-replica-shards).
 
+### shrink
+
+Allows you to reduce the number of primary shards in your indexes. With this action, you can specify:
+
+- The number of primary shards that the target index should contain.
+- A max shard size for the primary shards in the target index.
+- Specify a percentage to shrink the number of primary shards in the target index.
+
+```json
+"shrink": {
+    "num_new_shards": 1,
+    "target_index_name_template": {
+        "source": "{{ctx.index}}_shrunken"
+    },
+    "aliases": [
+       "my-alias": {}
+    ],
+    "force_unsafe": false
+}
+```
+
+Parameter | Description | Type | Example | Required
+:--- | :--- |:--- |:--- |
+`num_new_shards` | The maximum number of primary shards in the shrunken index. | integer | `5` | Yes, however it cannot be used with `max_shard_size` or `percentage_of_source_shards`
+`max_shard_size` | The maximum size in bytes of a shard for the target index. | keyword | `5gb` | Yes, however it cannot be used with `num_new_shards` or `percentage_of_source_shards`
+`percentage_of_source_shards` | Percentage of the number of original primary shards to shrink. This parameter indicates the minimum percentage to use when shrinking the number of primary shards. Must be between 0.0 and 1.0, exclusive.  | Percentage | `0.5` | Yes, however it cannot be used with `max_shard_size` or `num_new_shards`
+`target_index_name_template` | The name of the shrunken index. Accepts strings and the Mustache variables `{{ctx.index}}` and `{{ctx.indexUuid}}`. | `string` or Mustache template | `{"source": "{{ctx.index}}_shrunken"}` | No
+`aliases` | Aliases to add to the new index. | object | `myalias` | No, but must be an array of alias objects
+`force_unsafe` | If true, executes the shrink action even if there are no replicas. | boolean | `false` | No
+
+If you want to add `aliases` to the action, the parameter must include an array of [alias objects]({{site.url}}{{site.baseurl}}/opensearch/rest-api/alias/). For example,
+
+```json
+"aliases": [
+  {
+    "my-alias": {}
+  },
+  {
+    "my-second-alias": {
+      "is_write_index": false,
+      "filter": {
+        "multi_match": {
+          "query": "QUEEN",
+          "fields": ["speaker", "text_entry"]
+        }
+      },
+      "index_routing" : "1",
+      "search_routing" : "1"
+    }
+  },
+]
+```
+
 ### close
 
 Closes the managed index.
@@ -170,7 +226,7 @@ Closes the managed index.
 }
 ```
 
-Closed indices remain on disk, but consume no CPU or memory. You can't read from, write to, or search closed indices.
+Closed indexes remain on disk, but consume no CPU or memory. You can't read from, write to, or search closed indexes.
 
 Closing an index is a good option if you need to retain data for longer than you need to actively search it and have sufficient disk space on your data nodes. If you need to search the data again, reopening a closed index is simpler than restoring an index from a snapshot.
 
@@ -198,19 +254,30 @@ Deletes a managed index.
 
 Rolls an alias over to a new index when the managed index meets one of the rollover conditions.
 
+**Important**: ISM checks the conditions for operations on **every execution of the policy** based on the **set interval**, _not_ continuously. The rollover will be performed if the value **has reached** or _exceeded_ the configured limit **when the check is performed**. For example with `min_size` configured to a value of 100GiB, ISM might check the index at 99 GiB and not perform the rollover. However, if the index has grown past the limit (e.g. 105GiB) by the next check, the operation is performed.
+
 The index format must match the pattern: `^.*-\d+$`. For example, `(logs-000001)`.
 Set `index.plugins.index_state_management.rollover_alias` as the alias to rollover.
 
 Parameter | Description | Type | Example | Required
 :--- | :--- |:--- |:--- |
-`min_size` | The minimum size of the total primary shard storage (not counting replicas) required to roll over the index. For example, if you set `min_size` to 100 GiB and your index has 5 primary shards and 5 replica shards of 20 GiB each, the total size of the primaries is 100 GiB, so the rollover occurs. ISM doesn't check indices continually, so it doesn't roll over indices at exactly 100 GiB. Instead, if an index is continuously growing, ISM might check it at 99 GiB, not perform the rollover, check again when the shards reach 105 GiB, and then perform the operation. | `string` | `20gb` or `5mb` | No
-`min_doc_count` |  The minimum number of documents required to roll over the index. | `number` | `2000000` | No
-`min_index_age` |  The minimum age required to roll over the index. Index age is the time between its creation and the present. | `string` | `5d` or `7h` | No
+`min_size` | The minimum size of the total primary shard storage (not counting replicas) required to roll over the index. For example, if you set `min_size` to 100 GiB and your index has 5 primary shards and 5 replica shards of 20 GiB each, the total size of all primary shards is 100 GiB, so the rollover occurs. See **Important** note above. | `string` | `20gb` or `5mb` | No
+`min_primary_shard_size` | The minimum storage size of a **single primary shard** required to roll over the index. For example, if you set `min_primary_shard_size` to 30 GiB and **one of** the primary shards in the index has a size greater than the condition, the rollover occurs. See **Important** note above. | `string` | `20gb` or `5mb` | No
+`min_doc_count` |  The minimum number of documents required to roll over the index. See **Important** note above. | `number` | `2000000` | No
+`min_index_age` |  The minimum age required to roll over the index. Index age is the time between its creation and the present. See **Important** note above. | `string` | `5d` or `7h` | No
 
 ```json
 {
   "rollover": {
     "min_size": "50gb"
+  }
+}
+```
+
+```json
+{
+  "rollover": {
+    "min_primary_shard_size": "30gb"
   }
 }
 ```
@@ -307,27 +374,27 @@ Parameter | Description | Type
 
 ### snapshot
 
-Backup your cluster’s indices and state. For more information about snapshots, see [Take and restore snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshot-restore/).
+Backup your cluster’s indexes and state. For more information about snapshots, see [Take and restore snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshot-restore/).
 
 The `snapshot` operation has the following parameters:
 
 Parameter | Description | Type | Required | Default
 :--- | :--- |:--- |:--- |
 `repository` | The repository name that you register through the native snapshot API operations.  | `string` | Yes | -
-`snapshot` | The name of the snapshot. | `string` | Yes | -
+`snapshot` | The name of the snapshot. Accepts strings and the Mustache variables `{{ctx.index}}` and `{{ctx.indexUuid}}`. If the Mustache variables are invalid, then the snapshot name defaults to the index's name. | `string` or Mustache template | Yes | -
 
 ```json
 {
   "snapshot": {
     "repository": "my_backup",
-    "snapshot": "my_snapshot"
+    "snapshot": "{{ctx.indexUuid}}"
   }
 }
 ```
 
 ### index_priority
 
-Set the priority for the index in a specific state. Unallocated shards of indices are recovered in the order of their priority, whenever possible. The indices with higher priority values are recovered first followed by the indices with lower priority values.
+Set the priority for the index in a specific state. Unallocated shards of indexes are recovered in the order of their priority, whenever possible. The indexes with higher priority values are recovered first followed by the indexes with lower priority values.
 
 The `index_priority` operation has the following parameter:
 
@@ -375,7 +442,7 @@ Parameter | Description | Type | Required
 
 Transitions define the conditions that need to be met for a state to change. After all actions in the current state are completed, the policy starts checking the conditions for transitions.
 
-Transitions are evaluated in the order in which they are defined. For example, if the conditions for the first transition are met, then this transition takes place and the rest of the transitions are dismissed.
+ISM evaluates transitions in the order in which they are defined. For example, if you define transitions: [A,B,C,D], ISM iterates through this list of transitions until it finds a transition that evaluates to `true`, it then stops and sets the next state to the one defined in that transition. On its next execution, ISM dismisses the rest of the transitions and starts in that new state.
 
 If you don't specify any conditions in a transition and leave it empty, then it's assumed to be the equivalent of always true. This means that the policy transitions the index to this state the moment it checks.
 
@@ -392,7 +459,7 @@ Parameter | Description | Type | Required
 :--- | :--- |:--- |:--- |
 `min_index_age` | The minimum age of the index required to transition. | `string` | No
 `min_doc_count` | The minimum document count of the index required to transition. | `number` | No
-`min_size` | The minimum size of the index required to transition. | `string` | No
+`min_size` | The minimum size of the total primary shard storage (not counting replicas) required to transition. For example, if you set `min_size` to 100 GiB and your index has 5 primary shards and 5 replica shards of 20 GiB each, the total size of all primary shards is 100 GiB, so your index is transitioned to the next state. | `string` | No
 `cron` | The `cron` job that triggers the transition if no other transition happens first. | `object` | No
 `cron.cron.expression` | The `cron` expression that triggers the transition. | `string` | Yes
 `cron.cron.timezone` | The timezone that triggers the transition. | `string` | Yes
@@ -412,7 +479,7 @@ The following example transitions the index to a `cold` state after a period of 
 
 ISM checks the conditions on every execution of the policy based on the set interval.
 
-This example uses the `cron` condition to transition indices every Saturday at 5:00 PT:
+This example uses the `cron` condition to transition indexes every Saturday at 5:00 PT:
 
 ```json
 "transitions": [
@@ -533,9 +600,11 @@ The destination system **must** return a response otherwise the `error_notificat
 
 You can use the same options for `ctx` variables as the [notification](#notification) operation.
 
-## Sample policy with ISM template
+## Sample policy with ISM template for auto rollover
 
 The following sample template policy is for a rollover use case.
+
+If you want to skip rollovers for an index, set `index.plugins.index_state_management.rollover_skip` to `true` in the settings of that index.
 
 1. Create a policy with an `ism_template` field:
 
@@ -612,7 +681,7 @@ The following sample template policy is for a rollover use case.
 
 ## Example policy
 
-The following example policy implements a `hot`, `warm`, and `delete` workflow. You can use this policy as a template to prioritize resources to your indices based on their levels of activity.
+The following example policy implements a `hot`, `warm`, and `delete` workflow. You can use this policy as a template to prioritize resources to your indexes based on their levels of activity.
 
 In this case, an index is initially in a `hot` state. After a day, it changes to a `warm` state, where the number of replicas increases to 5 to improve the read performance.
 
@@ -630,7 +699,8 @@ After 30 days, the policy moves this index into a `delete` state. The service se
         "actions": [
           {
             "rollover": {
-              "min_index_age": "1d"
+              "min_index_age": "1d",
+              "min_primary_shard_size": "30gb"
             }
           }
         ],
@@ -678,7 +748,11 @@ After 30 days, the policy moves this index into a `delete` state. The service se
           }
         ]
       }
-    ]
+    ],
+    "ism_template": {
+      "index_patterns": ["log*"],
+      "priority": 100
+    }
   }
 }
 ```

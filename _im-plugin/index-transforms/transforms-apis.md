@@ -28,6 +28,7 @@ PUT _plugins/_transform/<transform_id>
 {
   "transform": {
   "enabled": true,
+  "continuous": true,
   "schedule": {
     "interval": {
     "period": 1,
@@ -78,6 +79,7 @@ PUT _plugins/_transform/<transform_id>
   "transform": {
     "transform_id": "sample",
     "schema_version": 7,
+    "continuous": true,
     "schedule": {
       "interval": {
         "start_time": 1621467964243,
@@ -128,17 +130,18 @@ You can specify the following options in the HTTP request body:
 Option | Data Type | Description | Required
 :--- | :--- | :--- | :---
 enabled | Boolean | If true, the transform job is enabled at creation. | No
-schedule | JSON | The schedule the transform job runs on. | Yes
+continuous | Boolean | Specifies whether the transform job should be continuous. Continuous jobs execute every time they are scheduled according to the `schedule` field and run based off of newly transformed buckets, as well as any new data added to source indexes. Non-continuous jobs execute only once. Default is false. | No
+schedule | Object | The schedule the transform job runs on. | Yes
 start_time | Integer | The Unix epoch time of the transform job's start time. | Yes
 description | String | Describes the transform job. | No
 metadata_id | String | Any metadata to be associated with the transform job. | No
 source_index | String | The source index whose data to transform. | Yes
 target_index | String | The target index the newly transformed data is added into. You can create a new index or update an existing one. | Yes
-data_selection_query | JSON | The query DSL to use to filter a subset of the source index for the transform job. See [query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl) for more information. | Yes
-page_size | Integer | The number of fields to transform at a time. Higher number means higher performance but requires more memory and can cause higher latency. (Default: 1) | Yes
+data_selection_query | Object | The query DSL to use to filter a subset of the source index for the transform job. See [query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl) for more information. | Yes
+page_size | Integer | The number of buckets IM processes and indexes concurrently. Higher number means better performance but requires more memory. If your machine runs out of memory, IM automatically adjusts this field and retries until the operation succeeds. | Yes
 groups | Array | Specifies the grouping(s) to use in the transform job. Supported groups are `terms`, `histogram`, and `date_histogram`. For more information, see [Bucket Aggregations]({{site.url}}{{site.baseurl}}/opensearch/bucket-agg). | Yes if not using aggregations
 source_field | String | The field(s) to transform | Yes
-aggregations | JSON | The aggregations to use in the transform job. Supported aggregations are: `sum`, `max`, `min`, `value_count`, `avg`, `scripted_metric`, and `percentiles`. For more information, see [Metric Aggregations]({{site.url}}{{site.baseurl}}/opensearch/metric-agg). | Yes if not using groups
+aggregations | Object | The aggregations to use in the transform job. Supported aggregations are: `sum`, `max`, `min`, `value_count`, `avg`, `scripted_metric`, and `percentiles`. For more information, see [Metric Aggregations]({{site.url}}{{site.baseurl}}/opensearch/metric-agg). | Yes if not using groups
 
 ## Update a transform job
 Introduced 1.0
@@ -250,12 +253,23 @@ PUT _plugins/_transform/<transform_id>
 }
 ```
 
-The `Update` operation supports the following URL parameters:
+The Update operation supports the following URL parameters:
 
 Parameter | Description | Required
 :---| :--- | :---
-`if_seq_no` | Only perform the transform operation if the last operation that changed the transform job has the specified sequence number. | No
-`if_primary_term` | Only perform the transform operation if the last operation that changed the transform job has the specified sequence term. | No
+`if_seq_no` | Only perform the transform operation if the last operation that changed the transform job has the specified sequence number. | Yes
+`if_primary_term` | Only perform the transform operation if the last operation that changed the transform job has the specified sequence term. | Yes
+
+You can update the following fields:
+
+Option | Data Type | Description
+:--- | :--- | :---
+schedule | Object | The schedule the transform job runs on. Contains the fields `interval.start_time`, `interval.period`, and `interval.unit`.
+start_time | Integer | The Unix epoch start time of the transform job.
+period | Integer | How often to execute the transform job.
+unit | String | The unit of time associated with the execution period. Available options are `Minutes`, `Hours`, and `Days`.
+description | Integer | Describes the transform job.
+page_size | Integer | The number of buckets IM processes and indexes concurrently. Higher number means better performance but requires more memory. If your machine runs out of memory, IM automatically adjusts this field and retries until the operation succeeds.
 
 ## Get a transform job's details
 Introduced 1.0
@@ -280,6 +294,7 @@ GET _plugins/_transform/<transform_id>
   "transform": {
     "transform_id": "sample",
     "schema_version": 7,
+    "continuous": true,
     "schedule": {
       "interval": {
         "start_time": 1621467964243,
@@ -347,6 +362,7 @@ GET _plugins/_transform/
       "transform": {
         "transform_id": "sample",
         "schema_version": 7,
+        "continuous": true,
         "schedule": {
           "interval": {
             "start_time": 1621467964243,
@@ -399,11 +415,11 @@ You can specify these options as the `GET` API operation’s URL parameters to f
 
 Parameter | Description | Required
 :--- | :--- | :---
-from | The starting index to search from. (Default: 0) | No
-size | Specifies the amount of results to return (Default: 10) | No
+from | The starting index to search from. Default is 0. | No
+size | Specifies the amount of results to return. Default is 10. | No
 search |The search term to use to filter results. | No
 sortField | The field to sort results with. | No
-sortDirection | Specifies the direction to sort results in. Can be `ASC` or `DESC`. (Default: ASC) | No
+sortDirection | Specifies the direction to sort results in. Can be `ASC` or `DESC`. Default is ASC. | No
 
 For example, this request returns two results starting from the eighth index.
 
@@ -584,6 +600,12 @@ GET _plugins/_transform/<transform_id>/_explain
   "sample": {
     "metadata_id": "PzmjweME5xbgkenl9UpsYw",
     "transform_metadata": {
+      "continuous_stats": {
+        "last_timestamp": 1621883525672,
+        "documents_behind": {
+          "sample_index": 72
+          }
+      },
       "transform_id": "sample",
       "last_updated_at": 1621883525873,
       "status": "finished",
@@ -691,7 +713,7 @@ POST _plugins/_transform/_preview
 Introduced 1.0
 {: .label .label-purple }
 
-Deletes a transform job. This operation does not delete the source or target indices.
+Deletes a transform job. This operation does not delete the source or target indexes.
 
 **Sample Request**
 
@@ -709,7 +731,6 @@ DELETE _plugins/_transform/<transform_id>
     {
       "delete": {
         "_index": ".opensearch-ism-config",
-        "_type": "_doc",
         "_id": "sample",
         "_version": 4,
         "result": "deleted",

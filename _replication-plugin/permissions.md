@@ -1,10 +1,10 @@
 ---
 layout: default
-title: Permissions
+title: Replication security
 nav_order: 30
 ---
 
-# Cross-cluster replication permissions
+# Cross-cluster replication security
 
 You can use the [security plugin]({{site.url}}{{site.baseurl}}/security-plugin/index/) with cross-cluster replication to limit users to certain actions. For example, you might want certain users to only perform replication activity on the leader or follower cluster.
 

@@ -10,8 +10,8 @@ nav_order: 3
 You can pull the OpenSearch Docker image just like any other image:
 
 ```bash
-docker pull opensearchproject/opensearch:{{site.opensearch_version}}
-docker pull opensearchproject/opensearch-dashboards:{{site.opensearch_version}}
+docker pull opensearchproject/opensearch:latest
+docker pull opensearchproject/opensearch-dashboards:latest
 ```
 
 To check available versions, see [Docker Hub](https://hub.docker.com/u/opensearchproject).
@@ -77,6 +77,8 @@ To stop the cluster and delete all data volumes, run:
 docker-compose down -v
 ```
 
+If you're running your cluster in a production environment, be sure to refer to [Important settings]({{site.url}}{{site.baseurl}}/opensearch/install/important-settings) when configuring your machine and cluster.
+{: .note}
 
 #### Sample Docker Compose file
 
@@ -131,7 +133,7 @@ services:
     networks:
       - opensearch-net
   opensearch-dashboards:
-    image: opensearchproject/opensearch-dashboards:{{site.opensearch_version}}
+    image: opensearchproject/opensearch-dashboards:{{site.opensearch_dashboards_version}}
     container_name: opensearch-dashboards
     ports:
       - 5601:5601
@@ -150,7 +152,7 @@ networks:
   opensearch-net:
 ```
 
-If you override `opensearch_dashboards.yml` settings using environment variables, as seen above, use all uppercase letters and periods in place of underscores (e.g. for `opensearch.hosts`, use `OPENSEARCH_HOSTS`).
+If you override `opensearch_dashboards.yml` settings using environment variables, as seen above, use all uppercase letters and underscores in place of periods (e.g. for `opensearch.hosts`, use `OPENSEARCH_HOSTS`).
 {: .note}
 
 
@@ -178,7 +180,7 @@ services:
     volumes:
       - opensearch-data2:/usr/share/opensearch/data
       - ./custom-opensearch.yml:/usr/share/opensearch/config/opensearch.yml
-  opensearch-dashboards
+  opensearch-dashboards:
     volumes:
       - ./custom-opensearch_dashboards.yml:/usr/share/opensearch-dashboards/config/opensearch_dashboards.yml
 ```
@@ -220,7 +222,7 @@ You can also configure `docker-compose.yml` and `opensearch.yml` [to take your o
    docker ps # Look up the container id
    docker exec -it <container-id> /bin/bash
    # Inside container
-   cd plugins/opensearch_performance_analyzer/pa_config/
+   cd config/opensearch-performance-analyzer/
    vi performance-analyzer.properties
    ```
 
@@ -322,3 +324,63 @@ In this case, `opensearch.yml` is a "vanilla" version of the file with no plugin
 cluster.name: "docker-cluster"
 network.host: 0.0.0.0
 ```
+
+## Sample Docker Compose file for development
+
+You can use this sample file as a development environment.
+
+This sample file starts one OpenSearch node and a container for OpenSearch Dashboards with the security plugin disabled.
+
+```yml
+version: '3'
+services:
+  opensearch-node1:
+    image: opensearchproject/opensearch:{{site.opensearch_version}}
+    container_name: opensearch-node1
+    environment:
+      - cluster.name=opensearch-cluster
+      - node.name=opensearch-node1
+      - bootstrap.memory_lock=true # along with the memlock settings below, disables swapping
+      - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" # minimum and maximum Java heap size, recommend setting both to 50% of system RAM
+      - "DISABLE_INSTALL_DEMO_CONFIG=true" # disables execution of install_demo_configuration.sh bundled with security plugin, which installs demo certificates and security configurations to OpenSearch
+      - "DISABLE_SECURITY_PLUGIN=true" # disables security plugin entirely in OpenSearch by setting plugins.security.disabled: true in opensearch.yml
+      - "discovery.type=single-node" # disables bootstrap checks that are enabled when network.host is set to a non-loopback address
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536 # maximum number of open files for the OpenSearch user, set to at least 65536 on modern systems
+        hard: 65536
+    volumes:
+      - opensearch-data1:/usr/share/opensearch/data
+    ports:
+      - 9200:9200
+      - 9600:9600 # required for Performance Analyzer
+    networks:
+      - opensearch-net
+
+  opensearch-dashboards:
+    image: opensearchproject/opensearch-dashboards:{{site.opensearch_dashboards_version}}
+    container_name: opensearch-dashboards
+    ports:
+      - 5601:5601
+    expose:
+      - "5601"
+    environment:
+      - 'OPENSEARCH_HOSTS=["http://opensearch-node1:9200"]'
+      - "DISABLE_SECURITY_DASHBOARDS_PLUGIN=true" # disables security dashboards plugin in OpenSearch Dashboards
+    networks:
+      - opensearch-net
+
+volumes:
+  opensearch-data1:
+
+networks:
+  opensearch-net:
+```
+
+The environment variable `"DISABLE_SECURITY_DASHBOARDS_PLUGIN=true"` disables the security dashboards plugin in OpenSearch Dashboards by removing the security dashboards plugin folder, removing all related settings in the `opensearch_dashboards.yml` file, and setting the `opensearch.hosts` entry protocol from HTTPS to HTTP.
+You can't reverse this step as the security dashboards plugin is removed in the process.
+To re-enable security for OpenSearch Dashboards, start a new container and set `DISABLE_SECURITY_DASHBOARDS_PLUGIN` to false or leave it unset.
+{: .note}

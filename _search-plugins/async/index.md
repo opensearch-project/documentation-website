@@ -148,7 +148,6 @@ GET _plugins/_asynchronous_search/<ID>?pretty
       "hits": [
         {
           "_index": "bank",
-          "_type": "_doc",
           "_id": "1",
           "_score": 1,
           "_source": {

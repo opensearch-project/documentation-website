@@ -5,9 +5,10 @@ baseurl: "/docs/latest" # the subpath of your site, e.g. /blog
 url: "https://opensearch.org" # the base hostname & protocol for your site, e.g. http://example.com
 permalink: /:path/
 
-opensearch_version: 1.1.0
-opensearch_major_minor_version: 1.1
-lucene_version: 8_9_0
+opensearch_version: 2.0.0-rc1
+opensearch_dashboards_version: 2.0.0-rc1
+opensearch_major_minor_version: 2.0-rc1
+lucene_version: 9_1_0
 
 # Build settings
 markdown: kramdown
@@ -46,6 +47,12 @@ collections:
     permalink: /:collection/:path/
     output: true
   replication-plugin:
+    permalink: /:collection/:path/
+    output: true
+  observability-plugin:
+    permalink: /:collection/:path/
+    output: true
+  ml-commons-plugin:
     permalink: /:collection/:path/
     output: true
   monitoring-plugins:
@@ -90,6 +97,12 @@ just_the_docs:
     replication-plugin:
       name: Replication plugin
       nav_fold: true
+    observability-plugin:
+      name: Observability plugin
+      nav_fold: true
+    ml-commons-plugin:
+      name: ML Commons plugin
+      nav_fold: true
     monitoring-plugins:
       name: Monitoring plugins
       nav_fold: true
@@ -107,8 +120,15 @@ just_the_docs:
 
 
 # Enable or disable the site search
-# Supports true (default) or false
-search_enabled: true
+# By default, just-the-docs enables its JSON file-based search. We also have an OpenSearch-driven search functionality.
+# To disable any search from appearing, both `search_enabled` and `use_custom_search` need to be false.
+# To use the OpenSearch-driven search, `search_enabled` has to be false and `use_custom_search` needs to be true.
+# If `search_enabled` is true, irrespective of the value of `use_custom_search`, the JSON file-based search appears.
+#
+# `search_enabled` defaults to true
+# `use_custom_search` defaults to false
+search_enabled: false
+use_custom_search: true
 
 search:
   # Split pages into sections that can be searched individually

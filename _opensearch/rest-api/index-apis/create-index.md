@@ -47,7 +47,7 @@ PUT <index-name>
 
 ## Index naming restrictions
 
-OpenSearch indices have the following naming restrictions:
+OpenSearch indexes have the following naming restrictions:
 
 - All letters must be lowercase.
 - Index names can't begin with underscores (`_`) or hyphens (`-`).
@@ -61,7 +61,6 @@ You can include the following URL parameters in your request. All parameters are
 
 Parameter | Type | Description
 :--- | :--- | :---
-include_type_name | Boolean | If `true`, the request expects a type in the body of mappings. Because OpenSearch indices all have a type of `_doc`, we recommend that this parameter is left as the default of `false.`
 wait_for_active_shards | String | Specifies the number of active shards that must be available before OpenSearch processes the request. Default is 1 (only the primary shard). Set to `all` or a positive integer. Values greater than 1 require replicas. For example, if you specify a value of 3, the index must have two replicas distributed across two additional nodes for the request to succeed.
 master_timeout | Time | How long to wait for a connection to the master node. Default is `30s`.
 timeout | Time | How long to wait for the request to return. Default is `30s`.
@@ -114,51 +113,3 @@ index.routing.rebalance.enable | Enables shard rebalancing for the index. Availa
 index.gc_deletes | Amount of time to retain a deleted document's version number. Default is `60s`.
 index.default_pipeline | The default ingest node pipeline for the index. If the default pipeline is set and the pipeline does not exist, then index requests fail. The pipeline name `_none` specifies that the index does not have an ingest pipeline.
 index.final_pipeline | The final ingest node pipeline for the index. If the final pipeline is set and the pipeline does not exist, then index requests fail. The pipeline name `_none` specifies that the index does not have an ingest pipeline.
-
-
-### Mappings
-
-Mappings define how a documents and its fields are stored and indexed. If you're just starting to build out your cluster and data, you may not know exactly how your data should be stored. In those cases, you can use dynamic mappings, which tell OpenSearch to dynamically add data and their fields. However, if you know exactly what types your data fall under and want to enforce that standard, then you can use explicit mappings.
-
-For example, if you want to indicate that `year` should be of type `text` instead of an `integer`, and `age` should be an `integer`, you can do so with explicit mappings. Using dynamic mapping, OpenSearch might interpret both `year` and `age` as integers.
-
-#### Dynamic mapping types
-
-Type | Description
-:--- | :---
-null | A `null` field can't be indexed or searched. When a field is set to null, OpenSearch behaves as if that field has no values.
-boolean | OpenSearch accepts `true` and `false` as boolean values. An empty string is equal to `false.`
-float | A single-precision 32-bit floating point number.
-double | A double-precision 64-bit floating point number.
-integer | A signed 32-bit number.
-object | Objects are standard JSON objects, which can have fields and mappings of their own. For example, a `movies` object can have additional properties such as `title`, `year`, and `director`.
-array | Arrays in OpenSearch can only store values of one type, such as an array of just integers or strings. Empty arrays are treated as though they are fields with no values.
-text | A string sequence of characters that represent full-text values.
-keyword | A string sequence of structured characters, such as an email or ZIP code.
-date detection string | Enabled by default, if new string fields match a date's format, then the string is processed as a `date` field. For example, `date: "2012/03/11"` is processed as a date.
-numeric detection string | If disabled, OpenSearch may automatically process numeric values as strings when they should be processed as numbers. When enabled, OpenSearch can process strings into `long`, `integer`, `short`, `byte`, `double`, `float`, `half_float`, `scaled_float`, `unsigned_long`. Default is disabled.
-
-#### Explicit mapping
-
-If you know exactly what your data's typings need to be, you can specify them in your request body when creating your index.
-
-```json
-{
-  "mappings": {
-    "properties": {
-      "year":    { "type" : "text" },
-      "age":     { "type" : "integer" },
-      "director":{ "type" : "text" }
-    }
-  }
-}
-```
-
-## Response
-```json
-{
-    "acknowledged": true,
-    "shards_acknowledged": true,
-    "index": "sample-index1"
-}
-```

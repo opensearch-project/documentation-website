@@ -1,6 +1,9 @@
 /* During build, DOC_VERSIONS is prefixed to convey all the versions available, informed by `_data/versions.json`
  * Example:
  *    const DOC_VERSIONS = ["1.1","1.0"];
+ *
+ * DOC_VERSION_LATEST will pick `latest`, or in its absence the `current` version.
+ *    const DOC_VERSION_LATEST = "2.0";
  */
 const PREFIX = "OpenSearch ";
 const tpl = `
@@ -39,6 +42,11 @@ const tpl = `
         background-image: var(--hover-bg);
     }
     
+    #root:focus {
+        outline: none;
+    }
+    
+    :host(:not([aria-expanded="true"])) #root:focus,
     #root:focus:hover {
         box-shadow: 0 0 0 3px rgba(0, 0, 255, 0.25);
     }
@@ -136,7 +144,7 @@ class VersionSelector extends HTMLElement {
 
     constructor() {
         super();
-        this.attachShadow({mode: 'open'});
+        this.attachShadow({mode: 'open', delegatesFocus: true});
         this._onBlur = (e => {
             this._expand(false);
             this.removeEventListener('blur', this._onBlur);
@@ -150,7 +158,7 @@ class VersionSelector extends HTMLElement {
         frag.querySelector('#selected').textContent = `${PREFIX}${this.getAttribute('selected')}.x`;
 
         const pathName = location.pathname.replace(/\/docs(\/((latest|\d+\.\d+)\/?)?)?/, '');
-        const versionsDOMText = DOC_VERSIONS.map((v, idx) => `<a href="/docs/${v}/${pathName}"${idx === 0 ? ' class="latest"' : ''}>${PREFIX}${v}.x</a>`)
+        const versionsDOMText = DOC_VERSIONS.map((v, idx) => `<a href="/docs/${v}/${pathName}"${v === DOC_VERSION_LATEST ? ' class="latest"' : ''}>${PREFIX}${v}.x</a>`)
             .join('');
 
         frag.querySelector('#dropdown').appendChild(this._makeFragment(versionsDOMText));

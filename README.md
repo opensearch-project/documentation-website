@@ -26,10 +26,9 @@ Community contributions remain essential in keeping this documentation comprehen
 
 If you encounter problems or have questions when contributing to the documentation, these people can help:
 
-- [aetter](https://github.com/aetter)
-- [ashwinkumar12345](https://github.com/ashwinkumar12345)
 - [keithhc2](https://github.com/keithhc2)
-- [snyder114](https://github.com/snyder114)
+- [Naarcha-AWS](https://github.com/Naarcha-AWS)
+- [lizsnyder](https://github.com/lizsnyder)
 
 
 ## How the website works
@@ -77,6 +76,8 @@ If you just need to fix a typo or add a sentence, this web-based method works we
 
 1. Make your changes.
 
+1. Sign off on the commit by including the text "Signed-off by: <GitHub Username> <your-email-here>" in the optional description. Be sure to use an email that's added to your GitHub account.
+
 1. Choose **Create a new branch for this commit and start a pull request** and **Commit changes**.
 
 
@@ -94,7 +95,7 @@ If you want to add a few paragraphs across multiple files and are comfortable wi
 
 1. Edit the Markdown files in `/docs`.
 
-1. Commit, push your changes to your fork, and submit a pull request.
+1. Commit, [sign off](https://github.com/src-d/guide/blob/9171d013c648236c39faabcad8598be3c0cf8f56/developer-community/fix-DCO.md#how-to-prevent-missing-sign-offs-in-the-future), push your changes to your fork, and submit a pull request.
 
 
 ### Major changes
@@ -143,7 +144,7 @@ If you're making major changes to the documentation and need to see the rendered
 
 1. When you save a file, marvel as Jekyll automatically rebuilds the site and refreshes your web browser. This process can take anywhere from 10-30 seconds.
 
-1. When you're happy with how everything looks, commit, push your changes to your fork, and submit a pull request.
+1. When you're happy with how everything looks, commit, [sign off](https://github.com/src-d/guide/blob/9171d013c648236c39faabcad8598be3c0cf8f56/developer-community/fix-DCO.md#how-to-prevent-missing-sign-offs-in-the-future), push your changes to your fork, and submit a pull request.
 
 
 ## Writing tips

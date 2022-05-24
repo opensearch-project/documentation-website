@@ -6,9 +6,6 @@ nav_order: 60
 
 # Java high-level REST client
 
-Although the OpenSearch Java high-level REST client is still usable, we recommend that you use the [OpenSearch Java client]({{site.url}}{{site.baseurl}}/clients/java/), which replaces the existing Java high-level REST client.
-{: .note}
-
 The OpenSearch Java high-level REST client lets you interact with your OpenSearch clusters and indices through Java methods and data structures rather than HTTP methods and JSON.
 
 ## Setup
@@ -25,7 +22,23 @@ To start using the OpenSearch Java high-level REST client, ensure that you have 
 
 You can now start your OpenSearch cluster. The OpenSearch 1.x high-level REST client works with the 1.x versions of OpenSearch.
 
+## Security
+
+Before using the REST client in your Java application, you must configure the application's truststore to connect to the security plugin. If you are using self-signed certificates or demo configurations, you can use the following command to create a custom truststore and add in root authority certificates.
+
+If you're using certificates from a trusted Certificate Authority (CA), you don't need to configure the truststore.
+
+```bash
+keytool -import <path-to-cert> -alias <alias-to-call-cert> -keystore <truststore-name>
+```
+
+You can now point your Java client to the truststore and set basic authentication credentials that can access a secure cluster (refer to the sample code below on how to do so).
+
+If you run into issues when configuring security, see [common issues]({{site.url}}{{site.baseurl}}/troubleshoot/index) and [troubleshoot TLS]({{site.url}}{{site.baseurl}}/troubleshoot/tls).
+
 ## Sample code
+
+This code example uses basic credentials that come with the default OpenSearch configuration. If you’re using the OpenSearch Java high-level REST client with your own OpenSearch cluster, be sure to change the code to use your own credentials.
 
 ```java
 import org.apache.http.HttpHost;
@@ -62,7 +75,7 @@ public class RESTClientSample {
     System.setProperty("javax.net.ssl.trustStorePassword", "password-to-keystore");
 
     //Establish credentials to use basic authentication.
-    //Only for demo purposes. Do not specify your credentials in code.
+    //Only for demo purposes. Don't specify your credentials in code.
     final CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
 
     credentialsProvider.setCredentials(AuthScope.ANY,

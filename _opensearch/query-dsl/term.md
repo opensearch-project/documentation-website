@@ -95,7 +95,6 @@ The search query “To be, or not to be” is analyzed and tokenized into an arr
     "hits" : [
       {
         "_index" : "shakespeare",
-        "_type" : "_doc",
         "_id" : "34229",
         "_score" : 17.419369,
         "_source" : {
@@ -110,7 +109,6 @@ The search query “To be, or not to be” is analyzed and tokenized into an arr
       },
       {
         "_index" : "shakespeare",
-        "_type" : "_doc",
         "_id" : "109930",
         "_score" : 14.883024,
         "_source" : {
@@ -125,7 +123,6 @@ The search query “To be, or not to be” is analyzed and tokenized into an arr
       },
       {
         "_index" : "shakespeare",
-        "_type" : "_doc",
         "_id" : "103117",
         "_score" : 14.782743,
         "_source" : {
@@ -180,7 +177,6 @@ GET shakespeare/_search
     "hits" : [
       {
         "_index" : "shakespeare",
-        "_type" : "_doc",
         "_id" : "32700",
         "_score" : 4.2540946,
         "_source" : {
@@ -195,7 +191,6 @@ GET shakespeare/_search
       },
       {
         "_index" : "shakespeare",
-        "_type" : "_doc",
         "_id" : "32702",
         "_score" : 4.2540946,
         "_source" : {
@@ -210,7 +205,6 @@ GET shakespeare/_search
       },
       {
         "_index" : "shakespeare",
-        "_type" : "_doc",
         "_id" : "32709",
         "_score" : 4.2540946,
         "_source" : {
@@ -448,5 +442,5 @@ GET shakespeare/_search
 A few important notes:
 
 - Regular expressions are applied to the terms in the field (i.e. tokens), not the entire field.
-- Regular expressions use the Lucene syntax, which differs from more standardized implementations. Test thoroughly to ensure that you receive the results you expect. To learn more, see [the Lucene documentation](https://lucene.apache.org/core/{{site.lucene_version}}/core/index.html).
+- Regular expressions use the Lucene syntax, which differs from more standardized implementations. Test thoroughly to ensure that you receive the results you expect. To learn more, see [the Lucene documentation](https://lucene.apache.org/core/8_9_0/core/index.html).
 - `regexp` queries can be expensive operations and require the `search.allow_expensive_queries` setting to be set to `true`. Before making frequent `regexp` queries, test their impact on cluster performance and examine alternative queries for achieving similar results.

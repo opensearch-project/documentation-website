@@ -18,7 +18,7 @@ This plugin supports three different methods for obtaining the k-nearest neighbo
 
 1. **Approximate k-NN**
 
-    The first method takes an approximate nearest neighbor approach---it uses the HNSW algorithm to return the approximate k-nearest neighbors to a query vector. This algorithm sacrifices indexing speed and search accuracy in return for lower latency and more scalable search. To learn more about the algorithm, please refer to [nmslib's documentation](https://github.com/nmslib/nmslib/) or [the paper introducing the algorithm](https://arxiv.org/abs/1603.09320).
+    The first method takes an approximate nearest neighbor approach---it uses one of several algorithms to return the approximate k-nearest neighbors to a query vector. Usually, these algorithms sacrifice indexing speed and search accuracy in return for performance benefits such as lower latency, smaller memory footprints and more scalable search. To learn more about the algorithms, refer to [*nmslib*](https://github.com/nmslib/nmslib/blob/master/manual/README.md)'s and [*faiss*](https://github.com/facebookresearch/faiss/wiki)'s documentation.
 
     Approximate k-NN is the best choice for searches over large indices (i.e. hundreds of thousands of vectors or more) that require low latency. You should not use approximate k-NN if you want to apply a filter on the index before the k-NN search, which greatly reduces the number of vectors to be searched. In this case, you should use either the script scoring method or painless extensions.
 

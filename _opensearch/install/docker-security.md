@@ -24,7 +24,7 @@ services:
       - cluster.name=opensearch-cluster
       - node.name=opensearch-node1
       - discovery.seed_hosts=opensearch-node1,opensearch-node2
-      - cluster.initial_master_nodes=opensearch-node1,opensearch-node2
+      - cluster.initial_cluster_manager_nodes=opensearch-node1,opensearch-node2
       - bootstrap.memory_lock=true # along with the memlock settings below, disables swapping
       - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" # minimum and maximum Java heap size, recommend setting both to 50% of system RAM
       - network.host=0.0.0.0 # required if not using the demo security configuration
@@ -43,11 +43,11 @@ services:
       - ./admin.pem:/usr/share/opensearch/config/admin.pem
       - ./admin-key.pem:/usr/share/opensearch/config/admin-key.pem
       - ./custom-opensearch.yml:/usr/share/opensearch/config/opensearch.yml
-      - ./internal_users.yml:/usr/share/opensearch/plugins/opensearch-security/securityconfig/internal_users.yml
-      - ./roles_mapping.yml:/usr/share/opensearch/plugins/opensearch-security/securityconfig/roles_mapping.yml
-      - ./tenants.yml:/usr/share/opensearch/plugins/opensearch-security/securityconfig/tenants.yml
-      - ./roles.yml:/usr/share/opensearch/plugins/opensearch-security/securityconfig/roles.yml
-      - ./action_groups.yml:/usr/share/opensearch/plugins/opensearch-security/securityconfig/action_groups.yml
+      - ./internal_users.yml:/usr/share/opensearch/config/opensearch-security/internal_users.yml
+      - ./roles_mapping.yml:/usr/share/opensearch/config/opensearch-security/roles_mapping.yml
+      - ./tenants.yml:/usr/share/opensearch/config/opensearch-security/tenants.yml
+      - ./roles.yml:/usr/share/opensearch/config/opensearch-security/roles.yml
+      - ./action_groups.yml:/usr/share/opensearch/config/opensearch-security/action_groups.yml
     ports:
       - 9200:9200
       - 9600:9600 # required for Performance Analyzer
@@ -60,7 +60,7 @@ services:
       - cluster.name=opensearch-cluster
       - node.name=opensearch-node2
       - discovery.seed_hosts=opensearch-node1,opensearch-node2
-      - cluster.initial_master_nodes=opensearch-node1,opensearch-node2
+      - cluster.initial_cluster_manager_nodes=opensearch-node1,opensearch-node2
       - bootstrap.memory_lock=true
       - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
       - network.host=0.0.0.0
@@ -79,15 +79,15 @@ services:
       - ./admin.pem:/usr/share/opensearch/config/admin.pem
       - ./admin-key.pem:/usr/share/opensearch/config/admin-key.pem
       - ./custom-opensearch.yml:/usr/share/opensearch/config/opensearch.yml
-      - ./internal_users.yml:/usr/share/opensearch/plugins/opensearch-security/securityconfig/internal_users.yml
-      - ./roles_mapping.yml:/usr/share/opensearch/plugins/opensearch-security/securityconfig/roles_mapping.yml
-      - ./tenants.yml:/usr/share/opensearch/plugins/opensearch-security/securityconfig/tenants.yml
-      - ./roles.yml:/usr/share/opensearch/plugins/opensearch-security/securityconfig/roles.yml
-      - ./action_groups.yml:/usr/share/opensearch/plugins/opensearch-security/securityconfig/action_groups.yml
+      - ./internal_users.yml:/usr/share/opensearch/config/opensearch-security/internal_users.yml
+      - ./roles_mapping.yml:/usr/share/opensearch/config/opensearch-security/roles_mapping.yml
+      - ./tenants.yml:/usr/share/opensearch/config/opensearch-security/tenants.yml
+      - ./roles.yml:/usr/share/opensearch/config/opensearch-security/roles.yml
+      - ./action_groups.yml:/usr/share/opensearch/config/opensearch-security/action_groups.yml
     networks:
       - opensearch-net
-  opensearch-dashboards
-    image: opensearchproject/opensearch-dashboards:{{site.opensearch_version}}
+  opensearch-dashboards:
+    image: opensearchproject/opensearch-dashboards:{{site.opensearch_dashboards_version}}
     container_name: opensearch-dashboards
     ports:
       - 5601:5601
@@ -133,7 +133,7 @@ opendistro_security.audit.config.disabled_rest_categories: NONE
 opendistro_security.audit.config.disabled_transport_categories: NONE
 ```
 
-Use this same override process to specify new [authentication settings]({{site.url}}{{site.baseurl}}/security-plugin/configuration/configuration/) in `/usr/share/opensearch/plugins/opensearch-security/securityconfig/config.yml`, as well as new default [internal users, roles, mappings, action groups, and tenants]({{site.url}}{{site.baseurl}}/security-plugin/configuration/yaml/).
+Use this same override process to specify new [authentication settings]({{site.url}}{{site.baseurl}}/security-plugin/configuration/configuration/) in `/usr/share/opensearch/config/opensearch-security/config.yml`, as well as new default [internal users, roles, mappings, action groups, and tenants]({{site.url}}{{site.baseurl}}/security-plugin/configuration/yaml/).
 
 To start the cluster, run `docker-compose up`.
 

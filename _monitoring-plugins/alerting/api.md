@@ -9,7 +9,6 @@ nav_order: 15
 
 Use the alerting API to programmatically manage monitors and alerts.
 
-
 ---
 
 #### Table of contents
@@ -509,17 +508,141 @@ POST _plugins/_alerting/monitors
   }
 }
 ```
+## Create a document-level monitor
+Introduced 2.0
+{: .label .label-purple }
+
+You can create a document-level monitor programmatically that functions the same as a per document monitor in OpenSearch Dashboards. The document-level monitor runs a query that checks whether or not the results should trigger an alert notification based on individual documents within an index.
+
+You can combine multiple queries in a per document monitor by adding a tag to each query and then setting the trigger condition to that tag.
+
+For more information about document-level monitors, see [Monitor types]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/#monitor-types).
+
+#### Sample request
+
+The following sample shows how to create a per document monitor:
+
+```json
+POST _plugins/_alerting/monitors
+{
+  "type": "monitor",
+  "monitor_type": "doc_level_monitor",
+  "name": "iad-monitor",
+  "enabled": true,
+  "createdBy": "chip",
+  "schedule": {
+    "period": {
+      "interval": 1,
+      "unit": "MINUTES"
+    }
+  },
+  "inputs": [
+    {
+      "doc_level_input": {
+        "description": "windows-powershell",
+        "indices": [
+          "test-logs"
+        ],
+        "queries": [
+          {
+            "id": "sigma-123",
+            "query": "region:\"us-west-2\"",
+            "tags": [
+              "MITRE:8500"
+            ],
+          },
+          {
+            "id": "sigma-456",
+            "query": "region:\"us-east-1\"",
+            "tags": [
+              "MITRE:8600"
+            ],
+          }
+        ]
+      }
+    }
+  ],
+    "triggers": [ { "document_level_trigger": {
+      "name": "test-trigger",
+      "severity": "1",
+      "condition": {
+        "script": {
+          "source": "'sigma-123' && !'sigma-456'",
+          "lang": "painless"
+        }
+      },
+      "actions": []
+  }}]
+}
+```
+
+### Limitations
+
+If you run a document-level query while the index is getting reindexed, the results will not return the reindexed results. You would need to run the query again to get the updates.
+{: .tip}
 
 ## Update monitor
 Introduced 1.0
 {: .label .label-purple }
 
-When you update a monitor, include the current version number as a parameter. OpenSearch increments the version number automatically (see the sample response).
+When updating a monitor, you can optionally include `seq_no` and `primary_term` as URL parameters. If these numbers don't match the existing monitor or the monitor doesn't exist, the alerting plugin throws an error. OpenSearch increments the version number and the sequence number automatically (see the sample response).
 
 #### Request
 
 ```json
 PUT _plugins/_alerting/monitors/<monitor_id>
+{
+  "type": "monitor",
+  "name": "test-monitor",
+  "enabled": true,
+  "enabled_time": 1551466220455,
+  "schedule": {
+    "period": {
+      "interval": 1,
+      "unit": "MINUTES"
+    }
+  },
+  "inputs": [{
+    "search": {
+      "indices": [
+        "*"
+      ],
+      "query": {
+        "query": {
+          "match_all": {
+            "boost": 1
+          }
+        }
+      }
+    }
+  }],
+  "triggers": [{
+    "id": "StaeOmkBC25HCRGmL_y-",
+    "name": "test-trigger",
+    "severity": "1",
+    "condition": {
+      "script": {
+        "source": "return true",
+        "lang": "painless"
+      }
+    },
+    "actions": [{
+      "name": "test-action",
+      "destination_id": "RtaaOmkBC25HCRGm0fxi",
+      "subject_template": {
+        "source": "My Message Subject",
+        "lang": "mustache"
+      },
+      "message_template": {
+        "source": "This is my message body.",
+        "lang": "mustache"
+      }
+    }]
+  }],
+  "last_update_time": 1551466639295
+}
+
+PUT _plugins/_alerting/monitors/<monitor_id>?if_seq_no=3&if_primary_term=1
 {
   "type": "monitor",
   "name": "test-monitor",
@@ -578,6 +701,8 @@ PUT _plugins/_alerting/monitors/<monitor_id>
 {
   "_id": "Q9aXOmkBC25HCRGmzfw-",
   "_version": 4,
+  "_seq_no": 4,
+  "_primary_term": 1,
   "monitor": {
     "type": "monitor",
     "name": "test-monitor",
@@ -650,6 +775,8 @@ GET _plugins/_alerting/monitors/<monitor_id>
 {
   "_id": "Q9aXOmkBC25HCRGmzfw-",
   "_version": 3,
+  "_seq_no": 3,
+  "_primary_term": 1,
   "monitor": {
     "type": "monitor",
     "name": "test-monitor",
@@ -912,7 +1039,6 @@ DELETE _plugins/_alerting/monitors/<monitor_id>
 ```json
 {
   "_index": ".opensearch-scheduled-jobs",
-  "_type": "_doc",
   "_id": "OYAHOmgBl3cmwnqZl_yH",
   "_version": 2,
   "result": "deleted",
@@ -1223,7 +1349,9 @@ POST _plugins/_alerting/destinations
 ```json
 {
   "_id": "nO-yFmkB8NzS6aXjJdiI",
-  "_version": 1,
+  "_version" : 1,
+  "_seq_no" : 3,
+  "_primary_term" : 1,
   "destination": {
     "type": "slack",
     "name": "my-destination",
@@ -1242,10 +1370,21 @@ POST _plugins/_alerting/destinations
 Introduced 1.0
 {: .label .label-purple }
 
+When updating a destination, you can optionally include `seq_no` and `primary_term` as URL parameters. If these numbers don't match the existing destination or the destination doesn't exist, the alerting plugin throws an error. OpenSearch increments the version number and the sequence number automatically (see the sample response).
+
 #### Request
 
 ```json
 PUT _plugins/_alerting/destinations/<destination-id>
+{
+  "name": "my-updated-destination",
+  "type": "slack",
+  "slack": {
+    "url": "http://www.example.com"
+  }
+}
+
+PUT _plugins/_alerting/destinations/<destination-id>?if_seq_no=3&if_primary_term=1
 {
   "name": "my-updated-destination",
   "type": "slack",
@@ -1260,7 +1399,9 @@ PUT _plugins/_alerting/destinations/<destination-id>
 ```json
 {
   "_id": "pe-1FmkB8NzS6aXjqvVY",
-  "_version": 4,
+  "_version" : 2,
+  "_seq_no" : 4,
+  "_primary_term" : 1,
   "destination": {
     "type": "slack",
     "name": "my-updated-destination",
@@ -1438,9 +1579,20 @@ POST _plugins/_alerting/destinations/email_accounts
 Introduced 1.0
 {: .label .label-purple }
 
+When updating an email account, you can optionally include `seq_no` and `primary_term` as URL parameters. If these numbers don't match the existing email account or the email account doesn't exist, the alerting plugin throws an error. OpenSearch increments the version number and the sequence number automatically (see the sample response).
+
 #### Request
 ```json
 PUT _plugins/_alerting/destinations/email_accounts/<email_account_id>
+{
+  "name": "example_account",
+  "email": "example@email.com",
+  "host": "smtp.email.com",
+  "port": 465,
+  "method": "ssl"
+}
+
+PUT _plugins/_alerting/destinations/email_accounts/<email_account_id>?if_seq_no=18&if_primary_term=2
 {
   "name": "example_account",
   "email": "example@email.com",
@@ -1636,10 +1788,20 @@ POST _plugins/_alerting/destinations/email_groups
 Introduced 1.0
 {: .label .label-purple }
 
+When updating an email group, you can optionally include `seq_no` and `primary_term` as URL parameters. If these numbers don't match the existing email group or the email group doesn't exist, the alerting plugin throws an error. OpenSearch increments the version number and the sequence number automatically (see the sample response).
+
 #### Request
 
 ```json
 PUT _plugins/_alerting/destinations/email_groups/<email_group_id>
+{
+  "name": "example_email_group",
+  "emails": [{
+    "email": "example@email.com"
+  }]
+}
+
+PUT _plugins/_alerting/destinations/email_groups/<email_group_id>?if_seq_no=16&if_primary_term=2
 {
   "name": "example_email_group",
   "emails": [{

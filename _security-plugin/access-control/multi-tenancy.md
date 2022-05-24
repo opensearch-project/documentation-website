@@ -7,9 +7,16 @@ nav_order: 30
 
 # OpenSearch Dashboards multi-tenancy
 
-*Tenants* in OpenSearch Dashboards are spaces for saving index patterns, visualizations, dashboards, and other OpenSearch Dashboards objects. By default, all OpenSearch Dashboards users have access to two tenants: **Private** and **Global**. The global tenant is shared between every OpenSearch Dashboards user. The private tenant is exclusive to each user and can't be shared.
+*Tenants* in OpenSearch Dashboards are spaces for saving index patterns, visualizations, dashboards, and other OpenSearch Dashboards objects. Tenants are useful for safely sharing your work with other OpenSearch Dashboards users. You can control which roles have access to a tenant and whether those roles have read or write access. By default, all OpenSearch Dashboards users have access to two independent tenants:
 
-Tenants are useful for safely sharing your work with other OpenSearch Dashboards users. You can control which roles have access to a tenant and whether those roles have read or write access.
+- **Private** - This tenant is exclusive to each user and can't be shared. You can't use it to access routes or index patterns made by the user's global tenant.
+- **Global** - This tenant is shared between every OpenSearch Dashboards user. 
+
+The global tenant is not a *primary* tenant such that any action done within the global tenant is not replicated to a user's private tenant. If you make a change to your global tenant, you won't see that change reflected in your private tenant. Some example changes include, but are not limited to:
+
+- Change advanced settings
+- Create visualizations
+- Create index patterns
 
 You might use the private tenant for exploratory work, create detailed visualizations with your team in an `analysts` tenant, and maintain a summary dashboard for corporate leadership in an `executive` tenant.
 
@@ -22,7 +29,7 @@ http://<opensearch_dashboards_host>:5601/app/opensearch-dashboards?security_tena
 
 ## Configuration
 
-Multi-tenancy is enabled by default, but you can disable it or change its settings using `plugins/opensearch-security/securityconfig/config.yml`:
+Multi-tenancy is enabled by default, but you can disable it or change its settings using `config/opensearch-security/config.yml`:
 
 ```yml
 config:
@@ -46,7 +53,7 @@ Setting | Description
 ```yml
 opensearch.username: kibanaserver
 opensearch.password: kibanaserver
-opensearch.requestHeadersWhitelist: ["securitytenant","Authorization"]
+opensearch.requestHeadersAllowlist: ["securitytenant","Authorization"]
 opensearch_security.multitenancy.enabled: true
 opensearch_security.multitenancy.tenants.enable_global: true
 opensearch_security.multitenancy.tenants.enable_private: true
@@ -56,7 +63,7 @@ opensearch_security.multitenancy.enable_filter: false
 
 Setting | Description
 :--- | :---
-`opensearch.requestHeadersWhitelist` | OpenSearch Dashboards requires that you whitelist all HTTP headers that it passes to OpenSearch. Multi-tenancy uses a specific header, `securitytenant`, that must be present with the standard `Authorization` header. If the `securitytenant` header is not whitelisted, OpenSearch Dashboards starts with a red status.
+`opensearch.requestHeadersAllowlist` | OpenSearch Dashboards requires that you add all HTTP headers to the allow list so that the headers pass to OpenSearch. Multi-tenancy uses a specific header, `securitytenant`, that must be present with the standard `Authorization` header. If the `securitytenant` header is not on the allow list, OpenSearch Dashboards starts with a red status.
 `opensearch_security.multitenancy.enabled` | Enables or disables multi-tenancy in OpenSearch Dashboards. Default is true.
 `opensearch_security.multitenancy.tenants.enable_global` | Enables or disables the global tenant. Default is true.
 `opensearch_security.multitenancy.tenants.enable_private` | Enables or disables the private tenant. Default is true.
@@ -151,8 +158,8 @@ _meta:
 The open source version of OpenSearch Dashboards saves all objects to a single index: `.opensearch-dashboards`. The security plugin uses this index for the global tenant, but separate indices for every other tenant. Each user also has a private tenant, so you might see a large number of indices that follow two patterns:
 
 ```
-.opensearch_dashboards_<hash>_<tenant_name>
-.opensearch_dashboards_<hash>_<username>
+.kibana_<hash>_<tenant_name>
+.kibana_<hash>_<username>
 ```
 
 The security plugin scrubs these index names of special characters, so they might not be a perfect match of tenant names and usernames.

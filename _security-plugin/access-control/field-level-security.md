@@ -27,7 +27,6 @@ You have two options when you configure field-level security: include or exclude
 ```json
 {
   "_index": "movies",
-  "_type": "_doc",
   "_source": {
     "year": 2013,
     "title": "Rush",
@@ -45,7 +44,6 @@ If you exclude fields, users see everything *but* those fields when they retriev
 ```json
 {
   "_index": "movies",
-  "_type": "_doc",
   "_source": {
     "directors": [
       "Ron Howard"
@@ -107,7 +105,6 @@ For example, in the `movies` index, if you include `actors`, `title`, and `year`
 ```json
 {
   "_index": "movies",
-  "_type": "_doc",
   "_source": {
     "year": 2013,
     "directors": [

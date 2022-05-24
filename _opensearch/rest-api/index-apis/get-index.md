@@ -3,7 +3,7 @@ layout: default
 title: Get index
 parent: Index APIs
 grand_parent: REST API reference
-nav_order: 10
+nav_order: 20
 ---
 
 # Get index

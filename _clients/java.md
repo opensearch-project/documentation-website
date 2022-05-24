@@ -6,15 +6,23 @@ nav_order: 65
 
 # Java client
 
+The OpenSearch Java client is currently in its beta phase, so we recommend that you use the [OpenSearch Java high-level REST client]({{site.url}}{{site.baseurl}}/clients/java-rest-high-level).
+{: .note}
+
 The OpenSearch Java client allows you to interact with your OpenSearch clusters through Java methods and data structures rather than HTTP methods and raw JSON.
 
 For example, you can submit requests to your cluster using objects to create indices, add data to documents, or complete some other operation using the client's built-in methods.
 
-## Setup
+## Install the client
 
-To start using the OpenSearch Java client, ensure that you have the following dependency in your project's `pom.xml` file:
+To start using the OpenSearch Java client, ensure that you have the following dependencies in your project's `pom.xml` file:
 
 ```
+<dependency>
+  <groupId>org.opensearch.client</groupId>
+  <artifactId>opensearch-rest-client</artifactId>
+  <version>{{site.opensearch_version}}</version>
+</dependency>
 <dependency>
   <groupId>org.opensearch.client</groupId>
   <artifactId>opensearch-java</artifactId>
@@ -33,9 +41,21 @@ dependencies {
 
 You can now start your OpenSearch cluster.
 
-The following example uses credentials that come with the default OpenSearch configuration. If you're using the OpenSearch Java client with your own OpenSearch cluster, be sure to change the code to use your own credentials.
+## Security
 
-## Sample code
+Before using the REST client in your Java application, you must configure the application's truststore to connect to the security plugin. If you are using self-signed certificates or demo configurations, you can use the following command to create a custom truststore and add in root authority certificates.
+
+If you're using certificates from a trusted Certificate Authority (CA), you don't need to configure the truststore.
+
+```bash
+keytool -import <path-to-cert> -alias <alias-to-call-cert> -keystore <truststore-name>
+```
+
+You can now point your Java client to the truststore and set basic authentication credentials that can access a secure cluster (refer to the sample code below on how to do so).
+
+If you run into issues when configuring security, see [common issues]({{site.url}}{{site.baseurl}}/troubleshoot/index) and [troubleshoot TLS]({{site.url}}{{site.baseurl}}/troubleshoot/tls).
+
+## Sample data
 
 This section uses a class called `IndexData`, which is a simple Java class that stores basic data and methods. For your own OpenSearch cluster, you might find that you need a more robust class to store your data.
 
@@ -74,7 +94,11 @@ static class IndexData {
 }
 ```
 
-### OpenSearch client example
+## Initialize the client with SSL and TLS enabled
+
+This code example uses basic credentials that come with the default OpenSearch configuration. If you’re using the Java client with your own OpenSearch cluster, be sure to change the code to use your own credentials.
+
+The following sample code initializes a client with SSL and TLS enabled:
 
 ```java
 import org.apache.http.HttpHost;
@@ -85,20 +109,134 @@ import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.nio.client.HttpAsyncClientBuilder;
 import org.opensearch.client.RestClient;
 import org.opensearch.client.RestClientBuilder;
-import org.opensearch.clients.base.RestClientTransport;
-import org.opensearch.clients.base.Transport;
-import org.opensearch.clients.json.jackson.JacksonJsonpMapper;
-import org.opensearch.clients.opensearch.OpenSearchClient;
-import org.opensearch.clients.opensearch._global.IndexRequest;
-import org.opensearch.clients.opensearch._global.IndexResponse;
-import org.opensearch.clients.opensearch._global.SearchResponse;
-import org.opensearch.clients.opensearch.indices.*;
-import org.opensearch.clients.opensearch.indices.put_settings.IndexSettingsBody;
+import org.opensearch.client.base.RestClientTransport;
+import org.opensearch.client.base.Transport;
+import org.opensearch.client.json.jackson.JacksonJsonpMapper;
+import org.opensearch.client.opensearch.OpenSearchClient;
+import org.opensearch.client.opensearch._global.IndexRequest;
+import org.opensearch.client.opensearch._global.IndexResponse;
+import org.opensearch.client.opensearch._global.SearchResponse;
+import org.opensearch.client.opensearch.indices.*;
+import org.opensearch.client.opensearch.indices.put_settings.IndexSettingsBody;
 
 import java.io.IOException;
 
 public class OpenSearchClientExample {
   public static void main(String[] args) {
+    RestClient restClient = null;
+    try{
+    System.setProperty("javax.net.ssl.trustStore", "/full/path/to/keystore");
+    System.setProperty("javax.net.ssl.trustStorePassword", "password-to-keystore");
+
+    //Only for demo purposes. Don't specify your credentials in code.
+    final CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
+    credentialsProvider.setCredentials(AuthScope.ANY,
+        new UsernamePasswordCredentials("admin", "admin"));
+
+    //Initialize the client with SSL and TLS enabled
+    restClient = RestClient.builder(new HttpHost("localhost", 9200, "https")).
+      setHttpClientConfigCallback(new RestClientBuilder.HttpClientConfigCallback() {
+        @Override
+        public HttpAsyncClientBuilder customizeHttpClient(HttpAsyncClientBuilder httpClientBuilder) {
+        return httpClientBuilder.setDefaultCredentialsProvider(credentialsProvider);
+        }
+      }).build();
+    Transport transport = new RestClientTransport(restClient, new JacksonJsonpMapper());
+    OpenSearchClient client = new OpenSearchClient(transport);
+  }
+ }
+}
+```
+
+## OpenSearch client examples
+
+This section has sample code that shows you how to create an index with non-default settings, add a document to the index, search for the document, delete the document, and finally delete the index.
+
+### Create an index with non-default settings
+
+```java
+String index = "sample-index";
+CreateRequest createIndexRequest = new CreateRequest.Builder().index(index).build();
+client.indices().create(createIndexRequest);
+
+IndexSettings indexSettings = new IndexSettings.Builder().autoExpandReplicas("0-all").build();
+IndexSettingsBody settingsBody = new IndexSettingsBody.Builder().settings(indexSettings).build();
+PutSettingsRequest putSettingsRequest = new PutSettingsRequest.Builder().index(index).value(settingsBody).build();
+client.indices().putSettings(putSettingsRequest);
+```
+
+### Index data
+
+```java
+IndexData indexData = new IndexData("first_name", "Bruce");
+IndexRequest<IndexData> indexRequest = new IndexRequest.Builder<IndexData>().index(index).id("1").value(indexData).build();
+client.index(indexRequest);
+```
+
+### Search for the document
+
+```java
+SearchResponse<IndexData> searchResponse = client.search(s -> s.index(index), IndexData.class);
+for (int i = 0; i< searchResponse.hits().hits().size(); i++) {
+  System.out.println(searchResponse.hits().hits().get(i).source());
+}
+```
+
+### Delete the document
+
+The following sample code deletes a document whose ID is 1.
+
+```java
+client.delete(b -> b.index(index).id("1"));
+```
+
+### Delete the index
+
+```java
+DeleteRequest deleteRequest = new DeleteRequest.Builder().index(index).build();
+DeleteResponse deleteResponse = client.indices().delete(deleteRequest);
+
+} catch (IOException e){
+    System.out.println(e.toString());
+} finally {
+    try {
+      if (restClient != null) {
+        restClient.close();
+      }
+    } catch (IOException e) {
+        System.out.println(e.toString());
+      }
+    }
+  }
+}
+```
+
+## Complete code sample
+
+```java
+import org.apache.http.HttpHost;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.CredentialsProvider;
+import org.apache.http.impl.client.BasicCredentialsProvider;
+import org.apache.http.impl.nio.client.HttpAsyncClientBuilder;
+import org.opensearch.client.RestClient;
+import org.opensearch.client.RestClientBuilder;
+import org.opensearch.client.base.RestClientTransport;
+import org.opensearch.client.base.Transport;
+import org.opensearch.client.json.jackson.JacksonJsonpMapper;
+import org.opensearch.client.opensearch.OpenSearchClient;
+import org.opensearch.client.opensearch._global.IndexRequest;
+import org.opensearch.client.opensearch._global.IndexResponse;
+import org.opensearch.client.opensearch._global.SearchResponse;
+import org.opensearch.client.opensearch.indices.*;
+import org.opensearch.client.opensearch.indices.put_settings.IndexSettingsBody;
+
+import java.io.IOException;
+
+public class OpenSearchClientExample {
+  public static void main(String[] args) {
+    RestClient restClient = null;
     try{
     System.setProperty("javax.net.ssl.trustStore", "/full/path/to/keystore");
     System.setProperty("javax.net.ssl.trustStorePassword", "password-to-keystore");
@@ -109,7 +247,7 @@ public class OpenSearchClientExample {
       new UsernamePasswordCredentials("admin", "admin"));
 
     //Initialize the client with SSL and TLS enabled
-    RestClient restClient = RestClient.builder(new HttpHost("localhost", 9200, "https")).
+    restClient = RestClient.builder(new HttpHost("localhost", 9200, "https")).
       setHttpClientConfigCallback(new RestClientBuilder.HttpClientConfigCallback() {
         @Override
         public HttpAsyncClientBuilder customizeHttpClient(HttpAsyncClientBuilder httpClientBuilder) {
@@ -148,13 +286,12 @@ public class OpenSearchClientExample {
     DeleteRequest deleteRequest = new DeleteRequest.Builder().index(index).build();
     DeleteResponse deleteResponse = client.indices().delete(deleteRequest);
 
-    restClient.close();
     } catch (IOException e){
       System.out.println(e.toString());
     } finally {
       try {
-        if (client != null) {
-          client.close();
+        if (restClient != null) {
+          restClient.close();
         }
       } catch (IOException e) {
         System.out.println(e.toString());

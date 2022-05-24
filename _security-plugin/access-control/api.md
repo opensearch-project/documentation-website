@@ -86,7 +86,7 @@ kibana_user:
 
 Hidden resources are automatically reserved.
 
-To add or remove these flags, modify `plugins/opensearch-security/securityconfig/internal_users.yml` and run `plugins/opensearch-security/tools/securityadmin.sh`.
+To add or remove these flags, modify `config/opensearch-security/internal_users.yml` and run `plugins/opensearch-security/tools/securityadmin.sh`.
 
 
 ---
@@ -1299,7 +1299,7 @@ Retrieves the cluster's security certificates.
 #### Request
 
 ```
-GET _opendistro/_security/api/ssl/certs
+GET _plugins/_security/api/ssl/certs
 ```
 
 #### Sample response

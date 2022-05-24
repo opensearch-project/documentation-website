@@ -210,7 +210,6 @@ GET shakespeare/_search
     "hits": [
       {
         "_index": "shakespeare",
-        "_type": "_doc",
         "_id": "22006",
         "_score": 9.712725,
         "_source": {
@@ -225,7 +224,6 @@ GET shakespeare/_search
       },
       {
         "_index": "shakespeare",
-        "_type": "_doc",
         "_id": "54665",
         "_score": 9.712725,
         "_source": {
@@ -327,8 +325,7 @@ The phrase "to be" is prefix matched with the FST of the `text_entry` field.
         "options": [
           {
             "text": "To be a comrade with the wolf and owl,--",
-            "_index": "shakespeare",
-            "_type": "_doc",
+            "_index": "shakespeare",          
             "_id": "50652",
             "_score": 1,
             "_source": {
@@ -344,7 +341,6 @@ The phrase "to be" is prefix matched with the FST of the `text_entry` field.
           {
             "text": "To be a make-peace shall become my age:",
             "_index": "shakespeare",
-            "_type": "_doc",
             "_id": "78566",
             "_score": 1,
             "_source": {
@@ -411,7 +407,6 @@ GET shakespeare/_search
           {
             "text": "To make a bastard and a slave of me!",
             "_index": "shakespeare",
-            "_type": "_doc",
             "_id": "5369",
             "_score": 4,
             "_source": {
@@ -427,7 +422,6 @@ GET shakespeare/_search
           {
             "text": "To make a bloody supper in the Tower.",
             "_index": "shakespeare",
-            "_type": "_doc",
             "_id": "12504",
             "_score": 4,
             "_source": {
@@ -513,7 +507,6 @@ You see the indexed document as the first result:
           {
             "text": "To be, or not to be: that is the question:",
             "_index": "shakespeare",
-            "_type": "_doc",
             "_id": "1",
             "_score": 30,
             "_source": {
@@ -529,7 +522,6 @@ You see the indexed document as the first result:
           {
             "text": "To make a bastard and a slave of me!",
             "_index": "shakespeare",
-            "_type": "_doc",
             "_id": "5369",
             "_score": 4,
             "_source": {

@@ -6,13 +6,13 @@ nav_order: 10
 
 # Get started with cross-cluster replication
 
-With cross-cluster replication, you index data to a leader index, and OpenSearch replicates that data to one or more read-only follower indices. All subsequent operations on the leader are replicated on the follower, such as creating, updating, or deleting documents.
+With cross-cluster replication, you index data to a leader index, and OpenSearch replicates that data to one or more read-only follower indexes. All subsequent operations on the leader are replicated on the follower, such as creating, updating, or deleting documents.
 
 ## Prerequisites
 
 Cross-cluster replication has the following prerequisites:
 - Both the leader and follower cluster must have the replication plugin installed.
-- If you've overridden `node.roles` in `opensearch.yml` on the remote cluster, make sure it also includes the `remote_cluster_client` role:
+- If you've overridden `node.roles` in `opensearch.yml` on the follower cluster, make sure it also includes the `remote_cluster_client` role:
 
    ```yaml
    node.roles: [<other_roles>, remote_cluster_client]
@@ -22,17 +22,37 @@ Cross-cluster replication has the following prerequisites:
 
 Make sure the security plugin is either enabled on both clusters or disabled on both clusters. If you disabled the security plugin, you can skip this section. However, we strongly recommend enabling the security plugin in production scenarios.
 
-If the security plugin is enabled, non-admin users need to be mapped to the appropriate permissions in order to perform replication actions. For index and cluster-level permissions requirements, see [Cross-cluster replication permissions]({{site.url}}{{site.baseurl}}/replication-plugin/permissions/).
+If the security plugin is enabled, make sure that non-admin users are mapped to the appropriate permissions so they can perform replication actions. For index and cluster-level permissions requirements, see [Cross-cluster replication permissions]({{site.url}}{{site.baseurl}}/replication-plugin/permissions/).
 
-In addition, add the following setting to `opensearch.yml` on the leader cluster so it allows connections from the follower cluster: 
+In addition, verify and add the distinguished names (DNs) of each follower cluster node on the leader cluster to allow connections from the followers to the leader.
 
-```yml
-plugins.security.nodes_dn_dynamic_config_enabled: true
-```
+First, get the node's DN from each follower cluster:
 
+  ```bash
+curl -XGET -k -u 'admin:admin' 'https://localhost:9200/_opendistro/_security/api/ssl/certs?pretty'
+
+{
+   "transport_certificates_list": [
+      {
+         "issuer_dn" : "CN=Test,OU=Server CA 1B,O=Test,C=US",
+         "subject_dn" : "CN=follower.test.com", # To be added under leader's nodes_dn configuration
+         "not_before" : "2021-11-12T00:00:00Z",
+         "not_after" : "2022-12-11T23:59:59Z"
+      }
+   ]
+}
+  ```
+
+Then verify that it's part of the leader cluster configuration in `opensearch.yml`. Otherwise, add it under the following setting:
+
+  ```yaml
+plugins.security.nodes_dn:
+  - "CN=*.leader.com, OU=SSL, O=Test, L=Test, C=DE" # Already part of the configuration
+  - "CN=follower.test.com" # From the above response from follower
+  ```
 ## Example setup
 
-Save this sample file as `docker-compose.yml` and run `docker-compose up` to start two single-node clusters on the same network:
+To start two single-node clusters on the same network, save this sample file as `docker-compose.yml` and run `docker-compose up`:
 
 ```yml
 version: '3'
@@ -164,7 +184,7 @@ curl -XPUT -k -H 'Content-Type: application/json' -u 'admin:admin' 'https://loca
 If the security plugin is disabled, omit the `use_roles` parameter. If it's enabled, however, you must specify the leader and follower cluster roles that OpenSearch will use to authenticate the request. This example uses `all_access` for simplicity, but we recommend creating a replication user on each cluster and [mapping it accordingly]({{site.url}}{{site.baseurl}}/replication-plugin/permissions/#map-the-leader-and-follower-cluster-roles).
 {: .tip }
 
-This command creates an identical read-only index named `follower-01` on the local cluster that continuously stays updated with changes to the `leader-01` index on the remote cluster. Starting replication creates a follower index from scratch; you can't convert an existing index to a follower index. 
+This command creates an identical read-only index named `follower-01` on the follower cluster that continuously stays updated with changes to the `leader-01` index on the leader cluster. Starting replication creates a follower index from scratch -- you can't convert an existing index to a follower index. 
 
 ## Confirm replication
 
@@ -187,9 +207,9 @@ curl -XGET -k -u 'admin:admin' 'https://localhost:9200/_plugins/_replication/fol
 }
 ```
 
-Possible statuses are `SYNCING`, `BOOTSTRAPING`, `PAUSED`, and `REPLICATION NOT IN PROGRESS`. 
+Possible statuses are `SYNCING`, `BOOTSTRAPPING`, `PAUSED`, and `REPLICATION NOT IN PROGRESS`. 
 
-The leader and follower checkpoint values begin as negative numbers and reflect the shard count (-1 for one shard, -5 for five shards, and so on). The values increment with each change and illustrate how many updates the follower is behind the leader. If the indices are fully synced, the values are the same.
+The leader and follower checkpoint values begin as negative numbers and reflect the shard count (-1 for one shard, -5 for five shards, and so on). The values increment with each change and illustrate how many updates the follower is behind the leader. If the indexes are fully synced, the values are the same.
 
 To confirm that replication is actually happening, add a document to the leader index:
 
@@ -206,7 +226,6 @@ curl -XGET -k -u 'admin:admin' 'https://localhost:9200/follower-01/_search?prett
   ...
   "hits": [{
     "_index": "follower-01",
-    "_type": "_doc",
     "_id": "1",
     "_score": 1.0,
     "_source": {
@@ -224,7 +243,7 @@ You can temporarily pause replication of an index if you need to remediate issue
 curl -XPOST -k -H 'Content-Type: application/json' -u 'admin:admin' 'https://localhost:9200/_plugins/_replication/follower-01/_pause?pretty' -d '{}'
 ```
 
-To confirm replication is paused, get the status:
+To confirm that replication is paused, get the status:
 
 ```bash
 curl -XGET -k -u 'admin:admin' 'https://localhost:9200/_plugins/_replication/follower-01/_status?pretty'
@@ -250,7 +269,7 @@ Note that you can't resume replication after it's been paused for more than 12 h
 
 ## Stop replication
 
-Terminate replication of a specified index from the follower cluster:
+When you no longer need to replicate an index, terminate replication from the follower cluster:
 
 ```bash
 curl -XPOST -k -H 'Content-Type: application/json' -u 'admin:admin' 'https://localhost:9200/_plugins/_replication/follower-01/_stop?pretty' -d '{}'

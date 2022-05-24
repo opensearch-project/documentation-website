@@ -23,8 +23,8 @@ This page includes troubleshooting steps for using OpenID Connect with the secur
 To help troubleshoot OpenID Connect, set the log level to `debug` on OpenSearch. Add the following lines in `config/log4j2.properties` and restart the node:
 
 ```
-logger.plugins.security.name = com.amazon.dlic.auth.http.jwt
-logger.plugins.security.level = trace
+logger.securityjwt.name = com.amazon.dlic.auth.http.jwt
+logger.securityjwt.level = trace
 ```
 
 This setting prints a lot of helpful information to your log file. If this information isn't sufficient, you can also set the log level to `trace`.
