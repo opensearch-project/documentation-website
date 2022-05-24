@@ -224,13 +224,13 @@ POST /_plugins/_notifications/configs/
     "name": "Sample Email Channel",
     "description": "Sample email description",
     "config_type": "email",
-    "is_enabled" : true,
-    "email" : {
-    "email_account_id" : "<email_account_id>",
-    "recipient_list" : [
-      "sample@email.com"
-    ]
-  }
+    "is_enabled": true,
+    "email": {
+      "email_account_id": "<email_account_id>",
+      "recipient_list": [
+        "sample@email.com"
+      ]
+    }
   }
 }
 ```

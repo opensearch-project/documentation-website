@@ -119,7 +119,7 @@ To send or receive notifications with email, choose **Email** as the channel typ
 
 ### Authenticate sender account
 
-If your email provider requires SSL or TLS, you must authenticate each sender account before you can send an email. Enter these credentials in the OpenSearch keystore using the command line interface (CLI). Run the following commands (in your OpenSearch directory) to enter your user name and password. The &lt;sender_name&gt; is the name you entered for **Sender** earlier.
+If your email provider requires SSL or TLS, you must authenticate each sender account before you can send an email. Enter the sender account credentials in the OpenSearch keystore using the command line interface (CLI). Run the following commands (in your OpenSearch directory) to enter your user name and password. The &lt;sender_name&gt; is the name you entered for **Sender** earlier.
 
 ```json
 opensearch.notifications.core.email.<sender_name>.username
