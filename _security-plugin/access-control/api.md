@@ -1299,7 +1299,7 @@ Retrieves the cluster's security certificates.
 #### Request
 
 ```
-GET _opendistro/_security/api/ssl/certs
+GET _plugins/_security/api/ssl/certs
 ```
 
 #### Sample response
