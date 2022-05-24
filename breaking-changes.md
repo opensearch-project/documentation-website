@@ -16,7 +16,7 @@ The `type` parameter has been removed from all OpenSearch API endpoints. Instead
 In order for OpenSearch to include more inclusive naming conventions, we've replaced the following terms in our code with a more inclusive term:
 
 - "White list" is now "Allow list"
-- "Black list is now "Block list"
+- "Black list" is now "Block list"
 - "Master" is now "Cluster Manager"
 
 If you are still using the outdated terms in the context of the security APIs or for node management, your calls and automation will continue to work until the terms are removed later in 2022. 
