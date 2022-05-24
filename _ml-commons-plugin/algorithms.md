@@ -7,7 +7,7 @@ nav_order: 100
 
 # Supported Algorithms
 
-ML Commons supports various algorithms to help train and predict ML models or test data-driven predictions without a model. This page outlines the algorithms supported by the ML Commons plugin and the API actions they support
+ML Commons supports various algorithms to help train and predict ML models or test data-driven predictions without a model. This page outlines the algorithms supported by the ML Commons plugin and the API actions they support.
 
 ## Common limitation
 
@@ -15,7 +15,7 @@ Except for the Localization algorithm, all of the following algorithms can only 
 
 ## K-Means
 
-K-Means is a simple and popular unsupervised clustering ML algorithm. K-Means will randomly choose centroids, then calculate iteratively to optimize the position of the centroids until each observation belongs to the cluster with the nearest mean.
+K-Means is a simple and popular unsupervised clustering ML algorithm, built on top of [Tribuo](https://tribuo.org/) library. K-Means will randomly choose centroids, then calculate iteratively to optimize the position of the centroids until each observation belongs to the cluster with the nearest mean.
 
 ### Parameters
 
@@ -27,9 +27,9 @@ distance_type | enum, such as `EUCLIDEAN`, `COSINE`, or `L1` | Type of measureme
 
 ### APIs
 
-* [Train](https://opensearch.org/docs/latest/ml-commons-plugin/api/#train-model)
-* [Predict](https://opensearch.org/docs/latest/ml-commons-plugin/api/#predict)
-* [Train and predict](https://opensearch.org/docs/latest/ml-commons-plugin/api/#train-and-predict)
+* [Train]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#train-model)
+* [Predict]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#predict)
+* [Train and predict]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#train-and-predict)
 
 ### Example
 
@@ -77,12 +77,12 @@ optimizerType | OptimizerType | The optimizer used in the model | SIMPLE_SGD
 
 ### APIs
 
-* [Train](https://opensearch.org/docs/latest/ml-commons-plugin/api/#train-model)
-* [Predict](https://opensearch.org/docs/latest/ml-commons-plugin/api/#predict)
+* [Train]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#train-model)
+* [Predict]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#predict)
 
 ### Example
 
-The following example predicts based on the previously trained linear regression model.
+The following example creates a new prediction based on the previously trained linear regression model.
 
 **Request**
 
@@ -155,8 +155,8 @@ ML Commons only supports the linear Stochastic gradient trainer or optimizer, wh
 
 [Random Cut Forest](https://github.com/aws/random-cut-forest-by-aws) (RCF) is a probabilistic data structure used primarily for unsupervised anomaly detection. Its use also extends to density estimation and forecasting. OpenSearch leverages RCF for anomaly detection. ML Commons supports two new variants of RCF for different use cases:
 
-* Batch RCF: Detect anomalies in non-time-series data 
-* Fixed in time (FIT) RCF: Detect anomalies in time-series data
+* Batch RCF: Detects anomalies in non-time series data. 
+* Fixed in time (FIT) RCF: Detects anomalies in time series data.
 
 ### Parameters
 
@@ -181,24 +181,24 @@ output_after | integer | The number of points required by stream samplers before
 time_decay | double | The decay factor used by stream samplers in the forest | 0.0001 
 anomaly_rate | double | The anomaly rate | 0.005
 time_field | string | (**Required**) The time filed for RCF to use as time-series data | N/A
-date_format | string | The date and time formatting for the time_field field | "yyyy-MM-ddHH:mm:ss"
+date_format | string | The date and time format for the time_field field | "yyyy-MM-ddHH:mm:ss"
 time_zone | string | The time zone for the time_field field | "UTC" 
 
 
 ### APIs
 
-* [Train](https://opensearch.org/docs/latest/ml-commons-plugin/api/#train-model)
-* [Predict](https://opensearch.org/docs/latest/ml-commons-plugin/api/#predict)
-* [Train and predict](https://opensearch.org/docs/latest/ml-commons-plugin/api/#train-and-predict)
+* [Train]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#train-model)
+* [Predict]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#predict)
+* [Train and predict]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#train-and-predict)
 
 
 ### Limitations
 
-For FIT RCF, you can train the model with historical data, and store the trained model in your index. The model will be deserialized and predict new data points when using the Predict API. But the model in the index will not be refreshed with new data, because the model is "Fixed In Time".
+For FIT RCF, you can train the model with historical data, and store the trained model in your index. The model will be deserialized and predict new data points when using the Predict API. However, the model in the index will not be refreshed with new data, because the model is "Fixed In Time".
 
 ## Localization 
 
-Finding subset level information for aggregate data (for example, aggregated over time) that demonstrates the activity of interest (spikes, drops, changes, anomalies) is a critical insight. Localization can be applied in different scenarios, such as data exploration, root cause analysis, etc., to expose the contributors driving the activity of interest in the aggregate data.
+The Localization algorithm finds subset level information for aggregate data (for example, aggregated over time) that demonstrates the activity of interest, such as spikes, drops, changes or anomalies. Localization can be applied in different scenarios, such as data exploration or root cause analysis, to expose the contributors driving the activity of interest in the aggregate data.
 
 ### Parameters
 
