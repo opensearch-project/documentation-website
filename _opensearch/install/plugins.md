@@ -65,6 +65,7 @@ bin/opensearch-plugin list
   </thead>
   <tbody>
   <tr>
+  <tr>
     <td>2.0.0.0</td>
     <td>
       <pre>opensearch-alerting                  2.0.0.0
