@@ -508,13 +508,13 @@ POST _plugins/_alerting/monitors
   }
 }
 ```
-## Create document-level monitor
+## Create a per document monitor
 Introduced 2.0
 {: .label .label-purple }
 
-Document-level monitors, aka "per document monitors," run the query and check whether or not the results should trigger an alert notification based on individual documents within an index.
+You can create a per document monitor to run a query and check whether or not the results should trigger an alert notification based on individual documents within an index.
 
-You can combine multiple queries in a document-level monitor by adding a tag to each query, and then setting the trigger condition to that tag.
+You can combine multiple queries in a per document monitor by adding a tag to each query, and then setting the trigger condition to that tag.
 
 For more information about document-level monitors, see [Monitor types]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/#monitor-types).
 
