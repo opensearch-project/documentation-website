@@ -16,10 +16,10 @@ The `type` parameter has been removed from all OpenSearch API endpoints. Instead
 In order for OpenSearch to include more inclusive naming conventions, we've replaced the following terms in our code with a more inclusive term:
 
 - "White list" is now "Allow list".
-- "Black list is now "White list".
+- "Black list is now "Block list".
 - "Master" is now "Cluster Manager".
 
-If you are still using the outdated terms in the context of the security APIs or for Node management, your calls and automation will continue to work until the terms are removed later in 2022. 
+If you are still using the outdated terms in the context of the security APIs or for node management, your calls and automation will continue to work until the terms are removed later in 2022. 
 
 ### Deprecate Compatibility Override
 
@@ -27,4 +27,4 @@ The override main response setting `compatibility.override_main_response_version
 
 ### Add OpenSearch Notifications Plugin
 
-In OpenSearch 2.0, the Altering plugin is now integrated with the new OpenSearch Notifications plugin. To continue using the notification action in the Alerting plugin, you need to install the backend plugins `notifications-core` and `notifications`. You can also install the Notifications Dashboards plugin to manage Notification channels via OpenSearch Dashboards. For more information, see [Questions about destinations]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors#questions-about-destinations) on the Monitors page.
+In OpenSearch 2.0, the Alerting plugin is now integrated with new plugins for Notifications. If you want to continue to use the notification action in the Alerting plugin, install the new backend plugins `notifications-core` and `notifications`. If you want to manage notifications in OpenSearch Dashboards, use the new `notificationsDashboards` plugin. For more information, see [Questions about destinations]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors#questions-about-destinations) on the Monitors page.
