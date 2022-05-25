@@ -13,7 +13,7 @@ The Notifications plugin provides a central location for all of your notificatio
 
 You can use either OpenSearch Dashboards or the REST API to configure notifications. Dashboards offers a more organized way of selecting a channel type and selecting which OpenSearch plugin sources you want to use, whereas the REST API lets you programmatically define your notification channels for better versioning and reuse later on.
 
-1. Use the Dashboards UI to first create a channel that receives notifications from other plugins. Supported communication channels include Amazon Chime, Amazon Simple Notification Service (Amazon SNS), Amazon Simple Email Service (Amazon SES), email through SMTP, Slack, and custom webhooks when selecting how you want the plugin to send notifications. After you’ve configured your channel and plugin sources, send messages and start tracking your notifications from the Notifications plugin's dashboard.
+1. Use the Dashboards UI to first create a channel that receives notifications from other plugins. Supported communication channels include Amazon Chime, Amazon Simple Notification Service (Amazon SNS), Amazon Simple Email Service (Amazon SES), email through SMTP, Slack, and custom webhooks. After you’ve configured your channel and plugin sources, send messages and start tracking your notifications from the Notifications plugin's dashboard.
 
 2. Use the Notifications REST API to configure all of your channel's settings. To use the API, you must have your notification's name, description, channel type, which OpenSearch plugins to use as sources, and other associated URLs or groups.
 
