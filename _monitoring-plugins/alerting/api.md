@@ -512,9 +512,17 @@ POST _plugins/_alerting/monitors
 Introduced 2.0
 {: .label .label-purple }
 
-The per document monitor generates an alert based on an individual document in an index. A per document monitor query checks whether or not the results should trigger an alert notification based on trigger conditions that match individual documents within an index.
+Per document monitors check whether or not individual documents in an index should trigger an alert. You can create trigger conditions based on query names, query IDs, or tags. You can combine multiple queries in a per document monitor by adding a tag to each query and then setting the trigger condition to that tag.
 
-You can combine multiple queries in a per document monitor by adding a tag to each query and then setting the trigger condition to that tag.
+You can define triggers based on a query name, query ID, or a tag name. The following table shows the syntax to use for each trigger option:
+
+When you run a query with a per document monitor, the results are returned for each document that matches the trigger condition.
+
+Trigger options | Definition | Syntax
+:--- | :--- : :---
+Tag | Creates alerts for documents that match a muliple query with this tag applied. If you group multiple queries by a single tag, then you can set it to trigger an alert if the results are returned by this tag name.| `query[tag=<tag-name>]`
+Query by name | Creates alerts for documents matched or returned by the named query.  | `query[name=<query-name>]`
+Query by ID | Creates alerts for documents that were returned by the identified query. | `query[id=<query-id>]`
 
 For more information about per document monitors, see [Monitor types]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/#monitor-types).
 
@@ -549,18 +557,6 @@ Path parameter | Description | Usage
 
 
 ### Create a per document monitor
-
-#### How to define a trigger
-
-A trigger is a conditional statement that you define. When the condition is met by a monitor query, then the monitor generates the alert notification.
-
-You can define triggers based on a query name, query ID, or a tag name. The following table shows the syntax to use for each trigger option:
-
-Trigger type | Definition | Syntax
-:--- | :--- : :---
-Tag | Creates alerts for documents that match a unique tag. | `query[tag=<tag-name>]`
-Query | Creates alerts for documents that match a query name. | `query[name=<query-name>]`
-Unique query | Creates alerts for documents that match a unique query. | `query[id=<query-id>]`
 
 #### Sample Request
 
