@@ -107,7 +107,7 @@ To send or receive notifications with email, choose **Email** as the channel typ
 ### Create email sender
 
 1. Specify a unique name to associate with the sender.
-2. Enter an email address and, if applicable its host (for example, smtp.gmail.com), and the port. If you're using Amazon SES, enter the IAM role Amazon Resource Name (ARN) of the AWS account to send notifications from, along with the AWS Region.
+2. Enter an email address and, if applicable, its host (for example, smtp.gmail.com) and the port. If you're using Amazon SES, enter the IAM role Amazon Resource Name (ARN) of the AWS account to send notifications from, along with the AWS Region.
 3. Choose an encryption method. Most email providers require Secure Sockets Layer (SSL) or Transport Layer Security (TLS), which require a user name and password in the OpenSearch keystore. See [Authenticate sender account](#authenticate-sender-account) to learn more. Selecting an encryption method is only applicable if you're creating an SMTP sender.
 4. Choose **Create** to save the configuration and create the sender. You can create a sender before you add your credentials to the OpenSearch keystore; however, you must [authenticate each sender account](#authenticate-sender-account) before you use the sender in your channel configuration.
 
