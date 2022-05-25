@@ -7,7 +7,7 @@ nav_order: 15
 
 # Alerting API
 
-Use the alerting API to programmatically manage monitors and alerts.
+Use the Alerting API to programmatically create, update and manage monitors and alerts.
 
 ---
 
@@ -18,11 +18,11 @@ Use the alerting API to programmatically manage monitors and alerts.
 
 ---
 
-## Create query-level monitor
+## Create a per query monitor
 Introduced 1.0
 {: .label .label-purple }
 
-Query-level monitors run the query and check whether the results should trigger any alerts. As such, query-level monitors can only trigger one alert at a time. For more information about query-level monitors versus bucket-level monitors, see [Create monitors]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/#create-monitors).
+Per query monitors run the query and check whether the results should trigger any alerts. As such, per query monitors can only trigger one alert at a time. For more information about per query monitors and per bucket monitors, see [Create monitors]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/#create-monitors).
 
 #### Request
 
@@ -250,15 +250,15 @@ For a full list of timezone names, refer to [Wikipedia](https://en.wikipedia.org
 
 ---
 
-## Create bucket-level monitor
+## Create a per bucket monitor
 
-Bucket-level monitors categorize results into buckets separated by fields. The monitor then runs your script with each bucket's results and evaluates whether to trigger an alert. For more information about bucket-level monitors versus query-level monitors, see [Create monitors]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/#create-monitors).
+Per bucket monitors categorize results into buckets separated by fields. The monitor then runs your script with each bucket's results and evaluates whether to trigger an alert. For more information about per bucket and per query monitors, see [Create monitors]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/#create-monitors).
 
 ```json
 POST _plugins/_alerting/monitors
 {
   "type": "monitor",
-  "name": "test-bucket-level-monitor",
+  "name": "Demo per bucket monitor",
   "monitor_type": "bucket_level_monitor",
   "enabled": true,
   "schedule": {
@@ -379,7 +379,7 @@ POST _plugins/_alerting/monitors
   "monitor" : {
     "type" : "monitor",
     "schema_version" : 4,
-    "name" : "test-bucket-level-monitor",
+    "name" : "Demo a per bucket monitor",
     "monitor_type" : "bucket_level_monitor",
     "user" : {
       "name" : "",
@@ -508,17 +508,15 @@ POST _plugins/_alerting/monitors
   }
 }
 ```
-## Create a document-level monitor
+## Create a per document monitor
 Introduced 2.0
 {: .label .label-purple }
 
-You can create a document-level monitor programmatically that functions the same as a per document monitor in OpenSearch Dashboards. The document-level monitor runs a query that checks whether or not the results should trigger an alert notification based on individual documents within an index.
+You can create a per document monitor programmatically that functions the same as a per document monitor in OpenSearch Dashboards. The per document monitor allows you to generate an alert on individual documents in an index. It runs a query that checks whether or not the results should trigger an alert notification based on individual documents within an index. This is the only monitor that allows document-level alerting.
 
 You can combine multiple queries in a per document monitor by adding a tag to each query and then setting the trigger condition to that tag.
 
-For more information about document-level monitors, see [Monitor types]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/#monitor-types).
-
-OpenSearch provides a Findings index: `.opensearch-alerting-finding*` that contains findings data for all per document monitor queries.
+For more information about per document monitors, see [Monitor types]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/#monitor-types).
 
 ### Search for monitor findings
 
@@ -651,7 +649,7 @@ POST _plugins/_alerting/monitors
 
 ### Limitations
 
-If you run a document-level query while the index is getting reindexed, the results will not return the reindexed results. You would need to run the query again to get the updates.
+If you run a per document query while the index is getting reindexed, the results will not return the reindexed results. You would need to run the query again to get the updates.
 {: .tip}
 
 ## Update monitor

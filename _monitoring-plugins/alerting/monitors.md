@@ -22,21 +22,24 @@ The OpenSearch Dashboard Alerting plugin provides four monitor types:
 * **per cluster metrics** – This monitor runs API requests on the cluster to monitor its health.
 * **per document** – This monitor runs a query (or multiple queries combined by a tag) that returns individual documents that match the alert notification trigger condition.
 
-### More about per document monitors
+## Per document monitors
+
+Introduced 2.0
+{: .label .label-purple }
 
 The per query and per bucket monitors can only take a single query with one trigger condition. Per document monitors allow you to combine multiple query trigger conditions by adding a tag to the queries. Then you can add the tag as a single trigger condition instead of specifying a single query. The Alerting plugin processes the trigger conditions from all queries as a logical OR operation, so if any of the query conditions are met, it generates the alert notification.
 
-The Alerting plugin also creates a list of document findings data that contains metadata about which document matches each query. Security analytics can use the document findings data to keep track of and analyze the query data separately from the alert processes.
-
-The following metadata is provided for each document finding entry:
-
-* **Document** – The document ID and index name. For example: Re5akdirhj3fl | test-logs-index.
-* **Query** – The query name that matched the document.
-* **Time found** – The timestamp that indicates when the document was found during the runtime.
+The Alerting plugin also creates a list of document findings that contains metadata about which document matches each query. Security analytics can use the document findings data to keep track of and analyze the query data separately from the alert processes.
 
 ### Document findings
 
-When a per document monitor executes a query that matches a document in an index, a finding is created.
+When a per document monitor executes a query that matches a document in an index, a finding is created. OpenSearch provides a Findings index: `.opensearch-alerting-finding*` that contains findings data for all per document monitor queries. You can search the findings index with the Alerting API. To learn more, see [Search for monitor findings]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/api/#search-for-monitor-findings).
+
+The following metadata is provided for each document finding entry:
+
+* **Document** – The document ID and index name. For example: `Re5akdirhj3fl | test-logs-index`.
+* **Query** – The query name that matched the document.
+* **Time found** – The timestamp that indicates when the document was found during the runtime.
 
 It is possible to configure an alert notification for each finding, however we don't recommend this unless rules are well defined to prevent a huge volume of findings in a high ingestion cluster.
 
@@ -51,6 +54,7 @@ Tag | A label that can be applied to multiple queries to combine them with the l
 Alert | An event associated with a trigger. When an alert is created, the trigger performs *actions*, which can include sending a notification.
 Action | The information that you want the monitor to send out after being triggered. Actions have a *destination*, a message subject, and a message body.
 Destination | A reusable location for an action. Supported locations are Amazon Chime, Email, Slack, or custom webhook.
+Finding | An entry for an individual document found by a per document monitor query that contains the Document ID, index name, and timestamp. Findings are stored in the Findings index: `.opensearch-alerting-finding*`.
 
 ---
 
