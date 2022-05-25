@@ -558,6 +558,9 @@ Path parameter | Description | Usage
 
 ### Create a per document monitor
 
+You can create a per document monitor by calling the `monitors` resource and providing the monitor details in the body of the request.
+At a minimum, you need to provide the following details: specify the queries or combinations by tag with the `inputs` field, a valid trigger condition, and provide the notification message in the `action` field.
+
 #### Sample Request
 
 The following sample shows how to create a per document monitor:
