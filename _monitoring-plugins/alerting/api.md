@@ -512,9 +512,9 @@ POST _plugins/_alerting/monitors
 Introduced 2.0
 {: .label .label-purple }
 
-Per document monitors check whether or not individual documents in an index match trigger conditions to generate an alert notification. When you run a query with a per document monitor, the results are returned for each document that matches the trigger condition. You can create trigger conditions based on query names, query IDs, or tags. You can combine multiple queries in a per document monitor by adding a tag to each query and then setting the trigger condition to that tag.
+Per document monitors check whether or not individual documents in an index match trigger conditions to generate an alert notification. When you run a query with a per document monitor, the results are returned for each document that matches the trigger condition. You can create trigger conditions based on query names, query IDs, or tags that combine multiple queries. 
 
-You can define triggers based on a query name, query ID, or a tag name. The following table shows the syntax to use for each trigger option:
+The following table shows the syntax to use for each trigger option:
 
 Trigger options | Definition | Syntax
 :--- | :--- : :---
