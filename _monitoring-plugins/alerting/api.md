@@ -518,6 +518,49 @@ You can combine multiple queries in a per document monitor by adding a tag to ea
 
 For more information about document-level monitors, see [Monitor types]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/#monitor-types).
 
+OpenSearch provides a Findings index: `.opensearch-alerting-finding*` that contains findings data for all per document monitor queries.
+
+### Search for monitor findings
+
+You can search the findings index `.opensearch-alerting-finding*` for available document findings with a GET request to the findings resource:
+
+```json
+GET /_plugins/_alerting/findings/_search?
+```
+The response returns all findings available.
+
+To retrieve metadata for an individual document finding entry, you can search for the finding by its `findingId` as follows:
+
+```json
+GET /_plugins/_alerting/findings/_search?findingId=gKQhj8WJit3BxjGfiOXC
+```
+
+The response returns the number of individual finding entries in the `total_findings` field.
+
+To get more specific results in a findings search, you can use the path parameters defined in the following table:
+
+Path parameter name | Description | Usage
+:--- | :--- : :---
+`findingId` | The identifier for the finding entry. | This is returned in the initial query response.
+`sortString` | This field sorts the finding. | Default value is `id`.
+`sortOrder` | The order to sort the list of findings, either ascending or descending. | Use `sortOrder=asc` to indicate ascending, or `sortOrder=desc` for descending.
+`size` | The maximum number of results to retrieve. | Can be any integer.
+`startIndex` | The pagination indicator. | Default is `0`.
+`searchString` | The finding attributes that you can specify in the search. |  
+
+### How to define a trigger
+
+A trigger is a conditional statement that you define. When the condition is met by a monitor query, then the monitor generates the alert notification.
+
+You can define triggers based on a query name, query ID, or a tag name. The following table shows the syntax to use for each trigger option:
+
+Trigger type | Definition | Syntax
+:--- | :--- : :---
+Tag | Creates alerts for documents that match a unique tag. | query[tag=<tag-name>]
+Query | Creates alerts for documents that match a query name. | query[name=<query-name>]
+Unique query | Creates alerts for documents that match a unique query. | query[id=<query-id>]
+
+
 #### Sample request
 
 The following sample shows how to create a per document monitor:
@@ -527,9 +570,8 @@ POST _plugins/_alerting/monitors
 {
   "type": "monitor",
   "monitor_type": "doc_level_monitor",
-  "name": "iad-monitor",
+  "name": "Example per document monitor",
   "enabled": true,
-  "createdBy": "chip",
   "schedule": {
     "period": {
       "interval": 1,
@@ -539,26 +581,36 @@ POST _plugins/_alerting/monitors
   "inputs": [
     {
       "doc_level_input": {
-        "description": "windows-powershell",
+        "description": "Example per document monitor for audit logs",
         "indices": [
-          "test-logs"
+          "audit-logs"
         ],
         "queries": [
-          {
-            "id": "sigma-123",
+        {
+            "id": "nKQnFYABit3BxjGfiOXC",
+            "name": "sigma-123",
             "query": "region:\"us-west-2\"",
             "tags": [
-              "MITRE:8500"
-            ],
-          },
-          {
-            "id": "sigma-456",
+                "tag1"
+            ]
+        },
+        {
+            "id": "gKQnABEJit3BxjGfiOXC",
+            "name": "sigma-456",
             "query": "region:\"us-east-1\"",
             "tags": [
-              "MITRE:8600"
-            ],
-          }
-        ]
+                "tag2"
+            ]
+        },
+        {
+            "id": "h4J2ABEFNW3vxjGfiOXC",
+            "name": "sigma-789",
+            "query": "message:\"This is a SEPARATE error from IAD region\"",
+            "tags": [
+                "tag3"
+            ]
+        }
+    ]
       }
     }
   ],
@@ -567,13 +619,34 @@ POST _plugins/_alerting/monitors
       "severity": "1",
       "condition": {
         "script": {
-          "source": "'sigma-123' && !'sigma-456'",
+          "source": "(query[name=sigma-123] || query[tag=tag3]) && query[name=sigma-789]",
           "lang": "painless"
         }
       },
-      "actions": []
+      "actions": [
+        {
+            "name": "test-action",
+            "destination_id": "E4o5hnsB6KjPKmHtpfCA",
+            "message_template": {
+                "source": """Monitor  just entered alert status. Please investigate the issue. Related Finding Ids: {{ctx.alerts.0.finding_ids}}, Related Document Ids: {{ctx.alerts.0.related_doc_ids}}""",
+                "lang": "mustache"
+            },
+            "action_execution_policy": {
+                "action_execution_scope": {
+                    "per_alert": {
+                        "actionable_alerts": []
+                    }
+                }
+            },
+            "subject_template": {
+                "source": "The Subject",
+                "lang": "mustache"
+            }
+         }
+      ]
   }}]
 }
+
 ```
 
 ### Limitations

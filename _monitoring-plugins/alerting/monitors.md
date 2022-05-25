@@ -30,9 +30,16 @@ The Alerting plugin also creates a list of document findings data that contains 
 
 The following metadata is provided for each document finding entry:
 
-* **Document** – The document ID and index name.
+* **Document** – The document ID and index name. For example: Re5akdirhj3fl | test-logs-index.
 * **Query** – The query name that matched the document.
 * **Time found** – The timestamp that indicates when the document was found during the runtime.
+
+### Document findings
+
+When a per document monitor executes a query that matches a document in an index, a finding is created.
+
+It is possible to configure an alert notification for each finding, however we don't recommend this unless rules are well defined to prevent a huge volume of findings in a high ingestion cluster.
+
 
 ## Key terms
 
