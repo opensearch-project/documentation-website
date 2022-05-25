@@ -24,7 +24,7 @@ Introduced 1.0
 
 Per query monitors run the query and check whether the results should trigger any alerts. As such, per query monitors can only trigger one alert at a time. For more information about per query monitors and per bucket monitors, see [Create monitors]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/#create-monitors).
 
-#### Request
+#### Sample Request
 
 ```json
 POST _plugins/_alerting/monitors
@@ -508,11 +508,11 @@ POST _plugins/_alerting/monitors
   }
 }
 ```
-## Create a per document monitor
+## Per document monitors
 Introduced 2.0
 {: .label .label-purple }
 
-You can create a per document monitor programmatically that functions the same as a per document monitor in OpenSearch Dashboards. The per document monitor allows you to generate an alert on individual documents in an index. It runs a query that checks whether or not the results should trigger an alert notification based on individual documents within an index. This is the only monitor that allows document-level alerting.
+The per document monitor generates an alert based on an individual document in an index. A per document monitor query checks whether or not the results should trigger an alert notification based on trigger conditions that match individual documents within an index.
 
 You can combine multiple queries in a per document monitor by adding a tag to each query and then setting the trigger condition to that tag.
 
@@ -537,16 +537,20 @@ The response returns the number of individual finding entries in the `total_find
 
 To get more specific results in a findings search, you can use the path parameters defined in the following table:
 
-Path parameter name | Description | Usage
+Path parameter | Description | Usage
 :--- | :--- : :---
-`findingId` | The identifier for the finding entry. | This is returned in the initial query response.
-`sortString` | This field sorts the finding. | Default value is `id`.
-`sortOrder` | The order to sort the list of findings, either ascending or descending. | Use `sortOrder=asc` to indicate ascending, or `sortOrder=desc` for descending.
+`findingId` | The identifier for the finding entry. | The finding ID is returned in the initial query response.
+`sortString` | This field sorts the finding. | The default value is `id`.
+`sortOrder` | The order to sort the list of findings, either ascending or descending. | Use `sortOrder=asc` to indicate ascending, or `sortOrder=desc` for descending sort order.
 `size` | The maximum number of results to retrieve. | Can be any integer.
 `startIndex` | The pagination indicator. | Default is `0`.
-`searchString` | The finding attributes that you can specify in the search. |  
+`searchString` | The finding attribute you want returned in the search. | You might want to search findings for a specific index, provide `searchString=indexABC'.
 
-### How to define a trigger
+
+
+### Create a per document monitor
+
+#### How to define a trigger
 
 A trigger is a conditional statement that you define. When the condition is met by a monitor query, then the monitor generates the alert notification.
 
@@ -554,12 +558,11 @@ You can define triggers based on a query name, query ID, or a tag name. The foll
 
 Trigger type | Definition | Syntax
 :--- | :--- : :---
-Tag | Creates alerts for documents that match a unique tag. | query[tag=<tag-name>]
-Query | Creates alerts for documents that match a query name. | query[name=<query-name>]
-Unique query | Creates alerts for documents that match a unique query. | query[id=<query-id>]
+Tag | Creates alerts for documents that match a unique tag. | `query[tag=<tag-name>]`
+Query | Creates alerts for documents that match a query name. | `query[name=<query-name>]`
+Unique query | Creates alerts for documents that match a unique query. | `query[id=<query-id>]`
 
-
-#### Sample request
+#### Sample Request
 
 The following sample shows how to create a per document monitor:
 
