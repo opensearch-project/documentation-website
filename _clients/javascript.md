@@ -142,7 +142,7 @@ search().catch(console.log);
 
 ## Circuit Breaker
 
-As part of the client's library of APIs, a `memoryCircuitBreaker` gives you the ability to reject large query responses where the size of the response could crash OpenSearch Dashboards. To set the Circuit Breaker settings, use the [POST _cluster/settings]({{site.url}}{{site.baseurl}}/opensearch/rest-api/cluster-settings/) API operation on your active JS cluster.
+As part of the client's library of APIs, a `memoryCircuitBreaker` gives you the ability to reject large query responses where the size of the response could crash OpenSearch Dashboards. To set the Circuit Breaker setting, use the [POST _cluster/settings]({{site.url}}{{site.baseurl}}/opensearch/rest-api/cluster-settings/) API operation on your active JS cluster.
 
 `memoryCircuitBreaker` contains two fields:
 
