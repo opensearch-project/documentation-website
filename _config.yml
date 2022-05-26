@@ -58,6 +58,9 @@ collections:
   monitoring-plugins:
     permalink: /:collection/:path/
     output: true
+  notifications-plugin:
+    permalink: /:collection/:path/
+    output: true
   clients:
     permalink: /:collection/:path/
     output: true
@@ -102,6 +105,9 @@ just_the_docs:
       nav_fold: true
     monitoring-plugins:
       name: Monitoring plugins
+      nav_fold: true
+    notifications-plugin:
+      name: Notifications plugin
       nav_fold: true
     clients:
       name: Clients and tools
