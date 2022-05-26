@@ -34,10 +34,25 @@ PUT /sample-index/_mapping
 
 ## Path and HTTP methods
 
+The index name is a required path parameter. If you don't specify the index, you will get an error.
+
 ```
 PUT /<target-index>/_mapping
-PUT /_mapping
 ```
+For example, to create a mapping for the `sample-index` index, you can make the following call to the mapping API operation:
+
+```
+PUT /sample-index/_mapping/
+{
+  "properties":{
+    "year":{
+      "type": "text"
+    }
+  } 
+}
+```
+
+Upon success, you will receive `acknowledged" : true` in the response.
 
 You can also use the put mapping operation to update multiple indexes with one request.
 
