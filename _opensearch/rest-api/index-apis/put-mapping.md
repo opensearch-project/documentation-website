@@ -17,9 +17,7 @@ You can't use this operation to update mappings that already map to existing dat
 
 ## Required path parameter
 
-The only required path parameter is the index with which to associate the mapping. If you don't specify an index, you will get an error.
-
-You can specify a single index, or multiple indexes separated by a comma as follows:
+The only required path parameter is the index with which to associate the mapping. If you don't specify an index, you will get an error. You can specify a single index, or multiple indexes separated by a comma as follows:
 
 ```
 PUT /<target-index>/_mapping
