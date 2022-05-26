@@ -514,14 +514,6 @@ Introduced 2.0
 
 Document-level monitors check whether individual documents in an index match trigger conditions. If so, the monitor generates an alert notification. When you run a query with a document-level monitor, the results are returned for each document that matches the trigger condition. You can create trigger conditions based on query names, query IDs, or tags that combine multiple queries.
 
-The following table shows the syntax to use for each trigger option:
-
-Trigger options | Definition | Syntax
-:--- | :--- : :---
-Tag | Creates alerts for documents that match a multiple query with this tag applied. If you group multiple queries by a single tag, then you can set it to trigger an alert if the results are returned by this tag name.| `query[tag=<tag-name>]`
-Query by name | Creates alerts for documents matched or returned by the named query.  | `query[name=<query-name>]`
-Query by ID | Creates alerts for documents that were returned by the identified query. | `query[id=<query-id>]`
-
 To learn more about per document monitors that function similarly to the document-level monitor API, see [Monitor types]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/#monitor-types).
 
 ### Search for monitor findings
@@ -556,11 +548,18 @@ Path parameter | Description | Usage
 `searchString` | The finding attribute you want returned in the search. | To search in a specific index, specify the index name in the request path. For example, to search findings in the `indexABC` index, use `searchString=indexABC'.
 
 
-
 ### Create a document-level monitor
 
 You can create a document-level monitor with a POST request that provides the monitor details in the request body.
 At a minimum, you need to provide the following details: specify the queries or combinations by tag with the `inputs` field, a valid trigger condition, and provide the notification message in the `action` field.
+
+The following table shows the syntax to use for each trigger option:
+
+Trigger options | Definition | Syntax
+:--- | :--- : :---
+Tag | Creates alerts for documents that match a multiple query with this tag applied. If you group multiple queries by a single tag, then you can set it to trigger an alert if the results are returned by this tag name.| `query[tag=<tag-name>]`
+Query by name | Creates alerts for documents matched or returned by the named query.  | `query[name=<query-name>]`
+Query by ID | Creates alerts for documents that were returned by the identified query. | `query[id=<query-id>]`
 
 #### Sample Request
 
