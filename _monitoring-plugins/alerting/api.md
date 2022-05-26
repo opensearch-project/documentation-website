@@ -7,7 +7,7 @@ nav_order: 15
 
 # Alerting API
 
-Use the Alerting API to programmatically create, update and manage monitors and alerts.
+Use the Alerting API to programmatically create, update, and manage monitors and alerts.
 
 ---
 
@@ -22,7 +22,7 @@ Use the Alerting API to programmatically create, update and manage monitors and 
 Introduced 1.0
 {: .label .label-purple }
 
-Per query monitors run the query and check whether the results should trigger any alerts. As such, per query monitors can only trigger one alert at a time. For more information about per query monitors and per bucket monitors, see [Create monitors]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/#create-monitors).
+Per query monitors run the query and check whether or not the results should trigger an alert. Per query monitors can only trigger one alert at a time. For more information about per query monitors and per bucket monitors, see [Create monitors]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/#create-monitors).
 
 #### Sample Request
 
@@ -512,7 +512,7 @@ POST _plugins/_alerting/monitors
 Introduced 2.0
 {: .label .label-purple }
 
-Per document monitors check whether or not individual documents in an index match trigger conditions to generate an alert notification. When you run a query with a per document monitor, the results are returned for each document that matches the trigger condition. You can create trigger conditions based on query names, query IDs, or tags that combine multiple queries. 
+Per document monitors check whether individual documents in an index match trigger conditions. If so, the monitor generates an alert notification. When you run a query with a per document monitor, the results are returned for each document that matches the trigger condition. You can create trigger conditions based on query names, query IDs, or tags that combine multiple queries.
 
 The following table shows the syntax to use for each trigger option:
 
@@ -526,12 +526,14 @@ For more information about per document monitors, see [Monitor types]({{site.url
 
 ### Search for monitor findings
 
-You can search the findings index `.opensearch-alerting-finding*` for available document findings with a GET request to the findings resource:
+You can search the findings index `.opensearch-alerting-finding*` for available document findings with a GET request to the findings resource. To learn more about monitor findings, see [Document findings]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/#document-findings).
+
+By default, a GET request without path parameters returns all available findings.
 
 ```json
 GET /_plugins/_alerting/findings/_search?
 ```
-The response returns all findings available.
+
 
 To retrieve metadata for an individual document finding entry, you can search for the finding by its `findingId` as follows:
 
@@ -541,22 +543,22 @@ GET /_plugins/_alerting/findings/_search?findingId=gKQhj8WJit3BxjGfiOXC
 
 The response returns the number of individual finding entries in the `total_findings` field.
 
-To get more specific results in a findings search, you can use the path parameters defined in the following table:
+To get more specific results in a findings search, you can use any of the optional path parameters that are defined in the following table:
 
 Path parameter | Description | Usage
 :--- | :--- : :---
 `findingId` | The identifier for the finding entry. | The finding ID is returned in the initial query response.
-`sortString` | This field sorts the finding. | The default value is `id`.
+`sortString` | This field specifies which string the Alerting plugin uses to sort the findings. | The default value is `id`.
 `sortOrder` | The order to sort the list of findings, either ascending or descending. | Use `sortOrder=asc` to indicate ascending, or `sortOrder=desc` for descending sort order.
-`size` | The maximum number of results to retrieve. | Can be any integer.
+`size` | An optional limit for the maximum number of results returned in the response. | There is no minimum or maximum values.
 `startIndex` | The pagination indicator. | Default is `0`.
-`searchString` | The finding attribute you want returned in the search. | You might want to search findings for a specific index, provide `searchString=indexABC'.
+`searchString` | The finding attribute you want returned in the search. | To search in a specific index, specify the index name in the request path. For example, to search findings in the `indexABC` index, use `searchString=indexABC'.
 
 
 
 ### Create a per document monitor
 
-You can create a per document monitor by calling the `monitors` resource and providing the monitor details in the body of the request.
+You can create a per document monitor with a POST request that provides the monitor details in the request body.
 At a minimum, you need to provide the following details: specify the queries or combinations by tag with the `inputs` field, a valid trigger condition, and provide the notification message in the `action` field.
 
 #### Sample Request
@@ -649,7 +651,7 @@ POST _plugins/_alerting/monitors
 
 ### Limitations
 
-If you run a per document query while the index is getting reindexed, the results will not return the reindexed results. You would need to run the query again to get the updates.
+If you run a per document query while the index is getting reindexed, the API response will not return the reindexed results. To get updates, wait until the reindexing process completes, then rerun the query.
 {: .tip}
 
 ## Update monitor

@@ -32,14 +32,14 @@ Tag | A label that can be applied to multiple queries to combine them with the l
 Alert | An event associated with a trigger. When an alert is created, the trigger performs *actions*, which can include sending a notification.
 Action | The information that you want the monitor to send out after being triggered. Actions have a *destination*, a message subject, and a message body.
 Destination | A reusable location for an action. Supported locations are Amazon Chime, Email, Slack, or custom webhook.
-Finding | An entry for an individual document found by a per document monitor query that contains the Document ID, index name, and timestamp. Findings are stored in the Findings index: `.opensearch-alerting-finding*`.
+Finding | An entry for an individual document found by a per document monitor query that contains the document ID, index name, and timestamp. Findings are stored in the Findings index: `.opensearch-alerting-finding*`.
 
 ## Per document monitors
 
 Introduced 2.0
 {: .label .label-purple }
 
-The per query and per bucket monitors can only take a single query with one trigger condition. Per document monitors allow you to combine multiple query trigger conditions by adding a tag to the queries. Then you can add the tag as a single trigger condition instead of specifying a single query. The Alerting plugin processes the trigger conditions from all queries as a logical OR operation, so if any of the query conditions are met, it generates the alert notification.
+The per query and per bucket monitors can only run a single query with one trigger condition. Per document monitors allow you to combine multiple query trigger conditions by adding a tag to the queries. Then you can add the tag as a single trigger condition instead of specifying a single query. The Alerting plugin processes the trigger conditions from all queries as a logical OR operation, so if any of the query conditions are met, it triggers an alert. Next, the Alerting plugin tells the Notifications plugin to send the notification to a channel.
 
 The Alerting plugin also creates a list of document findings that contains metadata about which document matches each query. Security analytics can use the document findings data to keep track of and analyze the query data separately from the alert processes.
 
