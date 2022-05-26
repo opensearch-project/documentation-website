@@ -526,9 +526,10 @@ For more information about per document monitors, see [Monitor types]({{site.url
 
 ### Search for monitor findings
 
-You can search the findings index `.opensearch-alerting-finding*` for available document findings with a GET request to the findings resource. To learn more about monitor findings, see [Document findings]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/#document-findings).
+You can search the findings index `.opensearch-alerting-finding*` for available document findings with a GET request. By default, a GET request without path parameters returns all available findings.. To learn more about monitor findings, see [Document findings]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/#document-findings).
 
-By default, a GET request without path parameters returns all available findings.
+
+To retrieve any available findings, send a GET request without any path parameters as follows:
 
 ```json
 GET /_plugins/_alerting/findings/_search?
