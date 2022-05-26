@@ -18,11 +18,11 @@ Use the Alerting API to programmatically create, update, and manage monitors and
 
 ---
 
-## Create a per query monitor
+## Create a query-level monitor
 Introduced 1.0
 {: .label .label-purple }
 
-Per query monitors run the query and check whether or not the results should trigger an alert. Per query monitors can only trigger one alert at a time. For more information about per query monitors and per bucket monitors, see [Create monitors]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/#create-monitors).
+Query-level monitors run the query and check whether or not the results should trigger an alert. Query-level monitors can only trigger one alert at a time. For more information about query-level monitors and bucket-level monitors, see [Create monitors]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/#create-monitors).
 
 #### Sample Request
 
@@ -250,15 +250,15 @@ For a full list of timezone names, refer to [Wikipedia](https://en.wikipedia.org
 
 ---
 
-## Create a per bucket monitor
+## Create a bucket-level monitor
 
-Per bucket monitors categorize results into buckets separated by fields. The monitor then runs your script with each bucket's results and evaluates whether to trigger an alert. For more information about per bucket and per query monitors, see [Create monitors]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/#create-monitors).
+Bucket-level monitors categorize results into buckets separated by fields. The monitor then runs your script with each bucket's results and evaluates whether to trigger an alert. For more information about bucket-level and query-level monitors, see [Create monitors]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/#create-monitors).
 
 ```json
 POST _plugins/_alerting/monitors
 {
   "type": "monitor",
-  "name": "Demo per bucket monitor",
+  "name": "Demo bucket-level monitor",
   "monitor_type": "bucket_level_monitor",
   "enabled": true,
   "schedule": {
@@ -379,7 +379,7 @@ POST _plugins/_alerting/monitors
   "monitor" : {
     "type" : "monitor",
     "schema_version" : 4,
-    "name" : "Demo a per bucket monitor",
+    "name" : "Demo a bucket-level monitor",
     "monitor_type" : "bucket_level_monitor",
     "user" : {
       "name" : "",
@@ -508,11 +508,11 @@ POST _plugins/_alerting/monitors
   }
 }
 ```
-## Per document monitors
+## Document-level monitors
 Introduced 2.0
 {: .label .label-purple }
 
-Per document monitors check whether individual documents in an index match trigger conditions. If so, the monitor generates an alert notification. When you run a query with a per document monitor, the results are returned for each document that matches the trigger condition. You can create trigger conditions based on query names, query IDs, or tags that combine multiple queries.
+Document-level monitors check whether individual documents in an index match trigger conditions. If so, the monitor generates an alert notification. When you run a query with a document-level monitor, the results are returned for each document that matches the trigger condition. You can create trigger conditions based on query names, query IDs, or tags that combine multiple queries.
 
 The following table shows the syntax to use for each trigger option:
 
@@ -522,7 +522,7 @@ Tag | Creates alerts for documents that match a multiple query with this tag app
 Query by name | Creates alerts for documents matched or returned by the named query.  | `query[name=<query-name>]`
 Query by ID | Creates alerts for documents that were returned by the identified query. | `query[id=<query-id>]`
 
-For more information about per document monitors, see [Monitor types]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/#monitor-types).
+To learn more about per document monitors that function similarly to the document-level monitor API, see [Monitor types]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/#monitor-types).
 
 ### Search for monitor findings
 
@@ -557,21 +557,21 @@ Path parameter | Description | Usage
 
 
 
-### Create a per document monitor
+### Create a document-level monitor
 
-You can create a per document monitor with a POST request that provides the monitor details in the request body.
+You can create a document-level monitor with a POST request that provides the monitor details in the request body.
 At a minimum, you need to provide the following details: specify the queries or combinations by tag with the `inputs` field, a valid trigger condition, and provide the notification message in the `action` field.
 
 #### Sample Request
 
-The following sample shows how to create a per document monitor:
+The following sample shows how to create a document-level monitor:
 
 ```json
 POST _plugins/_alerting/monitors
 {
   "type": "monitor",
   "monitor_type": "doc_level_monitor",
-  "name": "Example per document monitor",
+  "name": "Example document-level monitor",
   "enabled": true,
   "schedule": {
     "period": {
@@ -582,7 +582,7 @@ POST _plugins/_alerting/monitors
   "inputs": [
     {
       "doc_level_input": {
-        "description": "Example per document monitor for audit logs",
+        "description": "Example document-level monitor for audit logs",
         "indices": [
           "audit-logs"
         ],
@@ -652,7 +652,7 @@ POST _plugins/_alerting/monitors
 
 ### Limitations
 
-If you run a per document query while the index is getting reindexed, the API response will not return the reindexed results. To get updates, wait until the reindexing process completes, then rerun the query.
+If you run a document-level query while the index is getting reindexed, the API response will not return the reindexed results. To get updates, wait until the reindexing process completes, then rerun the query.
 {: .tip}
 
 ## Update monitor
