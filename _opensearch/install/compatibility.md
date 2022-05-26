@@ -7,7 +7,7 @@ nav_order: 2
 
 # Operating System Compatibility
 
-We recommend installing OpenSearch on RHEL- or Debian-based Linux distributions that use [systemd](https://en.wikipedia.org/wiki/Systemd), such as CentOS, Amazon Linux 2, and Ubuntu (LTS). OpenSearch should work on many Linux distributions, but we only test a handful. We recommend Red Hat Enterprise Linux 7 or 8, CentOS 7 or 8, Amazon Linux 2, Ubuntu 16.04, 18.04, or 20.04 for any version of OpenSearch.
+We recommend installing OpenSearch on RHEL or Debian-based Linux distributions that use [systemd](https://en.wikipedia.org/wiki/Systemd), such as CentOS, Amazon Linux 2, and Ubuntu (LTS). OpenSearch should work on many Linux distributions, but we only test a handful. We recommend Red Hat Enterprise Linux 7 or 8, CentOS 7 or 8, Amazon Linux 2, Ubuntu 16.04, 18.04, or 20.04 for any version of OpenSearch.
 
 # Java Compatibility
 
