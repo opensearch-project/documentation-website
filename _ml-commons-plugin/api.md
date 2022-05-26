@@ -232,7 +232,7 @@ The API returns the following:
 
 ## Predict
 
-ML Commons can predict new data with your trained model either from indexed data or a data frame. The model_id is required to use the Predict API.
+ML Commons can predict new data with your trained model either from indexed data or a data frame. To use the Predict API, the model_id is required.
 
 ```json
 POST /_plugins/_ml/_predict/<algorithm_name>/<model_id>
