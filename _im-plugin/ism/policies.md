@@ -254,19 +254,30 @@ Deletes a managed index.
 
 Rolls an alias over to a new index when the managed index meets one of the rollover conditions.
 
+**Important**: ISM checks the conditions for operations on **every execution of the policy** based on the **set interval**, _not_ continuously. The rollover will be performed if the value **has reached** or _exceeded_ the configured limit **when the check is performed**. For example with `min_size` configured to a value of 100GiB, ISM might check the index at 99 GiB and not perform the rollover. However, if the index has grown past the limit (e.g. 105GiB) by the next check, the operation is performed.
+
 The index format must match the pattern: `^.*-\d+$`. For example, `(logs-000001)`.
 Set `index.plugins.index_state_management.rollover_alias` as the alias to rollover.
 
 Parameter | Description | Type | Example | Required
 :--- | :--- |:--- |:--- |
-`min_size` | The minimum size of the total primary shard storage (not counting replicas) required to roll over the index. For example, if you set `min_size` to 100 GiB and your index has 5 primary shards and 5 replica shards of 20 GiB each, the total size of all primary shards is 100 GiB, so the rollover occurs. ISM doesn't check indexes continually, so it doesn't roll over indexes at exactly 100 GiB. Instead, if an index is continuously growing, ISM might check it at 99 GiB, not perform the rollover, check again when the shards reach 105 GiB, and then perform the operation. | `string` | `20gb` or `5mb` | No
-`min_doc_count` |  The minimum number of documents required to roll over the index. | `number` | `2000000` | No
-`min_index_age` |  The minimum age required to roll over the index. Index age is the time between its creation and the present. | `string` | `5d` or `7h` | No
+`min_size` | The minimum size of the total primary shard storage (not counting replicas) required to roll over the index. For example, if you set `min_size` to 100 GiB and your index has 5 primary shards and 5 replica shards of 20 GiB each, the total size of all primary shards is 100 GiB, so the rollover occurs. See **Important** note above. | `string` | `20gb` or `5mb` | No
+`min_primary_shard_size` | The minimum storage size of a **single primary shard** required to roll over the index. For example, if you set `min_primary_shard_size` to 30 GiB and **one of** the primary shards in the index has a size greater than the condition, the rollover occurs. See **Important** note above. | `string` | `20gb` or `5mb` | No
+`min_doc_count` |  The minimum number of documents required to roll over the index. See **Important** note above. | `number` | `2000000` | No
+`min_index_age` |  The minimum age required to roll over the index. Index age is the time between its creation and the present. See **Important** note above. | `string` | `5d` or `7h` | No
 
 ```json
 {
   "rollover": {
     "min_size": "50gb"
+  }
+}
+```
+
+```json
+{
+  "rollover": {
+    "min_primary_shard_size": "30gb"
   }
 }
 ```
@@ -497,7 +508,7 @@ For information on writing cron expressions, see [Cron expression reference]({{s
 ## Error notifications
 
 The `error_notification` operation sends you a notification if your managed index fails.
-It notifies a single destination with a custom message.
+It notifies a single destination or [notification channel]({{site.url}}{{site.baseurl}}/notifications-plugin/index) with a custom message.
 
 Set up error notifications at the policy level:
 
@@ -515,7 +526,8 @@ Set up error notifications at the policy level:
 
 Parameter | Description | Type | Required
 :--- | :--- |:--- |:--- |
-`destination` | The destination URL. | `Slack, Amazon Chime, or webhook URL` | Yes
+`destination` | The destination URL. | `Slack, Amazon Chime, or webhook URL` | Yes if `channel` isn't specified
+`channel` | A notification channel's ID | `string` | Yes if `destination` isn't specified
 `message_template` |  The text of the message. You can add variables to your messages using [Mustache templates](https://mustache.github.io/mustache.5.html). | `object` | Yes
 
 The destination system **must** return a response otherwise the `error_notification` operation throws an error.
@@ -563,6 +575,21 @@ The destination system **must** return a response otherwise the `error_notificat
       "slack": {
         "url": "https://hooks.slack.com/services/xxx/xxxxxx"
       }
+    },
+    "message_template": {
+      "source": "The index {% raw %}{{ctx.index}}{% endraw %} failed during policy execution."
+    }
+  }
+}
+```
+
+#### Example 4: Using a notification channel
+
+```json
+{
+  "error_notification": {
+    "channel": {
+      "id": "some-channel-config-id"
     },
     "message_template": {
       "source": "The index {% raw %}{{ctx.index}}{% endraw %} failed during policy execution."
@@ -672,7 +699,8 @@ After 30 days, the policy moves this index into a `delete` state. The service se
         "actions": [
           {
             "rollover": {
-              "min_index_age": "1d"
+              "min_index_age": "1d",
+              "min_primary_shard_size": "30gb"
             }
           }
         ],
@@ -720,7 +748,11 @@ After 30 days, the policy moves this index into a `delete` state. The service se
           }
         ]
       }
-    ]
+    ],
+    "ism_template": {
+      "index_patterns": ["log*"],
+      "priority": 100
+    }
   }
 }
 ```

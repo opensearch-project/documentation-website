@@ -28,7 +28,7 @@ Term | Definition
 :--- | :---
 Monitor | A job that runs on a defined schedule and queries OpenSearch indexes. The results of these queries are then used as input for one or more *triggers*.
 Trigger | Conditions that, if met, generate *alerts*.
-Tag | A label that can be applied to multiple queries to combine them with the logical OR operation in a per document monitor. You can't use tags with other monitor types.
+Tag | A label that can be applied to multiple queries to combine them with the logical OR operation in a per document monitor. You cannot use tags with other monitor types.
 Alert | An event associated with a trigger. When an alert is created, the trigger performs *actions*, which can include sending a notification.
 Action | The information that you want the monitor to send out after being triggered. Actions have a *destination*, a message subject, and a message body.
 Destination | A reusable location for an action. Supported locations are Amazon Chime, Email, Slack, or custom webhook.
@@ -362,7 +362,6 @@ Variable | Data Type | Description
 :--- | :--- | : ---
 `ctx.trigger.actions.id` | String | The action's ID.
 `ctx.trigger.actions.name` | String | The action's name.
-`ctx.trigger.actions.destination_id`| String | The alert destination's ID.
 `ctx.trigger.actions.message_template.source` | String | The message to send in the alert.
 `ctx.trigger.actions.message_template.lang` | String | The scripting language used to define the message. Must be Mustache.
 `ctx.trigger.actions.throttle_enabled` | Boolean | Whether throttling is enabled for this trigger. See [adding actions](#add-actions) for more information about throttling.
@@ -391,13 +390,13 @@ Variable | Data Type | Description
 
 ## Add actions
 
-The final step in creating a monitor is to add one or more actions. Actions send notifications when trigger conditions are met and support [Slack](https://slack.com/), [Amazon Chime](https://aws.amazon.com/chime/), and webhooks.
+The final step in creating a monitor is to add one or more actions. Actions send notifications when trigger conditions are met. See the [Notifications plugin]({{site.url}}{{site.baseurl}}/notifications-plugin/index) to see what communication channels are supported.
 
 If you don't want to receive notifications for alerts, you don't have to add actions to your triggers. Instead, you can periodically check OpenSearch Dashboards.
 {: .tip }
 
 1. Specify a name for the action.
-1. Choose a destination.
+1. Choose a [notification channel]({{site.url}}{{site.baseurl}}/notifications-plugin/index).
 1. Add a subject and body for the message.
 
    You can add variables to your messages using [Mustache templates](https://mustache.github.io/mustache.5.html). You have access to `ctx.action.name`, the name of the current action, as well as all [trigger variables](#available-variables).
@@ -408,7 +407,7 @@ If you don't want to receive notifications for alerts, you don't have to add act
    {% raw %}{ "text": "Monitor {{ctx.monitor.name}} just entered alert status. Please investigate the issue. - Trigger: {{ctx.trigger.name}} - Severity: {{ctx.trigger.severity}} - Period start: {{ctx.periodStart}} - Period end: {{ctx.periodEnd}}" }{% endraw %}
    ```
 
-   In this case, the message content must conform to the `Content-Type` header in the [custom webhook](#create-destinations).
+   In this case, the message content must conform to the `Content-Type` header in the [custom webhook]({{site.url}}{{site.baseurl}}/notifcations-plugin/index).
 1. If you're using a bucket-level monitor, you can choose whether the monitor should perform an action for each execution or for each alert.
 
 1. (Optional) Use action throttling to limit the number of notifications you receive within a given span of time.
@@ -432,6 +431,24 @@ After an action sends a message, the content of that message has left the purvie
 
 If you want to use the `ctx.results` variable in a message, use `{% raw %}{{ctx.results.0}}{% endraw %}` rather than `{% raw %}{{ctx.results[0]}}{% endraw %}`. This difference is due to how Mustache handles bracket notation.
 {: .note }
+
+### Questions about destinations
+
+Q: What plugins do I need installed besides Alerting?
+
+A: To continue using the notification action in the Alerting plugin, you need to install the backend plugins `notifications-core` and `notifications`. You can also install the Notifications Dashboards plugin to manage Notification channels via OpenSearch Dashboards.
+
+Q: Can I still create destinations?
+A: No, destinations have been deprecated and can no longer be created/edited.
+
+Q: Will I need to move my destinations to the Notifications plugin?
+A: No. To upgrade users, a background process will automatically move destinations to notification channels. These channels will have the same ID as the destinations, and monitor execution will choose the correct ID, so you don't have to make any changes to the monitor's definition. The migrated destinations will be deleted.
+
+Q: What happens if any destinations fail to migrate?
+A: If a destination failed to migrate, the monitor will continue using it until the monitor is migrated to a notification channel. You don't need to do anything in this case.
+
+Q: Do I need to install the Notifications plugins if monitors can still use destinations?
+A: Yes. The fallback on destination is to prevent failures in sending messages if migration fails; however, the Notification plugin is what actually sends the message. Not having the Notification plugin installed will lead to the action failing.
 
 
 ---

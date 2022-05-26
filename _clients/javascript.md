@@ -6,7 +6,7 @@ nav_order: 100
 
 # JavaScript client
 
-The OpenSearch JavaScript client provides a safer and easier way to interact with your OpenSearch cluster. Rather than using OpenSearch from the browser and potentially exposing your data to the public, you can build an OpenSearch client that takes care of sending requests to your cluster.
+The OpenSearch JavaScript (JS) client provides a safer and easier way to interact with your OpenSearch cluster. Rather than using OpenSearch from the browser and potentially exposing your data to the public, you can build an OpenSearch client that takes care of sending requests to your cluster.
 
 The client contains a library of APIs that let you perform different operations on your cluster and return a standard response body. The example here demonstrates some basic operations like creating an index, adding documents, and searching your data.
 
@@ -138,4 +138,22 @@ async function search() {
 }
 
 search().catch(console.log);
+```
+
+## Circuit Breaker
+
+The `memoryCircuitBreaker` parameter in the [Cluster Settings API]({{site.url}}{{site.baseurl}}/opensearch/rest-api/cluster-settings/) gives you the ability to reject large query responses where the size of the response could crash OpenSearch Dashboards. To set the Circuit Breaker setting, use the `POST _cluster/settings` API operation on your active JS OpenSearch cluster.
+
+`memoryCircuitBreaker` contains two fields:
+
+- `enabled`: A Boolean used to turn the Circuit Breaker on or off. Defaults to `false`.
+- `maxPercentage`: The threshold that determines whether the Circuit Breaker engages. The input range must be between `[0 ,1]`. Any number that exceeds that range will correct to `1.0`.
+
+The following example turns on the Circuit Breaker and sets the maximum percentage of a query response to 80% of the cluster's storage. You can customize this example for use in the `POST _cluster/settings` request body.
+
+```json
+memoryCircuitBreaker: {
+     enabled: true,
+     maxPercentage: 0.8
+}
 ```
