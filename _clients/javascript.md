@@ -139,3 +139,21 @@ async function search() {
 
 search().catch(console.log);
 ```
+
+## Circuit Breaker
+
+As part of the client's library of APIs, a `memoryCircuitBreaker` gives you the ability to reject large query responses where the size of the response could crash OpenSearch Dashboards. To set the Circuit Breaker settings, use the [POST _cluster/settings]({{site.url}}{{site.baseurl}}/opensearch/rest-api/cluster-settings/) API operation on your active JS cluster.
+
+`memoryCircuitBreaker` contains two fields:
+
+- `enabled`: A boolean used to turn the circuit breaker on or off. Defaults to `false`.
+- `maxPercentage`: The threshold that determines whether the Circuit Break engages. The input range must be between `[0 ,1]`. Any number that exceeds that range will correct to `1.0`.
+
+The following example turns on the Circuit Breaker and sets the maximum percentage of a query response to 80% of the cluster's storage.
+
+```json
+memoryCircuitBreaker: {
+     enabled: true,
+     maxPercentage: 0.8
+}
+```
