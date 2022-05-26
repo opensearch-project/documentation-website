@@ -146,8 +146,8 @@ The `memoryCircuitBreaker` parameter in the [Cluster Settings API]({{site.url}}{
 
 `memoryCircuitBreaker` contains two fields:
 
-- `enabled`: A boolean used to turn the circuit breaker on or off. Defaults to `false`.
-- `maxPercentage`: The threshold that determines whether the Circuit Break engages. The input range must be between `[0 ,1]`. Any number that exceeds that range will correct to `1.0`.
+- `enabled`: A Boolean used to turn the Circuit Breaker on or off. Defaults to `false`.
+- `maxPercentage`: The threshold that determines whether the Circuit Breaker engages. The input range must be between `[0 ,1]`. Any number that exceeds that range will correct to `1.0`.
 
 The following example turns on the Circuit Breaker and sets the maximum percentage of a query response to 80% of the cluster's storage. You can customize this example for use in the `POST _cluster/settings` request body.
 
