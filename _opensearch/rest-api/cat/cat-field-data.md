@@ -1,7 +1,7 @@
 ---
 layout: default
 title: cat field data
-parent: CAT
+parent: CAT API
 grand_parent: REST API reference
 nav_order: 15
 has_children: false

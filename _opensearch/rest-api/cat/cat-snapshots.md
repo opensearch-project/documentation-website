@@ -1,7 +1,7 @@
 ---
 layout: default
 title: cat snapshots
-parent: CAT
+parent: CAT API
 grand_parent: REST API reference
 nav_order: 65
 has_children: false

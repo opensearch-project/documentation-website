@@ -1,7 +1,7 @@
 ---
 layout: default
 title: cat thread pool
-parent: CAT
+parent: CAT API
 grand_parent: REST API reference
 nav_order: 75
 has_children: false

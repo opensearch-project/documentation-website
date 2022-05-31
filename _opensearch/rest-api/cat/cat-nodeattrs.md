@@ -1,7 +1,7 @@
 ---
 layout: default
 title: cat nodeattrs
-parent: CAT
+parent: CAT API
 grand_parent: REST API reference
 nav_order: 35
 has_children: false
