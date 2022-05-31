@@ -7,7 +7,7 @@ nav_order: 30
 has_children: false
 ---
 
-# CAT cluster_manager
+# cat cluster_manager
 Introduced 1.0
 {: .label .label-purple }
 
