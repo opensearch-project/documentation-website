@@ -1,6 +1,6 @@
 ---
 layout: default
-title: CAT cluster manager
+title: cat cluster manager
 parent: CAT API
 grand_parent: REST API reference
 nav_order: 30
