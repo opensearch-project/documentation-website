@@ -409,7 +409,7 @@ To set the default Linux instance for WSL to use Docker run the following comman
 ```
 wsl --setdefault docker-desktop
 ```
-The following will commands in PowerShelll as Admin will create a Docker configuration file that will start two data nodes and a container for OpenSearch Dashboards:
+The following will commands in PowerShell as Admin will create a Docker configuration file that will start two data nodes and a container for OpenSearch Dashboards:
 ``` 
 $file = $env:USERPROFILE +”\docker-compose.yml” 
 Set-Content $file “version: '3'
