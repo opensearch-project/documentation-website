@@ -384,3 +384,112 @@ The environment variable `"DISABLE_SECURITY_DASHBOARDS_PLUGIN=true"` disables th
 You can't reverse this step as the security dashboards plugin is removed in the process.
 To re-enable security for OpenSearch Dashboards, start a new container and set `DISABLE_SECURITY_DASHBOARDS_PLUGIN` to false or leave it unset.
 {: .note}
+
+## Using Windows PowerShell to Install and Configure Window Subsystem for Linux (WSL)
+
+For Windows 10, Windows 11 and Windows Server 2019 (Version 1709) and later a development instance of Docker can be installed and configured on the Windows Subsystem for Linux (WSL) quickly using PowerShell. 
+
+To install Windows Subsystem for Linux run the following command in PowerShell as Admin and then restart:
+```
+WSL –-install
+```
+To install the Docker PowerShell module run following block of commands in PowerShell as Admin and restart when prompted:
+```
+Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Force
+Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
+Install-Module -Name DockerMsftProvider -Repository PSGallery -Force
+```
+To download the Docker Deskop client for Windows run the following block of commands in PowerShell as Admin and restart when prompted:
+```
+Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Force
+$WebClient = New-Object System.Net.WebClient $WebClient.DownloadFile("https://desktop.docker.com/win/main/amd64/Docker%20Desktop%20Installer.exe",$env:USERPROFILE +”\Docker Desktop Installer.exe")
+Invoke-Expression $env:USERPROFILE"'.\Docker Desktop Installer.exe'"
+```
+To set the default Linux instance for WSL to use Docker run the following command in PowerShell as Admin: 
+```
+wsl --setdefault docker-desktop
+```
+The following will commands in PowerShelll as Admin will create a Docker configuration file that will start two data nodes and a container for OpenSearch Dashboards:
+``` 
+$file = $env:USERPROFILE +”\docker-compose.yml” 
+Set-Content $file “version: '3'
+`r`n services: 
+`r`nopensearch-node1: 
+`r`nimage: opensearchproject/opensearch:latest
+`r`ncontainer_name: opensearch-node1
+`r`nenvironment:
+`r`n- cluster.name=opensearch-cluster
+`r`n- node.name=opensearch-node1
+`r`n- discovery.seed_hosts=opensearch-node1,opensearch-node2
+`r`n- cluster.initial_master_nodes=opensearch-node1,opensearch-node2
+`r`n- bootstrap.memory_lock=true # along with the memlock settings below, disables swapping
+`r`n- $([char]34)OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m$([char]34) #minimum and maximum Java heap size, recommend setting both to 50% of system RAM
+`r`nulimits:
+`r`nmemlock:
+`r`nsoft: -1
+`r`nhard: -1
+`r`nnofile:
+`r`nsoft: 65536 # maximum number of open files for the OpenSearch user, set to at least 65536 on modern systems
+`r`nhard: 65536
+`r`nvolumes:
+`r`n- opensearch-data1:/usr/share/opensearch/data
+`r`nports:
+`r`n- 9200:9200
+`r`n- 9600:9600 # required for Performance Analyzer
+`r`nnetworks:
+`r`n- opensearch-net
+`r`nopensearch-node2:
+`r`nimage: opensearchproject/opensearch:latest
+`r`ncontainer_name: opensearch-node2
+`r`nenvironment:
+`r`n- cluster.name=opensearch-cluster
+`r`n- node.name=opensearch-node2
+`r`n- discovery.seed_hosts=opensearch-node1,opensearch-node2
+`r`n- cluster.initial_master_nodes=opensearch-node1,opensearch-node2
+`r`n- bootstrap.memory_lock=true
+`r`n- $([char]34)OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m$([char]34)
+`r`nulimits:
+`r`nmemlock:
+`r`nsoft: -1
+`r`nhard: -1
+`r`nnofile:
+`r`nsoft: 65536
+`r`nhard: 65536
+`r`nvolumes:
+`r`n- opensearch-data2:/usr/share/opensearch/data
+`r`nnetworks:
+`r`n- opensearch-net
+`r`nopensearch-dashboards:
+`r`nimage: opensearchproject/opensearch-dashboards:latest
+`r`ncontainer_name: opensearch-dashboards
+`r`nports:
+`r`n- 5601:5601
+`r`nexpose:
+`r`n- $([char]34)5601$([char]34)
+`r`nenvironment:
+`r`nOPENSEARCH_HOSTS: '[$([char]34)https://opensearch-node1:9200, $([char]34)https://opensearch-node2:9200$([char]34)]'
+`r`nnetworks:
+`r`n- opensearch-net
+`r`n
+`r`nvolumes:
+`r`nopensearch-data1:
+`r`nopensearch-data2:
+`r`n
+`r`nnetworks:
+`r`nopensearch-net:”
+```
+To create and set the .wslconfig to the mimimum requirements for the Linux base image run the following commands in PowerShell as Admin:
+```
+$file = $env:USERPROFILE +”\.wslconfig” 
+Set-Content $file “[wsl2] `r`nmemory=4GB `r`nprocessors=2 `r`nlocalhostForwarding=true `r`nkernelCommandLine = sysctl.vm.max_map_count=262144”
+```
+To start Docker and begin using your development cluster run the following commands in PowerShell as Admin:
+```
+Invoke-Expression "& 'C:\Program Files\Docker\Docker\Docker Desktop.exe'"
+CD $env:USERPROFILE
+Docker-Compose up
+```
+The OpenSearch dashboard will be accessble on the local machine using port 5601:
+```
+http://localhost:5601
+```

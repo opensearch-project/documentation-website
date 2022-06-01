@@ -21,6 +21,8 @@ vm.max_map_count=262144
 
 Then run `sudo sysctl -p` to reload.
 
+For Windows Subsystem for Linux these settings are added to the .wslconfig file located in the root of the user profile. 
+
 The [sample docker-compose.yml]({{site.url}}{{site.baseurl}}/opensearch/install/docker#sample-docker-compose-file) file also contains several key settings:
 
 - `bootstrap.memory_lock=true`
