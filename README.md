@@ -26,8 +26,9 @@ Community contributions remain essential in keeping this documentation comprehen
 
 If you encounter problems or have questions when contributing to the documentation, these people can help:
 
-- [keithhc2](https://github.com/keithhc2)
 - [Naarcha-AWS](https://github.com/Naarcha-AWS)
+- [alicejw-AWS](https://github.com/alicejw-AWS)
+- [keithhc2](https://github.com/keithhc2)
 - [lizsnyder](https://github.com/lizsnyder)
 
 
