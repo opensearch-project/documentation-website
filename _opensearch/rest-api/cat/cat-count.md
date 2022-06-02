@@ -1,7 +1,7 @@
 ---
 layout: default
 title: cat count
-parent: CAT
+parent: CAT API
 grand_parent: REST API reference
 nav_order: 10
 has_children: false

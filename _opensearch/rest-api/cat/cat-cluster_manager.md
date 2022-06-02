@@ -1,13 +1,13 @@
 ---
 layout: default
-title: CAT cluster manager
-parent: CAT
+title: cat cluster manager
+parent: CAT API
 grand_parent: REST API reference
 nav_order: 30
 has_children: false
 ---
 
-# CAT cluster_manager
+# cat cluster_manager
 Introduced 1.0
 {: .label .label-purple }
 

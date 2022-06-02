@@ -1,7 +1,7 @@
 ---
 layout: default
 title: cat repositories
-parent: CAT
+parent: CAT API
 grand_parent: REST API reference
 nav_order: 55
 has_children: false

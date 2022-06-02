@@ -1,7 +1,7 @@
 ---
 layout: default
 title: cat tasks
-parent: CAT
+parent: CAT API
 grand_parent: REST API reference
 nav_order: 70
 has_children: false

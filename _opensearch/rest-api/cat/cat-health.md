@@ -1,7 +1,7 @@
 ---
 layout: default
 title: cat health
-parent: CAT
+parent: CAT API
 grand_parent: REST API reference
 nav_order: 20
 has_children: false
