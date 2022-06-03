@@ -40,7 +40,7 @@ All URL parameters are optional.
 
 Parameter | Type | Description
 :--- | :--- | :---
-allow_no_indexes | Boolean | Whether to ignore wildcards that don’t match any indexes. Default is true.
+allow_no_indices | Boolean | Whether to ignore wildcards that don’t match any indexes. Default is true.
 allow_partial_search_results | Boolean | Whether to return partial results if the request runs into an error or times out. Default is true.
 analyzer | String | Analyzer to use in the query string.
 analyze_wildcard | Boolean | Whether the update operation should include wildcard and prefix queries in the analysis. Default is false.
