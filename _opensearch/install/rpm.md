@@ -59,11 +59,11 @@ YUM, an RPM package management tool, allows you to pull the RPM package from the
 1. Create a repository file for both OpenSearch and OpenSearch Dashboards:
 
    ```bash
-   sudo curl -SL https://artifacts.opensearch.org/releases/bundle/opensearch/2.x/opensearch-{{site.opensearch_version}}.repo -o /etc/yum.repos.d/{{site.opensearch_version}}.repo
+   sudo curl -SL https://artifacts.opensearch.org/releases/bundle/opensearch/2.x/opensearch-2.x.repo -o /etc/yum.repos.d/2.x.repo
    ```
 
    ```bash
-   sudo curl -SL https://artifacts.opensearch.org/releases/bundle/opensearch-dashboards/{{site.opensearch_version}}/opensearch-dashboards-{{site.opensearch_version}}.repo -o /etc/yum.repos.d/{{site.opensearch_version}}.repo
+   sudo curl -SL https://artifacts.opensearch.org/releases/bundle/opensearch-dashboards/2.x/opensearch-dashboards-2.x.repo -o /etc/yum.repos.d/2.x.repo
    ```
   
    To verify that the repos appear in your repo list, use `sudo yum repolist`.
@@ -150,7 +150,7 @@ You can upgrade your RPM OpenSearch instance both manually and through YUM.
 
 ### Manual 
 
-Download the new version of OpenSearch you want to use, and then use `rmp -Uvh` to upgrade.
+Download the new version of OpenSearch you want to use, and then use `rpm -Uvh` to upgrade.
 
 ### YUM
 
