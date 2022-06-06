@@ -150,7 +150,7 @@ You can upgrade your RPM OpenSearch instance both manually and through YUM.
 
 ### Manual 
 
-Download the new version of OpenSearch you want to use, and then use `rmp -Uvh` to upgrade.
+Download the new version of OpenSearch you want to use, and then use `rpm -Uvh` to upgrade.
 
 ### YUM
 
