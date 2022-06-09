@@ -7,7 +7,7 @@ nav_order: 15
 
 # Alerting API
 
-Use the Alerting API to programmatically create, update, and manage monitors and alerts.
+Use the alerting API to programmatically manage monitors and alerts.
 
 ---
 
@@ -18,13 +18,13 @@ Use the Alerting API to programmatically create, update, and manage monitors and
 
 ---
 
-## Create a query-level monitor
+## Create query-level monitor
 Introduced 1.0
 {: .label .label-purple }
 
-Query-level monitors run the query and check whether or not the results should trigger an alert. Query-level monitors can only trigger one alert at a time. For more information about query-level monitors and bucket-level monitors, see [Create monitors]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/#create-monitors).
+Query-level monitors run the query and check whether the results should trigger any alerts. As such, query-level monitors can only trigger one alert at a time. For more information about query-level monitors versus bucket-level monitors, see [Create monitors]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/#create-monitors).
 
-#### Sample Request
+#### Request
 
 ```json
 POST _plugins/_alerting/monitors
@@ -250,15 +250,15 @@ For a full list of timezone names, refer to [Wikipedia](https://en.wikipedia.org
 
 ---
 
-## Create a bucket-level monitor
+## Create bucket-level monitor
 
-Bucket-level monitors categorize results into buckets separated by fields. The monitor then runs your script with each bucket's results and evaluates whether to trigger an alert. For more information about bucket-level and query-level monitors, see [Create monitors]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/#create-monitors).
+Bucket-level monitors categorize results into buckets separated by fields. The monitor then runs your script with each bucket's results and evaluates whether to trigger an alert. For more information about bucket-level monitors versus query-level monitors, see [Create monitors]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/#create-monitors).
 
 ```json
 POST _plugins/_alerting/monitors
 {
   "type": "monitor",
-  "name": "Demo bucket-level monitor",
+  "name": "test-bucket-level-monitor",
   "monitor_type": "bucket_level_monitor",
   "enabled": true,
   "schedule": {
@@ -379,7 +379,7 @@ POST _plugins/_alerting/monitors
   "monitor" : {
     "type" : "monitor",
     "schema_version" : 4,
-    "name" : "Demo a bucket-level monitor",
+    "name" : "test-bucket-level-monitor",
     "monitor_type" : "bucket_level_monitor",
     "user" : {
       "name" : "",
@@ -508,151 +508,6 @@ POST _plugins/_alerting/monitors
   }
 }
 ```
-## Document-level monitors
-Introduced 2.0
-{: .label .label-purple }
-
-Document-level monitors check whether individual documents in an index match trigger conditions. If so, the monitor generates an alert notification. When you run a query with a document-level monitor, the results are returned for each document that matches the trigger condition. You can create trigger conditions based on query names, query IDs, or tags that combine multiple queries.
-
-To learn more about per document monitors that function similarly to the document-level monitor API, see [Monitor types]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/#monitor-types).
-
-### Search for monitor findings
-
-You can use the Alerting search API operation to search the findings index `.opensearch-alerting-finding*` for available document findings with a GET request. By default, a GET request without path parameters returns all available findings. To learn more about monitor findings, see [Document findings]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors/#document-findings).
-
-
-To retrieve any available findings, send a GET request without any path parameters as follows:
-
-```json
-GET /_plugins/_alerting/findings/_search?
-```
-
-
-To retrieve metadata for an individual document finding entry, you can search for the finding by its `findingId` as follows:
-
-```json
-GET /_plugins/_alerting/findings/_search?findingId=gKQhj8WJit3BxjGfiOXC
-```
-
-The response returns the number of individual finding entries in the `total_findings` field.
-
-To get more specific results in a findings search, you can use any of the optional path parameters that are defined in the following table:
-
-Path parameter | Description | Usage
-:--- | :--- : :---
-`findingId` | The identifier for the finding entry. | The finding ID is returned in the initial query response.
-`sortString` | This field specifies which string the Alerting plugin uses to sort the findings. | The default value is `id`.
-`sortOrder` | The order to sort the list of findings, either ascending or descending. | Use `sortOrder=asc` to indicate ascending, or `sortOrder=desc` for descending sort order.
-`size` | An optional limit for the maximum number of results returned in the response. | There is no minimum or maximum values.
-`startIndex` | The pagination indicator. | Default is `0`.
-`searchString` | The finding attribute you want returned in the search. | To search in a specific index, specify the index name in the request path. For example, to search findings in the `indexABC` index, use `searchString=indexABC'.
-
-
-### Create a document-level monitor
-
-You can create a document-level monitor with a POST request that provides the monitor details in the request body.
-At a minimum, you need to provide the following details: specify the queries or combinations by tag with the `inputs` field, a valid trigger condition, and provide the notification message in the `action` field.
-
-The following table shows the syntax to use for each trigger option:
-
-Trigger options | Definition | Syntax
-:--- | :--- : :---
-Tag | Creates alerts for documents that match a multiple query with this tag applied. If you group multiple queries by a single tag, then you can set it to trigger an alert if the results are returned by this tag name.| `query[tag=<tag-name>]`
-Query by name | Creates alerts for documents matched or returned by the named query.  | `query[name=<query-name>]`
-Query by ID | Creates alerts for documents that were returned by the identified query. | `query[id=<query-id>]`
-
-#### Sample Request
-
-The following sample shows how to create a document-level monitor:
-
-```json
-POST _plugins/_alerting/monitors
-{
-  "type": "monitor",
-  "monitor_type": "doc_level_monitor",
-  "name": "Example document-level monitor",
-  "enabled": true,
-  "schedule": {
-    "period": {
-      "interval": 1,
-      "unit": "MINUTES"
-    }
-  },
-  "inputs": [
-    {
-      "doc_level_input": {
-        "description": "Example document-level monitor for audit logs",
-        "indices": [
-          "audit-logs"
-        ],
-        "queries": [
-        {
-            "id": "nKQnFYABit3BxjGfiOXC",
-            "name": "sigma-123",
-            "query": "region:\"us-west-2\"",
-            "tags": [
-                "tag1"
-            ]
-        },
-        {
-            "id": "gKQnABEJit3BxjGfiOXC",
-            "name": "sigma-456",
-            "query": "region:\"us-east-1\"",
-            "tags": [
-                "tag2"
-            ]
-        },
-        {
-            "id": "h4J2ABEFNW3vxjGfiOXC",
-            "name": "sigma-789",
-            "query": "message:\"This is a SEPARATE error from IAD region\"",
-            "tags": [
-                "tag3"
-            ]
-        }
-    ]
-      }
-    }
-  ],
-    "triggers": [ { "document_level_trigger": {
-      "name": "test-trigger",
-      "severity": "1",
-      "condition": {
-        "script": {
-          "source": "(query[name=sigma-123] || query[tag=tag3]) && query[name=sigma-789]",
-          "lang": "painless"
-        }
-      },
-      "actions": [
-        {
-            "name": "test-action",
-            "destination_id": "E4o5hnsB6KjPKmHtpfCA",
-            "message_template": {
-                "source": """Monitor  just entered alert status. Please investigate the issue. Related Finding Ids: {{ctx.alerts.0.finding_ids}}, Related Document Ids: {{ctx.alerts.0.related_doc_ids}}""",
-                "lang": "mustache"
-            },
-            "action_execution_policy": {
-                "action_execution_scope": {
-                    "per_alert": {
-                        "actionable_alerts": []
-                    }
-                }
-            },
-            "subject_template": {
-                "source": "The Subject",
-                "lang": "mustache"
-            }
-         }
-      ]
-  }}]
-}
-
-```
-
-### Limitations
-
-If you run a document-level query while the index is getting reindexed, the API response will not return the reindexed results. To get updates, wait until the reindexing process completes, then rerun the query.
-{: .tip}
 
 ## Update monitor
 Introduced 1.0
@@ -1112,6 +967,7 @@ DELETE _plugins/_alerting/monitors/<monitor_id>
 ```json
 {
   "_index": ".opensearch-scheduled-jobs",
+  "_type": "_doc",
   "_id": "OYAHOmgBl3cmwnqZl_yH",
   "_version": 2,
   "result": "deleted",

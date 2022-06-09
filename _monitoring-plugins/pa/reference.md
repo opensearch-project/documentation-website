@@ -262,6 +262,48 @@ This list is extensive. We recommend using Ctrl/Cmd + F to find what you're look
       </td>
     </tr>
     <tr>
+      <td>Segments_Memory
+      </td>
+      <td>Estimated memory usage of segments in bytes.
+      </td>
+    </tr>
+    <tr>
+      <td>Terms_Memory
+      </td>
+      <td>Estimated memory usage of terms dictionaries in bytes.
+      </td>
+    </tr>
+    <tr>
+      <td>StoredFields_Memory
+      </td>
+      <td>Estimated memory usage of stored fields in bytes.
+      </td>
+    </tr>
+    <tr>
+      <td>TermVectors_Memory
+      </td>
+      <td>Estimated memory usage of term vectors in bytes.
+      </td>
+    </tr>
+    <tr>
+      <td>Norms_Memory
+      </td>
+      <td>Estimated memory usage of norms (normalization factors) in bytes.
+      </td>
+    </tr>
+    <tr>
+      <td>Points_Memory
+      </td>
+      <td>Estimated memory usage of points in bytes.
+      </td>
+    </tr>
+    <tr>
+      <td>DocValues_Memory
+      </td>
+      <td>Estimated memory usage of doc values in bytes.
+      </td>
+    </tr>
+    <tr>
       <td>IndexWriter_Memory
       </td>
       <td>Estimated memory usage by the index writer in bytes.

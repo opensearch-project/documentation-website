@@ -17,6 +17,5 @@ OpenSearch Version | Compatible Java Versions | Bundled Java Version
 :---------- | :-------- | :-----------
 1.0 - 1.2.x | 11, 15    | 15.0.1+9
 1.3.x       | 8, 11, 14 | 11.0.14.1+1
-2.0.0       | 11, 17    | 17.0.2+8
 
 To use a different Java installation, set the `OPENSEARCH_JAVA_HOME` or `JAVA_HOME` environment variable to the Java install location.

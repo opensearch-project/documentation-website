@@ -58,9 +58,6 @@ collections:
   monitoring-plugins:
     permalink: /:collection/:path/
     output: true
-  notifications-plugin:
-    permalink: /:collection/:path/
-    output: true
   clients:
     permalink: /:collection/:path/
     output: true
