@@ -159,7 +159,7 @@ Setting | Description
    s3.client.default.region: us-east-2 # AWS region to use
    ```
 
-1. (Optional) Alternatively to AWS access and secret keys, you could configure plugin to use AWS IAM roles for service accounts:
+1. (Optional) If you don't want to use AWS access and secret keys, you could configure S3 plugin to use AWS IAM roles for service accounts:
 
    ```bash
    sudo ./bin/opensearch-keystore add s3.client.default.role_arn
@@ -171,7 +171,7 @@ Setting | Description
    s3.client.default.identity_token_file: /usr/share/opensearch/plugins/repository-s3/token
    ```
 
-   For authenticating with AWS IAM roles for service accounts, at least one from the settings listed above has to be provided. Other settings will be taken from environment variables (if available): `AWS_ROLE_ARN`, `AWS_WEB_IDENTITY_TOKEN_FILE` and `AWS_ROLE_SESSION_NAME`.
+   AWS IAM roles require at least one of the above settings. Other settings will be taken from environment variables (if available): `AWS_ROLE_ARN`, `AWS_WEB_IDENTITY_TOKEN_FILE` and `AWS_ROLE_SESSION_NAME`.
 
 1. If you changed `opensearch.yml`, you must restart each node in the cluster. Otherwise, you only need to reload secure cluster settings:
 
