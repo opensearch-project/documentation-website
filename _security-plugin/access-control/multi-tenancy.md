@@ -63,7 +63,7 @@ opensearch_security.multitenancy.enable_filter: false
 
 Setting | Description
 :--- | :---
-`opensearch.requestHeadersWhitelist` | OpenSearch Dashboards requires that you whitelist all HTTP headers that it passes to OpenSearch. Multi-tenancy uses a specific header, `securitytenant`, that must be present with the standard `Authorization` header. If the `securitytenant` header is not whitelisted, OpenSearch Dashboards starts with a red status.
+`opensearch.requestHeadersWhitelist` | OpenSearch Dashboards requires that you add all HTTP headers to the allow list so that the headers pass to OpenSearch. Multi-tenancy uses a specific header, `securitytenant`, that must be present with the standard `Authorization` header. If the `securitytenant` header is not on the allow list, OpenSearch Dashboards starts with a red status.
 `opensearch_security.multitenancy.enabled` | Enables or disables multi-tenancy in OpenSearch Dashboards. Default is true.
 `opensearch_security.multitenancy.tenants.enable_global` | Enables or disables the global tenant. Default is true.
 `opensearch_security.multitenancy.tenants.enable_private` | Enables or disables the private tenant. Default is true.

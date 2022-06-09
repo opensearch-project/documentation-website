@@ -1,7 +1,7 @@
 ---
 layout: default
 title: cat aliases
-parent: CAT
+parent: CAT API
 grand_parent: REST API reference
 nav_order: 1
 has_children: false

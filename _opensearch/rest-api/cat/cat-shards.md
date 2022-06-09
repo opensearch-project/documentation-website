@@ -1,7 +1,7 @@
 ---
 layout: default
 title: cat shards
-parent: CAT
+parent: CAT API
 grand_parent: REST API reference
 nav_order: 60
 has_children: false

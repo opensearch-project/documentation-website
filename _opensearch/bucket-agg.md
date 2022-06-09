@@ -709,7 +709,19 @@ GET opensearch_dashboards_sample_data_logs/_search
  }
 }
 ```
+If you add a document with malformed fields to an index that has `ip_range` set to `false` in its mappings, OpenSearch rejects the entire document. You can set `ignore_malformed` to `true` to specify that OpenSearch should ignore malformed fields. The default is `false`.
 
+```json
+...
+"mappings": {
+  "properties": {
+    "ips": {
+      "type": "ip_range",
+      "ignore_malformed": true
+    }
+  }
+}
+```
 ## filter, filters
 
 A `filter` aggregation is a query clause, exactly like a search query — `match` or `term` or `range`. You can use the `filter` aggregation to narrow down the entire set of documents to a specific set before creating buckets.

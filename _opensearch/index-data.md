@@ -68,16 +68,16 @@ PUT movies/_doc/1
 
 Because you must specify an ID, if you run this command 10 times, you still have just one document indexed with the `_version` field incremented to 10.
 
-Indices default to one primary shard and one replica. If you want to specify non-default settings, create the index before adding documents:
+Indexes default to one primary shard and one replica. If you want to specify non-default settings, create the index before adding documents:
 
 ```json
 PUT more-movies
 { "settings": { "number_of_shards": 6, "number_of_replicas": 2 } }
 ```
 
-## Naming restrictions for indices
+## Naming restrictions for indexes
 
-OpenSearch indices have the following naming restrictions:
+OpenSearch indexes have the following naming restrictions:
 
 - All letters must be lowercase.
 - Index names can't begin with underscores (`_`) or hyphens (`-`).

@@ -281,6 +281,7 @@ Name | Description
 `opensearch_security.openid.header` | HTTP header name of the JWT token. Optional. Default is `Authorization`.
 `opensearch_security.openid.logout_url` | The logout URL of your IdP. Optional. Only necessary if your IdP does not publish the logout URL in its metadata.
 `opensearch_security.openid.base_redirect_url` | The base of the redirect URL that will be sent to your IdP. Optional. Only necessary when OpenSearch Dashboards is behind a reverse proxy, in which case it should be different than `server.host` and `server.port` in `opensearch_dashboards.yml`.
+`opensearch_security.openid.trust_dynamic_headers` | Compute `base_redirect_url` from the reverse proxy HTTP headers (`X-Forwarded-Host` / `X-Forwarded-Proto`). Optional. Default is `false`.
 
 
 ### Configuration example
@@ -308,7 +309,7 @@ opensearch.password: "kibanaserver"
 # Disable SSL verification when using self-signed demo certificates
 opensearch.ssl.verificationMode: none
 
-# Whitelist basic headers and multi-tenancy header
+# whitelist basic headers and multi-tenancy header
 opensearch.requestHeadersWhitelist: ["Authorization", "security_tenant"]
 ```
 

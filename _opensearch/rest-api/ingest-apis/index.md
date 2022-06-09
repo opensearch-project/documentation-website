@@ -3,7 +3,7 @@ layout: default
 title: Ingest APIs
 parent: REST API reference
 has_children: true
-nav_order: 3
+nav_order: 4
 redirect_from:
   - /opensearch/rest-api/ingest-apis/
 ---

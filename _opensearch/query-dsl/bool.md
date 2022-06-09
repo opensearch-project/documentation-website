@@ -113,7 +113,6 @@ GET shakespeare/_search
     "hits": [
       {
         "_index": "shakespeare",
-        "_type": "_doc",
         "_id": "88020",
         "_score": 11.356054,
         "_source": {

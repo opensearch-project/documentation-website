@@ -731,7 +731,6 @@ DELETE _plugins/_transform/<transform_id>
     {
       "delete": {
         "_index": ".opensearch-ism-config",
-        "_type": "_doc",
         "_id": "sample",
         "_version": 4,
         "result": "deleted",

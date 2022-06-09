@@ -123,7 +123,6 @@ In the response, pay particular attention to the top-level `errors` boolean. If 
     {
       "index": {
         "_index": "movies",
-        "_type": "_doc",
         "_id": "tt1979320",
         "_version": 1,
         "result": "created",
@@ -140,7 +139,6 @@ In the response, pay particular attention to the top-level `errors` boolean. If 
     {
       "create": {
         "_index": "movies",
-        "_type": "_doc",
         "_id": "tt1392214",
         "status": 409,
         "error": {
@@ -155,7 +153,6 @@ In the response, pay particular attention to the top-level `errors` boolean. If 
     {
       "update": {
         "_index": "movies",
-        "_type": "_doc",
         "_id": "tt0816711",
         "status": 404,
         "error": {

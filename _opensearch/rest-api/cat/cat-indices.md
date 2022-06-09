@@ -1,7 +1,7 @@
 ---
 layout: default
 title: cat indices
-parent: CAT
+parent: CAT API
 grand_parent: REST API reference
 nav_order: 25
 has_children: false

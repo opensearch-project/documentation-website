@@ -20,7 +20,7 @@ The Machine Learning (ML) commons API lets you train ML algorithms synchronously
 
 In order to train tasks through the API, three inputs are required. 
 
-- Algorithm name: Must be one of a [FunctionaName](https://github.com/opensearch-project/ml-commons/blob/1.3/common/src/main/java/org/opensearch/ml/common/parameter/FunctionName.java). This determines what algorithm the ML Engine runs. To add a new function, see [How To Add a New Function](https://github.com/opensearch-project/ml-commons/blob/main/docs/how-to-add-new-function.md).
+- Algorithm name: Must be one of a [FunctionName](https://github.com/opensearch-project/ml-commons/blob/1.3/common/src/main/java/org/opensearch/ml/common/parameter/FunctionName.java). This determines what algorithm the ML Engine runs. To add a new function, see [How To Add a New Function](https://github.com/opensearch-project/ml-commons/blob/main/docs/how-to-add-new-function.md).
 - Model hyper parameters: Adjust these parameters to make the model train better.  
 - Input data: The data input that trains the ML model, or applies the ML models to predictions. You can input data in two ways, query against your index or use data frame.
 
@@ -173,7 +173,6 @@ POST /_plugins/_ml/models/_search
       "hits" : [
         {
           "_index" : ".plugins-ml-model",
-          "_type" : "_doc",
           "_id" : "-QkKJX8BvytMh9aUeuLD",
           "_version" : 1,
           "_seq_no" : 12,
@@ -188,7 +187,6 @@ POST /_plugins/_ml/models/_search
         },
         {
           "_index" : ".plugins-ml-model",
-          "_type" : "_doc",
           "_id" : "OxkvHn8BNJ65KnIpck8x",
           "_version" : 1,
           "_seq_no" : 2,
@@ -219,7 +217,6 @@ The API returns the following:
 ```json
 {
   "_index" : ".plugins-ml-model",
-  "_type" : "_doc",
   "_id" : "MzcIJX8BA7mbufL6DOwl",
   "_version" : 2,
   "result" : "deleted",
@@ -235,7 +232,7 @@ The API returns the following:
 
 ## Predict
 
-ML commons can predict new data with your trained model either from indexed data or a data frame. The model_id is required to use the Predict API.
+ML Commons can predict new data with your trained model either from indexed data or a data frame. To use the Predict API, the `model_id` is required.
 
 ```json
 POST /_plugins/_ml/_predict/<algorithm_name>/<model_id>
@@ -602,7 +599,6 @@ GET /_plugins/_ml/tasks/_search
     "hits" : [
       {
         "_index" : ".plugins-ml-task",
-        "_type" : "_doc",
         "_id" : "_wnLJ38BvytMh9aUi-Ia",
         "_version" : 4,
         "_seq_no" : 29,
@@ -622,7 +618,6 @@ GET /_plugins/_ml/tasks/_search
       },
       {
         "_index" : ".plugins-ml-task",
-        "_type" : "_doc",
         "_id" : "wwRRLX8BydmmU1x6I-AI",
         "_version" : 3,
         "_seq_no" : 38,
@@ -658,7 +653,6 @@ The API returns the following:
 ```json
 {
   "_index" : ".plugins-ml-task",
-  "_type" : "_doc",
   "_id" : "xQRYLX8BydmmU1x6nuD3",
   "_version" : 4,
   "result" : "deleted",
