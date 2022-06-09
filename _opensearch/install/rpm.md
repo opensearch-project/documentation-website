@@ -59,11 +59,11 @@ YUM, an RPM package management tool, allows you to pull the RPM package from the
 1. Create a repository file for both OpenSearch and OpenSearch Dashboards:
 
    ```bash
-   sudo curl -SL https://artifacts.opensearch.org/releases/bundle/opensearch/1.x/opensearch-1.x.repo -o /etc/yum.repos.d/1.x.repo
+   sudo curl -SL https://artifacts.opensearch.org/releases/bundle/opensearch/1.x/opensearch-1.x.repo -o /etc/yum.repos.d/opensearch-1.x.repo
    ```
 
    ```bash
-   sudo curl -SL https://artifacts.opensearch.org/releases/bundle/opensearch-dashboards/1.x/opensearch-dashboards-1.x.repo -o /etc/yum.repos.d/1.x.repo
+   sudo curl -SL https://artifacts.opensearch.org/releases/bundle/opensearch-dashboards/1.x/opensearch-dashboards-1.x.repo -o /etc/yum.repos.d/opensearch-dashboards-1.x.repo
    ```
   
    To verify that the repos appear in your repo list, use `sudo yum repolist`.
