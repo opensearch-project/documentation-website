@@ -95,7 +95,6 @@ The search query “To be, or not to be” is analyzed and tokenized into an arr
     "hits" : [
       {
         "_index" : "shakespeare",
-        "_type" : "_doc",
         "_id" : "34229",
         "_score" : 17.419369,
         "_source" : {
@@ -110,7 +109,6 @@ The search query “To be, or not to be” is analyzed and tokenized into an arr
       },
       {
         "_index" : "shakespeare",
-        "_type" : "_doc",
         "_id" : "109930",
         "_score" : 14.883024,
         "_source" : {
@@ -125,7 +123,6 @@ The search query “To be, or not to be” is analyzed and tokenized into an arr
       },
       {
         "_index" : "shakespeare",
-        "_type" : "_doc",
         "_id" : "103117",
         "_score" : 14.782743,
         "_source" : {
@@ -180,7 +177,6 @@ GET shakespeare/_search
     "hits" : [
       {
         "_index" : "shakespeare",
-        "_type" : "_doc",
         "_id" : "32700",
         "_score" : 4.2540946,
         "_source" : {
@@ -195,7 +191,6 @@ GET shakespeare/_search
       },
       {
         "_index" : "shakespeare",
-        "_type" : "_doc",
         "_id" : "32702",
         "_score" : 4.2540946,
         "_source" : {
@@ -210,7 +205,6 @@ GET shakespeare/_search
       },
       {
         "_index" : "shakespeare",
-        "_type" : "_doc",
         "_id" : "32709",
         "_score" : 4.2540946,
         "_source" : {

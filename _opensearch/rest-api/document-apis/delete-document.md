@@ -44,7 +44,6 @@ wait_for_active_shards | String | The number of active shards that must be avail
 ```json
 {
   "_index": "sample-index1",
-  "_type": "_doc",
   "_id": "1",
   "_version": 2,
   "result": "deleted",
@@ -63,7 +62,6 @@ wait_for_active_shards | String | The number of active shards that must be avail
 Field | Description
 :--- | :---
 _index | The name of the index.
-_type | The document's type. OpenSearch only supports one type, which is `_doc`.
 _id | The document's ID.
 _version | The document's version.
 _result | The result of the delete operation.

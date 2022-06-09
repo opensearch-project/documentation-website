@@ -6,10 +6,7 @@ nav_order: 65
 
 # Java client
 
-The OpenSearch Java client is currently in its beta phase, so we recommend that you use the [OpenSearch Java high-level REST client]({{site.url}}{{site.baseurl}}/clients/java-rest-high-level).
-{: .note}
-
-The OpenSearch Java client allows you to interact with your OpenSearch clusters through Java methods and data structures rather than HTTP methods and raw JSON.
+The OpenSearch Java client allows you to interact with your OpenSearch clusters through Java methods and data structures rather than HTTP methods and raw JSON. 
 
 For example, you can submit requests to your cluster using objects to create indices, add data to documents, or complete some other operation using the client's built-in methods.
 
@@ -26,7 +23,7 @@ To start using the OpenSearch Java client, ensure that you have the following de
 <dependency>
   <groupId>org.opensearch.client</groupId>
   <artifactId>opensearch-java</artifactId>
-  <version>0.1.0</version>
+  <version>2.0.0</version>
 </dependency>
 ```
 
@@ -35,7 +32,7 @@ If you're using Gradle, add the following dependencies to your project.
 ```
 dependencies {
     implementation 'org.opensearch.client:opensearch-rest-client: {{site.opensearch_version}}'
-    implementation 'org.opensearch.client:opensearch-java:0.1.0'
+    implementation 'org.opensearch.client:opensearch-java:2.0.0'
 }
 ```
 

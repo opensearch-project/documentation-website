@@ -29,7 +29,7 @@ In addition, verify and add the distinguished names (DNs) of each follower clust
 First, get the node's DN from each follower cluster:
 
   ```bash
-curl -XGET -k -u 'admin:admin' 'https://localhost:9200/_plugins/_security/api/ssl/certs?pretty'
+curl -XGET -k -u 'admin:admin' 'https://localhost:9200/_opendistro/_security/api/ssl/certs?pretty'
 
 {
    "transport_certificates_list": [
@@ -226,7 +226,6 @@ curl -XGET -k -u 'admin:admin' 'https://localhost:9200/follower-01/_search?prett
   ...
   "hits": [{
     "_index": "follower-01",
-    "_type": "_doc",
     "_id": "1",
     "_score": 1.0,
     "_source": {

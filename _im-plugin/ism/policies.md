@@ -99,6 +99,7 @@ ISM supports the following operations:
 - [read_only](#read_only)
 - [read_write](#read_write)
 - [replica_count](#replica_count)
+- [shrink](#shrink)
 - [close](#close)
 - [open](#open)
 - [delete](#delete)
@@ -162,6 +163,59 @@ Parameter | Description | Type | Required
 
 For information about setting replicas, see [Primary and replica shards]({{site.url}}{{site.baseurl}}/opensearch#primary-and-replica-shards).
 
+### shrink
+
+Allows you to reduce the number of primary shards in your indexes. With this action, you can specify:
+
+- The number of primary shards that the target index should contain.
+- A max shard size for the primary shards in the target index.
+- Specify a percentage to shrink the number of primary shards in the target index.
+
+```json
+"shrink": {
+    "num_new_shards": 1,
+    "target_index_name_template": {
+        "source": "{{ctx.index}}_shrunken"
+    },
+    "aliases": [
+       "my-alias": {}
+    ],
+    "force_unsafe": false
+}
+```
+
+Parameter | Description | Type | Example | Required
+:--- | :--- |:--- |:--- |
+`num_new_shards` | The maximum number of primary shards in the shrunken index. | integer | `5` | Yes, however it cannot be used with `max_shard_size` or `percentage_of_source_shards`
+`max_shard_size` | The maximum size in bytes of a shard for the target index. | keyword | `5gb` | Yes, however it cannot be used with `num_new_shards` or `percentage_of_source_shards`
+`percentage_of_source_shards` | Percentage of the number of original primary shards to shrink. This parameter indicates the minimum percentage to use when shrinking the number of primary shards. Must be between 0.0 and 1.0, exclusive.  | Percentage | `0.5` | Yes, however it cannot be used with `max_shard_size` or `num_new_shards`
+`target_index_name_template` | The name of the shrunken index. Accepts strings and the Mustache variables `{{ctx.index}}` and `{{ctx.indexUuid}}`. | `string` or Mustache template | `{"source": "{{ctx.index}}_shrunken"}` | No
+`aliases` | Aliases to add to the new index. | object | `myalias` | No, but must be an array of alias objects
+`force_unsafe` | If true, executes the shrink action even if there are no replicas. | boolean | `false` | No
+
+If you want to add `aliases` to the action, the parameter must include an array of [alias objects]({{site.url}}{{site.baseurl}}/opensearch/rest-api/alias/). For example,
+
+```json
+"aliases": [
+  {
+    "my-alias": {}
+  },
+  {
+    "my-second-alias": {
+      "is_write_index": false,
+      "filter": {
+        "multi_match": {
+          "query": "QUEEN",
+          "fields": ["speaker", "text_entry"]
+        }
+      },
+      "index_routing" : "1",
+      "search_routing" : "1"
+    }
+  },
+]
+```
+
 ### close
 
 Closes the managed index.
@@ -200,19 +254,30 @@ Deletes a managed index.
 
 Rolls an alias over to a new index when the managed index meets one of the rollover conditions.
 
+**Important**: ISM checks the conditions for operations on **every execution of the policy** based on the **set interval**, _not_ continuously. The rollover will be performed if the value **has reached** or _exceeded_ the configured limit **when the check is performed**. For example with `min_size` configured to a value of 100GiB, ISM might check the index at 99 GiB and not perform the rollover. However, if the index has grown past the limit (e.g. 105GiB) by the next check, the operation is performed.
+
 The index format must match the pattern: `^.*-\d+$`. For example, `(logs-000001)`.
 Set `index.plugins.index_state_management.rollover_alias` as the alias to rollover.
 
 Parameter | Description | Type | Example | Required
 :--- | :--- |:--- |:--- |
-`min_size` | The minimum size of the total primary shard storage (not counting replicas) required to roll over the index. For example, if you set `min_size` to 100 GiB and your index has 5 primary shards and 5 replica shards of 20 GiB each, the total size of all primary shards is 100 GiB, so the rollover occurs. ISM doesn't check indexes continually, so it doesn't roll over indexes at exactly 100 GiB. Instead, if an index is continuously growing, ISM might check it at 99 GiB, not perform the rollover, check again when the shards reach 105 GiB, and then perform the operation. | `string` | `20gb` or `5mb` | No
-`min_doc_count` |  The minimum number of documents required to roll over the index. | `number` | `2000000` | No
-`min_index_age` |  The minimum age required to roll over the index. Index age is the time between its creation and the present. | `string` | `5d` or `7h` | No
+`min_size` | The minimum size of the total primary shard storage (not counting replicas) required to roll over the index. For example, if you set `min_size` to 100 GiB and your index has 5 primary shards and 5 replica shards of 20 GiB each, the total size of all primary shards is 100 GiB, so the rollover occurs. See **Important** note above. | `string` | `20gb` or `5mb` | No
+`min_primary_shard_size` | The minimum storage size of a **single primary shard** required to roll over the index. For example, if you set `min_primary_shard_size` to 30 GiB and **one of** the primary shards in the index has a size greater than the condition, the rollover occurs. See **Important** note above. | `string` | `20gb` or `5mb` | No
+`min_doc_count` |  The minimum number of documents required to roll over the index. See **Important** note above. | `number` | `2000000` | No
+`min_index_age` |  The minimum age required to roll over the index. Index age is the time between its creation and the present. See **Important** note above. | `string` | `5d` or `7h` | No
 
 ```json
 {
   "rollover": {
     "min_size": "50gb"
+  }
+}
+```
+
+```json
+{
+  "rollover": {
+    "min_primary_shard_size": "30gb"
   }
 }
 ```
@@ -443,7 +508,7 @@ For information on writing cron expressions, see [Cron expression reference]({{s
 ## Error notifications
 
 The `error_notification` operation sends you a notification if your managed index fails.
-It notifies a single destination with a custom message.
+It notifies a single destination or [notification channel]({{site.url}}{{site.baseurl}}/notifications-plugin/index) with a custom message.
 
 Set up error notifications at the policy level:
 
@@ -461,7 +526,8 @@ Set up error notifications at the policy level:
 
 Parameter | Description | Type | Required
 :--- | :--- |:--- |:--- |
-`destination` | The destination URL. | `Slack, Amazon Chime, or webhook URL` | Yes
+`destination` | The destination URL. | `Slack, Amazon Chime, or webhook URL` | Yes if `channel` isn't specified
+`channel` | A notification channel's ID | `string` | Yes if `destination` isn't specified
 `message_template` |  The text of the message. You can add variables to your messages using [Mustache templates](https://mustache.github.io/mustache.5.html). | `object` | Yes
 
 The destination system **must** return a response otherwise the `error_notification` operation throws an error.
@@ -509,6 +575,21 @@ The destination system **must** return a response otherwise the `error_notificat
       "slack": {
         "url": "https://hooks.slack.com/services/xxx/xxxxxx"
       }
+    },
+    "message_template": {
+      "source": "The index {% raw %}{{ctx.index}}{% endraw %} failed during policy execution."
+    }
+  }
+}
+```
+
+#### Example 4: Using a notification channel
+
+```json
+{
+  "error_notification": {
+    "channel": {
+      "id": "some-channel-config-id"
     },
     "message_template": {
       "source": "The index {% raw %}{{ctx.index}}{% endraw %} failed during policy execution."
@@ -618,7 +699,8 @@ After 30 days, the policy moves this index into a `delete` state. The service se
         "actions": [
           {
             "rollover": {
-              "min_index_age": "1d"
+              "min_index_age": "1d",
+              "min_primary_shard_size": "30gb"
             }
           }
         ],
@@ -666,7 +748,11 @@ After 30 days, the policy moves this index into a `delete` state. The service se
           }
         ]
       }
-    ]
+    ],
+    "ism_template": {
+      "index_patterns": ["log*"],
+      "priority": 100
+    }
   }
 }
 ```

@@ -40,11 +40,12 @@ All URL parameters are optional.
 
 Parameter | Type | Description
 :--- | :--- | :---
-allow_no_indexes | Boolean | Whether to ignore wildcards that don’t match any indexes. Default is true.
+allow_no_indices | Boolean | Whether to ignore wildcards that don’t match any indexes. Default is true.
 allow_partial_search_results | Boolean | Whether to return partial results if the request runs into an error or times out. Default is true.
 analyzer | String | Analyzer to use in the query string.
 analyze_wildcard | Boolean | Whether the update operation should include wildcard and prefix queries in the analysis. Default is false.
 batched_reduce_size | Integer | How many shard results to reduce on a node. Default is 512.
+cancel_after_time_interval | Time | The time after which the search request will be canceled. Request-level parameter takes precedence over cancel_after_time_interval [cluster setting]({{site.url}}{{site.baseurl}}/opensearch/rest-api/cluster-settings). Default is -1.
 css_minimize_roundtrips | Boolean | Whether to minimize roundtrips between a node and remote clusters. Default is true.
 default_operator | String | Indicates whether the default operator for a string query should be AND or OR. Default is OR.
 df | String | The default field in case a field prefix is not provided in the query string.
@@ -125,7 +126,6 @@ version | Boolean | Whether to include the document version in the response.
     "hits": [
       {
         "_index": "superheroes",
-        "_type": "_doc",
         "_id": "1",
         "_score": 1.0,
         "_source": {

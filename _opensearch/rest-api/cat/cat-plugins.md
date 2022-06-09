@@ -1,7 +1,7 @@
 ---
 layout: default
 title: cat plugins
-parent: CAT
+parent: CAT API
 grand_parent: REST API reference
 nav_order: 50
 has_children: false

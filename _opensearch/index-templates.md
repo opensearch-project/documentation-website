@@ -6,7 +6,7 @@ nav_order: 15
 
 # Index templates
 
-Index templates let you initialize new indices with predefined mappings and settings. For example, if you continuously index log data, you can define an index template so that all of these indices have the same number of shards and replicas.
+Index templates let you initialize new indexes with predefined mappings and settings. For example, if you continuously index log data, you can define an index template so that all of these indexes have the same number of shards and replicas.
 
 ### Create a template
 
@@ -95,7 +95,7 @@ GET logs-2020-01-01
 }
 ```
 
-Any additional indices that match this pattern---`logs-2020-01-02`, `logs-2020-01-03`, and so on---will inherit the same mappings and settings.
+Any additional indexes that match this pattern---`logs-2020-01-02`, `logs-2020-01-03`, and so on---will inherit the same mappings and settings.
 
 Index patterns cannot contain any of the following characters: `:`, `"`, `+`, `/`, `\`, `|`, `?`, `#`, `>`, and `<`.
 
@@ -127,7 +127,7 @@ HEAD _index_template/<name>
 
 ### Configure multiple templates
 
-You can create multiple index templates for your indices. If the index name matches more than one template, OpenSearch merges all mappings and settings from all matching templates and applies them to the index.
+You can create multiple index templates for your indexes. If the index name matches more than one template, OpenSearch merges all mappings and settings from all matching templates and applies them to the index.
 
 The settings from the more recently created index templates override the settings of older index templates. So, you can first define a few common settings in a generic template that can act as a catch-all and then add more specialized settings as required.
 
