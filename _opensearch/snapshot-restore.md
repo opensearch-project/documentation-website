@@ -166,7 +166,7 @@ Setting | Description
    sudo ./bin/opensearch-keystore add s3.client.default.role_session_name
    ```
 
-   Optionally, if AWS access and secret keys are not configured, add to `opensearch.yml` setting (please make sure the file is accessible by `repository-s3` plugin):
+   If you don't want to configure AWS access and secret keys, modify the following `opensearch.yml` setting. Make sure the file is accessible by the `repository-s3` plugin:
    ```yml
    s3.client.default.identity_token_file: /usr/share/opensearch/plugins/repository-s3/token
    ```
