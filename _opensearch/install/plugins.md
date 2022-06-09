@@ -123,6 +123,25 @@ opensearch-sql                       2.0.0.0-rc1
 </pre>
 </td>
 </tr>
+<tr>
+    <td>1.3.3</td>
+    <td>
+      <pre>opensearch-alerting                  1.3.3.0
+opensearch-anomaly-detection         1.3.3.0
+opensearch-asynchronous-search       1.3.3.0
+opensearch-cross-cluster-replication 1.3.3.0
+opensearch-index-management          1.3.3.0
+opensearch-job-scheduler             1.3.3.0
+opensearch-knn                       1.3.3.0
+opensearch-ml                        1.3.3.0
+opensearch-observability             1.3.3.0
+opensearch-performance-analyzer      1.3.3.0
+opensearch-reports-scheduler         1.3.3.0
+opensearch-security                  1.3.3.0
+opensearch-sql                       1.3.3.0
+</pre>
+</td>
+</tr>
   <tr>
     <td>1.3.2</td>
     <td>
