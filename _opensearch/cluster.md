@@ -70,13 +70,13 @@ After you name the cluster, set node attributes for each node in your cluster.
 Give your cluster manager node a name. If you don't specify a name, OpenSearch assigns a machine-generated name that makes the node difficult to monitor and troubleshoot.
 
 ```yml
-node.name: opensearch-cluster_manager
+node.name: opensearch-master
 ```
 
-You can also explicitly specify that this node is a cluster manager node, even though it is already set to true by default. Set the node role to `cluster_manager` to make it easier to identify the cluster manager node.
+You can also explicitly specify that this node is a cluster manager node, even though it is already set to true by default. Set the node role to `master` to make it easier to identify the cluster manager node.
 
 ```yml
-node.roles: [ cluster_manager ]
+node.roles: [ master ]
 ```
 
 #### Data nodes
@@ -137,7 +137,7 @@ Zen Discovery is the built-in, default mechanism that uses [unicast](https://en.
 
 You can generally just add all of your cluster-manager-eligible nodes to the `discovery.seed_hosts` array. When a node starts up, it finds the other cluster-manager-eligible nodes, determines which one is the cluster manager, and asks to join the cluster.
 
-For example, for `opensearch-cluster_manager` the line looks something like this:
+For example, for `opensearch-master` the line looks something like this:
 
 ```yml
 discovery.seed_hosts: ["<private IP of opensearch-d1>", "<private IP of opensearch-d2>", "<private IP of opensearch-c1>"]
@@ -164,8 +164,8 @@ curl -XGET https://<private-ip>:9200/_cat/nodes?v -u 'admin:admin' --insecure
 ```
 
 ```
-ip             heap.percent ram.percent cpu load_1m load_5m load_15m node.role cluster_manager name
-x.x.x.x           13          61   0    0.02    0.04     0.05 mi        *      opensearch-cluster_manager
+ip             heap.percent ram.percent cpu load_1m load_5m load_15m node.role master name
+x.x.x.x           13          61   0    0.02    0.04     0.05 mi        *      opensearch-master
 x.x.x.x           16          60   0    0.06    0.05     0.05 md        -      opensearch-d1
 x.x.x.x           34          38   0    0.12    0.07     0.06 md        -      opensearch-d2
 x.x.x.x           23          38   0    0.12    0.07     0.06 md        -      opensearch-c1

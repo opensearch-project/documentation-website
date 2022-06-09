@@ -28,11 +28,11 @@ Parameter | Type   | Description
 
 Node filters support several node resolution mechanisms.
 
-- Pre defined constants: `_local`, `_cluster_manager`, or `_all`
+- Pre defined constants: `_local`, `_master`, or `_all`
 - An exact match for `nodeID`
 - A simple case-sensitive wildcard pattern matching for `node-name`, `host-name`, or `host-IP-address`
 - Node roles where the `<bool>` value is set either to `true` or `false`):
-  - `cluster_manager:<bool>` 
+  - `master:<bool>` 
   - `data:<bool>`
   - `ingest:<bool>`
   - `voting_only:<bool>`
@@ -45,7 +45,7 @@ Resolution mechanisms are applied sequentially in the order specified by the cli
 If you want to get statistics from the elected cluster manager node only, use the following:
 
 ```bash
-GET /_nodes/_cluster_manager/stats
+GET /_nodes/_master/stats
 ```
 
 If you want to get statistics from nodes that are data-only nodes, use the following:
@@ -61,7 +61,7 @@ The order of resolution mechanisms is applied sequentially, and each can add or 
 If you want to get statistics from all the nodes but the cluster manager node, use the following:
 
 ```bash
-GET /_nodes/_all,cluster_manager:false/stats
+GET /_nodes/_all,master:false/stats
 ```
 
 However, if we switch the resolution mechanisms, then the result will include all the cluster nodes including the cluster manager node. 

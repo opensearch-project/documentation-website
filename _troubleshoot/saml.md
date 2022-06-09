@@ -50,7 +50,7 @@ Make sure that you have configured this endpoint correctly in your IdP. Some IdP
 OpenSearch Dashboards also requires you to add this endpoint to the allow list. Make sure you have the following entry in `opensearch_dashboards.yml`:
 
 ```
-server.xsrf.allowlist: [/_plugins/_security/saml/acs]
+server.xsrf.whitelist: [/_plugins/_security/saml/acs]
 ```
 
 

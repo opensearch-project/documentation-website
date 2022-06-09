@@ -100,7 +100,7 @@ opensearch.hosts: ["https://localhost:9200"]
 opensearch.ssl.verificationMode: none
 opensearch.username: "kibanaserver"
 opensearch.password: "kibanaserver"
-opensearch.requestHeadersAllowlist: [ authorization,securitytenant ]
+opensearch.requestHeadersWhitelist: [ authorization,securitytenant ]
 #server.ssl.enabled: true
 #server.ssl.certificate: /path/to/your/server/certificate
 #server.ssl.key: /path/to/your/server/key

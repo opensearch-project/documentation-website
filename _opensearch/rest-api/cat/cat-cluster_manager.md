@@ -7,7 +7,7 @@ nav_order: 30
 has_children: false
 ---
 
-# cat cluster_manager
+# cat master
 Introduced 1.0
 {: .label .label-purple }
 
@@ -16,13 +16,13 @@ The cat cluster manager operation lists information that helps identify the elec
 ## Example
 
 ```
-GET _cat/cluster_manager?v
+GET _cat/master?v
 ```
 
 ## Path and HTTP methods
 
 ```
-GET _cat/cluster_manager
+GET _cat/master
 ```
 
 ## URL parameters
@@ -33,7 +33,7 @@ In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/opensear
 
 Parameter | Type | Description
 :--- | :--- | :---
-cluster_manager_timeout | Time | The amount of time to wait for a connection to the cluster manager node. Default is 30 seconds.
+master_timeout | Time | The amount of time to wait for a connection to the cluster manager node. Default is 30 seconds.
 
 
 ## Response
