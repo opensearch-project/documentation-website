@@ -99,7 +99,7 @@ Paramater Name | Required | Default | Updatable | Description
 
 Paramater Name | Required | Default | Updatable | Description
 :--- | :--- | :--- | :--- | :---
-`nlists` | false | 4 | false | Number of buckets to partition vectors into. Higher values may lead to more accurate searches, at the expense of memory and training latency. For more information about choosing the right value, refer to [*faiss*'s documentation](https://github.com/facebookresearch/faiss/wiki/Guidelines-to-choose-an-index).
+`nlist` | false | 4 | false | Number of buckets to partition vectors into. Higher values may lead to more accurate searches, at the expense of memory and training latency. For more information about choosing the right value, refer to [*faiss*'s documentation](https://github.com/facebookresearch/faiss/wiki/Guidelines-to-choose-an-index).
 `nprobes` | false | 1 | false | Number of buckets to search over during query. Higher values lead to more accurate but slower searches.
 `encoder` | false | flat | false | Encoder definition for encoding vectors. Encoders can reduce the memory footprint of your index, at the expense of search accuracy.
 

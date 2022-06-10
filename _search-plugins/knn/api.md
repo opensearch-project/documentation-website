@@ -331,7 +331,7 @@ POST /_plugins/_knn/models/{model_id}/_train?preference={node_id}
         "engine":"faiss",
         "space_type": "l2",
         "parameters":{
-            "nlists":128,
+            "nlist":128,
             "encoder":{
                 "name":"pq",
                 "parameters":{
@@ -361,7 +361,7 @@ POST /_plugins/_knn/models/_train?preference={node_id}
         "engine":"faiss",
         "space_type": "l2",
         "parameters":{
-            "nlists":128,
+            "nlist":128,
             "encoder":{
                 "name":"pq",
                 "parameters":{
