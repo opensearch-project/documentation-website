@@ -46,7 +46,7 @@ If you disable the security plugin in `opensearch.yml` (or delete the plugin ent
    ```yml
    ---
    server.name: opensearch-dashboards
-   server.host: "0"
+   server.host: "0.0.0.0"
    opensearch.hosts: http://localhost:9200
    ```
 
