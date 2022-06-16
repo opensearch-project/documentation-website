@@ -402,14 +402,48 @@ GET _search
 }
 ```
 
+## Convert text with analyzers
 
+OpenSearch provides the analyzer option to convert your structured text into the format that works best for your searches. You can use the following options with the analyzer field: standard, simple, whitespace, stop, keyword, pattern, fingerprint and language. Different analyzers have different character filters, tokenizers, and token filters. The stop analyzer, for example, removes stop words (e.g. “an,” “but,” “this”) from the query string.
+
+OpenSearch supports the following language values with the `analyzer` option:
+arabic, armenian, basque, bengali, brazilian, bulgarian, catalan, czech, danish, dutch, english, estonian, finnish, french, galicia, german, greek, hindi, hungarian, indonesian, irish, italian, latvian, lithuanian, norwegian, persian, portuguese,romanian, russian, sorani, spanish, swedish, turkish, and thai.
+
+To use the analyzer when you map an index, specify the value within your query. For example, to map your index with the French language analyzer, enter the analyzer field and specify the `french` value for the analyzer field: ` "analyzer": "french"`.
+#### Sample Request  
+
+The following query maps an index with the language analyzer set to French: 
+
+```json
+PUT my-index-000001
+
+{
+  "mappings": {
+    "properties": {
+      "text": { 
+        "type": "text",
+        "fields": {
+          "french": { 
+            "type":     "text",
+            "analyzer": "french"
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+
+
+<!-- TO do: each of the options needs its own section with an example. Convert table to individual sections, and then give a streamlined list with valid values. -->
 ## Options
 
 Option | Valid values | Description
 :--- | :--- | :---
 `allow_leading_wildcard` | Boolean | Whether `*` and `?` are allowed as the first character of a search term. The default is true.
 `analyze_wildcard` | Boolean | Whether OpenSearch should attempt to analyze wildcard terms. Some analyzers do a poor job at this task, so the default is false.
-`analyzer` | `standard, simple, whitespace, stop, keyword, pattern, <language>, fingerprint` | The analyzer you want to use for the query. Different analyzers have different character filters, tokenizers, and token filters. The `stop` analyzer, for example, removes stop words (e.g. "an," "but," "this") from the query string.
+`analyzer` | `standard, simple, whitespace, stop, keyword, pattern, language fingerprint` | The analyzer you want to use for the query. Different analyzers have different character filters, tokenizers, and token filters. The `stop` analyzer, for example, removes stop words (e.g. "an," "but," "this") from the query string. For a full list of acceptable language values, see [Convert text with analyzers](#convert-text-with-analyzers) on this page.
 `auto_generate_synonyms_phrase_query` | Boolean | A value of true (default) automatically generates [phrase queries](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/PhraseQuery.html) for multi-term synonyms. For example, if you have the synonym `"ba, batting average"` and search for "ba," OpenSearch searches for `ba OR "batting average"` (if this option is true) or `ba OR (batting AND average)` (if this option is false).
 `boost` | Floating-point | Boosts the clause by the given multiplier. Useful for weighing clauses in compound queries. The default is 1.0.
 `cutoff_frequency` | Between `0.0` and `1.0` or a positive integer | This value lets you define high and low frequency terms based on number of occurrences in the index. Numbers between 0 and 1 are treated as a percentage. For example, 0.10 is 10%. This value means that if a word occurs within the search field in more than 10% of the documents on the shard, OpenSearch considers the word "high frequency" and deemphasizes it when calculating search score.<br /><br />Because this setting is *per shard*, testing its impact on search results can be challenging unless a cluster has many documents.
