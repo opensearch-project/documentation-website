@@ -40,10 +40,10 @@ To create a pull request:
 2. Modify the source. Make sure to focus on the specific change you are contributing. For example, if you also reformat the code, it will be hard for us to focus on your change.
 3. Test the code. Make sure that any local tests pass.
 4. Commit to your fork using clear commit messages.
-5. Create the pull request (https://github.com/opensearch-project/documentation-website/pulls), and answer the default questions in the pull request interface.
+5. Create the [pull request](https://github.com/opensearch-project/documentation-website/pulls), and answer the default questions in the pull request interface.
 6. Pay attention to any automated CI failures reported in the pull request, and stay involved in the conversation.
 
-GitHub provides additional documentation on forking a repository (https://help.github.com/articles/fork-a-repo/) and creating a pull request (https://help.github.com/articles/creating-a-pull-request/).
+GitHub provides additional documentation on [forking a repository](https://help.github.com/articles/fork-a-repo/) and [creating a pull request](https://help.github.com/articles/creating-a-pull-request/).
 
 
 ## Finding contributions to work on
