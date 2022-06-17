@@ -11,7 +11,7 @@ Before entering a change request, please read this document carefully. We want t
 
 There are two ways to contribute: create an issue describing your request or create a pull request that can be directly injected into the content.
 
-*Create an Issue*
+**Create an Issue**
 
 Use the Github issue tracker to request additional documentation, suggest content corrections, and report technical issues with the documentation site. 
 
@@ -23,24 +23,18 @@ Use the Github issue tracker to request additional documentation, suggest conten
 The ‘untriaged’ label will be assigned automatically. During the triage process, we will add the appropriate labels, assign the issue to a technical writer, and prioritize the request. We may follow up with you for additional information. 
 
 
-*Create a pull request*
-If you’d like to make a change directly to the content, enter a pull request. If it’s a quick fix, we should be able to release it quickly. Bigger requests might take a bit of time for us to review. 
+**Create a pull request**
+If you’d like to make a change directly to the content, create a pull request. If it’s a quick fix, we should be able to release it quickly. Bigger requests might take a bit of time for us to review. 
 
-Note that a pull request requires DCO sign off before we can merge it. You can use a -s command line option to append this automatically to your commit message, for example $ git commit -s -m 'This is my commit message'. For more information, see https://github.com/apps/dco.
+Note that a pull request requires DCO sign off before we can merge it. You can use the -s command line option to append this automatically to your commit message, for example $ git commit -s -m 'This is my commit message'. For more information, see https://github.com/apps/dco.
 
 Before submitting, make sure to:
 
 * Work against the latest source on the main branch.
 * Check existing open and recently merged pull requests to ensure that someone else hasn't addressed the problem already.
-* Open an issue to discuss any significant work. We would hate for your time to be wasted.
+* Open an issue to discuss any significant work. We wouldn't want your time to be wasted.
 
 To create a pull request:
-
-1. You are working against the latest source on the *main* branch.
-2. You check existing open, and recently merged, pull requests to make sure someone else hasn't addressed the problem already.
-3. You open an issue to discuss any significant work - we would hate for your time to be wasted.
-
-To send us a pull request, please:
 
 1. Fork the repository.
 2. Modify the source. Make sure to focus on the specific change you are contributing. For example, if you also reformat the code, it will be hard for us to focus on your change.
