@@ -24,6 +24,7 @@ The ‘untriaged’ label will be assigned automatically. During the triage proc
 
 
 **Create a pull request**
+
 If you’d like to make a change directly to the content, create a pull request. If it’s a quick fix, we should be able to release it quickly. Bigger requests might take a bit of time for us to review. 
 
 Note that a pull request requires DCO sign off before we can merge it. You can use the -s command line option to append this automatically to your commit message, for example $ git commit -s -m 'This is my commit message'. For more information, see https://github.com/apps/dco.
