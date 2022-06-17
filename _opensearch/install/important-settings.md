@@ -41,7 +41,7 @@ The [sample docker-compose.yml]({{site.url}}{{site.baseurl}}/opensearch/install/
 
 ### Network requirements
 
-  The following firewall ports need to be open for OpenSearch components.
+  The following ports need to be open for OpenSearch components.
 
 Port number | OpenSearch component
 :--- | :--- 
