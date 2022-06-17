@@ -47,7 +47,7 @@ cluster_manager_timeout | Time | The amount of time to wait for a connection to 
 
 ```
 name | index_patterns order version composed_of
-tenant_template | [kibana*] | 0  |    
+tenant_template | [opensearch-dashboards*] | 0  |    
 ```
 
 To learn more about index templates, see [Index templates]({{site.url}}{{site.baseurl}}/opensearch/index-templates).
