@@ -22,37 +22,62 @@ To see the available operations in the CAT API, use the following command:
 GET _cat
 ```
 
-## Common URL parameters
+## Optional query parameters
 
-You can use the following string parameters with your query.
+You can use the following query parameters with any CAT API to filter your results.
 
 Parameter | Description
 :--- | :--- |
-`?v` |  Makes the output more verbose by adding headers to the columns. It also adds some formatting to help align each of the columns together. All examples in this section include the `v` parameter.
-`?help` | Lists the default and other available headers for a given operation.
-`?h`  |  Limits the output to specific headers.
-`?format` |  Outputs the result in JSON, YAML, or CBOR formats.
-`?sort` | Sorts the output by the specified columns.
+`v` |  Provides verbose output by adding headers to the columns. It also adds some formatting to help align each of the columns together. All examples in this section include the `v` parameter.
+`help` | Lists the default and other available headers for a given operation.
+`h`  |  Limits the output to specific headers.
+`format` |  Returns the result in JSON, YAML, or CBOR formats.
+`sort` | Sorts the output by the specified columns.
 
-To see what each column represents, use the `?v` parameter:
+### Query parameter usage examples
+
+You can specify a query parameter to any CAT operation to obtain more specific results. 
+
+### Get verbose output
+
+To query aliases and get verbose output that includes all column headings in the response, use the `v` query parameter.
+
+```json
+GET _cat/aliases?v
+```
+
+The response provides more details, such as names of each column in the response. 
 
 ```
-GET _cat/<operation_name>?v
+alias index filter routing.index routing.search is_write_index
+.kibana .kibana_1 - - - -
+sample-alias1 sample-index-1 - - - -
+```
+Without the verbose parameter, `v`, the response simply returns the alias names:
+
 ```
 
-To see all the available headers, use the `?help` parameter:
+.kibana .kibana_1 - - - -
+sample-alias1 sample-index-1 - - - -
+```
+
+### Get all available headers
+
+To see all the available headers, use the `help` parameter:
 
 ```
 GET _cat/<operation_name>?help
 ```
 
-To limit the output to a subset of headers, use the `?h` parameter:
+### Get a subset of headers
+
+To limit the output to a subset of headers, use the `h` parameter:
 
 ```
 GET _cat/<operation_name>?h=<header_name_1>,<header_name_2>&v
 ```
 
-Typically, for any operation you can find out what headers are available using the `?help` parameter, and then use the `?h` parameter to limit the output to only the headers that you care about.
+Typically, for any operation you can find out what headers are available using the `help` parameter, and then use the `h` parameter to limit the output to only the headers that you care about.
 
 If you use the security plugin, make sure you have the appropriate permissions.
 {: .note }
