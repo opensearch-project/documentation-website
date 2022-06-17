@@ -45,7 +45,7 @@ The [sample docker-compose.yml]({{site.url}}{{site.baseurl}}/opensearch/install/
 
 Port number | OpenSearch component
 :--- | :--- 
-443 | OpenSearch Dashboards
+443 | OpenSearch Dashboards in AWS OpenSearch Service with encryption in transit (TLS)
 5601 | OpenSearch Dashboards
 9200 | OpenSearch REST API
 9250 | Cross-cluster search
