@@ -38,3 +38,17 @@ The [sample docker-compose.yml]({{site.url}}{{site.baseurl}}/opensearch/install/
 - `port 9600`
 
   Allows you to access Performance Analyzer on port 9600.
+
+### Network requirements
+
+  The following firewall ports need to be open for OpenSearch components.
+
+Port number | OpenSearch component
+:--- | :--- 
+443 | OpenSearch Dashboards
+5601 | OpenSearch Dashboards
+9200 | OpenSearch REST API
+9250 | Cross-cluster search
+9300 | Node communication and transport
+9600 | Performance Analyzer
+
