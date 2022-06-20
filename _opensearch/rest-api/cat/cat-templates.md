@@ -39,15 +39,15 @@ In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/opensear
 
 Parameter | Type | Description
 :--- | :--- | :---
-local | Boolean | Whether to return information from the local node only instead of from the master node. Default is false.
-master_timeout | Time | The amount of time to wait for a connection to the master node. Default is 30 seconds.
+local | Boolean | Whether to return information from the local node only instead of from the cluster manager node. Default is false.
+cluster_manager_timeout | Time | The amount of time to wait for a connection to the cluster manager node. Default is 30 seconds.
 
 
 ## Response
 
 ```
 name | index_patterns order version composed_of
-tenant_template | [kibana*] | 0  |    
+tenant_template | [opensearch-dashboards*] | 0  |    
 ```
 
 To learn more about index templates, see [Index templates]({{site.url}}{{site.baseurl}}/opensearch/index-templates).
