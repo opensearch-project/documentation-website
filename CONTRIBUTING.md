@@ -2,7 +2,7 @@
 
 Thank you for your interest in improving the OpenSource documentation! We value and appreciate all feedback and contributions from our community, including requests for additional documentation, corrections to existing content, and to report technical issues with the documentation site. 
 
-It’s important for us to tell you that the OpenSearch team is dedicated to providing complete and best-in-class documentation. We realize that we are a bit behind! Please bear with us as we are building our documentation team and content library.  We appreciate your support and patience.
+The OpenSearch documentation team is dedicated to providing complete and best-in-class documentation. Thank you for your patience as we build our documentation team and content library. We appreciate your support and patience.
 
 ## How to request changes
 
