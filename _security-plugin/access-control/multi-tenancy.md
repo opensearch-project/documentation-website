@@ -36,7 +36,7 @@ config:
   dynamic:
     opensearch-dashboards:
       multitenancy_enabled: true
-      server_username: kibanaserver
+      server_username: opensearch
       index: '.opensearch-dashboards'
     do_not_fail_on_forbidden: false
 ```
@@ -44,15 +44,15 @@ config:
 Setting | Description
 :--- | :---
 `multitenancy_enabled` | Enable or disable multi-tenancy. Default is true.
-`server_username` | Must match the name of the OpenSearch Dashboards server user from `opensearch_dashboards.yml`. Default is `kibanaserver`.
+`server_username` | Must match the name of the OpenSearch Dashboards server user from `opensearch_dashboards.yml`. Default is `dashboardserver`.
 `index` | Must match the name of the OpenSearch Dashboards index from `opensearch_dashboards.yml`. Default is `.opensearch-dashboards`.
 `do_not_fail_on_forbidden` | If true, the security plugin removes any content that a user is not allowed to see from search results. If false, the plugin returns a security exception. Default is false.
 
 `opensearch_dashboards.yml` has some additional settings:
 
 ```yml
-opensearch.username: kibanaserver
-opensearch.password: kibanaserver
+opensearch.username: dashboardserver
+opensearch.password: dashboardserver
 opensearch.requestHeadersAllowlist: ["securitytenant","Authorization"]
 opensearch_security.multitenancy.enabled: true
 opensearch_security.multitenancy.tenants.enable_global: true
@@ -158,8 +158,8 @@ _meta:
 The open source version of OpenSearch Dashboards saves all objects to a single index: `.opensearch-dashboards`. The security plugin uses this index for the global tenant, but separate indices for every other tenant. Each user also has a private tenant, so you might see a large number of indices that follow two patterns:
 
 ```
-.kibana_<hash>_<tenant_name>
-.kibana_<hash>_<username>
+.opensearch-dashboards_<hash>_<tenant_name>
+.opensearch-dashboards_<hash>_<username>
 ```
 
 The security plugin scrubs these index names of special characters, so they might not be a perfect match of tenant names and usernames.
