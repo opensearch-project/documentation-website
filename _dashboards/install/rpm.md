@@ -7,4 +7,4 @@ nav_order: 31
 
 # Run OpenSearch Dashboards using RPM
 
-To run OpenSearch Dashboards using RPM, see the [RPM installation instructions](({{site.url}}{{site.baseurl}}/opensearch/install/rpm/)).
+To run OpenSearch Dashboards using RPM, see the [RPM installation instructions]({{site.url}}{{site.baseurl}}/opensearch/install/rpm/).
