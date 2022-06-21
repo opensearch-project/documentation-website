@@ -158,6 +158,43 @@ All posts should contain one or more calls to action that give readers the oppor
 
 OpenSearch content strives to be inclusive and free of bias. We use inclusive language to connect with the diverse and global OpenSearch audience. This means we are careful in our word choices. Inclusive and bias-free content improves clarity and accessibility of our content for all audiences. We avoid ableist and sexist language and language that perpetuates racist structures or stereotypes.
 
+### Offensive terms
+
+Do _not_ use the following terms:
+
+| Don’t use      | Use instead                 |
+|----------------|-----------------------------|
+| abort          | stop                        |
+| black day      | blocked day                 |
+| blacklist      | deny list                   |
+| execute        | start, run                  |
+| hang           | stop responding             |
+| kill           | end, stop                   |
+| master         | primary, main, leader       |
+| master account | management account          |
+| slave          | replica, secondary, standby |
+| white day      | open day                    |
+| whitelist      | allow list                  |
+
+
+### Sensitive terms
+
+Avoid using the following terms:
+
+| Avoid using              | Use instead                         |
+|--------------------------|-------------------------------------|
+| blackout                 | service outage, blocked             |
+| demilitarized zone (DMZ) | perimeter network, perimeter zone   |
+| disable                  | turn off, deactivate, stop          |
+| enable                   | turn on, activate, start            |
+| invalid                  | not valid                           |
+| primitive                | primitive data type, primitive type |
+| purge                    | delete, clear, remove               |
+| segregate                | separate, isolate                   |
+| trigger                  | initiate, invoke, launch, start     |
+| white day                | open day                            |
+| whitelist                | allow list                          |
+
 ## Trademark policy
 
 The “OpenSearch” word mark should be used in its exact form and not abbreviated or combined with any other word or words (e.g., “OpenSearch” software rather than “OPNSRCH” or “OpenSearch-ified”). See the [OpenSearch Trademark Policy](https://opensearch.org/trademark-usage.html) for more information. Also refer to the policy and to the [OpenSearch Brand Guidelines](https://opensearch.org/brand.html) for guidance regarding the use of the OpenSearch logo. When using another party’s logo, refer to that party’s trademark guidelines.
