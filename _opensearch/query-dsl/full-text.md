@@ -9,13 +9,12 @@ nav_order: 40
 
 This page lists all full-text query types and common options. Given the sheer number of options and subtle behaviors, the best method of ensuring useful search results is to test different queries against representative indices and verify the output.
 
-
 ---
 
-#### Table of contents
+## Table of contents
+
 1. TOC
 {:toc}
-
 
 ---
 
@@ -74,7 +73,6 @@ GET _search
     }
   }
 }
-```
 
 
 ## Multi match
@@ -123,7 +121,6 @@ GET _search
 }
 ```
 
-
 ## Match boolean prefix
 
 Similar to [match](#match), but creates a [prefix query](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/PrefixQuery.html) out of the last term in the query string.
@@ -161,7 +158,6 @@ GET _search
 }
 ```
 
-
 ## Match phrase
 
 Creates a [phrase query](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/PhraseQuery.html) that matches a sequence of terms.
@@ -195,7 +191,6 @@ GET _search
 }
 ```
 
-
 ## Match phrase prefix
 
 Similar to [match phrase](#match-phrase), but creates a [prefix query](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/PrefixQuery.html) out of the last term in the query string.
@@ -228,7 +223,6 @@ GET _search
   }
 }
 ```
-
 
 ## Common terms
 
@@ -269,7 +263,6 @@ GET _search
   }
 }
 ```
-
 
 ## Query string
 
@@ -322,7 +315,6 @@ GET _search
 }
 ```
 
-
 ## Simple query string
 
 The simple query string query is like the query string query, but it lets advanced users specify many arguments directly in the query string. The query discards any invalid portions of the query string.
@@ -374,7 +366,6 @@ GET _search
 }
 ```
 
-
 ## Match all
 
 Matches all documents. Can be useful for testing.
@@ -387,7 +378,6 @@ GET _search
   }
 }
 ```
-
 
 ## Match none
 
@@ -409,10 +399,15 @@ OpenSearch provides the analyzer option to convert your structured text into the
 OpenSearch supports the following language values with the `analyzer` option:
 arabic, armenian, basque, bengali, brazilian, bulgarian, catalan, czech, danish, dutch, english, estonian, finnish, french, galicia, german, greek, hindi, hungarian, indonesian, irish, italian, latvian, lithuanian, norwegian, persian, portuguese,romanian, russian, sorani, spanish, swedish, turkish, and thai.
 
-To use the analyzer when you map an index, specify the value within your query. For example, to map your index with the French language analyzer, enter the analyzer field and specify the `french` value for the analyzer field: ` "analyzer": "french"`.
-#### Sample Request  
+To use the analyzer when you map an index, specify the value within your query. For example, to map your index with the French language analyzer, enter the analyzer field and specify the `french` value for the analyzer field:
 
-The following query maps an index with the language analyzer set to French: 
+```json
+ ` "analyzer": "french"`
+ ```
+
+#### Sample Request
+
+The following query maps an index with the language analyzer set to French:
 
 ```json
 PUT my-index-000001
@@ -433,8 +428,6 @@ PUT my-index-000001
   }
 }
 ```
-
-
 
 <!-- TO do: each of the options needs its own section with an example. Convert table to individual sections, and then give a streamlined list with valid values. -->
 ## Options
