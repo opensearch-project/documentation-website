@@ -34,14 +34,14 @@ As you write content, apply the following tone traits.
 
 | **Trait** | **Approachable** | **Authoritative** | **Concise** | **Conversational** | **Directed** | **Respectful** | **Simple** | **Smart** | **Trustworthy** |
 |---|---|---|---|---|---|---|---|---|---|
-| **What is is** | Personable, Friendly, Welcoming, Genuine | Professional, Expert, Informed, Dependable, Validated | Succinct, Brief, Lean, To the point | Informal, Casual, Familiar, Matter-of-fact | Focused, Guided, Controlled, Purposeful, Predictable, Definitive, Essential | Considerate, Helpful, Supportive, Empathic | Plain, Everyday, Recognizable, Clear, Straightforward, Common | Knowledgeable, Logical, Correct, Consistent, Coherent, Grammatical, Polished | Reliable, Truthful, Fair, Candid |
-| **What is isn't** | Chatty, Hyperbolic, Cloying, Insincere | Stuffy, Dictatorial, Smug, Unsure, Untested | Wordy, Lengthy, Verbose, Rambling | Stilted, Pompous, Chummy, Pedantic | Vague, Wandering, Confusing, Ambiguous, Surprising, Indecisive, Redundant | Insulting, Condescending, Insensitive, Indifferent | Fancy, Esoteric, Perplexing, Unintelligible, Complicated, Unusual |  Pedantic, Invalid, Inaccurate, Varying, Disorganized, Careless, Sloppy |  Infallible, Evasive, Devious, Obfuscating |
+| **What it is** | Personable, Friendly, Welcoming, Genuine | Professional, Expert, Informed, Dependable, Validated | Succinct, Brief, Lean, To the point | Informal, Casual, Familiar, Matter-of-fact | Focused, Guided, Controlled, Purposeful, Predictable, Definitive, Essential | Considerate, Helpful, Supportive, Empathic | Plain, Everyday, Recognizable, Clear, Straightforward, Common | Knowledgeable, Logical, Correct, Consistent, Coherent, Grammatical, Polished | Reliable, Truthful, Fair, Candid |
+| **What it isn't** | Chatty, Hyperbolic, Cloying, Insincere | Stuffy, Dictatorial, Smug, Unsure, Untested | Wordy, Lengthy, Verbose, Rambling | Stilted, Pompous, Chummy, Pedantic | Vague, Wandering, Confusing, Ambiguous, Surprising, Indecisive, Redundant | Insulting, Condescending, Insensitive, Indifferent | Fancy, Esoteric, Perplexing, Unintelligible, Complicated, Unusual |  Pedantic, Invalid, Inaccurate, Varying, Disorganized, Careless, Sloppy |  Infallible, Evasive, Devious, Obfuscating |
 
 ## Style guidelines
 
 The following guidelines should be observed in OpenSearch content.
 
-Punctuation and capitalization
+### Punctuation and capitalization
 
 - Use lowercase for nouns and noun phrases that are not proper nouns; for example, *big data*. This style follows the standard rules of American English grammar.
 
@@ -160,7 +160,7 @@ OpenSearch content strives to be inclusive and free of bias. We use inclusive la
 
 ### Offensive terms
 
-Do _not_ use the following terms:
+Do _not_ use the following terms.
 
 | Don’t use      | Use instead                 |
 |----------------|-----------------------------|
@@ -179,7 +179,7 @@ Do _not_ use the following terms:
 
 ### Sensitive terms
 
-Avoid using the following terms:
+Avoid using the following terms.
 
 | Avoid using              | Use instead                         |
 |--------------------------|-------------------------------------|

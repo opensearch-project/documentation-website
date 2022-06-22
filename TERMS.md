@@ -1,4 +1,4 @@
-# OpenSearch Terms
+# OpenSearch terms
 
 This is how we use our terms, but we’re always open to hearing your suggestions.
 
