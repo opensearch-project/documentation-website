@@ -27,23 +27,3 @@ Setting | Default | Description
 `plugins.index_state_management.history.rollover_check_period` | 8 hours | The time between rollover checks for the audit history index.
 `plugins.index_state_management.history.rollover_retention_period` | 30 days | How long audit history indices are kept.
 `plugins.index_state_management.allow_list` | All actions | List of actions that you can use.
-
-
-## Audit history indices
-
-If you don't want to disable ISM audit history or shorten the retention period, you can create an [index template]({{site.url}}{{site.baseurl}}/opensearch/index-templates/) to reduce the shard count of the history indices:
-
-```json
-PUT _index_template/ism_history_indices
-{
-  "index_patterns": [
-    ".opendistro-ism-managed-index-history-*"
-  ],
-  "template": {
-    "settings": {
-      "number_of_shards": 1,
-      "number_of_replicas": 0
-    }
-  }
-}
-```
