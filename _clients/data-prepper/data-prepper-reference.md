@@ -92,6 +92,42 @@ awsRegion | Conditionally | String | Represents the AWS Region to use ACM or S3.
 authentication | No | Object | An authentication configuration. By default, an unauthenticated server is created for the pipeline. This uses pluggable authentication for HTTPS. To use basic authentication, define the `http_basic` plugin with a `username` and `password`. To provide customer authentication, use or create a plugin that implements [GrpcAuthenticationProvider](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/armeria-common/src/main/java/com/amazon/dataprepper/armeria/authentication/GrpcAuthenticationProvider.java).
 
 
+### s3
+
+This is a source plugin that reads events from S3 objects.
+
+Option | Required | Type | Description
+:--- | :--- | :--- | :---
+notification_type | Yes | String | Must be `sqs`
+compression | No | String | The compression algorithm to apply. May be one of: `none`, `gzip`, or `automatic`. Default is `none`.
+codec | Yes | Codec | The codec to apply. Must be either `newline` or `json`.
+sqs | Yes | sqs | The SQS configuration. See [sqs](#s3-source-sqs) for details.
+aws | Yes | aws | The AWS configuration. See [aws](#s3-source-aws) for details.
+on_error | No | String |  Determines how to handle errors in SQS. Can be either `retain_messages` or `delete_messages`. If `retain_messages`, then Data Prepper will leave the message in the SQS queue and try again. This is recommended for dead-letter queues. If `delete_messages`, then Data Prepper will delete failed messages. Default is `retain_messages`.
+buffer_timeout | No | Duration | The timeout for writing events to the Data Prepper buffer. Any Events which the S3 Source cannot write to the Buffer in this time will be discarded. Default is 10 seconds.
+records_to_accumulate | No | Integer | The number of messages to write to accumulate before writing to the Buffer. Default is 100.
+disable_bucket_ownership_validation | No | Boolean | If set to true, then the S3 Source will not attempt to validate that the bucket is owned by the expected account. The only expected account is the same account which owns the SQS queue. Defaults to `false`.
+
+#### <a name="s3-source-sqs">sqs</a>
+
+SQS configurations for the S3 source plugin
+
+Option | Required | Type | Description
+:--- | :--- | :--- | :---
+queue_url | Yes | String | The SQS queue URL of the queue to read from.
+maximum_messages | No | Integer | The maximum number of messages to read from the queue in any request to the SQS queue. Default is `10`
+visibility_timeout | No | Duration | The visibility timeout to apply to messages read from the SQS queue. This should be set to the amount of time that Data Prepper may take to read all the S3 objects in a batch. Default is `30s`.
+wait_time | No | Duration | The time to wait for long-polling on the SQS API. Default is `20s`.
+poll_delay | No | Duration | A delay to place between reading and processing a batch of SQS messages and making a subsequent request. Default is `0s`.
+
+
+#### <a name="s3-source-aws">aws</a>
+
+Option | Required | Type | Description
+:--- | :--- | :--- | :---
+region | No | String | The AWS region to use for credentials. Defaults to [standard SDK behavior to determine the region](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/region-selection.html).
+sts_role_arn | No | String | The AWS STS role to assume for requests to SQS and S3. Defaults to null, which will use the [standard SDK behavior for credentials](https://docs.aws.amazon.com/sdk-for-java/latest/developer-guide/credentials.html).
+
 
 ### file
 
@@ -371,7 +407,7 @@ proxy | No | String | The address of a [forward HTTP proxy server](https://en.wi
 trace_analytics_raw | No | Boolean | Deprecated in favor of `index_type`. Whether to export as trace data to the `otel-v1-apm-span-*` index pattern (alias `otel-v1-apm-span`) for use with the Trace Analytics OpenSearch Dashboards plugin. Default is `false`.
 trace_analytics_service_map | No | Boolean | Deprecated in favor of `index_type`. Whether to export as trace data to the `otel-v1-apm-service-map` index for use with the service map component of the Trace Analytics OpenSearch Dashboards plugin. Default is `false`.
 index | No | String | Name of the index to export to. Only required if you don't use the `trace-analytics-raw` or `trace-analytics-service-map` presets. In other words, this parameter is applicable and required only if index_type is explicitly `custom` or defaults to `custom`.
-index_type | No | String | This index type instructs the Sink plugin what type of data it is handling. Valid values: `custom`, `trace-analytics-raw`, `trace-analytics-service-map`. Default is `custom`.
+index_type | No | String | This index type instructs the Sink plugin what type of data it is handling. Valid values: `custom`, `trace-analytics-raw`, `trace-analytics-service-map`, `management-disabled`. Default is `custom`.
 template_file | No | String | Path to a JSON [index template]({{site.url}}{{site.baseurl}}/opensearch/index-templates/) file (e.g. `/your/local/template-file.json` if you do not use the `trace_analytics_raw` or `trace_analytics_service_map`.) See [otel-v1-apm-span-index-template.json](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/opensearch/src/main/resources/otel-v1-apm-span-index-template.json) for an example.
 document_id_field | No | String | The field from the source data to use for the OpenSearch document ID (e.g. `"my-field"`) if you don't use the `trace_analytics_raw` or `trace_analytics_service_map` presets.
 dlq_file | No | String | The path to your preferred dead letter queue file (e.g. `/your/local/dlq-file`). Data Prepper writes to this file when it fails to index a document on the OpenSearch cluster.
