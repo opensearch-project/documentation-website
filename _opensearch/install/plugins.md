@@ -9,14 +9,12 @@ nav_order: 90
 
 You can install individual plugins on an OpenSearch cluster.
 
-
 ---
 
 #### Table of contents
 1. TOC
 {:toc}
-
-
+  
 ---
 
 ## Install a plugin
@@ -342,5 +340,3 @@ opensearch-sql                  1.0.0.0
 </pre>
     </td>
   </tr>
-  </tbody>
-</table>
