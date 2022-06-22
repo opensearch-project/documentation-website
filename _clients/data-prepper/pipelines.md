@@ -238,5 +238,5 @@ To configure the Data Prepper server, run Data Prepper with the additional yaml 
 ```bash
 docker run --name data-prepper -v /full/path/to/pipelines.yaml:/usr/share/data-prepper/pipelines.yaml \
     /full/path/to/data-prepper-config.yaml:/usr/share/data-prepper/data-prepper-config.yaml \
-    opensearchproject/opensearch-data-prepper:latest
+    opensearchproject/data-prepper:latest
 ````
