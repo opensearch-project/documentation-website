@@ -120,7 +120,7 @@ A procedure is a series of numbered steps that a user follows to complete a spec
 
 Following is an example of procedure phrasing and formatting from Amazon EC2.
 
-![Procedure example]({{site.url}}{{site.baseurl}}/images/Procedures.PNG)
+![Procedure example](/images/procedures.PNG)
 
 ### Miscellaneous
 
