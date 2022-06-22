@@ -153,7 +153,7 @@ On the coordinating cluster, add the remote cluster name and the IP address (wit
 curl -k -XPUT -H 'Content-Type: application/json' -u 'admin:admin' 'https://localhost:9250/_cluster/settings' -d '
 {
   "persistent": {
-    "search.remote": {
+    "cluster.remote": {
       "opensearch-ccs-cluster1": {
         "seeds": ["172.31.0.3:9300"]
       }
