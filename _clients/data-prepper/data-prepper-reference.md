@@ -14,7 +14,7 @@ This page lists all supported Data Prepper server, sources, buffers, processors,
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
 ssl | No | Boolean | Indicates whether TLS should be used for server APIs. Defaults to true.
-keyStoreFilePath | No | String | Path to a .jks or .p12 keystore file. Required if ssl is true.
+keyStoreFilePath | No | String | Path to a .jks or .p12 keystore file. Required if `ssl` is true.
 keyStorePassword | No | String | Password for keystore. Optional, defaults to empty string.
 privateKeyPassword | No | String | Password for private key within keystore. Optional, defaults to empty string.
 serverPort | No | Integer | Port number to use for server APIs. Defaults to 4900
@@ -47,12 +47,15 @@ unframed_requests | No | Boolean | Enable requests not framed using the gRPC wir
 thread_count | No | Integer | The number of threads to keep in the ScheduledThreadPool. Default is `200`.
 max_connection_count | No | Integer | The maximum allowed number of open connections. Default is `500`.
 ssl | No | Boolean | Enables connections to the OTel source port over TLS/SSL. Defaults to `true`.
-sslKeyCertChainFile | Conditionally | String | File-system path or AWS S3 path to the security certificate (e.g. `"config/demo-data-prepper.crt"` or `"s3://my-secrets-bucket/demo-data-prepper.crt"`). Required if ssl is set to `true`.
-sslKeyFile | Conditionally | String | File-system path or AWS S3 path to the security key (e.g. `"config/demo-data-prepper.key"` or `"s3://my-secrets-bucket/demo-data-prepper.key"`). Required if ssl is set to `true`.
+sslKeyCertChainFile | Conditionally | String | File-system path or AWS S3 path to the security certificate (e.g. `"config/demo-data-prepper.crt"` or `"s3://my-secrets-bucket/demo-data-prepper.crt"`). Required if `ssl` is set to `true`.
+sslKeyFile | Conditionally | String | File-system path or AWS S3 path to the security key (e.g. `"config/demo-data-prepper.key"` or `"s3://my-secrets-bucket/demo-data-prepper.key"`). Required if `ssl` is set to `true`.
 useAcmCertForSSL | No | Boolean | Whether to enable TLS/SSL using certificate and private key from AWS Certificate Manager (ACM). Default is `false`.
 acmCertificateArn | Conditionally | String | Represents the ACM certificate ARN. ACM certificate take preference over S3 or local file system certificate. Required if `useAcmCertForSSL` is set to `true`.
 awsRegion | Conditionally | String | Represents the AWS region to use ACM or S3. Required if `useAcmCertForSSL` is set to `true` or `sslKeyCertChainFile` and `sslKeyFile` are AWS S3 paths.
-authentication | No | Object| An authentication configuration. By default, this runs an unauthenticated server. This uses pluggable authentication for HTTPS. To use basic authentication, define the `http_basic` plugin with a `username` and `password`. To provide customer authentication use or create a plugin which implements: [GrpcAuthenticationProvider](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/armeria-common/src/main/java/com/amazon/dataprepper/armeria/authentication/GrpcAuthenticationProvider.java).
+authentication | No | Object | An authentication configuration. By default, an unauthenticated server is created for the pipeline. This parameter uses pluggable authentication for HTTPS. To use basic authentication, define the `http_basic` plugin with a `username` and `password`. To provide customer authentication, use or create a plugin that implements [GrpcAuthenticationProvider](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/armeria-common/src/main/java/com/amazon/dataprepper/armeria/authentication/GrpcAuthenticationProvider.java).
+record_type | No | String | A string represents the supported record data type that is written into the buffer plugin. Value options are `otlp` or `event`. Default is `otlp`.
+`otlp` | No | String | Otel-trace-source writes each incoming `ExportTraceServiceRequest` request as record data type into the buffer.
+`event` | No | String | Otel-trace-source decodes each incoming `ExportTraceServiceRequest` request into a collection of Data Prepper internal spans serving as buffer items. To achieve better performance in this mode, we recommend setting buffer capacity proportional to the estimated number of spans in the incoming request payload.
 
 ### http_source
 
@@ -65,7 +68,30 @@ request_timeout | No | Integer | The request timeout in millis. Default is `10_0
 thread_count | No | Integer | The number of threads to keep in the ScheduledThreadPool. Default is `200`.
 max_connection_count | No | Integer | The maximum allowed number of open connections. Default is `500`.
 max_pending_requests | No | Integer | The maximum number of allowed tasks in ScheduledThreadPool work queue. Default is `1024`.
-authentication | No | Object | An authentication configuration. By default, this runs an unauthenticated server. This uses pluggable authentication for HTTPS. To use basic authentication define the `http_basic` plugin with a `username` and `password`. To provide customer authentication use or create a plugin which implements: [ArmeriaHttpAuthenticationProvider](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/armeria-common/src/main/java/com/amazon/dataprepper/armeria/authentication/ArmeriaHttpAuthenticationProvider.java).
+authentication | No | Object | An authentication configuration. By default, this creates an unauthenticated server for the pipeline. This uses pluggable authentication for HTTPS. To use basic authentication define the `http_basic` plugin with a `username` and `password`. To provide customer authentication, use or create a plugin that implements [ArmeriaHttpAuthenticationProvider](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/armeria-common/src/main/java/com/amazon/dataprepper/armeria/authentication/ArmeriaHttpAuthenticationProvider.java).
+
+### otel_metrics_source
+
+Source for the OpenTelemetry Collector for collecting metric data.
+
+Option | Required | Type | Description
+:--- | :--- | :--- | :---
+port | No | Integer | The port OTel metrics source is running on. Default is `21891`.
+request_timeout | No | Integer | The request timeout in milliseconds. Default is `10_000`.
+health_check_service | No | Boolean | Enables a gRPC health check service under `grpc.health.v1/Health/Check`. Default is `false`.
+proto_reflection_service | No | Boolean | Enables a reflection service for Protobuf services (see [gRPC reflection](https://github.com/grpc/grpc/blob/master/doc/server-reflection.md) and [gRPC Server Reflection Tutorial](https://github.com/grpc/grpc-java/blob/master/documentation/server-reflection-tutorial.md) docs). Default is `false`.
+unframed_requests | No | Boolean | Enable requests not framed using the gRPC wire protocol.
+thread_count | No | Integer | The number of threads to keep in the ScheduledThreadPool. Default is `200`.
+max_connection_count | No | Integer | The maximum allowed number of open connections. Default is `500`.
+ssl | No | Boolean | Enables connections to the OTel source port over TLS/SSL. Defaults to `true`.
+sslKeyCertChainFile | Conditionally | String | File-system path or AWS S3 path to the security certificate (e.g. `"config/demo-data-prepper.crt"` or `"s3://my-secrets-bucket/demo-data-prepper.crt"`). Required if `ssl` is set to `true`.
+sslKeyFile | Conditionally | String | File-system path or AWS S3 path to the security key (e.g. `"config/demo-data-prepper.key"` or `"s3://my-secrets-bucket/demo-data-prepper.key"`). Required if `ssl` is set to `true`.
+useAcmCertForSSL | No | Boolean | Whether to enable TLS/SSL using certificate and private key from AWS Certificate Manager (ACM). Default is `false`.
+acmCertificateArn | Conditionally | String | Represents the ACM certificate ARN. ACM certificate take preference over S3 or local file system certificates. Required if `useAcmCertForSSL` is set to `true`.
+awsRegion | Conditionally | String | Represents the AWS Region to use ACM or S3. Required if `useAcmCertForSSL` is set to `true` or `sslKeyCertChainFile` and `sslKeyFile` are AWS S3 paths.
+authentication | No | Object | An authentication configuration. By default, an unauthenticated server is created for the pipeline. This uses pluggable authentication for HTTPS. To use basic authentication, define the `http_basic` plugin with a `username` and `password`. To provide customer authentication, use or create a plugin that implements [GrpcAuthenticationProvider](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/armeria-common/src/main/java/com/amazon/dataprepper/armeria/authentication/GrpcAuthenticationProvider.java).
+
+
 
 ### file
 
@@ -116,13 +142,19 @@ Prior to Data Prepper 1.3, Processors were named Preppers. Starting in Data Prep
 
 ### otel_trace_raw_prepper
 
-Converts OpenTelemetry data to OpenSearch-compatible JSON documents.
+Converts OpenTelemetry data to OpenSearch-compatible JSON documents and fills in trace group related fields in those JSON documents. It requires `record_type` to be set as `otlp` in `otel_trace_source`.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
-root_span_flush_delay | No | Integer | Represents the time interval in seconds to flush all the root spans in the processor together with their descendants. Default is 30.
 trace_flush_interval | No | Integer | Represents the time interval in seconds to flush all the descendant spans without any root span. Default is 180.
 
+### otel_trace_raw
+
+This processor is a Data Prepper event record type compatible version of `otel_trace_raw_prepper` that fills in trace group related fields into all incoming Data Prepper span records. It requires `record_type` to be set as `event` in `otel_trace_source`.
+
+Option | Required | Type | Description
+:--- | :--- | :--- | :---
+trace_flush_interval | No | Integer | Represents the time interval in seconds to flush all the descendant spans without any root span. Default is 180.
 
 ### service_map_stateful
 
@@ -144,12 +176,12 @@ target_port | No | Integer | The destination port to forward requests to. Defaul
 discovery_mode | No | String | Peer discovery mode to be used. Allowable values are `static`, `dns`, and `aws_cloud_map`. Defaults to `static`.
 static_endpoints | No | List | List containing string endpoints of all Data Prepper instances.
 domain_name | No | String | Single domain name to query DNS against. Typically used by creating multiple DNS A Records for the same domain.
-ssl | No | Boolean | Indicates whether TLS should be used. Default is true.
+ssl | No | Boolean | Indicates whether to use TLS. Default is true.
 awsCloudMapNamespaceName | Conditionally | String | Name of your CloudMap Namespace. Required if `discovery_mode` is set to `aws_cloud_map`.
 awsCloudMapServiceName | Conditionally | String | Service name within your CloudMap Namespace. Required if `discovery_mode` is set to `aws_cloud_map`.
 sslKeyCertChainFile | Conditionally | String | Represents the SSL certificate chain file path or AWS S3 path. S3 path example `s3://<bucketName>/<path>`. Required if `ssl` is set to `true`.
 useAcmCertForSSL | No | Boolean | Enables TLS/SSL using certificate and private key from AWS Certificate Manager (ACM). Default is `false`.
-awsRegion | Conditionally | String | Represents the AWS region to use ACM, S3, or CloudMap. Required if `useAcmCertForSSL` is set to `true` or `sslKeyCertChainFile` and `sslKeyFile` are AWS S3 paths.
+awsRegion | Conditionally | String | Represents the AWS Region to use ACM, S3, or CloudMap. Required if `useAcmCertForSSL` is set to `true` or `sslKeyCertChainFile` and `sslKeyFile` are AWS S3 paths.
 acmCertificateArn | Conditionally | String | Represents the ACM certificate ARN. ACM certificate take preference over S3 or local file system certificate. Required if `useAcmCertForSSL` is set to `true`.
 
 ### string_converter
@@ -172,7 +204,7 @@ group_duration | No | String | The amount of time that a group should exist befo
 
 ### date
 
-Adds a default timestamp to the event or parses timestamp fields, and converts it to ISO 8601 format which can be used as event timestamp.
+Adds a default timestamp to the event or parses timestamp fields, and converts it to ISO 8601 format, which can be used as event timestamp.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---

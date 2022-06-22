@@ -71,9 +71,13 @@ log-pipeline:
 This example uses weak security. We strongly recommend securing all plugins which open external ports in production environments.
 {: .note}
 
-### Trace Analytics pipeline
+### Trace analytics pipeline
 
 The following example demonstrates how to build a pipeline that supports the [Trace Analytics OpenSearch Dashboards plugin]({{site.url}}{{site.baseurl}}/observability-plugin/trace/ta-dashboards/). This pipeline takes data from the OpenTelemetry Collector and uses two other pipelines as sinks. These two separate pipelines index trace and the service map documents for the dashboard plugin.
+
+#### Classic
+
+This pipeline definition will be deprecated in 2.0. Users are recommended to use [Event record type](#event-record-type) pipeline definition.
 
 ```yml
 entry-pipeline:
@@ -113,6 +117,91 @@ service-map-pipeline:
         username: admin
         password: admin
         trace_analytics_service_map: true
+```
+
+#### Event record type
+
+Starting from Data Prepper 1.4, Data Prepper supports event record type in trace analytics pipeline source, buffer, and processors.
+
+```yml
+entry-pipeline:
+  delay: "100"
+  source:
+    otel_trace_source:
+      ssl: false
+      record_type: event
+  buffer:
+    bounded_blocking:
+      buffer_size: 10240
+      batch_size: 160
+  sink:
+    - pipeline:
+        name: "raw-pipeline"
+    - pipeline:
+        name: "service-map-pipeline"
+raw-pipeline:
+  source:
+    pipeline:
+      name: "entry-pipeline"
+  buffer:
+    bounded_blocking:
+      buffer_size: 10240
+      batch_size: 160
+  processor:
+    - otel_trace_raw:
+  sink:
+    - opensearch:
+        hosts: ["https://localhost:9200"]
+        insecure: true
+        username: admin
+        password: admin
+        trace_analytics_raw: true
+service-map-pipeline:
+  delay: "100"
+  source:
+    pipeline:
+      name: "entry-pipeline"
+  buffer:
+    bounded_blocking:
+      buffer_size: 10240
+      batch_size: 160
+  processor:
+    - service_map_stateful:
+  sink:
+    - opensearch:
+        hosts: ["https://localhost:9200"]
+        insecure: true
+        username: admin
+        password: admin
+        trace_analytics_service_map: true
+```
+
+Note that it is recommended to scale the `buffer_size` and `batch_size` by the estimated maximum batch size in the client request payload to maintain similar ingestion throughput and latency as in [Classic](#classic).
+
+### Metrics pipeline
+
+Data Prepper supports metrics ingestion using OTel. It currently supports the following metric types:
+
+* Gauge
+* Sum
+* Summary
+* Histogram
+
+Other types are not supported. Data Prepper drops all other types, including Exponential Histogram and Summary. Additionally, Data Prepper does not support Scope instrumentation.
+
+To set up a metrics pipeline:
+
+```yml
+metrics-pipeline:
+  source:
+    otel_trace_source:
+  processor:
+    - otel_metrics_raw_processor:
+  sink:
+    - opensearch:
+      hosts: ["https://localhost:9200"]
+      username: admin
+      password: admin
 ```
 
 ## Migrating from Logstash
