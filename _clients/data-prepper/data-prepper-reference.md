@@ -99,14 +99,14 @@ This is a source plugin that reads events from S3 objects.
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
 notification_type | Yes | String | Must be `sqs`
-compression | No | String | The compression algorithm to apply. May be one of: `none`, `gzip`, or `automatic`. Default is `none`.
+compression | No | String | The compression algorithm to apply; `none`, `gzip`, or `automatic`. Default is `none`.
 codec | Yes | Codec | The codec to apply. Must be either `newline` or `json`.
 sqs | Yes | sqs | The SQS configuration. See [sqs](#s3-source-sqs) for details.
 aws | Yes | aws | The AWS configuration. See [aws](#s3-source-aws) for details.
 on_error | No | String |  Determines how to handle errors in SQS. Can be either `retain_messages` or `delete_messages`. If `retain_messages`, then Data Prepper will leave the message in the SQS queue and try again. This is recommended for dead-letter queues. If `delete_messages`, then Data Prepper will delete failed messages. Default is `retain_messages`.
-buffer_timeout | No | Duration | The timeout for writing events to the Data Prepper buffer. Any Events which the S3 Source cannot write to the Buffer in this time will be discarded. Default is 10 seconds.
-records_to_accumulate | No | Integer | The number of messages to write to accumulate before writing to the Buffer. Default is 100.
-disable_bucket_ownership_validation | No | Boolean | If set to true, then the S3 Source will not attempt to validate that the bucket is owned by the expected account. The only expected account is the same account which owns the SQS queue. Defaults to `false`.
+buffer_timeout | No | Duration | The timeout for writing events to the Data Prepper buffer. Any events which the S3 Source cannot write to the buffer in this time will be discarded. Default is 10 seconds.
+records_to_accumulate | No | Integer | The number of messages that accumulate before writing to the buffer. Default is 100.
+disable_bucket_ownership_validation | No | Boolean | If `true`, then the S3 Source will not attempt to validate that the bucket is owned by the expected account. The only expected account is the same account which owns the SQS queue. Defaults to `false`.
 
 #### <a name="s3-source-sqs">sqs</a>
 
@@ -115,7 +115,7 @@ SQS configurations for the S3 source plugin
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
 queue_url | Yes | String | The SQS queue URL of the queue to read from.
-maximum_messages | No | Integer | The maximum number of messages to read from the queue in any request to the SQS queue. Default is `10`
+maximum_messages | No | Integer | The maximum number of messages to receive from the SQS queue in any single request. Default is `10`
 visibility_timeout | No | Duration | The visibility timeout to apply to messages read from the SQS queue. This should be set to the amount of time that Data Prepper may take to read all the S3 objects in a batch. Default is `30s`.
 wait_time | No | Duration | The time to wait for long-polling on the SQS API. Default is `20s`.
 poll_delay | No | Duration | A delay to place between reading and processing a batch of SQS messages and making a subsequent request. Default is `0s`.
