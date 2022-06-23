@@ -644,6 +644,9 @@ GET /_plugins/_ml/tasks/_search
 
 Delete a task based on the task_id.
 
+{: .note}
+ML commons does not check the task status when running the `Delete` request. There is a risk that a currently running task could be deleted before the task completes. To check the status of a task, run `GET /_plugins/_ml/tasks/<task_id>` before task deletion.
+
 ```json
 DELETE /_plugins/_ml/tasks/{task_id}
 ```
@@ -729,8 +732,147 @@ GET /_plugins/_ml/stats
 }
 ```
 
+## Execute
 
+Some algorithms, such as [Anomaly Localization]({{site.url}}{{site.baseurl}}/ml-commons-plugin/algorithms#anomaly-localization), don't use models. You can run no-model-based algorithms using the `execute` API.
 
+```json
+POST _plugins/_ml/_execute/<algorithm_name>
+```
 
+### Example: Execute Anomaly Localization 
 
+The following example uses localization to find subset level information for aggregate data (for example, aggregated over time) that demonstrates activity of interest such as spikes, drops, changes, and anomalies. 
+
+```json
+POST /_plugins/_ml/_execute/anomaly_localization
+{
+  "index_name": "rca-index",
+  "attribute_field_names": [
+    "attribute"
+  ],
+  "aggregations": [
+    {
+      "sum": {
+        "sum": {
+          "field": "value"
+        }
+      }
+    }
+  ],
+  "time_field_name": "timestamp",
+  "start_time": 1620630000000,
+  "end_time": 1621234800000,
+  "min_time_interval": 86400000,
+  "num_outputs": 10
+}
+```
+
+Upon execution, the API returns the following:
+
+```json
+  "results" : [
+    {
+      "name" : "sum",
+      "result" : {
+        "buckets" : [
+          {
+            "start_time" : 1620630000000,
+            "end_time" : 1620716400000,
+            "overall_aggregate_value" : 65.0
+          },
+          {
+            "start_time" : 1620716400000,
+            "end_time" : 1620802800000,
+            "overall_aggregate_value" : 75.0,
+            "entities" : [
+              {
+                "key" : [
+                  "attr0"
+                ],
+                "contribution_value" : 1.0,
+                "base_value" : 2.0,
+                "new_value" : 3.0
+              },
+              {
+                "key" : [
+                  "attr1"
+                ],
+                "contribution_value" : 1.0,
+                "base_value" : 3.0,
+                "new_value" : 4.0
+              },
+              {
+                "key" : [
+                  "attr2"
+                ],
+                "contribution_value" : 1.0,
+                "base_value" : 4.0,
+                "new_value" : 5.0
+              },
+              {
+                "key" : [
+                  "attr3"
+                ],
+                "contribution_value" : 1.0,
+                "base_value" : 5.0,
+                "new_value" : 6.0
+              },
+              {
+                "key" : [
+                  "attr4"
+                ],
+                "contribution_value" : 1.0,
+                "base_value" : 6.0,
+                "new_value" : 7.0
+              },
+              {
+                "key" : [
+                  "attr5"
+                ],
+                "contribution_value" : 1.0,
+                "base_value" : 7.0,
+                "new_value" : 8.0
+              },
+              {
+                "key" : [
+                  "attr6"
+                ],
+                "contribution_value" : 1.0,
+                "base_value" : 8.0,
+                "new_value" : 9.0
+              },
+              {
+                "key" : [
+                  "attr7"
+                ],
+                "contribution_value" : 1.0,
+                "base_value" : 9.0,
+                "new_value" : 10.0
+              },
+              {
+                "key" : [
+                  "attr8"
+                ],
+                "contribution_value" : 1.0,
+                "base_value" : 10.0,
+                "new_value" : 11.0
+              },
+              {
+                "key" : [
+                  "attr9"
+                ],
+                "contribution_value" : 1.0,
+                "base_value" : 11.0,
+                "new_value" : 12.0
+              }
+            ]
+          },
+          ...
+        ]
+      }
+    }
+  ]
+}
+```
 
