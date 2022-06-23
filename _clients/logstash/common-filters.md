@@ -154,4 +154,4 @@ http_status: 200
 num_bytes: 12798
 ```
 
-For common log formats, you use the predefined patterns defined here⁠---[Logstash patterns](https://github.com/logstash-plugins/logstash-patterns-core/blob/master/patterns/ecs-v1). You can make any adjustments to the results with the `mutate` filter.
+For common log formats, you use the predefined patterns defined here⁠---[Logstash patterns](https://github.com/logstash-plugins/logstash-patterns-core/blob/main/patterns/ecs-v1). You can make any adjustments to the results with the `mutate` filter.
