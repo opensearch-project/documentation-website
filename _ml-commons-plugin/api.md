@@ -734,13 +734,13 @@ GET /_plugins/_ml/stats
 
 ## Execute
 
-Some algorithms, such as [Anomaly Localization]({{site.url}}{{site.baseurl}}/ml-commons-plugin/algorithms#anomaly-localization), don't use models. You can run no-model-based algorithms using the `execute` API.
+Some algorithms, such as [Localization]({{site.url}}{{site.baseurl}}/ml-commons-plugin/algorithms#localization), don't require trained models. You can run no-model-based algorithms using the `execute` API.
 
 ```json
 POST _plugins/_ml/_execute/<algorithm_name>
 ```
 
-### Example: Execute Anomaly Localization 
+### Example: Execute Localization 
 
 The following example uses localization to find subset level information for aggregate data (for example, aggregated over time) that demonstrates activity of interest such as spikes, drops, changes, and anomalies. 
 
