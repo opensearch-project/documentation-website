@@ -12,7 +12,7 @@ Bucket aggregations categorize sets of documents as buckets. The type of bucket 
 
 You can use bucket aggregations to implement faceted navigation (usually placed as a sidebar on a search result landing page) to help your users narrow down the results.
 
-## terms
+## Terms
 
 The `terms` aggregation dynamically creates a bucket for each unique term of a field.
 
@@ -73,6 +73,129 @@ The count might not be accurate. A coordinating node that’s responsible for th
 The `terms` aggregation requests each shard for its top 3 unique terms. The coordinating node takes each of the results and aggregates them to compute the final result. If a shard has an object that’s not part of the top 3, then it won't show up in the response.
 
 This is especially true if `size` is set to a low number. Because the default size is 10, an error is unlikely to happen. If you don’t need high accuracy and want to increase the performance, you can reduce the size.
+
+## Multi-terms
+
+Similar to the `terms` bucket aggregation, you can also search for multiple terms using the `multi_terms` aggregation.
+
+You can sort by a number of documents. You can also sort by a metric aggregation on a composite key and get the top `n` results. Consider create a search that contains several terms: the number of documents (e.g. 1000), and the number of servers per location that show CPU usage greater than 90%.
+This multi-term query returns the top number of results.
+
+The multi_terms aggregation does consume more memory, so performance will be slower than a `terms` aggregation.
+{: .tip }
+
+### Multi-term parameters
+
+Parameter | Description
+:--- | :---
+size | Specifies the amount of buckets to return. Default is 10.
+order | To indicate the order of buckets. The default order is the number of buckets.
+doc_count | Specifies the number of documents in each bucket for it to be returned. By default, the top ten terms are returned.
+
+
+
+
+
+#### Sample Request
+
+```json
+GET sample-index100/_search
+{
+  "size": 0, 
+  "aggs": {
+    "hot": {
+      "multi_terms": {
+        "terms": [{
+          "field": "region" 
+        },{
+          "field": "host" 
+        }],
+        "order": {"max-cpu": "desc"}
+      },
+      "aggs": {
+        "max-cpu": { "max": { "field": "cpu" } }
+      }      
+    }
+  }
+}
+```
+
+#### Sample Response
+
+```json
+{
+  "took": 118,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 8,
+      "relation": "eq"
+    },
+    "max_score": null,
+    "hits": []
+  },
+  "aggregations": {
+    "multi-terms": {
+      "doc_count_error_upper_bound": 0,
+      "sum_other_doc_count": 0,
+      "buckets": [
+        {
+          "key": [
+            "dub",
+            "h1"
+          ],
+          "key_as_string": "dub|h1",
+          "doc_count": 2,
+          "max-cpu": {
+            "value": 90.0
+          }
+        },
+        {
+          "key": [
+            "dub",
+            "h2"
+          ],
+          "key_as_string": "dub|h2",
+          "doc_count": 2,
+          "max-cpu": {
+            "value": 70.0
+          }
+        },
+        {
+          "key": [
+            "iad",
+            "h2"
+          ],
+          "key_as_string": "iad|h2",
+          "doc_count": 2,
+          "max-cpu": {
+            "value": 50.0
+          }
+        },
+        {
+          "key": [
+            "iad",
+            "h1"
+          ],
+          "key_as_string": "iad|h1",
+          "doc_count": 2,
+          "max-cpu": {
+            "value": 15.0
+          }
+        }
+      ]
+    }
+  }
+}
+```
+
+
 
 ## sampler, diversified_sampler
 
