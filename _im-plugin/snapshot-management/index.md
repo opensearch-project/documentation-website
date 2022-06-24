@@ -9,10 +9,6 @@ has_toc: false
 
 # Snapshot management
 
-#### Table of contents
-- TOC
-{:toc}
-
 Snapshot Management (SM) is a feature of the Index Management Plugin that lets you automate [taking snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshot-restore#take-snapshots). Snapshots are incremental, and have minimal overhead, since they store only incremental changes since the last snapshot. To set up automatic snapshots, you have to create an SM policy with a desired SM schedule and configuration. 
 
 SM policies have to obey the following rules:
@@ -21,7 +17,7 @@ SM policies have to obey the following rules:
 
 - You cannot update the policy name after its creation. 
 
-Each policy has associated metadata which contains the running status of state machine. This metadata is be saved into the system index. The metadata is read before every scheduled job is run, so that SM can continue to execute from the previous job run. You can view the metadata with the `explain` [API](#API).
+Each policy has associated metadata about the status of snapshot creation. The metadata is saved into the system index. The metadata is read before every scheduled job is run, so that SM can continue to execute from the previous job run. You can view the metadata with the `explain` [API](#API).
 
 The cluster’s global metadata must be readable. To include an index in a snapshot, the index and its metadata must also be readable.
 {: .note}
@@ -35,9 +31,9 @@ An SM configuration can have more than one index.
 
 ## Performance 
 
-One snapshot can contain as many indices as there are in the cluster. We expect at most dozens of SM policies to be used in one cluster, but a snapshot repository can safely scale to thousands of snapshots. However, to manage its metadata, a large repository requires more memory on the master node. 
+One snapshot can contain as many indices as there are in the cluster. We expect at most dozens of SM policies in one cluster, but a snapshot repository can safely scale to thousands of snapshots. However, to manage its metadata, a large repository requires more memory on the cluster manager node. 
 
-Snapshot management depends on the job scheduler plugin to schedule a periodically run job. Each SM policy corresponds to one SM scheduled job. The scheduled job is lightweight so the burden of SM depends on the snapshot creation frequency and the burden of running snapshot operation itself. However, too many pending SM tasks can block other high-priority tasks in the cluster.
+Snapshot management depends on the job scheduler plugin to schedule a job that is run periodically. Each SM policy corresponds to one SM scheduled job. The scheduled job is lightweight, so the burden of SM depends on the snapshot creation frequency and the burden of running snapshot operation itself. However, too many pending SM tasks can block other high-priority tasks in the cluster.
 
 ## Concurrency 
 
@@ -69,14 +65,11 @@ SM follows the OpenSearch plugin security model:
 
 Security plugin provides role-based access control for OpenSearch. The role associated with user contains [permissions]({{site.url}}{{site.baseurl}}/security-plugin/access-control/permissions) for this user. Security plugin checks the security role of the user during API calling.
 
-To use SM, the user’s role is supposed to have permissions for:
+To use SM, the user’s role is must have the following permissions.
 
-* SM APIs
-    * e.g.  cluster:admin/opensearch/snapshot_management/put for SM index policy API
-    * If not, user will be blocked when calling the SM API.
-* Get/create/delete snapshot APIs
-    * e.g. cluster:admin/snapshot/get for get snapshot API
-    * If not, SM will fail to perform these snapshot operations at runtime.
+- SM APIs. For example, the role must have the permission `cluster:admin/opensearch/snapshot_management/put` for SM index policy API. Users without necessary permissions will be blocked when calling the SM API.
+
+- Get/create/delete snapshot APIs For example, the user must have the permission `cluster:admin/snapshot/get` for get snapshot API. If the user does not have the necessary permissions, SM will fail to perform these snapshot operations at runtime.
 
 The following table lists the required permissions for each function of SM.
 
