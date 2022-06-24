@@ -81,13 +81,14 @@ Similar to the `terms` bucket aggregation, you can also search for multiple term
 You can sort by a number of documents. You can also sort by a metric aggregation on a composite key and get the top `n` results. Consider create a search that contains several terms: the number of documents (e.g. 1000), and the number of servers per location that show CPU usage greater than 90%.
 This multi-term query returns the top number of results.
 
-The multi_terms aggregation does consume more memory, so performance will be slower than a `terms` aggregation.
+The multi terms aggregation does consume more memory, so performance will be slower than a terms aggregation.
 {: .tip }
 
-### Multi-term parameters
+### Multi-terms aggregation parameters
 
 Parameter | Description
 :--- | :---
+multi_terms | Indicates a multi-terms aggregation that gathers buckets of documents together based on criteria specified by multiple terms.
 size | Specifies the amount of buckets to return. Default is 10.
 order | To indicate the order of buckets. The default order is the number of buckets.
 doc_count | Specifies the number of documents in each bucket for it to be returned. By default, the top ten terms are returned.
