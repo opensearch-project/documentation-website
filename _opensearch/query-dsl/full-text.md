@@ -18,6 +18,9 @@ This page lists all full-text query types and common options. Given the sheer nu
 
 ---
 
+Common terms queries and the optional query field `cutoff_frequency` are now deprecated.
+{: .note }
+
 ## Match
 
 Creates a [boolean query](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/BooleanQuery.html) that returns results if the search term is present in the field.
@@ -65,7 +68,6 @@ GET _search
         "analyzer": "standard",
         "zero_terms_query": "none",
         "lenient": false,
-        "cutoff_frequency": 0.01,
         "prefix_length": 0,
         "max_expansions": 50,
         "boost": 1
@@ -114,7 +116,6 @@ GET _search
       "prefix_length": 0,
       "max_expansions": 50,
       "auto_generate_synonyms_phrase_query": true,
-      "cutoff_frequency": 0.01,
       "zero_terms_query": "none"
     }
   }
@@ -223,7 +224,7 @@ GET _search
   }
 }
 ```
-
+<!-- Common terms query has been deprecated. Saving docs in-case we get a request to add it back later. See code deprecation https://github.com/opensearch-project/OpenSearch/blob/main/server/src/main/java/org/opensearch/index/query/CommonTermsQueryBuilder.java#L72-L73>
 ## Common terms
 
 The common terms query separates the query string into high- and low-frequency terms based on number of occurrences on the shard. Low-frequency terms are weighed more heavily in the results, and high-frequency terms are considered only for documents that already matched one or more low-frequency terms. In that sense, you can think of this query as having a built-in, ever-changing list of stop words.
@@ -263,7 +264,7 @@ GET _search
   }
 }
 ```
-
+-->
 ## Query string
 
 The query string query splits text based on operators and analyzes each individually.
@@ -431,16 +432,18 @@ PUT my-index-000001
 
 <!-- TO do: each of the options needs its own section with an example. Convert table to individual sections, and then give a streamlined list with valid values. -->
 
-## Options
+## Optional query fields
 
-### Using wildcards
+You can filter your query results by using some of the optional query fields such as wildcards, analyzers, fuzzy query fields, and synonyms.
+
+### Use wildcards
 
 Option | Valid values | Description
 :--- | :--- | :---
 `allow_leading_wildcard` | Boolean | Whether `*` and `?` are allowed as the first character of a search term. The default is true. Boolean values can be either `true` or `false`.
 `analyze_wildcard` | Boolean | Whether OpenSearch should attempt to analyze wildcard terms. Some analyzers do a poor job at this task, so the default is false.
 
-### Using built-in analyzers
+### Use built-in analyzers
 
 `analyzer` | `standard, simple, whitespace, stop, keyword, pattern, language fingerprint` | The analyzer you want to use for the query. Different analyzers have different character filters, tokenizers, and token filters. The `stop` analyzer, for example, removes stop words (e.g. "an," "but," "this") from the query string. For a full list of acceptable language values, see [Convert text with analyzers](#convert-text-with-analyzers) on this page.
 `quote_analyzer` | String | This option lets you choose to use the standard analyzer without any options, such as `language` or other analyzers. Usage is `"quote_analyzer": "standard"`.
@@ -455,12 +458,15 @@ Option | Valid values | Description
 
 You can also run multi-term queries that allow for generating synonyms. Use the `auto_generate_synonyms_phrase_query` Boolean field. By default it is set to `true`. It automatically generates [phrase queries](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/PhraseQuery.html) for multi-term synonyms. For example, if you have the synonym `"ba, batting average"` and search for "ba," OpenSearch searches for `ba OR "batting average"` (if this option is true) or `ba OR (batting AND average)` (if this option is false).
 
-## General options
+### Other optional query fields
+
+The following query fields are also optional to filter your query results.
+
+
 
 Option | Valid values | Description
 :--- | :--- | :---
 `boost` | Floating-point | Boosts the clause by the given multiplier. Useful for weighing clauses in compound queries. The default is 1.0.
-`cutoff_frequency` | Between `0.0` and `1.0` or a positive integer | This value lets you define high and low frequency terms based on number of occurrences in the index. Numbers between 0 and 1 are treated as a percentage. For example, 0.10 is 10%. This value means that if a word occurs within the search field in more than 10% of the documents on the shard, OpenSearch considers the word "high frequency" and deemphasizes it when calculating search score.<br /><br />Because this setting is *per shard*, testing its impact on search results can be challenging unless a cluster has many documents.
 `enable_position_increments` | Boolean | When true, result queries are aware of position increments. This setting is useful when the removal of stop words leaves an unwanted "gap" between terms. The default is true.
 `fields` | String array | The list of fields to search (e.g. `"fields": ["title^4", "description"]`). If unspecified, defaults to the `index.query.default_field` setting, which defaults to `["*"]`.
 `flags` | String | A `|`-delimited string of [flags](#simple-query-string) to enable (e.g. `AND|OR|NOT`). The default is `ALL`. You can explicitly set the value for `default_field`. For example, to return all Titles, set it to `"default_field": "title"`.
@@ -479,3 +485,6 @@ Option | Valid values | Description
 `time_zone` | UTC offset hours | Specifies the number of hours to offset the desired time zone from `UTC`. You need to indicate the time zone offset amount if the query string contains a date range. For example set `time_zone": "-08:00"` for a query with a date range such as: `"query": "wind rises release_date[2012-01-01 TO 2014-01-01]"`). The default time zone format to specify number of offset hours is `UTC`.
 `type` | `best_fields, most_fields, cross_fields, phrase, phrase_prefix` | Determines how OpenSearch executes the query and scores the results. The default is `best_fields`.
 `zero_terms_query` | `none, all` | If the analyzer removes all terms from a query string, whether to match no documents (default) or all documents. For example, the `stop` analyzer removes all terms from the string "an but this."
+
+<!-- cutoff_frequency is now deprecated. See https://github.com/opensearch-project/OpenSearch/blob/main/server/src/main/java/org/opensearch/index/query/MatchQueryBuilder.java#L61-L72 >
+`cutoff_frequency` | Between `0.0` and `1.0` or a positive integer | This value lets you define high and low frequency terms based on number of occurrences in the index. Numbers between 0 and 1 are treated as a percentage. For example, 0.10 is 10%. This value means that if a word occurs within the search field in more than 10% of the documents on the shard, OpenSearch considers the word "high frequency" and deemphasizes it when calculating search score.<br /><br />Because this setting is *per shard*, testing its impact on search results can be challenging unless a cluster has many documents. -->
