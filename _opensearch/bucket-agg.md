@@ -92,10 +92,6 @@ size | Specifies the amount of buckets to return. Default is 10.
 order | To indicate the order of buckets. The default order is the number of buckets.
 doc_count | Specifies the number of documents in each bucket for it to be returned. By default, the top ten terms are returned.
 
-
-
-
-
 #### Sample Request
 
 ```json
@@ -194,8 +190,6 @@ GET sample-index100/_search
   }
 }
 ```
-
-
 
 ## sampler, diversified_sampler
 
@@ -675,7 +669,6 @@ The `range` aggregation lets you define the range for each bucket.
 For example, you can find the number of bytes between 1000 and 2000, 2000 and 3000, and 3000 and 4000.
 Within the `range` parameter, you can define ranges as objects of an array.
 
-
 ```json
 GET opensearch_dashboards_sample_data_logs/_search
 {
@@ -832,6 +825,7 @@ GET opensearch_dashboards_sample_data_logs/_search
  }
 }
 ```
+
 If you add a document with malformed fields to an index that has `ip_range` set to `false` in its mappings, OpenSearch rejects the entire document. You can set `ignore_malformed` to `true` to specify that OpenSearch should ignore malformed fields. The default is `false`.
 
 ```json
@@ -845,6 +839,7 @@ If you add a document with malformed fields to an index that has `ip_range` set 
   }
 }
 ```
+
 ## filter, filters
 
 A `filter` aggregation is a query clause, exactly like a search query — `match` or `term` or `range`. You can use the `filter` aggregation to narrow down the entire set of documents to a specific set before creating buckets.
