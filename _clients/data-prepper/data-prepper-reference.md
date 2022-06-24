@@ -108,7 +108,7 @@ buffer_timeout | No | Duration | The timeout for writing events to the Data Prep
 records_to_accumulate | No | Integer | The number of messages that accumulate before writing to the buffer. Default is 100.
 disable_bucket_ownership_validation | No | Boolean | If `true`, then the S3 Source will not attempt to validate that the bucket is owned by the expected account. The only expected account is the same account that owns the SQS queue. Defaults to `false`.
 
-#### s3 source sqs
+#### sqs
 
 The following are configure usage of Amazon SQS in the S3 Source plugin.
 
@@ -121,7 +121,7 @@ wait_time | No | Duration | The time to wait for long polling on the SQS API. De
 poll_delay | No | Duration | A delay to place between reading and processing a batch of SQS messages and making a subsequent request. Default is `0s`.
 
 
-#### s3 source aws
+#### aws
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
