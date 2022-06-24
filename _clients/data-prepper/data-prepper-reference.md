@@ -101,8 +101,8 @@ Option | Required | Type | Description
 notification_type | Yes | String | Must be `sqs`
 compression | No | String | The compression algorithm to apply: `none`, `gzip`, or `automatic`. Default is `none`.
 codec | Yes | Codec | The codec to apply. Must be either `newline` or `json`.
-sqs | Yes | sqs | The [Amazon Simple Queue Service](https://aws.amazon.com/sqs/) (Amazon SQS) configuration. See [sqs](#s3-source-sqs) for details.
-aws | Yes | aws | The AWS configuration. See [aws](#s3-source-aws) for details.
+sqs | Yes | sqs | The [Amazon Simple Queue Service](https://aws.amazon.com/sqs/) (Amazon SQS) configuration. See [sqs](#sqs) for details.
+aws | Yes | aws | The AWS configuration. See [aws](#aws) for details.
 on_error | No | String |  Determines how to handle errors in Amazon SQS. Can be either `retain_messages` or `delete_messages`. If `retain_messages`, then Data Prepper will leave the message in the SQS queue and try again. This is recommended for dead-letter queues. If `delete_messages`, then Data Prepper will delete failed messages. Default is `retain_messages`.
 buffer_timeout | No | Duration | The timeout for writing events to the Data Prepper buffer. Any events that the S3 Source cannot write to the buffer in this time will be discarded. Default is 10 seconds.
 records_to_accumulate | No | Integer | The number of messages that accumulate before writing to the buffer. Default is 100.
