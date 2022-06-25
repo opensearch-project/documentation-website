@@ -1,15 +1,14 @@
 ---
 layout: default
 title: Snapshot management
-nav_order: 55
-has_children: true
-redirect_from: /im-plugin/snapshot-management/
-has_toc: false
+parent: Snapshots
+nav_order: 20
+has_children: false
 ---
 
 # Snapshot management
 
-Snapshot Management (SM) is a feature of the Index Management Plugin that lets you automate [taking snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshot-restore#take-snapshots). Snapshots are incremental, and have minimal overhead, since they store only incremental changes since the last snapshot. To set up automatic snapshots, you have to create an SM policy with a desired SM schedule and configuration. 
+Snapshot management (SM) is a feature of the [Index Management Plugin]({{site.url}}{{site.baseurl}}/im-plugin) that lets you automate [taking snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore#take-snapshots). Snapshots have minimal overhead, since they store only incremental changes since the last snapshot. To set up automatic snapshots, you have to create an SM policy with a desired SM schedule and configuration. 
 
 SM policies have to obey the following rules:
 
@@ -65,11 +64,11 @@ SM follows the OpenSearch plugin security model:
 
 Security plugin provides role-based access control for OpenSearch. The role associated with user contains [permissions]({{site.url}}{{site.baseurl}}/security-plugin/access-control/permissions) for this user. Security plugin checks the security role of the user during API calling.
 
-To use SM, the user’s role is must have the following permissions.
+To use SM, the user’s role is must have the following permissions:
 
 - SM APIs. For example, the role must have the permission `cluster:admin/opensearch/snapshot_management/put` for SM index policy API. Users without necessary permissions will be blocked when calling the SM API.
 
-- Get/create/delete snapshot APIs For example, the user must have the permission `cluster:admin/snapshot/get` for get snapshot API. If the user does not have the necessary permissions, SM will fail to perform these snapshot operations at runtime.
+- Get/create/delete snapshot APIs. For example, the user must have the permission `cluster:admin/snapshot/get` for get snapshot API. If the user does not have the necessary permissions, SM will fail to perform these snapshot operations at runtime.
 
 The following table lists the required permissions for each function of SM.
 
@@ -85,7 +84,7 @@ Stop| POST  _plugins/_sm/policies/`policy_name`/_stop | cluster:admin/opensearch
 
 ## API
 
-The following table lists all API functions of SM.
+The following table lists all [API functions]({{site.url}}{{site.baseurl}}/opensearch/sm-api) of SM.
 
 Function | API | Description
 :--- | :--- | :---
