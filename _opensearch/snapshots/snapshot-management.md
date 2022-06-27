@@ -84,15 +84,15 @@ Stop| POST  _plugins/_sm/policies/`policy_name`/_stop | cluster:admin/opensearch
 
 ## API
 
-The following table lists all [API functions]({{site.url}}{{site.baseurl}}/opensearch/sm-api) of SM.
+The following table lists all [API functions]({{site.url}}{{site.baseurl}}/opensearch/snapshots/sm-api) of snapshot management.
 
 Function | API | Description
 :--- | :--- | :---
-Get all policies | GET _plugins/_sm/policies | Returns all SM policies.
-Get the policy `policy_name` | GET _plugins/_sm/policies/`policy_name` | Returns the `policy_name` SM policy.
-Create policy | POST _plugins/_sm/policies/`policy_name` | Creates an SM policy.
-Update policy | PUT _plugins/_sm/policies/`policy_name`?if_seq_no=1&if_primary_term=1 | Modifies the `policy_name` policy.
-Delete policy | DELETE  _plugins/_sm/policies/`policy_name` | Deletes the `policy_name` policy.
-Explain | GET _plugins/_sm/policies/`policy_names`/_explain | Provides the enabled/disabled status and the metadata for all policies specified by `policy_names`.
-Start | POST  _plugins/_sm/policies/`policy_name`/_start | Starts the `policy_name` policy.
-Stop| POST  _plugins/_sm/policies/`policy_name`/_stop | Stops the `policy_name` policy.
+[Create policy]({{site.url}}{{site.baseurl}}/opensearch/snapshots/sm-api#create-or-update-a-policy) | POST _plugins/_sm/policies/`policy_name` | Creates an SM policy.
+[Update policy]({{site.url}}{{site.baseurl}}/opensearch/snapshots/sm-api#create-or-update-a-policy) | PUT _plugins/_sm/policies/`policy_name`?if_seq_no=`sequence_number`&if_primary_term=`primary_term` | Modifies the `policy_name` policy.
+[Get all policies]({{site.url}}{{site.baseurl}}/opensearch/snapshots/sm-api#get-policies) | GET _plugins/_sm/policies | Returns all SM policies.
+[Get the policy `policy_name`]({{site.url}}{{site.baseurl}}/opensearch/snapshots/sm-api#get-policies) | GET _plugins/_sm/policies/`policy_name` | Returns the `policy_name` SM policy.
+[Delete policy]({{site.url}}{{site.baseurl}}/opensearch/snapshots/sm-api#delete-a-policy) | DELETE  _plugins/_sm/policies/`policy_name` | Deletes the `policy_name` policy.
+[Explain]({{site.url}}{{site.baseurl}}/opensearch/snapshots/sm-api#explain) | GET _plugins/_sm/policies/`policy_names`/_explain | Provides the enabled/disabled status and the metadata for all policies specified by `policy_names`.
+[Start policy]({{site.url}}{{site.baseurl}}/opensearch/snapshots/sm-api#start-a-policy) | POST  _plugins/_sm/policies/`policy_name`/_start | Starts the `policy_name` policy.
+[Stop policy]({{site.url}}{{site.baseurl}}/opensearch/snapshots/sm-api#stop-a-policy)| POST  _plugins/_sm/policies/`policy_name`/_stop | Stops the `policy_name` policy.
