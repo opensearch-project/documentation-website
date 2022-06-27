@@ -40,7 +40,7 @@ GET _cat/count/<index>?v
 
 ## URL parameters
 
-All cat count URL parameters are optional. You can specify any of the [common URL parameters]({{site.url}}{{site.baseurl}}/opensearch/rest-api/cat/index#common-url-parameters).
+All cat count URL parameters are optional. You can specify any of the [common URL parameters]({{site.url}}{{site.baseurl}}/opensearch/rest-api/cat/index).
 
 
 ## Response
