@@ -42,7 +42,7 @@ GET _cat/indices
 
 All cat indices URL parameters are optional.
 
-In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/opensearch/rest-api/cat/index#common-url-parameters), you can specify the following parameters:
+In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/opensearch/rest-api/cat/index), you can specify the following parameters:
 
 Parameter | Type | Description
 :--- | :--- | :---

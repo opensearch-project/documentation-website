@@ -42,7 +42,7 @@ GET _cat/fielddata/<field_name>?v
 
 All cat fielddata URL parameters are optional.
 
-In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/opensearch/rest-api/cat/index#common-url-parameters), you can specify the following parameter:
+In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/opensearch/rest-api/cat/index), you can specify the following parameter:
 
 Parameter | Type | Description
 :--- | :--- | :---

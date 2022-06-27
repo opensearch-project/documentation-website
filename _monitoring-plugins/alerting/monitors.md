@@ -407,7 +407,7 @@ If you don't want to receive notifications for alerts, you don't have to add act
    {% raw %}{ "text": "Monitor {{ctx.monitor.name}} just entered alert status. Please investigate the issue. - Trigger: {{ctx.trigger.name}} - Severity: {{ctx.trigger.severity}} - Period start: {{ctx.periodStart}} - Period end: {{ctx.periodEnd}}" }{% endraw %}
    ```
 
-   In this case, the message content must conform to the `Content-Type` header in the [custom webhook]({{site.url}}{{site.baseurl}}/notifcations-plugin/index).
+   In this case, the message content must conform to the `Content-Type` header in the [custom webhook]({{site.url}}{{site.baseurl}}/notifications-plugin/index).
 1. If you're using a bucket-level monitor, you can choose whether the monitor should perform an action for each execution or for each alert.
 
 1. (Optional) Use action throttling to limit the number of notifications you receive within a given span of time.
