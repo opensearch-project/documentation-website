@@ -10,13 +10,15 @@ has_children: false
 
 Snapshot management (SM) is a feature of the [Index Management Plugin]({{site.url}}{{site.baseurl}}/im-plugin) that lets you automate [taking snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore#take-snapshots). Snapshots have minimal overhead, since they store only incremental changes since the last snapshot. To set up automatic snapshots, you have to create an SM policy with a desired SM schedule and configuration. 
 
-SM policies have to obey the following rules:
+When you create an SM policy, its document ID is given the name `<policy_name>-sm-policy`. Because of this, SM policies have to obey the following rules:
 
 - SM policies must have unique names. 
 
 - You cannot update the policy name after its creation. 
 
-Each policy has associated metadata about the status of snapshot creation. The metadata is saved into the system index. The metadata is read before every scheduled job is run, so that SM can continue to execute from the previous job run. You can view the metadata with the `explain` [API](#API).
+SM-created snapshots have names in the format `<policy_name>-<date>-<random number>`. Two snapshots created by different policies at the same time always have different names because of the `<policy_name>` prefix. To avoid name collisions within the same policy, each snapshot's name contains a hash of time.
+
+Each policy has associated metadata about the status of snapshot creation. The metadata is saved into the system index. The metadata is read before running every scheduled job, so that SM can continue execution from the previous job's state. You can view the metadata using the [explain API]({{site.url}}{{site.baseurl}}/opensearch/snapshots/sm-api#explain).
 
 The cluster’s global metadata must be readable. To include an index in a snapshot, the index and its metadata must also be readable.
 {: .note}
