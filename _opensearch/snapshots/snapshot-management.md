@@ -64,7 +64,7 @@ SM follows the OpenSearch plugin security model:
     
 - The API called within the plugin can be impersonated as the user. For example, SM will save the user security roles, and impersonate the user using these roles later when calling the snapshot APIs. And this call will also be checked by security plugin at transport layer 2 as described.
 
-Security plugin provides role-based access control for OpenSearch. The role associated with user contains [permissions]({{site.url}}{{site.baseurl}}/security-plugin/access-control/permissions) for this user. Security plugin checks the security role of the user during API calling.
+Security plugin provides role-based access control for OpenSearch. The role associated with user contains [permissions]({{site.url}}{{site.baseurl}}/security-plugin/access-control/permissions) for this user. Security plugin checks the security role of the impersonated user when the snapshot API is called.
 
 To use SM, the user’s role is must have the following permissions:
 
