@@ -41,9 +41,6 @@ PUT _plugins/_sm/policies/<policy_name>?if_seq_no=0&if_primary_term=1
 
 You must provide the `seq_no` and `primary_term` parameters for an update request.
 
-You cannot update policy_name since it's used as an SM policy ID.
-{: .note}
-
 ### Example
 
 ```json
@@ -177,7 +174,7 @@ You can specify the following parameters to create/update an SM policy.
 
 Parameter | Type | Description 
 :--- | :--- |:--- |:--- |
-`description` | String | The description of the SM policy. Required.
+`description` | String | The description of the SM policy. Optional.
 `enabled` | Boolean | Should this SM policy be enabled at creation. Optional.
 `schedule` | String | The cron schedule to automatically create snapshots with this SM policy. Required.
 `snapshot_config` | Object | The configuration options for snapshot creation. Required.
@@ -185,16 +182,16 @@ Parameter | Type | Description
 `snapshot_config.timezone` | String | Specifies your time zone to record snapshot time. Optional. Default is UTC.
 `snapshot_config.indices` | String | The names of the indices in the snapshot. Multiple index names are separated by `,`. Supports wildcards (`*`). Optional. Default is `*` (all indices).
 `snapshot_config.repository` | String | The repository to store snapshots. Required.
-`snapshot_config.ignore_unavailable` | Boolean | Ignore unavailable indices? Optional. Default is `false` because of [Security Plugin considerations]({{site.url}}{{site.baseurl}}/opensearch//snapshot-restore/#security-plugin-considerations).
-`snapshot_config.include_global_state` | Boolean | Include cluster state? Optional. Default is `true`.
+`snapshot_config.ignore_unavailable` | Boolean | Ignore unavailable indices? Optional. Default is `false`.
+`snapshot_config.include_global_state` | Boolean | Include cluster state? Optional. Default is `true` because of [Security Plugin considerations]({{site.url}}{{site.baseurl}}/opensearch//snapshot-restore/#security-plugin-considerations).
 `snapshot_config.partial` | Boolean | Allow partial snapshots? Optional. Default is `false`.
 `snapshot_config.metadata` | Object | Metadata in the form of key/value pairs. Optional.
 `creation` | Object | Configuration for snapshot creation. Required.
 `creation.schedule` | String | The cron schedule to create snapshots. Required.
-`creation.time_limit` | String | Sets the maximum time to create a snapshot. If  time_limit is longer than the scheduled time interval for taking snapshots, no scheduled snapshots are taken until time_limit elapses. For example, time_limit is set to 35 minutes, and snapshots are taken every 30 minutes starting at midnight. Snapshots are taken at 00:00 and 01:00, but the one at 00:30 is skipped. Optional. 
+`creation.time_limit` | String | Sets the maximum time to wait for snapshot creation to finish. If time_limit is longer than the scheduled time interval for taking snapshots, no scheduled snapshots are taken until time_limit elapses. For example, time_limit is set to 35 minutes, and snapshots are taken every 30 minutes starting at midnight. Snapshots are taken at 00:00 and 01:00, but the one at 00:30 is skipped. Optional. 
 `deletion` | Object | Configuration for snapshot deletion. Optional. Default is to retain all snapshots.
 `deletion.schedule` | String | The cron schedule to delete snapshots. Optional.
-`deletion.time_limit` | String | If deleting a snapshot takes longer than time_limit, retry at the next scheduled time. Optional. 
+`deletion.time_limit` | String | Sets the maximum time to wait for snapshot deletion to finish. Optional. 
 `deletion.delete_condition` | Object | Conditions for snapshot deletion. 
 `deletion.delete_condition.max_count` | Integer | The maximum number of snapshots to be retained. Optional.
 `deletion.delete_condition.max_age` | String | The maximum time a snapshot is retained. Optional.
@@ -206,7 +203,7 @@ Parameter | Type | Description
 `notification.conditions.creation` | Boolean | Do you want notifications about snapshot creation? Optional. Default is `true`.
 `notification.conditions.deletion` | Boolean | Do you want notifications about snapshot deletion? Optional. Default is `false`.
 `notification.conditions.failure` | Boolean | Do you want notifications about creation or deletion failure? Optional. Default is `false`.
-`notification.conditions.time_limit_exceeded` | Boolean |Do you want notifications when snapshot creation took longer than time_limit? Optional. Default is `false`.
+`notification.conditions.time_limit_exceeded` | Boolean |Do you want notifications when snapshot operations take longer than time_limit? Optional. Default is `false`.
 
 ## Get policies
 Introduced 2.1
@@ -347,7 +344,7 @@ GET _plugins/_sm/policies/daily*/_explain
 Introduced 2.1
 {: .label .label-purple }
 
-Sets the `enabled` flag to `true` for an SM policy. The policy will run at the next scheduled time.
+Starts the policy by setting its `enabled` flag to `true`. 
 
 #### Request
 
