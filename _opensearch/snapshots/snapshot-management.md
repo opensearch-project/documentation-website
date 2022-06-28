@@ -58,11 +58,11 @@ If snapshot creation fails, it is retried for a maximum of three times. The fail
 
 SM follows the OpenSearch plugin security model:
 
-- The system index is only accessible to super admin (who uses the cluster SSL credential directly). Even the admin user can not access the system index.
+- The system index is only accessible to super admin (who uses the cluster SSL credential directly). Even the admin user cannot access the system index.
     
-- Each API plugin added is checked at transport layer by the security plugin. The security plugin checks the security roles of the calling user, if the roles contain the permission associated with this API.
+- The security plugin checks each added API plugin at transport layer. The security plugin checks the security roles of the calling user if the roles contain the permission associated with this API.
     
-- The API called within the plugin can be impersonated as the user. For example, SM will save the user security roles, and impersonate the user using these roles later when calling the snapshot APIs. And this call will also be checked by security plugin at transport layer 2 as described.
+- The API calls within the plugin impersonate the user. For example, SM saves the user security roles, and impersonates the user with these roles when calling the snapshot APIs. 
 
 Security plugin provides role-based access control for OpenSearch. The role associated with user contains [permissions]({{site.url}}{{site.baseurl}}/security-plugin/access-control/permissions) for this user. Security plugin checks the security role of the impersonated user when the snapshot API is called.
 
