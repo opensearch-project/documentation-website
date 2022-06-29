@@ -42,7 +42,7 @@ config:
 ```
 
 Setting | Description
-:--- | :---
+:--- | :--- 
 `multitenancy_enabled` | Enable or disable multi-tenancy. Default is true.
 `server_username` | Must match the name of the OpenSearch Dashboards server user from `opensearch_dashboards.yml`. Default is `dashboardserver`.
 `index` | Must match the name of the OpenSearch Dashboards index from `opensearch_dashboards.yml`. Default is `.kibana`.
