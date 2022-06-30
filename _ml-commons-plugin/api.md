@@ -645,7 +645,7 @@ GET /_plugins/_ml/tasks/_search
 Delete a task based on the task_id.
 
 {: .note}
-ML commons does not check the task status when running the `Delete` request. There is a risk that a currently running task could be deleted before the task completes. To check the status of a task, run `GET /_plugins/_ml/tasks/<task_id>` before task deletion.
+ML Commons does not check the task status when running the `Delete` request. There is a risk that a currently running task could be deleted before the task completes. To check the status of a task, run `GET /_plugins/_ml/tasks/<task_id>` before task deletion.
 
 ```json
 DELETE /_plugins/_ml/tasks/{task_id}
@@ -740,9 +740,9 @@ Some algorithms, such as [Localization]({{site.url}}{{site.baseurl}}/ml-commons-
 POST _plugins/_ml/_execute/<algorithm_name>
 ```
 
-### Example: Execute Localization 
+### Example: Execute localization 
 
-The following example uses the Localization algorithm to find subset-level information for aggregate data (for example, aggregated over time) that demonstrates the activity of interest, such as spikes, drops, changes, or anomalies.
+The following example uses the localization algorithm to find subset-level information for aggregate data (for example, aggregated over time) that demonstrates the activity of interest, such as spikes, drops, changes, or anomalies.
 
 ```json
 POST /_plugins/_ml/_execute/anomaly_localization
