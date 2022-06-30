@@ -742,7 +742,7 @@ POST _plugins/_ml/_execute/<algorithm_name>
 
 ### Example: Execute Localization 
 
-The following example uses localization to find subset level information for aggregate data (for example, aggregated over time) that demonstrates activity of interest such as spikes, drops, changes, and anomalies. 
+The following example uses the Localization algorithm to find subset-level information for aggregate data (for example, aggregated over time) that demonstrates the activity of interest, such as spikes, drops, changes, or anomalies.
 
 ```json
 POST /_plugins/_ml/_execute/anomaly_localization

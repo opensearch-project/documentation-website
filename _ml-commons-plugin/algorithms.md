@@ -200,7 +200,7 @@ For FIT RCF, you can train the model with historical data and store the trained 
 
 ## Localization 
 
-The Localization algorithm finds subset level-information for aggregate data (for example, aggregated over time) that demonstrates the activity of interest, such as spikes, drops, changes, or anomalies. Localization can be applied in different scenarios, such as data exploration or root cause analysis, to expose the contributors driving the activity of interest in the aggregate data.
+The Localization algorithm finds subset-level information for aggregate data (for example, aggregated over time) that demonstrates the activity of interest, such as spikes, drops, changes, or anomalies. Localization can be applied in different scenarios, such as data exploration or root cause analysis, to expose the contributors driving the activity of interest in the aggregate data.
 
 ### Parameters
 
@@ -219,9 +219,9 @@ num_outputs | integer | The maximum number of values from localization/slicing |
 filter_query | Long | (Optional) Reduces the collection of data for analysis | Optional.empty()
 anomaly_star | QueryBuilder | (Optional) The time after which the data will be analyzed | Optional.empty()
 
-### Example
+### Example: Execute localization
 
-The following example executes Anomaly Localization against an RCA index.
+The following example executes Localization against an RCA index.
 
 **Request**
 
