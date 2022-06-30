@@ -1332,7 +1332,7 @@ Introduced 1.0
 
 Rest API action to reload SSL certificates. It can be used to reload SSL certificates that are about to expire without restarting OpenSearch node. 
 
-This API assumes that new certificates are in the same location specified by the security configurations in opensearch.yml. To keep sensitive certificate reload secure, this API only allows hot reload with certificates issued by the same Issuer and Subject DN and SAN with expiry dates after the current one.
+This call assumes that new certificates are in the same location specified by the security configurations in opensearch.yml. To keep sensitive certificate reloads secure, this call only allows hot reload with certificates issued by the same issuer and subject DN and SAN with expiry dates after the current certificate.
 
 #### Request
 
