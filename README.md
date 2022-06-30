@@ -7,7 +7,7 @@ The documentation repository contains the documentation for OpenSearch, the sear
 
 ## How you can help
 
-Community contributions remain essential in keeping this documentation comprehensive, useful, well-organized, and up-to-date. If you are interested in contributing, please see the [Contribution](http://contributing.md/) file.
+Community contributions remain essential in keeping this documentation comprehensive, useful, well-organized, and up-to-date. If you are interested in contributing, please see the [Contribution](https://github.com/opensearch-project/documentation-website/blob/main/CONTRIBUTING.md) file.
 
 
 ## Points of contact
@@ -105,12 +105,12 @@ If you're making major changes to the documentation and need to see the rendered
 1. Build:
 
    ```
-   sh build.sh
+   sh build.sh    
    ```
 
 1. If the build script doesn't automatically open your web browser (it should), open [http://localhost:4000/docs/](http://localhost:4000/docs/).
 
-1. Create a new branch.
+1. Create a new branch.  
 
 1. Edit the Markdown files in each collection (e.g. `_security-plugin/`).
 
@@ -125,7 +125,7 @@ If you're making major changes to the documentation and need to see the rendered
 
 The OpenSearch team released [style guidelines](https://github.com/opensearch-project/documentation-website/blob/main/STYLE_GUIDE.md) for our documentation and marketing content. These guidelines cover the style standards and terms to be observed when creating OpenSearch content. We ask that you please adhere to these guidelines whenever contributing content. 
 
-We also provide guidelines on terminology. For a list of OpenSource terms, see [Terms](https://github.com/opensearch-project/documentation-website/blob/main/TERMS.md).
+We also provide guidelines on terminology. For a list of OpenSearch terms, see [Terms](https://github.com/opensearch-project/documentation-website/blob/main/TERMS.md).
 
 
 ## New releases
