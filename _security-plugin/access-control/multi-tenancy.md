@@ -29,7 +29,7 @@ http://<opensearch_dashboards_host>:5601/app/opensearch-dashboards?security_tena
 
 ## Configuration
 
-Multi-tenancy is enabled by default, but you can disable it or change its settings using `config/opensearch-security/config.yml`:
+Multi-tenancy is enabled by default, but you can disable it or change its settings using `plugins/opensearch-security/securityconfig/config.yml`:
 
 ```yml
 config:

@@ -15,7 +15,7 @@ Understanding the authentication flow is a great way to get started with configu
 
 2. The security plugin authenticates the user's credentials against a backend: the internal user database, Lightweight Directory Access Protocol (LDAP), Active Directory, Kerberos, or JSON web tokens.
 
-   The plugin supports chaining backends in `config/opensearch-security/config.yml`. If more than one backend is present, the plugin tries to authenticate the user sequentially against each until one succeeds. A common use case is to combine the internal user database of the security plugin with LDAP/Active Directory.
+   The plugin supports chaining backends in `securityconfig/config.yml`. If more than one backend is present, the plugin tries to authenticate the user sequentially against each until one succeeds. A common use case is to combine the internal user database of the security plugin with LDAP/Active Directory.
 
 3. After a backend verifies the user's credentials, the plugin collects any backend roles. These roles can be arbitrary strings in the internal user database, but in most cases, these backend roles come from LDAP/Active Directory.
 
