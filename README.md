@@ -128,28 +128,6 @@ The OpenSearch team released [style guidelines](https://github.com/opensearch-pr
 We also provide guidelines on terminology. For a list of OpenSearch terms, see [Terms](https://github.com/opensearch-project/documentation-website/blob/main/TERMS.md).
 
 
-## New releases
-
-1. Branch.
-1. Change the `opensearch_version`, `opensearch_major_minor_version`, and `lucene_version` variables in `_config.yml`.
-1. Start up a new cluster using the updated Docker Compose file in `docs/install/docker.md`.
-1. Update the version table in `version-history.md`.
-
-   Use `curl -XGET https://localhost:9200 -u admin:admin -k` to verify the OpenSearch and Lucene versions.
-
-1. Update the plugin compatibility table in `_opensearch/install/plugin.md`.
-
-   Use `curl -XGET https://localhost:9200/_cat/plugins -u admin:admin -k` to get the correct version strings.
-
-1. Update the plugin compatibility table in `_dashboards/install/plugins.md`.
-
-   Use `docker ps` to find the ID for the OpenSearch Dashboards node. Then use `docker exec -it <opensearch-dashboards-node-id> /bin/bash` to get shell access. Finally, run `./bin/opensearch-dashboards-plugin list` to get the plugins and version strings.
-
-1. Run a build (`build.sh`), and look for any warnings or errors you introduced.
-1. Verify that the individual plugin download links in `docs/install/plugins.md` and `docs/opensearch-dashboards/plugins.md` work.
-1. Check for any other bad links (`check-links.sh`). Expect a few false positives for the `localhost` links.
-1. Submit a PR.
-
 
 ## Classes within Markdown
 
