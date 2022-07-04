@@ -8,7 +8,7 @@ has_children: false
 
 # Snapshot management
 
-Snapshot management (SM) lets you automate [taking snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore#take-snapshots). To use this feature, you need to install [Index Management Plugin]({{site.url}}{{site.baseurl}}/im-plugin). Snapshots store only incremental changes since the last snapshot. Thus, while taking an initial snapshot may be a heavy operation, subsequent snapshots have minimal overhead. To set up automatic snapshots, you have to create an SM policy with a desired SM schedule and configuration. 
+Snapshot management (SM) lets you automate [taking snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore#take-snapshots). To use this feature, you need to install the [Index Management Plugin]({{site.url}}{{site.baseurl}}/im-plugin). Snapshots store only incremental changes since the last snapshot. Thus, while taking an initial snapshot may be a heavy operation, subsequent snapshots have minimal overhead. To set up automatic snapshots, you have to create an SM policy with a desired SM schedule and configuration. 
 
 When you create an SM policy, its document ID is given the name `<policy_name>-sm-policy`. Because of this, SM policies have to obey the following rules:
 
@@ -18,11 +18,11 @@ When you create an SM policy, its document ID is given the name `<policy_name>-s
 
 SM-created snapshots have names in the format `<policy_name>-<date>-<random number>`. Two snapshots created by different policies at the same time always have different names because of the `<policy_name>` prefix. To avoid name collisions within the same policy, each snapshot's name contains a random string suffix.
 
-Each policy has associated metadata that stores the policy status. Snapshot management saves SM policies and metadata in the system index, and reads them from the system index. Thus, snapshot management depends on the OpenSearch cluster's indexing and searching functions. The policy's metadata keeps information about the latest creation and deletion only. .The metadata is read before running every scheduled job, so that SM can continue execution from the previous job's state. You can view the metadata using the [explain API]({{site.url}}{{site.baseurl}}/opensearch/snapshots/sm-api#explain).
+Each policy has associated metadata that stores the policy status. Snapshot management saves SM policies and metadata in the system index, and reads them from the system index. Thus, snapshot management depends on the OpenSearch cluster's indexing and searching functions. The policy's metadata keeps information about the latest creation and deletion only. The metadata is read before running every scheduled job, so that SM can continue execution from the previous job's state. You can view the metadata using the [explain API]({{site.url}}{{site.baseurl}}/opensearch/snapshots/sm-api#explain).
 
 An SM schedule is a custom [cron]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/cron) expression. It consists of two parts: a creation schedule, and a deletion schedule. You must set up a schedule that specifies the frequency and timing of taking snapshots. Optionally, you can set up a separate schedule for deleting snapshots.
 
-An SM configuration includes the indices and repository for these snapshots, and has all parameters you can define when [creating a snapshot]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore#take-snapshots) using the API. Additionally, you can define the format and time zone for the date used in the snapshot's name.
+An SM configuration includes the indices and repository for the snapshots, and supports all parameters you can define when [creating a snapshot]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore#take-snapshots) using the API. Additionally, you can specify the format and time zone for the date used in the snapshot's name.
 
 
 ## Performance 
@@ -33,7 +33,7 @@ Snapshot management depends on the job scheduler plugin to schedule a job that i
 
 ## Concurrency 
 
-Inside one SM policy, we design SM to not support concurrent snapshot operations which may degrade the cluster if there are too many. Snapshot operations, creation or deletion, are performed asynchronously, and until the previous operation finishes, SM won't start a new operation.
+An SM policy does not support concurrent snapshot operations, since too many such operations may degrade the cluster. Snapshot operations (creation or deletion) are performed asynchronously: SM does not start a new operation until the previous operation finishes.
 
 We don't recommend creating several SM policies with the same schedule and overlapping indices in one cluster, because it leads to concurrent snapshot creation on same indices and hinders performance. 
 {: .warning }
@@ -44,7 +44,7 @@ We don't recommend setting up the same repository for multiple SM policies with 
 
 ## Failure management
 
-If a snapshot operation fails, it is retried for a maximum of three times. The failure message is saved in metadata and is overwritten if a subsequent snapshot operation attempt succeeds. You can view the failure message using the [explain API]({{site.url}}{{site.baseurl}}/opensearch/snapshots/sm-api#explain). When using Dashboards, you can view the failure message in the policy details page. Possible reasons for failure include red index status, and shard reallocation.
+If a snapshot operation fails, it is retried for a maximum of three times. The failure message is saved in metadata and is overwritten if a subsequent snapshot operation succeeds. You can view the failure message using the [explain API]({{site.url}}{{site.baseurl}}/opensearch/snapshots/sm-api#explain). When using Dashboards, you can view the failure message in the [policy details page]({{site.url}}{{site.baseurl}}/opensearch/snapshots/sm-dashboards#view-edit-or-delete-an-sm-policy). Possible reasons for failure include red index status, and shard reallocation.
 
 ## Security
 
