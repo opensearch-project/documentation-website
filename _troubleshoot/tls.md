@@ -91,7 +91,7 @@ Check the IP address in the certificate:
 IPAddress: 2001:db8:0:1:1.2.3.4
 ```
 
-In this example, the node tries to join the cluster with the IPv4 address of `10.0.0.42`, but the certificate contians the IPv6 address of `2001:db8:0:1:1.2.3.4`.
+In this example, the node tries to join the cluster with the IPv4 address of `10.0.0.42`, but the certificate contains the IPv6 address of `2001:db8:0:1:1.2.3.4`.
 
 
 ### Validate certificate chain
