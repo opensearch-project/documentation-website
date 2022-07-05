@@ -37,7 +37,7 @@ config:
     opensearch-dashboards:
       multitenancy_enabled: true
       server_username: opensearch
-      index: '.opensearch-dashboards'
+      index: '.kibana'
     do_not_fail_on_forbidden: false
 ```
 
@@ -45,7 +45,7 @@ Setting | Description
 :--- | :---
 `multitenancy_enabled` | Enable or disable multi-tenancy. Default is true.
 `server_username` | Must match the name of the OpenSearch Dashboards server user from `opensearch_dashboards.yml`. Default is `dashboardserver`.
-`index` | Must match the name of the OpenSearch Dashboards index from `opensearch_dashboards.yml`. Default is `.opensearch-dashboards`.
+`index` | Must match the name of the OpenSearch Dashboards index from `opensearch_dashboards.yml`. Default is `.kibana`.
 `do_not_fail_on_forbidden` | If true, the security plugin removes any content that a user is not allowed to see from search results. If false, the plugin returns a security exception. Default is false.
 
 `opensearch_dashboards.yml` has some additional settings:
@@ -155,14 +155,15 @@ _meta:
 
 ## Manage OpenSearch Dashboards indices
 
-The open source version of OpenSearch Dashboards saves all objects to a single index: `.opensearch-dashboards`. The security plugin uses this index for the global tenant, but separate indices for every other tenant. Each user also has a private tenant, so you might see a large number of indices that follow two patterns:
+The open source version of OpenSearch Dashboards saves all objects to a single index: `.kibana`. The security plugin uses this index for the global tenant, but separate indices for every other tenant. Each user also has a private tenant, so you might see a large number of indices that follow two patterns:
 
 ```
-.opensearch-dashboards_<hash>_<tenant_name>
-.opensearch-dashboards_<hash>_<username>
+.kibana_<hash>_<tenant_name>
+.kibana_<hash>_<username>
 ```
 
 The security plugin scrubs these index names of special characters, so they might not be a perfect match of tenant names and usernames.
 {: .tip }
 
-To back up your OpenSearch Dashboards data, [take a snapshot]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore) of all tenant indices using an index pattern such as `.opensearch-dashboards*`.
+To back up your OpenSearch Dashboards data, [take a snapshot]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore) of all tenant indices using an index pattern such as `.kibana*`.
+
