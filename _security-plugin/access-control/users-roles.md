@@ -129,7 +129,6 @@ Role | Description
 `snapshot_management_full_access` | Grants full permissions to all snapshot management actions.
 `snapshot_management_read_access` | Grants permissions to view policies, but not create, modify, start, stop, or delete them.
 
-
 For more detailed summaries of the permissions for each role, reference their action groups against the descriptions in [Default action groups]({{site.url}}{{site.baseurl}}/security-plugin/access-control/default-action-groups/).
 
 
