@@ -1326,6 +1326,28 @@ GET _plugins/_security/api/ssl/certs
   ]
 }
 ```
+### Reload certificates
+Introduced 1.0
+{: .label .label-purple }
+
+Reloads SSL certificates that are about to expire without restarting the OpenSearch node. 
+
+This call assumes that new certificates are in the same location specified by the security configurations in opensearch.yml. To keep sensitive certificate reloads secure, this call only allows hot reload with certificates issued by the same issuer and subject DN and SAN with expiry dates after the current certificate.
+
+#### Request
+
+```
+PUT _opendistro/_security/api/ssl/transport/reloadcerts
+PUT _opendistro/_security/api/ssl/http/reloadcerts
+```
+
+#### Sample response
+
+```json
+{ 
+  "message": "updated http certs" 
+}
+```
 ---
 
 ## Cache
