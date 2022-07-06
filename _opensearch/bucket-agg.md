@@ -76,7 +76,7 @@ This is especially true if `size` is set to a low number. Because the default si
 
 ## Multi-terms
 
-Similar to the `terms` bucket aggregation, you can also search for multiple terms using the `multi_terms` aggregation. Multi-terms aggregations are useful when you need to sort by a number of documents, or when you need to sort by a metric aggregation on a composite key and get the top `n` results. For example, you could search for a specific number of documents (e.g., 1000) and the number of servers per location that show CPU usage greater than 90%. The top number of results would be returned for this multi-term query.
+Similar to the `terms` bucket aggregation, you can also search for multiple terms using the `multi_terms` aggregation. Multi-terms aggregations are useful when you need to sort by document count, or when you need to sort by a metric aggregation on a composite key and get the top `n` results. For example, you could search for a specific number of documents (e.g., 1000) and the number of servers per location that show CPU usage greater than 90%. The top number of results would be returned for this multi-term query.
 
 The `multi_terms` aggregation does consume more memory than a `terms` aggregation, so its performance will be slower.
 {: .tip }
