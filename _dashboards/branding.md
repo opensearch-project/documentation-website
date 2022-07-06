@@ -115,10 +115,10 @@ The current default view remains close in appearance to the two-bar header offer
   useExpandedHeader: false
 ```
 
-In a future release, default behavior will become `useExpandedHeader: false`. If you want to retain the default view in subsequent releases, you can explicitly set the property to `true` in advance. You can also wait to do this when upgrading.
+In a future release, default behavior will become `useExpandedHeader: false`. If you want to retain the default view in subsequent releases, you can explicitly set the property to `true` in advance. Alternatively, you can also do this when upgrading.
 {: .note }
 
-The condensed view header appears as in the example here.
+The condensed view header appears as in the example below.
 
 ![Condensed header]({{site.url}}{{site.baseurl}}/images/DBs-Condensed.jpeg)
 
@@ -127,19 +127,19 @@ Header element | Description
 OpenSearch logo | See #1. Functions as the home button.
 Header bar | See #2. A single header bar used for all navigation controls.
 
-The default view remains close to the traditional view with minor changes.
+The default view remains close to the traditional view, with minor changes.
 
 ![Default header]({{site.url}}{{site.baseurl}}/images/DBs-Traditional.jpeg)
 
 Header element | Description
 :--- | :---
-Home button | See #1. Returns to home page and provides an indication when a page is loading.
+Home button | See #1. Returns to the home page and provides an indication when a page is loading.
 Header label | See #2. The label also functions as a home button.
 Navigation controls | See #3. Additional navigation controls on right-side insertion points.
 
-#### Preserving nagivation elements in default view
+#### Preserving nagivation elements in the default view
 
-You can continue using the top header bar in the default view for custom navigation links (such as menu items and plugins). Follow the steps below to keep these elements in the top header in default view.
+You can continue using the top header bar in the default view for custom navigation links (such as menu items and plugins). Follow the steps below to keep these elements in the top header in the default view.
 1. Replace the property `coreStart.chrome.navControls.registerRight(...)` with `coreStart.chrome.navControls.registerExpandedRight(...)` and then replace the property  `coreStart.chrome.navControls.registerCenter(...)` with `coreStart.chrome.navControls.registerExpandedCenter(...)`
 
 2. Make sure the configuration property `useExpandedHeader` is explicitly set to `true`.
