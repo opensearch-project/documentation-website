@@ -35,7 +35,8 @@ loadingLogo | Loading logo used when OpenSearch Dashboards is starting. See #3 i
 faviconUrl | Website icon. Loads next to the application title. See #4 in the image.
 applicationTitle | The application's title. See #5 in the image.
 
-**Note** --- To consolidate navigation controls and reduce the space the header takes up on the page, see [Condensed header](#condensed-header).
+To consolidate navigation controls and reduce the space the header takes up on the page, see [Condensed header](#condensed-header).
+{: .note}
 
 To start using your own branding elements in OpenSearch Dashboards, first uncomment this section of `opensearch_dashboards.yml`:
 
@@ -114,7 +115,8 @@ The current default view remains close in appearance to the two-bar header offer
   useExpandedHeader: false
 ```
 
-**Note:** --- In a future release, default behavior will become `useExpandedHeader: false`. If you want to retain the default view in subsequent releases, you can explicitly set the property to `true` in advance. You can also wait to do this when upgrading.
+In a future release, default behavior will become `useExpandedHeader: false`. If you want to retain the default view in subsequent releases, you can explicitly set the property to `true` in advance. You can also wait to do this when upgrading.
+{: .note }
 
 The condensed view header appears as in the example here.
 
@@ -122,7 +124,7 @@ The condensed view header appears as in the example here.
 
 Header element | Description
 :--- | :---
-OpenSearch logo | See #1. Performs as the home button.
+OpenSearch logo | See #1. Functions as the home button.
 Header bar | See #2. A single header bar used for all navigation controls.
 
 The default view remains close to the traditional view with minor changes.
