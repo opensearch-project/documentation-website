@@ -395,20 +395,20 @@ GET _search
 
 ## Convert text with analyzers
 
-OpenSearch provides the analyzer option to convert your structured text into the format that works best for your searches. You can use the following options with the analyzer field: standard, simple, whitespace, stop, keyword, pattern, fingerprint and language. Different analyzers have different character filters, tokenizers, and token filters. The stop analyzer, for example, removes stop words (e.g. “an,” “but,” “this”) from the query string.
+OpenSearch provides the analyzer option to convert your structured text into the format that works best for your searches. You can use the following options with the analyzer field: standard, simple, whitespace, stop, keyword, pattern, fingerprint, and language. Different analyzers have different character filters, tokenizers, and token filters. The stop analyzer, for example, removes stop words (e.g., “an,” “but,” “this”) from the query string.
 
 OpenSearch supports the following language values with the `analyzer` option:
-arabic, armenian, basque, bengali, brazilian, bulgarian, catalan, czech, danish, dutch, english, estonian, finnish, french, galicia, german, greek, hindi, hungarian, indonesian, irish, italian, latvian, lithuanian, norwegian, persian, portuguese,romanian, russian, sorani, spanish, swedish, turkish, and thai.
+arabic, armenian, basque, bengali, brazilian, bulgarian, catalan, czech, danish, dutch, english, estonian, finnish, french, galicia, german, greek, hindi, hungarian, indonesian, irish, italian, latvian, lithuanian, norwegian, persian, portuguese, romanian, russian, sorani, spanish, swedish, turkish, and thai.
 
-To use the analyzer when you map an index, specify the value within your query. For example, to map your index with the French language analyzer, enter the analyzer field and specify the `french` value for the analyzer field:
+To use the analyzer when you map an index, specify the value within your query. For example, to map your index with the French language analyzer, specify the `french` value for the analyzer field:
 
 ```json
- ` "analyzer": "french"`
+ "analyzer": "french"
  ```
 
 #### Sample Request
 
-The following query maps an index with the language analyzer set to French:
+The following query maps an index with the language analyzer set to `french`:
 
 ```json
 PUT my-index-000001
@@ -434,25 +434,29 @@ PUT my-index-000001
 
 ## Optional query fields
 
-You can filter your query results by using some of the optional query fields such as wildcards, analyzers, fuzzy query fields, and synonyms.
+You can filter your query results by using some of the optional query fields, such as wildcards, analyzers, fuzzy query fields, and synonyms.
 
 ### Use wildcards
 
 Option | Valid values | Description
 :--- | :--- | :---
-`allow_leading_wildcard` | Boolean | Whether `*` and `?` are allowed as the first character of a search term. The default is true. Boolean values can be either `true` or `false`.
+`allow_leading_wildcard` | Boolean | Whether `*` and `?` are allowed as the first character of a search term. The default is `true`.
 `analyze_wildcard` | Boolean | Whether OpenSearch should attempt to analyze wildcard terms. Some analyzers do a poor job at this task, so the default is false.
 
 ### Use built-in analyzers
 
-`analyzer` | `standard, simple, whitespace, stop, keyword, pattern, language fingerprint` | The analyzer you want to use for the query. Different analyzers have different character filters, tokenizers, and token filters. The `stop` analyzer, for example, removes stop words (e.g. "an," "but," "this") from the query string. For a full list of acceptable language values, see [Convert text with analyzers](#convert-text-with-analyzers) on this page.
+Option | Valid values | Description
+:--- | :--- | :---
+`analyzer` | `standard, simple, whitespace, stop, keyword, pattern, language, fingerprint` | The analyzer you want to use for the query. Different analyzers have different character filters, tokenizers, and token filters. The `stop` analyzer, for example, removes stop words (e.g., "an," "but," "this") from the query string. For a full list of acceptable language values, see [Convert text with analyzers](#convert-text-with-analyzers) on this page.
 `quote_analyzer` | String | This option lets you choose to use the standard analyzer without any options, such as `language` or other analyzers. Usage is `"quote_analyzer": "standard"`.
 
 ### Run fuzzy queries
 
+Option | Valid values | Description
+:--- | :--- | :---
 `fuzziness` | `AUTO`, `0`, or a positive integer | The number of character edits (insert, delete, substitute) that it takes to change one word to another when determining whether a term matched a value. For example, the distance between `wined` and `wind` is 1. The default, `AUTO`, chooses a value based on the length of each term and is a good choice for most use cases.
 `fuzzy_transpositions` | Boolean | Setting `fuzzy_transpositions` to true (default) adds swaps of adjacent characters to the insert, delete, and substitute operations of the `fuzziness` option. For example, the distance between `wind` and `wnid` is 1 if `fuzzy_transpositions` is true (swap "n" and "i") and 2 if it is false (delete "n", insert "n"). <br /><br />If `fuzzy_transpositions` is false, `rewind` and `wnid` have the same distance (2) from `wind`, despite the more human-centric opinion that `wnid` is an obvious typo. The default is a good choice for most use cases.
-`fuzzy_max_expansions` | Positive integer | Fuzzy queries "expand to" a number of matching terms that are within the distance specified in `fuzziness`. Then OpenSearch tries to match those terms against its indices.
+`fuzzy_max_expansions` | Positive integer | Fuzzy queries "expand to" a number of matching terms that are within the distance specified in `fuzziness`. Then OpenSearch tries to match those terms against its indexes.
 
 ### Use synonyms with a query
 
@@ -460,16 +464,14 @@ You can also run multi-term queries that allow for generating synonyms. Use the 
 
 ### Other optional query fields
 
-The following query fields are also optional to filter your query results.
-
-
+You can also use the following optional query fields to filter your query results.
 
 Option | Valid values | Description
 :--- | :--- | :---
 `boost` | Floating-point | Boosts the clause by the given multiplier. Useful for weighing clauses in compound queries. The default is 1.0.
 `enable_position_increments` | Boolean | When true, result queries are aware of position increments. This setting is useful when the removal of stop words leaves an unwanted "gap" between terms. The default is true.
 `fields` | String array | The list of fields to search (e.g. `"fields": ["title^4", "description"]`). If unspecified, defaults to the `index.query.default_field` setting, which defaults to `["*"]`.
-`flags` | String | A `|`-delimited string of [flags](#simple-query-string) to enable (e.g. `AND|OR|NOT`). The default is `ALL`. You can explicitly set the value for `default_field`. For example, to return all Titles, set it to `"default_field": "title"`.
+`flags` | String | A `|`-delimited string of [flags](#simple-query-string) to enable (e.g., `AND|OR|NOT`). The default is `ALL`. You can explicitly set the value for `default_field`. For example, to return all titles, set it to `"default_field": "title"`.
 `lenient` | Boolean | Setting `lenient` to true lets you ignore data type mismatches between the query and the document field. For example, a query string of "8.2" could match a field of type `float`. The default is false.
 `low_freq_operator` | `and, or` | The operator for low-frequency terms. The default is `or`. See [Common terms](#common-terms) queries and `operator` in this table.
 `max_determinized_states` | Positive integer | The maximum number of "[states](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/util/automaton/Operations.html#DEFAULT_MAX_DETERMINIZED_STATES)" (a measure of complexity) that Lucene can create for query strings that contain regular expressions (e.g. `"query": "/wind.+?/"`). Larger numbers allow for queries that use more memory. The default is 10,000.
@@ -482,7 +484,7 @@ Option | Valid values | Description
 `rewrite` | `constant_score, scoring_boolean, constant_score_boolean, top_terms_N, top_terms_boost_N, top_terms_blended_freqs_N` | Determines how OpenSearch rewrites and scores multi-term queries. The default is `constant_score`.
 `slop` | `0` (default) or a positive integer | Controls the degree to which words in a query can be misordered and still be considered a match. From the [Lucene documentation](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/PhraseQuery.html#getSlop--): "The number of other words permitted between words in query phrase. For example, to switch the order of two words requires two moves (the first move places the words atop one another), so to permit re-orderings of phrases, the slop must be at least two. A value of zero requires an exact match."
 `tie_breaker` | `0.0` (default) to `1.0` | Changes the way OpenSearch scores searches. For example, a `type` of `best_fields` typically uses the highest score from any one field. If you specify a `tie_breaker` value between 0.0 and 1.0, the score changes to highest score + `tie_breaker` * score for all other matching fields. If you specify a value of 1.0, OpenSearch adds together the scores for all matching fields (effectively defeating the purpose of `best_fields`).
-`time_zone` | UTC offset hours | Specifies the number of hours to offset the desired time zone from `UTC`. You need to indicate the time zone offset amount if the query string contains a date range. For example set `time_zone": "-08:00"` for a query with a date range such as: `"query": "wind rises release_date[2012-01-01 TO 2014-01-01]"`). The default time zone format to specify number of offset hours is `UTC`.
+`time_zone` | UTC offset hours | Specifies the number of hours to offset the desired time zone from `UTC`. You need to indicate the time zone offset number if the query string contains a date range. For example, set `time_zone": "-08:00"` for a query with a date range such as `"query": "wind rises release_date[2012-01-01 TO 2014-01-01]"`). The default time zone format used to specify number of offset hours is `UTC`.
 `type` | `best_fields, most_fields, cross_fields, phrase, phrase_prefix` | Determines how OpenSearch executes the query and scores the results. The default is `best_fields`.
 `zero_terms_query` | `none, all` | If the analyzer removes all terms from a query string, whether to match no documents (default) or all documents. For example, the `stop` analyzer removes all terms from the string "an but this."
 
