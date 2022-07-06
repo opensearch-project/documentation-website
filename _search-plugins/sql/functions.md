@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Functions
-parent: SQL
+parent: SQL Plugin - SQL & PPL
 nav_order: 10
 ---
 
@@ -131,3 +131,7 @@ Function | Specification | Example
 if | `if(boolean, es_type, es_type) -> es_type` | `SELECT if(false, 0, 1) FROM my-index LIMIT 1`, `SELECT if(true, 0, 1) FROM my-index LIMIT 1`
 ifnull | `ifnull(es_type, es_type) -> es_type` | `SELECT ifnull('hello', 1) FROM my-index LIMIT 1`, `SELECT ifnull(null, 1) FROM my-index LIMIT 1`
 isnull | `isnull(es_type) -> integer` | `SELECT isnull(null) FROM my-index LIMIT 1`, `SELECT isnull(1) FROM my-index LIMIT 1`
+
+## Relevance Based Search (Full-Text Search)
+
+These functions are only available in the `WHERE` clause. Their description and usage examples in SQL and PPL can be found on [full-text queries page]({{site.url}}{{site.baseurl}}/search-plugins/sql/full-text/).

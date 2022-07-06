@@ -1,8 +1,8 @@
 ---
 layout: default
 title: Monitoring
-parent: SQL
-nav_order: 15
+parent: SQL Plugin - SQL & PPL
+nav_order: 95
 ---
 
 # Monitoring

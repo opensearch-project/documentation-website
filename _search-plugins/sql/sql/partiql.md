@@ -2,7 +2,8 @@
 layout: default
 title: JSON Support
 parent: SQL
-nav_order: 7
+grand_parent: SQL Plugin - SQL & PPL
+nav_order: 8
 ---
 
 # JSON Support

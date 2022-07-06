@@ -1,8 +1,8 @@
 ---
 layout: default
 title: Identifiers
-parent: Piped processing language
-nav_order: 7
+parent: SQL Plugin - SQL & PPL
+nav_order: 6
 ---
 
 
@@ -28,7 +28,7 @@ For regular identifiers, you can use the name without any back tick or escape ch
 In this example, `source`, `fields`, `account_number`, `firstname`, and `lastname` are all identifiers. Out of these, the `source` field is a reserved identifier.
 
 ```sql
-source=accounts | fields account_number, firstname, lastname;
+SELECT account_number, firstname, lastname FROM accounts;
 ```
 
 | account_number | firstname | lastname |

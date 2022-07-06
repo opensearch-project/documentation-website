@@ -1,8 +1,8 @@
 ---
 layout: default
 title: Troubleshooting
-parent: SQL
-nav_order: 17
+parent: SQL Plugin - SQL & PPL
+nav_order: 88
 ---
 
 # Troubleshooting

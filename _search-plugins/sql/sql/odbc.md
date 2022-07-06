@@ -2,6 +2,7 @@
 layout: default
 title: ODBC Driver
 parent: SQL
+grand_parent: SQL Plugin - SQL & PPL
 nav_order: 72
 ---
 
@@ -9,9 +10,7 @@ nav_order: 72
 
 The Open Database Connectivity (ODBC) driver is a read-only ODBC driver for Windows and macOS that lets you connect business intelligence (BI) and data visualization applications like [Tableau](https://github.com/opensearch-project/sql/blob/main/sql-odbc/docs/user/tableau_support.md), [Microsoft Excel](https://github.com/opensearch-project/sql/blob/main/sql-odbc/docs/user/microsoft_excel_support.md), and [Power BI](https://github.com/opensearch-project/sql/blob/main/sql-odbc/docs/user/power_bi_support.md) to the SQL plugin.
 
-For information on downloading and using the JAR file, see [the SQL repository on GitHub](https://github.com/opensearch-project/sql/tree/main/sql-odbc).
-
-{% comment %}
+For information on downloading and using the driver, see [the SQL repository on GitHub](https://github.com/opensearch-project/sql/tree/main/sql-odbc).
 
 ## Specifications
 
@@ -23,8 +22,8 @@ The following operating systems are supported:
 
 Operating System | Version
 :--- | :---
-Windows | Windows 10
-macOS | Catalina 10.15.4 and Mojave 10.14.6
+Windows | Windows 10, Windows 11
+macOS | Catalina 10.15.4, Mojave 10.14.6, Big Sur 11.6.7, Monterey 12.4
 
 
 ## Concepts
@@ -46,13 +45,13 @@ To install the driver, download the bundled distribution installer from [here](h
 
    The installer is unsigned and shows a security dialog. Choose **More info** and **Run anyway**.
 
-1. Choose **Next** to proceed with the installation.
+2. Choose **Next** to proceed with the installation.
 
-1. Accept the agreement, and choose **Next**.
+3. Accept the agreement, and choose **Next**.
 
-1. The installer comes bundled with documentation and useful resources files to connect with various BI tools (for example, a `.tdc` file for Tableau). You can choose to keep or remove these resources. Choose **Next**.
+4. The installer comes bundled with documentation and useful resources files to connect with various BI tools (for example, a `.tdc` file for Tableau). You can choose to keep or remove these resources. Choose **Next**.
 
-1. Choose **Install** and **Finish**.
+5. Choose **Install** and **Finish**.
 
 The following connection information is set up as part of the default DSN:
 
@@ -73,13 +72,13 @@ Before installing the ODBC Driver on macOS, install the iODBC Driver Manager.
 
    The installer is unsigned and shows a security dialog. Right-click on the installer and choose **Open**.
 
-1. Choose **Continue** several times to proceed with the installation.
+2. Choose **Continue** several times to proceed with the installation.
 
-1. Choose the **Destination** to install the driver files.
+3. Choose the **Destination** to install the driver files.
 
-1. The installer comes bundled with documentation and useful resources files to connect with various BI tools (for example, a `.tdc` file for Tableau). You can choose to keep or remove these resources. Choose **Continue**.
+4. The installer comes bundled with documentation and useful resources files to connect with various BI tools (for example, a `.tdc` file for Tableau). You can choose to keep or remove these resources. Choose **Continue**.
 
-1. Choose **Install** and **Close**.
+5. Choose **Install** and **Close**.
 
 Currently, the DSN is not set up as part of the installation and needs to be configured manually. First, open `iODBC Administrator`:
 
@@ -90,19 +89,19 @@ sudo /Applications/iODBC/iODBC\ Administrator64.app/Contents/MacOS/iODBC\ Admini
 This command gives the application permissions to save the driver and DSN configurations.
 
 1. Choose **ODBC Drivers** tab.
-1. Choose **Add a Driver** and fill in the following details:
+2. Choose **Add a Driver** and fill in the following details:
    - **Description of the Driver**: Enter the driver name that you used for the ODBC connection (for example, OpenSearch SQL ODBC Driver).
    - **Driver File Name**: Enter the path to the driver file (default: `<driver-install-dir>/bin/libopensearchsqlodbc.dylib`).
    - **Setup File Name**: Enter the path to the setup file (default: `<driver-install-dir>/bin/libopensearchsqlodbc.dylib`).
 
-1. Choose the user driver.
-1. Choose **OK** to save the options.
-1. Choose the **User DSN** tab.
-1. Select **Add**.
-1. Choose the driver that you added above.
-1. For **Data Source Name (DSN)**, enter the name of the DSN used to store connection options (for example, OpenSearch SQL ODBC DSN).
-1. For **Comment**, add an optional comment.
-1. Add key-value pairs by using the `+` button. We recommend the following options for a default local OpenSearch installation:
+3. Choose the user driver.
+4. Choose **OK** to save the options.
+5. Choose the **User DSN** tab.
+6. Select **Add**.
+7. Choose the driver that you added above.
+8. For **Data Source Name (DSN)**, enter the name of the DSN used to store connection options (for example, OpenSearch SQL ODBC DSN).
+9. For **Comment**, add an optional comment.
+10. Add key-value pairs by using the `+` button. We recommend the following options for a default local OpenSearch installation:
    - **Host**: `localhost` - OpenSearch server endpoint
    - **Port**: `9200` - The server port
    - **Auth**: `NONE` - The authentication mode
@@ -111,8 +110,8 @@ This command gives the application permissions to save the driver and DSN config
    - **ResponseTimeout**: `10` - The number of seconds to wait for a response from the server
    - **UseSSL**: `0` - Do not use SSL for connections
 
-1. Choose **OK** to save the DSN configuration.
-1. Choose **OK** to exit the iODBC Administrator.
+11. Choose **OK** to save the DSN configuration.
+12. Choose **OK** to exit the iODBC Administrator.
 
 
 ## Customizing the ODBC driver
@@ -166,12 +165,11 @@ Option | Description | Type | Default
 
 Option | Description | Type | Default
 :--- | :---
-`LogLevel` | Severity level for driver logs. | one of `ES_OFF`, `ES_FATAL`, `ES_ERROR`, `ES_INFO`, `ES_DEBUG`, `ES_TRACE`, `ES_ALL` | `ES_WARNING`
+`LogLevel` | Severity level for driver logs. | one of `LOG_OFF`, `LOG_FATAL`, `LOG_ERROR`, `LOG_INFO`, `LOG_DEBUG`, `LOG_TRACE`, `LOG_ALL` | `LOG_WARNING`
 `LogOutput` | Location for storing driver logs. | `string` | `WIN: C:\`, `MAC: /tmp`
 
 You need administrative privileges to change the logging options.
 {: .note }
-
 
 ## Connecting to Tableau
 
@@ -183,13 +181,14 @@ Pre-requisites:
 
 1. Start Tableau. Under the **Connect** section, go to **To a Server** and choose **Other Databases (ODBC)**.
 
-1. In the **DSN drop-down**, select the OpenSearch DSN you set up in the previous set of steps. The options you added will be automatically filled into the **Connection Attributes**.
+2. In the **DSN drop-down**, select the OpenSearch DSN you set up in the previous set of steps. The options you added will be automatically filled into the **Connection Attributes**.
 
-1. Select **Sign In**. After a few seconds, Tableau connects to your OpenSearch server. Once connected, you will directed to  **Datasource** window. The **Database** will be already populated with name of the OpenSearch cluster.
+3. Select **Sign In**. After a few seconds, Tableau connects to your OpenSearch server. Once connected, you will directed to  **Datasource** window. The **Database** will be already populated with name of the OpenSearch cluster.
 To list all the indices, click the search icon under **Table**.
 
-1. Start playing with data by dragging table to connection area. Choose **Update Now** or **Automatically Update** to populate table data.
+4. Start playing with data by dragging table to connection area. Choose **Update Now** or **Automatically Update** to populate table data.
 
+See more detailed instructions on the [GitHub repository](https://github.com/opensearch-project/sql/blob/main/sql-odbc/docs/user/tableau_support.md).
 
 ### Troubleshooting
 
@@ -203,4 +202,6 @@ This is most likely due to OpenSearch server not running on **host** and **post*
 Confirm **host** and **post** are correct and OpenSearch server is running with OpenSearch SQL plugin.
 Also make sure `.tdc` that was downloaded with the installer is copied correctly to `<user_home_directory>/Documents/My Tableau Repository/Datasources` directory.
 
-{% endcomment %}
+## Connecting to Microsoft Power BI
+
+Follow [installation instructions](https://github.com/opensearch-project/sql/blob/main/bi-connectors/PowerBIConnector/README.md) and [configuration instructions](https://github.com/opensearch-project/sql/blob/main/bi-connectors/PowerBIConnector/power_bi_support.md) published on the GitHub repostiry.

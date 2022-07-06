@@ -2,6 +2,7 @@
 layout: default
 title: Aggregation Functions
 parent: SQL
+grand_parent: SQL Plugin - SQL & PPL
 nav_order: 11
 ---
 

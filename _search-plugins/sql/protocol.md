@@ -1,8 +1,8 @@
 ---
 layout: default
 title: Protocol
-parent: SQL
-nav_order: 14
+parent: SQL Plugin - SQL & PPL
+nav_order: 2
 ---
 
 # Protocol
@@ -328,4 +328,75 @@ Nanette|Bates|28
 Amber|Duke|32
 Dale|Adams|33
 Hattie|Bond|36
+```
+
+## JDBC Format
+
+### Description
+
+The plugin provides responses in JDBC format. The JDBC format is widely used because it provides schema information and more functionality such as pagination. Besides JDBC driver, various clients can benefit from the detailed and well formatted response.
+
+**NOTE:** `JDBC` is the only format supported by the `PPL` endpoint, but it is one of several formats supported by the `SQL` endpoint.
+
+### Example
+
+The body of HTTP POST request with the PPL query:
+
+```console
+>> curl -H 'Content-Type: application/json' -X POST localhost:9200/_plugins/_ppl?format=jdbc -d '{
+  "query" : "source=accounts | fields firstname, lastname"
+}'
+```
+
+The following example shows a normal response where the schema includes a field name and its type and datarows includes the result set:
+
+```json
+{
+  "schema": [
+    {
+      "name": "firstname",
+      "type": "string"
+    },
+    {
+      "name": "lastname",
+      "type": "string"
+    }
+  ],
+  "datarows": [
+    [
+      "Amber",
+      "Duke"
+    ],
+    [
+      "Hattie",
+      "Bond"
+    ],
+    [
+      "Nanette",
+      "Bates"
+    ],
+    [
+      "Dale",
+      "Adams"
+    ]
+  ],
+  "total": 4,
+  "size": 4
+}
+```
+
+If any error occurred, error message and the cause will be returned instead:
+
+```console
+curl -H 'Content-Type: application/json' -X POST localhost:9200/_plugins/_ppl -d '{
+  "query" : "source=unknown | fields firstname, lastname"
+}'
+{
+  "error": {
+    "reason": "Error occurred in OpenSearch engine: no such index [unknown]",
+    "details": "org.opensearch.index.IndexNotFoundException: no such index [unknown]\nFor more details, please send request for Json format to see the raw response from opensearch engine.",
+    "type": "IndexNotFoundException"
+  },
+  "status": 404
+}
 ```

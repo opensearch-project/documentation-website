@@ -262,4 +262,4 @@ You can use wildcards to delete more than one data stream.
 
 We recommend deleting data from a data stream using an ISM policy.
 
-You can also use [asynchronous search]({{site.url}}{{site.baseurl}}/search-plugins/async/index/) and [SQL]({{site.url}}{{site.baseurl}}/search-plugins/sql/index/) and [PPL]({{site.url}}{{site.baseurl}}/observability-plugin/ppl/index/) to query your data stream directly. You can also use the security plugin to define granular permissions on the data stream name.
+You can also use [asynchronous search]({{site.url}}{{site.baseurl}}/search-plugins/async/index/) and [SQL]({{site.url}}{{site.baseurl}}/search-plugins/sql/index/) and [PPL]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index/) to query your data stream directly. You can also use the security plugin to define granular permissions on the data stream name.

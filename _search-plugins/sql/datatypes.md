@@ -1,8 +1,8 @@
 ---
 layout: default
 title: Data Types
-parent: SQL
-nav_order: 73
+parent: SQL Plugin - SQL & PPL
+nav_order: 7
 ---
 
 # Data types

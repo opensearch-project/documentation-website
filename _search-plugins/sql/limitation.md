@@ -1,61 +1,17 @@
 ---
 layout: default
 title: Limitations
-parent: SQL
-nav_order: 18
+parent: SQL Plugin - SQL & PPL
+nav_order: 99
 ---
 
 # Limitations
 
 The SQL plugin has the following limitations:
 
-## SELECT FROM WHERE
-
-### Select literal is not supported
-
-The select literal expression is not supported. For example, `Select 1` is not supported.
-
-
-### Where clause does not support arithmetic operations
-
-The `WHERE` clause does not support expressions. For example, `SELECT FlightNum FROM opensearch_dashboards_sample_data_flights where (AvgTicketPrice + 100) <= 1000` is not supported.
-
-
-### Aggregation over expression is not supported
+## Aggregation over expression is not supported
 
 You can only apply aggregation on fields, aggregations can't accept an expression as a parameter. For example, `avg(log(age))` is not supported.
-
-
-### Conflict type in multiple index query
-
-Queries using wildcard index fail if the index has the field with a conflict type.
-For example, if you have two indices with field `a`:
-
-```
-POST conflict_index_1/_doc/
-{
-  "a": {
-    "b": 1
-  }
-}
-
-POST conflict_index_2/_doc/
-{
-  "a": {
-    "b": 1,
-    "c": 2
-  }
-}
-```
-
-Then, the query fails because of the field mapping conflict. The query `SELECT * FROM conflict_index*` also fails for the same reason.
-
-```sql
-Error occurred in OpenSearch engine: Different mappings are not allowed for the same field[a]: found [{properties:{b:{type:long},c:{type:long}}}] and [{properties:{b:{type:long}}}] ",
-    "details": "com.amazon.opensearch.sql.rewriter.matchtoterm.VerificationException: Different mappings are not allowed for the same field[a]: found [{properties:{b:{type:long},c:{type:long}}}] and [{properties:{b:{type:long}}}] \nFor more details, please send request for Json format to see the raw response from opensearch engine.",
-    "type": "VerificationException
-```
-
 
 ## Subquery in the FROM clause
 
@@ -75,7 +31,6 @@ But, if the outer query has `GROUP BY` or `ORDER BY`, then it's not supported.
 
 The `join` query does not support aggregations on the joined result.
 For example, e.g. `SELECT depo.name, avg(empo.age) FROM empo JOIN depo WHERE empo.id == depo.id GROUP BY depo.name` is not supported.
-
 
 ## Pagination only supports basic queries
 
@@ -116,3 +71,23 @@ The response in JDBC format with cursor id.
 ```
 
 The query with `aggregation` and `join` does not support pagination for now.
+
+## Query processing engines
+
+The plugin has two query processing engines. Most of the features are supported by both engines, but only the new engine is actively being developed. A query is first executed on the new engine (`V2`) and then falls back to the old one (`V1`) in case of failure. That means a query with new functions A (included in `V2` only) and B (`V1` only and not yet included in `V2`) will fail with an error response.
+
+### V1 engine limitations
+
+* The select literal expression without `FROM` clause is not supported. For example, `SELECT 1` is not supported.
+* The `WHERE` clause does not support expressions. For example, `SELECT FlightNum FROM opensearch_dashboards_sample_data_flights where (AvgTicketPrice + 100) <= 1000` is not supported.
+* Most of [relevancy search functions]({{site.url}}{{site.baseurl}}/search-plugins/sql/full-text/) are implemented in the `V2` engine only.
+
+Such queries are successfully executed by `V2` engine unless they have `V1`-specific functions. Likely you will never meet these limitations.
+
+### V2 engine limitations
+
+* [Cursor feature](#pagination-only-supports-basic-queries) supported by the `V1` engine only.
+Please, track [GitHub issue #656](https://github.com/opensearch-project/sql/issues/656) for support `cursor`/`pagination` in `V2` engine.
+* `V2` engine doesn't track query execution time, so slow queries are not reported.
+* `V2` query engine not only runs queries in OpenSearch engine but also supports post-processing for complicated queries. Accordingly, explain output is no longer pure OpenSearch `DSL`, but also includes query plan information from the `V2` query engine.
+* `V2` engine doesn't support [`SCORE_QUERY`]({{site.url}}{{site.baseurl}}/search-plugins/sql/sql/functions#score-query) and [`WILDCARD_QUERY`]({{site.url}}{{site.baseurl}}/search-plugins/sql/sql/functions#wildcard-query) functions.

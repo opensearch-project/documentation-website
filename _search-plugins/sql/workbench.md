@@ -2,6 +2,7 @@
 layout: default
 title: Query Workbench
 parent: SQL
+grand_parent: SQL Plugin - SQL & PPL
 nav_order: 1
 ---
 
