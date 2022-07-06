@@ -198,9 +198,9 @@ time_zone | string | The time zone for the time_field field | "UTC"
 
 For FIT RCF, you can train the model with historical data and store the trained model in your index. The model will be deserialized and predict new data points when using the Predict API. However, the model in the index will not be refreshed with new data, because the model is fixed in time.
 
-## Anomaly Localization 
+## Localization 
 
-The Anomaly Localization algorithm finds subset level-information for aggregate data (for example, aggregated over time) that demonstrates the activity of interest, such as spikes, drops, changes, or anomalies. Localization can be applied in different scenarios, such as data exploration or root cause analysis, to expose the contributors driving the activity of interest in the aggregate data.
+The Localization algorithm finds subset-level information for aggregate data (for example, aggregated over time) that demonstrates the activity of interest, such as spikes, drops, changes, or anomalies. Localization can be applied in different scenarios, such as data exploration or root cause analysis, to expose the contributors driving the activity of interest in the aggregate data.
 
 ### Parameters
 
@@ -219,9 +219,9 @@ num_outputs | integer | The maximum number of values from localization/slicing |
 filter_query | Long | (Optional) Reduces the collection of data for analysis | Optional.empty()
 anomaly_star | QueryBuilder | (Optional) The time after which the data will be analyzed | Optional.empty()
 
-### Example
+### Example: Execute localization
 
-The following example executes Anomaly Localization against an RCA index.
+The following example executes Localization against an RCA index.
 
 **Request**
 
