@@ -1,14 +1,14 @@
 ---
 layout: default
-title: Snapshot management API
+title: Snapshot Management API
 parent: Snapshots
 nav_order: 30
 has_children: false
 ---
 
-# Snapshot management API
+# Snapshot Management API
 
-Use [snapshot management (SM)]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore#take-snapshots) API to automate [taking snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore#take-snapshots). 
+Use the [Snapshot Management (SM)]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore#take-snapshots) API to automate [taking snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore#take-snapshots). 
 
 ---
 
@@ -175,34 +175,34 @@ You can specify the following parameters to create/update an SM policy.
 Parameter | Type | Description 
 :--- | :--- |:--- |:--- |
 `description` | String | The description of the SM policy. Optional.
-`enabled` | Boolean | Should this SM policy be enabled at creation. Optional.
+`enabled` | Boolean | Should this SM policy be enabled at creation? Optional.
 `snapshot_config` | Object | The configuration options for snapshot creation. Required.
-`snapshot_config`<br>&nbsp;&nbsp;&nbsp;&nbsp;`date_format` | String | Snapshot names have the format `<policy_name>-<date>-<random number>`. `date_format` specifies the format for the date in the snapshot name. Supports all date formats OpenSearch supports. Optional. Default is "yyyy-MM-dd'T'HH:mm:ss".
+`snapshot_config`<br>&nbsp;&nbsp;&nbsp;&nbsp;`date_format` | String | Snapshot names have the format `<policy_name>-<date>-<random number>`. `date_format` specifies the format for the date in the snapshot name. Supports all date formats supported by OpenSearch. Optional. Default is "yyyy-MM-dd'T'HH:mm:ss".
 `snapshot_config`<br>&nbsp;&nbsp;&nbsp;&nbsp;`date_format_timezone` | String | Snapshot names have the format `<policy_name>-<date>-<random number>`. `date_format_timezone` specifies the time zone for the date in the snapshot name. Optional. Default is UTC.
-`snapshot_config`<br>&nbsp;&nbsp;&nbsp;&nbsp;`indices` | String | The names of the indices in the snapshot. Multiple index names are separated by `,`. Supports wildcards (`*`). Optional. Default is `*` (all indices).
-`snapshot_config`<br>&nbsp;&nbsp;&nbsp;&nbsp;`repository` | String | The repository to store snapshots. Required.
-`snapshot_config`<br>&nbsp;&nbsp;&nbsp;&nbsp;`ignore_unavailable` | Boolean | Ignore unavailable indices? Optional. Default is `false`.
-`snapshot_config`<br>&nbsp;&nbsp;&nbsp;&nbsp;`include_global_state` | Boolean | Include cluster state? Optional. Default is `true` because of [Security Plugin considerations]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore/#security-plugin-considerations).
-`snapshot_config`<br>&nbsp;&nbsp;&nbsp;&nbsp;`partial` | Boolean | Allow partial snapshots? Optional. Default is `false`.
+`snapshot_config`<br>&nbsp;&nbsp;&nbsp;&nbsp;`indices` | String | The names of the indexes in the snapshot. Multiple index names are separated by `,`. Supports wildcards (`*`). Optional. Default is `*` (all indexes).
+`snapshot_config`<br>&nbsp;&nbsp;&nbsp;&nbsp;`repository` | String | The repository in which to store snapshots. Required.
+`snapshot_config`<br>&nbsp;&nbsp;&nbsp;&nbsp;`ignore_unavailable` | Boolean | Do you want to ignore unavailable indexes? Optional. Default is `false`.
+`snapshot_config`<br>&nbsp;&nbsp;&nbsp;&nbsp;`include_global_state` | Boolean | Do you want to include cluster state? Optional. Default is `true` because of [Security plugin considerations]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore/#security-plugin-considerations).
+`snapshot_config`<br>&nbsp;&nbsp;&nbsp;&nbsp;`partial` | Boolean | Do you want to allow partial snapshots? Optional. Default is `false`.
 `snapshot_config`<br>&nbsp;&nbsp;&nbsp;&nbsp;`metadata` | Object | Metadata in the form of key/value pairs. Optional.
 `creation` | Object | Configuration for snapshot creation. Required.
-`creation`<br>&nbsp;&nbsp;&nbsp;&nbsp;`schedule` | String | The cron schedule to create snapshots. Required.
-`creation`<br>&nbsp;&nbsp;&nbsp;&nbsp;`time_limit` | String | Sets the maximum time to wait for snapshot creation to finish. If time_limit is longer than the scheduled time interval for taking snapshots, no scheduled snapshots are taken until time_limit elapses. For example, time_limit is set to 35 minutes, and snapshots are taken every 30 minutes starting at midnight. Snapshots are taken at 00:00 and 01:00, but the one at 00:30 is skipped. Optional. 
+`creation`<br>&nbsp;&nbsp;&nbsp;&nbsp;`schedule` | String | The cron schedule used to create snapshots. Required.
+`creation`<br>&nbsp;&nbsp;&nbsp;&nbsp;`time_limit` | String | Sets the maximum time to wait for snapshot creation to finish. If time_limit is longer than the scheduled time interval for taking snapshots, no scheduled snapshots are taken until time_limit elapses. For example, if time_limit is set to 35 minutes and snapshots are taken every 30 minutes starting at midnight, the snapshots at 00:00 and 01:00 are taken, but the snapshot at 00:30 is skipped. Optional. 
 `deletion` | Object | Configuration for snapshot deletion. Optional. Default is to retain all snapshots.
-`deletion`<br>&nbsp;&nbsp;&nbsp;&nbsp;`schedule` | String | The cron schedule to delete snapshots. Optional. Default is to use `creation.schedule`, which is required.
+`deletion`<br>&nbsp;&nbsp;&nbsp;&nbsp;`schedule` | String | The cron schedule used to delete snapshots. Optional. Default is to use `creation.schedule`, which is required.
 `deletion`<br>&nbsp;&nbsp;&nbsp;&nbsp;`time_limit` | String | Sets the maximum time to wait for snapshot deletion to finish. Optional. 
 `deletion`<br>&nbsp;&nbsp;&nbsp;&nbsp;`delete_condition` | Object | Conditions for snapshot deletion. Optional. 
 `deletion`<br>&nbsp;&nbsp;&nbsp;&nbsp;`delete_condition`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`max_count` | Integer | The maximum number of snapshots to be retained. Optional.
 `deletion`<br>&nbsp;&nbsp;&nbsp;&nbsp;`delete_condition`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`max_age` | String | The maximum time a snapshot is retained. Optional.
 `deletion`<br>&nbsp;&nbsp;&nbsp;&nbsp;`delete_condition`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`min_count` | Integer | The minimum number of snapshots to be retained. Optional. Default is one.
-`notification` | Object | Defines notifications for snapshot management events. Optional.
+`notification` | Object | Defines notifications for SM events. Optional.
 `notification`<br>&nbsp;&nbsp;&nbsp;&nbsp;`channel` | Object | Defines a channel for notifications. You must [create and configure a notification channel]({{site.url}}{{site.baseurl}}/notifications-plugin/api) before setting up SM notifications. Required.
-`notification`<br>&nbsp;&nbsp;&nbsp;&nbsp;`channel`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`id` | String | The channel ID of the channel for notifications. To get the channel IDs of all created channels, use `GET _plugins/_notifications/configs`. Required.
+`notification`<br>&nbsp;&nbsp;&nbsp;&nbsp;`channel`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`id` | String | The channel ID of the channel used for notifications. To get the channel IDs of all created channels, use `GET _plugins/_notifications/configs`. Required.
 `notification`<br>&nbsp;&nbsp;&nbsp;&nbsp;`conditions` | Object | SM events you want to be notified about. Set the ones you are interested in to `true`.
 `notification`<br>&nbsp;&nbsp;&nbsp;&nbsp;`conditions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`creation` | Boolean | Do you want notifications about snapshot creation? Optional. Default is `true`.
 `notification`<br>&nbsp;&nbsp;&nbsp;&nbsp;`conditions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`deletion` | Boolean | Do you want notifications about snapshot deletion? Optional. Default is `false`.
 `notification`<br>&nbsp;&nbsp;&nbsp;&nbsp;`conditions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`failure` | Boolean | Do you want notifications about creation or deletion failure? Optional. Default is `false`.
-`notification`<br>&nbsp;&nbsp;&nbsp;&nbsp;`conditions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`time_limit_exceeded` | Boolean |Do you want notifications when snapshot operations take longer than time_limit? Optional. Default is `false`.
+`notification`<br>&nbsp;&nbsp;&nbsp;&nbsp;`conditions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`time_limit_exceeded` | Boolean | Do you want notifications when snapshot operations take longer than time_limit? Optional. Default is `false`.
 
 ## Get policies
 Introduced 2.1
@@ -302,9 +302,9 @@ Provides the enabled/disabled status and the metadata for all policies specified
 
 <img src="{{site.url}}{{site.baseurl}}/images/sm-state-machine.png" alt="SM State Machine" width="150" style="float: left; margin-right: 15px;"/>
 
-SM uses a state machine for snapshot creation and deletion. The picture shows one execution period of the creation workflow, from the CREATION_START state to the CREATION_FINISHED state. Deletion workflow follows the same pattern as creation workflow. 
+SM uses a state machine for snapshot creation and deletion. The image on the left shows one execution period of the creation workflow, from the CREATION_START state to the CREATION_FINISHED state. Deletion workflow follows the same pattern as creation workflow. 
 
-Creation workflow starts in the CREATION_START state, and continuously checks if the conditions in the creation cron schedule are met. After the conditions are met, the creation workflow switches to the CREATION_CONDITION_MET state and continues to the CREATING state. The CREATING state calls the create snapshot API asynchronously and then waits for snapshot creation to end in the CREATION_FINISHED state. Once snapshot creation ends, creation workflow goes back to the CREATION_START state, and the cycle continues. The `current_state` field of `metadata.creation` and `metadata.deletion` returns the current state of the state machine.
+The creation workflow starts in the CREATION_START state and continuously checks if the conditions in the creation cron schedule are met. After the conditions are met, the creation workflow switches to the CREATION_CONDITION_MET state and continues to the CREATING state. The CREATING state calls the create snapshot API asynchronously and then waits for snapshot creation to end in the CREATION_FINISHED state. Once snapshot creation ends, the creation workflow goes back to the CREATION_START state, and the cycle continues. The `current_state` field of `metadata.creation` and `metadata.deletion` returns the current state of the state machine.
 
 #### Request
 
@@ -362,10 +362,10 @@ Field | Description
 `current_state` | The current state of the state machine that runs snapshot creation/deletion as described above.
 `trigger.time` | The next creation/deletion execution time in milliseconds since the epoch.
 `latest_execution` | Describes the latest creation/deletion execution.
-`latest_execution.status` | The execution status of the latest creation/deletion. Possible values are:<br> `IN_PROGRESS`: snapshot creation/deletion has started. <br> `SUCCESS`: snapshot creation/deletion has finished successfully. <br> `RETRYING`: The creation/deletion attempt has failed. It will be retried three times. <br> `FAILED`: The creation/deletion attempt failed after three retries. End the current execution period and go to the next execution period. <br> `TIME_LIMIT_EXCEEDED`: The creation/deletion time exceeded the time_limit set in the policy. End the current execution period and go to the next execution period.
+`latest_execution.status` | The execution status of the latest creation/deletion. Possible values are:<br> `IN_PROGRESS`: Snapshot creation/deletion has started. <br> `SUCCESS`: Snapshot creation/deletion has finished successfully. <br> `RETRYING`: The creation/deletion attempt has failed. It will be retried three times. <br> `FAILED`: The creation/deletion attempt failed after three retries. End the current execution period and go to the next execution period. <br> `TIME_LIMIT_EXCEEDED`: The creation/deletion time exceeded the time_limit set in the policy. End the current execution period and go to the next execution period.
 `latest_execution.start_time` | The start time of the latest execution in milliseconds since the epoch.
 `latest_execution.end_time` | The end time of the latest execution in milliseconds since the epoch.
-`latest_execution.info.message` | User-friendly message describing the status of the latest execution.
+`latest_execution.info.message` | A user-friendly message describing the status of the latest execution.
 `latest_execution.info.cause` | Contains the failure reason if the latest execution fails.
 `retry.count` | The number of remaining execution retry attempts.
 

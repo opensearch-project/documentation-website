@@ -9,13 +9,13 @@ has_toc: false
 
 # Snapshots
 
-Snapshots are backups of a cluster's indices and state. State includes cluster settings, node information, index metadata (mappings, settings, templates, etc.), and shard allocation.
+Snapshots are backups of a cluster's indexes and state. State includes cluster settings, node information, index metadata (mappings, settings, templates, etc.), and shard allocation.
 
 Snapshots have two main uses:
 
 - **Recovering from failure**
 
-  For example, if cluster health goes red, you might restore the red indices from a snapshot.
+  For example, if cluster health goes red, you might restore the red indexes from a snapshot.
 
 - **Migrating from one cluster to another**
 
@@ -24,4 +24,4 @@ Snapshots have two main uses:
 
 You can take and restore snapshots using the [snapshot API]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore). 
 
-If you need to automate taking snapshots, you can use the [Snapshot management]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-management) feature.
+If you need to automate taking snapshots, you can use the [Snapshot Management]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-management) feature.
