@@ -76,12 +76,9 @@ This is especially true if `size` is set to a low number. Because the default si
 
 ## Multi-terms
 
-Similar to the `terms` bucket aggregation, you can also search for multiple terms using the `multi_terms` aggregation.
+Similar to the `terms` bucket aggregation, you can also search for multiple terms using the `multi_terms` aggregation. Multi-terms aggregations are useful when you need to sort by a number of documents, or when you need to sort by a metric aggregation on a composite key and get the top `n` results. For example, you could search for a specific number of documents (e.g., 1000) and the number of servers per location that show CPU usage greater than 90%. The top number of results would be returned for this multi-term query.
 
-You can sort by a number of documents. You can also sort by a metric aggregation on a composite key and get the top `n` results. Consider create a search that contains several terms: the number of documents (e.g. 1000), and the number of servers per location that show CPU usage greater than 90%.
-This multi-term query returns the top number of results.
-
-The multi terms aggregation does consume more memory, so performance will be slower than a terms aggregation.
+The `multi_terms` aggregation does consume more memory than a `terms` aggregation, so its performance will be slower.
 {: .tip }
 
 ### Multi-terms aggregation parameters
@@ -89,9 +86,9 @@ The multi terms aggregation does consume more memory, so performance will be slo
 Parameter | Description
 :--- | :---
 multi_terms | Indicates a multi-terms aggregation that gathers buckets of documents together based on criteria specified by multiple terms.
-size | Specifies the amount of buckets to return. Default is 10.
-order | To indicate the order of buckets. The default order is the number of buckets.
-doc_count | Specifies the number of documents in each bucket for it to be returned. By default, the top ten terms are returned.
+size | Specifies the number of buckets to return. Default is 10.
+order | Indicates the order of buckets. The default order is the number of buckets.
+doc_count | Specifies the number of documents to be returned in each bucket. By default, the top 10 terms are returned.
 
 #### Sample Request
 
