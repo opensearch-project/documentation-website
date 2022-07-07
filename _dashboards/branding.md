@@ -35,6 +35,9 @@ loadingLogo | Loading logo used when OpenSearch Dashboards is starting. See #3 i
 faviconUrl | Website icon. Loads next to the application title. See #4 in the image.
 applicationTitle | The application's title. See #5 in the image.
 
+To consolidate navigation controls and reduce the space the header takes up on the page, see [Condensed header](#condensed-header).
+{: .note}
+
 To start using your own branding elements in OpenSearch Dashboards, first uncomment this section of `opensearch_dashboards.yml`:
 
 ```yml
@@ -90,7 +93,6 @@ mark:
 applicationTitle: "My custom application"
 ```
 
-<<<<<<< HEAD
 ### Condensed header
 
 The condensed header view reduces the footprint of the header and frees up space on the page by combining navigational elements into a single header bar.
@@ -143,8 +145,6 @@ You can continue using the top header bar in the default view for custom navigat
 2. Make sure the configuration property `useExpandedHeader` is explicitly set to `true`.
 
 
-=======
->>>>>>> 67728096c5dc46469c942d59fdc1f5560ad010ca
 ## Sample configuration
 
 The following configuration enables the security plugin and SSL within OpenSearch Dashboards and uses custom branding elements to replace the OpenSearch logo and application title.
