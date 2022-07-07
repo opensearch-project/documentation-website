@@ -24,7 +24,7 @@ opensearch_security:
       ...
 ```
 
-For a more complete example, see the [sample file on GitHub](https://github.com/opensearch-project/security/blob/main/securityconfig/config.yml).
+For a more complete example, see the [sample file on GitHub](https://github.com/opensearch-project/security/blob/main/config/config.yml).
 
 
 ## HTTP
