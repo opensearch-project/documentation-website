@@ -26,6 +26,7 @@ If you need to delete a snapshot, be sure to use the OpenSearch API rather than 
 
 ---
 
+
 ## Register repository
 
 Before you can take a snapshot, you have to "register" a snapshot repository. A snapshot repository is just a storage location: a shared file system, Amazon S3, Hadoop Distributed File System (HDFS), Azure Storage, etc.
@@ -142,7 +143,22 @@ Setting | Description
    s3.client.default.proxy.port: 8080 # port for your proxy server
    s3.client.default.read_timeout: 50s # the S3 connection timeout
    s3.client.default.use_throttle_retries: true # whether the client should wait a progressively longer amount of time (exponential backoff) between each successive retry
+   s3.client.default.region: us-east-2 # AWS region to use
    ```
+
+1. (Optional) If you don't want to use AWS access and secret keys, you could configure the S3 plugin to use AWS Identity and Access Management (IAM) roles for service accounts:
+
+   ```bash
+   sudo ./bin/opensearch-keystore add s3.client.default.role_arn
+   sudo ./bin/opensearch-keystore add s3.client.default.role_session_name
+   ```
+
+   If you don't want to configure AWS access and secret keys, modify the following `opensearch.yml` setting. Make sure the file is accessible by the `repository-s3` plugin:
+   ```yml
+   s3.client.default.identity_token_file: /usr/share/opensearch/plugins/repository-s3/token
+   ```
+
+   IAM roles require at least one of the above settings. Other settings will be taken from environment variables (if available): `AWS_ROLE_ARN`, `AWS_WEB_IDENTITY_TOKEN_FILE`, `AWS_ROLE_SESSION_NAME`.
 
 1. If you changed `opensearch.yml`, you must restart each node in the cluster. Otherwise, you only need to reload secure cluster settings:
 
