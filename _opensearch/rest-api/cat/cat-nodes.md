@@ -52,3 +52,10 @@ ip         | heap.percent | ram.percent | cpu load_1m | load_5m | load_15m | nod
 172.18.0.3 |     31       |     97      |       3     |  0.03   |   0.10   |  0.14 dimr |  *    |  opensearch-node2
 172.18.0.4 |     45       |     97      |       3     |  0.19   |   0.14   |  0.15 dimr |  -    |  opensearch-node1
 ```
+
+If using a dynamic node role, such as the `[Ml]` role, the API responds with the full name of each node role.
+
+```json
+
+ip       |   heap.percent | ram.percent | cpu load_1m | load_5m | load_15m | node.role | node.roles |     master |  name
+10.11.1.225  |         31   |       32  | 0  |  0.00  |  0.00   |  0.00 di  | data,ingest,ml | -   |   data-e5b89ad7

@@ -30,6 +30,7 @@ Cluster manager eligible | Elects one node among them as the cluster manager nod
 Data | Stores and searches data. Performs all data-related operations (indexing, searching, aggregating) on local shards. These are the worker nodes of your cluster and need more disk space than any other node type. | As you add data nodes, keep them balanced between zones. For example, if you have three zones, add data nodes in multiples of three, one for each zone. We recommend using storage and RAM-heavy nodes.
 Ingest | Pre-processes data before storing it in the cluster. Runs an ingest pipeline that transforms your data before adding it to an index. | If you plan to ingest a lot of data and run complex ingest pipelines, we recommend you use dedicated ingest nodes. You can also optionally offload your indexing from the data nodes so that your data nodes are used exclusively for searching and aggregating.
 Coordinating | Delegates client requests to the shards on the data nodes, collects and aggregates the results into one final result, and sends this result back to the client. | A couple of dedicated coordinating-only nodes is appropriate to prevent bottlenecks for search-heavy workloads. We recommend using CPUs with as many cores as you can.
+ML | Delegates a specific node for Machine Learning (ML) tasks, such as model training, preventing the consumption of resources from data nodes, therefore not affecting any OpenSearch functionality. 
 
 By default, each node is a cluster-manager-eligible, data, ingest, and coordinating node. Deciding on the number of nodes, assigning node types, and choosing the hardware for each node type depends on your use case. You must take into account factors like the amount of time you want to hold on to your data, the average size of your documents, your typical workload (indexing, searches, aggregations), your expected price-performance ratio, your risk tolerance, and so on.
 
@@ -112,6 +113,14 @@ Every node is a coordinating node by default, so to make this node a dedicated c
 ```yml
 node.roles: []
 ```
+
+#### ML node
+
+ML nodes are dynamic, meaning the node will not store any shards and calculates resource requirements at runtime. Change the name of the node to `ml-node` and define the node role as `ml`:
+
+```yml
+node.name: ml-node
+node.roles: [ ml ]
 
 ## Step 3: Bind a cluster to specific IP addresses
 
