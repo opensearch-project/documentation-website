@@ -124,9 +124,10 @@ Role | Description
 `reports_instances_read_access` | Grants permissions to generate on-demand reports and download existing reports, but not to view or create report definitions.
 `reports_full_access` | Grants full permissions to reports.
 `asynchronous_search_full_access` | Grants full permissions to all asynchronous search actions.
-`asynchronous_search_read_access` | Grants permissions to view asynchronous searches, but not to submit, modify, or delete async searches.
+`asynchronous_search_read_access` | Grants permissions to view asynchronous searches but not to submit, modify, or delete async searches.
 `index_management_full_access` | Grants full permissions to all index management actions, including ISM, transforms, and rollups.
-
+`snapshot_management_full_access` | Grants full permissions to all snapshot management actions.
+`snapshot_management_read_access` | Grants permissions to view policies but not create, modify, start, stop, or delete them.
 
 For more detailed summaries of the permissions for each role, reference their action groups against the descriptions in [Default action groups]({{site.url}}{{site.baseurl}}/security-plugin/access-control/default-action-groups/).
 

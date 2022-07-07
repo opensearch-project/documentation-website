@@ -165,4 +165,4 @@ The open source version of OpenSearch Dashboards saves all objects to a single i
 The security plugin scrubs these index names of special characters, so they might not be a perfect match of tenant names and usernames.
 {: .tip }
 
-To back up your OpenSearch Dashboards data, [take a snapshot]({{site.url}}{{site.baseurl}}/opensearch/snapshot-restore/) of all tenant indices using an index pattern such as `.kibana*`.
+To back up your OpenSearch Dashboards data, [take a snapshot]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore/) of all tenant indexes using an index pattern such as `.kibana*`.
