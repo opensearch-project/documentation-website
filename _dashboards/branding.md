@@ -35,6 +35,9 @@ loadingLogo | Loading logo used when OpenSearch Dashboards is starting. See #3 i
 faviconUrl | Website icon. Loads next to the application title. See #4 in the image.
 applicationTitle | The application's title. See #5 in the image.
 
+To consolidate navigation controls and reduce the space the header takes up on the page, see [Condensed header](#condensed-header).
+{: .note}
+
 To start using your own branding elements in OpenSearch Dashboards, first uncomment this section of `opensearch_dashboards.yml`:
 
 ```yml
@@ -89,6 +92,58 @@ mark:
 # faviconUrl: ""
 applicationTitle: "My custom application"
 ```
+
+### Condensed header
+
+The condensed header view reduces the footprint of the header and frees up space on the page by combining navigational elements into a single header bar.
+
+The current default view remains close in appearance to the two-bar header offered in the previous version of Dashboards, with minor differences. To specify the condensed header, add the configuration property `useExpandedHeader` to the `opensearch_dashboards.yml` file and set the value to `false`, as the following example illustrates.
+
+ ```yml
+# opensearchDashboards.branding:
+  # logo:
+    defaultUrl: "https://example.com/sample.svg"
+    darkModeUrl: "https://example.com/dark-mode-sample.svg"
+  # mark:
+    # defaultUrl: ""
+    # darkModeUrl: ""
+  # loadingLogo:
+    # defaultUrl: ""
+    # darkModeUrl: ""
+  # faviconUrl: ""
+  applicationTitle: "my custom application"
+  useExpandedHeader: false
+```
+
+In a future release, default behavior will become `useExpandedHeader: false`. If you want to retain the default view in subsequent releases, you can explicitly set the property to `true` in advance. Alternatively, you can also do this when upgrading.
+{: .note }
+
+The condensed view header appears as in the example below.
+
+![Condensed header]({{site.url}}{{site.baseurl}}/images/DBs-Condensed.jpeg)
+
+Header element | Description
+:--- | :---
+OpenSearch logo | See #1. Functions as the home button.
+Header bar | See #2. A single header bar used for all navigation controls.
+
+The default view remains close to the traditional view, with minor changes.
+
+![Default header]({{site.url}}{{site.baseurl}}/images/DBs-Traditional.jpeg)
+
+Header element | Description
+:--- | :---
+Home button | See #1. Returns to the home page and provides an indication when a page is loading.
+Header label | See #2. The label also functions as a home button.
+Navigation controls | See #3. Additional navigation controls on right-side insertion points.
+
+#### Preserving nagivation elements in the default view
+
+You can continue using the top header bar in the default view for custom navigation links (such as menu items and plugins). Follow the steps below to keep these elements in the top header in the default view.
+1. Replace the property `coreStart.chrome.navControls.registerRight(...)` with `coreStart.chrome.navControls.registerExpandedRight(...)` and then replace the property  `coreStart.chrome.navControls.registerCenter(...)` with `coreStart.chrome.navControls.registerExpandedCenter(...)`
+
+2. Make sure the configuration property `useExpandedHeader` is explicitly set to `true`.
+
 
 ## Sample configuration
 

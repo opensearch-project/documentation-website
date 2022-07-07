@@ -374,7 +374,7 @@ Parameter | Description | Type
 
 ### snapshot
 
-Backup your cluster’s indexes and state. For more information about snapshots, see [Take and restore snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshot-restore/).
+Back up your cluster’s indexes and state. For more information about snapshots, see [Take and restore snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore).
 
 The `snapshot` operation has the following parameters:
 

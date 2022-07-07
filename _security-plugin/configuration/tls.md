@@ -9,7 +9,7 @@ nav_order: 10
 
 TLS is configured in `opensearch.yml`. There are two main configuration sections: the transport layer and the REST layer. TLS is optional for the REST layer and mandatory for the transport layer.
 
-You can find an example configuration template with all options on [GitHub](https://github.com/opensearch-project/security/blob/main/securityconfig/opensearch.yml.example).
+You can find an example configuration template with all options on [GitHub](https://github.com/opensearch-project/security/blob/main/config/opensearch.yml.example).
 {: .note }
 
 
