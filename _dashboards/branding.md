@@ -144,6 +144,7 @@ You can continue using the top header bar in the default view for custom navigat
 
 2. Make sure the configuration property `useExpandedHeader` is explicitly set to `true`.
 
+
 ## Sample configuration
 
 The following configuration enables the security plugin and SSL within OpenSearch Dashboards and uses custom branding elements to replace the OpenSearch logo and application title.
