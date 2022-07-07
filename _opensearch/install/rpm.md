@@ -74,10 +74,11 @@ YUM, an RPM package management tool, allows you to pull the RPM package from the
    sudo yum clean all
    ```
 
-3. With the repository file downloaded, list all available versions of OpenSearch:
+3. With the repository file downloaded, list all available versions of OpenSearch and OpenSearch-Dashboards:
 
    ```bash
-   sudo yum list | grep opensearch
+   sudo yum list opensearch --showduplicates
+   sudo yum list opensearch-dashboards --showduplicates
    ```
 
 4. Choose the version of OpenSearch you want to install: 
