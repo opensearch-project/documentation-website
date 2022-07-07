@@ -63,7 +63,7 @@ YUM, an RPM package management tool, allows you to pull the RPM package from the
    ```
 
    ```bash
-   sudo curl -SL https://artifacts.opensearch.org/releases/bundle/opensearch-dashboards/2.x/opensearch-dashboards-2.x.repo -o /etc/yum.repos.d/2.x.repo
+   sudo curl -SL https://artifacts.opensearch.org/releases/bundle/opensearch-dashboards/2.x/opensearch-dashboards-2.x.repo -o /etc/yum.repos.d/dashboards.2.x.repo
    ```
   
    To verify that the repos appear in your repo list, use `sudo yum repolist`.
