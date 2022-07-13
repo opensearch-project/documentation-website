@@ -164,7 +164,7 @@ PUT testindex1/_doc/100
 }
 ```
 
-Now, if you run the same query to search for patients older than 75 AND smokers, nothing is returned.
+Now, if you run the same query to search for patients older than 75 AND smokers, nothing is returned, which is correct.
 
 ```json
 {
@@ -192,7 +192,7 @@ The following table lists the parameters accepted by object field types. All par
 
 Parameter | Description 
 :--- | :--- 
-[`dynamic`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/object#dynamic-parameter) | Specifies if new fields can be dynamically added to this object. Valid values: `true`, `false`, and `strict`. Default is `true`.
-`include_in_parent` | A Boolean value that specifies if all fields in the child nested object should also be added to the parent document in flattened form. Default is `false`.
-`incude_in_root` | A Boolean value that specifies if all fields in the child nested object should also be added to the root document in flattened form. Default is `false`.
-`properties` | Fields of this object, which can be of any supported type. New properties can be dynamically added to this object if `dynamic` is set to `true`.
+[`dynamic`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/object#dynamic-parameter) | Specifies if new fields can be dynamically added to this object. Valid values: `true`, `false`, and `strict`. Default is true.
+`include_in_parent` | A Boolean value that specifies if all fields in the child nested object should also be added to the parent document in flattened form. Default is false.
+`incude_in_root` | A Boolean value that specifies if all fields in the child nested object should also be added to the root document in flattened form. Default is false.
+`properties` | Fields of this object, which can be of any supported type. New properties can be dynamically added to this object if `dynamic` is set to true.

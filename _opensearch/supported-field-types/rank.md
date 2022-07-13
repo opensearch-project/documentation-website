@@ -15,26 +15,29 @@ Field data type | Description
 [`rank_feature`](#rank-feature) | Boosts or decreases the relevance score of documents. 
 [`rank_features`](#rank-features) | Boosts or decreases the relevance score of documents. Used when the list of features is sparse. 
 
-Rank feature and rank features fields can be queried with rank_feature queries only. They do not support aggregating or sorting.
+Rank feature and rank features fields can be queried with [rank feature queries](#rank-feature-query) only. They do not support aggregating or sorting.
 {: .note }
 
 ## Rank feature
 
-A rank feature field type uses a positive [float]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/numeric/)  value to boost or decrease the relevance score of a document in a `rank_feature` query. By default, this value boosts the relevance score. To decrease the relevance score, set the optional `positive_score_impact` parameter to `false`.
+A rank feature field type uses a positive [float]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/numeric/)  value to boost or decrease the relevance score of a document in a `rank_feature` query. By default, this value boosts the relevance score. To decrease the relevance score, set the optional `positive_score_impact` parameter to false.
 
 ### Example
 
 Create a mapping with a rank feature field:
 
 ```json
-PUT testindex1
+PUT chessplayers
 {
   "mappings": {
     "properties": {
-      "positive_correlation": {
+      "name" : {
+        "type" : "text"
+      },
+      "rating": {
         "type": "rank_feature" 
       },
-      "negative_correlation": {
+      "age": {
         "type": "rank_feature",
         "positive_score_impact": false 
       }
@@ -43,23 +46,113 @@ PUT testindex1
 }
 ```
 
-Index three documents with a rank_feature that boosts the score (`positive_correlation`), and a rank_feature that decreases the score (`negative_correlation`):
+Index three documents with a rank_feature field that boosts the score (`rating`), and a rank_feature field that decreases the score (`age`):
 
 ```json
 PUT testindex1/_doc/1
 {
-  "positive_correlation": 25.54,
-  "negative_correlation": 10
+  "name" : "John Doe",
+  "rating" : 2554,
+  "age" : 75
 }
 
 PUT testindex1/_doc/2
 {
-  "positive_correlation": 25.54
+  "name" : "Kwaku Mensah",
+  "rating" : 2067,
+  "age": 10
 }
 
 PUT testindex1/_doc/3
 {
-  "negative_correlation": 10
+  "name" : "Nikki Wolf",
+  "rating" : 1864,
+  "age" : 22
+}
+```
+
+## Rank feature query
+
+Using a rank feature query, you can rank players by rating, age, or both rating and age. If you rank players by rating, higher rated players will have higher relevance scores. If you rank players by age, younger players will have higher relevance scores.
+
+Use rank feature query to search for players based on age and rating:
+
+```json
+GET chessplayers/_search
+{
+  "query": {
+    "bool": {
+      "should": [
+        {
+          "rank_feature": {
+            "field": "rating"
+          }
+        },
+        {
+          "rank_feature": {
+            "field": "age"
+          }
+        }
+      ]
+    }
+  }
+}
+```
+When ranked by both age and rating, younger players and players who are more highly ranked score better.
+
+Response:
+```json
+{
+  "took" : 2,
+  "timed_out" : false,
+  "_shards" : {
+    "total" : 1,
+    "successful" : 1,
+    "skipped" : 0,
+    "failed" : 0
+  },
+  "hits" : {
+    "total" : {
+      "value" : 3,
+      "relation" : "eq"
+    },
+    "max_score" : 1.2093145,
+    "hits" : [
+      {
+        "_index" : "chessplayers",
+        "_type" : "_doc",
+        "_id" : "2",
+        "_score" : 1.2093145,
+        "_source" : {
+          "name" : "Kwaku Mensah",
+          "rating" : 1967,
+          "age" : 10
+        }
+      },
+      {
+        "_index" : "chessplayers",
+        "_type" : "_doc",
+        "_id" : "3",
+        "_score" : 1.0150313,
+        "_source" : {
+          "name" : "Nikki Wolf",
+          "rating" : 1864,
+          "age" : 22
+        }
+      },
+      {
+        "_index" : "chessplayers",
+        "_type" : "_doc",
+        "_id" : "1",
+        "_score" : 0.8098284,
+        "_source" : {
+          "name" : "John Doe",
+          "rating" : 2554,
+          "age" : 75
+        }
+      }
+    ]
+  }
 }
 ```
 

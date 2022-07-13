@@ -28,9 +28,11 @@ PUT testindex1
 }
 ```
 
-Geo points can be indexed in the following formats.
+## Formats
 
-- An object with a latitude and longitude:
+Geo points can be indexed in the following formats:
+
+- An object with a latitude and longitude.
 
 ```json
 PUT testindex1/_doc/1
@@ -42,7 +44,7 @@ PUT testindex1/_doc/1
 }
 ```
 
-- A string in the "`latitude`,`longitude`" format:
+- A string in the "`latitude`,`longitude`" format.
 
 ```json
 PUT testindex1/_doc/2
@@ -51,7 +53,7 @@ PUT testindex1/_doc/2
 }
 ```
 
-- A geohash:
+- A geohash.
 
 ```json
 PUT testindex1/_doc/3
@@ -60,7 +62,7 @@ PUT testindex1/_doc/3
 }
 ```
 
-- An array in the [`longitude`, `latitude`] format:
+- An array in the [`longitude`, `latitude`] format.
 
 ```json
 PUT testindex1/_doc/4
@@ -69,7 +71,7 @@ PUT testindex1/_doc/4
 }
 ```
 
-- A Well-Known Text POINT in the "POINT(`longitude` `latitude`)" format:
+- A Well-Known Text POINT in the "POINT(`longitude` `latitude`)" format.
 
 ```json
 PUT testindex1/_doc/5
@@ -85,5 +87,5 @@ The following table lists the parameters accepted by geo point field types. All 
 Parameter | Description 
 :--- | :--- 
 `ignore_malformed` | A Boolean value that specifies to ignore malformed values and not to throw an exception. Valid values for latitude are [-90, 90]. Valid values for longitude are [-180, 180]. Default is false.
-`ignore_z_values` | Specific to points with three coordinates. If `ignore_z_values` is `true`, the third coordinate is not indexed but is still stored in the _source field. If `ignore_z_values` is `false`, an exception is thrown.
+`ignore_z_values` | Specific to points with three coordinates. If `ignore_z_values` is true, the third coordinate is not indexed but is still stored in the _source field. If `ignore_z_values` is false, an exception is thrown.
 `null_value` | A  value of the same type as the field that is used as null value. If this parameter is not specified, the field is treated as missing when its value is null. Default is null.

@@ -12,12 +12,12 @@ The following table lists all range field types that OpenSearch supports.
 
 Field data type | Description
 :--- | :---
-`integer_range` | A range of [integer](({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/numeric/) values. 
-`long_range` | A range of [long](({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/numeric/) values.   
-`double_range` | A range of [double](({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/numeric/)) values.  
-`float_range` | A range of [float](({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/numeric/) values. 
-`ip_range` | A range of [IP addresses](({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/ip/) in IPv4 or IPv6 formats. Start and end IP addresses may be in different formats.  
-`date_range` | A range of [date](({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/date/) values. Start and end dates may be in different [formats](({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/date/#formats). Internally, all dates are stored as unsigned 64-bit integers representing milliseconds since the epoch.
+`integer_range` | A range of [integer]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/numeric/) values. 
+`long_range` | A range of [long]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/numeric/) values.   
+`double_range` | A range of [double]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/numeric/) values.  
+`float_range` | A range of [float]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/numeric/) values. 
+`ip_range` | A range of [IP addresses]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/ip/) in IPv4 or IPv6 formats. Start and end IP addresses may be in different formats.  
+`date_range` | A range of [date]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/date/) values. Start and end dates may be in different [formats]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/date/#formats). Internally, all dates are stored as unsigned 64-bit integers representing milliseconds since the epoch.
 
 ## Example
 
@@ -26,17 +26,17 @@ Create a mapping with a double range and a date range:
 ```json
 PUT testindex 
 {
-    "mappings" : {
-        "properties" :  {
-            "gpa" : {
-                "type" : "double_range"
-            },
-            "graduation_date" : {
-                "type" : "date_range",
-                "format" : "strict_year_month||strict_year_month_day"
-            }
-        }
+  "mappings" : {
+    "properties" :  {
+      "gpa" : {
+        "type" : "double_range"
+      },
+      "graduation_date" : {
+        "type" : "date_range",
+        "format" : "strict_year_month||strict_year_month_day"
+      }
     }
+  }
 }
 ```
 
@@ -45,18 +45,18 @@ Index a document with a double range and a date range:
 ```json
 PUT testindex/_doc/1
 {
-    "gpa" : {
-        "gte" : 1.0,
-        "lte" : 4.0
-    },
-    "graduation_date" : {
-        "gte" : "2019-05-01",
-        "lte" : "2019-05-15"
-    }
+  "gpa" : {
+    "gte" : 1.0,
+    "lte" : 4.0
+  },
+  "graduation_date" : {
+    "gte" : "2019-05-01",
+    "lte" : "2019-05-15"
+  }
 }
 ```
 
-You can use a [term query](#term-query), or a [range query](#range-query) to search for values within range fields. 
+You can use a [term query](#term-query) or a [range query](#range-query) to search for values within range fields. 
 
 ### Term query
 
@@ -67,13 +67,13 @@ The following query will return document 1 because 3.5 is within the range [1.0,
 ```json
 GET testindex/_search
 {
-    "query" : {
-        "term" : {
-            "gpa" : {
-                "value" : 3.5
-            }
-        }
+  "query" : {
+    "term" : {
+      "gpa" : {
+        "value" : 3.5
+      }
     }
+  }
 }
 ```
 
@@ -83,10 +83,12 @@ A range query on a range field returns documents within that range. Along with t
 
 Parameter | Description 
 :--- | :--- 
-format | A [format](({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/date/#formats) for dates in this query. Default is the field's mapping format.
-relation | Provides a relation between the query's date range and the document's date range. There are three types of relations that you can specify:<br> 1. `intersects` matches dates that belong to both the query's date range and document's date range. This is the default. <br> 2. `contains` matches documents where the query's date range is a subset of the document's date range. <br> 3. `within` matches documents where the document's date range is a subset of the query's date range.
+format | A [format]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/date/#formats) for dates in this query. Default is the field's mapped format.
+relation | Provides a relation between the query's date range and the document's date range. There are three types of relations that you can specify:<br> 1. `intersects` matches documents for which there are dates that belong to both the query's date range and document's date range. This is the default. <br> 2. `contains` matches documents for which the query's date range is a subset of the document's date range. <br> 3. `within` matches documents for which the document's date range is a subset of the query's date range.
 
-To query for all graduation dates in 2019 with a different format than the field's mapping format:
+To use a date format other than the field's mapped format in a query, specify it in the `format` field. 
+
+Query for all graduation dates in 2019, providing the date range in a "MM/dd/yyyy" format:
 
 ```json
 GET testindex1/_search
@@ -108,23 +110,23 @@ The above query will return document 1 for `within` and `intersects` relations, 
 
 ### IP address ranges
 
-You can specify IP address ranges in two formats: as a range, and in [CIDR notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation).
+You can specify IP address ranges in two formats: as a range and in [CIDR notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation).
 
 Create a mapping with an IP address range:
 
 ```json
 PUT testindex 
 {
-    "mappings" : {
-        "properties" :  {
-            "ip_address_range" : {
-                "type" : "ip_range" 
-            },
-            "ip_address_cidr" : {
-                "type" : "ip_range" 
-            }
-        }
+  "mappings" : {
+    "properties" :  {
+      "ip_address_range" : {
+        "type" : "ip_range" 
+      },
+      "ip_address_cidr" : {
+        "type" : "ip_range" 
+      }
     }
+  }
 }
 ```
 
@@ -133,11 +135,11 @@ Index a document with IP address ranges in both formats:
 ```json
 PUT testindex/_doc/2
 {
-    "ip_address_range" : {
-        "gte" : "10.24.34.0",
-        "lte" : "10.24.35.255"
-    },
-    "ip_address_cidr" : "10.24.34.0/23"
+  "ip_address_range" : {
+    "gte" : "10.24.34.0",
+    "lte" : "10.24.35.255"
+  },
+  "ip_address_cidr" : "10.24.34.0/24"
 }
 ```
 
@@ -150,4 +152,4 @@ Parameter | Description
 `boost` | A floating point value that specifies the weight of this field toward the relevance score. Values above 1.0 increase the field's relevance. Values between 0.0 and 1.0 decrease the field's relevance. Default is 1.0.
 `coerce` | A Boolean value that signals to truncate decimals for integer values and to convert strings to numeric values. Default is true.
 `index` | A Boolean value that specifies if the field should be searchable. Default is true. 
-`store` | A Boolean value that specifies if the field value should be stored and can be retrieved separately from the _source field. Default is `false`. 
+`store` | A Boolean value that specifies if the field value should be stored and can be retrieved separately from the _source field. Default is false. 

@@ -40,11 +40,11 @@ Parameter | Description
 :--- | :---
 `analyzer` | The analyzer to be used for this field. By default, it will be used at index time, and at search time. To override it at search time, set the `search_analyzer` parameter. Default is `standard` analyzer that uses grammar-based tokenization and is based on the [Unicode Text Segmentation](https://unicode.org/reports/tr29/) algorithm.
 `boost` | A floating point value that specifies the weight of this field toward the relevance score. Values above 1.0 increase the field's relevance. Values between 0.0 and 1.0 decrease the field's relevance. Default is 1.0.
-`eager_global_ordinals` | Specifies if global ordinals should be loaded eagerly on refresh. If the field is often used for aggregations, this parameter should be set to `true`. Default is `false`.
+`eager_global_ordinals` | Specifies if global ordinals should be loaded eagerly on refresh. If the field is often used for aggregations, this parameter should be set to true. Default is false.
 `fielddata` | A Boolean value that specifies whether to access analyzed tokens for this field for sorting, aggregation, and scripting. Default is false.
 `fielddata_frequency_filter` | A JSON object that specifies to load into memory only those analyzed tokens whose document frequency is between `min` and `max` values (provided as either absolute number or percentage). Frequency is computed per segment. Parameters: `min`, `max`, `min_segment_size`. Default is to load all analyzed tokens.
 `fields` | To index the same string in several ways (for example, as a keyword and text), provide the fields parameter. You can specify one version of the field to be used for search, and another to be used for sorting and aggregations.
-`index` | A Boolean value that specifies if the field should be searchable. Default is `true`.
+`index` | A Boolean value that specifies if the field should be searchable. Default is true.
 `index_options` | Specifies the information to be stored in the index for search and highlighting. Valid values: `docs` (doc number only), `freqs` (doc number and term frequencies), `positions` (doc number, term frequencies, and term positions), `offsets` (doc number, term frequencies, term positions, and start and end character offsets). Default is `positions`.
 `index_phrases` | A Boolean value that specifies to index 2-grams separately. 2-grams are combinations of two consecutive words in this string. Leads to faster exact phrase queries with no slop, but a larger index. Works best when stopwords are not removed. Default is `false`.
 `index_prefixes` | A JSON object that specifies to index term prefixes separately. The number of characters in the prefix is between `min_chars` and `max_chars`, inclusive. Leads to faster prefix searches, but a larger index. Optional parameters: `min_chars`, `max_chars`. Default `min_chars` is 2, `max_chars` is 5.
@@ -75,7 +75,7 @@ Parameter | Stored values
 `with_positions_payloads` | Terms, positions, and payloads.
 
 Storing positions is helpful for proximity queries. Storing character offsets is useful for highlighting.
-{: .note }
+{: .tip }
 
 ## Example
 

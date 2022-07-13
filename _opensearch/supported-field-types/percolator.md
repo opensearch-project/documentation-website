@@ -12,7 +12,7 @@ A percolator field type specifies to treat this field as a query. Any JSON objec
 
 ## Example
 
-A customer is searching for a table under $400, and wants to create an alert for this search. 
+A customer is searching for a table priced $400 or less, and wants to create an alert for this search. 
 
 Create a mapping assigning percolator field type to the query field:
 
@@ -77,9 +77,9 @@ Run a percolate query to search for matching documents:
 ```json
 GET testindex1/_search
 {
-  "query": {
-    "bool": {
-      "filter": 
+  "query" : {
+    "bool" : {
+      "filter" : 
         {
           "percolate" : {
             "field" : "search.query",
@@ -96,7 +96,7 @@ GET testindex1/_search
 
 Response:
 
-``json
+```json
 {
   "took" : 30,
   "timed_out" : false,

@@ -10,28 +10,28 @@ parent: Supported field types
 
 A date in OpenSearch can be represented as one of the following:
 
-- A long value that corresponds to milliseconds-since-the-epoch (the value must be non-negative). Dates are stored in this form internally.
+- A long value that corresponds to milliseconds since the epoch (the value must be non-negative). Dates are stored in this form internally.
 - A formatted string.
-- An integer value that corresponds to seconds-since-the-epoch (the value must be non-negative).
+- An integer value that corresponds to seconds since the epoch (the value must be non-negative).
 
-There is also a corresponding date [range field type]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/range/).
+To represent date ranges, there is a date [range field type]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/range/).
 {: .note }
 
 ## Example
 
-Create a mapping with a date field and two formats:
+Create a mapping with a date field and two date formats:
 
 ```json
 PUT testindex
 {
-    "mappings" : {
-        "properties" :  {
-            "release_date" : {
-                "type" : "date",
-                "format" : "strict_date_optional_time||epoch_millis"
-            }
-        }
+  "mappings" : {
+    "properties" :  {
+      "release_date" : {
+        "type" : "date",
+        "format" : "strict_date_optional_time||epoch_millis"
+      }
     }
+  }
 }
 ```
 
@@ -42,22 +42,22 @@ The following table lists the parameters accepted by date field types. All param
 Parameter | Description 
 :--- | :--- 
 `boost` | A floating point value that specifies the weight of this field toward the relevance score. Values above 1.0 increase the field's relevance. Values between 0.0 and 1.0 decrease the field's relevance. Default is 1.0.
-`doc_values` | A Boolean value that specifies if the field should be stored on disk so that it can be used for aggregations, sorting, <br> scripting. Default is `false`.
+`doc_values` | A Boolean value that specifies if the field should be stored on disk so that it can be used for aggregations, sorting, or scripting. Default is false.
 `format` | The format for parsing dates. Default is `strict_date_optional_time||epoch_millis`.
 `ignore_malformed` | A Boolean value that specifies to ignore malformed values and not to throw an exception. Default is false.
 `index` | A Boolean value that specifies if the field should be searchable. Default is true.
 `locale` | A region- and language-specific way of representing the date. Default is [`ROOT`](https://docs.oracle.com/javase/8/docs/api/java/util/Locale.html#ROOT) (a region- and language-neutral locale).
 `meta` | Accepts metadata for this field.
-`null_value` | A  value of the same type as the field that is used as null value. If this parameter is not specified, the field is treated as missing when its value is null. Default is null.
-`store` | A Boolean value that specifies if the field value should be stored and can be retrieved separately from the _source field. Default is `false`. 
+`null_value` | A  value of the same type as the field that is used as null value. This value needs to be in one of the formats configured for this date field. If this parameter is not specified, the field is treated as missing when its value is null. Default is null.
+`store` | A Boolean value that specifies if the field value should be stored and can be retrieved separately from the _source field. Default is false. 
 
 ## Formats
 
 OpenSearch has built-in date formats, but you can also create your own custom formats. The default format is `strict_date_optional_time||epoch_millis`. You can specify multiple date formats, separated with `||`.
 
-### Built-in formats
+## Built-in formats
 
-Most of the date formats have a `strict_` counterpart. When the format starts with `strict_`, the date must have the correct number of digits specified in the format. For example, if the format is set to `strict_year_month_day` ("yyyy-MM-dd"), both month and day have to be two-digit numbers. So, "2020-06-09" is valid, while "2020-6-9" is not.
+Most of the date formats have a `strict_` counterpart. When the format starts with `strict_`, the date must have the correct number of digits specified in the format. For example, if the format is set to `strict_year_month_day` ("yyyy-MM-dd"), both month and day have to be two-digit numbers. So, "2020-06-09" is valid, while "2020-6-9" is invalid.
 
 Epoch is defined as 00:00:00 UTC on January 1, 1970.
 {: .note }
@@ -108,7 +108,6 @@ Format name and description | Pattern and examples
 `basic_week_date_time_no_millis` <br> `strict_basic_week_date_time_no_millis` <br> A basic week-based year date and time without milliseconds, separated by `T`. | "YYYY`W`wwe`T`HHmmssZ" <br> "2019W126213446-04:00"
 `basic_week_date` <br> `strict_basic_week_date` <br> A full week-based date with a four-digit week-based year, two-digit ordinal week of year, and one-digit ordinal day of week, separated by `W`. | "YYYY`W`wwe" <br> "2019W126"
 
-
 ### Full date formats
 
 Components of full date formats are separated by a `-` delimiter for date and `:` delimiter for time. For example, "2019-03-23T21:34".
@@ -152,21 +151,21 @@ Format name and description | Pattern and examples
 `weekyear_week` <br> `strict_weekyear_week` <br> A four-digit week-based year and two-digit ordinal week of year. | "YYYY-`W`ww" <br> "2019-W12" 
 `weekyear` <br> `strict_weekyear` <br> A four-digit week-based year. | "YYYY" <br> "2019" 
 
-### Custom formats
+## Custom formats
 
-You can create custom formats for date fields. Specify a date in the common "MM/dd/yyy" format:
+You can create custom formats for date fields. For example, the following request specifies a date in the common "MM/dd/yyyy" format.
 
 ```json
 PUT testindex
 {
-    "mappings" : {
-        "properties" :  {
-            "release_date" : {
-                "type" : "date",
-                "format" : "MM/dd/yyyy"
-            }
-        }
+  "mappings" : {
+    "properties" :  {
+      "release_date" : {
+        "type" : "date",
+        "format" : "MM/dd/yyyy"
+      }
     }
+  }
 }
 ```
 
@@ -175,11 +174,12 @@ Index a document with a date:
 ```json
 PUT testindex/_doc/21 
 {
-    "release_date" : "03/21/2019"
+  "release_date" : "03/21/2019"
 }
 ```
 
 When searching for an exact date, provide that date in the same format:
+
 ```json
 GET testindex/_search
 {
@@ -193,7 +193,7 @@ GET testindex/_search
 }
 ```
 
-Range queries by default use the field's format. You can also specify the range of dates in a different format:
+Range queries by default use the field's mapped format. You can also specify the range of dates in a different format by providing the `format` parameter:
 
 ```json
 GET testindex/_search

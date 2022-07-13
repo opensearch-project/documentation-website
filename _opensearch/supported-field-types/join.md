@@ -303,7 +303,7 @@ PUT testindex1
 }
 ```
 
-## Limitations
+## Join field type notes 
 
 - There can only be one join field mapping in an index.
 - You need to provide the routing parameter when retrieving, updating, or deleting a child document. This is because parent and child documents in the same relation have to be indexed on the same shard.

@@ -17,19 +17,19 @@ Create a mapping where a, b, and c are Boolean fields:
 ```json
 PUT testindex
 {
-    "mappings" : {
-        "properties" :  {
-            "a" : {
-                "type" : "boolean"
-            },
-            "b" : {
-                "type" : "boolean"
-            },
-            "c" : {
-                "type" : "boolean"
-            }
-        }
+  "mappings" : {
+    "properties" :  {
+      "a" : {
+        "type" : "boolean"
+      },
+      "b" : {
+        "type" : "boolean"
+      },
+      "c" : {
+        "type" : "boolean"
+      }
     }
+  }
 }
 ```
 
@@ -38,9 +38,9 @@ Index a document with boolean values:
 ```json
 PUT testindex/_doc/1 
 {
-    "a" : true,
-    "b" : "true",
-    "c" : ""
+  "a" : true,
+  "b" : "true",
+  "c" : ""
 }
 ```
 

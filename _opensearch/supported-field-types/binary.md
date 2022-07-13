@@ -17,13 +17,13 @@ Create a mapping with a binary field:
 ```json
 PUT testindex 
 {
-    "mappings" : {
-        "properties" :  {
-            "binary_value" : {
-                "type" : "binary"
-            }
-        }
+  "mappings" : {
+    "properties" :  {
+      "binary_value" : {
+        "type" : "binary"
+      }
     }
+  }
 }
 ```
 
@@ -32,7 +32,7 @@ Index a document with a binary value:
 ```json
 PUT testindex/_doc/1 
 {
-    "binary_value" : "bGlkaHQtd29rfx4="
+  "binary_value" : "bGlkaHQtd29rfx4="
 }
 ```
 
@@ -45,5 +45,5 @@ The following table lists the parameters accepted by binary field types. All par
 
 Parameter | Description 
 :--- | :--- 
-`doc_values` | A Boolean value that specifies if the field should be stored on disk so that it can be used for aggregations, sorting, or scripting. Optional. Default is `false`.
-`store` | A Boolean value that specifies if the field value should be stored and can be retrieved separately from the _source field. Optional. Default is `false`.
+`doc_values` | A Boolean value that specifies if the field should be stored on disk so that it can be used for aggregations, sorting, or scripting. Optional. Default is false.
+`store` | A Boolean value that specifies if the field value should be stored and can be retrieved separately from the _source field. Optional. Default is false.

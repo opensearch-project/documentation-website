@@ -53,17 +53,17 @@ Multi-fields can be created using the `fields` parameter. For example, you can m
 ```json
 PUT books
 {
-	"mappings" : {
-		"properties" : {
-			"title" : {
-				"type" : "text",
-				"fields" : {
-					"raw" : {
-						"type" : "keyword"
-					}
-				}
-			}
-		}
-	}
+  "mappings" : {
+    "properties" : {
+      "title" : {
+        "type" : "text",
+        "fields" : {
+          "raw" : {
+            "type" : "keyword"
+          }
+        }
+      }
+    }
+  }
 }
 ```

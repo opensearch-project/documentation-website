@@ -8,24 +8,24 @@ parent: Supported field types
 
 # Alias field type
 
-An alias field type creates another name for an existing field. You can use aliases in [search](#using-aliases-in-search-api) and [field capabilities](#using-aliases-in-field-capabilities-api) APIs with some [exceptions](#exceptions). To set up an [alias](#alias-field), you need to specify the [original field](#original-fields) name in the `path` parameter.
+An alias field type creates another name for an existing field. You can use aliases in [search](#using-aliases-in-search-api) and [field capabilities](#using-aliases-in-field-capabilities-api) APIs with some [exceptions](#exceptions). To set up an [alias](#alias-field), you need to specify the [original field](#original-field) name in the `path` parameter.
 
 ## Example
 
 ```json
 PUT movies 
 {
-    "mappings" : {
-        "properties" :  {
-            "year" : {
-                "type" : "date"
-            },
-            "release_date" : {
-                "type" : "alias",
-                "path" : "year"
-            }
-        }
+  "mappings" : {
+    "properties" : {
+      "year" : {
+        "type" : "date"
+      },
+      "release_date" : {
+        "type" : "alias",
+        "path" : "year"
+      }
     }
+  }
 }
 ```
 

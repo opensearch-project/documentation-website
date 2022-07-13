@@ -13,5 +13,5 @@ The following table lists all autocomplete field types that OpenSearch supports.
 
 Field data type | Description
 :--- | :---  
-[`completion`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/completion/) | A completion suggester that provides auto-complete functionality. You need to upload a list of all possible completions into the index before using this feature.
+[`completion`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/completion/) | A completion suggester that provides auto-complete functionality using prefix completion. You need to upload a list of all possible completions into the index before using this feature.
 [`search_as_you_type`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/search-as-you-type/) | Provides search-as-you-type functionality using both prefix and infix completion. 
