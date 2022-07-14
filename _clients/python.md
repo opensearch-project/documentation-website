@@ -29,6 +29,8 @@ from opensearchpy import OpenSearch
 
 If you prefer to add the client manually or just want to examine the source code, see [opensearch-py on GitHub](https://github.com/opensearch-project/opensearch-py).
 
+See also: the [API reference documentation](https://opensearch-project.github.io/opensearch-py/index.html) for the client.
+
 
 ## Sample code
 
