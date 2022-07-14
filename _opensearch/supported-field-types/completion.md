@@ -9,7 +9,7 @@ grand_parent: Supported field types
 
 # Completion field type
 
-A completion field type is a completion suggester that provides auto-complete functionality. It is a prefix suggester, so it matches the beginning of text only. Completion suggester creates an in-memory data structure, which provides faster lookups but leads to increased memory usage. You need to upload a list of all possible completions into the index before using this feature.
+A completion field type is a completion suggester that provides autocomplete functionality. It is a prefix suggester, so it matches the beginning of text only. Completion suggester creates an in-memory data structure, which provides faster lookups but leads to increased memory usage. You need to upload a list of all possible completions into the index before using this feature.
 
 ## Example
 
