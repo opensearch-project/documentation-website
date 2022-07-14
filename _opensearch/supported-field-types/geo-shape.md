@@ -1,19 +1,19 @@
 ---
 layout: default
-title: Geo shape
+title: Geoshape
 nav_order: 57
 has_children: false
 parent: Geographic field types
 grand_parent: Supported field types
 ---
 
-# Geo shape field type
+# Geoshape field type
 
-A geo shape field type is a geographic shape such as a polygon or a collection of geographic points. To index a geo shape, OpenSearch tesselates the shape into a triangular mesh, and stores each triangle in a BKD tree. This provides a 10<sup>-7</sup>decimal degree of precision, which represents near perfect spatial resolution. Performance of this process is mostly impacted by the number of vertices in a polygon you are indexing.
+A geoshape field type is a geographic shape such as a polygon or a collection of geographic points. To index a geoshape, OpenSearch tesselates the shape into a triangular mesh, and stores each triangle in a BKD tree. This provides a 10<sup>-7</sup>decimal degree of precision, which represents near perfect spatial resolution. Performance of this process is mostly impacted by the number of vertices in a polygon you are indexing.
 
 ## Example
 
-Create a mapping with a geo shape field type:
+Create a mapping with a geoshape field type:
 
 ```json
 PUT testindex
@@ -30,18 +30,17 @@ PUT testindex
 
 ## Formats
 
-Geo shapes can be indexed in the following formats:
+Geoshapes can be indexed in the following formats:
 
 - [GeoJSON](https://geojson.org/)
-
 - [Well-Known Text (WKT)](https://docs.opengeospatial.org/is/12-063r5/12-063r5.html)
 
 In both GeoJSON and WKT, the coordinates must be specified in the `longitude, latitude` order within coordinate arrays. Note that the longitude comes first in this format.
 {: .note}
 
-## Geo shape types
+## Geoshape types
 
-The following table describes the possible geo shape types and their relationship to GeoJSON and Well-Known Text types.
+The following table describes the possible geoshape types and their relationship to GeoJSON and Well-Known Text types.
 
 OpenSearch type | GeoJSON type | WKT type | Description 
 :--- | :--- | :--- | :--- 
@@ -51,7 +50,7 @@ OpenSearch type | GeoJSON type | WKT type | Description
 [`multipoint`](#multi-point) | MultiPoint | MULTIPOINT | An array of discrete related points that are not connected.
 [`multilinestring`](#multiline-string) | MultiLineString | MULTILINESTRING | An array of linestrings.
 [`multipolygon`](#multi-polygon) | MultiPolygon | MULTIPOLYGON | Ann array of polygons.
-[`geometrycollection`](#geometry-collection) | GeometryCollection | GEOMETRYCOLLECTION | A collection of geo shapes which may be of different types.
+[`geometrycollection`](#geometry-collection) | GeometryCollection | GEOMETRYCOLLECTION | A collection of geoshapes which may be of different types.
 [`envelope`](#envelope) | N/A | BBOX | A bounding rectangle specified by top left and bottom right vertices.
 
 ## Point
@@ -342,7 +341,7 @@ PUT testindex/_doc/4
 
 ## Geometry collection
 
-A geometry collection is a collection of geo shapes which may be of different types.
+A geometry collection is a collection of geoshapes which may be of different types.
 
 Index a geometry collection in GeoJSON format:
 
@@ -394,11 +393,11 @@ PUT testindex/_doc/8
 
 ## Parameters
 
-The following table lists the parameters accepted by geo shape field types. All parameters are optional.
+The following table lists the parameters accepted by geoshape field types. All parameters are optional.
 
 Parameter | Description 
 :--- | :--- 
 `coerce` | A Boolean value that specifies whether to automatically close unclosed linear rings. Default is false.
-`ignore_malformed` | A Boolean value that specifies to ignore malformed GeoJSON or WKT geo shapes and not to throw an exception. Default is false (throw an exception when geo shapes are malformed).
+`ignore_malformed` | A Boolean value that specifies to ignore malformed GeoJSON or WKT geoshapes and not to throw an exception. Default is false (throw an exception when geoshapes are malformed).
 `ignore_z_values` | Specific to points with three coordinates. If `ignore_z_values` is true, the third coordinate is not indexed but is still stored in the _source field. If `ignore_z_values` is false, an exception is thrown. Default is true.
-`orientation` | Specifies the traversal order of the vertices in the geo shape's list of coordinates. `orientation` takes the following values: <br> 1. RIGHT: counterclockwise. Specify RIGHT orientation by using one of the following strings (uppercase or lowercase): `right`, `counterclockwise`, `ccw`. <br> 2. LEFT: clockwise. Specify LEFT orientation by using one of the following strings (uppercase or lowercase): `left`, `clockwise`, `cw`.  This value can be overridden by individual documents. Default is `RIGHT`.
+`orientation` | Specifies the traversal order of the vertices in the geoshape's list of coordinates. `orientation` takes the following values: <br> 1. RIGHT: counterclockwise. Specify RIGHT orientation by using one of the following strings (uppercase or lowercase): `right`, `counterclockwise`, `ccw`. <br> 2. LEFT: clockwise. Specify LEFT orientation by using one of the following strings (uppercase or lowercase): `left`, `clockwise`, `cw`.  This value can be overridden by individual documents. Default is `RIGHT`.

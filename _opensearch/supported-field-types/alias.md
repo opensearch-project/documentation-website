@@ -42,7 +42,7 @@ Alias fields must obey the following rules:
 - An alias field can only have one original field.
 - In nested objects, the alias must have the same nesting level as the original field.
 
-To change the field that the alias references, update the mappings. Note: aliases in any previously stored percolator queries will still reference the original field.
+To change the field that the alias references, update the mappings. Note that aliases in any previously stored percolator queries will still reference the original field.
 {: .note }
 
 ## Original field

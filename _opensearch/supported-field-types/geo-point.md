@@ -1,19 +1,19 @@
 ---
 layout: default
-title: Geo point
+title: Geopoint
 nav_order: 56
 has_children: false
 parent: Geographic field types
 grand_parent: Supported field types
 ---
 
-# Geo point field type
+# Geopoint field type
 
-A geo point field type is a geographic point specified by latitude and longitude. 
+A geopoint field type is a geographic point specified by latitude and longitude. 
 
 ## Example
 
-Create a mapping with a geo point field type:
+Create a mapping with a geopoint field type:
 
 ```json
 PUT testindex1
@@ -30,7 +30,7 @@ PUT testindex1
 
 ## Formats
 
-Geo points can be indexed in the following formats:
+Geopoints can be indexed in the following formats:
 
 - An object with a latitude and longitude.
 
@@ -71,7 +71,7 @@ PUT testindex1/_doc/4
 }
 ```
 
-- A Well-Known Text POINT in the "POINT(`longitude` `latitude`)" format.
+- A [Well-Known Text](https://docs.opengeospatial.org/is/12-063r5/12-063r5.html) POINT in the "POINT(`longitude` `latitude`)" format.
 
 ```json
 PUT testindex1/_doc/5
@@ -82,7 +82,7 @@ PUT testindex1/_doc/5
 
 ## Parameters
 
-The following table lists the parameters accepted by geo point field types. All parameters are optional.
+The following table lists the parameters accepted by geopoint field types. All parameters are optional.
 
 Parameter | Description 
 :--- | :--- 
