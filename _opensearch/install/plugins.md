@@ -62,7 +62,7 @@ bin/opensearch-plugin list
     </tr>
   </thead>
   <tbody>
-<tr>
+  <tr>
     <td>1.3.4</td>
     <td>
       <pre>opensearch-alerting                  1.3.4.0
@@ -100,6 +100,7 @@ opensearch-sql                       1.3.3.0
 </pre>
 </td>
 </tr>
+  <tr>
   <tr>
     <td>1.3.2</td>
     <td>
