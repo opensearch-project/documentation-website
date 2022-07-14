@@ -62,65 +62,6 @@ bin/opensearch-plugin list
     </tr>
   </thead>
   <tbody>
-    <tr>
-    <td>2.1.0</td>
-    <td>
-      <pre>opensearch-alerting                  2.1.0.0
-opensearch-anomaly-detection         2.1.0.0
-opensearch-asynchronous-search       2.1.0.0
-opensearch-cross-cluster-replication 2.1.0.0
-opensearch-index-management          2.1.0.0
-opensearch-job-scheduler             2.1.0.0
-opensearch-knn                       2.1.0.0
-opensearch-ml                        2.1.0.0
-opensearch-observability             2.1.0.0
-opensearch-performance-analyzer      2.1.0.0
-opensearch-reports-scheduler         2.1.0.0
-opensearch-security                  2.1.0.0
-opensearch-sql                       2.1.0.0
-</pre>
-</td>
-</tr>
-  <tr>
-  <tr>
-    <td>2.0.0</td>
-    <td>
-      <pre>opensearch-alerting                  2.0.0.0
-opensearch-anomaly-detection         2.0.0.0
-opensearch-asynchronous-search       2.0.0.0
-opensearch-cross-cluster-replication 2.0.0.0
-opensearch-index-management          2.0.0.0
-opensearch-job-scheduler             2.0.0.0
-opensearch-knn                       2.0.0.0
-opensearch-ml                        2.0.0.0
-opensearch-notifications             2.0.0.0
-opensearch-observability             2.0.0.0
-opensearch-performance-analyzer      2.0.0.0
-opensearch-reports-scheduler         2.0.0.0
-opensearch-security                  2.0.0.0
-opensearch-sql                       2.0.0.0
-</pre>
-</td>
-</tr>
-  <tr>
-    <td>2.0.0-rc1</td>
-    <td>
-      <pre>opensearch-alerting                  2.0.0.0-rc1
-opensearch-anomaly-detection         2.0.0.0-rc1
-opensearch-asynchronous-search       2.0.0.0-rc1
-opensearch-cross-cluster-replication 2.0.0.0-rc1
-opensearch-index-management          2.0.0.0-rc1
-opensearch-job-scheduler             2.0.0.0-rc1
-opensearch-knn                       2.0.0.0-rc1
-opensearch-ml                        2.0.0.0-rc1
-opensearch-observability             2.0.0.0-rc1
-opensearch-performance-analyzer      2.0.0.0-rc1
-opensearch-reports-scheduler         2.0.0.0-rc1
-opensearch-security                  2.0.0.0-rc1
-opensearch-sql                       2.0.0.0-rc1
-</pre>
-</td>
-</tr>
 <tr>
     <td>1.3.4</td>
     <td>
