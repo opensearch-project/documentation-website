@@ -2,7 +2,7 @@
 
 This template provides the basic headings, and helpful suggestions for what information is required in each section.
 
-## <Name of API> API
+## (Name of API) API
 
 Provide a paragraph that describes the API functions and top use case for the API. Use initial caps for the heading, for example: Alerting API. When you refer to the API operation, you can use lowercase with code font.
 
