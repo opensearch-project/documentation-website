@@ -4,7 +4,7 @@ This template provides the basic headings, and helpful suggestions for what info
 
 ## <Name of API> API
 
-Provide a paragraph that describes the API functions and top use case for the API.
+Provide a paragraph that describes the API functions and top use case for the API. Use initial caps for the heading, for example: Alerting API. When you refer to the API operation, you can use lowercase with code font.
 
 If there is a corresponding OpenSearch Dashboards feature, provide a “See” link to refer them to it. 
 Example:  “To learn more about monitor findings, see Document findings (https://opensearch.org/docs/latest/monitoring-plugins/alerting/monitors/#document-findings).”
