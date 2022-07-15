@@ -12,8 +12,6 @@ You can't configure a server to support user-defined vector map layers. However,
 
 OpenSearch also provides a standard set of GeoJSON files to provide a vector map with your regional maps.
 
-
-
 ## Custom vector maps with GeoJSON
 
 If you have a specific locale that is not provided by OpenSearch Dashboards vector maps, such as a US county or US zip code, you can create your own custom vector map with a GeoJSON file.
