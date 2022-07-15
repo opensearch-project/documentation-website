@@ -283,7 +283,8 @@ Example:
 
 ```yml
 jwt_auth_domain:
-  enabled: true
+  http_enabled: true
+  transport_enabled: true
   order: 0
   http_authenticator:
     type: jwt
@@ -400,4 +401,43 @@ PS512: RSASSA-PSS using SHA-512 and MGF1 with SHA-512
 ES256: ECDSA using P-256 and SHA-256
 ES384: ECDSA using P-384 and SHA-384
 ES512: ECDSA using P-521 and SHA-512
+```
+
+### Troubleshooting common issues
+
+- Ensure that the JWT token contains the correct "iat" (issued at), "nbf" (not before) and "exp" (expiry) claims, all of which are validated automatically by opensearch
+- When using JWT URL Parameter containing the default admin role "all_access" against opensearch (for example: `curl http://localhost:9200?jwtToken=aabbccdd`), the request fails with:
+```json
+{
+   "error":{
+      "root_cause":[
+         {
+            "type":"security_exception",
+            "reason":"no permissions for [cluster:monitor/main] and User [name=admin, backend_roles=[all_access], requestedTenant=null]"
+         }
+      ],
+      "type":"security_exception",
+      "reason":"no permissions for [cluster:monitor/main] and User [name=admin, backend_roles=[all_access], requestedTenant=null]"
+   },
+   "status":403
+}
+```
+
+**Solution:** Ensure that the role "all_access" is mapped directly to the internal user, not a "backend role". To do this, navigate to Security > Roles > all_access and switch tab to "Mapped Users". Click on "Manage mapping" and add "admin" to the "users" section:
+
+![image](https://user-images.githubusercontent.com/5849965/179158704-b2bd6d48-8816-4b03-a960-8c612465cf75.png)
+
+The end result should show:
+
+![image](https://user-images.githubusercontent.com/5849965/179158750-1bb5e232-dd61-449a-a561-0613b71bfd68.png)
+
+(note the "User type" set to "User" in the first row above)
+
+- Even though JWT URL parameter authentication works when querying opensearch directly, it fails when used to access opensearch dashboards. 
+
+**Solution:** Ensure the following lines are present in the opensearch dashboards config file `opensearch_dashboards.yml`
+
+```yml
+opensearch_security.auth.type: "jwt"
+opensearch_security.jwt.url_param: your_param_name_here
 ```
