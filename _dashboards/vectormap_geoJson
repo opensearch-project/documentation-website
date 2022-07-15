@@ -1,0 +1,30 @@
+---
+layout: default
+title: Region map visualizations
+nav_order: 6
+
+# Region map visualizations
+
+OpenSearch Dashboards provides basic map tiles with a standard vector map that you use to create visualizations. OpenSearch also provides a standard set of GeoJSON files to provide a vector map with your regional maps.
+
+## Custom vector maps with Geo JSON
+
+You can also create your own custom vector map by uploading a Geo JSON file that contains data for your customized regional maps. The JSON file contains vector layers for visualization.
+
+1. Open OpenSearch Dashboards at `https://<host>:<port>`. For example, [https://localhost:5601](https://localhost:5601).
+1. If necessary, log in.
+1. Choose **Visualizations**, and **Create Visualization**.
+1. Select **Region Map**.
+1. Choose a source to upload your JSON file.
+1. Choose a source, for example: \**[Flights] Flight Log**.
+1. Select **Import Vector Map**. Upload your .json file and give a name for the custom map.
+
+## Layer options
+
+If you upload a custom Geo JSON file, you can toggle between the layer options: Default vector map or Custom vector map.
+
+1. Open OpenSearch Dashboards at `https://<host>:<port>`. For example, [https://localhost:5601](https://localhost:5601).
+1. If necessary, log in.
+1. Choose **Visualizations**, and **Create Visualization**.
+1. Select **Region Map**.
+1. Go to **Layer Options** and select the **Custom vector map** option. By default, the  **Default vector map** option is selected.
