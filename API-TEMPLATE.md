@@ -17,9 +17,10 @@ If you use the security plugin, make sure you have the appropriate permissions.
 ### Path parameters
 
 Introduce what the path parameters can do at a high level. Provide a table with Parameter names and descriptions. Include a table with the following columns:
-*Parameter* - Parameter name in plain font.
-*Data Type* - Data type in initial caps (e.g. Boolean, String, Integer).
-*Description* - Sentence to describe the parameter function, default values or range of values, and any usage examples.
+
+**Parameter** - Parameter name in plain font.
+**Data Type** - Data type in initial caps (e.g. Boolean, String, Integer).
+**Description** - Sentence to describe the parameter function, default values or range of values, and any usage examples.
 
 Parameter | Data Type | Description
 :--- | :--- | :---
