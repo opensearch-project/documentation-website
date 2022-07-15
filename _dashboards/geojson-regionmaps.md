@@ -3,6 +3,7 @@ layout: default
 title: Region map visualizations
 nav_order: 7
 ---
+
 # Region map visualizations
 
 OpenSearch Dashboards provides basic map tiles with a standard vector map that you can use to create your region map visualizations. You can configure the base map tiles using the WMS map server.
@@ -31,7 +32,7 @@ You can also create your own custom vector map by uploading a JSON file that con
 1. Choose a source, for example: **[Flights] Flight Log**.
 1. Select **Import Vector Map**. Upload your JSON file and give a name for the custom map.
 
-![import a Geo .json file]({{site.url}}{{site.baseurl}}/images/import-vector-map.png)
+<img src="{{site.url}}{{site.baseurl}}/images/import-vector-map.png" alt="import a Geo .json file" width="400"/>
 
 ## Layer options
 
