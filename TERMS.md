@@ -134,7 +134,7 @@ A collection of one or more nodes.
 
 **cluster manager**
 
-A single node that writes requests for the cluster and makes changes to other nodes. Each cluster contains a single cluster manager.
+A single node that routes requests for the cluster and makes changes to other nodes. Each cluster contains a single cluster manager.
 
 **console**
 
