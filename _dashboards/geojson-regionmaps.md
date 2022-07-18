@@ -19,34 +19,41 @@ If you have a specific locale that is not provided by OpenSearch Dashboards vect
 
 GeoJSON format allows you to encode geographic data structures. To learn more about the GeoJSON specification, go to [geojson.org](https://geojson.org/).
 
-You can use this tool to extract GeoJSON files: [geojson.io](https://geojson.io/#map=2/20.0/0.0).
+You can use [geojson.io](https://geojson.io/#map=2/20.0/0.0) to extract GeoJSON files.
 {: .tip }
 
 You can also create your own custom vector map by uploading a JSON file that contains GEO data for your customized regional maps. The JSON file contains vector layers for visualization.
 
-1. Open OpenSearch Dashboards at `https://<host>:<port>`. For example, [https://localhost:5601](https://localhost:5601).
-1. If necessary, log in.
-1. Choose **Visualizations**, and **Create Visualization**.
+1. Prepare a JSON file to upload. Make sure the file has either .geojson or .json extension.
+1. On the top menu bar, go to **OpenSearch Dashboards > Visualize**.
+1. Select the **Create Visualization** button.
 1. Select **Region Map**.
-1. Choose a source to upload your JSON file. Make sure the file has either .geojson or .json extension.
 1. Choose a source, for example: **[Flights] Flight Log**.
-1. Select **Import Vector Map**. Upload your JSON file and give a name for the custom map.
+1. In the right panel, select **Import Vector Map**. 
+1. In **Upload map**, select or drag and drop your JSON file.
+Enter **Map name prefix** (for example, `india-china`). Your map will have the prefix that you defined followed by the `-map` suffix (for example, `india-china-map`). 
+Select the **Import file** button. 
+Once the upload is successful, you will see a popup prompting you to refresh the map. Select the **Refresh** button.
 
-<img src="{{site.url}}{{site.baseurl}}/images/import-vector-map.png" alt="import a Geo .json file" width="400"/>
+<img src="{{site.url}}{{site.baseurl}}/images/import-vector-map.png" alt="import a Geo .json file" width="380"/>
 
 ## Layer options
 
-If you upload a custom Geo JSON file, you can toggle between the layer options: Default vector map or Custom vector map.
+If you upload a custom Geo JSON file, you can toggle between the layer options: **Default vector map** or **Custom vector map**.
 
-1. Open OpenSearch Dashboards at `https://<host>:<port>`. For example, [https://localhost:5601](https://localhost:5601).
-1. If necessary, log in.
-1. Choose **Visualizations**, and **Create Visualization**.
+1. On the top menu bar, go to **OpenSearch Dashboards > Visualize**.
+1. Select the **Create Visualization** button.
 1. Select **Region Map**.
-1. Go to **Layer Options** and select the **Custom vector map** option. By default, the  **Default vector map** option is selected.
+1. Choose a source, for example: **[Flights] Flight Log**.
+1. In the right panel, select **Layer Options**. 
+1. In the **Layer settings** section, under **Choose a vector map layer**, select the **Custom vector map** option. In **Vector map**, select the custom map you created. Select the **Update** button.
+
+Under **Layer settings > Style settings**, you may want to increase **Border thickness** to see the borders more clearly.
+{: .tip}
 
 ### Example GeoJSON file
 
-Here is an example GeoJSON file that provides coordinates for five US counties.
+The following example GeoJSON file provides coordinates for five US counties.
 
 ```json
 {
