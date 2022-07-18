@@ -4,9 +4,10 @@ This template provides the basic structure for creating OpenSource API documenta
 
 ### A note on terminology ###
 
-Terminology for API parameters varies in the software industry, where two or even three names may be used to label the same type of parameter. For the sake of consistency, we will use the following nomenclature for parameters in our API documentation.
-* *Endpoint parameter* - "Endpoint parameter", "path parameter", and "URL parameter" are sometimes used synonymously. To avoid confusion, we will use "endpoint parameter" in this documentation.
-* *Request parameter* - This parameter name is often used synonymously with "query parameter." We will use "request parameter" to be consistent.
+Terminology for API parameters varies in the software industry, where two or even three names may be used to label the same type of parameter. For the sake of consistency, we use the following nomenclature for parameters in our API documentation.
+* *Endpoint parameter* - "Endpoint parameter", "path parameter", and "URL parameter" are sometimes used synonymously. To avoid confusion, we use "endpoint parameter" in this documentation.
+* *Request parameter* - This parameter name is often used synonymously with "query parameter." We use "request parameter" to be consistent.
+
 
 ### General usage for code elements
 
@@ -32,36 +33,43 @@ The basic structure for API documentation is informed by the following elements,
 
 ## API name
 
-Provide an API name that describes its function and follow this with a description its top use case along with any recommendations for its usage if possible.
+Provide an API name that describes its function, followed by a description of its top use case and any usage recommendations.
 
 *Example function*: "Create or update mappings"
 
 Use initial caps for the heading, for example: Alerting API. When you refer to the API operation, you can use lowercase with code font.
 
-If there is a corresponding OpenSearch Dashboards feature, provide a “See also” link to refer them to it. 
+If there is a corresponding OpenSearch Dashboards feature, provide a “See also” link that references it. 
 *Example*:  “To learn more about monitor findings, see [Document findings](https://opensearch.org/docs/latest/monitoring-plugins/alerting/monitors/#document-findings)."
 
-Provide any caveats to its usage, if appropriate with a note or tip, as follows:
+Provide any caveats to its usage, if applicable, with a note or tip, as in the following example:
 
-**NOTE:** If you use the security plugin, make sure you have the appropriate permissions. 
-(to format note style on the website, follow the text on the next line with {: .note })
+"If you use the security plugin, make sure you have the appropriate permissions."
+(To set this point in note-style format, follow the text on the next line with {: .note })
 
 ### Endpoint parameters
 
+The API endpoint states the specific point of entry to the remote resource the API is attempting to contact, while an endpoint parameter populates a value that filters for specific data at that endpoint.
+
+```json
+GET _search/scroll/<scroll_id>
+```
+In the example above, the endpoint is "scroll" and its parameter is "scroll_id".
+
 Introduce what the endpoint parameters can do at a high level. Provide a table with parameter names and descriptions. Include a table with the following columns:
 *Parameter* - Parameter name in plain font.
-*Data Type* - Data type in initial caps (e.g. Boolean, String, Integer).
+*Data Type* - Data type in initial caps (such as Boolean, String, or Integer).
 *Description* - Sentence to describe the parameter function, default values or range of values, and any usage examples.
 
 Parameter | Data Type | Description
 :--- | :--- | :---
 
-This parameter follows directly in the URL after the resource name. (e.g., to add “timeout” to the endpoint parameter).
+This parameter directly follows the resource name in the URL. For example, to add “timeout” to the endpoint parameter, use
     PUT <index-name> /timeout
 
 ### Request parameters
 
-Include a paragraph that describes how to use the query parameters, with an example in code font. Include the query parameter operator (“?”) to delineate request parameters from endpoint parameters.
+Include a paragraph that describes how to use the request parameters with an example in code font. Include the query parameter operator (“?”) to delineate request parameters from endpoint parameters.
 
 (For GET and DELETE APIs): Introduce what you can do with the optional parameters. Include a table with the same columns as the path parameter table.
 
@@ -70,9 +78,9 @@ Parameter | Data Type | Description
 
 #### Sample Request
 
-Provide a sentence that describes what is shown in the example, followed by a cut and paste-ready API request in JSON format. Make sure that you test out the request yourself in the Dashboards API client to make sure it works!
+Provide a sentence that describes what is shown in the example, followed by a cut-and-paste-ready API request in JSON format. Make sure that you test out the request yourself in the Dashboards API client to make sure it works.
 
-“The following request includes the ignore_unavailable request parameter to skip any missing or closed indexes in the response:
+The following request includes the ignore_unavailable request parameter to skip any missing or closed indexes in the response:
 
 ```json
 PUT /sample-index/_mapping?ignore_unavailable
@@ -82,7 +90,7 @@ PUT /sample-index/_mapping?ignore_unavailable
 
 Include a JSON example response that the API returned.
 
-“Upon success, the response returns ”acknowledged“: true
+Upon success, the response returns ”acknowledged“: true
 
 ```json
 {
@@ -96,7 +104,7 @@ Include a JSON example response that the API returned.
 
 Include a table with these columns: 
 *Field* - Field name in plain font.
-*Data Type* - Data type in initial caps (e.g. Boolean, String, Integer).
+*Data Type* - Data type in initial caps (such as Boolean, String, or Integer).
 *Description* - Sentence to describe the field’s function, default values or range of values, and any usage examples.
 
 Field | Data Type | Description
@@ -107,9 +115,10 @@ Field | Data Type | Description
 
 Provide a sentence that describes what is shown in the example, followed by a cut-and-paste-ready API request in JSON format.
 
-“The following request creates a new mapping for the sample-index index:
+The following request creates a new mapping for the sample-index index:
 PUT /sample-index/_mapping
 
+```json
 {
   "properties": {
     "age": {
@@ -120,3 +129,4 @@ PUT /sample-index/_mapping
     }
   }
 }
+```
