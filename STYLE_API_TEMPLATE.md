@@ -28,7 +28,7 @@ When formatting, follow the heading hierarchy presented here. Depending on where
 
 1. Name of API (heading level 2)
 2. Path parameters (heading level 3)
-3. Request parameters (heading level 3)
+3. Query parameters (heading level 3)
 4. Sample request (heading level 4)
 5. Sample response (heading level 4)
 6. Request fields (heading level 3)
