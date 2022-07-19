@@ -31,7 +31,7 @@ You can also create your own custom vector map by uploading a JSON file that con
 1. Choose a source, for example: **[Flights] Flight Log**.
 1. In the right panel, select **Import Vector Map**. 
 1. In **Upload map**, select or drag and drop your JSON file.
-Enter **Map name prefix** (for example, `india-china`). Your map will have the prefix that you defined followed by the `-map` suffix (for example, `india-china-map`). 
+Enter **Map name prefix** (for example, `us-county`). Your map will have the prefix that you defined followed by the `-map` suffix (for example, `us-county-map`). 
 Select the **Import file** button. 
 Once the upload is successful, you will see a popup prompting you to refresh the map. Select the **Refresh** button.
 
