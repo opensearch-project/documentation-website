@@ -5,8 +5,8 @@ This template provides the basic structure for creating OpenSource API documenta
 ### A note on terminology ###
 
 Terminology for API parameters varies in the software industry, where two or even three names may be used to label the same type of parameter. For the sake of consistency, we use the following nomenclature for parameters in our API documentation.
-* *Endpoint parameter* - "Endpoint parameter", "path parameter", and "URL parameter" are sometimes used synonymously. To avoid confusion, we use "endpoint parameter" in this documentation.
-* *Request parameter* - This parameter name is often used synonymously with "query parameter." We use "request parameter" to be consistent.
+* *Path parameter* - "Path parameter" and "URL parameter" are sometimes used synonymously. To avoid confusion, we use "path parameter" in this documentation.
+* *Query parameter* - This parameter name is often used synonymously with "request parameter." We use "query parameter" to be consistent.
 
 
 ### General usage for code elements
@@ -23,8 +23,11 @@ See also [Examples](https://alpha-docs-aws.amazon.com/awsstyleguide/latest/style
 
 ## Basic elements for documentation
 The basic structure for API documentation is informed by the following elements, each discussed under their respective headings below.
+
+When formatting, follow the heading hierarchy presented here. Depending on where the documentation appears within a section or subsection, heading levels may be adjusted to fit with other content.
+
 1. Name of API (heading level 2)
-2. Endpoint parameters (heading level 3)
+2. Path parameters (heading level 3)
 3. Request parameters (heading level 3)
 4. Sample request (heading level 4)
 5. Sample response (heading level 4)
@@ -35,60 +38,67 @@ The basic structure for API documentation is informed by the following elements,
 
 Provide an API name that describes its function, followed by a description of its top use case and any usage recommendations.
 
-*Example function*: "Create or update mappings"
+*Example function*: "Autocomplete queries"
 
-Use initial caps for the heading, for example: Alerting API. When you refer to the API operation, you can use lowercase with code font.
+Use sentence capitalization for the heading (for example, "Create or update mappings"). When you refer to the API operation, you can use lowercase with code font.
 
 If there is a corresponding OpenSearch Dashboards feature, provide a “See also” link that references it. 
 *Example*:  “To learn more about monitor findings, see [Document findings](https://opensearch.org/docs/latest/monitoring-plugins/alerting/monitors/#document-findings)."
 
-Provide any caveats to its usage, if applicable, with a note or tip, as in the following example:
+If applicable, provide any caveats to its usage with a note or tip, as in the following example:
 
 "If you use the security plugin, make sure you have the appropriate permissions."
 (To set this point in note-style format, follow the text on the next line with {: .note })
 
-### Endpoint parameters
+### Path parameters
 
-The API endpoint states the specific point of entry to the remote resource the API is attempting to contact, while an endpoint parameter populates a value that filters for specific data at that endpoint.
+While the API endpoint states a point of entry to a resource, the path parameter identifies a specific resource within it. Path parameters are located in the path of the endpoint just before the query string and following the resource name in the URL.
+
 
 ```json
 GET _search/scroll/<scroll_id>
 ```
-In the example above, the endpoint is "scroll" and its parameter is "scroll_id".
+In the example above, the endpoint is "scroll" and its path parameter is "scroll_id".
 
-Introduce what the endpoint parameters can do at a high level. Provide a table with parameter names and descriptions. Include a table with the following columns:
+Introduce what the path parameters can do at a high level. Provide a table with parameter names and descriptions. Include a table with the following columns:
 *Parameter* - Parameter name in plain font.
-*Data Type* - Data type in initial caps (such as Boolean, String, or Integer).
+*Data Type* - Data type capitalized (such as Boolean, String, or Integer).
 *Description* - Sentence to describe the parameter function, default values or range of values, and any usage examples.
 
 Parameter | Data Type | Description
 :--- | :--- | :---
 
-This parameter directly follows the resource name in the URL. For example, to add “timeout” to the endpoint parameter, use
-    PUT <index-name> /timeout
 
-### Request parameters
+### Query parameters
 
-Include a paragraph that describes how to use the request parameters with an example in code font. Include the query parameter operator (“?”) to delineate request parameters from endpoint parameters.
+In terms of placement, query parameters are always appended to the end of the URL and located to the right of the operator "?". Query parameters serve the purpose of sorting and/or filtering information to be retrieved from the resource. 
+
+```json
+GET _cat/aliases?v
+```
+
+In the example above, the endpoint is "aliases" and its query parameter is "v" (provides verbose output).
+
+Include a paragraph that describes how to use the query parameters with an example in code font. Include the query parameter operator (“?”) to delineate query parameters from path parameters.
 
 (For GET and DELETE APIs): Introduce what you can do with the optional parameters. Include a table with the same columns as the path parameter table.
 
 Parameter | Data Type | Description
 :--- | :--- | :---
 
-#### Sample Request
+#### Sample request
 
-Provide a sentence that describes what is shown in the example, followed by a cut-and-paste-ready API request in JSON format. Make sure that you test out the request yourself in the Dashboards API client to make sure it works.
+Provide a sentence that describes what is shown in the example, followed by a cut-and-paste-ready API request in JSON format. Make sure that you test out the request yourself in the Dashboards Dev Tools console to make sure it works.
 
-The following request includes the ignore_unavailable request parameter to skip any missing or closed indexes in the response:
+The following request includes the ignore_unavailable query parameter to skip any missing or closed indexes in the response:
 
 ```json
 PUT /sample-index/_mapping?ignore_unavailable
 ```
 
-#### Sample Response
+#### Sample response
 
-Include a JSON example response that the API returned.
+Include a JSON example response to show what the API returns.
 
 Upon success, the response returns ”acknowledged“: true
 
@@ -98,20 +108,20 @@ Upon success, the response returns ”acknowledged“: true
 }
 ```
 
-### Request fields
+### Request body
 
-(For PUT and POST APIs): Introduce what the request fields are acceptable to provide in the body of the request.
+(For PUT and POST APIs): Introduce what the request fields are allowed to provide in the body of the request.
 
 Include a table with these columns: 
 *Field* - Field name in plain font.
-*Data Type* - Data type in initial caps (such as Boolean, String, or Integer).
+*Data Type* - Data type capitalized (such as Boolean, String, or Integer).
 *Description* - Sentence to describe the field’s function, default values or range of values, and any usage examples.
 
 Field | Data Type | Description
 :--- | :--- | :--- 
 
 
-#### Sample Request
+#### Sample request
 
 Provide a sentence that describes what is shown in the example, followed by a cut-and-paste-ready API request in JSON format.
 
