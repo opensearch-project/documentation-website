@@ -19,6 +19,9 @@ You can install individual plugins on an OpenSearch cluster.
 
 ## Install a plugin
 
+If you are running OpenSearch in a Docker container, plugins must be installed, removed, and configured by modifying the Docker image. For information, see [Install, configure or remove plugins]({{site.url}}{{site.baseurl}}/opensearch/install/docker#install-configure-or-remove-plugins)
+{: .note}
+
 The install command takes a plugin id, which may be any of the following:
 
 - An official OpenSearch plugin name
