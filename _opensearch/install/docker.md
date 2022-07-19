@@ -284,7 +284,7 @@ docker exec -it <container-id> /bin/bash
 ```
 
 
-## Customize the Docker image
+## Install, configure or remove plugins
 
 To run the image with a custom plugin, first create a [`Dockerfile`](https://docs.docker.com/engine/reference/builder/):
 
