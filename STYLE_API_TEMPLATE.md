@@ -17,7 +17,7 @@ When you describe any code element such as an API, a parameter, or a field in a 
 
 When you provide an exact example with a value, you can use the code element in code font. 
   *Example usage*: 
-  The response provides a value for ```time_field``` , such as “timestamp.” 
+  The response provides a value for `time_field` , such as “timestamp.” 
 
 See also [Examples](https://alpha-docs-aws.amazon.com/awsstyleguide/latest/styleguide/examples.html) in the AWS Style Guide.
 
@@ -58,7 +58,7 @@ While the API endpoint states a point of entry to a resource, the path parameter
 ```json
 GET _search/scroll/<scroll_id>
 ```
-In the example above, the endpoint is ```scroll``` and its path parameter is ```<scroll_id>```.
+In the example above, the endpoint is `scroll` and its path parameter is `<scroll_id>`.
 
 Introduce what the path parameters can do at a high level. Provide a table with parameter names and descriptions. Include a table with the following columns:
 *Parameter* - Parameter name in plain font.
@@ -77,7 +77,7 @@ In terms of placement, query parameters are always appended to the end of the UR
 GET _cat/aliases?v
 ```
 
-In the example above, the endpoint is ```aliases``` and its query parameter is ```v``` (provides verbose output).
+In the example above, the endpoint is `aliases` and its query parameter is `v` (provides verbose output).
 
 Include a paragraph that describes how to use the query parameters with an example in code font. Include the query parameter operator (“?”) to delineate query parameters from path parameters.
 
