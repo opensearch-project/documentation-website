@@ -9,7 +9,7 @@ nav_order: 7
 OpenSearch Dashboards provides basic map tiles with a standard vector map that you can use to create your region map visualizations. You can configure the base map tiles using the WMS map server.
 
 You can't configure a server to support user-defined vector map layers. However, you can configure your own GeoJSON file and upload it for this purpose. 
-{: .note }
+{: .note}
 
 OpenSearch also provides a standard set of GeoJSON files to provide a vector map with your regional maps.
 
@@ -20,7 +20,7 @@ If you have a specific locale that is not provided by OpenSearch Dashboards vect
 GeoJSON format allows you to encode geographic data structures. To learn more about the GeoJSON specification, go to [geojson.org](https://geojson.org/).
 
 You can use [geojson.io](https://geojson.io/#map=2/20.0/0.0) to extract GeoJSON files.
-{: .tip }
+{: .tip}
 
 You can also create your own custom vector map by uploading a JSON file that contains GEO data for your customized regional maps. The JSON file contains vector layers for visualization.
 
