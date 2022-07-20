@@ -39,7 +39,7 @@ Once the upload is successful, you will see a popup prompting you to refresh the
 
 ## Layer options
 
-If you upload a custom Geo JSON file, you can toggle between the layer options: **Default vector map** or **Custom vector map**.
+If you upload a custom GeoJSON file, you can toggle between the layer options: **Default vector map** or **Custom vector map**.
 
 1. On the top menu bar, go to **OpenSearch Dashboards > Visualize**.
 1. Select the **Create Visualization** button.
