@@ -7,12 +7,22 @@ nav_order: 3
 
 # Docker image
 
-You can pull the OpenSearch Docker image just like any other image:
+You can pull the OpenSearch Docker image from either Docker Hub or the public gallery hosted on AWS Elastic Container Registry (ECR).
 
+From [Docker Hub](https://hub.docker.com/u/opensearchproject):
 ```bash
 docker pull opensearchproject/opensearch:latest
 docker pull opensearchproject/opensearch-dashboards:latest
 ```
+
+From [AWS ECR](https://gallery.ecr.aws/opensearchproject/):
+```bash
+docker pull public.ecr.aws/opensearchproject/opensearch:latest
+docker pull public.ecr.aws/opensearchproject/opensearch-dashboards:latest
+```
+
+To download a specific version of OpenSearch or OpenSearch Dashboards, modify the image tag (`latest`) to point to a valid version number. For example, `docker pull opensearchproject/opensearch:1.3.0` will download the image corresponding to OpenSearch 1.3.0.
+{: .note}
 
 To check available versions, see [Docker Hub](https://hub.docker.com/u/opensearchproject).
 
