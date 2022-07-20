@@ -58,7 +58,7 @@ While the API endpoint states a point of entry to a resource, the path parameter
 ```json
 GET _search/scroll/<scroll_id>
 ```
-In the example above, the endpoint is "scroll" and its path parameter is "scroll_id".
+In the example above, the endpoint is ```scroll``` and its path parameter is ```<scroll_id>```.
 
 Introduce what the path parameters can do at a high level. Provide a table with parameter names and descriptions. Include a table with the following columns:
 *Parameter* - Parameter name in plain font.
@@ -71,13 +71,13 @@ Parameter | Data Type | Description
 
 ### Query parameters
 
-In terms of placement, query parameters are always appended to the end of the URL and located to the right of the operator "?". Query parameters serve the purpose of sorting and/or filtering information to be retrieved from the resource. 
+In terms of placement, query parameters are always appended to the end of the URL and located to the right of the operator "?". Query parameters serve the purpose of modifying information to be retrieved from the resource.
 
 ```json
 GET _cat/aliases?v
 ```
 
-In the example above, the endpoint is "aliases" and its query parameter is "v" (provides verbose output).
+In the example above, the endpoint is ```aliases``` and its query parameter is ```v``` (provides verbose output).
 
 Include a paragraph that describes how to use the query parameters with an example in code font. Include the query parameter operator (“?”) to delineate query parameters from path parameters.
 
