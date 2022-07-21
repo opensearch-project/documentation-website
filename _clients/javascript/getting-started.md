@@ -1,10 +1,11 @@
 ---
 layout: default
-title: JavaScript client
-nav_order: 100
+title: Getting started
+parent: JavaScript client
+nav_order: 1
 ---
 
-# JavaScript client
+# Getting started
 
 The OpenSearch JavaScript (JS) client provides a safer and easier way to interact with your OpenSearch cluster. Rather than using OpenSearch from the browser and potentially exposing your data to the public, you can build an OpenSearch client that takes care of sending requests to your cluster.
 
