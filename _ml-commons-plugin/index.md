@@ -26,7 +26,7 @@ There are two reserved user roles that can use of the ML commons plugin.
 
 ## ML node
 
-To prevent your cluster from failing when running ML tasks, you configure a node with the `ml` node role. When configuring without the `data` node role, ML nodes will not store any shards and calculates resource requirements at runtime. To use an ML node, create a node in your `opensearch.yml` file. Change the name of the node to `ml-node` and define the node role as `ml`:
+To prevent your cluster from failing when running ML tasks, you configure a node with the `ml` node role. When configuring without the `data` node role, ML nodes will not store any shards and will calculate resource requirements at runtime. To use an ML node, create a node in your `opensearch.yml` file. Give your node a custom name and define the node role as `ml`:
 
 ```yml
 node.name: ml-node
