@@ -8,7 +8,6 @@ Terminology for API parameters varies in the software industry, where two or eve
 * *Path parameter* – "path parameter" and "URL parameter" are sometimes used synonymously. To avoid confusion, we use "path parameter" in this documentation.
 * *Query parameter* – This parameter name is often used synonymously with "request parameter." We use "query parameter" to be consistent.
 
-
 ### General usage for code elements
 
 When you describe any code element in a sentence, such as an API, a parameter, or a field, you can use the noun name. 
@@ -68,7 +67,6 @@ Introduce what the path parameters can do at a high level. Provide a table with 
 Parameter | Data Type | Description
 :--- | :--- | :---
 
-
 ### Query parameters
 
 In terms of placement, query parameters are always appended to the end of the URL and located to the right of the operator "?". Query parameters serve the purpose of modifying information to be retrieved from the resource.
@@ -119,7 +117,6 @@ Include a table with these columns:
 
 Field | Data Type | Description
 :--- | :--- | :--- 
-
 
 #### Sample request
 
