@@ -23,3 +23,12 @@ There are two reserved user roles that can use of the ML commons plugin.
 
 - `ml_full_access`: Full access to all ML features, including starting new ML tasks and reading or deleting models.
 - `ml_readonly_access`: Can only read ML tasks, trained models and statistics relevant to the model's cluster. Cannot start nor delete ML tasks or models.
+
+## ML node
+
+To prevent your cluster from failing when running ML tasks, you configure a node with the `ml` node role. When configuring without the `data` node role, ML nodes will not store any shards and will calculate resource requirements at runtime. To use an ML node, create a node in your `opensearch.yml` file. Give your node a custom name and define the node role as `ml`:
+
+```yml
+node.name: ml-node
+node.roles: [ ml ]
+```
