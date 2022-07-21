@@ -53,7 +53,6 @@ If applicable, provide any caveats to its usage with a note or tip, as in the fo
 
 While the API endpoint states a point of entry to a resource, the path parameter identifies a specific resource within it. Path parameters are located in the path of the endpoint just before the query string and following the resource name in the URL.
 
-
 ```json
 GET _search/scroll/<scroll_id>
 ```
