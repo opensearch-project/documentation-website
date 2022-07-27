@@ -18,6 +18,7 @@ For example, a 1.0.0 client works with an OpenSearch 1.1.0 cluster, but might no
 {% endcomment %}
 * [OpenSearch Python client]({{site.url}}{{site.baseurl}}/clients/python/)
 * [OpenSearch JavaScript (Node.js) client]({{site.url}}{{site.baseurl}}/clients/javascript/)
+* [OpenSearch .NET clients]({{site.url}}{{site.baseurl}}/clients/dot-net/)
 * [OpenSearch Go client]({{site.url}}{{site.baseurl}}/clients/go/)
 * [OpenSearch PHP client]({{site.url}}{{site.baseurl}}/clients/php/)
 
