@@ -1,5 +1,5 @@
 # OpenSearch style guidelines
-
+mn fm,na dam,sn am sfa,mns fm,anfs m,na 
 Welcome to the content style guide for the OpenSearch project. This guide covers the style standards to be observed when creating OpenSearch content and will evolve as we implement best practices and lessons learned in order to best serve the community.
 
 Our content is generally edited in accordance with the _AWS Style Guide_, the [Microsoft Writing Style Guide](https://docs.microsoft.com/en-us/style-guide/welcome/), [The Chicago Manual of Style](https://www.chicagomanualofstyle.org/home.html), and [Merriam-Webster](https://www.merriam-webster.com/) (listed in order of precedence); however, we may deviate from these style guides in order to maintain consistency and accommodate the unique needs of the community. This is by no means an exhaustive list of style standards, and we value transparency, so we welcome contributions to our style standards and guidelines. If you have a question regarding our standards or adherence/non-adherence to the style guides or would like to make a contribution, please tag @natebower on GitHub.
@@ -121,7 +121,7 @@ A procedure is a series of numbered steps that a user follows to complete a spec
 Following is an example of procedure phrasing and formatting from Amazon EC2.
 
 ![Procedure example](/images/procedures.PNG)
-
+THIS IS MY UPDATE
 ### Miscellaneous
 
 - Use contractions carefully for a more casual tone. Use common contractions. Avoid future tense (I’ll), archaic (‘twas), colloquial (ain’t), or compound (couldn’t’ve) contractions.
