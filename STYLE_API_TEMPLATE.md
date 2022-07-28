@@ -22,7 +22,7 @@ See also [Examples](https://alpha-docs-aws.amazon.com/awsstyleguide/latest/style
 
 ## Basic elements for documentation
 
-The basic structure for API documentation is informed by the following sections, each discussed under its respective heading below. Include those elements appropriate to the API. Depending on where the documentation appears within a section or subsection, heading levels may be adjusted to fit with other content.
+The following sections describe the basic API documentation structure. Each section is discussed under its respective heading below. Include those elements appropriate to the API. Depending on where the documentation appears within a section or subsection, heading levels may be adjusted to fit with other content.
 
 1. Name of API (heading level 2)
 2. Path parameters (heading level 3)
