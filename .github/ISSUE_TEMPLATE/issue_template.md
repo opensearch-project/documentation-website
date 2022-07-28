@@ -1,3 +1,11 @@
+---
+name: 📃 Documentation issue
+about: Need docs? Create an issue to request or add new documentation.
+title: '[DOC]'
+labels: 'untriaged'
+assignees: ''
+---
+
 ## What do you want to do?
  
 - [ ] Request a change to existing documentation
@@ -13,4 +21,4 @@ For example, what feature or area does it affect? What versions? If it’s a cha
 
 For example, a link to a related fixed issue, a design doc, or any particular POCs (Eng or PM) who have more information?
 
-## Is there anything else you'd like to add?**
+## Is there anything else you'd like to add?
