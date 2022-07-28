@@ -1,6 +1,6 @@
 # API reference page template
 
-This template provides the basic structure for creating OpenSearch API documentation, including the essential headings that describe the elements of the API and helpful suggestions to help support them.
+This template provides the basic structure for creating OpenSearch API documentation. It includes the most important elements that should appear in the documentation and helpful suggestions to help support them. Depending on the intended purpose of the API, some sections will be required while others may not be applicable. 
 
 ### A note on terminology ###
 
@@ -21,9 +21,8 @@ When you provide an exact example with a value, you can use the code element in 
 See also [Examples](https://alpha-docs-aws.amazon.com/awsstyleguide/latest/styleguide/examples.html) in the AWS Style Guide.
 
 ## Basic elements for documentation
-The basic structure for API documentation is informed by the following elements, each discussed under its respective heading below.
 
-When formatting, follow the heading hierarchy below. Depending on where the documentation appears within a section or subsection, heading levels may be adjusted to fit with other content.
+The basic structure for API documentation is informed by the following sections, each discussed under its respective heading below. Include those elements appropriate to the API. Depending on where the documentation appears within a section or subsection, heading levels may be adjusted to fit with other content.
 
 1. Name of API (heading level 2)
 2. Path parameters (heading level 3)
