@@ -9,23 +9,26 @@ has_math: true
 
 # Approximate k-NN search
 
-The approximate k-NN search method uses nearest neighbor algorithms from *nmslib* and *faiss* to power
-k-NN search. To see the algorithms that the plugin currently supports, check out the [k-NN Index documentation]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index#method-definitions).
-In this case, approximate means that for a given search, the neighbors returned are an estimate of the true k-nearest neighbors. Of the three search methods the plugin provides, this method offers the best search scalability for large data sets. Generally speaking, once the data set gets into the hundreds of thousands of vectors, this approach is preferred.
+Standard k-NN search methods compute similarity using a “brute-force” approach that measures nearest distance between a query and a number of points, which produces exact results. This works well in many applications. However, in the case of extremely large data sets with high dimensionality, this creates a scaling problem that reduces the efficiency of the search. Approximate k-NN search methods can overcome this by employing tools that restructure indexes more efficiently and reduce the dimensionality of searchable vectors. Using this approach requires a sacrifice in accuracy but increases search processing speeds appreciably.
 
-The k-NN plugin builds a native library index of the vectors for each "knn-vector field"/ "Lucene segment" pair during indexing that can be used to efficiently find the k-nearest neighbors to a query vector during search. To learn more about Lucene segments, see the [Apache Lucene documentation](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/codecs/lucene87/package-summary.html#package.description).
-These native library indices are loaded into native memory during search and managed by a cache. To learn more about
-pre-loading native library indices into memory, refer to the [warmup API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#warmup-operation). Additionally, you can see what native library indices are already loaded in memory, which you can learn more about in the [stats API section]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#stats).
+The approximate k-NN search methods leveraged by OpenSearch use approximate nearest neighbor (ANN) algorithms from nmslib, faiss, and Lucene libraries to power k-NN search. These search methods employ ANN to improve search latency over large data sets. Of the three search methods the k-NN plugin provides, this method offers the best search scalability for large data sets. This approach is the preferred method when a data set reaches hundreds of thousands of vectors.
 
-Because the native library indices are constructed during indexing, it is not possible to apply a filter on an index
+For details on the algorithms the plugin currently supports, see [k-NN Index documentation]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index#method-definitions).
+{: .note}
+
+The k-NN plugin builds a native library index of the vectors for each "knn-vector field"/"Lucene segment" pair during indexing, which can be used to efficiently find the k-nearest neighbors to a query vector during search. To learn more about Lucene segments, see the [Apache Lucene documentation](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/codecs/lucene87/package-summary.html#package.description).
+These native library indexes are loaded into native memory during search and managed by a cache. To learn more about
+pre-loading native library indexes into memory, refer to the [warmup API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#warmup-operation). Additionally, you can see which native library indexes are already loaded in memory. Learn more about this in the [stats API section]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#stats).
+
+Because the native library indexes are constructed during indexing, it is not possible to apply a filter on an index
 and then use this search method. All filters are applied on the results produced by the approximate nearest neighbor search.
 
 ## Get started with approximate k-NN
 
-To use the k-NN plugin's approximate search functionality, you must first create a k-NN index with setting `index.knn` to `true`. This setting tells the plugin to create native library indices for the index.
+To use the k-NN plugin's approximate search functionality, you must first create a k-NN index with `index.knn` set to `true`. This setting tells the plugin to create native library indexes for the index.
 
 Next, you must add one or more fields of the `knn_vector` data type. This example creates an index with two
-`knn_vector`'s, one using *faiss*, the other using *nmslib*, fields:
+`knn_vector` fields, one using `faiss` and the other using `nmslib` fields:
 
 ```json
 PUT my-knn-index-1
@@ -69,12 +72,11 @@ PUT my-knn-index-1
 }
 ```
 
-In the example above, both `knn_vector`s are configured from method definitions. Additionally, `knn_vector`s can also be configured from models. Learn more about it [here]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index#knn_vector-data-type)!
+In the example above, both `knn_vector` fields are configured from method definitions. Additionally, `knn_vector` fields can also be configured from models. Learn more about this in [knn_vector data type]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index#knn_vector-data-type).
 
-The `knn_vector` data type supports a vector of floats that can have a dimension of up to 10,000, as set by the
-dimension mapping parameter.
+The `knn_vector` data type supports a vector of floats that can have a dimension of up to 10000 for the nmslib and faiss engines, as set by the dimension mapping parameter. The maximum dimension for the Lucene library is 1024.
 
-In OpenSearch, codecs handle the storage and retrieval of indices. The k-NN plugin uses a custom codec to write vector data to native library indices so that the underlying k-NN search library can read it.
+In OpenSearch, codecs handle the storage and retrieval of indexes. The k-NN plugin uses a custom codec to write vector data to native library indexes so that the underlying k-NN search library can read it.
 {: .tip }
 
 After you create the index, you can add some data to it:
@@ -148,7 +150,7 @@ PUT /train-index
 }
 ```
 
-Notice that `index.knn` is not set in the index settings. This ensures that we do not create native library indices for this index.
+Notice that `index.knn` is not set in the index settings. This ensures that we do not create native library indexes for this index.
 
 Next, let's add some data to it:
 
@@ -201,7 +203,7 @@ GET /_plugins/_knn/models/my-model?filter_path=state&pretty
 ```
 
 Once the model enters the "created" state, we can create an index that will use this model to initialize it's native
-library indices:
+library indexes:
 
 ```json
 PUT /target-index
