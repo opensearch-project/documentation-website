@@ -58,15 +58,15 @@ A method definition will always contain the name of the method, the space_type t
 Mapping Parameter | Required | Default | Updatable | Description
 :--- | :--- | :--- | :--- | :---
 `name` | true | n/a | false | The identifier for the nearest neighbor method.
-`space_type` | false | "l2" | false | The vector space used to calculate the distance between vectors.
-`engine` | false | "nmslib" | false | The approximate k-NN library to use for indexing and search. The available libraries are faiss, nmslib, and Lucene.
+`space_type` | false | l2 | false | The vector space used to calculate the distance between vectors.
+`engine` | false | nmslib | false | The approximate k-NN library to use for indexing and search. The available libraries are faiss, nmslib, and Lucene.
 `parameters` | false | null | false | The parameters used for the nearest neighbor method.
 
 ### Supported nmslib methods
 
 Method Name | Requires Training? | Supported Spaces | Description
 :--- | :--- | :--- | :---
-`hnsw` | false | "l2", "innerproduct", "cosinesimil", "l1", "linf" | Hierarchical proximity graph approach to Approximate k-NN search. For more details on the algorithm, see this [abstract](https://arxiv.org/abs/1603.09320).
+`hnsw` | false | l2, innerproduct, cosinesimil, l1, linf | Hierarchical proximity graph approach to Approximate k-NN search. For more details on the algorithm, see this [abstract](https://arxiv.org/abs/1603.09320).
 
 #### HNSW Parameters
 
@@ -82,8 +82,8 @@ For *nmslib*, *ef_search* is set in the [index settings](#index-settings).
 
 Method Name | Requires Training? | Supported Spaces | Description
 :--- | :--- | :--- | :---
-`hnsw` | false | "l2", "innerproduct"* | Hierarchical proximity graph approach to Approximate k-NN search.
-`ivf` | true | "l2", "innerproduct" | Bucketing approach where vectors are assigned different buckets based on clustering and, during search, only a subset of the buckets are searched.
+`hnsw` | false | l2, innerproduct | Hierarchical proximity graph approach to Approximate k-NN search.
+`ivf` | true | l2, innerproduct | Bucketing approach where vectors are assigned different buckets based on clustering and, during search, only a subset of the buckets are searched.
 
 For *hnsw*, "innerproduct" is not available when PQ is used.
 {: .note}
@@ -118,7 +118,7 @@ Training data can either the same data that is going to be ingested or a separat
 
 Method Name | Requires Training? | Supported Spaces | Description
 :--- | :--- | :--- | :---
-`hnsw` | false | "l2", "innerproduct", "cosinesimil", "l1", "linf" | Hierarchical proximity graph approach to Approximate k-NN search.
+`hnsw` | false | l2, innerproduct, cosinesimil, l1, linf | Hierarchical proximity graph approach to Approximate k-NN search.
 
 #### HNSW Parameters
 
@@ -148,7 +148,7 @@ The Lucene engine internally reads "k" as equal to `ef_search` and therefore rem
 
 ### Supported faiss encoders
 
-You can use encoders to reduce the memory footprint of a k-NN index at the expense of search accuracy. *faiss* has
+You can use encoders to reduce the memory footprint of a k-NN index at the expense of search accuracy. faiss has
 several encoder types, but currently, the plugin only supports *flat* and *pq* encoding.
 
 An example method definition that specifies an encoder may look something like this:
@@ -231,6 +231,6 @@ Setting | Default | Updateable | Description
 :--- | :--- | :--- | :---
 `index.knn` | false | false | Whether the index should build native library indices for the `knn_vector` fields. If set to false, the `knn_vector` fields will be stored in doc values, but Approximate k-NN search functionality will be disabled.
 `index.knn.algo_param.ef_search` | 512 | true | The size of the dynamic list used during k-NN searches. Higher values lead to more accurate but slower searches. Only available for *nmslib*.
-`index.knn.algo_param.ef_construction` | 512 | false | (Deprecated in 1.0.0. Use the mapping parameters to set this value instead.) Only available for *nmslib*. Refer to mapping definition.
+`index.knn.algo_param.ef_construction` | 512 | false | (Deprecated in 1.0.0. Use the mapping parameters to set this value instead.) Only available for nmslib. Refer to mapping definition.
 `index.knn.algo_param.m` | 16 | false | (Deprecated in 1.0.0. Use the mapping parameters to set this value instead.) Only available for *nmslib*. Refer to mapping definition.
-`index.knn.space_type` | "l2" | false | (Deprecated in 1.0.0. Use the mapping parameters to set this value instead.) Only available for *nmslib*. Refer to mapping definition.
+`index.knn.space_type` | l2 | false | (Deprecated in 1.0.0. Use the mapping parameters to set this value instead.) Only available for nmslib. Refer to mapping definition.
