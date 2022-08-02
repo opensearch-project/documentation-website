@@ -79,19 +79,10 @@ If you generate TLS certificates and have enabled hostname verification by setti
 
 If you want to use the same node certificate on all nodes (not recommended), set hostname verification to `false`. For more information, see [Configure TLS certificates]({{site.url}}{{site.baseurl}}/security-plugin/configuration/tls#advanced-hostname-verification-and-dns-lookup).
 
-We recommend specifying a subject alternative name (SAN) for all generated certificates to ensure compliance with [RFC 2818 (HTTP Over TLS)](https://datatracker.ietf.org/doc/html/rfc2818). The SAN should match the node's CN so that both refer to the same DNS A record.
-{: .note }
-
-Create a SAN extension which describes the DNS A record for the host:
+Now that the private key and signing request have been created, generate the certificate:
 
 ```bash
-echo 'subjectAltName=DNS:admin.dns.a-record' > admin.ext
-```
-
-Finally, generate the certificate itself. 
-
-```bash
-openssl x509 -req -in admin.csr -CA root-ca.pem -CAkey root-ca-key.pem -CAcreateserial -sha256 -out admin.pem -days 730 -extfile admin.ext
+openssl x509 -req -in admin.csr -CA root-ca.pem -CAkey root-ca-key.pem -CAcreateserial -sha256 -out admin.pem -days 730
 ```
 
 Just like the root certificate, use the `-days` option to specify an expiration date of longer than 30 days.
@@ -99,7 +90,40 @@ Just like the root certificate, use the `-days` option to specify an expiration 
 
 ## (Optional) Generate node and client certificates
 
-Follow the steps in [Generate an admin certificate](#generate-an-admin-certificate) with new file names to generate a new certificate for each node and as many client certificates as you need. For example, you might generate one client certificate for OpenSearch Dashboards and another for a Python client. Each certificate should use its own private key and should be generated from a unique CSR with matching SAN extension specific to the intended host.
+Similar to the steps in [Generate an admin certificate](#generate-an-admin-certificate), you will generate keys and CSRs with new file names for each node and as many client certificates as you need. For example, you might generate one client certificate for OpenSearch Dashboards and another for a Python client. Each certificate should use its own private key and should be generated from a unique CSR with matching SAN extension specific to the intended host. A SAN extension is not needed for the admin cert because that cert is not tied to a specific host.
+
+To generate a node or client certificate, first create a new key:
+
+```bash
+openssl genrsa -out node1-key-temp.pem 2048
+```
+
+Then convert that key to PKCS#8 format for use in Java using a PKCS#12-compatible algorithm (3DES):
+
+```bash
+openssl pkcs8 -inform PEM -outform PEM -in node1-key-temp.pem -topk8 -nocrypt -v1 PBE-SHA1-3DES -out node1-key.pem
+```
+
+Next, create the CSR:
+
+```bash
+openssl req -new -key node1-key.pem -out node1.csr
+```
+
+For all host and client certificates, you should specify a subject alternative name (SAN) to ensure compliance with [RFC 2818 (HTTP Over TLS)](https://datatracker.ietf.org/doc/html/rfc2818). The SAN should match the corresponding CN so that both refer to the same DNS A record.
+{: .note }
+
+Before generating a signed certificate, create a SAN extension file which describes the DNS A record for the host:
+
+```bash
+echo 'subjectAltName=DNS:node1.dns.a-record' > node1.ext
+```
+
+Now generate the certificate:
+
+```bash
+openssl x509 -req -in node1.csr -CA root-ca.pem -CAkey root-ca-key.pem -CAcreateserial -sha256 -out node1.pem -days 730 -extfile node1.ext
+```
 
 
 ## Sample script
@@ -114,9 +138,8 @@ openssl req -new -x509 -sha256 -key root-ca-key.pem -subj "/C=CA/ST=ONTARIO/L=TO
 # Admin cert
 openssl genrsa -out admin-key-temp.pem 2048
 openssl pkcs8 -inform PEM -outform PEM -in admin-key-temp.pem -topk8 -nocrypt -v1 PBE-SHA1-3DES -out admin-key.pem
-openssl req -new -key admin-key.pem -subj "/C=CA/ST=ONTARIO/L=TORONTO/O=ORG/OU=UNIT/CN=admin.dns.a-record" -out admin.csr
-echo 'subjectAltName=DNS:admin.dns.a-record' > admin.ext
-openssl x509 -req -in admin.csr -CA root-ca.pem -CAkey root-ca-key.pem -CAcreateserial -sha256 -out admin.pem -days 730 -extfile admin.ext
+openssl req -new -key admin-key.pem -subj "/C=CA/ST=ONTARIO/L=TORONTO/O=ORG/OU=UNIT/CN=A" -out admin.csr
+openssl x509 -req -in admin.csr -CA root-ca.pem -CAkey root-ca-key.pem -CAcreateserial -sha256 -out admin.pem -days 730
 # Node cert 1
 openssl genrsa -out node1-key-temp.pem 2048
 openssl pkcs8 -inform PEM -outform PEM -in node1-key-temp.pem -topk8 -nocrypt -v1 PBE-SHA1-3DES -out node1-key.pem
@@ -157,7 +180,7 @@ You must specify the distinguished names (DNs) for all admin and node certificat
 
 ```yml
 plugins.security.authcz.admin_dn:
-  - 'CN=admin.dns.a-record,OU=UNIT,O=ORG,L=TORONTO,ST=ONTARIO,C=CA'
+  - 'CN=A,OU=UNIT,O=ORG,L=TORONTO,ST=ONTARIO,C=CA'
 plugins.security.nodes_dn:
   - 'CN=node1.dns.a-record,OU=UNIT,O=ORG,L=TORONTO,ST=ONTARIO,C=CA'
   - 'CN=node2.dns.a-record,OU=UNIT,O=ORG,L=TORONTO,ST=ONTARIO,C=CA'
@@ -200,7 +223,7 @@ plugins.security.ssl.http.pemcert_filepath: node1.pem
 plugins.security.ssl.http.pemkey_filepath: node1-key.pem
 plugins.security.ssl.http.pemtrustedcas_filepath: root-ca.pem
 plugins.security.authcz.admin_dn:
-  - 'CN=admin.dns.a-record,OU=UNIT,O=ORG,L=TORONTO,ST=ONTARIO,C=CA'
+  - 'CN=A,OU=UNIT,O=ORG,L=TORONTO,ST=ONTARIO,C=CA'
 plugins.security.nodes_dn:
   - 'CN=node1.dns.a-record,OU=UNIT,O=ORG,L=TORONTO,ST=ONTARIO,C=CA'
   - 'CN=node2.dns.a-record,OU=UNIT,O=ORG,L=TORONTO,ST=ONTARIO,C=CA'
