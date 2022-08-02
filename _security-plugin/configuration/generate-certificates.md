@@ -161,7 +161,6 @@ openssl x509 -req -in client.csr -CA root-ca.pem -CAkey root-ca-key.pem -CAcreat
 # Cleanup
 rm admin-key-temp.pem
 rm admin.csr
-rm admin.ext
 rm node1-key-temp.pem
 rm node1.csr
 rm node1.ext
