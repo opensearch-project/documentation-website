@@ -119,7 +119,7 @@ Before generating a signed certificate, create a SAN extension file which descri
 echo 'subjectAltName=DNS:node1.dns.a-record' > node1.ext
 ```
 
-Now generate the certificate:
+Generate the certificate:
 
 ```bash
 openssl x509 -req -in node1.csr -CA root-ca.pem -CAkey root-ca-key.pem -CAcreateserial -sha256 -out node1.pem -days 730 -extfile node1.ext
