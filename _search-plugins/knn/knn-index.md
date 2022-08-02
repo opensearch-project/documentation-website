@@ -70,7 +70,7 @@ Method Name | Requires Training? | Supported Spaces | Description
 
 #### HNSW Parameters
 
-Paramater Name | Required | Default | Updatable | Description
+Parameter Name | Required | Default | Updatable | Description
 :--- | :--- | :--- | :--- | :---
 `ef_construction` | false | 512 | false | The size of the dynamic list used during k-NN graph creation. Higher values lead to a more accurate graph, but slower indexing speed.
 `m` | false | 16 | false | The number of bidirectional links that the plugin creates for each new element. Increasing and decreasing this value can have a large impact on memory consumption. Keep this value between 2-100.
@@ -90,7 +90,7 @@ For *hnsw*, "innerproduct" is not available when PQ is used.
 
 #### HNSW Parameters
 
-Paramater Name | Required | Default | Updatable | Description
+Parameter Name | Required | Default | Updatable | Description
 :--- | :--- | :--- | :--- | :---
 `ef_search` | false | 512 | false | The size of the dynamic list used during k-NN searches. Higher values lead to more accurate but slower searches.
 `ef_construction` | false | 512 | false | The size of the dynamic list used during k-NN graph creation. Higher values lead to a more accurate graph, but slower indexing speed.
@@ -99,7 +99,7 @@ Paramater Name | Required | Default | Updatable | Description
 
 #### IVF Parameters
 
-Paramater Name | Required | Default | Updatable | Description
+Parameter Name | Required | Default | Updatable | Description
 :--- | :--- | :--- | :--- | :---
 `nlist` | false | 4 | false | Number of buckets to partition vectors into. Higher values may lead to more accurate searches, at the expense of memory and training latency. For more information about choosing the right value, refer to [Guidelines to choose an index](https://github.com/facebookresearch/faiss/wiki/Guidelines-to-choose-an-index).
 `nprobes` | false | 1 | false | Number of buckets to search over during query. Higher values lead to more accurate but slower searches.
@@ -118,11 +118,11 @@ Training data can either the same data that is going to be ingested or a separat
 
 Method Name | Requires Training? | Supported Spaces | Description
 :--- | :--- | :--- | :---
-`hnsw` | false | l2, innerproduct, cosinesimil, l1, linf | Hierarchical proximity graph approach to Approximate k-NN search.
+`hnsw` | false | l2, innerproduct, cosinesimil | Hierarchical proximity graph approach to Approximate k-NN search.
 
 #### HNSW Parameters
 
-Paramater Name | Required | Default | Updatable | Description
+Parameter Name | Required | Default | Updatable | Description
 :--- | :--- | :--- | :--- | :---
 `ef_construction` | false | 512 | false | The size of the dynamic list used during k-NN graph creation. Higher values lead to a more accurate graph, but slower indexing speed.<br>The Lucene engine uses the proprietary term "beam_width" to describe this function, which corresponds directly to "ef_construction". To be consistent throughout OpenSearch documentation, we retain the term "ef_construction" to label this parameter.
 `m` | false | 16 | false | The number of bidirectional links that the plugin creates for each new element. Increasing and decreasing this value can have a large impact on memory consumption. Keep this value between 2-100.<br>The Lucene engine uses the proprietary term "max_connections" to describe this function, which corresponds directly to "m". To be consistent throughout OpenSearch documentation, we retain the term "m" to label this parameter.
