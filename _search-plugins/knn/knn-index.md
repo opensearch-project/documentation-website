@@ -68,12 +68,12 @@ Method Name | Requires Training? | Supported Spaces | Description
 :--- | :--- | :--- | :---
 `hnsw` | false | l2, innerproduct, cosinesimil, l1, linf | Hierarchical proximity graph approach to Approximate k-NN search. For more details on the algorithm, see this [abstract](https://arxiv.org/abs/1603.09320).
 
-#### HNSW Parameters
+#### HNSW parameters
 
 Parameter Name | Required | Default | Updatable | Description
 :--- | :--- | :--- | :--- | :---
-`ef_construction` | false | 512 | false | The size of the dynamic list used during k-NN graph creation. Higher values lead to a more accurate graph, but slower indexing speed.
-`m` | false | 16 | false | The number of bidirectional links that the plugin creates for each new element. Increasing and decreasing this value can have a large impact on memory consumption. Keep this value between 2-100.
+`ef_construction` | false | 512 | false | The size of the dynamic list used during k-NN graph creation. Higher values lead to a more accurate graph but slower indexing speed.
+`m` | false | 16 | false | The number of bidirectional links that the plugin creates for each new element. Increasing and decreasing this value can have a large impact on memory consumption. Keep this value between 2 and 100.
 
 For *nmslib*, *ef_search* is set in the [index settings](#index-settings).
 {: .note}
@@ -83,26 +83,26 @@ For *nmslib*, *ef_search* is set in the [index settings](#index-settings).
 Method Name | Requires Training? | Supported Spaces | Description
 :--- | :--- | :--- | :---
 `hnsw` | false | l2, innerproduct | Hierarchical proximity graph approach to Approximate k-NN search.
-`ivf` | true | l2, innerproduct | Bucketing approach where vectors are assigned different buckets based on clustering and, during search, only a subset of the buckets are searched.
+`ivf` | true | l2, innerproduct | Bucketing approach where vectors are assigned different buckets based on clustering and, during search, only a subset of the buckets is searched.
 
 For *hnsw*, "innerproduct" is not available when PQ is used.
 {: .note}
 
-#### HNSW Parameters
+#### HNSW parameters
 
 Parameter Name | Required | Default | Updatable | Description
 :--- | :--- | :--- | :--- | :---
 `ef_search` | false | 512 | false | The size of the dynamic list used during k-NN searches. Higher values lead to more accurate but slower searches.
-`ef_construction` | false | 512 | false | The size of the dynamic list used during k-NN graph creation. Higher values lead to a more accurate graph, but slower indexing speed.
-`m` | false | 16 | false | The number of bidirectional links that the plugin creates for each new element. Increasing and decreasing this value can have a large impact on memory consumption. Keep this value between 2-100.
+`ef_construction` | false | 512 | false | The size of the dynamic list used during k-NN graph creation. Higher values lead to a more accurate graph but slower indexing speed.
+`m` | false | 16 | false | The number of bidirectional links that the plugin creates for each new element. Increasing and decreasing this value can have a large impact on memory consumption. Keep this value between 2 and 100.
 `encoder` | false | flat | false | Encoder definition for encoding vectors. Encoders can reduce the memory footprint of your index, at the expense of search accuracy.
 
-#### IVF Parameters
+#### IVF parameters
 
 Parameter Name | Required | Default | Updatable | Description
 :--- | :--- | :--- | :--- | :---
-`nlist` | false | 4 | false | Number of buckets to partition vectors into. Higher values may lead to more accurate searches, at the expense of memory and training latency. For more information about choosing the right value, refer to [Guidelines to choose an index](https://github.com/facebookresearch/faiss/wiki/Guidelines-to-choose-an-index).
-`nprobes` | false | 1 | false | Number of buckets to search over during query. Higher values lead to more accurate but slower searches.
+`nlist` | false | 4 | false | Number of buckets to partition vectors into. Higher values may lead to more accurate searches at the expense of memory and training latency. For more information about choosing the right value, refer to [Guidelines to choose an index](https://github.com/facebookresearch/faiss/wiki/Guidelines-to-choose-an-index).
+`nprobes` | false | 1 | false | Number of buckets to search during query. Higher values lead to more accurate but slower searches.
 `encoder` | false | flat | false | Encoder definition for encoding vectors. Encoders can reduce the memory footprint of your index, at the expense of search accuracy.
 
 For more information about setting these parameters, please refer to [*faiss*'s documentation](https://github.com/facebookresearch/faiss/wiki/Faiss-indexes).
@@ -111,8 +111,8 @@ For more information about setting these parameters, please refer to [*faiss*'s 
 
 The IVF algorithm requires a training step. To create an index that uses IVF, you need to train a model with the
 [Train API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#train-model), passing the IVF method definition. IVF requires that, at a minimum, there should be `nlist` training
-data points, but it is [recommended to use more](https://github.com/facebookresearch/faiss/wiki/Guidelines-to-choose-an-index#how-big-is-the-dataset).
-Training data can either the same data that is going to be ingested or a separate set of data.
+data points, but it is [recommended that you use more](https://github.com/facebookresearch/faiss/wiki/Guidelines-to-choose-an-index#how-big-is-the-dataset).
+Training data can be composed of either the same data that is going to be ingested or a separate dataset.
 
 ### Supported Lucene methods
 
@@ -120,12 +120,12 @@ Method Name | Requires Training? | Supported Spaces | Description
 :--- | :--- | :--- | :---
 `hnsw` | false | l2, innerproduct, cosinesimil | Hierarchical proximity graph approach to Approximate k-NN search.
 
-#### HNSW Parameters
+#### HNSW parameters
 
 Parameter Name | Required | Default | Updatable | Description
 :--- | :--- | :--- | :--- | :---
-`ef_construction` | false | 512 | false | The size of the dynamic list used during k-NN graph creation. Higher values lead to a more accurate graph, but slower indexing speed.<br>The Lucene engine uses the proprietary term "beam_width" to describe this function, which corresponds directly to "ef_construction". To be consistent throughout OpenSearch documentation, we retain the term "ef_construction" to label this parameter.
-`m` | false | 16 | false | The number of bidirectional links that the plugin creates for each new element. Increasing and decreasing this value can have a large impact on memory consumption. Keep this value between 2-100.<br>The Lucene engine uses the proprietary term "max_connections" to describe this function, which corresponds directly to "m". To be consistent throughout OpenSearch documentation, we retain the term "m" to label this parameter.
+`ef_construction` | false | 512 | false | The size of the dynamic list used during k-NN graph creation. Higher values lead to a more accurate graph but slower indexing speed.<br>The Lucene engine uses the proprietary term "beam_width" to describe this function, which corresponds directly to "ef_construction". To be consistent throughout OpenSearch documentation, we retain the term "ef_construction" to label this parameter.
+`m` | false | 16 | false | The number of bidirectional links that the plugin creates for each new element. Increasing and decreasing this value can have a large impact on memory consumption. Keep this value between 2 and 100.<br>The Lucene engine uses the proprietary term "max_connections" to describe this function, which corresponds directly to "m". To be consistent throughout OpenSearch documentation, we retain the term "m" to label this parameter.
 
 The Lucene engine internally reads "k" as equal to `ef_search` and therefore removes the need to set `ef_search` when specifying HNSW parameters.
 {: .note}
@@ -149,7 +149,7 @@ The Lucene engine internally reads "k" as equal to `ef_search` and therefore rem
 ### Supported faiss encoders
 
 You can use encoders to reduce the memory footprint of a k-NN index at the expense of search accuracy. faiss has
-several encoder types, but currently, the plugin only supports *flat* and *pq* encoding.
+several encoder types, but the plugin currently only supports *flat* and *pq* encoding.
 
 An example method definition that specifies an encoder may look something like this:
 
@@ -174,7 +174,7 @@ Encoder Name | Requires Training? | Description
 `flat` | false | Encode vectors as floating point arrays. This encoding does not reduce memory footprint.
 `pq` | true | Short for product quantization, it is a lossy compression technique that encodes a vector into a fixed size of bytes using clustering, with the goal of minimizing the drop in k-NN search accuracy. From a high level, vectors are broken up into `m` subvectors, and then each subvector is represented by a `code_size` code obtained from a code book produced during training. For more details on product quantization, here is a [great blog post](https://medium.com/dotstar/understanding-faiss-part-2-79d90b1e5388)!
 
-#### PQ Parameters
+#### PQ parameters
 
 Paramater Name | Required | Default | Updatable | Description
 :--- | :--- | :--- | :--- | :---
@@ -194,7 +194,7 @@ If memory is a concern, consider adding a PQ encoder to your HNSW or IVF index. 
 ### Memory Estimation
 
 In a typical OpenSearch cluster, a certain portion of RAM is set aside for the JVM heap. The k-NN plugin allocates
-native library indices to a portion of the remaining RAM. This portion's size is determined by
+native library indexes to a portion of the remaining RAM. This portion's size is determined by
 the `circuit_breaker_limit` cluster setting. By default, the limit is set at 50%.
 
 Having a replica doubles the total number of vectors.
@@ -230,7 +230,7 @@ At the moment, several parameters defined in the settings are in the deprecation
 Setting | Default | Updateable | Description
 :--- | :--- | :--- | :---
 `index.knn` | false | false | Whether the index should build native library indices for the `knn_vector` fields. If set to false, the `knn_vector` fields will be stored in doc values, but Approximate k-NN search functionality will be disabled.
-`index.knn.algo_param.ef_search` | 512 | true | The size of the dynamic list used during k-NN searches. Higher values lead to more accurate but slower searches. Only available for *nmslib*.
-`index.knn.algo_param.ef_construction` | 512 | false | (Deprecated in 1.0.0. Use the mapping parameters to set this value instead.) Only available for nmslib. Refer to mapping definition.
-`index.knn.algo_param.m` | 16 | false | (Deprecated in 1.0.0. Use the mapping parameters to set this value instead.) Only available for *nmslib*. Refer to mapping definition.
-`index.knn.space_type` | l2 | false | (Deprecated in 1.0.0. Use the mapping parameters to set this value instead.) Only available for nmslib. Refer to mapping definition.
+`index.knn.algo_param.ef_search` | 512 | true | The size of the dynamic list used during k-NN searches. Higher values lead to more accurate but slower searches. Only available for nmslib.
+`index.knn.algo_param.ef_construction` | 512 | false | Deprecated in 1.0.0. Use the [mapping parameters](https://opensearch.org/docs/latest/search-plugins/knn/knn-index/#method-definitions) to set this value instead.
+`index.knn.algo_param.m` | 16 | false | Deprecated in 1.0.0. Use the [mapping parameters](https://opensearch.org/docs/latest/search-plugins/knn/knn-index/#method-definitions) to set this value instead.
+`index.knn.space_type` | l2 | false | Deprecated in 1.0.0. Use the [mapping parameters](https://opensearch.org/docs/latest/search-plugins/knn/knn-index/#method-definitions) to set this value instead.
