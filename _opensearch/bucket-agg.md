@@ -76,7 +76,7 @@ This is especially true if `size` is set to a low number. Because the default si
 
 ### Account for pre-aggregated data
 
-While the `doc_count` field provides a representation of the number of individual documents aggregated in a bucket, `doc_count` by itself does not have a way to correctly increment documents that store pre-aggregated data, such as `histogram`. To account for pre-aggregated data and accurately calculate the number of documents in a bucket, you can use the `_doc_count` field to add the number of documents in a single summary field. When a document includes the `_doc_count` field, all bucket aggregations recognize its value and increase the bucket `doc_count` proportionately. Keep these considerations in mind when using the `_doc_count` field:
+While the `doc_count` field provides a representation of the number of individual documents aggregated in a bucket, `doc_count` by itself does not have a way to correctly increment documents that store pre-aggregated data. To account for pre-aggregated data and accurately calculate the number of documents in a bucket, you can use the `_doc_count` field to add the number of documents in a single summary field. When a document includes the `_doc_count` field, all bucket aggregations recognize its value and increase the bucket `doc_count` proportionately. Keep these considerations in mind when using the `_doc_count` field:
 
 * The field does not support nested arrays; only positive integers can be used.
 * If a document does not contain the `_doc_count` field, aggregation uses the document to increase the count by 1.
@@ -84,85 +84,79 @@ While the `doc_count` field provides a representation of the number of individua
 OpenSearch features that rely on an accurate document count illustrate the importance of using the `_doc_count` field. To get a better sense for how this field can support other search functionality, see [Index rollups](https://opensearch.org/docs/latest/im-plugin/index-rollups/index/), an OpenSearch feature for the Index Management plugin that stores documents with pre-aggregated data in rollup indexes.
 {: .tip}
 
-### Example
-
-We use the [Create index](https://opensearch.org/docs/latest/opensearch/rest-api/index-apis/create-index/) API to create an index with mappings that include:
-* `example_histogram`, which stores histogram data as percentages
-* `example_text`, which stores the title of the histogram.
+### Example usage
 
 ```json
-PUT example_index
+PUT /my_index/_doc/1
 {
-  "mappings" : {
-    "properties" : {
-      "example_histogram" : {
-        "type" : "histogram"
-      },
-      "example_text" : {
-        "type" : "keyword"
+  "response_code": 404,
+  "date":"2022-08-05",
+  "_doc_count": 20
+}
+
+PUT /my_index/_doc/2
+{
+  "response_code": 404,
+  "date":"2022-08-06",
+  "_doc_count": 10
+}
+
+PUT /my_index/_doc/3
+{
+  "response_code": 200,
+  "date":"2022-08-06",
+  "_doc_count": 300
+}
+
+GET /my_index/_search
+{
+  "size": 0,
+  "aggs": {
+    "response_codes": {
+      "terms": {
+        "field" : "response_code"
       }
     }
   }
 }
 ```
 
-The [index](https://opensearch.org/docs/latest/opensearch/index-data/) API is then used to store pre-aggregated data for `histogram_1` and `histogram_2`.
+#### Sample response
 
 ```json
-PUT example_index/_doc/1
 {
-  "example_text" : "histogram_1",
-  "example_histogram" : {
-      "values" : [0.1, 0.2, 0.3, 0.4, 0.5],
-      "counts" : [4, 8, 22, 14, 5]
-   },
-  "_doc_count": 47 
-}
-
-PUT example_index/_doc/2
-{
-  "example_text" : "histogram_2",
-  "example_histogram" : {
-      "values" : [0.1, 0.25, 0.35, 0.4, 0.45, 0.5],
-      "counts" : [9, 19, 6, 5, 8, 3]
-   },
-  "_doc_count": 71
-}
-```
-Run `terms` aggregation on example_index.
-
-```json
-GET /_search
-{
-    "aggs" : {
-        "histogram_titles" : {
-            "terms" : { "field" : "example_text" }
+  "took" : 20,
+  "timed_out" : false,
+  "_shards" : {
+    "total" : 1,
+    "successful" : 1,
+    "skipped" : 0,
+    "failed" : 0
+  },
+  "hits" : {
+    "total" : {
+      "value" : 3,
+      "relation" : "eq"
+    },
+    "max_score" : null,
+    "hits" : [ ]
+  },
+  "aggregations" : {
+    "response_codes" : {
+      "doc_count_error_upper_bound" : 0,
+      "sum_other_doc_count" : 0,
+      "buckets" : [
+        {
+          "key" : 200,
+          "doc_count" : 300
+        },
+        {
+          "key" : 404,
+          "doc_count" : 30
         }
+      ]
     }
-}
-```
-
-The request provides the following response:
-
-```json
-{
-    ...
-    "aggregations" : {
-        "histogram_titles" : {
-            "doc_count_error_upper_bound": 0,
-            "sum_other_doc_count": 0,
-            "buckets" : [
-                {
-                    "key" : "histogram_2",
-                    "doc_count" : 71
-                },
-                {
-                    "key" : "histogram_1",
-                    "doc_count" : 47
-                }
-            ]
-        }
-    }
+  }
 }
 ```
 
