@@ -16,7 +16,7 @@ The high-level controls allow you to turn the shard indexing backpressure featur
 
 Setting | Default | Description
 :--- | :--- | :---
-`shard_indexing_pressure.enable` | False | Change to `true` to enable shard indexing backpressure.
+`shard_indexing_pressure.enabled` | False | Change to `true` to enable shard indexing backpressure.
 `shard_indexing_pressure.enforced` | False | Run shard indexing backpressure in shadow mode or enforced mode. In shadow mode (value set as `false`), shard indexing backpressure tracks all granular-level metrics, but it doesn't actually reject any indexing requests. In enforced mode (value set as `true`), shard indexing backpressure rejects any requests to the cluster that might cause a dip in its performance.
 
 ## Node-level limits
