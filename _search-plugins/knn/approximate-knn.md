@@ -21,6 +21,16 @@ The k-NN plugin builds a native library index of the vectors for each knn-vector
 Because the native library indexes are constructed during indexing, it is not possible to apply a filter on an index
 and then use this search method. All filters are applied on the results produced by the approximate nearest neighbor search.
 
+### Recommendations for engines and cluster node sizing
+
+Each of the three engines used for approximate k-NN search has its own attributes that make one more sensible to use than the others in a given situation. You can follow the general information below to help determine which engine will best meet your requirements.
+
+* The faiss engine performs exceptionally well (on orders of magnitude) with hardware that includes a GPU. When cost is not the first concern, this is the recommended engine.
+* When only a CPU is available, nmslib is a good choice. In general, it outperforms both faiss and Lucene. 
+* For relatively smaller datasets (up to a few million vectors), the Lucene engine demonstrates better latencies and recall. At the same time, the size of the index is smallest compared to the other engines, which allows it to use smaller AWS instances for data nodes.<br>Also, the Lucene engine uses pure Java implementation and does not share any of the limitations that engines using platform-native code experience. However, one exception to this is that the maximum number of vector dimensions for the Lucene engine is 1024 compared with 10000 for the other engines. Refer to the sample mapping parameters in the following section to see where this is configured.
+
+When considering cluster node sizing, a general approach is to first establish an even distribution of the index across the cluster. However, there are other considerations. To help make these choices, you can refer to the OpenSearch managed service guidance in the section [Sizing domains](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/sizing-domains.html).
+
 ## Get started with approximate k-NN
 
 To use the k-NN plugin's approximate search functionality, you must first create a k-NN index with `index.knn` set to `true`. This setting tells the plugin to create native library indexes for the index.
@@ -296,12 +306,12 @@ A space corresponds to the function used to measure the distance between two poi
     <td>\[ 1 - {A &middot; B \over \|A\| &middot; \|B\|} = 1 -
     {\sum_{i=1}^n (A_i &middot; B_i) \over \sqrt{\sum_{i=1}^n A_i^2} &middot; \sqrt{\sum_{i=1}^n B_i^2}}\]
     where \(\|A\|\) and \(\|B\|\) represent normalized vectors.</td>
-    <td>1 / (1 + Distance Function)</td>
+    <td>nmslib and faiss:<br>1 / (1 + Distance Function)<br>Lucene:<br>(1 + Distance Function) / 2</td>
   </tr>
   <tr>
-    <td>innerproduct</td>
+    <td>innerproduct (not supported for Lucene)</td>
     <td>\[ Distance(X, Y) = - {A &middot; B} \]</td>
-    <td>if (Distance Function >= 0) 1 / (1 + Distance Function) else -Distance Function + 1</td>
+    <td>if Distance Function is > or = 0, use 1 / (1 + Distance Function). Otherwise, -Distance Function + 1</td>
   </tr>
 </table>
 

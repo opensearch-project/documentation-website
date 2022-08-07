@@ -75,7 +75,7 @@ Parameter Name | Required | Default | Updatable | Description
 `ef_construction` | false | 512 | false | The size of the dynamic list used during k-NN graph creation. Higher values lead to a more accurate graph but slower indexing speed.
 `m` | false | 16 | false | The number of bidirectional links that the plugin creates for each new element. Increasing and decreasing this value can have a large impact on memory consumption. Keep this value between 2 and 100.
 
-For *nmslib*, *ef_search* is set in the [index settings](#index-settings).
+For nmslib, *ef_search* is set in the [index settings](#index-settings).
 {: .note}
 
 ### Supported faiss methods
@@ -85,7 +85,7 @@ Method Name | Requires Training? | Supported Spaces | Description
 `hnsw` | false | l2, innerproduct | Hierarchical proximity graph approach to Approximate k-NN search.
 `ivf` | true | l2, innerproduct | Bucketing approach where vectors are assigned different buckets based on clustering and, during search, only a subset of the buckets is searched.
 
-For *hnsw*, "innerproduct" is not available when PQ is used.
+For hnsw, "innerproduct" is not available when PQ is used.
 {: .note}
 
 #### HNSW parameters
@@ -118,7 +118,7 @@ Training data can be composed of either the same data that is going to be ingest
 
 Method Name | Requires Training? | Supported Spaces | Description
 :--- | :--- | :--- | :---
-`hnsw` | false | l2, innerproduct, cosinesimil | Hierarchical proximity graph approach to Approximate k-NN search.
+`hnsw` | false | l2, cosinesimil | Hierarchical proximity graph approach to Approximate k-NN search.
 
 #### HNSW parameters
 
