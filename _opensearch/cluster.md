@@ -245,12 +245,12 @@ PUT _cluster/settings
 }
 ```
 
-The `routing.allocation.awareness.balance` setting is false by default. When it is set to `true`, the total number of shards for the index must be a multiple of the highest count for any awareness attribute. For example, consider a configuration with two awareness attributes set up — zones and rack IDs. Let's say there are two zones and three rack IDs. The highest count of either the number of zones or the number of rack IDs is three. Therefore, the number of shards must be a multiple of three. If it is not, OpenSearch throws a validation exception.
+The `routing.allocation.awareness.balance` setting is false by default. When it is set to `true`, the total number of shards for the index must be a multiple of the highest count for any awareness attribute. For example, consider a configuration with two awareness attributes&mdash;zones and rack IDs. Let's say there are two zones and three rack IDs. The highest count of either the number of zones or the number of rack IDs is three. Therefore, the number of shards must be a multiple of three. If it is not, OpenSearch throws a validation exception.
 
 `routing.allocation.awareness.balance` takes effect only if `cluster.routing.allocation.awareness.attributes` and `cluster.routing.allocation.awareness.force.zone.values` are set.
 {: .note}
 
-`routing.allocation.awareness.balance` applies to all operations that create or update indices. For example, let's say you're running a cluster with three nodes and three zones, in a zone-aware setting. If you try to create an index with one replica, or update an index's settings to one replica, the attempt will fail with a validation exception because the number of shards must be a multiple of three. Similarly, if you try to create an index template with one shard and no replicas, the attempt will fail for the same reason. However, in all of those operations, if you set the number of shards to one and the number of replicas to two, the total number of shards is three and the attempt will succeed. 
+`routing.allocation.awareness.balance` applies to all operations that create or update indices. For example, let's say you're running a cluster with three nodes and three zones in a zone-aware setting. If you try to create an index with one replica or update an index's settings to one replica, the attempt will fail with a validation exception because the number of shards must be a multiple of three. Similarly, if you try to create an index template with one shard and no replicas, the attempt will fail for the same reason. However, in all of those operations, if you set the number of shards to one and the number of replicas to two, the total number of shards is three and the attempt will succeed. 
 
 ## (Advanced) Step 7: Set up a hot-warm architecture
 
