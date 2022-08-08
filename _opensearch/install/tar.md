@@ -70,7 +70,7 @@ You have downloaded OpenSearch, unpacked the archive in a directory of your choo
 1. Apply a generic configuration using the bundled demo security script.
 1. Manually disable the security plugin and test the instance before applying your own custom security settings.
 
-The demo security script is included in the OpenSearch tarball and, when invoked, it will apply a generic configuration to your instance of OpenSearch. This configuration defines some environment variables relating to the install and JDK paths, `JAVA_OPTS`, and also applies self-signed TLS certificates. If you would like to configure these yourself, refer to the [quickstart guide](NEED LINK TO PAGE ANCHOR HERE) for basic settings guidance.
+The demo security script is included in the OpenSearch tarball and, when invoked, it will apply a generic configuration to your instance of OpenSearch. This configuration defines some environment variables relating to the install and JDK paths, `JAVA_OPTS`, and also applies self-signed TLS certificates. If you would like to configure these yourself, refer to the [Quickstart Guide](#quickstart-guide) for basic settings guidance.
 
 It is important to note that an OpenSearch node configured using the demo security script is not suitable for a production environment. If you plan to use the node in a production environment after running `opensearch-tar-install.sh` you should, at a minimum, replace the demo TLS certificates with your own TLS certificates and update the list of internal users and passwords. See the [Security configuration]({{site.url}}{{site.baseurl}}/security-plugin/configuration/index/) documentation for additional guidance to ensure that your nodes are configured according to your security requirements.
 {: .warning}
@@ -140,7 +140,7 @@ If you only want to verify that the service is running and intend to configure s
 
 ### Option 2: Test OpenSearch without security enabled
 
-1. Open `opensearch.yml`:
+1. Open the configuration file:
    ```bash
    vi /path/to/opensearch-{{site.opensearch_version}}/config/opensearch.yml
    ```
@@ -204,11 +204,15 @@ If you only want to verify that the service is running and intend to configure s
 
 ## Quickstart Guide
 
-By default, OpenSearch is not bound to a network interface and cannot be reached by external hosts. Furthermore, security settings are either undefined (greenfield) or are populated by default, known usernames and passwords if you ran the security demo script by invoking `opensearch-tar-install.sh`.
+By default, OpenSearch is not bound to a network interface and cannot be reached by external hosts. Additionally, security settings are either undefined (greenfield install) or are populated by default usernames and passwords if you ran the security demo script by invoking `opensearch-tar-install.sh`. The following recommendations will enable a user to bind OpenSearch to a network interface, create and sign TLS certifications, and configure basic authentication.
 
 If you ran the security demo script then you will need to manually reconfigure settings that were modified. Refer to Security Plugin [Configuration]({{site.url}}{{site.baseurl}}/opensearch/configuration/) for guidance before proceeding.
 {: .note}
 
+1. Create a backup of the configuration file before making changes, in case you need to restore it later.
+   ```bash
+   cp /path/to/opensearch-{{site.opensearch_version}}/config/opensearch.yml /path/to/opensearch-{{site.opensearch_version}}/config/opensearch.yml.bak
+   ```
 1. Open `opensearch.yml`:
    ```bash
    vi /path/to/opensearch-{{site.opensearch_version}}/config/opensearch.yml
@@ -229,10 +233,32 @@ If you ran the security demo script then you will need to manually reconfigure s
    # be sure to re-enable it.
    plugins.security.disabled: false
    ```
-1. Save the change and close the file.
+1. Save your changes and close the file.
    ```bash
    :wq!
    ```
+1. Specify an initial and max JVM heap size.
+   1.  Open `jvm.options`:
+         ```bash
+         vi /path/to/opensearch-{{site.opensearch_version}}/config/jvm.options
+         ```
+   1. Modify the values for initial and maximum heap size. As a starting point, you should set these values to half of the available system memory. For dedicated hosts this value can be increased based on your workflow requirements.
+      -  As an example, if the host machine has 8GB of memory then you might want to set the initial and maximum heap sizes to 4GB:
+         ```bash
+         -Xms4g
+         -Xmx4g
+         ```
+   1. Save your changes and close the file.
+      ```bash
+      :wq!
+      ```
+
+### Configure TLS
+
+TLS certificates provide additional security for your cluster by allowing clients to confirm the identity of hosts and encrypt traffic between the client and host. For more complete information, refer to [Configure TLS Certificates]({{site.url}}{{site.baseurl}}/security-plugin/configuration/tls/) and [Generate Certificates]({{site.url}}{{site.baseurl}}/security-plugin/configuration/generate-certificates/) which are covered in the [Security Plugin]({{site.url}}{{site.baseurl}}/security-plugin/index/) documentation. For work performed in a development environment, self-signed certificates are usually adequate. This section will guide you through the basic steps required to generate your own TLS certificates and apply them to your OpenSearch host.
+
+1. 
+
 
 ## Configuration
 
