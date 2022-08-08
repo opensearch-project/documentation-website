@@ -245,7 +245,7 @@ PUT _cluster/settings
 }
 ```
 
-The `routing.allocation.awareness.balance` setting is false by default. When it is set to `true`, the total number of shards for the index must be a multiple of the maximum value of all awareness attribute counts. For example, consider a configuration with two awareness attributes set up — zones and rack IDs. Let's say there are two zones and three rack IDs. The maximum of the number of zones and the number of rack IDs is three. Therefore, the number of shards must be a multiple of three. If it is not, OpenSearch throws a validation exception.
+The `routing.allocation.awareness.balance` setting is false by default. When it is set to `true`, the total number of shards for the index must be a multiple of the highest count for any awareness attribute. For example, consider a configuration with two awareness attributes set up — zones and rack IDs. Let's say there are two zones and three rack IDs. The highest count of either the number of zones or the number of rack IDs is three. Therefore, the number of shards must be a multiple of three. If it is not, OpenSearch throws a validation exception.
 
 `routing.allocation.awareness.balance` takes effect only if `cluster.routing.allocation.awareness.attributes` and `cluster.routing.allocation.awareness.force.zone.values` are set.
 {: .note}
