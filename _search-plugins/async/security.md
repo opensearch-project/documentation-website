@@ -75,11 +75,11 @@ Because they have different backend roles, an asynchronous search submitted by `
 
 For example, if `judy` has five backend roles and `elon` has one of these roles, then `judy` can see asynchronous searches submitted by `elon`, but `elon` can’t see the asynchronous searches submitted by `judy`. This means that `judy` can perform GET and DELETE operations on asynchronous searches submitted by `elon`, but not the reverse.
 
-If none of the users have any backend roles, they will be able to see each others’ searches.
+If none of the users have any backend roles, all three will be able to see the others' searches.
 
 For example, consider three users: `judy`, `elon` and `jack`.
 
-None of these users have backend roles set up:
+`judy`, `elon` and `jack` have no backend roles set up:
 
 ```json
 PUT _plugins/_security/api/internalusers/judy
