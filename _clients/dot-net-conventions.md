@@ -8,9 +8,9 @@ parent: .NET clients
 
 # .NET client conventions and best practices
 
-## Registering the OSC client as a singleton
+## Registering OpenSearch.Client as a singleton
 
-As a rule, you want to set up your OSC client as a singleton. The OSC client manages connections to the server and the states of the nodes in a cluster. Additionally, each client uses a lot of configuration for its setup. Therefore, it is beneficial to create an OSC client once and reuse the same client for all OpenSearch operations. The client is thread-safe, so the same instance can be shared by multiple threads.
+As a rule, you want to set up your OpenSearch.Client as a singleton. OpenSearch.Client manages connections to the server and the states of the nodes in a cluster. Additionally, each client uses a lot of configuration for its setup. Therefore, it is beneficial to create an OpenSearch.Client instance once and reuse it for all OpenSearch operations. The client is thread-safe, so the same instance can be shared by multiple threads.
 
 ## Exceptions
 
@@ -67,7 +67,7 @@ The following are connection pool types.
 
 ## Retries
 
-If a request does not succeed, it is automatically retried. By default, the number of retries is the number of nodes in your cluster known to the OSC client. The number of retries is also limited by the timeout parameter, so OSC retries requests as many times as possible within the timeout period. 
+If a request does not succeed, it is automatically retried. By default, the number of retries is the number of nodes in your cluster known to OpenSearch.Client. The number of retries is also limited by the timeout parameter, so OpenSearch.Client retries requests as many times as possible within the timeout period. 
 
 To set the maximum number of retries, specify this number in the `MaximumRetries` property on the `ConnectionSettings` object.
 

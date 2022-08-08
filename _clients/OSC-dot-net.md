@@ -1,29 +1,29 @@
 ---
 layout: default
-title: Getting started with OSC
+title: Getting started with OpenSearch.Client
 nav_order: 10
 has_children: false
 parent: .NET clients
 ---
 
-# Getting started with OSC
+# Getting started with OpenSearch.Client
 
-OSC is a high-level .NET client on top of OpenSearch.Net. It provides strongly typed requests and responses, as well as Query DSL. It frees you from constructing raw JSON requests and parsing raw JSON responses by providing models that parse and serialize/deserialize requests and responses automatically. OSC also exposes the OpenSearch.Net low-level client if you need it.
+OpenSearch.Client is a high-level .NET client on top of OpenSearch.Net. It provides strongly typed requests and responses, as well as Query DSL. It frees you from constructing raw JSON requests and parsing raw JSON responses by providing models that parse and serialize/deserialize requests and responses automatically. OpenSearch.Client also exposes the OpenSearch.Net low-level client if you need it.
 
 This getting started guide illustrates how to connect to OpenSearch, index documents, and run queries.
 
-## Installing the OSC client
+## Installing OpenSearch.Client
 
-To install OSC, download the OSC NuGet package and add it to your project in an IDE of your choice. In Microsoft Visual Studio: 
+To install OpenSearch.Client, download the OpenSearch.Client NuGet package and add it to your project in an IDE of your choice. In Microsoft Visual Studio: 
 - In the **Solution Explorer** panel, right click on your solution or project and select **Manage NuGet Packages for Solution**.
-- Search for the OSC NuGet package, and select **Install**.
+- Search for the OpenSearch.Client NuGet package, and select **Install**.
 
-Alternatively, you can add the OSC client to your .csproj file:
+Alternatively, you can add OpenSearch.Client to your .csproj file:
 ```xml
 <Project>
   ...
   <ItemGroup>
-    <PackageReference Include="Osc" Version="1.0.0" />
+    <PackageReference Include="OpenSearch.Client" Version="1.0.0" />
   </ItemGroup>
 </Project>
 ```
@@ -43,7 +43,7 @@ public class Student
 }
 ```
 
-By default, OSC uses camel case to convert property names to field names.
+By default, OpenSearch.Client uses camel case to convert property names to field names.
 {: .note}
 
 ## Connecting to OpenSearch
@@ -54,14 +54,14 @@ Use the default constructor when creating an OpenSearchClient object to connect 
 var client  = new OpenSearchClient();
 ```
 
-To connect to your OpenSearch cluster via a single node with a known address, specify this address when creating the OSC client:
+To connect to your OpenSearch cluster via a single node with a known address, specify this address when creating an instance of OpenSearch.Client:
 
 ```cs
 var nodeAddress = new Uri("http://myserver:9200");
 var client = new OpenSearchClient(nodeAddress);
 ```
 
-You can also connect to OpenSearch via multiple nodes. Connecting to your OpenSearch cluster using a node pool has advantages like load balancing and cluster failover support. To connect to your OpenSearch cluster using multiple nodes, specify their addresses and create a `ConnectionSettings` object for the OSC client:
+You can also connect to OpenSearch via multiple nodes. Connecting to your OpenSearch cluster using a node pool has advantages like load balancing and cluster failover support. To connect to your OpenSearch cluster using multiple nodes, specify their addresses and create a `ConnectionSettings` object for the OpenSearch.Client instance:
 
 ```cs
 var nodes = new Uri[]
@@ -111,7 +111,7 @@ var response = client.Index(new IndexRequest<Student>(student, "students"));
 
 ## Indexing many documents
 
-You can index many documents from a collection at the same time by using the OSC client's `IndexMany` method: 
+You can index many documents from a collection at the same time by using the OpenSearch.Client's `IndexMany` method: 
 
 ```cs
 var studentArray = new Student[]
@@ -153,7 +153,7 @@ GET students/_search
 }
 ```
 
-In OSC client, this query looks like this:
+In OpenSearch.Client, this query looks like this:
 
 ```cs
 var searchResponse = client.Search<Student>(s => s
@@ -179,9 +179,9 @@ if (searchResponse.IsValid)
 The response contains one document, which corresponds to the correct student:
 
 `100 Santos Paulo 3.93 2021`
-## Using OSC methods asynchronously
+## Using OpenSearch.Client methods asynchronously
 
-For applications that require asynchronous code, all method calls in OSC client have asynchronous counterparts:
+For applications that require asynchronous code, all method calls in OpenSearch.Client have asynchronous counterparts:
 
 ```cs
 // synchronous method
@@ -193,7 +193,7 @@ var response = await client.IndexAsync(student, i => i.Index("students"));
 
 ## Falling back on the low-level OpenSearch.Net client
 
-OSC exposes the low-level OpenSearch.Net client you can use if anything is missing:
+OpenSearch.Client exposes the low-level OpenSearch.Net client you can use if anything is missing:
 
 ```cs
 var lowLevelClient = client.LowLevel;
@@ -228,14 +228,13 @@ if (searchResponseLow.IsValid)
 The following is a complete sample program that illustrates all of the concepts above. It uses the Student class described above.
 
 ```cs
-using Osc;
+using OpenSearch.Client;
 using OpenSearch.Net;
 
 namespace NetClientProgram;
 
 internal class Program
 {
-    // OpenSearch .net client
     private static IOpenSearchClient osClient = new OpenSearchClient();
 
     public static void Main(string[] args)

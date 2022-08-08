@@ -1,14 +1,14 @@
 ---
 layout: default
-title: More advanced features of OSC
+title: More advanced features of OpenSearch.Client
 nav_order: 12
 has_children: false
 parent: .NET clients
 ---
 
-# More advanced features of OSC
+# More advanced features of OpenSearch.Client
 
-The following example illustrates more advanced features of OSC. For a simple example, see the [getting started guide]({{site.url}}{{site.baseurl}}/clients/OSC-dot-net/). This example uses the following Student class.
+The following example illustrates more advanced features of OpenSearch.Client. For a simple example, see the [getting started guide]({{site.url}}{{site.baseurl}}/clients/OSC-dot-net/). This example uses the following Student class.
 
 ```cs
 public class Student
@@ -25,7 +25,7 @@ public class Student
 
 OpenSearch uses dynamic mapping to infer field types of the documents that are indexed. However, to have more control over the schema of your document, you can pass explicit mapping to OpenSearch. You can define data types for some or all fields of your document in this mapping. 
 
-Similarly, the OSC client uses auto mapping to infer field data types based on the types of the class's properties. To use auto mapping, create a `students` index using the AutoMap's default constructor:
+Similarly, OpenSearch.Client uses auto mapping to infer field data types based on the types of the class's properties. To use auto mapping, create a `students` index using the AutoMap's default constructor:
 
 ```cs
 var createResponse = await osClient.Indices.CreateAsync("students",
@@ -50,7 +50,7 @@ PUT students
 }
 ```
 
-In OSC, you can use fluid lambda syntax to mark these fields as keywords:
+In OpenSearch.Client, you can use fluid lambda syntax to mark these fields as keywords:
 
 ```cs
 var createResponse = await osClient.Indices.CreateAsync(index,
@@ -84,7 +84,7 @@ PUT students
 }
 ```
 
-In OSC, the equivalent of the above query is the following:
+In OpenSearch.Client, the equivalent of the above query is the following:
 
 ```cs
 var createResponse = await osClient.Indices.CreateAsync(index,
@@ -117,7 +117,7 @@ var bulkAll = osClient.BulkAll(ReadData(), r => r
 
 ## Searching with Boolean query
 
-OSC exposes full OpenSearch query capability. In addition to simple searches that use the match query, you can create a more complex Boolean query to search for students who graduated in 2022 and sort them by last name. In the example below, search is limited to 10 documents, and the scroll API is used to control the pagination of results.
+OpenSearch.Client exposes full OpenSearch query capability. In addition to simple searches that use the match query, you can create a more complex Boolean query to search for students who graduated in 2022 and sort them by last name. In the example below, search is limited to 10 documents, and the scroll API is used to control the pagination of results.
 
 ```cs
 var gradResponse = await osClient.SearchAsync<Student>(s => s
@@ -133,11 +133,11 @@ var gradResponse = await osClient.SearchAsync<Student>(s => s
 ```
 
 
-The response contains the Documents property with matching documents from OpenSearch. The data is in the form of deserialized JSON objects of Student type, so you can access their properties in a strongly-typed fashion. All serialization and deserialization is handled by OSC.
+The response contains the Documents property with matching documents from OpenSearch. The data is in the form of deserialized JSON objects of Student type, so you can access their properties in a strongly-typed fashion. All serialization and deserialization is handled by OpenSearch.Client.
 
 ## Aggregations
 
-OSC includes the full OpenSearch query functionality, including aggregations. In addition to grouping search results into buckets (for example, group students by GPA ranges), you can calculate metrics like sum or average. The following query calculates the average GPA of all students in the index. 
+OpenSearch.Client includes the full OpenSearch query functionality, including aggregations. In addition to grouping search results into buckets (for example, group students by GPA ranges), you can calculate metrics like sum or average. The following query calculates the average GPA of all students in the index. 
 
 Setting Size to 0 means OpenSearch will only return the aggregation, not the actual documents.
 {: .tip}
@@ -156,7 +156,7 @@ var aggResponse = await osClient.SearchAsync<Student>(s => s
 The following program creates an index, reads a stream of student records from a comma-separated file and indexes this data into OpenSearch.
 
 ```cs
-using Osc;
+using OpenSearch.Client;
 
 namespace NetClientProgram;
 
@@ -222,7 +222,7 @@ internal class Program
 The following program searches students by name and graduation date, and calculates the average GPA.
 
 ```cs
-using Osc;
+using OpenSearch.Client;
 
 namespace NetClientProgram;
 

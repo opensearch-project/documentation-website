@@ -29,9 +29,9 @@ public class Student
 
 To install Opensearch.Net, download the Opensearch.Net NuGet package and add it to your project in an IDE of your choice. In Microsoft Visual Studio: 
 - In the **Solution Explorer** panel, right click on your solution or project and select **Manage NuGet Packages for Solution**.
-- Search for the OSC NuGet package, and select **Install**.
+- Search for the OpenSearch.Client NuGet package, and select **Install**.
 
-Alternatively, you can add the OSC client to your .csproj file:
+Alternatively, you can add OpenSearch.Client to your .csproj file:
 ```xml
 <Project>
   ...
@@ -57,7 +57,7 @@ var config = new ConnectionConfiguration(nodeAddress);
 var client = new OpenSearchLowLevelClient(config);
 ```
 
-You can also use a [connection pool]({{site.url}}{{site.baseurl}}/clients/OSC-dot-net/dot-net-conventions#connection-pools) to manage the nodes in the cluster. Additionally, you can set up a connection configuration to have OpenSearch return the response as formatted JSON.
+You can also use a [connection pool]({{site.url}}{{site.baseurl}}/clients/dot-net-conventions#connection-pools) to manage the nodes in the cluster. Additionally, you can set up a connection configuration to have OpenSearch return the response as formatted JSON.
 
 ```cs
 var uri = new Uri("http://localhost:9200");
@@ -66,7 +66,7 @@ var settings = new ConnectionConfiguration(connectionPool).PrettyJson();
 var client = new OpenSearchLowLevelClient(settings);
 ```
 
-To connect to your OpenSearch cluster using multiple nodes, create a connection pool with their addresses. In this example, a [`SniffingConnectionPool`]({{site.url}}{{site.baseurl}}/clients/OSC-dot-net/dot-net-conventions#connection-pools) is used because it keeps track of nodes being removed or added to the cluster, so it works best for clusters that scale automatically. 
+To connect to your OpenSearch cluster using multiple nodes, create a connection pool with their addresses. In this example, a [`SniffingConnectionPool`]({{site.url}}{{site.baseurl}}/clients/dot-net-conventions#connection-pools) is used because it keeps track of nodes being removed or added to the cluster, so it works best for clusters that scale automatically. 
 
 ```cs
 var uris = new[]
@@ -212,7 +212,7 @@ Console.WriteLine(searchResponse.Body);
 
 ## Using OpenSearch.Net methods asynchronously
 
-For applications that require asynchronous code, all method calls in the OSC client have asynchronous counterparts:
+For applications that require asynchronous code, all method calls in OpenSearch.Client have asynchronous counterparts:
 
 ```cs
 // synchronous method
@@ -300,7 +300,7 @@ The following program creates an index, indexes data and searches for documents.
 
 ```cs
 using OpenSearch.Net;
-using Osc;
+using OpenSearch.Client;
 
 namespace NetClientProgram;
 
