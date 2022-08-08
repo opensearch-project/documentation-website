@@ -259,7 +259,8 @@ TLS certificates provide additional security for your cluster by allowing client
    # Create a private key for the root certificate
    openssl genrsa -out root-ca-key.pem 2048
    
-   # Use the private key to create a self-signed root certificate.
+   # Use the private key to create a self-signed root certificate. Be sure to
+   # replace the arguments passed to -subj so they reflect your specific host.
    openssl req -new -x509 -sha256 -key root-ca-key.pem -subj "/C=CA/ST=ONTARIO/L=TORONTO/O=ORG/OU=UNIT/CN=ROOT" -out root-ca.pem -days 730
    ```
 1. Next, create the admin certificate. This certificate is used is used to gain elevated rights for performing administrative tasks relating to the security plugin.
@@ -270,7 +271,8 @@ TLS certificates provide additional security for your cluster by allowing client
    # Convert the private key to PKCS#8
    openssl pkcs8 -inform PEM -outform PEM -in admin-key-temp.pem -topk8 -nocrypt -v1 PBE-SHA1-3DES -out admin-key.pem
    
-   # Create the CSR
+   # Create the CSR. A common name (CN) of "A" is acceptable because this certificate is
+   # used for authenticating elevated access and is not tied to a host.
    openssl req -new -key admin-key.pem -subj "/C=CA/ST=ONTARIO/L=TORONTO/O=ORG/OU=UNIT/CN=A" -out admin.csr
    
    # Sign the admin certificate with the root certificate and private key that was created earlier
@@ -284,7 +286,8 @@ TLS certificates provide additional security for your cluster by allowing client
    # Convert the private key to PKCS#8
    openssl pkcs8 -inform PEM -outform PEM -in node1-key-temp.pem -topk8 -nocrypt -v1 PBE-SHA1-3DES -out node1-key.pem
    
-   # Create the CSR
+   # Create the CSR - replace the arguments passed to -subj to they reflect your specific host.
+   # The CN should match a DNS A record for the host - do not use the hostname.
    openssl req -new -key node1-key.pem -subj "/C=CA/ST=ONTARIO/L=TORONTO/O=ORG/OU=UNIT/CN=node1.dns.a-record" -out node1.csr
    
    # Create an extension file that defines a SAN DNS name for the host. This
