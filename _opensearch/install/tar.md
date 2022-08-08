@@ -13,7 +13,7 @@ After downloading and unpacking the archive, OpenSearch is ready to configure an
 
 This installation method is supported by most Linux distributions including, but not limited to, CentOS 7, Amazon Linux 2, and Ubuntu 18.04. If you have your own Java installation and set the environment variable `JAVA_HOME` in the terminal, macOS works as well.
 
-This document assumes that you are comfortable working from the Linux command line interface. You should understand how to input commands, navigate between directories, and edit text files using a text editor such as `vi`, `emacs`, or `nano`.
+This document assumes that you are comfortable working from the Linux command line interface. You should understand how to input commands, navigate between directories, and edit text files.
 {: .note}
 
 ## Download OpenSearch
@@ -67,17 +67,17 @@ Before launching OpenSearch you should review a some [important system settings]
 
 You have downloaded OpenSearch, unpacked the archive in a directory of your choosing, and configured a couple important system settings in the host operating system. Before proceeding, you should verify that OpenSearch is able to run and respond to API requests. There are two quick methods to achieve this:
 
-1. Apply a generic configuration using the bundled demo security script.
-1. Manually disable the security plugin and test the instance before applying your own custom security settings.
+1. **(Security Enabled)** Apply a generic configuration using the bundled demo security script.
+1. **(Security Disabled)** Manually disable the security plugin and test the instance before applying your own custom security settings.
 
 The demo security script is included in the OpenSearch tarball and, when invoked, it will apply a generic configuration to your instance of OpenSearch. This configuration defines some environment variables relating to the install and JDK paths, `JAVA_OPTS`, and also applies self-signed TLS certificates. If you would like to configure these yourself, refer to the [Quickstart Guide](#quickstart-guide) for basic settings guidance.
 
-It is important to note that an OpenSearch node configured using the demo security script is not suitable for a production environment. If you plan to use the node in a production environment after running `opensearch-tar-install.sh` you should, at a minimum, replace the demo TLS certificates with your own TLS certificates and update the list of internal users and passwords. See the [Security configuration]({{site.url}}{{site.baseurl}}/security-plugin/configuration/index/) documentation for additional guidance to ensure that your nodes are configured according to your security requirements.
+It is important to note that an OpenSearch node configured using the demo security script is not suitable for a production environment. If you plan to use the node in a production environment after running `opensearch-tar-install.sh` you should, at a minimum, replace the demo TLS certificates with your own TLS certificates and [update the list of internal users and passwords]({{site.url}}{{site.baseurl}}/security-plugin/configuration/yaml). See the [Security configuration]({{site.url}}{{site.baseurl}}/security-plugin/configuration/index/) documentation for additional guidance to ensure that your nodes are configured according to your security requirements.
 {: .warning}
 
 If you only want to verify that the service is running and intend to configure security settings yourself, then you may wish to disable the security plugin and launch the service without encryption or authentication to verify that OpenSeach can run and respond to API requests.
 
-### Option 1: Test Opensearch using the demo security configuration
+### Option 1: Test Opensearch with security enabled
 
 1. Change to the top directory of your OpenSearch install:
    ```bash
@@ -87,10 +87,10 @@ If you only want to verify that the service is running and intend to configure s
    ```bash
    ./opensearch-tar-install.sh
    ```
-1. Open another terminal session and send requests to the server to verify that OpenSearch is up and running. Note the  use of the --insecure (or -k) flag which is required since the TLS certs are self-signed.
+1. Open another terminal session and send requests to the server to verify that OpenSearch is up and running. Note the  use of the `--insecure` flag which is required since the TLS certs are self-signed.
    - Send a request to port 9200:
       ```bash
-      curl -XGET https://localhost:9200 -u 'admin:admin' --insecure
+      curl -X GET https://localhost:9200 -u 'admin:admin' --insecure
       ```
       You should get a response that looks like this:
       ```bash
@@ -114,7 +114,7 @@ If you only want to verify that the service is running and intend to configure s
       ```
    - Query the plugins endpoint:
       ```bash
-      curl -XGET https://localhost:9200/_cat/plugins?v -u 'admin:admin' --insecure
+      curl -X GET https://localhost:9200/_cat/plugins?v -u 'admin:admin' --insecure
       ```
 
       The response should look like this:
@@ -138,7 +138,7 @@ If you only want to verify that the service is running and intend to configure s
       ```
 1. Return to the original terminal session and stop the process by pressing `CTRL + C`
 
-### Option 2: Test OpenSearch without security enabled
+### Option 2: Test OpenSearch with security disabled
 
 1. Open the configuration file:
    ```bash
@@ -155,7 +155,7 @@ If you only want to verify that the service is running and intend to configure s
 1. Open another terminal session and send requests to the server to verify that OpenSearch is up and running. Since the security plugin has been disabled you will be sending commands using `HTTP` rather than `HTTPS`
    - Send a request to port 9200:
       ```bash
-      curl -XGET http://localhost:9200
+      curl -X GET http://localhost:9200
       ```
       You should get a response that looks like this:
       ```bash
@@ -179,7 +179,7 @@ If you only want to verify that the service is running and intend to configure s
       ```
    - Query the plugins endpoint:
       ```bash
-      curl -XGET http://localhost:9200/_cat/plugins?v
+      curl -X GET http://localhost:9200/_cat/plugins?v
       ```
 
       The response should look like this:
@@ -257,8 +257,36 @@ If you ran the security demo script then you will need to manually reconfigure s
 
 TLS certificates provide additional security for your cluster by allowing clients to confirm the identity of hosts and encrypt traffic between the client and host. For more complete information, refer to [Configure TLS Certificates]({{site.url}}{{site.baseurl}}/security-plugin/configuration/tls/) and [Generate Certificates]({{site.url}}{{site.baseurl}}/security-plugin/configuration/generate-certificates/) which are covered in the [Security Plugin]({{site.url}}{{site.baseurl}}/security-plugin/index/) documentation. For work performed in a development environment, self-signed certificates are usually adequate. This section will guide you through the basic steps required to generate your own TLS certificates and apply them to your OpenSearch host.
 
-1. 
+1. Before you begin, you should make sure that the security plugin tools scripts are configured with executable permission.
+   ```bash
+   chmod u+x /path/to/opensearch-{{site.opensearch_version}}/plugins/opensearch-security/tools/*.sh
+   ```
+1. Generate a root certificate. This is what you will use to sign your other certificates.
+   ```bash
+   # Create a private key for the root certificate
+   openssl genrsa -out root-ca-key.pem 2048
+   
+   # Use the private key to create a self-signed root certificate.
+   openssl req -new -x509 -sha256 -key root-ca-key.pem -subj "/C=CA/ST=ONTARIO/L=TORONTO/O=ORG/OU=UNIT/CN=ROOT" -out root-ca.pem -days 730
+   ```
+1. Next, create the admin certificate. This certificate is used is used to gain elevated rights for performing administrative tasks relating to the security plugin.
+   ```bash
+   # Create a private key for the admin cert
+   openssl genrsa -out admin-key-temp.pem 2048
 
+   # Convert the private key to PKCS#8
+   openssl pkcs8 -inform PEM -outform PEM -in admin-key-temp.pem -topk8 -nocrypt -v1 PBE-SHA1-3DES -out admin-key.pem
+   
+   # Create the certificate signing request
+   openssl req -new -key admin-key.pem -subj "/C=CA/ST=ONTARIO/L=TORONTO/O=ORG/OU=UNIT/CN=A" -out admin.csr
+   
+   # Sign the admin certificate with the root certificate and private key that was created earlier
+   openssl x509 -req -in admin.csr -CA root-ca.pem -CAkey root-ca-key.pem -CAcreateserial -sha256 -out admin.pem -days 730
+   ```
+1. Finally, you should create a certificate for the node being configured.
+   ```bash
+   a
+   ```
 
 ## Configuration
 
