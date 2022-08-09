@@ -127,7 +127,7 @@ Parameter Name | Required | Default | Updatable | Description
 `ef_construction` | false | 512 | false | The size of the dynamic list used during k-NN graph creation. Higher values lead to a more accurate graph but slower indexing speed.<br>The Lucene engine uses the proprietary term "beam_width" to describe this function, which corresponds directly to "ef_construction". To be consistent throughout OpenSearch documentation, we retain the term "ef_construction" to label this parameter.
 `m` | false | 16 | false | The number of bidirectional links that the plugin creates for each new element. Increasing and decreasing this value can have a large impact on memory consumption. Keep this value between 2 and 100.<br>The Lucene engine uses the proprietary term "max_connections" to describe this function, which corresponds directly to "m". To be consistent throughout OpenSearch documentation, we retain the term "m" to label this parameter.
 
-The Lucene engine internally reads "k" as equal to `ef_search` and therefore removes the need to set `ef_search` when specifying HNSW parameters.
+Lucene HNSW implementation ignores `ef_search`  and dynamically sets it to the value of "k" in the search request. Therefore, there is no need to make settings for `ef_search` when using the Lucene engine.
 {: .note}
 
 ```json
