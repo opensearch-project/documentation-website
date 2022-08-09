@@ -14,7 +14,7 @@ After downloading and unpacking the archive, OpenSearch is ready to configure an
 This installation method is supported by most Linux distributions including, but not limited to, CentOS 7, Amazon Linux 2, and Ubuntu 18.04. If you have your own Java installation and set the environment variable `JAVA_HOME` in the terminal, macOS works as well.
 
 This document assumes that you are comfortable working from the Linux command line interface. You should understand how to input commands, navigate between directories, and edit text files. Some example commands reference the `vi` text editor, but that is strictly for demonstration purposes and is not meant to endorse `vi`.
-{: .note}
+{:.note}
 
 ## Download OpenSearch
 
@@ -210,7 +210,7 @@ If you ran the security demo script then you will need to manually reconfigure s
 {: .note}
 
 Before modifying any configuration files, it's always a good idea to save a backup copy before making changes. The backup file can be used to revert any issues caused by a bad configuration.
-{: .note}
+{:.tip}
 
 1. Open `opensearch.yml`:
    ```bash
