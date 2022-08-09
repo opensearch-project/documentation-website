@@ -207,7 +207,7 @@ An OpenSearch node configured by the demo security script is not suitable for a 
 By default, OpenSearch is not bound to a network interface and cannot be reached by external hosts. Additionally, security settings are either undefined (greenfield install) or are populated by default usernames and passwords if you ran the security demo script by invoking `opensearch-tar-install.sh`. The following recommendations will enable a user to bind OpenSearch to a network interface, create and sign TLS certifications, and configure basic authentication.
 
 If you ran the security demo script then you will need to manually reconfigure settings that were modified. Refer to Security Plugin [Configuration]({{site.url}}{{site.baseurl}}/opensearch/configuration/) for guidance before proceeding.
-{: .note}
+{:.note}
 
 Before modifying any configuration files, it's always a good idea to save a backup copy before making changes. The backup file can be used to revert any issues caused by a bad configuration.
 {:.tip}
