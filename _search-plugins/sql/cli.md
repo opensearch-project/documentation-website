@@ -62,7 +62,7 @@ For a list of all available configurations, see [clirc](https://github.com/opens
 
 ## Using the CLI
 
-1. Run the CLI tool. If you cluster runs with default security settings, use following command line:
+1. Run the CLI tool. If your cluster runs with the default security settings, use the following command:
 ```console
 opensearchsql --username admin --password admin https://localhost:9200
 ```
