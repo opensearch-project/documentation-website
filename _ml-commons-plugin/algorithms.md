@@ -317,3 +317,217 @@ The API responds with the sum of the contribution and base values per aggregatio
 ### Limitations
 
 The Localization algorithm can only be executed directly. Therefore, it cannot be used with the ML Commons Train and Predict APIs.
+
+## Logistic regression
+
+A classification algorithm, logistic regression models the probability of a discrete outcome given an input variable. In ML commons, these classifications include both binary and multi-class. The most common is the binary classification, which takes two values such as "true/false" or "yes/no", and predicts the outcome based on the values specified. On the other hand, a multi-class output can categorize different inputs based on type. This makes logistic regression most useful for situations where you are trying to determine how your inputs fit best into a specified-category. 
+
+### Parameters
+
+| Parameter | Type | Description | Default Value |
+|---|---|---|---|
+| learningRate | Double | The rate of speed the gradient moves during gradient descent | 1 |
+| momentumFactor | Double | The idea that a regressor that had recently risen or fallen during convergence will continue that trend over the medium term | 0 |
+| epsilon | Double | The criteria that a linear model is identified | 0.1 |
+| beta1 | Double | The exponential decay rates for the moment estimates | 0.9 |
+| beta2 | Double | The exponential decay rates for the moment estimates | 0.99 |
+| decayRate | Double | The Root Mean Squared Propagation (RMSProp) | 0.9 |
+| momentumType | MomentumType | The momentum with SDG to help accelerate gradients vectors in the right directions, leading to faster convergence between vectors | STANDARD |
+| optimizerType | OptimizerType | The optimizer used in the model  | AdaGrad |
+| target | String | The target field | null |
+| objectiveType | ObjectiveType | The objective function type | LogMulticlass |
+| epochs | Integer | The number of iterations | 5 |
+| batchSize | Integer | The size of minbatches | 1 |
+| loggingInterval | Integer | The interval of logs lost after many iterations. Interval is `1` if algorithm contains no logs. | 1000 |
+
+### APIs
+
+* [Train]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#train-model)
+* [Predict]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#predict)
+
+### Example: Tran/Predict with IRIS Data
+
+The following example creates an index in OpenSearch with [Iris data](https://archive.ics.uci.edu/ml/datasets/iris), then trains the data using logistic regression. Lastly, it uses the trained model to predict Iris types separated by row.
+
+#### Create an Iris index
+
+Before using this request, please make that you've downloaded [Iris data](https://archive.ics.uci.edu/ml/datasets/iris).
+
+```bash
+PUT /iris_data
+{
+  "mappings": {
+    "properties": {
+      "sepal_length_in_cm": {
+        "type": "double"
+      },
+      "sepal_width_in_cm": {
+        "type": "double"
+      },
+      "petal_length_in_cm": {
+        "type": "double"
+      },
+      "petal_width_in_cm": {
+        "type": "double"
+      },
+      "class": {
+        "type": "keyword"
+      }
+    }
+  }
+}
+```
+
+#### Train the logistic regression model
+
+This examples uses a multi-class logisitic regression categorization methodology. Here, the inputs of sepal length and width, and petal length and width, are used to train the model to categorize based on the `class`, as indicated by the `target` parameter.
+
+**Request**
+
+```bash
+{
+  "parameters": {
+    "target": "class"
+  },
+  "input_query": {
+    "query": {
+      "match_all": {}
+    },
+    "_source": [
+      "sepal_length_in_cm",
+      "sepal_width_in_cm",
+      "petal_length_in_cm",
+      "petal_width_in_cm",
+      "class"
+    ],
+    "size": 200
+  },
+  "input_index": [
+    "iris_data"
+  ]
+}
+```
+
+**Response**
+
+The `model_id` will be used to predict the class of the Iris.
+
+```json
+{
+  "model_id" : "TOgsf4IByBqD7FK_FQGc",
+  "status" : "COMPLETED"
+}
+```
+
+#### Predict results
+
+Using the `model_id` of the trained Iris dataset, logistic regression will predict what class of Iris based on the input data.
+
+```bash
+POST _plugins/_ml/_predict/logistic_regression/SsfQaoIBEoC4g4joZiyD
+{
+  "parameters": {
+    "target": "class"
+  },
+  "input_data": {
+    "column_metas": [
+      {
+        "name": "sepal_length_in_cm",
+        "column_type": "DOUBLE"
+      },
+      {
+        "name": "sepal_width_in_cm",
+        "column_type": "DOUBLE"
+      },
+      {
+        "name": "petal_length_in_cm",
+        "column_type": "DOUBLE"
+      },
+      {
+        "name": "petal_width_in_cm",
+        "column_type": "DOUBLE"
+      }
+    ],
+    "rows": [
+      {
+        "values": [
+          {
+            "column_type": "DOUBLE",
+            "value": 6.2
+          },
+          {
+            "column_type": "DOUBLE",
+            "value": 3.4
+          },
+          {
+            "column_type": "DOUBLE",
+            "value": 5.4
+          },
+          {
+            "column_type": "DOUBLE",
+            "value": 2.3
+          }
+        ]
+      },
+      {
+        "values": [
+          {
+            "column_type": "DOUBLE",
+            "value": 5.9
+          },
+          {
+            "column_type": "DOUBLE",
+            "value": 3.0
+          },
+          {
+            "column_type": "DOUBLE",
+            "value": 5.1
+          },
+          {
+            "column_type": "DOUBLE",
+            "value": 1.8
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Response**
+
+```json
+{
+  "status" : "COMPLETED",
+  "prediction_result" : {
+    "column_metas" : [
+      {
+        "name" : "result",
+        "column_type" : "STRING"
+      }
+    ],
+    "rows" : [
+      {
+        "values" : [
+          {
+            "column_type" : "STRING",
+            "value" : "Iris-virginica"
+          }
+        ]
+      },
+      {
+        "values" : [
+          {
+            "column_type" : "STRING",
+            "value" : "Iris-virginica"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+### Limitations
+
+Convergence metrics are not built into Tribuo's trainers. Therefore, ML commons cannot indicate the convergence status through the ML commons API.
