@@ -1,14 +1,14 @@
 ---
 layout: default
-title: Getting started with OpenSearch.Client
+title: Getting started with the high-level .NET client
 nav_order: 10
 has_children: false
 parent: .NET clients
 ---
 
-# Getting started with OpenSearch.Client
+# Getting started with the high-level .NET client (OpenSearch.Client)
 
-OpenSearch.Client is a high-level .NET client on top of OpenSearch.Net. It provides strongly typed requests and responses, as well as Query DSL. It frees you from constructing raw JSON requests and parsing raw JSON responses by providing models that parse and serialize/deserialize requests and responses automatically. OpenSearch.Client also exposes the OpenSearch.Net low-level client if you need it.
+OpenSearch.Client is a high-level .NET client. It provides strongly typed requests and responses, as well as Query DSL. It frees you from constructing raw JSON requests and parsing raw JSON responses by providing models that parse and serialize/deserialize requests and responses automatically. OpenSearch.Client also exposes the OpenSearch.Net low-level client if you need it.
 
 This getting started guide illustrates how to connect to OpenSearch, index documents, and run queries.
 

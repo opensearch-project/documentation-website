@@ -1,12 +1,12 @@
 ---
 layout: default
-title: OpenSearch.Net client
+title: Low-level .NET client
 nav_order: 30
 has_children: false
 parent: .NET clients
 ---
 
-# OpenSearch.Net client
+# Low-level .NET client (OpenSearch.Net)
 
 OpenSearch.Net is a low-level .NET client that provides the foundational layer of communicating with OpenSearch. It is dependency-free, and it can handle round-robin load balancing, transport, and the basic request/response cycle. OpenSearch.Net contains all OpenSearch API endpoints as methods. When using OpenSearch.Net, you need to construct the queries yourself.
 

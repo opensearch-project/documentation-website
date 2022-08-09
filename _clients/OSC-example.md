@@ -1,12 +1,12 @@
 ---
 layout: default
-title: More advanced features of OpenSearch.Client
+title: More advanced features of the high-level .NET client
 nav_order: 12
 has_children: false
 parent: .NET clients
 ---
 
-# More advanced features of OpenSearch.Client
+# More advanced features of the high-level .NET client (OpenSearch.Client)
 
 The following example illustrates more advanced features of OpenSearch.Client. For a simple example, see the [Getting started guide]({{site.url}}{{site.baseurl}}/clients/OSC-dot-net/). This example uses the following Student class.
 
@@ -99,7 +99,7 @@ var createResponse = await osClient.Indices.CreateAsync(index,
 
 In addition to indexing one document using `Index` and `IndexDocument` and indexing multiple documents using `IndexMany`, you can gain more control for indexing your documents by using `Bulk` or `BulkAll`. Indexing documents individually is inefficient because it creates an HTTP request for every document sent. The BulkAll helper frees you from handling retry, chunking or back off request functionality. It automatically retries if the request fails, backs off if the server is down, and controls how many documents are sent in one HTTP request. 
 
-In the following example, `BulkAll` is configured with the index name, number of back off retires, and back off time. Additionally, maximum degrees of parallelism controls the number of parallel HTTP requests containing the data. Finally, the size parameter signals how many documents are sent in one HTTP request. 
+In the following example, `BulkAll` is configured with the index name, number of back off retries, and back off time. Additionally, maximum degrees of parallelism controls the number of parallel HTTP requests containing the data. Finally, the size parameter signals how many documents are sent in one HTTP request. 
 
 We recommend setting the size to 100–1000 documents in production. 
 {: .tip}
@@ -131,7 +131,6 @@ var gradResponse = await osClient.SearchAsync<Student>(s => s
                         .Term(t => t.Field(fld => fld.GradYear).Value(2022)))))
                         .Sort(srt => srt.Ascending(f => f.LastName)));
 ```
-
 
 The response contains the Documents property with matching documents from OpenSearch. The data is in the form of deserialized JSON objects of Student type, so you can access their properties in a strongly-typed fashion. All serialization and deserialization is handled by OpenSearch.Client.
 

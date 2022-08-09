@@ -37,13 +37,13 @@ Nodes are considered equal if they have the same endpoint. Metadata is not taken
 
 ## Connection pools
 
-Connecttion pools are instances of `IConnectionPool` and are responsible for managing the nodes in the OpenSearch cluster. We recommend creating a [singleton client](#registering-the-osc-client-as-a-singleton) with a single `ConnectionSettings` object. The lifetime of both the client and its `ConnectionSettings` is the lifetime of the application.
+Connection pools are instances of `IConnectionPool` and are responsible for managing the nodes in the OpenSearch cluster. We recommend creating a [singleton client](#registering-the-osc-client-as-a-singleton) with a single `ConnectionSettings` object. The lifetime of both the client and its `ConnectionSettings` is the lifetime of the application.
 
 The following are connection pool types.
 
 - **SingleNodeConnectionPool**
 
-`SingleNodeConnectionPool` is the default connection pool that is used if no connection pool is passed to the `ConnectionSettings` constructor. Use a `SingleNodeConnectionPool` if you have only one node in the cluster or if your cluster has a load balancer as an entry point. `SingleNodeConnectionPool` does not support sniffing or pinging and does not mark nodes dead or alive. 
+`SingleNodeConnectionPool` is the default connection pool that is used if no connection pool is passed to the `ConnectionSettings` constructor. Use `SingleNodeConnectionPool` if you have only one node in the cluster or if your cluster has a load balancer as an entry point. `SingleNodeConnectionPool` does not support sniffing or pinging and does not mark nodes dead or alive. 
 
 - **CloudConnectionPool**
 
