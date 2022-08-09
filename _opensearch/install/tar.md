@@ -245,6 +245,10 @@ Before modifying any configuration files, it's always a good idea to save a back
          -Xmx4g
          ```
    1. Save your changes and close the file.
+1. Specify the location of the included JDK:
+   ```bash
+   export OPENSEARCH_JAVA_HOME=/path/to/opensearch-{{site.opensearch_version}}/jdk
+   ```
 
 ### Configure TLS
 
@@ -297,6 +301,12 @@ TLS certificates provide additional security for your cluster by allowing client
    # Sign the node certificate with the root certificate and private key that was created earlier
    openssl x509 -req -in node1.csr -CA root-ca.pem -CAkey root-ca-key.pem -CAcreateserial -sha256 -out node1.pem -days 730 -extfile node1.ext
    ```
+1. Remove temporary files that are no longer required:
+   ```bash
+   rm *temp.pem *csr *ext
+   ```
+1. Add these certificates 
+
 
 ## Configuration
 
