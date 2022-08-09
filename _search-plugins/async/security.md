@@ -77,9 +77,9 @@ For example, if `judy` has five backend roles and `elon` has one of these roles,
 
 If none of the users have any backend roles, all three will be able to see the others' searches.
 
-For example, consider three users: `judy`, `elon` and `jack`.
+For example, consider three users: `judy`, `elon`, and `jack`.
 
-`judy`, `elon` and `jack` have no backend roles set up:
+`judy`, `elon`, and `jack` have no backend roles set up:
 
 ```json
 PUT _plugins/_security/api/internalusers/judy
@@ -130,4 +130,4 @@ PUT _plugins/_security/api/rolesmapping/async_read_access
 }
 ```
 
-Since none of the users have backend roles, they will be able to see each other's asynchronous searches. So, if `judy` submits an asynchronous search, `elon`, who has full access, will be able to see that search. `jack`, who has read access, will also be able to see `judy`'s asynchronous search.
+Because none of the users have backend roles, they will be able to see each other's asynchronous searches. So, if `judy` submits an asynchronous search, `elon`, who has full access, will be able to see that search. `jack`, who has read access, will also be able to see `judy`'s asynchronous search.
