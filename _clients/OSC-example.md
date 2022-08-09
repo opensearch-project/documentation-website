@@ -8,7 +8,7 @@ parent: .NET clients
 
 # More advanced features of OpenSearch.Client
 
-The following example illustrates more advanced features of OpenSearch.Client. For a simple example, see the [getting started guide]({{site.url}}{{site.baseurl}}/clients/OSC-dot-net/). This example uses the following Student class.
+The following example illustrates more advanced features of OpenSearch.Client. For a simple example, see the [Getting started guide]({{site.url}}{{site.baseurl}}/clients/OSC-dot-net/). This example uses the following Student class.
 
 ```cs
 public class Student

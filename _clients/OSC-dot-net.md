@@ -87,7 +87,6 @@ var config = new ConnectionSettings(node).DefaultIndex("students");
 var client = new OpenSearchClient(config);
 ```
 
-
 ## Indexing one document
 
 Create one instance of Student:
@@ -179,6 +178,7 @@ if (searchResponse.IsValid)
 The response contains one document, which corresponds to the correct student:
 
 `100 Santos Paulo 3.93 2021`
+
 ## Using OpenSearch.Client methods asynchronously
 
 For applications that require asynchronous code, all method calls in OpenSearch.Client have asynchronous counterparts:
