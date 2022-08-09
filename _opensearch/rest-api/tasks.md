@@ -49,12 +49,7 @@ Note that if a task finishes running, it won't be returned as part of your reque
           "start_time_in_millis": 1613599752458,
           "running_time_in_nanos": 994000,
           "cancellable": false,
-          "headers": {},
-          "resource_stats" : {
-            "total" : {
-              "cpu_time_in_nanos" : 0,
-              "memory_in_bytes" : 0
-            }
+          "headers": {}
           }
         },
         "Mgqdm0r9SEGClWxp_RbnaQ:17413": {
@@ -66,13 +61,7 @@ Note that if a task finishes running, it won't be returned as part of your reque
           "running_time_in_nanos": 172846500,
           "cancellable": false,
           "parent_task_id": "Mgqdm0r9SEGClWxp_RbnaQ:17366",
-          "headers": {},
-          "resource_stats" : {
-            "total" : {
-              "cpu_time_in_nanos" : 0,
-              "memory_in_bytes" : 0
-            }
-          }
+          "headers": {}
         },
         "Mgqdm0r9SEGClWxp_RbnaQ:17366": {
           "node": "Mgqdm0r9SEGClWxp_RbnaQ",
@@ -83,12 +72,6 @@ Note that if a task finishes running, it won't be returned as part of your reque
           "running_time_in_nanos": 1529733100,
           "cancellable": true,
           "headers": {},
-          "resource_stats" : {
-            "total" : {
-              "cpu_time_in_nanos" : 0,
-              "memory_in_bytes" : 0
-            }
-          }
         }
       }
     }
@@ -141,13 +124,7 @@ GET /_tasks?nodes=opensearch-node1
           "start_time_in_millis": 1611612517044,
           "running_time_in_nanos": 638700,
           "cancellable": false,
-          "headers": {},
-          "resource_stats" : {
-            "total" : {
-              "cpu_time_in_nanos" : 0,
-              "memory_in_bytes" : 0
-            }
-          }
+          "headers": {}
         },
         "Mgqdm0r9SEGClWxp_RbnaQ:24579": {
           "node": "Mgqdm0r9SEGClWxp_RbnaQ",
@@ -158,13 +135,7 @@ GET /_tasks?nodes=opensearch-node1
           "running_time_in_nanos": 222200,
           "cancellable": false,
           "parent_task_id": "Mgqdm0r9SEGClWxp_RbnaQ:24578",
-          "headers": {},
-          "resource_stats" : {
-            "total" : {
-              "cpu_time_in_nanos" : 0,
-              "memory_in_bytes" : 0
-            }
-          }
+          "headers": {}
         }
       }
     }
@@ -237,12 +208,6 @@ content-length: 768
           "parent_task_id": "Mgqdm0r9SEGClWxp_RbnaQ:30071",
           "headers": {
             "X-Opaque-Id": "111111"
-          },
-          "resource_stats" : {
-            "total" : {
-              "cpu_time_in_nanos" : 0,
-              "memory_in_bytes" : 0
-            }
           }
         },
         "Mgqdm0r9SEGClWxp_RbnaQ:30071": {
@@ -255,12 +220,6 @@ content-length: 768
           "cancellable": false,
           "headers": {
             "X-Opaque-Id": "111111"
-          },
-          "resource_stats" : {
-            "total" : {
-              "cpu_time_in_nanos" : 0,
-              "memory_in_bytes" : 0
-            }
           }
         }
       }
