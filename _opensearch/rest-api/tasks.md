@@ -143,6 +143,60 @@ GET /_tasks?nodes=opensearch-node1
 }
 ```
 
+The following request will return details about active search tasks:
+
+**Sample Request**
+
+```bash
+curl -XGET "localhost:9200/_tasks?actions=*search&detailed
+```
+
+**Sample Response**
+
+```json
+{
+  "nodes" : {
+    "CRqNwnEeRXOjeTSYYktw-A" : {
+      "name" : "runTask-0",
+      "transport_address" : "127.0.0.1:9300",
+      "host" : "127.0.0.1",
+      "ip" : "127.0.0.1:9300",
+      "roles" : [
+        "cluster_manager",
+        "data",
+        "ingest",
+        "remote_cluster_client"
+      ],
+      "attributes" : {
+        "testattr" : "test",
+        "shard_indexing_pressure_enabled" : "true"
+      },
+      "tasks" : {
+        "CRqNwnEeRXOjeTSYYktw-A:677" : {
+          "node" : "CRqNwnEeRXOjeTSYYktw-A",
+          "id" : 677,
+          "type" : "transport",
+          "action" : "indices:data/read/search",
+          "description" : "indices[], search_type[QUERY_THEN_FETCH], source[{\"query\":{\"query_string\":{\"query\":\"king\",\"fields\":[],\"type\":\"best_fields\",\"default_operator\":\"or\",\"max_determinized_states\":10000,\"enable_position_increments\":true,\"fuzziness\":\"AUTO\",\"fuzzy_prefix_length\":0,\"fuzzy_max_expansions\":50,\"phrase_slop\":0,\"analyze_wildcard\":false,\"escape\":false,\"auto_generate_synonyms_phrase_query\":true,\"fuzzy_transpositions\":true,\"boost\":1.0}}}]",
+          "start_time_in_millis" : 1660106254525,
+          "running_time_in_nanos" : 1354236,
+          "cancellable" : true,
+          "cancelled" : false,
+          "headers" : { },
+          "resource_stats" : {
+            "total" : {
+              "cpu_time_in_nanos" : 0,
+              "memory_in_bytes" : 0
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+```
+
 ## Task canceling
 
 After getting a list of tasks, you can cancel all cancelable tasks with the following request:
