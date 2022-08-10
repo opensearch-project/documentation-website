@@ -170,7 +170,7 @@ Slow logs can consume considerable disk space if you set thresholds or levels to
 
 ## Task logs
 
-OpenSearch can log CPU time and memory utilization for the top N expensive search tasks when task resource consumers are enabled. By default, task resource consumers will log the top 10 search tasks at 60 second intervals. These values can be configured in `opensearch.yml`.
+OpenSearch can log CPU time and memory utilization for the top N memory expensive search tasks when task resource consumers are enabled. By default, task resource consumers will log the top 10 search tasks at 60 second intervals. These values can be configured in `opensearch.yml`.
 
 Task logging is enabled dynamically through the cluster settings API:
 

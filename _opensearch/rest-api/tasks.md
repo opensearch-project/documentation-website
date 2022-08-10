@@ -71,7 +71,7 @@ Note that if a task finishes running, it won't be returned as part of your reque
           "start_time_in_millis": 1613599750929,
           "running_time_in_nanos": 1529733100,
           "cancellable": true,
-          "headers": {},
+          "headers": {}
         }
       }
     }
