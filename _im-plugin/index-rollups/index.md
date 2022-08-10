@@ -576,7 +576,7 @@ PUT _index_template/ism_rollover
 }
 ```
 
-**Step 4:** Index four documents into the index created above: two of the documents have the message "Success", and another two have the message "Error".
+**Step 4:** Index four documents into the index created above: two of the documents have the message "Success", and two have the message "Error".
 
 ```json
 POST log/_doc?refresh=true 
