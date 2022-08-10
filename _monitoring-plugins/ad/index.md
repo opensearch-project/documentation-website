@@ -147,8 +147,6 @@ Use the [profile detector]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/ap
 
 If you see the detector pending in "initialization" for longer than a day, aggregate your existing data using the detector interval to check for any missing data points. If you find a lot of missing data points from the aggregated data, consider increasing the detector interval.
 
-![Anomaly detection results]({{site.url}}{{site.baseurl}}/images/ad.png)
-
 Analyze anomalies with the following visualizations:
 
 - **Live anomalies** (for real-time results) - displays live anomaly results for the last 60 intervals. For example, if the interval is 10, it shows results for the last 600 minutes. The chart refreshes every 30 seconds.
@@ -181,8 +179,6 @@ Choose and drag over the anomaly line chart to zoom in and see a more detailed v
 If you have set multiple category fields, you can select a subset of fields to filter and sort the fields by. Selecting a subset of fields lets you see the top values of one field that share a common value with another field.
 
 For example, if you have a detector with the category fields `ip` and `endpoint`, you can select `endpoint` in the **View by** dropdown menu. Then, select a specific cell to overlay the top 20 values of `ip` on the charts. The anomaly detection plugin selects the top `ip` by default. You can see a maximum of 5 individual time-series values at the same time.
-
-![Anomaly detection results]({{site.url}}{{site.baseurl}}/images/multi-category.png)
 
 ## Step 6: Set up alerts
 
