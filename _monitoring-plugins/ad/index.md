@@ -158,17 +158,14 @@ Analyze anomalies with the following visualizations:
 
 Underneath **Anomaly overview** / **Anomaly history** are:
 
-- **Anomaly occurrences** - shows the `Start time`, `End time`, `Data confidence`, and `Anomaly grade` for each detected anomaly.
 - **Feature breakdown** - plots the features based on the aggregation method. You can vary the date-time range of the detector. When selecting a point on the feature line chart, the **Feature output**, the number of times a field appears in your index, and the **Expected value**, a predicted value for the Feature output, appears. Where there is no anomaly, the output and expected values are equal.
+- **Anomaly occurrences** - shows the `Start time`, `End time`, `Data confidence`, and `Anomaly grade` for each detected anomaly.
 
-![Anomaly detection results]({{site.url}}{{site.baseurl}}/images/feature-output-ad.png)
 
 Choose and drag over the anomaly line chart to zoom in and see a more detailed view of an anomaly.
 {: .note }
 
 When selecting a point on the anomaly line chart the **Feature Contribution**, the percentage of a feature that contributes to the anomaly, appears.
-
-![Anomaly detection results]({{site.url}}{{site.baseurl}}/images/feature-contribution-ad.png)
 
 
 If you set the category field, you see an additional **Heat map** chart. The heat map correlates results for anomalous entities. This chart is empty until you select an anomalous entity. You also see the anomaly and feature line chart for the time period of the anomaly (`anomaly_grade` > 0).
