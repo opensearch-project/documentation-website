@@ -254,10 +254,6 @@ Before modifying any configuration files, it's always a good idea to save a back
 
 TLS certificates provide additional security for your cluster by allowing clients to confirm the identity of hosts and encrypt traffic between the client and host. For more complete information, refer to [Configure TLS Certificates]({{site.url}}{{site.baseurl}}/security-plugin/configuration/tls/) and [Generate Certificates]({{site.url}}{{site.baseurl}}/security-plugin/configuration/generate-certificates/) which are covered in the [Security Plugin]({{site.url}}{{site.baseurl}}/security-plugin/index/) documentation. For work performed in a development environment, self-signed certificates are usually adequate. This section will guide you through the basic steps required to generate your own TLS certificates and apply them to your OpenSearch host.
 
-1. Before you begin, you should make sure that the security plugin tools scripts are configured with executable permission.
-   ```bash
-   chmod u+x /path/to/opensearch-{{site.opensearch_version}}/plugins/opensearch-security/tools/*.sh
-   ```
 1. Generate a root certificate. This is what you will use to sign your other certificates.
    ```bash
    # Create a private key for the root certificate
@@ -305,7 +301,7 @@ TLS certificates provide additional security for your cluster by allowing client
    ```bash
    rm *temp.pem *csr *ext
    ```
-1. Add these certificates to `opensearch.yml`. You can add the certificates manually (see [Generate Certificates]({{site.url}}{{site.baseurl}}/security-plugin/configuration/generate-certificates/#add-distinguished-names-to-opensearchyml)) or by using the following example script.
+1. Add these certificates to `opensearch.yml` as described in [Generate Certificates]({{site.url}}{{site.baseurl}}/security-plugin/configuration/generate-certificates/#add-distinguished-names-to-opensearchyml). You might also choose to append the settings using a script:
    ```bash
    #! /bin/bash
 
@@ -316,7 +312,8 @@ TLS certificates provide additional security for your cluster by allowing client
    echo "plugins.security.ssl.transport.pemcert_filepath: /path/to/opensearch-{{site.opensearch_version}}/config/node1.pem" | sudo tee -a /path/to/opensearch-{{site.opensearch_version}}/config/opensearch.yml
    echo "plugins.security.ssl.transport.pemkey_filepath: /path/to/opensearch-{{site.opensearch_version}}/config/node1-key.pem" | sudo tee -a /path/to/opensearch-{{site.opensearch_version}}/config/opensearch.yml
    echo "plugins.security.ssl.transport.pemtrustedcas_filepath: /path/to/opensearch-{{site.opensearch_version}}/config/root-ca.pem" | sudo tee -a /path/to/opensearch-{{site.opensearch_version}}/config/opensearch.yml
-   echo "plugins.security.ssl.transport.enforce_hostname_verification: false" | sudo tee -a /path/to/opensearch-{{site.opensearch_version}}/config/opensearch.yml
+   # I don't think we want this next line in the sample script right?  Borrowed from Miki's personal notes/process.
+   # echo "plugins.security.ssl.transport.enforce_hostname_verification: false" | sudo tee -a /path/to/opensearch-{{site.opensearch_version}}/config/opensearch.yml
    echo "plugins.security.ssl.http.enabled: true" | sudo tee -a /path/to/opensearch-{{site.opensearch_version}}/config/opensearch.yml
    echo "plugins.security.ssl.http.pemcert_filepath: /path/to/opensearch-{{site.opensearch_version}}/config/node1.pem" | sudo tee -a /path/to/opensearch-{{site.opensearch_version}}/config/opensearch.yml
    echo "plugins.security.ssl.http.pemkey_filepath: /path/to/opensearch-{{site.opensearch_version}}/config/node1-key.pem" | sudo tee -a /path/to/opensearch-{{site.opensearch_version}}/config/opensearch.yml
@@ -333,7 +330,31 @@ TLS certificates provide additional security for your cluster by allowing client
    ```
 ### Configure a user
 
-1. This is the first step for configuring a user.
+Users are defined and authenticated by OpenSearch in a variety of ways. One method, which does not require additional backend infrastructure, is manually configuring users in `internal_users.yml`. See [YAML files]({{site.url}}{{site.baseurl}}/security-plugin/configuration/yaml/) for more information about configuring users. The following steps explain how to remove all demo users except for the `admin` user, and how to replace the `admin` default password using a script.
+
+1. Make the security plugin scripts executable:
+   ```bash
+   chmod 755 /path/to/opensearch-{{site.opensearch_version}}/plugins/opensearch-security/tools/*.sh
+   ```
+1. Run `hash.sh` to generate a new password.
+   - This script will fail if a JDK is not defined in your `$PATH` and you have not defined either the `OPENSEARCH_JAVA_HOME` or the `JAVA_HOME` environment variables:
+      ```bash
+      # Example output if a JDK isn't found...
+      $ ./hash.sh
+      **************************************************************************
+      ** This tool will be deprecated in the next major release of OpenSearch **
+      ** https://github.com/opensearch-project/security/issues/1755           **
+      **************************************************************************
+      which: no java in (/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/home/user/.local/bin:/home/user/bin)
+      WARNING: nor OPENSEARCH_JAVA_HOME nor JAVA_HOME is set, will use 
+      ./hash.sh: line 35: java: command not found
+      ```
+   - Declare an environment variable when you invoke the script to avoid issues with the following command:
+      ```bash
+      OPENSEARCH_JAVA_HOME=/path/to/opensearch-{{site.opensearch_version}}/jdk ./hash.sh
+      ```
+   - Enter the desired password at the prompt and make a note of the output hash.
+1. 
 
 ## Configuration
 
