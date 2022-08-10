@@ -177,7 +177,7 @@ curl -XGET "localhost:9200/_tasks?actions=*search&detailed
           "id" : 677,
           "type" : "transport",
           "action" : "indices:data/read/search",
-          "description" : "indices[], search_type[QUERY_THEN_FETCH], source[{\"query\":{\"query_string\":{\"query\":\"king\",\"fields\":[],\"type\":\"best_fields\",\"default_operator\":\"or\",\"max_determinized_states\":10000,\"enable_position_increments\":true,\"fuzziness\":\"AUTO\",\"fuzzy_prefix_length\":0,\"fuzzy_max_expansions\":50,\"phrase_slop\":0,\"analyze_wildcard\":false,\"escape\":false,\"auto_generate_synonyms_phrase_query\":true,\"fuzzy_transpositions\":true,\"boost\":1.0}}}]",
+          "description" : "indices[], search_type[QUERY_THEN_FETCH], source[{\"query\":{\"query_string\":<QUERY_STRING>}}]",
           "start_time_in_millis" : 1660106254525,
           "running_time_in_nanos" : 1354236,
           "cancellable" : true,
