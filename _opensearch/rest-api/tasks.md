@@ -143,7 +143,7 @@ GET /_tasks?nodes=opensearch-node1
 }
 ```
 
-The following request will return details about active search tasks:
+The following request will return detailed information about active search tasks:
 
 **Sample Request**
 
