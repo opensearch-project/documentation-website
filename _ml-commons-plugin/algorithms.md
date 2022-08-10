@@ -221,12 +221,13 @@ The following example estimates cluster centers and gives cluster labels for eac
 
 ```bash
 POST _plugins/_ml/_train_predict/RCF_SUMMARIZE
-"parameters": {
-        "centroids": 3,
-        "max_k": 15,
-        "distance_type": "L2"
-    },
-"input_data": 
+{
+  "parameters": {
+    "centroids": 3,
+    "max_k": 15,
+    "distance_type": "L2"
+  },
+  "input_data": {
     "column_metas": [
       {
         "name": "d0",
@@ -237,8 +238,8 @@ POST _plugins/_ml/_train_predict/RCF_SUMMARIZE
         "column_type": "DOUBLE"
       }
     ],
-"rows":  [ 
-  {
+    "rows": [
+      {
         "values": [
           {
             "column_type": "DOUBLE",
@@ -248,9 +249,11 @@ POST _plugins/_ml/_train_predict/RCF_SUMMARIZE
             "column_type": "DOUBLE",
             "value": 3.4
           }
-      ] 
+        ]
+      }
+    ]
   }
-] 
+}
 ```
 
 **Response**
@@ -410,13 +413,13 @@ A classification algorithm, logistic regression models the probability of a disc
 
 | Parameter | Type | Description | Default Value |
 |---|---|---|---|
-| learningRate | Double | The rate of speed the gradient moves during gradient descent | 1 |
-| momentumFactor | Double | The idea that a regressor that had recently risen or fallen during convergence will continue that trend over the medium term | 0 |
-| epsilon | Double | The criteria that a linear model is identified | 0.1 |
+| learningRate | Double | The gradient descent step size at each iteration moving toward a minimum of a loss function or optimal value  | 1 |
+| momentumFactor | Double | The extra weight factors that accelerate the rate at which the weight is adjusted. This helps move the minimization routine out of local minima | 0 |
+| epsilon | Double | The value for stabilizing gradient inversion | 0.1 |
 | beta1 | Double | The exponential decay rates for the moment estimates | 0.9 |
 | beta2 | Double | The exponential decay rates for the moment estimates | 0.99 |
 | decayRate | Double | The Root Mean Squared Propagation (RMSProp) | 0.9 |
-| momentumType | MomentumType | The momentum with SDG to help accelerate gradients vectors in the right directions, leading to faster convergence between vectors | STANDARD |
+| momentumType | MomentumType | The momentum with SDG to help accelerate gradient vectors in the right direction, leading to faster convergence between vectors | STANDARD |
 | optimizerType | OptimizerType | The optimizer used in the model  | AdaGrad |
 | target | String | The target field | null |
 | objectiveType | ObjectiveType | The objective function type | LogMulticlass |
@@ -435,7 +438,7 @@ The following example creates an index in OpenSearch with [Iris data](https://ar
 
 #### Create an Iris index
 
-Before using this request, please make that you've downloaded [Iris data](https://archive.ics.uci.edu/ml/datasets/iris).
+Before using this request, make sure that you've downloaded [Iris data](https://archive.ics.uci.edu/ml/datasets/iris).
 
 ```bash
 PUT /iris_data
@@ -460,6 +463,18 @@ PUT /iris_data
     }
   }
 }
+```
+
+#### Ingest data from IRIS_data.txt
+
+```bash
+POST _bulk
+{ "index" : { "_index" : "iris_data" } }
+{"sepal_length_in_cm":5.1,"sepal_width_in_cm":3.5,"petal_length_in_cm":1.4,"petal_width_in_cm":0.2,"class":"Iris-setosa"}
+{ "index" : { "_index" : "iris_data" } }
+{"sepal_length_in_cm":4.9,"sepal_width_in_cm":3.0,"petal_length_in_cm":1.4,"petal_width_in_cm":0.2,"class":"Iris-setosa"}
+...
+...
 ```
 
 #### Train the logistic regression model
