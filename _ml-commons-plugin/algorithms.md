@@ -198,6 +198,90 @@ time_zone | string | The time zone for the time_field field | "UTC"
 
 For FIT RCF, you can train the model with historical data and store the trained model in your index. The model will be deserialized and predict new data points when using the Predict API. However, the model in the index will not be refreshed with new data, because the model is fixed in time.
 
+## RCFSummarize
+
+RCFSummarize is a clustering algorithm based on the Clustering Using REpresentatives (CURE) algorithm. Compared to [K-Means](#k-means), which uses random iterations to cluster, RCFSummarize uses a hierarchical-based clustering technique. The algorithm starts, with a set of randomly selected centroids larger than the centroid’s ground-truth distribution. During iteration, centroid pairs too close to each other automatically merge. Therefore, the number of centroids (`max_k`) converge to a rational number of clusters that fits ground-truth, as opposed to a fixed `k` number of clusters.  
+
+### Parameters
+
+| Parameter | Type | Description | Default Value |
+|---|---|---|---|
+| max_k | integer | The max allowed number of centroids | 2 |
+| distance_type | enum, such as `EUCLIDEAN`, `L1`, `L2`, or `LInfinity` | The type of measurement from which to measure the distance between centroids | EUCLIDEAN |
+
+### APIs
+
+* [Train]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#train-model)
+* [Predict]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#predict)
+* [Train and predict]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#train-and-predict)
+
+### Example: Train and Predict
+
+The following example estimates cluster centers and gives cluster labels for each sample in a given data frame.
+
+```bash
+POST _plugins/_ml/_train_predict/RCF_SUMMARIZE
+"parameters": {
+        "centroids": 3,
+        "max_k": 15,
+        "distance_type": "L2"
+    },
+"input_data": 
+    "column_metas": [
+      {
+        "name": "d0",
+        "column_type": "DOUBLE"
+      },
+      {
+        "name": "d1",
+        "column_type": "DOUBLE"
+      }
+    ],
+"rows":  [ 
+  {
+        "values": [
+          {
+            "column_type": "DOUBLE",
+            "value": 6.2
+          },
+          {
+            "column_type": "DOUBLE",
+            "value": 3.4
+          }
+      ] 
+  }
+] 
+```
+
+**Response**
+
+The `rows` parameter within the prediction result has been modified for length. In your response, expect more rows and columns to be contained within the response body.
+
+```json
+{
+  "status": "COMPLETED",
+  "prediction_result": {
+    "column_metas": [
+      {
+        "name": "ClusterID",
+        "column_type": "INTEGER"
+      }
+    ],
+    "rows": [
+      {
+        "values": [
+          {
+            "column_type": "DOUBLE",
+            "value": 0
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+  
+
 ## Localization 
 
 The Localization algorithm finds subset-level information for aggregate data (for example, aggregated over time) that demonstrates the activity of interest, such as spikes, drops, changes, or anomalies. Localization can be applied in different scenarios, such as data exploration or root cause analysis, to expose the contributors driving the activity of interest in the aggregate data.
@@ -380,7 +464,7 @@ PUT /iris_data
 
 #### Train the logistic regression model
 
-This examples uses a multi-class logisitic regression categorization methodology. Here, the inputs of sepal length and width, and petal length and width, are used to train the model to categorize based on the `class`, as indicated by the `target` parameter.
+This example uses a multi-class logistic regression categorization methodology. Here, the inputs of sepal length and width, and petal length and width, are used to train the model to categorize based on the `class`, as indicated by the `target` parameter.
 
 **Request**
 
