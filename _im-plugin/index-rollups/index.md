@@ -454,3 +454,265 @@ POST example_rollup/_search
   }
 }
 ```
+
+## The doc_count field
+
+The `doc_count` field in bucket aggregations contains the number of documents collected in each bucket. When calculating the bucket's `doc_count`, the number of documents is incremented by the number of the pre-aggregated documents in each summary document. The `doc_count` returned from rollup searches represents the total number of matching documents from the source index. Thus, the document count for each bucket is the same whether you search the source index or the rollup target index.
+
+## Dynamic target index
+
+In ISM rollup, the `target_index` field may contain a template that is compiled at the time of each rollup indexing. For example, if you specify the `target_index` field as `rollup_ndx-{{ctx.source_index}}`, the source index `log-000001` will roll up into a target index `rollup_ndx-log-000001`. This allows you to roll up data into multiple time-based indices, with one rollup job created for each source index. 
+
+The `source_index` parameter in {% raw %}`{{ctx.source_index}}`{% endraw %} cannot contain wildcards.
+{: .note}
+
+## Searching multiple rollup indices
+
+When data is rolled up into multiple target indices, you can run one search across all of the rollup indices. To search multiple target indices that have the same rollup, specify the index names as a comma-separated list or a wildcard pattern. For example, with `target_index` as `rollup_ndx-{{ctx.source_index}}` and source indices that start with `log`, specify the `rollup_ndx-log*` pattern. Or, to search for rolled up log-000001 and log-000002 indices, specify the `rollup_ndx-log-000001,rollup_ndx-log-000002` list.
+
+You cannot search a mix of rollup and non-rollup indices with the same query.
+{: .note}
+
+## Example
+
+The following example demonstrates the `doc_count` field, dynamic index names, and searching multiple rollup indices with the same rollup.
+
+ **Step 1:** Set up an ISM rollover policy to roll over any index whose name starts with `log*` after one document is uploaded to it, and then roll up the individual backing index. The target index name is dynamically generated from the source index name by prepending the string `rollup_ndx-` to the source index name.
+
+```json
+PUT _plugins/_ism/policies/rollover_policy 
+{ 
+  "policy": { 
+    "description": "Example rollover policy.", 
+    "default_state": "rollover", 
+    "states": [ 
+      { 
+        "name": "rollover", 
+        "actions": [ 
+          { 
+            "rollover": { 
+              "min_doc_count": 1 
+            } 
+          } 
+        ], 
+        "transitions": [ 
+          { 
+            "state_name": "rp" 
+          } 
+        ] 
+      }, 
+      { 
+        "name": "rp", 
+        "actions": [
+          { 
+            "rollup": { 
+              "ism_rollup": { 
+                "target_index": "rollup_ndx-{{ctx.source_index}}", 
+                "description": "Example rollup job", 
+                "page_size": 200, 
+                "dimensions": [ 
+                  { 
+                    "date_histogram": { 
+                      "source_field": "ts", 
+                      "fixed_interval": "60m", 
+                      "timezone": "America/Los_Angeles" 
+                    } 
+                  }, 
+                  { 
+                    "terms": { 
+                      "source_field": "message.keyword" 
+                    } 
+                  } 
+                ], 
+                "metrics": [ 
+                  { 
+                    "source_field": "msg_size", 
+                    "metrics": [ 
+                      { 
+                        "sum": {} 
+                      } 
+                    ]
+                  } 
+                ]
+              } 
+            } 
+          } 
+        ], 
+        "transitions": [] 
+      } 
+    ], 
+    "ism_template": { 
+      "index_patterns": ["log*"], 
+      "priority": 100 
+    } 
+  } 
+}
+```
+
+**Step 2:** Create an index named `log-000001` and set up an alias `log` for it.
+
+```json
+PUT log-000001
+{
+  "aliases": {
+    "log": {
+      "is_write_index": true
+    }
+  }
+}
+```
+
+**Step 3:** Add an index template for ISM to manage the rolling over of the indices aliased by `log`.
+
+```json
+PUT _index_template/ism_rollover
+{
+  "index_patterns": ["log*"],
+  "template": {
+   "settings": {
+    "plugins.index_state_management.rollover_alias": "log"
+   }
+ }
+}
+```
+
+**Step 4:** Index four documents into the index created above. Two of the documents have the message "Success", and two have the message "Error".
+
+```json
+POST log/_doc?refresh=true 
+{ 
+  "ts" : "2022-08-26T09:28:48-04:00", 
+  "message": "Success", 
+  "msg_size": 10 
+}
+```
+
+```json
+POST log/_doc?refresh=true 
+{ 
+  "ts" : "2022-08-26T10:06:25-04:00", 
+  "message": "Error", 
+  "msg_size": 20 
+}
+```
+
+```json
+POST log/_doc?refresh=true 
+{ 
+  "ts" : "2022-08-26T10:23:54-04:00", 
+  "message": "Error", 
+  "msg_size": 30 
+}
+```
+
+```json
+POST log/_doc?refresh=true 
+{ 
+  "ts" : "2022-08-26T10:53:41-04:00", 
+  "message": "Success", 
+  "msg_size": 40 
+}
+```
+
+Once you index the first document, the rollover action is executed. This action creates the index `log-000002` with `rollover_policy` attached to it. Then the rollup action is executed, which creates the rollup index `rollup_ndx-log-000001`.
+
+To monitor the status of rollover and rollup index creation, you can use the ISM explain API: `GET _plugins/_ism/explain`
+{: .tip}
+
+**Step 5:** Search the rollup index.
+
+```json
+GET rollup_ndx-log-*/_search
+{
+  "size": 0,
+  "query": {
+    "match_all": {}
+  },
+  "aggregations": {
+    "message_numbers": {
+      "terms": {
+        "field": "message.keyword"
+      },
+      "aggs": {
+        "per_message": {
+          "terms": {
+            "field": "message.keyword"
+          },
+          "aggregations": {
+            "sum_message": {
+              "sum": {
+                "field": "msg_size"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+The response contains two buckets, "Error" and "Success", and the document count for each bucket is 2:
+
+```json
+{
+  "took" : 7,
+  "timed_out" : false,
+  "_shards" : {
+    "total" : 4,
+    "successful" : 4,
+    "skipped" : 0,
+    "failed" : 0
+  },
+  "hits" : {
+    "total" : {
+      "value" : 4,
+      "relation" : "eq"
+    },
+    "max_score" : null,
+    "hits" : [ ]
+  },
+  "aggregations" : {
+    "message_numbers" : {
+      "doc_count_error_upper_bound" : 0,
+      "sum_other_doc_count" : 0,
+      "buckets" : [
+        {
+          "key" : "Error",
+          "doc_count" : 2,
+          "per_message" : {
+            "doc_count_error_upper_bound" : 0,
+            "sum_other_doc_count" : 0,
+            "buckets" : [
+              {
+                "key" : "Error",
+                "doc_count" : 2,
+                "sum_message" : {
+                  "value" : 50.0
+                }
+              }
+            ]
+          }
+        },
+        {
+          "key" : "Success",
+          "doc_count" : 2,
+          "per_message" : {
+            "doc_count_error_upper_bound" : 0,
+            "sum_other_doc_count" : 0,
+            "buckets" : [
+              {
+                "key" : "Success",
+                "doc_count" : 2,
+                "sum_message" : {
+                  "value" : 50.0
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}
+```
