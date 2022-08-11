@@ -140,7 +140,7 @@ If you see any validation errors, edit the settings to fix the errors and then r
 
 ## Step 5: Observe the results
 
-Choose the **Real-time results** or **Historical analysis** tab. For real-time results, you need to wait for some time to see the anomaly results. If the detector interval is 10 minutes, the detector might take more than an hour to start, as it's waiting for sufficient data to generate anomalies. 
+Choose the **Real-time results** or **Historical analysis** tab. For real-time results, you need to wait for some time to see the anomaly results. If the detector interval is 10 minutes, the detector might take more than an hour to start, because its waiting for sufficient data to generate anomalies. 
 
 A shorter interval means the model passes the shingle process more quickly and starts to generate the anomaly results sooner.
 Use the [profile detector]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/api#profile-detector) operation to make sure you have sufficient data points.
@@ -152,22 +152,22 @@ Choose and drag over the anomaly line chart to zoom in and see a more detailed v
 
 Analyze anomalies with the following visualizations:
 
-- **Live anomalies** (for real-time results) - displays live anomaly results for the last 60 intervals. For example, if the interval is 10, it shows results for the last 600 minutes. The chart refreshes every 30 seconds.
-- **Anomaly overview** (for real-time results) / **Anomaly history**  (for historical analysis in the **Historical analysis** tab) - plots the anomaly grade with the corresponding measure of confidence. This pane includes:
+- **Live anomalies** (for real-time results) displays live anomaly results for the last 60 intervals. For example, if the interval is 10, it shows results for the last 600 minutes. The chart refreshes every 30 seconds.
+- **Anomaly overview** (for real-time results) / **Anomaly history**  (for historical analysis in the **Historical analysis** tab)  plots the anomaly grade with the corresponding measure of confidence. This pane includes:
     - The number of Anomaly occurrences based on the given data-time range. 
     - The **Average anomaly grade**, a number between 0 and 1 that indicates how anomalous a data point is. An anomaly grade of 0 represents “not an anomaly,” and a non-zero value represents the relative severity of the anomaly. 
-    - **Confidence**, an estimate of the probability that the reported anomaly grade matches the expected anomaly grade. Confidence increases as the model observes more data and learns the data behavior and trends. Note that confidence is distinct from model accuracy.
-    - **Last anomaly occurrence**, the time in which the last anomaly occurred.
+    - **Confidence** estimate of the probability that the reported anomaly grade matches the expected anomaly grade. Confidence increases as the model observes more data and learns the data behavior and trends. Note that confidence is distinct from model accuracy.
+    - **Last anomaly occurrence** is the time at which the last anomaly occurred.
 
-Underneath **Anomaly overview** / **Anomaly history** are:
+Underneath **Anomaly overview**/**Anomaly history** are:
 
-- **Feature breakdown** - plots the features based on the aggregation method. You can vary the date-time range of the detector. When selecting a point on the feature line chart, the **Feature output**, the number of times a field appears in your index, and the **Expected value**, a predicted value for the Feature output, appears. Where there is no anomaly, the output and expected values are equal.
+- **Feature breakdown** plots the features based on the aggregation method. You can vary the date-time range of the detector. Selecting a point on the feature line chart shows the **Feature output**, the number of times a field appears in your index, and the **Expected value**, a predicted value for the feature output. Where there is no anomaly, the output and expected values are equal.
 
     ![Anomaly detection results]({{site.url}}{{site.baseurl}}/images/feature-contribution-ad.png)
 
-- **Anomaly occurrences** - shows the `Start time`, `End time`, `Data confidence`, and `Anomaly grade` for each detected anomaly.
+- **Anomaly occurrences** shows the `Start time`, `End time`, `Data confidence`, and `Anomaly grade` for each detected anomaly.
 
-When selecting a point on the anomaly line chart the **Feature Contribution**, the percentage of a feature that contributes to the anomaly, appears.
+Selecting a point on the anomaly line chart shows **Feature Contribution**, the percentage of a feature that contributes to the anomaly
 
 ![Anomaly detection results]({{site.url}}{{site.baseurl}}/images/feature-contribution-ad.png)
 
