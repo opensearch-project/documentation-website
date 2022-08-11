@@ -147,6 +147,9 @@ Use the [profile detector]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/ap
 
 If you see the detector pending in "initialization" for longer than a day, aggregate your existing data using the detector interval to check for any missing data points. If you find a lot of missing data points from the aggregated data, consider increasing the detector interval.
 
+Choose and drag over the anomaly line chart to zoom in and see a more detailed view of an anomaly.
+{: .note }
+
 Analyze anomalies with the following visualizations:
 
 - **Live anomalies** (for real-time results) - displays live anomaly results for the last 60 intervals. For example, if the interval is 10, it shows results for the last 600 minutes. The chart refreshes every 30 seconds.
@@ -159,13 +162,10 @@ Analyze anomalies with the following visualizations:
 Underneath **Anomaly overview** / **Anomaly history** are:
 
 - **Feature breakdown** - plots the features based on the aggregation method. You can vary the date-time range of the detector. When selecting a point on the feature line chart, the **Feature output**, the number of times a field appears in your index, and the **Expected value**, a predicted value for the Feature output, appears. Where there is no anomaly, the output and expected values are equal.
+
+    ![Anomaly detection results]({{site.url}}{{site.baseurl}}/images/feature-contribution-ad.png)
+
 - **Anomaly occurrences** - shows the `Start time`, `End time`, `Data confidence`, and `Anomaly grade` for each detected anomaly.
-
-![Anomaly detection results]({{site.url}}{{site.baseurl}}/images/feature-output-ad.png)
-
-
-Choose and drag over the anomaly line chart to zoom in and see a more detailed view of an anomaly.
-{: .note }
 
 When selecting a point on the anomaly line chart the **Feature Contribution**, the percentage of a feature that contributes to the anomaly, appears.
 
