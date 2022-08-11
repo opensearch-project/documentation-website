@@ -8,7 +8,7 @@ parent: .NET clients
 
 # Low-level .NET client (OpenSearch.Net)
 
-OpenSearch.Net is a low-level .NET client that provides the foundational layer of communicating with OpenSearch. It is dependency-free, and it can handle round-robin load balancing, transport, and the basic request/response cycle. OpenSearch.Net contains all OpenSearch API endpoints as methods. When using OpenSearch.Net, you need to construct the queries yourself.
+OpenSearch.Net is a low-level .NET client that provides the foundational layer of communication with OpenSearch. It is dependency free, and it can handle round-robin load balancing, transport, and the basic request/response cycle. OpenSearch.Net contains all OpenSearch API endpoints as methods. When using OpenSearch.Net, you need to construct the queries yourself.
 
 ## Example
 
@@ -27,11 +27,11 @@ public class Student
 
 ## Installing the Opensearch.Net client
 
-To install Opensearch.Net, download the Opensearch.Net NuGet package and add it to your project in an IDE of your choice. In Microsoft Visual Studio: 
-- In the **Solution Explorer** panel, right click on your solution or project and select **Manage NuGet Packages for Solution**.
-- Search for the OpenSearch.Client NuGet package, and select **Install**.
+To install Opensearch.Net, download the [Opensearch.Net NuGet package](https://www.nuget.org/packages/OpenSearch.Net) and add it to your project in an IDE of your choice. In Microsoft Visual Studio, follow the steps below: 
+- In the **Solution Explorer** panel, right-click on your solution or project and select **Manage NuGet Packages for Solution**.
+- Search for the OpenSearch.Net NuGet package, and select **Install**.
 
-Alternatively, you can add OpenSearch.Client to your .csproj file:
+Alternatively, you can add OpenSearch.Net to your .csproj file:
 ```xml
 <Project>
   ...
@@ -49,7 +49,7 @@ Use the default constructor when creating an OpenSearchLowLevelClient object to 
 var client  = new OpenSearchLowLevelClient();
 ```
 
-To connect to your OpenSearch cluster via a single node with a known address, create a ConnectionConfiguration object with this address and pass it to the OpenSearch.Net constructor:
+To connect to your OpenSearch cluster through a single node with a known address, create a ConnectionConfiguration object with that address and pass it to the OpenSearch.Net constructor:
 
 ```cs
 var nodeAddress = new Uri("http://myserver:9200");
@@ -84,10 +84,10 @@ var client = new OpenSearchLowLevelClient(settings);
 
 `ConnectionConfiguration` is used to pass configuration options to the OpenSearch.Net client. `ConnectionSettings` inherits from `ConnectionConfiguration` and provides additional configuration options.
 The following example uses `ConnectionSettings` to:
-- set the default index name for requests which don't specify the index name,
-- enable gzip-compressed requests and responses,
-- signal to OpenSearch to return formatted JSON, 
-- make field names lowercase.
+- Set the default index name for requests that don't specify the index name.
+- Enable gzip-compressed requests and responses.
+- Signal to OpenSearch to return formatted JSON. 
+- Make field names lowercase.
 
 ```cs
 var uri = new Uri("http://localhost:9200");
@@ -114,7 +114,7 @@ var student = new Student {
 };
 ```
 
-Alternatively, you can create an instance of Student using anonymous type:
+Alternatively, you can create an instance of Student using an anonymous type:
 
 ```cs
 var student = new { 
@@ -135,7 +135,7 @@ Console.WriteLine(response.Body);
 
 The generic type parameter of the `Index` method specifies the response body type. In the example above, the response is a string.
 
-## Indexing many documents using Bulk API
+## Indexing many documents using the Bulk API
 
 To index many documents, use the Bulk API to bundle many operations into one request:
 
@@ -161,7 +161,7 @@ var studentArray = new object[]
 var manyResponse = client.Bulk<StringResponse>(PostData.MultiJson(studentArray));
 ```
 
-You can send the request body as an anonymous object, string, byte array or stream in APIs that take a body. For APIs that take multiline JSON, you can send the body as a list of bytes or a list of objects, like in the example above. The `PostData` class has static methods to send the body in all of these forms. 
+You can send the request body as an anonymous object, string, byte array, or stream in APIs that take a body. For APIs that take multiline JSON, you can send the body as a list of bytes or a list of objects, like in the example above. The `PostData` class has static methods to send the body in all of these forms. 
 
 ## Searching for a document
 
@@ -290,13 +290,13 @@ Console.WriteLine("SuccessOrKnownError: " + searchResponse.SuccessOrKnownError);
 Console.WriteLine("Original Exception: " + searchResponse.OriginalException);
 ```
 
-- `Success` returns true if the response code is in the 2xx range, or the response code has one of the expected values for this request.
-- `SuccessOrKnownError` returns true if the response is successful, or the response code is in the 400–501 or 505–599 range. If SuccessOrKnownError is true, the request is not retried.
+- `Success` returns true if the response code is in the 2xx range or the response code has one of the expected values for this request.
+- `SuccessOrKnownError` returns true if the response is successful or the response code is in the 400–501 or 505–599 ranges. If SuccessOrKnownError is true, the request is not retried.
 - `OriginalException` holds the original exception for the unsuccessful responses.
 
 ## Sample program 
 
-The following program creates an index, indexes data and searches for documents.
+The following program creates an index, indexes data, and searches for documents.
 
 ```cs
 using OpenSearch.Net;

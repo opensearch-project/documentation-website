@@ -8,14 +8,14 @@ parent: .NET clients
 
 # Getting started with the high-level .NET client (OpenSearch.Client)
 
-OpenSearch.Client is a high-level .NET client. It provides strongly typed requests and responses, as well as Query DSL. It frees you from constructing raw JSON requests and parsing raw JSON responses by providing models that parse and serialize/deserialize requests and responses automatically. OpenSearch.Client also exposes the OpenSearch.Net low-level client if you need it.
+OpenSearch.Client is a high-level .NET client. It provides strongly typed requests and responses as well as Query DSL. It frees you from constructing raw JSON requests and parsing raw JSON responses by providing models that parse and serialize/deserialize requests and responses automatically. OpenSearch.Client also exposes the OpenSearch.Net low-level client if you need it.
 
 This getting started guide illustrates how to connect to OpenSearch, index documents, and run queries.
 
 ## Installing OpenSearch.Client
 
-To install OpenSearch.Client, download the OpenSearch.Client NuGet package and add it to your project in an IDE of your choice. In Microsoft Visual Studio: 
-- In the **Solution Explorer** panel, right click on your solution or project and select **Manage NuGet Packages for Solution**.
+To install OpenSearch.Client, download the [OpenSearch.Client NuGet package](https://www.nuget.org/packages/OpenSearch.Client) and add it to your project in an IDE of your choice. In Microsoft Visual Studio, follow the steps below: 
+- In the **Solution Explorer** panel, right-click on your solution or project and select **Manage NuGet Packages for Solution**.
 - Search for the OpenSearch.Client NuGet package, and select **Install**.
 
 Alternatively, you can add OpenSearch.Client to your .csproj file:
@@ -54,14 +54,14 @@ Use the default constructor when creating an OpenSearchClient object to connect 
 var client  = new OpenSearchClient();
 ```
 
-To connect to your OpenSearch cluster via a single node with a known address, specify this address when creating an instance of OpenSearch.Client:
+To connect to your OpenSearch cluster through a single node with a known address, specify this address when creating an instance of OpenSearch.Client:
 
 ```cs
 var nodeAddress = new Uri("http://myserver:9200");
 var client = new OpenSearchClient(nodeAddress);
 ```
 
-You can also connect to OpenSearch via multiple nodes. Connecting to your OpenSearch cluster using a node pool has advantages like load balancing and cluster failover support. To connect to your OpenSearch cluster using multiple nodes, specify their addresses and create a `ConnectionSettings` object for the OpenSearch.Client instance:
+You can also connect to OpenSearch through multiple nodes. Connecting to your OpenSearch cluster with a node pool provides advantages like load balancing and cluster failover support. To connect to your OpenSearch cluster using multiple nodes, specify their addresses and create a `ConnectionSettings` object for the OpenSearch.Client instance:
 
 ```cs
 var nodes = new Uri[]
@@ -79,7 +79,7 @@ var client = new OpenSearchClient(settings);
 ## Using ConnectionSettings
 
 `ConnectionConfiguration` is used to pass configuration options to the low-level OpenSearch.Net client. `ConnectionSettings` inherits from `ConnectionConfiguration` and provides additional configuration options.
-To set the address of the node and the default index name for requests which don't specify the index name, create a `ConnectionSettings` object:
+To set the address of the node and the default index name for requests that don't specify the index name, create a `ConnectionSettings` object:
 
 ```cs
 var node = new Uri("http://myserver:9200");
@@ -95,7 +95,7 @@ Create one instance of Student:
 var student = new Student { Id = 100, FirstName = "Paulo", LastName = "Santos", Gpa = 3.93, GradYear = 2021 };
 ```
 
-To index one document, you can use either fluent lambda syntax, or object initializer syntax.
+To index one document, you can use either fluent lambda syntax or object initializer syntax.
 
 Index this Student into the `students` index using fluent lambda syntax:
 
@@ -193,7 +193,7 @@ var response = await client.IndexAsync(student, i => i.Index("students"));
 
 ## Falling back on the low-level OpenSearch.Net client
 
-OpenSearch.Client exposes the low-level OpenSearch.Net client you can use if anything is missing:
+OpenSearch.Client exposes the low-level the OpenSearch.Net client you can use if anything is missing:
 
 ```cs
 var lowLevelClient = client.LowLevel;
@@ -225,7 +225,7 @@ if (searchResponseLow.IsValid)
 
 ## Sample program
 
-The following is a complete sample program that illustrates all of the concepts above. It uses the Student class described above.
+The following is a complete sample program that illustrates all of the concepts described above. It uses the Student class defined above.
 
 ```cs
 using OpenSearch.Client;

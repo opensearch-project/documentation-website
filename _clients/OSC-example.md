@@ -23,7 +23,7 @@ public class Student
 
 ## Mappings
 
-OpenSearch uses dynamic mapping to infer field types of the documents that are indexed. However, to have more control over the schema of your document, you can pass explicit mapping to OpenSearch. You can define data types for some or all fields of your document in this mapping. 
+OpenSearch uses dynamic mapping to infer field types of the documents that are indexed. However, to have more control over the schema of your document, you can pass an explicit mapping to OpenSearch. You can define data types for some or all fields of your document in this mapping. 
 
 Similarly, OpenSearch.Client uses auto mapping to infer field data types based on the types of the class's properties. To use auto mapping, create a `students` index using the AutoMap's default constructor:
 
@@ -32,7 +32,7 @@ var createResponse = await osClient.Indices.CreateAsync("students",
     c => c.Map(m => m.AutoMap<Student>()));
 ```
 
-If you use auto mapping, Id and GradYear are mapped as integers, Gpa is mapped as a double, and FirstName and LastName are mapped as text with a keyword subfield. If you want to search for FirstName and LastName and allow only case-sensitive full matches, you can suppress analyzing by mapping these fields as keyword only. In Query DSL, you can accomplish this using the following:
+If you use auto mapping, Id and GradYear are mapped as integers, Gpa is mapped as a double, and FirstName and LastName are mapped as text with a keyword subfield. If you want to search for FirstName and LastName and allow only case-sensitive full matches, you can suppress analyzing by mapping these fields as keyword only. In Query DSL, you can accomplish this using the following query:
 
 ```json
 PUT students
@@ -95,11 +95,11 @@ var createResponse = await osClient.Indices.CreateAsync(index,
                             .Settings(s => s.NumberOfShards(1).NumberOfReplicas(2)));
 ```
 
-## Indexing multiple documents using the bulk API
+## Indexing multiple documents using the Bulk API
 
-In addition to indexing one document using `Index` and `IndexDocument` and indexing multiple documents using `IndexMany`, you can gain more control for indexing your documents by using `Bulk` or `BulkAll`. Indexing documents individually is inefficient because it creates an HTTP request for every document sent. The BulkAll helper frees you from handling retry, chunking or back off request functionality. It automatically retries if the request fails, backs off if the server is down, and controls how many documents are sent in one HTTP request. 
+In addition to indexing one document using `Index` and `IndexDocument` and indexing multiple documents using `IndexMany`, you can gain more control over document indexing by using `Bulk` or `BulkAll`. Indexing documents individually is inefficient because it creates an HTTP request for every document sent. The BulkAll helper frees you from handling retry, chunking or back off request functionality. It automatically retries if the request fails, backs off if the server is down, and controls how many documents are sent in one HTTP request. 
 
-In the following example, `BulkAll` is configured with the index name, number of back off retries, and back off time. Additionally, maximum degrees of parallelism controls the number of parallel HTTP requests containing the data. Finally, the size parameter signals how many documents are sent in one HTTP request. 
+In the following example, `BulkAll` is configured with the index name, number of back off retries, and back off time. Additionally, the maximum degrees of parallelism setting controls the number of parallel HTTP requests containing the data. Finally, the size parameter signals how many documents are sent in one HTTP request. 
 
 We recommend setting the size to 100–1000 documents in production. 
 {: .tip}
@@ -132,11 +132,11 @@ var gradResponse = await osClient.SearchAsync<Student>(s => s
                         .Sort(srt => srt.Ascending(f => f.LastName)));
 ```
 
-The response contains the Documents property with matching documents from OpenSearch. The data is in the form of deserialized JSON objects of Student type, so you can access their properties in a strongly-typed fashion. All serialization and deserialization is handled by OpenSearch.Client.
+The response contains the Documents property with matching documents from OpenSearch. The data is in the form of deserialized JSON objects of Student type, so you can access their properties in a strongly typed fashion. All serialization and deserialization is handled by OpenSearch.Client.
 
 ## Aggregations
 
-OpenSearch.Client includes the full OpenSearch query functionality, including aggregations. In addition to grouping search results into buckets (for example, group students by GPA ranges), you can calculate metrics like sum or average. The following query calculates the average GPA of all students in the index. 
+OpenSearch.Client includes the full OpenSearch query functionality, including aggregations. In addition to grouping search results into buckets (for example, grouping students by GPA ranges), you can calculate metrics like sum or average. The following query calculates the average GPA of all students in the index. 
 
 Setting Size to 0 means OpenSearch will only return the aggregation, not the actual documents.
 {: .tip}
@@ -218,7 +218,7 @@ internal class Program
 
 ## Sample program for search
 
-The following program searches students by name and graduation date, and calculates the average GPA.
+The following program searches students by name and graduation date and calculates the average GPA.
 
 ```cs
 using OpenSearch.Client;
