@@ -254,6 +254,10 @@ Before modifying any configuration files, it's always a good idea to save a back
 
 TLS certificates provide additional security for your cluster by allowing clients to confirm the identity of hosts and encrypt traffic between the client and host. For more complete information, refer to [Configure TLS Certificates]({{site.url}}{{site.baseurl}}/security-plugin/configuration/tls/) and [Generate Certificates]({{site.url}}{{site.baseurl}}/security-plugin/configuration/generate-certificates/) which are covered in the [Security Plugin]({{site.url}}{{site.baseurl}}/security-plugin/index/) documentation. For work performed in a development environment, self-signed certificates are usually adequate. This section will guide you through the basic steps required to generate your own TLS certificates and apply them to your OpenSearch host.
 
+1. Navigate to the OpenSearch `config` directory. This is where the certificates will be stored.
+   ```bash
+   cd /path/to/opensearch-{{site.opensearch_version}}/config/
+   ```
 1. Generate a root certificate. This is what you will use to sign your other certificates.
    ```bash
    # Create a private key for the root certificate
@@ -328,6 +332,15 @@ TLS certificates provide additional security for your cluster by allowing client
    echo "plugins.security.check_snapshot_restore_write_privileges: true" | sudo tee -a /path/to/opensearch-{{site.opensearch_version}}/config/opensearch.yml
    echo "plugins.security.restapi.roles_enabled: [\"all_access\", \"security_rest_api_access\"]" | sudo tee -a /path/to/opensearch-{{site.opensearch_version}}/config/opensearch.yml
    ```
+1. (Optional) Add trust for the self-signed root certificate.
+   ```bash
+   # Copy the root cert to the correct directory
+   sudo cp /path/to/opensearch-{{site.opensearch_version}}/config/root-ca.pem /etc/pki/ca-trust/source/anchors/
+
+   # Add trust
+   sudo update-ca-trust
+   ```
+
 ### Configure a user
 
 Users are defined and authenticated by OpenSearch in a variety of ways. One method, which does not require additional backend infrastructure, is manually configuring users in `internal_users.yml`. See [YAML files]({{site.url}}{{site.baseurl}}/security-plugin/configuration/yaml/) for more information about configuring users. The following steps explain how to remove all demo users except for the `admin` user, and how to replace the `admin` default password using a script.
@@ -354,7 +367,82 @@ Users are defined and authenticated by OpenSearch in a variety of ways. One meth
       OPENSEARCH_JAVA_HOME=/path/to/opensearch-{{site.opensearch_version}}/jdk ./hash.sh
       ```
    - Enter the desired password at the prompt and make a note of the output hash.
-1. 
+1. Open `internal_users.yml`:
+   ```bash
+   vi /path/to/opensearch-{{site.opensearch_version}}/config/opensearch-security/internal_users.yml
+   ```
+1. Remove all demo users except for `admin` and replace the hash with the output provided by `hash.sh` in a previous step. The file should look similar to the following example:
+   ```bash
+   ---
+   # This is the internal user database
+   # The hash value is a bcrypt hash and can be generated with plugin/tools/hash.sh
+
+   _meta:
+      type: "internalusers"
+      config_version: 2
+
+   # Define your internal users here
+
+   admin:
+      hash: "$2y$1EXAMPLEQqwS8TUcoEXAMPLEeZ3lEHvkEXAMPLERqjyh1icEXAMPLE."
+      reserved: true
+      backend_roles:
+      - "admin"
+      description: "Admin user"
+   ```
+
+### Apply changes
+
+TLS certificates are installed and demo users were removed or assigned new passwords. The last step is to apply the configuration changes, which requires invoking `securityadmin.sh` while OpenSearch is running on the host.
+
+1. Start OpenSearch:
+   ```bash
+   # Change directories
+   cd /path/to/opensearch-{{site.opensearch_version}}/bin
+
+   # Run the service in the foreground
+   ./opensearch
+   ```
+1. Open a second terminal session with the host and change directories to access `securityadmin.sh`:
+   ```bash
+   # Change to the correct directory
+   cd /path/to/opensearch-{{site.opensearch_version}}/plugins/opensearch-security/tools
+   ```
+1. Invoke the script:
+   ```bash
+   # You can omit the environment variable if you declared this in your $PATH.
+   OPENSEARCH_JAVA_HOME=/path/to/opensearch-{{site.opensearch_version}}/jdk ./securityadmin.sh -cd /path/to/opensearch-{{site.opensearch_version}}/config/opensearch-security/ -cacert /path/to/opensearch-{{site.opensearch_version}}/config/root-ca.pem -cert /path/to/opensearch-{{site.opensearch_version}}/config/admin.pem -key /path/to/opensearch-{{site.opensearch_version}}/config/admin-key.pem -icl -nhnv
+   ```
+
+### Verify that the service is running
+
+WORK IN PROGRESS
+{% comment %}
+
+Curl from the host itself - doesn't need -k flag if you updated trust
+- make sure to use the actual DNS record or the cert won't match the host
+If the host is connected to the public internet, try hitting it from your laptop.
+```bash
+$ curl https://your.host.fqdn:9200 -u admin:yournewpassword -k
+{
+  "name" : "ip-10-0-5-189.us-west-2.compute.internal",
+  "cluster_name" : "opensearch",
+  "cluster_uuid" : "efC0ANNMQlGQ5TbhNflVPg",
+  "version" : {
+    "distribution" : "opensearch",
+    "number" : "2.1.0",
+    "build_type" : "tar",
+    "build_hash" : "388c80ad94529b1d9aad0a735c4740dce2932a32",
+    "build_date" : "2022-06-30T21:31:04.823801692Z",
+    "build_snapshot" : false,
+    "lucene_version" : "9.2.0",
+    "minimum_wire_compatibility_version" : "7.10.0",
+    "minimum_index_compatibility_version" : "7.0.0"
+  },
+  "tagline" : "The OpenSearch Project: https://opensearch.org/"
+}
+```
+{% endcomment %}
 
 ## Configuration
 
