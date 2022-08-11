@@ -419,7 +419,7 @@ A classification algorithm, logistic regression models the probability of a disc
 | beta1 | Double | The exponential decay rates for the moment estimates | 0.9 |
 | beta2 | Double | The exponential decay rates for the moment estimates | 0.99 |
 | decayRate | Double | The Root Mean Squared Propagation (RMSProp) | 0.9 |
-| momentumType | MomentumType | The momentum with SDG to help accelerate gradient vectors in the right direction, leading to faster convergence between vectors | STANDARD |
+| momentumType | MomentumType | The momentum with SGD to help accelerate gradient vectors in the right direction, leading to faster convergence between vectors | STANDARD |
 | optimizerType | OptimizerType | The optimizer used in the model  | AdaGrad |
 | target | String | The target field | null |
 | objectiveType | ObjectiveType | The objective function type | LogMulticlass |
