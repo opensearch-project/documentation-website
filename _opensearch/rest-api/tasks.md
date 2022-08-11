@@ -50,6 +50,7 @@ Note that if a task finishes running, it won't be returned as part of your reque
           "running_time_in_nanos": 994000,
           "cancellable": false,
           "headers": {}
+          }
         },
         "Mgqdm0r9SEGClWxp_RbnaQ:17413": {
           "node": "Mgqdm0r9SEGClWxp_RbnaQ",
@@ -140,6 +141,60 @@ GET /_tasks?nodes=opensearch-node1
     }
   }
 }
+```
+
+The following request will return detailed information about active search tasks:
+
+**Sample Request**
+
+```bash
+curl -XGET "localhost:9200/_tasks?actions=*search&detailed
+```
+
+**Sample Response**
+
+```json
+{
+  "nodes" : {
+    "CRqNwnEeRXOjeTSYYktw-A" : {
+      "name" : "runTask-0",
+      "transport_address" : "127.0.0.1:9300",
+      "host" : "127.0.0.1",
+      "ip" : "127.0.0.1:9300",
+      "roles" : [
+        "cluster_manager",
+        "data",
+        "ingest",
+        "remote_cluster_client"
+      ],
+      "attributes" : {
+        "testattr" : "test",
+        "shard_indexing_pressure_enabled" : "true"
+      },
+      "tasks" : {
+        "CRqNwnEeRXOjeTSYYktw-A:677" : {
+          "node" : "CRqNwnEeRXOjeTSYYktw-A",
+          "id" : 677,
+          "type" : "transport",
+          "action" : "indices:data/read/search",
+          "description" : "indices[], search_type[QUERY_THEN_FETCH], source[{\"query\":{\"query_string\":<QUERY_STRING>}}]",
+          "start_time_in_millis" : 1660106254525,
+          "running_time_in_nanos" : 1354236,
+          "cancellable" : true,
+          "cancelled" : false,
+          "headers" : { },
+          "resource_stats" : {
+            "total" : {
+              "cpu_time_in_nanos" : 0,
+              "memory_in_bytes" : 0
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 ```
 
 ## Task canceling
