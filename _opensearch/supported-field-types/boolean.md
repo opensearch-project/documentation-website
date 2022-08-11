@@ -8,7 +8,7 @@ parent: Supported field types
 
 # Boolean field type
 
-A Boolean field type takes `true` or `false` values, or "true" or "false" strings. You can also pass an empty string "" in place of a `false` value.
+A Boolean field type takes `true` or `false` values, or `"true"` or `"false"` strings. You can also pass an empty string (`""`) in place of a `false` value.
 
 ## Example
 
@@ -33,7 +33,7 @@ PUT testindex
 }
 ```
 
-Index a document with boolean values:
+Index a document with Boolean values:
 
 ```json
 PUT testindex/_doc/1 
@@ -61,24 +61,24 @@ GET testindex/_search
 
 ## Parameters
 
-The following table lists the parameters accepted by boolean field types. All parameters are optional.
+The following table lists the parameters accepted by Boolean field types. All parameters are optional.
 
 Parameter | Description 
 :--- | :--- 
-`boost` | A floating point value that specifies the weight of this field toward the relevance score. Values above 1.0 increase the field's relevance. Values between 0.0 and 1.0 decrease the field's relevance. Default is 1.0.
-`doc_values` | A Boolean value that specifies if the field should be stored on disk so that it can be used for aggregations, sorting, or scripting. Default is `false`.
-`index` | A Boolean value that specifies if the field should be searchable. Default is true. 
+`boost` | A floating-point value that specifies the weight of this field toward the relevance score. Values above 1.0 increase the field's relevance. Values between 0.0 and 1.0 decrease the field's relevance. Default is 1.0.
+`doc_values` | A Boolean value that specifies whether the field should be stored on disk so that it can be used for aggregations, sorting or scripting. Default is `false`.
+`index` | A Boolean value that specifies whether the field should be searchable. Default is `true`. 
 `meta` | Accepts metadata for this field.
-`null_value` | A  value of the same type as the field that is used as null value. If this parameter is not specified, the field is treated as missing when its value is null. Default is null.
-`store` | A Boolean value that specifies if the field value should be stored and can be retrieved separately from the _source field. Default is `false`. 
+[`null_value`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/index#null-value) | A  value to be used in place of `null`. Must be of the same type as the field. If this parameter is not specified, the field is treated as missing when its value is `null`. Default is `null`.
+`store` | A Boolean value that specifies whether the field value should be stored and can be retrieved separately from the _source field. Default is `false`. 
 
 ## Boolean values in aggregations and scripts
 
-In aggregations on Boolean fields, `key` returns numeric values (1 for `true` and 0 for `false`), and `key_as_string` returns strings ("true" or "false"). Scripts return `true` and `false` for Booleans.
+In aggregations on Boolean fields, `key` returns numeric values (1 for `true` or 0 for `false`), and `key_as_string` returns strings (`"true"` or `"false"`). Scripts return `true` and `false` for Boolean values.
 
 ### Example
 
-Request:
+Run a terms aggregation query on the field `a`:
 
 ```json
 GET testindex/_search
@@ -101,7 +101,7 @@ GET testindex/_search
 }
 ```
 
-Response:
+The script returns the value of `a` as `true`, `key` returns the value of `a` as `1`, and `key_as_string` returns the value of `a` as `"true"`:
 
 ```json
 {

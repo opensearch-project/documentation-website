@@ -30,7 +30,7 @@ String | [`keyword`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-typ
 
 ## Arrays
 
-There is no dedicated array field type. Instead, you can pass an array of values into any field. All values in the array must have the same field type.
+There is no dedicated array field type in OpenSearch. Instead, you can pass an array of values into any field. All values in the array must have the same field type.
 
 ```json
 PUT testindex1/_doc/1
@@ -44,11 +44,11 @@ PUT testindex1/_doc/2
 }
 ```
 
-## Multi-fields
+## Multifields
 
-Multi-fields are used to index the same field differently. Strings are often mapped as `text` for full-text queries, and `keyword` for exact-value queries.
+Multifields are used to index the same field differently. Strings are often mapped as `text` for full-text queries and `keyword` for exact-value queries.
 
-Multi-fields can be created using the `fields` parameter. For example, you can map a book `title` to be of type `text`, and keep a `title.raw` subfield of type `keyword`.
+Multifields can be created using the `fields` parameter. For example, you can map a book `title` to be of type `text` and keep a `title.raw` subfield of type `keyword`.
 
 ```json
 PUT books
@@ -124,7 +124,7 @@ PUT testindex/_doc/3
 }
 ```
 
-Search for people who don't have an emergency phone:
+Search for people who do not have an emergency phone:
 
 ```json
 GET testindex/_search
@@ -137,7 +137,7 @@ GET testindex/_search
 }
 ```
 
-The response contains documents 1 and 3 but not document 2, because only explicit `null` values are replaced with the string "NONE":
+The response contains documents 1 and 3 but not document 2 because only explicit `null` values are replaced with the string "NONE":
 
 ```json
 {
@@ -184,5 +184,5 @@ The response contains documents 1 and 3 but not document 2, because only explici
 }
 ```
 
-The `_source` field still contains explicit `null`s because it is not affected by the `null_value`.
+The `_source` field still contains explicit `null` values because it is not affected by the `null_value`.
 {: .note}

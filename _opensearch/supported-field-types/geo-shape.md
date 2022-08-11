@@ -9,7 +9,7 @@ grand_parent: Supported field types
 
 # Geoshape field type
 
-A geoshape field type is a geographic shape such as a polygon or a collection of geographic points. To index a geoshape, OpenSearch tesselates the shape into a triangular mesh, and stores each triangle in a BKD tree. This provides a 10<sup>-7</sup>decimal degree of precision, which represents near perfect spatial resolution. Performance of this process is mostly impacted by the number of vertices in a polygon you are indexing.
+A geoshape field type contains a geographic shape, such as a polygon or a collection of geographic points. To index a geoshape, OpenSearch tesselates the shape into a triangular mesh and stores each triangle in a BKD tree. This provides a 10<sup>-7</sup>decimal degree of precision, which represents near-perfect spatial resolution. Performance of this process is mostly impacted by the number of vertices in a polygon you are indexing.
 
 ## Example
 
@@ -40,7 +40,7 @@ In both GeoJSON and WKT, the coordinates must be specified in the `longitude, la
 
 ## Geoshape types
 
-The following table describes the possible geoshape types and their relationship to GeoJSON and Well-Known Text types.
+The following table describes the possible geoshape types and their relationship to the GeoJSON and WKT types.
 
 OpenSearch type | GeoJSON type | WKT type | Description 
 :--- | :--- | :--- | :--- 
@@ -49,9 +49,9 @@ OpenSearch type | GeoJSON type | WKT type | Description
 [`polygon`](#polygon) | Polygon | POLYGON | A polygon specified by a list of vertices in coordinate form. The polygon must be closed, meaning the last point must be the same as the first point. Therefore, to create an n-gon, n+1 vertices are required. The minimum number of vertices is four, which creates a triangle.
 [`multipoint`](#multi-point) | MultiPoint | MULTIPOINT | An array of discrete related points that are not connected.
 [`multilinestring`](#multiline-string) | MultiLineString | MULTILINESTRING | An array of linestrings.
-[`multipolygon`](#multi-polygon) | MultiPolygon | MULTIPOLYGON | Ann array of polygons.
-[`geometrycollection`](#geometry-collection) | GeometryCollection | GEOMETRYCOLLECTION | A collection of geoshapes which may be of different types.
-[`envelope`](#envelope) | N/A | BBOX | A bounding rectangle specified by top left and bottom right vertices.
+[`multipolygon`](#multi-polygon) | MultiPolygon | MULTIPOLYGON | An array of polygons.
+[`geometrycollection`](#geometry-collection) | GeometryCollection | GEOMETRYCOLLECTION | A collection of geoshapes that may be of different types.
+[`envelope`](#envelope) | N/A | BBOX | A bounding rectangle specified by top-left and bottom-right vertices.
 
 ## Point
 
@@ -105,42 +105,12 @@ PUT testindex/_doc/2
 
 ## Polygon
 
-A polygon specified by a list of vertices in coordinate form. The polygon must be closed, meaning the last point must be the same as the first point. In the following example, a triangle is created using four points.
+A polygon is specified by a list of vertices in coordinate form. The polygon must be closed, meaning the last point must be the same as the first point. In the following example, a triangle is created using four points. 
 
-Index a polygon(triangle) in GeoJSON format:
-
-```json
-PUT testindex/_doc/3
-{
-  "location" : {
-    "type" : "polygon",
-    "coordinates" : [
-      [[74.0060, 40.7128], 
-      [71.0589, 42.3601], 
-      [73.7562, 42.6526], 
-      [74.0060, 40.7128]]
-    ]
-  }
-}
-```
-
-Index a polygon(triangle) in WKT format:
-
-```json
-PUT testindex/_doc/3
-{
-  "location" : "POLYGON ((74.0060 40.7128, 71.0589 42.3601, 73.7562 42.6526, 74.0060 40.7128))"
-}
-```
-
-## Polygon
-
-A polygon specified by a list of vertices in coordinate form. The polygon must be closed, meaning the last point must be the same as the first point. In the following example, a triangle is created using four points. 
-
-GeoJSON requires to list the vertices of the polygon counterclockwise. WKT does not impose a specific order on vertices.
+GeoJSON requires that you list the vertices of the polygon counterclockwise. WKT does not impose a specific order on vertices.
 {: .note}
 
-Index a polygon(triangle) in GeoJSON format:
+Index a polygon (triangle) in GeoJSON format:
 
 ```json
 PUT testindex/_doc/3
@@ -157,7 +127,7 @@ PUT testindex/_doc/3
 }
 ```
 
-Index a polygon(triangle) in WKT format:
+Index a polygon (triangle) in WKT format:
 
 ```json
 PUT testindex/_doc/3
@@ -168,10 +138,10 @@ PUT testindex/_doc/3
 
 The polygon may have holes inside. In this case, the `coordinates` field will contain multiple arrays. The first array represents the outer polygon, and each subsequent array represents a hole. Holes are represented as polygons and specified as arrays of coordinates.
 
-GeoJSON requires to list the vertices of the polygon counterclockwise, and the vertices of the hole clockwise. WKT does not impose a specific order on vertices.
+GeoJSON requires that you list the vertices of the polygon counterclockwise and the vertices of the hole clockwise. WKT does not impose a specific order on vertices.
 {: .note}
 
-Index a polygon(triangle) with a triangular hole in GeoJSON format:
+Index a polygon (triangle) with a triangular hole in GeoJSON format:
 
 ```json
 PUT testindex/_doc/4
@@ -193,7 +163,7 @@ PUT testindex/_doc/4
 }
 ```
 
-Index a polygon(triangle) with a triangular hole in WKT format:
+Index a polygon (triangle) with a triangular hole in WKT format:
 
 ```json
 PUT testindex/_doc/4
@@ -202,7 +172,7 @@ PUT testindex/_doc/4
 }
 ```
 
-In OpenSearch, you can specify a polygon by listing its vertices clockwise or counterclockwise. This works well for polygons which do not cross the date line (they are narrower than 180&deg;). However, a polygon which crosses the date line (is wider than 180&deg;) might be ambiguous because  WKT does not impose a specific order on vertices. Thus, you must specify polygons which cross the date line by listing their vertices counterclockwise. 
+In OpenSearch, you can specify a polygon by listing its vertices clockwise or counterclockwise. This works well for polygons that do not cross the date line (are narrower than 180&deg;). However, a polygon that crosses the date line (is wider than 180&deg;) might be ambiguous because  WKT does not impose a specific order on vertices. Thus, you must specify polygons that cross the date line by listing their vertices counterclockwise. 
 
 You can define an [`orientation`](#parameters) parameter to specify the vertex traversal order at mapping time:
 
@@ -341,7 +311,7 @@ PUT testindex/_doc/4
 
 ## Geometry collection
 
-A geometry collection is a collection of geoshapes which may be of different types.
+A geometry collection is a collection of geoshapes that may be of different types.
 
 Index a geometry collection in GeoJSON format:
 
@@ -366,7 +336,7 @@ PUT testindex/_doc/7
 
 ## Envelope
 
-An envelope is a bounding rectangle specified by top left and bottom right vertices. The GeoJSON format is `[[minLon, maxLat], [maxLon, minLat]]`.
+An envelope is a bounding rectangle specified by top-left and bottom-right vertices. The GeoJSON format is `[[minLon, maxLat], [maxLon, minLat]]`.
 
 Index an envelope in GeoJSON format:
 
@@ -397,7 +367,7 @@ The following table lists the parameters accepted by geoshape field types. All p
 
 Parameter | Description 
 :--- | :--- 
-`coerce` | A Boolean value that specifies whether to automatically close unclosed linear rings. Default is false.
-`ignore_malformed` | A Boolean value that specifies to ignore malformed GeoJSON or WKT geoshapes and not to throw an exception. Default is false (throw an exception when geoshapes are malformed).
-`ignore_z_values` | Specific to points with three coordinates. If `ignore_z_values` is true, the third coordinate is not indexed but is still stored in the _source field. If `ignore_z_values` is false, an exception is thrown. Default is true.
-`orientation` | Specifies the traversal order of the vertices in the geoshape's list of coordinates. `orientation` takes the following values: <br> 1. RIGHT: counterclockwise. Specify RIGHT orientation by using one of the following strings (uppercase or lowercase): `right`, `counterclockwise`, `ccw`. <br> 2. LEFT: clockwise. Specify LEFT orientation by using one of the following strings (uppercase or lowercase): `left`, `clockwise`, `cw`.  This value can be overridden by individual documents. Default is `RIGHT`.
+`coerce` | A Boolean value that specifies whether to automatically close unclosed linear rings. Default is `false`.
+`ignore_malformed` | A Boolean value that specifies to ignore malformed GeoJSON or WKT geoshapes and not to throw an exception. Default is `false` (throw an exception when geoshapes are malformed).
+`ignore_z_values` | Specific to points with three coordinates. If `ignore_z_values` is `true`, the third coordinate is not indexed but is still stored in the _source field. If `ignore_z_values` is `false`, an exception is thrown. Default is `true`.
+`orientation` | Specifies the traversal order of the vertices in the geoshape's list of coordinates. `orientation` takes the following values: <br> 1. RIGHT: counterclockwise. Specify RIGHT orientation by using one of the following strings (uppercase or lowercase): `right`, `counterclockwise`, `ccw`. <br> 2. LEFT: clockwise. Specify LEFT orientation by using one of the following strings (uppercase or lowercase): `left`, `clockwise`, `cw`.  This value can be overridden by individual documents.<br> Default is `RIGHT`.

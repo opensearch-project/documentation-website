@@ -11,11 +11,11 @@ grand_parent: Supported field types
 
 A nested field type is a special type of [object field type]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/object/). 
 
-Any object field can take an array of objects. Those objects are dynamically mapped as object field type and stored in flattened form. This means they are broken down into individual fields, and values for each field across all objects are stored together. It is sometimes necessary to use the nested type to preserve a nested object as a whole so that you can perform a search on it.
+Any object field can take an array of objects. Each of the objects in the array is dynamically mapped as an object field type and stored in flattened form. This means that the objects in the array are broken down into individual fields, and values for each field across all objects are stored together. It is sometimes necessary to use the nested type to preserve a nested object as a whole so that you can perform a search on it.
 
 ## Flattened form
 
-By default, nested objects are dynamically mapped as object field type. Any object field can take an array of objects. 
+By default, each of the nested objects is dynamically mapped as object field type. Any object field can take an array of objects. 
 
 ```json
 PUT testindex1/_doc/100
@@ -164,7 +164,7 @@ PUT testindex1/_doc/100
 }
 ```
 
-Now, if you run the same query to search for patients older than 75 AND smokers, nothing is returned, which is correct.
+Now if you run the same query to search for patients older than 75 AND smokers, nothing is returned, which is correct.
 
 ```json
 {
@@ -186,13 +186,14 @@ Now, if you run the same query to search for patients older than 75 AND smokers,
   }
 }
 ```
+
 ## Parameters
 
 The following table lists the parameters accepted by object field types. All parameters are optional.
 
 Parameter | Description 
 :--- | :--- 
-[`dynamic`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/object#dynamic-parameter) | Specifies if new fields can be dynamically added to this object. Valid values: `true`, `false`, and `strict`. Default is true.
-`include_in_parent` | A Boolean value that specifies if all fields in the child nested object should also be added to the parent document in flattened form. Default is false.
-`incude_in_root` | A Boolean value that specifies if all fields in the child nested object should also be added to the root document in flattened form. Default is false.
-`properties` | Fields of this object, which can be of any supported type. New properties can be dynamically added to this object if `dynamic` is set to true.
+[`dynamic`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/object#the-dynamic-parameter) | Specifies whether new fields can be dynamically added to this object. Valid values are `true`, `false`, and `strict`. Default is `true`.
+`include_in_parent` | A Boolean value that specifies whether all fields in the child nested object should also be added to the parent document in flattened form. Default is `false`.
+`incude_in_root` | A Boolean value that specifies whether all fields in the child nested object should also be added to the root document in flattened form. Default is `false`.
+`properties` | Fields of this object, which can be of any supported type. New properties can be dynamically added to this object if `dynamic` is set to `true`.

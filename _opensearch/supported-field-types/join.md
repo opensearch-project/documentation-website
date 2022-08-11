@@ -76,9 +76,10 @@ PUT testindex1/_doc/4?routing=1
   }
 }
 ```
+
 ## Querying a join field
 
-When you query a join field, the response contains subfields that specify whether it is a parent or a child. For child objects, the parent ID is also returned.
+When you query a join field, the response contains subfields that specify whether the returned document is a parent or a child. For child objects, the parent ID is also returned.
 
 ### Search for all documents
 
@@ -91,7 +92,7 @@ GET testindex1/_search
 }
 ```
 
-You can see in the response whether a document is a parent or a child:
+The response indicates whether a document is a parent or a child:
 
 ```json
 {
@@ -155,7 +156,7 @@ You can see in the response whether a document is a parent or a child:
 }
 ```
 
-### Search for all chidren of a parent 
+### Search for all children of a parent 
 
 Find all products associated with Brand 1:
 
@@ -175,7 +176,7 @@ GET testindex1/_search
 }
 ```
 
-Response:
+The response contains Product 1 and Product 2, which are associated with Brand 1:
 
 ```json
 {
@@ -247,7 +248,7 @@ GET testindex1/_search
 }
 ```
 
-Response:
+The response returns Brand 1 as Product 1's parent:
 
 ```json
 {
@@ -308,5 +309,5 @@ PUT testindex1
 - There can only be one join field mapping in an index.
 - You need to provide the routing parameter when retrieving, updating, or deleting a child document. This is because parent and child documents in the same relation have to be indexed on the same shard.
 - Multiple parents are not supported. 
-- You can add a child document to an existing document only if that existing document is already marked as a parent.
+- You can add a child document to an existing document only if the existing document is already marked as a parent.
 - You can add a new relation to an existing join field.

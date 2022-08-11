@@ -8,7 +8,7 @@ parent: Supported field types
 
 # Alias field type
 
-An alias field type creates another name for an existing field. You can use aliases in [search](#using-aliases-in-search-api) and [field capabilities](#using-aliases-in-field-capabilities-api) APIs with some [exceptions](#exceptions). To set up an [alias](#alias-field), you need to specify the [original field](#original-field) name in the `path` parameter.
+An alias field type creates another name for an existing field. You can use aliases in the[search](#using-aliases-in-search-api-operations) and [field capabilities](#using-aliases-in-field-capabilities-api-operations) API operations, with some [exceptions](#exceptions). To set up an [alias](#alias-field), you need to specify the [original field](#original-field) name in the `path` parameter.
 
 ## Example
 
@@ -51,9 +51,9 @@ The original field for an alias must obey the following rules:
 - The original field must be created before the alias is created.
 - The original field cannot be an object or another alias.
 
-## Using aliases in search API
+## Using aliases in search API operations
 
-You can use aliases in the following read operations of search:
+You can use aliases in the following read operations of the search API:
 - Queries
 - Sorts
 - Aggregations
@@ -61,11 +61,11 @@ You can use aliases in the following read operations of search:
 - `docvalue_fields`
 - Suggestions
 - Highlights
-- Scripts that access field values.
+- Scripts that access field values
 
-## Using aliases in field capabilities API
+## Using aliases in field capabilities API operations
 
-To use an alias in field capabilities API, specify it in the fields parameter.
+To use an alias in the field capabilities API, specify it in the fields parameter.
 
 ```json
 GET movies/_field_caps?fields=release_date

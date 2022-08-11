@@ -9,7 +9,7 @@ grand_parent: Supported field types
 
 # Geopoint field type
 
-A geopoint field type is a geographic point specified by latitude and longitude. 
+A geopoint field type contains a geographic point specified by latitude and longitude. 
 
 ## Example
 
@@ -32,7 +32,7 @@ PUT testindex1
 
 Geopoints can be indexed in the following formats:
 
-- An object with a latitude and longitude.
+- An object with a latitude and longitude
 
 ```json
 PUT testindex1/_doc/1
@@ -44,7 +44,7 @@ PUT testindex1/_doc/1
 }
 ```
 
-- A string in the "`latitude`,`longitude`" format.
+- A string in the "`latitude`,`longitude`" format
 
 ```json
 PUT testindex1/_doc/2
@@ -53,7 +53,7 @@ PUT testindex1/_doc/2
 }
 ```
 
-- A geohash.
+- A geohash
 
 ```json
 PUT testindex1/_doc/3
@@ -62,7 +62,7 @@ PUT testindex1/_doc/3
 }
 ```
 
-- An array in the [`longitude`, `latitude`] format.
+- An array in the [`longitude`, `latitude`] format
 
 ```json
 PUT testindex1/_doc/4
@@ -71,7 +71,7 @@ PUT testindex1/_doc/4
 }
 ```
 
-- A [Well-Known Text](https://docs.opengeospatial.org/is/12-063r5/12-063r5.html) POINT in the "POINT(`longitude` `latitude`)" format.
+- A [Well-Known Text](https://docs.opengeospatial.org/is/12-063r5/12-063r5.html) POINT in the "POINT(`longitude` `latitude`)" format
 
 ```json
 PUT testindex1/_doc/5
@@ -86,6 +86,6 @@ The following table lists the parameters accepted by geopoint field types. All p
 
 Parameter | Description 
 :--- | :--- 
-`ignore_malformed` | A Boolean value that specifies to ignore malformed values and not to throw an exception. Valid values for latitude are [-90, 90]. Valid values for longitude are [-180, 180]. Default is false.
-`ignore_z_values` | Specific to points with three coordinates. If `ignore_z_values` is true, the third coordinate is not indexed but is still stored in the _source field. If `ignore_z_values` is false, an exception is thrown.
-`null_value` | A  value of the same type as the field that is used as null value. If this parameter is not specified, the field is treated as missing when its value is null. Default is null.
+`ignore_malformed` | A Boolean value that specifies to ignore malformed values and not to throw an exception. Valid values for latitude are [-90, 90]. Valid values for longitude are [-180, 180]. Default is `false`.
+`ignore_z_values` | Specific to points with three coordinates. If `ignore_z_values` is `true`, the third coordinate is not indexed but is still stored in the _source field. If `ignore_z_values` is `false`, an exception is thrown.
+[`null_value`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/index#null-value) | A  value to be used in place of `null`. Must be of the same type as the field. If this parameter is not specified, the field is treated as missing when its value is `null`. Default is `null`.

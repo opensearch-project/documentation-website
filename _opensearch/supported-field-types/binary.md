@@ -8,7 +8,7 @@ has_children: false
 
 # Binary field type
 
-A binary field type is a binary value in [Base64](https://en.wikipedia.org/wiki/Base64) encoding that is not searchable. 
+A binary field type contains a binary value in [Base64](https://en.wikipedia.org/wiki/Base64) encoding that is not searchable. 
 
 ## Example
 
@@ -45,5 +45,5 @@ The following table lists the parameters accepted by binary field types. All par
 
 Parameter | Description 
 :--- | :--- 
-`doc_values` | A Boolean value that specifies if the field should be stored on disk so that it can be used for aggregations, sorting, or scripting. Optional. Default is false.
-`store` | A Boolean value that specifies if the field value should be stored and can be retrieved separately from the _source field. Optional. Default is false.
+`doc_values` | A Boolean value that specifies whether the field should be stored on disk so that it can be used for aggregations, sorting, or scripting. Optional. Default is `false`.
+`store` | A Boolean value that specifies whether the field value should be stored and can be retrieved separately from the _source field. Optional. Default is `false`.

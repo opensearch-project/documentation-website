@@ -46,7 +46,7 @@ PUT chessplayers
 }
 ```
 
-Index three documents with a rank_feature field that boosts the score (`rating`), and a rank_feature field that decreases the score (`age`):
+Index three documents with a rank_feature field that boosts the score (`rating`) and a rank_feature field that decreases the score (`age`):
 
 ```json
 PUT testindex1/_doc/1
@@ -73,9 +73,9 @@ PUT testindex1/_doc/3
 
 ## Rank feature query
 
-Using a rank feature query, you can rank players by rating, age, or both rating and age. If you rank players by rating, higher rated players will have higher relevance scores. If you rank players by age, younger players will have higher relevance scores.
+Using a rank feature query, you can rank players by rating, by age, or by both rating and age. If you rank players by rating, higher-rated players will have higher relevance scores. If you rank players by age, younger players will have higher relevance scores.
 
-Use rank feature query to search for players based on age and rating:
+Use a rank feature query to search for players based on age and rating:
 
 ```json
 GET chessplayers/_search
@@ -98,9 +98,9 @@ GET chessplayers/_search
   }
 }
 ```
-When ranked by both age and rating, younger players and players who are more highly ranked score better.
 
-Response:
+When ranked by both age and rating, younger players and players who are more highly ranked score better:
+
 ```json
 {
   "took" : 2,
@@ -198,7 +198,7 @@ PUT testindex1/_doc/2
 }
 ```
 
-Query the documents using rank feature query:
+Query the documents using a rank feature query:
 
 ```json
 GET testindex1/_search
@@ -211,7 +211,7 @@ GET testindex1/_search
 }
 ```
 
-Response is ranked by relevance score:
+The response is ranked by relevance score:
 
 ```json
 {

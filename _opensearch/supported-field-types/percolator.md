@@ -12,9 +12,9 @@ A percolator field type specifies to treat this field as a query. Any JSON objec
 
 ## Example
 
-A customer is searching for a table priced $400 or less, and wants to create an alert for this search. 
+A customer is searching for a table priced at $400 or less and wants to create an alert for this search. 
 
-Create a mapping assigning percolator field type to the query field:
+Create a mapping assigning a percolator field type to the query field:
 
 ```json
 PUT testindex1
@@ -94,7 +94,7 @@ GET testindex1/_search
 }
 ```
 
-Response:
+The response contains the originally indexed query:
 
 ```json
 {

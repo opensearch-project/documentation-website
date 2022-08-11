@@ -7,15 +7,15 @@ parent: Autocomplete field types
 grand_parent: Supported field types
 ---
 
-# Search as you type field type
+# Search-as-you-type field type
 
-A search as you type field type provides search-as-you-type functionality using both prefix and infix completion. 
+A search-as-you-type field type provides search-as-you-type functionality using both prefix and infix completion. 
 
 ## Example
 
-Mapping a search as you type field creates n-gram subfields of this field, where n is in the range [2, `max_shingle_size`]. Additionally, it creates an index prefix subfield.
+Mapping a search-as-you-type field creates n-gram subfields of this field, where n is in the range [2, `max_shingle_size`]. Additionally, it creates an index prefix subfield.
 
-Create a mapping with a search as you type field:
+Create a mapping with a search-as-you-type field:
 
 ```json
 PUT books
@@ -32,7 +32,7 @@ PUT books
 
 In addition to the `suggestions` field, this creates `suggestions._2gram`, `suggestions._3gram`, and `suggestions._index_prefix` fields. 
 
-Index a document with a search as you type field:
+Index a document with a search-as-you-type field:
 
 ```json
 PUT books/_doc/1
@@ -60,7 +60,7 @@ GET books/_search
 }
 ```
 
-Response:
+The response contains the matching document:
 
 ```json
 {
@@ -106,7 +106,7 @@ GET books/_search
 }
 ```
 
-Response:
+The response contains the matching document:
 
 ```json
 {
@@ -187,17 +187,17 @@ Response:
 
 ## Parameters
 
-The following table lists the parameters accepted by text field types. All parameters are optional.
+The following table lists the parameters accepted by search-as-you-type field types. All parameters are optional.
 
 Parameter | Description 
 :--- | :---
-`analyzer` | The analyzer to be used for this field. By default, it will be used at index time, and at search time. To override it at search time, set the `search_analyzer` parameter. Default is `standard` analyzer that uses grammar-based tokenization and is based on the [Unicode Text Segmentation](https://unicode.org/reports/tr29/) algorithm. Configures the root field and subfields.
-`index` | A Boolean value that specifies if the field should be searchable. Default is true. Configures the root field and subfields.
+`analyzer` | The analyzer to be used for this field. By default, it will be used at index time and at search time. To override it at search time, set the `search_analyzer` parameter. Default is the `standard` analyzer, which uses grammar-based tokenization and is based on the [Unicode Text Segmentation](https://unicode.org/reports/tr29/) algorithm. Configures the root field and subfields.
+`index` | A Boolean value that specifies whether the field should be searchable. Default is `true`. Configures the root field and subfields.
 `index_options` | Specifies the information to be stored in the index for search and highlighting. Valid values: `docs` (doc number only), `freqs` (doc number and term frequencies), `positions` (doc number, term frequencies, and term positions), `offsets` (doc number, term frequencies, term positions, and start and end character offsets). Default is `positions`. Configures the root field and subfields.
-`max_shingle_size` | An integer that specifies the maximum n-gram size. Valid values are in the range [2, 4]. N-grams to be created are in the range [2, `max_shingle_size`]. Default is 3, which creates a 2-gram and a 3-gram. Larger `max_shingle_size` values work better for more specific queries, but lead to larger index size. 
-`norms` | A Boolean value that specifies if the field length should be used when calculating relevance scores. Configures the root field and n-gram subfields (default is false). Does not configure the prefix subfield: in the prefix subfield, `norms` is false. 
+`max_shingle_size` | An integer that specifies the maximum n-gram size. Valid values are in the range [2, 4]. N-grams to be created are in the range [2, `max_shingle_size`]. Default is 3, which creates a 2-gram and a 3-gram. Larger `max_shingle_size` values work better for more specific queries but lead to a larger index size. 
+`norms` | A Boolean value that specifies whether the field length should be used when calculating relevance scores. Configures the root field and n-gram subfields (default is `false`). Does not configure the prefix subfield (in the prefix subfield, `norms` is `false`). 
 `search_analyzer` | The analyzer to be used at search time. Default is the analyzer specified in the `analyzer` parameter. Configures the root field and subfields.
 `search_quote_analyzer` | The analyzer to be used at search time with phrases. Default is the analyzer specified in the `analyzer` parameter. Configures the root field and subfields.
 `similarity` | The ranking algorithm for calculating relevance scores. Default is `BM25`. Configures the root field and subfields.
-`store` | A Boolean value that specifies if the field value should be stored and can be retrieved separately from the _source field. Default is false. Configures the root field only.
-[`term_vector`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/text#term-vector-parameter) | A Boolean value that specifies if a term vector for this field should be stored. Default is `no`. Configures the root field and n-gram subfields. Does not configure the prefix subfield. 
+`store` | A Boolean value that specifies whether the field value should be stored and can be retrieved separately from the _source field. Default is `false`. Configures the root field only.
+[`term_vector`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/text#term-vector-parameter) | A Boolean value that specifies whether a term vector for this field should be stored. Default is `no`. Configures the root field and n-gram subfields. Does not configure the prefix subfield. 

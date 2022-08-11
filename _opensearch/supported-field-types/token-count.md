@@ -9,7 +9,7 @@ grand_parent: Supported field types
 
 # Token count field type
 
-A token count field type stores the number of analyzed tokens in the string.
+A token count field type stores the number of analyzed tokens in a string.
 
 ## Example
 
@@ -47,7 +47,7 @@ PUT testindex/_doc/3
 { "sentence": "Now is the winter of our discontent." }
 ```
 
-Search for sentences with less than 10 words:
+Search for sentences with fewer than 10 words:
 
 ```json
 GET testindex/_search
@@ -62,7 +62,7 @@ GET testindex/_search
 }
 ```
 
-Response:
+The response contains one matching sentence:
 
 ```json
 {
@@ -102,9 +102,9 @@ The following table lists the parameters accepted by token count field types. Th
 Parameter | Description 
 :--- | :--- 
 `analyzer` | The analyzer to be used for this field. Specify an analyzer without token filters for optimal performance. Required.
-`boost` | A floating point value that specifies the weight of this field toward the relevance score. Values above 1.0 increase the field's relevance. Values between 0.0 and 1.0 decrease the field's relevance. Default is 1.0.
-`doc_values` | A Boolean value that specifies if the field should be stored on disk so that it can be used for aggregations, sorting, or scripting. Default is false.
-`enable_position_increments` | A Boolean value that specifies if position increments should be counted. To avoid removing stop words, set this field to false. Default is true.
-`index` | A Boolean value that specifies if the field should be searchable. Default is true.
-`null_value` | A  value of the same type as the field that is used as null value. If this parameter is not specified, the field is treated as missing when its value is null. Default is null.
-`store` | A Boolean value that specifies if the field value should be stored and can be retrieved separately from the _source field. Default is false. 
+`boost` | A floating-point value that specifies the weight of this field toward the relevance score. Values above 1.0 increase the field's relevance. Values between 0.0 and 1.0 decrease the field's relevance. Default is 1.0.
+`doc_values` | A Boolean value that specifies whether the field should be stored on disk so that it can be used for aggregations, sorting, or scripting. Default is `false`.
+`enable_position_increments` | A Boolean value that specifies whether position increments should be counted. To avoid removing stopwords, set this field to `false`. Default is `true`.
+`index` | A Boolean value that specifies whether the field should be searchable. Default is `true`.
+[`null_value`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/index#null-value) | A  value to be used in place of `null`. Must be of the same type as the field. If this parameter is not specified, the field is treated as missing when its value is `null`. Default is `null`.
+`store` | A Boolean value that specifies whether the field value should be stored and can be retrieved separately from the _source field. Default is `false`. 

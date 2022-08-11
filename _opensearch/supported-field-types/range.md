@@ -16,7 +16,7 @@ Field data type | Description
 `long_range` | A range of [long]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/numeric/) values.   
 `double_range` | A range of [double]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/numeric/) values.  
 `float_range` | A range of [float]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/numeric/) values. 
-`ip_range` | A range of [IP addresses]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/ip/) in IPv4 or IPv6 formats. Start and end IP addresses may be in different formats.  
+`ip_range` | A range of [IP addresses]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/ip/) in IPv4 or IPv6 format. Start and end IP addresses may be in different formats.  
 `date_range` | A range of [date]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/date/) values. Start and end dates may be in different [formats]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/date/#formats). Internally, all dates are stored as unsigned 64-bit integers representing milliseconds since the epoch.
 
 ## Example
@@ -60,7 +60,7 @@ You can use a [term query](#term-query) or a [range query](#range-query) to sear
 
 ### Term query
 
-A term query takes a value and matches all range fields for which this value is within the range.
+A term query takes a value and matches all range fields for which the value is within the range.
 
 The following query will return document 1 because 3.5 is within the range [1.0, 4.0].
 
@@ -106,7 +106,7 @@ GET testindex1/_search
 }
 ```
 
-The above query will return document 1 for `within` and `intersects` relations, but will not return it for `contains` relation.
+The above query will return document 1 for the `within` and `intersects` relations but will not return it for the `contains` relation.
 
 ### IP address ranges
 
@@ -149,7 +149,7 @@ The following table lists the parameters accepted by range field types. All para
 
 Parameter | Description 
 :--- | :--- 
-`boost` | A floating point value that specifies the weight of this field toward the relevance score. Values above 1.0 increase the field's relevance. Values between 0.0 and 1.0 decrease the field's relevance. Default is 1.0.
-`coerce` | A Boolean value that signals to truncate decimals for integer values and to convert strings to numeric values. Default is true.
-`index` | A Boolean value that specifies if the field should be searchable. Default is true. 
-`store` | A Boolean value that specifies if the field value should be stored and can be retrieved separately from the _source field. Default is false. 
+`boost` | A floating-point value that specifies the weight of this field toward the relevance score. Values above 1.0 increase the field's relevance. Values between 0.0 and 1.0 decrease the field's relevance. Default is 1.0.
+`coerce` | A Boolean value that signals to truncate decimals for integer values and to convert strings to numeric values. Default is `true`.
+`index` | A Boolean value that specifies whether the field should be searchable. Default is `true`. 
+`store` | A Boolean value that specifies whether the field value should be stored and can be retrieved separately from the _source field. Default is `false`. 

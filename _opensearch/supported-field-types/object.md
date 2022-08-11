@@ -9,11 +9,11 @@ grand_parent: Supported field types
 
 # Object field type
 
-An object field type contains a JSON object (a set of name/value pairs). A value in a JSON object may be another JSON object. It is not necessary to specify `object` as type when mapping object fields, since `object` is the default type.
+An object field type contains a JSON object (a set of name/value pairs). A value in a JSON object may be another JSON object. It is not necessary to specify `object` as the type when mapping object fields because `object` is the default type.
 
 ## Example
 
-Create a mapping with an object field :
+Create a mapping with an object field:
 
 ```json
 PUT testindex1/_mappings
@@ -67,13 +67,13 @@ The following table lists the parameters accepted by object field types. All par
 
 Parameter | Description 
 :--- | :--- 
-[`dynamic`](#dynamic-parameter) | Specifies if new fields can be dynamically added to this object. Valid values: `true`, `false`, and `strict`. Default is true.
-`enabled` | A Boolean value that specifies if the JSON contents of the object should be parsed. If `enabled` is set to `false`, the object's contents are not indexed or searchable, but they are still retrievable from the _source field. Default is true.
-`properties` | Fields of this object, which can be of any supported type. New properties can be dynamically added to this object if `dynamic` is set to true.
+[`dynamic`](#the-dynamic-parameter) | Specifies whether new fields can be dynamically added to this object. Valid values are `true`, `false`, and `strict`. Default is `true`.
+`enabled` | A Boolean value that specifies whether the JSON contents of the object should be parsed. If `enabled` is set to `false`, the object's contents are not indexed or searchable, but they are still retrievable from the _source field. Default is `true`.
+`properties` | Fields of this object, which can be of any supported type. New properties can be dynamically added to this object if `dynamic` is set to `true`.
 
-### Dynamic parameter
+### The `dynamic` parameter
 
-The `dynamic` parameter specifies if new fields can be dynamically added to an object that is already indexed.
+The `dynamic` parameter specifies whether new fields can be dynamically added to an object that is already indexed.
 
 For example, you can initially create a mapping with a `patient` object that has only one field:
 
@@ -93,7 +93,7 @@ PUT testindex1/_mappings
 }
 ```
 
-Then, you index a document with a new `id` field in `patient`:
+Then you index a document with a new `id` field in `patient`:
 
 ```json
 PUT testindex1/_doc/1
@@ -134,7 +134,7 @@ As a result, the field `id` is added to the mappings:
 }
 ```
 
-The `dynamic` parameter has the following valid values:
+The `dynamic` parameter has the following valid values.
 
 Value | Description 
 :--- | :--- 
