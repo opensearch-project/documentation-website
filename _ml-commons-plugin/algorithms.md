@@ -200,7 +200,7 @@ For FIT RCF, you can train the model with historical data and store the trained 
 
 ## RCFSummarize
 
-RCFSummarize is a clustering algorithm based on the Clustering Using REpresentatives (CURE) algorithm. Compared to [k-means](#k-means), which uses random iterations to cluster, RCFSummarize uses a hierarchical-based clustering technique. The algorithm starts, with a set of randomly selected centroids larger than the centroid’s ground-truth distribution. During iteration, centroid pairs too close to each other automatically merge. Therefore, the number of centroids (`max_k`) converge to a rational number of clusters that fits ground-truth, as opposed to a fixed `k` number of clusters.  
+RCFSummarize is a clustering algorithm based on the Clustering Using REpresentatives (CURE) algorithm. Compared to [k-means](#k-means), which uses random iterations to cluster, RCFSummarize uses a hierarchical clustering technique. The algorithm starts, with a set of randomly selected centroids larger than the centroids' ground truth distribution. During iteration, centroid pairs too close to each other automatically merge. Therefore, the number of centroids (`max_k`) converge to a rational number of clusters that fits ground truth, as opposed to a fixed `k` number of clusters.  
 
 ### Parameters
 
@@ -215,9 +215,9 @@ RCFSummarize is a clustering algorithm based on the Clustering Using REpresentat
 * [Predict]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#predict)
 * [Train and predict]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#train-and-predict)
 
-### Example: Train and Predict
+### Example: Train and predict
 
-The following example estimates cluster centers and gives cluster labels for each sample in a given data frame.
+The following example estimates cluster centers and provides cluster labels for each sample in a given data frame.
 
 ```bash
 POST _plugins/_ml/_train_predict/RCF_SUMMARIZE
@@ -407,7 +407,7 @@ The Localization algorithm can only be executed directly. Therefore, it cannot b
 
 ## Logistic regression
 
-A classification algorithm, logistic regression models the probability of a discrete outcome given an input variable. In ML commons, these classifications include both binary and multi-class. The most common is the binary classification, which takes two values such as "true/false" or "yes/no", and predicts the outcome based on the values specified. On the other hand, a multi-class output can categorize different inputs based on type. This makes logistic regression most useful for situations where you are trying to determine how your inputs fit best into a specified-category. 
+A classification algorithm, logistic regression models the probability of a discrete outcome given an input variable. In ML Commons, these classifications include both binary and multi-class. The most common is the binary classification, which takes two values, such as "true/false" or "yes/no", and predicts the outcome based on the values specified. Alternatively, a multi-class output can categorize different inputs based on type. This makes logistic regression most useful for situations where you are trying to determine how your inputs fit best into a specified category. 
 
 ### Parameters
 
@@ -479,7 +479,7 @@ POST _bulk
 
 #### Train the logistic regression model
 
-This example uses a multi-class logistic regression categorization methodology. Here, the inputs of sepal length and width, and petal length and width, are used to train the model to categorize based on the `class`, as indicated by the `target` parameter.
+This example uses a multi-class logistic regression categorization methodology. Here, the inputs of sepal and petal length and width are used to train the model to categorize centroids based on the `class`, as indicated by the `target` parameter.
 
 **Request**
 
@@ -520,7 +520,7 @@ The `model_id` will be used to predict the class of the Iris.
 
 #### Predict results
 
-Using the `model_id` of the trained Iris dataset, logistic regression will predict what class of Iris based on the input data.
+Using the `model_id` of the trained Iris dataset, logistic regression will predict the class of the Iris based on the input data.
 
 ```bash
 POST _plugins/_ml/_predict/logistic_regression/SsfQaoIBEoC4g4joZiyD
@@ -629,4 +629,4 @@ POST _plugins/_ml/_predict/logistic_regression/SsfQaoIBEoC4g4joZiyD
 
 ### Limitations
 
-Convergence metrics are not built into Tribuo's trainers. Therefore, ML commons cannot indicate the convergence status through the ML commons API.
+Convergence metrics are not built into Tribuo's trainers. Therefore, ML Commons cannot indicate the convergence status through the ML Commons API.
