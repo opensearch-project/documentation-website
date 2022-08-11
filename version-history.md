@@ -9,6 +9,7 @@ permalink: /version-history/
 
 OpenSearch version | Release highlights | Release date
 :--- | :--- | :--- | :---
+[2.2.0](https://github.com/opensearch-project/opensearch-build/blob/main/release-notes/opensearch-release-notes-2.2.0.md) | Includes support for Logistic Regression and RCF Summarize machine learning algorithms in ML Commons, Lucene or C-based Nmslib and Faiss libraries for approximate k-NN search, search by relevance using SQL and PPL queries, custom region maps for visualizations, and rollup enhancements. For a full list of release highlights, see the Release Notes. | 11 August 2022
 [2.1.0](https://github.com/opensearch-project/opensearch-build/blob/main/release-notes/opensearch-release-notes-2.1.0.md) | Includes support for dedicated ML node in the ML Commons plugin, relevance search and other features in SQL, multi-terms aggretation, and Snapshot Management. For a full list of release highlights, see the Release Notes. | 07 July 2022
 [2.0.1](https://github.com/opensearch-project/opensearch-build/blob/main/release-notes/opensearch-release-notes-2.0.1.md) | Includes bug fixes and maintenance updates for Alerting and Anomaly Detection. | 16 June 2022
 [2.0.0](https://github.com/opensearch-project/opensearch-build/blob/main/release-notes/opensearch-release-notes-2.0.0.md) | Includes document-level monitors for alerting, OpenSearch Notifications plugins, and Geo Map Tiles in OpenSearch Dashboards. Also adds support for Lucene 9 and bug fixes for all OpenSearch plugins. For a full list of release highlights, see the Release Notes. | 26 May 2022

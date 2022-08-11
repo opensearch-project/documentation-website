@@ -66,6 +66,25 @@ bin/opensearch-plugin list
   </thead>
   <tbody>
   <tr>
+  <tr>
+    <td>2.2.0</td>
+    <td>
+       <pre>opensearch-alerting                  2.2.0.0
+opensearch-anomaly-detection         2.2.0.0
+opensearch-asynchronous-search       2.2.0.0
+opensearch-cross-cluster-replication 2.2.0.0
+opensearch-index-management          2.2.0.0
+opensearch-job-scheduler             2.2.0.0
+opensearch-knn                       2.2.0.0
+opensearch-ml                        2.2.0.0
+opensearch-observability             2.2.0.0
+opensearch-performance-analyzer      2.2.0.0
+opensearch-reports-scheduler         2.2.0.0
+opensearch-security                  2.2.0.0
+opensearch-sql                       2.2.0.0
+</pre>
+</td>
+</tr>
     <tr>
     <td>2.1.0.0</td>
     <td>
