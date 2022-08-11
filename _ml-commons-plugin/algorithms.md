@@ -207,7 +207,7 @@ RCFSummarize is a clustering algorithm based on the Clustering Using REpresentat
 | Parameter | Type | Description | Default Value |
 |---|---|---|---|
 | max_k | integer | The max allowed number of centroids | 2 |
-| distance_type | enum, such as `EUCLIDEAN`, `L1`, `L2`, or `LInfinity` | The type of measurement from which to measure the distance between centroids | EUCLIDEAN |
+| distance_type | enum, such as `EUCLIDEAN`, `L1`, `L2`, or `LInfinity` | The type of measurement used to measure the distance between centroids | EUCLIDEAN |
 
 ### APIs
 
