@@ -414,31 +414,31 @@ A classification algorithm, logistic regression models the probability of a disc
 | Parameter | Type | Description | Default Value |
 |---|---|---|---|
 | learningRate | Double | The gradient descent step size at each iteration when moving toward a minimum of a loss function or optimal value  | 1 |
-| momentumFactor | Double | The extra weight factors that accelerate the rate at which the weight is adjusted. This helps move the minimization routine out of local minima | 0 |
+| momentumFactor | Double | The extra weight factors that accelerate the rate at which the weight is adjusted. This helps move the minimization routine out of local minima. | 0 |
 | epsilon | Double | The value for stabilizing gradient inversion | 0.1 |
 | beta1 | Double | The exponential decay rates for the moment estimates | 0.9 |
 | beta2 | Double | The exponential decay rates for the moment estimates | 0.99 |
 | decayRate | Double | The Root Mean Squared Propagation (RMSProp) | 0.9 |
-| momentumType | MomentumType | The momentum with SGD to help accelerate gradient vectors in the right direction, leading to faster convergence between vectors | STANDARD |
+| momentumType | MomentumType | The Stochastic Gradient Descent (SGD) momentum that helps accelerate gradient vectors in the right direction, leading to faster convergence between vectors | STANDARD |
 | optimizerType | OptimizerType | The optimizer used in the model  | AdaGrad |
 | target | String | The target field | null |
 | objectiveType | ObjectiveType | The objective function type | LogMulticlass |
 | epochs | Integer | The number of iterations | 5 |
 | batchSize | Integer | The size of minbatches | 1 |
-| loggingInterval | Integer | The interval of logs lost after many iterations. Interval is `1` if algorithm contains no logs. | 1000 |
+| loggingInterval | Integer | The interval of logs lost after many iterations. The interval is `1` if the algorithm contains no logs. | 1000 |
 
 ### APIs
 
 * [Train]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#train-model)
 * [Predict]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#predict)
 
-### Example: Tran/Predict with IRIS Data
+### Example: Train/Predict with Iris data
 
-The following example creates an index in OpenSearch with [Iris data](https://archive.ics.uci.edu/ml/datasets/iris), then trains the data using logistic regression. Lastly, it uses the trained model to predict Iris types separated by row.
+The following example creates an index in OpenSearch with the [Iris dataset](https://archive.ics.uci.edu/ml/datasets/iris), then trains the data using logistic regression. Lastly, it uses the trained model to predict Iris types separated by row.
 
 #### Create an Iris index
 
-Before using this request, make sure that you've downloaded [Iris data](https://archive.ics.uci.edu/ml/datasets/iris).
+Before using this request, make sure that you have downloaded [Iris data](https://archive.ics.uci.edu/ml/datasets/iris).
 
 ```bash
 PUT /iris_data
