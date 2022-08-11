@@ -418,7 +418,7 @@ TLS certificates are installed and demo users were removed or assigned new passw
 
 WORK IN PROGRESS
 {% comment %}
-
+//testing
 Curl from the host itself - doesn't need -k flag if you updated trust
 - make sure to use the actual DNS record or the cert won't match the host
 If the host is connected to the public internet, try hitting it from your laptop.
