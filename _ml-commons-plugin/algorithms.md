@@ -13,9 +13,9 @@ ML Commons supports various algorithms to help train and predict machine learnin
 
 Except for the Localization algorithm, all of the following algorithms can only support retrieving 10,000 documents from an index as an input.
 
-## K-Means
+## K-means
 
-K-Means is a simple and popular unsupervised clustering ML algorithm built on top of [Tribuo](https://tribuo.org/) library. K-Means will randomly choose centroids, then calculate iteratively to optimize the position of the centroids until each observation belongs to the cluster with the nearest mean.
+K-means is a simple and popular unsupervised clustering ML algorithm built on top of [Tribuo](https://tribuo.org/) library. K-means will randomly choose centroids, then calculate iteratively to optimize the position of the centroids until each observation belongs to the cluster with the nearest mean.
 
 ### Parameters
 
@@ -33,7 +33,7 @@ distance_type | enum, such as `EUCLIDEAN`, `COSINE`, or `L1` | The type of measu
 
 ### Example
 
-The following example uses the Iris Data index to train K-Means synchronously. 
+The following example uses the Iris Data index to train k-means synchronously. 
 
 ```json
 POST /_plugins/_ml/_train/kmeans
@@ -200,7 +200,7 @@ For FIT RCF, you can train the model with historical data and store the trained 
 
 ## RCFSummarize
 
-RCFSummarize is a clustering algorithm based on the Clustering Using REpresentatives (CURE) algorithm. Compared to [K-Means](#k-means), which uses random iterations to cluster, RCFSummarize uses a hierarchical-based clustering technique. The algorithm starts, with a set of randomly selected centroids larger than the centroid’s ground-truth distribution. During iteration, centroid pairs too close to each other automatically merge. Therefore, the number of centroids (`max_k`) converge to a rational number of clusters that fits ground-truth, as opposed to a fixed `k` number of clusters.  
+RCFSummarize is a clustering algorithm based on the Clustering Using REpresentatives (CURE) algorithm. Compared to [k-means](#k-means), which uses random iterations to cluster, RCFSummarize uses a hierarchical-based clustering technique. The algorithm starts, with a set of randomly selected centroids larger than the centroid’s ground-truth distribution. During iteration, centroid pairs too close to each other automatically merge. Therefore, the number of centroids (`max_k`) converge to a rational number of clusters that fits ground-truth, as opposed to a fixed `k` number of clusters.  
 
 ### Parameters
 
