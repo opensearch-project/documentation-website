@@ -10,4 +10,4 @@ redirect_from:
 
 # Snapshot APIs
 
-The snapshot APIs allow you to manage snapshots.
+The snapshot APIs allow you to manage snapshots and snapshot repositories.

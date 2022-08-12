@@ -3,7 +3,7 @@ layout: default
 title: Create Snapshot
 parent: Snapshot APIs
 grand_parent: REST API reference
-nav_order: 10
+nav_order: 2
 ---
 
 ## Create snapshot
@@ -20,7 +20,7 @@ Creates a new snapshot within an existing repository.
 
 Parameter | Data Type | Description
 :--- | :--- | :---
-repository | String | Repostory name to contain the snapsnot. |
+repository | String | Repostory name to contain the snapshot. |
 snapshot | String | Name of Snapshot to create. |
 
 ### Query parameters
@@ -34,7 +34,7 @@ wait_for_completion | Boolean |  Whether to wait for snapshot creation to comple
 You can create snapshots with `POST` or `PUT`. Both HTTP methods are for creation only. If you attempt to use `PUT` to update a snapshot, a `400 Bad Request` is returned along with a message indicating that the snapshot already exists.
 {: .note}
 
-The following requests create a snapsnot called `my-first-snapshot` in the `my-s3-repository` repository.
+The following requests create a snapshot called `my-first-snapshot` in the `my-s3-repository` repository.
 
 `POST _snapshot/my-s3-repository/my-first-snapshot`
 
@@ -42,14 +42,21 @@ The following requests create a snapsnot called `my-first-snapshot` in the `my-s
 
 #### Sample responses
 
-Upon success, the response returns the following JSON object if you do not include the `wait_for_completion` query parameter:
+Upon success, the response content depends on whether you include the `wait_for_completion` query parameter.
+
+##### `wait_for_completion` not included
 
 ```json
 {
   "accepted": true
 }
 ```
-If you include the `wait_for_completion` query parameter, the response returns the snapshot definition:
+To verify that the snapshot was created, use the [Get snapshot API]({{site.url}}{{site.baseurl}}/opensearch/rest-api/snapshots/get-snapshot), passing the snapshot name as the `snapshot` path parameter.
+{: .note}
+
+##### `wait_for_completion` included
+
+The snapshot definition is returned.
 
 ```json
 {
@@ -97,9 +104,9 @@ Parameter | Data Type | Description
 `include_global_state` | Boolean | Whether to include cluster state in the snapshot. Default is true.
 `partial` | Boolean | Whether to allow partial snapshots. Default is false, which fails the entire snapshot if one or more shards fails to store.
 
-### Sample requests
+#### Sample requests
 
-#### Request without a body
+##### Request without a body
 
 The following request creates a snapshoted called `my-first-snapshot` in an S3 repository called `my-s3-repository`. A request body is not included because it is optional.
 
@@ -107,7 +114,7 @@ The following request creates a snapshoted called `my-first-snapshot` in an S3 r
 POST _snapshot/my-s3-repository/my-first-snapshot
 ```
 
-#### Request with a body
+##### Request with a body
 
 You can also add a request body to include or exclude certain indices or specify other settings:
 
@@ -121,7 +128,7 @@ PUT _snapshot/my-s3-repository/2
 }
 ```
 
-#### Request with a query parameter
+##### Request with a query parameter
 
 ```json
 PUT _snapshot/my-s3-repository/3?wait_for_completion=true
