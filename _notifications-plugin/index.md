@@ -99,7 +99,6 @@ Then add this policy into the IAM user’s trust relationship to actually assume
 }
 ```
 
-
 ## Email as a channel type
 
 To send or receive notifications with email, choose **Email** as the channel type. Next, select at least one sender and default recipient. To send notifications to more than a few people at a time, specify multiple email addresses or select a recipient group. If the Notifications plugin doesn’t currently have the necessary senders or groups, you can add them by first selecting **SMTP sender** and then choosing **Create SMTP sender** or **Create recipient group**. Choose **SES sender** to use Amazon Simple Email Service (Amazon SES).
