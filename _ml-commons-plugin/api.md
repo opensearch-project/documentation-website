@@ -246,13 +246,13 @@ POST /_plugins/_ml/_predict/<algorithm_name>/<model_id>
 ```json
 POST /_plugins/_ml/_predict/kmeans/<model-id>
 {
-    "input_query": {
-        "_source": ["petal_length_in_cm", "petal_width_in_cm"],
-        "size": 10000
-    },
-    "input_index": [
-        "iris_data"
-    ]
+  "input_query": {
+    "_source": ["petal_length_in_cm", "petal_width_in_cm"],
+      "size": 10000
+  },
+  "input_index": [
+    "iris_data"
+  ]
 }
 ```
 
