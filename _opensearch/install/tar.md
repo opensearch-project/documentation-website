@@ -416,16 +416,17 @@ TLS certificates are installed and demo users were removed or assigned new passw
 
 ### Verify that the service is running
 
-WORK IN PROGRESS
-{% comment %}
-//testing
-Curl from the host itself - doesn't need -k flag if you updated trust
-- make sure to use the actual DNS record or the cert won't match the host
-If the host is connected to the public internet, try hitting it from your laptop.
+OpenSearch is now running on your host with custom TLS certificates and a secure user for basic authentication. The last step is verifying that the host is reachable by other clients.
+
+During previous tests you directed requests to `localhost`. Now that TLS certificates have been applied, and the new certificates reference your hosts actual DNS record, the CN check will fail and the certificate will be considered invalid if you send requests to `localhost`. Instead, requests should be sent to the address you specified while generating the certificate.
+
+You should add trust for the root certificate to your client before sending requests. If you do not add trust then you must use the `-k` option so that cURL ignores CN and root certificate validation.
+{:.tip}
+
 ```bash
-$ curl https://your.host.fqdn:9200 -u admin:yournewpassword -k
+$ curl https://your.host.address:9200 -u admin:yournewpassword -k
 {
-  "name" : "ip-10-0-5-189.us-west-2.compute.internal",
+  "name" : "hostname-here",
   "cluster_name" : "opensearch",
   "cluster_uuid" : "efC0ANNMQlGQ5TbhNflVPg",
   "version" : {
@@ -442,7 +443,6 @@ $ curl https://your.host.fqdn:9200 -u admin:yournewpassword -k
   "tagline" : "The OpenSearch Project: https://opensearch.org/"
 }
 ```
-{% endcomment %}
 
 ## Configuration
 
