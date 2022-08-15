@@ -18,7 +18,7 @@ This document assumes that you are comfortable working from the Linux command li
 
 ## Download OpenSearch
 
-1. Download the appropriate tar.gz archive from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'} or using the command line (such as with `wget`):
+1. Download the appropriate tar.gz archive from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'} or using the command line (such as with `wget`).
 
    ```bash
    # x64
@@ -28,7 +28,7 @@ This document assumes that you are comfortable working from the Linux command li
    wget https://artifacts.opensearch.org/releases/bundle/opensearch/{{site.opensearch_version}}/opensearch-{{site.opensearch_version}}-linux-arm64.tar.gz
    ```
 
-1. Extract the contents of the tarball:
+1. Extract the contents of the tarball.
 
    ```bash
    # x64
@@ -46,7 +46,7 @@ Before launching OpenSearch you should review some [important system settings]({
    ```bash
    sudo swapoff -a
    ```
-1. Increase the number of memory maps available to OpenSearch
+1. Increase the number of memory maps available to OpenSearch.
    ```bash
    # Edit the sysctl config file
    sudo vi /etc/sysctl.conf
@@ -79,16 +79,16 @@ An OpenSearch node configured by the demo security script is not suitable for a 
 
 ### Option 1: Test Opensearch with security enabled
 
-1. Change to the top directory of your OpenSearch install:
+1. Change to the top directory of your OpenSearch install.
    ```bash
    cd /path/to/opensearch-{{site.opensearch_version}}
    ```
-1. Run the demo security script:
+1. Run the demo security script.
    ```bash
    ./opensearch-tar-install.sh
    ```
 1. Open another terminal session and send requests to the server to verify that OpenSearch is up and running. Note the  use of the `--insecure` flag which is required since the TLS certs are self-signed.
-   - Send a request to port 9200:
+   - Send a request to port 9200.
       ```bash
       curl -X GET https://localhost:9200 -u 'admin:admin' --insecure
       ```
@@ -112,7 +112,7 @@ An OpenSearch node configured by the demo security script is not suitable for a 
          "tagline" : "The OpenSearch Project: https://opensearch.org/"
       }
       ```
-   - Query the plugins endpoint:
+   - Query the plugins endpoint.
       ```bash
       curl -X GET https://localhost:9200/_cat/plugins?v -u 'admin:admin' --insecure
       ```
@@ -136,15 +136,15 @@ An OpenSearch node configured by the demo security script is not suitable for a 
       hostname opensearch-security                  2.1.0.0
       hostname opensearch-sql                       2.1.0.0
       ```
-1. Return to the original terminal session and stop the process by pressing `CTRL + C`
+1. Return to the original terminal session and stop the process by pressing `CTRL + C`.
 
 ### Option 2: Test OpenSearch with security disabled
 
-1. Open the configuration file:
+1. Open the configuration file.
    ```bash
    vi /path/to/opensearch-{{site.opensearch_version}}/config/opensearch.yml
    ```
-1. Add the following line to disable the security plugin:
+1. Add the following line to disable the security plugin.
    ```bash
    plugins.security.disabled: true
    ```
@@ -152,8 +152,8 @@ An OpenSearch node configured by the demo security script is not suitable for a 
    ```bash
    :wq!
    ```
-1. Open another terminal session and send requests to the server to verify that OpenSearch is up and running. Since the security plugin has been disabled you will be sending commands using `HTTP` rather than `HTTPS`
-   - Send a request to port 9200:
+1. Open another terminal session and send requests to the server to verify that OpenSearch is up and running. Since the security plugin has been disabled you will be sending commands using `HTTP` rather than `HTTPS`.
+   - Send a request to port 9200.
       ```bash
       curl -X GET http://localhost:9200
       ```
@@ -177,7 +177,7 @@ An OpenSearch node configured by the demo security script is not suitable for a 
          "tagline" : "The OpenSearch Project: https://opensearch.org/"
       }
       ```
-   - Query the plugins endpoint:
+   - Query the plugins endpoint.
       ```bash
       curl -X GET http://localhost:9200/_cat/plugins?v
       ```
@@ -212,11 +212,11 @@ If you ran the security demo script then you will need to manually reconfigure s
 Before modifying any configuration files, it's always a good idea to save a backup copy before making changes. The backup file can be used to revert any issues caused by a bad configuration.
 {:.tip}
 
-1. Open `opensearch.yml`:
+1. Open `opensearch.yml`.
    ```bash
    vi /path/to/opensearch-{{site.opensearch_version}}/config/opensearch.yml
    ```
-1. Add the following lines:
+1. Add the following lines.
    ```bash
    # Bind OpenSearch to the correct network interface. Use 0.0.0.0
    # to include all available interfaces or specify an IP addresss
@@ -234,7 +234,7 @@ Before modifying any configuration files, it's always a good idea to save a back
    ```
 1. Save your changes and close the file.
 1. Specify an initial and max JVM heap size.
-   1.  Open `jvm.options`:
+   1.  Open `jvm.options`.
          ```bash
          vi /path/to/opensearch-{{site.opensearch_version}}/config/jvm.options
          ```
@@ -245,7 +245,7 @@ Before modifying any configuration files, it's always a good idea to save a back
          -Xmx4g
          ```
    1. Save your changes and close the file.
-1. Specify the location of the included JDK:
+1. Specify the location of the included JDK.
    ```bash
    export OPENSEARCH_JAVA_HOME=/path/to/opensearch-{{site.opensearch_version}}/jdk
    ```
@@ -282,7 +282,7 @@ TLS certificates provide additional security for your cluster by allowing client
    # Sign the admin certificate with the root certificate and private key that was created earlier
    openssl x509 -req -in admin.csr -CA root-ca.pem -CAkey root-ca-key.pem -CAcreateserial -sha256 -out admin.pem -days 730
    ```
-1. Finally, you should create a certificate for the node being configured.
+1. Create a certificate for the node being configured.
    ```bash
    # Create a private key for the node cert
    openssl genrsa -out node1-key-temp.pem 2048
@@ -301,11 +301,11 @@ TLS certificates provide additional security for your cluster by allowing client
    # Sign the node certificate with the root certificate and private key that was created earlier
    openssl x509 -req -in node1.csr -CA root-ca.pem -CAkey root-ca-key.pem -CAcreateserial -sha256 -out node1.pem -days 730 -extfile node1.ext
    ```
-1. Remove temporary files that are no longer required:
+1. Remove temporary files that are no longer required.
    ```bash
    rm *temp.pem *csr *ext
    ```
-1. Add these certificates to `opensearch.yml` as described in [Generate Certificates]({{site.url}}{{site.baseurl}}/security-plugin/configuration/generate-certificates/#add-distinguished-names-to-opensearchyml). You might also choose to append the settings using a script:
+1. Add these certificates to `opensearch.yml` as described in [Generate Certificates]({{site.url}}{{site.baseurl}}/security-plugin/configuration/generate-certificates/#add-distinguished-names-to-opensearchyml). You might also choose to append the settings using a script.
    ```bash
    #! /bin/bash
 
@@ -345,7 +345,7 @@ TLS certificates provide additional security for your cluster by allowing client
 
 Users are defined and authenticated by OpenSearch in a variety of ways. One method, which does not require additional backend infrastructure, is manually configuring users in `internal_users.yml`. See [YAML files]({{site.url}}{{site.baseurl}}/security-plugin/configuration/yaml/) for more information about configuring users. The following steps explain how to remove all demo users except for the `admin` user, and how to replace the `admin` default password using a script.
 
-1. Make the security plugin scripts executable:
+1. Make the security plugin scripts executable.
    ```bash
    chmod 755 /path/to/opensearch-{{site.opensearch_version}}/plugins/opensearch-security/tools/*.sh
    ```
@@ -367,11 +367,11 @@ Users are defined and authenticated by OpenSearch in a variety of ways. One meth
       OPENSEARCH_JAVA_HOME=/path/to/opensearch-{{site.opensearch_version}}/jdk ./hash.sh
       ```
    - Enter the desired password at the prompt and make a note of the output hash.
-1. Open `internal_users.yml`:
+1. Open `internal_users.yml`.
    ```bash
    vi /path/to/opensearch-{{site.opensearch_version}}/config/opensearch-security/internal_users.yml
    ```
-1. Remove all demo users except for `admin` and replace the hash with the output provided by `hash.sh` in a previous step. The file should look similar to the following example:
+1. Remove all demo users except for `admin` and replace the hash with the output provided by `hash.sh` in a previous step. The file should look similar to the following example.
    ```bash
    ---
    # This is the internal user database
@@ -395,7 +395,7 @@ Users are defined and authenticated by OpenSearch in a variety of ways. One meth
 
 TLS certificates are installed and demo users were removed or assigned new passwords. The last step is to apply the configuration changes, which requires invoking `securityadmin.sh` while OpenSearch is running on the host.
 
-1. Start OpenSearch:
+1. Start OpenSearch.
    ```bash
    # Change directories
    cd /path/to/opensearch-{{site.opensearch_version}}/bin
@@ -403,12 +403,12 @@ TLS certificates are installed and demo users were removed or assigned new passw
    # Run the service in the foreground
    ./opensearch
    ```
-1. Open a second terminal session with the host and change directories to access `securityadmin.sh`:
+1. Open a second terminal session with the host and change directories to access `securityadmin.sh`.
    ```bash
    # Change to the correct directory
    cd /path/to/opensearch-{{site.opensearch_version}}/plugins/opensearch-security/tools
    ```
-1. Invoke the script:
+1. Invoke the script.
    ```bash
    # You can omit the environment variable if you declared this in your $PATH.
    OPENSEARCH_JAVA_HOME=/path/to/opensearch-{{site.opensearch_version}}/jdk ./securityadmin.sh -cd /path/to/opensearch-{{site.opensearch_version}}/config/opensearch-security/ -cacert /path/to/opensearch-{{site.opensearch_version}}/config/root-ca.pem -cert /path/to/opensearch-{{site.opensearch_version}}/config/admin.pem -key /path/to/opensearch-{{site.opensearch_version}}/config/admin-key.pem -icl -nhnv
