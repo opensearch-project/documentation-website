@@ -50,12 +50,12 @@ If applicable, provide any caveats to its usage with a note or tip, as in the fo
 
 ### Path parameters
 
-While the API endpoint states a point of entry to a resource, the path parameter identifies a specific resource within it. Path parameters are located in the path of the endpoint just before the query string and following the resource name in the URL.
+While the API endpoint states a point of entry to a resource, the path parameter acts on the resource that precedes it. Path parameters come after the resource name in the URL.
 
 ```json
 GET _search/scroll/<scroll_id>
 ```
-In the example above, the endpoint is `scroll` and its path parameter is `<scroll_id>`.
+In the example above, the resource is `scroll` and its path parameter is `<scroll_id>`.
 
 Introduce what the path parameters can do at a high level. Provide a table with parameter names and descriptions. Include a table with the following columns:
 *Parameter* – Parameter name in plain font.
@@ -135,3 +135,58 @@ PUT /sample-index/_mapping
   }
 }
 ```
+
+### Response body
+
+Provide a description of the response fields.
+
+Include a table with these columns: 
+*Field* – Field name in plain font.
+*Data Type* – Data type capitalized (such as Boolean, String, or Integer).
+*Description* – Sentence to describe the field’s function, default values or range of values, and any usage examples.
+
+Field | Data Type | Description
+:--- | :--- | :--- 
+
+#### Sample response
+
+Provide a sentence that describes what is shown in the example, followed by a cut-and-paste-ready API response in JSON format.
+
+GET _snapshot/my-opensearch-repo/my-first-snapshot
+
+```json
+{     
+  "snapshots" : [     
+    {     
+      "snapshot" : "my-first-snapshot",     
+      "uuid" : "3P7Qa-M8RU6l16Od5n7Lxg",     
+      "version_id" : 136217927,     
+      "version" : "2.0.1",     
+      "indices" : [     
+        ".opensearch-observability",     
+        ".opendistro-reports-instances",     
+        ".opensearch-notifications-config",     
+        "shakespeare",     
+        ".opendistro-reports-definitions",     
+        "opensearch_dashboards_sample_data_flights",     
+        ".kibana_1"     
+        ],     
+        "data_streams" : [ ],     
+        "include_global_state" : true,     
+        "state" : "SUCCESS",     
+        "start_time" : "2022-08-11T20:30:00.399Z",     
+        "start_time_in_millis" : 1660249800399,     
+        "end_time" : "2022-08-11T20:30:14.851Z",     
+        "end_time_in_millis" : 1660249814851,     
+        "duration_in_millis" : 14452,     
+        "failures" : [ ],     
+        "shards" : {     
+          "total" : 7,     
+          "failed" : 0,     
+          "successful" : 7     
+        }     
+    }   
+  ]   
+}
+```
+
