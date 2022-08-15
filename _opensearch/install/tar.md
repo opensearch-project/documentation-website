@@ -142,9 +142,7 @@ In a tarball installation, Performance Analyzer collects data when it is enabled
    ```
 
 {% comment %}
-
 ### (Optional) Removing Performance Analyzer
 
 See [Clean up Performance Analyzer files]({{site.url}}{{site.baseurl}}/plugins#optional-clean-up-performance-analyzer-files).
-
 {% endcomment %}
