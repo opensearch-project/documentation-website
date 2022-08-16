@@ -27,10 +27,10 @@ The following sections describe the basic API documentation structure. Each sect
 1. Name of API (heading level 2)
 2. Path parameters (heading level 3)
 3. Query parameters (heading level 3)
-4. Request body (heading level 3)
-5. Sample request (heading level 4)
-6. Sample response (heading level 4)
-7. Response body (heading level 3)
+4. Request fields (heading level 3)
+5. Response fields (heading level 3)
+6. Sample request (heading level 4)
+7. Sample response (heading level 4)
 
 ## API name
 
@@ -82,7 +82,7 @@ For GET and DELETE APIs: Introduce what you can do with the optional parameters.
 Parameter | Data Type | Description
 :--- | :--- | :---
 
-### Request body
+### Request fields
 
 For PUT and POST APIs: Introduce what the request fields are allowed to provide in the body of the request.
 
@@ -90,6 +90,11 @@ Include a table with these columns:
 *Field* – Field name in plain font.
 *Data Type* – Data type capitalized (such as Boolean, String, or Integer).
 *Description* – Sentence to describe the field’s function, default values or range of values, and any usage examples.
+
+Field | Data Type | Description
+:--- | :--- | :--- 
+
+### Response fields
 
 Field | Data Type | Description
 :--- | :--- | :--- 
@@ -131,15 +136,3 @@ Upon success, the response returns "acknowledged": true
 "acknowledged": true
 }
 ```
-
-### Response body
-
-Provide meanings for the fields returned in the response.
-
-Include a table with these columns: 
-*Field* – Field name in plain font.
-*Data Type* – Data type capitalized (such as Boolean, String, or Integer).
-*Description* – Sentence to describe the field’s function, default values or range of values, and any usage examples.
-
-Field | Data Type | Description
-:--- | :--- | :--- 
