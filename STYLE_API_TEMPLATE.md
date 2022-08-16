@@ -31,7 +31,6 @@ The following sections describe the basic API documentation structure. Each sect
 5. Sample request (heading level 4)
 6. Sample response (heading level 4)
 7. Response body (heading level 3)
-8. Sample response (heading level 4)
 
 ## API name
 
@@ -144,45 +143,3 @@ Include a table with these columns:
 
 Field | Data Type | Description
 :--- | :--- | :--- 
-
-#### Sample response
-
-Provide a sentence that describes what is shown in the example, followed by a cut-and-paste-ready API response in JSON format.
-
-GET _snapshot/my-opensearch-repo/my-first-snapshot
-
-```json
-{     
-  "snapshots" : [     
-    {     
-      "snapshot" : "my-first-snapshot",     
-      "uuid" : "3P7Qa-M8RU6l16Od5n7Lxg",     
-      "version_id" : 136217927,     
-      "version" : "2.0.1",     
-      "indices" : [     
-        ".opensearch-observability",     
-        ".opendistro-reports-instances",     
-        ".opensearch-notifications-config",     
-        "shakespeare",     
-        ".opendistro-reports-definitions",     
-        "opensearch_dashboards_sample_data_flights",     
-        ".kibana_1"     
-        ],     
-        "data_streams" : [ ],     
-        "include_global_state" : true,     
-        "state" : "SUCCESS",     
-        "start_time" : "2022-08-11T20:30:00.399Z",     
-        "start_time_in_millis" : 1660249800399,     
-        "end_time" : "2022-08-11T20:30:14.851Z",     
-        "end_time_in_millis" : 1660249814851,     
-        "duration_in_millis" : 14452,     
-        "failures" : [ ],     
-        "shards" : {     
-          "total" : 7,     
-          "failed" : 0,     
-          "successful" : 7     
-        }     
-    }   
-  ]   
-}
-```
