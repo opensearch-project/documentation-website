@@ -38,10 +38,6 @@ Amazon OpenSearch Service is a managed service that makes it easy to deploy, ope
 
 A plugin that automatically detects anomalies in your OpenSearch data in near real time.
 
-**API**
-
-application programming interface
-
 **API operation**
 
 Use instead of action, method, or function.
@@ -243,6 +239,10 @@ Use frontend as an adjective and a noun. Do not use front end or front-end. Do n
 
 Do not use. Use _that_ is or _specifically_ instead.
 
+**if, whether**
+
+Do not use *if* to mean *whether*. It is best to use *whether* in reference to a choice or alternatives ("we're going whether it rains or not") and *if* when establishing a condition ("we will go if it doesn't rain").
+
 **in, on**
 
 Use _in Windows_ or _in Linux_ in reference to components of the OS or work in the OS. Use on Windows in reference to Windows applications. Examples:
@@ -252,6 +252,8 @@ Use _in Windows_ or _in Linux_ in reference to components of the OS or work in t
 - Select an application that runs on Windows.
 
 Run applications and instances _in the cloud_, but extend services to the cloud.
+
+Use *on the forum*. Whatever is on the internet (the various websites, etc.), you are *on* because you cannot be *in* it.
 
 **index, indexes**
 
@@ -268,6 +270,10 @@ Don’t abbreviate as _IP only_.
 **Internet**
 
 ## K
+
+**k-means**
+
+A simple and popular unsupervised clustering ML algorithm built on top of Tribuo library that chooses random centroids and calculates iteratively to optimize the position of the centroids until each observation belongs to the cluster with the nearest mean.
 
 **k-NN**
 
@@ -367,7 +373,7 @@ OpenSearch is a community-driven, open-source search and analytics suite derived
 
 **OpenSearch Dashboards**
 
-The default visualization tool for data in OpenSearch. On first appearance, use the full name. “Dashboards” may be used on subsequent appearances as long as it is defined on first appearance: “OpenSearch Dashboards (Dashboards).”
+The default visualization tool for data in OpenSearch. On first appearance, use the full name. “Dashboards” may be used on subsequent appearances.
 
 open source (n.), open-source (adj.)
 
@@ -478,6 +484,8 @@ A piece of an index that consumes CPU and memory. Operates as a full Lucene inde
 
 Use only to describe time events. Don’t use in place of because.
 
+**Snapshot Management (SM)**
+
 **solid state drive (SSD)**
 
 **standalone**
@@ -490,9 +498,7 @@ You _start_ an application but _launch_ an instance, environment, or cluster.
 
 Never hyphenated. Use _startup_ as a noun (for example, “The following startup procedure guides you through...”). Use _start up_ as a verb (“You can start up the instances by...”).
 
-**SGD**
-
-Stochastic Gradient Descent
+**Stochastic Gradient Descent (SGD)**
 
 ## T 
 
