@@ -273,6 +273,8 @@ Don’t abbreviate as _IP only_.
 
 **k-means**
 
+A simple and popular unsupervised clustering ML algorithm built on top of Tribuo library that chooses random centroids and calculates iteratively to optimize the position of the centroids until each observation belongs to the cluster with the nearest mean.
+
 **k-NN**
 
 Short for _k-nearest neighbors_, the k-NN plugin enables users to search for the k-nearest neighbors to a query point across an index of vectors.
