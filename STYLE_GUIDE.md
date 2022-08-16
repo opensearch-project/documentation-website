@@ -143,20 +143,20 @@ Use the following language to describe UI interactions:
 The following table provides examples of language to be used to describe interactions with UI elements.
 
 | UI element | Language | Example |
-| :--------- | :--------| :-------|
-| Menu| On the *menu* menu, choose *command*.| On the **Edit** menu, choose **Copy**.|
-| Cascading menu| [For AWS] On the navigation bar, choose *menu*, *submenu*, …, *command*. <br> <br> [For conventional Windows UIs] On the menu bar, choose *menu*, *submenu*, …, *command*.| On the navigation bar, choose **AWS**, **Create a Resource Group**.|
-|Context menu|Open the context (right-click) menu for *item*, and then choose *command*. <br> <br> [Cascading] Open the context (right-click) menu for *item*, and then choose *submenu*, ..., *command*.|Open the context (right-click) menu for an AMI, and then choose **Launch Instance**. <br> <br> Open the context (right-click) menu for the instance, and then choose **Networking**, **Manage Private IP Addresses**.|
-| Command button| Choose *command*.| Choose **Next**.|
-| Option button| Choose *option*. <br> <br> For *label*, choose *option*.| For **Type of key to generate**, choose **SSH-2 RSA**.|
-|Check box|Select *label*. <br> <br> Clear *label*.|To grant read access to anonymous requests, select **Make everything public**.|
-| List box or dropdown| For *label*, choose *item*.| For **Backup Retention Period**, choose **0**.        |
-| Text box|For *label*, enter *text*.<br> <br> [Combo box] For *label*, specify *xyz*. | For **Program/script**, enter `Powershell.exe`. <br> <br> For **Source**, specify the table name.       |
-| Toggle switch |Turn on *text*.<br> <br> Turn off *text*. |Turn on **Expiration date**, and then choose **Confirm**.         |
-| Other controls|Specify the type of control only if it’s helpful or unavoidable, and use the verb *choose*.| On the **Configure Security Group** page, choose an existing security group, and then choose **Next**.        |
-|Double-clicking | Replace with menu instructions, or use a generic term such as "open." <br> <br> If double-clicking is the best or most familiar method, include it in parentheses. <br> <br> In general, use your best judgment depending on the context and your audience. | In AWS Explorer, open **Amazon VPC**, **VPCs**. On the **VPCs** tab, choose **Create VPC**. <br> <br> To display the EC2 Instances view, open the context (right-click) menu for the **Instances** node, and then choose **View**. (Or double-click the node.)       |
-| Displaying tooltips | Choose *item*.|In the **Your repositories** area, choose the target repository name to display the GitHub user or organization.|
-|Selecting items| Select the *item*.| Select the row of the parameter group that you want to delete.|
+| :--------- | :------- | :------ |
+| Menu | On the *menu* menu, choose *command*. | On the **Edit** menu, choose **Copy**. |
+| Cascading menu | [For AWS] On the navigation bar, choose *menu*, *submenu*, …, *command*. <br> <br> [For conventional Windows UIs] On the menu bar, choose *menu*, *submenu*, …, *command*. | On the navigation bar, choose **AWS**, **Create a Resource Group**. | 
+| Context menu | Open the context (right-click) menu for *item*, and then choose *command*. <br> <br> [Cascading] Open the context (right-click) menu for *item*, and then choose *submenu*, ..., *command*. | Open the context (right-click) menu for an AMI, and then choose **Launch Instance**. <br> <br> Open the context (right-click) menu for the instance, and then choose **Networking**, **Manage Private IP Addresses**. |
+| Command button | Choose *command*. | Choose **Next**. |
+| Option button | Choose *option*. <br> <br> For *label*, choose *option*. | For **Type of key to generate**, choose **SSH-2 RSA**. | 
+| Check box | Select *label*. <br> <br> Clear *label*. | To grant read access to anonymous requests, select **Make everything public**. | 
+| List box or dropdown | For *label*, choose *item*. | For **Backup Retention Period**, choose **0**. |
+| Text box | For *label*, enter *text*.<br> <br> [Combo box] For *label*, specify *xyz*. | For **Program/script**, enter `Powershell.exe`. <br> <br> For **Source**, specify the table name. |
+| Toggle switch | Turn on *text*.<br> <br> Turn off *text*. | Turn on **Expiration date**, and then choose **Confirm**. |
+| Other controls | Specify the type of control only if it’s helpful or unavoidable, and use the verb *choose*. | On the **Configure Security Group** page, choose an existing security group, and then choose **Next**. |
+| Double-clicking | Replace with menu instructions, or use a generic term such as "open." <br> <br> If double-clicking is the best or most familiar method, include it in parentheses. <br> <br> In general, use your best judgment depending on the context and your audience. | In AWS Explorer, open **Amazon VPC**, **VPCs**. On the **VPCs** tab, choose **Create VPC**. <br> <br> To display the EC2 Instances view, open the context (right-click) menu for the **Instances** node, and then choose **View**. (Or double-click the node.) | 
+| Displaying tooltips | Choose *item*. | In the **Your repositories** area, choose the target repository name to display the GitHub user or organization. | 
+| Selecting items | Select the *item*. | Select the row of the parameter group that you want to delete. | 
 
 Following is an example of procedure phrasing and formatting from Amazon EC2.
 
