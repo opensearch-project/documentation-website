@@ -65,16 +65,16 @@ Before launching OpenSearch you should review some [important system settings]({
 
 ## Run OpenSearch
 
-You have downloaded OpenSearch, unpacked the archive in a directory of your choosing, and configured a couple important system settings in the host operating system. Before proceeding, you should verify that OpenSearch is able to run and respond to API requests. There are two quick methods to achieve this:
+You downloaded OpenSearch, unpacked the archive in a directory of your choosing, and configured a some important system settings for the host operating system. Before proceeding, you should verify that OpenSearch is able to run and respond to API requests. There are two quick methods to achieve this:
 
-1. **(Security Enabled)** Apply a generic configuration using the bundled demo security script.
+1. **(Security Enabled)** Apply a generic configuration using the demo security script included in the tar archive.
 1. **(Security Disabled)** Manually disable the security plugin and test the instance before applying your own custom security settings.
 
-The demo security script is included in the OpenSearch tarball and, when invoked, it will apply a generic configuration to your instance of OpenSearch. This configuration defines some environment variables and also applies self-signed TLS certificates. If you would like to configure these yourself, refer to the [Quickstart Guide](#quickstart-guide) for basic settings guidance.
+The demo security script will apply a generic configuration to your instance of OpenSearch. This configuration defines some environment variables and also applies self-signed TLS certificates. If you would like to configure these yourself, see the [Quickstart Guide](#quickstart-guide).
 
-If you only want to verify that the service is running and responds to API requests, and you intend to configure security settings yourself, then you may want to disable the security plugin and launch the service without encryption or authentication.
+If you only want to verify that the service is properly configured and will respond to API requests, and you intend to configure security settings yourself, then you may want to disable the security plugin and launch the service without encryption or authentication.
 
-An OpenSearch node configured by the demo security script is not suitable for a production environment. If you plan to use the node in a production environment after running `opensearch-tar-install.sh` you should, at a minimum, replace the demo TLS certificates with your own TLS certificates and [update the list of internal users and passwords]({{site.url}}{{site.baseurl}}/security-plugin/configuration/yaml). See the [Security configuration]({{site.url}}{{site.baseurl}}/security-plugin/configuration/index/) documentation for additional guidance to ensure that your nodes are configured according to your security requirements.
+An OpenSearch node configured by the demo security script is not suitable for a production environment. If you plan to use the node in a production environment after running `opensearch-tar-install.sh` you should, at a minimum, replace the demo TLS certificates with your own TLS certificates and [update the list of internal users and passwords]({{site.url}}{{site.baseurl}}/security-plugin/configuration/yaml). See [Security configuration]({{site.url}}{{site.baseurl}}/security-plugin/configuration/index/) for additional guidance to ensure that your nodes are configured according to your security requirements.
 {: .warning}
 
 ### Option 1: Test Opensearch with security enabled
