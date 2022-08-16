@@ -27,10 +27,11 @@ The following sections describe the basic API documentation structure. Each sect
 1. Name of API (heading level 2)
 2. Path parameters (heading level 3)
 3. Query parameters (heading level 3)
-4. Sample request (heading level 4)
-5. Sample response (heading level 4)
-6. Request body (heading level 3)
-7. Sample request (heading level 4)
+4. Request body (heading level 3)
+5. Sample request (heading level 4)
+6. Sample response (heading level 4)
+7. Response body (heading level 3)
+8. Sample response (heading level 4)
 
 ## API name
 
@@ -82,11 +83,39 @@ For GET and DELETE APIs: Introduce what you can do with the optional parameters.
 Parameter | Data Type | Description
 :--- | :--- | :---
 
+### Request body
+
+For PUT and POST APIs: Introduce what the request fields are allowed to provide in the body of the request.
+
+Include a table with these columns: 
+*Field* – Field name in plain font.
+*Data Type* – Data type capitalized (such as Boolean, String, or Integer).
+*Description* – Sentence to describe the field’s function, default values or range of values, and any usage examples.
+
+Field | Data Type | Description
+:--- | :--- | :--- 
+
 #### Sample request
 
 Provide a sentence that describes what is shown in the example, followed by a cut-and-paste-ready API request in JSON format. Make sure that you test the request yourself in the Dashboards Dev Tools console to make sure it works.
 
-The following request includes the ignore_unavailable query parameter to skip any missing or closed indexes in the response:
+Here is an example for a request that creates a new mapping for the sample-index index:
+PUT /sample-index/_mapping
+
+```json
+{
+  "properties": {
+    "age": {
+      "type": "integer"
+    },
+    "occupation":{
+      "type": "text"
+    }
+  }
+}
+```
+
+This second example of a request includes the ignore_unavailable query parameter to skip any missing or closed indexes in the response:
 
 ```json
 PUT /sample-index/_mapping?ignore_unavailable
@@ -104,41 +133,9 @@ Upon success, the response returns "acknowledged": true
 }
 ```
 
-### Request body
-
-For PUT and POST APIs: Introduce what the request fields are allowed to provide in the body of the request.
-
-Include a table with these columns: 
-*Field* – Field name in plain font.
-*Data Type* – Data type capitalized (such as Boolean, String, or Integer).
-*Description* – Sentence to describe the field’s function, default values or range of values, and any usage examples.
-
-Field | Data Type | Description
-:--- | :--- | :--- 
-
-#### Sample request
-
-Provide a sentence that describes what is shown in the example, followed by a cut-and-paste-ready API request in JSON format.
-
-The following request creates a new mapping for the sample-index index:
-PUT /sample-index/_mapping
-
-```json
-{
-  "properties": {
-    "age": {
-      "type": "integer"
-    },
-    "occupation":{
-      "type": "text"
-    }
-  }
-}
-```
-
 ### Response body
 
-Provide a description of the response fields.
+Provide meanings for the fields returned in the response.
 
 Include a table with these columns: 
 *Field* – Field name in plain font.
@@ -189,4 +186,3 @@ GET _snapshot/my-opensearch-repo/my-first-snapshot
   ]   
 }
 ```
-
