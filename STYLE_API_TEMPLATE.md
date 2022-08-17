@@ -1,6 +1,8 @@
 # API reference page template
 
-This template provides the basic structure for creating OpenSearch API documentation. It includes the most important elements that should appear in the documentation and helpful suggestions to help support them. Depending on the intended purpose of the API, some sections will be required while others may not be applicable. 
+This template provides the basic structure for creating OpenSearch API documentation. It includes the most important elements that should appear in the documentation and helpful suggestions to help support them. 
+
+Depending on the intended purpose of the API, some sections will be required while others may not be applicable.
 
 ### A note on terminology ###
 
@@ -22,7 +24,9 @@ See also [Examples](https://alpha-docs-aws.amazon.com/awsstyleguide/latest/style
 
 ## Basic elements for documentation
 
-The following sections describe the basic API documentation structure. Each section is discussed under its respective heading below. Include those elements appropriate to the API. Depending on where the documentation appears within a section or subsection, heading levels may be adjusted to fit with other content.
+The following sections describe the basic API documentation structure. Each section is discussed under its respective heading below. You can include only those elements appropriate to the API. 
+
+Depending on where the documentation appears within a section or subsection, heading levels may be adjusted to fit with other content.
 
 1. Name of API (heading level 2)
 2. Path parameters (heading level 3)
@@ -96,6 +100,8 @@ Field | Data Type | Description
 
 ### Response fields
 
+For PUT and POST APIs: Define all allowable response fields that can be returned in the body of the response.
+
 Field | Data Type | Description
 :--- | :--- | :--- 
 
@@ -104,9 +110,9 @@ Field | Data Type | Description
 Provide a sentence that describes what is shown in the example, followed by a cut-and-paste-ready API request in JSON format. Make sure that you test the request yourself in the Dashboards Dev Tools console to make sure it works.
 
 Here is an example for a request that creates a new mapping for the sample-index index:
-PUT /sample-index/_mapping
 
 ```json
+PUT /sample-index/_mapping
 {
   "properties": {
     "age": {
