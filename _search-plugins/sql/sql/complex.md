@@ -2,7 +2,7 @@
 layout: default
 title: Complex Queries
 parent: SQL
-grand_parent: SQL Plugin - SQL & PPL
+grand_parent: SQL & PPL
 nav_order: 6
 ---
 

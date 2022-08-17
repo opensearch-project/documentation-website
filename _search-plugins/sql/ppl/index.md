@@ -1,7 +1,7 @@
 ---
 layout: default
 title: PPL - Piped Processing Language
-parent: SQL Plugin - SQL & PPL
+parent: SQL & PPL
 nav_order: 5
 has_children: true
 has_toc: false

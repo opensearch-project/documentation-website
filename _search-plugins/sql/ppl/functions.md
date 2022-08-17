@@ -1,14 +1,14 @@
 ---
 layout: default
-title: Functions
+title: Commands
 parent: PPL - Piped Processing Language
-grand_parent: SQL Plugin - SQL & PPL
+grand_parent: SQL & PPL
 nav_order: 2
 ---
 
-# Functions
+# Commands
 
-`PPL` supports all [`SQL`]({{site.url}}{{site.baseurl}}/search-plugins/sql/functions/) functions, including [relevance search]({{site.url}}{{site.baseurl}}/search-plugins/sql/full-text/), but also introduces few more functions which are available in `PPL` only.
+`PPL` supports all [`SQL` common]({{site.url}}{{site.baseurl}}/search-plugins/sql/functions/) functions, including [relevance search]({{site.url}}{{site.baseurl}}/search-plugins/sql/full-text/), but also introduces few more functions (called `commands`) which are available in `PPL` only.
 
 ## dedup
 

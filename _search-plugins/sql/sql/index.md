@@ -1,7 +1,7 @@
 ---
 layout: default
 title: SQL
-parent: SQL Plugin - SQL & PPL
+parent: SQL & PPL
 nav_order: 4
 has_children: true
 redirect_from:

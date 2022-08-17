@@ -1,6 +1,6 @@
 ---
 layout: default
-title: SQL Plugin - SQL & PPL
+title: SQL & PPL
 nav_order: 38
 has_children: true
 has_toc: false
@@ -8,7 +8,7 @@ redirect_from:
   - /search-plugins/sql/
 ---
 
-# SQL Plugin - SQL & PPL
+# SQL & PPL
 
 OpenSearch SQL lets you write queries in SQL rather than the [OpenSearch query domain-specific language (DSL)]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text). If you're already familiar with SQL and don't want to learn the query DSL, this feature is a great option.
 

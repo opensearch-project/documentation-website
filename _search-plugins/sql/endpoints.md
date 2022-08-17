@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Endpoint
-parent: SQL Plugin - SQL & PPL
+parent: SQL & PPL
 nav_order: 1
 ---
 

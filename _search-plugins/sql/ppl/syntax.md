@@ -2,7 +2,7 @@
 layout: default
 title: Syntax
 parent: PPL - Piped Processing Language
-grand_parent: SQL Plugin - SQL & PPL
+grand_parent: SQL & PPL
 nav_order: 1
 ---
 

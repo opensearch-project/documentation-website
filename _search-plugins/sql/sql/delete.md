@@ -2,7 +2,7 @@
 layout: default
 title: Delete
 parent: SQL
-grand_parent: SQL Plugin - SQL & PPL
+grand_parent: SQL & PPL
 nav_order: 12
 ---
 

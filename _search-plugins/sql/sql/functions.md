@@ -2,13 +2,13 @@
 layout: default
 title: Functions
 parent: SQL
-grand_parent: SQL Plugin - SQL & PPL
+grand_parent: SQL & PPL
 nav_order: 7
 ---
 
 # Functions
 
-`SQL` language supports all SQL plugin [functions]({{site.url}}{{site.baseurl}}/search-plugins/sql/functions/), including [relevance search]({{site.url}}{{site.baseurl}}/search-plugins/sql/full-text/), but also introduces few function synonyms which are available in `SQL` only.
+`SQL` language supports all SQL plugin [common functions]({{site.url}}{{site.baseurl}}/search-plugins/sql/functions/), including [relevance search]({{site.url}}{{site.baseurl}}/search-plugins/sql/full-text/), but also introduces few function synonyms which are available in `SQL` only.
 These synonyms are provided by `V1` engine, please see [limitations page]({{site.url}}{{site.baseurl}}/search-plugins/sql/limitation) for more info about it.
 
 ## Match query
