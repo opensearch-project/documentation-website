@@ -2,7 +2,7 @@
 
 This template provides the basic structure for creating OpenSearch API documentation. It includes the most important elements that should appear in the documentation and helpful suggestions to help support them. 
 
-Depending on the intended purpose of the API, some sections will be required while others may not be applicable.
+Depending on the intended purpose of the API, *some sections will be required while others may not be applicable*.
 
 ### A note on terminology ###
 
@@ -32,8 +32,8 @@ Depending on where the documentation appears within a section or subsection, hea
 2. Path parameters (heading level 3)
 3. Query parameters (heading level 3)
 4. Request fields (heading level 3)
-5. Response fields (heading level 3)
-6. Sample request (heading level 4)
+5. Sample request (heading level 4)
+6. Response fields (heading level 3)
 7. Sample response (heading level 4)
 
 ## API name
@@ -98,6 +98,30 @@ Include a table with these columns:
 Field | Data Type | Description
 :--- | :--- | :--- 
 
+#### Sample request
+
+Provide a sentence that describes what is shown in the example, followed by a cut-and-paste-ready API request in JSON format. Make sure that you test the request yourself in the Dashboards Dev Tools console to make sure it works. See the examples below.
+
+The following request gets all the settings in your index:
+
+```json
+GET /sample-index1/_settings
+```
+
+This request copies all your field mappings and settings from a source index to a destination index:
+
+```json
+POST _reindex
+{
+   "source":{
+      "index":"sample-index-1"
+   },
+   "dest":{
+      "index":"sample-index-2"
+   }
+}
+```
+
 ### Response fields
 
 For PUT and POST APIs: Define all allowable response fields that can be returned in the body of the response.
@@ -105,40 +129,32 @@ For PUT and POST APIs: Define all allowable response fields that can be returned
 Field | Data Type | Description
 :--- | :--- | :--- 
 
-#### Sample request
-
-Provide a sentence that describes what is shown in the example, followed by a cut-and-paste-ready API request in JSON format. Make sure that you test the request yourself in the Dashboards Dev Tools console to make sure it works.
-
-Here is an example for a request that creates a new mapping for the sample-index index:
-
-```json
-PUT /sample-index/_mapping
-{
-  "properties": {
-    "age": {
-      "type": "integer"
-    },
-    "occupation":{
-      "type": "text"
-    }
-  }
-}
-```
-
-This second example of a request includes the ignore_unavailable query parameter to skip any missing or closed indexes in the response:
-
-```json
-PUT /sample-index/_mapping?ignore_unavailable
-```
-
 #### Sample response
 
-Include a JSON example response to show what the API returns.
+Include a JSON example response to show what the API returns. 
 
-Upon success, the response returns "acknowledged": true
+The example that follows corresponds to the "copy field mappings and settings" request above in the Sample request section.
+
+The `POST _reindex` request returns the following response fields: 
 
 ```json
 {
-"acknowledged": true
+  "took" : 4,
+  "timed_out" : false,
+  "total" : 0,
+  "updated" : 0,
+  "created" : 0,
+  "deleted" : 0,
+  "batches" : 0,
+  "version_conflicts" : 0,
+  "noops" : 0,
+  "retries" : {
+    "bulk" : 0,
+    "search" : 0
+  },
+  "throttled_millis" : 0,
+  "requests_per_second" : -1.0,
+  "throttled_until_millis" : 0,
+  "failures" : [ ]
 }
 ```
