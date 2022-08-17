@@ -6,19 +6,15 @@ labels: 'untriaged'
 assignees: ''
 ---
 
-## What do you want to do?
+**What do you want to do?**
  
 - [ ] Request a change to existing documentation
 - [ ] Add new documentation
 - [ ] Report a technical problem with the documentation
 - [ ] Other 
 
-## Tell us about your request. 
-
-For example, what feature or area does it affect? What versions? If it’s a change to existing documentation, which pages (URLs) are affected?
+**Tell us about your request.** Provide a summary of the request and all versions that are affected.
  
-## Do you have any related resources to help us get started? 
 
-For example, a link to a related fixed issue, a design doc, or any particular POCs (Eng or PM) who have more information?
+**What other resources are available?** Provide links to related issues, POCs, steps for testing, etc.
 
-## Is there anything else you'd like to add?
