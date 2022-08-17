@@ -108,7 +108,7 @@ The following request gets all the settings in your index:
 GET /sample-index1/_settings
 ```
 
-This request copies all your field mappings and settings from a source index to a destination index:
+The following request copies all of your field mappings and settings from a source index to a destination index:
 
 ```json
 POST _reindex
@@ -131,9 +131,29 @@ Field | Data Type | Description
 
 #### Sample response
 
-Include a JSON example response to show what the API returns. 
+Include a JSON example response to show what the API returns. See the examples below.
 
-The example that follows corresponds to the "copy field mappings and settings" request above in the Sample request section.
+The `GET /sample-index1/_settings` request returns the following response fields: 
+
+```json
+{
+  "sample-index1": {
+    "settings": {
+      "index": {
+        "creation_date": "1622672553417",
+        "number_of_shards": "1",
+        "number_of_replicas": "1",
+        "uuid": "GMEA0_TkSaamrnJSzNLzwg",
+        "version": {
+          "created": "135217827",
+          "upgraded": "135238227"
+        },
+        "provided_name": "sample-index1"
+      }
+    }
+  }
+}
+```
 
 The `POST _reindex` request returns the following response fields: 
 
