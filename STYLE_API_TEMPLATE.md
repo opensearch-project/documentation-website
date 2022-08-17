@@ -1,6 +1,8 @@
 # API reference page template
 
-This template provides the basic structure for creating OpenSearch API documentation. It includes the most important elements that should appear in the documentation and helpful suggestions to help support them. Depending on the intended purpose of the API, some sections will be required while others may not be applicable. 
+This template provides the basic structure for creating OpenSearch API documentation. It includes the most important elements that should appear in the documentation and helpful suggestions to help support them. 
+
+Depending on the intended purpose of the API, *some sections will be required while others may not be applicable*.
 
 ### A note on terminology ###
 
@@ -22,15 +24,17 @@ See also [Examples](https://alpha-docs-aws.amazon.com/awsstyleguide/latest/style
 
 ## Basic elements for documentation
 
-The following sections describe the basic API documentation structure. Each section is discussed under its respective heading below. Include those elements appropriate to the API. Depending on where the documentation appears within a section or subsection, heading levels may be adjusted to fit with other content.
+The following sections describe the basic API documentation structure. Each section is discussed under its respective heading below. You can include only those elements appropriate to the API. 
+
+Depending on where the documentation appears within a section or subsection, heading levels may be adjusted to fit with other content.
 
 1. Name of API (heading level 2)
 2. Path parameters (heading level 3)
 3. Query parameters (heading level 3)
-4. Sample request (heading level 4)
-5. Sample response (heading level 4)
-6. Request body (heading level 3)
-7. Sample request (heading level 4)
+4. Request fields (heading level 3)
+5. Sample request (heading level 4)
+6. Response fields (heading level 3)
+7. Sample response (heading level 4)
 
 ## API name
 
@@ -50,12 +54,12 @@ If applicable, provide any caveats to its usage with a note or tip, as in the fo
 
 ### Path parameters
 
-While the API endpoint states a point of entry to a resource, the path parameter identifies a specific resource within it. Path parameters are located in the path of the endpoint just before the query string and following the resource name in the URL.
+While the API endpoint states a point of entry to a resource, the path parameter acts on the resource that precedes it. Path parameters come after the resource name in the URL.
 
 ```json
 GET _search/scroll/<scroll_id>
 ```
-In the example above, the endpoint is `scroll` and its path parameter is `<scroll_id>`.
+In the example above, the resource is `scroll` and its path parameter is `<scroll_id>`.
 
 Introduce what the path parameters can do at a high level. Provide a table with parameter names and descriptions. Include a table with the following columns:
 *Parameter* – Parameter name in plain font.
@@ -82,29 +86,7 @@ For GET and DELETE APIs: Introduce what you can do with the optional parameters.
 Parameter | Data Type | Description
 :--- | :--- | :---
 
-#### Sample request
-
-Provide a sentence that describes what is shown in the example, followed by a cut-and-paste-ready API request in JSON format. Make sure that you test the request yourself in the Dashboards Dev Tools console to make sure it works.
-
-The following request includes the ignore_unavailable query parameter to skip any missing or closed indexes in the response:
-
-```json
-PUT /sample-index/_mapping?ignore_unavailable
-```
-
-#### Sample response
-
-Include a JSON example response to show what the API returns.
-
-Upon success, the response returns "acknowledged": true
-
-```json
-{
-"acknowledged": true
-}
-```
-
-### Request body
+### Request fields
 
 For PUT and POST APIs: Introduce what the request fields are allowed to provide in the body of the request.
 
@@ -118,20 +100,81 @@ Field | Data Type | Description
 
 #### Sample request
 
-Provide a sentence that describes what is shown in the example, followed by a cut-and-paste-ready API request in JSON format.
+Provide a sentence that describes what is shown in the example, followed by a cut-and-paste-ready API request in JSON format. Make sure that you test the request yourself in the Dashboards Dev Tools console to make sure it works. See the examples below.
 
-The following request creates a new mapping for the sample-index index:
-PUT /sample-index/_mapping
+The following request gets all the settings in your index:
+
+```json
+GET /sample-index1/_settings
+```
+
+The following request copies all of your field mappings and settings from a source index to a destination index:
+
+```json
+POST _reindex
+{
+   "source":{
+      "index":"sample-index-1"
+   },
+   "dest":{
+      "index":"sample-index-2"
+   }
+}
+```
+
+### Response fields
+
+For PUT and POST APIs: Define all allowable response fields that can be returned in the body of the response.
+
+Field | Data Type | Description
+:--- | :--- | :--- 
+
+#### Sample response
+
+Include a JSON example response to show what the API returns. See the examples below.
+
+The `GET /sample-index1/_settings` request returns the following response fields: 
 
 ```json
 {
-  "properties": {
-    "age": {
-      "type": "integer"
-    },
-    "occupation":{
-      "type": "text"
+  "sample-index1": {
+    "settings": {
+      "index": {
+        "creation_date": "1622672553417",
+        "number_of_shards": "1",
+        "number_of_replicas": "1",
+        "uuid": "GMEA0_TkSaamrnJSzNLzwg",
+        "version": {
+          "created": "135217827",
+          "upgraded": "135238227"
+        },
+        "provided_name": "sample-index1"
+      }
     }
   }
+}
+```
+
+The `POST _reindex` request returns the following response fields: 
+
+```json
+{
+  "took" : 4,
+  "timed_out" : false,
+  "total" : 0,
+  "updated" : 0,
+  "created" : 0,
+  "deleted" : 0,
+  "batches" : 0,
+  "version_conflicts" : 0,
+  "noops" : 0,
+  "retries" : {
+    "bulk" : 0,
+    "search" : 0
+  },
+  "throttled_millis" : 0,
+  "requests_per_second" : -1.0,
+  "throttled_until_millis" : 0,
+  "failures" : [ ]
 }
 ```
