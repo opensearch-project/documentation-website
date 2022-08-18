@@ -3,7 +3,7 @@ layout: default
 title: Get Snapshot
 parent: Snapshot APIs
 grand_parent: REST API reference
-nav_order: 4
+nav_order: 5
 ---
 
 ## Get snapshot.
@@ -71,8 +71,9 @@ Upon success, the response returns snapshot information:
   ]
 }
 ````
+#### Response body fields
 
-| Property | Type | Description |
+| Field | Data Type | Description |
 | :--- | :--- | :--- | 
 | snapshot | string | Snapshot name. |
 | uuid | string | Snapshot's universally unique identifier (UUID). |
@@ -89,7 +90,3 @@ Upon success, the response returns snapshot information:
 | failures | array | Failures, if any, that occured during snapshot creation. |
 | shards | object | Total number of shards created along with number of successful and failed shards. |
 | state | string | Snapshot status. Possible values: `IN_PROGRESS`, `SUCCESS`, `FAILED`, `PARTIAL`. |
-
-### Request body
-
-The get snapsnot API does not accept a request body.

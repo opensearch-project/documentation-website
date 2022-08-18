@@ -1,14 +1,14 @@
 ---
 layout: default
-title: Create Snapshot Repository
+title: Register Snapshot Repository
 parent: Snapshot APIs
 grand_parent: REST API reference
 nav_order: 1
 ---
 
-## Create snapshot repository
+## Register or update snapshot repository
 
-Registers a new repository to store snapshots. Repositories comprise two types:
+Registers a new repository to store snapshots, or updates information for an existing repository. Repositories can be of two types:
 
 * File system (`fs`)
 
@@ -23,34 +23,18 @@ Parameter | Data Type | Description
 :--- | :--- | :---
 repository | String | Repostory name. |
 
-
-### Query parameters
-
-None
-
 #### Sample request
 
-You can create repositories with `POST` or `PUT`. 
+You can register repositories with `POST` or `PUT`. 
 {: .note}
 
-The following requests create a repository called `my-first-repo`:
+The following requests register a repository called `my-first-repo`:
 
-`POST _snapshot/my-first-repo/`
+`POST _snapshot/my-first-repo/` registers a snapshot repository. Requires a request body as described in [Request body](#request-body).
 
-`PUT _snapshot/my-first-repo/`
+`PUT _snapshot/my-first-repo/` registers a snapshot repository if it does not exist; otherwise, updates information about the repository. For creation, requires a request body as described in [Request body](#request-body).
 
-
-#### Sample response
-
-Upon success, the response returns the following JSON object:
-
-```json
-{
-  "acknowledged": true
-}
-```
-
-To verify that the repository was created, use the [Get snapshot repository API]({{site.url}}{{site.baseurl}}/opensearch/rest-api/snapshots/get-snapshot-repository), passing the repository name as the `repository` path parameter.
+To verify that the repository was registered, use the [Get snapshot repository API]({{site.url}}{{site.baseurl}}/opensearch/rest-api/snapshots/get-snapshot-repository), passing the repository name as the `repository` path parameter.
 {: .note}
 
 ### Request body
@@ -85,7 +69,7 @@ Setting | Description
 `server_side_encryption` | Whether to encrypt snapshot files in the S3 bucket. This setting uses AES-256 with S3-managed keys. See [Protecting data using server-side encryption](https://docs.aws.amazon.com/AmazonS3/latest/dev/serv-side-encryption.html). Default is false. Optional.
 `storage_class` | Specifies the [S3 storage class](https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html) for the snapshots files. Default is `standard`. Do not use the `glacier` and `deep_archive` storage classes. Optional
 
-#### Sample request
+##### Sample request
 
 The following request registers a new S3 repository called `my-opensearch-repo` in an existing bucket called `my-open-search-bucket`. By default, all snapshots are stored in the `my/snapshot/directory`.
 
@@ -99,3 +83,14 @@ PUT _snapshot/my-opensearch-repo
   }
 }
 ```
+#### Sample response
+
+Upon success, the following JSON object is returned:
+
+```json
+{
+  "acknowledged": true
+}
+```
+To verify that the repository was registered, use the [Get snapshot repository API]({{site.url}}{{site.baseurl}}/opensearch/rest-api/snapshots/get-snapshot-repository), passing the repository name as the `repository` path parameter.
+{: .note}

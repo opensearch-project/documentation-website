@@ -3,18 +3,16 @@ layout: default
 title: Create Snapshot
 parent: Snapshot APIs
 grand_parent: REST API reference
-nav_order: 2
+nav_order: 4
 ---
 
 ## Create snapshot
 
-Creates a new snapshot within an existing repository.
+Creates a snapshot within an existing repository.
 
 * To learn more about snapshots, see [Snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/index).
 
-* To view a list of your repositories, see [cat repositories]({{site.url}}{{site.baseurl}}/opensearch/rest-api/cat/cat-repositories).
-
-* To view a list of your snapsonts, see [cat snapshots]({{site.url}}{{site.baseurl}}/opensearch/rest-api/cat/cat-snapshots).
+* To view a list of your repositories, see [Get snapshot repository]({{site.url}}{{site.baseurl}}/opensearch//rest-api/snapshots/get-snapshot-repository).
 
 ### Path parameters
 
@@ -29,16 +27,11 @@ Parameter | Data Type | Description
 :--- | :--- | :---
 wait_for_completion | Boolean |  Whether to wait for snapshot creation to complete before continuing. If you include this parameter, the snapshot definition is returned after completion. |
 
-#### Sample requests
+#### Sample request
 
-You can create snapshots with `POST` or `PUT`. Both HTTP methods are for creation only. If you attempt to use `PUT` to update a snapshot, a `400 Bad Request` is returned along with a message indicating that the snapshot already exists.
-{: .note}
-
-The following requests create a snapshot called `my-first-snapshot` in the `my-s3-repository` repository.
+The following request creates a snapshot called `my-first-snapshot` in the `my-s3-repository` repository.
 
 `POST _snapshot/my-s3-repository/my-first-snapshot`
-
-`PUT _snapshot/my-s3-repository/my-first-snapshot`
 
 #### Sample responses
 
@@ -92,7 +85,6 @@ The snapshot definition is returned.
 }
 ```
 
-
 ### Request body
 
 The request body is optional.
@@ -126,10 +118,4 @@ PUT _snapshot/my-s3-repository/2
   "include_global_state": false,
   "partial": false
 }
-```
-
-##### Request with a query parameter
-
-```json
-PUT _snapshot/my-s3-repository/3?wait_for_completion=true
 ```

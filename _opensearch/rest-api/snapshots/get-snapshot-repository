@@ -3,7 +3,7 @@ layout: default
 title: Get Snapshot Repository
 parent: Snapshot APIs
 grand_parent: REST API reference
-nav_order: 3
+nav_order: 2
 ---
 
 ## Get snapshot repository.
@@ -11,6 +11,9 @@ nav_order: 3
 Retrieves information about a snapshot repository.
 
 To learn more about repositories, see [Register repository]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore#register-repository).
+
+You can also get details about a snapshot during and after snapshot creation. See [Get snapshot status]({{site.url}}{{site.baseurl}}/opensearch/snapshots/get-snapshot-status).
+{: .note}
 
 ### Path parameters
 
@@ -23,7 +26,7 @@ To learn more about repositories, see [Register repository]({{site.url}}{{site.b
 | Parameter | Data Type | Description | 
 :--- | :--- | :---
 | local | Boolean | Whether to get information from the local node. Optional, defaults to `false`.|
-| master_timeout | Time | Amount of time to wait for a connection to the master node. Optiona, defaults to 30 seconds. |
+| cluster_manager_timeout | Time | Amount of time to wait for a connection to the master node. Optional, defaults to 30 seconds. |
 
 #### Sample request
 
@@ -48,14 +51,8 @@ Upon success, the response returns repositry information. This sample is for an 
   }
 }
 ````
-
 | Property | Type | Description |
 | :--- | :--- | :--- | 
 | type | string | Bucket type: `fs` (file system) or `s3` (s3 bucket) |
 | bucket | string | S3 bucket name. |
 | base_path | string | Folder within the bucket where snapshots are stored. |
-
-
-### Request body
-
-The get snapsnot repository API does not accept a request body.
