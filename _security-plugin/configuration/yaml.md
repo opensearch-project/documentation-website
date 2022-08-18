@@ -124,7 +124,7 @@ plugins.security.restapi.password_validation_regex: '(?=.*[A-Z])(?=.*[^a-zA-Z\d]
 plugins.security.restapi.password_validation_error_message: "Password must be minimum 8 characters long and must contain at least one uppercase letter, one lowercase letter, one digit, and one special character."
 ```
 
-You can set the `plugins.security.allow_default_init_securityindex` property to `true` to have the security plugin automatically initialize with default settings in the config file if the security index fails to initialize when OpenSearch launches. By default, the setting is `false`.
+You can set the `plugins.security.allow_default_init_securityindex` property to `true` to have the security plugin automatically initialize with default settings in the config folder if the security index fails to initialize when OpenSearch launches. By default, the setting is `false`.
 
 ```yml
 plugins.security.allow_default_init_securityindex: true
