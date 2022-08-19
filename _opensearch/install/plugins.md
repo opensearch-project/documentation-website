@@ -40,15 +40,6 @@ bin/opensearch-plugin install <name|Zip File|Url>
 
 Restart your OpenSearch node after installing a plugin.
 
-## Batch mode
-
-When installing plugins that require additional privileges not included by default, the plugins will prompt the user for confirmation of the required privileges. The confirmation prompt can be skipped and grant all requested privileges for the plugins being installed by using batch mode.
-
-To force batch mode when installing plugins, add the `-b` or `--batch` option:
-```
-bin/opensearch-plugin install --batch <plugin-name>
-```
-
 ## Remove a plugin
 
 ```
