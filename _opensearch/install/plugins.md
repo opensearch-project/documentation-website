@@ -68,17 +68,17 @@ bin/opensearch-plugin list
 
 | Plugin Name | Compatible OpenSearch Versions |
 :--- | :--- |
-|opensearch-sql | 1.0.0 or newer |
-|opensearch-security| 1.0.0 or newer |
-|opensearch-reports-scheduler| 1.0.0 or newer |
-|opensearch-performance-analyzer| 1.0.0 or newer |
-|opensearch-notebooks| 1.0.0 to 1.1.0 |
-|opensearch-knn| 1.0.0 or newer |
-|opensearch-job-scheduler| 1.0.0 or newer |
-|opensearch-index-management| 1.0.0 or newer |
-|opensearch-asynchronous-search| 1.0.0 or newer |
-|opensearch-anomaly-detection| 1.0.0 or newer |
-|opensearch-cross-cluster-replication| 1.1.0 or newer |
-|opensearch-observability| 1.2.0 or newer |
 |opensearch-alerting| 1.0.0 or newer |
+|opensearch-anomaly-detection| 1.0.0 or newer |
+|opensearch-asynchronous-search| 1.0.0 or newer |
+|opensearch-cross-cluster-replication| 1.1.0 or newer |
+|opensearch-index-management| 1.0.0 or newer |
+|opensearch-job-scheduler| 1.0.0 or newer |
+|opensearch-knn| 1.0.0 or newer |
 |opensearch-ml| 1.3.0 or newer |
+|opensearch-notebooks| 1.0.0 to 1.1.0 |
+|opensearch-observability| 1.2.0 or newer |
+|opensearch-performance-analyzer| 1.0.0 or newer |
+|opensearch-reports-scheduler| 1.0.0 or newer |
+|opensearch-security| 1.0.0 or newer |
+|opensearch-sql | 1.0.0 or newer |
