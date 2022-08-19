@@ -3,7 +3,7 @@ layout: default
 title: Get Snapshot Status
 parent: Snapshot APIs
 grand_parent: REST API reference
-nav_order: 7
+nav_order: 8
 ---
 
 ## Get snapshot status

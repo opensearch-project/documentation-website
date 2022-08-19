@@ -3,7 +3,7 @@ layout: default
 title: Restore Snapshot
 parent: Snapshot APIs
 grand_parent: REST API reference
-nav_order: 8
+nav_order: 9
 ---
 
 ## Restore Snapshot

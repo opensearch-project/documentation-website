@@ -3,7 +3,7 @@ layout: default
 title: Delete Snapshot
 parent: Snapshot APIs
 grand_parent: REST API reference
-nav_order: 6
+nav_order: 7
 ---
 
 ## Delete snapshot
