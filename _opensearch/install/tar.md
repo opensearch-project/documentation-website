@@ -14,19 +14,15 @@ Generally speaking, the installation of OpenSearch from a tarball can be broken 
 1. **Download and Unpack OpenSearch**
 1. **Configure Important System Settings**
    - These settings are applied to the host before modifying any OpenSearch files.
-1. **Test OpenSearch**
-   - Confirm that OpenSearch is able to run before you apply any custom configuration.
+1. **(Optional) Test OpenSearch**
+   - Confirm that OpenSearch is able to run before you apply any custom configurations.
    - This can be done without any security (no password, no certificates) or with a demo configuration that can be applied by a packaged script.
 1. **Configure OpenSearch for Your Environment**
    -  Apply basic settings to OpenSearch and start using it in your environment.
 
-The tarball is a self-contained directory with everything you need to run OpenSearch, including an integrated Java Development Kit (JDK). The tarball is a good option for testing and development.
+The tarball is a self-contained directory with everything needed to run OpenSearch, including an integrated Java Development Kit (JDK). This installation method is compatible with most Linux distributions including, but not limited to, CentOS 7, Amazon Linux 2, and Ubuntu 18.04. If you have your own Java installation and set the environment variable `JAVA_HOME` in the terminal, macOS works as well.
 
-After downloading and unpacking the archive, OpenSearch is ready to configure and use. Experienced OpenSearch users may have predefined configurations that they will apply to their host after downloading the tarball. A quickstart guide with basic recommended settings is included below for new users.
-
-This installation method is compatible with most Linux distributions including, but not limited to, CentOS 7, Amazon Linux 2, and Ubuntu 18.04. If you have your own Java installation and set the environment variable `JAVA_HOME` in the terminal, macOS works as well.
-
-This document assumes that you are comfortable working from the Linux command line interface. You should understand how to input commands, navigate between directories, and edit text files. Some example commands reference the `vi` text editor, but that is strictly for demonstration purposes and is not meant to endorse `vi`.
+This document assumes that you are comfortable working from the Linux command line interface. You should understand how to input commands, navigate between directories, and edit text files. Some example commands reference the `vi` text editor, but you may use any text editor available.
 {:.note}
 
 ## Download and Unpack OpenSearch
@@ -61,10 +57,10 @@ Before launching OpenSearch you should review some [important system settings]({
    sudo vi /etc/sysctl.conf
 
    # Add a line to define the desired value
-   # or change the value if the key exists
+   # or change the value if the key exists,
+   # then save your changes.
    vm.max_map_count=262144
 
-   # Save and quit (in vi you would use the command :wq!)
    # Reload the kernel parameters using sysctl
    sudo sysctl -p
 
@@ -72,14 +68,14 @@ Before launching OpenSearch you should review some [important system settings]({
    cat /proc/sys/vm/max_map_count
    ```
 
-## Test OpenSearch
+## (Optional) Test OpenSearch
 
-REVISIT AND ADD SENTENCE HERE TO TIE TOGETHERYou should verify that OpenSearch is able to run and respond to API requests. There are two quick methods to achieve this:
+Before proceeding you should test your installation of OpenSearch. Otherwise, it can be difficult to determine whether future problems are due to installation issues or custom settings you applied after installation. There are two quick methods for testing OpenSearch at this stage:
 
 1. **(Security Enabled)** Apply a generic configuration using the demo security script included in the tar archive.
 1. **(Security Disabled)** Manually disable the security plugin and test the instance before applying your own custom security settings.
 
-The demo security script will apply a generic configuration to your instance of OpenSearch. This configuration defines some environment variables and also applies self-signed TLS certificates. If you would like to configure these yourself, see the [Quickstart Guide](#quickstart-guide).
+The demo security script will apply a generic configuration to your instance of OpenSearch. This configuration defines some environment variables and also applies self-signed TLS certificates. If you would like to configure these yourself, see [Setup OpenSearch in your environment](#setup-opensearch-in-your-environment).
 
 If you only want to verify that the service is properly configured and will respond to API requests, and you intend to configure security settings yourself, then you may want to disable the security plugin and launch the service without encryption or authentication.
 
@@ -87,7 +83,7 @@ An OpenSearch node configured by the demo security script is not suitable for a 
 {: .warning}
 
 ### Option 1: Test your Opensearch settings with security enabled
-// Consider putting a paragraph here to introduce?
+
 1. Change to the top directory of your OpenSearch install.
    ```bash
    cd /path/to/opensearch-{{site.opensearch_version}}
@@ -148,7 +144,7 @@ An OpenSearch node configured by the demo security script is not suitable for a 
 1. Return to the original terminal session and stop the process by pressing `CTRL + C`.
 
 ### Option 2: Test your OpenSearch settings with security disabled
-// Consider putting a paragraph here to introduce?
+
 1. Open the configuration file.
    ```bash
    vi /path/to/opensearch-{{site.opensearch_version}}/config/opensearch.yml
@@ -208,7 +204,9 @@ An OpenSearch node configured by the demo security script is not suitable for a 
       hostname opensearch-sql                       2.1.0.0
       ```
 
-## Quickstart Guide - CHANGE TO SOMETHING LIKE "Configure/Setup OpenSearch in your environment" with a blurb about "here are settings we recommend."
+## Setup OpenSearch in Your Environment
+asdasdasdasdasdasdasdasdas
+Something about settings we recommend goes here as an intro to why this section exists.
 
 By default, OpenSearch is not bound to a network interface and cannot be reached by external hosts. Additionally, security settings are either undefined (greenfield install) or are populated by default usernames and passwords if you ran the security demo script by invoking `opensearch-tar-install.sh`. The following recommendations will enable a user to bind OpenSearch to a network interface, create and sign TLS certifications, and configure basic authentication.
 
