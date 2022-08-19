@@ -7,7 +7,20 @@ nav_order: 50
 
 # Tarball
 
-OpenSearch offers many installation methods. One such method is to install OpenSearch manually from a tarball. The tarball is a self-contained directory with everything you need to run OpenSearch, including an integrated Java Development Kit (JDK). The tarball is a good option for testing and development.
+Installing OpenSearch from a tarball, also known as a tar archive, might appeal to users who want granular control over things like file permissions and installation paths. The process is more involved than other methods, such as installing with Docker where users can deploy a cluster from a YAML file.
+
+Generally speaking, the installation of OpenSearch from a tarball can be broken down in to a few steps:
+
+1. **Download and Unpack OpenSearch**
+1. **Configure Important System Settings**
+   - These settings are applied to the host before modifying any OpenSearch files.
+1. **Test OpenSearch**
+   - Confirm that OpenSearch is able to run before you apply any custom configuration.
+   - This can be done without any security (no password, no certificates) or with a demo configuration that can be applied by a packaged script.
+1. **Configure OpenSearch for Your Environment**
+   -  Apply basic settings to OpenSearch and start using it in your environment.
+
+The tarball is a self-contained directory with everything you need to run OpenSearch, including an integrated Java Development Kit (JDK). The tarball is a good option for testing and development.
 
 After downloading and unpacking the archive, OpenSearch is ready to configure and use. Experienced OpenSearch users may have predefined configurations that they will apply to their host after downloading the tarball. A quickstart guide with basic recommended settings is included below for new users.
 
@@ -16,7 +29,7 @@ This installation method is compatible with most Linux distributions including, 
 This document assumes that you are comfortable working from the Linux command line interface. You should understand how to input commands, navigate between directories, and edit text files. Some example commands reference the `vi` text editor, but that is strictly for demonstration purposes and is not meant to endorse `vi`.
 {:.note}
 
-## Download OpenSearch
+## Download and Unpack OpenSearch
 
 1. Download the appropriate tar.gz archive from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'} or using the command line (such as with `wget`).
    ```bash
@@ -38,7 +51,6 @@ This document assumes that you are comfortable working from the Linux command li
 ## Configure Important System Settings
 
 Before launching OpenSearch you should review some [important system settings]({{site.url}}{{site.baseurl}}/opensearch/install/important-settings/){:target='\_blank'}.
-
 1. Disable memory paging and swapping performance on the host to improve performance.
    ```bash
    sudo swapoff -a
