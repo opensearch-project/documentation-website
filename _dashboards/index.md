@@ -9,11 +9,9 @@ redirect_from:
   - /dashboards/
 ---
 
-{%- comment -%}The `/docs/opensearch-dashboards/` redirect is specifically to support the UI links in OpenSearch Dashboards 1.0.0.{%- endcomment -%}
-
 # OpenSearch Dashboards
 
-OpenSearch Dashboards is the default visualization tool for data in OpenSearch. It also serves as a user interface for many of the OpenSearch plugins, including security, alerting, Index State Management, SQL, and more.
+OpenSearch Dashboards create visualizations that display the full picture of your data. OpenSearch Dashboards serves as a user interface for many of the OpenSearch plugins, including security, alerting, Index State Management, and SQL.
 
 
 ## Get started with OpenSearch Dashboards
