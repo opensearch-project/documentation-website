@@ -66,19 +66,20 @@ bin/opensearch-plugin list
 
 ## Available plugins
 
-| Plugin Name | Compatible OpenSearch Versions |
-:--- | :--- |
-|opensearch-alerting| 1.0.0 or newer |
-|opensearch-anomaly-detection| 1.0.0 or newer |
-|opensearch-asynchronous-search| 1.0.0 or newer |
-|opensearch-cross-cluster-replication| 1.1.0 or newer |
-|opensearch-index-management| 1.0.0 or newer |
-|opensearch-job-scheduler| 1.0.0 or newer |
-|opensearch-knn| 1.0.0 or newer |
-|opensearch-ml| 1.3.0 or newer |
-|opensearch-notebooks| 1.0.0 to 1.1.0 |
-|opensearch-observability| 1.2.0 or newer |
-|opensearch-performance-analyzer| 1.0.0 or newer |
-|opensearch-reports-scheduler| 1.0.0 or newer |
-|opensearch-security| 1.0.0 or newer |
-|opensearch-sql | 1.0.0 or newer |
+| Plugin Name | Repository | OpenSearch Compatible Versions |
+:--- | :--- | :--- |
+| Alerting | [opensearch-alerting](https://github.com/opensearch-project/alerting) | 1.0.0 or newer |
+| Anomaly Detection | [opensearch-anomaly-detection](https://github.com/opensearch-project/anomaly-detection) | 1.0.0 or newer |
+| Asynchronous Search | [opensearch-asynchronous-search](https://github.com/opensearch-project/asynchronous-search) | 1.0.0 or newer |
+| Cross Cluster Replication | [opensearch-cross-cluster-replication](https://github.com/opensearch-project/cross-cluster-replication) | 1.1.0 or newer |
+| Dashboard Notebooks | [opensearch-notebooks](https://github.com/opensearch-project/dashboards-notebooks) | 1.0.0 to 1.1.0<sup>1</sup> |
+| Dashboard Reports | [opensearch-reports-scheduler](https://github.com/opensearch-project/dashboards-reports) | 1.0.0 or newer |
+| Index Management | [opensearch-index-management](https://github.com/opensearch-project/index-management) | 1.0.0 or newer |
+| Job Scheduler | [opensearch-job-scheduler](https://github.com/opensearch-project/job-scheduler) | 1.0.0 or newer |
+| k-NN | [opensearch-knn](https://github.com/opensearch-project/k-NN) | 1.0.0 or newer |
+| ML Commons | [opensearch-ml](https://github.com/opensearch-project/ml-commons) | 1.3.0 or newer |
+| Observability | [opensearch-observability](https://github.com/opensearch-project/observability) | 1.2.0 or newer |
+| Performance Analyzer | [opensearch-performance-analyzer](https://github.com/opensearch-project/performance-analyzer) | 1.0.0 or newer |
+| Security | [opensearch-security](https://github.com/opensearch-project/security) | 1.0.0 or newer |
+| SQL | [opensearch-sql](https://github.com/opensearch-project/sql) | 1.0.0 or newer |
+<sup>1</sup>Dashboard Notebooks was deprecated and merged in to the Observability plugin in OpenSearch version 1.2.0.
