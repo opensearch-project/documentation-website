@@ -66,6 +66,27 @@ bin/opensearch-plugin list
 
 ## Available plugins
 
+| Plugin Name | Compatible OpenSearch Versions |
+:--- | :--- |
+|opensearch-sql | 1.0.0 or newer |
+|opensearch-security| 1.0.0 or newer |
+|opensearch-reports-scheduler| 1.0.0 or newer |
+|opensearch-performance-analyzer| 1.0.0 or newer |
+|opensearch-notebooks| 1.0.0 to 1.1.0 |
+|opensearch-knn| 1.0.0 or newer |
+|opensearch-job-scheduler| 1.0.0 or newer |
+|opensearch-index-management| 1.0.0 or newer |
+|opensearch-asynchronous-search| 1.0.0 or newer |
+|opensearch-anomaly-detection| 1.0.0 or newer |
+|opensearch-cross-cluster-replication| 1.1.0 or newer |
+|opensearch-observability| 1.2.0 or newer |
+|opensearch-alerting| 1.0.0 or newer |
+|opensearch-ml| 1.3.0 or newer |
+||  |
+||  |
+||  |
+||  |
+
 <table>
   <thead style="text-align: left">
     <tr>
@@ -222,172 +243,4 @@ opensearch-cross-cluster-replication 1.3.1.0
 opensearch-index-management          1.3.1.0
 opensearch-job-scheduler             1.3.1.0
 opensearch-knn                       1.3.1.0
-opensearch-ml                        1.3.1.0
-opensearch-observability             1.3.1.0
-opensearch-performance-analyzer      1.3.1.0
-opensearch-reports-scheduler         1.3.1.0
-opensearch-security                  1.3.1.0
-opensearch-sql                       1.3.1.0
-</pre>
-</td>
-</tr>
-  <tr>
-    <td>1.3.0</td>
-    <td>
-      <pre>opensearch-alerting                  1.3.0.0
-opensearch-anomaly-detection         1.3.0.0
-opensearch-asynchronous-search       1.3.0.0
-opensearch-cross-cluster-replication 1.3.0.0
-opensearch-index-management          1.3.0.0
-opensearch-job-scheduler             1.3.0.0
-opensearch-knn                       1.3.0.0
-opensearch-ml                        1.3.0.0
-opensearch-observability             1.3.0.0
-opensearch-performance-analyzer      1.3.0.0
-opensearch-reports-scheduler         1.3.0.0
-opensearch-security                  1.3.0.0
-opensearch-sql                       1.3.0.0
-</pre>
-</td>
-</tr>
-  <tr>
-    <td>1.2.4</td>
-    <td>
-      <pre>opensearch-alerting                  1.2.4.0
-opensearch-anomaly-detection         1.2.4.0
-opensearch-asynchronous-search       1.2.4.0
-opensearch-cross-cluster-replication 1.2.4.0
-opensearch-index-management          1.2.4.0
-opensearch-job-scheduler             1.2.4.0
-opensearch-knn                       1.2.4.0
-opensearch-observability             1.2.4.0
-opensearch-performance-analyzer      1.2.4.0
-opensearch-reports-scheduler         1.2.4.0
-opensearch-security                  1.2.4.0
-opensearch-sql                       1.2.4.0
-</pre>
-</td>
-</tr>
-    <td>1.2.3</td>
-    <td>
-      <pre>opensearch-alerting                  1.2.3.0
-opensearch-anomaly-detection         1.2.3.0
-opensearch-asynchronous-search       1.2.3.0
-opensearch-cross-cluster-replication 1.2.3.0
-opensearch-index-management          1.2.3.0
-opensearch-job-scheduler             1.2.3.0
-opensearch-knn                       1.2.3.0
-opensearch-observability             1.2.3.0
-opensearch-performance-analyzer      1.2.3.0
-opensearch-reports-scheduler         1.2.3.0
-opensearch-security                  1.2.3.0
-opensearch-sql                       1.2.3.0
-</pre>
-</td>
-</tr>
-  <tr>
-    <td>1.2.2</td>
-    <td>
-      <pre>opensearch-alerting                  1.2.2.0
-opensearch-anomaly-detection         1.2.2.0
-opensearch-asynchronous-search       1.2.2.0
-opensearch-cross-cluster-replication 1.2.2.0
-opensearch-index-management          1.2.2.0
-opensearch-job-scheduler             1.2.2.0
-opensearch-knn                       1.2.2.0
-opensearch-observability             1.2.2.0
-opensearch-performance-analyzer      1.2.2.0
-opensearch-reports-scheduler         1.2.2.0
-opensearch-security                  1.2.2.0
-opensearch-sql                       1.2.2.0
-</pre>
-</td>
-</tr>
-  <tr>
-    <td>1.2.1</td>
-    <td>
-      <pre>opensearch-alerting                  1.2.1.0
-opensearch-anomaly-detection         1.2.1.0
-opensearch-asynchronous-search       1.2.1.0
-opensearch-cross-cluster-replication 1.2.1.0
-opensearch-index-management          1.2.1.0
-opensearch-job-scheduler             1.2.1.0
-opensearch-knn                       1.2.1.0
-opensearch-observability             1.2.1.0
-opensearch-performance-analyzer      1.2.1.0
-opensearch-reports-scheduler         1.2.1.0
-opensearch-security                  1.2.1.0
-opensearch-sql                       1.2.1.0
-</pre>
-</td>
-</tr>
-  <tr>
-    <td>1.2.0</td>
-    <td>
-      <pre>opensearch-alerting                  1.2.0.0
-opensearch-anomaly-detection         1.2.0.0
-opensearch-asynchronous-search       1.2.0.0
-opensearch-cross-cluster-replication 1.2.0.0
-opensearch-index-management          1.2.0.0
-opensearch-job-scheduler             1.2.0.0
-opensearch-knn                       1.2.0.0
-opensearch-observability             1.2.0.0
-opensearch-performance-analyzer      1.2.0.0
-opensearch-reports-scheduler         1.2.0.0
-opensearch-security                  1.2.0.0
-opensearch-sql                       1.2.0.0
-</pre>
-</td>
-</tr>
-<tr>
-  <td>1.1.0</td>
-  <td>
-    <pre>opensearch-alerting                  1.1.0.0
-opensearch-anomaly-detection         1.1.0.0
-opensearch-asynchronous-search       1.1.0.0
-opensearch-cross-cluster-replication 1.1.0.0
-opensearch-index-management          1.1.0.0
-opensearch-job-scheduler             1.1.0.0
-opensearch-knn                       1.1.0.0
-opensearch-notebooks                 1.1.0.0
-opensearch-performance-analyzer      1.1.0.0
-opensearch-reports-scheduler         1.1.0.0
-opensearch-security                  1.1.0.0
-opensearch-sql                       1.1.0.0
-</pre>
-    </td>
-  </tr>
-  <tr>
-    <td>1.0.1</td>
-    <td>
-      <pre>opensearch-alerting             1.0.0.0
-opensearch-anomaly-detection    1.0.0.0
-opensearch-asynchronous-search  1.0.0.0
-opensearch-index-management     1.0.1.0
-opensearch-job-scheduler        1.0.0.0
-opensearch-knn                  1.0.0.0
-opensearch-notebooks            1.0.0.0
-opensearch-performance-analyzer 1.0.1.0
-opensearch-reports-scheduler    1.0.0.0
-opensearch-security             1.0.1.0
-opensearch-sql                  1.0.0.0
-</pre>
-    </td>
-  </tr>
-  <tr>
-    <td>1.0.0</td>
-    <td>
-      <pre>opensearch-alerting             1.0.0.0
-opensearch-anomaly-detection    1.0.0.0
-opensearch-asynchronous-search  1.0.0.0
-opensearch-index-management     1.0.0.0
-opensearch-job-scheduler        1.0.0.0
-opensearch-knn                  1.0.0.0
-opensearch-notebooks            1.0.0.0
-opensearch-performance-analyzer 1.0.0.0
-opensearch-reports-scheduler    1.0.0.0
-opensearch-security             1.0.0.0
-opensearch-sql                  1.0.0.0
-</pre>
-    </td>
-  </tr>
+                        1.3.1.0
