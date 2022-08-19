@@ -67,7 +67,7 @@ bin/opensearch-plugin list
 ## Available plugins
 
 | Plugin Name | Repository | OpenSearch Compatible Versions |
-:--- | :--- | :--- |
+| :--- | :--- | :--- |
 | Alerting | [opensearch-alerting](https://github.com/opensearch-project/alerting) | 1.0.0 or newer |
 | Anomaly Detection | [opensearch-anomaly-detection](https://github.com/opensearch-project/anomaly-detection) | 1.0.0 or newer |
 | Asynchronous Search | [opensearch-asynchronous-search](https://github.com/opensearch-project/asynchronous-search) | 1.0.0 or newer |
@@ -82,4 +82,5 @@ bin/opensearch-plugin list
 | Performance Analyzer | [opensearch-performance-analyzer](https://github.com/opensearch-project/performance-analyzer) | 1.0.0 or newer |
 | Security | [opensearch-security](https://github.com/opensearch-project/security) | 1.0.0 or newer |
 | SQL | [opensearch-sql](https://github.com/opensearch-project/sql) | 1.0.0 or newer |
-<sup>1</sup> Dashboard Notebooks was deprecated and merged in to the Observability plugin with the release of OpenSearch 1.2.0.
+
+<sup>1</sup>Dashboard Notebooks was merged in to the Observability plugin with the release of OpenSearch 1.2.0.
