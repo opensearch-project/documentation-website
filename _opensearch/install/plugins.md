@@ -29,12 +29,12 @@ The install command takes a plugin id, which may be any of the following:
 - A URL to a plugin zip file
 
 If you're installing an official OpenSearch plugin, use:
-```
+```bash
 bin/opensearch-plugin install <plugin-name>
 ```
 
 For a plugin installed via zip, use:
-```
+```bash
 bin/opensearch-plugin install <name|Zip File|Url>
 ```
 
@@ -45,13 +45,13 @@ Restart your OpenSearch node after installing a plugin.
 When installing plugins that require additional privileges not included by default, the plugins will prompt the user for confirmation of the required privileges. To grant all requested privileges, use batch mode to skip the confirmation prompt.
 
 To force batch mode when installing plugins, add the `-b` or `--batch` option:
-```
+```bash
 bin/opensearch-plugin install --batch <plugin-name>
 ```
 
 ## Remove a plugin
 
-```
+```bash
 bin/opensearch-plugin remove <plugin-name>
 ```
 Restart your OpenSearch node after removing a plugin.
@@ -60,7 +60,7 @@ Restart your OpenSearch node after removing a plugin.
 
 To check which plugins are currently installed:
 
-```
+```bash
 bin/opensearch-plugin list
 ```
 
