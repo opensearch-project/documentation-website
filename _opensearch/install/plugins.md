@@ -72,7 +72,7 @@ bin/opensearch-plugin list
 | Anomaly Detection | [opensearch-anomaly-detection](https://github.com/opensearch-project/anomaly-detection) | 1.0.0 or newer |
 | Asynchronous Search | [opensearch-asynchronous-search](https://github.com/opensearch-project/asynchronous-search) | 1.0.0 or newer |
 | Cross Cluster Replication | [opensearch-cross-cluster-replication](https://github.com/opensearch-project/cross-cluster-replication) | 1.1.0 or newer |
-| Dashboard Notebooks | [opensearch-notebooks](https://github.com/opensearch-project/dashboards-notebooks) | 1.0.0 to 1.1.0<sup>1</sup> |
+| Dashboard Notebooks<sup>1</sup> | [opensearch-notebooks](https://github.com/opensearch-project/dashboards-notebooks) | 1.0.0 to 1.1.0 |
 | Dashboard Reports | [opensearch-reports-scheduler](https://github.com/opensearch-project/dashboards-reports) | 1.0.0 or newer |
 | Index Management | [opensearch-index-management](https://github.com/opensearch-project/index-management) | 1.0.0 or newer |
 | Job Scheduler | [opensearch-job-scheduler](https://github.com/opensearch-project/job-scheduler) | 1.0.0 or newer |
@@ -82,4 +82,4 @@ bin/opensearch-plugin list
 | Performance Analyzer | [opensearch-performance-analyzer](https://github.com/opensearch-project/performance-analyzer) | 1.0.0 or newer |
 | Security | [opensearch-security](https://github.com/opensearch-project/security) | 1.0.0 or newer |
 | SQL | [opensearch-sql](https://github.com/opensearch-project/sql) | 1.0.0 or newer |
-<sup>1</sup>Dashboard Notebooks was deprecated and merged in to the Observability plugin in OpenSearch version 1.2.0.
+<sup>1</sup> Dashboard Notebooks was deprecated and merged in to the Observability plugin with the release of OpenSearch 1.2.0.
