@@ -94,12 +94,12 @@ Upsert is an operation that conditionally either updates an existing document or
 ```json
 {
   "doc": {
-    "first_name": "Thomas",
-    "last_name": "Wayne"
+    "first_name": "Martha",
+    "last_name": "Rivera"
   },
   "upsert": {
-    "last_name": "Brower",
-    "age": "35"
+    "last_name": "Oliveira",
+    "age": "31"
   }
 }
 ```
@@ -108,9 +108,9 @@ You can also add `doc_as_upsert` to the request and set it to `true` to use the 
 ```json
 {
   "doc": {
-    "first_name": "Thomas",
-    "last_name": "Brower",
-    "age": "35"
+    "first_name": "Martha",
+    "last_name": "Oliveira",
+    "age": "31"
   },
   "doc_as_upsert": true
 }
