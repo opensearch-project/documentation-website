@@ -89,7 +89,7 @@ You can also use a script to tell OpenSearch how to update your document.
 
 ### Upsert
 
-Upsert is an operation that conditionally updates an existing document or inserts a new one based on information in the object. In the sample below, the `upsert` object updates the name and adds the `age` field if a document already exists. If a document does not exist, a new one is indexed using content in the `upsert` object.
+Upsert is an operation that conditionally either updates an existing document or inserts a new one based on information in the object. In the sample below, the `upsert` object updates the last name and adds the `age` field if a document already exists. If a document does not exist, a new one is indexed using content in the `upsert` object.
 
 ```json
 {
@@ -98,7 +98,7 @@ Upsert is an operation that conditionally updates an existing document or insert
     "last_name": "Wayne"
   },
   "upsert": {
-    "last_name": "Payne",
+    "last_name": "Brower",
     "age": "35"
   }
 }
@@ -109,7 +109,7 @@ You can also add `doc_as_upsert` to the request and set it to `true` to use the 
 {
   "doc": {
     "first_name": "Thomas",
-    "last_name": "Payne",
+    "last_name": "Brower",
     "age": "35"
   },
   "doc_as_upsert": true
