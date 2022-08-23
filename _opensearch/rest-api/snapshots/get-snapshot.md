@@ -15,7 +15,7 @@ Retrieves information about a snapshot.
 | Parameter | Data Type | Description |
 | :--- | :--- | :--- |
 | repository | String | The repository that contains the snapshot to retrieve. |
-| snapshot | Snapsnot | Snapshot to retrieve.
+| snapshot | String | Snapshot to retrieve.
 
 ### Query parameters
 
@@ -71,7 +71,7 @@ Upon success, the response returns snapshot information:
   ]
 }
 ````
-#### Response body fields
+#### Response fields
 
 | Field | Data Type | Description |
 | :--- | :--- | :--- | 

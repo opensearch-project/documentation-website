@@ -16,28 +16,13 @@ Registers a new repository to store snapshots, or updates information for an exi
 
 To learn more about repositories, see [Register repository]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore#register-repository).
 
-
 ### Path parameters
 
 Parameter | Data Type | Description
 :--- | :--- | :---
 repository | String | Repostory name. |
 
-#### Sample request
-
-You can register repositories with `POST` or `PUT`. 
-{: .note}
-
-The following requests register a repository called `my-first-repo`:
-
-`POST _snapshot/my-first-repo/` registers a snapshot repository. Requires a request body as described in [Request body](#request-body).
-
-`PUT _snapshot/my-first-repo/` registers a snapshot repository if it does not exist; otherwise, updates information about the repository. For creation, requires a request body as described in [Request body](#request-body).
-
-To verify that the repository was registered, use the [Get snapshot repository API]({{site.url}}{{site.baseurl}}/opensearch/rest-api/snapshots/get-snapshot-repository), passing the repository name as the `repository` path parameter.
-{: .note}
-
-### Request body
+### Request fields
 
 Allowable parameters depend on the repository type.
 
@@ -67,9 +52,15 @@ Setting | Description
 `max_snapshot_bytes_per_sec` | The maximum rate at which snapshots take. Default is 40 MB per second (`40m`). Optional.
 `readonly` | Whether the repository is read-only. Useful when migrating from one cluster (`"readonly": false` when registering) to another cluster (`"readonly": true` when registering). Optional.
 `server_side_encryption` | Whether to encrypt snapshot files in the S3 bucket. This setting uses AES-256 with S3-managed keys. See [Protecting data using server-side encryption](https://docs.aws.amazon.com/AmazonS3/latest/dev/serv-side-encryption.html). Default is false. Optional.
-`storage_class` | Specifies the [S3 storage class](https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html) for the snapshots files. Default is `standard`. Do not use the `glacier` and `deep_archive` storage classes. Optional
+`storage_class` | Specifies the [S3 storage class](https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html) for the snapshots files. Default is `standard`. Do not use the `glacier` and `deep_archive` storage classes. Optional.
 
-##### Sample request
+#### Sample request
+
+The following requests register or update a repository called `my-first-repo`. Both require a request body as described in [Request fields](#request-fields).
+
+* `POST _snapshot/my-first-repo/` registers a snapshot repository.
+
+* `PUT _snapshot/my-first-repo/` registers a snapshot repository if it does not exist; otherwise, updates information about the repository. 
 
 The following request registers a new S3 repository called `my-opensearch-repo` in an existing bucket called `my-open-search-bucket`. By default, all snapshots are stored in the `my/snapshot/directory`.
 
@@ -83,6 +74,7 @@ PUT _snapshot/my-opensearch-repo
   }
 }
 ```
+
 #### Sample response
 
 Upon success, the following JSON object is returned:

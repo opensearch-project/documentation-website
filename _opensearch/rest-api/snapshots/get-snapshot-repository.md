@@ -51,7 +51,10 @@ Upon success, the response returns repositry information. This sample is for an 
   }
 }
 ````
-| Property | Type | Description |
+
+### Response fields
+
+| Field | Data Type | Description |
 | :--- | :--- | :--- | 
 | type | string | Bucket type: `fs` (file system) or `s3` (s3 bucket) |
 | bucket | string | S3 bucket name. |

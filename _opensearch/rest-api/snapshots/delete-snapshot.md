@@ -14,7 +14,7 @@ Deletes a snapshot from a repository.
 
 * To view a list of your repositories, see [cat repositories]({{site.url}}{{site.baseurl}}/opensearch/rest-api/cat/cat-repositories).
 
-* To view a list of your snapsonts, see [cat snapshots]({{site.url}}{{site.baseurl}}/opensearch/rest-api/cat/cat-snapshots).
+* To view a list of your snapshots, see [cat snapshots]({{site.url}}{{site.baseurl}}/opensearch/rest-api/cat/cat-snapshots).
 
 ### Path parameters
 
@@ -25,7 +25,7 @@ snapshot | String | Snapshot to delete. |
 
 #### Sample request
 
-The following request deletes a snapsnot called `my-first-snapshot` from the `my-opensearch-repo` repository.
+The following request deletes a snapshot called `my-first-snapshot` from the `my-opensearch-repo` repository.
 
 `DELETE _snapshot/my-opensearch-repo/my-first-snapshot`
 
