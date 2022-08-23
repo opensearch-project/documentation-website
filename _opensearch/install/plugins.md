@@ -87,7 +87,7 @@ bin/opensearch-plugin list
 
 ### Additional plugins
 
-Members of the OpenSearch community has built countless plugins for the service. Although it isn't possible to build an exhaustive list of every plugin, since many plugins are not maintained within the OpenSearch GitHub repository, the following list of plugins are available to be installed by name using `bin/opensearch-plugin install`.
+Members of the OpenSearch community have built countless plugins for the service. Although it isn't possible to build an exhaustive list of every plugin, since many plugins are not maintained within the OpenSearch GitHub repository, the following list of plugins are available to be installed by name using `bin/opensearch-plugin install`.
 
 | Plugin Name | OpenSearch Compatible Versions |
 | :--- | :--- |
