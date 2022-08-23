@@ -7,7 +7,7 @@ nav_order: 50
 
 # Tarball
 
-Installing OpenSearch from a tarball, also known as a tar archive, might appeal to users who want granular control over things like file permissions and installation paths. The process is more involved than other methods, such as installing with Docker where users can deploy a cluster from a YAML file.
+Installing OpenSearch from a tarball, also known as a tar archive, might appeal to users who want granular control over installation details like file permissions and installation paths.
 
 Generally speaking, the installation of OpenSearch from a tarball can be broken down in to a few steps:
 
@@ -15,8 +15,8 @@ Generally speaking, the installation of OpenSearch from a tarball can be broken 
 1. **Configure Important System Settings**
    - These settings are applied to the host before modifying any OpenSearch files.
 1. **(Optional) Test OpenSearch**
-   - Confirm that OpenSearch is able to run before you apply any custom configurations.
-   - This can be done without any security (no password, no certificates) or with a demo configuration that can be applied by a packaged script.
+   - Confirm that OpenSearch is able to run before you apply any custom configuration.
+   - This can be done without any security (no password, no certificates) or with a demo security configuration that can be applied by a packaged script.
 1. **Configure OpenSearch for Your Environment**
    -  Apply basic settings to OpenSearch and start using it in your environment.
 
@@ -205,10 +205,16 @@ An OpenSearch node configured by the demo security script is not suitable for a 
       ```
 
 ## Setup OpenSearch in Your Environment
-asdasdasdasdasdasdasdasdas
-Something about settings we recommend goes here as an intro to why this section exists.
 
-By default, OpenSearch is not bound to a network interface and cannot be reached by external hosts. Additionally, security settings are either undefined (greenfield install) or are populated by default usernames and passwords if you ran the security demo script by invoking `opensearch-tar-install.sh`. The following recommendations will enable a user to bind OpenSearch to a network interface, create and sign TLS certifications, and configure basic authentication.
+Users that do not have prior experience with OpenSearch may want a list of recommend settings to get started with the service. By default, OpenSearch is not bound to a network interface and cannot be reached by external hosts. Additionally, security settings are either undefined (greenfield install) or are populated by default usernames and passwords if you ran the security demo script by invoking `opensearch-tar-install.sh`. The following recommendations will enable a user to bind OpenSearch to a network interface, create and sign TLS certifications, and configure basic authentication.
+
+The following recommended settings will allow users to:
+
+- Bind OpenSearch to an IP or network inteface on the host.
+- Set initial and max JVM heap sizes.
+- Define an environment variable that points to the bundled JDK.
+- Configure your own TLS certificates - no third-party Certificate Authority required.
+- Create an admin user with a custom password.
 
 If you ran the security demo script then you will need to manually reconfigure settings that were modified. Refer to Security Plugin [Configuration]({{site.url}}{{site.baseurl}}/opensearch/configuration/) for guidance before proceeding.
 {:.note}
@@ -233,7 +239,7 @@ Before modifying any configuration files, it's always a good idea to save a back
    discovery.type: single-node
 
    # If you previously disabled the security plugin in opensearch.yml,
-   # be sure to re-enable it.
+   # be sure to re-enable it. Otherwise you can skip this setting.
    plugins.security.disabled: false
    ```
 1. Save your changes and close the file.
@@ -309,7 +315,7 @@ TLS certificates provide additional security for your cluster by allowing client
    ```bash
    rm *temp.pem *csr *ext
    ```
-1. Add these certificates to `opensearch.yml` as described in [Generate Certificates]({{site.url}}{{site.baseurl}}/security-plugin/configuration/generate-certificates/#add-distinguished-names-to-opensearchyml). You might also choose to append the settings using a script.
+1. Add these certificates to `opensearch.yml` as described in [Generate Certificates]({{site.url}}{{site.baseurl}}/security-plugin/configuration/generate-certificates/#add-distinguished-names-to-opensearchyml). Advanced users might also choose to append the settings using a script:
    ```bash
    #! /bin/bash
 
@@ -320,8 +326,6 @@ TLS certificates provide additional security for your cluster by allowing client
    echo "plugins.security.ssl.transport.pemcert_filepath: /path/to/opensearch-{{site.opensearch_version}}/config/node1.pem" | sudo tee -a /path/to/opensearch-{{site.opensearch_version}}/config/opensearch.yml
    echo "plugins.security.ssl.transport.pemkey_filepath: /path/to/opensearch-{{site.opensearch_version}}/config/node1-key.pem" | sudo tee -a /path/to/opensearch-{{site.opensearch_version}}/config/opensearch.yml
    echo "plugins.security.ssl.transport.pemtrustedcas_filepath: /path/to/opensearch-{{site.opensearch_version}}/config/root-ca.pem" | sudo tee -a /path/to/opensearch-{{site.opensearch_version}}/config/opensearch.yml
-   # I don't think we want this next line in the sample script right?  Borrowed from Miki's personal notes/process.
-   # echo "plugins.security.ssl.transport.enforce_hostname_verification: false" | sudo tee -a /path/to/opensearch-{{site.opensearch_version}}/config/opensearch.yml
    echo "plugins.security.ssl.http.enabled: true" | sudo tee -a /path/to/opensearch-{{site.opensearch_version}}/config/opensearch.yml
    echo "plugins.security.ssl.http.pemcert_filepath: /path/to/opensearch-{{site.opensearch_version}}/config/node1.pem" | sudo tee -a /path/to/opensearch-{{site.opensearch_version}}/config/opensearch.yml
    echo "plugins.security.ssl.http.pemkey_filepath: /path/to/opensearch-{{site.opensearch_version}}/config/node1-key.pem" | sudo tee -a /path/to/opensearch-{{site.opensearch_version}}/config/opensearch.yml
@@ -347,14 +351,14 @@ TLS certificates provide additional security for your cluster by allowing client
 
 ### Configure a user
 
-Users are defined and authenticated by OpenSearch in a variety of ways. One method, which does not require additional backend infrastructure, is manually configuring users in `internal_users.yml`. See [YAML files]({{site.url}}{{site.baseurl}}/security-plugin/configuration/yaml/) for more information about configuring users. The following steps explain how to remove all demo users except for the `admin` user, and how to replace the `admin` default password using a script.
+Users are defined and authenticated by OpenSearch in a variety of ways. One method, which does not require additional backend infrastructure, is to manually configure users in `internal_users.yml`. See [YAML files]({{site.url}}{{site.baseurl}}/security-plugin/configuration/yaml/) for more information about configuring users. The following steps explain how to remove all demo users except for the `admin` user, and how to replace the `admin` default password using a script.
 
 1. Make the security plugin scripts executable.
    ```bash
    chmod 755 /path/to/opensearch-{{site.opensearch_version}}/plugins/opensearch-security/tools/*.sh
    ```
 1. Run `hash.sh` to generate a new password.
-   - This script will fail if a JDK is not defined in your `$PATH` and you have not defined either the `OPENSEARCH_JAVA_HOME` or the `JAVA_HOME` environment variables:
+   - This script will fail if a path to the JDK has not been defined.
       ```bash
       # Example output if a JDK isn't found...
       $ ./hash.sh
@@ -366,7 +370,7 @@ Users are defined and authenticated by OpenSearch in a variety of ways. One meth
       WARNING: nor OPENSEARCH_JAVA_HOME nor JAVA_HOME is set, will use 
       ./hash.sh: line 35: java: command not found
       ```
-   - Declare an environment variable when you invoke the script to avoid issues with the following command:
+   - Declare an environment variable when you invoke the script to avoid issues:
       ```bash
       OPENSEARCH_JAVA_HOME=/path/to/opensearch-{{site.opensearch_version}}/jdk ./hash.sh
       ```
@@ -375,7 +379,7 @@ Users are defined and authenticated by OpenSearch in a variety of ways. One meth
    ```bash
    vi /path/to/opensearch-{{site.opensearch_version}}/config/opensearch-security/internal_users.yml
    ```
-1. Remove all demo users except for `admin` and replace the hash with the output provided by `hash.sh` in a previous step. The file should look similar to the following example.
+1. Remove all demo users except for `admin` and replace the hash with the output provided by `hash.sh` in a previous step. The file should look similar to the following example:
    ```bash
    ---
    # This is the internal user database
@@ -397,9 +401,9 @@ Users are defined and authenticated by OpenSearch in a variety of ways. One meth
 
 ### Apply changes
 
-TLS certificates are installed and demo users were removed or assigned new passwords. The last step is to apply the configuration changes, which requires invoking `securityadmin.sh` while OpenSearch is running on the host.
+Now that TLS certificates are installed and demo users were removed or assigned new passwords, the last step is to apply the configuration changes. This last configuration step requires invoking `securityadmin.sh` while OpenSearch is running on the host.
 
-1. Start OpenSearch.
+1. Start OpenSearch. It must be running for `securityadmin.sh` to apply changes.
    ```bash
    # Change directories
    cd /path/to/opensearch-{{site.opensearch_version}}/bin
@@ -407,12 +411,12 @@ TLS certificates are installed and demo users were removed or assigned new passw
    # Run the service in the foreground
    ./opensearch
    ```
-1. Open a second terminal session with the host and change directories to access `securityadmin.sh`.
+1. Open a separate terminal session with the host and navigate to the directory containing `securityadmin.sh`.
    ```bash
    # Change to the correct directory
    cd /path/to/opensearch-{{site.opensearch_version}}/plugins/opensearch-security/tools
    ```
-1. Invoke the script.
+1. Invoke the script. See [Apply changes using securityadmin.sh]({{site.url}}{{site.baseurl}}/security-plugin/configuration/security-admin/) for definitions of the arguments you must pass.
    ```bash
    # You can omit the environment variable if you declared this in your $PATH.
    OPENSEARCH_JAVA_HOME=/path/to/opensearch-{{site.opensearch_version}}/jdk ./securityadmin.sh -cd /path/to/opensearch-{{site.opensearch_version}}/config/opensearch-security/ -cacert /path/to/opensearch-{{site.opensearch_version}}/config/root-ca.pem -cert /path/to/opensearch-{{site.opensearch_version}}/config/admin.pem -key /path/to/opensearch-{{site.opensearch_version}}/config/admin-key.pem -icl -nhnv
