@@ -111,4 +111,3 @@ Members of the OpenSearch community have built countless plugins for the service
 | repository-s3 | 1.0.0 or newer |
 | store-smb | 1.0.0 or newer |
 | transport-nio | 1.0.0 or newer |
->>>>>>> a4c89a2 (Added list of plugins that can be installed by name (#957))
