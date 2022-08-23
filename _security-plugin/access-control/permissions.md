@@ -123,6 +123,13 @@ These permissions are for the cluster and can't be applied granularly. For examp
 - cluster:admin/rollup/start
 - cluster:admin/rollup/stop
 - cluster:admin/rollup/explain
+- cluster:admin/opendistro/transform/index
+- cluster:admin/opendistro/transform/get
+- cluster:admin/opendistro/transform/preview
+- cluster:admin/opendistro/transform/delete
+- cluster:admin/opendistro/transform/start
+- cluster:admin/opendistro/transform/stop
+- cluster:admin/opendistro/transform/explain
 - cluster:admin/reports/definition/create
 - cluster:admin/reports/definition/update
 - cluster:admin/reports/definition/on_demand
