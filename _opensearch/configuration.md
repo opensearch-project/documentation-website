@@ -10,6 +10,13 @@ Most OpenSearch configuration can take place in the cluster settings API. Certai
 
 Whenever possible, use the cluster settings API instead; `opensearch.yml` is local to each node, whereas the API applies the setting to all nodes in the cluster. Certain settings, however, require `opensearch.yml`. In general, these settings relate to networking, cluster formation, and the local file system. To learn more, see [Cluster formation]({{site.url}}{{site.baseurl}}/opensearch/cluster/).
 
+## Specify settings as environment variables
+
+You can specify environment variables as arguments using `-E` when launching OpenSearch:
+
+```bash
+./opensearch -Ecluster.name=opensearch-cluster -Enode.name=opensearch-node1 -Ehttp.host=0.0.0.0 -Ediscovery.type=single-node
+```
 
 ## Update cluster settings using the API
 
