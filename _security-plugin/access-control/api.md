@@ -1419,46 +1419,31 @@ For details on setting up and using audit logging to track access to OpenSearch 
 
 Field | Data Type | Description
 :--- | :--- | :---
-`_readonly` | String | "/audit/exclude_sensitive_headers",<br>"/compliance/internal_config",<br>"/compliance/external_config"<br>Description of these values
-`config`<br>&nbsp;&nbsp;&nbsp;&nbsp;`enabled` | Boolean | Enables or disables audit logging. Default is `false`.
-`config`<br>&nbsp;&nbsp;&nbsp;&nbsp;`audit` | Object | Contains fields for audit logging configuration.
-`config`<br>&nbsp;&nbsp;&nbsp;&nbsp;`audit`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`ignore_users` | String | Description
-`config`<br>&nbsp;&nbsp;&nbsp;&nbsp;`audit`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`ignore_requests` | String | Description
-`config`<br>&nbsp;&nbsp;&nbsp;&nbsp;`audit`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`disabled_rest_categories` | String | `AUTHENTICATED`, `GRANTED_PRIVILEGES` Others? Description
-`config`<br>&nbsp;&nbsp;&nbsp;&nbsp;`audit`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`disabled_transport_categories` | String | `AUTHENTICATED`, `GRANTED_PRIVILEGES` Others? Description
-`config`<br>&nbsp;&nbsp;&nbsp;&nbsp;`audit`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`log_request_body` | Boolean | Default is  `true`. Description
-`config`<br>&nbsp;&nbsp;&nbsp;&nbsp;`audit`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`resolve_indices` | Boolean | Default is `true`. Description
-`config`<br>&nbsp;&nbsp;&nbsp;&nbsp;`audit`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`resolve_bulk_requests` | Boolean | Default is `true`. Description
-`config`<br>&nbsp;&nbsp;&nbsp;&nbsp;`audit`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`exclude_sensitive_headers` | Boolean | Default is `true`. Description
-`config`<br>&nbsp;&nbsp;&nbsp;&nbsp;`audit`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`enable_transport` | Boolean | Default is `true` Description
-`config`<br>&nbsp;&nbsp;&nbsp;&nbsp;`audit`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`enable_rest` | Boolean | Default is `true`. Description
-`config`<br>&nbsp;&nbsp;&nbsp;&nbsp;`compliance` | Object | Contains fields for compliance configuration. 
-`config`<br>&nbsp;&nbsp;&nbsp;&nbsp;`compliance`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`enabled` | Boolean | Desfault is `true` Description
-`config`<br>&nbsp;&nbsp;&nbsp;&nbsp;`compliance`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`write_log_diffs` | Boolean | Default is `false` Description
-`config`<br>&nbsp;&nbsp;&nbsp;&nbsp;`compliance`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`read_watched_fields` | Object | Description
-`config`<br>&nbsp;&nbsp;&nbsp;&nbsp;`compliance`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`read_ignore_users` | String | Description
-`config`<br>&nbsp;&nbsp;&nbsp;&nbsp;`compliance`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`write_watched_indices` | String | Description
-`config`<br>&nbsp;&nbsp;&nbsp;&nbsp;`compliance`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`write_ignore_users` | String | Description
-`config`<br>&nbsp;&nbsp;&nbsp;&nbsp;`compliance`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`read_metadata_only` | Boolean | Default is `true`. Description
-`config`<br>&nbsp;&nbsp;&nbsp;&nbsp;`compliance`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`write_metadata_only` | Boolean | Default is `true`. Description
-`config`<br>&nbsp;&nbsp;&nbsp;&nbsp;`compliance`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`external_config` | Boolean | Default is `false`. Description
-`config`<br>&nbsp;&nbsp;&nbsp;&nbsp;`compliance`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`internal_config` | Boolean | Default is `true`. Description
+`enabled` | Boolean | Enables or disables audit logging. Default is `false`.
+`audit` | Object | Contains fields for audit logging configuration.
+`audit`<br>&nbsp;&nbsp;&nbsp;&nbsp;`ignore_users` | Array | Need description
+`audit`<br>&nbsp;&nbsp;&nbsp;&nbsp;`ignore_requests` | Array | Need description
+`audit`<br>&nbsp;&nbsp;&nbsp;&nbsp;`disabled_rest_categories` | Array | `AUTHENTICATED`, `GRANTED_PRIVILEGES` Others? Need description
+`audit`<br>&nbsp;&nbsp;&nbsp;&nbsp;`disabled_transport_categories` | Array | `AUTHENTICATED`, `GRANTED_PRIVILEGES` Others? Need description
+`audit`<br>&nbsp;&nbsp;&nbsp;&nbsp;`log_request_body` | Boolean | Default is  `true`. Need description
+`audit`<br>&nbsp;&nbsp;&nbsp;&nbsp;`resolve_indices` | Boolean | Default is `true`. Need description
+`audit`<br>&nbsp;&nbsp;&nbsp;&nbsp;`resolve_bulk_requests` | Boolean | Default is `true`. Need description
+`audit`<br>&nbsp;&nbsp;&nbsp;&nbsp;`exclude_sensitive_headers` | Boolean | Default is `true`. Need description
+`audit`<br>&nbsp;&nbsp;&nbsp;&nbsp;`enable_transport` | Boolean | Default is `true` Need description
+`audit`<br>&nbsp;&nbsp;&nbsp;&nbsp;`enable_rest` | Boolean | Default is `true`. Need description
+`compliance` | Object | Contains fields for compliance configuration. 
+`compliance`<br>&nbsp;&nbsp;&nbsp;&nbsp;`enabled` | Boolean | Enables or disables compliance configurations. Desfault is `true`.
+`compliance`<br>&nbsp;&nbsp;&nbsp;&nbsp;`write_log_diffs` | Boolean | Default is `false` Need description
+`compliance`<br>&nbsp;&nbsp;&nbsp;&nbsp;`read_watched_fields` | Object | Need description
+`compliance`<br>&nbsp;&nbsp;&nbsp;&nbsp;`read_ignore_users` | Array | Need description
+`compliance`<br>&nbsp;&nbsp;&nbsp;&nbsp;`write_watched_indices` | Array | Need description
+`compliance`<br>&nbsp;&nbsp;&nbsp;&nbsp;`write_ignore_users` | Array | Need description
+`compliance`<br>&nbsp;&nbsp;&nbsp;&nbsp;`read_metadata_only` | Boolean | Default is `true`. Need description
+`compliance`<br>&nbsp;&nbsp;&nbsp;&nbsp;`write_metadata_only` | Boolean | Default is `true`. Need description
+`compliance`<br>&nbsp;&nbsp;&nbsp;&nbsp;`external_config` | Boolean | Default is `false`. Need description
+`compliance`<br>&nbsp;&nbsp;&nbsp;&nbsp;`internal_config` | Boolean | Default is `true`. Need description
 
-#### Sample request
-
-```
-GET _plugins/_security/api/audit
-```
-
-A GET call retrieves the audit configuration.
-
-```
-PUT _plugins/_security/api/audit/config
-```
-
-A PUT call updates the audit configuration.
-
-Changes to the `_readonly` property must result in a 409 error.
+Changes to the `_readonly` property must result in a 409 error, as indicated in the response below.
 {: .note}
 
 ```json
@@ -1471,16 +1456,62 @@ Changes to the `_readonly` property must result in a 409 error.
 }
 ```
 
+#### Sample request
+
+A GET call retrieves the audit configuration.
+
 ```
-PATCH _plugins/_security/api/audit
+GET /_opendistro/_security/api/audit
+```
+
+A PUT call updates the audit configuration.
+
+```json
+PUT /_opendistro/_security/api/audit/config
+{
+  "enabled": true,
+  "audit": {
+    "ignore_users": [],
+    "ignore_requests": [],
+    "disabled_rest_categories": [
+      "AUTHENTICATED",
+      "GRANTED_PRIVILEGES"
+    ],
+    "disabled_transport_categories": [
+      "AUTHENTICATED",
+      "GRANTED_PRIVILEGES"
+    ],
+    "log_request_body": false,
+    "resolve_indices": false,
+    "resolve_bulk_requests": false,
+    "exclude_sensitive_headers": true,
+    "enable_transport": false,
+    "enable_rest": true
+  },
+  "compliance": {
+    "enabled": true,
+    "write_log_diffs": false,
+    "read_watched_fields": {},
+    "read_ignore_users": [],
+    "write_watched_indices": [],
+    "write_ignore_users": [],
+    "read_metadata_only": true,
+    "write_metadata_only": true,
+    "external_config": false,
+    "internal_config": true
+  }
+}
 ```
 
 A PATCH call is used to update the audit configuration. It resets missing configurations to their default settings.
 
-Changes to the `_readonly` property must result in a 409 error.
-{: .note}
+```
+PATCH /_opendistro/_security/api/audit
+```
 
 #### Sample response
+
+The GET call produces a response that appears as the following:
 
 ```json
 {
@@ -1524,3 +1555,13 @@ Changes to the `_readonly` property must result in a 409 error.
   }
 }
 ```
+The PUT request produces a response that appears as the following:
+
+```json
+{
+  "status" : "OK",
+  "message" : "'config' updated."
+}
+```
+
+The PATCH request produces a response that appears as the following:
