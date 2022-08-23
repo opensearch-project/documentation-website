@@ -50,7 +50,7 @@ curl --insecure -XGET -u 'admin:admin' https://<host>:<port>/<index>/_search \
   }'
 ```
 
-The query accepts the following options. For descriptions of each, see [Options](#options).
+The query accepts the following options. For descriptions of each, see [Optional Query Fields](#optional-query-fields).
 
 ```json
 GET _search
@@ -95,7 +95,7 @@ GET _search
 }
 ```
 
-The query accepts the following options. For descriptions of each, see [Options](#options).
+The query accepts the following options. For descriptions of each, see [Optional Query Fields](#optional-query-fields).
 
 ```json
 GET _search
@@ -139,7 +139,7 @@ GET _search
 }
 ```
 
-The query accepts the following options. For descriptions of each, see [Options](#options).
+The query accepts the following options. For descriptions of each, see [Optional Query Fields](#optional-query-fields).
 
 ```json
 GET _search
@@ -177,7 +177,7 @@ GET _search
 }
 ```
 
-The query accepts the following options. For descriptions of each, see [Options](#options).
+The query accepts the following options. For descriptions of each, see [Optional Query Fields](#optional-query-fields).
 
 ```json
 GET _search
@@ -211,7 +211,7 @@ GET _search
 }
 ```
 
-The query accepts the following options. For descriptions of each, see [Options](#options).
+The query accepts the following options. For descriptions of each, see [Optional Query Fields](#optional-query-fields).
 
 ```json
 GET _search
@@ -247,7 +247,7 @@ GET _search
 }
 ```
 
-The query accepts the following options. For descriptions of each, see [Options](#options).
+The query accepts the following options. For descriptions of each, see [Optional Query Fields](#optional-query-fields).
 
 ```json
 GET _search
@@ -289,7 +289,7 @@ GET _search
 }
 ```
 
-The query accepts the following options. For descriptions of each, see [Options](#options).
+The query accepts the following options. For descriptions of each, see [Optional Query Fields](#optional-query-fields).
 
 ```json
 GET _search
@@ -346,10 +346,10 @@ Special character | Behavior
 `*` | Acts as a wildcard.
 `""` | Wraps several terms into a phrase.
 `()` | Wraps a clause for precedence.
-`~n` | When used after a term (e.g. `wnid~3`), sets `fuzziness`. When used after a phrase, sets `slop`. See [Options](#options).
+`~n` | When used after a term (e.g. `wnid~3`), sets `fuzziness`. When used after a phrase, sets `slop`. See [Optional Query Fields](#optional-query-fields).
 `-` | Negates the term.
 
-The query accepts the following options. For descriptions of each, see [Options](#options).
+The query accepts the following options. For descriptions of each, see [Optional Query Fields](#optional-query-fields).
 
 ```json
 GET _search
