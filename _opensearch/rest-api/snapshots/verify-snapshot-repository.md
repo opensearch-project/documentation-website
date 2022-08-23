@@ -38,12 +38,6 @@ The following request verifies that the my-opensearch-repo is functional:
 POST /_snapshot/my-opensearch-repo/_verify?timeout=0s&cluster_manager_timeout=50s
 ````
 
-### Response fields
-
-| Field | Data Type | Description | 
-:--- | :--- | :---
-| nodes | Object | A list (not an array) of nodes connected to the snapshot repository. Each node itself is a property where the node ID is the key and the name has an ID (Object) and a name (String). |
-
 #### Sample response
 
 The example that follows corresponds to the request above in the [Sample request](#sample-request) section.
@@ -73,3 +67,9 @@ In the preceding sample, one node is connected to the snapshot repository. If mo
   }
 }
 ````
+
+### Response fields
+
+| Field | Data Type | Description | 
+:--- | :--- | :---
+| nodes | Object | A list (not an array) of nodes connected to the snapshot repository. Each node itself is a property where the node ID is the key and the name has an ID (Object) and a name (String). |

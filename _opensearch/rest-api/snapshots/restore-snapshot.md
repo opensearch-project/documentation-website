@@ -30,33 +30,7 @@ Parameter | Data Type | Description
 :--- | :--- | :---
 wait_for_completion | Boolean |  Whether to wait for snapshot restoration to complete before continuing. |
 
-#### Sample request
-
-The following request restores `my-first-snapshot` located in `my-opensearch-repo`:
-
-````json
-POST /_snapshot/my-opensearch-repo/my-first-snapshot/_restore
-````
-
-#### Sample response
-
-Upon success, the response returns the following JSON object:
-
-````json
-{
-  "snapshot" : {
-    "snapshot" : "my-first-snapshot",
-    "indices" : [ ],
-    "shards" : {
-      "total" : 0,
-      "failed" : 0,
-      "successful" : 0
-    }
-  }
-}
-````
-
-### Request body
+### Request fields
 
 All request body parameters are optional.
 
@@ -114,6 +88,14 @@ Upon success, the response returns the following JSON object:
 }
 ````
 Except for the snapshot name, all properties are empty or `0`. This is because any changes made to the volume after the snapshot was generated are lost. However, if you invoke the [Get snapshot]({{site.url}}{{site.baseurl}}/opensearch/rest-api/snapshots/get-snapshot) API to examine the snapshot, a fully populated snapshot object is returned. 
+
+### Response fields
+
+| Field | Data Type | Description |
+| :--- | :--- | :--- | 
+| snapshot | string | Snapshot name. |
+| indices | array | Indices in the snapshot. |
+| shards | object | Total number of shards created along with number of successful and failed shards. |
 
 If open indices in a snapshot already exist in a cluster, and you don't delete, close, or rename them, the API returns an error like the following:
 {: .note}
