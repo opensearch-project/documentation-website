@@ -22,7 +22,7 @@ This plugin supports three different methods for obtaining the k-nearest neighbo
 
     Approximate k-NN is the best choice for searches over large indices (i.e. hundreds of thousands of vectors or more) that require low latency. You should not use approximate k-NN if you want to apply a filter on the index before the k-NN search, which greatly reduces the number of vectors to be searched. In this case, you should use either the script scoring method or painless extensions.
 
-    For more details about this method, see [Approximate k-NN search]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/).
+    For more details about this method, including recommendations for which engine to use, see [Approximate k-NN search]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/).
 
 2. **Script Score k-NN**
 

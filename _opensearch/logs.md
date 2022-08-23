@@ -168,6 +168,35 @@ node1 | [2019-10-24T19:48:51,012][WARN][i.i.s.index] [node1] [some-index/i86iF5k
 
 Slow logs can consume considerable disk space if you set thresholds or levels too low. Consider enabling them temporarily for troubleshooting or performance tuning. To disable slow logs, return all thresholds to `-1`.
 
+## Task logs
+
+OpenSearch can log CPU time and memory utilization for the top N memory expensive search tasks when task resource consumers are enabled. By default, task resource consumers will log the top 10 search tasks at 60 second intervals. These values can be configured in `opensearch.yml`.
+
+Task logging is enabled dynamically through the cluster settings API:
+
+```bash
+PUT _cluster/settings
+{
+  "persistent" : {
+    "task_resource_consumers.enabled" : "true"
+  }
+}
+```
+
+Enabling task resource consumers can have an impact on search latency.
+{:.tip}
+
+Once enabled, logs will be written to `logs/opensearch_task_detailslog.json` and `logs/opensearch_task_detailslog.log`.
+
+To configure the logging interval and the number of search tasks logged, add the following lines to `opensearch.yml`:
+
+```bash
+# Number of expensive search tasks to log
+cluster.task.consumers.top_n.size:100
+
+# Logging interval
+cluster.task.consumers.top_n.frequency:30s
+```
 
 ## Deprecation logs
 

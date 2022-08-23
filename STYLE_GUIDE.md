@@ -53,6 +53,7 @@ The following guidelines should be observed in OpenSearch content.
      - Independent clauses separated by coordinating conjunctions (but, or, yet, for, and, nor, so).
      - Introductory clauses, phrases, words that precede the main clause.
      - Words, clauses, and phrases listed in a series. Also known as the Oxford comma.
+     - Skip the comma after single-word adverbs of time at the beginning of a sentence, such as *afterward*, *then*, *later*, or *subsequently*.
 
 - An em dash (—) is the width of an uppercase M. Do not include spacing on either side. Use an em dash to set off parenthetical phrases within a sentence or set off phrases or clauses at the end of a sentence for restatement or emphasis.
 
@@ -88,7 +89,16 @@ The following guidelines should be observed in OpenSearch content.
 
 ### Formatting and organization
 
-- When referring to fields in the API, use the following format: time_field
+- Links: In most cases, a formal cross-reference (the title of the page you're linking to) is the preferred style because it provides context and helps readers understand where they're going when they choose the link. Follow these guidelines for formal cross-references:
+     - Introduce links with formal introductory text:
+          - Use "For information *about*" or "For more information *about*." Don't use "For information *on*."
+          - If you are linking to procedures, you can use either "For instructions *on*" or "instructions *for*." Don't use "instructions *about*."
+          - Where space is limited (for example, in a table), you can use "*See* [link text]." Don't use "*go to*".
+
+- You can refer to APIs in three ways:
+     1. When referring to API names, capitalize all words in the name (example: "Field Capabilities API").
+     2. When referring to API operations by the exact name of the endpoint, use lowercase with code format (example: "`_field_caps` API").
+     3. When describing API operations but not using the exact name of the endpoint, use lowercase (example: "field capabilities API operations" or "field capabilities operations").
 
 - The following guidelines apply to all list types:
      - Make lists parallel in content and structure. Don’t mix single words with phrases, don’t start some phrases with a noun and others with a verb, and don’t mix verb forms.
@@ -118,6 +128,36 @@ A procedure is a series of numbered steps that a user follows to complete a spec
 - Parallel language constructions
 - Consistent formatting
 
+Replace pointer-specific language with device-agnostic language to accommodate readers with disabilities and users of various input methods and devices, including the pointer, keyboard, and touch screens.
+
+For example, instead of the term *click*, which is pointer-specific, use *choose*, which is more generic and device-agnostic. However, when the generic language makes it difficult to understand the instructions (for example, in the case of opening a context menu), you can include pointer-specific hints. Use your judgment. If you have a question, ask your editor.
+
+Use the following language to describe UI interactions:
+
+- Use *choose* to describe moving to a UI component such as a tab or pane or taking action on a button or menu.
+- Use *select* to describe picking a user-specific resource or enabling one of several options. Contrast with *clear* to turn off previously selected options.
+- Use *press* to describe single key or key combination entries that users would perform on a keyboard.
+- Use *enter* to describe information that users add using a keyboard.
+- Do not use *hit* or *strike*.
+
+The following table provides examples of language to be used to describe interactions with UI elements.
+
+| UI element | Language | Example |
+| :--------- | :------- | :------ |
+| Menu | On the *menu* menu, choose *command*. | On the **Edit** menu, choose **Copy**. |
+| Cascading menu | [For AWS] On the navigation bar, choose *menu*, *submenu*, …, *command*. <br> <br> [For conventional Windows UIs] On the menu bar, choose *menu*, *submenu*, …, *command*. | On the navigation bar, choose **AWS**, **Create a Resource Group**. | 
+| Context menu | Open the context (right-click) menu for *item*, and then choose *command*. <br> <br> [Cascading] Open the context (right-click) menu for *item*, and then choose *submenu*, ..., *command*. | Open the context (right-click) menu for an AMI, and then choose **Launch Instance**. <br> <br> Open the context (right-click) menu for the instance, and then choose **Networking**, **Manage Private IP Addresses**. |
+| Command button | Choose *command*. | Choose **Next**. |
+| Option button | Choose *option*. <br> <br> For *label*, choose *option*. | For **Type of key to generate**, choose **SSH-2 RSA**. | 
+| Check box | Select *label*. <br> <br> Clear *label*. | To grant read access to anonymous requests, select **Make everything public**. | 
+| List box or dropdown | For *label*, choose *item*. | For **Backup Retention Period**, choose **0**. |
+| Text box | For *label*, enter *text*.<br> <br> [Combo box] For *label*, specify *xyz*. | For **Program/script**, enter `Powershell.exe`. <br> <br> For **Source**, specify the table name. |
+| Toggle switch | Turn on *text*.<br> <br> Turn off *text*. | Turn on **Expiration date**, and then choose **Confirm**. |
+| Other controls | Specify the type of control only if it’s helpful or unavoidable, and use the verb *choose*. | On the **Configure Security Group** page, choose an existing security group, and then choose **Next**. |
+| Double-clicking | Replace with menu instructions, or use a generic term such as "open." <br> <br> If double-clicking is the best or most familiar method, include it in parentheses. <br> <br> In general, use your best judgment depending on the context and your audience. | In AWS Explorer, open **Amazon VPC**, **VPCs**. On the **VPCs** tab, choose **Create VPC**. <br> <br> To display the EC2 Instances view, open the context (right-click) menu for the **Instances** node, and then choose **View**. (Or double-click the node.) | 
+| Displaying tooltips | Choose *item*. | In the **Your repositories** area, choose the target repository name to display the GitHub user or organization. | 
+| Selecting items | Select the *item*. | Select the row of the parameter group that you want to delete. | 
+
 Following is an example of procedure phrasing and formatting from Amazon EC2.
 
 ![Procedure example](/images/procedures.PNG)
@@ -129,6 +169,8 @@ Following is an example of procedure phrasing and formatting from Amazon EC2.
 - Use italics for the titles of books, periodicals, and reference guides. However, do not use italics when the title of a work is also a hyperlink.
 
 - On first use, acronyms should always be defined; for example, _access control list (ACL)_. The acronym itself should be used for subsequent appearances; for example, _ACL_. Some acronyms, like _IT_ and _CPU_, are commonly understood and do not need to be defined. Do not capitalize the spelled-out form of an acronym unless the spelled-out form is a proper noun or the community generally capitalizes it. In all cases, our usage should reflect the community’s usage.
+
+- If the first use of an acronym is in a heading, retain the acronym in the heading, and then write out the term in the following body text, followed by the acronym in parentheses. Don't spell out the term in the heading with the acronym included in parentheses.
 
 - We may not alter quotations in any way. This includes defining acronyms within the quote or altering the quote for context.
 
