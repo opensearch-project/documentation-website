@@ -33,8 +33,8 @@ Depending on where the documentation appears within a section or subsection, hea
 3. Query parameters (heading level 3)
 4. Request fields (heading level 3)
 5. Sample request (heading level 4)
-6. Response fields (heading level 3)
-7. Sample response (heading level 4)
+6. Sample response (heading level 4)
+7. Response fields (heading level 3)
 
 ## API name
 
@@ -122,13 +122,6 @@ POST _reindex
 }
 ```
 
-### Response fields
-
-For PUT and POST APIs: Define all allowable response fields that can be returned in the body of the response.
-
-Field | Data Type | Description
-:--- | :--- | :--- 
-
 #### Sample response
 
 Include a JSON example response to show what the API returns. See the examples below.
@@ -178,3 +171,10 @@ The `POST _reindex` request returns the following response fields:
   "failures" : [ ]
 }
 ```
+
+### Response fields
+
+For PUT and POST APIs: Define all allowable response fields that can be returned in the body of the response.
+
+Field | Data Type | Description
+:--- | :--- | :---
