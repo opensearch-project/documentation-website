@@ -77,7 +77,7 @@ Before proceeding you should test your installation of OpenSearch. Otherwise, it
 
 The demo security script will apply a generic configuration to your instance of OpenSearch. This configuration defines some environment variables and also applies self-signed TLS certificates. If you would like to configure these yourself, see [Setup OpenSearch in your environment](#setup-opensearch-in-your-environment).
 
-If you only want to verify that the service is properly configured and will respond to API requests, and you intend to configure security settings yourself, then you may want to disable the security plugin and launch the service without encryption or authentication.
+If you only want to verify that the service is properly configured and you intend to configure security settings yourself, then you may want to disable the security plugin and launch the service without encryption or authentication.
 
 An OpenSearch node configured by the demo security script is not suitable for a production environment. If you plan to use the node in a production environment after running `opensearch-tar-install.sh` you should, at a minimum, replace the demo TLS certificates with your own TLS certificates and [update the list of internal users and passwords]({{site.url}}{{site.baseurl}}/security-plugin/configuration/yaml). See [Security configuration]({{site.url}}{{site.baseurl}}/security-plugin/configuration/index/) for additional guidance to ensure that your nodes are configured according to your security requirements.
 {: .warning}
@@ -92,7 +92,7 @@ An OpenSearch node configured by the demo security script is not suitable for a 
    ```bash
    ./opensearch-tar-install.sh
    ```
-1. Open another terminal session and send requests to the server to verify that OpenSearch is up and running. Note the  use of the `--insecure` flag which is required since the TLS certs are self-signed.
+1. Open another terminal session and send requests to the server to verify that OpenSearch is up and running. Note the use of the `--insecure` flag, which is required since the TLS certs are self-signed.
    - Send a request to port 9200.
       ```bash
       curl -X GET https://localhost:9200 -u 'admin:admin' --insecure
@@ -206,7 +206,7 @@ An OpenSearch node configured by the demo security script is not suitable for a 
 
 ## Setup OpenSearch in Your Environment
 
-Users that do not have prior experience with OpenSearch may want a list of recommend settings to get started with the service. By default, OpenSearch is not bound to a network interface and cannot be reached by external hosts. Additionally, security settings are either undefined (greenfield install) or are populated by default usernames and passwords if you ran the security demo script by invoking `opensearch-tar-install.sh`. The following recommendations will enable a user to bind OpenSearch to a network interface, create and sign TLS certifications, and configure basic authentication.
+Users that do not have prior experience with OpenSearch may want a list of recommended settings to get started with the service. By default, OpenSearch is not bound to a network interface and cannot be reached by external hosts. Additionally, security settings are either undefined (greenfield install) or are populated by default usernames and passwords if you ran the security demo script by invoking `opensearch-tar-install.sh`. The following recommendations will enable a user to bind OpenSearch to a network interface, create and sign TLS certifications, and configure basic authentication.
 
 The following recommended settings will allow users to:
 
@@ -262,7 +262,7 @@ Before modifying any configuration files, it's always a good idea to save a back
 
 ### Configure TLS
 
-TLS certificates provide additional security for your cluster by allowing clients to confirm the identity of hosts and encrypt traffic between the client and host. For more complete information, refer to [Configure TLS Certificates]({{site.url}}{{site.baseurl}}/security-plugin/configuration/tls/) and [Generate Certificates]({{site.url}}{{site.baseurl}}/security-plugin/configuration/generate-certificates/) which are covered in the [Security Plugin]({{site.url}}{{site.baseurl}}/security-plugin/index/) documentation. For work performed in a development environment, self-signed certificates are usually adequate. This section will guide you through the basic steps required to generate your own TLS certificates and apply them to your OpenSearch host.
+TLS certificates provide additional security for your cluster by allowing clients to confirm the identity of hosts and encrypt traffic between the client and host. For more complete information, refer to [Configure TLS Certificates]({{site.url}}{{site.baseurl}}/security-plugin/configuration/tls/) and [Generate Certificates]({{site.url}}{{site.baseurl}}/security-plugin/configuration/generate-certificates/), which are covered in the [Security Plugin]({{site.url}}{{site.baseurl}}/security-plugin/index/) documentation. For work performed in a development environment, self-signed certificates are usually adequate. This section will guide you through the basic steps required to generate your own TLS certificates and apply them to your OpenSearch host.
 
 1. Navigate to the OpenSearch `config` directory. This is where the certificates will be stored.
    ```bash
@@ -279,25 +279,25 @@ TLS certificates provide additional security for your cluster by allowing client
    ```
 1. Next, create the admin certificate. This certificate is used is used to gain elevated rights for performing administrative tasks relating to the security plugin.
    ```bash
-   # Create a private key for the admin cert
+   # Create a private key for the admin cert.
    openssl genrsa -out admin-key-temp.pem 2048
 
-   # Convert the private key to PKCS#8
+   # Convert the private key to PKCS#8.
    openssl pkcs8 -inform PEM -outform PEM -in admin-key-temp.pem -topk8 -nocrypt -v1 PBE-SHA1-3DES -out admin-key.pem
    
    # Create the CSR. A common name (CN) of "A" is acceptable because this certificate is
    # used for authenticating elevated access and is not tied to a host.
    openssl req -new -key admin-key.pem -subj "/C=CA/ST=ONTARIO/L=TORONTO/O=ORG/OU=UNIT/CN=A" -out admin.csr
    
-   # Sign the admin certificate with the root certificate and private key that was created earlier
+   # Sign the admin certificate with the root certificate and private key that was created earlier.
    openssl x509 -req -in admin.csr -CA root-ca.pem -CAkey root-ca-key.pem -CAcreateserial -sha256 -out admin.pem -days 730
    ```
 1. Create a certificate for the node being configured.
    ```bash
-   # Create a private key for the node cert
+   # Create a private key for the node cert.
    openssl genrsa -out node1-key-temp.pem 2048
    
-   # Convert the private key to PKCS#8
+   # Convert the private key to PKCS#8.
    openssl pkcs8 -inform PEM -outform PEM -in node1-key-temp.pem -topk8 -nocrypt -v1 PBE-SHA1-3DES -out node1-key.pem
    
    # Create the CSR - replace the arguments passed to -subj to they reflect your specific host.
@@ -308,7 +308,7 @@ TLS certificates provide additional security for your cluster by allowing client
    # should match the DNS A record of the host.
    echo 'subjectAltName=DNS:node1.dns.a-record' > node1.ext
    
-   # Sign the node certificate with the root certificate and private key that was created earlier
+   # Sign the node certificate with the root certificate and private key that was created earlier.
    openssl x509 -req -in node1.csr -CA root-ca.pem -CAkey root-ca-key.pem -CAcreateserial -sha256 -out node1.pem -days 730 -extfile node1.ext
    ```
 1. Remove temporary files that are no longer required.
@@ -320,7 +320,7 @@ TLS certificates provide additional security for your cluster by allowing client
    #! /bin/bash
 
    # Before running this script, make sure to replace the /path/to your OpenSearch directory
-   # and don't forget to replace the CN in the node's distinguished name with a real
+   # and remember to replace the CN in the node's distinguished name with a real
    # DNS A record.
 
    echo "plugins.security.ssl.transport.pemcert_filepath: /path/to/opensearch-{{site.opensearch_version}}/config/node1.pem" | sudo tee -a /path/to/opensearch-{{site.opensearch_version}}/config/opensearch.yml
@@ -351,7 +351,7 @@ TLS certificates provide additional security for your cluster by allowing client
 
 ### Configure a user
 
-Users are defined and authenticated by OpenSearch in a variety of ways. One method, which does not require additional backend infrastructure, is to manually configure users in `internal_users.yml`. See [YAML files]({{site.url}}{{site.baseurl}}/security-plugin/configuration/yaml/) for more information about configuring users. The following steps explain how to remove all demo users except for the `admin` user, and how to replace the `admin` default password using a script.
+Users are defined and authenticated by OpenSearch in a variety of ways. One method, which does not require additional backend infrastructure, is to manually configure users in `internal_users.yml`. See [YAML files]({{site.url}}{{site.baseurl}}/security-plugin/configuration/yaml/) for more information about configuring users. The following steps explain how to remove all demo users except for the `admin` user and how to replace the `admin` default password using a script.
 
 1. Make the security plugin scripts executable.
    ```bash
@@ -426,7 +426,7 @@ Now that TLS certificates are installed and demo users were removed or assigned 
 
 OpenSearch is now running on your host with custom TLS certificates and a secure user for basic authentication. The last step is verifying that the host is reachable by other clients.
 
-During previous tests you directed requests to `localhost`. Now that TLS certificates have been applied, and the new certificates reference your hosts actual DNS record, the CN check will fail and the certificate will be considered invalid if you send requests to `localhost`. Instead, requests should be sent to the address you specified while generating the certificate.
+During previous tests you directed requests to `localhost`. Now that TLS certificates have been applied and the new certificates reference your host's actual DNS record, requests to `localhost` will fail the CN check and the certificate will be considered invalid. Instead, requests should be sent to the address you specified while generating the certificate.
 
 You should add trust for the root certificate to your client before sending requests. If you do not add trust then you must use the `-k` option so that cURL ignores CN and root certificate validation.
 {:.tip}
