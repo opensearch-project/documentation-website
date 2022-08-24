@@ -177,4 +177,4 @@ The `POST _reindex` request returns the following response fields:
 For PUT and POST APIs: Define all allowable response fields that can be returned in the body of the response.
 
 Field | Data Type | Description
-:--- | :--- | :--- 
+:--- | :--- | :---

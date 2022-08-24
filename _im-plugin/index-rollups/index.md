@@ -347,108 +347,167 @@ POST example_rollup/_search
 
 ```json
 {
-  "took": 476,
-  "timed_out": false,
-  "_shards": {
-    "total": 1,
-    "successful": 1,
-    "skipped": 0,
-    "failed": 0
+  "took" : 14,
+  "timed_out" : false,
+  "_shards" : {
+    "total" : 1,
+    "successful" : 1,
+    "skipped" : 0,
+    "failed" : 0
   },
-  "hits": {
-    "total": {
-      "value": 281,
-      "relation": "eq"
+  "hits" : {
+    "total" : {
+      "value" : 281,
+      "relation" : "eq"
     },
-    "max_score": null,
-    "hits": []
+    "max_score" : null,
+    "hits" : [ ]
   },
-  "aggregations": {
-    "daily_numbers": {
-      "doc_count_error_upper_bound": 0,
-      "sum_other_doc_count": 0,
-      "buckets": [
+  "aggregations" : {
+    "daily_numbers" : {
+      "doc_count_error_upper_bound" : 0,
+      "sum_other_doc_count" : 0,
+      "buckets" : [
         {
-          "key": "Friday",
-          "doc_count": 53,
-          "total_revenue": {
-            "value": 4858.84375
+          "key" : "Friday",
+          "doc_count" : 59,
+          "total_revenue" : {
+            "value" : 4858.84375
           },
-          "per_city": {
-            "doc_count_error_upper_bound": 0,
-            "sum_other_doc_count": 0,
-            "buckets": [
+          "per_city" : {
+            "doc_count_error_upper_bound" : 0,
+            "sum_other_doc_count" : 0,
+            "buckets" : [
               {
-                "key": "Los Angeles",
-                "doc_count": 53,
-                "average quantity": {
-                  "value": 2.305084745762712
+                "key" : "Los Angeles",
+                "doc_count" : 59,
+                "average quantity" : {
+                  "value" : 2.305084745762712
                 }
               }
             ]
           }
         },
         {
-          "key": "Saturday",
-          "doc_count": 43,
-          "total_revenue": {
-            "value": 3547.203125
+          "key" : "Saturday",
+          "doc_count" : 46,
+          "total_revenue" : {
+            "value" : 3547.203125
           },
-          "per_city": {
-            "doc_count_error_upper_bound": 0,
-            "sum_other_doc_count": 0,
-            "buckets": [
+          "per_city" : {
+            "doc_count_error_upper_bound" : 0,
+            "sum_other_doc_count" : 0,
+            "buckets" : [
               {
-                "key": "Los Angeles",
-                "doc_count": 43,
-                "average quantity": {
-                  "value": 2.260869565217391
+                "key" : "Los Angeles",
+                "doc_count" : 46,
+                "average quantity" : {
+                  "value" : 2.260869565217391
                 }
               }
             ]
           }
         },
         {
-          "key": "Tuesday",
-          "doc_count": 42,
-          "total_revenue": {
-            "value": 3983.28125
+          "key" : "Tuesday",
+          "doc_count" : 45,
+          "total_revenue" : {
+            "value" : 3983.28125
           },
-          "per_city": {
-            "doc_count_error_upper_bound": 0,
-            "sum_other_doc_count": 0,
-            "buckets": [
+          "per_city" : {
+            "doc_count_error_upper_bound" : 0,
+            "sum_other_doc_count" : 0,
+            "buckets" : [
               {
-                "key": "Los Angeles",
-                "doc_count": 42,
-                "average quantity": {
-                  "value": 2.2888888888888888
+                "key" : "Los Angeles",
+                "doc_count" : 45,
+                "average quantity" : {
+                  "value" : 2.2888888888888888
                 }
               }
             ]
           }
         },
         {
-          "key": "Sunday",
-          "doc_count": 40,
-          "total_revenue": {
-            "value": 3308.1640625
+          "key" : "Sunday",
+          "doc_count" : 44,
+          "total_revenue" : {
+            "value" : 3308.1640625
           },
-          "per_city": {
-            "doc_count_error_upper_bound": 0,
-            "sum_other_doc_count": 0,
-            "buckets": [
+          "per_city" : {
+            "doc_count_error_upper_bound" : 0,
+            "sum_other_doc_count" : 0,
+            "buckets" : [
               {
-                "key": "Los Angeles",
-                "doc_count": 40,
-                "average quantity": {
-                  "value": 2.090909090909091
+                "key" : "Los Angeles",
+                "doc_count" : 44,
+                "average quantity" : {
+                  "value" : 2.090909090909091
+                }
+              }
+            ]
+          }
+        },
+        {
+          "key" : "Thursday",
+          "doc_count" : 40,
+          "total_revenue" : {
+            "value" : 2876.125
+          },
+          "per_city" : {
+            "doc_count_error_upper_bound" : 0,
+            "sum_other_doc_count" : 0,
+            "buckets" : [
+              {
+                "key" : "Los Angeles",
+                "doc_count" : 40,
+                "average quantity" : {
+                  "value" : 2.3
+                }
+              }
+            ]
+          }
+        },
+        {
+          "key" : "Monday",
+          "doc_count" : 38,
+          "total_revenue" : {
+            "value" : 2673.453125
+          },
+          "per_city" : {
+            "doc_count_error_upper_bound" : 0,
+            "sum_other_doc_count" : 0,
+            "buckets" : [
+              {
+                "key" : "Los Angeles",
+                "doc_count" : 38,
+                "average quantity" : {
+                  "value" : 2.1578947368421053
+                }
+              }
+            ]
+          }
+        },
+        {
+          "key" : "Wednesday",
+          "doc_count" : 38,
+          "total_revenue" : {
+            "value" : 3202.453125
+          },
+          "per_city" : {
+            "doc_count_error_upper_bound" : 0,
+            "sum_other_doc_count" : 0,
+            "buckets" : [
+              {
+                "key" : "Los Angeles",
+                "doc_count" : 38,
+                "average quantity" : {
+                  "value" : 2.236842105263158
                 }
               }
             ]
           }
         }
-        ...
       ]
     }
   }
@@ -477,7 +536,21 @@ You cannot search a mix of rollup and non-rollup indices with the same query.
 
 The following example demonstrates the `doc_count` field, dynamic index names, and searching multiple rollup indices with the same rollup.
 
- **Step 1:** Set up an ISM rollover policy to roll over any index whose name starts with `log*` after one document is uploaded to it, and then roll up the individual backing index. The target index name is dynamically generated from the source index name by prepending the string `rollup_ndx-` to the source index name.
+**Step 1:** Add an index template for ISM to manage the rolling over of the indices aliased by `log`.
+
+```json
+PUT _index_template/ism_rollover
+{
+  "index_patterns": ["log*"],
+  "template": {
+   "settings": {
+    "plugins.index_state_management.rollover_alias": "log"
+   }
+ }
+}
+```
+
+**Step 2:** Set up an ISM rollover policy to roll over any index whose name starts with `log*` after one document is uploaded to it, and then roll up the individual backing index. The target index name is dynamically generated from the source index name by prepending the string `rollup_ndx-` to the source index name.
 
 ```json
 PUT _plugins/_ism/policies/rollover_policy 
@@ -549,7 +622,7 @@ PUT _plugins/_ism/policies/rollover_policy
 }
 ```
 
-**Step 2:** Create an index named `log-000001` and set up an alias `log` for it.
+**Step 3:** Create an index named `log-000001` and set up an alias `log` for it.
 
 ```json
 PUT log-000001
@@ -559,20 +632,6 @@ PUT log-000001
       "is_write_index": true
     }
   }
-}
-```
-
-**Step 3:** Add an index template for ISM to manage the rolling over of the indices aliased by `log`.
-
-```json
-PUT _index_template/ism_rollover
-{
-  "index_patterns": ["log*"],
-  "template": {
-   "settings": {
-    "plugins.index_state_management.rollover_alias": "log"
-   }
- }
 }
 ```
 
@@ -656,11 +715,11 @@ The response contains two buckets, "Error" and "Success", and the document count
 
 ```json
 {
-  "took" : 7,
+  "took" : 30,
   "timed_out" : false,
   "_shards" : {
-    "total" : 4,
-    "successful" : 4,
+    "total" : 1,
+    "successful" : 1,
     "skipped" : 0,
     "failed" : 0
   },
@@ -678,14 +737,14 @@ The response contains two buckets, "Error" and "Success", and the document count
       "sum_other_doc_count" : 0,
       "buckets" : [
         {
-          "key" : "Error",
+          "key" : "Success",
           "doc_count" : 2,
           "per_message" : {
             "doc_count_error_upper_bound" : 0,
             "sum_other_doc_count" : 0,
             "buckets" : [
               {
-                "key" : "Error",
+                "key" : "Success",
                 "doc_count" : 2,
                 "sum_message" : {
                   "value" : 50.0
@@ -695,14 +754,14 @@ The response contains two buckets, "Error" and "Success", and the document count
           }
         },
         {
-          "key" : "Success",
+          "key" : "Error",
           "doc_count" : 2,
           "per_message" : {
             "doc_count_error_upper_bound" : 0,
             "sum_other_doc_count" : 0,
             "buckets" : [
               {
-                "key" : "Success",
+                "key" : "Error",
                 "doc_count" : 2,
                 "sum_message" : {
                   "value" : 50.0

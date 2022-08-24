@@ -9,7 +9,7 @@ nav_order: 2
 
 ![Data Prepper Pipeline]({{site.url}}{{site.baseurl}}/images/data-prepper-pipeline.png)
 
-To use Data Prepper, you define pipelines in a configuration YAML file. Each pipeline is a combination of a source, a buffer, zero or more preppers, and one or more sinks. For example:
+To use Data Prepper, you define pipelines in a configuration YAML file. Each pipeline is a combination of a source, a buffer, zero or more processors, and one or more sinks. For example:
 
 ```yml
 simple-sample-pipeline:
@@ -34,9 +34,9 @@ simple-sample-pipeline:
 
   By default, Data Prepper uses its one and only buffer, the `bounded_blocking` buffer, so you can omit this section unless you developed a custom buffer or need to tune the buffer settings.
 
-- Preppers perform some action on your data: filter, transform, enrich, etc.
+- Processors perform some action on your data: filter, transform, enrich, etc.
 
-  You can have multiple preppers, which run sequentially from top to bottom, not in parallel. The `string_converter` prepper transform the strings by making them uppercase.
+  You can have multiple processors, which run sequentially from top to bottom, not in parallel. The `string_converter` processor transform the strings by making them uppercase.
 
 - Sinks define where your data goes. In this case, the sink is stdout.
 
