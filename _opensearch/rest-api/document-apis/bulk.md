@@ -103,13 +103,26 @@ All actions support the same metadata: `_index`, `_id`, and `_require_alias`. If
 
 - Update
 
-  This action updates existing documents and returns an error if the document doesn't exist. The next line must include a full or partial JSON document, depending on how much of the document you want to update. It can also include a script or upsert for more complex document updates.
+  This action updates existing documents and returns an error if the document doesn't exist. The next line must include a full or partial JSON document, depending on how much of the document you want to update.
 
   ```json
   { "update": { "_index": "movies", "_id": "tt0816711" } }
   { "doc" : { "title": "World War Z" } }
   ```
+  
+  It can also include a script or upsert for more complex document updates.
 
+  - Script
+  ```json
+  { "update": { "_index": "movies", "_id": "tt0816711" } }
+  { "script" : { "source": "ctx._source.title = \"World War Z\"" } }
+  ```
+  
+  - Upsert
+  ```json
+  { "update": { "_index": "movies", "_id": "tt0816711" } }
+  { "doc" : { "title": "World War Z" }, "doc_as_upsert": true }
+  ```
 
 ## Response
 
