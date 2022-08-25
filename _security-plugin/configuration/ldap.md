@@ -439,11 +439,11 @@ Name | Description
 Example:
 
 ```yml
-authz:
+authc:
   ldap:
     http_enabled: true
     transport_enabled: true
-    authorization_backend:
+    authentication_backend:
       type: ldap
       config:
         custom_attr_whitelist:
