@@ -25,7 +25,7 @@ If you are running OpenSearch in a Docker container, plugins must be installed, 
 The install command takes a plugin id, which may be any of the following:
 
 - An official OpenSearch plugin name
-- Maven coordinates to a plugin zip file
+- [Maven coordinates](https://mvnrepository.com/artifact/org.opensearch.plugin) to a plugin zip file
 - A URL to a plugin zip file
 
 If you're installing an official OpenSearch plugin, use:
@@ -66,6 +66,10 @@ bin/opensearch-plugin list
 
 ## Available plugins
 
+### Bundled Plugins
+
+The following plugins are bundled with all OpenSearch distributions except for minimum distribution packages.
+
 | Plugin Name | Repository | OpenSearch Compatible Versions |
 | :--- | :--- | :--- |
 | Alerting | [opensearch-alerting](https://github.com/opensearch-project/alerting) | 1.0.0 or newer |
@@ -74,6 +78,7 @@ bin/opensearch-plugin list
 | Cross Cluster Replication | [opensearch-cross-cluster-replication](https://github.com/opensearch-project/cross-cluster-replication) | 1.1.0 or newer |
 | Dashboard Notebooks<sup>1</sup> | [opensearch-notebooks](https://github.com/opensearch-project/dashboards-notebooks) | 1.0.0 to 1.1.0 |
 | Dashboard Reports | [opensearch-reports-scheduler](https://github.com/opensearch-project/dashboards-reports) | 1.0.0 or newer |
+| Geospatial | [opensearch-geospatial](https://github.com/opensearch-project/geospatial) | 2.2.0 or newer |
 | Index Management | [opensearch-index-management](https://github.com/opensearch-project/index-management) | 1.0.0 or newer |
 | Job Scheduler | [opensearch-job-scheduler](https://github.com/opensearch-project/job-scheduler) | 1.0.0 or newer |
 | k-NN | [opensearch-knn](https://github.com/opensearch-project/k-NN) | 1.0.0 or newer |
