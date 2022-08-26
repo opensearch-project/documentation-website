@@ -1411,37 +1411,40 @@ GET _plugins/_security/health
 
 ### Enable audit logs
 
-Allows you to enable audit logging. By default, audit logging is disabled and does not generate logs.
+This API allows you to enable or disable audit logging, define the way audit logging is carried out, and make updates to settings.
 
-For details on setting up and using audit logging to track access to OpenSearch clusters, see [Audit logs](https://opensearch.org/docs/latest/security-plugin/audit-logs/index/).
+For details on using audit logging to track access to OpenSearch clusters, as well as information on further configurations, see [Audit logs](https://opensearch.org/docs/latest/security-plugin/audit-logs/index/).
+
+You can do an initial configuration of audit logging in the `audit.yml` file, found in the `opensearch-project/security/config` directory. Thereafter, use the REST API for further changes to the configuration.
+{: note.}
 
 ### Request fields
 
 Field | Data Type | Description
 :--- | :--- | :---
-`enabled` | Boolean | Enables or disables audit logging. Default is `false`.
+`enabled` | Boolean | Enables or disables audit logging. Default is `true`.
 `audit` | Object | Contains fields for audit logging configuration.
-`audit`<br>&nbsp;&nbsp;&nbsp;&nbsp;`ignore_users` | Array | Need description
-`audit`<br>&nbsp;&nbsp;&nbsp;&nbsp;`ignore_requests` | Array | Need description
-`audit`<br>&nbsp;&nbsp;&nbsp;&nbsp;`disabled_rest_categories` | Array | `AUTHENTICATED`, `GRANTED_PRIVILEGES` Others? Need description
-`audit`<br>&nbsp;&nbsp;&nbsp;&nbsp;`disabled_transport_categories` | Array | `AUTHENTICATED`, `GRANTED_PRIVILEGES` Others? Need description
-`audit`<br>&nbsp;&nbsp;&nbsp;&nbsp;`log_request_body` | Boolean | Default is  `true`. Need description
-`audit`<br>&nbsp;&nbsp;&nbsp;&nbsp;`resolve_indices` | Boolean | Default is `true`. Need description
-`audit`<br>&nbsp;&nbsp;&nbsp;&nbsp;`resolve_bulk_requests` | Boolean | Default is `true`. Need description
-`audit`<br>&nbsp;&nbsp;&nbsp;&nbsp;`exclude_sensitive_headers` | Boolean | Default is `true`. Need description
-`audit`<br>&nbsp;&nbsp;&nbsp;&nbsp;`enable_transport` | Boolean | Default is `true` Need description
-`audit`<br>&nbsp;&nbsp;&nbsp;&nbsp;`enable_rest` | Boolean | Default is `true`. Need description
+`audit`<br>&nbsp;&nbsp;&nbsp;&nbsp;`ignore_users` | Array | Users to be excluded from auditing. Wildcard patterns are supported<br>Example: `ignore_users: ["test-user", employee-*"]`
+`audit`<br>&nbsp;&nbsp;&nbsp;&nbsp;`ignore_requests` | Array | Requests to be excluded from auditing. Wildcard patterns are supported.<br>Example: `ignore_requests: ["indices:data/read/*", "SearchRequest"]`
+`audit`<br>&nbsp;&nbsp;&nbsp;&nbsp;`disabled_rest_categories` | Array | Categories to exclude from REST API auditing. Default categories are `AUTHENTICATED`, `GRANTED_PRIVILEGES`.
+`audit`<br>&nbsp;&nbsp;&nbsp;&nbsp;`disabled_transport_categories` | Array | Categories to exclude from Transport API auditing. Default categories are `AUTHENTICATED`, `GRANTED_PRIVILEGES`.
+`audit`<br>&nbsp;&nbsp;&nbsp;&nbsp;`log_request_body` | Boolean | Includes the body of the request (if available) for both REST and the transport layer. Default is  `true`.
+`audit`<br>&nbsp;&nbsp;&nbsp;&nbsp;`resolve_indices` | Boolean | Logs all indices affected by a request. Resolves aliases and wildcards/date patterns. Default is `true`.
+`audit`<br>&nbsp;&nbsp;&nbsp;&nbsp;`resolve_bulk_requests` | Boolean | Logs individual operations in a bulk request. Default is `false`.
+`audit`<br>&nbsp;&nbsp;&nbsp;&nbsp;`exclude_sensitive_headers` | Boolean | Excludes sensitive headers from being included in the logs. Default is `true`.
+`audit`<br>&nbsp;&nbsp;&nbsp;&nbsp;`enable_transport` | Boolean | Enables/disables Transport API auditing. Default is `true`.
+`audit`<br>&nbsp;&nbsp;&nbsp;&nbsp;`enable_rest` | Boolean | Enables/disables REST API auditing. Default is `true`.
 `compliance` | Object | Contains fields for compliance configuration. 
-`compliance`<br>&nbsp;&nbsp;&nbsp;&nbsp;`enabled` | Boolean | Enables or disables compliance configurations. Desfault is `true`.
-`compliance`<br>&nbsp;&nbsp;&nbsp;&nbsp;`write_log_diffs` | Boolean | Default is `false` Need description
-`compliance`<br>&nbsp;&nbsp;&nbsp;&nbsp;`read_watched_fields` | Object | Need description
-`compliance`<br>&nbsp;&nbsp;&nbsp;&nbsp;`read_ignore_users` | Array | Need description
-`compliance`<br>&nbsp;&nbsp;&nbsp;&nbsp;`write_watched_indices` | Array | Need description
-`compliance`<br>&nbsp;&nbsp;&nbsp;&nbsp;`write_ignore_users` | Array | Need description
-`compliance`<br>&nbsp;&nbsp;&nbsp;&nbsp;`read_metadata_only` | Boolean | Default is `true`. Need description
-`compliance`<br>&nbsp;&nbsp;&nbsp;&nbsp;`write_metadata_only` | Boolean | Default is `true`. Need description
-`compliance`<br>&nbsp;&nbsp;&nbsp;&nbsp;`external_config` | Boolean | Default is `false`. Need description
-`compliance`<br>&nbsp;&nbsp;&nbsp;&nbsp;`internal_config` | Boolean | Default is `true`. Need description
+`compliance`<br>&nbsp;&nbsp;&nbsp;&nbsp;`enabled` | Boolean | Enables or disables compliance. Desfault is `true`.
+`compliance`<br>&nbsp;&nbsp;&nbsp;&nbsp;`write_log_diffs` | Boolean | Logs only diffs for document updates. Default is `false`.
+`compliance`<br>&nbsp;&nbsp;&nbsp;&nbsp;`read_watched_fields` | Object | Map of indexes and fields to monitor for read events. Wildcard patterns are supported for both index names and fields.
+`compliance`<br>&nbsp;&nbsp;&nbsp;&nbsp;`read_ignore_users` | Array | List of users to ignore for read events. Wildcard patterns are supported.<br>Example: `read_ignore_users: ["test-user", "employee-*"]`
+`compliance`<br>&nbsp;&nbsp;&nbsp;&nbsp;`write_watched_indices` | Array | List of indices to watch for write events. Wildcard patterns are supported.<br>Example: `write_watched_indices: ["twitter", "logs-*"]`
+`compliance`<br>&nbsp;&nbsp;&nbsp;&nbsp;`write_ignore_users` | Array | List of users to ignore for write events. Wildcard patterns are supported.<br>Example: `write_ignore_users: ["test-user", "employee-*"]`
+`compliance`<br>&nbsp;&nbsp;&nbsp;&nbsp;`read_metadata_only` | Boolean | Logs only metadata of the document for read events. Default is `true`.
+`compliance`<br>&nbsp;&nbsp;&nbsp;&nbsp;`write_metadata_only` | Boolean | Log only metadata of the document for write events. Default is `true`.
+`compliance`<br>&nbsp;&nbsp;&nbsp;&nbsp;`external_config` | Boolean | Logs external config files for the node. Default is `false`.
+`compliance`<br>&nbsp;&nbsp;&nbsp;&nbsp;`internal_config` | Boolean | Logs updates to internal security changes. Default is `true`.
 
 Changes to the `_readonly` property must result in a 409 error, as indicated in the response below.
 {: .note}
