@@ -11,13 +11,13 @@ Installing OpenSearch from a tarball, also known as a tar archive, might appeal 
 
 Generally speaking, the installation of OpenSearch from a tarball can be broken down in to a few steps:
 
-1. **Download and unpack OpenSearch**
-1. **Configure important system settings**
+1. **Download and unpack OpenSearch.**
+1. **Configure important system settings.**
    - These settings are applied to the host before modifying any OpenSearch files.
-1. **(Optional) Test OpenSearch**
+1. **(Optional) Test OpenSearch.**
    - Confirm that OpenSearch is able to run before you apply any custom configuration.
    - This can be done without any security (no password, no certificates) or with a demo security configuration that can be applied by a packaged script.
-1. **Configure OpenSearch for your environment**
+1. **Configure OpenSearch for your environment.**
    -  Apply basic settings to OpenSearch and start using it in your environment.
 
 The tarball is a self-contained directory with everything needed to run OpenSearch, including an integrated Java Development Kit (JDK). This installation method is compatible with most Linux distributions including, but not limited to, CentOS 7, Amazon Linux 2, and Ubuntu 18.04. If you have your own Java installation and set the environment variable `JAVA_HOME` in the terminal, macOS works as well.
@@ -25,7 +25,7 @@ The tarball is a self-contained directory with everything needed to run OpenSear
 This document assumes that you are comfortable working from the Linux command line interface. You should understand how to input commands, navigate between directories, and edit text files. Some example commands reference the `vi` text editor, but you may use any text editor available.
 {:.note}
 
-## Download and Unpack OpenSearch
+## Step 1: Download and Unpack OpenSearch
 
 1. Download the appropriate tar.gz archive from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'} or using the command line (such as with `wget`).
    ```bash
@@ -44,7 +44,7 @@ This document assumes that you are comfortable working from the Linux command li
    tar -xvf opensearch-{{site.opensearch_version}}-linux-arm64.tar.gz
    ```
 
-## Configure Important System Settings
+## Step 2: Configure Important System Settings
 
 Before launching OpenSearch you should review some [important system settings]({{site.url}}{{site.baseurl}}/opensearch/install/important-settings/){:target='\_blank'}.
 1. Disable memory paging and swapping performance on the host to improve performance.
@@ -68,7 +68,7 @@ Before launching OpenSearch you should review some [important system settings]({
    cat /proc/sys/vm/max_map_count
    ```
 
-## (Optional) Test OpenSearch
+## Step 3: (Optional) Test OpenSearch
 
 Before proceeding you should test your installation of OpenSearch. Otherwise, it can be difficult to determine whether future problems are due to installation issues or custom settings you applied after installation. There are two quick methods for testing OpenSearch at this stage:
 
@@ -204,7 +204,7 @@ An OpenSearch node configured by the demo security script is not suitable for a 
       hostname opensearch-sql                       2.1.0.0
       ```
 
-## Set Up OpenSearch in Your Environment
+## Step 4: Set Up OpenSearch in Your Environment
 
 Users that do not have prior experience with OpenSearch may want a list of recommended settings to get started with the service. By default, OpenSearch is not bound to a network interface and cannot be reached by external hosts. Additionally, security settings are either undefined (greenfield install) or are populated by default usernames and passwords if you ran the security demo script by invoking `opensearch-tar-install.sh`. The following recommendations will enable a user to bind OpenSearch to a network interface, create and sign TLS certifications, and configure basic authentication.
 
