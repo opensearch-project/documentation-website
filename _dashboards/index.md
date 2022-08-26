@@ -1,6 +1,6 @@
 ---
 layout: default
-title: About Dashboards
+title: About OpenSearch Dashboards
 nav_order: 1
 has_children: false
 has_toc: false
@@ -11,15 +11,18 @@ redirect_from:
 
 {%- comment -%}The `/docs/opensearch-dashboards/` redirect is specifically to support the UI links in OpenSearch Dashboards 1.0.0.{%- endcomment -%}
 
-# OpenSearch Dashboards
+# What is OpenSearch Dashboards?
 
-OpenSearch Dashboards is the default visualization tool for data in OpenSearch. It also serves as a user interface for many of the OpenSearch plugins, including security, alerting, Index State Management, SQL, and more.
+OpenSearch Dashboards is an open-source analytics and search application for the OpenSearch engine. With OpenSearch Dashboards, you can query, visualize, alert on, and understand your metrics no matter where they are stored. 
 
+* **Report, analyze, and present your data in real time.** Automatically deploy a real-time dashboard that brings different data types together to display important metrics and insights in a way that’s understandable by everyone.
+* **Track your data through dashboards.** Regularly or automatically update your dashboard to reflect the most current state of things.
+* **Visualize your data for better understanding.** Chart, graph, and plot your data to understand what’s going on is to look for patterns, compare a variety of data simultaneously, and share your data with others.
 
-## Get started with OpenSearch Dashboards
+![Image of OpenSearch Dashboards welcome page](../images/welcome-dashboards.jpg)
 
-1. After starting OpenSearch Dashboards, you can access it at port 5601. For example, http://localhost:5601.
-1. Log in with the default username `admin` and password `admin`.
-1. Choose **Try our sample data** and add the sample flight data.
-1. Choose **Discover** and search for a few flights.
-1. Choose **Dashboard**, **[Flights] Global Flight Dashboard**, and wait for the dashboard to load.
+# Starting work with OpenSearch Dashboards
+
+To get started with OpenSearch Dashboards, you must have [installed and configured the OpenSearch engine](../_opensearch/install/index.md).
+
+[Getting started with data analysis in OpenSearch Dashboards](install/index.md) gives you the information you need to complete important setup tasks and learn how to use a dashboard, create an analysis, and publish a dashboard.
