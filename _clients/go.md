@@ -8,7 +8,6 @@ nav_order: 80
 
 The OpenSearch Go client lets you connect your Go application with the data in your OpenSearch cluster.
 
-
 ## Setup
 
 If you're creating a new project:
