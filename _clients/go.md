@@ -25,7 +25,7 @@ go get github.com/opensearch-project/opensearch-go
 
 ## Sample code
 
-This sample code creates a client, adds an index with non-default settings, inserts a document, searches for the document, deletes the document, and finally deletes the index:
+This sample code creates a client, adds an index with non-default settings, inserts a document, searches for the document, triggers a bulk request, deletes the document, and deletes the index:
 
 ```go
 package main
@@ -115,6 +115,34 @@ func main() {
         os.Exit(1)
     }
     fmt.Println(searchResponse)
+
+    // Create the OpenSearch client
+    //
+	// Initialize the client with SSL/TLS enabled.
+	client, err := opensearch.NewClient(opensearch.Config{
+		Transport: &http.Transport{
+			TLSClientConfig: &tls.Config{InsecureSkipVerify: true}, // For testing only. Use certificate for validation.
+		},
+		Addresses: []string{"https://localhost:9200"},
+		Username:  "admin", // For testing only. Don't store credentials in code.
+		Password:  "admin",
+	})
+	if err != nil {
+		fmt.Println("cannot initialize", err)
+		os.Exit(1)
+	}
+
+	res, err := client.Bulk(
+		strings.NewReader(`
+{ "index" : { "_index" : "example_index", "_id" : "1" } }
+{ "x" : "1", "y" : "2" }
+{ "create" : { "_index" : "example_index", "_id" : "3" } }
+{ "x" : "3", "y" : "4" }
+{ "update" : {"_id" : "1", "_index" : "example_index"} }
+{ "doc" : {"x" : "-1"} }
+`),
+	)
+	fmt.Println(res, err)
 
     // Delete the document.
     delete := opensearchapi.DeleteRequest{
