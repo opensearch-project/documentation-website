@@ -157,6 +157,14 @@ Download the new version of OpenSearch you want to use, and then use `rpm -Uvh` 
 
 To upgrade to the latest version of OpenSearch with YUM, use `sudo yum update`. You can also upgrade to a specific OpenSearch version by using `sudo yum update opensearch-<version-number>`.
 
+
+
+
+
+
+{% comment %}
+
+
 # Tarball
 
 Installing OpenSearch from a tarball, also known as a tar archive, might appeal to users who want granular control over installation details like file permissions and installation paths.
@@ -611,3 +619,5 @@ $ curl https://your.host.address:9200 -u admin:yournewpassword -k
 - [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/install/index/)
 - [OpenSearch plugin installation]({{site.url}}{{site.baseurl}}/opensearch/install/plugins/)
 - [About the security plugin]({{site.url}}{{site.baseurl}}/security-plugin/index/)
+
+{% endcomment %}
