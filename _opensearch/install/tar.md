@@ -229,7 +229,7 @@ Before modifying any configuration files, it's always a good idea to save a back
 1. Add the following lines.
    ```bash
    # Bind OpenSearch to the correct network interface. Use 0.0.0.0
-   # to include all available interfaces or specify an IP addresss
+   # to include all available interfaces or specify an IP address
    # assigned to a specific interface.
    network.host: 0.0.0.0
 
