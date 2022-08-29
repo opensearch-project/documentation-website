@@ -135,7 +135,7 @@ With `enforce_hostname_verification` enabled, the security plugin verifies that 
 [ERROR][c.a.o.s.s.t.opensearchSecuritySSLNettyTransport] [WX6omJY] SSL Problem Received fatal alert: certificate_unknown
 ```
 
-In addition, when `resolve_hostnames` is enabled, the security plugin resolves the (verified) hostname against your DNS. If the hostname does not resolve, errors are thrown:
+In addition, when `resolve_hostname` is enabled, the security plugin resolves the (verified) hostname against your DNS. If the hostname does not resolve, errors are thrown:
 
 
 Name | Description
