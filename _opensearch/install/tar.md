@@ -7,9 +7,9 @@ nav_order: 50
 
 # Tarball
 
-Installing OpenSearch from a tarball, also known as a tar archive, might appeal to users who want granular control over installation details like file permissions and installation paths.
+Installing OpenSearch from a tarball, also known as a tar archive, may appeal to users who want granular control over installation details like file permissions and installation paths.
 
-Generally speaking, the installation of OpenSearch from a tarball can be broken down in to a few steps:
+Generally speaking, the installation of OpenSearch from a tarball can be broken down into a few steps:
 
 1. **Download and unpack OpenSearch.**
 1. **Configure important system settings.**
@@ -20,14 +20,14 @@ Generally speaking, the installation of OpenSearch from a tarball can be broken 
 1. **Configure OpenSearch for your environment.**
    -  Apply basic settings to OpenSearch and start using it in your environment.
 
-The tarball is a self-contained directory with everything needed to run OpenSearch, including an integrated Java Development Kit (JDK). This installation method is compatible with most Linux distributions including, but not limited to, CentOS 7, Amazon Linux 2, and Ubuntu 18.04. If you have your own Java installation and set the environment variable `JAVA_HOME` in the terminal, macOS works as well.
+The tarball is a self-contained directory with everything needed to run OpenSearch, including an integrated Java Development Kit (JDK). This installation method is compatible with most Linux distributions, including CentOS 7, Amazon Linux 2, and Ubuntu 18.04. If you have your own Java installation and set the environment variable `JAVA_HOME` in the terminal, macOS works as well.
 
-This document assumes that you are comfortable working from the Linux command line interface. You should understand how to input commands, navigate between directories, and edit text files. Some example commands reference the `vi` text editor, but you may use any text editor available.
+This guide assumes that you are comfortable working from the Linux command line interface (CLI). You should understand how to input commands, navigate between directories, and edit text files. Some example commands reference the `vi` text editor, but you may use any text editor available.
 {:.note}
 
-## Step 1: Download and Unpack OpenSearch
+## Step 1: Download and unpack OpenSearch
 
-1. Download the appropriate tar.gz archive from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'} or using the command line (such as with `wget`).
+1. Download the appropriate tar.gz archive from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'} or by using the command line (such as with `wget`).
    ```bash
    # x64
    wget https://artifacts.opensearch.org/releases/bundle/opensearch/{{site.opensearch_version}}/opensearch-{{site.opensearch_version}}-linux-x64.tar.gz
@@ -44,7 +44,7 @@ This document assumes that you are comfortable working from the Linux command li
    tar -xvf opensearch-{{site.opensearch_version}}-linux-arm64.tar.gz
    ```
 
-## Step 2: Configure Important System Settings
+## Step 2: Configure important system settings
 
 Before launching OpenSearch you should review some [important system settings]({{site.url}}{{site.baseurl}}/opensearch/install/important-settings/){:target='\_blank'}.
 1. Disable memory paging and swapping performance on the host to improve performance.
@@ -58,7 +58,7 @@ Before launching OpenSearch you should review some [important system settings]({
 
    # Add a line to define the desired value
    # or change the value if the key exists,
-   # then save your changes.
+   # and then save your changes.
    vm.max_map_count=262144
 
    # Reload the kernel parameters using sysctl
@@ -75,11 +75,11 @@ Before proceeding you should test your installation of OpenSearch. Otherwise, it
 1. **(Security enabled)** Apply a generic configuration using the demo security script included in the tar archive.
 1. **(Security disabled)** Manually disable the security plugin and test the instance before applying your own custom security settings.
 
-The demo security script will apply a generic configuration to your instance of OpenSearch. This configuration defines some environment variables and also applies self-signed TLS certificates. If you would like to configure these yourself, see [Setup OpenSearch in your environment](#setup-opensearch-in-your-environment).
+The demo security script will apply a generic configuration to your instance of OpenSearch. This configuration defines some environment variables and also applies self-signed TLS certificates. If you would like to configure these yourself, see [Set up OpenSearch in your environment](#setup-opensearch-in-your-environment).
 
 If you only want to verify that the service is properly configured and you intend to configure security settings yourself, then you may want to disable the security plugin and launch the service without encryption or authentication.
 
-An OpenSearch node configured by the demo security script is not suitable for a production environment. If you plan to use the node in a production environment after running `opensearch-tar-install.sh` you should, at a minimum, replace the demo TLS certificates with your own TLS certificates and [update the list of internal users and passwords]({{site.url}}{{site.baseurl}}/security-plugin/configuration/yaml). See [Security configuration]({{site.url}}{{site.baseurl}}/security-plugin/configuration/index/) for additional guidance to ensure that your nodes are configured according to your security requirements.
+An OpenSearch node configured by the demo security script is not suitable for a production environment. If you plan to use the node in a production environment after running `opensearch-tar-install.sh`, you should, at a minimum, replace the demo TLS certificates with your own TLS certificates and [update the list of internal users and passwords]({{site.url}}{{site.baseurl}}/security-plugin/configuration/yaml). See [Security configuration]({{site.url}}{{site.baseurl}}/security-plugin/configuration/index/) for additional guidance to ensure that your nodes are configured according to your security requirements.
 {: .warning}
 
 ### Option 1: Test your Opensearch settings with security enabled
@@ -92,7 +92,7 @@ An OpenSearch node configured by the demo security script is not suitable for a 
    ```bash
    ./opensearch-tar-install.sh
    ```
-1. Open another terminal session and send requests to the server to verify that OpenSearch is up and running. Note the use of the `--insecure` flag, which is required since the TLS certs are self-signed.
+1. Open another terminal session and send requests to the server to verify that OpenSearch is running. Note the use of the `--insecure` flag, which is required because the TLS certificates are self-signed.
    - Send a request to port 9200.
       ```bash
       curl -X GET https://localhost:9200 -u 'admin:admin' --insecure
@@ -154,7 +154,7 @@ An OpenSearch node configured by the demo security script is not suitable for a 
    plugins.security.disabled: true
    ```
 1. Save the change and close the file.
-1. Open another terminal session and send requests to the server to verify that OpenSearch is up and running. Since the security plugin has been disabled you will be sending commands using `HTTP` rather than `HTTPS`.
+1. Open another terminal session and send requests to the server to verify that OpenSearch is running. Because the security plugin has been disabled, you will be sending commands using `HTTP` rather than `HTTPS`.
    - Send a request to port 9200.
       ```bash
       curl -X GET http://localhost:9200
@@ -204,19 +204,19 @@ An OpenSearch node configured by the demo security script is not suitable for a 
       hostname opensearch-sql                       2.1.0.0
       ```
 
-## Step 4: Set Up OpenSearch in Your Environment
+## Step 4: Set up OpenSearch in your environment
 
-Users that do not have prior experience with OpenSearch may want a list of recommended settings to get started with the service. By default, OpenSearch is not bound to a network interface and cannot be reached by external hosts. Additionally, security settings are either undefined (greenfield install) or are populated by default usernames and passwords if you ran the security demo script by invoking `opensearch-tar-install.sh`. The following recommendations will enable a user to bind OpenSearch to a network interface, create and sign TLS certifications, and configure basic authentication.
+Users who do not have prior experience with OpenSearch may want a list of recommended settings in order to get started with the service. By default, OpenSearch is not bound to a network interface and cannot be reached by external hosts. Additionally, security settings are either undefined (greenfield install) or populated by default usernames and passwords if you ran the security demo script by invoking `opensearch-tar-install.sh`. The following recommendations will enable a user to bind OpenSearch to a network interface, create and sign TLS certificates, and configure basic authentication.
 
-The following recommended settings will allow users to:
+The following recommended settings will allow you to:
 
-- Bind OpenSearch to an IP or network inteface on the host.
+- Bind OpenSearch to an IP or network interface on the host.
 - Set initial and max JVM heap sizes.
 - Define an environment variable that points to the bundled JDK.
-- Configure your own TLS certificates - no third-party Certificate Authority required.
+- Configure your own TLS certificates - no third-party certificate authority (CA) is required.
 - Create an admin user with a custom password.
 
-If you ran the security demo script then you will need to manually reconfigure settings that were modified. Refer to Security Plugin [Configuration]({{site.url}}{{site.baseurl}}/opensearch/configuration/) for guidance before proceeding.
+If you ran the security demo script, then you will need to manually reconfigure settings that were modified. Refer to Security Plugin [Configuration]({{site.url}}{{site.baseurl}}/opensearch/configuration/) for guidance before proceeding.
 {:.note}
 
 Before modifying any configuration files, it's always a good idea to save a backup copy before making changes. The backup file can be used to revert any issues caused by a bad configuration.
@@ -234,7 +234,7 @@ Before modifying any configuration files, it's always a good idea to save a back
    network.host: 0.0.0.0
 
    # Unless you have already configured a cluster, you should set
-   # discovery.type to single-node or the bootstrap checks will
+   # discovery.type to single-node, or the bootstrap checks will
    # fail when you try to start the service.
    discovery.type: single-node
 
@@ -243,13 +243,13 @@ Before modifying any configuration files, it's always a good idea to save a back
    plugins.security.disabled: false
    ```
 1. Save your changes and close the file.
-1. Specify an initial and max JVM heap size.
+1. Specify initial and max JVM heap sizes.
    1.  Open `jvm.options`.
          ```bash
          vi /path/to/opensearch-{{site.opensearch_version}}/config/jvm.options
          ```
-   1. Modify the values for initial and maximum heap size. As a starting point, you should set these values to half of the available system memory. For dedicated hosts this value can be increased based on your workflow requirements.
-      -  As an example, if the host machine has 8GB of memory then you might want to set the initial and maximum heap sizes to 4GB:
+   1. Modify the values for initial and max heap sizes. As a starting point, you should set these values to half of the available system memory. For dedicated hosts this value can be increased based on your workflow requirements.
+      -  As an example, if the host machine has 8 GB of memory then you might want to set the initial and maximum heap sizes to 4 GB:
          ```bash
          -Xms4g
          -Xmx4g
@@ -262,7 +262,7 @@ Before modifying any configuration files, it's always a good idea to save a back
 
 ### Configure TLS
 
-TLS certificates provide additional security for your cluster by allowing clients to confirm the identity of hosts and encrypt traffic between the client and host. For more complete information, refer to [Configure TLS Certificates]({{site.url}}{{site.baseurl}}/security-plugin/configuration/tls/) and [Generate Certificates]({{site.url}}{{site.baseurl}}/security-plugin/configuration/generate-certificates/), which are covered in the [Security Plugin]({{site.url}}{{site.baseurl}}/security-plugin/index/) documentation. For work performed in a development environment, self-signed certificates are usually adequate. This section will guide you through the basic steps required to generate your own TLS certificates and apply them to your OpenSearch host.
+TLS certificates provide additional security for your cluster by allowing clients to confirm the identity of hosts and encrypt traffic between the client and host. For more information, refer to [Configure TLS Certificates]({{site.url}}{{site.baseurl}}/security-plugin/configuration/tls/) and [Generate Certificates]({{site.url}}{{site.baseurl}}/security-plugin/configuration/generate-certificates/), which are included in the [Security Plugin]({{site.url}}{{site.baseurl}}/security-plugin/index/) documentation. For work performed in a development environment, self-signed certificates are usually adequate. This section will guide you through the basic steps required to generate your own TLS certificates and apply them to your OpenSearch host.
 
 1. Navigate to the OpenSearch `config` directory. This is where the certificates will be stored.
    ```bash
@@ -277,9 +277,9 @@ TLS certificates provide additional security for your cluster by allowing client
    # replace the arguments passed to -subj so they reflect your specific host.
    openssl req -new -x509 -sha256 -key root-ca-key.pem -subj "/C=CA/ST=ONTARIO/L=TORONTO/O=ORG/OU=UNIT/CN=ROOT" -out root-ca.pem -days 730
    ```
-1. Next, create the admin certificate. This certificate is used is used to gain elevated rights for performing administrative tasks relating to the security plugin.
+1. Next, create the admin certificate. This certificate is used to gain elevated rights for performing administrative tasks relating to the security plugin.
    ```bash
-   # Create a private key for the admin cert.
+   # Create a private key for the admin certificate.
    openssl genrsa -out admin-key-temp.pem 2048
 
    # Convert the private key to PKCS#8.
@@ -289,26 +289,26 @@ TLS certificates provide additional security for your cluster by allowing client
    # used for authenticating elevated access and is not tied to a host.
    openssl req -new -key admin-key.pem -subj "/C=CA/ST=ONTARIO/L=TORONTO/O=ORG/OU=UNIT/CN=A" -out admin.csr
    
-   # Sign the admin certificate with the root certificate and private key that was created earlier.
+   # Sign the admin certificate with the root certificate and private key you created earlier.
    openssl x509 -req -in admin.csr -CA root-ca.pem -CAkey root-ca-key.pem -CAcreateserial -sha256 -out admin.pem -days 730
    ```
 1. Create a certificate for the node being configured.
    ```bash
-   # Create a private key for the node cert.
+   # Create a private key for the node certificate.
    openssl genrsa -out node1-key-temp.pem 2048
    
    # Convert the private key to PKCS#8.
    openssl pkcs8 -inform PEM -outform PEM -in node1-key-temp.pem -topk8 -nocrypt -v1 PBE-SHA1-3DES -out node1-key.pem
    
-   # Create the CSR - replace the arguments passed to -subj to they reflect your specific host.
-   # The CN should match a DNS A record for the host - do not use the hostname.
+   # Create the CSR and replace the arguments passed to -subj so they reflect your specific host.
+   # The CN should match a DNS A record for the host--do not use the hostname.
    openssl req -new -key node1-key.pem -subj "/C=CA/ST=ONTARIO/L=TORONTO/O=ORG/OU=UNIT/CN=node1.dns.a-record" -out node1.csr
    
    # Create an extension file that defines a SAN DNS name for the host. This
    # should match the DNS A record of the host.
    echo 'subjectAltName=DNS:node1.dns.a-record' > node1.ext
    
-   # Sign the node certificate with the root certificate and private key that was created earlier.
+   # Sign the node certificate with the root certificate and private key that you created earlier.
    openssl x509 -req -in node1.csr -CA root-ca.pem -CAkey root-ca-key.pem -CAcreateserial -sha256 -out node1.pem -days 730 -extfile node1.ext
    ```
 1. Remove temporary files that are no longer required.
@@ -319,7 +319,7 @@ TLS certificates provide additional security for your cluster by allowing client
    ```bash
    #! /bin/bash
 
-   # Before running this script, make sure to replace the /path/to your OpenSearch directory
+   # Before running this script, make sure to replace the /path/to your OpenSearch directory,
    # and remember to replace the CN in the node's distinguished name with a real
    # DNS A record.
 
@@ -342,7 +342,7 @@ TLS certificates provide additional security for your cluster by allowing client
    ```
 1. (Optional) Add trust for the self-signed root certificate.
    ```bash
-   # Copy the root cert to the correct directory
+   # Copy the root certificate to the correct directory
    sudo cp /path/to/opensearch-{{site.opensearch_version}}/config/root-ca.pem /etc/pki/ca-trust/source/anchors/
 
    # Add trust
@@ -370,7 +370,7 @@ Users are defined and authenticated by OpenSearch in a variety of ways. One meth
       WARNING: nor OPENSEARCH_JAVA_HOME nor JAVA_HOME is set, will use 
       ./hash.sh: line 35: java: command not found
       ```
-   - Declare an environment variable when you invoke the script to avoid issues:
+   - Declare an environment variable when you invoke the script in order to avoid issues:
       ```bash
       OPENSEARCH_JAVA_HOME=/path/to/opensearch-{{site.opensearch_version}}/jdk ./hash.sh
       ```
@@ -424,11 +424,11 @@ Now that TLS certificates are installed and demo users were removed or assigned 
 
 ### Verify that the service is running
 
-OpenSearch is now running on your host with custom TLS certificates and a secure user for basic authentication. The last step is verifying that the host is reachable by other clients.
+OpenSearch is now running on your host with custom TLS certificates and a secure user for basic authentication. You can verify external connectivity by sending an API request to your OpenSearch node from another host.
 
 During previous tests you directed requests to `localhost`. Now that TLS certificates have been applied and the new certificates reference your host's actual DNS record, requests to `localhost` will fail the CN check and the certificate will be considered invalid. Instead, requests should be sent to the address you specified while generating the certificate.
 
-You should add trust for the root certificate to your client before sending requests. If you do not add trust then you must use the `-k` option so that cURL ignores CN and root certificate validation.
+You should add trust for the root certificate to your client before sending requests. If you do not add trust, then you must use the `-k` option so that cURL ignores CN and root certificate validation.
 {:.tip}
 
 ```bash
@@ -452,7 +452,7 @@ $ curl https://your.host.address:9200 -u admin:yournewpassword -k
 }
 ```
 
-## Related Links
+## Related links
 
 - [OpenSearch configuration]({{site.url}}{{site.baseurl}}/opensearch/configuration/)
 - [Configure Performance Analyzer for Tarball Installation]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/index/#configure-performance-analyzer-for-tarball-installation)
