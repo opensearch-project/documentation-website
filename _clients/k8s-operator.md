@@ -4,7 +4,7 @@ title: OpenSearch Kubernetes Operator
 nav_order: 210
 ---
 
-The OpenSearch Kubernetes (K8s) Operator is a open-source K8s operator that helps automate the deployment, provisioning, of OpenSearch and OpenSearch Dashboards in a containerized environment. The operator can manage multiple OpenSearch clusters which can be scaled up and down depending on your needs. 
+The OpenSearch Kubernetes (K8s) Operator is an open-source K8s operator that helps automate the deployment, provisioning, of OpenSearch and OpenSearch Dashboards in a containerized environment. The operator can manage multiple OpenSearch clusters which can be scaled up and down depending on your needs. 
 
 ## Installation 
 
@@ -17,7 +17,7 @@ There are two ways to get started with the Operator:
 
 If you use Helm to manage your K8s cluster, you can use the OpenSearch Kubernetes Operator's CNCF project stored in Artifact Hub, a web-based application for finding, installing, and publishing CNCF packages. 
 
-To begin, log into your K8s cluster and  Add the Helm repo from Artifact hub. 
+To begin, log into your K8s cluster and add the Helm repo from [Artifact Hub](https://opster.github.io/opensearch-k8s-operator/). 
 
 ```
 helm repo add opensearch-operator https://opster.github.io/opensearch-k8s-operator/
@@ -32,13 +32,13 @@ helm repo list | grep opensearch
 Both the `opensearch` and `opensearch-operator` repos appear on the list of repos.
 
 
-Install the manager that operates all OpenSearch Kubernetes Opeartor's action. 
+Install the manager that operates all of the OpenSearch Kubernetes Opeartor's actions. 
 
 ```
 helm install opensearch-operator opensearch-operator/opensearch-operator
 ```
 
-After the install completes, the operator returns information on the deployment with the `STATUS: deployed`. You can then configure and start your [OpenSearch cluster](#deploy-a-new-opensearch-cluster).
+After the install completes, the operator returns information on the deployment with the `STATUS: deployed`. Then you can configure and start your [OpenSearch cluster](#deploy-a-new-opensearch-cluster).
 
 ### Use a local installation
 
@@ -57,7 +57,7 @@ Then install the OpenSearch Kubernetes operating using the following steps:
 1. In your preferred directory, clone the [OpenSearch Kubernetes Operator repo](https://github.com/Opster/opensearch-k8s-operator). `cd` into the repo directory.
 2. Go to the `opensearch-operator` folder.
 3. Enter `make build manifests`.
-4. Start a Kuberenetes cluster. When using minikube, open a new terminal window and enter `minikube start`. K8s will now use a containerized minikube cluster with a namespace called `default`. Make sure that `~/.kube/config` points to the cluster.
+4. Start a Kubernetes cluster. When using minikube, open a new terminal window and enter `minikube start`. K8s will now use a containerized minikube cluster with a namespace called `default`. Make sure that `~/.kube/config` points to the cluster.
 
 ```yml
 apiVersion: v1
