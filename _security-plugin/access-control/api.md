@@ -1411,14 +1411,14 @@ GET _plugins/_security/health
 
 ### Enable audit logs
 
-This API allows you to enable or disable audit logging, define the way audit logging is carried out, and make updates to settings.
+This API allows you to enable or disable audit logging, define the configuration for audit logging and compliance, and make updates to settings.
 
 For details on using audit logging to track access to OpenSearch clusters, as well as information on further configurations, see [Audit logs](https://opensearch.org/docs/latest/security-plugin/audit-logs/index/).
 
 You can do an initial configuration of audit logging in the `audit.yml` file, found in the `opensearch-project/security/config` directory. Thereafter, use the REST API for further changes to the configuration.
 {: note.}
 
-### Request fields
+#### Request fields
 
 Field | Data Type | Description
 :--- | :--- | :---
@@ -1506,11 +1506,13 @@ PUT /_opendistro/_security/api/audit/config
 }
 ```
 
-A PATCH call is used to update the audit configuration. It resets missing configurations to their default settings.
+A PATCH call is used to update specified fields in the audit configuration and reset unspecified fields to their default settings.
 
 ```
-PATCH /_opendistro/_security/api/audit
+curl -X PATCH <domain>/_opendistro/_security/api/audit -H 'Content-Type: application/json' -d'[{"op":"add","path":"/config/enabled","value":"true"}]' -u <username:password>
 ```
+OpenSearch Dashboards does not support the PATCH method. Use [curl](https://curl.se/), [Postman](https://www.postman.com/), or another method to update the configuration.
+{: .note}
 
 #### Sample response
 
@@ -1566,5 +1568,3 @@ The PUT request produces a response that appears as the following:
   "message" : "'config' updated."
 }
 ```
-
-The PATCH request produces a response that appears as the following:
