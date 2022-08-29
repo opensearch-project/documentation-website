@@ -13,11 +13,13 @@ redirect_from:
 
 # What is OpenSearch Dashboards?
 
-OpenSearch Dashboards is an open-source analytics and search application for the OpenSearch engine. With OpenSearch Dashboards, you can query, visualize, alert on, and understand your metrics no matter where they are stored. 
+OpenSearch Dashboards is an open-source analytics and search application for the OpenSearch engine. With OpenSearch Dashboards, you can query, visualize, alert on, and understand your metrics to make better-informed decisions.
+
+With OpenSearch Dashboards, you can:
 
 * **Report, analyze, and present your data in real time.** Automatically deploy a real-time dashboard that brings different data types together to display important metrics and insights in a way that’s understandable by everyone.
 * **Track your data through dashboards.** Regularly or automatically update your dashboard to reflect the most current state of things.
-* **Visualize your data for better understanding.** Chart, graph, and plot your data to understand what’s going on is to look for patterns, compare a variety of data simultaneously, and share your data with others.
+* **Visualize your data for clearer understanding.** Chart, graph, and plot your data to understand what’s going, look for patterns, or compare a variety of data simultaneously.
 
 ![Image of OpenSearch Dashboards welcome page](../images/welcome-dashboards.jpg)
 
