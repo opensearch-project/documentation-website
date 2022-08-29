@@ -1435,7 +1435,7 @@ Field | Data Type | Description
 `audit`<br>&nbsp;&nbsp;&nbsp;&nbsp;`enable_transport` | Boolean | Enables/disables Transport API auditing. Default is `true`.
 `audit`<br>&nbsp;&nbsp;&nbsp;&nbsp;`enable_rest` | Boolean | Enables/disables REST API auditing. Default is `true`.
 `compliance` | Object | Contains fields for compliance configuration. 
-`compliance`<br>&nbsp;&nbsp;&nbsp;&nbsp;`enabled` | Boolean | Enables or disables compliance. Desfault is `true`.
+`compliance`<br>&nbsp;&nbsp;&nbsp;&nbsp;`enabled` | Boolean | Enables or disables compliance. Default is `true`.
 `compliance`<br>&nbsp;&nbsp;&nbsp;&nbsp;`write_log_diffs` | Boolean | Logs only diffs for document updates. Default is `false`.
 `compliance`<br>&nbsp;&nbsp;&nbsp;&nbsp;`read_watched_fields` | Object | Map of indexes and fields to monitor for read events. Wildcard patterns are supported for both index names and fields.
 `compliance`<br>&nbsp;&nbsp;&nbsp;&nbsp;`read_ignore_users` | Array | List of users to ignore for read events. Wildcard patterns are supported.<br>Example: `read_ignore_users: ["test-user", "employee-*"]`
