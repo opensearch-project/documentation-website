@@ -11,21 +11,57 @@ You can install individual plugins for OpenSearch based on your needs. For infor
 
 ## Managing plugins
 
-OpenSearch uses a command line tool called `opensearch-plugin` for managing plugins. This tool can be used to `list` installed plugins, `install` a plugin using one of the methods outlined below, or `remove` plugins. Help is available by invoking the tool with the `-h` or `--help` option. Depending on your user privileges and installation method, you might also need run the command with `sudo`.
+OpenSearch uses a command line tool called `opensearch-plugin` for managing plugins. This tool can be used to **list** installed plugins, **install** a plugin using one of the methods outlined below, or **remove** plugins. Help is available by invoking the tool with the `-h` or `--help` option. Depending on your host configuration, you might also need run the command with `sudo` privileges.
 
-- [List installed plugins]({{site.url}}{{site.baseurl}}/opensearch/install/plugins#)
-- [Install a plugin]({{site.url}}{{site.baseurl}}/opensearch/install/plugins#)
-    - [Install a plugin by name]({{site.url}}{{site.baseurl}}/opensearch/install/plugins#install-a-plugin-by-name)
-    - [Install a plugin by from a zip file]({{site.url}}{{site.baseurl}}/opensearch/install/plugins#install-a-plugin-from-a-zip-file)
-    - [Install a plugin using Maven coordinates]({{site.url}}{{site.baseurl}}/opensearch/install/plugins#install-a-plugin-using-maven-coordinates)
-- [Remove a plugin]({{site.url}}{{site.baseurl}}/opensearch/install/plugins#)
+- [List]({{site.url}}{{site.baseurl}}/opensearch/install/plugins#list) installed plugins.
+- [Install]({{site.url}}{{site.baseurl}}/opensearch/install/plugins#install) plugins.
+- [Remove]({{site.url}}{{site.baseurl}}/opensearch/install/plugins#remove) an installed plugin.
 
 If you are running OpenSearch in a Docker container, plugins must be installed, removed, and configured by modifying the Docker image. For information, see [Install, configure or remove plugins]({{site.url}}{{site.baseurl}}/opensearch/install/docker#install-configure-or-remove-plugins)
 {: .note}
 
+## List
+
+Use the `list` option to see a list of plugins that have already been installed.
+
+#### Usage:
+```bash
+bin/opensearch-plugin list
+```
+
+#### Example:
+```bash
+$ ./opensearch-plugin list
+opensearch-alerting
+opensearch-anomaly-detection
+opensearch-asynchronous-search
+opensearch-cross-cluster-replication
+opensearch-geospatial
+opensearch-index-management
+opensearch-job-scheduler
+opensearch-knn
+opensearch-ml
+opensearch-notifications
+opensearch-notifications-core
+opensearch-observability
+opensearch-performance-analyzer
+opensearch-reports-scheduler
+opensearch-security
+opensearch-sql
+```
+
+## Install
+
+There are three ways to install plugins using `opensearch-plugin`:
+
+- [Install a plugin by name]({{site.url}}{{site.baseurl}}/opensearch/install/plugins#install-a-plugin-by-name)
+- [Install a plugin by from a zip file]({{site.url}}{{site.baseurl}}/opensearch/install/plugins#install-a-plugin-from-a-zip-file)
+- [Install a plugin using Maven coordinates]({{site.url}}{{site.baseurl}}/opensearch/install/plugins#install-a-plugin-using-maven-coordinates)
+
 ### Install a plugin by name:
 
 For a list of plugins that can be installed by name, see [Additional plugins]({{site.url}}{{site.baseurl}}/opensearch/install/plugins#additional-plugins)
+
 #### Usage:
 ```bash
 bin/opensearch-plugin install <plugin-name>
@@ -110,6 +146,10 @@ Continue with installation? [y/N]y
 
 Restart your OpenSearch node after installing a plugin.
 {: .note}
+
+## Remove
+
+
 
 ## Batch mode
 
