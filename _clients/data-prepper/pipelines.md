@@ -102,7 +102,7 @@ raw-pipeline:
         insecure: true
         username: admin
         password: admin
-        trace_analytics_raw: true
+        index_type: trace-analytics-raw
 service-map-pipeline:
   delay: "100"
   source:
@@ -116,7 +116,7 @@ service-map-pipeline:
         insecure: true
         username: admin
         password: admin
-        trace_analytics_service_map: true
+        index_type: trace-analytics-service-map
 ```
 
 #### Event record type
@@ -155,7 +155,7 @@ raw-pipeline:
         insecure: true
         username: admin
         password: admin
-        trace_analytics_raw: true
+        index_type: trace-analytics-raw
 service-map-pipeline:
   delay: "100"
   source:
@@ -173,7 +173,7 @@ service-map-pipeline:
         insecure: true
         username: admin
         password: admin
-        trace_analytics_service_map: true
+        index_type: trace-analytics-service-map
 ```
 
 Note that it is recommended to scale the `buffer_size` and `batch_size` by the estimated maximum batch size in the client request payload to maintain similar ingestion throughput and latency as in [Classic](#classic).
