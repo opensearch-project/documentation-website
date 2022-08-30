@@ -7,15 +7,7 @@ nav_order: 90
 
 # OpenSearch plugin installation
 
-You can install individual plugins on an OpenSearch cluster based on your needs. For information about available plugins, see [Available plugins]({{site.url}}{{site.baseurl}}/opensearch/install/plugins#available-plugins).
-
----
-
-#### Table of contents
-1. TOC
-{:toc}
-  
----
+You can install individual plugins for OpenSearch based on your needs. For information about available plugins, see [Available plugins]({{site.url}}{{site.baseurl}}/opensearch/install/plugins#available-plugins).
 
 ## Managing plugins
 
