@@ -11,18 +11,20 @@ You can install individual plugins for OpenSearch based on your needs. For infor
 
 ## Managing plugins
 
-OpenSearch uses a command line tool called `opensearch-plugin` for managing plugins. This tool can be used to **list** installed plugins, **install** a plugin using one of the methods outlined below, or **remove** plugins. Help is available by invoking the tool with the `-h` or `--help` option. Depending on your host configuration, you might also need run the command with `sudo` privileges.
+OpenSearch uses a command line tool called `opensearch-plugin` for managing plugins. This tool allows you to:
 
 - [List]({{site.url}}{{site.baseurl}}/opensearch/install/plugins#list) installed plugins.
 - [Install]({{site.url}}{{site.baseurl}}/opensearch/install/plugins#install) plugins.
 - [Remove]({{site.url}}{{site.baseurl}}/opensearch/install/plugins#remove) an installed plugin.
+
+Print help text by passing `-h` or `--help`. Depending on your host configuration, you might also need run the command with `sudo` privileges.
 
 If you are running OpenSearch in a Docker container, plugins must be installed, removed, and configured by modifying the Docker image. For information, see [Install, configure or remove plugins]({{site.url}}{{site.baseurl}}/opensearch/install/docker#install-configure-or-remove-plugins)
 {: .note}
 
 ## List
 
-Use the `list` option to see a list of plugins that have already been installed.
+Use `list` to see a list of plugins that have already been installed.
 
 #### Usage:
 ```bash
@@ -149,7 +151,21 @@ Restart your OpenSearch node after installing a plugin.
 
 ## Remove
 
+You can remove a plugin that has already been installed with the `remove` option. 
 
+#### Usage:
+```bash
+bin/opensearch-plugin remove <plugin-name>
+```
+
+#### Example:
+```bash
+$ sudo $ ./opensearch-plugin remove opensearch-anomaly-detection
+-> removing [opensearch-anomaly-detection]...
+```
+
+Restart your OpenSearch node after removing a plugin.
+{: .note}
 
 ## Batch mode
 
@@ -158,21 +174,6 @@ When installing plugins that require additional privileges not included by defau
 To force batch mode when installing plugins, add the `-b` or `--batch` option:
 ```bash
 bin/opensearch-plugin install --batch <plugin-name>
-```
-
-## Remove a plugin
-
-```bash
-bin/opensearch-plugin remove <plugin-name>
-```
-Restart your OpenSearch node after removing a plugin.
-
-## List installed plugins
-
-To check which plugins are currently installed:
-
-```bash
-bin/opensearch-plugin list
 ```
 
 ## Available plugins
