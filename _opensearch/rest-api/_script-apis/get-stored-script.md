@@ -24,30 +24,36 @@ Retrieves a stored script.
 
 #### Sample request
 
-The following retrieves the `my-script` stored script.
+The following retrieves the `my-first-script` stored script.
 
 ````json
-GET _scripts/my-script
+GET _scripts/my-first-script
 ````
 
 #### Sample response
 
-The `GET _scripts/my-script` request returns the following fields:
+The `GET _scripts/my-first-script` request returns the following fields:
 
 ````json
 {
-  "_id" : "my-script",
+  "_id" : "my-first-script",
   "found" : true,
   "script" : {
     "lang" : "painless",
-    "source" : "Math.log(_score * 2) + params['my_modifier']"
+    "source" : """
+          int total = 0;
+          for (int i = 0; i < doc['ratings'].length; ++i) {
+            total += doc['ratings'][i];
+          }
+          return total;
+        """
   }
 }
 ````
 
 ### Response fields
 
-The `GET _scripts/my-script` request returns the following response fields:
+The `GET _scripts/my-first-script` request returns the following response fields:
 
 | Field | Data Type | Description | 
 :--- | :--- | :---
