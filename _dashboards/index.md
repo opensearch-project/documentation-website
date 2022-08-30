@@ -19,9 +19,10 @@ With OpenSearch Dashboards, you can:
 
 * **Report, analyze, and present your data in real time.** Automatically deploy a real-time dashboard that brings different data types together to display important metrics and insights in a way that’s understandable by everyone.
 * **Track your data through dashboards.** Regularly or automatically update your dashboard to reflect the most current state of things.
+
 * **Visualize your data for clearer understanding.** Chart, graph, and plot your data to understand what’s going, look for patterns, or compare a variety of data simultaneously.
 
-![Image of OpenSearch Dashboards welcome page](../images/welcome-dashboards.jpg)
+![Dashboards home page](../images/welcome-dashboards.jpg)
 
 # Starting work with OpenSearch Dashboards
 
