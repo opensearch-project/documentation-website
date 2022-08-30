@@ -131,7 +131,7 @@ The opensearch.yml file also contains the `plugins.security.allow_default_init_s
 plugins.security.allow_default_init_securityindex: true
 ```
 
-Authentication cache for the security plugin exists to help speed up authentication by temporarily storing user credentials, thereby bypassing the authentication backend and the response times involved with that process. You can set a timeout value for cashing in minutes with the `plugins.security.cache.ttl_minutes` property. Default is `60`. You can disable caching by adding the value `0`.
+Authentication cache for the security plugin exists to help speed up authentication by temporarily storing user objects returned from the backend so that the security plugin is not required to make repeated requests for them. To determine how long it takes for caching to time out, you can use the `plugins.security.cache.ttl_minutes` property to set a value in minutes. The default is `60`. You can disable caching by setting the value to `0`.
 
 ```yml
 plugins.security.cache.ttl_minutes: 60
