@@ -109,6 +109,7 @@ plugins.security.authcz.admin_dn:
 plugins.security.audit.type: internal_opensearch
 plugins.security.enable_snapshot_restore_privilege: true
 plugins.security.check_snapshot_restore_write_privileges: true
+plugins.security.cache.ttl_minutes: 60
 plugins.security.restapi.roles_enabled: ["all_access", "security_rest_api_access"]
 plugins.security.system_indices.enabled: true
 plugins.security.system_indices.indices: [".opendistro-alerting-config", ".opendistro-alerting-alert*", ".opendistro-anomaly-results*", ".opendistro-anomaly-detector*", ".opendistro-anomaly-checkpoints", ".opendistro-anomaly-detection-state", ".opendistro-reports-*", ".opendistro-notifications-*", ".opendistro-notebooks", ".opendistro-asynchronous-search-response*"]
@@ -128,6 +129,12 @@ The opensearch.yml file also contains the `plugins.security.allow_default_init_s
 
 ```yml
 plugins.security.allow_default_init_securityindex: true
+```
+
+Authentication cache for the security plugin exists to help speed up authentication by temporarily storing user credentials, thereby bypassing the authentication backend and the response times involved with that process. You can set a timeout value for cashing in minutes with the `plugins.security.cache.ttl_minutes` property. Default is `60`. You can disable caching by adding the value `0`.
+
+```yml
+plugins.security.cache.ttl_minutes: 60
 ```
 
 ## allowlist.yml
