@@ -25,8 +25,8 @@ If you are running OpenSearch in a Docker container, plugins must be installed, 
 The install command takes a plugin id, which may be any of the following:
 
 - An official OpenSearch plugin name
-- [Maven coordinates](https://mvnrepository.com/artifact/org.opensearch.plugin) to a plugin zip file
 - A URL to a plugin zip file
+- [Maven coordinates](https://mvnrepository.com/artifact/org.opensearch.plugin) to a plugin
 
 If you're installing an official OpenSearch plugin, use:
 ```bash
@@ -35,10 +35,42 @@ bin/opensearch-plugin install <plugin-name>
 
 For a plugin installed via zip, use:
 ```bash
-bin/opensearch-plugin install <name|Zip File|Url>
+bin/opensearch-plugin install <name|zip-file|Url>
+```
+
+To install a plugin using the Maven coordinates:
+```bash
+bin/opensearch-plugin install <groupId>:<artifactId>:<version>
+```
+
+Sample output when installing using Maven coordinates:
+```bash
+$ sudo ./opensearch-plugin install org.opensearch.plugin:opensearch-anomaly-detection:2.2.0.0
+-> Installing org.opensearch.plugin:opensearch-anomaly-detection:2.2.0.0
+-> Downloading org.opensearch.plugin:opensearch-anomaly-detection:2.2.0.0 from maven central
+[=================================================] 100%   
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@     WARNING: plugin requires additional permissions     @
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+* java.lang.RuntimePermission accessClassInPackage.sun.misc
+* java.lang.RuntimePermission accessDeclaredMembers
+* java.lang.RuntimePermission getClassLoader
+* java.lang.RuntimePermission setContextClassLoader
+* java.lang.reflect.ReflectPermission suppressAccessChecks
+* java.net.SocketPermission * connect,resolve
+* javax.management.MBeanPermission org.apache.commons.pool2.impl.GenericObjectPool#-[org.apache.commons.pool2:name=pool,type=GenericObjectPool] registerMBean
+* javax.management.MBeanPermission org.apache.commons.pool2.impl.GenericObjectPool#-[org.apache.commons.pool2:name=pool,type=GenericObjectPool] unregisterMBean
+* javax.management.MBeanServerPermission createMBeanServer
+* javax.management.MBeanTrustPermission register
+See http://docs.oracle.com/javase/8/docs/technotes/guides/security/permissions.html
+for descriptions of what these permissions allow and the associated risks.
+
+Continue with installation? [y/N]y
+-> Installed opensearch-anomaly-detection with folder name opensearch-anomaly-detection
 ```
 
 Restart your OpenSearch node after installing a plugin.
+{: .note}
 
 ## Batch mode
 
