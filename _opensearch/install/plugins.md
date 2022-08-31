@@ -7,58 +7,175 @@ nav_order: 90
 
 # OpenSearch plugin installation
 
-You can install individual plugins on an OpenSearch cluster.
+You can install individual plugins for OpenSearch based on your needs. For information about available plugins, see [Available plugins]({{site.url}}{{site.baseurl}}/opensearch/install/plugins#available-plugins).
 
----
+## Managing plugins
 
-#### Table of contents
-1. TOC
-{:toc}
-  
----
+OpenSearch uses a command line tool called `opensearch-plugin` for managing plugins. This tool allows you to:
 
-## Install a plugin
+- [List]({{site.url}}{{site.baseurl}}/opensearch/install/plugins#list) installed plugins.
+- [Install]({{site.url}}{{site.baseurl}}/opensearch/install/plugins#install) plugins.
+- [Remove]({{site.url}}{{site.baseurl}}/opensearch/install/plugins#remove) an installed plugin.
 
-The install command takes a plugin id, which may be any of the following:
+Print help text by passing `-h` or `--help`. Depending on your host configuration, you might also need to run the command with `sudo` privileges.
 
-- An official OpenSearch plugin name
-- [Maven coordinates](https://mvnrepository.com/artifact/org.opensearch.plugin) to a plugin zip file
-- A URL to a plugin zip file
+If you are running OpenSearch in a Docker container, plugins must be installed, removed, and configured by modifying the Docker image. For information, see [Install, configure or remove plugins]({{site.url}}{{site.baseurl}}/opensearch/install/docker#install-configure-or-remove-plugins)
+{: .note}
 
-If you're installing an official OpenSearch plugin, use:
+## List
+
+Use `list` to see a list of plugins that have already been installed.
+
+#### Usage:
+```bash
+bin/opensearch-plugin list
 ```
+
+#### Example:
+```bash
+$ ./opensearch-plugin list
+opensearch-alerting
+opensearch-anomaly-detection
+opensearch-asynchronous-search
+opensearch-cross-cluster-replication
+opensearch-geospatial
+opensearch-index-management
+opensearch-job-scheduler
+opensearch-knn
+opensearch-ml
+opensearch-notifications
+opensearch-notifications-core
+opensearch-observability
+opensearch-performance-analyzer
+opensearch-reports-scheduler
+opensearch-security
+opensearch-sql
+```
+
+## Install
+
+There are three ways to install plugins using `opensearch-plugin`:
+
+- [Install a plugin by name]({{site.url}}{{site.baseurl}}/opensearch/install/plugins#install-a-plugin-by-name)
+- [Install a plugin by from a zip file]({{site.url}}{{site.baseurl}}/opensearch/install/plugins#install-a-plugin-from-a-zip-file)
+- [Install a plugin using Maven coordinates]({{site.url}}{{site.baseurl}}/opensearch/install/plugins#install-a-plugin-using-maven-coordinates)
+
+### Install a plugin by name:
+
+For a list of plugins that can be installed by name, see [Additional plugins]({{site.url}}{{site.baseurl}}/opensearch/install/plugins#additional-plugins)
+
+#### Usage:
+```bash
 bin/opensearch-plugin install <plugin-name>
 ```
 
-For a plugin installed via zip, use:
+#### Example:
+```bash
+$ sudo ./opensearch-plugin install analysis-icu
+-> Installing analysis-icu
+-> Downloading analysis-icu from opensearch
+[=================================================] 100%   
+-> Installed analysis-icu with folder name analysis-icu
+>>>>>>> a890c4e (Reformats plugins page, adds more explanations, and adds Maven coordinates help (#1041))
 ```
-bin/opensearch-plugin install <name|Zip File|Url>
+
+### Install a plugin from a zip file:
+
+#### Usage:
+```bash
+# zip-file can be a local path to the zip file, or
+# a URL for a zip file hosted on a network.
+bin/opensearch-plugin install <zip-file>
+```
+
+#### Example:
+```bash
+$ sudo ./opensearch-plugin install https://repo1.maven.org/maven2/org/opensearch/plugin/opensearch-anomaly-detection/2.2.0.0/opensearch-anomaly-detection-2.2.0.0.zip
+-> Installing https://repo1.maven.org/maven2/org/opensearch/plugin/opensearch-anomaly-detection/2.2.0.0/opensearch-anomaly-detection-2.2.0.0.zip
+-> Downloading https://repo1.maven.org/maven2/org/opensearch/plugin/opensearch-anomaly-detection/2.2.0.0/opensearch-anomaly-detection-2.2.0.0.zip
+[=================================================] 100%   
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@     WARNING: plugin requires additional permissions     @
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+* java.lang.RuntimePermission accessClassInPackage.sun.misc
+* java.lang.RuntimePermission accessDeclaredMembers
+* java.lang.RuntimePermission getClassLoader
+* java.lang.RuntimePermission setContextClassLoader
+* java.lang.reflect.ReflectPermission suppressAccessChecks
+* java.net.SocketPermission * connect,resolve
+* javax.management.MBeanPermission org.apache.commons.pool2.impl.GenericObjectPool#-[org.apache.commons.pool2:name=pool,type=GenericObjectPool] registerMBean
+* javax.management.MBeanPermission org.apache.commons.pool2.impl.GenericObjectPool#-[org.apache.commons.pool2:name=pool,type=GenericObjectPool] unregisterMBean
+* javax.management.MBeanServerPermission createMBeanServer
+* javax.management.MBeanTrustPermission register
+See http://docs.oracle.com/javase/8/docs/technotes/guides/security/permissions.html
+for descriptions of what these permissions allow and the associated risks.
+
+Continue with installation? [y/N]y
+-> Installed opensearch-anomaly-detection with folder name opensearch-anomaly-detection
+```
+
+### Install a plugin using Maven coordinates:
+
+#### Usage:
+```bash
+bin/opensearch-plugin install <groupId>:<artifactId>:<version>
+>>>>>>> a890c4e (Reformats plugins page, adds more explanations, and adds Maven coordinates help (#1041))
+```
+
+#### Example:
+```bash
+$ sudo ./opensearch-plugin install org.opensearch.plugin:opensearch-anomaly-detection:2.2.0.0
+-> Installing org.opensearch.plugin:opensearch-anomaly-detection:2.2.0.0
+-> Downloading org.opensearch.plugin:opensearch-anomaly-detection:2.2.0.0 from maven central
+[=================================================] 100%   
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@     WARNING: plugin requires additional permissions     @
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+* java.lang.RuntimePermission accessClassInPackage.sun.misc
+* java.lang.RuntimePermission accessDeclaredMembers
+* java.lang.RuntimePermission getClassLoader
+* java.lang.RuntimePermission setContextClassLoader
+* java.lang.reflect.ReflectPermission suppressAccessChecks
+* java.net.SocketPermission * connect,resolve
+* javax.management.MBeanPermission org.apache.commons.pool2.impl.GenericObjectPool#-[org.apache.commons.pool2:name=pool,type=GenericObjectPool] registerMBean
+* javax.management.MBeanPermission org.apache.commons.pool2.impl.GenericObjectPool#-[org.apache.commons.pool2:name=pool,type=GenericObjectPool] unregisterMBean
+* javax.management.MBeanServerPermission createMBeanServer
+* javax.management.MBeanTrustPermission register
+See http://docs.oracle.com/javase/8/docs/technotes/guides/security/permissions.html
+for descriptions of what these permissions allow and the associated risks.
+
+Continue with installation? [y/N]y
+-> Installed opensearch-anomaly-detection with folder name opensearch-anomaly-detection
 ```
 
 Restart your OpenSearch node after installing a plugin.
+{: .note}
+
+## Remove
+
+You can remove a plugin that has already been installed with the `remove` option. 
+
+#### Usage:
+```bash
+bin/opensearch-plugin remove <plugin-name>
+```
+
+#### Example:
+```bash
+$ sudo $ ./opensearch-plugin remove opensearch-anomaly-detection
+-> removing [opensearch-anomaly-detection]...
+```
+
+Restart your OpenSearch node after removing a plugin.
+{: .note}
 
 ## Batch mode
 
 When installing plugins that require additional privileges not included by default, the plugins will prompt the user for confirmation of the required privileges. To grant all requested privileges, use batch mode to skip the confirmation prompt.
 
 To force batch mode when installing plugins, add the `-b` or `--batch` option:
-```
+```bash
 bin/opensearch-plugin install --batch <plugin-name>
-```
-
-## Remove a plugin
-
-```
-bin/opensearch-plugin remove <plugin-name>
-```
-Restart your OpenSearch node after removing a plugin.
-
-## List installed plugins
-
-To check which plugins are currently installed:
-
-```
-bin/opensearch-plugin list
 ```
 
 ## Available plugins
@@ -85,7 +202,7 @@ The following plugins are bundled with all OpenSearch distributions except for m
 | Security | [opensearch-security](https://github.com/opensearch-project/security) | 1.0.0 or newer |
 | SQL | [opensearch-sql](https://github.com/opensearch-project/sql) | 1.0.0 or newer |
 
-<sup>1</sup>Dashboard Notebooks was merged in to the Observability plugin with the release of OpenSearch 1.2.0.
+_<sup>1</sup>Dashboard Notebooks was merged in to the Observability plugin with the release of OpenSearch 1.2.0._
 
 ### Additional plugins
 
