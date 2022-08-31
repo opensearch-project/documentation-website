@@ -18,46 +18,46 @@ Querqy is currently only compatible with OpenSearch 1.3.1
 
 1. The Querqy plugin code is located here: [querqy-opensearch](https://github.com/querqy/querqy-opensearch). To download the plugin code ZIP file, select the green "Code" button, then select "Download ZIP"
 
-2. Install JDK 11. On Amazon Linux 2, install JDK11 with the following command:
+1. Install JDK 11. On Amazon Linux 2, install JDK11 with the following command:
 
-```bash
-sudo yum install java-11-amazon-corretto
-```
+   ```bash
+   sudo yum install java-11-amazon-corretto
+   ```
 
-3. Uncompress the ZIP file:
+1. Uncompress the ZIP file:
 
-```bash
-unzip querqy-opensearch-main.zip
-```
+   ```bash
+   unzip querqy-opensearch-main.zip
+   ```
 
-4. Change to the uncompressed Querqy directory:
+1. Change to the uncompressed Querqy directory:
 
-```bash
-cd querqy-opensearch-main
-```
+   ```bash
+   cd querqy-opensearch-main
+   ```
 
-5. Compile the plugin: 
+1. Compile the plugin: 
 
-```bash
-./gradlew build
-```
+   ```bash
+   ./gradlew build
+   ```
 
-6. The compiled plugin is stored in this directory:
+1. The compiled plugin is stored in this directory:
 
-```bash
-/path/to/file/querqy-opensearch-main/build/distributions/opensearch-querqy-1.3.1.0.zip`
-```
+   ```bash
+   /path/to/file/querqy-opensearch-main/build/distributions/opensearch-querqy-1.3.1.0.zip`
+   ```
 
-7. The compiled Querqy plugin is installed the same as [any OpenSearch plugin](https://opensearch.org/docs/latest/opensearch/install/plugins/#install-a-plugin): 
+1. The compiled Querqy plugin is installed the same as [any OpenSearch plugin](https://opensearch.org/docs/latest/opensearch/install/plugins/#install-a-plugin): 
 
-```bash
-/path/to/opensearch/bin/opensearch-plugin install file:///path/to/file/opensearch-querqy-1.3.1.0.zip
-```
+   ```bash
+   /path/to/opensearch/bin/opensearch-plugin install file:///path/to/file/opensearch-querqy-1.3.1.0.zip
+   ```
 
-8. Reboot the OpenSearch node: 
+1. Reboot the OpenSearch node: 
 
-```bash
-sudo reboot
-```
+   ```bash
+   sudo reboot
+   ```
 
 After installing the Querqy plugin you can find comprehensive documentation on the Querqy.org site: [Querqy](https://docs.querqy.org/querqy/index.html)
