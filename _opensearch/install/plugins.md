@@ -80,18 +80,43 @@ $ sudo ./opensearch-plugin install analysis-icu
 
 ### Install a plugin from a zip file:
 
+For zip files hosted on a remote server, replace `<zip-file>` with the URL of the hosted file. For zip files in a local directory, replace `<zip-file>` with `file:` followed by the absolute or relative path to the plugin zip file.
+
 #### Usage:
 ```bash
-# zip-file can be a local path to the zip file, or
-# a URL for a zip file hosted on a network.
 bin/opensearch-plugin install <zip-file>
 ```
 
 #### Example:
 ```bash
+# Zip file is hosted on a remote server - in this case, Maven central repository.
 $ sudo ./opensearch-plugin install https://repo1.maven.org/maven2/org/opensearch/plugin/opensearch-anomaly-detection/2.2.0.0/opensearch-anomaly-detection-2.2.0.0.zip
 -> Installing https://repo1.maven.org/maven2/org/opensearch/plugin/opensearch-anomaly-detection/2.2.0.0/opensearch-anomaly-detection-2.2.0.0.zip
 -> Downloading https://repo1.maven.org/maven2/org/opensearch/plugin/opensearch-anomaly-detection/2.2.0.0/opensearch-anomaly-detection-2.2.0.0.zip
+[=================================================] 100%   
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@     WARNING: plugin requires additional permissions     @
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+* java.lang.RuntimePermission accessClassInPackage.sun.misc
+* java.lang.RuntimePermission accessDeclaredMembers
+* java.lang.RuntimePermission getClassLoader
+* java.lang.RuntimePermission setContextClassLoader
+* java.lang.reflect.ReflectPermission suppressAccessChecks
+* java.net.SocketPermission * connect,resolve
+* javax.management.MBeanPermission org.apache.commons.pool2.impl.GenericObjectPool#-[org.apache.commons.pool2:name=pool,type=GenericObjectPool] registerMBean
+* javax.management.MBeanPermission org.apache.commons.pool2.impl.GenericObjectPool#-[org.apache.commons.pool2:name=pool,type=GenericObjectPool] unregisterMBean
+* javax.management.MBeanServerPermission createMBeanServer
+* javax.management.MBeanTrustPermission register
+See http://docs.oracle.com/javase/8/docs/technotes/guides/security/permissions.html
+for descriptions of what these permissions allow and the associated risks.
+
+Continue with installation? [y/N]y
+-> Installed opensearch-anomaly-detection with folder name opensearch-anomaly-detection
+
+# Zip file
+$ sudo ./opensearch-plugin install file:/home/user/opensearch-anomaly-detection-2.2.0.0.zip
+-> Installing file:/home/user/opensearch-anomaly-detection-2.2.0.0.zip
+-> Downloading file:/home/user/opensearch-anomaly-detection-2.2.0.0.zip
 [=================================================] 100%   
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @     WARNING: plugin requires additional permissions     @
