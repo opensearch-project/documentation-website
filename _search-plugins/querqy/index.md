@@ -9,13 +9,15 @@ nav_order: 10
 
 # Querqy plugin
 
+Querqy is a community plugin for query rewriting that helps to solve relevance issues, making search engines more precise regarding matching and scoring.
+
 ## Querqy plugin installation
 
 **Querqy is currently only compatible with OpenSearch 1.3.1**
 
-The Querqy plugin code is located [here](https://github.com/querqy/querqy-opensearch). To download the plugin code ZIP file, select the green "Code" button, then select "Download ZIP"
+The Querqy plugin code is located here: [querqy-opensearch](https://github.com/querqy/querqy-opensearch). To download the plugin code ZIP file, select the green "Code" button, then select "Download ZIP"
 
-First, JDK 11 will need to installed. On Amazon Linux 2, JDK 11 is intalled with the following command:
+First, install JDK 11. On Amazon Linux 2, install JDK11 with the following command:
 
 ```bash
 sudo yum install java-11-amazon-corretto
@@ -39,7 +41,7 @@ Compile the plugin:
 ./gradlew build
 ```
 
-The compiled plugin will be located at: 
+The compiled plugin is stored in this directory:
 
 ```bash
 /path/to/file/querqy-opensearch-main/build/distributions/opensearch-querqy-1.3.1.0.zip`
@@ -57,4 +59,4 @@ Finally, reboot the OpenSearch node:
 sudo reboot
 ```
 
-Afer instsalling the Querqy plugin, comprehensive documentation can be found [here](https://docs.querqy.org/querqy/index.html).
+After installing the Querqy plugin you can find comprehensive documentation on the Querqy.org site: [Querqy](https://docs.querqy.org/querqy/index.html)
