@@ -1,6 +1,6 @@
 ---
 layout: default
-title: What is OpenSearch Dashboards
+title: About OpenSearch Dashboards
 nav_order: 1
 has_children: false
 has_toc: false
