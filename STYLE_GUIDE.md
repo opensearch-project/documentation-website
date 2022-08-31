@@ -234,8 +234,6 @@ Avoid using the following terms.
 | purge                    | delete, clear, remove               |
 | segregate                | separate, isolate                   |
 | trigger                  | initiate, invoke, launch, start     |
-| white day                | open day                            |
-| whitelist                | allow list                          |
 
 ## Trademark policy
 
