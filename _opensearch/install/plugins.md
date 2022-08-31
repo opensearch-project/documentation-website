@@ -80,7 +80,7 @@ $ sudo ./opensearch-plugin install analysis-icu
 
 ### Install a plugin from a zip file:
 
-For zip files hosted on a remote server, replace `<zip-file>` with the URL of the hosted file. For zip files in a local directory, replace `<zip-file>` with `file:` followed by the absolute or relative path to the plugin zip file.
+Remote zip files can be installed by replacing `<zip-file>` with the URL of the hosted file. The tool only supports downloading over HTTP/HTTPS protocols. For local zip files, replace `<zip-file>` with `file:` followed by the absolute or relative path to the plugin zip file as in the second example below.
 
 #### Usage:
 ```bash
@@ -113,7 +113,7 @@ for descriptions of what these permissions allow and the associated risks.
 Continue with installation? [y/N]y
 -> Installed opensearch-anomaly-detection with folder name opensearch-anomaly-detection
 
-# Zip file
+# Zip file in a local directory.
 $ sudo ./opensearch-plugin install file:/home/user/opensearch-anomaly-detection-2.2.0.0.zip
 -> Installing file:/home/user/opensearch-anomaly-detection-2.2.0.0.zip
 -> Downloading file:/home/user/opensearch-anomaly-detection-2.2.0.0.zip
