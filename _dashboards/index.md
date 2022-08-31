@@ -17,7 +17,7 @@ OpenSearch Dashboards is an open-source analytics and search application that gi
 
 ![Visualization example image](../images/what-is-dashboards.jpg)
 
-You can create OpenSearch Dashboards for many reasons, and many types of dashboards, to:
+OpenSearch Dashboards allows you to create dashboards for many reasons, and many types of dashboards. OpenSearch Dashboards lets you to do the following:  
 
 * See-all in one view-the data you need to make informed decisions.
 * Search, explore, filter, aggregate, and visualize your data in near real time.
