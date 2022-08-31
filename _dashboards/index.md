@@ -1,6 +1,6 @@
 ---
 layout: default
-title: About OpenSearch Dashboards
+title: What is OpenSearch Dashboards
 nav_order: 1
 has_children: false
 has_toc: false
@@ -13,19 +13,21 @@ redirect_from:
 
 # What is OpenSearch Dashboards?
 
-OpenSearch Dashboards is an open-source analytics and search application for the OpenSearch engine. With OpenSearch Dashboards, you can query, visualize, alert on, and understand your metrics,allowing you to make better-informed decisions.
+OpenSearch Dashboards is an open-source analytics and search application that gives you a view of information and data all in one view. OpenSearch Dashboards allows you to monitor events, make decisions, inform others, and see trends and displays multiple visualizations that work together on a single screen. These visuals give you a comprehensive view of your data and provide key insights for at-a-glance decision-making.
 
-With OpenSearch Dashboards, you can:
+![Visualization example image](../images/what-is-dashboards.jpg)
 
-* **Report, analyze, and present your data in real time.** Automatically deploy a real-time dashboard that brings different data types together to display important metrics and insights in a way that’s understandable by everyone.
-* **Track your data through dashboards.** Regularly or automatically update your dashboard to reflect the most current state of things.
+You can create OpenSearch Dashboards for many reasons, and many types of dashboards, to:
 
-* **Visualize your data for clearer understanding.** Chart, graph, and plot your data to understand what’s going, look for patterns, or compare a variety of data simultaneously.
+* See-all in one view-the data you need to make informed decisions.
+* Search, explore, filter, aggregate, and visualize your data in near real time.
+* Track and monitor the most important information about your day-to-day operations. 
+* Schedule, export, and share reports from dashboards, saved searches, alerts, and visualizations. 
 
-![Dashboards home page](../images/welcome-dashboards.jpg)
+The type of dashboards you create depends on the  different teams and people within and outside your organization. OpenSearch Dashboards are created to be intuitive and easy to understand by users like business analysts, senior executives, engineering managers, and operations managers.  
 
 # Starting work with OpenSearch Dashboards
 
-To get started with OpenSearch Dashboards, you must have [installed and configured the OpenSearch engine](../_opensearch/install/index.md).
+To get started with OpenSearch Dashboards, you must first [install and configure the OpenSearch engine](../_opensearch/install/index.md).
 
-[Getting started with data analysis in OpenSearch Dashboards](install/index.md) gives you the information you need to complete important setup tasks and learn how to use a dashboard, create an analysis, and publish a dashboard.
+To get started creating your own dashboard, see [Getting started with OpenSearch Dashboards](install/index.md).
