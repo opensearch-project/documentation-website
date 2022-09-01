@@ -275,9 +275,6 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWRtaW4iLCJpYXQiOjE0MjI
 
 ### Configure JSON web tokens
 
-If JSON web tokens are the only authentication method that you use, disable the user cache by setting `plugins.security.cache.ttl_minutes: 0`.
-{: .warning }
-
 Set up an authentication domain and choose `jwt` as the HTTP authentication type. Because the tokens already contain all required information to verify the request, `challenge` must be set to `false` and `authentication_backend` to `noop`.
 
 Example:
