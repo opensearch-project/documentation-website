@@ -32,12 +32,13 @@ You can have different authentication and authorization configurations on the re
 
 ## Permissions
 
-To query indices on remote clusters, users need to have the following permissions for the index, in addition to `READ` or `SEARCH` permissions:
+To query indexes on remote clusters, users need to have `READ` or `SEARCH` permissions. Furthermore, when the search request includes the query parameter `ccs_minimize_roundtrips=false` – which tells OpenSearch not to minimize outgoing and ingoing requests to remote clusters – users need to have the following additional permission for the index:
 
 ```
 indices:admin/shards/search_shards
 ```
 
+For more information about the `ccs_minimize_roundtrips` parameter, see the list of [parameters](https://opensearch.org/docs/latest/opensearch/rest-api/search/#url-parameters) for the Search API.
 
 #### Sample roles.yml configuration
 
@@ -49,7 +50,7 @@ humanresources:
     'humanresources':
       '*':
         - READ
-        - indices:admin/shards/search_shards # needed for CCS
+        - indices:admin/shards/search_shards # needed when the search request includes parameter setting 'ccs_minimize_roundtrips=false'.
 ```
 
 
