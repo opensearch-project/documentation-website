@@ -140,7 +140,7 @@ Continue with installation? [y/N]y
 
 ### Install a plugin using Maven coordinates:
 
-The `opensearch-plugin install` tool also accepts Maven coordinates for available artifacts and versions hosted on [Maven Central](https://search.maven.org/search?q=org.opensearch.plugin). `opensearch-plugin` will parse the Maven coordinates you provide and construct a URL. As a result, the host must be able to connect directoy to [Maven Central](https://search.maven.org/search?q=org.opensearch.plugin). The plugin installation will fail if you pass coordinates to a proxy or local repository.
+The `opensearch-plugin install` tool also accepts Maven coordinates for available artifacts and versions hosted on [Maven Central](https://search.maven.org/search?q=org.opensearch.plugin). `opensearch-plugin` will parse the Maven coordinates you provide and construct a URL. As a result, the host must be able to connect directly to [Maven Central](https://search.maven.org/search?q=org.opensearch.plugin). The plugin installation will fail if you pass coordinates to a proxy or local repository.
 
 #### Usage:
 ```bash
