@@ -75,9 +75,19 @@ For example, if you choose `min()`, the detector focuses on finding anomalies ba
 A multi-feature model correlates anomalies across all its features. The [curse of dimensionality](https://en.wikipedia.org/wiki/Curse_of_dimensionality) makes it less likely for multi-feature models to identify smaller anomalies as compared to a single-feature model. Adding more features might negatively impact the [precision and recall](https://en.wikipedia.org/wiki/Precision_and_recall) of a model. A higher proportion of noise in your data might further amplify this negative impact. Selecting the optimal feature set is usually an iterative process. By default, the maximum number of features for a detector is 5. You can adjust this limit with the `plugins.anomaly_detection.max_anomaly_features` setting.
 {: .note }
 
+To configure an anomaly detection model based on an aggregation method, follow these steps:
+
 1. On the **Configure Model** page, enter the **Feature name** and check **Enable feature**.
-1. For **Find anomalies based on**, choose the method to find anomalies. For **Field Value**, choose the **aggregation method**. Or choose **Custom expression**, and add your own JSON aggregation query.
+1. For **Find anomalies based on**, choose the method to find anomalies. For **Field Value**, choose the **aggregation method**.
 1. Select a field.
+
+To configure an anomaly detection model based on a JSON aggregation query, follow these steps:
+1. On the **Configure Model** page, enter the **Feature name** and check **Enable feature**.
+1. For **Find anomalies based on**, select **Custom expression**. You will see the JSON editor window open up.
+1. Enter your JSON aggregation query in the editor.
+
+For acceptable JSON syntax, see [OpenSearch Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index/)
+{: .note }
 
 #### (Optional) Set category fields for high cardinality
 
