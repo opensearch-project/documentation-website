@@ -78,15 +78,16 @@ A multi-feature model correlates anomalies across all its features. The [curse o
 To configure an anomaly detection model based on an aggregation method, follow these steps:
 
 1. On the **Configure Model** page, enter the **Feature name** and check **Enable feature**.
-1. For **Find anomalies based on**, choose the method to find anomalies. For **Field Value**, choose the **aggregation method**.
-1. Select a field.
+1. For **Find anomalies based on**, select **Field Value**.
+1. For **aggregation method**, select either `average()`, `count()`, `sum()`, `min()`, or `max()`.
+1. For **Field**, select from the available options: bytes, machine.ram, phpmemory, or memory.
 
 To configure an anomaly detection model based on a JSON aggregation query, follow these steps:
 1. On the **Configure Model** page, enter the **Feature name** and check **Enable feature**.
 1. For **Find anomalies based on**, select **Custom expression**. You will see the JSON editor window open up.
 1. Enter your JSON aggregation query in the editor.
 
-For acceptable JSON syntax, see [OpenSearch Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index/)
+For acceptable JSON query syntax, see [OpenSearch Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index/)
 {: .note }
 
 #### (Optional) Set category fields for high cardinality
