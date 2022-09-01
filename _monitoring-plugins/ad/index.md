@@ -79,8 +79,8 @@ To configure an anomaly detection model based on an aggregation method, follow t
 
 1. On the **Configure Model** page, enter the **Feature name** and check **Enable feature**.
 1. For **Find anomalies based on**, select **Field Value**.
-1. For **aggregation method**, select either `average()`, `count()`, `sum()`, `min()`, or `max()`.
-1. For **Field**, select from the available options: bytes, machine.ram, phpmemory, or memory.
+1. For **aggregation method**, select either **average()**, **count()**, **sum()**, **min()**, or **max()**.
+1. For **Field**, select from the available options.
 
 To configure an anomaly detection model based on a JSON aggregation query, follow these steps:
 1. On the **Configure Model** page, enter the **Feature name** and check **Enable feature**.
