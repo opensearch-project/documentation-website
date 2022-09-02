@@ -77,8 +77,10 @@ PUT _scripts/my-first-script
   }
 }
 ````
-The example above uses the syntax of the Dev Tools console in OpenSearch Dashboards. You can also use curl for this request as follows:
+The example above uses the syntax of the Dev Tools console in OpenSearch Dashboards. You can also use a curl request.
 {: .note }
+
+The following curl request is equivalent to the previous Dashboards console example:
 
 ````json
 curl -XPUT "http://opensearch:9200/_scripts/my-first-script" -H 'Content-Type: application/json' -d'
