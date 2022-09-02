@@ -30,7 +30,7 @@ All parameters are optional.
 | Parameter | Data Type | Description | 
 :--- | :--- | :---
 | context | String | Context in which the script or search template is to run. To prevent errors, the API immediately compiles the script or template in this context. |
-| cluster_manager_timeout | Time | Amount of time to wait for a connection to the master node. Defaults to 30 seconds. |
+| cluster_manager_timeout | Time | Amount of time to wait for a connection to the cluster manager. Defaults to 30 seconds. |
 | timeout | Time | The period of time to wait for a response. If a response is not received before the timeout value, the request fails and returns an error. Defaults to 30 seconds.|
 
 ### Request fields
@@ -44,7 +44,7 @@ All parameters are optional.
 | Field | Data Type | Description | 
 :--- | :--- | :---
 | lang | String | Scripting language. Required. |
-| source | String or Object | Required. <br />  <br /> For scripts, a string with the contents of the script. <br />  <br /> For search templates, an object that defines the search template. Supports the same parameters as the [Search API]({{site.url}}{{site.baseurl}}/opensearch/rest-api/search)'s request body. request body. Search templates also support Mustache variables. |
+| source | String or Object | Required. <br />  <br /> For scripts, a string with the contents of the script. <br />  <br /> For search templates, an object that defines the search template. Supports the same parameters as the [Search API]({{site.url}}{{site.baseurl}}/opensearch/rest-api/search)'s request body. Search templates also support Mustache variables. |
 | params | Object |  The script's or search template's parameters. |
 
 #### Sample request
@@ -96,7 +96,7 @@ See [Execute Painless stored script]({{site.url}}{{site.baseurl}}/opensearch/res
 
 #### Sample response
 
-The `PUT _scripts/my-first-script` request returns the following fields:
+The `PUT _scripts/my-first-script` request returns the following field:
 
 ````json
 {
