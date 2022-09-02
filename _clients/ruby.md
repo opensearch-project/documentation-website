@@ -11,7 +11,7 @@ The OpenSearch Ruby client allows you to interact with your OpenSearch clusters 
 
 ## Installing the Ruby client
 
-To install the RubyGem for the Ruby client, run the following command:
+To install the Ruby gem for the Ruby client, run the following command:
 
 ```bash
 gem install opensearch-ruby
@@ -72,7 +72,7 @@ The output is as follows:
 
 ## Creating an index 
 
-You don't need to create an index explicitly in OpenSearch. The mere act of you uploading a document into an index creates this index. However, you can create an index explicitly to specify settings like the number of primary and replica shards for this index. To create an index with non-default settings, create an index body hash with those settings:
+You don't need to create an index explicitly in OpenSearch. Once you upload a document into an index that does not exist, OpenSearch creates the index automatically. Alternatively, you can create an index explicitly to specify settings like the number of primary and replica shards. To create an index with non-default settings, create an index body hash with those settings:
 
 ```ruby
 index_body = {
@@ -245,7 +245,7 @@ In the above example, you pass the data and the header together and you denote t
 
 ## Searching for a document
 
-To search for a document, use the `search` method. The following example searches for a student whose first or last name is "James". It uses a `multi_match` query to search for two fields (`first_name` and `last_name`), and it is boosting the `last_name` field in relevance with a caret notation (`last_name^2`). 
+To search for a document, use the `search` method. The following example searches for a student whose first or last name is "James." It uses a `multi_match` query to search for two fields (`first_name` and `last_name`), and it is boosting the `last_name` field in relevance with a caret notation (`last_name^2`). 
 
 ```ruby
 q = 'James'
