@@ -1,26 +1,58 @@
 ---
 layout: default
-title: Set Up OpenSearch Dashboards
+title: Install OpenSearch Dashboards
 nav_order: 1
 has_children: true
 redirect_from:
   - /dashboards/install/
 ---
 
-#Setting up OpenSearch Dashboards
+#Installing OpenSearch Dashboards
 
-This section includes information on how to set up OpenSearch Dashboards and get it running, including:
+This page includes information on how to set up OpenSearch Dashboards and get it running. To run OpenSearch Dashboards, you must have a supported operating system, a supported browser, and an installed version of OpenSearch.
 
-* Installing
-* Starting
-* Configuring
-* Upgrading
+##Supported operating systems
 
-##Supported platforms
+The following operating systems are supported for OpenSearch Dashboards installation:
+
+* Debian/Ubuntu
+* Linux
+
+While OpenSearch should work on most Linux distributions, we recommend Red Hat Enterprise Linux (RHEL), CentOS, and Amazon Linux 2. 
+
+You can find more information on the [Compatibility](../../_opensearch/install/compatibility.md) page.
+
+##Supported browsers
+
+OpenSearch Dashboards is suuported in the latest two versions of the following web browsers. Older versions might not be supported, so you should upgrade to the latest version when using OpenSearch dashboards. 
+
+* Chrome
+* Firefox
+* Safari
+* Microsoft Edge
+
+#Installing OpenSearch Dashboards
+
+The best way to use OpenSearch Dashboards is with Docker Compose. The following walks you through installing Docker.  
+
+For information on tarball and :
+
+* Docker
+* Tarball
+* Helm
+
+#Starting OpenSearch Dashboards
+
+#Verifying the Dashboards Installation
+
+Review the XYZ to verify the installer did not encounter any problems. Enter the following commands:
+
+insert image 
+
+This will confirm OpenSearch Dashboards installation was successful.
 
 
-# Install OpenSearch Dashboards
+#Configuring OpenSearch Dashboards
 
-OpenSearch Dashboards has three installation options at this time: Docker images, tarballs, and Helm charts.
+#Upgrading OpenSearch Dashboards
 
-Configure 
