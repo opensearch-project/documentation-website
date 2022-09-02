@@ -77,6 +77,18 @@ PUT _scripts/my-first-script
   }
 }
 ````
+The example above uses the syntax of the Dev Tools console in OpenSearch Dashboards. You can also use curl for this request as follows:
+{: .note }
+
+````json
+curl -XPUT "http://opensearch:9200/_scripts/my-first-script" -H 'Content-Type: application/json' -d'
+{
+  "script": {
+      "lang": "painless",
+      "source": "\n          int total = 0;\n          for (int i = 0; i < doc['\''ratings'\''].length; ++i) {\n            total += doc['\''ratings'\''][i];\n          }\n          return total;\n        "
+  }
+}'
+````
 
 See [Execute Painless stored script]({{site.url}}{{site.baseurl}}/opensearch/rest-api/_script-apis/exec-stored-script) for information about running the script.
 

@@ -27,15 +27,15 @@ Path parameters are optional.
 
 #### Sample request
 
-The following request deletes the `books` index.:
+The following request deletes the `my-first-script` script:
 
 ````json
-DELETE /books
+DELETE _scripts/my-script
 ````
 
 #### Sample response
 
-The `DELETE /books` request returns the following field:
+The `DELETE _scripts/my-first-script` request returns the following field:
 
 ````json
 {
@@ -51,4 +51,4 @@ The <HTTP METHOD> <endpoint> request returns the following response fields:
 
 | Field | Data Type | Description | 
 :--- | :--- | :---
-| acknowledged | Boolean | Whether the request was received. |
+| acknowledged | Boolean | Whether the delete script request was received. |

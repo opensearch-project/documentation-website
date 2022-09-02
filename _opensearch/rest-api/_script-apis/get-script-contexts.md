@@ -547,7 +547,7 @@ The `GET _script_context` request returns the following fields:
 
 ### Response fields
 
-The `GET _scripts/my-script` request returns the following response fields:
+The `GET _scripts/my-first-script` request returns the following response fields:
 
 | Field | Data Type | Description | 
 :--- | :--- | :---
@@ -564,7 +564,7 @@ The `GET _scripts/my-script` request returns the following response fields:
 
 | Field | Data Type | Description | 
 :--- | :--- | :---
-| name | String | Mthod name. |
+| name | String | Method name. |
 | name | String | Type that the method returns (`boolean`, `object`, `number`, and so on). |
 | params | List | List of the parameters accepted by the method. See [Script object](#method-parameters). |
 
