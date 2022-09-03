@@ -13,27 +13,16 @@ redirect_from:
 
 # What is OpenSearch Dashboards?
 
-OpenSearch Dashboards is an open-source analytics and search application that gives you an overview of the reports and metrics you care about most. It displays multiple visualizations that work together on a single screen, giving you a centralized and comprehensive view of your data and providing key insights for at-a-glance decision-making.
+OpenSearch Dashboards is the default visualization tool for data in OpenSearch. It also serves as a user interface for many of the OpenSearch plugins, including security, alerting, Index State Management, SQL, and more.
 
-![Sample visualization screenshot](../images/what-is-dashboards.jpg)
+![Sample dashboards](../images/dashboards-example.png)
 
-OpenSearch Dashboards allows you to create several types of dashboards for many different purposes. Some of the ways you can use OpenSearch Dashboards include the following:  
-
-* See an all-in-one view of the data you need to make informed decisions.
-* Search, explore, filter, aggregate, and visualize your data in near real time.
-* Track and monitor the most important information about your day-to-day operations. 
-* Schedule, export, and share reports from dashboards, saved searches, alerts, and visualizations. 
-
-OpenSearch Dashboards is designed to be easily used and understood by a variety of users both within and outside your organization, such as business analysts, senior executives, engineering managers, and operations managers.  
-
-## Try OpenSearch Dashboards
-You can try OpenSearch Dashboards' features in the [OpenSearch Dashboards Playground](_https://playground.opensearch.org/app/home_).
+# Try OpenSearch Dashboards
+You can try OpenSearch Dashboards' features in the [OpenSearch Dashboards Playground](https://playground.opensearch.org/app/home).
 
 Choose **OpenSearch Dashboards > Dashboards > Create dashboard** and explore the sample Global Flight, Web Traffic, and Revenue dashboards.
 
-![Create dashboard screenshot](../images/create-dashboards.png)
-
-## OpenSearch Dashboards for your use case
+# OpenSearch Dashboards for your use case
 
 <table>
 <thead>
@@ -50,27 +39,31 @@ Choose **OpenSearch Dashboards > Dashboards > Create dashboard** and explore the
 </tbody>
 </table>
 
-## Installing OpenSearch Dashboards
+# Install OpenSearch Dashboards
 
 The basic installation of Dashboards includes the following features:
 - [Discover](https://github.com/opensearch-project/documentation-website/issues/991): Lets you see the OpenSearch data.
 - [Visualize](https://github.com/opensearch-project/documentation-website/issues/992): Lets you create visualizations for the data.
 - [Dashboard](https://github.com/opensearch-project/documentation-website/issues/941): Displays multiple visualizations on a dashboard.
 
-The default installation of Dashboards includes a full suite of [OpenSearch plugin]({{site.url}}{{site.baseurl}}/) features that lets you monitor events, identify trends, and automate recurring activities.
+The default installation of Dashboards includes a full suite of [OpenSearch plugin](https://opensearch.org/docs/latest/dashboards/install/plugins/) features that lets you monitor events, identify trends, and automate recurring activities.
 
-For more information, see [OpenSearch Installation Instructions]({{site.url}}{{site.baseurl}}/).
+For more information, see [OpenSearch Installation Instructions](https://opensearch.org/docs/latest/opensearch/install/index/).
 
-## Create a dashboard using sample data*
-Use the following steps to create a dashboard using sample data. Your dashboard may look different than the examples below.
-1. Open OpenSearch Dashboards in the OpenSearch Dashboards Playground.
-2. Select **Add sample data**, and select **Add data.**  
-3. Choose **Discover** and search for a few flights.
+# Create a dashboard using sample data*
+
+Use the following steps to create a dashboard using sample data. 
+
+1. After installing OpenSearch Dashboards, open it at [http://localhost:5601](http://localhost:5601/app/home#/).
+2. Select **Add sample data**, and select **Add data** for the sample  flight data dataset. 
+3. From the top menu, choose **Discover** and search for a few flights.
 4. Choose **Dashboard**, **[Flights]** Global Flight Dashboard.
 5.  Click the **Save** icon left of the **Search** field to save the dashboard.
 6.  Add a descriptive name, and then click **Save.**
 
-You have created your dashboard, and it is displaying results.
+Your dashboard will look different than the example below.
 
-## Compatibility with Elasticsearch
-You can use OpenSearch Dashboards with an Elasticsearch backend 7.10 or lower. Elastic users may benefit from Dashboards' additional functionality provided by a growing ecosystem of OpenSearch plugins. For more information, see the [_feature comparison of Opensearch Dashboards and Kibana_](_{{site.url}}{{site.baseurl}}_).  See [_Upgrade from Kibana OSS to OpenSearch Dashboards_](_{{site.url}}{{site.baseurl}}/upgrade-to/dashboards-upgrade-to_) for instructions to switch to OpenSearch Dashboards.
+![Sample dashboard using flight sample data](../images/flight-dashboards.png)
+
+# Compatibility with Elasticsearch
+You can use OpenSearch Dashboards with an Elasticsearch backend 7.10 or lower. Elastic users may benefit from Dashboards' additional functionality provided by a growing ecosystem of OpenSearch plugins. For more information, see the [feature comparison of Opensearch Dashboards and Kibana](_{{site.url}}{{site.baseurl}}_). See [Upgrade from Kibana OSS to OpenSearch Dashboards](https://opensearch.org/docs/latest/upgrade-to/dashboards-upgrade-to/) for instructions to switch to OpenSearch Dashboards.
