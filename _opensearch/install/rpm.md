@@ -119,7 +119,7 @@ YUM, an RPM package management tool, allows you to pull the RPM package from the
 
    ```bash
    curl -XGET https://localhost:9200 -u 'admin:admin' --insecure
-   curl -XGET https://localhost:9200/_cat/config?v -u 'admin:admin' --insecure
+   curl -XGET https://localhost:9200/_cat/plugins?v -u 'admin:admin' --insecure
    ```
 
 3. To stop running OpenSearch, enter:
