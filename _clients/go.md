@@ -11,7 +11,7 @@ The OpenSearch Go client lets you connect your Go application with the data in y
 
 ## Setup
 
-If you're starting a new project, create a new module by running:
+If you're starting a new project, create a new module by running the following command:
 
 ```go
 go mod init <mymodulename>
@@ -24,7 +24,7 @@ go get github.com/opensearch-project/opensearch-go
 ```
 ## Connecting to OpenSearch
 
-To connect to the default OpenSearch host, create a client object as follows:
+To connect to the default OpenSearch host, create a client object with the address `https://localhost:9200` if you are using the Security plugin:  
 
 ```go
 client, err := opensearch.NewClient(opensearch.Config{
@@ -34,7 +34,17 @@ client, err := opensearch.NewClient(opensearch.Config{
         Addresses: []string{"https://localhost:9200"},
         Username:  "admin", // For testing only. Don't store credentials in code.
         Password:  "admin",
-        RetryOnStatus: []int{429, 502, 503, 504},
+    })
+```
+
+If you are not using the Security plugin, create a client object with the address `http://localhost:9200`:
+
+```go
+client, err := opensearch.NewClient(opensearch.Config{
+        Transport: &http.Transport{
+            TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+        },
+        Addresses: []string{"http://localhost:9200"},
     })
 ```
 
@@ -55,7 +65,7 @@ client, err := opensearch.NewClient(opensearch.Config{
 })
 ```
 
-The Go client retries requests for a maximum of three times by default. To customize the number of retries, set the `MaxRetries` parameter. Additionally, you can change the list of response codes for which a request is retried by setting the `RetryOnStatus` parameter. 
+The Go client retries requests for a maximum of three times by default. To customize the number of retries, set the `MaxRetries` parameter. Additionally, you can change the list of response codes for which a request is retried by setting the `RetryOnStatus` parameter. The following code snippet creates a new Go client with custom `MaxRetries` and `RetryOnStatus` values: 
 
 ```go
 client, err := opensearch.NewClient(opensearch.Config{
@@ -70,7 +80,7 @@ client, err := opensearch.NewClient(opensearch.Config{
 
 ## Creating an index
 
-To create an OpenSearch index, use the `IndicesCreateRequest` method. You can construct a JSON object with custom settings as follows:
+To create an OpenSearch index, use the `IndicesCreateRequest` method. You can use the following code to construct a JSON object with custom settings :
 
 ```go
 settings := strings.NewReader(`{
@@ -90,7 +100,7 @@ res := opensearchapi.IndicesCreateRequest{
 
 ## Indexing a document
 
-You can index a document into OpenSearch as follows:
+You can index a document into OpenSearch using the `IndexRequest` method:
 
 ```go
 document := strings.NewReader(`{
@@ -150,7 +160,7 @@ searchResponse, err := search.Do(context.Background(), client)
 
 ## Deleting a document
 
-You can delete a document as follows:
+You can delete a document using the `DeleteRequest` method:
 
 ```go
 delete := opensearchapi.DeleteRequest{
@@ -163,7 +173,7 @@ deleteResponse, err := delete.Do(context.Background(), client)
 
 ## Deleting an index
 
-You can delete an index as follows:
+You can delete an index using the `IndicesDeleteRequest` method:
 
 ```go
 deleteIndex := opensearchapi.IndicesDeleteRequest{
@@ -175,7 +185,7 @@ deleteIndexResponse, err := deleteIndex.Do(context.Background(), client)
 
 ## Sample program
 
-This sample program creates a client, adds an index with non-default settings, inserts a document, performs bulk operations, searches for the document, deletes the document, and finally deletes the index:
+This sample program creates a client, adds an index with non-default settings, inserts a document, performs bulk operations, searches for the document, deletes the document, and, finally, deletes the index:
 
 ```go
 package main
