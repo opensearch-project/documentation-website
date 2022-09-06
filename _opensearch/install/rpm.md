@@ -7,9 +7,34 @@ nav_order: 51
 
 # RPM
 
-The RPM Package Manager (RPM) installation provides everything you need to run OpenSearch inside Red Hat or Red Hat-based Linux Distributions.  
+Installing OpenSearch using the RPM Package Manager (RPM) distribution simplifies the process considerably when compared to the [Tarball]({{site.url}}{{site.baseurl}}/opensearch/install/tar/) method. Several technical considerations, such as the installation path and the creation of a service managed by `systemd`, as examples, are handled automatically during installation.
 
-RPM supports CentOS 7 and 8, and Amazon Linux 2. If you have your own Java installation and set `JAVA_HOME` in your terminal application, macOS works, as well.
+Generally speaking, installing OpenSearch from the RPM distribution can be broken down into a few steps:
+
+1. **Download and install OpenSearch.**
+1. **Configure important system settings.**
+   - These settings are applied to the host before modifying any OpenSearch files.
+1. **(Optional) Test OpenSearch.**
+   - Confirm that OpenSearch is able to run before you apply any custom configuration.
+   - This can be done without any security (no password, no certificates) or with a demo security configuration that can be applied by a packaged script.
+1. **Configure OpenSearch for your environment.**
+   -  Apply basic settings to OpenSearch and start using it in your environment.
+
+The RPM distribution provides everything you need to run OpenSearch inside Red Hat or Red Hat-based Linux Distributions, such as supported CentOS and RHEL versions, and Amazon Linux 2. If you have your own Java installation and set `JAVA_HOME` in your terminal application, macOS works, as well.
+
+
+This guide assumes that you are comfortable working from the Linux command line interface (CLI). You should understand how to input commands, navigate between directories, and edit text files. Some example commands reference the `vi` text editor, but you may use any text editor available.
+{:.note}
+
+
+
+
+
+
+
+
+
+
 
 There are two methods for installing OpenSearch on RPM: 
 
@@ -164,26 +189,6 @@ To upgrade to the latest version of OpenSearch with YUM, use `sudo yum update`. 
 
 {% comment %}
 
-
-# Tarball
-
-Installing OpenSearch from a tarball, also known as a tar archive, may appeal to users who want granular control over installation details like file permissions and installation paths.
-
-Generally speaking, the installation of OpenSearch from a tarball can be broken down into a few steps:
-
-1. **Download and unpack OpenSearch.**
-1. **Configure important system settings.**
-   - These settings are applied to the host before modifying any OpenSearch files.
-1. **(Optional) Test OpenSearch.**
-   - Confirm that OpenSearch is able to run before you apply any custom configuration.
-   - This can be done without any security (no password, no certificates) or with a demo security configuration that can be applied by a packaged script.
-1. **Configure OpenSearch for your environment.**
-   -  Apply basic settings to OpenSearch and start using it in your environment.
-
-The tarball is a self-contained directory with everything needed to run OpenSearch, including an integrated Java Development Kit (JDK). This installation method is compatible with most Linux distributions, including CentOS 7, Amazon Linux 2, and Ubuntu 18.04. If you have your own Java installation and set the environment variable `JAVA_HOME` in the terminal, macOS works as well.
-
-This guide assumes that you are comfortable working from the Linux command line interface (CLI). You should understand how to input commands, navigate between directories, and edit text files. Some example commands reference the `vi` text editor, but you may use any text editor available.
-{:.note}
 
 ## Step 1: Download and unpack OpenSearch
 
