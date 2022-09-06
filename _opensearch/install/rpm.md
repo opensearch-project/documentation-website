@@ -7,7 +7,7 @@ nav_order: 51
 
 # RPM
 
-Installing OpenSearch using the RPM Package Manager (RPM) distribution simplifies the process considerably when compared to the [Tarball]({{site.url}}{{site.baseurl}}/opensearch/install/tar/) method. Several technical considerations, such as the installation path and the creation of a service managed by `systemd`, as examples, are handled automatically during installation.
+Installing OpenSearch using RPM Package Manager (RPM) simplifies the process considerably compared to the [Tarball]({{site.url}}{{site.baseurl}}/opensearch/install/tar/) method. Several technical considerations, such as the installation path, location of configuration files, and the creation of a service managed by `systemd`, as examples, are handled automatically by the package manager.
 
 Generally speaking, installing OpenSearch from the RPM distribution can be broken down into a few steps:
 
@@ -21,7 +21,6 @@ Generally speaking, installing OpenSearch from the RPM distribution can be broke
    -  Apply basic settings to OpenSearch and start using it in your environment.
 
 The RPM distribution provides everything you need to run OpenSearch inside Red Hat or Red Hat-based Linux Distributions, such as supported CentOS and RHEL versions, and Amazon Linux 2. If you have your own Java installation and set `JAVA_HOME` in your terminal application, macOS works, as well.
-
 
 This guide assumes that you are comfortable working from the Linux command line interface (CLI). You should understand how to input commands, navigate between directories, and edit text files. Some example commands reference the `vi` text editor, but you may use any text editor available.
 {:.note}
@@ -188,26 +187,6 @@ To upgrade to the latest version of OpenSearch with YUM, use `sudo yum update`. 
 
 
 {% comment %}
-
-
-## Step 1: Download and unpack OpenSearch
-
-1. Download the appropriate tar.gz archive from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'} or by using the command line (such as with `wget`).
-   ```bash
-   # x64
-   wget https://artifacts.opensearch.org/releases/bundle/opensearch/{{site.opensearch_version}}/opensearch-{{site.opensearch_version}}-linux-x64.tar.gz
-
-   # ARM64
-   wget https://artifacts.opensearch.org/releases/bundle/opensearch/{{site.opensearch_version}}/opensearch-{{site.opensearch_version}}-linux-arm64.tar.gz
-   ```
-1. Extract the contents of the tarball.
-   ```bash
-   # x64
-   tar -xvf opensearch-{{site.opensearch_version}}-linux-x64.tar.gz
-   
-   # ARM64
-   tar -xvf opensearch-{{site.opensearch_version}}-linux-arm64.tar.gz
-   ```
 
 ## Step 2: Configure important system settings
 
