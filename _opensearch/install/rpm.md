@@ -12,6 +12,7 @@ Installing OpenSearch using RPM Package Manager (RPM) simplifies the process con
 Generally speaking, installing OpenSearch from the RPM distribution can be broken down into a few steps:
 
 1. **Download and install OpenSearch.**
+   - Installation is accomplished using either the RPM or YUM package manager.
 1. **Configure important system settings.**
    - These settings are applied to the host before modifying any OpenSearch files.
 1. **(Optional) Test OpenSearch.**
@@ -25,30 +26,15 @@ The RPM distribution provides everything you need to run OpenSearch inside Red H
 This guide assumes that you are comfortable working from the Linux command line interface (CLI). You should understand how to input commands, navigate between directories, and edit text files. Some example commands reference the `vi` text editor, but you may use any text editor available.
 {:.note}
 
+## Download and install OpenSearch
 
+1. Download the RPM package directly from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'}. Packages are available for both the `x64` and `arm64` architectures.
 
-
-
-
-
-
-
-
-
-There are two methods for installing OpenSearch on RPM: 
-
-## Manual method
-
-
-1. Download the RPM package directly from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'}. The RPM package can be download both as `x64` and `arm64`. 
-
-2. Import the public GPG key. This key verifies that the your OpenSearch instance is signed.
-
+1. Import the public GPG key. This key verifies that the your OpenSearch instance is signed.
    ```bash
    sudo rpm --import https://artifacts.opensearch.org/publickeys/opensearch.pgp
    ```
-
-3. On your host, use `sudo yum install` or `sudo rpm -ivh` to install the package. 
+1. On your host, use `sudo yum install` or `sudo rpm -ivh` to install the package. 
 
    **x64**
 
