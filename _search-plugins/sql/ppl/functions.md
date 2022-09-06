@@ -1,69 +1,14 @@
 ---
 layout: default
 title: Commands
-parent: Piped processing language
-nav_order: 4
+parent: PPL - Piped Processing Language
+grand_parent: SQL & PPL
+nav_order: 2
 ---
-
 
 # Commands
 
-Start a PPL query with a `search` command to reference a table to search from. You can have the commands that follow in any order.
-
-In the following example, the `search` command refers to an `accounts` index as the source, then uses `fields` and `where` commands for the conditions:
-
-```sql
-search source=accounts
-| where age > 18
-| fields firstname, lastname
-```
-
-In the below examples, we represent required arguments in angle brackets `< >` and optional arguments in square brackets `[ ]`.
-{: .note }
-
-## search
-
-Use the `search` command to retrieve a document from an index. You can only use the `search` command as the first command in the PPL query.
-
-### Syntax
-
-```sql
-search source=<index> [boolean-expression]
-```
-
-Field | Description | Required
-:--- | :--- |:---
-`search` | Specify search keywords. | Yes
-`index` | Specify which index to query from. | No
-`bool-expression` | Specify an expression that evaluates to a boolean value. | No
-
-*Example 1*: Get all documents
-
-To get all documents from the `accounts` index:
-
-```sql
-search source=accounts;
-```
-
-| account_number | firstname | address | balance | gender | city | employer | state | age | email | lastname |
-:--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :---
-| 1  | Amber  | 880 Holmes Lane | 39225 | M | Brogan | Pyrami | IL | 32 | amberduke@pyrami.com  | Duke
-| 6  | Hattie | 671 Bristol Street | 5686 | M | Dante | Netagy | TN | 36  | hattiebond@netagy.com | Bond
-| 13 | Nanette | 789 Madison Street | 32838 | F | Nogal | Quility | VA | 28 | null | Bates
-| 18 | Dale  | 467 Hutchinson Court | 4180 | M | Orick | null | MD | 33 | daleadams@boink.com | Adams
-
-*Example 2*: Get documents that match a condition
-
-To get all documents from the `accounts` index that have either `account_number` equal to 1 or have `gender` as `F`:
-
-```sql
-search source=accounts account_number=1 or gender=\"F\";
-```
-
-| account_number | firstname | address | balance | gender | city | employer | state | age | email | lastname |
-:--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :---
-| 1 | Amber | 880 Holmes Lane | 39225 | M | Brogan | Pyrami | IL | 32 | amberduke@pyrami.com | Duke |
-| 13 | Nanette | 789 Madison Street | 32838 | F | Nogal | Quility | VA | 28 | null | Bates |
+`PPL` supports all [`SQL` common]({{site.url}}{{site.baseurl}}/search-plugins/sql/functions/) functions, including [relevance search]({{site.url}}{{site.baseurl}}/search-plugins/sql/full-text/), but also introduces few more functions (called `commands`) which are available in `PPL` only.
 
 ## dedup
 
@@ -743,100 +688,11 @@ search source=accounts | top 1 age by gender;
 
 The `top` command is not rewritten to OpenSearch DSL, it is only executed on the coordination node.
 
-## match
-
-Use the `match` command to search documents that match a `string`, `number`, `date`, or `boolean` value for a given field.
-
-### Syntax
-
-```sql
-match(field_expression, query_expression[, option=<option_value>]*)
-```
-
-You can specify the following options: 
-
-- `analyzer`
-- `auto_generate_synonyms_phrase`
-- `fuzziness`
-- `max_expansions`
-- `prefix_length`
-- `fuzzy_transpositions`
-- `fuzzy_rewrite`
-- `lenient`
-- `operator`
-- `minimum_should_match`
-- `zero_terms_query`
-- `boost`
-
-*Example 1*: Search the `message` field:
-
-```json
-GET my_index/_search
-{
-  "query": {
-    "match": {
-      "message": "this is a test"
-    }
-  }
-}
-```
-
-PPL query:
-
-```sql
-search source=my_index | match field=message query="this is a test"
-```
-
-*Example 2*: Search the `message` field with the `operator` parameter:
-
-```json
-GET my_index/_search
-{
-  "query": {
-    "match": {
-      "message": {
-        "query": "this is a test",
-        "operator": "and"
-      }
-    }
-  }
-}
-```
-
-PPL query:
-
-```sql
-search source=my_index | match field=message query="this is a test" operator=and
-```
-
-*Example 3*: Search the `message` field with the `operator` and `zero_terms_query` parameters:
-
-```json
-GET my_index/_search
-{
-  "query": {
-    "match": {
-      "message": {
-        "query": "to be or not to be",
-        "operator": "and",
-        "zero_terms_query": "all"
-      }
-    }
-  }
-}
-```
-
-PPL query:
-
-```ppl
-search source=my_index | where match(message, "this is a test", operator=and, zero_terms_query=all)
-```
-
 ## ad
 
-The `ad` command applies the Random Cut Forest (RCF) algorithm in the ML Commons plugin on the search result returned by a PPL command. Based on the input, the plugin uses two types of RCF algorithms: fixed in time RCF for processing time-series data and batch RCF for processing non-time-series data.
+The `ad` command applies the Random Cut Forest (RCF) algorithm in the [ML Commons plugin]({{site.url}}{{site.baseurl}}/ml-commons-plugin/index/) on the search result returned by a PPL command. Based on the input, the plugin uses two types of RCF algorithms: fixed in time RCF for processing time-series data and batch RCF for processing non-time-series data.
 
-### Fixed In Time RCF For Time-series Data Command Syntax
+### Syntax: Fixed In Time RCF For Time-series Data Command
 
 ```sql
 ad <shingle_size> <time_decay> <time_field>
@@ -848,7 +704,7 @@ Field | Description | Required
 `time_decay` | Specifies how much of the recent past to consider when computing an anomaly score. The default value is 0.001. | No
 `time_field` | Specifies the time filed for RCF to use as time-series data. Must be either a long value, such as the timestamp in miliseconds, or a string value in "yyyy-MM-dd HH:mm:ss".| Yes
 
-### Batch RCF for Non-time-series Data Command Syntax
+### Syntax: Batch RCF for Non-time-series Data Command
 
 ```sql
 ad <shingle_size> <time_decay>
@@ -889,7 +745,7 @@ value | score | anomalous
 
 The kmeans command applies the ML Commons plugin's kmeans algorithm to the provided PPL command's search results.
 
-## Syntax
+### Syntax
 
 ```sql
 kmeans <cluster-number>

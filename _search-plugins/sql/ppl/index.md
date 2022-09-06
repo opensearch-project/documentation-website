@@ -1,14 +1,17 @@
 ---
 layout: default
-title: Piped processing language
-nav_order: 40
+title: PPL - Piped Processing Language
+parent: SQL & PPL
+nav_order: 5
 has_children: true
 has_toc: false
 redirect_from:
-  - /search-plugins/ppl/
+  - /search-plugins/sql/ppl
+  - /search-plugins/ppl
+  - /observability-plugin/ppl
 ---
 
-# Piped Processing Language
+# PPL - Piped Processing Language
 
 Piped Processing Language (PPL) is a query language that lets you use pipe (`|`) syntax to explore, discover, and query data stored in OpenSearch.
 
@@ -42,7 +45,7 @@ Go to **Query Workbench** and select **PPL**.
 
 The following example returns `firstname` and `lastname` fields for documents in an `accounts` index with `age` greater than 18:
 
-```json
+```sql
 search source=accounts
 | where age > 18
 | fields firstname, lastname

@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Functions
-parent: SQL
+parent: SQL & PPL
 nav_order: 10
 ---
 
@@ -12,7 +12,7 @@ You must enable fielddata in the document mapping for most string functions to w
 The specification shows the return type of the function with a generic type `T` as the argument.
 For example, `abs(number T) -> T` means that the function `abs` accepts a numerical argument of type `T`, which could be any sub-type of the `number` type, and it returns the actual type of `T` as the return type.
 
-The SQL plugin supports the following functions.
+The SQL plugin supports the following common functions shared across `SQL` and `PPL` languages.
 
 ## Mathematical
 
@@ -131,3 +131,7 @@ Function | Specification | Example
 if | `if(boolean, es_type, es_type) -> es_type` | `SELECT if(false, 0, 1) FROM my-index LIMIT 1`, `SELECT if(true, 0, 1) FROM my-index LIMIT 1`
 ifnull | `ifnull(es_type, es_type) -> es_type` | `SELECT ifnull('hello', 1) FROM my-index LIMIT 1`, `SELECT ifnull(null, 1) FROM my-index LIMIT 1`
 isnull | `isnull(es_type) -> integer` | `SELECT isnull(null) FROM my-index LIMIT 1`, `SELECT isnull(1) FROM my-index LIMIT 1`
+
+## Relevance Based Search (Full-Text Search)
+
+These functions are only available in the `WHERE` clause. Their description and usage examples in SQL and PPL can be found on [full-text queries page]({{site.url}}{{site.baseurl}}/search-plugins/sql/full-text/).

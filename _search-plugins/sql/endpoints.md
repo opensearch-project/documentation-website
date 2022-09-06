@@ -1,8 +1,8 @@
 ---
 layout: default
 title: Endpoint
-parent: SQL
-nav_order: 13
+parent: SQL & PPL
+nav_order: 1
 ---
 
 
@@ -16,20 +16,6 @@ is recommended because it doesn't have length limitation and allows for
 other parameters passed to plugin for other functionality such as
 prepared statement. And also the explain endpoint is used very often for
 query translation and troubleshooting.
-
-## GET
-
-### Description
-
-You can send HTTP GET request with your query embedded in URL parameter.
-
-### Example
-
-SQL query:
-
-```console
->> curl -H 'Content-Type: application/json' -X GET localhost:9200/_plugins/_sql?sql=SELECT * FROM accounts
-```
 
 ## POST
 
@@ -51,10 +37,8 @@ SQL query:
 
 ### Description
 
-To translate your query, send it to explain endpoint. The explain output
-is OpenSearch domain specific language (DSL) in JSON format. You can
-just copy and paste it to your console to run it against OpenSearch
-directly.
+The SQL & PPL plugin has an `explain` feature that shows how a query would be executed against OpenSearch, which is useful for debugging and development. A `POST` request to `_plugins/_sql/_explain` or `_plugins/_ppl/_explain` endpoints will return OpenSearch domain specific language (DSL) in JSON format explaining the query.
+The plugin would translate the query into OpenSearch Domain Specific Language (`DSL`) in `JSON` format. It could be executed on REST API using `curl` or in Dashboards Console.
 
 ### Example
 
@@ -66,45 +50,15 @@ Explain query:
 }'
 ```
 
-Explain:
+An explain query could be used for `PPL` as well:
 
-```json
-{
-  "from": 0,
-  "size": 200,
-  "query": {
-    "bool": {
-      "filter": [{
-        "bool": {
-          "must": [{
-            "range": {
-              "age": {
-                "from": 20,
-                "to": null,
-                "include_lower": false,
-                "include_upper": true,
-                "boost": 1.0
-              }
-            }
-          }],
-          "adjust_pure_negative": true,
-          "boost": 1.0
-        }
-      }],
-      "adjust_pure_negative": true,
-      "boost": 1.0
-    }
-  },
-  "_source": {
-    "includes": [
-      "firstname",
-      "lastname"
-    ],
-    "excludes": []
-  }
-}
+```console
+>> curl -H 'Content-Type: application/json' -X POST localhost:9200/_plugins/_ppl/_explain -d '{
+  "query" : "source=accounts | fields firstname, lastname"
+}'
 ```
 
+For queries that require post-processing, the `explain` response includes a query plan in addition to the OpenSearch DSL. For those queries that don't require post processing, you can see a complete DSL.
 
 ## Cursor
 

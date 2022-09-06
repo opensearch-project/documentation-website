@@ -1,13 +1,13 @@
 ---
 layout: default
-title: SQL CLI
-parent: SQL
-nav_order: 2
+title: SQL & PPL CLI
+parent: SQL & PPL
+nav_order: 3
 ---
 
-# SQL CLI
+# SQL & PPL CLI
 
-SQL CLI is a stand-alone Python application that you can launch with the `opensearchsql` command.
+CLI is a stand-alone Python application that you can launch with the `opensearchsql` command.
 
 Install the SQL plugin to your OpenSearch instance, run the CLI using MacOS or Linux, and connect to any valid OpenSearch end-point.
 
@@ -15,9 +15,10 @@ Install the SQL plugin to your OpenSearch instance, run the CLI using MacOS or L
 
 ## Features
 
-SQL CLI has the following features:
+CLI has the following features:
 
 - Multi-line input
+- PPL support
 - Autocomplete for SQL syntax and index names
 - Syntax highlighting
 - Formatted output:
@@ -33,26 +34,16 @@ SQL CLI has the following features:
 
 Launch your local OpenSearch instance and make sure you have the SQL plugin installed.
 
-To install the SQL CLI:
-
-1. We suggest you install and activate a python3 virtual environment to avoid changing your local environment:
-```
-pip install virtualenv
-virtualenv venv
-cd venv
-source ./bin/activate
-```
-
-2. Install the CLI:
-```
+1. Install the CLI:
+```console
 pip3 install opensearchsql
 ```
 
 The SQL CLI only works with Python 3.
 {: .note }
 
-3. To launch the CLI, run:
-```
+2. To launch the CLI, run:
+```console
 opensearchsql https://localhost:9200 --username admin --password admin
 ```
 By default, the `opensearchsql` command connects to http://localhost:9200.
@@ -71,25 +62,38 @@ For a list of all available configurations, see [clirc](https://github.com/opens
 
 ## Using the CLI
 
-1. Save the sample [accounts test data](https://github.com/opensearch-project/sql/blob/main/doctest/test_data/accounts.json) file.
+1. Run the CLI tool. If your cluster runs with the default security settings, use the following command:
+```console
+opensearchsql --username admin --password admin https://localhost:9200
+```
+If your cluster runs without security, run:
+```console
+opensearchsql
+```
 
-1. Index the sample data.
-```
-curl -H "Content-Type: application/x-ndjson" -POST https://localhost:9200/data/_bulk -u 'admin:admin' --insecure --data-binary "@accounts.json"
-```
-
-1. Run a sample SQL command:
-```
+2. Run a sample SQL command:
+```sql
 SELECT * FROM accounts;
 ```
 
 By default, you see a maximum output of 200 rows. To show more results, add a `LIMIT` clause with the desired value.
 
+## Using the CLI with PPL
+
+1. Run CLI by specifying query language:
+```console
+opensearchsql -l ppl <params>
+```
+
+2. Execute a PPL query:
+```sql
+source=accounts | fields firstname, lastname
+```
+
 ## Query options
 
-Run a single query with the following options:
+Run a single query with the following command line options:
 
-- `--help`: Help page for options
 - `-q`: Follow by a single query
 - `-f`: Specify JDBC or raw format output
 - `-v`: Display data vertically
@@ -97,6 +101,7 @@ Run a single query with the following options:
 
 ## CLI options
 
+- `--help`: Help page for options
 - `-l`: Query language option. Available options are `sql` and `ppl`. Default is `sql`
 - `-p`: Always use pager to display output
 - `--clirc`: Provide path for the configuration file
