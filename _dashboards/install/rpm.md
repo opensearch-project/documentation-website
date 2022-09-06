@@ -9,32 +9,42 @@ nav_order: 31
 
 OpenSearch Dashboards is the default visualization tool for data in OpenSearch. It also serves as a user interface for many of the OpenSearch plugins, including security, alerting, Index State Management, SQL, and more.
 
-1. Download the RPM package directly from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'}. The RPM package can be download for both `x64` and `arm64` architectures.
+## Install OpenSearch Dashboards from a downloaded package
+
+1. Download the RPM package directly from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'}. The RPM package can be download for both **x64** and **arm64** architectures.
 1. Import the public GPG key. This key verifies that the your OpenSearch instance is signed.
-   ```bash
-   sudo rpm --import https://artifacts.opensearch.org/publickeys/opensearch.pgp
-   ```
-1. On your host, use `sudo yum install` or `sudo rpm -ivh` to install the package.
+    ```bash
+    sudo rpm --import https://artifacts.opensearch.org/publickeys/opensearch.pgp
+    ```
+1. From the command line interface (CLI), you can install the package with `rpm` or `yum`.
     **x64**
     ```bash
-    # Install the package using yum.
+    # Install the x64 package using yum.
     sudo yum install opensearch-dashboards-{{site.opensearch_version}}-linux-x64.rpm
-
-    # Install the package using rpm.
+    # Install the x64 package using rpm.
     sudo rpm -ivh opensearch-dashboards-{{site.opensearch_version}}-linux-x64.rpm
     ```
     **arm64**
     ```bash
-    # Install the package using yum.
+    # Install the arm64 package using yum.
     sudo yum install opensearch-dashboards-{{site.opensearch_version}}-linux-arm64.rpm
-
-    # Install the package using rpm.
+    # Install the arm64 package using rpm.
     sudo rpm -ivh opensearch-dashboards-{{site.opensearch_version}}-linux-arm64.rpm
     ```
+1. Enable OpenSearch Dashboards as a service.
+    ```bash
+    sudo systemctl enable opensearch-dashboards
+    ```
+1. Start OpenSearch Dashboards.
+    ```bash
+    sudo systemctl start opensearch-dashboards
+    ```
+1. Verify that OpenSearch Dashboards launched correctly.
+    ```bash
+    sudo systemctl status opensearch-dashboards
+    ```
 
-    Once complete, you can run OpenSearch Dashboards inside your distribution.
-
-## YUM method
+## Install OpenSearch Dashboards from a local YUM repository
 
 YUM, the primary package management tool for Red Hat-based operating systems, allows you to download and install the RPM package from the YUM repository library. 
 
