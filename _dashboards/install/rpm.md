@@ -11,8 +11,8 @@ OpenSearch Dashboards is the default visualization tool for data in OpenSearch. 
 
 ## Install OpenSearch Dashboards from a downloaded package
 
-1. Download the RPM package directly from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'}. The RPM package can be download for both **x64** and **arm64** architectures.
-1. Import the public GPG key. This key verifies that the your OpenSearch instance is signed.
+1. Download the RPM package for the desired version directly from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'}. The RPM package can be download for both **x64** and **arm64** architectures.
+1. Import the public GPG key. This key verifies that your OpenSearch instance is signed.
     ```bash
     sudo rpm --import https://artifacts.opensearch.org/publickeys/opensearch.pgp
     ```
