@@ -31,7 +31,7 @@ OpenSearch Dashboards is the default visualization tool for data in OpenSearch. 
     # Install the arm64 package using rpm.
     sudo rpm -ivh opensearch-dashboards-{{site.opensearch_version}}-linux-arm64.rpm
     ```
-1. Enable OpenSearch Dashboards as a service.
+1. After the installation succeeds, enable OpenSearch Dashboards as a service.
     ```bash
     sudo systemctl enable opensearch-dashboards
     ```
