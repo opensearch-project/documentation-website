@@ -75,7 +75,7 @@ The query with `aggregation` and `join` does not support pagination for now.
 
 ## Query processing engines
 
-The SQL plugin has two query processing engines, `V1` and `V2`. Most of the features are supported by both engines, but only the new engine is actively being developed. A query that is first executed on the new engine (`V2`) but then falls back to the old engine (`V1`) in case of failure. That means a query with new functions A (included in `V2` only) and B (`V1` only and not yet included in `V2`) will fail with an error response.
+The SQL plugin has two query processing engines, `V1` and `V2`. Most of the features are supported by both engines, but only the new engine is actively being developed. A query that is first executed on  `V2` engine upon failure then falls back to the `V1` engine. If a query is supported in `V2` but not included in `V1` the query will fail with an error response.
 
 ### V1 engine limitations
 
@@ -89,6 +89,6 @@ Such queries are successfully executed by `V2` engine unless they have `V1`-spec
 
 * [Cursor feature](#pagination-only-supports-basic-queries) supported by the `V1` engine only.
 Please, track [GitHub issue #656](https://github.com/opensearch-project/sql/issues/656) for support `cursor`/`pagination` in `V2` engine.
-* `V2` engine doesn't track query execution time, so slow queries are not reported.
+* `V2` engine doesn't track query execution time so slow queries are not reported.
 * `V2` query engine not only runs queries in OpenSearch engine but also supports post-processing for complicated queries. Accordingly, explain output is no longer pure OpenSearch `DSL`, but also includes query plan information from the `V2` query engine.
 * `V2` engine doesn't support [`SCORE_QUERY`]({{site.url}}{{site.baseurl}}/search-plugins/sql/sql/functions#score-query) and [`WILDCARD_QUERY`]({{site.url}}{{site.baseurl}}/search-plugins/sql/sql/functions#wildcard-query) functions.
