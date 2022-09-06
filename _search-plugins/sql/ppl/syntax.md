@@ -28,6 +28,8 @@ Field | Description | Required
 
 ## Examples
 
+**Example 1: Search through accounts index**
+
 In the following example, the `search` command refers to an `accounts` index as the source, then uses `fields` and `where` commands for the conditions:
 
 ```sql
@@ -41,7 +43,7 @@ In the following examples, angle brackets `< >` enclose required arguments and s
 {: .note }
 
 
-*Example 2*: Get all documents
+**Example 2: Get all documents**
 
 To get all documents from the `accounts` index:
 
@@ -56,7 +58,7 @@ search source=accounts;
 | 13 | Nanette | 789 Madison Street | 32838 | F | Nogal | Quility | VA | 28 | null | Bates
 | 18 | Dale  | 467 Hutchinson Court | 4180 | M | Orick | null | MD | 33 | daleadams@boink.com | Adams
 
-*Example 3*: Get documents that match a condition
+**Example 3: Get documents that match a condition**
 
 To get all documents from the `accounts` index that have either `account_number` equal to 1 or have `gender` as `F`:
 

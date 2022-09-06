@@ -11,7 +11,7 @@ The SQL plugin has the following limitations:
 
 ## Aggregation over expression is not supported
 
-You can only apply aggregation on fields, aggregations can't accept an expression as a parameter. For example, `avg(log(age))` is not supported.
+You can only apply aggregation on fields. Aggregations can't accept an expression as a parameter. For example, `avg(log(age))` is not supported.
 
 ## Subquery in the FROM clause
 
@@ -35,6 +35,7 @@ For example, e.g. `SELECT depo.name, avg(empo.age) FROM empo JOIN depo WHERE emp
 ## Pagination only supports basic queries
 
 The pagination query enables you to get back paginated responses.
+
 Currently, the pagination only supports basic queries. For example, the following query returns the data with cursor id.
 
 ```json
@@ -74,7 +75,7 @@ The query with `aggregation` and `join` does not support pagination for now.
 
 ## Query processing engines
 
-The plugin has two query processing engines. Most of the features are supported by both engines, but only the new engine is actively being developed. A query is first executed on the new engine (`V2`) and then falls back to the old one (`V1`) in case of failure. That means a query with new functions A (included in `V2` only) and B (`V1` only and not yet included in `V2`) will fail with an error response.
+The SQL plugin has two query processing engines, `V1` and `V2`. Most of the features are supported by both engines, but only the new engine is actively being developed. A query that is first executed on the new engine (`V2`) but then falls back to the old engine (`V1`) in case of failure. That means a query with new functions A (included in `V2` only) and B (`V1` only and not yet included in `V2`) will fail with an error response.
 
 ### V1 engine limitations
 

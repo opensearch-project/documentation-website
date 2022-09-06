@@ -27,7 +27,7 @@ Field | Description | Type | Required | Default
 `consecutive` | If true, remove only consecutive events with duplicate combinations of values. | `Boolean` | No | False
 `field-list` | Specify a comma-delimited field list. At least one field is required. | `String` or comma-separated list of strings | Yes | -
 
-*Example 1*: Dedup by one field
+**Example 1: Dedup by one field**
 
 To remove duplicate documents with the same gender:
 
@@ -41,7 +41,7 @@ search source=accounts | dedup gender | fields account_number, gender;
 13 | F
 
 
-*Example 2*: Keep two duplicate documents
+**Example 2: Keep two duplicate documents**
 
 To keep two duplicate documents with the same gender:
 
@@ -55,7 +55,7 @@ search source=accounts | dedup 2 gender | fields account_number, gender;
 6 | M
 13 | F
 
-*Example 3*: Keep or ignore an empty field by default
+**Example 3: Keep or ignore an empty field by default**
 
 To keep two duplicate documents with a `null` field value:
 
@@ -82,7 +82,7 @@ search source=accounts | dedup email | fields account_number, email;
 6 | hattiebond@netagy.com
 18 | daleadams@boink.com
 
-*Example 4*: Dedup of consecutive documents
+**Example 4: Dedup of consecutive documents**
 
 To remove duplicates of consecutive documents:
 
@@ -115,7 +115,7 @@ Field | Description | Required
 `field` | If a field name does not exist, a new field is added. If the field name already exists, it's overwritten. | Yes
 `expression` | Specify any supported expression. | Yes
 
-*Example 1*: Create a new field
+**Example 1: Create a new field**
 
 To create a new `doubleAge` field for each document. `doubleAge` is the result of `age` multiplied by 2:
 
@@ -145,7 +145,7 @@ search source=accounts | eval age = age + 1 | fields age;
 | 29
 | 34
 
-*Example 3*: Create a new field with a field defined with the `eval` command
+**Example 3: Create a new field with a field defined with the `eval` command**
 
 To create a new field `ddAge`. `ddAge` is the result of `doubleAge` multiplied by 2, where `doubleAge` is defined in the `eval` command:
 
@@ -180,7 +180,7 @@ Field | Description | Required | Default
 `index` | Plus (+) keeps only fields specified in the field list. Minus (-) removes all fields specified in the field list. | No | +
 `field list` | Specify a comma-delimited list of fields. | Yes | No default
 
-*Example 1*: Select specified fields from result
+**Example 1: Select specified fields from result**
 
 To get `account_number`, `firstname`, and `lastname` fields from a search result:
 
@@ -195,7 +195,7 @@ search source=accounts | fields account_number, firstname, lastname;
 | 13  | Nanette     | Bates
 | 18  | Dale        | Adams
 
-*Example 2*: Remove specified fields from a search result
+**Example 2: Remove specified fields from a search result**
 
 To remove the `account_number` field from the search results:
 
@@ -228,7 +228,7 @@ regular-expression | The regular expression used to extract new fields from the 
 
 The regular expression is used to match the whole text field of each document with Java regex engine. Each named capture group in the expression will become a new ``STRING`` field.
 
-*Example 1*: Create new field
+**Example 1: Create new field**
 
 The example shows how to create new field `host` for each document. `host` will be the hostname after `@` in `email` field. Parsing a null field will return an empty string.
 
@@ -260,7 +260,7 @@ fetched rows / total rows = 4/4
 | Madison Street   
 | Hutchinson Court
 
-*Example 3*: Filter and sort be casted parsed field
+**Example 3: Filter and sort be casted parsed field**
 
 The example shows how to sort street numbers that are higher than 500 in address field.
 
@@ -299,7 +299,7 @@ Field | Description | Required
 `source-field` | The name of the field that you want to rename. | Yes
 `target-field` | The name you want to rename to. | Yes
 
-*Example 1*: Rename one field
+**Example 1: Rename one field**
 
 Rename the `account_number` field as `an`:
 
@@ -314,7 +314,7 @@ search source=accounts | rename account_number as an | fields an;
 | 13
 | 18
 
-*Example 2*: Rename multiple fields
+**Example 2: Rename multiple fields**
 
 Rename the `account_number` field as `an` and `employer` as `emp`:
 
@@ -349,7 +349,7 @@ Field | Description | Required | Default
 `[+|-]` | Use plus [+] to sort by ascending order and minus [-] to sort by descending order. | No | Ascending order
 `sort-field` | Specify the field that you want to sort by. | Yes | -
 
-*Example 1*: Sort by one field
+**Example 1: Sort by one field**
 
 To sort all documents by the `age` field in ascending order:
 
@@ -364,7 +364,7 @@ search source=accounts | sort age | fields account_number, age;
 | 18 | 33
 | 6  | 36
 
-*Example 2*: Sort by one field and return all results
+**Example 2: Sort by one field and return all results**
 
 To sort all documents by the `age` field in ascending order and specify count as 0 to get back all results:
 
@@ -379,7 +379,7 @@ search source=accounts | sort 0 age | fields account_number, age;
 | 18 | 33
 | 6  | 36
 
-*Example 3*: Sort by one field in descending order
+**Example 3: Sort by one field in descending order**
 
 To sort all documents by the `age` field in descending order:
 
@@ -394,7 +394,7 @@ search source=accounts | sort - age | fields account_number, age;
 | 1 | 32
 | 13  | 28
 
-*Example 4*: Specify the number of sorted documents to return
+**Example 4: Specify the number of sorted documents to return**
 
 To sort all documents by the `age` field in ascending order and specify count as 2 to get back two results:
 
@@ -407,7 +407,7 @@ search source=accounts | sort 2 age | fields account_number, age;
 | 13 | 28
 | 1  | 32
 
-*Example 5*: Sort by multiple fields
+**Example 5: Sort by multiple fields**
 
 To sort all documents by the `gender` field in ascending order and `age` field in descending order:
 
@@ -448,7 +448,7 @@ Field | Description | Required | Default
 `aggregation` | Specify a statistical aggregation function. The argument of this function must be a field. | Yes | 1000
 `by-clause` | Specify one or more fields to group the results by. If not specified, the `stats` command returns only one row, which is the aggregation over the entire result set. | No | -
 
-*Example 1*: Calculate the average value of a field
+**Example 1: Calculate the average value of a field**
 
 To calculate the average `age` of all documents:
 
@@ -460,7 +460,7 @@ search source=accounts | stats avg(age);
 :--- |
 | 32.25
 
-*Example 2*: Calculate the average value of a field by group
+**Example 2: Calculate the average value of a field by group**
 
 To calculate the average age grouped by gender:
 
@@ -473,7 +473,7 @@ search source=accounts | stats avg(age) by gender;
 | F  | 28.0
 | M  | 33.666666666666664
 
-*Example 3*: Calculate the average and sum of a field by group
+**Example 3: Calculate the average and sum of a field by group**
 
 To calculate the average and sum of age grouped by gender:
 
@@ -486,7 +486,7 @@ search source=accounts | stats avg(age), sum(age) by gender;
 | F  | 28   | 28
 | M  | 33.666666666666664 | 101
 
-*Example 4*: Calculate the maximum value of a field
+**Example 4: Calculate the maximum value of a field**
 
 To calculate the maximum age:
 
@@ -498,7 +498,7 @@ search source=accounts | stats max(age);
 :--- |
 | 36
 
-*Example 5*: Calculate the maximum and minimum value of a field by group
+**Example 5: Calculate the maximum and minimum value of a field by group**
 
 To calculate the maximum and minimum age values grouped by gender:
 
@@ -525,7 +525,7 @@ Field | Description | Required
 :--- | :--- |:---
 `bool-expression` | An expression that evaluates to a boolean value. | No
 
-*Example 1*: Filter result set with a condition
+**Example: Filter result set with a condition**
 
 To get all documents from the `accounts` index where `account_number` is 1 or gender is `F`:
 
@@ -552,7 +552,7 @@ Field | Description | Required | Default
 :--- | :--- |:---
 `N` | Specify the number of results to return. | No | 10
 
-*Example 1*: Get the first 10 results
+**Example 1: Get the first 10 results**
 
 To get the first 10 results:
 
@@ -566,7 +566,7 @@ search source=accounts | fields firstname, age | head;
 | Hattie | 36
 | Nanette | 28
 
-*Example 2*: Get the first N results
+**Example 2: Get the first N results**
 
 To get the first two results:
 
@@ -599,7 +599,7 @@ Field | Description | Required
 `field-list` | Specify a comma-delimited list of field names. | No
 `by-clause` | Specify one or more fields to group the results by. | No
 
-*Example 1*: Find the least common values in a field
+**Example 1: Find the least common values in a field**
 
 To find the least common values of gender:
 
@@ -612,7 +612,7 @@ search source=accounts | rare gender;
 | F
 | M
 
-*Example 2*: Find the least common values grouped by gender
+**Example 2: Find the least common values grouped by gender**
 
 To find the least common age grouped by gender:
 
@@ -646,7 +646,7 @@ Field | Description | Default
 `field-list` | Specify a comma-delimited list of field names. | -
 `by-clause` | Specify one or more fields to group the results by. | -
 
-*Example 1*: Find the most common values in a field
+**Example 1: Find the most common values in a field**
 
 To find the most common genders:
 
@@ -659,7 +659,7 @@ search source=accounts | top gender;
 | M
 | F
 
-*Example 2*: Find the most common value in a field
+**Example 2: Find the most common value in a field**
 
 To find the most common gender:
 
@@ -671,7 +671,7 @@ search source=accounts | top 1 gender;
 :--- |
 | M
 
-*Example 2*: Find the most common values grouped by gender
+**Example 3: Find the most common values grouped by gender**
 
 To find the most common age grouped by gender:
 
@@ -715,7 +715,7 @@ Field | Description | Required
 `shingle_size` | A consecutive sequence of the most recent records. The default value is 8. | No
 `time_decay` | Specifies how much of the recent past to consider when computing an anomaly score. The default value is 0.001. | No
 
-*Example 1*: Detecting events in New York City from taxi ridership data with time-series data
+**Example 1: Detecting events in New York City from taxi ridership data with time-series data**
 
 The example trains a RCF model and use the model to detect anomalies in the time-series ridership data.
 
@@ -729,7 +729,7 @@ value | timestamp | score | anomaly_grade
 :--- | :--- |:--- | :---
 10844.0 | 1404172800000 | 0.0 | 0.0    
 
-*Example 2*: Detecting events in New York City from taxi ridership data with non-time-series data
+**Example 2: Detecting events in New York City from taxi ridership data with non-time-series data**
 
 PPL query:
 
@@ -753,7 +753,7 @@ kmeans <cluster-number>
 
 For `cluster-number`, enter the number of clusters you want to group your data points into.
 
-*Example*
+**Example: Group Iris data**
 
 The example shows how to classify three Iris species (Iris setosa, Iris virginica and Iris versicolor) based on the combination of four features measured from each sample: the length and the width of the sepals and petals.
 
