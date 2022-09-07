@@ -103,7 +103,17 @@ certificate-file-path = specify_path
 private-key-file-path = specify_path
 ```
 
-## Configure Performance Analyzer for Tarball Installation
+## Enable Performance Analyzer for RPM/YUM installations
+
+If you installed OpenSearch from an RPM distribution, you can start and stop Performance Analyzer with `systemctl`:
+```bash
+# Start OpenSearch Performance Analyzer
+sudo systemctl start opensearch-performance-analyzer.service
+# Stop OpenSearch Performance Analyzer
+sudo systemctl stop opensearch-performance-analyzer.service
+```
+
+## Configure Performance Analyzer for tarball installations
 
 In a tarball installation, Performance Analyzer collects data when it is enabled. But in order to read that data using the REST API on port 9600, you must first manually launch the associated reader agent process:
 
