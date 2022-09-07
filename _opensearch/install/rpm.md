@@ -33,31 +33,42 @@ This guide assumes that you are comfortable working from the Linux command line 
 
 ## Download and install OpenSearch
 
-1. Download the RPM package directly from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'}. Packages are available for both the `x64` and `arm64` architectures.
+### Install OpenSearch from a package
 
-1. Import the public GPG key. This key verifies that the your OpenSearch instance is signed.
-   ```bash
-   sudo rpm --import https://artifacts.opensearch.org/publickeys/opensearch.pgp
-   ```
-1. On your host, use `sudo yum install` or `sudo rpm -ivh` to install the package. 
-
+1. Download the RPM package for the desired version directly from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'}. The RPM package can be download for both **x64** and **arm64** architectures.
+1. Import the public GPG key. This key verifies that your OpenSearch instance is signed.
+    ```bash
+    sudo rpm --import https://artifacts.opensearch.org/publickeys/opensearch.pgp
+    ```
+1. From the command line interface (CLI), you can install the package with `rpm` or `yum`.
    **x64**
-
    ```bash
+   # Install the x64 package using yum.
    sudo yum install opensearch-{{site.opensearch_version}}-linux-x64.rpm
+   # Install the x64 package using rpm.
    sudo rpm -ivh opensearch-{{site.opensearch_version}}-linux-x64.rpm
    ```
-  
    **arm64**
-
    ```bash
+   # Install the arm64 package using yum.
    sudo yum install opensearch-{{site.opensearch_version}}-linux-x64.rpm
+   # Install the arm64 package using rpm.
    sudo rpm -ivh opensearch-{{site.opensearch_version}}-linux-x64.rpm
    ```
-  
-   Once complete, you can run OpenSearch inside your distribution.
+1. After the installation succeeds, enable OpenSearch as a service.
+    ```bash
+    sudo systemctl enable opensearch
+    ```
+1. Start OpenSearch.
+    ```bash
+    sudo systemctl start opensearch
+    ```
+1. Verify that OpenSearch launched correctly.
+    ```bash
+    sudo systemctl status opensearch
+    ```
 
-## YUM method
+### Install OpenSearch from a local YUM repository
 
 YUM, an RPM package management tool, allows you to pull the RPM package from the YUM repository library. 
 
