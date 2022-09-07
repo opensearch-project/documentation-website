@@ -70,57 +70,60 @@ This guide assumes that you are comfortable working from the Linux command line 
 
 ### Install OpenSearch from a local YUM repository
 
-YUM, an RPM package management tool, allows you to pull the RPM package from the YUM repository library. 
+YUM, the primary package management tool for Red Hat-based operating systems, allows you to download and install the RPM package from the YUM repository library. 
 
-1. Create a repository file for both OpenSearch and OpenSearch Dashboards:
-
+1. Create a local repository file for OpenSearch Dashboards:
    ```bash
-   sudo curl -SL https://artifacts.opensearch.org/releases/bundle/opensearch/2.x/opensearch-2.x.repo -o /etc/yum.repos.d/opensearch-2.x.repo
+   sudo curl -SL https://artifacts.opensearch.org/releases/bundle/opensearch/{{major_version_mask}}/opensearch-{{major_version_mask}}.repo -o /etc/yum.repos.d/opensearch-{{major_version_mask}}.repo
    ```
-
-   ```bash
-   sudo curl -SL https://artifacts.opensearch.org/releases/bundle/opensearch-dashboards/2.x/opensearch-dashboards-2.x.repo -o /etc/yum.repos.d/opensearch-dashboards-2.x.repo
-   ```
-  
-   To verify that the repos appear in your repo list, use `sudo yum repolist`.
-
-2. Clean your YUM cache, to ensure a smooth installation:
-
+1. Verify that the repository was created successfully.
+    ```bash
+    sudo yum repolist
+    ```
+1. Clean your YUM cache, to ensure a smooth installation:
    ```bash
    sudo yum clean all
    ```
-
-3. With the repository file downloaded, list all available versions of OpenSearch and OpenSearch-Dashboards:
-
+1. With the repository file downloaded, list all available versions of OpenSearch:
    ```bash
    sudo yum list opensearch --showduplicates
-   sudo yum list opensearch-dashboards --showduplicates
    ```
-
-4. Choose the version of OpenSearch you want to install: 
-
+1. Choose the version of OpenSearch you want to install: 
+   - Unless otherwise indicated, the highest minor version of OpenSearch installs.
    ```bash
    sudo yum install opensearch
-   sudo yum install opensearch-dashboards
    ```
-
-   Unless otherwise indicated, the highest minor version of OpenSearch installs.
-
-   To install a specific version of OpenSearch:
-
+   - To install a specific version of OpenSearch Dashboards:
    ```bash
    sudo yum install 'opensearch-{{site.opensearch_version}}'
    ```
-
-5. During installation, the installer stops to see if the GPG key matches the OpenSearch project. Verify that the `Fingerprint` matches the following:
-
+1. During installation, the installer will present you with the GPG key fingerprint. Verify that the information matches the following:
    ```bash
    Fingerprint: c5b7 4989 65ef d1c2 924b a9d5 39d3 1987 9310 d3fc
    ```
+    - If correct, enter `yes` or `y`. The OpenSearch installation continues.
+1. Once complete, you can run OpenSearch.
+    ```bash
+    sudo systemctl start opensearch-dashboards
+    ```
+1. Verify that OpenSearch launched correctly.
+    ```bash
+    sudo systemctl status opensearch
+    ```
 
-   If correct, enter `yes` or `y`. The OpenSearch installation continues.
-  
-   Once complete, you can run OpenSearch inside your distribution. 
+
+
+
+
+
+
+
+
+-- content above this line is generally "complete" and that below this line needs formatted, validated from a technical perspective, and then fit into this guide --
+
+
+
+
 
 ## Run OpenSearch
 
