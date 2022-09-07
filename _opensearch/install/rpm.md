@@ -17,7 +17,7 @@ Installing OpenSearch using RPM Package Manager (RPM) simplifies the process con
 Generally speaking, installing OpenSearch from the RPM distribution can be broken down into a few steps:
 
 1. **Download and install OpenSearch.**
-   - Installation is accomplished using either the RPM or YUM package manager.
+   - Installation is performed by manually installing from an RPM distribution, or by creating a local YUM repository and installing with `yum`.
 1. **Configure important system settings.**
    - These settings are applied to the host before modifying any OpenSearch files.
 1. **(Optional) Test OpenSearch.**
@@ -121,32 +121,6 @@ YUM, the primary package management tool for Red Hat-based operating systems, al
 
 -- content above this line is generally "complete" and that below this line needs formatted, validated from a technical perspective, and then fit into this guide --
 
-
-
-
-
-## Run OpenSearch
-
-1. Run OpenSearch and OpenSearch Dashboards using `systemctl`.
-
-   ```bash
-   sudo systemctl start opensearch.service
-   sudo systemctl start opensearch-dashboards.service
-   ```
-
-2. Send requests to the server to verify that OpenSearch is running:
-
-   ```bash
-   curl -XGET https://localhost:9200 -u 'admin:admin' --insecure
-   curl -XGET https://localhost:9200/_cat/config?v -u 'admin:admin' --insecure
-   ```
-
-3. To stop running OpenSearch, enter:
-
-   ```bash
-   sudo systemctl stop opensearch.service
-   sudo systemctl stop opensearch-dashboards.service
-   ```
 
 
 ## *(Optional)* Set up Performance Analyzer
