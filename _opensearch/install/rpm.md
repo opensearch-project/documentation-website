@@ -5,6 +5,11 @@ parent: Install OpenSearch
 nav_order: 51
 ---
 
+{% comment %}
+The following liquid syntax declares a variable, major_version_mask, which is transformed into "N.x" where "N" is the major version number. This is required for proper versioning references to the Yum repo.
+{% endcomment %}
+{% assign version_parts = site.opensearch_major_minor_version | split: "." %}
+
 # RPM
 
 Installing OpenSearch using RPM Package Manager (RPM) simplifies the process considerably compared to the [Tarball]({{site.url}}{{site.baseurl}}/opensearch/install/tar/) method. Several technical considerations, such as the installation path, location of configuration files, and the creation of a service managed by `systemd`, as examples, are handled automatically by the package manager.
@@ -40,24 +45,14 @@ This guide assumes that you are comfortable working from the Linux command line 
 
    ```bash
    sudo yum install opensearch-{{site.opensearch_version}}-linux-x64.rpm
-   sudo yum install opensearch-dashboards-{{site.opensearch_version}}-linux-x64.rpm
-   ```
-
-   ```bash
    sudo rpm -ivh opensearch-{{site.opensearch_version}}-linux-x64.rpm
-   sudo rpm -ivh opensearch-dashboards-{{site.opensearch_version}}-linux-x64.rpm
    ```
   
    **arm64**
 
    ```bash
    sudo yum install opensearch-{{site.opensearch_version}}-linux-x64.rpm
-   sudo yum install opensearch-dashboards-{{site.opensearch_version}}-linux-arm64.rpm
-   ```
-
-   ```bash
    sudo rpm -ivh opensearch-{{site.opensearch_version}}-linux-x64.rpm
-   sudo rpm -ivh opensearch-dashboards-{{site.opensearch_version}}-linux-arm64.rpm
    ```
   
    Once complete, you can run OpenSearch inside your distribution.
