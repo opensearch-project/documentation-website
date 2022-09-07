@@ -122,21 +122,6 @@ YUM, the primary package management tool for Red Hat-based operating systems, al
 -- content above this line is generally "complete" and that below this line needs formatted, validated from a technical perspective, and then fit into this guide --
 
 
-
-## *(Optional)* Set up Performance Analyzer
-
-When enabled, the Performance Analyzer plugin collects data related to the performance of your OpenSearch instance. To start the Performance Analyzer plugin, enter:
-
-```bash
-sudo systemctl start opensearch-performance-analyzer.service
-```
-
-To stop the Performance Analyzer, enter:
-
-```bash
-sudo systemctl stop opensearch-performance-analyzer.service
-```
-
 ## Upgrade RPM
 
 You can upgrade your RPM OpenSearch instance both manually and through YUM. 
