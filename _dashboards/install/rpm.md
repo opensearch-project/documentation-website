@@ -5,6 +5,12 @@ parent: Install OpenSearch Dashboards
 nav_order: 31
 ---
 
+{% comment %}
+The following liquid syntax declares a variable, major_version_mask, which is transformed into "N.x" where "N" is the major version number. This is required for proper versioning references to the Yum repo.
+{% endcomment %}
+{% assign version_parts = site.opensearch_major_minor_version | split: "." %}
+{% assign major_version_mask = version_parts[0] | append: ".x" %}
+
 # Run OpenSearch Dashboards using RPM Package Manager (RPM)
 
 OpenSearch Dashboards is the default visualization tool for data in OpenSearch. It also serves as a user interface for many of the OpenSearch plugins, including security, alerting, Index State Management, SQL, and more.
@@ -50,10 +56,7 @@ YUM, the primary package management tool for Red Hat-based operating systems, al
 
 1. Create a local repository file for OpenSearch Dashboards:
    ```bash
-   sudo curl -SL https://artifacts.opensearch.org/releases/bundle/opensearch/2.x/opensearch-2.x.repo -o /etc/yum.repos.d/opensearch-2.x.repo
-   ```
-   ```bash
-   sudo curl -SL https://artifacts.opensearch.org/releases/bundle/opensearch-dashboards/2.x/opensearch-dashboards-2.x.repo -o /etc/yum.repos.d/opensearch-dashboards-2.x.repo
+   sudo curl -SL https://artifacts.opensearch.org/releases/bundle/opensearch-dashboards/{{major_version_mask}}/opensearch-dashboards-{{major_version_mask}}.repo -o /etc/yum.repos.d/opensearch-dashboards-{{major_version_mask}}.repo
    ```
 1. Verify that the repository was created successfully.
     ```bash
@@ -72,16 +75,16 @@ YUM, the primary package management tool for Red Hat-based operating systems, al
    ```bash
    sudo yum install opensearch-dashboards
    ```
-   - To install a specific version of OpenSearch Dashboards:**
+   - To install a specific version of OpenSearch Dashboards:
    ```bash
    sudo yum install 'opensearch-dashboards-{{site.opensearch_version}}'
    ```
-1. During installation, the installer stops to see if the GPG key matches the OpenSearch project. Verify that the `Fingerprint` matches the following:
-
+1. During installation, the installer will present you with the GPG key fingerprint. Verify that the information matches the following:
    ```bash
    Fingerprint: c5b7 4989 65ef d1c2 924b a9d5 39d3 1987 9310 d3fc
    ```
-
-   If correct, enter `yes` or `y`. The OpenSearch installation continues.
-  
-   Once complete, you can run OpenSearch inside your distribution. 
+    - If correct, enter `yes` or `y`. The OpenSearch installation continues.
+1. Once complete, you can run OpenSearch Dashboards.
+    ```bash
+    sudo systemctl start opensearch-dashboards
+    ```
