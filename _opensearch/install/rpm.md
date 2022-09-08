@@ -137,16 +137,11 @@ Before launching OpenSearch you should review some [important system settings]({
 
 ## Step 3: (Optional) Test OpenSearch
 
-Before proceeding you should test your installation of OpenSearch. Otherwise, it can be difficult to determine whether future problems are due to installation issues or custom settings you applied after installation. There are two quick methods for testing OpenSearch at this stage:
+Before proceeding with any configuration you should test your installation of OpenSearch. Otherwise, it can be difficult to determine whether future problems are due to installation issues or custom settings you applied after installation.
 
-1. **(Security enabled)** Apply a generic configuration using the demo security script included in the tar archive.
-1. **(Security disabled)** Manually disable the security plugin and test the instance before applying your own custom security settings.
+When OpenSearch is installed using the RPM package, some demo security settings are automatically applied. This includes self-signed TLS certificates and several user roles. If you would like to configure these yourself, see [Set up OpenSearch in your environment](#setup-opensearch-in-your-environment).
 
-The demo security script will apply a generic configuration to your instance of OpenSearch. This configuration defines some environment variables and also applies self-signed TLS certificates. If you would like to configure these yourself, see [Set up OpenSearch in your environment](#setup-opensearch-in-your-environment).
-
-If you only want to verify that the service is properly configured and you intend to configure security settings yourself, then you may want to disable the security plugin and launch the service without encryption or authentication.
-
-An OpenSearch node configured by the demo security script is not suitable for a production environment. If you plan to use the node in a production environment after running `opensearch-tar-install.sh`, you should, at a minimum, replace the demo TLS certificates with your own TLS certificates and [update the list of internal users and passwords]({{site.url}}{{site.baseurl}}/security-plugin/configuration/yaml). See [Security configuration]({{site.url}}{{site.baseurl}}/security-plugin/configuration/index/) for additional guidance to ensure that your nodes are configured according to your security requirements.
+An OpenSearch node in its default configuration (with demo certificates and users with default passwords) is not suitable for a production environment. If you plan to use the node in a production environment, you should, at a minimum, replace the demo TLS certificates with your own TLS certificates and [update the list of internal users and passwords]({{site.url}}{{site.baseurl}}/security-plugin/configuration/yaml). See [Security configuration]({{site.url}}{{site.baseurl}}/security-plugin/configuration/index/) for additional guidance to ensure that your nodes are configured according to your security requirements.
 {: .warning}
 
 
