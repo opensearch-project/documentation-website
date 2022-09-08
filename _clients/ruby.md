@@ -25,7 +25,7 @@ require 'opensearch'
 
 ## Connecting to OpenSearch
 
-To connect to the default OpenSearch host, create a client object as follows:
+To connect to the default OpenSearch host, create a client object, passing the default host address in the constructor:
 
 ```ruby
 client = OpenSearch::Client.new(host: 'http://localhost:9200')
@@ -106,7 +106,7 @@ client.indices.put_mapping(
 )
 ```
 
-By default, string fields are mapped as `text`, but in the mapping above both `first_name` and `last_name` fields are mapped as `keyword`. This mapping signals to OpenSearch that this field should not be analyzed and should support only full case-sensitive matches.
+By default, string fields are mapped as `text`, but in the mapping above, the `first_name` and `last_name` fields are mapped as `keyword`. This mapping signals to OpenSearch that these fields should not be analyzed and should support only full case-sensitive matches.
 
 You can verify the index's mappings using the `get_mapping` method:
 
@@ -131,7 +131,7 @@ client.indices.put_mapping(
 )
 ```
 
-With strict mapping, you can index a document where a field is missing, but you cannot index a document with a new field. For example, indexing the following document with a misspelled `grad_yea` field fails:
+With strict mapping, you can index a document with a missing field, but you cannot index a document with a new field. For example, indexing the following document with a misspelled `grad_yea` field fails:
 
 ```ruby
 document = {
@@ -202,7 +202,7 @@ client.delete(
 
 You can perform several operations at the same time by using the `bulk` method. The operations may be of the same type or of different types.
 
-You can index multiple documents as follows:
+You can index multiple documents using the `bulk` method:
 
 ```ruby
 actions = [
@@ -297,9 +297,9 @@ query = {
 response = client.search(index: 'students', from: 0, size: 10, body: query)
 ```
 
-## Multi search
+## Multi-search
 
-You can bulk several queries together and do a multi search using the `msearch` method. The following snippet searches for students whose GPAs are outside the 3.1&ndash;3.9 range:
+You can bulk several queries together and perform a multi-search using the `msearch` method. The following code searches for students whose GPAs are outside the 3.1&ndash;3.9 range:
 
 ```ruby
 actions = [
@@ -325,13 +325,13 @@ while response['hits']['hits'].size.positive?
 end
 ```
 
-At first, you issue a search query, specifying the `scroll` and `size` parameters. The `scroll` parameter tells OpenSearch how long to keep the search context. In this case, it is set to two minutes. The `size` parameter specifies how many documents you want to return in each request. 
+First, you issue a search query, specifying the `scroll` and `size` parameters. The `scroll` parameter tells OpenSearch how long to keep the search context. In this case, it is set to two minutes. The `size` parameter specifies how many documents you want to return in each request. 
 
 The response to the initial search query contains a `_scroll_id` that you can use to get the next set of documents. To do this, you use the `scroll` method, again specifying the `scroll` parameter and passing the `_scroll_id` in the body. You don't need to specify the query or index to the `scroll` method. The `scroll` method returns the next set of documents and the `_scroll_id`. It's important to use the latest `_scroll_id` when requesting the next batch of documents because `_scroll_id` can change between requests.
 
 ## Deleting an index
 
-You can delete the index as follows:
+You can delete the index using the `delete` method:
 
 ```ruby
 response = client.indices.delete(index: index_name)
@@ -339,7 +339,7 @@ response = client.indices.delete(index: index_name)
 
 ## Sample program
 
-The following is a complete sample program that illustrates all of the concepts described above. The Ruby client's methods return responses as Ruby hashes, which are hard to read. To display JSON responses in a pretty format, the sample program uses the `MultiJson.dump` method.
+The following is a complete sample program that illustrates all of the concepts described in the preceding sections. The Ruby client's methods return responses as Ruby hashes, which are hard to read. To display JSON responses in a pretty format, the sample program uses the `MultiJson.dump` method.
 
 ```ruby
 require 'opensearch'
