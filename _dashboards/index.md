@@ -24,20 +24,9 @@ Choose **OpenSearch Dashboards > Dashboards > Create dashboard** and explore the
 
 # OpenSearch Dashboards for your use case
 
-<table>
-<thead>
-</thead>
-<tbody>
-<tr>
-<td>Analyze your log files<img src="{{site.url}}{{site.baseurl}}/images/dashboards2.PNG" alt="Dashboard 1" width="400" style="float: left; margin-right: 15px;"/></td>
-<td>Deduce security vulnerabilities<img src="{{site.url}}{{site.baseurl}}/images/dashboards3.PNG" alt="Dashboard 2" width="400" style="float: left; margin-right: 15px;"/></td>
-</tr>
-<tr>
-<td>See patterns in your data<img src="{{site.url}}{{site.baseurl}}/images/dashboards4.PNG" alt="Dashboard 3" width="400" style="float: left; margin-right: 15px;"/></td>
-<td>Find the most popular products on your site<img src="{{site.url}}{{site.baseurl}}/images/dashboards5.PNG" alt="Dashboard 4" width="400" style="float: left; margin-right: 15px;"/></td>
-</tr>
-</tbody>
-</table>
+|       Analyze and visualize your logs |   Deduce security vulnerabilities   |
+|:-----------------------------:|:-----------------------------------:|
+| **See patterns in your data** | **Find your best-selling products** |
 
 # Install OpenSearch Dashboards
 
@@ -50,7 +39,7 @@ The default installation of Dashboards includes a full suite of [OpenSearch plug
 
 For more information, see [OpenSearch Installation Instructions](https://opensearch.org/docs/latest/opensearch/install/index/).
 
-# Create a dashboard using sample data*
+# Create a dashboard using sample data
 
 Use the following steps to create a dashboard using sample data. 
 
@@ -58,8 +47,6 @@ Use the following steps to create a dashboard using sample data.
 2. Select **Add sample data**, and select **Add data** for the sample  flight data dataset. 
 3. From the top menu, choose **Discover** and search for a few flights.
 4. Choose **Dashboard**, **[Flights]** Global Flight Dashboard.
-5.  Click the **Save** icon left of the **Search** field to save the dashboard.
-6.  Add a descriptive name, and then click **Save.**
 
 Your dashboard will look different than the example below.
 
