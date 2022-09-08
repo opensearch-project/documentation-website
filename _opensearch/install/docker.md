@@ -26,6 +26,9 @@ To download a specific version of OpenSearch or OpenSearch Dashboards, modify th
 
 To check available versions, see [Docker Hub](https://hub.docker.com/u/opensearchproject).
 
+When you download a new version of OpenSearch and OpenSearch Dashboards, you need to modify your `docker-compose.yml` file with the image version number that you downloaded. For example, to update your images to version 2.2.0, replace the following two lines in the YAML file: `image: opensearchproject/opensearch:2.2.0` and `image: opensearchproject/opensearch-dashboards:2.2.0`
+{: .note}
+
 OpenSearch images use `amazonlinux:2` as the base image. If you run Docker locally, set Docker to use at least 4 GB of RAM in **Preferences** > **Resources**.
 
 
