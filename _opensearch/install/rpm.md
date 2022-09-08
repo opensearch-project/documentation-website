@@ -135,7 +135,19 @@ Before launching OpenSearch you should review some [important system settings]({
    cat /proc/sys/vm/max_map_count
    ```
 
+## Step 3: (Optional) Test OpenSearch
 
+Before proceeding you should test your installation of OpenSearch. Otherwise, it can be difficult to determine whether future problems are due to installation issues or custom settings you applied after installation. There are two quick methods for testing OpenSearch at this stage:
+
+1. **(Security enabled)** Apply a generic configuration using the demo security script included in the tar archive.
+1. **(Security disabled)** Manually disable the security plugin and test the instance before applying your own custom security settings.
+
+The demo security script will apply a generic configuration to your instance of OpenSearch. This configuration defines some environment variables and also applies self-signed TLS certificates. If you would like to configure these yourself, see [Set up OpenSearch in your environment](#setup-opensearch-in-your-environment).
+
+If you only want to verify that the service is properly configured and you intend to configure security settings yourself, then you may want to disable the security plugin and launch the service without encryption or authentication.
+
+An OpenSearch node configured by the demo security script is not suitable for a production environment. If you plan to use the node in a production environment after running `opensearch-tar-install.sh`, you should, at a minimum, replace the demo TLS certificates with your own TLS certificates and [update the list of internal users and passwords]({{site.url}}{{site.baseurl}}/security-plugin/configuration/yaml). See [Security configuration]({{site.url}}{{site.baseurl}}/security-plugin/configuration/index/) for additional guidance to ensure that your nodes are configured according to your security requirements.
+{: .warning}
 
 
 
@@ -167,19 +179,7 @@ To upgrade to the latest version of OpenSearch with YUM, use `sudo yum update`. 
 
 
 
-## Step 3: (Optional) Test OpenSearch
 
-Before proceeding you should test your installation of OpenSearch. Otherwise, it can be difficult to determine whether future problems are due to installation issues or custom settings you applied after installation. There are two quick methods for testing OpenSearch at this stage:
-
-1. **(Security enabled)** Apply a generic configuration using the demo security script included in the tar archive.
-1. **(Security disabled)** Manually disable the security plugin and test the instance before applying your own custom security settings.
-
-The demo security script will apply a generic configuration to your instance of OpenSearch. This configuration defines some environment variables and also applies self-signed TLS certificates. If you would like to configure these yourself, see [Set up OpenSearch in your environment](#setup-opensearch-in-your-environment).
-
-If you only want to verify that the service is properly configured and you intend to configure security settings yourself, then you may want to disable the security plugin and launch the service without encryption or authentication.
-
-An OpenSearch node configured by the demo security script is not suitable for a production environment. If you plan to use the node in a production environment after running `opensearch-tar-install.sh`, you should, at a minimum, replace the demo TLS certificates with your own TLS certificates and [update the list of internal users and passwords]({{site.url}}{{site.baseurl}}/security-plugin/configuration/yaml). See [Security configuration]({{site.url}}{{site.baseurl}}/security-plugin/configuration/index/) for additional guidance to ensure that your nodes are configured according to your security requirements.
-{: .warning}
 
 ### Option 1: Test your Opensearch settings with security enabled
 
