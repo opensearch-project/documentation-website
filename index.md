@@ -124,6 +124,14 @@ See [opensearch.org/javadocs/](https://opensearch.org/javadocs/).
 
 The project welcomes GitHub issues, bug fixes, features, plugins, documentation---anything at all. To get involved, see [Contributing](https://opensearch.org/source.html) on the OpenSearch website.
 
+## Test experimental features
+
+Experimental features gives you a chance to test new functionality before that functionality is officially released. For information about how to install experimental features, follow the links below:
+
+### 2.3
+
+
+
 
 ---
 
