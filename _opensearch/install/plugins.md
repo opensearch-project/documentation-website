@@ -1,6 +1,6 @@
 ---
 layout: default
-title: OpenSearch plugins
+title: OpenSearch plugin installation
 parent: Install OpenSearch
 nav_order: 90
 ---
@@ -255,3 +255,19 @@ Members of the OpenSearch community have built countless plugins for the service
 | repository-s3 | 1.0.0 or newer |
 | store-smb | 1.0.0 or newer |
 | transport-nio | 1.0.0 or newer |
+
+## Related links
+
+- [About Observability]({{site.url}}{{site.baseurl}}/observability-plugin/index/)
+- [About the security plugin]({{site.url}}{{site.baseurl}}/security-plugin/index/)
+- [Alerting]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/index/)
+- [Anomaly detection]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/index/)
+- [Asynchronous search]({{site.url}}{{site.baseurl}}/search-plugins/async/index/)
+- [Cross-cluster replication]({{site.url}}{{site.baseurl}}/replication-plugin/index/)
+- [Index State Management]({{site.url}}{{site.baseurl}}/im-plugin/ism/index/)
+- [k-NN]({{site.url}}{{site.baseurl}}/search-plugins/knn/index/)
+- [ML Commons Plugin]({{site.url}}{{site.baseurl}}/ml-commons-plugin/index/)
+- [Notifications]({{site.url}}{{site.baseurl}}/notifications-plugin/index/)
+- [OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/index/)
+- [Performance Analyzer]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/index/)
+- [SQL]({{site.url}}{{site.baseurl}}/search-plugins/sql/index/)
