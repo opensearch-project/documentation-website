@@ -126,7 +126,7 @@ The project welcomes GitHub issues, bug fixes, features, plugins, documentation-
 
 ## Test experimental features
 
-Experimental features gives you a chance to test new functionality before that functionality is officially released. For information about how to install experimental features, follow the links below:
+Experimental features gives you a chance to test new functionality before that functionality is officially released. For information about how to install experimental features, follow the links below.
 
 ### 2.3
 
