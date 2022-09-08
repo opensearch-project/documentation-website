@@ -13,7 +13,7 @@ The following liquid syntax declares a variable, major_version_mask, which is tr
 
 # Run OpenSearch Dashboards using RPM Package Manager (RPM)
 
-OpenSearch Dashboards is the default visualization tool for data in OpenSearch. It also serves as a user interface for many of the OpenSearch plugins, including security, alerting, Index State Management, SQL, and more.
+OpenSearch Dashboards is an open-source analytics and search application for the OpenSearch engine. With OpenSearch Dashboards, you can query, visualize, alert on, and understand your metrics no matter where they are stored. 
 
 ## Install OpenSearch Dashboards from a package
 
