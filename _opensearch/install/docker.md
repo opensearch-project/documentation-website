@@ -397,3 +397,15 @@ The environment variable `"DISABLE_SECURITY_DASHBOARDS_PLUGIN=true"` disables th
 You can't reverse this step as the security dashboards plugin is removed in the process.
 To re-enable security for OpenSearch Dashboards, start a new container and set `DISABLE_SECURITY_DASHBOARDS_PLUGIN` to false or leave it unset.
 {: .note}
+
+### (Optional) Developing an application locally requiring access to local OpenSearch
+1. If you are working on a local instance of OpenSearch and developing an application locally as well, you will need to address Cross Origin Resource Scripting so your application can make calls to the OpenSearch API running locally.  You can add the following lines in your custom-opensearch.yml file (note that the "-" must be the first character in each line).
+   ```bash
+   - http.host:0.0.0.0
+   - http.port:9200
+   - http.cors.allow-origin:"http://localhost"
+   - http.cors.enabled:true
+   - http.cors.allow-headers:X-Requested-With,X-Auth-Token,Content-Type,Content-Length,Authorizat\
+     ion
+   - http.cors.allow-credentials:true
+   ```
