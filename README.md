@@ -12,7 +12,7 @@ Community contributions remain essential in keeping this documentation comprehen
 
 ## Points of contact
 
-If you encounter problems or have questions when contributing to the documentation, these people can help:
+If you find a problem or have questions when contributing to the documentation, these people can help:
 
 - [Naarcha-AWS](https://github.com/Naarcha-AWS)
 - [alicejw-AWS](https://github.com/alicejw-AWS)
