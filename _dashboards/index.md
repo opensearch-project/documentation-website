@@ -13,7 +13,9 @@ redirect_from:
 
 # What is OpenSearch Dashboards?
 
-OpenSearch Dashboards is the default visualization tool for data in OpenSearch. It also serves as a user interface for many of the OpenSearch plugins, including security, alerting, Index State Management, SQL, and more.
+OpenSearch Dashboards is the preferred visualization platform for analyzing data in OpenSearch. It serves as the user interface for many openSearch features, including security, alerting, index state management, SQL, and more.
+
+Out-of-the-box OpenSearch Dashboards includes several tools for discovering and visualizing data, and OpenSearch provides a full suite of plugins that you can use to monitor events, identify trends, and automate recurring activities.
 
 ![Sample dashboards]({site.url}}{{site.baseurl}}/images/dashboards-example.png)
 
@@ -21,6 +23,8 @@ OpenSearch Dashboards is the default visualization tool for data in OpenSearch. 
 You can try OpenSearch Dashboards' features in the [OpenSearch Dashboards Playground](https://playground.opensearch.org/app/home).
 
 Choose **OpenSearch Dashboards > Dashboards > Create dashboard** and explore the sample Global Flight, Web Traffic, and Revenue dashboards.
+
+![Dashboards playground screenshot]({site.url}}{{site.baseurl}}/images/dashboards-playground.png)
 
 # OpenSearch Dashboards for your use case
 
@@ -30,14 +34,7 @@ OpenSearch Dashboards gives users the ability to organize their logs, traces, an
 
 # Install OpenSearch Dashboards
 
-The basic installation of Dashboards includes the following features:
-- [Discover](https://github.com/opensearch-project/documentation-website/issues/991): Lets you see the OpenSearch data.
-- [Visualize](https://github.com/opensearch-project/documentation-website/issues/992): Lets you create visualizations for the data.
-- [Dashboard](https://github.com/opensearch-project/documentation-website/issues/941): Displays multiple visualizations on a dashboard.
-
-The default installation of Dashboards includes a full suite of [OpenSearch plugin](https://opensearch.org/docs/latest/dashboards/install/plugins/) features that lets you monitor events, identify trends, and automate recurring activities.
-
-For more information, see [OpenSearch Installation Instructions](https://opensearch.org/docs/latest/opensearch/install/index/).
+After installing OpenSearch, you can install OpenSearch Dashboards, with different installation methods to choose from. For more information, see [OpenSearch Installation Instructions](https://opensearch.org/docs/latest/opensearch/install/index/).
 
 # Create a dashboard using sample data
 
