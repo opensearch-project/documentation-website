@@ -26,7 +26,7 @@ Choose **OpenSearch Dashboards > Dashboards > Create dashboard** and explore the
 
 OpenSearch Dashboards gives users the ability to organize their logs, traces, and visualizations in an application-centric view.  
 
-![USe case examples]({site.url}}{{site.baseurl}}/images/use-cases-get-started.jpg)
+![Use case examples]({site.url}}{{site.baseurl}}/images/use-cases-get-started.jpg)
 
 # Install OpenSearch Dashboards
 
