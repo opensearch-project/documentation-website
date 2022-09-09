@@ -1,0 +1,85 @@
+---
+layout: default
+title: Segment Replication Configuration
+nav_order: 122
+parent: Segment Replication Feature
+grand_parent: Opensearch
+---
+
+## Segment Replication Configuration
+
+### Enabling the feature flag
+
+#### Enable on a node using a tarball install
+
+1. Option 1. Update config/jvm.options with:
+
+    ````json
+    -Dopensearch.experimental.feature.replication_type.enabled=true
+    ````
+
+1. Option 2. Include the flag `OPENSEARCH_JAVA_OPTS` in `./bin/opensearch` below the `# The JVM options parser produces the final JVM options to start OpenSearch` comment section:
+
+    ````json
+    OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.replication_type.enabled=true"
+    ````
+
+2. Option 3: Specify the `OPENSEARCH_JAVA_OPTS` environment variable in `./bin/opensearch` below the `# manual parsing to find out, if process should be detached` comment section:
+
+    ````json
+    export OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.replication_type.enabled=true"
+    ````
+
+#### Enable with Docker containers
+
+For Docker composer, add the following line to docker-compose.yml underneath the `opensearch-node` and `environment` section:
+
+````json
+OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.replication_type.enabled=true" # Enables segment replication
+````
+
+#### For developers using Gradle
+
+Update run.gradle with:
+
+````json
+testClusters {
+  runTask {
+    testDistribution = 'archive'
+    if (numZones > 1) numberOfZones = numZones
+    if (numNodes > 1) numberOfNodes = numNodes
+    systemProperty 'opensearch.experimental.feature.replication_type.enabled', 'true'
+  }
+}
+````
+
+#### Setting replication strategy on the index
+
+When creating an index via the REST interface, add `'{"settings" : { "index" : { "replication.type" : "SEGMENT" }}}'` to your payload:
+
+````bash
+curl -X PUT "localhost:9200/<index-name>?pretty" -H 'Content-Type: application/json' -d '{"settings" : { "index" : { "replication.type" : "SEGMENT" }}}'
+````
+
+### Caveats
+
+1. Network usage of main shard is sharply increased and will create a bottleneck. [Issue - Optimize network bandwidth on primary shards](https://github.com/opensearch-project/OpenSearch/issues/4245).
+1. Make sure to update shard allocation to balance primary shards across nodes.
+1. Rolling upgrades are currently not supported. Full cluster restarts are required to upgrade indexes using segment replication. [Issue 3881](https://github.com/opensearch-project/OpenSearch/issues/3881).
+1. Enabling segment replication for an existing index requires [reindexing](https://github.com/opensearch-project/OpenSearch/issues/3685).
+1. [Cross cluster replication](https://github.com/opensearch-project/OpenSearch/issues/4090) does not currently use segment replication to copy between clusters.
+1. Integration with remote store as the source of replication is [currently unsupported](https://github.com/opensearch-project/OpenSearch/issues/4448).
+1. Scaling: as a physical replication of segments is performed, using nodes with higher network performance may be required to reduce refresh times across the cluster. This depends on the indexing load.
+1. Cluster configuration: as this is an experimental version and we are copying segments out to replicas directly from primary shards, after a certain shard/replica count per node you will see degraded performance in the form of replicas lagging behind.  This also depends on the network performance per node. There are [changes being worked on](https://github.com/opensearch-project/OpenSearch/issues/4245) to reduce the load on primary shards.
+
+### Potential use cases
+
+1. Users who have very high writes load, but not as much search load requirements. Indexing throughput is higher, however, refresh times are higher as a result.
+1. Lowering the cost of compute.
+1. Users with very high loads who want to add new nodes, as you do not need to index all nodes when adding a new one.
+
+### Further resources regarding segment replication:
+
+1. [Known issues](https://github.com/opensearch-project/OpenSearch/issues/2194).
+1. Steps for testing. (link coming soon).
+1. Segment replication blog post. (link coming soon).
