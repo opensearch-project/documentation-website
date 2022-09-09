@@ -15,7 +15,7 @@ redirect_from:
 
 OpenSearch Dashboards is the default visualization tool for data in OpenSearch. It also serves as a user interface for many of the OpenSearch plugins, including security, alerting, Index State Management, SQL, and more.
 
-![Sample dashboards](../images/dashboards-example.png)
+![Sample dashboards]({site.url}}{{site.baseurl}}/images/dashboards-example.png)
 
 # Try OpenSearch Dashboards
 You can try OpenSearch Dashboards' features in the [OpenSearch Dashboards Playground](https://playground.opensearch.org/app/home).
@@ -24,9 +24,9 @@ Choose **OpenSearch Dashboards > Dashboards > Create dashboard** and explore the
 
 # OpenSearch Dashboards for your use case
 
-|       Analyze and visualize your logs |   Deduce security vulnerabilities   |
-|:-----------------------------:|:-----------------------------------:|
-| **See patterns in your data** | **Find your best-selling products** |
+OpenSearch Dashboards gives users the ability to organize their logs, traces, and visualizations in an application-centric view.  
+
+![USe case examples]({site.url}}{{site.baseurl}}/images/use-cases-get-started.jpg)
 
 # Install OpenSearch Dashboards
 
@@ -48,9 +48,9 @@ Use the following steps to create a dashboard using sample data.
 3. From the top menu, choose **Discover** and search for a few flights.
 4. Choose **Dashboard**, **[Flights]** Global Flight Dashboard.
 
-Your dashboard will look different than the example below.
+You have now created a dashboard, which may look different than the example below.
 
-![Sample dashboard using flight sample data](../images/flight-dashboards.png)
+![Sample dashboard using flight sample data]({site.url}}{{site.baseurl}}/images/flight-dashboards.png)
 
 # Compatibility with Elasticsearch
 You can use OpenSearch Dashboards with an Elasticsearch backend 7.10 or lower. Elastic users may benefit from Dashboards' additional functionality provided by a growing ecosystem of OpenSearch plugins. For more information, see the [feature comparison of Opensearch Dashboards and Kibana](_{{site.url}}{{site.baseurl}}_). See [Upgrade from Kibana OSS to OpenSearch Dashboards](https://opensearch.org/docs/latest/upgrade-to/dashboards-upgrade-to/) for instructions to switch to OpenSearch Dashboards.
