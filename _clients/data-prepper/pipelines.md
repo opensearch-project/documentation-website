@@ -194,7 +194,7 @@ To set up a metrics pipeline:
 ```yml
 metrics-pipeline:
   source:
-    otel_trace_source:
+    otel_metrics_source:
   processor:
     - otel_metrics_raw_processor:
   sink:
