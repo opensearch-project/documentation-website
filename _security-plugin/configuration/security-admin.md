@@ -82,7 +82,6 @@ The `securityadmin.sh` tool can be run from any machine that has access to the h
 
 `securityadmin.sh` requires that SSL/TLS transport is enabled on your opensearch cluster. In other words, make sure that the `plugins.security.ssl.http.enabled: true` is set in `opensearch.yml` before proceeding.
 {: .note}
-`plugins.security.ssl.http.enabled: true`
 
 Each node also includes the tool at `plugins/opensearch-security/tools/securityadmin.sh`. You might need to make the script executable before running it:
 
