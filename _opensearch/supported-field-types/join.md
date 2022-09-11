@@ -18,7 +18,6 @@ Create a mapping to establish a parent-child relationship between products and t
 ```json
 PUT testindex1/_mappings
 {
-  "mappings": {
     "properties": {
       "product_to_brand": { 
         "type": "join",
@@ -27,7 +26,6 @@ PUT testindex1/_mappings
         }
       }
     }
-  }
 }
 ```
 
