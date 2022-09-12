@@ -6,7 +6,7 @@ nav_order: 40
 
 # Visualize your data with dashboards
 
-OpenSearch Dashboards gives you the opportunity to explore and interpret information in an interactive visual environment. Having the right visual can help you accurately show metrics and data patterns in a clear, unbiased way.  
+Visualizations let you identify trends and spot outliers quickly for a large dataset. OpenSearch Dashboards gives you the opportunity to explore and interpret information in an interactive visual environment.  
 
 The following highlights the OpenSearch Dashboards visualizations types and typical usage.
 
@@ -37,7 +37,7 @@ The following highlights the OpenSearch Dashboards visualizations types and typi
     -   Vega provides tools to support custom visualizations in JSON format. 
 
 -   Widgets
-    -   Drag and drop makes exploring multiple visualization types easier 
+    -   Drag and drop consists of several interactive reports (widgets) like bar charts, quotas, pivot tables, and more. Edit and customize your dashboards with flexible chart-widgets and an arrangement you want.
 
 # Examples
 
