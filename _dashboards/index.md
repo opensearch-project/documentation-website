@@ -45,9 +45,9 @@ OpenSearch Dashboards makes it easy to visualize data for a number of use cases 
 </tbody>
 </table>
 
-# Install and Create OpenSearch Dashboards
+# Install and create OpenSearch Dashboards
 
-After installing OpenSearch, you can install OpenSearch Dashboards, with different installation methods to choose from. For more information, see [OpenSearch Installation Instructions](https://opensearch.org/docs/latest/opensearch/install/index/).
+After installing OpenSearch, you can install OpenSearch Dashboards, with different installation methods to choose. For more information, see [OpenSearch Installation Instructions](https://opensearch.org/docs/latest/opensearch/install/index/).
 
 You can follow these steps to create a dashboard using sample data. 
 
@@ -56,7 +56,7 @@ You can follow these steps to create a dashboard using sample data.
 3. From the top menu, choose **Discover** and search for a few flights.
 4. Choose **Dashboard**, **[Flights]** Global Flight Dashboard.
 
-Your dashbaord will look different than the example below.
+Your dashboard will look different than the example below.
 
 ![Sample dashboard using flight sample data](../images/flight-dashboards.png)
 
