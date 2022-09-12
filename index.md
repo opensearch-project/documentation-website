@@ -42,6 +42,16 @@ OpenSearch has several features and plugins to help index, secure, monitor, and 
 - [Asynchronous search]({{site.url}}{{site.baseurl}}/search-plugins/async/) - Run search requests in the background
 - [Cross-cluster replication]({{site.url}}{{site.baseurl}}/replication-plugin/index/) - Replicate your data across multiple OpenSearch clusters
 
+## Test experimental features
+
+Experimental features allow you to test new functionality in OpenSearch. Because these features are still being developed, your testing and feedback can help shape the development of the feature before it's official released. To use experimental features, select the feature from links below
+
+We do not recommend use of experimental features in production.
+{: .note}
+
+### 2.3
+
+
 
 ## Docker quickstart
 
@@ -103,18 +113,6 @@ See [opensearch.org/javadocs/](https://opensearch.org/javadocs/).
 
 [OpenSearch](https://opensearch.org) is supported by Amazon Web Services. All components are available under the [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0.html) on [GitHub](https://github.com/opensearch-project/).
 The project welcomes GitHub issues, bug fixes, features, plugins, documentation---anything at all. To get involved, see [Contributing](https://opensearch.org/source.html) on the OpenSearch website.
-
-## Test experimental features
-
-Experimental features allow you to test new functionality in OpenSearch. Because these features are still being developed, your testing and feedback can help shape the development of the feature before it's official released. To use experimental features, select the feature from links below
-
-We do not recommend use of experimental features in production.
-{: .note}
-
-### 2.3
-
-
-
 
 ---
 
