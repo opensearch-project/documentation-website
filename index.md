@@ -20,13 +20,6 @@ We have a dedicated and growing number of technical writers who are building our
 - [See the FAQ](https://opensearch.org/faq)
 
 
-**OpenSearch Dashboard Playground**
-
-If you want to see OpenSearch Dasbhoards in action, You can visualize and play with sample data in the [OpenSearch Dashboards Playground](https://playground.opensearch.org/app/home#/). 
-
-<img src="images/Flight-data.png" alt="drawing" style="border:6px"/>
-
-
 ## Why use OpenSearch?
 
 With OpenSearch, you can perform the following use cases:
@@ -51,8 +44,10 @@ OpenSearch has several features and plugins to help index, secure, monitor, and 
 
 
 ## Docker quickstart
+
 Docker
 {: .label .label-green }
+
 The best way to try out OpenSearch is to use Docker Compose. Setting up OpenSearch with Docker Compose sets up a two-node cluster of OpenSearch plus OpenSearch Dashboards.
 1. Install and start [Docker Desktop](https://www.docker.com/products/docker-desktop).
 1. Run the following commands:
