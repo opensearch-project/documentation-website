@@ -4,15 +4,16 @@ title: Geting Started with OpenSearch
 nav_order: 1
 redirect_from: /404.html
 permalink: /
-has_children: true
 ---
 
 # OpenSearch documentation
-Welcome to the *OpenSearch* documentation! With this documentation, you’ll learn how to use OpenSearch &mdash;  the only 100% open-source search, analytics, and visualization suite.
+
+Welcome to the OpenSearch documentation! With this documentation, you’ll learn how to use OpenSearch &mdash;  the only 100% open-source search, analytics, and visualization suite.
 We have a dedicated and growing number of technical writers who are building our documentation library. We also welcome and encourage community input. To contribute, see the [Contributing](https://opensearch.org/source.html) file. A good place to start is by browsing  issues labeled “_good first issue_.”
 
 
 ## Getting started
+
 - [About OpenSearch](index.md)
 - [Install OpenSearch](_opensearch/install/index.md)
 - [Install OpenSearch Dashboards](_dashboards/install/plugins.md)
@@ -23,15 +24,16 @@ We have a dedicated and growing number of technical writers who are building our
 
 If you want to see OpenSearch Dasbhoards in action, You can visualize and play with sample data in the [OpenSearch Dashboards Playground](https://playground.opensearch.org/app/home#/). 
 
+<img src="images/Flight-data.png" alt="drawing" style="border:6px"/>
+
 
 ## Why use OpenSearch?
 
 With OpenSearch, you can perform the following use cases:
+
 ![](images/1_search.png) | ![](images/2_monitoring.png)|![](images/3_security.png) | ![](images/4_tracking.png)
 :--- | :--- | :--- | :--- |
 **Fast, Scalable Full-text Search** | **Application and Infrastructure Monitoring** | **Security and Event Information Management** | **Operational Health Tracking**
-
-
 Help users find the right information within your application, website, or data lake catalog. | Easily store and analyze log data, and set automated alerts for underperformance. | Centralize logs to enable real-time security monitoring and forensic analysis. | Use observability logs, metrics, and traces to monitor your applications and business in real time.
 
 
