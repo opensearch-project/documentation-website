@@ -198,42 +198,43 @@ All posts should contain one or more calls to action that give readers the oppor
 
 ## Inclusive content
 
-OpenSearch content strives to be inclusive and free of bias. We use inclusive language to connect with the diverse and global OpenSearch audience. This means we are careful in our word choices. Inclusive and bias-free content improves clarity and accessibility of our content for all audiences. We avoid ableist and sexist language and language that perpetuates racist structures or stereotypes.
+When developing OpenSearch documentation, we strive to create content that is inclusive and free of bias. We use inclusive language to connect with the diverse and global OpenSearch audience, and we are careful in our word choices. Inclusive and bias-free content improves clarity and accessibility of our content for all audiences, so we avoid ableist and sexist language and language that perpetuates racist structures or stereotypes. In practical terms, this means that we do not allow certain terms to appear in our content, and we avoid using others, *depending on the context*.
+
+Our philosophy is that we positively impact users and our industry as we proactively reduce our use of terms that are problematic in some contexts. Instead, we use more technically precise language and terms that are inclusive of all audiences.
 
 ### Offensive terms
 
-Do _not_ use the following terms.
+The following terms may be associated with unconscious racial bias, violence, or politically sensitive topics and should not appear in OpenSearch content, if possible. Note that many of these terms are still present but on a path to not being supported. For example, `slave` was removed from the Python programming language in 2018, and the open-source community continues to work toward replacing these terms.
 
-| Don’t use      | Use instead                 |
+| Don’t use      | Guidance/Use instead        |
 |----------------|-----------------------------|
-| abort          | stop                        |
+| abort          | Don't use because it has unpleasant associations and is unnecessarily harsh sounding. Use *stop*, *end*, or *cancel* instead.                    |
 | black day      | blocked day                 |
 | blacklist      | deny list                   |
-| execute        | start, run                  |
-| hang           | stop responding             |
-| kill           | end, stop                   |
+| execute        | Replace with a more specific verb. In the sense of carrying out an action, use *run*, *process*, or *apply*. In the sense of initiating an operation, use *start*, *launch*, or *initiate*.<br><br> Exception: *Execution* is unavoidable for third-party terms for which no alternative was determined, such as SQL execution plans. *Executable* is also unavoidable.                              |
+| hang           | Don't use. This term is unnecessarily violent for technical documentation. Use *stop responding* instead.                                       |
+| kill           | Don't use. Replace with *stop*, *end*, *clear*, *remove*, or *cancel*. <br><br> Exception: *Kill* is unavoidable when referring to Linux kill commands. |
 | master         | primary, main, leader       |
 | master account | management account          |
 | slave          | replica, secondary, standby |
 | white day      | open day                    |
 | whitelist      | allow list                  |
 
-
 ### Sensitive terms
 
-Avoid using the following terms.
+The following terms may be problematic *in some contexts*. This doesn’t mean that you can’t use these terms—just be mindful of their potential associations when using them, and avoid using them to refer to people. 
 
-| Avoid using              | Use instead                         |
+| Avoid using              | Guidance/Use instead                |
 |--------------------------|-------------------------------------|
 | blackout                 | service outage, blocked             |
 | demilitarized zone (DMZ) | perimeter network, perimeter zone   |
-| disable                  | turn off, deactivate, stop          |
-| enable                   | turn on, activate, start            |
+| disable                  | Use *turn off*, *deactivate*, or *stop* instead of *disable* to support bias-free documentation, when possible. Otherwise, use *disable* to describe making a feature or command unavailable. If the UI uses *active* and *inactive* to describe these states, use *activate* and *deactivate* in the documentation. Don't use *disable* to refer to users.                                     |
+| enable                   | Use *turn on*, *activate*, or *start* instead of *enable* to support bias-free documentation, when possible. Otherwise, use *enable* to describe making a feature or command available. If the UI uses *active* and *inactive* to describe these states, use *activate* and *deactivate* in the documentation. <br><br> Avoid using *enable* to refer to making something possible for the user. Instead, rewrite to focus on what's important from the user's point of view. For example, “With ABC, you can do XYZ” is a stronger statement than “ABC enables you to XYZ.” Additionally, using a task-based statement is usually more clear than the vague “…enables you to….” |
 | invalid                  | not valid                           |
-| primitive                | primitive data type, primitive type |
-| purge                    | delete, clear, remove               |
+| primitive                | Avoid using *primitive* (especially plural *primitives*) as a colloquial way of referring to the basic concepts or elements that are associated with a feature or to the simplest elements in a programming language. For greatest clarity and to avoid sounding unpleasant, replace with *primitive data type* or *primitive type*. |
+| purge                    | Use only in reference to specific programming methods. Otherwise, use *delete*, *clear*, or *remove* instead.                                                |
 | segregate                | separate, isolate                   |
-| trigger                  | initiate, invoke, launch, start     |
+| trigger                  | Avoid using as a verb to refer to an action that precipitates a subsequent action. It is OK to use when referring to a feature name, such as a *trigger function* or *time-triggered architecture*. As a verb, use an alternative, such as *initiate*, *invoke*, *launch*, or *start*. |
 
 ## Trademark policy
 
