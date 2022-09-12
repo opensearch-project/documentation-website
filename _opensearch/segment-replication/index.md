@@ -12,7 +12,13 @@ redirect_from:
 
 Opensearch 2.3 contains an experimental version of segment replication.
 
-With segment replication, segment files are copied across shards instead of indexing documents on each shard copy. This improves indexing throughput at the expense of increased network utilization.
+With segment replication, segment files are copied across shards instead of indexing documents on each shard copy. This improves indexing throughput and lowers resource utilization at the expense of increased network utilization.
 
 As an experimental feature, segment replication will be behind a feature flag and must be enabled on **each node** of a cluster in addition to passing a new setting during index creation.
 {: .note }
+
+### Potential use cases
+
+1. Users who have very high writes load, but do not have high search requirements and are ok with longer refresh times.
+1. Users with very high loads who want to add new nodes, as you do not need to index all nodes when adding a new node to the cluster.
+1. This is the first step in a series of features to decouple reads and writes so resulting in a lower cost of compute.

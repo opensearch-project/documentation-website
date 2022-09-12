@@ -8,7 +8,11 @@ grand_parent: Opensearch
 
 ## Segment Replication Configuration
 
+To enable the segment replication type, reference the steps below.
+
 ### Enabling the feature flag
+
+There are several methods to enable segment replication depending on install type. You will also need to set replication strategy to `SEGMENT` when creating the index.
 
 #### Enable on a node using a tarball install
 
@@ -25,6 +29,18 @@ The flag is toggled using a new jvm parameter that is set in either `OPENSEARCH_
     ````json
     export OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.replication_type.enabled=true"
     ````
+1. Option 3: For developers using Gradle, update run.gradle with:
+
+    ````json
+    testClusters {
+      runTask {
+        testDistribution = 'archive'
+        if (numZones > 1) numberOfZones = numZones
+        if (numNodes > 1) numberOfNodes = numNodes
+        systemProperty 'opensearch.experimental.feature.replication_type.enabled', 'true'
+      }
+    }
+    ````
 
 #### Enable with Docker containers
 
@@ -36,15 +52,22 @@ OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.replication_type.enabled
 
 #### Setting replication strategy on the index
 
-When creating an index via the REST interface, add `'{"settings" : { "index" : { "replication.type" : "SEGMENT" }}}'` to your payload:
+To set the replication strategy to segment replication, create an index with replication.type set to `SEGMENT`:
 
-````bash
-curl -X PUT "localhost:9200/<index-name>?pretty" -H 'Content-Type: application/json' -d '{"settings" : { "index" : { "replication.type" : "SEGMENT" }}}'
+````json
+PUT /my-index1
+{
+  "settings": {
+    "index": {
+      "replication.type": "SEGMENT" 
+    }
+  }
+}
 ````
 
 ### Known Limitations
 
-Segment Replication is currently experimental and not yet intended for production use.
+Segment replication is an experimental feature. Therefore, we do not recommend the use of segment replication in a production environment. For updates on the progress of segment replication or if you want leave feedback that could help improve the feature, see the [Segment Replication Git Issue](https://github.com/opensearch-project/OpenSearch/issues/2229).
 {: .note }
 
 1. Enabling segment replication for an existing index requires [reindexing](https://github.com/opensearch-project/OpenSearch/issues/3685).
@@ -52,7 +75,7 @@ Segment Replication is currently experimental and not yet intended for productio
 1. [Cross cluster replication](https://github.com/opensearch-project/OpenSearch/issues/4090) does not currently use segment replication to copy between clusters.
 1. Network congestion on primary shards. [Issue - Optimize network bandwidth on primary shards](https://github.com/opensearch-project/OpenSearch/issues/4245).
 1. Shard allocation algorithms have not been updated to evenly spread primary shards across nodes.
-1. Integration with a remote store as the source of replication is [currently unsupported](https://github.com/opensearch-project/OpenSearch/issues/4448).
+1. Integration with a remote backed storage as the source of replication is [currently unsupported](https://github.com/opensearch-project/OpenSearch/issues/4448).
 
 ### Further resources regarding segment replication:
 
