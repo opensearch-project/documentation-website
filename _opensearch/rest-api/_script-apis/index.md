@@ -10,7 +10,7 @@ redirect_from:
 
 # Script APIs
 
-The script APIs allow you to work with stored scripts. Stored scripts are part of the cluster state and reduce compilation time and enhance search speed. The default scripting language is Painless. 
+The script APIs allow you to work with stored scripts. Stored scripts are part of the cluster state and reduce compilation time and enhance search speed. The default scripting language is Painless.
 
 You perform the following operations on stored scripts:
 * [create]({{site.url}}{{site.baseurl}}/opensearch/rest-api/_script-apis/create-stored-script/)
