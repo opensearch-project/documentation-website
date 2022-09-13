@@ -10,7 +10,7 @@ grand_parent: Opensearch
 
 Remote-backed storage offers OpenSearch users a new way to protect against data loss by automatically creating backups of all index transactions and sending them to a supported cloud storage service. In order to expose this feature, segment replication must also be enabled. See [Segment replication](NEEDLINKHERE-FROM-PR-1163) for additional information.
 
-Remote-backed storage is an experimental feature. Therefore, we do not recommend the use of remote-backed storage in a production environment. For updates on the progress of remote-backed storage, or if you want leave feedback that could help improve the feature, see [\[Feature Proposal\] Add Remote Storage Options for Improved Durability](https://github.com/opensearch-project/OpenSearch/issues/1968).
+Remote-backed storage is an experimental feature. Therefore, we do not recommend the use of remote-backed storage in a production environment. For updates on the progress of remote-backed storage, or if you want leave feedback that could help improve the feature, see [Feature Proposal - Add Remote Storage Options for Improved Durability](https://github.com/opensearch-project/OpenSearch/issues/1968).
 {: .note}
 
 ### Enable the feature
@@ -31,7 +31,7 @@ testClusters {
 }
 ```
 
-Segment replication must be enabled in order to use remote-backed storage.
+Segment replication must also be enabled in order to use remote-backed storage.
 {: .note}
 
 After building OpenSearch with these properties, you must enable the feature. This can be done by modifying a `config/jvm.options`, or by defining `OPENSEARCH_JAVA_OPS` from the command line.
@@ -68,3 +68,6 @@ export OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.replication_type.
 ./bin/opensearch
 ```
 
+### Register a remote repository
+
+Now that you have used Gradle to build OpenSearch with the feature enabled and started OpenSearch, the next step is to register the remote repository where backups will be stored. See [](/opensearch/snapshots/snapshot-restore#register-repository)
