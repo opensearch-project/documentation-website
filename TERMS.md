@@ -305,6 +305,8 @@ install in a folder, directory, or path; install on a disk, drive, or instance.
 
 **internet**
 
+Do not capitalize.
+
 **invalid**
 
 Avoid using. Use *not valid* instead.
