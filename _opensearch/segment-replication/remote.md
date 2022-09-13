@@ -34,7 +34,7 @@ testClusters {
 Segment replication must also be enabled in order to use remote-backed storage.
 {: .note}
 
-After building OpenSearch with these properties, you must enable the feature. This can be done by modifying a `config/jvm.options`, or by defining `OPENSEARCH_JAVA_OPS` from the command line.
+After building OpenSearch with these properties, you must enable the feature for all nodes in your cluster. This can be done by modifying a `config/jvm.options`, or by defining `OPENSEARCH_JAVA_OPS` from the command line.
 
 #### Option 1: Modify jvm.options
 
@@ -70,4 +70,50 @@ export OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.replication_type.
 
 ### Register a remote repository
 
-Now that you have used Gradle to build OpenSearch with the feature enabled and started OpenSearch, the next step is to register the remote repository where backups will be stored. See [](/opensearch/snapshots/snapshot-restore#register-repository)
+Now that your deployment is running with the feature flags enabled, the next step is to register a remote repository where backups will be stored. See [Register repository]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore#register-repository) for more information.
+
+### Create an index
+
+Remote-backed storage is enabled for an index when it is created. This feature cannot be enabled for indexes that already exist.
+
+When creating the index, include the `remote_store` property to enable the feature and specify a target repository:
+
+```bash
+curl -X PUT "https://localhost:9200/my-index?pretty" -ku admin:admin -H 'Content-Type: application/json' -d'
+{
+  "settings": {
+    "index": {
+      "number_of_shards": 1,
+      "number_of_replicas": 0,
+      "replication": {
+        "type": "SEGMENT"
+      },
+      "remote_store": {
+        "enabled": true,
+        "repository": "my-repo-1"
+      }
+    }
+  }
+}
+'
+```
+
+All data that is added to the index will also be uploaded to the remote storage once it is committed.
+
+### Restoring from a backup
+
+To restore an index from a remote backup, such as in the event of a node failure, you must first close the index:
+
+```bash
+curl -X POST "https://localhost:9200/my-index/_close" -ku admin:admin
+```
+
+Restore the index from the backup stored on the remote repository:
+
+```bash
+curl -X POST "https://localhost:9200/_remotestore/_restore" -ku admin:admin -H 'Content-Type: application/json' -d'
+{
+  "indices": ["my-index-1"]
+}
+'
+```
