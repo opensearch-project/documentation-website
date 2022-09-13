@@ -6,3 +6,65 @@ parent: Segment Replication Feature
 grand_parent: Opensearch
 ---
 
+## Remote-backed storage
+
+Remote-backed storage offers OpenSearch users a new way to protect against data loss by automatically creating backups of all index transactions and sending them to a supported cloud storage service. In order to expose this feature, segment replication must also be enabled. See [Segment replication](NEEDLINKHERE-FROM-PR-1163) for additional information.
+
+Remote-backed storage is an experimental feature. Therefore, we do not recommend the use of remote-backed storage in a production environment. For updates on the progress of remote-backed storage, or if you want leave feedback that could help improve the feature, see [\[Feature Proposal\] Add Remote Storage Options for Improved Durability](https://github.com/opensearch-project/OpenSearch/issues/1968).
+{: .note}
+
+### Enable the feature
+
+In order to create new indexes with remote-backed storage enabled, you must first enable these features by adding the correct properties to `run.gradle` prior to building OpenSearch. See the [developer guide](https://github.com/opensearch-project/OpenSearch/blob/main/DEVELOPER_GUIDE.md) for information about how Gradle is used to build OpenSearch.
+
+Add the following properties to `run.gradle` to enable the feature:
+
+```java
+testClusters {
+  runTask {
+    testDistribution = 'archive'
+    if (numZones > 1) numberOfZones = numZones
+    if (numNodes > 1) numberOfNodes = numNodes
+    systemProperty 'opensearch.experimental.feature.replication_type.enabled', 'true'
+    systemProperty 'opensearch.experimental.feature.remote_store.enabled', 'true'
+  }
+}
+```
+
+Segment replication must be enabled in order to use remote-backed storage.
+{: .note}
+
+After building OpenSearch with these properties, you must enable the feature. This can be done by modifying a `config/jvm.options`, or by defining `OPENSEARCH_JAVA_OPS` from the command line.
+
+#### Option 1: Modify jvm.options
+
+Add the following lines to `config/jvm.options` before starting the OpenSearch process to enable the feature and its dependency:
+
+```
+-Dopensearch.experimental.feature.replication_type.enabled=true
+-Dopensearch.experimental.feature.remote_store.enabled=true
+```
+
+Run OpenSearch
+
+```bash
+./bin/opensearch
+```
+
+#### Option 2: Enable from an environment variable
+
+As an alternative to directly modifying `config/jvm.options`, you can define the properties by using an environment variable. This can be done in a single command when you start OpenSearch or by defining the variable with `export`.
+
+To add these flags in-line when starting OpenSearch:
+
+```bash
+OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.replication_type.enabled=true -Dopensearch.experimental.feature.remote_store.enabled=true" ./opensearch-{{site.opensearch_version}}/bin/opensearch
+```
+
+If you want to define the environment variable separately, prior to running OpenSearch:
+
+```bash
+export OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.replication_type.enabled=true -Dopensearch.experimental.feature.remote_store.enabled=true"
+./bin/opensearch
+```
+
