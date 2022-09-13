@@ -19,6 +19,7 @@ As an experimental feature, segment replication will be behind a feature flag an
 
 ### Potential use cases
 
-1. Users who have very high writes load, but do not have high search requirements and are ok with longer refresh times.
-1. Users with very high loads who want to add new nodes, as you do not need to index all nodes when adding a new node to the cluster.
-1. This is the first step in a series of features to decouple reads and writes so resulting in a lower cost of compute.
+- Users who have very high write loads, but do not have high search requirements and are comfortable with longer refresh times.
+- Users with very high loads who want to add new nodes, as you do not need to index all nodes when adding a new node to the cluster.
+
+This is the first step in a series of features to decouple reads and writes to lower compute cost.

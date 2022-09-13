@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Segment Replication Configuration
-nav_order: 122
+nav_order: 12
 parent: Segment Replication Feature
 grand_parent: Opensearch
 ---
@@ -44,7 +44,7 @@ The flag is toggled using a new jvm parameter that is set in either `OPENSEARCH_
 
 #### Enable with Docker containers
 
-For Docker composer, add the following line to docker-compose.yml underneath the `opensearch-node` and `environment` section:
+If you're running Docker, add the following line to docker-compose.yml underneath the `opensearch-node` and `environment` section:
 
 ````json
 OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.replication_type.enabled=true" # Enables segment replication
@@ -72,7 +72,7 @@ Segment replication is an experimental feature. Therefore, we do not recommend t
 
 1. Enabling segment replication for an existing index requires [reindexing](https://github.com/opensearch-project/OpenSearch/issues/3685).
 1. Rolling upgrades are currently not supported. Full cluster restarts are required to upgrade indexes using segment replication. [Issue 3881](https://github.com/opensearch-project/OpenSearch/issues/3881).
-1. [Cross cluster replication](https://github.com/opensearch-project/OpenSearch/issues/4090) does not currently use segment replication to copy between clusters.
+1. [Cross-cluster replication](https://github.com/opensearch-project/OpenSearch/issues/4090) does not currently use segment replication to copy between clusters.
 1. Network congestion on primary shards. [Issue - Optimize network bandwidth on primary shards](https://github.com/opensearch-project/OpenSearch/issues/4245).
 1. Shard allocation algorithms have not been updated to evenly spread primary shards across nodes.
 1. Integration with a remote backed storage as the source of replication is [currently unsupported](https://github.com/opensearch-project/OpenSearch/issues/4448).
