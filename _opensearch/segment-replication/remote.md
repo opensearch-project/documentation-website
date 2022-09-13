@@ -113,7 +113,10 @@ Restore the index from the backup stored on the remote repository:
 ```bash
 curl -X POST "https://localhost:9200/_remotestore/_restore" -ku admin:admin -H 'Content-Type: application/json' -d'
 {
-  "indices": ["my-index-1"]
+  "indices": ["my-index"]
 }
 '
 ```
+
+If the security plugin is enabled, a user must have the `cluster:admin/remotestore/restore` permission. See [Access control](/security-plugin/access-control/index/) for information about configuring user permissions.
+{: .note}
