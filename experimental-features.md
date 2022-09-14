@@ -17,4 +17,4 @@ We do not recommend use of experimental features in production.
 This section provides link to experimental features added in 2.3.
 
 - [Segment replication]({{site.url}}{{site.baseurl}}/opensearch/segment-replication/)
-- [Dashboard's wizard visualizations]({{site.url}}{{site.baseurl}}/dashboards/drag-drop-wizard/)
+- [Drag and drop wizard]({{site.url}}{{site.baseurl}}/dashboards/drag-drop-wizard/)
