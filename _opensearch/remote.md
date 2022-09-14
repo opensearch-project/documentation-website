@@ -6,14 +6,14 @@ nav_order: 19
 
 # Remote-backed storage
 
-Remote-backed storage offers OpenSearch users a new way to protect against data loss by automatically creating backups of all index transactions and sending them to a supported cloud storage service. In order to expose this feature, segment replication must also be enabled. See [Segment replication]({{site.url}}{{site.baseurl}}/opensearch/segment-replication/) for additional information.
+Remote-backed storage offers OpenSearch users a new way to protect against data loss by automatically creating backups of all index transactions and sending them to remote storage. In order to expose this feature, segment replication must also be enabled. See [Segment replication]({{site.url}}{{site.baseurl}}/opensearch/segment-replication/) for additional information.
 
 Remote-backed storage is an experimental feature. Therefore, we do not recommend the use of remote-backed storage in a production environment. For updates on the progress of remote-backed storage, or if you want leave feedback that could help improve the feature, refer to the issue on [GitHub](https://github.com/opensearch-project/OpenSearch/issues/1968).
 {: .note}
 
 ## Enable the feature
 
-In order to create new indexes with remote-backed storage enabled, you must first enable these features by adding the correct properties to `run.gradle` before building OpenSearch. See the [developer guide](https://github.com/opensearch-project/OpenSearch/blob/main/DEVELOPER_GUIDE.md) for information about how Gradle is used to build OpenSearch.
+To create new indexes with remote-backed storage enabled, you must first enable these features by adding the correct properties to `run.gradle` before building OpenSearch. See the [developer guide](https://github.com/opensearch-project/OpenSearch/blob/main/DEVELOPER_GUIDE.md) for information about to use how Gradle to build OpenSearch.
 
 Add the following properties to `run.gradle` to enable the feature:
 
@@ -29,7 +29,7 @@ testClusters {
 }
 ```
 
-Segment replication must also be enabled in order to use remote-backed storage.
+Segment replication must also be enabled to use remote-backed storage.
 {: .note}
 
 After building OpenSearch with these properties, you must enable the feature for all nodes in your cluster. This can be done by modifying a `config/jvm.options`, or by defining `OPENSEARCH_JAVA_OPS` from the command line.
@@ -81,7 +81,7 @@ curl -X PUT "https://localhost:9200/my-index?pretty" -ku admin:admin -H 'Content
 {
   "settings": {
     "index": {
-      "number_of_shards": 1,
+      "number_of_shards": 1
       "number_of_replicas": 0,
       "replication": {
         "type": "SEGMENT"
