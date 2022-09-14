@@ -7,9 +7,9 @@ nav_order: 45
 
 # Boolean queries
 
-You can perform a boolean query with the `bool` query type. A bool query compounds query clauses so you can combine multiple search queries with boolean logic. You can also use boolean logic between queries to either narrow or broaden your search results.
+You can perform a boolean query with the `bool` query type. A boolean query compounds query clauses so you can combine multiple search queries with boolean logic. To narrow or broaden your search results, use the `bool` query clause rules.
 
-The `bool` query is a go-to query because it allows you to construct an advanced query by chaining together several simple ones.
+As a compound query type, `bool` allows you to construct an advanced query by chaining together several simple ones.
 
 Use the following rules to define how to combine multiple sub-query clauses within a `bool` query:
 
