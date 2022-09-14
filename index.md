@@ -19,7 +19,6 @@ We have a dedicated and growing number of technical writers who are building our
 - [Install OpenSearch Dashboards](_dashboards/install/plugins.md)
 - [See the FAQ](https://opensearch.org/faq)
 
-
 ## Why use OpenSearch?
 
 With OpenSearch, you can perform the following use cases:
@@ -41,17 +40,6 @@ OpenSearch has several features and plugins to help index, secure, monitor, and 
 - [ML Commons plugin]({{site.url}}{{site.baseurl}}/ml-commons-plugin/index/) - Train and execute machine-learning models
 - [Asynchronous search]({{site.url}}{{site.baseurl}}/search-plugins/async/) - Run search requests in the background
 - [Cross-cluster replication]({{site.url}}{{site.baseurl}}/replication-plugin/index/) - Replicate your data across multiple OpenSearch clusters
-
-## Test experimental features
-
-Experimental features allow you to test new functionality in OpenSearch. Because these features are still being developed, your testing and feedback can help shape the development of the feature before it's official released. To use experimental features, select the feature from links below
-
-We do not recommend use of experimental features in production.
-{: .note}
-
-### 2.3
-
-
 
 ## Docker quickstart
 
