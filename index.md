@@ -16,7 +16,7 @@ We have a dedicated and growing number of technical writers who are building our
 
 - [About OpenSearch]({{site.url}}{{site.baseurl}}/opensearch/)
 - [Install OpenSearch]({{site.url}}{{site.baseurl}}/opensearch/install/)
-- [Install OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/install/plugins/)
+- [Install OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/install/)
 - [See the FAQ](https://opensearch.org/faq)
 
 ## Why use OpenSearch?
