@@ -283,7 +283,7 @@ GET shakespeare/_search
 }
 ```
 
-## Range
+## Range query
 
 Use the `range` query to search for a range of values in a field.
 
