@@ -12,4 +12,8 @@ Experimental features allow you to test new functionality in OpenSearch. Because
 We do not recommend use of experimental features in production.
 {: .note}
 
-### 2.3
+## 2.3
+
+This section provides link to experimental features added in 2.3.
+
+- [Segment replication]({{site.url}}{{site.baseurl}}/opensearch/segment-replication/)
