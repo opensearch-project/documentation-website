@@ -7,10 +7,10 @@ redirect_from:
   - /opensearch/segment-replication/
 ---
 
+# Segment replication
+
 Segment replication is an experimental feature with OpenSearch 2.3. Therefore, we do not recommend the use of segment replication in a production environment. For updates on the progress of segment replication or if you want leave feedback that could help improve the feature, see the [Segment replication git issue](https://github.com/opensearch-project/OpenSearch/issues/2229). 
 {: .warning}
-
-# Segment replication
 
 With segment replication, segment files are copied across shards instead of documents being indexed on each shard copy. This improves indexing throughput and lowers resource utilization at the expense of increased network utilization.
 
