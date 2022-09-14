@@ -94,7 +94,7 @@ raw-pipeline:
   source:
     pipeline:
       name: "entry-pipeline"
-  prepper:
+  processor:
     - otel_trace_raw_prepper:
   sink:
     - opensearch:
@@ -108,7 +108,7 @@ service-map-pipeline:
   source:
     pipeline:
       name: "entry-pipeline"
-  prepper:
+  processor:
     - service_map_stateful:
   sink:
     - opensearch:
@@ -194,7 +194,7 @@ To set up a metrics pipeline:
 ```yml
 metrics-pipeline:
   source:
-    otel_trace_source:
+    otel_metrics_source:
   processor:
     - otel_metrics_raw_processor:
   sink:

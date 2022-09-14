@@ -10,6 +10,7 @@ nav_order: 320
 
 The cache clear API operation clears the caches of one or more indexes. For data streams, the API clears the caches of the stream’s backing indexes.
 
+
 If you use the security plugin, you must have the `manage index` privileges.
 {: .note}
 
@@ -18,6 +19,7 @@ If you use the security plugin, you must have the `manage index` privileges.
 | Parameter | Data Type | Description |
 :--- | :--- | :---
 | target | String | Comma-delimited list of data streams, indexes, and index aliases to which cache clearing will be applied. Wildcard expressions (`*`) are supported. To target all data streams and indexes in a cluster, omit this parameter or use `_all` or `*`. Optional. |
+
 
 ### Query parameters
 
