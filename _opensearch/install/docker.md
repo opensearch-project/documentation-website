@@ -118,7 +118,7 @@ services:
       - cluster.name=opensearch-cluster
       - node.name=opensearch-node2
       - discovery.seed_hosts=opensearch-node1,opensearch-node2
-      - cluster.initial_master_nodes=opensearch-node1,opensearch-node2
+      - cluster.initial_cluster_manager_nodes=opensearch-node1,opensearch-node2
       - bootstrap.memory_lock=true
       - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
     ulimits:
