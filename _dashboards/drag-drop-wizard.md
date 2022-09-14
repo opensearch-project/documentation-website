@@ -25,11 +25,10 @@ The drag and drop visualization wizard:
 To experiment with the drag and drop wizard, you first need to enable experimental visualizations in your OpenSearch playground:
 
 1. Open [OpenSearch Dashboards playground](https://playground.opensearch.org/app/home#/).
-
 2. Go to **Management** **>** **Stack Management** **>** **Advanced Settings**.
    <img src="{{site.url}}{{site.baseurl}}/images/stack-managment-settings.png" alt="Stack management screenshot">
-3. Go to **Visualization** and turn on **Enable experimental visualizations**.
 
+3. Go to **Visualization** and turn on **Enable experimental visualizations**.
 <img src="{{site.url}}{{site.baseurl}}/images/enable-experimental-viz.png" alt="Enable experimental visualizations screenshot">
 
 ## Create new visualization in OpenSearch Dashboards playground
@@ -43,7 +42,6 @@ The following steps walk you through creating a new visualization using the wiza
 2. Under the menu icon, select **Visualize** **>** **Create visualization** **>** **Wizard**.
 
    <img src="{{site.url}}{{site.baseurl}}//images/drag-and-drop-viz-select.png" alt="Select Wizard visualization">  
-
 
 3. Use sample data to add fields and generate a visualization.
 
