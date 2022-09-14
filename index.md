@@ -12,6 +12,8 @@ Welcome to the OpenSearch documentation! With this documentation, you’ll learn
 We have a dedicated and growing number of technical writers who are building our documentation library. We also welcome and encourage community input. To contribute, see the [Contributing](https://opensearch.org/source.html) file. A good place to start is by browsing  issues labeled “_good first issue_.”
 
 
+
+
 ## Getting started
 
 - [About OpenSearch](index.md)
