@@ -29,6 +29,7 @@ With OpenSearch, you can perform the following use cases:
 Help users find the right information within your application, website, or data lake catalog. | Easily store and analyze log data, and set automated alerts for underperformance. | Centralize logs to enable real-time security monitoring and forensic analysis. | Use observability logs, metrics, and traces to monitor your applications and business in real time.
 
 
+
 **Additional features and plugins:**
 
 OpenSearch has several features and plugins to help index, secure, monitor, and analyze your data. Most OpenSearch plugins have corresponding OpenSearch Dashboards plugins that provide a convenient, unified user interface.
