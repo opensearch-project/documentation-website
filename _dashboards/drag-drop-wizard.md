@@ -10,7 +10,7 @@ You can use the drag and drop visualization wizard in OpenSearch Dashboards to c
 
 The drag and drop visualization wizard:
 
-* Gives you immediate an view of your data without the need to preselect the visualization output 
+* Gives you an immediate view of your data without the need to preselect the visualization output 
 * Gives you the flexibility to change visualization types and index patterns on the fly
 * Gives you the ability to easily navigate between multiple screens 
 
@@ -33,7 +33,7 @@ To experiment with the drag and drop wizard, you first need to enable experiment
 
 You can explore the drag and drop wizard directly from the [OpenSearch Wizard playground](https://playground.opensearch.org/app/wizard), or you can create a new visualization and select wizard. 
 
-The following steps walk you through creating a new visualization using the visualization wizard:
+The following steps walk you through creating a new visualization using the wizard:
 
 1. Open [OpenSearch Dashboards playground](https://playground.opensearch.org/app/home#/).
 2. Under the menu icon, select **Visualize** **>** **Create visualization** **>** **Wizard**.
@@ -46,6 +46,6 @@ Here’s an example visualization. Your visualization will look different depend
 
 # Related topics
 
-* [OpenSearch News, September 14, 2022]
+* [OpenSearch News, September 14, 2022](https://opensearch.org/)
 * [Drag and drop visualizations demo at OpenSearch Community Meeting, August 16, 2022](https://forum.opensearch.org/t/opensearch-community-meeting-2022-0816/10323)
 * [OpenSearch News, March 17, 2022](https://opensearch.org/blog/releases/2022/03/launch-announcement-1-3-0/)
