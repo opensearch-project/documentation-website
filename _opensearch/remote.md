@@ -81,7 +81,7 @@ curl -X PUT "https://localhost:9200/my-index?pretty" -ku admin:admin -H 'Content
 {
   "settings": {
     "index": {
-      "number_of_shards": 1
+      "number_of_shards": 1,
       "number_of_replicas": 0,
       "replication": {
         "type": "SEGMENT"
