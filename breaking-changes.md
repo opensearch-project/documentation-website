@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Breaking Changes
-nav_ord
+nav_order: 4
 permalink: /breaking-changes/
 ---
 
