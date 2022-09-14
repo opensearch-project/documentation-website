@@ -32,10 +32,17 @@ Use humor with caution because it is subjective, can be easily misunderstood, an
 
 As you write content, apply the following tone traits.
 
-| **Trait** | **Approachable** | **Authoritative** | **Concise** | **Conversational** | **Directed** | **Respectful** | **Simple** | **Smart** | **Trustworthy** |
-|---|---|---|---|---|---|---|---|---|---|
-| **What it is** | Personable, Friendly, Welcoming, Genuine | Professional, Expert, Informed, Dependable, Validated | Succinct, Brief, Lean, To the point | Informal, Casual, Familiar, Matter-of-fact | Focused, Guided, Controlled, Purposeful, Predictable, Definitive, Essential | Considerate, Helpful, Supportive, Empathic | Plain, Everyday, Recognizable, Clear, Straightforward, Common | Knowledgeable, Logical, Correct, Consistent, Coherent, Grammatical, Polished | Reliable, Truthful, Fair, Candid |
-| **What it isn't** | Chatty, Hyperbolic, Cloying, Insincere | Stuffy, Dictatorial, Smug, Unsure, Untested | Wordy, Lengthy, Verbose, Rambling | Stilted, Pompous, Chummy, Pedantic | Vague, Wandering, Confusing, Ambiguous, Surprising, Indecisive, Redundant | Insulting, Condescending, Insensitive, Indifferent | Fancy, Esoteric, Perplexing, Unintelligible, Complicated, Unusual |  Pedantic, Invalid, Inaccurate, Varying, Disorganized, Careless, Sloppy |  Infallible, Evasive, Devious, Obfuscating |
+| **Trait** | **What it is** | **What it isn't** |
+|---|---|---|
+| **Approachable** | Personable, Friendly, Welcoming, Genuine | Chatty, Hyperbolic, Cloying, Insincere |
+| **Authoritative** | Professional, Expert, Informed, Dependable, Validated |  Stuffy, Dictatorial, Smug, Unsure, Untested |
+| **Concise** |  Succinct, Brief, Lean, To the point |  Wordy, Lengthy, Verbose, Rambling |
+| **Conversational** | Informal, Casual, Familiar, Matter-of-fact |  Stilted, Pompous, Chummy, Pedantic |
+| **Directed** | Focused, Guided, Controlled, Purposeful, Predictable, Definitive, Essential |  Vague, Wandering, Confusing, Ambiguous, Surprising, Indecisive, Redundant |
+| **Respectful** | Considerate, Helpful, Supportive, Empathic | Insulting, Condescending, Insensitive, Indifferent |
+| **Simple** | Plain, Everyday, Recognizable, Clear, Straightforward, Common | Fancy, Esoteric, Perplexing, Unintelligible, Complicated, Unusual |
+| **Smart** | Knowledgeable, Logical, Correct, Consistent, Coherent, Grammatical, Polished | Pedantic, Invalid, Inaccurate, Varying, Disorganized, Careless, Sloppy |
+| **Trustworthy** | Reliable, Truthful, Fair, Candid | Infallible, Evasive, Devious, Obfuscating |
 
 ## Style guidelines
 
