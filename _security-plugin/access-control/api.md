@@ -1415,7 +1415,7 @@ This API allows you to enable or disable audit logging, define the configuration
 
 For details on using audit logging to track access to OpenSearch clusters, as well as information on further configurations, see [Audit logs](https://opensearch.org/docs/latest/security-plugin/audit-logs/index/).
 
-You can do an initial configuration of audit logging in the `audit.yml` file, found in the `opensearch-project/security/config` directory. Thereafter, use the REST API for further changes to the configuration.
+You can do an initial configuration of audit logging in the `audit.yml` file, found in the `opensearch-project/security/config` directory. Thereafter, you can use the REST API or Dashboards for further changes to the configuration.
 {: note.}
 
 #### Request fields
@@ -1446,7 +1446,7 @@ Field | Data Type | Description
 `compliance`<br>&nbsp;&nbsp;&nbsp;&nbsp;`external_config` | Boolean | Logs external config files for the node. Default is `false`.
 `compliance`<br>&nbsp;&nbsp;&nbsp;&nbsp;`internal_config` | Boolean | Logs updates to internal security changes. Default is `true`.
 
-Changes to the `_readonly` property must result in a 409 error, as indicated in the response below.
+Changes to the `_readonly` property result in a 409 error, as indicated in the response below.
 {: .note}
 
 ```json
@@ -1506,12 +1506,15 @@ PUT /_opendistro/_security/api/audit/config
 }
 ```
 
-A PATCH call is used to update specified fields in the audit configuration and reset unspecified fields to their default settings.
+A PATCH call is used to update specified fields in the audit configuration. The PATCH method requires an operation, a path, and a value to complete a valid request.
 
+```bash
+curl -X PATCH -k -i --cert <admin_cert file name> --key <admin_cert_key file name> <domain>/_opendistro/_security/api/audit -H 'Content-Type: application/json' -d'[{"op":"add","path":"/config/enabled","value":"true"}]'
 ```
-curl -X PATCH <domain>/_opendistro/_security/api/audit -H 'Content-Type: application/json' -d'[{"op":"add","path":"/config/enabled","value":"true"}]' -u <username:password>
-```
-OpenSearch Dashboards does not support the PATCH method. Use [curl](https://curl.se/), [Postman](https://www.postman.com/), or another method to update the configuration.
+
+Using the PATCH method also requires a user to have a security configuration that includes admin certificates for encryption. To find out more about these certificates, see [Configure admin certificates](https://opensearch.org/docs/latest/security-plugin/configuration/tls/#configure-admin-certificates).
+
+The OpenSearch Dashboards dev tool does not currently support the PATCH method. You can use [curl](https://curl.se/), [Postman](https://www.postman.com/), or another alternative process to update the configuration using this method.
 {: .note}
 
 #### Sample response
@@ -1567,4 +1570,12 @@ The PUT request produces a response that appears as the following:
   "status" : "OK",
   "message" : "'config' updated."
 }
+```
+
+The PATCH request produces a response similar to the one below.
+
+```bash
+HTTP/1.1 200 OK
+content-type: application/json; charset=UTF-8
+content-length: 45
 ```
