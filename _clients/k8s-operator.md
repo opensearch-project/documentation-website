@@ -4,7 +4,7 @@ title: OpenSearch Kubernetes Operator
 nav_order: 210
 ---
 
-The OpenSearch Kubernetes (K8s) Operator is an open-source K8s operator that helps automate the deployment, provisioning, of OpenSearch and OpenSearch Dashboards in a containerized environment. The operator can manage multiple OpenSearch clusters which can be scaled up and down depending on your needs. 
+The OpenSearch Kubernetes (K8s) Operator is an open-source K8s operator that helps automate the deployment and provisioning of OpenSearch and OpenSearch Dashboards in a containerized environment. The operator can manage multiple OpenSearch clusters which can be scaled up and down depending on your needs. 
 
 ## Installation 
 
@@ -17,7 +17,7 @@ There are two ways to get started with the Operator:
 
 If you use Helm to manage your K8s cluster, you can use the OpenSearch Kubernetes Operator's CNCF project stored in Artifact Hub, a web-based application for finding, installing, and publishing CNCF packages. 
 
-To begin, log into your K8s cluster and add the Helm repo from [Artifact Hub](https://opster.github.io/opensearch-k8s-operator/). 
+To begin, log into your K8s cluster and add the Helm repository (repo) from [Artifact Hub](https://opster.github.io/opensearch-k8s-operator/). 
 
 ```
 helm repo add opensearch-operator https://opster.github.io/opensearch-k8s-operator/
@@ -32,7 +32,7 @@ helm repo list | grep opensearch
 Both the `opensearch` and `opensearch-operator` repos appear on the list of repos.
 
 
-Install the manager that operates all of the OpenSearch Kubernetes Opeartor's actions. 
+Install the manager that operates all of the OpenSearch Kubernetes Operator's actions. 
 
 ```
 helm install opensearch-operator opensearch-operator/opensearch-operator
@@ -44,7 +44,7 @@ After the install completes, the operator returns information on the deployment 
 
 If you want to create a new K8s cluster on your existing machine, use a local installation. 
 
-If this your first time running K8s and you intend on running through these instructions on your laptop, make sure that you have the following installed: 
+If this your first time running K8s and you intend to run through these instructions on your laptop, make sure that you have the following installed: 
 
 - [K8s](https://kubernetes.io/docs/tasks/tools/) 
 - [Docker](https://docs.docker.com/engine/install/)
@@ -101,7 +101,7 @@ users:
 
 To ensure that K8s recognizes the OpenSearch Kubernetes Operator as a namespace, enter `k get ns | grep opensearch`. Both `opensearch` and `opensearch-operator-system` should appear as `Active`.
 
-With the operator active, use `k get pod -n opensearch-operator-system` to make that the operator's pods are running. 
+With the operator active, use `k get pod -n opensearch-operator-system` to make sure that the operator's pods are running. 
 
 ```
 NAME                                              READY   STATUS   RESTARTS   AGE
@@ -126,7 +126,7 @@ The operator creates several pods, including a bootstrap pod, three OpenSearch c
 kubectl port-forward svc/my-cluster-dashboards 5601
 ```
 
-Open http://localhost:5601 in your preferred browser and login with the default demo credentials `admin / admin`. You can also run curl commands against the OpenSearch REST API by forwarding to port 9200.
+Open http://localhost:5601 in your preferred browser and log in with the default demo credentials `admin / admin`. You can also run curl commands against the OpenSearch REST API by forwarding to port 9200.
 
 ```
 kubectl port-forward svc/my-cluster 9200
