@@ -1,20 +1,22 @@
 ---
 layout: default
-title: Segment Replication Configuration
+title: Segment replication configuration
 nav_order: 12
-parent: Segment Replication Feature
-grand_parent: Opensearch
+parent: Segment replication
 ---
 
-## Segment replication configuration
+# Segment replication configuration
+
+Segment replication is an experimental feature. Therefore, we do not recommend the use of segment replication in a production environment. For updates on the progress of segment replication or if you want to leave feedback that could help improve the feature, see the [Segment replication issue](https://github.com/opensearch-project/OpenSearch/issues/2229).
+{: .warning }
 
 To enable the segment replication type, reference the steps below.
 
-### Enabling the feature flag
+## Enabling the feature flag
 
 There are several methods for enabling segment replication, depending on the install type. You will also need to set the replication strategy to `SEGMENT` when creating the index.
 
-#### Enable on a node using a tarball install
+### Enable on a node using a tarball install
 
 The flag is toggled using a new jvm parameter that is set either in `OPENSEARCH_JAVA_OPTS` or in config/jvm.options.
 
@@ -42,7 +44,7 @@ The flag is toggled using a new jvm parameter that is set either in `OPENSEARCH_
     }
     ````
 
-#### Enable with Docker containers
+### Enable with Docker containers
 
 If you're running Docker, add the following line to docker-compose.yml underneath the `opensearch-node` and `environment` section:
 
@@ -50,7 +52,7 @@ If you're running Docker, add the following line to docker-compose.yml underneat
 OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.replication_type.enabled=true" # Enables segment replication
 ````
 
-#### Setting the replication strategy on the index
+### Setting the replication strategy on the index
 
 To set the replication strategy to segment replication, create an index with replication.type set to `SEGMENT`:
 
@@ -65,10 +67,7 @@ PUT /my-index1
 }
 ````
 
-### Known limitations
-
-Segment replication is an experimental feature. Therefore, we do not recommend the use of segment replication in a production environment. For updates on the progress of segment replication or if you want to leave feedback that could help improve the feature, see the [Segment Replication Git Issue](https://github.com/opensearch-project/OpenSearch/issues/2229).
-{: .note }
+## Known limitations
 
 1. Enabling segment replication for an existing index requires [reindexing](https://github.com/opensearch-project/OpenSearch/issues/3685).
 1. Rolling upgrades are currently not supported. Full cluster restarts are required when upgrading indexes using segment replication. [Issue 3881](https://github.com/opensearch-project/OpenSearch/issues/3881).
