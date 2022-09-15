@@ -7,7 +7,7 @@ parent: Segment replication
 
 # Segment replication configuration
 
-Segment replication is an experimental feature. Therefore, we do not recommend the use of segment replication in a production environment. For updates on the progress of segment replication or if you want to leave feedback that could help improve the feature, see the [Segment replication issue](https://github.com/opensearch-project/OpenSearch/issues/2229).
+Segment replication is an experimental feature. Therefore, we do not recommend the use of segment replication in a production environment. For updates on the progress of segment replication or if you want to leave feedback that could help improve the feature, see the [Segment replication issue](https://github.com/opensearch-project/OpenSearch/issues/2194).
 {: .warning }
 
 To enable the segment replication type, reference the steps below.
