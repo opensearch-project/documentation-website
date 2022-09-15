@@ -178,7 +178,9 @@ Allows you to reduce the number of primary shards in your indexes. With this act
         "source": "{{ctx.index}}_shrunken"
     },
     "aliases": [
-       "my-alias": {}
+      {
+        "my-alias": {}
+      }
     ],
     "force_unsafe": false
 }
