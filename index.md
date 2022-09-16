@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Geting Started with OpenSearch
+title: Getting Started with OpenSearch
 nav_order: 1
 redirect_from: /404.html
 permalink: /
