@@ -458,3 +458,4 @@ $ curl https://your.host.address:9200 -u admin:yournewpassword -k
 - [Configure Performance Analyzer for Tarball Installation]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/index/#configure-performance-analyzer-for-tarball-installations)
 - [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/install/index/)
 - [OpenSearch plugin installation]({{site.url}}{{site.baseurl}}/opensearch/install/plugins/)
+- [About the security plugin]({{site.url}}{{site.baseurl}}/security-plugin/index/)
