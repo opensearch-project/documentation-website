@@ -13,39 +13,52 @@ You can use the drag and drop visualization wizard in OpenSearch Dashboards to c
 
 The drag and drop visualization wizard:
 
-* Gives you an immediate view of your data without the need to preselect the visualization output 
-* Gives you the flexibility to change visualization types and index patterns on the fly
-* Gives you the ability to easily navigate between multiple screens 
+* Gives you an immediate view of your data without the need to preselect the visualization output. 
+* Gives you the flexibility to change visualization types and index patterns on the fly.
+* Gives you the ability to easily navigate between multiple screens. 
 
 <img src="{{site.url}}{{site.baseurl}}/images/drag-drop-ui.png" alt="Drag and drop user interface">
 
+## Try out the wizard
 
-## Enable the wizard
+You can try out the wizard locally or in the [OpenSearch playground](https://playground.opensearch.org/app/home#/).
 
-To experiment with the drag and drop wizard, you first need to enable experimental visualizations in your OpenSearch playground:
+### Try the wizard in OpenSearch playground
 
-1. Open [OpenSearch Dashboards playground](https://playground.opensearch.org/app/home#/).
-2. Go to **Management** **>** **Stack Management** **>** **Advanced Settings**.
+If you'd like to try out the wizard without installing OpenSearch locally, you can do it in the [OpenSearch Dashboards playground](https://playground.opensearch.org/app/home#/). The feature is enabled in the playground by default. To get started, follow the steps below to [create a new visualization](#create-a-new-visualization).
+
+### Try the wizard locally
+
+To enable the drag and drop wizard in your local installation, add the following flag to the `opensearch_dashboards.yml` file:
+
+```yml
+wizard.enabled=true
+```
+
+Then enable experimental visualizations in your OpenSearch Dashboards:
+
+1. To open OpenSearch Dashboards:
+- If you're not running the Security plugin, go to http://localhost:5601. 
+- If you're running the Security plugin, go to https://localhost:5601 and log in with your username and password (default is admin/admin).
+2. From the top menu, select **Management** **>** **Stack Management** **>** **Advanced Settings**.
    <img src="{{site.url}}{{site.baseurl}}/images/stack-managment-settings.png" alt="Stack management screenshot">
 
-3. Go to **Visualization** and turn on **Enable experimental visualizations**.
+3. Select **Visualization** and turn on **Enable experimental visualizations**.
 <img src="{{site.url}}{{site.baseurl}}/images/enable-experimental-viz.png" alt="Enable experimental visualizations screenshot">
 
-## Create new visualization in OpenSearch Dashboards playground
+To get started, follow the steps below to [create a new visualization](#create-a-new-visualization).
 
-You can explore the drag and drop wizard directly from the [OpenSearch Dashboards playground](https://playground.opensearch.org/app/wizard), or you can create a new visualization and select wizard. 
+## Create a new visualization
 
 The following steps walk you through creating a new visualization using the wizard:
 
-1. Open [OpenSearch Dashboards playground](https://playground.opensearch.org/app/home#/).
+1. From the top menu, select **Visualize** **>** **Create visualization** **>** **Wizard**.
 
-2. Under the menu icon, select **Visualize** **>** **Create visualization** **>** **Wizard**.
+   <img src="{{site.url}}{{site.baseurl}}/images/drag-and-drop-viz-select.png" alt="Select Wizard visualization">  
 
-   <img src="{{site.url}}{{site.baseurl}}//images/drag-and-drop-viz-select.png" alt="Select Wizard visualization">  
+1. Drag and drop field names from the left column into the Configuration panel to generate a visualization.
 
-3. Use sample data to add fields and generate a visualization.
-
-Here’s an example visualization. Your visualization will look different depending on the sample data you select.
+Here’s an example visualization. Your visualization will look different depending on your data and the fields you select.
 
 <img src="{{site.url}}{{site.baseurl}}/images/drag-drop-generated-viz.png" alt="Visualization generated using sample data in the Wizard">
 
