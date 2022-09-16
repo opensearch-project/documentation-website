@@ -678,6 +678,9 @@ PUT _plugins/_security/api/roles/<role>
 }
 ```
 
+Due to word boundaries associated with Unicode special characters, the Unicode standard analyzer does not interpret the portion of an index field value that follows a special character. For example, the following fields can be misinterpreted as the same with the hyphen/minus sign included in the value.<br>* ```"user.id": "User-1"*```<br>* ```"user.id": "User-2"```*<br>Therefore, special characters should not be used for values in either query DSL fields or REST API query fields unless a custom analyzer is being used.<br>For a list of characters that should be avoided, see [Word Boundaries](https://unicode.org/reports/tr29/#Word_Boundaries).
+{: .warning }
+
 
 ### Patch role
 Introduced 1.0

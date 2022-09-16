@@ -55,6 +55,35 @@ PUT _plugins/_security/api/roles/public_data
 These queries can be as complex as you want, but we recommend keeping them simple to minimize the performance impact that the document-level security feature has on the cluster.
 {: .warning }
 
+### A note on field values and special characters
+
+Due to word boundaries associated with Unicode special characters, the Unicode standard analyzer does not interpret the portion of an index field value that follows a special character. Therefore, special characters should not be used for values in either query DSL fields or REST API query fields unless a custom analyzer is being used. The examples below illustrate values that will be misinterpreted as the same when a special character – such as the hyphen/minus sign – exists in the value:
+
+````json
+{
+  "bool": {
+    "must": {
+      "match": {
+        "user.id": "User-1"
+      }
+    }
+  }
+}
+````
+
+````json
+{
+  "bool": {
+    "must": {
+      "match": {
+        "user.id": "User-2"
+      }
+    }
+  }
+}
+
+For a list of these characters, see [Word Boundaries](https://unicode.org/reports/tr29/#Word_Boundaries).
+
 
 ## Parameter substitution
 
