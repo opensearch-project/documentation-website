@@ -61,6 +61,7 @@ module Jekyll::LinkChecker
     @site = site
     @urls = {}
     @failures = []
+    @base_url_matcher = /^#{@site.config["url"]}#{@site.baseurl}(\/.*)$/.freeze
   end
 
   # Processes a Document or Page and adds the links to a collection
@@ -74,9 +75,12 @@ module Jekyll::LinkChecker
       relative_path = page.path[0] == '/' ? Pathname.new(page.path).relative_path_from(Dir.getwd) : page.path
 
       if href.start_with? '#'
-        p relative_path if (page.content =~ /<[a-z0-9-]+[^>]+id="#{href[1..]}"/i).nil?
         @failures << "##{href[1..]}, linked in ./#{relative_path}" if (page.content =~ /<[a-z0-9-]+[^>]+id="#{href[1..]}"/i).nil?
       else
+        match = @base_url_matcher.match(href)
+        unless match.nil?
+          href = match[1]
+        end
         @urls[href] = Set[] unless @urls.key?(href)
         @urls[href] << relative_path
       end
@@ -100,8 +104,6 @@ module Jekyll::LinkChecker
         puts "LinkChecker: [Notice] The build will fail if a dead internal link is found"
       end
     end
-
-    @base_url_matcher = /^#{@site.config["url"]}#{@site.baseurl}(\/.*)$/.freeze
 
     @urls.each do |url, pages|
       @failures << "#{url}, linked to in ./#{pages.to_a.join(", ./")}" unless self.check(url)
