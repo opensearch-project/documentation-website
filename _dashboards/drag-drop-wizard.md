@@ -4,7 +4,7 @@ title: Drag-and-drop wizard
 nav_order: 8
 ---
 
-The drag-and-drop visualization wizard an experimental feature with OpenSearch 2.3. Therefore, we do not recommend the use of drag-and-drop wizard in a production environment. For updates on the progress of drag and drop or if you want leave feedback that could help improve the feature, see the [Drag and drop git issue](https://github.com/opensearch-project/OpenSearch-Dashboards/issues/1157). 
+The drag-and-drop visualization wizard an experimental feature with OpenSearch 2.3. Therefore, we do not recommend the use of drag-and-drop wizard in a production environment. For updates on the progress of drag and drop or if you want leave feedback that could help improve the feature, see the [Drag and drop git issue](https://github.com/opensearch-project/OpenSearch-Dashboards/issues/2280). 
 {: .warning}
 
 # Drag-and-drop wizard
@@ -25,7 +25,7 @@ You can try out the wizard locally or in the [OpenSearch playground](https://pla
 
 ### Try the wizard in OpenSearch playground
 
-If you'd like to try out the wizard without installing OpenSearch locally, you can do so in the [OpenSearch Dashboards playground](https://playground.opensearch.org/app/home#/). The feature is enabled in the playground by default. To get started, follow the steps below to [create a new visualization](#create-a-new-visualization).
+If you'd like to try out the wizard without installing OpenSearch locally, you can do so in the [OpenSearch Dashboards playground](https://playground.opensearch.org/app/wizard). The feature is enabled in the playground by default. 
 
 ### Try the wizard locally
 
@@ -42,21 +42,17 @@ Then confirm that the feature is enabled in OpenSearch Dashboards:
     - If you're running the security plugin, go to https://localhost:5601 and log in with your username and password (default is admin/admin).
 
 2. From the top menu, select **Management** **>** **Stack Management** **>** **Advanced Settings**.
-   <img src="{{site.url}}{{site.baseurl}}/images/stack-managment-settings.png" alt="Stack management screenshot">
+   <img src="{{site.url}}{{site.baseurl}}/images/stack-management-settings.png" alt="Stack management menu" width="200">
 
 3. Select **Visualization**. The **Enable experimental visualizations** option should be turned on.
 
-<img src="{{site.url}}{{site.baseurl}}/images/enable-experimental-viz.png" alt="Enable experimental visualizations screenshot">
+<img src="{{site.url}}{{site.baseurl}}/images/enable-experimental-viz.png" alt="Enable experimental visualizations" width="550">
 
-To get started, follow the steps below to [create a new visualization](#create-a-new-visualization).
-
-## Create a new visualization
-
-The following steps show you how to create a new visualization using the wizard:
+To get started, follow the steps below to create a new visualization using the wizard:
 
 1. From the top menu, select **Visualize** **>** **Create visualization** **>** **Wizard**.
 
-   <img src="{{site.url}}{{site.baseurl}}/images/drag-and-drop-viz-select.png" alt="Select Wizard visualization">  
+   <img src="{{site.url}}{{site.baseurl}}/images/drag-and-drop-viz-select.png" alt="Select Wizard visualization" width="350">  
 
 1. Drag and drop field names from the left column into the Configuration panel to generate a visualization.
 
