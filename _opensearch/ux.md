@@ -39,7 +39,7 @@ These methods are described in the following sections.
 Prefix matching finds documents that matches the last term in the query string.
 
 For example, assume that the user types “qui” into a search UI. To autocomplete this phrase, use the `match_phrase_prefix` query to search all `text_entry` fields that begin with the prefix "qui."
-To make the word order and relative positions flexible, specify a `slop` value. To learn about the `slop` option, see [Options]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text#options).
+To make the word order and relative positions flexible, specify a `slop` value. To learn about the `slop` option, see [Other optional query fields]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text#other-optional-query-fields).
 
 #### Sample Request
 
