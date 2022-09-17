@@ -12,7 +12,7 @@ Retrieves information about a snapshot repository.
 
 To learn more about repositories, see [Register repository]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore#register-repository).
 
-You can also get details about a snapshot during and after snapshot creation. See [Get snapshot status]({{site.url}}{{site.baseurl}}/opensearch/snapshots/get-snapshot-status).
+You can also get details about a snapshot during and after snapshot creation. See [Get snapshot status]({{site.url}}{{site.baseurl}}/opensearch/rest-api/snapshots/get-snapshot-status/).
 {: .note}
 
 ### Path parameters
