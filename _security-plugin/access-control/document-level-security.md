@@ -57,9 +57,9 @@ These queries can be as complex as you want, but we recommend keeping them simpl
 
 ### A note on field values and special characters
 
-Due to word boundaries associated with Unicode special characters, the Unicode standard analyzer does not interpret the portion of an index field value that follows a special character. Therefore, special characters should not be used for values in either query DSL fields or REST API query fields unless a custom analyzer is being used. The examples below illustrate values that will be misinterpreted as the same when a special character – such as the hyphen/minus sign – exists in the value:
+Due to word boundaries associated with Unicode special characters, the Unicode standard analyzer cannot interpret the portion of an index field value that follows a special character. Therefore, special characters should not be used for values in either query DSL fields or REST API query fields unless a custom analyzer is used. The examples below illustrate values that will be misinterpreted as the same when a special character – such as the hyphen/minus sign – exists in the value:
 
-````json
+```json
 {
   "bool": {
     "must": {
@@ -69,9 +69,9 @@ Due to word boundaries associated with Unicode special characters, the Unicode s
     }
   }
 }
-````
+```
 
-````json
+```json
 {
   "bool": {
     "must": {
@@ -81,8 +81,9 @@ Due to word boundaries associated with Unicode special characters, the Unicode s
     }
   }
 }
+```
 
-For a list of these characters, see [Word Boundaries](https://unicode.org/reports/tr29/#Word_Boundaries).
+For a list of characters that should be avoided, see [Word Boundaries](https://unicode.org/reports/tr29/#Word_Boundaries).
 
 
 ## Parameter substitution
