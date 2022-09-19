@@ -677,13 +677,13 @@ PUT _plugins/_security/api/roles/<role>
   "message": "'test-role' updated."
 }
 ```
-#### A note on field values and special characters
 
-Due to word boundaries associated with Unicode special characters, the Unicode standard analyzer cannot interpret the portion of an index field value that follows a special character. For example, the values in the fields ```"user.id": "User-1"``` and ```"user.id": "User-2"``` can be misinterpreted as the same when the hyphen/minus sign is included in the value.
-
-Therefore, special characters should not be used for values in either query DSL fields or REST API query fields unless a custom analyzer is used.
-
-For a list of characters that should be avoided, see [Word Boundaries](https://unicode.org/reports/tr29/#Word_Boundaries).
+>Due to word boundaries associated with Unicode special characters, the Unicode standard analyzer cannot interpret the portion of an index field value that follows a special character. For example, the values in the fields ```"user.id": "User-1"``` and ```"user.id": "User-2"``` can be misinterpreted as the same when the hyphen/minus sign is included in the value.
+>
+>Therefore, special characters should not be used for values in either query DSL fields or REST API query fields unless a custom analyzer is used.
+>
+>For a list of characters that should be avoided, see [Word Boundaries](https://unicode.org/reports/tr29/#Word_Boundaries).
+{: .warning}
 
 
 ### Patch role

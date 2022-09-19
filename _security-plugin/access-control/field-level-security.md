@@ -95,8 +95,6 @@ someonerole:
 
 See [Create role]({{site.url}}{{site.baseurl}}/security-plugin/access-control/api#create-role).
 
-Due to word boundaries associated with Unicode special characters, the Unicode standard analyzer cannot interpret the portion of an index field value that follows a special character. Therefore, special characters should not be used for values in either query DSL fields or REST API query fields unless a custom analyzer is used.<br>For a list of characters that should be avoided, see [Word Boundaries](https://unicode.org/reports/tr29/#Word_Boundaries).
-{: .warning }
 
 ## Interaction with multiple roles
 
