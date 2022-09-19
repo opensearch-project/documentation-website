@@ -63,7 +63,7 @@ If you're running Docker, add the following line to docker-compose.yml underneat
 OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.replication_type.enabled=true -Dopensearch.experimental.feature.remote_store.enabled=true"
 ````
 
-### For developers using Gradle, enable feature flag by updating run.gradle
+### Enable for OpenSearch development
 
 To create new indexes with remote-backed storage enabled, you must first enable these features by adding the correct properties to `run.gradle` before building OpenSearch. See the [developer guide](https://github.com/opensearch-project/OpenSearch/blob/main/DEVELOPER_GUIDE.md) for information about to use how Gradle to build OpenSearch.
 
