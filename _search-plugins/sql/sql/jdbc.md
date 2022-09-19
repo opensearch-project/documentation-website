@@ -14,4 +14,4 @@ For information on downloading and using the JAR file, see [the SQL repository o
 
 ## Connecting to Tableau
 
-Follow detailed instructions on the [GitHub repository](https://github.com/opensearch-project/sql/blob/main/bi-connectors/TableauConnector/README.md).
+To connect to Tableau, follow detailed instructions in the [GitHub repository](https://github.com/opensearch-project/sql/blob/main/bi-connectors/TableauConnector/README.md).

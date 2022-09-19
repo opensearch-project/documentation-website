@@ -49,7 +49,7 @@ To install the driver, download the bundled distribution installer from [here](h
 
 3. Accept the agreement, and choose **Next**.
 
-4. The installer comes bundled with documentation and useful resources files to connect with various BI tools (for example, a `.tdc` file for Tableau). You can choose to keep or remove these resources. Choose **Next**.
+4. The installer comes bundled with documentation and useful resource files to connect with various BI tools (for example, a `.tdc` file for Tableau). You can choose to keep or remove these resources. Choose **Next**.
 
 5. Choose **Install** and **Finish**.
 
@@ -204,4 +204,4 @@ Also make sure `.tdc` that was downloaded with the installer is copied correctly
 
 ## Connecting to Microsoft Power BI
 
-Follow [installation instructions](https://github.com/opensearch-project/sql/blob/main/bi-connectors/PowerBIConnector/README.md) and [configuration instructions](https://github.com/opensearch-project/sql/blob/main/bi-connectors/PowerBIConnector/power_bi_support.md) published on the GitHub repostiry.
+Follow [installation instructions](https://github.com/opensearch-project/sql/blob/main/bi-connectors/PowerBIConnector/README.md) and [configuration instructions](https://github.com/opensearch-project/sql/blob/main/bi-connectors/PowerBIConnector/power_bi_support.md) published in the GitHub repository.

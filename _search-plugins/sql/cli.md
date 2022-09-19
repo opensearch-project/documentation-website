@@ -9,7 +9,7 @@ nav_order: 3
 
 CLI is a stand-alone Python application that you can launch with the `opensearchsql` command.
 
-Install the SQL plugin to your OpenSearch instance, run the CLI using MacOS or Linux, and connect to any valid OpenSearch end-point.
+ To use CLI, install the SQL plugin to your OpenSearch instance, run the CLI using MacOS or Linux, and connect to any valid OpenSearch endpoint.
 
 ![SQL CLI]({{site.url}}{{site.baseurl}}/images/cli.gif)
 
@@ -77,6 +77,9 @@ SELECT * FROM accounts;
 ```
 
 By default, you see a maximum output of 200 rows. To show more results, add a `LIMIT` clause with the desired value.
+
+To exit from the CLI tool, select **Ctrl+D**.
+{: .tip }
 
 ## Using the CLI with PPL
 

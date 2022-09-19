@@ -8,16 +8,16 @@ nav_order: 7
 
 # Functions
 
-`SQL` language supports all SQL plugin [common functions]({{site.url}}{{site.baseurl}}/search-plugins/sql/functions/), including [relevance search]({{site.url}}{{site.baseurl}}/search-plugins/sql/full-text/), but also introduces few function synonyms which are available in `SQL` only.
-These synonyms are provided by `V1` engine, please see [limitations page]({{site.url}}{{site.baseurl}}/search-plugins/sql/limitation) for more info about it.
+The `SQL` language supports all SQL plugin [common functions]({{site.url}}{{site.baseurl}}/search-plugins/sql/functions/), including [relevance search]({{site.url}}{{site.baseurl}}/search-plugins/sql/full-text/), but also introduces a few function synonyms, which are available in `SQL` only.
+These synonyms are provided by the `V1` engine. For more information, see [Limitations]({{site.url}}{{site.baseurl}}/search-plugins/sql/limitation).
 
 ## Match query
 
-`MATCHQUERY` and `MATCH_QUERY` are synonyms for [`MATCH`]({{site.url}}{{site.baseurl}}/search-plugins/sql/full-text#match) relevance function. They don't accept additional arguments, but provide an alternate syntax.
+The `MATCHQUERY` and `MATCH_QUERY` functions are synonyms for the [`MATCH`]({{site.url}}{{site.baseurl}}/search-plugins/sql/full-text#match) relevance function. They don't accept additional arguments, but provide an alternate syntax.
 
 ### Syntax
 
-Pass in your search query and the field name that you want to search against.
+To use `matchquery` or `match_query`, pass in your search query and the field name that you want to search against:
 
 ```sql
 match_query(field_expression, query_expression[, option=<option_value>]*)
@@ -33,13 +33,15 @@ You can specify the following options in any order:
 
 ### Example
 
+You can use `MATCHQUERY` to replace `MATCH`:
+
 ```sql
 SELECT account_number, address
 FROM accounts
 WHERE MATCHQUERY(address, 'Holmes')
 ```
 
-Alternate syntax:
+Alternatively, you can use `MATCH_QUERY` to replace `MATCH`:
 
 ```sql
 SELECT account_number, address
@@ -47,13 +49,15 @@ FROM accounts
 WHERE address = MATCH_QUERY('Holmes')
 ```
 
+The results contain documents, in which the address contains "Holmes":
+
 | account_number | address
 :--- | :---
 1 | 880 Holmes Lane
 
 ## Multi match
 
-There are 3 synonyms for [`MULTI_MATCH`]({{site.url}}{{site.baseurl}}/search-plugins/sql/full-text#multi-match) which have slightly different syntax. They accept query string and fields list with weights, and accept additional parameters.
+There are three synonyms for [`MULTI_MATCH`]({{site.url}}{{site.baseurl}}/search-plugins/sql/full-text#multi-match) that have slightly different syntax. They accept a query string and a fields list with weights. They can also accept additional optional parameters.
 
 ### Syntax
 
@@ -63,7 +67,11 @@ multi_match('query'=query_expression[, 'fields'=field_expression][, option=<opti
 multimatchquery('query'=query_expression[, 'fields'=field_expression][, option=<option_value>]*)
 ```
 
-`fields` is optional parameter, it could be a single field or a comma-separated list; whitespaces are not allowed there. The weight is optional and is specified after the field name. It should be delimited by the `caret` character -- `^` -- without whitespaces. Please, refer to examples below:
+The `fields` parameter is optional and can contain a single field or a comma-separated list (white space characters are not allowed). The weight for each field is optional and is specified after the field name. It should be delimited by the `caret` character -- `^` -- without whitespace. 
+
+### Example
+
+The following queries show the `fields` parameter of a multi-match query with a single field and a field list: 
 
 ```sql
 multi_match('fields' = "Tags^2,Title^3.4,Body,Comments^0.3", ...)
@@ -81,7 +89,7 @@ You can specify the following options in any order:
 
 ## Query string
 
-`QUERY` is a [`QUERY_STRING`]({{site.url}}{{site.baseurl}}/search-plugins/sql/full-text#query-string) synonym.
+The `QUERY` function is a synonym for [`QUERY_STRING`]({{site.url}}{{site.baseurl}}/search-plugins/sql/full-text#query-string).
 
 ### Syntax
 
@@ -89,7 +97,11 @@ You can specify the following options in any order:
 query('query'=query_expression[, 'fields'=field_expression][, option=<option_value>]*)
 ```
 
-`fields` is optional parameter, it could be a single field or a comma-separated list; whitespaces are not allowed there. The weight is optional and is specified after the field name. It should be delimited by the `caret` character -- `^` -- without whitespaces. Please, refer to examples below:
+The `fields` parameter is optional and can contain a single field or a comma-separated list (white space characters are not allowed). The weight for each field is optional and is specified after the field name. It should be delimited by the `caret` character -- `^` -- without whitespace. 
+
+### Example
+
+The following queries show the `fields` parameter of a multi-match query with a single field and a field list: 
 
 ```sql
 query('fields' = "Tags^2,Title^3.4,Body,Comments^0.3", ...)
@@ -105,7 +117,8 @@ You can specify the following options in any order:
 
 ### Example of using `query_string` in SQL and PPL queries:
 
-The REST API search request
+The following is a sample REST API search request in OpenSearch DSL.
+
 ```json
 GET accounts/_search
 {
@@ -118,13 +131,15 @@ GET accounts/_search
 }
 ```
 
-could be called using `query` function
+The request above is equivalent to the following `query` function:
 
 ```sql
 SELECT account_number, address
 FROM accounts
 WHERE query('address:Lane OR address:Street')
 ```
+
+The results contain addresses that contain "Lane" or "Street":
 
 | account_number | address
 :--- | :---
@@ -134,7 +149,7 @@ WHERE query('address:Lane OR address:Street')
 
 ## Match phrase
 
-`MATCHPHRASEQUERY` is a [`MATCH_PHRASE`]({{site.url}}{{site.baseurl}}/search-plugins/sql/full-text#query-string) synonym.
+The `MATCHPHRASEQUERY` function is a synonym for [`MATCH_PHRASE`]({{site.url}}{{site.baseurl}}/search-plugins/sql/full-text#query-string).
 
 ### Syntax
 
@@ -150,11 +165,11 @@ You can specify the following options in any order:
 
 ## Score query
 
-To return a relevance score along with every matching document, use `SCORE`, `SCOREQUERY`, or `SCORE_QUERY` functions.
+To return a relevance score along with every matching document, use the `SCORE`, `SCOREQUERY`, or `SCORE_QUERY` functions.
 
 ### Syntax
 
-`SCORE` expects two arguments. The first is the [`MATCH_QUERY`](#match-query) expression. The second is an optional floating point number to boost the score (default value is 1.0).
+The `SCORE` function expects two arguments. The first argument is the [`MATCH_QUERY`](#match-query) expression. The second argument is an optional floating-point number to boost the score (the default value is 1.0):
 
 ```sql
 SCORE(match_query_expression, score)
@@ -164,6 +179,8 @@ SCORE_QUERY(match_query_expression, score)
 
 ### Example
 
+The following example uses the `SCORE` function to boost the documents' scores:
+
 ```sql
 SELECT account_number, address, _score
 FROM accounts
@@ -171,6 +188,8 @@ WHERE SCORE(MATCH_QUERY(address, 'Lane'), 0.5) OR
   SCORE(MATCH_QUERY(address, 'Street'), 100)
 ORDER BY _score
 ```
+
+The results contain matches with corresponding scores:
 
 | account_number | address | score
 :--- | :--- | :---
@@ -180,7 +199,7 @@ ORDER BY _score
 
 ## Wildcard query
 
-To search documents by given wildcard use `WILDCARDQUERY` or `WILDCARD_QUERY` functions.
+To search documents by given wildcard, use the `WILDCARDQUERY` or `WILDCARD_QUERY` functions.
 
 ### Syntax
 
@@ -191,11 +210,15 @@ wildcard_query(field_expression, query_expression[, boost=<value>])
 
 ### Example
 
+The following example uses a wildcard query:
+
 ```sql
 SELECT account_number, address
 FROM accounts
 WHERE wildcard_query(address, '*Holmes*');
 ```
+
+The results contain documents that match the wildcard expression:
 
 | account_number | address
 :--- | :---

@@ -8,10 +8,10 @@ nav_order: 1
 
 # PPL Syntax
 
-Every PPL query begins  with the `search` command. It specifies the index to search and retrieve documents from. Subsequent commands can follow in any order.
+Every PPL query starts with the `search` command. It specifies the index to search and retrieve documents from. Subsequent commands can follow in any order.
 
-**NOTE:** At the moment `PPL` supports only one `search` command and it can be omitted to simplify the query.
-
+Currently, `PPL` supports only one `search` command which can be omitted to simplify the query.
+{ : .note}
 
 ## Syntax
 
@@ -22,9 +22,9 @@ source=<index> [boolean-expression]
 
 Field | Description | Required
 :--- | :--- |:---
-`search` | Specify search keywords. | Yes
-`index` | Specify which index to query from. | No
-`bool-expression` | Specify an expression that evaluates to a boolean value. | No
+`search` | Specifies search keywords. | Yes
+`index` | Specifies which index to query from. | No
+`bool-expression` | Specifies an expression that evaluates to a Boolean value. | No
 
 ## Examples
 
@@ -39,13 +39,12 @@ search source=accounts
 ```
 
 In the following examples, angle brackets `< >` enclose required arguments and square brackets `[ ]` enclose optional arguments.
-
 {: .note }
 
 
 **Example 2: Get all documents**
 
-To get all documents from the `accounts` index:
+To get all documents from the `accounts` index, specify it as the `source`:
 
 ```sql
 search source=accounts;
@@ -60,7 +59,7 @@ search source=accounts;
 
 **Example 3: Get documents that match a condition**
 
-To get all documents from the `accounts` index that have either `account_number` equal to 1 or have `gender` as `F`:
+To get all documents from the `accounts` index that have either `account_number` equal to 1 or have `gender` as `F`, use the following query:
 
 ```sql
 search source=accounts account_number=1 or gender=\"F\";

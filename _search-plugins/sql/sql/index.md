@@ -4,6 +4,7 @@ title: SQL
 parent: SQL & PPL
 nav_order: 4
 has_children: true
+has_toc: false
 redirect_from:
   - /search-plugins/sql/sql
 ---
@@ -16,17 +17,7 @@ The easiest way to get familiar with the SQL plugin is to use **Query Workbench*
 
 ![OpenSearch Dashboards SQL UI plugin]({{site.url}}{{site.baseurl}}/images/sql.png)
 
-
-## REST API
-
-To use the SQL plugin with your own applications, send requests to `_plugins/_sql`:
-
-```json
-POST _plugins/_sql
-{
-  "query": "SELECT * FROM my-index LIMIT 50"
-}
-```
+## SQL and OpenSearch terminology
 
 Here’s how core SQL concepts map to OpenSearch:
 
@@ -36,33 +27,50 @@ Table | Index
 Row | Document
 Column | Field
 
-You can query multiple indices by listing them or using wildcards:
+## REST API
+
+For a complete reference of the SQL plugin's REST API, see [SQL/PPL API]({{site.url}}{{site.baseurl}}/search-plugins/sql/sql-ppl-api). 
+
+To use the SQL plugin with your own applications, send requests to the `_plugins/_sql` endpoint:
+
+```json
+POST _plugins/_sql
+{
+  "query": "SELECT * FROM my-index LIMIT 50"
+}
+```
+
+You can query multiple indexes by using a comma-separated list:
 
 ```json
 POST _plugins/_sql
 {
   "query": "SELECT * FROM my-index1,myindex2,myindex3 LIMIT 50"
 }
+```
 
+You can also specify an index pattern with a wildcard expression:
+
+```json
 POST _plugins/_sql
 {
   "query": "SELECT * FROM my-index* LIMIT 50"
 }
 ```
 
-For a sample [curl](https://curl.haxx.se/) command, try:
+To run the above query in command line, use the [curl](https://curl.haxx.se/) command:
 
 ```bash
-curl -XPOST https://localhost:9200/_plugins/_sql -u 'admin:admin' -k -H 'Content-Type: application/json' -d '{"query": "SELECT * FROM opensearch_dashboards_sample_data_flights LIMIT 10"}'
+curl -XPOST https://localhost:9200/_plugins/_sql -u 'admin:admin' -k -H 'Content-Type: application/json' -d '{"query": "SELECT * FROM my-index* LIMIT 50"}'
 ```
 
-By default, queries return data in JDBC format, but you can also return data in standard OpenSearch JSON, CSV, or raw formats:
+You can specify the [response format]({{site.url}}{{site.baseurl}}/search-plugins/sql/response-formats) as JDBC, standard OpenSearch JSON, CSV, or raw. By default, queries return data in JDBC format.  The following query sets the format to JSON:
 
 ```json
-POST _plugins/_sql?format=json|csv|raw
+POST _plugins/_sql?format=json
 {
   "query": "SELECT * FROM my-index LIMIT 50"
 }
 ```
 
-See the rest of this guide for detailed information on request parameters, settings, supported operations, tools, and more.
+See the rest of this guide for details about request parameters, settings, supported operations, tools, and other information.

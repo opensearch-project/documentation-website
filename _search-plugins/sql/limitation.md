@@ -11,7 +11,7 @@ The SQL plugin has the following limitations:
 
 ## Aggregation over expression is not supported
 
-You can only apply aggregation on fields. Aggregations can't accept an expression as a parameter. For example, `avg(log(age))` is not supported.
+You can only apply aggregation to fields. Aggregations cannot accept an expression as a parameter. For example, `avg(log(age))` is not supported.
 
 ## Subquery in the FROM clause
 
@@ -75,7 +75,7 @@ The query with `aggregation` and `join` does not support pagination for now.
 
 ## Query processing engines
 
-The SQL plugin has two query processing engines, `V1` and `V2`. Most of the features are supported by both engines, but only the new engine is actively being developed. A query that is first executed on  `V2` engine upon failure then falls back to the `V1` engine. If a query is supported in `V2` but not included in `V1` the query will fail with an error response.
+The SQL plugin has two query processing engines, `V1` and `V2`. Most of the features are supported by both engines, but only the new engine is actively being developed. A query that is first executed on the `V2` engine falls back to the `V1` engine in case of failure. If a query is supported in `V2` but not included in `V1`, the query will fail with an error response.
 
 ### V1 engine limitations
 
@@ -87,8 +87,8 @@ Such queries are successfully executed by `V2` engine unless they have `V1`-spec
 
 ### V2 engine limitations
 
-* [Cursor feature](#pagination-only-supports-basic-queries) supported by the `V1` engine only.
-Please, track [GitHub issue #656](https://github.com/opensearch-project/sql/issues/656) for support `cursor`/`pagination` in `V2` engine.
-* `V2` engine doesn't track query execution time so slow queries are not reported.
-* `V2` query engine not only runs queries in OpenSearch engine but also supports post-processing for complicated queries. Accordingly, explain output is no longer pure OpenSearch `DSL`, but also includes query plan information from the `V2` query engine.
-* `V2` engine doesn't support [`SCORE_QUERY`]({{site.url}}{{site.baseurl}}/search-plugins/sql/sql/functions#score-query) and [`WILDCARD_QUERY`]({{site.url}}{{site.baseurl}}/search-plugins/sql/sql/functions#wildcard-query) functions.
+* The [cursor feature](#pagination-only-supports-basic-queries) is supported by the `V1` engine only.
+For support of `cursor`/`pagination` in the `V2` engine, track [GitHub issue #656](https://github.com/opensearch-project/sql/issues/656).
+* The `V2` engine does not track query execution time, so slow queries are not reported.
+* The `V2` query engine not only runs queries in the OpenSearch engine, but also supports post-processing for complicated queries. Accordingly, the explain output is no longer pure OpenSearch DSL, but also includes query plan information from the `V2` query engine.
+* The `V2` engine does not support [`SCORE_QUERY`]({{site.url}}{{site.baseurl}}/search-plugins/sql/sql/functions#score-query) and [`WILDCARD_QUERY`]({{site.url}}{{site.baseurl}}/search-plugins/sql/sql/functions#wildcard-query) functions.
