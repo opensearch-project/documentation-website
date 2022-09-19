@@ -117,7 +117,8 @@ output {
               type => 'aws_iam'     
               aws_access_key_id => 'ACCESS_KEY'     
               aws_secret_access_key => 'SECRET_KEY'     
-              region => 'us-west-2'         
+              region => 'us-west-2'    
+              service_name => 'es'     
           }         
           index  => "logstash-logs-%{+YYYY.MM.dd}"      
    }            
@@ -144,6 +145,9 @@ output {
     - Instance profile credentials delivered through the Amazon EC2 metadata service
 - template (path) - You can set the path to your own template here, if you so desire. If not set, the included template will be used.
 - template_name (string, default => "logstash") - defines how the template is named inside Opensearch
+- service_name (string, default => "es") - defines the service name to be used for `aws_iam` authentication.
+- legacy_template (boolean, default => true) - Selects the OpenSearch template API. When `true`, uses legacy templates via the _template API. When `false`, uses composabe templates via the _index_template API.
+- default_server_major_version (number) - The OpenSearch server major version to use when it's not available from the OpenSearch root URL. If not set, the plugin throws an excpetion when the version can't be fetched.
 
 ## Data streams
 
