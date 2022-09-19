@@ -18,57 +18,86 @@ Aside from using OpenSearch Dashboards, you can also use the REST API to create,
 Introduced 1.0
 {: .label .label-purple }
 
-Creates a transform job.
+Creates a transform job. 
 
-**Sample Request**
+### Header format
+
+`PUT _plugins/_transform/<transform_id>`
+
+### Path parameters
+
+Parameter | Data Type | Description
+:--- | :--- | :---
+transform_id | String | Transform ID. |
+
+### Request body fields
+
+You can specify the following options in the HTTP request body:
+
+Option | Data Type | Description | Required
+:--- | :--- | :--- | :---
+enabled | Boolean | If true, the transform job is enabled at creation. | No
+continuous | Boolean | Specifies whether the transform job should be continuous. Continuous jobs execute every time they are scheduled according to the `schedule` field and run based off of newly transformed buckets, as well as any new data added to source indexes. Non-continuous jobs execute only once. Default is false. | No
+schedule | Object | The schedule the transform job runs on. | Yes
+start_time | Integer | The Unix epoch time of the transform job's start time. | Yes
+description | String | Describes the transform job. | No
+metadata_id | String | Any metadata to be associated with the transform job. | No
+source_index | String | The source index whose data to transform. | Yes
+target_index | String | The target index the newly transformed data is added into. You can create a new index or update an existing one. | Yes
+data_selection_query | Object | The query DSL to use to filter a subset of the source index for the transform job. See [query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl) for more information. | Yes
+page_size | Integer | The number of buckets IM processes and indexes concurrently. Higher number means better performance but requires more memory. If your machine runs out of memory, IM automatically adjusts this field and retries until the operation succeeds. | Yes
+groups | Array | Specifies the grouping(s) to use in the transform job. Supported groups are `terms`, `histogram`, and `date_histogram`. For more information, see [Bucket Aggregations]({{site.url}}{{site.baseurl}}/opensearch/bucket-agg). | Yes if not using aggregations
+source_field | String | The field(s) to transform | Yes
+aggregations | Object | The aggregations to use in the transform job. Supported aggregations are: `sum`, `max`, `min`, `value_count`, `avg`, `scripted_metric`, and `percentiles`. For more information, see [Metric Aggregations]({{site.url}}{{site.baseurl}}/opensearch/metric-agg). | Yes if not using groups
+
+#### Sample Request
 
 ```json
-PUT _plugins/_transform/<transform_id>
-
+PUT _plugins/_transform/sample
 {
   "transform": {
-  "enabled": true,
-  "continuous": true,
-  "schedule": {
-    "interval": {
-    "period": 1,
-    "unit": "Minutes",
-    "start_time": 1602100553
-    }
-  },
-  "description": "Sample transform job",
-  "source_index": "sample_index",
-  "target_index": "sample_target",
-  "data_selection_query": {
-    "match_all": {}
-  },
-  "page_size": 1,
-  "groups": [
-    {
-    "terms": {
-      "source_field": "customer_gender",
-      "target_field": "gender"
-    }
+    "enabled": true,
+    "continuous": true,
+    "schedule": {
+      "interval": {
+        "period": 1,
+        "unit": "Minutes",
+        "start_time": 1602100553
+      }
     },
-    {
-    "terms": {
-      "source_field": "day_of_week",
-      "target_field": "day"
+    "description": "Sample transform job",
+    "source_index": "sample_index",
+    "target_index": "sample_target",
+    "data_selection_query": {
+      "match_all": {}
+    },
+    "page_size": 1,
+    "groups": [
+      {
+        "terms": {
+          "source_field": "customer_gender",
+          "target_field": "gender"
+        }
+      },
+      {
+        "terms": {
+          "source_field": "day_of_week",
+          "target_field": "day"
+        }
+      }
+    ],
+    "aggregations": {
+      "quantity": {
+        "sum": {
+          "field": "total_quantity"
+        }
+      }
     }
-    }
-  ],
-  "aggregations": {
-    "quantity": {
-    "sum": {
-      "field": "total_quantity"
-    }
-    }
-  }
   }
 }
 ```
 
-**Sample Response**
+#### Sample Response
 
 ```json
 {
@@ -125,35 +154,43 @@ PUT _plugins/_transform/<transform_id>
   }
 }
 ```
-You can specify the following options in the HTTP request body:
-
-Option | Data Type | Description | Required
-:--- | :--- | :--- | :---
-enabled | Boolean | If true, the transform job is enabled at creation. | No
-continuous | Boolean | Specifies whether the transform job should be continuous. Continuous jobs execute every time they are scheduled according to the `schedule` field and run based off of newly transformed buckets, as well as any new data added to source indexes. Non-continuous jobs execute only once. Default is false. | No
-schedule | Object | The schedule the transform job runs on. | Yes
-start_time | Integer | The Unix epoch time of the transform job's start time. | Yes
-description | String | Describes the transform job. | No
-metadata_id | String | Any metadata to be associated with the transform job. | No
-source_index | String | The source index whose data to transform. | Yes
-target_index | String | The target index the newly transformed data is added into. You can create a new index or update an existing one. | Yes
-data_selection_query | Object | The query DSL to use to filter a subset of the source index for the transform job. See [query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl) for more information. | Yes
-page_size | Integer | The number of buckets IM processes and indexes concurrently. Higher number means better performance but requires more memory. If your machine runs out of memory, IM automatically adjusts this field and retries until the operation succeeds. | Yes
-groups | Array | Specifies the grouping(s) to use in the transform job. Supported groups are `terms`, `histogram`, and `date_histogram`. For more information, see [Bucket Aggregations]({{site.url}}{{site.baseurl}}/opensearch/bucket-agg). | Yes if not using aggregations
-source_field | String | The field(s) to transform | Yes
-aggregations | Object | The aggregations to use in the transform job. Supported aggregations are: `sum`, `max`, `min`, `value_count`, `avg`, `scripted_metric`, and `percentiles`. For more information, see [Metric Aggregations]({{site.url}}{{site.baseurl}}/opensearch/metric-agg). | Yes if not using groups
 
 ## Update a transform job
 Introduced 1.0
 {: .label .label-purple }
 
-Updates a transform job if `transform_id` already exists.
+Updates a transform job if `transform_id` already exists. For this request you must specify the sequence number and primary term of the transform. To get these, use the [Get a transform job's details](#get-a-transform-jobs-details) API call. 
 
-**Sample Request**
+### Header format
+
+`PUT _plugins/_transform/<transform_id>?if_seq_no=<_seq_no from get transform response>&if_primary_term=<_primary_term from get transform response>`
+
+### Query parameters
+
+The Update operation supports the following URL parameters:
+
+Parameter | Description | Required
+:---| :--- | :---
+`if_seq_no` | Only perform the transform operation if the last operation that changed the transform job has the specified sequence number. | Yes
+`if_primary_term` | Only perform the transform operation if the last operation that changed the transform job has the specified sequence term. | Yes
+
+### Request body fields
+
+You can update the following fields:
+
+Option | Data Type | Description
+:--- | :--- | :---
+schedule | Object | The schedule the transform job runs on. Contains the fields `interval.start_time`, `interval.period`, and `interval.unit`.
+start_time | Integer | The Unix epoch start time of the transform job.
+period | Integer | How often to execute the transform job.
+unit | String | The unit of time associated with the execution period. Available options are `Minutes`, `Hours`, and `Days`.
+description | Integer | Describes the transform job.
+page_size | Integer | The number of buckets IM processes and indexes concurrently. Higher number means better performance but requires more memory. If your machine runs out of memory, IM automatically adjusts this field and retries until the operation succeeds.
+
+#### Sample Request
 
 ```json
-PUT _plugins/_transform/<transform_id>
-
+PUT _plugins/_transform/sample?if_seq_no=13&if_primary_term=1
 {
   "transform": {
   "enabled": true,
@@ -196,37 +233,26 @@ PUT _plugins/_transform/<transform_id>
 }
 ```
 
-**Sample Response**
+#### Sample Response
 
 ```json
+PUT _plugins/_transform/sample?if_seq_no=13&if_primary_term=1
 {
-  "_id": "sample",
-  "_version": 2,
-  "_seq_no": 14,
-  "_primary_term": 1,
   "transform": {
-    "transform_id": "sample",
-    "schema_version": 7,
+    "enabled": true,
     "schedule": {
       "interval": {
-        "start_time": 1602100553,
         "period": 1,
-        "unit": "Minutes"
+        "unit": "Minutes",
+        "start_time": 1602100553
       }
     },
-    "metadata_id": null,
-    "updated_at": 1621889843874,
-    "enabled": true,
-    "enabled_at": 1621889843874,
     "description": "Sample transform job",
     "source_index": "sample_index",
-    "data_selection_query": {
-      "match_all": {
-        "boost": 1.0
-      }
-    },
     "target_index": "sample_target",
-    "roles": [],
+    "data_selection_query": {
+      "match_all": {}
+    },
     "page_size": 1,
     "groups": [
       {
@@ -253,37 +279,23 @@ PUT _plugins/_transform/<transform_id>
 }
 ```
 
-The Update operation supports the following URL parameters:
-
-Parameter | Description | Required
-:---| :--- | :---
-`if_seq_no` | Only perform the transform operation if the last operation that changed the transform job has the specified sequence number. | Yes
-`if_primary_term` | Only perform the transform operation if the last operation that changed the transform job has the specified sequence term. | Yes
-
-You can update the following fields:
-
-Option | Data Type | Description
-:--- | :--- | :---
-schedule | Object | The schedule the transform job runs on. Contains the fields `interval.start_time`, `interval.period`, and `interval.unit`.
-start_time | Integer | The Unix epoch start time of the transform job.
-period | Integer | How often to execute the transform job.
-unit | String | The unit of time associated with the execution period. Available options are `Minutes`, `Hours`, and `Days`.
-description | Integer | Describes the transform job.
-page_size | Integer | The number of buckets IM processes and indexes concurrently. Higher number means better performance but requires more memory. If your machine runs out of memory, IM automatically adjusts this field and retries until the operation succeeds.
-
 ## Get a transform job's details
 Introduced 1.0
 {: .label .label-purple }
 
-Returns a transform job's details.
+Returns a transform job's details. 
 
-**Sample Request**
+### Header format
+
+`GET _plugins/_transform/<transform_id>`
+
+#### Sample Request
 
 ```json
-GET _plugins/_transform/<transform_id>
+GET _plugins/_transform/sample
 ```
 
-**Sample Response**
+#### Sample Response
 
 ```json
 {
@@ -343,13 +355,13 @@ GET _plugins/_transform/<transform_id>
 
 You can also get details of all transform jobs by omitting `transform_id`.
 
-**Sample Request**
+#### Sample Request
 
 ```json
 GET _plugins/_transform/
 ```
 
-**Sample Response**
+#### Sample Response
 
 ```json
 {
@@ -411,6 +423,8 @@ GET _plugins/_transform/
 }
 ```
 
+### Query parameters
+
 You can specify these options as the `GET` API operation’s URL parameters to filter results:
 
 Parameter | Description | Required
@@ -423,13 +437,13 @@ sortDirection | Specifies the direction to sort results in. Can be `ASC` or `DES
 
 For example, this request returns two results starting from the eighth index.
 
-**Sample Request**
+#### Sample Request
 
 ```json
 GET _plugins/_transform?size=2&from=8
 ```
 
-**Sample Response**
+#### Sample Response
 
 ```json
 {
@@ -545,15 +559,19 @@ GET _plugins/_transform?size=2&from=8
 Introduced 1.0
 {: .label .label-purple }
 
-Transform jobs created using the API are automatically enabled, but if you ever need to enable a job, you can use the `start` API operation.
+Transform jobs created using the API are automatically enabled, but if you ever need to enable a job, you can use the `start` API operation. 
 
-**Sample Request**
+### Header format
+
+`POST _plugins/_transform/<transform_id>/_start`
+
+#### Sample Request
 
 ```json
-POST _plugins/_transform/<transform_id>/_start
+POST _plugins/_transform/sample/_start
 ```
 
-**Sample Response**
+#### Sample Response
 
 ```json
 {
@@ -565,15 +583,19 @@ POST _plugins/_transform/<transform_id>/_start
 Introduced 1.0
 {: .label .label-purple }
 
-Stops/disables a transform job.
+Stops/disables a transform job. 
 
-**Sample Request**
+### Header format
+
+`POST _plugins/_transform/<transform_id>/_stop`
+
+#### Sample Request
 
 ```json
-POST _plugins/_transform/<transform_id>/_stop
+POST _plugins/_transform/sample/_stop
 ```
 
-**Sample Response**
+#### Sample Response
 
 ```json
 {
@@ -585,15 +607,19 @@ POST _plugins/_transform/<transform_id>/_stop
 Introduced 1.0
 {: .label .label-purple }
 
-Returns the status and metadata of a transform job.
+Returns the status and metadata of a transform job. 
 
-**Sample Request**
+### Header format
+
+`GET _plugins/_transform/<transform_id>/_explain`
+
+#### Sample Request
 
 ```json
-GET _plugins/_transform/<transform_id>/_explain
+GET _plugins/_transform/sample/_explain
 ```
 
-**Sample Response**
+#### Sample Response
 
 ```json
 {
@@ -628,7 +654,7 @@ Introduced 1.0
 
 Returns a preview of what a transformed index would look like.
 
-**Sample Request**
+#### Sample Request
 
 ```json
 POST _plugins/_transform/_preview
@@ -675,7 +701,7 @@ POST _plugins/_transform/_preview
 }
 ```
 
-**Sample Response**
+#### Sample Response
 
 ```json
 {
@@ -713,15 +739,19 @@ POST _plugins/_transform/_preview
 Introduced 1.0
 {: .label .label-purple }
 
-Deletes a transform job. This operation does not delete the source or target indexes.
+Deletes a transform job. This operation does not delete the source or target indexes. 
 
-**Sample Request**
+### Header format
+
+`DELETE _plugins/_transform/<transform_id>`
+
+#### Sample Request
 
 ```json
-DELETE _plugins/_transform/<transform_id>
+DELETE _plugins/_transform/sample
 ```
 
-**Sample Response**
+#### Sample Response
 
 ```json
 {
