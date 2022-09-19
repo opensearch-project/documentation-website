@@ -1,8 +1,8 @@
-#top {
-  z-index: 9;
-}
-
 @media screen and (min-width: 46.25rem) {
+  #top {
+    z-index: 9;
+  }
+
   [role="banner"] {
     overflow: visible;
 
