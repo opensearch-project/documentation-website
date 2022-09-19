@@ -13,7 +13,7 @@ redirect_from:
 
 # Overview of OpenSearch Dashboards
 
-OpenSearch Dashboards is the preferred visualization platform for analyzing data in OpenSearch. and is the user interface for many OpenSearch features. From real-time application monitoring, threat detection, and incident management to personalized search experience, OpenSearch Dashboards gives you data visualization tools to tell your data story.      
+OpenSearch Dashboards is the preferred visualization platform for analyzing data in OpenSearch, and is the user interface for many OpenSearch features. From real-time application monitoring, threat detection, and incident management to personalized search experience, OpenSearch Dashboards gives you data visualization tools to tell your data story.      
 
 Out-of-the-box OpenSearch Dashboards includes several tools for discovering and visualizing data, and the OpenSearch suite provides [plugins](https://opensearch.org/docs/latest/dashboards/install/plugins/) to extend and customize dashboard features and functions. 
 
@@ -30,7 +30,7 @@ OpenSearch Dashboards makes it easy makes it easy for you to perform interactive
 <td style="text-align: center; vertical-align: top;">Detect and mitigate issues faster with anomaly detection<img src="{{site.url}}{{site.baseurl}}/images/anomaly-detection.png" alt="Anomaly detection"/></td>
 </tr>
 <tr>
-<td style="text-align: center; vertical-align: top;">Use observability to monitor and issue alerts<img src="{{site.url}}{{site.baseurl}}/images/observability.png" alt="Data overview" /></td>
+<td style="text-align: center; vertical-align: top;">Monitor and issue alerts with observability<img src="{{site.url}}{{site.baseurl}}/images/observability.png" alt="Data overview" /></td>
 <td style="text-align: center; vertical-align: top;">Unlock real-time search, monitoring, and analysis of business and operational data<img src="{{site.url}}{{site.baseurl}}/images/real-time-insights.png" alt="Real-time search, monitoring, and analysis" /></td>
 </tr>
 </tbody>
@@ -50,7 +50,7 @@ Follow these steps to learn the basics of OpenSearch Dashboards:
 
 You can try out OpenSearch Dashboards locally after installing OpenSearch. For installation instructions, see [Install and configure OpenSearch](https://opensearch.org/docs/latest/opensearch/install/index/) and [Install and configure OpenSearch Dashboards](https://opensearch.org/docs/latest/dashboards/install/index/). 
 
-# Try out OpenSearch Dashboards locally 
+# Try out OpenSearch Dashboards
 
 Follow these steps to create a dashboard on localhost using sample data: 
 
