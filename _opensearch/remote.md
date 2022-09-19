@@ -12,7 +12,7 @@ Remote-backed storage is an experimental feature. Therefore, we do not recommend
 Remote-backed storage offers OpenSearch users a new way to protect against data loss by automatically creating backups of all index transactions and sending them to remote storage. In order to expose this feature, segment replication must also be enabled. See [Segment replication]({{site.url}}{{site.baseurl}}/opensearch/segment-replication/) for additional information.
 
 
-## Enabling the feature flag
+## Enable the feature flag
 
 There are several methods for enabling remote store feature, depending on the install type. You will also need to enable `remote_store` property when creating the index.
 
@@ -23,7 +23,7 @@ Segment replication must also be enabled to use remote-backed storage.
 
 The flag is toggled using a new jvm parameter that is set either in `OPENSEARCH_JAVA_OPTS` or in config/jvm.options.
 
-1. Option 1: Modify jvm.options
+#### Option 1: Modify jvm.options
 
 Add the following lines to `config/jvm.options` before starting the OpenSearch process to enable the feature and its dependency:
 
@@ -38,7 +38,7 @@ Run OpenSearch
 ./bin/opensearch
 ```
 
-1. Option 2: Enable from an environment variable
+#### Option 2: Enable from an environment variable
 
 As an alternative to directly modifying `config/jvm.options`, you can define the properties by using an environment variable. This can be done in a single command when you start OpenSearch or by defining the variable with `export`.
 
@@ -54,6 +54,14 @@ If you want to define the environment variable separately, prior to running Open
 export OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.replication_type.enabled=true -Dopensearch.experimental.feature.remote_store.enabled=true"
 ./bin/opensearch
 ```
+
+### Enable with Docker containers
+
+If you're running Docker, add the following line to docker-compose.yml underneath the `opensearch-node` and `environment` section:
+
+````json
+OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.replication_type.enabled=true -Dopensearch.experimental.feature.remote_store.enabled=true"
+````
 
 ### For developers using Gradle, enable feature flag by updating run.gradle
 
@@ -72,14 +80,6 @@ testClusters {
   }
 }
 ```
-
-### Enable with Docker containers
-
-If you're running Docker, add the following line to docker-compose.yml underneath the `opensearch-node` and `environment` section:
-
-````json
-OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.replication_type.enabled=true -Dopensearch.experimental.feature.remote_store.enabled=true"
-````
 
 ## Register a remote repository
 
