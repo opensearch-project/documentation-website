@@ -251,11 +251,11 @@ Hattie|Bond|36
 
 By default, OpenSearch sanitizes results in `raw` format according to the following rule:
 
-- If a data cell contains one or more pipes (`|`), the sanitizer surrounds the cell with double quotes.
+- If a data cell contains one or more pipe characters (`|`), the sanitizer surrounds the cell with double quotes.
 
 ### Example 
 
-The following query indexes a document with pipe characters (`|`) in fields:
+The following query indexes a document with pipe characters (`|`) in its fields:
 
 ```json
 PUT /userdata/_doc/1?refresh=true
