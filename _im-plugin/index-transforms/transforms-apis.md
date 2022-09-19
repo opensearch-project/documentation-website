@@ -20,9 +20,11 @@ Introduced 1.0
 
 Creates a transform job. 
 
-### Header format
+### Request format
 
-`PUT _plugins/_transform/<transform_id>`
+```json
+PUT _plugins/_transform/<transform_id>
+```
 
 ### Path parameters
 
@@ -51,6 +53,8 @@ source_field | String | The field(s) to transform | Yes
 aggregations | Object | The aggregations to use in the transform job. Supported aggregations are: `sum`, `max`, `min`, `value_count`, `avg`, `scripted_metric`, and `percentiles`. For more information, see [Metric Aggregations]({{site.url}}{{site.baseurl}}/opensearch/metric-agg). | Yes if not using groups
 
 #### Sample Request
+
+The following request creates a transform job with the id `sample`:
 
 ```json
 PUT _plugins/_transform/sample
@@ -159,11 +163,13 @@ PUT _plugins/_transform/sample
 Introduced 1.0
 {: .label .label-purple }
 
-Updates a transform job if `transform_id` already exists. For this request you must specify the sequence number and primary term of the transform. To get these, use the [Get a transform job's details](#get-a-transform-jobs-details) API call. 
+Updates the transform job if `transform_id` already exists. For this request you must specify the sequence number and primary term of the transform to be updated. To get these, use the [Get a transform job's details](#get-a-transform-jobs-details) API call. 
 
-### Header format
+### Request format
 
-`PUT _plugins/_transform/<transform_id>?if_seq_no=<_seq_no from get transform response>&if_primary_term=<_primary_term from get transform response>`
+```json
+PUT _plugins/_transform/<transform_id>?if_seq_no=<seq_no>&if_primary_term=<primary_term>
+```
 
 ### Query parameters
 
@@ -171,8 +177,8 @@ The Update operation supports the following URL parameters:
 
 Parameter | Description | Required
 :---| :--- | :---
-`if_seq_no` | Only perform the transform operation if the last operation that changed the transform job has the specified sequence number. | Yes
-`if_primary_term` | Only perform the transform operation if the last operation that changed the transform job has the specified sequence term. | Yes
+`seq_no` | Only perform the transform operation if the last operation that changed the transform job has the specified sequence number. | Yes
+`primary_term` | Only perform the transform operation if the last operation that changed the transform job has the specified sequence term. | Yes
 
 ### Request body fields
 
@@ -188,6 +194,8 @@ description | Integer | Describes the transform job.
 page_size | Integer | The number of buckets IM processes and indexes concurrently. Higher number means better performance but requires more memory. If your machine runs out of memory, IM automatically adjusts this field and retries until the operation succeeds.
 
 #### Sample Request
+
+The following request updates a transform job with the id `sample`, sequence number `13`, and primary term `1`:
 
 ```json
 PUT _plugins/_transform/sample?if_seq_no=13&if_primary_term=1
@@ -285,11 +293,15 @@ Introduced 1.0
 
 Returns a transform job's details. 
 
-### Header format
+### Request format
 
-`GET _plugins/_transform/<transform_id>`
+```json
+GET _plugins/_transform/<transform_id>
+```
 
 #### Sample Request
+
+The following request returns the details of the transform job with the id `sample`:
 
 ```json
 GET _plugins/_transform/sample
@@ -356,6 +368,8 @@ GET _plugins/_transform/sample
 You can also get details of all transform jobs by omitting `transform_id`.
 
 #### Sample Request
+
+The following request returns the details of all transform jobs:
 
 ```json
 GET _plugins/_transform/
@@ -425,19 +439,19 @@ GET _plugins/_transform/
 
 ### Query parameters
 
-You can specify these options as the `GET` API operation’s URL parameters to filter results:
+You can specify these options as the GET API operation’s URL parameters to filter results:
 
 Parameter | Description | Required
 :--- | :--- | :---
-from | The starting index to search from. Default is 0. | No
-size | Specifies the amount of results to return. Default is 10. | No
+from | The starting transform to return. Default is 0. | No
+size | Specifies the amount of transforms to return. Default is 10. | No
 search |The search term to use to filter results. | No
 sortField | The field to sort results with. | No
 sortDirection | Specifies the direction to sort results in. Can be `ASC` or `DESC`. Default is ASC. | No
 
-For example, this request returns two results starting from the eighth index.
-
 #### Sample Request
+
+The following request returns two results starting from transform `8`:
 
 ```json
 GET _plugins/_transform?size=2&from=8
@@ -559,13 +573,17 @@ GET _plugins/_transform?size=2&from=8
 Introduced 1.0
 {: .label .label-purple }
 
-Transform jobs created using the API are automatically enabled, but if you ever need to enable a job, you can use the `start` API operation. 
+Transform jobs created using the API are automatically enabled, but if you ever need to enable a job, you can use the start API operation. 
 
-### Header format
+### Request format
 
-`POST _plugins/_transform/<transform_id>/_start`
+```
+POST _plugins/_transform/<transform_id>/_start
+```
 
 #### Sample Request
+
+The following request starts the transform job with the ID `sample`:
 
 ```json
 POST _plugins/_transform/sample/_start
@@ -585,11 +603,15 @@ Introduced 1.0
 
 Stops/disables a transform job. 
 
-### Header format
+### Request format
 
-`POST _plugins/_transform/<transform_id>/_stop`
+```
+POST _plugins/_transform/<transform_id>/_stop
+```
 
 #### Sample Request
+
+The following request stops the transform job with the ID `sample`:
 
 ```json
 POST _plugins/_transform/sample/_stop
@@ -609,11 +631,15 @@ Introduced 1.0
 
 Returns the status and metadata of a transform job. 
 
-### Header format
+### Request format
 
-`GET _plugins/_transform/<transform_id>/_explain`
+```
+GET _plugins/_transform/<transform_id>/_explain
+```
 
 #### Sample Request
+
+The following request returns the details of the transform job with the ID `sample`:
 
 ```json
 GET _plugins/_transform/sample/_explain
@@ -741,11 +767,15 @@ Introduced 1.0
 
 Deletes a transform job. This operation does not delete the source or target indexes. 
 
-### Header format
+### Request format
 
-`DELETE _plugins/_transform/<transform_id>`
+```
+DELETE _plugins/_transform/<transform_id>
+```
 
 #### Sample Request
+
+The following request deletes the transform job with the ID `sample`:
 
 ```json
 DELETE _plugins/_transform/sample
