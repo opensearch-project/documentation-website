@@ -82,6 +82,6 @@ sample-pipeline:
        path: <path/to/output-file>
 ```
 
-
+## Next steps
 
 To get started building your own custom pipelines with Data Prepper, see the [Get Started]({{site.url}}{{site.baseurl}}/clients/data-prepper/get-started/) guide.
