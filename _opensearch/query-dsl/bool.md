@@ -7,13 +7,13 @@ nav_order: 45
 
 # Boolean queries
 
-The `bool` query lets you combine multiple search queries with boolean logic. You can use boolean logic between queries to either narrow or broaden your search results.
+You can perform a Boolean query with the `bool` query type. A Boolean query compounds query clauses so you can combine multiple search queries with Boolean logic. To narrow or broaden your search results, use the `bool` query clause rules.
 
-The `bool` query is a go-to query because it allows you to construct an advanced query by chaining together several simple ones.
+As a compound query type, `bool` allows you to construct an advanced query by chaining together several simple ones.
 
-Use the following clauses (subqueries) within the `bool` query:
+Use the following rules to define how to combine multiple sub-query clauses within a `bool` query:
 
-Clause | Behavior
+Clause rule | Behavior
 :--- | :---
 `must` | The results must match the queries in this clause. If you have multiple queries, every single one must match. Acts as an `and` operator.
 `must_not` | This is the anti-must clause. All matches are excluded from the results. Acts as a `not` operator.
@@ -200,7 +200,7 @@ OpenSearch returns a `matched_queries` array that lists the queries that matched
 If you remove the queries not in this list, you will still see the exact same result.
 By examining which `should` clause matched, you can better understand the relevancy score of the results.
 
-You can also construct complex boolean expressions by nesting `bool` queries.
+You can also construct complex Boolean expressions by nesting `bool` queries.
 For example, to find a `text_entry` field that matches (`love` OR `hate`) AND (`life` OR `grace`) in the play `Romeo and Juliet`:
 
 ```json
