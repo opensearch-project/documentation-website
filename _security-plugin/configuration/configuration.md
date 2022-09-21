@@ -430,7 +430,7 @@ When using  the JWT URL parameter containing the default admin role `all_access`
 }
 ```
 
-To solve this, ensure that the role `all_access` is mapped directly to the internal user, not a "backend role". To do this, navigate to **Security > Roles > all_access** and switch to the tab to **Mapped Users**. Select **Manage mapping** and add "admin" to the **Users** section.
+To solve this, ensure that the role `all_access` is mapped directly to the internal user and not a backend role. To do this, navigate to **Security > Roles > all_access** and switch to the tab to **Mapped Users**. Select **Manage mapping** and add "admin" to the **Users** section.
 
 ![image](https://user-images.githubusercontent.com/5849965/179158704-b2bd6d48-8816-4b03-a960-8c612465cf75.png)
 
