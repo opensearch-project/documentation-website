@@ -31,10 +31,10 @@ To create your own custom vector map, upload a JSON file that contains GEO data 
 1. Choose a source. For example, **[Flights] Flight Log**.
 1. In the right panel, select **Import Vector Map**. 
 1. In **Upload map**, select or drag and drop your JSON file.
-Enter **Map name prefix** (for example, `usa-county`). Your map will have the prefix that you defined followed by the `-map` suffix (for example, `usa-county-map`). <img src="{{site.url}}{{site.baseurl}}/images/import-vector-map.png" alt="import a Geo .json file" width="380"/>
+Enter **Map name prefix** (for example, `usa-county`). Your map will have the prefix that you defined followed by the `-map` suffix (for example, `usa-county-map`). <img src="{{site.url}}{{site.baseurl}}/images/import-geojson-file.png" alt="import a Geo .json file" width="340"/>
 1. Select the **Import file** button.
 Once the upload is successful, you will see a pop-up prompting you to refresh the map. Select the **Refresh** button. <img src="{{site.url}}{{site.baseurl}}/images/upload-success.png" alt="message upon a successful file upload" width="280"/>
-1. You can now view your region map in the Dashboards. For example, the following image shows the Los Angeles county: 
+1. You can now view your region map in the Dashboards. For example, the following image shows the Los Angeles county region: 
 <img src="{{site.url}}{{site.baseurl}}/images/county-regionmap.png" alt="view a custom GeoJSON region map" width="700"/>
 
  
