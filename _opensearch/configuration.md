@@ -65,6 +65,7 @@ PUT _cluster/settings
 }
 ```
 
+For more information on the Cluster Settings API, see the [Cluster Settings API]({{site.url}}{{site.baseurl}}/opensearch/rest-api/cluster-settings/) documentation.
 
 ---
 
