@@ -87,7 +87,7 @@ compatibility.override_main_response_version: true
 The demo configuration includes a number of settings for the security plugin that you should modify before using OpenSearch for a production workload. To learn more, see [Security]({{site.url}}{{site.baseurl}}/security-plugin/).
 
 ### (Optional) CORS header configuration
-If you are working on a client application running against an OpenSearch cluster on a different domain, you'll want to configure headers in opensearch.yml to allopw and developing an application locally as well, you will need to address [Cross Origin Resource Sharing](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) so your application can make calls to the OpenSearch API running locally.  You can add the following lines in your custom-opensearch.yml file (note that the "-" must be the first character in each line). You will also want to set this up if you are running OpenSearch inside Docker on the same machine as your web application.
+If you are working on a client application running against an OpenSearch cluster on a different domain, you can configure headers in `opensearch.yml` to allow for developing a local application on the same machine.  Use [Cross Origin Resource Sharing](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) so your application can make calls to the OpenSearch API running locally.  Add the following lines in your `custom-opensearch.yml` file (note that the "-" must be the first character in each line). 
 ```yml
 - http.host:0.0.0.0
 - http.port:9200
