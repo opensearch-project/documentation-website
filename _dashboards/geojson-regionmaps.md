@@ -15,7 +15,7 @@ OpenSearch also has a standard set of GeoJSON files to provide a vector map with
 
 ## Custom vector maps with GeoJSON
 
-If you have a specific locale that is not provided by OpenSearch Dashboards vector maps, such as a US county or US ZIP Code, you can create your own custom vector map with a GeoJSON file. To use this feature, you have to install both the [Dashboards-Maps frontend plugin](https://github.com/opensearch-project/dashboards-maps) and the [OpenSearch Geospatial backend plugin](https://github.com/opensearch-project/geospatial).
+If you have a specific locale that is not provided by OpenSearch Dashboards vector maps, such as a US county or US ZIP Code, you can create your own custom vector map with a GeoJSON file. To use this feature, you have to install both the OpenSearch Dashboards Maps front-end plugin [`dashboards-maps`](https://github.com/opensearch-project/dashboards-maps) and the OpenSearch backend plugin [`geospacial`](https://github.com/opensearch-project/geospatial).
 
 GeoJSON format allows you to encode geographic data structures. To learn more about the GeoJSON specification, go to [geojson.org](https://geojson.org/).
 
@@ -31,11 +31,15 @@ To create your own custom vector map, upload a JSON file that contains GEO data 
 1. Choose a source. For example, **[Flights] Flight Log**.
 1. In the right panel, select **Import Vector Map**. 
 1. In **Upload map**, select or drag and drop your JSON file.
-Enter **Map name prefix** (for example, `us-county`). Your map will have the prefix that you defined followed by the `-map` suffix (for example, `us-county-map`). 
-Select the **Import file** button. 
-Once the upload is successful, you will see a pop-up prompting you to refresh the map. Select the **Refresh** button.
+Enter **Map name prefix** (for example, `usa-county`). Your map will have the prefix that you defined followed by the `-map` suffix (for example, `usa-county-map`). <img src="{{site.url}}{{site.baseurl}}/images/import-vector-map.png" alt="import a Geo .json file" width="380"/>
+1. Select the **Import file** button.
+Once the upload is successful, you will see a pop-up prompting you to refresh the map. Select the **Refresh** button. <img src="{{site.url}}{{site.baseurl}}/images/upload-success.png" alt="message upon a successful file upload" width="280"/>
+1. You can now view your region map in the Dashboards. For example, the following image shows the Los Angeles county: 
+<img src="{{site.url}}{{site.baseurl}}/images/county-regionmap.png" alt="view a custom GeoJSON region map" width="700"/>
 
-<img src="{{site.url}}{{site.baseurl}}/images/import-vector-map.png" alt="import a Geo .json file" width="380"/>
+ 
+
+
 
 ## Layer options
 
