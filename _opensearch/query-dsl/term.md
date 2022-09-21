@@ -310,7 +310,7 @@ Parameter | Behavior
 `lte` | Less than or equal to.
 `lt` | Less than.
 
-In addition to the range query parameters, you can provide date formats or relation operators such as "contains" or "within." To see the supported field types for range queries, see [Range query optional parameters]({{site.url}}{{site.baseurl}}/opensearch//supported-field-types/range/#range-query-optional-parameters).
+In addition to the range query parameters, you can provide date formats or relation operators such as "contains" or "within." To see the supported field types for range queries, see [Range query optional parameters]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/range/#range-query-optional-parameters). To see all date formats, see [Formats]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/date/#formats).
 {: .tip }
 
 Assume that you have a `products` index and you want to find all the products that were added in the year 2019:
