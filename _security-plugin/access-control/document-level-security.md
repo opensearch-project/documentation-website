@@ -55,9 +55,11 @@ PUT _plugins/_security/api/roles/public_data
 These queries can be as complex as you want, but we recommend keeping them simple to minimize the performance impact that the document-level security feature has on the cluster.
 {: .warning }
 
-### A note on field values and special characters
+### A note on special characters in field values
 
-Due to word boundaries associated with Unicode special characters, the Unicode standard analyzer cannot interpret the portion of an index field value that follows a special character. Therefore, special characters should not be used for values in either query DSL fields or REST API query fields unless a custom analyzer is used. The examples below illustrate values that will be misinterpreted as the same when a special character – such as the hyphen/minus sign – exists in the value:
+Due to word boundaries associated with Unicode special characters, the Unicode standard analyzer cannot index field values as whole values when they contain these special characters. As a result, a field value that includes a special character is parsed by the standard analyzer as multiple values separated by the special character, effectively tokenizing the different elements either side of it. This can lead to unintentional requests and search query outcomes, including those that can have an impact on security. Therefore, special characters should be avoided in field values handled by query DSL and the REST API unless a custom analyzer is used. 
+
+The examples below illustrate values containing special characters that will be parsed improperly by the standard analyzer. In this example, the existence of the hyphen/minus sign in the value prevents the analyzer from distinguishing between the two different users for `user.id` and interprets them as one and the same:
 
 ```json
 {

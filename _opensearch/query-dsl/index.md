@@ -121,9 +121,11 @@ With query DSL, however, you can include an HTTP request body to look for result
 ```
 The OpenSearch query DSL comes in three varieties: term-level queries, full-text queries, and boolean queries. You can even perform more complicated searches by using different elements from each variety to find whatever data you need.
 
-## A note on field values and special characters
+## A note on special characters in field values 
 
-Due to word boundaries associated with Unicode special characters, the Unicode standard analyzer cannot interpret the portion of an index field value that follows a special character. Therefore, special characters should not be used for values in query DSL fields unless a custom analyzer is used. The examples below illustrate values that will be misinterpreted as the same when a special character – such as the hyphen/minus sign – exists in the value:
+Due to word boundaries associated with Unicode special characters, the Unicode standard analyzer cannot index field values as whole values when they contain these special characters. As a result, a field value that includes a special character is parsed by the standard analyzer as multiple values separated by the special character, effectively tokenizing the different elements either side of it. This can lead to unintentional requests and search query outcomes, including those that can have an impact on security. Therefore, special characters should be avoided in field values handled by query DSL unless a custom analyzer is used. 
+
+The examples below illustrate values containing special characters that will be parsed improperly by the standard analyzer. In this example, the existence of the hyphen/minus sign in the value prevents the analyzer from distinguishing between the two different users for `user.id` and interprets them as one and the same:
 
 ```json
 {
