@@ -35,7 +35,7 @@ To view your region map in OpenSearch Dashboards, see [View custom region map in
 1. Prepare a JSON file to upload. Make sure the file has either a .geojson or .json extension.
 1. On the top menu bar, go to **OpenSearch Dashboards > Visualize**.
 1. Select the **Create Visualization** button.
-1. Select **Region map**.
+1. Select **Region Map**.
 1. Choose a source. For example, **[Flights] Flight Log**.
 1. In the right panel, select **Import Vector Map**. 
 1. In **Upload map**, select or drag and drop your JSON file.
