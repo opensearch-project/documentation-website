@@ -17,16 +17,20 @@ OpenSearch also has a standard set of GeoJSON files to provide a vector map with
 
 If you have a specific locale that is not provided by OpenSearch Dashboards vector maps, such as a US county or US ZIP Code, you can create your own custom vector map with a GeoJSON file. To create a custom region map you would define a geographic shape such as a polygon with multiple coordinates. To learn more about the various geographic shapes that support a custom region map location, see [Geoshape field type]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-shape/).
 
-To use this feature, you have to install both the OpenSearch Dashboards Maps front-end plugin [`dashboards-maps`](https://github.com/opensearch-project/dashboards-maps) and the OpenSearch [`geospatial`](https://github.com/opensearch-project/geospatial) backend plugin.
-
 GeoJSON format allows you to encode geographic data structures. To learn more about the GeoJSON specification, go to [geojson.org](https://geojson.org/).
 
 You can use [geojson.io](https://geojson.io/#map=2/20.0/0.0) to extract GeoJSON files.
-{: .tip}
 
+>   **PREREQUISITE**
+>   To use a custom vector map with GeoJSON, there are two required plugins that you need to install:
+>   * OpenSearch Dashboards Maps [`dashboards-maps`](https://github.com/opensearch-project/dashboards-maps) front-end plugin
+>   * OpenSearch [`geospatial`](https://github.com/opensearch-project/geospatial) backend plugin
+{: .note}
 ### Step 1: Create a region map visualization
 
 To create your own custom vector map, upload a JSON file that contains GEO data for your customized regional maps. The JSON file contains vector layers for visualization.
+
+
 
 <!--with step 1, step 2 headings, we don't need this link anymore, but saving it in-case doc gets rewritten to remove the steps. 
 To view your region map in OpenSearch Dashboards, see [View custom region map in the Dashboards]({{site.url}}{{site.baseurl}}/dashboards/geojson-regionmaps/#view-custom-region-map-in-the-dashboards).
