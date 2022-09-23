@@ -53,9 +53,6 @@ useAcmCertForSSL | No | Boolean | Whether to enable TLS/SSL using certificate an
 acmCertificateArn | Conditionally | String | Represents the ACM certificate ARN. ACM certificate take preference over S3 or local file system certificate. Required if `useAcmCertForSSL` is set to `true`.
 awsRegion | Conditionally | String | Represents the AWS region to use ACM or S3. Required if `useAcmCertForSSL` is set to `true` or `sslKeyCertChainFile` and `sslKeyFile` are AWS S3 paths.
 authentication | No | Object | An authentication configuration. By default, an unauthenticated server is created for the pipeline. This parameter uses pluggable authentication for HTTPS. To use basic authentication, define the `http_basic` plugin with a `username` and `password`. To provide customer authentication, use or create a plugin that implements [GrpcAuthenticationProvider](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/armeria-common/src/main/java/com/amazon/dataprepper/armeria/authentication/GrpcAuthenticationProvider.java).
-record_type | No | String | A string represents the supported record data type that is written into the buffer plugin. Value options are `otlp` or `event`. Default is `otlp`.
-`otlp` | No | String | Otel-trace-source writes each incoming `ExportTraceServiceRequest` request as record data type into the buffer.
-`event` | No | String | Otel-trace-source decodes each incoming `ExportTraceServiceRequest` request into a collection of Data Prepper internal spans serving as buffer items. To achieve better performance in this mode, we recommend setting buffer capacity proportional to the estimated number of spans in the incoming request payload.
 
 ### http_source
 
@@ -176,17 +173,10 @@ Prior to Data Prepper 1.3, Processors were named Preppers. Starting in Data Prep
 {: .note }
 
 
-### otel_trace_raw_prepper
-
-Converts OpenTelemetry data to OpenSearch-compatible JSON documents and fills in trace group related fields in those JSON documents. It requires `record_type` to be set as `otlp` in `otel_trace_source`.
-
-Option | Required | Type | Description
-:--- | :--- | :--- | :---
-trace_flush_interval | No | Integer | Represents the time interval in seconds to flush all the descendant spans without any root span. Default is 180.
-
 ### otel_trace_raw
 
-This processor is a Data Prepper event record type compatible version of `otel_trace_raw_prepper` that fills in trace group related fields into all incoming Data Prepper span records. It requires `record_type` to be set as `event` in `otel_trace_source`.
+This processor is a Data Prepper event record type replacement of `otel_trace_raw_prepper` (no longer supported since Data Prepper 2.0). 
+The processor fills in trace group related fields into all incoming Data Prepper span records by statefully caching the root span info per traceId. 
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---

@@ -75,53 +75,8 @@ This example uses weak security. We strongly recommend securing all plugins whic
 
 The following example demonstrates how to build a pipeline that supports the [Trace Analytics OpenSearch Dashboards plugin]({{site.url}}{{site.baseurl}}/observability-plugin/trace/ta-dashboards/). This pipeline takes data from the OpenTelemetry Collector and uses two other pipelines as sinks. These two separate pipelines index trace and the service map documents for the dashboard plugin.
 
-#### Classic
-
-This pipeline definition will be deprecated in 2.0. Users are recommended to use [Event record type](#event-record-type) pipeline definition.
-
-```yml
-entry-pipeline:
-  delay: "100"
-  source:
-    otel_trace_source:
-      ssl: false
-  sink:
-    - pipeline:
-        name: "raw-pipeline"
-    - pipeline:
-        name: "service-map-pipeline"
-raw-pipeline:
-  source:
-    pipeline:
-      name: "entry-pipeline"
-  processor:
-    - otel_trace_raw_prepper:
-  sink:
-    - opensearch:
-        hosts: ["https://localhost:9200"]
-        insecure: true
-        username: admin
-        password: admin
-        index_type: trace-analytics-raw
-service-map-pipeline:
-  delay: "100"
-  source:
-    pipeline:
-      name: "entry-pipeline"
-  processor:
-    - service_map_stateful:
-  sink:
-    - opensearch:
-        hosts: ["https://localhost:9200"]
-        insecure: true
-        username: admin
-        password: admin
-        index_type: trace-analytics-service-map
-```
-
-#### Event record type
-
-Starting from Data Prepper 1.4, Data Prepper supports event record type in trace analytics pipeline source, buffer, and processors.
+Starting from Data Prepper 2.0, Data Prepper no longer supports `otel_trace_raw_prepper` processor due to the Data Prepper internal data model evolution. 
+Instead, users should use `otel_trace_raw`.
 
 ```yml
 entry-pipeline:
@@ -129,7 +84,6 @@ entry-pipeline:
   source:
     otel_trace_source:
       ssl: false
-      record_type: event
   buffer:
     bounded_blocking:
       buffer_size: 10240
