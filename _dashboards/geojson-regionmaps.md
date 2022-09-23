@@ -30,12 +30,6 @@ You can use [geojson.io](https://geojson.io/#map=2/20.0/0.0) to extract GeoJSON 
 
 To create your own custom vector map, upload a JSON file that contains GEO data for your customized regional maps. The JSON file contains vector layers for visualization.
 
-
-
-<!--with step 1, step 2 headings, we don't need this link anymore, but saving it in-case doc gets rewritten to remove the steps. 
-To view your region map in OpenSearch Dashboards, see [View custom region map in the Dashboards]({{site.url}}{{site.baseurl}}/dashboards/geojson-regionmaps/#view-custom-region-map-in-the-dashboards).
--->
-
 1. Prepare a JSON file to upload. Make sure the file has either a .geojson or .json extension.
 1. On the top menu bar, go to **OpenSearch Dashboards > Visualize**.
 1. Select the **Create Visualization** button.
