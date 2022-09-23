@@ -8,52 +8,51 @@ nav_order: 7
 
 OpenSearch Dashboards provides basic map tiles with a standard vector map that you can use to create your region map visualizations. You can configure the base map tiles using the Web Map Service (WMS) map server.
 
-You cannot configure a server to support user-defined vector map layers. However, you can configure your own GeoJSON file and upload it for this purpose. 
+You can't configure a server to support user-defined vector map layers. However, you can configure your own GeoJSON file and upload it for this purpose.
 {: .note}
 
 OpenSearch also has a standard set of GeoJSON files to provide a vector map with your regional maps.
 
 ## Custom vector maps with GeoJSON
 
-If you have a specific locale that is not provided by OpenSearch Dashboards vector maps, such as a US county or US ZIP Code, you can create your own custom vector map with a GeoJSON file. To use this feature, you have to install both the OpenSearch Dashboards Maps front-end plugin [`dashboards-maps`](https://github.com/opensearch-project/dashboards-maps) and the OpenSearch backend plugin [`geospacial`](https://github.com/opensearch-project/geospatial).
+If you have a specific locale that is not provided by OpenSearch Dashboards vector maps, such as a US county or US ZIP Code, you can create your own custom vector map with a GeoJSON file. To create a custom region map you would define a geographic shape such as a polygon with multiple coordinates. To learn more about the various geographic shapes that support a custom region map location, see [Geoshape field type]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-shape/).
+
+To use this feature, you have to install both the OpenSearch Dashboards Maps front-end plugin [`dashboards-maps`](https://github.com/opensearch-project/dashboards-maps) and the OpenSearch [`geospatial`](https://github.com/opensearch-project/geospatial) backend plugin.
 
 GeoJSON format allows you to encode geographic data structures. To learn more about the GeoJSON specification, go to [geojson.org](https://geojson.org/).
 
 You can use [geojson.io](https://geojson.io/#map=2/20.0/0.0) to extract GeoJSON files.
 {: .tip}
 
+### Step 1: Create a region map visualization
+
 To create your own custom vector map, upload a JSON file that contains GEO data for your customized regional maps. The JSON file contains vector layers for visualization.
+
+<!--with step 1, step 2 headings, we don't need this link anymore, but saving it in-case doc gets rewritten to remove the steps. 
+To view your region map in OpenSearch Dashboards, see [View custom region map in the Dashboards]({{site.url}}{{site.baseurl}}/dashboards/geojson-regionmaps/#view-custom-region-map-in-the-dashboards).
+-->
 
 1. Prepare a JSON file to upload. Make sure the file has either a .geojson or .json extension.
 1. On the top menu bar, go to **OpenSearch Dashboards > Visualize**.
 1. Select the **Create Visualization** button.
-1. Select **Region Map**.
+1. Select **Region map**.
 1. Choose a source. For example, **[Flights] Flight Log**.
 1. In the right panel, select **Import Vector Map**. 
 1. In **Upload map**, select or drag and drop your JSON file.
 Enter **Map name prefix** (for example, `usa-county`). Your map will have the prefix that you defined followed by the `-map` suffix (for example, `usa-county-map`). <img src="{{site.url}}{{site.baseurl}}/images/import-geojson-file.png" alt="import a Geo .json file" width="340"/>
 1. Select the **Import file** button.
 Once the upload is successful, you will see a pop-up prompting you to refresh the map. Select the **Refresh** button. <img src="{{site.url}}{{site.baseurl}}/images/upload-success.png" alt="message upon a successful file upload" width="280"/>
+
+### Step 2: View the custom region map in the Dashboards
+
+After you upload a custom GeoJSON file, you need to enable your custom vector map.
+
+1. From **Layer Options > Layer settings**, select **Custom vector map**.
+1. Under **Vector map**, select the name of the vector map that you just uploaded.
+1. *(Optional):* Under **Style settings** you might want to increase **Border thickness** to see the borders more clearly.
+1. Select the **Update** button.
 1. You can now view your region map in the Dashboards. For example, the following image shows the Los Angeles county region: 
 <img src="{{site.url}}{{site.baseurl}}/images/county-regionmap.png" alt="view a custom GeoJSON region map" width="700"/>
-
- 
-
-
-
-## Layer options
-
-If you upload a custom GeoJSON file, you can toggle between two layer options: **Default vector map** or **Custom vector map**. To use your custom vector map, follow the steps below.
-
-1. On the top menu bar, go to **OpenSearch Dashboards > Visualize**.
-1. Select the **Create Visualization** button.
-1. Select **Region Map**.
-1. Choose a source. For example, **[Flights] Flight Log**.
-1. In the right panel, select **Layer Options**. 
-1. In the **Layer settings** section, under **Choose a vector map layer**, select the **Custom vector map** option. In **Vector map**, select the custom map you created. Select the **Update** button.
-
-Under **Layer settings > Style settings**, you may want to increase **Border thickness** to see the borders more clearly.
-{: .tip}
 
 ### Example GeoJSON file
 
