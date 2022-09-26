@@ -2,6 +2,7 @@
 layout: default
 title: Basic Queries
 parent: SQL
+grand_parent: SQL and PPL
 nav_order: 5
 ---
 
