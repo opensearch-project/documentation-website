@@ -1,8 +1,8 @@
 ---
 layout: default
 title: Troubleshooting
-parent: SQL
-nav_order: 17
+parent: SQL and PPL
+nav_order: 88
 ---
 
 # Troubleshooting
