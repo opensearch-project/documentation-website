@@ -49,7 +49,7 @@ After you upload a custom GeoJSON file, you need to set the vector map layer to 
 1. Under **Vector map**, select the name of the vector map that you just uploaded.
 1. *(Optional):* Under **Style settings**, increase **Border thickness** to see the borders more clearly.
 1. Select the **Update** button.
-1. View your region map in the Dashboards. For example, the following image shows the Los Angeles county region: 
+1. View your region map in the Dashboards. For example, the following image shows the Los Angeles and San Diego county regions:
 <img src="{{site.url}}{{site.baseurl}}/images/county-regionmap.png" alt="view a custom GeoJSON region map" width="700"/>
 
 ### Example GeoJSON file
