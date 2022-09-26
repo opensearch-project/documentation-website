@@ -123,7 +123,7 @@ The OpenSearch query DSL comes in three varieties: term-level queries, full-text
 
 ## A note on special characters in field values 
 
-Due to word boundaries associated with Unicode special characters, the Unicode standard analyzer cannot index [text field type](https://opensearch.org/docs/2.2/opensearch/supported-field-types/text/) values as whole values when they contain these special characters. As a result, a field value of this type that includes a special character is parsed by the standard analyzer as multiple values separated by the special character, effectively tokenizing the different elements either side of it. This can lead to unintentional requests and search query outcomes, including those that can have an impact on security. 
+Due to word boundaries associated with Unicode special characters, the Unicode standard analyzer cannot index [text field type](https://opensearch.org/docs/2.2/opensearch/supported-field-types/text/) values as whole values when they contain these special characters. As a result, a field value of this type that includes a special character is parsed by the standard analyzer as multiple values separated by the special character, effectively tokenizing the different elements either side of it. This can lead to unintentional filtering of documents and potentially compromise the safeguards that control access. 
 
 The examples below illustrate values containing special characters that will be parsed improperly by the standard analyzer. In this example, the existence of the hyphen/minus sign in the value prevents the analyzer from distinguishing between the two different users for `user.id` and interprets them as one and the same:
 
