@@ -70,7 +70,7 @@ This guide assumes that you are comfortable working from the Linux command line 
 
 ### Install OpenSearch from a local YUM repository
 
-YUM, the primary package management tool for Red Hat-based operating systems, allows you to download and install the RPM package from the YUM repository library. 
+YUM, the primary package management tool for Red Hat-based operating systems, allows you to download and install the RPM package from the YUM repository. 
 
 1. Create a local repository file for OpenSearch:
    ```bash
