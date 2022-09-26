@@ -1,7 +1,7 @@
 ---
 layout: default
 title: SQL
-parent: SQL & PPL
+parent: SQL and PPL
 nav_order: 4
 has_children: true
 has_toc: false
@@ -29,7 +29,7 @@ Column | Field
 
 ## REST API
 
-For a complete reference of the SQL plugin's REST API, see [SQL/PPL API]({{site.url}}{{site.baseurl}}/search-plugins/sql/sql-ppl-api). 
+For a complete  REST API reference for the SQL plugin, see [SQL/PPL API]({{site.url}}{{site.baseurl}}/search-plugins/sql/sql-ppl-api). 
 
 To use the SQL plugin with your own applications, send requests to the `_plugins/_sql` endpoint:
 
@@ -58,13 +58,13 @@ POST _plugins/_sql
 }
 ```
 
-To run the above query in command line, use the [curl](https://curl.haxx.se/) command:
+To run the above query in the command line, use the [curl](https://curl.haxx.se/) command:
 
 ```bash
 curl -XPOST https://localhost:9200/_plugins/_sql -u 'admin:admin' -k -H 'Content-Type: application/json' -d '{"query": "SELECT * FROM my-index* LIMIT 50"}'
 ```
 
-You can specify the [response format]({{site.url}}{{site.baseurl}}/search-plugins/sql/response-formats) as JDBC, standard OpenSearch JSON, CSV, or raw. By default, queries return data in JDBC format.  The following query sets the format to JSON:
+You can specify the [response format]({{site.url}}{{site.baseurl}}/search-plugins/sql/response-formats) as JDBC, standard OpenSearch JSON, CSV, or raw. By default, queries return data in JDBC format. The following query sets the format to JSON:
 
 ```json
 POST _plugins/_sql?format=json
@@ -73,4 +73,4 @@ POST _plugins/_sql?format=json
 }
 ```
 
-See the rest of this guide for details about request parameters, settings, supported operations, tools, and other information.
+See the rest of this guide for more information about request parameters, settings, supported operations, and tools.

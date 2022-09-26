@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Full-Text Search
-parent: SQL & PPL
+parent: SQL and PPL
 nav_order: 11
 ---
 
@@ -111,7 +111,7 @@ SELECT message FROM my_index WHERE match(message, "this is a test", operator='an
 SOURCE=my_index | WHERE match(message, "this is a test", operator='and', zero_terms_query='all') | FIELDS message
 ```
 
-## Multi match
+## Multi-match
 
 To search for text in multiple fields, use `MULTI_MATCH` function. This function maps to the `multi_match` query used in search engine, to returns the documents that match a provided text, number, date or boolean value with a given field or fields.
 

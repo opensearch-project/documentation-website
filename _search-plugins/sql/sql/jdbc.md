@@ -2,7 +2,7 @@
 layout: default
 title: JDBC Driver
 parent: SQL
-grand_parent: SQL & PPL
+grand_parent: SQL and PPL
 nav_order: 71
 ---
 
@@ -14,4 +14,4 @@ For information on downloading and using the JAR file, see [the SQL repository o
 
 ## Connecting to Tableau
 
-To connect to Tableau, follow detailed instructions in the [GitHub repository](https://github.com/opensearch-project/sql/blob/main/bi-connectors/TableauConnector/README.md).
+To connect to Tableau, follow the detailed instructions in the [GitHub repository](https://github.com/opensearch-project/sql/blob/main/bi-connectors/TableauConnector/README.md).

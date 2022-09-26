@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Response formats
-parent: SQL & PPL
+parent: SQL and PPL
 nav_order: 2
 ---
 
@@ -9,9 +9,9 @@ nav_order: 2
 
 The SQL plugin provides the `jdbc`, `csv`, `raw`, and `json` response formats that are useful for different purposes. The `jdbc` format is widely used because it provides the schema information and adds more functionality, such as pagination. Besides the JDBC driver, various clients can benefit from a detailed and well-formatted response.
 
-## JDBC Format
+## JDBC format
 
-By default, the SQL plugin returns the response in the standard JDBC format. This format is provided for the JDBC driver and clients that need both the schema and the result set to be well-formatted.
+By default, the SQL plugin returns the response in the standard JDBC format. This format is provided for the JDBC driver and clients that need both the schema and the result set to be well formatted.
 
 #### Sample request
 
@@ -26,7 +26,7 @@ POST _plugins/_sql
 
 #### Sample response
 
-In the response, the `schema` contains the field names and types and the `datarows` field contains the result set:
+In the response, the `schema` contains the field names and types, and the `datarows` field contains the result set:
 
 ```json
 {
@@ -63,7 +63,7 @@ In the response, the `schema` contains the field names and types and the `dataro
 
 If an error of any type occurs, OpenSearch returns the error message.
 
-The following query is searching for a non-existent field `unknown`:
+The following query searches for a non-existent field `unknown`:
 
 ```json
 POST /_plugins/_sql
@@ -87,7 +87,7 @@ The response contains the error message and the cause of the error:
 
 ## OpenSearch DSL JSON format
 
-If you set the format to `json`, the original response from OpenSearch in JSON format is returned. Because this is the native response from OpenSearch, extra effort is needed to parse and interpret it.
+If you set the format to `json`, the original OpenSearch response is returned in JSON format. Because this is the native response from OpenSearch, extra effort is needed to parse and interpret it.
 
 #### Sample request
 
@@ -153,7 +153,7 @@ The response is the original response from OpenSearch:
 }
 ```
 
-## CSV Format
+## CSV format
 
 You can also specify to return results in CSV format. 
 
@@ -214,7 +214,7 @@ In the response, cells that start with special characters are prefixed with `'`.
 To skip sanitizing, set the `sanitize` query parameter to false:
 
 ```json
-POST /_plugins/_sql?format=csv&sanitize=false
+POST /_plugins/_sql?format=csvandsanitize=false
 {
   "query" : "SELECT * FROM userdata"
 }
@@ -227,11 +227,11 @@ The response contains the results in the original CSV format:
 @Bond,"671 Bristol Street, Dente, TN",-Hattie
 ```
 
-## Raw Format
+## Raw format
 
 You can use the raw format to pipe the results to other command line tools for post-processing.
 
-#### Sample Request
+#### Sample request
 
 ```json
 POST /_plugins/_sql?format=raw
@@ -275,7 +275,7 @@ POST /_plugins/_sql?format=raw
 }
 ```
 
-The query returns cells with the `|` character surrounded with quotation marks:
+The query returns cells with the `|` character surrounded by quotation marks:
 
 ```text
 "|address"|=lastname|+firstname

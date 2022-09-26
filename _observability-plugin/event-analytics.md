@@ -6,7 +6,7 @@ nav_order: 10
 
 # Event analytics
 
-Event analytics in observability is where you can use [Piped Processing Language]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index) (PPL) queries to build and view different visualizations of your data.
+Event analytics in Observability is where you can use [Piped Processing Language]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index) (PPL) queries to build and view different visualizations of your data.
 
 ## Get started with event analytics
 

@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Monitoring
-parent: SQL & PPL
+parent: SQL and PPL
 nav_order: 95
 ---
 

@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Limitations
-parent: SQL & PPL
+parent: SQL and PPL
 nav_order: 99
 ---
 
@@ -81,14 +81,14 @@ The SQL plugin has two query processing engines, `V1` and `V2`. Most of the feat
 
 * The select literal expression without `FROM` clause is not supported. For example, `SELECT 1` is not supported.
 * The `WHERE` clause does not support expressions. For example, `SELECT FlightNum FROM opensearch_dashboards_sample_data_flights where (AvgTicketPrice + 100) <= 1000` is not supported.
-* Most of [relevancy search functions]({{site.url}}{{site.baseurl}}/search-plugins/sql/full-text/) are implemented in the `V2` engine only.
+* Most [relevancy search functions]({{site.url}}{{site.baseurl}}/search-plugins/sql/full-text/) are implemented in the `V2` engine only.
 
-Such queries are successfully executed by `V2` engine unless they have `V1`-specific functions. Likely you will never meet these limitations.
+Such queries are successfully executed by the `V2` engine unless they have `V1`-specific functions. You will likely never meet these limitations.
 
 ### V2 engine limitations
 
 * The [cursor feature](#pagination-only-supports-basic-queries) is supported by the `V1` engine only.
 For support of `cursor`/`pagination` in the `V2` engine, track [GitHub issue #656](https://github.com/opensearch-project/sql/issues/656).
 * The `V2` engine does not track query execution time, so slow queries are not reported.
-* The `V2` query engine not only runs queries in the OpenSearch engine, but also supports post-processing for complicated queries. Accordingly, the explain output is no longer pure OpenSearch DSL, but also includes query plan information from the `V2` query engine.
+* The `V2` query engine not only runs queries in the OpenSearch engine but also supports post-processing for complicated queries. Accordingly, the explain output is no longer pure OpenSearch domain-specific language (DSL) but also includes query plan information from the `V2` query engine.
 * The `V2` engine does not support [`SCORE_QUERY`]({{site.url}}{{site.baseurl}}/search-plugins/sql/sql/functions#score-query) and [`WILDCARD_QUERY`]({{site.url}}{{site.baseurl}}/search-plugins/sql/sql/functions#wildcard-query) functions.

@@ -1,7 +1,7 @@
 ---
 layout: default
-title: PPL - Piped Processing Language
-parent: SQL & PPL
+title: PPL &ndash; Piped Processing Language
+parent: SQL and PPL
 nav_order: 5
 has_children: true
 has_toc: false
@@ -11,7 +11,7 @@ redirect_from:
   - /observability-plugin/ppl
 ---
 
-# PPL - Piped Processing Language
+# PPL &ndash; Piped Processing Language
 
 Piped Processing Language (PPL) is a query language that lets you use pipe (`|`) syntax to explore, discover, and query data stored in OpenSearch.
 

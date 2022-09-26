@@ -2,18 +2,18 @@
 layout: default
 title: Functions
 parent: SQL
-grand_parent: SQL & PPL
+grand_parent: SQL and PPL
 nav_order: 7
 ---
 
 # Functions
 
-The `SQL` language supports all SQL plugin [common functions]({{site.url}}{{site.baseurl}}/search-plugins/sql/functions/), including [relevance search]({{site.url}}{{site.baseurl}}/search-plugins/sql/full-text/), but also introduces a few function synonyms, which are available in `SQL` only.
+The SQL language supports all SQL plugin [common functions]({{site.url}}{{site.baseurl}}/search-plugins/sql/functions/), including [relevance search]({{site.url}}{{site.baseurl}}/search-plugins/sql/full-text/), but also introduces a few function synonyms, which are available in SQL only.
 These synonyms are provided by the `V1` engine. For more information, see [Limitations]({{site.url}}{{site.baseurl}}/search-plugins/sql/limitation).
 
 ## Match query
 
-The `MATCHQUERY` and `MATCH_QUERY` functions are synonyms for the [`MATCH`]({{site.url}}{{site.baseurl}}/search-plugins/sql/full-text#match) relevance function. They don't accept additional arguments, but provide an alternate syntax.
+The `MATCHQUERY` and `MATCH_QUERY` functions are synonyms for the [`MATCH`]({{site.url}}{{site.baseurl}}/search-plugins/sql/full-text#match) relevance function. They don't accept additional arguments but provide an alternate syntax.
 
 ### Syntax
 
@@ -49,15 +49,15 @@ FROM accounts
 WHERE address = MATCH_QUERY('Holmes')
 ```
 
-The results contain documents, in which the address contains "Holmes":
+The results contain documents in which the address contains "Holmes":
 
 | account_number | address
 :--- | :---
 1 | 880 Holmes Lane
 
-## Multi match
+## Multi-match
 
-There are three synonyms for [`MULTI_MATCH`]({{site.url}}{{site.baseurl}}/search-plugins/sql/full-text#multi-match) that have slightly different syntax. They accept a query string and a fields list with weights. They can also accept additional optional parameters.
+There are three synonyms for [`MULTI_MATCH`]({{site.url}}{{site.baseurl}}/search-plugins/sql/full-text#multi-match), each with a slightly different syntax. They accept a query string and a fields list with weights. They can also accept additional optional parameters.
 
 ### Syntax
 
@@ -67,7 +67,7 @@ multi_match('query'=query_expression[, 'fields'=field_expression][, option=<opti
 multimatchquery('query'=query_expression[, 'fields'=field_expression][, option=<option_value>]*)
 ```
 
-The `fields` parameter is optional and can contain a single field or a comma-separated list (white space characters are not allowed). The weight for each field is optional and is specified after the field name. It should be delimited by the `caret` character -- `^` -- without whitespace. 
+The `fields` parameter is optional and can contain a single field or a comma-separated list (whitespace characters are not allowed). The weight for each field is optional and is specified after the field name. It should be delimited by the `caret` character -- `^` -- without whitespace. 
 
 ### Example
 
@@ -97,7 +97,7 @@ The `QUERY` function is a synonym for [`QUERY_STRING`]({{site.url}}{{site.baseur
 query('query'=query_expression[, 'fields'=field_expression][, option=<option_value>]*)
 ```
 
-The `fields` parameter is optional and can contain a single field or a comma-separated list (white space characters are not allowed). The weight for each field is optional and is specified after the field name. It should be delimited by the `caret` character -- `^` -- without whitespace. 
+The `fields` parameter is optional and can contain a single field or a comma-separated list (whitespace characters are not allowed). The weight for each field is optional and is specified after the field name. It should be delimited by the `caret` character -- `^` -- without whitespace. 
 
 ### Example
 
@@ -199,7 +199,7 @@ The results contain matches with corresponding scores:
 
 ## Wildcard query
 
-To search documents by given wildcard, use the `WILDCARDQUERY` or `WILDCARD_QUERY` functions.
+To search documents by a given wildcard, use the `WILDCARDQUERY` or `WILDCARD_QUERY` functions.
 
 ### Syntax
 

@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Identifiers
-parent: SQL & PPL
+parent: SQL and PPL
 nav_order: 6
 ---
 

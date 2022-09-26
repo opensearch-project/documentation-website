@@ -2,7 +2,7 @@
 layout: default
 title: ODBC Driver
 parent: SQL
-grand_parent: SQL & PPL
+grand_parent: SQL and PPL
 nav_order: 72
 ---
 
@@ -49,7 +49,7 @@ To install the driver, download the bundled distribution installer from [here](h
 
 3. Accept the agreement, and choose **Next**.
 
-4. The installer comes bundled with documentation and useful resource files to connect with various BI tools (for example, a `.tdc` file for Tableau). You can choose to keep or remove these resources. Choose **Next**.
+4. The installer comes bundled with documentation and useful resource files to connect to various BI tools (for example, a `.tdc` file for Tableau). You can choose to keep or remove these resources. Choose **Next**.
 
 5. Choose **Install** and **Finish**.
 
@@ -76,7 +76,7 @@ Before installing the ODBC Driver on macOS, install the iODBC Driver Manager.
 
 3. Choose the **Destination** to install the driver files.
 
-4. The installer comes bundled with documentation and useful resources files to connect with various BI tools (for example, a `.tdc` file for Tableau). You can choose to keep or remove these resources. Choose **Continue**.
+4. The installer comes bundled with documentation and useful resources files to connect to various BI tools (for example, a `.tdc` file for Tableau). You can choose to keep or remove these resources. Choose **Continue**.
 
 5. Choose **Install** and **Close**.
 
@@ -165,7 +165,7 @@ Option | Description | Type | Default
 
 Option | Description | Type | Default
 :--- | :---
-`LogLevel` | Severity level for driver logs. | one of `LOG_OFF`, `LOG_FATAL`, `LOG_ERROR`, `LOG_INFO`, `LOG_DEBUG`, `LOG_TRACE`, `LOG_ALL` | `LOG_WARNING`
+`LogLevel` | Severity level for driver logs. | `LOG_OFF`, `LOG_FATAL`, `LOG_ERROR`, `LOG_INFO`, `LOG_DEBUG`, `LOG_TRACE`, or `LOG_ALL` | `LOG_WARNING`
 `LogOutput` | Location for storing driver logs. | `string` | `WIN: C:\`, `MAC: /tmp`
 
 You need administrative privileges to change the logging options.
@@ -181,14 +181,14 @@ Pre-requisites:
 
 1. Start Tableau. Under the **Connect** section, go to **To a Server** and choose **Other Databases (ODBC)**.
 
-2. In the **DSN drop-down**, select the OpenSearch DSN you set up in the previous set of steps. The options you added will be automatically filled into the **Connection Attributes**.
+2. In the **DSN drop-down**, select the OpenSearch DSN you set up in the previous set of steps. The options you added will be automatically filled in under the **Connection Attributes**.
 
-3. Select **Sign In**. After a few seconds, Tableau connects to your OpenSearch server. Once connected, you will directed to  **Datasource** window. The **Database** will be already populated with name of the OpenSearch cluster.
+3. Select **Sign In**. After a few seconds, Tableau connects to your OpenSearch server. Once connected, you will be directed to the **Datasource** window. The **Database** will be already be populated with the name of the OpenSearch cluster.
 To list all the indices, click the search icon under **Table**.
 
-4. Start playing with data by dragging table to connection area. Choose **Update Now** or **Automatically Update** to populate table data.
+4. Start experimenting with data by dragging the table to the connection area. Choose **Update Now** or **Automatically Update** to populate the table data.
 
-See more detailed instructions on the [GitHub repository](https://github.com/opensearch-project/sql/blob/main/sql-odbc/docs/user/tableau_support.md).
+See more detailed instructions in the [GitHub repository](https://github.com/opensearch-project/sql/blob/main/sql-odbc/docs/user/tableau_support.md).
 
 ### Troubleshooting
 
@@ -204,4 +204,4 @@ Also make sure `.tdc` that was downloaded with the installer is copied correctly
 
 ## Connecting to Microsoft Power BI
 
-Follow [installation instructions](https://github.com/opensearch-project/sql/blob/main/bi-connectors/PowerBIConnector/README.md) and [configuration instructions](https://github.com/opensearch-project/sql/blob/main/bi-connectors/PowerBIConnector/power_bi_support.md) published in the GitHub repository.
+Follow the [installation instructions](https://github.com/opensearch-project/sql/blob/main/bi-connectors/PowerBIConnector/README.md) and the [configuration instructions](https://github.com/opensearch-project/sql/blob/main/bi-connectors/PowerBIConnector/power_bi_support.md) published in the GitHub repository.

@@ -1,21 +1,21 @@
 ---
 layout: default
-title: SQL & PPL CLI
-parent: SQL & PPL
+title: SQL and PPL CLI
+parent: SQL and PPL
 nav_order: 3
 ---
 
-# SQL & PPL CLI
+# SQL and PPL CLI
 
-CLI is a stand-alone Python application that you can launch with the `opensearchsql` command.
+The SQL and PPL command line interface (CLI) is a standalone Python application that you can launch with the `opensearchsql` command.
 
- To use CLI, install the SQL plugin to your OpenSearch instance, run the CLI using MacOS or Linux, and connect to any valid OpenSearch endpoint.
+ To use the SQL and PPL CLI, install the SQL plugin on your OpenSearch instance, run the CLI using MacOS or Linux, and connect to any valid OpenSearch endpoint.
 
 ![SQL CLI]({{site.url}}{{site.baseurl}}/images/cli.gif)
 
 ## Features
 
-CLI has the following features:
+The SQL and PPL CLI has the following features:
 
 - Multi-line input
 - PPL support
@@ -78,12 +78,12 @@ SELECT * FROM accounts;
 
 By default, you see a maximum output of 200 rows. To show more results, add a `LIMIT` clause with the desired value.
 
-To exit from the CLI tool, select **Ctrl+D**.
+To exit the CLI tool, select **Ctrl+D**.
 {: .tip }
 
 ## Using the CLI with PPL
 
-1. Run CLI by specifying query language:
+1. Run the CLI by specifying the query language:
 ```console
 opensearchsql -l ppl <params>
 ```

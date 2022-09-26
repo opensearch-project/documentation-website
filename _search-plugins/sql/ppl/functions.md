@@ -2,7 +2,7 @@
 layout: default
 title: Commands
 parent: PPL - Piped Processing Language
-grand_parent: SQL & PPL
+grand_parent: SQL and PPL
 nav_order: 2
 ---
 

@@ -2,7 +2,7 @@
 layout: default
 title: Aggregation Functions
 parent: SQL
-grand_parent: SQL & PPL
+grand_parent: SQL and PPL
 nav_order: 11
 ---
 
