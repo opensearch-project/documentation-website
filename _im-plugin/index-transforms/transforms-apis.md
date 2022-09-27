@@ -173,7 +173,7 @@ PUT _plugins/_transform/<transform_id>?if_seq_no=<seq_no>&if_primary_term=<prima
 
 ### Query parameters
 
-The update operation supports the following URL parameters:
+The update operation supports the following query parameters:
 
 Parameter | Description | Required
 :---| :--- | :---
