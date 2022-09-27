@@ -43,9 +43,9 @@ You can interact with the three demonstration datasets in the OpenSearch Dashboa
 1. Go to the [OpenSearch Dashboards playground](https://playground.opensearch.org/app/home).
 2. Choose **OpenSearch Dashboards > Dashboard**. 
 3. Explore the datasets **[Flights] Global Flight Dashboard**, **[Logs] Web Traffic**, and **[eCommerce] Revenue Dashboard**.
-4. (Optional). Refine the data on the dashboard that opens. Choose **Add filter** at top left, and then choose a field that you want to filter, along with an operator and a value. When finished choose **Save**.  
+4. Interact with the data on a dashboard. Choose **Add filter** at top left, and then choose a field that you want to filter, along with an operator and a value. When finished choose **Save**.  
 
-Here's an example of the **[Logs] Web Traffic** dashboard. Your dashboard may look different depending on the filters you apply.
+Here's an example of the **[Logs] Web Traffic** dashboard. Your dashboard will look different depending on the filters you apply.
 
 <img src="{{site.url}}{{site.baseurl}}/images/log-dashboard-filter.png" alt="Logs web traffic dashboard with filters applied">
 
