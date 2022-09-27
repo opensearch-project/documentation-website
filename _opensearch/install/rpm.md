@@ -194,6 +194,59 @@ An OpenSearch node in its default configuration (with demo certificates and user
       hostname opensearch-sql                       2.1.0.0
       ```
 
+## Step 4: Set up OpenSearch in your environment
+
+Users who do not have prior experience with OpenSearch may want a list of recommended settings in order to get started with the service. By default, OpenSearch is not bound to a network interface and cannot be reached by external hosts. Additionally, security settings are populated by default user names and passwords. The following recommendations will enable a user to bind OpenSearch to a network interface, create and sign TLS certificates, and configure basic authentication.
+
+The following recommended settings will allow you to:
+
+- Bind OpenSearch to an IP or network interface on the host.
+- Set initial and max JVM heap sizes.
+- Define an environment variable that points to the bundled JDK.
+- Configure your own TLS certificates - no third-party certificate authority (CA) is required.
+- Create an admin user with a custom password.
+
+If you ran the security demo script, then you will need to manually reconfigure settings that were modified. Refer to [Security configuration]({{site.url}}{{site.baseurl}}/opensearch/configuration/) for guidance before proceeding.
+{:.note}
+
+Before modifying any configuration files, it's always a good idea to save a backup copy before making changes. The backup file can be used to revert any issues caused by a bad configuration.
+{:.tip}
+
+1. Open `opensearch.yml`.
+   ```bash
+   sudo vi /etc/opensearch/opensearch.yml
+   ```
+1. Add the following lines.
+   ```bash
+   # Bind OpenSearch to the correct network interface. Use 0.0.0.0
+   # to include all available interfaces or specify an IP address
+   # assigned to a specific interface.
+   network.host: 0.0.0.0
+
+   # Unless you have already configured a cluster, you should set
+   # discovery.type to single-node, or the bootstrap checks will
+   # fail when you try to start the service.
+   discovery.type: single-node
+
+   # If you previously disabled the security plugin in opensearch.yml,
+   # be sure to re-enable it. Otherwise you can skip this setting.
+   plugins.security.disabled: false
+   ```
+1. Save your changes and close the file.
+1. Specify initial and max JVM heap sizes.
+   1.  Open `jvm.options`.
+         ```bash
+         vi /etc/opensearch/jvm.options
+         ```
+   1. Modify the values for initial and max heap sizes. As a starting point, you should set these values to half of the available system memory. For dedicated hosts this value can be increased based on your workflow requirements.
+      -  As an example, if the host machine has 8 GB of memory then you might want to set the initial and maximum heap sizes to 4 GB:
+         ```bash
+         -Xms4g
+         -Xmx4g
+         ```
+   1. Save your changes and close the file.
+
+
 
 
 
@@ -220,63 +273,6 @@ To upgrade to the latest version of OpenSearch with YUM, use `sudo yum update`. 
 
 {% comment %}
 
-
-
-## Step 4: Set up OpenSearch in your environment
-
-Users who do not have prior experience with OpenSearch may want a list of recommended settings in order to get started with the service. By default, OpenSearch is not bound to a network interface and cannot be reached by external hosts. Additionally, security settings are either undefined (greenfield install) or populated by default user names and passwords if you ran the security demo script by invoking `opensearch-tar-install.sh`. The following recommendations will enable a user to bind OpenSearch to a network interface, create and sign TLS certificates, and configure basic authentication.
-
-The following recommended settings will allow you to:
-
-- Bind OpenSearch to an IP or network interface on the host.
-- Set initial and max JVM heap sizes.
-- Define an environment variable that points to the bundled JDK.
-- Configure your own TLS certificates - no third-party certificate authority (CA) is required.
-- Create an admin user with a custom password.
-
-If you ran the security demo script, then you will need to manually reconfigure settings that were modified. Refer to [Security configuration]({{site.url}}{{site.baseurl}}/opensearch/configuration/) for guidance before proceeding.
-{:.note}
-
-Before modifying any configuration files, it's always a good idea to save a backup copy before making changes. The backup file can be used to revert any issues caused by a bad configuration.
-{:.tip}
-
-1. Open `opensearch.yml`.
-   ```bash
-   vi /path/to/opensearch-{{site.opensearch_version}}/config/opensearch.yml
-   ```
-1. Add the following lines.
-   ```bash
-   # Bind OpenSearch to the correct network interface. Use 0.0.0.0
-   # to include all available interfaces or specify an IP address
-   # assigned to a specific interface.
-   network.host: 0.0.0.0
-
-   # Unless you have already configured a cluster, you should set
-   # discovery.type to single-node, or the bootstrap checks will
-   # fail when you try to start the service.
-   discovery.type: single-node
-
-   # If you previously disabled the security plugin in opensearch.yml,
-   # be sure to re-enable it. Otherwise you can skip this setting.
-   plugins.security.disabled: false
-   ```
-1. Save your changes and close the file.
-1. Specify initial and max JVM heap sizes.
-   1.  Open `jvm.options`.
-         ```bash
-         vi /path/to/opensearch-{{site.opensearch_version}}/config/jvm.options
-         ```
-   1. Modify the values for initial and max heap sizes. As a starting point, you should set these values to half of the available system memory. For dedicated hosts this value can be increased based on your workflow requirements.
-      -  As an example, if the host machine has 8 GB of memory then you might want to set the initial and maximum heap sizes to 4 GB:
-         ```bash
-         -Xms4g
-         -Xmx4g
-         ```
-   1. Save your changes and close the file.
-1. Specify the location of the included JDK.
-   ```bash
-   export OPENSEARCH_JAVA_HOME=/path/to/opensearch-{{site.opensearch_version}}/jdk
-   ```
 
 ### Configure TLS
 
