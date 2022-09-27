@@ -144,7 +144,7 @@ When OpenSearch is installed using the RPM package, some demo security settings 
 An OpenSearch node in its default configuration (with demo certificates and users with default passwords) is not suitable for a production environment. If you plan to use the node in a production environment, you should, at a minimum, replace the demo TLS certificates with your own TLS certificates and [update the list of internal users and passwords]({{site.url}}{{site.baseurl}}/security-plugin/configuration/yaml). See [Security configuration]({{site.url}}{{site.baseurl}}/security-plugin/configuration/index/) for additional guidance to ensure that your nodes are configured according to your security requirements.
 {: .warning}
 
-1. Open another terminal session and send requests to the server to verify that OpenSearch is running. Note the use of the `--insecure` flag, which is required because the TLS certificates are self-signed.
+1. Send requests to the server to verify that OpenSearch is running. Note the use of the `--insecure` flag, which is required because the TLS certificates are self-signed.
    - Send a request to port 9200.
       ```bash
       curl -X GET https://localhost:9200 -u 'admin:admin' --insecure
@@ -221,120 +221,6 @@ To upgrade to the latest version of OpenSearch with YUM, use `sudo yum update`. 
 {% comment %}
 
 
-
-
-
-1. Open another terminal session and send requests to the server to verify that OpenSearch is running. Note the use of the `--insecure` flag, which is required because the TLS certificates are self-signed.
-   - Send a request to port 9200.
-      ```bash
-      curl -X GET https://localhost:9200 -u 'admin:admin' --insecure
-      ```
-      You should get a response that looks like this:
-      ```bash
-      {
-         "name" : "hostname",
-         "cluster_name" : "opensearch",
-         "cluster_uuid" : "6XNc9m2gTUSIoKDqJit0PA",
-         "version" : {
-            "distribution" : "opensearch",
-            "number" : "2.1.0",
-            "build_type" : "tar",
-            "build_hash" : "388c80ad94529b1d9aad0a735c4740dce2932a32",
-            "build_date" : "2022-06-30T21:31:04.823801692Z",
-            "build_snapshot" : false,
-            "lucene_version" : "9.2.0",
-            "minimum_wire_compatibility_version" : "7.10.0",
-            "minimum_index_compatibility_version" : "7.0.0"
-         },
-         "tagline" : "The OpenSearch Project: https://opensearch.org/"
-      }
-      ```
-   - Query the plugins endpoint.
-      ```bash
-      curl -X GET https://localhost:9200/_cat/plugins?v -u 'admin:admin' --insecure
-      ```
-
-      The response should look like this:
-      ```bash
-      name     component                            version
-      hostname opensearch-alerting                  2.1.0.0
-      hostname opensearch-anomaly-detection         2.1.0.0
-      hostname opensearch-asynchronous-search       2.1.0.0
-      hostname opensearch-cross-cluster-replication 2.1.0.0
-      hostname opensearch-index-management          2.1.0.0
-      hostname opensearch-job-scheduler             2.1.0.0
-      hostname opensearch-knn                       2.1.0.0
-      hostname opensearch-ml                        2.1.0.0
-      hostname opensearch-notifications             2.1.0.0
-      hostname opensearch-notifications-core        2.1.0.0
-      hostname opensearch-observability             2.1.0.0
-      hostname opensearch-performance-analyzer      2.1.0.0
-      hostname opensearch-reports-scheduler         2.1.0.0
-      hostname opensearch-security                  2.1.0.0
-      hostname opensearch-sql                       2.1.0.0
-      ```
-1. Return to the original terminal session and stop the process by pressing `CTRL + C`.
-
-### Option 2: Test your OpenSearch settings with security disabled
-
-1. Open the configuration file.
-   ```bash
-   vi /path/to/opensearch-{{site.opensearch_version}}/config/opensearch.yml
-   ```
-1. Add the following line to disable the security plugin.
-   ```bash
-   plugins.security.disabled: true
-   ```
-1. Save the change and close the file.
-1. Open another terminal session and send requests to the server to verify that OpenSearch is running. Because the security plugin has been disabled, you will be sending commands using `HTTP` rather than `HTTPS`.
-   - Send a request to port 9200.
-      ```bash
-      curl -X GET http://localhost:9200
-      ```
-      You should get a response that looks like this:
-      ```bash
-      {
-         "name" : "hostname",
-         "cluster_name" : "opensearch",
-         "cluster_uuid" : "6XNc9m2gTUSIoKDqJit0PA",
-         "version" : {
-            "distribution" : "opensearch",
-            "number" : "2.1.0",
-            "build_type" : "tar",
-            "build_hash" : "388c80ad94529b1d9aad0a735c4740dce2932a32",
-            "build_date" : "2022-06-30T21:31:04.823801692Z",
-            "build_snapshot" : false,
-            "lucene_version" : "9.2.0",
-            "minimum_wire_compatibility_version" : "7.10.0",
-            "minimum_index_compatibility_version" : "7.0.0"
-         },
-         "tagline" : "The OpenSearch Project: https://opensearch.org/"
-      }
-      ```
-   - Query the plugins endpoint.
-      ```bash
-      curl -X GET http://localhost:9200/_cat/plugins?v
-      ```
-
-      The response should look like this:
-      ```bash
-      name     component                            version
-      hostname opensearch-alerting                  2.1.0.0
-      hostname opensearch-anomaly-detection         2.1.0.0
-      hostname opensearch-asynchronous-search       2.1.0.0
-      hostname opensearch-cross-cluster-replication 2.1.0.0
-      hostname opensearch-index-management          2.1.0.0
-      hostname opensearch-job-scheduler             2.1.0.0
-      hostname opensearch-knn                       2.1.0.0
-      hostname opensearch-ml                        2.1.0.0
-      hostname opensearch-notifications             2.1.0.0
-      hostname opensearch-notifications-core        2.1.0.0
-      hostname opensearch-observability             2.1.0.0
-      hostname opensearch-performance-analyzer      2.1.0.0
-      hostname opensearch-reports-scheduler         2.1.0.0
-      hostname opensearch-security                  2.1.0.0
-      hostname opensearch-sql                       2.1.0.0
-      ```
 
 ## Step 4: Set up OpenSearch in your environment
 
