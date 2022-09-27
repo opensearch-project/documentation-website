@@ -144,7 +144,55 @@ When OpenSearch is installed using the RPM package, some demo security settings 
 An OpenSearch node in its default configuration (with demo certificates and users with default passwords) is not suitable for a production environment. If you plan to use the node in a production environment, you should, at a minimum, replace the demo TLS certificates with your own TLS certificates and [update the list of internal users and passwords]({{site.url}}{{site.baseurl}}/security-plugin/configuration/yaml). See [Security configuration]({{site.url}}{{site.baseurl}}/security-plugin/configuration/index/) for additional guidance to ensure that your nodes are configured according to your security requirements.
 {: .warning}
 
+1. Open another terminal session and send requests to the server to verify that OpenSearch is running. Note the use of the `--insecure` flag, which is required because the TLS certificates are self-signed.
+   - Send a request to port 9200.
+      ```bash
+      curl -X GET https://localhost:9200 -u 'admin:admin' --insecure
+      ```
+      You should get a response that looks like this:
+      ```bash
+      {
+         "name" : "hostname",
+         "cluster_name" : "opensearch",
+         "cluster_uuid" : "6XNc9m2gTUSIoKDqJit0PA",
+         "version" : {
+            "distribution" : "opensearch",
+            "number" : "2.3.0",
+            "build_type" : "rpm",
+            "build_hash" : "6f6e84ebc54af31a976f53af36a5c69d474a5140",
+            "build_date" : "2022-09-09T00:07:32.109283578Z",
+            "build_snapshot" : false,
+            "lucene_version" : "9.3.0",
+            "minimum_wire_compatibility_version" : "7.10.0",
+            "minimum_index_compatibility_version" : "7.0.0"
+         },
+         "tagline" : "The OpenSearch Project: https://opensearch.org/"
+      }
+      ```
+   - Query the plugins endpoint.
+      ```bash
+      curl -X GET https://localhost:9200/_cat/plugins?v -u 'admin:admin' --insecure
+      ```
 
+      The response should look like this:
+      ```bash
+      name     component                            version
+      hostname opensearch-alerting                  2.1.0.0
+      hostname opensearch-anomaly-detection         2.1.0.0
+      hostname opensearch-asynchronous-search       2.1.0.0
+      hostname opensearch-cross-cluster-replication 2.1.0.0
+      hostname opensearch-index-management          2.1.0.0
+      hostname opensearch-job-scheduler             2.1.0.0
+      hostname opensearch-knn                       2.1.0.0
+      hostname opensearch-ml                        2.1.0.0
+      hostname opensearch-notifications             2.1.0.0
+      hostname opensearch-notifications-core        2.1.0.0
+      hostname opensearch-observability             2.1.0.0
+      hostname opensearch-performance-analyzer      2.1.0.0
+      hostname opensearch-reports-scheduler         2.1.0.0
+      hostname opensearch-security                  2.1.0.0
+      hostname opensearch-sql                       2.1.0.0
+      ```
 
 
 
@@ -176,16 +224,6 @@ To upgrade to the latest version of OpenSearch with YUM, use `sudo yum update`. 
 
 
 
-### Option 1: Test your Opensearch settings with security enabled
-
-1. Change to the top directory of your OpenSearch install.
-   ```bash
-   cd /path/to/opensearch-{{site.opensearch_version}}
-   ```
-1. Run the demo security script.
-   ```bash
-   ./opensearch-tar-install.sh
-   ```
 1. Open another terminal session and send requests to the server to verify that OpenSearch is running. Note the use of the `--insecure` flag, which is required because the TLS certificates are self-signed.
    - Send a request to port 9200.
       ```bash
