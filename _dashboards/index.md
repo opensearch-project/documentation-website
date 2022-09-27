@@ -13,19 +13,21 @@ redirect_from:
 
 # Overview of OpenSearch Dashboards
 
-OpenSearch Dashboards is an integrated visualization tool that makes it easy for users to explore their data in OpenSearch. From real-time application monitoring, threat detection, and incident management to personalized search, OpenSearch Dashboards gives you data visualization tools to tell your data story.
+OpenSearch Dashboards is an integrated visualization tool that makes it easy for users to explore their data in OpenSearch. From real-time application monitoring, threat detection, and incident management to personalized search, OpenSearch Dashboards gives you several data visualizations to graphically represent trends, outliers, and patterns in data. 
 
-Out-of-the-box OpenSearch Dashboards includes several tools for discovering and visualizing data, and the OpenSearch suite provides [plugins](https://opensearch.org/docs/latest/dashboards/install/plugins/) to extend and customize dashboard features and functions. 
+The OpenSearch suite provides [core plugins](https://opensearch.org/docs/latest/opensearch/install/plugins/) to help index, secure, monitor, and analyze your data. Most OpenSearch plugins have corresponding [OpenSearch Dashboards plugins](https://opensearch.org/docs/latest/dashboards/install/plugins/) to extend and customize dashboard features.
+
+<img src="{{site.url}}{{site.baseurl}}/images/dashboard-flight.png" alt="User interface showing several data visualizations">
 
 # Use cases for real-time search and log analytics at scale 
 
  OpenSearch is powered by the Apache Lucene search library, and it supports a number of search and analytics capabilities, such as k-nearest neighbors (k-NN) search, SQL, anomaly detection, trace analytics, full-text search, and more.  
 
-<table bgcolor="lightgrey" width="600">
+<table bgcolor="lightgrey" width="600" height="600">
 <tbody>
 <tr>
-<td style="text-align: center; vertical-align: top; font-weight: bold;">Visualize log and trace data with interactive log analytics.<img src="{{site.url}}{{site.baseurl}}/images/visualize-log-data.png" alt="Log analytics"/></td>
-<td style="text-align: center; vertical-align: top; font-weight: bold;">Detect and mitigate issues faster with anomaly detection.<img src="{{site.url}}{{site.baseurl}}/images/anomaly-detection.png" alt="Anomaly detection"/></td>
+<td style="text-align: center; vertical-align: top; font-weight: bold; width: 500;">Visualize log and trace data with interactive log analytics.<img src="{{site.url}}{{site.baseurl}}/images/visualize-log-data.png" alt="Log analytics" /></td>
+<td style="text-align: center; vertical-align: top; font-weight: bold;">Detect and mitigate issues faster with anomaly detection.<img src="{{site.url}}{{site.baseurl}}/images/anomaly-detection.png" alt="Anomaly detection" /></td>
 </tr>
 <tr>
 <td style="text-align: center; vertical-align: top; font-weight: bold;">Diagnose performance issues and reduce application downtime using the observability interface and log monitoring features.<img src="{{site.url}}{{site.baseurl}}/images/observability.png" alt="Observability interface and log monitoring features" /></td>
@@ -36,17 +38,23 @@ Out-of-the-box OpenSearch Dashboards includes several tools for discovering and 
 
 # Explore the OpenSearch Dashboards playground
 
-Follow these steps to explore the basics of OpenSearch Dashboards:
+You can interact with the three demonstration datasets in the OpenSearch Dashboards playground by following the steps below:
 
-1.  Go to the [OpenSearch Dashboards playground](https://playground.opensearch.org/app/home).
-2.  Choose **OpenSearch Dashboards > Dashboards > Create dashboard**. 
-3.  Explore the sample Global Flight, Web Traffic, and Revenue dashboards. 
+1. Go to the [OpenSearch Dashboards playground](https://playground.opensearch.org/app/home).
+2. Choose **OpenSearch Dashboards > Dashboard**. 
+3. Explore the datasets **[Flights] Global Flight Dashboard**, **[Logs] Web Traffic**, and **[eCommerce] Revenue Dashboard**.
+4. (Optional). Refine the data on the dashboard that opens. Choose **Add filter** at top left, and then choose a field that you want to filter, along with an operator and a value. When finished choose **Save**.  
 
-# Install OpenSearch Dashboards
+Here's an example of the **[Logs] Web Traffic** dashboard. Your dashboard may look different depending on the filters you apply.
 
-You can run OpenSearch Dashboards on a local host after installing OpenSearch. See [Install and configure OpenSearch Dashboards](https://opensearch.org/docs/latest/dashboards/install/index/) for installation instructions. 
+<img src="{{site.url}}{{site.baseurl}}/images/log-dashboard-filter.png" alt="Logs web traffic dashboard with filters applied">
+
+# Next steps 
+
+You can run OpenSearch Dashboards on a local host after installing OpenSearch. See [Install and configure OpenSearch](https://opensearch.org/docs/latest/opensearch/install/index/) and [Install and configure OpenSearch Dashboards](https://opensearch.org/docs/latest/dashboards/install/index/) for installation instructions.  
 
 # Related links
 - [OpenSearch Frequently Asked Questions](https://opensearch.org/faq/)
 - [Install and configure OpenSearch](https://opensearch.org/docs/latest/opensearch/install/index/)
 - [Upgrade from Kibana OSS to OpenSearch Dashboards](https://opensearch.org/docs/latest/upgrade-to/dashboards-upgrade-to/)
+- [OpenSearch Dashboards Developer Guide](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/DEVELOPER_GUIDE.md)
