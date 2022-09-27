@@ -7,7 +7,7 @@ nav_order: 83
 
 # Reload search analyzer
 
-The reload search analyzer API operation will pick up any changes to [synonym](https://opensearch.org/docs/latest/opensearch/ux/) files for any [search analyzers](https://opensearch.org/docs/latest/im-plugin/refresh-analyzer/index/) configured. The reload search analyzer request will need to be run on all nodes. Additionally, the synonym token filter must be set to `true`.
+The reload search analyzer API operation picks up any changes to [synonym](https://opensearch.org/docs/latest/opensearch/ux/) files for any configured [search analyzers](https://opensearch.org/docs/latest/im-plugin/refresh-analyzer/index/). The reload search analyzer request needs to be run on all nodes. Additionally, the synonym token filter must be set to `true`.
 
 ## Path and HTTP methods
 
