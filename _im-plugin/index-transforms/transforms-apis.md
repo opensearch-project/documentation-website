@@ -30,7 +30,7 @@ PUT _plugins/_transform/<transform_id>
 
 Parameter | Data Type | Description
 :--- | :--- | :---
-transform_id | String | Transform ID. |
+transform_id | String | Transform ID |
 
 ### Request body fields
 
@@ -39,18 +39,18 @@ You can specify the following options in the HTTP request body:
 Option | Data Type | Description | Required
 :--- | :--- | :--- | :---
 enabled | Boolean | If true, the transform job is enabled at creation. | No
-continuous | Boolean | Specifies whether the transform job should be continuous. Continuous jobs execute every time they are scheduled according to the `schedule` field and run based off of newly transformed buckets, as well as any new data added to source indexes. Non-continuous jobs execute only once. Default is false. | No
-schedule | Object | The schedule the transform job runs on. | Yes
+continuous | Boolean | Specifies whether the transform job should be continuous. Continuous jobs execute every time they are scheduled according to the `schedule` field and run based off of newly transformed buckets as well as any new data added to source indexes. Non-continuous jobs execute only once. Default is false. | No
+schedule | Object | The schedule for the transform job. | Yes
 start_time | Integer | The Unix epoch time of the transform job's start time. | Yes
 description | String | Describes the transform job. | No
 metadata_id | String | Any metadata to be associated with the transform job. | No
-source_index | String | The source index whose data to transform. | Yes
-target_index | String | The target index the newly transformed data is added into. You can create a new index or update an existing one. | Yes
-data_selection_query | Object | The query DSL to use to filter a subset of the source index for the transform job. See [query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl) for more information. | Yes
-page_size | Integer | The number of buckets IM processes and indexes concurrently. Higher number means better performance but requires more memory. If your machine runs out of memory, IM automatically adjusts this field and retries until the operation succeeds. | Yes
-groups | Array | Specifies the grouping(s) to use in the transform job. Supported groups are `terms`, `histogram`, and `date_histogram`. For more information, see [Bucket Aggregations]({{site.url}}{{site.baseurl}}/opensearch/bucket-agg). | Yes if not using aggregations
-source_field | String | The field(s) to transform | Yes
-aggregations | Object | The aggregations to use in the transform job. Supported aggregations are: `sum`, `max`, `min`, `value_count`, `avg`, `scripted_metric`, and `percentiles`. For more information, see [Metric Aggregations]({{site.url}}{{site.baseurl}}/opensearch/metric-agg). | Yes if not using groups
+source_index | String | The source index containing the data to be transformed. | Yes
+target_index | String | The target index the newly transformed data is added to. You can create a new index or update an existing one. | Yes
+data_selection_query | Object | The query DSL to use to filter a subset of the source index for the transform job. See [query domain-specific language(DSL)]({{site.url}}{{site.baseurl}}/opensearch/query-dsl) for more information. | Yes
+page_size | Integer | The number of buckets IM processes and indexes concurrently. A higher number results in better performance, but it requires more memory. If your machine runs out of memory, Index Management (IM) automatically adjusts this field and retries until the operation succeeds. | Yes
+groups | Array | Specifies the grouping(s) to use in the transform job. Supported groups are `terms`, `histogram`, and `date_histogram`. For more information, see [Bucket Aggregations]({{site.url}}{{site.baseurl}}/opensearch/bucket-agg). | Yes if not using aggregations.
+source_field | String | The field(s) to transform. | Yes
+aggregations | Object | The aggregations to use in the transform job. Supported aggregations are `sum`, `max`, `min`, `value_count`, `avg`, `scripted_metric`, and `percentiles`. For more information, see [Metric Aggregations]({{site.url}}{{site.baseurl}}/opensearch/metric-agg). | Yes if not using groups.
 
 #### Sample Request
 
@@ -173,7 +173,7 @@ PUT _plugins/_transform/<transform_id>?if_seq_no=<seq_no>&if_primary_term=<prima
 
 ### Query parameters
 
-The Update operation supports the following URL parameters:
+The update operation supports the following URL parameters:
 
 Parameter | Description | Required
 :---| :--- | :---
@@ -182,16 +182,16 @@ Parameter | Description | Required
 
 ### Request body fields
 
-You can update the following fields:
+You can update the following fields.
 
 Option | Data Type | Description
 :--- | :--- | :---
-schedule | Object | The schedule the transform job runs on. Contains the fields `interval.start_time`, `interval.period`, and `interval.unit`.
+schedule | Object | The schedule for the transform job. Contains the fields `interval.start_time`, `interval.period`, and `interval.unit`.
 start_time | Integer | The Unix epoch start time of the transform job.
 period | Integer | How often to execute the transform job.
 unit | String | The unit of time associated with the execution period. Available options are `Minutes`, `Hours`, and `Days`.
 description | Integer | Describes the transform job.
-page_size | Integer | The number of buckets IM processes and indexes concurrently. Higher number means better performance but requires more memory. If your machine runs out of memory, IM automatically adjusts this field and retries until the operation succeeds.
+page_size | Integer | The number of buckets IM processes and indexes concurrently. A higher number results in better performance, but it requires more memory. If your machine runs out of memory, IM automatically adjusts this field and retries until the operation succeeds.
 
 #### Sample Request
 
@@ -439,12 +439,12 @@ GET _plugins/_transform/
 
 ### Query parameters
 
-You can specify these options as the GET API operation’s URL parameters to filter results:
+You can specify the following GET API operation’s query parameters to filter the results.
 
 Parameter | Description | Required
 :--- | :--- | :---
 from | The starting transform to return. Default is 0. | No
-size | Specifies the amount of transforms to return. Default is 10. | No
+size | Specifies the number of transforms to return. Default is 10. | No
 search |The search term to use to filter results. | No
 sortField | The field to sort results with. | No
 sortDirection | Specifies the direction to sort results in. Can be `ASC` or `DESC`. Default is ASC. | No
@@ -601,7 +601,7 @@ POST _plugins/_transform/sample/_start
 Introduced 1.0
 {: .label .label-purple }
 
-Stops/disables a transform job. 
+Stops a transform job. 
 
 ### Request format
 
