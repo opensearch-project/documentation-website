@@ -13,15 +13,19 @@ redirect_from:
 
 # Overview of OpenSearch Dashboards
 
-OpenSearch Dashboards is an integrated visualization tool that makes it easy for users to explore their data in OpenSearch. From real-time application monitoring, threat detection, and incident management to personalized search, OpenSearch Dashboards gives you several data visualizations to graphically represent trends, outliers, and patterns in data. 
+OpenSearch Dashboards is an integrated visualization tool that makes it easy for users to explore their data in OpenSearch. From real-time application monitoring, threat detection, and incident management to personalized search, OpenSearch Dashboards gives you the data visualizations needed to graphically represent trends, outliers, and patterns in data. 
 
 The OpenSearch suite provides [core plugins](https://opensearch.org/docs/latest/opensearch/install/plugins/) to help index, secure, monitor, and analyze your data. Most OpenSearch plugins have corresponding [OpenSearch Dashboards plugins](https://opensearch.org/docs/latest/dashboards/install/plugins/) to extend and customize dashboard features.
+
+##### Example: Data visualizations in OpenSearch Dashboards  
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboard-flight.png" alt="User interface showing several data visualizations">
 
 # Use cases for real-time search and log analytics at scale 
 
  OpenSearch is powered by the Apache Lucene search library, and it supports a number of search and analytics capabilities, such as k-nearest neighbors (k-NN) search, SQL, anomaly detection, trace analytics, full-text search, and more.  
+
+##### Example: Data visualization use cases   
 
 <table bgcolor="lightgrey" width="600" height="600">
 <tbody>
@@ -45,7 +49,7 @@ You can interact with the three demonstration datasets in the OpenSearch Dashboa
 3. Explore the datasets **[Flights] Global Flight Dashboard**, **[Logs] Web Traffic**, and **[eCommerce] Revenue Dashboard**.
 4. Interact with the data on a dashboard. Choose **Add filter** at top left, and then choose a field that you want to filter, along with an operator and a value. When finished choose **Save**.  
 
-Here's an example of the **[Logs] Web Traffic** dashboard. Your dashboard will look different depending on the filters you apply.
+##### Example: [Logs] Web Traffic dashboard with filters applied
 
 <img src="{{site.url}}{{site.baseurl}}/images/log-dashboard-filter.png" alt="Logs web traffic dashboard with filters applied">
 
