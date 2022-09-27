@@ -1,149 +1,262 @@
 ---
 layout: default
-title: Aggregation Functions
+title: Aggregate Functions
 parent: SQL
 grand_parent: SQL and PPL
 nav_order: 11
 ---
 
-# Aggregation functions
+# Aggregate functions
 
 Aggregate functions use the `GROUP BY` clause to group sets of values into subsets.
 
-## Group By
+OpenSearch supports the following aggregate functions:
 
-Use the `GROUP BY` clause as an identifier, ordinal, or expression.
+Function | Description
+:--- | :---
+`AVG` | Returns the average of the results.
+`COUNT` | Returns the number of results.
+`SUM` | Returns the sum of the results.
+`MIN` | Returns the minimum of the results.
+`MAX` | Returns the maximum of the results.
+`VAR_POP` or `VARIANCE` | Returns the population variance of the results after discarding nulls. Returns 0 when there is only one row of results.
+`VAR_SAMP` | Returns the sample variance of the results after discarding nulls. Returns null when there is only one row of results.
+`STD` or `STDDEV` | Returns the sample standard deviation of the results. Returns 0 when there is only one row of results.
+`STDDEV_POP` | Returns the population standard deviation of the results. Returns 0 when there is only one row of results.
+`STDDEV_SAMP` | Returns the sample standard deviation of the results. Returns null when there is only one row of results.
 
-### Identifier
+The examples below reference an `employees` table. You can try out the examples by indexing the following documents into OpenSearch using the bulk index operation:
 
-```sql
-SELECT gender, sum(age) FROM accounts GROUP BY gender;
+```json
+PUT employees/_bulk?refresh
+{"index":{"_id":"1"}}
+{"employee_id": 1, "department":1, "firstname":"Amber", "lastname":"Duke", "sales":1356, "sale_date":"2020-01-23"}
+{"index":{"_id":"2"}}
+{"employee_id": 1, "department":1, "firstname":"Amber", "lastname":"Duke", "sales":39224, "sale_date":"2021-01-06"}
+{"index":{"_id":"6"}}
+{"employee_id":6, "department":1, "firstname":"Hattie", "lastname":"Bond", "sales":5686, "sale_date":"2021-06-07"}
+{"index":{"_id":"7"}}
+{"employee_id":6, "department":1, "firstname":"Hattie", "lastname":"Bond", "sales":12432, "sale_date":"2022-05-18"}
+{"index":{"_id":"13"}}
+{"employee_id":13,"department":2, "firstname":"Nanette", "lastname":"Bates", "sales":32838, "sale_date":"2022-04-11"}
+{"index":{"_id":"18"}}
+{"employee_id":18,"department":2, "firstname":"Dale", "lastname":"Adams", "sales":4180, "sale_date":"2022-11-05"}
 ```
 
-| gender | sum (age)
-:--- | :---
-F | 28 |
-M | 101 |
+## GROUP BY
 
-### Ordinal
+You can use an identifier, ordinal, or expression in the `GROUP BY` clause.
 
+### Using an identifier in GROUP BY
+
+You can specify the field name (column name) to aggregate on in the `GROUP BY` clause. For example, the following query returns the department numbers and the total sales for each department: 
 ```sql
-SELECT gender, sum(age) FROM accounts GROUP BY 1;
+SELECT department, sum(sales) 
+FROM employees 
+GROUP BY department;
 ```
 
-| gender | sum (age)
+| department | sum(sales)
 :--- | :---
-F | 28 |
-M | 101 |
+1 | 58700  |
+2 | 37018 |
 
-### Expression
+### Using an ordinal in GROUP BY
+
+You can specify the column number to aggregate on in the `GROUP BY` clause. The column number is determined by the column position in the `SELECT` clause. For example, the following query is equivalent to the query above. It returns the department numbers and the total sales for each department. It groups the results by the first column of the result set, which is `department`:
 
 ```sql
-SELECT abs(account_number), sum(age) FROM accounts GROUP BY abs(account_number);
+SELECT department, sum(sales) 
+FROM employees 
+GROUP BY 1;
 ```
 
-| abs(account_number) | sum (age)
+| department | sum(sales)
 :--- | :---
-| 1  | 32  |
-| 13 | 28  |
-| 18 | 33  |
-| 6  | 36  |
+1 | 58700  |
+2 | 37018 |
 
-## Aggregation
+### Using an expression in GROUP BY
 
-Use aggregations as a select, expression, or an argument of an expression.
-
-### Select
+You can use an expression in the `GROUP BY` clause. For example, the following query returns the average sales for each year:
 
 ```sql
-SELECT gender, sum(age) FROM accounts GROUP BY gender;
+SELECT year(sale_date), avg(sales) 
+FROM employees 
+GROUP BY year(sale_date);
 ```
 
-| gender | sum (age)
+| year(start_date) | avg(sales)
 :--- | :---
-F | 28 |
-M | 101 |
+| 2020  | 1356.0 |
+| 2021 | 22455.0 |
+| 2022 | 16484.0  |
 
-### Argument
+## SELECT
+
+You can use aggregate expressions in the `SELECT` clause either directly or as part of a larger expression. In addition, you can use expressions as arguments of aggregate functions.
+
+### Using aggregate expressions directly in SELECT
+
+The following query returns the average sales for each department:
 
 ```sql
-SELECT gender, sum(age) * 2 as sum2 FROM accounts GROUP BY gender;
+SELECT department, avg(sales) 
+FROM employees 
+GROUP BY department;
 ```
 
-| gender | sum2
+| department | avg(sales)
 :--- | :---
-F | 56 |
-M | 202 |
+1 | 14675.0 |
+2 | 18509.0 |
 
-### Expression
+### Using aggregate expressions as part of larger expressions in SELECT
+
+The following query calculates the average commission for the employees of each department by taking 5% of the average sales:
 
 ```sql
-SELECT gender, sum(age * 2) as sum2 FROM accounts GROUP BY gender;
+SELECT department, avg(sales) * 0.05 as avg_commission 
+FROM employees 
+GROUP BY department;
 ```
 
-| gender | sum2
+| department | avg_commission
 :--- | :---
-F | 56 |
-M | 202 |
+1 | 733.75 |
+2 | 925.45 |
+
+### Using expressions as arguments to aggregate functions
+
+The following query calculates the average commission amount for each department. First, it calculates the commission amount for each `sales` value by taking 5% of the `sales`. Then, it determines the average of all commission values:
+
+```sql
+SELECT department, avg(sales * 0.05) as avg_commission 
+FROM employees 
+GROUP BY department;
+```
+
+| department | avg_commission
+:--- | :---
+1 | 733.75 |
+2 | 925.45 |
 
 ### COUNT
 
-Use the `COUNT` function to accept arguments such as a `*` or a literal like `1`.
-The meaning of these different forms are as follows:
+The `COUNT` function accepts arguments, such as `*` or literals, such as `1`.
+The following table describes how various forms of the `COUNT` function operate.
 
-- `COUNT(field)` - Only counts if given a field (or expression) is not null or missing in the input rows.
-- `COUNT(*)` - Counts the number of all its input rows.
-- `COUNT(1)` (same as `COUNT(*)`) - Counts any non-null literal.
+| Function type | Description
+`COUNT(field)` | Counts the number of rows where the value of the given field (or expression) is not null.
+`COUNT(*)` | Counts the total number of rows in a table.
+`COUNT(1)` (same as `COUNT(*)`) | Counts any non-null literal.
 
-## Having
+For example, the following query returns the count of sales for each year:
 
-Use the `HAVING` clause to filter out aggregated values.
+```sql
+SELECT year(sale_date), count(sales) 
+FROM employees 
+GROUP BY year(sale_date);
+```
+
+| year(sale_date) | count(sales)
+:--- | :---
+2020 | 1
+2021 | 2
+2022 | 3
+
+## HAVING
+
+Both `WHERE` and `HAVING` are used to filter results. The `WHERE` filter is applied before the `GROUP BY` phase, so you cannot use aggregate functions in a `WHERE` clause. However, you can use the `WHERE` clause to limit the rows to which the aggregate is then applied.
+
+The `HAVING` filter is applied after the `GROUP BY` phase, so you can use the `HAVING` clause to limit the groups that are included in the results. 
 
 ### HAVING with GROUP BY
 
-You can use aggregate expressions or its aliases defined in a `SELECT` clause in a `HAVING` condition.
+You can use aggregate expressions or their aliases defined in a `SELECT` clause in a `HAVING` condition.
 
-We recommend using a non-aggregate expression in the `WHERE` clause although you can do this in a `HAVING` clause.
-
-The aggregations in a `HAVING` clause are not necessarily the same as that in a select list. As an extension to the SQL standard, you're not restricted to using identifiers only in the `GROUP BY` list.
-For example:
+The following query uses an aggregate expression in the `HAVING` clause. It returns the number of sales for each employee who made more than one sale:
 
 ```sql
-SELECT gender, sum(age)
-FROM accounts
-GROUP BY gender
-HAVING sum(age) > 100;
+SELECT employee_id, count(sales)
+FROM employees
+GROUP BY employee_id
+HAVING count(sales) > 1;
 ```
 
-| gender | sum (age)
+| employee_id | count(sales)
 :--- | :---
-M | 101 |
+1 | 2 |
+6 | 2
 
-Here's another example for using an alias in a `HAVING` condition.
+The aggregations in a `HAVING` clause do not have to be the same as the aggregations in a `SELECT` list. The following query uses the `count` function in the `HAVING` clause, but the `sum` function in the `SELECT` clause. It returns the total sales amount for each employee who made more than one sale:
 
 ```sql
-SELECT gender, sum(age) AS s
-FROM accounts
-GROUP BY gender
-HAVING s > 100;
+SELECT employee_id, sum(sales)
+FROM employees
+GROUP BY employee_id
+HAVING count(sales) > 1;
 ```
 
-| gender | s
+| employee_id | sum (sales)
 :--- | :---
-M | 101 |
+1 | 40580 |
+6 | 18120
 
-If an identifier is ambiguous, for example, present both as a select alias and as an index field (preference is alias). In this case, the identifier is replaced with an expression aliased in the `SELECT` clause:
+As an extension to the SQL standard, you are not restricted to using only identifiers in the `GROUP BY` clause. The following query uses an alias in the `GROUP BY` clause and is equivalent to the above query:
+
+```sql
+SELECT employee_id as id, sum(sales)
+FROM employees
+GROUP BY id
+HAVING count(sales) > 1;
+```
+
+| id | sum (sales)
+:--- | :---
+1 | 40580 |
+6 | 18120
+
+You can also use an alias for an aggregate expression in the `HAVING` clause. The following query returns the total sales for each department where sales exceed $40,000:
+
+```sql
+SELECT department, sum(sales) as total
+FROM employees
+GROUP BY department
+HAVING total > 40000;
+```
+
+| department | total
+:--- | :---
+1 | 58700 |
+
+If an identifier is ambiguous (for example, present both as a `SELECT` alias and as an index field), the preference is given to the alias. In the following query the identifier is replaced with the expression aliased in the `SELECT` clause:
+
+```sql
+SELECT department, sum(sales) as sales
+FROM employees
+GROUP BY department
+HAVING sales > 40000;
+```
+
+| department | sales
+:--- | :---
+1 | 58700 |
 
 ### HAVING without GROUP BY
 
-You can use a `HAVING` clause without the `GROUP BY` clause. This is useful because aggregations are not supported in a `WHERE` clause:
+You can use a `HAVING` clause without a `GROUP BY` clause. In this case, the whole set of data is considered one group. The following query will return `True` if there is more than one value in the `department` column:
 
 ```sql
-SELECT 'Total of age > 100'
-FROM accounts
-HAVING sum(age) > 100;
+SELECT 'True' as more_than_one_department FROM employees HAVING min(department) < max(department);
 ```
 
-| Total of age > 100 |
+| more_than_one_department |
 :--- |
-Total of age > 100 |
+True |
+
+If all employees in the employee table belonged to the same department, the result would contain zero rows:
+
+| more_than_one_department
+:--- |
+ |
