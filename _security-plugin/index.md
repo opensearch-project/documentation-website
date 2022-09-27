@@ -15,6 +15,8 @@ OpenSearch has its own security plugin for authentication and access control. Th
 The security plugin has several default users, roles, action groups, permissions, and settings for OpenSearch Dashboards that use `kibana` in their names. We will change these names in a future release.
 {: .note }
 
+./ A random comment to check DCO.
+
 Feature | Description
 :--- | :---
 Node-to-node encryption | Encrypts traffic between nodes in the OpenSearch cluster.
