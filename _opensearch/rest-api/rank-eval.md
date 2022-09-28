@@ -18,7 +18,7 @@ POST <index_name>/_rank_eval
 
 ## Query parameters
 
-Query Parameters are optional.
+Query parameters are optional.
 
 Parameter | Data Type | Description
 :--- | :---  | :---
@@ -29,7 +29,7 @@ search_type | enum | Set search type.
 
 ## Request fields
 
-The request body must contain at least one field type parameter.
+The request body must contain at least one parameter.
 
 Field Type | Description
 :--- | :---  
