@@ -246,118 +246,97 @@ Before modifying any configuration files, it's always a good idea to save a back
          ```
    1. Save your changes and close the file.
 
-
-
-
-
--- content above this line is generally "complete" and that below this line needs formatted, validated from a technical perspective, and then fit into this guide --
-
-
-## Upgrade RPM
-
-You can upgrade your RPM OpenSearch instance both manually and through YUM. 
-
-
-### Manual 
-
-Download the new version of OpenSearch you want to use, and then use `rpm -Uvh` to upgrade.
-
-### YUM
-
-To upgrade to the latest version of OpenSearch with YUM, use `sudo yum update`. You can also upgrade to a specific OpenSearch version by using `sudo yum update opensearch-<version-number>`.
-
-
-
-
-
-
-{% comment %}
-
-
 ### Configure TLS
 
 TLS certificates provide additional security for your cluster by allowing clients to confirm the identity of hosts and encrypt traffic between the client and host. For more information, refer to [Configure TLS Certificates]({{site.url}}{{site.baseurl}}/security-plugin/configuration/tls/) and [Generate Certificates]({{site.url}}{{site.baseurl}}/security-plugin/configuration/generate-certificates/), which are included in the [Security Plugin]({{site.url}}{{site.baseurl}}/security-plugin/index/) documentation. For work performed in a development environment, self-signed certificates are usually adequate. This section will guide you through the basic steps required to generate your own TLS certificates and apply them to your OpenSearch host.
 
-1. Navigate to the OpenSearch `config` directory. This is where the certificates will be stored.
+1. Navigate to the directory where the certificates will be stored.
    ```bash
-   cd /path/to/opensearch-{{site.opensearch_version}}/config/
+   cd /etc/opensearch
+   ```
+1. Delete the demo certificates.
+   ```bash
+   sudo rm -f *pem
    ```
 1. Generate a root certificate. This is what you will use to sign your other certificates.
    ```bash
    # Create a private key for the root certificate
-   openssl genrsa -out root-ca-key.pem 2048
+   sudo openssl genrsa -out root-ca-key.pem 2048
    
    # Use the private key to create a self-signed root certificate. Be sure to
    # replace the arguments passed to -subj so they reflect your specific host.
-   openssl req -new -x509 -sha256 -key root-ca-key.pem -subj "/C=CA/ST=ONTARIO/L=TORONTO/O=ORG/OU=UNIT/CN=ROOT" -out root-ca.pem -days 730
+   sudo openssl req -new -x509 -sha256 -key root-ca-key.pem -subj "/C=CA/ST=ONTARIO/L=TORONTO/O=ORG/OU=UNIT/CN=ROOT" -out root-ca.pem -days 730
    ```
 1. Next, create the admin certificate. This certificate is used to gain elevated rights for performing administrative tasks relating to the security plugin.
    ```bash
    # Create a private key for the admin certificate.
-   openssl genrsa -out admin-key-temp.pem 2048
+   sudo openssl genrsa -out admin-key-temp.pem 2048
 
    # Convert the private key to PKCS#8.
-   openssl pkcs8 -inform PEM -outform PEM -in admin-key-temp.pem -topk8 -nocrypt -v1 PBE-SHA1-3DES -out admin-key.pem
+   sudo openssl pkcs8 -inform PEM -outform PEM -in admin-key-temp.pem -topk8 -nocrypt -v1 PBE-SHA1-3DES -out admin-key.pem
    
    # Create the CSR. A common name (CN) of "A" is acceptable because this certificate is
    # used for authenticating elevated access and is not tied to a host.
-   openssl req -new -key admin-key.pem -subj "/C=CA/ST=ONTARIO/L=TORONTO/O=ORG/OU=UNIT/CN=A" -out admin.csr
+   sudo openssl req -new -key admin-key.pem -subj "/C=CA/ST=ONTARIO/L=TORONTO/O=ORG/OU=UNIT/CN=A" -out admin.csr
    
    # Sign the admin certificate with the root certificate and private key you created earlier.
-   openssl x509 -req -in admin.csr -CA root-ca.pem -CAkey root-ca-key.pem -CAcreateserial -sha256 -out admin.pem -days 730
+   sudo openssl x509 -req -in admin.csr -CA root-ca.pem -CAkey root-ca-key.pem -CAcreateserial -sha256 -out admin.pem -days 730
    ```
 1. Create a certificate for the node being configured.
    ```bash
    # Create a private key for the node certificate.
-   openssl genrsa -out node1-key-temp.pem 2048
+   sudo openssl genrsa -out node1-key-temp.pem 2048
    
    # Convert the private key to PKCS#8.
-   openssl pkcs8 -inform PEM -outform PEM -in node1-key-temp.pem -topk8 -nocrypt -v1 PBE-SHA1-3DES -out node1-key.pem
+   sudo openssl pkcs8 -inform PEM -outform PEM -in node1-key-temp.pem -topk8 -nocrypt -v1 PBE-SHA1-3DES -out node1-key.pem
    
    # Create the CSR and replace the arguments passed to -subj so they reflect your specific host.
    # The CN should match a DNS A record for the host--do not use the hostname.
-   openssl req -new -key node1-key.pem -subj "/C=CA/ST=ONTARIO/L=TORONTO/O=ORG/OU=UNIT/CN=node1.dns.a-record" -out node1.csr
+   sudo openssl req -new -key node1-key.pem -subj "/C=CA/ST=ONTARIO/L=TORONTO/O=ORG/OU=UNIT/CN=node1.dns.a-record" -out node1.csr
    
    # Create an extension file that defines a SAN DNS name for the host. This
    # should match the DNS A record of the host.
-   echo 'subjectAltName=DNS:node1.dns.a-record' > node1.ext
-   
+   sudo sh -c 'echo subjectAltName=DNS:node1.dns.a-record > node1.ext'
+
    # Sign the node certificate with the root certificate and private key that you created earlier.
-   openssl x509 -req -in node1.csr -CA root-ca.pem -CAkey root-ca-key.pem -CAcreateserial -sha256 -out node1.pem -days 730 -extfile node1.ext
+   sudo openssl x509 -req -in node1.csr -CA root-ca.pem -CAkey root-ca-key.pem -CAcreateserial -sha256 -out node1.pem -days 730 -extfile node1.ext
    ```
 1. Remove temporary files that are no longer required.
    ```bash
-   rm *temp.pem *csr *ext
+   sudo rm -f *temp.pem *csr *ext
+   ```
+1. Make sure the remaining certificates are owned by the opensearch user.
+   ```bash
+   sudo chown opensearch:opensearch admin-key.pem admin.pem node1-key.pem node1.pem root-ca-key.pem root-ca.pem root-ca.srl
    ```
 1. Add these certificates to `opensearch.yml` as described in [Generate Certificates]({{site.url}}{{site.baseurl}}/security-plugin/configuration/generate-certificates/#add-distinguished-names-to-opensearchyml). Advanced users might also choose to append the settings using a script:
    ```bash
    #! /bin/bash
 
-   # Before running this script, make sure to replace the /path/to your OpenSearch directory,
-   # and remember to replace the CN in the node's distinguished name with a real
-   # DNS A record.
+   # Before running this script, make sure to replace the CN in the 
+   # node's distinguished name with a real DNS A record.
 
-   echo "plugins.security.ssl.transport.pemcert_filepath: /path/to/opensearch-{{site.opensearch_version}}/config/node1.pem" | sudo tee -a /path/to/opensearch-{{site.opensearch_version}}/config/opensearch.yml
-   echo "plugins.security.ssl.transport.pemkey_filepath: /path/to/opensearch-{{site.opensearch_version}}/config/node1-key.pem" | sudo tee -a /path/to/opensearch-{{site.opensearch_version}}/config/opensearch.yml
-   echo "plugins.security.ssl.transport.pemtrustedcas_filepath: /path/to/opensearch-{{site.opensearch_version}}/config/root-ca.pem" | sudo tee -a /path/to/opensearch-{{site.opensearch_version}}/config/opensearch.yml
-   echo "plugins.security.ssl.http.enabled: true" | sudo tee -a /path/to/opensearch-{{site.opensearch_version}}/config/opensearch.yml
-   echo "plugins.security.ssl.http.pemcert_filepath: /path/to/opensearch-{{site.opensearch_version}}/config/node1.pem" | sudo tee -a /path/to/opensearch-{{site.opensearch_version}}/config/opensearch.yml
-   echo "plugins.security.ssl.http.pemkey_filepath: /path/to/opensearch-{{site.opensearch_version}}/config/node1-key.pem" | sudo tee -a /path/to/opensearch-{{site.opensearch_version}}/config/opensearch.yml
-   echo "plugins.security.ssl.http.pemtrustedcas_filepath: /path/to/opensearch-{{site.opensearch_version}}/config/root-ca.pem" | sudo tee -a /path/to/opensearch-{{site.opensearch_version}}/config/opensearch.yml
-   echo "plugins.security.allow_default_init_securityindex: true" | sudo tee -a /path/to/opensearch-{{site.opensearch_version}}/config/opensearch.yml
-   echo "plugins.security.authcz.admin_dn:" | sudo tee -a /path/to/opensearch-{{site.opensearch_version}}/config/opensearch.yml
-   echo "  - 'CN=A,OU=UNIT,O=ORG,L=TORONTO,ST=ONTARIO,C=CA'" | sudo tee -a /path/to/opensearch-{{site.opensearch_version}}/config/opensearch.yml
-   echo "plugins.security.nodes_dn:" | sudo tee -a /path/to/opensearch-{{site.opensearch_version}}/config/opensearch.yml
-   echo "  - 'CN=node1.dns.a-record,OU=UNIT,O=ORG,L=TORONTO,ST=ONTARIO,C=CA'" | sudo tee -a /path/to/opensearch-{{site.opensearch_version}}/config/opensearch.yml
-   echo "plugins.security.audit.type: internal_opensearch" | sudo tee -a /path/to/opensearch-{{site.opensearch_version}}/config/opensearch.yml
-   echo "plugins.security.enable_snapshot_restore_privilege: true" | sudo tee -a /path/to/opensearch-{{site.opensearch_version}}/config/opensearch.yml
-   echo "plugins.security.check_snapshot_restore_write_privileges: true" | sudo tee -a /path/to/opensearch-{{site.opensearch_version}}/config/opensearch.yml
-   echo "plugins.security.restapi.roles_enabled: [\"all_access\", \"security_rest_api_access\"]" | sudo tee -a /path/to/opensearch-{{site.opensearch_version}}/config/opensearch.yml
+   echo "plugins.security.ssl.transport.pemcert_filepath: /etc/opensearch/node1.pem" | sudo tee -a /etc/opensearch/opensearch.yml
+   echo "plugins.security.ssl.transport.pemkey_filepath: /etc/opensearch/node1-key.pem" | sudo tee -a /etc/opensearch/opensearch.yml
+   echo "plugins.security.ssl.transport.pemtrustedcas_filepath: /etc/opensearch/root-ca.pem" | sudo tee -a /etc/opensearch/opensearch.yml
+   echo "plugins.security.ssl.http.enabled: true" | sudo tee -a /etc/opensearch/opensearch.yml
+   echo "plugins.security.ssl.http.pemcert_filepath: /etc/opensearch/node1.pem" | sudo tee -a /etc/opensearch/opensearch.yml
+   echo "plugins.security.ssl.http.pemkey_filepath: /etc/opensearch/node1-key.pem" | sudo tee -a /etc/opensearch/opensearch.yml
+   echo "plugins.security.ssl.http.pemtrustedcas_filepath: /etc/opensearch/root-ca.pem" | sudo tee -a /etc/opensearch/opensearch.yml
+   echo "plugins.security.allow_default_init_securityindex: true" | sudo tee -a /etc/opensearch/opensearch.yml
+   echo "plugins.security.authcz.admin_dn:" | sudo tee -a /etc/opensearch/opensearch.yml
+   echo "  - 'CN=A,OU=UNIT,O=ORG,L=TORONTO,ST=ONTARIO,C=CA'" | sudo tee -a /etc/opensearch/opensearch.yml
+   echo "plugins.security.nodes_dn:" | sudo tee -a /etc/opensearch/opensearch.yml
+   echo "  - 'CN=node1.dns.a-record,OU=UNIT,O=ORG,L=TORONTO,ST=ONTARIO,C=CA'" | sudo tee -a /etc/opensearch/opensearch.yml
+   echo "plugins.security.audit.type: internal_opensearch" | sudo tee -a /etc/opensearch/opensearch.yml
+   echo "plugins.security.enable_snapshot_restore_privilege: true" | sudo tee -a /etc/opensearch/opensearch.yml
+   echo "plugins.security.check_snapshot_restore_write_privileges: true" | sudo tee -a /etc/opensearch/opensearch.yml
+   echo "plugins.security.restapi.roles_enabled: [\"all_access\", \"security_rest_api_access\"]" | sudo tee -a /etc/opensearch/opensearch.yml
    ```
 1. (Optional) Add trust for the self-signed root certificate.
    ```bash
    # Copy the root certificate to the correct directory
-   sudo cp /path/to/opensearch-{{site.opensearch_version}}/config/root-ca.pem /etc/pki/ca-trust/source/anchors/
+   sudo cp /etc/opensearch/root-ca.pem /etc/pki/ca-trust/source/anchors/
 
    # Add trust
    sudo update-ca-trust
@@ -412,6 +391,35 @@ Users are defined and authenticated by OpenSearch in a variety of ways. One meth
       - "admin"
       description: "Admin user"
    ```
+
+
+-- content above this line is generally "complete" and that below this line needs formatted, validated from a technical perspective, and then fit into this guide --
+
+
+## Upgrade RPM
+
+You can upgrade your RPM OpenSearch instance both manually and through YUM. 
+
+
+### Manual 
+
+Download the new version of OpenSearch you want to use, and then use `rpm -Uvh` to upgrade.
+
+### YUM
+
+To upgrade to the latest version of OpenSearch with YUM, use `sudo yum update`. You can also upgrade to a specific OpenSearch version by using `sudo yum update opensearch-<version-number>`.
+
+
+
+
+
+
+{% comment %}
+
+
+
+
+
 
 ### Apply changes
 
