@@ -15,7 +15,7 @@ redirect_from:
 
 OpenSearch Dashboards is an integrated visualization tool that makes it easy for users to explore their data in OpenSearch. From real-time application monitoring, threat detection, and incident management to personalized search, OpenSearch Dashboards gives you the data visualizations needed to graphically represent trends, outliers, and patterns in data. 
 
-The OpenSearch suite provides [core plugins](https://opensearch.org/docs/latest/opensearch/install/plugins/) to help index, secure, monitor, and analyze your data. Most OpenSearch plugins have corresponding [OpenSearch Dashboards plugins](https://opensearch.org/docs/latest/dashboards/install/plugins/) to extend and customize dashboard features.
+The OpenSearch suite provides [core plugins]({{site.url}}{{site.baseurl}}/opensearch/install/plugins/) to help index, secure, monitor, and analyze your data. Most OpenSearch plugins have corresponding [OpenSearch Dashboards plugins]({{site.url}}{{site.baseurl}}/dashboards/install/plugins/) to extend and customize dashboard features.
 
 ##### Example: Data visualizations in OpenSearch Dashboards  
 
@@ -27,15 +27,15 @@ The OpenSearch suite provides [core plugins](https://opensearch.org/docs/latest/
 
 ##### Example: Data visualization use cases   
 
-<table bgcolor="lightgrey" width="600" height="600">
+<table style="table-layout: fixed; width: 100%;">
 <tbody>
 <tr>
-<td style="text-align: center; vertical-align: top; font-weight: bold; width: 500;">Visualize log and trace data with interactive log analytics.<img src="{{site.url}}{{site.baseurl}}/images/visualize-log-data.png" alt="Log analytics" /></td>
-<td style="text-align: center; vertical-align: top; font-weight: bold;">Detect and mitigate issues faster with anomaly detection.<img src="{{site.url}}{{site.baseurl}}/images/anomaly-detection.png" alt="Anomaly detection" /></td>
+<td style="text-align: center; vertical-align: top; font-weight: bold; width: 100%;">Visualize log and trace data with interactive log analytics.<img src="{{site.url}}{{site.baseurl}}/images/visualize-log-data.png" alt="Log analytics" /></td>
+<td style="text-align: center; vertical-align: top; font-weight: bold; width: 100%;">Detect and mitigate issues faster with anomaly detection.<img src="{{site.url}}{{site.baseurl}}/images/anomaly-detection.png" alt="Anomaly detection" /></td>
 </tr>
 <tr>
-<td style="text-align: center; vertical-align: top; font-weight: bold;">Diagnose performance issues and reduce application downtime using the observability interface and log monitoring features.<img src="{{site.url}}{{site.baseurl}}/images/observability.png" alt="Observability interface and log monitoring features" /></td>
-<td style="text-align: center; vertical-align: top; font-weight: bold;">Unlock real-time search, monitoring, and analysis of business and operational data.<img src="{{site.url}}{{site.baseurl}}/images/analyzing-data-logs.png" alt="Real-time search, monitoring, and analysis" /></td>
+<td style="text-align: center; vertical-align: top; font-weight: bold; width: 100%;">Diagnose performance issues and reduce application downtime using the observability interface and log monitoring features.<img src="{{site.url}}{{site.baseurl}}/images/observability.png" alt="Observability interface and log monitoring features" /></td>
+<td style="text-align: center; vertical-align: top; font-weight: bold; width: 100%;">Unlock real-time search, monitoring, and analysis of business and operational data.<img src="{{site.url}}{{site.baseurl}}/images/analyzing-data-logs.png" alt="Real-time search, monitoring, and analysis" /></td>
 </tr>
 </tbody>
 </table> 
@@ -55,10 +55,10 @@ You can interact with the three demonstration datasets in the OpenSearch Dashboa
 
 # Next steps 
 
-You can run OpenSearch Dashboards on a local host after installing OpenSearch. See [Install and configure OpenSearch](https://opensearch.org/docs/latest/opensearch/install/index/) and [Install and configure OpenSearch Dashboards](https://opensearch.org/docs/latest/dashboards/install/index/) for installation instructions.  
+You can run OpenSearch Dashboards on a local host after installing OpenSearch. See [Install and configure OpenSearch]({{site.url}}{{site.baseurl}}/opensearch/install/index/) and [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/install/index/) for installation instructions.  
 
 # Related links
 - [OpenSearch Frequently Asked Questions](https://opensearch.org/faq/)
-- [Install and configure OpenSearch](https://opensearch.org/docs/latest/opensearch/install/index/)
-- [Upgrade from Kibana OSS to OpenSearch Dashboards](https://opensearch.org/docs/latest/upgrade-to/dashboards-upgrade-to/)
+- [Install and configure OpenSearch]({{site.url}}{{site.baseurl}}/opensearch/install/index/)
+- [Upgrade from Kibana OSS to OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/upgrade-to/dashboards-upgrade-to/)
 - [OpenSearch Dashboards Developer Guide](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/DEVELOPER_GUIDE.md)
