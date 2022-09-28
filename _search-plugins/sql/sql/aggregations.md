@@ -8,7 +8,7 @@ nav_order: 11
 
 # Aggregate functions
 
-Aggregate functions use the `GROUP BY` clause to group sets of values into subsets.
+Aggregate functions operate on subsets defined by the `GROUP BY` clause. In the absence of a `GROUP BY` clause, aggregate functions operate on all elements of the result set. You can use aggregate functions in the `GROUP BY`, `SELECT`, and `HAVING` clauses.
 
 OpenSearch supports the following aggregate functions:
 
@@ -44,6 +44,8 @@ PUT employees/_bulk?refresh
 ```
 
 ## GROUP BY
+
+The `GROUP BY` clause defines subsets of a result set. Aggregate functions operate on these subsets and return one result row for each subset. 
 
 You can use an identifier, ordinal, or expression in the `GROUP BY` clause.
 
