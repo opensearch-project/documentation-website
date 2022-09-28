@@ -23,12 +23,28 @@ We have a dedicated and growing number of technical writers who are building our
 
 With OpenSearch, you can perform the following use cases:
 
-![](images/1_search.png) | ![](images/2_monitoring.png)|![](images/3_security.png) | ![](images/4_tracking.png)
-:--- | :--- | :--- | :--- |
-**Fast, Scalable Full-text Search** | **Application and Infrastructure Monitoring** | **Security and Event Information Management** | **Operational Health Tracking**
-Help users find the right information within your application, website, or data lake catalog. | Easily store and analyze log data, and set automated alerts for underperformance. | Centralize logs to enable real-time security monitoring and forensic analysis. | Use observability logs, metrics, and traces to monitor your applications and business in real time.
-
-
+<table style="table-layout: fixed ; width: 100%;">
+<tbody>
+<tr style="text-align: center; vertical-align:center;">
+<td><img src="{{site.url}}{{site.baseurl}}/images/1_search.png" alt="Fast, scalable full-text search" height="100"/></td>
+<td><img src="{{site.url}}{{site.baseurl}}/images/2_monitoring.png" alt="Application and infrastructure monitoring" height="100"/></td>
+<td><img src="{{site.url}}{{site.baseurl}}/images/3_security.png" alt="Security and event information management" height="100"/></td>
+<td><img src="{{site.url}}{{site.baseurl}}/images/4_tracking.png" alt="Operational health tracking" height="100"/></td>
+</tr>
+<tr style="text-align: center; vertical-align:top; font-weight: bold; color: rgb(0,59,92)">
+<td>Fast, Scalable Full-text Search</td>
+<td>Application and Infrastructure Monitoring</td>
+<td>Security and Event Information Management</td>
+<td>Operational Health Tracking</td>
+</tr>
+<tr style="text-align: center; vertical-align:top;">
+<td>Help users find the right information within your application, website, or data lake catalog. </td>
+<td>Easily store and analyze log data, and set automated alerts for underperformance.</td>
+<td>Centralize logs to enable real-time security monitoring and forensic analysis.</td>
+<td>Use observability logs, metrics, and traces to monitor your applications and business in real time.</td>
+</tr>
+</tbody>
+</table>
 
 **Additional features and plugins:**
 
