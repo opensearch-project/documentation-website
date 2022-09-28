@@ -346,9 +346,9 @@ TLS certificates provide additional security for your cluster by allowing client
 
 Users are defined and authenticated by OpenSearch in a variety of ways. One method, which does not require additional backend infrastructure, is to manually configure users in `internal_users.yml`. See [YAML files]({{site.url}}{{site.baseurl}}/security-plugin/configuration/yaml/) for more information about configuring users. The following steps explain how to remove all demo users except for the `admin` user and how to replace the `admin` default password using a script.
 
-1. Make the security plugin scripts executable.
+1. Navigate to the security plugins tools directory.
    ```bash
-   chmod 755 /path/to/opensearch-{{site.opensearch_version}}/plugins/opensearch-security/tools/*.sh
+   cd /usr/share/opensearch/plugins/opensearch-security/tools
    ```
 1. Run `hash.sh` to generate a new password.
    - This script will fail if a path to the JDK has not been defined.
@@ -365,12 +365,12 @@ Users are defined and authenticated by OpenSearch in a variety of ways. One meth
       ```
    - Declare an environment variable when you invoke the script in order to avoid issues:
       ```bash
-      OPENSEARCH_JAVA_HOME=/path/to/opensearch-{{site.opensearch_version}}/jdk ./hash.sh
+      OPENSEARCH_JAVA_HOME=/usr/share/opensearch/jdk ./hash.sh
       ```
    - Enter the desired password at the prompt and make a note of the output hash.
 1. Open `internal_users.yml`.
    ```bash
-   vi /path/to/opensearch-{{site.opensearch_version}}/config/opensearch-security/internal_users.yml
+   sudo vi /etc/opensearch/opensearch-security/internal_users.yml
    ```
 1. Remove all demo users except for `admin` and replace the hash with the output provided by `hash.sh` in a previous step. The file should look similar to the following example:
    ```bash
@@ -392,64 +392,30 @@ Users are defined and authenticated by OpenSearch in a variety of ways. One meth
       description: "Admin user"
    ```
 
-
--- content above this line is generally "complete" and that below this line needs formatted, validated from a technical perspective, and then fit into this guide --
-
-
-## Upgrade RPM
-
-You can upgrade your RPM OpenSearch instance both manually and through YUM. 
-
-
-### Manual 
-
-Download the new version of OpenSearch you want to use, and then use `rpm -Uvh` to upgrade.
-
-### YUM
-
-To upgrade to the latest version of OpenSearch with YUM, use `sudo yum update`. You can also upgrade to a specific OpenSearch version by using `sudo yum update opensearch-<version-number>`.
-
-
-
-
-
-
-{% comment %}
-
-
-
-
-
-
 ### Apply changes
 
 Now that TLS certificates are installed and demo users were removed or assigned new passwords, the last step is to apply the configuration changes. This last configuration step requires invoking `securityadmin.sh` while OpenSearch is running on the host.
 
-1. Start OpenSearch. It must be running for `securityadmin.sh` to apply changes.
+1. OpenSearch must be running for `securityadmin.sh` to apply changes. If you made changes to `opensearch.yml`, restart OpenSearch.
    ```bash
-   # Change directories
-   cd /path/to/opensearch-{{site.opensearch_version}}/bin
-
-   # Run the service in the foreground
-   ./opensearch
+   sudo systemctl restart opensearch
    ```
 1. Open a separate terminal session with the host and navigate to the directory containing `securityadmin.sh`.
    ```bash
    # Change to the correct directory
-   cd /path/to/opensearch-{{site.opensearch_version}}/plugins/opensearch-security/tools
+   cd /usr/share/opensearch/plugins/opensearch-security/tools
    ```
 1. Invoke the script. See [Apply changes using securityadmin.sh]({{site.url}}{{site.baseurl}}/security-plugin/configuration/security-admin/) for definitions of the arguments you must pass.
    ```bash
    # You can omit the environment variable if you declared this in your $PATH.
-   OPENSEARCH_JAVA_HOME=/path/to/opensearch-{{site.opensearch_version}}/jdk ./securityadmin.sh -cd /path/to/opensearch-{{site.opensearch_version}}/config/opensearch-security/ -cacert /path/to/opensearch-{{site.opensearch_version}}/config/root-ca.pem -cert /path/to/opensearch-{{site.opensearch_version}}/config/admin.pem -key /path/to/opensearch-{{site.opensearch_version}}/config/admin-key.pem -icl -nhnv
+   OPENSEARCH_JAVA_HOME=/usr/share/opensearch/jdk ./securityadmin.sh -cd /etc/opensearch/opensearch-security/ -cacert /etc/opensearch/root-ca.pem -cert /etc/opensearch/admin.pem -key /etc/opensearch/admin-key.pem -icl -nhnv
    ```
-1. Stop and restart the running OpenSearch process to apply the changes.
 
 ### Verify that the service is running
 
 OpenSearch is now running on your host with custom TLS certificates and a secure user for basic authentication. You can verify external connectivity by sending an API request to your OpenSearch node from another host.
 
-During previous tests you directed requests to `localhost`. Now that TLS certificates have been applied and the new certificates reference your host's actual DNS record, requests to `localhost` will fail the CN check and the certificate will be considered invalid. Instead, requests should be sent to the address you specified while generating the certificate.
+During the previous test you directed requests to `localhost`. Now that TLS certificates have been applied and the new certificates reference your host's actual DNS record, requests to `localhost` will fail the CN check and the certificate will be considered invalid. Instead, requests should be sent to the address you specified while generating the certificate.
 
 You should add trust for the root certificate to your client before sending requests. If you do not add trust, then you must use the `-k` option so that cURL ignores CN and root certificate validation.
 {:.tip}
@@ -482,5 +448,41 @@ $ curl https://your.host.address:9200 -u admin:yournewpassword -k
 - [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/install/index/)
 - [OpenSearch plugin installation]({{site.url}}{{site.baseurl}}/opensearch/install/plugins/)
 - [About the security plugin]({{site.url}}{{site.baseurl}}/security-plugin/index/)
+
+
+
+
+
+-- content above this line is generally "complete" and that below this line needs formatted, validated from a technical perspective, and then fit into this guide --
+
+
+## Upgrade RPM
+
+You can upgrade your RPM OpenSearch instance both manually and through YUM. 
+
+
+### Manual 
+
+Download the new version of OpenSearch you want to use, and then use `rpm -Uvh` to upgrade.
+
+### YUM
+
+To upgrade to the latest version of OpenSearch with YUM, use `sudo yum update`. You can also upgrade to a specific OpenSearch version by using `sudo yum update opensearch-<version-number>`.
+
+
+
+
+
+
+{% comment %}
+
+
+
+
+
+
+
+
+
 
 {% endcomment %}
