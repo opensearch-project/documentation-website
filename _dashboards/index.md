@@ -58,7 +58,7 @@ You can interact with the three demonstration datasets in the OpenSearch Dashboa
 You can run OpenSearch Dashboards on a local host after installing OpenSearch. See [Install and configure OpenSearch]({{site.url}}{{site.baseurl}}/opensearch/install/index/) and [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/install/index/) for installation instructions.  
 
 # Related links
-- [OpenSearch Frequently Asked Questions](https://opensearch.org/faq/)
+- [OpenSearch Frequently Asked Questions]({{site.url}}{{site.baseurl}}/faq/)
 - [Install and configure OpenSearch]({{site.url}}{{site.baseurl}}/opensearch/install/index/)
 - [Upgrade from Kibana OSS to OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/upgrade-to/dashboards-upgrade-to/)
 - [OpenSearch Dashboards Developer Guide](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/DEVELOPER_GUIDE.md)
