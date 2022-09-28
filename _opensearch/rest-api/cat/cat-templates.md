@@ -22,7 +22,8 @@ GET _cat/templates?v
 If you want to get information for specific template or pattern:
 
 ```
-GET _cat/templates/nameOrpattern```
+GET _cat/templates/{name}
+```
 
 ## Path and HTTP methods
 
