@@ -16,37 +16,35 @@ GET <index_name>/_rank_eval
 POST <index_name>/_rank_eval
 ```
 
-## URL parameters
+## Query parameters
 
-URL Parameters are optional.
+Query Parameters are optional.
 
 Parameter | Data Type | Description
 :--- | :---  | :---
-[`ignore_unavailable`](#ignore_unavailable) | boolean | Defaults to `false`. When set to `false` the response body will return an error if an index is closed or missing.
-[`allow_no_indices`](#allow_no_indices) | boolean | Defaults to `true`. When set to `false` the response body will return an error if a wildcard expression points to an indices that are closed or missing.
-[`expand_wildcards`](#expand_wildcards) | enum | Expand wildcard expressions for indicies that are open, closed, or both.
-[`search_type`](#search_type) | enum | Set search type.
+ignore_unavailable | boolean | Defaults to `false`. When set to `false` the response body will return an error if an index is closed or missing.
+allow_no_indices | boolean | Defaults to `true`. When set to `false` the response body will return an error if a wildcard expression points to an indices that are closed or missing.
+expand_wildcards | string | Expand wildcard expressions for indices that are `open`, `closed`, `hidden`, `none`, or `all`.
+search_type | enum | Set search type.
 
-## Request body parameters
+## Request fields
 
-Request body must contain field type parameters.
+The request body must contain at least one field type parameter.
 
 Field Type | Description
 :--- | :---  
-[`id`](#id) | Document or template ID.
-[`requests`](#request) | Set multiple search requests within the request field section.
-[`ratings`](#ratings) | Document relevance score.
-[`k`](#k) | The number of documents returned per query. Default is set to 10.
-[`relevant_rating_threshold`](#relevant_rating_threshold) | The threshold that documents are considered relevant. Default is set to 1.
-[`normalize`](#normalize) | Discounted cumulative gain will be calculated when set to `true`.
-[`maximum_relevance`](#maximum_relevance) | Sets the maximum relevance score when using the expected reciprocal rank metric.
-[`ignore_unlabeled`](#ignore_unlabeled) | Defaults to `false`. Unlabeled documents are ignored when set to `true`. 
-[`template_id`](#template_id) | Template ID.
-[`params`](#params) | Parameters used in the template.
+id | Document or template ID.
+requests | Set multiple search requests within the request field section.
+ratings | Document relevance score.
+k | The number of documents returned per query. Default is set to 10.
+relevant_rating_threshold | The threshold that documents are considered relevant. Default is set to 1.
+normalize | Discounted cumulative gain will be calculated when set to `true`.
+maximum_relevance | Sets the maximum relevance score when using the expected reciprocal rank metric.
+ignore_unlabeled | Defaults to `false`. Unlabeled documents are ignored when set to `true`. 
+template_id | Template ID.
+params | Parameters used in the template.
 
-## Examples
-
-Request:
+#### Sample request
 
 ````json
 GET shakespeare/_rank_eval
@@ -76,7 +74,7 @@ GET shakespeare/_rank_eval
 }
 ````
 
-Response body:
+#### Sample response
 
 ````json
 {
