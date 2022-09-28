@@ -16,7 +16,7 @@ POST /<index>/_reload_search_analyzers
 GET /<index>/_reload_search_analyzers
 ```
 
-## Request body parameters
+## Request body fields
 
 Request body parameters are optional.
 
@@ -28,13 +28,15 @@ Field Type | Data Type | Description
 
 ## Examples
 
-Request:
+Example request and response.
+
+#### Sample request:
 
 ````json
 POST /shakespeare/_reload_search_analyzers
 ````
  
-Response body:
+#### Sample response body:
 
 ````json
 {
