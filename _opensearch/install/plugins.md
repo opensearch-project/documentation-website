@@ -28,7 +28,7 @@ Use `list` to see a list of plugins that have already been installed.
 
 #### Usage:
 ```bash
-bin/opensearch-plugin list
+bin/opensearch-plugin list  
 ```
 
 #### Example:
