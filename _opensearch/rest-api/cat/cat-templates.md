@@ -19,7 +19,7 @@ The cat templates operation lists the names, patterns, order numbers, and versio
 GET _cat/templates?v
 ```
 
-If you want to get information for specific template or pattern:
+If you want to get information for a specific template or pattern:
 
 ```
 GET _cat/templates/{name}
