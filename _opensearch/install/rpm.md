@@ -441,6 +441,32 @@ $ curl https://your.host.address:9200 -u admin:yournewpassword -k
 }
 ```
 
+## Upgrade to a newer version
+
+OpenSearch instances installed using RPM or YUM can be easily upgraded to a newer version. We recommend updating with YUM, but you can also upgrade using YUM.
+
+
+### Manual upgrade with rpm 
+
+Download the RPM package for the desired upgrade version directly from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'}.
+
+Navigate to the directory containing the distribution and run the following command:
+```bash
+rpm -Uvh opensearch-{{site.opensearch_version}}-linux-x64.rpm
+```
+
+### YUM
+
+To upgrade to the latest version of OpenSearch with YUM:
+```bash
+sudo yum update
+```
+
+ You can also upgrade to a specific OpenSearch version:
+ ```bash
+ sudo yum update opensearch-<version-number>
+ ```
+
 ## Related links
 
 - [OpenSearch configuration]({{site.url}}{{site.baseurl}}/opensearch/configuration/)
@@ -448,41 +474,3 @@ $ curl https://your.host.address:9200 -u admin:yournewpassword -k
 - [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/install/index/)
 - [OpenSearch plugin installation]({{site.url}}{{site.baseurl}}/opensearch/install/plugins/)
 - [About the security plugin]({{site.url}}{{site.baseurl}}/security-plugin/index/)
-
-
-
-
-
--- content above this line is generally "complete" and that below this line needs formatted, validated from a technical perspective, and then fit into this guide --
-
-
-## Upgrade RPM
-
-You can upgrade your RPM OpenSearch instance both manually and through YUM. 
-
-
-### Manual 
-
-Download the new version of OpenSearch you want to use, and then use `rpm -Uvh` to upgrade.
-
-### YUM
-
-To upgrade to the latest version of OpenSearch with YUM, use `sudo yum update`. You can also upgrade to a specific OpenSearch version by using `sudo yum update opensearch-<version-number>`.
-
-
-
-
-
-
-{% comment %}
-
-
-
-
-
-
-
-
-
-
-{% endcomment %}
