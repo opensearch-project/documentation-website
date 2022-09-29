@@ -6,7 +6,7 @@ nav_order: 7
 
 # Cluster formation
 
-Before diving into OpenSearch and searching and aggregating data, you first need to create an OpenSearch cluster.
+Before diving into OpenSearch and searching and aggregating data, you first need to create an OpenSearch.
 
 OpenSearch can operate as a single-node or multi-node cluster. The steps to configure both are, in general, quite similar. This page demonstrates how to create and configure a multi-node cluster, but with only a few minor adjustments, you can follow the same steps to create a single-node cluster.
 
