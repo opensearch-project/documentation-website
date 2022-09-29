@@ -1,15 +1,19 @@
 ---
 layout: default
-title: Compatibility
+title: Language clients
 nav_order: 1
 has_children: false
 redirect_from:
   - /clients/
 ---
 
-# OpenSearch client compatibility
+# OpenSearch language clients
 
-OpenSearch provides clients for several popular programming languages, with more coming. In general, clients are compatible with clusters running the same major version of OpenSearch (`major.minor.patch`).
+OpenSearch provides clients for several popular programming languages, with more coming. 
+
+## OpenSearch language client compatibility
+
+In general, clients are compatible with clusters running the same major version of OpenSearch (`major.minor.patch`).
 
 For example, a 1.0.0 client works with an OpenSearch 1.1.0 cluster, but might not support any non-breaking API changes in OpenSearch 1.1.0. A 1.2.0 client works with the same cluster, but might allow you to pass unsupported options in certain functions. We recommend using the same version for both, but if your tests pass after a cluster upgrade, you don't necessarily need to upgrade your clients immediately.
 
@@ -17,7 +21,7 @@ For example, a 1.0.0 client works with an OpenSearch 1.1.0 cluster, but might no
 * [OpenSearch Java client]({{site.url}}{{site.baseurl}}/clients/java/)
 {% endcomment %}
 * [OpenSearch Python client]({{site.url}}{{site.baseurl}}/clients/python/)
-* [OpenSearch JavaScript (Node.js) client]({{site.url}}{{site.baseurl}}/clients/javascript/)
+* [OpenSearch JavaScript (Node.js) client]({{site.url}}{{site.baseurl}}/clients/javascript/index)
 * [OpenSearch .NET clients]({{site.url}}{{site.baseurl}}/clients/dot-net/)
 * [OpenSearch Go client]({{site.url}}{{site.baseurl}}/clients/go/)
 * [OpenSearch PHP client]({{site.url}}{{site.baseurl}}/clients/php/)

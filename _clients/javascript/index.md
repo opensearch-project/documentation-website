@@ -1,8 +1,8 @@
 ---
 layout: default
-title: Getting started
-parent: JavaScript client
-nav_order: 1
+title: JavaScript client
+has_children: true
+nav_order: 40
 ---
 
 # Getting started
@@ -141,18 +141,16 @@ async function search() {
 search().catch(console.log);
 ```
 
-## Circuit Breaker
+## Circuit breaker
 
-Helper function to check if memory circuit breaker enabled and the response payload is too large to fit into available heap memory.
+The `memoryCircuitBreaker` option can be used to prevent errors caused by a response payload being too large to fit into the heap memory available to the client.
 
-The `memoryCircuitBreaker` option can be used to prevent errors caused by a response payload being too large to fit into the available heap memory available to the client.
+The `memoryCircuitBreaker` object contains two fields:
 
-`memoryCircuitBreaker` contains two fields:
+- `enabled`: A Boolean used to turn the circuit breaker on or off. Defaults to `false`.
+- `maxPercentage`: The threshold that determines whether the circuit breaker engages. Valid values are [0, 1]. Any value that exceeds that range will correct to `1.0`.
 
-- `enabled`: A Boolean used to turn the Circuit Breaker on or off. Defaults to `false`.
-- `maxPercentage`: The threshold that determines whether the Circuit Breaker engages. The input range must be between `[0 ,1]`. Any number that exceeds that range will correct to `1.0`.
-
-The following example instantiates a client with the Circuit Breaker enabled and its threshold set to 80% of the available heap size limit:
+The following example instantiates a client with the circuit breaker enabled and its threshold set to 80% of the available heap size limit:
 
 ```javascript
 var client = new Client({

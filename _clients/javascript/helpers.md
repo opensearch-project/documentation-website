@@ -1,22 +1,24 @@
 ---
 layout: default
-title: Helpers
+title: Helper methods
 parent: JavaScript client
 nav_order: 2
 ---
 
-# Helpers
+# Helper methods
 
-This section is currently incomplete. It does not yet cover all helper methods and is missing documentation of various helper options.
+This section is currently incomplete. It does not yet cover all helper methods and their options.
 {: .warning }
 
 ## Bulk helper
 
-Running bulk requests can be complex due to the shape of the API, this helper aims to provide a nicer developer experience around the Bulk API.
+Running bulk requests can be complex because of the API structure. The bulk helper aims to provide a nicer developer experience around the Bulk API.
 
 ### Usage
 
-```
+The following code creates a bulk helper instance:
+
+```javascript
 const { Client } = require('@opensearch-project/opensearch')
 const documents = require('./docs.json')
 
@@ -32,36 +34,47 @@ const result = await client.helpers.bulk({
 })
 
 console.log(result)
-// {
-//   total: number,
-//   failed: number,
-//   retry: number,
-//   successful: number,
-//   time: number,
-//   bytes: number,
-//   aborted: boolean
-// }
 ```
 
-To create a new instance of the Bulk helper, access it as shown in the example above, the configuration options are:
+Bulk helper operations return an object with the following fields:
 
-| Option                | Description                                                                                                                                                                                                                                                                                 |
-| :-------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `concurrency`         | Number of requests to be executed in parallel. _Default: 5_                                                                                                                                                                                                                                 |
-| `datasource`          | **Required.** An array, async generator or a readable stream of strings or objects representing the documents you need to create, delete, index or update.                                                                                                                                  |
-| `flushBytes`          | Maximum bulk body size to send in bytes. _Default: 5000000_                                                                                                                                                                                                                                 |
-| `flushInterval`       | Milliseconds to wait before flushing the body after the last document has been read. _Default: 30000_                                                                                                                                                                                       |
-| `onDocument`          | **Required.** A function to be invoked with each document in the given `datasource`. It returns the operation to be executed for this document. Optionally the document can be manipulated for `create` and `index` operations by returning a new document as part of the functions result. |
-| `onDrop`              | A function to be invoked for every document that can’t be indexed after reaching the maximum amount of retries.                                                                                                                                                                             |
-| `refreshOnCompletion` | Whether a refresh should be run on all affected indices at the end of the bulk operation. _Default: alse_                                                                                                                                                                                   |
-| `retries`             | Number of times an operation is retried before `onDrop` is called for that document. _Default: Client `maxRetries`_                                                                                                                                                                         |
-| `wait`                | Milliseconds to wait before retrying an operation. _Default: 5000_                                                                                                                                                                                                                          |
+```json
+{
+  total: number,
+  failed: number,
+  retry: number,
+  successful: number,
+  time: number,
+  bytes: number,
+  aborted: boolean
+}
+```
+
+When creating a new bulk helper instance, you can use the following configuration options.
+
+| Option | Data type | Description 
+| :--- | :--- | :---
+| `concurrency` | Integer | The number of requests to be executed in parallel. Optional. Default is 5. 
+| `datasource` | An array, async generator or a readable stream of strings or objects | Represents the documents you need to create, delete, index or update. Required.
+| `flushBytes` | Integer | Maximum bulk body size to send in bytes. Optional. Default is 5,000,000. 
+| `flushInterval` | Integer | Time in milliseconds to wait before flushing the body after the last document has been read. Optional. Default is 30,000.
+| `onDocument` | Function | A function to be invoked with each document in the given `datasource`. It returns the operation to be executed for this document. Optionally, the document can be manipulated for `create` and `index` operations by returning a new document as part of the function's result. Required.
+| `onDrop` | Function | A function to be invoked for every document that can’t be indexed after reaching the maximum amount of retries. Optional. Default is `noop`.
+| `refreshOnCompletion` | Boolean | Whether a refresh should be run on all affected indices at the end of the bulk operation. Optional. Default is false.
+| `retries` | Integer | The number of times an operation is retried before `onDrop` is called for that document. Optional. Defaults to the client's  `maxRetries` value.
+| `wait` | Integer | Time in milliseconds to wait before retrying an operation. Optional. Default is 5,000.
 
 ### Examples
 
+The following examples illustrate the index, create, update, and delete bulk helper operations.
+
 #### Index
 
-```
+The index operation creates a new document if it doesn’t exist, and recreates the document if it already exists.
+
+The following bulk operation indexes documents into `example-index`:
+
+```javascript
 client.helpers.bulk({
   datasource: arrayOfDocuments,
   onDocument (doc) {
@@ -72,9 +85,9 @@ client.helpers.bulk({
 })
 ```
 
-#### Index with document overwrite
+The following bulk operation indexes documents into `example-index` with document overwrite:
 
-```
+```javascript
 client.helpers.bulk({
   datasource: arrayOfDocuments,
   onDocument (doc) {
@@ -90,7 +103,11 @@ client.helpers.bulk({
 
 #### Create
 
-```
+The create operation creates a new document only if the document does not already exist.
+
+The following bulk operation creates documents in the `example-index`:
+
+```javascript
 client.helpers.bulk({
   datasource: arrayOfDocuments,
   onDocument (doc) {
@@ -101,9 +118,9 @@ client.helpers.bulk({
 })
 ```
 
-#### Create with document overwrite
+The following bulk operation creates documents in the `example-index` with document overwrite:
 
-```
+```javascript
 client.helpers.bulk({
   datasource: arrayOfDocuments,
   onDocument (doc) {
@@ -119,7 +136,11 @@ client.helpers.bulk({
 
 #### Update
 
-```
+The update operation updates the document with the the fields being sent. The document must already exist in the index.
+
+The following bulk operation updates documents in the `arrayOfDocuments`:
+
+```javascript
 client.helpers.bulk({
   datasource: arrayOfDocuments,
   onDocument (doc) {
@@ -135,9 +156,9 @@ client.helpers.bulk({
 })
 ```
 
-#### Update with document overwrite
+The following bulk operation updates documents in the `arrayOfDocuments` with document overwrite:
 
-```
+```javascript
 client.helpers.bulk({
   datasource: arrayOfDocuments,
   onDocument (doc) {
@@ -156,7 +177,11 @@ client.helpers.bulk({
 
 #### Delete
 
-```
+The delete operation deletes a document.
+
+The following bulk operation deletes documents from the `example-index`:
+
+```javascript
 client.helpers.bulk({
   datasource: arrayOfDocuments,
   onDocument (doc) {

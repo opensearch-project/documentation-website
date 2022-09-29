@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Logstash
-nav_order: 200
+nav_order: 150
 has_children: true
 has_toc: true
 redirect_from:
