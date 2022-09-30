@@ -6,7 +6,7 @@ nav_order: 41
 ---
 
 
-todo: need concepts about analyzers
+
 
 
 ## Convert text with analyzers
