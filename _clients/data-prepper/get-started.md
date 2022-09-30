@@ -37,7 +37,7 @@ Run the following command with your pipeline configuration YAML.
 
 ```bash
 docker run --name data-prepper \
-    -v /full/path/to/pipelines.yaml:/usr/share/data-prepper/pipelines.yaml \
+    -v /full/path/to/pipelines.yaml:/usr/share/data-prepper/pipelines/pipelines.yaml \
     opensearchproject/opensearch-data-prepper:latest
 ```
 
@@ -46,18 +46,18 @@ This sample pipeline configuration above demonstrates a simple pipeline with a s
 After starting Data Prepper, you should see log output and some UUIDs after a few seconds:
 
 ```yml
-2021-09-30T20:19:44,147 [main] INFO  com.amazon.dataprepper.pipeline.server.DataPrepperServer - Data Prepper server running at :4900
-2021-09-30T20:19:44,681 [random-source-pool-0] INFO  com.amazon.dataprepper.plugins.source.RandomStringSource - Writing to buffer
-2021-09-30T20:19:45,183 [random-source-pool-0] INFO  com.amazon.dataprepper.plugins.source.RandomStringSource - Writing to buffer
-2021-09-30T20:19:45,687 [random-source-pool-0] INFO  com.amazon.dataprepper.plugins.source.RandomStringSource - Writing to buffer
-2021-09-30T20:19:46,191 [random-source-pool-0] INFO  com.amazon.dataprepper.plugins.source.RandomStringSource - Writing to buffer
-2021-09-30T20:19:46,694 [random-source-pool-0] INFO  com.amazon.dataprepper.plugins.source.RandomStringSource - Writing to buffer
-2021-09-30T20:19:47,200 [random-source-pool-0] INFO  com.amazon.dataprepper.plugins.source.RandomStringSource - Writing to buffer
-2021-09-30T20:19:49,181 [simple-test-pipeline-processor-worker-1-thread-1] INFO  com.amazon.dataprepper.pipeline.ProcessWorker -  simple-test-pipeline Worker: Processing 6 records from buffer
-07dc0d37-da2c-447e-a8df-64792095fb72
-5ac9b10a-1d21-4306-851a-6fb12f797010
-99040c79-e97b-4f1d-a70b-409286f2a671
-5319a842-c028-4c17-a613-3ef101bd2bdd
-e51e700e-5cab-4f6d-879a-1c3235a77d18
-b4ed2d7e-cf9c-4e9d-967c-b18e8af35c90
+2021-09-30T20:19:44,147 [main] INFO  org.opensearch.dataprepper.pipeline.server.DataPrepperServer - Data Prepper server running at :4900
+2021-09-30T20:19:44,681 [random-source-pool-0] INFO  org.opensearch.dataprepper.plugins.source.RandomStringSource - Writing to buffer
+2021-09-30T20:19:45,183 [random-source-pool-0] INFO  org.opensearch.dataprepper.plugins.source.RandomStringSource - Writing to buffer
+2021-09-30T20:19:45,687 [random-source-pool-0] INFO  org.opensearch.dataprepper.plugins.source.RandomStringSource - Writing to buffer
+2021-09-30T20:19:46,191 [random-source-pool-0] INFO  org.opensearch.dataprepper.plugins.source.RandomStringSource - Writing to buffer
+2021-09-30T20:19:46,694 [random-source-pool-0] INFO  org.opensearch.dataprepper.plugins.source.RandomStringSource - Writing to buffer
+2021-09-30T20:19:47,200 [random-source-pool-0] INFO  org.opensearch.dataprepper.plugins.source.RandomStringSource - Writing to buffer
+2021-09-30T20:19:49,181 [simple-test-pipeline-processor-worker-1-thread-1] INFO  org.opensearch.dataprepper.pipeline.ProcessWorker -  simple-test-pipeline Worker: Processing 6 records from buffer
+{"message":"1043a78e-1312-4341-8c1e-227e34a1fbf3"}
+{"message":"b1529b81-1ee1-4cdb-b5d7-11586e570ae6"}
+{"message":"56d83593-4c95-4bc4-9c0b-e061d9b23192"}
+{"message":"254153df-4534-4f5e-bb31-98b984f2ac29"}
+{"message":"ad1430e6-8486-4d84-a2ef-de30315dea07"}
+{"message":"81c5e621-79aa-4850-9bf1-68642d70c1ee"}
 ```
