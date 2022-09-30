@@ -148,7 +148,7 @@ The `memoryCircuitBreaker` option can be used to prevent errors caused by a resp
 The `memoryCircuitBreaker` object contains two fields:
 
 - `enabled`: A Boolean used to turn the circuit breaker on or off. Defaults to `false`.
-- `maxPercentage`: The threshold that determines whether the circuit breaker engages. Valid values are [0, 1]. Any value that exceeds that range will correct to `1.0`.
+- `maxPercentage`: The threshold that determines whether the circuit breaker engages. Valid values are floats in the [0, 1] range that represent percentages in decimal form. Any value that exceeds that range will correct to `1.0`.
 
 The following example instantiates a client with the circuit breaker enabled and its threshold set to 80% of the available heap size limit:
 

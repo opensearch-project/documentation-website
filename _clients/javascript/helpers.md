@@ -52,17 +52,17 @@ Bulk helper operations return an object with the following fields:
 
 When creating a new bulk helper instance, you can use the following configuration options.
 
-| Option | Data type | Description 
-| :--- | :--- | :---
-| `concurrency` | Integer | The number of requests to be executed in parallel. Optional. Default is 5. 
-| `datasource` | An array, async generator or a readable stream of strings or objects | Represents the documents you need to create, delete, index or update. Required.
-| `flushBytes` | Integer | Maximum bulk body size to send in bytes. Optional. Default is 5,000,000. 
-| `flushInterval` | Integer | Time in milliseconds to wait before flushing the body after the last document has been read. Optional. Default is 30,000.
-| `onDocument` | Function | A function to be invoked with each document in the given `datasource`. It returns the operation to be executed for this document. Optionally, the document can be manipulated for `create` and `index` operations by returning a new document as part of the function's result. Required.
-| `onDrop` | Function | A function to be invoked for every document that can’t be indexed after reaching the maximum amount of retries. Optional. Default is `noop`.
-| `refreshOnCompletion` | Boolean | Whether a refresh should be run on all affected indices at the end of the bulk operation. Optional. Default is false.
-| `retries` | Integer | The number of times an operation is retried before `onDrop` is called for that document. Optional. Defaults to the client's  `maxRetries` value.
-| `wait` | Integer | Time in milliseconds to wait before retrying an operation. Optional. Default is 5,000.
+| Option | Data type | Required/Default | Description 
+| :--- | :--- | :--- | :---
+| `datasource` | An array, async generator or a readable stream of strings or objects | Required | Represents the documents you need to create, delete, index or update. 
+| `onDocument` | Function | Required | A function to be invoked with each document in the given `datasource`. It returns the operation to be executed for this document. Optionally, the document can be manipulated for `create` and `index` operations by returning a new document as part of the function's result.
+| `concurrency` | Integer | Optional. Default is 5. | The number of requests to be executed in parallel. 
+| `flushBytes` | Integer |  Optional. Default is 5,000,000. | Maximum bulk body size to send in bytes.
+| `flushInterval` | Integer |  Optional. Default is 30,000. | Time in milliseconds to wait before flushing the body after the last document has been read.
+| `onDrop` | Function | Optional. Default is `noop`. | A function to be invoked for every document that can’t be indexed after reaching the maximum amount of retries. 
+| `refreshOnCompletion` | Boolean | Optional. Default is false. | Whether a refresh should be run on all affected indices at the end of the bulk operation. 
+| `retries` | Integer |  Optional. Defaults to the client's  `maxRetries` value. | The number of times an operation is retried before `onDrop` is called for that document.
+| `wait` | Integer |  Optional. Default is 5,000. | Time in milliseconds to wait before retrying an operation.
 
 ### Examples
 
