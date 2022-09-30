@@ -8,23 +8,15 @@ nav_order: 5
 
 # Nodes API
 
-The nodes API makes it possible to retrieve information about individual nodes within your cluster. It supports standard parameters such `{timeout}` and `{node-filters}`.
+The nodes API makes it possible to retrieve information about individual nodes within your cluster. It supports standard path parameters, such as `timeout` and `<node-filters>`.
 
-## Timeout
+## Path parameters
 
-The `{timeout}` parameter can be used to change the default time limit for node response.
-
-Parameter | Type      | Description
-:--- |:----------| :---
-`{timeout}` | TimeValue | Default value is `30s`.
-
-## Node filters
-
-Use the `{node-filters}` parameter to filter the target set of nodes in the API response.
+Use the `<node-filters>` parameter to filter the target set of nodes in the API response.
 
 Parameter | Type   | Description
 :--- |:-------| :---
-{node-filters} | String | A comma-separated list of resolution mechanisms that OpenSearch uses to identify cluster nodes.
+`<node-filters>` | String | A comma-separated list of resolution mechanisms that OpenSearch uses to identify cluster nodes.
 
 Node filters support several node resolution mechanisms.
 
@@ -69,3 +61,11 @@ However, if we switch the resolution mechanisms, then the result will include al
 ```bash
 GET /_nodes/cluster_namager:false,_all/stats
 ```
+
+## Query parameters
+
+The `timeout` parameter can be used to change the default time limit for node response.
+
+Parameter | Type      | Description
+:--- |:----------| :---
+`timeout` | Time | Default value is `30s`.

@@ -20,22 +20,29 @@ GET /_nodes/hot_threads
 
 ```bash
 GET /_nodes/hot_threads
-GET /_nodes/{nodeId}/hot_threads
+GET /_nodes/<nodeId>/hot_threads
 ```
 
-## URL parameters
+## Path parameters
 
-You can include the following URL parameters in your request. All parameters are optional.
+You can include the following optional path parameter in your request. 
 
-Parameter | Type     | Description
-:--- |:----------| :---
+Parameter | Type | Description
+:--- | :--- | :---
 nodeId | String  | A comma-separated list of node IDs to filter results. Supports [node filters]({{site.url}}{{site.baseurl}}/opensearch/rest-api/nodes-apis/index/#node-filters). Defaults to `_all`.
-snapshots | Integer  | Number of samples of thread stacktraces. Defaults to `10`.
-interval | TimeValue | Interval between consecutive samples. Defaults to `500ms`.
+
+## Query parameters
+
+You can include the following query parameters in your request. All query parameters are optional.
+
+Parameter | Type | Description
+:--- | :---| :---
+snapshots | Integer  | The number of samples of thread stacktraces. Defaults to `10`.
+interval | Time | Interval between consecutive samples. Defaults to `500ms`.
 threads | Integer   | A number of top busiest threads to return information about. Defaults to `3`.
 ignore_idle_threads | Boolean   | Don’t show threads that are in known-idle states, such as waiting on a socket select or pulling from an empty task queue. Defaults to `true`.
 type | String    | Supported thread types are `cpu`, `wait`, or `block`. Defaults to `cpu`.
-timeout | TimeValue | A request [timeout]({{site.url}}{{site.baseurl}}/opensearch/rest-api/nodes-apis/index/#timeout). Defaults to `30s`.
+timeout | Time | A request [timeout]({{site.url}}{{site.baseurl}}/opensearch/rest-api/nodes-apis/index/#timeout). Defaults to `30s`.
 
 ## Response
 
