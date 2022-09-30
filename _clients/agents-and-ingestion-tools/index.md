@@ -12,14 +12,7 @@ redirect_from:
 
 Historically, many multiple popular agents and ingestion tools have worked with Elasticsearch OSS, such as Beats, Logstash, Fluentd, FluentBit, and OpenTelemetry. OpenSearch aims to continue to support a broad set of agents and ingestion tools, but not all have been tested or have explicitly added OpenSearch compatibility.
 
-Previously, an intermediate compatibility solution was available. OpenSearch had a setting that instructed the cluster to return version 7.10.2 rather than its actual version.
-
-The override main response setting `compatibility.override_main_response_version` is deprecated from OpenSearch version 1.x and removed from OpenSearch 2.0.0. This setting is no longer supported for compatibility with legacy clients.
-{: .note}
-
-<!--
-{: .note}
-
+As an intermediate compatibility solution, OpenSearch has a setting that instructs the cluster to return version 7.10.2 rather than its actual version.
 
 If you use clients that include a version check, such as versions of Logstash OSS or Filebeat OSS between 7.x - 7.12.x, enable the setting:
 
@@ -39,7 +32,7 @@ PUT _cluster/settings
 ```yml
 compatibility.override_main_response_version: true
 ```
--->
+
 Logstash OSS 8.0 introduces a breaking change where all plugins run in ECS compatibility mode by default. If you use a compatible [OSS client](#compatibility-matrices) you must override the default value to maintain legacy behavior:
 
 ```yml
@@ -70,30 +63,33 @@ Some users report compatibility issues with ingest pipelines on these versions o
 
 ### Compatibility Matrix for Logstash
 
-| | Logstash OSS 7.x to 7.11.x | Logstash OSS 7.12.x\* | Logstash 7.13.x-7.16.x without OpenSearch output plugin | Logstash 7.13.x-7.16.x with OpenSearch output plugin | Logstash 8.x+ with OpenSearch output plugin 
+| | Logstash OSS 7.0.0 to 7.11.x | Logstash OSS 7.12.x\* | Logstash 7.13.x-7.16.x without OpenSearch output plugin | Logstash 7.13.x-7.16.x with OpenSearch output plugin | Logstash 8.x+ with OpenSearch output plugin 
 | :---| :--- | :--- | :--- | :--- | :--- |
-| Elasticsearch OSS 7.x to 7.9.x | *Yes* | *Yes* | *No* | *Yes* | *Yes* |
+| Elasticsearch OSS 7.0.0 to 7.9.x | *Yes* | *Yes* | *No* | *Yes* | *Yes* |
 | Elasticsearch OSS 7.10.2 | *Yes* | *Yes* | *No* | *Yes* | *Yes* |
-| ODFE 1.x to 1.12 | *Yes* | *Yes* | *No* | *Yes* | *Yes* |
+| ODFE 1.0 to 1.12 | *Yes* | *Yes* | *No* | *Yes* | *Yes* |
 | ODFE 1.13 | *Yes* | *Yes* | *No* | *Yes* | *Yes* |
-| OpenSearch 1.x | Yes via version setting | Yes via version setting | *No* | *Yes* | Yes, with Elastic Common Schema Setting |
+| OpenSearch 1.x to 2.x | Yes via version setting | Yes via version setting | *No* | *Yes* | Yes, with Elastic Common Schema Setting |
 
 \* Most current compatible version with Elasticsearch OSS.
 
 
 ### Compatibility Matrix for Beats
 
-| | Beats OSS 7.x to 7.11.x\*\* | Beats OSS 7.12.x\* | Beats 7.13.x |
+| | Beats OSS 7.0.0 to 7.11.x\*\* | Beats OSS 7.12.x\* | Beats 7.13.x |
 | :--- | :--- | :--- | :--- |
-| Elasticsearch OSS 7.x to 7.9.x | *Yes* | *Yes* | No |
+| Elasticsearch OSS 7.0.0 to 7.9.x | *Yes* | *Yes* | No |
 | Elasticsearch OSS 7.10.2 | *Yes* | *Yes* | No |
-| ODFE 1.x to 1.12 | *Yes* | *Yes* | No |
+| ODFE 1.0 to 1.12 | *Yes* | *Yes* | No |
 | ODFE 1.13 | *Yes* | *Yes* | No |
-| OpenSearch 1.x | Yes via version setting | Yes via version setting | No |
-| Logstash OSS 7.x to 7.11.x | *Yes* | *Yes* | *Yes* |
+| OpenSearch 1.x to 2.x | Yes via version setting | Yes via version setting | No |
+| Logstash OSS 7.0.0 to 7.11.x | *Yes* | *Yes* | *Yes* |
 | Logstash OSS 7.12.x\* | *Yes* | *Yes* | *Yes* |
 | Logstash 7.13.x with OpenSearch output plugin | *Yes* | *Yes* | *Yes* |
 
 \* Most current compatible version with Elasticsearch OSS.
 
 \*\* Beats OSS includes all Apache 2.0 Beats agents (i.e. Filebeat, Metricbeat, Auditbeat, Heartbeat, Winlogbeat, Packetbeat).
+
+Beats versions newer than 7.12.x are not supported by OpenSearch. If you must update the Beats agent(s) in your environment to a newer version, you can work around the incompatibility by directing traffic from Beats to Logstash and using the Logstash Output plugin to ingest the data to OpenSearch.
+{: .warning }

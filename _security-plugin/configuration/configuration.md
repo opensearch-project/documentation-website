@@ -24,7 +24,7 @@ opensearch_security:
       ...
 ```
 
-For a more complete example, see the [sample file on GitHub](https://github.com/opensearch-project/security/blob/main/securityconfig/config.yml).
+For a more complete example, see the [sample file on GitHub](https://github.com/opensearch-project/security/blob/main/config/config.yml).
 
 
 ## HTTP
@@ -121,12 +121,12 @@ These are the possible values for `type`:
 - `ldap`: Fetch additional roles from an LDAP server. This setting requires [additional, LDAP-specific configuration settings]({{site.url}}{{site.baseurl}}/security-plugin/configuration/ldap/).
 
 
-## Examples
+## Configuration examples
 
 The default `config/opensearch-security/config.yml` that ships with OpenSearch contains many configuration examples. Use these examples as a starting point, and customize them to your needs.
 
 
-## HTTP basic
+### HTTP basic
 
 To set up HTTP basic authentication, you must enable it in the `http_authenticator` section of the configuration:
 
@@ -143,9 +143,10 @@ If `challenge` is set to `true`, the security plugin sends a response with statu
 If `challenge` is set to `false` and no `Authorization` header field is set, the security plugin does not send a `WWW-Authenticate` response back to the client, and authentication fails. You might want to use this setting if you have another challenge `http_authenticator` in your configured authentication domains. One such scenario is when you plan to use basic authentication and Kerberos together.
 
 
-## Kerberos
+### Kerberos
 
-Kerberos authentication does not work with OpenSearch Dashboards. To track OpenSearch's progress in adding support for Kerberos in OpenSearch Dashboards, see [issue #907 Kerberos Auth does not exist](https://github.com/opensearch-project/security-dashboards-plugin/issues/907) in the Dashboard's Security Plugin repository. {: .warning }
+Kerberos authentication does not work with OpenSearch Dashboards. To track OpenSearch's progress in adding support for Kerberos in OpenSearch Dashboards, see [issue #907](https://github.com/opensearch-project/security-dashboards-plugin/issues/907) in the Dashboard's Security Plugin repository. 
+{: .warning }
 
 Due to the nature of Kerberos, you must define some settings in `opensearch.yml` and some in `config.yml`.
 
@@ -156,17 +157,17 @@ plugins.security.kerberos.krb5_filepath: '/etc/krb5.conf'
 plugins.security.kerberos.acceptor_keytab_filepath: 'eskeytab.tab'
 ```
 
-`plugins.security.kerberos.krb5_filepath` defines the path to your Kerberos configuration file. This file contains various settings regarding your Kerberos installation, for example, the realm names, hostnames, and ports of the Kerberos key distribution center (KDC).
+- `plugins.security.kerberos.krb5_filepath` defines the path to your Kerberos configuration file. This file contains various settings regarding your Kerberos installation, for example, the realm names, hostnames, and ports of the Kerberos key distribution center (KDC).
 
-`plugins.security.kerberos.acceptor_keytab_filepath` defines the path to the keytab file, which contains the principal that the security plugin uses to issue requests against Kerberos.
+- `plugins.security.kerberos.acceptor_keytab_filepath` defines the path to the keytab file, which contains the principal that the security plugin uses to issue requests against Kerberos.
 
-`plugins.security.kerberos.acceptor_principal: 'HTTP/localhost'` defines the principal that the security plugin uses to issue requests against Kerberos. This value must be present in the keytab file.
+- `plugins.security.kerberos.acceptor_principal: 'HTTP/localhost'` defines the principal that the security plugin uses to issue requests against Kerberos. This value must be present in the keytab file.
 
 Due to security restrictions, the keytab file must be placed in `config` or a subdirectory, and the path in `opensearch.yml` must be relative, not absolute.
-{: .warning }
+{: .note }
 
 
-### Dynamic configuration
+#### Dynamic configuration
 
 A typical Kerberos authentication domain in `config.yml` looks like this:
 
@@ -196,12 +197,12 @@ As the name implies, setting `krb_debug` to `true` will output Kerberos-specific
 If you set `strip_realm_from_principal` to `true`, the security plugin strips the realm from the user name.
 
 
-### Authentication backend
+#### Authentication backend
 
 Because Kerberos/SPNEGO authenticates users on an HTTP level, no additional `authentication_backend` is needed. Set this value to `noop`.
 
 
-## JSON web token
+### JSON web token
 
 JSON web tokens (JWTs) are JSON-based access tokens that assert one or more claims. They are commonly used to implement single sign-on (SSO) solutions and fall in the category of token-based authentication systems:
 
@@ -222,7 +223,7 @@ JSON web tokens consist of three parts:
 1. Signature
 
 
-### Header
+#### Header
 
 The header contains information about the used signing mechanism, as shown in the following example:
 
@@ -236,7 +237,7 @@ The header contains information about the used signing mechanism, as shown in th
 In this case, the header states that the message was signed using HMAC-SHA256.
 
 
-### Payload
+#### Payload
 
 The payload of a JSON web token contains the so-called [JWT Claims](https://self-issued.info/docs/draft-ietf-oauth-json-web-token.html#RegisteredClaimName). A claim can be any piece of information about the user that the application that created the token has verified.
 
@@ -244,7 +245,6 @@ The specification defines a set of standard claims with reserved names ("registe
 
 Public claims, on the other hand, can be created freely by the token issuer. They can contain arbitrary information, such as the user name and the roles of the user.
 
-Example:
 
 ```json
 {
@@ -256,7 +256,7 @@ Example:
 ```
 
 
-### Signature
+#### Signature
 
 The issuer of the token calculates the signature of the token by applying a cryptographic hash function on the base64-encoded header and payload. These three parts are then concatenated using periods to form a complete JSON web token:
 
@@ -272,18 +272,17 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWRtaW4iLCJpYXQiOjE0MjI
 ```
 
 
-### Configure JSON web tokens
+## Configure JSON web tokens
 
-If JSON web tokens are the only authentication method that you use, disable the user cache by setting `plugins.security.cache.ttl_minutes: 0`.
+If you use JSON web token as your only authentication method, disable the user cache by setting `plugins.security.cache.ttl_minutes: 0`.
 {: .warning }
 
 Set up an authentication domain and choose `jwt` as the HTTP authentication type. Because the tokens already contain all required information to verify the request, `challenge` must be set to `false` and `authentication_backend` to `noop`.
 
-Example:
-
 ```yml
 jwt_auth_domain:
-  enabled: true
+  http_enabled: true
+  transport_enabled: true
   order: 0
   http_authenticator:
     type: jwt
@@ -400,4 +399,53 @@ PS512: RSASSA-PSS using SHA-512 and MGF1 with SHA-512
 ES256: ECDSA using P-256 and SHA-256
 ES384: ECDSA using P-384 and SHA-384
 ES512: ECDSA using P-521 and SHA-512
+```
+
+## Troubleshooting common issues
+
+This section details how to troubleshoot common issues with your security plugin configuration.
+
+
+#### Correct iat 
+
+Ensure that the JWT token contains the correct `iat` (issued at), `nbf` (not before), and `exp` (expiry) claims, all of which are validated automatically by OpenSearch.
+
+#### JWT URL parameter
+
+When using  the JWT URL parameter containing the default admin role `all_access` against OpenSearch (for example, `curl http://localhost:9200?jwtToken=<jwt-token>`) the request fails with:
+
+```json
+{
+   "error":{
+      "root_cause":[
+         {
+            "type":"security_exception",
+            "reason":"no permissions for [cluster:monitor/main] and User [name=admin, backend_roles=[all_access], requestedTenant=null]"
+         }
+      ],
+      "type":"security_exception",
+      "reason":"no permissions for [cluster:monitor/main] and User [name=admin, backend_roles=[all_access], requestedTenant=null]"
+   },
+   "status":403
+}
+```
+
+To solve this, ensure that the role `all_access` is mapped directly to the internal user and not a backend role. To do this, navigate to **Security > Roles > all_access** and switch to the tab to **Mapped Users**. Select **Manage mapping** and add "admin" to the **Users** section.
+
+![image](https://user-images.githubusercontent.com/5849965/179158704-b2bd6d48-8816-4b03-a960-8c612465cf75.png)
+
+The user should appear in the **Mapped Users** tab.
+
+![image](https://user-images.githubusercontent.com/5849965/179158750-1bb5e232-dd61-449a-a561-0613b71bfd68.png)
+
+
+#### OpenSearch Dashboards configuration
+
+Even though JWT URL parameter authentication works when querying OpenSearch directly, it fails when used to access OpenSearch Dashboards. 
+
+**Solution:** Ensure the following lines are present in the OpenSearch Dashboards config file `opensearch_dashboards.yml`
+
+```yml
+opensearch_security.auth.type: "jwt"
+opensearch_security.jwt.url_param: <your-param-name-here>
 ```

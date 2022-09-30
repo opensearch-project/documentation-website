@@ -7,14 +7,27 @@ nav_order: 3
 
 # Docker image
 
-You can pull the OpenSearch Docker image just like any other image:
+You can pull the OpenSearch Docker image from either Docker Hub or the public gallery hosted on AWS Elastic Container Registry (ECR).
 
+From [Docker Hub](https://hub.docker.com/u/opensearchproject):
 ```bash
 docker pull opensearchproject/opensearch:latest
 docker pull opensearchproject/opensearch-dashboards:latest
 ```
 
+From [AWS ECR](https://gallery.ecr.aws/opensearchproject/):
+```bash
+docker pull public.ecr.aws/opensearchproject/opensearch:latest
+docker pull public.ecr.aws/opensearchproject/opensearch-dashboards:latest
+```
+
+To download a specific version of OpenSearch or OpenSearch Dashboards, modify the image tag (`latest`) to point to a valid version number. For example, `docker pull opensearchproject/opensearch:1.3.0` will download the image corresponding to OpenSearch 1.3.0.
+{: .note}
+
 To check available versions, see [Docker Hub](https://hub.docker.com/u/opensearchproject).
+
+When you download a new version of OpenSearch and OpenSearch Dashboards, you need to modify your `docker-compose.yml` file with the image version number that you downloaded. For example, to update your images to version 2.2.0, replace the following two lines in the YAML file: `image: opensearchproject/opensearch:2.2.0` and `image: opensearchproject/opensearch-dashboards:2.2.0`
+{: .note}
 
 OpenSearch images use `amazonlinux:2` as the base image. If you run Docker locally, set Docker to use at least 4 GB of RAM in **Preferences** > **Resources**.
 
@@ -94,7 +107,7 @@ services:
       - cluster.name=opensearch-cluster
       - node.name=opensearch-node1
       - discovery.seed_hosts=opensearch-node1,opensearch-node2
-      - cluster.initial_master_nodes=opensearch-node1,opensearch-node2
+      - cluster.initial_cluster_manager_nodes=opensearch-node1,opensearch-node2
       - bootstrap.memory_lock=true # along with the memlock settings below, disables swapping
       - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" # minimum and maximum Java heap size, recommend setting both to 50% of system RAM
     ulimits:
@@ -118,7 +131,7 @@ services:
       - cluster.name=opensearch-cluster
       - node.name=opensearch-node2
       - discovery.seed_hosts=opensearch-node1,opensearch-node2
-      - cluster.initial_master_nodes=opensearch-node1,opensearch-node2
+      - cluster.initial_cluster_manager_nodes=opensearch-node1,opensearch-node2
       - bootstrap.memory_lock=true
       - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
     ulimits:
@@ -284,7 +297,7 @@ docker exec -it <container-id> /bin/bash
 ```
 
 
-## Customize the Docker image
+## Install, configure or remove plugins
 
 To run the image with a custom plugin, first create a [`Dockerfile`](https://docs.docker.com/engine/reference/builder/):
 

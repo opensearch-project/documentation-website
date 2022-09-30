@@ -32,10 +32,17 @@ Use humor with caution because it is subjective, can be easily misunderstood, an
 
 As you write content, apply the following tone traits.
 
-| **Trait** | **Approachable** | **Authoritative** | **Concise** | **Conversational** | **Directed** | **Respectful** | **Simple** | **Smart** | **Trustworthy** |
-|---|---|---|---|---|---|---|---|---|---|
-| **What it is** | Personable, Friendly, Welcoming, Genuine | Professional, Expert, Informed, Dependable, Validated | Succinct, Brief, Lean, To the point | Informal, Casual, Familiar, Matter-of-fact | Focused, Guided, Controlled, Purposeful, Predictable, Definitive, Essential | Considerate, Helpful, Supportive, Empathic | Plain, Everyday, Recognizable, Clear, Straightforward, Common | Knowledgeable, Logical, Correct, Consistent, Coherent, Grammatical, Polished | Reliable, Truthful, Fair, Candid |
-| **What it isn't** | Chatty, Hyperbolic, Cloying, Insincere | Stuffy, Dictatorial, Smug, Unsure, Untested | Wordy, Lengthy, Verbose, Rambling | Stilted, Pompous, Chummy, Pedantic | Vague, Wandering, Confusing, Ambiguous, Surprising, Indecisive, Redundant | Insulting, Condescending, Insensitive, Indifferent | Fancy, Esoteric, Perplexing, Unintelligible, Complicated, Unusual |  Pedantic, Invalid, Inaccurate, Varying, Disorganized, Careless, Sloppy |  Infallible, Evasive, Devious, Obfuscating |
+| **Trait** | **What it is** | **What it isn't** |
+|---|---|---|
+| **Approachable** | Personable, Friendly, Welcoming, Genuine | Chatty, Hyperbolic, Cloying, Insincere |
+| **Authoritative** | Professional, Expert, Informed, Dependable, Validated |  Stuffy, Dictatorial, Smug, Unsure, Untested |
+| **Concise** |  Succinct, Brief, Lean, To the point |  Wordy, Lengthy, Verbose, Rambling |
+| **Conversational** | Informal, Casual, Familiar, Matter-of-fact |  Stilted, Pompous, Chummy, Pedantic |
+| **Directed** | Focused, Guided, Controlled, Purposeful, Predictable, Definitive, Essential |  Vague, Wandering, Confusing, Ambiguous, Surprising, Indecisive, Redundant |
+| **Respectful** | Considerate, Helpful, Supportive, Empathic | Insulting, Condescending, Insensitive, Indifferent |
+| **Simple** | Plain, Everyday, Recognizable, Clear, Straightforward, Common | Fancy, Esoteric, Perplexing, Unintelligible, Complicated, Unusual |
+| **Smart** | Knowledgeable, Logical, Correct, Consistent, Coherent, Grammatical, Polished | Pedantic, Invalid, Inaccurate, Varying, Disorganized, Careless, Sloppy |
+| **Trustworthy** | Reliable, Truthful, Fair, Candid | Infallible, Evasive, Devious, Obfuscating |
 
 ## Style guidelines
 
@@ -53,6 +60,7 @@ The following guidelines should be observed in OpenSearch content.
      - Independent clauses separated by coordinating conjunctions (but, or, yet, for, and, nor, so).
      - Introductory clauses, phrases, words that precede the main clause.
      - Words, clauses, and phrases listed in a series. Also known as the Oxford comma.
+     - Skip the comma after single-word adverbs of time at the beginning of a sentence, such as *afterward*, *then*, *later*, or *subsequently*.
 
 - An em dash (—) is the width of an uppercase M. Do not include spacing on either side. Use an em dash to set off parenthetical phrases within a sentence or set off phrases or clauses at the end of a sentence for restatement or emphasis.
 
@@ -88,7 +96,16 @@ The following guidelines should be observed in OpenSearch content.
 
 ### Formatting and organization
 
-- When referring to fields in the API, use the following format: time_field
+- Links: In most cases, a formal cross-reference (the title of the page you're linking to) is the preferred style because it provides context and helps readers understand where they're going when they choose the link. Follow these guidelines for formal cross-references:
+     - Introduce links with formal introductory text:
+          - Use "For information *about*" or "For more information *about*." Don't use "For information *on*."
+          - If you are linking to procedures, you can use either "For instructions *on*" or "instructions *for*." Don't use "instructions *about*."
+          - Where space is limited (for example, in a table), you can use "*See* [link text]." Don't use "*go to*".
+
+- You can refer to APIs in three ways:
+     1. When referring to API names, capitalize all words in the name (example: "Field Capabilities API").
+     2. When referring to API operations by the exact name of the endpoint, use lowercase with code format (example: "`_field_caps` API").
+     3. When describing API operations but not using the exact name of the endpoint, use lowercase (example: "field capabilities API operations" or "field capabilities operations").
 
 - The following guidelines apply to all list types:
      - Make lists parallel in content and structure. Don’t mix single words with phrases, don’t start some phrases with a noun and others with a verb, and don’t mix verb forms.
@@ -118,6 +135,36 @@ A procedure is a series of numbered steps that a user follows to complete a spec
 - Parallel language constructions
 - Consistent formatting
 
+Replace pointer-specific language with device-agnostic language to accommodate readers with disabilities and users of various input methods and devices, including the pointer, keyboard, and touch screens.
+
+For example, instead of the term *click*, which is pointer-specific, use *choose*, which is more generic and device-agnostic. However, when the generic language makes it difficult to understand the instructions (for example, in the case of opening a context menu), you can include pointer-specific hints. Use your judgment. If you have a question, ask your editor.
+
+Use the following language to describe UI interactions:
+
+- Use *choose* to describe moving to a UI component such as a tab or pane or taking action on a button or menu.
+- Use *select* to describe picking a user-specific resource or enabling one of several options. Contrast with *clear* to turn off previously selected options.
+- Use *press* to describe single key or key combination entries that users would perform on a keyboard.
+- Use *enter* to describe information that users add using a keyboard.
+- Do not use *hit* or *strike*.
+
+The following table provides examples of language to be used to describe interactions with UI elements.
+
+| UI element | Language | Example |
+| :--------- | :------- | :------ |
+| Menu | On the *menu* menu, choose *command*. | On the **Edit** menu, choose **Copy**. |
+| Cascading menu | [For AWS] On the navigation bar, choose *menu*, *submenu*, …, *command*. <br> <br> [For conventional Windows UIs] On the menu bar, choose *menu*, *submenu*, …, *command*. | On the navigation bar, choose **AWS**, **Create a Resource Group**. | 
+| Context menu | Open the context (right-click) menu for *item*, and then choose *command*. <br> <br> [Cascading] Open the context (right-click) menu for *item*, and then choose *submenu*, ..., *command*. | Open the context (right-click) menu for an AMI, and then choose **Launch Instance**. <br> <br> Open the context (right-click) menu for the instance, and then choose **Networking**, **Manage Private IP Addresses**. |
+| Command button | Choose *command*. | Choose **Next**. |
+| Option button | Choose *option*. <br> <br> For *label*, choose *option*. | For **Type of key to generate**, choose **SSH-2 RSA**. | 
+| Check box | Select *label*. <br> <br> Clear *label*. | To grant read access to anonymous requests, select **Make everything public**. | 
+| List box or dropdown | For *label*, choose *item*. | For **Backup Retention Period**, choose **0**. |
+| Text box | For *label*, enter *text*.<br> <br> [Combo box] For *label*, specify *xyz*. | For **Program/script**, enter `Powershell.exe`. <br> <br> For **Source**, specify the table name. |
+| Toggle switch | Turn on *text*.<br> <br> Turn off *text*. | Turn on **Expiration date**, and then choose **Confirm**. |
+| Other controls | Specify the type of control only if it’s helpful or unavoidable, and use the verb *choose*. | On the **Configure Security Group** page, choose an existing security group, and then choose **Next**. |
+| Double-clicking | Replace with menu instructions, or use a generic term such as "open." <br> <br> If double-clicking is the best or most familiar method, include it in parentheses. <br> <br> In general, use your best judgment depending on the context and your audience. | In AWS Explorer, open **Amazon VPC**, **VPCs**. On the **VPCs** tab, choose **Create VPC**. <br> <br> To display the EC2 Instances view, open the context (right-click) menu for the **Instances** node, and then choose **View**. (Or double-click the node.) | 
+| Displaying tooltips | Choose *item*. | In the **Your repositories** area, choose the target repository name to display the GitHub user or organization. | 
+| Selecting items | Select the *item*. | Select the row of the parameter group that you want to delete. | 
+
 Following is an example of procedure phrasing and formatting from Amazon EC2.
 
 ![Procedure example](/images/procedures.PNG)
@@ -129,6 +176,8 @@ Following is an example of procedure phrasing and formatting from Amazon EC2.
 - Use italics for the titles of books, periodicals, and reference guides. However, do not use italics when the title of a work is also a hyperlink.
 
 - On first use, acronyms should always be defined; for example, _access control list (ACL)_. The acronym itself should be used for subsequent appearances; for example, _ACL_. Some acronyms, like _IT_ and _CPU_, are commonly understood and do not need to be defined. Do not capitalize the spelled-out form of an acronym unless the spelled-out form is a proper noun or the community generally capitalizes it. In all cases, our usage should reflect the community’s usage.
+
+- If the first use of an acronym is in a heading, retain the acronym in the heading, and then write out the term in the following body text, followed by the acronym in parentheses. Don't spell out the term in the heading with the acronym included in parentheses.
 
 - We may not alter quotations in any way. This includes defining acronyms within the quote or altering the quote for context.
 
@@ -156,44 +205,43 @@ All posts should contain one or more calls to action that give readers the oppor
 
 ## Inclusive content
 
-OpenSearch content strives to be inclusive and free of bias. We use inclusive language to connect with the diverse and global OpenSearch audience. This means we are careful in our word choices. Inclusive and bias-free content improves clarity and accessibility of our content for all audiences. We avoid ableist and sexist language and language that perpetuates racist structures or stereotypes.
+When developing OpenSearch documentation, we strive to create content that is inclusive and free of bias. We use inclusive language to connect with the diverse and global OpenSearch audience, and we are careful in our word choices. Inclusive and bias-free content improves clarity and accessibility of our content for all audiences, so we avoid ableist and sexist language and language that perpetuates racist structures or stereotypes. In practical terms, this means that we do not allow certain terms to appear in our content, and we avoid using others, *depending on the context*.
+
+Our philosophy is that we positively impact users and our industry as we proactively reduce our use of terms that are problematic in some contexts. Instead, we use more technically precise language and terms that are inclusive of all audiences.
 
 ### Offensive terms
 
-Do _not_ use the following terms.
+The following terms may be associated with unconscious racial bias, violence, or politically sensitive topics and should not appear in OpenSearch content, if possible. Note that many of these terms are still present but on a path to not being supported. For example, `slave` was removed from the Python programming language in 2018, and the open-source community continues to work toward replacing these terms.
 
-| Don’t use      | Use instead                 |
+| Don’t use      | Guidance/Use instead        |
 |----------------|-----------------------------|
-| abort          | stop                        |
+| abort          | Don't use because it has unpleasant associations and is unnecessarily harsh sounding. Use *stop*, *end*, or *cancel* instead.                    |
 | black day      | blocked day                 |
 | blacklist      | deny list                   |
-| execute        | start, run                  |
-| hang           | stop responding             |
-| kill           | end, stop                   |
+| execute        | Replace with a more specific verb. In the sense of carrying out an action, use *run*, *process*, or *apply*. In the sense of initiating an operation, use *start*, *launch*, or *initiate*.<br><br> Exception: *Execution* is unavoidable for third-party terms for which no alternative was determined, such as SQL execution plans. *Executable* is also unavoidable.                              |
+| hang           | Don't use. This term is unnecessarily violent for technical documentation. Use *stop responding* instead.                                       |
+| kill           | Don't use. Replace with *stop*, *end*, *clear*, *remove*, or *cancel*. <br><br> Exception: *Kill* is unavoidable when referring to Linux kill commands. |
 | master         | primary, main, leader       |
 | master account | management account          |
 | slave          | replica, secondary, standby |
 | white day      | open day                    |
 | whitelist      | allow list                  |
 
-
 ### Sensitive terms
 
-Avoid using the following terms.
+The following terms may be problematic *in some contexts*. This doesn’t mean that you can’t use these terms—just be mindful of their potential associations when using them, and avoid using them to refer to people. 
 
-| Avoid using              | Use instead                         |
+| Avoid using              | Guidance/Use instead                |
 |--------------------------|-------------------------------------|
 | blackout                 | service outage, blocked             |
 | demilitarized zone (DMZ) | perimeter network, perimeter zone   |
-| disable                  | turn off, deactivate, stop          |
-| enable                   | turn on, activate, start            |
+| disable                  | Use *turn off*, *deactivate*, or *stop* instead of *disable* to support bias-free documentation, when possible. Otherwise, use *disable* to describe making a feature or command unavailable. If the UI uses *active* and *inactive* to describe these states, use *activate* and *deactivate* in the documentation. Don't use *disable* to refer to users.                                     |
+| enable                   | Use *turn on*, *activate*, or *start* instead of *enable* to support bias-free documentation, when possible. Otherwise, use *enable* to describe making a feature or command available. If the UI uses *active* and *inactive* to describe these states, use *activate* and *deactivate* in the documentation. <br><br> Avoid using *enable* to refer to making something possible for the user. Instead, rewrite to focus on what's important from the user's point of view. For example, “With ABC, you can do XYZ” is a stronger statement than “ABC enables you to XYZ.” Additionally, using a task-based statement is usually more clear than the vague “…enables you to….” |
 | invalid                  | not valid                           |
-| primitive                | primitive data type, primitive type |
-| purge                    | delete, clear, remove               |
+| primitive                | Avoid using *primitive* (especially plural *primitives*) as a colloquial way of referring to the basic concepts or elements that are associated with a feature or to the simplest elements in a programming language. For greatest clarity and to avoid sounding unpleasant, replace with *primitive data type* or *primitive type*. |
+| purge                    | Use only in reference to specific programming methods. Otherwise, use *delete*, *clear*, or *remove* instead.                                                |
 | segregate                | separate, isolate                   |
-| trigger                  | initiate, invoke, launch, start     |
-| white day                | open day                            |
-| whitelist                | allow list                          |
+| trigger                  | Avoid using as a verb to refer to an action that precipitates a subsequent action. It is OK to use when referring to a feature name, such as a *trigger function* or *time-triggered architecture*. As a verb, use an alternative, such as *initiate*, *invoke*, *launch*, or *start*. |
 
 ## Trademark policy
 

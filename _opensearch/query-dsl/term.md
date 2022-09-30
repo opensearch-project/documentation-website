@@ -283,9 +283,9 @@ GET shakespeare/_search
 }
 ```
 
-## Range
+## Range query
 
-Use the `range` query to search for a range of values in a field.
+You can search for a range of values in a field with the `range` query.
 
 To search for documents where the `line_id` value is >= 10 and <= 20:
 
@@ -309,6 +309,9 @@ Parameter | Behavior
 `gt` | Greater than.
 `lte` | Less than or equal to.
 `lt` | Less than.
+
+In addition to the range query parameters, you can provide date formats or relation operators such as "contains" or "within." To see the supported field types for range queries, see [Range query optional parameters]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/range/#range-query-optional-parameters). To see all date formats, see [Formats]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/date/#formats).
+{: .tip }
 
 Assume that you have a `products` index and you want to find all the products that were added in the year 2019:
 

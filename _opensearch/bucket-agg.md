@@ -12,7 +12,7 @@ Bucket aggregations categorize sets of documents as buckets. The type of bucket 
 
 You can use bucket aggregations to implement faceted navigation (usually placed as a sidebar on a search result landing page) to help your users narrow down the results.
 
-## terms
+## Terms
 
 The `terms` aggregation dynamically creates a bucket for each unique term of a field.
 
@@ -73,6 +73,207 @@ The count might not be accurate. A coordinating node that’s responsible for th
 The `terms` aggregation requests each shard for its top 3 unique terms. The coordinating node takes each of the results and aggregates them to compute the final result. If a shard has an object that’s not part of the top 3, then it won't show up in the response.
 
 This is especially true if `size` is set to a low number. Because the default size is 10, an error is unlikely to happen. If you don’t need high accuracy and want to increase the performance, you can reduce the size.
+
+### Account for pre-aggregated data
+
+While the `doc_count` field provides a representation of the number of individual documents aggregated in a bucket, `doc_count` by itself does not have a way to correctly increment documents that store pre-aggregated data. To account for pre-aggregated data and accurately calculate the number of documents in a bucket, you can use the `_doc_count` field to add the number of documents in a single summary field. When a document includes the `_doc_count` field, all bucket aggregations recognize its value and increase the bucket `doc_count` cumulatively. Keep these considerations in mind when using the `_doc_count` field:
+
+* The field does not support nested arrays; only positive integers can be used.
+* If a document does not contain the `_doc_count` field, aggregation uses the document to increase the count by 1.
+
+OpenSearch features that rely on an accurate document count illustrate the importance of using the `_doc_count` field. To see how this field can be used to support other search tools, refer to [Index rollups](https://opensearch.org/docs/latest/im-plugin/index-rollups/index/), an OpenSearch feature for the Index Management (IM) plugin that stores documents with pre-aggregated data in rollup indexes.
+{: .tip}
+
+### Example usage
+
+```json
+PUT /my_index/_doc/1
+{
+  "response_code": 404,
+  "date":"2022-08-05",
+  "_doc_count": 20
+}
+
+PUT /my_index/_doc/2
+{
+  "response_code": 404,
+  "date":"2022-08-06",
+  "_doc_count": 10
+}
+
+PUT /my_index/_doc/3
+{
+  "response_code": 200,
+  "date":"2022-08-06",
+  "_doc_count": 300
+}
+
+GET /my_index/_search
+{
+  "size": 0,
+  "aggs": {
+    "response_codes": {
+      "terms": {
+        "field" : "response_code"
+      }
+    }
+  }
+}
+```
+
+#### Sample response
+
+```json
+{
+  "took" : 20,
+  "timed_out" : false,
+  "_shards" : {
+    "total" : 1,
+    "successful" : 1,
+    "skipped" : 0,
+    "failed" : 0
+  },
+  "hits" : {
+    "total" : {
+      "value" : 3,
+      "relation" : "eq"
+    },
+    "max_score" : null,
+    "hits" : [ ]
+  },
+  "aggregations" : {
+    "response_codes" : {
+      "doc_count_error_upper_bound" : 0,
+      "sum_other_doc_count" : 0,
+      "buckets" : [
+        {
+          "key" : 200,
+          "doc_count" : 300
+        },
+        {
+          "key" : 404,
+          "doc_count" : 30
+        }
+      ]
+    }
+  }
+}
+```
+
+## Multi-terms
+
+Similar to the `terms` bucket aggregation, you can also search for multiple terms using the `multi_terms` aggregation. Multi-terms aggregations are useful when you need to sort by document count, or when you need to sort by a metric aggregation on a composite key and get the top `n` results. For example, you could search for a specific number of documents (e.g., 1000) and the number of servers per location that show CPU usage greater than 90%. The top number of results would be returned for this multi-term query.
+
+The `multi_terms` aggregation does consume more memory than a `terms` aggregation, so its performance might be slower.
+{: .tip }
+
+### Multi-terms aggregation parameters
+
+Parameter | Description
+:--- | :---
+multi_terms | Indicates a multi-terms aggregation that gathers buckets of documents together based on criteria specified by multiple terms.
+size | Specifies the number of buckets to return. Default is 10.
+order | Indicates the order to sort the buckets. By default, buckets are ordered according to document count per bucket. If the buckets contain the same document count, then `order` can be explicitly set to the term value instead of document count. (e.g., set `order` to "max-cpu").
+doc_count | Specifies the number of documents to be returned in each bucket. By default, the top 10 terms are returned.
+
+#### Sample Request
+
+```json
+GET sample-index100/_search
+{
+  "size": 0, 
+  "aggs": {
+    "hot": {
+      "multi_terms": {
+        "terms": [{
+          "field": "region" 
+        },{
+          "field": "host" 
+        }],
+        "order": {"max-cpu": "desc"}
+      },
+      "aggs": {
+        "max-cpu": { "max": { "field": "cpu" } }
+      }      
+    }
+  }
+}
+```
+
+#### Sample Response
+
+```json
+{
+  "took": 118,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 8,
+      "relation": "eq"
+    },
+    "max_score": null,
+    "hits": []
+  },
+  "aggregations": {
+    "multi-terms": {
+      "doc_count_error_upper_bound": 0,
+      "sum_other_doc_count": 0,
+      "buckets": [
+        {
+          "key": [
+            "dub",
+            "h1"
+          ],
+          "key_as_string": "dub|h1",
+          "doc_count": 2,
+          "max-cpu": {
+            "value": 90.0
+          }
+        },
+        {
+          "key": [
+            "dub",
+            "h2"
+          ],
+          "key_as_string": "dub|h2",
+          "doc_count": 2,
+          "max-cpu": {
+            "value": 70.0
+          }
+        },
+        {
+          "key": [
+            "iad",
+            "h2"
+          ],
+          "key_as_string": "iad|h2",
+          "doc_count": 2,
+          "max-cpu": {
+            "value": 50.0
+          }
+        },
+        {
+          "key": [
+            "iad",
+            "h1"
+          ],
+          "key_as_string": "iad|h1",
+          "doc_count": 2,
+          "max-cpu": {
+            "value": 15.0
+          }
+        }
+      ]
+    }
+  }
+}
+```
 
 ## sampler, diversified_sampler
 
@@ -552,7 +753,6 @@ The `range` aggregation lets you define the range for each bucket.
 For example, you can find the number of bytes between 1000 and 2000, 2000 and 3000, and 3000 and 4000.
 Within the `range` parameter, you can define ranges as objects of an array.
 
-
 ```json
 GET opensearch_dashboards_sample_data_logs/_search
 {
@@ -709,6 +909,7 @@ GET opensearch_dashboards_sample_data_logs/_search
  }
 }
 ```
+
 If you add a document with malformed fields to an index that has `ip_range` set to `false` in its mappings, OpenSearch rejects the entire document. You can set `ignore_malformed` to `true` to specify that OpenSearch should ignore malformed fields. The default is `false`.
 
 ```json
@@ -722,6 +923,7 @@ If you add a document with malformed fields to an index that has `ip_range` set 
   }
 }
 ```
+
 ## filter, filters
 
 A `filter` aggregation is a query clause, exactly like a search query — `match` or `term` or `range`. You can use the `filter` aggregation to narrow down the entire set of documents to a specific set before creating buckets.

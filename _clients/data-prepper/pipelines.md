@@ -9,7 +9,7 @@ nav_order: 2
 
 ![Data Prepper Pipeline]({{site.url}}{{site.baseurl}}/images/data-prepper-pipeline.png)
 
-To use Data Prepper, you define pipelines in a configuration YAML file. Each pipeline is a combination of a source, a buffer, zero or more preppers, and one or more sinks. For example:
+To use Data Prepper, you define pipelines in a configuration YAML file. Each pipeline is a combination of a source, a buffer, zero or more processors, and one or more sinks. For example:
 
 ```yml
 simple-sample-pipeline:
@@ -34,9 +34,9 @@ simple-sample-pipeline:
 
   By default, Data Prepper uses its one and only buffer, the `bounded_blocking` buffer, so you can omit this section unless you developed a custom buffer or need to tune the buffer settings.
 
-- Preppers perform some action on your data: filter, transform, enrich, etc.
+- Processors perform some action on your data: filter, transform, enrich, etc.
 
-  You can have multiple preppers, which run sequentially from top to bottom, not in parallel. The `string_converter` prepper transform the strings by making them uppercase.
+  You can have multiple processors, which run sequentially from top to bottom, not in parallel. The `string_converter` processor transform the strings by making them uppercase.
 
 - Sinks define where your data goes. In this case, the sink is stdout.
 
@@ -94,7 +94,7 @@ raw-pipeline:
   source:
     pipeline:
       name: "entry-pipeline"
-  prepper:
+  processor:
     - otel_trace_raw_prepper:
   sink:
     - opensearch:
@@ -102,13 +102,13 @@ raw-pipeline:
         insecure: true
         username: admin
         password: admin
-        trace_analytics_raw: true
+        index_type: trace-analytics-raw
 service-map-pipeline:
   delay: "100"
   source:
     pipeline:
       name: "entry-pipeline"
-  prepper:
+  processor:
     - service_map_stateful:
   sink:
     - opensearch:
@@ -116,7 +116,7 @@ service-map-pipeline:
         insecure: true
         username: admin
         password: admin
-        trace_analytics_service_map: true
+        index_type: trace-analytics-service-map
 ```
 
 #### Event record type
@@ -155,7 +155,7 @@ raw-pipeline:
         insecure: true
         username: admin
         password: admin
-        trace_analytics_raw: true
+        index_type: trace-analytics-raw
 service-map-pipeline:
   delay: "100"
   source:
@@ -173,7 +173,7 @@ service-map-pipeline:
         insecure: true
         username: admin
         password: admin
-        trace_analytics_service_map: true
+        index_type: trace-analytics-service-map
 ```
 
 Note that it is recommended to scale the `buffer_size` and `batch_size` by the estimated maximum batch size in the client request payload to maintain similar ingestion throughput and latency as in [Classic](#classic).
@@ -194,7 +194,7 @@ To set up a metrics pipeline:
 ```yml
 metrics-pipeline:
   source:
-    otel_trace_source:
+    otel_metrics_source:
   processor:
     - otel_metrics_raw_processor:
   sink:

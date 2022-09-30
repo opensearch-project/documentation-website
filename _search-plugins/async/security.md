@@ -74,3 +74,60 @@ Because they have different backend roles, an asynchronous search submitted by `
 `judy` needs to have at least the superset of all roles that `elon` has to see `elon`'s asynchronous searches.
 
 For example, if `judy` has five backend roles and `elon` has one of these roles, then `judy` can see asynchronous searches submitted by `elon`, but `elon` can’t see the asynchronous searches submitted by `judy`. This means that `judy` can perform GET and DELETE operations on asynchronous searches submitted by `elon`, but not the reverse.
+
+If none of the users have any backend roles, all three will be able to see the others' searches.
+
+For example, consider three users: `judy`, `elon`, and `jack`.
+
+`judy`, `elon`, and `jack` have no backend roles set up:
+
+```json
+PUT _plugins/_security/api/internalusers/judy
+{
+  "password": "judy",
+  "backend_roles": [],
+  "attributes": {}
+}
+```
+
+```json
+PUT _plugins/_security/api/internalusers/elon
+{
+  "password": "elon",
+  "backend_roles": [],
+  "attributes": {}
+}
+```
+
+```json
+PUT _plugins/_security/api/internalusers/jack
+{
+  "password": "jack",
+  "backend_roles": [],
+  "attributes": {}
+}
+```
+
+Both `judy` and `elon` have full access to asynchronous search:
+
+```json
+PUT _plugins/_security/api/rolesmapping/async_full_access
+{
+  "backend_roles": [],
+  "hosts": [],
+  "users": ["judy","elon"]
+}
+```
+
+`jack` has read access to asynchronous search results:
+
+```json
+PUT _plugins/_security/api/rolesmapping/async_read_access
+{
+  "backend_roles": [],
+  "hosts": [],
+  "users": ["jack"]
+}
+```
+
+Because none of the users have backend roles, they will be able to see each other's asynchronous searches. So, if `judy` submits an asynchronous search, `elon`, who has full access, will be able to see that search. `jack`, who has read access, will also be able to see `judy`'s asynchronous search.

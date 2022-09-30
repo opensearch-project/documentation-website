@@ -30,6 +30,7 @@ Cluster manager eligible | Elects one node among them as the cluster manager nod
 Data | Stores and searches data. Performs all data-related operations (indexing, searching, aggregating) on local shards. These are the worker nodes of your cluster and need more disk space than any other node type. | As you add data nodes, keep them balanced between zones. For example, if you have three zones, add data nodes in multiples of three, one for each zone. We recommend using storage and RAM-heavy nodes.
 Ingest | Pre-processes data before storing it in the cluster. Runs an ingest pipeline that transforms your data before adding it to an index. | If you plan to ingest a lot of data and run complex ingest pipelines, we recommend you use dedicated ingest nodes. You can also optionally offload your indexing from the data nodes so that your data nodes are used exclusively for searching and aggregating.
 Coordinating | Delegates client requests to the shards on the data nodes, collects and aggregates the results into one final result, and sends this result back to the client. | A couple of dedicated coordinating-only nodes is appropriate to prevent bottlenecks for search-heavy workloads. We recommend using CPUs with as many cores as you can.
+Dynamic | Delegates a specific node for custom work, such as machine learning (ML) tasks, preventing the consumption of resources from data nodes and therefore not affecting any OpenSearch functionality. 
 
 By default, each node is a cluster-manager-eligible, data, ingest, and coordinating node. Deciding on the number of nodes, assigning node types, and choosing the hardware for each node type depends on your use case. You must take into account factors like the amount of time you want to hold on to your data, the average size of your documents, your typical workload (indexing, searches, aggregations), your expected price-performance ratio, your risk tolerance, and so on.
 
@@ -175,6 +176,8 @@ To better understand and monitor your cluster, use the [cat API]({{site.url}}{{s
 
 ## (Advanced) Step 6: Configure shard allocation awareness or forced awareness
 
+### Shard allocation awareness
+
 If your nodes are spread across several geographical zones, you can configure shard allocation awareness to allocate all replica shards to a zone that’s different from their primary shard.
 
 With shard allocation awareness, if the nodes in one of your zones fail, you can be assured that your replica shards are spread across your other zones. It adds a layer of fault tolerance to ensure your data survives a zone failure beyond just individual node failures.
@@ -204,6 +207,8 @@ You can either use `persistent` or `transient` settings. We recommend the `persi
 
 Shard allocation awareness attempts to separate primary and replica shards across multiple zones. However, if only one zone is available (such as after a zone failure), OpenSearch allocates replica shards to the only remaining zone.
 
+### Forced awareness
+
 Another option is to require that primary and replica shards are never allocated to the same zone. This is called forced awareness.
 
 To configure forced awareness, specify all the possible values for your zone attributes:
@@ -224,6 +229,28 @@ In our two-zone architecture, we can use allocation awareness if `opensearch-d1`
 If that is not the case, and `opensearch-d1` and `opensearch-d2` do not have the capacity to contain all primary and replica shards, we can use forced awareness. This approach helps to make sure that, in the event of a failure, OpenSearch doesn't overload your last remaining zone and lock up your cluster due to lack of storage.
 
 Choosing allocation awareness or forced awareness depends on how much space you might need in each zone to balance your primary and replica shards.
+
+### Replica count enforcement
+
+To enforce an even distribution of shards across all zones and avoid hotspots, you can set the `routing.allocation.awareness.balance` attribute to `true`. This setting can be configured in the opensearch.yml file and dynamically updated using the cluster update settings API:
+
+```json
+PUT _cluster/settings
+{
+  "persistent": {
+    "cluster": {
+      "routing.allocation.awareness.balance": "true"
+    }
+  }
+}
+```
+
+The `routing.allocation.awareness.balance` setting is false by default. When it is set to `true`, the total number of shards for the index must be a multiple of the highest count for any awareness attribute. For example, consider a configuration with two awareness attributes&mdash;zones and rack IDs. Let's say there are two zones and three rack IDs. The highest count of either the number of zones or the number of rack IDs is three. Therefore, the number of shards must be a multiple of three. If it is not, OpenSearch throws a validation exception.
+
+`routing.allocation.awareness.balance` takes effect only if `cluster.routing.allocation.awareness.attributes` and `cluster.routing.allocation.awareness.force.zone.values` are set.
+{: .note}
+
+`routing.allocation.awareness.balance` applies to all operations that create or update indices. For example, let's say you're running a cluster with three nodes and three zones in a zone-aware setting. If you try to create an index with one replica or update an index's settings to one replica, the attempt will fail with a validation exception because the number of shards must be a multiple of three. Similarly, if you try to create an index template with one shard and no replicas, the attempt will fail for the same reason. However, in all of those operations, if you set the number of shards to one and the number of replicas to two, the total number of shards is three and the attempt will succeed. 
 
 ## (Advanced) Step 7: Set up a hot-warm architecture
 
