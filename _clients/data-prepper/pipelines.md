@@ -40,6 +40,8 @@ simple-sample-pipeline:
 
 - Sinks define where your data goes. In this case, the sink is stdout.
 
+Starting from Data Prepper 2.0, pipelines can be defined across multiple configuration YAML files, where each file contains the configuration for one or more pipelines. This gives you more freedom to organize complex pipeline configurations. Those configuration YAML files should be placed in the `pipelines` folder under the application's home directory (e.g. `/usr/share/data-prepper`) for Data Prepper to load properly.
+
 ## Examples
 
 This section provides some pipeline examples that you can use to start creating your own pipelines. For more information, see [Data Prepper configuration reference]({{site.url}}{{site.baseurl}}/clients/data-prepper/data-prepper-reference/) guide.
@@ -165,7 +167,7 @@ from [Amazon Simple Storage Service](https://aws.amazon.com/s3/) (Amazon S3). Th
 Balancer logs. As the Application Load Balancer writes logs to S3, S3 creates notifications in Amazon SQS. Data Prepper 
 reads those notifications and reads the S3 objects to get the log data and process it.
 
-```
+```yml
 log-pipeline:
   source:
     s3:
@@ -234,7 +236,27 @@ serverPort: 1234
 To configure the Data Prepper server, run Data Prepper with the additional yaml file.
 
 ```bash
-docker run --name data-prepper -v /full/path/to/pipelines.yaml:/usr/share/data-prepper/pipelines.yaml \
-    /full/path/to/data-prepper-config.yaml:/usr/share/data-prepper/data-prepper-config.yaml \
+docker run --name data-prepper \
+    -v /full/path/to/my-pipelines.yaml:/usr/share/data-prepper/pipelines/my-pipelines.yaml \
+    -v /full/path/to/data-prepper-config.yaml:/usr/share/data-prepper/data-prepper-config.yaml \
     opensearchproject/data-prepper:latest
-````
+```
+
+## Configure the Peer Forwarder
+
+Data Prepper provides an HTTP service to forward `Event` between Data Prepper nodes for aggregation. This is required for operating Data Prepper in a clustered deployment. Currently, peer forwarding is supported in `aggregate`, `service_map_stateful`, and `otel_trace_raw` processors. Peer forwarder groups events based on the identification keys provided by the processors.For `service_map_stateful` and `otel_trace_raw` it's `traceId` by default and can not be configured. For `aggregate` processor, it is configurable using `identification_keys` option. 
+
+Peer forwarder supports peer discovery through one of three options: a static list, a DNS record lookup , or AWS Cloudmap. This option can be configured using `discovery_mode` option. Peer forwarder also supports SSL for verification and encrytion, and mTLS for mutual authentication in peer forwarding service.
+
+To configure the peer forwarder, add configuration options to `data-prepper-config.yaml` mentioned in the previous [Configure the Data Prepper server](#configure-the-data-prepper-server) section. Here is an configuration example:
+
+```yaml
+peer_forwarder:
+  discovery_mode: dns
+  domain_name: "data-prepper-cluster.my-domain.net"
+  ssl: true
+  ssl_certificate_file: "<cert-file-path>"
+  ssl_key_file: "<private-key-file-path>"
+  authentication:
+    mutual_tls:
+```

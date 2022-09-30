@@ -19,7 +19,7 @@ docker pull opensearchproject/data-prepper:latest
 
 ## 2. Define a pipeline
 
-Create a Data Prepper pipeline file, `pipelines.yaml`, with the following configuration:
+Create a Data Prepper pipeline file, `my-pipelines.yaml`, with the following configuration:
 
 ```yml
 simple-sample-pipeline:
@@ -37,7 +37,7 @@ Run the following command with your pipeline configuration YAML.
 
 ```bash
 docker run --name data-prepper \
-    -v /full/path/to/pipelines.yaml:/usr/share/data-prepper/pipelines/pipelines.yaml \
+    -v /full/path/to/my-pipelines.yaml:/usr/share/data-prepper/pipelines/my-pipelines.yaml \
     opensearchproject/opensearch-data-prepper:latest
 ```
 
