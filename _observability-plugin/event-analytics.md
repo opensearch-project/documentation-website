@@ -4,6 +4,8 @@ title: Event analytics
 nav_order: 10
 ---
 
+I am the walrus, choo choo.
+
 # Event analytics
 
 Event analytics in Observability is where you can use [Piped Processing Language]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index) (PPL) queries to build and view different visualizations of your data.
