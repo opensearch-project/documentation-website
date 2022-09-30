@@ -15,19 +15,19 @@ Security for OpenSearch is built around four main features that work together to
 * Encryption
 * Authentication
 * Access control (authorization)
-* Audit logging and compliance.
+* Audit logging and compliance
 
-Used together they provide effective protection of sensitive information by putting it behind multiple layers of defense and granting or restricting access to information at different levels in the OpenSearch data structure. Most implementations use a combination of options for these features to meet unique and specific security needs.
+Used together they provide effective protection of sensitive information by putting the information behind multiple layers of defense and granting or restricting access to information at different levels in the OpenSearch data structure. Most implementations use a combination of options for these features to meet unique and specific security needs.
 
 ## Features at a glance
 
-The following topics provide general description of the features that define security in OpenSearch.
+The following topics provide a general description of the features that define security in OpenSearch.
 
 ### Encryption
 
 Encryption protects both data at rest and in transit. At rest, encryption secures sensitive information that’s kept as stored data. Some examples of stored data include indexes, logs, swap files, automated snapshots, and all data in the application directory. 
 
-Encryption in transit encrypts information moving to and from and within the cluster. OpenSearch uses the Transport Layer Security (TLS) protocol, which covers both client-to-node encryption (the REST layer) and node-to-node encryption (the transport layer). This combination of in-transit encryption guarantees that both requests to OpenSearch and the movement of information among different nodes is safe from tampering.
+Encryption in transit encrypts information moving to, from, and within the cluster. OpenSearch uses the Transport Layer Security (TLS) protocol, which covers both client-to-node encryption (the REST layer) and node-to-node encryption (the transport layer). This combination of in-transit encryption guarantees that both requests to OpenSearch and the movement of information among different nodes is safe from tampering.
 
 You can find out more about configuring TLS in the [Configure TLS certificates](https://opensearch.org/docs/latest/security-plugin/configuration/tls/) section.
 
@@ -35,7 +35,7 @@ You can find out more about configuring TLS in the [Configure TLS certificates](
 
 Authentication is used to validate the identity of users and works by verifying an end user’s credentials against a backend configuration. These credentials can be a simple name and password, a JSON web token, or a TLS certificate. Once the authentication domain extracts those credentials from a user’s request it can check their validity against the authentication backend.
 
-The backend used for validation can be OpenSearch's built-in internal user database – used for storing user and roles configurations and hashed passwords – or one of a wide range of industry-standard, single-point identification protocols such as LDAP, Active Directory, SAML, and OpenID Connect. A common practice is to chain together more than one authentication method to create a more robust defense against unauthorized access. This might involve, for example, HTTP basic authentication followed by a backend configuration that specifies the LDAP protocol. See the [Backend configuration](https://opensearch.org/docs/latest/security-plugin/configuration/configuration/) section to learn more about setting up the backend.
+The backend used for validation can be OpenSearch's built-in internal user database – used for storing user and roles configurations and hashed passwords – or one of a wide range of industry-standard identification protocols such as LDAP, Active Directory, SAML, and OpenID Connect. A common practice is to chain together more than one authentication method to create a more robust defense against unauthorized access. This might involve, for example, HTTP basic authentication followed by a backend configuration that specifies the LDAP protocol. See the [Backend configuration](https://opensearch.org/docs/latest/security-plugin/configuration/configuration/) section to learn more about setting up the backend.
 
 ### Access control
 
@@ -55,9 +55,9 @@ See the [Audit logs](https://opensearch.org/docs/latest/security-plugin/audit-lo
 
 ## Other features and functionality
 
-Security includes other features that make working in OpenSearch easier and more secure.
+Security includes other features that make working in OpenSearch easier.
 
-One such feature is OpenSearch Dashboards multi-tenancy. Tenants provide a way to safely share Dashboards user configurations with other Dashboards users, including visualizations, index patterns, and other Dashboards objects. You can also set up roles that control access to your tenants.
+One such feature is OpenSearch Dashboards multi-tenancy. Tenants are work spaces that include visualizations, index patterns, and other Dashboards objects, which can be shared with other Dashboards users. OpenSearch leverages roles to manage accesss to tenants and safely make them available to other Dashboards users.
 For more information on creating tenants, see [OpenSearch Dashboards multi-tenancy](https://opensearch.org/docs/latest/security-plugin/access-control/multi-tenancy/).
 
 Another notable feature of Security is cross-cluster search. This feature provides a user with the ability to perform searches from one node in a cluster across other clusters that have been set up to coordinate this type of search. As with other features, cross-cluster search is supported by the OpenSearch access control infrastructure, which defines the permissions users have for working with this feature.
