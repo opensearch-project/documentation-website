@@ -34,25 +34,25 @@ Multi-tenancy is enabled by default, but you can disable it or change its settin
 ```yml
 config:
   dynamic:
-    opensearch-dashboards:
+    kibana:
       multitenancy_enabled: true
-      server_username: opensearch
-      index: '.opensearch-dashboards'
+      server_username: kibanaserver
+      index: '.kibana'
     do_not_fail_on_forbidden: false
 ```
 
 Setting | Description
 :--- | :---
 `multitenancy_enabled` | Enable or disable multi-tenancy. Default is true.
-`server_username` | Must match the name of the OpenSearch Dashboards server user from `opensearch_dashboards.yml`. Default is `dashboardserver`.
-`index` | Must match the name of the OpenSearch Dashboards index from `opensearch_dashboards.yml`. Default is `.opensearch-dashboards`.
+`server_username` | Must match the name of the OpenSearch Dashboards server user from `opensearch_dashboards.yml`. Default is `kibanaserver`.
+`index` | Must match the name of the OpenSearch Dashboards index from `opensearch_dashboards.yml`. Default is `.kibana`.
 `do_not_fail_on_forbidden` | If true, the security plugin removes any content that a user is not allowed to see from search results. If false, the plugin returns a security exception. Default is false.
 
 `opensearch_dashboards.yml` has some additional settings:
 
 ```yml
-opensearch.username: dashboardserver
-opensearch.password: dashboardserver
+opensearch.username: kibanaserver
+opensearch.password: kibanaserver
 opensearch.requestHeadersAllowlist: ["securitytenant","Authorization"]
 opensearch_security.multitenancy.enabled: true
 opensearch_security.multitenancy.tenants.enable_global: true
