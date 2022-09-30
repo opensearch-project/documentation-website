@@ -10,6 +10,8 @@ nav_order: 2
 This section is currently incomplete. It does not yet cover all helper methods and their options.
 {: .warning }
 
+Helper methods simplify the use of complicated API tasks.
+
 ## Bulk helper
 
 Running bulk requests can be complex because of the API structure. The bulk helper aims to provide a nicer developer experience around the Bulk API.
