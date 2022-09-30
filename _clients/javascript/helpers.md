@@ -14,7 +14,7 @@ Helper methods simplify the use of complicated API tasks.
 
 ## Bulk helper
 
-Running bulk requests can be complex because of the API structure. The bulk helper aims to provide a nicer developer experience around the Bulk API.
+Running bulk requests can be complex because of the API structure. The bulk helper aims simplifies the developer experience with the Bulk API.
 
 ### Usage
 
