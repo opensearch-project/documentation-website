@@ -108,6 +108,7 @@ ISM supports the following operations:
 - [snapshot](#snapshot)
 - [index_priority](#index_priority)
 - [allocation](#allocation)
+- [rollup](#rollup)
 
 ### force_merge
 
@@ -437,6 +438,84 @@ Parameter | Description | Type | Required
   }
 ]
 ```
+
+### rollup
+
+[Index rollup](https://opensearch.org/docs/latest/im-plugin/index-rollups/index/) lets you periodically reduce data granularity by rolling up old data into summarized indices.
+
+Only a single rollup job can be created with this method. The source index for the rollup job is inferred from the index the policy it is attached to.
+{: .note }
+
+#### Sample ISM rollup policy
+
+````json
+{
+    "policy": {
+        "description": "Sample rollup" ,
+        "default_state": "rollup",
+        "states": [
+            {
+                "name": "rollup",
+                "actions": [
+                    {
+                        "rollup": {
+                            "ism_rollup": {
+                                "description": "Creating rollup through ISM",
+                                "target_index": "target",
+                                "page_size": 1000,
+                                "dimensions": [
+                                    {
+                                        "date_histogram": {
+                                            "fixed_interval": "60m",
+                                            "source_field": "order_date",
+                                            "target_field": "order_date",
+                                            "timezone": "America/Los_Angeles"
+                                        }
+                                    },
+                                    {
+                                        "terms": {
+                                            "source_field": "customer_gender",
+                                            "target_field": "customer_gender"
+                                        }
+                                    },
+                                    {
+                                        "terms": {
+                                            "source_field": "day_of_week",
+                                            "target_field": "day_of_week"
+                                        }
+                                    }
+                                ],
+                                "metrics": [
+                                    {
+                                        "source_field": "taxless_total_price",
+                                        "metrics": [
+                                            {
+                                                "sum": {}
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "source_field": "total_quantity",
+                                        "metrics": [
+                                            {
+                                                "avg": {}
+                                            },
+                                            {
+                                                "max": {}
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                ],
+                "transitions": []
+            }
+        ]
+    }
+}
+````
 
 ---
 
