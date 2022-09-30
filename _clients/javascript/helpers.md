@@ -52,6 +52,8 @@ Bulk helper operations return an object with the following fields:
 }
 ```
 
+#### Bulk helper configuration options
+
 When creating a new bulk helper instance, you can use the following configuration options.
 
 | Option | Data type | Required/Default | Description 
