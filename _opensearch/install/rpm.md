@@ -18,7 +18,7 @@ There are two methods for installing OpenSearch on RPM:
 
 1. Download the RPM package directly from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'}. The RPM package can be download both as `x64` and `arm64`. 
 
-2. Import the public GPG key. This key verifies that the your OpenSearch instance is signed.
+2. Import the public GPG key. This key verifies that the your OpenSearch instance is signed. 
 
    ```bash
    sudo rpm --import https://artifacts.opensearch.org/publickeys/opensearch.pgp
