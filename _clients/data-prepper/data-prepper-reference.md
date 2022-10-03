@@ -242,26 +242,6 @@ Option | Required | Type | Description
 :--- | :--- | :--- | :---
 window_duration | No | Integer | Represents the fixed time window in seconds to evaluate service-map relationships. Default is 180.
 
-### peer_forwarder
-
-Forwards ExportTraceServiceRequests via gRPC to other Data Prepper instances. Required for operating Data Prepper in a clustered deployment.
-
-Option | Required | Type | Description
-:--- | :--- | :--- | :---
-time_out | No | Integer | Forwarded request timeout in seconds. Defaults to 3 seconds.
-span_agg_count | No | Integer | Batch size for number of spans per request. Defaults to 48.
-target_port | No | Integer | The destination port to forward requests to. Defaults to `21890`.
-discovery_mode | No | String | Peer discovery mode to be used. Allowable values are `static`, `dns`, and `aws_cloud_map`. Defaults to `static`.
-static_endpoints | No | List | List containing string endpoints of all Data Prepper instances.
-domain_name | No | String | Single domain name to query DNS against. Typically used by creating multiple DNS A Records for the same domain.
-ssl | No | Boolean | Indicates whether to use TLS. Default is true.
-awsCloudMapNamespaceName | Conditionally | String | Name of your CloudMap Namespace. Required if `discovery_mode` is set to `aws_cloud_map`.
-awsCloudMapServiceName | Conditionally | String | Service name within your CloudMap Namespace. Required if `discovery_mode` is set to `aws_cloud_map`.
-sslKeyCertChainFile | Conditionally | String | Represents the SSL certificate chain file path or AWS S3 path. S3 path example `s3://<bucketName>/<path>`. Required if `ssl` is set to `true`.
-useAcmCertForSSL | No | Boolean | Enables TLS/SSL using certificate and private key from AWS Certificate Manager (ACM). Default is `false`.
-awsRegion | Conditionally | String | Represents the AWS Region to use ACM, S3, or CloudMap. Required if `useAcmCertForSSL` is set to `true` or `sslKeyCertChainFile` and `sslKeyFile` are AWS S3 paths.
-acmCertificateArn | Conditionally | String | Represents the ACM certificate ARN. ACM certificate take preference over S3 or local file system certificate. Required if `useAcmCertForSSL` is set to `true`.
-
 ### string_converter
 
 Converts string to uppercase or lowercase. Mostly useful as an example if you want to develop your own processor.
