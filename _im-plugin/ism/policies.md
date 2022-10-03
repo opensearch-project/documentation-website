@@ -441,10 +441,16 @@ Parameter | Description | Type | Required
 
 ### rollup
 
-[Index rollup](https://opensearch.org/docs/latest/im-plugin/index-rollups/index/) lets you periodically reduce data granularity by rolling up old data into summarized indices.
+[Index rollup]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/index/) lets you periodically reduce data granularity by rolling up old data into summarized indices.
 
 Only a single rollup job can be created with this method. The source index for the rollup job is inferred from the index the policy it is attached to.
 {: .note }
+
+#### Path and HTTP methods
+
+````bash
+POST _plugins/_ism/add/<index>
+````
 
 #### Sample ISM rollup policy
 
@@ -516,6 +522,19 @@ Only a single rollup job can be created with this method. The source index for t
     }
 }
 ````
+
+#### Field parameters
+
+The following field parameters are required:
+
+Field Parameter | Data Type | Description 
+:--- | :--- |:---
+source_field | String | The field(s) to transform.
+target_field | String | The target field(s) the newly transformed data is added to.
+fixed_interval | String | Define the interval period. Specify the fixed interval in milliseconds, seconds, minutes, hours, or days.
+timezone | String | The timezone that triggers the rollup. Default is UTC.
+page_size | Number | The number of indexes to be returned per page.
+default_state | String | Set to `rollup` for an ISM rollup policy.
 
 ---
 
