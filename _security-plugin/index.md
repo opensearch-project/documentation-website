@@ -57,8 +57,12 @@ See the [Audit logs]({{site.url}}{{site.baseurl}}/security-plugin/audit-logs/ind
 
 Security includes other features that make working in OpenSearch easier.
 
+### Dashboards multi-tenancy
+
 One such feature is OpenSearch Dashboards multi-tenancy. Tenants are work spaces that include visualizations, index patterns, and other Dashboards objects, which can be shared with other Dashboards users. OpenSearch leverages roles to manage accesss to tenants and safely make them available to other Dashboards users.
 For more information on creating tenants, see [OpenSearch Dashboards multi-tenancy]({{site.url}}{{site.baseurl}}/security-plugin/access-control/multi-tenancy/).
+
+### Cross-cluster search
 
 Another notable feature is cross-cluster search. This feature provides a user with the ability to perform searches from one node in a cluster across other clusters that have been set up to coordinate this type of search. As with other features, cross-cluster search is supported by the OpenSearch access control infrastructure, which defines the permissions users have for working with this feature.
 To learn more, see [Cross-cluster search]({{site.url}}{{site.baseurl}}/security-plugin/access-control/cross-cluster-search/).
