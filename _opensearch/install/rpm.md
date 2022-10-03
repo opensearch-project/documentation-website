@@ -12,12 +12,12 @@ The following liquid syntax declares a variable, major_version_mask, which is tr
 
 # RPM
 
-Installing OpenSearch using RPM Package Manager (RPM) simplifies the process considerably compared to the [Tarball]({{site.url}}{{site.baseurl}}/opensearch/install/tar/) method. Several technical considerations, such as the installation path, location of configuration files, and the creation of a service managed by `systemd`, as examples, are handled automatically by the package manager.
+Installing OpenSearch using RPM Package Manager (RPM) simplifies the process considerably compared to the [Tarball]({{site.url}}{{site.baseurl}}/opensearch/install/tar/) method. Several technical considerations, such as the installation path, location of configuration files, and creation of a service managed by `systemd`, as examples, are handled automatically by the package manager.
 
 Generally speaking, installing OpenSearch from the RPM distribution can be broken down into a few steps:
 
 1. **Download and install OpenSearch.**
-   - Install manually from an RPM distribution, or by creating a local YUM repository.
+   - Install manually from an RPM distribution or by creating a local YUM repository.
 1. **Configure important system settings.**
    - These settings are applied to the host before modifying any OpenSearch files.
 1. **(Optional) Test OpenSearch.**
@@ -26,7 +26,7 @@ Generally speaking, installing OpenSearch from the RPM distribution can be broke
 1. **Configure OpenSearch for your environment.**
    -  Apply basic settings to OpenSearch and start using it in your environment.
 
-The RPM distribution provides everything you need to run OpenSearch inside Red Hat or Red Hat-based Linux Distributions, such as supported CentOS and RHEL versions, and Amazon Linux 2. If you have your own Java installation and set `JAVA_HOME` in your terminal application, macOS works, as well.
+The RPM distribution provides everything you need to run OpenSearch inside Red Hat or Red Hat–based Linux Distributions, such as supported CentOS and RHEL versions, and Amazon Linux 2. If you have your own Java installation and set `JAVA_HOME` in your terminal application, macOS works, as well.
 
 This guide assumes that you are comfortable working from the Linux command line interface (CLI). You should understand how to input commands, navigate between directories, and edit text files. Some example commands reference the `vi` text editor, but you may use any text editor available.
 {:.note}
@@ -35,12 +35,12 @@ This guide assumes that you are comfortable working from the Linux command line 
 
 ### Install OpenSearch from a package
 
-1. Download the RPM package for the desired version directly from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'}. The RPM package can be download for both **x64** and **arm64** architectures.
-1. Import the public GPG key. This key verifies that your OpenSearch instance is signed.
+1. Download the RPM package for the desired version directly from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'}. The RPM package can be downloaded for both **x64** and **arm64** architectures.
+1. Import the public GNU Privacy Guard (GPG) key. This key verifies that your OpenSearch instance is signed.
     ```bash
     sudo rpm --import https://artifacts.opensearch.org/publickeys/opensearch.pgp
     ```
-1. From the command line interface (CLI), you can install the package with `rpm` or `yum`.
+1. From the CLI, you can install the package with `rpm` or `yum`.
    **x64**
    ```bash
    # Install the x64 package using yum.
@@ -70,7 +70,7 @@ This guide assumes that you are comfortable working from the Linux command line 
 
 ### Install OpenSearch from a local YUM repository
 
-YUM, the primary package management tool for Red Hat-based operating systems, allows you to download and install the RPM package from the YUM repository. 
+YUM, the primary package management tool for Red Hat–based operating systems, allows you to download and install the RPM package from the YUM repository. 
 
 1. Create a local repository file for OpenSearch:
    ```bash
@@ -80,7 +80,7 @@ YUM, the primary package management tool for Red Hat-based operating systems, al
     ```bash
     sudo yum repolist
     ```
-1. Clean your YUM cache, to ensure a smooth installation:
+1. Clean your YUM cache to ensure a smooth installation:
    ```bash
    sudo yum clean all
    ```
@@ -137,7 +137,7 @@ Before launching OpenSearch you should review some [important system settings]({
 
 ## Step 3: (Optional) Test OpenSearch
 
-Before proceeding with any configuration you should test your installation of OpenSearch. Otherwise, it can be difficult to determine whether future problems are due to installation issues or custom settings you applied after installation.
+Before proceeding with any configuration, you should test your installation of OpenSearch. Otherwise, it can be difficult to determine whether future problems are due to installation issues or custom settings you applied after installation.
 
 When OpenSearch is installed using the RPM package, some demo security settings are automatically applied. This includes self-signed TLS certificates and several users and roles. If you would like to configure these yourself, see [Set up OpenSearch in your environment](#setup-opensearch-in-your-environment).
 
@@ -203,20 +203,20 @@ The following recommended settings will allow you to:
 - Bind OpenSearch to an IP or network interface on the host.
 - Set initial and max JVM heap sizes.
 - Define an environment variable that points to the bundled JDK.
-- Configure your own TLS certificates - no third-party certificate authority (CA) is required.
+- Configure your own TLS certificates—no third-party certificate authority (CA) is required.
 - Create an admin user with a custom password.
 
 If you ran the security demo script, then you will need to manually reconfigure settings that were modified. Refer to [Security configuration]({{site.url}}{{site.baseurl}}/opensearch/configuration/) for guidance before proceeding.
 {:.note}
 
-Before modifying any configuration files, it's always a good idea to save a backup copy before making changes. The backup file can be used to revert any issues caused by a bad configuration.
+Before modifying any configuration files, it's always a good idea to save a backup copy before making changes. The backup file can be used to mitigate any issues caused by a bad configuration.
 {:.tip}
 
 1. Open `opensearch.yml`.
    ```bash
    sudo vi /etc/opensearch/opensearch.yml
    ```
-1. Add the following lines.
+1. Add the following lines:
    ```bash
    # Bind OpenSearch to the correct network interface. Use 0.0.0.0
    # to include all available interfaces or specify an IP address
@@ -239,7 +239,7 @@ Before modifying any configuration files, it's always a good idea to save a back
          vi /etc/opensearch/jvm.options
          ```
    1. Modify the values for initial and max heap sizes. As a starting point, you should set these values to half of the available system memory. For dedicated hosts this value can be increased based on your workflow requirements.
-      -  As an example, if the host machine has 8 GB of memory then you might want to set the initial and maximum heap sizes to 4 GB:
+      -  As an example, if the host machine has 8 GB of memory, then you might want to set the initial and maximum heap sizes to 4 GB:
          ```bash
          -Xms4g
          -Xmx4g
@@ -275,7 +275,7 @@ TLS certificates provide additional security for your cluster by allowing client
    # Convert the private key to PKCS#8.
    sudo openssl pkcs8 -inform PEM -outform PEM -in admin-key-temp.pem -topk8 -nocrypt -v1 PBE-SHA1-3DES -out admin-key.pem
    
-   # Create the CSR. A common name (CN) of "A" is acceptable because this certificate is
+   # Create the certficiate signing request (CSR). A common name (CN) of "A" is acceptable because this certificate is
    # used for authenticating elevated access and is not tied to a host.
    sudo openssl req -new -key admin-key.pem -subj "/C=CA/ST=ONTARIO/L=TORONTO/O=ORG/OU=UNIT/CN=A" -out admin.csr
    
@@ -291,7 +291,7 @@ TLS certificates provide additional security for your cluster by allowing client
    sudo openssl pkcs8 -inform PEM -outform PEM -in node1-key-temp.pem -topk8 -nocrypt -v1 PBE-SHA1-3DES -out node1-key.pem
    
    # Create the CSR and replace the arguments passed to -subj so they reflect your specific host.
-   # The CN should match a DNS A record for the host--do not use the hostname.
+   # The CN should match a DNS A record for the host-do not use the hostname.
    sudo openssl req -new -key node1-key.pem -subj "/C=CA/ST=ONTARIO/L=TORONTO/O=ORG/OU=UNIT/CN=node1.dns.a-record" -out node1.csr
    
    # Create an extension file that defines a SAN DNS name for the host. This
@@ -344,7 +344,7 @@ TLS certificates provide additional security for your cluster by allowing client
 
 ### Configure a user
 
-Users are defined and authenticated by OpenSearch in a variety of ways. One method, which does not require additional backend infrastructure, is to manually configure users in `internal_users.yml`. See [YAML files]({{site.url}}{{site.baseurl}}/security-plugin/configuration/yaml/) for more information about configuring users. The following steps explain how to remove all demo users except for the `admin` user and how to replace the `admin` default password using a script.
+Users are defined and authenticated by OpenSearch in a variety of ways. One method that does not require additional backend infrastructure is to manually configure users in `internal_users.yml`. See [YAML files]({{site.url}}{{site.baseurl}}/security-plugin/configuration/yaml/) for more information about configuring users. The following steps explain how to remove all demo users except for the `admin` user and how to replace the `admin` default password using a script.
 
 1. Navigate to the security plugins tools directory.
    ```bash
@@ -443,10 +443,10 @@ $ curl https://your.host.address:9200 -u admin:yournewpassword -k
 
 ## Upgrade to a newer version
 
-OpenSearch instances installed using RPM or YUM can be easily upgraded to a newer version. We recommend updating with YUM, but you can also upgrade using YUM.
+OpenSearch instances installed using RPM or YUM can be easily upgraded to a newer version. We recommend updating with YUM, but you can also upgrade using RPM.
 
 
-### Manual upgrade with rpm 
+### Manual upgrade with RPM 
 
 Download the RPM package for the desired upgrade version directly from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'}.
 
@@ -457,7 +457,7 @@ rpm -Uvh opensearch-{{site.opensearch_version}}-linux-x64.rpm
 
 ### YUM
 
-To upgrade to the latest version of OpenSearch with YUM:
+To upgrade to the latest version of OpenSearch using YUM:
 ```bash
 sudo yum update
 ```
