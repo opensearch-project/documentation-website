@@ -45,7 +45,7 @@ This sample pipeline configuration above demonstrates a simple pipeline with a s
 
 After starting Data Prepper, you should see log output and some UUIDs after a few seconds:
 
-```yml
+```
 2021-09-30T20:19:44,147 [main] INFO  org.opensearch.dataprepper.pipeline.server.DataPrepperServer - Data Prepper server running at :4900
 2021-09-30T20:19:44,681 [random-source-pool-0] INFO  org.opensearch.dataprepper.plugins.source.RandomStringSource - Writing to buffer
 2021-09-30T20:19:45,183 [random-source-pool-0] INFO  org.opensearch.dataprepper.plugins.source.RandomStringSource - Writing to buffer
