@@ -433,9 +433,9 @@ Field | Description
 name | The node's name.
 transport_address | The node's transport address.
 host | The node's host address.
-ip | The node's host ip address.
+ip | The node's host IP address.
 version | The node's OpenSearch version.
-build_type | The node's build type, like `rpm`,`docker`, `zip`, etc.
+build_type | The node's build type, like `rpm`, `docker`, `tar`, etc.
 build_hash | The git commit hash of the build.
 total_indexing_buffer | The maximum heap size in bytes to hold newly indexed documents. Once this heap size is exceeded, the documents are written to disk.
 roles | The list of the node's roles.

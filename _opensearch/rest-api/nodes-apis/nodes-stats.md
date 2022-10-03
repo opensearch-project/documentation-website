@@ -965,7 +965,7 @@ total_rejections_breakup_shadow_mode.<br>&nbsp;&nbsp;&nbsp;&nbsp;node_limits | I
 total_rejections_breakup_shadow_mode.<br>&nbsp;&nbsp;&nbsp;&nbsp;no_successful_request_limits | Integer | The total number of rejections when node occupancy level is breaching its soft limit and the shard has multiple outstanding requests that are waiting to be executed. In this case, additional indexing requests are rejected until the system recovers.
 total_rejections_breakup_shadow_mode.<br>&nbsp;&nbsp;&nbsp;&nbsp;throughput_degradation_limits | Integer | The total number of rejections when node occupancy level is breaching its soft limit and there is a constant deterioration in the request turnaround at the shard level. In this case, additional indexing requests are rejected until the system recovers.
 enabled | Boolean | Specifies whether the shard indexing pressure feature is turned on for this node.
-enforced | Boolean | If true, the shard indexing pressure runs in enforced mode (there are rejections). If false, the shard indexing pressure runs in shadow mode (there are no rejections, but statistics are recorded in the `total_rejections_breakup_shadow_mode` object). Only applicable if shard indexing pressure is enabled. 
+enforced | Boolean | If true, the shard indexing pressure runs in enforced mode (there are rejections). If false, the shard indexing pressure runs in shadow mode (there are no rejections, but statistics are recorded and can be retrieved in the `total_rejections_breakup_shadow_mode` object). Only applicable if shard indexing pressure is enabled. 
 
 ## Required permissions
 
