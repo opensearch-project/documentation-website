@@ -41,6 +41,7 @@ simple-sample-pipeline:
 - Sinks define where your data goes. In this case, the sink is stdout.
 
 Starting from Data Prepper 2.0, pipelines can be defined across multiple configuration YAML files, where each file contains the configuration for one or more pipelines. This gives you more freedom to organize complex pipeline configurations. Those configuration YAML files should be placed in the `pipelines` folder under the application's home directory (e.g. `/usr/share/data-prepper`) for Data Prepper to load properly.
+{: .note }
 
 ## Examples
 
@@ -132,7 +133,7 @@ service-map-pipeline:
         index_type: trace-analytics-service-map
 ```
 
-Note that it is recommended to scale the `buffer_size` and `batch_size` by the estimated maximum batch size in the client request payload to maintain similar ingestion throughput and latency as in [Classic](#classic).
+Note that it is recommended to scale the `buffer_size` and `batch_size` by the estimated maximum batch size in the client request payload to maintain similar ingestion throughput and latency.
 
 ### Metrics pipeline
 

@@ -19,6 +19,51 @@ keyStorePassword | No | String | Password for keystore. Optional, defaults to em
 privateKeyPassword | No | String | Password for private key within keystore. Optional, defaults to empty string.
 serverPort | No | Integer | Port number to use for server APIs. Defaults to 4900
 metricRegistries | No | List | Metrics registries for publishing the generated metrics. Currently supports Prometheus and CloudWatch. Defaults to Prometheus.
+processorShutdownTimeout | No | Duration | Time given to processors to clear any in-flight data and gracefully shutdown. Default is 30s.
+sinkShutdownTimeout | No | Duration | Time given to sinks to clear any in-flight data and gracefully shutdown. Default is 30s.
+
+### Peer forwarder options
+
+#### General options for peer forwarder
+
+Option | Required | Type | Description
+:--- | :--- | :--- | :---
+port | No | Integer | The port number peer forwarder server is running on. Valid options are between 0 and 65535. Defaults is 4994.
+request_timeout | No | Integer | Request timeout in milliseconds for Peer Forwarder HTTP server. Default is 10000.
+server_thread_count | No | Integer | Number of threads used by Peer Forwarder server. Default is 200.
+client_thread_count | No | Integer | Number of threads used by Peer Forwarder client. Default is 200.
+maxConnectionCount | No | Integer | Maximum number of open connections for Peer Forwarder server. Default is 500.
+discovery_mode | No | String | Peer discovery mode to use. Valid options are `local_node`, `static`, `dns`, or `aws_cloud_map`. Defaults to `local_node` which processes events locally.
+static_endpoints | Conditionally | List | A list containing endpoints of all Data Prepper instances. Required if `discovery_mode` is set to static.
+domain_name | Conditionally | String | A single domain name to query DNS against. Typically, used by creating multiple DNS A Records for the same domain. Required if `discovery_mode` is set to dns.
+aws_cloud_map_namespace_name | Conditionally | String | Cloud Map namespace when using AWS Cloud Map service discovery. Required if `discovery_mode` is set to `aws_cloud_map`.
+aws_cloud_map_service_name | Conditionally | String | Cloud Map service name when using AWS Cloud Map service discovery. Required if `discovery_mode` is set to `aws_cloud_map`.
+aws_cloud_map_query_parameters | No | Map | Key-value pairs to filter the results based on the custom attributes attached to an instance. Only instances that match all the specified key-value pairs are returned.
+buffer_size | No | Integer | Max number of unchecked records the buffer accepts. Number of unchecked records is the sum of the number of records written into the buffer and the num of in-flight records not yet checked by the Checkpointing API. Default is 512.
+batch_size | No | Integer | Max number of records the buffer returns on read. Default is 48.
+aws_region | Conditionally | String | AWS region to use ACM, S3 or AWS Cloud Map. Required if `use_acm_certificate_for_ssl` is set to true or `ssl_certificate_file` and `ssl_key_file` is AWS S3 path or `discovery_mode` is set to `aws_cloud_map`.
+drain_timeout | No | Duration | Wait time for the peer forwarder to complete processing data before shutdown. Default is 10s.
+
+#### TLS/SSL options for peer forwarder
+
+Option | Required | Type | Description
+:--- | :--- | :--- | :---
+ssl | No | Boolean | Enables TLS/SSL. Default is false.
+ssl_certificate_file | Conditionally | String | SSL certificate chain file path or AWS S3 path. S3 path example `s3://<bucketName>/<path>`. Required if `ssl` is set to true.
+ssl_key_file | Conditionally | String | SSL key file path or AWS S3 path. S3 path example `s3://<bucketName>/<path>`. Required if `ssl` is set to true.
+ssl_insecure_disable_verification | No | Boolean | Disables the verification of server's TLS certificate chain. Default is false.
+ssl_fingerprint_verification_only | No | Boolean | Disables the verification of server's TLS certificate chain and instead verifies only the certificate fingerprint. Default is false.
+use_acm_certificate_for_ssl | No | Boolean | Enables TLS/SSL using certificate and private key from AWS Certificate Manager (ACM). Default is false.
+acm_certificate_arn | Conditionally | String | ACM certificate ARN. ACM certificate take preference over S3 or local file system certificate. Required if `use_acm_certificate_for_ssl` is set to true.
+acm_certificate_timeout_millis | No | Integer | Timeout in milliseconds for ACM to get certificates. Default is 120000.
+aws_region | Conditionally | String | AWS region to use ACM, S3 or AWS Cloud Map. Required if `use_acm_certificate_for_ssl` is set to true or `ssl_certificate_file` and `ssl_key_file` is AWS S3 path or `discovery_mode` is set to `aws_cloud_map`.
+
+#### Authentication options for peer forwarder
+
+Option | Required | Type | Description
+:--- | :--- | :--- | :---
+authentication | No | Map | Authentication method to use. Valid options are `mutual_tls` (use mTLS) or `unauthenticated` (no authentication). Default is `unauthenticated`.
+
 
 ## General pipeline options
 
