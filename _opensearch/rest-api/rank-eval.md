@@ -22,10 +22,10 @@ Query parameters are optional.
 
 Parameter | Data Type | Description
 :--- | :---  | :---
-ignore_unavailable | boolean | Defaults to `false`. When set to `false` the response body will return an error if an index is closed or missing.
-allow_no_indices | boolean | Defaults to `true`. When set to `false` the response body will return an error if a wildcard expression points to an indices that are closed or missing.
-expand_wildcards | string | Expand wildcard expressions for indices that are `open`, `closed`, `hidden`, `none`, or `all`.
-search_type | enum | Set search type.
+ignore_unavailable | Boolean | Defaults to `false`. When set to `false` the response body will return an error if an index is closed or missing.
+allow_no_indices | Boolean | Defaults to `true`. When set to `false` the response body will return an error if a wildcard expression points to indexes that are closed or missing.
+expand_wildcards | String | Expand wildcard expressions for indexes that are `open`, `closed`, `hidden`, `none`, or `all`.
+search_type | String | Set search type to either `query_then_fetch` or `dfs_query_then_fetch`.
 
 ## Request fields
 
@@ -37,7 +37,7 @@ id | Document or template ID.
 requests | Set multiple search requests within the request field section.
 ratings | Document relevance score.
 k | The number of documents returned per query. Default is set to 10.
-relevant_rating_threshold | The threshold that documents are considered relevant. Default is set to 1.
+relevant_rating_threshold | The threshold at which documents are considered relevant. Default is set to 1.
 normalize | Discounted cumulative gain will be calculated when set to `true`.
 maximum_relevance | Sets the maximum relevance score when using the expected reciprocal rank metric.
 ignore_unlabeled | Defaults to `false`. Unlabeled documents are ignored when set to `true`. 
