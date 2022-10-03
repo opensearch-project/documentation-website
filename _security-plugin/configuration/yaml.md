@@ -109,6 +109,7 @@ plugins.security.authcz.admin_dn:
 plugins.security.audit.type: internal_opensearch
 plugins.security.enable_snapshot_restore_privilege: true
 plugins.security.check_snapshot_restore_write_privileges: true
+plugins.security.cache.ttl_minutes: 60
 plugins.security.restapi.roles_enabled: ["all_access", "security_rest_api_access"]
 plugins.security.system_indices.enabled: true
 plugins.security.system_indices.indices: [".opendistro-alerting-config", ".opendistro-alerting-alert*", ".opendistro-anomaly-results*", ".opendistro-anomaly-detector*", ".opendistro-anomaly-checkpoints", ".opendistro-anomaly-detection-state", ".opendistro-reports-*", ".opendistro-notifications-*", ".opendistro-notebooks", ".opendistro-asynchronous-search-response*"]
@@ -122,6 +123,18 @@ Note that OpenSearch validates only users and passwords created through OpenSear
 ```yml
 plugins.security.restapi.password_validation_regex: '(?=.*[A-Z])(?=.*[^a-zA-Z\d])(?=.*[0-9])(?=.*[a-z]).{8,}'
 plugins.security.restapi.password_validation_error_message: "Password must be minimum 8 characters long and must contain at least one uppercase letter, one lowercase letter, one digit, and one special character."
+```
+
+The opensearch.yml file also contains the `plugins.security.allow_default_init_securityindex` property. When set to `true`, the security plugin uses default security settings if an attempt to create the security index fails when OpenSearch launches. Default security settings are stored in YAML files contained in the `opensearch-project/security/config` directory. By default, this setting is `false`.
+
+```yml
+plugins.security.allow_default_init_securityindex: true
+```
+
+Authentication cache for the security plugin exists to help speed up authentication by temporarily storing user objects returned from the backend so that the security plugin is not required to make repeated requests for them. To determine how long it takes for caching to time out, you can use the `plugins.security.cache.ttl_minutes` property to set a value in minutes. The default is `60`. You can disable caching by setting the value to `0`.
+
+```yml
+plugins.security.cache.ttl_minutes: 60
 ```
 
 ## allowlist.yml

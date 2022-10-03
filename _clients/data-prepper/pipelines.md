@@ -94,7 +94,7 @@ raw-pipeline:
   source:
     pipeline:
       name: "entry-pipeline"
-  prepper:
+  processor:
     - otel_trace_raw_prepper:
   sink:
     - opensearch:
@@ -102,13 +102,13 @@ raw-pipeline:
         insecure: true
         username: admin
         password: admin
-        trace_analytics_raw: true
+        index_type: trace-analytics-raw
 service-map-pipeline:
   delay: "100"
   source:
     pipeline:
       name: "entry-pipeline"
-  prepper:
+  processor:
     - service_map_stateful:
   sink:
     - opensearch:
@@ -116,7 +116,7 @@ service-map-pipeline:
         insecure: true
         username: admin
         password: admin
-        trace_analytics_service_map: true
+        index_type: trace-analytics-service-map
 ```
 
 #### Event record type
@@ -155,7 +155,7 @@ raw-pipeline:
         insecure: true
         username: admin
         password: admin
-        trace_analytics_raw: true
+        index_type: trace-analytics-raw
 service-map-pipeline:
   delay: "100"
   source:
@@ -173,7 +173,7 @@ service-map-pipeline:
         insecure: true
         username: admin
         password: admin
-        trace_analytics_service_map: true
+        index_type: trace-analytics-service-map
 ```
 
 Note that it is recommended to scale the `buffer_size` and `batch_size` by the estimated maximum batch size in the client request payload to maintain similar ingestion throughput and latency as in [Classic](#classic).
@@ -194,7 +194,7 @@ To set up a metrics pipeline:
 ```yml
 metrics-pipeline:
   source:
-    otel_trace_source:
+    otel_metrics_source:
   processor:
     - otel_metrics_raw_processor:
   sink:

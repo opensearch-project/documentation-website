@@ -65,6 +65,7 @@ PUT _cluster/settings
 }
 ```
 
+For more information on the Cluster Settings API, see the [Cluster Settings API]({{site.url}}{{site.baseurl}}/opensearch/rest-api/cluster-settings/) documentation.
 
 ---
 
@@ -85,3 +86,14 @@ compatibility.override_main_response_version: true
 ```
 
 The demo configuration includes a number of settings for the security plugin that you should modify before using OpenSearch for a production workload. To learn more, see [Security]({{site.url}}{{site.baseurl}}/security-plugin/).
+
+### (Optional) CORS header configuration
+If you are working on a client application running against an OpenSearch cluster on a different domain, you can configure headers in `opensearch.yml` to allow for developing a local application on the same machine.  Use [Cross Origin Resource Sharing](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) so your application can make calls to the OpenSearch API running locally.  Add the following lines in your `custom-opensearch.yml` file (note that the "-" must be the first character in each line).
+```yml
+- http.host:0.0.0.0
+- http.port:9200
+- http.cors.allow-origin:"http://localhost"
+- http.cors.enabled:true
+- http.cors.allow-headers:X-Requested-With,X-Auth-Token,Content-Type,Content-Length,Authorization
+- http.cors.allow-credentials:true
+```

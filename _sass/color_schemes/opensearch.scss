@@ -70,3 +70,14 @@ $base-button-color: $grey-lt-300;
 // $search-background-color: $grey-dk-250;
 // $table-background-color: $grey-dk-250;
 // $feedback-color: darken($sidebar-color, 3%);
+
+$content-width: 740px;
+$toc-width: 232px;
+
+$media-queries: (
+  xs: 320px,
+  sm: 462.5px,
+  md: $content-width,
+  lg: $content-width + $nav-width,
+  xl: $content-width + $nav-width + $toc-width
+);
