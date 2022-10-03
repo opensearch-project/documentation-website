@@ -43,6 +43,35 @@ simple-sample-pipeline:
 Starting from Data Prepper 2.0, pipelines can be defined across multiple configuration YAML files, where each file contains the configuration for one or more pipelines. This gives you more freedom to organize complex pipeline configurations. Those configuration YAML files should be placed in the `pipelines` folder under the application's home directory (e.g. `/usr/share/data-prepper`) for Data Prepper to load properly.
 {: .note }
 
+## Conditional Routing
+
+Pipelines also supports "conditional routing", a feature that allows you to route Events to different sinks based on specific conditions. To add conditional routing to a pipepline, specify a list of named routes under the `route` component and add specific routes to sinks under the `routes` property. Any sink with the routes property will only accept Events which match at least one of the routing condition. For example: 
+
+```yml
+conditional-routing-sample-pipeline:
+  source:
+    http:
+  processor:
+  route:
+    - application-logs: '/log_type == "application"'
+    - http-logs: '/log_type == "apache"'
+  sink:
+    - opensearch:
+        hosts: [ "https://opensearch:9200" ]
+        index: application_logs
+        routes: [application-logs]
+    - opensearch:
+        hosts: [ "https://opensearch:9200" ]
+        index: http_logs
+        routes: [http-logs]
+    - opensearch:
+        hosts: [ "https://opensearch:9200" ]
+        index: all_logs
+```
+
+In the above example, `application-logs` is a named route with a condition set to `/log_type == "application"`. The condition is defined using Data Prepper expressions (see [Expression Syntax](https://github.com/opensearch-project/data-prepper/tree/main/examples) in the Data Prepper repository for more details). Data Prepper will only route events that satify the condition to the first opensearch sink. By default, Data Prepper will route all Events to a sink which does not define a route. Thus, in the example above, all Events will go into the third opensearch sink. 
+
+
 ## Examples
 
 This section provides some pipeline examples that you can use to start creating your own pipelines. For more information, see [Data Prepper configuration reference]({{site.url}}{{site.baseurl}}/clients/data-prepper/data-prepper-reference/) guide.
