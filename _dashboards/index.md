@@ -19,10 +19,6 @@ OpenSearch Dashboards is an open-source, integrated visualization tool that make
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboard-flight.png" alt="User interface showing several data visualizations">
 
-# Requirements
-
-To use OpenSearch Dashboards, you must have installed OpenSearch. To learn more about installing and configuring OpenSearch, see [Getting Started with OpenSearch]({{site.url}}{{site.baseurl}}).
-
 # Use cases for OpenSearch Dashboards
 
 In OpenSearch Dashboards, a data dashboard is a collection of charts, graphs, and insights that give you a snapshot of all about the data that you're interested in and that you interact with. 
@@ -63,7 +59,7 @@ You can interact with the demonstration datasets in the OpenSearch Dashboards pl
 You can run OpenSearch Dashboards on a local host after installing OpenSearch. See [Install and configure OpenSearch]({{site.url}}{{site.baseurl}}/opensearch/install/index/) and [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/install/index/) for installation instructions.  
 
 # Related links
-- [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/install/index/)
+- [Getting Started with OpenSearch]({{site.url}}{{site.baseurl}}).
 - [Launch Highlight: OpenSearch Playground](https://www.opensearch.org/blog/community/2022/10/opensearch-playground/)
 - [Upgrade from Kibana OSS to OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/upgrade-to/dashboards-upgrade-to/)
 - [OpenSearch Frequently Asked Questions]({{site.url}}{{site.baseurl}}/faq/)
