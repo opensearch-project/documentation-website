@@ -40,12 +40,14 @@ simple-sample-pipeline:
 
 - Sinks define where your data goes. In this case, the sink is stdout.
 
-Starting from Data Prepper 2.0, pipelines can be defined across multiple configuration YAML files, where each file contains the configuration for one or more pipelines. This gives you more freedom to organize complex pipeline configurations. Those configuration YAML files should be placed in the `pipelines` folder under the application's home directory (e.g. `/usr/share/data-prepper`) for Data Prepper to load properly.
+Starting from Data Prepper 2.0, you can define pipelines across multiple configuration YAML files, where each file contains the configuration for one or more pipelines. This gives you more freedom to organize and chain complex pipeline configurations. For Data Prepper to load your pipeline configuration properly, place your configuration YAML files in the `pipelines` folder under your application's home directory (e.g. `/usr/share/data-prepper`).
 {: .note }
 
 ## Conditional Routing
 
-Pipelines also supports "conditional routing", a feature that allows you to route Events to different sinks based on specific conditions. To add conditional routing to a pipepline, specify a list of named routes under the `route` component and add specific routes to sinks under the `routes` property. Any sink with the routes property will only accept Events which match at least one of the routing condition. For example: 
+Pipelines also support **conditional routing**  which allows you to route Events to different sinks based on specific conditions. To add conditional routing to a pipeline, specify a list of named routes under the `route` component and add specific routes to sinks under the `routes` property. Any sink with the `routes` property will only accept Events that match at least one of the routing conditions. 
+
+In the following example, `application-logs` is a named route with a condition set to `/log_type == "application"`. The route uses [Data Prepper expressions](https://github.com/opensearch-project/data-prepper/tree/main/examples) to define the conditions. Data Prepper only routes events that satisfy the condition to the first OpenSearch sink. By default, Data Prepper routes all Events to a sink which does not define a route. In the example, all Events route into the third OpenSearch sink.
 
 ```yml
 conditional-routing-sample-pipeline:
@@ -68,8 +70,6 @@ conditional-routing-sample-pipeline:
         hosts: [ "https://opensearch:9200" ]
         index: all_logs
 ```
-
-In the above example, `application-logs` is a named route with a condition set to `/log_type == "application"`. The condition is defined using Data Prepper expressions (see [Expression Syntax](https://github.com/opensearch-project/data-prepper/tree/main/examples) in the Data Prepper repository for more details). Data Prepper will only route events that satify the condition to the first opensearch sink. By default, Data Prepper will route all Events to a sink which does not define a route. Thus, in the example above, all Events will go into the third opensearch sink. 
 
 
 ## Examples
@@ -162,7 +162,8 @@ service-map-pipeline:
         index_type: trace-analytics-service-map
 ```
 
-Note that it is recommended to scale the `buffer_size` and `batch_size` by the estimated maximum batch size in the client request payload to maintain similar ingestion throughput and latency.
+To maintain similar ingestion throughput and latency, scale the `buffer_size` and `batch_size` by the estimated maximum batch size in the client request payload.
+{: .tip}
 
 ### Metrics pipeline
 
@@ -272,15 +273,15 @@ docker run --name data-prepper \
     opensearchproject/data-prepper:latest
 ```
 
-## Configure the Peer Forwarder
+## Configure the peer forwarder
 
-Data Prepper provides an HTTP service to forward `Event` between Data Prepper nodes for aggregation. This is required for operating Data Prepper in a clustered deployment. Currently, peer forwarding is supported in `aggregate`, `service_map_stateful`, and `otel_trace_raw` processors. Peer forwarder groups events based on the identification keys provided by the processors.For `service_map_stateful` and `otel_trace_raw` it's `traceId` by default and can not be configured. For `aggregate` processor, it is configurable using `identification_keys` option. 
+Data Prepper provides an HTTP service to forward Events between Data Prepper nodes for aggregation. This is required for operating Data Prepper in a clustered deployment. Currently, peer forwarding is supported in `aggregate`, `service_map_stateful`, and `otel_trace_raw` processors. Peer forwarder groups events based on the identification keys provided by the processors. For `service_map_stateful` and `otel_trace_raw` it's `traceId` by default and can not be configured. For `aggregate` processor, it is configurable using `identification_keys` option. 
 
-Peer forwarder supports peer discovery through one of three options: a static list, a DNS record lookup , or AWS Cloudmap. This option can be configured using `discovery_mode` option. Peer forwarder also supports SSL for verification and encrytion, and mTLS for mutual authentication in peer forwarding service.
+Peer forwarder supports peer discovery through one of three options: a static list, a DNS record lookup , or AWS Cloud Map. This option can be configured using `discovery_mode` option. Peer forwarder also supports SSL for verification and encrytion, and mTLS for mutual authentication in peer forwarding service.
 
-To configure the peer forwarder, add configuration options to `data-prepper-config.yaml` mentioned in the previous [Configure the Data Prepper server](#configure-the-data-prepper-server) section. Here is an configuration example:
+To configure the peer forwarder, add configuration options to `data-prepper-config.yaml` mentioned in the previous [Configure the Data Prepper server](#configure-the-data-prepper-server) section:
 
-```yaml
+```yml
 peer_forwarder:
   discovery_mode: dns
   domain_name: "data-prepper-cluster.my-domain.net"
