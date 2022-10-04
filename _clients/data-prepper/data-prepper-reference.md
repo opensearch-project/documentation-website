@@ -19,6 +19,54 @@ keyStorePassword | No | String | Password for keystore. Optional, defaults to em
 privateKeyPassword | No | String | Password for private key within keystore. Optional, defaults to empty string.
 serverPort | No | Integer | Port number to use for server APIs. Defaults to 4900
 metricRegistries | No | List | Metrics registries for publishing the generated metrics. Currently supports Prometheus and CloudWatch. Defaults to Prometheus.
+processorShutdownTimeout | No | Duration | Time given to processors to clear any in-flight data and gracefully shutdown. Default is 30s.
+sinkShutdownTimeout | No | Duration | Time given to sinks to clear any in-flight data and gracefully shutdown. Default is 30s.
+
+### Peer forwarder options
+
+The following section details various configuration options for peer forwarder.
+
+#### General options for peer forwarder
+
+Option | Required | Type | Description
+:--- | :--- | :--- | :---
+port | No | Integer | The port number peer forwarder server is running on. Valid options are between 0 and 65535. Defaults is 4994.
+request_timeout | No | Integer | Request timeout in milliseconds for peer forwarder HTTP server. Default is 10000.
+server_thread_count | No | Integer | Number of threads used by peer forwarder server. Default is 200.
+client_thread_count | No | Integer | Number of threads used by peer forwarder client. Default is 200.
+maxConnectionCount | No | Integer | Maximum number of open connections for peer forwarder server. Default is 500.
+discovery_mode | No | String | Peer discovery mode to use. Valid options are `local_node`, `static`, `dns`, or `aws_cloud_map`. Defaults to `local_node`, which processes events locally.
+static_endpoints | Conditionally | List | A list containing endpoints of all Data Prepper instances. Required if `discovery_mode` is set to static.
+domain_name | Conditionally | String | A single domain name to query DNS against. Typically, used by creating multiple DNS A Records for the same domain. Required if `discovery_mode` is set to dns.
+aws_cloud_map_namespace_name | Conditionally | String | Cloud Map namespace when using AWS Cloud Map service discovery. Required if `discovery_mode` is set to `aws_cloud_map`.
+aws_cloud_map_service_name | Conditionally | String | Cloud Map service name when using AWS Cloud Map service discovery. Required if `discovery_mode` is set to `aws_cloud_map`.
+aws_cloud_map_query_parameters | No | Map | Key-value pairs to filter the results based on the custom attributes attached to an instance. Only instances that match all the specified key-value pairs are returned.
+buffer_size | No | Integer | Max number of unchecked records the buffer accepts. Number of unchecked records is the sum of the number of records written into the buffer and the num of in-flight records not yet checked by the Checkpointing API. Default is 512.
+batch_size | No | Integer | Max number of records the buffer returns on read. Default is 48.
+aws_region | Conditionally | String | AWS region to use ACM, S3 or AWS Cloud Map. Required if `use_acm_certificate_for_ssl` is set to true or `ssl_certificate_file` and `ssl_key_file` is AWS S3 path or `discovery_mode` is set to `aws_cloud_map`.
+drain_timeout | No | Duration | Wait time for the peer forwarder to complete processing data before shutdown. Default is 10s.
+
+#### TLS/SSL options for peer forwarder
+
+Option | Required | Type | Description
+:--- | :--- | :--- | :---
+ssl | No | Boolean | Enables TLS/SSL. Default is true.
+ssl_certificate_file | Conditionally | String | SSL certificate chain file path or AWS S3 path. S3 path example `s3://<bucketName>/<path>`. Required if `ssl` is true and `use_acm_certificate_for_ssl` is false. Defaults to `config/default_certificate.pem` which is the default certificate file. Read more about how the certificate file is generated [here](https://github.com/opensearch-project/data-prepper/tree/main/examples/certificates).
+ssl_key_file | Conditionally | String | SSL key file path or AWS S3 path. S3 path example `s3://<bucketName>/<path>`. Required if `ssl` is true and `use_acm_certificate_for_ssl` is false. Defaults to `config/default_private_key.pem` which is the default private key file. Read more about how the default private key file is generated [here](https://github.com/opensearch-project/data-prepper/tree/main/examples/certificates).
+ssl_insecure_disable_verification | No | Boolean | Disables the verification of server's TLS certificate chain. Default is false.
+ssl_fingerprint_verification_only | No | Boolean | Disables the verification of server's TLS certificate chain and instead verifies only the certificate fingerprint. Default is false.
+use_acm_certificate_for_ssl | No | Boolean | Enables TLS/SSL using certificate and private key from AWS Certificate Manager (ACM). Default is false.
+acm_certificate_arn | Conditionally | String | ACM certificate ARN. The ACM certificate takes preference over S3 or a local file system certificate. Required if `use_acm_certificate_for_ssl` is set to true.
+acm_private_key_password | No | String | ACM private key password that decrypts the private key. If not provided, Data Prepper generates a random password.
+acm_certificate_timeout_millis | No | Integer | Timeout in milliseconds for ACM to get certificates. Default is 120000.
+aws_region | Conditionally | String | AWS region to use ACM, S3 or AWS Cloud Map. Required if `use_acm_certificate_for_ssl` is set to true or `ssl_certificate_file` and `ssl_key_file` is AWS S3 path or `discovery_mode` is set to `aws_cloud_map`.
+
+#### Authentication options for peer forwarder
+
+Option | Required | Type | Description
+:--- | :--- | :--- | :---
+authentication | No | Map | Authentication method to use. Valid options are `mutual_tls` (use mTLS) or `unauthenticated` (no authentication). Default is `unauthenticated`.
+
 
 ## General pipeline options
 
@@ -66,6 +114,14 @@ thread_count | No | Integer | The number of threads to keep in the ScheduledThre
 max_connection_count | No | Integer | The maximum allowed number of open connections. Default is `500`.
 max_pending_requests | No | Integer | The maximum number of allowed tasks in ScheduledThreadPool work queue. Default is `1024`.
 authentication | No | Object | An authentication configuration. By default, this creates an unauthenticated server for the pipeline. This uses pluggable authentication for HTTPS. To use basic authentication define the `http_basic` plugin with a `username` and `password`. To provide customer authentication, use or create a plugin that implements [ArmeriaHttpAuthenticationProvider](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/armeria-common/src/main/java/com/amazon/dataprepper/armeria/authentication/ArmeriaHttpAuthenticationProvider.java).
+ssl | No | Boolean | Enables TLS/SSL. Default is false.
+ssl_certificate_file | Conditionally | String | SSL certificate chain file path or AWS S3 path. S3 path example `s3://<bucketName>/<path>`. Required if `ssl` is true and `use_acm_certificate_for_ssl` is false.
+ssl_key_file | Conditionally | String | SSL key file path or AWS S3 path. S3 path example `s3://<bucketName>/<path>`. Required if `ssl` is true and `use_acm_certificate_for_ssl` is false.
+use_acm_certificate_for_ssl | No | Boolean | Enables TLS/SSL using certificate and private key from AWS Certificate Manager (ACM). Default is false.
+acm_certificate_arn | Conditionally | String | ACM certificate ARN. The ACM certificate takes preference over S3 or a local file system certificate. Required if `use_acm_certificate_for_ssl` is set to true.
+acm_private_key_password | No | String | ACM private key password that decrypts the private key. If not provided, Data Prepper generates a random password.
+acm_certificate_timeout_millis | No | Integer | Timeout in milliseconds for ACM to get certificates. Default is 120000.
+aws_region | Conditionally | String | AWS region to use ACM or S3. Required if `use_acm_certificate_for_ssl` is set to true or `ssl_certificate_file` and `ssl_key_file` is AWS S3 path.
 
 ### otel_metrics_source
 
@@ -97,7 +153,7 @@ Option | Required | Type | Description
 :--- | :--- | :--- | :---
 notification_type | Yes | String | Must be `sqs`
 compression | No | String | The compression algorithm to apply: `none`, `gzip`, or `automatic`. Default is `none`.
-codec | Yes | Codec | The codec to apply. Must be either `newline` or `json`.
+codec | Yes | Codec | The codec to apply. Must be `newline`, `json`, or `csv`.
 sqs | Yes | sqs | The [Amazon Simple Queue Service](https://aws.amazon.com/sqs/) (Amazon SQS) configuration. See [sqs](#sqs) for details.
 aws | Yes | aws | The AWS configuration. See [aws](#aws) for details.
 on_error | No | String |  Determines how to handle errors in Amazon SQS. Can be either `retain_messages` or `delete_messages`. If `retain_messages`, then Data Prepper will leave the message in the SQS queue and try again. This is recommended for dead-letter queues. If `delete_messages`, then Data Prepper will delete failed messages. Default is `retain_messages`.
@@ -197,26 +253,6 @@ Option | Required | Type | Description
 :--- | :--- | :--- | :---
 window_duration | No | Integer | Represents the fixed time window in seconds to evaluate service-map relationships. Default is 180.
 
-### peer_forwarder
-
-Forwards ExportTraceServiceRequests via gRPC to other Data Prepper instances. Required for operating Data Prepper in a clustered deployment.
-
-Option | Required | Type | Description
-:--- | :--- | :--- | :---
-time_out | No | Integer | Forwarded request timeout in seconds. Defaults to 3 seconds.
-span_agg_count | No | Integer | Batch size for number of spans per request. Defaults to 48.
-target_port | No | Integer | The destination port to forward requests to. Defaults to `21890`.
-discovery_mode | No | String | Peer discovery mode to be used. Allowable values are `static`, `dns`, and `aws_cloud_map`. Defaults to `static`.
-static_endpoints | No | List | List containing string endpoints of all Data Prepper instances.
-domain_name | No | String | Single domain name to query DNS against. Typically used by creating multiple DNS A Records for the same domain.
-ssl | No | Boolean | Indicates whether to use TLS. Default is true.
-awsCloudMapNamespaceName | Conditionally | String | Name of your CloudMap Namespace. Required if `discovery_mode` is set to `aws_cloud_map`.
-awsCloudMapServiceName | Conditionally | String | Service name within your CloudMap Namespace. Required if `discovery_mode` is set to `aws_cloud_map`.
-sslKeyCertChainFile | Conditionally | String | Represents the SSL certificate chain file path or AWS S3 path. S3 path example `s3://<bucketName>/<path>`. Required if `ssl` is set to `true`.
-useAcmCertForSSL | No | Boolean | Enables TLS/SSL using certificate and private key from AWS Certificate Manager (ACM). Default is `false`.
-awsRegion | Conditionally | String | Represents the AWS Region to use ACM, S3, or CloudMap. Required if `useAcmCertForSSL` is set to `true` or `sslKeyCertChainFile` and `sslKeyFile` are AWS S3 paths.
-acmCertificateArn | Conditionally | String | Represents the ACM certificate ARN. ACM certificate take preference over S3 or local file system certificate. Required if `useAcmCertForSSL` is set to `true`.
-
 ### string_converter
 
 Converts string to uppercase or lowercase. Mostly useful as an example if you want to develop your own processor.
@@ -257,7 +293,7 @@ Option | Required | Type | Description
 drop_when | Yes | String | Accepts a Data Prepper Expression string following the [Data Prepper Expression Syntax](https://github.com/opensearch-project/data-prepper/blob/main/docs/expression_syntax.md). Configuring `drop_events` with `drop_when: true` drops all the events received.
 handle_failed_events | No | Enum | Specifies how exceptions are handled when an exception occurs while evaluating an event. Default value is `drop`, which drops the event so it doesn't get sent to OpenSearch. Available options are `drop`, `drop_silently`, `skip`, `skip_silently`. For more information, see [handle_failed_events](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/drop-events-processor#handle_failed_events).
 
-### grok_prepper
+### grok
 
 Takes unstructured data and utilizes pattern matching to structure and extract important keys and make data more structured and queryable.
 
@@ -379,9 +415,44 @@ Option | Required | Type | Description
 :--- | :--- | :--- | :---
 with_keys | Yes | List | A list of keys to trim the whitespace from.
 
+### csv
+
+Takes in an Event and parses its CSV data into columns.
+
+Option | Required | Type | Description
+:--- | :--- | :--- | :---
+source | No | String | The field in the Event that will be parsed. Default is `message`.
+quote_character | No | String | The character used as a text qualifier for a single column of data. Default is double quote `"`.
+delimiter | No | String | The character separating each column. Default is `,`.
+delete_header | No | Boolean | If specified, the header on the Event (`column_names_source_key`) deletes after the Event is parsed. If there’s no header on the Event, no actions is taken. Default is true.
+column_names_source_key | No | String | The field in the Event that specifies the CSV column names, which will be autodetected. If there must be extra column names, the column names autogenerate according to their index. If `column_names` is also defined, the header in `column_names_source_key` can also be used to generate the Event fields. If too few columns are specified in this field, the remaining column names autogenerate. If too many column names are specified in this field, CSV processor omits the extra column names.
+column_names | No | List | User-specified names for the CSV columns. Default is `[column1, column2, ..., columnN]` if there are N columns of data in the CSV record and `column_names_source_key` is not defined. If `column_names_source_key` is defined, the header in `column_names_source_key` generates the Event fields. If too few columns are specified in this field, the remaining column names will autogenerate. If too many column names are specified in this field, CSV processor omits the extra column names.
+
+### json
+
+Takes in an Event and parses its JSON data, including any nested fields.
+
+Option | Required | Type | Description
+:--- | :--- | :--- | :---
+source | No | String | The field in the `Event` that will be parsed. Default is `message`.
+destination | No | String | The destination field of the parsed JSON. Defaults to the root of the `Event`. Cannot be `""`, `/`, or any whitespace-only `String` because these are not valid `Event` fields.
+pointer | No | String | A JSON Pointer to the field to be parsed. There is no `pointer` by default, meaning the entire `source` is parsed. The `pointer` can access JSON Array indices as well. If the JSON Pointer is invalid then the entire `source` data is parsed into the outgoing `Event`. If the pointed-to key already exists in the `Event` and the `destination` is the root, then the pointer uses the entire path of the key.
+
+
+## Routes
+
+Routes define conditions that can be used in sinks for conditional routing. Routes are specified at the same level as processors and sinks under the name `route` and consist of a list of key-value pairs, where the key is the name of a route and the value is a Data Prepper expression representing the routing condition.
+
+
 ## Sinks
 
 Sinks define where Data Prepper writes your data to.
+
+### General options for all sink types
+
+Option | Required | Type | Description
+:--- | :--- | :--- | :---
+routes | No | List | List of routes that the sink accepts. If not specified, the sink accepts all upstream events.
 
 
 ### opensearch
