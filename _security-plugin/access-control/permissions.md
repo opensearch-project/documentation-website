@@ -132,6 +132,13 @@ These permissions are for the cluster and can't be applied granularly. For examp
 - cluster:admin/opendistro/reports/instance/list
 - cluster:admin/opendistro/reports/instance/get
 - cluster:admin/opendistro/reports/menu/download
+- cluster:admin/opendistro/transform/index
+- cluster:admin/opendistro/transform/get
+- cluster:admin/opendistro/transform/preview
+- cluster:admin/opendistro/transform/delete
+- cluster:admin/opendistro/transform/start
+- cluster:admin/opendistro/transform/stop
+- cluster:admin/opendistro/transform/explain
 - cluster:admin/opensearch/observability/create
 - cluster:admin/opensearch/observability/update
 - cluster:admin/opensearch/observability/delete
@@ -170,13 +177,6 @@ These permissions are for the cluster and can't be applied granularly. For examp
 - cluster:monitor/task
 - cluster:monitor/task/get
 - cluster:monitor/tasks/list
-- cluster:admin/opendistro/transform/index
-- cluster:admin/opendistro/transform/get
-- cluster:admin/opendistro/transform/preview
-- cluster:admin/opendistro/transform/delete
-- cluster:admin/opendistro/transform/start
-- cluster:admin/opendistro/transform/stop
-- cluster:admin/opendistro/transform/explain
 
 
 ## Index permissions
