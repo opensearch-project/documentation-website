@@ -15,15 +15,13 @@ redirect_from:
 
 OpenSearch Dashboards is an integrated visualization tool that makes it easy for users to explore their data in OpenSearch. From real-time application monitoring, threat detection, and incident management to personalized search, OpenSearch Dashboards gives you the data visualizations needed to graphically represent trends, outliers, and patterns in data. 
 
-The OpenSearch suite provides [core plugins]({{site.url}}{{site.baseurl}}/opensearch/install/plugins/) to help index, secure, monitor, and analyze your data. Most OpenSearch plugins have corresponding [OpenSearch Dashboards plugins]({{site.url}}{{site.baseurl}}/dashboards/install/plugins/) to extend and customize dashboard features.
+Most [OpenSearch plugins]({{site.url}}{{site.baseurl}}/opensearch/install/plugins/) have corresponding [OpenSearch Dashboards plugins]({{site.url}}{{site.baseurl}}/dashboards/install/plugins/) to extend and customize dashboard features.
 
 ##### Example: Data visualizations in OpenSearch Dashboards  
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboard-flight.png" alt="User interface showing several data visualizations">
 
-# Use cases for real-time search and log analytics at scale 
-
- OpenSearch is powered by the Apache Lucene search library, and it supports a number of search and analytics capabilities, such as k-nearest neighbors (k-NN) search, SQL, anomaly detection, trace analytics, full-text search, and more.  
+# Example use cases for OpenSearch Dashboards 
 
 ##### Example: Data visualization use cases   
 
@@ -42,12 +40,13 @@ The OpenSearch suite provides [core plugins]({{site.url}}{{site.baseurl}}/opense
 
 # Explore the OpenSearch Dashboards playground
 
-You can interact with the three demonstration datasets in the OpenSearch Dashboards playground by following the steps below:
+You can interact with the demonstration datasets in the OpenSearch Dashboards playground by following the steps below:
 
 1. Go to the [OpenSearch Dashboards playground](https://playground.opensearch.org/app/home).
 2. Choose **OpenSearch Dashboards > Dashboard**. 
-3. Explore the datasets **[Flights] Global Flight Dashboard**, **[Logs] Web Traffic**, and **[eCommerce] Revenue Dashboard**.
-4. Interact with the data on a dashboard. Choose **Add filter** at top left, and then choose a field that you want to filter, along with an operator and a value.  
+3. Explore the available datasets and select one: **[Flights] Global Flight Dashboard**, **[Logs] Web Traffic**, or **[eCommerce] Revenue Dashboard**.
+4. Interact with the data on a dashboard. Choose **Add filter**. 
+5. Specify the data you'd like to see. Select one of the options from the **Field** menu, and specify an **Operator** to filter the results.  
 
 ##### Example: [Logs] Web Traffic dashboard with filters applied
 
@@ -58,7 +57,8 @@ You can interact with the three demonstration datasets in the OpenSearch Dashboa
 You can run OpenSearch Dashboards on a local host after installing OpenSearch. See [Install and configure OpenSearch]({{site.url}}{{site.baseurl}}/opensearch/install/index/) and [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/install/index/) for installation instructions.  
 
 # Related links
-- [OpenSearch Frequently Asked Questions]({{site.url}}{{site.baseurl}}/faq/)
-- [Install and configure OpenSearch]({{site.url}}{{site.baseurl}}/opensearch/install/index/)
+- [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/install/index/)
+- [Launch Highlight: OpenSearch Playground](https://www.opensearch.org/blog/community/2022/10/opensearch-playground/)
 - [Upgrade from Kibana OSS to OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/upgrade-to/dashboards-upgrade-to/)
+- [OpenSearch Frequently Asked Questions]({{site.url}}{{site.baseurl}}/faq/)
 - [OpenSearch Dashboards Developer Guide](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/DEVELOPER_GUIDE.md)
