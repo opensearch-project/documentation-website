@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Get Started with OpenSearch Dashboards
+title: Getting Started with OpenSearch Dashboards
 nav_order: 1
 has_children: false
 has_toc: false
@@ -13,13 +13,15 @@ redirect_from:
 
 # Overview of OpenSearch Dashboards
 
-OpenSearch Dashboards is an integrated visualization tool that makes it easy for users to explore their data in OpenSearch. From real-time application monitoring, threat detection, and incident management to personalized search, OpenSearch Dashboards gives you the data visualizations needed to graphically represent trends, outliers, and patterns in data. 
-
-Most [OpenSearch plugins]({{site.url}}{{site.baseurl}}/opensearch/install/plugins/) have corresponding [OpenSearch Dashboards plugins]({{site.url}}{{site.baseurl}}/dashboards/install/plugins/) to extend and customize dashboard features.
+OpenSearch Dashboards is an open-source, integrated visualization tool that makes it easy for users to explore their data in OpenSearch. From real-time application monitoring, threat detection, and incident management to personalized search, OpenSearch Dashboards gives you the data visualizations needed to graphically represent trends, outliers, and patterns in your data.
 
 ##### Example: Data visualizations in OpenSearch Dashboards  
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboard-flight.png" alt="User interface showing several data visualizations">
+
+# Requirements
+
+To use OpenSearch Dashboards, you must have installed OpenSearch. To learn more about installing and configuring OpenSearch, see [Getting Started with OpenSearch]({{site.url}}{{site.baseurl}}).
 
 # Example use cases for OpenSearch Dashboards 
 
