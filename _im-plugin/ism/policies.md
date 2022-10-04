@@ -523,35 +523,48 @@ POST _plugins/_ism/add/<index>
 }
 ````
 
-#### Field parameters
+#### Request Fields
 
-The following field parameters are required:
+The following request fields are required.
 
-Field Parameter | Data Type | Description 
-:--- | :--- |:---
-description | String | The description name of the ISM policy. This field is optional.
-default_state | String | The default state to run for the ISM policy. Set the description to `rollup` for the ISM rollup policy.
-states | Nested list of objects | Define the states to be used in the ISM rollup policy.
-states.name | Nested list of objects | The description name of the state within the ISM policy. In this case, you will need to match the `default_state` description of "`rollup`."
-states.actions | Nested list of objects | Define the actions to be run by the state.
-states.transition | Nested list of objects | Define the conditions required to move on to the next state. When left blank, the policy completes its management of the index.
-states.actions.rollup | Nested list of objects | Define the actions taken during index rollup.
-states.actions.ism_rollup | Nested list of objects | Define the actions taken during ISM rollup.
-states.actions.rollup.ism_rollup.description | String | The description name of the `ism_rollup` field. This field is optional.
-states.actions.rollup.ism_rollup.target_index | String | The index to be used by the ISM rollup profile.
-states.actions.rollup.ism_rollup.page_size | Number | The number of indexes to be returned per page.
-states.actions.rollup.ism_rollup.dimensions.date_histogram.fixed_interval | Time | Define the interval period. Specify the fixed interval in milliseconds, seconds, minutes, hours, or days. For example, 60 minutes would be expressed as `60m`.
-states.actions.rollup.ism_rollup.dimensions.date_histogram.source_field | String | The name of the field to transform.
-states.actions.rollup.ism_rollup.dimensions.date_histogram.target_field | String | The target field that the newly transformed data is added to.
-states.actions.rollup.ism_rollup.dimensions.date_histogram.timezone | String | The time zone that triggers the rollup. Default is UTC.
-states.actions.rollup.ism_rollup.dimensions.terms.source_field | String | The name of the field to transform.
-states.actions.rollup.ism_rollup.dimensions.terms.target_field | String | The target field that the newly transformed data is added to.
-states.actions.rollup.ism_rollup.metrics | Nested list of objects | Define the metrics to be collected during index rollup.
-states.actions.rollup.ism_rollup.metrics.source_field | String | The name of the field to transform.
-states.actions.rollup.ism_rollup.metrics.metrics | Nested list of objects | The metrics to be collected during index rollup.
-states.actions.rollup.ism_rollup.metrics.metrics.sum | Function | Outputs the sum of the aggregated document's tracked values.
-states.actions.rollup.ism_rollup.metrics.metrics.avg | Function | Outputs the average value of the aggregated document's tracked values.
-states.actions.rollup.ism_rollup.metrics.metrics.max | Function | Outputs the maximum value of the aggregated document's tracked values.
+Field Parameter | Data Type | Description | Required
+:--- | :--- |:--- |:---
+description | String | The description name of the ISM policy. | No
+default_state | String | The state that the ISM policy runs by default. Set the description to `rollup` for the ISM rollup policy. | Yes
+states | List of objects | Define the states to be used in the ISM rollup policy. | Yes
+states.name | List of objects | The description name of the state within the ISM policy. In this case, you will need to match the `default_state` description of "`rollup`." | Yes
+states.actions | List of objects | Define the actions to be run by the state. | Yes
+states.transition | List of objects | Define the conditions required to move on to the next state. When left blank, the policy completes its management of the index. | Yes
+states.actions.rollup | List of objects | Define the actions taken during index rollup. | Yes
+states.actions.ism_rollup | List of objects | Define the actions taken during ISM rollup. | Yes
+states.actions.rollup.ism_rollup.description | String | The description name of the `ism_rollup` field. | No
+states.actions.rollup.ism_rollup.target_index | String | The index to be used by the ISM rollup profile. | Yes
+states.actions.rollup.ism_rollup.page_size | Number | The number of documents per bucket to be returned per page. | Yes
+states.actions.rollup.ism_rollup.dimensions.date_histogram.fixed_interval | Time | Define the interval period. Specify the fixed interval in milliseconds, seconds, minutes, hours, or days. For example, 60 minutes would be expressed as `60m`. | Yes
+states.actions.rollup.ism_rollup.dimensions.date_histogram.source_field | String | The name of the field to transform. | Yes
+states.actions.rollup.ism_rollup.dimensions.date_histogram.target_field | String | The target field that the newly transformed data is added to. | Yes
+states.actions.rollup.ism_rollup.dimensions.date_histogram.timezone | String | The time zone that the rolled up documents are stored in. Default is UTC. | No
+states.actions.rollup.ism_rollup.dimensions.terms.source_field | String | The name of the field to transform. | Yes
+states.actions.rollup.ism_rollup.dimensions.terms.target_field | String | The target field that the newly transformed data is added to. | Yes
+states.actions.rollup.ism_rollup.metrics | List of objects | Define the metrics to be collected during index rollup. | Yes
+states.actions.rollup.ism_rollup.metrics.source_field | String | The name of the field to transform. | Yes
+states.actions.rollup.ism_rollup.metrics.metrics | List of objects | The metrics to be collected during index rollup. | Yes
+states.actions.rollup.ism_rollup.metrics.metrics.sum | Function | Outputs the sum of the aggregated documents tracked values. | No
+states.actions.rollup.ism_rollup.metrics.metrics.avg | Function | Outputs the average value of the aggregated documents tracked values. | No
+states.actions.rollup.ism_rollup.metrics.metrics.max | Function | Outputs the maximum value of the aggregated documents tracked values. | No
+
+#### Adding a rollup policy in Dashboards
+
+To add a rollup policy in Dashboards, follow these steps:
+
+- Select the menu button on the top-left of the Dashboards user interface.
+- In the Dashboards menu, select `Index Management`.
+- On the next screen select `Rollup jobs`.
+- Select the `Create rollup` button.
+- Follow the steps in the `Create rollup job` wizard.
+- Add a name for the policy in the `Name` box.
+- You can reference the above request fields to configure the rollup policy.
+- Finally, select the `Create` button on the bottom-right of the Dashboards user interface.
 
 ---
 
