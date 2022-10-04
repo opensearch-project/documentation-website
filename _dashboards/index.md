@@ -1,7 +1,7 @@
 ---
 layout: default
-title: Getting Started with OpenSearch Dashboards
-nav_order: 1
+title: Getting started with OpenSearch Dashboards
+nav_order: 0
 has_children: false
 has_toc: false
 redirect_from:
@@ -11,7 +11,7 @@ redirect_from:
 
 {%- comment -%}The `/docs/opensearch-dashboards/` redirect is specifically to support the UI links in OpenSearch Dashboards 1.0.0.{%- endcomment -%}
 
-# Overview of OpenSearch Dashboards
+# Introduction to OpenSearch Dashboards
 
 OpenSearch Dashboards is an open-source, integrated visualization tool that makes it easy for users to explore their data in OpenSearch. From real-time application monitoring, threat detection, and incident management to personalized search, OpenSearch Dashboards gives you the data visualizations needed to graphically represent trends, outliers, and patterns in your data.
 
@@ -23,19 +23,23 @@ OpenSearch Dashboards is an open-source, integrated visualization tool that make
 
 To use OpenSearch Dashboards, you must have installed OpenSearch. To learn more about installing and configuring OpenSearch, see [Getting Started with OpenSearch]({{site.url}}{{site.baseurl}}).
 
-# Example use cases for OpenSearch Dashboards 
+# Use cases for OpenSearch Dashboards
+
+In OpenSearch Dashboards, a data dashboard is a collection of charts, graphs, and insights that give you a snapshot of all about the data that you're interested in and that you interact with. 
+
+With OpenSearch Dashboards, you can track, analyze, and display real-time search, monitoring, and analysis of business and operational data for use cases like application monitoring, log analytics, observability, and website search. 
 
 ##### Example: Data visualization use cases   
 
 <table style="table-layout: fixed; width: 100%;">
 <tbody>
 <tr>
-<td style="text-align: center; vertical-align: top; font-weight: bold; width: 100%;">Visualize log and trace data with interactive log analytics.<img src="{{site.url}}{{site.baseurl}}/images/visualize-log-data.png" alt="Log analytics" /></td>
-<td style="text-align: center; vertical-align: top; font-weight: bold; width: 100%;">Detect and mitigate issues faster with anomaly detection.<img src="{{site.url}}{{site.baseurl}}/images/anomaly-detection.png" alt="Anomaly detection" /></td>
+<td style="text-align: left; font-family:Open Sans Condensed; vertical-align: top; width: 100%;">Visualize log and trace data with interactive log analytics.<img src="{{site.url}}{{site.baseurl}}/images/visualize-log-data.png" alt="Log analytics" /></td>
+<td style="text-align: left; font-family:Open Sans Condensed; width: 100%;">Detect and mitigate issues faster with anomaly detection.<img src="{{site.url}}{{site.baseurl}}/images/anomaly-detection.png" alt="Anomaly detection" /></td>
 </tr>
 <tr>
-<td style="text-align: center; vertical-align: top; font-weight: bold; width: 100%;">Diagnose performance issues and reduce application downtime using the observability interface and log monitoring features.<img src="{{site.url}}{{site.baseurl}}/images/observability.png" alt="Observability interface and log monitoring features" /></td>
-<td style="text-align: center; vertical-align: top; font-weight: bold; width: 100%;">Unlock real-time search, monitoring, and analysis of business and operational data.<img src="{{site.url}}{{site.baseurl}}/images/analyzing-data-logs.png" alt="Real-time search, monitoring, and analysis" /></td>
+<td style="text-align: left; font-family:Open Sans Condensed; vertical-align: top; width: 100%;">Diagnose performance issues and reduce application downtime.<img src="{{site.url}}{{site.baseurl}}/images/observability.png" alt="Observability interface and log monitoring features" /></td>
+<td style="text-align: left; font-family:Open Sans Condensed; vertical-align: top; width: 100%;">Unlock real-time search, monitoring, and analysis of business and operational data.<img src="{{site.url}}{{site.baseurl}}/images/analyzing-data-logs.png" alt="Real-time search, monitoring, and analysis" /></td>
 </tr>
 </tbody>
 </table> 
