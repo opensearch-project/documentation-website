@@ -10,7 +10,7 @@ nav_order: 11
 
 Aggregate functions operate on subsets defined by the `GROUP BY` clause. In the absence of a `GROUP BY` clause, aggregate functions operate on all elements of the result set. You can use aggregate functions in the `GROUP BY`, `SELECT`, and `HAVING` clauses.
 
-OpenSearch supports the following aggregate functions:
+OpenSearch supports the following aggregate functions.
 
 Function | Description
 :--- | :---
@@ -115,7 +115,7 @@ GROUP BY department;
 
 ### Using aggregate expressions as part of larger expressions in SELECT
 
-The following query calculates the average commission for the employees of each department by taking 5% of the average sales:
+The following query calculates the average commission for the employees of each department as 5% of the average sales:
 
 ```sql
 SELECT department, avg(sales) * 0.05 as avg_commission 
@@ -130,7 +130,7 @@ GROUP BY department;
 
 ### Using expressions as arguments to aggregate functions
 
-The following query calculates the average commission amount for each department. First, it calculates the commission amount for each `sales` value by taking 5% of the `sales`. Then, it determines the average of all commission values:
+The following query calculates the average commission amount for each department. First it calculates the commission amount for each `sales` value as 5% of the `sales`. Then it determines the average of all commission values:
 
 ```sql
 SELECT department, avg(sales * 0.05) as avg_commission 
@@ -145,7 +145,7 @@ GROUP BY department;
 
 ### COUNT
 
-The `COUNT` function accepts arguments, such as `*` or literals, such as `1`.
+The `COUNT` function accepts arguments, such as `*`, or literals, such as `1`.
 The following table describes how various forms of the `COUNT` function operate.
 
 | Function type | Description
@@ -191,7 +191,7 @@ HAVING count(sales) > 1;
 1 | 2 |
 6 | 2
 
-The aggregations in a `HAVING` clause do not have to be the same as the aggregations in a `SELECT` list. The following query uses the `count` function in the `HAVING` clause, but the `sum` function in the `SELECT` clause. It returns the total sales amount for each employee who made more than one sale:
+The aggregations in a `HAVING` clause do not have to be the same as the aggregations in a `SELECT` list. The following query uses the `count` function in the `HAVING` clause but the `sum` function in the `SELECT` clause. It returns the total sales amount for each employee who made more than one sale:
 
 ```sql
 SELECT employee_id, sum(sales)
@@ -205,7 +205,7 @@ HAVING count(sales) > 1;
 1 | 40580 |
 6 | 18120
 
-As an extension to the SQL standard, you are not restricted to using only identifiers in the `GROUP BY` clause. The following query uses an alias in the `GROUP BY` clause and is equivalent to the above query:
+As an extension of the SQL standard, you are not restricted to using only identifiers in the `GROUP BY` clause. The following query uses an alias in the `GROUP BY` clause and is equivalent to the previous query:
 
 ```sql
 SELECT employee_id as id, sum(sales)
@@ -247,7 +247,7 @@ HAVING sales > 40000;
 
 ### HAVING without GROUP BY
 
-You can use a `HAVING` clause without a `GROUP BY` clause. In this case, the whole set of data is considered one group. The following query will return `True` if there is more than one value in the `department` column:
+You can use a `HAVING` clause without a `GROUP BY` clause. In this case, the whole set of data is to be considered one group. The following query will return `True` if there is more than one value in the `department` column:
 
 ```sql
 SELECT 'True' as more_than_one_department FROM employees HAVING min(department) < max(department);
