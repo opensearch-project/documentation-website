@@ -529,12 +529,29 @@ The following field parameters are required:
 
 Field Parameter | Data Type | Description 
 :--- | :--- |:---
-source_field | String | The field(s) to transform.
-target_field | String | The target field(s) the newly transformed data is added to.
-fixed_interval | String | Define the interval period. Specify the fixed interval in milliseconds, seconds, minutes, hours, or days.
-timezone | String | The timezone that triggers the rollup. Default is UTC.
-page_size | Number | The number of indexes to be returned per page.
-default_state | String | Set to `rollup` for an ISM rollup policy.
+description | String | The description name of the ISM policy. This field is optional.
+default_state | String | The default state to run for the ISM policy. Set the description to `rollup` for the ISM rollup policy.
+states | Nested list of objects | Define the states to be used in the ISM rollup policy.
+states.name | Nested list of objects | The description name of the state within the ISM policy. In this case, you will need to match the `default_state` description of "`rollup`."
+states.actions | Nested list of objects | Define the actions to be run by the state.
+states.transition | Nested list of objects | Define the conditions required to move on to the next state. When left blank, the policy completes its management of the index.
+states.actions.rollup | Nested list of objects | Define the actions taken during index rollup.
+states.actions.ism_rollup | Nested list of objects | Define the actions taken during ISM rollup.
+states.actions.rollup.ism_rollup.description | String | The description name of the `ism_rollup` field. This field is optional.
+states.actions.rollup.ism_rollup.target_index | String | The index to be used by the ISM rollup profile.
+states.actions.rollup.ism_rollup.page_size | Number | The number of indexes to be returned per page.
+states.actions.rollup.ism_rollup.dimensions.date_histogram.fixed_interval | Time | Define the interval period. Specify the fixed interval in milliseconds, seconds, minutes, hours, or days. For example, 60 minutes would be expressed as `60m`.
+states.actions.rollup.ism_rollup.dimensions.date_histogram.source_field | String | The name of the field to transform.
+states.actions.rollup.ism_rollup.dimensions.date_histogram.target_field | String | The target field that the newly transformed data is added to.
+states.actions.rollup.ism_rollup.dimensions.date_histogram.timezone | String | The time zone that triggers the rollup. Default is UTC.
+states.actions.rollup.ism_rollup.dimensions.terms.source_field | String | The name of the field to transform.
+states.actions.rollup.ism_rollup.dimensions.terms.target_field | String | The target field that the newly transformed data is added to.
+states.actions.rollup.ism_rollup.metrics | Nested list of objects | Define the metrics to be collected during index rollup.
+states.actions.rollup.ism_rollup.metrics.source_field | String | The name of the field to transform.
+states.actions.rollup.ism_rollup.metrics.metrics | Nested list of objects | The metrics to be collected during index rollup.
+states.actions.rollup.ism_rollup.metrics.metrics.sum | Function | Outputs the sum of the aggregated document's tracked values.
+states.actions.rollup.ism_rollup.metrics.metrics.avg | Function | Outputs the average value of the aggregated document's tracked values.
+states.actions.rollup.ism_rollup.metrics.metrics.max | Function | Outputs the maximum value of the aggregated document's tracked values.
 
 ---
 
