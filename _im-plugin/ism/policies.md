@@ -443,13 +443,18 @@ Parameter | Description | Type | Required
 
 [Index rollup]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/index/) lets you periodically reduce data granularity by rolling up old data into summarized indices.
 
-Only a single rollup job can be created with this method. The source index for the rollup job is inferred from the index the policy it is attached to.
+Rollup jobs can be continuous or non-continuous. A rollup job created using an ISM policy can only be non-continuous.
 {: .note }
 
 #### Path and HTTP methods
 
 ````bash
-POST _plugins/_ism/add/<index>
+PUT _plugins/_rollup/jobs/<rollup_id>
+GET _plugins/_rollup/jobs/<rollup_id>
+DELETE _plugins/_rollup/jobs/<rollup_id>
+POST _plugins/_rollup/jobs/<rollup_id>/_start
+POST _plugins/_rollup/jobs/<rollup_id>/_stop
+GET _plugins/_rollup/jobs/<rollup_id>/_explain
 ````
 
 #### Sample ISM rollup policy
@@ -525,33 +530,7 @@ POST _plugins/_ism/add/<index>
 
 #### Request Fields
 
-The following request fields are required.
-
-Field Parameter | Data Type | Description | Required
-:--- | :--- |:--- |:---
-description | String | The description name of the ISM policy. | No
-default_state | String | The state that the ISM policy runs by default. Set the description to `rollup` for the ISM rollup policy. | Yes
-states | List of objects | Define the states to be used in the ISM rollup policy. | Yes
-states.name | List of objects | The description name of the state within the ISM policy. In this case, you will need to match the `default_state` description of "`rollup`." | Yes
-states.actions | List of objects | Define the actions to be run by the state. | Yes
-states.transition | List of objects | Define the conditions required to move on to the next state. When left blank, the policy completes its management of the index. | Yes
-states.actions.rollup | List of objects | Define the actions taken during index rollup. | Yes
-states.actions.ism_rollup | List of objects | Define the actions taken during ISM rollup. | Yes
-states.actions.rollup.ism_rollup.description | String | The description name of the `ism_rollup` field. | No
-states.actions.rollup.ism_rollup.target_index | String | The index to be used by the ISM rollup profile. | Yes
-states.actions.rollup.ism_rollup.page_size | Number | The number of documents per bucket to be returned per page. | Yes
-states.actions.rollup.ism_rollup.dimensions.date_histogram.fixed_interval | Time | Define the interval period. Specify the fixed interval in milliseconds, seconds, minutes, hours, or days. For example, 60 minutes would be expressed as `60m`. | Yes
-states.actions.rollup.ism_rollup.dimensions.date_histogram.source_field | String | The name of the field to transform. | Yes
-states.actions.rollup.ism_rollup.dimensions.date_histogram.target_field | String | The target field that the newly transformed data is added to. | Yes
-states.actions.rollup.ism_rollup.dimensions.date_histogram.timezone | String | The time zone that the rolled up documents are stored in. Default is UTC. | No
-states.actions.rollup.ism_rollup.dimensions.terms.source_field | String | The name of the field to transform. | Yes
-states.actions.rollup.ism_rollup.dimensions.terms.target_field | String | The target field that the newly transformed data is added to. | Yes
-states.actions.rollup.ism_rollup.metrics | List of objects | Define the metrics to be collected during index rollup. | Yes
-states.actions.rollup.ism_rollup.metrics.source_field | String | The name of the field to transform. | Yes
-states.actions.rollup.ism_rollup.metrics.metrics | List of objects | The metrics to be collected during index rollup. | Yes
-states.actions.rollup.ism_rollup.metrics.metrics.sum | Function | Outputs the sum of the aggregated documents tracked values. | No
-states.actions.rollup.ism_rollup.metrics.metrics.avg | Function | Outputs the average value of the aggregated documents tracked values. | No
-states.actions.rollup.ism_rollup.metrics.metrics.max | Function | Outputs the maximum value of the aggregated documents tracked values. | No
+Request fields are required when creating an ISM policy. You can reference the [Index rollups API]([Index rollups API]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/rollup-api/#create-or-update-an-index-rollup-job)) page for request field options.
 
 #### Adding a rollup policy in Dashboards
 
