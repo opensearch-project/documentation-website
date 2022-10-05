@@ -42,7 +42,7 @@ $table-border-color: $grey-lt-300;
 $toc-width: 232px !default;
 
 body {
-  @include serif;
+  @include sans-serif;
 }
 
 code {
@@ -388,7 +388,7 @@ html {
 }
 
 body {
-  @include serif;
+  @include sans-serif;
   @include font-size(16);
   background: $background-lightest;
   color: $text;
