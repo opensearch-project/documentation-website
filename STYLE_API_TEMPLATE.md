@@ -20,6 +20,8 @@ When you provide an exact example with a value, you can use the code element in 
   *Example usage*: 
   The response provides a value for `time_field`, such as “timestamp.” 
 
+Use the `json` format without the `curl` command for API calls, unless the call can only be executed in command line.
+
 See also [Examples](https://alpha-docs-aws.amazon.com/awsstyleguide/latest/styleguide/examples.html) in the AWS Style Guide.
 
 ## Basic elements for documentation
@@ -29,12 +31,13 @@ The following sections describe the basic API documentation structure. Each sect
 Depending on where the documentation appears within a section or subsection, heading levels may be adjusted to fit with other content.
 
 1. Name of API (heading level 2)
-2. Path parameters (heading level 3)
-3. Query parameters (heading level 3)
-4. Request fields (heading level 3)
-5. Sample request (heading level 4)
-6. Sample response (heading level 4)
-7. Response fields (heading level 3)
+1. Path and HTTP methods (heading level 3)
+1. Path parameters (heading level 3)
+1. Query parameters (heading level 3)
+1. Request fields (heading level 3)
+1. Sample request (heading level 4)
+1. Sample response (heading level 4)
+1. Response fields (heading level 3)
 
 ## API name
 
@@ -51,6 +54,14 @@ If applicable, provide any caveats to its usage with a note or tip, as in the fo
 
 "If you use the Security plugin, make sure you have the appropriate permissions."
 (To set this point in note-style format, follow the text on the next line with {: .note})
+
+### Path and HTTP methods
+
+If your API call has path parameters, query parameters, and request body fields, it is easier to visualize if you include a section with only the URL of the request without the request fields. The following example shows the URL of the Update a Transform Job API:
+
+```json
+PUT _plugins/_transform/<transform_id>?if_seq_no=<seq_no>&if_primary_term=<primary_term>
+```
 
 ### Path parameters
 
