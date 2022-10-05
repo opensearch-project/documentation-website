@@ -441,7 +441,7 @@ Parameter | Description | Type | Required
 
 ### rollup
 
-[Index rollup]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/index/) lets you periodically reduce data granularity by rolling up old data into summarized indices.
+[Index rollup]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/index/) lets you periodically reduce data granularity by rolling up old data into summarized indexes.
 
 Rollup jobs can be continuous or non-continuous. A rollup job created using an ISM policy can only be non-continuous.
 {: .note }
@@ -528,13 +528,13 @@ GET _plugins/_rollup/jobs/<rollup_id>/_explain
 }
 ````
 
-#### Request Fields
+#### Request fields
 
-Request fields are required when creating an ISM policy. You can reference the [Index rollups API]([Index rollups API]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/rollup-api/#create-or-update-an-index-rollup-job)) page for request field options.
+Request fields are required when creating an ISM policy. You can reference the [Index rollups API]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/rollup-api/#create-or-update-an-index-rollup-job) page for request field options.
 
 #### Adding a rollup policy in Dashboards
 
-To add a rollup policy in Dashboards, follow these steps:
+To add a rollup policy in Dashboards, follow the steps below.
 
 - Select the menu button on the top-left of the Dashboards user interface.
 - In the Dashboards menu, select `Index Management`.
@@ -542,7 +542,7 @@ To add a rollup policy in Dashboards, follow these steps:
 - Select the `Create rollup` button.
 - Follow the steps in the `Create rollup job` wizard.
 - Add a name for the policy in the `Name` box.
-- You can reference the above request fields to configure the rollup policy.
+- You can reference the [Index rollups API]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/rollup-api/#create-or-update-an-index-rollup-job) page to configure the rollup policy.
 - Finally, select the `Create` button on the bottom-right of the Dashboards user interface.
 
 ---
