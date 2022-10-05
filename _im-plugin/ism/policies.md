@@ -108,6 +108,7 @@ ISM supports the following operations:
 - [snapshot](#snapshot)
 - [index_priority](#index_priority)
 - [allocation](#allocation)
+- [rollup](#rollup)
 
 ### force_merge
 
@@ -437,6 +438,112 @@ Parameter | Description | Type | Required
   }
 ]
 ```
+
+### rollup
+
+[Index rollup]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/index/) lets you periodically reduce data granularity by rolling up old data into summarized indexes.
+
+Rollup jobs can be continuous or non-continuous. A rollup job created using an ISM policy can only be non-continuous.
+{: .note }
+
+#### Path and HTTP methods
+
+````bash
+PUT _plugins/_rollup/jobs/<rollup_id>
+GET _plugins/_rollup/jobs/<rollup_id>
+DELETE _plugins/_rollup/jobs/<rollup_id>
+POST _plugins/_rollup/jobs/<rollup_id>/_start
+POST _plugins/_rollup/jobs/<rollup_id>/_stop
+GET _plugins/_rollup/jobs/<rollup_id>/_explain
+````
+
+#### Sample ISM rollup policy
+
+````json
+{
+    "policy": {
+        "description": "Sample rollup" ,
+        "default_state": "rollup",
+        "states": [
+            {
+                "name": "rollup",
+                "actions": [
+                    {
+                        "rollup": {
+                            "ism_rollup": {
+                                "description": "Creating rollup through ISM",
+                                "target_index": "target",
+                                "page_size": 1000,
+                                "dimensions": [
+                                    {
+                                        "date_histogram": {
+                                            "fixed_interval": "60m",
+                                            "source_field": "order_date",
+                                            "target_field": "order_date",
+                                            "timezone": "America/Los_Angeles"
+                                        }
+                                    },
+                                    {
+                                        "terms": {
+                                            "source_field": "customer_gender",
+                                            "target_field": "customer_gender"
+                                        }
+                                    },
+                                    {
+                                        "terms": {
+                                            "source_field": "day_of_week",
+                                            "target_field": "day_of_week"
+                                        }
+                                    }
+                                ],
+                                "metrics": [
+                                    {
+                                        "source_field": "taxless_total_price",
+                                        "metrics": [
+                                            {
+                                                "sum": {}
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "source_field": "total_quantity",
+                                        "metrics": [
+                                            {
+                                                "avg": {}
+                                            },
+                                            {
+                                                "max": {}
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                ],
+                "transitions": []
+            }
+        ]
+    }
+}
+````
+
+#### Request fields
+
+Request fields are required when creating an ISM policy. You can reference the [Index rollups API]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/rollup-api/#create-or-update-an-index-rollup-job) page for request field options.
+
+#### Adding a rollup policy in Dashboards
+
+To add a rollup policy in Dashboards, follow the steps below.
+
+- Select the menu button on the top-left of the Dashboards user interface.
+- In the Dashboards menu, select `Index Management`.
+- On the next screen select `Rollup jobs`.
+- Select the `Create rollup` button.
+- Follow the steps in the `Create rollup job` wizard.
+- Add a name for the policy in the `Name` box.
+- You can reference the [Index rollups API]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/rollup-api/#create-or-update-an-index-rollup-job) page to configure the rollup policy.
+- Finally, select the `Create` button on the bottom-right of the Dashboards user interface.
 
 ---
 
