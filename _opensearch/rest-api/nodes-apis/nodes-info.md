@@ -73,7 +73,7 @@ You can include the following query parameters in your request. All query parame
 
 Parameter | Type | Description
 :--- |:-------| :---
-flat_settings| Boolean | Specifies whether to return settings in flat format. Default is `false`.
+flat_settings| Boolean | Specifies whether to return the `settings` object of the response in flat format. Default is `false`.
 timeout | Time | Sets the time limit for node response. Default value is `30s`.
 
 #### Sample request

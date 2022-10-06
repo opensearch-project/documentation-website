@@ -602,20 +602,20 @@ attributes | Object | The attributes of the node (for example, `shard_indexing_p
 [os](#os) | Object | Statistics about the operating system for the node.
 [process](#process) | Object | Process statistics for the node.
 [jvm](#jvm) | Object | Statistics about the JVM for the node.
-[thread_pool](#threadpool)| Object | Statistics about each thread pool for the node. 
+[thread_pool](#thread_pool)| Object | Statistics about each thread pool for the node. 
 [fs](#fs) | Object | Statistics about the file stores for the node.
 [transport](#transport) | Object | Transport statistics for the node.
 http | Object | HTTP statistics for the node.
 http.current_open | Integer | The number of currently open HTTP connections for the node.
 http.total_opened | Integer | The total number of HTTP connections the node has opened since its start.
 [breakers](#breakers) | Object | Statistics of the circuit breakers for the node. 
-[script](#script-and-scriptcache)| Object | Script statistics for the node.
-[script_cache](#script-and-scriptcache)| Object | Script cache statistics for the node.
+[script](#script-and-script_cache)| Object | Script statistics for the node.
+[script_cache](#script-and-script_cache)| Object | Script cache statistics for the node.
 [discovery](#discovery) | Object | Node discovery statistics for the node.
 [ingest](#ingest) | Object | Ingest statistics for the node.
-[adaptive_selection](#adaptiveselection) | Object | Statistics about adaptive selections for the node. 
-[indexing_pressure](#indexingpressure) | Object | Statistics related to indexing pressure for the node.
-[shard_indexing_pressure](#shardindexingpressure) | Object | Statistics related to indexing pressure at the shard level.
+[adaptive_selection](#adaptive_selection) | Object | Statistics about adaptive selections for the node. 
+[indexing_pressure](#indexing_pressure) | Object | Statistics related to indexing pressure for the node.
+[shard_indexing_pressure](#shard_indexing_pressure) | Object | Statistics related to indexing pressure at the shard level.
 
 ### `indices`
 

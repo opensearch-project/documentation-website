@@ -14,6 +14,18 @@ The nodes API makes it possible to retrieve information about individual nodes w
 
 Use the `<node-filters>` parameter to filter the target set of nodes in the API response.
 
+<style>
+table th:first-of-type {
+    width: 25%;
+}
+table th:nth-of-type(2) {
+    width: 10%;
+}
+table th:nth-of-type(3) {
+    width: 65%;
+}
+</style>
+
 Parameter | Type   | Description
 :--- |:-------| :---
 `<node-filters>` | String | A comma-separated list of resolution mechanisms that OpenSearch uses to identify cluster nodes.
