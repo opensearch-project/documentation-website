@@ -1,17 +1,37 @@
 ---
 layout: default
-title: Built-in Analyzers
+title: Text analyzers
 parent: Query DSL
 nav_order: 41
 ---
 
 
+# Text analyzers
 
-
-
+To optimize unstructured text for search, you can convert it into structured text with our text analyzers.
 ## Convert text with analyzers
 
+OpenSearch applies text analysis during indexing or searching for `text` fields.
+
+There is a standard analyzer that OpenSearch uses by default for text analysis.
+
 OpenSearch provides the analyzer option to convert your structured text into the format that works best for your searches. You can use the following options with the analyzer field: standard, simple, whitespace, stop, keyword, pattern, fingerprint, and language. Different analyzers have different character filters, tokenizers, and token filters. The stop analyzer, for example, removes stop words (e.g., “an,” “but,” “this”) from the query string.
+
+If you want to select one of the specialized analyzers, see [Specialized analyzers reference]( page is TBD).
+
+## Specialized text analysers
+
+1. Standard analyzer
+1. Simple
+1. Whitespace
+1. Stop
+1. Keyword
+1. Pattern
+1. Language
+1. Fingerprint
+
+
+## Language analyzers
 
 OpenSearch supports the following language values with the `analyzer` option:
 arabic, armenian, basque, bengali, brazilian, bulgarian, catalan, czech, danish, dutch, english, estonian, finnish, french, galicia, german, greek, hindi, hungarian, indonesian, irish, italian, latvian, lithuanian, norwegian, persian, portuguese, romanian, russian, sorani, spanish, swedish, turkish, and thai.
