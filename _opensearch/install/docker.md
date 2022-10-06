@@ -5,7 +5,28 @@ parent: Install OpenSearch
 nav_order: 3
 ---
 
-# Docker image
+# Why use Docker?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+EVERYTHING ABOVE THIS LINE IS IN A DRAFT STATE -- EVERYTHING BELOW IS PENDING REVIEW FOR INCLUSION
 
 You can pull the OpenSearch Docker image from either Docker Hub or the public gallery hosted on AWS Elastic Container Registry (ECR).
 
