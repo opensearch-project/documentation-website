@@ -9,6 +9,8 @@ permalink: /version-history/
 
 OpenSearch version | Release highlights | Release date
 :--- | :--- | :--- | :---
+[1.3.6](https://github.com/opensearch-project/opensearch-build/blob/main/release-notes/opensearch-release-notes-1.3.6.md) | Includes maintenance updates and bug fixes for tenancy in the OpenSearch Security Dashboards plugin. | 06 October 2022
+[1.3.5](https://github.com/opensearch-project/opensearch-build/blob/main/release-notes/opensearch-release-notes-1.3.5.md) | Includes maintenance updates and bug fixes for gradle check and OpenSearch security. | 01 September 2022
 [1.3.4](https://github.com/opensearch-project/opensearch-build/blob/main/release-notes/opensearch-release-notes-1.3.4.md) | Includes maintenance updates and bug fixes for [OpenSearch](https://github.com/opensearch-project/opensearch-build/blob/main/release-notes/opensearch-release-notes-1.3.4.md) and [OpenSearch Dashboards](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/release-notes/opensearch-dashboards.release-notes-1.3.4.md). | 14 July 2022
 [1.3.3](https://github.com/opensearch-project/opensearch-build/blob/main/release-notes/opensearch-release-notes-1.3.3.md) | Adds enhancements to Anomaly Detection and ML Commons. Bug fixes for Anomaly Detection, Observability, and k-NN. | 9 June 2022
 [1.3.2](https://github.com/opensearch-project/opensearch-build/blob/main/release-notes/opensearch-release-notes-1.3.2.md) | Bug fixes for Anomaly Detection and the Security Dashboards Plugin, adds the option to install OpenSearch using RPM, as well as enhancements to the ML Commons execute task, and the removal of the job-scheduler zip in Anomaly Detection. | 5 May 2022
