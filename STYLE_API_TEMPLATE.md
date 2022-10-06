@@ -22,8 +22,6 @@ When you provide an exact example with a value, you can use the code element in 
 
 Use the `json` format without the `curl` command for API calls, unless the call can only be executed in command line.
 
-See also [Examples](https://alpha-docs-aws.amazon.com/awsstyleguide/latest/styleguide/examples.html) in the AWS Style Guide.
-
 ## Basic elements for documentation
 
 The following sections describe the basic API documentation structure. Each section is discussed under its respective heading below. You can include only those elements appropriate to the API. 
