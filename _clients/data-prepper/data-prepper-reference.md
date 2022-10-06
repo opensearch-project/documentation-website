@@ -90,6 +90,7 @@ Option | Required | Type | Description
 port | No | Integer | The port OTel trace source is running on. Default is `21890`.
 request_timeout | No | Integer | The request timeout in milliseconds. Default is `10_000`.
 health_check_service | No | Boolean | Enables a gRPC health check service under `grpc.health.v1/Health/Check`. Default is `false`.
+unauthenticated_health_check | No | Boolean | Whether authentication is required on the health check endpoint. This option is ignored if no authentication is defined. Default is `false`.
 proto_reflection_service | No | Boolean | Enables a reflection service for Protobuf services (see [gRPC reflection](https://github.com/grpc/grpc/blob/master/doc/server-reflection.md) and [gRPC Server Reflection Tutorial](https://github.com/grpc/grpc-java/blob/master/documentation/server-reflection-tutorial.md) docs). Default is `false`.
 unframed_requests | No | Boolean | Enable requests not framed using the gRPC wire protocol.
 thread_count | No | Integer | The number of threads to keep in the ScheduledThreadPool. Default is `200`.
@@ -109,6 +110,8 @@ This is a source plugin that supports HTTP protocol. Currently ONLY support Json
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
 port | No | Integer | The port the source is running on. Default is `2021`. Valid options are between `0` and `65535`.
+health_check_service | No | Boolean | Enables health check service on `/health` endpoint on the defined port. Default is `false`.
+unauthenticated_health_check | No | Boolean | Whether authentication is required on the health check endpoint. This option is ignored if no authentication is defined. Default is `false`.
 request_timeout | No | Integer | The request timeout in millis. Default is `10_000`.
 thread_count | No | Integer | The number of threads to keep in the ScheduledThreadPool. Default is `200`.
 max_connection_count | No | Integer | The maximum allowed number of open connections. Default is `500`.
@@ -472,12 +475,10 @@ socket_timeout | No | Integer | the timeout in milliseconds for waiting for data
 connect_timeout | No | Integer | The timeout in milliseconds used when requesting a connection from the connection manager. A timeout value of zero is interpreted as an infinite timeout. If this timeout value is either negative or not set, the underlying Apache HttpClient would rely on operating system settings for managing connection timeouts.
 insecure | No | Boolean | Whether to verify SSL certificates. If set to true, CA certificate verification is disabled and insecure HTTP requests are sent instead. Default is `false`.
 proxy | No | String | The address of a [forward HTTP proxy server](https://en.wikipedia.org/wiki/Proxy_server). The format is "&lt;host name or IP&gt;:&lt;port&gt;". Examples: "example.com:8100", "http://example.com:8100", "112.112.112.112:8100". Port number cannot be omitted.
-trace_analytics_raw | No | Boolean | Deprecated in favor of `index_type`. Whether to export as trace data to the `otel-v1-apm-span-*` index pattern (alias `otel-v1-apm-span`) for use with the Trace Analytics OpenSearch Dashboards plugin. Default is `false`.
-trace_analytics_service_map | No | Boolean | Deprecated in favor of `index_type`. Whether to export as trace data to the `otel-v1-apm-service-map` index for use with the service map component of the Trace Analytics OpenSearch Dashboards plugin. Default is `false`.
-index | No | String | Name of the index to export to. Only required if you don't use the `trace-analytics-raw` or `trace-analytics-service-map` presets. In other words, this parameter is applicable and required only if index_type is explicitly `custom` or defaults to `custom`.
+index | Conditionally | String | Name of the index to export to. Applicable and required only if index_type is explicitly `custom` or defaults to `custom`.
 index_type | No | String | This index type tells the Sink plugin what type of data it is handling. Valid values: `custom`, `trace-analytics-raw`, `trace-analytics-service-map`, `management-disabled`. Default is `custom`.
-template_file | No | String | Path to a JSON [index template]({{site.url}}{{site.baseurl}}/opensearch/index-templates/) file (e.g. `/your/local/template-file.json` if you do not use the `trace_analytics_raw` or `trace_analytics_service_map`.) See [otel-v1-apm-span-index-template.json](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/opensearch/src/main/resources/otel-v1-apm-span-index-template.json) for an example.
-document_id_field | No | String | The field from the source data to use for the OpenSearch document ID (e.g. `"my-field"`) if you don't use the `trace_analytics_raw` or `trace_analytics_service_map` presets.
+template_file | No | String | Path to a JSON [index template]({{site.url}}{{site.baseurl}}/opensearch/index-templates/) file (e.g. `/your/local/template-file.json` if `index_type` is `custom`) See [otel-v1-apm-span-index-template.json](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/opensearch/src/main/resources/otel-v1-apm-span-index-template.json) for an example.
+document_id_field | No | String | The field from the source data to use for the OpenSearch document ID (e.g. `"my-field"`) if `index_type` is `custom`.
 dlq_file | No | String | The path to your preferred dead letter queue file (e.g. `/your/local/dlq-file`). Data Prepper writes to this file when it fails to index a document on the OpenSearch cluster.
 bulk_size | No | Integer (long) | The maximum size (in MiB) of bulk requests to the OpenSearch cluster. Values below 0 indicate an unlimited size. If a single document exceeds the maximum bulk request size, Data Prepper sends it individually. Default is 5.
 ism_policy_file | No | String | The absolute file path for an ISM (Index State Management) policy JSON file. This policy file is effective only when there is no built-in policy file for the index type. For example, `custom` index type is currently the only one without a built-in policy file, thus it would use the policy file here if it's provided through this parameter. For more information, see [ISM policies]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/).
