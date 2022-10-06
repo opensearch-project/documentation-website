@@ -241,7 +241,7 @@ Data Prepper supports Logstash configuration files for a limited set of plugins.
 
 ```bash
 docker run --name data-prepper \
-    -v /full/path/to/logstash.conf:/usr/share/data-prepper/pipelines.conf \
+    -v /full/path/to/logstash.conf:/usr/share/data-prepper/pipelines/pipelines.conf \
     opensearchproject/opensearch-data-prepper:latest
 ```
 
