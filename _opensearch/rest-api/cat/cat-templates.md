@@ -19,10 +19,10 @@ The cat templates operation lists the names, patterns, order numbers, and versio
 GET _cat/templates?v
 ```
 
-If you want to get information for more than one template, separate the template names with commas:
+If you want to get information for a specific template or pattern:
 
 ```
-GET _cat/shards/template_name_1,template_name_2,template_name_3
+GET _cat/templates/{name}
 ```
 
 ## Path and HTTP methods
