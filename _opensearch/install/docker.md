@@ -5,8 +5,11 @@ parent: Install OpenSearch
 nav_order: 3
 ---
 
-# Why use Docker?
+# Why use Docker for OpenSearch?
 
+Leveraging [Docker](https://www.docker.com/) to run OpenSearch greatly simplifies the process of configuring and managing your OpenSearch clusters. You can pull official images from [Docker Hub](https://hub.docker.com/u/opensearchproject) or [AWS ECR](https://gallery.ecr.aws/opensearchproject/) and quickly deploy a cluster using [Docker Compose](https://github.com/docker/compose) and any of the sample `docker-compose.yml` files included in this guide. Experienced OpenSearch users can further customize a deployment by creating a custom `docker-compose.yml` file, depending on their needs.
+
+Docker containers are portable and will run on any host that supports Docker (such as Linux, MacOS, and Windows). The portability of a Docker container provides users flexibility over other installations methods, like [RPM]({{site.url}}{{site.baseurl}}/opensearch/install/rpm/) or a manual [Tarball]({{site.url}}{{site.baseurl}}/opensearch/install/tar/) installation, which require manual configuration after downloading and unpacking.
 
 
 
