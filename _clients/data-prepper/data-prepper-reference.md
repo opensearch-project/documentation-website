@@ -166,6 +166,7 @@ aws | Yes | aws | The AWS configuration. See [aws](#aws) for details.
 on_error | No | String |  Determines how to handle errors in Amazon SQS. Can be either `retain_messages` or `delete_messages`. If `retain_messages`, then Data Prepper will leave the message in the SQS queue and try again. This is recommended for dead-letter queues. If `delete_messages`, then Data Prepper will delete failed messages. Default is `retain_messages`.
 buffer_timeout | No | Duration | The timeout for writing events to the Data Prepper buffer. Any events that the S3 Source cannot write to the buffer in this time will be discarded. Default is 10 seconds.
 records_to_accumulate | No | Integer | The number of messages that accumulate before writing to the buffer. Default is 100.
+metadata_root_key | No | String | Base key for adding S3 metadata to each Event. The metadata includes the key and bucket for each S3 object. Defaults to `s3/`.
 disable_bucket_ownership_validation | No | Boolean | If `true`, then the S3 Source will not attempt to validate that the bucket is owned by the expected account. The only expected account is the same account that owns the SQS queue. Defaults to `false`.
 
 #### sqs
