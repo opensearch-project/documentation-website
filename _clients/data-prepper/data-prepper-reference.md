@@ -19,8 +19,11 @@ keyStorePassword | No | String | Password for keystore. Optional, defaults to em
 privateKeyPassword | No | String | Password for private key within keystore. Optional, defaults to empty string.
 serverPort | No | Integer | Port number to use for server APIs. Defaults to 4900
 metricRegistries | No | List | Metrics registries for publishing the generated metrics. Currently supports Prometheus and CloudWatch. Defaults to Prometheus.
+metricTags | No | Map | Key-value pairs as common metric tags to metric registries. The maximum number of pairs is 3. Note that `serviceName` is a reserved tag key with `DataPrepper` as default tag value. Its value could also be set through the environment variable `DATAPREPPER_SERVICE_NAME`. If `serviceName` is defined in `metricTags`, the value will overwrite those set through the above methods.
+authentication | No | Object | Authentication configuration. Valid option is `http_basic` with `username` and `password` properties. If not defined, the server will not perform authentication.
 processorShutdownTimeout | No | Duration | Time given to processors to clear any in-flight data and gracefully shutdown. Default is 30s.
 sinkShutdownTimeout | No | Duration | Time given to sinks to clear any in-flight data and gracefully shutdown. Default is 30s.
+peer_forwarder | No | Ojbect | Peer forwarder configurations. See [Peer forwarder options](#peer-forwarder-options) for more details.
 
 ### Peer forwarder options
 
@@ -34,7 +37,8 @@ port | No | Integer | The port number peer forwarder server is running on. Valid
 request_timeout | No | Integer | Request timeout in milliseconds for peer forwarder HTTP server. Default is 10000.
 server_thread_count | No | Integer | Number of threads used by peer forwarder server. Default is 200.
 client_thread_count | No | Integer | Number of threads used by peer forwarder client. Default is 200.
-maxConnectionCount | No | Integer | Maximum number of open connections for peer forwarder server. Default is 500.
+max_connection_count | No | Integer | Maximum number of open connections for peer forwarder server. Default is 500.
+max_pending_requests | No | Integer | Maximum number of allowed tasks in ScheduledThreadPool work queue. Default is 1024.
 discovery_mode | No | String | Peer discovery mode to use. Valid options are `local_node`, `static`, `dns`, or `aws_cloud_map`. Defaults to `local_node`, which processes events locally.
 static_endpoints | Conditionally | List | A list containing endpoints of all Data Prepper instances. Required if `discovery_mode` is set to static.
 domain_name | Conditionally | String | A single domain name to query DNS against. Typically, used by creating multiple DNS A Records for the same domain. Required if `discovery_mode` is set to dns.
@@ -475,9 +479,9 @@ socket_timeout | No | Integer | the timeout in milliseconds for waiting for data
 connect_timeout | No | Integer | The timeout in milliseconds used when requesting a connection from the connection manager. A timeout value of zero is interpreted as an infinite timeout. If this timeout value is either negative or not set, the underlying Apache HttpClient would rely on operating system settings for managing connection timeouts.
 insecure | No | Boolean | Whether to verify SSL certificates. If set to true, CA certificate verification is disabled and insecure HTTP requests are sent instead. Default is `false`.
 proxy | No | String | The address of a [forward HTTP proxy server](https://en.wikipedia.org/wiki/Proxy_server). The format is "&lt;host name or IP&gt;:&lt;port&gt;". Examples: "example.com:8100", "http://example.com:8100", "112.112.112.112:8100". Port number cannot be omitted.
-index | Conditionally | String | Name of the index to export to. Applicable and required only if index_type is explicitly `custom` or defaults to `custom`.
+index | Conditionally | String | Name of the index to export to. Applicable and required only if `index_type` is explicitly `custom` or defaults to `custom`.
 index_type | No | String | This index type tells the Sink plugin what type of data it is handling. Valid values: `custom`, `trace-analytics-raw`, `trace-analytics-service-map`, `management-disabled`. Default is `custom`.
-template_file | No | String | Path to a JSON [index template]({{site.url}}{{site.baseurl}}/opensearch/index-templates/) file (e.g. `/your/local/template-file.json` if `index_type` is `custom`) See [otel-v1-apm-span-index-template.json](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/opensearch/src/main/resources/otel-v1-apm-span-index-template.json) for an example.
+template_file | No | String | Path to a JSON [index template]({{site.url}}{{site.baseurl}}/opensearch/index-templates/) file (e.g. `/your/local/template-file.json`) if `index_type` is `custom`. See [otel-v1-apm-span-index-template.json](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/opensearch/src/main/resources/otel-v1-apm-span-index-template.json) for an example.
 document_id_field | No | String | The field from the source data to use for the OpenSearch document ID (e.g. `"my-field"`) if `index_type` is `custom`.
 dlq_file | No | String | The path to your preferred dead letter queue file (e.g. `/your/local/dlq-file`). Data Prepper writes to this file when it fails to index a document on the OpenSearch cluster.
 bulk_size | No | Integer (long) | The maximum size (in MiB) of bulk requests to the OpenSearch cluster. Values below 0 indicate an unlimited size. If a single document exceeds the maximum bulk request size, Data Prepper sends it individually. Default is 5.
