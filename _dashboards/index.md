@@ -13,13 +13,13 @@ redirect_from:
 
 # Getting started with OpenSearch Dashboards
 
-OpenSearch Dashboards is an open-source, integrated visualization tool that makes it easy for users to explore their data in OpenSearch. From real-time application monitoring, threat detection, and incident management to personalized search, OpenSearch Dashboards gives you the data visualizations needed to graphically represent trends, outliers, and patterns in your data. The following image is an example of data visualizations in OpenSearch Dashboards.  
+OpenSearch Dashboards is an open-source, integrated visualization tool that makes it easy for users to explore their data in OpenSearch. From real-time application monitoring, threat detection, and incident management to personalized search, OpenSearch Dashboards gives you the data visualizations needed to graphically represent trends, outliers, and patterns in your data. The image below shows a sample of data visualizations in OpenSearch Dashboards.  
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboard-flight.png" alt="User interface showing several data visualizations">
 
 ## Use cases for OpenSearch Dashboards
 
-In OpenSearch Dashboards, a data dashboard is a collection of charts, graphs, gauges, and other visualizations that give you a snapshot of the data that you're interested in and that you interact with. You can track, analyze, and display real-time search, monitoring, and analysis of business and operational data for use cases like application monitoring, log analytics, observability, and website search. The following image is an example of data visualization use cases for OpenSearch Dashboards.   
+In OpenSearch Dashboards, a data dashboard is a collection of charts, graphs, gauges, and other visualizations that give you a snapshot of the data that you're interested in and that you interact with. You can track, analyze, and display real-time search, monitoring, and analysis of business and operational data for use cases like application monitoring, log analytics, observability, and website search. The image below shows data visualization use cases for OpenSearch Dashboards.   
 
 <table style="table-layout: fixed; width: 100%;">
 <tbody>
@@ -44,7 +44,7 @@ You can interact with the demonstration datasets in the OpenSearch Dashboards pl
 4. Interact with the data on a dashboard. Choose **Add filter**, and specify the data you'd like to see. 
 5. Select one of the options from the **Field** menu, and specify an **Operator** to filter the results.  
 
-The following image is an example of a [Logs] Web Traffic dashboard with filters applied.
+The image below shows a [Logs] Web Traffic dashboard with filters applied.
 
 <img src="{{site.url}}{{site.baseurl}}/images/log-dashboard-filter.png" alt="Logs web traffic dashboard with filters applied">
 
