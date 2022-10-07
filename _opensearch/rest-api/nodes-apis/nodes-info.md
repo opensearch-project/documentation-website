@@ -8,7 +8,7 @@ nav_order: 10
 
 # Nodes info
 
-The Nodes info API represents mostly static information about your cluster's nodes, including but not limited to:
+The nodes info API represents mostly static information about your cluster's nodes, including but not limited to:
 
 - Host system information 
 - JVM 
