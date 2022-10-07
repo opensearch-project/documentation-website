@@ -68,7 +68,7 @@ To get statistics from all the nodes except the cluster manager node, use the fo
 GET /_nodes/_all,cluster_manager:false/stats
 ```
 
-However, if you switch the resolution mechanisms, the result will include all the cluster nodes including the cluster manager node: 
+However, if you switch the resolution mechanisms, the result will include all the cluster nodes, including the cluster manager node: 
 
 ```json
 GET /_nodes/cluster_manager:false,_all/stats
