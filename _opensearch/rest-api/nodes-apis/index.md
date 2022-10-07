@@ -30,7 +30,7 @@ Parameter | Type   | Description
 :--- |:-------| :---
 `<node-filters>` | String | A comma-separated list of resolution mechanisms that OpenSearch uses to identify cluster nodes.
 
-Node filters support several node resolution mechanisms.
+Node filters support several node resolution mechanisms:
 
 - Pre defined constants: `_local`, `_cluster_manager`, or `_all`
 - An exact match for `nodeID`
