@@ -32,7 +32,7 @@ Parameter | Type   | Description
 
 Node filters support several node resolution mechanisms:
 
-- Pre defined constants: `_local`, `_cluster_manager`, or `_all`
+- Predefined constants: `_local`, `_cluster_manager`, or `_all`.
 - An exact match for `nodeID`
 - A simple case-sensitive wildcard pattern matching for `node-name`, `host-name`, or `host-IP-address`
 - Node roles where the `<bool>` value is set either to `true` or `false`:
