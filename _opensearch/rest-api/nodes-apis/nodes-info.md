@@ -48,7 +48,7 @@ The following table lists the available path parameters. All path parameters are
 
 Parameter | Type | Description
 :--- |:-------| :---
-nodeId | String | A comma-separated list of nodeIds to filter results. Supports [node filters]({{site.url}}{{site.baseurl}}/opensearch/rest-api/nodes-apis/index/#node-filters). Defaults to `_all`.
+nodeId | String | A comma-separated list of nodeIds used to filter results. Supports [node filters]({{site.url}}{{site.baseurl}}/opensearch/rest-api/nodes-apis/index/#node-filters). Defaults to `_all`.
 metrics | String | A comma-separated list of metric groups that will be included in the response. For example `jvm,thread_pool`. Defaults to all metrics.
 
 The following table lists all available metric groups.
