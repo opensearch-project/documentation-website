@@ -57,7 +57,7 @@ Metric | Description
 :--- |:----
 settings | A node's settings. This is a combination of the default settings, custom settings from the [configuration file]({{site.url}}{{site.baseurl}}/opensearch/configuration/#configuration-file), and dynamically [updated settings]({{site.url}}{{site.baseurl}}/opensearch/configuration/#update-cluster-settings-using-the-api).
 os | Static information about the host OS, including version, processor architecture, and available/allocated processors.
-process | Contains process OD.
+process | Contains the process ID.
 jvm | Detailed static information about running JVM, including arguments.
 thread_pool | Configured options for all individual thread pools.
 transport | Mostly static information about the transport layer.
