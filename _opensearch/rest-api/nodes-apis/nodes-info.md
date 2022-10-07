@@ -153,7 +153,7 @@ process | Information about the currently running process, including PID, refres
 jvm | Information about the JVM, including PID, version, memory information, garbage collector information, and arguments.
 thread_pool | Information about the thread pool.
 transport | Information about the transport address, including bound address, publish address, and profiles.
-http | Information about the HTTP address, including bound address, publish address, and maximum content length in bytes.
+http | Information about the HTTP address, including bound address, publish address, and maximum content length, in bytes.
 plugins | Information about the installed plugins, including name, version, OpenSearch version, Java version, description, class name, custom folder name, a list of extended plugins, and `has_native_controller` that specifies whether the plugin has a native controller process. 
 modules | Information about the modules, including name, version, OpenSearch version, Java version, description, class name, custom folder name, a list of extended plugins, and `has_native_controller` that specifies whether the plugin has a native controller process. Modules are different from plugins because modules are loaded into OpenSearch automatically , while plugins have to be installed manually.
 ingest | Information about ingest pipelines and processors.
