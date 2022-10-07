@@ -13,16 +13,18 @@ Docker containers are portable and will run on any compatible host that supports
 
 ## Process overview
 
-1. **Install Docker Desktop or Docker Engine.**
+1. **Install Docker and Docker Compose.**
    - Docker is used to run and manage OpenSearch containers.
 1. **Test Docker and OpenSearch.**
    - Verify that Docker is installed correctly by running a single container from the command line.
 1. **Customize your configuration with Docker Compose.**
-   - Launch a cluster from a single YAML file using Docker Compose.
+   - Launch a cluster using Docker Compose.
 
-## Step 1: Install Docker Desktop or Docker Engine
+## Step 1: Install Docker and Docker Compose
 
-You must first download and install Docker and Docker Compose. Visit [Get Docker](https://docs.docker.com/get-docker/) for guidance on configuring Docker for your specific environment. Docker Desktop users should configure Docker's memory limit to at least 4 GB. You can find this setting by opening Docker Desktop and selecting **Settings** → **Resources**. If you are installing Docker using the command line interface (CLI), then Docker, by default, does not have any host resources constraints. Depending on your environment, you may wish to configure resource limits in Docker. See [Runtime options with Memory, CPUs, and GPUs](https://docs.docker.com/config/containers/resource_constraints/) for help configuring resource constraints in Docker.
+Visit [Get Docker](https://docs.docker.com/get-docker/) for guidance on installing and configuring Docker for your environment. Docker Desktop users should set host memory utilization to a minimum of 4 GB by opening Docker Desktop and selecting **Settings** → **Resources**. If you are installing Docker Engine using the command line interface (CLI), then Docker, by default, will not have any constraints on available host resources. Depending on your environment, you may wish to configure resource limits in Docker. See [Runtime options with Memory, CPUs, and GPUs](https://docs.docker.com/config/containers/resource_constraints/) for information.
+
+Docker Compose is a utility that allows users to launch multiple containers with a single command. You pass a file to Docker Compose when you invoke it, then Docker Compose reads those settings and starts the requested containers.
 
 
 
