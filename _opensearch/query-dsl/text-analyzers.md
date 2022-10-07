@@ -8,30 +8,30 @@ nav_order: 41
 
 # Text analyzers
 
-To optimize unstructured text for search, you can convert it into structured text with our text analyzers.
-
-OpenSearch applies text analysis during indexing or searching for `text` fields.
-
-There is a standard analyzer that OpenSearch uses by default for text analysis.
-
-OpenSearch provides the analyzer option to convert your structured text into the format that works best for your searches. You can use the following options with the analyzer field: standard, simple, whitespace, stop, keyword, pattern, fingerprint, and language. Different analyzers have different character filters, tokenizers, and token filters. The stop analyzer, for example, removes stop words (e.g., “an,” “but,” “this”) from the query string.
-
+OpenSearch applies text analysis during indexing or searching for `text` fields. There is a standard  analyzer that OpenSearch uses by default for text analysis. To optimize unstructured text for search, you can convert it into structured text with our specialized text analyzers.
 ## Specialized analyzers
+
+OpenSearch provides specialized analyzers to convert your structured text into the format that works best for your searches.
 
 OpenSearch supports the following specialized text analyzers:
 
-1. Standard analyzer
-1. Simple
-1. Whitespace
-1. Stop
-1. Keyword
-1. Pattern
-1. Language
-1. Fingerprint
-
+1. Standard analyzer – parses text strings into terms at word boundaries per the Unicode text segmentation algorithm. It also removes stop words and removes punctuation and lowercase terms.
+1. Simple analyzer – converts all characters to lower case and divides groups of non-letter characters into terms.
+1. Whitespace analyzer – parses characters into terms between whitespaces.
+1. Stop analyzer – Removes stop words (e.g. "but," or "this") from the query string.
+1. Keyword analyzer – receives text and outputs only the text specified as a single keyword term.
+1. Pattern analyzer – splits text into terms using a regular expression and supports lower case characters and stop words.
+1. Language analyzer – provides multiple languages to specify as analyzer values.
+1. Fingerprint analyzer – creates a fingerprint to use as a duplicate detector.
 
 The full specialized text analyzers reference is in-progress and will be published soon.
 {: .note }
+
+## How to use specialized analyzers
+
+If you want to use a specialized text analyzer, you specify the name of the analyzer for the `analyzer` field.
+
+You can use the following options with the `analyzer` field: standard, simple, whitespace, stop, keyword, pattern, fingerprint, and language. Different analyzers have different character filters, tokenizers, and token filters.
 
 
 <!-- This is a list of the 7 individual new pages we need to write>
