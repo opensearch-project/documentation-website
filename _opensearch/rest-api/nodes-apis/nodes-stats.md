@@ -8,7 +8,7 @@ nav_order: 20
 
 # Nodes stats
 
-The Nodes stats API returns statistics about your cluster.
+The nodes stats API returns statistics about your cluster.
 
 ## Path and HTTP methods
 
