@@ -40,7 +40,7 @@ Node filters support several node resolution mechanisms:
   - `data:<bool>` refers to all data nodes.
   - `ingest:<bool>` refers to all ingest nodes.
   - `voting_only:<bool>` refers to all voting-only nodes.
-  - `ml:<bool>` refers to all machine learning nodes
+  - `ml:<bool>` refers to all machine learning (ML) nodes.
   - `coordinating_only:<bool>` refers to all coordinating-only nodes
 - A simple case-sensitive wildcard pattern matching for node attributes: `<node attribute*>:<attribute value*>`. The wildcard matching pattern can be used in both the key and value at the same time.
 
