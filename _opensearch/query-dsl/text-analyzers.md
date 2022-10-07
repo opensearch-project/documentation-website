@@ -18,9 +18,11 @@ There is a standard analyzer that OpenSearch uses by default for text analysis.
 
 OpenSearch provides the analyzer option to convert your structured text into the format that works best for your searches. You can use the following options with the analyzer field: standard, simple, whitespace, stop, keyword, pattern, fingerprint, and language. Different analyzers have different character filters, tokenizers, and token filters. The stop analyzer, for example, removes stop words (e.g., “an,” “but,” “this”) from the query string.
 
-If you want to select one of the specialized analyzers, see [Specialized analyzers reference]( page is TBD).
+If you want to select one of the specialized analyzers, see [Specialized analyzers reference]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/specialized-analyzers).
 
-## Specialized text analysers
+## Specialized text analyzers
+
+<!-- This is a list of the 7 individual new pages we need to write>
 
 1. Standard analyzer
 1. Simple
