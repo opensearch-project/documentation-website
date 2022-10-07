@@ -145,7 +145,7 @@ ip | The node's host IP address.
 version | The node's OpenSearch version.
 build_type | The node's build type, like `rpm`, `docker`, `tar`, etc.
 build_hash | The git commit hash of the build.
-total_indexing_buffer | The maximum heap size in bytes to hold newly indexed documents. Once this heap size is exceeded, the documents are written to disk.
+total_indexing_buffer | The maximum heap size in bytes used to hold newly indexed documents. Once this heap size is exceeded, the documents are written to disk.
 roles | The list of the node's roles.
 attributes | The node's attributes.
 os | Information about the operating system, including name, version, architecture, refresh interval, and the number of available and allocated processors.
