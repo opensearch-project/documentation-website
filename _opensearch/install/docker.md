@@ -7,12 +7,17 @@ nav_order: 3
 
 # Why use Docker for OpenSearch?
 
-Leveraging [Docker](https://www.docker.com/) to run OpenSearch greatly simplifies the process of configuring and managing your OpenSearch clusters. You can pull official images from [Docker Hub](https://hub.docker.com/u/opensearchproject) or [AWS ECR](https://gallery.ecr.aws/opensearchproject/) and quickly deploy a cluster using [Docker Compose](https://github.com/docker/compose) and any of the sample `docker-compose.yml` files included in this guide. Experienced OpenSearch users can further customize a deployment by creating a custom `docker-compose.yml` file, depending on their needs.
+[Docker](https://www.docker.com/) greatly simplifies the process of configuring and managing your OpenSearch clusters. You can pull official images from [Docker Hub](https://hub.docker.com/u/opensearchproject) or [AWS ECR](https://gallery.ecr.aws/opensearchproject/) and quickly deploy a cluster using [Docker Compose](https://github.com/docker/compose) and any of the sample `docker-compose.yml` files included in this guide. Experienced OpenSearch users can further customize a deployment by creating a custom `docker-compose.yml` file, depending on their needs.
 
-Docker containers are portable and will run on any host that supports Docker (such as Linux, MacOS, and Windows). The portability of a Docker container provides users flexibility over other installations methods, like [RPM]({{site.url}}{{site.baseurl}}/opensearch/install/rpm/) or a manual [Tarball]({{site.url}}{{site.baseurl}}/opensearch/install/tar/) installation, which require manual configuration after downloading and unpacking.
+Docker containers are portable and will run on any compatible host that supports Docker (such as Linux, MacOS, and Windows). The portability of a Docker container offers flexibility over other installations methods, like [RPM]({{site.url}}{{site.baseurl}}/opensearch/install/rpm/) or a manual [Tarball]({{site.url}}{{site.baseurl}}/opensearch/install/tar/) installation, which both require additional configuration after downloading and unpacking.
+
+## Process overview
 
 
 
+## Getting started with Docker
+
+You must first download and install Docker and Docker Compose. Visit [Get Docker](https://docs.docker.com/get-docker/) for guidance on configuring Docker for your specific environment. Docker Desktop users should configure Docker's memory limit to at least 4 GB. You can find this setting by opening Docker Desktop and selecting **Settings** → **Resources**. If you are installing Docker using the command line interface (CLI), then Docker, by default, does not have any host resources constraints. Depending on your environment, you may wish to configure resource limits in Docker. See [Runtime options with Memory, CPUs, and GPUs](https://docs.docker.com/config/containers/resource_constraints/) for help configuring resource constraints in Docker.
 
 
 
@@ -52,8 +57,6 @@ To check available versions, see [Docker Hub](https://hub.docker.com/u/opensearc
 
 When you download a new version of OpenSearch and OpenSearch Dashboards, you need to modify your `docker-compose.yml` file with the image version number that you downloaded. For example, to update your images to version 2.2.0, replace the following two lines in the YAML file: `image: opensearchproject/opensearch:2.2.0` and `image: opensearchproject/opensearch-dashboards:2.2.0`
 {: .note}
-
-OpenSearch images use `amazonlinux:2` as the base image. If you run Docker locally, set Docker to use at least 4 GB of RAM in **Preferences** > **Resources**.
 
 
 ---
