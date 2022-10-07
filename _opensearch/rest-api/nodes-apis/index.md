@@ -37,7 +37,7 @@ Node filters support several node resolution mechanisms:
 - A simple case-sensitive wildcard pattern matching for `node-name`, `host-name`, or `host-IP-address`
 - Node roles where the `<bool>` value is set either to `true` or `false`:
   - `cluster_manager:<bool>` refers to all cluster manager-eligible nodes.
-  - `data:<bool>` refers to all data nodes
+  - `data:<bool>` refers to all data nodes.
   - `ingest:<bool>` refers to all ingest nodes
   - `voting_only:<bool>` refers to all voting-only nodes
   - `ml:<bool>` refers to all machine learning nodes
