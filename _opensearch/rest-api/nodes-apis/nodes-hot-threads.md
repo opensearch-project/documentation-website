@@ -81,7 +81,7 @@ Line segment | Description
 `{dimr}` | Node roles (d=data, i=ingest, m=cluster&nbsp;manager, r=remote&nbsp;cluster&nbsp;client).
 `{zone=west-a2, shard_indexing_pressure_enabled=true}` | Node attributes.
 
-Then the information about threads of selected type follows.
+Then information about threads of the selected type is provided.
 
 ```bash
 ::: {global-eu-35}{uFPbKLDOTlOmdnwUlKW8sw}{OAM8OT5CQAyasWuIDeVyUA}{global-eu-35.local}{[gdv2:a284:2acv:5fa6:0:3a2:7260:74cf]:9300}{dimr}{zone=west-a2, shard_indexing_pressure_enabled=true}
