@@ -148,7 +148,7 @@ build_hash | The git commit hash of the build.
 total_indexing_buffer | The maximum heap size in bytes used to hold newly indexed documents. Once this heap size is exceeded, the documents are written to disk.
 roles | The list of the node's roles.
 attributes | The node's attributes.
-os | Information about the operating system, including name, version, architecture, refresh interval, and the number of available and allocated processors.
+os | Information about the OS, including name, version, architecture, refresh interval, and the number of available and allocated processors.
 process | Information about the current running process, including PID, refresh interval, and `mlockall` that specifies whether the process address space has been successfully locked in memory. 
 jvm | Information about the JVM, including PID, version, memory information, garbage collector information, and arguments.
 thread_pool | Information about the thread pool.
