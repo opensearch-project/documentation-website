@@ -149,7 +149,7 @@ total_indexing_buffer | The maximum heap size in bytes used to hold newly indexe
 roles | The list of the node's roles.
 attributes | The node's attributes.
 os | Information about the OS, including name, version, architecture, refresh interval, and the number of available and allocated processors.
-process | Information about the current running process, including PID, refresh interval, and `mlockall` that specifies whether the process address space has been successfully locked in memory. 
+process | Information about the currently running process, including PID, refresh interval, and `mlockall`, which specifies whether the process address space has been successfully locked in memory. 
 jvm | Information about the JVM, including PID, version, memory information, garbage collector information, and arguments.
 thread_pool | Information about the thread pool.
 transport | Information about the transport address, including bound address, publish address, and profiles.
