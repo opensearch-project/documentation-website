@@ -29,7 +29,7 @@ You can include the following optional path parameter in your request.
 
 Parameter | Type | Description
 :--- | :--- | :---
-nodeId | String  | A comma-separated list of node IDs to filter results. Supports [node filters]({{site.url}}{{site.baseurl}}/opensearch/rest-api/nodes-apis/index/#node-filters). Defaults to `_all`.
+nodeId | String  | A comma-separated list of node IDs used to filter results. Supports [node filters]({{site.url}}{{site.baseurl}}/opensearch/rest-api/nodes-apis/index/#node-filters). Defaults to `_all`.
 
 ## Query parameters
 
@@ -39,7 +39,7 @@ Parameter | Type | Description
 :--- | :---| :---
 snapshots | Integer | The number of samples of thread stacktraces. Defaults to `10`.
 interval | Time | The interval between consecutive samples. Defaults to `500ms`.
-threads | Integer | The number of the top busiest threads to return information about. Defaults to `3`.
+threads | Integer | The number of the busiest threads to return information about. Defaults to `3`.
 ignore_idle_threads | Boolean   | Don’t show threads that are in known idle states, such as waiting on a socket select or pulling from an empty task queue. Defaults to `true`.
 type | String | Supported thread types are `cpu`, `wait`, or `block`. Defaults to `cpu`.
 timeout | Time | Sets the time limit for node response. Default value is `30s`.
@@ -81,7 +81,7 @@ Line segment | Description
 `{dimr}` | Node roles (d=data, i=ingest, m=cluster&nbsp;manager, r=remote&nbsp;cluster&nbsp;client).
 `{zone=west-a2, shard_indexing_pressure_enabled=true}` | Node attributes.
 
-Then the information about threads of selected type follows.
+Then information about threads of the selected type is provided.
 
 ```bash
 ::: {global-eu-35}{uFPbKLDOTlOmdnwUlKW8sw}{OAM8OT5CQAyasWuIDeVyUA}{global-eu-35.local}{[gdv2:a284:2acv:5fa6:0:3a2:7260:74cf]:9300}{dimr}{zone=west-a2, shard_indexing_pressure_enabled=true}

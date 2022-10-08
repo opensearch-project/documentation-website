@@ -8,7 +8,7 @@ nav_order: 10
 
 # Nodes info
 
-The Nodes info API represents mostly static information about your cluster's nodes, including but not limited to:
+The nodes info API represents mostly static information about your cluster's nodes, including but not limited to:
 
 - Host system information 
 - JVM 
@@ -48,17 +48,17 @@ The following table lists the available path parameters. All path parameters are
 
 Parameter | Type | Description
 :--- |:-------| :---
-nodeId | String | A comma-separated list of nodeIds to filter results. Supports [node filters]({{site.url}}{{site.baseurl}}/opensearch/rest-api/nodes-apis/index/#node-filters). Defaults to `_all`.
-metrics | String | A comma-separated list of metric groups that will be included in the response. For example `jvm,thread_pool`. Defaults to all metrics.
+nodeId | String | A comma-separated list of nodeIds used to filter results. Supports [node filters]({{site.url}}{{site.baseurl}}/opensearch/rest-api/nodes-apis/index/#node-filters). Defaults to `_all`.
+metrics | String | A comma-separated list of metric groups that will be included in the response. For example, `jvm,thread_pool`. Defaults to all metrics.
 
 The following table lists all available metric groups.
 
 Metric | Description
 :--- |:----
-settings | A node's settings. This is combination of the default settings, custom settings from [configuration file]({{site.url}}{{site.baseurl}}/opensearch/configuration/#configuration-file) and dynamically [updated settings]({{site.url}}{{site.baseurl}}/opensearch/configuration/#update-cluster-settings-using-the-api).
-os | Static information about the host OS, including version, processor architecture and available/allocated processors.
-process | Contains process OD.
-jvm | Detailed static information about running JVM, including arguments.
+settings | A node's settings. This is a combination of the default settings, custom settings from the [configuration file]({{site.url}}{{site.baseurl}}/opensearch/configuration/#configuration-file), and dynamically [updated settings]({{site.url}}{{site.baseurl}}/opensearch/configuration/#update-cluster-settings-using-the-api).
+os | Static information about the host OS, including version, processor architecture, and available/allocated processors.
+process | Contains the process ID.
+jvm | Detailed static information about the running JVM, including arguments.
 thread_pool | Configured options for all individual thread pools.
 transport | Mostly static information about the transport layer.
 http | Mostly static information about the HTTP layer.
@@ -145,17 +145,17 @@ ip | The node's host IP address.
 version | The node's OpenSearch version.
 build_type | The node's build type, like `rpm`, `docker`, `tar`, etc.
 build_hash | The git commit hash of the build.
-total_indexing_buffer | The maximum heap size in bytes to hold newly indexed documents. Once this heap size is exceeded, the documents are written to disk.
+total_indexing_buffer | The maximum heap size in bytes used to hold newly indexed documents. Once this heap size is exceeded, the documents are written to disk.
 roles | The list of the node's roles.
 attributes | The node's attributes.
-os | Information about the operating system, including name, version, architecture, refresh interval, and the number of available and allocated processors.
-process | Information about the current running process, including PID, refresh interval, and `mlockall` that specifies whether the process address space has been successfully locked in memory. 
+os | Information about the OS, including name, version, architecture, refresh interval, and the number of available and allocated processors.
+process | Information about the currently running process, including PID, refresh interval, and `mlockall`, which specifies whether the process address space has been successfully locked in memory. 
 jvm | Information about the JVM, including PID, version, memory information, garbage collector information, and arguments.
 thread_pool | Information about the thread pool.
 transport | Information about the transport address, including bound address, publish address, and profiles.
-http | Information about the HTTP address, including bound address, publish address, and maximum content length in bytes.
-plugins | Information about the installed plugins, including name, version, OpenSearch version, Java version, description, class name, custom folder name, a list of extended plugins, and `has_native_controller` that specifies whether the plugin has a native controller process. 
-modules | Information about the modules, including name, version, OpenSearch version, Java version, description, class name, custom folder name, a list of extended plugins, and `has_native_controller` that specifies whether the plugin has a native controller process. Modules are different from plugins because modules are loaded into OpenSearch automatically , while plugins have to be installed manually.
+http | Information about the HTTP address, including bound address, publish address, and maximum content length, in bytes.
+plugins | Information about the installed plugins, including name, version, OpenSearch version, Java version, description, class name, custom folder name, a list of extended plugins, and `has_native_controller`, which specifies whether the plugin has a native controller process. 
+modules | Information about the modules, including name, version, OpenSearch version, Java version, description, class name, custom folder name, a list of extended plugins, and `has_native_controller`, which specifies whether the plugin has a native controller process. Modules are different from plugins because modules are loaded into OpenSearch automatically, while plugins have to be installed manually.
 ingest | Information about ingest pipelines and processors.
 aggregations | Information about the available aggregation types.
 

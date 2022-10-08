@@ -30,18 +30,18 @@ Parameter | Type   | Description
 :--- |:-------| :---
 `<node-filters>` | String | A comma-separated list of resolution mechanisms that OpenSearch uses to identify cluster nodes.
 
-Node filters support several node resolution mechanisms.
+Node filters support several node resolution mechanisms:
 
-- Pre defined constants: `_local`, `_cluster_manager`, or `_all`
+- Predefined constants: `_local`, `_cluster_manager`, or `_all`.
 - An exact match for `nodeID`
-- A simple case-sensitive wildcard pattern matching for `node-name`, `host-name`, or `host-IP-address`
+- A simple case-sensitive wildcard pattern matching for `node-name`, `host-name`, or `host-IP-address`.
 - Node roles where the `<bool>` value is set either to `true` or `false`:
-  - `cluster_manager:<bool>` refers to all cluster manager-eligible nodes
-  - `data:<bool>` refers to all data nodes
-  - `ingest:<bool>` refers to all ingest nodes
-  - `voting_only:<bool>` refers to all voting-only nodes
-  - `ml:<bool>` refers to all machine learning nodes
-  - `coordinating_only:<bool>` refers to all coordinating-only nodes
+  - `cluster_manager:<bool>` refers to all cluster manager-eligible nodes.
+  - `data:<bool>` refers to all data nodes.
+  - `ingest:<bool>` refers to all ingest nodes.
+  - `voting_only:<bool>` refers to all voting-only nodes.
+  - `ml:<bool>` refers to all machine learning (ML) nodes.
+  - `coordinating_only:<bool>` refers to all coordinating-only nodes.
 - A simple case-sensitive wildcard pattern matching for node attributes: `<node attribute*>:<attribute value*>`. The wildcard matching pattern can be used in both the key and value at the same time.
 
 Resolution mechanisms are applied sequentially in the order specified by the client. Each mechanism specification can either add or remove nodes.
@@ -68,7 +68,7 @@ To get statistics from all the nodes except the cluster manager node, use the fo
 GET /_nodes/_all,cluster_manager:false/stats
 ```
 
-However, if you switch the resolution mechanisms, the result will include all the cluster nodes including the cluster manager node: 
+However, if you switch the resolution mechanisms, the result will include all the cluster nodes, including the cluster manager node: 
 
 ```json
 GET /_nodes/cluster_manager:false,_all/stats
