@@ -3,7 +3,7 @@ layout: default
 title: Nodes hot threads
 parent: Nodes APIs
 grand_parent: REST API reference
-nav_order: 10
+nav_order: 30
 ---
 
 # Nodes hot threads
@@ -18,24 +18,49 @@ GET /_nodes/hot_threads
 
 ## Path and HTTP methods
 
-```bash
+```json
 GET /_nodes/hot_threads
-GET /_nodes/{nodeId}/hot_threads
+GET /_nodes/<nodeId>/hot_threads
 ```
 
-## URL parameters
+## Path parameters
 
-You can include the following URL parameters in your request. All parameters are optional.
+You can include the following optional path parameter in your request. 
 
-Parameter | Type     | Description
-:--- |:----------| :---
-nodeId | String  | A comma-separated list of node IDs to filter results. Supports [node filters]({{site.url}}{{site.baseurl}}/opensearch/rest-api/nodes-apis/index/#node-filters). Defaults to `_all`.
-snapshots | Integer  | Number of samples of thread stacktraces. Defaults to `10`.
-interval | TimeValue | Interval between consecutive samples. Defaults to `500ms`.
-threads | Integer   | A number of top busiest threads to return information about. Defaults to `3`.
-ignore_idle_threads | Boolean   | Don’t show threads that are in known-idle states, such as waiting on a socket select or pulling from an empty task queue. Defaults to `true`.
-type | String    | Supported thread types are `cpu`, `wait`, or `block`. Defaults to `cpu`.
-timeout | TimeValue | A request [timeout]({{site.url}}{{site.baseurl}}/opensearch/rest-api/nodes-apis/index/#timeout). Defaults to `30s`.
+Parameter | Type | Description
+:--- | :--- | :---
+nodeId | String  | A comma-separated list of node IDs used to filter results. Supports [node filters]({{site.url}}{{site.baseurl}}/opensearch/rest-api/nodes-apis/index/#node-filters). Defaults to `_all`.
+
+## Query parameters
+
+You can include the following query parameters in your request. All query parameters are optional.
+
+Parameter | Type | Description
+:--- | :---| :---
+snapshots | Integer | The number of samples of thread stacktraces. Defaults to `10`.
+interval | Time | The interval between consecutive samples. Defaults to `500ms`.
+threads | Integer | The number of the busiest threads to return information about. Defaults to `3`.
+ignore_idle_threads | Boolean   | Don’t show threads that are in known idle states, such as waiting on a socket select or pulling from an empty task queue. Defaults to `true`.
+type | String | Supported thread types are `cpu`, `wait`, or `block`. Defaults to `cpu`.
+timeout | Time | Sets the time limit for node response. Default value is `30s`.
+
+#### Sample request 
+
+```json
+GET /_nodes/hot_threads
+```
+
+#### Sample response
+
+```bash
+::: {opensearch}{F-ByTQzVQ3GQeYzQJArJGQ}{GxbcLdCATPWggOuQHJAoCw}{127.0.0.1}{127.0.0.1:9300}{dimr}{shard_indexing_pressure_enabled=true}
+   Hot threads at 2022-09-29T19:46:44.533Z, interval=500ms, busiestThreads=3, ignoreIdleThreads=true:
+   
+    0.1% (455.5micros out of 500ms) cpu usage by thread 'ScheduledMetricCollectorsExecutor'
+     10/10 snapshots sharing following 2 elements
+       java.base@17.0.4/java.lang.Thread.sleep(Native Method)
+       org.opensearch.performanceanalyzer.collectors.ScheduledMetricCollectorsExecutor.run(ScheduledMetricCollectorsExecutor.java:100)
+```
 
 ## Response
 
@@ -56,7 +81,7 @@ Line segment | Description
 `{dimr}` | Node roles (d=data, i=ingest, m=cluster&nbsp;manager, r=remote&nbsp;cluster&nbsp;client).
 `{zone=west-a2, shard_indexing_pressure_enabled=true}` | Node attributes.
 
-Then follows information about threads of selected type.
+Then information about threads of the selected type is provided.
 
 ```bash
 ::: {global-eu-35}{uFPbKLDOTlOmdnwUlKW8sw}{OAM8OT5CQAyasWuIDeVyUA}{global-eu-35.local}{[gdv2:a284:2acv:5fa6:0:3a2:7260:74cf]:9300}{dimr}{zone=west-a2, shard_indexing_pressure_enabled=true}
