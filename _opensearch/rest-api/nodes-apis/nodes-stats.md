@@ -8,11 +8,11 @@ nav_order: 20
 
 # Nodes stats
 
-The Nodes stats API returns statistics about your cluster.
+The nodes stats API returns statistics about your cluster.
 
 ## Path and HTTP methods
 
-```bash
+```json
 GET /_nodes/stats
 GET /_nodes/<node_id>/stats
 GET /_nodes/stats/<metric>
@@ -27,9 +27,9 @@ The following table lists the available path parameters. All path parameters are
 
 Parameter | Type | Description
 :--- | :--- | :---
-nodeId | String | A comma-separated list of nodeIds to filter results. Supports [node filters]({{site.url}}{{site.baseurl}}/opensearch/rest-api/nodes-apis/index/#node-filters). Defaults to `_all`.
-metric | String | A comma-separated list of metric groups that will be included in the response. For example `jvm,fs`. See the list of all metrics below. Defaults to all metrics.
-index_metric | String | A comma-separated list of index metric groups that will be included in the response. For example `docs,store`. See the list of all index metrics below. Defaults to all index metrics.
+nodeId | String | A comma-separated list of nodeIds used to filter results. Supports [node filters]({{site.url}}{{site.baseurl}}/opensearch/rest-api/nodes-apis/index/#node-filters). Defaults to `_all`.
+metric | String | A comma-separated list of metric groups that will be included in the response. For example, `jvm,fs`. See the list of all metrics below. Defaults to all metrics.
+index_metric | String | A comma-separated list of index metric groups that will be included in the response. For example, `docs,store`. See the list of all index metrics below. Defaults to all index metrics.
 
 The following table lists all available metric groups.
 
@@ -38,15 +38,15 @@ Metric | Description
 indices | Index statistics, such as size, document count, and search, index, and delete times for documents.
 os | Statistics about the host OS, including load, memory, and swapping.
 process | Statistics about processes, including their memory consumption, open file descriptors, and CPU usage.
-jvm | Statistics about the JVM, including the number of loaded classes, memory pool, buffer pool, and garbage collection.
-fs | File system statistics, such as read/write stats, data path, and free disk space.
+jvm | Statistics about the JVM, including memory pool, buffer pool, and garbage collection, and the number of loaded classes.
+fs | File system statistics, such as read/write statistics, data path, and free disk space.
 transport | Transport layer statistics about send/receive in cluster communication.
 http | Statistics about the HTTP layer.
 breaker | Statistics about the field data circuit breakers.
 script | Statistics about scripts, such as compilations and cache evictions. 
 discovery | Statistics about cluster states.
 ingest | Statistics about ingest pipelines.
-adaptive_selection | Statistics about adaptive replica selection that selects an eligible node using shard allocation awareness.
+adaptive_selection | Statistics about adaptive replica selection, which selects an eligible node using shard allocation awareness.
 script_cache | Statistics about script cache.
 indexing_pressure | Statistics about the node's indexing pressure.
 shard_indexing_pressure | Statistics about shard indexing pressure.
@@ -76,7 +76,7 @@ The following index metrics are supported:
 - translog
 - request_cache
 
-For example, the following query requests stats for `docs` and `search`:
+For example, the following query requests statistics for `docs` and `search`:
 
 ```json
 GET _nodes/stats/indices/docs,search
@@ -576,7 +576,7 @@ GET _nodes/stats/
 
 The following table lists all response fields.
 
-| Field | Field type | Description |
+| Field | Data Type | Description |
 | :--- | :--- | :--- |
 | _nodes | Object | Statistics about the nodes that are returned. |
 | _nodes.total | Integer | The total number of nodes for this request. |
@@ -587,19 +587,19 @@ The following table lists all response fields.
 
 ### `nodes`
 
-The `nodes` object contains all nodes that are returned by the request with their IDs. Each node has the following properties.
+The `nodes` object contains all nodes that are returned by the request, along with their IDs. Each node has the following properties.
 
-Field | Field type | Description
+Field | Data Type | Description
 :--- | :--- | :---
-timestamp | Integer | The time the nodes statistics were collected in milliseconds since the epoch. 
+timestamp | Integer | The time the nodes statistics were collected, in milliseconds since the epoch. 
 name | String | The name of the node.
 transport_address | IP address | The host and port of the transport layer that is used by nodes in a cluster to communicate internally.
 host | IP address | The network host of the node.
 ip | IP address | The IP address and port of the node.
-roles | Array | The roles the node has (for example, `cluster_manager`, `data`, or `ingest`).
+roles | Array | The roles of the node (for example, `cluster_manager`, `data`, or `ingest`).
 attributes | Object | The attributes of the node (for example, `shard_indexing_pressure_enabled`).
 [indices](#indices) | Object | Index statistics for each index that has shards on the node.
-[os](#os) | Object | Statistics about the operating system for the node.
+[os](#os) | Object | Statistics about the OS for the node.
 [process](#process) | Object | Process statistics for the node.
 [jvm](#jvm) | Object | Statistics about the JVM for the node.
 [thread_pool](#thread_pool)| Object | Statistics about each thread pool for the node. 
@@ -607,14 +607,14 @@ attributes | Object | The attributes of the node (for example, `shard_indexing_p
 [transport](#transport) | Object | Transport statistics for the node.
 http | Object | HTTP statistics for the node.
 http.current_open | Integer | The number of currently open HTTP connections for the node.
-http.total_opened | Integer | The total number of HTTP connections the node has opened since its start.
-[breakers](#breakers) | Object | Statistics of the circuit breakers for the node. 
+http.total_opened | Integer | The total number of HTTP connections the node has opened since it started.
+[breakers](#breakers) | Object | Statistics about the circuit breakers for the node. 
 [script](#script-and-script_cache)| Object | Script statistics for the node.
 [script_cache](#script-and-script_cache)| Object | Script cache statistics for the node.
 [discovery](#discovery) | Object | Node discovery statistics for the node.
 [ingest](#ingest) | Object | Ingest statistics for the node.
 [adaptive_selection](#adaptive_selection) | Object | Statistics about adaptive selections for the node. 
-[indexing_pressure](#indexing_pressure) | Object | Statistics related to indexing pressure for the node.
+[indexing_pressure](#indexing_pressure) | Object | Statistics related to the node's indexing pressure.
 [shard_indexing_pressure](#shard_indexing_pressure) | Object | Statistics related to indexing pressure at the shard level.
 
 ### `indices`
@@ -625,51 +625,51 @@ Field | Field type | Description
 :--- | :--- | :---
 docs | Object | Document statistics for all primary shards that exist on the node.
 docs.<br>&nbsp;&nbsp;&nbsp;&nbsp;count | Integer | The number of documents reported by Lucene. Excludes deleted documents and recently indexed documents that are not yet assigned to a segment. Nested documents are counted separately. 
-docs.<br>&nbsp;&nbsp;&nbsp;&nbsp;deleted | Integer | The number of deleted documents reported by Lucene. Excludes recent delete operations that did not yet affect the segment. 
-store | Object | Statistics about the shard size of the shards on the node.
+docs.<br>&nbsp;&nbsp;&nbsp;&nbsp;deleted | Integer | The number of deleted documents reported by Lucene. Excludes recent deletion operations that have not yet affect the segment. 
+store | Object | Statistics about the shard sizes of the shards on the node.
 store.<br>&nbsp;&nbsp;&nbsp;&nbsp;size_in_bytes | Integer | Total size of all shards on the node.  
-store.<br>&nbsp;&nbsp;&nbsp;&nbsp;reserved_in_bytes | Integer | A predicted number of bytes the shard store will become because of activities such as restoring snapshots and peer recoveries.
+store.<br>&nbsp;&nbsp;&nbsp;&nbsp;reserved_in_bytes | Integer | The predicted number of bytes the shard store will grow to be because of activities such as restoring snapshots and peer recoveries.
 indexing | Object | Statistics about indexing operations for the node.
 indexing.<br>&nbsp;&nbsp;&nbsp;&nbsp;index_total | Integer | The total number of indexing operations on the node.
-indexing.<br>&nbsp;&nbsp;&nbsp;&nbsp;index_time_in_millis | Integer | The total time for all indexing operations in milliseconds.
-indexing.<br>&nbsp;&nbsp;&nbsp;&nbsp;index_current | Integer | The number of indexing operations that are currently executing.
+indexing.<br>&nbsp;&nbsp;&nbsp;&nbsp;index_time_in_millis | Integer | The total time for all indexing operations, in milliseconds.
+indexing.<br>&nbsp;&nbsp;&nbsp;&nbsp;index_current | Integer | The number of indexing operations that are currently running.
 indexing.<br>&nbsp;&nbsp;&nbsp;&nbsp;index_failed | Integer | The number of indexing operations that have failed.
 indexing.<br>&nbsp;&nbsp;&nbsp;&nbsp;delete_total | Integer | The total number of deletions.
-indexing.<br>&nbsp;&nbsp;&nbsp;&nbsp;delete_time_in_millis | Integer | The total time for all deletion operations in milliseconds.
-indexing.<br>&nbsp;&nbsp;&nbsp;&nbsp;delete_current | Integer | The number of deletion operations that are currently executing.
+indexing.<br>&nbsp;&nbsp;&nbsp;&nbsp;delete_time_in_millis | Integer | The total time for all deletion operations, in milliseconds.
+indexing.<br>&nbsp;&nbsp;&nbsp;&nbsp;delete_current | Integer | The number of deletion operations that are currently running.
 indexing.<br>&nbsp;&nbsp;&nbsp;&nbsp;noop_update_total | Integer | The total number of noop operations.
 indexing.<br>&nbsp;&nbsp;&nbsp;&nbsp;is_throttled | Boolean | Specifies whether any operations were throttled.
-indexing.<br>&nbsp;&nbsp;&nbsp;&nbsp;throttle_time_in_millis | Integer | The total time for throttling operations in milliseconds.
+indexing.<br>&nbsp;&nbsp;&nbsp;&nbsp;throttle_time_in_millis | Integer | The total time for throttling operations, in milliseconds.
 get | Object | Statistics about the get operations for the node.
 get.<br>&nbsp;&nbsp;&nbsp;&nbsp;total | Integer | The total number of get operations.
-get.<br>&nbsp;&nbsp;&nbsp;&nbsp;time_in_millis | Integer | The total time for all get operations in milliseconds.
+get.<br>&nbsp;&nbsp;&nbsp;&nbsp;time_in_millis | Integer | The total time for all get operations, in milliseconds.
 get.<br>&nbsp;&nbsp;&nbsp;&nbsp;exists_total | Integer | The total number of successful get operations.
-get.<br>&nbsp;&nbsp;&nbsp;&nbsp;exists_time_in_millis | Integer | The total time for all successful get operations in milliseconds.
+get.<br>&nbsp;&nbsp;&nbsp;&nbsp;exists_time_in_millis | Integer | The total time for all successful get operations, in milliseconds.
 get.<br>&nbsp;&nbsp;&nbsp;&nbsp;missing_total | Integer | The number of failed get operations.
-get.<br>&nbsp;&nbsp;&nbsp;&nbsp;missing_time_in_millis | Integer | The total time for all failed get operations in milliseconds.
-get.<br>&nbsp;&nbsp;&nbsp;&nbsp;current | Integer | The number of get operations that are currently executing.
+get.<br>&nbsp;&nbsp;&nbsp;&nbsp;missing_time_in_millis | Integer | The total time for all failed get operations, in milliseconds.
+get.<br>&nbsp;&nbsp;&nbsp;&nbsp;current | Integer | The number of get operations that are currently running.
 search | Object | Statistics about the search operations for the node.
 search.<br>&nbsp;&nbsp;&nbsp;&nbsp;open_contexts | Integer | The number of open search contexts.
 search.<br>&nbsp;&nbsp;&nbsp;&nbsp;query_total | Integer | The total number of query operations.
-search.<br>&nbsp;&nbsp;&nbsp;&nbsp;query_time_in_millis | Integer | The total time for all query operations in milliseconds.
-search.<br>&nbsp;&nbsp;&nbsp;&nbsp;query_current | Integer | The number of query operations that are currently executing.
+search.<br>&nbsp;&nbsp;&nbsp;&nbsp;query_time_in_millis | Integer | The total time for all query operations, in milliseconds.
+search.<br>&nbsp;&nbsp;&nbsp;&nbsp;query_current | Integer | The number of query operations that are currently running.
 search.<br>&nbsp;&nbsp;&nbsp;&nbsp;fetch_total | Integer | The total number of fetch operations.
-search.<br>&nbsp;&nbsp;&nbsp;&nbsp;fetch_time_in_millis | Integer | The total time for all fetch operations in milliseconds.
-search.<br>&nbsp;&nbsp;&nbsp;&nbsp;fetch_current | Integer | The number of fetch operations that are currently executing.
+search.<br>&nbsp;&nbsp;&nbsp;&nbsp;fetch_time_in_millis | Integer | The total time for all fetch operations, in milliseconds.
+search.<br>&nbsp;&nbsp;&nbsp;&nbsp;fetch_current | Integer | The number of fetch operations that are currently running.
 search.<br>&nbsp;&nbsp;&nbsp;&nbsp;scroll_total | Integer | The total number of scroll operations.
-search.<br>&nbsp;&nbsp;&nbsp;&nbsp;scroll_time_in_millis | Integer | The total time for all scroll operations in milliseconds.
-search.<br>&nbsp;&nbsp;&nbsp;&nbsp;scroll_current | Integer | The number of scroll operations that are currently executing.
+search.<br>&nbsp;&nbsp;&nbsp;&nbsp;scroll_time_in_millis | Integer | The total time for all scroll operations, in milliseconds.
+search.<br>&nbsp;&nbsp;&nbsp;&nbsp;scroll_current | Integer | The number of scroll operations that are currently running.
 search.<br>&nbsp;&nbsp;&nbsp;&nbsp;suggest_total | Integer | The total number of suggest operations.
-search.<br>&nbsp;&nbsp;&nbsp;&nbsp;suggest_time_in_millis | Integer | The total time for all suggest operations in milliseconds.
-search.<br>&nbsp;&nbsp;&nbsp;&nbsp;suggest_current | Integer | The number of suggest operations that are currently executing.
+search.<br>&nbsp;&nbsp;&nbsp;&nbsp;suggest_time_in_millis | Integer | The total time for all suggest operations, in milliseconds.
+search.<br>&nbsp;&nbsp;&nbsp;&nbsp;suggest_current | Integer | The number of suggest operations that are currently running.
 merges | Object | Statistics about merge operations for the node.
-merges.<br>&nbsp;&nbsp;&nbsp;&nbsp;current | Integer | The number of merge operations that are currently executing.
-merges.<br>&nbsp;&nbsp;&nbsp;&nbsp;current_docs | Integer | The number of document merges that are currently executing.
-merges.<br>&nbsp;&nbsp;&nbsp;&nbsp;current_size_in_bytes | Integer | The memory size in bytes that is used to perform current merge operations.
+merges.<br>&nbsp;&nbsp;&nbsp;&nbsp;current | Integer | The number of merge operations that are currently running.
+merges.<br>&nbsp;&nbsp;&nbsp;&nbsp;current_docs | Integer | The number of document merges that are currently running.
+merges.<br>&nbsp;&nbsp;&nbsp;&nbsp;current_size_in_bytes | Integer | The memory size, in bytes, that is used to perform current merge operations.
 merges.<br>&nbsp;&nbsp;&nbsp;&nbsp;total | Integer | The total number of merge operations.
-merges.<br>&nbsp;&nbsp;&nbsp;&nbsp;total_time_in_millis | Integer | The total time for merges in milliseconds.
+merges.<br>&nbsp;&nbsp;&nbsp;&nbsp;total_time_in_millis | Integer | The total time for merges, in milliseconds.
 merges.<br>&nbsp;&nbsp;&nbsp;&nbsp;total_docs | Integer | The total number of documents that have been merged.
-merges.<br>&nbsp;&nbsp;&nbsp;&nbsp;total_size_in_bytes | Integer | The total size of all merged documents in bytes.
+merges.<br>&nbsp;&nbsp;&nbsp;&nbsp;total_size_in_bytes | Integer | The total size of all merged documents, in bytes.
 merges.<br>&nbsp;&nbsp;&nbsp;&nbsp;total_stopped_time_in_millis | Integer | The total time spent on stopping merge operations, in milliseconds.
 merges.<br>&nbsp;&nbsp;&nbsp;&nbsp;total_throttled_time_in_millis | Integer | The total time spent on throttling merge operations, in milliseconds. 
 merges.<br>&nbsp;&nbsp;&nbsp;&nbsp;total_auto_throttle_in_bytes | Integer | The total size of automatically throttled merge operations, in bytes.
@@ -682,17 +682,17 @@ refresh.<br>&nbsp;&nbsp;&nbsp;&nbsp;listeners | Integer | The number of refresh 
 flush | Object | Statistics about flush operations for the node.
 flush.<br>&nbsp;&nbsp;&nbsp;&nbsp;total | Integer | The total number of flush operations.
 flush.<br>&nbsp;&nbsp;&nbsp;&nbsp;periodic | Integer | The total number of periodic flush operations.
-flush.<br>&nbsp;&nbsp;&nbsp;&nbsp;total_time_in_millis | Integer | The total number for all flush operations, in milliseconds.
+flush.<br>&nbsp;&nbsp;&nbsp;&nbsp;total_time_in_millis | Integer | The total time for all flush operations, in milliseconds.
 warmer | Object | Statistics about the index warming operations for the node.
 warmer.<br>&nbsp;&nbsp;&nbsp;&nbsp;current | Integer | The number of current index warming operations.
 warmer.<br>&nbsp;&nbsp;&nbsp;&nbsp;total  | Integer | The total number of index warming operations.
-warmer.<br>&nbsp;&nbsp;&nbsp;&nbsp;total_time_in_millis | Integer | The total number for all index warming operations, in milliseconds.
+warmer.<br>&nbsp;&nbsp;&nbsp;&nbsp;total_time_in_millis | Integer | The total time for all index warming operations, in milliseconds.
 query_cache | Statistics about query cache operations for the node.
 query_cache.<br>&nbsp;&nbsp;&nbsp;&nbsp;memory_size_in_bytes | Integer | The amount of memory used for the query cache for all shards in the node.
 query_cache.<br>&nbsp;&nbsp;&nbsp;&nbsp;total_count | Integer | The total number of hits, misses, and cached queries in the query cache.
 query_cache.<br>&nbsp;&nbsp;&nbsp;&nbsp;hit_count | Integer | The total number of hits in the query cache.
 query_cache.<br>&nbsp;&nbsp;&nbsp;&nbsp;miss_count | Integer | The total number of misses in the query cache. 
-query_cache.<br>&nbsp;&nbsp;&nbsp;&nbsp;cache_size | Integer | The size of query cache in bytes.
+query_cache.<br>&nbsp;&nbsp;&nbsp;&nbsp;cache_size | Integer | The size of the query cache, in bytes.
 query_cache.<br>&nbsp;&nbsp;&nbsp;&nbsp;cache_count | Integer | The number of queries in the query cache.
 query_cache.<br>&nbsp;&nbsp;&nbsp;&nbsp;evictions | Integer | The number of evictions in the query cache.
 fielddata | Object | Statistics about the field data cache for all shards in the node.
@@ -714,13 +714,13 @@ segments.<br>&nbsp;&nbsp;&nbsp;&nbsp;doc_values_memory_in_bytes | Integer | The 
 segments.<br>&nbsp;&nbsp;&nbsp;&nbsp;index_writer_memory_in_bytes | Integer | The total amount of memory used by all index writers, in bytes. 
 segments.<br>&nbsp;&nbsp;&nbsp;&nbsp;version_map_memory_in_bytes | Integer | The total amount of memory used by all version maps, in bytes. 
 segments.<br>&nbsp;&nbsp;&nbsp;&nbsp;fixed_bit_set_memory_in_bytes | Integer | The total amount of memory used by fixed bit sets, in bytes. Fixed bit sets are used for nested objects and join fields.
-segments.<br>&nbsp;&nbsp;&nbsp;&nbsp;max_unsafe_auto_id_timestamp | Integer | The timestamp for the most recently retired indexing request in milliseconds since the epoch.
+segments.<br>&nbsp;&nbsp;&nbsp;&nbsp;max_unsafe_auto_id_timestamp | Integer | The timestamp for the most recently retired indexing request, in milliseconds since the epoch.
 segments.<br>&nbsp;&nbsp;&nbsp;&nbsp;file_sizes | Integer | Statistics about the size of the segment files.
 translog | Object | Statistics about transaction log operations for the node.
 translog.<br>&nbsp;&nbsp;&nbsp;&nbsp;operations | Integer | The number of translog operations.
-translog.<br>&nbsp;&nbsp;&nbsp;&nbsp;size_in_bytes | Integer | The size of the translog in bytes.
+translog.<br>&nbsp;&nbsp;&nbsp;&nbsp;size_in_bytes | Integer | The size of the translog, in bytes.
 translog.<br>&nbsp;&nbsp;&nbsp;&nbsp;uncommitted_operations | Integer | The number of uncommitted translog operations.
-translog.<br>&nbsp;&nbsp;&nbsp;&nbsp;uncommitted_size_in_bytes | Integer | The size of uncommitted translog operations in bytes.
+translog.<br>&nbsp;&nbsp;&nbsp;&nbsp;uncommitted_size_in_bytes | Integer | The size of uncommitted translog operations, in bytes.
 translog.<br>&nbsp;&nbsp;&nbsp;&nbsp;earliest_last_modified_age | Integer | The earliest last modified age for the translog.
 request_cache | Object | Statistics about the request cache for the node.
 request_cache.<br>&nbsp;&nbsp;&nbsp;&nbsp;memory_size_in_bytes | Integer | The memory size used by the request cache, in bytes.
@@ -728,37 +728,37 @@ request_cache.<br>&nbsp;&nbsp;&nbsp;&nbsp;evictions | Integer | The number of re
 request_cache.<br>&nbsp;&nbsp;&nbsp;&nbsp;hit_count | Integer | The number of request cache hits.
 request_cache.<br>&nbsp;&nbsp;&nbsp;&nbsp;miss_count | Integer | The number of request cache misses.
 recovery | Object | Statistics about recovery operations for the node.
-recovery.<br>&nbsp;&nbsp;&nbsp;&nbsp;current_as_source | Integer | The number of recovery operations that have used a shard on this node as a source.
-recovery.<br>&nbsp;&nbsp;&nbsp;&nbsp;current_as_target | Integer | The number of recovery operations that have used a shard on this node as a target.
+recovery.<br>&nbsp;&nbsp;&nbsp;&nbsp;current_as_source | Integer | The number of recovery operations that have used an index shard as a source.
+recovery.<br>&nbsp;&nbsp;&nbsp;&nbsp;current_as_target | Integer | The number of recovery operations that have used an index shard as a target.
 recovery.<br>&nbsp;&nbsp;&nbsp;&nbsp;throttle_time_in_millis | Integer | The delay of recovery operations due to throttling, in milliseconds.
 
 
 ### `os`
 
-The `os` object has the operating system statistics for the node and has the following properties.
+The `os` object has the OS statistics for the node and has the following properties.
 
 Field | Field type | Description
 :--- | :--- | :---
-timestamp | Integer | The last refresh time for the operating system statistics, in milliseconds since the epoch.
-cpu | Object | Statistics about this node's CPU usage.
+timestamp | Integer | The last refresh time for the OS statistics, in milliseconds since the epoch.
+cpu | Object | Statistics about the node's CPU usage.
 cpu.percent | Integer | Recent CPU usage for the system.
 cpu.load_average | Object | Statistics about load averages for the system.
 cpu.load_average.1m | Float | The load average for the system for the time period of one minute.
 cpu.load_average.5m | Float | The load average for the system for the time period of five minutes.
 cpu.load_average.15m | Float | The load average for the system for the time period of 15 minutes.
 cpu.mem | Object | Statistics about memory usage for the node.
-cpu.mem.&nbsp;&nbsp;&nbsp;&nbsp;total_in_bytes | Integer | The total amount of physical memory in bytes.
-cpu.mem.&nbsp;&nbsp;&nbsp;&nbsp;free_in_bytes | Integer | The total amount of free physical memory in bytes.
-cpu.mem.&nbsp;&nbsp;&nbsp;&nbsp;used_in_bytes | Integer | The total amount of used physical memory in bytes.
+cpu.mem.&nbsp;&nbsp;&nbsp;&nbsp;total_in_bytes | Integer | The total amount of physical memory, in bytes.
+cpu.mem.&nbsp;&nbsp;&nbsp;&nbsp;free_in_bytes | Integer | The total amount of free physical memory, in bytes.
+cpu.mem.&nbsp;&nbsp;&nbsp;&nbsp;used_in_bytes | Integer | The total amount of used physical memory, in bytes.
 cpu.mem.&nbsp;&nbsp;&nbsp;&nbsp;free_percent | Integer | The percentage of memory that is free.
 cpu.mem.&nbsp;&nbsp;&nbsp;&nbsp;used_percent | Integer | The percentage of memory that is used.
 cpu.swap | Object | Statistics about swap space for the node.
-cpu.swap.&nbsp;&nbsp;&nbsp;&nbsp;total_in_bytes | Integer | The total amount of swap space in bytes.
-cpu.swap.free_in_bytes | Integer | The total amount of free swap space in bytes.
-cpu.swap.&nbsp;&nbsp;&nbsp;&nbsp;used_in_bytes | Integer | The total amount of used swap space in bytes.
+cpu.swap.&nbsp;&nbsp;&nbsp;&nbsp;total_in_bytes | Integer | The total amount of swap space, in bytes.
+cpu.swap.free_in_bytes | Integer | The total amount of free swap space, in bytes.
+cpu.swap.&nbsp;&nbsp;&nbsp;&nbsp;used_in_bytes | Integer | The total amount of used swap space, in bytes.
 cpu.cgroup | Object | Contains cgroup statistics for the node. Returned for Linux only.
 cpu.cgroup.cpuacct | Object | Statistics about the cpuacct control group for the node.
-cpu.cgroup.&nbsp;&nbsp;&nbsp;&nbsp;cpu | Object | Statistics about the cpu control group for the node.
+cpu.cgroup.&nbsp;&nbsp;&nbsp;&nbsp;cpu | Object | Statistics about the CPU control group for the node.
 cpu.cgroup.&nbsp;&nbsp;&nbsp;&nbsp;memory | Object | Statistics about the memory control group for the node.
 
 ### `process`
@@ -771,10 +771,10 @@ timestamp | Integer | The last refresh time for the process statistics, in milli
 open_file_descriptors | Integer |  The number of opened file descriptors associated with the current process.
 max_file_descriptors | Integer | The maximum number of file descriptors for the system.
 cpu | Object | Statistics about the CPU for the node. 
-cpu.percent | Integer | The percent CPU usage for the process.
+cpu.percent | Integer | The percentage of CPU usage for the process.
 cpu.total_in_millis | Integer | The total CPU time used by the process on which the JVM is running, in milliseconds.
 mem  | Object | Statistics about the memory for the node.
-mem.total_virtual_in_bytes | Integer | The total amount of virtual memory that is guaranteed to be available to the process that is currently executing, in bytes.
+mem.total_virtual_in_bytes | Integer | The total amount of virtual memory that is guaranteed to be available to the process that is currently running, in bytes.
 
 
 ### `jvm`
@@ -784,7 +784,7 @@ The `jvm` object contains statistics about the JVM for the node and has the foll
 Field | Field type | Description
 :--- | :--- | :---
 timestamp | Integer | The last refresh time for the JVM statistics, in milliseconds since the epoch.
-uptime_in_millis | Integer | The JVM uptime in milliseconds.
+uptime_in_millis | Integer | The JVM uptime, in milliseconds.
 mem | Object | Statistics for the JVM memory usage on the node.
 mem.heap_used_in_bytes | Integer | The amount of memory that is currently being used, in bytes.
 mem.heap_used_percent | Integer | The percentage of memory that is currently used by the heap.
@@ -809,16 +809,16 @@ gc.collectors.old.collection_time_in_millis | Integer | The total time spent on 
 buffer_pools | Object | Statistics about the JVM buffer pools for the node.
 buffer_pools.mapped | Object | Statistics about the mapped JVM buffer pools for the node.
 buffer_pools.mapped.count | Integer | The number of mapped buffer pools.
-buffer_pools.mapped.used_in_bytes | Integer | The amount of memory used by mapped buffer pools in bytes.
-buffer_pools.mapped.total_capacity_in_bytes | Integer | The total capacity of the mapped buffer pools in bytes.
+buffer_pools.mapped.used_in_bytes | Integer | The amount of memory used by mapped buffer pools, in bytes.
+buffer_pools.mapped.total_capacity_in_bytes | Integer | The total capacity of the mapped buffer pools, in bytes.
 buffer_pools.direct | Object | Statistics about the direct JVM buffer pools for the node.
 buffer_pools.direct.count | Integer | The number of direct buffer pools.
-buffer_pools.direct.used_in_bytes | Integer | The amount of memory used by direct buffer pools in bytes.
-buffer_pools.direct.total_capacity_in_bytes | Integer | The total capacity of the direct buffer pools in bytes.
+buffer_pools.direct.used_in_bytes | Integer | The amount of memory used by direct buffer pools, in bytes.
+buffer_pools.direct.total_capacity_in_bytes | Integer | The total capacity of the direct buffer pools, in bytes.
 classes | Object | Statistics about the classes loaded by the JVM for the node.
 classes.current_loaded_count | Integer | The number of classes currently loaded by the JVM.
-classes.total_loaded_count | Integer | The total number of classes loaded by the JVM since its start.
-classes.total_unloaded_count | Integer | The total number of classes unloaded by the JVM since its start.
+classes.total_loaded_count | Integer | The total number of classes loaded by the JVM since it started.
+classes.total_unloaded_count | Integer | The total number of classes unloaded by the JVM since it started.
 
 ### `thread_pool`
 
@@ -841,15 +841,15 @@ Field | Field type | Description
 :--- | :--- | :---
 timestamp | Integer | The last refresh time for the file store statistics, in milliseconds since the epoch.
 total | Object | Statistics for all file stores of the node.
-total.total_in_bytes | Integer | The total memory sizeof all file stores in bytes. 
-total.free_in_bytes | Integer | The total unallocated disk space in all file stores in bytes.
-total.available_in_bytes | Integer | The total disk space available to the JVM on all file stores. Represents the actual amount of memory in bytes OpenSearch can use.
+total.total_in_bytes | Integer | The total memory size of all file stores, in bytes. 
+total.free_in_bytes | Integer | The total unallocated disk space in all file stores, in bytes.
+total.available_in_bytes | Integer | The total disk space available to the JVM on all file stores. Represents the actual amount of memory, in bytes, that OpenSearch can use.
 data | Array | The list of all file stores. Each file store has the properties listed below.
 data.path | String | The path to the file store.
 data.mount | String | The mount point of the file store.
 data.type | String | The type of the file store (for example, overlay).
-data.total_in_bytes | Integer | The total size of the file store in bytes.
-data.free_in_bytes | Integer | The total unallocated disk space in the file store in bytes.
+data.total_in_bytes | Integer | The total size of the file store, in bytes.
+data.free_in_bytes | Integer | The total unallocated disk space in the file store, in bytes.
 data.available_in_bytes | Integer | The total amount of disk space available to the JVM for the file store, in bytes.
 io_stats | Object | I/O statistics for the node (Linux only). Includes devices, read and write operations, and the I/O operation time.
 
@@ -859,8 +859,8 @@ The `transport` object has the following properties.
 
 Field | Field type | Description
 :--- | :--- | :---
-server_open | Integer | The number of open inbound TCP connections OpenSearch nodes use for internal communication. 
-total_outbound_connections | Integer | The total number of outbound transport connections that this node has opened since its start.
+server_open | Integer | The number of open inbound TCP connections that OpenSearch nodes use for internal communication. 
+total_outbound_connections | Integer | The total number of outbound transport connections that the node has opened since it started.
 rx_count | Integer | The total number of RX (receive) packets the node received during internal communication.
 rx_size_in_bytes | Integer | The total size of RX packets the node received during internal communication, in bytes.
 tx_count | Integer | The total number of TX (transmit) packets the node sent during internal communication.
@@ -877,7 +877,7 @@ limit_size | Byte value | The memory limit for the circuit breaker in human-read
 estimated_size_in_bytes | Integer | The estimated memory used for the operation, in bytes.
 estimated_size | Byte value | The estimated memory used for the operation in human-readable format (for example, `356b`).
 overhead | Float | A factor that all estimates are multiplied by to calculate the final estimate.
-tripped | Integer | The total number of times the circuit breaker has been activated to prevent an out of memory error.
+tripped | Integer | The total number of times the circuit breaker has been activated to prevent an out-of-memory error.
 
 ### `script` and `script_cache`
 
@@ -920,11 +920,11 @@ total | Integer | Ingest statistics for the node's lifetime.
 total.count | Integer | The total number of documents ingested by the node.
 total.time_in_millis | Integer | The total amount of time for preprocessing ingest documents, in milliseconds.
 total.current | Integer | The total number of documents that are currently being ingested by the node.
-total.failed | Integer | The total number of failed ingestions for this node.
+total.failed | Integer | The total number of failed ingestions for the node.
 pipelines | Object | Ingest pipeline statistics for the node. Each pipeline is a nested object specified by its ID with the properties listed below.
 pipelines._id_.count | Integer | The number of documents preprocessed by the ingest pipeline.
 pipelines._id_.time_in_millis | Integer | The total amount of time for preprocessing documents in the ingest pipeline, in milliseconds.
-pipelines._id_.failed | Integer | The total number of failed ingestions for this ingest pipeline.
+pipelines._id_.failed | Integer | The total number of failed ingestions for the ingest pipeline.
 pipelines._id_.processors | Array of objects | Statistics for the ingest processors. Includes the number of documents that are currently transformed, the total number of transformed documents, the number of failed transformations, and the time spent transforming documents.
 
 ### `adaptive_selection`
@@ -935,8 +935,8 @@ Field | Field type | Description
 :--- | :--- | :---
 outgoing_searches | Integer | The number of outgoing search requests for the node.
 avg_queue_size | Integer | The rolling average queue size of search requests for the node (exponentially weighted).
-avg_service_time_ns | Integer | The rolling average service time for search requests in nanoseconds (exponentially weighted).
-avg_response_time_ns | Integer | The rolling average response time for search requests in nanoseconds (exponentially weighted).
+avg_service_time_ns | Integer | The rolling average service time for search requests, in nanoseconds (exponentially weighted).
+avg_response_time_ns | Integer | The rolling average response time for search requests, in nanoseconds (exponentially weighted).
 rank | String | The node's rank that is used to select shards when routing requests.
 
 ### `indexing_pressure`
@@ -947,11 +947,11 @@ Field | Field type | Description
 :--- | :--- | :---
 memory | Object | Statistics related to memory consumption for the indexing load.
 memory.<br>&nbsp;&nbsp;&nbsp;&nbsp;current | Object | Statistics related to memory consumption for the current indexing load.
-memory.<br>&nbsp;&nbsp;&nbsp;&nbsp;current.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;combined_coordinating_and_primary_in_bytes | Integer | The total memory used by indexing requests in the coordinating or primary stage, in bytes. A node can reuse the coordinating memory if the primary stage is executed locally, so the total memory does not necessarily equal the sum of the coordinating and primary stage memory usages.
+memory.<br>&nbsp;&nbsp;&nbsp;&nbsp;current.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;combined_coordinating_and_primary_in_bytes | Integer | The total memory used by indexing requests in the coordinating or primary stages, in bytes. A node can reuse the coordinating memory if the primary stage is run locally, so the total memory does not necessarily equal the sum of the coordinating and primary stage memory usage.
 memory.<br>&nbsp;&nbsp;&nbsp;&nbsp;current.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;coordinating_in_bytes | The total memory consumed by indexing requests in the coordinating stage, in bytes.
 memory.<br>&nbsp;&nbsp;&nbsp;&nbsp;current.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;primary_in_bytes | Integer | The total memory consumed by indexing requests in the primary stage, in bytes.
 memory.<br>&nbsp;&nbsp;&nbsp;&nbsp;current.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;replica_in_bytes | Integer | The total memory consumed by indexing requests in the replica stage, in bytes.
-memory.<br>&nbsp;&nbsp;&nbsp;&nbsp;current.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;all_in_bytes | Integer | The total memory consumed by indexing requests in the coordinating, primary, or replica stage.
+memory.<br>&nbsp;&nbsp;&nbsp;&nbsp;current.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;all_in_bytes | Integer | The total memory consumed by indexing requests in the coordinating, primary, or replica stages.
 
 ### `shard_indexing_pressure`
 
@@ -961,10 +961,10 @@ Field | Field type | Description
 :--- | :--- | :---
 [stats]({{site.url}}{{site.baseurl}}/opensearch/stats-api/) | Object | Statistics about shard indexing pressure.
 total_rejections_breakup_shadow_mode | Object | If running in shadow mode, the `total_rejections_breakup_shadow_mode` object contains statistics about the request rejection criteria of all shards in the node.
-total_rejections_breakup_shadow_mode.<br>&nbsp;&nbsp;&nbsp;&nbsp;node_limits | Integer | The total number of rejections due to node memory limit. When all shards reach the memory limit assigned to the node (for example, 10% of heap size), the shard is unable to take in more traffic on the node, and the indexing request is rejected.
-total_rejections_breakup_shadow_mode.<br>&nbsp;&nbsp;&nbsp;&nbsp;no_successful_request_limits | Integer | The total number of rejections when node occupancy level is breaching its soft limit and the shard has multiple outstanding requests that are waiting to be executed. In this case, additional indexing requests are rejected until the system recovers.
-total_rejections_breakup_shadow_mode.<br>&nbsp;&nbsp;&nbsp;&nbsp;throughput_degradation_limits | Integer | The total number of rejections when node occupancy level is breaching its soft limit and there is a constant deterioration in the request turnaround at the shard level. In this case, additional indexing requests are rejected until the system recovers.
-enabled | Boolean | Specifies whether the shard indexing pressure feature is turned on for this node.
+total_rejections_breakup_shadow_mode.<br>&nbsp;&nbsp;&nbsp;&nbsp;node_limits | Integer | The total number of rejections due to the node memory limit. When all shards reach the memory limit assigned to the node (for example, 10% of heap size), the shard is unable to take in more traffic on the node, and the indexing request is rejected.
+total_rejections_breakup_shadow_mode.<br>&nbsp;&nbsp;&nbsp;&nbsp;no_successful_request_limits | Integer | The total number of rejections when the node occupancy level is breaching its soft limit and the shard has multiple outstanding requests that are waiting to be executed. In this case, additional indexing requests are rejected until the system recovers.
+total_rejections_breakup_shadow_mode.<br>&nbsp;&nbsp;&nbsp;&nbsp;throughput_degradation_limits | Integer | The total number of rejections when the node occupancy level is breaching its soft limit and there is a constant deterioration in the request turnaround at the shard level. In this case, additional indexing requests are rejected until the system recovers.
+enabled | Boolean | Specifies whether the shard indexing pressure feature is turned on for the node.
 enforced | Boolean | If true, the shard indexing pressure runs in enforced mode (there are rejections). If false, the shard indexing pressure runs in shadow mode (there are no rejections, but statistics are recorded and can be retrieved in the `total_rejections_breakup_shadow_mode` object). Only applicable if shard indexing pressure is enabled. 
 
 ## Required permissions
