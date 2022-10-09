@@ -120,7 +120,7 @@ GET _nodes/stats/
       "host" : "127.0.0.1",
       "ip" : "127.0.0.1:9300",
       "roles" : [
-        "cluster_manager",
+        "master",
         "data",
         "ingest",
         "remote_cluster_client"
@@ -596,7 +596,7 @@ name | String | The name of the node.
 transport_address | IP address | The host and port of the transport layer that is used by nodes in a cluster to communicate internally.
 host | IP address | The network host of the node.
 ip | IP address | The IP address and port of the node.
-roles | Array | The roles of the node (for example, `cluster_manager`, `data`, or `ingest`).
+roles | Array | The roles of the node (for example, `master`, `data`, or `ingest`).
 attributes | Object | The attributes of the node (for example, `shard_indexing_pressure_enabled`).
 [indices](#indices) | Object | Index statistics for each index that has shards on the node.
 [os](#os) | Object | Statistics about the OS for the node.
