@@ -65,8 +65,8 @@ Linear regression maps the linear relationship between inputs and outputs. In ML
 
 Parameter | Type   | Description | Default Value
 :--- |:--- | :--- | :---
-learningRate | Double | The rate of speed at which the gradient moves during descent | 0.01
-momentumFactor | Double | The medium-term from which the regressor rises or falls | 0
+learningRate | Double | The gradient descent step size at each iteration when moving toward a minimum of a loss function or optimal value. | 0.01
+momentumFactor | Double | The extra weight factors that accelerate the rate at which the weight is adjusted. This helps move the minimization routine out of local minima.  | 0
 epsilon | Double | The criteria used to identify a linear model | 1.00E-06 
 beta1 | Double | The estimated exponential decay for the moment |  0.9
 beta2 | Double | The estimated exponential decay for the moment |  0.99
