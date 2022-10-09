@@ -46,7 +46,7 @@ Node filters support several node resolution mechanisms:
 
 Resolution mechanisms are applied sequentially in the order specified by the client. Each mechanism specification can either add or remove nodes.
 
-To get statistics from the elected cluster manager node only, use the following query :
+To get statistics from the elected master node only, use the following query :
 
 ```json
 GET /_nodes/_master/stats
@@ -62,14 +62,14 @@ GET /_nodes/data:true/stats
 
 The order of resolution mechanisms is applied sequentially, and each can add or remove nodes. The following examples yield different results.
 
-To get statistics from all the nodes except the cluster manager node, use the following query:
+To get statistics from all the nodes except the master node, use the following query:
 
 ```json
 GET /_nodes/_all,master:false/stats
 ```
 
-However, if you switch the resolution mechanisms, the result will include all the cluster nodes, including the cluster manager node: 
+However, if you switch the resolution mechanisms, the result will include all the cluster nodes, including the master node: 
 
 ```json
-GET /_nodes/cluster_manager:false,_all/stats
+GET /_nodes/master:false,_all/stats
 ```
