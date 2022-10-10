@@ -28,7 +28,7 @@ docker pull opensearchproject/data-prepper:latest
 ```
 
 If you have special requirements that require you build from source, or if you
-want to contribute, please see the [Developer Guide](developer_guide.md).
+want to contribute, please see the [Developer Guide](https://github.com/opensearch-project/data-prepper/blob/main/docs/developer_guide.md).
 
 ## 2. Configuring Data Prepper
 
@@ -40,9 +40,9 @@ You will configure two files:
 * `pipelines.yaml`
 
 Depending on what you want to do, we have a few different guides to configuring Data Prepper.
-* [Trace Analytics](trace_analytics.md) - Learn how to setup Data Prepper for trace observability
-* [Log Ingestion](log_analytics.md) - Learn how to setup Data Prepper for log observability
-* [Simple Pipeline](simple_pipelines.md) - Learn the basics of Data Prepper pipelines with some simple configurations.
+* [Trace Analytics]({{site.url}}{{site.baseurl}}/opensearch/clients/data-prepper/trace-analytics/) - Learn how to setup Data Prepper for trace observability
+* [Log Ingestion]({{site.url}}{{site.baseurl}}/opensearch/clients/data-prepper/log-analytics/) - Learn how to setup Data Prepper for log observability
+* [Simple Pipeline]({{site.url}}{{site.baseurl}}/opensearch/clients/data-prepper/simple-pipelines) - Learn the basics of Data Prepper pipelines with some simple configurations.
 
 ## 3. Defining a Pipeline
 
@@ -103,7 +103,7 @@ docker run --name data-prepper -p 4900:4900 -v ${PWD}/pipelines.yaml:/usr/share/
 For Data Prepper before version 2.0:
 
 ```
-docker run --name data-prepper -p 4900:4900 -v ${PWD}/pipelines.yaml:/usr/share/data-prepper/pipelines.yaml -v ${PWD}/data-prepper-config.yaml:/usr/share/data-prepper/data-prepper-config.yaml opensearchproject/data-prepper:latest
+docker run --name data-prepper -p 4900:4900 -v ${PWD}/pipelines.yaml:/usr/share/data-prepper/pipelines.yaml -v ${PWD}/data-prepper-config.yaml:/usr/share/data-prepper/data-prepper-config.yaml opensearchproject/data-prepper:1.x
 ```
 
 Once Data Prepper is running, it will process data until it is shutdown. Once you are done, shut it down with
@@ -121,17 +121,17 @@ like to pass a custom log4j2 properties file. If no properties file is provided,
 
 ## Next Steps
 
-All Data Prepper instances expose a few APIs. The [API documentation](core_apis.md) outlines these APIs and
+All Data Prepper instances expose a few APIs. The [API documentation]({{site.url}}{{site.baseurl}}/opensearch/clients/data-prepper/api/) outlines these APIs and
 how to configure the server.
 
 Trace Analytics is an important Data Prepper use case. If you haven't yet configure it,
-please visit the [Trace Analytics documentation](trace_analytics.md).
+please visit the [Trace Analytics documentation]{{site.url}}{{site.baseurl}}/opensearch/clients/data-prepper/trace-analytics/).
 
 Log Ingestion is also an important Data Prepper use case. To learn more, visit the [Log Ingestion Documentation](log_analytics.md).
 
 To run Data Prepper with a Logstash configuration, please visit the [Logstash Migration Guide](logstash_migration_guide.md).
 
-To monitor Data Prepper, please read the [Monitoring](monitoring.md) page.
+To monitor Data Prepper, please read the [Monitoring]({{site.url}}{{site.baseurl}}/opensearch/clients/data-prepper/monitoring/) page.
 
 ## Other Examples
 
