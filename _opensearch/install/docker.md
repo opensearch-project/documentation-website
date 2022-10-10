@@ -24,7 +24,10 @@ Docker containers are portable and will run on any compatible host that supports
 
 Visit [Get Docker](https://docs.docker.com/get-docker/) for guidance on installing and configuring Docker for your environment. Docker Desktop users should set host memory utilization to a minimum of 4 GB by opening Docker Desktop and selecting **Settings** → **Resources**. If you are installing Docker Engine using the command line interface (CLI), then Docker, by default, will not have any constraints on available host resources. Depending on your environment, you may wish to configure resource limits in Docker. See [Runtime options with Memory, CPUs, and GPUs](https://docs.docker.com/config/containers/resource_constraints/) for information.
 
-Docker Compose is a utility that allows users to launch multiple containers with a single command. You pass a file to Docker Compose when you invoke it, then Docker Compose reads those settings and starts the requested containers. You can find information about installing Docker Compose on the official [Docker Compose GitHub page](https://github.com/docker/compose).
+Docker Compose is a utility that allows users to launch multiple containers with a single command. You pass a file to Docker Compose when you invoke it, then Docker Compose reads those settings and starts the requested containers. Docker Compose is installed automatically with Docker Desktop. Users operating in a command line environment must install Docker Compose manually. You can find information about installing Docker Compose on the official [Docker Compose GitHub page](https://github.com/docker/compose).
+
+If you need to install Docker Compose manually, and your host supports Python, you can use [pip](https://pypi.org/project/pip/) to install the [Docker Compose package](https://pypi.org/project/docker-compose/) automatically.
+{: .tip}
 
 ## Step 2: Test Docker and OpenSearch
 
@@ -42,7 +45,7 @@ docker pull public.ecr.aws/opensearchproject/opensearch:latest
 docker pull public.ecr.aws/opensearchproject/opensearch-dashboards:latest
 ```
 
-To download a specific version of the product, modify the image tag. For example, `opensearchproject/opensearch:2.3.0` will run OpenSearch version 2.3.0. Refer to the image repositories for available versions.
+To download a specific version of OpenSearch or OpenSearch Dashboards, modify the image tag. For example, `opensearchproject/opensearch:{{site.opensearch_version}}` will run OpenSearch version {{site.opensearch_version}}. Refer to the image repositories for available versions.
 {: .tip}
 
 
