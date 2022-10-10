@@ -56,7 +56,7 @@ PUT testindex/_doc/1
 }
 ```
 
-You can use a [term query](#term-query) or a [range query](#range-query) to search for values within range fields. 
+You can use a [Term query](#term-query) or a [Range query](#range-query) to search for values within range fields. 
 
 ### Term query
 
@@ -77,7 +77,7 @@ GET testindex/_search
 }
 ```
 
-### Range query optional parameters
+### Range query
 
 A range query on a range field returns documents within that range. Along with the field to be matched, you can further specify a date format or relational operators with the following optional parameters:
 
