@@ -11,6 +11,9 @@ nav_order: 3
 
 Docker containers are portable and will run on any compatible host that supports Docker (such as Linux, MacOS, and Windows). The portability of a Docker container offers flexibility over other installations methods, like [RPM]({{site.url}}{{site.baseurl}}/opensearch/install/rpm/) or a manual [Tarball]({{site.url}}{{site.baseurl}}/opensearch/install/tar/) installation, which both require additional configuration after downloading and unpacking.
 
+This guide assumes that you are comfortable working from the Linux command line interface (CLI). You should understand how to input commands, navigate between directories, and edit text files. For help with [Docker](https://www.docker.com/) or [Docker Compose](https://github.com/docker/compose), please refer to the official documentation.
+{:.note}
+
 ## Process overview
 
 1. **Install Docker and Docker Compose.**
@@ -45,7 +48,7 @@ docker pull public.ecr.aws/opensearchproject/opensearch:latest
 docker pull public.ecr.aws/opensearchproject/opensearch-dashboards:latest
 ```
 
-To download a specific version of OpenSearch or OpenSearch Dashboards, modify the image tag. For example, `opensearchproject/opensearch:{{site.opensearch_version}}` will run OpenSearch version {{site.opensearch_version}}. Refer to the image repositories for available versions.
+To download a specific version of OpenSearch or OpenSearch Dashboards, modify the image tag. For example, `opensearchproject/opensearch:{{site.opensearch_version}}` will run OpenSearch version {{site.opensearch_version}}. Refer to the image repositories for available versions. 
 {: .tip}
 
 
