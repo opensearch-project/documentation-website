@@ -59,7 +59,7 @@ GET shakespeare/_search
 
 Prefix matching doesn’t require any special mappings. It works with your data as-is.
 However, it’s a fairly resource-intensive operation. A prefix of `a` could match hundreds of thousands of terms and not be useful to your user.
-To limit the impact of prefix expansion, set `max_expansions` to a reasonable number. To learn about the `max_expansions` option, see [Options]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text#options).
+To limit the impact of prefix expansion, set `max_expansions` to a reasonable number. To learn about the `max_expansions` option, see [Options]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text#other-optional-query-fields).
 
 #### Sample Request
 

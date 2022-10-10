@@ -56,5 +56,5 @@ You can run OpenSearch Dashboards on a local host after installing OpenSearch. S
 - [Getting Started with OpenSearch]({{site.url}}{{site.baseurl}}).
 - [Launch Highlight: OpenSearch Playground](https://www.opensearch.org/blog/community/2022/10/opensearch-playground/)
 - [Upgrade from Kibana OSS to OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/upgrade-to/dashboards-upgrade-to/)
-- [OpenSearch Frequently Asked Questions]({{site.url}}{{site.baseurl}}/faq/)
+- [OpenSearch Frequently Asked Questions]({{site.url}}/faq/)
 - [OpenSearch Dashboards Developer Guide](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/DEVELOPER_GUIDE.md)
