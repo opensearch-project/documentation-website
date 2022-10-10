@@ -24,7 +24,7 @@ Docker containers are portable and will run on any compatible host that supports
 
 Visit [Get Docker](https://docs.docker.com/get-docker/) for guidance on installing and configuring Docker for your environment. Docker Desktop users should set host memory utilization to a minimum of 4 GB by opening Docker Desktop and selecting **Settings** → **Resources**. If you are installing Docker Engine using the command line interface (CLI), then Docker, by default, will not have any constraints on available host resources. Depending on your environment, you may wish to configure resource limits in Docker. See [Runtime options with Memory, CPUs, and GPUs](https://docs.docker.com/config/containers/resource_constraints/) for information.
 
-Docker Compose is a utility that allows users to launch multiple containers with a single command. You pass a file to Docker Compose when you invoke it, then Docker Compose reads those settings and starts the requested containers.
+Docker Compose is a utility that allows users to launch multiple containers with a single command. You pass a file to Docker Compose when you invoke it, then Docker Compose reads those settings and starts the requested containers. You can find information about installing Docker Compose from the official Docker Compose GitHub page](https://github.com/docker/compose).
 
 
 
