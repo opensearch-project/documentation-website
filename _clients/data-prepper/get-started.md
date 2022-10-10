@@ -9,7 +9,7 @@ nav_order: 1
 
 Data Prepper is an independent component, not an OpenSearch plugin, that converts data for use with OpenSearch. It's not bundled with the all-in-one OpenSearch installation packages.
 
-If you are migrating from Open Distro Data Prepper, visit the [Migrating from Open Distro](migrating_from_opendistro.md) page. Otherwise, please continue.
+If you are migrating from Open Distro Data Prepper, visit the [Migrating from Open Distro]({{site.url}}{{site.baseurl}}/opensearch/clients/data-prepper/migrate-open-distro/) page. 
 
 ## 1. Installing Data Prepper
 
@@ -89,7 +89,7 @@ e51e700e-5cab-4f6d-879a-1c3235a77d18
 b4ed2d7e-cf9c-4e9d-967c-b18e8af35c90
 ```
 The remainder of this page shows examples for running from the Docker image. If you
-built from source, refer to [Developer Guide](developer_guide.md) for more information.
+built from source, refer to [Developer Guide](https://github.com/opensearch-project/data-prepper/blob/main/docs/developer_guide.md) for more information.
 
 However you configure your pipeline, you will run Data Prepper the same way. You run the Docker
 image and supply both the `pipelines.yaml` and `data-prepper-config.yaml` files.
@@ -127,9 +127,9 @@ how to configure the server.
 Trace Analytics is an important Data Prepper use case. If you haven't yet configure it,
 please visit the [Trace Analytics documentation]{{site.url}}{{site.baseurl}}/opensearch/clients/data-prepper/trace-analytics/).
 
-Log Ingestion is also an important Data Prepper use case. To learn more, visit the [Log Ingestion Documentation](log_analytics.md).
+Log Ingestion is also an important Data Prepper use case. To learn more, visit the [Log Ingestion Documentation]({{site.url}}{{site.baseurl}}/opensearch/clients/data-prepper/log-analytics/).
 
-To run Data Prepper with a Logstash configuration, please visit the [Logstash Migration Guide](logstash_migration_guide.md).
+To run Data Prepper with a Logstash configuration, please visit the [Logstash Migration Guide]({{site.url}}{{site.baseurl}}/opensearch/clients/data-prepper/logstash-migration-guide/).
 
 To monitor Data Prepper, please read the [Monitoring]({{site.url}}{{site.baseurl}}/opensearch/clients/data-prepper/monitoring/) page.
 
