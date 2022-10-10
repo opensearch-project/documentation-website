@@ -16,7 +16,10 @@ This guide assumes that you are comfortable working from the Linux command line 
 
 ## Install Docker and Docker Compose
 
-Visit [Get Docker](https://docs.docker.com/get-docker/) for guidance on installing and configuring Docker for your environment. Docker Desktop users should set host memory utilization to a minimum of 4 GB by opening Docker Desktop and selecting **Settings** → **Resources**. If you are installing Docker Engine using the CLI, then Docker, by default, will not have any constraints on available host resources. Depending on your environment, you may wish to configure resource limits in Docker. See [Runtime options with Memory, CPUs, and GPUs](https://docs.docker.com/config/containers/resource_constraints/) for information.
+Visit [Get Docker](https://docs.docker.com/get-docker/) for guidance on installing and configuring Docker for your environment. If you are installing Docker Engine using the CLI, then Docker, by default, will not have any constraints on available host resources. Depending on your environment, you may wish to configure resource limits in Docker. See [Runtime options with Memory, CPUs, and GPUs](https://docs.docker.com/config/containers/resource_constraints/) for information.
+
+Docker Desktop users should set host memory utilization to a minimum of 4 GB by opening Docker Desktop and selecting **Settings** → **Resources**.
+{: .tip}
 
 Docker Compose is a utility that allows users to launch multiple containers with a single command. You pass a file to Docker Compose when you invoke it. Docker Compose reads those settings and starts the requested containers. Docker Compose is installed automatically with Docker Desktop, but users operating in a command line environment must install Docker Compose manually. You can find information about installing Docker Compose on the official [Docker Compose GitHub page](https://github.com/docker/compose).
 
@@ -39,7 +42,7 @@ docker pull public.ecr.aws/opensearchproject/opensearch:latest
 docker pull public.ecr.aws/opensearchproject/opensearch-dashboards:latest
 ```
 
-To download a specific version of OpenSearch or OpenSearch Dashboards, modify the image tag in the command or reference. For example, `opensearchproject/opensearch:{{site.opensearch_version}}` will run OpenSearch version {{site.opensearch_version}}. Refer to the official image repositories for available versions. 
+To download a specific version of OpenSearch or OpenSearch Dashboards, modify the image tag in the command or reference. For example, `opensearchproject/opensearch:{{site.opensearch_version}}` will pull OpenSearch version {{site.opensearch_version}}. Refer to the official image repositories for available versions. 
 {: .tip}
 
 1. Verify that Docker is working correctly by deploying OpenSearch in a single container:
