@@ -15,13 +15,13 @@ OpenSearch provides specialized analyzers to convert your structured text into t
 
 OpenSearch supports the following specialized text analyzers:
 
-1. **Standard analyzer** – parses text strings into terms at word boundaries per the Unicode text segmentation algorithm. It also removes stop words and removes punctuation and lowercase terms.
-1. **Simple analyzer** – converts all characters to lower case and divides groups of non-letter characters into terms.
-1. **Whitespace analyzer** – parses characters into terms between whitespaces.
-1. **Stop analyzer** – Removes stop words (e.g. "but," or "this") from the query string.
-1. **Keyword analyzer** – receives text and outputs only the text specified as a single keyword term.
-1. **Pattern analyzer** – splits text into terms using a regular expression and supports lower case characters and stop words.
-1. **Language analyzer** – provides multiple languages to specify as analyzer values.
+1. **Standard analyzer** – parses all strings into terms at word boundaries per the Unicode text segmentation algorithm. It removes most, but not all punctuation. It converts all characters to lowercase. You can remove stop words if you turn on that option, but it does not remove stop words by default.
+1. **Simple analyzer** – converts all characters to lowercase, and removes non-letter characters when it splits a string into tokens on any non-letter character.
+1. **Whitespace analyzer** – parses a string into terms between each whitespace.
+1. **Stop analyzer** – Converts a string to lowercase and removes non-letter characters by splitting the string into tokens at each non-letter character. It also removes stop words (e.g. "but," or "this") from the query string.
+1. **Keyword analyzer** – receives a string as input and outputs the entire string as one term.
+1. **Pattern analyzer** – splits a string into terms using a regular expression and supports converting characters to lowercase. It also supports removing stop words.
+1. **Language analyzer** – provides analyzers specific to multiple languages.
 1. **Fingerprint analyzer** – creates a fingerprint to use as a duplicate detector.
 
 The full specialized text analyzers reference is in-progress and will be published soon.
@@ -29,13 +29,28 @@ The full specialized text analyzers reference is in-progress and will be publish
 
 ## How to use specialized analyzers
 
-If you want to use a specialized text analyzer, you specify the name of the analyzer for the `analyzer` field.
+If you want to use a specialized text analyzer, specify the name of the analyzer for the `analyzer` field: standard, simple, whitespace, stop, keyword, pattern, fingerprint, and language.
 
-You can use the following options with the `analyzer` field: standard, simple, whitespace, stop, keyword, pattern, fingerprint, and language. Different analyzers have different character filters, tokenizers, and token filters.
+Each analyzer consists of one tokenizer and zero or more token filters. Different analyzers have different character filters, tokenizers and token filters. To pre-process the string before the tokenizer is applied, you can use one or more character filters.
+
+#### Example: Specify the standard analyzer in a simple query
+
+```json
+ GET _search
+{
+  "query": {
+    "match": {
+      "title": "A brief history of Time",
+        "analyzer": "standard"
+       }
+    }
+  }
+  ```
 
 
-<!-- This is a list of the 7 individual new pages we need to write>
 
+
+<!-- This is a list of the 7 individual new pages we need to write
 If you want to select one of the specialized analyzers, see [Specialized analyzers reference]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/specialized-analyzers).
 
 ## Specialized text analyzers
@@ -48,7 +63,6 @@ If you want to select one of the specialized analyzers, see [Specialized analyze
 1. Pattern
 1. Language
 1. Fingerprint
-
 -->
 
 ## Language analyzer
@@ -87,9 +101,3 @@ PUT my-index-000001
 ```
 
 <!-- TO do: each of the options needs its own section with an example. Convert table to individual sections, and then give a streamlined list with valid values. -->
-
-
-
-
-
-
