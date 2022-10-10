@@ -94,7 +94,7 @@ Option | Required | Type | Description
 port | No | Integer | The port OTel trace source is running on. Default is `21890`.
 request_timeout | No | Integer | The request timeout in milliseconds. Default is `10_000`.
 health_check_service | No | Boolean | Enables a gRPC health check service under `grpc.health.v1/Health/Check`. Default is `false`.
-unauthenticated_health_check | No | Boolean | Determines whether authentication is required on the health check endpoint. Data Prepper ignores this option if no authentication is defined. Default is `false`.
+unauthenticated_health_check | No | Boolean | Determines whether or not authentication is required on the health check endpoint. Data Prepper ignores this option if no authentication is defined. Default is `false`.
 proto_reflection_service | No | Boolean | Enables a reflection service for Protobuf services (see [gRPC reflection](https://github.com/grpc/grpc/blob/master/doc/server-reflection.md) and [gRPC Server Reflection Tutorial](https://github.com/grpc/grpc-java/blob/master/documentation/server-reflection-tutorial.md) docs). Default is `false`.
 unframed_requests | No | Boolean | Enable requests not framed using the gRPC wire protocol.
 thread_count | No | Integer | The number of threads to keep in the ScheduledThreadPool. Default is `200`.
@@ -115,7 +115,7 @@ Option | Required | Type | Description
 :--- | :--- | :--- | :---
 port | No | Integer | The port the source is running on. Default is `2021`. Valid options are between `0` and `65535`.
 health_check_service | No | Boolean | Enables health check service on `/health` endpoint on the defined port. Default is `false`.
-unauthenticated_health_check | No | Boolean | Determines whether authentication is required on the health check endpoint. Data Prepper ignores this option if no authentication is defined. Default is `false`.
+unauthenticated_health_check | No | Boolean | Determines whether or not authentication is required on the health check endpoint. Data Prepper ignores this option if no authentication is defined. Default is `false`.
 request_timeout | No | Integer | The request timeout in millis. Default is `10_000`.
 thread_count | No | Integer | The number of threads to keep in the ScheduledThreadPool. Default is `200`.
 max_connection_count | No | Integer | The maximum allowed number of open connections. Default is `500`.
@@ -480,7 +480,7 @@ socket_timeout | No | Integer | the timeout in milliseconds for waiting for data
 connect_timeout | No | Integer | The timeout in milliseconds used when requesting a connection from the connection manager. A timeout value of zero is interpreted as an infinite timeout. If this timeout value is either negative or not set, the underlying Apache HttpClient would rely on operating system settings for managing connection timeouts.
 insecure | No | Boolean | Whether to verify SSL certificates. If set to true, CA certificate verification is disabled and insecure HTTP requests are sent instead. Default is `false`.
 proxy | No | String | The address of a [forward HTTP proxy server](https://en.wikipedia.org/wiki/Proxy_server). The format is "&lt;host name or IP&gt;:&lt;port&gt;". Examples: "example.com:8100", "http://example.com:8100", "112.112.112.112:8100". Port number cannot be omitted.
-index | Conditionally | String | Name of the index to export to. Applicable and required only when the `index_type` is `custom`.
+index | Conditionally | String | Name of the export index. Applicable and required only when the `index_type` is `custom`.
 index_type | No | String | This index type tells the Sink plugin what type of data it is handling. Valid values: `custom`, `trace-analytics-raw`, `trace-analytics-service-map`, `management-disabled`. Default is `custom`.
 template_file | No | String | Path to a JSON [index template]({{site.url}}{{site.baseurl}}/opensearch/index-templates/) file (e.g. `/your/local/template-file.json`) if `index_type` is `custom`. See [otel-v1-apm-span-index-template.json](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/opensearch/src/main/resources/otel-v1-apm-span-index-template.json) for an example.
 document_id_field | No | String | The field from the source data to use for the OpenSearch document ID (e.g. `"my-field"`) if `index_type` is `custom`.
