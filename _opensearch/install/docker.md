@@ -23,7 +23,7 @@ Docker Compose is a utility that allows users to launch multiple containers with
 If you need to install Docker Compose manually, and your host supports Python, you can use [pip](https://pypi.org/project/pip/) to install the [Docker Compose package](https://pypi.org/project/docker-compose/) automatically.
 {: .tip}
 
-## Test OpenSearch
+## Run OpenSearch in a Docker container
 
 OpenSearch images are hosted on [Docker Hub](https://hub.docker.com/u/opensearchproject/) and [AWS Elastic Container Registry (ECR)](https://gallery.ecr.aws/opensearchproject/). If you want to inspect the images you can pull them individually using `docker pull`, such as in the following examples.
 
