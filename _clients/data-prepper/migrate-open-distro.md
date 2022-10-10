@@ -13,7 +13,7 @@ With Data Prepper 1.1, there was only one distribution which was through Open Di
 
 The `elasticsearch` sink has changed to `opensearch`. You will need to change your existing pipeline to use the `opensearch` plugin instead of `elasticsearch`.
 
-Please note that, while the plugin is titled `opensearch`, it remains compatible with Open Distro and ElasticSearch 7.x.
+Please note that while the plugin is titled `opensearch`, it remains compatible with Open Distro and ElasticSearch 7.x.
 
 ## Update Docker Image
 
