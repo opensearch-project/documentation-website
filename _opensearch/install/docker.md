@@ -24,9 +24,23 @@ Docker containers are portable and will run on any compatible host that supports
 
 Visit [Get Docker](https://docs.docker.com/get-docker/) for guidance on installing and configuring Docker for your environment. Docker Desktop users should set host memory utilization to a minimum of 4 GB by opening Docker Desktop and selecting **Settings** → **Resources**. If you are installing Docker Engine using the command line interface (CLI), then Docker, by default, will not have any constraints on available host resources. Depending on your environment, you may wish to configure resource limits in Docker. See [Runtime options with Memory, CPUs, and GPUs](https://docs.docker.com/config/containers/resource_constraints/) for information.
 
-Docker Compose is a utility that allows users to launch multiple containers with a single command. You pass a file to Docker Compose when you invoke it, then Docker Compose reads those settings and starts the requested containers. You can find information about installing Docker Compose from the official Docker Compose GitHub page](https://github.com/docker/compose).
+Docker Compose is a utility that allows users to launch multiple containers with a single command. You pass a file to Docker Compose when you invoke it, then Docker Compose reads those settings and starts the requested containers. You can find information about installing Docker Compose on the official [Docker Compose GitHub page](https://github.com/docker/compose).
 
+## Step 2: Test Docker and OpenSearch
 
+OpenSearch images are hosted on Docker Hub and AWS ECR. If you want to inspect the images you can pull them individually:
+
+[Docker Hub](https://hub.docker.com/u/opensearchproject):
+```bash
+docker pull opensearchproject/opensearch:latest
+docker pull opensearchproject/opensearch-dashboards:latest
+```
+
+[AWS ECR](https://gallery.ecr.aws/opensearchproject/):
+```bash
+docker pull public.ecr.aws/opensearchproject/opensearch:latest
+docker pull public.ecr.aws/opensearchproject/opensearch-dashboards:latest
+```
 
 
 
@@ -45,17 +59,9 @@ EVERYTHING ABOVE THIS LINE IS IN A DRAFT STATE -- EVERYTHING BELOW IS PENDING RE
 
 You can pull the OpenSearch Docker image from either Docker Hub or the public gallery hosted on AWS Elastic Container Registry (ECR).
 
-From [Docker Hub](https://hub.docker.com/u/opensearchproject):
-```bash
-docker pull opensearchproject/opensearch:latest
-docker pull opensearchproject/opensearch-dashboards:latest
-```
 
-From [AWS ECR](https://gallery.ecr.aws/opensearchproject/):
-```bash
-docker pull public.ecr.aws/opensearchproject/opensearch:latest
-docker pull public.ecr.aws/opensearchproject/opensearch-dashboards:latest
-```
+
+
 
 To download a specific version of OpenSearch or OpenSearch Dashboards, modify the image tag (`latest`) to point to a valid version number. For example, `docker pull opensearchproject/opensearch:1.3.0` will download the image corresponding to OpenSearch 1.3.0.
 {: .note}
