@@ -395,7 +395,7 @@ GET _search
 
 ## Convert text with analyzers
 
-To convert unstructured text, use the text analyzers. See [Text analyzers]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/text-analyzers).
+To convert unstructured text into the format that you need, you can use the text analyzers. To learn more about how to convert unstructured text into structured text that is optimized for search, see [Text analyzers]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/text-analyzers).
 
 <!-- TO do: each of the options needs its own section with an example. Convert table to individual sections, and then give a streamlined list with valid values. -->
 

@@ -15,14 +15,14 @@ OpenSearch provides specialized analyzers to convert your structured text into t
 
 OpenSearch supports the following specialized text analyzers:
 
-1. Standard analyzer – parses text strings into terms at word boundaries per the Unicode text segmentation algorithm. It also removes stop words and removes punctuation and lowercase terms.
-1. Simple analyzer – converts all characters to lower case and divides groups of non-letter characters into terms.
-1. Whitespace analyzer – parses characters into terms between whitespaces.
-1. Stop analyzer – Removes stop words (e.g. "but," or "this") from the query string.
-1. Keyword analyzer – receives text and outputs only the text specified as a single keyword term.
-1. Pattern analyzer – splits text into terms using a regular expression and supports lower case characters and stop words.
-1. Language analyzer – provides multiple languages to specify as analyzer values.
-1. Fingerprint analyzer – creates a fingerprint to use as a duplicate detector.
+1. **Standard analyzer** – parses text strings into terms at word boundaries per the Unicode text segmentation algorithm. It also removes stop words and removes punctuation and lowercase terms.
+1. **Simple analyzer** – converts all characters to lower case and divides groups of non-letter characters into terms.
+1. **Whitespace analyzer** – parses characters into terms between whitespaces.
+1. **Stop analyzer** – Removes stop words (e.g. "but," or "this") from the query string.
+1. **Keyword analyzer** – receives text and outputs only the text specified as a single keyword term.
+1. **Pattern analyzer** – splits text into terms using a regular expression and supports lower case characters and stop words.
+1. **Language analyzer** – provides multiple languages to specify as analyzer values.
+1. **Fingerprint analyzer** – creates a fingerprint to use as a duplicate detector.
 
 The full specialized text analyzers reference is in-progress and will be published soon.
 {: .note }
