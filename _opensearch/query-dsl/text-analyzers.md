@@ -8,13 +8,13 @@ nav_order: 41
 
 # Text analyzers
 
-OpenSearch applies text analysis during indexing or searching for `text` fields. There is a standard  analyzer that OpenSearch uses by default for text analysis. To optimize unstructured text for search, you can convert it into structured text with our specialized text analyzers.
+OpenSearch applies text analysis during indexing or searching for `text` fields. There is a standard  analyzer that OpenSearch uses by default for text analysis. To optimize unstructured text for search, you can convert it into structured text with our text analyzers.
 
-## Specialized analyzers
+## Text analyzers
 
-OpenSearch provides specialized analyzers to convert your structured text into the format that works best for your searches.
+OpenSearch provides several text analyzers to convert your structured text into the format that works best for your searches.
 
-OpenSearch supports the following specialized text analyzers:
+OpenSearch supports the following text analyzers:
 
 1. **Standard analyzer** – parses all strings into terms at word boundaries per the Unicode text segmentation algorithm. It removes most, but not all punctuation. It converts all characters to lowercase. You can remove stop words if you turn on that option, but it does not remove stop words by default.
 1. **Simple analyzer** – converts all characters to lowercase, and removes non-letter characters when it splits a string into tokens on any non-letter character.
@@ -28,9 +28,9 @@ OpenSearch supports the following specialized text analyzers:
 The full specialized text analyzers reference is in-progress and will be published soon.
 {: .note }
 
-## How to use specialized analyzers
+## How to use text analyzers
 
-If you want to use a specialized text analyzer, specify the name of the analyzer for the `analyzer` field: standard, simple, whitespace, stop, keyword, pattern, fingerprint, and language.
+If you want to use a text analyzer, specify the name of the analyzer for the `analyzer` field: standard, simple, whitespace, stop, keyword, pattern, fingerprint, and language.
 
 Each analyzer consists of one tokenizer and zero or more token filters. Different analyzers have different character filters, tokenizers and token filters. To pre-process the string before the tokenizer is applied, you can use one or more character filters.
 
@@ -52,7 +52,7 @@ Each analyzer consists of one tokenizer and zero or more token filters. Differen
 
 
 <!-- This is a list of the 7 individual new pages we need to write
-If you want to select one of the specialized analyzers, see [Specialized analyzers reference]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/specialized-analyzers).
+If you want to select one of the text analyzers, see [Text analyzers reference]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/specialized-analyzers).
 
 ## Specialized text analyzers
 
