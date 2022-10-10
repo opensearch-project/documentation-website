@@ -84,6 +84,9 @@ To download a specific version of OpenSearch or OpenSearch Dashboards, modify th
     docker stop <containerId>
     ```
 
+List stopped containers by using `docker container ls -a`. You can remove unneeded containers manually with `docker container rm <containerId_1> <containerId_2> <containerId_3> [...]`, or if you want to remove all stopped containers use `docker prune`.
+{: .tip}
+
 
 
 
