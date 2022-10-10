@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Performance analyzer new
+title: Performance analyzer
 parent: pa
 nav_order: 58
 has_children: true
@@ -21,7 +21,7 @@ Below are the steps to install and configure the performance analyzer plugin.
 
 ### Install
 
-The performance analyzer plugin is included in both the [Docker]({{site.url}}{{site.baseurl}}/opensearch/install/docker/) and [tarball]({{site.url}}{{site.baseurl}}/opensearch/install/tar/) installs of OpenSearch. In the event that you need to install the performance analyzer plugin manually, download the plugin from [Maven](https://search.maven.org/search?q=org.opensearch.plugin). Then install the plugin using the standard [plugins install]({{site.url}}{{site.baseurl}}/opensearch/install/plugins/) process. Performance analyzer will run on each node in a cluster.
+The performance analyzer plugin is included in the installation for [Docker]({{site.url}}{{site.baseurl}}/opensearch/install/docker/) and [tarball]({{site.url}}{{site.baseurl}}/opensearch/install/tar/). If you need to install the performance analyzer plugin manually, download the plugin from [Maven](https://search.maven.org/search?q=org.opensearch.plugin) and install the plugin using the standard [plugins install]({{site.url}}{{site.baseurl}}/opensearch/install/plugins/) process. Performance analyzer will run on each node in a cluster.
 
 To start the performance analyzer RCA agent on a tarball install, run the following command.
       
@@ -29,13 +29,13 @@ To start the performance analyzer RCA agent on a tarball install, run the follow
 OPENSEARCH_HOME=~/opensearch-2.2.1 OPENSEARCH_JAVA_HOME=~/opensearch-2.2.1/jdk OPENSEARCH_PATH_CONF=~/opensearch-2.2.1/bin ./performance-analyzer-agent-cli
 ````
 
-The below command is used to enable the performance analyzer plugin and performance analyzer RCA agent.
+The command to enable the performance analyzer plugin and performance analyzer RCA agent is:
 
 ````bash
 curl -XPOST localhost:9200/_plugins/_performanceanalyzer/cluster/config -H 'Content-Type: application/json' -d '{"enabled": true}'
 ````
 
-To shutdown the performance analyzer RCA agent, run the following command.
+To shut down the performance analyzer RCA agent, run the following command.
 
 ````bash
 kill $(ps aux | grep -i 'PerformanceAnalyzerApp' | grep -v grep | awk '{print $2}')
@@ -55,7 +55,7 @@ bin/opensearch-plugin remove opensearch-performance-analyzer
 
 ### Configure performance analyzer
 
-To configure performance analyzer plugin you will need to edit the `performance-analyzer.properties` configuration file located in the `config/opensearch-performance-analyzer/` directory. Make sure to uncomment the line `#webservice-bind-host` and set it to `0.0.0.0`. You can reference the following example configuration below.
+To configure the performance analyzer plugin you will need to edit the `performance-analyzer.properties` configuration file in the `config/opensearch-performance-analyzer/` directory. Make sure to uncomment the line `#webservice-bind-host` and set it to `0.0.0.0`. You can reference the following example configuration.
 
 ````bash
 # ======================== OpenSearch performance analyzer plugin config =========================
@@ -219,20 +219,20 @@ Example response.
 
 ## Root cause analysis
 
-The [root cause analysis]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/RCA/index/) (RCA) framework uses the information from performance analyzer to alert administrators about the root cause of performance and availability issues that their clusters might be experiencing.
+The [root cause analysis]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/rca/index/) (RCA) framework uses the information from performance analyzer to alert administrators about the root cause of performance and availability issues that their clusters might be experiencing.
 
 ### Enable
 
 To enable the root cause analyzer (RCA) framework, run the following command.
 
 ```bash
-curl -XPOST http://localhost:9200/_plugins/_performanceanalyzer/RCA/cluster/config -H 'Content-Type: application/json' -d '{"enabled": true}'
+curl -XPOST http://localhost:9200/_plugins/_performanceanalyzer/rca/cluster/config -H 'Content-Type: application/json' -d '{"enabled": true}'
 ```
 
 If you run into the `curl: (52) Empty reply from server` response, run the command below to enable RCA.
 
 ```bash
-curl -XPOST https://localhost:9200/_plugins/_performanceanalyzer/RCA/cluster/config -H 'Content-Type: application/json' -d '{"enabled": true}' -u 'admin:admin' -k
+curl -XPOST https://localhost:9200/_plugins/_performanceanalyzer/rca/cluster/config -H 'Content-Type: application/json' -d '{"enabled": true}' -u 'admin:admin' -k
 ```
 
 ### Example API query and response
@@ -240,13 +240,13 @@ curl -XPOST https://localhost:9200/_plugins/_performanceanalyzer/RCA/cluster/con
 Request all available RCAs.
 
 ````bash
-GET localhost:9600/_plugins/_performanceanalyzer/RCA
+GET localhost:9600/_plugins/_performanceanalyzer/rca
 ````
 
 Request a specific RCA.
 
 ````bash
-GET localhost:9600/_plugins/_performanceanalyzer/RCA?name=HighHeapUsageClusterRCA
+GET localhost:9600/_plugins/_performanceanalyzer/rca?name=HighHeapUsageClusterRCA
 ````
 
 Example response.
@@ -294,9 +294,11 @@ Example response.
 
 ## Performance analyzer and root cause analysis API references
 
+### Related links
+
 Further documentation on the use of performance analyzer and root cause analysis can be found at the following links.
 
 - [Performance analyzer API guide]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/api/).
-- [Root cause analysis]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/RCA/index/).
-- [Root cause analysis API guide]({{site.url}}{{site.baseurl}}/latest/monitoring-plugins/pa/RCA/api/).
-- [RFC: Root cause analysis](https://github.com/opensearch-project/performance-analyzer-RCA/blob/main/docs/rfc-RCA.pdf).
+- [Root cause analysis]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/rca/index/).
+- [Root cause analysis API guide]({{site.url}}{{site.baseurl}}/latest/monitoring-plugins/pa/rca/api/).
+- [RFC: Root cause analysis](https://github.com/opensearch-project/performance-analyzer-rca/blob/main/docs/rfc-RCA.pdf).
