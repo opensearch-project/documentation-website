@@ -11,30 +11,30 @@ nav_order: 3
 
 Docker containers are portable and will run on any compatible host that supports Docker (such as Linux, MacOS, and Windows). The portability of a Docker container offers flexibility over other installations methods, like [RPM]({{site.url}}{{site.baseurl}}/opensearch/install/rpm/) or a manual [Tarball]({{site.url}}{{site.baseurl}}/opensearch/install/tar/) installation, which both require additional configuration after downloading and unpacking.
 
-This guide assumes that you are comfortable working from the Linux command line interface (CLI). You should understand how to input commands, navigate between directories, and edit text files. For help with [Docker](https://www.docker.com/) or [Docker Compose](https://github.com/docker/compose), please refer to the official documentation.
+This guide assumes that you are comfortable working from the Linux command line interface (CLI). You should understand how to input commands, navigate between directories, and edit text files. For help with [Docker](https://www.docker.com/) or [Docker Compose](https://github.com/docker/compose), please refer to the official documentation on their websites.
 {:.note}
 
 ## Process overview
 
 1. **Install Docker and Docker Compose.**
    - Docker is used to run and manage OpenSearch containers.
-1. **Test Docker and OpenSearch.**
+1. **Test OpenSearch.**
    - Verify that Docker is installed correctly by running a single container from the command line.
 1. **Customize your configuration with Docker Compose.**
    - Launch a cluster using Docker Compose.
 
 ## Step 1: Install Docker and Docker Compose
 
-Visit [Get Docker](https://docs.docker.com/get-docker/) for guidance on installing and configuring Docker for your environment. Docker Desktop users should set host memory utilization to a minimum of 4 GB by opening Docker Desktop and selecting **Settings** → **Resources**. If you are installing Docker Engine using the command line interface (CLI), then Docker, by default, will not have any constraints on available host resources. Depending on your environment, you may wish to configure resource limits in Docker. See [Runtime options with Memory, CPUs, and GPUs](https://docs.docker.com/config/containers/resource_constraints/) for information.
+Visit [Get Docker](https://docs.docker.com/get-docker/) for guidance on installing and configuring Docker for your environment. Docker Desktop users should set host memory utilization to a minimum of 4 GB by opening Docker Desktop and selecting **Settings** → **Resources**. If you are installing Docker Engine using the CLI, then Docker, by default, will not have any constraints on available host resources. Depending on your environment, you may wish to configure resource limits in Docker. See [Runtime options with Memory, CPUs, and GPUs](https://docs.docker.com/config/containers/resource_constraints/) for information.
 
-Docker Compose is a utility that allows users to launch multiple containers with a single command. You pass a file to Docker Compose when you invoke it, then Docker Compose reads those settings and starts the requested containers. Docker Compose is installed automatically with Docker Desktop. Users operating in a command line environment must install Docker Compose manually. You can find information about installing Docker Compose on the official [Docker Compose GitHub page](https://github.com/docker/compose).
+Docker Compose is a utility that allows users to launch multiple containers with a single command. You pass a file to Docker Compose when you invoke it. Docker Compose reads those settings and starts the requested containers. Docker Compose is installed automatically with Docker Desktop, but users operating in a command line environment must install Docker Compose manually. You can find information about installing Docker Compose on the official [Docker Compose GitHub page](https://github.com/docker/compose).
 
 If you need to install Docker Compose manually, and your host supports Python, you can use [pip](https://pypi.org/project/pip/) to install the [Docker Compose package](https://pypi.org/project/docker-compose/) automatically.
 {: .tip}
 
-## Step 2: Test Docker and OpenSearch
+## Step 2: Test OpenSearch
 
-OpenSearch images are hosted on [Docker Hub](https://hub.docker.com/u/opensearchproject/) and [AWS Elastic Container Registry (ECR)](https://gallery.ecr.aws/opensearchproject/). If you want to inspect the images you can pull them individually, such as in the following examples:
+OpenSearch images are hosted on [Docker Hub](https://hub.docker.com/u/opensearchproject/) and [AWS Elastic Container Registry (ECR)](https://gallery.ecr.aws/opensearchproject/). If you want to inspect the images you can pull them individually using `docker pull`, such as in the following examples.
 
 [Docker Hub](https://hub.docker.com/u/opensearchproject/):
 ```bash
@@ -48,7 +48,7 @@ docker pull public.ecr.aws/opensearchproject/opensearch:latest
 docker pull public.ecr.aws/opensearchproject/opensearch-dashboards:latest
 ```
 
-To download a specific version of OpenSearch or OpenSearch Dashboards, modify the image tag in the command or reference. For example, `opensearchproject/opensearch:{{site.opensearch_version}}` will run OpenSearch version {{site.opensearch_version}}. Refer to the image repositories for available versions. 
+To download a specific version of OpenSearch or OpenSearch Dashboards, modify the image tag in the command or reference. For example, `opensearchproject/opensearch:{{site.opensearch_version}}` will run OpenSearch version {{site.opensearch_version}}. Refer to the official image repositories for available versions. 
 {: .tip}
 
 
