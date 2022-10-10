@@ -28,9 +28,9 @@ Docker Compose is a utility that allows users to launch multiple containers with
 
 ## Step 2: Test Docker and OpenSearch
 
-OpenSearch images are hosted on Docker Hub and AWS ECR. If you want to inspect the images you can pull them individually:
+OpenSearch images are hosted on Docker Hub and AWS Elastic Container Registry (ECR). If you want to inspect the images you can pull them individually, such as in the following examples:
 
-[Docker Hub](https://hub.docker.com/u/opensearchproject):
+[Docker Hub](https://hub.docker.com/u/opensearchproject/):
 ```bash
 docker pull opensearchproject/opensearch:latest
 docker pull opensearchproject/opensearch-dashboards:latest
@@ -42,7 +42,8 @@ docker pull public.ecr.aws/opensearchproject/opensearch:latest
 docker pull public.ecr.aws/opensearchproject/opensearch-dashboards:latest
 ```
 
-
+To download a specific version of the product, modify the image tag. For example, `opensearchproject/opensearch:2.3.0` will run OpenSearch version 2.3.0. Refer to the image repositories for available versions.
+{: .tip}
 
 
 
@@ -57,29 +58,7 @@ docker pull public.ecr.aws/opensearchproject/opensearch-dashboards:latest
 
 EVERYTHING ABOVE THIS LINE IS IN A DRAFT STATE -- EVERYTHING BELOW IS PENDING REVIEW FOR INCLUSION
 
-You can pull the OpenSearch Docker image from either Docker Hub or the public gallery hosted on AWS Elastic Container Registry (ECR).
 
-
-
-
-
-To download a specific version of OpenSearch or OpenSearch Dashboards, modify the image tag (`latest`) to point to a valid version number. For example, `docker pull opensearchproject/opensearch:1.3.0` will download the image corresponding to OpenSearch 1.3.0.
-{: .note}
-
-To check available versions, see [Docker Hub](https://hub.docker.com/u/opensearchproject).
-
-When you download a new version of OpenSearch and OpenSearch Dashboards, you need to modify your `docker-compose.yml` file with the image version number that you downloaded. For example, to update your images to version 2.2.0, replace the following two lines in the YAML file: `image: opensearchproject/opensearch:2.2.0` and `image: opensearchproject/opensearch-dashboards:2.2.0`
-{: .note}
-
-
----
-
-#### Table of contents
-1. TOC
-{:toc}
-
-
----
 
 ## Run the image
 
