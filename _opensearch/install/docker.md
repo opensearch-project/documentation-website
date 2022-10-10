@@ -14,16 +14,7 @@ Docker containers are portable and will run on any compatible host that supports
 This guide assumes that you are comfortable working from the Linux command line interface (CLI). You should understand how to input commands, navigate between directories, and edit text files. For help with [Docker](https://www.docker.com/) or [Docker Compose](https://github.com/docker/compose), please refer to the official documentation on their websites.
 {:.note}
 
-## Process overview
-
-1. **Install Docker and Docker Compose.**
-   - Docker is used to run and manage OpenSearch containers.
-1. **Test OpenSearch.**
-   - Verify that Docker is installed correctly by running a single container from the command line.
-1. **Customize your configuration with Docker Compose.**
-   - Launch a cluster using Docker Compose.
-
-## Step 1: Install Docker and Docker Compose
+## Install Docker and Docker Compose
 
 Visit [Get Docker](https://docs.docker.com/get-docker/) for guidance on installing and configuring Docker for your environment. Docker Desktop users should set host memory utilization to a minimum of 4 GB by opening Docker Desktop and selecting **Settings** → **Resources**. If you are installing Docker Engine using the CLI, then Docker, by default, will not have any constraints on available host resources. Depending on your environment, you may wish to configure resource limits in Docker. See [Runtime options with Memory, CPUs, and GPUs](https://docs.docker.com/config/containers/resource_constraints/) for information.
 
@@ -32,7 +23,7 @@ Docker Compose is a utility that allows users to launch multiple containers with
 If you need to install Docker Compose manually, and your host supports Python, you can use [pip](https://pypi.org/project/pip/) to install the [Docker Compose package](https://pypi.org/project/docker-compose/) automatically.
 {: .tip}
 
-## Step 2: Test OpenSearch
+## Test OpenSearch
 
 OpenSearch images are hosted on [Docker Hub](https://hub.docker.com/u/opensearchproject/) and [AWS Elastic Container Registry (ECR)](https://gallery.ecr.aws/opensearchproject/). If you want to inspect the images you can pull them individually using `docker pull`, such as in the following examples.
 
@@ -100,17 +91,7 @@ To download a specific version of OpenSearch or OpenSearch Dashboards, modify th
 
 !! EVERYTHING ABOVE THIS LINE IS IN A DRAFT STATE -- EVERYTHING BELOW IS PENDING REVIEW FOR INCLUSION !!
 
-To find the container ID:
 
-```bash
-docker ps
-```
-
-Then you can stop the container using:
-
-```bash
-docker stop <container-id>
-```
 
 
 ## Start a cluster
