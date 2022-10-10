@@ -34,7 +34,7 @@ If you need to install Docker Compose manually, and your host supports Python, y
 
 ## Step 2: Test Docker and OpenSearch
 
-OpenSearch images are hosted on Docker Hub and AWS Elastic Container Registry (ECR). If you want to inspect the images you can pull them individually, such as in the following examples:
+OpenSearch images are hosted on [Docker Hub](https://hub.docker.com/u/opensearchproject/) and [AWS Elastic Container Registry (ECR)](https://gallery.ecr.aws/opensearchproject/). If you want to inspect the images you can pull them individually, such as in the following examples:
 
 [Docker Hub](https://hub.docker.com/u/opensearchproject/):
 ```bash
@@ -48,7 +48,7 @@ docker pull public.ecr.aws/opensearchproject/opensearch:latest
 docker pull public.ecr.aws/opensearchproject/opensearch-dashboards:latest
 ```
 
-To download a specific version of OpenSearch or OpenSearch Dashboards, modify the image tag. For example, `opensearchproject/opensearch:{{site.opensearch_version}}` will run OpenSearch version {{site.opensearch_version}}. Refer to the image repositories for available versions. 
+To download a specific version of OpenSearch or OpenSearch Dashboards, modify the image tag in the command or reference. For example, `opensearchproject/opensearch:{{site.opensearch_version}}` will run OpenSearch version {{site.opensearch_version}}. Refer to the image repositories for available versions. 
 {: .tip}
 
 
