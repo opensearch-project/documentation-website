@@ -71,7 +71,7 @@ epsilon | Double | The criteria used to identify a linear model | 1.00E-06
 beta1 | Double | The estimated exponential decay for the moment |  0.9
 beta2 | Double | The estimated exponential decay for the moment |  0.99
 decayRate | Double | The rate at which the model decays exponentially | 0.9
-momentumType | MomentumType | The defined Stochastic Gradient Descent (SDG) momentum type that helps accelerate gradient vectors in the right directions, leading to a fast convergence| STANDARD
+momentumType | MomentumType | The defined Stochastic Gradient Descent (SGD) momentum type that helps accelerate gradient vectors in the right directions, leading to a fast convergence| STANDARD
 optimizerType | OptimizerType | The optimizer used in the model | SIMPLE_SGD
 
 
