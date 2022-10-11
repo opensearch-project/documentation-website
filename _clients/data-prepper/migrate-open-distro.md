@@ -19,6 +19,6 @@ Please note that, while the plugin is titled `opensearch`, it remains compatible
 
 The Open Distro Data Prepper Docker image was located at `amazon/opendistro-for-elasticsearch-data-prepper`. You will need to change this value to `opensearchproject/data-prepper`.
 
-## More Information
+## Next steps
 
 You can find more information about Data Prepper configurations by going to the [Getting Started](getting_started.md) guide.
