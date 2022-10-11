@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Ruby client
-nav_order: 77
+nav_order: 60
 has_children: false
 ---
 
