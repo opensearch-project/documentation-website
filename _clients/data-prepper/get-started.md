@@ -1,63 +1,88 @@
 ---
 layout: default
-title: Get Started
-parent: Data Prepper
-nav_order: 1
+title: Data Prepper
+nav_order: 120
+has_children: true
+has_toc: false
 ---
 
-# Get started with Data Prepper
+# Data Prepper
 
-Data Prepper is an independent component, not an OpenSearch plugin, that converts data for use with OpenSearch. It's not bundled with the all-in-one OpenSearch installation packages.
+Data Prepper is a server side data collector capable of filtering, enriching, transforming, normalizing and aggregating data for downstream analytics and visualization.
 
-## 1. Install Data Prepper
+Data Prepper lets users build custom pipelines to improve the operational view of applications. Two common uses for Data Prepper are trace and log analytics. [Trace analytics]({{site.url}}{{site.baseurl}}/observability-plugin/trace/index/) can help you visualize the flow of events and identify performance problems, and [log analytics]({{site.url}}{{site.baseurl}}/observability-plugin/log-analytics/) can improve searching, analyzing and provide insights into your application.
 
-To use the Docker image, pull it like any other image:
+## Concepts
 
-```bash
-docker pull opensearchproject/data-prepper:latest
-```
+Data Prepper is compromised of **Pipelines** that collect and filter data based on the components set within the pipeline. Each component is pluggable, enabling you to use your own custom implementation of each component. These components include the following: 
 
-## 2. Define a pipeline
+- One [source](#source)
+- One or more[sinks](#sink)
+- (Optional) One [buffer](#buffer)
+- (Optional) One or more[processors](#processor)
 
-Create a Data Prepper pipeline file, `my-pipelines.yaml`, with the following configuration:
+A single instance of Data Prepper can have one or more pipelines. 
+
+Each pipeline definition contains two required components: **source** and **sink**. If buffers and processors are missing from the Data Prepper pipeline, Data Prepper uses the default buffer and a no-op processor. 
+
+### Source 
+
+Source is the input component that defines the mechanism through which a Data Prepper pipeline will consume events. A pipeline can have only one source. The source can consume events either by receiving the events over HTTP or HTTPS or by reading from external endpoints like OTeL Collector for traces and metrics and Amazon Simple Storage Service (Amazon S3). Sources have their own configuration options based on the format of the events (such as string, JSON, Amazon CloudWatch logs, or open telemetry trace). The source component consumes events and writes them to the buffer component. 
+
+### Buffer
+
+The buffer component acts as the layer between the source and the sink. Buffer can be either in-memory or disk based. The default buffer uses an in-memory queue called `bounded_blocking` that is bounded by the number of events. If the buffer component is not explicitly mentioned in the pipeline configuration, Data Prepper uses the default `bounded_blocking`.
+
+### Sink
+
+Sink is the output component that defines the destination(s) to which a Data Prepper pipeline publishes events. A sink destination could be a service, such as OpenSearch or Amazon S3, or another Data Prepper pipeline. When using another Data Prepper pipeline as the sink, you can chain multiple pipelines together based on the needs of the data. Sink contains its own configuration options based on the destination type.
+
+### Processor
+
+Processors are units within the Data Prepper pipeline that can filter, transform, and enrich events using your desired format before publishing the record to the sink component. The processor is not defined in the pipeline configuration; the events publish in the format defined in the source component. You can have more than one processor within a pipeline. When using multiple processors, the processors are run in the order they are defined inside the pipeline specification.
+
+## Sample pipeline configurations
+
+To understand how all pipeline components function within a Data Prepper configuration, see the following examples. Each pipeline configuration uses a `yaml` file format.
+
+### Minimal component
+
+This pipeline configuration reads from the file source and writes to that same source. It uses the default options for the buffer and processor.
 
 ```yml
-simple-sample-pipeline:
-  workers: 2
-  delay: "5000"
+sample-pipeline:
   source:
-    random:
+    file:
+        path: <path/to/input-file>
   sink:
-    - stdout:
+    - file:
+        path: <path/to/output-file>
 ```
 
-## 3. Start Data Prepper
+### All components
 
-Run the following command with your pipeline configuration YAML.
+The following pipeline uses a source that reads string events from the `input-file`. The source then pushes the data to the buffer, bounded by a max size of `1024`. The pipeline is configured to have `4` workers, each of them reading a maximum of `256` events from the buffer for every `100 milliseconds`. Each worker runs the `string_converter` processor and writes the output of the processor to the `output-file`.
 
-```bash
-docker run --name data-prepper \
-    -v /full/path/to/my-pipelines.yaml:/usr/share/data-prepper/pipelines/my-pipelines.yaml \
-    opensearchproject/opensearch-data-prepper:latest
+```yml
+sample-pipeline:
+  workers: 4 #Number of workers
+  delay: 100 # in milliseconds, how often the workers should run
+  source:
+    file:
+        path: <path/to/input-file>
+  buffer:
+    bounded_blocking:
+      buffer_size: 1024 # max number of events the buffer will accept
+      batch_size: 256 # max number of events the buffer will drain for each read
+  processor:
+    - string_converter:
+       upper_case: true
+  sink:
+    - file:
+       path: <path/to/output-file>
 ```
 
-This sample pipeline configuration above demonstrates a simple pipeline with a source (`random`) sending data to a sink (`stdout`). For more examples and details on more advanced pipeline configurations, see [Pipelines]({{site.url}}{{site.baseurl}}/clients/data-prepper/pipelines).
+## Next steps
 
-After starting Data Prepper, you should see log output and some UUIDs after a few seconds:
+To get started building your own custom pipelines with Data Prepper, see the [Get Started]({{site.url}}{{site.baseurl}}/clients/data-prepper/get-started/) guide.
 
-```
-2021-09-30T20:19:44,147 [main] INFO  org.opensearch.dataprepper.pipeline.server.DataPrepperServer - Data Prepper server running at :4900
-2021-09-30T20:19:44,681 [random-source-pool-0] INFO  org.opensearch.dataprepper.plugins.source.RandomStringSource - Writing to buffer
-2021-09-30T20:19:45,183 [random-source-pool-0] INFO  org.opensearch.dataprepper.plugins.source.RandomStringSource - Writing to buffer
-2021-09-30T20:19:45,687 [random-source-pool-0] INFO  org.opensearch.dataprepper.plugins.source.RandomStringSource - Writing to buffer
-2021-09-30T20:19:46,191 [random-source-pool-0] INFO  org.opensearch.dataprepper.plugins.source.RandomStringSource - Writing to buffer
-2021-09-30T20:19:46,694 [random-source-pool-0] INFO  org.opensearch.dataprepper.plugins.source.RandomStringSource - Writing to buffer
-2021-09-30T20:19:47,200 [random-source-pool-0] INFO  org.opensearch.dataprepper.plugins.source.RandomStringSource - Writing to buffer
-2021-09-30T20:19:49,181 [simple-test-pipeline-processor-worker-1-thread-1] INFO  org.opensearch.dataprepper.pipeline.ProcessWorker -  simple-test-pipeline Worker: Processing 6 records from buffer
-{"message":"1043a78e-1312-4341-8c1e-227e34a1fbf3"}
-{"message":"b1529b81-1ee1-4cdb-b5d7-11586e570ae6"}
-{"message":"56d83593-4c95-4bc4-9c0b-e061d9b23192"}
-{"message":"254153df-4534-4f5e-bb31-98b984f2ac29"}
-{"message":"ad1430e6-8486-4d84-a2ef-de30315dea07"}
-{"message":"81c5e621-79aa-4850-9bf1-68642d70c1ee"}
-```
