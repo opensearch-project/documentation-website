@@ -17,10 +17,13 @@ ssl | No | Boolean | Indicates whether TLS should be used for server APIs. Defau
 keyStoreFilePath | No | String | Path to a .jks or .p12 keystore file. Required if `ssl` is true.
 keyStorePassword | No | String | Password for keystore. Optional, defaults to empty string.
 privateKeyPassword | No | String | Password for private key within keystore. Optional, defaults to empty string.
-serverPort | No | Integer | Port number to use for server APIs. Defaults to 4900
+serverPort | No | Integer | Port number to use for server APIs. Defaults to 4900.
 metricRegistries | No | List | Metrics registries for publishing the generated metrics. Currently supports Prometheus and CloudWatch. Defaults to Prometheus.
+metricTags | No | Map | Key-value pairs as common metric tags to metric registries. The maximum number of pairs is three. Note that `serviceName` is a reserved tag key with `DataPrepper` as default tag value. Alternatively, administrators can set this value through the environment variable `DATAPREPPER_SERVICE_NAME`. If `serviceName` is defined in `metricTags`, that value overwrites those set through the above methods.
+authentication | No | Object | Authentication configuration. Valid option is `http_basic` with `username` and `password` properties. If not defined, the server does not perform authentication.
 processorShutdownTimeout | No | Duration | Time given to processors to clear any in-flight data and gracefully shutdown. Default is 30s.
 sinkShutdownTimeout | No | Duration | Time given to sinks to clear any in-flight data and gracefully shutdown. Default is 30s.
+peer_forwarder | No | Object | Peer forwarder configurations. See [Peer forwarder options](#peer-forwarder-options) for more details.
 
 ### Peer forwarder options
 
@@ -34,7 +37,8 @@ port | No | Integer | The port number peer forwarder server is running on. Valid
 request_timeout | No | Integer | Request timeout in milliseconds for peer forwarder HTTP server. Default is 10000.
 server_thread_count | No | Integer | Number of threads used by peer forwarder server. Default is 200.
 client_thread_count | No | Integer | Number of threads used by peer forwarder client. Default is 200.
-maxConnectionCount | No | Integer | Maximum number of open connections for peer forwarder server. Default is 500.
+max_connection_count | No | Integer | Maximum number of open connections for peer forwarder server. Default is 500.
+max_pending_requests | No | Integer | Maximum number of allowed tasks in ScheduledThreadPool work queue. Default is 1024.
 discovery_mode | No | String | Peer discovery mode to use. Valid options are `local_node`, `static`, `dns`, or `aws_cloud_map`. Defaults to `local_node`, which processes events locally.
 static_endpoints | Conditionally | List | A list containing endpoints of all Data Prepper instances. Required if `discovery_mode` is set to static.
 domain_name | Conditionally | String | A single domain name to query DNS against. Typically, used by creating multiple DNS A Records for the same domain. Required if `discovery_mode` is set to dns.
@@ -90,6 +94,7 @@ Option | Required | Type | Description
 port | No | Integer | The port OTel trace source is running on. Default is `21890`.
 request_timeout | No | Integer | The request timeout in milliseconds. Default is `10_000`.
 health_check_service | No | Boolean | Enables a gRPC health check service under `grpc.health.v1/Health/Check`. Default is `false`.
+unauthenticated_health_check | No | Boolean | Determines whether or not authentication is required on the health check endpoint. Data Prepper ignores this option if no authentication is defined. Default is `false`.
 proto_reflection_service | No | Boolean | Enables a reflection service for Protobuf services (see [gRPC reflection](https://github.com/grpc/grpc/blob/master/doc/server-reflection.md) and [gRPC Server Reflection Tutorial](https://github.com/grpc/grpc-java/blob/master/documentation/server-reflection-tutorial.md) docs). Default is `false`.
 unframed_requests | No | Boolean | Enable requests not framed using the gRPC wire protocol.
 thread_count | No | Integer | The number of threads to keep in the ScheduledThreadPool. Default is `200`.
@@ -109,6 +114,8 @@ This is a source plugin that supports HTTP protocol. Currently ONLY support Json
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
 port | No | Integer | The port the source is running on. Default is `2021`. Valid options are between `0` and `65535`.
+health_check_service | No | Boolean | Enables health check service on `/health` endpoint on the defined port. Default is `false`.
+unauthenticated_health_check | No | Boolean | Determines whether or not authentication is required on the health check endpoint. Data Prepper ignores this option if no authentication is defined. Default is `false`.
 request_timeout | No | Integer | The request timeout in millis. Default is `10_000`.
 thread_count | No | Integer | The number of threads to keep in the ScheduledThreadPool. Default is `200`.
 max_connection_count | No | Integer | The maximum allowed number of open connections. Default is `500`.
@@ -159,6 +166,7 @@ aws | Yes | aws | The AWS configuration. See [aws](#aws) for details.
 on_error | No | String |  Determines how to handle errors in Amazon SQS. Can be either `retain_messages` or `delete_messages`. If `retain_messages`, then Data Prepper will leave the message in the SQS queue and try again. This is recommended for dead-letter queues. If `delete_messages`, then Data Prepper will delete failed messages. Default is `retain_messages`.
 buffer_timeout | No | Duration | The timeout for writing events to the Data Prepper buffer. Any events that the S3 Source cannot write to the buffer in this time will be discarded. Default is 10 seconds.
 records_to_accumulate | No | Integer | The number of messages that accumulate before writing to the buffer. Default is 100.
+metadata_root_key | No | String | Base key for adding S3 metadata to each Event. The metadata includes the key and bucket for each S3 object. Defaults to `s3/`.
 disable_bucket_ownership_validation | No | Boolean | If `true`, then the S3 Source will not attempt to validate that the bucket is owned by the expected account. The only expected account is the same account that owns the SQS queue. Defaults to `false`.
 
 #### sqs
@@ -472,12 +480,10 @@ socket_timeout | No | Integer | the timeout in milliseconds for waiting for data
 connect_timeout | No | Integer | The timeout in milliseconds used when requesting a connection from the connection manager. A timeout value of zero is interpreted as an infinite timeout. If this timeout value is either negative or not set, the underlying Apache HttpClient would rely on operating system settings for managing connection timeouts.
 insecure | No | Boolean | Whether to verify SSL certificates. If set to true, CA certificate verification is disabled and insecure HTTP requests are sent instead. Default is `false`.
 proxy | No | String | The address of a [forward HTTP proxy server](https://en.wikipedia.org/wiki/Proxy_server). The format is "&lt;host name or IP&gt;:&lt;port&gt;". Examples: "example.com:8100", "http://example.com:8100", "112.112.112.112:8100". Port number cannot be omitted.
-trace_analytics_raw | No | Boolean | Deprecated in favor of `index_type`. Whether to export as trace data to the `otel-v1-apm-span-*` index pattern (alias `otel-v1-apm-span`) for use with the Trace Analytics OpenSearch Dashboards plugin. Default is `false`.
-trace_analytics_service_map | No | Boolean | Deprecated in favor of `index_type`. Whether to export as trace data to the `otel-v1-apm-service-map` index for use with the service map component of the Trace Analytics OpenSearch Dashboards plugin. Default is `false`.
-index | No | String | Name of the index to export to. Only required if you don't use the `trace-analytics-raw` or `trace-analytics-service-map` presets. In other words, this parameter is applicable and required only if index_type is explicitly `custom` or defaults to `custom`.
+index | Conditionally | String | Name of the export index. Applicable and required only when the `index_type` is `custom`.
 index_type | No | String | This index type tells the Sink plugin what type of data it is handling. Valid values: `custom`, `trace-analytics-raw`, `trace-analytics-service-map`, `management-disabled`. Default is `custom`.
-template_file | No | String | Path to a JSON [index template]({{site.url}}{{site.baseurl}}/opensearch/index-templates/) file (e.g. `/your/local/template-file.json` if you do not use the `trace_analytics_raw` or `trace_analytics_service_map`.) See [otel-v1-apm-span-index-template.json](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/opensearch/src/main/resources/otel-v1-apm-span-index-template.json) for an example.
-document_id_field | No | String | The field from the source data to use for the OpenSearch document ID (e.g. `"my-field"`) if you don't use the `trace_analytics_raw` or `trace_analytics_service_map` presets.
+template_file | No | String | Path to a JSON [index template]({{site.url}}{{site.baseurl}}/opensearch/index-templates/) file (e.g. `/your/local/template-file.json`) if `index_type` is `custom`. See [otel-v1-apm-span-index-template.json](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/opensearch/src/main/resources/otel-v1-apm-span-index-template.json) for an example.
+document_id_field | No | String | The field from the source data to use for the OpenSearch document ID (e.g. `"my-field"`) if `index_type` is `custom`.
 dlq_file | No | String | The path to your preferred dead letter queue file (e.g. `/your/local/dlq-file`). Data Prepper writes to this file when it fails to index a document on the OpenSearch cluster.
 bulk_size | No | Integer (long) | The maximum size (in MiB) of bulk requests to the OpenSearch cluster. Values below 0 indicate an unlimited size. If a single document exceeds the maximum bulk request size, Data Prepper sends it individually. Default is 5.
 ism_policy_file | No | String | The absolute file path for an ISM (Index State Management) policy JSON file. This policy file is effective only when there is no built-in policy file for the index type. For example, `custom` index type is currently the only one without a built-in policy file, thus it would use the policy file here if it's provided through this parameter. For more information, see [ISM policies]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/).
