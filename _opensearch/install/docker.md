@@ -84,7 +84,7 @@ To download a specific version of OpenSearch or OpenSearch Dashboards, modify th
     docker stop <containerId>
     ```
 
-By default, `docker container ls` does not list stopped containers. If you would like to review stopped containers, use `docker container ls -a`. You can remove unneeded containers manually using `docker container rm <containerId_1> <containerId_2> <containerId_3> [...]`, or if you want to remove all stopped containers you can use the shorter command `docker prune`.
+Remember that `docker container ls` does not list stopped containers. If you would like to review stopped containers, use `docker container ls -a`. You can remove unneeded containers manually with `docker container rm <containerId_1> <containerId_2> <containerId_3> [...]` (pass all container IDs you wish to stop, separated by spaces), or if you want to remove all stopped containers you can use the shorter command `docker prune`.
 {: .tip}
 
 
@@ -138,8 +138,8 @@ services:
       - node.name=opensearch-node1
       - discovery.seed_hosts=opensearch-node1,opensearch-node2
       - cluster.initial_cluster_manager_nodes=opensearch-node1,opensearch-node2
-      - bootstrap.memory_lock=true # along with the memlock settings below, disables swapping
-      - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" # minimum and maximum Java heap size, recommend setting both to 50% of system RAM
+      - bootstrap.memory_lock=true # Works with the memlock settings below to disable swapping
+      - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" # We recommend setting min and max JVM heap sizes to at least 50% of system RAM
     ulimits:
       memlock:
         soft: -1
