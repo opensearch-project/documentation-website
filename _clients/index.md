@@ -9,7 +9,7 @@ redirect_from:
 
 # OpenSearch language clients
 
-OpenSearch provides clients for several popular programming languages, with more coming. 
+OpenSearch provides clients for several popular programming languages, with more to come. 
 
 ## OpenSearch language client compatibility
 

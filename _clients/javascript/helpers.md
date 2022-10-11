@@ -53,15 +53,15 @@ Bulk helper operations return an object with the following fields:
 
 When creating a new bulk helper instance, you can use the following configuration options.
 
-| Option | Data type | Required/Default | Description 
+| Option | Data Type | Required/Default | Description 
 | :--- | :--- | :--- | :---
-| `datasource` | An array, async generator or a readable stream of strings or objects | Required | Represents the documents you need to create, delete, index or update. 
+| `datasource` | An array, async generator or a readable stream of strings or objects | Required | Represents the documents you need to create, delete, index, or update. 
 | `onDocument` | Function | Required | A function to be invoked with each document in the given `datasource`. It returns the operation to be executed for this document. Optionally, the document can be manipulated for `create` and `index` operations by returning a new document as part of the function's result.
 | `concurrency` | Integer | Optional. Default is 5. | The number of requests to be executed in parallel. 
 | `flushBytes` | Integer |  Optional. Default is 5,000,000. | Maximum bulk body size to send in bytes.
 | `flushInterval` | Integer |  Optional. Default is 30,000. | Time in milliseconds to wait before flushing the body after the last document has been read.
-| `onDrop` | Function | Optional. Default is `noop`. | A function to be invoked for every document that can’t be indexed after reaching the maximum amount of retries. 
-| `refreshOnCompletion` | Boolean | Optional. Default is false. | Whether or not a refresh should be run on all affected indices at the end of the bulk operation. 
+| `onDrop` | Function | Optional. Default is `noop`. | A function to be invoked for every document that can’t be indexed after reaching the maximum number of retries. 
+| `refreshOnCompletion` | Boolean | Optional. Default is false. | Whether or not a refresh should be run on all affected indexes at the end of the bulk operation. 
 | `retries` | Integer |  Optional. Defaults to the client's  `maxRetries` value. | The number of times an operation is retried before `onDrop` is called for that document.
 | `wait` | Integer |  Optional. Default is 5,000. | Time in milliseconds to wait before retrying an operation.
 
@@ -71,7 +71,7 @@ The following examples illustrate the index, create, update, and delete bulk hel
 
 #### Index
 
-The index operation creates a new document if it doesn’t exist, and recreates the document if it already exists.
+The index operation creates a new document if it doesn’t exist and recreates the document if it already exists.
 
 The following bulk operation indexes documents into `example-index`:
 
@@ -137,7 +137,7 @@ client.helpers.bulk({
 
 #### Update
 
-The update operation updates the document with the the fields being sent. The document must already exist in the index.
+The update operation updates the document with the fields being sent. The document must already exist in the index.
 
 The following bulk operation updates documents in the `arrayOfDocuments`:
 
