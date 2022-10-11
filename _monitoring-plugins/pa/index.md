@@ -1,7 +1,6 @@
 ---
 layout: default
-title: Performance analyzer
-parent: pa
+title: Performance Analyzer
 nav_order: 58
 has_children: true
 redirect_from:
@@ -23,7 +22,7 @@ Below are the steps to install and configure the performance analyzer plugin.
 
 The performance analyzer plugin is included in the installation for [Docker]({{site.url}}{{site.baseurl}}/opensearch/install/docker/) and [tarball]({{site.url}}{{site.baseurl}}/opensearch/install/tar/). If you need to install the performance analyzer plugin manually, download the plugin from [Maven](https://search.maven.org/search?q=org.opensearch.plugin) and install the plugin using the standard [plugins install]({{site.url}}{{site.baseurl}}/opensearch/install/plugins/) process. Performance analyzer will run on each node in a cluster.
 
-To start the performance analyzer RCA agent on a tarball install, run the following command.
+To start the performance analyzer RCA agent on a tarball install, run the following command:
       
 ````bash
 OPENSEARCH_HOME=~/opensearch-2.2.1 OPENSEARCH_JAVA_HOME=~/opensearch-2.2.1/jdk OPENSEARCH_PATH_CONF=~/opensearch-2.2.1/bin ./performance-analyzer-agent-cli
@@ -35,19 +34,19 @@ The command to enable the performance analyzer plugin and performance analyzer R
 curl -XPOST localhost:9200/_plugins/_performanceanalyzer/cluster/config -H 'Content-Type: application/json' -d '{"enabled": true}'
 ````
 
-To shut down the performance analyzer RCA agent, run the following command.
+To shut down the performance analyzer RCA agent, run the following command:
 
 ````bash
 kill $(ps aux | grep -i 'PerformanceAnalyzerApp' | grep -v grep | awk '{print $2}')
 ````
 
-To disable the performance analyzer plugin, run the following command.
+To disable the performance analyzer plugin, run the following command:
 
 ````bash
 curl -XPOST localhost:9200/_plugins/_performanceanalyzer/cluster/config -H 'Content-Type: application/json' -d '{"enabled": false}'
 ````
 
-To uninstall the performance analyzer plugin, run the following command.
+To uninstall the performance analyzer plugin, run the following command:
 
 ````bash
 bin/opensearch-plugin remove opensearch-performance-analyzer
@@ -301,4 +300,4 @@ Further documentation on the use of performance analyzer and root cause analysis
 - [Performance analyzer API guide]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/api/).
 - [Root cause analysis]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/rca/index/).
 - [Root cause analysis API guide]({{site.url}}{{site.baseurl}}/latest/monitoring-plugins/pa/rca/api/).
-- [RFC: Root cause analysis](https://github.com/opensearch-project/performance-analyzer-rca/blob/main/docs/rfc-RCA.pdf).
+- [RFC: Root cause analysis](https://github.com/opensearch-project/performance-analyzer-rca/blob/main/docs/rfc-rca.pdf).
