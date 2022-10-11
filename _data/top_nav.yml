@@ -4,7 +4,7 @@ items:
     fragments:
       - downloads
       - versions
-    url: /downloads.html#opensearch
+    url: /downloads.html
   -
     label: About
     fragments:
