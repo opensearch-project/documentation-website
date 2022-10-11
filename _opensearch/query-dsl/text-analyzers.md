@@ -16,12 +16,12 @@ OpenSearch provides several text analyzers to convert your structured text into 
 
 OpenSearch supports the following text analyzers:
 
-1. **Standard analyzer** – parses all strings into terms at word boundaries per the Unicode text segmentation algorithm. It removes most, but not all punctuation. It converts all characters to lowercase. You can remove stop words if you turn on that option, but it does not remove stop words by default.
-1. **Simple analyzer** – converts all characters to lowercase, and removes non-letter characters when it splits a string into tokens on any non-letter character.
-1. **Whitespace analyzer** – parses a string into terms between each whitespace.
-1. **Stop analyzer** – Converts a string to lowercase and removes non-letter characters by splitting the string into tokens at each non-letter character. It also removes stop words (e.g. "but," or "this") from the query string.
+1. **Standard analyzer** – parses strings into terms at word boundaries per the Unicode text segmentation algorithm. It removes most, but not all punctuation. It converts strings to lowercase. You can remove stop words if you turn on that option, but it does not remove stop words by default.
+1. **Simple analyzer** – converts strings to lowercase, and removes non-letter characters when it splits a string into tokens on any non-letter character.
+1. **Whitespace analyzer** – parses strings into terms between each whitespace.
+1. **Stop analyzer** – Converts strings to lowercase and removes non-letter characters by splitting strings into tokens at each non-letter character. It also removes stop words (e.g. "but," or "this") from strings.
 1. **Keyword analyzer** – receives a string as input and outputs the entire string as one term.
-1. **Pattern analyzer** – splits a string into terms using a regular expression and supports converting characters to lowercase. It also supports removing stop words.
+1. **Pattern analyzer** – splits strings into terms using regular expressions and supports converting strings to lowercase. It also supports removing stop words.
 1. **Language analyzer** – provides analyzers specific to multiple languages.
 1. **Fingerprint analyzer** – creates a fingerprint to use as a duplicate detector.
 
