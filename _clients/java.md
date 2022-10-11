@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Java client
-nav_order: 65
+nav_order: 30
 ---
 
 # Java client

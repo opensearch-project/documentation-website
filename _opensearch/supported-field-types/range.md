@@ -56,7 +56,7 @@ PUT testindex/_doc/1
 }
 ```
 
-You can use a [term query](#term-query) or a [range query](#range-query) to search for values within range fields. 
+You can use a [Term query](#term-query) or a [Range query](#range-query) to search for values within range fields. 
 
 ### Term query
 
@@ -79,14 +79,17 @@ GET testindex/_search
 
 ### Range query
 
-A range query on a range field returns documents within that range. Along with the field to be matched, range queries take the following optional parameters.
+A range query on a range field returns documents within that range. Along with the field to be matched, you can further specify a date format or relational operators with the following optional parameters:
 
-Parameter | Description 
-:--- | :--- 
+Parameter | Description
+:--- | :---
 format | A [format]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/date/#formats) for dates in this query. Default is the field's mapped format.
 relation | Provides a relation between the query's date range and the document's date range. There are three types of relations that you can specify:<br> 1. `intersects` matches documents for which there are dates that belong to both the query's date range and document's date range. This is the default. <br> 2. `contains` matches documents for which the query's date range is a subset of the document's date range. <br> 3. `within` matches documents for which the document's date range is a subset of the query's date range.
 
-To use a date format other than the field's mapped format in a query, specify it in the `format` field. 
+To use a date format other than the field's mapped format in a query, specify it in the `format` field.
+
+To see the full description of range query usage, including all range query parameters, see [Range query]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/term/#range-query).
+{: .tip }
 
 Query for all graduation dates in 2019, providing the date range in a "MM/dd/yyyy" format:
 

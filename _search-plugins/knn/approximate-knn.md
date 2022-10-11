@@ -279,39 +279,39 @@ GET my-knn-index-1/_search
 A space corresponds to the function used to measure the distance between two points in order to determine the k-nearest neighbors. From the k-NN perspective, a lower score equates to a closer and better result. This is the opposite of how OpenSearch scores results, where a greater score equates to a better result. To convert distances to OpenSearch scores, we take 1 / (1 + distance). The k-NN plugin the spaces the plugin supports are below. Not every method supports each of these spaces. Be sure to check out [the method documentation]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index#method-definitions) to make sure the space you are interested in is supported.
 
 <table>
-  <thead style="text-align: left">
+  <thead style="text-align: center">
   <tr>
     <th>spaceType</th>
-    <th>Distance Function</th>
+    <th>Distance Function (d)</th>
     <th>OpenSearch Score</th>
   </tr>
   </thead>
   <tr>
-    <td>l2</td>
-    <td>\[ Distance(X, Y) = \sum_{i=1}^n (X_i - Y_i)^2 \]</td>
-    <td>1 / (1 + Distance Function)</td>
+    <td>l1</td>
+    <td>\[ d(\mathbf{x}, \mathbf{y}) = \sum_{i=1}^n |x_i - y_i| \]</td>
+    <td>\[ score = {1 \over 1 + d } \]</td>
   </tr>
   <tr>
-    <td>l1</td>
-    <td>\[ Distance(X, Y) = \sum_{i=1}^n (X_i - Y_i) \]</td>
-    <td>1 / (1 + Distance Function)</td>
+    <td>l2</td>
+    <td>\[ d(\mathbf{x}, \mathbf{y}) = \sum_{i=1}^n (x_i - y_i)^2 \]</td>
+    <td>\[ score = {1 \over 1 + d } \]</td>
   </tr>
   <tr>
     <td>linf</td>
-    <td>\[ Distance(X, Y) = Max(X_i - Y_i) \]</td>
-    <td>1 / (1 + Distance Function)</td>
+    <td>\[ d(\mathbf{x}, \mathbf{y}) = max(|x_i - y_i|) \]</td>
+    <td>\[ score = {1 \over 1 + d } \]</td>
   </tr>
   <tr>
     <td>cosinesimil</td>
-    <td>\[ 1 - {A &middot; B \over \|A\| &middot; \|B\|} = 1 -
-    {\sum_{i=1}^n (A_i &middot; B_i) \over \sqrt{\sum_{i=1}^n A_i^2} &middot; \sqrt{\sum_{i=1}^n B_i^2}}\]
-    where \(\|A\|\) and \(\|B\|\) represent normalized vectors.</td>
-    <td>nmslib and faiss:<br>1 / (1 + Distance Function)<br>Lucene:<br>(1 + Distance Function) / 2</td>
+    <td>\[ d(\mathbf{x}, \mathbf{y}) = 1 - cos { \theta } = 1 - {\mathbf{x} &middot; \mathbf{y} \over \|\mathbf{x}\| &middot; \|\mathbf{y}\|}\]\[ = 1 - 
+    {\sum_{i=1}^n x_i y_i \over \sqrt{\sum_{i=1}^n x_i^2} &middot; \sqrt{\sum_{i=1}^n y_i^2}}\]
+    where \(\|\mathbf{x}\|\) and \(\|\mathbf{y}\|\) represent normalized vectors.</td>
+    <td><b>nmslib</b> and <b>faiss:</b>\[ score = {1 \over 1 + d } \]<br><b>Lucene:</b>\[ score = {1 + d \over 2}\]</td>
   </tr>
   <tr>
     <td>innerproduct (not supported for Lucene)</td>
-    <td>\[ Distance(X, Y) = - {A &middot; B} \]</td>
-    <td>if Distance Function is > or = 0, use 1 / (1 + Distance Function). Otherwise, -Distance Function + 1</td>
+    <td>\[ d(\mathbf{x}, \mathbf{y}) = - {\mathbf{x} &middot; \mathbf{y}} = - \sum_{i=1}^n x_i y_i \]</td>
+    <td>\[ \text{If} d \ge 0, \] \[score = {1 \over 1 + d }\] \[\text{If} d < 0, score = &minus;d + 1\]</td>
   </tr>
 </table>
 

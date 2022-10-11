@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Java high-level REST client
-nav_order: 60
+nav_order: 20
 ---
 
 # Java high-level REST client

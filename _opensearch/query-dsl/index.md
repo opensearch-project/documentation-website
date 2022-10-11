@@ -120,3 +120,38 @@ With query DSL, however, you can include an HTTP request body to look for result
 }
 ```
 The OpenSearch query DSL comes in three varieties: term-level queries, full-text queries, and boolean queries. You can even perform more complicated searches by using different elements from each variety to find whatever data you need.
+
+## A note on Unicode special characters in text fields
+
+Due to word boundaries associated with Unicode special characters, the Unicode standard analyzer cannot index a [text field type](https://opensearch.org/docs/2.2/opensearch/supported-field-types/text/) value as a whole value when it includes one of these special characters. As a result, a text field value that includes a special character is parsed by the standard analyzer as multiple values separated by the special character, effectively tokenizing the different elements on either side of it. This can lead to unintentional filtering of documents and potentially compromise control over their access. 
+
+The examples below illustrate values containing special characters that will be parsed improperly by the standard analyzer. In this example, the existence of the hyphen/minus sign in the value prevents the analyzer from distinguishing between the two different users for `user.id` and interprets them as one and the same:
+
+```json
+{
+  "bool": {
+    "must": {
+      "match": {
+        "user.id": "User-1"
+      }
+    }
+  }
+}
+```
+
+```json
+{
+  "bool": {
+    "must": {
+      "match": {
+        "user.id": "User-2"
+      }
+    }
+  }
+}
+```
+
+To avoid this circumstance when using either query DSL or the REST API, you can use a custom analyzer or map the field as `keyword`, which performs an exact-match search. See [Keyword field type](https://opensearch.org/docs/2.2/opensearch/supported-field-types/keyword/) for the latter option.
+
+For a list of characters that should be avoided when field type is `text`, see [Word Boundaries](https://unicode.org/reports/tr29/#Word_Boundaries).
+

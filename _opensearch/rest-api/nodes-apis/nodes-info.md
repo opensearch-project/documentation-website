@@ -3,12 +3,12 @@ layout: default
 title: Nodes info
 parent: Nodes APIs
 grand_parent: REST API reference
-nav_order: 20
+nav_order: 10
 ---
 
 # Nodes info
 
-Represents mostly static information about your cluster's nodes, including but not limited to:
+The nodes info API represents mostly static information about your cluster's nodes, including but not limited to:
 
 - Host system information 
 - JVM 
@@ -19,77 +19,76 @@ Represents mostly static information about your cluster's nodes, including but n
 
 ## Example
 
-To get information on all nodes in a cluster:
+To get information about all nodes in a cluster, use the following query:
 
-```bash
+```json
 GET /_nodes
 ```
 
-To get thread pool information from the cluster manager node only:
+To get thread pool information about the cluster manager node only, use the following query:
 
-```bash
-GET /_nodes/master:true/thread_pool?pretty
+```json
+GET /_nodes/master:true/thread_pool
 ```
 
 ## Path and HTTP methods
 
 ```bash
 GET /_nodes
-GET /_nodes/{nodeId}
-GET /_nodes/{metrics}
-GET /_nodes/{nodeId}/{metrics}
+GET /_nodes/<nodeId>
+GET /_nodes/<metrics>
+GET /_nodes/<nodeId>/<metrics>
 # or full path equivalent
-GET /_nodes/{nodeId}/info/{metrics}
+GET /_nodes/<nodeId>/info/<metrics>
 ```
 
-## URL parameters
+## Path parameters
 
-You can include the following URL parameters in your request. All parameters are optional.
+The following table lists the available path parameters. All path parameters are optional.
 
-Parameter | Type   | Description
+Parameter | Type | Description
 :--- |:-------| :---
-nodeId | String | A comma-separated list of nodeIds to filter results. Supports [node filters]({{site.url}}{{site.baseurl}}/opensearch/rest-api/nodes-apis/index/#node-filters). Defaults to `_all`.
-metrics | String | A comma-separated list of metric groups that will be included in the response. For example `jvm,thread_pools`. Defaults to all metrics.
-timeout | TimeValue | A request [timeout]({{site.url}}{{site.baseurl}}/opensearch/rest-api/nodes-apis/index/#timeout). Defaults to `30s`.
+nodeId | String | A comma-separated list of nodeIds used to filter results. Supports [node filters]({{site.url}}{{site.baseurl}}/opensearch/rest-api/nodes-apis/index/#node-filters). Defaults to `_all`.
+metrics | String | A comma-separated list of metric groups that will be included in the response. For example, `jvm,thread_pool`. Defaults to all metrics.
 
-The following are listed for all available metric groups:
-
-Metric | Description
-:--- |:----
-`settings` | A node's settings. This is combination of the default settings, custom settings from [configuration file]({{site.url}}{{site.baseurl}}/opensearch/configuration/#configuration-file) and dynamically [updated settings]({{site.url}}{{site.baseurl}}/opensearch/configuration/#update-cluster-settings-using-the-api).
-`os` | Static information about the host OS, including version, processor architecture and available/allocated processors.
-`process` | Contains process OD.
-`jvm` | Detailed static information about running JVM, including arguments.
-`thread_pool` | Configured options for all individual thread pools.
-`transport` | Mostly static information about the transport layer.
-`http` | Mostly static information about the HTTP layer.
-`plugins` | Information about installed plugins and modules.
-`ingest` | Information about ingest pipelines and available ingest processors.
-`aggregations` | Information about available [aggregations]({{site.url}}{{site.baseurl}}/opensearch/aggregations).
-`indices` | Static index settings configured at the node level.
-
-## Response
-
-The response contains basic node identification and build info for every node
-matching the `{nodeId}` request parameter.
+The following table lists all available metric groups.
 
 Metric | Description
 :--- |:----
-name | A node name.
-transport_address | A node transport address.
-host | A node host address.
-ip | A node host ip address.
-version | A node OpenSearch version.
-build_type | A build type, like `rpm`,`docker`, `zip`, etc.
-build_hash | A git commit hash of the build.
-roles | A node's role.
-attributes | A node attributes.
+settings | A node's settings. This is a combination of the default settings, custom settings from the [configuration file]({{site.url}}{{site.baseurl}}/opensearch/configuration/#configuration-file), and dynamically [updated settings]({{site.url}}{{site.baseurl}}/opensearch/configuration/#update-cluster-settings-using-the-api).
+os | Static information about the host OS, including version, processor architecture, and available/allocated processors.
+process | Contains the process ID.
+jvm | Detailed static information about the running JVM, including arguments.
+thread_pool | Configured options for all individual thread pools.
+transport | Mostly static information about the transport layer.
+http | Mostly static information about the HTTP layer.
+plugins | Information about installed plugins and modules.
+ingest | Information about ingest pipelines and available ingest processors.
+aggregations | Information about available [aggregations]({{site.url}}{{site.baseurl}}/opensearch/aggregations).
+indices | Static index settings configured at the node level.
 
-The response also contains one or more metric groups, depending on the `{metrics}` request parameter.
+## Query parameters
+
+You can include the following query parameters in your request. All query parameters are optional.
+
+Parameter | Type | Description
+:--- |:-------| :---
+flat_settings| Boolean | Specifies whether to return the `settings` object of the response in flat format. Default is `false`.
+timeout | Time | Sets the time limit for node response. Default value is `30s`.
+
+#### Sample request
+
+The following query requests the `process` and `transport` metrics from the cluster manager node: 
 
 ```json
-GET /_nodes/master:true/process,transport?pretty
+GET /_nodes/cluster_manager:true/process,transport
+```
 
+#### Sample response
+
+The response contains the metric groups specified in the `<metrics>` request parameter (in this case, `process` and `transport`):
+
+```json
 {
   "_nodes": {
     "total": 1,
@@ -132,6 +131,34 @@ GET /_nodes/master:true/process,transport?pretty
   }
 }
 ```
+
+## Response fields
+
+The response contains the basic node identification and build info for every node matching the `<nodeId>` request parameter. The following table lists the response fields.
+
+Field | Description
+:--- |:----
+name | The node's name.
+transport_address | The node's transport address.
+host | The node's host address.
+ip | The node's host IP address.
+version | The node's OpenSearch version.
+build_type | The node's build type, like `rpm`, `docker`, `tar`, etc.
+build_hash | The git commit hash of the build.
+total_indexing_buffer | The maximum heap size in bytes used to hold newly indexed documents. Once this heap size is exceeded, the documents are written to disk.
+roles | The list of the node's roles.
+attributes | The node's attributes.
+os | Information about the OS, including name, version, architecture, refresh interval, and the number of available and allocated processors.
+process | Information about the currently running process, including PID, refresh interval, and `mlockall`, which specifies whether the process address space has been successfully locked in memory. 
+jvm | Information about the JVM, including PID, version, memory information, garbage collector information, and arguments.
+thread_pool | Information about the thread pool.
+transport | Information about the transport address, including bound address, publish address, and profiles.
+http | Information about the HTTP address, including bound address, publish address, and maximum content length, in bytes.
+plugins | Information about the installed plugins, including name, version, OpenSearch version, Java version, description, class name, custom folder name, a list of extended plugins, and `has_native_controller`, which specifies whether the plugin has a native controller process. 
+modules | Information about the modules, including name, version, OpenSearch version, Java version, description, class name, custom folder name, a list of extended plugins, and `has_native_controller`, which specifies whether the plugin has a native controller process. Modules are different from plugins because modules are loaded into OpenSearch automatically, while plugins have to be installed manually.
+ingest | Information about ingest pipelines and processors.
+aggregations | Information about the available aggregation types.
+
 
 ## Required permissions
 
