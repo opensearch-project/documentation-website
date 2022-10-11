@@ -45,11 +45,11 @@ docker pull public.ecr.aws/opensearchproject/opensearch-dashboards:latest
 To download a specific version of OpenSearch or OpenSearch Dashboards, modify the image tag in the command or reference. For example, `opensearchproject/opensearch:{{site.opensearch_version}}` will pull OpenSearch version {{site.opensearch_version}}. Refer to the official image repositories for available versions. 
 {: .tip}
 
-1. Verify that Docker is working correctly by deploying OpenSearch in a single container:
+1. Verify that Docker is working correctly by deploying OpenSearch in a single container. The following command also sets `discovery.type` to `single-node` so that bootstrap checks succeed.
     ```bash
     docker run -d -p 9200:9200 -p 9600:9600 -e "discovery.type=single-node" opensearchproject/opensearch:latest
     ```
-1. Send a request to port 9200:
+1. Send a request to port 9200. A demo security configuration is automatically applied unless you explicitly disable it in the configuration. The default user credentials are `admin`:`admin`.
     ```bash
     curl https://localhost:9200 -ku 'admin:admin'
     ```
@@ -73,18 +73,18 @@ To download a specific version of OpenSearch or OpenSearch Dashboards, modify th
         "tagline" : "The OpenSearch Project: https://opensearch.org/"
       }
       ```
-1. To stop the running container, display a list of running containers and note the container ID. For example:
+1. Before stopping the running container, display a list of all running containers and copy the container ID for the OpenSearch node you are testing. In the following example, the container ID is a937e018cee5.
     ```bash
     $ docker container ls
     CONTAINER ID   IMAGE                                 COMMAND                  CREATED          STATUS          PORTS                                                                NAMES
     a937e018cee5   opensearchproject/opensearch:latest   "./opensearch-docker…"   19 minutes ago   Up 19 minutes   0.0.0.0:9200->9200/tcp, 9300/tcp, 0.0.0.0:9600->9600/tcp, 9650/tcp   wonderful_boyd
     ```
-1. Stop the running container:
+1. Stop the running container by passing the container ID to `docker stop`.
     ```bash
     docker stop <containerId>
     ```
 
-List stopped containers by using `docker container ls -a`. You can remove unneeded containers manually with `docker container rm <containerId_1> <containerId_2> <containerId_3> [...]`, or if you want to remove all stopped containers use `docker prune`.
+By default, `docker container ls` does not list stopped containers. If you would like to review stopped containers, use `docker container ls -a`. You can remove unneeded containers manually using `docker container rm <containerId_1> <containerId_2> <containerId_3> [...]`, or if you want to remove all stopped containers you can use the shorter command `docker prune`.
 {: .tip}
 
 
