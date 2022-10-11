@@ -6,7 +6,7 @@ nav_order: 41
 ---
 
 
-# Optimizing text for search with text analyzers
+# Optimizing text for searches with text analyzers
 
 OpenSearch applies text analysis during indexing or searching for `text` fields. There is a standard  analyzer that OpenSearch uses by default for text analysis. To optimize unstructured text for search, you can convert it into structured text with our text analyzers.
 
