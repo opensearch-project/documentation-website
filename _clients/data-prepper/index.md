@@ -12,8 +12,6 @@ Data Prepper is a server side data collector capable of filtering, enriching, tr
 
 Data Prepper lets users build custom pipelines to improve the operational view of applications. Two common uses for Data Prepper are trace and log analytics. [Trace analytics]({{site.url}}{{site.baseurl}}/observability-plugin/trace/index/) can help you visualize the flow of events and identify performance problems, and [log analytics]({{site.url}}{{site.baseurl}}/observability-plugin/log-analytics/) can improve searching, analyzing and provide insights into your application.
 
-<<<<<<< HEAD
-=======
 ## Concepts
 
 Data Prepper is compromised of one or more **Pipelines** that collect and filter data based on the components set within the pipeline. Each component is pluggable, enabling you to use your own custom implementation of each component. These components include the following: 
@@ -86,6 +84,5 @@ sample-pipeline:
 
 ## Next steps
 
->>>>>>> 2492a54 (Make sure that Main picks up all change from Data Prepper 2.0 branch (#1517))
 To get started building your own custom pipelines with Data Prepper, see the [Get Started]({{site.url}}{{site.baseurl}}/clients/data-prepper/get-started/) guide.
 
