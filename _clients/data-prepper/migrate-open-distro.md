@@ -11,7 +11,7 @@ Beginning with Data Prepper 1.1, there is only one distribution of Data Prepper 
 
 ## Change your Pipeline Configuration
 
-The `elasticsearch` sink has changed to `opensearch`. You will need to change your existing pipeline to use the `opensearch` plugin instead of `elasticsearch`.
+The `elasticsearch` sink has changed to `opensearch`. Therefore, change your existing pipeline to use the `opensearch` plugin instead of `elasticsearch`.
 
 Please note that, while the plugin is titled `opensearch`, it remains compatible with Open Distro and ElasticSearch 7.x.
 
