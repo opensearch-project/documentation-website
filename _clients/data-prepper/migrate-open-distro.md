@@ -7,7 +7,7 @@ nav_order: 2
 
 # Migrating from Open Distro Data Prepper
 
-Beginning with Data Prepper 1.1, there is only one distribution of Data Prepper - OpenSearch Data Prepper. This document helps existing users migrate from the old Open Distro Data Prepper to OpenSearch Data Prepper.
+Beginning with Data Prepper 1.1, there is only one distribution of Data Prepper: OpenSearch Data Prepper. This document helps existing users migrate from the old Open Distro Data Prepper to OpenSearch Data Prepper.
 
 ## Change your Pipeline Configuration
 
