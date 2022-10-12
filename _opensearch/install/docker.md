@@ -87,9 +87,9 @@ To download a specific version of OpenSearch or OpenSearch Dashboards, modify th
 Remember that `docker container ls` does not list stopped containers. If you would like to review stopped containers, use `docker container ls -a`. You can remove unneeded containers manually with `docker container rm <containerId_1> <containerId_2> <containerId_3> [...]` (pass all container IDs you wish to stop, separated by spaces), or if you want to remove all stopped containers you can use the shorter command `docker prune`.
 {: .tip}
 
+## Deploy an OpenSearch cluster using Docker Compose
 
-
-
+Although it is possible to manually build an OpenSearch cluster running in Docker containers, it is far simpler to define your environment in a YAML file and let Docker Compose manage everything. The following section contains example YAML files that you can use to launch a pre-defined cluster with OpenSearch and OpenSearch Dashboards. These examples are useful for testing and development, but are not suitable for a production environment. Review the Docker [Compose specification](https://docs.docker.com/compose/compose-file/) for specific guidance on syntax and formatting when you're ready to deploy your own custom cluster.
 
 
 
