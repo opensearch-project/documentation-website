@@ -129,7 +129,7 @@ You can specify a custom file location and name when invoking `docker-compose` w
 docker-compose up -f /path/to/your-file.yml
 ```
 
-If this is your first time launching an OpenSearch cluster using Docker Compose, use the following example `docker-compose.yml` file. Save it in the home directory of your host and name it `docker-compose.yml`. This file defines three containers which include two OpenSearch nodes and one OpenSearch Dashboard node.
+If this is your first time launching an OpenSearch cluster using Docker Compose, use the following example `docker-compose.yml` file. Save it in the home directory of your host and name it `docker-compose.yml`. This file will create a cluster that contains three containers: two containers running the OpenSearch service and a single container running OpenSearch Dashboards. These containers will communicate over a bridge network called `opensearch-net` and use two volumes, one for each OpenSearch node. Since this file does not explicitly disable the demo security configuration, self-signed TLS certificates are installed and internal users with default names and passwords are created.
 
 ### Sample docker-compose.yml
 ```yml
@@ -199,9 +199,6 @@ volumes:
 networks:
   opensearch-net:
 ```
-
-This `docker-compose.yml` file will create a cluster that contains three containers: two containers running the OpenSearch service and a single container running OpenSearch Dashboards. These containers will communicate over a bridge network called `opensearch-net`. Since this file does not explicitly disable the demo security configuration, self-signed TLS certificates are installed on the containers and internal users with default names and passwords are created.
-{: .info}
 
 From the directory containing `docker-compose.yml`, create and start the containers in detached mode:
 ```bash
