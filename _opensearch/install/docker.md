@@ -73,7 +73,7 @@ To download a specific version of OpenSearch or OpenSearch Dashboards rather tha
     ```bash
     docker run -d -p 9200:9200 -p 9600:9600 -e "discovery.type=single-node" opensearchproject/opensearch:latest
     ```
-1. Send a request to port 9200. A demo security configuration is automatically applied unless you explicitly disable it in the configuration. The default user credentials are `admin`:`admin`.
+1. Send a request to port 9200. A demo security configuration is applied including self-signed TLS certificates. The default username is `admin` and password is `admin`.
     ```bash
     curl https://localhost:9200 -ku 'admin:admin'
     ```
