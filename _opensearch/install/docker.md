@@ -69,7 +69,7 @@ docker pull public.ecr.aws/opensearchproject/opensearch-dashboards:latest
 To download a specific version of OpenSearch or OpenSearch Dashboards rather than the latest available version, modify the image tag where it is referenced (either in the command line or in a Docker Compose file). For example, `opensearchproject/opensearch:{{site.opensearch_version}}` will pull OpenSearch version {{site.opensearch_version}}. Refer to the official image repositories for available versions. 
 {: .tip}
 
-1. Verify that Docker is working correctly by deploying OpenSearch in a single container. The following command also sets `discovery.type` to `single-node` so that bootstrap checks succeed.
+1. Verify that Docker is working correctly by deploying OpenSearch in a single container. The following command exposes ports 9200 (OpenSearch) and 9600 (Performance Analyzer plugin), and also sets `discovery.type` to `single-node` so that bootstrap checks succeed in this single node environment.
     ```bash
     docker run -d -p 9200:9200 -p 9600:9600 -e "discovery.type=single-node" opensearchproject/opensearch:latest
     ```
