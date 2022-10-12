@@ -9,11 +9,13 @@ nav_order: 40
 
 This page lists all full-text query types and common options. Given the sheer number of options and subtle behaviors, the best method of ensuring useful search results is to test different queries against representative indices and verify the output.
 
+<!-- to do: rewrite query type definitions per issue: https://github.com/opensearch-project/documentation-website/issues/1116
+-->
 ---
 
 ## Table of contents
 
-1. TOC
+1. Query types
 {:toc}
 
 ---
@@ -21,11 +23,20 @@ This page lists all full-text query types and common options. Given the sheer nu
 Common terms queries and the optional query field `cutoff_frequency` are now deprecated.
 {: .note }
 
-## Match
+## Query types
 
+You can use the query types . . . 
+### Match
+
+Use the `match` query type to specify fields that you want returned in a search. Specify the terms that you want each field to match. Documents that contain that term will be returned in the search results.
+
+You can use boolean query operators to combine searches.
+
+<!-- we don't need to include Lucene query definitions >
 Creates a [boolean query](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/BooleanQuery.html) that returns results if the search term is present in the field.
+-->
 
-The most basic form of the query provides only a field (`title`) and a term (`wind`):
+The following example shows a basic `match` search for the `title` field set to the value `wind`:
 
 ```json
 GET _search
@@ -75,11 +86,11 @@ GET _search
     }
   }
 }
-
+```
 
 ## Multi match
 
-Similar to [match](#match), but searches multiple fields.
+You can use the `multi_match` query type to search for multiple fields. Multi-match operation functions similarly to the [match](#match) operation.
 
 The `^` lets you "boost" certain fields. Boosts are multipliers that weigh matches in one field more heavily than matches in other fields. In the following example, a match for "wind" in the title field influences `_score` four times as much as a match in the plot field. The result is that films like *The Wind Rises* and *Gone with the Wind* are near the top of the search results, and films like *Twister* and *Sharknado*, which presumably have "wind" in their plot summaries, are near the bottom.
 
@@ -124,7 +135,11 @@ GET _search
 
 ## Match boolean prefix
 
+You can search for terms that match a specified prefix with the `match_bool_prefix` query type. Documents that contain the last term in the string will be returned.
+
+<!-->
 Similar to [match](#match), but creates a [prefix query](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/PrefixQuery.html) out of the last term in the query string.
+-->
 
 ```json
 GET _search
@@ -161,6 +176,8 @@ GET _search
 
 ## Match phrase
 
+Use the `match_phrase` query type to specify a sequence of terms to return in the search.
+
 Creates a [phrase query](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/PhraseQuery.html) that matches a sequence of terms.
 
 ```json
@@ -193,6 +210,8 @@ GET _search
 ```
 
 ## Match phrase prefix
+
+Use the `match_phrase_prefix` query type to specify a sequence of terms with a specified prefix. The documents that contain the phrase you specify will be returned. The last term in the phrase is partially provided as a prefix, so any documents that contain phrases that begin with the prefix for the last term will be returned. 
 
 Similar to [match phrase](#match-phrase), but creates a [prefix query](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/PrefixQuery.html) out of the last term in the query string.
 
