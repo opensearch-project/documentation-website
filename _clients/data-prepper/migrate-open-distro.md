@@ -22,4 +22,4 @@ In your Data Prepper Docker configuration, adjust `amazon/opendistro-for-elastic
 
 ## Next steps
 
-You can find more information about Data Prepper configurations by going to the [Getting Started](getting_started.md) guide.
+You can find more information about Data Prepper configurations by going to the [Getting Started with Data Prepper]({{site.url}}{{site.baseurl}}/clients/data-prepper/get-started/) page.
