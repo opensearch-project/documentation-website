@@ -89,9 +89,14 @@ Remember that `docker container ls` does not list stopped containers. If you wou
 
 ## Deploy an OpenSearch cluster using Docker Compose
 
-Although it is possible to manually build an OpenSearch cluster running in Docker containers, it is far simpler to define your environment in a YAML file and let Docker Compose manage everything. The following section contains example YAML files that you can use to launch a pre-defined cluster with OpenSearch and OpenSearch Dashboards. These examples are useful for testing and development, but are not suitable for a production environment. Review the Docker [Compose specification](https://docs.docker.com/compose/compose-file/) for specific guidance on syntax and formatting when you're ready to deploy your own custom cluster.
+Although it is possible to manually build an OpenSearch cluster running in Docker containers, it is far simpler to define your environment in a YAML file and let Docker Compose manage everything. The following section contains example YAML files that you can use to launch a pre-defined cluster with OpenSearch and OpenSearch Dashboards. These examples are useful for testing and development, but are not suitable for a production environment. If you don't have prior experience using Docker Compose, you may wish to review the Docker [Compose specification](https://docs.docker.com/compose/compose-file/) for guidance on syntax and formatting before making any changes to the dictionary structures in the examples.
 
+The YAML file that defines the environment is typically called `docker-compose.yml` or `docker-compose.yaml`. When you run `docker-compose` commands, the utility checks your current directory for a file that matches either of those names. If neither file is found, the command fails. You can specify a file when invoking `docker-compose` with the `-f` flag. For example:
 
+```bash
+# Use a relative or absolute path.
+docker-compose up -f /path/to/your-file.yml
+```
 
 
 
