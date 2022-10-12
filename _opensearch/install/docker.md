@@ -26,6 +26,30 @@ Docker Compose is a utility that allows users to launch multiple containers with
 If you need to install Docker Compose manually, and your host supports Python, you can use [pip](https://pypi.org/project/pip/) to install the [Docker Compose package](https://pypi.org/project/docker-compose/) automatically.
 {: .tip}
 
+## Important host settings
+
+Before launching OpenSearch you should review some [important system settings]({{site.url}}{{site.baseurl}}/opensearch/install/important-settings/){:target='\_blank'} that can impact the performance of your services.
+1. Disable memory paging and swapping performance on the host to improve performance.
+   ```bash
+   sudo swapoff -a
+   ```
+1. Increase the number of memory maps available to OpenSearch.
+   ```bash
+   # Edit the sysctl config file
+   sudo vi /etc/sysctl.conf
+
+   # Add a line to define the desired value
+   # or change the value if the key exists,
+   # and then save your changes.
+   vm.max_map_count=262144
+
+   # Reload the kernel parameters using sysctl
+   sudo sysctl -p
+
+   # Verify that the change was applied by checking the value
+   cat /proc/sys/vm/max_map_count
+   ```
+
 ## Run OpenSearch in a Docker container
 
 Official OpenSearch images are hosted on [Docker Hub](https://hub.docker.com/u/opensearchproject/) and [AWS Elastic Container Registry (ECR)](https://gallery.ecr.aws/opensearchproject/). If you want to inspect the images you can pull them individually using `docker pull`, such as in the following examples.
