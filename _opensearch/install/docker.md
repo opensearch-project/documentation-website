@@ -208,31 +208,43 @@ From the directory containing `docker-compose.yml`, create and start the contain
 docker-compose up -d
 ```
 
-Verify that the containers started correctly:
+Verify that the service containers started correctly:
 ```bash
 docker-compose ps
 ```
 
 If a container failed to start, you can review the service logs:
 ```bash
+# If you don't pass a service name, docker-compose will show you logs from all of the nodes
 docker-compose logs <serviceName>
 ```
 
-
-
-To stop the running containers in your cluster:
+Stop the running containers in your cluster:
 ```bash
 docker-compose down
 ```
 
-To stop the cluster and delete all data volumes, run:
 
-```bash
-docker-compose down -v
-```
 
-If you're running your cluster in a production environment, be sure to refer to [Important settings]({{site.url}}{{site.baseurl}}/opensearch/install/important-settings) when configuring your machine and cluster.
-{: .note}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+`docker-compose down` will stop the running containers, but it will not remove the Docker volumes that exist on the host. If you don't care about the contents of these volumes, use the `-v` option to delete all volumes.
+{: .tip}
+
+
+
 
 
 
