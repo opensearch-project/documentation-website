@@ -221,35 +221,28 @@ Stop the running containers in your cluster:
 docker-compose down
 ```
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-`docker-compose down` will stop the running containers, but it will not remove the Docker volumes that exist on the host. If you don't care about the contents of these volumes, use the `-v` option to delete all volumes.
+`docker-compose down` will stop the running containers, but it will not remove the Docker volumes that exist on the host. If you don't care about the contents of these volumes, use the `-v` option to delete all volumes, e.g. `docker-compose down -v`.
 {: .tip}
 
+## Configure OpenSearch
 
 
 
 
+
+
+
+
+
+
+
+{% comment %}
 
 If you override `opensearch_dashboards.yml` settings using environment variables, as seen above, use all uppercase letters and underscores in place of periods (e.g. for `opensearch.hosts`, use `OPENSEARCH_HOSTS`).
 {: .note}
 
 
-## Configure OpenSearch
+
 
 You can pass a custom `opensearch.yml` file to the Docker container using the [`-v` flag](https://docs.docker.com/engine/reference/commandline/run#mount-volume--v---read-only) for `docker run`:
 
@@ -650,3 +643,5 @@ plugins.security.authcz.admin_dn:
 ```
 
 To start the cluster, run `docker-compose up` as usual.
+
+{% endcomment %}
