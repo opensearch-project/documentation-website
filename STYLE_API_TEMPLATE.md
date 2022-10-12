@@ -20,7 +20,7 @@ When you provide an exact example with a value, you can use the code element in 
   *Example usage*: 
   The response provides a value for `time_field`, such as “timestamp.” 
 
-Use the `json` format without the `curl` command for API calls, unless the call can only be executed in command line.
+Provide a REST API call example in `json` format. Optionally, also include the `curl` command if the call can only be executed in a command line.
 
 ## Basic elements for documentation
 
@@ -29,7 +29,7 @@ The following sections describe the basic API documentation structure. Each sect
 Depending on where the documentation appears within a section or subsection, heading levels may be adjusted to fit with other content.
 
 1. Name of API (heading level 2)
-1. Path and HTTP methods (heading level 3)
+1. (Optional) Path and HTTP methods (heading level 3)
 1. Path parameters (heading level 3)
 1. Query parameters (heading level 3)
 1. Request fields (heading level 3)
@@ -55,10 +55,15 @@ If applicable, provide any caveats to its usage with a note or tip, as in the fo
 
 ### Path and HTTP methods
 
-If your API call has path parameters, query parameters, and request body fields, it is easier to visualize if you include a section with only the URL of the request without the request fields. The following example shows the URL of the Update a Transform Job API:
+For relatively complex API calls that include path parameters, it's sometimes a good idea to provide an example so that users can visualize how the request is properly formed. This section is optional and includes examples that illustrate how the endpoint and path parameters fit together in the request. The following is an example of this section for the Nodes stats API:
 
 ```json
-PUT _plugins/_transform/<transform_id>?if_seq_no=<seq_no>&if_primary_term=<primary_term>
+GET /_nodes/stats
+GET /_nodes/<node_id>/stats
+GET /_nodes/stats/<metric>
+GET /_nodes/<node_id>/stats/<metric>
+GET /_nodes/stats/<metric>/<index_metric>
+GET /_nodes/<node_id>/stats/<metric>/<index_metric>
 ```
 
 ### Path parameters
