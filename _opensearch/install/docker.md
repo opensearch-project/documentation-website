@@ -7,7 +7,7 @@ nav_order: 3
 
 # Why use Docker for OpenSearch?
 
-[Docker](https://www.docker.com/) greatly simplifies the process of configuring and managing your OpenSearch clusters. You can pull official images from [Docker Hub](https://hub.docker.com/u/opensearchproject) or [AWS ECR](https://gallery.ecr.aws/opensearchproject/) and quickly deploy a cluster using [Docker Compose](https://github.com/docker/compose) and any of the sample `docker-compose.yml` files included in this guide. Experienced OpenSearch users can further customize a deployment by creating a custom `docker-compose.yml` file, depending on their needs.
+[Docker](https://www.docker.com/) greatly simplifies the process of configuring and managing your OpenSearch clusters. You can pull official images from [Docker Hub](https://hub.docker.com/u/opensearchproject) or [AWS ECR](https://gallery.ecr.aws/opensearchproject/) and quickly deploy a cluster using [Docker Compose](https://github.com/docker/compose) and any of the sample Docker Compose files included in this guide. Experienced OpenSearch users can further customize their deployment by creating a custom Docker Compose file.
 
 Docker containers are portable and will run on any compatible host that supports Docker (such as Linux, MacOS, and Windows). The portability of a Docker container offers flexibility over other installations methods, like [RPM]({{site.url}}{{site.baseurl}}/opensearch/install/rpm/) or a manual [Tarball]({{site.url}}{{site.baseurl}}/opensearch/install/tar/) installation, which both require additional configuration after downloading and unpacking.
 
@@ -66,7 +66,7 @@ docker pull public.ecr.aws/opensearchproject/opensearch:latest
 docker pull public.ecr.aws/opensearchproject/opensearch-dashboards:latest
 ```
 
-To download a specific version of OpenSearch or OpenSearch Dashboards, modify the image tag in the command or reference. For example, `opensearchproject/opensearch:{{site.opensearch_version}}` will pull OpenSearch version {{site.opensearch_version}}. Refer to the official image repositories for available versions. 
+To download a specific version of OpenSearch or OpenSearch Dashboards rather than the latest available version, modify the image tag where it is referenced (either in the command line or in a Docker Compose file). For example, `opensearchproject/opensearch:{{site.opensearch_version}}` will pull OpenSearch version {{site.opensearch_version}}. Refer to the official image repositories for available versions. 
 {: .tip}
 
 1. Verify that Docker is working correctly by deploying OpenSearch in a single container. The following command also sets `discovery.type` to `single-node` so that bootstrap checks succeed.
@@ -97,7 +97,7 @@ To download a specific version of OpenSearch or OpenSearch Dashboards, modify th
         "tagline" : "The OpenSearch Project: https://opensearch.org/"
       }
       ```
-1. Before stopping the running container, display a list of all running containers and copy the container ID for the OpenSearch node you are testing. In the following example, the container ID is a937e018cee5.
+1. Before stopping the running container, display a list of all running containers and copy the container ID for the OpenSearch node you are testing. In the following example, the container ID is `a937e018cee5`:
     ```bash
     $ docker container ls
     CONTAINER ID   IMAGE                                 COMMAND                  CREATED          STATUS          PORTS                                                                NAMES
@@ -108,29 +108,30 @@ To download a specific version of OpenSearch or OpenSearch Dashboards, modify th
     docker stop <containerId>
     ```
 
-Remember that `docker container ls` does not list stopped containers. If you would like to review stopped containers, use `docker container ls -a`. You can remove unneeded containers manually with `docker container rm <containerId_1> <containerId_2> <containerId_3> [...]` (pass all container IDs you wish to stop, separated by spaces), or if you want to remove all stopped containers you can use the shorter command `docker prune`.
+Remember that `docker container ls` does not list stopped containers! If you would like to review stopped containers, use `docker container ls -a`. You can remove unneeded containers manually with `docker container rm <containerId_1> <containerId_2> <containerId_3> [...]` (pass all container IDs you wish to stop, separated by spaces), or if you want to remove all stopped containers you can use the shorter command `docker prune`.
 {: .tip}
 
 ## Deploy an OpenSearch cluster using Docker Compose
 
 Although it is possible to manually build an OpenSearch cluster running in Docker containers, it is far simpler to define your environment in a YAML file and let Docker Compose manage everything. The following section contains example YAML files that you can use to launch a pre-defined cluster with OpenSearch and OpenSearch Dashboards. These examples are useful for testing and development, but are not suitable for a production environment. If you don't have prior experience using Docker Compose, you may wish to review the Docker [Compose specification](https://docs.docker.com/compose/compose-file/) for guidance on syntax and formatting before making any changes to the dictionary structures in the examples.
 
-The YAML file that defines the environment is referred to as a Docker compose file, or simply a compose file. By default, `docker-compose` commands will begin by checking your current directory for a file that matches any of the following names:
+The YAML file that defines the environment is referred to as a Docker Compose file. By default, `docker-compose` commands will first check your current directory for a file that matches any of the following names:
 - `docker-compose.yml`
 - `docker-compose.yaml`
 - `compose.yml`
 - `compose.yaml`
 
-If no file exists in your current directory matching any of those file names, the command fails.
+If none of those files exists in your current directory, the `docker-compose` command fails.
 
-You can specify a custom file location and file name when invoking `docker-compose` with the `-f` flag:
+You can specify a custom file location and name when invoking `docker-compose` with the `-f` flag:
 ```bash
 # Use a relative or absolute path to the file.
 docker-compose up -f /path/to/your-file.yml
 ```
 
-If this is your first time launching an OpenSearch cluster using Docker Compose, use the following example `docker-compose.yml` file. Save it in the home directory of your host and name it `docker-compose.yml`.
+If this is your first time launching an OpenSearch cluster using Docker Compose, use the following example `docker-compose.yml` file. Save it in the home directory of your host and name it `docker-compose.yml`. This file defines three containers which include two OpenSearch nodes and one OpenSearch Dashboard node.
 
+### Sample docker-compose.yml
 ```yml
 version: '3'
 services:
@@ -199,19 +200,27 @@ networks:
   opensearch-net:
 ```
 
-This `docker-compose.yml` file will create a cluster that contains three containers: two containers running the OpenSearch service and a single container running OpenSearch Dashboards. 
+This `docker-compose.yml` file will create a cluster that contains three containers: two containers running the OpenSearch service and a single container running OpenSearch Dashboards. These containers will communicate over a bridge network called `opensearch-net`. Since this file does not explicitly disable the demo security configuration, self-signed TLS certificates are installed on the containers and a list of internal users with default passwords is created.
+{: .info}
 
-
-
-!! EVERYTHING ABOVE THIS LINE IS IN A DRAFT STATE -- EVERYTHING BELOW IS PENDING REVIEW FOR INCLUSION !!
-
-
+From the directory containing `docker-compose.yml`, create and start the containers in detached mode:
 ```bash
-docker-compose up
+docker-compose up -d
 ```
 
-To stop the cluster, run:
+Verify that the containers started correctly:
+```bash
+docker-compose ps
+```
 
+If a container failed to start, you can review the service logs:
+```bash
+docker-compose logs <serviceName>
+```
+
+
+
+To stop the running containers in your cluster:
 ```bash
 docker-compose down
 ```
