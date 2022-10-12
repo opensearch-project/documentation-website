@@ -200,7 +200,7 @@ networks:
   opensearch-net:
 ```
 
-This `docker-compose.yml` file will create a cluster that contains three containers: two containers running the OpenSearch service and a single container running OpenSearch Dashboards. These containers will communicate over a bridge network called `opensearch-net`. Since this file does not explicitly disable the demo security configuration, self-signed TLS certificates are installed on the containers and a list of internal users with default passwords is created.
+This `docker-compose.yml` file will create a cluster that contains three containers: two containers running the OpenSearch service and a single container running OpenSearch Dashboards. These containers will communicate over a bridge network called `opensearch-net`. Since this file does not explicitly disable the demo security configuration, self-signed TLS certificates are installed on the containers and internal users with default names and passwords are created.
 {: .info}
 
 From the directory containing `docker-compose.yml`, create and start the containers in detached mode:
