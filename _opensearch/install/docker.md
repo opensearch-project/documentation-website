@@ -129,7 +129,7 @@ You can specify a custom file location and file name when invoking `docker-compo
 docker-compose up -f /path/to/your-file.yml
 ```
 
-If you haven't worked with Docker Compose previously, use the following example `docker-compose.yml` file. Save it in the home directory of your host and name it `docker-compose.yml`.
+If this is your first time launching an OpenSearch cluster using Docker Compose, use the following example `docker-compose.yml` file. Save it in the home directory of your host and name it `docker-compose.yml`.
 
 ```yml
 version: '3'
