@@ -91,76 +91,51 @@ Remember that `docker container ls` does not list stopped containers. If you wou
 
 Although it is possible to manually build an OpenSearch cluster running in Docker containers, it is far simpler to define your environment in a YAML file and let Docker Compose manage everything. The following section contains example YAML files that you can use to launch a pre-defined cluster with OpenSearch and OpenSearch Dashboards. These examples are useful for testing and development, but are not suitable for a production environment. If you don't have prior experience using Docker Compose, you may wish to review the Docker [Compose specification](https://docs.docker.com/compose/compose-file/) for guidance on syntax and formatting before making any changes to the dictionary structures in the examples.
 
-The YAML file that defines the environment is typically called `docker-compose.yml` or `docker-compose.yaml`. When you run `docker-compose` commands, the utility checks your current directory for a file that matches either of those names. If neither file is found, the command fails. You can specify a file when invoking `docker-compose` with the `-f` flag. For example:
+The YAML file that defines the environment is referred to as a Docker compose file, or simply a compose file. By default, `docker-compose` commands will begin by checking your current directory for a file that matches any of the following names:
+- `docker-compose.yml`
+- `docker-compose.yaml`
+- `compose.yml`
+- `compose.yaml`
 
+If no file exists in your current directory matching any of those file names, the command fails.
+
+You can specify a custom file location and file name when invoking `docker-compose` with the `-f` flag:
 ```bash
-# Use a relative or absolute path.
+# Use a relative or absolute path to the file.
 docker-compose up -f /path/to/your-file.yml
 ```
 
-
-
-!! EVERYTHING ABOVE THIS LINE IS IN A DRAFT STATE -- EVERYTHING BELOW IS PENDING REVIEW FOR INCLUSION !!
-
-
-
-
-## Start a cluster
-
-To deploy multiple nodes and simulate a more realistic deployment, create a [docker-compose.yml](https://docs.docker.com/compose/compose-file/) file appropriate for your environment and run:
-
-```bash
-docker-compose up
-```
-
-To stop the cluster, run:
-
-```bash
-docker-compose down
-```
-
-To stop the cluster and delete all data volumes, run:
-
-```bash
-docker-compose down -v
-```
-
-If you're running your cluster in a production environment, be sure to refer to [Important settings]({{site.url}}{{site.baseurl}}/opensearch/install/important-settings) when configuring your machine and cluster.
-{: .note}
-
-#### Sample Docker Compose file
-
-This sample file starts two data nodes and a container for OpenSearch Dashboards.
+If you haven't worked with Docker Compose previously, use the following example `docker-compose.yml` file. Save it in the home directory of your host and name it `docker-compose.yml`.
 
 ```yml
 version: '3'
 services:
-  opensearch-node1:
-    image: opensearchproject/opensearch:{{site.opensearch_version}}
+  opensearch-node1: # This is also the hostname of the container within the Docker network (i.e. https://opensearch-node1/)
+    image: opensearchproject/opensearch:latest # Specifying the latest available image - modify if you want a specific version
     container_name: opensearch-node1
     environment:
-      - cluster.name=opensearch-cluster
-      - node.name=opensearch-node1
-      - discovery.seed_hosts=opensearch-node1,opensearch-node2
-      - cluster.initial_cluster_manager_nodes=opensearch-node1,opensearch-node2
-      - bootstrap.memory_lock=true # Works with the memlock settings below to disable swapping
-      - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" # We recommend setting min and max JVM heap sizes to at least 50% of system RAM
+      - cluster.name=opensearch-cluster # Name the cluster
+      - node.name=opensearch-node1 # Name the node that will run in this container
+      - discovery.seed_hosts=opensearch-node1,opensearch-node2 # Nodes to look for when discovering the cluster
+      - cluster.initial_cluster_manager_nodes=opensearch-node1,opensearch-node2 # Nodes eligibile to serve as cluster manager
+      - bootstrap.memory_lock=true # Disable JVM heap memory swapping
+      - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" # Set min and max JVM heap sizes to at least 50% of system RAM
     ulimits:
       memlock:
-        soft: -1
+        soft: -1 # Set memlock to unlimited (no soft or hard limit)
         hard: -1
       nofile:
-        soft: 65536 # maximum number of open files for the OpenSearch user, set to at least 65536 on modern systems
+        soft: 65536 # Maximum number of open files for the opensearch user - set to at least 65536
         hard: 65536
     volumes:
       - opensearch-data1:/usr/share/opensearch/data
     ports:
-      - 9200:9200
-      - 9600:9600 # required for Performance Analyzer
+      - 9200:9200 # Rest API
+      - 9600:9600 # Performance Analyzer
     networks:
-      - opensearch-net
+      - opensearch-net # All of the containers will join the same network - 
   opensearch-node2:
-    image: opensearchproject/opensearch:{{site.opensearch_version}}
+    image: opensearchproject/opensearch:latest # This should be the same image used for opensearch-node1 to avoid issues
     container_name: opensearch-node2
     environment:
       - cluster.name=opensearch-cluster
@@ -181,14 +156,14 @@ services:
     networks:
       - opensearch-net
   opensearch-dashboards:
-    image: opensearchproject/opensearch-dashboards:{{site.opensearch_dashboards_version}}
+    image: opensearchproject/opensearch-dashboards:latest # Make sure the version of opensearch-dashboards matches the version of opensearch installed on other nodes
     container_name: opensearch-dashboards
     ports:
-      - 5601:5601
+      - 5601:5601 # Map host port 5601 to container port 5601
     expose:
-      - "5601"
+      - "5601" # Expose port 5601 for web access to OpenSearch Dashboards
     environment:
-      OPENSEARCH_HOSTS: '["https://opensearch-node1:9200","https://opensearch-node2:9200"]' # must be a string with no spaces when specified as an environment variable
+      OPENSEARCH_HOSTS: '["https://opensearch-node1:9200","https://opensearch-node2:9200"]' # Define the OpenSearch nodes that OpenSearch Dashboards will query
     networks:
       - opensearch-net
 
@@ -199,6 +174,34 @@ volumes:
 networks:
   opensearch-net:
 ```
+
+This `docker-compose.yml` file will create a cluster that contains three containers: two containers running the OpenSearch service and a single container running OpenSearch Dashboards. 
+
+
+
+!! EVERYTHING ABOVE THIS LINE IS IN A DRAFT STATE -- EVERYTHING BELOW IS PENDING REVIEW FOR INCLUSION !!
+
+
+```bash
+docker-compose up
+```
+
+To stop the cluster, run:
+
+```bash
+docker-compose down
+```
+
+To stop the cluster and delete all data volumes, run:
+
+```bash
+docker-compose down -v
+```
+
+If you're running your cluster in a production environment, be sure to refer to [Important settings]({{site.url}}{{site.baseurl}}/opensearch/install/important-settings) when configuring your machine and cluster.
+{: .note}
+
+
 
 If you override `opensearch_dashboards.yml` settings using environment variables, as seen above, use all uppercase letters and underscores in place of periods (e.g. for `opensearch.hosts`, use `OPENSEARCH_HOSTS`).
 {: .note}
