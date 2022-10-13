@@ -226,17 +226,22 @@ docker-compose down
 
 ## Configure OpenSearch
 
-Unlike the RPM distribution of OpenSearch, which requires a heavy amount of post-installation configuration, running OpenSearch clusters with Docker allows you to define the environment before the containers are even created.
+Unlike the RPM distribution of OpenSearch, which requires a heavy amount of post-installation configuration, running OpenSearch clusters with Docker allows you to define the environment before the containers are even created. This is possible whether you use Docker or Docker Compose command line options.
 
+For example, look at this command:
+```bash
+docker run \
+  -p 9200:9200 -p 9600:9600 \
+  -e "discovery.type=single-node" \
+  -v /path/to/custom-opensearch.yml:/usr/share/opensearch/config/opensearch.yml \
+  opensearchproject/opensearch:latest
+```
 
-
-
-
-
-
-
-
-{% comment %}
+If you look at each part of the command, you can see the it:
+- Requests `opensearchproject/opensearch:latest` from Docker Hub.
+- Maps ports 9200 and 9600 (HOST_PORT:CONTAINER_PORT).
+- Sets `discovery.type` to `single-node` so that bootstrap checks don't fail for this single node deployment.
+- Uses the [`-v` flag](https://docs.docker.com/engine/reference/commandline/run#mount-volume--v---read-only) to pass a local file called `custom-opensearch.yml` to the container, replacing the `opensearch.yml` included with the image.
 
 If you override `opensearch_dashboards.yml` settings using environment variables, as seen above, use all uppercase letters and underscores in place of periods (e.g. for `opensearch.hosts`, use `OPENSEARCH_HOSTS`).
 {: .note}
@@ -244,15 +249,8 @@ If you override `opensearch_dashboards.yml` settings using environment variables
 
 
 
-You can pass a custom `opensearch.yml` file to the Docker container using the [`-v` flag](https://docs.docker.com/engine/reference/commandline/run#mount-volume--v---read-only) for `docker run`:
 
-```bash
-docker run \
--p 9200:9200 -p 9600:9600 \
--e "discovery.type=single-node" \
--v /<full-path-to>/custom-opensearch.yml:/usr/share/opensearch/config/opensearch.yml \
-opensearchproject/opensearch:{{site.opensearch_version}}
-```
+{% comment %}
 
 You can perform the same operation in `docker-compose.yml` using a relative path:
 
