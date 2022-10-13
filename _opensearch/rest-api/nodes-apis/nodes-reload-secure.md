@@ -23,29 +23,27 @@ You can include the following optional path parameter in your request:
 
 Parameter | Type | Description
 :--- | :--- | :---
-node_id | String | The names of the nodes to reload.
+nodeId | String | A comma-separated list of nodeIds to filter results. Supports [node filters]({{site.url}}{{site.baseurl}}/opensearch/rest-api/nodes-apis/index/#node-filters). Defaults to `_all`.
 
-## HTTP request body
+## Request fields
 
-An optional object containing the password for the OpenSearch keystore.
+The request may include an optional object containing the password for the OpenSearch keystore.
 
-````json
+```json
 {
-  "secure_settings_password":"keystore_password"
+  "secure_settings_password": "keystore_password"
 }
-````
+```
 
-## Required permissions
+#### Sample request
 
-If you use the security plugin, make sure you set the following permissions: `cluster:manage/nodes`.
-
-### Example API query and response
-
-The following is an example API query:
+The following is an example API request:
 
 ```
 POST _nodes/reload_secure_settings
 ```
+
+#### Sample response
 
 The following is an example response:
 
@@ -64,3 +62,7 @@ The following is an example response:
   }
 }
 ````
+
+## Required permissions
+
+If you use the security plugin, make sure you set the following permissions: `cluster:manage/nodes`.

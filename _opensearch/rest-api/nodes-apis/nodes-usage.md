@@ -26,7 +26,7 @@ You can include the following optional path parameters in your request:
 Parameter | Type | Description
 :--- | :--- | :---
 node_id | String | A comma-separated list of node ids used to filter results. Supports [node filters]({{site.url}}{{site.baseurl}}/opensearch/rest-api/nodes-apis/index/#node-filters). Defaults to `_all`.
-metric | String | The metrics that will be included in the response. You can set the string to either `_all` or `rest_actions`. `rest_actions` will return the total of the number of times an action has been called on the node. `_all` will return all stats from the node. Defaults to `_all`.
+metric | String | The metrics that will be included in the response. You can set the string to either `_all` or `rest_actions`. `rest_actions` returns the total number of times an action has been called on the node. `_all` returns all stats from the node. Defaults to `_all`.
 
 ## Query parameters
 
@@ -35,23 +35,21 @@ You can include the following optional query parameters in your request:
 Parameter | Type | Description
 :--- | :---| :---
 timeout | Time | Sets the time limit for a response from the node. Default is `30s`.
-master_timeout | Time | Sets the time limit for a response from the cluster manager. Default is `30s`.
+cluster_manager_timeout | Time | Sets the time limit for a response from the cluster manager. Default is `30s`.
 
-## Required permissions
+#### Sample request
 
-If you use the security plugin, make sure you set the following permissions: `cluster:manage/nodes` or `cluster:monitor/nodes`.
-
-### Example API query and response
-
-The following is an example API query:
+The following request returns usage details for all nodes:
 
 ```
 GET _nodes/usage
 ```
 
+#### Sample response
+
 The following is an example response:
 
-````json
+```json
 {
   "_nodes" : {
     "total" : 1,
@@ -90,4 +88,8 @@ The following is an example response:
     }
   }
 }
-````
+```
+
+## Required permissions
+
+If you use the security plugin, make sure you set the following permissions: `cluster:manage/nodes` or `cluster:monitor/nodes`.
