@@ -21,7 +21,7 @@ The security plugin can integrate with identify providers that use the OpenID Co
 
   You can change the keys used for signing the JWTs directly in your IdP. If the security plugin detects an unknown key, it tries to retrieve it from the IdP. This rollover is transparent to the user.
 
-* OpenSearch Dashboards single sign-on
+* OpenSearch Dashboards single sign-on or one of multiple other authentication options in the sign-in window. See [Multi-authentication sign-in for Dashboards]({{site.url}}{{site.baseurl}}/security-plugin/configuration/multi-auth/) for details on including OpenID Connect in configuring sign-in preferences.
 
 
 ## Configure OpenID Connect integration
@@ -313,6 +313,8 @@ opensearch.ssl.verificationMode: none
 opensearch.requestHeadersAllowlist: ["Authorization", "security_tenant"]
 ```
 
+To include OpenID Connect with other authentication options in the Dashboards sign-in window, see [Multi-authentication sign-in for Dashboards]({{site.url}}{{site.baseurl}}/security-plugin/configuration/multi-auth/).
+{: .note } 
 
 ### OpenSearch security configuration
 
