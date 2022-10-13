@@ -200,7 +200,7 @@ networks:
   opensearch-net:
 ```
 
-If you override `opensearch_dashboards.yml` settings using environment variables, as in the example `docker-compose.yml` above, use all uppercase letters and replace periods with underscores (e.g. for `opensearch.hosts`, use `OPENSEARCH_HOSTS`). 
+If you override `opensearch_dashboards.yml` settings using environment variables in your compose file, use all uppercase letters and replace periods with underscores (e.g. for `opensearch.hosts`, use `OPENSEARCH_HOSTS`). This behavior is inconsistent with overriding `opensearch.yml` settings, where the conversion is just a change to the assignment operator (e.g., `discovery.type: single-node` in `opensearch.yml` is defined as `discovery.type=single-node` in `docker-compose.yml`).
 {: .note}
 
 From the directory containing `docker-compose.yml`, create and start the containers in detached mode:
@@ -249,7 +249,7 @@ If you look at each part of the command, you can see that it:
 
 If you compare this command to the [Sample docker-compose.yml](#sample-docker-composeyml) file you might notice some common settings. For example, the port mappings and the image reference. The command, however, is only deploying a single container running OpenSearch and will not create a container for OpenSearch Dashboards. Furthermore, if you want to use custom TLS certificates, users, roles, or define additional volumes and networks, then this "one-line" command rapidly grows to an impractical size. That is where the utility of Docker Compose comes into play.
 
-
+When you build your OpenSearch cluster with Docker Compose you might find it easier to pass custom configuration files from your host to the container as opposed to enumerating every individual setting in `docker-compose.yml`. 
 
 
 
