@@ -48,6 +48,12 @@ Each analyzer consists of one tokenizer and zero or more token filters. Differen
   }
   ```
 
+## Analyzer options
+
+Option | Valid values | Description
+:--- | :--- | :---
+`analyzer` | `standard, simple, whitespace, stop, keyword, pattern, language, fingerprint` | The analyzer you want to use for the query. Different analyzers have different character filters, tokenizers, and token filters. The `stop` analyzer, for example, removes stop words (e.g., "an," "but," "this") from the query string. For a full list of acceptable language values, see [Convert text with analyzers](#convert-text-with-analyzers) on this page.
+`quote_analyzer` | String | This option lets you choose to use the standard analyzer without any options, such as `language` or other analyzers. Usage is `"quote_analyzer": "standard"`.
 
 
 

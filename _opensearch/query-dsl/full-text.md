@@ -5,17 +5,19 @@ parent: Query DSL
 nav_order: 40
 ---
 
-# Full-text queries
+# Full-text query types and options
 
-This page lists all full-text query types and common options. Given the sheer number of options and subtle behaviors, the best method of ensuring useful search results is to test different queries against representative indices and verify the output.
+This page lists all full-text query types and common options. There are many optional fields you can use to create subtle search behaviors, so we recommend that you test out some basic query types against representative indexes and verify the output before you do more advanced or complex searches with multiple options.
+
+
+To convert unstructured text into the format that you need, you can use the text analyzers. To learn more about how to convert unstructured text into structured text that is optimized for search, see [Text analyzers]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/text-analyzers).
+{: .note }
 
 <!-- to do: rewrite query type definitions per issue: https://github.com/opensearch-project/documentation-website/issues/1116
 -->
 ---
 
-## Table of contents
-
-1. Query types
+1. TOC
 {:toc}
 
 ---
@@ -25,7 +27,7 @@ Common terms queries and the optional query field `cutoff_frequency` are now dep
 
 ## Query types
 
-You can use the query types . . . 
+OpenSearch Query DSL provides multiple query types that you can use in your searches. 
 ### Match
 
 Use the `match` query type to specify fields that you want returned in a search. Specify the terms that you want each field to match. Documents that contain that term will be returned in the search results.
@@ -88,7 +90,7 @@ GET _search
 }
 ```
 
-## Multi match
+### Multi match
 
 You can use the `multi_match` query type to search for multiple fields. Multi-match operation functions similarly to the [match](#match) operation.
 
@@ -133,7 +135,7 @@ GET _search
 }
 ```
 
-## Match boolean prefix
+### Match boolean prefix
 
 You can search for terms that match a specified prefix with the `match_bool_prefix` query type. Documents that contain the last term in the string will be returned.
 
@@ -174,7 +176,7 @@ GET _search
 }
 ```
 
-## Match phrase
+### Match phrase
 
 Use the `match_phrase` query type to specify a sequence of terms to return in the search.
 
@@ -209,7 +211,7 @@ GET _search
 }
 ```
 
-## Match phrase prefix
+### Match phrase prefix
 
 Use the `match_phrase_prefix` query type to specify a sequence of terms with a specified prefix. The documents that contain the phrase you specify will be returned. The last term in the phrase is partially provided as a prefix, so any documents that contain phrases that begin with the prefix for the last term will be returned. 
 
@@ -284,7 +286,7 @@ GET _search
 }
 ```
 -->
-## Query string
+### Query string
 
 The query string query splits text based on operators and analyzes each individually.
 
@@ -335,9 +337,9 @@ GET _search
 }
 ```
 
-## Simple query string
+### Simple query string
 
-The simple query string query is like the query string query, but it lets advanced users specify many arguments directly in the query string. The query discards any invalid portions of the query string.
+Use the `query_string_query` type to specify many arguments directly in the query string delineated by regular expressions. Searches with this type will discard any invalid portions of the string.
 
 ```json
 GET _search
@@ -386,9 +388,9 @@ GET _search
 }
 ```
 
-## Match all
+### Match all
 
-Matches all documents. Can be useful for testing.
+The `match_all` query type will return all documents. This type can be useful to test large document sets if you need to return the entire set.
 
 ```json
 GET _search
@@ -399,6 +401,7 @@ GET _search
 }
 ```
 
+<!-- need to research why a customer would need to match zero documents in a search >
 ## Match none
 
 Matches no documents. Rarely useful.
@@ -411,32 +414,19 @@ GET _search
   }
 }
 ```
+-->
+## Advanced filter options
 
-## Convert text with analyzers
+You can filter your query results by using some of the optional query fields, such as wildcards, fuzzy query fields, and synonyms.
 
-To convert unstructured text into the format that you need, you can use the text analyzers. To learn more about how to convert unstructured text into structured text that is optimized for search, see [Text analyzers]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/text-analyzers).
-
-<!-- TO do: each of the options needs its own section with an example. Convert table to individual sections, and then give a streamlined list with valid values. -->
-
-## Optional query fields
-
-You can filter your query results by using some of the optional query fields, such as wildcards, analyzers, fuzzy query fields, and synonyms.
-
-### Use wildcards
+### Wildcard options
 
 Option | Valid values | Description
 :--- | :--- | :---
 `allow_leading_wildcard` | Boolean | Whether `*` and `?` are allowed as the first character of a search term. The default is `true`.
 `analyze_wildcard` | Boolean | Whether OpenSearch should attempt to analyze wildcard terms. Some analyzers do a poor job at this task, so the default is false.
 
-### Use built-in analyzers
-
-Option | Valid values | Description
-:--- | :--- | :---
-`analyzer` | `standard, simple, whitespace, stop, keyword, pattern, language, fingerprint` | The analyzer you want to use for the query. Different analyzers have different character filters, tokenizers, and token filters. The `stop` analyzer, for example, removes stop words (e.g., "an," "but," "this") from the query string. For a full list of acceptable language values, see [Convert text with analyzers](#convert-text-with-analyzers) on this page.
-`quote_analyzer` | String | This option lets you choose to use the standard analyzer without any options, such as `language` or other analyzers. Usage is `"quote_analyzer": "standard"`.
-
-### Run fuzzy queries
+### Fuzzy query options
 
 Option | Valid values | Description
 :--- | :--- | :---
@@ -444,11 +434,11 @@ Option | Valid values | Description
 `fuzzy_transpositions` | Boolean | Setting `fuzzy_transpositions` to true (default) adds swaps of adjacent characters to the insert, delete, and substitute operations of the `fuzziness` option. For example, the distance between `wind` and `wnid` is 1 if `fuzzy_transpositions` is true (swap "n" and "i") and 2 if it is false (delete "n", insert "n"). <br /><br />If `fuzzy_transpositions` is false, `rewind` and `wnid` have the same distance (2) from `wind`, despite the more human-centric opinion that `wnid` is an obvious typo. The default is a good choice for most use cases.
 `fuzzy_max_expansions` | Positive integer | Fuzzy queries "expand to" a number of matching terms that are within the distance specified in `fuzziness`. Then OpenSearch tries to match those terms against its indexes.
 
-### Use synonyms with a query
+### Use synonyms
 
 You can also run multi-term queries that allow for generating synonyms. Use the `auto_generate_synonyms_phrase_query` Boolean field. By default it is set to `true`. It automatically generates [phrase queries](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/PhraseQuery.html) for multi-term synonyms. For example, if you have the synonym `"ba, batting average"` and search for "ba," OpenSearch searches for `ba OR "batting average"` (if this option is true) or `ba OR (batting AND average)` (if this option is false).
 
-### Other optional query fields
+### Other advanced options
 
 You can also use the following optional query fields to filter your query results.
 
