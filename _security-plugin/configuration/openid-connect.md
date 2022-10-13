@@ -21,7 +21,7 @@ The security plugin can integrate with identify providers that use the OpenID Co
 
   You can change the keys used for signing the JWTs directly in your IdP. If the security plugin detects an unknown key, it tries to retrieve it from the IdP. This rollover is transparent to the user.
 
-* OpenSearch Dashboards single sign-on or one of multiple other authentication options in the sign-in window. See [Multi-authentication sign-in for Dashboards]({{site.url}}{{site.baseurl}}/security-plugin/configuration/multi-auth/) for details on including OpenID Connect in configuring sign-in preferences.
+* OpenSearch Dashboards single sign-on or one option for multi- authentication sign-on.
 
 
 ## Configure OpenID Connect integration
@@ -270,7 +270,7 @@ OpenID Connect providers usually publish their configuration in JSON format unde
   Beyond the ID, each client also has a client secret assigned. The client secret is usually generated when the client is created. Applications can obtain an identity token only when they provide a client secret. You can find this secret in the settings of the client on your IdP.
 
 
-### Configuration parameters
+### Configuration settings
 
 Name | Description
 :--- | :---
