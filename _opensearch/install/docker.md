@@ -229,7 +229,7 @@ docker-compose down
 
 ## Configure OpenSearch
 
-Unlike the RPM distribution of OpenSearch, which requires a heavy amount of post-installation configuration, running OpenSearch clusters with Docker allows you to define the environment before the containers are even created. This is possible whether you use Docker or Docker Compose command line options.
+Unlike the RPM distribution of OpenSearch, which requires a heavy amount of post-installation configuration, running OpenSearch clusters with Docker allows you to define the environment before the containers are even created. This is possible whether you use Docker or Docker Compose.
 
 For example, look at this command:
 ```bash
@@ -241,12 +241,13 @@ docker run \
 ```
 
 If you look at each part of the command, you can see that it:
-- Maps ports 9200 and 9600 (HOST_PORT:CONTAINER_PORT).
+- Maps ports `9200` and `9600` (`HOST_PORT`:`CONTAINER_PORT`).
 - Sets `discovery.type` to `single-node` so that bootstrap checks don't fail for this single node deployment.
-- Uses the [`-v` flag](https://docs.docker.com/engine/reference/commandline/run#mount-volume--v---read-only) to pass a local file called `custom-opensearch.yml` to the container, replacing the `opensearch.yml` included with the image.
+- Uses the [-v flag](https://docs.docker.com/engine/reference/commandline/run#mount-volume--v---read-only) to pass a local file called `custom-opensearch.yml` to the container, replacing the `opensearch.yml` included with the image.
 - Requests the `opensearchproject/opensearch:latest` image from Docker Hub.
+- Runs the container.
 
-
+When you compare this standalone command to the [Sample docker-compose.yml](#sample-docker-composeyml) file you might notice common settings. For example, the port mappings and the image reference are both defined. The command, however, is only deploying a single container. If you want to apply custom TLS certificates, users, define additional volumes and networks, and so on, then this "one-line" command rapidly grows to an impractical size. That is where the utility offered by Docker Compose really shines.
 
 
 
