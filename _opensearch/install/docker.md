@@ -200,6 +200,9 @@ networks:
   opensearch-net:
 ```
 
+If you override `opensearch_dashboards.yml` settings using environment variables, as in the example `docker-compose.yml` above, use all uppercase letters and replace periods with underscores (e.g. for `opensearch.hosts`, use `OPENSEARCH_HOSTS`). 
+{: .note}
+
 From the directory containing `docker-compose.yml`, create and start the containers in detached mode:
 ```bash
 docker-compose up -d
@@ -237,14 +240,13 @@ docker run \
   opensearchproject/opensearch:latest
 ```
 
-If you look at each part of the command, you can see the it:
-- Requests `opensearchproject/opensearch:latest` from Docker Hub.
+If you look at each part of the command, you can see that it:
+- Requests the `opensearchproject/opensearch:latest` image from Docker Hub.
 - Maps ports 9200 and 9600 (HOST_PORT:CONTAINER_PORT).
 - Sets `discovery.type` to `single-node` so that bootstrap checks don't fail for this single node deployment.
 - Uses the [`-v` flag](https://docs.docker.com/engine/reference/commandline/run#mount-volume--v---read-only) to pass a local file called `custom-opensearch.yml` to the container, replacing the `opensearch.yml` included with the image.
 
-If you override `opensearch_dashboards.yml` settings using environment variables, as seen above, use all uppercase letters and underscores in place of periods (e.g. for `opensearch.hosts`, use `OPENSEARCH_HOSTS`).
-{: .note}
+
 
 
 
