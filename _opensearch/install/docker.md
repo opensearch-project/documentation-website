@@ -241,10 +241,10 @@ docker run \
 ```
 
 If you look at each part of the command, you can see that it:
-- Requests the `opensearchproject/opensearch:latest` image from Docker Hub.
 - Maps ports 9200 and 9600 (HOST_PORT:CONTAINER_PORT).
 - Sets `discovery.type` to `single-node` so that bootstrap checks don't fail for this single node deployment.
 - Uses the [`-v` flag](https://docs.docker.com/engine/reference/commandline/run#mount-volume--v---read-only) to pass a local file called `custom-opensearch.yml` to the container, replacing the `opensearch.yml` included with the image.
+- Requests the `opensearchproject/opensearch:latest` image from Docker Hub.
 
 
 
