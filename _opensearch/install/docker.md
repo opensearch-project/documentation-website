@@ -155,10 +155,10 @@ services:
     volumes:
       - opensearch-data1:/usr/share/opensearch/data
     ports:
-      - 9200:9200 # Rest API
+      - 9200:9200 # REST API
       - 9600:9600 # Performance Analyzer
     networks:
-      - opensearch-net # All of the containers will join the same network - 
+      - opensearch-net # All of the containers will join the same Docker bridge network
   opensearch-node2:
     image: opensearchproject/opensearch:latest # This should be the same image used for opensearch-node1 to avoid issues
     container_name: opensearch-node2
