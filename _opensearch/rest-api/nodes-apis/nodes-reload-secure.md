@@ -47,7 +47,7 @@ POST _nodes/reload_secure_settings
 
 The following is an example response:
 
-````json
+```json
 {
   "_nodes" : {
     "total" : 1,
@@ -61,7 +61,7 @@ The following is an example response:
     }
   }
 }
-````
+```
 
 ## Required permissions
 
