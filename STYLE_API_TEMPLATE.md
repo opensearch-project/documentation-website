@@ -55,7 +55,7 @@ If applicable, provide any caveats to its usage with a note or tip, as in the fo
 
 ### Path and HTTP methods
 
-For relatively complex API calls that include path parameters, it's sometimes a good idea to provide an example so that users can visualize how the request is properly formed. This section is optional and includes examples that illustrate how the endpoint and path parameters fit together in the request. The following is an example of this section for the Nodes stats API:
+For relatively complex API calls that include path parameters, it's sometimes a good idea to provide an example so that users can visualize how the request is properly formed. This section is optional and includes examples that illustrate how the endpoint and path parameters fit together in the request. The following is an example of this section for the nodes stats API:
 
 ```json
 GET /_nodes/stats
