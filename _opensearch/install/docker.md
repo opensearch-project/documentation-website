@@ -284,14 +284,14 @@ docker build --tag=opensearch-custom-plugin .
 docker run -p 9200:9200 -p 9600:9600 -v /usr/share/opensearch/data opensearch-custom-plugin
 ```
 
-Alternately, you might want to remove a plugin from an image before deploying it. This example `Dockerfile` removes the security plugin:
+Alternately, you might want to remove a plugin from an image before deploying it. This example Dockerfile removes the security plugin:
 ```
 FROM opensearchproject/opensearch:latest
 RUN /usr/share/opensearch/bin/opensearch-plugin remove opensearch-security
 COPY --chown=opensearch:opensearch opensearch.yml /usr/share/opensearch/config/
 ```
 
-You can also use a `Dockerfile` to pass your own certificates for use with the [Security Plugin]({{site.url}}{{site.baseurl}}/security-plugin/):
+You can also use a Dockerfile to pass your own certificates for use with the [Security Plugin]({{site.url}}{{site.baseurl}}/security-plugin/):
 ```
 FROM opensearchproject/opensearch:latest
 COPY --chown=opensearch:opensearch opensearch.yml /usr/share/opensearch/config/
