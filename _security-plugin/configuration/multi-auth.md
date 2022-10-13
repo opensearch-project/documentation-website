@@ -25,11 +25,11 @@ For basic authentication, you can configure the setting by specifying `"basicaut
 opensearch_security.auth.type: "basicauth"
 ```
 
-> Single sign-in for Dashboards is common to basic authentication, OpenID Connect, SAML, proxy based authentication, and JSON web tokens. Before configuring multi-authentication, see the following sections in the security documentation for details on configuring the essential settings that allow each authentication type to access OpenSearch Dashboards:
-> * For OpenID Connect: [OpenSearch Dashboards single sign-on]({{site.url}}{{site.baseurl}}/security-plugin/configuration/openid-connect/#opensearch-dashboards-single-sign-on)
-> * For SAML: [OpenSearch Dashboards configuration]({{site.url}}{{site.baseurl}}/security-plugin/configuration/saml/#opensearch-dashboards-configuration)
-> * For JSON web tokens: [Configure JSON web tokens]({{site.url}}{{site.baseurl}}/security-plugin/configuration/configuration/#configure-json-web-tokens).
-> * For Proxy authentication: [OpenSearch Dashboards proxy authentication]({{site.url}}{{site.baseurl}}/security-plugin/configuration/proxy/#opensearch-dashboards-proxy-authentication).
+Single sign-in for Dashboards is common to basic authentication, OpenID Connect, SAML, proxy based authentication, and JSON web tokens. Before configuring multi-authentication, see the following sections in the security documentation for details on configuring the essential settings that allow each authentication type to access OpenSearch Dashboards:
+* For OpenID Connect: [OpenSearch Dashboards single sign-on]({{site.url}}{{site.baseurl}}/security-plugin/configuration/openid-connect/#opensearch-dashboards-single-sign-on)
+* For SAML: [OpenSearch Dashboards configuration]({{site.url}}{{site.baseurl}}/security-plugin/configuration/saml/#opensearch-dashboards-configuration)
+* For JSON web tokens: [Configure JSON web tokens]({{site.url}}{{site.baseurl}}/security-plugin/configuration/configuration/#configure-json-web-tokens).
+* For Proxy authentication: [OpenSearch Dashboards proxy authentication]({{site.url}}{{site.baseurl}}/security-plugin/configuration/proxy/#opensearch-dashboards-proxy-authentication).
 {: .note }
 
 For multi-authentication, add values to the setting as an array separated by commas. As a reminder, Dashboards currently supports a combination of basic authentication, OpenID Connect, and SAML as a valid set of values.
