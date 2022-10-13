@@ -203,7 +203,7 @@ networks:
 If you override `opensearch_dashboards.yml` settings using environment variables in your compose file, use all uppercase letters and replace periods with underscores (e.g. for `opensearch.hosts`, use `OPENSEARCH_HOSTS`). This behavior is inconsistent with overriding `opensearch.yml` settings, where the conversion is just a change to the assignment operator (e.g., `discovery.type: single-node` in `opensearch.yml` is defined as `discovery.type=single-node` in `docker-compose.yml`).
 {: .note}
 
-From the directory containing `docker-compose.yml`, create and start the containers in detached mode:
+From the home directory of your host (containing `docker-compose.yml`) create and start the containers in detached mode:
 ```bash
 docker-compose up -d
 ```
@@ -249,8 +249,56 @@ If you look at each part of the command, you can see that it:
 
 If you compare this command to the [Sample docker-compose.yml](#sample-docker-composeyml) file you might notice some common settings. For example, the port mappings and the image reference. The command, however, is only deploying a single container running OpenSearch and will not create a container for OpenSearch Dashboards. Furthermore, if you want to use custom TLS certificates, users, roles, or define additional volumes and networks, then this "one-line" command rapidly grows to an impractical size. That is where the utility of Docker Compose comes into play.
 
-When you build your OpenSearch cluster with Docker Compose you might find it easier to pass custom configuration files from your host to the container as opposed to enumerating every individual setting in `docker-compose.yml`. 
+When you build your OpenSearch cluster with Docker Compose you might find it easier to pass custom configuration files from your host to the container, as opposed to enumerating every individual setting in `docker-compose.yml`. Similar to how the example `docker run` command mounted a volume from the host to the container using the `-v` flag, compose files can specify volumes to mount as a sub-option to the corresponding service. The following truncated YAML file demonstrates how to mount a file or directory to the container.
 
+```yml
+services:
+  opensearch-node1:
+    volumes:
+      - opensearch-data1:/usr/share/opensearch/data
+      - ./custom-opensearch.yml:/usr/share/opensearch/config/opensearch.yml
+  opensearch-node2:
+    volumes:
+      - opensearch-data2:/usr/share/opensearch/data
+      - ./custom-opensearch.yml:/usr/share/opensearch/config/opensearch.yml
+  opensearch-dashboards:
+    volumes:
+      - ./custom-opensearch_dashboards.yml:/usr/share/opensearch-dashboards/config/opensearch_dashboards.yml
+```
+
+Refer to the official Docker documentation for [volumes](https://docs.docker.com/storage/volumes/) for comprehensive information about the usage and syntax.
+
+### Working with plugins
+
+To run the OpenSearch image with a custom plugin, first create a [`Dockerfile`](https://docs.docker.com/engine/reference/builder/):
+```
+FROM opensearchproject/opensearch:latest
+RUN /usr/share/opensearch/bin/opensearch-plugin install --batch <pluginId>
+```
+
+Then run the following commands:
+```bash
+# Build an image from a Dockerfile
+docker build --tag=opensearch-custom-plugin .
+# Start the container from the custom image
+docker run -p 9200:9200 -p 9600:9600 -v /usr/share/opensearch/data opensearch-custom-plugin
+```
+
+Alternately, you might want to remove a plugin from an image before deploying it. This example `Dockerfile` removes the security plugin:
+```
+FROM opensearchproject/opensearch:latest
+RUN /usr/share/opensearch/bin/opensearch-plugin remove opensearch-security
+COPY --chown=opensearch:opensearch opensearch.yml /usr/share/opensearch/config/
+```
+
+You can also use a `Dockerfile` to pass your own certificates for use with the [Security Plugin]({{site.url}}{{site.baseurl}}/security-plugin/):
+```
+FROM opensearchproject/opensearch:latest
+COPY --chown=opensearch:opensearch opensearch.yml /usr/share/opensearch/config/
+COPY --chown=opensearch:opensearch my-key-file.pem /usr/share/opensearch/config/
+COPY --chown=opensearch:opensearch my-certificate-chain.pem /usr/share/opensearch/config/
+COPY --chown=opensearch:opensearch my-root-cas.pem /usr/share/opensearch/config/
+```
 
 
 
@@ -270,28 +318,6 @@ When you build your OpenSearch cluster with Docker Compose you might find it eas
 
 {% comment %}
 
-You can perform the same operation in `docker-compose.yml` using a relative path:
-
-```yml
-services:
-  opensearch-node1:
-    volumes:
-      - opensearch-data1:/usr/share/opensearch/data
-      - ./custom-opensearch.yml:/usr/share/opensearch/config/opensearch.yml
-  opensearch-node2:
-    volumes:
-      - opensearch-data2:/usr/share/opensearch/data
-      - ./custom-opensearch.yml:/usr/share/opensearch/config/opensearch.yml
-  opensearch-dashboards:
-    volumes:
-      - ./custom-opensearch_dashboards.yml:/usr/share/opensearch-dashboards/config/opensearch_dashboards.yml
-```
-
-You can also configure `docker-compose.yml` and `opensearch.yml` [to take your own certificates]({{site.url}}{{site.baseurl}}/opensearch/install/docker-security/) for use with the [Security]({{site.url}}{{site.baseurl}}/security-plugin/configuration/index/) plugin.
-
-
-
-
 
 ## Bash access to containers
 
@@ -302,46 +328,6 @@ docker exec -it <container-id> /bin/bash
 ```
 
 
-## Install, configure or remove plugins
-
-To run the image with a custom plugin, first create a [`Dockerfile`](https://docs.docker.com/engine/reference/builder/):
-
-```
-FROM opensearchproject/opensearch:{{site.opensearch_version}}
-RUN /usr/share/opensearch/bin/opensearch-plugin install --batch <plugin-name-or-url>
-```
-
-Then run the following commands:
-
-```bash
-docker build --tag=opensearch-custom-plugin .
-docker run -p 9200:9200 -p 9600:9600 -v /usr/share/opensearch/data opensearch-custom-plugin
-```
-
-You can also use a `Dockerfile` to pass your own certificates for use with the [security]({{site.url}}{{site.baseurl}}/security-plugin/) plugin, similar to the `-v` argument in [Configure OpenSearch](#configure-opensearch):
-
-```
-FROM opensearchproject/opensearch:{{site.opensearch_version}}
-COPY --chown=opensearch:opensearch opensearch.yml /usr/share/opensearch/config/
-COPY --chown=opensearch:opensearch my-key-file.pem /usr/share/opensearch/config/
-COPY --chown=opensearch:opensearch my-certificate-chain.pem /usr/share/opensearch/config/
-COPY --chown=opensearch:opensearch my-root-cas.pem /usr/share/opensearch/config/
-```
-
-Alternately, you might want to remove a plugin. This `Dockerfile` removes the security plugin:
-
-```
-FROM opensearchproject/opensearch:{{site.opensearch_version}}
-RUN /usr/share/opensearch/bin/opensearch-plugin remove opensearch-security
-COPY --chown=opensearch:opensearch opensearch.yml /usr/share/opensearch/config/
-```
-
-In this case, `opensearch.yml` is a "vanilla" version of the file with no plugin entries. It might look like this:
-
-```yml
-cluster.name: "docker-cluster"
-network.host: 0.0.0.0
-```
 
 ## Sample Docker Compose file for development
 
@@ -403,7 +389,7 @@ You can't reverse this step as the security dashboards plugin is removed in the 
 To re-enable security for OpenSearch Dashboards, start a new container and set `DISABLE_SECURITY_DASHBOARDS_PLUGIN` to false or leave it unset.
 {: .note}
 
-# Docker security configuration
+## Docker security configuration
 
 Before deploying to a production environment, you should replace the demo security certificates and configuration YAML files with your own. With the tarball, you have direct access to the file system, but the Docker image requires modifying the Docker storage volumes to include the replacement files.
 
