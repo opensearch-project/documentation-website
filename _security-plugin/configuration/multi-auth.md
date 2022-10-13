@@ -11,17 +11,9 @@ You can configure the sign-in window for OpenSearch Dashboards to provide either
 
 ## General steps for configuring Dashboards sign-in
 
-1. Decide which types of authentication are to be used.
-1. Configure each authentication method to be used, including an authentication domain for the IdP and essential settings that let the authentication type access OpenSearch Dashboards.
-
-See the related steps for each authentication type in the Configuration section of the security documentation:
-* For OpenID Connect: [OpenSearch Dashboards single sign-on]({{site.url}}{{site.baseurl}}/security-plugin/configuration/openid-connect/#opensearch-dashboards-single-sign-on)
-* For SAML: [OpenSearch Dashboards configuration]({{site.url}}{{site.baseurl}}/security-plugin/configuration/saml/#opensearch-dashboards-configuration)
-* For JSON web tokens: [Configure JSON web tokens]({{site.url}}{{site.baseurl}}/security-plugin/configuration/configuration/#configure-json-web-tokens).
-* For Proxy authentication: [OpenSearch Dashboards proxy authentication]({{site.url}}{{site.baseurl}}/security-plugin/configuration/proxy/#opensearch-dashboards-proxy-authentication).
-{: .note }
-
-1. Configure sign-in settings in the `opensearch_dashboards.yml` file.
+1. Decide which types of authentication are to be made available at sign-in.
+1. Configure each authentication type, including an authentication domain for the identification provider (IdP) and the essential settings that give each type sign-in access to OpenSearch Dashboards (see steps for each type in the Configuration section of the security documentation).
+1. Add and configure multi-authentication sign-in settings in the `opensearch_dashboards.yml` file.
 
 ## Enabling multi-authentication
 
@@ -48,9 +40,11 @@ When setting up Dashboards for multi-authentication, basic authentication is alw
 
 ## Customizing the sign-in environment
 
-In addition to the essential sign-in settings for each authentication type, you can configure additional settings in the `opensearch_dashboards.yml` file to customize the sign-in window so that it clearly represents the options that are available. For example, you can replace the label on the sign-in button with the name and icon of the identification provider. Use the settings below to change the look and feel of the different options.
+In addition to the essential sign-in settings for each authentication type, you can configure additional settings in the `opensearch_dashboards.yml` file to customize the sign-in window so that it clearly represents the options that are available. For example, you can replace the label on the sign-in button with the name and icon of the IdP. Use the settings below to change the look and feel of the different options.
 
 ### Basic authentication settings
+
+These are settings to customize the basic username and password sign-in button.
 
 Setting | Description | Default value 
 :--- | :--- |:--- |:--- |
@@ -61,14 +55,18 @@ Setting | Description | Default value
 
 ### OpenID Connect authentication settings
 
-Setting | Description | Default value | Required
+These settings allow you to customize the sign-in button associated with OpenID Connect authentication. For the essential settings required for single sign-in using OpenID Connect, see [OpenSearch Dashboards single sign-on]({{site.url}}{{site.baseurl}}/security-plugin/configuration/openid-connect/#opensearch-dashboards-single-sign-on).
+
+Setting | Description | Default value
 :--- | :--- |:--- |:--- |
-`opensearch_security.ui.openid.login.buttonname` |  Display name for the login button | Log in with single sign-on | No
-`opensearch_security.ui.openid.login.brandimage` |  Logo for the login button | null | No
-`opensearch_security.ui.openid.login.showbrandimage` |  Determines whether a logo for the login button is displayed or not. | false | No
-`opensearch_security.ui.openid.login.buttonstyle` |  Login button style (what are other options for this setting? Styled in what way?) | btn-login | No
+`opensearch_security.ui.openid.login.buttonname` |  Display name for the login button | Log in with single sign-on
+`opensearch_security.ui.openid.login.brandimage` |  Logo for the login button | null
+`opensearch_security.ui.openid.login.showbrandimage` |  Determines whether a logo for the login button is displayed or not. | false
+`opensearch_security.ui.openid.login.buttonstyle` |  Login button style (what are other options for this setting? Styled in what way?) | btn-login
 
 ### SAML authentication settings
+
+These settings allow you to customize the sign-in button associated with SAML authentication. For the essential settings required for single sign-in using SAML, see [OpenSearch Dashboards configuration]({{site.url}}{{site.baseurl}}/security-plugin/configuration/saml/#opensearch-dashboards-configuration).
 
 Setting | Description | Default value
 :--- | :--- |:--- |:--- |
