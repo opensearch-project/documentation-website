@@ -226,7 +226,7 @@ docker-compose down
 
 ## Configure OpenSearch
 
-
+Unlike the RPM distribution of OpenSearch, which requires a heavy amount of post-installation configuration, running OpenSearch clusters with Docker allows you to define the environment before the containers are even created.
 
 
 
