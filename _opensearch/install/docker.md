@@ -247,7 +247,7 @@ If you look at each part of the command, you can see that it:
 - Requests the `opensearchproject/opensearch:latest` image from Docker Hub.
 - Runs the container.
 
-If you compare this command to the [Sample docker-compose.yml](#sample-docker-composeyml) file you might notice some common settings. For example, the port mappings and the image reference. The command, however, is only deploying a single container running OpenSearch and will not create a container for OpenSearch Dashboards. Furthermore, if you want to use custom TLS certificates, users, roles, or define additional volumes and networks, then this "one-line" command rapidly grows to an impractical size. That is where the utility offered by Docker Compose comes into play.
+If you compare this command to the [Sample docker-compose.yml](#sample-docker-composeyml) file you might notice some common settings. For example, the port mappings and the image reference. The command, however, is only deploying a single container running OpenSearch and will not create a container for OpenSearch Dashboards. Furthermore, if you want to use custom TLS certificates, users, roles, or define additional volumes and networks, then this "one-line" command rapidly grows to an impractical size. That is where the utility of Docker Compose comes into play.
 
 
 
