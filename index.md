@@ -23,7 +23,7 @@ We have a dedicated and growing number of technical writers who are building our
 
 With OpenSearch, you can perform the following use cases:
 
-<table style="table-layout: fixed ; width: 100%;">
+<table style="table-layout: auto ; width: 100%;">
 <tbody>
 <tr style="text-align: center; vertical-align:center;">
 <td><img src="{{site.url}}{{site.baseurl}}/images/1_search.png" alt="Fast, scalable full-text search" height="100"/></td>
