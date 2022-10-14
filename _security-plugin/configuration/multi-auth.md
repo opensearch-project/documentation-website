@@ -44,7 +44,7 @@ In addition to the essential sign-in settings for each authentication type, you 
 
 ### Basic authentication settings
 
-These are settings to customize the basic username and password sign-in button.
+The settings below are used to customize the basic username and password sign-in button.
 
 Setting | Description | Default value 
 :--- | :--- |:--- |:--- |
@@ -55,7 +55,7 @@ Setting | Description | Default value
 
 ### OpenID Connect authentication settings
 
-These settings allow you to customize the sign-in button associated with OpenID Connect authentication. For the essential settings required for single sign-in using OpenID Connect, see [OpenSearch Dashboards single sign-on]({{site.url}}{{site.baseurl}}/security-plugin/configuration/openid-connect/#opensearch-dashboards-single-sign-on).
+These settings allow you to customize the sign-in button associated with the IdP that integrates with OpenID Connect authentication. For the essential settings required for single sign-in using OpenID Connect, see [OpenSearch Dashboards single sign-on]({{site.url}}{{site.baseurl}}/security-plugin/configuration/openid-connect/#opensearch-dashboards-single-sign-on).
 
 Setting | Description | Default value
 :--- | :--- |:--- |:--- |
@@ -66,7 +66,7 @@ Setting | Description | Default value
 
 ### SAML authentication settings
 
-These settings allow you to customize the sign-in button associated with SAML authentication. For the essential settings required for single sign-in using SAML, see [OpenSearch Dashboards configuration]({{site.url}}{{site.baseurl}}/security-plugin/configuration/saml/#opensearch-dashboards-configuration).
+These settings allow you to customize the sign-in button associated with the IdP that integrates with SAML authentication. For the essential settings required for single sign-in using SAML, see [OpenSearch Dashboards configuration]({{site.url}}{{site.baseurl}}/security-plugin/configuration/saml/#opensearch-dashboards-configuration).
 
 Setting | Description | Default value
 :--- | :--- |:--- |:--- |
