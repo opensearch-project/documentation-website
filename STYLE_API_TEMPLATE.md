@@ -43,7 +43,7 @@ Provide a paragraph that describes the API functional group, and optionally a de
 
 If there are important usage tips, deprecated code elements or other pertinent concepts that you want to call out, use a note or tip liquid tag.
 
-#### Examples: Note callouts
+#### Example: Note callouts
 
 If you use the Security plugin, make sure you have the appropriate permissions.
 {: .note}
