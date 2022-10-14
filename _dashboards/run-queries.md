@@ -12,17 +12,17 @@ You can use the OpenSearch DevTools Console to send queries to OpenSearch.
 
 To open Console, select **Dev Tools** on the main OpenSearch Dashboards page:
 
-<img src="{{site.url}}{{site.baseurl}}/images/dev-tools-main.png" alt="Dev Tools Console from main page">{: .img-fluid }
+<img src="{{site.url}}{{site.baseurl}}/images/dev-tools/dev-tools-main.png" alt="Dev Tools Console from main page">{: .img-fluid }
 
 You can open Console from any other page by navigating to the main menu and selecting **Management** > **Dev Tools**.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dev-tools-left.png" width=200 alt="Dev Tools Console from all pages">
+<img src="{{site.url}}{{site.baseurl}}/images/dev-tools/dev-tools-left.png" width=200 alt="Dev Tools Console from all pages">
 
 ## Writing queries 
 
 Write your queries in the editor pane on the left side of the Console:
 
-<img src="{{site.url}}{{site.baseurl}}/images/dev-tools-request.png" alt="Request pane">{: .img-fluid }
+<img src="{{site.url}}{{site.baseurl}}/images/dev-tools/dev-tools-request.png" alt="Request pane">{: .img-fluid }
 
 You can collapse and expand parts of your query by selecting the small triangles next to the line numbers.
 {: .tip}
@@ -41,11 +41,11 @@ OpenSearch provides autocomplete suggestions for fields, indices and their alias
 
 To send a query to OpenSearch, select the query by placing the cursor anywhere in the query text. Then choose the triangle on the top right of the request or press `Ctrl/Cmd+Enter`:
 
-<img src="{{site.url}}{{site.baseurl}}/images/dev-tools-send.png" alt="Send request">
+<img src="{{site.url}}{{site.baseurl}}/images/dev-tools/dev-tools-send.png" alt="Send request">
 
 OpenSearch displays the response in the response pane on the right side of the Console:
 
-<img src="{{site.url}}{{site.baseurl}}/images/dev-tools-response.png" alt="Response pane">{: .img-fluid }
+<img src="{{site.url}}{{site.baseurl}}/images/dev-tools/dev-tools-response.png" alt="Response pane">{: .img-fluid }
 
 ## Working in cURL and Console formats
 
@@ -81,7 +81,7 @@ If you paste a `curl` command directly into the Console, the command is automati
 
 To import a query in cURL format, select the query, then select the wrench icon and choose **Copy as cURL**:
 
-<img src="{{site.url}}{{site.baseurl}}/images/dev-tools-tools.png" alt="Console tools">
+<img src="{{site.url}}{{site.baseurl}}/images/dev-tools/dev-tools-tools.png" alt="Console tools">
 
 ## Viewing documentation
 
@@ -108,7 +108,7 @@ To clear the history, select **Clear**.
 
 To update your preferences, select **Settings** from the top menu:
 
-<img src="{{site.url}}{{site.baseurl}}/images/dev-tools-settings.png" width=400 alt="Settings">
+<img src="{{site.url}}{{site.baseurl}}/images/dev-tools/dev-tools-settings.png" width=400 alt="Settings">
 
 ## Using keyboard shortcuts
 
