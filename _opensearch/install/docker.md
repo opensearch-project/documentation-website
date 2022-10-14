@@ -348,11 +348,34 @@ networks:
 
 ### Configuring basic security settings
 
+Before making your OpenSearch cluster available to external hosts, it's a good idea to review the deployment's security configuration. You may recall from the first [Sample docker-compose.yml](#sample-docker-composeyml) that, unless disabled by setting `DISABLE_SECURITY_PLUGIN=true`, a bundled script will apply a default demo security configuration to the nodes in the cluster. Since this configuration is used for demo purposes, the default user names and passwords are known. For that reason, we recommend that you create your own security configuration files and use `volumes` to pass these files to the containers. For specific guidance on OpenSearch security settings, see [Security configuration]({{site.url}}{{site.baseurl}}/security-plugin/configuration/index/).
+
+To use your own certificates in your configuration, add all of the necessary certificates to the volumes section of the compose file.
+```yml
+volumes:
+  - ./root-ca.pem:/usr/share/opensearch/config/root-ca.pem
+  - ./admin.pem:/usr/share/opensearch/config/admin.pem
+  - ./admin-key.pem:/usr/share/opensearch/config/admin-key.pem
+  - ./node1.pem:/usr/share/opensearch/config/node1.pem
+  - ./node1-key.pem:/usr/share/opensearch/config/node1-key.pem
+```
+
+Remember that the certificates you specify in your compose file must be the same as the certificates defined in your custom `opensearch.yml` file. You should replace the root, admin, and node certificates with your own. For more information see [Configure TLS certificates]({{site.url}}{{site.baseurl}}/security-plugin/configuration/tls).
+```yml
+plugins.security.ssl.transport.pemcert_filepath: new-node-cert.pem
+plugins.security.ssl.transport.pemkey_filepath: new-node-cert-key.pem
+plugins.security.ssl.transport.pemtrustedcas_filepath: new-root-ca.pem
+plugins.security.ssl.http.pemcert_filepath: new-node-cert.pem
+plugins.security.ssl.http.pemkey_filepath: new-node-cert-key.pem
+plugins.security.ssl.http.pemtrustedcas_filepath: new-root-ca.pem
+plugins.security.authcz.admin_dn:
+  - CN=admin,OU=SSL,O=Test,L=Test,C=DE
+```
 
 
 ### Working with plugins
 
-To run the OpenSearch image with a custom plugin, first create a [`Dockerfile`](https://docs.docker.com/engine/reference/builder/):
+To use the OpenSearch image with a custom plugin, you must first create a [`Dockerfile`](https://docs.docker.com/engine/reference/builder/). Review the official Docker documentation for information about creating a Dockerfile.
 ```
 FROM opensearchproject/opensearch:latest
 RUN /usr/share/opensearch/bin/opensearch-plugin install --batch <pluginId>
@@ -380,19 +403,6 @@ COPY --chown=opensearch:opensearch my-key-file.pem /usr/share/opensearch/config/
 COPY --chown=opensearch:opensearch my-certificate-chain.pem /usr/share/opensearch/config/
 COPY --chown=opensearch:opensearch my-root-cas.pem /usr/share/opensearch/config/
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -437,15 +447,7 @@ Finally, you can reach OpenSearch Dashboards at http://localhost:5601, sign in, 
 
 ## Using certificates with Docker
 
-To use your own certificates in your configuration, add all of the necessary certificates to the volumes section of the Docker Compose file:
 
-```yml
-volumes:
-- ./root-ca.pem:/full/path/to/certificate.pem
-- ./admin.pem:/full/path/to/certificate.pem
-- ./admin-key.pem:/full/path/to/certificate.pem
-#Add other certificates
-```
 
 After replacing the demo certificates with your own, you must also include a custom `opensearch.yml` in your setup, which you need to specify in the volumes section.
 
@@ -455,18 +457,7 @@ volumes:
 - ./custom-opensearch.yml: /full/path/to/custom-opensearch.yml
 ```
 
-Remember that the certificates you specify in your Docker Compose file must be the same as the certificates listed in your custom `opensearch.yml` file. At a minimum, you should replace the root, admin, and node certificates with your own. For more information about adding and using certificates, see [Configure TLS certificates]({{site.url}}{{site.baseurl}}/security-plugin/configuration/tls).
 
-```yml
-plugins.security.ssl.transport.pemcert_filepath: new-node-cert.pem
-plugins.security.ssl.transport.pemkey_filepath: new-node-cert-key.pem
-plugins.security.ssl.transport.pemtrustedcas_filepath: new-root-ca.pem
-plugins.security.ssl.http.pemcert_filepath: new-node-cert.pem
-plugins.security.ssl.http.pemkey_filepath: new-node-cert-key.pem
-plugins.security.ssl.http.pemtrustedcas_filepath: new-root-ca.pem
-plugins.security.authcz.admin_dn:
-  - CN=admin,OU=SSL,O=Test,L=Test,C=DE
-```
 
 To start the cluster, run `docker-compose up` as usual.
 
