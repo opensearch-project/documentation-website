@@ -2,7 +2,7 @@
 
 This style guide provides a template with the basic structure for OpenSearch API documentation. It includes the basic headings and helpful suggestions for what information is required in each section.
 
-Depending on the intended purpose of the API, *some sections will be required while others may not be applicable*. For example, only PUT or POST APIs require request and response field descriptions.
+Depending on the intended purpose of the API, *some sections will be required while others may not be applicable*.
 
 ### A note on terminology ###
 
