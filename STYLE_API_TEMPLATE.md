@@ -37,7 +37,7 @@ Depending on where the documentation appears within a section or subsection, hea
 1. Sample response (heading level 4)
 1. Response fields (heading level 3)
 
-## <Name of API> API
+## {Name of API} API
 
 Provide a paragraph that describes the API functional group, and optionally a description of a top use case. For example, "Alerting API."
 
