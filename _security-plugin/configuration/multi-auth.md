@@ -28,11 +28,15 @@ opensearch_security.auth.type: "openid"
 For multi-authentication, add values to the setting as an array separated by commas. As a reminder, Dashboards currently supports a combination of basic authentication, OpenID Connect, and SAML as a valid set of values. In the setting, these values are expressed as `'basicauth'`, `'openid'`, and `'saml'`.
 
 ```yml
-opensearch_security.auth.type: ['basicauth','openid']
+opensearch_security.auth.type: ["basicauth","openid"]
 ```
 
 ```yml
-opensearch_security.auth.type: ['basicauth','saml','openid']
+opensearch_security.auth.type: ["basicauth","saml"]
+```
+
+```yml
+opensearch_security.auth.type: ["basicauth","saml","openid"]
 ```
 
 When setting up Dashboards for multi-authentication, basic authentication is always required as one of the values for the setting.
