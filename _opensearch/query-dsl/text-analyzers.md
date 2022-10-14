@@ -26,6 +26,7 @@ OpenSearch supports the following text analyzers:
 1. **Fingerprint analyzer** – Creates a fingerprint to use as a duplicate detector.
 
 The full specialized text analyzers reference is in progress and will be published soon.
+
 {: .note }
 
 ## How to use text analyzers

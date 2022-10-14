@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Go client
-nav_order: 80
+nav_order: 50
 ---
 
 # Go client

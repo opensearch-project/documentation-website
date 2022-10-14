@@ -65,14 +65,14 @@ Linear regression maps the linear relationship between inputs and outputs. In ML
 
 Parameter | Type   | Description | Default Value
 :--- |:--- | :--- | :---
-learningRate | Double | The rate of speed at which the gradient moves during descent | 0.01
-momentumFactor | Double | The medium-term from which the regressor rises or falls | 0
-epsilon | Double | The criteria used to identify a linear model | 1.00E-06 
-beta1 | Double | The estimated exponential decay for the moment |  0.9
-beta2 | Double | The estimated exponential decay for the moment |  0.99
-decayRate | Double | The rate at which the model decays exponentially | 0.9
-momentumType | MomentumType | The defined Stochastic Gradient Descent (SDG) momentum type that helps accelerate gradient vectors in the right directions, leading to a fast convergence| STANDARD
-optimizerType | OptimizerType | The optimizer used in the model | SIMPLE_SGD
+learningRate | Double | The initial step size used in an iterative optimization algorithm. | 0.01
+momentumFactor | Double | The extra weight factors that accelerate the rate at which the weight is adjusted. This helps move the minimization routine out of local minima.  | 0
+epsilon | Double | The value for stabilizing gradient inversion. | 1.00E-06 
+beta1 | Double | The exponential decay rates for the moment estimates. |  0.9
+beta2 | Double | The exponential decay rates for the moment estimates. |  0.99
+decayRate | Double | The Root Mean Squared Propagation (RMSProp). | 0.9
+momentumType | MomentumType | The defined Stochastic Gradient Descent (SGD) momentum type that helps accelerate gradient vectors in the right directions, leading to a fast convergence.| STANDARD
+optimizerType | OptimizerType | The optimizer used in the model. | SIMPLE_SGD
 
 
 ### APIs
@@ -164,11 +164,11 @@ ML Commons only supports the linear Stochastic gradient trainer or optimizer, wh
 
 Parameter | Type   | Description | Default Value
 :--- |:--- | :--- | :---
-number_of_trees | integer | The number of trees in the forest | 30
-sample_size | integer | The same size used by the stream samplers in the forest | 256
-output_after | integer | The number of points required by stream samplers before results return | 32
-training_data_size | integer | The size of your training data | Dataset size
-anomaly_score_threshold | double | The threshold of the anomaly score | 1.0 
+number_of_trees | integer | The number of trees in the forest. | 30
+sample_size | integer | The same size used by the stream samplers in the forest. | 256
+output_after | integer | The number of points required by stream samplers before results return. | 32
+training_data_size | integer | The size of your training data. | Dataset size
+anomaly_score_threshold | double | The threshold of the anomaly score. | 1.0 
 
 #### Fit RCF
 
@@ -176,15 +176,15 @@ All parameters are optional except `time_field`.
 
 Parameter | Type   | Description | Default Value
 :--- |:--- | :--- | :---
-number_of_trees | integer | The number of trees in the forest | 30
-shingle_size | integer | A shingle, or a consecutive sequence of the most recent records | 8
-sample_size | integer | The sample size used by stream samplers in the forest | 256
-output_after | integer | The number of points required by stream samplers before results return | 32
-time_decay | double | The decay factor used by stream samplers in the forest | 0.0001 
-anomaly_rate | double | The anomaly rate | 0.005
-time_field | string | (**Required**) The time filed for RCF to use as time series data | N/A
-date_format | string | The date and time format for the time_field field | "yyyy-MM-ddHH:mm:ss"
-time_zone | string | The time zone for the time_field field | "UTC" 
+number_of_trees | integer | The number of trees in the forest. | 30
+shingle_size | integer | A shingle, or a consecutive sequence of the most recent records. | 8
+sample_size | integer | The sample size used by stream samplers in the forest. | 256
+output_after | integer | The number of points required by stream samplers before results return. | 32
+time_decay | double | The decay factor used by stream samplers in the forest. | 0.0001 
+anomaly_rate | double | The anomaly rate. | 0.005
+time_field | string | (**Required**) The time field for RCF to use as time series data. | N/A
+date_format | string | The date and time format for the `time_field` field. | "yyyy-MM-ddHH:mm:ss"
+time_zone | string | The time zone for the `time_field` field. | "UTC" 
 
 
 ### APIs
@@ -206,8 +206,8 @@ RCFSummarize is a clustering algorithm based on the Clustering Using REpresentat
 
 | Parameter | Type | Description | Default Value |
 |---|---|---|---|
-| max_k | integer | The max allowed number of centroids | 2 |
-| distance_type | enum, such as `EUCLIDEAN`, `L1`, `L2`, or `LInfinity` | The type of measurement used to measure the distance between centroids | EUCLIDEAN |
+| max_k | integer | The max allowed number of centroids. | 2 |
+| distance_type | enum, such as `EUCLIDEAN`, `L1`, `L2`, or `LInfinity` | The type of measurement used to measure the distance between centroids. | EUCLIDEAN |
 
 ### APIs
 
@@ -295,16 +295,16 @@ All parameters are required except `filter_query` and `anomaly_start`.
 
 Parameter | Type   | Description | Default Value
 :--- | :--- | :--- | :---
-index_name | String | The data collection to analyze | N/A
-attribute_field_names | List<String> | The fields for entity keys | N/A
-aggregations | List<AggregationBuilder> | The fields and aggregation for values | N/A
-time_field_name | String | The timestamp field | null
-start_time | Long | The beginning of the time range | 0 
-end_time | Long | The end of the time range | 0
-min_time_interval | Long | The minimum time interval/scale for analysis | 0
-num_outputs | integer | The maximum number of values from localization/slicing | 0
-filter_query | Long | (Optional) Reduces the collection of data for analysis | Optional.empty()
-anomaly_star | QueryBuilder | (Optional) The time after which the data will be analyzed | Optional.empty()
+index_name | String | The data collection to analyze. | N/A
+attribute_field_names | List<String> | The fields for entity keys. | N/A
+aggregations | List<AggregationBuilder> | The fields and aggregation for values. | N/A
+time_field_name | String | The timestamp field. | null
+start_time | Long | The beginning of the time range. | 0 
+end_time | Long | The end of the time range. | 0
+min_time_interval | Long | The minimum time interval/scale for analysis. | 0
+num_outputs | integer | The maximum number of values from localization/slicing. | 0
+filter_query | Long | (Optional) Reduces the collection of data for analysis. | Optional.empty()
+anomaly_star | QueryBuilder | (Optional) The time after which the data will be analyzed. | Optional.empty()
 
 ### Example: Execute localization
 
@@ -413,18 +413,18 @@ A classification algorithm, logistic regression models the probability of a disc
 
 | Parameter | Type | Description | Default Value |
 |---|---|---|---|
-| learningRate | Double | The gradient descent step size at each iteration when moving toward a minimum of a loss function or optimal value  | 1 |
+| learningRate | Double | The initial step size used in an iterative optimization algorithm. | 1 |
 | momentumFactor | Double | The extra weight factors that accelerate the rate at which the weight is adjusted. This helps move the minimization routine out of local minima. | 0 |
-| epsilon | Double | The value for stabilizing gradient inversion | 0.1 |
-| beta1 | Double | The exponential decay rates for the moment estimates | 0.9 |
-| beta2 | Double | The exponential decay rates for the moment estimates | 0.99 |
-| decayRate | Double | The Root Mean Squared Propagation (RMSProp) | 0.9 |
-| momentumType | MomentumType | The Stochastic Gradient Descent (SGD) momentum that helps accelerate gradient vectors in the right direction, leading to faster convergence between vectors | STANDARD |
-| optimizerType | OptimizerType | The optimizer used in the model  | AdaGrad |
-| target | String | The target field | null |
-| objectiveType | ObjectiveType | The objective function type | LogMulticlass |
-| epochs | Integer | The number of iterations | 5 |
-| batchSize | Integer | The size of minbatches | 1 |
+| epsilon | Double | The value for stabilizing gradient inversion. | 0.1 |
+| beta1 | Double | The exponential decay rates for the moment estimates. | 0.9 |
+| beta2 | Double | The exponential decay rates for the moment estimates. | 0.99 |
+| decayRate | Double | The Root Mean Squared Propagation (RMSProp). | 0.9 |
+| momentumType | MomentumType | The Stochastic Gradient Descent (SGD) momentum that helps accelerate gradient vectors in the right direction, leading to faster convergence between vectors. | STANDARD |
+| optimizerType | OptimizerType | The optimizer used in the model.  | AdaGrad |
+| target | String | The target field. | null |
+| objectiveType | ObjectiveType | The objective function type. | LogMulticlass |
+| epochs | Integer | The number of iterations. | 5 |
+| batchSize | Integer | The size of minbatches. | 1 |
 | loggingInterval | Integer | The interval of logs lost after many iterations. The interval is `1` if the algorithm contains no logs. | 1000 |
 
 ### APIs
