@@ -13,7 +13,6 @@ OpenSearch uses the Apache Lucene search library that provides highly efficient 
 
 To learn more about search query classes, see [Lucene query JavaDocs](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/Query.html).
 
-
 To convert unstructured text into the format that you need, you can use the text analyzers. To learn more about how to convert unstructured text into structured text that is optimized for search, see [Text analyzers]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/text-analyzers).
 {: .note }
 
@@ -21,6 +20,7 @@ To convert unstructured text into the format that you need, you can use the text
 -->
 ---
 
+#### Table of contents
 1. TOC
 {:toc}
 
