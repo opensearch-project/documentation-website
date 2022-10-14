@@ -360,18 +360,61 @@ volumes:
   - ./node1-key.pem:/usr/share/opensearch/config/node1-key.pem
 ```
 
+When you add TLS certificates to your OpenSearch nodes with Docker Compose volumes, you should also include a custom `opensearch.yml` that defines those certificates. For example:
+```yml
+volumes:
+  - ./root-ca.pem:/usr/share/opensearch/config/root-ca.pem
+  - ./admin.pem:/usr/share/opensearch/config/admin.pem
+  - ./admin-key.pem:/usr/share/opensearch/config/admin-key.pem
+  - ./node1.pem:/usr/share/opensearch/config/node1.pem
+  - ./node1-key.pem:/usr/share/opensearch/config/node1-key.pem
+  - ./custom-opensearch.yml:/usr/share/opensearch/config/opensearch.yml
+```
+
 Remember that the certificates you specify in your compose file must be the same as the certificates defined in your custom `opensearch.yml` file. You should replace the root, admin, and node certificates with your own. For more information see [Configure TLS certificates]({{site.url}}{{site.baseurl}}/security-plugin/configuration/tls).
 ```yml
-plugins.security.ssl.transport.pemcert_filepath: new-node-cert.pem
-plugins.security.ssl.transport.pemkey_filepath: new-node-cert-key.pem
-plugins.security.ssl.transport.pemtrustedcas_filepath: new-root-ca.pem
-plugins.security.ssl.http.pemcert_filepath: new-node-cert.pem
-plugins.security.ssl.http.pemkey_filepath: new-node-cert-key.pem
-plugins.security.ssl.http.pemtrustedcas_filepath: new-root-ca.pem
+plugins.security.ssl.transport.pemcert_filepath: node1.pem
+plugins.security.ssl.transport.pemkey_filepath: node1-key.pem
+plugins.security.ssl.transport.pemtrustedcas_filepath: root-ca.pem
+plugins.security.ssl.http.pemcert_filepath: node1.pem
+plugins.security.ssl.http.pemkey_filepath: node1-key.pem
+plugins.security.ssl.http.pemtrustedcas_filepath: root-ca.pem
 plugins.security.authcz.admin_dn:
   - CN=admin,OU=SSL,O=Test,L=Test,C=DE
 ```
 
+After configuring security settings, your custom `opensearch.yml` file might look something like the following example which adds configures TLS certificates and the distinguished name (DN) of the admin certificate, defines a few permissios, and enables verbose audit logging:
+```yml
+plugins.security.ssl.transport.pemcert_filepath: node1.pem
+plugins.security.ssl.transport.pemkey_filepath: node1-key.pem
+plugins.security.ssl.transport.pemtrustedcas_filepath: root-ca.pem
+plugins.security.ssl.transport.enforce_hostname_verification: false
+plugins.security.ssl.http.enabled: true
+plugins.security.ssl.http.pemcert_filepath: node1.pem
+plugins.security.ssl.http.pemkey_filepath: node1-key.pem
+plugins.security.ssl.http.pemtrustedcas_filepath: root-ca.pem
+plugins.security.allow_default_init_securityindex: true
+plugins.security.authcz.admin_dn:
+  - CN=A,OU=UNIT,O=ORG,L=TORONTO,ST=ONTARIO,C=CA
+plugins.security.nodes_dn:
+  - 'CN=N,OU=UNIT,O=ORG,L=TORONTO,ST=ONTARIO,C=CA'
+plugins.security.audit.type: internal_opensearch
+plugins.security.enable_snapshot_restore_privilege: true
+plugins.security.check_snapshot_restore_write_privileges: true
+plugins.security.restapi.roles_enabled: ["all_access", "security_rest_api_access"]
+cluster.routing.allocation.disk.threshold_enabled: false
+opendistro_security.audit.config.disabled_rest_categories: NONE
+opendistro_security.audit.config.disabled_transport_categories: NONE
+```
+
+For a full list of settings, see [Security]({{site.url}}{{site.baseurl}}/security-plugin/configuration/index/).
+
+Use the same process to specify new [Backend configuration]({{site.url}}{{site.baseurl}}/security-plugin/configuration/configuration/) in `/usr/share/opensearch/config/opensearch-security/config.yml`. as well as new default [internal users, roles, mappings, action groups, and tenants]({{site.url}}{{site.baseurl}}/security-plugin/configuration/yaml/).
+
+After replacing the certificates, and creating your own internal users, roles, mappings, action groups and tenants, use Docker Compose to start the cluster:
+```bash
+docker-compose up -d
+```
 
 ### Working with plugins
 
@@ -403,62 +446,3 @@ COPY --chown=opensearch:opensearch my-key-file.pem /usr/share/opensearch/config/
 COPY --chown=opensearch:opensearch my-certificate-chain.pem /usr/share/opensearch/config/
 COPY --chown=opensearch:opensearch my-root-cas.pem /usr/share/opensearch/config/
 ```
-
-
-
-
-
-{% comment %}
-
-
-
-
-Then make your changes to `opensearch.yml`. For a full list of settings, see [Security]({{site.url}}{{site.baseurl}}/security-plugin/configuration/index/). This example adds (extremely) verbose audit logging:
-
-```yml
-plugins.security.ssl.transport.pemcert_filepath: node.pem
-plugins.security.ssl.transport.pemkey_filepath: node-key.pem
-plugins.security.ssl.transport.pemtrustedcas_filepath: root-ca.pem
-plugins.security.ssl.transport.enforce_hostname_verification: false
-plugins.security.ssl.http.enabled: true
-plugins.security.ssl.http.pemcert_filepath: node.pem
-plugins.security.ssl.http.pemkey_filepath: node-key.pem
-plugins.security.ssl.http.pemtrustedcas_filepath: root-ca.pem
-plugins.security.allow_default_init_securityindex: true
-plugins.security.authcz.admin_dn:
-  - CN=A,OU=UNIT,O=ORG,L=TORONTO,ST=ONTARIO,C=CA
-plugins.security.nodes_dn:
-  - 'CN=N,OU=UNIT,O=ORG,L=TORONTO,ST=ONTARIO,C=CA'
-plugins.security.audit.type: internal_opensearch
-plugins.security.enable_snapshot_restore_privilege: true
-plugins.security.check_snapshot_restore_write_privileges: true
-plugins.security.restapi.roles_enabled: ["all_access", "security_rest_api_access"]
-cluster.routing.allocation.disk.threshold_enabled: false
-opendistro_security.audit.config.disabled_rest_categories: NONE
-opendistro_security.audit.config.disabled_transport_categories: NONE
-```
-
-Use this same override process to specify new [authentication settings]({{site.url}}{{site.baseurl}}/security-plugin/configuration/configuration/) in `/usr/share/opensearch/config/opensearch-security/config.yml`, as well as new default [internal users, roles, mappings, action groups, and tenants]({{site.url}}{{site.baseurl}}/security-plugin/configuration/yaml/).
-
-To start the cluster, run `docker-compose up`.
-
-Finally, you can reach OpenSearch Dashboards at http://localhost:5601, sign in, and use the **Security** panel to perform other management tasks.
-
-
-## Using certificates with Docker
-
-
-
-After replacing the demo certificates with your own, you must also include a custom `opensearch.yml` in your setup, which you need to specify in the volumes section.
-
-```yml
-volumes:
-#Add certificates here
-- ./custom-opensearch.yml: /full/path/to/custom-opensearch.yml
-```
-
-
-
-To start the cluster, run `docker-compose up` as usual.
-
-{% endcomment %}
