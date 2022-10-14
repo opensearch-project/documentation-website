@@ -1,8 +1,8 @@
-# API reference page template
+# API reference style guide
 
-This template provides the basic structure for creating OpenSearch API documentation. It includes the most important elements that should appear in the documentation and helpful suggestions to help support them. 
+This style guide provides a template with the basic structure for OpenSearch API documentation. It includes the basic headings and helpful suggestions for what information is required in each section.
 
-Depending on the intended purpose of the API, *some sections will be required while others may not be applicable*.
+Depending on the intended purpose of the API, *some sections will be required while others may not be applicable*. For example, only PUT or POST APIs require request and response field descriptions.
 
 ### A note on terminology ###
 
@@ -12,13 +12,13 @@ Terminology for API parameters varies in the software industry, where two or eve
 
 ### General usage for code elements
 
-When you describe any code element in a sentence, such as an API, a parameter, or a field, you can use the noun name. 
+When you describe any code element in a sentence, such as an API, a parameter, or a field, you can use the noun name.
   *Example usage*:
   The time field provides a timestamp for job completion.
 
-When you provide an exact example with a value, you can use the code element in code font. 
-  *Example usage*: 
-  The response provides a value for `time_field`, such as “timestamp.” 
+When you provide an exact example with a value, you can use the code element in code font.
+  *Example usage*:
+  The response provides a value for `time_field`, such as “timestamp.”
 
 Provide a REST API call example in `json` format. Optionally, also include the `curl` command if the call can only be executed in a command line.
 
@@ -29,7 +29,7 @@ The following sections describe the basic API documentation structure. Each sect
 Depending on where the documentation appears within a section or subsection, heading levels may be adjusted to fit with other content.
 
 1. Name of API (heading level 2)
-1. (Optional) Path and HTTP methods (heading level 3)
+1. (Optional) Path parameter usage examples (heading level 3)
 1. Path parameters (heading level 3)
 1. Query parameters (heading level 3)
 1. Request fields (heading level 3)
@@ -37,23 +37,26 @@ Depending on where the documentation appears within a section or subsection, hea
 1. Sample response (heading level 4)
 1. Response fields (heading level 3)
 
-## API name
+## <Name of API> API
 
-Provide an API name that describes its function, followed by a description of its top use case and any usage recommendations.
+Provide a paragraph that describes the API functional group, and optionally a description of a top use case. For example, "Alerting API."
 
-*Example function*: "Autocomplete queries"
+If there are important usage tips, deprecated code elements or other pertinent concepts that you want to call out, use a note or tip liquid tag.
 
-Use sentence capitalization for the heading (for example, "Create or update mappings"). When you refer to the API operation, you can use lowercase with code font.
+#### Examples: Note callouts
+
+If you use the Security plugin, make sure you have the appropriate permissions.
+{: .note}
+
+The optional query field `cutoff_frequency` is now deprecated.
+{: .note }
+
+If it is a single operation API within an API group, provide a title that describes the API operation. Use sentence capitalization for the heading (for example, "Create or update mappings"). When you refer to the API operation, you can use lowercase with code font.
 
 If there is a corresponding OpenSearch Dashboards feature, provide a “See also” link that references it. 
 *Example*: “To learn more about monitor findings, see [Document findings](https://opensearch.org/docs/latest/monitoring-plugins/alerting/monitors/#document-findings)."
 
-If applicable, provide any caveats to its usage with a note or tip, as in the following example:
-
-"If you use the Security plugin, make sure you have the appropriate permissions."
-(To set this point in note-style format, follow the text on the next line with {: .note})
-
-### Path and HTTP methods
+### Path parameter usage examples
 
 For relatively complex API calls that include path parameters, it's sometimes a good idea to provide an example so that users can visualize how the request is properly formed. This section is optional and includes examples that illustrate how the endpoint and path parameters fit together in the request. The following is an example of this section for the nodes stats API:
 
@@ -68,6 +71,7 @@ GET /_nodes/<node_id>/stats/<metric>/<index_metric>
 
 ### Path parameters
 
+Introduce what the path parameters can do at a high level, and provide a table with parameter names, data types and descriptions.
 While the API endpoint states a point of entry to a resource, the path parameter acts on the resource that precedes it. Path parameters come after the resource name in the URL.
 
 ```json
@@ -102,15 +106,13 @@ Parameter | Data Type | Description
 
 ### Request fields
 
-For PUT and POST APIs: Introduce what the request fields are allowed to provide in the body of the request.
+For PUT and POST APIs: Provide an introductory sentence that summarizes the available request fields that they can provide in the body of the request.
 
-Include a table with these columns: 
-*Field* – Field name in plain font.
-*Data Type* – Data type capitalized (such as Boolean, String, or Integer).
-*Description* – Sentence to describe the field’s function, default values or range of values, and any usage examples.
+The following table provides the request fields that you can use.
 
 Field | Data Type | Description
-:--- | :--- | :--- 
+:--- | :--- | :---
+*Field* – Field name in plain font. | *Data Type* – Data type capitalized (such as Boolean, String, or Integer). | *Description* – Sentence to describe the field’s function, default values or range of values, and any usage examples.
 
 #### Sample request
 
@@ -138,9 +140,9 @@ POST _reindex
 
 #### Sample response
 
-Include a JSON example response to show what the API returns. See the examples below.
+Include a JSON example response to show what the API returns.
 
-The `GET /sample-index1/_settings` request returns the following response fields: 
+The `GET /sample-index1/_settings` request returns the following response fields:
 
 ```json
 {
@@ -162,7 +164,7 @@ The `GET /sample-index1/_settings` request returns the following response fields
 }
 ```
 
-The `POST _reindex` request returns the following response fields: 
+The `POST _reindex` request returns the following response fields:
 
 ```json
 {
@@ -188,7 +190,9 @@ The `POST _reindex` request returns the following response fields:
 
 ### Response fields
 
-For PUT and POST APIs: Define all allowable response fields that can be returned in the body of the response.
+For PUT and POST APIs: Define all allowable response fields that can be returned in the body of the response, and provide a one-sentence table introduction.
+
+The following table provides descriptions of the response fields returned in the body of the response.
 
 Field | Data Type | Description
 :--- | :--- | :---
