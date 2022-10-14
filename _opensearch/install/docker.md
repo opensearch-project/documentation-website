@@ -219,6 +219,8 @@ If a container failed to start, you can review the service logs:
 docker-compose logs <serviceName>
 ```
 
+Verify access to OpenSearch Dashboards by connecting to http://localhost:5601 from a browser. The default username and password are `admin`. We do not recommend using this configuration on hosts that are accessible from the public internet until you have customized the security configuration of your deployment.
+
 Stop the running containers in your cluster:
 ```bash
 docker-compose down
@@ -231,7 +233,7 @@ docker-compose down
 
 Unlike the RPM distribution of OpenSearch, which requires a heavy amount of post-installation configuration, running OpenSearch clusters with Docker allows you to define the environment before the containers are even created. This is possible whether you use Docker or Docker Compose.
 
-For example, look at this command:
+For example, look at the following command:
 ```bash
 docker run \
   -p 9200:9200 -p 9600:9600 \
@@ -240,7 +242,7 @@ docker run \
   opensearchproject/opensearch:latest
 ```
 
-If you look at each part of the command, you can see that it:
+By reviewing each part of the command, you can see that it:
 - Maps ports `9200` and `9600` (`HOST_PORT`:`CONTAINER_PORT`).
 - Sets `discovery.type` to `single-node` so that bootstrap checks don't fail for this single node deployment.
 - Uses the [-v flag](https://docs.docker.com/engine/reference/commandline/run#mount-volume--v---read-only) to pass a local file called `custom-opensearch.yml` to the container, replacing the `opensearch.yml` included with the image.
@@ -266,7 +268,87 @@ services:
       - ./custom-opensearch_dashboards.yml:/usr/share/opensearch-dashboards/config/opensearch_dashboards.yml
 ```
 
-Refer to the official Docker documentation for [volumes](https://docs.docker.com/storage/volumes/) for comprehensive information about the usage and syntax.
+Refer to the official Docker documentation for [volumes](https://docs.docker.com/storage/volumes/) for comprehensive information about volume usage and syntax.
+
+### Sample Docker Compose file for development
+
+This sample compose file creates two OpenSearch nodes and one OpenSearch Dashboards node with the security plugin disabled:
+```yml
+version: '3'
+services:
+  opensearch-node1:
+    image: opensearchproject/opensearch:latest
+    container_name: opensearch-node1
+    environment:
+      - cluster.name=opensearch-cluster # Name the cluster
+      - node.name=opensearch-node1 # Name the node that will run in this container
+      - discovery.seed_hosts=opensearch-node1,opensearch-node2 # Nodes to look for when discovering the cluster
+      - cluster.initial_cluster_manager_nodes=opensearch-node1,opensearch-node2 # Nodes eligibile to serve as cluster manager
+      - bootstrap.memory_lock=true # Disable JVM heap memory swapping
+      - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" # Set min and max JVM heap sizes to at least 50% of system RAM
+      - "DISABLE_INSTALL_DEMO_CONFIG=true" # Prevents execution of bundled demo script which installs demo certificates and security configurations to OpenSearch
+      - "DISABLE_SECURITY_PLUGIN=true" # Disables security plugin
+    ulimits:
+      memlock:
+        soft: -1 # Set memlock to unlimited (no soft or hard limit)
+        hard: -1
+      nofile:
+        soft: 65536 # Maximum number of open files for the opensearch user - set to at least 65536
+        hard: 65536
+    volumes:
+      - opensearch-data1:/usr/share/opensearch/data # Creates volume called opensearch-data1 and mounts it to the container
+    ports:
+      - 9200:9200 # REST API
+      - 9600:9600 # Performance Analyzer
+    networks:
+      - opensearch-net # All of the containers will join the same Docker bridge network
+  opensearch-node2:
+    image: opensearchproject/opensearch:latest
+    container_name: opensearch-node2
+    environment:
+      - cluster.name=opensearch-cluster # Name the cluster
+      - node.name=opensearch-node2 # Name the node that will run in this container
+      - discovery.seed_hosts=opensearch-node1,opensearch-node2 # Nodes to look for when discovering the cluster
+      - cluster.initial_cluster_manager_nodes=opensearch-node1,opensearch-node2 # Nodes eligibile to serve as cluster manager
+      - bootstrap.memory_lock=true # Disable JVM heap memory swapping
+      - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" # Set min and max JVM heap sizes to at least 50% of system RAM
+      - "DISABLE_INSTALL_DEMO_CONFIG=true" # Prevents execution of bundled demo script which installs demo certificates and security configurations to OpenSearch
+      - "DISABLE_SECURITY_PLUGIN=true" # Disables security plugin
+    ulimits:
+      memlock:
+        soft: -1 # Set memlock to unlimited (no soft or hard limit)
+        hard: -1
+      nofile:
+        soft: 65536 # Maximum number of open files for the opensearch user - set to at least 65536
+        hard: 65536
+    volumes:
+      - opensearch-data2:/usr/share/opensearch/data # Creates volume called opensearch-data2 and mounts it to the container
+    networks:
+      - opensearch-net # All of the containers will join the same Docker bridge network
+  opensearch-dashboards:
+    image: opensearchproject/opensearch-dashboards:latest
+    container_name: opensearch-dashboards
+    ports:
+      - 5601:5601 # Map host port 5601 to container port 5601
+    expose:
+      - "5601" # Expose port 5601 for web access to OpenSearch Dashboards
+    environment:
+      - 'OPENSEARCH_HOSTS=["http://opensearch-node1:9200","http://opensearch-node2:9200"]'
+      - "DISABLE_SECURITY_DASHBOARDS_PLUGIN=true" # disables security dashboards plugin in OpenSearch Dashboards
+    networks:
+      - opensearch-net
+
+volumes:
+  opensearch-data1:
+  opensearch-data2:
+
+networks:
+  opensearch-net:
+```
+
+### Configuring basic security settings
+
+
 
 ### Working with plugins
 
@@ -288,7 +370,6 @@ Alternately, you might want to remove a plugin from an image before deploying it
 ```
 FROM opensearchproject/opensearch:latest
 RUN /usr/share/opensearch/bin/opensearch-plugin remove opensearch-security
-COPY --chown=opensearch:opensearch opensearch.yml /usr/share/opensearch/config/
 ```
 
 You can also use a Dockerfile to pass your own certificates for use with the [Security Plugin]({{site.url}}{{site.baseurl}}/security-plugin/):
@@ -316,181 +397,11 @@ COPY --chown=opensearch:opensearch my-root-cas.pem /usr/share/opensearch/config/
 
 
 
+
 {% comment %}
 
 
-## Bash access to containers
 
-To create an interactive Bash session in a container, run `docker ps` to find the container ID. Then run:
-
-```bash
-docker exec -it <container-id> /bin/bash
-```
-
-
-
-## Sample Docker Compose file for development
-
-You can use this sample file as a development environment.
-
-This sample file starts one OpenSearch node and a container for OpenSearch Dashboards with the security plugin disabled.
-
-```yml
-version: '3'
-services:
-  opensearch-node1:
-    image: opensearchproject/opensearch:{{site.opensearch_version}}
-    container_name: opensearch-node1
-    environment:
-      - cluster.name=opensearch-cluster
-      - node.name=opensearch-node1
-      - bootstrap.memory_lock=true # along with the memlock settings below, disables swapping
-      - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" # minimum and maximum Java heap size, recommend setting both to 50% of system RAM
-      - "DISABLE_INSTALL_DEMO_CONFIG=true" # disables execution of install_demo_configuration.sh bundled with security plugin, which installs demo certificates and security configurations to OpenSearch
-      - "DISABLE_SECURITY_PLUGIN=true" # disables security plugin entirely in OpenSearch by setting plugins.security.disabled: true in opensearch.yml
-      - "discovery.type=single-node" # disables bootstrap checks that are enabled when network.host is set to a non-loopback address
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-      nofile:
-        soft: 65536 # maximum number of open files for the OpenSearch user, set to at least 65536 on modern systems
-        hard: 65536
-    volumes:
-      - opensearch-data1:/usr/share/opensearch/data
-    ports:
-      - 9200:9200
-      - 9600:9600 # required for Performance Analyzer
-    networks:
-      - opensearch-net
-
-  opensearch-dashboards:
-    image: opensearchproject/opensearch-dashboards:{{site.opensearch_dashboards_version}}
-    container_name: opensearch-dashboards
-    ports:
-      - 5601:5601
-    expose:
-      - "5601"
-    environment:
-      - 'OPENSEARCH_HOSTS=["http://opensearch-node1:9200"]'
-      - "DISABLE_SECURITY_DASHBOARDS_PLUGIN=true" # disables security dashboards plugin in OpenSearch Dashboards
-    networks:
-      - opensearch-net
-
-volumes:
-  opensearch-data1:
-
-networks:
-  opensearch-net:
-```
-
-The environment variable `"DISABLE_SECURITY_DASHBOARDS_PLUGIN=true"` disables the security dashboards plugin in OpenSearch Dashboards by removing the security dashboards plugin folder, removing all related settings in the `opensearch_dashboards.yml` file, and setting the `opensearch.hosts` entry protocol from HTTPS to HTTP.
-You can't reverse this step as the security dashboards plugin is removed in the process.
-To re-enable security for OpenSearch Dashboards, start a new container and set `DISABLE_SECURITY_DASHBOARDS_PLUGIN` to false or leave it unset.
-{: .note}
-
-## Docker security configuration
-
-Before deploying to a production environment, you should replace the demo security certificates and configuration YAML files with your own. With the tarball, you have direct access to the file system, but the Docker image requires modifying the Docker storage volumes to include the replacement files.
-
-Additionally, you can set the Docker environment variable `DISABLE_INSTALL_DEMO_CONFIG` to `true`. This change completely disables the demo installer.
-
-
-## Sample Docker Compose file
-
-```yml
-version: '3'
-services:
-  opensearch-node1:
-    image: opensearchproject/opensearch:{{site.opensearch_version}}
-    container_name: opensearch-node1
-    environment:
-      - cluster.name=opensearch-cluster
-      - node.name=opensearch-node1
-      - discovery.seed_hosts=opensearch-node1,opensearch-node2
-      - cluster.initial_cluster_manager_nodes=opensearch-node1,opensearch-node2
-      - bootstrap.memory_lock=true # along with the memlock settings below, disables swapping
-      - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" # minimum and maximum Java heap size, recommend setting both to 50% of system RAM
-      - network.host=0.0.0.0 # required if not using the demo security configuration
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-      nofile:
-        soft: 65536 # maximum number of open files for the OpenSearch user, set to at least 65536 on modern systems
-        hard: 65536
-    volumes:
-      - opensearch-data1:/usr/share/opensearch/data
-      - ./root-ca.pem:/usr/share/opensearch/config/root-ca.pem
-      - ./node.pem:/usr/share/opensearch/config/node.pem
-      - ./node-key.pem:/usr/share/opensearch/config/node-key.pem
-      - ./admin.pem:/usr/share/opensearch/config/admin.pem
-      - ./admin-key.pem:/usr/share/opensearch/config/admin-key.pem
-      - ./custom-opensearch.yml:/usr/share/opensearch/config/opensearch.yml
-      - ./internal_users.yml:/usr/share/opensearch/config/opensearch-security/internal_users.yml
-      - ./roles_mapping.yml:/usr/share/opensearch/config/opensearch-security/roles_mapping.yml
-      - ./tenants.yml:/usr/share/opensearch/config/opensearch-security/tenants.yml
-      - ./roles.yml:/usr/share/opensearch/config/opensearch-security/roles.yml
-      - ./action_groups.yml:/usr/share/opensearch/config/opensearch-security/action_groups.yml
-    ports:
-      - 9200:9200
-      - 9600:9600 # required for Performance Analyzer
-    networks:
-      - opensearch-net
-  opensearch-node2:
-    image: opensearchproject/opensearch:{{site.opensearch_version}}
-    container_name: opensearch-node2
-    environment:
-      - cluster.name=opensearch-cluster
-      - node.name=opensearch-node2
-      - discovery.seed_hosts=opensearch-node1,opensearch-node2
-      - cluster.initial_cluster_manager_nodes=opensearch-node1,opensearch-node2
-      - bootstrap.memory_lock=true
-      - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
-      - network.host=0.0.0.0
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-      nofile:
-        soft: 65536
-        hard: 65536
-    volumes:
-      - opensearch-data2:/usr/share/opensearch/data
-      - ./root-ca.pem:/usr/share/opensearch/config/root-ca.pem
-      - ./node.pem:/usr/share/opensearch/config/node.pem
-      - ./node-key.pem:/usr/share/opensearch/config/node-key.pem
-      - ./admin.pem:/usr/share/opensearch/config/admin.pem
-      - ./admin-key.pem:/usr/share/opensearch/config/admin-key.pem
-      - ./custom-opensearch.yml:/usr/share/opensearch/config/opensearch.yml
-      - ./internal_users.yml:/usr/share/opensearch/config/opensearch-security/internal_users.yml
-      - ./roles_mapping.yml:/usr/share/opensearch/config/opensearch-security/roles_mapping.yml
-      - ./tenants.yml:/usr/share/opensearch/config/opensearch-security/tenants.yml
-      - ./roles.yml:/usr/share/opensearch/config/opensearch-security/roles.yml
-      - ./action_groups.yml:/usr/share/opensearch/config/opensearch-security/action_groups.yml
-    networks:
-      - opensearch-net
-  opensearch-dashboards:
-    image: opensearchproject/opensearch-dashboards:{{site.opensearch_dashboards_version}}
-    container_name: opensearch-dashboards
-    ports:
-      - 5601:5601
-    expose:
-      - "5601"
-    environment:
-      OPENSEARCH_HOSTS: '["https://opensearch-node1:9200","https://opensearch-node2:9200"]' # must be a string with no spaces when specified as an environment variable
-    volumes:
-      - ./custom-opensearch_dashboards.yml:/usr/share/opensearch-dashboards/config/opensearch_dashboards.yml
-    networks:
-      - opensearch-net
-
-volumes:
-  opensearch-data1:
-  opensearch-data2:
-
-networks:
-  opensearch-net:
-```
 
 Then make your changes to `opensearch.yml`. For a full list of settings, see [Security]({{site.url}}{{site.baseurl}}/security-plugin/configuration/index/). This example adds (extremely) verbose audit logging:
 
@@ -520,9 +431,6 @@ opendistro_security.audit.config.disabled_transport_categories: NONE
 Use this same override process to specify new [authentication settings]({{site.url}}{{site.baseurl}}/security-plugin/configuration/configuration/) in `/usr/share/opensearch/config/opensearch-security/config.yml`, as well as new default [internal users, roles, mappings, action groups, and tenants]({{site.url}}{{site.baseurl}}/security-plugin/configuration/yaml/).
 
 To start the cluster, run `docker-compose up`.
-
-If you encounter any `File /usr/share/opensearch/config/opensearch.yml has insecure file permissions (should be 0600)` messages, you can use `chmod` to set file permissions before running `docker-compose up`. Docker Compose passes files to the container as-is.
-{: .note }
 
 Finally, you can reach OpenSearch Dashboards at http://localhost:5601, sign in, and use the **Security** panel to perform other management tasks.
 
