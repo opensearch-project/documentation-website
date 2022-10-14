@@ -7,7 +7,7 @@ nav_order: 3
 
 # Why use Docker for OpenSearch?
 
-[Docker](https://www.docker.com/) greatly simplifies the process of configuring and managing your OpenSearch clusters. You can pull official images from [Docker Hub](https://hub.docker.com/u/opensearchproject) or [AWS ECR](https://gallery.ecr.aws/opensearchproject/) and quickly deploy a cluster using [Docker Compose](https://github.com/docker/compose) and any of the sample Docker Compose files included in this guide. Experienced OpenSearch users can further customize their deployment by creating a custom Docker Compose file.
+[Docker](https://www.docker.com/) greatly simplifies the process of configuring and managing your OpenSearch clusters. You can pull official images from [Docker Hub](https://hub.docker.com/u/opensearchproject) or [AWS Elastic Container Registry (ECR)](https://gallery.ecr.aws/opensearchproject/) and quickly deploy a cluster using [Docker Compose](https://github.com/docker/compose) and any of the sample Docker Compose files included in this guide. Experienced OpenSearch users can further customize their deployment by creating a custom Docker Compose file.
 
 Docker containers are portable and will run on any compatible host that supports Docker (such as Linux, MacOS, and Windows). The portability of a Docker container offers flexibility over other installations methods, like [RPM]({{site.url}}{{site.baseurl}}/opensearch/install/rpm/) or a manual [Tarball]({{site.url}}{{site.baseurl}}/opensearch/install/tar/) installation, which both require additional configuration after downloading and unpacking.
 
@@ -52,7 +52,7 @@ Before launching OpenSearch you should review some [important system settings]({
 
 ## Run OpenSearch in a Docker container
 
-Official OpenSearch images are hosted on [Docker Hub](https://hub.docker.com/u/opensearchproject/) and [AWS Elastic Container Registry (ECR)](https://gallery.ecr.aws/opensearchproject/). If you want to inspect the images you can pull them individually using `docker pull`, such as in the following examples.
+Official OpenSearch images are hosted on [Docker Hub](https://hub.docker.com/u/opensearchproject/) and [AWS ECR](https://gallery.ecr.aws/opensearchproject/). If you want to inspect the images you can pull them individually using `docker pull`, such as in the following examples.
 
 [Docker Hub](https://hub.docker.com/u/opensearchproject/):
 ```bash
@@ -69,8 +69,11 @@ docker pull public.ecr.aws/opensearchproject/opensearch-dashboards:latest
 To download a specific version of OpenSearch or OpenSearch Dashboards rather than the latest available version, modify the image tag where it is referenced (either in the command line or in a Docker Compose file). For example, `opensearchproject/opensearch:{{site.opensearch_version}}` will pull OpenSearch version {{site.opensearch_version}}. Refer to the official image repositories for available versions. 
 {: .tip}
 
-1. Verify that Docker is working correctly by deploying OpenSearch in a single container. The following command exposes ports 9200 (OpenSearch) and 9600 (Performance Analyzer plugin), and also sets `discovery.type` to `single-node` so that bootstrap checks succeed in this single node environment.
+Before continuing, you should verify that Docker is working correctly by deploying OpenSearch in a single container.
+
+1. Run following command:
     ```bash
+    # This command maps ports 9200 and 9600, sets the discovery type to "single-node" and requests the newest image of OpenSearch
     docker run -d -p 9200:9200 -p 9600:9600 -e "discovery.type=single-node" opensearchproject/opensearch:latest
     ```
 1. Send a request to port 9200. The default username and password are `admin`.
@@ -108,12 +111,12 @@ To download a specific version of OpenSearch or OpenSearch Dashboards rather tha
     docker stop <containerId>
     ```
 
-Remember that `docker container ls` does not list stopped containers! If you would like to review stopped containers, use `docker container ls -a`. You can remove unneeded containers manually with `docker container rm <containerId_1> <containerId_2> <containerId_3> [...]` (pass all container IDs you wish to stop, separated by spaces), or if you want to remove all stopped containers you can use the shorter command `docker prune`.
+Remember that `docker container ls` does not list stopped containers. If you would like to review stopped containers, use `docker container ls -a`. You can remove unneeded containers manually with `docker container rm <containerId_1> <containerId_2> <containerId_3> [...]` (pass all container IDs you wish to stop, separated by spaces), or if you want to remove all stopped containers you can use the shorter command `docker prune`.
 {: .tip}
 
 ## Deploy an OpenSearch cluster using Docker Compose
 
-Although it is possible to manually build an OpenSearch cluster running in Docker containers, it is far simpler to define your environment in a YAML file and let Docker Compose manage everything. The following section contains example YAML files that you can use to launch a pre-defined cluster with OpenSearch and OpenSearch Dashboards. These examples are useful for testing and development, but are not suitable for a production environment. If you don't have prior experience using Docker Compose, you may wish to review the Docker [Compose specification](https://docs.docker.com/compose/compose-file/) for guidance on syntax and formatting before making any changes to the dictionary structures in the examples.
+Although it is technically possible to build an OpenSearch cluster by creating containers one command at a time, it is far easier to define your environment in a YAML file and let Docker Compose manage the cluster. The following section contains example YAML files that you can use to launch a pre-defined cluster with OpenSearch and OpenSearch Dashboards. These examples are useful for testing and development, but are not suitable for a production environment. If you don't have prior experience using Docker Compose, you may wish to review the Docker [Compose specification](https://docs.docker.com/compose/compose-file/) for guidance on syntax and formatting before making any changes to the dictionary structures in the examples.
 
 The YAML file that defines the environment is referred to as a Docker Compose file. By default, `docker-compose` commands will first check your current directory for a file that matches any of the following names:
 - `docker-compose.yml`
@@ -221,6 +224,9 @@ docker-compose logs <serviceName>
 
 Verify access to OpenSearch Dashboards by connecting to http://localhost:5601 from a browser. The default username and password are `admin`. We do not recommend using this configuration on hosts that are accessible from the public internet until you have customized the security configuration of your deployment.
 
+Remember that `localhost` cannot be access remotely. If you are deploying these containers to a remote host then you will need to establish a network connection and replace `localhost` with the IP or DNS record corresponding to the host.
+{: .note}
+
 Stop the running containers in your cluster:
 ```bash
 docker-compose down
@@ -251,7 +257,7 @@ By reviewing each part of the command, you can see that it:
 
 If you compare this command to the [Sample docker-compose.yml](#sample-docker-composeyml) file you might notice some common settings. For example, the port mappings and the image reference. The command, however, is only deploying a single container running OpenSearch and will not create a container for OpenSearch Dashboards. Furthermore, if you want to use custom TLS certificates, users, roles, or define additional volumes and networks, then this "one-line" command rapidly grows to an impractical size. That is where the utility of Docker Compose comes into play.
 
-When you build your OpenSearch cluster with Docker Compose you might find it easier to pass custom configuration files from your host to the container, as opposed to enumerating every individual setting in `docker-compose.yml`. Similar to how the example `docker run` command mounted a volume from the host to the container using the `-v` flag, compose files can specify volumes to mount as a sub-option to the corresponding service. The following truncated YAML file demonstrates how to mount a file or directory to the container.
+When you build your OpenSearch cluster with Docker Compose you might find it easier to pass custom configuration files from your host to the container, as opposed to enumerating every individual setting in `docker-compose.yml`. Similar to how the example `docker run` command mounted a volume from the host to the container using the `-v` flag, compose files can specify volumes to mount as a sub-option to the corresponding service. The following truncated YAML file demonstrates how to mount a file or directory to the container. Refer to the official Docker documentation for [volumes](https://docs.docker.com/storage/volumes/) for comprehensive information about volume usage and syntax.
 
 ```yml
 services:
@@ -268,11 +274,9 @@ services:
       - ./custom-opensearch_dashboards.yml:/usr/share/opensearch-dashboards/config/opensearch_dashboards.yml
 ```
 
-Refer to the official Docker documentation for [volumes](https://docs.docker.com/storage/volumes/) for comprehensive information about volume usage and syntax.
-
 ### Sample Docker Compose file for development
 
-This sample compose file creates two OpenSearch nodes and one OpenSearch Dashboards node with the security plugin disabled:
+If you want to build your own compose file from an example, review the following sample `docker-compose.yml`. This sample file creates two OpenSearch nodes and one OpenSearch Dashboards node with the security plugin disabled. You can use this sample file as a starting point while reviewing [Configuring basic security settings](#configuring-basic-security-settings).
 ```yml
 version: '3'
 services:
@@ -383,7 +387,7 @@ plugins.security.authcz.admin_dn:
   - CN=admin,OU=SSL,O=Test,L=Test,C=DE
 ```
 
-After configuring security settings, your custom `opensearch.yml` file might look something like the following example which adds configures TLS certificates and the distinguished name (DN) of the admin certificate, defines a few permissios, and enables verbose audit logging:
+After configuring security settings, your custom `opensearch.yml` file might look something like the following example which adds TLS certificates and the distinguished name (DN) of the admin certificate, defines a few permissions, and enables verbose audit logging:
 ```yml
 plugins.security.ssl.transport.pemcert_filepath: node1.pem
 plugins.security.ssl.transport.pemkey_filepath: node1-key.pem
@@ -409,7 +413,7 @@ opendistro_security.audit.config.disabled_transport_categories: NONE
 
 For a full list of settings, see [Security]({{site.url}}{{site.baseurl}}/security-plugin/configuration/index/).
 
-Use the same process to specify new [Backend configuration]({{site.url}}{{site.baseurl}}/security-plugin/configuration/configuration/) in `/usr/share/opensearch/config/opensearch-security/config.yml`. as well as new internal users, roles, mappings, action groups, and tenants in their respective [YAML files]({{site.url}}{{site.baseurl}}/security-plugin/configuration/yaml/).
+Use the same process to specify a [Backend configuration]({{site.url}}{{site.baseurl}}/security-plugin/configuration/configuration/) in `/usr/share/opensearch/config/opensearch-security/config.yml` as well as new internal users, roles, mappings, action groups, and tenants in their respective [YAML files]({{site.url}}{{site.baseurl}}/security-plugin/configuration/yaml/).
 
 After replacing the certificates, and creating your own internal users, roles, mappings, action groups and tenants, use Docker Compose to start the cluster:
 ```bash
@@ -446,3 +450,10 @@ COPY --chown=opensearch:opensearch my-key-file.pem /usr/share/opensearch/config/
 COPY --chown=opensearch:opensearch my-certificate-chain.pem /usr/share/opensearch/config/
 COPY --chown=opensearch:opensearch my-root-cas.pem /usr/share/opensearch/config/
 ```
+
+## Related links
+
+- [OpenSearch configuration]({{site.url}}{{site.baseurl}}/opensearch/configuration/)
+- [Performance analyzer]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/index/)
+- [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/install/index/)
+- [About the security plugin]({{site.url}}{{site.baseurl}}/security-plugin/index/)
