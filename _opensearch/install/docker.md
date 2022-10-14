@@ -409,7 +409,7 @@ opendistro_security.audit.config.disabled_transport_categories: NONE
 
 For a full list of settings, see [Security]({{site.url}}{{site.baseurl}}/security-plugin/configuration/index/).
 
-Use the same process to specify new [Backend configuration]({{site.url}}{{site.baseurl}}/security-plugin/configuration/configuration/) in `/usr/share/opensearch/config/opensearch-security/config.yml`. as well as new default [internal users, roles, mappings, action groups, and tenants]({{site.url}}{{site.baseurl}}/security-plugin/configuration/yaml/).
+Use the same process to specify new [Backend configuration]({{site.url}}{{site.baseurl}}/security-plugin/configuration/configuration/) in `/usr/share/opensearch/config/opensearch-security/config.yml`. as well as new internal users, roles, mappings, action groups, and tenants in their respective [YAML files]({{site.url}}{{site.baseurl}}/security-plugin/configuration/yaml/).
 
 After replacing the certificates, and creating your own internal users, roles, mappings, action groups and tenants, use Docker Compose to start the cluster:
 ```bash
