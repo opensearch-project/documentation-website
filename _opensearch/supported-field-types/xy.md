@@ -15,12 +15,12 @@ Cartesian field types work well for spatial applications like virtual reality, C
 
 The coordinates for the Cartesian field types are single-precision floating point values. For information about the range and precision of floating-point values, see [Numeric field types]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/numeric/).
 
-Currently, OpenSearch supports indexing and searching cartesian field types, but not aggregations on cartesian field types. If you'd like to see aggregations implemented, open a [GitHub issue](https://github.com/opensearch-project/geospatial).
-{: .note}
-
 The following table lists all Cartesian field types that OpenSearch supports.
 
 Field data type | Description
 :--- | :---  
 [`xy_point`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/xy-point/) | A point in a two-dimensional Cartesian coordinate system, specified by x and y coordinates. 
 [`xy_shape`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/xy-shape/) | A shape, such as a polygon or a collection of xy points, in a two-dimensional Cartesian coordinate system. 
+
+Currently OpenSearch supports indexing and searching Cartesian field types, but not aggregations on Cartesian field types. If you'd like to see aggregations implemented, open a [GitHub issue](https://github.com/opensearch-project/geospatial).
+{: .note}
