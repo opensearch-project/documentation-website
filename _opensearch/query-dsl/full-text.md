@@ -215,7 +215,7 @@ GET _search
 
 ### Match phrase prefix
 
-Use the `match_phrase_prefix` query type to specify a sequence of terms with a specified prefix. The documents that contain the phrase you specify will be returned. The last term in the phrase is partially provided as a prefix, so any documents that contain phrases that begin with the prefix for the last term will be returned. 
+Use the `match_phrase_prefix` query type to specify a sequence of terms with a specified prefix. The documents that contain the phrase you specify will be returned. The last partial term in the phrase is interpreted as a prefix, so any documents that contain phrases that begin with the phrase and prefix on the last term will be returned.
 
 Similar to [match phrase](#match-phrase), but creates a [prefix query](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/PrefixQuery.html) out of the last term in the query string.
 
@@ -341,7 +341,7 @@ GET _search
 
 ### Simple query string
 
-Use the `query_string_query` type to specify many arguments directly in the query string delineated by regular expressions. Searches with this type will discard any invalid portions of the string.
+Use the `simple_query_string` type to specify directly in the query string multiple arguments delineated by regular expressions. Searches with this type will discard any invalid portions of the string.
 
 ```json
 GET _search
@@ -438,7 +438,7 @@ Option | Valid values | Description
 
 ### Synonyms in a multiple terms search
 
-You can also use synonyms with the `terms` query type to search for multiple terms. Use the `auto_generate_synonyms_phrase_query` Boolean field. By default it is set to `true`. It automatically generates phrase queries for multiple term synonyms. For example, if you have the synonym `"ba, batting average"` and search for "ba," OpenSearch searches for `ba OR "batting average"` (if this option is true) or `ba OR (batting AND average)` (if this option is false).
+You can also use synonyms with the `terms` query type to search for multiple terms. Use the `auto_generate_synonyms_phrase_query` Boolean field. By default it is set to `true`. It automatically generates phrase queries for multiple term synonyms. For example, if you have the synonym `"ba, batting average"` and search for "ba," OpenSearch searches for `ba OR "batting average"` when the option is `true` or `ba OR (batting AND average)` when the option is `false`.
 
 To learn more about the multiple terms query type, see [Terms]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/term/#terms). For more reference information about phrase queries, see [Lucene documentation](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/PhraseQuery.html).
 
