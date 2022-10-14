@@ -21,16 +21,16 @@ GET _nodes/<nodeId>/usage/<metric>
 
 ## Path parameters
 
-You can include the following optional path parameters in your request:
+You can include the following optional path parameters in your request.
 
 Parameter | Type | Description
 :--- | :--- | :---
-nodeId | String | A comma-separated list of node IDs used to filter results. Supports [node filters]({{site.url}}{{site.baseurl}}/opensearch/rest-api/nodes-apis/index/#node-filters). Defaults to `_all`.
+nodeId | String | A comma-separated list of nodeIds used to filter results. Supports [node filters]({{site.url}}{{site.baseurl}}/opensearch/rest-api/nodes-apis/index/#node-filters). Defaults to `_all`.
 metric | String | The metrics that will be included in the response. You can set the string to either `_all` or `rest_actions`. `rest_actions` returns the total number of times an action has been called on the node. `_all` returns all stats from the node. Defaults to `_all`.
 
 ## Query parameters
 
-You can include the following optional query parameters in your request:
+You can include the following optional query parameters in your request.
 
 Parameter | Type | Description
 :--- | :---| :---

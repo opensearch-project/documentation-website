@@ -19,11 +19,11 @@ POST _nodes/<nodeId>/reload_secure_settings
 
 ## Path parameter
 
-You can include the following optional path parameter in your request:
+You can include the following optional path parameter in your request.
 
 Parameter | Type | Description
 :--- | :--- | :---
-nodeId | String | A comma-separated list of nodeIds to filter results. Supports [node filters]({{site.url}}{{site.baseurl}}/opensearch/rest-api/nodes-apis/index/#node-filters). Defaults to `_all`.
+nodeId | String | A comma-separated list of nodeIds used to filter results. Supports [node filters]({{site.url}}{{site.baseurl}}/opensearch/rest-api/nodes-apis/index/#node-filters). Defaults to `_all`.
 
 ## Request fields
 
