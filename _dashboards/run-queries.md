@@ -6,7 +6,7 @@ nav_order: 110
 
 # Running queries in the console
 
-You can use the OpenSearch DevTools Console to send queries to OpenSearch. 
+You can use the OpenSearch Dev Tools Console to send queries to OpenSearch. 
 
 ## Navigating to the console
 
