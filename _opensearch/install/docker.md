@@ -11,7 +11,7 @@ nav_order: 3
 
 Docker containers are portable and will run on any compatible host that supports Docker (such as Linux, MacOS, and Windows). The portability of a Docker container offers flexibility over other installations methods, like [RPM]({{site.url}}{{site.baseurl}}/opensearch/install/rpm/) or a manual [Tarball]({{site.url}}{{site.baseurl}}/opensearch/install/tar/) installation, which both require additional configuration after downloading and unpacking.
 
-This guide assumes that you are comfortable working from the Linux command line interface (CLI). You should understand how to input commands, navigate between directories, and edit text files. For help with [Docker](https://www.docker.com/) or [Docker Compose](https://github.com/docker/compose), please refer to the official documentation on their websites.
+This guide assumes that you are comfortable working from the Linux command line interface (CLI). You should understand how to input commands, navigate between directories, and edit text files. For help with [Docker](https://www.docker.com/) or [Docker Compose](https://github.com/docker/compose), refer to the official documentation on their websites.
 {:.note}
 
 ## Install Docker and Docker Compose
@@ -71,7 +71,7 @@ To download a specific version of OpenSearch or OpenSearch Dashboards rather tha
 
 Before continuing, you should verify that Docker is working correctly by deploying OpenSearch in a single container.
 
-1. Run following command:
+1. Run the following command:
     ```bash
     # This command maps ports 9200 and 9600, sets the discovery type to "single-node" and requests the newest image of OpenSearch
     docker run -d -p 9200:9200 -p 9600:9600 -e "discovery.type=single-node" opensearchproject/opensearch:latest
@@ -124,7 +124,7 @@ The YAML file that defines the environment is referred to as a Docker Compose fi
 - `compose.yml`
 - `compose.yaml`
 
-If none of those files exists in your current directory, the `docker-compose` command fails.
+If none of those files exist in your current directory, the `docker-compose` command fails.
 
 You can specify a custom file location and name when invoking `docker-compose` with the `-f` flag:
 ```bash
@@ -224,7 +224,7 @@ docker-compose logs <serviceName>
 
 Verify access to OpenSearch Dashboards by connecting to http://localhost:5601 from a browser. The default username and password are `admin`. We do not recommend using this configuration on hosts that are accessible from the public internet until you have customized the security configuration of your deployment.
 
-Remember that `localhost` cannot be access remotely. If you are deploying these containers to a remote host then you will need to establish a network connection and replace `localhost` with the IP or DNS record corresponding to the host.
+Remember that `localhost` cannot be accessed remotely. If you are deploying these containers to a remote host then you will need to establish a network connection and replace `localhost` with the IP or DNS record corresponding to the host.
 {: .note}
 
 Stop the running containers in your cluster:
@@ -255,7 +255,7 @@ By reviewing each part of the command, you can see that it:
 - Requests the `opensearchproject/opensearch:latest` image from Docker Hub.
 - Runs the container.
 
-If you compare this command to the [Sample docker-compose.yml](#sample-docker-composeyml) file you might notice some common settings. For example, the port mappings and the image reference. The command, however, is only deploying a single container running OpenSearch and will not create a container for OpenSearch Dashboards. Furthermore, if you want to use custom TLS certificates, users, roles, or define additional volumes and networks, then this "one-line" command rapidly grows to an impractical size. That is where the utility of Docker Compose comes into play.
+If you compare this command to the [Sample docker-compose.yml](#sample-docker-composeyml) file you might notice some common settings such as the port mappings and the image reference. The command, however, is only deploying a single container running OpenSearch and will not create a container for OpenSearch Dashboards. Furthermore, if you want to use custom TLS certificates, users or roles, or define additional volumes and networks, then this "one-line" command rapidly grows to an impractical size. That is where the utility of Docker Compose comes into play.
 
 When you build your OpenSearch cluster with Docker Compose you might find it easier to pass custom configuration files from your host to the container, as opposed to enumerating every individual setting in `docker-compose.yml`. Similar to how the example `docker run` command mounted a volume from the host to the container using the `-v` flag, compose files can specify volumes to mount as a sub-option to the corresponding service. The following truncated YAML file demonstrates how to mount a file or directory to the container. Refer to the official Docker documentation for [volumes](https://docs.docker.com/storage/volumes/) for comprehensive information about volume usage and syntax.
 
@@ -352,7 +352,7 @@ networks:
 
 ### Configuring basic security settings
 
-Before making your OpenSearch cluster available to external hosts, it's a good idea to review the deployment's security configuration. You may recall from the first [Sample docker-compose.yml](#sample-docker-composeyml) that, unless disabled by setting `DISABLE_SECURITY_PLUGIN=true`, a bundled script will apply a default demo security configuration to the nodes in the cluster. Since this configuration is used for demo purposes, the default user names and passwords are known. For that reason, we recommend that you create your own security configuration files and use `volumes` to pass these files to the containers. For specific guidance on OpenSearch security settings, see [Security configuration]({{site.url}}{{site.baseurl}}/security-plugin/configuration/index/).
+Before making your OpenSearch cluster available to external hosts, it's a good idea to review the deployment's security configuration. You may recall from the first [Sample docker-compose.yml](#sample-docker-composeyml) that, unless disabled by setting `DISABLE_SECURITY_PLUGIN=true`, a bundled script will apply a default demo security configuration to the nodes in the cluster. Since this configuration is used for demo purposes, the default usernames and passwords are known. For that reason, we recommend that you create your own security configuration files and use `volumes` to pass these files to the containers. For specific guidance on OpenSearch security settings, see [Security configuration]({{site.url}}{{site.baseurl}}/security-plugin/configuration/index/).
 
 To use your own certificates in your configuration, add all of the necessary certificates to the volumes section of the compose file.
 ```yml
