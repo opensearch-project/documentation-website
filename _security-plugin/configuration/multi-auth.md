@@ -17,7 +17,7 @@ You can configure the sign-in window for OpenSearch Dashboards to provide either
 
 ## Enabling multi-option sign-in
 
-The setting that determines single- or multi-option authentication is `opensearch_security.auth.type`. You can add this setting to the `opensearch_dashboards.yml` file. By default, Dashboards provides a single sign-in environment for basic authentication. To specify the authentication type, provide a single type or multiple types for the setting. When more than one authentication type is added to the setting, the Dashboards sign-in window recognizes multiple types and adjusts to accommodate multiple sign-in options.
+The setting that determines single- or multi-option authentication is `opensearch_security.auth.type`. You can add this setting to the `opensearch_dashboards.yml` file. By default, Dashboards provides a single sign-in environment for basic authentication. To specify the authentication type, provide a single type or multiple types for the setting. When more than one authentication type is added to the setting, the Dashboards sign-in window recognizes multiple types and adjusts to accommodate the sign-in options.
 
 For single sign-in, the authentication type is specified by adding a single type to the setting.
 
