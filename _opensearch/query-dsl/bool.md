@@ -17,12 +17,12 @@ Clause rule | Behavior
 :--- | :---
 `must` | Logical `and` operator. The results must match the queries in this clause. If you have multiple queries, all of them must match.
 `must_not` | Logical `not` operator. All matches are excluded from the results.
-`should` | Logical `or` operator. The results must match at least one of the queries, but optionally, it can match both queries. Each matching `should` clause increases the relevancy score. As an option, you can require one or more queries to match the value of the `minimum_number_should_match` parameter (default is 1).
+`should` | Logical `or` operator. The results must match at least one of the queries, but optionally, it can match both queries. Each matching `should` clause increases the relevancy score. As an option, you can set the minimum number of queries that must match using the `minimum_number_should_match` parameter. (default is 1).
 `filter` | Logical `and` operator that is applied first to reduce your dataset before applying the queries. A query within a filter clause is a yes or no option. If a document matches the query, it is returned in the results; otherwise, it is not. The results of a filter query are generally cached to allow for a faster return. Use the filter query to filter the results based on exact matches, ranges, dates, numbers, and so on.
 
 ### Boolean query structure
 
-The structure of a Boolean query contains the `bool` query type followed by clause rules as follows:
+The structure of a Boolean query contains the `bool` query type followed by clause rules, as follows:
 
 ```json
 GET _search
