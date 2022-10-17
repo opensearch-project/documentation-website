@@ -31,7 +31,7 @@ To learn more about writing queries in OpenSearch domain-specific language, see 
 
 ### Comments
 
-Use `#` in the beginning of a line to write one-line comments.
+Use `#` in the beginning of a line to write single line comments.
 
 ### Autocomplete
 
