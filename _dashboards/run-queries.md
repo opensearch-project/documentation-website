@@ -1,26 +1,26 @@
 ---
 layout: default
-title: Running queries in Console
+title: Running queries in the console
 nav_order: 110
 ---
 
-# Running queries in Console
+# Running queries in the console
 
 You can use the OpenSearch DevTools Console to send queries to OpenSearch. 
 
-## Navigating to Console
+## Navigating to the console
 
-To open Console, select **Dev Tools** on the main OpenSearch Dashboards page:
+To open the console, select **Dev Tools** on the main OpenSearch Dashboards page:
 
 <img src="{{site.url}}{{site.baseurl}}/images/dev-tools/dev-tools-main.png" alt="Dev Tools Console from main page">{: .img-fluid }
 
-You can open Console from any other page by navigating to the main menu and selecting **Management** > **Dev Tools**.
+You can open the console from any other page by navigating to the main menu and selecting **Management** > **Dev Tools**.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dev-tools/dev-tools-left.png" width=200 alt="Dev Tools Console from all pages">
 
 ## Writing queries 
 
-Write your queries in the editor pane on the left side of the Console:
+Write your queries in the editor pane on the left side of the console:
 
 <img src="{{site.url}}{{site.baseurl}}/images/dev-tools/dev-tools-request.png" alt="Request pane">{: .img-fluid }
 
@@ -43,13 +43,13 @@ To send a query to OpenSearch, select the query by placing the cursor anywhere i
 
 <img src="{{site.url}}{{site.baseurl}}/images/dev-tools/dev-tools-send.png" alt="Send request">
 
-OpenSearch displays the response in the response pane on the right side of the Console:
+OpenSearch displays the response in the response pane on the right side of the console:
 
 <img src="{{site.url}}{{site.baseurl}}/images/dev-tools/dev-tools-response.png" alt="Response pane">{: .img-fluid }
 
-## Working in cURL and Console formats
+## Working in cURL and console formats
 
-Console uses an easier syntax to format REST requests than the `curl` command. 
+The console uses an easier syntax to format REST requests than the `curl` command. 
 
 For example, the following `curl` command runs a search query:
 
@@ -64,7 +64,7 @@ curl -XGET http://localhost:9200/shakespeare/_search?pretty -H 'Content-Type: ap
 }'
 ```
 
-The same query has a simpler syntax in Console format:
+The same query has a simpler syntax in the console format:
 
 ```json
 GET shakespeare/_search
@@ -77,7 +77,7 @@ GET shakespeare/_search
 }
 ```
 
-If you paste a `curl` command directly into the Console, the command is automatically converted into Console format. 
+If you paste a `curl` command directly into the console, the command is automatically converted into the format the console uses. 
 
 To import a query in cURL format, select the query, then select the wrench icon and choose **Copy as cURL**:
 
@@ -104,7 +104,7 @@ To copy the query into the editor pane, select the query text and then select **
 
 To clear the history, select **Clear**.
 
-## Updating Console settings
+## Updating the console settings
 
 To update your preferences, select **Settings** from the top menu:
 
