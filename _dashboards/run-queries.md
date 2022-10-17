@@ -35,7 +35,7 @@ Use `#` in the beginning of a line to write single line comments.
 
 ### Autocomplete
 
-OpenSearch provides autocomplete suggestions for fields, indices and their aliases, and templates. To configure autocomplete preferences, update them in [Console Settings](#updating-console-settings).
+OpenSearch provides autocomplete suggestions for fields, indexes and their aliases, and templates. To configure autocomplete preferences, update them in [Console Settings](#updating-console-settings).
 
 ## Sending the request 
 
