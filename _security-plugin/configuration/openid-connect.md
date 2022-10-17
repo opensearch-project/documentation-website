@@ -313,7 +313,7 @@ opensearch.ssl.verificationMode: none
 opensearch.requestHeadersAllowlist: ["Authorization", "security_tenant"]
 ```
 
-To include OpenID Connect with other authentication options in the Dashboards sign-in window, see [Multi-authentication sign-in for Dashboards]({{site.url}}{{site.baseurl}}/security-plugin/configuration/multi-auth/).
+To include OpenID Connect with other authentication options in the Dashboards sign-in window, see [Multi-option sign-in for Dashboards]({{site.url}}{{site.baseurl}}/security-plugin/configuration/multi-auth/).
 {: .note } 
 
 ### OpenSearch security configuration
