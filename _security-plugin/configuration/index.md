@@ -22,3 +22,6 @@ The plugin includes demo certificates so that you can get up and running quickly
 1. [Add users, roles, role mappings, and tenants]({{site.url}}{{site.baseurl}}/security-plugin/access-control/index/).
 
 If you don't want to use the plugin, see [Disable security]({{site.url}}{{site.baseurl}}/security-plugin/configuration/disable).
+
+The security plugin has several default users, roles, action groups, permissions, and settings for OpenSearch Dashboards that use kibana in their names. We will change these names in a future release.
+{: .note }
