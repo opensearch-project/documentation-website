@@ -3,7 +3,7 @@ layout: default
 title: Get Stored Script Contexts
 parent: Script APIs
 grand_parent: REST API reference
-nav_order: 4
+nav_order: 5
 ---
 
 ## Get stored script contexts
@@ -547,7 +547,7 @@ The `GET _script_context` request returns the following fields:
 
 ### Response fields
 
-The `GET _scripts/my-first-script` request returns the following response fields:
+The `GET _script_context` request returns the following response fields:
 
 | Field | Data Type | Description | 
 :--- | :--- | :---
