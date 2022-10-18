@@ -180,7 +180,7 @@ GET _search
 For more reference information about prefix queries, see [Lucene documentation](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/PrefixQuery.html).
 ### Match phrase
 
-Use the `match_phrase` query type to specify a sequence of terms to return in the search.
+Use the `match_phrase` query to match documents that contain the exact phrase in the specified order. You can add flexibility to phrase matching by providing the `slop` parameter.
 
 Creates a [phrase query](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/PhraseQuery.html) that matches a sequence of terms.
 
