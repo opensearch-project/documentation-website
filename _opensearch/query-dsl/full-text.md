@@ -141,7 +141,7 @@ GET _search
 
 ### Match boolean prefix
 
-You can search for terms that match a specified prefix with the `match_bool_prefix` query type. Documents that contain the last term in the string will be returned.
+The `match_bool_prefix` query analyzes the provided search string and creates a `bool` query from the the string's terms. It uses every term except the last term as a whole word for matching. The last term is used as a prefix. The `match_bool_prefix` query returns documents that contain either the whole-word terms or terms that start with the prefix term, in any order.
 
 
 ```json
