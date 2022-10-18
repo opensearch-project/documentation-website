@@ -10,4 +10,4 @@ redirect_from:
 
 # Analyze APIs
 
-The analyze APIs allow you to perform text analysis, which is the process of converting unstructured text into individual tokens (usually words) that are optimized for search. 
+The analyze APIs allow you to perform text analysis, which is the process of converting unstructured text into individual tokens (usually words) that are optimized for search.

@@ -6,11 +6,11 @@ grand_parent: REST API reference
 nav_order: 1
 ---
 
-## Terminology
+# Terminology
 
 The following sections provide descriptions of important text analysis terms. 
 
-### Analyzers
+## Analyzers
 
 Analyzers instruct OpenSearch how to index and search text. Analyzers comprise three components: a tokenizer, zero or more token filters, and zero or more character filters. 
 
@@ -30,7 +30,7 @@ Character filters examine textand perform translations such as changing, removin
 
 Token filters modify tokens, performing operations such converting a token's characters to upper case, and adding or removing tokens. 
 
-### Normalizers
+## Normalizers
 
 Similar to analyzers, normalizers tokenize text, but return a single token only. Normalizers do not employ tokenizers, and make limited use of character and token filters, such as those that operate on one character at a time.
 
