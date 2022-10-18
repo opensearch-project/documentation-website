@@ -23,6 +23,7 @@ You can also analyze fields when you index them. To learn more about how to conv
 ---
 
 #### Table of contents
+
 1. TOC
 {:toc}
 
@@ -33,7 +34,8 @@ Common terms queries and the optional query field `cutoff_frequency` are now dep
 
 ## Query types
 
-OpenSearch Query DSL provides multiple query types that you can use in your searches. 
+OpenSearch Query DSL provides multiple query types that you can use in your searches.
+
 ### Match
 
 Use the `match` query for full-text search of a specific document field. The `match` query analyzes the provided search string and returns documents that match any of the string's terms.
@@ -71,7 +73,7 @@ curl --insecure -XGET -u 'admin:admin' https://<host>:<port>/<index>/_search \
   }'
 ```
 
-The query accepts the following options. For descriptions of each, see [Advanced filter options](##advanced-filter-options).
+The query accepts the following options. For descriptions of each, see [Advanced filter options](#advanced-filter-options).
 
 ```json
 GET _search
@@ -114,7 +116,7 @@ GET _search
 }
 ```
 
-The query accepts the following options. For descriptions of each, see [Advanced filter options](##advanced-filter-options).
+The query accepts the following options. For descriptions of each, see [Advanced filter options](#advanced-filter-options).
 
 ```json
 GET _search
@@ -145,7 +147,6 @@ GET _search
 
 The `match_bool_prefix` query analyzes the provided search string and creates a `bool` query from the string's terms. It uses every term except the last term as a whole word for matching. The last term is used as a prefix. The `match_bool_prefix` query returns documents that contain either the whole-word terms or terms that start with the prefix term, in any order.
 
-
 ```json
 GET _search
 {
@@ -157,7 +158,7 @@ GET _search
 }
 ```
 
-The query accepts the following options. For descriptions of each, see [Advanced filter options](##advanced-filter-options).
+The query accepts the following options. For descriptions of each, see [Advanced filter options](#advanced-filter-options).
 
 ```json
 GET _search
@@ -180,6 +181,7 @@ GET _search
 ```
 
 For more reference information about prefix queries, see the [Lucene documentation](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/PrefixQuery.html).
+
 ### Match phrase
 
 Use the `match_phrase` query to match documents that contain an exact phrase in a specified order. You can add flexibility to phrase matching by providing the `slop` parameter.
@@ -197,7 +199,7 @@ GET _search
 }
 ```
 
-The query accepts the following options. For descriptions of each, see [Advanced filter options](##advanced-filter-options).
+The query accepts the following options. For descriptions of each, see [Advanced filter options](#advanced-filter-options).
 
 ```json
 GET _search
@@ -232,7 +234,7 @@ GET _search
 }
 ```
 
-The query accepts the following options. For descriptions of each, see [Advanced filter options](##advanced-filter-options).
+The query accepts the following options. For descriptions of each, see [Advanced filter options](#advanced-filter-options).
 
 ```json
 GET _search
@@ -267,7 +269,7 @@ GET _search
 }
 ```
 
-The query accepts the following options. For descriptions of each, see [Advanced filter options](##advanced-filter-options).
+The query accepts the following options. For descriptions of each, see [Advanced filter options](#advanced-filter-options).
 
 ```json
 GET _search
@@ -308,7 +310,7 @@ GET _search
 }
 ```
 
-The query accepts the following options. For descriptions of each, see [Advanced filter options](##advanced-filter-options).
+The query accepts the following options. For descriptions of each, see [Advanced filter options](#advanced-filter-options).
 
 ```json
 GET _search
@@ -364,10 +366,10 @@ Special character | Behavior
 `*` | Acts as a wildcard.
 `""` | Wraps several terms into a phrase.
 `()` | Wraps a clause for precedence.
-`~n` | When used after a term (for example, `wnid~3`), sets `fuzziness`. When used after a phrase, sets `slop`. [Advanced filter options](##advanced-filter-options).
+`~n` | When used after a term (for example, `wnid~3`), sets `fuzziness`. When used after a phrase, sets `slop`. [Advanced filter options](#advanced-filter-options).
 `-` | Negates the term.
 
-The query accepts the following options. For descriptions of each, see [Advanced filter options](##advanced-filter-options).
+The query accepts the following options. For descriptions of each, see [Advanced filter options](#advanced-filter-options).
 
 ```json
 GET _search
@@ -435,7 +437,7 @@ Option | Valid values | Description
 Option | Valid values | Description
 :--- | :--- | :---
 `fuzziness` | `AUTO`, `0`, or a positive integer | The number of character edits (insert, delete, substitute) that it takes to change one word to another when determining whether a term matched a value. For example, the distance between `wined` and `wind` is 1. The default, `AUTO`, chooses a value based on the length of each term and is a good choice for most use cases.
-`fuzzy_transpositions` | Boolean | Setting `fuzzy_transpositions` to true (default) adds swaps of adjacent characters to the insert, delete, and substitute operations of the `fuzziness` option. For example, the distance between `wind` and `wnid` is 1 if `fuzzy_transpositions` is true (swap "n" and "i") and 2 if it is false (delete "n", insert "n"). <br /><br />If `fuzzy_transpositions` is false, `rewind` and `wnid` have the same distance (2) from `wind`, despite the more human-centric opinion that `wnid` is an obvious typo. The default is a good choice for most use cases.
+`fuzzy_transpositions` | Boolean | Setting `fuzzy_transpositions` to true (default) adds swaps of adjacent characters to the insert, delete, and substitute operations of the `fuzziness` option. For example, the distance between `wind` and `wnid` is 1 if `fuzzy_transpositions` is true (swap "n" and "i") and 2 if it is false (delete "n", insert "n"). If `fuzzy_transpositions` is false, `rewind` and `wnid` have the same distance (2) from `wind`, despite the more human-centric opinion that `wnid` is an obvious typo. The default is a good choice for most use cases.
 `fuzzy_max_expansions` | Positive integer | Fuzzy queries "expand to" a number of matching terms that are within the distance specified in `fuzziness`. Then OpenSearch tries to match those terms against its indexes.
 
 ### Synonyms in a multiple terms search
