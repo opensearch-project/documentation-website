@@ -7,7 +7,7 @@ nav_order: 40
 
 # Full-text query types and options
 
-This page lists all full-text query types and common options. There are many optional fields you can use to create subtle search behaviors, so we recommend that you test out some basic query types against representative indexes and verify the output before you do more advanced or complex searches with multiple options.
+This page lists all full-text query types and common options. There are many optional fields that you can use to create subtle search behaviors, so we recommend that you test out some basic query types against representative indexes and verify the output before you do more advanced or complex searches with multiple options.
 
 OpenSearch uses the Apache Lucene search library that provides highly efficient data structures and algorithms for ingesting, indexing, searching, and aggregating data.
 
@@ -71,7 +71,7 @@ curl --insecure -XGET -u 'admin:admin' https://<host>:<port>/<index>/_search \
   }'
 ```
 
-The query accepts the following options. For descriptions of each, see [Optional Query Fields](#optional-query-fields).
+The query accepts the following options. For descriptions of each, see [Advanced filter options](##advanced-filter-options).
 
 ```json
 GET _search
@@ -114,7 +114,7 @@ GET _search
 }
 ```
 
-The query accepts the following options. For descriptions of each, see [Optional Query Fields](#optional-query-fields).
+The query accepts the following options. For descriptions of each, see [Advanced filter options](##advanced-filter-options).
 
 ```json
 GET _search
@@ -157,7 +157,7 @@ GET _search
 }
 ```
 
-The query accepts the following options. For descriptions of each, see [Optional Query Fields](#optional-query-fields).
+The query accepts the following options. For descriptions of each, see [Advanced filter options](##advanced-filter-options).
 
 ```json
 GET _search
@@ -197,7 +197,7 @@ GET _search
 }
 ```
 
-The query accepts the following options. For descriptions of each, see [Optional Query Fields](#optional-query-fields).
+The query accepts the following options. For descriptions of each, see [Advanced filter options](##advanced-filter-options).
 
 ```json
 GET _search
@@ -232,7 +232,7 @@ GET _search
 }
 ```
 
-The query accepts the following options. For descriptions of each, see [Optional Query Fields](#optional-query-fields).
+The query accepts the following options. For descriptions of each, see [Advanced filter options](##advanced-filter-options).
 
 ```json
 GET _search
@@ -267,7 +267,7 @@ GET _search
 }
 ```
 
-The query accepts the following options. For descriptions of each, see [Optional Query Fields](#optional-query-fields).
+The query accepts the following options. For descriptions of each, see [Advanced filter options](##advanced-filter-options).
 
 ```json
 GET _search
@@ -308,7 +308,7 @@ GET _search
 }
 ```
 
-The query accepts the following options. For descriptions of each, see [Optional Query Fields](#optional-query-fields).
+The query accepts the following options. For descriptions of each, see [Advanced filter options](##advanced-filter-options).
 
 ```json
 GET _search
@@ -364,10 +364,10 @@ Special character | Behavior
 `*` | Acts as a wildcard.
 `""` | Wraps several terms into a phrase.
 `()` | Wraps a clause for precedence.
-`~n` | When used after a term (e.g. `wnid~3`), sets `fuzziness`. When used after a phrase, sets `slop`. See [Optional Query Fields](#optional-query-fields).
+`~n` | When used after a term (e.g. `wnid~3`), sets `fuzziness`. When used after a phrase, sets `slop`. [Advanced filter options](##advanced-filter-options).
 `-` | Negates the term.
 
-The query accepts the following options. For descriptions of each, see [Optional Query Fields](#optional-query-fields).
+The query accepts the following options. For descriptions of each, see [Advanced filter options](##advanced-filter-options).
 
 ```json
 GET _search
