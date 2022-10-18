@@ -13,7 +13,7 @@ OpenSearch uses the Apache Lucene search library that provides highly efficient 
 
 To learn more about search query classes, see [Lucene query JavaDocs](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/Query.html).
 
-To convert unstructured text into the format that you need, you can use the text analyzers. To learn more about how to convert unstructured text into structured text that is optimized for search, see [Text analyzers]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/text-analyzers).
+The full-text query types shown in this section use the standard analyzer that analyzes the text automatically. To learn more about how to convert unstructured text into the format that you need,see [Text analyzers]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/text-analyzers).
 {: .note }
 
 <!-- to do: rewrite query type definitions per issue: https://github.com/opensearch-project/documentation-website/issues/1116
@@ -419,7 +419,7 @@ GET _search
 -->
 ## Advanced filter options
 
-You can filter your query results by using some of the optional query fields, such as wildcards, fuzzy query fields, and synonyms.
+You can filter your query results by using some of the optional query fields, such as wildcards, fuzzy query fields, and synonyms. You can also use analyzers as optional query fields. To learn more, see [How to use analyzers]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/text-analyzers/#how-to-use-text-analyzers).
 
 ### Wildcard options
 
