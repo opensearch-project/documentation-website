@@ -34,7 +34,7 @@ Common terms queries and the optional query field `cutoff_frequency` are now dep
 OpenSearch Query DSL provides multiple query types that you can use in your searches. 
 ### Match
 
-Use the `match` query type to specify fields that you want returned in a search. Specify the terms that you want each field to match. Documents that contain that term will be returned in the search results.
+Use the `match` query for full-text search on a specific document field. The `match` query analyzes the provided search string and returns documents that match any of the string's terms.
 
 You can use boolean query operators to combine searches.
 
