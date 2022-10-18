@@ -14,7 +14,8 @@ The following naming conventions should be observed in OpenSearch Project conten
 
 * Capitalize both words when referring to the *OpenSearch Project*. The OpenSearch Project has three products:  OpenSearch, OpenSearch Dashboards, and Data Prepper.
 * *OpenSearch* is the name for the distributed search and analytics engine used by Amazon OpenSearch Service.
-* Refer to managed services, such as *Amazon OpenSearch Service*, by using their full names on first appearance. The abbreviated service name, if one exists, may be used for subsequent appearances. 
+* *Amazon OpenSearch Service* is a managed service that securely unlocks real-time search, monitoring, and analysis of business and operational data for use cases like application monitoring, log analytics, observability, and website search.
+* Refer to managed services, such as Amazon OpenSearch Service, by using their full names on first appearance. The abbreviated service name, if one exists, may be used for subsequent appearances. 
 * OpenSearch Dashboards is the UI for OpenSearch. On first appearance, use the full name *OpenSearch Dashboards*. *Dashboards* may be used for subsequent appearances. 
 * Refer to OpenSearch Project customers as *users*, and refer to the larger group of users as *the community* or *the OpenSearch community*.
 
