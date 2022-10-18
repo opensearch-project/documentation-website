@@ -7,7 +7,7 @@ nav_order: 40
 
 # Full-text query types and options
 
-This page lists all full-text query types and common options. There are many optional fields that you can use to create subtle search behaviors, so we recommend that you test out some basic query types against representative indexes and verify the output before you do more advanced or complex searches with multiple options.
+This page lists all full-text query types and common options. There are many optional fields that you can use to create subtle search behaviors, so we recommend that you test out some basic query types against representative indexes and verify the output before you perform more advanced or complex searches with multiple options.
 
 OpenSearch uses the Apache Lucene search library, which provides highly efficient data structures and algorithms for ingesting, indexing, searching, and aggregating data.
 
@@ -36,9 +36,9 @@ Common terms queries and the optional query field `cutoff_frequency` are now dep
 OpenSearch Query DSL provides multiple query types that you can use in your searches. 
 ### Match
 
-Use the `match` query for full-text search on a specific document field. The `match` query analyzes the provided search string and returns documents that match any of the string's terms.
+Use the `match` query for full-text search of a specific document field. The `match` query analyzes the provided search string and returns documents that match any of the string's terms.
 
-You can use boolean query operators to combine searches.
+You can use Boolean query operators to combine searches.
 
 <!-- we don't need to include Lucene query definitions >
 Creates a [boolean query](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/BooleanQuery.html) that returns results if the search term is present in the field.
@@ -96,7 +96,7 @@ GET _search
 }
 ```
 
-### Multi match
+### Multi-match
 
 You can use the `multi_match` query type to search multiple fields. Multi-match operation functions similarly to the [match](#match) operation.
 
@@ -141,9 +141,9 @@ GET _search
 }
 ```
 
-### Match boolean prefix
+### Match Boolean prefix
 
-The `match_bool_prefix` query analyzes the provided search string and creates a `bool` query from the the string's terms. It uses every term except the last term as a whole word for matching. The last term is used as a prefix. The `match_bool_prefix` query returns documents that contain either the whole-word terms or terms that start with the prefix term, in any order.
+The `match_bool_prefix` query analyzes the provided search string and creates a `bool` query from the string's terms. It uses every term except the last term as a whole word for matching. The last term is used as a prefix. The `match_bool_prefix` query returns documents that contain either the whole-word terms or terms that start with the prefix term, in any order.
 
 
 ```json
@@ -179,10 +179,10 @@ GET _search
 }
 ```
 
-For more reference information about prefix queries, see [Lucene documentation](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/PrefixQuery.html).
+For more reference information about prefix queries, see the [Lucene documentation](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/PrefixQuery.html).
 ### Match phrase
 
-Use the `match_phrase` query to match documents that contain the exact phrase in the specified order. You can add flexibility to phrase matching by providing the `slop` parameter.
+Use the `match_phrase` query to match documents that contain an exact phrase in a specified order. You can add flexibility to phrase matching by providing the `slop` parameter.
 
 Creates a [phrase query](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/PhraseQuery.html) that matches a sequence of terms.
 
@@ -217,7 +217,7 @@ GET _search
 
 ### Match phrase prefix
 
-Use the `match_phrase_prefix` query to specify the phrase to match in order. The documents that contain the phrase you specify will be returned. The last partial term in the phrase is interpreted as a prefix, so any documents that contain phrases that begin with the phrase and prefix on the last term will be returned.
+Use the `match_phrase_prefix` query to specify a phrase to match in order. The documents that contain the phrase you specify will be returned. The last partial term in the phrase is interpreted as a prefix, so any documents that contain phrases that begin with the phrase and prefix on the last term will be returned.
 
 Similar to [match phrase](#match-phrase), but creates a [prefix query](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/PrefixQuery.html) out of the last term in the query string.
 
@@ -364,7 +364,7 @@ Special character | Behavior
 `*` | Acts as a wildcard.
 `""` | Wraps several terms into a phrase.
 `()` | Wraps a clause for precedence.
-`~n` | When used after a term (e.g. `wnid~3`), sets `fuzziness`. When used after a phrase, sets `slop`. [Advanced filter options](##advanced-filter-options).
+`~n` | When used after a term (for example, `wnid~3`), sets `fuzziness`. When used after a phrase, sets `slop`. [Advanced filter options](##advanced-filter-options).
 `-` | Negates the term.
 
 The query accepts the following options. For descriptions of each, see [Advanced filter options](##advanced-filter-options).
@@ -394,7 +394,7 @@ GET _search
 
 ### Match all
 
-The `match_all` query type will return all documents. This type can be useful to test large document sets if you need to return the entire set.
+The `match_all` query type will return all documents. This type can be useful in testing large document sets if you need to return the entire set.
 
 ```json
 GET _search
@@ -442,7 +442,7 @@ Option | Valid values | Description
 
 You can also use synonyms with the `terms` query type to search for multiple terms. Use the `auto_generate_synonyms_phrase_query` Boolean field. By default it is set to `true`. It automatically generates phrase queries for multiple term synonyms. For example, if you have the synonym `"ba, batting average"` and search for "ba," OpenSearch searches for `ba OR "batting average"` when the option is `true` or `ba OR (batting AND average)` when the option is `false`.
 
-To learn more about the multiple terms query type, see [Terms]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/term/#terms). For more reference information about phrase queries, see [Lucene documentation](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/PhraseQuery.html).
+To learn more about the multiple terms query type, see [Terms]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/term/#terms). For more reference information about phrase queries, see the [Lucene documentation](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/PhraseQuery.html).
 
 ### Other advanced options
 
