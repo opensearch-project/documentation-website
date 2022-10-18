@@ -22,7 +22,7 @@ POST /_analyze
 POST /{index}/_analyze
 ```
 
-Although you can issue anlayzer requests via both `GET` and `POST` requests, the two have important distinctions. A `GET` request causes data to be cached in the index so the next time the data is requested, it is retrieved faster. A `POST` request sends a string that does not already exist to the analyzer to be compared to data already in the index. `POST` requests are not cached.
+Although you can issue an analyzer request via both `GET` and `POST` requests, the two have important distinctions. A `GET` request causes data to be cached in the index so the next time the data is requested, it is retrieved faster. A `POST` request sends a string that does not already exist to the analyzer to be compared to data already in the index. `POST` requests are not cached.
 {: .note}
 
 ## Path parameter
@@ -31,7 +31,7 @@ You can include the following optional path parameter in your request.
 
 Parameter | Data Type | Description
 :--- | :--- | :---
-index | String | Index that is used to derive the analyser.
+index | String | Index that is used to derive the analyzer.
 
 ## Query parameters
 
@@ -433,7 +433,7 @@ The previous request returns the following fields:
 
 #### Derive the analyzer from an index field
 
-You pass text and a field in the index. The API looks up the field's analyzer and uses that analyzer to analyes the text. 
+You can pass text and a field in the index. The API looks up the field's analyzer and uses it to analyze the text.
 
 If the mapping does not exist, the API uses the standard analyzer, which converts all text to lower case and tokenizes based on white space.
 
@@ -481,7 +481,7 @@ The previous request returns the following fields:
 
 Instead of using a keyword field, you can use the normalizer associated with the index. A normalizer causes the analysis change to produce a single token.
 
-In this example, the `books2` index includes a normalizer called `to_lower_fold_ascii` that converts text to lower case and translates non-ascii text to ascii.
+In this example, the `books2` index includes a normalizer called `to_lower_fold_ascii` that converts text to lower case and translates non-ASCII text to ASCII.
 
 The following request applies `to_lower_fold_ascii` to the text.
 
@@ -623,7 +623,7 @@ The previous request returns the following fields:
 
 #### Set a token limit
 
-You can set a limit to the number of tokens generated. Setting lower vaues reduces a node's memory usage. The default value is 10000.
+You can set a limit to the number of tokens generated. Setting lower values reduces a node's memory usage. The default value is 10000.
 
 The following request limits the tokens to four:
 
