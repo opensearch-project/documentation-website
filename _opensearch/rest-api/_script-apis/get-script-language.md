@@ -8,7 +8,7 @@ nav_order: 6
 
 ## Get script language
 
-Retrieves all supported script languages and their contexts.
+The get script language API operation retrieves all supported script languages and their contexts.
 
 #### Sample request
 
@@ -94,6 +94,6 @@ The request contains the following response fields.
 Field | Data Type | Description | 
 :--- | :--- | :---
 types_allowed | List of strings | The types of scripts that are enabled, determined by the `script.allowed_types` setting. May contain `inline` and/or `stored`.
-language_contexts | List of objects | A list of objects, each of which is a map of a supported language to its available contexts.
+language_contexts | List of objects | A list of objects, each of which maps a supported language to its available contexts.
 language_contexts.language | String | The name of the registered scripting language.
 language_contexts.contexts | List of strings | A list of all contexts for the language, determined by the `script.allowed_contexts` setting.
