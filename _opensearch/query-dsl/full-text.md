@@ -9,7 +9,7 @@ nav_order: 40
 
 This page lists all full-text query types and common options. There are many optional fields that you can use to create subtle search behaviors, so we recommend that you test out some basic query types against representative indexes and verify the output before you do more advanced or complex searches with multiple options.
 
-OpenSearch uses the Apache Lucene search library that provides highly efficient data structures and algorithms for ingesting, indexing, searching, and aggregating data.
+OpenSearch uses the Apache Lucene search library, which provides highly efficient data structures and algorithms for ingesting, indexing, searching, and aggregating data.
 
 To learn more about search query classes, see [Lucene query JavaDocs](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/Query.html).
 
