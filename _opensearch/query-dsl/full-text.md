@@ -13,7 +13,9 @@ OpenSearch uses the Apache Lucene search library that provides highly efficient 
 
 To learn more about search query classes, see [Lucene query JavaDocs](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/Query.html).
 
-The full-text query types shown in this section use the standard analyzer that analyzes the text automatically. To learn more about how to convert unstructured text into the format that you need,see [Text analyzers]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/text-analyzers).
+The full-text query types shown in this section use the standard analyzer that analyzes text automatically when the query is submitted.
+
+You can also analyze fields when you index them. To learn more about how to convert unstructured text into structured text that is optimized for search, see [Text analyzers]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/text-analyzers).
 {: .note }
 
 <!-- to do: rewrite query type definitions per issue: https://github.com/opensearch-project/documentation-website/issues/1116
