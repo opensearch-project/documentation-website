@@ -39,6 +39,14 @@ opensearch_security.auth.type: ["basicauth","saml"]
 opensearch_security.auth.type: ["basicauth","saml","openid"]
 ```
 
+When the `opensearch_security.auth.type` setting contains `basicauth` and one other authentication type, the sign-in window appears as in the example below.
+
+<img src="{{site.url}}{{site.baseurl}}/images/Security/OneOptionWithoutLogo.png" alt="Basic authentication and one other type in the sign-in window" width="350">
+
+With all three valid authentication types specified, the sign-in window appears as in the following example:
+
+<img src="{{site.url}}{{site.baseurl}}/images/Security/TwoOptionWithoutLogo.png" alt="All three authentication types specified in the sign-in window" width="350">
+
 When setting up Dashboards for multi-option authentication, basic authentication is always required as one of the values for the setting.
 {: .note }
 
@@ -46,7 +54,7 @@ When setting up Dashboards for multi-option authentication, basic authentication
 
 In addition to the essential sign-in settings for each authentication type, you can configure additional settings in the `opensearch_dashboards.yml` file to customize the sign-in window so that it clearly represents the options that are available. For example, you can replace the label on the sign-in button with the name and icon of the IdP. Use the settings below to change the look and feel of the different options.
 
-<img src="{{site.url}}{{site.baseurl}}/images/Security/Multi-opt-auth.png" alt="Multi-option sign-in window" width="350">
+<img src="{{site.url}}{{site.baseurl}}/images/Security/TwoOptionWithLogo.png" alt="Multi-option sign-in window with with some customization" width="350">
 
 ### Basic authentication settings
 
@@ -56,8 +64,7 @@ Setting | Description | Default value
 :--- | :--- |:--- |:--- |
 `opensearch_security.ui.basicauth.login.buttonname` |  Display name for the login button | Log in 
 `opensearch_security.ui.basicauth.login.brandimage` |  Login button logo. Supported file types are SVG, PNG, and GIF. | null 
-`opensearch_security.ui.basicauth.login.showbrandimage` |  Determines whether a logo for the login button is displayed or not. | true 
-`opensearch_security.ui.basicauth.login.buttonstyle` |  Login button style (what are other options for this setting? Styled in what way?) | btn-login 
+`opensearch_security.ui.basicauth.login.showbrandimage` |  Determines whether a logo for the login button is displayed or not. | true  
 
 ### OpenID Connect authentication settings
 
@@ -68,7 +75,6 @@ Setting | Description | Default value
 `opensearch_security.ui.openid.login.buttonname` |  Display name for the login button | Log in with single sign-on
 `opensearch_security.ui.openid.login.brandimage` |  Login button logo. Supported file types are SVG, PNG, and GIF. | null
 `opensearch_security.ui.openid.login.showbrandimage` |  Determines whether a logo for the login button is displayed or not. | false
-`opensearch_security.ui.openid.login.buttonstyle` |  Login button style (what are other options for this setting? Styled in what way?) | btn-login
 
 ### SAML authentication settings
 
@@ -79,5 +85,4 @@ Setting | Description | Default value
 `opensearch_security.ui.saml.login.buttonname` |  Display name for the login button | Log in
 `opensearch_security.ui.saml.login.brandimage` |  Login button logo. Supported file types are SVG, PNG, and GIF. | null
 `opensearch_security.ui.saml.login.showbrandimage` |  Determines whether a logo for the login button is displayed or not. | false
-`opensearch_security.ui.saml.login.buttonstyle` |  Login button style (what are other options for this setting? Styled in what way?) | btn-login
 
