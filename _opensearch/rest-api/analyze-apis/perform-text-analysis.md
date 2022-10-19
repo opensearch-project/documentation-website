@@ -1,14 +1,14 @@
 ---
 layout: default
 title: Perform text analysis
-parent: Analyze APIs
+parent: Analyze API
 grand_parent: REST API reference
 nav_order: 2
 ---
 
 # Perform text analysis
 
-Analyzes a text string and returns the resulting tokens.
+The perform text analysis API analyzes a text string and returns the resulting tokens.
 
 If you use the security plugin, you must have the `manage index` privilege. If you simply want to analyze text, you must have the `manager cluster` privilege.
 {: .note}
@@ -22,7 +22,7 @@ POST /_analyze
 POST /{index}/_analyze
 ```
 
-Although you can issue an analyzer request via both `GET` and `POST` requests, the two have important distinctions. A `GET` request causes data to be cached in the index so the next time the data is requested, it is retrieved faster. A `POST` request sends a string that does not already exist to the analyzer to be compared to data already in the index. `POST` requests are not cached.
+Although you can issue an analyzer request via both `GET` and `POST` requests, the two have important distinctions. A `GET` request causes data to be cached in the index so that the next time the data is requested, it is retrieved faster. A `POST` request sends a string that does not already exist to the analyzer to be compared to data that is already in the index. `POST` requests are not cached.
 {: .note}
 
 ## Path parameter
@@ -39,7 +39,7 @@ You can include the following optional query parameters in your request.
 
 Field | Data Type | Description
 :--- | :--- | :---
-analyzer | String | The name of the analyzer to apply to the `text` field. The analyzer can be built-in or configured in the index.<br /><br />If `analyzer` is not specified, the analyze API uses the analyzer defined in the mapping of the `field` field.<br /><br />If the `field` field is not specified, the analyze API uses the default analyzer for the index.<br /><br > If no index is specified or the index does not have a default analyzer, the analyze API uses the standard analyzer.
+analyzer | String | The name of the analyzer to apply to the `text` field. The analyzer can be built in or configured in the index.<br /><br />If `analyzer` is not specified, the analyze API uses the analyzer defined in the mapping of the `field` field.<br /><br />If the `field` field is not specified, the analyze API uses the default analyzer for the index.<br /><br > If no index is specified or the index does not have a default analyzer, the analyze API uses the standard analyzer.
 attributes | Array of Strings | Array of token attributes for filtering the output of the `explain` field.
 char_filter | Array of Strings | Array of character filters for preprocessing characters before the `tokenizer` field.
 explain | Boolean | If true, causes the response to include token attributes and additional details. Defaults to `false`.
@@ -50,9 +50,9 @@ tokenizer | String | Tokenizer for converting the `text` field into tokens.
 
 The following query parameter is required.
 
-| Field | Data Type | Description
+Field | Data Type | Description
 :--- | :--- | :---
-text | String or Array of Strings | Text to analyze. If you provide an array of strings, it is analyzed as a multi-value field.
+text | String or Array of Strings | Text to analyze. If you provide an array of strings, the text is analyzed as a multi-value field.
 
 #### Sample requests
 
@@ -76,7 +76,7 @@ text | String or Array of Strings | Text to analyze. If you provide an array of 
 
 #### Analyze array of text strings
 
-When you pass an array of strings to the `text` field it is analyzed as a multi-value field.
+When you pass an array of strings to the `text` field, it is analyzed as a multi-value field.
 
 ````json
 GET /_analyze
@@ -185,7 +185,7 @@ The previous request returns the following fields:
 
 You can create your own analyzer and specify it in an analyze request.
 
-In this scenario, a custom analyzer `lowercase_ascii_folding` has been created and associated with the `books2` index. The analyzer converts text to lower case and converts non-ascii characters to ascii. 
+In this scenario, a custom analyzer `lowercase_ascii_folding` has been created and associated with the `books2` index. The analyzer converts text to lowercase and converts non-ASCII characters to ASCII.
 
 The following request applies the custom analyzer to the provided text:
 
@@ -236,9 +236,9 @@ The previous request returns the following fields:
 
 #### Apply a custom transient analyzer
 
-You can build a custom transient analyzer from tokenizers, token filters, and character filters. Use the `filter` parameter to specify token filters.
+You can build a custom transient analyzer from tokenizers, token filters, or character filters. Use the `filter` parameter to specify token filters.
 
-The following request uses the `uppercase` character filter to convert the text to upper case:
+The following request uses the `uppercase` character filter to convert the text to uppercase:
 
 ````json
 GET /_analyze
@@ -266,7 +266,7 @@ The previous request returns the following fields:
 ````
 <hr />
 
-The following request uses the `html_strip` filter to remove html characters from the text:
+The following request uses the `html_strip` filter to remove HTML characters from the text:
 
 ````json
 GET /_analyze
@@ -362,7 +362,7 @@ The previous request returns the following fields:
 
 #### Specify an index
 
-You can analyze text using an index's default analyzer or you can specify a different analyzer.
+You can analyze text using an index's default analyzer, or you can specify a different analyzer.
 
 The following request analyzes the provided text using the default analyzer associated with the `books` index:
 
@@ -435,9 +435,9 @@ The previous request returns the following fields:
 
 You can pass text and a field in the index. The API looks up the field's analyzer and uses it to analyze the text.
 
-If the mapping does not exist, the API uses the standard analyzer, which converts all text to lower case and tokenizes based on white space.
+If the mapping does not exist, the API uses the standard analyzer, which converts all text to lowercase and tokenizes based on white space.
 
-The following request causes the analysis to be based on the mapping for `name`. 
+The following request causes the analysis to be based on the mapping for `name`:
 
 ````json
 GET /books2/_analyze
@@ -481,9 +481,9 @@ The previous request returns the following fields:
 
 Instead of using a keyword field, you can use the normalizer associated with the index. A normalizer causes the analysis change to produce a single token.
 
-In this example, the `books2` index includes a normalizer called `to_lower_fold_ascii` that converts text to lower case and translates non-ASCII text to ASCII.
+In this example, the `books2` index includes a normalizer called `to_lower_fold_ascii` that converts text to lowercase and translates non-ASCII text to ASCII.
 
-The following request applies `to_lower_fold_ascii` to the text.
+The following request applies `to_lower_fold_ascii` to the text:
 
 ````json
 GET /books2/_analyze
@@ -513,7 +513,7 @@ The previous request returns the following fields:
 
 You can create a custom transient normalizer with token and character filters.
 
-The following request uses the `uppercase` character filter to convert the given text to all upper case:
+The following request uses the `uppercase` character filter to convert the given text to all uppercase:
 
 ````json
 GET /_analyze
@@ -543,7 +543,7 @@ The previous request returns the following fields:
 
 You can obtain additional details for all tokens by setting the `explain` attribute to `true`.
 
-The following request provides detail token information for the `reverse` filter used with the `standard` tokenizer. 
+The following request provides detailed token information for the `reverse` filter used with the `standard` tokenizer:
 
 ````json
 GET /_analyze
@@ -623,7 +623,7 @@ The previous request returns the following fields:
 
 #### Set a token limit
 
-You can set a limit to the number of tokens generated. Setting lower values reduces a node's memory usage. The default value is 10000.
+You can set a limit to the number of tokens generated. Setting a lower value reduces a node's memory usage. The default value is 10000.
 
 The following request limits the tokens to four:
 
@@ -640,7 +640,7 @@ The preceding request is an index API rather than an analyze API. See [DYNAMIC I
 
 ### Response fields
 
-The text analysis endpoints return the following response fields:
+The text analysis endpoints return the following response fields.
 
 Field | Data Type | Description
 :--- | :--- | :---
@@ -652,18 +652,18 @@ detail | Object | Details about the analysis and each token. Included only when 
 Field | Data Type | Description
 :--- | :--- | :---
 token  | String | The token's text.
-start_offset | Integer | Token's starting position within the original text string. Offsets are zero-based.
-end_offset | Integer | Token's ending position within the original text string.
-type | String | Classification of the token. `<ALPHANUM>`, `<NUM>`, and so on. The tokenizer usually sets the type, but some filters define their own types. For example, the synonym filter defines the `<SYNONYM>` type.
-position |  Integer | Token's position within the `tokens` array.
+start_offset | Integer | The token's starting position within the original text string. Offsets are zero-based.
+end_offset | Integer | The token's ending position within the original text string.
+type | String | Classification of the token: `<ALPHANUM>`, `<NUM>`, and so on. The tokenizer usually sets the type, but some filters define their own types. For example, the synonym filter defines the `<SYNONYM>` type.
+position |  Integer | The token's position within the `tokens` array.
 
 #### Detail object
 
 Field | Data Type | Description
 :--- | :--- | :---
-custom_analyzer | Boolean | Whether the analyzer applied to the text is custom or built-in.
+custom_analyzer | Boolean | Whether the analyzer applied to the text is custom or built in.
 charfilters | Array | List of character filters applied to the text.
-tokenizer | Object | Name of tokenizer applied to the text and list of tokens<sup>*</sup> with content before token filters were applied.
+tokenizer | Object | Name of the tokenizer applied to the text and a list of tokens<sup>*</sup> with content before the token filters were applied.
 tokenfilters | Array | List of token filters applied to the text. Each token filter includes the filter's name and a list of tokens<sup>*</sup> with content after the filters were applied. Token filters are listed in the order they are specified in the request. 
 
 See [token object](#token-object) for token field descriptions.

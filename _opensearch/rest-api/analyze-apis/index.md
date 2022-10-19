@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Analyze APIs
+title: Analyze API
 parent: REST API reference
 has_children: true
 nav_order: 7
@@ -10,4 +10,4 @@ redirect_from:
 
 # Analyze API
 
-The analyze APIs allows you to perform text analysis, which is the process of converting unstructured text into individual tokens (usually words) that are optimized for search.
+The analyze API allows you to perform text analysis, which is the process of converting unstructured text into individual tokens (usually words) that are optimized for search.
