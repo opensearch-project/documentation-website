@@ -49,8 +49,12 @@ Each analyzer consists of one tokenizer and zero or more token filters. Differen
   }
   ```
 
+## Analyzer options
 
-
+Option | Valid values | Description
+:--- | :--- | :---
+`analyzer` | `standard, simple, whitespace, stop, keyword, pattern, language, fingerprint` | The analyzer you want to use for the query. Different analyzers have different character filters, tokenizers, and token filters. The `stop` analyzer, for example, removes stop words (for example, "an," "but," "this") from the query string. For a full list of acceptable language values, see [Language analyzer](#language-analyzer) on this page.
+`quote_analyzer` | String | This option lets you choose to use the standard analyzer without any options, such as `language` or other analyzers. Usage is `"quote_analyzer": "standard"`.
 
 <!-- This is a list of the 7 individual new pages we need to write
 If you want to select one of the text analyzers, see [Text analyzers reference]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/specialized-analyzers).
