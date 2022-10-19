@@ -77,7 +77,7 @@ Parameter | Stored values
 Storing positions is useful for proximity queries. Storing character offsets is useful for highlighting.
 {: .tip }
 
-## Example
+### Term vector parameter example
 
 Create a mapping with a text field that stores character offsets in a term vector:
 
