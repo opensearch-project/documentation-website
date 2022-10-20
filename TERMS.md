@@ -546,9 +546,13 @@ Avoid using. Use *separate* or *isolate* instead.
 
 **setting**
 
-Refers to the key-value pairs that create mappings in the various YAML configuration files used throughout OpenSearch. Sometimes alternatively called parameters, the programming language manipulating the key-value pair usually dictates the name of this mapping in a YAML file. For OpenSearch documentation (java) they are properly a `Setting` object.
+A key-value pair that creates a mapping in one of the many YAML configuration files used throughout OpenSearch. Sometimes alternatively called parameters, the programming language manipulating the key-value pair usually dictates the name of this mapping in a YAML file. For OpenSearch documentation (Java) they are properly a `Setting` object.
 
-As an example, the setting `plugins.security.audit.enable_rest: true` contains the key `plugins.security.audit.enable_rest` and the Boolean value `true`.
+The following examples of settings illustrate key-value pairs with a colon separating the two elements:
+
+`Settings.index.number_of_shards: 4`
+
+`plugins.security.audit.enable_rest: true`
 
 **set up (v.), setup (n., adj.)**
 
