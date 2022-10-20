@@ -29,7 +29,7 @@ Create a Docker volume to hold the tiles set:
 
 `docker volume create tiles-data`
 
-Download the tiles set from the OpenSearch maps service (planet tiles sets [0-8](https://maps.opensearch.org/offline/planet-osm-default-z0-z8.tar.gz) and [0-10](https://maps.opensearch.org/offline/planet-osm-default-z0-z10.tar.gz) are available):
+Download the tiles set from the OpenSearch maps service. Planet tiles sets 0-8 `https://maps.opensearch.org/offline/planet-osm-default-z0-z8.tar.gz` and 0-10 `https://maps.opensearch.org/offline/planet-osm-default-z0-z10.tar.gz` are available.
 
 ```
 docker run \
@@ -45,7 +45,7 @@ To generate the raster tiles images set, use the [raster tile generation pipelin
 
 ## Start the server
 
-Use the following command to start the server using the Docker volume `tiles-data`. The command below is an example using host url "localhost" and port "8080."  
+Use the following command to start the server using the Docker volume `tiles-data`. The command below is an example using host url "localhost" and port "8080".  
 
 ```
 docker run \
@@ -68,9 +68,9 @@ run
 
 To confirm the server is running, you should be able to access the following files on your localhost:  
 
-* [Maps manifest](http://localhost:8080/manifest.json)
-* [Maps tiles](http://localhost:8080/tiles/data/%7Bz%7D/%7Bx%7D/%7By%7D.png)
-* [Maps tiles demo](http://localhost:8080/) 
+* **Map manifest** `http://localhost:8080/manifest.json`
+* **Map tiles** `http://localhost:8080/tiles/data/{z}/{x}/{y}.png`
+* **Map tiles demo** `http://localhost:8080/`
 
 ## Use the self-host maps server with OpenSearch Dashboards
 
@@ -90,7 +90,7 @@ Configure the manifest url in `opensearch_dashboards.yml`:
 
 ## Licenses
 
-Tiles are generated per [Terms of Use for Natural Earth raster and vector map data](https://www.naturalearthdata.com/about/terms-of-use/) and [Copyright and License for OpenStreetMap](https://www.openstreetmap.org/copyright).
+Tiles are generated per [Terms of Use for Natural Earth vector map data](https://www.naturalearthdata.com/about/terms-of-use/) and [Copyright and License for OpenStreetMap](https://www.openstreetmap.org/copyright).
 
 ## Related links
 
