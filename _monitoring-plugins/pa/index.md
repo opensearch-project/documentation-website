@@ -299,5 +299,5 @@ Further documentation on the use of performance analyzer and RCA can be found at
 
 - [Performance analyzer API guide]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/api/).
 - [Root cause analysis]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/rca/index/).
-- [Root cause analysis API guide]({{site.url}}{{site.baseurl}}/latest/monitoring-plugins/pa/rca/api/).
+- [Root cause analysis API guide]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/rca/api/).
 - [RFC: Root cause analysis](https://github.com/opensearch-project/performance-analyzer-rca/blob/main/docs/rfc-rca.pdf).

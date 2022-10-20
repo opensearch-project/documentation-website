@@ -196,7 +196,7 @@ Parameter | Description | Type | Example | Required
 `aliases` | Aliases to add to the new index. | object | `myalias` | No, but must be an array of alias objects
 `force_unsafe` | If true, executes the shrink action even if there are no replicas. | boolean | `false` | No
 
-If you want to add `aliases` to the action, the parameter must include an array of [alias objects]({{site.url}}{{site.baseurl}}/opensearch/rest-api/alias/). For example,
+If you want to add `aliases` to the action, the parameter must include an array of [alias objects]({{site.url}}{{site.baseurl}}/api-reference/alias/). For example,
 
 ```json
 "aliases": [
