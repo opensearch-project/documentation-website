@@ -546,7 +546,7 @@ Avoid using. Use *separate* or *isolate* instead.
 
 **setting**
 
-A key-value pair that creates a mapping in one of the many YAML configuration files used throughout OpenSearch. Sometimes alternatively called parameters, the programming language manipulating the key-value pair usually dictates the name of this mapping in a YAML file. For OpenSearch documentation (Java) they are properly a `Setting` object.
+A key-value pair that creates a mapping in one of the many YAML configuration files used throughout OpenSearch. Sometimes alternatively called parameters, the programming language manipulating the key-value pair usually dictates the name of this mapping in a YAML file. For OpenSearch documentation (Java), they are properly a `Setting` object.
 
 The following examples of settings illustrate key-value pairs with a colon separating the two elements:
 
