@@ -21,7 +21,7 @@ Open your terminal and run the following command:
 
 ## Set up the server
 
-You must set up the map tiles before running the server. You have two setup options: use the OpenSearch-provided maps service tiles set or generate the raster tiles set.
+You must set up the map tiles before running the server. You have two setup options: Use the OpenSearch-provided maps service tiles set, or generate the raster tiles set.
 
 ### Option 1: Use the OpenSearch-provided maps service tiles set
 
@@ -51,7 +51,7 @@ To generate the raster tiles set, use the [raster tile generation pipeline](http
 
 ## Start the server
 
-Use the following command to start the server using the Docker volume `tiles-data`. The following command is an example using host URL "localhost" and port "8080".
+Use the following command to start the server using the Docker volume `tiles-data`. The following command is an example using host URL "localhost" and port "8080":
 
 ```
 docker run \
@@ -62,7 +62,7 @@ docker run \
     run
 ```
 
-Or, if you generated the raster tiles set, run the server using that tiles set. 
+Or, if you generated the raster tiles set, run the server using that tiles set:
 
 ```
 docker run \
@@ -71,10 +71,10 @@ docker run \
     opensearch/opensearch-maps-server \
     run
 ```
-To access the tiles set, open the URLs in a browser on the host or use cURL: `curl http://localhost:8080/manifest.json`. 
+To access the tiles set, open the URLs in a browser on the host or use the `curl` command `curl http://localhost:8080/manifest.json`. 
 
 
-To confirm the server is running, you can access the following files on your local host. To access the file, open the URLs in a browser on the host or use `curl http://localhost:8080/manifest.json`.
+Confirm the server is running by opening each of the following links in a browser on your host or with a `curl` command (for example, `curl http://localhost:8080/manifest.json`).
 
 * Map manifest URL: `http://localhost:8080/manifest.json`
 * Map tiles URL: `http://localhost:8080/tiles/data/{z}/{x}/{y}.png`
