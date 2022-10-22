@@ -29,5 +29,5 @@ To include the error stack trace in the response when an exception is raised, ad
 Example: `GET <index_name>/_search?error_trace=true` 
 
 ## Filtered responses 
-To reduce the response size use the `filter_path` parameter to filter the fields that are returned. This parameter takes a comma-separated list of filters. It supports using wildcards with to match any field or part of a field's name. You can also exclude fields with `-`.  
+To reduce the response size use the `filter_path` parameter to filter the fields that are returned. This parameter takes a comma-separated list of filters. It supports using wildcards to match any field or part of a field's name. You can also exclude fields with `-`.  
 Example: `GET _search?filter_path=<field_name>.*,-<field_name>`
