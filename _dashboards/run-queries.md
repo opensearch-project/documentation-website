@@ -27,7 +27,7 @@ Write your queries in the editor pane on the left side of the console:
 You can collapse and expand parts of your query by selecting the small triangles next to the line numbers.
 {: .tip}
 
-To learn more about writing queries in OpenSearch domain-specific language, see [Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl).
+To learn more about writing queries in OpenSearch domain-specific language (DSL), see [Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl).
 
 ### Comments
 
