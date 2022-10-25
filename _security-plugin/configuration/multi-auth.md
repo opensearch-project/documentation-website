@@ -106,7 +106,7 @@ opensearch_security.multitenancy.enabled: true
 opensearch_security.multitenancy.tenants.preferred: ["Private", "Global"]
 opensearch_security.readonly_mode.roles: ["<role_for_read_only>"]
 
-# Settings that enable multi-option authentication in sign-in window
+# Settings that enable multi-option authentication in sign-in window #
 opensearch_security.auth.multiple_auth_enabled: true
 opensearch_security.auth.type: ["basicauth","openid"]
 
@@ -125,7 +125,7 @@ opensearch_security.openid.verify_hostnames: false
 opensearch_security.openid.refresh_tokens: false
 opensearch_security.openid.logout_url: <"OIDC logout URL">
 
-opensearch_security.openid.connect_url: "<OIDC connect URL>"
+opensearch_security.openid.connect_url: <"OIDC connect URL">
 opensearch_security.openid.client_id: <Client ID>
 opensearch_security.openid.client_secret: <Client secret>
 ```
