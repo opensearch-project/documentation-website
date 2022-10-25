@@ -85,7 +85,7 @@ To import a query in cURL format, select the query, then select the wrench icon 
 
 ## Viewing documentation
 
-To view OpenSearch documentation, select the wrench icon, and choose **Open documentation**.
+To view the OpenSearch documentation, select the wrench icon, and choose **Open documentation**.
 
 ## Auto indenting
 
@@ -98,7 +98,7 @@ Auto indenting a well-formatted query puts the request body on a single line. Th
 
 ## Viewing your request history
 
-You can view up to 500 most recent requests that OpenSearch ran successfully. To view request history, select **History** from the top menu. If you select the request you want to view from the left pane, the query is shown in the right pane. 
+You can view up to the 500 most recent requests that OpenSearch ran successfully. To view request history, select **History** from the top menu. If you select the request you want to view from the left pane, the query is shown in the right pane. 
 
 To copy the query into the editor pane, select the query text and then select **Apply**. 
 
