@@ -179,12 +179,12 @@ Name | Description
 
 ### OpenSearch settings
 
-If you run a default OpenSearch installation, which listens on transport port 9300 and uses `opensearch` as a cluster name, you can omit the following settings altogether. Otherwise, specify your OpenSearch settings by using the following switches.
+If you run a default OpenSearch installation, which listens on port 9200 and uses `opensearch` as a cluster name, you can omit the following settings altogether. Otherwise, specify your OpenSearch settings by using the following switches.
 
 Name | Description
 :--- | :---
 `-h` | OpenSearch hostname. Default is `localhost`.
-`-p` | OpenSearch port. Default is 9300---not the HTTP port.
+`-p` | OpenSearch port. Default is 9200 - not the HTTP port.
 `-cn` | Cluster name. Default is `opensearch`.
 `-icl` | Ignore cluster name.
 `-sniff` | Sniff cluster nodes. Sniffing detects available nodes using the OpenSearch `_cluster/state` API.
