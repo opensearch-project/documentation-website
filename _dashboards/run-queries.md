@@ -47,7 +47,7 @@ OpenSearch displays the response in the response pane on the right side of the c
 
 <img src="{{site.url}}{{site.baseurl}}/images/dev-tools/dev-tools-response.png" alt="Response pane">{: .img-fluid }
 
-## Working in cURL and console formats
+## Working in the cURL and console formats
 
 The console uses an easier syntax to format REST requests than the `curl` command. 
 
