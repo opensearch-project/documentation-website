@@ -98,7 +98,7 @@ Auto indenting a well-formatted query puts the request body on a single line. Th
 
 ## Viewing your request history
 
-You can view up to 500 most recent requests that OpenSearch executed successfully. To view request history, select **History** from the top menu. If you select the request you want to view from the left pane, the query is shown in the right pane. 
+You can view up to 500 most recent requests that OpenSearch ran successfully. To view request history, select **History** from the top menu. If you select the request you want to view from the left pane, the query is shown in the right pane. 
 
 To copy the query into the editor pane, select the query text and then select **Apply**. 
 
