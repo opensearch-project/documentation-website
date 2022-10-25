@@ -11,13 +11,15 @@ You can configure the sign-in window for OpenSearch Dashboards to provide either
 
 ## General steps for configuring multi-option sign-in
 
-1. Decide which types of authentication are to be made available at sign-in.
-1. Configure each authentication type, including an authentication domain for the identification provider (IdP) and the essential settings that give each type sign-in access to OpenSearch Dashboards (see steps for each type in the Configuration section of the security documentation).
-1. Add and configure multi-option authentication sign-in settings in the `opensearch_dashboards.yml` file.
+1. Decide which types of authentication to make available at sign-in.
+1. Configure each authentication type, including an authentication domain for the identification provider (IdP) and the essential settings that give each type sign-in access to OpenSearch Dashboards (see steps for each authentication type in the Configuration section of the security documentation).
+1. Add, enable, and configure multi-option authentication sign-in settings in the `opensearch_dashboards.yml` file.
 
 ## Enabling multi-option sign-in
 
-The setting `opensearch_security.auth.type` determines whether the sign-in window provides for single- or multi-option authentication. You can add this setting to the `opensearch_dashboards.yml` file. By default, Dashboards provides a single sign-in environment for basic authentication. To specify the authentication type, enter a single type or multiple types as values. When more than one authentication type is added to the setting, the Dashboards sign-in window recognizes multiple types and adjusts to accommodate the sign-in options.
+By default, Dashboards provides a single sign-in environment for basic authentication. To enable multiple options for authentication at sign-in, begin by adding `opensearch_security.auth.multiple_auth_enabled` to the `opensearch_dashboards.yml` file and setting it to `true`.
+
+To specify the authentication types for multi-option sign-in, add the `opensearch_security.auth.type` setting to the `opensearch_dashboards.yml` file and enter multiple types as values. When more than one authentication type is added to the setting, the Dashboards sign-in window recognizes multiple types and adjusts to accommodate the sign-in options.
 
 For single sign-in, the authentication type is specified by adding a single type to the setting.
 
@@ -29,14 +31,17 @@ For multi-option authentication, add values to the setting as an array separated
 
 ```yml
 opensearch_security.auth.type: ["basicauth","openid"]
+opensearch_security.auth.multiple_auth_enabled: true
 ```
 
 ```yml
 opensearch_security.auth.type: ["basicauth","saml"]
+opensearch_security.auth.multiple_auth_enabled: true
 ```
 
 ```yml
 opensearch_security.auth.type: ["basicauth","saml","openid"]
+opensearch_security.auth.multiple_auth_enabled: true
 ```
 
 When the `opensearch_security.auth.type` setting contains `basicauth` and one other authentication type, the sign-in window appears as in the example below.
@@ -60,29 +65,67 @@ In addition to the essential sign-in settings for each authentication type, you 
 
 The settings below are used to customize the basic username and password sign-in button.
 
-Setting | Description | Default value 
+Setting | Description
 :--- | :--- |:--- |:--- |
-`opensearch_security.ui.basicauth.login.buttonname` |  Display name for the login button | Log in 
-`opensearch_security.ui.basicauth.login.brandimage` |  Login button logo. Supported file types are SVG, PNG, and GIF. | null 
-`opensearch_security.ui.basicauth.login.showbrandimage` |  Determines whether a logo for the login button is displayed or not. | true  
+`opensearch_security.ui.basicauth.login.buttonname` |  Display name for the login button. "Log in" by default.
+`opensearch_security.ui.basicauth.login.brandimage` |  Login button logo. Supported file types are SVG, PNG, and GIF.
+`opensearch_security.ui.basicauth.login.showbrandimage` |  Determines whether a logo for the login button is displayed or not. Default is `true`. 
 
 ### OpenID Connect authentication settings
 
 These settings allow you to customize the sign-in button associated with OpenID Connect authentication. For the essential settings required for single sign-in using OpenID Connect, see [OpenSearch Dashboards single sign-on]({{site.url}}{{site.baseurl}}/security-plugin/configuration/openid-connect/#opensearch-dashboards-single-sign-on).
 
-Setting | Description | Default value
+Setting | Description
 :--- | :--- |:--- |:--- |
-`opensearch_security.ui.openid.login.buttonname` |  Display name for the login button | Log in with single sign-on
-`opensearch_security.ui.openid.login.brandimage` |  Login button logo. Supported file types are SVG, PNG, and GIF. | null
-`opensearch_security.ui.openid.login.showbrandimage` |  Determines whether a logo for the login button is displayed or not. | false
+`opensearch_security.ui.openid.login.buttonname` |  Display name for the login button. "Log in with single sign-on" by default.
+`opensearch_security.ui.openid.login.brandimage` |  Login button logo. Supported file types are SVG, PNG, and GIF.
+`opensearch_security.ui.openid.login.showbrandimage` |  Determines whether a logo for the login button is displayed or not. Default is `false`.
 
 ### SAML authentication settings
 
 These settings allow you to customize the sign-in button associated with SAML authentication. For the essential settings required for single sign-in using SAML, see [OpenSearch Dashboards configuration]({{site.url}}{{site.baseurl}}/security-plugin/configuration/saml/#opensearch-dashboards-configuration).
 
-Setting | Description | Default value
+Setting | Description
 :--- | :--- |:--- |:--- |
-`opensearch_security.ui.saml.login.buttonname` |  Display name for the login button | Log in
-`opensearch_security.ui.saml.login.brandimage` |  Login button logo. Supported file types are SVG, PNG, and GIF. | null
-`opensearch_security.ui.saml.login.showbrandimage` |  Determines whether a logo for the login button is displayed or not. | false
+`opensearch_security.ui.saml.login.buttonname` |  Display name for the login button. "Log in with single sign-on" by default.
+`opensearch_security.ui.saml.login.brandimage` |  Login button logo. Supported file types are SVG, PNG, and GIF.
+`opensearch_security.ui.saml.login.showbrandimage` |  Determines whether a logo for the login button is displayed or not. Default is `false`.
 
+## Sample setup
+The following example shows basic settings in the `opensearch_dashboards.yml` file  when configured for two options at sign-in.
+
+```yml
+server.host: 0.0.0.0
+server.port: 5601
+opensearch.hosts: ["https://localhost:9200"]
+opensearch.ssl.verificationMode: none
+opensearch.username: <preferred username>
+opensearch.password: <preferred password>
+opensearch.requestHeadersAllowlist: ["securitytenant","Authorization"]
+opensearch_security.multitenancy.enabled: true
+opensearch_security.multitenancy.tenants.preferred: ["Private", "Global"]
+opensearch_security.readonly_mode.roles: ["<role_for_read_only>"]
+
+# Settings that enable multi-option authentication in sign-in window
+opensearch_security.auth.multiple_auth_enabled: true
+opensearch_security.auth.type: ["basicauth","openid"]
+
+# Basic authentication customization #
+opensearch_security.ui.basicauth.login.buttonname: Log in
+opensearch_security.ui.basicauth.login.brandimage: <path/to/OSlogo.png>
+opensearch_security.ui.basicauth.login.showbrandimage: true
+
+# OIDC auth customization and start #
+opensearch_security.ui.openid.login.buttonname: Log in with <IdP name or other> 
+opensearch_security.ui.openid.login.brandimage: <path/to/brand-logo.png>
+opensearch_security.ui.openid.login.showbrandimage: true
+
+opensearch_security.openid.base_redirect_url: <"OIDC redirect URL">
+opensearch_security.openid.verify_hostnames: false
+opensearch_security.openid.refresh_tokens: false
+opensearch_security.openid.logout_url: <"OIDC logout URL">
+
+opensearch_security.openid.connect_url: "<OIDC connect URL>"
+opensearch_security.openid.client_id: <Client ID>
+opensearch_security.openid.client_secret: <Client secret>
+```
