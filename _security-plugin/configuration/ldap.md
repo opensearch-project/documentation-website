@@ -11,6 +11,7 @@ Active Directory and LDAP can be used for both authentication and authorization 
 
 In most cases, you want to configure both authentication and authorization. You can also use authentication only and map the users retrieved from LDAP directly to security plugin roles.
 
+Active Directory 
 
 ## Docker example
 
@@ -426,8 +427,11 @@ If you don't use or have a role subtree, you can disable the role search complet
 rolesearch_enabled: false
 ```
 
+## Advanced settings
 
-### (Advanced) Control LDAP user attributes
+The advanced settings presented below are largely optional, but they can improve efficiency and performance for the LDAP-based authentication and authorization configuration. 
+
+### Control LDAP user attributes
 
 By default, the security plugin reads all LDAP user attributes and makes them available for index name variable substitution and DLS query variable substitution. If your LDAP entries have a lot of attributes, you might want to control which attributes should be made available. The fewer the attributes, the better the performance.
 
@@ -456,7 +460,7 @@ authc:
 ```
 
 
-### (Advanced) Exclude certain users from role lookup
+### Exclude certain users from role lookup
 
 If you are using multiple authentication methods, it can make sense to exclude certain users from the LDAP role lookup.
 
@@ -474,7 +478,7 @@ skip_users:
 ```
 
 
-### (Advanced) Exclude roles from nested role lookups
+### Exclude roles from nested role lookups
 
 If the users in your LDAP installation have a large number of roles, and you have the requirement to resolve nested roles as well, you might run into performance issues.
 
@@ -540,7 +544,7 @@ authz:
           - '/\S*/'
 ```
 
-### (Advanced) Configuring multiple user and role bases
+### Configuring multiple user and role bases
 
 To configure multiple user bases in the authc and/or authz section, use the following syntax:
 
@@ -641,3 +645,24 @@ authz:
         rolename: cn
         resolve_nested_roles: true
 ```
+
+### Connection pooling settings
+
+The directory server can maintain a pool of connections at the ready, assigning them when needed and returning them to the pool after a connection is closed. This arrangement can lower demands on the resources used to create connections, improve OpenSearch performance, and reduce load on the server. You can use the settings below to control the way the pooling is managed. 
+
+Name | Description
+:--- | :---
+`pool.enabled` | Enables connection pooling. Set to `true` to enable.
+`pool.min_size` | Size of the pool at initialization. Also used for pruning.
+`pool.max_size` | Maximum size the pool can reach.
+`pool.pruning_period` | The interval in minutes at which the pruning implementation is executed. For example: when 5, every five minutes. By default, the period is 5.
+`pool.idle_time` | The length of time elapsed when a connnection is considered idle, then becoming a candidate for pruning from the pool. By default, idle time is 10.
+
+
+
+
+
+
+
+
+
