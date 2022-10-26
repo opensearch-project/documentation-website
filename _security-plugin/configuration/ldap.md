@@ -503,7 +503,7 @@ Name | Description
 `skip_users`  | Array of users that should be skipped when retrieving roles. Wildcards and regular expressions are supported.
 `nested_role_filter`  | Array of role DNs that should be filtered before resolving nested roles. Wildcards and regular expressions are supported.
 `rolesearch_enabled`  | Boolean. Enable or disable the role search. Default is `true`.
-`custom_attr_whitelist`  | String array. Specifies the LDAP attributes that should be made available for variable substitution.
+`custom_attr_allowlist`  | String array. Specifies the LDAP attributes that should be made available for variable substitution.
 `custom_attr_maxval_len`  | Integer. Specifies the maximum allowed length of each attribute. All attributes longer than this value are discarded. A value of `0` disables custom attributes altogether. Default is 36.
 
 
