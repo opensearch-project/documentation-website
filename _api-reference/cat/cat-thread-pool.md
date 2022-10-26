@@ -10,7 +10,7 @@ has_children: false
 Introduced 1.0
 {: .label .label-purple }
 
-The cat thread pool operation lists the active, queued, and rejected threads of different thread pools on each node.
+The Cat thread pool operation lists the active, queued, and rejected threads of different thread pools on each node.
 
 ## Example
 

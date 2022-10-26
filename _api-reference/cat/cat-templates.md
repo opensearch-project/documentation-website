@@ -11,7 +11,7 @@ has_children: false
 Introduced 1.0
 {: .label .label-purple }
 
-The cat templates operation lists the names, patterns, order numbers, and version numbers of index templates.
+The cat Templates operation lists the names, patterns, order numbers, and version numbers of index templates.
 
 ## Example
 

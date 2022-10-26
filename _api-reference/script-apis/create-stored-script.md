@@ -43,8 +43,7 @@ All parameters are optional.
 | Field | Data Type | Description | 
 :--- | :--- | :---
 | lang | String | Scripting language. Required. |
-| source | String or Object | Required. <br />  <br /> For scripts, a string with the contents of the script. <br />  <br /> For search templates, an object that defines the search template. Supports the same parameters as the [Search API]({{site.url}}{{site.baseurl}}/api-reference/search)'s request body. Search templates also support Mustache variables. |
-| params | Object |  The script's or search template's parameters. |
+| source | String or Object | Required. <br /> <br /> For scripts, a string with the contents of the script. <br /> <br /> For search templates, an object that defines the search template. Supports the same parameters as the [Search]({{site.url}}{{site.baseurl}}/api-reference/search) API request body. Search templates also support Mustache variables. |
 
 #### Sample request
 

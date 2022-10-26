@@ -68,7 +68,7 @@ terminate_after | Integer | The maximum number of documents OpenSearch should pr
 timeout | Time | How long the operation should wait from a response from active shards. Default is `1m`.
 version | Boolean | Whether to include the document version as a match.
 wait_for_active_shards | String | The number of shards that must be active before OpenSearch executes the operation. Valid values are `all` or any integer up to the total number of shards in the index. Default is 1, which is the primary shard.
-wait_for_completion | Boolean | Setting this parameter to false indicates to OpenSearch it should not wait for completion and perform this request asynchronously. Asynchronous requests run in the background, and you can use the [Tasks API operation]({{site.url}}{{site.baseurl}}/api-reference/tasks) to monitor progress.
+wait_for_completion | Boolean | Setting this parameter to false indicates to OpenSearch it should not wait for completion and perform this request asynchronously. Asynchronous requests run in the background, and you can use the [Tasks]({{site.url}}{{site.baseurl}}/api-reference/tasks) API to monitor progress.
 
 
 ## Request body

@@ -38,5 +38,5 @@ Upon success, the response returns the following JSON object:
 }
 ```
 
-To verify that the snapshot was deleted, use the [Get snapshot API]({{site.url}}{{site.baseurl}}/api-reference/snapshots/get-snapshot), passing the snapshot name as the `snapshot` path parameter.
+To verify that the snapshot was deleted, use the [Get snapshot]({{site.url}}{{site.baseurl}}/api-reference/snapshots/get-snapshot) API, passing the snapshot name as the `snapshot` path parameter.
 {: .note}

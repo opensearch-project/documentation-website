@@ -488,7 +488,7 @@ To create a cluster metrics monitor:
 
 ### Supported APIs
 
-Trigger conditions use responses from the following APIs. Most APIs that can be used to monitor cluster status support path parameters as described in their documentation (e.g., comma-separated lists of index names). However, they do not support query parameters.
+Trigger conditions use responses from the following cat API endpoints. Most APIs that can be used to monitor cluster status support path parameters as described in their documentation (e.g., comma-separated lists of index names). However, they do not support query parameters.
 
 1. [_cluster/health]({{site.url}}{{site.baseurl}}/api-reference/cluster-health/)
 2. [_cluster/stats]({{site.url}}{{site.baseurl}}/api-reference/cluster-stats/)

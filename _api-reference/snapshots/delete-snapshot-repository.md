@@ -36,5 +36,6 @@ Upon success, the response returns the following JSON object:
   "acknowledged" : true
 }
 ````
-To verify that the repository was deleted, use the [Get snapshot repository API]({{site.url}}{{site.baseurl}}/api-reference/snapshots/get-snapshot-repository), passing the repository name as the `repository` path parameter.
+
+To verify that the repository was deleted, use the [Get snapshot repository]({{site.url}}{{site.baseurl}}/api-reference/snapshots/get-snapshot-repository) API, passing the repository name as the `repository` path parameter.
 {: .note}

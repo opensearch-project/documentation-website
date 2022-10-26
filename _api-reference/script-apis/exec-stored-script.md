@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Execute Painless Stored Script
+title: Execute Painless stored script
 parent: Script APIs
 nav_order: 2
 ---
@@ -21,13 +21,13 @@ OpenSearch provides several ways to run a script; the following sections show ho
 
 #### Sample request
 
-The following request runs the stored script that was created in [Create or Update Stored Script]({{site.url}}{{site.baseurl}}/api-reference/script-apis/create-stored-script/). The script sums the ratings for each book and displays the sum in the `total_ratings` field in the output.
+The following request runs the stored script that was created in [Create or update stored script]({{site.url}}{{site.baseurl}}/api-reference/script-apis/create-stored-script/). The script sums the ratings for each book and displays the sum in the `total_ratings` field in the output.
 
 * The script's target is the `books` index.
 
 * The `"match_all": {}` property value is an empty object indicating to process each document in the index.
 
-* The `total_ratings` field value is the result of the `my-first-script` execution. (See  [Create or Update Stored Script]({{site.url}}{{site.baseurl}}/api-reference/script-apis/create-stored-script/).)
+* The `total_ratings` field value is the result of the `my-first-script` execution. See  [Create or update stored script]({{site.url}}{{site.baseurl}}/api-reference/script-apis/create-stored-script/).
 
 ````json
 GET books/_search

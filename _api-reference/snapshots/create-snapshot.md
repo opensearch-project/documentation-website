@@ -41,7 +41,7 @@ Field | Data Type | Description
 
 ##### Request without a body
 
-The following request creates a snapshoted called `my-first-snapshot` in an S3 repository called `my-s3-repository`. A request body is not included because it is optional.
+The following request creates a snapshot called `my-first-snapshot` in an S3 repository called `my-s3-repository`. A request body is not included because it is optional.
 
 ```json
 POST _snapshot/my-s3-repository/my-first-snapshot
@@ -59,7 +59,7 @@ PUT _snapshot/my-s3-repository/2
   "include_global_state": false,
   "partial": false
 }
-````
+```
 
 #### Sample responses
 
@@ -72,7 +72,8 @@ Upon success, the response content depends on whether you include the `wait_for_
   "accepted": true
 }
 ```
-To verify that the snapshot was created, use the [Get snapshot API]({{site.url}}{{site.baseurl}}/api-reference/snapshots/get-snapshot), passing the snapshot name as the `snapshot` path parameter.
+
+To verify that the snapshot was created, use the [Get snapshot]({{site.url}}{{site.baseurl}}/api-reference/snapshots/get-snapshot) API, passing the snapshot name as the `snapshot` path parameter.
 {: .note}
 
 ##### `wait_for_completion` included
