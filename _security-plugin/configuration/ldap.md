@@ -11,7 +11,6 @@ Active Directory and LDAP can be used for both authentication and authorization 
 
 In most cases, you want to configure both authentication and authorization. You can also use authentication only and map the users retrieved from LDAP directly to security plugin roles.
 
-Active Directory 
 
 ## Docker example
 
