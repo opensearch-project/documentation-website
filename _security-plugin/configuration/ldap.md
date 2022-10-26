@@ -648,9 +648,9 @@ The directory server can maintain a pool of connections at the ready, assigning 
 Name | Description
 :--- | :---
 `pool.enabled` | Enables connection pooling. Set to `true` to enable.
-`pool.min_size` | Size of the pool at initialization. Also used to reset pool size for pruning.
+`pool.min_size` | Size of the pool at initialization. Also used as a lower limit when pruning.
 `pool.max_size` | Maximum size the pool can reach.
-`pool.pruning_period` | The interval in minutes at which the pruning implementation is executed. For example: when 5, every five minutes. By default, the period is 5.
+`pool.pruning_period` | The interval in minutes at which the pruning implementation is executed. For example: when 5, the implementation is executed every five minutes. By default, the period is 5.
 `pool.idle_time` | The length of time elapsed, in minutes, after a connnection is considered idle. Once elapsed, the connection becomes a candidate for pruning from the pool. By default, idle time is 10.
 
 Connection pooling settings are added to the `authc` section of the configuration.
