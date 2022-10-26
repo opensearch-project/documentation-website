@@ -429,13 +429,13 @@ rolesearch_enabled: false
 
 ## Advanced settings
 
-The advanced settings presented below are largely optional, but they can improve efficiency and performance for the LDAP-based authentication and authorization configuration. 
+The advanced settings presented below are optional for an essential LDAP configuration. They can, however, improve efficiency and performance for the LDAP implementation. 
 
 ### Control LDAP user attributes
 
 By default, the security plugin reads all LDAP user attributes and makes them available for index name variable substitution and DLS query variable substitution. If your LDAP entries have a lot of attributes, you might want to control which attributes should be made available. The fewer the attributes, the better the performance.
 
-Note that this setting is made in the authentication `authc` section of the config.yml file.
+Note that this setting is made in the `authc` section of the config.yml file.
 
 Name | Description
 :--- | :---
@@ -459,7 +459,6 @@ authc:
       ...
 ```
 
-
 ### Exclude certain users from role lookup
 
 If you are using multiple authentication methods, it can make sense to exclude certain users from the LDAP role lookup.
@@ -477,7 +476,6 @@ skip_users:
   - '/\S*/'
 ```
 
-
 ### Exclude roles from nested role lookups
 
 If the users in your LDAP installation have a large number of roles, and you have the requirement to resolve nested roles as well, you might run into performance issues.
@@ -491,7 +489,6 @@ nested_role_filter:
   - 'cn=Jane Doe,ou*people,o=TEST'
   - ...
 ```
-
 
 ### Configuration summary
 
@@ -509,7 +506,6 @@ Name | Description
 `rolesearch_enabled`  | Boolean. Enable or disable the role search. Default is `true`.
 `custom_attr_allowlist`  | String array. Specifies the LDAP attributes that should be made available for variable substitution.
 `custom_attr_maxval_len`  | Integer. Specifies the maximum allowed length of each attribute. All attributes longer than this value are discarded. A value of `0` disables custom attributes altogether. Default is 36.
-
 
 ### Complete authorization example
 
@@ -648,21 +644,30 @@ authz:
 
 ### Connection pooling settings
 
-The directory server can maintain a pool of connections at the ready, assigning them when needed and returning them to the pool after a connection is closed. This arrangement can lower demands on the resources used to create connections, improve OpenSearch performance, and reduce load on the server. You can use the settings below to control the way the pooling is managed. 
+The directory server can maintain a pool of connections at the ready, assigning them when needed and returning them to the pool after a connection is closed. This arrangement can lower demands on the resources used to create connections, improve OpenSearch performance, and reduce load on the server. You can use the settings below to control the way the pooling is carried out. 
 
 Name | Description
 :--- | :---
 `pool.enabled` | Enables connection pooling. Set to `true` to enable.
-`pool.min_size` | Size of the pool at initialization. Also used for pruning.
+`pool.min_size` | Size of the pool at initialization. Also used to reset pool size for pruning.
 `pool.max_size` | Maximum size the pool can reach.
 `pool.pruning_period` | The interval in minutes at which the pruning implementation is executed. For example: when 5, every five minutes. By default, the period is 5.
-`pool.idle_time` | The length of time elapsed when a connnection is considered idle, then becoming a candidate for pruning from the pool. By default, idle time is 10.
+`pool.idle_time` | The length of time elapsed, in minutes, after a connnection is considered idle. Once elapsed, the connection becomes a candidate for pruning from the pool. By default, idle time is 10.
 
+Connection pooling settings are added to the `authc` section of the configuration.
 
-
-
-
-
-
-
+```yml
+authc:
+  ldap:
+    http_enabled: true
+    transport_enabled: true
+    authentication_backend:
+      type: ldap
+      config:
+        pool.enabled: true
+        pool.min_size: 5
+        pool.max_size: 12
+        pool.pruning_period: 5
+        pool.idle_time: 15
+```
 
