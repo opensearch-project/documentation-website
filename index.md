@@ -104,7 +104,7 @@ The best way to try out OpenSearch is to use Docker Compose. Setting up OpenSear
    curl -XDELETE --insecure -u 'admin:admin' 'https://localhost:9200/my-first-index/'
    ```
 
-To learn more, see [Docker image]({{site.url}}{{site.baseurl}}/opensearch/install/docker/) and [Docker security configuration]({{site.url}}{{site.baseurl}}/opensearch/install/docker-security/).
+To learn more, see [Docker image]({{site.url}}{{site.baseurl}}/opensearch/install/docker/) and [Configuring basic security settings]({{site.url}}{{site.baseurl}}/opensearch/install/docker#configuring-basic-security-settings).
 
 
 ## The secure path forward
