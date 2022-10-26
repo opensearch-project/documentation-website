@@ -166,7 +166,7 @@ PUT _index_template/template-02
 }
 ```
 
-Because `template-02` has a higher `priority` value, it takes precedence over `template-01` . The `logs-2020-01-02` index would have the `number_of_shards` value as 3 and `number_of_replicas` as default value 1.
+Because `template-02` has a higher `priority` value, it takes precedence over `template-01` . The `logs-2020-01-02` index would have the `number_of_shards` value as 3 and the `number_of_replicas` as the default value 1.
 
 ### Delete a template
 
