@@ -127,7 +127,7 @@ HEAD _index_template/<name>
 
 ### Configure multiple templates
 
-You can create multiple index templates for your indexes. If the index name matches more than one template, OpenSearch will take the one with highest priority and apply to the index.
+You can create multiple index templates for your indexes. If the index name matches more than one template, OpenSearch takes the mappings and settings from the template with the highest priority and applies it to the index.
 
 For example, say you have the following two templates that both match the `logs-2020-01-02` index and there’s a conflict in the `number_of_shards` field:
 
