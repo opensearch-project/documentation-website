@@ -65,7 +65,8 @@ Review these common issues and suggested solutions if your containers fail to st
 
 ### max virtual memory areas vm.max_map_count [65530] is too low
 
-If your host is not configured with a high enough max map count, OpenSearch will fail to start. Review your container logs the following errors:
+OpenSearch will fail to start if your host is not configured with a high enough max map count. Review the [important system settings]({{site.url}}{{site.baseurl}}/opensearch/install/important-settings/){:target='\_blank'} if you see the following errors in the service log, and set `vm.max_map_count` appropriately.
+
     ```bash
     opensearch-node1         | ERROR: [1] bootstrap checks failed
     opensearch-node1         | [1]: max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]
