@@ -75,8 +75,8 @@ If you installed Docker Engine then you must install Docker Compose separately, 
 
 OpenSearch will fail to start if your host is not configured with a high enough max map count. Review the [important system settings]({{site.url}}{{site.baseurl}}/opensearch/install/important-settings/){:target='\_blank'} if you see the following errors in the service log, and set `vm.max_map_count` appropriately.
 
-    ```bash
-    opensearch-node1         | ERROR: [1] bootstrap checks failed
-    opensearch-node1         | [1]: max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]
-    opensearch-node1         | ERROR: OpenSearch did not exit normally - check the logs at /usr/share/opensearch/logs/opensearch-cluster.log
-    ```
+```bash
+opensearch-node1         | ERROR: [1] bootstrap checks failed
+opensearch-node1         | [1]: max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]
+opensearch-node1         | ERROR: OpenSearch did not exit normally - check the logs at /usr/share/opensearch/logs/opensearch-cluster.log
+```
