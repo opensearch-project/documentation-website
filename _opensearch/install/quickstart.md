@@ -59,9 +59,11 @@ Learn more about working with compose files by reviewing the official [Compose s
     ```
 1. Next step
 
-## Common problems
+## Common issues
 
-### max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]
+Review these common issues and suggested solutions if your containers fail to start or exit unexpectedly.
+
+### max virtual memory areas vm.max_map_count [65530] is too low
 
 If your host is not configured with a high enough max map count, OpenSearch will fail to start. Review your container logs the following errors:
     ```bash
