@@ -38,3 +38,20 @@ The [sample docker-compose.yml]({{site.url}}{{site.baseurl}}/opensearch/install/
 - `port 9600`
 
   Allows you to access Performance Analyzer on port 9600.
+
+Do not declare the same JVM options in multiple locations because it can result in unexpected behavior or a failure of the OpenSearch service to start. If you declare JVM options using an environment variable, such as `OPENSEARCH_JAVA_OPTS=-Xms3g -Xmx3g`, then you should comment out any references to that JVM option in `config/jvm.options`. Conversely, if you define JVM options in `config/jvm.options`, then you should not define those JVM options using environment variables.
+{: .note}
+
+### Network requirements
+
+  The following ports need to be open for OpenSearch components.
+
+Port number | OpenSearch component
+:--- | :--- 
+443 | OpenSearch Dashboards in AWS OpenSearch Service with encryption in transit (TLS)
+5601 | OpenSearch Dashboards
+9200 | OpenSearch REST API
+9250 | Cross-cluster search
+9300 | Node communication and transport
+9600 | Performance Analyzer
+
