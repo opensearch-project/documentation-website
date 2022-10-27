@@ -428,7 +428,7 @@ rolesearch_enabled: false
 
 ## Advanced settings
 
-The advanced settings presented below are optional for an essential LDAP configuration. They can, however, improve efficiency and performance for the LDAP implementation. 
+The advanced settings presented below are optional for an essential LDAP configuration. They can, however, improve efficiency, performance, and security for the LDAP implementation. 
 
 ### Control LDAP user attributes
 
@@ -643,7 +643,7 @@ authz:
 
 ### Connection pooling settings
 
-The directory server can maintain a pool of connections at the ready, assigning them when needed and returning them to the pool after a connection is closed. This arrangement can lower demands on the resources used to create connections, improve OpenSearch performance, and reduce load on the server. You can use the settings below to control the way the pooling is carried out. 
+The security plugin can maintain a pool of connections at the ready, assigning them when needed and returning them to the pool after a connection is closed. This arrangement can lower demands on the resources used to create connections, improve OpenSearch performance, and reduce load on the server. You can use the settings below to control the way the pooling is carried out. 
 
 Name | Description
 :--- | :---
