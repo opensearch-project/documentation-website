@@ -100,7 +100,7 @@ Setting | Description
    sudo ./bin/opensearch-plugin install repository-s3
    ```
 
-   If you're using the Docker installation, see [Customize the Docker image]({{site.url}}{{site.baseurl}}/opensearch/install/docker#customize-the-docker-image). Your `Dockerfile` should look something like this:
+   If you're using the Docker installation, see [Working with plugins]({{site.url}}{{site.baseurl}}/opensearch/install/docker#working-with-plugins). Your `Dockerfile` should look something like this:
 
    ```
    FROM opensearchproject/opensearch:{{site.opensearch_version}}
