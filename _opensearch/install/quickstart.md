@@ -31,16 +31,11 @@ Learn more about working with compose files by reviewing the official [Compose s
         # Edit the sysctl config file.
         sudo vi /etc/sysctl.conf
 
-        # Add a line to define the desired value
-        # or change the value if the key exists,
-        # and then save your changes.
+        # Define the max map count.
         vm.max_map_count=262144
 
-        # Reload the kernel parameters using sysctl.
+        # Reload the kernel parameters.
         sudo sysctl -p
-
-        # Verify that the change was applied by checking the value.
-        cat /proc/sys/vm/max_map_count
         ```  
 1. Download the sample compose file to your host. You can use a `curl` command, or copy the file from the OpenSearch Project [documentation-website](https://github.com/opensearch-project/documentation-website/tree/{{site.opensearch_version}}/assets/examples/docker-compose.yml) repository.
     ```bash
@@ -79,4 +74,12 @@ OpenSearch will fail to start if your host is not configured with a high enough 
 opensearch-node1         | ERROR: [1] bootstrap checks failed
 opensearch-node1         | [1]: max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]
 opensearch-node1         | ERROR: OpenSearch did not exit normally - check the logs at /usr/share/opensearch/logs/opensearch-cluster.log
+```
+
+### Docker commands require elevated permissions
+
+Eliminate the need for running your Docker commands with `sudo` by adding your user to the `docker` user group. See [Post-installation steps for Linux](https://docs.docker.com/engine/install/linux-postinstall/) for more information.
+
+```bash
+sudo usermod -aG docker $USER
 ```
