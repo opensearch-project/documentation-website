@@ -1,7 +1,7 @@
 ---
 layout: default
 title: cat aliases
-parent: CAT API
+parent: Compact and aligned text (CAT) API
 
 nav_order: 1
 has_children: false
