@@ -7,7 +7,7 @@ nav_order: 60
 has_children: false
 ---
 
-# cat shards
+# cat shards operation
 Introduced 1.0
 {: .label .label-purple }
 

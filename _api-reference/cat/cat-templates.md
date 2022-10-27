@@ -7,7 +7,7 @@ nav_order: 70
 has_children: false
 ---
 
-# cat templates
+# cat templates operation
 Introduced 1.0
 {: .label .label-purple }
 

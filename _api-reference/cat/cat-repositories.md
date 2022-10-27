@@ -7,7 +7,7 @@ nav_order: 55
 has_children: false
 ---
 
-# cat repositories
+# cat repositories operation
 Introduced 1.0
 {: .label .label-purple }
 

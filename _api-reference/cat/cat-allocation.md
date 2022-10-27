@@ -7,7 +7,7 @@ nav_order: 5
 has_children: false
 ---
 
-# cat allocation
+# cat allocation operation
 Introduced 1.0
 {: .label .label-purple }
 

@@ -7,7 +7,7 @@ nav_order: 45
 has_children: false
 ---
 
-# cat pending tasks
+# cat pending tasks operation
 Introduced 1.0
 {: .label .label-purple }
 

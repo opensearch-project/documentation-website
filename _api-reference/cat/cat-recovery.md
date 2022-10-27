@@ -7,7 +7,7 @@ nav_order: 50
 has_children: false
 ---
 
-# cat recovery
+# cat recovery operation
 Introduced 1.0
 {: .label .label-purple }
 

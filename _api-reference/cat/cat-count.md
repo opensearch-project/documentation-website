@@ -7,7 +7,7 @@ nav_order: 10
 has_children: false
 ---
 
-# cat count
+# cat count operation
 Introduced 1.0
 {: .label .label-purple }
 

@@ -7,7 +7,7 @@ nav_order: 25
 has_children: false
 ---
 
-# cat indices
+# cat indices operation
 Introduced 1.0
 {: .label .label-purple }
 

@@ -6,7 +6,7 @@ nav_order: 75
 has_children: false
 ---
 
-# cat thread pool
+# cat thread pool operation
 Introduced 1.0
 {: .label .label-purple }
 

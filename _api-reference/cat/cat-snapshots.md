@@ -7,7 +7,7 @@ nav_order: 65
 has_children: false
 ---
 
-# cat snapshots
+# cat snapshots operation
 Introduced 1.0
 {: .label .label-purple }
 

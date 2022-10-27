@@ -7,7 +7,7 @@ nav_order: 55
 has_children: false
 ---
 
-# cat segments
+# cat segments operation
 Introduced 1.0
 {: .label .label-purple }
 

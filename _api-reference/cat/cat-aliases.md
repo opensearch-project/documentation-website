@@ -7,7 +7,7 @@ nav_order: 1
 has_children: false
 ---
 
-# cat aliases
+# cat aliases operation
 Introduced 1.0
 {: .label .label-purple }
 

@@ -7,7 +7,7 @@ nav_order: 40
 has_children: false
 ---
 
-# cat nodes
+# cat nodes operation
 Introduced 1.0
 {: .label .label-purple }
 
