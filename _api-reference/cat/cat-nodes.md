@@ -1,7 +1,7 @@
 ---
 layout: default
 title: cat nodes
-parent: CAT API
+parent: Compact and aligned text (CAT) API
 
 nav_order: 40
 has_children: false

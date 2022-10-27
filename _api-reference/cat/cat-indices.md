@@ -1,7 +1,7 @@
 ---
 layout: default
 title: cat indices
-parent: CAT API
+parent: Compact and aligned text (CAT) API
 
 nav_order: 25
 has_children: false
