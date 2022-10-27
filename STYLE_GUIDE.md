@@ -1,4 +1,4 @@
-# OpenSearch style guidelines
+# OpenSearch Project style guidelines
 
 Welcome to the content style guide for the OpenSearch Project. This guide covers the style standards to be observed when creating OpenSearch content and will evolve as we implement best practices and lessons learned in order to best serve the community.
 
