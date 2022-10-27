@@ -1,11 +1,11 @@
 ---
 layout: default
-title: OpenSearch quickstart guide
+title: Quickstart guide
 parent: Install OpenSearch
 nav_order: 1
 ---
 
-# OpenSearch Quickstart Installation
+# Quickstart guide
 
 The quickest way to get started using OpenSearch and OpenSearch Dashboards is to deploy your containers with [Docker](https://www.docker.com/). For information about why Docker is fast and easy, see [Why use OpenSearch with Docker?]({{site.url}}{{site.baseurl}}/opensearch/install/docker/).
 
@@ -14,7 +14,7 @@ Before proceeding, you should [get Docker](https://docs.docker.com/get-docker/) 
 The Docker Compose commands used in this guide are written with a hyphen (for example, `docker-compose`). If you installed Docker Desktop on your machine, which automatically installs a bundled version of Docker Compose, then you should replace `docker-compose` with `docker compose` where it appears in this guide, or you will receive an error like `-bash: docker-compose: command not found`.
 {: .note}
 
-## Starting your containers
+## Starting your cluster
 
 You need a special file, called a compose file, that Docker Compose uses to define and create the containers. We provide a sample compose file that you can use to get started.
 
@@ -28,7 +28,7 @@ Learn more about working with compose files by reviewing the official [Compose s
         ```
     - Increase the number of memory maps available to OpenSearch.
         ```bash
-        # Edit the sysctl config file
+        # Edit the sysctl config file.
         sudo vi /etc/sysctl.conf
 
         # Add a line to define the desired value
@@ -36,18 +36,36 @@ Learn more about working with compose files by reviewing the official [Compose s
         # and then save your changes.
         vm.max_map_count=262144
 
-        # Reload the kernel parameters using sysctl
+        # Reload the kernel parameters using sysctl.
         sudo sysctl -p
 
-        # Verify that the change was applied by checking the value
+        # Verify that the change was applied by checking the value.
         cat /proc/sys/vm/max_map_count
-        ```
+        ```  
 1. Download the sample compose file to your host. You can use a `curl` command, or copy the file from the OpenSearch Project [documentation-website](https://github.com/opensearch-project/documentation-website/tree/{{site.opensearch_version}}/assets/examples/docker-compose.yml) repository.
     ```bash
+    # Using cURL
     curl -O https://github.com/opensearch-project/documentation-website/tree/{{site.opensearch_version}}/assets/examples/docker-compose.yml
+
+    # Using wget
+    wget https://github.com/opensearch-project/documentation-website/tree/{{site.opensearch_version}}/assets/examples/docker-compose.yml
     ```
-1. In your terminal application, navigate the directory containing `docker-compose.yml` and run the following command:
+1. In your terminal application, navigate to the directory containing the `docker-compose.yml` file you just downloaded and run the following command:
     ```bash
+    # The '-d' option runs the containers as a background process
+    # so you can continue to use your terminal window. Omit the '-d'
+    # 
     docker-compose up -d
     ```
-1. 
+1. Next step
+
+## Common problems
+
+### max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]
+
+If your host is not configured with a high enough max map count, OpenSearch will fail to start. Review your container logs the following errors:
+    ```bash
+    opensearch-node1         | ERROR: [1] bootstrap checks failed
+    opensearch-node1         | [1]: max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]
+    opensearch-node1         | ERROR: OpenSearch did not exit normally - check the logs at /usr/share/opensearch/logs/opensearch-cluster.log
+    ```
