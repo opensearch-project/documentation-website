@@ -7,13 +7,28 @@ nav_order: 1
 
 # OpenSearch Quickstart Installation
 
-The quickest way to get started using OpenSearch and OpenSearch Dashboards is to deploy containers with [Docker](https://www.docker.com/). For information about why Docker is fast and easy, see [Why use OpenSearch with Docker?]({{site.url}}{{site.baseurl}}/opensearch/install/docker/).
+The quickest way to get started using OpenSearch and OpenSearch Dashboards is to deploy your containers with [Docker](https://www.docker.com/). For information about why Docker is fast and easy, see [Why use OpenSearch with Docker?]({{site.url}}{{site.baseurl}}/opensearch/install/docker/).
 
-If need to install Docker and Docker Compose, visit [Get Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://github.com/docker/compose) and follow the steps to install them on your machine.
+Before proceeding, you should [get Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://github.com/docker/compose) and follow the steps to install them on your machine.
+
+This guide includes commands that you can copy and paste into your terminal. The following Docker Compose commands include a hyphen (`docker-compose`). If you install Docker Desktop, which automatically installs a bundled version of Docker Compose, then you should replace `docker-compose` with `docker compose` where it appears.
+{: .note}
 
 ## Starting your containers
 
+You need a special file, called a compose file, that Docker Compose uses to define and create the containers. We provide a sample file that you can use to get started.
 
+Learn more about working with compose files by reviewing the official [Compose specification](https://docs.docker.com/compose/compose-file/).
+{: .tip}
+
+1. Download the sample compose file to your host. You can use a `curl` command, or copy the file from the OpenSearch Project [documentation-website](https://github.com/opensearch-project/documentation-website/tree/{{site.opensearch_version}}/assets/examples/docker-compose.yml)] repository.
+```bash
+curl -O https://github.com/opensearch-project/documentation-website/tree/{{site.opensearch_version}}/assets/examples/docker-compose.yml
+```
+1. From your terminal, run the following command:
+```bash
+docker-compose up -d
+```
 
 ### Sample docker-compose.yml
 ```yml
