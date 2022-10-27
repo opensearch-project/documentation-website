@@ -5,7 +5,7 @@ parent: Discover
 nav_order: 5
 ---
 
-Multiple data sources is an experimental feature released in OpenSearch 2.4. We do not recommend using it in a production environment. For updates on the feature’s progress or to leave feedback on improving the feature, see the [multiple data sources git issue](https://github.com/opensearch-project/OpenSearch-Dashboards/pull/2448).
+Multiple data sources is an experimental feature released in OpenSearch 2.4. We do not recommend using it in a production environment. For updates on the feature’s progress or to leave feedback on improving the feature, see the [OpenSearch Forum discussion](https://forum.opensearch.org/t/feedback-experimental-feature-connect-to-external-data-sources/11144).
 {: .note }
 
 # Multiple data sources
@@ -14,16 +14,18 @@ You can add multiple data sources to a single dashboard. OpenSearch Dashboards a
 
 In this tutorial we provide the steps for enabling the data sources setting in Dashboards; adding credentials, data source connections, and index patterns; and combining visualizations in a single dashboard.
 
-## Try out multiple data sources in your local environment
+## Try out Data Sources in your local environment
 
 This tutorial uses a preconfigured data source and index pattern, and you aren’t required to configure settings. However, you’ll need to enable the multiple data sources setting in the configuration file before before getting started with exploring this feature.
 {: .note }
 
-Multiple data sources is an experimental feature that can't be deployed into production, but you can try it out with a sample data source and a sample index pattern. Before getting started, you must first edit the YAML configuration. The following section provides the steps to enable the multiple data sources feature.
+Multiple data sources is an experimental feature that can't be deployed into production, but you can try it out with a sample data source and a sample index pattern. Before getting started, you must first edit the YAML configuration. The following section provides the steps to enable the feature.
 
-## Edit the YAML configuration to enable multiple data sources 
+## Edit the YAML configuration to enable the multiple data sources feature
 
-Dashboards is configured in the cluster settings, and multiple data sources is disabled by default. To enable multiple data sources, you need to edit the configuration in `opensearch_dashboards.yml` and then restart the cluster. To enable multiple data sources:
+Dashboards is configured in the cluster settings, and the multiple data sources feature is disabled by default. To enable it, you need to edit the configuration in `opensearch_dashboards.yml` and then restart the cluster.
+
+To enable the feature:
 
 1. Navigate to your Dashboards home directory; for example, in Docker `/usr/share/opensearch-dashboards`.
 2. Open your local copy of the Dashboards configuration file, `opensearch_dashboards.yml`. If you don't have a copy, get one from GitHub: [`opensearch_dashboards.yml`](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/config/opensearch_dashboards.yml).
@@ -33,7 +35,7 @@ Dashboards is configured in the cluster settings, and multiple data sources is d
 
 ## Create a data source connection
 
-A data source connection specifies the parameters needed to connect to a data source. These parameters form a connection string for the data source. In Dashboards, you can add new data source connections or edit existing connections. 
+A data source connection specifies the parameters needed to connect to a data source. These parameters form a connection string for the data source. In Dashboards, you can add new data source connections or edit existing connections.
 
 To create a new data source connection:
 
@@ -68,16 +70,16 @@ Index patterns allow you to access the OpenSearch data that you want to explore.
 <img src="{{site.url}}{{site.baseurl}}/images/multi-data-sources-7.png" width=500 alt="Index pattern define user interface">
 
 5. Select an option for the **Time field**, then choose **Create index pattern**.
-<img src="{{site.url}}{{site.baseurl}}/images/multi-data-sources-8.jpg" width=500 alt="Index pattern time field user interface">
+<img src="{{site.url}}{{site.baseurl}}/images/multi-data-sources-8.png" width=500 alt="Index pattern time field user interface">
 
 ## Search data
 
-Before getting started with searching your data, set up the time filter. The sample index pattern used for this tutorial contains time-based data. You can set a time filter that displays only the data within a specified time range and you can select the time filter to change the time range or select a specific time range in the histogram.
+Before you start searching for data, set up the time filter. The sample index pattern used for this tutorial contains time-based data. You can set a time filter that displays only the data within a specified time range and you can select the time filter to change the time range or select a specific time range in the histogram.
 
 ### Use the time filter
 
-1. In the Dashboards console, select **Discover** and confirm index pattern being used is `opensearch_dashboards_sample_data_ecommerce`.
-2. Select calendar icon to change time field. The default is **Last 15 minutes**.
+1. In the Dashboards console, select **Discover** and confirm the index pattern being used is `opensearch_dashboards_sample_data_ecommerce`.
+2. Select the calendar icon to change the time field. The default is **Last 15 minutes**.
 3. Change the time field to **Last 7 days** and select **Refresh**.
 <img src="{{site.url}}{{site.baseurl}}/images/multi-data-sources-9.png" alt="Time filter user interface">
 
@@ -86,7 +88,7 @@ Before getting started with searching your data, set up the time filter. The sam
 
 ### Select a time range from the histogram
 
-To select a time range for the histogram, you can choose one of the following:
+To select a time range for the histogram, you can do one of the following:
 
 * Select the bar that represents the time range you want to zoom in on.
 * Select the bar and drag to view a specific time range. You must start the selection with the cursor over the background of the chart—the cursor changes to a plus sign when you hover over a valid start point.
@@ -122,8 +124,8 @@ You have explored the data sources experimental feature. We look forward to your
 
 The following limitations apply to the 2.4 release of this experimental feature:
 
-* The multiple data sources currently only works with index pattern based visualizations
-* Visualization types TSVB, Vega and Vega-Lite, and timeline are not supported.
+* The multiple data sources feature is available for index pattern-based visualizations only.
+* Visualization types Time Series Visual Builder (TSVB), Vega and Vega-Lite, and timeline are not supported.
 
 ## Related topics
 
