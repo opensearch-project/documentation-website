@@ -44,7 +44,7 @@ The following request specifies JSON format for the request body:
 
 ```json
 
-POST _scripts/<template_name> -H 'Content-Type: application/json'
+curl -H "Content-type: application/json" -XGET localhost:9200/_scripts/<template_name>
 ```
 
 ## Request body in query string
