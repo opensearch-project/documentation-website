@@ -1,7 +1,7 @@
 ---
 layout: default
 title: cat health
-parent: CAT API
+parent: Compact and aligned text (CAT) API
 
 nav_order: 20
 has_children: false

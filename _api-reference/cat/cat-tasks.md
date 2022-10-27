@@ -1,7 +1,7 @@
 ---
 layout: default
 title: cat tasks
-parent: CAT API
+parent: Compact and aligned text (CAT) API
 
 nav_order: 70
 has_children: false

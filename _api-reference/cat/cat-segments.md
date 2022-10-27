@@ -1,7 +1,7 @@
 ---
 layout: default
 title: cat segments
-parent: CAT API
+parent: Compact and aligned text (CAT) API
 
 nav_order: 55
 has_children: false
