@@ -109,4 +109,4 @@ output.opensearch:
 
 ## Using certificates with Docker
 
-While we recommend using the [tarball]({{site.url}}{{site.baseurl}}/opensearch/install/tar) installation of ODFE to test client certificate authentication configurations, you can also use any of the other install types. For instructions on using Docker, for example, see [Docker security configuration]({{site.url}}{{site.baseurl}}/opensearch/install/docker-security).
+While we recommend using the [tarball]({{site.url}}{{site.baseurl}}/opensearch/install/tar) installation of ODFE to test client certificate authentication configurations, you can also use any of the other install types. For instructions on using Docker security, see [Configuring basic security settings]({{site.url}}{{site.baseurl}}/opensearch/install/docker#configuring-basic-security-settings).
