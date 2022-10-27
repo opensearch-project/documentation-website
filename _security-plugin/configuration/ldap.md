@@ -477,7 +477,7 @@ skip_users:
 
 ### Exclude roles from nested role lookups
 
-If the users in your LDAP installation have a large number of roles, and you have the requirement to resolve nested roles as well, you might run into performance issues.
+If the users in your LDAP installation are mapped to a large number of roles and you have requirements to resolve nested roles, you might encounter performance issues.
 
 In most cases, however, not all user roles are related to OpenSearch and OpenSearch Dashboards. You might need only a couple of roles. In this case, you can use the nested role filter feature to define a list of roles that are filtered out from the list of the user's roles. Wildcards and regular expressions are supported.
 
@@ -541,7 +541,7 @@ authz:
 
 ### Configuring multiple user and role bases
 
-To configure multiple user bases in the authc and/or authz section, use the following syntax:
+To configure multiple user bases in the `authc` or `authz` section, use the following syntax:
 
 ```yml
         ...
