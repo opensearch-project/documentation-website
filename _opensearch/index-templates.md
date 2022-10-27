@@ -127,11 +127,7 @@ HEAD _index_template/<name>
 
 ### Configure multiple templates
 
-You can create multiple index templates for your indexes. If the index name matches more than one template, OpenSearch merges all mappings and settings from all matching templates and applies them to the index.
-
-The settings from the more recently created index templates override the settings of older index templates. So, you can first define a few common settings in a generic template that can act as a catch-all and then add more specialized settings as required.
-
-An even better approach is to explicitly specify template priority using the `order` parameter. OpenSearch applies templates with lower priority numbers first and then overrides them with templates with higher priority numbers.
+You can create multiple index templates for your indexes. If the index name matches more than one template, OpenSearch takes the mappings and settings from the template with the highest priority and applies it to the index.
 
 For example, say you have the following two templates that both match the `logs-2020-01-02` index and there’s a conflict in the `number_of_shards` field:
 
@@ -146,7 +142,8 @@ PUT _index_template/template-01
   "priority": 0,
   "template": {
     "settings": {
-      "number_of_shards": 2
+      "number_of_shards": 2,
+      "number_of_replicas": 2
     }
   }
 }
@@ -169,7 +166,7 @@ PUT _index_template/template-02
 }
 ```
 
-Because `template-02` has a higher `priority` value, it takes precedence over `template-01` . The `logs-2020-01-02` index would have the `number_of_shards` value as 3.
+Because `template-02` has a higher `priority` value, it takes precedence over `template-01` . The `logs-2020-01-02` index would have the `number_of_shards` value as 3 and the `number_of_replicas` as the default value 1.
 
 ### Delete a template
 
@@ -185,7 +182,6 @@ Managing multiple index templates has the following challenges:
 
 - If you have duplication between index templates, storing these index templates results in a bigger cluster state.
 - If you want to make a change across all your index templates, you have to manually make the change for each template.
-- If an index matches multiple templates, OpenSearch might merge the templates in an unexpected way that you discover only after an index is created.
 
 You can use composable index templates to overcome these challenges. Composable index templates let you abstract common settings, mappings, and aliases into a reusable building block called a component template.
 
