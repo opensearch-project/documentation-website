@@ -69,7 +69,7 @@ Before you can take a snapshot, you have to "register" a snapshot repository. A 
 
 You probably only need to specify `location`, but the following table summarizes the options:
 
-Setting | Description
+Request fields | Description
 :--- | :---
 `location` | The shared file system for snapshots. Required.
 `chunk_size` | Breaks large files into chunks during snapshot operations (e.g. `64mb`, `1gb`), which is important for cloud storage providers and far less important for shared file systems. Default is `null` (unlimited). Optional.
@@ -199,7 +199,7 @@ Setting | Description
 
 You probably don't need to specify anything but `bucket` and `base_path`, but the following table summarizes the options:
 
-Setting | Description
+Request fields | Description
 :--- | :---
 `base_path` | The path within the bucket where you want to store snapshots (e.g. `my/snapshot/directory`). Optional. If not specified, snapshots are stored in the bucket root.
 `bucket` | Name of the S3 bucket. Required.
@@ -240,7 +240,7 @@ PUT _snapshot/my-repository/2
 }
 ```
 
-Setting | Description
+Request fields | Description
 :--- | :---
 `indices` | The indices you want to include in the snapshot. You can use `,` to create a list of indices, `*` to specify an index pattern, and `-` to exclude certain indices. Don't put spaces between items. Default is all indices.
 `ignore_unavailable` | If an index from the `indices` list doesn't exist, whether to ignore it rather than fail the snapshot. Default is false.
@@ -332,7 +332,7 @@ POST _snapshot/my-repository/2/_restore
 }
 ```
 
-Setting | Description
+Request fields | Description
 :--- | :---
 `indices` | The indices you want to restore. You can use `,` to create a list of indices, `*` to specify an index pattern, and `-` to exclude certain indices. Don't put spaces between items. Default is all indices.
 `ignore_unavailable` | If an index from the `indices` list doesn't exist, whether to ignore it rather than fail the restore operation. Default is false.
@@ -343,6 +343,7 @@ Setting | Description
 `rename_replacement` | If you want to rename indices as you restore them, use this option to specify the replacement pattern. Use `$0` to include the entire matching index name, `$1` to include the content of the first capture group, etc.
 `index_settings` | If you want to change index settings on restore, specify them here.
 `ignore_index_settings` | Rather than explicitly specifying new settings with `index_settings`, you can ignore certain index settings in the snapshot and use the cluster defaults on restore.
+`storage_type` | `local` indicates that all snapshot metadata and index data will be downloaded to local storage. <br /><br > `remote_snapshot` indicates that snapshot metadata will be downloaded to the cluster, but the remote repository will remain the authoritative store of the index data. Data will be downloaded and cached as necessary to service queries. At least one node in the cluster must be configured with the [search role]({{site.url}}{{site.baseurl}}/security-plugin/access-control/users-roles/) in order to restore a snapshot using the type `remote_snapshot`. <br /><br > Defaults to `local`.
 
 
 ### Conflicts and compatibility
