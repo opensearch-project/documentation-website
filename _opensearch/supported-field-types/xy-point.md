@@ -44,12 +44,12 @@ PUT testindex1/_doc/1
 }
 ```
 
-- A string in the "`x`,`y`" format
+- A string in the "`x`, `y`" format
 
 ```json
 PUT testindex1/_doc/2
 {
-  "point": "0.5,4.5" 
+  "point": "0.5, 4.5" 
 }
 ```
 
