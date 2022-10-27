@@ -124,8 +124,9 @@ You have explored the data sources experimental feature. We look forward to your
 
 The following limitations apply to the 2.4 release of this experimental feature:
 
-* The multiple data sources feature is available for index pattern-based visualizations only.
+* The multiple data sources feature is supported for index pattern-based visualizations only.
 * Visualization types Time Series Visual Builder (TSVB), Vega and Vega-Lite, and timeline are not supported.
+* External plugins, such as Gantt chart, and non-visualization plugins, such as the developer console, are not supported.
 
 ## Related topics
 
