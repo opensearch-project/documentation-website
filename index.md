@@ -74,7 +74,7 @@ The best way to try out OpenSearch is to use Docker Compose. Setting up OpenSear
    ```bash
    curl -XGET --insecure -u 'admin:admin' 'https://localhost:9200'
    ```
-1. [Create]({{site.url}}{{site.baseurl}}/opensearch/rest-api/index-apis/create-index/) your first index.
+1. [Create]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/) your first index.
 
    ```bash
    curl -XPUT --insecure -u 'admin:admin' 'https://localhost:9200/my-first-index'
@@ -98,13 +98,13 @@ The best way to try out OpenSearch is to use Docker Compose. Setting up OpenSear
    curl -XDELETE --insecure -u 'admin:admin' 'https://localhost:9200/my-first-index/_doc/1'
    ```
 
-1. Finally, [delete the index]({{site.url}}{{site.baseurl}}/opensearch/rest-api/index-apis/delete-index).
+1. Finally, [delete the index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/delete-index).
 
    ```bash
    curl -XDELETE --insecure -u 'admin:admin' 'https://localhost:9200/my-first-index/'
    ```
 
-To learn more, see [Docker image]({{site.url}}{{site.baseurl}}/opensearch/install/docker/) and [Docker security configuration]({{site.url}}{{site.baseurl}}/opensearch/install/docker-security/).
+To learn more, see [Docker image]({{site.url}}{{site.baseurl}}/opensearch/install/docker/) and [Configuring basic security settings]({{site.url}}{{site.baseurl}}/opensearch/install/docker#configuring-basic-security-settings).
 
 
 ## The secure path forward
