@@ -11,7 +11,7 @@ The quickest way to get started using OpenSearch and OpenSearch Dashboards is to
 
 Before proceeding, you should [get Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://github.com/docker/compose) and follow the steps to install them on your machine.
 
-This guide includes commands that you can copy and paste into your terminal. The following Docker Compose commands include a hyphen (`docker-compose`). If you install Docker Desktop, which automatically installs a bundled version of Docker Compose, then you should replace `docker-compose` with `docker compose` where it appears.
+The Docker Compose commands used in this guide are written with a hyphen (for example, `docker-compose`). If you installed Docker Desktop on your machine, which automatically installs a bundled version of Docker Compose, then you should replace `docker-compose` with `docker compose` where it appears in this guide, or you will receive an error like `-bash: docker-compose: command not found`.
 {: .note}
 
 ## Starting your containers
@@ -21,14 +21,36 @@ You need a special file, called a compose file, that Docker Compose uses to defi
 Learn more about working with compose files by reviewing the official [Compose specification](https://docs.docker.com/compose/compose-file/).
 {: .tip}
 
-1. Download the sample compose file to your host. You can use a `curl` command, or copy the file from the OpenSearch Project [documentation-website](https://github.com/opensearch-project/documentation-website/tree/{{site.opensearch_version}}/assets/examples/docker-compose.yml)] repository.
-```bash
-curl -O https://github.com/opensearch-project/documentation-website/tree/{{site.opensearch_version}}/assets/examples/docker-compose.yml
-```
-1. From your terminal, run the following command:
-```bash
-docker-compose up -d
-```
+1. Before you can run OpenSearch on your machine, you should review and apply these [important system settings]({{site.url}}{{site.baseurl}}/opensearch/install/important-settings/){:target='\_blank'}.
+    - Disable memory paging and swapping performance on the host to improve performance.
+        ```bash
+        sudo swapoff -a
+        ```
+    - Increase the number of memory maps available to OpenSearch.
+        ```bash
+        # Edit the sysctl config file
+        sudo vi /etc/sysctl.conf
+
+        # Add a line to define the desired value
+        # or change the value if the key exists,
+        # and then save your changes.
+        vm.max_map_count=262144
+
+        # Reload the kernel parameters using sysctl
+        sudo sysctl -p
+
+        # Verify that the change was applied by checking the value
+        cat /proc/sys/vm/max_map_count
+        ```
+1. Download the sample compose file to your host. You can use a `curl` command, or copy the file from the OpenSearch Project [documentation-website](https://github.com/opensearch-project/documentation-website/tree/{{site.opensearch_version}}/assets/examples/docker-compose.yml) repository.
+    ```bash
+    curl -O https://github.com/opensearch-project/documentation-website/tree/{{site.opensearch_version}}/assets/examples/docker-compose.yml
+    ```
+1. In your terminal application, navigate the directory containing `docker-compose.yml` and run the following command:
+    ```bash
+    docker-compose up -d
+    ```
+1. 
 
 ### Sample docker-compose.yml
 ```yml
