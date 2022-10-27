@@ -94,6 +94,8 @@ If you're running your cluster in a production environment, be sure to refer to 
 
 This sample file starts two data nodes and a container for OpenSearch Dashboards.
 
+### Sample docker-compose.yml
+
 ```yml
 version: '3'
 services:
