@@ -1,7 +1,7 @@
 ---
 layout: default
 title: cat recovery
-parent: CAT API
+parent: Compact and aligned text (CAT) API
 
 nav_order: 50
 has_children: false
