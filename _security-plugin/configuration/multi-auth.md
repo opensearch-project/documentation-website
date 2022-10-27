@@ -1,33 +1,36 @@
 ---
 layout: default
-title: Multi-option sign-in
+title: Multiple option authentication
 parent: Configuration
 nav_order: 3
 ---
 
-# Multi-option sign-in for Dashboards
+# Multiple option authentication for Dashboards
 
-You can configure the sign-in window for OpenSearch Dashboards to provide either a single option for authenticating users at login or multiple options. Currently, Dashboards supports basic authentication, OpenID Connect, and SAML as choices for multi-option authentication.
+You can configure the sign-in window for OpenSearch Dashboards to provide either a single option for authenticating users at sign-in or multiple options. Currently, Dashboards supports basic authentication, OpenID Connect, and SAML as the multiple options.
 
-## General steps for configuring multi-option sign-in
+## General steps for configuring multiple option authentication
 
 1. Decide which types of authentication to make available at sign-in.
 1. Configure each authentication type, including an authentication domain for the identification provider (IdP) and the essential settings that give each type sign-in access to OpenSearch Dashboards (see steps for each authentication type in the Configuration section of the security documentation).
-1. Add, enable, and configure multi-option authentication sign-in settings in the `opensearch_dashboards.yml` file.
+1. Add, enable, and configure multiple option authentication settings in the `opensearch_dashboards.yml` file.
 
-## Enabling multi-option sign-in
+## Enabling multiple option authentication
 
-By default, Dashboards provides a single sign-in environment for basic authentication. To enable multiple options for authentication at sign-in, begin by adding `opensearch_security.auth.multiple_auth_enabled` to the `opensearch_dashboards.yml` file and setting it to `true`.
+By default, Dashboards provides basic authentication as a single option for signing in. To enable multiple options for authentication, begin by adding `opensearch_security.auth.multiple_auth_enabled` to the `opensearch_dashboards.yml` file and setting it to `true`.
 
-To specify the authentication types for multi-option sign-in, add the `opensearch_security.auth.type` setting to the `opensearch_dashboards.yml` file and enter multiple types as values. When more than one authentication type is added to the setting, the Dashboards sign-in window recognizes multiple types and adjusts to accommodate the sign-in options.
+To specify the multiple authentication types as options during sign-in, add the `opensearch_security.auth.type` setting to the `opensearch_dashboards.yml` file and enter multiple types as values. When more than one authentication type is added to the setting, the Dashboards sign-in window recognizes multiple types and adjusts to accommodate the sign-in options.
 
-For single sign-in, the authentication type is specified by adding a single type to the setting.
+When setting up Dashboards to provide multiple authentication options, basic authentication is always required as one of the values for the setting.
+{: .note }
+
+For single option sign-in, the authentication type is specified by adding a single type to the setting.
 
 ```yml
 opensearch_security.auth.type: "openid"
 ```
 
-For multi-option authentication, add values to the setting as an array separated by commas. As a reminder, Dashboards currently supports a combination of basic authentication, OpenID Connect, and SAML as a valid set of values. In the setting, these values are expressed as `"basicauth"`, `"openid"`, and `"saml"`.
+For multiple option authentication, add values to the setting as an array separated by commas. As a reminder, Dashboards currently supports a combination of basic authentication, OpenID Connect, and SAML as a valid set of values. In the setting, these values are expressed as `"basicauth"`, `"openid"`, and `"saml"`.
 
 ```yml
 opensearch_security.auth.type: ["basicauth","openid"]
@@ -52,10 +55,7 @@ With all three valid authentication types specified, the sign-in window appears 
 
 <img src="{{site.url}}{{site.baseurl}}/images/Security/TwoOptionWithoutLogo.png" alt="All three authentication types specified in the sign-in window" width="350">
 
-When setting up Dashboards for multi-option authentication, basic authentication is always required as one of the values for the setting.
-{: .note }
-
-## Customizing the multi-option sign-in environment
+## Customizing the sign-in environment
 
 In addition to the essential sign-in settings for each authentication type, you can configure additional settings in the `opensearch_dashboards.yml` file to customize the sign-in window so that it clearly represents the options that are available. For example, you can replace the label on the sign-in button with the name and icon of the IdP. Use the settings below to change the look and feel of the different options.
 
@@ -73,7 +73,7 @@ Setting | Description
 
 ### OpenID Connect authentication settings
 
-These settings allow you to customize the sign-in button associated with OpenID Connect authentication. For the essential settings required for single sign-in using OpenID Connect, see [OpenSearch Dashboards single sign-on]({{site.url}}{{site.baseurl}}/security-plugin/configuration/openid-connect/#opensearch-dashboards-single-sign-on).
+These settings allow you to customize the sign-in button associated with OpenID Connect authentication. For the essential settings required to use OpenID Connect as a single sign-in option, see [OpenSearch Dashboards single sign-on]({{site.url}}{{site.baseurl}}/security-plugin/configuration/openid-connect/#opensearch-dashboards-single-sign-on).
 
 Setting | Description
 :--- | :--- |:--- |:--- |
@@ -83,7 +83,7 @@ Setting | Description
 
 ### SAML authentication settings
 
-These settings allow you to customize the sign-in button associated with SAML authentication. For the essential settings required for single sign-in using SAML, see [OpenSearch Dashboards configuration]({{site.url}}{{site.baseurl}}/security-plugin/configuration/saml/#opensearch-dashboards-configuration).
+These settings allow you to customize the sign-in button associated with SAML authentication. For the essential settings required to use SAML as a sign-in option, see [OpenSearch Dashboards configuration]({{site.url}}{{site.baseurl}}/security-plugin/configuration/saml/#opensearch-dashboards-configuration).
 
 Setting | Description
 :--- | :--- |:--- |:--- |
@@ -92,9 +92,10 @@ Setting | Description
 `opensearch_security.ui.saml.login.showbrandimage` |  Determines whether a logo for the login button is displayed or not. Default is `false`.
 
 ## Sample setup
-The following example shows basic settings in the `opensearch_dashboards.yml` file  when configured for two options at sign-in.
+The following example shows basic settings in the `opensearch_dashboards.yml` file  when configured for two types of authentication at sign-in.
 
 ```yml
+# The several settings directly below are typical of all `opensearch_dashboards.yml` configurations. #
 server.host: 0.0.0.0
 server.port: 5601
 opensearch.hosts: ["https://localhost:9200"]
@@ -106,7 +107,7 @@ opensearch_security.multitenancy.enabled: true
 opensearch_security.multitenancy.tenants.preferred: ["Private", "Global"]
 opensearch_security.readonly_mode.roles: ["<role_for_read_only>"]
 
-# Settings that enable multi-option authentication in sign-in window #
+# Settings that enable multiple option authentication in the sign-in window #
 opensearch_security.auth.multiple_auth_enabled: true
 opensearch_security.auth.type: ["basicauth","openid"]
 
@@ -115,7 +116,7 @@ opensearch_security.ui.basicauth.login.buttonname: Log in
 opensearch_security.ui.basicauth.login.brandimage: <path/to/OSlogo.png>
 opensearch_security.ui.basicauth.login.showbrandimage: true
 
-# OIDC auth customization and start #
+# OIDC auth customization and start settings #
 opensearch_security.ui.openid.login.buttonname: Log in with <IdP name or other> 
 opensearch_security.ui.openid.login.brandimage: <path/to/brand-logo.png>
 opensearch_security.ui.openid.login.showbrandimage: true
