@@ -11,12 +11,12 @@ The quickest way to get started using OpenSearch and OpenSearch Dashboards is to
 
 Before proceeding, you should [get Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://github.com/docker/compose) and follow the steps to install them on your machine.
 
-The Docker Compose commands used in this guide are written with a hyphen (for example, `docker-compose`). If you installed Docker Desktop on your machine, which automatically installs a bundled version of Docker Compose, then you should replace `docker-compose` with `docker compose` where it appears in this guide, or you will receive an error like `-bash: docker-compose: command not found`.
+The Docker Compose commands used in this guide are written with a hyphen (for example, `docker-compose`). If you installed Docker Desktop on your machine, which automatically installs a bundled version of Docker Compose, then you should replace `docker-compose` with `docker compose` where it appears in this guide.
 {: .note}
 
 ## Starting your cluster
 
-You need a special file, called a compose file, that Docker Compose uses to define and create the containers. We provide a sample compose file that you can use to get started.
+Before you can spin-up your cluster you will need a special file, called a compose file, that Docker Compose uses to define and create the containers. We provide a sample compose file that you can use to get started.
 
 Learn more about working with compose files by reviewing the official [Compose specification](https://docs.docker.com/compose/compose-file/).
 {: .tip}
@@ -62,6 +62,14 @@ Learn more about working with compose files by reviewing the official [Compose s
 ## Common issues
 
 Review these common issues and suggested solutions if your containers fail to start or exit unexpectedly.
+
+### -bash: docker-compose: command not found
+
+If you installed Docker Desktop then Docker Compose is already installed on your machine. Try `docker compose` (without the hyphen) instead of `docker-compose`. See [Use Docker Compose](https://docs.docker.com/get-started/08_using_compose/).
+
+### docker: 'compose' is not a docker command.
+
+If you installed Docker Engine then you must install Docker Compose separately, and you will use the command `docker-compose` (with a hyphen). See [Docker Compose](https://github.com/docker/compose).
 
 ### max virtual memory areas vm.max_map_count [65530] is too low
 
