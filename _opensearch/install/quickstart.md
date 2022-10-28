@@ -16,12 +16,9 @@ The Docker Compose commands used in this guide are written with a hyphen (for ex
 
 ## Starting your cluster
 
-Before you can spin-up your cluster you will need a special file, called a compose file, that Docker Compose uses to define and create the containers. We provide a sample compose file that you can use to get started.
+You will need a special file, called a compose file, that Docker Compose uses to define and create the containers in your cluster. We provide a sample compose file that you can use to get started. Learn more about working with compose files by reviewing the official [Compose specification](https://docs.docker.com/compose/compose-file/).
 
-Learn more about working with compose files by reviewing the official [Compose specification](https://docs.docker.com/compose/compose-file/).
-{: .tip}
-
-1. Before you can run OpenSearch on your machine, you should review and apply these [important system settings]({{site.url}}{{site.baseurl}}/opensearch/install/important-settings/){:target='\_blank'}.
+1. Before running OpenSearch on your machine, you should review and apply these [important system settings]({{site.url}}{{site.baseurl}}/opensearch/install/important-settings/).
     - Disable memory paging and swapping performance on the host to improve performance.
         ```bash
         sudo swapoff -a
@@ -76,7 +73,7 @@ If you installed Docker Engine then you must install Docker Compose separately, 
 
 ### Error message: "max virtual memory areas vm.max_map_count [65530] is too low"
 
-OpenSearch will fail to start if your host is not configured with a high enough max map count. Review the [important system settings]({{site.url}}{{site.baseurl}}/opensearch/install/important-settings/){:target='\_blank'} if you see the following errors in the service log, and set `vm.max_map_count` appropriately.
+OpenSearch will fail to start if your host is not configured with a high enough max map count. Review the [important system settings]({{site.url}}{{site.baseurl}}/opensearch/install/important-settings/) if you see the following errors in the service log, and set `vm.max_map_count` appropriately.
 
 ```bash
 opensearch-node1         | ERROR: [1] bootstrap checks failed
