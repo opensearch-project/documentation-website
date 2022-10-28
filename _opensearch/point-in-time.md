@@ -118,7 +118,15 @@ In every request you can only query for one slice, so the next query will be the
 
 This section describes permissions needed to use PIT API operations if you are running OpenSearch with the Security plugin enabled.
 
-Users can access all PIT API operations using the `point_in_time_full_access` role.
+Users can access all PIT API operations using the `point_in_time_full_access` role. If this role don't meet your needs, mix and match individual PIT permissions to suit your use case. Each action corresponds to an operation in the REST API. For example, the `indices:data/read/point_in_time/create` permission lets you create a PIT. The following is the list of possible permissions:
+
+- `indices:data/read/point_in_time/create` &ndash; Create API
+- `indices:data/read/point_in_time/delete` &ndash; Delete API
+- `indices:data/read/point_in_time/readall` &ndash; List all PITs API
+- `indices:data/read/search` &ndash; Search API
+- `indices:monitor/point_in_time/segments` &ndash; PIT Segments API
+
+For `all` type API operations, such as list all and delete all, the user needs the all indices (*) permission. For API operations such as search, create PIT, or delete list the user only needs individual index permissions.
 
 The PIT IDs always contain the underlying (resolved) indexes when saved. Thus, for aliases and data streams the behavior is as follows.
 
