@@ -1,7 +1,7 @@
 ---
 layout: default
 title: CAT shards
-parent: Compact and aligned text (CAT) API
+parent: CAT API
 
 nav_order: 60
 has_children: false

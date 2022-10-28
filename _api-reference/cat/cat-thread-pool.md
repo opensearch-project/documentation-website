@@ -1,7 +1,7 @@
 ---
 layout: default
 title: CAT thread pool
-parent: Compact and aligned text (CAT) API
+parent: CAT API
 nav_order: 75
 has_children: false
 ---

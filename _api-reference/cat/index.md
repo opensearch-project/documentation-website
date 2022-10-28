@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Compact and aligned text (CAT) API
+title: CAT API
 nav_order: 10
 has_children: true
 redirect_from:

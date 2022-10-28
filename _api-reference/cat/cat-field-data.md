@@ -1,7 +1,7 @@
 ---
 layout: default
 title: CAT field data
-parent: Compact and aligned text (CAT) API
+parent: CAT API
 
 nav_order: 15
 has_children: false

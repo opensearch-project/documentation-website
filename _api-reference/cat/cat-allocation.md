@@ -1,7 +1,7 @@
 ---
 layout: default
 title: CAT allocation
-parent: Compact and aligned text (CAT) API
+parent: CAT API
 
 nav_order: 5
 has_children: false

@@ -1,7 +1,7 @@
 ---
 layout: default
 title: CAT pending tasks
-parent: Compact and aligned text (CAT) API
+parent: CAT API
 
 nav_order: 45
 has_children: false

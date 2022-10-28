@@ -1,7 +1,7 @@
 ---
 layout: default
 title: CAT cluster manager
-parent: Compact and aligned text (CAT) API
+parent: CAT API
 
 nav_order: 30
 has_children: false

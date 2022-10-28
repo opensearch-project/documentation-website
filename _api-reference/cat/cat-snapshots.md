@@ -1,7 +1,7 @@
 ---
 layout: default
 title: CAT snapshots
-parent: Compact and aligned text (CAT) API
+parent: CAT API
 
 nav_order: 65
 has_children: false
