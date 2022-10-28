@@ -9,7 +9,7 @@ grand_parent: Supported field types
 
 # xy point field type
 
-An xy point field type contains a point in a two-dimensional Cartesian coordinate system, specified by x and y coordinates. It is based on the Lucene [XYPoint](https://lucene.apache.org/core/8_5_1/core/org/apache/lucene/geo/XYPoint.html) field type. The xy point field type is similar to the [geopoint]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point/) field type, but does not have the range limitations of geopoint. The coordinates of an xy point are single-precision floating point values. For information about the range and precision of floating-point values, see [Numeric field types]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/numeric/).
+An xy point field type contains a point in a two-dimensional Cartesian coordinate system, specified by x and y coordinates. It is based on the Lucene [XYPoint](https://lucene.apache.org/core/9_3_0/core/org/apache/lucene/geo/XYPoint.html) field type. The xy point field type is similar to the [geopoint]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point/) field type, but does not have the range limitations of geopoint. The coordinates of an xy point are single-precision floating point values. For information about the range and precision of floating-point values, see [Numeric field types]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/numeric/).
 
 ## Example
 
@@ -68,6 +68,18 @@ PUT testindex1/_doc/3
 PUT testindex1/_doc/4
 {
   "point": "POINT (0.5 4.5)"
+}
+```
+
+- GeoJSON format
+
+```json
+PUT testindex1/_doc/5
+{
+  "point" : {
+    "type" : "Point",
+    "coordinates" : [0.5, 4.5]        
+  }
 }
 ```
 
