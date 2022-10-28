@@ -1,6 +1,6 @@
 ---
 layout: default
-title: cat cluster manager
+title: cat cluster manager operation
 parent: Compact and aligned text (CAT) API
 
 nav_order: 30

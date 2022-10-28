@@ -1,6 +1,6 @@
 ---
 layout: default
-title: cat shards
+title: cat shards operation
 parent: Compact and aligned text (CAT) API
 
 nav_order: 60

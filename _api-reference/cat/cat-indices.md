@@ -1,6 +1,6 @@
 ---
 layout: default
-title: cat indices
+title: cat indices operation
 parent: Compact and aligned text (CAT) API
 
 nav_order: 25

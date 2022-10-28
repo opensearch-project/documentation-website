@@ -1,6 +1,6 @@
 ---
 layout: default
-title: cat allocation
+title: cat allocation operation
 parent: Compact and aligned text (CAT) API
 
 nav_order: 5

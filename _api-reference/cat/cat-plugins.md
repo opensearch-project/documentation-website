@@ -1,6 +1,6 @@
 ---
 layout: default
-title: cat plugins
+title: cat plugins operation
 parent: Compact and aligned text (CAT) API
 
 nav_order: 50

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: cat aliases
+title: cat aliases operation
 parent: Compact and aligned text (CAT) API
 
 nav_order: 1

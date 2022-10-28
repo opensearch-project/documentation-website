@@ -1,6 +1,6 @@
 ---
 layout: default
-title: cat health
+title: cat health operation
 parent: Compact and aligned text (CAT) API
 
 nav_order: 20

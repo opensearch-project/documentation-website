@@ -1,6 +1,6 @@
 ---
 layout: default
-title: cat snapshots
+title: cat snapshots operation
 parent: Compact and aligned text (CAT) API
 
 nav_order: 65

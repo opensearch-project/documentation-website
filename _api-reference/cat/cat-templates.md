@@ -1,6 +1,6 @@
 ---
 layout: default
-title: cat templates
+title: cat templates operation
 parent: Compact and aligned text (CAT) API
 
 nav_order: 70

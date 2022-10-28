@@ -1,6 +1,6 @@
 ---
 layout: default
-title: cat recovery
+title: cat recovery operation
 parent: Compact and aligned text (CAT) API
 
 nav_order: 50

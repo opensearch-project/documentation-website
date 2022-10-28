@@ -1,6 +1,6 @@
 ---
 layout: default
-title: cat repositories
+title: cat repositories operation
 parent: Compact and aligned text (CAT) API
 
 nav_order: 55

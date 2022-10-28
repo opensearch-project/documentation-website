@@ -1,6 +1,6 @@
 ---
 layout: default
-title: cat field data
+title: cat field data operation
 parent: Compact and aligned text (CAT) API
 
 nav_order: 15

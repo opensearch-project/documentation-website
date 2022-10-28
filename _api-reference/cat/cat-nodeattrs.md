@@ -1,6 +1,6 @@
 ---
 layout: default
-title: cat nodeattrs
+title: cat nodeattrs operation
 parent: Compact and aligned text (CAT) API
 
 nav_order: 35

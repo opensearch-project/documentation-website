@@ -1,6 +1,6 @@
 ---
 layout: default
-title: cat segments
+title: cat segments operation
 parent: Compact and aligned text (CAT) API
 
 nav_order: 55

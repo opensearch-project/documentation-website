@@ -1,6 +1,6 @@
 ---
 layout: default
-title: cat pending tasks
+title: cat pending tasks operation
 parent: Compact and aligned text (CAT) API
 
 nav_order: 45
