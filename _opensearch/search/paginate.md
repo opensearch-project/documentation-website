@@ -54,7 +54,7 @@ Querying for pages deep in your results can have a significant performance impac
 
 The `from` and `size` parameters are stateless, so the results are based on the latest available data.
 This can cause inconsistent pagination.
-For example, assume a user stays on the first page of the results for a minute and then navigates to the second page; in that time, a new document is indexed in the background which is relevant enough to show up on the first page. In this scenario, the last result of the first page is pushed to the second page, so the user ends up seeing a result on the second page that they already saw on the first page.
+For example, assume a user stays on the first page of the results and then navigates to the second page. During that time, a new document relevant for the user's search is indexed and shows up in the first page. In this scenario, the last result on the first page is pushed to the second page, and the user sees duplicate results (that is, the first and second pages both display that last result).
 
 Use the `scroll` operation for consistent pagination. The `scroll` operation keeps a search context open for a certain period of time. Any data changes do not affect the results during this time.
 
@@ -127,7 +127,7 @@ GET shakespeare/_search?scroll=10m
 }
 ```
 
-Close the search context when you’re done scrolling, because it continues to consume computing resources until the timeout:
+Close the search context when you’re done scrolling, as it continues to consume computing resources until the timeout:
 
 ```json
 DELETE _search/scroll/DXF1ZXJ5QW5kRmV0Y2gBAAAAAAAAAAcWdmpUZDhnRFBUcWFtV21nMmFwUGJEQQ==
@@ -156,7 +156,7 @@ Because open search contexts consume a lot of memory, we suggest you don't use t
 
 The `search_after` parameter provides a live cursor to use the previous page's results to obtain the next page's results. It is similar to the `scroll` operation in that it is meant to scroll many queries in parallel. 
 
-For example, the following query sorts all lines from the play "Hamlet" by the speech number and then the ID, and retrieves the first three results:
+For example, the following query sorts all lines from the play "Hamlet" by the speech number,then ID and retrieves the first three results:
 
 ```json
 GET shakespeare/_search
@@ -252,7 +252,7 @@ The response contains the `sort` array of values for each document:
 }
 ```
 
-You can use the last result's `sort` values to retrieve the next result using the `search_after` parameter:
+You can use the last result's `sort` values to retrieve the next result by using the `search_after` parameter:
 
 ```json
 GET shakespeare/_search
