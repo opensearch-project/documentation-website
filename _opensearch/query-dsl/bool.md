@@ -9,18 +9,21 @@ nav_order: 45
 
 You can perform a Boolean query with the `bool` query type. A Boolean query compounds query clauses so you can combine multiple search queries with Boolean logic. To narrow or broaden your search results, use the `bool` query clause rules.
 
-As a compound query type, `bool` allows you to construct an advanced query by chaining together several simple ones.
+As a compound query type, `bool` allows you to construct an advanced query by combining several simple queries.
 
 Use the following rules to define how to combine multiple sub-query clauses within a `bool` query:
 
 Clause rule | Behavior
 :--- | :---
-`must` | The results must match the queries in this clause. If you have multiple queries, every single one must match. Acts as an `and` operator.
-`must_not` | This is the anti-must clause. All matches are excluded from the results. Acts as a `not` operator.
-`should` | The results should, but don't have to, match the queries. Each matching `should` clause increases the relevancy score. As an option, you can require one or more queries to match the value of the `minimum_number_should_match` parameter (default is 1).
-`filter` | Filters reduce your dataset before applying the queries. A query within a filter clause is a yes-no option, where if a document matches the query it's included in the results. Otherwise, it's not. Filter queries do not affect the relevancy score that the results are sorted by. The results of a filter query are generally cached so they tend to run faster. Use the filter query to filter the results based on exact matches, ranges, dates, numbers, and so on.
+`must` | Logical `and` operator. The results must match the queries in this clause. If you have multiple queries, all of them must match.
+`must_not` | Logical `not` operator. All matches are excluded from the results.
+`should` | Logical `or` operator. The results must match at least one of the queries, but, optionally, they can match more than one query. Each matching `should` clause increases the relevancy score.  You can set the minimum number of queries that must match using the `minimum_number_should_match` parameter.
+`minimum_number_should_match` | Optional parameter for use with a `should` query clause. Specifies the minimum number of queries that the document must match for it to be returned in the results. The default value is 1.
+`filter` | Logical `and` operator that is applied first to reduce your dataset before applying the queries. A query within a filter clause is a yes or no option. If a document matches the query, it is returned in the results; otherwise, it is not. The results of a filter query are generally cached to allow for a faster return. Use the filter query to filter the results based on exact matches, ranges, dates, numbers, and so on.
 
-The structure of a `bool` query is as follows:
+### Boolean query structure
+
+The structure of a Boolean query contains the `bool` query type followed by clause rules, as follows:
 
 ```json
 GET _search

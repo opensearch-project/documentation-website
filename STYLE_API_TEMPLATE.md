@@ -20,7 +20,7 @@ When you provide an exact example with a value, you can use the code element in 
   *Example usage*: 
   The response provides a value for `time_field`, such as “timestamp.” 
 
-See also [Examples](https://alpha-docs-aws.amazon.com/awsstyleguide/latest/styleguide/examples.html) in the AWS Style Guide.
+Provide a REST API call example in `json` format. Optionally, also include the `curl` command if the call can only be executed in a command line.
 
 ## Basic elements for documentation
 
@@ -29,12 +29,13 @@ The following sections describe the basic API documentation structure. Each sect
 Depending on where the documentation appears within a section or subsection, heading levels may be adjusted to fit with other content.
 
 1. Name of API (heading level 2)
-2. Path parameters (heading level 3)
-3. Query parameters (heading level 3)
-4. Request fields (heading level 3)
-5. Sample request (heading level 4)
-6. Sample response (heading level 4)
-7. Response fields (heading level 3)
+1. (Optional) Path and HTTP methods (heading level 3)
+1. Path parameters (heading level 3)
+1. Query parameters (heading level 3)
+1. Request fields (heading level 3)
+1. Sample request (heading level 4)
+1. Sample response (heading level 4)
+1. Response fields (heading level 3)
 
 ## API name
 
@@ -51,6 +52,19 @@ If applicable, provide any caveats to its usage with a note or tip, as in the fo
 
 "If you use the Security plugin, make sure you have the appropriate permissions."
 (To set this point in note-style format, follow the text on the next line with {: .note})
+
+### Path and HTTP methods
+
+For relatively complex API calls that include path parameters, it's sometimes a good idea to provide an example so that users can visualize how the request is properly formed. This section is optional and includes examples that illustrate how the endpoint and path parameters fit together in the request. The following is an example of this section for the nodes stats API:
+
+```json
+GET /_nodes/stats
+GET /_nodes/<node_id>/stats
+GET /_nodes/stats/<metric>
+GET /_nodes/<node_id>/stats/<metric>
+GET /_nodes/stats/<metric>/<index_metric>
+GET /_nodes/<node_id>/stats/<metric>/<index_metric>
+```
 
 ### Path parameters
 

@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Grafana
-nav_order: 150
+nav_order: 200
 has_children: false
 ---
 

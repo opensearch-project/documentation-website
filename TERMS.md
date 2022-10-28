@@ -544,6 +544,16 @@ A set of conditions, internals, and actions that create notifications.
 
 Avoid using. Use *separate* or *isolate* instead.
 
+**setting**
+
+A key-value pair that creates a mapping in one of the many YAML configuration files used throughout OpenSearch. Sometimes alternatively called parameters, the programming language manipulating the key-value pair usually dictates the name of this mapping in a YAML file. For OpenSearch documentation (Java), they are properly a `Setting` object.
+
+The following examples of settings illustrate key-value pairs with a colon separating the two elements:
+
+`Settings.index.number_of_shards: 4`
+
+`plugins.security.audit.enable_rest: true`
+
 **set up (v.), setup (n., adj.)**
 
 Use _set up_ as a verb (“To set up a new user...”). Use _setup_ as a noun or adjective (“To begin setup...”).

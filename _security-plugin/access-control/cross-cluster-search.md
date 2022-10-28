@@ -38,7 +38,7 @@ To query indexes on remote clusters, users need to have `READ` or `SEARCH` permi
 indices:admin/shards/search_shards
 ```
 
-For more information about the `ccs_minimize_roundtrips` parameter, see the list of [parameters](https://opensearch.org/docs/latest/opensearch/rest-api/search/#url-parameters) for the Search API.
+For more information about the `ccs_minimize_roundtrips` parameter, see the list of [URL Parameters]({{site.url}}{{site.baseurl}}/api-reference/search/#url-parameters) for the Search API.
 
 #### Sample roles.yml configuration
 
