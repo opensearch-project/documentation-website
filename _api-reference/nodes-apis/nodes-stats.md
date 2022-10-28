@@ -158,7 +158,10 @@ GET _nodes/stats/
           "current" : 0
         },
         "search" : {
-          "open_contexts" : 0,
+          "pit_total" : 9,
+          "pit_time_in_millis" : 11451670,
+          "open_pit_contexts" : 4,
+          "open_contexts" : 4,
           "query_total" : 194,
           "query_time_in_millis" : 467,
           "query_current" : 0,

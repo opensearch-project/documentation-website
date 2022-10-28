@@ -128,6 +128,7 @@ Role | Description
 `index_management_full_access` | Grants full permissions to all index management actions, including ISM, transforms, and rollups.
 `snapshot_management_full_access` | Grants full permissions to all snapshot management actions.
 `snapshot_management_read_access` | Grants permissions to view policies but not create, modify, start, stop, or delete them.
+`point_in_time_full_access` | Grants full permissions to all Point in Time operations.
 
 For more detailed summaries of the permissions for each role, reference their action groups against the descriptions in [Default action groups]({{site.url}}{{site.baseurl}}/security-plugin/access-control/default-action-groups/).
 
