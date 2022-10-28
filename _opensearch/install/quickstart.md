@@ -34,22 +34,47 @@ You will need a special file, called a compose file, that Docker Compose uses to
         # Reload the kernel parameters.
         sudo sysctl -p
         ```  
-1. Download the sample compose file to your host. You can use a `curl` command, or copy the file from the OpenSearch Project [documentation-website](https://github.com/opensearch-project/documentation-website/tree/{{site.opensearch_version}}/assets/examples/docker-compose.yml) repository.
+1. Download the sample compose file to your host. You can download the file with command line utilities like `curl` or `wget`, or you can manually copy the file from the OpenSearch Project [documentation-website](https://github.com/opensearch-project/documentation-website/tree/{{site.opensearch_version}}/assets/examples/docker-compose.yml) repository from a web browser.
     ```bash
-    # Using cURL
+    # Using cURL:
     curl -O https://github.com/opensearch-project/documentation-website/tree/{{site.opensearch_version}}/assets/examples/docker-compose.yml
 
-    # Using wget
+    # Using wget:
     wget https://github.com/opensearch-project/documentation-website/tree/{{site.opensearch_version}}/assets/examples/docker-compose.yml
     ```
-1. In your terminal application, navigate to the directory containing the `docker-compose.yml` file you just downloaded and run the following command:
+1. In your terminal application, navigate to the directory containing the `docker-compose.yml` file you just downloaded, and run the following command to create and start the cluster as a background process.
     ```bash
-    # The '-d' option runs the containers as a background process
-    # so you can continue to use your terminal window. Omit the '-d'
-    # 
     docker-compose up -d
     ```
-1. Next step
+1. Confirm that the containers are running.
+    ```bash
+    docker-compose ps
+    ```
+1. Send a query the OpenSearch REST API to verify that the service is running. You should use `-k` (also written as `--insecure`) to disable host name checking because the default security configuration uses demo certificates. Use `-u` to pass the default username and password (`admin:admin`).
+    ```bash
+    curl https://localhost:9200 -ku admin:admin
+    ```
+    - Sample response:
+    ```json
+    {
+    "name" : "opensearch-node1",
+    "cluster_name" : "opensearch-cluster",
+    "cluster_uuid" : "Cd7SL5ysRSyuau325M3h9w",
+    "version" : {
+        "distribution" : "opensearch",
+        "number" : "2.3.0",
+        "build_type" : "tar",
+        "build_hash" : "6f6e84ebc54af31a976f53af36a5c69d474a5140",
+        "build_date" : "2022-09-09T00:07:12.137133581Z",
+        "build_snapshot" : false,
+        "lucene_version" : "9.3.0",
+        "minimum_wire_compatibility_version" : "7.10.0",
+        "minimum_index_compatibility_version" : "7.0.0"
+    },
+    "tagline" : "The OpenSearch Project: https://opensearch.org/"
+    }
+    ```
+1. 
 
 ## Common issues
 
