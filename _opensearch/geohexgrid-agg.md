@@ -308,7 +308,7 @@ The response contains the two documents that are within the `geo_bounding_box` b
 
 GeoHex grid aggregation requests support the following parameters.
 
-Field | Data Type | Description
+Parameter | Data Type | Description
 :--- | :--- | :---
 field | String | The field that contains the geopoints. This field must be mapped as a `geo_point` field. If the field contains an array, all array values are aggregated. Required.
 precision | Integer | The zoom level used to determine grid cells for bucketing results. Valid values are in the [0, 15] range. Default is 5. 
