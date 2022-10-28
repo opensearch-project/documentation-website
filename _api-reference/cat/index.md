@@ -8,7 +8,7 @@ redirect_from:
   - /opensearch/rest-api/cat
 ---
 
-# Compact and aligned text (CAT) API
+# CAT API
 
 You can get essential statistics about your cluster in an easy-to-understand, tabular format using the compact and aligned text (CAT) API. The CAT API is a human-readable interface that returns plain text instead of traditional JSON.
 
