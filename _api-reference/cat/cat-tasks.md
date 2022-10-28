@@ -1,17 +1,17 @@
 ---
 layout: default
-title: cat tasks operation
+title: CAT tasks
 parent: Compact and aligned text (CAT) API
 
 nav_order: 70
 has_children: false
 ---
 
-# cat tasks operation
+# CAT tasks
 Introduced 1.0
 {: .label .label-purple }
 
-The cat tasks operation lists the progress of all tasks currently running on your cluster.
+The CAT tasks operation lists the progress of all tasks currently running on your cluster.
 
 ## Example
 
@@ -27,7 +27,7 @@ GET _cat/tasks
 
 ## URL parameters
 
-All cat tasks URL parameters are optional.
+All CAT tasks URL parameters are optional.
 
 In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameter:
 

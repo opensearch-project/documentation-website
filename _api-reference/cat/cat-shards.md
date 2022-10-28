@@ -1,17 +1,17 @@
 ---
 layout: default
-title: cat shards operation
+title: CAT shards
 parent: Compact and aligned text (CAT) API
 
 nav_order: 60
 has_children: false
 ---
 
-# cat shards operation
+# CAT shards
 Introduced 1.0
 {: .label .label-purple }
 
-The cat shards operation lists the state of all primary and replica shards and how they are distributed.
+The CAT shards operation lists the state of all primary and replica shards and how they are distributed.
 
 ## Example
 
