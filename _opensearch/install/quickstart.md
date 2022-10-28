@@ -58,15 +58,23 @@ Learn more about working with compose files by reviewing the official [Compose s
 
 Review these common issues and suggested solutions if your containers fail to start or exit unexpectedly.
 
-### -bash: docker-compose: command not found
+### Docker commands require elevated permissions
+
+Eliminate the need for running your Docker commands with `sudo` by adding your user to the `docker` user group. See [Post-installation steps for Linux](https://docs.docker.com/engine/install/linux-postinstall/) for more information.
+
+```bash
+sudo usermod -aG docker $USER
+```
+
+### Error message: "-bash: docker-compose: command not found"
 
 If you installed Docker Desktop then Docker Compose is already installed on your machine. Try `docker compose` (without the hyphen) instead of `docker-compose`. See [Use Docker Compose](https://docs.docker.com/get-started/08_using_compose/).
 
-### docker: 'compose' is not a docker command.
+### Error message: "docker: 'compose' is not a docker command."
 
 If you installed Docker Engine then you must install Docker Compose separately, and you will use the command `docker-compose` (with a hyphen). See [Docker Compose](https://github.com/docker/compose).
 
-### max virtual memory areas vm.max_map_count [65530] is too low
+### Error message: "max virtual memory areas vm.max_map_count [65530] is too low"
 
 OpenSearch will fail to start if your host is not configured with a high enough max map count. Review the [important system settings]({{site.url}}{{site.baseurl}}/opensearch/install/important-settings/){:target='\_blank'} if you see the following errors in the service log, and set `vm.max_map_count` appropriately.
 
@@ -74,12 +82,4 @@ OpenSearch will fail to start if your host is not configured with a high enough 
 opensearch-node1         | ERROR: [1] bootstrap checks failed
 opensearch-node1         | [1]: max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]
 opensearch-node1         | ERROR: OpenSearch did not exit normally - check the logs at /usr/share/opensearch/logs/opensearch-cluster.log
-```
-
-### Docker commands require elevated permissions
-
-Eliminate the need for running your Docker commands with `sudo` by adding your user to the `docker` user group. See [Post-installation steps for Linux](https://docs.docker.com/engine/install/linux-postinstall/) for more information.
-
-```bash
-sudo usermod -aG docker $USER
 ```
