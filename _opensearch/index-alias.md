@@ -68,7 +68,7 @@ POST <index>/_alias/<alias name>
 
 The `<index>` in the above requests can be an index name, a comma-separated list of index names, or a wildcard expression. Use `_all` to refer to all indexes.
 
-To check if `alias1` refers to `index-1`, run the following command:
+To check if `alias1` refers to `index-1`, run one of the following commands:
 
 ```json
 GET /_alias/alias1
