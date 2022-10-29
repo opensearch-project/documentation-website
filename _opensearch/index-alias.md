@@ -57,7 +57,25 @@ You should see the following response:
 
 If this request fails, make sure the index that you're adding to the alias already exists.
 
+You can also create an alias using one of the following requests:
+
+```json
+PUT <index>/_aliases/<alias name>
+PUT <index>/_aliases/<alias name>
+POST <index>/_alias/<alias name>
+POST <index>/_alias/<alias name>
+```
+
+The `<index>` in the above requests can be an index name, a comma-separated list of index names, or a wildcard expression. Use `_all` to refer to all indexes.
+
 To check if `alias1` refers to `index-1`, run the following command:
+
+```json
+GET /_alias/alias1
+GET /index-1/_alias/alias1
+```
+
+To get the mappings and settings information of the indexes that the alias references, run the following command:
 
 ```json
 GET alias1
@@ -145,10 +163,18 @@ Conversely, to find which alias points to a specific index, run the following co
 GET /index-2/_alias/*
 ```
 
-To check if an alias exists, run the following command:
+To get all index names and their aliases, run the following command:
+
+```json
+GET /_alias
+```
+
+To check if an alias exists, run one of the following commands:
 
 ```json
 HEAD /alias1/_alias/
+HEAD /_alias/alias1/
+HEAD index-1/_alias/alias1/
 ```
 
 ## Add aliases at index creation
@@ -200,3 +226,23 @@ Option | Valid values | Description | Required
 `filter` | Object | Add a filter to the alias. | No
 `routing` | String | Limit search to an associated shard value. You can specify `search_routing` and `index_routing` independently. | No
 `is_write_index` | String | Specify the index that accepts any write operations to the alias. If this value is not specified, then no write operations are allowed. | No
+
+
+## Delete aliases
+
+To delete one or more aliases from an index, use the following request:
+
+```json
+DELETE <index>/_alias/<alias>
+DELETE <index>/_aliases/<alias>
+```
+
+Both `<index>` and `<alias>` in the above request support comma-separated lists and wildcard expressions. Use `_all` in place of `<alias>` to delete all aliases for the indexes listed in `<index>`.
+
+For example, if `alias1` refers to `index-1` and `index-2`, you can run the following command to remove `alias1` from `index-1`:
+
+```json
+DELETE index-1/_alias/alias1
+```
+
+After you run the request above, `alias1` no longer refers to `index-1`, but still refers to `index-2`.
