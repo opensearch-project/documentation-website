@@ -106,6 +106,7 @@ To list all index templates:
 
 ```json
 GET _cat/templates
+GET /_index_template
 ```
 
 To find a template by its name:
