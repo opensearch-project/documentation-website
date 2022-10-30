@@ -20,6 +20,7 @@ GET /sample-index1/_settings
 ## Path and HTTP methods
 
 ```
+GET /_settings
 GET /<target-index>/_settings
 GET /<target-index>/_settings/<setting>
 ```
