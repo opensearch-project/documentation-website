@@ -70,7 +70,7 @@ The `painless_test` context is the default script context that provides only the
 
 The `filter` context runs the script as if the script was inside a script query. You must provide a test document in the context. The `_source`, stored fields and `_doc` variables will be available to the script.
 
-You can specify the following parameters to the filter context in the `context_setup`:
+You can specify the following parameters to the filter context in the `context_setup`.
 
 Parameter | Description
 :--- | :---
