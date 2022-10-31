@@ -453,6 +453,83 @@ $ curl https://your.host.address:9200 -u admin:yournewpassword -k
 }
 ```
 
+### Run OpenSearch as a service with systemd
+
+Create a service for OpenSearch and register it with `systemd`. After the service has been defined, you can enable, start, and stop the OpenSearch process using `systemctl` commands. The following steps reflect an environment where OpenSearch has been installed to `/opt/opensearch`. Change the paths in the following commands and example file to reflect your installation path.
+
+1. Create a user for the OpenSearch service.
+   ```bash
+   sudo adduser --system --shell /bin/bash -U --no-create-home opensearch
+   ```
+
+1. Add your user to the `opensearch` user group.
+   ```bash
+   sudo usermod -aG opensearch $USER
+   ```
+
+1. Change the file owner to `opensearch`. Make sure to change the path if your OpenSearch files are in a different directory.
+   ```bash
+   sudo chown -R opensearch /opt/opensearch/
+   ```
+
+1. Create the service file and open it for editing.
+   ```bash
+   sudo vi /etc/systemd/system/opensearch.service
+   ```
+
+1. Enter the following example service configuration. Make sure to change references to the path if your OpenSearch files are in a different directory.
+   ```bash
+   [Unit]
+   Description=OpenSearch
+   Wants=network-online.target
+   After=network-online.target
+
+   [Service]
+   Type=forking
+   RuntimeDirectory=data
+
+   WorkingDirectory=/opt/opensearch
+   ExecStart=/opt/opensearch/bin/opensearch -d
+
+   User=opensearch
+   Group=opensearch
+   StandardOutput=journal
+   StandardError=inherit
+   LimitNOFILE=65535
+   LimitNPROC=4096
+   LimitAS=infinity
+   LimitFSIZE=infinity
+   TimeoutStopSec=0
+   KillSignal=SIGTERM
+   KillMode=process
+   SendSIGKILL=no
+   SuccessExitStatus=143
+   TimeoutStartSec=75
+
+   [Install]
+   WantedBy=multi-user.target
+   ```
+
+1. Reload `systemd` manager configuration.
+   ```bash
+   sudo systemctl daemon-reload
+   ```
+
+1. Enable the OpenSearch service.
+   ```bash
+   sudo systemctl enable opensearch.service
+   ```
+
+1. Start the OpenSearch service.
+   ```bash
+   sudo systemctl start opensearch
+   ```
+
+1. Verify that the service is running.
+   ```bash
+   sudo systemctl status opensearch
+   ```
+
 ## Related links
 
 - [OpenSearch configuration]({{site.url}}{{site.baseurl}}/opensearch/configuration/)
