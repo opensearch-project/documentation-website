@@ -76,7 +76,7 @@ creation_time | long | The time the PIT was created in milliseconds since the ep
 
 ## Extend a PIT time
 
-You can extend a PIT time by providing an optional `keep_alive` parameter in the `pit` object when you perform a PIT search:
+You can extend a PIT time by providing an optional `keep_alive` parameter in the `pit` object when you perform a search:
 
 ```json
 GET /_search
