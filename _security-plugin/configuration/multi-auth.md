@@ -12,7 +12,7 @@ You can configure the sign-in window for OpenSearch Dashboards to provide either
 ## General steps for configuring multiple option authentication
 
 1. Decide which types of authentication to make available at sign-in.
-1. Configure each authentication type, including an authentication domain for the identification provider (IdP) and the essential settings that give each type sign-in access to OpenSearch Dashboards (see steps for each authentication type in the Configuration section of the security documentation).
+1. Configure each authentication type, including an authentication domain for the identification provider (IdP) and the essential settings that give each type sign-in access to OpenSearch Dashboards. For OpenId Connect backend configuration, see [OpenID Connect]({{site.url}}{{site.baseurl}}/security-plugin/configuration/openid-connect/); For SAML backend configuration, see [SAML]({{site.url}}{{site.baseurl}}/security-plugin/configuration/saml/).
 1. Add, enable, and configure multiple option authentication settings in the `opensearch_dashboards.yml` file.
 
 ## Enabling multiple option authentication
@@ -67,7 +67,6 @@ The settings below are used to customize the basic username and password sign-in
 
 Setting | Description
 :--- | :--- |:--- |:--- |
-`opensearch_security.ui.basicauth.login.buttonname` |  Display name for the login button. "Log in" by default.
 `opensearch_security.ui.basicauth.login.brandimage` |  Login button logo. Supported file types are SVG, PNG, and GIF.
 `opensearch_security.ui.basicauth.login.showbrandimage` |  Determines whether a logo for the login button is displayed or not. Default is `true`. 
 
@@ -112,7 +111,6 @@ opensearch_security.auth.multiple_auth_enabled: true
 opensearch_security.auth.type: ["basicauth","openid"]
 
 # Basic authentication customization #
-opensearch_security.ui.basicauth.login.buttonname: Log in
 opensearch_security.ui.basicauth.login.brandimage: <path/to/OSlogo.png>
 opensearch_security.ui.basicauth.login.showbrandimage: true
 
