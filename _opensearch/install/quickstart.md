@@ -7,9 +7,7 @@ nav_order: 1
 
 # Quickstart guide
 
-The quickest way to get started using OpenSearch and OpenSearch Dashboards is to deploy your containers with [Docker](https://www.docker.com/). For information about why Docker is fast and easy, see [Why use OpenSearch with Docker?]({{site.url}}{{site.baseurl}}/opensearch/install/docker/).
-
-Before proceeding, you should [get Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://github.com/docker/compose) and follow the steps to install them on your machine.
+Get started using OpenSearch and OpenSearch Dashboards by deploying your containers with [Docker](https://www.docker.com/). Before proceeding, you need to [get Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://github.com/docker/compose) installed on your local machine. 
 
 The Docker Compose commands used in this guide are written with a hyphen (for example, `docker-compose`). If you installed Docker Desktop on your machine, which automatically installs a bundled version of Docker Compose, then you should replace `docker-compose` with `docker compose` where it appears in this guide.
 {: .note}
@@ -50,7 +48,7 @@ You will need a special file, called a compose file, that Docker Compose uses to
     ```bash
     docker-compose ps
     ```
-1. Send a query the OpenSearch REST API to verify that the service is running. You should use `-k` (also written as `--insecure`) to disable host name checking because the default security configuration uses demo certificates. Use `-u` to pass the default username and password (`admin:admin`).
+1. Query the OpenSearch REST API to verify that the service is running. You should use `-k` (also written as `--insecure`) to disable host name checking because the default security configuration uses demo certificates. Use `-u` to pass the default username and password (`admin:admin`).
     ```bash
     curl https://localhost:9200 -ku admin:admin
     ```
