@@ -151,4 +151,4 @@ Function | API | Description
 [Delete PIT]({{site.url}}{{site.baseurl}}/opensearch/point-in-time-api#delete-pits) | `DELETE /_search/point_in_time`<br> `DELETE /_search/point_in_time/_all` | Deletes a Point in Time or all Points in Time.
 [PIT segments]({{site.url}}{{site.baseurl}}/opensearch/point-in-time-api#pit-segments) | `GET /_cat/pit_segments/_all` | Provides information about the disk utilization of a Point in Time by describing its Lucene segments.
 
-For information about the relevant cluster and node settings, see [PIT Settings]({{site.url}}{{site.baseurl}}/opensearch/point-in-time-api#settings)
+For information about the relevant cluster and node settings, see [PIT Settings]({{site.url}}{{site.baseurl}}/opensearch/point-in-time-api#pit-settings)
