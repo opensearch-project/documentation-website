@@ -1,17 +1,17 @@
 ---
 layout: default
-title: cat templates
-parent: Compact and aligned text (CAT) API
+title: CAT templates
+parent: CAT API
 
 nav_order: 70
 has_children: false
 ---
 
-# cat templates
+# CAT templates
 Introduced 1.0
 {: .label .label-purple }
 
-The cat Templates operation lists the names, patterns, order numbers, and version numbers of index templates.
+The CAT Templates operation lists the names, patterns, order numbers, and version numbers of index templates.
 
 ## Example
 
@@ -33,7 +33,7 @@ GET _cat/templates
 
 ## URL parameters
 
-All cat templates URL parameters are optional.
+All CAT templates URL parameters are optional.
 
 In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameter:
 

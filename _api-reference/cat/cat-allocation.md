@@ -1,17 +1,17 @@
 ---
 layout: default
-title: cat allocation
-parent: Compact and aligned text (CAT) API
+title: CAT allocation
+parent: CAT API
 
 nav_order: 5
 has_children: false
 ---
 
-# cat allocation
+# CAT allocation
 Introduced 1.0
 {: .label .label-purple }
 
-The cat allocation operation lists the allocation of disk space for indices and the number of shards on each node.
+The CAT allocation operation lists the allocation of disk space for indices and the number of shards on each node.
 
 ## Example
 
@@ -40,7 +40,7 @@ GET _cat/allocation/<node_name>
 
 ## URL parameters
 
-All cat allocation URL parameters are optional.
+All CAT allocation URL parameters are optional.
 
 In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameters:
 
@@ -48,10 +48,7 @@ Parameter | Type | Description
 :--- | :--- | :---
 bytes | Byte size | Specify the units for byte size. For example, `7kb` or `6gb`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).
 local | Boolean | Whether to return information from the local node only instead of from the master node. Default is false.
-master_timeout | Time | The amount of time to wait for a connection to the master node. Default is 30 seconds.
-
-
-
+cluster_manager_timeout | Time | The amount of time to wait for a connection to the cluster manager node. Default is 30 seconds.
 ## Response
 
 The following response shows that 8 shards are allocated to each the two nodes available:

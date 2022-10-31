@@ -1,17 +1,17 @@
 ---
 layout: default
-title: cat repositories
-parent: Compact and aligned text (CAT) API
+title: CAT repositories
+parent: CAT API
 
 nav_order: 55
 has_children: false
 ---
 
-# cat repositories
+# CAT repositories
 Introduced 1.0
 {: .label .label-purple }
 
-The cat repositories operation lists all completed and ongoing index and shard recoveries.
+The CAT repositories operation lists all completed and ongoing index and shard recoveries.
 
 ## Example
 
@@ -27,7 +27,7 @@ GET _cat/repositories
 
 ## URL parameters
 
-All cat repositories URL parameters are optional.
+All CAT repositories URL parameters are optional.
 
 In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameters:
 
