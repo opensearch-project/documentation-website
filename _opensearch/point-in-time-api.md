@@ -22,7 +22,7 @@ Use the [Point in Time (PIT)]({{site.url}}{{site.baseurl}}/opensearch/point-in-t
 Introduced 2.4
 {: .label .label-purple }
 
-Creates a PIT. The `keep_alive` query parameter specifies how long to keep this PIT and is required.
+Creates a PIT. The `keep_alive` query parameter is required; it specifies how long to keep this PIT.
 
 ### Path and HTTP methods
 
@@ -56,7 +56,7 @@ POST /my-index-1/_search/point_in_time?keep_alive=100m
 
 ```json
 {
-    "id": "o463QQEPbXktaW5kZXgtMDAwMDAxFnNOWU43ckt3U3IyaFVpbGE1UWEtMncAFjFyeXBsRGJmVFM2RTB6eVg1aVVqQncAAAAAAAAAAAIWcDVrM3ZIX0pRNS1XejE5YXRPRFhzUQEWc05ZTjdyS3dTcjJoVWlsYTVRYS0ydwAA",
+    "pit_id": "o463QQEPbXktaW5kZXgtMDAwMDAxFnNOWU43ckt3U3IyaFVpbGE1UWEtMncAFjFyeXBsRGJmVFM2RTB6eVg1aVVqQncAAAAAAAAAAAIWcDVrM3ZIX0pRNS1XejE5YXRPRFhzUQEWc05ZTjdyS3dTcjJoVWlsYTVRYS0ydwAA",
     "_shards": {
         "total": 1,
         "successful": 1,
@@ -71,8 +71,35 @@ POST /my-index-1/_search/point_in_time?keep_alive=100m
 
 Field | Data Type | Description 
 :--- | :--- | :---  
-id | [Base64 encoded binary]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/binary) | The PIT ID.
+pit_id | [Base64 encoded binary]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/binary) | The PIT ID.
 creation_time | long | The time the PIT was created in milliseconds since the epoch. 
+
+## Extend a PIT time
+
+You can extend a PIT time by providing an optional `keep_alive` parameter in the `pit` object when you perform a PIT search:
+
+```json
+GET /_search
+{
+  "size": 10000,
+  "query": {
+    "match" : {
+      "user.id" : "elkbee"
+    }
+  },
+  "pit": {
+    "id":  "46ToAwMDaWR5BXV1aWQyKwZub2RlXzMAAAAAAAAAACoBYwADaWR4BXV1aWQxAgZub2RlXzEAAAAAAAAAAAEBYQADaWR5BXV1aWQyKgZub2RlXzIAAAAAAAAAAAwBYgACBXV1aWQyAAAFdXVpZDEAAQltYXRjaF9hbGw_gAAAAA==", 
+    "keep_alive": "100m"
+  },
+  "sort": [ 
+    {"@timestamp": {"order": "asc", "format": "strict_date_optional_time_nanos"}},
+    {"_shard_doc": "desc"}
+  ],
+  "search_after": [  
+    "2021-05-20T05:30:04.832Z"
+  ]
+}
+```
 
 ## List all PITs
 Introduced 2.4
@@ -229,3 +256,12 @@ index1 0     r      10.212.36.190 _0               0          4            0 3.8
 index1 1     p      10.212.36.190 _0               0          3            0 3.7kb        1364 false     true       8.8.2   true
 index1 2     r      10.212.74.139 _0               0          2            0 3.6kb        1364 false     true       8.8.2   true
 ```
+
+## PIT Settings
+
+You can specify the following settings for a PIT.
+
+Setting | Description | Default 
+:--- | :--- | :---
+point_in_time.max_keep_alive | A cluster level setting that specifies the maximum value for the `keep_alive` parameter. | 24h
+search.max_open_pit_context | A node level setting that specifies the maximum number of open PIT contexts for the node. | 300

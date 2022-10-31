@@ -158,9 +158,9 @@ GET _nodes/stats/
           "current" : 0
         },
         "search" : {
-          "pit_total" : 9,
-          "pit_time_in_millis" : 11451670,
-          "open_pit_contexts" : 4,
+          "search.point_in_time_total" : 9,
+          "search.point_in_time_total" : 11451670,
+          "search.point_in_time_current" : 4,
           "open_contexts" : 4,
           "query_total" : 194,
           "query_time_in_millis" : 467,
@@ -651,9 +651,9 @@ get.<br>&nbsp;&nbsp;&nbsp;&nbsp;missing_total | Integer | The number of failed g
 get.<br>&nbsp;&nbsp;&nbsp;&nbsp;missing_time_in_millis | Integer | The total time for all failed get operations, in milliseconds.
 get.<br>&nbsp;&nbsp;&nbsp;&nbsp;current | Integer | The number of get operations that are currently running.
 search | Object | Statistics about the search operations for the node.
-search.<br>&nbsp;&nbsp;&nbsp;&nbsp;pit_total | Integer | The total number of Point in Time contexts that have been created (completed and active) since the node last restarted.
-search.<br>&nbsp;&nbsp;&nbsp;&nbsp;pit_time_in_millis | Integer |  The time that Point in Time contexts have been held open since the node last restarted.
-search.<br>&nbsp;&nbsp;&nbsp;&nbsp;open_pit_contexts | Integer | The number of Point in Time contexts currently open.
+search.<br>&nbsp;&nbsp;&nbsp;&nbsp;search.point_in_time_total | Integer | The total number of Point in Time contexts that have been created (completed and active) since the node last restarted.
+search.<br>&nbsp;&nbsp;&nbsp;&nbsp;search.point_in_time_total | Integer |  The time that Point in Time contexts have been held open since the node last restarted.
+search.<br>&nbsp;&nbsp;&nbsp;&nbsp;search.point_in_time_current | Integer | The number of Point in Time contexts currently open.
 search.<br>&nbsp;&nbsp;&nbsp;&nbsp;open_contexts | Integer | The number of open search contexts.
 search.<br>&nbsp;&nbsp;&nbsp;&nbsp;query_total | Integer | The total number of query operations.
 search.<br>&nbsp;&nbsp;&nbsp;&nbsp;query_time_in_millis | Integer | The total time for all query operations, in milliseconds.

@@ -56,7 +56,7 @@ GET /_search
 }
 ```
 
-The response will contain the first 10,000 documents that match the query. To get the next set of documents, run the same query with the last document's sort values as the `search_after` parameter, keeping the same `sort` and `pit.id`:
+The response contains the first 10,000 documents that match the query. To get the next set of documents, run the same query with the last document's sort values as the `search_after` parameter, keeping the same `sort` and `pit.id`. You can use the optional `keep_alive` parameter to extend the PIT time:
 
 ```json
 GET /_search
@@ -77,7 +77,7 @@ GET /_search
   ],
   "search_after": [  
     "2021-05-20T05:30:04.832Z"
-    ],
+  ]
 }
 ```
 
@@ -128,13 +128,13 @@ Users can access all PIT API operations using the `point_in_time_full_access` ro
 
 For `all` type API operations, such as list all and delete all, the user needs the all indices (*) permission. For API operations such as search, create PIT, or delete list the user only needs individual index permissions.
 
-The PIT IDs always contain the underlying (resolved) indexes when saved. Thus, for aliases and data streams the behavior is as follows.
+The PIT IDs always contain the underlying (resolved) indexes when saved. The following sections describe the required permissions for aliases and data streams.
 
-### Alias behavior
+### Alias permissions
 
 For aliases, users must have either index **or** alias permissions for any PIT operation.
 
-### Data stream behavior
+### Data stream permissions
 
 For data streams, users must have both the data stream **and** the data stream's backing index permissions for any PIT operation. For example, the user must have permissions for the `data-stream-11` data stream and for its backing index `.ds-my-data-stream11-000001`.
 
@@ -150,3 +150,5 @@ Function | API | Description
 [List PIT]({{site.url}}{{site.baseurl}}/opensearch/point-in-time-api#list-all-pits) | `GET /_search/point_in_time/_all` | Lists all Points in Time.
 [Delete PIT]({{site.url}}{{site.baseurl}}/opensearch/point-in-time-api#delete-pits) | `DELETE /_search/point_in_time`<br> `DELETE /_search/point_in_time/_all` | Deletes a Point in Time or all Points in Time.
 [PIT segments]({{site.url}}{{site.baseurl}}/opensearch/point-in-time-api#pit-segments) | `GET /_cat/pit_segments/_all` | Provides information about the disk utilization of a Point in Time by describing its Lucene segments.
+
+For information about the relevant cluster and node settings, see [PIT Settings]({{site.url}}{{site.baseurl}}/opensearch/point-in-time-api#settings)
