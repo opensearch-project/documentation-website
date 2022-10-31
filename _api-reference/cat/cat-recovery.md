@@ -1,17 +1,17 @@
 ---
 layout: default
-title: cat recovery
-parent: Compact and aligned text (CAT) API
+title: CAT recovery
+parent: CAT API
 
 nav_order: 50
 has_children: false
 ---
 
-# cat recovery
+# CAT recovery
 Introduced 1.0
 {: .label .label-purple }
 
-The cat recovery operation lists all completed and ongoing index and shard recoveries.
+The CAT recovery operation lists all completed and ongoing index and shard recoveries.
 
 ## Example
 
@@ -39,7 +39,7 @@ GET _cat/recovery
 
 ## URL parameters
 
-All cat recovery URL parameters are optional.
+All CAT recovery URL parameters are optional.
 
 In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameters:
 
