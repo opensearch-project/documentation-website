@@ -1,17 +1,17 @@
 ---
 layout: default
-title: cat field data
-parent: Compact and aligned text (CAT) API
+title: CAT field data
+parent: CAT API
 
 nav_order: 15
 has_children: false
 ---
 
-# cat fielddata
+# CAT fielddata
 Introduced 1.0
 {: .label .label-purple }
 
-The cat fielddata operation lists the memory size used by each field per node.
+The CAT fielddata operation lists the memory size used by each field per node.
 
 ## Example
 
@@ -40,7 +40,7 @@ GET _cat/fielddata/<field_name>?v
 
 ## URL parameters
 
-All cat fielddata URL parameters are optional.
+All CAT fielddata URL parameters are optional.
 
 In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameter:
 

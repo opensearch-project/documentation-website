@@ -1,17 +1,17 @@
 ---
 layout: default
-title: cat nodes
-parent: Compact and aligned text (CAT) API
+title: CAT nodes operation
+parent: CAT API
 
 nav_order: 40
 has_children: false
 ---
 
-# cat nodes
+# CAT nodes
 Introduced 1.0
 {: .label .label-purple }
 
-The cat nodes operation lists node-level information, including node roles and load metrics.
+The CAT nodes operation lists node-level information, including node roles and load metrics.
 
 A few important node metrics are `pid`, `name`, `cluster_manager`, `ip`, `port`, `version`, `build`, `jdk`, along with `disk`, `heap`, `ram`, and `file_desc`.
 
@@ -29,7 +29,7 @@ GET _cat/nodes
 
 ## URL parameters
 
-All cat nodes URL parameters are optional.
+All CAT nodes URL parameters are optional.
 
 In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameters:
 
