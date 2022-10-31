@@ -7,7 +7,7 @@ nav_order: 7
 
 ## Execute Painless script
 
-The Execute Painless script API lets you execute a script that is not stored.
+The Execute Painless script API lets you run a script that is not stored.
 
 ### Path and HTTP methods
 
