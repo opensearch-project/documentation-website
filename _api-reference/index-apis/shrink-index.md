@@ -28,6 +28,7 @@ POST /my-old-index/_shrink/my-new-index
 
 ```
 POST /<index-name>/_shrink/<target-index>
+PUT /<index-name>/_shrink/<target-index>
 ```
 
 When creating new indices with this operation, remember that OpenSearch indices have the following naming restrictions:
