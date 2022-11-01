@@ -41,6 +41,7 @@ target_indexes | String | The name(s) of the target index(es) for the PIT. May c
 Parameter | Data Type | Description
 :--- | :--- | :---
 keep_alive | Time |  The amount of time to keep the PIT. Required.
+preference | String | The node or the shard used to perform the search. Optional. Default is random.
 routing | String | Specifies to route search requests to a specific shard. Optional. Default is the document's `_id`. 
 expand_wildcards | String | The type of index that can match the wildcard pattern. Supports comma-separated values. Valid values are the following:<br>- `all`: Match any index or data stream, including hidden ones. <br>- `open`: Match open, non-hidden indexes or non-hidden data streams. <br>- `closed`: Match closed, non-hidden indexes or non-hidden data streams. <br>- `hidden`: Match hidden indexes or data streams. Must be combined with `open`, `closed` or both `open` and `closed`.<br>- `none`: No wildcard patterns are accepted.<br> Optional. Default is `open`.
 allow_partial_pit_creation | Boolean | Specifies whether to create a PIT with partial failures. Optional. Default is `false`.
@@ -237,7 +238,7 @@ Field | Data Type | Description
 :--- | :--- | :---
 pit_id | [Base64 encoded binary]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/binary) or an array of binaries | The PIT IDs of the PITs whose segments are to be listed. Required.
 
-#### Sample request: Delete PITs by ID
+#### Sample request: PIT Segments of PITs by ID
 
 ```json
 GET /_cat/pit_segments
