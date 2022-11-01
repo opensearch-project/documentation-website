@@ -4,7 +4,7 @@ title: Mapping
 nav_order: 13
 ---
 
-# About Mappings
+# Mapping
 
 You can define how documents and their fields are stored and indexed by creating a mapping.
 
@@ -45,6 +45,7 @@ numeric detection string | If disabled, OpenSearch may automatically process num
 If you know exactly what your field data types need to be, you can specify them in your request body when creating your index.
 
 ```json
+PUT sample-index1
 {
   "mappings": {
     "properties": {
@@ -64,6 +65,22 @@ If you know exactly what your field data types need to be, you can specify them 
     "index": "sample-index1"
 }
 ```
+
+To add mappings to an existing index or data stream, you can send a request to the `_mapping` endpoint using the `PUT` or `POST` HTTP method:
+
+```json
+POST sample-index1/_mapping
+{
+  "properties": {
+    "year":    { "type" : "text" },
+    "age":     { "type" : "integer" },
+    "director":{ "type" : "text" }
+  }
+}
+```
+
+You cannot change the mapping of an existing field, you can only modify the field's mapping parameters. 
+{: .note}
 
 ---
 ## Mapping example usage
@@ -103,3 +120,61 @@ PUT _index_ip/_doc/<id>
 ```
 
 This indexed ip_range does not throw an error because `ignore_malformed` is set to true.
+
+## Get a mapping
+
+To get all mappings for one or more indexes, use the following request:
+
+```json
+GET <index>/_mapping
+```
+
+In the above request, `<index>` may be an index name or a comma-separated list of index names. 
+
+To get all mappings for all indexes, use the following request:
+
+```json
+GET _mapping
+```
+
+To get a mapping for a specific field, provide the index name and the field name:
+
+```json
+GET _mapping/field/<fields>
+GET /<index>/_mapping/field/<fields>
+```
+
+Both `<index>` and `<fields>` can be specified as one value or a comma-separated list.
+
+For example, the following request retrieves the mapping for the `year` and `age` fields in `sample-index1`:
+
+```json
+GET sample-index1/_mapping/field/year,age
+```
+
+The response contains the specified fields:
+
+```json
+{
+  "sample-index1" : {
+    "mappings" : {
+      "year" : {
+        "full_name" : "year",
+        "mapping" : {
+          "year" : {
+            "type" : "text"
+          }
+        }
+      },
+      "age" : {
+        "full_name" : "age",
+        "mapping" : {
+          "age" : {
+            "type" : "integer"
+          }
+        }
+      }
+    }
+  }
+}
+```
