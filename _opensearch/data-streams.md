@@ -140,6 +140,12 @@ GET _data_stream/logs-nginx/_stats
 }
 ```
 
+To see information about all data streams, use the following request:
+
+```json
+GET _data_stream
+```
+
 ### Step 3: Ingest data into the data stream
 
 To ingest data into a data stream, you can use the regular indexing APIs. Make sure every document that you index has a timestamp field. If you try to ingest a document that doesn't have a timestamp field, you get an error.

@@ -205,6 +205,15 @@ POST _render/template
 }
 ```
 
+The following render operations are supported:
+
+```json
+GET /_render/template
+POST /_render/template
+GET /_render/template/<id>
+POST /_render/template/<id>
+```
+
 ## Advanced parameter conversion with search templates
 
 You have a lot of different syntax options in Mustache to transpose the input parameters into a query.
