@@ -41,7 +41,6 @@ target_indexes | String | The name(s) of the target index(es) for the PIT. May c
 Parameter | Data Type | Description
 :--- | :--- | :---
 keep_alive | Time |  The amount of time to keep the PIT. Required.
-preference | String | The node or the shard used to perform the search. Optional. Default is random.
 routing | String | Specifies to route search requests to a specific shard. Optional. Default is the document's `_id`. 
 expand_wildcards | String | The type of index that can match the wildcard pattern. Supports comma-separated values. Valid values are the following:<br>- `all`: Match any index or data stream, including hidden ones. <br>- `open`: Match open, non-hidden indexes or non-hidden data streams. <br>- `closed`: Match closed, non-hidden indexes or non-hidden data streams. <br>- `hidden`: Match hidden indexes or data streams. Must be combined with `open`, `closed` or both `open` and `closed`.<br>- `none`: No wildcard patterns are accepted.<br> Optional. Default is `open`.
 allow_partial_pit_creation | Boolean | Specifies whether to create a PIT with partial failures. Optional. Default is `false`.
@@ -76,7 +75,7 @@ creation_time | long | The time the PIT was created in milliseconds since the ep
 
 ## Extend a PIT time
 
-You can extend a PIT time by providing an optional `keep_alive` parameter in the `pit` object when you perform a search:
+You can extend a PIT time by providing a `keep_alive` parameter in the `pit` object when you perform a search:
 
 ```json
 GET /_search
@@ -100,6 +99,9 @@ GET /_search
   ]
 }
 ```
+
+The `keep_alive` parameter in a search request is optional. It specifies the amount by which to extend the time to keep a PIT.
+{: .note}
 
 ## List all PITs
 Introduced 2.4
