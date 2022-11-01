@@ -10,10 +10,11 @@ Index templates let you initialize new indexes with predefined mappings and sett
 
 ### Create a template
 
-To create an index template, use a POST request:
+To create an index template, use a PUT or POST request:
 
 ```json
-POST _index_template
+PUT _index_template/<template name>
+POST _index_template/<template name>
 ```
 
 This command creates a template named `daily_logs` and applies it to any new index whose name matches the pattern `logs-2020-01-*` and also adds it to the `my_logs` alias:
@@ -105,6 +106,7 @@ To list all index templates:
 
 ```json
 GET _cat/templates
+GET /_index_template
 ```
 
 To find a template by its name:
