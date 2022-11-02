@@ -19,4 +19,5 @@ The monitor you create notifies you when data from one or more OpenSearch indexe
 
 To get started, choose **Alerting** in OpenSearch Dashboards.
 
-![OpenSearch Dashboards side bar with link]({{site.url}}{{site.baseurl}}/images/alerting.png)
+![OpenSearch Dashboards side bar with link](_{{site.url}}{{site.baseurl}}/images/dashboards-nav.png_)
+***Figure 1: Alerting plugin in OpenSearch Dashboards***
