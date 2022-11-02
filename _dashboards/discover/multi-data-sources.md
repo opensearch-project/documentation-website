@@ -5,21 +5,21 @@ parent: Discover
 nav_order: 5
 ---
 
-The multiple data sources feature is an experimental feature released in OpenSearch 2.4. We do not recommend using it in a production environment. For updates on the feature’s progress or to leave feedback on improving the feature, see the [OpenSearch Forum discussion](https://forum.opensearch.org/t/feedback-experimental-feature-connect-to-external-data-sources/11144).
+The multiple data sources feature is an experimental feature released in OpenSearch 2.4. It can't be used in a production environment. For updates on the feature’s progress or to leave feedback on improving the feature, see the [OpenSearch Forum discussion](https://forum.opensearch.org/t/feedback-experimental-feature-connect-to-external-data-sources/11144).
 {: .note }
 
 # Multiple data sources
 
 You can add multiple data sources to a single dashboard. OpenSearch Dashboards allows you to dynamically manage data sources, create index patterns based on those data sources, and execute queries against a specific data source and then combine visualizations in one dashboard.
 
-In this tutorial we provide the steps for enabling the data sources setting in Dashboards; adding credentials, data source connections, and index patterns; and combining visualizations in a single dashboard.
+In this tutorial we provide the steps for enabling the `data_source` setting in Dashboards; adding credentials, data source connections, and index patterns; and combining visualizations in a single dashboard.
 
-## Try out Data Sources in your local environment
+## Try out the multiple data sources feature in your local environment
 
-This tutorial uses a preconfigured data source and index pattern, and you aren’t required to configure settings. However, you’ll need to enable the multiple data sources setting in the configuration file before before getting started with exploring this feature.
+This tutorial uses a preconfigured data source and index pattern, and you aren’t required to configure settings. However, you’ll need to enable the `data_source` setting in the configuration file before before getting started with exploring this feature.
 {: .note }
 
-Multiple data sources is an experimental feature that can't be deployed into production, but you can try it out with a sample data source and a sample index pattern. Before getting started, you must first edit the YAML configuration. The following section provides the steps to enable the feature.
+The multiple data sources feature is experimental and can't be deployed into production. You can try it out with a sample data source and a sample index pattern. Before getting started, you must first edit the YAML configuration. The following section provides the steps for enabling the feature.
 
 ## Edit the YAML configuration to enable the multiple data sources feature
 
@@ -83,7 +83,7 @@ Before you start searching for data, set up the time filter. The sample index pa
 3. Change the time field to **Last 7 days** and select **Refresh**.
 <img src="{{site.url}}{{site.baseurl}}/images/multi-data-sources-9.png" alt="Time filter user interface">
 
-4. To set the start and end times, select the bar next to the time filter. In the popup, select **Absolute**, **Relative**, or **Now**, then specify the required options.
+4. To set the start and end times, select the bar next to the time filter. In the popup, select **Absolute**, **Relative**, or **Now** and then specify the required options.
 <img src="{{site.url}}{{site.baseurl}}/images/multi-data-sources-10.png" width=300 alt="Start and end times user interface">
 
 ### Select a time range from the histogram
@@ -108,6 +108,8 @@ Follow these steps to learn how to connect your visualizations in a single dashb
 6. Select **Save** and add the file name. This tutorial uses preconfigured visualizations, so you won’t be able to save your visualization.
 
 ## Connect visualizations in a single dashboard
+
+Follow these steps to connect your visualizations in a single dashboard: 
 
 1. In the Dashboards console, select **Dashboard > Create dashboard**. 
 2. Select **Add an existing** and then select the data you want to add.
