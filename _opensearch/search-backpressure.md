@@ -105,16 +105,16 @@ The response contains server-side request cancellation statistics:
   },
   "cluster_name": "runTask",
   "nodes": {
-    "q3e1dQjFSqyPSLAgpyQlfw": {
-      "timestamp": 1613072382719,
+    "T7aqO6zaQX-lt8XBWBYLsA": {
+      "timestamp": 1667409521070,
       "name": "runTask-0",
       "transport_address": "127.0.0.1:9300",
       "host": "127.0.0.1",
       "ip": "127.0.0.1:9300",
       "roles": [
+        "cluster_manager",
         "data",
         "ingest",
-        "cluster_manager",
         "remote_cluster_client"
       ],
       "attributes": {
@@ -124,40 +124,40 @@ The response contains server-side request cancellation statistics:
       "search_backpressure": {
         "search_shard_task": {
           "resource_tracker_stats": {
-            "elapsed_time_tracker": {
-              "cancellation_count": 346,
-              "current_max": "10.9s",
-              "current_max_millis": 10951,
-              "current_avg": "5.4s",
-              "current_avg_millis": 5475
-            },
             "heap_usage_tracker": {
-              "cancellation_count": 19,
-              "current_max": "1mb",
-              "current_max_bytes": 1141176,
-              "current_avg": "72.8kb",
-              "current_avg_bytes": 74608,
-              "rolling_avg": "1.7mb",
-              "rolling_avg_bytes": 1820829
+              "cancellation_count": 34,
+              "current_max": "1.1mb",
+              "current_max_bytes": 1203272,
+              "current_avg": "683.8kb",
+              "current_avg_bytes": 700267,
+              "rolling_avg": "1.1mb",
+              "rolling_avg_bytes": 1156270
             },
             "cpu_usage_tracker": {
-              "cancellation_count": 359,
-              "current_max": "784.6ms",
-              "current_max_millis": 784,
-              "current_avg": "33ms",
-              "current_avg_millis": 33
+              "cancellation_count": 318,
+              "current_max": "731.3ms",
+              "current_max_millis": 731,
+              "current_avg": "303.6ms",
+              "current_avg_millis": 303
+            },
+            "elapsed_time_tracker": {
+              "cancellation_count": 310,
+              "current_max": "1.3s",
+              "current_max_millis": 1305,
+              "current_avg": "649.3ms",
+              "current_avg_millis": 649
             }
           },
           "cancellation_stats": {
-            "cancellation_count": 360,
-            "cancellation_limit_reached_count": 115,
+            "cancellation_count": 318,
+            "cancellation_limit_reached_count": 97,
             "last_cancelled_task": {
-              "cpu_usage": "895.8ms",
-              "cpu_usage_millis": 895,
+              "cpu_usage": "759.8ms",
+              "cpu_usage_millis": 759,
               "heap_usage": "1.1mb",
-              "heap_usage_bytes": 1198568,
-              "elapsed_time": "10.3s",
-              "elapsed_time_millis": 10373
+              "heap_usage_bytes": 1211240,
+              "elapsed_time": "1.2s",
+              "elapsed_time_millis": 1207
             }
           }
         },
