@@ -615,6 +615,7 @@ http.total_opened | Integer | The total number of HTTP connections the node has 
 [adaptive_selection](#adaptive_selection) | Object | Statistics about adaptive selections for the node. 
 [indexing_pressure](#indexing_pressure) | Object | Statistics related to the node's indexing pressure.
 [shard_indexing_pressure](#shard_indexing_pressure) | Object | Statistics related to indexing pressure at the shard level.
+[search_backpressure]({{site.url}}{{site.baseurl}}/opensearch/search-backpressure#search-backpressure-stats-api) | Object | Statistics related to search backpressure.
 
 ### `indices`
 
