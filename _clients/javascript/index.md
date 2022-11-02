@@ -143,7 +143,7 @@ search().catch(console.log);
 
 ## Authenticate with Amazon OpenSearch Service - AWS Sigv4
 
-### Using AWS V2 SDK
+Use the following code to authenticate with AWS V2 SDK:
 
 ```javascript
 const AWS = require('aws-sdk'); // V2 SDK.
@@ -176,7 +176,7 @@ const client = new Client({
 });
 ```
 
-### Using AWS V3 SDK
+Use the following code to authenticate with AWS V3 SDK:
 
 ```javascript
 const { defaultProvider } = require("@aws-sdk/credential-provider-node"); // V3 SDK.
