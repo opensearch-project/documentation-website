@@ -343,8 +343,36 @@ Request fields | Description
 `rename_replacement` | If you want to rename indices as you restore them, use this option to specify the replacement pattern. Use `$0` to include the entire matching index name, `$1` to include the content of the first capture group, etc.
 `index_settings` | If you want to change index settings on restore, specify them here.
 `ignore_index_settings` | Rather than explicitly specifying new settings with `index_settings`, you can ignore certain index settings in the snapshot and use the cluster defaults on restore.
-`storage_type` | `local` indicates that all snapshot metadata and index data will be downloaded to local storage. <br /><br > `remote_snapshot` indicates that snapshot metadata will be downloaded to the cluster, but the remote repository will remain the authoritative store of the index data. Data will be downloaded and cached as necessary to service queries. At least one node in the cluster must be configured with the [search role]({{site.url}}{{site.baseurl}}/security-plugin/access-control/users-roles/) in order to restore a snapshot using the type `remote_snapshot`. <br /><br > Defaults to `local`.
 
+### Storage type request field parameter
+
+The `storage_type` request field parameter is an experimental feature. Therefore, we do not recommend the use of the `storage_type` request field parameter in a production environment. For updates on the progress of the `storage_type` request field parameter or if you want to leave feedback that could help improve the feature, see the [storage_type issue](https://github.com/opensearch-project/OpenSearch/issues/2919).
+{: .warning }
+
+As an experimental feature, `storage_type` will be behind a feature flag and must be enabled on at least one node of a cluster.
+{: .note }
+
+To enable, use the OPENSEARCH_JAVA_OPTS environment variable:
+
+ export OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.storage_type.enabled=true"
+
+Request field | Description
+:--- | :---
+`storage_type` | `local` indicates that all snapshot metadata and index data will be downloaded to local storage. <br /><br > `remote_snapshot` indicates that snapshot metadata will be downloaded to the cluster, but the remote repository will remain the authoritative store of the index data. Data will be downloaded and cached as necessary to service queries. At least one node in the cluster must be configured with the `search` node role in order to restore a snapshot using the type `remote_snapshot`. <br /><br > Defaults to `local`.
+
+To add the `search` node roll to your node, add the line `- node.roles: [ search ]` to your opensearch.yml file. For example:
+
+```bash
+version: '3'
+services:
+  opensearch-node1:
+    image: opensearchproject/opensearch:latest
+    container_name: opensearch-node1
+    environment:
+      - cluster.name=opensearch-cluster
+      - node.name=opensearch-node1
+      - node.roles: [ search ]
+```
 
 ### Conflicts and compatibility
 
