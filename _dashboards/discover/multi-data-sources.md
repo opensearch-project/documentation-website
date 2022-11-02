@@ -5,7 +5,7 @@ parent: Discover
 nav_order: 5
 ---
 
-Multiple data sources is an experimental feature released in OpenSearch 2.4. We do not recommend using it in a production environment. For updates on the feature’s progress or to leave feedback on improving the feature, see the [OpenSearch Forum discussion](https://forum.opensearch.org/t/feedback-experimental-feature-connect-to-external-data-sources/11144).
+The multiple data sources feature is an experimental feature released in OpenSearch 2.4. We do not recommend using it in a production environment. For updates on the feature’s progress or to leave feedback on improving the feature, see the [OpenSearch Forum discussion](https://forum.opensearch.org/t/feedback-experimental-feature-connect-to-external-data-sources/11144).
 {: .note }
 
 # Multiple data sources
@@ -27,11 +27,11 @@ Dashboards is configured in the cluster settings, and the multiple data sources 
 
 To enable the feature:
 
-1. Navigate to your Dashboards home directory; for example, in Docker `/usr/share/opensearch-dashboards`.
+1. Navigate to your Dashboards home directory; for example, in Docker, `/usr/share/opensearch-dashboards`.
 2. Open your local copy of the Dashboards configuration file, `opensearch_dashboards.yml`. If you don't have a copy, get one from GitHub: [`opensearch_dashboards.yml`](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/config/opensearch_dashboards.yml).
 3. Set `data_source.enabled: false` to  `data_source.enabled: true` and save the configuration.
 4. Restart the Dashboards container.
-5. Verify the feature configuration settings were created and configured properly by opening Dashboards on [http://localhost:5601](http://localhost:5601/) and viewing the **Stack Management** console. **Data Sources `Experimental`** will appear in the sidebar. Alternatively, you can open on [http://localhost:5601/app/management/opensearch-dashboards/dataSources](http://localhost:5601/app/management/opensearch-dashboards/dataSource).
+5. Verify the feature configuration settings were created and configured properly by connecting to Dashboards through [http://localhost:5601](http://localhost:5601/) and viewing the **Stack Management** console. **Data Sources `Experimental`** will appear in the sidebar. Alternatively, you can open on [http://localhost:5601/app/management/opensearch-dashboards/dataSources](http://localhost:5601/app/management/opensearch-dashboards/dataSource).
 
 ## Create a data source connection
 
@@ -49,10 +49,10 @@ To create a new data source connection:
 
 4. Select  **Create data source connection** to save your settings.
 
-5. Return to the **Data Sources** main page to confirm the newly created data source is listed under **Data Sources**.
+5. Return to the **Data Sources** main page to confirm that the newly created data source is listed under **Data Sources**.
 <img src="{{site.url}}{{site.baseurl}}/images/multi-data-sources-3.png" width=500 alt="Data sources list user interface">
 
-6. (Optional): Select the data source to verify settings are configured properly.
+6. (Optional): Select the data source to verify that the settings are configured properly.
 <img src="{{site.url}}{{site.baseurl}}/images/multi-data-sources-4.png" width=500 alt="Data sources settings verification user interface">
 
 ## Create  an index pattern
@@ -69,12 +69,12 @@ Index patterns allow you to access the OpenSearch data that you want to explore.
 4. Add an **Index pattern name** to define the index pattern and then select **Next step**.
 <img src="{{site.url}}{{site.baseurl}}/images/multi-data-sources-7.png" width=500 alt="Index pattern define user interface">
 
-5. Select an option for the **Time field**, then choose **Create index pattern**.
+5. Select an option for the **Time field** and then choose **Create index pattern**.
 <img src="{{site.url}}{{site.baseurl}}/images/multi-data-sources-8.png" width=500 alt="Index pattern time field user interface">
 
 ## Search data
 
-Before you start searching for data, set up the time filter. The sample index pattern used for this tutorial contains time-based data. You can set a time filter that displays only the data within a specified time range and you can select the time filter to change the time range or select a specific time range in the histogram.
+Before you start searching for data, set up the time filter. The sample index pattern used for this tutorial contains time-based data. You can set a time filter that displays only the data within a specified time range, and you can select the time filter to change the time range or select a specific time range in the histogram.
 
 ### Use the time filter
 
@@ -92,40 +92,40 @@ To select a time range for the histogram, you can do one of the following:
 
 * Select the bar that represents the time range you want to zoom in on.
 * Select the bar and drag to view a specific time range. You must start the selection with the cursor over the background of the chart—the cursor changes to a plus sign when you hover over a valid start point.
-* Select the dropdown, then select an interval.
+* Select the dropdown and then select an interval.
 
 <img src="{{site.url}}{{site.baseurl}}/images/multi-data-sources-11.jpg" alt="Histogram user interface">
 
 ## Create visualizations
 
-Follow these steps to learn how to connect your visualizations in a single dashboard.
+Follow these steps to learn how to connect your visualizations in a single dashboard:
 
 1. In the Dashboards console, select **Visualize** > **Create visualization**.
 2. Select the visualization type. For this tutorial, select **Line**.
 3. Choose a source. For this tutorial, select the index pattern `opensearch_dashboards_sample_data_ecommerce`.
 4. Under **Buckets**, select **Add > X-axis**.
 5. In the **Aggregation** field, select **Date Histogram** and then **Update**.
-6. Select **Save** and add file name. This tutorial uses preconfigured visualizations, so you won’t be able to save your visualization.
+6. Select **Save** and add the file name. This tutorial uses preconfigured visualizations, so you won’t be able to save your visualization.
 
 ## Connect visualizations in a single dashboard
 
 1. In the Dashboards console, select **Dashboard > Create dashboard**. 
 2. Select **Add an existing** and then select the data you want to add.
-3. Select **Save** and add dashboard name in the **Title field**. This tutorial uses preconfigured dashboards, so you won’t be able to save your dashboard.
-4. Click into dashboard white space left of **Add panels** to view the visualizations in a single dashboard.
+3. Select **Save** and add the dashboard name in the **Title field**. This tutorial uses preconfigured dashboards, so you won’t be able to save your dashboard.
+4. Click on the white space left of **Add panels** to view the visualizations in a single dashboard.
 
 Your dashboard might look like this:
 
 <img src="{{site.url}}{{site.baseurl}}/images/multi-data-sources-12.jpg" width=500 alt="Example dashboard using data visualizations from many data sources">
 
-You have explored the data sources experimental feature. We look forward to your feedback on how we can improve this feature ahead of its release for production use.
+You have now explored the data sources experimental feature. We look forward to your feedback on how we can improve this feature ahead of its release for production use.
 
 ## Limitations
 
-The following limitations apply to the 2.4 release of this experimental feature:
+The following limitations apply to the OpenSearch 2.4 release of this experimental feature:
 
-* The multiple data sources feature is supported for index pattern-based visualizations only.
-* Visualization types Time Series Visual Builder (TSVB), Vega and Vega-Lite, and timeline are not supported.
+* The multiple data sources feature is supported for index-pattern-based visualizations only.
+* The visualization types Time Series Visual Builder (TSVB), Vega and Vega-Lite, and timeline are not supported.
 * External plugins, such as Gantt chart, and non-visualization plugins, such as the developer console, are not supported.
 
 ## Related topics

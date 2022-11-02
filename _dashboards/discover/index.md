@@ -7,7 +7,7 @@ has_children: true
 
 # Discover 
 
-**Discover** in OpenSearch Dashboards helps you extract insights and get value out of organizational-wide data assets. You can quickly ingest and query your data, display that data in visualizations and interactive dashboards, and deliver insights to your organization.
+**Discover** in OpenSearch Dashboards helps you extract insights and get value out of data assets across your organization. You can quickly ingest and query your data, display that data in visualizations and interactive dashboards, and deliver insights to your organization.
 
 <img src="{{site.url}}{{site.baseurl}}/images/discover-index.png" alt="Discover user interface">
 
