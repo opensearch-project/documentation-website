@@ -14,7 +14,7 @@ You can configure the sign-in window for OpenSearch Dashboards to provide either
 Consider the following sequence of steps before configuring the sign-in window for multiple authentication options. 
 
 1. Decide which types of authentication to make available at sign-in.
-1. Configure each authentication type, including an authentication domain for the identity provider (IdP) and the essential settings that give each type sign-in access to OpenSearch Dashboards. For OpenId Connect backend configuration, see [OpenID Connect]({{site.url}}{{site.baseurl}}/security-plugin/configuration/openid-connect/); For SAML backend configuration, see [SAML]({{site.url}}{{site.baseurl}}/security-plugin/configuration/saml/).
+1. Configure each authentication type, including an authentication domain for the identity provider (IdP) and the essential settings that give each type sign-in access to OpenSearch Dashboards. For OpenId Connect backend configuration, see [OpenID Connect]({{site.url}}{{site.baseurl}}/security-plugin/configuration/openid-connect/). For SAML backend configuration, see [SAML]({{site.url}}{{site.baseurl}}/security-plugin/configuration/saml/).
 1. Add, enable, and configure multiple option authentication settings in the `opensearch_dashboards.yml` file.
 
 ## Enabling multiple authentication options
@@ -65,7 +65,7 @@ In addition to the essential sign-in settings for each authentication type, you 
 
 ### Basic authentication settings
 
-The following settings are used to customize the basic username and password sign-in button.
+These settings allow you to customize the basic username and password sign-in button.
 
 Setting | Description
 :--- | :--- |:--- |:--- |
