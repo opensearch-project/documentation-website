@@ -20,10 +20,10 @@ The `precision` parameter controls the level of granularity that determines the 
 
 The following example illustrates low-precision and high-precision aggregation requests.
 
-To start, create an index and map the `location` field as geopoint:
+To start, create an index and map the `location` field as a `geo_point`:
 
 ```json
-PUT testindex
+PUT national_parks
 {
   "mappings": {
     "properties": {
@@ -38,26 +38,26 @@ PUT testindex
 Index the following documents into the sample index:
 
 ```json
-PUT testindex/_doc/1
+PUT national_parks/_doc/1
 {
   "name": "Yellowstone National Park",
   "location": "44.42, -110.59" 
 }
 
-PUT testindex/_doc/2
+PUT national_parks/_doc/2
 {
   "name": "Yosemite National Park",
   "location": "37.87, -119.53" 
 }
 
-PUT testindex/_doc/3
+PUT national_parks/_doc/3
 {
   "name": "Death Valley National Park",
   "location": "36.53, -116.93" 
 }
 ```
 
-You can index geopoints in several formats. For a list of all supported formats, see the [geopoint documentation]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point/). 
+You can index geopoints in several formats. For a list of all supported formats, see the [geopoint documentation]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point#formats). 
 {: .note}
 
 ## Low-precision requests
@@ -65,7 +65,7 @@ You can index geopoints in several formats. For a list of all supported formats,
 Run a low-precision request that should bucket all three documents together:
 
 ```json
-GET testindex/_search
+GET national_parks/_search
 {
   "aggregations": {
     "grouped": {
@@ -101,7 +101,7 @@ The response groups documents 2 and 3 together because they are close enough to 
     "max_score" : 1.0,
     "hits" : [
       {
-        "_index" : "testindex",
+        "_index" : "national_parks",
         "_id" : "1",
         "_score" : 1.0,
         "_source" : {
@@ -110,7 +110,7 @@ The response groups documents 2 and 3 together because they are close enough to 
         }
       },
       {
-        "_index" : "testindex",
+        "_index" : "national_parks",
         "_id" : "2",
         "_score" : 1.0,
         "_source" : {
@@ -119,7 +119,7 @@ The response groups documents 2 and 3 together because they are close enough to 
         }
       },
       {
-        "_index" : "testindex",
+        "_index" : "national_parks",
         "_id" : "3",
         "_score" : 1.0,
         "_source" : {
@@ -151,7 +151,7 @@ The response groups documents 2 and 3 together because they are close enough to 
 Now run a higher precision request:
 
 ```json
-GET testindex/_search
+GET national_parks/_search
 {
   "aggregations": {
     "grouped": {
@@ -184,7 +184,7 @@ All three documents are bucketed separately because of higher granularity:
     "max_score" : 1.0,
     "hits" : [
       {
-        "_index" : "testindex",
+        "_index" : "national_parks",
         "_id" : "1",
         "_score" : 1.0,
         "_source" : {
@@ -193,7 +193,7 @@ All three documents are bucketed separately because of higher granularity:
         }
       },
       {
-        "_index" : "testindex",
+        "_index" : "national_parks",
         "_id" : "2",
         "_score" : 1.0,
         "_source" : {
@@ -202,7 +202,7 @@ All three documents are bucketed separately because of higher granularity:
         }
       },
       {
-        "_index" : "testindex",
+        "_index" : "national_parks",
         "_id" : "3",
         "_score" : 1.0,
         "_source" : {
@@ -238,7 +238,7 @@ All three documents are bucketed separately because of higher granularity:
 High-precision requests are resource-intensive, so we recommend to use a filter like `geo_bounding_box` to limit the geographical area. For example, the following query applies a filter to limit the search area:
 
 ```json
-GET testindex1/_search
+GET national_parks/_search
 {
   "size" : 0,  
   "aggregations": {
@@ -304,6 +304,66 @@ The response contains the two documents that are within the `geo_bounding_box` b
 }
 ```
 
+ You can also restrict the geographical area by providing the coordinates of the bounding envelope in the `bounds` parameter. Both `bounds` and `geo_bounding_box` coordinates can be specified in any of the [geopoint formats]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point#formats). The following query uses the WKT "POINT(`longitude` `latitude`)" format for the `bounds` parameter:
+
+```json
+GET national_parks/_search
+{
+  "size": 0,
+  "aggregations": {
+    "grouped": {
+      "geohex_grid": {
+        "field": "location",
+        "precision": 6,
+        "bounds": {
+            "top_left": "POINT (-120 38)",
+            "bottom_right": "POINT (-116 36)"
+        }
+      }
+    }
+  }
+}
+```
+
+The response contains only the two results, which are within the specified bounds:
+
+```json
+{
+  "took" : 3,
+  "timed_out" : false,
+  "_shards" : {
+    "total" : 1,
+    "successful" : 1,
+    "skipped" : 0,
+    "failed" : 0
+  },
+  "hits" : {
+    "total" : {
+      "value" : 3,
+      "relation" : "eq"
+    },
+    "max_score" : null,
+    "hits" : [ ]
+  },
+  "aggregations" : {
+    "grouped" : {
+      "buckets" : [
+        {
+          "key" : "8629ab6dfffffff",
+          "doc_count" : 1
+        },
+        {
+          "key" : "8629857a7ffffff",
+          "doc_count" : 1
+        }
+      ]
+    }
+  }
+}
+```
+
+The `bounds` parameter can be used with or without the `geo_bounding_box` filter; these two parameters are independent and can have any spatial relationship to each other.
+
 ## Supported parameters
 
 GeoHex grid aggregation requests support the following parameters.
@@ -312,6 +372,6 @@ Parameter | Data Type | Description
 :--- | :--- | :---
 field | String | The field that contains the geopoints. This field must be mapped as a `geo_point` field. If the field contains an array, all array values are aggregated. Required.
 precision | Integer | The zoom level used to determine grid cells for bucketing results. Valid values are in the [0, 15] range. Default is 5. 
-bounds | Object | The bounding box for filtering geopoints. The bounding box is defined by the top left and bottom right vertices. The vertices are specified as geopoints in one of the following formats: <br>- An object with a latitude and longitude<br>- An array in the [`longitude`, `latitude`] format<br>- A string in the "`latitude`,`longitude`" format<br>- A geohash <br>- Well-known text (WKT).<br> See the [geopoint documentation]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point/) for format examples. Optional.
+bounds | Object | The bounding box for filtering geopoints. The bounding box is defined by the top left and bottom right vertices. The vertices are specified as geopoints in one of the following formats: <br>- An object with a latitude and longitude<br>- An array in the [`longitude`, `latitude`] format<br>- A string in the "`latitude`,`longitude`" format<br>- A geohash <br>- Well-known text (WKT).<br> See the [geopoint formats]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point#formats) for format examples. Optional.
 size | Integer | The maximum number of buckets to return. When there are more buckets than `size`, OpenSearch returns buckets with more documents. Optional. Default is 10,000.
 shard_size | Integer | The maximum number of buckets to return from each shard. Optional. Default is max (10, `size` &middot; number of shards), which gives a more accurate count of higher prioritized buckets.
