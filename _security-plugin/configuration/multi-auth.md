@@ -26,13 +26,13 @@ To specify the multiple authentication types as options during sign-in, add the 
 When setting up Dashboards to provide multiple authentication options, basic authentication is always required as one of the values for the setting.
 {: .note }
 
-For single option sign-in, the authentication type is specified by adding a single type to the setting.
+Add a single value to the setting when only one authentication type is needed.
 
 ```yml
 opensearch_security.auth.type: "openid"
 ```
 
-For multiple option authentication, add values to the setting as an array separated by commas. As a reminder, Dashboards currently supports a combination of basic authentication, OpenID Connect, and SAML as a valid set of values. In the setting, these values are expressed as `"basicauth"`, `"openid"`, and `"saml"`.
+For multiple authentication options, add values to the setting as an array separated by commas. As a reminder, Dashboards currently supports a combination of basic authentication, OpenID Connect, and SAML as a valid set of values. In the setting, these values are expressed as `"basicauth"`, `"openid"`, and `"saml"`.
 
 ```yml
 opensearch_security.auth.type: ["basicauth","openid"]
