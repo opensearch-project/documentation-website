@@ -344,6 +344,7 @@ Request fields | Description
 `index_settings` | If you want to change index settings on restore, specify them here.
 `ignore_index_settings` | Rather than explicitly specifying new settings with `index_settings`, you can ignore certain index settings in the snapshot and use the cluster defaults on restore.
 
+
 ### Conflicts and compatibility
 
 One way to avoid naming conflicts when restoring indices is to use the `rename_pattern` and `rename_replacement` options. Then, if necessary, you can use the `_reindex` API to combine the two. The simpler way is to delete existing indices prior to restoring from a snapshot.
