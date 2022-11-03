@@ -35,7 +35,7 @@ VisBuilder is enabled by default in the `opensearch_dashboards.yml` file:
 vis_builder.enabled: true
 ```
 
-Follow these steps to create a new visualization using VisBuilder:
+Follow these steps to create a new visualization using VisBuilder in your environment:
 
 1. Open Dashboards:
     - If you're not running the security plugin, go to http://localhost:5601.
