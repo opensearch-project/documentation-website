@@ -11,7 +11,7 @@ As mentioned in the [Getting Started]({{site.url}}{{site.baseurl}}/opensearch/cl
 
 Alternatively, if you have a Logstash configuration `logstash.conf` to configure Data Prepper instead of `pipelines.yaml`.
 
-## Supported Plugins
+## Supported plugins
 
 As of the Data Prepper 1.2 release, the following plugins from the Logstash configuration are supported:
 * HTTP Input plugin
@@ -20,21 +20,21 @@ As of the Data Prepper 1.2 release, the following plugins from the Logstash conf
 * Amazon Elasticsearch Output plugin
 
 ## Limitations
-* Apart from the supported plugins, all other plugins from the Logstash configuration will throw an `Exception` and fail to execute.
-* Conditionals in the Logstash configuration are not supported as of Data Prepper 1.2 release.
+* Apart from the supported plugins, all other plugins from the Logstash configuration will throw an `Exception` and fail to run.
+* Conditionals in the Logstash configuration are not supported as of the Data Prepper 1.2 release.
 
-## Running Data Prepper with Logstash Configuration
+## Running Data Prepper with a Logstash configuration
 
-1. To install Data Prepper's docker image, visit the _Installation_ section in [Getting Started]({{site.url}}{{site.baseurl}}/opensearch/clients/data-prepper/getting_started).
+1. To install Data Prepper's Docker image, see the _Installation_ section in the [Getting Started]({{site.url}}{{site.baseurl}}/opensearch/clients/data-prepper/getting_started) guide.
 
-2. Run the docker image pulled in Step 1 by supplying your `logstash.conf` configuration.
+2. Run the Docker image installed in Step 1 by supplying your `logstash.conf` configuration.
 
 ```
 docker run --name data-prepper -p 4900:4900 -v ${PWD}/logstash.conf:/usr/share/data-prepper/pipelines.conf opensearchproject/data-prepper:latest pipelines.conf
 ```
 
-The `logstash.conf` file gets converted to `logstash.yaml` by mapping the plugins and attributes in the Logstash configuration to the corresponding plugins and attributes in Data Prepper.
-You can find the converted `logstash.yaml` file in the same directory where you placed `logstash.conf`.
+The `logstash.conf` file is converted to `logstash.yaml` by mapping the plugins and attributes in the Logstash configuration to the corresponding plugins and attributes in Data Prepper.
+You can find the converted `logstash.yaml` file in the same directory where you stored `logstash.conf`.
 
 
 The following output in your terminal indicates that Data Prepper is running correctly:
