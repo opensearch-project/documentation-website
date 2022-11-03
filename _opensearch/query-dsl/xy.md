@@ -11,10 +11,10 @@ To search for documents that contain [xy point]({{site.url}}{{site.baseurl}}/ope
 
 ## Spatial relations
 
-When you provide an xy shape to the xy query, the xy fields are matched using following spatial relations to the provided shape:
+When you provide an xy shape to the xy query, the xy fields are matched using the following spatial relations to the provided shape:
 
 Relation | Description | Supporting xy Field Type
-:--- | :--- | :--- | :--- 
+:--- | :--- | :--- 
 `INTERSECTS` | (Default) Matches documents whose xy point or xy shape intersects the shape provided in the query. | `xy_point`, `xy_shape`
 `DISJOINT` | Matches documents whose xy shape does not intersect with the shape provided in the query. | `xy_shape`
 `WITHIN` | Matches documents whose xy shape is completely within the shape provided in the query. | `xy_shape`
@@ -24,7 +24,7 @@ The examples below illustrate searching for documents that contain xy shapes. To
 
 ## Defining the shape in an xy query
 
-You can define the shape in an xy query either by providing a new shape definition at query time, or by referencing the name of a shape pre-indexed in another index.  
+You can define the shape in an xy query either by providing a new shape definition at query time or by referencing the name of a shape pre-indexed in another index.  
 
 ### Using a new shape definition
 
@@ -367,7 +367,7 @@ PUT testindex1/_doc/3
 }
 ```
 
-Search for points that lie within the circle with the center (0, 0) and radius 2:
+Search for points that lie within the circle with the center (0, 0) and radius of 2:
 
 ```json
 GET testindex1/_search

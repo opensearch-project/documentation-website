@@ -11,9 +11,9 @@ parent: Supported field types
 
 Cartesian field types facilitate indexing and searching of points and shapes in a two-dimensional Cartesian coordinate system. Cartesian field types are similar to [geographic]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geographic/) field types, except they represent points and shapes on the Cartesian plane, which is not based on the earth-fixed terrestrial reference system. Calculating distances on a plane is more efficient than calculating distances on a sphere, so distance sorting is faster for Cartesian field types. 
 
-Cartesian field types work well for spatial applications like virtual reality, CAD, and amusement park and sporting venue mapping. 
+Cartesian field types work well for spatial applications like virtual reality, computer-aided design (CAD), and amusement park and sporting venue mapping. 
 
-The coordinates for the Cartesian field types are single-precision floating point values. For information about the range and precision of floating-point values, see [Numeric field types]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/numeric/).
+The coordinates for the Cartesian field types are single-precision floating-point values. For information about the range and precision of floating-point values, see [Numeric field types]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/numeric/).
 
 The following table lists all Cartesian field types that OpenSearch supports.
 
