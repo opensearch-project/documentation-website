@@ -209,7 +209,7 @@ current_avg_millis | Integer | The average CPU time for all tasks currently runn
 
 ### `cancellation_stats`
 
-The `cancellation_stats` object contains the following statistics for cancelled tasks.
+The `cancellation_stats` object contains the following statistics for canceled tasks.
 
 Field Name | Data Type | Description
 :--- | :--- | :---
