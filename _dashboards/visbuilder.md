@@ -9,19 +9,17 @@ nav_order: 8
 VisBuilder is an experimental feature and shouldn't be used in a production environment. For updates on the feature's progress, or if you want to leave feedback that helps improve the feature, see the [git issue](https://github.com/opensearch-project/OpenSearch-Dashboards/issues/2280).
 {: .warning}
 
-You can use the VisBuilder visualization type in OpenSearch Dashboards to create data visualizations easily with just a few clicks or a single mouse gesture.
+You can use the VisBuilder visualization type in OpenSearch Dashboards to create data visualizations easily using a drag-and-drop gesture. With VisBuilder you have:
 
-This visualization type:
+* an immediate view of your data without the need to preselect the visualization output
+* the flexibility to change visualization types and index patterns quickly
+* the ability to easily navigate between multiple screens
 
-* Gives you an immediate view of your data without the need to preselect the visualization output.
-* Gives you the flexibility to change visualization types and index patterns quickly.
-* Gives you the ability to easily navigate between multiple screens.
-
-<img src="{{site.url}}{{site.baseurl}}/images/drag-drop-ui.png" alt="VisBuilder drag-and-drop user interface">
+<img src="{{site.url}}{{site.baseurl}}/images/drag-drop-ui.png" alt="VisBuilder start screen">
 
 ## Try out VisBuilder
 
-You can try out VisBuilder in your local environment or in the [OpenSearch playground](https://playground.opensearch.org/app/home#/).
+You can try out VisBuilder in your environment or in the [OpenSearch playground](https://playground.opensearch.org/app/home#/).
 
 ### Try VisBuilder in the playground
 
@@ -43,7 +41,7 @@ Follow these steps to create a new visualization using VisBuilder:
     - If you're not running the security plugin, go to http://localhost:5601.
     - If you're running the security plugin, go to https://localhost:5601 and log in with your username and password (default is admin/admin).
 
-2. Confirm the **Enable experimental visualizations** option is turned on. 
+2. Confirm the **Enable experimental visualizations** option is turned on.
    - From the top menu, select **Management** **>** **Stack Management** **>** **Advanced Settings**.
    - Select **Visualization** and verify the option is turned on. 
    
@@ -62,5 +60,3 @@ Here’s an example visualization. Your visualization will look different depend
 ## Related topics
 
 * [OpenSearch News, September 14, 2022](https://opensearch.org/)
-* [Drag-and-drop visualizations demo at OpenSearch Community Meeting, August 16, 2022](https://forum.opensearch.org/t/opensearch-community-meeting-2022-0816/10323)
-* [OpenSearch News, March 17, 2022](https://opensearch.org/blog/releases/2022/03/launch-announcement-1-3-0/)
