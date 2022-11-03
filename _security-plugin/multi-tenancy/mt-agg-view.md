@@ -1,29 +1,42 @@
 ---
 layout: default
-title: Aggregate view for saved objects by tenant
+title: Multi-tenancy aggregate view for saved objects
 parent: OpenSearch Dashboards multi-tenancy
 nav_order: 10
 ---
 
-# Dashboards aggregate view for saved objects by tenant
+# Dashboards multi-tenancy aggregate view for saved objects
 
-Aggregate view for saved objects is an experimental feature for OpenSearch 2.4. Therefore, we do not recommend enabling the feature for a production environment at this time. For updates on the progress of aggregate view for saved objects, or if you'd like to leave feedback that could help improve the feature, see the [Dashboards object sharing](https://github.com/opensearch-project/OpenSearch-Dashboards/issues/2249) GitHub issue. For a more comprehensive view of the proposed development of multi-tenancy, see the [Dashboards object sharing](https://github.com/opensearch-project/security/issues/1869) issue. 
+Aggregate view for saved objects is an experimental feature for OpenSearch 2.4. Therefore, we do not recommend enabling the feature for a production environment at this time. For updates on the progress of aggregate view for saved objects, or if you'd like to leave feedback that could help improve the feature, see the [Dashboards object sharing](https://github.com/opensearch-project/OpenSearch-Dashboards/issues/2249) GitHub issue. For a more comprehensive view of the proposed future development of multi-tenancy, see the [Dashboards object sharing](https://github.com/opensearch-project/security/issues/1869) issue. 
 {: .warning}
 
-Aggregate view for saved objects allows a user who has access to multiple tenants to see all saved objects across the tenants—either created or shared by the user—in a single view without having to switch between tenants to do so. Aggregate view includes a Tenants column in the Saved Objects table that gives the user the option to select which tenants are visible and show the associated objects for each.
+Aggregate view for saved objects allows a user who has access to multiple tenants to see all saved objects associated with those tenants in a single view without having to switch between tenants to do so. This includes both tenants created by the user and tenancts shared with the user. Aggregate view introduces a Tenants column in the Saved Objects table that gives the user the option to filter by tenants and make visible their associated saved objects.
 
-Once a user identifies the saved object of interest, the user can then switch to that tenant to access the object.
+Once a user identifies a saved object of interest, the user can then switch to that tenant to access the object.
+
+To access saved objects, expand the top menu and select **Management > Stack Management > Saved Objects**. The Saved Objects window opens.
 
 <img src="{{site.url}}{{site.baseurl}}/images/Security/Aggregate_view_saved_objects.png" alt="Dashboards Saved Objects view with tenant object aggregation" width="350">
 
-As an experimental feature, Aggregate view of saved objects is kept behind a feature flag and must be enabled in the opensearch_dashboards.yml before the feature is made available.
+As an experimental feature, Aggregate view of saved objects is kept behind a feature flag and must be enabled in the opensearch_dashboards.yml before the feature is made available. See Enabling aggregate view below for more on this.
 {: .note }
 
-### Potential use cases
+## Feature benefits
 
-- Users who have high write loads but do not have high search requirements and are comfortable with longer refresh times.
-- Users with very high loads who want to add new nodes, as you do not need to index all nodes when adding a new node to the cluster.
+- Implementing an aggregate view of all saved objects on one screen allows a user to quickly locate an object of interest and determine which tenant is associated with it. Once the user locates an object, the user can select the appropriate tenant and work with the object.
+- This feature also adds a Tenants column to the Saved Objects table, which allows users to filter the view by tenants and their associated saved objects.
 
-This is the first step in a series of features designed to decouple reads and writes in order to lower compute costs.
+## Plans for future development
+
+In subsequent releases, we plan to expand on the functionality of this feature to include performing actions directly from aggregate view and sharing items without having to first select a specific tenant. In the longer term, OpenSearch plans to evolve multi-tenancy so that it becomes a much more flexible tool for sharing objects among users and easier to do so by a more sophisticated way of assigning the roles and permissions that faciliate sharing. To learn more about the features being proposed for future releases, see the GitHub issue [Dashboards object sharing](https://github.com/opensearch-project/security/issues/1869).
+
+
+## Enabling aggregate view for saved objects
+
+By default, the aggregate view in the Saved Objects table is disabled. To enable the feature, add the `opensearch_security.multitenancy.enable_aggregation_view` flag to the `opensearch_dashboards.yml` and set it to `true`.
+
+`opensearch_security.multitenancy.enable_aggregation_view: true`
+
+## Working in aggregate view
 
 
