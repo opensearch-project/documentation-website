@@ -213,7 +213,7 @@ For each PIT, the response contains a JSON object with a PIT ID and a `successfu
 
 ### Response fields
 
-Field | Data Type | Description | 
+Field | Data Type | Description  
 :--- | :--- | :---
 successful | Boolean | Whether the delete operation was successful.
 pit_id | [Base64 encoded binary]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/binary)  | The PIT ID of the PIT to be deleted.
@@ -260,7 +260,7 @@ index1 1     p      10.212.36.190 _0               0          3            0 3.7
 index1 2     r      10.212.74.139 _0               0          2            0 3.6kb        1364 false     true       8.8.2   true
 ```
 
-## PIT Settings
+## PIT settings
 
 You can specify the following settings for a PIT.
 

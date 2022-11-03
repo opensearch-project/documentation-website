@@ -22,7 +22,7 @@ Besides PIT, there are three ways to [paginate search results]({{site.url}}{{sit
 
 PIT does not have the limitations of other pagination methods, because PIT search is not bound to a query, and it supports consistent pagination going forward and backward. If you have looked at page one of your results and are now on page two, you will see the same page one if you go back.
 
-## Point in Time (PIT) search
+## PIT search
 
 PIT search has the same capabilities as regular search, except PIT search acts on an older dataset, while a regular search acts on a live dataset. PIT search is not bound to a query, so you can run different queries on the same dataset that is frozen in time. 
 
@@ -34,7 +34,7 @@ The create PIT operation returns a PIT ID, which you can use to run multiple que
 
 When you run a query with a PIT ID, you can use the `search_after` parameter to retrieve the next page of hits. This gives you control over the order of results in the pages of results.
 
-First, run a search query with a PIT ID:
+Run a search query with a PIT ID:
 
 ```json
 GET /_search
@@ -116,9 +116,9 @@ In every request you can only query for one slice, so the next query will be the
 
 ## Security model
 
-This section describes permissions needed to use PIT API operations if you are running OpenSearch with the Security plugin enabled.
+This section describes permissions needed to use PIT API operations if you are running OpenSearch with the security plugin enabled.
 
-Users can access all PIT API operations using the `point_in_time_full_access` role. If this role don't meet your needs, mix and match individual PIT permissions to suit your use case. Each action corresponds to an operation in the REST API. For example, the `indices:data/read/point_in_time/create` permission lets you create a PIT. The following is the list of possible permissions:
+Users can access all PIT API operations using the `point_in_time_full_access` role. If this role doesn't meet your needs, mix and match individual PIT permissions to suit your use case. Each action corresponds to an operation in the REST API. For example, the `indices:data/read/point_in_time/create` permission lets you create a PIT. The following is the list of possible permissions:
 
 - `indices:data/read/point_in_time/create` &ndash; Create API
 - `indices:data/read/point_in_time/delete` &ndash; Delete API
@@ -126,7 +126,7 @@ Users can access all PIT API operations using the `point_in_time_full_access` ro
 - `indices:data/read/search` &ndash; Search API
 - `indices:monitor/point_in_time/segments` &ndash; PIT Segments API
 
-For `all` type API operations, such as list all and delete all, the user needs the all indices (*) permission. For API operations such as search, create PIT, or delete list the user only needs individual index permissions.
+For `all` type API operations, such as list all and delete all, the user needs the all indices (*) permission. For API operations such as search, create PIT, or delete list, the user only needs individual index permissions.
 
 The PIT IDs always contain the underlying (resolved) indexes when saved. The following sections describe the required permissions for aliases and data streams.
 
