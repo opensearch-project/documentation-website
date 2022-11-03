@@ -39,4 +39,7 @@ By default, the aggregate view in the Saved Objects table is disabled. To enable
 
 ## Working in aggregate view
 
+Select the drop-down arrow on the Tenants column to display the list of tenants available to the user. You can select one or more tenants to filter which saved objects are displayed, according to tenant/object associations.
+
+<img src="{{site.url}}{{site.baseurl}}/images/Security/Tenant_column.png" alt="Dashboards Saved Objects view with emphasis on Tenants column" width="350">
 
