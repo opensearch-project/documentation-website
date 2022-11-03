@@ -150,15 +150,7 @@ The response contains server-side request cancellation statistics:
           },
           "cancellation_stats": {
             "cancellation_count": 318,
-            "cancellation_limit_reached_count": 97,
-            "last_cancelled_task": {
-              "cpu_usage": "759.8ms",
-              "cpu_usage_millis": 759,
-              "heap_usage": "1.1mb",
-              "heap_usage_bytes": 1211240,
-              "elapsed_time": "1.2s",
-              "elapsed_time_millis": 1207
-            }
+            "cancellation_limit_reached_count": 97
           }
         },
         "mode": "enforced"
@@ -223,7 +215,3 @@ Field Name | Data Type | Description
 :--- | :--- | :---
 cancellation_count | Integer | The total number of canceled tasks since the node last restarted.
 cancellation_limit_reached_count | Integer | The number of situations when there were more tasks eligible for cancellation than the set cancellation threshold.
-last_cancelled_task | Object | Contains statistics about the last canceled task.
-last_cancelled_task.<br>&nbsp;&nbsp;&nbsp;&nbsp;cpu_usage_millis | Integer | The last canceled task's CPU usage, in milliseconds.
-last_cancelled_task.<br>&nbsp;&nbsp;&nbsp;&nbsp;heap_usage_bytes | Integer | The last canceled task's heap usage, in bytes.
-last_cancelled_task.<br>&nbsp;&nbsp;&nbsp;&nbsp;elapsed_time_millis | Integer | The last canceled task's elapsed time, in milliseconds.
