@@ -43,3 +43,7 @@ Select the drop-down arrow on the Tenants column to display the list of tenants 
 
 <img src="{{site.url}}{{site.baseurl}}/images/Security/Tenant_column.png" alt="Dashboards Saved Objects view with emphasis on Tenants column" width="350">
 
+You can also filter by type for the saved object by selecting the drop-down arrow on the Type column.
+
+<img src="{{site.url}}{{site.baseurl}}/images/Security/Vis_tenant.png" alt="Dashboards Saved Objects view with emphasis on Type column" width="350">
+
