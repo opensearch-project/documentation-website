@@ -22,5 +22,5 @@ Field data type | Description
 [`xy_point`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/xy-point/) | A point in a two-dimensional Cartesian coordinate system, specified by x and y coordinates. 
 [`xy_shape`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/xy-shape/) | A shape, such as a polygon or a collection of xy points, in a two-dimensional Cartesian coordinate system. 
 
-Currently OpenSearch supports indexing and searching Cartesian field types, but not aggregations on Cartesian field types. If you'd like to see aggregations implemented, open a [GitHub issue](https://github.com/opensearch-project/geospatial).
+Currently, OpenSearch supports indexing and searching Cartesian field types, but not aggregations on Cartesian field types. If you'd like to see aggregations implemented, open a [GitHub issue](https://github.com/opensearch-project/geospatial).
 {: .note}
