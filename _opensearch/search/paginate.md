@@ -10,7 +10,7 @@ nav_order: 21
 You can use the following ways to paginate search results in OpenSearch: 
 
 1. The [`from` and `size` parameters](#the-from-and-size-parameters).
-1. [Scroll search](#scroll-search).
+1. The [scroll search](#scroll-search) operation.
 1. The [`search_after` parameter](#the-search_after-parameter).
 
 ## The `from` and `size` parameters
@@ -63,7 +63,7 @@ Use the `scroll` operation for consistent pagination. The `scroll` operation kee
 
 The `from` and `size` parameters allow you to paginate your search results, but with a limit of 10,000 results at a time.
 
-If you need to request massive volumes of data from, for example, a machine learning job, use the `scroll` operation instead. The `scroll` operation allows you to request an unlimited number of results.
+If you need to request volumes of data larger than 1PB from, for example, a machine learning job, use the `scroll` operation instead. The `scroll` operation allows you to request an unlimited number of results.
 
 To use the scroll operation, add a `scroll` parameter to the request header with a search context to tell OpenSearch how long you need to keep scrolling. This search context needs to be long enough to process a single batch of results.
 

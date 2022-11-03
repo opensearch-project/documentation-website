@@ -395,7 +395,7 @@ GET shakespeare/_search
 {
   "suggest": {
     "autocomplete": {
-      "prefix": "To m",
+      "prefix": "To n",
       "completion": {
         "field": "text_entry",
         "size": 3
@@ -409,7 +409,7 @@ The maximum of three documents is returned:
 
 ```json
 {
-  "took" : 1,
+  "took" : 4109,
   "timed_out" : false,
   "_shards" : {
     "total" : 1,
@@ -428,53 +428,53 @@ The maximum of three documents is returned:
   "suggest" : {
     "autocomplete" : [
       {
-        "text" : "To m",
+        "text" : "To n",
         "offset" : 0,
         "length" : 4,
         "options" : [
           {
-            "text" : "To make a bastard and a slave of me!",
+            "text" : "To NESTOR",
             "_index" : "shakespeare",
-            "_id" : "5369",
+            "_id" : "99707",
             "_score" : 1.0,
             "_source" : {
               "type" : "line",
-              "line_id" : 5370,
-              "play_name" : "Henry VI Part 1",
-              "speech_number" : 2,
-              "line_number" : "4.5.15",
-              "speaker" : "JOHN TALBOT",
-              "text_entry" : "To make a bastard and a slave of me!"
+              "line_id" : 99708,
+              "play_name" : "Troilus and Cressida",
+              "speech_number" : 3,
+              "line_number" : "",
+              "speaker" : "ULYSSES",
+              "text_entry" : "To NESTOR"
             }
           },
           {
-            "text" : "To make a bloody supper in the Tower.",
+            "text" : "To name the bigger light, and how the less,",
             "_index" : "shakespeare",
-            "_id" : "12504",
+            "_id" : "91884",
             "_score" : 1.0,
             "_source" : {
               "type" : "line",
-              "line_id" : 12505,
-              "play_name" : "Henry VI Part 3",
-              "speech_number" : 40,
-              "line_number" : "5.5.85",
-              "speaker" : "CLARENCE",
-              "text_entry" : "To make a bloody supper in the Tower."
+              "line_id" : 91885,
+              "play_name" : "The Tempest",
+              "speech_number" : 91,
+              "line_number" : "1.2.394",
+              "speaker" : "CALIBAN",
+              "text_entry" : "To name the bigger light, and how the less,"
             }
           },
           {
-            "text" : "To make a faithless error in your ears:",
+            "text" : "To nature none more bound; his training such,",
             "_index" : "shakespeare",
-            "_id" : "44020",
+            "_id" : "40510",
             "_score" : 1.0,
             "_source" : {
               "type" : "line",
-              "line_id" : 44021,
-              "play_name" : "King John",
-              "speech_number" : 51,
-              "line_number" : "2.1.236",
-              "speaker" : "KING JOHN",
-              "text_entry" : "To make a faithless error in your ears:"
+              "line_id" : 40511,
+              "play_name" : "Henry VIII",
+              "speech_number" : 18,
+              "line_number" : "1.2.126",
+              "speaker" : "KING HENRY VIII",
+              "text_entry" : "To nature none more bound; his training such,"
             }
           }
         ]
@@ -495,7 +495,7 @@ PUT shakespeare/_doc/1?refresh=true
 {
   "text_entry": {
     "input": [
-      "To m", "To be, or not to be: that is the question:"
+      "To n", "To be, or not to be: that is the question:"
     ],
     "weight": 10
   }
@@ -509,7 +509,7 @@ GET shakespeare/_search
 {
   "suggest": {
     "autocomplete": {
-      "prefix": "To m",
+      "prefix": "To n",
       "completion": {
         "field": "text_entry",
         "size": 3
@@ -542,19 +542,19 @@ You see the indexed document as the first result:
   "suggest" : {
     "autocomplete" : [
       {
-        "text" : "To m",
+        "text" : "To n",
         "offset" : 0,
         "length" : 4,
         "options" : [
           {
-            "text" : "To m",
+            "text" : "To n",
             "_index" : "shakespeare",
             "_id" : "1",
             "_score" : 10.0,
             "_source" : {
               "text_entry" : {
                 "input" : [
-                  "To m",
+                  "To n",
                   "To be, or not to be: that is the question:"
                 ],
                 "weight" : 10
@@ -562,33 +562,33 @@ You see the indexed document as the first result:
             }
           },
           {
-            "text" : "To make a bastard and a slave of me!",
+            "text" : "To NESTOR",
             "_index" : "shakespeare",
-            "_id" : "5369",
+            "_id" : "99707",
             "_score" : 1.0,
             "_source" : {
               "type" : "line",
-              "line_id" : 5370,
-              "play_name" : "Henry VI Part 1",
-              "speech_number" : 2,
-              "line_number" : "4.5.15",
-              "speaker" : "JOHN TALBOT",
-              "text_entry" : "To make a bastard and a slave of me!"
+              "line_id" : 99708,
+              "play_name" : "Troilus and Cressida",
+              "speech_number" : 3,
+              "line_number" : "",
+              "speaker" : "ULYSSES",
+              "text_entry" : "To NESTOR"
             }
           },
           {
-            "text" : "To make a bloody supper in the Tower.",
+            "text" : "To name the bigger light, and how the less,",
             "_index" : "shakespeare",
-            "_id" : "12504",
+            "_id" : "91884",
             "_score" : 1.0,
             "_source" : {
               "type" : "line",
-              "line_id" : 12505,
-              "play_name" : "Henry VI Part 3",
-              "speech_number" : 40,
-              "line_number" : "5.5.85",
-              "speaker" : "CLARENCE",
-              "text_entry" : "To make a bloody supper in the Tower."
+              "line_id" : 91885,
+              "play_name" : "The Tempest",
+              "speech_number" : 91,
+              "line_number" : "1.2.394",
+              "speaker" : "CALIBAN",
+              "text_entry" : "To name the bigger light, and how the less,"
             }
           }
         ]

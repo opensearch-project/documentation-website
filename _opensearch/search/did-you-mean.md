@@ -1,17 +1,17 @@
 ---
 layout: default
-title: Did you mean
+title: Did-you-mean functionality
 parent: Searching data
 nav_order: 25
 ---
 
 # Did-you-mean functionality
 
-Did-you-mean functionality shows suggested corrections for misspelled search terms.
+`Did-you-mean` functionality shows suggested corrections for misspelled search terms.
 
 For example, if a user types "fliud," OpenSearch suggests a corrected search term like "fluid." You can then suggest the corrected term to the user, or even automatically correct the search term.
 
-You can implement the did-you-mean functionality using one of the following methods:
+You can implement the `did-you-mean` functionality using one of the following methods:
 
 - Use a [term suggester](#term-suggester) to suggest corrections for individual words.
 - Use a [phrase suggester](#phrase-suggester) to suggest corrections for phrases.
@@ -215,7 +215,7 @@ string_distance | The edit distance algorithm to use to determine similarity. Va
 
 ## Phrase suggester
 
-To implement a did-you-mean feature, use a phrase suggester.
+To implement a `did-you-mean` feature, use a phrase suggester.
 The phrase suggester is similar to the term suggester, except it uses n-gram language models to suggest whole phrases instead of individual words.
 
 To set up a phrase suggester, create a custom analyzer called `trigram` that uses a `shingle` filter and lowercases tokens. This filter is similar to the `edge_ngram` filter, but it applies to words instead of letters. Then configure the field from which you'll be sourcing suggestions with the custom analyzer you created:
