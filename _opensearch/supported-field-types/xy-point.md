@@ -9,7 +9,7 @@ grand_parent: Supported field types
 
 # xy point field type
 
-An xy point field type contains a point in a two-dimensional Cartesian coordinate system, specified by x and y coordinates. It is based on the Lucene [XYPoint](https://lucene.apache.org/core/9_3_0/core/org/apache/lucene/geo/XYPoint.html) field type. The xy point field type is similar to the [geopoint]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point/) field type, but does not have the range limitations of geopoint. The coordinates of an xy point are single-precision floating point values. For information about the range and precision of floating-point values, see [Numeric field types]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/numeric/).
+An xy point field type contains a point in a two-dimensional Cartesian coordinate system, specified by x and y coordinates. It is based on the Lucene [XYPoint](https://lucene.apache.org/core/9_3_0/core/org/apache/lucene/geo/XYPoint.html) field type. The xy point field type is similar to the [geopoint]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point/) field type, but does not have the range limitations of geopoint. The coordinates of an xy point are single-precision floating-point values. For information about the range and precision of floating-point values, see [Numeric field types]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/numeric/).
 
 ## Example
 
@@ -32,7 +32,7 @@ PUT testindex1
 
 xy points can be indexed in the following formats:
 
-- An object with an x and y coordinate
+- An object with x and y coordinates
 
 ```json
 PUT testindex1/_doc/1
@@ -62,7 +62,7 @@ PUT testindex1/_doc/3
 }
 ```
 
-- A [Well-Known Text](https://docs.opengeospatial.org/is/12-063r5/12-063r5.html) POINT in the "POINT(`x` `y`)" format
+- A [well-known text (WKT)](https://docs.opengeospatial.org/is/12-063r5/12-063r5.html) POINT in the "POINT(`x` `y`)" format
 
 ```json
 PUT testindex1/_doc/4
@@ -83,7 +83,7 @@ PUT testindex1/_doc/5
 }
 ```
 
-In all xy point formats the coordinates must be specified in the `x, y` order. 
+In all xy point formats, the coordinates must be specified in the `x, y` order. 
 {: .note}
 
 ## Parameters

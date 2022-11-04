@@ -9,9 +9,9 @@ grand_parent: Supported field types
 
 # xy shape field type
 
-An xy shape field type contains a shape, such as a polygon or a collection of xy points. It is based on the Lucene [XYShape](https://lucene.apache.org/core/9_3_0/core/org/apache/lucene/document/XYShape.html) field type. To index an xy shape, OpenSearch tessellates the shape into a triangular mesh and stores each triangle in a BKD tree. This provides a 10<sup>-7</sup>decimal degree of precision, which represents near-perfect spatial resolution.
+An xy shape field type contains a shape, such as a polygon or a collection of xy points. It is based on the Lucene [XYShape](https://lucene.apache.org/core/9_3_0/core/org/apache/lucene/document/XYShape.html) field type. To index an xy shape, OpenSearch tessellates the shape into a triangular mesh and stores each triangle in a BKD tree (a set of balanced k-dimensional trees). This provides a 10<sup>-7</sup>decimal degree of precision, which represents near-perfect spatial resolution.
 
-The xy shape field type is similar to the [geoshape]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-shape/) field type, but it represents shapes on the Cartesian plane, which is not based on the earth-fixed terrestrial reference system. The coordinates of an xy shape are single-precision floating-point values. For information about the range and precision of floating-point values, see [Numeric field types]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/numeric/).
+The xy shape field type is similar to the [geoshape]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-shape/) field type, but it represents shapes on the Cartesian plane, which is not based on the Earth-fixed terrestrial reference system. The coordinates of an xy shape are single-precision floating-point values. For information about the range and precision of floating-point values, see [Numeric field types]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/numeric/).
 
 ## Example
 
@@ -35,7 +35,7 @@ PUT testindex
 xy shapes can be indexed in the following formats:
 
 - [GeoJSON](https://geojson.org/)
-- [Well-Known Text (WKT)](https://docs.opengeospatial.org/is/12-063r5/12-063r5.html)
+- [Well-known text (WKT)](https://docs.opengeospatial.org/is/12-063r5/12-063r5.html)
 
 In both GeoJSON and WKT, the coordinates must be specified in the `x, y` order within coordinate arrays.
 {: .note}
@@ -53,7 +53,7 @@ OpenSearch type | GeoJSON type | WKT type | Description
 [`multilinestring`](#multiline-string) | MultiLineString | MULTILINESTRING | An array of linestrings.
 [`multipolygon`](#multi-polygon) | MultiPolygon | MULTIPOLYGON | An array of polygons.
 [`geometrycollection`](#geometry-collection) | GeometryCollection | GEOMETRYCOLLECTION | A collection of xy shapes that may be of different types.
-[`envelope`](#envelope) | N/A | BBOX | A bounding rectangle specified by top-left and bottom-right vertices.
+[`envelope`](#envelope) | N/A | BBOX | A bounding rectangle specified by upper-left and lower-right vertices.
 
 ## Point
 
@@ -80,11 +80,11 @@ PUT testindex/_doc/1
 }
 ```
 
-## Line string
+## Linestring
 
-A line string is a line specified by two or more points. If the points are collinear, the line string is a straight line. Otherwise, the line string represents a path made of line segments.
+A linestring is a line specified by two or more points. If the points are collinear, the linestring is a straight line. Otherwise, the linestring represents a path made of line segments.
 
-Index a line string in GeoJSON format:
+Index a linestring in GeoJSON format:
 
 ```json
 PUT testindex/_doc/2
@@ -96,7 +96,7 @@ PUT testindex/_doc/2
 }
 ```
 
-Index a line string in WKT format:
+Index a linestring in WKT format:
 
 ```json
 PUT testindex/_doc/2
@@ -207,11 +207,11 @@ PUT testindex/_doc/3
 }
 ```
 
-## Multi point
+## Multipoint
 
-A multi point is an array of discrete related points that are not connected. 
+A multipoint is an array of discrete related points that are not connected. 
 
-Index a multi point in GeoJSON format:
+Index a multipoint in GeoJSON format:
 
 ```json
 PUT testindex/_doc/6
@@ -226,7 +226,7 @@ PUT testindex/_doc/6
 }
 ```
 
-Index a multi point in WKT format:
+Index a multipoint in WKT format:
 
 ```json
 PUT testindex/_doc/6
@@ -235,11 +235,11 @@ PUT testindex/_doc/6
 }
 ```
 
-## Multiline string
+## Multilinestring
 
-A multiline string is an array of line strings.
+A multilinestring is an array of linestrings.
 
-Index a multiline string in GeoJSON format:
+Index a multilinestring in GeoJSON format:
 
 ```json
 PUT testindex/_doc/2
@@ -254,7 +254,7 @@ PUT testindex/_doc/2
 }
 ```
 
-Index a line string in WKT format:
+Index a linestring in WKT format:
 
 ```json
 PUT testindex/_doc/2
@@ -263,11 +263,11 @@ PUT testindex/_doc/2
 }
 ```
 
-## Multi polygon
+## Multipolygon
 
-A multi polygon is an array of polygons. In this example, the first polygon contains a hole, and the second does not. 
+A multipolygon is an array of polygons. In this example, the first polygon contains a hole, and the second does not. 
 
-Index a multi polygon in GeoJSON format:
+Index a multipolygon in GeoJSON format:
 
 ```json
 PUT testindex/_doc/4
@@ -297,7 +297,7 @@ PUT testindex/_doc/4
 }
 ```
 
-Index a multi polygon in WKT format:
+Index a multipolygon in WKT format:
 
 ```json
 PUT testindex/_doc/4
@@ -342,7 +342,7 @@ PUT testindex/_doc/7
 
 ## Envelope
 
-An envelope is a bounding rectangle specified by top-left and bottom-right vertices. The GeoJSON format is `[[minX, maxY], [maxX, minY]]`.
+An envelope is a bounding rectangle specified by upper-left and lower-right vertices. The GeoJSON format is `[[minX, maxY], [maxX, minY]]`.
 
 Index an envelope in GeoJSON format:
 

@@ -11,7 +11,7 @@ To search for documents that contain [xy point]({{site.url}}{{site.baseurl}}/ope
 
 ## Spatial relations
 
-When you provide an xy shape to the xy query, the xy fields are matched using the following spatial relations to the provided shape:
+When you provide an xy shape to the xy query, the xy fields are matched using the following spatial relations to the provided shape.
 
 Relation | Description | Supporting xy Field Type
 :--- | :--- | :--- 
@@ -20,7 +20,7 @@ Relation | Description | Supporting xy Field Type
 `WITHIN` | Matches documents whose xy shape is completely within the shape provided in the query. | `xy_shape`
 `CONTAINS` | Matches documents whose xy shape completely contains the shape provided in the query. | `xy_shape`
 
-The examples below illustrate searching for documents that contain xy shapes. To learn how to search for documents that contain xy points, see the [Querying xy points](#querying-xy-points) section.
+The following examples illustrate searching for documents that contain xy shapes. To learn how to search for documents that contain xy points, see the [Querying xy points](#querying-xy-points) section.
 
 ## Defining the shape in an xy query
 
@@ -92,7 +92,7 @@ GET testindex/_search
 }
 ```
 
-Refer to the following image to visualize the example. Both the point and the polygon are within the bounding envelope:
+The following image depicts the example. Both the point and the polygon are within the bounding envelope.
 
 <img src="{{site.url}}{{site.baseurl}}/images/xy_query.png" alt="xy shape query" width="250">
 
@@ -171,7 +171,7 @@ The response contains both documents:
 
 ### Using a pre-indexed shape definition
 
-When constructing an xy query, you can also reference the name of a shape pre-indexed in another index. Using this method, you can define an xy shape at index time and refer to it by name, providing the following parameters in the `indexed_shape` object:
+When constructing an xy query, you can also reference the name of a shape pre-indexed in another index. Using this method, you can define an xy shape at index time and refer to it by name, providing the following parameters in the `indexed_shape` object.
 
 Parameter | Description
 :--- | :---
@@ -257,7 +257,7 @@ GET testindex/_search
 }
 ```
 
-The above query uses the default spatial relation `INTERSECTS` and returns both the point and the polygon:
+The preceding query uses the default spatial relation `INTERSECTS` and returns both the point and the polygon:
 
 ```json
 {
@@ -367,7 +367,7 @@ PUT testindex1/_doc/3
 }
 ```
 
-Search for points that lie within the circle with the center (0, 0) and radius of 2:
+Search for points that lie within the circle with the center at (0, 0) and a radius of 2:
 
 ```json
 GET testindex1/_search
@@ -389,7 +389,7 @@ GET testindex1/_search
 xy point only supports the default `INTERSECTS` spatial relation, so you don't need to provide the `relation` parameter.
 {: .note}
 
-Refer to the following image to visualize the example. Points 1 and 2 are within the circle, and point 3 is outside the circle:
+The following image depicts the example. Points 1 and 2 are within the circle, and point 3 is outside the circle.
 
 <img src="{{site.url}}{{site.baseurl}}/images/xy_query_point.png" alt="xy point query" width="300">
 
