@@ -8,7 +8,7 @@ parent: Point in Time
 
 # Point in Time API
 
-Use the [Point in Time (PIT)]({{site.url}}{{site.baseurl}}/opensearch/point-in-time/) API to manage Points in Time. 
+Use the [Point in Time (PIT)]({{site.url}}{{site.baseurl}}/opensearch/point-in-time/) API to manage PITs. 
 
 ---
 
@@ -22,7 +22,7 @@ Use the [Point in Time (PIT)]({{site.url}}{{site.baseurl}}/opensearch/point-in-t
 Introduced 2.4
 {: .label .label-purple }
 
-Creates a PIT. The `keep_alive` query parameter is required; it specifies how long to keep this PIT.
+Creates a PIT. The `keep_alive` query parameter is required; it specifies how long to keep a PIT.
 
 ### Path and HTTP methods
 
@@ -72,7 +72,7 @@ POST /my-index-1/_search/point_in_time?keep_alive=100m
 Field | Data Type | Description 
 :--- | :--- | :---  
 pit_id | [Base64 encoded binary]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/binary) | The PIT ID.
-creation_time | long | The time the PIT was created in milliseconds since the epoch. 
+creation_time | long | The time the PIT was created, in milliseconds since the epoch. 
 
 ## Extend a PIT time
 
@@ -145,19 +145,19 @@ Field | Data Type | Description
 :--- | :--- | :---  
 pits | Array of JSON objects | The list of all PITs. 
 
-Each PIT object contains the following fields:
+Each PIT object contains the following fields.
 
 Field | Data Type | Description 
 :--- | :--- | :---  
 pit_id | [Base64 encoded binary]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/binary) | The PIT ID.
-creation_time | long | The time the PIT was created in milliseconds since the epoch. 
-keep_alive | long |  The amount of time to keep the PIT in milliseconds.
+creation_time | long | The time the PIT was created, in milliseconds since the epoch. 
+keep_alive | long |  The amount of time to keep the PIT, in milliseconds.
 
 ## Delete PITs
 Introduced 2.4
 {: .label .label-purple }
 
-Deletes one, several, or all PITs. PITs are automatically deleted when the `keep_alive` time period elapses. However, to free resources, you can delete a PIT using the Delete PIT API. The Delete PIT API supports deleting a list of PITs by ID or deleting all PITs at once.
+Deletes one, several, or all PITs. PITs are automatically deleted when the `keep_alive` time period elapses. However, to de-allocate resources, you can delete a PIT using the Delete PIT API. The Delete PIT API supports deleting a list of PITs by ID or deleting all PITs at once.
 
 ### Cross-cluster behavior
 
@@ -194,7 +194,7 @@ DELETE /_search/point_in_time
 
 #### Sample response
 
-For each PIT, the response contains a JSON object with a PIT ID and a `successful` field that specifies if the deletion was successful. Partial failures are treated as failures. 
+For each PIT, the response contains a JSON object with a PIT ID and a `successful` field that specifies whether the deletion was successful. Partial failures are treated as failures. 
 
 ```json
 {
@@ -218,13 +218,13 @@ Field | Data Type | Description
 successful | Boolean | Whether the delete operation was successful.
 pit_id | [Base64 encoded binary]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/binary)  | The PIT ID of the PIT to be deleted.
 
-## PIT Segments
+## PIT segments
 Introduced 2.4
 {: .label .label-purple }
 
 Similarly to the [CAT Segments API]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-segments), the PIT Segments API provides low-level information about the disk utilization of a PIT by describing its Lucene segments. The PIT Segments API supports listing segment information of a specific PIT by ID or of all PITs at once.
 
-#### Sample request: PIT Segments of all PITs
+#### Sample request: PIT segments of all PITs
 
 ```json
 GET /_cat/pit_segments/_all
@@ -238,7 +238,7 @@ Field | Data Type | Description
 :--- | :--- | :---
 pit_id | [Base64 encoded binary]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/binary) or an array of binaries | The PIT IDs of the PITs whose segments are to be listed. Required.
 
-#### Sample request: PIT Segments of PITs by ID
+#### Sample request: PIT segments of PITs by ID
 
 ```json
 GET /_cat/pit_segments
@@ -266,5 +266,5 @@ You can specify the following settings for a PIT.
 
 Setting | Description | Default 
 :--- | :--- | :---
-point_in_time.max_keep_alive | A cluster level setting that specifies the maximum value for the `keep_alive` parameter. | 24h
-search.max_open_pit_context | A node level setting that specifies the maximum number of open PIT contexts for the node. | 300
+point_in_time.max_keep_alive | A cluster-level setting that specifies the maximum value for the `keep_alive` parameter. | 24h
+search.max_open_pit_context | A node-level setting that specifies the maximum number of open PIT contexts for the node. | 300

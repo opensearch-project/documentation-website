@@ -652,7 +652,7 @@ get.<br>&nbsp;&nbsp;&nbsp;&nbsp;missing_time_in_millis | Integer | The total tim
 get.<br>&nbsp;&nbsp;&nbsp;&nbsp;current | Integer | The number of get operations that are currently running.
 search | Object | Statistics about the search operations for the node.
 search.<br>&nbsp;&nbsp;&nbsp;&nbsp;point_in_time_total | Integer | The total number of Point in Time contexts that have been created (completed and active) since the node last restarted.
-search.<br>&nbsp;&nbsp;&nbsp;&nbsp;point_in_time_time_in_millis | Integer |  The time that Point in Time contexts have been held open since the node last restarted, in milliseconds.
+search.<br>&nbsp;&nbsp;&nbsp;&nbsp;point_in_time_time_in_millis | Integer |  The amount of time that Point in Time contexts have been held open since the node last restarted, in milliseconds.
 search.<br>&nbsp;&nbsp;&nbsp;&nbsp;point_in_time_current | Integer | The number of Point in Time contexts currently open.
 search.<br>&nbsp;&nbsp;&nbsp;&nbsp;open_contexts | Integer | The number of open search contexts.
 search.<br>&nbsp;&nbsp;&nbsp;&nbsp;query_total | Integer | The total number of query operations.
