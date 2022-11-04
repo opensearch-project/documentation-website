@@ -11,12 +11,13 @@ has_math: true
 
 OpenSearch supports the filter function for the k-NN query type provided by the Lucene engine version 9.1.
 
-Lucene provides a search processing on filtered documents to determine whether or not to use the HNSW algorithm to find the results, or to run an exact search on the filtered doc set. 
+Lucene provides a search processing on filtered documents to determine whether or not to use the HNSW algorithm to find the results, or to run an exact search on the filtered doc set.
 
-Requirement: Your query must 
-Lucene HNSW search engine must be used for the query. 
+Requirement: To run k-NN queries with a filter, it requires the Lucene HNSW search engine.
+<<Question: how do they enable/specify this search engine is to be used? or is it provided by default?>>
 
-Decide one of the following options: 
+Decide one of the following options:
+
 1. Decide whether or not to use the algorithm to find search results. This would leave out the results that were filtered out from the search.
 1. Run an exact search on the filtered doc set.
 
@@ -26,23 +27,38 @@ Lucene uses an HSNW algorithm to filter searches.
 
 After a filter is applied to a set of documents to be searched, the algorithm decides ....
 
+Define the `filter` field with specific Boolean clauses.
 
-## How to search with a filter
+To learn more about how to use Boolean query clauses with Query DSL, see [Boolean queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/bool).
+{: .note }
 
-This example provides a basic approximate k-NN search with a filter for documents that contain terms marked in the color red.
+## How to search nearest neighbors with filters
 
-The workflow to search with a filter includes three steps: 
-1. Create an index. (link to anchor section)
+The workflow to search with a filter includes three steps:
+1. Create an index.
 1. Ingest data into the index.
-1. Search the index with a filter.
+1. Specify a point `k` and search the index with one or more filters defined by Query DSL.
 
+We use a range query to specify the hotels' feedback ratings, and a term query to require that parking is available. The criteria is processed with Boolean clauses to indicate whether or not the document contains the criteria.
 
+Consider an example search data set that contains 12 documents and an x-y coordinate point (4, 5) to represent the reference point to find nearest neighbor points.
 
+![Graph with data set and reference point]({{site.url}}{{site.baseurl}}/images/knn-two-filters.png)
 
+***Figure 1: Data set with filtered documents and a reference point***
 
 ### Step 1: Create a new index
 
 Before you can do a k-NN search with a filter, you need to create an index and add data to it.
+
+You need to add a `location` field to represent the location, and specify it as the `knn_vector` type. The most basic vector can be two dimensions. For example, 
+
+```
+"location": {
+                "type": "knn_vector",
+                "dimension": 2,
+```
+
 #### Sample request
 
 The following request creates a new index called "hotels-index."
@@ -87,7 +103,7 @@ Next, add data to your index with a PUT HTTP request.
 
 #### Sample request
 
-The following request adds data to the index.
+The following request adds twelve hotel documents that contain criteria such as feedback ratings and whether or not parking is available.  
 
 ```json
 POST /_bulk
@@ -119,15 +135,19 @@ POST /_bulk
 
 ### Step 3: Search your data with a filter
 
-Now you can create a k-NN search that specifies filters using Query DSL Boolean clauses.
+Now you can create a k-NN search that specifies filters using Query DSL Boolean clauses. You need to include your reference point to search for nearest neighbors. Provide an x-y coordinate for the point with the `vector` field, such as `"vector": [ 5.0, 4.0]`
+
+ To learn more about how to specify ranges with Query DSL, see [Range query]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/term/#range-query).
+{: .note }
+
 #### Sample request
 
-The following request creates a k-NN query with a filter that specifies a Boolean "should" clause to indicate optionally that it should return hotels that provide parking, and must have feedback ratings between zero and seven:
+The following request creates a k-NN query that only returns the top hotels rated between 8 and 10, and that provide parking. The filter criteria is indicated with the Query DSL `range` query clause to indicate the range for the feedback ratings, and a `term` query clause to indicate "parking."
 
 ```json
 POST /hotels-index/_search
 {
-    "size": 12,
+    "size": 3,
     "query": {
         "knn": {
             "location": {
@@ -135,21 +155,21 @@ POST /hotels-index/_search
                     5.0,
                     4.0
                 ],
-                "k": 12,
+                "k": 3,
                 "filter": {
                     "bool": {
-                        "should": [
+                        "must": [
                             {
                                 "range": {
                                     "rating": {
-                                        "gte": 0,
-                                        "lte": 7
+                                        "gte": 8,
+                                        "lte": 10
                                     }
                                 }
                             },
                             {
                                 "term": {
-                                    "parking": "false"
+                                    "parking": "true"
                                 }
                             }
                         ]
@@ -164,16 +184,12 @@ POST /hotels-index/_search
 
 #### Sample Response
 
-The search for hotels with ratings between zero and seven that optionally provide parking returns the following results:
-
-Seven hotels match this search:
-1. Three hotels provide parking.
-1. Four hotels do not provide parking.
+The following response indicates that only three hotels met the filter criteria:
 
 
 ```json
 {
-  "took" : 54,
+  "took" : 47,
   "timed_out" : false,
   "_shards" : {
     "total" : 1,
@@ -183,100 +199,48 @@ Seven hotels match this search:
   },
   "hits" : {
     "total" : {
-      "value" : 7,
+      "value" : 3,
       "relation" : "eq"
     },
-    "max_score" : 0.952381,
+    "max_score" : 0.72992706,
     "hits" : [
       {
         "_index" : "hotels-index",
-        "_id" : "2",
-        "_score" : 0.952381,
+        "_id" : "3",
+        "_score" : 0.72992706,
         "_source" : {
           "location" : [
-            5.2,
-            3.9
-          ],
-          "parking" : "false",
-          "rating" : 4
-        }
-      },
-      {
-        "_index" : "hotels-index",
-        "_id" : "1",
-        "_score" : 0.8333333,
-        "_source" : {
-          "location" : [
-            5.2,
-            4.4
+            4.9,
+            3.4
           ],
           "parking" : "true",
-          "rating" : 5
+          "rating" : 9
         }
       },
       {
         "_index" : "hotels-index",
-        "_id" : "4",
-        "_score" : 0.49999994,
+        "_id" : "6",
+        "_score" : 0.3012048,
         "_source" : {
           "location" : [
-            4.2,
-            4.6
-          ],
-          "parking" : "false",
-          "rating" : 6
-        }
-      },
-      {
-        "_index" : "hotels-index",
-        "_id" : "7",
-        "_score" : 0.154321,
-        "_source" : {
-          "location" : [
-            4.2,
-            6.2
+            6.4,
+            3.4
           ],
           "parking" : "true",
-          "rating" : 5
+          "rating" : 9
         }
       },
       {
         "_index" : "hotels-index",
-        "_id" : "11",
-        "_score" : 0.1267427,
+        "_id" : "5",
+        "_score" : 0.24154587,
         "_source" : {
           "location" : [
-            3.0,
-            2.3
-          ],
-          "parking" : "false",
-          "rating" : 6
-        }
-      },
-      {
-        "_index" : "hotels-index",
-        "_id" : "12",
-        "_score" : 0.1,
-        "_source" : {
-          "location" : [
-            5.0,
-            1.0
+            3.3,
+            4.5
           ],
           "parking" : "true",
-          "rating" : 3
-        }
-      },
-      {
-        "_index" : "hotels-index",
-        "_id" : "9",
-        "_score" : 0.06849315,
-        "_source" : {
-          "location" : [
-            1.4,
-            3.2
-          ],
-          "parking" : "false",
-          "rating" : 5
+          "rating" : 8
         }
       }
     ]
