@@ -11,13 +11,26 @@ has_math: true
 Introduced 2.4
 {: .label .label-purple }
 
-OpenSearch supports the filter function for the k-NN query type provided by the Lucene engine version 9.1.
+OpenSearch supports filtering k-NN searches provided by the Lucene engine version 9.1. Lucene provides a search process for filtered documents that uses a Hierarchical Navigable Small World (HSNW) algorithm to represent a multi-layered graph to filter searches.
+After a filter is applied to a set of documents to be searched, the algorithm decides whether to perform pre-filtering for an exact kNN search or modified post-filtering for approximate search. The approximate search with filtering guarantees the top number of closest vectors in result.
 
-Lucene provides a search processing on filtered documents to determine whether or not to use the HNSW algorithm to find the results, or to run an exact search on the filtered doc set.
+To run k-NN queries with a filter, the Lucene search engine and HSNW method are required. When you create the mapping, you specify these items in the `knn_vector` field description as follows:
 
-Requirement: To run k-NN queries with a filter, it requires the Lucene HNSW search engine.
+```json
+"type": "knn_vector",
+                "dimension": 2,
+                "method": {
+                    "name": "hnsw",
+                    "space_type": "l2",
+                    "engine": "lucene"
+```
 
-Lucene uses an HSNW algorithm to filter searches. After a filter is applied to a set of documents to be searched, the algorithm decides ....
+Lucene also provides the capability to operate its `KnnVectorQuery` over a subset of documents. To learn more about Lucene’s new capability, see the [Apache Lucene Documentation](https://issues.apache.org/jira/browse/LUCENE-10382).
+
+The Lucene engine and other mechanisms allows you to to apply k-NN searches more efficiently both in terms of relevancy of search results and performance. Consider that if you do an exact search on a large data set, the results are slow, and post-filtering does not guarantee the required number of results you specify for the `k` value.
+With this new capability, you can create an approximate k-NN search and apply filters, with the amount of results you need.
+
+You specify a query point with the `knn_vector` type and search for nearest neighbors that match your filter criteria specified using Query DSL.
 
 <!--Question: how do they enable/specify this search engine is to be used? or is it provided by default?
 -->
@@ -56,14 +69,14 @@ Consider a data set that contains 12 documents, a search reference point, and do
 
 Before you can do a k-NN search with a filter, you need to create an index and add data to it.
 
-You need to add a `location` field to represent the location, and specify it as the `knn_vector` type. The most basic vector can be two dimensions. For example, 
+You need to add a `location` field to represent the location, and specify it as the `knn_vector` type. The most basic vector can be two dimensions. For example:
 
 ```
-"location": {
-                "type": "knn_vector",
-                "dimension": 2,
+  "type": "knn_vector",
+  "dimension": 2,
 ```
 
+You also need to specify the `method` field to indicate "hsnw" method and "lucene" engine.
 #### Sample request
 
 The following request creates a new index called "hotels-index."
