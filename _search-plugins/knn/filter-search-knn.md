@@ -103,9 +103,17 @@ PUT /hotels-index
     }
 }
 ```
+#### Sample response
 
+Upon success, you should receive "200-OK" status with the following response:
 
-
+```json
+{
+  "acknowledged" : true,
+  "shards_acknowledged" : true,
+  "index" : "hotels-index"
+}
+```
 
 ### Step 2: Add data to your index
 
@@ -141,6 +149,36 @@ POST /_bulk
 { "location": [3.0, 2.3], "parking" : "false", "rating" : 6 }
 { "index": { "_index": "hotels-index", "_id": "12" } }
 { "location": [5.0, 1.0], "parking" : "true", "rating" : 3 }
+```
+
+#### Sample response
+
+Upon success, you should receive "200-OK" status with the following response for each of the document IDs. This response is truncated to only show one document:
+
+```json
+{
+  "took" : 140,
+  "errors" : false,
+  "items" : [
+    {
+      "index" : {
+        "_index" : "hotels-index",
+        "_id" : "1",
+        "_version" : 2,
+        "result" : "updated",
+        "_shards" : {
+          "total" : 1,
+          "successful" : 1,
+          "failed" : 0
+        },
+        "_seq_no" : 12,
+        "_primary_term" : 3,
+        "status" : 200
+      }
+    }
+  ]
+}
+
 ```
 
 ### Step 3: Search your data with a filter
