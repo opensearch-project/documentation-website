@@ -14,6 +14,10 @@ Introduced 2.4
 OpenSearch supports filtering k-NN searches provided by the Lucene engine version 9.1. Lucene provides a search process for filtered documents that uses a Hierarchical Navigable Small World (HSNW) algorithm to represent a multi-layered graph to filter searches.
 After a filter is applied to a set of documents to be searched, the algorithm decides whether to perform pre-filtering for an exact kNN search or modified post-filtering for approximate search. The approximate search with filtering guarantees the top number of closest vectors in result.
 
+Lucene also provides the capability to operate its `KnnVectorQuery` over a subset of documents. To learn more about Lucene’s new capability, see the [Apache Lucene Documentation](https://issues.apache.org/jira/browse/LUCENE-10382).
+
+### Requirement: Lucene engine with HNSW method
+
 To run k-NN queries with a filter, the Lucene search engine and HSNW method are required. When you create the mapping, you specify these items in the `knn_vector` field description as follows:
 
 ```json
@@ -25,16 +29,17 @@ To run k-NN queries with a filter, the Lucene search engine and HSNW method are 
                     "engine": "lucene"
 ```
 
-Lucene also provides the capability to operate its `KnnVectorQuery` over a subset of documents. To learn more about Lucene’s new capability, see the [Apache Lucene Documentation](https://issues.apache.org/jira/browse/LUCENE-10382).
+
+### Filtered search performance
 
 The Lucene engine and other mechanisms allows you to to apply k-NN searches more efficiently both in terms of relevancy of search results and performance. Consider that if you do an exact search on a large data set, the results are slow, and post-filtering does not guarantee the required number of results you specify for the `k` value.
 With this new capability, you can create an approximate k-NN search and apply filters, with the amount of results you need.
 
-You specify a query point with the `knn_vector` type and search for nearest neighbors that match your filter criteria specified using Query DSL.
-
 ## Create filters with Query DSL  
 
 OpenSearch k-NN filters are defined using Query DSL. Define the `filter` field with specific Boolean clauses.
+
+You specify a query point with the `knn_vector` type and search for nearest neighbors that match your filter criteria specified using Query DSL.
 
 To learn more about how to use Boolean query clauses with Query DSL, see [Boolean queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/bool).
 {: .note }
@@ -57,7 +62,7 @@ Consider a data set that contains 12 documents, a search reference point, and do
 
 ***Figure 1: Graph of documents that meet filter criteria***
 
-### Step 1: Create a new index
+## Step 1: Create a new index
 
 Before you can do a k-NN search with a filter, you need to create an index and add data to it.
 
@@ -115,7 +120,7 @@ Upon success, you should receive "200-OK" status with the following response:
 }
 ```
 
-### Step 2: Add data to your index
+## Step 2: Add data to your index
 
 Next, add data to your index with a PUT HTTP request.
 
@@ -181,7 +186,7 @@ Upon success, you should receive "200-OK" status with the following response for
 
 ```
 
-### Step 3: Search your data with a filter
+## Step 3: Search your data with a filter
 
 Now you can create a k-NN search that specifies filters using Query DSL Boolean clauses. You need to include your reference point to search for nearest neighbors. Provide an x-y coordinate for the point with the `vector` field, such as `"vector": [ 5.0, 4.0]`
 
