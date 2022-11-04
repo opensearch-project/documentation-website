@@ -6,7 +6,7 @@ nav_order: 8
 
 # VisBuilder
 
-VisBuilder is an experimental feature and shouldn't be used in a production environment. For updates on the feature's progress, or if you want to leave feedback that helps improve the feature, see the [git issue](https://github.com/opensearch-project/OpenSearch-Dashboards/issues/2280).
+VisBuilder is an experimental feature and shouldn't be used in a production environment. For updates on its progress, or if you want to leave feedback that helps improve the feature, see the [git issue](https://github.com/opensearch-project/OpenSearch-Dashboards/issues/2280).
 {: .warning}
 
 You can use the VisBuilder visualization type in OpenSearch Dashboards to create data visualizations easily using a drag-and-drop gesture. With VisBuilder you have:
@@ -17,17 +17,13 @@ You can use the VisBuilder visualization type in OpenSearch Dashboards to create
 
 <img src="{{site.url}}{{site.baseurl}}/images/drag-drop-ui.png" alt="VisBuilder start screen">
 
-## Try out VisBuilder
+## Try VisBuilder in the OpenSearch Dashboards playground
 
-You can try out VisBuilder in your environment or in the [OpenSearch playground](https://playground.opensearch.org/app/home#/).
+If you'd like to try out VisBuilder without installing OpenSearch locally, you can do so in the [Dashboards playground](https://playground.opensearch.org/app/vis-builder#/). VisBuilder is enabled by default.
 
-### Try VisBuilder in the playground
+## Try VisBuilder locally
 
-If you'd like to try out VisBuilder without installing OpenSearch locally, you can do so in the [Dashboards playground](https://playground.opensearch.org/app/wizard). The visualization type is enabled in the playground by default.
-
-### Try VisBuilder locally
-
-VisBuilder is enabled by default in the `opensearch_dashboards.yml` file:
+The VisBuilder feature flag, `vis_builder.enabled:`, is enabled by default in the `opensearch_dashboards.yml` file. You can disable it using the flag`vis_builder.enabled: false`.
 
 ```
 # Set the value of this setting to false to disable VisBuilder
@@ -43,13 +39,13 @@ Follow these steps to create a new visualization using VisBuilder in your enviro
 
 2. Confirm the **Enable experimental visualizations** option is turned on.
    - From the top menu, select **Management** **>** **Stack Management** **>** **Advanced Settings**.
-   - Select **Visualization** and verify the option is turned on. 
+   - Select **Visualization** and verify the option is turned on.
    
    <img src="{{site.url}}{{site.baseurl}}/images/enable-experimental-viz.png" alt="Enable experimental visualizations" width="550">
 
-3. From the top menu, select **Visualize** **>** **Create visualization** **>** **Wizard**.
+3. From the top menu, select **Visualize** **>** **Create visualization** **>** **VisBuilder**.
 
-   <img src="{{site.url}}{{site.baseurl}}/images/drag-and-drop-viz-select.png" alt="Select the Wizard visualization type" width="350">  
+   <img src="{{site.url}}{{site.baseurl}}/images/drag-and-drop-viz-select.png" alt="Select the VisBuilder visualization type" width="350">  
 
 4. Drag and drop field names from the left column into the **Configuration** panel to generate a visualization.
 
