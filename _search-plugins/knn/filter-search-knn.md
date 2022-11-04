@@ -41,11 +41,11 @@ The workflow to search with a filter includes three steps:
 
 We use a range query to specify the hotels' feedback ratings, and a term query to require that parking is available. The criteria is processed with Boolean clauses to indicate whether or not the document contains the criteria.
 
-Consider an example search data set that contains 12 documents and an x-y coordinate point (4, 5) to represent the reference point to find nearest neighbor points.
+Consider a data set that contains 12 documents, a search reference point, and documents that meet two filter criteria.
 
-![Graph with data set and reference point]({{site.url}}{{site.baseurl}}/images/knn-two-filters.png)
+![Graph of documents with filter criteria]({{site.url}}{{site.baseurl}}/images/knn-two-filters.png)
 
-***Figure 1: Data set with filtered documents and a reference point***
+***Figure 1: Graph of documents that meet filter criteria***
 
 ### Step 1: Create a new index
 
