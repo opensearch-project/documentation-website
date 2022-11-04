@@ -17,6 +17,8 @@ Lucene provides a search processing on filtered documents to determine whether o
 
 Requirement: To run k-NN queries with a filter, it requires the Lucene HNSW search engine.
 
+Lucene uses an HSNW algorithm to filter searches. After a filter is applied to a set of documents to be searched, the algorithm decides ....
+
 <!--Question: how do they enable/specify this search engine is to be used? or is it provided by default?
 -->
 
@@ -25,13 +27,9 @@ Decide one of the following options:
 1. Decide whether or not to use the algorithm to find search results. This would leave out the results that were filtered out from the search.
 1. Run an exact search on the filtered doc set.
 
-## About Lucene HNSW algorithm
+## Create filters with Query DSL  
 
-Lucene uses an HSNW algorithm to filter searches. 
-
-After a filter is applied to a set of documents to be searched, the algorithm decides ....
-
-Define the `filter` field with specific Boolean clauses.
+OpenSearch k-NN filters are defined using Query DSL. Define the `filter` field with specific Boolean clauses.
 
 To learn more about how to use Boolean query clauses with Query DSL, see [Boolean queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/bool).
 {: .note }
