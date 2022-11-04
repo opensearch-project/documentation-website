@@ -73,7 +73,8 @@ You need to add a `location` field to represent the location, and specify it as 
   "dimension": 2,
 ```
 
-You also need to specify the `method` field to indicate "hsnw" method and "lucene" engine.
+Make sure to specify the `method` field to indicate the "hsnw" method and "lucene" engine, otherwise the search will not work.
+
 #### Sample request
 
 The following request creates a new index called "hotels-index."
@@ -122,7 +123,7 @@ Upon success, you should receive "200-OK" status with the following response:
 
 ## Step 2: Add data to your index
 
-Next, add data to your index with a PUT HTTP request.
+Next, add data to your index with a PUT HTTP request. Make sure that the search criteria is defined in the body of the request.
 
 #### Sample request
 
@@ -158,7 +159,7 @@ POST /_bulk
 
 #### Sample response
 
-Upon success, you should receive "200-OK" status with the following response for each of the document IDs. This response is truncated to only show one document:
+Upon success, you should receive "200-OK" status with entries for each of the document IDs that you added to the index. The following response is truncated to only show one document:
 
 ```json
 {
