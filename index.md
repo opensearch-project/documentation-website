@@ -23,7 +23,7 @@ We have a dedicated and growing number of technical writers who are building our
 
 With OpenSearch, you can perform the following use cases:
 
-<table style="table-layout: fixed ; width: 100%;">
+<table style="table-layout: auto ; width: 100%;">
 <tbody>
 <tr style="text-align: center; vertical-align:center;">
 <td><img src="{{site.url}}{{site.baseurl}}/images/1_search.png" alt="Fast, scalable full-text search" height="100"/></td>
@@ -31,13 +31,13 @@ With OpenSearch, you can perform the following use cases:
 <td><img src="{{site.url}}{{site.baseurl}}/images/3_security.png" alt="Security and event information management" height="100"/></td>
 <td><img src="{{site.url}}{{site.baseurl}}/images/4_tracking.png" alt="Operational health tracking" height="100"/></td>
 </tr>
-<tr style="text-align: center; vertical-align:top; font-weight: bold; color: rgb(0,59,92)">
+<tr style="text-align: left; vertical-align:top; font-weight: bold; color: rgb(0,59,92)">
 <td>Fast, Scalable Full-text Search</td>
 <td>Application and Infrastructure Monitoring</td>
 <td>Security and Event Information Management</td>
 <td>Operational Health Tracking</td>
 </tr>
-<tr style="text-align: center; vertical-align:top;">
+<tr style="text-align: left; vertical-align:top;">
 <td>Help users find the right information within your application, website, or data lake catalog. </td>
 <td>Easily store and analyze log data, and set automated alerts for underperformance.</td>
 <td>Centralize logs to enable real-time security monitoring and forensic analysis.</td>
@@ -74,7 +74,7 @@ The best way to try out OpenSearch is to use Docker Compose. Setting up OpenSear
    ```bash
    curl -XGET --insecure -u 'admin:admin' 'https://localhost:9200'
    ```
-1. [Create]({{site.url}}{{site.baseurl}}/opensearch/rest-api/index-apis/create-index/) your first index.
+1. [Create]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/) your first index.
 
    ```bash
    curl -XPUT --insecure -u 'admin:admin' 'https://localhost:9200/my-first-index'
@@ -98,13 +98,13 @@ The best way to try out OpenSearch is to use Docker Compose. Setting up OpenSear
    curl -XDELETE --insecure -u 'admin:admin' 'https://localhost:9200/my-first-index/_doc/1'
    ```
 
-1. Finally, [delete the index]({{site.url}}{{site.baseurl}}/opensearch/rest-api/index-apis/delete-index).
+1. Finally, [delete the index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/delete-index).
 
    ```bash
    curl -XDELETE --insecure -u 'admin:admin' 'https://localhost:9200/my-first-index/'
    ```
 
-To learn more, see [Docker image]({{site.url}}{{site.baseurl}}/opensearch/install/docker/) and [Docker security configuration]({{site.url}}{{site.baseurl}}/opensearch/install/docker-security/).
+To learn more, see [Docker image]({{site.url}}{{site.baseurl}}/opensearch/install/docker/) and [Configuring basic security settings]({{site.url}}{{site.baseurl}}/opensearch/install/docker#configuring-basic-security-settings).
 
 
 ## The secure path forward

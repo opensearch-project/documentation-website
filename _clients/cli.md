@@ -1,7 +1,7 @@
 ---
 layout: default
 title: OpenSearch CLI
-nav_order: 52
+nav_order: 80
 has_children: false
 ---
 

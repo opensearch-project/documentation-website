@@ -69,7 +69,7 @@ Before you can take a snapshot, you have to "register" a snapshot repository. A 
 
 You probably only need to specify `location`, but the following table summarizes the options:
 
-Setting | Description
+Request fields | Description
 :--- | :---
 `location` | The shared file system for snapshots. Required.
 `chunk_size` | Breaks large files into chunks during snapshot operations (e.g. `64mb`, `1gb`), which is important for cloud storage providers and far less important for shared file systems. Default is `null` (unlimited). Optional.
@@ -87,7 +87,7 @@ Setting | Description
    sudo ./bin/opensearch-plugin install repository-s3
    ```
 
-   If you're using the Docker installation, see [Install, configure or remove plugins]({{site.url}}{{site.baseurl}}/opensearch/install/docker#install-configure-or-remove-plugins). Your `Dockerfile` should look something like this:
+   If you're using the Docker installation, see [Working with plugins]({{site.url}}{{site.baseurl}}/opensearch/install/docker#working-with-plugins). Your `Dockerfile` should look something like this:
 
    ```
    FROM opensearchproject/opensearch:{{site.opensearch_version}}
@@ -199,7 +199,7 @@ Setting | Description
 
 You probably don't need to specify anything but `bucket` and `base_path`, but the following table summarizes the options:
 
-Setting | Description
+Request fields | Description
 :--- | :---
 `base_path` | The path within the bucket where you want to store snapshots (e.g. `my/snapshot/directory`). Optional. If not specified, snapshots are stored in the bucket root.
 `bucket` | Name of the S3 bucket. Required.
@@ -240,7 +240,7 @@ PUT _snapshot/my-repository/2
 }
 ```
 
-Setting | Description
+Request fields | Description
 :--- | :---
 `indices` | The indices you want to include in the snapshot. You can use `,` to create a list of indices, `*` to specify an index pattern, and `-` to exclude certain indices. Don't put spaces between items. Default is all indices.
 `ignore_unavailable` | If an index from the `indices` list doesn't exist, whether to ignore it rather than fail the snapshot. Default is false.
@@ -332,7 +332,7 @@ POST _snapshot/my-repository/2/_restore
 }
 ```
 
-Setting | Description
+Request fields | Description
 :--- | :---
 `indices` | The indices you want to restore. You can use `,` to create a list of indices, `*` to specify an index pattern, and `-` to exclude certain indices. Don't put spaces between items. Default is all indices.
 `ignore_unavailable` | If an index from the `indices` list doesn't exist, whether to ignore it rather than fail the restore operation. Default is false.

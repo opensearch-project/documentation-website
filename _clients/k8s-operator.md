@@ -1,7 +1,7 @@
 ---
 layout: default
 title: OpenSearch Kubernetes Operator
-nav_order: 210
+nav_order: 180
 ---
 
 The OpenSearch Kubernetes Operator is an open-source kubernetes operator that helps automate the deployment and provisioning of OpenSearch and OpenSearch Dashboards in a containerized environment. The operator can manage multiple OpenSearch clusters that can be scaled up and down depending on your needs. 
@@ -11,7 +11,7 @@ The OpenSearch Kubernetes Operator is an open-source kubernetes operator that he
 
 There are two ways to get started with the operator:
 
-- [Use a Helm chart](#use-a-helm-chartuse-a-helm).
+- [Use a Helm chart](#use-a-helm-chart).
 - [Use a local installation](#use-a-local-installation).
 
 ### Use a Helm chart

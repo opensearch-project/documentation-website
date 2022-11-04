@@ -51,7 +51,7 @@ OpenSearch type | GeoJSON type | WKT type | Description
 [`multilinestring`](#multiline-string) | MultiLineString | MULTILINESTRING | An array of linestrings.
 [`multipolygon`](#multi-polygon) | MultiPolygon | MULTIPOLYGON | An array of polygons.
 [`geometrycollection`](#geometry-collection) | GeometryCollection | GEOMETRYCOLLECTION | A collection of geoshapes that may be of different types.
-[`envelope`](#envelope) | N/A | BBOX | A bounding rectangle specified by top-left and bottom-right vertices.
+[`envelope`](#envelope) | N/A | BBOX | A bounding rectangle specified by upper-left and lower-right vertices.
 
 ## Point
 
@@ -78,11 +78,11 @@ PUT testindex/_doc/1
 }
 ```
 
-## Line string
+## Linestring
 
-A line string is a line specified by two or more points. If the points are collinear, the line string is a straight line. Otherwise, the line string represents a path made of line segments.
+A linestring is a line specified by two or more points. If the points are collinear, the linestring is a straight line. Otherwise, the linestring represents a path made of line segments.
 
-Index a line string in GeoJSON format:
+Index a linestring in GeoJSON format:
 
 ```json
 PUT testindex/_doc/2
@@ -94,7 +94,7 @@ PUT testindex/_doc/2
 }
 ```
 
-Index a line string in WKT format:
+Index a linestring in WKT format:
 
 ```json
 PUT testindex/_doc/2
@@ -208,11 +208,11 @@ PUT testindex/_doc/3
 }
 ```
 
-## Multi point
+## Multipoint
 
-A multi point is an array of discrete related points that are not connected. 
+A multipoint is an array of discrete related points that are not connected. 
 
-Index a multi point in GeoJSON format:
+Index a multipoint in GeoJSON format:
 
 ```json
 PUT testindex/_doc/6
@@ -227,7 +227,7 @@ PUT testindex/_doc/6
 }
 ```
 
-Index a multi point in WKT format:
+Index a multipoint in WKT format:
 
 ```json
 PUT testindex/_doc/6
@@ -236,11 +236,11 @@ PUT testindex/_doc/6
 }
 ```
 
-## Multiline string
+## Multilinestring
 
-A multiline string is an array of line strings.
+A multilinestring is an array of linestrings.
 
-Index a line string in GeoJSON format:
+Index a linestring in GeoJSON format:
 
 ```json
 PUT testindex/_doc/2
@@ -255,7 +255,7 @@ PUT testindex/_doc/2
 }
 ```
 
-Index a line string in WKT format:
+Index a linestring in WKT format:
 
 ```json
 PUT testindex/_doc/2
@@ -264,11 +264,11 @@ PUT testindex/_doc/2
 }
 ```
 
-## Multi polygon
+## Multipolygon
 
-A multi polygon is an array of polygons. In this example, the first polygon contains a hole, and the second does not. 
+A multipolygon is an array of polygons. In this example, the first polygon contains a hole, and the second does not. 
 
-Index a multi polygon in GeoJSON format:
+Index a multipolygon in GeoJSON format:
 
 ```json
 PUT testindex/_doc/4
@@ -298,7 +298,7 @@ PUT testindex/_doc/4
 }
 ```
 
-Index a multi polygon in WKT format:
+Index a multipolygon in WKT format:
 
 ```json
 PUT testindex/_doc/4
@@ -316,11 +316,20 @@ A geometry collection is a collection of geoshapes that may be of different type
 Index a geometry collection in GeoJSON format:
 
 ```json
-PUT testindex/_doc/2
+PUT testindex/_doc/7
 {
   "location" : {
-    "type" : "linestring",
-    "coordinates" : [[74.0060, 40.7128], [71.0589, 42.3601]]
+    "type": "geometrycollection",
+    "geometries": [
+      {
+        "type": "point",
+        "coordinates": [74.0060, 40.7128]
+      },
+      {
+        "type": "linestring",
+        "coordinates": [[73.7562, 42.6526], [72.6734, 41.7658]]
+      }
+    ]
   }
 }
 ```
@@ -336,7 +345,7 @@ PUT testindex/_doc/7
 
 ## Envelope
 
-An envelope is a bounding rectangle specified by top-left and bottom-right vertices. The GeoJSON format is `[[minLon, maxLat], [maxLon, minLat]]`.
+An envelope is a bounding rectangle specified by upper-left and lower-right vertices. The GeoJSON format is `[[minLon, maxLat], [maxLon, minLat]]`.
 
 Index an envelope in GeoJSON format:
 
@@ -369,5 +378,5 @@ Parameter | Description
 :--- | :--- 
 `coerce` | A Boolean value that specifies whether to automatically close unclosed linear rings. Default is `false`.
 `ignore_malformed` | A Boolean value that specifies to ignore malformed GeoJSON or WKT geoshapes and not to throw an exception. Default is `false` (throw an exception when geoshapes are malformed).
-`ignore_z_values` | Specific to points with three coordinates. If `ignore_z_values` is `true`, the third coordinate is not indexed but is still stored in the _source field. If `ignore_z_values` is `false`, an exception is thrown. Default is `true`.
+`ignore_z_value` | Specific to points with three coordinates. If `ignore_z_value` is `true`, the third coordinate is not indexed but is still stored in the _source field. If `ignore_z_value` is `false`, an exception is thrown. Default is `true`.
 `orientation` | Specifies the traversal order of the vertices in the geoshape's list of coordinates. `orientation` takes the following values: <br> 1. RIGHT: counterclockwise. Specify RIGHT orientation by using one of the following strings (uppercase or lowercase): `right`, `counterclockwise`, `ccw`. <br> 2. LEFT: clockwise. Specify LEFT orientation by using one of the following strings (uppercase or lowercase): `left`, `clockwise`, `cw`.  This value can be overridden by individual documents.<br> Default is `RIGHT`.

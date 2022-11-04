@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Bucket Aggregations
+title: Bucket aggregations
 parent: Aggregations
 nav_order: 2
 has_children: false

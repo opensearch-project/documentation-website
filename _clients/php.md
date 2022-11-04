@@ -1,7 +1,7 @@
 ---
 layout: default
 title: PHP client
-nav_order: 90
+nav_order: 70
 ---
 
 # PHP client

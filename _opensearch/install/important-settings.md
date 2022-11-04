@@ -21,7 +21,7 @@ vm.max_map_count=262144
 
 Then run `sudo sysctl -p` to reload.
 
-The [sample docker-compose.yml]({{site.url}}{{site.baseurl}}/opensearch/install/docker#sample-docker-compose-file) file also contains several key settings:
+The [sample docker-compose.yml]({{site.url}}{{site.baseurl}}/opensearch/install/docker#sample-docker-composeyml) file also contains several key settings:
 
 - `bootstrap.memory_lock=true`
 
@@ -38,6 +38,9 @@ The [sample docker-compose.yml]({{site.url}}{{site.baseurl}}/opensearch/install/
 - `port 9600`
 
   Allows you to access Performance Analyzer on port 9600.
+
+Do not declare the same JVM options in multiple locations because it can result in unexpected behavior or a failure of the OpenSearch service to start. If you declare JVM options using an environment variable, such as `OPENSEARCH_JAVA_OPTS=-Xms3g -Xmx3g`, then you should comment out any references to that JVM option in `config/jvm.options`. Conversely, if you define JVM options in `config/jvm.options`, then you should not define those JVM options using environment variables.
+{: .note}
 
 ### Network requirements
 
