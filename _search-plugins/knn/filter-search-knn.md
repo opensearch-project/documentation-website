@@ -8,13 +8,17 @@ has_math: true
 ---
 
 # Search with k-NN filters
+Introduced 2.4
+{: .label .label-purple }
 
 OpenSearch supports the filter function for the k-NN query type provided by the Lucene engine version 9.1.
 
 Lucene provides a search processing on filtered documents to determine whether or not to use the HNSW algorithm to find the results, or to run an exact search on the filtered doc set.
 
 Requirement: To run k-NN queries with a filter, it requires the Lucene HNSW search engine.
-<<Question: how do they enable/specify this search engine is to be used? or is it provided by default?>>
+
+<!--Question: how do they enable/specify this search engine is to be used? or is it provided by default?
+-->
 
 Decide one of the following options:
 
@@ -37,9 +41,12 @@ To learn more about how to use Boolean query clauses with Query DSL, see [Boolea
 The workflow to search with a filter includes three steps:
 1. Create an index.
 1. Ingest data into the index.
-1. Specify a point `k` and search the index with one or more filters defined by Query DSL.
+1. Search the index and specify these three items in your query:
+* One or more filters defined by Query DSL
+* A vector reference point defined by the `vector` field.
+* The number of matches you want returned with the `k` field.
 
-We use a range query to specify the hotels' feedback ratings, and a term query to require that parking is available. The criteria is processed with Boolean clauses to indicate whether or not the document contains the criteria.
+We use a range query to specify hotel feedback ratings, and a term query to require that parking is available. The criteria is processed with Boolean clauses to indicate whether or not the document contains the criteria.
 
 Consider a data set that contains 12 documents, a search reference point, and documents that meet two filter criteria.
 
