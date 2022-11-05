@@ -32,7 +32,7 @@ To run k-NN queries with a filter, the Lucene search engine and HSNW method are 
 
 ### Filtered search performance
 
-The Lucene engine and other mechanisms allows you to to apply k-NN searches more efficiently both in terms of relevancy of search results and performance. Consider that if you do an exact search on a large data set, the results are slow, and post-filtering does not guarantee the required number of results you specify for the `k` value.
+The Lucene engine and other mechanisms allow you to to apply k-NN searches more efficiently both in terms of relevancy of search results and performance. Consider that if you do an exact search on a large data set, the results are slow, and post-filtering does not guarantee the required number of results you specify for the `k` value.
 With this new capability, you can create an approximate k-NN search and apply filters, with the amount of results you need.
 
 ## Create filters with Query DSL  
@@ -302,3 +302,72 @@ The following response indicates that only three hotels met the filter criteria:
 }
 
 ```
+
+## Additional complex filter query
+
+You can add any of the other Query DSL types, such as wild cards and others. 
+
+
+#### Sample request
+
+The following request specifies filters with the Boolean clauses "must," "should," and "must_not." It also provides a regular expression and wildcard filter.
+
+```json
+POST /hotels-index/_search
+{
+    "size": 3,
+    "query": {
+        "knn": {
+            "location": {
+                "vector": [
+                    5.0,
+                    4.0
+                ],
+                "k": 3,
+                "filter": {
+                    "bool": {
+                        "must": {
+                            "range": {
+                                "rating": {
+                                    "gte": 1,
+                                    "lte": 6
+                                }
+                            }
+                        },
+                        "should": [
+                            {
+                                "term": {
+                                    "color": "red"
+                                }
+                            },
+                            {
+                                "wildcard": {
+                                    "color": {
+                                        "value": "y*w"
+                                    }
+                                }
+                            },
+                            {
+                                "regexp": {
+                                    "color": "[a-zA-Z]reen"
+                                }
+                            }
+                        ],
+                        "must_not": [
+                            {
+                                "term": {
+                                    "active": "false"
+                                }
+                            }
+                        ],
+                        "minimum_should_match": 1
+                    }
+                }
+            }
+        }
+    }
+} 
+```
+
+
+
