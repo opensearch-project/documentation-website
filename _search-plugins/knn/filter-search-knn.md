@@ -368,6 +368,53 @@ POST /hotels-index/_search
     }
 } 
 ```
+#### Sample response
 
+Depending on the data you indexed, the response shoudl return: 
 
-
+```json
+{
+  "took" : 47,
+  "timed_out" : false,
+  "_shards" : {
+    "total" : 1,
+    "successful" : 1,
+    "skipped" : 0,
+    "failed" : 0
+  },
+  "hits" : {
+    "total" : {
+      "value" : 3,
+      "relation" : "eq"
+    },
+    "max_score" : 0.72992706,
+    "hits" : [
+      {
+        "_index" : "hotels-index",
+        "_id" : "3",
+        "_score" : 0.72992706,
+        "_source" : {
+          "location" : [
+            4.9,
+            3.4
+          ],
+          "wildcard" : "yellow",
+          "regexp" : "green"
+        }
+      },
+      {
+        "_index" : "hotels-index",
+        "_id" : "6",
+        "_score" : 0.3012048,
+        "_source" : {
+          "location" : [
+            6.4,
+            3.4
+          ],
+          "wildcard" : "yellow",
+          "term" : "red"
+        }
+      }
+    ]
+  }
+}
