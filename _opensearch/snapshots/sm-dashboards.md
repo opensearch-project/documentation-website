@@ -82,7 +82,7 @@ All automatically or manually taken snapshots appear in the list.
 
 ## Take a snapshot
 
-Use the steps below to take a snapshot manually. If you need to restore a snapshot, use the [restore snapshot API operation]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore#restore-snapshots).
+Use the steps below to take a snapshot manually.
 
 1. On the top menu bar, go to **OpenSearch Plugins > Snapshot Management**.
 1. In the left panel, under **Snapshot Management**, select **Snapshots**.
@@ -95,3 +95,11 @@ Use the steps below to take a snapshot manually. If you need to restore a snapsh
     - **Ignore unavailable indices**
     - **Allow partial snapshots**
 1. Select the **Add** button.
+
+## Restore a snapshot
+
+1. On the top menu bar, go to **OpenSearch Plugins > Snapshot Management**.
+1. In the left panel, under **Snapshot Management**, select **Snapshots**. The **Snapshots** tab is selected by default.
+1. Select the checkbox next to the snapshot you want to restore. Note that you can only restore one snapshot at a time.
+1. In the **Restore snapshot** flyout, select the options to restore the snapshot, then select the **Restore snapshot** button.
+1. To view the restore progress, select **View restore activities** in the confirmation dialog. You can also monitor the restore progress at any time by selecting the **Restore activities in progress** tab. You can see the percentage of the job that has been done in the **Status** column. To view the indexes being restored, select the link in the **Indices being restored** column.
