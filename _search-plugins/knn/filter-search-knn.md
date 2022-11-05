@@ -370,7 +370,7 @@ POST /hotels-index/_search
 ```
 #### Sample response
 
-Depending on the data you indexed, the response shoudl return: 
+The following response indicates a few hits for the search with filters:
 
 ```json
 {
@@ -418,3 +418,4 @@ Depending on the data you indexed, the response shoudl return:
     ]
   }
 }
+```
