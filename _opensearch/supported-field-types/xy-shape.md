@@ -47,11 +47,11 @@ The following table describes the possible xy shape types and their relationship
 OpenSearch type | GeoJSON type | WKT type | Description 
 :--- | :--- | :--- | :--- 
 [`point`](#point) | Point | POINT | A geographic point specified by the x and y coordinates. 
-[`linestring`](#line-string) | LineString | LINESTRING | A line specified by two or more points. May be a straight line or a path of connected line segments.
+[`linestring`](#linestring) | LineString | LINESTRING | A line specified by two or more points. May be a straight line or a path of connected line segments.
 [`polygon`](#polygon) | Polygon | POLYGON | A polygon specified by a list of vertices in coordinate form. The polygon must be closed, meaning the last point must be the same as the first point. Therefore, to create an n-gon, n+1 vertices are required. The minimum number of vertices is four, which creates a triangle.
-[`multipoint`](#multi-point) | MultiPoint | MULTIPOINT | An array of discrete related points that are not connected.
-[`multilinestring`](#multiline-string) | MultiLineString | MULTILINESTRING | An array of linestrings.
-[`multipolygon`](#multi-polygon) | MultiPolygon | MULTIPOLYGON | An array of polygons.
+[`multipoint`](#multipoint) | MultiPoint | MULTIPOINT | An array of discrete related points that are not connected.
+[`multilinestring`](#multilinestring) | MultiLineString | MULTILINESTRING | An array of linestrings.
+[`multipolygon`](#multipolygon) | MultiPolygon | MULTIPOLYGON | An array of polygons.
 [`geometrycollection`](#geometry-collection) | GeometryCollection | GEOMETRYCOLLECTION | A collection of xy shapes that may be of different types.
 [`envelope`](#envelope) | N/A | BBOX | A bounding rectangle specified by upper-left and lower-right vertices.
 
