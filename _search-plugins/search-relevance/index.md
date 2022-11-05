@@ -8,14 +8,14 @@ redirect_from:
   - /search-plugins/search-relevance/
 ---
 
-# Search relevance
+# Compare search results
 
-Search relevance is an experimental feature. Therefore, we do not recommend the use of search relevance in a production environment. For updates on the progress of search relevance, or if you want to leave feedback that could help improve the feature, join the [discussion on the OpenSearch forum]((https://forum.opensearch.org/t/feedback-experimental-feature-compare-search-results/11331).    
+The search result comparison tool is an experimental feature. Therefore, we do not recommend to use it in a production environment. For updates on the progress of search relevance, or if you want to leave feedback that could help improve the feature, join the [discussion on the OpenSearch forum](https://forum.opensearch.org/t/feedback-experimental-feature-compare-search-results/11331).    
 {: .warning}
 
-Search relevance lets you compare search results to determine if one search configuration produces better results than the other. Using search relevance, you can evaluate search quality through experimenting with queries. 
+The search result comparison tool is the first search relevance feature in OpenSearch. It lets you compare search results from two queries side by side to determine if one query produces better results than the other. Using this tool, you can evaluate search quality through experimenting with queries. 
 
-For example, you can evaluate the effect of the following search configuration changes:
+For example, you can see how results change when you apply one of the following changes:
 
 - Weighting different fields differently.
 - Different stemming or lemmatization strategies.
