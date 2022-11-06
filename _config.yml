@@ -37,10 +37,10 @@ collections:
   dashboards:
     permalink: /:collection/:path/
     output: true
-  security-analytics-plugin:
+  security-plugin:
     permalink: /:collection/:path/
     output: true
-  security-plugin:
+  security-analytics-plugin:
     permalink: /:collection/:path/
     output: true
   search-plugins:
@@ -91,11 +91,11 @@ just_the_docs:
     dashboards:
       name: OpenSearch Dashboards
       nav_fold: true
-    security-analytics-plugin:
-      name: Security analytics plugin
-      nav_fold: true
     security-plugin:
       name: Security plugin
+      nav_fold: true
+    security-analytics-plugin:
+      name: Security analytics plugin
       nav_fold: true
     search-plugins:
       name: Search plugins
