@@ -5,7 +5,7 @@ nav_order: 80
 has_children: true
 has_toc: false
 redirect_from:
-  - /security-analytics/admin-api/
+  - /security-analytics-plugin/
 ---
 
 # API tools
