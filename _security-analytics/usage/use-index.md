@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Using security analytics
-nav_order: 1
+nav_order: 40
 has_children: true
 has_toc: false
 redirect_from:

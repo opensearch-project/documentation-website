@@ -2,7 +2,7 @@
 layout: default
 title: Creating detectors
 parent: Setting up security analytics
-nav_order: 10
+nav_order: 20
 ---
 
 # Creating detectors
