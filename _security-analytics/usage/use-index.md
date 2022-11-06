@@ -5,7 +5,7 @@ nav_order: 40
 has_children: true
 has_toc: false
 redirect_from:
-  - /security-analytics-plugin/
+  - /security-analytics/usage/
 ---
 
 # Using security analytics

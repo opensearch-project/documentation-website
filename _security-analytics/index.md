@@ -5,7 +5,7 @@ nav_order: 1
 has_children: false
 has_toc: false
 redirect_from:
-  - /security-analytics-plugin/
+  - /security-analytics/
 ---
 
 Security analytics is an experimental plugin for OpenSearch 2.4. Therefore, we do not recommend the use of security analytics in a production environment at this time. For updates on the progress of security analytics or for information on how to make contributions, visit the [security analytics repository](https://github.com/opensearch-project/security-analytics) at GitHub.

@@ -5,7 +5,7 @@ nav_order: 10
 has_children: true
 has_toc: false
 redirect_from:
-  - /security-analytics-plugin/
+  - /security-analytics/sec-analytics-config/
 ---
 
 # Setting up security analytics
@@ -14,7 +14,7 @@ Before security analytics can begin generating findings and sending alerts, admi
 
 1. Create security detectors.
 1. Inspect findings generated from detector output.
-1.  Create rules
+1. Create rules
 
 
 
