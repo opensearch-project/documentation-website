@@ -37,6 +37,9 @@ collections:
   dashboards:
     permalink: /:collection/:path/
     output: true
+  security-analytics-plugin:
+    permalink: /:collection/:path/
+    output: true
   security-plugin:
     permalink: /:collection/:path/
     output: true
@@ -87,6 +90,9 @@ just_the_docs:
       nav_fold: true
     dashboards:
       name: OpenSearch Dashboards
+      nav_fold: true
+    security-analytics-plugin:
+      name: Security analytics plugin
       nav_fold: true
     security-plugin:
       name: Security plugin
