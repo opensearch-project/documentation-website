@@ -17,48 +17,199 @@ Creates a new detector.
 POST _plugins/_security_analytics/detectors
 ```
 
+## Sample request
+
+```json
+{
+  "enabled": true,
+  "schedule": {
+    "period": {
+      "interval": 1,
+      "unit": "MINUTES"
+    }
+  },
+  "detector_type": "WINDOWS",
+  "type": "detector",
+  "inputs": [
+    {
+      "detector_input": {
+        "description": "windows detector for security analytics",
+        "custom_rules": [
+          {
+            "id": "bc2RB4QBrbtylUb_1Pbm"
+          }
+        ],
+        "indices": [
+          "windows"
+        ],
+        "pre_packaged_rules": [
+          {
+            "id": "06724a9a-52fc-11ed-bdc3-0242ac120002"
+          }
+        ]
+      }
+    }
+  ],
+  "triggers": [
+    {
+      "ids": [
+        "06724a9a-52fc-11ed-bdc3-0242ac120002"
+      ],
+      "types": [],
+      "tags": [
+        "attack.defense_evasion"
+      ],
+      "severity": "1",
+      "actions": [{
+          "id": "hVTLkZYzlA",
+          "destination_id": "6r8ZBoQBKW_6dKriacQb",
+          "subject_template": {
+            "source": "Hello World",
+            "lang": "mustache"
+          },
+          "name": "hello_world",
+          "throttle_enabled": false,
+          "message_template": {
+            "source": "Hello World",
+            "lang": "mustache"
+          },
+          "throttle": {
+            "unit": "MINUTES",
+            "value": 108
+          }
+        }
+      ],
+      "id": "8qhrBoQBYK1JzUUDzH-N",
+      "sev_levels": [],
+      "name": "test-trigger"
+    }
+  ],
+  "name": "nbReFCjlfn"
+}
+```
+
+## Sample response
+
+```json
+{
+    "_id": "dc2VB4QBrbtylUb_Hfa3",
+    "_version": 1,
+    "detector": {
+        "name": "nbReFCjlfn",
+        "detector_type": "windows",
+        "enabled": true,
+        "schedule": {
+            "period": {
+                "interval": 1,
+                "unit": "MINUTES"
+            }
+        },
+        "inputs": [
+            {
+                "detector_input": {
+                    "description": "windows detector for security analytics",
+                    "indices": [
+                        "windows"
+                    ],
+                    "custom_rules": [
+                        {
+                            "id": "bc2RB4QBrbtylUb_1Pbm"
+                        }
+                    ],
+                    "pre_packaged_rules": [
+                        {
+                            "id": "06724a9a-52fc-11ed-bdc3-0242ac120002"
+                        }
+                    ]
+                }
+            }
+        ],
+        "triggers": [
+            {
+                "id": "8qhrBoQBYK1JzUUDzH-N",
+                "name": "test-trigger",
+                "severity": "1",
+                "types": [],
+                "ids": [
+                    "06724a9a-52fc-11ed-bdc3-0242ac120002"
+                ],
+                "sev_levels": [],
+                "tags": [
+                    "attack.defense_evasion"
+                ],
+                "actions": [
+                    {
+                        "id": "hVTLkZYzlA",
+                        "name": "hello_world",
+                        "destination_id": "6r8ZBoQBKW_6dKriacQb",
+                        "message_template": {
+                            "source": "Hello World",
+                            "lang": "mustache"
+                        },
+                        "throttle_enabled": false,
+                        "subject_template": {
+                            "source": "Hello World",
+                            "lang": "mustache"
+                        },
+                        "throttle": {
+                            "value": 108,
+                            "unit": "MINUTES"
+                        }
+                    }
+                ]
+            }
+        ],
+        "last_update_time": "2022-10-24T01:22:03.738379671Z",
+        "enabled_time": "2022-10-24T01:22:03.738376103Z"
+    }
+}
+```
+
 ### Parameters
 
-You can specify the following parameters to create a detector.
+You can specify the following parameters when creating a detector.
 
 Parameter | Type | Description 
 :--- | :--- |:--- |:--- |
 `enabled` | Boolean | Enables the ability to add detectors through the API.
 `type` | String | The type is specified as "detector".
-`detector_type` | Object | The configuration options for snapshot creation. Required.
+`name` | String | Name of the detector.
+`detector_type` | Object | The log type that defines the detector.
+`schedule`<br>&nbsp;&nbsp;&nbsp;&nbsp;`period` | Object | the frequency at which the detector runs in repetition.
 `schedule`<br>&nbsp;&nbsp;&nbsp;&nbsp;`period`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`interval` | Integer | The duration of the period expressed as a number.
-`schedule`<br>&nbsp;&nbsp;&nbsp;&nbsp;`period`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`unit` | String | The unit of measure for the interval. 
-
-
-
-`snapshot_config`<br>&nbsp;&nbsp;&nbsp;&nbsp;`date_format` | String | Snapshot names have the format `<policy_name>-<date>-<random number>`. `date_format` specifies the format for the date in the snapshot name. Supports all date formats supported by OpenSearch. Optional. Default is "yyyy-MM-dd'T'HH:mm:ss".
-`snapshot_config`<br>&nbsp;&nbsp;&nbsp;&nbsp;`date_format_timezone` | String | Snapshot names have the format `<policy_name>-<date>-<random number>`. `date_format_timezone` specifies the time zone for the date in the snapshot name. Optional. Default is UTC.
-`snapshot_config`<br>&nbsp;&nbsp;&nbsp;&nbsp;`indices` | String | The names of the indexes in the snapshot. Multiple index names are separated by `,`. Supports wildcards (`*`). Optional. Default is `*` (all indexes).
-`snapshot_config`<br>&nbsp;&nbsp;&nbsp;&nbsp;`repository` | String | The repository in which to store snapshots. Required.
-`snapshot_config`<br>&nbsp;&nbsp;&nbsp;&nbsp;`ignore_unavailable` | Boolean | Do you want to ignore unavailable indexes? Optional. Default is `false`.
-`snapshot_config`<br>&nbsp;&nbsp;&nbsp;&nbsp;`include_global_state` | Boolean | Do you want to include cluster state? Optional. Default is `true` because of [Security plugin considerations]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore/#security-plugin-considerations).
-`snapshot_config`<br>&nbsp;&nbsp;&nbsp;&nbsp;`partial` | Boolean | Do you want to allow partial snapshots? Optional. Default is `false`.
-`snapshot_config`<br>&nbsp;&nbsp;&nbsp;&nbsp;`metadata` | Object | Metadata in the form of key/value pairs. Optional.
-`creation` | Object | Configuration for snapshot creation. Required.
-`creation`<br>&nbsp;&nbsp;&nbsp;&nbsp;`schedule` | String | The cron schedule used to create snapshots. Required.
-`creation`<br>&nbsp;&nbsp;&nbsp;&nbsp;`time_limit` | String | Sets the maximum time to wait for snapshot creation to finish. If time_limit is longer than the scheduled time interval for taking snapshots, no scheduled snapshots are taken until time_limit elapses. For example, if time_limit is set to 35 minutes and snapshots are taken every 30 minutes starting at midnight, the snapshots at 00:00 and 01:00 are taken, but the snapshot at 00:30 is skipped. Optional. 
-`deletion` | Object | Configuration for snapshot deletion. Optional. Default is to retain all snapshots.
-`deletion`<br>&nbsp;&nbsp;&nbsp;&nbsp;`schedule` | String | The cron schedule used to delete snapshots. Optional. Default is to use `creation.schedule`, which is required.
-`deletion`<br>&nbsp;&nbsp;&nbsp;&nbsp;`time_limit` | String | Sets the maximum time to wait for snapshot deletion to finish. Optional. 
-`deletion`<br>&nbsp;&nbsp;&nbsp;&nbsp;`delete_condition` | Object | Conditions for snapshot deletion. Optional. 
-`deletion`<br>&nbsp;&nbsp;&nbsp;&nbsp;`delete_condition`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`max_count` | Integer | The maximum number of snapshots to be retained. Optional.
-`deletion`<br>&nbsp;&nbsp;&nbsp;&nbsp;`delete_condition`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`max_age` | String | The maximum time a snapshot is retained. Optional.
-`deletion`<br>&nbsp;&nbsp;&nbsp;&nbsp;`delete_condition`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`min_count` | Integer | The minimum number of snapshots to be retained. Optional. Default is one.
-`notification` | Object | Defines notifications for SM events. Optional.
-`notification`<br>&nbsp;&nbsp;&nbsp;&nbsp;`channel` | Object | Defines a channel for notifications. You must [create and configure a notification channel]({{site.url}}{{site.baseurl}}/notifications-plugin/api) before setting up SM notifications. Required.
-`notification`<br>&nbsp;&nbsp;&nbsp;&nbsp;`channel`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`id` | String | The channel ID of the channel used for notifications. To get the channel IDs of all created channels, use `GET _plugins/_notifications/configs`. Required.
-`notification`<br>&nbsp;&nbsp;&nbsp;&nbsp;`conditions` | Object | SM events you want to be notified about. Set the ones you are interested in to `true`.
-`notification`<br>&nbsp;&nbsp;&nbsp;&nbsp;`conditions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`creation` | Boolean | Do you want notifications about snapshot creation? Optional. Default is `true`.
-`notification`<br>&nbsp;&nbsp;&nbsp;&nbsp;`conditions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`deletion` | Boolean | Do you want notifications about snapshot deletion? Optional. Default is `false`.
-`notification`<br>&nbsp;&nbsp;&nbsp;&nbsp;`conditions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`failure` | Boolean | Do you want notifications about creation or deletion failure? Optional. Default is `false`.
-`notification`<br>&nbsp;&nbsp;&nbsp;&nbsp;`conditions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`time_limit_exceeded` | Boolean | Do you want notifications when snapshot operations take longer than time_limit? Optional. Default is `false`.
-
-
+`schedule`<br>&nbsp;&nbsp;&nbsp;&nbsp;`period`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`unit` | String | The unit of measure for the interval.
+`inputs` | Object | TBD
+`inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;`detector_inputs` | Object | TBD
+`inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;`detector_inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`description` | String | TBD
+`inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;`detector_inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`custom_rules` | Object | TBD
+`inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;`detector_inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`custom_rules` | Object | TBD
+`inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;`detector_inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`custom_rules` | Object | TBD
+`inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;`detector_inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`custom_rules`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`id` | String | TBD
+`inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;`detector_inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`indices` | String | TBD
+`inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;`detector_inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`pre_packaged_rules` | Object | TBD
+`inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;`detector_inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`pre_packaged_rules`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`id` | String | TBD
+`triggers` | Object | TBD
+`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`ids` | String | TBD
+`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`types` | String | TBD
+`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`tags` | String | TBD
+`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`id` | String | TBD
+`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`sev_levels` | String | TBD
+`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`name` | String | TBD
+`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`severity` | Integer | TBD
+`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions` | Integer | TBD
+`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`id` | Integer | TBD
+`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`destination_id` | Integer | TBD
+`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`subject_template` | Object | TBD
+`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`subject_template`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`source` | String | TBD
+`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`subject_template`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`lang` | String | TBD
+`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`name` | String | TBD
+`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`throttle_enabled` | Boolean | TBD
+`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`message_template` | String | TBD
+`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`message_template`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`source` | String | TBD
+`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`message_template`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`lang` | String | TBD
+`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`throttle` | Object | TBD
+`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`throttle`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`unit` | String | TBD
+`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`throttle`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`value` | Integer | TBD
 
 
 
