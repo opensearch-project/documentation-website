@@ -307,14 +307,12 @@ Name | Description
 
 On Windows, the equivalent of `securityadmin.sh` is the `securityadmin.bat` script located in the `path/to/opensearch-{{site.opensearch_version}}/plugins/opensearch-security/tools/` directory.
 
-When running the example commands in the preceding sections, use the **command prompt**. You can open the command prompt by entering `cmd` in the search box next to **Start** on the taskbar. 
-
-Note that on Windows you need the `call` command to call a batch script. 
+When running the example commands in the preceding sections, use the **command prompt** or **Powershell**. Open the command prompt by entering `cmd` or Powershell by entering `powershell` in the search box next to **Start** on the taskbar. 
 
 For example, to print all available command line options, run the script with no arguments:
 
 ```bat
-call ./plugins/opensearch-security/tools/securityadmin.bat
+./plugins/opensearch-security/tools/securityadmin.bat
 ```
 
 When entering a multiline command, use the caret (`^`) character to escape the next character in the command line.
@@ -322,7 +320,7 @@ When entering a multiline command, use the caret (`^`) character to escape the n
 For example, to load your initial configuration (all YAML files), use the following command:
 
 ```bat
-call ./securityadmin.bat -cd ../../../config/opensearch-security/ -icl -nhnv ^
+./securityadmin.bat -cd ../../../config/opensearch-security/ -icl -nhnv ^
   -cacert ../../../config/root-ca.pem ^
   -cert ../../../config/kirk.pem ^
   -key ../../../config/kirk-key.pem
