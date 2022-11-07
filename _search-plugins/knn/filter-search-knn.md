@@ -19,6 +19,12 @@ Starting from OpenSearch version 2.2 the k-NN plugin uses the Lucene engine that
 
 Lucene also provides the capability to operate its `KnnVectorQuery` over a subset of documents. To learn more about Lucene’s new capability, see the [Apache Lucene Documentation](https://issues.apache.org/jira/browse/LUCENE-10382).
 
+The following workflow diagram shows how the HSNW algorithm decides which type of filtering to apply to a search based on the volume of documents, and number of `k` points in the index that you search with a filter.
+
+![How the algorithm evaluates a doc set]({{site.url}}{{site.baseurl}}/images/hsnw-algorithm.png)
+
+***Figure 1: Filter algorithm workflow***
+
 ### Filtered search performance
 
 The Lucene engine and HSNW algorithm allow you to to apply k-NN searches more efficiently both in terms of relevancy of search results and performance. Consider that if you do an exact search on a large data set, the results are slow, and post-filtering does not guarantee the required number of results you specify for the `k` value.
@@ -53,11 +59,11 @@ To learn more about how to use Query DSL Boolean query clauses, see [Boolean que
 
 ## Filter approaches by use case
 
-Depending on the data set that you are searching, you might choose a different approach.
-You can create filters that are either: very selective (80%), somewhat selective (38%), or not very selective (2.5%).
+Depending on the data set that you are searching, you might choose a different approach to minimize recall or latency. You can create filters that are either: very selective (80%), somewhat selective (38%), or not very selective (2.5%).
 
 In this context `score_script` is essentially a brute force search, whereas boolean filter is an approximate k-NN search with post filtering.
 
+#### Filter selectiveness with latency per doc set volume
 
 Number of vectors | Selectiveness of filter, % | k | Recall | Latency
 -- | -- | -- | -- | --
@@ -151,7 +157,7 @@ Consider a data set that contains 12 documents, a search reference point, and do
 
 ![Graph of documents with filter criteria]({{site.url}}{{site.baseurl}}/images/knn-two-filters.png)
 
-***Figure 1: Graph of documents that meet filter criteria***
+***Figure 2: Graph of documents that meet filter criteria***
 
 ## Step 1: Create a new index
 
