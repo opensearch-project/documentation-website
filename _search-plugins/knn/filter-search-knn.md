@@ -30,21 +30,13 @@ To run k-NN queries with a filter, the Lucene search engine and HSNW method are 
 
 ```json
 "my_field": {
-
                 "type": "knn_vector",
-
                 "dimension": 2,
-
                 "method": {
-
                     "name": "hnsw",
-
                     "space_type": "l2",
-
                     "engine": "lucene"
-
                 }
-
             }
 ```
 
