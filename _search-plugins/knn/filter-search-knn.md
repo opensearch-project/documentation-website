@@ -48,11 +48,7 @@ To run k-NN queries with a filter, the Lucene search engine and HSNW method are 
 
 ## Create filters with Query DSL  
 
-To search for k nearest neighbors, you create a custom filter as part of the search request.
-
-OpenSearch k-NN filters are defined using Query DSL. Define the `filter` field with specific Boolean clauses.
-
-You specify a query point with the `knn_vector` type and search for nearest neighbors that match your filter criteria specified using Query DSL.
+To search for k nearest neighbors, you create a custom filter as part of the search request. You specify a query point with the `knn_vector` type and search for nearest neighbors that match your filter criteria specified using Query DSL. You define the `filter` field with specific Boolean clauses.
 
 To learn more about how to use Query DSL Boolean query clauses, see [Boolean queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/bool).
 {: .note }
