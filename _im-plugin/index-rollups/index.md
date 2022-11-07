@@ -550,7 +550,7 @@ PUT _index_template/ism_rollover
 }
 ```
 
-**Step 2:** Set up an ISM rollover policy to roll over any index whose name starts with `log*` after one document is uploaded to it, and then roll up the individual backing index. The target index name is dynamically generated from the source index name by prepending the string `rollup_ndx-` to the source index name.
+**Step 2:** Set up an ISM rollover policy to roll over any index whose name starts with `log*` after one document is uploaded to it, and then roll up the individual backing index. The target index name is dynamically generated from the source index name by prepending the string `rollup_ndx-{{ctx.source_index}}` to the source index name.
 
 ```json
 PUT _plugins/_ism/policies/rollover_policy 
