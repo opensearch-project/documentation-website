@@ -7,14 +7,22 @@ has_children: false
 has_math: true
 ---
 
-# Search with k-NN filters
+# Search for k-NN with filters
 Introduced 2.4
 {: .label .label-purple }
 
-OpenSearch supports filtering k-NN searches provided by the Lucene engine version 9.1. Lucene provides a search process for filtered documents that uses a Hierarchical Navigable Small World (HSNW) algorithm to represent a multi-layered graph to filter searches.
-After a filter is applied to a set of documents to be searched, the algorithm decides whether to perform pre-filtering for an exact kNN search or modified post-filtering for approximate search. The approximate search with filtering guarantees the top number of closest vectors in result.
+You can create custom filters using Query DSL to search for k-nearest neighbors to a query point across an index of vectors. You define the filter criteria within the `knn_vector` data type description in your query using Query DSL.
+
+## How does a k-NN filter work?
+
+The OpenSearch k-NN plugin uses the Lucene engine version 9.1 that provides a search process for filtered documents that uses a Hierarchical Navigable Small World (HSNW) algorithm to represent a multi-layered graph to filter searches. After a filter is applied to a set of documents to be searched, the algorithm decides whether to perform pre-filtering for an exact kNN search or modified post-filtering for approximate search. The approximate search with filtering guarantees the top number of closest vectors in result.
 
 Lucene also provides the capability to operate its `KnnVectorQuery` over a subset of documents. To learn more about Lucene’s new capability, see the [Apache Lucene Documentation](https://issues.apache.org/jira/browse/LUCENE-10382).
+
+### Filtered search performance
+
+The Lucene engine and HSNW algorithm allow you to to apply k-NN searches more efficiently both in terms of relevancy of search results and performance. Consider that if you do an exact search on a large data set, the results are slow, and post-filtering does not guarantee the required number of results you specify for the `k` value.
+With this new capability, you can create an approximate k-NN search and apply filters, with the amount of results you need.
 
 ### Requirement: Lucene engine with HNSW method
 
@@ -30,12 +38,11 @@ To run k-NN queries with a filter, the Lucene search engine and HSNW method are 
 ```
 
 
-### Filtered search performance
 
-The Lucene engine and other mechanisms allow you to to apply k-NN searches more efficiently both in terms of relevancy of search results and performance. Consider that if you do an exact search on a large data set, the results are slow, and post-filtering does not guarantee the required number of results you specify for the `k` value.
-With this new capability, you can create an approximate k-NN search and apply filters, with the amount of results you need.
 
 ## Create filters with Query DSL  
+
+To search for k nearest neighbors, you create a custom filter as part of the search request.
 
 OpenSearch k-NN filters are defined using Query DSL. Define the `filter` field with specific Boolean clauses.
 
@@ -47,8 +54,8 @@ To learn more about how to use Boolean query clauses with Query DSL, see [Boolea
 ## How to search nearest neighbors with filters
 
 The workflow to search with a filter includes three steps:
-1. Create an index.
-1. Ingest data into the index.
+1. Create an index and specify the requirements for Lucene engine and HSNW in the mapping.
+1. Add your data to the index.
 1. Search the index and specify these three items in your query:
 * One or more filters defined by Query DSL
 * A vector reference point defined by the `vector` field.
@@ -384,7 +391,7 @@ The following response indicates a few hits for the search with filters:
   },
   "hits" : {
     "total" : {
-      "value" : 3,
+      "value" : 2,
       "relation" : "eq"
     },
     "max_score" : 0.72992706,
