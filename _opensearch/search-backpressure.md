@@ -17,40 +17,53 @@ To decide whether to apply search backpressure, OpenSearch periodically measures
 - Heap usage
 - Elapsed time 
 
-An observer thread tracks the resource consumption of each task thread. It measures the resource consumption at several checkpoints during the query phase of a shard search request. If the node is determined to be under duress based on the JVM memory pressure and CPU utilization, the server examines the resource consumption for each search task. It determines if the CPU usage and elapsed time are within their fixed thresholds, and it compares the heap usage against the rolling average of the heap usage of the 100 most recent tasks. If the task is among the most resource-intensive based on these criteria, the task in canceled. 
+An observer thread periodically measures the resource usage of the node. If the node is determined to be under duress, OpenSearch examines the resource usage of each search shard task and compares it against configurable thresholds. OpenSearch considers CPU usage, heap usage and elapsed time and assigns each task a cancellation score that is then used to cancel the most resource-intensive tasks.
 
-Every minute OpenSearch can cancel at most 1% of the number of currently running search shard tasks. Once a task is canceled, OpenSearch monitors the node for the next two seconds to determine if it is still under duress.
+OpenSearch limits the number of cancellations as a fraction of successful task completions and cancellations per unit time. It continues to monitor and cancel tasks until the node is no longer under duress.
 
 ## Canceled queries
 
-If a query is canceled, instead of receiving search results you receive an error from the server similar to the error below:
+If a query is canceled, OpenSearch may return partial results in case some shards failed. If all shards failed, OpenSearch returns an error from the server similar to the error below:
 
 ```json
 {
-  "error" : {
-    "root_cause" : [
+  "error": {
+    "root_cause": [
       {
-        "type" : "task_cancelled_exception",
-        "reason" : "Task is cancelled due to high resource consumption"
+          "type": "task_cancelled_exception",
+          "reason": "cancelled task with reason: cpu usage exceeded [17.9ms >= 15ms], elapsed time exceeded [1.1s >= 300ms]"
+      },
+      {
+          "type": "task_cancelled_exception",
+          "reason": "cancelled task with reason: elapsed time exceeded [1.1s >= 300ms]"
       }
     ],
-    "type" : "search_phase_execution_exception",
-    "reason" : "all shards failed",
-    "phase" : "query",
-    "grouped" : true,
-    "failed_shards" : [
+    "type": "search_phase_execution_exception",
+    "reason": "all shards failed",
+    "phase": "query",
+    "grouped": true,
+    "failed_shards": [
       {
-        "shard" : 0,
-        "index" : "nyc_taxis",
-        "node" : "MGkMkg9wREW3IVewZ7U_jw",
-        "reason" : {
-          "type" : "task_cancelled_exception",
-          "reason" : "Task is cancelled due to high resource consumption"
+        "shard": 0,
+        "index": "foobar",
+        "node": "7yIqOeMfRyWW1rHs2S4byw",
+        "reason": {
+            "type": "task_cancelled_exception",
+            "reason": "cancelled task with reason: cpu usage exceeded [17.9ms >= 15ms], elapsed time exceeded [1.1s >= 300ms]"
+        }
+      },
+      {
+        "shard": 1,
+        "index": "foobar",
+        "node": "7yIqOeMfRyWW1rHs2S4byw",
+        "reason": {
+            "type": "task_cancelled_exception",
+            "reason": "cancelled task with reason: elapsed time exceeded [1.1s >= 300ms]"
         }
       }
     ]
   },
-  "status" : 500
+  "status": 500
 }
 ```
 
@@ -64,19 +77,20 @@ Search backpressure adds several settings to the standard OpenSearch cluster set
 
 Setting | Default | Description
 :--- | :--- | :---
-search_backpressure.<br>&nbsp;&nbsp;&nbsp;&nbsp;mode | `monitor_only` | The [mode](#search-backpressure-modes) for search backpressure. Valid values are `monitor_only`, `enforced`, or `disabled`.
-search_backpressure.<br>&nbsp;&nbsp;&nbsp;&nbsp;interval | 1 second | The interval at which the observer thread measures the resource consumption and cancels tasks.
-search_backpressure.<br>&nbsp;&nbsp;&nbsp;&nbsp;cancellation_ratio | 10% | The maximum percentage of tasks to cancel out of the number of successful task completions.
-search_backpressure.<br>&nbsp;&nbsp;&nbsp;&nbsp;cancellation_rate | 0.003 | The maximum number of tasks to cancel per millisecond.
-search_backpressure.<br>&nbsp;&nbsp;&nbsp;&nbsp;cancellation_burst | 10 | The maximum number of tasks that can be canceled before no further cancellations are made.
-search_backpressure.<br>&nbsp;&nbsp;&nbsp;&nbsp;node_duress.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;num_consecutive_breaches | 3 | The number of consecutive limit breaches after which the node is marked in duress.
+search_backpressure.<br>&nbsp;&nbsp;&nbsp;&nbsp;mode | `monitor_only` | The search backpressure [mode](#search-backpressure-modes). Valid values are `monitor_only`, `enforced`, or `disabled`.
+search_backpressure.<br>&nbsp;&nbsp;&nbsp;&nbsp;interval_millis | 1,000 ms | The interval at which the observer thread measures the resource usage and cancels tasks.
+search_backpressure.<br>&nbsp;&nbsp;&nbsp;&nbsp;cancellation_ratio | 10% | The maximum number of tasks to cancel as a fraction of successful task completions.
+search_backpressure.<br>&nbsp;&nbsp;&nbsp;&nbsp;cancellation_rate | 0.003 | The maximum number of tasks to cancel per millisecond of elapsed time.
+search_backpressure.<br>&nbsp;&nbsp;&nbsp;&nbsp;cancellation_burst | 10 | The maximum number of tasks to cancel in a single iteration of the observer thread.
+search_backpressure.<br>&nbsp;&nbsp;&nbsp;&nbsp;node_duress.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;num_successive_breaches | 3 | The number of successive limit breaches, after which the node is considered under duress.
 search_backpressure.<br>&nbsp;&nbsp;&nbsp;&nbsp;node_duress.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cpu_threshold | 90% | The CPU usage threshold (in percentage) for a node to be considered in duress.
 search_backpressure.<br>&nbsp;&nbsp;&nbsp;&nbsp;node_duress.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;heap_threshold | 70% | The heap usage threshold (in percentage) for a node to be considered in duress.
-search_backpressure.<br>&nbsp;&nbsp;&nbsp;&nbsp;search_heap_threshold | 5% | The heap usage threshold (in percentage) for the sum of heap usages across all search tasks before server-side cancellation is applied.
-search_backpressure.<br>&nbsp;&nbsp;&nbsp;&nbsp;search_task_heap_threshold | 0.5% | The heap usage threshold (in percentage) for one task before it is considered for cancellation.
-search_backpressure.<br>&nbsp;&nbsp;&nbsp;&nbsp;search_task_heap_variance | 2 | The heap usage variance for one task before it is considered for cancellation. A task is considered for cancellation when `taskHeapUsage` is greater than or equal to `heapUsageMovingAverage` &middot; `variance`.
-search_backpressure.<br>&nbsp;&nbsp;&nbsp;&nbsp;search_task_cpu_time_threshold | 15 seconds | The CPU usage threshold (in milliseconds) for one task before it is considered for cancellation.
-search_backpressure.<br>&nbsp;&nbsp;&nbsp;&nbsp;search_task_elapsed_time_threshold | 30 seconds | The elapsed time threshold (in milliseconds) for one task before it is considered for cancellation.
+search_backpressure.<br>&nbsp;&nbsp;&nbsp;&nbsp;search_shard_task.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;total_heap_percent_threshold | 5% | The heap usage threshold (in percentage) for the sum of heap usages of all search shard tasks before cancellation is applied.
+search_backpressure.<br>&nbsp;&nbsp;&nbsp;&nbsp;search_shard_task.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;heap_percent_threshold | 0.5% | The heap usage threshold (in percentage) for a single search shard task before it is considered for cancellation.
+search_backpressure.<br>&nbsp;&nbsp;&nbsp;&nbsp;search_shard_task.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;heap_variance | 2.0 | The minimum variance of a single search shard task's heap usage usage compared to the rolling average of previously completed tasks before it is considered for cancellation.
+search_backpressure.<br>&nbsp;&nbsp;&nbsp;&nbsp;search_shard_task.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;heap_moving_average_window_size | 100 | The number of previously completed search shard tasks to consider when calculating the rolling average of heap usage.
+search_backpressure.<br>&nbsp;&nbsp;&nbsp;&nbsp;search_shard_task.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cpu_time_millis_threshold | 15,000 ms | The CPU usage threshold (in milliseconds) for a single search shard task before it is considered for cancellation.
+search_backpressure.<br>&nbsp;&nbsp;&nbsp;&nbsp;search_shard_task.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;elapsed_time_millis_threshold | 30,000 ms | The elapsed time threshold (in milliseconds) for a single search shard task before it is considered for cancellation.
 
 ## Search Backpressure Stats API
 Introduced 2.4
@@ -112,10 +126,7 @@ The response contains server-side request cancellation statistics:
       "host": "127.0.0.1",
       "ip": "127.0.0.1:9300",
       "roles": [
-        "cluster_manager",
-        "data",
-        "ingest",
-        "remote_cluster_client"
+         
       ],
       "attributes": {
         "testattr": "test",
@@ -126,25 +137,18 @@ The response contains server-side request cancellation statistics:
           "resource_tracker_stats": {
             "heap_usage_tracker": {
               "cancellation_count": 34,
-              "current_max": "1.1mb",
               "current_max_bytes": 1203272,
-              "current_avg": "683.8kb",
               "current_avg_bytes": 700267,
-              "rolling_avg": "1.1mb",
               "rolling_avg_bytes": 1156270
             },
             "cpu_usage_tracker": {
               "cancellation_count": 318,
-              "current_max": "731.3ms",
               "current_max_millis": 731,
-              "current_avg": "303.6ms",
               "current_avg_millis": 303
             },
             "elapsed_time_tracker": {
               "cancellation_count": 310,
-              "current_max": "1.3s",
               "current_max_millis": 1305,
-              "current_avg": "649.3ms",
               "current_avg_millis": 649
             }
           },
@@ -195,7 +199,7 @@ Field Name | Data Type | Description
 cancellation_count | Integer | The number of tasks canceled because of excessive heap usage since the node last restarted.
 current_max_bytes | Integer | The maximum heap usage for all tasks currently running on the node, in bytes.
 current_avg_bytes | Integer | The average heap usage for all tasks currently running on the node, in bytes.
-rolling_avg_bytes | Integer | The rolling average heap usage for the 100 most recent tasks, in bytes.
+rolling_avg_bytes | Integer | The rolling average heap usage for `n` most recent tasks, in bytes. `n` is configurable and defined by the `search_backpressure.search_shard_task.heap_moving_average_window_size` setting. The default value for this setting is 100.
 
 #### `cpu_usage_tracker`
 
