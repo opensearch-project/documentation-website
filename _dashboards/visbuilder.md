@@ -15,7 +15,7 @@ You can use the VisBuilder visualization type in OpenSearch Dashboards to create
 * the flexibility to change visualization types and index patterns quickly
 * the ability to easily navigate between multiple screens
 
-<img src="{{site.url}}{{site.baseurl}}/images/drag-drop-ui.png" alt="VisBuilder start screen">
+<img src="{{site.url}}{{site.baseurl}}/images/vis-builder-2.png" alt="VisBuilder new visualization start page">
 
 ## Try VisBuilder in the OpenSearch Dashboards playground
 
@@ -23,13 +23,14 @@ If you'd like to try out VisBuilder without installing OpenSearch locally, you c
 
 ## Try VisBuilder locally
 
-The VisBuilder feature flag, `vis_builder.enabled:`, is enabled by default in the `opensearch_dashboards.yml` file. You can disable it using the flag`vis_builder.enabled: false`.
+The VisBuilder feature flag, `vis_builder.enabled:`, is enabled by default in the `opensearch_dashboards.yml` file. 
 
 ```
 # Set the value of this setting to false to disable VisBuilder
 # functionality in Visualization.
 vis_builder.enabled: true
 ```
+You can disable it using the flag`vis_builder.enabled: false`.
 
 Follow these steps to create a new visualization using VisBuilder in your environment:
 
@@ -45,7 +46,7 @@ Follow these steps to create a new visualization using VisBuilder in your enviro
 
 3. From the top menu, select **Visualize** **>** **Create visualization** **>** **VisBuilder**.
 
-   <img src="{{site.url}}{{site.baseurl}}/images/drag-and-drop-viz-select.png" alt="Select the VisBuilder visualization type" width="350">  
+   <img src="{{site.url}}{{site.baseurl}}/images/vis-builder-1.png" alt="Select the VisBuilder visualization type" width="350">  
 
 4. Drag and drop field names from the left column into the **Configuration** panel to generate a visualization.
 
