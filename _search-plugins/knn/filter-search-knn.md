@@ -11,7 +11,11 @@ has_math: true
 Introduced 2.4
 {: .label .label-purple }
 
-You can create custom filters using Query DSL search options to refine your k-NN searches. You define the filter criteria within the `knn_vector` field's `filter` subsection in your query with Query DSL query types such as: term, range, regex and wildcard. To include or exclude results, you specify Boolean query clauses.
+You can create custom filters using Query DSL search options to refine your k-NN searches. You define the filter criteria within the `knn_vector` field's `filter` subsection in your query. You can use all available Query DSL query types such as: term, range, regex and wildcard. To include or exclude results, you specify Boolean query clauses. You also specify a query point with the `knn_vector` type and search for nearest neighbors that match your filter criteria.
+To run k-NN queries with a filter, the Lucene search engine and HSNW method are required.
+
+To learn more about how to use Query DSL Boolean query clauses, see [Boolean queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/bool).
+{: .note }
 
 ## How does a k-NN filter work?
 
@@ -19,45 +23,22 @@ Starting from OpenSearch version 2.2 the k-NN plugin uses the Lucene engine that
 
 Lucene also provides the capability to operate its `KnnVectorQuery` over a subset of documents. To learn more about Lucene’s new capability, see the [Apache Lucene Documentation](https://issues.apache.org/jira/browse/LUCENE-10382).
 
+### Filtered search performance
+
+The Lucene engine and HSNW algorithm allow you to to apply k-NN searches more efficiently both in terms of relevancy of search results and performance. Consider that if you do an exact search on a large data set, the results are slow, and post-filtering does not guarantee the required number of results you specify for the `k` value.
+With this new capability, you can create an approximate k-NN search and apply filters, with the amount of results you need.
+
 The following workflow diagram shows how the HSNW algorithm decides which type of filtering to apply to a search based on the volume of documents, and number of `k` points in the index that you search with a filter.
 
 ![How the algorithm evaluates a doc set]({{site.url}}{{site.baseurl}}/images/hsnw-algorithm.png)
 
 ***Figure 1: Filter algorithm workflow***
 
-### Filtered search performance
-
-The Lucene engine and HSNW algorithm allow you to to apply k-NN searches more efficiently both in terms of relevancy of search results and performance. Consider that if you do an exact search on a large data set, the results are slow, and post-filtering does not guarantee the required number of results you specify for the `k` value.
-With this new capability, you can create an approximate k-NN search and apply filters, with the amount of results you need.
-
-### Requirement: Lucene engine with HNSW method
-
-To run k-NN queries with a filter, the Lucene search engine and HSNW method are required. When you create the mapping, you specify these items in the `knn_vector` field description as follows:
-
-```json
-"my_field": {
-                "type": "knn_vector",
-                "dimension": 2,
-                "method": {
-                    "name": "hnsw",
-                    "space_type": "l2",
-                    "engine": "lucene"
-                }
-            }
-```
-
-## Create filters with Query DSL  
-
-To search for k nearest neighbors, you create a custom filter as part of the search request. You specify a query point with the `knn_vector` type and search for nearest neighbors that match your filter criteria specified using Query DSL. You define the `filter` field with specific Boolean clauses.
-
-To learn more about how to use Query DSL Boolean query clauses, see [Boolean queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/bool).
-{: .note }
-
 ## Filter approaches by use case
 
 Depending on the data set that you are searching, you might choose a different approach to minimize recall or latency. You can create filters that are either: very selective (80%), somewhat selective (38%), or not very selective (2.5%).
 
-In this context `score_script` is essentially a brute force search, whereas boolean filter is an approximate k-NN search with post filtering.
+In this context, `score_script` is essentially a brute force search, whereas boolean filter is an approximate k-NN search with post filtering.
 
 #### Filter selectiveness with latency per doc set volume
 
@@ -137,7 +118,7 @@ A filter that is not very selective will return 80% of the documents that you se
                 }
 ```
 
-## How to search nearest neighbors with filters
+## Overview: How to use filters in a k-NN search
 
 The workflow to search with a filter includes three steps:
 1. Create an index and specify the requirements for Lucene engine and HSNW in the mapping.
@@ -155,9 +136,9 @@ Consider a data set that contains 12 documents, a search reference point, and do
 
 ***Figure 2: Graph of documents that meet filter criteria***
 
-## Step 1: Create a new index
+## Step 1: Create a new index with a lucene mapping
 
-Before you can do a k-NN search with a filter, you need to create an index and add data to it.
+Before you can do a k-NN search with a filter, you need to create an index, specify the lucene engine in a mapping, and add data to the index.
 
 You need to add a `location` field to represent the location, and specify it as the `knn_vector` type. The most basic vector can be two dimensions. For example:
 
@@ -166,7 +147,21 @@ You need to add a `location` field to represent the location, and specify it as 
   "dimension": 2,
 ```
 
-Make sure to specify the `method` field to indicate the "hsnw" method and "lucene" engine, otherwise the search will not work.
+### Requirement: Lucene engine with HNSW method
+
+Make sure to specify "hnsw" method and "lucene" engine in the `knn_vector` field description, as follows:
+
+```json
+"my_field": {
+                "type": "knn_vector",
+                "dimension": 2,
+                "method": {
+                    "name": "hnsw",
+                    "space_type": "l2",
+                    "engine": "lucene"
+                }
+            }
+```
 
 #### Sample request
 
