@@ -322,7 +322,7 @@ When entering a multiline command, use the caret (`^`) character to escape the n
 For example, to load your initial configuration (all YAML files), use the following command:
 
 ```bat
-call ./securityadmin.sh -cd ../../../config/opensearch-security/ -icl -nhnv ^
+call ./securityadmin.bat -cd ../../../config/opensearch-security/ -icl -nhnv ^
   -cacert ../../../config/root-ca.pem ^
   -cert ../../../config/kirk.pem ^
   -key ../../../config/kirk-key.pem
