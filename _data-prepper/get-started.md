@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Get Started
-parent: Data Prepper
-nav_order: 1
+nav_order: 10
+redirect_from:
+  - /clients/data-prepper/get-started/
 ---
 
 # Get started with Data Prepper

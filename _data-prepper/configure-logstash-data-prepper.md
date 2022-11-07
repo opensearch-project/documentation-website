@@ -2,7 +2,11 @@
 layout: default
 title: Configure Logstash for Data Prepper
 parent: Data Prepper
+<<<<<<< HEAD:_data-prepper/configure-logstash-data-prepper.md
+nav_order: 12
+=======
 nav_order: 2
+>>>>>>> main:_clients/data-prepper/configure-logstash-data-prepper.md
 ---
 # Configure Logstash for Data Prepper
 You can run Data Prepper with a Logstash configuration.
