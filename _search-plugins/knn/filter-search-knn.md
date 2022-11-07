@@ -51,6 +51,90 @@ You specify a query point with the `knn_vector` type and search for nearest neig
 To learn more about how to use Query DSL Boolean query clauses, see [Boolean queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/bool).
 {: .note }
 
+## Filter approaches by use case
+
+Depending on the data set that you are searching, you might choose a different approach.
+You can create filters that are either: very selective (80%), somewhat selective (38%), or not very selective (2.5%).
+
+In this context `score_script` is essentially a brute force search, whereas boolean filter is an approximate k-NN search with post filtering.
+
+
+Number of vectors | Selectiveness of filter, % | k | Recall | Latency
+-- | -- | -- | -- | --
+10M | 2.5 | 100 | score_script | score_script
+10M | 38 | 100 | lucene_filtering | boolean filter
+10M | 80 | 100 | score_script | lucene_filtering
+1M | 2.5 | 100 | lucene_filtering | score_script
+1M | 38 | 100 | lucene_filtering | lucene_filtering / score_script
+1M | 80 | 100 | boolean filter | lucene_filtering
+
+### Use case 1: Very selective 2.5% filter
+
+A very selective filter returns the least amount of documents in your data set. For example, a filter with 2.5% selectiveness will return only 2.5% of the documents.
+
+For example, the following filter criteria specifies hotels with feedback ratings less than or equal to 3. This 2.5% filter only returns 1 document:
+
+```json
+                "filter": {
+                    "bool": {
+                        "must": [
+                            {
+                                "range": {
+                                    "rating": {
+                                        "lte": 3
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                }
+```
+
+### Use case 2: Somewhat selective 38% filter
+
+A somewhat selective filter returns 38% of the documents in the doc set that you search. For example, the following filter criteria specifies hotels with parking and feedback ratings less than or equal to 8, and returns 5 documents.
+
+```json
+               "filter": {
+                    "bool": {
+                        "must": [
+                            {
+                                "range": {
+                                    "rating": {
+                                        "lte": 8
+                                    }
+                                }
+                            },
+                            {
+                                "term": {
+                                    "parking": "true"
+                                }
+                            }
+                        ]
+                    }
+                }
+```
+
+### Use case 3: Not very selective 80% filter
+
+A filter that is not very selective will return 80% of the documents that you search. For example, the following filter criteria specifies hotels with feedback ratings greater than or equal to 5, and returns 10 documents.
+
+```json
+                "filter": {
+                    "bool": {
+                        "must": [
+                            {
+                                "range": {
+                                    "rating": {
+                                        "gte": 5
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                }
+```
+
 ## How to search nearest neighbors with filters
 
 The workflow to search with a filter includes three steps:
