@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Configuration reference
-parent: Data Prepper
-nav_order: 3
+nav_order: 30
+redirect_from:
+  - /clients/data-prepper/data-prepper-reference/
 ---
 
 # Data Prepper configuration reference

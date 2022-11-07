@@ -64,6 +64,12 @@ collections:
   clients:
     permalink: /:collection/:path/
     output: true
+  data-prepper: 
+    permalink: /:collection/:path/
+    output: true
+  tools:
+    permalink: /:collection/:path/
+    output: true
   api-reference:
     permalink: /:collection/:path/
     output: true  
@@ -113,7 +119,13 @@ just_the_docs:
       name: Notifications plugin
       nav_fold: true
     clients:
-      name: Clients and tools
+      name: Clients
+      nav_fold: true
+    data-prepper: 
+      name: Data Prepper
+      nav_fold: true
+    tools:
+      name: Tools
       nav_fold: true
     api-reference:
       name: API reference

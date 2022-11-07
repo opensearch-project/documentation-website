@@ -1,14 +1,21 @@
 ---
 layout: default
-title: Agents and ingestion tools
-nav_order: 140
+title: Tools
+nav_order: 50
 has_children: false
-has_toc: false
 redirect_from:
   - /clients/agents-and-ingestion-tools/
 ---
 
-# Agents and ingestion tools
+# OpenSearch tools
+
+This section provides documentation for OpenSearch-supported tools, including:
+
+- [Agents and ingestion tools](#agents-and-ingestion-tools)
+- [OpenSearch CLI](#opensearch-cli)
+- [OpenSearch Kubernetes operator](#opensearch-kubernetes-operator)
+
+## Agents and ingestion tools
 
 Historically, many multiple popular agents and ingestion tools have worked with Elasticsearch OSS, such as Beats, Logstash, Fluentd, FluentBit, and OpenTelemetry. OpenSearch aims to continue to support a broad set of agents and ingestion tools, but not all have been tested or have explicitly added OpenSearch compatibility.
 
@@ -39,7 +46,7 @@ Logstash OSS 8.0 introduces a breaking change where all plugins run in ECS compa
 ecs_compatibility => disabled
 ```
 
-## Downloads
+### Downloads
 
 You can download the OpenSearch output plugin for Logstash from [OpenSearch downloads](https://opensearch.org/downloads.html). The Logstash output plugin is compatible with OpenSearch and Elasticsearch OSS (7.10.2 or lower).
 
@@ -93,3 +100,11 @@ Some users report compatibility issues with ingest pipelines on these versions o
 
 Beats versions newer than 7.12.x are not supported by OpenSearch. If you must update the Beats agent(s) in your environment to a newer version, you can work around the incompatibility by directing traffic from Beats to Logstash and using the Logstash Output plugin to ingest the data to OpenSearch.
 {: .warning }
+
+## OpenSearch CLI
+
+The OpenSearch CLI command line interface (opensearch-cli) lets you manage your OpenSearch cluster from the command line and automate tasks. For more information on OpenSearch CLI, see [OpenSearch CLI]({{site.url}}{{site.baseurl}}/tools/cli/).
+
+## OpenSearch Kubernetes operator
+
+The OpenSearch Kubernetes (K8s) Operator is an open-source kubernetes operator that helps automate the deployment and provisioning of OpenSearch and OpenSearch Dashboards in a containerized environment. For information on how to use the K8s operator, see [OpenSearch Kubernetes operator]({{site.url}}{{site.baseurl}}/tools/k8s-operator/)
