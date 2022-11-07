@@ -8,13 +8,13 @@ redirect_from:
   - /security-analytics/
 ---
 
-Security analytics is an experimental plugin for OpenSearch 2.4. Therefore, we do not recommend the use of security analytics in a production environment at this time. For updates on the progress of security analytics or for information on how to make contributions, visit the [security analytics repository](https://github.com/opensearch-project/security-analytics) at GitHub.
-{: .warning }
-
 
 # About security analytics
 
 Security analytics is a security information and event management (SIEM) solution for OpenSearch, designed to investigate, detect, analyze, and respond to security threats that can jeopardize the success of businesses and organizations and their online operations. These threats include the potential exposure of confidential data, cyber attacks, and other adverse security events. Security analytics provides an out-of-the-box solution that installs automatically with any OpenSearch distribution. It includes the tools and features necessary for defining detection parameters, generating alerts, and responding effectively to potential threats.
+
+Security analytics is an experimental plugin for OpenSearch 2.4. Therefore, we do not recommend the use of security analytics in a production environment at this time. For updates on the progress of security analytics or for information on how to make contributions, visit the [security analytics repository](https://github.com/opensearch-project/security-analytics) at GitHub.
+{: .warning }
 
 ### Resources and information
 
