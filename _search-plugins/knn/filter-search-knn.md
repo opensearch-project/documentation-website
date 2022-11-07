@@ -11,7 +11,7 @@ has_math: true
 Introduced 2.4
 {: .label .label-purple }
 
-You can create custom filters using Query DSL to search for k-nearest neighbors to a query point across an index of vectors. You define the filter criteria within the `knn_vector` data type description in your query using Query DSL.
+You can create custom filters using Query DSL search options to refine your k-NN searches. You define the filter criteria within the `knn_vector` field's `filter` subsection in your query with Query DSL query types such as: term, range, regex and wildcard. To include or exclude results, you specify Boolean query clauses.
 
 ## How does a k-NN filter work?
 
@@ -344,26 +344,26 @@ POST /hotels-index/_search
                         "should": [
                             {
                                 "term": {
-                                    "color": "red"
+                                    "parking": "true"
                                 }
                             },
                             {
                                 "wildcard": {
-                                    "color": {
-                                        "value": "y*w"
+                                    "parking": {
+                                        "value": "t*e"
                                     }
                                 }
                             },
                             {
                                 "regexp": {
-                                    "color": "[a-zA-Z]reen"
+                                    "parking": "[a-zA-Z]rue"
                                 }
                             }
                         ],
                         "must_not": [
                             {
                                 "term": {
-                                    "active": "false"
+                                    "parking": "false"
                                 }
                             }
                         ],
@@ -381,7 +381,7 @@ The following response indicates a few hits for the search with filters:
 
 ```json
 {
-  "took" : 47,
+  "took" : 94,
   "timed_out" : false,
   "_shards" : {
     "total" : 1,
@@ -391,35 +391,48 @@ The following response indicates a few hits for the search with filters:
   },
   "hits" : {
     "total" : {
-      "value" : 2,
+      "value" : 3,
       "relation" : "eq"
     },
-    "max_score" : 0.72992706,
+    "max_score" : 0.8333333,
     "hits" : [
       {
         "_index" : "hotels-index",
-        "_id" : "3",
-        "_score" : 0.72992706,
+        "_id" : "1",
+        "_score" : 0.8333333,
         "_source" : {
           "location" : [
-            4.9,
-            3.4
+            5.2,
+            4.4
           ],
-          "wildcard" : "yellow",
-          "regexp" : "green"
+          "parking" : "true",
+          "rating" : 5
         }
       },
       {
         "_index" : "hotels-index",
-        "_id" : "6",
-        "_score" : 0.3012048,
+        "_id" : "7",
+        "_score" : 0.154321,
         "_source" : {
           "location" : [
-            6.4,
-            3.4
+            4.2,
+            6.2
           ],
-          "wildcard" : "yellow",
-          "term" : "red"
+          "parking" : "true",
+          "rating" : 5
+        }
+      },
+      {
+        "_index" : "hotels-index",
+        "_id" : "12",
+        "_score" : 0.1,
+        "_source" : {
+          "location" : [
+            5.0,
+            1.0
+          ],
+          "parking" : "true",
+          "rating" : 3
         }
       }
     ]
