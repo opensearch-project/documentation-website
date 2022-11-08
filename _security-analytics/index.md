@@ -2,7 +2,7 @@
 layout: default
 title: About security analytics
 nav_order: 1
-has_children: true
+has_children: false
 has_toc: false
 redirect_from:
   - /security-analytics/
