@@ -27,7 +27,7 @@ You can pull the Docker image:
 docker pull opensearchproject/data-prepper:latest
 ```
 
-If you have special requirements that require you build from source, or if you
+If you have special requirements that require you to build from source, or if you
 want to contribute, please see the [Developer Guide](https://github.com/opensearch-project/data-prepper/blob/main/docs/developer_guide.md).
 
 ## 2. Configuring Data Prepper
