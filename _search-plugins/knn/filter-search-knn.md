@@ -30,20 +30,16 @@ Lucene also provides the capability to operate its `KnnVectorQuery` over a subse
 Filtering that is tightly integrated with the Lucene HNSW algorithm implementation allows you to to apply k-NN searches more efficiently, both in terms of relevancy of search results and performance. Consider, for example, an exact search using post-filtering on a large data set that returns results slowly and does not guarantee the required number of results specified by `k`.
 With this new capability, you can create an approximate k-NN search,  apply filters, and get the number of results that you need.
 
-The following workflow diagram shows how the HSNW algorithm decides which type of filtering to apply to a search based on the volume of documents, and number of `k` points in the index that you search with a filter.
+The HSNW algorithm decides which type of filtering to apply to a search based on the volume of documents, and number of `k` points in the index that you search with a filter.
 
 ![How the algorithm evaluates a doc set]({{site.url}}{{site.baseurl}}/images/hsnw-algorithm.png)
 
-The variables shown in the diagram are described in the table below.
-
-Variable | Description |
+| Variable | Description |
 -- | -- | -- |
 N | Number of documents in the index.
 P | Number of documents in the search set after the filter is applied using the formula: P <= N.
 q | The search vector.
 k | The maximum number of vectors to return in the response.
-
-***Figure 1: Filter algorithm workflow***
 
 ## Filter approaches by use case
 
@@ -266,8 +262,6 @@ We use a range query to specify hotel feedback ratings, and a term query to requ
 Consider a data set that contains 12 documents, a search reference point, and documents that meet two filter criteria.
 
 ![Graph of documents with filter criteria]({{site.url}}{{site.baseurl}}/images/knn-two-filters.png)
-
-***Figure 2: Graph of documents that meet filter criteria***
 
 ## Step 1: Create a new index with a Lucene mapping
 
