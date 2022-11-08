@@ -76,7 +76,7 @@ The following example screen shows a search for the word "container" in the `tit
 
 <img src="{{site.url}}{{site.baseurl}}/images/search_relevance.png" alt="Compare search results"/>{: .img-fluid }
 
-If a result in Result 1 appears in Result 2, the `Up` and `Down` indicators below the result number signify how many places the result moved up or down compared to the same result in Results 2. In the example above, the document with the ID 10 is `Up 1` place in Result 2 compared to Result 1, and `Down 1` place in Result 1 compared to Result 2. 
+If a result in Result 1 appears in Result 2, the `Up` and `Down` indicators below the result number signify how many places the result moved up or down compared to the same result in Result 2. In this example, the document with the ID 10 is `Up 1` place in Result 2 compared to Result 1 and `Down 1` place in Result 1 compared to Result 2. 
 
 ## Changing the number of results
 
