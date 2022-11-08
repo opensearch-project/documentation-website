@@ -18,7 +18,7 @@ To access saved objects, expand the top menu and select **Management > Stack Man
 
 <img src="{{site.url}}{{site.baseurl}}/images/Security/agg-view-saved-objects.png" alt="Dashboards Saved Objects view with tenant object aggregation" width="700">
 
-As an experimental feature, Aggregate view of saved objects is kept behind a feature flag and must be enabled in the opensearch_dashboards.yml before the feature is made available. See Enabling aggregate view below for more on this.
+As an experimental feature, Aggregate view of saved objects is kept behind a feature flag and must be enabled in the opensearch_dashboards.yml before the feature is made available. See [Enabling aggregate view](#enabling-aggregate-view-for-saved-objects) below for more on this.
 {: .note }
 
 ### Feature benefits
