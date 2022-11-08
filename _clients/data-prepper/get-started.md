@@ -16,7 +16,7 @@ If you are migrating from Open Distro Data Prepper, visit the [Migrating from Op
 There are two ways to install Data Prepper:
 
 1. Run the Docker image.
-2. Build from source
+2. Build from source.
 
 The easiest way to use Data Prepper is by running the Docker image. We suggest
 you use this approach if you have [Docker](https://www.docker.com) available.
