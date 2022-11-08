@@ -391,12 +391,11 @@ The following response indicates that only three hotels met the filter criteria:
 
 ## Additional complex filter query
 
-You can add any of the other Query DSL types, such as wild cards and others. 
-
+Depending on how selective you want your filter to operate, you can add any query type that Query DSL provides, such as wildcards, regular expressions, and ranges.
 
 #### Sample request
 
-The following request specifies filters with the Boolean clauses "must," "should," and "must_not." It also provides a regular expression and wildcard filter.
+The following request specifies filters with the Boolean clauses `must`, `should`, and `must_not`. It also provides a term, a regular expression and a wildcard.
 
 ```json
 POST /hotels-index/_search
