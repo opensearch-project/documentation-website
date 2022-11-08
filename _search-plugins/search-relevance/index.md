@@ -13,7 +13,7 @@ redirect_from:
 Compare search results is an experimental feature. For updates on the progress of Compare search results and other search relevance features, or if you want to leave feedback that could help improve the feature, join the [discussion on the OpenSearch forum](https://forum.opensearch.org/t/feedback-experimental-feature-compare-search-results/11331).    
 {: .warning}
 
-Compare search results is the first search relevance feature in OpenSearch. It lets you compare search results from two queries side by side to determine if one query produces better results than the other. Using this tool, you can evaluate search quality through experimenting with queries. 
+Compare search results is the first search relevance feature in OpenSearch. It lets you compare search results from two queries side by side to determine whether one query produces better results than the other. Using this tool, you can evaluate search quality by experimenting with queries. 
 
 For example, you can see how results change when you apply one of the following query changes:
 
