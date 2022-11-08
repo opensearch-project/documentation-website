@@ -113,7 +113,7 @@ curl -X POST http://localhost:4900/shutdown
 ```
 ### Additional configurations
 
-For Data Prepper 2.0 or above, Log4j 2 configuration file is read from `config/log4j2.properties` in the application's home directory. 
+For Data Prepper 2.0 or later, the Log4j 2 configuration file is read from `config/log4j2.properties` in the application's home directory. 
 By default, it's using `log4j2-rolling.properties` in the *shared-config* directory.
 
 For Data Prepper before version 2.0, optionally add `"-Dlog4j.configurationFile=config/log4j2.properties"` to the command if you would 
