@@ -36,7 +36,7 @@ The following workflow diagram shows how the HSNW algorithm decides which type o
 
 ## Filter approaches by use case
 
-Depending on the data set that you are searching, you might choose a different approach to minimize recall or latency. You can create filters that are either: very selective (80%), somewhat selective (38%), or not very selective (2.5%).
+Depending on the data set that you are searching, you might choose a different approach to minimize recall or latency. You can create filters that are either: very selective (80%), somewhat selective (38%), or not very selective (2.5%). The selectiveness percentage indicates the amount the filter returns for any given document set in an index.
 
 In this context, `score_script` is essentially a brute force search, whereas boolean filter is an approximate k-NN search with post filtering.
 
@@ -53,9 +53,7 @@ Number of vectors | Selectiveness of filter, % | k | Recall | Latency
 
 ### Use case 1: Very selective 2.5% filter
 
-A very selective filter returns the least amount of documents in your data set. For example, a filter with 2.5% selectiveness will return only 2.5% of the documents.
-
-For example, the following filter criteria specifies hotels with feedback ratings less than or equal to 3. This 2.5% filter only returns 1 document:
+A very selective filter returns the least amount of documents in your data set. For example, the following filter criteria specifies hotels with feedback ratings less than or equal to 3. This 2.5% filter only returns 1 document:
 
 ```json
                 "filter": {
