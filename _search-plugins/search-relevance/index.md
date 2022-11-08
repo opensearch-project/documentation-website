@@ -17,9 +17,9 @@ Compare search results is the first search relevance feature in OpenSearch. It l
 
 For example, you can see how results change when you apply one of the following query changes:
 
-- Weighting different fields differently.
-- Different stemming or lemmatization strategies.
-- Shingling.
+- Weighting different fields differently
+- Different stemming or lemmatization strategies
+- Shingling
 
 ## Prerequisites
 
@@ -31,7 +31,6 @@ Alternatively, you can add sample data in OpenSearch Dashboards using the follow
 1. Select **View app directory**.
 1. Select **Add sample data**.  
 1. Choose one of the built-in datasets and select **Add data**.
-
 
 ## Using search relevance in OpenSearch Dashboards
 
@@ -70,6 +69,7 @@ The following example query boosts the `title` field in search results:
   }
 }
 ```
+
 **Step 5:** Select **Search** and compare the results in **Result 1** and **Result 2**.
 
 The following example screen shows a search for the word "container" in the `title` and `text` fields with and without boosting the `title`:
