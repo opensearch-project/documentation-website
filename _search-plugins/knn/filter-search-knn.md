@@ -519,11 +519,11 @@ The following response indicates that only three hotels met the filter criteria:
 
 ## Additional complex filter query
 
-Depending on how selective you want your filter to operate, you can add any query type that Query DSL provides, such as wildcards, regular expressions, and ranges.
+Depending on how selective you want your filter to operate, you can add multiple query types to a single request, such as: `term`, `wildcard`,  `regexp`, and `range`. You can then filter out the search results with the Boolean clauses `must`, `should`, and `must_not`.
 
 #### Sample request
 
-The following request specifies filters with the Boolean clauses `must`, `should`, and `must_not`. It filters for hotels that provide parking by using a term query with "parking" set to value "false," a regular expression query to express "true," using regex syntax, and a wildcard for the characters in the word "true."
+The following request filters returns hotels that provide parking. This request illustrates alternate mechanisms to obtain the "parking:"true" criteria. It uses a regular expression for the value `true`, a term query for the key-value pair "parking":"true", a wildcard for the characters that spell "true", and the `must_not` clause set to "parking" `false`.
 
 ```json
 POST /hotels-index/_search
