@@ -88,7 +88,7 @@ After starting Data Prepper, you should see log output and some UUIDs after a fe
 e51e700e-5cab-4f6d-879a-1c3235a77d18
 b4ed2d7e-cf9c-4e9d-967c-b18e8af35c90
 ```
-The remainder of this page shows examples for running from the Docker image. If you
+The remainder of this page provides examples for running Data Prepper from the Docker image. If you
 built from source, refer to [Developer Guide](https://github.com/opensearch-project/data-prepper/blob/main/docs/developer_guide.md) for more information.
 
 However you configure your pipeline, you will run Data Prepper the same way. You run the Docker
