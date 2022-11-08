@@ -43,7 +43,7 @@ You will configure two files:
 Depending on your use case, we have a few different guides to configuring Data Prepper.
 * [Trace Analytics](https://github.com/opensearch-project/data-prepper/blob/main/docs/trace_analytics.md)
 * [Log Ingestion](https://github.com/opensearch-project/data-prepper/blob/main/docs/log_analytics.md): Learn how to set up Data Prepper for log observability.
-* [Simple Pipeline]({{site.url}}{{site.baseurl}}/opensearch/clients/data-prepper/simple-pipelines): Learn the basics of Data Prepper pipelines with some simple configurations.
+* [Simple Pipeline](https://github.com/opensearch-project/data-prepper/blob/main/docs/simple_pipelines.md): Learn the basics of Data Prepper pipelines with some simple configurations.
 
 ## 3. Defining a pipeline
 
