@@ -52,19 +52,19 @@ After enabling the feature you can start the new cluster and then launch Dashboa
 
 Select the drop-down arrow on the Tenants column to display the list of tenants available to the user. You can select multiple tenants while the menu is open.
 
-<img src="{{site.url}}{{site.baseurl}}/images/Security/tenant_column.png" alt="Dashboards Saved Objects view with emphasis on Tenants column" width="500">
+<img src="{{site.url}}{{site.baseurl}}/images/Security/tenant_column.png" alt="Dashboards Saved Objects view with emphasis on Tenants column" width="700">
 
 Select anywhere outside the menu to collapse it. The Title column displays the saved objects corresponding to the selected tenants. The Tenants column displays the tenants associated with the saved objects. Also, the number of tenants selected for filtering is expressed in a red box on the drop-down.
 
 <img src="{{site.url}}{{site.baseurl}}/images/Security/ten-filter-results.png" alt="Dashboards Saved Objects tenant filtering" width="700">
 
-Use the Type column to filter saved objects by type. The behavior for the drop-down is the same for the Tenants column drop-down.
+Use the Type column to filter saved objects by type. The behavior for the drop-down is the same as the Tenants column drop-down.
 
 ### Selecting and working with a saved object
 
 1. After identifying a saved object that you would like to work with, note the tenant associated with the object in the Tenants column. 
 1. In the top right corner of the window, open the user menu and select **Switch tenants**.
-<img src="{{site.url}}{{site.baseurl}}/images/Security/switch_tenant.png" alt="Switching tenants in the user menu" width="700">
+<img src="{{site.url}}{{site.baseurl}}/images/Security/switch_tenant.png" alt="Switching tenants in the user menu" width="500">
 1. In the **Select your tenant** window, choose from either the Global, Private, or custom tenant options to specify the correct tenant. Select the **Confirm** button. The tenant becomes active and is displayed in the user menu.
 1. After the tenant is active, you can use the controls in the Actions column to work with saved objects associated with the tenant.
 
