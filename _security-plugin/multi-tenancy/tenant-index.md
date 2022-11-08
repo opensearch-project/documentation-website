@@ -1,7 +1,7 @@
 ---
 layout: default
 title: OpenSearch Dashboards multi-tenancy
-nav_order: 1
+nav_order: 50
 has_children: true
 has_toc: false
 redirect_from:
