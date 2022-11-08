@@ -10,7 +10,7 @@ redirect_from:
 
 # Security configuration
 
-The plugin includes demo certificates so that you can get up and running quickly, but before using OpenSearch in a production environment, you must configure it manually:
+The plugin includes demo certificates so that you can get up and running quickly. To use OpenSearch in a production environment, you must configure it manually:
 
 1. [Replace the demo certificates]({{site.url}}{{site.baseurl}}/opensearch/install/docker#configuring-basic-security-settings).
 1. [Reconfigure `opensearch.yml` to use your certificates]({{site.url}}{{site.baseurl}}/security-plugin/configuration/tls).
