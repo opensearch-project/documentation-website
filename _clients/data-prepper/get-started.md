@@ -133,7 +133,7 @@ To learn how to run Data Prepper with a Logstash configuration, see the [Logstas
 
 For information on how to monitor Data Prepper, see the [Monitoring]({{site.url}}{{site.baseurl}}/opensearch/clients/data-prepper/monitoring/) page.
 
-## Other Examples
+## Other examples
 
 We have other several Docker [examples](https://github.com/opensearch-project/data-prepper/tree/main/examples/)
 that allow you to run Data Prepper in different scenarios.
