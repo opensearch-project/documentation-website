@@ -127,7 +127,7 @@ how to configure the server.
 Trace Analytics is an important Data Prepper use case. If you haven't yet configured it,
 see the [Trace Analytics documentation]{{site.url}}{{site.baseurl}}/opensearch/clients/data-prepper/trace-analytics/).
 
-Log Ingestion is also an important Data Prepper use case. To learn more, visit the [Log Ingestion Documentation]({{site.url}}{{site.baseurl}}/opensearch/clients/data-prepper/log-analytics/).
+Log Ingestion is also an important Data Prepper use case. To learn more, see the [Log Ingestion Documentation]({{site.url}}{{site.baseurl}}/opensearch/clients/data-prepper/log-analytics/).
 
 To run Data Prepper with a Logstash configuration, please visit the [Logstash Migration Guide]({{site.url}}{{site.baseurl}}/opensearch/clients/data-prepper/logstash-migration-guide/).
 
