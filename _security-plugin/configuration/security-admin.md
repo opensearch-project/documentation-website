@@ -5,7 +5,7 @@ parent: Configuration
 nav_order: 20
 ---
 
-# Apply changes using the securityadmin script
+# Apply changes with the securityadmin script
 
 On **Windows**, use **securityadmin.bat** in place of **securityadmin.sh**. For more information, see [Windows usage](#windows-usage).
 {: .note}
