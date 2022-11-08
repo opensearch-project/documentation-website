@@ -67,9 +67,8 @@ Use the Type column to filter saved objects by type. The behavior for the drop-d
 <img src="{{site.url}}{{site.baseurl}}/images/Security/switch_tenant.png" alt="Switching tenants in the user menu" width="500">
 1. In the **Select your tenant** window, choose from either the Global, Private, or custom tenant options to specify the correct tenant. Select the **Confirm** button. The tenant becomes active and is displayed in the user menu.
 1. After the tenant is active, you can use the controls in the Actions column to work with saved objects associated with the tenant.
-
+<img src="{{site.url}}{{site.baseurl}}/images/Security/actions.png" alt="Actions column controls" width="700">
 
 When a tenant is not active, you cannot use the Actions column controls to work with its associated objects. To work with those objects, follow the steps above to make the tenant active.
 {: .note }
-<img src="{{site.url}}{{site.baseurl}}/images/Security/actions.png" alt="Actions column controls" width="700">
 
