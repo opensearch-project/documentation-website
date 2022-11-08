@@ -11,7 +11,7 @@ has_math: true
 Introduced 2.4
 {: .label .label-purple }
 
-You can create custom filters using Query DSL search options to refine your k-NN searches. You define the filter criteria within the `knn_vector` field's `filter` subsection in your query. You can use any of the OpenSearch Query DSL query types as a filter. This includes, but is not limited to these common query types: `term`, `range`, `regexp`, `wildcard`, and custom query types.  To include or exclude results, you specify Boolean query clauses. You also specify a query point with the `knn_vector` type and search for nearest neighbors that match your filter criteria.
+You can create custom filters using Query DSL search options to refine your k-NN searches. You define the filter criteria within the `knn_vector` field's `filter` subsection in your query. You can use any of the OpenSearch Query DSL query types as a filter. This includes, but is not limited to the common query types: `term`, `range`, `regexp`, `wildcard`, as well as custom query types.  To include or exclude results, you specify Boolean query clauses. You also specify a query point with the `knn_vector` type and search for nearest neighbors that match your filter criteria.
 To run k-NN queries with a filter, the Lucene search engine and HSNW method are required.
 
 To learn more about how to use Query DSL Boolean query clauses, see [Boolean queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/bool).
@@ -21,16 +21,20 @@ To learn more about how to use Query DSL Boolean query clauses, see [Boolean que
 
 The OpenSearch k-NN plugin version 2.2 provided support for the Lucene engine to process k-NN searches. The Lucene engine provides a search that is based on the Hierarchical Navigable Small World (HSNW) algorithm to represent a multi-layered graph. The OpenSearch k-NN plugin version 2.4 is able to incorporate filters for searches based on Lucene 9.4.
 
-After a filter is applied to a set of documents to be searched, the algorithm decides whether to perform pre-filtering for an exact kNN search or modified post-filtering for approximate search. The approximate search with filtering guarantees the top number of closest vectors in result.
+After a filter is applied to a set of documents to be searched, the algorithm decides whether to perform pre-filtering for an exact kNN search or modified post-filtering for approximate search. The approximate search with filtering guarantees the top number of closest vectors in the results.
 
 Lucene also provides the capability to operate its `KnnVectorQuery` over a subset of documents. To learn more about Lucene’s new capability, see the [Apache Lucene Documentation](https://issues.apache.org/jira/browse/LUCENE-10382).
 
 ### Filtered search performance
 
-Filtering that is tightly integrated with the Lucene HNSW algorithm implementation allows you to to apply k-NN searches more efficiently both in terms of relevancy of search results and performance. Consider that if you do an exact search on a large data set, the results are slow, and post-filtering does not guarantee the required number of results you specify for the `k` value.
-With this new capability, you can create an approximate k-NN search and apply filters, with the amount of results you need.
+Filtering that is tightly integrated with the Lucene HNSW algorithm implementation allows you to to apply k-NN searches more efficiently, both in terms of relevancy of search results and performance. Consider, for example, an exact search using post-filtering on a large data set that returns results slowly and does not guarantee the required number of results specified by `k`.
+With this new capability, you can create an approximate k-NN search,  apply filters, and get the number of results that you need.
 
-The following workflow diagram shows how the HSNW algorithm decides which type of filtering to apply to a search based on the volume of documents, and number of `k` points in the index that you search with a filter. The variables shown in the diagram are described in the table below.
+The following workflow diagram shows how the HSNW algorithm decides which type of filtering to apply to a search based on the volume of documents, and number of `k` points in the index that you search with a filter.
+
+![How the algorithm evaluates a doc set]({{site.url}}{{site.baseurl}}/images/hsnw-algorithm.png)
+
+The variables shown in the diagram are described in the table below.
 
 Variable | Description |
 -- | -- | -- |
@@ -38,8 +42,6 @@ N | Number of documents in the index.
 P | Number of documents in the search set after the filter is applied using the formula: P <= N.
 q | The search vector.
 k | The maximum number of vectors to return in the response.
-
-![How the algorithm evaluates a doc set]({{site.url}}{{site.baseurl}}/images/hsnw-algorithm.png)
 
 ***Figure 1: Filter algorithm workflow***
 
@@ -267,9 +269,9 @@ Consider a data set that contains 12 documents, a search reference point, and do
 
 ***Figure 2: Graph of documents that meet filter criteria***
 
-## Step 1: Create a new index with a lucene mapping
+## Step 1: Create a new index with a Lucene mapping
 
-Before you can do a k-NN search with a filter, you need to create an index, specify the lucene engine in a mapping, and add data to the index.
+Before you can do a k-NN search with a filter, you need to create an index, specify the Lucene engine in a mapping, and add data to the index.
 
 You need to add a `location` field to represent the location, and specify it as the `knn_vector` type. The most basic vector can be two dimensions. For example:
 
@@ -528,7 +530,7 @@ Depending on how restrictive you want your filter to operate, you can add multip
 
 #### Sample request
 
-The following request filters returns hotels that provide parking. This request illustrates alternate mechanisms to obtain the parking filter criteria. It uses a regular expression for the value `true`, a term query for the key-value pair `"parking":"true"`, a wildcard for the characters that spell "true", and the `must_not` clause to eliminate hotels with "parking" set to `false`.
+The following request returns hotels that provide parking. This request illustrates alternate mechanisms to obtain the parking filter criteria. It uses a regular expression for the value `true`, a term query for the key-value pair `"parking":"true"`, a wildcard for the characters that spell "true", and the `must_not` clause to eliminate hotels with "parking" set to `false`.
 
 ```json
 POST /hotels-index/_search
