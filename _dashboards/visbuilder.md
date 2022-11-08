@@ -52,7 +52,3 @@ Follow these steps to create a new visualization using VisBuilder in your enviro
 Here’s an example visualization. Your visualization will look different depending on your data and the fields you select.
 
 <img src="{{site.url}}{{site.baseurl}}/images/drag-drop-generated-viz.png" alt="Visualization generated using sample data">
-
-## Related topics
-
-* [OpenSearch News, September 14, 2022](https://opensearch.org/)
