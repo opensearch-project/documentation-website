@@ -523,7 +523,7 @@ Depending on how selective you want your filter to operate, you can add multiple
 
 #### Sample request
 
-The following request filters returns hotels that provide parking. This request illustrates alternate mechanisms to obtain the "parking:"true" criteria. It uses a regular expression for the value `true`, a term query for the key-value pair `"parking":"true"`, a wildcard for the characters that spell "true", and the `must_not` clause to eliminate hotels with "parking": set to `false`.
+The following request filters returns hotels that provide parking. This request illustrates alternate mechanisms to obtain the parking filter criteria. It uses a regular expression for the value `true`, a term query for the key-value pair `"parking":"true"`, a wildcard for the characters that spell "true", and the `must_not` clause to eliminate hotels with "parking" set to `false`.
 
 ```json
 POST /hotels-index/_search
