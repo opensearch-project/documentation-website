@@ -106,7 +106,7 @@ For Data Prepper before version 2.0, use this command:
 docker run --name data-prepper -p 4900:4900 -v ${PWD}/pipelines.yaml:/usr/share/data-prepper/pipelines.yaml -v ${PWD}/data-prepper-config.yaml:/usr/share/data-prepper/data-prepper-config.yaml opensearchproject/data-prepper:1.x
 ```
 
-Once Data Prepper is running, it will process data until it is shutdown. Once you are done, shut it down with
+Once Data Prepper is running, it will process data until it is shut down. Once you are done, shut it down with the following command:
 
 ```
 curl -X POST http://localhost:4900/shutdown
