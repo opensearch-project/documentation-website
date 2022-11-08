@@ -126,7 +126,7 @@ All Data Prepper instances expose a few APIs. The [API documentation]({{site.url
 how to configure the server.
 
 Trace Analytics is an important Data Prepper use case. If you haven't yet configured it,
-see the [Trace Analytics documentation]{{site.url}}{{site.baseurl}}/opensearch/clients/data-prepper/trace-analytics/).
+see the [Trace Analytics](https://github.com/opensearch-project/data-prepper/blob/main/docs/trace_analytics.md).
 
 Log Ingestion is also an important Data Prepper use case. To learn more, see the [Log Ingestion Documentation]({{site.url}}{{site.baseurl}}/opensearch/clients/data-prepper/log-analytics/).
 
