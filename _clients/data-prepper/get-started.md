@@ -135,5 +135,5 @@ For information on how to monitor Data Prepper, see the [Monitoring]({{site.url}
 
 ## Other examples
 
-We have other several Docker [examples](https://github.com/opensearch-project/data-prepper/tree/main/examples/)
+We have several other Docker [examples](https://github.com/opensearch-project/data-prepper/tree/main/examples/)
 that allow you to run Data Prepper in different scenarios.
