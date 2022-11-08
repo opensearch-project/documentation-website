@@ -94,7 +94,7 @@ built from source, refer to the [Developer Guide](https://github.com/opensearch-
 However you configure your pipeline, you will run Data Prepper the same way. You run the Docker
 image and supply both the `pipelines.yaml` and `data-prepper-config.yaml` files.
 
-For Data Prepper 2.0 or above, use this command:
+For Data Prepper 2.0 or later, use this command:
 
 ```
 docker run --name data-prepper -p 4900:4900 -v ${PWD}/pipelines.yaml:/usr/share/data-prepper/pipelines/pipelines.yaml -v ${PWD}/data-prepper-config.yaml:/usr/share/data-prepper/config/data-prepper-config.yaml opensearchproject/data-prepper:latest
