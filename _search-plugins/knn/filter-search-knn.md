@@ -11,7 +11,7 @@ has_math: true
 Introduced 2.4
 {: .label .label-purple }
 
-You can create custom filters using Query DSL search options to refine your k-NN searches. You define the filter criteria within the `knn_vector` field's `filter` subsection in your query. The most commonly used Query DSL query types are: term, range, regex and wildcard. To include or exclude results, you specify Boolean query clauses. You also specify a query point with the `knn_vector` type and search for nearest neighbors that match your filter criteria.
+You can create custom filters using Query DSL search options to refine your k-NN searches. You define the filter criteria within the `knn_vector` field's `filter` subsection in your query. You can use any of the OpenSearch Query DSL query types as a filter. This includes, but is not limited to these common query types: `term`, `range`, `regexp`, `wildcard`, and custom query types.  To include or exclude results, you specify Boolean query clauses. You also specify a query point with the `knn_vector` type and search for nearest neighbors that match your filter criteria.
 To run k-NN queries with a filter, the Lucene search engine and HSNW method are required.
 
 To learn more about how to use Query DSL Boolean query clauses, see [Boolean queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/bool).
@@ -45,20 +45,20 @@ k | The maximum number of vectors to return in the response.
 
 ## Filter approaches by use case
 
-Depending on the data set that you are searching, you might choose a different approach to minimize recall or latency. You can create filters that are either: very selective (80%), somewhat selective (38%), or not very selective (2.5%). The selectiveness percentage indicates the amount the filter returns for any given document set in an index.
+Depending on the data set that you are searching, you might choose a different approach to minimize recall or latency. You can create filters that are either: very restrictive (80%), somewhat restrictive (38%), or not very restrictive (2.5%). The restrictive percentage indicates the amount the filter returns for any given document set in an index.
 
-#### Filter selectiveness with latency per doc set volume
+#### Filter restrictive percentage with latency per doc set volume
 
-Number of vectors | Selectiveness of filter, % | k | Recall | Latency
+Number of vectors | Filter restrictive percentage | k | Recall | Latency
 -- | -- | -- | -- | --
-10M | 2.5 | 100 | score_script | score_script
+10M | 2.5 | 100 | Scoring script | Scoring script
 10M | 38 | 100 | lucene_filtering | Boolean filter
-10M | 80 | 100 | score_script | lucene_filtering
-1M | 2.5 | 100 | lucene_filtering | score_script
-1M | 38 | 100 | lucene_filtering | lucene_filtering / score_script
+10M | 80 | 100 | Scoring script | lucene_filtering
+1M | 2.5 | 100 | lucene_filtering | Scoring script
+1M | 38 | 100 | lucene_filtering | lucene_filtering / Scoring script
 1M | 80 | 100 | Boolean filter | lucene_filtering
 
-In this context, `score_script` is essentially a brute force search, whereas a Boolean filter is an approximate k-NN search with post-filtering.
+In this context, Scoring script is essentially a brute force search, whereas a Boolean filter is an approximate k-NN search with post-filtering.
 
 To learn more about the dynamic searches you can perform with the score script plugin, see [Exact k-NN with scoring script]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-score-script/).
 
@@ -179,9 +179,9 @@ The Boolean query filter returns the following results in the response:
 
 
 
-### Use case 1: Very selective 2.5% filter
+### Use case 1: Very restrictive 2.5% filter
 
-A very selective filter returns the least amount of documents in your data set. For example, the following filter criteria specifies hotels with feedback ratings less than or equal to 3. This 2.5% filter only returns 1 document:
+A very restrictive filter returns the least amount of documents in your data set. For example, the following filter criteria specifies hotels with feedback ratings less than or equal to 3. This 2.5% filter only returns 1 document:
 
 ```json
                 "filter": {
@@ -199,9 +199,9 @@ A very selective filter returns the least amount of documents in your data set. 
                 }
 ```
 
-### Use case 2: Somewhat selective 38% filter
+### Use case 2: Somewhat restrictive 38% filter
 
-A somewhat selective filter returns 38% of the documents in the doc set that you search. For example, the following filter criteria specifies hotels with parking and feedback ratings less than or equal to 8, and returns 5 documents.
+A somewhat restrictive filter returns 38% of the documents in the doc set that you search. For example, the following filter criteria specifies hotels with parking and feedback ratings less than or equal to 8, and returns 5 documents.
 
 ```json
                "filter": {
@@ -224,9 +224,9 @@ A somewhat selective filter returns 38% of the documents in the doc set that you
                 }
 ```
 
-### Use case 3: Not very selective 80% filter
+### Use case 3: Not very restrictive 80% filter
 
-A filter that is not very selective will return 80% of the documents that you search. For example, the following filter criteria specifies hotels with feedback ratings greater than or equal to 5, and returns 10 documents.
+A filter that is not very restrictive will return 80% of the documents that you search. For example, the following filter criteria specifies hotels with feedback ratings greater than or equal to 5, and returns 10 documents.
 
 ```json
                 "filter": {
@@ -519,7 +519,7 @@ The following response indicates that only three hotels met the filter criteria:
 
 ## Additional complex filter query
 
-Depending on how selective you want your filter to operate, you can add multiple query types to a single request, such as: `term`, `wildcard`,  `regexp`, and `range`. You can then filter out the search results with the Boolean clauses `must`, `should`, and `must_not`.
+Depending on how restrictive you want your filter to operate, you can add multiple query types to a single request, such as: `term`, `wildcard`,  `regexp`, and `range`. You can then filter out the search results with the Boolean clauses `must`, `should`, and `must_not`.
 
 #### Sample request
 
