@@ -46,7 +46,7 @@ k | The maximum number of vectors to return in the response.
 ## Filter approaches by use case
 
 Depending on the data set that you are searching, you might choose a different approach to minimize recall or latency. You can create filters that are either:
-* Very restrictive — Returns the least number of documents (For example, 2%).
+* Very restrictive — Returns the least number of documents (For example, 2.5%).
 * Somewhat restrictive — Returns some documents (For example, 38%).
 * Not very restrictive — Returns the most documents (For example, 80%).
 
