@@ -520,14 +520,18 @@ The `doc_count` field in bucket aggregations contains the number of documents co
 
 ## Dynamic target index
 
-In ISM rollup, the `target_index` field may contain a template that is compiled at the time of each rollup indexing. For example, if you specify the `target_index` field as `rollup_ndx-{{ctx.source_index}}`, the source index `log-000001` will roll up into a target index `rollup_ndx-log-000001`. This allows you to roll up data into multiple time-based indices, with one rollup job created for each source index. 
+<style>
+.nobr { white-space: nowrap }
+</style>
+
+In ISM rollup, the `target_index` field may contain a template that is compiled at the time of each rollup indexing. For example, if you specify the `target_index` field as <span style="white-space: nowrap">`{% raw %}rollup_ndx-{{ctx.source_index}}{% endraw %}`,</span> the source index `log-000001` will roll up into a target index `rollup_ndx-log-000001`. This allows you to roll up data into multiple time-based indices, with one rollup job created for each source index. 
 
 The `source_index` parameter in {% raw %}`{{ctx.source_index}}`{% endraw %} cannot contain wildcards.
 {: .note}
 
 ## Searching multiple rollup indices
 
-When data is rolled up into multiple target indices, you can run one search across all of the rollup indices. To search multiple target indices that have the same rollup, specify the index names as a comma-separated list or a wildcard pattern. For example, with `target_index` as `rollup_ndx-{{ctx.source_index}}` and source indices that start with `log`, specify the `rollup_ndx-log*` pattern. Or, to search for rolled up log-000001 and log-000002 indices, specify the `rollup_ndx-log-000001,rollup_ndx-log-000002` list.
+When data is rolled up into multiple target indices, you can run one search across all of the rollup indices. To search multiple target indices that have the same rollup, specify the index names as a comma-separated list or a wildcard pattern. For example, with `target_index` as <span style="white-space: nowrap">`{% raw %}rollup_ndx-{{ctx.source_index}}{% endraw %}`</span> and source indices that start with `log`, specify the `rollup_ndx-log*` pattern. Or, to search for rolled up log-000001 and log-000002 indices, specify the `rollup_ndx-log-000001,rollup_ndx-log-000002` list.
 
 You cannot search a mix of rollup and non-rollup indices with the same query.
 {: .note}
@@ -580,7 +584,7 @@ PUT _plugins/_ism/policies/rollover_policy
           { 
             "rollup": { 
               "ism_rollup": { 
-                "target_index": "rollup_ndx-{{ctx.source_index}}", 
+                "target_index": {% raw %}"rollup_ndx-{{ctx.source_index}}"{% endraw %}, 
                 "description": "Example rollup job", 
                 "page_size": 200, 
                 "dimensions": [ 
