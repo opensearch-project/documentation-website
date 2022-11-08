@@ -17,13 +17,13 @@ To decide whether to apply search backpressure, OpenSearch periodically measures
 - Heap usage
 - Elapsed time 
 
-An observer thread periodically measures the resource usage of the node. If the node is determined to be under duress, OpenSearch examines the resource usage of each search shard task and compares it against configurable thresholds. OpenSearch considers CPU usage, heap usage and elapsed time and assigns each task a cancellation score that is then used to cancel the most resource-intensive tasks.
+An observer thread periodically measures the resource usage of the node. If the node is determined to be under duress, OpenSearch examines the resource usage of each search shard task and compares it against configurable thresholds. OpenSearch considers CPU usage, heap usage, and elapsed time and assigns each task a cancellation score that is then used to cancel the most resource-intensive tasks.
 
 OpenSearch limits the number of cancellations as a fraction of successful task completions and cancellations per unit time. It continues to monitor and cancel tasks until the node is no longer under duress.
 
 ## Canceled queries
 
-If a query is canceled, OpenSearch may return partial results in case some shards failed. If all shards failed, OpenSearch returns an error from the server similar to the error below:
+If a query is canceled, OpenSearch may return partial results if some shards failed. If all shards failed, OpenSearch returns an error from the server similar to the error below:
 
 ```json
 {
@@ -87,7 +87,7 @@ search_backpressure.<br>&nbsp;&nbsp;&nbsp;&nbsp;node_duress.<br>&nbsp;&nbsp;&nbs
 search_backpressure.<br>&nbsp;&nbsp;&nbsp;&nbsp;node_duress.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;heap_threshold | 70% | The heap usage threshold (in percentage) for a node to be considered in duress.
 search_backpressure.<br>&nbsp;&nbsp;&nbsp;&nbsp;search_shard_task.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;total_heap_percent_threshold | 5% | The heap usage threshold (in percentage) for the sum of heap usages of all search shard tasks before cancellation is applied.
 search_backpressure.<br>&nbsp;&nbsp;&nbsp;&nbsp;search_shard_task.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;heap_percent_threshold | 0.5% | The heap usage threshold (in percentage) for a single search shard task before it is considered for cancellation.
-search_backpressure.<br>&nbsp;&nbsp;&nbsp;&nbsp;search_shard_task.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;heap_variance | 2.0 | The minimum variance of a single search shard task's heap usage usage compared to the rolling average of previously completed tasks before it is considered for cancellation.
+search_backpressure.<br>&nbsp;&nbsp;&nbsp;&nbsp;search_shard_task.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;heap_variance | 2.0 | The minimum variance of a single search shard task's heap usage compared to the rolling average of previously completed tasks before it is considered for cancellation.
 search_backpressure.<br>&nbsp;&nbsp;&nbsp;&nbsp;search_shard_task.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;heap_moving_average_window_size | 100 | The number of previously completed search shard tasks to consider when calculating the rolling average of heap usage.
 search_backpressure.<br>&nbsp;&nbsp;&nbsp;&nbsp;search_shard_task.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cpu_time_millis_threshold | 15,000 ms | The CPU usage threshold (in milliseconds) for a single search shard task before it is considered for cancellation.
 search_backpressure.<br>&nbsp;&nbsp;&nbsp;&nbsp;search_shard_task.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;elapsed_time_millis_threshold | 30,000 ms | The elapsed time threshold (in milliseconds) for a single search shard task before it is considered for cancellation.
@@ -170,8 +170,8 @@ The response contains the following fields.
 
 Field Name | Data Type | Description
 :--- | :--- | :---
-search_backpressure | Object | Contains statistics about search backpressure.
-search_backpressure.<br>&nbsp;&nbsp;&nbsp;&nbsp;search_shard_task | Object | Contains statistics specific to the search shard task.
+search_backpressure | Object | Statistics about search backpressure.
+search_backpressure.<br>&nbsp;&nbsp;&nbsp;&nbsp;search_shard_task | Object | Statistics specific to the search shard task.
 search_backpressure.<br>&nbsp;&nbsp;&nbsp;&nbsp;search_shard_task.<br>&nbsp;&nbsp;&nbsp;&nbsp;[resource_tracker_stats](#resource_tracker_stats) | Object | Statistics about the current tasks.
 search_backpressure.<br>&nbsp;&nbsp;&nbsp;&nbsp;search_shard_task.<br>&nbsp;&nbsp;&nbsp;&nbsp;[calcellation_stats](#cancellation_stats) | Object |  Statistics about the canceled tasks since the node last restarted.
 search_backpressure.mode | String | The [mode](#search-backpressure-modes) for search backpressure. 
