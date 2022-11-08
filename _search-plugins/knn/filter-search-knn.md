@@ -526,7 +526,7 @@ The following response indicates that only three hotels met the filter criteria:
 
 ## Additional complex filter query
 
-Depending on how restrictive you want your filter to operate, you can add multiple query types to a single request, such as: `term`, `wildcard`,  `regexp`, and `range`. You can then filter out the search results with the Boolean clauses `must`, `should`, and `must_not`.
+Depending on how restrictive you want your filter to be, you can add multiple query types to a single request, such as: `term`, `wildcard`,  `regexp`, and `range`. You can then filter out the search results with the Boolean clauses `must`, `should`, and `must_not`.
 
 #### Sample request
 
