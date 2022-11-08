@@ -45,7 +45,7 @@ k | The maximum number of vectors to return in the response.
 
 ## Filter approaches by use case
 
-Depending on the data set that you are searching, you might choose a different approach to minimize recall or latency. You can create filters that are either: very restrictive (80%), somewhat restrictive (38%), or not very restrictive (2.5%). The restrictive percentage indicates the amount the filter returns for any given document set in an index.
+Depending on the data set that you are searching, you might choose a different approach to minimize recall or latency. You can create filters that are either: very restrictive (80%), somewhat restrictive (38%), or not very restrictive (2.5%). The restrictive percentage indicates the amount of documents the filter returns for any given document set in an index.
 
 #### Filter restrictive percentage with latency per doc set volume
 
