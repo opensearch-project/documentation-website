@@ -8,20 +8,20 @@ has_children: false
 
 # Searchable snapshots
 
-Searchable snapshots is an experimental feature with OpenSearch 2.4. Therefore, we do not recommend the use of this feature in a production environment. For updates on progress or if you want leave feedback that could help improve the feature, see the [searchable snapshot GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/2919). 
+Searchable snapshots is an experimental feature released in OpenSearch 2.4. Therefore, we do not recommend the use of this feature in a production environment. For updates on progress, follow us on [GitHub](https://github.com/opensearch-project/OpenSearch/issues/3739). If you have any feedback please [submit a new issue](https://github.com/opensearch-project/OpenSearch/issues/new/choose).
 {: .warning }
 
-A searchable snapshot is an index where data is read from a [snapshot repository]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore/#register-repository) on-demand at search time, rather than downloading all index data to cluster storage at restore time. Because the index data remains in the snapshot format in the repository, searchable snapshot indexes are inherently read-only. Any attempt to write to a searchable snapshot index will result in an error.
+A searchable snapshot is an index where data is read from a [snapshot repository]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore/#register-repository) on demand at search time rather than all index data being downloaded to cluster storage at restore time. Because the index data remains in the snapshot format in the repository, searchable snapshot indexes are inherently read-only. Any attempt to write to a searchable snapshot index will result in an error.
 
-To enable the searchable snapshots feature, reference the steps below.
+To enable the searchable snapshots feature, reference the following steps.
 
 ## Enabling the feature flag
 
-There are several methods for enabling searchable snapshots, depending on the install type.
+There are several methods for enabling searchable snapshots, depending on the installation type.
 
-### Enable on a node using a tarball install
+### Enable on a node using a tarball installation
 
-The flag is toggled using a new jvm parameter that is set either in `OPENSEARCH_JAVA_OPTS` or in config/jvm.options.
+The flag is toggled using a new jvm parameter that is set either in `OPENSEARCH_JAVA_OPTS` or in config/jvm.options:
 
 - Option 1: Update config/jvm.options by adding the following line:
 
@@ -56,13 +56,13 @@ The flag is toggled using a new jvm parameter that is set either in `OPENSEARCH_
 
 ### Enable with Docker containers
 
-If you're running Docker, add the following line to docker-compose.yml underneath the `opensearch-node` and `environment` section:
+If you're running Docker, add the following line to docker-compose.yml underneath the `opensearch-node` and `environment` sections:
 
 ```json
 OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.searchable_snapshot.enabled=true" # Enables searchable snapshot
 ```
 
-To create a node with the `search` node roll, add the line `- node.roles: [ search ]` to your docker-compose.yml file:
+To create a node with the `search` node role, add the line `- node.roles: [ search ]` to your docker-compose.yml file:
 
 ```bash
 version: '3'
@@ -78,15 +78,15 @@ services:
 
 ## Create a searchable snapshot index
 
-Creating a searchable snapshot index is done by specifying the `remote_snapshot` storage type using the [restore snapshots API]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore/#restore-snapshots).
+A searchable snapshot index is created by specifying the `remote_snapshot` storage type using the [restore snapshots API]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore/#restore-snapshots).
 
-Request field | Description
+Request Field | Description
 :--- | :---
-`storage_type` | `local` indicates that all snapshot metadata and index data will be downloaded to local storage. <br /><br > `remote_snapshot` indicates that snapshot metadata will be downloaded to the cluster, but the remote repository will remain the authoritative store of the index data. Data will be downloaded and cached as necessary to service queries. At least one node in the cluster must be configured with the `search` node role in order to restore a snapshot using the type `remote_snapshot`. <br /><br > Defaults to `local`.
+`storage_type` | `local` indicates that all snapshot metadata and index data will be downloaded to local storage. <br /><br > `remote_snapshot` indicates that snapshot metadata will be downloaded to the cluster, but the remote repository will remain the authoritative store of the index data. Data will be downloaded and cached as necessary to service queries. At least one node in the cluster must be configured with the `search` node role in order to restore a snapshot using the `remote_snapshot` type. <br /><br > Defaults to `local`.
 
 ## Listing indexes
 
-To determine if an index is a searchable snapshot index, look for a store type with the value of `remote_snapshot`:
+To determine whether an index is a searchable snapshot index, look for a store type with the value of `remote_snapshot`:
 
 ```
 GET /my-index/_settings?pretty
@@ -108,12 +108,16 @@ GET /my-index/_settings?pretty
 
 ## Potential use cases
 
-- Users who wish to offload indexes from cluster-based storage, yet retain the ability to search them.
-- Users who wish to have a large number of searchable indexes in media with lower costs.
+The following are potential use cases for the searchable snapshots feature:
+
+- The ability to offload indexes from cluster-based storage but retain the ability to search them.
+- The ability to have a large number of searchable indexes in lower-cost media.
 
 ## Known limitations
 
+The following are known limitations of the searchable snapshots feature:
+
 - Accessing data from a remote repository is slower than local disk reads, so higher latencies on search queries are expected.
-- Data is discarded immediately after being read. Subsequent searches for the same data will have to be downloaded again. Future work will address this by implementing a disk-based cache for storing frequently-accessed data.
+- Data is discarded immediately after being read. Subsequent searches for the same data will have to be downloaded again. This will be addressed in the future by implementing a disk-based cache for storing frequently accessed data.
 - Many remote object stores charge on a per-request basis for retrieval, so users should closely monitor any costs incurred.
-- Searching remote data can impact the performance of other queries running on the same node. Users are recommended to provision dedicated nodes with the `search` role for performance-critical applications.
+- Searching remote data can impact the performance of other queries running on the same node. We recommend that users provision dedicated nodes with the `search` role for performance-critical applications.
