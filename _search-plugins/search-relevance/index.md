@@ -94,7 +94,7 @@ By default, OpenSearch returns the top 10 results. To change the number of retur
 }
 ```
 
-Setting `size` to a high value (for example, larger than 250) may degrade performance.
+Setting `size` to a high value (for example, larger than 250 documents) may degrade performance.
 {: .note}
 
 You cannot save a given comparison for future use, so Compare search results is not suitable for systematic testing.
