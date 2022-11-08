@@ -23,14 +23,13 @@ If you'd like to try out VisBuilder without installing OpenSearch locally, you c
 
 ## Try VisBuilder locally
 
-The VisBuilder feature flag, `vis_builder.enabled:`, is enabled by default in the `opensearch_dashboards.yml` file. 
+VisBuilder is enabled by default. If you want to disable it, set the feature `flag vis_builder.enabled:` to `false` in the `opensearch_dashboards.yml` file as follows:
 
 ```
 # Set the value of this setting to false to disable VisBuilder
 # functionality in Visualization.
-vis_builder.enabled: true
-```
-You can disable it by setting the variable to `false`.
+vis_builder.enabled: false
+``` 
 
 Follow these steps to create a new visualization using VisBuilder in your environment:
 
