@@ -119,7 +119,7 @@ By default, it uses `log4j2-rolling.properties` in the *shared-config* directory
 For Data Prepper 1.5 or earlier, optionally add `"-Dlog4j.configurationFile=config/log4j2.properties"` to the command if you would 
 like to pass a custom log4j2 properties file. If no properties file is provided, Data Prepper will default to the log4j2.properties file in the *shared-config* directory.
 
-## Next Steps
+## Next steps
 
 All Data Prepper instances expose a few APIs. The [API documentation]({{site.url}}{{site.baseurl}}/opensearch/clients/data-prepper/api/) outlines these APIs and
 how to configure the server.
