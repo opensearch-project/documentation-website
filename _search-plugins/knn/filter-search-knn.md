@@ -11,7 +11,7 @@ has_math: true
 Introduced 2.4
 {: .label .label-purple }
 
-You can create custom filters using Query DSL search options to refine your k-NN searches. You define the filter criteria within the `knn_vector` field's `filter` subsection in your query. You can use all available Query DSL query types such as: term, range, regex and wildcard. To include or exclude results, you specify Boolean query clauses. You also specify a query point with the `knn_vector` type and search for nearest neighbors that match your filter criteria.
+You can create custom filters using Query DSL search options to refine your k-NN searches. You define the filter criteria within the `knn_vector` field's `filter` subsection in your query. The most commonly used Query DSL query types are: term, range, regex and wildcard. To include or exclude results, you specify Boolean query clauses. You also specify a query point with the `knn_vector` type and search for nearest neighbors that match your filter criteria.
 To run k-NN queries with a filter, the Lucene search engine and HSNW method are required.
 
 To learn more about how to use Query DSL Boolean query clauses, see [Boolean queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/bool).
@@ -19,16 +19,25 @@ To learn more about how to use Query DSL Boolean query clauses, see [Boolean que
 
 ## How does a k-NN filter work?
 
-Starting from OpenSearch version 2.2 the k-NN plugin uses the Lucene engine that provides a search process for filtered documents that uses a Hierarchical Navigable Small World (HSNW) algorithm to represent a multi-layered graph to filter searches. After a filter is applied to a set of documents to be searched, the algorithm decides whether to perform pre-filtering for an exact kNN search or modified post-filtering for approximate search. The approximate search with filtering guarantees the top number of closest vectors in result.
+The OpenSearch k-NN plugin version 2.2 provided support for the Lucene engine to process k-NN searches. The Lucene engine provides a search that is based on the Hierarchical Navigable Small World (HSNW) algorithm to represent a multi-layered graph. The OpenSearch k-NN plugin version 2.4 is able to incorporate filters for searches based on Lucene 9.4.
+
+After a filter is applied to a set of documents to be searched, the algorithm decides whether to perform pre-filtering for an exact kNN search or modified post-filtering for approximate search. The approximate search with filtering guarantees the top number of closest vectors in result.
 
 Lucene also provides the capability to operate its `KnnVectorQuery` over a subset of documents. To learn more about Lucene’s new capability, see the [Apache Lucene Documentation](https://issues.apache.org/jira/browse/LUCENE-10382).
 
 ### Filtered search performance
 
-The Lucene engine and HSNW algorithm allow you to to apply k-NN searches more efficiently both in terms of relevancy of search results and performance. Consider that if you do an exact search on a large data set, the results are slow, and post-filtering does not guarantee the required number of results you specify for the `k` value.
+Filtering that is tightly integrated with the Lucene HNSW algorithm implementation allows you to to apply k-NN searches more efficiently both in terms of relevancy of search results and performance. Consider that if you do an exact search on a large data set, the results are slow, and post-filtering does not guarantee the required number of results you specify for the `k` value.
 With this new capability, you can create an approximate k-NN search and apply filters, with the amount of results you need.
 
-The following workflow diagram shows how the HSNW algorithm decides which type of filtering to apply to a search based on the volume of documents, and number of `k` points in the index that you search with a filter.
+The following workflow diagram shows how the HSNW algorithm decides which type of filtering to apply to a search based on the volume of documents, and number of `k` points in the index that you search with a filter. The variables shown in the diagram are described in the table below.
+
+Variable | Description |
+-- | -- | -- |
+N | Number of documents in the index.
+P | Number of documents in the search set after the filter is applied using the formula: P <= N.
+q | The search vector.
+k | The maximum number of vectors to return in the response.
 
 ![How the algorithm evaluates a doc set]({{site.url}}{{site.baseurl}}/images/hsnw-algorithm.png)
 
@@ -38,7 +47,123 @@ The following workflow diagram shows how the HSNW algorithm decides which type o
 
 Depending on the data set that you are searching, you might choose a different approach to minimize recall or latency. You can create filters that are either: very selective (80%), somewhat selective (38%), or not very selective (2.5%). The selectiveness percentage indicates the amount the filter returns for any given document set in an index.
 
-In this context, `score_script` is essentially a brute force search, whereas boolean filter is an approximate k-NN search with post filtering.
+In this context, `score_script` is essentially a brute force search, whereas boolean filter is an approximate k-NN search with post-filtering.
+
+To learn more about dynamic search cases where you would want to use the score script plugin, see [Exact k-NN with scoring script]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-score-script/).
+
+In a boolean query that uses post-filtering, you can join a k-NN query with a filter using a `bool` `must` query clause. 
+
+#### Sample request 
+
+The following k-NN query uses a Boolean query clause to filter results:
+
+```json
+POST /hotels-index/_search
+{
+    "size": 3,
+    "query": {
+        "bool": {
+            "filter": {
+                "bool": {
+                    "must": [
+                        {
+                            "range": {
+                                "rating": {
+                                    "gte": 8,
+                                    "lte": 10
+                                }
+                            }
+                        },
+                        {
+                            "term": {
+                                "parking": "true"
+                            }
+                        }
+                    ]
+                }
+            },
+            "must": [
+                {
+                    "knn": {
+                        "location": {
+                            "vector": [
+                                5.0,
+                                4.0
+                            ],
+                            "k": 20
+                        }
+                    }
+                }
+            ]
+        }
+    }
+}
+```
+#### Sample response
+
+The Boolean query filter returns the following results in the response: 
+
+```json
+{
+  "took" : 95,
+  "timed_out" : false,
+  "_shards" : {
+    "total" : 1,
+    "successful" : 1,
+    "skipped" : 0,
+    "failed" : 0
+  },
+  "hits" : {
+    "total" : {
+      "value" : 5,
+      "relation" : "eq"
+    },
+    "max_score" : 0.72992706,
+    "hits" : [
+      {
+        "_index" : "hotels-index",
+        "_id" : "3",
+        "_score" : 0.72992706,
+        "_source" : {
+          "location" : [
+            4.9,
+            3.4
+          ],
+          "parking" : "true",
+          "rating" : 9
+        }
+      },
+      {
+        "_index" : "hotels-index",
+        "_id" : "6",
+        "_score" : 0.3012048,
+        "_source" : {
+          "location" : [
+            6.4,
+            3.4
+          ],
+          "parking" : "true",
+          "rating" : 9
+        }
+      },
+      {
+        "_index" : "hotels-index",
+        "_id" : "5",
+        "_score" : 0.24154587,
+        "_source" : {
+          "location" : [
+            3.3,
+            4.5
+          ],
+          "parking" : "true",
+          "rating" : 8
+        }
+      }
+    ]
+  }
+}
+```
+
 
 #### Filter selectiveness with latency per doc set volume
 
