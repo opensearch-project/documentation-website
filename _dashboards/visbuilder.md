@@ -30,7 +30,7 @@ The VisBuilder feature flag, `vis_builder.enabled:`, is enabled by default in th
 # functionality in Visualization.
 vis_builder.enabled: true
 ```
-You can disable it using the flag`vis_builder.enabled: false`.
+You can disable it using the flag `vis_builder.enabled: false`.
 
 Follow these steps to create a new visualization using VisBuilder in your environment:
 
@@ -42,11 +42,11 @@ Follow these steps to create a new visualization using VisBuilder in your enviro
    - From the top menu, select **Management** **>** **Stack Management** **>** **Advanced Settings**.
    - Select **Visualization** and verify the option is turned on.
    
-   <img src="{{site.url}}{{site.baseurl}}/images/enable-experimental-viz.png" alt="Enable experimental visualizations" width="550">
+   <img src="{{site.url}}{{site.baseurl}}/images/enable-experimental-viz.png" alt="Enable experimental visualizations" width="600">
 
 3. From the top menu, select **Visualize** **>** **Create visualization** **>** **VisBuilder**.
 
-   <img src="{{site.url}}{{site.baseurl}}/images/vis-builder-1.png" alt="Select the VisBuilder visualization type" width="350">  
+   <img src="{{site.url}}{{site.baseurl}}/images/vis-builder-1.png" alt="Select the VisBuilder visualization type" width="550">  
 
 4. Drag and drop field names from the left column into the **Configuration** panel to generate a visualization.
 
