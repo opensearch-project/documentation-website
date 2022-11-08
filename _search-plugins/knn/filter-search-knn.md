@@ -47,13 +47,26 @@ k | The maximum number of vectors to return in the response.
 
 Depending on the data set that you are searching, you might choose a different approach to minimize recall or latency. You can create filters that are either: very selective (80%), somewhat selective (38%), or not very selective (2.5%). The selectiveness percentage indicates the amount the filter returns for any given document set in an index.
 
-In this context, `score_script` is essentially a brute force search, whereas boolean filter is an approximate k-NN search with post-filtering.
+#### Filter selectiveness with latency per doc set volume
 
-To learn more about dynamic search cases where you would want to use the score script plugin, see [Exact k-NN with scoring script]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-score-script/).
+Number of vectors | Selectiveness of filter, % | k | Recall | Latency
+-- | -- | -- | -- | --
+10M | 2.5 | 100 | score_script | score_script
+10M | 38 | 100 | lucene_filtering | Boolean filter
+10M | 80 | 100 | score_script | lucene_filtering
+1M | 2.5 | 100 | lucene_filtering | score_script
+1M | 38 | 100 | lucene_filtering | lucene_filtering / score_script
+1M | 80 | 100 | Boolean filter | lucene_filtering
 
-In a boolean query that uses post-filtering, you can join a k-NN query with a filter using a `bool` `must` query clause. 
+In this context, `score_script` is essentially a brute force search, whereas a Boolean filter is an approximate k-NN search with post-filtering.
 
-#### Sample request 
+To learn more about the dynamic searches you can perform with the score script plugin, see [Exact k-NN with scoring script]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-score-script/).
+
+### Boolean filter with approximate k-NN search
+
+In a Boolean query that uses post-filtering, you can join a k-NN query with a filter using a `bool` `must` query clause.
+
+#### Sample request
 
 The following k-NN query uses a Boolean query clause to filter results:
 
@@ -101,7 +114,7 @@ POST /hotels-index/_search
 ```
 #### Sample response
 
-The Boolean query filter returns the following results in the response: 
+The Boolean query filter returns the following results in the response:
 
 ```json
 {
@@ -165,16 +178,6 @@ The Boolean query filter returns the following results in the response:
 ```
 
 
-#### Filter selectiveness with latency per doc set volume
-
-Number of vectors | Selectiveness of filter, % | k | Recall | Latency
--- | -- | -- | -- | --
-10M | 2.5 | 100 | score_script | score_script
-10M | 38 | 100 | lucene_filtering | boolean filter
-10M | 80 | 100 | score_script | lucene_filtering
-1M | 2.5 | 100 | lucene_filtering | score_script
-1M | 38 | 100 | lucene_filtering | lucene_filtering / score_script
-1M | 80 | 100 | boolean filter | lucene_filtering
 
 ### Use case 1: Very selective 2.5% filter
 
