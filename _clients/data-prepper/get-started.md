@@ -39,7 +39,7 @@ You will configure two files:
 * `data-prepper-config.yaml`
 * `pipelines.yaml`
 
-Depending on what you want to do, we have a few different guides to configuring Data Prepper.
+Depending on your use case, we have a few different guides to configuring Data Prepper.
 * [Trace Analytics]({{site.url}}{{site.baseurl}}/opensearch/clients/data-prepper/trace-analytics/) - Learn how to setup Data Prepper for trace observability
 * [Log Ingestion]({{site.url}}{{site.baseurl}}/opensearch/clients/data-prepper/log-analytics/) - Learn how to setup Data Prepper for log observability
 * [Simple Pipeline]({{site.url}}{{site.baseurl}}/opensearch/clients/data-prepper/simple-pipelines) - Learn the basics of Data Prepper pipelines with some simple configurations.
