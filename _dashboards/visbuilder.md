@@ -2,6 +2,8 @@
 layout: default
 title: VisBuilder
 nav_order: 8
+redirect_from:
+  - /dashboards/drag-drop-wizard/
 ---
 
 # VisBuilder
