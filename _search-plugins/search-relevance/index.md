@@ -80,7 +80,7 @@ If a result in Result 1 appears in Result 2, the `Up` and `Down` indicators belo
 
 ## Changing the number of results
 
-By default, OpenSearch returns the top 10 results. To change the number of returned results to a different value, specify the `size` parameter in the query as follows:
+By default, OpenSearch returns the top 10 results. To change the number of returned results to a different value, specify the `size` parameter in the query:
 
 ```json
 {
