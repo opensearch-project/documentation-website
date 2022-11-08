@@ -395,7 +395,7 @@ Depending on how selective you want your filter to operate, you can add any quer
 
 #### Sample request
 
-The following request specifies filters with the Boolean clauses `must`, `should`, and `must_not`. It also provides a term, a regular expression and a wildcard.
+The following request specifies filters with the Boolean clauses `must`, `should`, and `must_not`. It filters for hotels that provide parking by using a term query to indicate "parking" is false, a regular expression query to indicate "parking" is true, and a wildcard for the characters in the word "true."
 
 ```json
 POST /hotels-index/_search
