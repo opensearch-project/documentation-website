@@ -30,7 +30,7 @@ Make sure you have a zip utility installed.
 
 Follow the steps below to install OpenSearch on Windows.
 
-1. Download the [`opensearch-{{site.opensearch_version}}-windows-x64.zip`](#prerequisites){:target='\_blank'} archive.
+1. Download the [`opensearch-{{site.opensearch_version}}-windows-x64.zip`](https://artifacts.opensearch.org/releases/bundle/opensearch/{{site.opensearch_version}}/opensearch-{{site.opensearch_version}}-windows-x64.zip){:target='\_blank'} archive.
 1. To extract the archive contents, right-click to select **Extract All**.
 
 ## Step 2: Review important system settings
