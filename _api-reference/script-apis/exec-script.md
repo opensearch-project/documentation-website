@@ -64,7 +64,7 @@ Choose different contexts to control the variables that are available to the scr
 
 ### Painless test context
 
-The `painless_test` context is the default script context that provides only the `params` variable to the script. The returned result is always converted to a string. See the sample request above for a usage example.
+The `painless_test` context is the default script context that provides only the `params` variable to the script. The returned result is always converted to a string. See the preceding sample request for a usage example.
 
 ### Filter context
 
