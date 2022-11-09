@@ -74,7 +74,7 @@ You can specify the following parameters to the filter context in the `context_s
 
 Parameter | Description
 :--- | :---
-document | The document that is indexed in memory temporarily and is available to the script.
+document | The document that is indexed in memory temporarily and available to the script.
 index | The name of the index that contains a mapping for the document.
 
 For example, first create an index with a mapping for a test document:
