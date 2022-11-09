@@ -70,7 +70,7 @@ The `painless_test` context is the default script context that provides only the
 
 The `filter` context runs the script as if the script were inside a script query. You must provide a test document in the context. The `_source`, stored fields, and `_doc` variables will be available to the script.
 
-You can specify the following parameters to the filter context in the `context_setup`.
+You can specify the following parameters for the filter context in the `context_setup`.
 
 Parameter | Description
 :--- | :---
@@ -95,7 +95,7 @@ PUT /testindex1
 }
 ```
 
-Run a script to determine if a student is eligible for graduating with honors:
+Run a script to determine if a student is eligible to graduate with honors:
 
 ```json
 POST /_scripts/painless/_execute
@@ -127,13 +127,13 @@ The response contains the result:
 
 ### Score context
 
-The `score` context runs a script as if the script was in a `script_score` function in a `function_score` query.
+The `score` context runs a script as if the script were in a `script_score` function in a `function_score` query.
 
-You can specify the following parameters to the score context in the `context_setup`.
+You can specify the following parameters for the score context in the `context_setup`.
 
 Parameter | Description
 :--- | :---
-document | The document that is indexed in memory temporarily and is available to the script.
+document | The document that is indexed in memory temporarily and available to the script.
 index | The name of the index that contains a mapping for the document.
 query | If the script uses the `_score` parameter, the query can specify to use the `_score` field to compute the score.
 
@@ -152,7 +152,7 @@ PUT /testindex1
 }
 ```
 
-Run a script that converts a GPA in a 4.0 scale into a different scale that is provided as a parameter:
+Run a script that converts a GPA on a 4.0 scale into a different scale that is provided as a parameter:
 
 ```json
 POST /_scripts/painless/_execute
