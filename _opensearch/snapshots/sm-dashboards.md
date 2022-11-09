@@ -115,27 +115,37 @@ Use the steps below to take a snapshot manually.
 
     For more information about the options in the **Restore snapshot** flyout, see [Restore snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore#restore-snapshots). 
 
-    If you choose **Custom index settings**, you can further customize or ignore specific settings in the restore operation. Select the **Customize index settings** or **Ignore index settings** checkbox to specify custom index settings:
+    **Ignoring missing indexes**
+
+    If you specify which indexes you want to restore from the snapshot and select the **Ignore unavailable indices** option, the restore operation ignores the indexes that are missing from the snapshot. For example, if you want to restore the `log1` and `log2` indexes, but `log2` is not in the snapshot, `log1` is restored and `log2` is ignored. If you don't select **Ignore unavailable indices**, the entire restore operation fails if an index to restore is missing from a snapshot.
+
+    **Custom index settings**
+
+    You can choose to customize some settings for the indexes restored from a snapshot:<br>
+        &emsp;&#x2022; Select the **Customize index settings** checkbox to provide new values for the specified index settings. All newly restored indexes will use these values instead of the ones in the snapshot. <br>
+        &emsp;&#x2022; Select the **Ignore index settings** checkbox to specify the settings in the snapshot to ignore. All newly restored indexes will use the cluster defaults for these settings.
+
+    In the following example, for all newly restored indexes, `index.number_of_replicas` will be set to `0`, `index.auto_expand_replicas` will be set to `true`, and `index.refresh_interval` and `index.max_script_fields` will be set to cluster default values: 
 
     <img src="{{site.url}}{{site.baseurl}}/images/restore-snapshot/restore-snapshot-custom.png" alt="Custom settings" width="450">
 
     For more information about index settings, see [Index settings]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/#index-settings).
+
+    For a list of settings that you cannot specify to change or ignore, see [Restore snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore#restore-snapshots).
     
     After choosing the options, select the **Restore snapshot** button.
 1. (Optional) To monitor the restore progress, select **View restore activities** in the confirmation dialog. You can also monitor the restore progress at any time by selecting the **Restore activities in progress** tab: 
 
     <img src="{{site.url}}{{site.baseurl}}/images/restore-snapshot/restore-snapshot-activities.png" alt="Restore Activities">{: .img-fluid}
 
-    You can see the percentage of the job that has been completed in the **Status** column. Once the snapshot restore is complete, the **Status** changes to `Completed (100%)`. 
+    You can view the percentage of the job that has been completed in the **Status** column. Once the snapshot restore is complete, the **Status** changes to `Completed (100%)`. 
 
-    If you don't select the **Ignore unavailable indices** option, the entire restore operation will fail if any index in the snapshot is unavailable. If you select **Ignore unavailable indices**, you can view the number of successfully restored indexes in the **Indices being restored** column.
-    
     The **Restore activities in progress** panel is not persistent. It displays the current restore operation progress only.
     {: .note }
-    To view the progress for each index being restored, select the link in the **Indices being restored** column (in the preceding image, the link is `27 Indices`). The **Indices being restored** flyout shows each index with its restore status:
+    To view the progress for each index being restored, select the link in the **Indices being restored** column (in the preceding image, the `27 Indices` link). The **Indices being restored** flyout shows each index with its restore status:
 
     <img src="{{site.url}}{{site.baseurl}}/images/restore-snapshot/restore-snapshot-indices.png" alt="Restore Indices">{: .img-fluid}
 
-After being restored, the indexes will be listed in the **Indices** panel. To view the indexes, in the left panel, under **Index Management**, select **Indices**: 
+ After the restore operation is complete, the restored indexes are listed in the **Indices** panel. To view the indexes, in the left panel, under **Index Management**, select **Indices**: 
 
 <img src="{{site.url}}{{site.baseurl}}/images/restore-snapshot/restore-snapshot-indices-panel.png" alt="View Indices">{: .img-fluid}
