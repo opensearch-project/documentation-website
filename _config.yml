@@ -40,7 +40,7 @@ collections:
   security-plugin:
     permalink: /:collection/:path/
     output: true
-  security-analytics-plugin:
+  security-analytics:
     permalink: /:collection/:path/
     output: true
   search-plugins:
@@ -94,7 +94,7 @@ just_the_docs:
     security-plugin:
       name: Security plugin
       nav_fold: true
-    security-analytics-plugin:
+    security-analytics:
       name: Security analytics plugin
       nav_fold: true
     search-plugins:
