@@ -14,11 +14,11 @@ Aggregate view for saved objects allows a user who has access to multiple tenant
 
 Once you identify a saved object of interest, you can then switch to that tenant to work with the object.
 
-To access saved objects, expand the top menu and select **Management > Stack Management > Saved Objects**. The Saved Objects window opens. By default, all tenants the user has permissions for are dispalayed along with all saved objects associated with the tenants.
+To access saved objects, expand the top menu and select **Management > Stack Management > Saved Objects**. The Saved Objects window opens. By default, all tenants the user has permissions for are displayed along with all saved objects associated with the tenants.
 
 <img src="{{site.url}}{{site.baseurl}}/images/Security/agg-view-saved-objects.png" alt="Dashboards Saved Objects view with tenant object aggregation" width="700">
 
-As an experimental feature, aggregate view for saved objects is kept behind a feature flag and must be enabled in the opensearch_dashboards.yml before the feature is made available. See [Enabling aggregate view](#enabling-aggregate-view-for-saved-objects) for more information.
+As an experimental feature, aggregate view for saved objects is kept behind a feature flag and must be enabled in the `opensearch_dashboards.yml` file before the feature is made available. See [Enabling aggregate view](#enabling-aggregate-view-for-saved-objects) for more information.
 {: .note }
 
 ### Feature benefits
@@ -66,7 +66,7 @@ After identifying a saved object that you would like to work with, follow these 
 
 1. Note the tenant associated with the object in the Tenant column.
 1. In the upper-right corner of the window, open the user menu and select **Switch tenants**.
-<img src="{{site.url}}{{site.baseurl}}/images/Security/switch_tenant.png" alt="Switching tenants in the user menu" width="500">
+<img src="{{site.url}}{{site.baseurl}}/images/Security/switch_tenant.png" alt="Switching tenants in the user menu" width="425">
 1. In the **Select your tenant** window, choose either the Global or Private option, or one of the custom tenant options, to specify the correct tenant. Select the **Confirm** button. The tenant becomes active and is displayed in the user menu.
 1. After the tenant is active, you can use the controls in the Actions column to work with saved objects associated with the tenant.
 <img src="{{site.url}}{{site.baseurl}}/images/Security/actions.png" alt="Actions column controls" width="700">
