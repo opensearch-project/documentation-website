@@ -10,10 +10,10 @@ redirect_from:
 
 # Compare search results
 
-Compare search results is an experimental feature. For updates on the progress of Compare search results and other search relevance features, or if you want to leave feedback that could help improve the feature, join the [discussion on the OpenSearch forum](https://forum.opensearch.org/t/feedback-experimental-feature-compare-search-results/11331).    
+Compare Search Results is an experimental feature. For updates on the progress of Compare Search Results and other search relevance features, or if you want to leave feedback that could help improve the feature, join the [discussion on the OpenSearch forum](https://forum.opensearch.org/t/feedback-experimental-feature-compare-search-results/11331).    
 {: .warning}
 
-Compare search results is the first search relevance feature in OpenSearch. It lets you compare search results from two queries side by side to determine whether one query produces better results than the other. Using this tool, you can evaluate search quality by experimenting with queries. 
+Compare Search Results is the first search relevance feature in OpenSearch. It lets you compare search results from two queries side by side to determine whether one query produces better results than the other. Using this tool, you can evaluate search quality by experimenting with queries. 
 
 For example, you can see how results change when you apply one of the following query changes:
 
@@ -97,5 +97,5 @@ By default, OpenSearch returns the top 10 results. To change the number of retur
 Setting `size` to a high value (for example, larger than 250 documents) may degrade performance.
 {: .note}
 
-You cannot save a given comparison for future use, so Compare search results is not suitable for systematic testing.
+You cannot save a given comparison for future use, so Compare Search Results is not suitable for systematic testing.
 {: .note}
