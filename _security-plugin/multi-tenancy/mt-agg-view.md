@@ -68,8 +68,8 @@ Use the Type dropdown menu to filter saved objects by type. The behavior of the 
 After identifying a saved object that you would like to work with, follow these steps to access the object.
 
 1. Note the tenant associated with the object in the Tenant column.
-1. In the upper-right corner of the window, open the user menu and select <br>**Switch tenants**.
-<img src="{{site.url}}{{site.baseurl}}/images/Security/switch_tenant.png" alt="Switching tenants in the user menu" width="425">
+1. In the upper-right corner of the window, open the user menu and select **Switch tenants**.
+<br><img src="{{site.url}}{{site.baseurl}}/images/Security/switch_tenant.png" alt="Switching tenants in the user menu" width="425">
 1. In the **Select your tenant** window, choose either the Global or Private option, or one of the custom tenant options, to specify the correct tenant. Select the **Confirm** button. The tenant becomes active and is displayed in the user menu.
 1. After the tenant is active, you can use the controls in the Actions column to work with saved objects associated with the tenant.
 <img src="{{site.url}}{{site.baseurl}}/images/Security/actions.png" alt="Actions column controls" width="700">
