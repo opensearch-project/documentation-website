@@ -50,8 +50,6 @@ Depending on the data set that you are searching, you might choose a different a
 
 The restrictive percentage indicates the amount of documents the filter returns for any given document set in an index.
 
-#### Filter restrictive percentage with latency per doc set volume
-
 Number of vectors | Filter restrictive percentage | k | Recall | Latency
 -- | -- | -- | -- | --
 10M | 2.5 | 100 | Scoring script | Scoring script
