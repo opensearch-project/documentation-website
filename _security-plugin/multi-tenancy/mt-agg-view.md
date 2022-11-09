@@ -54,7 +54,10 @@ Select the Tenant dropdown arrow to display the list of tenants available to the
 
 <img src="{{site.url}}{{site.baseurl}}/images/Security/tenant_column.png" alt="Dashboards Saved Objects view with emphasis on Tenants column" width="700">
    
-After you finish specifying tenants, select anywhere outside the menu to collapse it. The Title column displays the names of the available saved objects. The Tenant column displays the tenants associated with the saved objects. Also, the number of tenants selected for filtering is shown in a red box beside the Tenant dropdown menu label.
+After you finish specifying tenants, select anywhere outside the menu to collapse it. 
+* The Title column displays the names of the available saved objects. 
+* The Tenant column displays the tenants associated with the saved objects. 
+* Also, the number of tenants selected for filtering is shown in a red box beside the Tenant dropdown menu label.
 
 <img src="{{site.url}}{{site.baseurl}}/images/Security/ten-filter-results.png" alt="Dashboards Saved Objects tenant filtering" width="700">
 
