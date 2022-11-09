@@ -100,6 +100,42 @@ Use the steps below to take a snapshot manually.
 
 1. On the top menu bar, go to **OpenSearch Plugins > Snapshot Management**.
 1. In the left panel, under **Snapshot Management**, select **Snapshots**. The **Snapshots** tab is selected by default.
-1. Select the checkbox next to the snapshot you want to restore. Note that you can only restore one snapshot at a time.
-1. In the **Restore snapshot** flyout, select the options to restore the snapshot, then select the **Restore snapshot** button.
-1. To monitor the restore progress, select **View restore activities** in the confirmation dialog. You can also monitor the restore progress at any time by selecting the **Restore activities in progress** tab. You can see the percentage of the job that has been completed in the **Status** column. To view the indexes being restored, select the link in the **Indices being restored** column.
+1. Select the checkbox next to the snapshot you want to restore: 
+    <img src="{{site.url}}{{site.baseurl}}/images/restore-snapshot/restore-snapshot-main.png" alt="Snapshots">{: .img-fluid}
+
+    You can only restore one snapshot at a time.
+    {: .note}
+    You can only restore snapshots with the status of `Success` or `Partial`. The status of the snapshot is displayed in the **Snapshot status** column.
+    {: .note}
+1. In the **Restore snapshot** flyout, select the options to restore the snapshot.
+
+    The **Restore snapshot** flyout lists the snapshot name and status. To view the list of indexes in the snapshot, select the number under **Indices** (for example, `27` in the following image). This number represents the number of indexes in the snapshot:
+
+    <img src="{{site.url}}{{site.baseurl}}/images/restore-snapshot/restore-snapshot.png" alt="Restore Snapshot" width="450">
+
+    For more information about the options in the **Restore snapshot** flyout, see [Restore snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore#restore-snapshots). 
+
+    If you choose **Custom index settings**, you can further customize or ignore specific settings in the restore operation. Select the **Customize index settings** or **Ignore index settings** checkbox to specify custom index settings:
+
+    <img src="{{site.url}}{{site.baseurl}}/images/restore-snapshot/restore-snapshot-custom.png" alt="Custom settings" width="450">
+
+    For more information about index settings, see [Index settings]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/#index-settings).
+    
+    After choosing the options, select the **Restore snapshot** button.
+1. (Optional) To monitor the restore progress, select **View restore activities** in the confirmation dialog. You can also monitor the restore progress at any time by selecting the **Restore activities in progress** tab: 
+
+    <img src="{{site.url}}{{site.baseurl}}/images/restore-snapshot/restore-snapshot-activities.png" alt="Restore Activities">{: .img-fluid}
+
+    You can see the percentage of the job that has been completed in the **Status** column. Once the snapshot restore is complete, the **Status** changes to `Completed (100%)`. 
+
+    If you don't select the **Ignore unavailable indices** option, the entire restore operation will fail if any index in the snapshot is unavailable. If you select **Ignore unavailable indices**, you can view the number of successfully restored indexes in the **Indices being restored** column.
+    
+    The **Restore activities in progress** panel is not persistent. It displays the current restore operation progress only.
+    {: .note }
+    To view the progress for each index being restored, select the link in the **Indices being restored** column (in the preceding image, the link is `27 Indices`). The **Indices being restored** flyout shows each index with its restore status:
+
+    <img src="{{site.url}}{{site.baseurl}}/images/restore-snapshot/restore-snapshot-indices.png" alt="Restore Indices">{: .img-fluid}
+
+After being restored, the indexes will be listed in the **Indices** panel. To view the indexes, in the left panel, under **Index Management**, select **Indices**: 
+
+<img src="{{site.url}}{{site.baseurl}}/images/restore-snapshot/restore-snapshot-indices-panel.png" alt="View Indices">{: .img-fluid}
