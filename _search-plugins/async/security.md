@@ -20,6 +20,16 @@ The security plugin has two built-in roles that cover most asynchronous search u
 
 If these roles don’t meet your needs, mix and match individual asynchronous search permissions to suit your use case. Each action corresponds to an operation in the REST API. For example, the `cluster:admin/opensearch/asynchronous_search/delete` permission lets you delete a previously submitted asynchronous search.
 
+### A note on role based access control and asynchronous search results
+
+By design, the Asynchronous Search plugin extracts data from a target index and stores the data in a separate index to make search results available to users who have the proper permissions. Users can then query results via an API call. However, since the data is stored outside the target index, this creates a possible scenario in which a user may be restricted from viewing documents or fields in the target index based on one set of permissions but allowed to view asynchronous search results related to the same documents or fields based on another set of permissions.
+
+This can happen, for example, when a user is mapped to one role that includes [document-level security]({{site.url}}{{site.baseurl}}/security-plugin/access-control/document-level-security/) (DLS) or [field-level security]({{site.url}}{{site.baseurl}}/security-plugin/access-control/field-level-security/) (FLS) access controls for the target index and mapped to another role that includes either the `asynchronous_search_read_access` or `cluster:admin/opensearch/asynchronous_search/get` permission. If a second user happens to share a search ID with the first, this can allow the first user to query and see results for documents and fields that would otherwise be hidden from the user by DLS and FLS controls.
+
+To prevent this from happening, OpenSearch recommends that users with permissions to submit asynchronous search queries take precautions to avoid sharing search IDs with other users whose roles include DLS and FLS access controls on the index being queried. Administrators will therefore need to keep these kinds of conflicts in mind when assigning permissions to an intended group of users.
+
+To learn more about using role based access control to reduce the chances of this happening, see the section [Limit access by backend role](#advanced-limit-access-by-backend-role) immediately following this note.
+
 ## (Advanced) Limit access by backend role
 
 Use backend roles to configure fine-grained access to asynchronous searches based on roles. For example, users of different departments in an organization can view asynchronous searches owned by their own department.
