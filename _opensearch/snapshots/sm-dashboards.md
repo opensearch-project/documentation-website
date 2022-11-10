@@ -103,8 +103,6 @@ Use the steps below to take a snapshot manually.
 1. Select the checkbox next to the snapshot you want to restore: 
     <img src="{{site.url}}{{site.baseurl}}/images/restore-snapshot/restore-snapshot-main.png" alt="Snapshots">{: .img-fluid}
 
-    You can only restore one snapshot at a time.
-    {: .note}
     You can only restore snapshots with the status of `Success` or `Partial`. The status of the snapshot is displayed in the **Snapshot status** column.
     {: .note}
 1. In the **Restore snapshot** flyout, select the options to restore the snapshot.
@@ -125,7 +123,7 @@ Use the steps below to take a snapshot manually.
         &emsp;&#x2022; Select the **Customize index settings** checkbox to provide new values for the specified index settings. All newly restored indexes will use these values instead of the ones in the snapshot. <br>
         &emsp;&#x2022; Select the **Ignore index settings** checkbox to specify the settings in the snapshot to ignore. All newly restored indexes will use the cluster defaults for these settings.
 
-    In the following example, for all newly restored indexes, `index.number_of_replicas` will be set to `0`, `index.auto_expand_replicas` will be set to `true`, and `index.refresh_interval` and `index.max_script_fields` will be set to cluster default values: 
+    The examples in the following image set `index.number_of_replicas` to `0`, `index.auto_expand_replicas` to `true`, and `index.refresh_interval` and `index.max_script_fields` to the cluster default values for all newly restored indexes: 
 
     <img src="{{site.url}}{{site.baseurl}}/images/restore-snapshot/restore-snapshot-custom.png" alt="Custom settings" width="450">
 
@@ -140,7 +138,7 @@ Use the steps below to take a snapshot manually.
 
     You can view the percentage of the job that has been completed in the **Status** column. Once the snapshot restore is complete, the **Status** changes to `Completed (100%)`. 
 
-    The **Restore activities in progress** panel is not persistent. It displays the current restore operation progress only.
+    The **Restore activities in progress** panel is not persistent. It displays the current restore operation progress only. If multiple restore operations are running, the panel displays the most recent one.
     {: .note }
     To view the progress for each index being restored, select the link in the **Indices being restored** column (in the preceding image, the `27 Indices` link). The **Indices being restored** flyout shows each index with its restore status:
 
