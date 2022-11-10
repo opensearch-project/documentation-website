@@ -19,7 +19,7 @@ To decide whether to apply search backpressure, OpenSearch periodically measures
 
 An observer thread periodically measures the resource usage of the node. If the node is determined to be under duress, OpenSearch examines the resource usage of each search shard task and compares it against configurable thresholds. OpenSearch considers CPU usage, heap usage, and elapsed time and assigns each task a cancellation score that is then used to cancel the most resource-intensive tasks.
 
-OpenSearch limits the number of cancellations as a fraction of successful task completions and cancellations per unit time. It continues to monitor and cancel tasks until the node is no longer under duress.
+OpenSearch limits the number of cancellations to a fraction of successful task completions. Additionally, it limits the number of cancellations per unit time. OpenSearch continues to monitor and cancel tasks until the node is no longer under duress.
 
 ## Canceled queries
 
