@@ -11,24 +11,23 @@ Creating detectors includes
 
 ### Define the detector
 
+Defining a new detector involves naming the detector, selecting a data source and detector type, and specifying a detector schedule. Follow the steps in this section to define a new detector.
+
 1. On the Detectors page, select the **Create detector** button. The Edit detector page opens.
-
-<add image for page>
-
 1. Give the detector a name and, as an option, add a description for the detector. 
 1. In the Data source section, select the drop-down arrow and select a source for the log data.
 1. In the threat detection type section, select the data type. The Sigma security rules associated with the log data are automatically populated in the Detection rules section below it.
 
-You can skip the next step for mapping rules if you are satisfied with those automatically populated by the system. Otherwise, go to the next step to specify select rules.
-{: .note }
+    You can skip the next step for mapping rules if you are satisfied with those automatically populated by the system. Otherwise, go to the next step to specify select rules.
+    {: .note }
 
 1. In the **Detection rules** section, specify only those rules you want mapped to the detector. 
 Use the toggle to the left of the rule name to select or deselct rules.
 Use the **Log type**, **Rule severity**, and **Library** drop-downs to filter the rules you want to select from. 
 Use the **Search** bar to search for specific rules.
 
-To quickly select one or more known rules and dismiss others, first deselect all rules by moving the **rule name** toggle to the left, then search for the target rule names and select each individully by moving its toggle to the right.
-{: .tip }
+    To quickly select one or more known rules and dismiss others, first deselect all rules by moving the **rule name** toggle to the left, then search for the target rule names and select each individully by moving its toggle to the right.
+    {: .tip }
 
 1. In the **Detector schedule** section, set how often the detector will run. Specify a unit of time and a corresponding number to set the interval.
 1. Select the **Next** button at the bottom of the page to continue.
