@@ -10,7 +10,7 @@ nav_order: 60
 Aggregate view for saved objects is an experimental feature released in OpenSearch 2.4. Therefore, we do not recommend enabling the feature in a production environment at this time. For updates on the progress of aggregate view for saved objects, or if you'd like to leave feedback that could help improve the feature, see the [Dashboards object sharing](https://github.com/opensearch-project/OpenSearch-Dashboards/issues/2249) GitHub issue. For a more comprehensive view of the proposed future development of multi-tenancy, see the [Dashboards object sharing](https://github.com/opensearch-project/security/issues/1869) issue.
 {: .warning}
 
-Aggregate view for saved objects allows a user who has access to multiple tenants to see all saved objects associated with those tenants in a single view without having to switch between tenants to do so. This includes both tenants created by the user and tenants shared with the user. Aggregate view introduces a Tenant column in the Saved Objects table that gives the user the option to filter by tenants and make visible their associated saved objects.
+Aggregate view for saved objects allows a user who has access to multiple tenants to see all saved objects associated with those tenants in a single view without having to switch between tenants to do so. This includes both tenants created by the user and tenants shared with the user. Aggregate view introduces a Tenant dropdown menu and column in the Saved Objects table that gives the user the option to filter by tenants and make visible their associated saved objects.
 
 Once you identify a saved object of interest, you can then switch to that tenant to work with the object.
 
@@ -24,7 +24,7 @@ As an experimental feature, aggregate view for saved objects is kept behind a fe
 ### Feature benefits
 
 - Implementing an aggregate view for all saved objects on one screen allows you to quickly locate an object of interest and determine which tenant is associated with it. Once you locate an object, you can select the appropriate tenant and work with the object.
-- This feature also adds a Tenant column to the Saved Objects table, which allows you to filter the view by tenants and their associated saved objects.
+- This feature also adds a Tenant dropdown menu to the Saved Objects table, which allows you to filter the view by tenants and their associated saved objects.
 
 ### Plans for future development
 
@@ -50,7 +50,7 @@ After enabling the feature you can start the new cluster and then launch Dashboa
 
 ## Working in aggregate view
 
-Select the Tenant dropdown arrow to display the list of tenants available to the user. You can select multiple tenants while the menu is open. Each time you select a tenant in the menu, the list of saved objects is filtered by that tenant and any others with a check mark beside their name.
+Select the **Tenant** dropdown arrow to display the list of tenants available to the user. You can select multiple tenants while the menu is open. Each time you select a tenant in the menu, the list of saved objects is filtered by that tenant and any others with a check mark beside their name.
 
 <img src="{{site.url}}{{site.baseurl}}/images/Security/tenant_column.png" alt="Dashboards Saved Objects view with emphasis on Tenants column" width="700">
    
@@ -61,11 +61,11 @@ After you finish specifying tenants, select anywhere outside the menu to collaps
 
 <img src="{{site.url}}{{site.baseurl}}/images/Security/ten-filter-results.png" alt="Dashboards Saved Objects tenant filtering" width="700">
 
-Use the Type dropdown menu to filter saved objects by type. The behavior of the Type dropdown menu is the same as the behavior of the Tenant dropdown menu.
+Use the **Type** dropdown menu to filter saved objects by type. The behavior of the **Type** dropdown menu is the same as the behavior of the **Tenant** dropdown menu.
 
 ### Selecting and working with a saved object
 
-After identifying a saved object that you would like to work with, follow these steps to access the object.
+After identifying a saved object that you would like to work with, follow these steps to access the object:
 
 1. Note the tenant associated with the object in the Tenant column.
 1. In the upper-right corner of the window, open the user menu and select **Switch tenants**.
