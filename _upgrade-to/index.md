@@ -18,7 +18,7 @@ Three approaches exist:
 
 Regardless of your approach, to safeguard against data loss, we recommend that you take a [snapshot]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore) of all indexes prior to any migration.
 
-If your existing clients include a version check, such as recent versions of Logstash OSS and Filebeat OSS, [check compatibility]({{site.url}}{{site.baseurl}}/clients/agents-and-ingestion-tools/index/) before upgrading.
+If your existing clients include a version check, such as recent versions of Logstash OSS and Filebeat OSS, [check compatibility]({{site.url}}{{site.baseurl}}/tools/index/#compatibility-matrices) before upgrading.
 
 ## Upgrading from Open Distro
 
