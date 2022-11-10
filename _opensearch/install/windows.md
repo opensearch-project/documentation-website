@@ -12,15 +12,13 @@ The following sections describe installing OpenSearch on Windows from a zip arch
 Generally speaking, the installation of OpenSearch from a zip archive can be broken down into a few steps:
 
 1. **Download and unpack OpenSearch.**
-1. **Review important system settings.**
-   - These settings are applied to the host before modifying any OpenSearch files.
 1. **(Optional) Test OpenSearch.**
    - Confirm that OpenSearch is able to run before you apply any custom configuration.
    - This can be done without any security (no password, no certificates) or with a demo security configuration that can be applied by a packaged script.
 1. **Configure OpenSearch for your environment.**
    -  Apply basic settings to OpenSearch and start using it in your environment.
 
-The Windows Opensearch archive is a self-contained directory with everything needed to run OpenSearch, including an integrated Java Development Kit (JDK). If you have your own Java installation and set the environment variable `JAVA_HOME`, OpenSearch will use that installation if the `OPENSEARCH_JAVA_HOME` environment variable is not set. To learn how to set the `OPENSEARCH_JAVA_HOME` environment variable, see [Step 4: Set up OpenSearch in your environment](#step-4-set-up-opensearch-in-your-environment).
+The Windows OpenSearch archive is a self-contained directory with everything needed to run OpenSearch, including an integrated Java Development Kit (JDK). If you have your own Java installation and set the environment variable `JAVA_HOME`, OpenSearch will use that installation if the `OPENSEARCH_JAVA_HOME` environment variable is not set. 
 
 ## Prerequisites
 
@@ -33,11 +31,7 @@ Follow the steps below to install OpenSearch on Windows.
 1. Download the [`opensearch-{{site.opensearch_version}}-windows-x64.zip`](https://artifacts.opensearch.org/releases/bundle/opensearch/{{site.opensearch_version}}/opensearch-{{site.opensearch_version}}-windows-x64.zip){:target='\_blank'} archive.
 1. To extract the archive contents, right-click to select **Extract All**.
 
-## Step 2: Review important system settings
-
-Before launching OpenSearch you should review some [important system settings]({{site.url}}{{site.baseurl}}/opensearch/install/important-settings/){:target='\_blank'}.
-
-## Step 3: (Optional) Test OpenSearch
+## Step 2: (Optional) Test OpenSearch
 
 Before proceeding with any configuration, you should test your installation of OpenSearch. Otherwise, it can be difficult to determine whether future problems are due to installation issues or custom settings you applied after installation. There are two quick methods for testing OpenSearch at this stage:
 
@@ -53,35 +47,28 @@ An OpenSearch node in its default configuration (with demo certificates and user
 
 ### Option 1: Test your OpenSearch settings with security enabled
 
-To test OpenSearch with security enabled, perform the following steps:
+1. Run the demo batch script.
 
-1. **Run the batch script to start OpenSearch.** You can choose to run the script with default options, or with custom parameters.
-1. **Send a request to your OpenSearch instance to verify that it's running**.
+   There are two ways of running the batch script:
 
-**Step 1: Run the batch script to start OpenSearch**
+   1. Run the batch script using the Windows UI:
 
-Run the batch script with either default options or custom parameters.
+      1. Navigate to the top directory of your OpenSearch install and open the `opensearch-{{site.opensearch_version}}` folder.
+      1. Run the batch script by double-clicking the `opensearch-windows-install.bat` file. This opens a command prompt with an OpenSearch instance running.
 
-#### Run the batch script with default options
+   1. Run the batch script from a command prompt or Powershell:
 
-1. Open the `opensearch-{{site.opensearch_version}}` folder.
-1. Run the default by double-clicking the `opensearch-windows-install.bat` file. This opens a command prompt with the OpenSearch instance running.
+      1. Open command prompt by entering `cmd`, or Powershell by entering `powershell`, in the search box next to **Start** on the taskbar. 
+      1. Change to the top directory of your OpenSearch install.
+         ```bat
+         cd \path\to\opensearch-{{site.opensearch_version}}
+         ```
+      1. Run the batch script.
+         ```bat
+         .\opensearch-windows-install.bat
+         ```
 
-#### Run the batch script with custom parameters
-
-1. Open command prompt by entering `cmd` in the search box next to **Start** on the taskbar. 
-1. Change to the top directory of your OpenSearch install.
-   ```bat
-   cd \path\to\opensearch-{{site.opensearch_version}}
-   ```
-1. Run the batch script with custom parameters.
-   ```bat
-   call .\opensearch-windows-install.bat "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" "OPENSEARCH_HOSTS=["http://opensearch-node1:9200","http://opensearch-node2:9200"]"
-   ```
-
-**Step 2: Send a request to your OpenSearch instance to verify that it's running**
-
-1. Open a command prompt and send requests to the server to verify that OpenSearch is running. Note the use of the `--insecure` flag, which is required because the TLS certificates are self-signed.
+1. Open a new command prompt and send requests to the server to verify that OpenSearch is running. Note the use of the `--insecure` flag, which is required because the TLS certificates are self-signed.
    - Send a request to port 9200.
       ```bat
       curl -X GET https://localhost:9200 -u 'admin:admin' --insecure
@@ -125,7 +112,6 @@ Run the batch script with either default options or custom parameters.
       hostname opensearch-notifications             2.4.0.0
       hostname opensearch-notifications-core        2.4.0.0
       hostname opensearch-observability             2.4.0.0
-      hostname opensearch-performance-analyzer      2.4.0.0
       hostname opensearch-reports-scheduler         2.4.0.0
       hostname opensearch-security                  2.4.0.0
       hostname opensearch-sql                       2.4.0.0
@@ -142,7 +128,7 @@ Run the batch script with either default options or custom parameters.
 1. Save the change and close the file.
 1. Navigate to the top directory of your OpenSearch install and open the `opensearch-{{site.opensearch_version}}` folder.
 1. Run the default by double-clicking the `opensearch-windows-install.bat` file. This opens a command prompt an the OpenSearch instance running.
-1. Open another command prompt and send requests to the server to verify that OpenSearch is running. Because the security plugin has been disabled, you will be sending commands using `HTTP` rather than `HTTPS`.
+1. Open a new command prompt and send requests to the server to verify that OpenSearch is running. Because the security plugin has been disabled, you will be sending commands using `HTTP` rather than `HTTPS`.
    - Send a request to port 9200.
       ```bat
       curl -X GET http://localhost:9200
@@ -186,15 +172,17 @@ Run the batch script with either default options or custom parameters.
       hostname opensearch-notifications             2.4.0.0
       hostname opensearch-notifications-core        2.4.0.0
       hostname opensearch-observability             2.4.0.0
-      hostname opensearch-performance-analyzer      2.4.0.0
       hostname opensearch-reports-scheduler         2.4.0.0
       hostname opensearch-security                  2.4.0.0
       hostname opensearch-sql                       2.4.0.0
       ```
 
-## Step 4: Set up OpenSearch in your environment
+To stop OpenSearch, press `Ctrl+C` in command prompt or Powershell, or simply close the command prompt or Powershell window.
+{: .tip} 
 
-Users who do not have prior experience with OpenSearch may want a list of recommended settings in order to get started with the service. By default, OpenSearch is not bound to a network interface and cannot be reached by external hosts. Additionally, security settings are either undefined (greenfield install) or populated by default usernames and passwords if you ran the security demo script by invoking `opensearch-windows-install.bat`. The following recommendations will enable a user to bind OpenSearch to a network interface.
+## Step 3: Set up OpenSearch in your environment
+
+Users who do not have prior experience with OpenSearch may want a list of recommended settings in order to get started with the service. By default, OpenSearch is not bound to a network interface and cannot be reached by external hosts. Additionally, security settings are either undefined (greenfield install) or populated by default usernames and passwords if you ran the security demo script by invoking <span style="white-space: nowrap">`opensearch-windows-install.bat`.</span> The following recommendations will enable a user to bind OpenSearch to a network interface.
 
 The following recommended settings will allow you to:
 
@@ -237,28 +225,12 @@ Before modifying any configuration files, it's always a good idea to save a back
     -Xmx4g
     ```
    1. Save your changes and close the file.
-1. Specify the location of the included JDK. For example, on Windows 10, follow the steps below:
-    1. In the search box next to **Start** on the taskbar, enter `edit environment variables`.
-    1. Select **Edit environment variables for your account** or **Edit the system environment variables**. To edit the system environment variables, you need admin rights. User environment variables take precedence over system environment variables.
-    1. Select **New**.
-    1. In **Variable name**, enter `OPENSEARCH_JAVA_HOME`.
-    1. In **Variable value**, enter `\path\to\opensearch-{{site.opensearch_version}}\jdk`.
-    1. Select **OK** twice to close both dialogs.
+1. Specify the location of the included JDK. 
+   - Set the `OPENSEARCH_JAVA_HOME` environment variable to <span style="white-space: nowrap">`\path\to\opensearch-{{site.opensearch_version}}\jdk`.</span>
 
-## k-NN plugin setup
+## Plugin compatibility
 
-The libraries for the k-NN plugin reside in the `opensearch-{{site.opensearch_version}}\plugins\opensearch-knn\lib` folder. The `opensearch-windows-install.bat` script temporarily updates the `PATH` environment variable with the path to the libraries. You can also choose to update this path permanently on your machine.
-
-For example, on Windows 10, follow the steps below:
-
-1. In the search box next to **Start** on the taskbar, enter `edit environment variables`.
-1. Select **Edit environment variables for your account** or **Edit the system environment variables**. To edit the system environment variables, you need admin rights. The user `PATH` is appended to the system `PATH`.
-1. In the **Environment Variables** dialog, select **Path** and choose **Edit...**.
-1. Select **New** and enter `%OPENSEARCH_HOME%\plugins\opensearch-knn\lib`.
-1. Select **OK** twice to close both dialogs.
-
-You can move the `lib` folder into a directory of your choice and add the complete path to the `lib` folder (for example, `C:\\knn\lib`) to the `Path` variable.
-{: .note} 
+The Performance Analyzer plugin is not available on Windows. All other OpenSearch plugins, including the k-NN plugin, are available. For a complete list of plugins, see [Available plugins]({{site.url}}{{site.baseurl}}/opensearch/install/plugins/#available-plugins).
 
 ## Related links
 
