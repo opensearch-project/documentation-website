@@ -11,7 +11,7 @@ has_math: true
 Introduced 2.4
 {: .label .label-purple }
 
-You can create custom filters using Query DSL search options to refine your k-NN searches. You define the filter criteria within the `knn_vector` field's `filter` subsection in your query. You can use any of the OpenSearch Query DSL query types as a filter. This includes, but is not limited to the common query types: `term`, `range`, `regexp`, `wildcard`, as well as custom query types. To include or exclude results, you specify Boolean query clauses. You also specify a query point with the `knn_vector` type and search for nearest neighbors that match your filter criteria.
+You can create custom filters using Query DSL search options to refine your k-NN searches. You define the filter criteria within the `knn_vector` field's `filter` subsection in your query. You can use any of the OpenSearch Query DSL query types as a filter. This includes, but is not limited to the common query types: `term`, `range`, `regexp`, `wildcard`, as well as custom query types. To include or exclude results, use Boolean query clauses. You also specify a query point with the `knn_vector` type and search for nearest neighbors that match your filter criteria.
 To run k-NN queries with a filter, the Lucene search engine and HSNW method are required.
 
 To learn more about how to use Query DSL Boolean query clauses, see [Boolean queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/bool). To get more details about the `knn_vector` data type definition, see [k-NN Index]({{site.url}}{{site.baseurl}}/opensearch/search-plugins/knn/knn-index/).
