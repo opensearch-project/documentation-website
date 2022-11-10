@@ -5,9 +5,9 @@ parent: API tools
 nav_order: 35
 ---
 
-# Management APIs
+# Detector APIs
 
-The following APIs can be used for a range of tasks from creating detectors and custom rules to getting and updating mappings.
+The following APIs can be used for a number of tasks related to detectors, from creating detectors to updating and searching for detectors.
 
 ## Create detector
 
@@ -221,35 +221,8 @@ Parameter | Type | Description
 
 ## Search detector
 
-## Create custom rule
 
-## Update custom rule (not forced)
 
-## Update custom rule (forced)
-
-## Search pre-packaged rules
-
-## Search custom rules
-
-## Delete custom rule (not forced)
-
-## Delete custom rule (forced)
-
-## Get mappings view
-
-## Create mappings
-
-## Get mappings
-
-## Update mappings
-
-## Get alerts
-
-See issue 55  details
-
-## Get findings
-
-## Acknowledge alerts
 
 
 
