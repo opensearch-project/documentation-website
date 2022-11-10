@@ -7,7 +7,7 @@ has_children: false
 
 # Search backpressure
 
-Search backpressure is a mechanism to identify resource-intensive search requests and cancel them when the node is under duress. If a search request on a node or shard has breached the resource limits and does not recover within a certain threshold, it is rejected. These thresholds are dynamic and configurable through [cluster settings](#search-backpressure-settings). 
+Search backpressure is a mechanism used to identify resource-intensive search requests and cancel them when the node is under duress. If a search request on a node or shard has breached the resource limits and does not recover within a certain threshold, it is rejected. These thresholds are dynamic and configurable through [cluster settings](#search-backpressure-settings). 
 
 ## Measuring resource consumption
 
