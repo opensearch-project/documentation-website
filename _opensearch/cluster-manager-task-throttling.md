@@ -11,7 +11,11 @@ For many cluster state updates, such as defining a mapping or creating an index,
 
 The first line of defense is to implement mechanisms in the caller nodes to avoid task overload on the cluster manager. However, even with those mechanisms in place, the cluster manager needs a built-in way to protect itself---cluster manager task throttling.
 
-To turn on cluster manager task throttling, you need to specify to throttle tasks by setting throttling limits. The cluster manager uses the throttling limits to determine whether to reject tasks that the nodes send. For any incoming task, the cluster manager evaluates the total number of tasks of the same type in the pending task queue. If this number exceeds the threshold for this task type, the cluster manager rejects the incoming task. Since the cluster manager throttles tasks based on the task type, rejecting one task does not affect any other tasks of a different type. For example, if the cluster manager rejects a `put-mapping` task, it can still accept a subsequent `create-index` task. When the cluster manager rejects a task, the node performs retries with exponential backoff to resubmit the task to the cluster manager. If retries are unsuccessful within the timeout period, OpenSearch returns a cluster timeout error.
+To turn on cluster manager task throttling, you need to specify to throttle tasks by setting throttling limits. The cluster manager uses the throttling limits to determine whether to reject a task. 
+
+The cluster manager rejects tasks on the task type basis. For any incoming task, the cluster manager evaluates the total number of tasks of the same type in the pending task queue. If this number exceeds the threshold for this task type, the cluster manager rejects the incoming task. Rejecting a task does not affect tasks of a different type. For example, if the cluster manager rejects a `put-mapping` task, it can still accept a subsequent `create-index` task. 
+
+When the cluster manager rejects a task, the node performs retries with exponential backoff to resubmit the task to the cluster manager. If retries are unsuccessful within the timeout period, OpenSearch returns a cluster timeout error.
 
 ## Setting throttling limits
 
@@ -27,7 +31,7 @@ PUT _cluster/settings
 {
   "persistent": {
     "cluster_manager.throttling.thresholds" : {
-      "<task-type-name>" : {
+      "<task-type>" : {
           "value" : <threshold limit>
       }
     }
@@ -39,8 +43,8 @@ The following table describes the `cluster_manager.throttling.thresholds` object
 
 Field name | Description
 :--- | :---
-task-type-name | The name of the task type. See [supported task types](#supported-task-types) for a list of valid values.
-value | The maximum number of tasks of the type `task-type-name` in the cluster manager's pending task queue. Default is `-1` (no task throttling).  
+task-type | The task type. See [supported task types](#supported-task-types) for a list of valid values.
+value | The maximum number of tasks of the type specified by the `task-type` in the cluster manager's pending task queue. Default is `-1` (no task throttling).  
 
 ## Supported task types
 
