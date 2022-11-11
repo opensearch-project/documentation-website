@@ -14,7 +14,7 @@ Introduced 2.4
 You can create custom filters using Query domain-specific language (DSL) search options to refine your k-NN searches. You define the filter criteria within the `knn_vector` field's `filter` subsection in your query. You can use any of the OpenSearch Query DSL query types as a filter. This includes the common query types: `term`, `range`, `regexp`, and `wildcard`, as well as custom query types. To include or exclude results, use Boolean query clauses. You can also specify a query point with the `knn_vector` type and search for nearest neighbors that match your filter criteria.
 To run k-NN queries with a filter, the Lucene search engine and Hierarchical Navigable Small World (HNSW) method are required.
 
-To learn more about how to use Query DSL Boolean query clauses, see [Boolean queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/bool). For more details about the `knn_vector` data type definition, see [k-NN Index]({{site.url}}{{site.baseurl}}/opensearch/search-plugins/knn/knn-index/).
+To learn more about how to use Query DSL Boolean query clauses, see [Boolean queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/bool). For more details about the `knn_vector` data type definition, see [k-NN Index]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/).
 {: .note }
 
 ## How does a k-NN filter work?
@@ -25,12 +25,12 @@ After a filter is applied to a set of documents to be searched, the algorithm de
 
 Lucene also provides the capability to operate its `KnnVectorQuery` across a subset of documents. To learn more about this capability, see the [Apache Lucene Documentation](https://issues.apache.org/jira/browse/LUCENE-10382).
 
-To learn more about all available k-NN search approaches, including approximate k-NN, exact k-NN with script score, and pre-filtering with painless extensions, see [k-NN]({{site.url}}{{site.baseurl}}/opensearch/search-plugins/knn/index/).
+To learn more about all available k-NN search approaches, including approximate k-NN, exact k-NN with script score, and pre-filtering with painless extensions, see [k-NN]({{site.url}}{{site.baseurl}}/search-plugins/knn/index/).
 
 ### Filtered search performance
 
 Filtering that is tightly integrated with the Lucene HNSW algorithm implementation allows you to apply k-NN searches more efficiently, both in terms of relevancy of search results and performance. Consider, for example, an exact search using post-filtering on a large dataset that returns results slowly and does not ensure the required number of results specified by `k`.
-With this new capability, you can create an approximate k-NN search, apply filters, and get the number of results that you need. To learn more about approximate searches, see [Approximate k-NN search]({{site.url}}{{site.baseurl}}/opensearch/search-plugins/knn/approximate-knn/).
+With this new capability, you can create an approximate k-NN search, apply filters, and get the number of results that you need. To learn more about approximate searches, see [Approximate k-NN search]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/).
 
 The HNSW algorithm decides which type of filtering to apply to a search based on the volume of documents and number of `k` points in the index that you search with a filter.
 
@@ -43,7 +43,7 @@ P | The number of documents in the search set after the filter is applied using 
 q | The search vector.
 k | The maximum number of vectors to return in the response.
 
-To learn more about k-NN performance tuning, see [Performance tuning]({{site.url}}{{site.baseurl}}/opensearch/search-plugins/knn/performance-tuning/).
+To learn more about k-NN performance tuning, see [Performance tuning]({{site.url}}{{site.baseurl}}/search-plugins/knn/performance-tuning/).
 
 ## Filter approaches by use case
 
