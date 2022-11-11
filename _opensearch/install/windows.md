@@ -76,7 +76,7 @@ An OpenSearch node in its default configuration (with demo certificates and user
       You should get a response that looks like this:
       ```bat
       {
-         "name" : "SEA-1801411382",
+         "name" : "hostname-here",
          "cluster_name" : "opensearch",
          "cluster_uuid" : "7Nqtr0LrQTOveFcBb7Kufw",
          "version" : {
@@ -138,7 +138,7 @@ An OpenSearch node in its default configuration (with demo certificates and user
       You should get a response that looks like this:
       ```bat
       {
-         "name" : "SEA-1801411382",
+         "name" : "hostname-here",
          "cluster_name" : "opensearch",
          "cluster_uuid" : "7Nqtr0LrQTOveFcBb7Kufw",
          "version" : {
