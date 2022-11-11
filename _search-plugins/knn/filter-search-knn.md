@@ -23,13 +23,13 @@ The OpenSearch k-NN plugin version 2.2 provided support for the Lucene engine to
 
 After a filter is applied to a set of documents to be searched, the algorithm decides whether to perform pre-filtering for an exact k-NN search or modified post-filtering for an approximate search. The approximate search with filtering ensures the top number of closest vectors in the results.
 
-Lucene also provides the capability to operate its `KnnVectorQuery` over a subset of documents. To learn more about this capability, see the [Apache Lucene Documentation](https://issues.apache.org/jira/browse/LUCENE-10382).
+Lucene also provides the capability to operate its `KnnVectorQuery` across a subset of documents. To learn more about this capability, see the [Apache Lucene Documentation](https://issues.apache.org/jira/browse/LUCENE-10382).
 
 To learn more about all available k-NN search approaches, including approximate k-NN, exact k-NN with script score, and pre-filtering with painless extensions, see [k-NN]({{site.url}}{{site.baseurl}}/opensearch/search-plugins/knn/index/).
 
 ### Filtered search performance
 
-Filtering that is tightly integrated with the Lucene HNSW algorithm implementation allows you to apply k-NN searches more efficiently, both in terms of relevancy of search results and performance. Consider, for example, an exact search using post-filtering on a large dataset that returns results slowly and does not guarantee the required number of results specified by `k`.
+Filtering that is tightly integrated with the Lucene HNSW algorithm implementation allows you to apply k-NN searches more efficiently, both in terms of relevancy of search results and performance. Consider, for example, an exact search using post-filtering on a large dataset that returns results slowly and does not ensure the required number of results specified by `k`.
 With this new capability, you can create an approximate k-NN search, apply filters, and get the number of results that you need. To learn more about approximate searches, see [Approximate k-NN search]({{site.url}}{{site.baseurl}}/opensearch/search-plugins/knn/approximate-knn/).
 
 The HNSW algorithm decides which type of filtering to apply to a search based on the volume of documents and number of `k` points in the index that you search with a filter.
@@ -38,8 +38,8 @@ The HNSW algorithm decides which type of filtering to apply to a search based on
 
 | Variable | Description |
 -- | -- | -- |
-N | Number of documents in the index.
-P | Number of documents in the search set after the filter is applied using the formula P <= N.
+N | The number of documents in the index.
+P | The number of documents in the search set after the filter is applied using the formula P <= N.
 q | The search vector.
 k | The maximum number of vectors to return in the response.
 
@@ -49,11 +49,11 @@ To learn more about k-NN performance tuning, see [Performance tuning]({{site.url
 
 Depending on the dataset that you are searching, you might choose a different approach to minimize recall or latency. You can create filters that are:
 
-* Very restrictive — Returns the least number of documents (for example, 2.5%).
-* Somewhat restrictive — Returns some documents (for example, 38%).
-* Not very restrictive — Returns the most documents (for example, 80%).
+* Very restrictive: Returns the lowest number of documents (for example, 2.5%).
+* Somewhat restrictive: Returns some documents (for example, 38%).
+* Not very restrictive: Returns the highest number of documents (for example, 80%).
 
-The restrictive percentage indicates the amount of documents the filter returns for any given document set in an index.
+The restrictive percentage indicates the number of documents the filter returns for any given document set in an index.
 
 Number of Vectors | Filter Restrictive Percentage | k | Recall | Latency
 -- | -- | -- | -- | --
@@ -185,7 +185,7 @@ The Boolean query filter returns the following results in the response:
 
 ### Use case 1: Very restrictive 2.5% filter
 
-A very restrictive filter returns the least amount of documents in your data set. For example, the following filter criteria specifies hotels with feedback ratings less than or equal to 3. This 2.5% filter only returns 1 document:
+A very restrictive filter returns the lowest number of documents in your dataset. For example, the following filter criteria specifies hotels with feedback ratings less than or equal to 3. This 2.5% filter only returns 1 document:
 
 ```json
                 "filter": {
@@ -205,7 +205,7 @@ A very restrictive filter returns the least amount of documents in your data set
 
 ### Use case 2: Somewhat restrictive 38% filter
 
-A somewhat restrictive filter returns 38% of the documents in the doc set that you search. For example, the following filter criteria specifies hotels with parking and feedback ratings less than or equal to 8 and returns 5 documents.
+A somewhat restrictive filter returns 38% of the documents in the data set that you search. For example, the following filter criteria specifies hotels with parking and feedback ratings less than or equal to 8 and returns 5 documents.
 
 ```json
                "filter": {
@@ -250,15 +250,15 @@ A filter that is not very restrictive will return 80% of the documents that you 
 
 ## Overview: How to use filters in a k-NN search
 
-The workflow to search with a filter includes three steps:
-1. Create an index and specify the requirements for Lucene engine and HNSW in the mapping.
+You can search with a filter by following these three steps:
+1. Create an index and specify the requirements for the Lucene engine and HNSW requirements in the mapping.
 1. Add your data to the index.
 1. Search the index and specify these three items in your query:
 * One or more filters defined by Query DSL
-* A vector reference point defined by the `vector` field.
-* The number of matches you want returned with the `k` field.
+* A vector reference point defined by the `vector` field
+* The number of matches you want returned with the `k` field
 
-We use a range query to specify hotel feedback ratings and a term query to require that parking is available. The criteria is processed with Boolean clauses to indicate whether or not the document contains the criteria.
+You can use a range query to specify hotel feedback ratings and a term query to require that parking is available. The criteria is processed with Boolean clauses to indicate whether or not the document contains the criteria.
 
 Consider a dataset that contains 12 documents, a search reference point, and documents that meet two filter criteria.
 
@@ -266,9 +266,9 @@ Consider a dataset that contains 12 documents, a search reference point, and doc
 
 ## Step 1: Create a new index with a Lucene mapping
 
-Before you can do a k-NN search with a filter, you need to create an index, specify the Lucene engine in a mapping, and add data to the index.
+Before you can run a k-NN search with a filter, you need to create an index, specify the Lucene engine in a mapping, and add data to the index.
 
-You need to add a `location` field to represent the location, and specify it as the `knn_vector` type. The most basic vector can be two dimensions. For example:
+You need to add a `location` field to represent the location and specify it as the `knn_vector` type. The most basic vector can be two-dimensional. For example:
 
 ```
   "type": "knn_vector",
@@ -293,7 +293,7 @@ Make sure to specify "hnsw" method and "lucene" engine in the `knn_vector` field
 
 #### Sample request
 
-The following request creates a new index called "hotels-index."
+The following request creates a new index called "hotels-index":
 
 ```json
 PUT /hotels-index
@@ -327,7 +327,7 @@ PUT /hotels-index
 ```
 #### Sample response
 
-Upon success, you should receive "200-OK" status with the following response:
+Upon success, you should receive a "200-OK" status with the following response:
 
 ```json
 {
@@ -343,7 +343,7 @@ Next, add data to your index with a PUT HTTP request. Make sure that the search 
 
 #### Sample request
 
-The following request adds twelve hotel documents that contain criteria such as feedback ratings and whether or not parking is available.  
+The following request adds 12 hotel documents that contain criteria such as feedback ratings and whether or not parking is available:  
 
 ```json
 POST /_bulk
@@ -375,7 +375,7 @@ POST /_bulk
 
 #### Sample response
 
-Upon success, you should receive "200-OK" status with entries for each document ID added to the index. The following response is truncated to only show one document:
+Upon success, you should receive a "200-OK" status with entries for each document ID added to the index. The following response is truncated to only show one document:
 
 ```json
 {
@@ -405,7 +405,7 @@ Upon success, you should receive "200-OK" status with entries for each document 
 
 ## Step 3: Search your data with a filter
 
-Now you can create a k-NN search that specifies filters using Query DSL Boolean clauses. You need to include your reference point to search for nearest neighbors. Provide an x-y coordinate for the point with the `vector` field, such as `"vector": [ 5.0, 4.0]`
+Now you can create a k-NN search that specifies filters by using Query DSL Boolean clauses. You need to include your reference point to search for nearest neighbors. Provide an x-y coordinate for the point within the `vector` field, such as `"vector": [ 5.0, 4.0]`.
 
  To learn more about how to specify ranges with Query DSL, see [Range query]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/term/#range-query).
 {: .note }
