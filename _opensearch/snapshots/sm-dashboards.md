@@ -129,7 +129,7 @@ Use the steps below to take a snapshot manually:
 
     For more information about index settings, see [Index settings]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/#index-settings).
 
-    For a list of settings that you cannot specify to change or ignore, see [Restore snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore#restore-snapshots).
+    For a list of settings that you cannot change or ignore, see [Restore snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore#restore-snapshots).
     
     After choosing the options, select the **Restore snapshot** button.
 1. (Optional) To monitor the restore progress, select **View restore activities** in the confirmation dialog. You can also monitor the restore progress at any time by selecting the **Restore activities in progress** tab, as shown in the following image. 
