@@ -412,7 +412,7 @@ Now you can create a k-NN search that specifies filters using Query DSL Boolean 
 
 #### Sample request
 
-The following request creates a k-NN query that only returns the top hotels rated between 8 and 10 and that provide parking. The filter criteria is indicated with the Query DSL `range` query clause to indicate the range for the feedback ratings and a `term` query clause to indicate "parking."
+The following request creates a k-NN query that only returns the top hotels rated between 8 and 10 and that provide parking. The filter criteria is indicated with the Query DSL `range` query clause to indicate the range for the feedback ratings and a `term` query clause to indicate "parking":
 
 ```json
 POST /hotels-index/_search
