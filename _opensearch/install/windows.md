@@ -76,15 +76,15 @@ An OpenSearch node in its default configuration (with demo certificates and user
       You should get a response that looks like this:
       ```bat
       {
-         "name" : "hostname",
+         "name" : "SEA-1801411382",
          "cluster_name" : "opensearch",
-         "cluster_uuid" : "6XNc9m2gTUSIoKDqJit0PA",
+         "cluster_uuid" : "7Nqtr0LrQTOveFcBb7Kufw",
          "version" : {
             "distribution" : "opensearch",
             "number" : "2.4.0",
             "build_type" : "zip",
-            "build_hash" : "6f6e84ebc54af31a976f53af36a5c69d474a5140",
-            "build_date" : "2022-11-09T00:07:32.109283578Z",
+            "build_hash" : "77ef9e304dd6ee95a600720a387a9735bbcf7bc9",
+            "build_date" : "2022-11-05T05:50:15.404072800Z",
             "build_snapshot" : false,
             "lucene_version" : "9.4.1",
             "minimum_wire_compatibility_version" : "7.10.0",
@@ -100,20 +100,22 @@ An OpenSearch node in its default configuration (with demo certificates and user
 
       The response should look like this:
       ```bat
-      name     component                            version
       hostname opensearch-alerting                  2.4.0.0
       hostname opensearch-anomaly-detection         2.4.0.0
       hostname opensearch-asynchronous-search       2.4.0.0
       hostname opensearch-cross-cluster-replication 2.4.0.0
+      hostname opensearch-geospatial                2.4.0.0
       hostname opensearch-index-management          2.4.0.0
       hostname opensearch-job-scheduler             2.4.0.0
       hostname opensearch-knn                       2.4.0.0
       hostname opensearch-ml                        2.4.0.0
+      hostname opensearch-neural-search             2.4.0.0
       hostname opensearch-notifications             2.4.0.0
       hostname opensearch-notifications-core        2.4.0.0
       hostname opensearch-observability             2.4.0.0
       hostname opensearch-reports-scheduler         2.4.0.0
       hostname opensearch-security                  2.4.0.0
+      hostname opensearch-security-analytics        2.4.0.0
       hostname opensearch-sql                       2.4.0.0
       ```
 
@@ -136,15 +138,15 @@ An OpenSearch node in its default configuration (with demo certificates and user
       You should get a response that looks like this:
       ```bat
       {
-         "name" : "hostname",
+         "name" : "SEA-1801411382",
          "cluster_name" : "opensearch",
-         "cluster_uuid" : "6XNc9m2gTUSIoKDqJit0PA",
+         "cluster_uuid" : "7Nqtr0LrQTOveFcBb7Kufw",
          "version" : {
             "distribution" : "opensearch",
             "number" : "2.4.0",
             "build_type" : "zip",
-            "build_hash" : "6f6e84ebc54af31a976f53af36a5c69d474a5140",
-            "build_date" : "2022-11-09T00:07:32.109283578Z",
+            "build_hash" : "77ef9e304dd6ee95a600720a387a9735bbcf7bc9",
+            "build_date" : "2022-11-05T05:50:15.404072800Z",
             "build_snapshot" : false,
             "lucene_version" : "9.4.1",
             "minimum_wire_compatibility_version" : "7.10.0",
@@ -160,20 +162,22 @@ An OpenSearch node in its default configuration (with demo certificates and user
 
       The response should look like this:
       ```bat
-      name     component                            version
       hostname opensearch-alerting                  2.4.0.0
       hostname opensearch-anomaly-detection         2.4.0.0
       hostname opensearch-asynchronous-search       2.4.0.0
       hostname opensearch-cross-cluster-replication 2.4.0.0
+      hostname opensearch-geospatial                2.4.0.0
       hostname opensearch-index-management          2.4.0.0
       hostname opensearch-job-scheduler             2.4.0.0
       hostname opensearch-knn                       2.4.0.0
       hostname opensearch-ml                        2.4.0.0
+      hostname opensearch-neural-search             2.4.0.0
       hostname opensearch-notifications             2.4.0.0
       hostname opensearch-notifications-core        2.4.0.0
       hostname opensearch-observability             2.4.0.0
       hostname opensearch-reports-scheduler         2.4.0.0
       hostname opensearch-security                  2.4.0.0
+      hostname opensearch-security-analytics        2.4.0.0
       hostname opensearch-sql                       2.4.0.0
       ```
 
