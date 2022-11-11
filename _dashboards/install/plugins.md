@@ -20,19 +20,24 @@ If you don't want to use the all-in-one installation options, you can install th
 
 ## Plugin compatibility
 
+Major, minor, and patch plugin versions must match OpenSearch major, minor, and patch versions in order to be compatible. For example, plugins versions 2.3.0.x work only with OpenSearch 2.3.0.
+{: .note}
+
 | Plugin Name | OpenSearch Dashboards version |
 | :--- | :--- |
-| alertingDashboards | 1.0.0 or newer |
-| anomalyDetectionDashboards | 1.0.0 or newer |
-| ganttChartDashboards | 1.0.0 or newer |
-| indexManagementDashboards | 1.0.0 or newer |
-| notebooksDashboards | 1.0.0 or newer |
-| notificationsDashboards | 2.0.0.0 or newer |
-| observabilityDashboards | 2.0.0.0 or newer |
-| queryWorkbenchDashboards | 1.0.0 or newer |
-| reportsDashboards | 1.0.0 or newer |
-| securityDashboards | 1.0.0 or newer |
-| traceAnalyticsDashboards | 1.0.0 or newer |
+| alertingDashboards | 1.0.0 |
+| anomalyDetectionDashboards | 1.0.0 |
+| dashboardsSearchRelevance | 2.4.0 |
+| ganttChartDashboards | 1.0.0 |
+| indexManagementDashboards | 1.0.0 |
+| notebooksDashboards | 1.0.0 |
+| notificationsDashboards | 2.0.0 |
+| observabilityDashboards | 2.0.0 |
+| queryWorkbenchDashboards | 1.0.0 |
+| reportsDashboards | 1.0.0 |
+| securityAnalyticsDashboards | 2.4.0 |
+| securityDashboards | 1.0.0 |
+| traceAnalyticsDashboards | 1.0.0 |
 
 ## Prerequisites
 

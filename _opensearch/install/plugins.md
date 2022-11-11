@@ -225,9 +225,11 @@ The following plugins are bundled with all OpenSearch distributions except for m
 | Job Scheduler | [opensearch-job-scheduler](https://github.com/opensearch-project/job-scheduler) | 1.0.0 |
 | k-NN | [opensearch-knn](https://github.com/opensearch-project/k-NN) | 1.0.0 |
 | ML Commons | [opensearch-ml](https://github.com/opensearch-project/ml-commons) | 1.3.0 |
+| Neural Search | [neural-search](https://github.com/opensearch-project/neural-search) | 2.4.0 |
 | Observability | [opensearch-observability](https://github.com/opensearch-project/observability) | 1.2.0 |
 | Performance Analyzer | [opensearch-performance-analyzer](https://github.com/opensearch-project/performance-analyzer) | 1.0.0 |
 | Security | [opensearch-security](https://github.com/opensearch-project/security) | 1.0.0 |
+| Security Analytics | [security-analytics](https://github.com/opensearch-project/security-analytics) | 2.4.0 |
 | SQL | [opensearch-sql](https://github.com/opensearch-project/sql) | 1.0.0 |
 
 _<sup>1</sup>Dashboard Notebooks was merged in to the Observability plugin with the release of OpenSearch 1.2.0._
