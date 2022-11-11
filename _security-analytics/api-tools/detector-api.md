@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Management APIs
+title: Detector APIs
 parent: API tools
 nav_order: 35
 ---
