@@ -18,7 +18,7 @@ Generally speaking, the installation of OpenSearch from a zip archive can be bro
 1. **Configure OpenSearch for your environment.**
    -  Apply basic settings to OpenSearch and start using it in your environment.
 
-The Windows OpenSearch archive is a self-contained directory with everything needed to run OpenSearch, including an integrated Java Development Kit (JDK). If you have your own Java installation and set the environment variable `JAVA_HOME`, OpenSearch will use that installation if the `OPENSEARCH_JAVA_HOME` environment variable is not set. 
+The Windows OpenSearch archive is a self-contained directory with everything needed to run OpenSearch, including an integrated Java Development Kit (JDK). If you have your own Java installation and set the environment variable `JAVA_HOME`, OpenSearch will use that installation if the `OPENSEARCH_JAVA_HOME` environment variable is not set. To learn how to set the `OPENSEARCH_JAVA_HOME` environment variable, see [Step 3: Set up OpenSearch in your environment](#step-3-set-up-opensearch-in-your-environment).
 
 ## Prerequisites
 
@@ -230,7 +230,13 @@ Before modifying any configuration files, it's always a good idea to save a back
     ```
    1. Save your changes and close the file.
 1. Specify the location of the included JDK. 
-   - Set the `OPENSEARCH_JAVA_HOME` environment variable to <span style="white-space: nowrap">`\path\to\opensearch-{{site.opensearch_version}}\jdk`.</span>
+    1. In the search box next to **Start** on the taskbar, enter `edit environment variables for your account` or `edit the system environment variables`. To edit the system environment variables, you need admin rights. User environment variables take precedence over system environment variables.
+    1. Select **Edit environment variables for your account** or **Edit the system environment variables**. 
+    1. If the **System Properties** dialog comes up, in the **Advanced** tab, select **Environment Variables**.
+    1. Under **User variables** or **System variables**, select **New**.
+    1. In **Variable name**, enter `OPENSEARCH_JAVA_HOME`.
+    1. In **Variable value**, enter `\path\to\opensearch-{{site.opensearch_version}}\jdk`.
+    1. Select **OK** to close all dialogs.
 
 ## Plugin compatibility
 
