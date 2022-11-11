@@ -71,7 +71,7 @@ An OpenSearch node in its default configuration (with demo certificates and user
 1. Open a new command prompt and send requests to the server to verify that OpenSearch is running. Note the use of the `--insecure` flag, which is required because the TLS certificates are self-signed.
    - Send a request to port 9200.
       ```bat
-      curl -X GET https://localhost:9200 -u 'admin:admin' --insecure
+      curl.exe -X GET https://localhost:9200 -u 'admin:admin' --insecure
       ```
       You should get a response that looks like this:
       ```bat
@@ -95,7 +95,7 @@ An OpenSearch node in its default configuration (with demo certificates and user
       ```
    - Query the plugins endpoint.
       ```bat
-      curl -X GET https://localhost:9200/_cat/plugins?v -u 'admin:admin' --insecure
+      curl.exe -X GET https://localhost:9200/_cat/plugins?v -u 'admin:admin' --insecure
       ```
 
       The response should look like this:
@@ -133,7 +133,7 @@ An OpenSearch node in its default configuration (with demo certificates and user
 1. Open a new command prompt and send requests to the server to verify that OpenSearch is running. Because the security plugin has been disabled, you will be sending commands using `HTTP` rather than `HTTPS`.
    - Send a request to port 9200.
       ```bat
-      curl -X GET http://localhost:9200
+      curl.exe -X GET http://localhost:9200
       ```
       You should get a response that looks like this:
       ```bat
@@ -157,7 +157,7 @@ An OpenSearch node in its default configuration (with demo certificates and user
       ```
    - Query the plugins endpoint.
       ```bat
-      curl -X GET http://localhost:9200/_cat/plugins?v
+      curl.exe -X GET http://localhost:9200/_cat/plugins?v
       ```
 
       The response should look like this:
