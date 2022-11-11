@@ -7,21 +7,21 @@ has_children: false
 has_math: true
 ---
 
-# Search for k-NN with filters
+# Search with k-NN filters
 Introduced 2.4
 {: .label .label-purple }
 
-You can create custom filters using Query DSL search options to refine your k-NN searches. You define the filter criteria within the `knn_vector` field's `filter` subsection in your query. You can use any of the OpenSearch Query DSL query types as a filter. This includes the common query types: `term`, `range`, `regexp`, `wildcard`, as well as custom query types. To include or exclude results, use Boolean query clauses. You also specify a query point with the `knn_vector` type and search for nearest neighbors that match your filter criteria.
+You can create custom filters using Query domain-specific language (DSL) search options to refine your k-NN searches. You define the filter criteria within the `knn_vector` field's `filter` subsection in your query. You can use any of the OpenSearch Query DSL query types as a filter. This includes the common query types: `term`, `range`, `regexp`, and `wildcard`, as well as custom query types. To include or exclude results, use Boolean query clauses. You can also specify a query point with the `knn_vector` type and search for nearest neighbors that match your filter criteria.
 To run k-NN queries with a filter, the Lucene search engine and Hierarchical Navigable Small World (HNSW) method are required.
 
-To learn more about how to use Query DSL Boolean query clauses, see [Boolean queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/bool). To get more details about the `knn_vector` data type definition, see [k-NN Index]({{site.url}}{{site.baseurl}}/opensearch/search-plugins/knn/knn-index/).
+To learn more about how to use Query DSL Boolean query clauses, see [Boolean queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/bool). For more details about the `knn_vector` data type definition, see [k-NN Index]({{site.url}}{{site.baseurl}}/opensearch/search-plugins/knn/knn-index/).
 {: .note }
 
 ## How does a k-NN filter work?
 
-The OpenSearch k-NN plugin version 2.2 provided support for the Lucene engine to process k-NN searches. The Lucene engine provides a search that is based on the HNSW algorithm to represent a multi-layered graph. The OpenSearch k-NN plugin version 2.4 can incorporate filters for searches based on Lucene 9.4.
+The OpenSearch k-NN plugin version 2.2 introduced support for the Lucene engine to process k-NN searches. The Lucene engine provides a search that is based on the HNSW algorithm to represent a multi-layered graph. The OpenSearch k-NN plugin version 2.4 can incorporate filters for searches based on Lucene 9.4.
 
-After a filter is applied to a set of documents to be searched, the algorithm decides whether to perform pre-filtering for an exact k-NN search or modified post-filtering for an approximate search. The approximate search with filtering guarantees the top number of closest vectors in the results.
+After a filter is applied to a set of documents to be searched, the algorithm decides whether to perform pre-filtering for an exact k-NN search or modified post-filtering for an approximate search. The approximate search with filtering ensures the top number of closest vectors in the results.
 
 Lucene also provides the capability to operate its `KnnVectorQuery` over a subset of documents. To learn more about this capability, see the [Apache Lucene Documentation](https://issues.apache.org/jira/browse/LUCENE-10382).
 
@@ -412,7 +412,7 @@ Now you can create a k-NN search that specifies filters using Query DSL Boolean 
 
 #### Sample request
 
-The following request creates a k-NN query that only returns the top hotels rated between 8 and 10 and that provide parking. The filter criteria is indicated with the Query DSL `range` query clause to indicate the range for the feedback ratings and a `term` query clause to indicate "parking."
+The following request creates a k-NN query that only returns the top hotels rated between 8 and 10 that also provide parking. The filter criteria to indicate the range for the feedback ratings uses a `range` query and a `term` query to indicate "parking."
 
 ```json
 POST /hotels-index/_search
@@ -521,11 +521,11 @@ The following response indicates that only three hotels met the filter criteria:
 
 ## Additional complex filter query
 
-Depending on how restrictive you want your filter to be, you can add multiple query types to a single request, such as `term`, `wildcard`, `regexp`, and `range`. You can then filter out the search results with the Boolean clauses `must`, `should`, and `must_not`.
+Depending on how restrictive you want your filter to be, you can add multiple query types to a single request, such as `term`, `wildcard`, `regexp`, or `range`. You can then filter out the search results with the Boolean clauses `must`, `should`, and `must_not`.
 
 #### Sample request
 
-The following request returns hotels that provide parking. This request illustrates alternate mechanisms to obtain the parking filter criteria. It uses a regular expression for the value `true`, a term query for the key-value pair `"parking":"true"`, a wildcard for the characters that spell "true", and the `must_not` clause to eliminate hotels with "parking" set to `false`.
+The following request returns hotels that provide parking. This request illustrates multiple alternative mechanisms to obtain the parking filter criteria. It uses a regular expression for the value `true`, a term query for the key-value pair `"parking":"true"`, a wildcard for the characters that spell "true", and the `must_not` clause to eliminate hotels with "parking" set to `false`.
 
 ```json
 POST /hotels-index/_search
@@ -585,7 +585,7 @@ POST /hotels-index/_search
 ```
 #### Sample response
 
-The following response indicates a few hits for the search with filters:
+The following response indicates a few results for the search with filters:
 
 ```json
 {
