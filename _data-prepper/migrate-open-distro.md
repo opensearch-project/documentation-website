@@ -1,12 +1,7 @@
 ---
 layout: default
 title: Migrating from Open Distro Data Prepper
-parent: Data Prepper
-<<<<<<< HEAD:_data-prepper/migrate-open-distro.md
-nav_order: 11
-=======
 nav_order: 2
->>>>>>> main:_clients/data-prepper/migrate-open-distro.md
 ---
 
 # Migrating from Open Distro Data Prepper
