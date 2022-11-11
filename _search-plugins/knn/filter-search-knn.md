@@ -19,7 +19,7 @@ To learn more about how to use Query DSL Boolean query clauses, see [Boolean que
 
 ## How does a k-NN filter work?
 
-The OpenSearch k-NN plugin version 2.2 provided support for the Lucene engine to process k-NN searches. The Lucene engine provides a search that is based on the HNSW algorithm to represent a multi-layered graph. The OpenSearch k-NN plugin version 2.4 can incorporate filters for searches based on Lucene 9.4.
+The OpenSearch k-NN plugin version 2.2 provided support for the Lucene engine in order to process k-NN searches. The Lucene engine provides a search that is based on the HNSW algorithm in order to represent a multi-layered graph. The OpenSearch k-NN plugin version 2.4 can incorporate filters for searches based on Lucene 9.4.
 
 After a filter is applied to a set of documents to be searched, the algorithm decides whether to perform pre-filtering for an exact k-NN search or modified post-filtering for an approximate search. The approximate search with filtering guarantees the top number of closest vectors in the results.
 
