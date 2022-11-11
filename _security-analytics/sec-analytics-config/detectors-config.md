@@ -15,7 +15,7 @@ Defining a new detector involves naming the detector, selecting a data source an
 
 1. On the Detectors page, select the **Create detector** button. The Edit detector page opens.
 1. Give the detector a name and, as an option, add a description for the detector. 
-1. In the Data source section, select the drop-down arrow and select a source for the log data.
+1. In the Data source section, select the dropdown arrow and select a source for the log data.
 1. In the threat detection type section, select the data type. The Sigma security rules associated with the log data are automatically populated in the Detection rules section below it.
 <img src="{{site.url}}{{site.baseurl}}/images/Security/detector_rules.png" alt="Selecting threat detector type to auto-populate rules">
 
@@ -38,7 +38,7 @@ Defining a new detector involves naming the detector, selecting a data source an
 
 Field mapping matches field names for the rule with field names from the log being used to provide data. The mappings are automatically applied once the detector is defined in previous steps. This page offers the user the option to map log-specific field names to the internal rule field names.
 
-For example, if a user preferred to have the log field name UserID rather than EventID correspond to the event_uid rule field name, the user would use the **Log field name** dropdown menu to select **UserID**.
+For example, if you preferr to have the log field name UserID rather than EventID correspond to the event_uid rule field name, you can use the **Log field name** dropdown menu to select **UserID**.
 
 <img src="{{site.url}}{{site.baseurl}}/images/Security/field_map.png" alt="Rule and log field mapping example">
 
@@ -55,12 +55,12 @@ To setup an alert for the detector at this stage of detector creation, continue 
 1. In the **Alert trigger** section, give the alert a trigger name.
 1. To define rule matches for the alert, select security rules, severity level, and tags. 
 <img src="{{site.url}}{{site.baseurl}}/images/Security/alert_rules.png" alt="Rules used to define an alert">
-* Select one rule or multiple rules that will trigger the alert. Put the cursor in the Rule names field and type a name to search for it. To remove a rule name, select the **X** beside the name. To remove all rule names, select the **X** beside the dropdown menu's arrow.
-<img src="{{site.url}}{{site.baseurl}}/images/Security/rule_name_delete.png" alt="Deletes all selected rules">
+* Select one rule or multiple rules that will trigger the alert. Put the cursor in the Rule names field and type a name to search for it. To remove a rule name, select the **X** beside the name. To remove all rule names, select the **X** beside the dropdown menu's down arrow.
+<br><img src="{{site.url}}{{site.baseurl}}/images/Security/rule_name_delete.png" alt="Deletes all selected rules">
 * Select one or more rule severities as conditions for the alert.
 * Select from a list of tags to include as conditions for the alert.
 1. To define a notification for the alert, assign an alert severity, select a channel for the notification, and customize a message generated for the alert.
-<img src="{{site.url}}{{site.baseurl}}/images/Security/alert_notifiy.png" alt="Notification settings for the alert">
+<img src="{{site.url}}{{site.baseurl}}/images/Security/alert_notify.png" alt="Notification settings for the alert">
 * Assign a level of severity for the alert that gives the recipient an indication of its urgency.
 * Select a channel for the notification. Examples include Slack, Chime, or email. Select the  **Manage channels** link to the right of the field to link the notification to a preferred channel.
 * Select the **Show notify message** label to expand message preferences. You can add a subject for the message and a note to inform recipients of the nature of the message.

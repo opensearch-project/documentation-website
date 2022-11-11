@@ -14,8 +14,8 @@ Security anlaytics includes a number of APIs to help administrators maintain and
 
 The APIs for security analytics are separated into the following categories:
 
-* [Detector APIs]({{site.url}}{{site.baseurl}}/_security-analytics/api-tools/detector-api.md/tls/)
-* [Rules APIs]({{site.url}}{{site.baseurl}}/_security-analytics/api-tools/rule-api.md/tls/)
-* [Mappings APIs]({{site.url}}{{site.baseurl}}/_security-analytics/api-tools/mappings-api.md/tls/)
-* [Alerts and findings APIs]({{site.url}}{{site.baseurl}}/_security-analytics/api-tools/alert-finding-api.md/tls/)
+* [Detector APIs]({{site.url}}{{site.baseurl}}/_security-analytics/api-tools/detector-api.md/)
+* [Rules APIs]({{site.url}}{{site.baseurl}}/_security-analytics/api-tools/rule-api.md/)
+* [Mappings APIs]({{site.url}}{{site.baseurl}}/_security-analytics/api-tools/mappings-api.md/)
+* [Alerts and findings APIs]({{site.url}}{{site.baseurl}}/_security-analytics/api-tools/alert-finding-api.md/)
 
