@@ -19,7 +19,7 @@ To learn more about how to use Query DSL Boolean query clauses, see [Boolean que
 
 ## How does a k-NN filter work?
 
-The OpenSearch k-NN plugin version 2.2 introduced support for the Lucene engine to process k-NN searches. The Lucene engine provides a search that is based on the HNSW algorithm to represent a multi-layered graph. The OpenSearch k-NN plugin version 2.4 can incorporate filters for searches based on Lucene 9.4.
+The OpenSearch k-NN plugin version 2.2 provided support for the Lucene engine to process k-NN searches. The Lucene engine provides a search that is based on the HNSW algorithm to represent a multi-layered graph. The OpenSearch k-NN plugin version 2.4 can incorporate filters for searches based on Lucene 9.4.
 
 After a filter is applied to a set of documents to be searched, the algorithm decides whether to perform pre-filtering for an exact k-NN search or modified post-filtering for an approximate search. The approximate search with filtering ensures the top number of closest vectors in the results.
 
@@ -412,7 +412,7 @@ Now you can create a k-NN search that specifies filters using Query DSL Boolean 
 
 #### Sample request
 
-The following request creates a k-NN query that only returns the top hotels rated between 8 and 10 that also provide parking. The filter criteria to indicate the range for the feedback ratings uses a `range` query and a `term` query to indicate "parking."
+The following request creates a k-NN query that only returns the top hotels rated between 8 and 10 and that provide parking. The filter criteria is indicated with the Query DSL `range` query clause to indicate the range for the feedback ratings and a `term` query clause to indicate "parking."
 
 ```json
 POST /hotels-index/_search
