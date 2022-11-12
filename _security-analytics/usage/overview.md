@@ -30,14 +30,17 @@ The Findings and alert count section provides a graph showing data on the latest
 
 ## Top recent alerts
 
+Top recent alerts displays recent alerts by time, trigger name, and alert severity. Select **View alerts** to go to the Alerts page.
+
 ## Top recent findings
+
+Top recent findings displays recent findings by time, rule name, rule severity, and detector. Select **View all findings** to go to the Findings page.
 
 ## Most frequent detection rules
 
+This section provides a graphical representation of detection rules that trigger findings most often and how they compare to others as a percentage of the whole. Rules are also listed to the right side of the graph.
+
 ## Detectors
 
-
-
-
-
+Detectors displays a list of available detectors by detector name, status (active/inactive), and log type. Select **View all detectors** to go to the Detectors page. Select **Create detector** to go directly to the Define detector page.
 
