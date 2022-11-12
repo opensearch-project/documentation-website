@@ -13,7 +13,7 @@ Creating detectors includes
 
 Defining a new detector involves naming the detector, selecting a data source and detector type, and specifying a detector schedule. You can also create alerts for the detector at this stage, although there are options to create alerts in other areas of the interface. Follow the steps in this section to define a new detector.
 
-1. On the Detectors page, select the **Create detector** button. The Edit detector page opens.
+1. On the Detectors page, select the **Create detector** button. The Define detector page opens.
 1. Give the detector a name and, as an option, add a description for the detector. 
 1. In the Data source section, select the dropdown arrow and select a source for the log data.
 1. In the threat detection type section, select the data type. The Sigma security rules associated with the log data are automatically populated in the Detection rules section below it.
@@ -25,7 +25,7 @@ Defining a new detector involves naming the detector, selecting a data source an
 1. In the **Detection rules** section, specify only those rules you want mapped to the detector.
 <img src="{{site.url}}{{site.baseurl}}/images/Security/select_rules.png" alt="Select or deselect rules that detector will use for findings">
 * Use the toggle to the left of the rule name to select or deselct rules.
-* Use the **Log type**, **Rule severity**, and **Library** drop-downs to filter the rules you want to select from. 
+* Use the **Log type**, **Rule severity**, and **Source** dropdown menus to filter the rules you want to select from. 
 * Use the **Search** bar to search for specific rules.
 
     To quickly select one or more known rules and dismiss others, first deselect all rules by moving the **rule name** toggle to the left, then search for your target rule names and select each individually by moving its toggle to the right.
