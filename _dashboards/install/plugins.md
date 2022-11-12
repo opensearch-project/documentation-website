@@ -23,27 +23,28 @@ If you don't want to use the all-in-one installation options, you can install th
 Major, minor, and patch plugin versions must match OpenSearch major, minor, and patch versions in order to be compatible. For example, plugins versions 2.3.0.x work only with OpenSearch 2.3.0.
 {: .note}
 
-| Plugin Name | OpenSearch Dashboards version |
-| :--- | :--- |
-| alertingDashboards | 1.0.0 |
-| anomalyDetectionDashboards | 1.0.0 |
-| dashboardsSearchRelevance | 2.4.0 |
-| ganttChartDashboards | 1.0.0 |
-| indexManagementDashboards | 1.0.0 |
-| notebooksDashboards | 1.0.0 |
-| notificationsDashboards | 2.0.0 |
-| observabilityDashboards | 2.0.0 |
-| queryWorkbenchDashboards | 1.0.0 |
-| reportsDashboards | 1.0.0 |
-| securityAnalyticsDashboards | 2.4.0 |
-| securityDashboards | 1.0.0 |
-| traceAnalyticsDashboards | 1.0.0 |
+The following table lists available OpenSearch Dashboards plugins.
+
+| Plugin Name | Repository |Earliest Available Version |
+| :--- | :--- | :--- |
+| Alerting | [alerting-dashboards-plugin](https://github.com/opensearch-project/alerting-dashboards-plugin) | 1.0.0 |
+| Anomaly Detection | [anomaly-detection-dashboards-plugin](https://github.com/opensearch-project/anomaly-detection-dashboards-plugin) | 1.0.0 |
+| Search Relevance | [dashboards-search-relevance](https://github.com/opensearch-project/dashboards-search-relevance) | 2.4.0 |
+| Gantt Chart | [gantt-chart](https://github.com/opensearch-project/dashboards-visualizations/tree/main/gantt-chart) | 1.0.0 |
+| Index Management | [index-management-dashboards-plugin](https://github.com/opensearch-project/index-management-dashboards-plugin) | 1.0.0 |
+| Notebooks | [dashboards-notebooks](https://github.com/opensearch-project/dashboards-notebooks) | 1.0.0 |
+| Notifications | [notifications](https://github.com/opensearch-project/notifications) | 2.0.0 |
+| Observability | [dashboards-observability](https://github.com/opensearch-project/observability/tree/main/dashboards-observability) | 2.0.0 |
+| Query Workbench | [query-workbench](https://github.com/opensearch-project/sql/tree/main/workbench) | 1.0.0 |
+| Reports | [dashboards-reports](https://github.com/opensearch-project/dashboards-reports) | 1.0.0 |
+| Security Analytics | [security-analytics-dashboards-plugin](https://github.com/opensearch-project/security-analytics-dashboards-plugin)| 2.4.0 |
+| Security | [security-dashboards-plugin](https://github.com/opensearch-project/security-analytics-dashboards-plugin) | 1.0.0 |
 
 ## Prerequisites
 
 - A compatible OpenSearch cluster
 - The corresponding OpenSearch plugins [installed on that cluster]({{site.url}}{{site.baseurl}}/opensearch/install/plugins/)
-- The corresponding version of [OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/) (e.g. OpenSearch Dashboards 1.0.0 works with OpenSearch 1.0.0)
+- The corresponding version of [OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/) (for example, OpenSearch Dashboards 1.0.0 works with OpenSearch 1.0.0)
 
 
 ## Install
