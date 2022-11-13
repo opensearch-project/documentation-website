@@ -7,17 +7,17 @@ nav_order: 40
 
 # Working with alerts
 
-The Alerts window allows you to view and work with findings in two ways:
-* By count, date, and log type or rule severity in a bar graph.
-* And in a list by time, finding ID, rule name, and other details.
+The Alerts window allows you to view and work with alerts in two ways:
+* By count, date, and alert statis or alert severity in a bar graph.
+* And in a list by time of the alert, the alert's trigger name, which detector triggered it, and other details.
 
-You can select the **Refresh** button at any time to refresh information on the Findings page.
+You can select the **Refresh** button at any time to refresh information on the Alerts page.
 
 #######image of window######
 
-## The Findings graph
+## The Alerts graph
 
-The findings graph can display findings by log type or rule severity. Use the **Group by** dropdown menu to specify either log type or rule severity.
+The Alerts graph can display alerts by their status or severity. Use the **Group by** dropdown menu to specify either Alert status or Alert severity.
 
 To specify the date range you would like the graph to display, first select the calendar dropdown menu. The date selector window opens.
 <img src="{{site.url}}{{site.baseurl}}/images/Security/find-date-pick.png" alt="Date selector for findings graph">
@@ -37,14 +37,8 @@ When one of the commonly used windows of time is selected, you can select the **
 
 As one more alternative, you can select an option from the **Recently used date ranges** section to go back to a previous setting.
 
-## The Findings list
+## The Alerts list
 
-The Findings list displays all findings according to time of the finding, the finding ID, the rule name that generated the finding, the detector that captured the finding, and other details.
-<img src="{{site.url}}{{site.baseurl}}/images/Security/finding-list.png" alt="A list of all findings">
-Use the **Rule severity** dropdown menu to filter the list of findings by severity. Use the **log type** dropdown menu to filter the list by log type.
-Each finding in the list includes a finding ID. You can select the ID to open the Finding details pane, which describes the finding by parameters defined when creating the detector.
-The Actions column includes two options for each finding:
-* The diagonal arrow provides another way to open the Findings detail pane.
-* The bell icon allows you to open the Create detector alert trigger pane, where you can quickly set up an alert for the specific finding and modify rules and their conditions if need be.
-See [Working with alerts]({{site.url}}{{site.baseurl}}/_security-analytics/usage/alerts.md/) to learn about options on the Alerts page.
+The Alerts list displays all findings according to the time when the alert was triggered, the alert's trigger name, the detector that triggered the alert, the alert status, and alert severity.
+Use the **Alert severity** dropdown menu to filter the list of alerts by severity. Use the **Status** dropdown menu to filter the list by alert status.
 
