@@ -46,7 +46,7 @@ Log types are specified during the creation of detectors, including steps for ma
 
 ### Rules
 
-Rules, or threat detection rules, define the conditional logic applied to ingested log data that allows the system to identify an event of interest. Security analytics uses pre-packaged, open source [Sigma rules](https://github.com/SigmaHQ/sigma) as a starting point for describing relevant log events. But with its flexible format, Sigma rules easily let security analytics give users options to customize rules. Rules can be customized using either the Dashboards interface or the API.
+Rules, or threat detection rules, define the conditional logic applied to ingested log data that allows the system to identify an event of interest. Security analytics uses pre-packaged, open source [Sigma rules](https://github.com/SigmaHQ/sigma) as a starting point for describing relevant log events. But with its flexible format, Sigma rules enable the security analytics platform to provide users with options to easily customize rules. You can customize rules using either the Dashboards interface or the API.
 
 For information on configuring rules, see [Creating rules](#rules-config).
 

@@ -10,15 +10,35 @@ nav_order: 50
 
 The following APIs can be used for tasks related to alerts and findings.
 
+
 ## Get alerts
 
-Provides an option for fetching alerts related to a detector.
+Provides an option for retrieving alerts related to a specific detector type or detector ID.
+
+### Parameters
+
+You can specify the following parameters when requesting an alert.
+
+Parameter | Description 
+:--- | :---
+`detectorId` | The ID of the detector used to fetch alerts. Optional when the `detectorType` is specified. Otherwise required.
+`detectorType` | The type of detector used to fetch alerts. Optional when the `detectorId` is specified. Otherwise required.
+`severityLevel` | Used to filter by alert severity level. Optional.
+`alertState` | Used to filter by alert state. Possible values: ACTIVE, ACKNOWLEDGED, COMPLETED, ERROR, DELETED. Optional.
+`sortString` | This field specifies which string security analytics uses to sort the alerts. Optional.
+`sortOrder` | The order used to sort the list of findings, either `ascending` or `descending`. Optional.
+`missing` | A list of fields for which there are no found alias mappings. Optional.
+`size` | An optional limit for the maximum number of results returned in the response. Optional.
+`startIndex` | The pagination indicator. Optional.
+`searchString` | The alert attribute you want returned in the search. Optional.
+
+### Sample request
 
 ```json
-GET _plugins/_security_analytics/detectors/alerts?detectorType=
+GET /_plugins/_security_analytics/alerts?detectorType=windows
 ```
 
-## Sample request
+### Sample response
 
 ```json
 {
@@ -46,36 +66,11 @@ GET _plugins/_security_analytics/detectors/alerts?detectorType=
         "acknowledged_time": "2022-10-13T20:39:04.995028Z"
     }],
     "total_alerts": 1,
-    "detectorType": "detector_12345"
+    "detectorType": "windows"
 }
 ```
 
-See issue 55  details
-
-
-### Parameters
-
-You can specify the following parameters when requesting an alert.
-
-Parameter | Type | Description 
-:--- | :--- |:--- |:--- |
-`detectorType` | The type of detector used to fetch alerts. Optional when the `detector_id` is specified. Otherwise required.
-`total_alerts` | Integer | Total number of alerts that match the request.
-`alerts` | Object | Object that provides fields to specify the alert.
-`alerts`<br>&nbsp;&nbsp;&nbsp;&nbsp;`detector_id` | String | ID for the detector used to fetch alerts. Optional when the `detectorType` is specified. Otherwise required.
-
-`type` | String | The type is specified as "detector".
-`name` | String | Name of the detector.
-`detector_type` | Object | The log type that defines the detector.
-`schedule`<br>&nbsp;&nbsp;&nbsp;&nbsp;`period` | Object | the frequency at which the detector runs in repetition.
-`schedule`<br>&nbsp;&nbsp;&nbsp;&nbsp;`period`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`interval` | Integer | The duration of the period expressed as a number.
-`schedule`<br>&nbsp;&nbsp;&nbsp;&nbsp;`period`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`unit` | String | The unit of measure for the interval.
-`inputs` | Object | TBD
-`inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;`detector_inputs` | Object | TBD
-`inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;`detector_inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`description` | String | TBD
-`inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;`detector_inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`custom_rules` | Object | TBD
-
-### Response fields
+#### Response fields
 
 Alerts persist until you resolve the root cause and have the following states:
 
@@ -88,10 +83,85 @@ State | Description
 `DELETED` | Someone deleted the detector or trigger associated with this alert while the alert was ongoing.
 
 
-
 ## Acknowledge alerts
+
+```json
+POST /_plugins/_security_analytics/<detector_id>/_acknowledge/alerts
+Request body {
+    alerts : ["alertId1", "alertId2"]
+}
+{
+
+}
+```
+
 
 ## Get findings
 
+The Get findings API based on detector attributes.
 
+### Sample request
+
+```json
+GET /_plugins/_security_analytics/findings/_search?*detectorType*=
+{
+    "total_findings":2,
+    "findings":[
+       {
+            "detectorId":"12345",
+            "id":"2b9663f4-ae77-4df8-b84f-688a0195723b",
+            "related_doc_ids":[
+                "5"
+            ],
+            "index":"sbwhrzgdlg",
+            "queries":[
+                {
+                    "id":"f1bff160-587b-4500-b60c-ab22c7abc652",
+                    "name":"3",
+                    "query":"test_field:\"us-west-2\"",
+                    "tags":[
+                        
+                    ]
+                }
+            ],
+            "timestamp":1664401088804,
+            "document_list":[
+                {
+                    "index":"sbwhrzgdlg",
+                    "id":"5",
+                    "found":true,
+                    "document":"{\n            \"message\" : \"This is an error from IAD region\",\n            \"test_strict_date_time\" : \"2022-09-28T21:38:02.888Z\",\n            \"test_field\" : \"us-west-2\"\n        }"
+                }
+            ]
+        },
+        {
+            "detectorId":"12345",
+            "id":"f43a2701-0ef5-4931-8254-bdf510f73952",
+            "related_doc_ids":[
+                "1"
+            ],
+            "index":"sbwhrzgdlg",
+            "queries":[
+                {
+                    "id":"f1bff160-587b-4500-b60c-ab22c7abc652",
+                    "name":"3",
+                    "query":"test_field:\"us-west-2\"",
+                    "tags":[
+                        
+                    ]
+                }
+            ],
+            "timestamp":1664401088746,
+            "document_list":[
+                {
+                    "index":"sbwhrzgdlg",
+                    "id":"1",
+                    "found":true,
+                    "document":"{\n            \"message\" : \"This is an error from IAD region\",\n            \"test_strict_date_time\" : \"2022-09-28T21:38:02.888Z\",\n            \"test_field\" : \"us-west-2\"\n        }"
+                }
+            ]
+        }
+    ]
+}
+```
 

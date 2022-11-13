@@ -19,7 +19,7 @@ You can select the **Refresh** button at any time to refresh information on the 
 
 The Alerts graph can display alerts by their status or severity. Use the **Group by** dropdown menu to specify either Alert status or Alert severity.
 
-To specify the date range you would like the graph to display, first select the calendar dropdown menu. The date selector window opens.
+To specify the date range you would like the graph to display, first select the calendar dropdown arrow. The date selector window opens.
 <img src="{{site.url}}{{site.baseurl}}/images/Security/find-date-pick.png" alt="Date selector for findings graph">
 
 You can use the **Quick select** settings to specify an exact window of time.
