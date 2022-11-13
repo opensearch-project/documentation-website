@@ -28,7 +28,7 @@ You can use the **Quick select** settings to specify an exact window of time.
 * Select a unit of time in the third dropdown menu. Available options are: seconds, minutes, hours, days, weeks, months, years.
 Select the **Apply** button to apply the range of dates to the graph. Information on the graph changes accordingly.
 <img src="{{site.url}}{{site.baseurl}}/images/Security/quickset.png" alt="Quick select settings example">
-<br>You can use the left and right arrows to move the window of time behind the current range of dates or ahead by the current range of dates. When you use these arrows, the start date and end date appear in the date range field. You can then select each one to set an absolute, relative, or current date and time. For absolute and relative changes, select the **Update** button to apply the changes.
+<br>You can use the left and right arrows to move the window of time behind the current range of dates or ahead of the current range of dates. When you use these arrows, the start date and end date appear in the date range field. You can then select each one to set an absolute, relative, or current date and time. For absolute and relative changes, select the **Update** button to apply the changes.
 <img src="{{site.url}}{{site.baseurl}}/images/Security/date-pick.png" alt="Altering date range">
 
 As an alternative, you can select an option in the **Commonly used** section (see the preceding image of the calendar dropdown menu) to conveniently set a window of time. Options include date ranges such as **Today**, **Yesterday**, **this week**, and **week to date**. 
