@@ -24,9 +24,9 @@ While prefix matching happens at query time, the other three methods happen at i
 
 ## Prefix matching
 
-Prefix matching finds documents that match the last term in the query string.
+Prefix matching finds documents that match the last term in a query string.
 
-For example, assume that the user types “qui” into a search UI. To autocomplete this phrase, use the `match_phrase_prefix` query to for search all `text_entry` field values that begin with the prefix "qui":
+For example, assume that the user types “qui” into a search UI. To autocomplete this phrase, use the `match_phrase_prefix` query to search for all `text_entry` field values that begin with the prefix "qui":
 
 ```json
 GET shakespeare/_search
@@ -44,7 +44,7 @@ GET shakespeare/_search
 
 To make the word order and relative positions flexible, specify a `slop` value. To learn about the `slop` option, see [Other optional query fields]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text#other-optional-query-fields).
 
-Prefix matching doesn’t require any special mappings. It works with your data as-is.
+Prefix matching doesn’t require any special mappings. It works with your data as is.
 However, it’s a fairly resource-intensive operation. A prefix of `a` could match hundreds of thousands of terms and not be useful to your user.
 To limit the impact of prefix expansion, set `max_expansions` to a reasonable number:
 
@@ -63,10 +63,10 @@ GET shakespeare/_search
 }
 ```
 
-To learn about the `max_expansions` option, see [Other optional query fields]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text#other-optional-query-fields)..
+To learn about the `max_expansions` option, see [Other optional query fields]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text#other-optional-query-fields).
 
 The ease of implementing query-time autocomplete comes at the cost of performance.
-When implementing this feature on a large scale, we recommend an index-time solution. With an index-time solution, you might experience slower indexing, but it’s a price you pay only once and not for every query. The edge n-gram, search-as-you-type, and completion suggester methods are index time.
+When implementing this feature on a large scale, we recommend an index-time solution. With an index-time solution, you might experience slower indexing, but it’s a price you pay only once and not for every query. The edge n-gram, search-as-you-type, and completion suggester methods are index-time solutions.
 
 ## Edge n-gram matching
 
@@ -242,7 +242,7 @@ Alternatively, specify the `search_analyzer` in the mapping itself:
 
 ## Completion suggester
 
-The completion suggester accepts a list of suggestions and builds them into a finite-state transducer (FST), an optimized data structure that’s essentially a graph. This data structure lives in memory and is optimized for fast prefix lookups. To learn more about FSTs, see [Wikipedia](https://en.wikipedia.org/wiki/Finite-state_transducer).
+The completion suggester accepts a list of suggestions and builds them into a finite-state transducer (FST), an optimized data structure that is essentially a graph. This data structure lives in memory and is optimized for fast prefix lookups. To learn more about FSTs, see [Wikipedia](https://en.wikipedia.org/wiki/Finite-state_transducer).
 
 As the user types, the completion suggester moves through the FST graph one character at a time along a matching path. After it runs out of user input, it examines the remaining endings to produce a list of suggestions.
 
@@ -279,7 +279,7 @@ GET shakespeare/_search
 }
 ```
 
-The phrase "to be" is prefix-matched with the FST of the `text_entry` field:
+The phrase "to be" is prefix matched with the FST of the `text_entry` field:
 
 ```json
 {
@@ -705,7 +705,7 @@ PUT shakespeare
 }
 ```
 
-After you index a document, OpenSearch automatically creates and stores its n-grams and an edge n-grams. For example, consider a string `that is the question`. First, it is split into terms using the standard analyzer, and the terms are stored in the `text_entry` field:
+After you index a document, OpenSearch automatically creates and stores its n-grams and edge n-grams. For example, consider the string `that is the question`. First, it is split into terms using the standard analyzer, and the terms are stored in the `text_entry` field:
 
 ```json
 [
@@ -993,7 +993,7 @@ The response contains exact matches:
 }
 ```
 
-If you modify the text in the `match_phrase` query above and omit the last letter, none of the documents in the previous response are returned:
+If you modify the text in the previous `match_phrase` query and omit the last letter, none of the documents in the previous response are returned:
 
 ```json
 GET shakespeare/_search
