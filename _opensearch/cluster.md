@@ -152,6 +152,9 @@ After you set the configurations, start OpenSearch on all nodes:
 sudo systemctl start opensearch.service
 ```
 
+Installing OpenSearch from a tar archive will not automatically create a service with `systemd`. See [Run OpenSearch as a service with systemd]({{site.url}}{{site.baseurl}}/opensearch/install/tar/#run-opensearch-as-a-service-with-systemd) for instructions on how to create and start the service if you receive an error like `Failed to start opensearch.service: Unit not found.`
+{: .tip}
+
 Then go to the logs file to see the formation of the cluster:
 
 ```bash
@@ -172,7 +175,7 @@ x.x.x.x           34          38   0    0.12    0.07     0.06 md        -      o
 x.x.x.x           23          38   0    0.12    0.07     0.06 md        -      opensearch-c1
 ```
 
-To better understand and monitor your cluster, use the [cat API]({{site.url}}{{site.baseurl}}/opensearch/catapis/).
+To better understand and monitor your cluster, use the [CAT API]({{site.url}}{{site.baseurl}}/opensearch/catapis/).
 
 ## (Advanced) Step 6: Configure shard allocation awareness or forced awareness
 
