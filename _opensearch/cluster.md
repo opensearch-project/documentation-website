@@ -152,7 +152,7 @@ After you set the configurations, start OpenSearch on all nodes:
 sudo systemctl start opensearch.service
 ```
 
-Installing OpenSearch from a tar archive will not automatically create a service with `systemd`. See [Run OpenSearch as a service with systemd]({{site.url}}{{site.baseurl}}/opensearch/install/tar/#run-opensearch-as-a-service-with-systemd) for instructions about how to create and start the service if you receive an error like `Failed to start opensearch.service: Unit not found.`
+Installing OpenSearch from a tar archive will not automatically create a service with `systemd`. See [Run OpenSearch as a service with systemd]({{site.url}}{{site.baseurl}}/opensearch/install/tar/#run-opensearch-as-a-service-with-systemd) for instructions on how to create and start the service if you receive an error like `Failed to start opensearch.service: Unit not found.`
 {: .tip}
 
 Then go to the logs file to see the formation of the cluster:
