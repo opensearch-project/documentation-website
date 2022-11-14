@@ -455,7 +455,10 @@ $ curl https://your.host.address:9200 -u admin:yournewpassword -k
 
 ### Run OpenSearch as a service with systemd
 
-Create a service for OpenSearch and register it with `systemd`. After the service has been defined, you can enable, start, and stop the OpenSearch process using `systemctl` commands. The following steps reflect an environment where OpenSearch has been installed to `/opt/opensearch`. Change the paths in the following commands and example file to reflect your installation path.
+Create a service for OpenSearch and register it with `systemd`. After the service has been defined, you can enable, start, and stop the OpenSearch service using `systemctl` commands. The commands in this section reflect an environment where OpenSearch has been installed to `/opt/opensearch` and should be changed depending on your installation path.
+
+The following configuration is only suitable for testing in a non-production environment. We do not recommend using the following configuration in a production environment. You should install OpenSearch with the [RPM]({{site.url}}{{site.baseurl}}/opensearch/install/rpm/) distribution if you want to run OpenSearch as a systemd-managed service on your host. The tarball installation does not define a specific installation path, users, roles, or permissions. Failure to properly secure your host environment can result in unexpected behavior.
+{: .warning}
 
 1. Create a user for the OpenSearch service.
    ```bash
@@ -509,9 +512,6 @@ Create a service for OpenSearch and register it with `systemd`. After the servic
    [Install]
    WantedBy=multi-user.target
    ```
-
-   // possible term = masquerade for moving the software and replacing it with something malicious
-   // Need lots and lots of disclaimers - do this in DEV ONLY!
 
 1. Reload `systemd` manager configuration.
    ```bash
