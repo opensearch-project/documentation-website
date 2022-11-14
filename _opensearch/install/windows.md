@@ -129,7 +129,7 @@ An OpenSearch node in its default configuration (with demo certificates and user
    ```
 1. Save the change and close the file.
 1. Navigate to the top directory of your OpenSearch install and open the `opensearch-{{site.opensearch_version}}` folder.
-1. Run the default by double-clicking the `opensearch-windows-install.bat` file. This opens a command prompt an the OpenSearch instance running.
+1. Run the default by double-clicking the `opensearch-windows-install.bat` file. This opens a command prompt with an OpenSearch instance running.
 1. Open a new command prompt and send requests to the server to verify that OpenSearch is running. Because the security plugin has been disabled, you will be sending commands using `HTTP` rather than `HTTPS`.
    - Send a request to port 9200.
       ```bat
@@ -223,7 +223,7 @@ Before modifying any configuration files, it's always a good idea to save a back
    1.  Open the `opensearch-{{site.opensearch_version}}\config` folder.
    1.  Open the `jvm.options` file with a text editor.
    1. Modify the values for initial and max heap sizes. As a starting point, you should set these values to half of the available system memory. For dedicated hosts this value can be increased based on your workflow requirements.<br>
-    As an example, if the host machine has 8 GB of memory then you might want to set the initial and maximum heap sizes to 4 GB:
+    As an example, if the host machine has 8 GB of memory, then you might want to set the initial and maximum heap sizes to 4 GB:
     ```bash
     -Xms4g
     -Xmx4g
