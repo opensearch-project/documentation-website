@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Working with findings
+title: Working with detectors
 parent: Using security analytics
 nav_order: 30
 ---

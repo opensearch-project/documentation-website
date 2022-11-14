@@ -2,7 +2,7 @@
 layout: default
 title: Working with findings
 parent: Using security analytics
-nav_order: 30
+nav_order: 35
 ---
 
 # Working with findings
@@ -12,8 +12,6 @@ The Findings window allows you to view and work with findings in two ways:
 * And in a list by time, finding ID, rule name, and other details.
 
 You can select the **Refresh** button at any time to refresh information on the Findings page.
-
-#######image of window######
 
 ## The Findings graph
 

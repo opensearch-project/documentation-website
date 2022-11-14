@@ -2,7 +2,7 @@
 layout: default
 title: Working with alerts
 parent: Using security analytics
-nav_order: 40
+nav_order: 45
 ---
 
 # Working with alerts
@@ -12,8 +12,6 @@ The Alerts window allows you to view and work with alerts in two ways:
 * And in a list by time of the alert, the alert's trigger name, which detector triggered it, and other details.
 
 You can select the **Refresh** button at any time to refresh information on the Alerts page.
-
-#######image of window######
 
 ## The Alerts graph
 
