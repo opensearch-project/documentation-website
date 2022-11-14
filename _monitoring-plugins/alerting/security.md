@@ -91,7 +91,7 @@ In a create monitor scenario, follow these guidelines to specify roles:
 
 User type  | Role is specified by user or not (Y/N) | How to use the RBAC roles
 :--- | :--- | :---
-Admin user | User-specified | Use all the specified backend roles to associate to the monitor.
+Admin user | Yes | Use all the specified backend roles to associate to the monitor.
 Regular user | Yes | Use all the specified backend roles from the list of backend roles that the user has permission to use to associate with the monitor.
 Regular user | No | Copy user’s backend roles and associate them to the monitor.
 
@@ -99,7 +99,7 @@ In an update monitor scenario, follow these guidelines to specify roles:
 
 User type  | Role is specified by user or not (Y/N) | How to use the RBAC roles
 :--- | :--- | :---
-Admin user | User-specified | Remove all the backend roles associate to the monitor and then use all the specified backend roles to associate to the monitor.
+Admin user | Yes | Remove all the backend roles associate to the monitor and then use all the specified backend roles to associate to the monitor.
 Regular user | Yes | Remove backend roles associated to the monitor that the user has access to, but didn’t specify. Then add all the other specified backend roles from the list of backend roles that the user has permission to use to the monitor.
 Regular user | No | Don’t update the backend roles on the monitor.
 
