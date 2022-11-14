@@ -1,7 +1,6 @@
 ---
 layout: default
 title: Migrating from Open Distro Data Prepper
-parent: Data Prepper
 nav_order: 2
 ---
 
