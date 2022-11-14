@@ -85,16 +85,11 @@ State | Description
 
 ## Acknowledge alerts
 
+### Sample request
+
 ```json
 POST /_plugins/_security_analytics/<detector_id>/_acknowledge/alerts
-Request body {
-    alerts : ["alertId1", "alertId2"]
-}
-{
-
-}
 ```
-
 
 ## Get findings
 
