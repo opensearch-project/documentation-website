@@ -26,7 +26,7 @@ Make sure you have a zip utility installed.
 
 ## Step 1: Download and unpack OpenSearch
 
-Follow the steps below to install OpenSearch on Windows.
+Perform the following steps to install OpenSearch on Windows.
 
 1. Download the [`opensearch-{{site.opensearch_version}}-windows-x64.zip`](https://artifacts.opensearch.org/releases/bundle/opensearch/{{site.opensearch_version}}/opensearch-{{site.opensearch_version}}-windows-x64.zip){:target='\_blank'} archive.
 1. To extract the archive contents, right-click to select **Extract All**.
@@ -53,13 +53,13 @@ An OpenSearch node in its default configuration (with demo certificates and user
 
    1. Run the batch script using the Windows UI:
 
-      1. Navigate to the top directory of your OpenSearch install and open the `opensearch-{{site.opensearch_version}}` folder.
+      1. Navigate to the top directory of your OpenSearch installation and open the `opensearch-{{site.opensearch_version}}` folder.
       1. Run the batch script by double-clicking the `opensearch-windows-install.bat` file. This opens a command prompt with an OpenSearch instance running.
 
-   1. Run the batch script from a command prompt or Powershell:
+   1. Run the batch script from Command prompt or Powershell:
 
-      1. Open command prompt by entering `cmd`, or Powershell by entering `powershell`, in the search box next to **Start** on the taskbar. 
-      1. Change to the top directory of your OpenSearch install.
+      1. Open Command Prompt by entering `cmd`, or Powershell by entering `powershell`, in the search box next to **Start** on the taskbar. 
+      1. Change to the top directory of your OpenSearch installation.
          ```bat
          cd \path\to\opensearch-{{site.opensearch_version}}
          ```
@@ -69,7 +69,7 @@ An OpenSearch node in its default configuration (with demo certificates and user
          ```
 
 1. Open a new command prompt and send requests to the server to verify that OpenSearch is running. Note the use of the `--insecure` flag, which is required because the TLS certificates are self-signed.
-   - Send a request to port 9200.
+   - Send a request to port 9200:
       ```bat
       curl.exe -X GET https://localhost:9200 -u 'admin:admin' --insecure
       ```
@@ -93,7 +93,7 @@ An OpenSearch node in its default configuration (with demo certificates and user
          "tagline" : "The OpenSearch Project: https://opensearch.org/"
       }
       ```
-   - Query the plugins endpoint.
+   - Query the plugins endpoint:
       ```bat
       curl.exe -X GET https://localhost:9200/_cat/plugins?v -u 'admin:admin' --insecure
       ```
@@ -123,15 +123,15 @@ An OpenSearch node in its default configuration (with demo certificates and user
 
 1. Open the `opensearch-{{site.opensearch_version}}\config` folder.
 1. Open the `opensearch.yml` file with a text editor.
-1. Add the following line to disable the security plugin.
+1. Add the following line to disable the security plugin:
    ```yaml
    plugins.security.disabled: true
    ```
 1. Save the change and close the file.
-1. Navigate to the top directory of your OpenSearch install and open the `opensearch-{{site.opensearch_version}}` folder.
+1. Navigate to the top directory of your OpenSearch installation and open the `opensearch-{{site.opensearch_version}}` folder.
 1. Run the default by double-clicking the `opensearch-windows-install.bat` file. This opens a command prompt with an OpenSearch instance running.
 1. Open a new command prompt and send requests to the server to verify that OpenSearch is running. Because the security plugin has been disabled, you will be sending commands using `HTTP` rather than `HTTPS`.
-   - Send a request to port 9200.
+   - Send a request to port 9200:
       ```bat
       curl.exe -X GET http://localhost:9200
       ```
@@ -155,7 +155,7 @@ An OpenSearch node in its default configuration (with demo certificates and user
          "tagline" : "The OpenSearch Project: https://opensearch.org/"
       }
       ```
-   - Query the plugins endpoint.
+   - Query the plugins endpoint:
       ```bat
       curl.exe -X GET http://localhost:9200/_cat/plugins?v
       ```
@@ -181,7 +181,7 @@ An OpenSearch node in its default configuration (with demo certificates and user
       hostname opensearch-sql                       2.4.0.0
       ```
 
-To stop OpenSearch, press `Ctrl+C` in command prompt or Powershell, or simply close the command prompt or Powershell window.
+To stop OpenSearch, press `Ctrl+C` in Command Prompt or Powershell, or simply close the Command Prompt or Powershell window.
 {: .tip} 
 
 ## Step 3: Set up OpenSearch in your environment
@@ -191,7 +191,7 @@ Users who do not have prior experience with OpenSearch may want a list of recomm
 The following recommended settings will allow you to:
 
 - Bind OpenSearch to an IP or network interface on the host.
-- Set initial and max JVM heap sizes.
+- Set initial and maximum JVM heap sizes.
 - Define an environment variable that points to the bundled JDK.
 
 If you ran the security demo script, then you will need to manually reconfigure settings that were modified. Refer to [Security configuration]({{site.url}}{{site.baseurl}}/opensearch/configuration/) for guidance before proceeding.
@@ -202,7 +202,7 @@ Before modifying any configuration files, it's always a good idea to save a back
 
 1. Open the `opensearch-{{site.opensearch_version}}\config` folder.
 1. Open the `opensearch.yml` file with a text editor.
-1. Add the following lines.
+1. Add the following lines:
    ```bash
    # Bind OpenSearch to the correct network interface. Use 0.0.0.0
    # to include all available interfaces or specify an IP address
@@ -219,10 +219,10 @@ Before modifying any configuration files, it's always a good idea to save a back
    plugins.security.disabled: false
    ```
 1. Save your changes and close the file.
-1. Specify initial and max JVM heap sizes.
+1. Specify initial and maximum JVM heap sizes.
    1.  Open the `opensearch-{{site.opensearch_version}}\config` folder.
    1.  Open the `jvm.options` file with a text editor.
-   1. Modify the values for initial and max heap sizes. As a starting point, you should set these values to half of the available system memory. For dedicated hosts this value can be increased based on your workflow requirements.<br>
+   1. Modify the values for initial and maximum heap sizes. As a starting point, you should set these values to half of the available system memory. For dedicated hosts this value can be increased based on your workflow requirements.<br>
     As an example, if the host machine has 8 GB of memory, then you might want to set the initial and maximum heap sizes to 4 GB:
     ```bash
     -Xms4g
