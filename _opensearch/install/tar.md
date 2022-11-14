@@ -510,6 +510,9 @@ Create a service for OpenSearch and register it with `systemd`. After the servic
    WantedBy=multi-user.target
    ```
 
+   // possible term = masquerade for moving the software and replacing it with something malicious
+   // Need lots and lots of disclaimers - do this in DEV ONLY!
+
 1. Reload `systemd` manager configuration.
    ```bash
    sudo systemctl daemon-reload
