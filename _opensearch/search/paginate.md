@@ -7,19 +7,19 @@ nav_order: 21
 
 ## Paginate results
 
-You can use the following ways to paginate search results in OpenSearch: 
+You can use the following methods to paginate search results in OpenSearch: 
 
-1. The [`from` and `size` parameters](#the-from-and-size-parameters).
-1. The [scroll search](#scroll-search) operation.
-1. The [`search_after` parameter](#the-search_after-parameter).
+1. The [`from` and `size` parameters](#the-from-and-size-parameters)
+1. The [scroll search](#scroll-search) operation
+1. The [`search_after` parameter](#the-search_after-parameter)
 
 ## The `from` and `size` parameters
 
-The `from` and `size` parameters return results to your users one page at a time.
+The `from` and `size` parameters return results one page at a time.
 
-The `from` parameter is the document number that you want to start showing the results from. The `size` parameter is the number of results that you want to show. Together, they let you return a subset of the search results.
+The `from` parameter is the document number from which you want to start showing the results. The `size` parameter is the number of results that you want to show. Together, they let you return a subset of the search results.
 
-For example, if the value of `size` is 10 and the value of `from` is 0, you see the first 10 results. If you change the value of `from` to 10, you see the next 10 results (because the results are zero-indexed). So, if you want to see results starting from result 11, `from` must be 10.
+For example, if the value of `size` is 10 and the value of `from` is 0, you see the first 10 results. If you change the value of `from` to 10, you see the next 10 results (because the results are zero-indexed). So if you want to see results starting from result 11, `from` must be 10.
 
 ```json
 GET shakespeare/_search
@@ -54,18 +54,18 @@ Querying for pages deep in your results can have a significant performance impac
 
 The `from` and `size` parameters are stateless, so the results are based on the latest available data.
 This can cause inconsistent pagination.
-For example, assume a user stays on the first page of the results and then navigates to the second page. During that time, a new document relevant for the user's search is indexed and shows up in the first page. In this scenario, the last result on the first page is pushed to the second page, and the user sees duplicate results (that is, the first and second pages both display that last result).
+For example, assume a user stays on the first page of the results and then navigates to the second page. During that time, a new document relevant to the user's search is indexed and shows up on the first page. In this scenario, the last result on the first page is pushed to the second page, and the user sees duplicate results (that is, the first and second pages both display that last result).
 
-Use the `scroll` operation for consistent pagination. The `scroll` operation keeps a search context open for a certain period of time. Any data changes do not affect the results during this time.
+Use the `scroll` operation for consistent pagination. The `scroll` operation keeps a search context open for a certain period of time. Any data changes do not affect the results during that time.
 
 
 ## Scroll search
 
-The `from` and `size` parameters allow you to paginate your search results, but with a limit of 10,000 results at a time.
+The `from` and `size` parameters allow you to paginate your search results but with a limit of 10,000 results at a time.
 
-If you need to request volumes of data larger than 1PB from, for example, a machine learning job, use the `scroll` operation instead. The `scroll` operation allows you to request an unlimited number of results.
+If you need to request volumes of data larger than 1 PB from, for example, a machine learning job, use the `scroll` operation instead. The `scroll` operation allows you to request an unlimited number of results.
 
-To use the scroll operation, add a `scroll` parameter to the request header with a search context to tell OpenSearch how long you need to keep scrolling. This search context needs to be long enough to process a single batch of results.
+To use the scroll operation, add a `scroll` parameter to the request header with a search context telling OpenSearch for how long you need to keep scrolling. This search context needs to be long enough to process a single batch of results.
 
 To set the number of results that you want returned for each batch, use the `size` parameter:
 
@@ -94,7 +94,7 @@ GET _search/scroll
 
 Using this scroll ID, you get results in batches of 10,000 as long as the search context is still open. Typically, the scroll ID does not change between requests, but it *can* change, so make sure to always use the latest scroll ID. If you don't send the next scroll request within the set search context, the `scroll` operation does not return any results.
 
-If you expect billions of results, use a sliced scroll. Slicing allows you to perform multiple scroll operations for the same request, but in parallel.
+If you expect billions of results, use a sliced scroll. Slicing allows you to perform multiple scroll operations for the same request but in parallel.
 Set the ID and the maximum number of slices for the scroll:
 
 ```json
@@ -127,7 +127,7 @@ GET shakespeare/_search?scroll=10m
 }
 ```
 
-Close the search context when you’re done scrolling, as it continues to consume computing resources until the timeout:
+Close the search context when you’re done scrolling, because it continues to consume computing resources until the timeout:
 
 ```json
 DELETE _search/scroll/DXF1ZXJ5QW5kRmV0Y2gBAAAAAAAAAAcWdmpUZDhnRFBUcWFtV21nMmFwUGJEQQ==
@@ -150,13 +150,13 @@ DELETE _search/scroll/_all
 
 The `scroll` operation corresponds to a specific timestamp. It doesn't consider documents added after that timestamp as potential results.
 
-Because open search contexts consume a lot of memory, we suggest you don't use the `scroll` operation for frequent user queries that don't need the search context open. Instead, use the `sort` parameter with the `search_after` parameter to scroll responses for user queries.
+Because open search contexts consume a lot of memory, we suggest you don't use the `scroll` operation for frequent user queries that don't need the search context to be open. Instead, use the `sort` parameter with the `search_after` parameter to scroll responses for user queries.
 
 ## The `search_after` parameter
 
-The `search_after` parameter provides a live cursor to use the previous page's results to obtain the next page's results. It is similar to the `scroll` operation in that it is meant to scroll many queries in parallel. 
+The `search_after` parameter provides a live cursor that uses the previous page's results to obtain the next page's results. It is similar to the `scroll` operation in that it is meant to scroll many queries in parallel. 
 
-For example, the following query sorts all lines from the play "Hamlet" by the speech number,then ID and retrieves the first three results:
+For example, the following query sorts all lines from the play "Hamlet" by the speech number and then the ID and retrieves the first three results:
 
 ```json
 GET shakespeare/_search

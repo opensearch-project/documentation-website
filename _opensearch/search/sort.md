@@ -7,7 +7,7 @@ nav_order: 22
 
 ## Sort results
 
-Sorting allows your users to sort the results in a way that’s most meaningful to them.
+Sorting allows your users to sort results in a way that’s most meaningful to them.
 
 By default, full-text queries sort results by the relevance score.
 You can choose to sort the results by any field value in either ascending or descending order by setting the `order` parameter to `asc` or `desc`.
@@ -257,7 +257,7 @@ GET shakespeare/_search
 }
 ```
 
-You can continue to sort by any number of field values to get the results in just the right order. It doesn’t have to be a numerical value---you can also sort by date or timestamp fields:
+You can continue to sort by any number of field values to get the results in just the right order. It doesn’t have to be a numerical value&mdash;you can also sort by date or timestamp fields:
 
 ```json
 "sort": [
@@ -269,7 +269,7 @@ You can continue to sort by any number of field values to get the results in jus
   ]
 ```
 
-A text field that’s analyzed cannot be used to sort documents, because the inverted index only contains the individual tokenized terms and not the entire string. So, you cannot sort by the `play_name`, for example.
+A text field that is analyzed cannot be used to sort documents, because the inverted index only contains the individual tokenized terms and not the entire string. So you cannot sort by the `play_name`, for example.
 
 One workaround is map a raw version of the text field as a keyword type, so it won’t be analyzed and you have a copy of the full original version for sorting purposes.
 
@@ -295,7 +295,7 @@ GET shakespeare/_search
 
 You get back results sorted by the `play_name` field in alphabetic order.
 
-Use `sort` with [`search_after` parameter]({{site.url}}{{site.baseurl}}/opensearch/search/paginate#the-search_after-parameter) for more efficient scrolling.
+Use `sort` with the [`search_after` parameter]({{site.url}}{{site.baseurl}}/opensearch/search/paginate#the-search_after-parameter) for more efficient scrolling.
 You get back results after the values you specify in the `search_after` array.
 
 Make sure you have the same number of values in the `search_after` array as in the `sort` array, also ordered in the same way.
@@ -332,7 +332,7 @@ GET shakespeare/_search
 
 ## Sort mode
 
-The sort mode is applicable to sorting by array or multi-valued fields. It specifies what array value should be chosen for sorting the document. For numeric fields that contain an array of numbers, you can sort by `avg`, `sum`, and `median` modes. To sort by the minimum or maximum values, use the `min` or `max` modes that work for both numeric and string data types.
+The sort mode is applicable to sorting by array or multivalued fields. It specifies what array value should be chosen for sorting the document. For numeric fields that contain an array of numbers, you can sort by the `avg`, `sum`, or `median` modes. To sort by the minimum or maximum values, use the `min` or `max` modes that work for both numeric and string data types.
 
 The default mode is `min` for ascending sort order and `max` for descending sort order.
 
@@ -484,7 +484,7 @@ GET students/_search
 
 ## Handling missing values
 
-The `missing` parameter specifies the handling of missing values. The built-in valid values are `_last` (list the documents with the missing value last) and `_first` (list the documents with the missing value first). The default value is `_last`. You can also specify a custom value that is used for missing documents as the sort value. 
+The `missing` parameter specifies the handling of missing values. The built-in valid values are `_last` (list the documents with the missing value last) and `_first` (list the documents with the missing value first). The default value is `_last`. You can also specify a custom value to be used for missing documents as the sort value. 
 
 For example, you can index a document with an `average` field and another document without an `average` field:
 
@@ -608,7 +608,7 @@ GET students*/_search
 }
 ```
 
-By default the second index produces an error because the `average` field is not mapped:
+By default, the second index produces an error because the `average` field is not mapped:
 
 ```json
 {
@@ -746,12 +746,12 @@ GET students/_search
 
 ## Sorting by geo distance
 
-You can sort documents by `_geo_distance`. The following parameters are supported:
+You can sort documents by `_geo_distance`. The following parameters are supported.
 
 Parameter | Description
 :--- | :---
 distance_type | Specifies the method of computing the distance. Valid values are `arc` and `plane`. The `plane` method is faster but less accurate for long distances or close to the poles. Default is `arc`.
-mode | Specifies how to handle a field with several geopoints. By default, documents are sorted by the shortest distance when the sort order is ascending, and by the longest distance when the sort order is descending. Valid values are `min`, `max`, `median`, and `avg`.
+mode | Specifies how to handle a field with several geopoints. By default, documents are sorted by the shortest distance when the sort order is ascending and by the longest distance when the sort order is descending. Valid values are `min`, `max`, `median`, and `avg`.
 unit | Specifies the units to compute sort values. Default is meters (`m`).
 ignore_unmapped | Specifies how to treat an unmapped field. Set `ignore_unmapped` to `true` to ignore unmapped fields. Default is `false` (produce an error when encountering an unmapped field).
 
@@ -877,4 +877,4 @@ For each document, the sorting distance is calculated as the minimum, maximum, o
 
 ## Performance considerations
 
-Sorted field values are loaded into memory for sorting. Therefore, for minimum overhead we recommend mapping [numeric types]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/numeric) to the smallest acceptable types like `short`, `integer`, and `float`. [String types]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/string) should not have the sorted field analyzed or tokenized.
+Sorted field values are loaded into memory for sorting. Therefore, for minimum overhead we recommend mapping [numeric types]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/numeric) to the smallest acceptable types, like `short`, `integer`, and `float`. [String types]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/string) should not have the sorted field analyzed or tokenized.
