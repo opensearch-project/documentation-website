@@ -103,7 +103,9 @@ Admin user | Yes | Remove all the backend roles associate to the monitor and the
 Regular user | Yes | Remove backend roles associated to the monitor that the user has access to, but didn’t specify. Then add all the other specified backend roles from the list of backend roles that the user has permission to use to the monitor.
 Regular user | No | Don’t update the backend roles on the monitor.
 
-Note that for admin users, an empty list is considered the same as removing all permissions that the user possesses. Also note that if the user tries to associate roles that they don't have permission to use, it will throw an exception.
+- For admin users, an empty list is considered the same as removing all permissions that the user possesses.
+- If the user tries to associate roles that they don't have permission to use, it will throw an exception.
+{: .note }
 
 To create an RBAC role, follow instructions in the Security Plugin API documentation to [Create role]({{site.url}}{{site.baseurl}}/security-plugin/access-control/api#create-role).
 ### Create a monitor with an RBAC role
