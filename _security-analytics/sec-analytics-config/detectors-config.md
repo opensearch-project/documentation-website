@@ -7,7 +7,7 @@ nav_order: 15
 
 # Creating detectors
 
-Creating detectors includes 
+Security analytics provides the options and functionality to monitor and respond to a wide range of security threats. Detectors are the essential components that determine what to look for and how to respond to those threats. This section covers their creation and configuration. 
 
 ## Define the detector
 
