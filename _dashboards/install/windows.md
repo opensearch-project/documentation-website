@@ -10,13 +10,13 @@ nav_order: 37
 Follow the steps below to install OpenSearch Dashboards on Windows.
 
 Make sure you have a zip utility installed.
-{: .tip }
+{: .note }
 
 1. Download the [`opensearch-dashboards-{{site.opensearch_version}}-windows-x64.zip`](https://artifacts.opensearch.org/releases/bundle/opensearch-dashboards/{{site.opensearch_version}}/opensearch-dashboards-{{site.opensearch_version}}-windows-x64.zip){:target='\_blank'} archive.
 
 1. To extract the archive contents, right-click to select **Extract All**.
    
-   Note: Some versions of the Windows operating system limit the file path length. If you encounter a path length-related error when unzipping the archive, perform the following steps to enable long path support:
+   **Note**: Some versions of the Windows operating system limit the file path length. If you encounter a path-length-related error when unzipping the archive, perform the following steps to enable long path support:
 
    1. Open Powershell by entering `powershell` in the search box next to **Start** on the taskbar. 
    1. Run the following command in Powershell:
@@ -32,7 +32,7 @@ Make sure you have a zip utility installed.
    1. Run the batch script using the Windows user interface:
 
       1. Navigate to the top directory of your OpenSearch Dashboards install and open the `opensearch-dashboards-{{site.opensearch_version}}` folder.
-      1. If desired, modify `opensearch_dashboards.yml` located in the `config` folder.
+      1. If desired, modify `opensearch_dashboards.yml` located in the `config` folder to change the default OpenSearch Dasbhoards settings.
       1. Open the `bin` folder and run the batch script by double-clicking the `opensearch-dashboards.bat` file. This opens a command prompt with an OpenSearch Dashboards instance running.
 
    1. Run the batch script from Command Prompt or Powershell:

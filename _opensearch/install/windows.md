@@ -232,7 +232,7 @@ Before modifying any configuration files, it's always a good idea to save a back
 1. Specify the location of the included JDK. 
     1. In the search box next to **Start** on the taskbar, enter `edit environment variables for your account` or `edit the system environment variables`. To edit the system environment variables, you need admin rights. User environment variables take precedence over system environment variables.
     1. Select **Edit environment variables for your account** or **Edit the system environment variables**. 
-    1. If the **System Properties** dialog comes up, in the **Advanced** tab, select **Environment Variables**.
+    1. If the **System Properties** dialog opens, in the **Advanced** tab, select **Environment Variables**.
     1. Under **User variables** or **System variables**, select **New**.
     1. In **Variable name**, enter `OPENSEARCH_JAVA_HOME`.
     1. In **Variable value**, enter `\path\to\opensearch-{{site.opensearch_version}}\jdk`.
