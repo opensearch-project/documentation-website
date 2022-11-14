@@ -99,6 +99,15 @@ If you use a custom webhook for your destination and need to embed JSON in the m
 }
 ```
 
+Optionally, to specify an RBAC role, you can add the `rbac_roles` parameter and role names to the bottom of your create monitor request as follows:
+
+```json
+{...
+
+  "rbac_roles": ["role1", "role2"]
+}
+```
+
 #### Sample response
 
 ```json

@@ -42,7 +42,7 @@ If your monitor's trigger has notifications configured, the Alerting plugin cont
 
 Out of the box, the alerting plugin has no concept of ownership. For example, if you have the `cluster:admin/opensearch/alerting/monitor/write` permission, you can edit *all* monitors, regardless of whether you created them. If a small number of trusted users manage your monitors and destinations, this lack of ownership generally isn't a problem. A larger organization might need to segment access by backend role.
 
-First, make sure that your users have the appropriate [backend roles]({{site.url}}{{site.baseurl}}/security-plugin/access-control/index/). Backend roles usually come from an [LDAP server]({{site.url}}{{site.baseurl}}/security-plugin/configuration/ldap/) or [SAML provider]({{site.url}}{{site.baseurl}}/security-plugin/configuration/saml/). However, if you use the internal user database, you can use the REST API to [add them manually]({{site.url}}{{site.baseurl}}/security-plugin/access-control/api#create-user).
+First, make sure that your users have the appropriate [backend roles]({{site.url}}{{site.baseurl}}/security-plugin/access-control/index/). Backend roles usually come from an [LDAP server]({{site.url}}{{site.baseurl}}/security-plugin/configuration/ldap/) or [SAML provider]({{site.url}}{{site.baseurl}}/security-plugin/configuration/saml/). However, if you use the internal user database, you can use the REST API to add them manually in a create user operation. To add a backend role, follow the instructions for [Create user](({{site.url}}{{site.baseurl}}/security-plugin/access-control/api#create-user)) in the Security Plugin API documentation.
 
 Next, enable the following setting:
 
@@ -82,3 +82,41 @@ If you only want users to be able to see and modify their own monitors and desti
 ```
 
 Then, use this new role for all alerting users. -->
+
+### Specify RBAC backend roles
+
+You can specify RBAC backend roles when you create or update a monitor with the Alerting API.
+
+In a create monitor scenario, follow these guidelines to specify roles:
+
+User type  | Role is specified by user or not (Y/N) | How to use the RBAC roles
+:--- | :--- | :---
+Admin user | User-specified | Use all the specified backend roles to associate to the monitor.
+Regular user | Yes | Use all the specified backend roles (that the user already has in their list of backend roles) to associate to the monitor.
+Regular user | No | Copy user’s backend roles and associate them to the monitor.
+
+In an update monitor scenario, follow these guidelines to specify roles:
+
+User type  | Role is specified by user or not (Y/N) | How to use the RBAC roles
+:--- | :--- | :---
+Admin user | User-specified | Remove all the backend roles associate to the monitor and then use all the specified backend roles to associate to the monitor.
+Regular user | Yes | Remove backend roles associated to the monitor that the user has access to, but didn’t specify. Then add all the other specified backend roles (that the user already has in their list of backend roles) to the monitor.
+Regular user | No | Don’t update the backend roles on the monitor.
+
+Note that an empty list is considered the same as removing all permissions that the user possesses. Also note that if the user tries to associate roles that they don't have permission to use, it will throw an exception.
+
+To create an RBAC role, follow instructions in the Security Plugin API documentation to [Create role]({{site.url}}{{site.baseurl}}/security-plugin/access-control/api#create-role).
+
+### Create a monitor with an RBAC role
+
+When you create a monitor with the Alerting API, you can specify the RBAC roles at the bottom of the request body. Use the `rbac_roles` parameter.
+
+The following sample shows the RBAC roles specified by the RBAC parameter:
+
+```json
+... 
+  "rbac_roles": ["role1", "role2"]
+}
+```
+
+To see a full request sample, see [Create a monitor]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/api/#create-a-query-level-monitor).
