@@ -4,11 +4,8 @@ The following page provides a list of updates made to OpenSearch documentation f
 
 **NOTE:** Some PRs in the following list might still be in-progress at time of publication.
 
-
-## New documentation for 2.4
-
 - Add Alerting RBAC backend roles [#1866](https://github.com/opensearch-project/documentation-website/pull/1866)
-- Adds Windows Installation documentation [#1825](https://github.com/opensearch-project/documentation-website/pull/1825))
+- Adds Windows Installation documentation [#1825](https://github.com/opensearch-project/documentation-website/pull/1825)
 - Adds Cluster Manager Task Throttling Documentation [#1826](https://github.com/opensearch-project/documentation-website/pull/1826)
 - Adds Snapshot restore documentation [#1822](https://github.com/opensearch-project/documentation-website/pull/1822)
 - Adds Search relevance documentation [#1801](https://github.com/opensearch-project/documentation-website/pull/1801)
