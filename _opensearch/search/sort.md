@@ -676,7 +676,7 @@ GET students*/_search
 }
 ```
 
-The response contains both documents, but the sort value for the document from the unmapped index :
+The response contains both documents:
 
 ```json
 {
