@@ -333,13 +333,18 @@ Below are some variables you can include in your message using Mustache template
 
 Variable | Data Type | Description
 :--- | :--- | :---
-`ctx.monitor` | Object | Includes `ctx.monitor.name`, `ctx.monitor.type`, `ctx.monitor.enabled`, `ctx.monitor.enabled_time`, `ctx.monitor.schedule`, `ctx.monitor.inputs`, `triggers` and `ctx.monitor.last_update_time`.
-`ctx.monitor.user` | Object | Includes information about the user who created the monitor. Includes `ctx.monitor.user.backend_roles` and `ctx.monitor.user.roles`, which are arrays that contain the backend roles and roles assigned to the user. See [alerting security]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/security/) for more information.
+`ctx.monitor` | Object | Contains monitor data.
+`ctx.monitor._id` | String | Monitor id.
+`ctx.monitor._version` | Integer | Monitor version.
+`ctx.monitor.name` | String | Monitor name.
+`ctx.monitor.monitor_type` | String | Monitor type. Possible values: `query_level_monitor`, `bucket_level_monitor`, `cluster_metrics_monitor` and `doc_level_monitor`.
 `ctx.monitor.enabled` | Boolean | Whether the monitor is enabled.
 `ctx.monitor.enabled_time` | Milliseconds | Unix epoch time of when the monitor was last enabled.
 `ctx.monitor.schedule` | Object | Contains a schedule of how often or when the monitor should run.
-`ctx.monitor.schedule.period.interval` | Integer | The interval at which the monitor runs.
-`ctx.monitor.schedule.period.unit` | String | The interval's unit of time.
+`ctx.monitor.schedule.period.interval` | Integer | The interval at which the monitor runs, if monitor period is set.
+`ctx.monitor.schedule.period.unit` | String | The interval's unit of time, if monitor period is set
+`ctx.monitor.schedule.cron.expression` | String | Custom cron expression, if cron expression is set.
+`ctx.monitor.schedule.cron.timezone` | String | Cron timezone, if cron expression is set.
 `ctx.monitor.inputs` | Array | An array that contains the indexes and definition used to create the monitor.
 `ctx.monitor.inputs.search.indices` | Array | An array that contains the indexes the monitor observes.
 `ctx.monitor.inputs.search.query` | N/A | The definition used to define the monitor.
@@ -352,8 +357,8 @@ Variable | Data Type | Description
 `ctx.trigger.name` | String | The trigger's name.
 `ctx.trigger.severity` | String | The trigger's severity.
 `ctx.trigger.condition`| Object | Contains the Painless script used when creating the monitor.
-`ctx.trigger.condition.script.source` | String | The language used to define the script. Must be painless.
-`ctx.trigger.condition.script.lang` | String | The script used to define the trigger.
+`ctx.trigger.condition.script.source` | String | The script used to define the trigger.
+`ctx.trigger.condition.script.lang` | String | The language used to define the script. Must be painless.
 `ctx.trigger.actions`| Array | An array with one element that contains information about the action the monitor needs to trigger.
 
 #### Action variables
@@ -362,18 +367,14 @@ Variable | Data Type | Description
 :--- | :--- | : ---
 `ctx.trigger.actions.id` | String | The action's ID.
 `ctx.trigger.actions.name` | String | The action's name.
-`ctx.trigger.actions.message_template.source` | String | The message to send in the alert.
-`ctx.trigger.actions.message_template.lang` | String | The scripting language used to define the message. Must be Mustache.
+`ctx.trigger.actions.destination_id` | String | The action's destination id.
 `ctx.trigger.actions.throttle_enabled` | Boolean | Whether throttling is enabled for this trigger. See [adding actions](#add-actions) for more information about throttling.
-`ctx.trigger.actions.subject_template.source` | String | The message's subject in the alert.
-`ctx.trigger.actions.subject_template.lang` | String | The scripting language used to define the subject. Must be mustache.
 
 #### Other variables
 
 Variable | Data Type | Description
 :--- | :--- : :---
 `ctx.results` | Array | An array with one element (i.e. `ctx.results[0]`). Contains the query results. This variable is empty if the trigger was unable to retrieve results. See `ctx.error`.
-`ctx.last_update_time` | Milliseconds | Unix epoch time of when the monitor was last updated.
 `ctx.periodStart` | String | Unix timestamp for the beginning of the period during which the alert triggered. For example, if a monitor runs every ten minutes, a period might begin at 10:40 and end at 10:50.
 `ctx.periodEnd` | String | The end of the period during which the alert triggered.
 `ctx.error` | String | The error message if the trigger was unable to retrieve results or unable to evaluate the trigger, typically due to a compile error or null pointer exception. Null otherwise.
