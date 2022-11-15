@@ -551,14 +551,9 @@ DELETE _plugins/_ism/policies/policy_1
 Introduced 2.4
 {: .label .label-purple }
 
-The main goal is to improve the user experience on the operational side for ISM.
+ISM allows you to execute an action automatically. However, action execution can fail for a variety of reasons. Error prevention validation checks the possible reason for a failure before execution of an action.
 
-ISM helps user to execute action automatically, but action execution could fail because of a variety of reasons. Action validation validates the possible failing reason before execution and surfaces the validation result to user. The first stage mainly refactors the existing validation logic in several actions out to a separate module just for validation. More validation logic will be added and better use flow will be provided in the future stages.
-
-### Enable Error Prevention Validation:
-
-We control this by setting plugins.index_state_management.validation_service.enabled
-request:
+To enable error prevention validation, set the `plugins.index_state_management.validation_service.enabled` setting to `true`:
 
 #### Request
 
@@ -589,9 +584,7 @@ PUT _cluster/settings
 }
 ```
 
-### Check validation status & message via explain API
-
-Pass validate_action=true in explain API URI to see the validation status and message.
+To check an error prevention validation status and message, pass `validate_action=true` to the `_plugins/_ism/explain` endpoint:
 
 #### Request
 
@@ -647,13 +640,15 @@ GET _plugins/_ism/explain/test-000001?validate_action=true
 }
 ```
 
-Pass validate_action=false or not passing validate_action value in explain API URI, the response does not contain the validation status and message.
+If you pass `validate_action=false` or do not pass a `validate_action` value to the `_plugins/_ism/explain` endpoint, the response will not contain an error prevention validation status and message:
 
 #### Request
 
 ```bash
 GET _plugins/_ism/explain/test-000001?validate_action=false
 ```
+
+Or:
 
 ```bash
 GET _plugins/_ism/explain/test-000001
