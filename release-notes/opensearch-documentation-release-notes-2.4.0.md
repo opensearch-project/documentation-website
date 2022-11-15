@@ -1,9 +1,8 @@
 # OpenSearch Documentation Website 2.4.0 Release Notes
 
-The following page provides a list of updates made to OpenSearch documentation for OpenSearch 2.4, as well as documentation updates still in-progress.
+The following page provides a list of updates made to OpenSearch documentation for OpenSearch 2.4.
 
-
-## New documentation for 2.4
+**NOTE:** Some PRs in the following list might still be in-progress at time of publication.
 
 - Add Alerting RBAC backend roles [#1866](https://github.com/opensearch-project/documentation-website/pull/1866)
 - Adds Windows Installation documentation [#1825](https://github.com/opensearch-project/documentation-website/pull/1825))
@@ -23,11 +22,3 @@ The following page provides a list of updates made to OpenSearch documentation f
 - Add searchable snapshots [#1795](https://github.com/opensearch-project/documentation-website/pull/1795)
 - Add configuring Dashboards multi-authentication sign-in window (#1549)(https://github.com/opensearch-project/documentation-website/pull/1549)
 
-
-## In-progress documentation for 2.4
-
-- Add Neural Search plugin [#1882](https://github.com/opensearch-project/documentation-website/pull/1882)
-- Add Security Analytics plugin [#1824](https://github.com/opensearch-project/documentation-website/pull/1824)
-- Add Error prevention validation ISM API [#1884](https://github.com/opensearch-project/documentation-website/pull/1884)
-- Add model serving framework [#1880](https://github.com/opensearch-project/documentation-website/pull/1880)
-- Add multiple data sources in Dashboards [#1407](https://github.com/opensearch-project/documentation-website/pull/1407)
