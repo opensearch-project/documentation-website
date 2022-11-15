@@ -22,7 +22,7 @@
 - Add configuring Dashboards multi-authentication sign-in window (#1549)(https://github.com/opensearch-project/documentation-website/pull/1549)
 
 
-## In-progress 
+## In-progress documentation for 2.4
 
 - Add Neural Search plugin [#1882](https://github.com/opensearch-project/documentation-website/pull/1882)
 - Add Security Analytics plugin [#1824](https://github.com/opensearch-project/documentation-website/pull/1824)
