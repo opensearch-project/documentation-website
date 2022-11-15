@@ -25,7 +25,7 @@ Introduced 1.0
 
 Creates a policy.
 
-#### Request
+#### Sample Request
 
 ```json
 PUT _plugins/_ism/policies/policy_1
@@ -144,7 +144,7 @@ Introduced 1.0
 
 Adds a policy to an index. This operation does not change the policy if the index already has one.
 
-#### Request
+#### Sample Request
 
 ```json
 POST _plugins/_ism/add/index_1
@@ -178,7 +178,7 @@ Updates a policy. Use the `seq_no` and `primary_term` parameters to update an ex
 
 It's possible that the policy currently applied to your index isn't the most up-to-date policy available. To see what policy is currently applied to your index, see [Explain index]({{site.url}}{{site.baseurl}}/im-plugin/ism/api/#explain-index). To get the most up-to-date version of a policy, see [Get policy]({{site.url}}{{site.baseurl}}/im-plugin/ism/api/#get-policy).
 
-#### Request
+#### Sample Request
 
 ```json
 PUT _plugins/_ism/policies/policy_1?if_seq_no=7&if_primary_term=1
@@ -297,7 +297,7 @@ Introduced 1.0
 
 Gets the policy by `policy_id`.
 
-#### Request
+#### Sample Request
 
 ```json
 GET _plugins/_ism/policies/policy_1
@@ -369,7 +369,7 @@ Introduced 1.0
 
 Removes any ISM policy from the index.
 
-#### Request
+#### Sample Request
 
 ```json
 POST _plugins/_ism/remove/index_1
@@ -398,7 +398,7 @@ A policy change is an asynchronous background process. The changes are queued an
 
 In this example, the policy applied on the `index_1` index is changed to `policy_1`, which could either be a completely new policy or an updated version of its existing policy. The process only applies the change if the index is currently in the `searches` state. After this change in policy takes place, `index_1` transitions to the `delete` state.
 
-#### Request
+#### Sample Request
 
 ```json
 POST _plugins/_ism/change_policy/index_1
@@ -432,7 +432,7 @@ Introduced 1.0
 
 Retries the failed action for an index. For the retry call to succeed, ISM must manage the index, and the index must be in a failed state. You can use index patterns (`*`) to retry multiple failed indexes.
 
-#### Request
+#### Sample Request
 
 ```json
 POST _plugins/_ism/retry/index_1
@@ -460,7 +460,7 @@ Introduced 1.0
 
 Gets the current state of the index. You can use index patterns to get the status of multiple indexes.
 
-#### Request
+#### Sample Request
 
 ```json
 GET _plugins/_ism/explain/index_1
@@ -479,7 +479,7 @@ GET _plugins/_ism/explain/index_1
 
 Optionally, you can add the `show_policy` parameter to your request's path to get the policy that is currently applied to your index, which is useful for seeing whether the policy applied to your index is the latest one. To get the most up-to-date policy, see [Get Policy API]({{site.url}}{{site.baseurl}}/im-plugin/ism/api/#get-policy).
 
-#### Request
+#### Sample Request
 
 ```json
 GET _plugins/_ism/explain/index_1?show_policy=true
@@ -521,7 +521,7 @@ Introduced 1.0
 
 Deletes the policy by `policy_id`.
 
-#### Request
+#### Sample Request
 
 ```json
 DELETE _plugins/_ism/policies/policy_1
@@ -551,11 +551,9 @@ DELETE _plugins/_ism/policies/policy_1
 Introduced 2.4
 {: .label .label-purple }
 
-ISM allows you to execute an action automatically. However, action execution can fail for a variety of reasons. Error prevention validation checks the possible reason for a failure before execution of an action.
+ISM allows you to execute an action automatically. However, action execution can fail for a variety of reasons. You can use error prevention validation to dry run an action in order to rule out failures.
 
 To enable error prevention validation, set the `plugins.index_state_management.validation_service.enabled` setting to `true`:
-
-#### Request
 
 ```bash
 PUT _cluster/settings
@@ -586,13 +584,13 @@ PUT _cluster/settings
 
 To check an error prevention validation status and message, pass `validate_action=true` to the `_plugins/_ism/explain` endpoint:
 
-#### Request
-
 ```bash
 GET _plugins/_ism/explain/test-000001?validate_action=true
 ```
 
 #### Sample Response
+
+The response contains an additional validate object with a validation message and status:
 
 ```json
 {
@@ -641,8 +639,6 @@ GET _plugins/_ism/explain/test-000001?validate_action=true
 ```
 
 If you pass `validate_action=false` or do not pass a `validate_action` value to the `_plugins/_ism/explain` endpoint, the response will not contain an error prevention validation status and message:
-
-#### Request
 
 ```bash
 GET _plugins/_ism/explain/test-000001?validate_action=false
