@@ -546,3 +546,159 @@ DELETE _plugins/_ism/policies/policy_1
   "_primary_term": 1
 }
 ```
+
+## Error prevention validation
+Introduced 2.4
+{: .label .label-purple }
+
+The main goal is to improve the user experience on the operational side for ISM.
+
+ISM helps user to execute action automatically, but action execution could fail because of a variety of reasons. Action validation validates the possible failing reason before execution and surfaces the validation result to user. The first stage mainly refactors the existing validation logic in several actions out to a separate module just for validation. More validation logic will be added and better use flow will be provided in the future stages.
+
+### Enable Error Prevention Validation:
+
+We control this by setting plugins.index_state_management.validation_service.enabled
+request:
+
+#### Request
+
+```bash
+PUT _cluster/settings
+{
+   "persistent":{
+      "plugins.index_state_management.validation_action.enabled": true
+   }
+}
+```
+
+#### Sample response
+
+```json
+{
+  "acknowledged" : true,
+  "persistent" : {
+    "plugins" : {
+      "index_state_management" : {
+        "validation_action" : {
+          "enabled" : "true"
+        }
+      }
+    }
+  },
+  "transient" : { }
+}
+```
+
+### Check validation status & message via explain API
+
+Pass validate_action=true in explain API URI to see the validation status and message.
+
+#### Request
+
+```bash
+GET _plugins/_ism/explain/test-000001?validate_action=true
+```
+
+#### Sample Response
+
+```json
+{
+  "test-000001" : {
+    "index.plugins.index_state_management.policy_id" : "test_rollover",
+    "index.opendistro.index_state_management.policy_id" : "test_rollover",
+    "index" : "test-000001",
+    "index_uuid" : "CgKsxFmQSIa8dWqpbSJmyA",
+    "policy_id" : "test_rollover",
+    "policy_seq_no" : -2,
+    "policy_primary_term" : 0,
+    "rolled_over" : false,
+    "index_creation_date" : 1667410460649,
+    "state" : {
+      "name" : "rollover",
+      "start_time" : 1667410766045
+    },
+    "action" : {
+      "name" : "rollover",
+      "start_time" : 1667411127803,
+      "index" : 0,
+      "failed" : false,
+      "consumed_retries" : 0,
+      "last_retry_time" : 0
+    },
+    "step" : {
+      "name" : "attempt_rollover",
+      "start_time" : 1667411127803,
+      "step_status" : "starting"
+    },
+    "retry_info" : {
+      "failed" : true,
+      "consumed_retries" : 0
+    },
+    "info" : {
+      "message" : "Previous action was not able to update IndexMetaData."
+    },
+    "enabled" : false,
+    "validate" : {
+      "validation_message" : "Missing rollover_alias index setting [index=test-000001]",
+      "validation_status" : "re_validating"
+    }
+  },
+  "total_managed_indices" : 1
+}
+```
+
+Pass validate_action=false or not passing validate_action value in explain API URI, the response does not contain the validation status and message.
+
+#### Request
+
+```bash
+GET _plugins/_ism/explain/test-000001?validate_action=false
+```
+
+```bash
+GET _plugins/_ism/explain/test-000001
+```
+
+#### Sample Response
+
+```json
+{
+  "test-000001" : {
+    "index.plugins.index_state_management.policy_id" : "test_rollover",
+    "index.opendistro.index_state_management.policy_id" : "test_rollover",
+    "index" : "test-000001",
+    "index_uuid" : "CgKsxFmQSIa8dWqpbSJmyA",
+    "policy_id" : "test_rollover",
+    "policy_seq_no" : -2,
+    "policy_primary_term" : 0,
+    "rolled_over" : false,
+    "index_creation_date" : 1667410460649,
+    "state" : {
+      "name" : "rollover",
+      "start_time" : 1667410766045
+    },
+    "action" : {
+      "name" : "rollover",
+      "start_time" : 1667411127803,
+      "index" : 0,
+      "failed" : false,
+      "consumed_retries" : 0,
+      "last_retry_time" : 0
+    },
+    "step" : {
+      "name" : "attempt_rollover",
+      "start_time" : 1667411127803,
+      "step_status" : "starting"
+    },
+    "retry_info" : {
+      "failed" : true,
+      "consumed_retries" : 0
+    },
+    "info" : {
+      "message" : "Previous action was not able to update IndexMetaData."
+    },
+    "enabled" : false
+  },
+  "total_managed_indices" : 1
+}
+```
