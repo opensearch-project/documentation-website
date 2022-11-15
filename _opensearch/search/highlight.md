@@ -28,7 +28,7 @@ GET shakespeare/_search
 }
 ```
 
-For each document in the results, you get back a `highlight` object that shows your search term wrapped in an `em` tag:
+Each document in the results contains a `highlight` object that shows your search term wrapped in an `em` tag:
 
 ```json
 {
@@ -118,7 +118,7 @@ The `highlight` parameter highlights the original terms even when using synonyms
 
 To highlight the search terms, the highlighter needs the start and end character offsets of each term. The offsets mark the term's position in the original text. The highlighter can obtain the offsets from the following sources:
 
-- **Postings**: When documents are indexed, OpenSearch creates postings&mdash;a core data structure used to search for documents. Postings represent the inverted search index and store the mapping of each analyzed term to the list of documents in which it occurs. If you set the `index_options` parameter to `offsets` when mapping a [text field]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/text), OpenSearch adds each term's start and end character offsets to the inverted index. During highlighting, the highlighter reruns the original query directly on the postings to locate each term. Thus, storing offsets makes highlighting more efficient for large fields because it does not require reanalyzing the text. Storing term offsets requires additional disk space, but uses less disk space than storing term vectors.
+- **Postings**: When documents are indexed, OpenSearch creates an inverted search index&mdash;a core data structure used to search for documents. Postings represent the inverted search index and store the mapping of each analyzed term to the list of documents in which it occurs. If you set the `index_options` parameter to `offsets` when mapping a [text field]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/text), OpenSearch adds each term's start and end character offsets to the inverted index. During highlighting, the highlighter reruns the original query directly on the postings to locate each term. Thus, storing offsets makes highlighting more efficient for large fields because it does not require reanalyzing the text. Storing term offsets requires additional disk space, but uses less disk space than storing term vectors.
 
 - [**Term vectors**]: If you set the [`term_vector` parameter]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/text#term-vector-parameter) to  `with_positions_offsets` when mapping a text field, the highlighter uses the `term_vector` to highlight the field. Storing term vectors requires the most disk space. However, it makes highlighting faster for fields larger than 1 MB and for multi-term queries like prefix or wildcard because term vectors provide access to the dictionary of terms for each document.
 
@@ -126,7 +126,7 @@ To highlight the search terms, the highlighter needs the start and end character
 
 ## Highlighter types
 
-OpenSearch supports three highlighter implementations: `plain`, `unified`, and `fvh` (fast vector highlighter). 
+OpenSearch supports three highlighter implementations: `plain`, `unified`, and `fvh` (Fast Vector Highlighter). 
 
 The following table lists the methods of obtaining the offsets for each highlighter.
 
@@ -170,13 +170,13 @@ The `plain` highlighter is based on the standard Lucene highlighter. It requires
 
 ## Highlighting options
 
-The following table describes the highlighting options you can set on a global or field level. Field level settings override global settings.
+The following table describes the highlighting options you can specify on a global or field level. Field-level settings override global settings.
 
 Option | Description
 :--- | :---
 type | Specifies the highlighter to use. Valid values are `unified`, `fvh`, and `plain`. Default is `unified`.
 fields | Specifies the fields to search for text to be highlighted. Supports wildcard expressions. If you use wildcards, only `text` and `keyword` fields are highlighted. For example, you can set `fields` to `my_field*` to include all `text` and `keyword` fields that start with the prefix `my_field`. 
-force_source | Specifies to get field values for highlighting from the `_source` field rather than from stored field values. Default is `false`.
+force_source | Specifies that field values for highlighting should be obtained from the `_source` field rather than from stored field values. Default is `false`.
 require_field_match | Specifies whether to highlight only fields that contain a search query match. Default is `true`. To highlight all fields, set this option to `false`.
 pre_tags | Specifies the HTML start tags for the highlighted text as an array of strings.
 post_tags | Specifies the HTML end tags for the highlighted text as an array of strings.
@@ -188,10 +188,10 @@ boundary_max_scan | Controls how far to scan for boundary characters when the `b
 encoder | Specifies whether the highlighted fragment should be HTML encoded before it is returned. Valid values are `default` (no encoding) or `html` (first escape the HTML text and then insert the highlighting tags). For example, if the field text is `<h3>Hamlet</h3>` and the `encoder` is set to `html`, the highlighted text is `"&lt;h3&gt;<em>Hamlet</em>&lt;&#x2F;h3&gt;"`. 
 fragmenter | Specifies how to split text into highlighted fragments. Valid only for the `plain` highlighter. Valid values are the following:<br>- `span` (default): Splits text into fragments of the same size but tries not to split text between highlighted terms. <br>- `simple`: Splits text into fragments of the same size.
 fragment_offset | Specifies the character offset from which you want to start highlighting. Valid for the `fvh` highlighter only.
-fragment_size | The size of a highlighted fragment, specified as the number of characters. If `number_of_fragments` is 0, `fragment_size` is ignored. Default is 100.
+fragment_size | The size of a highlighted fragment, specified as the number of characters. If `number_of_fragments` is set to 0, `fragment_size` is ignored. Default is 100.
 number_of_fragments| The maximum number of returned fragments. If `number_of_fragments` is set to 0, OpenSearch returns the highlighted contents of the entire field. Default is 5.
 order | The sort order for the highlighted fragments. Set `order` to `score` to sort fragments by relevance. Each highlighter has a different algorithm for calculating relevance scores. Default is `none`.
-highlight_query | Specifies to highlight matches for a query other than the search query. The `highlight_query` option is useful when you use a faster query to get document matches and a slower query (for example, `rescore_query`) to refine the results. We recommend to include the search query as part of the `highlight_query`.
+highlight_query | Specifies that matches for a query other than the search query should be highlighted. The `highlight_query` option is useful when you use a faster query to get document matches and a slower query (for example, `rescore_query`) to refine the results. We recommend to include the search query as part of the `highlight_query`.
 matched_fields | Combines matches from different fields to highlight one field. The most common use case for this functionality is highlighting text that is analyzed in different ways and kept in multi-fields. All fields in the `matched_fields` list must have the `term_vector` field set to `with_positions_offsets`. The field in which the matches are combined is the only loaded field, so it is beneficial to set its `store` option to `yes`.  Valid only for the `fvh` highlighter.
 no_match_size | Specifies the number of characters, starting from the beginning of the field, to return if there are no matching fragments to highlight. Default is 0.
 phrase_limit | The number of matching phrases in a document that are considered. Limits the number of phrases to analyze by the `fvh` highlighter to avoid consuming a lot of memory. If `matched_fields` are used, `phrase_limit` specifies the number of phrases for each matched field. A higher `phrase_limit` leads to increased query time and more memory consumption. Valid only for the `fvh` highlighter. Default is 256.
@@ -201,7 +201,7 @@ The unified highlighter's sentence scanner splits sentences larger than `fragmen
 
 ## Changing the highlighting tags
 
-Design your application code to parse the results from the `highlight` object and perform some action on the search terms, such as changing their color, bolding, italicizing, and so on.
+Design your application code to parse the results from the `highlight` object and perform an action on the search terms, such as changing their color, bolding, italicizing, and so on.
 
 To change the default `em` tags, specify the new tags in the `pretag` and `posttag` parameters:
 
@@ -228,7 +228,7 @@ GET shakespeare/_search
 }
 ```
 
-The play name is highlighted with the new tags in the response:
+The play name is highlighted by the new tags in the response:
 
 ```json
 {
@@ -961,5 +961,4 @@ The response lists documents that contain the word "bragging" first:
 Note the following limitations:
 
 - When extracting terms to highlight, highlighters don’t reflect the Boolean logic of a query. Therefore, for some complex Boolean queries, such as nested Boolean queries and queries using `minimum_should_match`, OpenSearch may highlight terms that don’t correspond to query matches.
-
 - The `fvh` highlighter does not support span queries.

@@ -40,7 +40,7 @@ Use the following formula to calculate the `from` parameter relative to the page
 from = size * (page_number - 1)
 ```
 
-Each time the user chooses the next page of the results, your application needs to make the same search query with an incremented `from` value.
+Each time the user chooses the next page of the results, your application needs to run the same search query with an incremented `from` value.
 
 You can also specify the `from` and `size` parameters in the search URI:
 
@@ -76,13 +76,13 @@ GET shakespeare/_search?scroll=10m
 }
 ```
 
-OpenSearch caches the results and returns a scroll ID to access them in batches:
+OpenSearch caches the results and returns a scroll ID that you can use to access them in batches:
 
 ```json
 "_scroll_id" : "DXF1ZXJ5QW5kRmV0Y2gBAAAAAAAAAAUWdmpUZDhnRFBUcWFtV21nMmFwUGJEQQ=="
 ```
 
-Pass this scroll ID to the `scroll` operation to get back the next batch of results:
+Pass this scroll ID to the `scroll` operation to obtain the next batch of results:
 
 ```json
 GET _search/scroll
@@ -110,9 +110,9 @@ GET shakespeare/_search?scroll=10m
 }
 ```
 
-With a single scroll ID, you get back 10 results.
+With a single scroll ID, you receive 10 results.
 You can have up to 10 IDs.
-Perform the same command with ID equal to 1:
+Perform the same command with the ID equal to 1:
 
 ```json
 GET shakespeare/_search?scroll=10m

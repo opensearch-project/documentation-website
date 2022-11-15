@@ -17,7 +17,7 @@ Implement autocomplete using one of the following methods:
 
 - [Prefix matching](#prefix-matching)
 - [Edge n-gram matching](#edge-n-gram-matching)
-- [Search-as-you-type](#search-as-you-type)
+- [Search as you type](#search-as-you-type)
 - [Completion suggesters](#completion-suggester)
 
 While prefix matching happens at query time, the other three methods happen at index time. All methods are described in the following sections.
@@ -70,7 +70,7 @@ When implementing this feature on a large scale, we recommend an index-time solu
 
 ## Edge n-gram matching
 
-During indexing, edge n-grams chop up a word into a sequence of n characters to support a faster lookup of partial search terms.
+During indexing, edge n-grams split a word into a sequence of n characters to support a faster lookup of partial search terms.
 
 If you n-gram the word "quick," the results depend on the value of n.
 
@@ -157,7 +157,7 @@ It returns edge n-grams as tokens:
 * `quick`
 
 Use the `standard` analyzer at search time. Otherwise, the search query splits into edge n-grams and you get results for everything that matches `q`, `u`, and `i`.
-This is one of the few occasions where you use a different analyzer on the index and query side:
+This is one of the few occasions when you use different analyzers at index time and at query time:
 
 ```json
 GET shakespeare/_search
@@ -263,7 +263,7 @@ PUT shakespeare
 }
 ```
 
-To get back suggestions, use the `search` endpoint with the `suggest` parameter:
+To get suggestions, use the `search` endpoint with the `suggest` parameter:
 
 ```json
 GET shakespeare/_search
@@ -485,8 +485,7 @@ The maximum of three documents is returned:
 ```
 
 The `suggest` parameter finds suggestions using only prefix matching.
-For example, you don't get back "To be, or not to be," which you might want as a suggestion.
-To work around this issue, manually add curated suggestions and add weights to prioritize your suggestions.
+For example, the document "To be, or not to be" is not part of the results. If you want specific documents returned as suggestions, you can manually add curated suggestions and add weights to prioritize your suggestions.
 
 Index a document with input suggestions and assign a weight:
 
@@ -502,7 +501,7 @@ PUT shakespeare/_doc/1?refresh=true
 }
 ```
 
-Perform the same search as before:
+Perform the same search:
 
 ```json
 GET shakespeare/_search
@@ -686,7 +685,7 @@ GET shakespeare/_search
 
 For more information, see the [`completion` field type documentation]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/completion).
 
-## Search-as-you-type
+## Search as you type
 
 OpenSearch has a dedicated [`search_as_you_type`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/search-as-you-type) field type that is optimized for search-as-you-type functionality and can match terms using both prefix and infix completion. The `search_as_you_type` field does not require you to set up a custom analyzer or index suggestions beforehand. 
 
@@ -716,7 +715,7 @@ After you index a document, OpenSearch automatically creates and stores its n-gr
 ]
 ```
 
-In addition to storing the terms above, the following 2-grams for this field are stored in the field `text_entry._2gram`:
+In addition to storing these terms, the following 2-grams for this field are stored in the field `text_entry._2gram`:
 
 ```json
 [
@@ -747,7 +746,7 @@ Finally, after an edge n-gram token filter is applied, the resulting terms are s
 ]
 ```
 
-You can then match terms in any order using a `bool_prefix` type of `multi-match` query:
+You can then match terms in any order using the `bool_prefix` type of a `multi-match` query:
 
 ```json
 GET shakespeare/_search

@@ -47,7 +47,7 @@ GET books/_analyze
 }
 ```
 
-The default analyzer (`standard`) splits a string on word boundaries, removes punctuation, and lowercases the tokens:
+The default analyzer (`standard`) splits a string at word boundaries, removes punctuation, and lowercases the tokens:
 
 ```json
 {
@@ -215,7 +215,7 @@ string_distance | The edit distance algorithm to use to determine similarity. Va
 
 ## Phrase suggester
 
-To implement a `did-you-mean` feature, use a phrase suggester.
+To implement `did-you-mean`, use a phrase suggester.
 The phrase suggester is similar to the term suggester, except it uses n-gram language models to suggest whole phrases instead of individual words.
 
 To set up a phrase suggester, create a custom analyzer called `trigram` that uses a `shingle` filter and lowercases tokens. This filter is similar to the `edge_ngram` filter, but it applies to words instead of letters. Then configure the field from which you'll be sourcing suggestions with the custom analyzer you created:
@@ -408,7 +408,7 @@ shard_size | The maximum number of candidate suggestions to obtain from each sha
 [collate](#collate-field)| Used to prune suggestions for which there are no matching documents in the index.
 collate.query | Specifies a query against which suggestions are checked to prune the suggestions for which there are no matching documents in the index.
 collate.prune | Specifies whether to return all suggestions. If `prune` is set to `false`, only those suggestions that have matching documents are returned. If `prune` is set to `true`, all suggestions are returned; each suggestion has an additional `collate_match` field that is `true` if the suggestion has matching documents and is `false` otherwise. Default is `false`.
-highlight | Specifies to highlight suggestions. Both `pre_tag` and `post_tag` values are required. 
+highlight | Configures suggestion highlighting. Both `pre_tag` and `post_tag` values are required. 
 highlight.pre_tag | The starting tag for highlighting. 
 highlight.post_tag | The ending tag for highlighting.
 [smoothing](#smoothing-models) | Smoothing model to balance the weight of the shingles that exist in the index frequently with the weight of the shingles that exist in the index infrequently.
@@ -422,7 +422,7 @@ The collate query for a suggestion is run only on the shard from which the sugge
 
 Additionally, if the `prune` parameter is set to `true`, a `collate_match` field is added to each suggestion. If a query returns no results, the `collate_match` value is `false`. You can then filter out suggestions based on the `collate_match` field. The `prune` parameter's default value is `false`.
 
-For example, the following query sets up the `collate` field to run a `match_phrase` query matching the `title` field to the current suggestion:
+For example, the following query configures the `collate` field to run a `match_phrase` query matching the `title` field to the current suggestion:
 
 ```json
 GET books2/_search

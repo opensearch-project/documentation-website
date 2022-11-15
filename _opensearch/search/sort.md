@@ -230,7 +230,7 @@ The results are sorted by `line_id` in descending order:
 
 The `sort` parameter is an array, so you can specify multiple field values in the order of their priority.
 
-If you have two fields with the same value for `line_id`, OpenSearch uses `speech_number`, which is the second option for sorting.
+If you have two fields with the same value for `line_id`, OpenSearch uses `speech_number`, which is the second option for sorting:
 
 ```json
 GET shakespeare/_search
@@ -271,7 +271,7 @@ You can continue to sort by any number of field values to get the results in jus
 
 A text field that is analyzed cannot be used to sort documents, because the inverted index only contains the individual tokenized terms and not the entire string. So you cannot sort by the `play_name`, for example.
 
-One workaround is map a raw version of the text field as a keyword type, so it won’t be analyzed and you have a copy of the full original version for sorting purposes.
+To bypass this limitation, you can use a raw version of the text field mapped as a keyword type. In the following example, `play_name.keyword` is not analyzed and you have a copy of the full original version for sorting purposes:
 
 ```json
 GET shakespeare/_search
@@ -293,13 +293,13 @@ GET shakespeare/_search
 }
 ```
 
-You get back results sorted by the `play_name` field in alphabetic order.
+The results are sorted by the `play_name` field in alphabetic order.
 
 Use `sort` with the [`search_after` parameter]({{site.url}}{{site.baseurl}}/opensearch/search/paginate#the-search_after-parameter) for more efficient scrolling.
-You get back results after the values you specify in the `search_after` array.
+The results start with the document that comes after the sort values you specify in the `search_after` array.
 
 Make sure you have the same number of values in the `search_after` array as in the `sort` array, also ordered in the same way.
-In this case, you get back results after `line_id = 3202` and `speech_number = 8`.
+In this case, you are requesting results starting with the document that comes after `line_id = 3202` and `speech_number = 8`:
 
 ```json
 GET shakespeare/_search
@@ -338,7 +338,7 @@ The default mode is `min` for ascending sort order and `max` for descending sort
 
 The following example illustrates sorting by an array field using the sort mode.
 
-Consider an index that holds students' grades. Index two documents into the index:
+Consider an index that holds student grades. Index two documents into the index:
 
 ```json
 PUT students/_doc/1
@@ -569,7 +569,7 @@ The response lists document 2 first:
 
 ## Ignoring unmapped fields
 
-If a field is not mapped, a search request fails by default. You can use the `unmapped_type` parameter to specify to ignore fields that have no associated mapping and not to sort by them. 
+If a field is not mapped, a search request that sorts by this field fails by default. To avoid this, you can use the `unmapped_type` parameter that signals to OpenSearch to ignore the field. For example, if you set `unmapped_type` to `long`, the field is treated as if it were mapped as type `long`. Additionally, all documents in the index that have an `unmapped_type` field are treated as if they had no value in this field, so they are not sorted by it.
 
 For example, consider two indexes. Index a document that contains an `average` field in the first index:
 
@@ -676,7 +676,7 @@ GET students*/_search
 }
 ```
 
-The response contains both documents:
+The response contains both documents, but the sort value for the document from the unmapped index :
 
 ```json
 {
@@ -752,7 +752,7 @@ Parameter | Description
 :--- | :---
 distance_type | Specifies the method of computing the distance. Valid values are `arc` and `plane`. The `plane` method is faster but less accurate for long distances or close to the poles. Default is `arc`.
 mode | Specifies how to handle a field with several geopoints. By default, documents are sorted by the shortest distance when the sort order is ascending and by the longest distance when the sort order is descending. Valid values are `min`, `max`, `median`, and `avg`.
-unit | Specifies the units to compute sort values. Default is meters (`m`).
+unit | Specifies the units used to compute sort values. Default is meters (`m`).
 ignore_unmapped | Specifies how to treat an unmapped field. Set `ignore_unmapped` to `true` to ignore unmapped fields. Default is `false` (produce an error when encountering an unmapped field).
 
 The `_geo_distance` parameter does not support `missing_values`. The distance is always considered to be `infinity` when a document does not contain the field used for computing distance.
@@ -847,7 +847,7 @@ The response contains the sorted documents:
 }
 ```
 
-You can provide coordinates in any format supported by geopoint. For a description of all formats, see the [geopoint field type documentation]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point).
+You can provide coordinates in any format supported by the geopoint field type. For a description of all formats, see the [geopoint field type documentation]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point).
 {: .note}
 
 To pass multiple geopoints to `_geo_distance`, use an array:
