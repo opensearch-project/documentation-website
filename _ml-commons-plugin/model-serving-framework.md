@@ -5,7 +5,7 @@ has_children: false
 nav_order: 110
 ---
 
-# Upload custom ML models
+# Model serving framework
 
 ML commons supports the ability to serve custom models and use those models to make inferences. For those who wish to use train their models using a deep-learning framework, such as Pytorch, TensorFlow, or ONNX, they can upload such models to OpenSearch in order to take advantage of OpenSearch resources, like GPU acceleration.
 
