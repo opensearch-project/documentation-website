@@ -4,6 +4,9 @@ The following page provides a list of updates made to OpenSearch documentation f
 
 **NOTE:** Some PRs in the following list might still be in-progress at time of publication.
 
+
+## New documentation for 2.4
+
 - Add Alerting RBAC backend roles [#1866](https://github.com/opensearch-project/documentation-website/pull/1866)
 - Adds Windows Installation documentation [#1825](https://github.com/opensearch-project/documentation-website/pull/1825))
 - Adds Cluster Manager Task Throttling Documentation [#1826](https://github.com/opensearch-project/documentation-website/pull/1826)
@@ -20,5 +23,9 @@ The following page provides a list of updates made to OpenSearch documentation f
 - Add search with k-NN filters [#1814](https://github.com/opensearch-project/documentation-website/pull/1814)
 - Update snapshot documentation with storage_type option [#1749](https://github.com/opensearch-project/documentation-website/pull/1749)
 - Add searchable snapshots [#1795](https://github.com/opensearch-project/documentation-website/pull/1795)
-- Add configuring Dashboards multi-authentication sign-in window (#1549)(https://github.com/opensearch-project/documentation-website/pull/1549)
-
+- Add configuring Dashboards multi-authentication sign-in window [#1549](https://github.com/opensearch-project/documentation-website/pull/1549)
+- Add Neural Search plugin [#1882](https://github.com/opensearch-project/documentation-website/pull/1882)
+- Add Security Analytics plugin [#1824](https://github.com/opensearch-project/documentation-website/pull/1824)
+- Add Error prevention validation ISM API [#1884](https://github.com/opensearch-project/documentation-website/pull/1884)
+- Add model serving framework [#1880](https://github.com/opensearch-project/documentation-website/pull/1880)
+- Add multiple data sources in Dashboards [#1711](https://github.com/opensearch-project/documentation-website/pull/1711)
