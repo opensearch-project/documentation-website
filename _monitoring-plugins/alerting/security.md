@@ -99,7 +99,7 @@ In an update monitor scenario, follow these guidelines to specify roles:
 
 User type  | Role is specified by user or not (Y/N) | How to use the RBAC roles
 :--- | :--- | :---
-Admin user | Yes | Remove all the backend roles associate to the monitor and then use all the specified backend roles to associate to the monitor.
+Admin user | Yes | Remove all the backend roles associate to the monitor and then use all the specified backend roles associated to the monitor.
 Regular user | Yes | Remove backend roles associated to the monitor that the user has access to, but didn’t specify. Then add all the other specified backend roles from the list of backend roles that the user has permission to use to the monitor.
 Regular user | No | Don’t update the backend roles on the monitor.
 
@@ -110,7 +110,7 @@ Regular user | No | Don’t update the backend roles on the monitor.
 To create an RBAC role, follow instructions in the Security Plugin API documentation to [Create role]({{site.url}}{{site.baseurl}}/security-plugin/access-control/api#create-role).
 ### Create a monitor with an RBAC role
 
-When you create a monitor with the Alerting API, you can specify the RBAC roles at the bottom of the request body. Use the `rbac_roles` parameter.
+When you create a monitor with the Alerting API, you can specify the role-based access control (RBAC) roles at the bottom of the request body. Use the `rbac_roles` parameter.
 
 The following sample shows the RBAC roles specified by the RBAC parameter:
 
