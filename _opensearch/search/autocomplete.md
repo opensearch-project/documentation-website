@@ -82,7 +82,7 @@ n | Type | n-gram
 4 | Four-gram | [ `quic`, `uick` ]
 5 | Five-gram | [ `quick` ]
 
-Autocomplete needs only the beginning n-grams of a search phrase, so OpenSearch uses a special type of n-gram called edge n-gram.
+Autocomplete needs only the beginning n-grams of a search phrase, so OpenSearch uses a special type of n-gram called *edge n-gram*.
 
 Edge n-gramming the word "quick" results in the following:
 
