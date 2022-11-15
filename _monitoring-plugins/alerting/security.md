@@ -103,7 +103,7 @@ Admin user | Yes | Remove all the backend roles associate to the monitor and the
 Regular user | Yes | Remove backend roles associated to the monitor that the user has access to, but didn’t specify. Then add all the other specified backend roles from the list of backend roles that the user has permission to use to the monitor.
 Regular user | No | Don’t update the backend roles on the monitor.
 
-- For admin users, an empty list is considered the same as removing all permissions that the user possesses.
+- For admin users, an empty list is considered the same as removing all permissions that the user possesses. If a non-admin user passes in an empty list, that will throw an exception, because that is not allowed by non-admin users.
 - If the user tries to associate roles that they don't have permission to use, it will throw an exception.
 {: .note }
 

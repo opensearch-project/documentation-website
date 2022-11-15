@@ -103,7 +103,7 @@ Optionally, to specify a backend role, you can add the `rbac_roles` parameter an
 
 #### Sample request
 
-The following request creates a query-level monitor and provides two backend roles `role1` and `role2`.
+The following request creates a query-level monitor and provides two backend roles `role1` and `role2`. The section at the bottom of the request shows the line that specifies the roles with this syntax: `"rbac_roles": ["role1", "role2"]`.
 
 ```json
 POST _plugins/_alerting/monitors
