@@ -1,5 +1,7 @@
 # OpenSearch Documentation Website 2.4.0 Release Notes
 
+The following page provides a list of updates made to OpenSearch documentation for OpenSearch 2.4, as well as documentation updates still in-progress.
+
 
 ## New documentation for 2.4
 
