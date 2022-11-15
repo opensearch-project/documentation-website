@@ -7,7 +7,7 @@ nav_order: 2
 
 # Operating system compatibility
 
-We recommend installing OpenSearch on Red Hat Enterprise Linux (RHEL) or Debian-based Linux distributions that use [systemd](https://en.wikipedia.org/wiki/Systemd), such as CentOS, Amazon Linux 2, and Ubuntu Long-Term Support (LTS). OpenSearch should work on most Linux distributions, but we only test a handful. We recommend RHEL 7 or 8, CentOS 7 or 8, Amazon Linux 2, Ubuntu 16.04, 18.04, or 20.04 for any version of OpenSearch.
+We recommend installing OpenSearch on Red Hat Enterprise Linux (RHEL) or Debian-based Linux distributions that use [systemd](https://en.wikipedia.org/wiki/Systemd), such as CentOS, Amazon Linux 2, or Ubuntu Long-Term Support (LTS). OpenSearch should work on most Linux distributions, but we only test a handful. We recommend RHEL 7 or 8, CentOS 7 or 8, Amazon Linux 2, or Ubuntu 16.04, 18.04, or 20.04 for any version of OpenSearch. OpenSearch also supports Windows Server 2019.
 
 Avoid using a network file system for node storage in a production workflow. Using a network file system for node storage can cause performance issues in your cluster due to factors such as network conditions (like latency or limited throughput) or read/write speeds. You should use solid-state drives (SSDs) installed on the host for node storage where possible.
 {: .note}
