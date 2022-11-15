@@ -10,12 +10,12 @@ redirect_from:
 
 # API tools
 
-Security anlaytics includes a number of APIs to help administrators maintain and update an implementation. The APIs generally mimic the same controls for set-up in the Dashboards interface. However, they also allow you to search, get, and delete items. The APIs provide another option for administering the various elements of security analytics.
+Security anlaytics includes a number of APIs to help administrators maintain and update an implementation. The APIs often mimic the same controls available for setting up security analytics in the Dashboards interface, and they provide another option for administering the various elements of security analytics.
 
 The APIs for security analytics are separated into the following categories:
 
-* [Detector APIs]({{site.url}}{{site.baseurl}}/_security-analytics/api-tools/detector-api.md/)
-* [Rules APIs]({{site.url}}{{site.baseurl}}/_security-analytics/api-tools/rule-api.md/)
-* [Mappings APIs]({{site.url}}{{site.baseurl}}/_security-analytics/api-tools/mappings-api.md/)
-* [Alerts and findings APIs]({{site.url}}{{site.baseurl}}/_security-analytics/api-tools/alert-finding-api.md/)
+* [Detector APIs]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/detector-api/)
+* [Rules APIs]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/rule-api/)
+* [Mappings APIs]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/mappings-api/)
+* [Alerts and findings APIs]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/alert-finding-api/)
 

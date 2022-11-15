@@ -59,7 +59,7 @@ status: experimental
 1. To begin, select the **Import rule** button in the upper-right conern of the page. The Import rule page opens.
 1. Either drag a YAML-formatted Sigma rule into the window, or browse for the file by selecting the link and opening it. The Import a rule window opens and the rule definition fields are automatically populated.
 1. Verify or modify the information in the fields.
-1. After you confirm the information for the rule is accurate, select the **Create** button in the lower-right corner of the window. A new rule is created, and it appears in the list of rules on the main page of the Rules window.
+1. After you confirm the information for the rule is accurate, select the **Create** button in the lower-right corner of the window. A new rule is created and it appears in the list of rules on the main page of the Rules window.
 
 ## Creating a rule by duplication
 

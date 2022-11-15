@@ -27,41 +27,41 @@ Parameter | Type | Description
 `type` | String | The type is specified as "detector".
 `name` | String | Name of the detector.
 `detector_type` | Object | The log type that defines the detector.
+`schedule`| Object | the schedule that determines how often the detector runs.
 `schedule`<br>&nbsp;&nbsp;&nbsp;&nbsp;`period` | Object | the frequency at which the detector runs in repetition.
 `schedule`<br>&nbsp;&nbsp;&nbsp;&nbsp;`period`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`interval` | Integer | The duration of the period expressed as a number.
 `schedule`<br>&nbsp;&nbsp;&nbsp;&nbsp;`period`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`unit` | String | The unit of measure for the interval.
-`inputs` | Object | TBD
-`inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;`detector_inputs` | Object | TBD
-`inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;`detector_inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`description` | String | TBD
-`inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;`detector_inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`custom_rules` | Object | TBD
-`inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;`detector_inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`custom_rules` | Object | TBD
-`inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;`detector_inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`custom_rules` | Object | TBD
-`inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;`detector_inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`custom_rules`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`id` | String | TBD
-`inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;`detector_inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`indices` | String | TBD
-`inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;`detector_inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`pre_packaged_rules` | Object | TBD
-`inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;`detector_inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`pre_packaged_rules`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`id` | String | TBD
-`triggers` | Object | TBD
-`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`ids` | String | TBD
-`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`types` | String | TBD
-`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`tags` | String | TBD
-`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`id` | String | TBD
-`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`sev_levels` | String | TBD
-`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`name` | String | TBD
-`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`severity` | Integer | TBD
-`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions` | Integer | TBD
-`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`id` | Integer | TBD
-`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`destination_id` | Integer | TBD
-`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`subject_template` | Object | TBD
-`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`subject_template`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`source` | String | TBD
-`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`subject_template`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`lang` | String | TBD
-`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`name` | String | TBD
-`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`throttle_enabled` | Boolean | TBD
-`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`message_template` | String | TBD
-`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`message_template`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`source` | String | TBD
-`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`message_template`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`lang` | String | TBD
-`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`throttle` | Object | TBD
-`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`throttle`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`unit` | String | TBD
-`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`throttle`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`value` | Integer | TBD
+
+`inputs` | Object | In process
+`inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;`detector_inputs` | Object | In process
+`inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;`detector_inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`description` | String | In process
+`inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;`detector_inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`custom_rules` | Object | In process
+`inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;`detector_inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`custom_rules`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`id` | String | In process
+`inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;`detector_inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`indices` | String | In process
+`inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;`detector_inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`pre_packaged_rules` | Object | In process
+`inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;`detector_inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`pre_packaged_rules`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`id` | String | In process
+`triggers` | Object | In process
+`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`ids` | String | In process
+`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`types` | String | In process
+`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`tags` | String | In process
+`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`id` | String | In process
+`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`sev_levels` | String | In process
+`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`name` | String | In process
+`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`severity` | Integer | In process
+`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions` | Integer | In process
+`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`id` | Integer | In process
+`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`destination_id` | Integer | In process
+`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`subject_template` | Object | In process
+`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`subject_template`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`source` | String | In process
+`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`subject_template`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`lang` | String | In process
+`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`name` | String | In process
+`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`throttle_enabled` | Boolean | In process
+`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`message_template` | String | In process
+`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`message_template`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`source` | String | In process
+`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`message_template`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`lang` | String | In process
+`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`throttle` | Object | In process
+`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`throttle`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`unit` | String | In process
+`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`throttle`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`value` | Integer | In process
 
 ### Sample request
 
@@ -361,6 +361,7 @@ GET /_plugins/_security_analytics/detectors/MFRg1IMByX0LvTiGHtcN
     }
 }
 ```
+
 
 ## Search detector
 

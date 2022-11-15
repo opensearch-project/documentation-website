@@ -91,6 +91,7 @@ State | Description
 POST /_plugins/_security_analytics/<detector_id>/_acknowledge/alerts
 ```
 
+
 ## Get findings
 
 The Get findings API based on detector attributes.

@@ -117,6 +117,7 @@ falsepositives:
 }
 ```
 
+
 ## Update custom rule (not forced)
 
 ### Sample request
@@ -176,6 +177,7 @@ falsepositives:
     "status": 500
 }
 ```
+
 
 ## Update custom rule (forced)
 
@@ -255,6 +257,7 @@ falsepositives:
     }
 }
 ```
+
 
 ## Search pre-packaged rules
 
@@ -349,6 +352,7 @@ POST /_plugins/_security_analytics/rules/_search?pre_packaged=true
     }
 }
 ```
+
 
 ## Search custom rules
 
@@ -446,6 +450,7 @@ Body:
 }
 ```
 
+
 ## Delete custom rule (not forced)
 
 ### Sample request
@@ -475,6 +480,7 @@ DELETE /_plugins/_security_analytics/rules/ZaFv1IMBdLpXWBiBa1XI
     "status": 500
 }
 ```
+
 
 ## Delete custom rule (forced)
 

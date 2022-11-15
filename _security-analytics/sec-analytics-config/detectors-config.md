@@ -46,7 +46,7 @@ To make any changes to the automatically populated mappings, use the dropdown ar
 
 ## Step 3. Set up alerts
 
-At this stage, setting up alerts is optional for creating a new detector. Alerts can be configured at any stage of setup, including from the Findings window. This section describes the process for defining the alert conditions during creation of a detector. For the method of setting up an alert from findings, see [Working with findings](#findings). 
+At this stage, setting up alerts is optional for creating a new detector. Alerts can be configured at any time, including from the Findings window. This section describes the process for defining the alert conditions during creation of a detector. To see how to initiate creation of alerts from the Findings window, see [The findings list]({{site.url}}{{site.baseurl}}/security-analytics/usage/findings/#the-findings-list).
 
 To skip directly to generating findings from the detector, select the **Remove alert trigger** button and then the **Next** button in the lower-right corner of the screen. Review the detector's definition and then select the **Create** button in the lower-right corner of the screen. The detector is created.
 {: .tip }
@@ -71,5 +71,5 @@ After reviewing the specifications for the detector, select the **Create** butto
 
 ## What's next
 
-If you are ready to view findings for the new detector, see the [Working with findings](#findings) section. If you would like to set up custom rules before working with findings, see the [Creating rules](#rules) section. 
+If you are ready to view findings for the new detector, see the [Working with findings]({{site.url}}{{site.baseurl}}/security-analytics/usage/findings/) section. If you would like to import rules or set up custom rules before working with findings, see the [Working with rules]({{site.url}}{{site.baseurl}}/security-analytics/usage/rules/) section. 
 

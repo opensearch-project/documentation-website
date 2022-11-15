@@ -44,5 +44,5 @@ Each finding in the list includes a finding ID. You can select the ID to open th
 The Actions column includes two options for each finding:
 * The diagonal arrow provides another way to open the Findings detail pane.
 * The bell icon allows you to open the Create detector alert trigger pane, where you can quickly set up an alert for the specific finding and modify rules and their conditions if need be.
-See [Working with alerts]({{site.url}}{{site.baseurl}}/_security-analytics/usage/alerts.md/) to learn about options on the Alerts page.
+For details on setting up an alert, see [Set up alerts]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/detectors-config/#step-3-set-up-alerts) in detector creation documentation.
 
