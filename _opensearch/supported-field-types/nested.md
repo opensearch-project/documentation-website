@@ -27,7 +27,7 @@ PUT testindex1/_doc/100
 }
 ```
 
-When these objects are stored, they are flattened, so their internal represenation has an array of all values for each field:
+When these objects are stored, they are flattened, so their internal representation has an array of all values for each field:
 
 ```json
 {
@@ -142,13 +142,13 @@ Nested objects are stored as separate documents, and the parent object has refer
 ```json
 PUT testindex1
 {
-    "mappings" : {
-        "properties": {
-            "patients": { 
-                "type" : "nested"
-            }
-        }
+  "mappings" : {
+    "properties": {
+      "patients": { 
+        "type" : "nested"
+      }
     }
+  }
 }
 ```
 
