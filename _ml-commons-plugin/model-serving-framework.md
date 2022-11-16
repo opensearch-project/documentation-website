@@ -7,7 +7,7 @@ nav_order: 110
 
 # Model serving framework
 
-ML commons supports the ability to serve custom models and use those models to make inferences. For those who wish to train their models using a deep-learning framework, such as Pytorch, they can upload such models to OpenSearch in order to take advantage of OpenSearch resources.
+ML commons supports the ability to serve custom models and use those models to make inferences. For those who want to run their PyTorch deep-learning model inside an OpenSearch cluster, you can upload and run that model with the ML Commons REST API.
 
 This page outlines the steps required to upload a custom model and run with the ML Commons plugin.
 
@@ -15,13 +15,18 @@ This page outlines the steps required to upload a custom model and run with the 
 
 To upload a custom model to OpenSearch, you need to prepare it outside of your OpenSearch cluster. You can use a current model or train a new model depending on your needs.
 
+### Model support
+
+As of OpenSearch 2.4, the model serving framework only supports text embedding models without GPU acceleration.
+
 ### Model format
 
-To use a model in OpenSearch, you'll need to export the model into a portable format. As of 2.4, OpenSearch only supports [torchscript](https://pytorch.org/docs/stable/jit.html). Furthermore, the model serving framework only support the t
+To use a model in OpenSearch, you'll need to export the model into a portable format. As of 2.4, OpenSearch only supports [torchscript](https://pytorch.org/docs/stable/jit.html) format.
 
 ### Model size
 
 Most deep-learning models are over 100 MBs, making it difficult to fit the model into a single document. OpenSearch splits the model file into smaller chunks to store in an ML index. When allocating ML or data nodes for your OpenSearch cluster, be aware of the size of your model to prevent any downtime when making inferences. 
+
 
 ## Upload model to OpenSearch
 

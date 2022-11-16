@@ -125,6 +125,8 @@ POST /_plugins/_ml/models/_upload
 
 ### Request fields
 
+All request fields are required. 
+
 Field | Data Type | Description
 :---  | :--- | :--- 
 `name`| string | The name of the model. |
@@ -187,7 +189,7 @@ The load model operation reads the model's chunks from the model index, then cre
 POST /_plugins/_ml/models/<model_id>/_load
 ```
 
-### Example: Load into any available ML node
+### Example: Load into all available ML nodes
 
 In this example request, OpenSearch loads the model into any available OpenSearch ML node:
 
