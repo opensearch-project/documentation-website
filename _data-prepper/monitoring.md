@@ -9,8 +9,7 @@ Metrics in Data Prepper are instrumented using [Micrometer.io](https://micromete
 
 # JVM and system metrics
 
-JVM and system metrics are Data Prepper instance runtime metrics including metrics on classloaders, memory, 
-garbage collection, threads, etc. See https://micrometer.io/docs/ref/jvm for details.
+JVM and system metrics are Data Prepper instance runtime metrics including metrics on classloaders, memory, garbage collection, threads, etc. See https://micrometer.io/docs/ref/jvm for details.
 
 ## Naming
 
@@ -22,7 +21,7 @@ By default, metrics are served from the **/metrics/sys** endpoint on the Data Pr
 
 # Plugin metrics
 
-Each plugin (and if needed, each class within a plugin) is responsible for posting relevant metrics. Besides custom metrics introduced by specific plugins, data-prepper-api already introduced the following common metrics for plugin types.
+Each plugin (if necessary, each class within a plugin) is responsible for posting relevant metrics. Besides custom metrics introduced by specific plugins, data-prepper-api already introduced the following common metrics for plugin types:
 
 1. AbstractBuffer
     - Counter
