@@ -74,7 +74,7 @@ OpenSearch responds with the `task_id` and task `status`.
 To see the status of your model upload, enter the `task_id` into the [task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api#get-task-information)
 ## Load the model
 
-The load model operation loads a model into memory by reading the model from the index. Since models indexed by OpenSearch are indexed as small chunks, the loading process can take time. 
+The load model operation reads the model's chunks from the model index, then creates an instance of the model to cache into memory. The bigger the model, the more chunks the model is split. The more chunks a model index contains, the longer it takes for the model to load into memory.
 
 ### Get the `model_id`
 
