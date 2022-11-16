@@ -117,7 +117,7 @@ The API returns information on the model, the algorithm used, and the content fo
 
 ## Upload load a model
 
-Use the upload operation to upload a pre-existing or custom model and into a model index. ML commons splits the model into smaller chunks to enable persistance in the cache.
+Use the upload operation to upload a pre-existing or custom model and into a model index. ML commons splits the model into smaller chunks and saves those chunks into the model's index.
 
 ```json
 POST /_plugins/_ml/models/_upload
@@ -130,7 +130,7 @@ Field | Data Type | Description
 `name`| string | The name of the model. |
 `version` | integer | The version number of the model. Version number should follow standard semantic format, major.minor.patch |
 `model_format` | string | The portable format of the model file. Currently only supports `TORCH_SCRIPT`. |
-`model_config` | string | The model's configuration, including the `model_type`, `embedding_dimension`, and `framework_type`. |
+`model_config` _(Optional)_ | string | The model's configuration, including the `model_type`, `embedding_dimension`, and `framework_type`. |
 `url` | string | The URL of the server which contains the model. |
 
 ### Example
@@ -163,6 +163,8 @@ OpenSearch responds with the `task_id` and task `status`.
   "status" : "CREATED"
 }
 ```
+
+To see the status of your model upload, enter the `task_id` into the [task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api#get-task-information).
 
 ## Load model
 
@@ -202,7 +204,7 @@ POST /_plugins/_ml/models/WWQI44MBbzI2oUKAvNUt/_load
 
 ## Unload a model
 
-o unload a model from memory, use the unload operation.
+To unload a model from memory, use the unload operation.
 
 ```json
 POST /_plugins/_ml/models/<model_id>/_unload
