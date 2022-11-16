@@ -39,7 +39,7 @@ Field | Data Type | Description
 `version` | string | The version number of the model. Since OpenSearch does not enforce a specific version schema for models, you can choose any number or format that makes sense for your models. |
 `model_format` | string | The portable format of the model file. Currently only supports `TORCH_SCRIPT`. |
 `model_config` | string | The model's configuration, including the `model_type`, `embedding_dimension`, and `framework_type`. |
-`url` | string | The URL of the server which contains the model. |
+`url` | string | The URL where the model is located. |
 
 #### Sample request
 
