@@ -21,7 +21,7 @@ In order to ingest vectorized documents, you need to create a Neural Search _pip
 PUT _ingest/pipeline/<pipeline_name>
 ```
 
-In the pipeline request body, The `text_embedding` processor, a processor unique to Neural Search, converts a document's text to vector embeddings. `text_embedding` uses a `field_map` to know what fields from which to generate vector embeddings and also what field to store the embedding. 
+In the pipeline request body, The `text_embedding` processor, the only processor supported by Neural Search, converts a document's text to vector embeddings. `text_embedding` uses a `field_map` to know what fields from which to generate vector embeddings and also what field to store the embedding. 
 
 ### Path parameter
 
