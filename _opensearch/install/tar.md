@@ -84,7 +84,7 @@ An OpenSearch node configured by the demo security script is not suitable for a 
 
 ### Option 1: Test your Opensearch settings with security enabled
 
-1. Change to the top directory of your OpenSearch install.
+1. Change to the top directory of your OpenSearch installation.
    ```bash
    cd /path/to/opensearch-{{site.opensearch_version}}
    ```
@@ -93,7 +93,7 @@ An OpenSearch node configured by the demo security script is not suitable for a 
    ./opensearch-tar-install.sh
    ```
 1. Open another terminal session and send requests to the server to verify that OpenSearch is running. Note the use of the `--insecure` flag, which is required because the TLS certificates are self-signed.
-   - Send a request to port 9200.
+   - Send a request to port 9200:
       ```bash
       curl -X GET https://localhost:9200 -u 'admin:admin' --insecure
       ```
@@ -117,7 +117,7 @@ An OpenSearch node configured by the demo security script is not suitable for a 
          "tagline" : "The OpenSearch Project: https://opensearch.org/"
       }
       ```
-   - Query the plugins endpoint.
+   - Query the plugins endpoint:
       ```bash
       curl -X GET https://localhost:9200/_cat/plugins?v -u 'admin:admin' --insecure
       ```
@@ -149,7 +149,7 @@ An OpenSearch node configured by the demo security script is not suitable for a 
    ```bash
    vi /path/to/opensearch-{{site.opensearch_version}}/config/opensearch.yml
    ```
-1. Add the following line to disable the security plugin.
+1. Add the following line to disable the security plugin:
    ```bash
    plugins.security.disabled: true
    ```
@@ -211,7 +211,7 @@ Users who do not have prior experience with OpenSearch may want a list of recomm
 The following recommended settings will allow you to:
 
 - Bind OpenSearch to an IP or network interface on the host.
-- Set initial and max JVM heap sizes.
+- Set initial and maximum JVM heap sizes.
 - Define an environment variable that points to the bundled JDK.
 - Configure your own TLS certificates - no third-party certificate authority (CA) is required.
 - Create an admin user with a custom password.
@@ -243,12 +243,12 @@ Before modifying any configuration files, it's always a good idea to save a back
    plugins.security.disabled: false
    ```
 1. Save your changes and close the file.
-1. Specify initial and max JVM heap sizes.
+1. Specify initial and maximum JVM heap sizes.
    1.  Open `jvm.options`.
          ```bash
          vi /path/to/opensearch-{{site.opensearch_version}}/config/jvm.options
          ```
-   1. Modify the values for initial and max heap sizes. As a starting point, you should set these values to half of the available system memory. For dedicated hosts this value can be increased based on your workflow requirements.
+   1. Modify the values for initial and maximum heap sizes. As a starting point, you should set these values to half of the available system memory. For dedicated hosts this value can be increased based on your workflow requirements.
       -  As an example, if the host machine has 8 GB of memory then you might want to set the initial and maximum heap sizes to 4 GB:
          ```bash
          -Xms4g
