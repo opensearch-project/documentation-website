@@ -5,13 +5,24 @@ parent: Query DSL
 nav_order: 40
 ---
 
-# Full-text queries
+# Full-text query types and options
 
-This page lists all full-text query types and common options. Given the sheer number of options and subtle behaviors, the best method of ensuring useful search results is to test different queries against representative indices and verify the output.
+This page lists all full-text query types and common options. There are many optional fields that you can use to create subtle search behaviors, so we recommend that you test out some basic query types against representative indexes and verify the output before you perform more advanced or complex searches with multiple options.
 
+OpenSearch uses the Apache Lucene search library, which provides highly efficient data structures and algorithms for ingesting, indexing, searching, and aggregating data.
+
+To learn more about search query classes, see [Lucene query JavaDocs](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/Query.html).
+
+The full-text query types shown in this section use the standard analyzer, which analyzes text automatically when the query is submitted.
+
+You can also analyze fields when you index them. To learn more about how to convert unstructured text into structured text that is optimized for search, see [Optimizing text for searches with text analyzers]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/text-analyzers).
+{: .note }
+
+<!-- to do: rewrite query type definitions per issue: https://github.com/opensearch-project/documentation-website/issues/1116
+-->
 ---
 
-## Table of contents
+#### Table of contents
 
 1. TOC
 {:toc}
@@ -21,11 +32,21 @@ This page lists all full-text query types and common options. Given the sheer nu
 Common terms queries and the optional query field `cutoff_frequency` are now deprecated.
 {: .note }
 
-## Match
+## Query types
 
+OpenSearch Query DSL provides multiple query types that you can use in your searches.
+
+### Match
+
+Use the `match` query for full-text search of a specific document field. The `match` query analyzes the provided search string and returns documents that match any of the string's terms.
+
+You can use Boolean query operators to combine searches.
+
+<!-- we don't need to include Lucene query definitions >
 Creates a [boolean query](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/BooleanQuery.html) that returns results if the search term is present in the field.
+-->
 
-The most basic form of the query provides only a field (`title`) and a term (`wind`):
+The following example shows a basic `match` search for the `title` field set to the value `wind`:
 
 ```json
 GET _search
@@ -52,7 +73,7 @@ curl --insecure -XGET -u 'admin:admin' https://<host>:<port>/<index>/_search \
   }'
 ```
 
-The query accepts the following options. For descriptions of each, see [Optional Query Fields](#optional-query-fields).
+The query accepts the following options. For descriptions of each, see [Advanced filter options](#advanced-filter-options).
 
 ```json
 GET _search
@@ -75,11 +96,11 @@ GET _search
     }
   }
 }
+```
 
+### Multi-match
 
-## Multi match
-
-Similar to [match](#match), but searches multiple fields.
+You can use the `multi_match` query type to search multiple fields. Multi-match operation functions similarly to the [match](#match) operation.
 
 The `^` lets you "boost" certain fields. Boosts are multipliers that weigh matches in one field more heavily than matches in other fields. In the following example, a match for "wind" in the title field influences `_score` four times as much as a match in the plot field. The result is that films like *The Wind Rises* and *Gone with the Wind* are near the top of the search results, and films like *Twister* and *Sharknado*, which presumably have "wind" in their plot summaries, are near the bottom.
 
@@ -95,7 +116,7 @@ GET _search
 }
 ```
 
-The query accepts the following options. For descriptions of each, see [Optional Query Fields](#optional-query-fields).
+The query accepts the following options. For descriptions of each, see [Advanced filter options](#advanced-filter-options).
 
 ```json
 GET _search
@@ -122,9 +143,9 @@ GET _search
 }
 ```
 
-## Match boolean prefix
+### Match Boolean prefix
 
-Similar to [match](#match), but creates a [prefix query](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/PrefixQuery.html) out of the last term in the query string.
+The `match_bool_prefix` query analyzes the provided search string and creates a `bool` query from the string's terms. It uses every term except the last term as a whole word for matching. The last term is used as a prefix. The `match_bool_prefix` query returns documents that contain either the whole-word terms or terms that start with the prefix term, in any order.
 
 ```json
 GET _search
@@ -137,7 +158,7 @@ GET _search
 }
 ```
 
-The query accepts the following options. For descriptions of each, see [Optional Query Fields](#optional-query-fields).
+The query accepts the following options. For descriptions of each, see [Advanced filter options](#advanced-filter-options).
 
 ```json
 GET _search
@@ -159,7 +180,11 @@ GET _search
 }
 ```
 
-## Match phrase
+For more reference information about prefix queries, see the [Lucene documentation](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/PrefixQuery.html).
+
+### Match phrase
+
+Use the `match_phrase` query to match documents that contain an exact phrase in a specified order. You can add flexibility to phrase matching by providing the `slop` parameter.
 
 Creates a [phrase query](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/PhraseQuery.html) that matches a sequence of terms.
 
@@ -174,7 +199,7 @@ GET _search
 }
 ```
 
-The query accepts the following options. For descriptions of each, see [Optional Query Fields](#optional-query-fields).
+The query accepts the following options. For descriptions of each, see [Advanced filter options](#advanced-filter-options).
 
 ```json
 GET _search
@@ -192,7 +217,9 @@ GET _search
 }
 ```
 
-## Match phrase prefix
+### Match phrase prefix
+
+Use the `match_phrase_prefix` query to specify a phrase to match in order. The documents that contain the phrase you specify will be returned. The last partial term in the phrase is interpreted as a prefix, so any documents that contain phrases that begin with the phrase and prefix of the last term will be returned.
 
 Similar to [match phrase](#match-phrase), but creates a [prefix query](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/PrefixQuery.html) out of the last term in the query string.
 
@@ -207,7 +234,7 @@ GET _search
 }
 ```
 
-The query accepts the following options. For descriptions of each, see [Optional Query Fields](#optional-query-fields).
+The query accepts the following options. For descriptions of each, see [Advanced filter options](#advanced-filter-options).
 
 ```json
 GET _search
@@ -242,7 +269,7 @@ GET _search
 }
 ```
 
-The query accepts the following options. For descriptions of each, see [Optional Query Fields](#optional-query-fields).
+The query accepts the following options. For descriptions of each, see [Advanced filter options](#advanced-filter-options).
 
 ```json
 GET _search
@@ -265,7 +292,7 @@ GET _search
 }
 ```
 -->
-## Query string
+### Query string
 
 The query string query splits text based on operators and analyzes each individually.
 
@@ -283,7 +310,7 @@ GET _search
 }
 ```
 
-The query accepts the following options. For descriptions of each, see [Optional Query Fields](#optional-query-fields).
+The query accepts the following options. For descriptions of each, see [Advanced filter options](#advanced-filter-options).
 
 ```json
 GET _search
@@ -316,9 +343,9 @@ GET _search
 }
 ```
 
-## Simple query string
+### Simple query string
 
-The simple query string query is like the query string query, but it lets advanced users specify many arguments directly in the query string. The query discards any invalid portions of the query string.
+Use the `simple_query_string` type to specify directly in the query string multiple arguments delineated by regular expressions. Searches with this type will discard any invalid portions of the string.
 
 ```json
 GET _search
@@ -339,10 +366,10 @@ Special character | Behavior
 `*` | Acts as a wildcard.
 `""` | Wraps several terms into a phrase.
 `()` | Wraps a clause for precedence.
-`~n` | When used after a term (e.g. `wnid~3`), sets `fuzziness`. When used after a phrase, sets `slop`. See [Optional Query Fields](#optional-query-fields).
+`~n` | When used after a term (for example, `wnid~3`), sets `fuzziness`. When used after a phrase, sets `slop`. [Advanced filter options](#advanced-filter-options).
 `-` | Negates the term.
 
-The query accepts the following options. For descriptions of each, see [Optional Query Fields](#optional-query-fields).
+The query accepts the following options. For descriptions of each, see [Advanced filter options](#advanced-filter-options).
 
 ```json
 GET _search
@@ -367,9 +394,9 @@ GET _search
 }
 ```
 
-## Match all
+### Match all
 
-Matches all documents. Can be useful for testing.
+The `match_all` query type will return all documents. This type can be useful in testing large document sets if you need to return the entire set.
 
 ```json
 GET _search
@@ -380,6 +407,7 @@ GET _search
 }
 ```
 
+<!-- need to research why a customer would need to match zero documents in a search >
 ## Match none
 
 Matches no documents. Rarely useful.
@@ -392,77 +420,33 @@ GET _search
   }
 }
 ```
+-->
+## Advanced filter options
 
-## Convert text with analyzers
+You can filter your query results by using some of the optional query fields, such as wildcards, fuzzy query fields, and synonyms. You can also use analyzers as optional query fields. To learn more, see [How to use text analyzers]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/text-analyzers/#how-to-use-text-analyzers).
 
-OpenSearch provides the analyzer option to convert your structured text into the format that works best for your searches. You can use the following options with the analyzer field: standard, simple, whitespace, stop, keyword, pattern, fingerprint, and language. Different analyzers have different character filters, tokenizers, and token filters. The stop analyzer, for example, removes stop words (e.g., “an,” “but,” “this”) from the query string.
-
-OpenSearch supports the following language values with the `analyzer` option:
-arabic, armenian, basque, bengali, brazilian, bulgarian, catalan, czech, danish, dutch, english, estonian, finnish, french, galicia, german, greek, hindi, hungarian, indonesian, irish, italian, latvian, lithuanian, norwegian, persian, portuguese, romanian, russian, sorani, spanish, swedish, turkish, and thai.
-
-To use the analyzer when you map an index, specify the value within your query. For example, to map your index with the French language analyzer, specify the `french` value for the analyzer field:
-
-```json
- "analyzer": "french"
- ```
-
-#### Sample Request
-
-The following query maps an index with the language analyzer set to `french`:
-
-```json
-PUT my-index-000001
-
-{
-  "mappings": {
-    "properties": {
-      "text": { 
-        "type": "text",
-        "fields": {
-          "french": { 
-            "type":     "text",
-            "analyzer": "french"
-          }
-        }
-      }
-    }
-  }
-}
-```
-
-<!-- TO do: each of the options needs its own section with an example. Convert table to individual sections, and then give a streamlined list with valid values. -->
-
-## Optional query fields
-
-You can filter your query results by using some of the optional query fields, such as wildcards, analyzers, fuzzy query fields, and synonyms.
-
-### Use wildcards
+### Wildcard options
 
 Option | Valid values | Description
 :--- | :--- | :---
 `allow_leading_wildcard` | Boolean | Whether `*` and `?` are allowed as the first character of a search term. The default is `true`.
 `analyze_wildcard` | Boolean | Whether OpenSearch should attempt to analyze wildcard terms. Some analyzers do a poor job at this task, so the default is false.
 
-### Use built-in analyzers
-
-Option | Valid values | Description
-:--- | :--- | :---
-`analyzer` | `standard, simple, whitespace, stop, keyword, pattern, language, fingerprint` | The analyzer you want to use for the query. Different analyzers have different character filters, tokenizers, and token filters. The `stop` analyzer, for example, removes stop words (e.g., "an," "but," "this") from the query string. For a full list of acceptable language values, see [Convert text with analyzers](#convert-text-with-analyzers) on this page.
-`quote_analyzer` | String | This option lets you choose to use the standard analyzer without any options, such as `language` or other analyzers. Usage is `"quote_analyzer": "standard"`.
-
-### Run fuzzy queries
+### Fuzzy query options
 
 Option | Valid values | Description
 :--- | :--- | :---
 `fuzziness` | `AUTO`, `0`, or a positive integer | The number of character edits (insert, delete, substitute) that it takes to change one word to another when determining whether a term matched a value. For example, the distance between `wined` and `wind` is 1. The default, `AUTO`, chooses a value based on the length of each term and is a good choice for most use cases.
-`fuzzy_transpositions` | Boolean | Setting `fuzzy_transpositions` to true (default) adds swaps of adjacent characters to the insert, delete, and substitute operations of the `fuzziness` option. For example, the distance between `wind` and `wnid` is 1 if `fuzzy_transpositions` is true (swap "n" and "i") and 2 if it is false (delete "n", insert "n"). <br /><br />If `fuzzy_transpositions` is false, `rewind` and `wnid` have the same distance (2) from `wind`, despite the more human-centric opinion that `wnid` is an obvious typo. The default is a good choice for most use cases.
+`fuzzy_transpositions` | Boolean | Setting `fuzzy_transpositions` to true (default) adds swaps of adjacent characters to the insert, delete, and substitute operations of the `fuzziness` option. For example, the distance between `wind` and `wnid` is 1 if `fuzzy_transpositions` is true (swap "n" and "i") and 2 if it is false (delete "n", insert "n"). If `fuzzy_transpositions` is false, `rewind` and `wnid` have the same distance (2) from `wind`, despite the more human-centric opinion that `wnid` is an obvious typo. The default is a good choice for most use cases.
 `fuzzy_max_expansions` | Positive integer | Fuzzy queries "expand to" a number of matching terms that are within the distance specified in `fuzziness`. Then OpenSearch tries to match those terms against its indexes.
 
-### Use synonyms with a query
+### Synonyms in a multiple terms search
 
-You can also run multi-term queries that allow for generating synonyms. Use the `auto_generate_synonyms_phrase_query` Boolean field. By default it is set to `true`. It automatically generates [phrase queries](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/PhraseQuery.html) for multi-term synonyms. For example, if you have the synonym `"ba, batting average"` and search for "ba," OpenSearch searches for `ba OR "batting average"` (if this option is true) or `ba OR (batting AND average)` (if this option is false).
+You can also use synonyms with the `terms` query type to search for multiple terms. Use the `auto_generate_synonyms_phrase_query` Boolean field. By default it is set to `true`. It automatically generates phrase queries for multiple term synonyms. For example, if you have the synonym `"ba, batting average"` and search for "ba," OpenSearch searches for `ba OR "batting average"` when the option is `true` or `ba OR (batting AND average)` when the option is `false`.
 
-### Other optional query fields
+To learn more about the multiple terms query type, see [Terms]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/term/#terms). For more reference information about phrase queries, see the [Lucene documentation](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/search/PhraseQuery.html).
+
+### Other advanced options
 
 You can also use the following optional query fields to filter your query results.
 

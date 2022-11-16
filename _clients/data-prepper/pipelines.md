@@ -2,7 +2,7 @@
 layout: default
 title: Pipelines
 parent: Data Prepper
-nav_order: 2
+nav_order: 10
 ---
 
 # Pipelines
@@ -40,6 +40,38 @@ simple-sample-pipeline:
 
 - Sinks define where your data goes. In this case, the sink is stdout.
 
+Starting from Data Prepper 2.0, you can define pipelines across multiple configuration YAML files, where each file contains the configuration for one or more pipelines. This gives you more freedom to organize and chain complex pipeline configurations. For Data Prepper to load your pipeline configuration properly, place your configuration YAML files in the `pipelines` folder under your application's home directory (e.g. `/usr/share/data-prepper`).
+{: .note }
+
+## Conditional Routing
+
+Pipelines also support **conditional routing**  which allows you to route Events to different sinks based on specific conditions. To add conditional routing to a pipeline, specify a list of named routes under the `route` component and add specific routes to sinks under the `routes` property. Any sink with the `routes` property will only accept Events that match at least one of the routing conditions. 
+
+In the following example, `application-logs` is a named route with a condition set to `/log_type == "application"`. The route uses [Data Prepper expressions](https://github.com/opensearch-project/data-prepper/tree/main/examples) to define the conditions. Data Prepper only routes events that satisfy the condition to the first OpenSearch sink. By default, Data Prepper routes all Events to a sink which does not define a route. In the example, all Events route into the third OpenSearch sink.
+
+```yml
+conditional-routing-sample-pipeline:
+  source:
+    http:
+  processor:
+  route:
+    - application-logs: '/log_type == "application"'
+    - http-logs: '/log_type == "apache"'
+  sink:
+    - opensearch:
+        hosts: [ "https://opensearch:9200" ]
+        index: application_logs
+        routes: [application-logs]
+    - opensearch:
+        hosts: [ "https://opensearch:9200" ]
+        index: http_logs
+        routes: [http-logs]
+    - opensearch:
+        hosts: [ "https://opensearch:9200" ]
+        index: all_logs
+```
+
+
 ## Examples
 
 This section provides some pipeline examples that you can use to start creating your own pipelines. For more information, see [Data Prepper configuration reference]({{site.url}}{{site.baseurl}}/clients/data-prepper/data-prepper-reference/) guide.
@@ -75,53 +107,8 @@ This example uses weak security. We strongly recommend securing all plugins whic
 
 The following example demonstrates how to build a pipeline that supports the [Trace Analytics OpenSearch Dashboards plugin]({{site.url}}{{site.baseurl}}/observability-plugin/trace/ta-dashboards/). This pipeline takes data from the OpenTelemetry Collector and uses two other pipelines as sinks. These two separate pipelines index trace and the service map documents for the dashboard plugin.
 
-#### Classic
-
-This pipeline definition will be deprecated in 2.0. Users are recommended to use [Event record type](#event-record-type) pipeline definition.
-
-```yml
-entry-pipeline:
-  delay: "100"
-  source:
-    otel_trace_source:
-      ssl: false
-  sink:
-    - pipeline:
-        name: "raw-pipeline"
-    - pipeline:
-        name: "service-map-pipeline"
-raw-pipeline:
-  source:
-    pipeline:
-      name: "entry-pipeline"
-  processor:
-    - otel_trace_raw_prepper:
-  sink:
-    - opensearch:
-        hosts: ["https://localhost:9200"]
-        insecure: true
-        username: admin
-        password: admin
-        index_type: trace-analytics-raw
-service-map-pipeline:
-  delay: "100"
-  source:
-    pipeline:
-      name: "entry-pipeline"
-  processor:
-    - service_map_stateful:
-  sink:
-    - opensearch:
-        hosts: ["https://localhost:9200"]
-        insecure: true
-        username: admin
-        password: admin
-        index_type: trace-analytics-service-map
-```
-
-#### Event record type
-
-Starting from Data Prepper 1.4, Data Prepper supports event record type in trace analytics pipeline source, buffer, and processors.
+Starting from Data Prepper 2.0, Data Prepper no longer supports `otel_trace_raw_prepper` processor due to the Data Prepper internal data model evolution. 
+Instead, users should use `otel_trace_raw`.
 
 ```yml
 entry-pipeline:
@@ -129,7 +116,6 @@ entry-pipeline:
   source:
     otel_trace_source:
       ssl: false
-      record_type: event
   buffer:
     bounded_blocking:
       buffer_size: 10240
@@ -176,7 +162,8 @@ service-map-pipeline:
         index_type: trace-analytics-service-map
 ```
 
-Note that it is recommended to scale the `buffer_size` and `batch_size` by the estimated maximum batch size in the client request payload to maintain similar ingestion throughput and latency as in [Classic](#classic).
+To maintain similar ingestion throughput and latency, scale the `buffer_size` and `batch_size` by the estimated maximum batch size in the client request payload.
+{: .tip}
 
 ### Metrics pipeline
 
@@ -211,7 +198,7 @@ from [Amazon Simple Storage Service](https://aws.amazon.com/s3/) (Amazon S3). Th
 Balancer logs. As the Application Load Balancer writes logs to S3, S3 creates notifications in Amazon SQS. Data Prepper 
 reads those notifications and reads the S3 objects to get the log data and process it.
 
-```
+```yml
 log-pipeline:
   source:
     s3:
@@ -254,7 +241,7 @@ Data Prepper supports Logstash configuration files for a limited set of plugins.
 
 ```bash
 docker run --name data-prepper \
-    -v /full/path/to/logstash.conf:/usr/share/data-prepper/pipelines.conf \
+    -v /full/path/to/logstash.conf:/usr/share/data-prepper/pipelines/pipelines.conf \
     opensearchproject/opensearch-data-prepper:latest
 ```
 
@@ -280,7 +267,27 @@ serverPort: 1234
 To configure the Data Prepper server, run Data Prepper with the additional yaml file.
 
 ```bash
-docker run --name data-prepper -v /full/path/to/pipelines.yaml:/usr/share/data-prepper/pipelines.yaml \
-    /full/path/to/data-prepper-config.yaml:/usr/share/data-prepper/data-prepper-config.yaml \
+docker run --name data-prepper \
+    -v /full/path/to/my-pipelines.yaml:/usr/share/data-prepper/pipelines/my-pipelines.yaml \
+    -v /full/path/to/data-prepper-config.yaml:/usr/share/data-prepper/data-prepper-config.yaml \
     opensearchproject/data-prepper:latest
-````
+```
+
+## Configure the peer forwarder
+
+Data Prepper provides an HTTP service to forward Events between Data Prepper nodes for aggregation. This is required for operating Data Prepper in a clustered deployment. Currently, peer forwarding is supported in `aggregate`, `service_map_stateful`, and `otel_trace_raw` processors. Peer forwarder groups events based on the identification keys provided by the processors. For `service_map_stateful` and `otel_trace_raw` it's `traceId` by default and can not be configured. For `aggregate` processor, it is configurable using `identification_keys` option. 
+
+Peer forwarder supports peer discovery through one of three options: a static list, a DNS record lookup , or AWS Cloud Map. This option can be configured using `discovery_mode` option. Peer forwarder also supports SSL for verification and encrytion, and mTLS for mutual authentication in peer forwarding service.
+
+To configure the peer forwarder, add configuration options to `data-prepper-config.yaml` mentioned in the previous [Configure the Data Prepper server](#configure-the-data-prepper-server) section:
+
+```yml
+peer_forwarder:
+  discovery_mode: dns
+  domain_name: "data-prepper-cluster.my-domain.net"
+  ssl: true
+  ssl_certificate_file: "<cert-file-path>"
+  ssl_key_file: "<private-key-file-path>"
+  authentication:
+    mutual_tls:
+```

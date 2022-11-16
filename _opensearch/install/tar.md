@@ -421,6 +421,7 @@ Now that TLS certificates are installed and demo users were removed or assigned 
    # You can omit the environment variable if you declared this in your $PATH.
    OPENSEARCH_JAVA_HOME=/path/to/opensearch-{{site.opensearch_version}}/jdk ./securityadmin.sh -cd /path/to/opensearch-{{site.opensearch_version}}/config/opensearch-security/ -cacert /path/to/opensearch-{{site.opensearch_version}}/config/root-ca.pem -cert /path/to/opensearch-{{site.opensearch_version}}/config/admin.pem -key /path/to/opensearch-{{site.opensearch_version}}/config/admin-key.pem -icl -nhnv
    ```
+1. Stop and restart the running OpenSearch process to apply the changes.
 
 ### Verify that the service is running
 
@@ -451,6 +452,86 @@ $ curl https://your.host.address:9200 -u admin:yournewpassword -k
   "tagline" : "The OpenSearch Project: https://opensearch.org/"
 }
 ```
+
+### Run OpenSearch as a service with systemd
+
+This section will guide you through creating a service for OpenSearch and registering it with `systemd`. After the service has been defined, you can enable, start, and stop the OpenSearch service using `systemctl` commands. The commands in this section reflect an environment where OpenSearch has been installed to `/opt/opensearch` and should be changed depending on your installation path.
+
+The following configuration is only suitable for testing in a non-production environment. We do not recommend using the following configuration in a production environment. You should install OpenSearch with the [RPM]({{site.url}}{{site.baseurl}}/opensearch/install/rpm/) distribution if you want to run OpenSearch as a systemd-managed service on your host. The tarball installation does not define a specific installation path, users, roles, or permissions. Failure to properly secure your host environment can result in unexpected behavior.
+{: .warning}
+
+1. Create a user for the OpenSearch service.
+   ```bash
+   sudo adduser --system --shell /bin/bash -U --no-create-home opensearch
+   ```
+
+1. Add your user to the `opensearch` user group.
+   ```bash
+   sudo usermod -aG opensearch $USER
+   ```
+
+1. Change the file owner to `opensearch`. Make sure to change the path if your OpenSearch files are in a different directory.
+   ```bash
+   sudo chown -R opensearch /opt/opensearch/
+   ```
+
+1. Create the service file and open it for editing.
+   ```bash
+   sudo vi /etc/systemd/system/opensearch.service
+   ```
+
+1. Enter the following example service configuration. Make sure to change references to the path if your OpenSearch files are in a different directory.
+   ```bash
+   [Unit]
+   Description=OpenSearch
+   Wants=network-online.target
+   After=network-online.target
+
+   [Service]
+   Type=forking
+   RuntimeDirectory=data
+
+   WorkingDirectory=/opt/opensearch
+   ExecStart=/opt/opensearch/bin/opensearch -d
+
+   User=opensearch
+   Group=opensearch
+   StandardOutput=journal
+   StandardError=inherit
+   LimitNOFILE=65535
+   LimitNPROC=4096
+   LimitAS=infinity
+   LimitFSIZE=infinity
+   TimeoutStopSec=0
+   KillSignal=SIGTERM
+   KillMode=process
+   SendSIGKILL=no
+   SuccessExitStatus=143
+   TimeoutStartSec=75
+
+   [Install]
+   WantedBy=multi-user.target
+   ```
+
+1. Reload `systemd` manager configuration.
+   ```bash
+   sudo systemctl daemon-reload
+   ```
+
+1. Enable the OpenSearch service.
+   ```bash
+   sudo systemctl enable opensearch.service
+   ```
+
+1. Start the OpenSearch service.
+   ```bash
+   sudo systemctl start opensearch
+   ```
+
+1. Verify that the service is running.
+   ```bash
+   sudo systemctl status opensearch
+   ```
 
 ## Related links
 
