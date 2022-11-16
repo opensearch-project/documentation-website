@@ -6,7 +6,7 @@ has_children: false
 has_toc: false
 ---
 
-The Neural Search plugin is an experimental feature. For updates on the progress of Compare Search Results and other search relevance features, or if you want to leave feedback that could help improve the feature, join the discussion in the [Neural Search forum](https://forum.opensearch.org/t/feedback-neural-search-plugin-experimental-release/11501).    
+The Neural Search plugin is an experimental feature. For updates on the progress of the Neural Search plugin, or if you want to leave feedback that could help improve the feature, join the discussion in the [Neural Search forum](https://forum.opensearch.org/t/feedback-neural-search-plugin-experimental-release/11501).    
 {: .warning}
 
 The OpenSearch Neural Search plugin enables the integration of Machine Learning (ML) language models into user's search workloads. During ingestion and search, you can provide text that the Neural Search plugin automatically transforms the text into vectors to be used in vector search.
