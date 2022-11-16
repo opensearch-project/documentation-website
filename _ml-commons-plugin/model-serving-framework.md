@@ -21,7 +21,7 @@ Although most ML models are written in Python, you'll need to export the model i
 
 ### Model size
 
-Most deep-learning models are over 100 MBs, making it difficult to fit the model into a single document. OpenSearch splits in portable model file into smaller chunks to store in an OpenSearch index. When allocating ML or Data nodes to your OpenSearch cluster, please be aware of the size of your model to prevent any downtime when making inferences. Furthermore, asynchronous models load faster than synchronous.
+Most deep-learning models are over 100 MBs, making it difficult to fit the model into a single document. OpenSearch splits the model file into smaller chunks to store in an ML index. When allocating ML or Data nodes for your OpenSearch cluster, please be aware of the size of your model to prevent any downtime when making inferences. 
 
 ## Upload model to OpenSearch
 
