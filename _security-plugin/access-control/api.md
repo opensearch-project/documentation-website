@@ -434,7 +434,7 @@ PUT _plugins/_security/api/internalusers/<username>
 {
   "password": "kirkpass",
   "opendistro_security_roles": ["maintenance_staff", "weapons"],
-  "backend_roles": ["captains", "starfleet"],
+  "backend_roles": ["role 1", "role 2"],
   "attributes": {
     "attribute1": "value1",
     "attribute2": "value2"
