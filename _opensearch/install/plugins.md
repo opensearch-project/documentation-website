@@ -226,7 +226,7 @@ The following plugins are bundled with all OpenSearch distributions except for m
 | Performance Analyzer | [opensearch-performance-analyzer](https://github.com/opensearch-project/performance-analyzer) | 1.0.0 or newer |
 | Security | [opensearch-security](https://github.com/opensearch-project/security) | 1.0.0 or newer |
 | SQL | [opensearch-sql](https://github.com/opensearch-project/sql) | 1.0.0 or newer |
-| Security Analytics | [opensearch-security](https://github.com/opensearch-project/security-analytics) | 2.4.0 or newer |
+| Security Analytics | [opensearch-security-analytics](https://github.com/opensearch-project/security-analytics) | 2.4.0 or newer |
 
 _<sup>1</sup>Dashboard Notebooks was merged in to the Observability plugin with the release of OpenSearch 1.2.0._
 

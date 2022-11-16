@@ -111,13 +111,15 @@ POST _plugins/_security_analytics/detectors
           "id": "hVTLkZYzlA",
           "destination_id": "6r8ZBoQBKW_6dKriacQb",
           "subject_template": {
-            "source": "Hello World",
+            "source": "Trigger: {{ctx.trigger.name}}",
             "lang": "mustache"
           },
           "name": "hello_world",
           "throttle_enabled": false,
           "message_template": {
-            "source": "Hello World",
+            "source": "Detector {{ctx.detector.name}} just entered alert status. Please investigate the issue." +
+						"- Trigger: {{ctx.trigger.name}}" +
+						"- Severity: {{ctx.trigger.severity}}",
             "lang": "mustache"
           },
           "throttle": {
@@ -190,12 +192,14 @@ POST _plugins/_security_analytics/detectors
                         "name": "hello_world",
                         "destination_id": "6r8ZBoQBKW_6dKriacQb",
                         "message_template": {
-                            "source": "Hello World",
+                            "source": "Trigger: {{ctx.trigger.name}}",
                             "lang": "mustache"
                         },
                         "throttle_enabled": false,
                         "subject_template": {
-                            "source": "Hello World",
+                            "source": "Detector {{ctx.detector.name}} just entered alert status. Please investigate the issue." +
+										"- Trigger: {{ctx.trigger.name}}" +
+										"- Severity: {{ctx.trigger.severity}}",
                             "lang": "mustache"
                         },
                         "throttle": {
@@ -446,10 +450,7 @@ Body:
                     "last_update_time": 1665715391693,
                     "monitor_id": [
                         "LlRf1IMByX0LvTiGzdeX"
-                    ],
-                    "rule_topic_index": ".opensearch-sap-detectors-queries-windows",
-                    "alert_index": ".opensearch-sap-alerts-windows",
-                    "findings_index": ".opensearch-sap-findings-windows"
+                    ]
                 }
             }
         ]
