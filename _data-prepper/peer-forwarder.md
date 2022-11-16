@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Configuration reference
-nav_order: 30
+nav_order: 12
 ---
 
 ## Peer Forwarder
