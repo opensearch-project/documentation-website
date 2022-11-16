@@ -173,7 +173,6 @@ After the model has been loaded, you can enter the `model_id` into the [predict 
 POST /_plugins/_ml/models/<model_id>/_predict
 ```
 
-With model loaded, OpenSearch can then output inference results based on the loaded model.
 
 ### Request
 
