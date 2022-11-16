@@ -4,8 +4,7 @@ title: Monitoring
 nav_order: 2
 ---
 
-Metrics in Data Prepper are instrumented using [Micrometer.io](https://micrometer.io/). There are two types of metrics: 
-(1) JVM and system metrics; (2) Plugin metrics. Prometheus is used as the default metrics backend.
+Metrics in Data Prepper are instrumented using [Micrometer.io](https://micrometer.io/). There are two types of metrics: (1) JVM and system metrics; (2) plugin metrics. Prometheus is used as the default metrics backend.
 
 # JVM and system metrics
 
@@ -29,7 +28,7 @@ Each plugin (if necessary, each class within a plugin) is responsible for postin
         - `recordsRead`: number of records read from a buffer.
         - `recordsProcessed`: number of records read from a buffer and marked as processed.
         - `writeTimeouts`: count of write timeouts in a buffer.
-    - Gauge
+    - Gaugefir 
         - `recordsInBuffer`: number of records in the buffer.
         - `recordsInFlight`: number of records read from a buffer and being processed by data-prepper downstreams (e.g. processor, sink).
     - Timer
