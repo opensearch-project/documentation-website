@@ -110,7 +110,7 @@ OpenSearch responds with the `model_id`:
 
 ### Load model from index
 
-With the `model_id`, you can now load the model from the model's index, then create an instance of the model to save in an ML node's available cache.
+With the `model_id`, you can now load the model from the model's index to deploy the model with ML nodes. The load API operation reads model chunks from the model index, then create an instance of that model and save the chunks in the ML node's cache.
 
 Add the `model_id` to the load API operation. 
 
@@ -118,7 +118,7 @@ Add the `model_id` to the load API operation.
 POST /_plugins/_ml/models/<model_id>/_load
 ```
 
-When the ML common's setting `plugins.ml_commons.only_run_on_ml_node` is set to `false`, models load on ML nodes first. If no ML modes exist, models load on data nodes. When running ML models in production, set `plugins.ml_commons.only_run_on_ml_node` to `true`, so that models only load on ML nodes.
+By default the ML Common's setting `plugins.ml_commons.only_run_on_ml_node` is set to `false`. When `false`, modes load on ML nodes first. If no ML nodes exist, models load on data nodes. When running ML models in production, set `plugins.ml_commons.only_run_on_ml_node` to `true`, so that models only load on ML nodes.
 
 #### Sample Request: Load into any available ML node
 
