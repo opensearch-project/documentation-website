@@ -1,12 +1,10 @@
----
+git ---
 layout: default
 title: Core APIs
 nav_order: 2
 ---
 
-All Data Prepper instances expose a server with some control APIs. By default, this server runs on port 4900. Some plugins, especially Source plugins may expose other servers. These will be on different ports and their configurations are independent of the core API.
-
-For example, to shut down Data Prepper, you can run:
+All Data Prepper instances expose a server with some control APIs. By default, this server runs on port 4900. Some plugins, especially Source plugins may expose other servers. These will be on different ports and their configurations are independent of the core API. For example, to shut down Data Prepper, you can run:
 
 ```
 curl -X POST http://localhost:4900/shutdown
