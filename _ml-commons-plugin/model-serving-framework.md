@@ -167,7 +167,7 @@ GET /_plugins/_ml/tasks/hA8P44MBhyWuIwnfvTKP
 
 ## Use loaded model for inferences
 
-Use the predict operation to perform inferences with your loaded model. To streamline the prediction process, loaded models can call their functions from memory with the `model_id`. 
+After the model has been loaded, you can enter the `model_id` into the [predict API](https://opensearch.org/docs/latest/ml-commons-plugin/api/#predict) to perform inferences.
 
 ```json
 POST /_plugins/_ml/models/<model_id>/_predict
