@@ -122,7 +122,7 @@ To highlight the search terms, the highlighter needs the start and end character
 
 - [**Term vectors**]: If you set the [`term_vector` parameter]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/text#term-vector-parameter) to  `with_positions_offsets` when mapping a text field, the highlighter uses the `term_vector` to highlight the field. Storing term vectors requires the most disk space. However, it makes highlighting faster for fields larger than 1 MB and for multi-term queries like prefix or wildcard because term vectors provide access to the dictionary of terms for each document.
 
-- **Reanalyzing text**: In the absence of both postings and term vectors, the highlighter reanalyzes text in order to highlight it. For every document and every field that needs highlighting, the highlighter creates a small in-memory index and reruns the original query through Lucene’s query execution planner to access low-level match information for the current document. Reanalyzing the text works well in most use cases. However, this method is more memory and time intensive for large fields.
+- **Text reanalysis**: In the absence of both postings and term vectors, the highlighter reanalyzes text in order to highlight it. For every document and every field that needs highlighting, the highlighter creates a small in-memory index and reruns the original query through Lucene’s query execution planner to access low-level match information for the current document. Reanalyzing the text works well in most use cases. However, this method is more memory and time intensive for large fields.
 
 ## Highlighter types
 
@@ -132,9 +132,9 @@ The following table lists the methods of obtaining the offsets for each highligh
 
 Highlighter | Method of obtaining offsets
 :--- | :---
-[`unified`](#the-unified-highlighter) | Term vectors if `term_vector` is set to `with_positions_offsets`,<br> postings if `index_options` is set to `offsets`, <br> reanalyzing text otherwise.
+[`unified`](#the-unified-highlighter) | Term vectors if `term_vector` is set to `with_positions_offsets`,<br> postings if `index_options` is set to `offsets`, <br> text reanalysis otherwise.
 [`fvh`](#the-fvh-highlighter) | Term vectors.
-[`plain`](#the-plain-highlighter) | Reanalyzing text.
+[`plain`](#the-plain-highlighter) | Text reanalysis.
 
 ### Setting the highlighter type
 
