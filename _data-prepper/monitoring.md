@@ -4,8 +4,7 @@ title: Monitoring
 nav_order: 2
 ---
 
-Metrics in Data Prepper are instrumented using [Micrometer.io](https://micrometer.io/). There are two types of metrics: 
-(1) JVM and system metrics; (2) Plugin metrics. Prometheus is used as the default metrics backend.
+Metrics in Data Prepper are instrumented using [Micrometer.io](https://micrometer.io/). There are two types of metrics: (1) JVM and system metrics; (2) plugin metrics. Prometheus is used as the default metrics backend.
 
 # JVM and system metrics
 
