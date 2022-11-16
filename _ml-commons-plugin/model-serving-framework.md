@@ -214,7 +214,7 @@ POST /_plugins/_ml/models/WWQI44MBbzI2oUKAvNUt/_predict
 
 ## Unload the model
 
-To unload a model from memory, use the unload operation.
+If you're done making predictions with your model, use the unload operation to remove the model from your memory cache. The model will remain accessible in the model index.
 
 ```json
 POST /_plugins/_ml/models/<model_id>/_unload
