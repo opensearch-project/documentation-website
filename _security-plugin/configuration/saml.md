@@ -16,7 +16,7 @@ This profile is meant for use with web browsers. It is not a general-purpose way
 
 We provide a fully functional example that can help you understand how to use SAML with OpenSearch Dashboards.
 
-1. Download and unzip [the example ZIP file]({{site.url}}{{site.baseurl}}/assets/examples/saml-example.zip).
+1. Download and unzip [the example zip file]({{site.url}}{{site.baseurl}}/assets/examples/saml-example.zip).
 1. At the command line, run `docker-compose up`.
 1. Review the files:
 
