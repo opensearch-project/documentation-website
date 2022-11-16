@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Configuration reference
+title: Peer forwarder
 nav_order: 12
 ---
 
