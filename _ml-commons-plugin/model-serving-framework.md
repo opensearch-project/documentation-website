@@ -7,21 +7,21 @@ nav_order: 110
 
 # Model serving framework
 
-ML commons supports the ability to serve custom models and use those models to make inferences. For those who wish to use train their models using a deep-learning framework, such as Pytorch, they can upload such models to OpenSearch in order to take advantage of OpenSearch resources.
+ML commons supports the ability to serve custom models and use those models to make inferences. For those who wish to train their models using a deep-learning framework, such as Pytorch, they can upload such models to OpenSearch in order to take advantage of OpenSearch resources.
 
-This page outlines the steps required to upload a custom model with the ML Commons plugin.
+This page outlines the steps required to upload a custom model and run with the ML Commons plugin.
 
 ## Prerequisites 
 
-To upload a custom model to OpenSearch, you'll need to prepare outside of your OpenSearch cluster. You can use a current model or train a new model depending on your needs.
+To upload a custom model to OpenSearch, you need to prepare it outside of your OpenSearch cluster. You can use a current model or train a new model depending on your needs.
 
 ### Model format
 
-Although most ML models are written in Python, you'll need to export the model into a portable format. As of 2.4, OpenSearch only supports [torchscript](https://pytorch.org/docs/stable/jit.html).
+To use a model in OpenSearch, you'll need to export the model into a portable format. As of 2.4, OpenSearch only supports [torchscript](https://pytorch.org/docs/stable/jit.html). Furthermore, the model serving framework only support the t
 
 ### Model size
 
-Most deep-learning models are over 100 MBs, making it difficult to fit the model into a single document. OpenSearch splits the model file into smaller chunks to store in an ML index. When allocating ML or Data nodes for your OpenSearch cluster, please be aware of the size of your model to prevent any downtime when making inferences. 
+Most deep-learning models are over 100 MBs, making it difficult to fit the model into a single document. OpenSearch splits the model file into smaller chunks to store in an ML index. When allocating ML or data nodes for your OpenSearch cluster, be aware of the size of your model to prevent any downtime when making inferences. 
 
 ## Upload model to OpenSearch
 
@@ -55,7 +55,7 @@ POST /_plugins/_ml/models/_upload
   "model_config": {
     "model_type": "bert",
     "embedding_dimension": 384,
-    "framework_type": "sentence_transformers",
+    "framework_type": "sentence_transformers"
   },
   "url": "https://github.com/opensearch-project/ml-commons/raw/2.x/ml-algorithms/src/test/resources/org/opensearch/ml/engine/algorithms/text_embedding/all-MiniLM-L6-v2_torchscript_sentence-transformer.zip?raw=true"
 }
@@ -72,11 +72,11 @@ OpenSearch responds with the `task_id` and task `status`.
 }
 ```
 
-To see the status of your model upload, enter the `task_id` into the [task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api#get-task-information).
+To see the status of your model upload, pass the `task_id` into the [task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api#get-task-information).
 
 ## Load the model
 
-The load model operation reads the model's chunks from the model index, then creates an instance of the model to cache into memory. The bigger the model, the more chunks the model is split. The more chunks a model index contains, the longer it takes for the model to load into memory.
+The load model operation reads the model's chunks from the model index, then creates an instance of the model to load into memory. The bigger the model, the more chunks the model is split into. The more chunks a model index contains, the longer it takes for the model to load into memory.
 
 ### Get the `model_id`
 
@@ -86,8 +86,9 @@ This example request uses the `task_id` from the upload example.
 
 ```json
 GET /_plugins/_ml/tasks/ew8I44MBhyWuIwnfvDIH
+```
 
-OpenSearch responds with the `model_id`. 
+OpenSearch responds with the `model_id`:
 
 ```json
 {
@@ -112,15 +113,17 @@ Add the `model_id` to the load API operation.
 POST /_plugins/_ml/models/<model_id>/_load
 ```
 
-#### Request: Load into any available ML node
+When the ML common's setting `plugins.ml_commons.only_run_on_ml_node` is set to `false`, models load on ML nodes first. If no ML modes exist, models load on data nodes. When running ML models in production, set `plugins.ml_commons.only_run_on_ml_node` to `true`, so that models only load on ML nodes.
 
-In this example request, OpenSearch loads the model into any available OpenSearch node:
+#### Sample Request: Load into any available ML node
+
+In this example request, OpenSearch loads the model into any available OpenSearch node. 
 
 ```json
 POST /_plugins/_ml/models/WWQI44MBbzI2oUKAvNUt/_load
 ```
 
-#### Request: Load into a specific node
+#### Sample Request: Load into a specific node
 
 If you want to reserve the memory of other ML nodes within your cluster, you can load your model into a specific node(s) by specifying the `node_id` in the request body:
 
@@ -131,7 +134,7 @@ POST /_plugins/_ml/models/WWQI44MBbzI2oUKAvNUt/_load
 }
 ```
 
-#### Response
+#### Sample Response
 
 All models load asynchronously. Therefore, the load API responds a new `task_id` based on the load, and returns a `status` for the task.
 
@@ -144,15 +147,15 @@ All models load asynchronously. Therefore, the load API responds a new `task_id`
 
 ### Check model load status
 
-With your `task_id` from the load response, you can use the `GET _ml/tasks` API to see the loading status of your model. Before a loaded model can be used for inferences, the load tasks `state` must show as `COMPLETED`. 
+With your `task_id` from the load response, you can use the `GET _ml/tasks` API to see the loading status of your model. Before a loaded model can be used for inferences, the load task's `state` must show as `COMPLETED`. 
 
-#### Request
+#### Sample Request
 
 ```json
 GET /_plugins/_ml/tasks/hA8P44MBhyWuIwnfvTKP
 ```
 
-#### Response
+#### Sample Response
 
 ```json
 {
@@ -176,10 +179,10 @@ POST /_plugins/_ml/models/<model_id>/_predict
 ```
 
 
-### Request
+### Sample Request
 
 ```json
-POST /_plugins/_ml/models/WWQI44MBbzI2oUKAvNUt/_predict
+POST /_plugins/_ml/_predict/text_embedding/WWQI44MBbzI2oUKAvNUt
 {
   "text_docs":[ "today is sunny"],
   "return_number": true,
@@ -187,7 +190,7 @@ POST /_plugins/_ml/models/WWQI44MBbzI2oUKAvNUt/_predict
 }
 ```
 
-### Response
+### Sample Response
 
 ```json
 {
@@ -221,13 +224,13 @@ If you're done making predictions with your model, use the unload operation to r
 POST /_plugins/_ml/models/<model_id>/_unload
 ```
 
-### Example request
+### Sample request
 
 ```json
 POST /_plugins/_ml/models/MGqJhYMBbbh0ushjm8p_/_unload
 ```
 
-### Example response
+### Sample response
 
 ```json
 {

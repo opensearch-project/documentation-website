@@ -115,9 +115,9 @@ The API returns information on the model, the algorithm used, and the content fo
 }
 ```
 
-## Upload load a model
+## Load a model
 
-Use the upload operation to upload a pre-existing or custom model and into a model index. ML commons splits the model into smaller chunks and saves those chunks into the model's index.
+Use the upload operation to upload a custom model and into a model index. ML commons splits the model into smaller chunks and saves those chunks into the model's index.
 
 ```json
 POST /_plugins/_ml/models/_upload
@@ -128,10 +128,10 @@ POST /_plugins/_ml/models/_upload
 Field | Data Type | Description
 :---  | :--- | :--- 
 `name`| string | The name of the model. |
-`version` | integer | The version number of the model. Version number should follow standard semantic format, major.minor.patch |
+`version` | integer | The version number of the model. |
 `model_format` | string | The portable format of the model file. Currently only supports `TORCH_SCRIPT`. |
-`model_config` _(Optional)_ | string | The model's configuration, including the `model_type`, `embedding_dimension`, and `framework_type`. |
-`url` | string | The URL of the server which contains the model. |
+`model_config`  | string | The model's configuration, including the `model_type`, `embedding_dimension`, and `framework_type`. `all_config` is an optional JSON string which contains all model configurations. |
+`url` | string | The URL which contains the model. |
 
 ### Example
 
@@ -164,7 +164,20 @@ OpenSearch responds with the `task_id` and task `status`.
 }
 ```
 
-To see the status of your model upload, enter the `task_id` into the [task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api#get-task-information).
+To see the status of your model upload, enter the `task_id` into the [task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api#get-task-information). Use the `model_id` from the task response once the upload is complete.
+
+```json
+{
+  "model_id" : "WWQI44MBbzI2oUKAvNUt", 
+  "task_type" : "UPLOAD_MODEL",
+  "function_name" : "TEXT_EMBEDDING",
+  "state" : "COMPLETED",
+  "worker_node" : "KzONM8c8T4Od-NoUANQNGg",
+  "create_time" : 1665961344003,
+  "last_update_time" : 1665961373047,
+  "is_async" : true
+}
+```
 
 ## Load model
 
@@ -176,7 +189,7 @@ POST /_plugins/_ml/models/<model_id>/_load
 
 ### Example: Load into any available ML node
 
-In this example request, OpenSearch loads the model into any available OpenSearch node:
+In this example request, OpenSearch loads the model into any available OpenSearch ML node:
 
 ```json
 POST /_plugins/_ml/models/WWQI44MBbzI2oUKAvNUt/_load
@@ -210,28 +223,83 @@ To unload a model from memory, use the unload operation.
 POST /_plugins/_ml/models/<model_id>/_unload
 ```
 
-### Request
+### Example: Unload model from all ML nodes
 
 ```json
 POST /_plugins/_ml/models/MGqJhYMBbbh0ushjm8p_/_unload
 ```
 
-### Response
+### Response: Unload model from all ML nodes
 
 ```json
 {
     "s5JwjZRqTY6nOT0EvFwVdA": {
         "stats": {
-            "MGqJhYMBbbh0ushjm8p_": "deleted"
+            "MGqJhYMBbbh0ushjm8p_": "unloaded"
         }
     }
 }
 ```
 
+### Example: Unload specific models from specific nodes
+
+```json
+POST /_plugins/_ml/models/_unload
+{
+  "node_ids": ["sv7-3CbwQW-4PiIsDOfLxQ"],
+  "model_ids": ["KDo2ZYQB-v9VEDwdjkZ4"]
+}
+```
+
+
+### Response:  Unload specific models from specific nodes
+
+```json
+{
+  "sv7-3CbwQW-4PiIsDOfLxQ" : {
+    "stats" : {
+      "KDo2ZYQB-v9VEDwdjkZ4" : "unloaded"
+    }
+  }
+}
+```
+
+### Response: Unload all models from specific nodes
+
+```json
+{
+  "sv7-3CbwQW-4PiIsDOfLxQ" : {
+    "stats" : {
+      "KDo2ZYQB-v9VEDwdjkZ4" : "unloaded",
+      "-8o8ZYQBvrLMaN0vtwzN" : "unloaded"
+    }
+  }
+}
+```
+
+### Example: Unload specific models from all nodes
+
+```json
+{
+  "model_ids": ["KDo2ZYQB-v9VEDwdjkZ4"]
+}
+```
+
+### Response: Unload specific models from all nodes
+
+```json
+{
+  "sv7-3CbwQW-4PiIsDOfLxQ" : {
+    "stats" : {
+      "KDo2ZYQB-v9VEDwdjkZ4" : "unloaded"
+    }
+  }
+}
+```
 
 ## Search model
 
-Use this command to search models you're already created.
+Use this command to search models you've already created.
 
 
 ```json
@@ -343,6 +411,87 @@ The API returns the following:
   "_primary_term" : 18
 }
 ```
+
+## Profile
+
+Returns runtime information on ML tasks and models. This operation can help debug issues with models at runtime.
+
+
+```json
+GET /_plugins/_ml/profile
+GET /_plugins/_ml/profile/models
+GET /_plugins/_ml/profile/tasks
+```
+
+### Path parameters
+
+Parameter | Data Type | Description
+:--- | :--- | :---
+model_id | string | Returns runtime data for a specific model. You can string together multiple `model_id`s to return multiple model profiles.
+tasks | string | Returns runtime data for a specific task. You can string together multiple `task_id`s to return multiple task profiles.
+
+### Request fields
+
+All profile body request fields are optional.
+
+Field | Data Type | Description
+:--- | :--- | :--- 
+node_ids | string | Returns all tasks and profiles from a specific node. 
+model_ids | string | Returns runtime data for a specific model. You can string together multiple `model_id`s to return multiple model profiles.
+task_ids | string | Returns runtime data for a specific task. You can string together multiple `task_id`s to return multiple task profiles.
+return_all_tasks | boolean | Determines whether or not a request returns all tasks. When set to `false` task profiles are left out of the response.
+return_all_models | Determines whether or not a profile request returns all models. When set to `false` model profiles are left out of the response.
+
+### Example: Return all tasks and models and models on a specific node
+
+```json
+GET /_plugins/_ml/profile
+{
+  "node_ids": ["KzONM8c8T4Od-NoUANQNGg"],
+  "return_all_tasks": true,
+  "return_all_models": true
+}
+```
+
+### Response: Return all tasks and models on a specific node
+
+```json
+{
+  "nodes" : {
+    "qTduw0FJTrmGrqMrxH0dcA" : { # node id
+      "models" : {
+        "WWQI44MBbzI2oUKAvNUt" : { # model id
+          "worker_nodes" : [ # routing table
+            "KzONM8c8T4Od-NoUANQNGg"
+          ]
+        }
+      }
+    },
+...
+    "KzONM8c8T4Od-NoUANQNGg" : { # node id
+      "models" : {
+        "WWQI44MBbzI2oUKAvNUt" : { # model id
+          "model_state" : "LOADED", # model status
+          "predictor" : "org.opensearch.ml.engine.algorithms.text_embedding.TextEmbeddingModel@592814c9",
+          "worker_nodes" : [ # routing table
+            "KzONM8c8T4Od-NoUANQNGg"
+          ],
+          "predict_request_stats" : { # predict request stats on this node
+            "count" : 2, # total predict requests on this node
+            "max" : 89.978681, # max latency in milliseconds
+            "min" : 5.402,
+            "average" : 47.6903405,
+            "p50" : 47.6903405,
+            "p90" : 81.5210129,
+            "p99" : 89.13291418999998
+          }
+        }
+      }
+    },
+...
+}
+```
+
 
 ## Predict
 
