@@ -21,9 +21,6 @@ In order for OpenSearch to include more inclusive naming conventions, we've repl
 
 If you are still using the outdated terms in the context of the security APIs or for node management, your calls and automation will continue to work until the terms are removed later in 2022. 
 
-### Deprecate Compatibility override
-
-The override main response setting `compatibility.override_main_response_version` is deprecated from OpenSearch version 1.x and removed from OpenSearch 2.0.0. This setting is no longer supported for compatibility with legacy clients.
 
 ### Add OpenSearch Notifications plugins
 
