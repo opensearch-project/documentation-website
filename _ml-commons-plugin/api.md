@@ -115,6 +115,118 @@ The API returns information on the model, the algorithm used, and the content fo
 }
 ```
 
+## Upload load a model
+
+Use the upload operation to upload a pre-existing or custom model and into a model index. ML commons splits the model into smaller chunks to enable persistance in the cache.
+
+```json
+POST /_plugins/_ml/models/_upload
+```
+
+### Request fields
+
+Field | Data Type | Description
+:---  | :--- | :--- 
+`name`| string | The name of the model. |
+`version` | integer | The version number of the model. Version number should follow standard semantic format, major.minor.patch |
+`model_format` | string | The portable format of the model file. Currently only supports `TORCH_SCRIPT`. |
+`model_config` | string | The model's configuration, including the `model_type`, `embedding_dimension`, and `framework_type`. |
+`url` | string | The URL of the server which contains the model. |
+
+### Example
+
+The following sample request uploads version `1.0.0` of an NLP sentence transformation model named `all-MiniLM-L6-v2`.
+
+```json
+POST /_plugins/_ml/models/_upload
+{
+  "name": "all-MiniLM-L6-v2",
+  "version": "1.0.0",
+  "description": "test model",
+  "model_format": "TORCH_SCRIPT",
+  "model_config": {
+    "model_type": "bert",
+    "embedding_dimension": 384,
+    "framework_type": "sentence_transformers",
+  },
+  "url": "https://github.com/opensearch-project/ml-commons/raw/2.x/ml-algorithms/src/test/resources/org/opensearch/ml/engine/algorithms/text_embedding/all-MiniLM-L6-v2_torchscript_sentence-transformer.zip?raw=true"
+}
+```
+
+### Response
+
+OpenSearch responds with the `task_id` and task `status`.
+
+```json
+{
+  "task_id" : "ew8I44MBhyWuIwnfvDIH", 
+  "status" : "CREATED"
+}
+```
+
+## Load model
+
+The load model operation reads the model's chunks from the model index, then creates an instance of the model to cache into memory. This operation requires the `model_id`.
+
+```json
+POST /_plugins/_ml/models/<model_id>/_load
+```
+
+### Example: Load into any available ML node
+
+In this example request, OpenSearch loads the model into any available OpenSearch node:
+
+```json
+POST /_plugins/_ml/models/WWQI44MBbzI2oUKAvNUt/_load
+```
+
+### Example: Load into a specific node
+
+If you want to reserve the memory of other ML nodes within your cluster, you can load your model into a specific node(s) by specifying the `node_ids` in the request body:
+
+```json
+POST /_plugins/_ml/models/WWQI44MBbzI2oUKAvNUt/_load
+{
+    "node_ids": ["4PLK7KJWReyX0oWKnBA8nA"]
+}
+```
+
+### Response
+
+```json
+{
+  "task_id" : "hA8P44MBhyWuIwnfvTKP",
+  "status" : "CREATED"
+}
+```
+
+## Unload a model
+
+o unload a model from memory, use the unload operation.
+
+```json
+POST /_plugins/_ml/models/<model_id>/_unload
+```
+
+### Request
+
+```json
+POST /_plugins/_ml/models/MGqJhYMBbbh0ushjm8p_/_unload
+```
+
+### Response
+
+```json
+{
+    "s5JwjZRqTY6nOT0EvFwVdA": {
+        "stats": {
+            "MGqJhYMBbbh0ushjm8p_": "deleted"
+        }
+    }
+}
+```
+
+
 ## Search model
 
 Use this command to search models you're already created.

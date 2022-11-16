@@ -7,7 +7,7 @@ nav_order: 110
 
 # Model serving framework
 
-ML commons supports the ability to serve custom models and use those models to make inferences. For those who wish to use train their models using a deep-learning framework, such as Pytorch, TensorFlow, or ONNX, they can upload such models to OpenSearch in order to take advantage of OpenSearch resources, like GPU acceleration.
+ML commons supports the ability to serve custom models and use those models to make inferences. For those who wish to use train their models using a deep-learning framework, such as Pytorch, they can upload such models to OpenSearch in order to take advantage of OpenSearch resources.
 
 This page outlines the steps required to upload a custom model with the ML Commons plugin.
 
@@ -71,7 +71,8 @@ OpenSearch responds with the `task_id` and task `status`.
   "status" : "CREATED"
 }
 ```
-To see the status of your model upload, enter the `task_id` into the [task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api#get-task-information)
+To see the status of your model upload, enter the `task_id` into the [task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api#get-task-information).
+
 ## Load the model
 
 The load model operation reads the model's chunks from the model index, then creates an instance of the model to cache into memory. The bigger the model, the more chunks the model is split. The more chunks a model index contains, the longer it takes for the model to load into memory.
@@ -167,7 +168,7 @@ GET /_plugins/_ml/tasks/hA8P44MBhyWuIwnfvTKP
 
 ## Use loaded model for inferences
 
-After the model has been loaded, you can enter the `model_id` into the [predict API](https://opensearch.org/docs/latest/ml-commons-plugin/api/#predict) to perform inferences.
+After the model has been loaded, you can enter the `model_id` into the [predict API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api#predict) to perform inferences.
 
 ```json
 POST /_plugins/_ml/models/<model_id>/_predict
