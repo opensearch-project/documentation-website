@@ -142,7 +142,7 @@ All models load asynchronously. Therefore, the load API responds a new `task_id`
 
 ### Check model load status
 
-With your `task_id` from the load response, you can use the ``GET _ml/tasks` API to see the loading status of your model. Before a loaded model can be used for inferences, the load tasks `state` must show as `COMPLETED`. 
+With your `task_id` from the load response, you can use the `GET _ml/tasks` API to see the loading status of your model. Before a loaded model can be used for inferences, the load tasks `state` must show as `COMPLETED`. 
 
 #### Request
 
