@@ -55,6 +55,9 @@ collections:
   ml-commons-plugin:
     permalink: /:collection/:path/
     output: true
+  neural-search-plugin:
+    permalink: /:collection/:path/
+    output: true
   monitoring-plugins:
     permalink: /:collection/:path/
     output: true
@@ -111,6 +114,9 @@ just_the_docs:
       nav_fold: true
     ml-commons-plugin:
       name: ML Commons plugin
+      nav_fold: true
+    neural-search-plugin:
+      name: Neural Search plugin
       nav_fold: true
     monitoring-plugins:
       name: Monitoring plugins
