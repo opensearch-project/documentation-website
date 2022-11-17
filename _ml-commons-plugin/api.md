@@ -132,7 +132,7 @@ Field | Data Type | Description
 `name`| string | The name of the model. |
 `version` | integer | The version number of the model. |
 `model_format` | string | The portable format of the model file. Currently only supports `TORCH_SCRIPT`. |
-`model_config`  | string | The model's configuration, including the `model_type`, `embedding_dimension`, and `framework_type`. `all_config` is an optional JSON string which contains all model configurations. |
+`model_config`  | json object | The model's configuration, including the `model_type`, `embedding_dimension`, and `framework_type`. `all_config` is an optional JSON string which contains all model configurations. |
 `url` | string | The URL which contains the model. |
 
 ### Example
@@ -166,7 +166,7 @@ OpenSearch responds with the `task_id` and task `status`.
 }
 ```
 
-To see the status of your model upload, enter the `task_id` into the [task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api#get-task-information). Use the `model_id` from the task response once the upload is complete.
+To see the status of your model upload, enter the `task_id` into the [task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api#get-task-information). Use the `model_id` from the task response once the upload is complete. For example:
 
 ```json
 {

@@ -25,7 +25,7 @@ To use a model in OpenSearch, you'll need to export the model into a portable fo
 
 ### Model size
 
-Most deep-learning models are over 100 MBs, making it difficult to fit the model into a single document. OpenSearch splits the model file into smaller chunks to store in an ML index. When allocating ML or data nodes for your OpenSearch cluster, be aware of the size of your model to prevent any downtime when making inferences. 
+Most deep-learning models are over 100 MBs, making it difficult to fit the model into a single document. OpenSearch splits the model file into smaller chunks to store in a model index. When allocating ML or data nodes for your OpenSearch cluster, be aware of the size of your model to prevent any downtime when making inferences. 
 
 
 ## Upload model to OpenSearch
@@ -118,7 +118,7 @@ Add the `model_id` to the load API operation.
 POST /_plugins/_ml/models/<model_id>/_load
 ```
 
-By default the ML Common's setting `plugins.ml_commons.only_run_on_ml_node` is set to `false`. When `false`, modes load on ML nodes first. If no ML nodes exist, models load on data nodes. When running ML models in production, set `plugins.ml_commons.only_run_on_ml_node` to `true`, so that models only load on ML nodes.
+By default the ML Common's setting `plugins.ml_commons.only_run_on_ml_node` is set to `false`. When `false`, models load on ML nodes first. If no ML nodes exist, models load on data nodes. When running ML models in production, set `plugins.ml_commons.only_run_on_ml_node` to `true`, so that models only load on ML nodes.
 
 #### Sample Request: Load into any available ML node
 
