@@ -8,7 +8,7 @@ nav_order: 110
 
 # Model-serving framework
 
-ML commons allows you to serve custom models and use those models to make inferences. For those who want to run their PyTorch deep learning model inside an OpenSearch cluster, you can upload and run that model with the ML Commons REST API.
+ML Commons allows you to serve custom models and use those models to make inferences. For those who want to run their PyTorch deep learning model inside an OpenSearch cluster, you can upload and run that model with the ML Commons REST API.
 
 This page outlines the steps required to upload a custom model and run it with the ML Commons plugin.
 
@@ -25,7 +25,7 @@ As of OpenSearch 2.4, the model-serving framework only supports text embedding m
 
 To use a model in OpenSearch, you'll need to export the model into a portable format. As of Version 2.4, OpenSearch only supports the [TorchScript](https://pytorch.org/docs/stable/jit.html) format.
 
-Furthermore, files must be saved as zip files before upload. Therefore, to ensure that ML commons can upload your model, compress your TorchScript file before uploading. You can download an example file [here](https://github.com/opensearch-project/ml-commons/blob/2.x/ml-algorithms/src/test/resources/org/opensearch/ml/engine/algorithms/text_embedding/all-MiniLM-L6-v2_torchscript_sentence-transformer.zip).
+Furthermore, files must be saved as zip files before upload. Therefore, to ensure that ML Commons can upload your model, compress your TorchScript file before uploading. You can download an example file [here](https://github.com/opensearch-project/ml-commons/blob/2.x/ml-algorithms/src/test/resources/org/opensearch/ml/engine/algorithms/text_embedding/all-MiniLM-L6-v2_torchscript_sentence-transformer.zip).
 
 ### Model size
 
