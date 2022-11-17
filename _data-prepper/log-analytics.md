@@ -79,44 +79,6 @@ log-pipeline:
         index: apache_logs
 ```
 
-## Example pipline.yaml without SSL and basic authentication enabled
-
-Example `pipeline.yaml` without SSL and basic authentication enabled for the `http-source`:
-
-```yaml
-log-pipeline:
-  source:
-    http:
-      # Explicitly disable SSL
-      ssl: false
-      # Explicitly disable authentication
-      authentication:
-        unauthenticated:
-      # The default port that will listen for incoming logs
-      port: 2021
-  processor:
-    - grok:
-        match:
-          # This will match logs with a "log" key against the COMMONAPACHELOG pattern (ex: { "log": "actual apache log..." } )
-          # You should change this to match what your logs look like. See the grok documenation to get started.
-          log: [ "%{COMMONAPACHELOG}" ]
-  sink:
-    - opensearch:
-        hosts: [ "https://localhost:9200" ]
-        # Change to your credentials
-        username: "admin"
-        password: "admin"
-        # Add a certificate file if you are accessing an OpenSearch cluster with a self-signed certificate  
-        #cert: /path/to/cert
-        # If you are connecting to an Amazon OpenSearch Service domain without
-        # Fine-Grained Access Control, enable these settings. Comment out the
-        # username and password above.
-        #aws_sigv4: true
-        #aws_region: us-east-1
-        # Since we are grok matching for apache logs, it makes sense to send them to an OpenSearch index named apache_logs.
-        # You should change this to correspond with how your OpenSearch indices are set up.
-        index: apache_logs
-```
 This pipeline configuration is an example of Apache log ingestion. Don't forget that you can easily configure the Grok processor for your own custom logs. You will need to modify the configuration above for your OpenSearch cluster.
 
 The main changes you need to make are:
