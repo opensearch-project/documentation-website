@@ -52,6 +52,29 @@ opensearch-security
 opensearch-sql
 ```
 
+You can also list plugins that are installed by using the [CAT API]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-plugins/):
+
+#### Path and HTTP method
+
+```bash
+GET _cat/plugins
+```
+
+#### Example response
+
+```bash
+opensearch-node1 opensearch-alerting                  2.0.1.0
+opensearch-node1 opensearch-anomaly-detection         2.0.1.0
+opensearch-node1 opensearch-asynchronous-search       2.0.1.0
+opensearch-node1 opensearch-cross-cluster-replication 2.0.1.0
+opensearch-node1 opensearch-index-management          2.0.1.0
+opensearch-node1 opensearch-job-scheduler             2.0.1.0
+opensearch-node1 opensearch-knn                       2.0.1.0
+opensearch-node1 opensearch-ml                        2.0.1.0
+opensearch-node1 opensearch-notifications             2.0.1.0
+opensearch-node1 opensearch-notifications-core        2.0.1.0
+```
+
 ## Install
 
 There are three ways to install plugins using `opensearch-plugin`:
