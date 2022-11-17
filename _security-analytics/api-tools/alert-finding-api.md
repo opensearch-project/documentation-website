@@ -89,8 +89,49 @@ State | Description
 
 ```json
 POST /_plugins/_security_analytics/<detector_id>/_acknowledge/alerts
+
+{"alerts":["4dc7f5a9-2c82-4786-81ca-433a209d5205"]}
 ```
 
+### Sample response
+
+```json
+{
+  "acknowledged": [
+    {
+      "detector_id": "8YT5fYQBZ8IUM4axics6",
+      "id": "4dc7f5a9-2c82-4786-81ca-433a209d5205",
+      "version": 1,
+      "schema_version": 4,
+      "trigger_id": "1TP5fYQBMkkIGY6Pg-q8",
+      "trigger_name": "test-trigger",
+      "finding_ids": [
+        "2e167f4b-8063-40ef-80f8-2afd9bf095b8"
+      ],
+      "related_doc_ids": [
+        "1|windows"
+      ],
+      "state": "ACTIVE",
+      "error_message": null,
+      "alert_history": [],
+      "severity": "1",
+      "action_execution_results": [
+        {
+          "action_id": "BopdoIJKXd",
+          "last_execution_time": 1668560817925,
+          "throttled_count": 0
+        }
+      ],
+      "start_time": "2022-11-16T01:06:57.748Z",
+      "last_notification_time": "2022-11-16T01:06:57.748Z",
+      "end_time": null,
+      "acknowledged_time": null
+    }
+  ],
+  "failed": [],
+  "missing": []
+}
+```
 
 ## Get findings
 
