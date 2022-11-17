@@ -29,7 +29,7 @@ Furthermore, files must be saved as zip files before upload. Therefore, to ensur
 
 ### Model size
 
-Most deep-learning models are over 100 MBs, making it difficult to fit the model into a single document. OpenSearch splits the model file into smaller chunks to store in a model index. When allocating ML or data nodes for your OpenSearch cluster, be aware of the size of your model to prevent any downtime when making inferences. 
+Most deep learning models are over 100 MBs, making it difficult to fit the model into a single document. OpenSearch splits the model file into smaller chunks to be stored in a model index. When allocating machine learning (ML) or data nodes for your OpenSearch cluster, be aware of the size of your model to prevent any downtime when making inferences. 
 
 
 ## Upload model to OpenSearch
@@ -40,7 +40,7 @@ Use the URL upload operation for models that already exist on another server, su
 POST /_plugins/_ml/models/_upload
 ```
 
-The URL upload method requires the following request fields:
+The URL upload method requires the following request fields.
 
 
 Field | Data Type | Description
@@ -54,7 +54,7 @@ Field | Data Type | Description
 #### Sample request
 
 
-The following sample request uploads version `1.0.0` of an NLP sentence transformation model named `all-MiniLM-L6-v2`.
+The following sample request uploads version `1.0.0` of a natural language processing (NLP) sentence transformation model named `all-MiniLM-L6-v2`:
 
 ```json
 POST /_plugins/_ml/models/_upload
@@ -75,7 +75,7 @@ POST /_plugins/_ml/models/_upload
 #### Sample response
 
 
-OpenSearch responds with the `task_id` and task `status`.
+OpenSearch responds with the `task_id` and task `status`:
 
 ```json
 {
@@ -88,9 +88,7 @@ To see the status of your model upload, pass the `task_id` into the [task API]({
 
 ## Load the model
 
-
-The load model operation reads the model's chunks from the model index, then creates an instance of the model to load into memory. The bigger the model, the more chunks the model is split into. The more chunks a model index contains, the longer it takes for the model to load into memory.
-
+The load model operation reads the model's chunks from the model index and then creates an instance of the model to load into memory. The bigger the model, the more chunks the model is split into. The more chunks a model index contains, the longer it takes for the model to load into memory.
 
 ### Get the `model_id`
 
@@ -118,34 +116,34 @@ OpenSearch responds with the `model_id`:
 }
 ```
 
-### Load model from index
+### Load model from the model index
 
 With the `model_id`, you can now load the model from the model's index to deploy the model to ML nodes. The load API reads model chunks from the model index, then creates an instance of that model and save the model instance in the ML node's cache.
 
 
-Add the `model_id` to the load API. 
+Add the `model_id` to the load API: 
 
 
 ```json
 POST /_plugins/_ml/models/<model_id>/_load
 ```
 
-By default the ML Common's setting `plugins.ml_commons.only_run_on_ml_node` is set to `false`. When `false`, models load on ML nodes first. If no ML nodes exist, models load on data nodes. When running ML models in production, set `plugins.ml_commons.only_run_on_ml_node` to `true`, so that models only load on ML nodes.
+By default, the ML Commons setting `plugins.ml_commons.only_run_on_ml_node` is set to `false`. When `false`, models load on ML nodes first. If no ML nodes exist, models load on data nodes. When running ML models in production, set `plugins.ml_commons.only_run_on_ml_node` to `true` so that models only load on ML nodes.
 
 
 #### Sample Request: Load into any available ML node
 
 
-In this example request, OpenSearch loads the model into any available OpenSearch node. 
+In this example request, OpenSearch loads the model into all available OpenSearch node: 
 
 ```json
 POST /_plugins/_ml/models/WWQI44MBbzI2oUKAvNUt/_load
 ```
 
-#### Sample Request: Load into a specific node
+#### Sample request: Load into a specific node
 
 
-If you want to reserve the memory of other ML nodes within your cluster, you can load your model into a specific node(s) by specifying each node's id in the request body:
+If you want to reserve the memory of other ML nodes within your cluster, you can load your model into a specific node(s) by specifying each node's ID in the request body:
 
 ```json
 POST /_plugins/_ml/models/WWQI44MBbzI2oUKAvNUt/_load
@@ -155,9 +153,9 @@ POST /_plugins/_ml/models/WWQI44MBbzI2oUKAvNUt/_load
 ```
 
 
-#### Sample Response
+#### Sample response
 
-All models load asynchronously. Therefore, the load API responds a new `task_id` based on the load, and returns a `status` for the task.
+All models load asynchronously. Therefore, the load API responds a new `task_id` based on the load and responds with a new `status` for the task.
 
 ```json
 {
@@ -169,17 +167,17 @@ All models load asynchronously. Therefore, the load API responds a new `task_id`
 
 ### Check model load status
 
-With your `task_id` from the load response, you can use the `GET _ml/tasks` API to see the loading status of your model. Before a loaded model can be used for inferences, the load task's `state` must show as `COMPLETED`. 
+With your `task_id` from the load response, you can use the `GET _ml/tasks` API to see the load status of your model. Before a loaded model can be used for inferences, the load task's `state` must be `COMPLETED`.
 
 
-#### Sample Request
+#### Sample request
 
 
 ```json
 GET /_plugins/_ml/tasks/hA8P44MBhyWuIwnfvTKP
 ```
 
-#### Sample Response
+#### Sample response
 
 ```json
 {
@@ -194,7 +192,7 @@ GET /_plugins/_ml/tasks/hA8P44MBhyWuIwnfvTKP
 }
 ```
 
-## Use loaded model for inferences
+## Use the loaded model for inferences
 
 
 After the model has been loaded, you can enter the `model_id` into the [predict API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api#predict) to perform inferences.
@@ -204,7 +202,7 @@ POST /_plugins/_ml/models/<model_id>/_predict
 ```
 
 
-### Sample Request
+### Sample request
 
 
 ```json
@@ -216,7 +214,7 @@ POST /_plugins/_ml/_predict/text_embedding/WWQI44MBbzI2oUKAvNUt
 }
 ```
 
-### Sample Response
+### Sample response
 
 
 ```json
