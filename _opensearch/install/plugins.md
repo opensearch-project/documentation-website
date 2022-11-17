@@ -253,7 +253,7 @@ The following plugins are bundled with all OpenSearch distributions except for m
 | Observability | [opensearch-observability](https://github.com/opensearch-project/observability) | 1.2.0 |
 | Performance Analyzer<sup>2</sup> | [opensearch-performance-analyzer](https://github.com/opensearch-project/performance-analyzer) | 1.0.0 |
 | Security | [opensearch-security](https://github.com/opensearch-project/security) | 1.0.0 |
-| Security Analytics | [security-analytics](https://github.com/opensearch-project/security-analytics) | 2.4.0 |
+| Security Analytics | [opensearch-security-analytics](https://github.com/opensearch-project/security-analytics) | 2.4.0 |
 | SQL | [opensearch-sql](https://github.com/opensearch-project/sql) | 1.0.0 |
 
 _<sup>1</sup>Dashboard Notebooks was merged in to the Observability plugin with the release of OpenSearch 1.2.0._<br>
@@ -290,6 +290,7 @@ Members of the OpenSearch community have built countless plugins for the service
 ## Related links
 
 - [About Observability]({{site.url}}{{site.baseurl}}/observability-plugin/index/)
+- [About security analytics]({{site.url}}{{site.baseurl}}/security-analytics/index/)
 - [About the security plugin]({{site.url}}{{site.baseurl}}/security-plugin/index/)
 - [Alerting]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/index/)
 - [Anomaly detection]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/index/)
