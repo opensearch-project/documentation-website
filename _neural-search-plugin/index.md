@@ -9,7 +9,7 @@ has_toc: false
 The Neural Search plugin is an experimental feature. For updates on the progress of the Neural Search plugin, or if you want to leave feedback that could help improve the feature, join the discussion in the [Neural Search forum](https://forum.opensearch.org/t/feedback-neural-search-plugin-experimental-release/11501).    
 {: .warning}
 
-The OpenSearch Neural Search plugin enables the integration of Machine Learning (ML) language models into your search workloads. During ingestion and search, the Neural Search plugin transforms text into vectors. Then, Neural Search uses the transformed vectors in vector-based search.
+The OpenSearch Neural Search plugin enables the integration of machine learning (ML) language models into your search workloads. During ingestion and search, the Neural Search plugin transforms text into vectors. Then, Neural Search uses the transformed vectors in vector-based search.
 
 The Neural Search plugin comes bundled with OpenSearch. For more information, see [Managing plugins](({{site.url}}{{site.baseurl}}/opensearch/install/plugins#managing-plugins)).
 
@@ -21,7 +21,7 @@ In order to ingest vectorized documents, you need to create a Neural Search _pip
 PUT _ingest/pipeline/<pipeline_name>
 ```
 
-In the pipeline request body, The `text_embedding` processor, the only processor supported by Neural Search, converts a document's text to vector embeddings. `text_embedding` uses a `field_map` to know what fields from which to generate vector embeddings and also what field to store the embedding. 
+In the pipeline request body, The `text_embedding` processor, the only processor supported by Neural Search, converts a document's text to vector embeddings. `text_embedding` uses  `field_map`s to determine what fields from which to generate vector embeddings and also which field to store the embedding. 
 
 ### Path parameter
 
@@ -32,13 +32,13 @@ Use `pipeline_name` to create a name for your Neural Search pipeline.
 Field | Data Type | Description
 :--- | :--- | :--- 
 description | string | A description of the processor.
-model_id | string | The ID of the model that will be used in the embedding interface. Model must be indexed in OpenSearch before it can be used in Neural Search. For more information, see [Model Serving Framework]
+model_id | string | The ID of the model that will be used in the embedding interface. The model must be indexed in OpenSearch before it can be used in Neural Search. For more information, see [Model Serving Framework]
 input_field_name | string | The field name used to cache text for text embeddings.
-output_field_name  | string | The field name where the output text is stored.
+output_field_name  | string | The name of the field in which output text is stored.
 
-### Example Request
+### Example request
 
-Use the following example request to create a pipeline.
+Use the following example request to create a pipeline:
 
 ```json
 PUT _ingest/pipeline/nlp-pipeline
@@ -57,7 +57,9 @@ PUT _ingest/pipeline/nlp-pipeline
 }
 ```
 
-## Example response
+### Example response
+
+OpenSearch responds with an acknowledgment of the pipeline's creation.
 
 ```json
 PUT _ingest/pipeline/nlp-pipeline
@@ -68,11 +70,11 @@ PUT _ingest/pipeline/nlp-pipeline
 
 ## Create an index for ingestion
 
-In order to use the text embedding processor defined in pipelines, create an index with mapping data that aligns with the maps specified in your pipeline. For example, `output_fields` defined in the `field_map` field of your processor request must map to the k-NN vector fields with a dimension that matches the model. Similarly, `text_fields` defined in your processor should map to `text_fields` in your index.
+In order to use the text embedding processor defined your pipelines, create an index with mapping data that aligns with the maps specified in your pipeline. For example, the `output_fields` defined in the `field_map` field of your processor request must map to the k-NN vector fields with a dimension that matches the model. Similarly, the `text_fields` defined in your processor should map to the `text_fields` in your index.
 
 ### Example request
 
-The following example creates an index that attaches to a Neural Search pipeline. Since the index maps to K-NN vector fields, the index setting field `index-knn` is set to `true`. Furthermore, `mapping` settings use [K-NN method definitions](https://opensearch.org/docs/latest/search-plugins/knn/knn-index/#method-definitions) to match the maps defined in the Neural Search pipeline.
+The following example request creates an index that attaches to a Neural Search pipeline. Because the index maps to k-NN vector fields, the index setting field `index-knn` is set to `true`. Furthermore, `mapping` settings use [k-NN method definitions](https://opensearch.org/docs/latest/search-plugins/knn/knn-index/#method-definitions) to match the maps defined in the Neural Search pipeline.
 
 ```json
 PUT /my-nlp-index-1
@@ -103,8 +105,9 @@ PUT /my-nlp-index-1
 
 ### Example response
 
+OpenSearch responds with information about your new index:
+
 ```json
-PUT /my-nlp-index-1
 {
   "acknowledged" : true,
   "shards_acknowledged" : true,
@@ -112,9 +115,9 @@ PUT /my-nlp-index-1
 }
 ```
 
-## Ingest documents into the Neural Search
+## Ingest documents into Neural Search
 
-Document ingestion occurs with OpenSearch's [Ingest API](https://opensearch.org/docs/latest/api-reference/ingest-apis/index/), similar to other OpenSearch indexes. For example, you can ingest a document that contains the `passage_text: "Hello world"` with a simple POST method.
+Document ingestion is managed by OpenSearch's [Ingest API](https://opensearch.org/docs/latest/api-reference/ingest-apis/index/), similarly to other OpenSearch indexes. For example, you can ingest a document that contains the `passage_text: "Hello world"` with a simple POST method:
 
 ```json
 POST /my-nlp-index-1/_doc
@@ -123,25 +126,27 @@ POST /my-nlp-index-1/_doc
 }
 ```
 
-With the text_embedding processor in place through a Neural Search pipeline, the above example indexes "Hello world" as a `text_field` and converts "Hello world" into an associated k-NN vector field. 
+With the text_embedding processor in place through a Neural Search pipeline, the example indexes "Hello world" as a `text_field` and converts "Hello world" into an associated k-NN vector field. 
 
-## Search a Neural index 
+## Search a neural index 
 
-If you want to use a language model to convert a text query to k-NN vector query, use the Neural query type in your query. The Neural query request fields can be used in both the [Search API](https://opensearch.org/docs/latest/search-plugins/knn/api/#search-model) and [Query DSL](https://opensearch.org/docs/latest/opensearch/query-dsl/index/). 
+If you want to use a language model to convert a text query into a k-NN vector query, use the `neural` query fields in your query. The neural query request fields can be used in both the [Search API](https://opensearch.org/docs/latest/search-plugins/knn/api/#search-model) and [Query DSL](https://opensearch.org/docs/latest/opensearch/query-dsl/index/). 
 
 ### Neural request fields
 
+Include the following request fields under the `neural` field in your query:
+
 Field | Data Type | Description
 :--- | :--- | :--- 
-vector_field | string | The vector field to execute a search query against.
-query_text | string | Query text from which to produce queries.
-model_id | string | The ID of the model that will be used in the embedding interface. Model must be indexed in OpenSearch before it can be used in Neural Search.
-k | integer | Number of results the k-NN search returns.
+vector_field | string | The vector field against which to run a search query.
+query_text | string | The query text from which to produce queries.
+model_id | string | The ID of the model that will be used in the embedding interface. The model must be indexed in OpenSearch before it can be used in Neural Search.
+k | integer | The number of results the k-NN search returns.
 
 
 ### Example request
 
-The following example uses a search query that returns vectors against a "Hello World" query:
+The following example request uses a search query that returns vectors for the "Hello World" query text:
 
 
 ```json
