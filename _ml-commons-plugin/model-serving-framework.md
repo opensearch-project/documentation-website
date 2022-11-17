@@ -155,7 +155,7 @@ POST /_plugins/_ml/models/WWQI44MBbzI2oUKAvNUt/_load
 
 #### Sample response
 
-All models load asynchronously. Therefore, the load API responds a new `task_id` based on the load and responds with a new `status` for the task.
+All models load asynchronously. Therefore, the load API responds with a new `task_id` based on the load and responds with a new `status` for the task.
 
 ```json
 {
