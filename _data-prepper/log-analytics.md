@@ -16,7 +16,7 @@ In the application environment, run FluentBit. FluentBit can be containerized th
 
 # Log analytics pipeline 
 
-Log analytic pipelines in Data Prepper are extremely customizable. See the simple pipeline below.
+Log analytic pipelines in Data Prepper are extremely customizable. See the simple pipeline below. 
 
 ![Log analytics component]({{site.url}}{{site.baseurl}}/images/data-prepper/log-analytics/log-ingestion-fluent-bit-data-prepper.png)
 
