@@ -74,7 +74,7 @@ bin/opensearch-plugin install <plugin-name>
 $ sudo ./opensearch-plugin install analysis-icu
 -> Installing analysis-icu
 -> Downloading analysis-icu from opensearch
-[=================================================] 100%   
+[=================================================] 100%   
 -> Installed analysis-icu with folder name analysis-icu
 ```
 
@@ -93,7 +93,7 @@ bin/opensearch-plugin install <zip-file>
 $ sudo ./opensearch-plugin install https://repo1.maven.org/maven2/org/opensearch/plugin/opensearch-anomaly-detection/2.2.0.0/opensearch-anomaly-detection-2.2.0.0.zip
 -> Installing https://repo1.maven.org/maven2/org/opensearch/plugin/opensearch-anomaly-detection/2.2.0.0/opensearch-anomaly-detection-2.2.0.0.zip
 -> Downloading https://repo1.maven.org/maven2/org/opensearch/plugin/opensearch-anomaly-detection/2.2.0.0/opensearch-anomaly-detection-2.2.0.0.zip
-[=================================================] 100%   
+[=================================================] 100%   
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @     WARNING: plugin requires additional permissions     @
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -117,7 +117,7 @@ Continue with installation? [y/N]y
 $ sudo ./opensearch-plugin install file:/home/user/opensearch-anomaly-detection-2.2.0.0.zip
 -> Installing file:/home/user/opensearch-anomaly-detection-2.2.0.0.zip
 -> Downloading file:/home/user/opensearch-anomaly-detection-2.2.0.0.zip
-[=================================================] 100%   
+[=================================================] 100%   
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @     WARNING: plugin requires additional permissions     @
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -152,7 +152,7 @@ bin/opensearch-plugin install <groupId>:<artifactId>:<version>
 $ sudo ./opensearch-plugin install org.opensearch.plugin:opensearch-anomaly-detection:2.2.0.0
 -> Installing org.opensearch.plugin:opensearch-anomaly-detection:2.2.0.0
 -> Downloading org.opensearch.plugin:opensearch-anomaly-detection:2.2.0.0 from maven central
-[=================================================] 100%   
+[=================================================] 100%   
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @     WARNING: plugin requires additional permissions     @
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -236,6 +236,7 @@ The following plugins are bundled with all OpenSearch distributions except for m
 _<sup>1</sup>Dashboard Notebooks was merged in to the Observability plugin with the release of OpenSearch 1.2.0._<br>
 _<sup>2</sup>Performance Analyzer is not available on Windows._
 
+
 ### Additional plugins
 
 Members of the OpenSearch community have built countless plugins for the service. Although it isn't possible to build an exhaustive list of every plugin, since many plugins are not maintained within the OpenSearch GitHub repository, the following list of plugins are available to be installed by name using `bin/opensearch-plugin install <plugin-name>`.
@@ -274,6 +275,7 @@ Members of the OpenSearch community have built countless plugins for the service
 - [Index State Management]({{site.url}}{{site.baseurl}}/im-plugin/ism/index/)
 - [k-NN]({{site.url}}{{site.baseurl}}/search-plugins/knn/index/)
 - [ML Commons Plugin]({{site.url}}{{site.baseurl}}/ml-commons-plugin/index/)
+- [Neural Search]({{site.url}}{{site.baseurl}}/neural-search/index/)
 - [Notifications]({{site.url}}{{site.baseurl}}/notifications-plugin/index/)
 - [OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/index/)
 - [Performance Analyzer]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/index/)
