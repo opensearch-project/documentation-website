@@ -8,7 +8,7 @@ nav_order: 110
 
 # Model serving framework
 
-ML commons supports the ability to serve custom models and use those models to make inferences. For those who want to run their PyTorch deep-learning model inside an OpenSearch cluster, you can upload and run that model with the ML Commons REST API.
+ML commons allows you to serve custom models and use those models to make inferences. For those who want to run their PyTorch deep learning model inside an OpenSearch cluster, you can upload and run that model with the ML Commons REST API.
 
 This page outlines the steps required to upload a custom model and run with the ML Commons plugin.
 
