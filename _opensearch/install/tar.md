@@ -84,7 +84,7 @@ An OpenSearch node configured by the demo security script is not suitable for a 
 
 ### Option 1: Test your Opensearch settings with security enabled
 
-1. Change to the top directory of your OpenSearch install.
+1. Change to the top directory of your OpenSearch installation.
    ```bash
    cd /path/to/opensearch-{{site.opensearch_version}}
    ```
@@ -93,7 +93,7 @@ An OpenSearch node configured by the demo security script is not suitable for a 
    ./opensearch-tar-install.sh
    ```
 1. Open another terminal session and send requests to the server to verify that OpenSearch is running. Note the use of the `--insecure` flag, which is required because the TLS certificates are self-signed.
-   - Send a request to port 9200.
+   - Send a request to port 9200:
       ```bash
       curl -X GET https://localhost:9200 -u 'admin:admin' --insecure
       ```
@@ -117,7 +117,7 @@ An OpenSearch node configured by the demo security script is not suitable for a 
          "tagline" : "The OpenSearch Project: https://opensearch.org/"
       }
       ```
-   - Query the plugins endpoint.
+   - Query the plugins endpoint:
       ```bash
       curl -X GET https://localhost:9200/_cat/plugins?v -u 'admin:admin' --insecure
       ```
@@ -149,7 +149,7 @@ An OpenSearch node configured by the demo security script is not suitable for a 
    ```bash
    vi /path/to/opensearch-{{site.opensearch_version}}/config/opensearch.yml
    ```
-1. Add the following line to disable the security plugin.
+1. Add the following line to disable the security plugin:
    ```bash
    plugins.security.disabled: true
    ```
@@ -211,7 +211,7 @@ Users who do not have prior experience with OpenSearch may want a list of recomm
 The following recommended settings will allow you to:
 
 - Bind OpenSearch to an IP or network interface on the host.
-- Set initial and max JVM heap sizes.
+- Set initial and maximum JVM heap sizes.
 - Define an environment variable that points to the bundled JDK.
 - Configure your own TLS certificates - no third-party certificate authority (CA) is required.
 - Create an admin user with a custom password.
@@ -243,12 +243,12 @@ Before modifying any configuration files, it's always a good idea to save a back
    plugins.security.disabled: false
    ```
 1. Save your changes and close the file.
-1. Specify initial and max JVM heap sizes.
+1. Specify initial and maximum JVM heap sizes.
    1.  Open `jvm.options`.
          ```bash
          vi /path/to/opensearch-{{site.opensearch_version}}/config/jvm.options
          ```
-   1. Modify the values for initial and max heap sizes. As a starting point, you should set these values to half of the available system memory. For dedicated hosts this value can be increased based on your workflow requirements.
+   1. Modify the values for initial and maximum heap sizes. As a starting point, you should set these values to half of the available system memory. For dedicated hosts this value can be increased based on your workflow requirements.
       -  As an example, if the host machine has 8 GB of memory then you might want to set the initial and maximum heap sizes to 4 GB:
          ```bash
          -Xms4g
@@ -452,6 +452,86 @@ $ curl https://your.host.address:9200 -u admin:yournewpassword -k
   "tagline" : "The OpenSearch Project: https://opensearch.org/"
 }
 ```
+
+### Run OpenSearch as a service with systemd
+
+This section will guide you through creating a service for OpenSearch and registering it with `systemd`. After the service has been defined, you can enable, start, and stop the OpenSearch service using `systemctl` commands. The commands in this section reflect an environment where OpenSearch has been installed to `/opt/opensearch` and should be changed depending on your installation path.
+
+The following configuration is only suitable for testing in a non-production environment. We do not recommend using the following configuration in a production environment. You should install OpenSearch with the [RPM]({{site.url}}{{site.baseurl}}/opensearch/install/rpm/) distribution if you want to run OpenSearch as a systemd-managed service on your host. The tarball installation does not define a specific installation path, users, roles, or permissions. Failure to properly secure your host environment can result in unexpected behavior.
+{: .warning}
+
+1. Create a user for the OpenSearch service.
+   ```bash
+   sudo adduser --system --shell /bin/bash -U --no-create-home opensearch
+   ```
+
+1. Add your user to the `opensearch` user group.
+   ```bash
+   sudo usermod -aG opensearch $USER
+   ```
+
+1. Change the file owner to `opensearch`. Make sure to change the path if your OpenSearch files are in a different directory.
+   ```bash
+   sudo chown -R opensearch /opt/opensearch/
+   ```
+
+1. Create the service file and open it for editing.
+   ```bash
+   sudo vi /etc/systemd/system/opensearch.service
+   ```
+
+1. Enter the following example service configuration. Make sure to change references to the path if your OpenSearch files are in a different directory.
+   ```bash
+   [Unit]
+   Description=OpenSearch
+   Wants=network-online.target
+   After=network-online.target
+
+   [Service]
+   Type=forking
+   RuntimeDirectory=data
+
+   WorkingDirectory=/opt/opensearch
+   ExecStart=/opt/opensearch/bin/opensearch -d
+
+   User=opensearch
+   Group=opensearch
+   StandardOutput=journal
+   StandardError=inherit
+   LimitNOFILE=65535
+   LimitNPROC=4096
+   LimitAS=infinity
+   LimitFSIZE=infinity
+   TimeoutStopSec=0
+   KillSignal=SIGTERM
+   KillMode=process
+   SendSIGKILL=no
+   SuccessExitStatus=143
+   TimeoutStartSec=75
+
+   [Install]
+   WantedBy=multi-user.target
+   ```
+
+1. Reload `systemd` manager configuration.
+   ```bash
+   sudo systemctl daemon-reload
+   ```
+
+1. Enable the OpenSearch service.
+   ```bash
+   sudo systemctl enable opensearch.service
+   ```
+
+1. Start the OpenSearch service.
+   ```bash
+   sudo systemctl start opensearch
+   ```
+
+1. Verify that the service is running.
+   ```bash
+   sudo systemctl status opensearch
+   ```
 
 ## Related links
 
