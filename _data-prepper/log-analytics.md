@@ -6,13 +6,13 @@ nav_order: 12
 
 # Introduction
 
-Data Prepper is an extendable, configurable, and scalable solution for log ingestion into OpenSearch and Amazon OpenSearch Service. Currently, Data Prepper is focused on receiving logs from [FluentBit](https://fluentbit.io/) via the [Http Source](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/http-source/README.md), and processing those logs with a [Grok Processor](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/grok-processor/README.md) before ingesting them into OpenSearch through the [OpenSearch sink](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/opensearch/README.md).
+Data Prepper is an extendable, configurable, and scalable solution for log ingestion into OpenSearch and Amazon OpenSearch Service. Data Prepper supports receiving logs from [FluentBit](https://fluentbit.io/) via the [Http Source](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/http-source/README.md), and processing those logs with a [Grok Processor](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/grok-processor/README.md) before ingesting them into OpenSearch through the [OpenSearch sink](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/opensearch/README.md).
 
 Here are all of the components for log analytics with FluentBit, Data Prepper, and OpenSearch:
 
 ![Log analytics component]({{site.url}}{{site.baseurl}}/images/data-prepper/log-analytics/log-analytics-components.png)
 
-In the application environment, run FluentBit. FluentBit can be containerized through Kubernetes, Docker, or Amazon ECS. You can also run FluentBit as an agent on EC2. Configure the [FluentBit http output plugin](https://docs.fluentbit.io/manual/pipeline/outputs/http) to export log data to Data Prepper. Then, deploy Data Prepper as an intermediate component and configure it to send the enriched log data to your OpenSearch cluster or Amazon OpenSearch Service domain. From there, use OpenSearch Dashboards to perform more intensive visualization and analysis.
+In the application environment, run FluentBit. FluentBit can be containerized through Kubernetes, Docker, or Amazon ECS. You can also run FluentBit as an agent on EC2. Configure the [FluentBit http output plugin](https://docs.fluentbit.io/manual/pipeline/outputs/http) to export log data to Data Prepper. Then, deploy Data Prepper as an intermediate component and configure it to send the enriched log data to your OpenSearch cluster. From there, use OpenSearch Dashboards to perform more intensive visualization and analysis.
 
 # Log analytics pipeline
 
@@ -26,7 +26,7 @@ The [HTTP Source](https://github.com/opensearch-project/data-prepper/blob/main/d
 
 # Processor
 
-Data Prepper 1.2 release and above comes with a [Grok Processor](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/grok-processor/README.md). The Grok Processor is an invaluable tool to structure and extract important fields from your logs in order to make them more queryable.
+Data Prepper 1.2 release and above comes with a [Grok Processor](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/grok-processor/README.md). The Grok Processor is an invaluable tool to structure and extract important fields from your logs that makes them more queryable.
 
 The Grok Processor comes with a wide variety of [default patterns](https://github.com/thekrakken/java-grok/blob/master/src/main/resources/patterns/patterns) that match against common log formats like apcahe logs or syslogs, but can easily accept any custom patterns that cater to your specific log format.
 
@@ -46,11 +46,8 @@ Example `pipeline.yaml` with SSL and basic authentication enabled for the `http-
 log-pipeline:
   source:
     http:
-      ssl: true
       ssl_certificate_file: "/full/path/to/certfile.crt"
       ssl_key_file: "/full/path/to/keyfile.key"
-      # The default port that will listen for incoming logs
-      port: 2021
       authentication:
         http_basic:
           username: "myuser"
@@ -145,7 +142,7 @@ Example `fluent-bit.conf` with SSL and basic authentication enabled on the http 
 
 # Next Steps
 
-Follow the [Log ingestion demo guide](../examples/log-ingestion/README.md) to go through a specific example of Apache log ingestion from `FluentBit -> Data Prepper -> OpenSearch` running through Docker.
+Follow the [Log ingestion demo guide](https://github.com/opensearch-project/data-prepper/blob/main/examples/log-ingestion/README.md) to go through a specific example of Apache log ingestion from `FluentBit -> Data Prepper -> OpenSearch` running through Docker.
 
 In the future, Data Prepper will contain additional sources and processors which will make more complex log analytic pipelines available. Check out our [Roadmap](https://github.com/opensearch-project/data-prepper/projects/1) to see what is coming.  
 
