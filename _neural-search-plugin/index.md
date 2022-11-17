@@ -70,7 +70,7 @@ PUT _ingest/pipeline/nlp-pipeline
 
 ## Create an index for ingestion
 
-In order to use the text embedding processor defined your pipelines, create an index with mapping data that aligns with the maps specified in your pipeline. For example, the `output_fields` defined in the `field_map` field of your processor request must map to the k-NN vector fields with a dimension that matches the model. Similarly, the `text_fields` defined in your processor should map to the `text_fields` in your index.
+In order to use the text embedding processor defined in your pipelines, create an index with mapping data that aligns with the maps specified in your pipeline. For example, the `output_fields` defined in the `field_map` field of your processor request must map to the k-NN vector fields with a dimension that matches the model. Similarly, the `text_fields` defined in your processor should map to the `text_fields` in your index.
 
 ### Example request
 
