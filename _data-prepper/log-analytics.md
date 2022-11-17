@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Log analytics
-nav_order: 2
+nav_order: 12
 ---
 
 # Introduction
@@ -12,7 +12,7 @@ Here are all of the components for log analytics with FluentBit, Data Prepper, a
 
 ![Log analytics component]({{site.url}}{{site.baseurl}}/images/data-prepper/log-analytics/log-analytics-components.png)
 
-In the application environment, you need to run FluentBit. FluentBit can be containerized through Kubernetes, Docker, or Amazon ECS. It can also run as an agent on EC2. Configure the [FluentBit http output plugin](https://docs.fluentbit.io/manual/pipeline/outputs/http) to export log data to Data Prepper. Then, deploy Data Prepper as an intermediate component and configure it to send the enriched log data to your OpenSearch cluster or Amazon OpenSearch Service domain. From there, use OpenSearch Dashboards to perform more intensive visualization and analysis.
+In the application environment, run FluentBit. FluentBit can be containerized through Kubernetes, Docker, or Amazon ECS. You can also run FluentBit as an agent on EC2. Configure the [FluentBit http output plugin](https://docs.fluentbit.io/manual/pipeline/outputs/http) to export log data to Data Prepper. Then, deploy Data Prepper as an intermediate component and configure it to send the enriched log data to your OpenSearch cluster or Amazon OpenSearch Service domain. From there, use OpenSearch Dashboards to perform more intensive visualization and analysis.
 
 # Log analytics pipeline
 
@@ -117,7 +117,6 @@ log-pipeline:
         # You should change this to correspond with how your OpenSearch indices are set up.
         index: apache_logs
 ```
-
 This pipeline configuration is an example of Apache log ingestion. Don't forget that you can easily configure the Grok processor for your own custom logs. You will need to modify the configuration above for your OpenSearch cluster.
 
 The main changes you need to make are:
@@ -155,12 +154,11 @@ Example `fluent-bit.conf` without SSL and Basic Authentication enabled on the ht
   Format json
 ```
 
-If your http source has SSL and Basic Authentication enabled, you will need to add the details 
-of `http_User`, `http_Passwd`, `tls.crt_file`, and `tls.key_file` to the `fluent-bit.conf` as shown below.
+If your http source has SSL and basic authentication enabled, you will need to add the details of `http_User`, `http_Passwd`, `tls.crt_file`, and `tls.key_file` to the `fluent-bit.conf` as shown below.
 
 ### Example fluent-bit.conf with SSL and basic authentication enabled
 
-Example `fluent-bit.conf` with SSL and Basic Authentication enabled on the http source:
+Example `fluent-bit.conf` with SSL and basic authentication enabled on the http source:
 
 ```
 [INPUT]
@@ -189,5 +187,4 @@ Follow the [Log ingestion demo guide](../examples/log-ingestion/README.md) to go
 
 In the future, Data Prepper will contain additional sources and processors which will make more complex log analytic pipelines available. Check out our [Roadmap](https://github.com/opensearch-project/data-prepper/projects/1) to see what is coming.  
 
-If there is a specifc source, processor, or sink that you would like to include in your log analytic workflow, and it is not currently on the Roadmap, please bring it to our attention by making a Github issue. Additionally, if you
-are interested in contributing, see our [Contribuing guidelines](../CONTRIBUTING.md) as well as our [Developer guide](developer_guide.md) and [Plugin development guide](plugin_development.md).
+If there is a specifc source, processor, or sink that you would like to include in your log analytic workflow, and it is not currently on the Roadmap, please bring it to our attention by making a Github issue. Additionally, if you are interested in contributing, see our [Contribuing guidelines](../CONTRIBUTING.md) as well as our [Developer guide](developer_guide.md) and [Plugin development guide](plugin_development.md).
