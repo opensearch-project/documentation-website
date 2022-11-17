@@ -110,7 +110,7 @@ OpenSearch responds with the `model_id`:
 
 ### Load model from index
 
-With the `model_id`, you can now load the model from the model's index to deploy the model with ML nodes. The load API operation reads model instances from the model index, then creates an instance of that model and save the chunks in the ML node's cache.
+With the `model_id`, you can now load the model from the model's index to deploy the model to ML nodes. The load API reads model chunks from the model index, then creates an instance of that model and save the model instance in the ML node's cache.
 
 Add the `model_id` to the load API. 
 
