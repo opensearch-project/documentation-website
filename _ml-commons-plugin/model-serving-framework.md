@@ -110,9 +110,9 @@ OpenSearch responds with the `model_id`:
 
 ### Load model from index
 
-With the `model_id`, you can now load the model from the model's index to deploy the model with ML nodes. The load API operation reads model chunks from the model index, then create an instance of that model and save the chunks in the ML node's cache.
+With the `model_id`, you can now load the model from the model's index to deploy the model with ML nodes. The load API operation reads model instances from the model index, then creates an instance of that model and save the chunks in the ML node's cache.
 
-Add the `model_id` to the load API operation. 
+Add the `model_id` to the load API. 
 
 ```json
 POST /_plugins/_ml/models/<model_id>/_load
@@ -130,7 +130,7 @@ POST /_plugins/_ml/models/WWQI44MBbzI2oUKAvNUt/_load
 
 #### Sample Request: Load into a specific node
 
-If you want to reserve the memory of other ML nodes within your cluster, you can load your model into a specific node(s) by specifying the `node_id` in the request body:
+If you want to reserve the memory of other ML nodes within your cluster, you can load your model into a specific node(s) by specifying each node's id in the request body:
 
 ```json
 POST /_plugins/_ml/models/WWQI44MBbzI2oUKAvNUt/_load
