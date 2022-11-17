@@ -23,7 +23,7 @@ As of OpenSearch 2.4, the model serving framework only supports text embedding m
 
 ### Model format
 
-To use a model in OpenSearch, you'll need to export the model into a portable format. As of 2.4, OpenSearch only supports [torchscript](https://pytorch.org/docs/stable/jit.html) format.
+To use a model in OpenSearch, you'll need to export the model into a portable format. As of Version 2.4, OpenSearch only supports the [TorchScript](https://pytorch.org/docs/stable/jit.html) format.
 
 Furthermore, files must be saved as zip before upload. Therefore, to ensure that ML commons can upload your model, compress your torchscript file before uploading. You can download an example file [here](https://github.com/opensearch-project/ml-commons/blob/2.x/ml-algorithms/src/test/resources/org/opensearch/ml/engine/algorithms/text_embedding/all-MiniLM-L6-v2_torchscript_sentence-transformer.zip).
 
