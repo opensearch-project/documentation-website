@@ -42,7 +42,7 @@ These limitations will be addressed in upcoming releases.
 
 ## Enabling aggregate view for saved objects
 
-By default, the aggregate view in the Saved Objects table is disabled. To enable the feature, add the `opensearch_security.multitenancy.enable_aggregation_view` flag to the `opensearch_dashboards.yml` and set it to `true`:
+By default, the aggregate view in the Saved Objects table is disabled. To enable the feature, add the `opensearch_security.multitenancy.enable_aggregation_view` flag to the `opensearch_dashboards.yml` file and set it to `true`:
 
 `opensearch_security.multitenancy.enable_aggregation_view: true`
 
@@ -52,7 +52,7 @@ After enabling the feature you can start the new cluster and then launch Dashboa
 
 Select the **Tenant** dropdown arrow to display the list of tenants available to the user. You can select multiple tenants while the menu is open. Each time you select a tenant in the menu, the list of saved objects is filtered by that tenant and any others with a check mark beside their name.
 
-<img src="{{site.url}}{{site.baseurl}}/images/Security/tenant_column.png" alt="Dashboards Saved Objects view with emphasis on Tenants column" width="700">
+<img src="{{site.url}}{{site.baseurl}}/images/Security/Tenant_column.png" alt="Dashboards Saved Objects view with emphasis on Tenants column" width="500">
    
 After you finish specifying tenants, select anywhere outside the menu to collapse it. 
 * The Title column displays the names of the available saved objects. 
