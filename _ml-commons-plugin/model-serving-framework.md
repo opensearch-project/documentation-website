@@ -5,15 +5,17 @@ has_children: false
 nav_order: 110
 ---
 
+
 # Model serving framework
 
 ML commons supports the ability to serve custom models and use those models to make inferences. For those who want to run their PyTorch deep-learning model inside an OpenSearch cluster, you can upload and run that model with the ML Commons REST API.
 
 This page outlines the steps required to upload a custom model and run with the ML Commons plugin.
 
+
 ## Prerequisites 
 
-To upload a custom model to OpenSearch, you need to prepare it outside of your OpenSearch cluster. You can use a current model or train a new model depending on your needs.
+To upload a custom model to OpenSearch, you need to prepare it outside of your OpenSearch cluster. You can use a pre-trained model, like one from [Huggingface](https://huggingface.co/) or train a new model depending on your needs.
 
 ### Model support
 
@@ -22,6 +24,8 @@ As of OpenSearch 2.4, the model serving framework only supports text embedding m
 ### Model format
 
 To use a model in OpenSearch, you'll need to export the model into a portable format. As of 2.4, OpenSearch only supports [torchscript](https://pytorch.org/docs/stable/jit.html) format.
+
+Furthermore, files must be saved as zip before upload. Therefore, to ensure that ML commons can upload your model, compress your torchscript file before uploading. You can download an example file [here](https://github.com/opensearch-project/ml-commons/blob/2.x/ml-algorithms/src/test/resources/org/opensearch/ml/engine/algorithms/text_embedding/all-MiniLM-L6-v2_torchscript_sentence-transformer.zip).
 
 ### Model size
 
@@ -38,6 +42,7 @@ POST /_plugins/_ml/models/_upload
 
 The URL upload method requires the following request fields:
 
+
 Field | Data Type | Description
 :---  | :--- | :--- 
 `name`| string | The name of the model. |
@@ -47,6 +52,7 @@ Field | Data Type | Description
 `url` | string | The URL where the model is located. |
 
 #### Sample request
+
 
 The following sample request uploads version `1.0.0` of an NLP sentence transformation model named `all-MiniLM-L6-v2`.
 
@@ -68,6 +74,7 @@ POST /_plugins/_ml/models/_upload
 
 #### Sample response
 
+
 OpenSearch responds with the `task_id` and task `status`.
 
 ```json
@@ -81,7 +88,9 @@ To see the status of your model upload, pass the `task_id` into the [task API]({
 
 ## Load the model
 
+
 The load model operation reads the model's chunks from the model index, then creates an instance of the model to load into memory. The bigger the model, the more chunks the model is split into. The more chunks a model index contains, the longer it takes for the model to load into memory.
+
 
 ### Get the `model_id`
 
@@ -92,6 +101,7 @@ This example request uses the `task_id` from the upload example.
 ```json
 GET /_plugins/_ml/tasks/ew8I44MBhyWuIwnfvDIH
 ```
+
 
 OpenSearch responds with the `model_id`:
 
@@ -112,7 +122,9 @@ OpenSearch responds with the `model_id`:
 
 With the `model_id`, you can now load the model from the model's index to deploy the model to ML nodes. The load API reads model chunks from the model index, then creates an instance of that model and save the model instance in the ML node's cache.
 
+
 Add the `model_id` to the load API. 
+
 
 ```json
 POST /_plugins/_ml/models/<model_id>/_load
@@ -120,7 +132,9 @@ POST /_plugins/_ml/models/<model_id>/_load
 
 By default the ML Common's setting `plugins.ml_commons.only_run_on_ml_node` is set to `false`. When `false`, models load on ML nodes first. If no ML nodes exist, models load on data nodes. When running ML models in production, set `plugins.ml_commons.only_run_on_ml_node` to `true`, so that models only load on ML nodes.
 
+
 #### Sample Request: Load into any available ML node
+
 
 In this example request, OpenSearch loads the model into any available OpenSearch node. 
 
@@ -130,6 +144,7 @@ POST /_plugins/_ml/models/WWQI44MBbzI2oUKAvNUt/_load
 
 #### Sample Request: Load into a specific node
 
+
 If you want to reserve the memory of other ML nodes within your cluster, you can load your model into a specific node(s) by specifying each node's id in the request body:
 
 ```json
@@ -138,6 +153,7 @@ POST /_plugins/_ml/models/WWQI44MBbzI2oUKAvNUt/_load
     "node_ids": ["4PLK7KJWReyX0oWKnBA8nA"]
 }
 ```
+
 
 #### Sample Response
 
@@ -150,11 +166,14 @@ All models load asynchronously. Therefore, the load API responds a new `task_id`
 }
 ```
 
+
 ### Check model load status
 
 With your `task_id` from the load response, you can use the `GET _ml/tasks` API to see the loading status of your model. Before a loaded model can be used for inferences, the load task's `state` must show as `COMPLETED`. 
 
+
 #### Sample Request
+
 
 ```json
 GET /_plugins/_ml/tasks/hA8P44MBhyWuIwnfvTKP
@@ -177,6 +196,7 @@ GET /_plugins/_ml/tasks/hA8P44MBhyWuIwnfvTKP
 
 ## Use loaded model for inferences
 
+
 After the model has been loaded, you can enter the `model_id` into the [predict API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api#predict) to perform inferences.
 
 ```json
@@ -185,6 +205,7 @@ POST /_plugins/_ml/models/<model_id>/_predict
 
 
 ### Sample Request
+
 
 ```json
 POST /_plugins/_ml/_predict/text_embedding/WWQI44MBbzI2oUKAvNUt
@@ -196,6 +217,7 @@ POST /_plugins/_ml/_predict/text_embedding/WWQI44MBbzI2oUKAvNUt
 ```
 
 ### Sample Response
+
 
 ```json
 {
@@ -223,6 +245,7 @@ POST /_plugins/_ml/_predict/text_embedding/WWQI44MBbzI2oUKAvNUt
 
 ## Unload the model
 
+
 If you're done making predictions with your model, use the unload operation to remove the model from your memory cache. The model will remain accessible in the model index.
 
 ```json
@@ -231,11 +254,13 @@ POST /_plugins/_ml/models/<model_id>/_unload
 
 ### Sample request
 
+
 ```json
 POST /_plugins/_ml/models/MGqJhYMBbbh0ushjm8p_/_unload
 ```
 
 ### Sample response
+
 
 ```json
 {
