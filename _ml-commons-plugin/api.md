@@ -115,7 +115,7 @@ The API returns information on the model, the algorithm used, and the content fo
 }
 ```
 
-## Load a model
+## Upload a model
 
 Use the upload operation to upload a custom model and into a model index. ML commons splits the model into smaller chunks and saves those chunks into the model's index.
 
