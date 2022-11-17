@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Segment replication 
-nav_order: 63
+nav_order: 64
 has_children: true
 redirect_from:
   - /opensearch/segment-replication/

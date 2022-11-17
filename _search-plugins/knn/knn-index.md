@@ -1,7 +1,7 @@
 ---
 layout: default
 title: k-NN Index
-nav_order: 1
+nav_order: 5
 parent: k-NN
 has_children: false
 ---
