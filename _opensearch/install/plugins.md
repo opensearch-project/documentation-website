@@ -52,7 +52,7 @@ opensearch-security
 opensearch-sql
 ```
 
-You can also list plugins that are installed by using the [CAT API]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-plugins/):
+You can also list installed plugins by using the [CAT API]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-plugins/).
 
 #### Path and HTTP method
 
@@ -60,7 +60,7 @@ You can also list plugins that are installed by using the [CAT API]({{site.url}}
 GET _cat/plugins
 ```
 
-#### Example response
+#### Sample response
 
 ```bash
 opensearch-node1 opensearch-alerting                  2.0.1.0
@@ -77,7 +77,7 @@ opensearch-node1 opensearch-notifications-core        2.0.1.0
 
 ## Install
 
-There are three ways to install plugins using `opensearch-plugin`:
+There are three ways to install plugins using the `opensearch-plugin`:
 
 - [Install a plugin by name]({{site.url}}{{site.baseurl}}/opensearch/install/plugins#install-a-plugin-by-name)
 - [Install a plugin by from a zip file]({{site.url}}{{site.baseurl}}/opensearch/install/plugins#install-a-plugin-from-a-zip-file)
