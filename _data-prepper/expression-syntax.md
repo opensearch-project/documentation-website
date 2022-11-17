@@ -4,7 +4,7 @@ title: Expression syntax
 nav_order: 12
 ---
 
-## Supported Operators
+# Supported operators
 In order of evaluation priority. _(top to bottom, left to right)_
 
 | Level | Operator             | Description                                           | Associativity |
@@ -15,10 +15,10 @@ In order of evaluation priority. _(top to bottom, left to right)_
 | 2     | `==`, `!=`           | Equality Operators                                    | left-to-right |
 | 1     | `and`, `or`          | Conditional Expression                                | left-to-right |
 
-## Reserved for possible future functionality
+# Reserved for possible future functionality
 Reserved symbol set: `^`, `*`, `/`, `%`, `+`, `-`, `xor`, `=`, `+=`, `-=`, `*=`, `/=`, `%=`, `++`, `--`, `${<text>}`
 
-## Set Initializer
+# Set initializer
 Defines a set or term and/or expressions.
 
 Examples
@@ -33,7 +33,7 @@ Examples
 {/request_payload, /request_message}
 ```
 
-## Priority Expression
+# Priority expression
 Identifies an expression that will be evaluated at the highest priority level. Priority expression must contain an
 expression or value, empty parentheses are not supported.
 
@@ -42,7 +42,7 @@ Examples
 /is_cool == (/name == "Steven")
 ```
 
-## Relational Operators
+# Relational operators
 Tests the relationship of two numeric values. Note, the operands must be a number or Json Pointer that will resolve to a number.
 
 Syntax
@@ -58,7 +58,7 @@ Examples
 /status_code >= 200 and /status_code < 300
 ```
 
-## Equality Operators
+## Equality operators
 Used to test if two value are/are not equivalent.
 
 Syntax
@@ -89,7 +89,7 @@ Examples
 null != /response
 ```
 
-## Conditional Expression
+# Conditional expression
 Used to chain together multiple expressions and/or values.
 
 Syntax
@@ -109,7 +109,7 @@ not /status_code in {200, 202}
 ```
 
 # Definitions
-### Literal
+## Literal
 A fundamental value that has no children.
 - Float _(Supports values from 3.40282347 x 10^38 to 1.40239846 x 10^-45)_
 - Integer _(Supports values from -2147483648 to 2147483647)_
@@ -118,27 +118,27 @@ A fundamental value that has no children.
 - String _(Supports Valid Java String characters)_
 - Null _(Supports null check to see if a Json Pointer is present or not)_
 
-### Expression String
+## Expression string
 The String that will be parsed for evaluation. Expression String is the highest level of a Data Prepper Expression. Only supports one
 Expression String resulting in a return value. Note, an _Expression String_ is not the same as an _Expression_.
 
-### Statement
+## Statement
 The highest level component of the Expression String.
 
-### Expression
+## Expression
 A generic component that contains a _Primary_ or an _Operator_. Expressions may contain expressions. An expressions imminent children can 
 contains 0-1 _Operators_.
 
-### Primary
+## Primary
 
 - _Set_
 - _Priority Expression_
 - _Literal_
 
-### Operator
+## Operator
 Hard coded token that identifies the operation use in an _Expression_.
 
-### Json Pointer
+## Json pointer
 A Literal used to reference a value within the Event provided as context for the _Expression String_. Json Pointers are identified by a 
 leading `/` containing alphanumeric character or underscores, delimited by `/`. Json Pointers can use an extended character set if wrapped 
 in double quotes (`"`) using the escape character `\`. Note, Json Pointer require `~` and `/` that should be used as part of the path and 
@@ -169,12 +169,12 @@ Escaped Example
 "/Hello - 'world\//0/\"JsonPointer\""
 ```
 
-## White Space
-### Operators
+# White space
+## Operators
 White space is **optional** surrounding Relational Operators, Regex Equality Operators, Equality Operators and commas.
 White space is **required** surrounding Set Initializers, Priority Expressions, Set Operators, and Conditional Expressions.
 
-### Reference Table
+## Reference table
 
 | Operator             | Description              | White Space Required | ✅ Valid Examples                                               | ❌ Invalid Examples                    |
 |----------------------|--------------------------|----------------------|----------------------------------------------------------------|---------------------------------------|
