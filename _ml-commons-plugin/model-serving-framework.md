@@ -15,7 +15,7 @@ This page outlines the steps required to upload a custom model and run it with t
 
 ## Prerequisites 
 
-To upload a custom model to OpenSearch, you need to prepare it outside of your OpenSearch cluster. You can use a pre-trained model, like one from [Huggingface](https://huggingface.co/) or train a new model depending on your needs.
+To upload a custom model to OpenSearch, you need to prepare it outside of your OpenSearch cluster. You can use a pretrained model, like one from [Huggingface](https://huggingface.co/), or train a new model in accordance with your needs.
 
 ### Model support
 
