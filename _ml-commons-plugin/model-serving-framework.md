@@ -131,7 +131,7 @@ POST /_plugins/_ml/models/<model_id>/_load
 By default, the ML Commons setting `plugins.ml_commons.only_run_on_ml_node` is set to `false`. When `false`, models load on ML nodes first. If no ML nodes exist, models load on data nodes. When running ML models in production, set `plugins.ml_commons.only_run_on_ml_node` to `true` so that models only load on ML nodes.
 
 
-#### Sample Request: Load into any available ML node
+#### Sample request: Load into any available ML node
 
 
 In this example request, OpenSearch loads the model into all available OpenSearch node: 
