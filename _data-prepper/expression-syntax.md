@@ -21,15 +21,19 @@ Reserved symbol set: `^`, `*`, `/`, `%`, `+`, `-`, `xor`, `=`, `+=`, `-=`, `*=`,
 # Set initializer
 Defines a set or term and/or expressions.
 
-Examples
+## Examples
+
+### HTTP status codes
 ```
-# Http Status Codes
 {200, 201, 202}
-
-# Http respone payloads
+```
+### HTTP response payloads
+```
 {"Created", "Accepted"}
+```
 
-# Handle multiple event types with different keys
+### Handle multiple event types with different keys
+```
 {/request_payload, /request_message}
 ```
 
@@ -37,7 +41,8 @@ Examples
 Identifies an expression that will be evaluated at the highest priority level. Priority expression must contain an
 expression or value, empty parentheses are not supported.
 
-Examples
+## Examples
+
 ```
 /is_cool == (/name == "Steven")
 ```
@@ -45,7 +50,7 @@ Examples
 # Relational operators
 Tests the relationship of two numeric values. Note, the operands must be a number or Json Pointer that will resolve to a number.
 
-Syntax
+## Syntax
 ```
 <Number | Json Pointer> < <Number | Json Pointer>
 <Number | Json Pointer> <= <Number | Json Pointer>
@@ -53,29 +58,31 @@ Syntax
 <Number | Json Pointer> >= <Number | Json Pointer>
 ```
 
-Examples
+## Examples
 ```
 /status_code >= 200 and /status_code < 300
 ```
 
-## Equality operators
+# Equality operators
 Used to test if two value are/are not equivalent.
 
-Syntax
+## Syntax
 ```
 <Any> == <Any>
 <Any> != <Any>
 ```
 
-Examples
+## Examples
 ```
 /is_cool == true
 3.14 != /status_code
 {1, 2} == /event/set_property
 ```
-Equality operators can also be used to check if Json Pointer exists or not by checking with 'null'
+# Using equality operators to check JSON pointer 
 
-Syntax
+Equality operators can also be used to check whether a JSON Pointer exists by checking with 'null'
+
+## Syntax
 ```
 <Json Pointer> == null
 <Json Pointer> != null
@@ -83,7 +90,7 @@ null == <Json Pointer>
 null != <Json Pointer>
 ```
 
-Examples
+## Examples
 ```
 /response == null
 null != /response
@@ -92,14 +99,14 @@ null != /response
 # Conditional expression
 Used to chain together multiple expressions and/or values.
 
-Syntax
+## Syntax
 ```
 <Any> and <Any>
 <Any> or <Any>
 not <Any>
 ```
 
-Examples
+## Examples
 ```
 /status_code == 200 and /message == "Hello world"
 /status_code == 200 or /status_code == 202
@@ -138,7 +145,7 @@ contains 0-1 _Operators_.
 ## Operator
 Hard coded token that identifies the operation use in an _Expression_.
 
-## Json pointer
+## JSON pointer
 A Literal used to reference a value within the Event provided as context for the _Expression String_. Json Pointers are identified by a 
 leading `/` containing alphanumeric character or underscores, delimited by `/`. Json Pointers can use an extended character set if wrapped 
 in double quotes (`"`) using the escape character `\`. Note, Json Pointer require `~` and `/` that should be used as part of the path and 
@@ -147,22 +154,22 @@ not a delimiter to be escaped.
 - `~0` representing `~`
 - `~1` representing `/`
 
-Shorthand Syntax (Regex, `\w` = `[A-Za-z_]`)
+### Shorthand syntax (Regex, `\w` = `[A-Za-z_]`)
 ```
 /\w+(/\w+)*
 ```
 
-Shorthand Example
+### Shorthand example
 ```
 /Hello/World/0
 ```
 
-Escaped Syntax
+### Escaped syntax example
 ```
 "/<Valid String Characters | Escaped Character>(/<Valid String Characters | Escaped Character>)*"
 ```
 
-Escaped Example
+### Escaped example
 ```
 # Path
 # { "Hello - 'world/" : [{ "\"JsonPointer\"": true }] }
