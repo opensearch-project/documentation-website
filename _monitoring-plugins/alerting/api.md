@@ -50,8 +50,8 @@ POST _plugins/_alerting/monitors
             "filter": {
               "range": {
                 "@timestamp": {
-                  "gte": "||-1h",
-                  "lte": "",
+                  "gte": {% raw %}"{{period_end}}||-1h"{% endraw %},
+                  "lte": {% raw %}"{{period_end}}"{% endraw %},
                   "format": "epoch_millis"
                 }
               }
@@ -131,8 +131,8 @@ If you use a custom webhook for your destination and need to embed JSON in the m
               "filter": [{
                 "range": {
                   "@timestamp": {
-                    "from": "||-1h",
-                    "to": "",
+                    "from": {% raw %}"{{period_end}}||-1h"{% endraw %},
+                    "to": {% raw %}"{{period_end}}"{% endraw %},
                     "include_lower": true,
                     "include_upper": true,
                     "format": "epoch_millis",
@@ -207,8 +207,8 @@ The following example creates a monitor that runs at 12:10 PM Pacific Time on th
             "filter": {
               "range": {
                 "@timestamp": {
-                  "gte": "||-1h",
-                  "lte": "",
+                  "gte": {% raw %}"{{period_end}}||-1h"{% endraw %},
+                  "lte": {% raw %}"{{period_end}}"{% endraw %},
                   "format": "epoch_millis"
                 }
               }
@@ -281,8 +281,8 @@ POST _plugins/_alerting/monitors
                 {
                   "range": {
                     "order_date": {
-                      "from": "{{period_end}}||-1h",
-                      "to": "{{period_end}}",
+                      "from": {% raw %}"{{period_end}}||-1h"{% endraw %},
+                      "to": {% raw %}"{{period_end}}"{% endraw %},
                       "include_lower": true,
                       "include_upper": true,
                       "format": "epoch_millis"
@@ -339,7 +339,7 @@ POST _plugins/_alerting/monitors
             "name": "test-action",
             "destination_id": "E4o5hnsB6KjPKmHtpfCA",
             "message_template": {
-              "source": """Monitor {{ctx.monitor.name}} just entered alert status. Please investigate the issue.   - Trigger: {{ctx.trigger.name}}   - Severity: {{ctx.trigger.severity}}   - Period start: {{ctx.periodStart}}   - Period end: {{ctx.periodEnd}}    - Deduped Alerts:   {{ctx.dedupedAlerts}}     * {{id}} : {{bucket_keys}}   {{ctx.dedupedAlerts}}    - New Alerts:   {{ctx.newAlerts}}     * {{id}} : {{bucket_keys}}   {{ctx.newAlerts}}    - Completed Alerts:   {{ctx.completedAlerts}}     * {{id}} : {{bucket_keys}}   {{ctx.completedAlerts}}""",
+              "source": {% raw %}"""Monitor {{ctx.monitor.name}} just entered alert status. Please investigate the issue.   - Trigger: {{ctx.trigger.name}}   - Severity: {{ctx.trigger.severity}}   - Period start: {{ctx.periodStart}}   - Period end: {{ctx.periodEnd}}    - Deduped Alerts:   {{ctx.dedupedAlerts}}     * {{id}} : {{bucket_keys}}   {{ctx.dedupedAlerts}}    - New Alerts:   {{ctx.newAlerts}}     * {{id}} : {{bucket_keys}}   {{ctx.newAlerts}}    - Completed Alerts:   {{ctx.completedAlerts}}     * {{id}} : {{bucket_keys}}   {{ctx.completedAlerts}}"""{% endraw %},
               "lang": "mustache"
             },
             "throttle_enabled": false,
@@ -410,8 +410,8 @@ POST _plugins/_alerting/monitors
                   {
                     "range" : {
                       "order_date" : {
-                        "from" : "{{period_end}}||-1h",
-                        "to" : "{{period_end}}",
+                        "from" : {% raw %}"{{period_end}}||-1h"{% endraw %},
+                        "to" : {% raw %}"{{period_end}}"{% endraw %},
                         "include_lower" : true,
                         "include_upper" : true,
                         "format" : "epoch_millis",
@@ -477,7 +477,7 @@ POST _plugins/_alerting/monitors
               "name" : "test-action",
               "destination_id" : "E4o5hnsB6KjPKmHtpfCA",
               "message_template" : {
-                "source" : "Monitor {{ctx.monitor.name}} just entered alert status. Please investigate the issue.   - Trigger: {{ctx.trigger.name}}   - Severity: {{ctx.trigger.severity}}   - Period start: {{ctx.periodStart}}   - Period end: {{ctx.periodEnd}}    - Deduped Alerts:   {{ctx.dedupedAlerts}}     * {{id}} : {{bucket_keys}}   {{ctx.dedupedAlerts}}    - New Alerts:   {{ctx.newAlerts}}     * {{id}} : {{bucket_keys}}   {{ctx.newAlerts}}    - Completed Alerts:   {{ctx.completedAlerts}}     * {{id}} : {{bucket_keys}}   {{ctx.completedAlerts}}",
+                "source" : {% raw %}"Monitor {{ctx.monitor.name}} just entered alert status. Please investigate the issue.   - Trigger: {{ctx.trigger.name}}   - Severity: {{ctx.trigger.severity}}   - Period start: {{ctx.periodStart}}   - Period end: {{ctx.periodEnd}}    - Deduped Alerts:   {{ctx.dedupedAlerts}}     * {{id}} : {{bucket_keys}}   {{ctx.dedupedAlerts}}    - New Alerts:   {{ctx.newAlerts}}     * {{id}} : {{bucket_keys}}   {{ctx.newAlerts}}    - Completed Alerts:   {{ctx.completedAlerts}}     * {{id}} : {{bucket_keys}}   {{ctx.completedAlerts}}"{% endraw %},
                 "lang" : "mustache"
               },
               "throttle_enabled" : false,
@@ -628,7 +628,7 @@ POST _plugins/_alerting/monitors
             "name": "test-action",
             "destination_id": "E4o5hnsB6KjPKmHtpfCA",
             "message_template": {
-                "source": """Monitor  just entered alert status. Please investigate the issue. Related Finding Ids: {{ctx.alerts.0.finding_ids}}, Related Document Ids: {{ctx.alerts.0.related_doc_ids}}""",
+                "source": {% raw %}"""Monitor  just entered alert status. Please investigate the issue. Related Finding Ids: {{ctx.alerts.0.finding_ids}}, Related Document Ids: {{ctx.alerts.0.related_doc_ids}}"""{% endraw %},
                 "lang": "mustache"
             },
             "action_execution_policy": {
@@ -1189,8 +1189,8 @@ GET _plugins/_alerting/monitors/_search
                   "filter": [{
                     "range": {
                       "@timestamp": {
-                        "from": "{{period_end}}||-1h",
-                        "to": "{{period_end}}",
+                        "from": {% raw %}"{{period_end}}||-1h"{% endraw %},
+                        "to": {% raw %}"{{period_end}}"{% endraw %},
                         "include_lower": true,
                         "include_upper": true,
                         "format": "epoch_millis",

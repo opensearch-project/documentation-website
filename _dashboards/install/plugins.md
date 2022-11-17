@@ -20,140 +20,34 @@ If you don't want to use the all-in-one installation options, you can install th
 
 ## Plugin compatibility
 
-<table>
-  <thead style="text-align: left">
-    <tr>
-      <th>OpenSearch Dashboards version</th>
-      <th>Plugin versions</th>
-    </tr>
-  </thead>
-  <tbody>
-  <tr>
-  <td>2.0.0.0</td>
-  <td>
-  <pre>alertingDashboards          2.0.0.0
-anomalyDetectionDashboards  2.0.0.0
-ganttChartDashboards        2.0.0.0
-indexManagementDashboards   2.0.0.0
-notificationsDashboards     2.0.0.0
-observabilityDashboards     2.0.0.0
-queryWorkbenchDashboards    2.0.0.0
-reportsDashboards           2.0.0.0
-securityDashboards          2.0.0.0
-</pre>
-</td>
-</tr>
-  <tr>
-  <td>1.3.2</td>
-  <td>
-  <pre>alertingDashboards          1.3.2.0
-anomalyDetectionDashboards  1.3.2.0
-ganttChartDashboards        1.3.2.0
-indexManagementDashboards   1.3.2.0
-observabilityDashboards     1.3.2.0
-queryWorkbenchDashboards    1.3.2.0
-reportsDashboards           1.3.2.0
-securityDashboards          1.3.2.0
-</pre>
-</td>
-</tr>
-  <tr>
-  <td>1.3.1</td>
-  <td>
-  <pre>alertingDashboards          1.3.1.0
-anomalyDetectionDashboards  1.3.1.0
-ganttChartDashboards        1.3.1.0
-indexManagementDashboards   1.3.1.0
-observabilityDashboards     1.3.1.0
-queryWorkbenchDashboards    1.3.1.0
-reportsDashboards           1.3.1.0
-securityDashboards          1.3.1.0
-</pre>
-</td>
-</tr>
-  <tr>
-  <td>1.3.0</td>
-  <td>
-  <pre>alertingDashboards          1.3.0.0
-anomalyDetectionDashboards  1.3.0.0
-ganttChartDashboards        1.3.0.0
-indexManagementDashboards   1.3.0.0
-observabilityDashboards     1.3.0.0
-queryWorkbenchDashboards    1.3.0.0
-reportsDashboards           1.3.0.0
-securityDashboards          1.3.0.0
-</pre>
-  </td>
-  </tr>
-  <tr>
-  <td>1.2.0</td>
-  <td>
-  <pre>alertingDashboards          1.2.0.0
-anomalyDetectionDashboards  1.2.0.0
-ganttChartDashboards        1.2.0.0
-indexManagementDashboards   1.2.0.0
-observabilityDashboards     1.2.0.0
-queryWorkbenchDashboards    1.2.0.0
-reportsDashboards           1.2.0.0
-securityDashboards          1.2.0.0
-</pre>
-  </td>
-  </tr>
-  <tr>
-    <td>1.1.0</td>
-    <td>
-      <pre>alertingDashboards          1.1.0.0
-anomalyDetectionDashboards  1.1.0.0
-ganttChartDashboards        1.1.0.0
-indexManagementDashboards   1.1.0.0
-notebooksDashboards         1.1.0.0
-queryWorkbenchDashboards    1.1.0.0
-reportsDashboards           1.1.0.0
-securityDashboards          1.1.0.0
-traceAnalyticsDashboards    1.1.0.0
-</pre>
-    </td>
-  </tr>
-  <tr>
-    <td>1.0.1</td>
-    <td>
-      <pre>alertingDashboards          1.0.0.0
-anomalyDetectionDashboards  1.0.0.0
-ganttChartDashboards        1.0.0.0
-indexManagementDashboards   1.0.1.0
-notebooksDashboards         1.0.0.0
-queryWorkbenchDashboards    1.0.0.0
-reportsDashboards           1.0.1.0
-securityDashboards          1.0.1.0
-traceAnalyticsDashboards    1.0.0.0
-</pre>
-    </td>
-  </tr>
-  <tr>
-    <td>1.0.0</td>
-    <td>
-      <pre>alertingDashboards          1.0.0.0
-anomalyDetectionDashboards  1.0.0.0
-ganttChartDashboards        1.0.0.0
-indexManagementDashboards   1.0.0.0
-notebooksDashboards         1.0.0.0
-queryWorkbenchDashboards    1.0.0.0
-reportsDashboards           1.0.0.0
-securityDashboards          1.0.0.0
-traceAnalyticsDashboards    1.0.0.0
-</pre>
-    </td>
-  </tr>
-  </tbody>
-</table>
-
+Major, minor, and patch plugin versions must match OpenSearch major, minor, and patch versions in order to be compatible. For example, plugins versions 2.3.0.x work only with OpenSearch 2.3.0.
+{: .warning}
 
 ## Prerequisites
 
 - A compatible OpenSearch cluster
 - The corresponding OpenSearch plugins [installed on that cluster]({{site.url}}{{site.baseurl}}/opensearch/install/plugins/)
-- The corresponding version of [OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/) (e.g. OpenSearch Dashboards 1.0.0 works with OpenSearch 1.0.0)
+- The corresponding version of [OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/) (for example, OpenSearch Dashboards 2.1.0 works with OpenSearch 2.1.0)
 
+## Available plugins
+
+The following table lists available OpenSearch Dashboards plugins.
+
+| Plugin Name | Repository | Earliest Available Version |
+| :--- | :--- | :--- |
+| Alerting Dashboards | [alerting-dashboards-plugin](https://github.com/opensearch-project/alerting-dashboards-plugin) | 1.0.0 |
+| Anomaly Detection Dashboards | [anomaly-detection-dashboards-plugin](https://github.com/opensearch-project/anomaly-detection-dashboards-plugin) | 1.0.0 |
+| Custom Import Maps Dashboards | [dashboards-maps](https://github.com/opensearch-project/dashboards-maps) | 2.2.0 |
+| Search Relevance Dashboards | [dashboards-search-relevance](https://github.com/opensearch-project/dashboards-search-relevance) | 2.4.0 |
+| Gantt Chart Dashboards | [gantt-chart](https://github.com/opensearch-project/dashboards-visualizations/tree/main/gantt-chart) | 1.0.0 |
+| Index Management Dashboards | [index-management-dashboards-plugin](https://github.com/opensearch-project/index-management-dashboards-plugin) | 1.0.0 |
+| Notebooks Dashboards | [dashboards-notebooks](https://github.com/opensearch-project/dashboards-notebooks) | 1.0.0 |
+| Notifications Dashboards | [notifications](https://github.com/opensearch-project/notifications) | 2.0.0 |
+| Observability Dashboards | [dashboards-observability](https://github.com/opensearch-project/observability/tree/main/dashboards-observability) | 2.0.0 |
+| Query Workbench Dashboards | [query-workbench](https://github.com/opensearch-project/sql/tree/main/workbench) | 1.0.0 |
+| Reports Dashboards | [dashboards-reports](https://github.com/opensearch-project/dashboards-reports) | 1.0.0 |
+| Security Analytics Dashboards | [security-analytics-dashboards-plugin](https://github.com/opensearch-project/security-analytics-dashboards-plugin)| 2.4.0 |
+| Security Dashboards | [security-dashboards-plugin](https://github.com/opensearch-project/security-analytics-dashboards-plugin) | 1.0.0 |
 
 ## Install
 

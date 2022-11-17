@@ -7,7 +7,7 @@ nav_order: 10
 
 # Configure TLS certificates
 
-TLS is configured in `opensearch.yml`. There are two main configuration sections: the transport layer and the REST layer. TLS is optional for the REST layer and mandatory for the transport layer.
+TLS is configured in `opensearch.yml`. Certificates are used to secure transport-layer traffic (node-to-node communication within your cluster) and REST-layer traffic (communication between a client and a node within your cluster). TLS is optional for the REST layer and mandatory for the transport layer.
 
 You can find an example configuration template with all options on [GitHub](https://github.com/opensearch-project/security/blob/main/config/opensearch.yml.example).
 {: .note }

@@ -316,11 +316,20 @@ A geometry collection is a collection of geoshapes that may be of different type
 Index a geometry collection in GeoJSON format:
 
 ```json
-PUT testindex/_doc/2
+PUT testindex/_doc/7
 {
   "location" : {
-    "type" : "linestring",
-    "coordinates" : [[74.0060, 40.7128], [71.0589, 42.3601]]
+    "type": "geometrycollection",
+    "geometries": [
+      {
+        "type": "point",
+        "coordinates": [74.0060, 40.7128]
+      },
+      {
+        "type": "linestring",
+        "coordinates": [[73.7562, 42.6526], [72.6734, 41.7658]]
+      }
+    ]
   }
 }
 ```
@@ -369,5 +378,5 @@ Parameter | Description
 :--- | :--- 
 `coerce` | A Boolean value that specifies whether to automatically close unclosed linear rings. Default is `false`.
 `ignore_malformed` | A Boolean value that specifies to ignore malformed GeoJSON or WKT geoshapes and not to throw an exception. Default is `false` (throw an exception when geoshapes are malformed).
-`ignore_z_values` | Specific to points with three coordinates. If `ignore_z_values` is `true`, the third coordinate is not indexed but is still stored in the _source field. If `ignore_z_values` is `false`, an exception is thrown. Default is `true`.
+`ignore_z_value` | Specific to points with three coordinates. If `ignore_z_value` is `true`, the third coordinate is not indexed but is still stored in the _source field. If `ignore_z_value` is `false`, an exception is thrown. Default is `true`.
 `orientation` | Specifies the traversal order of the vertices in the geoshape's list of coordinates. `orientation` takes the following values: <br> 1. RIGHT: counterclockwise. Specify RIGHT orientation by using one of the following strings (uppercase or lowercase): `right`, `counterclockwise`, `ccw`. <br> 2. LEFT: clockwise. Specify LEFT orientation by using one of the following strings (uppercase or lowercase): `left`, `clockwise`, `cw`.  This value can be overridden by individual documents.<br> Default is `RIGHT`.

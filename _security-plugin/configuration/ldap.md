@@ -16,7 +16,7 @@ In most cases, you want to configure both authentication and authorization. You 
 
 We provide a fully functional example that can help you understand how to use an LDAP server for both authentication and authorization.
 
-1. Download and unzip [the example ZIP file]({{site.url}}{{site.baseurl}}/assets/examples/ldap-example.zip).
+1. Download and unzip [the example zip file]({{site.url}}{{site.baseurl}}/assets/examples/ldap-example.zip).
 1. At the command line, run `docker-compose up`.
 1. Review the files:
 
@@ -431,9 +431,11 @@ rolesearch_enabled: false
 
 By default, the security plugin reads all LDAP user attributes and makes them available for index name variable substitution and DLS query variable substitution. If your LDAP entries have a lot of attributes, you might want to control which attributes should be made available. The fewer the attributes, the better the performance.
 
+Note that this setting is made in the authentication `authc` section of the config.yml file.
+
 Name | Description
 :--- | :---
-`custom_attr_whitelist`  | String array. Specifies the LDAP attributes that should be made available for variable substitution.
+`custom_attr_allowlist`  | String array. Specifies the LDAP attributes that should be made available for variable substitution.
 `custom_attr_maxval_len`  | Integer. Specifies the maximum allowed length of each attribute. All attributes longer than this value are discarded. A value of `0` disables custom attributes altogether. Default is 36.
 
 Example:
@@ -446,7 +448,7 @@ authc:
     authentication_backend:
       type: ldap
       config:
-        custom_attr_whitelist:
+        custom_attr_allowlist:
           - attribute1
           - attribute2
         custom_attr_maxval_len: 36
@@ -501,7 +503,7 @@ Name | Description
 `skip_users`  | Array of users that should be skipped when retrieving roles. Wildcards and regular expressions are supported.
 `nested_role_filter`  | Array of role DNs that should be filtered before resolving nested roles. Wildcards and regular expressions are supported.
 `rolesearch_enabled`  | Boolean. Enable or disable the role search. Default is `true`.
-`custom_attr_whitelist`  | String array. Specifies the LDAP attributes that should be made available for variable substitution.
+`custom_attr_allowlist`  | String array. Specifies the LDAP attributes that should be made available for variable substitution.
 `custom_attr_maxval_len`  | Integer. Specifies the maximum allowed length of each attribute. All attributes longer than this value are discarded. A value of `0` disables custom attributes altogether. Default is 36.
 
 
