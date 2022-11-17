@@ -1,12 +1,12 @@
 ---
 layout: default
-title: Model serving framework 
+title: Model-serving framework 
 has_children: false
 nav_order: 110
 ---
 
 
-# Model serving framework
+# Model-serving framework
 
 ML commons allows you to serve custom models and use those models to make inferences. For those who want to run their PyTorch deep learning model inside an OpenSearch cluster, you can upload and run that model with the ML Commons REST API.
 
@@ -19,7 +19,7 @@ To upload a custom model to OpenSearch, you need to prepare it outside of your O
 
 ### Model support
 
-As of OpenSearch 2.4, the model serving framework only supports text embedding models without GPU acceleration.
+As of OpenSearch 2.4, the model-serving framework only supports text embedding models without GPU acceleration.
 
 ### Model format
 
