@@ -70,7 +70,7 @@ How an acronym is pronounced determines whether you use the article *an* or *a* 
 
 If the first use of an acronym is in a heading, retain the acronym in the heading, and then write out the term in the following body text, followed by the acronym in parentheses. Don't spell out the term in the heading with the acronym included in parentheses. If the first use of the service name is in a title or heading, use the short form of the name in the heading, and then use the long form followed by the short form in parentheses in the following body text.
 
-In general, spell out abbreviations that end with *-bit* or *-byte*. Use abbreviations only with numbers in specific measurements. Always include a space between the number and unit. Abbreviations that are well known and don't need to be spelled out on are *KB*, *MB*, *GB*, and *TB*. 
+In general, spell out abbreviations that end with *-bit* or *-byte*. Use abbreviations only with numbers in specific measurements. Always include a space between the number and unit. Abbreviations that are well known and don't need to be spelled out are *KB*, *MB*, *GB*, and *TB*. 
 
 Some acronyms are better known than their spelled-out counterparts or might be used almost exclusively. These include industry standard protocols, markdown and programming languages, and common file formats. You don't need to spell out these acronyms.
 
@@ -130,7 +130,7 @@ The following table lists acronyms that you don't need to spell out.
 
 ### Punctuation and capitalization
 
-- Use sentence case for titles and headings. Titles of standalone documents may use title case.
+- Use sentence case for titles, headings, and table headers. Titles of standalone documents may use title case.
 
 - Use lowercase for nouns and noun phrases that are not proper nouns; for example, *big data*. This style follows the standard rules of American English grammar.
 
