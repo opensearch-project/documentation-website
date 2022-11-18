@@ -298,7 +298,7 @@ Members of the OpenSearch community have built countless plugins for the service
 - [Index State Management]({{site.url}}{{site.baseurl}}/im-plugin/ism/index/)
 - [k-NN]({{site.url}}{{site.baseurl}}/search-plugins/knn/index/)
 - [ML Commons Plugin]({{site.url}}{{site.baseurl}}/ml-commons-plugin/index/)
-- [Neural Search]({{site.url}}{{site.baseurl}}/neural-search/index/)
+- [Neural Search]({{site.url}}{{site.baseurl}}/neural-search-plugin/index/)
 - [Notifications]({{site.url}}{{site.baseurl}}/notifications-plugin/index/)
 - [OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/index/)
 - [Performance Analyzer]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/index/)
