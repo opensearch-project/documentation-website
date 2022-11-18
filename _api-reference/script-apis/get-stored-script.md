@@ -11,13 +11,13 @@ Retrieves a stored script.
 
 ### Path parameters
 
-| Parameter | Data Type | Description | 
+| Parameter | Data type | Description | 
 :--- | :--- | :---
 | script | String | Stored script or search template name. Required.|
 
 ### Query parameters
 
-| Parameter | Data Type | Description | 
+| Parameter | Data type | Description | 
 :--- | :--- | :---
 | cluster_manager_timeout | Time | Amount of time to wait for a connection to the cluster manager. Optional, defaults to `30s`. |
 
@@ -54,7 +54,7 @@ The `GET _scripts/my-first-script` request returns the following fields:
 
 The `GET _scripts/my-first-script` request returns the following response fields:
 
-| Field | Data Type | Description | 
+| Field | Data type | Description | 
 :--- | :--- | :---
 | _id | String | The script's name. |
 | found | Boolean | The requested script exists and was retrieved. |
@@ -62,7 +62,7 @@ The `GET _scripts/my-first-script` request returns the following response fields
 
 #### Script object
 
-| Field | Data Type | Description | 
+| Field | Data type | Description | 
 :--- | :--- | :---
 | lang | String | The script's language. |
 |  source | String | The script's body. |

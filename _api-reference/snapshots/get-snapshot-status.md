@@ -18,7 +18,7 @@ If you use the security plugin, you must have the `monitor_snapshot`, `create_sn
 
 Path parameters are optional. 
 
-| Parameter | Data Type | Description | 
+| Parameter | Data type | Description | 
 :--- | :--- | :---
 | repository | String | Repository containing the snapshot. |
 | snapshot | String | Snapshot to return. |
@@ -36,7 +36,7 @@ Using the API to return state for other than currently running snapshots can be 
 
 ### Request fields
 
-| Field | Data Type | Description | 
+| Field | Data type | Description | 
 :--- | :--- | :---
 | ignore_unavailable | Boolean | How to handles requests for unavailable snapshots. If `false`, the request returns an error for unavailable snapshots. If `true`, the request ignores unavailable snapshots, such as those that are corrupted or temporarily cannot be returned. Defaults to `false`.|
 
@@ -368,7 +368,7 @@ The `GET _snapshot/my-opensearch-repo/my-first-snapshot/_status` request returns
 
 ### Response fields
 
-| Field | Data Type | Description | 
+| Field | Data type | Description | 
 :--- | :--- | :---
 | repository | String | Name of repository that contains the snapshot. |
 | snapshot | String | Snapshot name. |

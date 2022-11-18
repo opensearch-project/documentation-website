@@ -31,7 +31,7 @@ Use `pipeline_name` to create a name for your Neural Search pipeline.
 
 ### Request fields
 
-Field | Data Type | Description
+Field | Data type | Description
 :--- | :--- | :--- 
 description | string | A description of the processor.
 model_id | string | The ID of the model that will be used in the embedding interface. The model must be indexed in OpenSearch before it can be used in Neural Search. For more information, see [Model Serving Framework]
@@ -138,7 +138,7 @@ If you want to use a language model to convert a text query into a k-NN vector q
 
 Include the following request fields under the `neural` field in your query:
 
-Field | Data Type | Description
+Field | Data type | Description
 :--- | :--- | :--- 
 vector_field | string | The vector field against which to run a search query.
 query_text | string | The query text from which to produce queries.

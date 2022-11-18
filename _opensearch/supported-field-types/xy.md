@@ -17,7 +17,7 @@ The coordinates for the Cartesian field types are single-precision floating-poin
 
 The following table lists all Cartesian field types that OpenSearch supports.
 
-Field Data Type | Description
+Field Data type | Description
 :--- | :---  
 [`xy_point`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/xy-point/) | A point in a two-dimensional Cartesian coordinate system, specified by x and y coordinates. 
 [`xy_shape`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/xy-shape/) | A shape, such as a polygon or a collection of xy points, in a two-dimensional Cartesian coordinate system. 

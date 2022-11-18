@@ -17,7 +17,7 @@ Deletes a snapshot from a repository.
 
 ### Path parameters
 
-Parameter | Data Type | Description
+Parameter | Data type | Description
 :--- | :--- | :---
 repository | String | Repostory that contains the snapshot. |
 snapshot | String | Snapshot to delete. |
