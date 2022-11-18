@@ -17,7 +17,7 @@ To learn more about repositories, see [Register repository]({{site.url}}{{site.b
 
 ### Path parameters
 
-Parameter | Data Type | Description
+Parameter | Data type | Description
 :--- | :--- | :---
 repository | String | Repostory name. |
 

@@ -127,7 +127,7 @@ POST /_plugins/_ml/models/_upload
 
 All request fields are required. 
 
-Field | Data Type | Description
+Field | Data type | Description
 :---  | :--- | :--- 
 `name`| string | The name of the model. |
 `version` | integer | The version number of the model. |
@@ -427,7 +427,7 @@ GET /_plugins/_ml/profile/tasks
 
 ### Path parameters
 
-Parameter | Data Type | Description
+Parameter | Data type | Description
 :--- | :--- | :---
 model_id | string | Returns runtime data for a specific model. You can string together multiple `model_id`s to return multiple model profiles.
 tasks | string | Returns runtime data for a specific task. You can string together multiple `task_id`s to return multiple task profiles.
@@ -436,7 +436,7 @@ tasks | string | Returns runtime data for a specific task. You can string togeth
 
 All profile body request fields are optional.
 
-Field | Data Type | Description
+Field | Data type | Description
 :--- | :--- | :--- 
 node_ids | string | Returns all tasks and profiles from a specific node. 
 model_ids | string | Returns runtime data for a specific model. You can string together multiple `model_id`s to return multiple model profiles.

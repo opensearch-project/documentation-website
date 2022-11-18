@@ -53,7 +53,7 @@ Bulk helper operations return an object with the following fields:
 
 When creating a new bulk helper instance, you can use the following configuration options.
 
-| Option | Data Type | Required/Default | Description 
+| Option | Data type | Required/Default | Description 
 | :--- | :--- | :--- | :---
 | `datasource` | An array, async generator or a readable stream of strings or objects | Required | Represents the documents you need to create, delete, index, or update. 
 | `onDocument` | Function | Required | A function to be invoked with each document in the given `datasource`. It returns the operation to be executed for this document. Optionally, the document can be manipulated for `create` and `index` operations by returning a new document as part of the function's result.

@@ -32,13 +32,13 @@ POST /<target_indexes>/_search/point_in_time?keep_alive=1h&routing=&expand_wildc
 
 ### Path parameters
 
-Parameter | Data Type | Description 
+Parameter | Data type | Description 
 :--- | :--- | :---
 target_indexes | String | The name(s) of the target index(es) for the PIT. May contain a comma-separated list or a wildcard index pattern.
 
 ### Query parameters
 
-Parameter | Data Type | Description
+Parameter | Data type | Description
 :--- | :--- | :---
 keep_alive | Time |  The amount of time to keep the PIT. Required.
 preference | String | The node or the shard used to perform the search. Optional. Default is random.
@@ -69,7 +69,7 @@ POST /my-index-1/_search/point_in_time?keep_alive=100m
 
 ### Response fields
 
-Field | Data Type | Description 
+Field | Data type | Description 
 :--- | :--- | :---  
 pit_id | [Base64 encoded binary]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/binary) | The PIT ID.
 creation_time | long | The time the PIT was created, in milliseconds since the epoch. 
@@ -141,13 +141,13 @@ GET /_search/point_in_time/_all
 
 ### Response fields
 
-Field | Data Type | Description 
+Field | Data type | Description 
 :--- | :--- | :---  
 pits | Array of JSON objects | The list of all PITs. 
 
 Each PIT object contains the following fields.
 
-Field | Data Type | Description 
+Field | Data type | Description 
 :--- | :--- | :---  
 pit_id | [Base64 encoded binary]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/binary) | The PIT ID.
 creation_time | long | The time the PIT was created, in milliseconds since the epoch. 
@@ -175,7 +175,7 @@ If you want to delete one or several PITs, specify their PIT IDs in the request 
 
 ### Request fields
 
-Field | Data Type | Description  
+Field | Data type | Description  
 :--- | :--- | :---
 pit_id | [Base64 encoded binary]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/binary) or an array of binaries | The PIT IDs of the PITs to be deleted. Required.
 
@@ -213,7 +213,7 @@ For each PIT, the response contains a JSON object with a PIT ID and a `successfu
 
 ### Response fields
 
-Field | Data Type | Description  
+Field | Data type | Description  
 :--- | :--- | :---
 successful | Boolean | Whether the delete operation was successful.
 pit_id | [Base64 encoded binary]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/binary)  | The PIT ID of the PIT to be deleted.
@@ -234,7 +234,7 @@ If you want to list segments for one or several PITs, specify their PIT IDs in t
 
 ### Request fields
 
-Field | Data Type | Description  
+Field | Data type | Description  
 :--- | :--- | :---
 pit_id | [Base64 encoded binary]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/binary) or an array of binaries | The PIT IDs of the PITs whose segments are to be listed. Required.
 
