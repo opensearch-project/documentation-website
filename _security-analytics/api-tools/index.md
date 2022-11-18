@@ -10,7 +10,7 @@ redirect_from:
 
 # API tools
 
-Security anlaytics includes a number of APIs to help administrators maintain and update an implementation. The APIs often mimic the same controls available for setting up security analytics in the Dashboards interface, and they provide another option for administering the various elements of security analytics.
+Security anlaytics includes a number of APIs to help administrators maintain and update an implementation. The APIs often mimic the same controls available for setting up security analytics in OpenSearch Dashboards, and they provide another option for administering the various elements of security analytics.
 
 The APIs for security analytics are separated into the following categories:
 

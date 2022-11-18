@@ -43,6 +43,6 @@ Use the **Rule severity** dropdown menu to filter the list of findings by severi
 Each finding in the list includes a finding ID. You can select the ID to open the Finding details pane, which describes the finding by parameters defined when creating the detector.
 The Actions column includes two options for each finding:
 * The diagonal arrow provides another way to open the Findings detail pane.
-* The bell icon allows you to open the Create detector alert trigger pane, where you can quickly set up an alert for the specific finding and modify rules and their conditions if need be.
+* The bell icon allows you to open the Create detector alert trigger pane, where you can quickly set up an alert for the specific finding and modify rules and their conditions as required.
 For details on setting up an alert, see [Set up alerts]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/detectors-config/#step-3-set-up-alerts) in detector creation documentation.
 

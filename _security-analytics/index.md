@@ -11,14 +11,14 @@ redirect_from:
 
 # About security analytics
 
-Security analytics is an experimental plugin for OpenSearch 2.4. Therefore, we do not recommend the use of security analytics in a production environment at this time. For updates on the progress of security analytics or for information on how to make contributions, visit the [security analytics repository](https://github.com/opensearch-project/security-analytics) at GitHub.
+Security analytics is an experimental plugin for OpenSearch 2.4. Therefore, we do not recommend the use of security analytics in a production environment at this time. For updates on the progress of security analytics or for information on how to make contributions, visit the [security analytics repository](https://github.com/opensearch-project/security-analytics) at GitHub. If you would like to leave feedback that could help improve security analytics, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/t/feedback-experimental-feature-security-analytics/11418).
 {: .warning }
 
 Security analytics is a security information and event management (SIEM) solution for OpenSearch, designed to investigate, detect, analyze, and respond to security threats that can jeopardize the success of businesses and organizations and their online operations. These threats include the potential exposure of confidential data, cyber attacks, and other adverse security events. Security analytics provides an out-of-the-box solution that installs automatically with any OpenSearch distribution. It includes the tools and features necessary for defining detection parameters, generating alerts, and responding effectively to potential threats.
 
 ### Resources and information
 
-As part of the OpenSearch project, security analytics exists in the open source community and benefits from the feedback and contributions of that community. To learn more about proposals for its development, options for making contributions, and general information on the platform, see the [security analytics repository](https://github.com/opensearch-project/security-analytics) at GitHub.
+As part of the OpenSearch Project, security analytics exists in the open source community and benefits from the feedback and contributions of that community. To learn more about proposals for its development, options for making contributions, and general information on the platform, see the [security analytics repository](https://github.com/opensearch-project/security-analytics) at GitHub.
 
 ## Components and concepts
 
@@ -46,13 +46,13 @@ Log types are specified during the creation of detectors, including steps for ma
 
 ### Rules
 
-Rules, or threat detection rules, define the conditional logic applied to ingested log data that allows the system to identify an event of interest. Security analytics uses pre-packaged, open source [Sigma rules](https://github.com/SigmaHQ/sigma) as a starting point for describing relevant log events. But with its flexible format, Sigma rules enable the security analytics platform to provide users with options to easily customize rules. You can customize rules using either the Dashboards interface or the API.
+Rules, or threat detection rules, define the conditional logic applied to ingested log data that allows the system to identify an event of interest. Security analytics uses pre-packaged, open source [Sigma rules](https://github.com/SigmaHQ/sigma) as a starting point for describing relevant log events. But with their inherently flexible format and easy portability, Sigma rules provide users of security analytics with options for importing and customizing the rules. You can take advantage of these options using either Dashboards or the API.
 
 For information on configuring rules, see [Working with rules]({{site.url}}{{site.baseurl}}/security-analytics/usage/rules/).
 
 ### Findings
 
-Findings are generated every time a detector matches a rule with a log event. Findings do not necessarily point to imminent threats within the system, but they always isolate an event of interest. Because they represent the result of a specific definition for a detector, findings include a unique combination of rules, a detector, a log type, and a rule severity. As such, you can search for specific findings in the Findings window, and you can filter findings in the list based on severity and log type.
+Findings are generated every time a detector matches a rule with a log event. Findings do not necessarily point to imminent threats within the system, but they always isolate an event of interest. Because they represent the result of a specific definition for a detector, findings are the result of a unique combination of selected rules, a log type, and a rule severity. As such, you can search for specific findings in the Findings window, and you can filter findings in the list based on severity and log type.
 
 To learn more about findings, see [Working with findings]({{site.url}}{{site.baseurl}}/security-analytics/usage/findings/).
 

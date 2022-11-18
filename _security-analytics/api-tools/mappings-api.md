@@ -9,7 +9,7 @@ nav_order: 45
 
 The following APIs can be used for a number of tasks related to mappings, from creating to getting and updating mappings.
 
-## Get mappings view
+## Get Mappings View
 
 ### Sample request
 
@@ -63,8 +63,8 @@ GET /_plugins/_security_analytics/mappings/view
 }
 ```
 
-
-## Create mappings
+---
+## Create Mappings
 
 ### Sample request
 
@@ -94,8 +94,8 @@ POST /_plugins/_security_analytics/mappings
 }
 ```
 
-
-## Get mappings
+---
+## Get Mappings
 
 ### Sample request
 
@@ -124,8 +124,8 @@ GET /_plugins/_security_analytics/mappings
 }
 ```
 
-
-## Update mappings
+---
+## Update Mappings
 
 ### Sample request
 

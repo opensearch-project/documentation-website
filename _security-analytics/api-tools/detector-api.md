@@ -9,7 +9,7 @@ nav_order: 35
 
 The following APIs can be used for a number of tasks related to detectors, from creating detectors to updating and searching for detectors.
 
-## Create detector
+## Create Detector
 
 Creates a new detector.
 
@@ -215,8 +215,8 @@ POST _plugins/_security_analytics/detectors
 }
 ```
 
-
-## Update detector
+---
+## Update Detector
 
 The Update detector API is used for updating a detector.
 
@@ -308,8 +308,8 @@ PUT /_plugins/_security_analytics/detectors/J1RX1IMByX0LvTiGTddR
 }
 ```
 
-
-## Delete detector
+---
+## Delete Detector
 
 This API is used for deleting a detector.
 
@@ -319,10 +319,8 @@ This API is used for deleting a detector.
 DELETE /_plugins/_security_analytics/detectors/J1RX1IMByX0LvTiGTddR
 ```
 
-### Sample response
-
-
-## Get detector
+---
+## Get Detector
 
 The Get detector API retrieves the detector details.
 
@@ -365,8 +363,8 @@ GET /_plugins/_security_analytics/detectors/MFRg1IMByX0LvTiGHtcN
 }
 ```
 
-
-## Search detector
+---
+## Search Detector
 
 The Search detector API searches for detector matches by detector ID.
 

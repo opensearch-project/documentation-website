@@ -7,9 +7,9 @@ nav_order: 45
 
 # Working with alerts
 
-The Alerts window allows you to view and work with alerts in two ways:
-* In the bar graph with alert information arranged by count, date, and alert status or alert severity.
-* And in a list by time of the alert, the alert's trigger name, which detector triggered it, and other details.
+The Alerts window includes features for viewing and working with alerts. The two main features are:
+* The bar graph with alert information arranged by count, date, and alert status or alert severity.
+* The Alerts list arranged by time of the alert, the alert's trigger name, which detector triggered it, and other details.
 
 You can select the **Refresh** button at any time to refresh information on the Alerts page.
 

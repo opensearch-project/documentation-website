@@ -10,9 +10,9 @@ redirect_from:
 
 # Using security analytics
 
-This section discusses the features available in security analytics and covers general navigation and functionality while working with the various components. You can use the links below to go directly to a specific component of security anylaytics.
+After creating detectors and generating findings, functionality within the several security analytics windows offers visualizations and tools to help you investigate and manage findings, create focused alerts and notifications, import or customize rules, and edit detectors, among other tasks. This section discusses available features, their uses, and general navigation while working in the various windows. You can use the links below to go directly to information on a specific window.
 
-* [The Overvview page]({{site.url}}{{site.baseurl}}/security-analytics/usage/overview/)
+* [The Overview page]({{site.url}}{{site.baseurl}}/security-analytics/usage/overview/)
 * [Working with detectors]({{site.url}}{{site.baseurl}}/security-analytics/usage/detectors/)
 * [Working with findings]({{site.url}}{{site.baseurl}}/security-analytics/usage/findings/)
 * [Working with rules]({{site.url}}{{site.baseurl}}/security-analytics/usage/rules/)

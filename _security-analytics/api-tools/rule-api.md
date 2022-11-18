@@ -9,7 +9,7 @@ nav_order: 40
 
 The following APIs can be used for a number of tasks related to rules, from searching for pre-packaged rules to creating and updating custom rules.
 
-## Create custom rule
+## Create Custom Rule
 
 The Create custom rule API uses Sigma security rule formatting to create a custom rule. For information on how to write a rule in Sigma format, see information provided at [Sigma's GitHub repository](https://github.com/SigmaHQ/sigma).
 
@@ -117,8 +117,8 @@ falsepositives:
 }
 ```
 
-
-## Update custom rule (not forced)
+---
+## Update Custom Rule (not forced)
 
 ### Sample request
 
@@ -178,8 +178,8 @@ falsepositives:
 }
 ```
 
-
-## Update custom rule (forced)
+---
+## Update Custom Rule (forced)
 
 ### Sample request
 
@@ -258,8 +258,8 @@ falsepositives:
 }
 ```
 
-
-## Search pre-packaged rules
+---
+## Search Pre-Packaged Rules
 
 ### Sample request
 
@@ -353,8 +353,8 @@ POST /_plugins/_security_analytics/rules/_search?pre_packaged=true
 }
 ```
 
-
-## Search custom rules
+---
+## Search Custom Rules
 
 ### Sample request
 
@@ -450,8 +450,8 @@ Body:
 }
 ```
 
-
-## Delete custom rule (not forced)
+---
+## Delete Custom Rule (not forced)
 
 ### Sample request
 
@@ -481,8 +481,8 @@ DELETE /_plugins/_security_analytics/rules/ZaFv1IMBdLpXWBiBa1XI
 }
 ```
 
-
-## Delete custom rule (forced)
+---
+## Delete Custom Rule (forced)
 
 ### Sample request
 

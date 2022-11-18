@@ -10,8 +10,7 @@ nav_order: 50
 
 The following APIs can be used for tasks related to alerts and findings.
 
-
-## Get alerts
+## Get Alerts
 
 Provides an option for retrieving alerts related to a specific detector type or detector ID.
 
@@ -79,11 +78,11 @@ State | Description
 `ACTIVE` | The alert is ongoing and unacknowledged. Alerts remain in this state until you acknowledge them, delete the trigger associated with the alert, or delete the monitor entirely.
 `ACKNOWLEDGED` | Someone has acknowledged the alert but not fixed the root cause.
 `COMPLETED` | The alert is no longer ongoing. Alerts enter this state after the corresponding trigger evaluates to false.
-`ERROR` | An error occurred while executing the trigger—usually the result of a a bad trigger or destination.
+`ERROR` | An error occurred while executing the trigger. This error is usually the result of a bad trigger or destination.
 `DELETED` | Someone deleted the detector or trigger associated with this alert while the alert was ongoing.
 
-
-## Acknowledge alerts
+---
+## Acknowledge Alerts
 
 ### Sample request
 
@@ -133,7 +132,8 @@ POST /_plugins/_security_analytics/<detector_id>/_acknowledge/alerts
 }
 ```
 
-## Get findings
+---
+## Get Findings
 
 The Get findings API based on detector attributes.
 
