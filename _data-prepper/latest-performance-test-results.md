@@ -5,14 +5,14 @@ nav_order: 12
 ---
 
 
-This page tracks our latest performance test runs from Data Prepper. We run tests with significant processors, as well as the equivalent Logstash filters. In the performance test results discussed below, the test environments and configurations are identical, except where the same option is not available for all applications.
+This page tracks the latest performance test runs from Data Prepper. We run tests with significant processors, as well as the equivalent Logstash filters. In the performance test results below, the test environments and configurations are identical, except where the same option is not available for all applications.
 
 # Results
 
 Gatling reported the following results for the test that was run for Data Prepper. These results show that `118,104` requests were succesfully sent to Data Prepper. Throughput can be measured as
 `118,104 * 200 (batch size) logs = 23,620,800 logs / 1,200 s = 19,684 logs/s`. The Gatling report also shows a distribution of latency on the side of the `http` source, with an average latency of `101 ms`
 
-![](images/DataPrepperGatling.png)
+![Latest performance test results component]({{site.url}}{{site.baseurl}}/images/data-prepper/latest-performance-test-results/data-prepper-gatling.png)
 
 
 ## Logstash
