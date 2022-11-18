@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Using security analytics
+title: Using Security Analytics
 nav_order: 20
 has_children: true
 has_toc: false
@@ -8,9 +8,9 @@ redirect_from:
   - /security-analytics/usage/
 ---
 
-# Using security analytics
+# Using Security Analytics
 
-After creating detectors and generating findings, functionality within the several security analytics windows offers visualizations and tools to help you investigate and manage findings, create focused alerts and notifications, import or customize rules, and edit detectors, among other tasks. This section discusses available features, their uses, and general navigation while working in the various windows. You can use the links below to go directly to information on a specific window.
+After creating detectors and generating findings, functionality within the several Security Analytics windows offers visualizations and tools to help you investigate and manage findings, create focused alerts and notifications, import or customize rules, and edit detectors, among other tasks. This section discusses available features, their uses, and general navigation while working in the various windows. You can use the links below to go directly to information on a specific window.
 
 * [The Overview page]({{site.url}}{{site.baseurl}}/security-analytics/usage/overview/)
 * [Working with detectors]({{site.url}}{{site.baseurl}}/security-analytics/usage/detectors/)

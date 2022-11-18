@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Working with alerts
-parent: Using security analytics
+parent: Using Security Analytics
 nav_order: 45
 ---
 
@@ -23,7 +23,7 @@ To specify the date range you would like the graph to display, first select the 
 You can use the **Quick select** settings to specify an exact window of time.
 * Select either **Last** or **Next** in the first dropdown menu to set the window of time behind the current setting or ahead of the current setting.
 * Select a number in the second dropdown menu to define a value for the range.
-* Select a unit of time in the third dropdown menu. Available options are: seconds, minutes, hours, days, weeks, months, years.
+* Select a unit of time in the third dropdown menu. Available options are seconds, minutes, hours, days, weeks, months, and years.
 Select the **Apply** button to apply the range of dates to the graph. Information on the graph changes accordingly.
 <img src="{{site.url}}{{site.baseurl}}/images/Security/quickset.png" alt="Quick select settings example">
 <br>You can use the left and right arrows to move the window of time behind the current range of dates or ahead of the current range of dates. When you use these arrows, the start date and end date appear in the date range field. You can then select each one to set an absolute, relative, or current date and time. For absolute and relative changes, select the **Update** button to apply the changes.

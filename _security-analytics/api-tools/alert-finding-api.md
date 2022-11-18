@@ -24,7 +24,7 @@ Parameter | Description
 `detectorType` | The type of detector used to fetch alerts. Optional when the `detectorId` is specified. Otherwise required.
 `severityLevel` | Used to filter by alert severity level. Optional.
 `alertState` | Used to filter by alert state. Possible values: ACTIVE, ACKNOWLEDGED, COMPLETED, ERROR, DELETED. Optional.
-`sortString` | This field specifies which string security analytics uses to sort the alerts. Optional.
+`sortString` | This field specifies which string Security Analytics uses to sort the alerts. Optional.
 `sortOrder` | The order used to sort the list of findings, either `ascending` or `descending`. Optional.
 `missing` | A list of fields for which there are no found alias mappings. Optional.
 `size` | An optional limit for the maximum number of results returned in the response. Optional.

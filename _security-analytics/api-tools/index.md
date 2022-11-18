@@ -10,9 +10,9 @@ redirect_from:
 
 # API tools
 
-Security anlaytics includes a number of APIs to help administrators maintain and update an implementation. The APIs often mimic the same controls available for setting up security analytics in OpenSearch Dashboards, and they provide another option for administering the various elements of security analytics.
+Security Analytics includes a number of APIs to help administrators maintain and update an implementation. The APIs often mimic the same controls available for setting up Security Analytics in OpenSearch Dashboards, and they provide another option for administering the plugin.
 
-The APIs for security analytics are separated into the following categories:
+The APIs for Security Analytics are separated into the following categories:
 
 * [Detector APIs]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/detector-api/)
 * [Rules APIs]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/rule-api/)
