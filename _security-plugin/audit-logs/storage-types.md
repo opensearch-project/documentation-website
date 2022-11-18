@@ -48,7 +48,7 @@ If you use `external_opensearch` and the remote cluster also uses the security p
 
 ### TLS settings
 
-Name | Data Type | Description
+Name | Data type | Description
 :--- | :--- | :---
 `plugins.security.audit.config.enable_ssl` | Boolean | If you enabled SSL/TLS on the receiving cluster, set to true. The default is false.
 `plugins.security.audit.config.verify_hostnames` |  Boolean | Whether to verify the hostname of the SSL/TLS certificate of the receiving cluster. Default is true.
@@ -76,7 +76,7 @@ plugins.security.audit.config.password: <password>
 
 Use the following keys to configure the `webhook` storage type.
 
-Name | Data Type | Description
+Name | Data type | Description
 :--- | :--- | :---
 `plugins.security.audit.config.webhook.url` | String | The HTTP or HTTPS URL to send the logs to.
 `plugins.security.audit.config.webhook.ssl.verify` | Boolean | If true, the TLS certificate provided by the endpoint (if any) will be verified. If set to false, no verification is performed. You can disable this check if you use self-signed certificates.

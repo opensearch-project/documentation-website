@@ -22,14 +22,14 @@ POST /_snapshot/<repository>/<snapshot>
 
 ### Path parameters
 
-Parameter | Data Type | Description
+Parameter | Data type | Description
 :--- | :--- | :---
 repository | String | Repostory name to contain the snapshot. |
 snapshot | String | Name of Snapshot to create. |
 
 ### Query parameters
 
-Parameter | Data Type | Description
+Parameter | Data type | Description
 :--- | :--- | :---
 wait_for_completion | Boolean |  Whether to wait for snapshot creation to complete before continuing. If you include this parameter, the snapshot definition is returned after completion. |
 
@@ -37,7 +37,7 @@ wait_for_completion | Boolean |  Whether to wait for snapshot creation to comple
 
 The request body is optional.
 
-Field | Data Type | Description
+Field | Data type | Description
 :--- | :--- | :---
 `indices` | String | The indices you want to include in the snapshot. You can use `,` to create a list of indices, `*` to specify an index pattern, and `-` to exclude certain indices. Don't put spaces between items. Default is all indices.
 `ignore_unavailable` | Boolean | If an index from the `indices` list doesn't exist, whether to ignore it rather than fail the snapshot. Default is false.
@@ -122,7 +122,7 @@ The snapshot definition is returned.
 ```
 #### Response fields
 
-| Field | Data Type | Description |
+| Field | Data type | Description |
 | :--- | :--- | :--- | 
 | snapshot | string | Snapshot name. |
 | uuid | string | Snapshot's universally unique identifier (UUID). |

@@ -19,13 +19,13 @@ If you use the security plugin, you must have the `manage cluster` privilege.
 
 Path parameters are optional. 
 
-| Parameter | Data Type | Description | 
+| Parameter | Data type | Description | 
 :--- | :--- | :---
 | repository | String | Name of repository to verify. |
 
 ### Query parameters
 
-| Parameter | Data Type | Description | 
+| Parameter | Data type | Description | 
 :--- | :--- | :---
 | cluster_manager_timeout | Time | Amount of time to wait for a connection to the master node. Optional, defaults to `30s`. |
 | timeout | Time | The period of time to wait for a response. If a response is not received before the timeout value, the request fails and returns an error. Defaults to `30s`. |
@@ -70,6 +70,6 @@ In the preceding sample, one node is connected to the snapshot repository. If mo
 
 ### Response fields
 
-| Field | Data Type | Description | 
+| Field | Data type | Description | 
 :--- | :--- | :---
 | nodes | Object | A list (not an array) of nodes connected to the snapshot repository. Each node itself is a property where the node ID is the key and the name has an ID (Object) and a name (String). |

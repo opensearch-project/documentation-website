@@ -2,6 +2,7 @@
 layout: default
 title: Nodes stats
 parent: Nodes APIs
+grand_parent: REST API reference
 nav_order: 20
 ---
 
@@ -26,7 +27,7 @@ The following table lists the available path parameters. All path parameters are
 
 Parameter | Type | Description
 :--- | :--- | :---
-nodeId | String | A comma-separated list of nodeIds used to filter results. Supports [node filters]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/index/#node-filters). Defaults to `_all`.
+nodeId | String | A comma-separated list of nodeIds used to filter results. Supports [node filters]({{site.url}}{{site.baseurl}}/opensearch/rest-api/nodes-apis/index/#node-filters). Defaults to `_all`.
 metric | String | A comma-separated list of metric groups that will be included in the response. For example, `jvm,fs`. See the list of all metrics below. Defaults to all metrics.
 index_metric | String | A comma-separated list of index metric groups that will be included in the response. For example, `docs,store`. See the list of all index metrics below. Defaults to all index metrics.
 
@@ -119,7 +120,7 @@ GET _nodes/stats/
       "host" : "127.0.0.1",
       "ip" : "127.0.0.1:9300",
       "roles" : [
-        "cluster_manager",
+        "master",
         "data",
         "ingest",
         "remote_cluster_client"
@@ -158,22 +159,19 @@ GET _nodes/stats/
           "current" : 0
         },
         "search" : {
-          "open_contexts": 4,
-          "query_total": 194,
-          "query_time_in_millis": 467,
-          "query_current": 0,
-          "fetch_total": 194,
-          "fetch_time_in_millis": 143,
-          "fetch_current": 0,
-          "scroll_total": 0,
-          "scroll_time_in_millis": 0,
-          "scroll_current": 0,
-          "point_in_time_total": 0,
-          "point_in_time_time_in_millis": 0,
-          "point_in_time_current": 0,
-          "suggest_total": 0,
-          "suggest_time_in_millis": 0,
-          "suggest_current": 0
+          "open_contexts" : 0,
+          "query_total" : 194,
+          "query_time_in_millis" : 467,
+          "query_current" : 0,
+          "fetch_total" : 194,
+          "fetch_time_in_millis" : 143,
+          "fetch_current" : 0,
+          "scroll_total" : 0,
+          "scroll_time_in_millis" : 0,
+          "scroll_current" : 0,
+          "suggest_total" : 0,
+          "suggest_time_in_millis" : 0,
+          "suggest_current" : 0
         },
         "merges" : {
           "current" : 0,
@@ -598,7 +596,7 @@ name | String | The name of the node.
 transport_address | IP address | The host and port of the transport layer that is used by nodes in a cluster to communicate internally.
 host | IP address | The network host of the node.
 ip | IP address | The IP address and port of the node.
-roles | Array | The roles of the node (for example, `cluster_manager`, `data`, or `ingest`).
+roles | Array | The roles of the node (for example, `master`, `data`, or `ingest`).
 attributes | Object | The attributes of the node (for example, `shard_indexing_pressure_enabled`).
 [indices](#indices) | Object | Index statistics for each index that has shards on the node.
 [os](#os) | Object | Statistics about the OS for the node.
@@ -618,7 +616,6 @@ http.total_opened | Integer | The total number of HTTP connections the node has 
 [adaptive_selection](#adaptive_selection) | Object | Statistics about adaptive selections for the node. 
 [indexing_pressure](#indexing_pressure) | Object | Statistics related to the node's indexing pressure.
 [shard_indexing_pressure](#shard_indexing_pressure) | Object | Statistics related to indexing pressure at the shard level.
-[search_backpressure]({{site.url}}{{site.baseurl}}/opensearch/search-backpressure#search-backpressure-stats-api) | Object | Statistics related to search backpressure.
 
 ### `indices`
 
@@ -652,9 +649,6 @@ get.<br>&nbsp;&nbsp;&nbsp;&nbsp;missing_total | Integer | The number of failed g
 get.<br>&nbsp;&nbsp;&nbsp;&nbsp;missing_time_in_millis | Integer | The total time for all failed get operations, in milliseconds.
 get.<br>&nbsp;&nbsp;&nbsp;&nbsp;current | Integer | The number of get operations that are currently running.
 search | Object | Statistics about the search operations for the node.
-search.<br>&nbsp;&nbsp;&nbsp;&nbsp;point_in_time_total | Integer | The total number of Point in Time contexts that have been created (completed and active) since the node last restarted.
-search.<br>&nbsp;&nbsp;&nbsp;&nbsp;point_in_time_time_in_millis | Integer |  The amount of time that Point in Time contexts have been held open since the node last restarted, in milliseconds.
-search.<br>&nbsp;&nbsp;&nbsp;&nbsp;point_in_time_current | Integer | The number of Point in Time contexts currently open.
 search.<br>&nbsp;&nbsp;&nbsp;&nbsp;open_contexts | Integer | The number of open search contexts.
 search.<br>&nbsp;&nbsp;&nbsp;&nbsp;query_total | Integer | The total number of query operations.
 search.<br>&nbsp;&nbsp;&nbsp;&nbsp;query_time_in_millis | Integer | The total time for all query operations, in milliseconds.
