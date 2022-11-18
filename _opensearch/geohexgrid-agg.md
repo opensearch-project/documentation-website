@@ -368,7 +368,7 @@ The `bounds` parameter can be used with or without the `geo_bounding_box` filter
 
 GeoHex grid aggregation requests support the following parameters.
 
-Parameter | Data Type | Description
+Parameter | Data type | Description
 :--- | :--- | :---
 field | String | The field that contains the geopoints. This field must be mapped as a `geo_point` field. If the field contains an array, all array values are aggregated. Required.
 precision | Integer | The zoom level used to determine grid cells for bucketing results. Valid values are in the [0, 15] range. Optional. Default is 5. 

@@ -45,7 +45,7 @@ POST /_plugins/_ml/models/_upload
 The URL upload method requires the following request fields.
 
 
-Field | Data Type | Description
+Field | Data type | Description
 :---  | :--- | :--- 
 `name`| string | The name of the model. |
 `version` | string | The version number of the model. Since OpenSearch does not enforce a specific version schema for models, you can choose any number or format that makes sense for your models. |
@@ -59,7 +59,7 @@ Field | Data Type | Description
 
 ### The `model_config` object
 
-| Field | Data Type | Description |
+| Field | Data type | Description |
 | :--- | :--- | :--- |
 | `model_type` | string | The model type, such as `bert`. For a Huggingface model, the model type is specified in `config.json`. For an example, see the [`all-MiniLM-L6-v2` Huggingface model `config.json`](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/blob/main/config.json#L15).|
 | `embedding_dimension` | integer | The dimension of the model-generated dense vector. For a Huggingface model, the dimension is specified in the model card. For example, in the [`all-MiniLM-L6-v2` Huggingface model card](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2), the statement `384 dimensional dense vector space` specifies 384 as the embedding dimension. |

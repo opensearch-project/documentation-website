@@ -13,7 +13,7 @@ OpenSearch provides several ways to run a script; the following sections show ho
 
 ### Request fields
 
-| Field | Data Type | Description | 
+| Field | Data type | Description | 
 :--- | :--- | :---
 | query | Object | A filter that specifies documents to process. |
 | script_fields | Object | Fields to include in output. | 
@@ -103,7 +103,7 @@ The `GET books/_search` request returns the following fields:
 
 ### Response fields
 
-| Field | Data Type | Description | 
+| Field | Data type | Description | 
 :--- | :--- | :---
 | took | Integer | How long the operation took in milliseconds. |
 | timed_out | Boolean | Whether the operation timed out. |
@@ -112,7 +112,7 @@ The `GET books/_search` request returns the following fields:
 
 #### Hits object
 
-| Field | Data Type | Description | 
+| Field | Data type | Description | 
 :--- | :--- | :---
 | total | Object | Total number of documents processed and their relationship to the `match` request field. |
 | max_score | Double | Highest relevance score returned from all the hits. |
@@ -120,7 +120,7 @@ The `GET books/_search` request returns the following fields:
 
 #### Document object
 
-| Field | Data Type | Description | 
+| Field | Data type | Description | 
 :--- | :--- | :---
 | _index | String | Index that contains the document. |
 | _id | String | Document ID. |
