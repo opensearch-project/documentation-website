@@ -81,7 +81,7 @@ timeout | Time | Sets the time limit for node response. Default value is `30s`.
 The following query requests the `process` and `transport` metrics from the master node: 
 
 ```json
-GET /_nodes/cluster_manager:true/process,transport
+GET /_nodes/master:true/process,transport
 ```
 
 #### Sample response
