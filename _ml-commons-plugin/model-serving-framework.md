@@ -51,7 +51,7 @@ Field | Data Type | Description
 [`model_config`](#the-model_config-object) | json object | The model's configuration, including the `model_type`, `embedding_dimension`, and `framework_type`. |
 `url` | string | The URL where the model is located. |
 
-`model_config` fields
+### The `model_config` object
 
 | Field | Data Type | Description |
 | :-------------------- | :---------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
