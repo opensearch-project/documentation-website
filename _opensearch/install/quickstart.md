@@ -93,7 +93,10 @@ Create an index and define field mappings using a sample data set.
     ```bash
     curl -H "Content-Type: application/x-ndjson" -X PUT "https://localhost:9200/ecommerce/_bulk" -ku admin:admin --data-binary "@ecommerce.json"
     ```
-1. Next step here!
+1. Next step here! {"query":{"match":{"customer_first_name":"Sonya"}}}
+    ```bash
+    curl -H 'Content-Type: application/json' -X GET "https://localhost:9200/ecommerce/_search?pretty=true" -ku admin:admin -d' {"query":{"match":{"customer_first_name":"Sonya"}}}'
+    ```
 
 ## Common issues
 
