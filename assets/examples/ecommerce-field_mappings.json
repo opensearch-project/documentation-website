@@ -16,7 +16,7 @@
         "type" : "date"
       },
       "customer_first_name" : {
-        "type" : "text",
+        "type": "text",
         "fields" : {
           "keyword" : {
             "type" : "keyword",
