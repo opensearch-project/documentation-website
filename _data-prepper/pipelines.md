@@ -83,21 +83,39 @@ The Data Prepper repository has several [sample applications](https://github.com
 
 The following example demonstrates how to use HTTP source and Grok prepper plugins to process unstructured log data.
 
-```yml
+Example `pipeline.yaml` with SSL and basic authentication enabled for the `http-source`:
+
+```yaml
 log-pipeline:
   source:
     http:
-      ssl: false
+      ssl_certificate_file: "/full/path/to/certfile.crt"
+      ssl_key_file: "/full/path/to/keyfile.key"
+      authentication:
+        http_basic:
+          username: "myuser"
+          password: "mys3cret"
   processor:
     - grok:
         match:
+          # This will match logs with a "log" key against the COMMONAPACHELOG pattern (ex: { "log": "actual apache log..." } )
+          # You should change this to match what your logs look like. See the grok documenation to get started.
           log: [ "%{COMMONAPACHELOG}" ]
   sink:
     - opensearch:
-        hosts: [ "https://opensearch:9200" ]
-        insecure: true
-        username: admin
-        password: admin
+        hosts: [ "https://localhost:9200" ]
+        # Change to your credentials
+        username: "admin"
+        password: "admin"
+        # Add a certificate file if you are accessing an OpenSearch cluster with a self-signed certificate  
+        #cert: /path/to/cert
+        # If you are connecting to an Amazon OpenSearch Service domain without
+        # Fine-Grained Access Control, enable these settings. Comment out the
+        # username and password above.
+        #aws_sigv4: true
+        #aws_region: us-east-1
+        # Since we are grok matching for apache logs, it makes sense to send them to an OpenSearch index named apache_logs.
+        # You should change this to correspond with how your OpenSearch indices are set up.
         index: apache_logs
 ```
 
