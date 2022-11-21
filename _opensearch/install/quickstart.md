@@ -75,13 +75,13 @@ You will need a special file, called a compose file, that Docker Compose uses to
 
 ## Create an index and field mappings using sample data
 
-Create an index and define field mappings using a sample data set.
+Create an index and define field mappings using a data set provided by the OpenSearch Project. The same fictitious e-commerce data is also used for sample visualizations in OpenSearch Dashboards. To learn more, see [Getting started with OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/index/).
 
 1. Download [ecommerce-field_mappings.json](https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_version}}/assets/examples/ecommerce-field_mappings.json). This file defines a [mapping]({{site.url}}{{site.baseurl}}/opensearch/mappings/) for the sample data you will use.
     ```bash
     wget https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_version}}/assets/examples/ecommerce-field_mappings.json
     ```
-1. Download [ecommerce.json](https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_version}}/assets/examples/ecommerce.json). This file contains the [index data]({{site.url}}{{site.baseurl}}/opensearch/index-data/) formatted so that it can be ingested via the [bulk API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/).
+1. Download [ecommerce.json](https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_version}}/assets/examples/ecommerce.json). This file contains the [index data]({{site.url}}{{site.baseurl}}/opensearch/index-data/) formatted so that it can be ingested via the bulk API. To learn more, see [Bulk]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/).
     ```bash
     wget https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_version}}/assets/examples/ecommerce.json
     ```
@@ -89,11 +89,11 @@ Create an index and define field mappings using a sample data set.
     ```bash
     curl -H "Content-Type: application/x-ndjson" -X PUT "https://localhost:9200/ecommerce" -ku admin:admin --data-binary "@ecommerce-field_mappings.json"
     ```
-1. Upload the index to the [bulk API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/).
+1. Upload the index to the bulk API.
     ```bash
     curl -H "Content-Type: application/x-ndjson" -X PUT "https://localhost:9200/ecommerce/_bulk" -ku admin:admin --data-binary "@ecommerce.json"
     ```
-1. Next step here! {"query":{"match":{"customer_first_name":"Sonya"}}}
+1. Query the data using the search API. The following command submits a query that will return documents where `customer_first_name` is `Sonya`.
     ```bash
     curl -H 'Content-Type: application/json' -X GET "https://localhost:9200/ecommerce/_search?pretty=true" -ku admin:admin -d' {"query":{"match":{"customer_first_name":"Sonya"}}}'
     ```
