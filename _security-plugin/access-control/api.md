@@ -1409,7 +1409,9 @@ GET _plugins/_security/health
 
 ## Audit logs
 
-### Enable audit logs
+The following API is available for audit logging in the security plugin.
+
+### Enable Audit Logs
 
 This API allows you to enable or disable audit logging, define the configuration for audit logging and compliance, and make updates to settings.
 
@@ -1429,7 +1431,7 @@ Field | Data Type | Description
 `audit`<br>&nbsp;&nbsp;&nbsp;&nbsp;`disabled_rest_categories` | Array | Categories to exclude from REST API auditing. Default categories are `AUTHENTICATED`, `GRANTED_PRIVILEGES`.
 `audit`<br>&nbsp;&nbsp;&nbsp;&nbsp;`disabled_transport_categories` | Array | Categories to exclude from Transport API auditing. Default categories are `AUTHENTICATED`, `GRANTED_PRIVILEGES`.
 `audit`<br>&nbsp;&nbsp;&nbsp;&nbsp;`log_request_body` | Boolean | Includes the body of the request (if available) for both REST and the transport layer. Default is  `true`.
-`audit`<br>&nbsp;&nbsp;&nbsp;&nbsp;`resolve_indices` | Boolean | Logs all indices affected by a request. Resolves aliases and wildcards/date patterns. Default is `true`.
+`audit`<br>&nbsp;&nbsp;&nbsp;&nbsp;`resolve_indices` | Boolean | Logs all indexes affected by a request. Resolves aliases and wildcards/date patterns. Default is `true`.
 `audit`<br>&nbsp;&nbsp;&nbsp;&nbsp;`resolve_bulk_requests` | Boolean | Logs individual operations in a bulk request. Default is `false`.
 `audit`<br>&nbsp;&nbsp;&nbsp;&nbsp;`exclude_sensitive_headers` | Boolean | Excludes sensitive headers from being included in the logs. Default is `true`.
 `audit`<br>&nbsp;&nbsp;&nbsp;&nbsp;`enable_transport` | Boolean | Enables/disables Transport API auditing. Default is `true`.
@@ -1439,11 +1441,11 @@ Field | Data Type | Description
 `compliance`<br>&nbsp;&nbsp;&nbsp;&nbsp;`write_log_diffs` | Boolean | Logs only diffs for document updates. Default is `false`.
 `compliance`<br>&nbsp;&nbsp;&nbsp;&nbsp;`read_watched_fields` | Object | Map of indexes and fields to monitor for read events. Wildcard patterns are supported for both index names and fields.
 `compliance`<br>&nbsp;&nbsp;&nbsp;&nbsp;`read_ignore_users` | Array | List of users to ignore for read events. Wildcard patterns are supported.<br>Example: `read_ignore_users: ["test-user", "employee-*"]`
-`compliance`<br>&nbsp;&nbsp;&nbsp;&nbsp;`write_watched_indices` | Array | List of indices to watch for write events. Wildcard patterns are supported.<br>Example: `write_watched_indices: ["twitter", "logs-*"]`
+`compliance`<br>&nbsp;&nbsp;&nbsp;&nbsp;`write_watched_indices` | Array | List of indexes to watch for write events. Wildcard patterns are supported.<br>Example: `write_watched_indices: ["twitter", "logs-*"]`
 `compliance`<br>&nbsp;&nbsp;&nbsp;&nbsp;`write_ignore_users` | Array | List of users to ignore for write events. Wildcard patterns are supported.<br>Example: `write_ignore_users: ["test-user", "employee-*"]`
 `compliance`<br>&nbsp;&nbsp;&nbsp;&nbsp;`read_metadata_only` | Boolean | Logs only metadata of the document for read events. Default is `true`.
 `compliance`<br>&nbsp;&nbsp;&nbsp;&nbsp;`write_metadata_only` | Boolean | Log only metadata of the document for write events. Default is `true`.
-`compliance`<br>&nbsp;&nbsp;&nbsp;&nbsp;`external_config` | Boolean | Logs external config files for the node. Default is `false`.
+`compliance`<br>&nbsp;&nbsp;&nbsp;&nbsp;`external_config` | Boolean | Logs external configuration files for the node. Default is `false`.
 `compliance`<br>&nbsp;&nbsp;&nbsp;&nbsp;`internal_config` | Boolean | Logs updates to internal security changes. Default is `true`.
 
 Changes to the `_readonly` property result in a 409 error, as indicated in the response below.
