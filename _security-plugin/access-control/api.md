@@ -1461,11 +1461,15 @@ Changes to the `_readonly` property result in a 409 error, as indicated in the r
 
 #### Sample request
 
+**GET**
+
 A GET call retrieves the audit configuration.
 
 ```
 GET /_opendistro/_security/api/audit
 ```
+
+**PUT**
 
 A PUT call updates the audit configuration.
 
@@ -1506,20 +1510,22 @@ PUT /_opendistro/_security/api/audit/config
 }
 ```
 
-A PATCH call is used to update specified fields in the audit configuration. The PATCH method requires an operation, a path, and a value to complete a valid request.
+**PATCH**
+
+A PATCH call is used to update specified fields in the audit configuration. The PATCH method requires an operation, a path, and a value to complete a valid request. For details on using the PATCH method, see the following [Patching resources](https://en.wikipedia.org/wiki/PATCH_%28HTTP%29#Patching_resources) description at Wikipedia.
+
+Using the PATCH method also requires a user to have a security configuration that includes admin certificates for encryption. To find out more about these certificates, see [Configure admin certificates](https://opensearch.org/docs/latest/security-plugin/configuration/tls/#configure-admin-certificates).
 
 ```bash
 curl -X PATCH -k -i --cert <admin_cert file name> --key <admin_cert_key file name> <domain>/_opendistro/_security/api/audit -H 'Content-Type: application/json' -d'[{"op":"add","path":"/config/enabled","value":"true"}]'
 ```
 
-Using the PATCH method also requires a user to have a security configuration that includes admin certificates for encryption. To find out more about these certificates, see [Configure admin certificates](https://opensearch.org/docs/latest/security-plugin/configuration/tls/#configure-admin-certificates).
-
-The OpenSearch Dashboards dev tool does not currently support the PATCH method. You can use [curl](https://curl.se/), [Postman](https://www.postman.com/), or another alternative process to update the configuration using this method.
+The OpenSearch Dashboards dev tool does not currently support the PATCH method. You can use [curl](https://curl.se/), [Postman](https://www.postman.com/), or another alternative process to update the configuration using this method. To follow the GitHub issue for support of the PATCH method in Dashboards, see [issue #2343](https://github.com/opensearch-project/OpenSearch-Dashboards/issues/2343).
 {: .note}
 
 #### Sample response
 
-The GET call produces a response that appears as the following:
+The GET call produces a response that appears similar to the following:
 
 ```json
 {
@@ -1563,7 +1569,7 @@ The GET call produces a response that appears as the following:
   }
 }
 ```
-The PUT request produces a response that appears as the following:
+The PUT request produces a response that appears similar to the following:
 
 ```json
 {
@@ -1572,7 +1578,7 @@ The PUT request produces a response that appears as the following:
 }
 ```
 
-The PATCH request produces a response similar to the one below.
+The PATCH request produces a response similar to the following:
 
 ```bash
 HTTP/1.1 200 OK
