@@ -72,7 +72,19 @@ You will need a special file, called a compose file, that Docker Compose uses to
     "tagline" : "The OpenSearch Project: https://opensearch.org/"
     }
     ```
-1. 
+
+## Create an index and field mappings using sample data
+
+Create an index and define field mappings using a sample data set.
+
+1. Download [ecommerce-field_mappings.json](https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_version}}/assets/examples/ecommerce-field_mappings.json). This file defines a [mapping]({{site.url}}{{site.baseurl}}/opensearch/mappings/) for the sample data you will use.
+    ```bash
+    wget https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_version}}/assets/examples/ecommerce-field_mappings.json
+    ```
+1. Download [ecommerce.json](https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_version}}/assets/examples/ecommerce.json). This file contains the [index data]({{site.url}}{{site.baseurl}}/opensearch/index-data/)
+    ```bash
+    wget https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_version}}/assets/examples/ecommerce.json
+    ```
 
 ## Common issues
 
