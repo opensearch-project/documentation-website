@@ -4,11 +4,9 @@ title: Simple pipelines
 nav_order: 12
 ---
 
-# Simple Pipeline
+This tutorial walks you through creating a simple Data Prepper pipeline and how to configure it.
 
-This tutorial walks you through creating a simple Data Prepper and configuring it.
-
-## Installation
+# Installation
 
 First, install via Docker.
 
@@ -16,10 +14,9 @@ First, install via Docker.
 docker pull opensearchproject/data-prepper:latest
 ```
 
-## Simple Configuration
+# Simple configuration
 
-To help you get started, we have a simple configuration which you can use to
-run Data Prepper. It will generate random strings and write them to stdout.
+To help you get started, we have a simple configuration which you can use to run Data Prepper. It generates random strings and writes them to stdout.
 
 Create a Data Prepper configuration file, `data-prepper-config.yaml`, with:
 
@@ -39,10 +36,9 @@ simple-sample-pipeline:
     - stdout:
 ```
 
-## Running
+# Running
 
-The remainder of this page shows examples for running from the Docker image. If you
-built from source, you will need to make some modifications to the example commands.
+The remainder of this page shows examples for running from the Docker image. If you built from source, you will need to make some modifications to the example commands.
 
 For Data Prepper 2.0 or above, use this command:
 ```
@@ -90,7 +86,7 @@ It will output a JSON response with the current pipelines:
 ```
 
 
-## Shutdown
+# Shutdown
 
 You can shutdown Data Prepper either by using the shutdown API, or killing the Docker process.
 
@@ -98,11 +94,9 @@ You can shutdown Data Prepper either by using the shutdown API, or killing the D
 curl -X POST http://localhost:4900/shutdown
 ```
 
-## Adding a Processor
+# Adding a processor
 
-The sample above just demonstrates the bare minimum a pipeline can have: A source sending data to a sink.
-The example below adds a string converter Processor. This simple Processor will transform the string by making it
-upper case.
+The sample above just demonstrates the bare minimum a pipeline can have: A source sending data to a sink. The example below adds a string converter Processor. This simple processor transforms the string by making it uppercase.
 
 ```
 simple-sample-pipeline:
@@ -148,7 +142,6 @@ Shut down Data Prepper.
 curl -X POST http://localhost:4900/shutdown
 ```
 
-## Next Steps
+# Next Steps
 
-This page ran through the basics of Data Prepper. To start to setup a useful observability suite, visit
-the [Trace Analytics documentation](trace_analytics.md).
+This page explains basics of Data Prepper. If you want to setup a useful observability suite, visit the [Trace Analytics documentation](trace_analytics.md).
