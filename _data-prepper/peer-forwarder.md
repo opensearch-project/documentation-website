@@ -77,35 +77,39 @@ IAM policy shows the necessary permissions.
 ---
 # Configuration
 
-* `port`(Optional): An `int` between 0 and 65535 represents the port peer forwarder server is running on. Default value is `4994`.
-* `request_timeout`(Optional): Duration - An `int` representing the request timeout in milliseconds for Peer Forwarder HTTP server. Default value is `10000`.
-* `server_thread_count`(Optional): An `int` representing number of threads used by Peer Forwarder server. Defaults to `200`.
-* `client_thread_count`(Optional): An `int` representing number of threads used by Peer Forwarder client. Defaults to `200`.
-* `maxConnectionCount`(Optional): An `int` representing maximum number of open connections for Peer Forwarder server. Default value is `500`.
-* `discovery_mode`(Optional): A `String` representing the peer discovery mode to be used. Allowable values are `local_node`, `static`, `dns`, and `aws_cloud_map`. Defaults to `local_node` which processes events locally.
-* `static_endpoints`(Optional): A `list` containing endpoints of all Data Prepper instances. Required if `discovery_mode` is set to `static`.
-* `domain_name`(Optional): A `String` representing single domain name to query DNS against. Typically, used by creating multiple [DNS A Records](https://www.cloudflare.com/learning/dns/dns-records/dns-a-record/) for the same domain. Required if `discovery_mode` is set to `dns`.
-* `aws_cloud_map_namespace_name`(Optional) - A `String` representing the Cloud Map namespace when using AWS Cloud Map service discovery. Required if `discovery_mode` is set to `aws_cloud_map`.
-* `aws_cloud_map_service_name`(Optional) - A `String` representing the Cloud Map service when using AWS Cloud Map service discovery. Required if `discovery_mode` is set to `aws_cloud_map`.
-* `aws_cloud_map_query_parameters`(Optional): A `Map` of Key/value pairs to filter the results based on the custom attributes attached to an instance. Only instances that match all the specified key-value pairs are returned.
-* `buffer_size`(Optional): An `int` representing max number of unchecked records the buffer accepts (num of unchecked records = num of records written into the buffer + num of in-flight records not yet checked by the Checkpointing API). Default is `512`.
-* `batch_size`(Optional): An `int` representing max number of records the buffer returns on read. Default is `48`.
-* `aws_region`(Optional) : A `String` represents the AWS region to use `ACM`, `S3` or `AWS Cloud Map`. Required if `use_acm_certificate_for_ssl` is set to `true` or `ssl_certificate_file` and `ssl_key_file` is `AWS S3` path or if `discovery_mode` is set to `aws_cloud_map`.
-* `drain_timeout`(Optional) : A `Duration` representing the wait time for the peer forwarder to complete processing data before shutdown.
+## Optional
+
+* `port`: An `int` between 0 and 65535 represents the port peer forwarder server is running on. Default value is `4994`.
+* `request_timeout`: Duration - An `int` representing the request timeout in milliseconds for Peer Forwarder HTTP server. Default value is `10000`.
+* `server_thread_count`: An `int` representing number of threads used by Peer Forwarder server. Defaults to `200`.
+* `client_thread_count`: An `int` representing number of threads used by Peer Forwarder client. Defaults to `200`.
+* `maxConnectionCount`: An `int` representing maximum number of open connections for Peer Forwarder server. Default value is `500`.
+* `discovery_mode`: A `String` representing the peer discovery mode to be used. Allowable values are `local_node`, `static`, `dns`, and `aws_cloud_map`. Defaults to `local_node` which processes events locally.
+* `static_endpoints`: A `list` containing endpoints of all Data Prepper instances. Required if `discovery_mode` is set to `static`.
+* `domain_name`: A `String` representing single domain name to query DNS against. Typically, used by creating multiple [DNS A Records](https://www.cloudflare.com/learning/dns/dns-records/dns-a-record/) for the same domain. Required if `discovery_mode` is set to `dns`.
+* `aws_cloud_map_namespace_name`: A `String` representing the Cloud Map namespace when using AWS Cloud Map service discovery. Required if `discovery_mode` is set to `aws_cloud_map`.
+* `aws_cloud_map_service_name`: A `String` representing the Cloud Map service when using AWS Cloud Map service discovery. Required if `discovery_mode` is set to `aws_cloud_map`.
+* `aws_cloud_map_query_parameters`: A `Map` of Key/value pairs to filter the results based on the custom attributes attached to an instance. Only instances that match all the specified key-value pairs are returned.
+* `buffer_size`: An `int` representing max number of unchecked records the buffer accepts (num of unchecked records = num of records written into the buffer + num of in-flight records not yet checked by the Checkpointing API). Default is `512`.
+* `batch_size`: An `int` representing max number of records the buffer returns on read. Default is `48`.
+* `aws_region`: A `String` represents the AWS region to use `ACM`, `S3` or `AWS Cloud Map`. Required if `use_acm_certificate_for_ssl` is set to `true` or `ssl_certificate_file` and `ssl_key_file` is `AWS S3` path or if `discovery_mode` is set to `aws_cloud_map`.
+* `drain_timeout`: A `Duration` representing the wait time for the peer forwarder to complete processing data before shutdown.
 
 ## SSL
 The SSL configuration for setting up trust manager for peer forwarding client to connect to other Data Prepper instances.
 
-* `ssl`(Optional) : A `boolean` that enables TLS/SSL. Default value is `true`.
-* `ssl_certificate_file`(Optional) : A `String` representing the SSL certificate chain file path or AWS S3 path. S3 path example `s3://<bucketName>/<path>`. Defaults to `config/default_certificate.pem` which is default certificate file. Read more about how the certificate file is generated [here](https://github.com/opensearch-project/data-prepper/tree/main/examples/certificates).
-* `ssl_key_file`(Optional) : A `String` represents the SSL key file path or AWS S3 path. S3 path example `s3://<bucketName>/<path>`. Defaults to `config/default_private_key.pem` which is default private key file. Read more about how the private key file is generated [here](https://github.com/opensearch-project/data-prepper/tree/main/examples/certificates).
-* `ssl_insecure_disable_verification`(Optional) : A `boolean` that disables the verification of server's TLS certificate chain. Default value is `false`.
-* `ssl_fingerprint_verification_only`(Optional) : A `boolean` that disables the verification of server's TLS certificate chain and instead verifies only the certificate fingerprint. Default value is `false`.
-* `use_acm_certificate_for_ssl`(Optional) : A `boolean` that enables TLS/SSL using certificate and private key from AWS Certificate Manager (ACM). Default is `false`.
-* `acm_certificate_arn`(Optional) : A `String` represents the ACM certificate ARN. ACM certificate take preference over S3 or local file system certificate. Required if `use_acm_certificate_for_ssl` is set to `true`.
-* `acm_private_key_password`(Optional) : A `String` that represents the ACM private key password which that will be used to decrypt the private key. If it's not provided, a random password will be generated.
-* `acm_certificate_timeout_millis`(Optional) : An `int` representing the timeout in milliseconds for ACM to get certificates. Default value is `120000`.
-* `aws_region`(Optional) : A `String` represents the AWS region to use `ACM`, `S3` or `AWS Cloud Map`. Required if `use_acm_certificate_for_ssl` is set to `true` or `ssl_certificate_file` and `ssl_key_file` is `AWS S3` path or if `discovery_mode` is set to `aws_cloud_map`.
+### Optional
+
+* `ssl`: A `boolean` that enables TLS/SSL. Default value is `true`.
+* `ssl_certificate_file`: A `String` representing the SSL certificate chain file path or AWS S3 path. S3 path example `s3://<bucketName>/<path>`. Defaults to `config/default_certificate.pem` which is default certificate file. Read more about how the certificate file is generated [here](https://github.com/opensearch-project/data-prepper/tree/main/examples/certificates).
+* `ssl_key_file`: A `String` represents the SSL key file path or AWS S3 path. S3 path example `s3://<bucketName>/<path>`. Defaults to `config/default_private_key.pem` which is default private key file. Read more about how the private key file is generated [here](https://github.com/opensearch-project/data-prepper/tree/main/examples/certificates).
+* `ssl_insecure_disable_verification`: A `boolean` that disables the verification of server's TLS certificate chain. Default value is `false`.
+* `ssl_fingerprint_verification_only`: A `boolean` that disables the verification of server's TLS certificate chain and instead verifies only the certificate fingerprint. Default value is `false`.
+* `use_acm_certificate_for_ssl`: A `boolean` that enables TLS/SSL using certificate and private key from AWS Certificate Manager (ACM). Default is `false`.
+* `acm_certificate_arn`: A `String` represents the ACM certificate ARN. ACM certificate take preference over S3 or local file system certificate. Required if `use_acm_certificate_for_ssl` is set to `true`.
+* `acm_private_key_password`: A `String` that represents the ACM private key password which that will be used to decrypt the private key. If it's not provided, a random password will be generated.
+* `acm_certificate_timeout_millis`: An `int` representing the timeout in milliseconds for ACM to get certificates. Default value is `120000`.
+* `aws_region`: A `String` represents the AWS region to use `ACM`, `S3` or `AWS Cloud Map`. Required if `use_acm_certificate_for_ssl` is set to `true` or `ssl_certificate_file` and `ssl_key_file` is `AWS S3` path or if `discovery_mode` is set to `aws_cloud_map`.
 
 ```yaml
 peer_forwarder:
