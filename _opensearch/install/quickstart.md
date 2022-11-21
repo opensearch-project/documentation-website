@@ -9,7 +9,7 @@ nav_order: 1
 
 Get started using OpenSearch and OpenSearch Dashboards by deploying your containers with [Docker](https://www.docker.com/). Before proceeding, you need to [get Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://github.com/docker/compose) installed on your local machine. 
 
-The Docker Compose commands used in this guide are written with a hyphen (for example, `docker-compose`). If you installed Docker Desktop on your machine, which automatically installs a bundled version of Docker Compose, then you should replace `docker-compose` with `docker compose` where it appears in this guide.
+The Docker Compose commands used in this guide are written with a hyphen (for example, `docker-compose`). If you installed Docker Desktop on your machine, which automatically installs a bundled version of Docker Compose, then you should remove the hyphen. For example, change `docker-compose` to `docker compose`.
 {: .note}
 
 ## Starting your cluster
@@ -81,7 +81,7 @@ Create an index and define field mappings using a data set provided by the OpenS
     ```bash
     wget https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_version}}/assets/examples/ecommerce-field_mappings.json
     ```
-1. Download [ecommerce.json](https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_version}}/assets/examples/ecommerce.json). This file contains the [index data]({{site.url}}{{site.baseurl}}/opensearch/index-data/) formatted so that it can be ingested via the bulk API. To learn more, see [Bulk]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/).
+1. Download [ecommerce.json](https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_version}}/assets/examples/ecommerce.json). This file contains the [index data]({{site.url}}{{site.baseurl}}/opensearch/index-data/) formatted so that it can be ingested by the bulk API. To learn more, see [Bulk]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/).
     ```bash
     wget https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_version}}/assets/examples/ecommerce.json
     ```
