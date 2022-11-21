@@ -81,10 +81,19 @@ Create an index and define field mappings using a sample data set.
     ```bash
     wget https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_version}}/assets/examples/ecommerce-field_mappings.json
     ```
-1. Download [ecommerce.json](https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_version}}/assets/examples/ecommerce.json). This file contains the [index data]({{site.url}}{{site.baseurl}}/opensearch/index-data/)
+1. Download [ecommerce.json](https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_version}}/assets/examples/ecommerce.json). This file contains the [index data]({{site.url}}{{site.baseurl}}/opensearch/index-data/) formatted so that it can be ingested via the [bulk API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/).
     ```bash
     wget https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_version}}/assets/examples/ecommerce.json
     ```
+1. Define the field mappings with the mapping file.
+    ```bash
+    curl -H "Content-Type: application/x-ndjson" -X PUT "https://localhost:9200/ecommerce" -ku admin:admin --data-binary "@ecommerce-field_mappings.json"
+    ```
+1. Upload the index to the [bulk API]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/).
+    ```bash
+    curl -H "Content-Type: application/x-ndjson" -X PUT "https://localhost:9200/ecommerce/_bulk" -ku admin:admin --data-binary "@ecommerce.json"
+    ```
+1. Next step here!
 
 ## Common issues
 
