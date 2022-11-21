@@ -126,15 +126,13 @@ A fundamental value that has no children.
 - Null _(Supports null check to see if a Json Pointer is present or not)_
 
 ## Expression string
-The String that will be parsed for evaluation. Expression String is the highest level of a Data Prepper Expression. Only supports one
-Expression String resulting in a return value. Note, an _Expression String_ is not the same as an _Expression_.
+The String that will be parsed for evaluation. Expression String is the highest level of a Data Prepper Expression. Only supports one expression string resulting in a return value. Note, an _Expression String_ is not the same as an _Expression_.
 
 ## Statement
-The highest level component of the Expression String.
+The highest level component of the expression string.
 
 ## Expression
-A generic component that contains a _Primary_ or an _Operator_. Expressions may contain expressions. An expressions imminent children can 
-contains 0-1 _Operators_.
+A generic component that contains a _Primary_ or an _Operator_. Expressions may contain expressions. An expressions imminent children can contains 0-1 _Operators_.
 
 ## Primary
 
