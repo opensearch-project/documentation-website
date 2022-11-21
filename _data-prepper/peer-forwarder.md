@@ -4,18 +4,17 @@ title: Peer forwarder
 nav_order: 12
 ---
 
-## Peer Forwarder
-An HTTP service which performs peer forwarding of `Event` between Data Prepper nodes for aggregation. Currently, supported by `aggregate`, `service_map_stateful`, `otel_trace_raw` processors.
+Peer Forwarder is an HTTP service which performs peer forwarding of `Event` between Data Prepper nodes for aggregation. Currently, supported by `aggregate`, `service_map_stateful`, `otel_trace_raw` processors.
 
-Peer Forwarder groups events based on the identification keys provided the processors.
-For `service_map_stateful` and `otel_trace_raw` it's `traceId` by default and can not be configured.
-It's configurable for `aggregate` processor using `identification_keys` configuration option. You can find more information about identification keys [here](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/aggregate-processor#identification_keys).
+Peer Forwarder groups events based on the identification keys provided the processors. For `service_map_stateful` and `otel_trace_raw` it's `traceId` by default and can not be configured. It's configurable for `aggregate` processor using `identification_keys` configuration option. You can find more information about identification keys [here](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/aggregate-processor#identification_keys).
 
 ---
 
-Presently peer discovery is provided by either a static list or by a DNS record lookup or AWS Cloudmap.
+Right now, peer discovery is provided by either a static list or by a DNS record lookup or AWS Cloudmap.
 
-### Static discovery mode
+## Discovery modes
+
+### Static discovery
 Static discover mode allows Data Prepper node to discover nodes using a list of IP addresses or domain names.
 ```yaml
 peer_forwarder:
@@ -23,22 +22,20 @@ peer_forwarder:
   static_endpoints: ["data-prepper1", "data-prepper2"]
 ```
 
-### DNS lookup discovery mode
-We recommend using DNS discovery over static discovery when scaling out a Data Prepper cluster. The core concept is to configure a DNS provider to return a list of Data Prepper hosts when given a single domain name.
-This is a [DNS A Record](https://www.cloudflare.com/learning/dns/dns-records/dns-a-record/) which indicates a list of IP addresses of a given domain.
+### DNS lookup discovery
+We recommend using DNS discovery over static discovery when scaling out a Data Prepper cluster. The core concept is to configure a DNS provider to return a list of Data Prepper hosts when given a single domain name. This is a [DNS A Record](https://www.cloudflare.com/learning/dns/dns-records/dns-a-record/) which indicates a list of IP addresses of a given domain.
+
 ```yaml
 peer_forwarder:
   discovery_mode: dns
   domain_name: "data-prepper-cluster.my-domain.net"
 ```
 
-### AWS Cloud Map discovery mode
+### AWS Cloud Map discovery
 
 [AWS Cloud Map](https://docs.aws.amazon.com/cloud-map/latest/dg/what-is-cloud-map.html) provides API-based service discovery as well as DNS-based service discovery.
 
-Peer forwarder can use the API-based service discovery. To support this you must have an existing
-namespace configured for API instance discovery. You can create a new one following the instructions
-provided by the [Cloud Map documentation](https://docs.aws.amazon.com/cloud-map/latest/dg/working-with-namespaces.html).
+Peer forwarder can use the API-based service discovery. To support this you must have an existing namespace configured for API instance discovery. You can create a new one following the instructions provided by the [Cloud Map documentation](https://docs.aws.amazon.com/cloud-map/latest/dg/working-with-namespaces.html).
 
 Your Data Prepper configuration needs to include:
 * `aws_cloud_map_namespace_name` - Set to your Cloud Map Namespace name
@@ -49,7 +46,7 @@ Your Data Prepper configuration needs to include:
 Your Data Prepper configuration can optionally include:
 * `aws_cloud_map_query_parameters` - Key/value pairs to filter the results based on the custom attributes attached to an instance. Only instances that match all the specified key-value pairs are returned.
 
-Example configuration:
+#### Example configuration
 
 ```yaml
 peer_forwarder:
@@ -78,7 +75,7 @@ IAM policy shows the necessary permissions.
 }
 ```
 ---
-## Configuration
+# Configuration
 
 * `port`(Optional): An `int` between 0 and 65535 represents the port peer forwarder server is running on. Default value is `4994`.
 * `request_timeout`(Optional): Duration - An `int` representing the request timeout in milliseconds for Peer Forwarder HTTP server. Default value is `10000`.
@@ -96,7 +93,7 @@ IAM policy shows the necessary permissions.
 * `aws_region`(Optional) : A `String` represents the AWS region to use `ACM`, `S3` or `AWS Cloud Map`. Required if `use_acm_certificate_for_ssl` is set to `true` or `ssl_certificate_file` and `ssl_key_file` is `AWS S3` path or if `discovery_mode` is set to `aws_cloud_map`.
 * `drain_timeout`(Optional) : A `Duration` representing the wait time for the peer forwarder to complete processing data before shutdown.
 
-### SSL
+## SSL
 The SSL configuration for setting up trust manager for peer forwarding client to connect to other Data Prepper instances.
 
 * `ssl`(Optional) : A `boolean` that enables TLS/SSL. Default value is `true`.
@@ -117,7 +114,7 @@ peer_forwarder:
   ssl_key_file: "<private-key-file-path>"
 ```
 
-### Authentication
+## Authentication
 
 * `authentication`(Optional) : A `Map` that enables mTLS. It can either be `mutual_tls` or `unauthenticated`. Default value is `unauthenticated`.
 ```yaml
@@ -126,16 +123,16 @@ peer_forwarder:
     mutual_tls:
 ```
 
-## Metrics
+# Metrics
 
 Core Peer Forwarder introduces the following custom metrics and all the metrics are prefixed by `core.peerForwarder`
 
-### Timer
+## Timer
 
 - `requestForwardingLatency`: measures latency of forwarding requests by peer forwarder client.
 - `requestProcessingLatency`: measures latency of processing requests by peer forwarder server.
 
-### Counter
+## Counter
 
 - `requests`: measures total number of forwarded requests.
 - `requestsFailed`: measures total number of failed requests. Requests with HTTP response code other than `200`.
@@ -151,6 +148,6 @@ Core Peer Forwarder introduces the following custom metrics and all the metrics 
 - `recordsActuallyProcessedLocally`: measures total number of records actually processed locally. Sum of `recordsToBeProcessedLocally` and `recordsFailedForwarding`.
 - `recordsReceivedFromPeers`: measures total number of records received from remote peers.
 
-### Gauge
+## Gauge
 
 - `peerEndpoints`: measures number of dynamically discovered peer data-prepper endpoints. For `static` mode, the size is fixed.
