@@ -98,6 +98,9 @@ Create an index and define field mappings using a data set provided by the OpenS
     curl -H 'Content-Type: application/json' -X GET "https://localhost:9200/ecommerce/_search?pretty=true" -ku admin:admin -d' {"query":{"match":{"customer_first_name":"Sonya"}}}'
     ```
 
+Add the query parameter `pretty=true` to OpenSearch API requests that return a JSON to see a more readable version of the response body. Otherwise the response will be a flat JSON. For more information about `pretty` and other query parameters, see [Common REST parameters]({{site.url}}{{site.baseurl}}/opensearch/common-parameters/).
+{: .tip}
+
 ## Common issues
 
 Review these common issues and suggested solutions if your containers fail to start or exit unexpectedly.
