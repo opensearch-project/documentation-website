@@ -32,7 +32,7 @@ You will need a special file, called a compose file, that Docker Compose uses to
         # Reload the kernel parameters.
         sudo sysctl -p
         ```  
-1. Download the sample compose file to your host. You can download the file with command line utilities like `curl` or `wget`, or you can manually copy the file from the OpenSearch Project [documentation-website](https://github.com/opensearch-project/documentation-website/tree/{{site.opensearch_version}}/assets/examples/docker-compose.yml) repository from a web browser.
+1. Download the sample compose file to your host. You can download the file with command line utilities like `curl` and `wget`, or you can manually copy [docker-compose.yml](https://github.com/opensearch-project/documentation-website/tree/{{site.opensearch_version}}/assets/examples/docker-compose.yml) from the OpenSearch Project documentation-website repository using a web browser.
     ```bash
     # Using cURL:
     curl -O https://github.com/opensearch-project/documentation-website/tree/{{site.opensearch_version}}/assets/examples/docker-compose.yml
@@ -79,10 +79,18 @@ Create an index and define field mappings using a data set provided by the OpenS
 
 1. Download [ecommerce-field_mappings.json](https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_version}}/assets/examples/ecommerce-field_mappings.json). This file defines a [mapping]({{site.url}}{{site.baseurl}}/opensearch/mappings/) for the sample data you will use.
     ```bash
+    # Using cURL:
+    curl -O https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_version}}/assets/examples/ecommerce-field_mappings.json
+
+    # Using wget:
     wget https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_version}}/assets/examples/ecommerce-field_mappings.json
     ```
-1. Download [ecommerce.json](https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_version}}/assets/examples/ecommerce.json). This file contains the [index data]({{site.url}}{{site.baseurl}}/opensearch/index-data/) formatted so that it can be ingested by the bulk API. To learn more, see [Bulk]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/).
+1. Download [ecommerce.json](https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_version}}/assets/examples/ecommerce.json). This file contains the index data formatted so that it can be ingested by the bulk API. To learn more, see [index data]({{site.url}}{{site.baseurl}}/opensearch/index-data/) and [Bulk]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/).
     ```bash
+    # Using cURL:
+    curl -O https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_version}}/assets/examples/ecommerce.json
+
+    # Using wget:
     wget https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_version}}/assets/examples/ecommerce.json
     ```
 1. Define the field mappings with the mapping file.
@@ -105,7 +113,7 @@ Create an index and define field mappings using a data set provided by the OpenS
     {
         "query": {
             "match": {
-            "customer_first_name": "Sonya"
+                "customer_first_name": "Sonya"
             }
         }
     }
@@ -131,8 +139,7 @@ Review these common issues and suggested solutions if your containers fail to st
 
 ### Docker commands require elevated permissions
 
-Eliminate the need for running your Docker commands with `sudo` by adding your user to the `docker` user group. See [Post-installation steps for Linux](https://docs.docker.com/engine/install/linux-postinstall/) for more information.
-
+Eliminate the need for running your Docker commands with `sudo` by adding your user to the `docker` user group. See Docker's [Post-installation steps for Linux](https://docs.docker.com/engine/install/linux-postinstall/) for more information.
 ```bash
 sudo usermod -aG docker $USER
 ```
@@ -148,7 +155,6 @@ If you installed Docker Engine then you must install Docker Compose separately, 
 ### Error message: "max virtual memory areas vm.max_map_count [65530] is too low"
 
 OpenSearch will fail to start if your host is not configured with a high enough max map count. Review the [important system settings]({{site.url}}{{site.baseurl}}/opensearch/install/important-settings/) if you see the following errors in the service log, and set `vm.max_map_count` appropriately.
-
 ```bash
 opensearch-node1         | ERROR: [1] bootstrap checks failed
 opensearch-node1         | [1]: max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]
