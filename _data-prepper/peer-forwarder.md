@@ -12,9 +12,9 @@ Peer Forwarder groups events based on the identification keys provided the proce
 
 Right now, peer discovery is provided by either a static list or by a DNS record lookup or AWS Cloudmap.
 
-## Discovery modes
+# Discovery modes
 
-### Static discovery
+## Static
 Static discover mode allows Data Prepper node to discover nodes using a list of IP addresses or domain names.
 ```yaml
 peer_forwarder:
@@ -22,7 +22,7 @@ peer_forwarder:
   static_endpoints: ["data-prepper1", "data-prepper2"]
 ```
 
-### DNS lookup discovery
+## DNS lookup
 We recommend using DNS discovery over static discovery when scaling out a Data Prepper cluster. The core concept is to configure a DNS provider to return a list of Data Prepper hosts when given a single domain name. This is a [DNS A Record](https://www.cloudflare.com/learning/dns/dns-records/dns-a-record/) which indicates a list of IP addresses of a given domain.
 
 ```yaml
@@ -31,7 +31,7 @@ peer_forwarder:
   domain_name: "data-prepper-cluster.my-domain.net"
 ```
 
-### AWS Cloud Map discovery
+## AWS Cloud Map
 
 [AWS Cloud Map](https://docs.aws.amazon.com/cloud-map/latest/dg/what-is-cloud-map.html) provides API-based service discovery as well as DNS-based service discovery.
 
@@ -46,7 +46,7 @@ Your Data Prepper configuration needs to include:
 Your Data Prepper configuration can optionally include:
 * `aws_cloud_map_query_parameters` - Key/value pairs to filter the results based on the custom attributes attached to an instance. Only instances that match all the specified key-value pairs are returned.
 
-#### Example configuration
+### Example configuration
 
 ```yaml
 peer_forwarder:
@@ -58,8 +58,9 @@ peer_forwarder:
   aws_region: "us-east-1"
 ```
 
-The Data Prepper must also be running with the necessary permissions. The following
-IAM policy shows the necessary permissions.
+### IAM policy with necessary permissions
+
+The Data Prepper must also be running with the necessary permissions. The following IAM policy shows the necessary permissions.
 
 ```json
 {
@@ -77,7 +78,7 @@ IAM policy shows the necessary permissions.
 ---
 # Configuration
 
-## Optional
+## Optional configuration
 
 * `port`: An `int` between 0 and 65535 represents the port peer forwarder server is running on. Default value is `4994`.
 * `request_timeout`: Duration - An `int` representing the request timeout in milliseconds for Peer Forwarder HTTP server. Default value is `10000`.
@@ -95,10 +96,10 @@ IAM policy shows the necessary permissions.
 * `aws_region`: A `String` represents the AWS region to use `ACM`, `S3` or `AWS Cloud Map`. Required if `use_acm_certificate_for_ssl` is set to `true` or `ssl_certificate_file` and `ssl_key_file` is `AWS S3` path or if `discovery_mode` is set to `aws_cloud_map`.
 * `drain_timeout`: A `Duration` representing the wait time for the peer forwarder to complete processing data before shutdown.
 
-## SSL
+# SSL configuration
 The SSL configuration for setting up trust manager for peer forwarding client to connect to other Data Prepper instances.
 
-### Optional
+## Optional SSL configuration
 
 * `ssl`: A `boolean` that enables TLS/SSL. Default value is `true`.
 * `ssl_certificate_file`: A `String` representing the SSL certificate chain file path or AWS S3 path. S3 path example `s3://<bucketName>/<path>`. Defaults to `config/default_certificate.pem` which is default certificate file. Read more about how the certificate file is generated [here](https://github.com/opensearch-project/data-prepper/tree/main/examples/certificates).
@@ -118,7 +119,7 @@ peer_forwarder:
   ssl_key_file: "<private-key-file-path>"
 ```
 
-## Authentication
+# Authentication
 
 * `authentication`(Optional) : A `Map` that enables mTLS. It can either be `mutual_tls` or `unauthenticated`. Default value is `unauthenticated`.
 ```yaml
@@ -129,14 +130,14 @@ peer_forwarder:
 
 # Metrics
 
-Core Peer Forwarder introduces the following custom metrics and all the metrics are prefixed by `core.peerForwarder`
+Core Peer Forwarder introduces the following custom metrics and all the metrics are prefixed by `core.peerForwarder`.
 
-## Timer
+# Timer
 
 - `requestForwardingLatency`: measures latency of forwarding requests by peer forwarder client.
 - `requestProcessingLatency`: measures latency of processing requests by peer forwarder server.
 
-## Counter
+# Counter
 
 - `requests`: measures total number of forwarded requests.
 - `requestsFailed`: measures total number of failed requests. Requests with HTTP response code other than `200`.
