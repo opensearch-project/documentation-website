@@ -110,15 +110,14 @@ Create an index and define field mappings using a data set provided by the OpenS
         }
     }
     ```
-1. Select the triangle icon at the top right of the request to submit the query. You can also submit the request by pressing `Ctrl+Enter` (or`Cmd+Enter` for Mac users). To learn more about using the OpenSearch Dashboards console for submitting queries, see [Running queries in the console]({{site.url}}{{site.baseurl}}/dashboards/run-queries/).
+1. Select the triangle icon at the top right of the request to submit the query. You can also submit the request by pressing `Ctrl+Enter` (or `Cmd+Enter` for Mac users). To learn more about using the OpenSearch Dashboards console for submitting queries, see [Running queries in the console]({{site.url}}{{site.baseurl}}/dashboards/run-queries/).
 
 Add the query parameter `pretty=true` to OpenSearch API requests that return a JSON to see a more readable version of the response body. Otherwise the response will be a flat JSON. For more information about `pretty` and other query parameters, see [Common REST parameters]({{site.url}}{{site.baseurl}}/opensearch/common-parameters/).
 {: .tip}
 
 ## Next steps
 
-You have successfully deployed your own OpenSearch cluster with OpenSearch Dashboards, and added some sample data. Now you're ready to start exploring configuration and functionality in more detail. Here are a few recommendations on where to begin.
-
+You successfully deployed your own OpenSearch cluster with OpenSearch Dashboards and added some sample data. Now you're ready to learn about configuration and functionality in more detail. Here are a few recommendations on where to begin:
 - [About the security plugin]({{site.url}}{{site.baseurl}}/security-plugin/index/)
 - [OpenSearch configuration]({{site.url}}{{site.baseurl}}/opensearch/configuration/)
 - [OpenSearch plugin installation]({{site.url}}{{site.baseurl}}/opensearch/install/plugins/)
