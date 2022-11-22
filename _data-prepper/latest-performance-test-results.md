@@ -275,7 +275,9 @@ output {
 } 
 ```
 
-The following changes were made to the `logstash.yml` file in order to replicate the Data Prepper configuration as much as possible
+The following changes were made to the `logstash.yml` file in order to replicate the Data Prepper configuration as much as possible:
+
+## Logstash.yaml
 
 ```yaml
 pipeline.workers: 12
