@@ -1,6 +1,6 @@
 ---
 layout: default
-title: ML Commons cluster settings
+title: ML cluster settings
 has_children: false
 nav_order: 10
 ---
@@ -17,4 +17,4 @@ This page provides an overview of `opensearch.yml` settings that can be configur
 | `plugins.ml_commons.monitoring_request_coun`t | 100 | [0, 10_000_000] | Controls how many predict requests are monitored on one node. If set to `0`, ML Commons cleans up monitoring requests and won't monitor predict requests. |
 | `plugins.ml_commons.max_upload_model_tasks_per_node` | 10 | [0, 10] | Controls how many upload model tasks can run in parallel on one node. If set as 0, you cannot upload models to any node. |
 | `plugins.ml_commons.max_load_model_tasks_per_node` | 10 | [0, 10] | Controls how many load model tasks can run in parallel on one node. If set as 0, you cannot load models to any node. |
-| `plugins.ml_commons.trusted_url_regex` | `^(https?\|ftp\|file)://[-a-zA-Z0-9+&@#/%?=~_\|!:,.;]*[-a-zA-Z0-9+&@#/%=~_\|]` | Java regular expression (RegEx) string | The default value allows uploading model file from any http/https/ftp/local file. You can change this value to restrict trusted model URL. |
+| `plugins.ml_commons.trusted_url_regex` | `^(https?\|ftp\|file)://[-a-zA-Z0-9+&@#/%?=~_\|!:,.;]*[-a-zA-Z0-9+&@#/%=~_\|]` | Java regular expression (regex) string | The default value allows uploading model file from any http/https/ftp/local file. You can change this value to restrict trusted model URL. |
