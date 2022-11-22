@@ -99,3 +99,61 @@ Setting `size` to a high value (for example, larger than 250 documents) may degr
 
 You cannot save a given comparison for future use, so Compare Search Results is not suitable for systematic testing.
 {: .note}
+
+## Comparing search results with the OpenSearch Intelligent Ranking plugin
+
+The OpenSearch Intelligent Ranking plugin takes search results returned from OpenSearch and processes them using the Amazon Kendra intelligent enterprise search service. The Amazon Kendra service leverages semantic search capabilities to re-rank OpenSearch results, considering the context of the OpenSearch query and relevant documents from OpenSearch.
+
+To use the OpenSearch Intelligent Ranking plugin, you must first set up the Amazon Kendra service. To get started, see [Amazon Kendra](https://aws.amazon.com/kendra/). For plugin setup instructions, see [OpenSearch Intelligent Ranking plugin](https://docs.aws.amazon.com/kendra/latest/dg/opensearch-rerank.html).
+
+Once you've set up the OpenSearch Intelligent Ranking plugin, you can compare search results from OpenSearch and Amazon Kendra by entering an OpenSearch query in **Query 1** and an Intelligent Ranking query in **Query 2**.
+
+### Example
+
+The following example searches for the text "data" in the `oci` index. 
+
+<img src="{{site.url}}{{site.baseurl}}/images/kendra/kendra-query.png" alt="Compare OpenSearch and Kendra results: query"/>{: .img-fluid }
+
+1. Enter `data` in the search bar.
+1. Enter the following query, which searches the `text` field for the search text "data", as **Query 1**:
+
+    ```json
+    {
+      "size": 25,
+      "query": {
+        "match": {
+          "text": "%SearchText%"
+        }
+      }
+    }
+    ```
+1. Enter the same query with intelligent ranking as **Query 2**:
+
+    ```json
+    {
+      "size": 25,
+      "query": {
+        "match": {
+          "text": "%SearchText%"
+        }
+      },      
+      "ext": {
+        "search_configuration": {
+          "result_transformer": {
+            "kendra_intelligent_ranking": {
+              "order": 1,
+              "properties": {
+                "title_field": "title",
+                "body_field": "text"
+              }
+            }
+          }
+        }
+      }
+    }
+    ```
+
+  In the preceding query, `body_field` refers to the body field of the documents in the index, on which the Intelligent Ranking plugin ranks the results. The `body_field` is required, while the `title_field` is optional.
+1. Select **Search** and compare the results in **Result 1** and **Result 2**.
+
+<img src="{{site.url}}{{site.baseurl}}/images/kendra/kendra-results.png" alt="Compare OpenSearch and Kendra results: results"/>{: .img-fluid }
