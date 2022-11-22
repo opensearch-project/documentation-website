@@ -17,27 +17,26 @@ Gatling reported the following results for the test that was run for Data Preppe
 
 ## Logstash
 
-Gatling reported the following results for the test that was run for Data Prepper. These results show that `75,709` requests were succesfully sent to Data Prepper. Throughput can be measured as
-`75,709 * 200 (batch size) logs = 15,141,800 logs / 1,200 s = 12,618 logs/s`. The Gatling report also shows a distribution of latency on the side of the `http` source, with an average latency of `158 ms`
+Gatling reported the following results for the test that was run for Data Prepper. These results show that `75,709` requests were succesfully sent to Data Prepper. Throughput can be measured as `75,709 * 200 (batch size) logs = 15,141,800 logs / 1,200 s = 12,618 logs/s`. The Gatling report also shows a distribution of latency on the side of the `http` source, with an average latency of `158 ms`.
 
 ![](images/LogstashGatling.png)
 
 ## Conclusion
 Data Prepper has a `56%` higher throughput than Logstash, and an average latency that is `56%` lower than Logstash.
 
-# Environment Details
+# Environment details
 
-## Data Prepper Environment
+## Data Prepper environment
 
 ![](images/PerformanceTestEnvironment.png)
 
-## Logstash Environment
+## Logstash environment
 
 ![](images/PerformanceTestEnvironmentLogstash.png)
 
 Comparing the performance of the latest release of Data Prepper 1.3 against Logstash 7.13.2, the test was configured to simulate 10 clients to send requests as frequently as possible. Each request was contained a batch of 200 logs. The test ran for 20 minutes, measuring the latency and throughput.
 
-## AWS Resource Details
+## AWS resource details
 
 | Name                              | EC2 Instance Type | Instance Count | vCPU | Memory (GiB) | JVM Memory Limit (GiB) | Software Version |
 |-----------------------------------| :---------------- | -------------: |-----:| -----------: |-----------------------:|-----------------:|
@@ -285,9 +284,9 @@ pipeline.batch.size: 5000
 
 # Running tests
 
-If you wish to run performance tests on your own Data Prepper configuration, you can replicate the environment used. You can utilize the Gatling performance test suite in this repo on another EC2, and point Gatling to your running Data Prepper instance with the following command:
+If you wish to run performance tests on your own Data Prepper configuration, you can replicate the environment used. Utilize the Gatling performance test suite in this repo on another EC2, and point Gatling to your running Data Prepper instance with the following command:
 
 ```
 ./gradlew --rerun-tasks :performance-test:gatlingRun-org.opensearch.dataprepper.test.performance.FixedClientSimulation -Dhost="<target_url>" -DlogFile="/path/to/logFile"
 ```
-After all tests have completed HTML reports will be created in `data-prepper/performance-test/build/reports/gatling/<simulation-name>-<unix-timestamp>/index.html`. Further instructions on running performance tests and Gatling are available in the repository readme.
+After all tests complete, HTML reports are created in `data-prepper/performance-test/build/reports/gatling/<simulation-name>-<unix-timestamp>/index.html`. Further instructions on running performance tests and Gatling are available.
