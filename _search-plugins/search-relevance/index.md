@@ -110,41 +110,41 @@ Once you've set up the OpenSearch Intelligent Ranking plugin, you can compare se
 
 ### Example
 
-The following example searches for the text "data" in the `oci` index. 
+The following example searches for the text "snacking nuts" in the `abo` index. The documents in the index hold snack descriptions in the `bullet_point` array. 
 
-<img src="{{site.url}}{{site.baseurl}}/images/kendra/kendra-query.png" alt="Compare OpenSearch and Kendra results: query"/>{: .img-fluid }
+<img src="{{site.url}}{{site.baseurl}}/images/kendra/kendra_query.png" alt="OpenSearch Intelligent Ranking query"/>{: .img-fluid }
 
-1. Enter `data` in the search bar.
-1. Enter the following query, which searches the `text` field for the search text "data", as **Query 1**:
+1. Enter `snacking nuts` in the search bar.
+1. Enter the following query, which searches the `bullet_point` field for the search text "snacking nuts", in **Query 1**:
 
     ```json
     {
-      "size": 25,
       "query": {
         "match": {
-          "text": "%SearchText%"
+          "bullet_point": "%SearchText%"
         }
-      }
+      },
+      "size": 25
     }
     ```
-1. Enter the same query with intelligent ranking as **Query 2**:
+1. Enter the same query with intelligent ranking in **Query 2**:
 
     ```json
     {
-      "size": 25,
-      "query": {
-        "match": {
-          "text": "%SearchText%"
+      "query" : {
+        "match" : {
+          "bullet_point": "%SearchText%"
         }
-      },      
+      },
+      "size": 25,
       "ext": {
-        "search_configuration": {
-          "result_transformer": {
+        "search_configuration":{
+          "result_transformer" : {
             "kendra_intelligent_ranking": {
               "order": 1,
               "properties": {
-                "title_field": "title",
-                "body_field": "text"
+                "title_field": "item_name",
+                "body_field": "bullet_point"
               }
             }
           }
@@ -153,7 +153,7 @@ The following example searches for the text "data" in the `oci` index.
     }
     ```
 
-  In the preceding query, `body_field` refers to the body field of the documents in the index, on which the Intelligent Ranking plugin ranks the results. The `body_field` is required, while the `title_field` is optional.
+    In the preceding query, `body_field` refers to the body field of the documents in the index, on which the Intelligent Ranking plugin ranks the results. The `body_field` is required, while the `title_field` is optional.
 1. Select **Search** and compare the results in **Result 1** and **Result 2**.
 
-<img src="{{site.url}}{{site.baseurl}}/images/kendra/kendra-results.png" alt="Compare OpenSearch and Kendra results: results"/>{: .img-fluid }
+<img src="{{site.url}}{{site.baseurl}}/images/kendra/kendra_results.png" alt="OpenSearch Intelligent Ranking results"/>{: .img-fluid }
