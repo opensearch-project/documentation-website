@@ -14,7 +14,7 @@ The Docker Compose commands used in this guide are written with a hyphen (for ex
 
 ## Starting your cluster
 
-You will need a special file, called a Compose file, that Docker Compose uses to define and create the containers in your cluster. We provide a sample Compose file that you can use to get started. Learn more about working with Compose files by reviewing the official [Compose specification](https://docs.docker.com/compose/compose-file/).
+You'll need a special file, called a Compose file, that Docker Compose uses to define and create the containers in your cluster. The OpenSearch Project provides a sample Compose file that you can use to get started. Learn more about working with Compose files by reviewing the official [Compose specification](https://docs.docker.com/compose/compose-file/).
 
 1. Before running OpenSearch on your machine, you should review and apply these [important system settings]({{site.url}}{{site.baseurl}}/opensearch/install/important-settings/).
     - Disable memory paging and swapping performance on the host to improve performance.
