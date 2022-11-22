@@ -14,7 +14,7 @@ The Docker Compose commands used in this guide are written with a hyphen (for ex
 
 ## Starting your cluster
 
-You will need a special file, called a compose file, that Docker Compose uses to define and create the containers in your cluster. We provide a sample compose file that you can use to get started. Learn more about working with compose files by reviewing the official [Compose specification](https://docs.docker.com/compose/compose-file/).
+You will need a special file, called a Compose file, that Docker Compose uses to define and create the containers in your cluster. We provide a sample Compose file that you can use to get started. Learn more about working with Compose files by reviewing the official [Compose specification](https://docs.docker.com/compose/compose-file/).
 
 1. Before running OpenSearch on your machine, you should review and apply these [important system settings]({{site.url}}{{site.baseurl}}/opensearch/install/important-settings/).
     - Disable memory paging and swapping performance on the host to improve performance.
@@ -32,7 +32,7 @@ You will need a special file, called a compose file, that Docker Compose uses to
         # Reload the kernel parameters.
         sudo sysctl -p
         ```  
-1. Download the sample compose file to your host. You can download the file with command line utilities like `curl` and `wget`, or you can manually copy [docker-compose.yml](https://github.com/opensearch-project/documentation-website/tree/{{site.opensearch_version}}/assets/examples/docker-compose.yml) from the OpenSearch Project documentation-website repository using a web browser.
+1. Download the sample Compose file to your host. You can download the file with command line utilities like `curl` and `wget`, or you can manually copy [docker-compose.yml](https://github.com/opensearch-project/documentation-website/tree/{{site.opensearch_version}}/assets/examples/docker-compose.yml) from the OpenSearch Project documentation-website repository using a web browser.
     ```bash
     # Using cURL:
     curl -O https://github.com/opensearch-project/documentation-website/tree/{{site.opensearch_version}}/assets/examples/docker-compose.yml
@@ -75,7 +75,7 @@ You will need a special file, called a compose file, that Docker Compose uses to
 
 ## Create an index and field mappings using sample data
 
-Create an index and define field mappings using a data set provided by the OpenSearch Project. The same fictitious e-commerce data is also used for sample visualizations in OpenSearch Dashboards. To learn more, see [Getting started with OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/index/).
+Create an index and define field mappings using a dataset provided by the OpenSearch Project. The same fictitious e-commerce data is also used for sample visualizations in OpenSearch Dashboards. To learn more, see [Getting started with OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/index/).
 
 1. Download [ecommerce-field_mappings.json](https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_version}}/assets/examples/ecommerce-field_mappings.json). This file defines a [mapping]({{site.url}}{{site.baseurl}}/opensearch/mappings/) for the sample data you will use.
     ```bash
@@ -120,7 +120,7 @@ Create an index and define field mappings using a data set provided by the OpenS
     ```
 1. Select the triangle icon at the top right of the request to submit the query. You can also submit the request by pressing `Ctrl+Enter` (or `Cmd+Enter` for Mac users). To learn more about using the OpenSearch Dashboards console for submitting queries, see [Running queries in the console]({{site.url}}{{site.baseurl}}/dashboards/run-queries/).
 
-Add the query parameter `pretty=true` to OpenSearch API requests that return a JSON to see a more readable version of the response body. Otherwise the response will be a flat JSON. For more information about `pretty` and other query parameters, see [Common REST parameters]({{site.url}}{{site.baseurl}}/opensearch/common-parameters/).
+Add the query parameter `pretty=true` to OpenSearch API requests that return a JSON to see a more readable version of the response body. Otherwise, the response will be a flat JSON. For more information about `pretty` and other query parameters, see [Common REST parameters]({{site.url}}{{site.baseurl}}/opensearch/common-parameters/).
 {: .tip}
 
 ## Next steps
@@ -146,15 +146,15 @@ sudo usermod -aG docker $USER
 
 ### Error message: "-bash: docker-compose: command not found"
 
-If you installed Docker Desktop then Docker Compose is already installed on your machine. Try `docker compose` (without the hyphen) instead of `docker-compose`. See [Use Docker Compose](https://docs.docker.com/get-started/08_using_compose/).
+If you installed Docker Desktop, then Docker Compose is already installed on your machine. Try `docker compose` (without the hyphen) instead of `docker-compose`. See [Use Docker Compose](https://docs.docker.com/get-started/08_using_compose/).
 
 ### Error message: "docker: 'compose' is not a docker command."
 
-If you installed Docker Engine then you must install Docker Compose separately, and you will use the command `docker-compose` (with a hyphen). See [Docker Compose](https://github.com/docker/compose).
+If you installed Docker Engine, then you must install Docker Compose separately, and you will use the command `docker-compose` (with a hyphen). See [Docker Compose](https://github.com/docker/compose).
 
 ### Error message: "max virtual memory areas vm.max_map_count [65530] is too low"
 
-OpenSearch will fail to start if your host is not configured with a high enough max map count. Review the [important system settings]({{site.url}}{{site.baseurl}}/opensearch/install/important-settings/) if you see the following errors in the service log, and set `vm.max_map_count` appropriately.
+OpenSearch will fail to start if your host's `vm.max_map_count` is too low. Review the [important system settings]({{site.url}}{{site.baseurl}}/opensearch/install/important-settings/) if you see the following errors in the service log, and set `vm.max_map_count` appropriately.
 ```bash
 opensearch-node1         | ERROR: [1] bootstrap checks failed
 opensearch-node1         | [1]: max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]
