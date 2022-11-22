@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Browser compatibility
-nav_order: 3
+parent: Install OpenSearch Dashboards
+nav_order: 1
 ---
 
 # Browser compatibility

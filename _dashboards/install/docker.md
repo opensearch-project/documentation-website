@@ -2,7 +2,7 @@
 layout: default
 title: Docker
 parent: Install OpenSearch Dashboards
-nav_order: 1
+nav_order: 5
 ---
 
 # Run OpenSearch Dashboards using Docker
