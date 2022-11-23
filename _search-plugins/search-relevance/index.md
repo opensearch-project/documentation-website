@@ -100,13 +100,13 @@ Setting `size` to a high value (for example, larger than 250 documents) may degr
 You cannot save a given comparison for future use, so Compare Search Results is not suitable for systematic testing.
 {: .note}
 
-## Comparing search results with the OpenSearch Intelligent Ranking plugin
+## Comparing OpenSearch search results with re-ranked results
 
-The OpenSearch Intelligent Ranking plugin takes search results returned from OpenSearch and processes them using the Amazon Kendra intelligent enterprise search service. The Amazon Kendra service leverages semantic search capabilities to re-rank OpenSearch results, considering the context of the OpenSearch query and relevant documents from OpenSearch.
+One use case of Compare Search Results is to compare raw OpenSearch results with the same results processed by a re-ranking application. Currently, OpenSearch supports processing search results with the **Kendra Intelligent Ranking for OpenSearch** plugin. This plugin takes search results from OpenSearch and applies Kendra’s semantic relevance rankings calculated using vector embeddings and other semantic search techniques. For many applications, this gives better result rankings.
 
-To use the OpenSearch Intelligent Ranking plugin, you must first set up the Amazon Kendra service. To get started, see [Amazon Kendra](https://aws.amazon.com/kendra/). For detailed information, including setup instructions, see [Intelligently ranking OpenSearch (self managed) results using Amazon Kendra](https://docs.aws.amazon.com/kendra/latest/dg/opensearch-rerank.html).
+To use Kendra Intelligent Ranking, you must first set up the Amazon Kendra service. To get started, see [Amazon Kendra](https://aws.amazon.com/kendra/). For detailed information, including plugin setup instructions, see [Intelligently ranking OpenSearch (self managed) results using Amazon Kendra](https://docs.aws.amazon.com/kendra/latest/dg/opensearch-rerank.html).
 
-Once you've set up the OpenSearch Intelligent Ranking plugin, you can compare search results from OpenSearch and Amazon Kendra by entering an OpenSearch query in **Query 1** and an Intelligent Ranking query in **Query 2**.
+Once you've set up Kendra Intelligent Ranking, enter an OpenSearch query in **Query 1** and a query using the Kendra Intelligent Ranking service **Query 2**. Then compare search results from OpenSearch and Amazon Kendra.
 
 ### Example
 
@@ -153,7 +153,7 @@ The following example searches for the text "snacking nuts" in the `abo` index. 
     }
     ```
 
-    In the preceding query, `body_field` refers to the body field of the documents in the index, on which the Intelligent Ranking plugin ranks the results. The `body_field` is required, while the `title_field` is optional.
+    In the preceding query, `body_field` refers to the body field of the documents in the index, on which Kendra Intelligent Ranking ranks the results. The `body_field` is required, while the `title_field` is optional.
 1. Select **Search** and compare the results in **Result 1** and **Result 2**.
 
 <img src="{{site.url}}{{site.baseurl}}/images/kendra/kendra_results.png" alt="OpenSearch Intelligent Ranking results"/>{: .img-fluid }
