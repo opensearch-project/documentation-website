@@ -8,7 +8,7 @@ This tutorial walks you through creating a simple Data Prepper pipeline and how 
 
 # Installation
 
-First, install via Docker.
+First, install via Docker using the following command:
 
 ```
 docker pull opensearchproject/data-prepper:latest
@@ -16,7 +16,7 @@ docker pull opensearchproject/data-prepper:latest
 
 # Simple configuration
 
-To help you get started, we have a simple configuration which you can use to run Data Prepper. It generates random strings and writes them to stdout.
+To help you get started, we have a simple configuration which you can use to run Data Prepper. It generates random strings and writes them to stdout. 
 
 Create a Data Prepper configuration file, `data-prepper-config.yaml`, with:
 
@@ -38,7 +38,7 @@ simple-sample-pipeline:
 
 # Running
 
-The remainder of this page shows examples for running from the Docker image. If you built from source, you will need to make some modifications to the example commands.
+Below are examples for running from the Docker image. If you built from source, you need to make some modifications to the example commands.
 
 For Data Prepper 2.0 or above, use this command:
 ```
@@ -142,6 +142,6 @@ Shut down Data Prepper.
 curl -X POST http://localhost:4900/shutdown
 ```
 
-# Next Steps
+# Next steps
 
 This page explains basics of Data Prepper. If you want to setup a useful observability suite, visit the [Trace Analytics documentation](trace_analytics.md).
