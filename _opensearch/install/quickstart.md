@@ -111,9 +111,10 @@ Create an index and define field mappings using a dataset provided by the OpenSe
     ```bash
     curl -H 'Content-Type: application/json' -X GET "https://localhost:9200/ecommerce/_search?pretty=true" -ku admin:admin -d' {"query":{"match":{"customer_first_name":"Sonya"}}}'
     ```
+    - Add the query parameter `pretty=true` to OpenSearch API requests that return a JSON to see a more readable version of the response body. Otherwise, the response will be a flat JSON. For more information about `pretty` and other query parameters, see [Common REST parameters]({{site.url}}{{site.baseurl}}/opensearch/common-parameters/).
 1. Access OpenSearch Dashboards by opening `http://localhost:5601/` in a web browser on the same host that is running your OpenSearch cluster.
     - The default username is `admin` and the default password is `admin`.
-1. Select the **menu** icon in the top left, then select **Dev Tools** under **Management**.
+1. On the top menu bar, go to **Management > Dev Tools**.
 1. In the left pane of the console, enter the following:
     ```json
     GET ecommerce/_search
@@ -126,9 +127,6 @@ Create an index and define field mappings using a dataset provided by the OpenSe
     }
     ```
 1. Select the triangle icon at the top right of the request to submit the query. You can also submit the request by pressing `Ctrl+Enter` (or `Cmd+Enter` for Mac users). To learn more about using the OpenSearch Dashboards console for submitting queries, see [Running queries in the console]({{site.url}}{{site.baseurl}}/dashboards/run-queries/).
-
-Add the query parameter `pretty=true` to OpenSearch API requests that return a JSON to see a more readable version of the response body. Otherwise, the response will be a flat JSON. For more information about `pretty` and other query parameters, see [Common REST parameters]({{site.url}}{{site.baseurl}}/opensearch/common-parameters/).
-{: .tip}
 
 ## Next steps
 
