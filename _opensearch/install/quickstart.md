@@ -44,9 +44,13 @@ You'll need a special file, called a Compose file, that Docker Compose uses to d
     ```bash
     docker-compose up -d
     ```
-1. Confirm that the containers are running.
+1. Confirm that the containers are running with the command `docker-compose ps`. You should see an output like the following:
     ```bash
-    docker-compose ps
+    $ docker-compose ps
+    NAME                    COMMAND                  SERVICE                 STATUS              PORTS
+    opensearch-dashboards   "./opensearch-dashbo…"   opensearch-dashboards   running             0.0.0.0:5601->5601/tcp
+    opensearch-node1        "./opensearch-docker…"   opensearch-node1        running             0.0.0.0:9200->9200/tcp, 9300/tcp, 0.0.0.0:9600->9600/tcp, 9650/tcp
+    opensearch-node2        "./opensearch-docker…"   opensearch-node2        running             9200/tcp, 9300/tcp, 9600/tcp, 9650/tcp
     ```
 1. Query the OpenSearch REST API to verify that the service is running. You should use `-k` (also written as `--insecure`) to disable host name checking because the default security configuration uses demo certificates. Use `-u` to pass the default username and password (`admin:admin`).
     ```bash
@@ -72,6 +76,8 @@ You'll need a special file, called a Compose file, that Docker Compose uses to d
     "tagline" : "The OpenSearch Project: https://opensearch.org/"
     }
     ```
+1. Explore OpenSearch Dashboards by opening `http://localhost:5601/` in a web browser on the same host that is running your OpenSearch cluster.
+    - The default username is `admin` and the default password is `admin`.
 
 ## Create an index and field mappings using sample data
 
@@ -106,6 +112,7 @@ Create an index and define field mappings using a dataset provided by the OpenSe
     curl -H 'Content-Type: application/json' -X GET "https://localhost:9200/ecommerce/_search?pretty=true" -ku admin:admin -d' {"query":{"match":{"customer_first_name":"Sonya"}}}'
     ```
 1. Access OpenSearch Dashboards by opening `http://localhost:5601/` in a web browser on the same host that is running your OpenSearch cluster.
+    - The default username is `admin` and the default password is `admin`.
 1. Select the **menu** icon in the top left, then select **Dev Tools** under **Management**.
 1. In the left pane of the console, enter the following:
     ```json
