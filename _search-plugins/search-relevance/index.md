@@ -102,11 +102,11 @@ You cannot save a given comparison for future use, so Compare Search Results is 
 
 ## Comparing OpenSearch search results with re-ranked results
 
-One use case of Compare Search Results is to compare raw OpenSearch results with the same results processed by a re-ranking application. An example of such re-ranker is **Kendra Intelligent Ranking for OpenSearch**, contributed by the Amazon Kendra team. This plugin takes search results from OpenSearch and applies Kendra’s semantic relevance rankings calculated using vector embeddings and other semantic search techniques. For many applications, this gives better result rankings.
+One use case of Compare Search Results is to compare raw OpenSearch results with the same results processed by a re-ranking application. An example of such a re-ranker is **Kendra Intelligent Ranking for OpenSearch**, contributed by the Amazon Kendra team. This plugin takes search results from OpenSearch and applies Kendra’s semantic relevance rankings calculated using vector embeddings and other semantic search techniques. For many applications, this gives better result rankings.
 
 To try Kendra Intelligent Ranking, you must first set up the Amazon Kendra service. To get started, see [Amazon Kendra](https://aws.amazon.com/kendra/). For detailed information, including plugin setup instructions, see [Intelligently ranking OpenSearch (self managed) results using Amazon Kendra](https://docs.aws.amazon.com/kendra/latest/dg/opensearch-rerank.html).
 
-Once you've set up Kendra Intelligent Ranking, enter a regular query in **Query 1** and the same query using the Kendra Intelligent Ranking service for reranking in **Query 2**. Then compare search results from OpenSearch and Amazon Kendra.
+Once you've set up Kendra Intelligent Ranking, enter a query in **Query 1** and the same query using the Kendra Intelligent Ranking service for re-ranking in **Query 2**. Then compare search results from OpenSearch and Amazon Kendra.
 
 ### Example
 
