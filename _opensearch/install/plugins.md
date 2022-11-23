@@ -230,27 +230,33 @@ bin/opensearch-plugin install --batch <plugin-name>
 
 ## Available plugins
 
+Major, minor, and patch plugin versions must match OpenSearch major, minor, and patch versions in order to be compatible. For example, plugins versions 2.3.0.x work only with OpenSearch 2.3.0.
+{: .warning}
+
 ### Bundled Plugins
 
 The following plugins are bundled with all OpenSearch distributions except for minimum distribution packages.
 
-| Plugin Name | Repository | OpenSearch Compatible Versions |
+| Plugin Name | Repository | Earliest Available Version |
 | :--- | :--- | :--- |
-| Alerting | [opensearch-alerting](https://github.com/opensearch-project/alerting) | 1.0.0 or newer |
-| Anomaly Detection | [opensearch-anomaly-detection](https://github.com/opensearch-project/anomaly-detection) | 1.0.0 or newer |
-| Asynchronous Search | [opensearch-asynchronous-search](https://github.com/opensearch-project/asynchronous-search) | 1.0.0 or newer |
-| Cross Cluster Replication | [opensearch-cross-cluster-replication](https://github.com/opensearch-project/cross-cluster-replication) | 1.1.0 or newer |
-| Dashboard Notebooks<sup>1</sup> | [opensearch-notebooks](https://github.com/opensearch-project/dashboards-notebooks) | 1.0.0 to 1.1.0 |
-| Dashboard Reports | [opensearch-reports-scheduler](https://github.com/opensearch-project/dashboards-reports) | 1.0.0 or newer |
-| Geospatial | [opensearch-geospatial](https://github.com/opensearch-project/geospatial) | 2.2.0 or newer |
-| Index Management | [opensearch-index-management](https://github.com/opensearch-project/index-management) | 1.0.0 or newer |
-| Job Scheduler | [opensearch-job-scheduler](https://github.com/opensearch-project/job-scheduler) | 1.0.0 or newer |
-| k-NN | [opensearch-knn](https://github.com/opensearch-project/k-NN) | 1.0.0 or newer |
-| ML Commons | [opensearch-ml](https://github.com/opensearch-project/ml-commons) | 1.3.0 or newer |
-| Observability | [opensearch-observability](https://github.com/opensearch-project/observability) | 1.2.0 or newer |
-| Performance Analyzer | [opensearch-performance-analyzer](https://github.com/opensearch-project/performance-analyzer) | 1.0.0 or newer |
-| Security | [opensearch-security](https://github.com/opensearch-project/security) | 1.0.0 or newer |
-| SQL | [opensearch-sql](https://github.com/opensearch-project/sql) | 1.0.0 or newer |
+| Alerting | [opensearch-alerting](https://github.com/opensearch-project/alerting) | 1.0.0 |
+| Anomaly Detection | [opensearch-anomaly-detection](https://github.com/opensearch-project/anomaly-detection) | 1.0.0 |
+| Asynchronous Search | [opensearch-asynchronous-search](https://github.com/opensearch-project/asynchronous-search) | 1.0.0 |
+| Cross Cluster Replication | [opensearch-cross-cluster-replication](https://github.com/opensearch-project/cross-cluster-replication) | 1.1.0 |
+| Notebooks<sup>1</sup> | [opensearch-notebooks](https://github.com/opensearch-project/dashboards-notebooks) | 1.0.0 to 1.1.0 |
+| Notifications | [notifications](https://github.com/opensearch-project/notifications) | 2.0.0
+| Reports Scheduler | [opensearch-reports-scheduler](https://github.com/opensearch-project/dashboards-reports) | 1.0.0 |
+| Geospatial | [opensearch-geospatial](https://github.com/opensearch-project/geospatial) | 2.2.0 |
+| Index Management | [opensearch-index-management](https://github.com/opensearch-project/index-management) | 1.0.0 |
+| Job Scheduler | [opensearch-job-scheduler](https://github.com/opensearch-project/job-scheduler) | 1.0.0 |
+| k-NN | [opensearch-knn](https://github.com/opensearch-project/k-NN) | 1.0.0 |
+| ML Commons | [opensearch-ml](https://github.com/opensearch-project/ml-commons) | 1.3.0 |
+| Neural Search | [neural-search](https://github.com/opensearch-project/neural-search) | 2.4.0 |
+| Observability | [opensearch-observability](https://github.com/opensearch-project/observability) | 1.2.0 |
+| Performance Analyzer | [opensearch-performance-analyzer](https://github.com/opensearch-project/performance-analyzer) | 1.0.0 |
+| Security | [opensearch-security](https://github.com/opensearch-project/security) | 1.0.0 |
+| Security Analytics | [security-analytics](https://github.com/opensearch-project/security-analytics) | 2.4.0 |
+| SQL | [opensearch-sql](https://github.com/opensearch-project/sql) | 1.0.0 |
 
 _<sup>1</sup>Dashboard Notebooks was merged in to the Observability plugin with the release of OpenSearch 1.2.0._
 
@@ -258,28 +264,28 @@ _<sup>1</sup>Dashboard Notebooks was merged in to the Observability plugin with 
 
 Members of the OpenSearch community have built countless plugins for the service. Although it isn't possible to build an exhaustive list of every plugin, since many plugins are not maintained within the OpenSearch GitHub repository, the following list of plugins are available to be installed by name using `bin/opensearch-plugin install <plugin-name>`.
 
-| Plugin Name | OpenSearch Compatible Versions |
+| Plugin Name | Earliest Available Version |
 | :--- | :--- |
-| analysis-icu | 1.0.0 or newer |
-| analysis-kuromoji | 1.0.0 or newer |
-| analysis-nori | 1.0.0 or newer |
-| analysis-phonetic | 1.0.0 or newer |
-| analysis-smartcn | 1.0.0 or newer |
-| analysis-stempel | 1.0.0 or newer |
-| analysis-ukrainian | 1.0.0 or newer |
-| discovery-azure-classic | 1.0.0 or newer |
-| discovery-ec2 | 1.0.0 or newer |
-| discovery-gce | 1.0.0 or newer |
-| ingest-attachment | 1.0.0 or newer |
-| mapper-annotated-text | 1.0.0 or newer |
-| mapper-murmur3 | 1.0.0 or newer |
-| mapper-size | 1.0.0 or newer |
-| repository-azure | 1.0.0 or newer |
-| repository-gcs | 1.0.0 or newer |
-| repository-hdfs | 1.0.0 or newer |
-| repository-s3 | 1.0.0 or newer |
-| store-smb | 1.0.0 or newer |
-| transport-nio | 1.0.0 or newer |
+| analysis-icu | 1.0.0 |
+| analysis-kuromoji | 1.0.0 |
+| analysis-nori | 1.0.0 |
+| analysis-phonetic | 1.0.0 |
+| analysis-smartcn | 1.0.0 |
+| analysis-stempel | 1.0.0 |
+| analysis-ukrainian | 1.0.0 |
+| discovery-azure-classic | 1.0.0 |
+| discovery-ec2 | 1.0.0 |
+| discovery-gce | 1.0.0 |
+| ingest-attachment | 1.0.0 |
+| mapper-annotated-text | 1.0.0 |
+| mapper-murmur3 | 1.0.0 |
+| mapper-size | 1.0.0 |
+| repository-azure | 1.0.0 |
+| repository-gcs | 1.0.0 |
+| repository-hdfs | 1.0.0 |
+| repository-s3 | 1.0.0 |
+| store-smb | 1.0.0 |
+| transport-nio | 1.0.0 |
 
 ## Related links
 
