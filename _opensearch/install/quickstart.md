@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Quickstart guide
+title: Quickstart
 parent: Install OpenSearch
 nav_order: 1
 ---
 
-# Quickstart guide
+# Quickstart
 
 Get started using OpenSearch and OpenSearch Dashboards by deploying your containers with [Docker](https://www.docker.com/). Before proceeding, you need to [get Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://github.com/docker/compose) installed on your local machine. 
 
@@ -16,22 +16,20 @@ The Docker Compose commands used in this guide are written with a hyphen (for ex
 
 You'll need a special file, called a Compose file, that Docker Compose uses to define and create the containers in your cluster. The OpenSearch Project provides a sample Compose file that you can use to get started. Learn more about working with Compose files by reviewing the official [Compose specification](https://docs.docker.com/compose/compose-file/).
 
-1. Before running OpenSearch on your machine, you should review and apply these [important system settings]({{site.url}}{{site.baseurl}}/opensearch/install/important-settings/).
-    - Disable memory paging and swapping performance on the host to improve performance.
-        ```bash
-        sudo swapoff -a
-        ```
-    - Increase the number of memory maps available to OpenSearch.
-        ```bash
-        # Edit the sysctl config file.
-        sudo vi /etc/sysctl.conf
+1. Before running OpenSearch on your machine, you should disable memory paging and swapping performance on the host to improve performance and increase the number of memory maps available to OpenSearch. See [important system settings]({{site.url}}{{site.baseurl}}/opensearch/install/important-settings/) for more information.
+    ```bash
+    # Disable memory paging and swapping.
+    sudo swapoff -a
 
-        # Define the max map count.
-        vm.max_map_count=262144
+    # Edit the sysctl config file that defines the host's max map count.
+    sudo vi /etc/sysctl.conf
 
-        # Reload the kernel parameters.
-        sudo sysctl -p
-        ```  
+    # Set max map count to the recommended value of 262144.
+    vm.max_map_count=262144
+
+    # Reload the kernel parameters.
+    sudo sysctl -p
+    ```  
 1. Download the sample Compose file to your host. You can download the file with command line utilities like `curl` and `wget`, or you can manually copy [docker-compose.yml](https://github.com/opensearch-project/documentation-website/tree/{{site.opensearch_version}}/assets/examples/docker-compose.yml) from the OpenSearch Project documentation-website repository using a web browser.
     ```bash
     # Using cURL:
@@ -56,7 +54,7 @@ You'll need a special file, called a Compose file, that Docker Compose uses to d
     ```bash
     curl https://localhost:9200 -ku admin:admin
     ```
-    - Sample response:
+    Sample response:
     ```json
     {
     "name" : "opensearch-node1",
@@ -76,8 +74,7 @@ You'll need a special file, called a Compose file, that Docker Compose uses to d
     "tagline" : "The OpenSearch Project: https://opensearch.org/"
     }
     ```
-1. Explore OpenSearch Dashboards by opening `http://localhost:5601/` in a web browser on the same host that is running your OpenSearch cluster.
-    - The default username is `admin` and the default password is `admin`.
+1. Explore OpenSearch Dashboards by opening `http://localhost:5601/` in a web browser on the same host that is running your OpenSearch cluster. The default username is `admin` and the default password is `admin`.
 
 ## Create an index and field mappings using sample data
 
@@ -111,9 +108,8 @@ Create an index and define field mappings using a dataset provided by the OpenSe
     ```bash
     curl -H 'Content-Type: application/json' -X GET "https://localhost:9200/ecommerce/_search?pretty=true" -ku admin:admin -d' {"query":{"match":{"customer_first_name":"Sonya"}}}'
     ```
-    - Add the query parameter `pretty=true` to OpenSearch API requests that return a JSON to see a more readable version of the response body. Otherwise, the response will be a flat JSON. For more information about `pretty` and other query parameters, see [Common REST parameters]({{site.url}}{{site.baseurl}}/opensearch/common-parameters/).
-1. Access OpenSearch Dashboards by opening `http://localhost:5601/` in a web browser on the same host that is running your OpenSearch cluster.
-    - The default username is `admin` and the default password is `admin`.
+    Add the query parameter `pretty=true` to OpenSearch API requests that return a JSON to see a more readable version of the response body. Otherwise, the response will be a flat JSON. For more information about `pretty` and other query parameters, see [Common REST parameters]({{site.url}}{{site.baseurl}}/opensearch/common-parameters/).
+1. Access OpenSearch Dashboards by opening `http://localhost:5601/` in a web browser on the same host that is running your OpenSearch cluster. The default username is `admin` and the default password is `admin`.
 1. On the top menu bar, go to **Management > Dev Tools**.
 1. In the left pane of the console, enter the following:
     ```json
