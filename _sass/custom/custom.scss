@@ -186,6 +186,17 @@ img {
   @include btn-color($white, $green-300);
 }
 
+// Back to top button
+.top-link {
+  display: block;
+  color: rgb(0,59,92);
+  font-size: 1em;
+  text-align: right;
+  position: fixed;
+  bottom: 30px;
+  right: 40px;
+}
+
 // Tables
 th,
 td {
