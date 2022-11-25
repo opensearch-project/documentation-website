@@ -243,14 +243,13 @@ p.label {
 // Modifies margins in xl layout to support TOC
 .side-bar {
   @include mq(xl) {
-    width: calc((100% - #{$nav-width + $content-width + $toc-width}) / 2 + #{$nav-width});
-    min-width: $nav-width;
+    width: calc(#{$nav-width} + 1rem);
   }
 }
 
 .main {
   @include mq(xl) {
-    margin-left: calc((100% - #{$nav-width + $content-width + $toc-width}) / 2 + #{$nav-width});
+    max-width: calc(100% - (#{$nav-width + $toc-width} + 4rem));
   }
 }
 
