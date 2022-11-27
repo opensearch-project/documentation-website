@@ -1,9 +1,23 @@
-const snippets = document.querySelectorAll('.copy-div + .highlighter-rouge');
-const copyButtons = document.querySelectorAll('.copy-button');
+const snippets = document.querySelectorAll('pre.highlight');
 
-copyButtons.forEach((copyButton, i) => {
-  copyButton.addEventListener('click', function onClick() {
-        // Copy snippet to clipboard
-        window.navigator.clipboard.writeText(snippets[i].innerText);
-    });
+snippets.forEach(function (snippet) {
+    const textToCopy = snippet.innerText;
+    if (!(textToCopy.trimStart().startsWith("{") || textToCopy.trimStart().startsWith("$"))) {
+        createButton(textToCopy, snippet);
+    }
 });
+
+function createButton(textToCopy, snippet) {
+    var copyButton = document.createElement('button');
+    copyButton.className = 'copy-button';
+    copyButton.type = 'button';
+    copyButton.innerText = 'Copy';
+    copyButton.ariaLabel = 'Copy snippet to clipboard';
+
+    copyButton.addEventListener('click', function onClick() {
+        // Copy snippet to clipboard
+        window.navigator.clipboard.writeText(textToCopy);
+    });
+
+    snippet.append(copyButton);
+}
