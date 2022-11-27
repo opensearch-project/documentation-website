@@ -203,6 +203,31 @@ img {
   right: 40px;
 }
 
+// Copy code container
+.copy-div {
+  display: flex;
+  justify-content: flex-end;
+  height: 0;
+  padding: 0;
+}
+
+
+// Copy code button
+.copy-button {
+  display: inline-flexbox;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0;
+  height: 2rem;
+  margin: 0 1rem;
+}
+
+.copy-button:active {
+  font-size: 0.9rem;
+}
+
 // Tables
 th,
 td {
