@@ -1,8 +1,7 @@
 ---
 layout: default
-title: OpenSearch plugin installation
-parent: Install OpenSearch
-nav_order: 90
+title: Plugin installation
+nav_order: 20
 ---
 
 # OpenSearch plugin installation
