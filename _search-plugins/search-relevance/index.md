@@ -32,7 +32,7 @@ Alternatively, you can add sample data in OpenSearch Dashboards using the follow
 1. Select **Add sample data**.  
 1. Choose one of the built-in datasets and select **Add data**.
 
-## Using search relevance in OpenSearch Dashboards
+## Using Compare Search Results in OpenSearch Dashboards
 
 To compare search results in OpenSearch Dashboards, perform the following steps.
 
