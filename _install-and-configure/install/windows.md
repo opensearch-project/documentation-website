@@ -3,6 +3,8 @@ layout: default
 title: Windows
 parent: Install OpenSearch
 nav_order: 65
+redirect_from:
+  - /opensearch/install/windows
 ---
 
 # Install OpenSearch on Windows

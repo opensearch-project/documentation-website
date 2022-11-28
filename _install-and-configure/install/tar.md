@@ -2,7 +2,9 @@
 layout: default
 title: Tarball
 parent: Install OpenSearch
-nav_order: 50
+nav_order: 10
+redirect_from:
+  - /opensearch/install/tar/
 ---
 
 # Tarball
@@ -535,7 +537,7 @@ The following configuration is only suitable for testing in a non-production env
 
 ## Related links
 
-- [OpenSearch configuration]({{site.url}}{{site.baseurl}}/opensearch/configuration/)
+- [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuration/)
 - [Configure Performance Analyzer for Tarball Installation]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/index/#install-performance-analyzer)
 - [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/install/index/)
 - [OpenSearch plugin installation]({{site.url}}{{site.baseurl}}/opensearch/install/plugins/)

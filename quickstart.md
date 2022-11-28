@@ -1,8 +1,7 @@
 ---
 layout: default
 title: Quickstart
-parent: Install OpenSearch
-nav_order: 1
+nav_order: 2
 ---
 
 # Quickstart
