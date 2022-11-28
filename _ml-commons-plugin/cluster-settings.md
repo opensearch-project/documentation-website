@@ -55,7 +55,7 @@ plugins.ml_commons.sync_up_job_interval_in_seconds: 10
 
 ### Description
 
-When returning runtime information with the [profile API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api#profile), ML Commons will run a regular sync up job when models are added or removed on each node. When set to `0`, ML Commons immediately stops sync up jobs.
+When returning runtime information with the [profile API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api#profile), ML Commons will run a regular sync up job to sync up newly loaded or unloaded models on each node. When set to `0`, ML Commons immediately stops sync up jobs.
 
 ### Values
 
