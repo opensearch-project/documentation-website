@@ -60,7 +60,7 @@ When returning runtime information with the [profile API]({{site.url}}{{site.bas
 ### Values
 
 - Default value: `10`
-- Value range: [0, 86_400]
+- Value range: [0, 86,400]
 
 ## Predict monitoring requests
 
@@ -77,7 +77,7 @@ Controls how many upload model tasks can run in parallel on one node. If set to 
 ### Value range
 
 - Default value: `100`
-- Value range: [0, 100_000_000]
+- Value range: [0, 100,000,000]
 
 ## Upload model tasks per node
 
