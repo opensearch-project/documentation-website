@@ -30,13 +30,13 @@ You'll need a special file, called a Compose file, that Docker Compose uses to d
     # Reload the kernel parameters.
     sudo sysctl -p
     ```  
-1. Download the sample Compose file to your host. You can download the file with command line utilities like `curl` and `wget`, or you can manually copy [docker-compose.yml](https://github.com/opensearch-project/documentation-website/tree/{{site.opensearch_version}}/assets/examples/docker-compose.yml) from the OpenSearch Project documentation-website repository using a web browser.
+1. Download the sample Compose file to your host. You can download the file with command line utilities like `curl` and `wget`, or you can manually copy [docker-compose.yml](https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_major_minor_version}}/assets/examples/docker-compose.yml) from the OpenSearch Project documentation-website repository using a web browser.
     ```bash
     # Using cURL:
-    curl -O https://github.com/opensearch-project/documentation-website/tree/{{site.opensearch_version}}/assets/examples/docker-compose.yml
+    curl -O https://raw.githubusercontent.com/opensearch-project/documentation-website/{{site.opensearch_major_minor_version}}/assets/examples/docker-compose.yml
 
     # Using wget:
-    wget https://github.com/opensearch-project/documentation-website/tree/{{site.opensearch_version}}/assets/examples/docker-compose.yml
+    wget https://raw.githubusercontent.com/opensearch-project/documentation-website/{{site.opensearch_major_minor_version}}/assets/examples/docker-compose.yml
     ```
 1. In your terminal application, navigate to the directory containing the `docker-compose.yml` file you just downloaded, and run the following command to create and start the cluster as a background process.
     ```bash
@@ -80,21 +80,21 @@ You'll need a special file, called a Compose file, that Docker Compose uses to d
 
 Create an index and define field mappings using a dataset provided by the OpenSearch Project. The same fictitious e-commerce data is also used for sample visualizations in OpenSearch Dashboards. To learn more, see [Getting started with OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/index/).
 
-1. Download [ecommerce-field_mappings.json](https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_version}}/assets/examples/ecommerce-field_mappings.json). This file defines a [mapping]({{site.url}}{{site.baseurl}}/opensearch/mappings/) for the sample data you will use.
+1. Download [ecommerce-field_mappings.json](https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_major_minor_version}}/assets/examples/ecommerce-field_mappings.json). This file defines a [mapping]({{site.url}}{{site.baseurl}}/opensearch/mappings/) for the sample data you will use.
     ```bash
     # Using cURL:
-    curl -O https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_version}}/assets/examples/ecommerce-field_mappings.json
+    curl -O https://raw.githubusercontent.com/opensearch-project/documentation-website/{{site.opensearch_major_minor_version}}/assets/examples/ecommerce-field_mappings.json
 
     # Using wget:
-    wget https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_version}}/assets/examples/ecommerce-field_mappings.json
+    wget https://raw.githubusercontent.com/opensearch-project/documentation-website/{{site.opensearch_major_minor_version}}/assets/examples/ecommerce-field_mappings.json
     ```
-1. Download [ecommerce.json](https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_version}}/assets/examples/ecommerce.json). This file contains the index data formatted so that it can be ingested by the bulk API. To learn more, see [index data]({{site.url}}{{site.baseurl}}/opensearch/index-data/) and [Bulk]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/).
+1. Download [ecommerce.json](https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_major_minor_version}}/assets/examples/ecommerce.json). This file contains the index data formatted so that it can be ingested by the bulk API. To learn more, see [index data]({{site.url}}{{site.baseurl}}/opensearch/index-data/) and [Bulk]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/).
     ```bash
     # Using cURL:
-    curl -O https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_version}}/assets/examples/ecommerce.json
+    curl -O https://raw.githubusercontent.com/opensearch-project/documentation-website/{{site.opensearch_major_minor_version}}/assets/examples/ecommerce.json
 
     # Using wget:
-    wget https://github.com/opensearch-project/documentation-website/blob/{{site.opensearch_version}}/assets/examples/ecommerce.json
+    wget https://raw.githubusercontent.com/opensearch-project/documentation-website/{{site.opensearch_major_minor_version}}/assets/examples/ecommerce.json
     ```
 1. Define the field mappings with the mapping file.
     ```bash
