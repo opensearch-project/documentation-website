@@ -9,6 +9,7 @@ nav_order: 10
 
 This page provides an overview of `opensearch.yml` settings that can be configured for the ML commons plugin.
 
+
 ## Run tasks and models on ML nodes only
 
 ### Setting
