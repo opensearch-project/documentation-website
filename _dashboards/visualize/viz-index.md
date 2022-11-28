@@ -13,7 +13,7 @@ OpenSearch Dashboards gives you data visualization tools to improve and automate
 
 # Visualization types
 
-Dashboards offers several visualization types to support different use cases for you to translate complex, high-volume, or numerical data into a visual representation that is easier to process.
+Dashboards offers several visualization types to support different use cases for you to translate complex, high-volume, or numerical data into a visual representation that is easier to process. Visit each visualization type's webpage to learn more about the data visualization type and how to use it.
 
 ##### Example: Visualization user interface
 
