@@ -63,7 +63,9 @@ To set up an alert for the detector at this stage of detector creation, continue
 1. To define a notification for the alert, assign an alert severity, select a channel for the notification, and customize a message generated for the alert.
 <img src="{{site.url}}{{site.baseurl}}/images/Security/alert_notify.png" alt="Notification settings for the alert">
 * Assign a level of severity for the alert to give the recipient an indication of its urgency.
-* Select a channel for the notification. Examples include Slack, Chime, or email. Select the  **Manage channels** link to the right of the field to link the notification to a preferred channel.
+* Select a channel for the notification. Examples include Slack, Chime, or email. Select the  **Manage channels** link to the right of the field to create a channel and set up a notification.
+Creating a new channel for notifications requires the Notifications plugin to be installed in OpenSearch. See [Create a channel]({{site.url}}{{site.baseurl}}/notifications-plugin/index/#create-a-channel) to learn about managing plugin notifications.
+{: .note }
 * Select the **Show notify message** label to expand message preferences. You can add a subject for the message and a note to inform recipients of the nature of the message.
 1. After configuring the conditions in the fields above, select the **Next** button in the lower-right corner of the screen. The Review and create page opens.
 
