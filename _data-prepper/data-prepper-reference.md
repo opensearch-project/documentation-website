@@ -1,31 +1,25 @@
 ---
 layout: default
 title: Configuration reference
+has_children: true
 nav_order: 30
 ---
 
 # Data Prepper configuration reference
 
-
-
 ## Data Prepper server options
-
 
 ### Peer forwarder options
 
-
 #### General options for peer forwarder
 
-
 #### TLS/SSL options for peer forwarder
-
 
 #### Authentication options for peer forwarder
 
 ## General pipeline options
 
 ## Sources
-
 
 ### otel_trace_source
 

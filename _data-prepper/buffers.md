@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Buffers
+parent: Reference
 nav_order: 30
 ---
 
