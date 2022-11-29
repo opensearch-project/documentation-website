@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Data Prepper configuration
-nav_order: 30
+parent: Reference
+nav_order: 40
 ---
 
 # Data Prepper configuration

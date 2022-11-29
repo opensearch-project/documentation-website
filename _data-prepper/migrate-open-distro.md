@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Migrating from Open Distro Data Prepper
-nav_order: 10
+nav_order: 50
 ---
 
 # Migrating from Open Distro Data Prepper
