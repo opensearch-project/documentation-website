@@ -1,3 +1,9 @@
+---
+layout: default
+title: Processors
+nav_order: 30
+---
+
 ## Processors
 
 Processors perform some action on your data: filter, transform, enrich, etc.
@@ -222,4 +228,4 @@ Routes define conditions that can be used in sinks for conditional routing. Rout
 
 ## Sinks
 
-Sinks define where Data Prepper writes your data to.
+Sinks define where Data Prepper writes your data to. 
