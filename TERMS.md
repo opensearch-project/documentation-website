@@ -113,7 +113,7 @@ Avoid using. Use *service outage* or *blocked* instead.
 
 **BM25**
 
-A ranking function used to estimate the relevance of documents to a given search query.
+A ranking function used to estimate the relevance of documents to a given search query. BM25 extends [TF–IDF](#t) by normalizing document length.
 
 **Boolean**
 
