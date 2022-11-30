@@ -1,11 +1,10 @@
 ---
 layout: default
-title: Pipeline configuration structure
-parent: Reference
+title: Pipelines
 nav_order: 41
 ---
 
-# Pipelines configuration
+# Pipelines
 
 ![Data Prepper Pipeline]({{site.url}}{{site.baseurl}}/images/data-prepper-pipeline.png)
 
