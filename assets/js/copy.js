@@ -1,37 +1,26 @@
-const httpMethods = ["POST", "GET", "PUT", "PATCH", "DELETE", "HEAD"];
+const copyLabels = document.querySelectorAll('.copy-label');
+const copyCurlLabels = document.querySelectorAll('.copy-curl-label');
 
-const snippets = document.querySelectorAll('pre.highlight');
+addButtons(copyLabels, false);
+addButtons(copyCurlLabels, true);
 
-snippets.forEach(function (snippet) {
-    const textToCopy = snippet.innerText.trim();
-    if (!(textToCopy.startsWith("{") || textToCopy.startsWith("$"))) {
+function addButtons(labels, curl) {
+    labels.forEach((copyLabel) => {
+        const snippet = copyLabel.parentNode.previousElementSibling;
+        const text = snippet.innerText.trim();
+
         var buttonWrap = document.createElement('div');
         buttonWrap.className = 'copy-button-wrap';
-        buttonWrap.appendChild(createButton(textToCopy, 'Copy', 'Copy snippet to clipboard', false));
-
-        // See if a code snippet is an HTTP request and add the copy as curl button
-        var found = false;
-
-        for (let i = 0; i < httpMethods.length && !found; i++) {
-            if (textToCopy.startsWith(httpMethods[i])) { 
-                var curlNeeded = true;
-
-                // See if there is more than one HTTP method in the snippet; then no copy as curl needed
-                for (let j = 0; j < httpMethods.length; j++) { 
-                    if (textToCopy.substring(textToCopy.indexOf(httpMethods[i]) + httpMethods[i].length + 1).indexOf(httpMethods[j]) != -1) {            
-                        curlNeeded = false;
-                        break;
-                    }
-                }
-                if (curlNeeded) {
-                    buttonWrap.appendChild(createButton(textToCopy, 'Copy as cURL', 'Copy snippet as cURL', true));
-                }
-                found = true;
-            }
+        buttonWrap.appendChild(createButton(text, 'Copy', 'Copy snippet to clipboard', false));
+        if (curl) {           
+            buttonWrap.appendChild(createButton(text, 'Copy as cURL', 'Copy snippet as cURL', true));
         }
-        snippet.append(buttonWrap);
-    }
-});
+        
+        snippet.style.marginBottom = 0;
+        snippet.style.paddingBottom = 0;
+        snippet.parentNode.replaceChild(buttonWrap, snippet.nextElementSibling);
+    });
+}
 
 function createButton(textToCopy, buttonText, buttonAriaLabel, curl) {
     var copyButton = document.createElement('button');
@@ -59,7 +48,7 @@ function createButton(textToCopy, buttonText, buttonAriaLabel, curl) {
 function addCurl(textToCopy) {
     const firstSpaceIndex = textToCopy.indexOf(" ");
     const httpMethod = textToCopy.substring(0, firstSpaceIndex);
-    
+
     const firstCurlyIndex = textToCopy.indexOf("{");
     var body;
     var path;
@@ -77,7 +66,7 @@ function addCurl(textToCopy) {
         result += "/"; 
     }
     result += path + "\"";
-    
+
     if (body.length > 0) {
         result += " -H 'Content-Type: application/json' -d'\n" + body + "'";
     }
