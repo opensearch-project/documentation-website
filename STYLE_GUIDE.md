@@ -82,6 +82,7 @@ The following table lists acronyms that you don't need to spell out.
 | API | application programming interface |
 | ASCII | American Standard Code for Information Interchange |
 | BASIC | Beginner's All-Purpose Symbolic Instruction Code |
+| BM25 | Best Match 25 |
 | CPU | central processing unit |
 | DOS | disk operating system |
 | FAQ | frequently asked questions |
