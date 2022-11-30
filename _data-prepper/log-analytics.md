@@ -12,7 +12,7 @@ Here are all of the components for log analytics with FluentBit, Data Prepper, a
 
 ![Log analytics component]({{site.url}}{{site.baseurl}}/images/data-prepper/log-analytics/log-analytics-components.png)
 
-In the application environment, run FluentBit. FluentBit can be containerized through Kubernetes, Docker, or Amazon ECS. You can also run FluentBit as an agent on EC2. Configure the [FluentBit http output plugin](https://docs.fluentbit.io/manual/pipeline/outputs/http) to export log data to Data Prepper. Then, deploy Data Prepper as an intermediate component and configure it to send the enriched log data to your OpenSearch cluster. From there, use OpenSearch Dashboards to perform more intensive visualization and analysis.
+In the application environment, run FluentBit. FluentBit can be containerized through Kubernetes, Docker, or Amazon ECS. You can also run FluentBit as an agent on EC2. Configure the [FluentBit http output plugin](https://docs.fluentbit.io/manual/pipeline/outputs/http) to export log data to Data Prepper. Then, deploy Data Prepper as an intermediate component and configure it to send the enriched log data to your OpenSearch cluster. From there, use OpenSearch Dashboards to perform more intensive visualization and analysis. 
 
 # Log analytics pipeline 
 
