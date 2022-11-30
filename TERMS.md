@@ -610,9 +610,9 @@ Never hyphenated. Use _startup_ as a noun (for example, “The following startup
 
 ## T
 
-**TF–IDF**
+**term frequency–inverse document frequency (TF–IDF)**
 
-term frequency–inverse document frequency
+A numerical statistic that is intended to reflect how important a word is to a document in a collection or corpus.
 
 **time out (verb), timeout (noun, adjective)**
 
