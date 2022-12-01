@@ -144,6 +144,6 @@ Example `fluent-bit.conf` with SSL and basic authentication enabled on the http 
 
 See the [Data Prepper Log Ingestion Demo Guide](https://github.com/opensearch-project/data-prepper/blob/main/examples/log-ingestion/README.md) for a specific example of Apache log ingestion from `FluentBit -> Data Prepper -> OpenSearch` running through Docker.
 
-In the future, Data Prepper will contain additional sources and processors which will make more complex log analytic pipelines available. Check out our [Roadmap](https://github.com/opensearch-project/data-prepper/projects/1) to see what is coming.  
+In the future, Data Prepper will offer additional sources and processors that will make more complex log analytics pipelines available. Check out the [Data Prepper Project Roadmap](https://github.com/opensearch-project/data-prepper/projects/1) to see what is coming.  
 
 If there is a specifc source, processor, or sink that you would like to include in your log analytic workflow, and it is not currently on the Roadmap, please bring it to our attention by making a Github issue. Additionally, if you are interested in contributing, see our [Contribuing guidelines](../CONTRIBUTING.md) as well as our [Developer guide](developer_guide.md) and [Plugin development guide](plugin_development.md).
