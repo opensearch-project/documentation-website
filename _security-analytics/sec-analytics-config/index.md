@@ -14,7 +14,7 @@ Before Security Analytics can begin generating findings and sending alerts, admi
 
 1. Create security detectors and alerts, and ingest log data. See [Creating detectors]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/detectors-config/) for details.
 1. Inspect findings generated from detector output and create any additional alerts.
-1. If desired, create custom rules by duplicating and then modifying pre-packaged rules. See [Creating a rule by duplication]({{site.url}}{{site.baseurl}}/security-analytics/usage/rules/#creating-a-rule-by-duplication) for details.
+1. If desired, create custom rules by duplicating and then modifying pre-packaged rules. See [Customizing rules]({{site.url}}{{site.baseurl}}/security-analytics/usage/rules/#customizing-rules) for details.
 
 ## Navigate to Security Analytics
 
