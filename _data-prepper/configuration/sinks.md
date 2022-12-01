@@ -17,7 +17,7 @@ Option | Required | Type | Description
 routes | No | List | List of routes that the sink accepts. If not specified, the sink accepts all upstream events.
 
 
-## opensearch
+## OpenSearch
 
 Sink for an OpenSearch cluster.
 
