@@ -1,12 +1,12 @@
 ---
 layout: default
 title: About OpenSearch
-nav_order: 1
-has_children: false
-has_toc: false
+nav_order: 2
+parent: OpenSearch documentation
 redirect_from:
   - /docs/opensearch/
   - /opensearch/
+  - /opensearch/index/
 ---
 
 {%- comment -%}The `/docs/opensearch/` redirect is specifically to support the UI links in OpenSearch Dashboards 1.0.0.{%- endcomment -%}

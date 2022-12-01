@@ -1,8 +1,10 @@
 ---
 layout: default
 title: Quickstart
-parent: Install OpenSearch
-nav_order: 1
+parent: OpenSearch documentation
+nav_order: 3
+redirect_from: 
+  - /opensearch/install/quickstart/
 ---
 
 # Quickstart
