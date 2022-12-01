@@ -85,7 +85,7 @@ The main changes you need to make are:
 * `username`- Provide the OpenSearch username
 * `password` - Provide your OpenSearch password
 * `aws_sigv4` - If you use Amazon OpenSearch Service with AWS signing, set this to true. It will sign requests with the default AWS credentials provider.
-* `aws_region` - If you use Amazon OpenSearch Service with AWS signing, set this value to your region.
+* `aws_region` - If you use Amazon OpenSearch Service with AWS signing, set this value to the AWS Region in which your cluster is hosted.
 
 ## FluentBit
 
