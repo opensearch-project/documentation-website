@@ -26,10 +26,16 @@ Upgrading your OpenSearch cluster to a newer minor version is a straightforward 
 
 Before you begin, make sure that you've backed-up any important data. Store the snapshot in a secure, external repository so that it isn't overwritten by mistake during the upgrade.
 
-1. Stop the cluster.
-```bash
-docker-compose down
-```
+1. Stop the cluster. Don't use the `-v` option, which deletes the cluster's Docker volumes.
+    ```bash
+    docker-compose down
+    ```
+1. Modify your Docker Compose file by changing the specified `image` to the target upgrade version. You might also want to modify settings or environment variables to enable a newly released feature. You should review the feature documentation for information about how to enable the feature in OpenSearch.
+1. Start the cluster with the updated Docker Compose file.
+    ```bash
+    docker-compose up
+    ```
+1. Wait for the containers to start, then query the [Cluster stats]({{site.url}}{{site.baseurl}}/api-reference/cluster-stats/) API to confirm that the version upgrade was successful. OpenSearch will return a response body that includes versions for all installed components, including OpenSearch, JDK, and plugins.
 
 ## Major version upgrade
 
