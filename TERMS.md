@@ -111,6 +111,10 @@ Do not use. Use *deny list* instead.
 
 Avoid using. Use *service outage* or *blocked* instead.
 
+**BM25**
+
+A ranking function used to estimate the relevance of documents to a given search query. BM25 extends [TF–IDF](#t) by normalizing document length.
+
 **Boolean**
 
 Avoid using the name of a Boolean value at the beginning of a sentence or sentence fragment. In general, capitalize the word Boolean. For specific programming languages, follow the usage in that language.
@@ -498,6 +502,10 @@ Tools inside of OpenSearch that can be customized to enhance OpenSearch’s func
 
 **pop-up**
 
+**precision**
+
+The accuracy of the results returned from a query.
+
 **premise, premises**
 
 With reference to property and buildings, always form as plural.
@@ -529,6 +537,10 @@ A call used to request information about your data.
 **real time (n.) real-time (adj.)**
 
 Use with caution; this term can imply a degree of responsiveness or speed that may not be true. When needed, use _real time_ as a noun (for example “The request is sent in real time”). Use _real-time_ as an adjective (“A real-time feed is displayed...”).
+
+**recall**
+
+The quantity of documents returned from a query.
 
 **replica shard**
 
@@ -596,7 +608,11 @@ Never hyphenated. Use _startup_ as a noun (for example, “The following startup
 
 **Stochastic Gradient Descent (SGD)**
 
-## T 
+## T
+
+**term frequency–inverse document frequency (TF–IDF)**
+
+A numerical statistic that is intended to reflect how important a word is to a document in a collection or corpus.
 
 **time out (verb), timeout (noun, adjective)**
 
