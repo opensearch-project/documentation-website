@@ -10,7 +10,7 @@ redirect_from:
 
 Data Prepper is an independent component, not an OpenSearch plugin, that converts data for use with OpenSearch. It's not bundled with the all-in-one OpenSearch installation packages.
 
-If you are migrating from Open Distro Data Prepper, visit the [Migrating from Open Distro]({{site.url}}{{site.baseurl}}/opensearch/clients/data-prepper/migrate-open-distro/) page. 
+If you are migrating from Open Distro Data Prepper, visit the [Migrating from Open Distro]({{site.url}}{{site.baseurl}}/data-prepper/migrate-open-distro/) page. 
 
 ## 1. Installing Data Prepper
 
@@ -112,6 +112,7 @@ Once Data Prepper is running, it will process data until it is shut down. Once y
 ```
 curl -X POST http://localhost:4900/shutdown
 ```
+
 ### Additional configurations
 
 For Data Prepper 2.0 or later, the Log4j 2 configuration file is read from `config/log4j2.properties` in the application's home directory. 
@@ -122,15 +123,12 @@ like to pass a custom log4j2 properties file. If no properties file is provided,
 
 ## Next steps
 
-All Data Prepper instances expose a few APIs. The [API documentation]({{site.url}}{{site.baseurl}}/opensearch/clients/data-prepper/api/) outlines these APIs and
-how to configure the server.
-
 Trace Analytics is an important Data Prepper use case. If you haven't yet configured it,
 see the [Trace Analytics](https://github.com/opensearch-project/data-prepper/blob/main/docs/trace_analytics.md).
 
 Log Ingestion is also an important Data Prepper use case. To learn more, see the [Log Ingestion Documentation](https://github.com/opensearch-project/data-prepper/blob/main/docs/log_analytics.md).
 
-To learn how to run Data Prepper with a Logstash configuration, see the [Logstash Migration Guide]({{site.url}}{{site.baseurl}}/opensearch/clients/data-prepper/logstash-migration-guide/).
+To learn how to run Data Prepper with a Logstash configuration, see the [Logstash Migration Guide]({{site.url}}{{site.baseurl}}/data-prepper/configure-logstash-data-prepper/).
 
 For information on how to monitor Data Prepper, see the [Monitoring](https://github.com/opensearch-project/data-prepper/blob/main/docs/monitoring.md) page.
 
