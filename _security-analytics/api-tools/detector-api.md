@@ -17,11 +17,11 @@ Creates a new detector.
 POST _plugins/_security_analytics/detectors
 ```
 
-### Parameters
+### Request fields
 
-You can specify the following parameters when creating a detector.
+You can specify the following fields when creating a detector.
 
-Parameter | Type | Description 
+Field | Type | Description
 :--- | :--- |:--- |:--- |
 `enabled` | Boolean | Enables the ability to add detectors through the API.
 `type` | String | The type is specified as "detector".
@@ -316,13 +316,22 @@ This API is used for deleting a detector.
 ### Sample request
 
 ```json
-DELETE /_plugins/_security_analytics/detectors/J1RX1IMByX0LvTiGTddR
+DELETE /_plugins/_security_analytics/detectors/IJAXz4QBrmVplM4JYxx_
+```
+
+### Sample response
+
+```json
+{
+  "_id" : "IJAXz4QBrmVplM4JYxx_",
+  "_version" : 1
+}
 ```
 
 ---
 ## Get Detector
 
-The Get detector API retrieves the detector details.
+The Get detector API retrieves the detector details. Use the detector ID in the call to fetch detector details.
 
 ### Sample request
 
@@ -372,8 +381,6 @@ The Search detector API searches for detector matches by detector ID.
 
 ```json
 POST /_plugins/_security_analytics/detectors/_search
-
-Body:
 {
     "query": {
         "match": {
