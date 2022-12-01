@@ -25,11 +25,21 @@ Learn how to create and use [Area charts]({{site.url}}{{site.baseurl}}/dashboard
 
 ## Bar charts
 
-<img src="{{site.url}}{{site.baseurl}}/images/bar-chart-1.png" alt="Example bar chart in OpenSearch Dashboards" width="60%" height="30%">
+<img src="{{site.url}}{{site.baseurl}}/images/bar-chart-1.png" alt="Example vertical bar chart in OpenSearch Dashboards" width="60%" height="30%">
 
-Bar charts compare two or more data factors and demonstrate changes of one variable over a period of time. For example, you may use a bar graph to represent packaging sales by color in the last month.
+<img src="{{site.url}}{{site.baseurl}}/images/bar-horizontal-1.png" alt="Example horizontal bar chart in OpenSearch Dashboards" width="60%" height="30%">
+
+Bar charts, vertical or horizontal, compare two or more data factors and demonstrate changes of one variable over a period of time. For example, you may use a bar graph to represent packaging sales by color in the last month.
 
 Learn how to create and use [Bar charts]({{site.url}}{{site.baseurl}}/dashboards/visualize/bar-charts) in Dashboards.
+
+## Coordinate maps
+
+<img src="{{site.url}}{{site.baseurl}}/images/map-1.png" alt="Example map in OpenSearch Dashboards" width="60%" height="30%">
+
+Coordinate maps show the difference between data values for a geographic location, such as a country, state or province, or city. For example, you may use a coordinate map for asset tracking and location-based marketing.
+
+Learn how to create and use [Coordinate maps]({{site.url}}{{site.baseurl}}/dashboards/visualize/geojson-regionmaps/) in Dashboards.
 
 ## Data tables
 
@@ -55,12 +65,16 @@ A gauge chart is similar to a nondigital gauge, for example a gas gauge in an au
 
 Learn how to create and use [Gauge charts]({{site.url}}{{site.baseurl}}/dashboards/visualize/gauge) in Dashboards.
 
-## 
+## Heat maps
 
-## Maps
+<img src="{{site.url}}{{site.baseurl}}/images/heatmap-1.png" alt="Example heat map in OpenSearch Dashboards" width="60%" height="30%">
 
-<img src="{{site.url}}{{site.baseurl}}/images/map-1.png" alt="Example map in OpenSearch Dashboards" width="60%" height="30%">
+Heat maps to show a measure for the intersection of two dimensions, with color-coding to easily differentiate where values fall in the range. Each rectangle on a heat map represents the value for the specified measure for the intersection of the selected dimensions. Rectangle color represents where the value falls in the range for the measure, with darker colors indicating higher values and lighter colors indicating lower ones. 
 
-Maps show the difference between data values for a geographic location, such as a country, state or province, or city. For example, you may use a map for asset tracking and location-based marketing.
+Use  a heat map if you want to identify trends and outliers, because the use of color makes these easier to spot. For example, you may want to use a heat map to show products most used by customers, measured by a simple count.
 
-Learn how to create and use [Maps]({{site.url}}{{site.baseurl}}/dashboards/visualize/geojson-regionmaps/) in Dashboards.
+## Line graphs
+
+<img src="{{site.url}}{{site.baseurl}}/images/line-graph-1.png" alt="Example line graph in OpenSearch Dashboards" width="60%" height="30%">
+
+Line charts compare changes in measure values over period of time.For example, you may use line charts to show one measure over a period of time, for example, gross sales by month; multiple measures over a period of time, for example, gross sales and net sales by month; or one measure for a dimension over a period of time, for example, number of flight delays per day by airline. 
