@@ -77,4 +77,13 @@ Use  a heat map if you want to identify trends and outliers, because the use of 
 
 <img src="{{site.url}}{{site.baseurl}}/images/line-graph-1.png" alt="Example line graph in OpenSearch Dashboards" width="60%" height="30%">
 
-Line charts compare changes in measure values over period of time.For example, you may use line charts to show one measure over a period of time, for example, gross sales by month; multiple measures over a period of time, for example, gross sales and net sales by month; or one measure for a dimension over a period of time, for example, number of flight delays per day by airline. 
+Line charts compare changes in measure values over period of time.For example, you may use line charts to show one measure over a period of time, for example, gross sales by month; multiple measures over a period of time, for example, gross sales and net sales by month; or one measure for a dimension over a period of time, for example, number of flight delays per day by airline.
+
+## Metric charts
+
+<img src="{{site.url}}{{site.baseurl}}/images/metric-chart-1.png" alt="Example metric chart in OpenSearch Dashboards" width="60%" height="30%">
+
+Metric charts show a numerical value, such as a key performance indicator (KPI), to visualize a comparison between a key value and its target value. Metric charts display a value comparison, the two values being compared, and a progress bar. For example, you may use a metric chart to show how closely revenue is meeting its forecast.
+
+
+
