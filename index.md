@@ -1,7 +1,8 @@
 ---
 layout: default
-title: Get started
+title: OpenSearch documentation
 nav_order: 1
+has_children: true
 redirect_from: /404.html
 permalink: /
 ---
@@ -13,7 +14,17 @@ This site contains the technical documentation for [OpenSearch](https://opensear
 [Get started](#docker-quickstart){: .btn .btn-blue }
 
 
+<<<<<<< HEAD
 ---
+=======
+## Getting started
+
+- [About OpenSearch]({{site.url}}{{site.baseurl}}/opensearch/)
+- [Quickstart]({{site.url}}{{site.baseurl}}/quickstart/)
+- [Install OpenSearch]({{site.url}}{{site.baseurl}}/opensearch/install/)
+- [Install OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/install/)
+- [See the FAQ](https://opensearch.org/faq)
+>>>>>>> 74ce5362 (Create OpenSearch documentation main section (#2080))
 
 ## Why use OpenSearch?
 
@@ -47,6 +58,7 @@ For specifics around the project, see the [FAQ](https://opensearch.org/faq/).
 
 ---
 
+<<<<<<< HEAD
 ## Docker quickstart
 Docker
 {: .label .label-green }
@@ -96,6 +108,8 @@ Docker
 
 To learn more, see [Docker image]({{site.url}}{{site.baseurl}}/opensearch/install/docker/) and [Configuring basic security settings]({{site.url}}{{site.baseurl}}/opensearch/install/docker#configuring-basic-security-settings).
 
+=======
+>>>>>>> 74ce5362 (Create OpenSearch documentation main section (#2080))
 
 ---
 
