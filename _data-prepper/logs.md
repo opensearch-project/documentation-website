@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Logs 
+title: Log4j configuration
 nav_order: 12
 ---
 
