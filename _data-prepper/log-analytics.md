@@ -72,7 +72,7 @@ log-pipeline:
         #aws_sigv4: true
         #aws_region: us-east-1
         # Since we are grok matching for apache logs, it makes sense to send them to an OpenSearch index named apache_logs.
-        # You should change this to correspond with how your OpenSearch indixes are set up.
+        # You should change this to correspond with how your OpenSearch indexes are set up.
         index: apache_logs
 ```
 
