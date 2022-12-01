@@ -4,10 +4,15 @@ title: Opensearch-py-ml
 nav_order: 11
 ---
 
-`opensearch-py-ml` is a Python client that provides a suite of data analytics and machine learning (ML) tools for OpenSearch. It provides data analysts with the following abilities:
+`opensearch-py-ml` is a Python client that provides a suite of data analytics and natural language processing (NLP) support tools for OpenSearch. It provides data analysts with the following functionality:
 
-- Call OpenSearch indexes and manipulate each index as a [pandas.DataFrame](https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html). These data frames support complex filtering and aggregation operations.
-- Provides basic support to upload models into OpenSearch using the [ML Commons plugin]({{site.url}}{{site.baseurl}}/ml-commons-plugin/index/)
+- Call OpenSearch indexes and manipulate using [eland.DataFrame](https://eland.readthedocs.io/en/v8.3.0/reference/api/eland.DataFrame.html). The eland's Data Frame wraps an OpenSearch index into a API similar to [pandas](https://pandas.pydata.org/), giving you the ability to process large amounts of data from OpenSearch inside a Jupyter Notebook.
+- Provides basic support to upload NLP [SentenceTransformers](https://www.sbert.net/) models into OpenSearch using the [ML Commons plugin]({{site.url}}{{site.baseurl}}/ml-commons-plugin/index/).
+- Gives the ability to train and tune SentenceTransformer models with ML Commons.
+
+## Prerequisites 
+
+To use `opensearch-py-ml`, install the [OpenSearch Python client]({{site.url}}{{site.baseurl}}/clients/python#setup). The Python client allows OpenSearch to use the Python syntax required to run Data Frames in `opensearch-py-ml`.
 
 ## Install `opensearch-py-ml`
 
@@ -20,8 +25,8 @@ pip install opensearch-py-ml
 Then, import the client into OpenSearch like any other module:
 
 ```python
+from opensearchpy import OpenSearch
 import openseach_py_ml as oml
-from opensearch-py-ml import OpenSearch
 ```
 
 ## API reference
