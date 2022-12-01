@@ -22,7 +22,7 @@ Log analytics pipelines in Data Prepper are extremely customizable. The followin
 
 # HTTP source
 
-The [HTTP Source](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/http-source/README.md) accepts log data from FluentBit. This source accepts log data in a JSON array format and supports industry-standard encryption in the form of TLS/HTTPS and HTTP basic authentication.
+The [HTTP Source](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/http-source/README.md) accepts log data from Fluent Bit. This source accepts log data in a JSON array format and supports industry-standard encryption in the form of TLS/HTTPS and HTTP basic authentication.
 
 # Processor
 
