@@ -7,7 +7,7 @@ nav_order: 40
 
 # Data Prepper configuration
 
-This page lists all supported Data Prepper server, sources, buffers, processors, and sinks, along with their associated options. For example configuration files, see [Data Prepper]({{site.url}}{{site.baseurl}}/clients/data-prepper/pipelines/).
+This is the reference for Data Prepper configuration files (data-prepper-config.yaml). These are general Data Prepper configurations independent from pipelines.
 
 ## Data Prepper server options
 
