@@ -83,7 +83,6 @@ The Data Prepper repository has several [sample applications](https://github.com
 
 The following example `pipeline.yaml` with SSL and basic authentication enabled for the `http-source` demonstrates how to use the HTTP source and Grok prepper plugins to process unstructured log data:
 
-Example `pipeline.yaml` with SSL and basic authentication enabled for the `http-source`:
 
 ```yaml
 log-pipeline:
