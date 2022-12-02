@@ -1,7 +1,6 @@
 ---
 layout: default
 title: Did-you-mean
-parent: Searching data
 nav_order: 25
 ---
 

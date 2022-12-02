@@ -1,7 +1,6 @@
 ---
 layout: default
 title: Highlight query matches
-parent: Searching data
 nav_order: 23
 ---
 

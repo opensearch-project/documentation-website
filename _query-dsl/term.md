@@ -1,7 +1,6 @@
 ---
 layout: default
 title: Term-level queries
-parent: Query DSL
 nav_order: 30
 ---
 

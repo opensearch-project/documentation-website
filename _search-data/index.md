@@ -1,13 +1,12 @@
 ---
 layout: default
-title: Searching data
-nav_order: 20
-has_children: true
+title: Custom search options
+nav_order: 26
 has_toc: false
 redirect_from: /opensearch/ux/
 ---
 
-# Searching data
+# Custom search options
 
 What users expect from search engines has evolved over the years. Just returning relevant results quickly is no longer enough for most users. Now users seek methods that allow them to get even more relevant results, to sort and organize results, and to highlight their queries. OpenSearch includes many features, described in the following table, that enhance the search experience.
 

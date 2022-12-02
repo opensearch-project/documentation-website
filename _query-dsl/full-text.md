@@ -1,7 +1,6 @@
 ---
 layout: default
 title: Full-text queries
-parent: Query DSL
 nav_order: 40
 ---
 

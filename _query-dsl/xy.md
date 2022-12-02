@@ -1,7 +1,6 @@
 ---
 layout: default
 title: xy queries
-parent: Query DSL
 nav_order: 65
 ---
 

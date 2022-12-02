@@ -1,7 +1,6 @@
 ---
 layout: default
 title: Paginate results
-parent: Searching data
 nav_order: 21
 ---
 

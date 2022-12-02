@@ -1,8 +1,7 @@
 ---
 layout: default
-title: Query DSL
+title: Query DSL overview
 nav_order: 27
-has_children: true
 redirect_from:
   - /opensearch/query-dsl/
   - /docs/opensearch/query-dsl/
@@ -10,7 +9,7 @@ redirect_from:
 
 {%- comment -%}The `/docs/opensearch/query-dsl/` redirect is specifically to support the UI links in OpenSearch Dashboards 1.0.0.{%- endcomment -%}
 
-# Query DSL
+# Query DSL overview
 
 While you can use HTTP request parameters to perform simple searches, you can also use the OpenSearch query domain-specific language (DSL), which provides a wider range of search options. The query DSL uses the HTTP request body, so you can more easily customize your queries to get the exact results that you want.
 

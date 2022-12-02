@@ -1,7 +1,6 @@
 ---
 layout: default
 title: Text analyzers
-parent: Query DSL
 nav_order: 41
 ---
 
