@@ -7,6 +7,8 @@ nav_order: 5
 
 # ISM error prevention resolutions
 
+Resolutions of errors for each validation rule action are listed below.
+
 ---
 
 #### Table of contents

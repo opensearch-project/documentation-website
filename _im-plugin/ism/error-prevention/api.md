@@ -1,0 +1,155 @@
+---
+layout: default
+title: ISM error prevention API
+parent: ISM error prevention
+nav_order: 10
+---
+
+# ISM Error prevention API
+
+The ISM Error Prevention API allows you to enable ISM error prevention, as well as checking the validation status and message.
+
+## Enable error prevention validation
+
+Error Prevention Validation is configured by setting the `plugins.index_state_management.validation_service.enabled` parameter.
+
+#### Sample request
+
+```bash
+PUT _cluster/settings
+{
+   "persistent":{
+      "plugins.index_state_management.validation_action.enabled": true
+   }
+}
+```
+
+#### Sample response
+
+```json
+{
+  "acknowledged" : true,
+  "persistent" : {
+    "plugins" : {
+      "index_state_management" : {
+        "validation_action" : {
+          "enabled" : "true"
+        }
+      }
+    }
+  },
+  "transient" : { }
+}
+```
+
+## Check validation status and message via the explain API
+
+Pass the `validate_action=true` path parameter in the explain API URI to see the validation status and message. 
+
+#### Sample request
+
+```bash
+GET _plugins/_ism/explain/test-000001?validate_action=true
+```
+
+#### Sample response
+
+```json
+{
+  "test-000001" : {
+    "index.plugins.index_state_management.policy_id" : "test_rollover",
+    "index.opendistro.index_state_management.policy_id" : "test_rollover",
+    "index" : "test-000001",
+    "index_uuid" : "CgKsxFmQSIa8dWqpbSJmyA",
+    "policy_id" : "test_rollover",
+    "policy_seq_no" : -2,
+    "policy_primary_term" : 0,
+    "rolled_over" : false,
+    "index_creation_date" : 1667410460649,
+    "state" : {
+      "name" : "rollover",
+      "start_time" : 1667410766045
+    },
+    "action" : {
+      "name" : "rollover",
+      "start_time" : 1667411127803,
+      "index" : 0,
+      "failed" : false,
+      "consumed_retries" : 0,
+      "last_retry_time" : 0
+    },
+    "step" : {
+      "name" : "attempt_rollover",
+      "start_time" : 1667411127803,
+      "step_status" : "starting"
+    },
+    "retry_info" : {
+      "failed" : true,
+      "consumed_retries" : 0
+    },
+    "info" : {
+      "message" : "Previous action was not able to update IndexMetaData."
+    },
+    "enabled" : false,
+    "validate" : {
+      "validation_message" : "Missing rollover_alias index setting [index=test-000001]",
+      "validation_status" : "re_validating"
+    }
+  },
+  "total_managed_indices" : 1
+}
+```
+
+When passing `validate_action=false` or not passing a `validate_action` value in the explain API URI, the response does not contain the validation status and message.
+
+#### Sample request
+
+```bash
+GET _plugins/_ism/explain/test-000001?validate_action=false
+ --- OR ---
+GET _plugins/_ism/explain/test-000001
+```
+
+#### Sample response
+
+```json
+{
+  "test-000001" : {
+    "index.plugins.index_state_management.policy_id" : "test_rollover",
+    "index.opendistro.index_state_management.policy_id" : "test_rollover",
+    "index" : "test-000001",
+    "index_uuid" : "CgKsxFmQSIa8dWqpbSJmyA",
+    "policy_id" : "test_rollover",
+    "policy_seq_no" : -2,
+    "policy_primary_term" : 0,
+    "rolled_over" : false,
+    "index_creation_date" : 1667410460649,
+    "state" : {
+      "name" : "rollover",
+      "start_time" : 1667410766045
+    },
+    "action" : {
+      "name" : "rollover",
+      "start_time" : 1667411127803,
+      "index" : 0,
+      "failed" : false,
+      "consumed_retries" : 0,
+      "last_retry_time" : 0
+    },
+    "step" : {
+      "name" : "attempt_rollover",
+      "start_time" : 1667411127803,
+      "step_status" : "starting"
+    },
+    "retry_info" : {
+      "failed" : true,
+      "consumed_retries" : 0
+    },
+    "info" : {
+      "message" : "Previous action was not able to update IndexMetaData."
+    },
+    "enabled" : false
+  },
+  "total_managed_indices" : 1
+}
+```

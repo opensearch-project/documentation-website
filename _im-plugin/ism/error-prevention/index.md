@@ -8,7 +8,7 @@ redirect_from:
   - /im-plugin/ism/error-prevention/
 ---
 
-# ISM Error prevention
+# ISM error prevention
 
 Error prevention validates ISM actions before they are performed to avoid actions from failing. It also discloses more information from the action validation results in the response of the [Index Explain API]({{site.url}}{{site.baseurl}}/im-plugin/ism/api/#explain-index). Validation rules and troubleshooting of each action are listed below.
 
