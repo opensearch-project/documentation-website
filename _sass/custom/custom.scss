@@ -114,6 +114,14 @@ code {
   }
 }
 
+.div-feedback {
+  text-align: center;
+  margin: auto;
+  width: 50%;
+  border: 3px solid $grey-lt-300;
+  padding: 10px;
+}
+
 .external-arrow {
   position: relative;
   top: 0.125rem;
@@ -254,6 +262,37 @@ img {
   transform: scale(0.98);
   box-shadow: 0 1px 2px;
 }
+
+// Feedback buttons
+.feedback-button {
+  color: $body-text-color;
+  background-color: $sidebar-color;
+  font-size: 0.9rem;
+  border-width:2px; 
+  border-style:solid;
+  border-color: $grey-lt-300;
+  border-radius: 12px;
+  box-shadow: 1px 2px $grey-dk-000;
+  padding: 0.1rem 1rem;
+  margin-left: 0.4rem;
+  margin-right: 0.4rem;
+  width: 4.8rem;
+  transition-duration: 0.4s;
+  &:hover {
+    background-color: $base-button-color;
+  }
+}
+
+// Feedback question
+.feedback-header {
+    @include heading-sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    margin-top: 1rem;
+    margin-bottom: 2.5rem;
+    font-size: 14px !important;
+}
+
 
 // Tables
 th,
