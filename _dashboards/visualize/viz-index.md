@@ -33,14 +33,6 @@ Bar charts, vertical or horizontal, compare two or more data factors and demonst
 
 Learn how to create and use [Bar charts]({{site.url}}{{site.baseurl}}/dashboards/visualize/bar-charts) in Dashboards.
 
-## Coordinate maps
-
-<img src="{{site.url}}{{site.baseurl}}/images/map-1.png" alt="Example map in OpenSearch Dashboards" width="60%" height="30%">
-
-Coordinate maps show the difference between data values for a geographic location, such as a country, state or province, or city. For example, you may use a coordinate map for asset tracking and location-based marketing.
-
-Learn how to create and use [Coordinate maps]({{site.url}}{{site.baseurl}}/dashboards/visualize/geojson-regionmaps/) in Dashboards.
-
 ## Data tables
 
 <img src="{{site.url}}{{site.baseurl}}/images/data-table-1.png" alt="Example data table in OpenSearch Dashboards" width="75%" height="35%">
@@ -83,7 +75,27 @@ Line charts compare changes in measure values over period of time.For example, y
 
 <img src="{{site.url}}{{site.baseurl}}/images/metric-chart-1.png" alt="Example metric chart in OpenSearch Dashboards" width="60%" height="30%">
 
-Metric charts show a numerical value, such as a key performance indicator (KPI), to visualize a comparison between a key value and its target value. Metric charts display a value comparison, the two values being compared, and a progress bar. For example, you may use a metric chart to show how closely revenue is meeting its forecast.
+Metric charts show a numerical value, such as a key performance indicator (KPI), to visualize a comparison between a key value and its target value. Metric charts display a value comparison, the two values being compared, and a progress bar. For example, you may use a metric chart to measure how closely revenue is meeting its forecast.
+
+## Maps
+
+### Coordinate maps
+
+<img src="{{site.url}}{{site.baseurl}}/images/map-1.png" alt="Example map in OpenSearch Dashboards" width="60%" height="30%">
+
+Coordinate maps show the difference between data values for a geographic location, such as a country, state or province, or city. For example, you may use a coordinate map for asset tracking and location-based marketing.
+
+Learn how to create and use [Coordinate maps]({{site.url}}{{site.baseurl}}/dashboards/visualize/geojson-regionmaps/) in Dashboards.
+
+### Region map
+
+
+
+## Pie charts
+
+<img src="{{site.url}}{{site.baseurl}}/images/pie-chart-1.png" alt="Example pie chart in OpenSearch Dashboards" width="60%" height="30%">
+
+Pie charts compare values for items in a dimension. Each wedge in a pie chart represents one item in the dimension. Wedge size represents the proportion of the value for the selected measure that the item represents compared to the whole for the dimension. Pie charts are best when precision isn't important and there are few items in the dimension. The best use for this type of chart is to show a percentage of a total amount.
 
 
 
