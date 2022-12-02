@@ -1,10 +1,10 @@
 ---
 layout: default
 title: Search overview
-nav_order: 25
+nav_order: 21
 has_children: true
 has_toc: true
-
+redirect_from: /opensearch/ux/
 ---
 
 # Search your data
@@ -34,6 +34,9 @@ OpenSearch provides several methods to search your indexed documents.
 * <topic1> – [TitleofPage]()
 * <topic1> – [TitleofPage]()
 * <topic1> – [TitleofPage]()
+
+
+TBD - need to explain what is Asynchronous search, and link to the Asynchronous search plugin section.
 
 
 ## How to run a search

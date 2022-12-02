@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Search templates
-nav_order: 50
+nav_order: 35
 ---
 
 # Search templates

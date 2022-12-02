@@ -1,10 +1,10 @@
 ---
 layout: default
-title: Mapping
-nav_order: 13
+title: Index mappings
+nav_order: 20
 ---
 
-# Mapping
+# Index mappings
 
 You can define how documents and their fields are stored and indexed by creating a mapping.
 

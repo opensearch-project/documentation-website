@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Reindex data
-nav_order: 16
+nav_order: 30
 ---
 
 # Reindex data

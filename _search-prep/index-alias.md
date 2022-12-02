@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Index aliases
-nav_order: 12
+nav_order: 15
 ---
 
 # Index aliases
