@@ -46,6 +46,9 @@ collections:
   query-dsl:
     permalink: /:collection/:path/
     output: true
+  search-optimize:
+    permalink: /:collection/:path/
+    output: true
   search-sql:
     permalink: /:collection/:path/
     output: true
@@ -53,9 +56,6 @@ collections:
     permalink: /:collection/:path/
     output: true
   search-async:
-    permalink: /:collection/:path/
-    output: true
-  search-optimize:
     permalink: /:collection/:path/
     output: true
   search-aggregate:
@@ -133,6 +133,9 @@ just_the_docs:
     query-dsl:
       name: Search with Query DSL
       nav_fold: true
+    search-optimize:
+      name: Optimize text for searches
+      nav_fold: true
     search-sql:
       name: Search with SQL
       nav_fold: true
@@ -141,9 +144,6 @@ just_the_docs:
       nav_fold: true
     search-async:
       name: Search asynchronously
-      nav_fold: true
-    search-optimize:
-      name: Optimize text for searches
       nav_fold: true
     search-aggregate:
       name: Aggregate data for analysis
