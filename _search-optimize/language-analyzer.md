@@ -1,10 +1,10 @@
 ---
 layout: default
-title: Language analyzers
+title: Language analyzer
 nav_order: 20
 ---
 
-# Language analyzers
+# Language analyzer
 
 OpenSearch supports the following language values with the `analyzer` option:
 arabic, armenian, basque, bengali, brazilian, bulgarian, catalan, czech, danish, dutch, english, estonian, finnish, french, galicia, german, greek, hindi, hungarian, indonesian, irish, italian, latvian, lithuanian, norwegian, persian, portuguese, romanian, russian, sorani, spanish, swedish, turkish, and thai.
