@@ -58,7 +58,7 @@ collections:
   search-async:
     permalink: /:collection/:path/
     output: true
-  search-aggregate:
+  aggregate-data:
     permalink: /:collection/:path/
     output: true
   security-plugin:
@@ -145,7 +145,7 @@ just_the_docs:
     search-async:
       name: Search asynchronously
       nav_fold: true
-    search-aggregate:
+    aggregate-data:
       name: Aggregate data for analysis
       nav_fold: true
     security-plugin:

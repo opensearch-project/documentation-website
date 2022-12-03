@@ -1,7 +1,6 @@
 ---
 layout: default
 title: Metric aggregations
-parent: Aggregations
 nav_order: 1
 has_children: false
 ---
