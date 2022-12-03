@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Aggregations overview
-nav_order: 14
+nav_order: 10
 has_children: false
 ---
 
