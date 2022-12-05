@@ -1,13 +1,13 @@
 ---
 layout: default
-title: Querqy
+title: Querqy plugin
 has_children: false
 redirect_from:
   - /search-plugins/querqy/
 nav_order: 10
 ---
 
-# Querqy
+# Querqy plugin
 
 Querqy is a community plugin for query rewriting that helps to solve relevance issues, making search engines more precise regarding matching and scoring.
 

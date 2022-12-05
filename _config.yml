@@ -49,12 +49,6 @@ collections:
   search-optimize:
     permalink: /:collection/:path/
     output: true
-  search-sql:
-    permalink: /:collection/:path/
-    output: true
-  search-mdsl:
-    permalink: /:collection/:path/
-    output: true
   search-async:
     permalink: /:collection/:path/
     output: true
@@ -135,12 +129,6 @@ just_the_docs:
       nav_fold: true
     search-optimize:
       name: Optimize text for searches
-      nav_fold: true
-    search-sql:
-      name: Search with SQL
-      nav_fold: true
-    search-mdsl:
-      name: Search with MDSL
       nav_fold: true
     search-async:
       name: Search asynchronously

@@ -1,13 +1,13 @@
 ---
 layout: default
-title: Asynchronous search
+title: Asynchronous search plugin
 nav_order: 51
 has_children: true
 redirect_from:
   - /search-plugins/async/
 ---
 
-# Asynchronous search
+# Asynchronous search plugin
 
 Searching large volumes of data can take a long time, especially if you're searching across warm nodes or multiple remote clusters.
 

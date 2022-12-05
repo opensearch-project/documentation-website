@@ -4,7 +4,7 @@ title: Sort results
 nav_order: 22
 ---
 
-## Sort results
+# Sort results
 
 Sorting allows your users to sort results in a way that’s most meaningful to them.
 

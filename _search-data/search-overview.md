@@ -8,32 +8,28 @@ redirect_from: /opensearch/ux/
 
 # Search overview
 
-What is a search query?
+To get information from your indexed data, you create a *search query*, or *query* to retrieve the specific information that you want to know about your data. OpenSearch provides a set of REST APIs that you can use to query your data streams and indexed data.
 
-To get information from your indexed data, you create a *search query*, or *query* that defines the question you want answered about your data.  .. . .using REST APIs.
+You create a query with parameters and fields that define the question you want to know.
 
-Think of a typical keyword search to a search engine to return results that have been indexed. 
+Query your data to answer various categories of questions:
 
-Use a *query* to search your data streams or indices for information that you define by fields. 
+* **keyword searches** – Think of a typical keyword search to a search engine to return results that have been indexed. You can locate specific terms, or search an index for all documents that contain that term.
+* **Performance issues** – Find out which processes are taking longer than 40 milliseconds to respond.
+* **TBD** – <need another good example here>
 
-Queries define questions you want answered about your data. 
+## Search methods and plugins
 
-Which documents contain a word or phrase?
-...
-need more examples here!
+There are several methods to perform search queries with OpenSearch. You can perform a simple HTTP search, or you can create searches with more options using either of the query languages:
+* [Query DSL]({{site.url}}{{site.baseurl}}/query-dsl/index) – <<need desc here>>
+* [Piped processing language (PPL)]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index/) – Use pipe syntax to explore and discover your data.
 
-Tell me which processes are taking longer than 40 milliseconds to respond?
+You can also use the search plugins for specialized searches.
 
-
-<put a TOC with links to subtopics here>
-
-OpenSearch provides several methods to search your indexed documents.
-* <topic1> – [TitleofPage]()
-* <topic1> – [TitleofPage]()
-* <topic1> – [TitleofPage]()
-* <topic1> – [TitleofPage]()
-* <topic1> – [TitleofPage]()
-
+* [SQL plugin]({{site.url}}{{site.baseurl}}/search-plugins/sql/index) plugin – Write queries in SQL instead of using Query DSL.
+* [Quergy plugin]({{site.url}}{{site.baseurl}}/search-plugins/quergy/index) – Rewrite queries to solve relevance issues and improve search engine optimization (SEO) to get precise matches and scores.
+* [k-NN plugin]({{site.url}}{{site.baseurl}}/search-plugins/quergy/index)  – Search for k-nearest neighbors (k-NN) to a query point across an index of vectors. You can use the score script plugin for an exact search, or the k-NN plugin for an approximate search.
+* **Asynchronous search plugin** – Use an asynchronous search across multiple remote clusters, or large volume datasets that will take a long time.
 
 ## How to run a search
 
@@ -41,15 +37,13 @@ OpenSearch provides several methods to search your indexed documents.
 
 ## Custom search options
 
-What users expect from search engines has evolved over the years. Just returning relevant results quickly is no longer enough for most users. Now users seek methods that allow them to get even more relevant results, to sort and organize results, and to highlight their queries. OpenSearch includes many features, described in the following table, that enhance the search experience.
+You can also use any of the custom search functions 
 
-Feature | Description
-:--- | :---
-[Autocomplete functionality]({{site.url}}{{site.baseurl}}/opensearch/search/autocomplete) | Suggest phrases as the user types.
-[Did-you-mean functionality]({{site.url}}{{site.baseurl}}/opensearch/search/autocomplete) | Check spelling of phrases as the user types.
-[Paginate results]({{site.url}}{{site.baseurl}}/opensearch/search/paginate) | Rather than a single, long list, separate search results into pages.
-[Sort results]({{site.url}}{{site.baseurl}}/opensearch/search/sort) | Allow sorting of results by different criteria.
-[Highlight query matches]({{site.url}}{{site.baseurl}}/opensearch/search/highlight) | Highlight the search term in the results.
+* [Autocomplete functionality]({{site.url}}{{site.baseurl}}/opensearch/search/autocomplete) – Suggest phrases as the user types.
+* [Did-you-mean functionality]({{site.url}}{{site.baseurl}}/opensearch/search/autocomplete) – Check spelling of phrases as the user types.
+* [Paginate results]({{site.url}}{{site.baseurl}}/opensearch/search/paginate) – Rather than a single, long list, separate search results into pages.
+* [Sort results]({{site.url}}{{site.baseurl}}/opensearch/search/sort) | Allow sorting of results by different criteria.
+* [Highlight query matches]({{site.url}}{{site.baseurl}}/opensearch/search/highlight) – Highlight the search term in the results.
 
 ## Advanced search types
 
@@ -64,11 +58,9 @@ You can perform optional search types such as:
 * Use search aggregations
 
 
-
 ## Specify a search timeout
 need info
 
 ## Cancel a search
 
 ## Track total responses
-
