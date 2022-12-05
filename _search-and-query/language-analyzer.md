@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Language analyzer
+parent: Optimize text for searches
 nav_order: 20
 ---
 
