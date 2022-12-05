@@ -1,25 +1,30 @@
 ---
 layout: default
-title: OpenSearch plugin installation
-parent: Install OpenSearch
+title: Plugin installation
 nav_order: 90
+redirect_from:
+   - /opensearch/install/plugins/
 ---
 
 # OpenSearch plugin installation
 
-You can install individual plugins for OpenSearch based on your needs. For information about available plugins, see [Available plugins]({{site.url}}{{site.baseurl}}/opensearch/install/plugins#available-plugins).
+You can install individual plugins for OpenSearch based on your needs. For information about available plugins, see [Available plugins](#available-plugins).
 
 ## Managing plugins
 
 OpenSearch uses a command line tool called `opensearch-plugin` for managing plugins. This tool allows you to:
 
-- [List]({{site.url}}{{site.baseurl}}/opensearch/install/plugins#list) installed plugins.
-- [Install]({{site.url}}{{site.baseurl}}/opensearch/install/plugins#install) plugins.
-- [Remove]({{site.url}}{{site.baseurl}}/opensearch/install/plugins#remove) an installed plugin.
+- [List](#list) installed plugins.
+- [Install](#install) plugins.
+- [Remove](#remove) an installed plugin.
 
 Print help text by passing `-h` or `--help`. Depending on your host configuration, you might also need to run the command with `sudo` privileges.
 
+<<<<<<< HEAD:_opensearch/install/plugins.md
 If you are running OpenSearch in a Docker container, plugins must be installed, removed, and configured by modifying the Docker image. For information, see [Install, configure or remove plugins]({{site.url}}{{site.baseurl}}/opensearch/install/docker#install-configure-or-remove-plugins)
+=======
+If you are running OpenSearch in a Docker container, plugins must be installed, removed, and configured by modifying the Docker image. For information, see [Working with plugins]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker#working-with-plugins)
+>>>>>>> e81a878a (Add installation and configuration section (#2130)):_install-and-configure/install-opensearch/plugins.md
 {: .note}
 
 ## List
@@ -85,7 +90,7 @@ There are three ways to install plugins using the `opensearch-plugin`:
 
 ### Install a plugin by name:
 
-For a list of plugins that can be installed by name, see [Additional plugins]({{site.url}}{{site.baseurl}}/opensearch/install/plugins#additional-plugins)
+For a list of plugins that can be installed by name, see [Additional plugins]({{site.url}}{{site.baseurl}}/opensearch/install/plugins#additional-plugins).
 
 #### Usage:
 ```bash

@@ -3,6 +3,8 @@ layout: default
 title: OpenSearch Dashboards plugins
 parent: Install OpenSearch Dashboards
 nav_order: 50
+redirect_from: 
+  - /dashboards/install/plugins
 ---
 
 # Standalone plugin install
