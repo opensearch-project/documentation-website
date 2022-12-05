@@ -130,7 +130,7 @@ Create an index and define field mappings using a dataset provided by the OpenSe
 
 You successfully deployed your own OpenSearch cluster with OpenSearch Dashboards and added some sample data. Now you're ready to learn about configuration and functionality in more detail. Here are a few recommendations on where to begin:
 - [About the security plugin]({{site.url}}{{site.baseurl}}/security-plugin/index/)
-- [OpenSearch configuration]({{site.url}}{{site.baseurl}}/opensearch/configuration/)
+- [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuration/)
 - [OpenSearch plugin installation]({{site.url}}{{site.baseurl}}/opensearch/install/plugins/)
 - [Getting started with OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/index/)
 - [OpenSearch tools]({{site.url}}{{site.baseurl}}/tools/index/)
