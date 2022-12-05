@@ -3,6 +3,8 @@ layout: default
 title: Windows
 parent: Install OpenSearch Dashboards
 nav_order: 37
+redirect_from: 
+  - /dashboards/install/windows/
 ---
 
 # Run OpenSearch Dashboards on Windows
