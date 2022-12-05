@@ -22,9 +22,6 @@ PUT testindex1
     "properties": {
       "point": {
         "type": "geo_point"
-      },
-      "shape": {
-        "type": "geo_shape"
       }
     }
   }
