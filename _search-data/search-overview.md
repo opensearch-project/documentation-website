@@ -29,7 +29,7 @@ You can also use the search plugins for specialized searches.
 * [SQL plugin]({{site.url}}{{site.baseurl}}/search-plugins/sql/index) plugin – Write queries in SQL instead of using Query DSL.
 * [Quergy plugin]({{site.url}}{{site.baseurl}}/search-plugins/quergy/index) – Rewrite queries to solve relevance issues and improve search engine optimization (SEO) to get precise matches and scores.
 * [k-NN plugin]({{site.url}}{{site.baseurl}}/search-plugins/quergy/index)  – Search for k-nearest neighbors (k-NN) to a query point across an index of vectors. You can use the score script plugin for an exact search, or the k-NN plugin for an approximate search.
-* **Asynchronous search plugin** – Use an asynchronous search across multiple remote clusters, or large volume datasets that will take a long time.
+* [Asynchronous search plugin]({{site.url}}{{site.baseurl}}/search-plugins/async/index/)  – Use an asynchronous search across multiple remote clusters, or large volume datasets that will take a long time.
 
 ## How to run a search
 
