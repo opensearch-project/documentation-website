@@ -54,9 +54,14 @@ Upgrading your OpenSearch cluster to a newer **minor** version is straightforwar
 There are several methods available for upgrading across major versions with OpenSearch. Which method you choose depends on how your infrastructure is deployed.
 
 - Snapshot and restore
-- Restart Upgrade
+    - Should be performed for any method because it provides a rollback option
+- Cluster Restart Upgrade
+    - Cluster is taken down and brought back up with new version (same infra)
 - Rolling Upgrade
+    - Nodes are taken down one at a time, upgraded, and added back to the cluster
 - Node replacement
+    - Nodes are taken out of service and replaced with a new node running the upgraded version
 - Remote reindexing
     - Reindexing is the option to “replay” all of the original source documents into the new cluster. Reindexing needs to be used in conjunction with some of the other approaches in some contexts (e.g. if you are doing a rolling upgrade across multiple major versions, you currently need to reindex within the cluster between major versions), but it can also be used as a standalone method.
 
+Remote reindexing is used in tandem with other methods. Open Q - does remote reindexing force an admin to run two clusters simultaneously?
