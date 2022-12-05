@@ -1,23 +1,13 @@
 ---
 layout: default
-title: Sinks
+title: OpenSearch sink
 parent: Reference
 nav_order: 45
 ---
 
+# OpenSearch sink
 
-# Sinks
-
-Sinks define where Data Prepper writes your data to.
-
-## General options for all sink types
-
-Option | Required | Type | Description
-:--- | :--- | :--- | :---
-routes | No | List | List of routes that the sink accepts. If not specified, the sink accepts all upstream events.
-
-
-## OpenSearch
+## Overview
 
 Sink for an OpenSearch cluster.
 
@@ -29,9 +19,9 @@ username | No | String | Username for HTTP basic authentication.
 password | No | String | Password for HTTP basic authentication.
 aws_sigv4 | No | Boolean | default false. Whether to use IAM signing to connect to an Amazon OpenSearch Service domain. For your access key, secret key, and optional session token, Data Prepper uses the default credential chain (environment variables, Java system properties, `~/.aws/credential`, etc.).
 aws_region | No | String | AWS region (e.g. `"us-east-1"`) for the domain if you are connecting to Amazon OpenSearch Service.
-aws_sts_role_arn | No | String | IAM role which the sink plugin assumes to sign request to Amazon OpenSearch Service. If not provided the plugin uses the default credentials.
-socket_timeout | No | Integer | the timeout in milliseconds for waiting for data (or, put differently, a maximum period inactivity between two consecutive data packets). A timeout value of zero is interpreted as an infinite timeout. If this timeout value is either negative or not set, the underlying Apache HttpClient would rely on operating system settings for managing socket timeouts.
-connect_timeout | No | Integer | The timeout in milliseconds used when requesting a connection from the connection manager. A timeout value of zero is interpreted as an infinite timeout. If this timeout value is either negative or not set, the underlying Apache HttpClient would rely on operating system settings for managing connection timeouts.
+aws_sts_role_arn | No | String | IAM role which the sink plugin assumes to sign request to Amazon OpenSearch Service. If not provided, the plugin uses the default credentials.
+socket_timeout | No | Integer | the timeout in milliseconds for waiting for data (or, put differently, a maximum period inactivity between two consecutive data packets). A timeout value of zero is interpreted as an infinite timeout. If this timeout value is negative or not set, the underlying Apache HttpClient would rely on operating system settings for managing socket timeouts.
+connect_timeout | No | Integer | The timeout in milliseconds used when requesting a connection from the connection manager. A timeout value of zero is interpreted as an infinite timeout. If this timeout value is negative or not set, the underlying Apache HttpClient would rely on operating system settings for managing connection timeouts.
 insecure | No | Boolean | Whether to verify SSL certificates. If set to true, CA certificate verification is disabled and insecure HTTP requests are sent instead. Default is `false`.
 proxy | No | String | The address of a [forward HTTP proxy server](https://en.wikipedia.org/wiki/Proxy_server). The format is "&lt;host name or IP&gt;:&lt;port&gt;". Examples: "example.com:8100", "http://example.com:8100", "112.112.112.112:8100". Port number cannot be omitted.
 index | Conditionally | String | Name of the export index. Applicable and required only when the `index_type` is `custom`.
@@ -44,24 +34,10 @@ ism_policy_file | No | String | The absolute file path for an ISM (Index State M
 number_of_shards | No | Integer | The number of primary shards that an index should have on the destination OpenSearch server. This parameter is effective only when `template_file` is either explicitly provided in Sink configuration or built-in. If this parameter is set, it would override the value in index template file. For more information, see [Create index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/).
 number_of_replicas | No | Integer | The number of replica shards each primary shard should have on the destination OpenSearch server. For example, if you have 4 primary shards and set number_of_replicas to 3, the index has 12 replica shards. This parameter is effective only when `template_file` is either explicitly provided in Sink configuration or built-in. If this parameter is set, it would override the value in index template file. For more information, see [Create index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/).
 
-## file
+## Configuration
 
-Sink for flat file output.
+Content will be added to this section.
 
-Option | Required | Type | Description
-:--- | :--- | :--- | :---
-path | Yes | String | Path for the output file (e.g. `logs/my-transformed-log.log`).
+## Metrics
 
-
-## pipeline
-
-Sink for writing to another pipeline.
-
-Option | Required | Type | Description
-:--- | :--- | :--- | :---
-name | Yes | String | Name of the pipeline to write to.
-
-
-## stdout
-
-Sink for console output. Can be useful for testing. No options.
+Content will be added to this section.

@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Pipelines
+parent: Reference
 nav_order: 41
 ---
 
