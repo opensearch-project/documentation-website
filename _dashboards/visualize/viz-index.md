@@ -106,3 +106,9 @@ Timelines  show the occurrence of events in chronological order, allowing  you t
 <img src="{{site.url}}{{site.baseurl}}/images/drag-drop-generated-viz.png" alt="Example Timeline in OpenSearch Dashboards" width="60%" height="30%">
 
 VisBuilder is used to create data visualizations with a drag-and-drop gesture. It gives you an immediate view of your data without the need to preselect the visualization output. Learn how to create and use [VisBuilder]({{site.url}}{{site.baseurl}}/dashboards/visbuilder/) in Dashboards.
+
+## Vega
+
+<img src="{{site.url}}{{site.baseurl}}/images/vega-1.png" alt="Example Vega visualization with JSON specification in OpenSearch Dashboards" width="60%" height="30%">
+
+[Vega](https://vega.github.io/vega/) and [Vega-Lite](https://vega.github.io/vega-lite/) are open-source, declarative language visualization grammars for creating, sharing, and saving interactive data visualizations. Vega visualizations in OpenSearch u flexibility to visualize multidimensional data using a layered approach to build and manipulate visualizations in a structured manner.
