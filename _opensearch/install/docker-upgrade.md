@@ -35,7 +35,7 @@ Upgrading your OpenSearch cluster to a newer **minor** version is straightforwar
     ```
 1. Wait for the containers to start, then query the [Cluster stats]({{site.url}}{{site.baseurl}}/api-reference/cluster-stats/) API to confirm that the version upgrade was successful. OpenSearch will return a response body that includes versions for all installed components, including OpenSearch, JDK, and plugins.
     ```bash
-    # This sample response is from a cluster that was just upgraded from 2.3.0 to 2.4.0.
+    # This sample response is from a cluster that was upgraded from 2.3.0 to 2.4.0.
     $ curl "https://localhost:9200/_cat/nodes?v&h=name,version&format=json&pretty=true" -ku admin:admin
     [
     {
@@ -51,4 +51,12 @@ Upgrading your OpenSearch cluster to a newer **minor** version is straightforwar
 
 ## Major version upgrade
 
-Details about major version upgrade process.
+There are several methods available for upgrading across major versions with OpenSearch. Which method you choose depends on how your infrastructure is deployed.
+
+- Snapshot and restore
+- Restart Upgrade
+- Rolling Upgrade
+- Node replacement
+- Remote reindexing
+    - Reindexing is the option to “replay” all of the original source documents into the new cluster. Reindexing needs to be used in conjunction with some of the other approaches in some contexts (e.g. if you are doing a rolling upgrade across multiple major versions, you currently need to reindex within the cluster between major versions), but it can also be used as a standalone method.
+
