@@ -177,4 +177,50 @@ You can specify coordinates of the bounding box vertices in any [format]({{site.
 
 ### Using geohash to specify the bounding box
 
-If you use a geohash to specify the bounding box, the geohash is treated as a rectangle. The upper left vertex of the bounding box corresponds to the upper left vertex of the `top_left` geohash, and the lower right vertex of the bounding box corresponds to the lower right vertex of the `bottom_right` geohash. To specify the bounding box that covers the whole area of a geohash, provide that geohash as both `top_left` and `bottom_right` parameters of the bounding box.
+If you use a geohash to specify the bounding box, the geohash is treated as a rectangle. The upper left vertex of the bounding box corresponds to the upper left vertex of the `top_left` geohash, and the lower right vertex of the bounding box corresponds to the lower right vertex of the `bottom_right` geohash. 
+
+The following example uses a geohash to specify the same bounding box as the previous examples:
+
+```json
+GET testindex1/_search
+{
+  "query": {
+    "bool": {
+      "must": {
+        "match_all": {}
+      },
+      "filter": {
+        "geo_bounding_box": {
+          "point": {
+            "top_left": "ut7ftjkfxm34",
+            "bottom_right": "uuvpkcprc4rc"
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+To specify the bounding box that covers the whole area of a geohash, provide that geohash as both `top_left` and `bottom_right` parameters of the bounding box:
+
+```json
+GET testindex1/_search
+{
+  "query": {
+    "bool": {
+      "must": {
+        "match_all": {}
+      },
+      "filter": {
+        "geo_bounding_box": {
+          "point": {
+            "top_left": "ut",
+            "bottom_right": "ut"
+          }
+        }
+      }
+    }
+  }
+}
+```
