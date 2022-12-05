@@ -22,9 +22,7 @@ The Docker Compose commands used in this guide are written with a hyphen (for ex
 
 ## Minor version upgrade
 
-Upgrading your OpenSearch cluster to a newer minor version is a straightforward process. Because minor versions are backwards-compatible within a cluster, you only need to update the image in your Docker Compose file.
-
-Before you begin, make sure that you've backed-up any important data. Store the snapshot in a secure, external repository so that it isn't overwritten by mistake during the upgrade.
+Upgrading your OpenSearch cluster to a newer **minor** version is straightforward because a minor version upgrade will inherit the configuration and data that already exist in your cluster. You should still create and store a backup of your cluster on a remote host to mitigate any risk of data loss.
 
 1. Stop the cluster. Don't use the `-v` option, which deletes the cluster's Docker volumes.
     ```bash
