@@ -106,7 +106,7 @@ just_the_docs:
     dashboards:
       name: OpenSearch Dashboards
       nav_fold: true
-    search-data:
+    search-query:
       name: Search and query
       nav_fold: true
     aggregate-data:
