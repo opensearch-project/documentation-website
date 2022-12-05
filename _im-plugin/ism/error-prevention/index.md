@@ -10,7 +10,7 @@ redirect_from:
 
 # ISM error prevention
 
-Error prevention validates ISM actions before they are performed to avoid actions from failing. It also discloses more information from the action validation results in the response of the [Index Explain API]({{site.url}}{{site.baseurl}}/im-plugin/ism/api/#explain-index). Validation rules and troubleshooting of each action are listed below.
+Error prevention validates ISM actions before they are performed to avoid actions from failing. It also outputs additional information from the action validation results in the response of the [Index Explain API]({{site.url}}{{site.baseurl}}/im-plugin/ism/api/#explain-index). Validation rules and troubleshooting of each action are listed below.
 
 ---
 
@@ -41,14 +41,14 @@ ISM does not perform a `delete` action for an index under any of these condition
 
 ## force_merge
 
-ISM does not perform a `force_merge` action for an index if the data too large and is exceeding the threshold.
+ISM does not perform a `force_merge` action for an index if its data set is too large and exceeds the threshold.
 
 ## replica_count
 
 ISM does not perform a `replica_count` action for an index under any of these conditions: 
 
 - The data is too large and is exceeding the threshold.
-- Maximum shards exceeded.
+- Maximum shards are exceeded.
 
 ## open
 

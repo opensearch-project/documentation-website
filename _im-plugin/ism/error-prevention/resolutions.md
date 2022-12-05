@@ -26,7 +26,7 @@ To confirm if one index is a write index, run the following request:
 GET <index>/_alias?pretty
 ```
 
-If the response does not contain `"is_write_index" : true`, the index is not a write index:
+If the response does not contain `"is_write_index"` : true, the index is not a write index. The following example confirms the index is a write index:
 
 ```json
 {
@@ -40,7 +40,7 @@ If the response does not contain `"is_write_index" : true`, the index is not a w
 }
 ```
 
-To set an index as write index, run the following request:
+To set as as write index, run the following request:
 
 ```bash
 PUT <index>
@@ -168,7 +168,7 @@ PUT <index>/_settings
 {"index.routing.allocation.total_shards_per_node":-1}
 ```
 
-## The index is write index for some data stream
+## The index is a write index for some data stream
 
 If you still want to delete the index, please check your [data stream]({{site.url}}{{site.baseurl}}/opensearch/data-streams/) settings and change the write index.
 

@@ -7,11 +7,11 @@ nav_order: 10
 
 # ISM Error prevention API
 
-The ISM Error Prevention API allows you to enable ISM error prevention, as well as checking the validation status and message.
+The ISM Error Prevention API allows you to enable ISM error prevention and check the validation status and message.
 
 ## Enable error prevention validation
 
-Error Prevention Validation is configured by setting the `plugins.index_state_management.validation_service.enabled` parameter.
+You can configure error prevention validation by setting the `plugins.index_state_management.validation_service.enabled` parameter.
 
 #### Sample request
 
@@ -100,7 +100,7 @@ GET _plugins/_ism/explain/test-000001?validate_action=true
 }
 ```
 
-When passing `validate_action=false` or not passing a `validate_action` value in the explain API URI, the response does not contain the validation status and message.
+If you pass the parameter without a value or false, then it doesn't return the validation status & message. Only if you pass `validate_action=true` the response will return the validation status & message.
 
 #### Sample request
 
