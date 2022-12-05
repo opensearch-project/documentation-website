@@ -40,5 +40,4 @@ This plugin supports three different methods for obtaining the k-nearest neighbo
 
     For more details about this method, see [Painless scripting functions]({{site.url}}{{site.baseurl}}/search-plugins/knn/painless-functions/).
 
-
 Overall, for larger data sets, you should generally choose the approximate nearest neighbor method because it scales significantly better. For smaller data sets, where you may want to apply a filter, you should choose the custom scoring approach. If you have a more complex use case where you need to use a distance function as part of their scoring method, you should use the painless scripting approach.
