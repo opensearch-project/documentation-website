@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Sort results
+parent: Search your data
 nav_order: 22
 ---
 

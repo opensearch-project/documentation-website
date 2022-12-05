@@ -1,12 +1,13 @@
 ---
 layout: default
-title: Search overview
+title: Search your data
 nav_order: 20
 has_toc: true
+has_children: true
 redirect_from: /opensearch/ux/
 ---
 
-# Search overview
+# Search your data
 
 To get information from your indexed data, you create a *search query*, or *query* to retrieve the specific information that you want to know about your data. OpenSearch provides a set of REST APIs that you can use to query your data streams and indexed data.
 

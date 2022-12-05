@@ -37,19 +37,7 @@ collections:
   dashboards:
     permalink: /:collection/:path/
     output: true
-  search-data:
-    permalink: /:collection/:path/
-    output: true
-  search-prep:
-    permalink: /:collection/:path/
-    output: true
-  query-dsl:
-    permalink: /:collection/:path/
-    output: true
-  search-optimize:
-    permalink: /:collection/:path/
-    output: true
-  search-async:
+  search-query:
     permalink: /:collection/:path/
     output: true
   aggregate-data:
@@ -119,19 +107,7 @@ just_the_docs:
       name: OpenSearch Dashboards
       nav_fold: true
     search-data:
-      name: Search your data
-      nav_fold: true
-    search-prep:
-      name: Prepare data for searches
-      nav_fold: true
-    query-dsl:
-      name: Search with Query DSL
-      nav_fold: true
-    search-optimize:
-      name: Optimize text for searches
-      nav_fold: true
-    search-async:
-      name: Search asynchronously
+      name: Search and query
       nav_fold: true
     aggregate-data:
       name: Aggregate data for analysis
