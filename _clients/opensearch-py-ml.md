@@ -8,7 +8,7 @@ nav_order: 11
 
 - Call OpenSearch indexes and manipulate using [eland.DataFrame](https://eland.readthedocs.io/en/v8.3.0/reference/api/eland.DataFrame.html). The eland's Data Frame wraps an OpenSearch index into a API similar to [pandas](https://pandas.pydata.org/), giving you the ability to process large amounts of data from OpenSearch inside a Jupyter Notebook.
 - Provides basic support to upload NLP [SentenceTransformers](https://www.sbert.net/) models into OpenSearch using the [ML Commons plugin]({{site.url}}{{site.baseurl}}/ml-commons-plugin/index/).
-- Gives the ability to train and tune SentenceTransformer models with ML Commons.
+- Gives the ability to train and tune SentenceTransformer models with ML Common and synthetic queries.
 
 ## Prerequisites 
 
