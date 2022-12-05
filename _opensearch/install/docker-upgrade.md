@@ -22,18 +22,32 @@ The Docker Compose commands used in this guide are written with a hyphen (for ex
 
 ## Minor version upgrade
 
-Upgrading your OpenSearch cluster to a newer **minor** version is straightforward because a minor version upgrade will inherit the configuration and data that already exist in your cluster. You should still create and store a backup of your cluster on a remote host to mitigate any risk of data loss.
+Upgrading your OpenSearch cluster to a newer **minor** version is straightforward because a minor version upgrade will inherit the configuration and data that already exist in your cluster. You should still create and store a backup of your cluster on a remote host to mitigate any risk of data loss. See [Snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/index/) for more information.
 
 1. Stop the cluster. Don't use the `-v` option, which deletes the cluster's Docker volumes.
     ```bash
     docker-compose down
     ```
-1. Modify your Docker Compose file by changing the specified `image` to the target upgrade version. You might also want to modify settings or environment variables to enable a newly released feature. You should review the feature documentation for information about how to enable the feature in OpenSearch.
+1. Modify your Docker Compose file by changing the specified `image` to the target upgrade version. You might also want to modify settings or environment variables to enable a newly released feature. See the documentation for that feature for details about enabling it.
 1. Start the cluster with the updated Docker Compose file.
     ```bash
     docker-compose up
     ```
 1. Wait for the containers to start, then query the [Cluster stats]({{site.url}}{{site.baseurl}}/api-reference/cluster-stats/) API to confirm that the version upgrade was successful. OpenSearch will return a response body that includes versions for all installed components, including OpenSearch, JDK, and plugins.
+    ```bash
+    # This sample response is from a cluster that was just upgraded from 2.3.0 to 2.4.0.
+    $ curl "https://localhost:9200/_cat/nodes?v&h=name,version&format=json&pretty=true" -ku admin:admin
+    [
+    {
+        "name" : "opensearch-node2",
+        "version" : "2.4.0"
+    },
+    {
+        "name" : "opensearch-node1",
+        "version" : "2.4.0"
+    }
+    ]
+    ```
 
 ## Major version upgrade
 
