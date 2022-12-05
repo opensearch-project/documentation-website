@@ -6,7 +6,7 @@ nav_order: 1
 
 # Install and configure OpenSearch
 
-This section details how to install and configure OpenSearch, Dashboards, and install plugins.
+This section details how to install and configure OpenSearch and OpenSearch Dashboards.
 
 ## Install OpenSearch
 
