@@ -115,7 +115,7 @@ PUT _cluster/settings
 }
 ```
 
-For more information about transient settings, persistent settings, and precedence, see [OpenSearch configuration]({{site.url}}{{site.baseurl}}/opensearch/configuration/).
+For more information about transient settings, persistent settings, and precedence, see [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuration/).
 
 #### Sample response
 
