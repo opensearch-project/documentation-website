@@ -1,13 +1,13 @@
 ---
 layout: default
-title: Search your data
+title: Search overview
 nav_order: 10
 has_toc: true
 has_children: true
 redirect_from: /opensearch/ux/
 ---
 
-# Search your data
+# Search overview
 
 To get information from your indexed data, you create a *search query*, or *query* to retrieve the specific information that you want to know about your data. OpenSearch provides a set of REST APIs that you can use to query your data streams and indexed data.
 
@@ -31,6 +31,18 @@ You can also use the search plugins for specialized searches.
 * [Quergy plugin]({{site.url}}{{site.baseurl}}/search-plugins/quergy/index) – Rewrite queries to solve relevance issues and improve search engine optimization (SEO) to get precise matches and scores.
 * [k-NN plugin]({{site.url}}{{site.baseurl}}/search-plugins/quergy/index)  – Search for k-nearest neighbors (k-NN) to a query point across an index of vectors. You can use the score script plugin for an exact search, or the k-NN plugin for an approximate search.
 * [Asynchronous search plugin]({{site.url}}{{site.baseurl}}/search-plugins/async/index/)  – Use an asynchronous search across multiple remote clusters, or large volume datasets that will take a long time.
+
+## Custom search features
+
+What users expect from search engines has evolved over the years. Just returning relevant results quickly is no longer enough for most users. Now users seek methods that allow them to get even more relevant results, to sort and organize results, and to highlight their queries. OpenSearch includes many features, described in the following table, that enhance the search experience.
+
+Feature | Description
+:--- | :---
+[Autocomplete functionality]({{site.url}}{{site.baseurl}}/opensearch/search/autocomplete) | Suggest phrases as the user types.
+[Did-you-mean functionality]({{site.url}}{{site.baseurl}}/opensearch/search/autocomplete) | Check spelling of phrases as the user types.
+[Paginate results]({{site.url}}{{site.baseurl}}/opensearch/search/paginate) | Rather than a single, long list, separate search results into pages.
+[Sort results]({{site.url}}{{site.baseurl}}/opensearch/search/sort) | Allow sorting of results by different criteria.
+[Highlight query matches]({{site.url}}{{site.baseurl}}/opensearch/search/highlight) | Highlight the search term in the results.
 
 ## How to run a search
 
