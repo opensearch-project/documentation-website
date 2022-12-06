@@ -40,9 +40,6 @@ collections:
   search-query:
     permalink: /:collection/:path/
     output: true
-  aggregate-data:
-    permalink: /:collection/:path/
-    output: true
   security-plugin:
     permalink: /:collection/:path/
     output: true
@@ -108,9 +105,6 @@ just_the_docs:
       nav_fold: true
     search-query:
       name: Search and query
-      nav_fold: true
-    aggregate-data:
-      name: Aggregate data for analysis
       nav_fold: true
     security-plugin:
       name: Security plugin
