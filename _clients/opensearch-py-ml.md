@@ -4,11 +4,11 @@ title: Opensearch-py-ml
 nav_order: 11
 ---
 
-`opensearch-py-ml` is a Python client that provides a suite of data analytics and natural language processing (NLP) support tools for OpenSearch. It provides data analysts with the following functionality:
+`opensearch-py-ml` is a Python client that provides a suite of data analytics and natural language processing (NLP) support tools for OpenSearch. It provides data analysts with the ability to:
 
-- Call OpenSearch indexes and manipulate using the opensearch-py-ml data frame. The opensearch-py-ml Data Frame wraps an OpenSearch index into a API similar to [pandas](https://pandas.pydata.org/), giving you the ability to process large amounts of data from OpenSearch inside a Jupyter Notebook.
-- Provides basic support to upload NLP [SentenceTransformers](https://www.sbert.net/) models into OpenSearch using the [ML Commons plugin]({{site.url}}{{site.baseurl}}/ml-commons-plugin/index/).
-- Gives the ability to train and tune SentenceTransformer models with ML Common and synthetic queries.
+- Call OpenSearch indexes and manipulate using the opensearch-py-ml [DataFrame](https://opensearch-project.github.io/opensearch-py-ml/reference/dataframe.html) APIs. The opensearch-py-ml DataFrame wraps an OpenSearch index into a API similar to [pandas](https://pandas.pydata.org/), giving you the ability to process large amounts of data from OpenSearch inside a Jupyter Notebook.
+-  Upload NLP [SentenceTransformers](https://www.sbert.net/) models into OpenSearch using the [ML Commons plugin]({{site.url}}{{site.baseurl}}/ml-commons-plugin/index/).
+- Train and tune SentenceTransformer models with ML Common and synthetic queries.
 
 ## Prerequisites 
 
