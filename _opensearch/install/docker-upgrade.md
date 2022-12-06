@@ -65,3 +65,15 @@ There are several methods available for upgrading across major versions with Ope
     - Reindexing is the option to “replay” all of the original source documents into the new cluster. Reindexing needs to be used in conjunction with some of the other approaches in some contexts (e.g. if you are doing a rolling upgrade across multiple major versions, you currently need to reindex within the cluster between major versions), but it can also be used as a standalone method.
 
 Remote reindexing is used in tandem with other methods. Open Q - does remote reindexing force an admin to run two clusters simultaneously?
+
+
+
+Test methodology:
+
+Create 1.x OS cluster locally
+Prep remote host (VM) with Docker/Docker Compose and system updates
+Configure local OS cluster (index data and create an internal user)
+Configure snapshot and repository locally
+Save current state of local cluster in snapshot and store in S3 repository
+Restore from snapshot using newer version
+Remote reindexing from local machine (can't do it the other way since my laptop isn't accessible from the public internet)
