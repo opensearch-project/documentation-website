@@ -5,7 +5,7 @@ parent: Search your data
 nav_order: 24
 ---
 
-# Autocomplete
+# Autocomplete functionality
 
 Autocomplete shows suggestions to users while they type.
 
