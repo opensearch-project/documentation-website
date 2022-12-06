@@ -9,13 +9,11 @@ redirect_from: /opensearch/ux/
 
 # Search overview
 
-To get information from your indexed data, you create a *search query*, or *query* to retrieve the specific information that you want to know about your data. OpenSearch provides a set of REST APIs that you can use to query your data streams and indexed data.
+To get information from your indexed data, you create a *search query*, or *query* to retrieve the specific information that you want to know about your data. OpenSearch provides a set of REST APIs that you can use to query your data streams and indexed data. You create a query with parameters and fields that define the question you want to know.
 
-You create a query with parameters and fields that define the question you want to know.
+There are many questions you can answer about your data with a query. Just to highlight a few categories of questions, you might want to create queries to find answers to the following categories:
 
-Query your data to answer various categories of questions:
-
-* **keyword searches** – Think of a typical keyword search to a search engine to return results that have been indexed. You can locate specific terms, or search an index for all documents that contain that term.
+* **keyword searches** – Similar to a basic browser search for a keyword, you can perform a search to return an individual term within documents you've indexed.
 * **Performance issues** – Find out which processes are taking longer than 40 milliseconds to respond.
 * **Monitor large file relocation operations** – Make sure that large groups of documents are not removed from your organization with a SQL selective aggregation query.
 
