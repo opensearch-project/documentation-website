@@ -24,6 +24,8 @@ Create a Data Prepper configuration file, `data-prepper-config.yaml`, with:
 ssl: false
 ```
 
+Note that this is insecure and should not be used in production. 
+
 Create a Data Prepper pipeline file, `pipelines.yaml`, with:
 
 ```
