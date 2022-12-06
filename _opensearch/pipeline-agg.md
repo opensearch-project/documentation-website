@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Pipeline aggregations
+parent: Aggregate data for analysis
 nav_order: 30
 has_children: false
 ---

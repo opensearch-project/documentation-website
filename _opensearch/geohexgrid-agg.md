@@ -1,6 +1,7 @@
 ---
 layout: default
 title: GeoHex grid aggregations
+parent: Aggregate data for analysis
 nav_order: 25
 has_children: false
 ---

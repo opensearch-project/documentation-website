@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Aggregations overview
+title: Aggregate data for analysis
 nav_order: 10
 has_children: false
 ---
 
-# Aggregations overview
+# Aggregate data for analysis
 
 OpenSearch isn’t just for search. Aggregations let you tap into OpenSearch's powerful analytics engine to analyze your data and extract statistics from it.
 

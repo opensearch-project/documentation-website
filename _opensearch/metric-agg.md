@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Metric aggregations
+parent: Aggregate data for analysis
 nav_order: 15
 has_children: false
 ---

@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Bucket aggregations
+parent: Aggregate data for analysis
 nav_order: 20
 has_children: false
 ---
