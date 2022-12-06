@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Reindex data
+parent: Prepare data for searches
 nav_order: 30
 ---
 

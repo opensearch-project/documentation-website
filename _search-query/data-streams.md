@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Data streams
+parent: Prepare data for searches
 nav_order: 40
 ---
 

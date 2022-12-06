@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Index mappings
+parent: Prepare data for searches
 nav_order: 20
 ---
 

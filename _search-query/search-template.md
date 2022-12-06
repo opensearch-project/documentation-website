@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Search templates
+parent: Prepare data for searches
 nav_order: 35
 ---
 

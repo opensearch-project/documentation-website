@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Index aliases
+parent: Prepare data for searches
 nav_order: 15
 ---
 
