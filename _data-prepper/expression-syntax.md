@@ -4,109 +4,112 @@ title: Expression syntax
 nav_order: 12
 ---
 
-# Supported operators
-In order of evaluation priority. _(top to bottom, left to right)_
+# Expression syntax
 
-| Level | Operator             | Description                                           | Associativity |
-|-------|----------------------|-------------------------------------------------------|---------------|
-| 5     | `()`                 | Priority Expression                                   | left-to-right |
-| 4     | `not`, `+`, `-`      | Unary Logical NOT<br>Unary Positive<br>Unary negative | right-to-left |
-| 3     | `<`, `<=`, `>`, `>=` | Relational Operators                                  | left-to-right |
-| 2     | `==`, `!=`           | Equality Operators                                    | left-to-right |
-| 1     | `and`, `or`          | Conditional Expression                                | left-to-right |
+## Supported operators
 
-# Reserved for possible future functionality
+Operators are listed in order of precedence (top to bottom, left to right).
+
+| Operator             | Description                                           | Associativity |
+|----------------------|-------------------------------------------------------|---------------|
+| `()`                 | Priority Expression                                   | left-to-right |
+| `not`<br> `+`<br>  `-`| Unary Logical NOT<br>Unary Positive<br>Unary negative | right-to-left |
+| `<`, `<=`, `>`, `>=` | Relational Operators                                  | left-to-right |
+| `==`, `!=`           | Equality Operators                                    | left-to-right |
+| `and`, `or`          | Conditional Expression                                | left-to-right |
+
+## Reserved for possible future functionality
 Reserved symbol set: `^`, `*`, `/`, `%`, `+`, `-`, `xor`, `=`, `+=`, `-=`, `*=`, `/=`, `%=`, `++`, `--`, `${<text>}`
 
-# Set initializer
+## Set initializer
 Defines a set or term and/or expressions.
 
-## Examples
+### Examples
 
-### HTTP status codes
+#### HTTP status codes
 ```
 {200, 201, 202}
 ```
-### HTTP response payloads
+#### HTTP response payloads
 ```
 {"Created", "Accepted"}
 ```
 
-### Handle multiple event types with different keys
+#### Handle multiple event types with different keys
 ```
 {/request_payload, /request_message}
 ```
 
-# Priority expression
+## Priority expression
 Identifies an expression that will be evaluated at the highest priority level. Priority expression must contain an
 expression or value, empty parentheses are not supported.
 
-## Examples
+### Examples
 
 ```
 /is_cool == (/name == "Steven")
 ```
 
-# Relational operators
-Tests the relationship of two numeric values. Note, the operands must be a number or Json Pointer that will resolve to a number.
+## Relational operators
+Tests the relationship of two numeric values. The operands must be numbers or JSON pointers that resolve to numbers.
 
-## Syntax
+### Syntax
 ```
-<Number | Json Pointer> < <Number | Json Pointer>
-<Number | Json Pointer> <= <Number | Json Pointer>
-<Number | Json Pointer> > <Number | Json Pointer>
-<Number | Json Pointer> >= <Number | Json Pointer>
+<Number | JSON Pointer> < <Number | JSON Pointer>
+<Number | JSON Pointer> <= <Number | JSON Pointer>
+<Number | JSON Pointer> > <Number | JSON Pointer>
+<Number | JSON Pointer> >= <Number | JSON Pointer>
 ```
 
-## Examples
+### Examples
 ```
 /status_code >= 200 and /status_code < 300
 ```
 
-# Equality operators
-Used to test if two values are equivalent or not equivalent.
+## Equality operators
+Used to test whether two values are equivalent.
 
-## Syntax
+### Syntax
 ```
 <Any> == <Any>
 <Any> != <Any>
 ```
 
-## Examples
+### Examples
 ```
 /is_cool == true
 3.14 != /status_code
 {1, 2} == /event/set_property
 ```
-# Using equality operators to check JSON pointer 
+## Using equality operators to check JSON pointer 
 
-Equality operators can also be used to check whether a JSON Pointer exists by checking with 'null'
+Equality operators can also be used to check whether a JSON Pointer exists by comparing with `null`.
 
-## Syntax
+### Syntax
 ```
-<Json Pointer> == null
-<Json Pointer> != null
-null == <Json Pointer>
-null != <Json Pointer>
+<JSON Pointer> == null
+<JSON Pointer> != null
+null == <JSON Pointer>
+null != <JSON Pointer>
 ```
 
-## Examples
+### Examples
 ```
 /response == null
 null != /response
 ```
 
-# Conditional expression
+#### Conditional expression
 Used to chain together multiple expressions and/or values.
 
-## Syntax
+#### Syntax
 ```
 <Any> and <Any>
 <Any> or <Any>
 not <Any>
 ```
 
-## Examples
+### Examples
 ```
 /status_code == 200 and /message == "Hello world"
 /status_code == 200 or /status_code == 202
@@ -115,71 +118,72 @@ not /status_code in {200, 202}
 /response != null
 ```
 
-# Definitions
-## Literal
+## Definitions
+
+### Literal
 A fundamental value that has no children.
-- Float _(Supports values from 3.40282347 x 10^38 to 1.40239846 x 10^-45)_
-- Integer _(Supports values from -2147483648 to 2147483647)_
+- Float _(Supports values from 3.40282347 &times; 10<sup>38</sup> to 1.40239846 &times; 10<sup>&minus;45)</sup>_
+- Integer _(Supports values from &minus;2,147,483,648 to 2,147,483,647)_
 - Boolean _(Supports true or false)_
-- Json Pointer _(See Json Pointer section for details)_
-- String _(Supports Valid Java String characters)_
-- Null _(Supports null check to see if a Json Pointer is present or not)_
+- JSON Pointer _(See JSON Pointer section for details)_
+- String _(Supports valid Java strings)_
+- Null _(Supports null check to see whether a JSON pointer exists)_
 
-## Expression string
-The String that will be parsed for evaluation. Expression String is the highest level of a Data Prepper Expression. Only supports one expression string resulting in a return value. Note, an _Expression String_ is not the same as an _Expression_.
+### Expression string
+The string that will be parsed for evaluation. Expression string is the highest level of a Data Prepper expression. Only supports one expression string resulting in a return value. An _expression string_ is not the same as an _expression_.
 
-## Statement
+### Statement
 The highest level component of the expression string.
 
-## Expression
+### Expression
 A generic component that contains a _Primary_ or an _Operator_. Expressions may contain expressions. An expressions imminent children can contains 0-1 _Operators_.
 
-## Primary
+### Primary
 
 - _Set_
 - _Priority Expression_
 - _Literal_
 
-## Operator
-Hard coded token that identifies the operation use in an _Expression_.
+### Operator
+Hard coded token that identifies the operation used in an _expression_.
 
-## JSON pointer
-A Literal used to reference a value within the Event provided as context for the _Expression String_. Json Pointers are identified by a 
-leading `/` containing alphanumeric character or underscores, delimited by `/`. Json Pointers can use an extended character set if wrapped 
-in double quotes (`"`) using the escape character `\`. Note, Json Pointer require `~` and `/` that should be used as part of the path and 
+### JSON pointer
+A Literal used to reference a value within the Event provided as context for the _Expression String_. JSON Pointers are identified by a 
+leading `/` containing alphanumeric character or underscores, delimited by `/`. JSON Pointers can use an extended character set if wrapped 
+in double quotes (`"`) using the escape character `\`. Note, JSON Pointer require `~` and `/` that should be used as part of the path and 
 not a delimiter to be escaped.
 
 - `~0` representing `~`
 - `~1` representing `/`
 
-### Shorthand syntax (Regex, `\w` = `[A-Za-z_]`)
+#### Shorthand syntax (Regex, `\w` = `[A-Za-z_]`)
 ```
 /\w+(/\w+)*
 ```
 
-### Shorthand example
+##### Shorthand example
 ```
 /Hello/World/0
 ```
 
-### Escaped syntax example
+##### Escaped syntax example
 ```
 "/<Valid String Characters | Escaped Character>(/<Valid String Characters | Escaped Character>)*"
 ```
 
-### Escaped example
+#### Escaped example
 ```
 # Path
 # { "Hello - 'world/" : [{ "\"JsonPointer\"": true }] }
 "/Hello - 'world\//0/\"JsonPointer\""
 ```
 
-# White space
-## Operators
+## White space
+### Operators
 White space is **optional** surrounding Relational Operators, Regex Equality Operators, Equality Operators and commas.
 White space is **required** surrounding Set Initializers, Priority Expressions, Set Operators, and Conditional Expressions.
 
-## Reference table
+### Reference table
 
 | Operator             | Description              | White Space Required | ✅ Valid Examples                                               | ❌ Invalid Examples                    |
 |----------------------|--------------------------|----------------------|----------------------------------------------------------------|---------------------------------------|
