@@ -99,3 +99,12 @@ $ curl -H 'Content-Type: application/json' -X POST "https://localhost:9200/_snap
   "status" : 403
 }
 ```
+
+Looks like there are issues/conflicts with existing indices:
+
+```bash
+$ curl -H 'Content-Type: application/json' -X POST "https://localhost:9200/_snapshot/s3-snapshot-repository/v1-3-6-snapshot/_restore?pretty=true" -d'{"indices":"-.opendistro_security,-.kibana_92668751_admin_1,-security-auditlog-2022.12.06,-.kibana_1","include_global_state":false}' -ku admin:admin
+{
+  "accepted" : true
+}
+```
