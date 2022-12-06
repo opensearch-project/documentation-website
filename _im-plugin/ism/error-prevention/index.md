@@ -1,6 +1,6 @@
 ---
 layout: default
-title: ISM error prevention
+title: ISM Error Prevention
 parent: Index State Management
 nav_order: 1
 has_children: true
@@ -10,7 +10,7 @@ redirect_from:
 
 # ISM error prevention
 
-Error prevention validates ISM actions before they are performed to avoid actions from failing. It also outputs additional information from the action validation results in the response of the [Index Explain API]({{site.url}}{{site.baseurl}}/im-plugin/ism/api/#explain-index). Validation rules and troubleshooting of each action are listed below.
+Error prevention validates Index State Management (ISM) actions before they are performed in order to prevent actions from failing. It also outputs additional information from the action validation results in the response of the [Index Explain API]({{site.url}}{{site.baseurl}}/im-plugin/ism/api/#explain-index). Validation rules and troubleshooting of each action are listed in the following sections.
 
 ---
 
@@ -37,33 +37,33 @@ ISM does not perform a `delete` action for an index under any of these condition
 
 - The index does not exist.
 - The index name is invalid.
-- The index is the write index for some data stream.
+- The index is the write index for a data stream.
 
 ## force_merge
 
-ISM does not perform a `force_merge` action for an index if its data set is too large and exceeds the threshold.
+ISM does not perform a `force_merge` action for an index if its dataset is too large and exceeds the threshold.
 
 ## replica_count
 
 ISM does not perform a `replica_count` action for an index under any of these conditions: 
 
-- The data is too large and is exceeding the threshold.
-- Maximum shards are exceeded.
+- The amount of data exceeds the threshold.
+- The number of shards exceeds the maximum.
 
 ## open
 
 ISM does not perform an `open` action for an index under any of these conditions: 
 
 - The index is blocked.
-- Maximum shards exceeded.
+- The number of shards exceeds the maximum.
 
 ## read_only
 
 ISM does not perform a `read_only` action for an index under any of these conditions: 
 
 - The index is blocked.
-- The data is too large and is exceeding the threshold.
+- The amount of data exceeds the threshold.
 
 ## read_write 
 
-ISM does not perform read_write action for an index if the index is blocked.
+ISM does not perform a `read_write` action for an index if the index is blocked.

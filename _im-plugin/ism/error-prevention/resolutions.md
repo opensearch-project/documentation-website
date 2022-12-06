@@ -1,13 +1,13 @@
 ---
 layout: default
-title: ISM error prevention resolutions
-parent: ISM error prevention
+title: ISM Error Prevention resolutions
+parent: ISM Error Prevention
 nav_order: 5
 ---
 
 # ISM error prevention resolutions
 
-Resolutions of errors for each validation rule action are listed below.
+Resolutions of errors for each validation rule action are listed in the following sections.
 
 ---
 
@@ -20,13 +20,13 @@ Resolutions of errors for each validation rule action are listed below.
 
 ## The index is not the write index
 
-To confirm if one index is a write index, run the following request:
+To confirm that the index is a write index, run the following request:
 
 ```bash
 GET <index>/_alias?pretty
 ```
 
-If the response does not contain `"is_write_index"` : true, the index is not a write index. The following example confirms the index is a write index:
+If the response does not contain `"is_write_index"` : true, the index is not a write index. The following example confirms that the index is a write index:
 
 ```json
 {
@@ -40,7 +40,7 @@ If the response does not contain `"is_write_index"` : true, the index is not a w
 }
 ```
 
-To set as as write index, run the following request:
+To set the index as a write index, run the following request:
 
 ```bash
 PUT <index>
@@ -55,7 +55,7 @@ PUT <index>
 
 ## The index does not have an alias
 
-If the index does not have an alias, you can add an alias to the index by running the following request:
+If the index does not have an alias, you can add one by running the following request:
 
 ```bash
 POST _aliases
@@ -79,7 +79,7 @@ In the event that skipping a rollover action occurs, run the following request:
  GET <target_index>/_settings?pretty
 ```
 
-If the response includes:
+If you receive the response in the first example, you can reset it by running the request in the second example:
 
 ```json
 {
@@ -88,8 +88,6 @@ If the response includes:
   }
 }
 ```
-
-You can reset it by running the following request:
 
 ```bash
 PUT <target_index>/_settings
@@ -102,7 +100,7 @@ PUT <target_index>/_settings
 
 ## This index has already been rolled over successfully
 
-Remove the [rollover policy from the index]({{site.url}}{{site.baseurl}}/im-plugin/ism/api/#remove-policy-from-index) to prevent this error from recurring. 
+Remove the [rollover policy from the index]({{site.url}}{{site.baseurl}}/im-plugin/ism/api/#remove-policy-from-index) to prevent this error from reoccurring.
 
 ## The rollover policy misses rollover_alias index setting
 
@@ -126,13 +124,13 @@ Check the [JVM information]({{site.url}}{{site.baseurl}}/api-reference/nodes-api
 
 ## Maximum shards exceeded
 
-The limit of shards per node, or per index, causes this issue to occur. Check if there is a `total_shards_per_node` limit by running the following request:
+The shard limit per node, or per index, causes this issue to occur. Check whether there is a `total_shards_per_node` limit by running the following request:
 
 ```bash
 GET /_cluster/settings
 ```
 
-If the response contains `total_shards_per_node`, increase the value of it temporally by running the following request:
+If the response contains `total_shards_per_node`, increase its value temporarily by running the following request:
 
 ```bash
 PUT _cluster/settings
@@ -143,13 +141,13 @@ PUT _cluster/settings
 }
 ```
 
-To check if there is limit of shards for an index, run the following request:
+To check whether there is a shard limit for an index, run the following request:
 
 ```bash
 GET <index>/_settings/index.routing-
 ```
 
-If the response contains the setting below: 
+If the response contains the setting in the first example, increase its value or set it to `-1` for unlimited shards, as shown in the second example:
 
 ```json
 "index" : {
@@ -161,8 +159,6 @@ If the response contains the setting below:
       }
 ```
 
-Increase the value or set it to `-1` for unlimited:
-
 ```bash
 PUT <index>/_settings
 {"index.routing.allocation.total_shards_per_node":-1}
@@ -170,17 +166,17 @@ PUT <index>/_settings
 
 ## The index is a write index for some data stream
 
-If you still want to delete the index, please check your [data stream]({{site.url}}{{site.baseurl}}/opensearch/data-streams/) settings and change the write index.
+If you still want to delete the index, check your [data stream]({{site.url}}{{site.baseurl}}/opensearch/data-streams/) settings and change the write index.
 
 ## The index is blocked
 
-Generally, the index is blocked because disk usage has exceeded flood-stage watermark and the index has a `read-only-allow-delete` block. To resolve this issue, you can:
+Generally, the index is blocked because disk usage has exceeded the flood-stage watermark and the index has a `read-only-allow-delete` block. To resolve this issue, you can:
 
 1. Remove the `-index.blocks.read_only_allow_delete-` parameter.
 1. Temporarily increase the disk watermarks.
-1. Temporally disable the disk allocation threshold.
+1. Temporarily disable the disk allocation threshold.
 
-To avoid the issue from reoccurring, it is better to reduce the usage of the disk by increasing disk space, adding new nodes, or by removing data or indexes that are no longer needed. 
+To prevent the issue from reoccurring, it is better to reduce the usage of the disk by increasing disk space, adding new nodes, or removing data or indexes that are no longer needed. 
 
 Remove `-index.blocks.read_only_allow_delete-` by running the following request:
 
