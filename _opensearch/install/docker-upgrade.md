@@ -70,10 +70,10 @@ Remote reindexing is used in tandem with other methods. Open Q - does remote rei
 
 Test methodology:
 
-Create 1.x OS cluster locally
-Prep remote host (VM) with Docker/Docker Compose and system updates
-Configure local OS cluster (index data and create an internal user)
-Configure snapshot and repository locally
-Save current state of local cluster in snapshot and store in S3 repository
+Create 1.x OS cluster locally - DONE
+Prep remote host (VM) with Docker/Docker Compose and system updates - DONE
+Configure local OS cluster (index data and create an internal user) - DONE
+Configure snapshot and repository locally - DONE
+Save current state of local cluster in snapshot and store in S3 repository - DONE
 Restore from snapshot using newer version
 Remote reindexing from local machine (can't do it the other way since my laptop isn't accessible from the public internet)
