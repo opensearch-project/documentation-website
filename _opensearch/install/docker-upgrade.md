@@ -76,4 +76,26 @@ Configure local OS cluster (index data and create an internal user) - DONE
 Configure snapshot and repository locally - DONE
 Save current state of local cluster in snapshot and store in S3 repository - DONE
 Restore from snapshot using newer version
-Remote reindexing from local machine (can't do it the other way since my laptop isn't accessible from the public internet)
+Remote reindexing from local machine (can't do it the other way since my laptop isn't accessible from the public internet) (???)
+
+
+
+Results/Notes:
+
+Snapshot taken from 1.3.6 cluster cannot be restored to 2.4.0 cluster:
+```
+$ curl -H 'Content-Type: application/json' -X POST "https://localhost:9200/_snapshot/s3-snapshot-repository/v1-3-6-snapshot/_restore?pretty=true" -ku admin:admin
+{
+  "error" : {
+    "root_cause" : [
+      {
+        "type" : "security_exception",
+        "reason" : "no permissions for [] and User [name=admin, backend_roles=[admin], requestedTenant=null]"
+      }
+    ],
+    "type" : "security_exception",
+    "reason" : "no permissions for [] and User [name=admin, backend_roles=[admin], requestedTenant=null]"
+  },
+  "status" : 403
+}
+```
