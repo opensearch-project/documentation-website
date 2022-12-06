@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Autocomplete functionality
+title: Autocomplete
 parent: Search your data
 nav_order: 24
 ---
 
-# Autocomplete functionality
+# Autocomplete
 
 Autocomplete shows suggestions to users while they type.
 
