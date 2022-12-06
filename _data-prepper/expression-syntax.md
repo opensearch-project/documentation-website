@@ -64,7 +64,7 @@ Tests the relationship of two numeric values. Note, the operands must be a numbe
 ```
 
 # Equality operators
-Used to test if two value are/are not equivalent.
+Used to test if two values are equivalent or not equivalent.
 
 ## Syntax
 ```
