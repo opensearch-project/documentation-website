@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Boolean queries
+parent: Query DSL overview
 nav_order: 45
 ---
 
