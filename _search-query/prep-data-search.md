@@ -2,11 +2,11 @@
 layout: default
 title: Prepare data for searches
 has_children: true
-nav_order: 10
+nav_order: 20
 ---
 
 
-# Prepare your data for searches
+# Prepare data for searches
 
 Before you can perform searches on your data, you need to do some preparations:
 

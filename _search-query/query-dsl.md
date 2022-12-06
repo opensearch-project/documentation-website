@@ -2,7 +2,7 @@
 layout: default
 title: Search with Query DSL
 has_children: true
-nav_order: 27
+nav_order: 30
 redirect_from:
   - /opensearch/query-dsl/
   - /docs/opensearch/query-dsl/

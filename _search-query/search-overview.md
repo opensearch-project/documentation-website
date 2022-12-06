@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Search your data
-nav_order: 20
+nav_order: 10
 has_toc: true
 has_children: true
 redirect_from: /opensearch/ux/
