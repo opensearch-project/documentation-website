@@ -2,7 +2,7 @@
 layout: default
 title: Aggregate data for analysis
 nav_order: 10
-has_children: false
+has_children: true
 ---
 
 # Aggregate data for analysis
