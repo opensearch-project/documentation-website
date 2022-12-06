@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Autocomplete
+title: Autocomplete functionality
 parent: Search your data
 nav_order: 24
 ---
