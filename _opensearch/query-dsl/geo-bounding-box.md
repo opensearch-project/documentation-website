@@ -13,7 +13,7 @@ To search for documents that contain [geopoint]({{site.url}}{{site.baseurl}}/ope
 
 You can use a geo-bounding box query to search for documents that contain geopoints. 
 
-Create a mapping with the `point` field is mapped as `geo_point`:
+Create a mapping with the `point` field mapped as `geo_point`:
 
 ```json
 PUT testindex1
@@ -120,7 +120,7 @@ The response contains the matching document:
 }
 ```
 
-The preceding response does not include document 3 with a geopoint of `"lat": 75.00, "lon": 28.00` because of the geopoint's limited [precision](#precision).
+The preceding response does not include the document with a geopoint of `"lat": 75.00, "lon": 28.00` because of the geopoint's limited [precision](#precision).
 {: .note}
 
 ## Precision
