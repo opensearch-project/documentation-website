@@ -50,7 +50,7 @@ The image below shows a [Logs] Web Traffic dashboard with filters applied.
 
 ## Next steps 
 
-You can run OpenSearch Dashboards on a local host after installing OpenSearch. See [Install and configure OpenSearch]({{site.url}}{{site.baseurl}}/opensearch/install/index/) and [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/install/index/) for installation instructions.  
+You can run OpenSearch Dashboards on a local host after installing OpenSearch. See [Install and configure OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/) and [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/) for installation instructions.  
 
 ## Related links
 - [Getting Started with OpenSearch]({{site.url}}{{site.baseurl}}).
