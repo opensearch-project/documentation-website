@@ -2,7 +2,7 @@
 layout: default
 title: Asynchronous search security
 nav_order: 2
-parent: Asynchronous search
+parent: Asynchronous search plugin
 has_children: false
 ---
 

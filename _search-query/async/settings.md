@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Settings
-parent: Asynchronous search
+parent: Asynchronous search plugin
 nav_order: 4
 ---
 
