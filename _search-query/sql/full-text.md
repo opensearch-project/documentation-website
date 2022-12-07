@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Full-Text Search
-parent: SQL and PPL
+parent: Search with SQL and PPL
 nav_order: 11
 ---
 

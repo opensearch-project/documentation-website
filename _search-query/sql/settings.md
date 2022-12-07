@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Settings
-parent: SQL and PPL
+parent: Search with SQL and PPL
 nav_order: 77
 ---
 

@@ -1,7 +1,7 @@
 ---
 layout: default
 title: SQL/PPL API
-parent: SQL and PPL
+parent: Search with SQL and PPL
 nav_order: 1
 ---
 
