@@ -1,7 +1,7 @@
 ---
 layout: default
 title: SQL and PPL
-nav_order: 38
+nav_order: 90
 has_children: true
 has_toc: false
 redirect_from:

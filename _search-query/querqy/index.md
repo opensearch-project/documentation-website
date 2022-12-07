@@ -4,7 +4,7 @@ title: Querqy plugin
 has_children: false
 redirect_from:
   - /search-plugins/querqy/
-nav_order: 10
+nav_order: 80
 ---
 
 # Querqy plugin

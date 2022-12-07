@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Aggregate data for analysis
-nav_order: 50
+nav_order: 40
 has_children: true
 ---
 

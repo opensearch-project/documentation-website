@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Search relevance
-nav_order: 55
+nav_order: 100
 has_children: false
 has_toc: false
 redirect_from:

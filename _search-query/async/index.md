@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Asynchronous search plugin
-nav_order: 51
+nav_order: 60
 has_children: true
 redirect_from:
   - /search-plugins/async/
