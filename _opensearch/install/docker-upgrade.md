@@ -117,3 +117,20 @@ green  open   .opendistro_security         PC3HoaAWRLGAA95zPbSI8Q   1   1       
 green  open   .kibana_1                    LsTNN5_ZQMuA529Z3q88_Q   1   1          0            0       416b           208b
 ```
 
+Restoration from the snapshot without excluding indexes fails:
+```bash
+$ curl -H 'Content-Type: application/json' -X POST "https://localhost:9200/_snapshot/s3-snapshot-repository/v1-3-6-snapshot/_restore?pretty=true" -ku admin:admin
+{
+  "error" : {
+    "root_cause" : [
+      {
+        "type" : "security_exception",
+        "reason" : "no permissions for [] and User [name=admin, backend_roles=[admin], requestedTenant=null]"
+      }
+    ],
+    "type" : "security_exception",
+    "reason" : "no permissions for [] and User [name=admin, backend_roles=[admin], requestedTenant=null]"
+  },
+  "status" : 403
+}
+```
