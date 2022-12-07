@@ -8,7 +8,7 @@ nav_order: 11
 
 - Call OpenSearch indexes and manipulate using the opensearch-py-ml [DataFrame](https://opensearch-project.github.io/opensearch-py-ml/reference/dataframe.html) APIs. The opensearch-py-ml DataFrame wraps an OpenSearch index into a API similar to [pandas](https://pandas.pydata.org/), giving you the ability to process large amounts of data from OpenSearch inside a Jupyter Notebook.
 -  Upload NLP [SentenceTransformers](https://www.sbert.net/) models into OpenSearch using the [ML Commons plugin]({{site.url}}{{site.baseurl}}/ml-commons-plugin/index/).
-- Train and tune SentenceTransformer models with ML Common and synthetic queries.
+- Train and tune SentenceTransformer models with synthetic queries
 
 ## Prerequisites 
 
@@ -16,13 +16,13 @@ To use `opensearch-py-ml`, install the [OpenSearch Python client]({{site.url}}{{
 
 ## Install `opensearch-py-ml`
 
-To add the client to your project install it using [pip](https://pip.pypa.io/):
+To add the client to your project, install it using [pip](https://pip.pypa.io/):
 
 ```bash
 pip install opensearch-py-ml
 ```
 
-Then, import the client into OpenSearch like any other module:
+Then import the client into OpenSearch like any other module:
 
 ```python
 from opensearchpy import OpenSearch
@@ -31,7 +31,7 @@ import openseach_py_ml as oml
 
 ## API reference
 
-For information on all opensearch-py-ml objects, functions and methods, see the [opensearch-ply-ml API reference](https://opensearch-project.github.io/opensearch-py-ml/reference/index.html).
+For information on all opensearch-py-ml objects, functions, and methods, see the [opensearch-ply-ml API reference](https://opensearch-project.github.io/opensearch-py-ml/reference/index.html).
 
 ## Next steps
 
