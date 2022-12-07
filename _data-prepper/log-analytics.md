@@ -4,7 +4,7 @@ title: Log analytics
 nav_order: 12
 ---
 
-# Introduction to log analytics
+# Log analytics
 
 Data Prepper is an extendable, configurable, and scalable solution for log ingestion into OpenSearch and Amazon OpenSearch Service. Data Prepper supports receiving logs from [Fluent Bit](https://fluentbit.io/) through the [HTTP Source](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/http-source/README.md) and processing those logs with a [Grok Processor](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/grok-processor/README.md) before ingesting them into OpenSearch through the [OpenSearch sink](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/opensearch/README.md).
 
@@ -14,17 +14,17 @@ The following image shows all of the components used for log analytics with Flue
 
 In the application environment, run Fluent Bit. Fluent Bit can be containerized through Kubernetes, Docker, or Amazon Elastic Container Service (Amazon ECS). You can also run Fluent Bit as an agent on Amazon Elastic Compute Cloud (Amazon EC2). Configure the [Fluent Bit http output plugin](https://docs.fluentbit.io/manual/pipeline/outputs/http) to export log data to Data Prepper. Then deploy Data Prepper as an intermediate component and configure it to send the enriched log data to your OpenSearch cluster. From there, use OpenSearch Dashboards to perform more intensive visualization and analysis. 
 
-# Log analytics pipeline 
+## Log analytics pipeline 
 
 Log analytics pipelines in Data Prepper are extremely customizable. The following image shows a simple pipeline. 
 
 ![Log analytics component]({{site.url}}{{site.baseurl}}/images/data-prepper/log-analytics/log-ingestion-fluent-bit-data-prepper.png)
 
-# HTTP source
+### HTTP source
 
 The [HTTP Source](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/http-source/README.md) accepts log data from Fluent Bit. This source accepts log data in a JSON array format and supports industry-standard encryption in the form of TLS/HTTPS and HTTP basic authentication.
 
-# Processor
+### Processor
 
 Data Prepper 1.2 and above comes with a [Grok Processor](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/grok-processor/README.md). The Grok Processor is an invaluable tool for structuring and extracting important fields from your logs, making them more queryable.
 
@@ -32,15 +32,15 @@ The Grok Processor comes with a wide variety of [default patterns](https://githu
 
 For more information about Grok features, see the documentation.
 
-# OpenSearch sink
+### Sink
 
 There is a generic sink that writes data to OpenSearch as the destination. The [OpenSearch sink](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/opensearch/README.md) has configuration options related to an OpenSearch cluster, like endpoint, SSL/username, index name, index template, and index state management.
 
-# Pipeline configuration
+## Pipeline configuration
 
-## Example pipeline.yaml with SSL and basic authentication enabled
+### Example pipeline with SSL and basic authentication enabled
 
-Example `pipeline.yaml` with SSL and basic authentication enabled for the `http-source`:
+This example pipeline configuration comes with SSL and basic authentication enabled for the `http-source`:
 
 ```yaml
 log-pipeline:
@@ -93,7 +93,7 @@ You will need to run Fluent Bit in your service environment. See [Getting Starte
 
 Note that you should adjust the file `path`, output `Host`, and `Port` according to how and where you have Fluent Bit and Data Prepper running.
 
-### Example fluent-bit.conf without SSL and basic authentication enabled
+### Example: Fluent Bit file without SSL and basic authentication enabled
 
 The following is an example `fluent-bit.conf` without SSL and basic authentication enabled on the HTTP source:
 
@@ -115,7 +115,7 @@ The following is an example `fluent-bit.conf` without SSL and basic authenticati
 
 If your HTTP source has SSL and basic authentication enabled, you will need to add the details of `http_User`, `http_Passwd`, `tls.crt_file`, and `tls.key_file` to the `fluent-bit.conf`, as shown in the following example.
 
-### Example fluent-bit.conf with SSL and basic authentication enabled
+### Example: Fluent Bit file with SSL and basic authentication enabled
 
 The following is an example `fluent-bit.conf` with SSL and basic authentication enabled on the HTTP source:
 
