@@ -26,15 +26,15 @@ The [HTTP Source](https://github.com/opensearch-project/data-prepper/blob/main/d
 
 # Processor
 
-Data Prepper 1.2 release and above comes with a [Grok Processor](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/grok-processor/README.md). The Grok Processor is an invaluable tool to structure and extract important fields from your logs that makes them more queryable.
+Data Prepper 1.2 and above comes with a [Grok Processor](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/grok-processor/README.md). The Grok Processor is an invaluable tool for structuring and extracting important fields from your logs, making them more queryable.
 
-The Grok Processor comes with a wide variety of [default patterns](https://github.com/thekrakken/java-grok/blob/master/src/main/resources/patterns/patterns) that match against common log formats like apcahe logs or syslogs, but can easily accept any custom patterns that cater to your specific log format.
+The Grok Processor comes with a wide variety of [default patterns](https://github.com/thekrakken/java-grok/blob/master/src/main/resources/patterns/patterns) that match common log formats like Apache logs or syslogs, but it can easily accept any custom patterns that cater to your specific log format.
 
-There are a lot of complex Grok features that will not be discussed here, so please read the documentation if you are interested.
+For more information about Grok features, see the documentation.
 
 # OpenSearch sink
 
-There is a generic sink that writes the data to OpenSearch as the destination. The [OpenSearch sink](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/opensearch/README.md) has configuration options related to an OpenSearch cluster like endpoint, SSL/Username, index name, index template, index state management, etc.
+There is a generic sink that writes data to OpenSearch as the destination. The [OpenSearch sink](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/opensearch/README.md) has configuration options related to an OpenSearch cluster, like endpoint, SSL/username, index name, index template, and index state management.
 
 # Pipeline configuration
 
@@ -76,26 +76,26 @@ log-pipeline:
         index: apache_logs
 ```
 
-This pipeline configuration is an example of Apache log ingestion. Don't forget that you can easily configure the Grok processor for your own custom logs. You will need to modify the configuration above for your OpenSearch cluster.
+This pipeline configuration is an example of Apache log ingestion. Don't forget that you can easily configure the Grok Processor for your own custom logs. You will need to modify the configuration for your OpenSearch cluster.
 
-The main changes you need to make are:
+The following are the main changes you need to make:
 
-* `hosts` - Set to your hosts
-* `index` - Change this to the OpenSearch index you want to send logs to
-* `username`- Provide the OpenSearch username
-* `password` - Provide your OpenSearch password
-* `aws_sigv4` - If you use Amazon OpenSearch Service with AWS signing, set this to true. It will sign requests with the default AWS credentials provider.
+* `hosts` – Set to your hosts.
+* `index` – Change this to the OpenSearch index to which you want to send logs.
+* `username` – Provide your OpenSearch username.
+* `password` – Provide your OpenSearch password.
+* `aws_sigv4` – If you use Amazon OpenSearch Service with AWS signing, set this to true. It will sign requests with the default AWS credentials provider.
 * `aws_region` - If you use Amazon OpenSearch Service with AWS signing, set this value to the AWS Region in which your cluster is hosted.
 
-## FluentBit
+## Fluent Bit
 
-You will have to run FluentBit in your service environment. You can find the installation guide of FluentBit [here](https://docs.fluentbit.io/manual/installation/getting-started-with-fluent-bit). Ensure that you can configure the [FluentBit http output plugin](https://docs.fluentbit.io/manual/pipeline/outputs/http) to your Data Prepper Http Source. Below is an example `fluent-bit.conf` that tails a log file named `test.log` and forwards it to a locally running Data Prepper's http source, which runs by default on port 2021. 
+You will need to run Fluent Bit in your service environment. See [Getting Started with Fluent Bit](https://docs.fluentbit.io/manual/installation/getting-started-with-fluent-bit) for installation instructions. Ensure that you can configure the [Fluent Bit http output plugin](https://docs.fluentbit.io/manual/pipeline/outputs/http) to your Data Prepper HTTP source. The following is an example `fluent-bit.conf` that tails a log file named `test.log` and forwards it to a locally running Data Prepper HTTP source, which runs by default on port 2021. 
 
-Note that you should adjust the file `path`, output `Host` and `Port` according to how and where you have FluentBit and Data Prepper running.
+Note that you should adjust the file `path`, output `Host`, and `Port` according to how and where you have Fluent Bit and Data Prepper running.
 
 ### Example fluent-bit.conf without SSL and basic authentication enabled
 
-Example `fluent-bit.conf` without SSL and Basic Authentication enabled on the http source:
+The following is an example `fluent-bit.conf` without SSL and basic authentication enabled on the HTTP source:
 
 ```
 [INPUT]
@@ -113,11 +113,11 @@ Example `fluent-bit.conf` without SSL and Basic Authentication enabled on the ht
   Format json
 ```
 
-If your http source has SSL and basic authentication enabled, you will need to add the details of `http_User`, `http_Passwd`, `tls.crt_file`, and `tls.key_file` to the `fluent-bit.conf` as shown below.
+If your HTTP source has SSL and basic authentication enabled, you will need to add the details of `http_User`, `http_Passwd`, `tls.crt_file`, and `tls.key_file` to the `fluent-bit.conf`, as shown in the following example.
 
 ### Example fluent-bit.conf with SSL and basic authentication enabled
 
-Example `fluent-bit.conf` with SSL and basic authentication enabled on the http source:
+The following is an example `fluent-bit.conf` with SSL and basic authentication enabled on the HTTP source:
 
 ```
 [INPUT]
@@ -140,7 +140,7 @@ Example `fluent-bit.conf` with SSL and basic authentication enabled on the http 
   Format json
 ```
 
-# Next Steps
+# Next steps
 
 See the [Data Prepper Log Ingestion Demo Guide](https://github.com/opensearch-project/data-prepper/blob/main/examples/log-ingestion/README.md) for a specific example of Apache log ingestion from `FluentBit -> Data Prepper -> OpenSearch` running through Docker.
 
