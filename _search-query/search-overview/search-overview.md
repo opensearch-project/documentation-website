@@ -85,14 +85,3 @@ GET /hotels-index/_search
   }
 }
 ```
-
-
-## Custom search options
-
-You can also use any of the custom search functions 
-
-* [Autocomplete functionality]({{site.url}}{{site.baseurl}}/opensearch/search/autocomplete) – Suggest phrases as the user types.
-* [Did-you-mean functionality]({{site.url}}{{site.baseurl}}/opensearch/search/autocomplete) – Check spelling of phrases as the user types.
-* [Paginate results]({{site.url}}{{site.baseurl}}/opensearch/search/paginate) – Rather than a single, long list, separate search results into pages.
-* [Sort results]({{site.url}}{{site.baseurl}}/opensearch/search/sort) – Allow sorting of results by different criteria.
-* [Highlight query matches]({{site.url}}{{site.baseurl}}/opensearch/search/highlight) – Highlight the search term in the results.
