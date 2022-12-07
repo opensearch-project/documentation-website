@@ -88,6 +88,7 @@ PUT testindex1/_doc/6
   "point": {
     "type": "Point",
     "coordinates": [74.00, 40.71]
+  }
 }
 ```
 
