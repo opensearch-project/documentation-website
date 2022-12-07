@@ -52,11 +52,11 @@ Continuing from the preceding steps, you will learn how to query OpenSearch Dash
 
 # Adding aggregations
 
-To create the stacked area chart, we need to add another set of aggregations. To check your work, open and use the OpenSearch Dashboards console on a separate browser tab.
+To create the stacked area chart, you'll need to add another set of aggregations. To check your work, open and use the OpenSearch Dashboards console on a separate browser tab.
 
 1. Open OpenSearch Dashboards on a new tab.
-1. Open the main menu window and then select **Dev Tools**.
-1. On the **Console** editor, enter the aggregation and then select **Click to send request**.
+2. Open the main menu window and then select **Dev Tools**.
+3. On the **Console** editor, enter the aggregation and then select **Click to send request**.
 
 ```bash
 POST opensearch_dashboards_sample_data_ecommerce/_search
@@ -191,8 +191,45 @@ Now it’s time to convert from an isolated OpenSearch query into a query with O
 
 Select **Update**. You'll see the error `url.%context% and url.%timefield% must not be used when url.body.query is set`. When forming the query in the console, you must manually include the `timerange` (and other) filters. To keep the data linked to the UI search controls, use the `%context%` and `%timefield%` parameters, and remove the query field from the body.
 
-Similarly, change the `extended_bounds` of the `date_histogram` to match the `%timefilter%`.
+Similarly, change `extended_bounds` of the `date_histogram` to match the `%timefilter%`.
 
+```bash
 
+```
 
+Because you've added a new aggregation, you need to change the `property` aggregation, which is nested one level deeper. Change `format: {property: "aggregations.time_buckets.buckets"}` to `format: {property: "aggregations.categories.buckets"}`.
+ 
+This more deeply nested result also needs to be flattened so that the data has a single row for each `time_buckets` aggregation. To do this, add the following `transform` aggregation before `mark:`.
 
+```bash
+transform: [
+    {
+      flatten: ["time_buckets.buckets"],
+      as: ["time_buckets"]
+    }
+  ]
+  ```
+
+Continue with the following steps: 
+
+1. Change `mark: line` to `mark: area`.
+1. Change the encoding x `field: key` to `field: time_buckets.key`.
+1. Change the encoding y `field: doc_count` to `field: time_buckets.doc_count`.
+1. Add a new `color` encoding with `field: key`.
+2. Select **Update**. You will see the stacked area chart.
+
+# Refine your visualization 
+
+Now that your data is visualized, let's refine it to create maximum impact.
+
+1. Change the visualization title from `title: Event counts from all indexes` to `title: Daily orders by category`.
+2. Add titles to each encoding and remove axis formatting.
+3. Update the `encoding.x` axis tick formatting to match the date histogram interval by setting `axis: { tickCount: "day", grid: false }`.
+4. Add a tooltip to `mark` to display the hovercard.
+
+And that’s it! You’ve created a Vega visualization with OpenSearch Dashboards.
+
+# Related links
+
+* [Vega, A Visualization Grammar](https://vega.github.io/vega/)
+* [Vega-Lite, A Grammar of Interactive Graphics](https://vega.github.io/vega/)
