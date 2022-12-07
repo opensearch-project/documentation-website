@@ -19,7 +19,7 @@ Dashboards has several visualization types to support your data analysis needs. 
 
  <img src="{{site.url}}{{site.baseurl}}/images/area-chart-1.png" alt="Example area chart in OpenSearch Dashboards" width="60%" height="30%">
 
-Area charts depict changes over time, and they are commonly used to show trends. Area charts more efficiently identify patterns in log data,such as sales data for a time range and trends over that time. Learn how to create and use [Area charts]({{site.url}}{{site.baseurl}}/dashboards/visualize/area-charts) in Dashboards.
+Area charts depict changes over time, and they are commonly used to show trends. Area charts more efficiently identify patterns in log data, such as sales data for a time range and trends over that time. Learn how to create and use [Area charts]({{site.url}}{{site.baseurl}}/dashboards/visualize/area-charts) in Dashboards.
 
 ## Bar charts
 
@@ -111,4 +111,4 @@ VisBuilder is used to create data visualizations with a drag-and-drop gesture. I
 
 <img src="{{site.url}}{{site.baseurl}}/images/vega-1.png" alt="Example Vega visualization with JSON specification in OpenSearch Dashboards" width="60%" height="30%">
 
-[Vega](https://vega.github.io/vega/) and [Vega-Lite](https://vega.github.io/vega-lite/) are open-source, declarative language visualization grammars for creating, sharing, and saving interactive data visualizations. Vega visualizations in OpenSearch u flexibility to visualize multidimensional data using a layered approach to build and manipulate visualizations in a structured manner.
+[Vega](https://vega.github.io/vega/) and [Vega-Lite](https://vega.github.io/vega-lite/) are open-source, declarative language visualization grammars for creating, sharing, and saving interactive data visualizations. Vega visualizations in OpenSearch gives you flexibility to visualize multidimensional data using a layered approach to build and manipulate visualizations in a structured manner.
