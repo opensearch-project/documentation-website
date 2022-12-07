@@ -1,7 +1,7 @@
 ---
 layout: default
 title: PPL &ndash; Piped Processing Language
-parent: SQL and PPL
+parent: Search with SQL and PPL
 nav_order: 5
 has_children: true
 has_toc: false

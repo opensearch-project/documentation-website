@@ -1,7 +1,7 @@
 ---
 layout: default
 title: SQL
-parent: SQL and PPL
+parent: Search with SQL and PPL
 nav_order: 4
 has_children: true
 has_toc: false

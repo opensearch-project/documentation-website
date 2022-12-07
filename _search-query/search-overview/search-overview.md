@@ -22,7 +22,7 @@ To get information from your indexed data, you create a *search query*, or *quer
 ## Search methods and plugins
 
 There are several methods to perform search queries with OpenSearch. You can perform a simple HTTP search, or you can create searches with more options using either of the query languages:
-* [Query DSL]({{site.url}}{{site.baseurl}}/query-dsl/index) – Use a wider range of search options for your queries.
+* [Search with Query DSL]({{site.url}}{{site.baseurl}}/search-query/query-dsl/index) – Use a wider range of search options for your queries.
 * [Piped processing language (PPL)]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index/) – Use pipe syntax to explore and discover your data.
 
 You can also use the search plugins for specialized searches.
