@@ -100,8 +100,7 @@ $ curl -H 'Content-Type: application/json' -X POST "https://localhost:9200/_snap
 }
 ```
 
-Looks like there are issues/conflicts with existing indices:
-
+Looks like there are issues/conflicts with existing indices. The following command worked for restoring the snapshot, but only because I excluded several indexes:
 ```bash
 $ curl -H 'Content-Type: application/json' -X POST "https://localhost:9200/_snapshot/s3-snapshot-repository/v1-3-6-snapshot/_restore?pretty=true" -d'{"indices":"-.opendistro_security,-.kibana_92668751_admin_1,-security-auditlog-2022.12.06,-.kibana_1","include_global_state":false}' -ku admin:admin
 {
@@ -109,15 +108,12 @@ $ curl -H 'Content-Type: application/json' -X POST "https://localhost:9200/_snap
 }
 ```
 
-To help streamline testing I've created a custom image by extending opensearchproject/opensearch:2.4.0 with the following:
+Here's what indexes exist on the vanilla 2.4.0 cluster:
 ```bash
-FROM opensearchproject/opensearch:2.4.0
-
-RUN /usr/share/opensearch/bin/opensearch-plugin install --batch repository-s3
+$ curl "https://localhost:9200/_cat/indices?v&expand_wildcards=all" -ku admin:admin
+health status index                        uuid                   pri rep docs.count docs.deleted store.size pri.store.size
+green  open   security-auditlog-2022.12.07 CMV0wahaQ-KozeMpaAW9Sg   1   1         11            0      172kb           45kb
+green  open   .opendistro_security         PC3HoaAWRLGAA95zPbSI8Q   1   1         10            0    140.1kb         71.8kb
+green  open   .kibana_1                    LsTNN5_ZQMuA529Z3q88_Q   1   1          0            0       416b           208b
 ```
 
-```bash
-$ docker build -t opensearch-2-4-aws .
-```
-
- Then I replaced the image in my `docker-compose.yml` with this custom image to save a step. It would be handy if I could figure out a way to also automate the addition of my secret keys so that restoring snapshots can be done immediately after standing up the cluster.
