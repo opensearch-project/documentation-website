@@ -56,7 +56,7 @@ PUT testindex1/_doc/3
 }
 ```
 
-Search for all documents and filter those documents whose points lie within the rectangle defined in the query:
+Search for all documents and filter the documents whose points lie within the rectangle defined in the query:
 
 ```json
 GET testindex1/_search
@@ -125,7 +125,7 @@ The preceding response does not include the document with a geopoint of `"lat": 
 
 ## Precision
 
-Geopoint coordinates are always rounded down at index time. At query time, the bounding box upper boundaries are rounded down, and the lower boundaries are rounded up. Therefore, the documents with geopoints that lie on the lower and left edges of the bounding box might not be included in the results due to rounding error. On the other hand, geopoints that lie on the upper and right edges of the bounding box might be included in the results even though they are outside the boundaries. The rounding error is less than 4.20 &times; 10<sup>&minus;8</sup> degrees for latitude and less than 8.39 &times; 10<sup>&minus;8</sup> degrees for longitude (around 1 cm). 
+Geopoint coordinates are always rounded down at index time. At query time, the upper boundaries of the bounding box are rounded down, and the lower boundaries are rounded up. Therefore, the documents with geopoints that lie on the lower and left edges of the bounding box might not be included in the results due to rounding error. On the other hand, geopoints that lie on the upper and right edges of the bounding box might be included in the results even though they are outside the boundaries. The rounding error is less than 4.20 &times; 10<sup>&minus;8</sup> degrees for latitude and less than 8.39 &times; 10<sup>&minus;8</sup> degrees for longitude (around 1 cm). 
 
 ## Specifying the bounding box
 
@@ -135,7 +135,7 @@ You can specify the bounding box by providing any of the following combinations 
 - `top_right` and `bottom_left`
 - `top`, `left`, `bottom`, and `right`
 
-The following example specifies the bounding box using the `top`, `left`, `bottom`, and `right` coordinates:
+The following example shows how to specify the bounding box using the `top`, `left`, `bottom`, and `right` coordinates:
 
 ```json
 GET testindex1/_search
@@ -173,13 +173,13 @@ ignore_unmapped | Boolean | Specifies whether to ignore an unmapped field. If se
 
 ## Accepted formats
 
-You can specify coordinates of the bounding box vertices in any [format]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point#formats) that geopoint accepts.  
+You can specify coordinates of the bounding box vertices in any [format]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-point#formats) that the geopoint field type accepts.  
 
-### Using geohash to specify the bounding box
+### Using a geohash to specify the bounding box
 
-If you use a geohash to specify the bounding box, the geohash is treated as a rectangle. The upper left vertex of the bounding box corresponds to the upper left vertex of the `top_left` geohash, and the lower right vertex of the bounding box corresponds to the lower right vertex of the `bottom_right` geohash. 
+If you use a geohash to specify the bounding box, the geohash is treated as a rectangle. The upper-left vertex of the bounding box corresponds to the upper-left vertex of the `top_left` geohash, and the lower-right vertex of the bounding box corresponds to the lower-right vertex of the `bottom_right` geohash. 
 
-The following example uses a geohash to specify the same bounding box as the previous examples:
+The following example shows how to use a geohash to specify the same bounding box as the previous examples:
 
 ```json
 GET testindex1/_search
@@ -202,7 +202,7 @@ GET testindex1/_search
 }
 ```
 
-To specify the bounding box that covers the whole area of a geohash, provide that geohash as both `top_left` and `bottom_right` parameters of the bounding box:
+To specify a bounding box that covers the whole area of a geohash, provide that geohash as both `top_left` and `bottom_right` parameters of the bounding box:
 
 ```json
 GET testindex1/_search
