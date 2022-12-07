@@ -108,3 +108,16 @@ $ curl -H 'Content-Type: application/json' -X POST "https://localhost:9200/_snap
   "accepted" : true
 }
 ```
+
+To help streamline testing I've created a custom image by extending opensearchproject/opensearch:2.4.0 with the following:
+```bash
+FROM opensearchproject/opensearch:2.4.0
+
+RUN /usr/share/opensearch/bin/opensearch-plugin install --batch repository-s3
+```
+
+```bash
+$ docker build -t opensearch-2-4-aws .
+```
+
+ Then I replaced the image in my `docker-compose.yml` with this custom image to save a step. It would be handy if I could figure out a way to also automate the addition of my secret keys so that restoring snapshots can be done immediately after standing up the cluster.
