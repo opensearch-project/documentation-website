@@ -6,49 +6,58 @@ nav_order: 90
 ---
 # Vega and Vega-Lite
 
-[Vega](https://vega.github.io/vega/) and [Vega-Lite](https://vega.github.io/vega-lite/) are open-source, declarative language visualization grammars for creating, sharing, and saving interactive data visualizations. Vega visualizations in OpenSearch give you control in designing your data visualization from scratch in a JSON format, giving you flexibility to visualize multidimensional data using a layered approach to build and manipulate visualizations in a structured manner. Simply put, you provide the specifications (data, graphical marks, encoding channels, etc.) of what you want the visualization to include, and the rest of the details are handled automatically.
+[Vega](https://vega.github.io/vega/) and [Vega-Lite](https://vega.github.io/vega-lite/) are open-source, declarative language visualization grammars for creating, sharing, and saving interactive data visualizations.You can use Vega or its simpler form, Vega-Lite (Dashboards supports both) to control what data is loaded, how that data is transformed, and what visual elements to use in your visualization. Vega-Lite is a good starting point for use who are new to declarative data visualizations, as it’s a simplified version of Vega higher level  for quick visualization authoring.
 
-You can use Vega or its simpler form, Vega-Lite (Dashboards supports both) to control what data is loaded, how that data is transformed, and what visual elements to use in your visualization. Vega-Lite is a good starting point for use who are new to declarative data visualizations, as it’s a simplified version of Vega higher level  for quick visualization authoring.
+Vega visualizations in OpenSearch give you control in designing your data visualization from scratch in a JSON format, giving you flexibility to visualize multidimensional data using a layered approach to build and manipulate visualizations in a structured manner. Simply put, you provide the specifications (data, graphical marks, encoding channels, etc.) of what you want the visualization to include, and the rest of the details are handled automatically.
 
-This tutorial shows how to implement Vega visualizations included in OpenSearch Dashboards using an OpenSearch data sample. Vega visualizations are an integrated scripting mechanism of Dashboards to perform on-the-fly computations on raw data to generate [D3.js](https://d3js.org/) visualizations. This tutorial is a starting point; it’s meant to only cover the basics of Vega in Dashboards. For a more comprehensive introduction to Vega or Vega-Lite, see [Vega Tutorials](https://vega.github.io/vega/tutorials/) and [Introduction to Vega-Lite](https://vega.github.io/vega-lite/tutorials/getting_started.html).
+This tutorial shows how to implement Vega visualizations included in OpenSearch Dashboards using an OpenSearch data sample. Vega visualizations are an integrated scripting mechanism of Dashboards to perform on-the-fly computations on raw data to generate [D3.js](https://d3js.org/) visualizations. 
 
 # Creating Vega and Vega-Lite visualizations in OpenSearch Dashboards
 
 Learn how to connect Vega and Vega-Lite with Dashboards filters and OpenSearch data, then learn how to create more Dashboards interaction using Vega and Vega-Lite. As you edit the Vega specifications (specs), work in steps and frequently save your work. Note that you can use common keyboard shortcuts, including undo (Command-Z or Ctrl+Z) and redo (Command-Shift-Z or Ctrl+Y), in the Vega editor.  
 
-The following image shows the Vega user interface (UI) and important elements in Dashboards.
+The Vega visualization pane is where the data is plotted and visualized. The pane includes options, such as date range, that you can configure to control the data that is displayed. The following image shows how to configure the different options:
 
-<img src="{{site.url}}{{site.baseurl}}/images/vega-UI-tour.png" alt="Vega user interface in OpenSearch Dashboards" width="100%" height="100%">
-1. **Visualization preview pane:** Plot and visualize data.
-2. **Vega spec:** Define the visualization design in JSON format. By default, the editor contains a sample spec that shows aggregated document counts in all indices over time.
-3. **Time field:** Specify date or date range. 
-4. **Refresh:** Retrieve more data or refresh already-available contents on the screen.
-5. **Update:** Update visualization to show any changes made in the spec. By default, auto-update is off, so any changes you make in the spec either can be discarded (to get back to the current visualization spec) or applied to the visualization by selecting "Update."
+<img src="{{site.url}}{{site.baseurl}}/images/vega-1.png" alt="Vega user interface in OpenSearch Dashboards" width="100%" height="100%">
+
+| **Name**           | **Description**                                                                                                                                                                                                                                                                      |
+|--------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Visualization pane | Use this section to view the plotted and visualized data.                                                                                                                                                                                                                            |
+| Vega specification (Vega spec) | Use this section to define the visualization design in JSON format. By default, the editor contains a sample spec that shows aggregated document counts in all indices over time                                                                                                     |
+| Show date          | Use this option to specify a date or date range.                                                                                                                                                                                                                                     |
+| Search             | Use this option to                                                                                                                                                                                                                                                                   |
+| Refresh            | Use this option to retrieve more data or refresh already-available contents on the screen.                                                                                                                                                                                           |
+| Update             | Use this option to update the visualization to show any changes made in the spec. By default, auto-update is off, so any changes you make in the spec either can be discarded (to get back to the current visualization spec) or applied to the visualization by selecting "Update." |
+| Discard            | Use this option to cancel any visualization changes.                                                                                                                                                                                                                                 |
 
 # Getting started with Vega
+
+This tutorial is a starting point; it’s meant to only cover the basics of creating a Vega visualization in Dashboards. For a more comprehensive introduction to Vega and Vega-Lite, see [Vega Tutorials](https://vega.github.io/vega/tutorials/) and [Introduction to Vega-Lite](https://vega.github.io/vega-lite/tutorials/getting_started.html).
+{: .note}
 
 The [OpenSearch Dashboards playground](https://playground.opensearch.org/app/home#/) is used for this tutorial. Sample datasets come with sample visualizations, dashboards, and more to help you explore Vega visualizations in Dashboards without adding your own data.
 
 1. Access the OpenSearch Dashboards playground at [playground.opensearch.org](https://playground.opensearch.org/). 
-2. Select the menu icon and then select **Dashboard**.
+2. From the menu, select **Dashboard**.
 3. In the **Dashboards** window, select **Create dashboard**.
-4. Select **Add an existing** and then select **[eCommerce] Sales Count Map > Create new > Visualization**.
-5. In the **New Visualization** window, select **Vega**.
+4. Select **Add an existing**. and then
+5. From the **Add panels** window, select **[eCommerce] Sales Count Map** and then select **Create new > Visualization**.
+6. In the **New Visualization** window, select **Vega**. You'll see a pre-populated line chart that shows the document count in all indexes in the default time range (15 min).
 
-You will see a pre-populated line chart that shows the document count in all indexes in the default time range (15 min).
-
-<img src="{{site.url}}{{site.baseurl}}/images/vega-2.jpg" alt="Vega pre-populated line chart example" width="100%" height="100%">
+<img src="{{site.url}}{{site.baseurl}}/images/vega-2.png" alt="Vega pre-populated line chart example" width="100%" height="100%">
 
 # Querying an OpenSearch index using a Vega visualization
 
-Continuing from the preceding steps, you will learn how to query OpenSearch Dashboards with **Vega** and visualize the results in a stacked area chart. 
+Continuing from the preceding steps, you'll learn how to query Dashboards using the Vega spec and JSON format. You'll also learn how to visualize the results in a stacked area chart.
 
-1. In the **Vega** spec, replace `index: _all` with `index: opensearch_dashboards_sample_data_ecommerce`.
+1. In the Vega spec, replace `index: _all` with `index: opensearch_dashboards_sample_data_ecommerce`.
 2. Select **Update**. A flat line appears with zero results.
-3. To add the data fields from the `opensearch_dashboards_sample_data_ecommerce` index, replace the `timefield` and `field` properties:
+3. To add the data fields from the `opensearch_dashboards_sample_data_ecommerce` index, replace the `timefield` and `field` properties as follows:
 * `%timefield%: @timestamp` with `%timefield%: order_date` 
 * `field: @timestamp` with `field: order_date`
-4. Select **Update**. A flat line appears with zero results.
+1. Select **Update**.
+
+<img src="{{site.url}}{{site.baseurl}}/images/" alt="GIF showing steps on how to query Dashboards using the Vega spec and JSON format" width="100%" height="100%">
 
 # Adding aggregations
 
