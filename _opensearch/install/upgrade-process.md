@@ -20,8 +20,3 @@ Additionally, you can restore your indexed data.
 - Snapshots
 - Remote reindexing
 
-
-
-Consider how impactful downtime might be for your workflow. Have any plugin implementations changed between versions? 
-
-You should review your current OpenSearch configuration before performing an upgrade
