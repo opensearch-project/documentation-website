@@ -28,7 +28,7 @@ Upgrading your OpenSearch cluster to a newer **minor** version is straightforwar
     ```bash
     docker-compose down
     ```
-1. Modify your Docker Compose file by changing the specified `image` to the target upgrade version. You might also want to modify settings or environment variables to enable a newly released feature. See the documentation for that feature for details about enabling it.
+1. Modify your Compose file by changing the specified `image` to the target upgrade version. You might also want to modify settings or environment variables to enable a newly released feature. See the documentation for that feature for details about enabling it.
 1. Start the cluster with the updated Docker Compose file.
     ```bash
     docker-compose up
