@@ -42,7 +42,7 @@ After a successful login, your IdP sends a SAML response using HTTP POST to Open
 The endpoint the OpenSearch Dashboards security plugin provides is:
 
 ```
-/_plugins/_security/saml/acs
+/_opendistro/_security/saml/acs
 ```
 
 Make sure that you have configured this endpoint correctly in your IdP. Some IdPs also require you to add all endpoints to the allow list that they send requests to. Ensure that the ACS endpoint is listed.
@@ -50,7 +50,7 @@ Make sure that you have configured this endpoint correctly in your IdP. Some IdP
 OpenSearch Dashboards also requires you to add this endpoint to the allow list. Make sure you have the following entry in `opensearch_dashboards.yml`:
 
 ```
-server.xsrf.allowlist: [/_plugins/_security/saml/acs]
+server.xsrf.allowlist: [/_opendistro/_security/saml/acs]
 ```
 
 
@@ -94,7 +94,7 @@ This setting prints the SAML response to the OpenSearch log file so that you can
 Another way of inspecting the SAML response is to monitor network traffic while logging in to OpenSearch Dashboards. The IdP uses HTTP POST requests to send Base64-encoded SAML responses to:
 
 ```
-/_plugins/_security/saml/acs
+/_opendistro/_security/saml/acs
 ```
 
 Inspect the payload of this POST request, and use a tool like [base64decode.org](https://www.base64decode.org/) to decode it.
