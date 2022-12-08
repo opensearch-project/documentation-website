@@ -41,3 +41,4 @@ Next steps:
 
 Review using the securityadmin script for backing up security settings https://opensearch.org/docs/latest/security-plugin/configuration/security-admin/#a-word-of-caution
     - Invoking securityadmin.sh without special considerations will overwrite the .opendistro_security index.
+    https://opensearch.org/docs/latest/security-plugin/configuration/security-admin/#backup-restore-and-migrate
