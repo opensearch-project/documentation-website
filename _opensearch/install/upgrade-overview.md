@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Upgrade Process
+title: Upgrade Overview
 parent: Install OpenSearch
 nav_order: 999
 ---
 
-# Upgrade Process
+# Upgrade Overview
 
 The OpenSearch Project releases regular updates that include new features and bug fixes. OpenSearch uses [Semantic Versioning](https://semver.org/), which means that breaking changes are only introduced between major version releases. All minor versions in a major release are backwards-compatible. That means that you can upgrade nodes from one minor version to a newer minor version, but you can't downgrade to an older version.
 
@@ -15,7 +15,9 @@ Before upgrading your OpenSearch cluster, you should take time to plan the proce
 
 ## Workflow considerations
 
-It's important to understand how the new version of OpenSearch will fit into your workflow. 
+It's important to understand how the new version of OpenSearch will fit into your workflow.
+
+- 
 
 ## Upgrade methods
 
