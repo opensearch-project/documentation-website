@@ -17,9 +17,9 @@ Take time to plan the process before upgrading your OpenSearch cluster. For exam
 
 An important part of the upgrade process is understanding how the new version of OpenSearch fits into your workflow. In general, consider the following:
 
-- Review any [breaking changes]({{site.url}}{{site.baseurl}}/breaking-changes/) that can affect the upgrade.
-- Confirm that any plugins you use are compatible with the new version.
-- Document any configuration files or certificates that must be manually backed up.
+- Review any [breaking changes]({{site.url}}{{site.baseurl}}/breaking-changes/).
+- Confirm that any plugins you use are compatible with the new version of OpenSearch.
+- Document any files (like TLS certificates) that must be manually backed up.
 
 
 
