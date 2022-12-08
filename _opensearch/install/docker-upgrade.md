@@ -7,7 +7,7 @@ nav_order: 1000
 
 # Upgrade OpenSearch - Docker
 
-The OpenSearch Project continually releases updates that include new features and bug fixes. OpenSearch uses [Semantic Versioning](https://semver.org/), which means that breaking changes are only introduced between major version releases. All minor versions that are part of the same major release are backwards-compatible. That means that you can upgrade nodes from one minor version to a newer minor version, but you can't downgrade to an older one.
+The OpenSearch Project releases regular updates that include new features and bug fixes. OpenSearch uses [Semantic Versioning](https://semver.org/), which means that breaking changes are only introduced between major version releases. All minor versions that are part of the same major release are backwards-compatible. That means that you can upgrade nodes from one minor version to a newer minor version, but you can't downgrade to an older one.
 
 Before upgrading, you should create a backup of your cluster's current state using [Snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/index/) so you can restore the cluster to its original state if a rollback is necessary.
 {:.note}
@@ -33,7 +33,7 @@ Upgrading your OpenSearch cluster to a newer **minor** version is straightforwar
     ```bash
     docker-compose up
     ```
-1. Wait for the containers to start, then query the [Cluster stats]({{site.url}}{{site.baseurl}}/api-reference/cluster-stats/) API to confirm that the version upgrade was successful. OpenSearch will return a response body that includes versions for all installed components, including OpenSearch, JDK, and plugins.
+1. Wait for the containers to start, then query the [CAT nodes]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-nodes/) API endpoint to confirm that the version upgrade was successful.
     ```bash
     # This sample response is from a cluster that was upgraded from 2.3.0 to 2.4.0.
     $ curl "https://localhost:9200/_cat/nodes?v&h=name,version&format=json&pretty=true" -ku admin:admin
@@ -55,6 +55,7 @@ There are several methods available for upgrading across major versions with Ope
 
 - Snapshot and restore
     - Should be performed for any method because it provides a rollback option
+    - Security options don't seem to carry over
 - Cluster Restart Upgrade
     - Cluster is taken down and brought back up with new version (same infra)
 - Rolling Upgrade
