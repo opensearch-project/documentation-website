@@ -47,7 +47,7 @@ Upgrading your OpenSearch cluster to a newer **minor** version is straightforwar
 
 ## Major version upgrade
 
-There are several methods available for upgrading across major versions with OpenSearch. Which method you choose depends on how your infrastructure is deployed.
+There are several methods available for upgrading across major versions of OpenSearch. Which method you choose depends on your specific requirements.
 
 - Snapshot and restore
     - Should be performed for any method because it provides a rollback option

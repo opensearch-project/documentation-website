@@ -21,8 +21,6 @@ An important part of the upgrade process is understanding how the new version of
 - Confirm that any plugins you use are compatible with the new version of OpenSearch.
 - Document any files (like TLS certificates) that must be manually backed up.
 
-
-
 ## Upgrade methods
 
 There are a few methods you can leverage to upgrade your OpenSearch cluster.
@@ -31,3 +29,15 @@ There are a few methods you can leverage to upgrade your OpenSearch cluster.
 - [Rolling upgrade](#rolling-upgrade)
 - [Node replacement](#node-replacement)
 
+
+
+
+
+
+
+Writer notes-
+
+Next steps:
+
+Review using the securityadmin script for backing up security settings https://opensearch.org/docs/latest/security-plugin/configuration/security-admin/#a-word-of-caution
+    - Invoking securityadmin.sh without special considerations will overwrite the .opendistro_security index.
