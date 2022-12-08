@@ -127,6 +127,16 @@ response = client.index(
 )
 ```
 
+## Performing bulk operations
+
+You can perform several operations at the same time by using the `bulk()` method of the client. The operations may be of the same type or of different types. Note that the operations have to be separated by a `\n` and the entire string must be a single line:
+
+```python
+movies = '{ "index" : { "_index" : "my-dsl-index", "_id" : "2" } } \n { "title" : "Interstellar", "director" : "Christopher Nolan", "year" : "2014"} \n { "create" : { "_index" : "my-dsl-index", "_id" : "3" } } \n { "title" : "Star Trek Beyond", "director" : "Justin Lin", "year" : "2015"} \n { "update" : {"_id" : "3", "_index" : "my-dsl-index" } } \n { "doc" : {"year" : "2016"} }'
+
+client.bulk(movies)
+```
+
 ## Searching for documents
 
 The easiest way to search for documents is to construct a query string. The following code uses a multi_match query to search for “miller” in the title and director fields. It boosts the documents where “miller” is in the title field:
@@ -172,7 +182,7 @@ response = client.indices.delete(
 
 ## Sample program
 
-The following sample program creates a client, adds an index with non-default settings, inserts a document, searches for the document, deletes the document, and, finally, deletes the index:
+The following sample program creates a client, adds an index with non-default settings, inserts a document, performs bulk operations, searches for the document, deletes the document, and, finally, deletes the index:
 
 ```python
 from opensearchpy import OpenSearch
@@ -231,6 +241,12 @@ response = client.index(
 
 print('\nAdding document:')
 print(response)
+
+# Perform bulk operations
+
+movies = '{ "index" : { "_index" : "my-dsl-index", "_id" : "2" } } \n { "title" : "Interstellar", "director" : "Christopher Nolan", "year" : "2014"} \n { "create" : { "_index" : "my-dsl-index", "_id" : "3" } } \n { "title" : "Star Trek Beyond", "director" : "Justin Lin", "year" : "2015"} \n { "update" : {"_id" : "3", "_index" : "my-dsl-index" } } \n { "doc" : {"year" : "2016"} }'
+
+client.bulk(movies)
 
 # Search for the document.
 q = 'miller'

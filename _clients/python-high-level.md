@@ -23,7 +23,7 @@ from opensearchpy import OpenSearch
 from opensearch_dsl import Search
 ```
 
-If you prefer to add the client manually or just want to examine the source code, see [opensearch-py on GitHub](https://github.com/opensearch-project/opensearch-dsl-py).
+If you prefer to add the client manually or just want to examine the source code, see [opensearch-dsl-py on GitHub](https://github.com/opensearch-project/opensearch-dsl-py).
 
 ## Connecting to OpenSearch
 
@@ -111,21 +111,38 @@ response = client.indices.create(index_name, body=index_body)
 
 ## Indexing a document
 
-You can index a document into OpenSearch using the `client.index()` method:
+You can create a class to represent the documents that you'll index in OpenSearch by extending the `Document` class:
 
 ```python
-document = {
-  'title': 'Moneyball',
-  'director': 'Bennett Miller',
-  'year': '2011'
-}
+class Movie(Document):
+    title = Text(fields={'raw': Keyword()})
+    director = Text()
+    year = Text()
 
-response = client.index(
-    index = 'my-dsl-index',
-    body = document,
-    id = '1',
-    refresh = True
-)
+    class Index:
+        name = index_name
+
+    def save(self, ** kwargs):
+        return super(Movie, self).save(** kwargs)
+```
+
+To index a document into OpenSearch, create an object of the new class and call its `save()` method:
+
+```python
+# Set up the opensearch-py version of the document
+Movie.init(using=client)
+doc = Movie(meta={'id': 1}, title='Moneyball', director='Bennett Miller', year='2011')
+response = doc.save(using=client)
+```
+
+## Performing bulk operations
+
+You can perform several operations at the same time by using the `bulk()` method of the client. The operations may be of the same type or of different types. Note that the operations have to be separated by a `\n` and the entire string must be a single line:
+
+```python
+movies = '{ "index" : { "_index" : "my-dsl-index", "_id" : "2" } } \n { "title" : "Interstellar", "director" : "Christopher Nolan", "year" : "2014"} \n { "create" : { "_index" : "my-dsl-index", "_id" : "3" } } \n { "title" : "Star Trek Beyond", "director" : "Justin Lin", "year" : "2015"} \n { "update" : {"_id" : "3", "_index" : "my-dsl-index" } } \n { "doc" : {"year" : "2016"} }'
+
+client.bulk(movies)
 ```
 
 ## Searching for documents
@@ -185,25 +202,29 @@ response = client.indices.delete(
 
 ## Sample program
 
-The following sample program creates a client, adds an index with non-default settings, inserts a document, searches for the document, deletes the document, and, finally, deletes the index:
+The following sample program creates a client, adds an index with non-default settings, inserts a document, performs bulk operations, searches for the document, deletes the document, and, finally, deletes the index:
 
 ```python
 from opensearchpy import OpenSearch
-from opensearch_dsl import Search
+from opensearch_dsl import Search, Document, Text, Keyword
 
 host = 'localhost'
 port = 9200
 
+auth = ('admin', 'admin')  # For testing only. Don't store credentials in code.
+ca_certs_path = 'root-ca.pem'
+
 # Create the client with SSL/TLS enabled, but hostname verification disabled.
 client = OpenSearch(
-    hosts = [{'host': host, 'port': port}],
-    http_compress = True, # enables gzip compression for request bodies
-    use_ssl = False,
-    verify_certs = False,
-    ssl_assert_hostname = False,
-    ssl_show_warn = False
+    hosts=[{'host': host, 'port': port}],
+    http_compress=True,  # enables gzip compression for request bodies
+    # http_auth=auth,
+    use_ssl=False,
+    verify_certs=False,
+    ssl_assert_hostname=False,
+    ssl_show_warn=False,
+    # ca_certs=ca_certs_path
 )
-
 index_name = 'my-dsl-index'
 
 index_body = {
@@ -218,35 +239,43 @@ response = client.indices.create(index_name, index_body)
 print('\nCreating index:')
 print(response)
 
-# Add a document to the index.
-document = {
-    'title': 'Moneyball',
-    'director': 'Bennett Miller',
-    'year': '2011'
-}
-id = '1'
+# Create the structure of the document
+class Movie(Document):
+    title = Text(fields={'raw': Keyword()})
+    director = Text()
+    year = Text()
 
-response = client.index(
-    index = index_name,
-    body = document,
-    id = id,
-    refresh = True
-)
+    class Index:
+        name = index_name
+
+    def save(self, ** kwargs):
+        return super(Movie, self).save(** kwargs)
+
+# Set up the opensearch-py version of the document
+Movie.init(using=client)
+doc = Movie(meta={'id': 1}, title='Moneyball', director='Bennett Miller', year='2011')
+response = doc.save(using=client)
 
 print('\nAdding document:')
 print(response)
 
+# Perform bulk operations
+
+movies = '{ "index" : { "_index" : "my-dsl-index", "_id" : "2" } } \n { "title" : "Interstellar", "director" : "Christopher Nolan", "year" : "2014"} \n { "create" : { "_index" : "my-dsl-index", "_id" : "3" } } \n { "title" : "Star Trek Beyond", "director" : "Justin Lin", "year" : "2015"} \n { "update" : {"_id" : "3", "_index" : "my-dsl-index" } } \n { "doc" : {"year" : "2016"} }'
+
+client.bulk(movies)
+
 # Search for the document.
 s = Search(using=client, index=index_name) \
-    .filter("term", year="2011") \
-    .query("match", title="Moneyball")
+    .filter('term', year='2011') \
+    .query('match', title='Moneyball')
 
 response = s.execute()
 
 print('\nSearch results:')
 for hit in response:
     print(hit.meta.score, hit.title)
-
+    
 # Delete the document.
 print('\nDeleting document:')
 print(response)
