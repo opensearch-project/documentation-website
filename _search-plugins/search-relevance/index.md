@@ -32,7 +32,7 @@ Alternatively, you can add sample data in OpenSearch Dashboards using the follow
 1. Select **Add sample data**.  
 1. Choose one of the built-in datasets and select **Add data**.
 
-## Using search relevance in OpenSearch Dashboards
+## Using Compare Search Results in OpenSearch Dashboards
 
 To compare search results in OpenSearch Dashboards, perform the following steps.
 
@@ -49,7 +49,7 @@ The following is an example query:
   "query": {
     "multi_match": {
       "query": "%SearchText%",
-      "fields": [ "title", "text" ]
+      "fields": [ "description", "item_name" ]
     }
   }
 }
@@ -64,7 +64,7 @@ The following example query boosts the `title` field in search results:
   "query": {
     "multi_match": {
       "query": "%SearchText%",
-      "fields": [ "title^3", "text" ]
+      "fields": [ "description", "item_name^3" ]
     }
   }
 }
@@ -72,11 +72,11 @@ The following example query boosts the `title` field in search results:
 
 **Step 5:** Select **Search** and compare the results in **Result 1** and **Result 2**.
 
-The following example screen shows a search for the word "container" in the `title` and `text` fields with and without boosting the `title`:
+The following example screen shows a search for the word "cup" in the `description` and `item_name` fields with and without boosting the `item_name`:
 
 <img src="{{site.url}}{{site.baseurl}}/images/search_relevance.png" alt="Compare search results"/>{: .img-fluid }
 
-If a result in Result 1 appears in Result 2, the `Up` and `Down` indicators below the result number signify how many places the result moved up or down compared to the same result in Result 2. In this example, the document with the ID 10 is `Up 1` place in Result 2 compared to Result 1 and `Down 1` place in Result 1 compared to Result 2. 
+If a result in Result 1 appears in Result 2, the `Up` and `Down` indicators below the result number signify how many places the result moved up or down compared to the same result in Result 2. In this example, the document with the ID 2 is `Up 1` place in Result 2 compared to Result 1 and `Down 1` place in Result 1 compared to Result 2. 
 
 ## Changing the number of results
 

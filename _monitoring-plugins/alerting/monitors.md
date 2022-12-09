@@ -331,7 +331,7 @@ Below are some variables you can include in your message using Mustache template
 
 #### Monitor variables
 
-Variable | Data Type | Description
+Variable | Data type | Description
 :--- | :--- | :---
 `ctx.monitor` | Object | Includes `ctx.monitor.name`, `ctx.monitor.type`, `ctx.monitor.enabled`, `ctx.monitor.enabled_time`, `ctx.monitor.schedule`, `ctx.monitor.inputs`, `triggers` and `ctx.monitor.last_update_time`.
 `ctx.monitor.user` | Object | Includes information about the user who created the monitor. Includes `ctx.monitor.user.backend_roles` and `ctx.monitor.user.roles`, which are arrays that contain the backend roles and roles assigned to the user. See [alerting security]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/security/) for more information.
@@ -346,7 +346,7 @@ Variable | Data Type | Description
 
 #### Trigger variables
 
-Variable | Data Type | Description
+Variable | Data type | Description
 :--- | :--- | : ---
 `ctx.trigger.id` | String | The trigger's ID.
 `ctx.trigger.name` | String | The trigger's name.
@@ -358,7 +358,7 @@ Variable | Data Type | Description
 
 #### Action variables
 
-Variable | Data Type | Description
+Variable | Data type | Description
 :--- | :--- | : ---
 `ctx.trigger.actions.id` | String | The action's ID.
 `ctx.trigger.actions.name` | String | The action's name.
@@ -370,7 +370,7 @@ Variable | Data Type | Description
 
 #### Other variables
 
-Variable | Data Type | Description
+Variable | Data type | Description
 :--- | :--- : :---
 `ctx.results` | Array | An array with one element (i.e. `ctx.results[0]`). Contains the query results. This variable is empty if the trigger was unable to retrieve results. See `ctx.error`.
 `ctx.last_update_time` | Milliseconds | Unix epoch time of when the monitor was last updated.

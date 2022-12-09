@@ -77,10 +77,10 @@ In the example above, the resource is `scroll` and its path parameter is `<scrol
 
 Introduce what the path parameters can do at a high level. Provide a table with parameter names and descriptions. Include a table with the following columns:
 *Parameter* – Parameter name in plain font.
-*Data Type* – Data type capitalized (such as Boolean, String, or Integer).
+*Data type* – Data type capitalized (such as Boolean, String, or Integer).
 *Description* – Sentence to describe the parameter function, default values or range of values, and any usage examples.
 
-Parameter | Data Type | Description
+Parameter | Data type | Description
 :--- | :--- | :---
 
 ### Query parameters
@@ -97,7 +97,7 @@ Include a paragraph that describes how to use the query parameters with an examp
 
 For GET and DELETE APIs: Introduce what you can do with the optional parameters. Include a table with the same columns as the path parameter table.
 
-Parameter | Data Type | Description
+Parameter | Data type | Description
 :--- | :--- | :---
 
 ### Request fields
@@ -106,10 +106,10 @@ For PUT and POST APIs: Introduce what the request fields are allowed to provide 
 
 Include a table with these columns: 
 *Field* – Field name in plain font.
-*Data Type* – Data type capitalized (such as Boolean, String, or Integer).
+*Data type* – Data type capitalized (such as Boolean, String, or Integer).
 *Description* – Sentence to describe the field’s function, default values or range of values, and any usage examples.
 
-Field | Data Type | Description
+Field | Data type | Description
 :--- | :--- | :--- 
 
 #### Sample request
@@ -190,5 +190,5 @@ The `POST _reindex` request returns the following response fields:
 
 For PUT and POST APIs: Define all allowable response fields that can be returned in the body of the response.
 
-Field | Data Type | Description
+Field | Data type | Description
 :--- | :--- | :---

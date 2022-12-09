@@ -11,14 +11,14 @@ Retrieves information about a snapshot.
 
 ### Path parameters
 
-| Parameter | Data Type | Description |
+| Parameter | Data type | Description |
 | :--- | :--- | :--- |
 | repository | String | The repository that contains the snapshot to retrieve. |
 | snapshot | String | Snapshot to retrieve.
 
 ### Query parameters
 
-| Parameter | Data Type | Description | 
+| Parameter | Data type | Description | 
 :--- | :--- | :---
 | verbose | Boolean | Whether to show all, or just basic snapshot information. If `true`, returns all information. If `false`, omits information like start/end times, failures, and shards. Optional, defaults to `true`.|
 | ignore_unavailable | Boolean | How to handle snapshots that are unavailable (corrupted or otherwise temporarily can't be returned). If `true` and the snapshot is unavailable, the request does not return the snapshot. If `false` and the snapshot is unavailable, the request returns an error. Optional, defaults to `false`.|
@@ -72,7 +72,7 @@ Upon success, the response returns snapshot information:
 ````
 ### Response fields
 
-| Field | Data Type | Description |
+| Field | Data type | Description |
 | :--- | :--- | :--- | 
 | snapshot | string | Snapshot name. |
 | uuid | string | Snapshot's universally unique identifier (UUID). |

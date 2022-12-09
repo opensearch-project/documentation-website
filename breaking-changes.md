@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Breaking changes
-nav_order: 4
+nav_order: 5
+parent: OpenSearch documentation
 permalink: /breaking-changes/
 ---
 
@@ -25,3 +26,8 @@ If you are still using the outdated terms in the context of the security APIs or
 ### Add OpenSearch Notifications plugins
 
 In OpenSearch 2.0, the Alerting plugin is now integrated with new plugins for Notifications. If you want to continue to use the notification action in the Alerting plugin, install the new backend plugins `notifications-core` and `notifications`. If you want to manage notifications in OpenSearch Dashboards, use the new `notificationsDashboards` plugin. For more information, see [Questions about destinations]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/monitors#questions-about-destinations) on the Monitors page.
+
+
+### Drop support for JDK 8
+
+A Lucene upgrade forced OpenSearch to drop support for JDK 8. As a consequence, the [Java high-level REST client]({{site.url}}{{site.baseurl}}/clients/java-rest-high-level/) no longer supports JDK 8. Restoring JDK 8 support is currently an `opensearch-java` proposal [#156](https://github.com/opensearch-project/opensearch-java/issues/156) and will require removing OpenSearch core as a dependency from the Java client (issue [#262](https://github.com/opensearch-project/opensearch-java/issues/262)).

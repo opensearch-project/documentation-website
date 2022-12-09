@@ -19,7 +19,7 @@ POST <index_name>/_rank_eval
 
 Query parameters are optional.
 
-Parameter | Data Type | Description
+Parameter | Data type | Description
 :--- | :---  | :---
 ignore_unavailable | Boolean | Defaults to `false`. When set to `false` the response body will return an error if an index is closed or missing.
 allow_no_indices | Boolean | Defaults to `true`. When set to `false` the response body will return an error if a wildcard expression points to indexes that are closed or missing.

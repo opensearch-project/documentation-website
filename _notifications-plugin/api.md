@@ -156,7 +156,7 @@ POST /_plugins/_notifications/configs/
 
 The create channel API operation accepts the following fields in its request body:
 
-Field |	Data Type |	Description |	Required
+Field |	Data type |	Description |	Required
 :--- | :--- | :--- | :---
 config_id | String | The configuration's custom ID. | No
 config | Object |	Contains all relevant information, such as channel name, configuration type, and plugin source. |	Yes

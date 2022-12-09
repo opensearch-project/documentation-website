@@ -56,13 +56,88 @@ Avoid excessive words, such as please. Be courteous but not wordy. Extra detail 
 
 The following guidelines should be observed in OpenSearch Project content.
 
+### Acronyms
+
+Spell out acronyms the first time that you use them on a page and follow them with the acronym in parentheses. Use the format `spelled-out term (acronym)`. On subsequent use, use the acronym alone.
+
+Do not capitalize the spelled-out form of an acronym unless the spelled-out form is a proper noun or the community generally capitalizes it. In all cases, our usage should reflect the community’s usage.
+
+In general, spell out acronyms once on a page. However, you can spell them out more often for clarity.
+
+Make an acronym plural by adding an *s* to the end of it. Do not add an apostrophe.
+
+How an acronym is pronounced determines whether you use the article *an* or *a* before it. If it's pronounced with an initial vowel sound, use *an*. Otherwise, use *a*.
+
+If the first use of an acronym is in a heading, retain the acronym in the heading, and then write out the term in the following body text, followed by the acronym in parentheses. Don't spell out the term in the heading with the acronym included in parentheses. If the first use of the service name is in a title or heading, use the short form of the name in the heading, and then use the long form followed by the short form in parentheses in the following body text.
+
+In general, spell out abbreviations that end with *-bit* or *-byte*. Use abbreviations only with numbers in specific measurements. Always include a space between the number and unit. Abbreviations that are well known and don't need to be spelled out are *KB*, *MB*, *GB*, and *TB*. 
+
+Some acronyms are better known than their spelled-out counterparts or might be used almost exclusively. These include industry standard protocols, markdown and programming languages, and common file formats. You don't need to spell out these acronyms.
+
+The following table lists acronyms that you don't need to spell out.
+
+| Acronym | Spelled-out term |
+| :--------- | :------- |
+| 3D | three-dimensional |
+| API | application programming interface |
+| ASCII | American Standard Code for Information Interchange |
+| BASIC | Beginner's All-Purpose Symbolic Instruction Code |
+| BM25 | Best Match 25 |
+| CPU | central processing unit |
+| DOS | disk operating system |
+| FAQ | frequently asked questions |
+| FTP | File Transfer Protocol |
+| GIF | Graphics Interchange Format |
+| HTML | hypertext markup language |
+| HTTP | hypertext transfer protocol |
+| HTTPS | hypertext transfer protocol secure |
+| HTTP(s) | Use to refer to both protocols, HTTP and HTTPS. |
+| I/O | input/output |
+| ID | identifier |
+| IP | Internet protocol |
+| JPEG | Joint Photographic Experts Group |
+| JSON | JavaScript Object Notation |
+| NAT | network address translation |
+| NGINX | engine x |
+| PDF | Portable Document Format |
+| RAM | random access memory |
+| REST | Representational State Transfer |
+| RGB | red-green-blue |
+| ROM | read-only memory |
+| SAML | Security Assertion Markup Language |
+| SDK | software development kit |
+| SSL | Secure Sockets Layer |
+| TCP | Transmission Control Protocol |
+| TIFF | Tagged Image File Format |
+| TLS | Transport Layer Security |
+| UI | user interface |
+| URI | uniform resource identifier |
+| URL | uniform resource locator |
+| UTC | Coordinated Universal Time |
+| UTF | Unicode Transformation Format |
+| XML | Extensible Markup Language |
+| YAML | YAML Ain't Markup Language |
+
+### Links
+
+- **Formal cross-references**: In most cases, a formal cross-reference (the title of the page you're linking to) is the preferred style because it provides context and helps readers understand where they're going when they choose the link. Follow these guidelines for formal cross-references:
+     - Introduce links with formal introductory text:
+          - Use "For information *about*" or "For more information *about*." Don't use "For information *on*."
+          - If you are linking to procedures, you can use either "For instructions *on*" or "instructions *for*." Don't use "instructions *about*."
+          - Where space is limited (for example, in a table), you can use "*See* [link text]." Don't use *go to*.
+     - Ensure that the link text matches the section title text. <br> <br> Example: "To get involved, see [Contributing](https://opensearch.org/source.html) on the OpenSearch website." <br> <br>
+
+- **Embedded links**: Embedded links are woven into a sentence without formal introductory text. They're especially useful in tables or other elements where space is tight. The text around the embedded link must relate to the information in the link so that the reader understands the context. Do not use *here* or *click here* for link text because it creates accessibility problems. <br> <br> Example: "Finally, [delete the index](https://opensearch.org/docs/latest/api-reference/index-apis/delete-index)."
+
 ### Punctuation and capitalization
+
+- Use sentence case for titles, headings, and table headers. Titles of standalone documents may use title case.
 
 - Use lowercase for nouns and noun phrases that are not proper nouns; for example, *big data*. This style follows the standard rules of American English grammar.
 
 - For plural forms of nouns that end in “s”, form the possessive case by adding only an apostrophe.
 
-- When a colon introduces a list of words, a phrase, or other sentence fragment, the first word following the colon is lowercased unless it is a proper name. When a colon introduces one or more complete sentences, the first word following it is capitalized. When text introduces a table, it should be a complete sentence and end with a period, not a colon.
+- When a colon introduces a list of words, a phrase, or other sentence fragment, the first word following the colon is lowercased unless it is a proper name. When a colon introduces one or more complete sentences, the first word following it is capitalized. When text introduces a table or image, it should be a complete sentence and end with a period, not a colon.
 
 - Use commas to separate the following:
      - Independent clauses separated by coordinating conjunctions (but, or, yet, for, and, nor, so).
@@ -75,8 +150,6 @@ The following guidelines should be observed in OpenSearch Project content.
 - An en dash (–) is the width of an uppercase N. In ranges, do not include spacing on either side. Use an en dash to indicate ranges in values and dates, separate a bullet heading from the following text in a list, or separate an open compound adjective (two compounds, only one of which is hyphenated) from the word that it modifies.
 
 - Words with prefixes are normally closed (no hyphen), whether they are nouns, verbs, adjectives, or adverbs. Note that some industry terms don’t follow this hyphenation guidance. For example, *Command Line Interface* and *high performance computing* aren’t hyphenated, and *machine learning* isn’t hyphenated when used as an adjective. Other terms are hyphenated to improve readability. Examples include *non-production*, *post-migration*, and *pre-migration*.
-
-- Use sentence case for topic titles. Titles of guides and references use title case.
 
 - The ampersand (&) should never be used in a sentence as a replacement for the word and. An exception to this is in acronyms where the ampersand is commonly used, such as in Operations & Maintenance (O&M).
 
@@ -103,12 +176,6 @@ The following guidelines should be observed in OpenSearch Project content.
         - 1TB
 
 ### Formatting and organization
-
-- Links: In most cases, a formal cross-reference (the title of the page you're linking to) is the preferred style because it provides context and helps readers understand where they're going when they choose the link. Follow these guidelines for formal cross-references:
-     - Introduce links with formal introductory text:
-          - Use "For information *about*" or "For more information *about*." Don't use "For information *on*."
-          - If you are linking to procedures, you can use either "For instructions *on*" or "instructions *for*." Don't use "instructions *about*."
-          - Where space is limited (for example, in a table), you can use "*See* [link text]." Don't use "*go to*".
 
 - You can refer to APIs in three ways:
      1. When referring to API names, capitalize all words in the name (example: "Field Capabilities API").
@@ -182,10 +249,6 @@ Following is an example of procedure phrasing and formatting from Amazon EC2.
 - Use contractions carefully for a more casual tone. Use common contractions. Avoid future tense (I’ll), archaic (‘twas), colloquial (ain’t), or compound (couldn’t’ve) contractions.
 
 - Use italics for the titles of books, periodicals, and reference guides. However, do not use italics when the title of a work is also a hyperlink.
-
-- On first use, acronyms should always be defined; for example, _access control list (ACL)_. The acronym itself should be used for subsequent appearances; for example, _ACL_. Some acronyms, like _IT_ and _CPU_, are commonly understood and do not need to be defined. Do not capitalize the spelled-out form of an acronym unless the spelled-out form is a proper noun or the community generally capitalizes it. In all cases, our usage should reflect the community’s usage.
-
-- If the first use of an acronym is in a heading, retain the acronym in the heading, and then write out the term in the following body text, followed by the acronym in parentheses. Don't spell out the term in the heading with the acronym included in parentheses.
 
 - We may not alter quotations in any way. This includes defining acronyms within the quote or altering the quote for context.
 

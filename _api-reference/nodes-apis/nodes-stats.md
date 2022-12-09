@@ -578,7 +578,7 @@ GET _nodes/stats/
 
 The following table lists all response fields.
 
-| Field | Data Type | Description |
+| Field | Data type | Description |
 | :--- | :--- | :--- |
 | _nodes | Object | Statistics about the nodes that are returned. |
 | _nodes.total | Integer | The total number of nodes for this request. |
@@ -591,7 +591,7 @@ The following table lists all response fields.
 
 The `nodes` object contains all nodes that are returned by the request, along with their IDs. Each node has the following properties.
 
-Field | Data Type | Description
+Field | Data type | Description
 :--- | :--- | :---
 timestamp | Integer | The time the nodes statistics were collected, in milliseconds since the epoch. 
 name | String | The name of the node.

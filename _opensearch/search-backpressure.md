@@ -168,7 +168,7 @@ The response contains server-side request cancellation statistics:
 
 The response contains the following fields.
 
-Field Name | Data Type | Description
+Field Name | Data type | Description
 :--- | :--- | :---
 search_backpressure | Object | Statistics about search backpressure.
 search_backpressure.<br>&nbsp;&nbsp;&nbsp;&nbsp;search_shard_task | Object | Statistics specific to the search shard task.
@@ -184,7 +184,7 @@ The `resource_tracker_stats` object contains the statistics for each resource tr
 
 The `elapsed_time_tracker` object contains the following statistics related to the elapsed time.
 
-Field Name | Data Type | Description
+Field Name | Data type | Description
 :--- | :--- | :---
 cancellation_count | Integer | The number of tasks canceled because of excessive elapsed time since the node last restarted.
 current_max_millis | Integer | The maximum elapsed time for all tasks currently running on the node, in milliseconds.
@@ -194,7 +194,7 @@ current_avg_millis | Integer | The average elapsed time for all tasks currently 
 
 The `heap_usage_tracker` object contains the following statistics related to the heap usage.
 
-Field Name | Data Type | Description
+Field Name | Data type | Description
 :--- | :--- | :---
 cancellation_count | Integer | The number of tasks canceled because of excessive heap usage since the node last restarted.
 current_max_bytes | Integer | The maximum heap usage for all tasks currently running on the node, in bytes.
@@ -205,7 +205,7 @@ rolling_avg_bytes | Integer | The rolling average heap usage for `n` most recent
 
 The `cpu_usage_tracker` object contains the following statistics related to the CPU usage.
 
-Field Name | Data Type | Description
+Field Name | Data type | Description
 :--- | :--- | :---
 cancellation_count | Integer | The number of tasks canceled because of excessive CPU usage since the node last restarted.
 current_max_millis | Integer | The maximum CPU time for all tasks currently running on the node, in milliseconds.
@@ -215,7 +215,7 @@ current_avg_millis | Integer | The average CPU time for all tasks currently runn
 
 The `cancellation_stats` object contains the following statistics for canceled tasks.
 
-Field Name | Data Type | Description
+Field Name | Data type | Description
 :--- | :--- | :---
 cancellation_count | Integer | The total number of tasks canceled since the node last restarted.
 cancellation_limit_reached_count | Integer | The number of times when the number of tasks eligible for cancellation exceeded the set cancellation threshold.

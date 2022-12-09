@@ -173,7 +173,7 @@ You can limit the allowed ciphers and TLS protocols for the REST layer. For exam
 
 If this setting is not enabled, the ciphers and TLS versions are negotiated between the browser and the security plugin automatically, which in some cases can lead to a weaker cipher suite being used. You can configure the ciphers and protocols using the following settings.
 
-Name | Data Type | Description
+Name | Data type | Description
 :--- | :--- | :---
 `plugins.security.ssl.http.enabled_ciphers` | Array | Enabled TLS cipher suites for the REST layer. Only Java format is supported.
 `plugins.security.ssl.http.enabled_protocols` | Array | Enabled TLS protocols for the REST layer. Only Java format is supported.
