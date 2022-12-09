@@ -203,7 +203,7 @@ img {
 // Back to top button
 .top-link {
   display: block;
-  color: $body-text-color;
+  color: $grey-dk-000;
   font-size: 2rem;
   font-weight: bold;
   border-width:2px; 
@@ -215,8 +215,11 @@ img {
   position: fixed;
   bottom: 30px;
   right: 40px;
+  z-index: 1;
   &:hover {
-    border-color: $body-text-color;
+    border-color: $grey-dk-000;
+    background-color: $sidebar-color;
+    color: $body-text-color;
   }
 }
 
