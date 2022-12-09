@@ -17,6 +17,7 @@ Peer discovery is currently provided by either a static list or by a DNS record 
 See the following information about discovery modes below.
 
 ## Static
+
 Static discover mode allows a Data Prepper node to discover nodes using a list of IP addresses or domain names.
 ```yaml
 peer_forwarder:4
@@ -78,25 +79,29 @@ The Data Prepper must also be running with the necessary permissions. The follow
 }
 ```
 ---
-# Configuration
+## Configuration
 
-## Optional configuration
+See the following for optional configuration values.
 
-* `port`: An `int` between 0 and 65535 represents the port peer forwarder server is running on. Default value is `4994`.
-* `request_timeout`: Duration - An `int` representing the request timeout in milliseconds for Peer Forwarder HTTP server. Default value is `10000`.
-* `server_thread_count`: An `int` representing number of threads used by Peer Forwarder server. Defaults to `200`.
-* `client_thread_count`: An `int` representing number of threads used by Peer Forwarder client. Defaults to `200`.
-* `maxConnectionCount`: An `int` representing maximum number of open connections for Peer Forwarder server. Default value is `500`.
-* `discovery_mode`: A `String` representing the peer discovery mode to be used. Allowable values are `local_node`, `static`, `dns`, and `aws_cloud_map`. Defaults to `local_node` which processes events locally.
-* `static_endpoints`: A `list` containing endpoints of all Data Prepper instances. Required if `discovery_mode` is set to `static`.
-* `domain_name`: A `String` representing single domain name to query DNS against. Typically, used by creating multiple [DNS A Records](https://www.cloudflare.com/learning/dns/dns-records/dns-a-record/) for the same domain. Required if `discovery_mode` is set to `dns`.
-* `aws_cloud_map_namespace_name`: A `String` representing the Cloud Map namespace when using AWS Cloud Map service discovery. Required if `discovery_mode` is set to `aws_cloud_map`.
-* `aws_cloud_map_service_name`: A `String` representing the Cloud Map service when using AWS Cloud Map service discovery. Required if `discovery_mode` is set to `aws_cloud_map`.
-* `aws_cloud_map_query_parameters`: A `Map` of Key/value pairs to filter the results based on the custom attributes attached to an instance. Only instances that match all the specified key-value pairs are returned.
-* `buffer_size`: An `int` representing max number of unchecked records the buffer accepts (num of unchecked records = num of records written into the buffer + num of in-flight records not yet checked by the Checkpointing API). Default is `512`.
-* `batch_size`: An `int` representing max number of records the buffer returns on read. Default is `48`.
-* `aws_region`: A `String` represents the AWS region to use `ACM`, `S3` or `AWS Cloud Map`. Required if `use_acm_certificate_for_ssl` is set to `true` or `ssl_certificate_file` and `ssl_key_file` is `AWS S3` path or if `discovery_mode` is set to `aws_cloud_map`.
-* `drain_timeout`: A `Duration` representing the wait time for the peer forwarder to complete processing data before shutdown.
+### Optional configuration
+
+| Value | Description |
+| ----  | ----------- |
+| `port` | An `int` between 0 and 65535 represents the port peer forwarder server is running on. Default value is `4994`.|
+| `request_timeout` | Duration - An `int` representing the request timeout in milliseconds for Peer Forwarder HTTP server. Default value is `10000`. |
+| `server_thread_count` | An `int` representing number of threads used by Peer Forwarder server. Defaults to `200`.|
+| `client_thread_count` | An `int` representing number of threads used by Peer Forwarder client. Defaults to `200`.|
+| `maxConnectionCount`  |  An `int` representing maximum number of open connections for Peer Forwarder server. Default value is `500`. |
+| `discovery_mode` | A `String` representing the peer discovery mode to be used. Allowable values are `local_node`, `static`, `dns`, and `aws_cloud_map`. Defaults to `local_node` which processes events locally.  |
+| `static_endpoints` |  A `list` containing endpoints of all Data Prepper instances. Required if `discovery_mode` is set to `static`. |
+|  `domain_name` | A `String` representing single domain name to query DNS against. Typically, used by creating multiple [DNS A Records](https://www.cloudflare.com/learning/dns/dns-records/dns-a-record/) for the same domain. Required if `discovery_mode` is set to `dns`.  |
+| `aws_cloud_map_namespace_name`  | A `String` representing the Cloud Map namespace when using AWS Cloud Map service discovery. Required if `discovery_mode` is set to `aws_cloud_map`.  |
+| `aws_cloud_map_service_name` |  A `String` representing the Cloud Map service when using AWS Cloud Map service discovery. Required if `discovery_mode` is set to `aws_cloud_map`. |
+| `aws_cloud_map_query_parameters`  |  A `Map` of Key/value pairs to filter the results based on the custom attributes attached to an instance. Only instances that match all the specified key-value pairs are returned. |
+| `buffer_size` |  An `int` representing max number of unchecked records the buffer accepts (num of unchecked records = num of records written into the buffer + num of in-flight records not yet checked by the Checkpointing API). Default is `512`. |
+| `batch_size` |  An `int` representing max number of records the buffer returns on read. Default is `48`. |
+|  `aws_region` |  A `String` represents the AWS region to use `ACM`, `S3` or `AWS Cloud Map`. Required if `use_acm_certificate_for_ssl` is set to `true` or `ssl_certificate_file` and `ssl_key_file` is `AWS S3` path or if `discovery_mode` is set to `aws_cloud_map`. |
+| `drain_timeout`  | A `Duration` representing the wait time for the peer forwarder to complete processing data before shutdown. |
 
 # SSL configuration
 The SSL configuration for setting up trust manager for the peer forwarding client to connect to other Data Prepper instances.
