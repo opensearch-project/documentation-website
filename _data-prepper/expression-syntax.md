@@ -4,7 +4,7 @@ title: Expression syntax
 nav_order: 12
 ---
 
-# Expression syntax
+# Expression syntax 
 
 ## Supported operators
 
