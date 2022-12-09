@@ -6,6 +6,8 @@ nav_order: 12
 
 # Expression syntax 
 
+This page discusses expression syntax.
+
 ## Supported operators
 
 Operators are listed in order of precedence (top to bottom, left to right).
@@ -25,6 +27,8 @@ Reserved symbol set: `^`, `*`, `/`, `%`, `+`, `-`, `xor`, `=`, `+=`, `-=`, `*=`,
 Defines a set or term and/or expressions.
 
 ### Examples
+
+See the following examples of set initializer.
 
 #### HTTP status codes
 ```
