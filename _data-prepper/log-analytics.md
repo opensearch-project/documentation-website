@@ -26,7 +26,7 @@ The [HTTP Source](https://github.com/opensearch-project/data-prepper/blob/main/d
 
 ### Processor
 
-Data Prepper 1.2 and above comes with a [Grok Processor](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/grok-processor/README.md). The Grok Processor is an invaluable tool for structuring and extracting important fields from your logs, making them more queryable.
+Data Prepper 1.2 and above come with a [Grok Processor](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/grok-processor/README.md). The Grok Processor is an invaluable tool for structuring and extracting important fields from your logs, making them more queryable.
 
 The Grok Processor comes with a wide variety of [default patterns](https://github.com/thekrakken/java-grok/blob/master/src/main/resources/patterns/patterns) that match common log formats like Apache logs or syslogs, but it can easily accept any custom patterns that cater to your specific log format.
 
