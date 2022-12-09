@@ -143,7 +143,7 @@ Core Peer Forwarder introduces the following custom metrics and all the metrics 
 - `requestsFailed`: measures total number of failed requests. Requests with HTTP response code other than `200`.
 - `requestsSuccessful`:  measures total number of successful requests. Requests with HTTP response code `200`.
 - `requestsTooLarge`: measures total number of requests which are too large to be written to peer forwarder buffer. Requests with HTTP response code `413`.
-- `requestTimeouts`: measures total number of requests which timed out while writing content to peer forwarder buffer. Requests with HTTP response code `408`.
+- `requestTimeouts`: measures the total number of requests which timed out while writing content to peer forwarder buffer. Requests with HTTP response code `408`.
 - `requestsUnprocessable`: measures total number of requests which failed due to unprocessable entity. Requests with HTTP response code `422`.
 - `badRequests`: measures total number of requests with bad request format. Requests with HTTP response code `400`.
 - `recordsSuccessfullyForwarded`: measures total number of forwarded records successfully.
