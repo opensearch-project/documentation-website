@@ -128,15 +128,15 @@ The following terms related to expression syntax are defined below.
 
 ### Literal
 A literal is a fundamental value that has no children.
-- Float _(Supports values from 3.40282347 &times; 10<sup>38</sup> to 1.40239846 &times; 10<sup>&minus;45)</sup>_
-- Integer _(Supports values from &minus;2,147,483,648 to 2,147,483,647)_
-- Boolean _(Supports true or false)_
-- JSON Pointer _(See JSON Pointer section for details)_
-- String _(Supports valid Java strings)_
-- Null _(Supports null check to see whether a JSON pointer exists)_
+- Float: Supports values from 3.40282347 &times; 10<sup>38</sup> to 1.40239846 &times; 10<sup>&minus;45</sup>.
+- Integer: Supports values from &minus;2,147,483,648 to 2,147,483,647.
+- Boolean: Supports true or false.
+- JSON Pointer: See the [JSON Pointer](#json-pointer) section below for details.
+- String: Supports valid Java strings.
+- Null: Supports null check to see whether a JSON pointer exists.
 
 ### Expression string
-The string that will be parsed for evaluation. Expression string is the highest level of a Data Prepper expression. Only supports one expression string resulting in a return value. An _expression string_ is not the same as an _expression_.
+Expression string is the highest priority in a Data Prepper expression and only supports one expression string resulting in a return value. An _expression string_ is not the same as an _expression_.
 
 ### Statement
 The highest level component of the expression string.
