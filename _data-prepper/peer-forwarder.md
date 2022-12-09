@@ -6,7 +6,7 @@ nav_order: 12
 
 Peer Forwarder is an HTTP service which performs peer forwarding of an `event` between Data Prepper nodes for aggregation. Currently, supported by `aggregate`, `service_map_stateful`, `otel_trace_raw` processors.
 
-Peer Forwarder groups events based on the identification keys provided by the processors. For `service_map_stateful` and `otel_trace_raw`, the identification key is `traceId` by default and cannot be configured. The identification key is configurable for the `aggregate` processor using the `identification_keys` configuration option. You can find more information about [identification keys](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/aggregate-processor#identification_keys). 
+Peer Forwarder groups events based on the identification keys provided by the processors. For `service_map_stateful` and `otel_trace_raw`, the identification key is `traceId` by default and cannot be configured. The value is configurable for the `aggregate` processor using the `identification_keys` configuration option. You can find more information about [identification keys](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/aggregate-processor#identification_keys). 
 
 ---
 
@@ -17,7 +17,7 @@ Peer discovery is currently provided by either a static list or by a DNS record 
 ## Static
 Static discover mode allows a Data Prepper node to discover nodes using a list of IP addresses or domain names.
 ```yaml
-peer_forwarder:
+peer_forwarder:4
   discovery_mode: static
   static_endpoints: ["data-prepper1", "data-prepper2"]
 ```
