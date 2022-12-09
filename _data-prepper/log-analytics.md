@@ -117,7 +117,7 @@ If your HTTP source has SSL and basic authentication enabled, you will need to a
 
 ### Example: Fluent Bit file with SSL and basic authentication enabled
 
-The following is an example `fluent-bit.conf` with SSL and basic authentication enabled on the HTTP source:
+The following is an example `fluent-bit.conf` file with SSL and basic authentication enabled on the HTTP source:
 
 ```
 [INPUT]
