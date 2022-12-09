@@ -46,16 +46,16 @@ See the following examples of set initializer.
 
 ## Priority expression
 
-Priority expression Identifies an expression that will be evaluated at the highest priority level. Priority expression must contain an expression or value, empty parentheses are not supported.
+Priority expression identifies an expression that will be evaluated at the highest priority level. Priority expression must contain an expression or value; empty parentheses are not supported.
 
-### Examples
+### Example
 
 ```
 /is_cool == (/name == "Steven")
 ```
 
 ## Relational operators
-Tests the relationship of two numeric values. The operands must be numbers or JSON pointers that resolve to numbers.
+Relational operators are used to test the relationship of two numeric values. The operands must be numbers or JSON Pointers that resolve to numbers.
 
 ### Syntax
 ```
@@ -65,13 +65,13 @@ Tests the relationship of two numeric values. The operands must be numbers or JS
 <Number | JSON Pointer> >= <Number | JSON Pointer>
 ```
 
-### Examples
+### Example
 ```
 /status_code >= 200 and /status_code < 300
 ```
 
 ## Equality operators
-Used to test whether two values are equivalent.
+Equality operators are used to test whether two values are equivalent.
 
 ### Syntax
 ```
@@ -85,9 +85,9 @@ Used to test whether two values are equivalent.
 3.14 != /status_code
 {1, 2} == /event/set_property
 ```
-## Using equality operators to check JSON pointer 
+## Using equality operators to check for JSON Pointer 
 
-Equality operators can also be used to check whether a JSON Pointer exists by comparing with `null`.
+Equality operators can also be used to check whether a JSON Pointer exists by comparing the JSON Pointer with `null`.
 
 ### Syntax
 ```
@@ -97,14 +97,14 @@ null == <JSON Pointer>
 null != <JSON Pointer>
 ```
 
-### Examples
+### Example
 ```
 /response == null
 null != /response
 ```
 
 #### Conditional expression
-Used to chain together multiple expressions and/or values.
+Conditional expression is used to chain together multiple expressions and/or values.
 
 #### Syntax
 ```
@@ -113,7 +113,7 @@ Used to chain together multiple expressions and/or values.
 not <Any>
 ```
 
-### Examples
+### Example
 ```
 /status_code == 200 and /message == "Hello world"
 /status_code == 200 or /status_code == 202
@@ -124,8 +124,10 @@ not /status_code in {200, 202}
 
 ## Definitions
 
+The following terms related to expression syntax are defined below. 
+
 ### Literal
-A fundamental value that has no children.
+A literal is a fundamental value that has no children.
 - Float _(Supports values from 3.40282347 &times; 10<sup>38</sup> to 1.40239846 &times; 10<sup>&minus;45)</sup>_
 - Integer _(Supports values from &minus;2,147,483,648 to 2,147,483,647)_
 - Boolean _(Supports true or false)_
