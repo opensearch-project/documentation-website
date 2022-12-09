@@ -4,7 +4,7 @@ title: Peer Forwarder
 nav_order: 12
 ---
 
-#Peer Forwarder
+# Peer Forwarder
 
 Peer Forwarder is an HTTP service which performs peer forwarding of an `event` between Data Prepper nodes for aggregation. Currently, supported by `aggregate`, `service_map_stateful`, `otel_trace_raw` processors.
 
@@ -13,11 +13,11 @@ Peer Forwarder groups events based on the identification keys provided by the pr
 
 Peer discovery is currently provided by either a static list or by a DNS record lookup or AWS Cloudmap.  
 
-# Discovery modes
+## Discovery modes
 
 See the following information about discovery modes below.
 
-## Static
+### Static
 
 Static discover mode allows a Data Prepper node to discover nodes using a list of IP addresses or domain names.
 ```yaml
@@ -26,7 +26,7 @@ peer_forwarder:4
   static_endpoints: ["data-prepper1", "data-prepper2"]
 ```
 
-## DNS lookup
+### DNS lookup
 We recommend using DNS discovery over static discovery when scaling out a Data Prepper cluster. The core concept is to configure a DNS provider to return a list of Data Prepper hosts when given a single domain name. This is a [DNS A Record](https://www.cloudflare.com/learning/dns/dns-records/dns-a-record/) which indicates a list of IP addresses of a given domain.
 
 ```yaml
@@ -35,7 +35,7 @@ peer_forwarder:
   domain_name: "data-prepper-cluster.my-domain.net"
 ```
 
-## AWS Cloud Map
+### AWS Cloud Map
 
 [AWS Cloud Map](https://docs.aws.amazon.com/cloud-map/latest/dg/what-is-cloud-map.html) provides API-based service discovery as well as DNS-based service discovery.
 
@@ -127,7 +127,7 @@ peer_forwarder:
   ssl_key_file: "<private-key-file-path>"
 ```
 
-# Authentication
+## Authentication
 
 * `authentication`(Optional) : A `Map` that enables mTLS. It can either be `mutual_tls` or `unauthenticated`. Default value is `unauthenticated`.
 ```yaml
@@ -136,16 +136,16 @@ peer_forwarder:
     mutual_tls:
 ```
 
-# Metrics
+## Metrics
 
 Core Peer Forwarder introduces the following custom metrics and all the metrics are prefixed by `core.peerForwarder`.
 
-# Timer
+### Timer
 
 - `requestForwardingLatency`: measures latency of forwarding requests by peer forwarder client.
 - `requestProcessingLatency`: measures latency of processing requests by peer forwarder server.
 
-# Counter
+### Counter
 
 - `requests`: measures total number of forwarded requests.
 - `requestsFailed`: measures total number of failed requests. Requests with HTTP response code other than `200`.
@@ -161,6 +161,6 @@ Core Peer Forwarder introduces the following custom metrics and all the metrics 
 - `recordsActuallyProcessedLocally`: measures total number of records actually processed locally. Sum of `recordsToBeProcessedLocally` and `recordsFailedForwarding`.
 - `recordsReceivedFromPeers`: measures total number of records received from remote peers.
 
-## Gauge
+### Gauge
 
 - `peerEndpoints`: measures number of dynamically discovered peer data-prepper endpoints. For `static` mode, the size is fixed.
