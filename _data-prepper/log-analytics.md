@@ -38,6 +38,8 @@ There is a generic sink that writes data to OpenSearch as the destination. The [
 
 ## Pipeline configuration
 
+The following sections discuss pipeline configuration.
+
 ### Example pipeline with SSL and basic authentication enabled
 
 This example pipeline configuration comes with SSL and basic authentication enabled for the `http-source`:
