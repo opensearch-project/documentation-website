@@ -95,7 +95,7 @@ Note that you should adjust the file `path`, output `Host`, and `Port` according
 
 ### Example: Fluent Bit file without SSL and basic authentication enabled
 
-The following is an example `fluent-bit.conf` without SSL and basic authentication enabled on the HTTP source:
+The following is an example `fluent-bit.conf` file without SSL and basic authentication enabled on the HTTP source:
 
 ```
 [INPUT]
