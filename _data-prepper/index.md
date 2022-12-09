@@ -18,7 +18,7 @@ Data Prepper lets users build custom pipelines to improve the operational view o
 
 ## Concepts
 
-Data Prepper is compromised of one or more **Pipelines** that collect and filter data based on the components set within the pipeline. Each component is pluggable, enabling you to use your own custom implementation of each component. These components include the following: 
+Data Prepper is composed of one or more **Pipelines** that collect and filter data based on the components set within the pipeline. Each component is pluggable, enabling you to use your own custom implementation of each component. These components include the following: 
 
 - One [source](#source)
 - One or more [sinks](#sink)
