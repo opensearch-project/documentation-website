@@ -27,7 +27,7 @@ bin/data-prepper
 ```
 
 Configuration files are read from specific subdirectories in the application's home directory:
-1. `pipelines/`: for pipelines configurations; pipelines configurations can be written in one and more yaml files
+1. `pipelines/`: for pipelines configurations; pipelines configurations can be written in one and more YAML files
 2. `config/data-prepper-config.yaml`: for Data Prepper server configurations
 
 You can continue to supply your own pipeline configuration file path followed by the server configuration file path, but the support for this method will be dropped in a future release. 
