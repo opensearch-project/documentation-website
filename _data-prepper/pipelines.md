@@ -81,7 +81,7 @@ The Data Prepper repository has several [sample applications](https://github.com
 
 ### Log ingestion pipeline
 
-The following example `pipeline.yaml` with SSL and basic authentication enabled for the `http-source` demonstrates how to use the HTTP source and Grok prepper plugins to process unstructured log data:
+The following example `pipeline.yaml` file with SSL and basic authentication enabled for the `http-source` demonstrates how to use the HTTP Source and Grok Prepper plugins to process unstructured log data:
 
 
 ```yaml
