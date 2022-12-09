@@ -125,7 +125,7 @@ not /status_code in {200, 202}
 
 ## Definitions
 
-The following terms related to expression syntax are defined below. 
+This section details expression definitions. 
 
 ### Literal
 A literal is a fundamental value that has no children.
@@ -185,6 +185,8 @@ See the following example of escaped syntax.
 ```
 
 #### Escaped example
+
+See the following example of an escaped JSON Pointer.
 ```
 # Path
 # { "Hello - 'world/" : [{ "\"JsonPointer\"": true }] }
@@ -192,11 +194,10 @@ See the following example of escaped syntax.
 ```
 
 ## White space
-### Operators
+
 White space is **optional** surrounding relational operators, regex equality operators, equality operators, and commas.
 White space is **required** surrounding set initializers, priority expressions, set operators, and conditional expressions.
 
-### Reference table
 
 | Operator             | Description              | White space Required | ✅ Valid examples                                               | ❌ Invalid examples                    |
 |----------------------|--------------------------|----------------------|----------------------------------------------------------------|---------------------------------------|
