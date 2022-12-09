@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Peer forwarder
+title: Peer Forwarder
 nav_order: 12
 ---
 
