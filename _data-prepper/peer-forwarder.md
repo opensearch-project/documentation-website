@@ -97,7 +97,7 @@ The Data Prepper must also be running with the necessary permissions. The follow
 * `drain_timeout`: A `Duration` representing the wait time for the peer forwarder to complete processing data before shutdown.
 
 # SSL configuration
-The SSL configuration for setting up trust manager for peer forwarding client to connect to other Data Prepper instances.
+The SSL configuration for setting up trust manager for the peer forwarding client to connect to other Data Prepper instances.
 
 ## Optional SSL configuration
 
