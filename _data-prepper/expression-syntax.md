@@ -24,7 +24,7 @@ Operators are listed in order of precedence (top to bottom, left to right).
 Reserved symbol set: `^`, `*`, `/`, `%`, `+`, `-`, `xor`, `=`, `+=`, `-=`, `*=`, `/=`, `%=`, `++`, `--`, `${<text>}`
 
 ## Set initializer
-Defines a set or term and/or expressions.
+The set initializer defines a set or term and/or expressions.
 
 ### Examples
 
@@ -45,8 +45,8 @@ See the following examples of set initializer.
 ```
 
 ## Priority expression
-Identifies an expression that will be evaluated at the highest priority level. Priority expression must contain an
-expression or value, empty parentheses are not supported.
+
+Priority expression Identifies an expression that will be evaluated at the highest priority level. Priority expression must contain an expression or value, empty parentheses are not supported.
 
 ### Examples
 
