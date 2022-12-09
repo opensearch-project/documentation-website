@@ -60,7 +60,7 @@ peer_forwarder:
 
 ### IAM policy with necessary permissions
 
-The Data Prepper must also be running with the necessary permissions. The following IAM policy shows the necessary permissions.
+The Data Prepper must also be running with the necessary permissions. The following IAM policy shows the necessary permissions:
 
 ```json
 {
