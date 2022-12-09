@@ -14,6 +14,8 @@ Peer discovery is currently provided by either a static list or by a DNS record 
 
 # Discovery modes
 
+See the following information about discovery modes below.
+
 ## Static
 Static discover mode allows a Data Prepper node to discover nodes using a list of IP addresses or domain names.
 ```yaml
