@@ -10,7 +10,7 @@ Peer Forwarder groups events based on the identification keys provided the proce
 
 ---
 
-Right now, peer discovery is provided by either a static list or by a DNS record lookup or AWS Cloudmap.
+Peer discovery is currently provided by either a static list or by a DNS record lookup or AWS Cloudmap.
 
 # Discovery modes
 
