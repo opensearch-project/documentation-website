@@ -113,7 +113,7 @@ The following is an example `fluent-bit.conf` file without SSL and basic authent
   Format json
 ```
 
-If your HTTP source has SSL and basic authentication enabled, you will need to add the details of `http_User`, `http_Passwd`, `tls.crt_file`, and `tls.key_file` to the `fluent-bit.conf`, as shown in the following example.
+If your HTTP source has SSL and basic authentication enabled, you will need to add the details of `http_User`, `http_Passwd`, `tls.crt_file`, and `tls.key_file` to the `fluent-bit.conf` file, as shown in the following example.
 
 ### Example: Fluent Bit file with SSL and basic authentication enabled
 
