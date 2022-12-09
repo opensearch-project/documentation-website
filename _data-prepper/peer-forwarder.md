@@ -4,11 +4,12 @@ title: Peer Forwarder
 nav_order: 12
 ---
 
+#Peer Forwarder
+
 Peer Forwarder is an HTTP service which performs peer forwarding of an `event` between Data Prepper nodes for aggregation. Currently, supported by `aggregate`, `service_map_stateful`, `otel_trace_raw` processors.
 
-Peer Forwarder groups events based on the identification keys provided by the processors. For `service_map_stateful` and `otel_trace_raw`, the identification key is `traceId` by default and cannot be configured. The value is configurable for the `aggregate` processor using the `identification_keys` configuration option. You can find more information about [identification keys](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/aggregate-processor#identification_keys). 
+Peer Forwarder groups events based on the identification keys provided by the processors. For `service_map_stateful` and `otel_trace_raw`, the identification key is `traceId` by default and cannot be configured. The value is configurable for the `aggregate` processor using the `identification_keys` configuration option. You can find more information here about [identification keys](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/aggregate-processor#identification_keys). 
 
----
 
 Peer discovery is currently provided by either a static list or by a DNS record lookup or AWS Cloudmap.  
 
@@ -103,10 +104,10 @@ See the following for optional configuration values.
 |  `aws_region` |  A `String` represents the AWS region to use `ACM`, `S3` or `AWS Cloud Map`. Required if `use_acm_certificate_for_ssl` is set to `true` or `ssl_certificate_file` and `ssl_key_file` is `AWS S3` path or if `discovery_mode` is set to `aws_cloud_map`. |
 | `drain_timeout`  | A `Duration` representing the wait time for the peer forwarder to complete processing data before shutdown. |
 
-# SSL configuration
+## SSL configuration
 The SSL configuration for setting up trust manager for the peer forwarding client to connect to other Data Prepper instances.
 
-## Optional SSL configuration
+### Optional SSL configuration
 
 * `ssl`: A `boolean` that enables TLS/SSL. Default value is `true`.
 * `ssl_certificate_file`: A `String` representing the SSL certificate chain file path or AWS S3 path. S3 path example `s3://<bucketName>/<path>`. Defaults to `config/default_certificate.pem` which is default certificate file. Read more about how the certificate file is generated [here](https://github.com/opensearch-project/data-prepper/tree/main/examples/certificates).
