@@ -24,6 +24,7 @@ Operators are listed in order of precedence (top to bottom, left to right).
 Reserved symbol set: `^`, `*`, `/`, `%`, `+`, `-`, `xor`, `=`, `+=`, `-=`, `*=`, `/=`, `%=`, `++`, `--`, `${<text>}`
 
 ## Set initializer
+
 The set initializer defines a set or term and/or expressions.
 
 ### Examples
@@ -136,10 +137,10 @@ A literal is a fundamental value that has no children.
 - Null: Supports null check to see whether a JSON pointer exists.
 
 ### Expression string
-Expression string is the highest priority in a Data Prepper expression and only supports one expression string resulting in a return value. An _expression string_ is not the same as an _expression_.
+Expression string is the highest-priority in a Data Prepper expression and only supports one expression string resulting in a return value. An _expression string_ is not the same as an _expression_.
 
 ### Statement
-The highest level component of the expression string.
+The highest-priority component of the expression string.
 
 ### Expression
 A generic component that contains a _Primary_ or an _Operator_. Expressions may contain expressions. An expressions imminent children can contains 0-1 _Operators_.
@@ -151,13 +152,14 @@ A generic component that contains a _Primary_ or an _Operator_. Expressions may 
 - _Literal_
 
 ### Operator
-Hard coded token that identifies the operation used in an _expression_.
+Hardcoded token that identifies the operation used in an _expression_.
 
 ### JSON pointer
-A Literal used to reference a value within the Event provided as context for the _Expression String_. JSON Pointers are identified by a 
+JSON Pointer is a literal used to reference a value within the event and provided as context for the _Expression string_. JSON Pointers are identified by a 
 leading `/` containing alphanumeric character or underscores, delimited by `/`. JSON Pointers can use an extended character set if wrapped 
-in double quotes (`"`) using the escape character `\`. Note, JSON Pointer require `~` and `/` that should be used as part of the path and 
-not a delimiter to be escaped.
+in double quotes (`"`) using the escape character `\`. Note that JSON Pointers require `~` and `/` characters, which should be used as part of the path and not a delimiter needs to be escaped.
+
+See the following examples of JSON pointers:
 
 - `~0` representing `~`
 - `~1` representing `/`
@@ -167,12 +169,17 @@ not a delimiter to be escaped.
 /\w+(/\w+)*
 ```
 
-##### Shorthand example
+#### Shorthand example
+
+See the following example of shorthand.
+
 ```
 /Hello/World/0
 ```
 
-##### Escaped syntax example
+#### Escaped syntax example
+
+See the following example of escaped syntax.
 ```
 "/<Valid String Characters | Escaped Character>(/<Valid String Characters | Escaped Character>)*"
 ```
@@ -186,12 +193,12 @@ not a delimiter to be escaped.
 
 ## White space
 ### Operators
-White space is **optional** surrounding Relational Operators, Regex Equality Operators, Equality Operators and commas.
-White space is **required** surrounding Set Initializers, Priority Expressions, Set Operators, and Conditional Expressions.
+White space is **optional** surrounding relational operators, regex equality operators, equality operators, and commas.
+White space is **required** surrounding set initializers, priority expressions, set operators, and conditional expressions.
 
 ### Reference table
 
-| Operator             | Description              | White Space Required | ✅ Valid Examples                                               | ❌ Invalid Examples                    |
+| Operator             | Description              | White space Required | ✅ Valid examples                                               | ❌ Invalid examples                    |
 |----------------------|--------------------------|----------------------|----------------------------------------------------------------|---------------------------------------|
 | `{}`                 | Set Initializer          | Yes                  | `/status in {200}`                                             | `/status in{200}`                     |
 | `()`                 | Priority Expression      | Yes                  | `/a==(/b==200)`<br>`/a in ({200})`                             | `/status in({200})`                   |
