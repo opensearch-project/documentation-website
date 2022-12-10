@@ -209,3 +209,127 @@ GET testindex/_search
   }
 }
 ```
+
+## Date math
+
+The date field type supports date math to specify duration in queries. For example, the `gt`, `gte`, `lt`, and `lte` parameters in [range queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/term/#range-query) and the `from` and `to` parameters in [date range aggregations]({{site.url}}{{site.baseurl}}/opensearch/bucket-agg/#range-date_range-ip_range) accept date math expressions.
+
+A date math expression contains a fixed date, optionally followed by one or more mathematical expressions. The fixed date may be either `now` (current date/time in milliseconds since the epoch) or a string ending with `||` that specifies a date (for example, `2022-05-18||`). The date must be in the `strict_date_optional_time||epoch_millis` format.
+
+Date math supports the following mathematical operators:
+
+Operator | Description | Example
+:--- | :--- | :---
+`+` | Addition | `+1M`: Add one month
+`-` | Subtraction | `-1y`: Subtract one year
+`/` | Rounding down | `/h`: Round to the beginning of the hour
+
+Date math supports the following time units:
+
+`y`: Years<br>
+`M`: Months<br>
+`w`: Weeks<br>
+`d`: Days<br>
+`h` or `H`: Hours<br>
+`m`: Minutes<br>
+`s`: Seconds
+{: .note }
+
+### Example expressions
+
+The following example expressions illustrate using date math:
+
+- `now+1M`: The current date/time in milliseconds since the epoch, plus one month.
+- `2022-05-18||/M`: 05/18/2022, rounded to the beginning of the month. Resolves to `2022-05-01`.
+- `2022-05-18T15:23||/h`: 15:23 on 05/18/2022, rounded to the beginning of the hour. Resolves to `2022-05-18T15`.
+- `2022-05-18T15:23:17.789||+2M-1d/d`: 15:23:17.789 on 05/18/2022 plus two months minus one day, rounded to the beginning of the day. Resolves to `2022-07-17`.
+
+
+### Using date math in a range query
+
+The following example shows using date math in a [range query]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/term/#range-query).
+
+Set up an index with `release_date` mapped as `date`:
+
+```json
+PUT testindex 
+{
+  "mappings" : {
+    "properties" :  {
+      "release_date" : {
+        "type" : "date"
+      }
+    }
+  }
+}
+```
+
+Index two documents into the index:
+
+```json
+PUT testindex/_doc/1
+{
+  "release_date": "2022-09-14"
+}
+
+PUT testindex/_doc/2
+{
+  "release_date": "2022-11-15"
+}
+```
+
+The following query searches for documents with `release_date` within two months and one day of 09/14/2022. The lower boundary of the range is rounded to the beginning of the day on 09/14/2022:
+
+```json
+GET testindex/_search
+{
+  "query": {
+    "range": {
+      "release_date": {
+        "gte": "2022-09-14T15:23||/d",
+        "lte": "2022-09-14||+2M+1d"
+      }
+    }
+  }
+}
+```
+
+The response contains both documents:
+
+```json
+{
+  "took" : 1,
+  "timed_out" : false,
+  "_shards" : {
+    "total" : 1,
+    "successful" : 1,
+    "skipped" : 0,
+    "failed" : 0
+  },
+  "hits" : {
+    "total" : {
+      "value" : 2,
+      "relation" : "eq"
+    },
+    "max_score" : 1.0,
+    "hits" : [
+      {
+        "_index" : "testindex",
+        "_id" : "2",
+        "_score" : 1.0,
+        "_source" : {
+          "release_date" : "2022-11-14"
+        }
+      },
+      {
+        "_index" : "testindex",
+        "_id" : "1",
+        "_score" : 1.0,
+        "_source" : {
+          "release_date" : "2022-09-14"
+        }
+      }
+    ]
+  }
+}
+```
