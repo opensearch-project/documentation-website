@@ -155,9 +155,7 @@ An expression is a generic component that contains a _Primary_ or an _Operator_.
 An operator is a hardcoded token that identifies the operation used in an _expression_.
 
 ### JSON Pointer
-A JSON Pointer is a literal used to reference a value within an event and provided as context for an _expression string_. JSON Pointers are identified by a 
-leading `/` containing alphanumeric characters or underscores, delimited by `/`. JSON Pointers can use an extended character set if wrapped 
-in double quotes (`"`) using the escape character `\`. Note that JSON Pointers require `~` and `/` characters, which should be used as part of the path and not a delimiter needs to be escaped.
+A JSON Pointer is a literal used to reference a value within an event and provided as context for an _expression string_. JSON Pointers are identified by a leading `/` containing alphanumeric characters or underscores, delimited by `/`. JSON Pointers can use an extended character set if wrapped in double quotes (`"`) using the escape character `\`. Note that JSON Pointers require `~` and `/` characters, which should be used as part of the path and not as a delimiter that needs to be escaped.
 
 The following are examples of JSON Pointers:
 
@@ -203,9 +201,9 @@ White space is **required** surrounding set initializers, priority expressions, 
 |----------------------|--------------------------|----------------------|----------------------------------------------------------------|---------------------------------------|
 | `{}`                 | Set initializer          | Yes                  | `/status in {200}`                                             | `/status in{200}`                     |
 | `()`                 | Priority expression      | Yes                  | `/a==(/b==200)`<br>`/a in ({200})`                             | `/status in({200})`                   |
-| `in`, `not in`       | Set Operators            | Yes                  | `/a in {200}`<br>`/a not in {400}`                             | `/a in{200, 202}`<br>`/a not in{400}` |
-| `<`, `<=`, `>`, `>=` | Relational Operators     | No                   | `/status < 300`<br>`/status>=300`                              |                                       |
-| `=~`, `!~`           | Regex Equality Operators | No                   | `/msg =~ "^\w*$"`<br>`/msg=~"^\w*$"`                           |                                       |
-| `==`, `!=`           | Equality Operators       | No                   | `/status == 200`<br>`/status_code==200`                        |                                       |
-| `and`, `or`, `not`   | Conditional Operators    | Yes                  | `/a<300 and /b>200`                                            | `/b<300and/b>200`                     |
-| `,`                  | Set Value Delimiter      | No                   | `/a in {200, 202}`<br>`/a in {200,202}`<br>`/a in {200 , 202}` | `/a in {200,}`                        |
+| `in`, `not in`       | Set operators            | Yes                  | `/a in {200}`<br>`/a not in {400}`                             | `/a in{200, 202}`<br>`/a not in{400}` |
+| `<`, `<=`, `>`, `>=` | Relational operators     | No                   | `/status < 300`<br>`/status>=300`                              |                                       |
+| `=~`, `!~`           | Regex equality pperators | No                   | `/msg =~ "^\w*$"`<br>`/msg=~"^\w*$"`                           |                                       |
+| `==`, `!=`           | Equality operators       | No                   | `/status == 200`<br>`/status_code==200`                        |                                       |
+| `and`, `or`, `not`   | Conditional operators    | Yes                  | `/a<300 and /b>200`                                            | `/b<300and/b>200`                     |
+| `,`                  | Set value delimiter      | No                   | `/a in {200, 202}`<br>`/a in {200,202}`<br>`/a in {200 , 202}` | `/a in {200,}`                        |
