@@ -15,7 +15,7 @@ OpenSearch Dashboards gives you data visualization tools to create charts, maps,
 
 Dashboards has several visualization types to support your data analysis needs. The following sections give you an overview of the visualization types in Dashboards and their common use cases.
 
-## Area charts:  Basic and stacked
+## Area charts
 
 Area charts depict changes over time, and they are commonly used to show trends. Area charts more efficiently identify patterns in log data, such as sales data for a time range and trends over that time. Reference [Graphs and charts]({{site.url}}{{site.baseurl}}/dashboards/visualize/graphs-and-charts) to learn more about how to create and use them in Dashboards.
 
