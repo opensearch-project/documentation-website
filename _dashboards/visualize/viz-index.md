@@ -7,7 +7,7 @@ has_children: true
 
 # Visualize
 
-Data visualization is representing your data in a visual context. By visualizing your data, you translate complex, high-volume, or numerical data into a visual representation that is easier to process.
+By visualizing your data, you translate complex, high-volume, or numerical data into a visual representation that is easier to process.
 
 OpenSearch Dashboards gives you data visualization tools to improve and automate the visual communication process. Using visual elements like charts, graphs, or maps to represent data gives you the tools to advance business intelligence and support data-driven decision-making and strategic planning.
 
