@@ -4,7 +4,9 @@ title: Expression syntax
 nav_order: 12
 ---
 
-# Expression syntax
+# Expression syntax 
+
+The following sections provide information about expression syntax.
 
 ## Supported operators
 
@@ -22,9 +24,12 @@ Operators are listed in order of precedence (top to bottom, left to right).
 Reserved symbol set: `^`, `*`, `/`, `%`, `+`, `-`, `xor`, `=`, `+=`, `-=`, `*=`, `/=`, `%=`, `++`, `--`, `${<text>}`
 
 ## Set initializer
-Defines a set or term and/or expressions.
+
+The set initializer defines a set or term and/or expressions.
 
 ### Examples
+
+The following are examples of set initializer syntax.
 
 #### HTTP status codes
 ```
@@ -41,17 +46,17 @@ Defines a set or term and/or expressions.
 ```
 
 ## Priority expression
-Identifies an expression that will be evaluated at the highest priority level. Priority expression must contain an
-expression or value, empty parentheses are not supported.
 
-### Examples
+A priority expression identifies an expression that will be evaluated at the highest priority level. A priority expression must contain an expression or value; empty parentheses are not supported.
+
+### Example
 
 ```
 /is_cool == (/name == "Steven")
 ```
 
 ## Relational operators
-Tests the relationship of two numeric values. The operands must be numbers or JSON pointers that resolve to numbers.
+Relational operators are used to test the relationship of two numeric values. The operands must be numbers or JSON Pointers that resolve to numbers.
 
 ### Syntax
 ```
@@ -61,13 +66,13 @@ Tests the relationship of two numeric values. The operands must be numbers or JS
 <Number | JSON Pointer> >= <Number | JSON Pointer>
 ```
 
-### Examples
+### Example
 ```
 /status_code >= 200 and /status_code < 300
 ```
 
 ## Equality operators
-Used to test whether two values are equivalent.
+Equality operators are used to test whether two values are equivalent.
 
 ### Syntax
 ```
@@ -81,9 +86,9 @@ Used to test whether two values are equivalent.
 3.14 != /status_code
 {1, 2} == /event/set_property
 ```
-## Using equality operators to check JSON pointer 
+## Using equality operators to check for a JSON Pointer 
 
-Equality operators can also be used to check whether a JSON Pointer exists by comparing with `null`.
+Equality operators can also be used to check whether a JSON Pointer exists by comparing the value with `null`.
 
 ### Syntax
 ```
@@ -93,14 +98,14 @@ null == <JSON Pointer>
 null != <JSON Pointer>
 ```
 
-### Examples
+### Example
 ```
 /response == null
 null != /response
 ```
 
 #### Conditional expression
-Used to chain together multiple expressions and/or values.
+A conditional expression is used to chain together multiple expressions and/or values.
 
 #### Syntax
 ```
@@ -109,7 +114,7 @@ Used to chain together multiple expressions and/or values.
 not <Any>
 ```
 
-### Examples
+### Example
 ```
 /status_code == 200 and /message == "Hello world"
 /status_code == 200 or /status_code == 202
@@ -120,23 +125,25 @@ not /status_code in {200, 202}
 
 ## Definitions
 
+This section provides expression definitions. 
+
 ### Literal
-A fundamental value that has no children.
-- Float _(Supports values from 3.40282347 &times; 10<sup>38</sup> to 1.40239846 &times; 10<sup>&minus;45)</sup>_
-- Integer _(Supports values from &minus;2,147,483,648 to 2,147,483,647)_
-- Boolean _(Supports true or false)_
-- JSON Pointer _(See JSON Pointer section for details)_
-- String _(Supports valid Java strings)_
-- Null _(Supports null check to see whether a JSON pointer exists)_
+A literal is a fundamental value that has no children:
+- Float: Supports values from 3.40282347 &times; 10<sup>38</sup> to 1.40239846 &times; 10<sup>&minus;45</sup>.
+- Integer: Supports values from &minus;2,147,483,648 to 2,147,483,647.
+- Boolean: Supports true or false.
+- JSON Pointer: See the [JSON Pointer](#json-pointer) section for details.
+- String: Supports valid Java strings.
+- Null: Supports null check to see whether a JSON Pointer exists.
 
 ### Expression string
-The string that will be parsed for evaluation. Expression string is the highest level of a Data Prepper expression. Only supports one expression string resulting in a return value. An _expression string_ is not the same as an _expression_.
+An expression string takes the highest priority in a Data Prepper expression and only supports one expression string resulting in a return value. An _expression string_ is not the same as an _expression_.
 
 ### Statement
-The highest level component of the expression string.
+A statement is the highest-priority component of an expression string.
 
 ### Expression
-A generic component that contains a _Primary_ or an _Operator_. Expressions may contain expressions. An expressions imminent children can contains 0-1 _Operators_.
+An expression is a generic component that contains a _Primary_ or an _Operator_. Expressions may contain expressions. An expression's imminent children can contain 0–1 _Operators_.
 
 ### Primary
 
@@ -145,13 +152,12 @@ A generic component that contains a _Primary_ or an _Operator_. Expressions may 
 - _Literal_
 
 ### Operator
-Hard coded token that identifies the operation used in an _expression_.
+An operator is a hardcoded token that identifies the operation used in an _expression_.
 
-### JSON pointer
-A Literal used to reference a value within the Event provided as context for the _Expression String_. JSON Pointers are identified by a 
-leading `/` containing alphanumeric character or underscores, delimited by `/`. JSON Pointers can use an extended character set if wrapped 
-in double quotes (`"`) using the escape character `\`. Note, JSON Pointer require `~` and `/` that should be used as part of the path and 
-not a delimiter to be escaped.
+### JSON Pointer
+A JSON Pointer is a literal used to reference a value within an event and provided as context for an _expression string_. JSON Pointers are identified by a leading `/` containing alphanumeric characters or underscores, delimited by `/`. JSON Pointers can use an extended character set if wrapped in double quotes (`"`) using the escape character `\`. Note that JSON Pointers require `~` and `/` characters, which should be used as part of the path and not as a delimiter that needs to be escaped.
+
+The following are examples of JSON Pointers:
 
 - `~0` representing `~`
 - `~1` representing `/`
@@ -161,17 +167,24 @@ not a delimiter to be escaped.
 /\w+(/\w+)*
 ```
 
-##### Shorthand example
+#### Example of shorthand
+
+The following is an example of shorthand:
+
 ```
 /Hello/World/0
 ```
 
-##### Escaped syntax example
+#### Example of escaped syntax
+
+The following is an example of escaped syntax:
 ```
 "/<Valid String Characters | Escaped Character>(/<Valid String Characters | Escaped Character>)*"
 ```
 
-#### Escaped example
+#### Example of an escaped JSON Pointer
+
+The following is an example of an escaped JSON Pointer:
 ```
 # Path
 # { "Hello - 'world/" : [{ "\"JsonPointer\"": true }] }
@@ -179,19 +192,18 @@ not a delimiter to be escaped.
 ```
 
 ## White space
-### Operators
-White space is **optional** surrounding Relational Operators, Regex Equality Operators, Equality Operators and commas.
-White space is **required** surrounding Set Initializers, Priority Expressions, Set Operators, and Conditional Expressions.
 
-### Reference table
+White space is **optional** surrounding relational operators, regex equality operators, equality operators, and commas.
+White space is **required** surrounding set initializers, priority expressions, set operators, and conditional expressions.
 
-| Operator             | Description              | White Space Required | ✅ Valid Examples                                               | ❌ Invalid Examples                    |
+
+| Operator             | Description              | White space required | ✅ Valid examples                                               | ❌ Invalid examples                    |
 |----------------------|--------------------------|----------------------|----------------------------------------------------------------|---------------------------------------|
-| `{}`                 | Set Initializer          | Yes                  | `/status in {200}`                                             | `/status in{200}`                     |
-| `()`                 | Priority Expression      | Yes                  | `/a==(/b==200)`<br>`/a in ({200})`                             | `/status in({200})`                   |
-| `in`, `not in`       | Set Operators            | Yes                  | `/a in {200}`<br>`/a not in {400}`                             | `/a in{200, 202}`<br>`/a not in{400}` |
-| `<`, `<=`, `>`, `>=` | Relational Operators     | No                   | `/status < 300`<br>`/status>=300`                              |                                       |
-| `=~`, `!~`           | Regex Equality Operators | No                   | `/msg =~ "^\w*$"`<br>`/msg=~"^\w*$"`                           |                                       |
-| `==`, `!=`           | Equality Operators       | No                   | `/status == 200`<br>`/status_code==200`                        |                                       |
-| `and`, `or`, `not`   | Conditional Operators    | Yes                  | `/a<300 and /b>200`                                            | `/b<300and/b>200`                     |
-| `,`                  | Set Value Delimiter      | No                   | `/a in {200, 202}`<br>`/a in {200,202}`<br>`/a in {200 , 202}` | `/a in {200,}`                        |
+| `{}`                 | Set initializer          | Yes                  | `/status in {200}`                                             | `/status in{200}`                     |
+| `()`                 | Priority expression      | Yes                  | `/a==(/b==200)`<br>`/a in ({200})`                             | `/status in({200})`                   |
+| `in`, `not in`       | Set operators            | Yes                  | `/a in {200}`<br>`/a not in {400}`                             | `/a in{200, 202}`<br>`/a not in{400}` |
+| `<`, `<=`, `>`, `>=` | Relational operators     | No                   | `/status < 300`<br>`/status>=300`                              |                                       |
+| `=~`, `!~`           | Regex equality pperators | No                   | `/msg =~ "^\w*$"`<br>`/msg=~"^\w*$"`                           |                                       |
+| `==`, `!=`           | Equality operators       | No                   | `/status == 200`<br>`/status_code==200`                        |                                       |
+| `and`, `or`, `not`   | Conditional operators    | Yes                  | `/a<300 and /b>200`                                            | `/b<300and/b>200`                     |
+| `,`                  | Set value delimiter      | No                   | `/a in {200, 202}`<br>`/a in {200,202}`<br>`/a in {200 , 202}` | `/a in {200,}`                        |
