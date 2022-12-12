@@ -6,12 +6,12 @@ nav_order: 12
 
 # Peer Forwarder
 
-Peer Forwarder is an HTTP service which performs peer forwarding of an `event` between Data Prepper nodes for aggregation. Currently, Peer Forwarder is supported by `aggregate`, `service_map_stateful`, `otel_trace_raw` processors.
+Peer Forwarder is an HTTP service that performs peer forwarding of an `event` between Data Prepper nodes for aggregation. Currently, Peer Forwarder is supported by `aggregate`, `service_map_stateful`, `otel_trace_raw` processors.
 
-Peer Forwarder groups events based on the identification keys provided by the processors. For `service_map_stateful` and `otel_trace_raw`, the identification key is `traceId` by default and cannot be configured. The value is configurable for the `aggregate` processor using the `identification_keys` configuration option. You can find more information about [identification keys](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/aggregate-processor#identification_keys) on the aggregate processor page.
+Peer Forwarder groups events based on the identification keys provided by the processors. For `service_map_stateful` and `otel_trace_raw`, the identification key is `traceId` by default and cannot be configured. The `aggregate` processor is configured using the `identification_keys` configuration option. From here, you can specify which keys to use for Peer Forwarder. You can find more information about [identification keys](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/aggregate-processor#identification_keys) on the aggregate processor page.
 
 
-Peer discovery is currently provided by either a static list or by a DNS record lookup or AWS Cloudmap.  
+Peer discovery is currently provided by either a static list or by a DNS record lookup or AWS Cloud Map.  
 
 ## Discovery modes
 
@@ -19,7 +19,7 @@ See the following information about discovery modes below.
 
 ### Static
 
-Static discover mode allows a Data Prepper node to discover nodes using a list of IP addresses or domain names.
+Static discovery mode allows a Data Prepper node to discover nodes using a list of IP addresses or domain names.
 ```yaml
 peer_forwarder:4
   discovery_mode: static
@@ -27,7 +27,7 @@ peer_forwarder:4
 ```
 
 ### DNS lookup
-We recommend using DNS discovery over static discovery when scaling out a Data Prepper cluster. The core concept is to configure a DNS provider to return a list of Data Prepper hosts when given a single domain name. This is a [DNS A Record](https://www.cloudflare.com/learning/dns/dns-records/dns-a-record/) which indicates a list of IP addresses of a given domain.
+DNS discovery is preferred over static discovery when scaling out a Data Prepper cluster. The core concept is to configure a DNS provider to return a list of Data Prepper hosts when given a single domain name. This is a [DNS A Record](https://www.cloudflare.com/learning/dns/dns-records/dns-a-record/), which indicates a list of IP addresses of a given domain.
 
 ```yaml
 peer_forwarder:
@@ -39,7 +39,7 @@ peer_forwarder:
 
 [AWS Cloud Map](https://docs.aws.amazon.com/cloud-map/latest/dg/what-is-cloud-map.html) provides API-based service discovery as well as DNS-based service discovery.
 
-Peer forwarder can use the API-based service discovery. To support this you must have an existing namespace configured for API instance discovery. You can create a new one following the instructions provided by the [Cloud Map documentation](https://docs.aws.amazon.com/cloud-map/latest/dg/working-with-namespaces.html).
+Peer Forwarder can use the API-based service discovery. To support this you must have an existing namespace configured for API instance discovery. You can create a new one following the instructions provided by the [Cloud Map documentation](https://docs.aws.amazon.com/cloud-map/latest/dg/working-with-namespaces.html).
 
 Your Data Prepper configuration needs to include:
 * `aws_cloud_map_namespace_name` - Set to your Cloud Map Namespace name
@@ -145,7 +145,7 @@ peer_forwarder:
 
 ## Metrics
 
-This section describes custom metrics capabilities, including timer, counter, and gauge.
+This section describes Peer Forwarder's metrics capabilities, including timer, counter, and gauge.
 
 Core Peer Forwarder introduces the following custom metrics and all the metrics are prefixed by `core.peerForwarder`.
 
@@ -165,19 +165,19 @@ See the table below for counter metric options.
 | `requests`| measures total number of forwarded requests. |
 | `requestsFailed`| measures total number of failed requests. Requests with HTTP response code other than `200`. |
 | `requestsSuccessful`|  measures total number of successful requests. Requests with HTTP response code `200`. |
-| `requestsTooLarge`| measures total number of requests which are too large to be written to peer forwarder buffer. Requests with HTTP response code `413`. |
-| `requestTimeouts`| measures the total number of requests which timed out while writing content to peer forwarder buffer. Requests with HTTP response code `408`. |
-| `requestsUnprocessable`| measures total number of requests which failed due to unprocessable entity. Requests with HTTP response code `422`. |
+| `requestsTooLarge`| measures total number of requests that are too large to be written to Peer Forwarder buffer. Requests with HTTP response code `413`. |
+| `requestTimeouts`| measures the total number of requests that timed out while writing content to peer forwarder buffer. Requests with HTTP response code `408`. |
+| `requestsUnprocessable`| measures total number of requests that failed due to unprocessable entity. Requests with HTTP response code `422`. |
 | `badRequests`| measures total number of requests with bad request format. Requests with HTTP response code `400`. |
 | `recordsSuccessfullyForwarded`| measures total number of forwarded records successfully. |
 | `recordsFailedForwarding`| measures total number of records failed to be forwarded. |
 | `recordsToBeForwarded` | measures total number of records to be forwarded. |
 | `recordsToBeProcessedLocally` | measures total number of records to be processed locally. |
-| `recordsActuallyProcessedLocally`| measures total number of records actually processed locally. Sum of  recordsToBeProcessedLocally` and `recordsFailedForwarding`. |
+| `recordsActuallyProcessedLocally`| measures total number of records actually processed locally. Sum of `recordsToBeProcessedLocally` and `recordsFailedForwarding`. |
 | `recordsReceivedFromPeers`| measures total number of records received from remote peers. |
 
 ### Gauge
 
 This section describes gauge metric options.
 
-`peerEndpoints` measures number of dynamically discovered peer data-prepper endpoints. For `static` mode, the size is fixed.
+`peerEndpoints` measures number of dynamically discovered peer Data Prepper endpoints. For `static` mode, the size is fixed.
