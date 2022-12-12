@@ -4,9 +4,11 @@ title: Simple pipelines
 nav_order: 12
 ---
 
+# Simple pipelines
+
 This tutorial walks you through creating a simple Data Prepper pipeline and how to configure it.
 
-# Installation
+## Installation
 
 First, install via Docker using the following command:
 
@@ -14,17 +16,15 @@ First, install via Docker using the following command:
 docker pull opensearchproject/data-prepper:latest
 ```
 
-# Simple configuration
+## Simple configuration
 
-To help you get started, we have a simple configuration which you can use to run Data Prepper. It generates random strings and writes them to stdout. 
+To help you get started, we have a simple configuration which you can use to run Data Prepper. It generates random strings and writes them to `stdout`. 
 
 Create a Data Prepper configuration file, `data-prepper-config.yaml`, with:
 
 ```
-ssl: false
+ssl: true
 ```
-
-Note that this is insecure and should not be used in production. 
 
 Create a Data Prepper pipeline file, `pipelines.yaml`, with:
 
@@ -38,7 +38,7 @@ simple-sample-pipeline:
     - stdout:
 ```
 
-# Running
+## Running
 
 Below are examples for running from the Docker image. If you built from source, you need to make some modifications to the example commands.
 
@@ -78,7 +78,7 @@ b4ed2d7e-cf9c-4e9d-967c-b18e8af35c90
 In another terminal, you can access the Data Prepper server API.
 
 ```
-curl http://localhost:4900/list
+curl https://localhost:4900/list
 ```
 
 It will output a JSON response with the current pipelines:
@@ -88,15 +88,15 @@ It will output a JSON response with the current pipelines:
 ```
 
 
-# Shutdown
+## Shutdown
 
 You can shutdown Data Prepper either by using the shutdown API, or killing the Docker process.
 
 ```
-curl -X POST http://localhost:4900/shutdown
+curl -X POST https://localhost:4900/shutdown
 ```
 
-# Adding a processor
+## Adding a processor
 
 The sample above just demonstrates the bare minimum a pipeline can have: A source sending data to a sink. The example below adds a string converter Processor. This simple processor transforms the string by making it uppercase.
 
@@ -144,6 +144,6 @@ Shut down Data Prepper.
 curl -X POST http://localhost:4900/shutdown
 ```
 
-# Next steps
+## Next steps
 
 This page explains basics of Data Prepper. If you want to setup a useful observability suite, visit the [Trace Analytics documentation](trace_analytics.md).
