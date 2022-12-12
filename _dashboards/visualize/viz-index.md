@@ -45,7 +45,7 @@ Reference [Data tables]({{site.url}}{{site.baseurl}}/dashboards/visualize/tables
 
 <img src="{{site.url}}{{site.baseurl}}/images/data-table-1.png" alt="Example data table in OpenSearch Dashboards" height="100">
 
-## Gantt chart
+## Gantt charts
 
 Gantt charts show the start, end, and duration of unique events in a sequence. Gantt charts are useful in trace analytics, telemetry, and anomaly detection use cases where you want to understand interactions and dependencies between various events in a schedule. Reference [Gantt charts]({{site.url}}{{site.baseurl}}/dashboards/visualize/gantt/) to learn how to create and use them in Dashboards.
 
