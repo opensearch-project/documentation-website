@@ -10,7 +10,7 @@ This tutorial walks you through creating a simple Data Prepper pipeline and how 
 
 ## Installation
 
-First, install via Docker using the following command:
+First, install Data Prepper with Docker using the following command:
 
 ```
 docker pull opensearchproject/data-prepper:latest
@@ -20,7 +20,7 @@ docker pull opensearchproject/data-prepper:latest
 
 To help you get started, we have a simple configuration which you can use to run Data Prepper. It generates random strings and writes them to `stdout`. 
 
-Create a Data Prepper configuration file, `data-prepper-config.yaml`, with:
+Create a Data Prepper configuration file, `data-prepper-config.yaml` and include the following line:
 
 ```
 ssl: true
@@ -38,16 +38,16 @@ simple-sample-pipeline:
     - stdout:
 ```
 
-## Running
+## Run Data Prepper
 
-Below are examples for running from the Docker image. If you built from source, you need to make some modifications to the example commands.
+Below are examples for running Data Prepper from the Docker image. If you built from source, you need to make some modifications to the example commands.
 
-For Data Prepper 2.0 or above, use this command:
+For Data Prepper 2.0 or after, use this command:
 ```
 docker run --name data-prepper -p 4900:4900 -v ${PWD}/pipelines.yaml:/usr/share/data-prepper/pipelines/pipelines.yaml -v ${PWD} /data-prepper-config.yaml:/usr/share/data-prepper/config/data-prepper-config.yaml opensearchproject/data-prepper:latest
 ```
 
-For Data Prepper before version 2.0, use this command:
+For Data Prepper versions before 2.0, use this command:
 ```
 docker run --name data-prepper -p 4900:4900 -v ${PWD}/pipelines.yaml:/usr/share/data-prepper/pipelines.yaml -v ${PWD}/data-prepper-config.yaml:/usr/share/data-prepper/data-prepper-config.yaml opensearchproject/data-prepper:latest
 ```
@@ -88,9 +88,9 @@ It will output a JSON response with the current pipelines:
 ```
 
 
-## Shutdown
+## Shut down Data Prepper
 
-You can shutdown Data Prepper either by using the shutdown API, or killing the Docker process.
+You can shutdown Data Prepper either by using the shutdown API, or stopping the Docker process.
 
 ```
 curl -X POST https://localhost:4900/shutdown
@@ -98,7 +98,7 @@ curl -X POST https://localhost:4900/shutdown
 
 ## Adding a processor
 
-The sample above just demonstrates the bare minimum a pipeline can have: A source sending data to a sink. The example below adds a string converter Processor. This simple processor transforms the string by making it uppercase.
+The sample above just demonstrates the bare minimum a pipeline can have: A source sending data to a sink. The following example adds a string converter processor. This simple processor transforms the string by making it uppercase.
 
 ```
 simple-sample-pipeline:
@@ -125,7 +125,7 @@ For Data Prepper before version 2.0, use this command:
 docker run --name data-prepper -p 4900:4900 -v ${PWD}/pipelines.yaml:/usr/share/data-prepper/pipelines.yaml -v ${PWD}/data-prepper-config.yaml:/usr/share/data-prepper/data-prepper-config.yaml opensearchproject/data-prepper:latest
 ```
 
-You will see output like the following.
+You will see output that looks like the following.
 
 ```
 2021-10-01T09:58:19,907 [random-source-pool-0] INFO  org.opensearch.dataprepper.plugins.source.RandomStringSource - Writing to buffer
@@ -146,4 +146,4 @@ curl -X POST http://localhost:4900/shutdown
 
 ## Next steps
 
-This page explains basics of Data Prepper. If you want to setup a useful observability suite, visit the [Trace Analytics documentation](trace_analytics.md).
+This page explains the basics of Data Prepper. If you want to setup a useful observability suite, visit the [Trace Analytics documentation](trace_analytics.md).
