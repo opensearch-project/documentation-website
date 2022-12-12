@@ -6,9 +6,9 @@ nav_order: 12
 
 # Peer Forwarder
 
-Peer Forwarder is an HTTP service which performs peer forwarding of an `event` between Data Prepper nodes for aggregation. Currently, supported by `aggregate`, `service_map_stateful`, `otel_trace_raw` processors.
+Peer Forwarder is an HTTP service which performs peer forwarding of an `event` between Data Prepper nodes for aggregation. Currently, Peer Forwarder is supported by `aggregate`, `service_map_stateful`, `otel_trace_raw` processors.
 
-Peer Forwarder groups events based on the identification keys provided by the processors. For `service_map_stateful` and `otel_trace_raw`, the identification key is `traceId` by default and cannot be configured. The value is configurable for the `aggregate` processor using the `identification_keys` configuration option. You can find more information here about [identification keys](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/aggregate-processor#identification_keys). 
+Peer Forwarder groups events based on the identification keys provided by the processors. For `service_map_stateful` and `otel_trace_raw`, the identification key is `traceId` by default and cannot be configured. The value is configurable for the `aggregate` processor using the `identification_keys` configuration option. You can find more information about [identification keys](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/aggregate-processor#identification_keys) on the aggregate processor page.
 
 
 Peer discovery is currently provided by either a static list or by a DNS record lookup or AWS Cloudmap.  
@@ -64,7 +64,7 @@ peer_forwarder:
 
 ### IAM policy with necessary permissions
 
-The Data Prepper must also be running with the necessary permissions. The following IAM policy shows the necessary permissions:
+The Data Prepper must also be running with the necessary permissions. The following IAM policy shows the necessary permissions.
 
 ```json
 {
@@ -109,16 +109,20 @@ The SSL configuration for setting up trust manager for the peer forwarding clien
 
 ### Optional SSL configuration
 
-* `ssl`: A `boolean` that enables TLS/SSL. Default value is `true`.
-* `ssl_certificate_file`: A `String` representing the SSL certificate chain file path or AWS S3 path. S3 path example `s3://<bucketName>/<path>`. Defaults to `config/default_certificate.pem` which is default certificate file. Read more about how the certificate file is generated [here](https://github.com/opensearch-project/data-prepper/tree/main/examples/certificates).
-* `ssl_key_file`: A `String` represents the SSL key file path or AWS S3 path. S3 path example `s3://<bucketName>/<path>`. Defaults to `config/default_private_key.pem` which is default private key file. Read more about how the private key file is generated [here](https://github.com/opensearch-project/data-prepper/tree/main/examples/certificates).
-* `ssl_insecure_disable_verification`: A `boolean` that disables the verification of server's TLS certificate chain. Default value is `false`.
-* `ssl_fingerprint_verification_only`: A `boolean` that disables the verification of server's TLS certificate chain and instead verifies only the certificate fingerprint. Default value is `false`.
-* `use_acm_certificate_for_ssl`: A `boolean` that enables TLS/SSL using certificate and private key from AWS Certificate Manager (ACM). Default is `false`.
-* `acm_certificate_arn`: A `String` represents the ACM certificate ARN. ACM certificate take preference over S3 or local file system certificate. Required if `use_acm_certificate_for_ssl` is set to `true`.
-* `acm_private_key_password`: A `String` that represents the ACM private key password which that will be used to decrypt the private key. If it's not provided, a random password will be generated.
-* `acm_certificate_timeout_millis`: An `int` representing the timeout in milliseconds for ACM to get certificates. Default value is `120000`.
-* `aws_region`: A `String` represents the AWS region to use `ACM`, `S3` or `AWS Cloud Map`. Required if `use_acm_certificate_for_ssl` is set to `true` or `ssl_certificate_file` and `ssl_key_file` is `AWS S3` path or if `discovery_mode` is set to `aws_cloud_map`.
+See the table below for optional SSL configuration descriptions.
+
+| Value | Description |
+| ----- | ----------- |
+| `ssl` | A `boolean` that enables TLS/SSL. Default value is `true`. |
+| `ssl_certificate_file`| A `String` representing the SSL certificate chain file path or AWS S3 path. S3 path example `s3://<bucketName>/<path>`. Defaults to `config/default_certificate.pem` which is default certificate file. Read more about how the certificate file is generated [here](https://github.com/opensearch-project/data-prepper/tree/main/examples/certificates). |
+| `ssl_key_file`| A `String` represents the SSL key file path or AWS S3 path. S3 path example `s3://<bucketName>/<path>`. Defaults to `config/default_private_key.pem` which is default private key file. Read more about how the private key file is generated [here](https://github.com/opensearch-project/data-prepper/tree/main/examples/certificates). |
+| `ssl_insecure_disable_verification` | A `boolean` that disables the verification of server's TLS certificate chain. Default value is `false`. |
+| `ssl_fingerprint_verification_only` | A `boolean` that disables the verification of server's TLS certificate chain and instead verifies only the certificate fingerprint. Default value is `false`. |
+| `use_acm_certificate_for_ssl` | A `boolean` that enables TLS/SSL using certificate and private key from AWS Certificate Manager (ACM). Default is `false`. |
+| `acm_certificate_arn`| A `String` represents the ACM certificate ARN. ACM certificate take preference over S3 or local file system certificate. Required if `use_acm_certificate_for_ssl` is set to `true`. |
+| `acm_private_key_password` | A `String` that represents the ACM private key password which that will be used to decrypt the private key. If it's not provided, a random password will be generated. |
+| `acm_certificate_timeout_millis` | An `int` representing the timeout in milliseconds for ACM to get certificates. Default value is `120000`. |
+| `aws_region` | A `String` represents the AWS region to use `ACM`, `S3` or `AWS Cloud Map`. Required if `use_acm_certificate_for_ssl` is set to `true` or `ssl_certificate_file` and `ssl_key_file` is `AWS S3` path or if `discovery_mode` is set to `aws_cloud_map`. |
 
 ```yaml
 peer_forwarder:
@@ -129,7 +133,10 @@ peer_forwarder:
 
 ## Authentication
 
-* `authentication`(Optional) : A `Map` that enables mTLS. It can either be `mutual_tls` or `unauthenticated`. Default value is `unauthenticated`.
+This section describes optional authentication.
+
+`authentication`(optional) : A `Map` that enables mTLS. It can either be `mutual_tls` or `unauthenticated`. The default value is `unauthenticated`.
+
 ```yaml
 peer_forwarder:
   authentication:
@@ -138,29 +145,39 @@ peer_forwarder:
 
 ## Metrics
 
+This section describes custom metrics capabilities, including timer, counter, and gauge.
+
 Core Peer Forwarder introduces the following custom metrics and all the metrics are prefixed by `core.peerForwarder`.
 
 ### Timer
+
+This section describes the metrics feature, timer.
 
 - `requestForwardingLatency`: measures latency of forwarding requests by peer forwarder client.
 - `requestProcessingLatency`: measures latency of processing requests by peer forwarder server.
 
 ### Counter
 
-- `requests`: measures total number of forwarded requests.
-- `requestsFailed`: measures total number of failed requests. Requests with HTTP response code other than `200`.
-- `requestsSuccessful`:  measures total number of successful requests. Requests with HTTP response code `200`.
-- `requestsTooLarge`: measures total number of requests which are too large to be written to peer forwarder buffer. Requests with HTTP response code `413`.
-- `requestTimeouts`: measures the total number of requests which timed out while writing content to peer forwarder buffer. Requests with HTTP response code `408`.
-- `requestsUnprocessable`: measures total number of requests which failed due to unprocessable entity. Requests with HTTP response code `422`.
-- `badRequests`: measures total number of requests with bad request format. Requests with HTTP response code `400`.
-- `recordsSuccessfullyForwarded`: measures total number of forwarded records successfully.
-- `recordsFailedForwarding`: measures total number of records failed to be forwarded.
-- `recordsToBeForwarded`: measures total number of records to be forwarded.
-- `recordsToBeProcessedLocally`: measures total number of records to be processed locally.
-- `recordsActuallyProcessedLocally`: measures total number of records actually processed locally. Sum of `recordsToBeProcessedLocally` and `recordsFailedForwarding`.
-- `recordsReceivedFromPeers`: measures total number of records received from remote peers.
+See the table below for counter metric options.
+
+| Value | Description |
+| ----- | ----------- |
+| `requests`| measures total number of forwarded requests. |
+| `requestsFailed`| measures total number of failed requests. Requests with HTTP response code other than `200`. |
+| `requestsSuccessful`|  measures total number of successful requests. Requests with HTTP response code `200`. |
+| `requestsTooLarge`| measures total number of requests which are too large to be written to peer forwarder buffer. Requests with HTTP response code `413`. |
+| `requestTimeouts`| measures the total number of requests which timed out while writing content to peer forwarder buffer. Requests with HTTP response code `408`. |
+| `requestsUnprocessable`| measures total number of requests which failed due to unprocessable entity. Requests with HTTP response code `422`. |
+| `badRequests`| measures total number of requests with bad request format. Requests with HTTP response code `400`. |
+| `recordsSuccessfullyForwarded`| measures total number of forwarded records successfully. |
+| `recordsFailedForwarding`| measures total number of records failed to be forwarded. |
+| `recordsToBeForwarded` | measures total number of records to be forwarded. |
+| `recordsToBeProcessedLocally` | measures total number of records to be processed locally. |
+| `recordsActuallyProcessedLocally`| measures total number of records actually processed locally. Sum of  recordsToBeProcessedLocally` and `recordsFailedForwarding`. |
+| `recordsReceivedFromPeers`| measures total number of records received from remote peers. |
 
 ### Gauge
 
-- `peerEndpoints`: measures number of dynamically discovered peer data-prepper endpoints. For `static` mode, the size is fixed.
+This section describes gauge metric options.
+
+`peerEndpoints` measures number of dynamically discovered peer data-prepper endpoints. For `static` mode, the size is fixed.
