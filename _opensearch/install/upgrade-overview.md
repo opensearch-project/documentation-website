@@ -37,8 +37,29 @@ There are a few methods you can leverage to upgrade your OpenSearch cluster.
 
 Writer notes-
 
-Next steps:
+Security settings can be backed up by dumping them into YAML files, then importing them into the new version and reinitializing the `.opendistro_security` index from the directory containing those YAML files.
 
-Review using the securityadmin script for backing up security settings https://opensearch.org/docs/latest/security-plugin/configuration/security-admin/#a-word-of-caution
-    - Invoking securityadmin.sh without special considerations will overwrite the .opendistro_security index.
-    https://opensearch.org/docs/latest/security-plugin/configuration/security-admin/#backup-restore-and-migrate
+Backup:
+```bash
+./securityadmin.sh -backup my-backup-directory \
+  -icl \
+  -nhnv \
+  -cacert ../../../config/root-ca.pem \
+  -cert ../../../config/kirk.pem \
+  -key ../../../config/kirk-key.pem
+```
+
+Restore:
+```bash
+./securityadmin.sh -cd /usr/share/opensearch/security-backups/ -icl -nhnv \
+  -cacert ../../../config/root-ca.pem \
+  -cert ../../../config/kirk.pem \
+  -key ../../../config/kirk-key.pem
+```
+
+
+Certificates must be manually backed up. (Awaiting confirmation)
+
+Indexes can be backed up using Snapshots or they can be streamed to the new cluster with remote reindexing. (Awaiting confirmation)
+
+Specific config files (opensearch.yml, opensearch_dashboards.yml, jvm.options, log4j2.properties) (Awaiting confirmation)
