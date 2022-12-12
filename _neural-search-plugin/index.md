@@ -42,7 +42,7 @@ output_field_name  | string | The name of the field in which output text is stor
 
 Use the following example request to create a pipeline:
 
-```json
+```
 PUT _ingest/pipeline/nlp-pipeline
 {
   "description": "An example neural search pipeline",
@@ -51,7 +51,7 @@ PUT _ingest/pipeline/nlp-pipeline
       "text_embedding": {
         "model_id": "bxoDJ7IHGM14UqatWc_2j",
         "field_map": {
-           "text": "text_knn"
+           "passage_text": "passage_embedding"
         }
       }
     }
