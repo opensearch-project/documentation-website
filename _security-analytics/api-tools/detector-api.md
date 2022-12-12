@@ -9,7 +9,7 @@ nav_order: 35
 
 The following APIs can be used for a number of tasks related to detectors, from creating detectors to updating and searching for detectors.
 
-## Create Detector
+## Create Detector API
 
 Creates a new detector.
 
@@ -23,44 +23,42 @@ You can specify the following fields when creating a detector.
 
 Field | Type | Description
 :--- | :--- |:--- |:--- |
-`enabled` | Boolean | Enables the ability to add detectors through the API.
-`type` | String | The type is specified as "detector".
-`name` | String | Name of the detector.
-`detector_type` | Object | The log type that defines the detector.
-`schedule`| Object | the schedule that determines how often the detector runs.
-`schedule`<br>&nbsp;&nbsp;&nbsp;&nbsp;`period` | Object | the frequency at which the detector runs in repetition.
-`schedule`<br>&nbsp;&nbsp;&nbsp;&nbsp;`period`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`interval` | Integer | The duration of the period expressed as a number.
-`schedule`<br>&nbsp;&nbsp;&nbsp;&nbsp;`period`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`unit` | String | The unit of measure for the interval.
-`inputs` | Object | In process
-`inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;`detector_inputs` | Object | In process
-`inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;`detector_inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`description` | String | In process
-`inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;`detector_inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`custom_rules` | Object | In process
-`inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;`detector_inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`custom_rules`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`id` | String | In process
-`inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;`detector_inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`indices` | String | In process
-`inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;`detector_inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`pre_packaged_rules` | Object | In process
-`inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;`detector_inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`pre_packaged_rules`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`id` | String | The rule ID for pre-packaged rules.
-`triggers` | Object | In process
-`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`ids` | String | In process
-`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`types` | String | In process
-`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`tags` | String | In process
-`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`id` | String | In process
-`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`sev_levels` | String | In process
-`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`name` | String | In process
-`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`severity` | Integer | In process
-`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions` | Integer | In process
-`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`id` | Integer | In process
-`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`destination_id` | Integer | In process
-`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`subject_template` | Object | In process
-`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`subject_template`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`source` | String | In process
-`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`subject_template`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`lang` | String | In process
-`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`name` | String | In process
-`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`throttle_enabled` | Boolean | In process
-`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`message_template` | String | In process
-`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`message_template`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`source` | String | In process
-`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`message_template`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`lang` | String | In process
-`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`throttle` | Object | In process
-`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`throttle`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`unit` | String | In process
-`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`throttle`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`value` | Integer | In process
+`enabled` | Boolean | Sets the detector as either Active (true) or Inactive (false). Default is `true` when a new detector is created.
+`name` | String | Name of the detector. Name should only consist of upper and lowercase letters, numbers 0-9, hyphens, spaces, and underscores. Use between 5 and 50 characters. Required.
+`detector_type` | String | The log type that defines the detector. Options are `linux`, `network` ,`windows`, `ad_ldap`, `apache_access`, `cloudtrail`, `dns`, and `s3`. Required.
+`schedule` | Object | The schedule that determines how often the detector runs. For information on specifying fixed intervals in the API, see [Cron expression reference]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/cron/).
+`schedule.period` | Object | Details for the frequency of the schedule.
+`schedule.period.interval` | Integer | The interval at which the detector runs.
+`schedule.period.unit` | String | The interval's unit of time.
+`inputs` | Object | May be left as an empty array, but it must be present in the request payload.
+`inputs.detector_input` | Array | An array that contains the indexes and definition used to create the monitor. 
+`inputs.detector_input.description` | String | Description of the detector. Optional.
+`inputs.detector_input.custom_rules` | Array | Detector inputs for custom rules. Optional if pre-packaged rules are specified.
+`inputs.detector_input.custom_rules.id` | String | A valid rule ID for the custom rule. Valid rules are generated as a globally or universally unique identifier (UUID) See [Universally unique identifier](https://en.wikipedia.org/wiki/Universally_unique_identifier) for more information.
+`inputs.detector_input.indices` | String | The log data source used for the detector. Required. Only one source allowed at this time. Support for multiple sources will be available in upcoming versions.
+`inputs.detector_input.pre_packaged_rules` | Array | Detector inputs for pre-packaged rules (as opposed to custom rules).
+`inputs.detector_input.pre_packaged_rules.id` | String | The rule ID for pre-packaged rules. See [Search Pre-Packaged Rules]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/rule-api/#search-pre-packaged-rules) For information on how to use the API to search for rules.
+`triggers` | Array | Trigger settings for alerts.
+`triggers.ids` | Array | A list of rule IDs that become part of the trigger condition.
+`triggers.tags` | Array | Tags are specified in a security rule. Tags can then be selected and applied to the alert trigger to focus generation of alerts. See an example of how tags are used in a Sigma rule in Sigma's [Rule Creation Guide](https://github.com/SigmaHQ/sigma/wiki/Rule-Creation-Guide#tags).
+`triggers.id` | String | The unique ID for the trigger. User generated.
+`triggers.sev_levels` | Array | Sigma rule severity levels: `informational`; `low`; `medium`; `high`; `criticial`. See [Level](https://github.com/SigmaHQ/sigma/wiki/Rule-Creation-Guide#level) in the Sigma Rule Creation Guide.
+`triggers.name` | String | The name of the trigger. Name should only consist of upper and lowercase letters, numbers 0-9, hyphens, spaces, and underscores. Use between 5 and 50 characters. Required.
+`triggers.severity` | Integer | Severity level for the trigger expressed as an integer: 5 = lowest; 4 = low; 3 = medium; 2 = high; 1 = highest. Trigger severity is part of the alert definition.
+`triggers.actions` | Object | Actions send notifications when trigger conditions are met. Optional, as a notification message is not required as part of an alert.
+`triggers.actions.id` | String | Unique ID for the action. User generated.
+`triggers.actions.destination_id` | String | Unique ID for the notification destination. User generated. 
+`triggers.actions.subject_template` | Object | Contains the information for the subject field of the notification message. Optional.
+`triggers.actions.subject_template.source` | String | The subject for the notification message.
+`triggers.actions.subject_template.lang` | String | The scripting language used to define the subject. Must be Mustache. See the [Mustache Manual](https://mustache.github.io/mustache.5.html) for more information about templates.
+`triggers.actions.name` | String | Name for the trigger alert. Name should only consist of upper and lowercase letters, numbers 0-9, hyphens, spaces, and underscores. Use between 5 and 50 characters.
+`triggers.actions.message_template` | String | Contains the information for the body of the notification message. Optional.
+`triggers.actions.message_template.source` | String | The body of the notification message.
+`triggers.actions.message_template.lang` | String | The scripting language used to define the message. Must be `Mustache`.
+`triggers.actions.throttle_enabled` | Boolean | Enables throttling for alert notifications. Optional. Default is `false`.
+`triggers.actions.throttle` | Object | Throttling limits the number of notifications you receive within a given span of time.
+`triggers.actions.throttle.unit` | String | Unit of time for throttling.
+`triggers.actions.throttle.value` | Integer | The value for the unit of time.
 
 ### Sample request
 
@@ -218,11 +216,30 @@ POST _plugins/_security_analytics/detectors
 ---
 ## Update Detector
 
-The Update detector API is used for updating a detector.
+The Update detector API can be used to update a detector definition. It requires the detector ID to specify the detector.
 
 ```json
 PUT /_plugins/_security_analytics/detectors/<detector_Id>
 ```
+
+### Request fields
+
+You can specify the following fields when updating a detector.
+
+Field | Type | Description
+:--- | :--- |:--- |:--- |
+`detector_type` | String | The log type that defines the detector. Options are `linux`, `network` ,`windows`, `ad_ldap`, `apache_access`, `cloudtrail`, `dns`, and `s3`.
+`name` | Boolean | Sets the detector as either Active (true) or Inactive (false).
+`enabled` | Boolean | Sets the detector as either Active (true) or Inactive (false).
+`schedule.period.interval` | Integer | The interval at which the detector runs.
+`schedule.period.unit` | String | The interval's unit of time.
+`inputs.input.description` | String | Description of the detector.
+`inputs.input.indices` | Array | The log data source used for the detector. Only one source allowed at this time. Support for multiple sources will be available in upcoming versions.
+`inputs.input.rules.id` | Array | A list of security rules for the detector definition.
+`triggers.sev_levels` | Array | Sigma rule severity levels: `informational`; `low`; `medium`; `high`; `criticial`. See [Level](https://github.com/SigmaHQ/sigma/wiki/Rule-Creation-Guide#level) in the Sigma Rule Creation Guide.
+`triggers.tags` | Array | Tags are specified in a security rule. Tags can then be selected and applied to the alert trigger to focus generation of alerts. See an example of how tags are used in a Sigma rule in Sigma's [Rule Creation Guide](https://github.com/SigmaHQ/sigma/wiki/Rule-Creation-Guide#tags).
+`triggers.actions` | Object | Actions send notifications when trigger conditions are met. See trigger actions for [Create Detector API]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/detector-api/#create-detector).
+
 
 ### Sample request
 
@@ -308,10 +325,18 @@ PUT /_plugins/_security_analytics/detectors/J1RX1IMByX0LvTiGTddR
 }
 ```
 
+#### Response fields
+
+Field | Type | Description
+:--- | :--- |:--- |:--- |
+`_version` | String | Version number for the update.
+`detector.last_update_time` | String | Date and time of the last update.
+`detector.enabled_time` | String | Date and time when the detector was last enabled.
+
 ---
 ## Delete Detector
 
-This API is used for deleting a detector.
+This API uses the detector ID to specify and delete a detector.
 
 ### Sample request
 
