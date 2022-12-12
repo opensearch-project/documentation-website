@@ -88,7 +88,7 @@ Equality operators are used to test whether two values are equivalent.
 ```
 ## Using equality operators to check for a JSON Pointer 
 
-Equality operators can also be used to check whether a JSON Pointer exists by comparing the JSON Pointer with `null`.
+Equality operators can also be used to check whether a JSON Pointer exists by comparing the value with `null`.
 
 ### Syntax
 ```
