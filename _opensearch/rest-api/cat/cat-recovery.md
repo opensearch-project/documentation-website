@@ -28,7 +28,7 @@ GET _cat/recovery/<index>?v
 If you want to get information for more than one index, separate the indices with commas:
 
 ```json
-GET _cat/aliases/index1,index2,index3
+GET _cat/recovery/index1,index2,index3
 ```
 
 ## Path and HTTP methods
@@ -41,7 +41,7 @@ GET _cat/recovery
 
 All cat recovery URL parameters are optional.
 
-In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/opensearch/rest-api/cat/index#common-url-parameters), you can specify the following parameters:
+In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/opensearch/rest-api/cat/index), you can specify the following parameters:
 
 Parameter | Type | Description
 :--- | :--- | :---
