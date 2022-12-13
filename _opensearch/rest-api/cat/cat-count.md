@@ -28,7 +28,7 @@ GET _cat/count/<index_or_alias>?v
 If you want to get information for more than one index or alias, separate the index or alias names with commas:
 
 ```json
-GET _cat/aliases/index_or_alias_1,index_or_alias_2,index_or_alias_3
+GET _cat/count/index_or_alias_1,index_or_alias_2,index_or_alias_3
 ```
 
 ## Path and HTTP methods
@@ -40,7 +40,7 @@ GET _cat/count/<index>?v
 
 ## URL parameters
 
-All cat count URL parameters are optional. You can specify any of the [common URL parameters]({{site.url}}{{site.baseurl}}/opensearch/rest-api/cat/index#common-url-parameters).
+All cat count URL parameters are optional. You can specify any of the [common URL parameters]({{site.url}}{{site.baseurl}}/opensearch/rest-api/cat/index).
 
 
 ## Response

@@ -22,7 +22,13 @@ GET _cat/thread_pool?v
 If you want to get information for more than one thread pool, separate the thread pool names with commas:
 
 ```
-GET _cat/v/thread_pool_name_1,thread_pool_name_2,thread_pool_name_3
+GET _cat/thread_pool/thread_pool_name_1,thread_pool_name_2,thread_pool_name_3
+```
+
+If you want to limit the information to a specific thread pool, add the thread pool name after your query:
+
+```
+GET _cat/thread_pool/<thread_pool_name>?v
 ```
 
 ## Path and HTTP methods
@@ -35,12 +41,12 @@ GET _cat/thread_pool
 
 All cat thread pool URL parameters are optional.
 
-In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/opensearch/rest-api/cat/index#common-url-parameters), you can specify the following parameter:
+In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/opensearch/rest-api/cat/index), you can specify the following parameter:
 
 Parameter | Type | Description
 :--- | :--- | :---
-local | Boolean | Whether to return information from the local node only instead of from the master node. Default is false.
-master_timeout | Time | The amount of time to wait for a connection to the master node. Default is 30 seconds.
+local | Boolean | Whether to return information from the local node only instead of from the cluster_manager node. Default is false.
+cluster_manager_timeout | Time | The amount of time to wait for a connection to the cluster_manager node. Default is 30 seconds.
 
 
 ## Response
