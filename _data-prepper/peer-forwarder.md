@@ -20,6 +20,7 @@ See the following information about discovery modes below.
 ### Static
 
 Static discovery mode allows a Data Prepper node to discover nodes using a list of IP addresses or domain names.
+
 ```yaml
 peer_forwarder:4
   discovery_mode: static
@@ -50,7 +51,7 @@ Your Data Prepper configuration needs to include:
 Your Data Prepper configuration can optionally include:
 * `aws_cloud_map_query_parameters` - Key/value pairs to filter the results based on the custom attributes attached to an instance. Only instances that match all the specified key-value pairs are returned.
 
-### Example configuration
+#### Example configuration
 
 ```yaml
 peer_forwarder:
@@ -123,6 +124,8 @@ See the table below for optional SSL configuration descriptions.
 | `acm_private_key_password` | A `String` that represents the ACM private key password which that will be used to decrypt the private key. If it's not provided, a random password will be generated. |
 | `acm_certificate_timeout_millis` | An `int` representing the timeout in milliseconds for ACM to get certificates. Default value is `120000`. |
 | `aws_region` | A `String` represents the AWS region to use `ACM`, `S3` or `AWS Cloud Map`. Required if `use_acm_certificate_for_ssl` is set to `true` or `ssl_certificate_file` and `ssl_key_file` is `AWS S3` path or if `discovery_mode` is set to `aws_cloud_map`. |
+
+#### Example config
 
 ```yaml
 peer_forwarder:
