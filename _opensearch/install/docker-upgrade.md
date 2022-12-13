@@ -196,4 +196,8 @@ Restore security config from backed up files (from one of the containers)
   -cert ../../../config/kirk.pem \
   -key ../../../config/kirk-key.pem
 
-  
+Restore from snapshot:
+$ curl -H 'Content-Type: application/json' -X POST "https://localhost:9200/_snapshot/s3-snapshot-repository/v136-global-state-false/_restore?pretty=true" -d'{"indices":"ecommerce","include_global_state":false}' -ku admin:admin
+{
+  "accepted" : true
+}
