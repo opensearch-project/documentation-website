@@ -51,13 +51,13 @@ Reference [Data tables]({{site.url}}{{site.baseurl}}/dashboards/visualize/tables
 
 ## Gantt charts
 
-Gantt charts show the start, end, and duration of unique events in a sequence. Gantt charts are useful in trace analytics, telemetry, and anomaly detection use cases where you want to understand interactions and dependencies between various events in a schedule. Reference [Gantt charts]({{site.url}}{{site.baseurl}}/dashboards/visualize/gantt/) to learn how to create and use them in Dashboards.
+Gantt charts show the start, end, and duration of unique events in a sequence. Gantt charts are useful in trace analytics, telemetry, and anomaly detection use cases where you want to understand interactions and dependencies between various events in a schedule. **Gantt chart** is currently a plug-in, instead of built-in, visualization type in Dashboards. Reference [Gantt charts]({{site.url}}{{site.baseurl}}/dashboards/visualize/gantt/) to learn how to create and use them in Dashboards.
 
 <img src="{{site.url}}{{site.baseurl}}/images/gantt-chart.png" alt="Example Gantt chart in OpenSearch Dashboards" height="100">
 
 ## Gauge charts
 
-A gauge chart displays how much there is of the thing you are measuring. In a gauge chart, this measurement can exist alone or in relation to another measurement, such as comparing actual sales to the sales goal. Reference [Gauge charts]({{site.url}}{{site.baseurl}}/dashboards/visualize/gauge) to learn how to create and use them in Dashboards.
+Gauge charts look similar to an analog speedometer that reads left-to-right from zero. They display how much there is of the thing you are measuring, and this measurement can exist alone or in relation to another measurement, such as tracking performance against benchmarks or goals. Reference [Gauge charts]({{site.url}}{{site.baseurl}}/dashboards/visualize/gauge) to learn how to create and use them in Dashboards.
 
 <img src="{{site.url}}{{site.baseurl}}/images/gauge-1.png" alt="Example gauge chart in OpenSearch Dashboards" width="90%">
 
@@ -86,6 +86,12 @@ Reference [Maps]({{site.url}}{{site.baseurl}}/dashboards/visualize/maps/) to lea
 
 <img src="{{site.url}}{{site.baseurl}}/images/map-1.png" alt="Example coordinate map in OpenSearch Dashboards" height="100">
 
+## Markdown
+
+Markdown is a the markup language used in Dashboards to provide context to your data visualizations. Using Markdown, you can display information and instructions along with the visualization. Reference [Markdown]({{site.url}}{{site.baseurl}}/dashboards/visualize/markdown/) to learn how to use this markup language with visualizations in Dashboards.
+
+<img src="{{site.url}}{{site.baseurl}}/images/markdown-1.png" alt="Example coordinate map in OpenSearch Dashboards" height="100">
+
 ## Metric values
 
 Metric values, or number charts, show a numerical value for a specific period,  such as total sales year to date, and you can add a trend indicator, such as sales from the last period,  to compare the current data to data from another period. Metric values display the percentage or value change between . Reference [Metric charts]({{site.url}}{{site.baseurl}}/dashboards/visualize/metric-charts) to learn how to create and use them in Dashboards.
@@ -100,7 +106,7 @@ Pie charts compare values for items in a dimension, such as a percentage of a to
 
 ## TSVB
 
-Time-series visual builder provides a detailed time series visualization. For example, you can use TSVB to show data over time, such as flights by status over time or flight delays by delay type over time. Reference [TSVB]({{site.url}}{{site.baseurl}}/dashboards/visualize/TSVB/) to learn how to create and use this set of visualization types in Dashboards.
+The time-series visual builder (TSVB) is a data visualization tool in Dashboards used to create detailed time-series visualizations. For example, you can use TSVB to build visualizations that show data over time, such as flights by status over time or flight delays by delay type over time. Currently, TSVB can be used to create the following Dashboards visualization types: Area, Line, Metric, Gauge, Markdown, and Data Table. Reference [TSVB]({{site.url}}{{site.baseurl}}/dashboards/visualize/TSVB/) to learn how to create and use this set of visualization types in Dashboards.
 
 <img src="{{site.url}}{{site.baseurl}}/images/TSVB-1.png" alt="Example TSVB in OpenSearch Dashboards" height=100>
 
@@ -112,21 +118,20 @@ Tag (or word) clouds are a way to display how often a word is used in relation t
 
 ## Timeline
 
-Timelines  show the occurrence of events in chronological order, allowing  you to see when events occur and how they change over time. Reference [Timelines]({{site.url}}{{site.baseurl}}/dashboards/visualize/timeline/) to learn how to create and use timelines in Dashboards.
+Timeline is a data visualization tool in Dashboards that you can use to create time-series visualizations. Currently, Timeline can be used to create the following Dashboards visualization types: Area and Line. Reference [Timelines]({{site.url}}{{site.baseurl}}/dashboards/visualize/timeline/) to learn how to create and use timelines in Dashboards.
 
 <img src="{{site.url}}{{site.baseurl}}/images/timeline-1.png" alt="Example Timeline in OpenSearch Dashboards" height="100">
 
 ## VisBuilder
 
-VisBuilder is used to create data visualizations with a drag-and-drop gesture. It gives you an immediate view of your data without the need to preselect the visualization output. Reference [VisBuilder]({{site.url}}{{site.baseurl}}/dashboards/visbuilder/) to learn how to create and use drag-and-drop visualizations in Dashboards.
+VisBuilder is a drag-and-drop data visualization tool in Dashboards. It gives you an immediate view of your data without the need to preselect the visualization type output. Currently, VisBuilder can be used to create the following Dashboards visualization types: Area, Bar, Line, Metric, and Data Table. Reference [VisBuilder]({{site.url}}{{site.baseurl}}/dashboards/visbuilder/) to learn how to create and use drag-and-drop visualizations in Dashboards.
 
 <img src="{{site.url}}{{site.baseurl}}/images/drag-drop-generated-viz.png" alt="Example Timeline in OpenSearch Dashboards" height="100">
 
 ## Vega
 
-[Vega](https://vega.github.io/vega/) and [Vega-Lite](https://vega.github.io/vega-lite/) are open-source, declarative language visualization grammars for creating, sharing, and saving interactive data visualizations. Vega visualizations in OpenSearch gives you flexibility to visualize multidimensional data using a layered approach to build and manipulate visualizations in a structured manner.
+[Vega](https://vega.github.io/vega/) and [Vega-Lite](https://vega.github.io/vega-lite/) are open-source, declarative language visualization grammars for creating, sharing, and saving interactive data visualizations. Vega visualizations in OpenSearch gives you flexibility to visualize multidimensional data using a layered approach to build and manipulate visualizations in a structured manner. Currently, Vega can be used to create the following Dashboards visualization types: Area, Line, Metric, Gauge, Markdown, and Data Table.
 
 Reference [Vega and Vega-Lite]({{site.url}}{{site.baseurl}}/dashboards/visualize/vega) to learn how to create and use these visualization grammars in Dashboards.
 
 <img src="{{site.url}}{{site.baseurl}}/images/vega-1.png" alt="Example Vega visualization with JSON specification in OpenSearch Dashboards" height="100">
-
