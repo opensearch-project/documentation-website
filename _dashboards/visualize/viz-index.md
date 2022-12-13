@@ -7,9 +7,7 @@ has_children: true
 
 # Visualize
 
-By visualizing your data, you translate complex, high-volume, or numerical data into a visual representation that is easier to process.
-
-OpenSearch Dashboards gives you data visualization tools to create charts, maps, and other visualizations which support business intelligence, data-driven decision-making, and strategic planning.
+By visualizing your data, you translate complex, high-volume, or numerical data into a visual representation that is easier to process. OpenSearch Dashboards gives you data visualization tools to improve and automate the visual communication process. Using visual elements like charts, graphs, or maps to represent data gives you the tools to advance business intelligence and support data-driven decision-making and strategic planning.
 
 # Visualization types in OpenSearch Dashboards
 
@@ -38,6 +36,12 @@ Bar charts, vertical or horizontal, compare categorical data and demonstrate cha
 </tbody>
 </table>
 
+## Controls
+
+Controls is a panel, instead of a visualization type, added to a dashboard to filter data. Controls gives users the capability to add interactive inputs to a dashboard. You can create two types of controls in Dashboards: **Options list** and **Range slider**. **Options list** is a drop-down options list that allows filtering of data by a terms aggregation, such as `machine.os.keyword`. **Range slider** allows filtering within specified value ranges, such as `hour_of_day`.  
+
+<img src="{{site.url}}{{site.baseurl}}/images/controls-1.png" alt="Example visualization using controls to filter data in OpenSearch Dashboards" height="100">
+
 ## Data tables
 
 Data tables, or tables, show your raw data in tabular form. 
@@ -65,15 +69,9 @@ A heat map is a view of a histogram (a graphical representation of the distribut
 
 ## Line graphs
 
-Line charts compare changes in measure values over period of time, such as gross sales by month or gross sales and net sales by month. Reference [Graphs and charts]({{site.url}}{{site.baseurl}}/dashboards/visualize/graphs-and-charts) to learn more about how to create and use them in Dashboards.
+Line charts compare changes in measure values over a period of time, such as gross sales by month or gross sales and net sales by month. Reference [Graphs and charts]({{site.url}}{{site.baseurl}}/dashboards/visualize/graphs-and-charts) to learn more about how to create and use them in Dashboards.
 
 <img src="{{site.url}}{{site.baseurl}}/images/line-1.png" alt="Example line graph in OpenSearch Dashboards" height="100">
-
-## Metric charts
-
-Metric charts show a numerical value, such as a key performance indicator (KPI), to visualize a comparison between a key value and its target value. Metric charts display a value comparison, the two values being compared, and a progress bar. Reference [Metric charts]({{site.url}}{{site.baseurl}}/dashboards/visualize/metric-charts) to learn how to create and use them in Dashboards.
-
-<img src="{{site.url}}{{site.baseurl}}/images/metric-chart-1.png" alt="Example metric chart in OpenSearch Dashboards" height="100">
 
 ## Maps
 ### Coordinate maps
@@ -88,9 +86,15 @@ Reference [Maps]({{site.url}}{{site.baseurl}}/dashboards/visualize/maps/) to lea
 
 <img src="{{site.url}}{{site.baseurl}}/images/map-1.png" alt="Example coordinate map in OpenSearch Dashboards" height="100">
 
+## Metric values
+
+Metric values, or number charts, show a numerical value for a specific period,  such as total sales year to date, and you can add a trend indicator, such as sales from the last period,  to compare the current data to data from another period. Metric values display the percentage or value change between . Reference [Metric charts]({{site.url}}{{site.baseurl}}/dashboards/visualize/metric-charts) to learn how to create and use them in Dashboards.
+
+<img src="{{site.url}}{{site.baseurl}}/images/metric-chart-1.png" alt="Example metric chart in OpenSearch Dashboards" height="100">
+
 ## Pie charts
 
-Pie charts compare values for items in a dimension, such as  a percentage of a total amount. Reference [Pie charts]({{site.url}}{{site.baseurl}}/dashboards/visualize/pie-charts/) to learn how to create and use them in Dashboards.
+Pie charts compare values for items in a dimension, such as a percentage of a total amount. Reference [Pie charts]({{site.url}}{{site.baseurl}}/dashboards/visualize/pie-charts/) to learn how to create and use them in Dashboards.
 
 <img src="{{site.url}}{{site.baseurl}}/images/pie-1.png" alt="Example pie chart in OpenSearch Dashboards" height="100">
 
