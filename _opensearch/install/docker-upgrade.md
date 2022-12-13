@@ -131,3 +131,69 @@ $ curl -H 'Content-Type: application/json' -X POST "https://localhost:9200/_snap
   "status" : 403
 }
 ```
+
+
+From docker-compose-2.4.yml, fresh cluster:
+
+$ curl "https://localhost:9200/_cat/indices?v&expand_wildcards=all" -ku admin:admin
+health status index                uuid                   pri rep docs.count docs.deleted store.size pri.store.size
+green  open   .kibana_1            bLHGoZMWTd-V2ROzPUVAsQ   1   1          0            0       416b           208b
+green  open   .opendistro_security FCJr5Hy9THCd22Njv0S_Jw   1   1         10            0    143.6kb         71.8kb
+
+Register S3 Repo (order of steps, must be run on EACH NODE):
+./bin/opensearch-plugin install repository-s3
+./bin/opensearch-keystore add s3.client.default.access_key
+Access key ID: redacted
+./bin/opensearch-keystore add s3.client.default.secret_key
+Secret access key: redacted
+curl -X POST https://localhost:9200/_nodes/reload_secure_settings -ku admin:admin
+--restart container--
+curl -H 'Content-Type: application/json' -X PUT "https://localhost:9200/_snapshot/s3-snapshot-repository" -ku admin:admin -d'{"type":"s3","settings":{"bucket":"jeffh-snapshots","base_path":"snapshots/"}}'
+
+Ispect the desired snapshot:
+$ curl -H 'Content-Type: application/json' -X GET "https://localhost:9200/_snapshot/s3-snapshot-repository/v136-global-state-false?pretty=true" -ku admin:admin
+{
+  "snapshots" : [
+    {
+      "snapshot" : "v136-global-state-false",
+      "uuid" : "hJGKVGUzQR-kv4ZUjep_dg",
+      "version_id" : 135248427,
+      "version" : "1.3.6",
+      "indices" : [
+        "security-auditlog-2022.12.09",
+        "security-auditlog-2022.12.06",
+        ".opensearch-observability",
+        ".kibana_101107607_jhuss_1",
+        "ecommerce",
+        ".kibana_1",
+        ".opendistro_security",
+        ".kibana_92668751_admin_1"
+      ],
+      "data_streams" : [ ],
+      "include_global_state" : false,
+      "state" : "SUCCESS",
+      "start_time" : "2022-12-12T22:01:41.624Z",
+      "start_time_in_millis" : 1670882501624,
+      "end_time" : "2022-12-12T22:01:42.426Z",
+      "end_time_in_millis" : 1670882502426,
+      "duration_in_millis" : 802,
+      "failures" : [ ],
+      "shards" : {
+        "total" : 8,
+        "failed" : 0,
+        "successful" : 8
+      }
+    }
+  ]
+}
+
+Copy security plugin YAML files:
+docker cp . <containerId>:/usr/share/opensearch/config/opensearch-security/backups/
+
+Restore security config from backed up files (from one of the containers)
+./securityadmin.sh -cd /usr/share/opensearch/config/opensearch-security/backups/ -icl -nhnv \
+  -cacert ../../../config/root-ca.pem \
+  -cert ../../../config/kirk.pem \
+  -key ../../../config/kirk-key.pem
+
+  
