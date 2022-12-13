@@ -7,11 +7,11 @@ nav_order: 70
 has_children: false
 ---
 
-# cat templates
+# CAT templates
 Introduced 1.0
 {: .label .label-purple }
 
-The cat templates operation lists the names, patterns, order numbers, and version numbers of index templates.
+The CAT Templates operation lists the names, patterns, order numbers, and version numbers of index templates.
 
 ## Example
 
@@ -19,10 +19,10 @@ The cat templates operation lists the names, patterns, order numbers, and versio
 GET _cat/templates?v
 ```
 
-If you want to get information for more than one template, separate the template names with commas:
+If you want to get information for a specific template or pattern:
 
 ```
-GET _cat/shards/template_name_1,template_name_2,template_name_3
+GET _cat/templates/<template_name_or_pattern>
 ```
 
 ## Path and HTTP methods
@@ -33,9 +33,9 @@ GET _cat/templates
 
 ## URL parameters
 
-All cat templates URL parameters are optional.
+All CAT templates URL parameters are optional.
 
-In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/opensearch/rest-api/cat/index), you can specify the following parameter:
+In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameter:
 
 Parameter | Type | Description
 :--- | :--- | :---
