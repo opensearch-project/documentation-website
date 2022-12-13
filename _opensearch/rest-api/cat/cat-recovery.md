@@ -28,7 +28,7 @@ GET _cat/recovery/<index>?v
 If you want to get information for more than one index, separate the indices with commas:
 
 ```json
-GET _cat/aliases/index1,index2,index3
+GET _cat/recovery/index1,index2,index3
 ```
 
 ## Path and HTTP methods
