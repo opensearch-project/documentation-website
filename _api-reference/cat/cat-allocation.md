@@ -28,7 +28,7 @@ GET _cat/allocation/<node_name>
 If you want to get information for more than one node, separate the node names with commas:
 
 ```json
-GET _cat/aliases/node_name_1,node_name_2,node_name_3
+GET _cat/allocation/node_name_1,node_name_2,node_name_3
 ```
 
 ## Path and HTTP methods
