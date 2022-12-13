@@ -201,3 +201,31 @@ $ curl -H 'Content-Type: application/json' -X POST "https://localhost:9200/_snap
 {
   "accepted" : true
 }
+
+As a sanity check here I did a diff on the YAML files from my origin cluster (running 1.3.6) and my target cluster (running 2.4.0). This is after the security settings and index have been restored.
+b0be8382702a:tmp jeffhuss$ diff opensearch-1.3.6-default.yml opensearch-2.4-default.yml 
+b0be8382702a:tmp jeffhuss$ diff opensearch_dashboards-1.3.6-default.yml opensearch_dashboards-2.4-default.yml 
+175a176,194
+> # Set the value of this setting to false to suppress search usage telemetry
+> # for reducing the load of OpenSearch cluster.
+> # data.search.usageTelemetry.enabled: false
+> 
+> # 2.4 renames 'wizard.enabled: false' to 'vis_builder.enabled: false'
+> # Set the value of this setting to false to disable VisBuilder
+> # functionality in Visualization.
+> # vis_builder.enabled: false
+> 
+> # 2.4 New Experimental Feature
+> # Set the value of this setting to true to enable the experimental multiple data source
+> # support feature. Use with caution.
+> # data_source.enabled: false
+> # Set the value of these settings to customize crypto materials to encryption saved credentials
+> # in data sources.
+> # data_source.encryption.wrappingKeyName: 'changeme'
+> # data_source.encryption.wrappingKeyNamespace: 'changeme'
+> # data_source.encryption.wrappingKey: [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+> 
+
+Also rechecked this query to confirm it is returning mathces from the ecommerce index. This worked - response is too long to paste here but it did match as expected.
+$ curl -H 'Content-Type: application/json' -X GET "https://localhost:9200/ecommerce/_search?pretty=true" -ku admin:admin -d' {"query":{"match":{"customer_first_name":"Sonya"}}}'
+
