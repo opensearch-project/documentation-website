@@ -50,6 +50,7 @@ bytes | Byte size | Specify the units for byte size. For example, `7kb` or `6gb`
 local | Boolean | Whether to return information from the local node only instead of from the cluster_manager node. Default is false.
 cluster_manager_timeout | Time | The amount of time to wait for a connection to the cluster manager node. Default is 30 seconds.
 
+
 ## Response
 
 The following response shows that 8 shards are allocated to each the two nodes available:
