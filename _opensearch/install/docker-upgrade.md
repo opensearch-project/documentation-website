@@ -669,3 +669,28 @@ os-node-03  1.3.7    dimr       -
 os-node-02  1.3.7    dimr       -
 os-node-04  1.3.7    dimr       *
 ```
+
+Remove `os-node-05`:
+```bash
+$  docker container stop os-node-05 && docker rm os-node-05 && docker volume rm os-data-05
+os-node-05
+os-node-05
+os-data-05
+```
+
+Replace:
+```bash
+docker run -d \
+	-p 9205:9200 -p 9605:9600 \
+	-e "discovery.seed_hosts=os-node-01,os-node-02" -e "DISABLE_SECURITY_PLUGIN=true" \
+	-e "DISABLE_INSTALL_DEMO_CONFIG=true" -e "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" \
+	-e "cluster.name=opensearch-dev-cluster" -e "node.name=os-node-05" \
+	-e "cluster.initial_cluster_manager_nodes=os-node-01,os-node-02,os-node-03,os-node-04" \
+	-e "bootstrap.memory_lock=true" -e "path.repo=/mnt/snapshots" \
+	--ulimit nofile=65536:65536 --ulimit memlock=-1:-1 \
+	-v os-data-05:/usr/share/opensearch/data \
+  	-v /Users/jeffhuss/Documents/opensearch/snapshots/repo-01:/mnt/snapshots \
+	--network opensearch-dev-net \
+	--name os-node-05 \
+	opensearchproject/opensearch:2.4.1
+```
