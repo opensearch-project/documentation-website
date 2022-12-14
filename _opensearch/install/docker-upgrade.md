@@ -558,3 +558,9 @@ $ curl -X POST "http://localhost:9201/_flush?pretty"
   }
 }
 ```
+
+Stop the first node I want to upgrade:
+```bash
+$ docker container stop os-node-01
+os-node-01
+```
