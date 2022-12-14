@@ -498,6 +498,8 @@ $ curl -X PUT "http://localhost:9201/_cluster/settings?pretty" -H 'Content-type:
 }
 ```
 
+Initially `os-node-04` was elected leader, so I stopped and started that node, which forced `os-node-01` to become the cluster leader. This isn't part of the process, but it helped confirm for me that the cluster is able to recover.
+
 ```bash
 $ curl "http://localhost:9201/_cat/nodes"
 172.28.0.3 23 99 4 0.25 0.30 0.49 dimr - os-node-02
