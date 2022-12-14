@@ -583,13 +583,14 @@ docker run -d \
 
 The new node is reachable and an old node has been elected leader:
 ```bash
-$ curl "http://localhost:9201/_cat/nodes"
-172.28.0.8 56 99 4 0.16 0.25 0.37 dimr data,ingest,master,remote_cluster_client - os-node-07
-172.28.0.7 46 99 4 0.16 0.25 0.37 dimr data,ingest,master,remote_cluster_client - os-node-06
-172.28.0.5 32 99 4 0.16 0.25 0.37 dimr data,ingest,master,remote_cluster_client * os-node-04
-172.28.0.6 41 99 4 0.16 0.25 0.37 dimr data,ingest,master,remote_cluster_client - os-node-05
-172.28.0.4 34 99 4 0.16 0.25 0.37 dimr data,ingest,master,remote_cluster_client - os-node-03
-172.28.0.3 52 99 4 0.16 0.25 0.37 dimr data,ingest,master,remote_cluster_client - os-node-02
-172.28.0.2 35 99 4 0.16 0.25 0.37 dimr data,ingest,master,remote_cluster_client - os-node-01
+$ curl -s "http://localhost:9201/_cat/nodes?v&h=name,version,node.role,master" | column -t
+name        version  node.role  master
+os-node-06  1.3.7    dimr       -
+os-node-05  1.3.7    dimr       -
+os-node-04  1.3.7    dimr       *
+os-node-03  1.3.7    dimr       -
+os-node-07  1.3.7    dimr       -
+os-node-01  2.4.1    dimr       -
+os-node-02  1.3.7    dimr       -
 ```
 
