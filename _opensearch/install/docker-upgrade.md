@@ -480,6 +480,16 @@ launch_node_07
 launch_node_dashboards
 ```
 
+Register snapshot repo:
+```bash
+curl -H 'Content-Type: application/json' -X PUT http://localhost:9200/_snapshot/snapshots -d'{"type":"fs","settings":{"location":"/mnt/snapshots"}}'
+```
+
+Take a snapshot that includes everything:
+```bash
+curl -H 'Content-Type: application/json' -X PUT "http://localhost:9200/_snapshot/snapshots/snapshot-name"
+```
+
 Disable allocation of shard replicas:
 ```bash
 $ curl -X PUT "http://localhost:9201/_cluster/settings?pretty" -H 'Content-type: application/json' -d'{"persistent":{"cluster.routing.allocation.enable":"primaries"}}'
