@@ -32,7 +32,7 @@ Upgrading your OpenSearch cluster to a newer **minor** version is straightforwar
 1. Wait for the containers to start, then query the [CAT nodes]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-nodes/) API endpoint to confirm that the version upgrade was successful.
     ```bash
     # This sample response is from a cluster that was upgraded from 2.3.0 to 2.4.0.
-    $ curl "https://localhost:9200/_cat/nodes?v&h=name,version&format=json&pretty=true" -ku admin:admin
+    $ curl "https://localhost:9200/_cat/nodes?v&h=name,version&format=json&pretty" -ku admin:admin
     [
     {
         "name" : "opensearch-node2",
@@ -229,3 +229,224 @@ b0be8382702a:tmp jeffhuss$ diff opensearch_dashboards-1.3.6-default.yml opensear
 Also rechecked this query to confirm it is returning mathces from the ecommerce index. This worked - response is too long to paste here but it did match as expected.
 $ curl -H 'Content-Type: application/json' -X GET "https://localhost:9200/ecommerce/_search?pretty=true" -ku admin:admin -d' {"query":{"match":{"customer_first_name":"Sonya"}}}'
 
+
+
+NEW METHOD! I'm scrapping everything relating to `docker compose` for these upgrades because without some fancy footwork it really seems to make the process difficult.
+
+The new process is to stand up a large-ish `1.3.7` cluster using the following Docker commands:
+
+```bash
+docker network create opensearch-dev-net
+
+
+# 1.3.7 Node Commands
+docker run -d \
+	-p 9201:9200 -p 9601:9600 \
+	-e "discovery.seed_hosts=os-node-01,os-node-02" -e "DISABLE_SECURITY_PLUGIN=true" \
+	-e "DISABLE_INSTALL_DEMO_CONFIG=true" -e "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" \
+	-e "cluster.name=opensearch-dev-cluster" -e "node.name=os-node-01" \
+	-e "cluster.initial_master_nodes=os-node-01,os-node-02,os-node-03,os-node-04" \
+	-e "bootstrap.memory_lock=true" \
+	--ulimit nofile=65536:65536 --ulimit memlock=-1:-1 \
+	-v os-data-01:/usr/share/opensearch/data \
+	--network opensearch-dev-net \
+	--name os-node-01 \
+	opensearchproject/opensearch:1.3.7
+
+docker run -d \
+	-p 9202:9200 -p 9602:9600 \
+	-e "discovery.seed_hosts=os-node-01,os-node-02" -e "DISABLE_SECURITY_PLUGIN=true" \
+	-e "DISABLE_INSTALL_DEMO_CONFIG=true" -e "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" \
+	-e "cluster.name=opensearch-dev-cluster" -e "node.name=os-node-02" \
+	-e "cluster.initial_master_nodes=os-node-01,os-node-02,os-node-03,os-node-04" \
+	-e "bootstrap.memory_lock=true" \
+	--ulimit nofile=65536:65536 --ulimit memlock=-1:-1 \
+	-v os-data-02:/usr/share/opensearch/data \
+	--network opensearch-dev-net \
+	--name os-node-02 \
+	opensearchproject/opensearch:1.3.7
+
+docker run -d \
+	-p 9203:9200 -p 9603:9600 \
+	-e "discovery.seed_hosts=os-node-01,os-node-02" -e "DISABLE_SECURITY_PLUGIN=true" \
+	-e "DISABLE_INSTALL_DEMO_CONFIG=true" -e "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" \
+	-e "cluster.name=opensearch-dev-cluster" -e "node.name=os-node-03" \
+	-e "cluster.initial_master_nodes=os-node-01,os-node-02,os-node-03,os-node-04" \
+	-e "bootstrap.memory_lock=true" \
+	--ulimit nofile=65536:65536 --ulimit memlock=-1:-1 \
+	-v os-data-03:/usr/share/opensearch/data \
+	--network opensearch-dev-net \
+	--name os-node-03 \
+	opensearchproject/opensearch:1.3.7
+
+docker run -d \
+	-p 9204:9200 -p 9604:9600 \
+	-e "discovery.seed_hosts=os-node-01,os-node-02" -e "DISABLE_SECURITY_PLUGIN=true" \
+	-e "DISABLE_INSTALL_DEMO_CONFIG=true" -e "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" \
+	-e "cluster.name=opensearch-dev-cluster" -e "node.name=os-node-04" \
+	-e "cluster.initial_master_nodes=os-node-01,os-node-02,os-node-03,os-node-04" \
+	-e "bootstrap.memory_lock=true" \
+	--ulimit nofile=65536:65536 --ulimit memlock=-1:-1 \
+	-v os-data-04:/usr/share/opensearch/data \
+	--network opensearch-dev-net \
+	--name os-node-04 \
+	opensearchproject/opensearch:1.3.7
+
+docker run -d \
+	-p 9205:9200 -p 9605:9600 \
+	-e "discovery.seed_hosts=os-node-01,os-node-02" -e "DISABLE_SECURITY_PLUGIN=true" \
+	-e "DISABLE_INSTALL_DEMO_CONFIG=true" -e "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" \
+	-e "cluster.name=opensearch-dev-cluster" -e "node.name=os-node-05" \
+	-e "cluster.initial_master_nodes=os-node-01,os-node-02,os-node-03,os-node-04" \
+	-e "bootstrap.memory_lock=true" \
+	--ulimit nofile=65536:65536 --ulimit memlock=-1:-1 \
+	-v os-data-05:/usr/share/opensearch/data \
+	--network opensearch-dev-net \
+	--name os-node-05 \
+	opensearchproject/opensearch:1.3.7
+
+docker run -d \
+	-p 9206:9200 -p 9606:9600 \
+	-e "discovery.seed_hosts=os-node-01,os-node-02" -e "DISABLE_SECURITY_PLUGIN=true" \
+	-e "DISABLE_INSTALL_DEMO_CONFIG=true" -e "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" \
+	-e "cluster.name=opensearch-dev-cluster" -e "node.name=os-node-06" \
+	-e "cluster.initial_master_nodes=os-node-01,os-node-02,os-node-03,os-node-04" \
+	-e "bootstrap.memory_lock=true" \
+	--ulimit nofile=65536:65536 --ulimit memlock=-1:-1 \
+	-v os-data-06:/usr/share/opensearch/data \
+	--network opensearch-dev-net \
+	--name os-node-06 \
+	opensearchproject/opensearch:1.3.7
+
+docker run -d \
+	-p 9207:9200 -p 9607:9600 \
+	-e "discovery.seed_hosts=os-node-01,os-node-02" -e "DISABLE_SECURITY_PLUGIN=true" \
+	-e "DISABLE_INSTALL_DEMO_CONFIG=true" -e "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" \
+	-e "cluster.name=opensearch-dev-cluster" -e "node.name=os-node-07" \
+	-e "cluster.initial_master_nodes=os-node-01,os-node-02,os-node-03,os-node-04" \
+	-e "bootstrap.memory_lock=true" \
+	--ulimit nofile=65536:65536 --ulimit memlock=-1:-1 \
+	-v os-data-07:/usr/share/opensearch/data \
+	--network opensearch-dev-net \
+	--name os-node-07 \
+	opensearchproject/opensearch:1.3.7
+
+
+docker run -d \
+	-p 5601:5601 --expose 5601 \
+	-e "DISABLE_SECURITY_DASHBOARDS_PLUGIN=true" \
+	-e 'OPENSEARCH_HOSTS=["http://os-node-01:9200","http://os-node-02:9200"]' \
+	--network opensearch-dev-net \
+	--name os-dashboards-01 \
+	opensearchproject/opensearch-dashboards:1.3.7
+```
+
+Then I will ingest data using the ecommerce data from Dashboards, create a snapshot, and start a node replacement upgrade, with no downtime. A snapshot will be taken as well for testing against a cluster restart upgrade.
+
+The new nodes:
+
+```bash
+docker network create opensearch-dev-net
+
+
+# 2.4.1 Node Commands
+docker run -d \
+	-p 9201:9200 -p 9601:9600 \
+	-e "discovery.seed_hosts=os-node-01,os-node-02" -e "DISABLE_SECURITY_PLUGIN=true" \
+	-e "DISABLE_INSTALL_DEMO_CONFIG=true" -e "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" \
+	-e "cluster.name=opensearch-dev-cluster" -e "node.name=os-node-01" \
+	-e "cluster.initial_cluster_manager_nodes=os-node-01,os-node-02,os-node-03,os-node-04" \
+	-e "bootstrap.memory_lock=true" \
+	--ulimit nofile=65536:65536 --ulimit memlock=-1:-1 \
+	-v os-data-01:/usr/share/opensearch/data \
+	--network opensearch-dev-net \
+	--name os-node-01 \
+	opensearchproject/opensearch:2.4.1
+
+docker run -d \
+	-p 9202:9200 -p 9602:9600 \
+	-e "discovery.seed_hosts=os-node-01,os-node-02" -e "DISABLE_SECURITY_PLUGIN=true" \
+	-e "DISABLE_INSTALL_DEMO_CONFIG=true" -e "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" \
+	-e "cluster.name=opensearch-dev-cluster" -e "node.name=os-node-02" \
+	-e "cluster.initial_cluster_manager_nodes=os-node-01,os-node-02,os-node-03,os-node-04" \
+	-e "bootstrap.memory_lock=true" \
+	--ulimit nofile=65536:65536 --ulimit memlock=-1:-1 \
+	-v os-data-02:/usr/share/opensearch/data \
+	--network opensearch-dev-net \
+	--name os-node-02 \
+	opensearchproject/opensearch:2.4.1
+
+docker run -d \
+	-p 9203:9200 -p 9603:9600 \
+	-e "discovery.seed_hosts=os-node-01,os-node-02" -e "DISABLE_SECURITY_PLUGIN=true" \
+	-e "DISABLE_INSTALL_DEMO_CONFIG=true" -e "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" \
+	-e "cluster.name=opensearch-dev-cluster" -e "node.name=os-node-03" \
+	-e "cluster.initial_cluster_manager_nodes=os-node-01,os-node-02,os-node-03,os-node-04" \
+	-e "bootstrap.memory_lock=true" \
+	--ulimit nofile=65536:65536 --ulimit memlock=-1:-1 \
+	-v os-data-03:/usr/share/opensearch/data \
+	--network opensearch-dev-net \
+	--name os-node-03 \
+	opensearchproject/opensearch:2.4.1
+
+docker run -d \
+	-p 9204:9200 -p 9604:9600 \
+	-e "discovery.seed_hosts=os-node-01,os-node-02" -e "DISABLE_SECURITY_PLUGIN=true" \
+	-e "DISABLE_INSTALL_DEMO_CONFIG=true" -e "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" \
+	-e "cluster.name=opensearch-dev-cluster" -e "node.name=os-node-04" \
+	-e "cluster.initial_cluster_manager_nodes=os-node-01,os-node-02,os-node-03,os-node-04" \
+	-e "bootstrap.memory_lock=true" \
+	--ulimit nofile=65536:65536 --ulimit memlock=-1:-1 \
+	-v os-data-04:/usr/share/opensearch/data \
+	--network opensearch-dev-net \
+	--name os-node-04 \
+	opensearchproject/opensearch:2.4.1
+
+docker run -d \
+	-p 9205:9200 -p 9605:9600 \
+	-e "discovery.seed_hosts=os-node-01,os-node-02" -e "DISABLE_SECURITY_PLUGIN=true" \
+	-e "DISABLE_INSTALL_DEMO_CONFIG=true" -e "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" \
+	-e "cluster.name=opensearch-dev-cluster" -e "node.name=os-node-05" \
+	-e "cluster.initial_cluster_manager_nodes=os-node-01,os-node-02,os-node-03,os-node-04" \
+	-e "bootstrap.memory_lock=true" \
+	--ulimit nofile=65536:65536 --ulimit memlock=-1:-1 \
+	-v os-data-05:/usr/share/opensearch/data \
+	--network opensearch-dev-net \
+	--name os-node-05 \
+	opensearchproject/opensearch:2.4.1
+
+docker run -d \
+	-p 9206:9200 -p 9606:9600 \
+	-e "discovery.seed_hosts=os-node-01,os-node-02" -e "DISABLE_SECURITY_PLUGIN=true" \
+	-e "DISABLE_INSTALL_DEMO_CONFIG=true" -e "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" \
+	-e "cluster.name=opensearch-dev-cluster" -e "node.name=os-node-06" \
+	-e "cluster.initial_cluster_manager_nodes=os-node-01,os-node-02,os-node-03,os-node-04" \
+	-e "bootstrap.memory_lock=true" \
+	--ulimit nofile=65536:65536 --ulimit memlock=-1:-1 \
+	-v os-data-06:/usr/share/opensearch/data \
+	--network opensearch-dev-net \
+	--name os-node-06 \
+	opensearchproject/opensearch:2.4.1
+
+docker run -d \
+	-p 9207:9200 -p 9607:9600 \
+	-e "discovery.seed_hosts=os-node-01,os-node-02" -e "DISABLE_SECURITY_PLUGIN=true" \
+	-e "DISABLE_INSTALL_DEMO_CONFIG=true" -e "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" \
+	-e "cluster.name=opensearch-dev-cluster" -e "node.name=os-node-07" \
+	-e "cluster.initial_cluster_manager_nodes=os-node-01,os-node-02,os-node-03,os-node-04" \
+	-e "bootstrap.memory_lock=true" \
+	--ulimit nofile=65536:65536 --ulimit memlock=-1:-1 \
+	-v os-data-07:/usr/share/opensearch/data \
+	--network opensearch-dev-net \
+	--name os-node-07 \
+	opensearchproject/opensearch:2.4.1
+
+
+docker run -d \
+	-p 5601:5601 --expose 5601 \
+	-e "DISABLE_SECURITY_DASHBOARDS_PLUGIN=true" \
+	-e 'OPENSEARCH_HOSTS=["http://os-node-01:9200","http://os-node-02:9200"]' \
+	--network opensearch-dev-net \
+	--name os-dashboards-01 \
+	opensearchproject/opensearch-dashboards:2.4.1
+  ```
