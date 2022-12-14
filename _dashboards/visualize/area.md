@@ -13,7 +13,9 @@ In this tutorial you will create an area chart in the [OpenSearch Dashboards pla
 
 # Create an area chart
 
-1. Select [Visualize] from the menu on the left side of the screen.
-1. Select [Create visualization].
-1. Select [Area] and then select [log-aws-cloudtrail-*] for Source.
-1. Select [+ Add] => [X-axis] in Buckets on the left.
+1. Select **Visualize** from the menu.
+2. Select **Create visualization**.
+3. Select **Area** and then select **opensearch_dashboards_sample_data_flights** for source.
+4. Select **+ Add** => **X-axis** in **Buckets**.
+<img src="{{site.url}}{{site.baseurl}}/images/area-chart-2.png" alt="Visual of Step 4 process">
+5.   
