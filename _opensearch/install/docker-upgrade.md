@@ -546,3 +546,15 @@ $ curl -H 'Content-Type: application/json' -X GET "http://localhost:9201/ecommer
     "failed" : 0
   },
 ```
+
+Flush the data streams and indexes so that anything in the transaction log is permanently written to the Lucene index:
+```bash
+$ curl -X POST "http://localhost:9201/_flush?pretty"
+{
+  "_shards" : {
+    "total" : 10,
+    "successful" : 10,
+    "failed" : 0
+  }
+}
+```
