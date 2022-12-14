@@ -1,8 +1,10 @@
-git ---
+---
 layout: default
 title: Core APIs
 nav_order: 2
 ---
+
+# Core APIs
 
 All Data Prepper instances expose a server with some control APIs. By default, this server runs on port 4900. Some plugins, especially Source plugins may expose other servers. These will be on different ports and their configurations are independent of the core API. For example, to shut down Data Prepper, you can run:
 
@@ -10,41 +12,22 @@ All Data Prepper instances expose a server with some control APIs. By default, t
 curl -X POST http://localhost:4900/shutdown
 ```
 
-# APIs
+## APIs
 
 The following APIs are available:
 
-```
-GET /list
-POST /list
-```
-* lists running pipelines
+| Name | Description |
+| --- | --- | 
+| ```GET /list```<br>```POST /list``` | Returns a list of running pipelines. |
+| ```POST /shutdown``` | Starts a graceful shutdown of Data Prepper. |
+| ```GET /metrics/prometheus```<br>```POST /metrics/prometheus``` | Returns a scrape of Data Prepper metrics in Prometheus text format. This API is available provided `metricsRegistries` parameter in data prepper configuration file `data-prepper-config.yaml` has `Prometheus` as one of the registry.
+| ```GET /metrics/sys```<br>```POST /metrics/sys``` | Returns JVM metrics in Prometheus text format. This API is available provided `metricsRegistries` parameter in Data Prepper configuration file `data-prepper-config.yaml` has `Prometheus` as one of the registry.
 
-```
-POST /shutdown
-```
-* starts a graceful shutdown of the Data Prepper
-
-```
-GET /metrics/prometheus
-POST /metrics/prometheus
-```
-* returns a scrape of the Data Prepper metrics in Prometheus text format. This API is available provided
-      `metricsRegistries` parameter in data prepper configuration file `data-prepper-config.yaml` has `Prometheus` as one
-      of the registry
-
-```
-GET /metrics/sys
-POST /metrics/sys
-```
-* returns JVM metrics in Prometheus text format. This API is available provided `metricsRegistries` parameter in data
-      prepper configuration file `data-prepper-config.yaml` has `Prometheus` as one of the registry
-
-# Configuring the server
+## Configuring the server
 
 You can configure your Data Prepper core APIs through the `data-prepper-config.yaml` file. 
 
-## SSL/TLS connection
+### SSL/TLS connection
 
 Many of the Getting Started guides in this project disable SSL on the endpoint.
 
@@ -68,7 +51,7 @@ For more information on configuring your Data Prepper server with SSL, see [Serv
 curl -k -X POST https://localhost:4900/shutdown
 ```
 
-## Authentication
+### Authentication
 
 The Data Prepper Core APIs support HTTP Basic authentication. You can set the username and password with the following configuration in `data-prepper-config.yaml`:
 
@@ -89,11 +72,13 @@ authentication:
   unauthenticated:
 ```
 
-## Peer Forwarder
+### Peer Forwarder
+
 Peer forwarder can be configured to enable stateful aggregation across multiple Data Prepper nodes. For more information on configuring Peer Forwarder, see [Peer Forwarder Configuration](https://github.com/opensearch-project/data-prepper/blob/main/docs/peer_forwarder.md).
 It is supported by `service_map_stateful`, `otel_trace_raw` and `aggregate` processors.
 
-## Shutdown Timeouts
+### Shutdown Timeouts
+
 When the DataPrepper `shutdown` API is invoked, the sink and processor `ExecutorService`'s are given time to gracefully shutdown and clear any in-flight data. The default graceful shutdown timeout for these `ExecutorService`'s is 10 seconds. You can configure the timeout with the following optional parameters:
 
 ```yaml
