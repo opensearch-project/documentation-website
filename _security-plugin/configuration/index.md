@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Configuration
-nav_order: 5
+nav_order: 1
 has_children: true
 has_toc: false
 redirect_from:

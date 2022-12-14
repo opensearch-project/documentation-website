@@ -1,8 +1,8 @@
 ---
 layout: default
 title: SAML
-parent: Configuration
-nav_order: 31
+parent: Authentication backends
+nav_order: 20
 ---
 
 # SAML

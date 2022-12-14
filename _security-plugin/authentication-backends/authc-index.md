@@ -1,8 +1,11 @@
 ---
 layout: default
 title: Authentication flow
-parent: Configuration
-nav_order: 1
+nav_order: 2
+has_children: true
+has_toc: false
+redirect_from:
+  - /security-plugin/authentication-backends/
 ---
 
 # Authentication flow

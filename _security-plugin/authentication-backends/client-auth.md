@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Client certificate authentication
-parent: Configuration
+parent: Authentication backends
 nav_order: 50
 ---
 

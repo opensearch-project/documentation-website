@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Active Directory and LDAP
-parent: Configuration
+parent: Authentication backends
 nav_order: 30
 ---
 

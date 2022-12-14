@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Proxy-based authentication
-parent: Configuration
+parent: Authentication backends
 nav_order: 40
 ---
 
