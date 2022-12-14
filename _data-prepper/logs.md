@@ -4,6 +4,10 @@ title: Log4j configuration
 nav_order: 12
 ---
 
+#Log4j configuration
+
+The following describes how Data Prepper performs logging.
+
 # Logging 
 Data Prepper uses [SLF4J](http://www.slf4j.org/) with a [Log4j 2 binding](http://logging.apache.org/log4j/2.x/log4j-slf4j-impl/). 
 
