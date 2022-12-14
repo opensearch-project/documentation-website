@@ -79,7 +79,7 @@ It is supported by `service_map_stateful`, `otel_trace_raw` and `aggregate` proc
 
 ### Shutdown Timeouts
 
-When the DataPrepper `shutdown` API is invoked, the sink and processor `ExecutorService`'s are given time to gracefully shutdown and clear any in-flight data. The default graceful shutdown timeout for these `ExecutorService`'s is 10 seconds. You can configure the timeout with the following optional parameters:
+When the DataPrepper `shutdown` API is invoked, the sink and processor `ExecutorService` are given time to gracefully shutdown and clear any in-flight data. The default graceful shutdown timeout for the `ExecutorService` processes is 10 seconds. You can configure the timeout with the following optional parameters:
 
 ```yaml
 processorShutdownTimeout: "PT15M"
