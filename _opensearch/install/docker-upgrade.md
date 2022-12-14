@@ -478,4 +478,47 @@ launch_node_05
 launch_node_06
 launch_node_07
 launch_node_dashboards
-  ```
+```
+
+Disable allocation of shard replicas:
+```bash
+$ curl -X PUT "http://localhost:9201/_cluster/settings?pretty" -H 'Content-type: application/json' -d'{"persistent":{"cluster.routing.allocation.enable":"primaries"}}'
+{
+  "acknowledged" : true,
+  "persistent" : {
+    "cluster" : {
+      "routing" : {
+        "allocation" : {
+          "enable" : "primaries"
+        }
+      }
+    }
+  },
+  "transient" : { }
+}
+```
+
+```bash
+$ curl "http://localhost:9201/_cat/nodes"
+172.28.0.3 23 99 4 0.25 0.30 0.49 dimr - os-node-02
+172.28.0.5 40 99 4 0.25 0.30 0.49 dimr - os-node-04
+172.28.0.7 48 99 4 0.25 0.30 0.49 dimr - os-node-06
+172.28.0.2 64 99 4 0.25 0.30 0.49 dimr * os-node-01
+172.28.0.4 43 99 4 0.25 0.30 0.49 dimr - os-node-03
+172.28.0.6 53 99 4 0.25 0.30 0.49 dimr - os-node-05
+172.28.0.8 18 99 4 0.25 0.30 0.49 dimr - os-node-07
+
+$ curl "http://localhost:9201/_cat/shards"
+ecommerce                       0 p STARTED 4675  3.9mb 172.28.0.2 os-node-01
+ecommerce                       0 r STARTED 4675  3.9mb 172.28.0.8 os-node-07
+.opendistro-reports-definitions 0 p STARTED    0   208b 172.28.0.8 os-node-07
+.opendistro-reports-definitions 0 r STARTED    0   208b 172.28.0.5 os-node-04
+.opendistro-reports-definitions 0 r STARTED    0   208b 172.28.0.7 os-node-06
+.kibana_1                       0 p STARTED    2  8.7kb 172.28.0.4 os-node-03
+.kibana_1                       0 r STARTED    2 13.5kb 172.28.0.2 os-node-01
+.opendistro-reports-instances   0 r STARTED    0   208b 172.28.0.4 os-node-03
+.opendistro-reports-instances   0 p STARTED    0   208b 172.28.0.6 os-node-05
+.opendistro-reports-instances   0 r STARTED    0   208b 172.28.0.3 os-node-02
+```
+
+
