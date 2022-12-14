@@ -77,7 +77,7 @@ authentication:
 Peer forwarder can be configured to enable stateful aggregation across multiple Data Prepper nodes. For more information on configuring Peer Forwarder, see [Peer Forwarder Configuration](https://github.com/opensearch-project/data-prepper/blob/main/docs/peer_forwarder.md).
 It is supported by `service_map_stateful`, `otel_trace_raw` and `aggregate` processors.
 
-### Shutdown Timeouts
+### Shutdown timeouts
 
 When the DataPrepper `shutdown` API is invoked, the sink and processor `ExecutorService` are given time to gracefully shutdown and clear any in-flight data. The default graceful shutdown timeout for the `ExecutorService` processes is 10 seconds. You can configure the timeout with the following optional parameters:
 
@@ -86,4 +86,4 @@ processorShutdownTimeout: "PT15M"
 sinkShutdownTimeout: 30s
 ```
 
-The values for these parameters are parsed into a `Duration` object via the [DataPrepperDurationDeserializer](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-core/src/main/java/org/opensearch/dataprepper/parser/DataPrepperDurationDeserializer.java).
+The values for these parameters are parsed into a `Duration` object via the [Data Prepper Duration Deserializer](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-core/src/main/java/org/opensearch/dataprepper/parser/DataPrepperDurationDeserializer.java).
