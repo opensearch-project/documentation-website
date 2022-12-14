@@ -533,4 +533,16 @@ ecommerce                       0 r STARTED 4675  3.9mb 172.28.0.8 os-node-07
 .opendistro-reports-instances   0 r STARTED    0   208b 172.28.0.3 os-node-02
 ```
 
-
+Sample query to demonstrate that data is there (truncated because the response is huge):
+```bash
+$ curl -H 'Content-Type: application/json' -X GET "http://localhost:9201/ecommerce/_search?pretty=true" -d'{"query":{"match":{"customer_first_name":"Sonya"}}}'
+{
+  "took" : 116,
+  "timed_out" : false,
+  "_shards" : {
+    "total" : 1,
+    "successful" : 1,
+    "skipped" : 0,
+    "failed" : 0
+  },
+```
