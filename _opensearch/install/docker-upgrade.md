@@ -594,3 +594,41 @@ os-node-01  2.4.1    dimr       -
 os-node-02  1.3.7    dimr       -
 ```
 
+Remove `os-node-07` (since my discover.seed_hosts only includes `os-node-01` and `os-node-02` I don't want to move up the node order sequentially or I'm afraid the new nodes won't be able to discover a master eligible node):
+```bash
+$ docker container stop os-node-07 && docker rm os-node-07 && docker volume rm os-data-07
+os-node-07
+os-node-07
+os-data-07
+```
+
+Create and start new container:
+```bash
+docker run -d \
+	-p 9207:9200 -p 9607:9600 \
+	-e "discovery.seed_hosts=os-node-01,os-node-02" -e "DISABLE_SECURITY_PLUGIN=true" \
+	-e "DISABLE_INSTALL_DEMO_CONFIG=true" -e "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" \
+	-e "cluster.name=opensearch-dev-cluster" -e "node.name=os-node-07" \
+	-e "cluster.initial_cluster_manager_nodes=os-node-01,os-node-02,os-node-03,os-node-04" \
+	-e "bootstrap.memory_lock=true" -e "path.repo=/mnt/snapshots" \
+	--ulimit nofile=65536:65536 --ulimit memlock=-1:-1 \
+	-v os-data-07:/usr/share/opensearch/data \
+  	-v /Users/jeffhuss/Documents/opensearch/snapshots/repo-01:/mnt/snapshots \
+	--network opensearch-dev-net \
+	--name os-node-07 \
+	opensearchproject/opensearch:2.4.1
+```
+
+Confirm nodes:
+```bash
+$ curl -s "http://localhost:9201/_cat/nodes?v&h=name,version,node.role,master" | column -t
+name        version  node.role  master
+os-node-01  2.4.1    dimr       -
+os-node-04  1.3.7    dimr       *
+os-node-02  1.3.7    dimr       -
+os-node-07  2.4.1    dimr       -
+os-node-03  1.3.7    dimr       -
+os-node-06  1.3.7    dimr       -
+os-node-05  1.3.7    dimr       -
+```
+
