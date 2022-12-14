@@ -2,7 +2,7 @@
 layout: default
 title: User impersonation
 parent: Access control
-nav_order: 20
+nav_order: 100
 ---
 
 # User impersonation

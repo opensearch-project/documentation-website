@@ -1,11 +1,11 @@
 ---
 layout: default
-title: TLS certificates
+title: Configuring TLS certificates
 parent: Configuration
-nav_order: 10
+nav_order: 15
 ---
 
-# Configure TLS certificates
+# Configuring TLS certificates
 
 TLS is configured in `opensearch.yml`. Certificates are used to secure transport-layer traffic (node-to-node communication within your cluster) and REST-layer traffic (communication between a client and a node within your cluster). TLS is optional for the REST layer and mandatory for the transport layer.
 

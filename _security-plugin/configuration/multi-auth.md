@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Multiple authentication options for Dashboards sign-in
+title: Configuring sign-in options
 parent: Configuration
-nav_order: 3
+nav_order: 35
 ---
 
-# Configure Dashboards sign-in for multiple authentication options
+# Configuring Dashboards sign-in for multiple authentication options
 
 You can configure the sign-in window for OpenSearch Dashboards to provide either a single option for authenticating users at sign-in or multiple options. Currently, Dashboards supports basic authentication, OpenID Connect, and SAML as the multiple options.
 

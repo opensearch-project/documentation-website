@@ -2,7 +2,7 @@
 layout: default
 title: OpenID Connect
 parent: Authentication backends
-nav_order: 10
+nav_order: 50
 ---
 
 # OpenID Connect

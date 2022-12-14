@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Audit logs
-nav_order: 40
+nav_order: 125
 has_children: true
 has_toc: false
 redirect_from:

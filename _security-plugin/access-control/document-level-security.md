@@ -2,7 +2,7 @@
 layout: default
 title: Document-level security
 parent: Access control
-nav_order: 10
+nav_order: 85
 ---
 
 # Document-level security (DLS)

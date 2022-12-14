@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Apply changes with the securityadmin script
+title: Applying changes to settings
 parent: Configuration
-nav_order: 20
+nav_order: 25
 ---
 
-# Apply changes with the securityadmin script
+# Applying changes to settings
 
 On **Windows**, use **securityadmin.bat** in place of **securityadmin.sh**. For more information, see [Windows usage](#windows-usage).
 {: .note}

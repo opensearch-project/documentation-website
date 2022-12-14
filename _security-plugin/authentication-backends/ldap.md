@@ -2,7 +2,7 @@
 layout: default
 title: Active Directory and LDAP
 parent: Authentication backends
-nav_order: 30
+nav_order: 60
 ---
 
 # Active Directory and LDAP

@@ -2,7 +2,7 @@
 layout: default
 title: Proxy-based authentication
 parent: Authentication backends
-nav_order: 40
+nav_order: 65
 ---
 
 # Proxy-based authentication

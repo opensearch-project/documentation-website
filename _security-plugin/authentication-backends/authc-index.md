@@ -1,7 +1,7 @@
 ---
 layout: default
-title: Authentication flow
-nav_order: 2
+title: Authentication backends
+nav_order: 45
 has_children: true
 has_toc: false
 redirect_from:

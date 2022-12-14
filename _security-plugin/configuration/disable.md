@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Disable security
+title: Disabling security
 parent: Configuration
-nav_order: 99
+nav_order: 40
 ---
 
-# Disable security
+# Disabling security
 
 You might want to temporarily disable the security plugin to make testing or internal usage more straightforward. To disable the plugin, add the following line in `opensearch.yml`:
 

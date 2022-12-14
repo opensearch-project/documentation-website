@@ -1,11 +1,11 @@
 ---
 layout: default
-title: YAML files
+title: Modifying the YAML files
 parent: Configuration
-nav_order: 4
+nav_order: 10
 ---
 
-# YAML files
+# Modifying the YAML files
 
 Before running [`securityadmin.sh`]({{site.url}}{{site.baseurl}}/security-plugin/configuration/security-admin/) to load the settings into the `.opendistro_security` index, configure the YAML files in `config/opensearch-security`. You might want to back up these files so that you can reuse them on other clusters.
 

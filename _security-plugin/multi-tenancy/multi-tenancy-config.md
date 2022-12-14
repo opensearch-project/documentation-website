@@ -2,7 +2,7 @@
 layout: default
 title: Multi-tenancy configuration
 parent: OpenSearch Dashboards multi-tenancy
-nav_order: 55
+nav_order: 145
 ---
 
 

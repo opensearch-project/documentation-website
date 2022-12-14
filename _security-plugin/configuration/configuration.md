@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Backend configuration
+title: Configuring the Security backend
 parent: Configuration
-nav_order: 2
+nav_order: 5
 ---
 
-# Backend configuration
+# Configuring the Security backend
 
 One of the first steps to using the security plugin is to decide on an authentication backend, which handles [steps 2-3 of the authentication flow]({{site.url}}{{site.baseurl}}/security-plugin/configuration/concepts#authentication-flow). The plugin has an internal user database, but many people prefer to use an existing authentication backend, such as an LDAP server, or some combination of the two.
 

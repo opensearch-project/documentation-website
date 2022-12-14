@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Generate certificates
+title: Generating self-signed certificates
 parent: Configuration
-nav_order: 11
+nav_order: 20
 ---
 
-# Generate certificates
+# Generating self-signed certificates
 
 If you don't have access to a certificate authority (CA) for your organization and want to use OpenSearch for non-demo purposes, you can generate your own self-signed certificates using [OpenSSL](https://www.openssl.org/){:target='\_blank'}.
 
