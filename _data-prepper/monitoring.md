@@ -4,21 +4,23 @@ title: Monitoring
 nav_order: 12
 ---
 
+# Monitoring
+
 Metrics in Data Prepper are instrumented using [Micrometer.io](https://micrometer.io/). There are two types of metrics: JVM and system metrics, and plugin metrics. Prometheus is used as the default metrics backend.
 
-# JVM and system metrics
+## JVM and system metrics
 
-JVM and system metrics are Data Prepper instance runtime metrics including metrics on classloaders, memory, garbage collection, threads, etc. See https://micrometer.io/docs/ref/jvm for details. 
+JVM and system metrics are Data Prepper instance runtime metrics that include metrics on classloaders, memory, garbage collection, and threads. See [JVM and system metrics](https://micrometer.io/docs/ref/jvm) for details. 
 
-## Naming
+### Naming
 
-JVM and system metrics in Data Prepper follow pre-defined names in Micrometer.io, such as `jvm_classes_loaded`, `jvm_memory_used`. 
+JVM and system metrics in Data Prepper follow pre-defined names in Micrometer.io, such as `jvm_classes_loaded`, and `jvm_memory_used`. 
 
-## Serving
+### Serving
 
-By default, metrics are served from the **/metrics/sys** endpoint on the Data Prepper server. The format is a text Prometheus scrape. This port can be used for any frontend which accepts Prometheus metrics, e.g. [Grafana](https://prometheus.io/docs/visualization/grafana/). The configuration can be updated to serve metrics to other registries like CloudWatch which does not require/host the endpoint, but publishes the metrics directly to CloudWatch.
+By default, metrics are served from the **/metrics/sys** endpoint on the Data Prepper server. The format is a text Prometheus scrape. This port can be used for any frontend which accepts Prometheus metrics, such as [Grafana](https://prometheus.io/docs/visualization/grafana/). The configuration can be updated to serve metrics to other registries like CloudWatch which does not require or host the endpoint, but publishes the metrics directly to CloudWatch.
 
-# Plugin metrics
+## Plugin metrics
 
 Each plugin (if necessary, each class within a plugin) is responsible for posting relevant metrics. Besides custom metrics introduced by specific plugins, `data-prepper-api` already introduced the following common metrics for plugin types:
 
@@ -46,8 +48,10 @@ Each plugin (if necessary, each class within a plugin) is responsible for postin
     - Timer
         - `timeElapsed`: time elapsed during execution of a sink. 
 
-## Naming
+### Naming
+
 Metrics follow a naming convention of **PIPELINE_NAME_PLUGIN_NAME_METRIC_NAME** . For example, a **recordsIn** metric for the **opensearch-sink** plugin in a pipeline named **output-pipeline** has a qualified name of **output-pipeline_opensearch_sink_recordsIn**.
 
-## Serving
-By default, metrics are served from the **metrics/prometheus** endpoint on the Data Prepper server. The format is a text Prometheus scrape. This port can be used for any frontend which accepts Prometheus metrics. The configuration can be updated to serve metrics to other registries like CloudWatch, which does not require/host the endpoint but publishes the metrics directly to CloudWatch.
+### Serving
+
+By default, metrics are served from the **/metrics/sys** endpoint on the Data Prepper server. The format is a text Prometheus scrape. This port can be used for any frontend which accepts Prometheus metrics, such as [Grafana](https://prometheus.io/docs/visualization/grafana/). The configuration can be updated to serve metrics to other registries like CloudWatch which does not require or host the endpoint, but publishes the metrics directly to CloudWatch.
