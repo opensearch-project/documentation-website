@@ -559,8 +559,37 @@ $ curl -X POST "http://localhost:9201/_flush?pretty"
 }
 ```
 
-Stop the first node I want to upgrade:
+Stop and remove the first node I want to upgrade:
 ```bash
-$ docker container stop os-node-01
-os-node-01
+$ docker container stop os-node-01 && docker rm os-node-01 && docker volume rm os-data-01
 ```
+
+Create and start new container with the same settings, called `os-node-01`:
+```bash
+docker run -d \
+	-p 9201:9200 -p 9601:9600 \
+	-e "discovery.seed_hosts=os-node-01,os-node-02" -e "DISABLE_SECURITY_PLUGIN=true" \
+	-e "DISABLE_INSTALL_DEMO_CONFIG=true" -e "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" \
+	-e "cluster.name=opensearch-dev-cluster" -e "node.name=os-node-01" \
+	-e "cluster.initial_cluster_manager_nodes=os-node-01,os-node-02,os-node-03,os-node-04" \
+	-e "bootstrap.memory_lock=true" -e "path.repo=/mnt/snapshots" \
+	--ulimit nofile=65536:65536 --ulimit memlock=-1:-1 \
+	-v os-data-01:/usr/share/opensearch/data \
+  	-v /Users/jeffhuss/Documents/opensearch/snapshots/repo-01:/mnt/snapshots \
+	--network opensearch-dev-net \
+	--name os-node-01 \
+	opensearchproject/opensearch:2.4.1
+```
+
+The new node is reachable and an old node has been elected leader:
+```bash
+$ curl "http://localhost:9201/_cat/nodes"
+172.28.0.8 56 99 4 0.16 0.25 0.37 dimr data,ingest,master,remote_cluster_client - os-node-07
+172.28.0.7 46 99 4 0.16 0.25 0.37 dimr data,ingest,master,remote_cluster_client - os-node-06
+172.28.0.5 32 99 4 0.16 0.25 0.37 dimr data,ingest,master,remote_cluster_client * os-node-04
+172.28.0.6 41 99 4 0.16 0.25 0.37 dimr data,ingest,master,remote_cluster_client - os-node-05
+172.28.0.4 34 99 4 0.16 0.25 0.37 dimr data,ingest,master,remote_cluster_client - os-node-03
+172.28.0.3 52 99 4 0.16 0.25 0.37 dimr data,ingest,master,remote_cluster_client - os-node-02
+172.28.0.2 35 99 4 0.16 0.25 0.37 dimr data,ingest,master,remote_cluster_client - os-node-01
+```
+
