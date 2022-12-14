@@ -1,11 +1,14 @@
 ---
 layout: default
-title: Apply changes with securityadmin.sh
+title: Apply changes with the securityadmin script
 parent: Configuration
 nav_order: 20
 ---
 
-# Apply changes using securityadmin.sh
+# Apply changes with the securityadmin script
+
+On **Windows**, use **securityadmin.bat** in place of **securityadmin.sh**. For more information, see [Windows usage](#windows-usage).
+{: .note}
 
 The security plugin stores its configuration---including users, roles, and permissions---in an index on the OpenSearch cluster (`.opendistro_security`). Storing these settings in an index lets you change settings without restarting the cluster and eliminates the need to edit configuration files on every single node.
 
@@ -296,3 +299,26 @@ Name | Description
 `-era` | Enable replica auto-expand.
 `-dra` | Disable replica auto-expand.
 `-us` | Update the replica settings.
+
+## Windows usage
+
+On Windows, the equivalent of `securityadmin.sh` is the `securityadmin.bat` script located in the `\path\to\opensearch-{{site.opensearch_version}}\plugins\opensearch-security\tools\` directory.
+
+When running the example commands in the preceding sections, use the **command prompt** or **Powershell**. Open the command prompt by entering `cmd` or Powershell by entering `powershell` in the search box next to **Start** on the taskbar. 
+
+For example, to print all available command line options, run the script with no arguments:
+
+```bat
+.\plugins\opensearch-security\tools\securityadmin.bat
+```
+
+When entering a multiline command, use the caret (`^`) character to escape the next character in the command line.
+
+For example, to load your initial configuration (all YAML files), use the following command:
+
+```bat
+.\securityadmin.bat -cd ..\..\..\config\opensearch-security\ -icl -nhnv ^
+  -cacert ..\..\..\config\root-ca.pem ^
+  -cert ..\..\..\config\kirk.pem ^
+  -key ..\..\..\config\kirk-key.pem
+```
