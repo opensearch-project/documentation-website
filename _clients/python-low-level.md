@@ -6,7 +6,7 @@ nav_order: 10
 
 # Low-level Python client
 
-The OpenSearch low-level Python client (`opensearch-py`) provides a wrapper methods for the OpenSearch REST API so that you can interact with your cluster more naturally in Python. Rather than sending raw HTTP requests to a given URL, you can create an OpenSearch client for your cluster and call the client's built-in functions.
+The OpenSearch low-level Python client (`opensearch-py`) provides wrapper methods for the OpenSearch REST API so that you can interact with your cluster more naturally in Python. Rather than sending raw HTTP requests to a given URL, you can create an OpenSearch client for your cluster and call the client's built-in functions.
 
 ## Setup
 
@@ -110,7 +110,7 @@ response = client.indices.create(index_name, body=index_body)
 
 ## Indexing a document
 
-You can index a document into OpenSearch using the `client.index()` method:
+You can index a document using the `client.index()` method:
 
 ```python
 document = {
@@ -139,7 +139,7 @@ client.bulk(movies)
 
 ## Searching for documents
 
-The easiest way to search for documents is to construct a query string. The following code uses a multi_match query to search for “miller” in the title and director fields. It boosts the documents where “miller” is in the title field:
+The easiest way to search for documents is to construct a query string. The following code uses a multi match query to search for “miller” in the title and director fields. It boosts the documents where “miller” is in the title field:
 
 ```python
 q = 'miller'

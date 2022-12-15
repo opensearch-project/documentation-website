@@ -23,7 +23,7 @@ from opensearchpy import OpenSearch
 from opensearch_dsl import Search
 ```
 
-If you prefer to add the client manually or just want to examine the source code, see [opensearch-dsl-py on GitHub](https://github.com/opensearch-project/opensearch-dsl-py).
+If you prefer to add the client manually or just want to examine the source code, see [opensearch-dsl-py](https://github.com/opensearch-project/opensearch-dsl-py) on GitHub.
 
 ## Connecting to OpenSearch
 
@@ -126,7 +126,7 @@ class Movie(Document):
         return super(Movie, self).save(** kwargs)
 ```
 
-To index a document into OpenSearch, create an object of the new class and call its `save()` method:
+To index a document, create an object of the new class and call its `save()` method:
 
 ```python
 # Set up the opensearch-py version of the document
