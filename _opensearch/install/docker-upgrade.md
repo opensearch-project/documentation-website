@@ -860,3 +860,125 @@ $ curl "http://localhost:9201/_cluster/health?pretty"
 }
 ```
 
+Re-enable shard allocation:
+```bash
+$ curl -X PUT "http://localhost:9201/_cluster/settings?pretty" -H 'Content-type: application/json' -d'{"persistent":{"cluster.routing.allocation.enabl"all"}}'
+{
+  "acknowledged" : true,
+  "persistent" : {
+    "cluster" : {
+      "routing" : {
+        "allocation" : {
+          "enable" : "all"
+        }
+      }
+    }
+  },
+  "transient" : { }
+}
+```
+
+All the shards are gone?
+```bash
+$ curl "http://localhost:9201/_cluster/allocation/explain?include_yes_decisions=true&pretty"
+{
+  "index" : "ecommerce",
+  "shard" : 0,
+  "primary" : true,
+  "current_state" : "unassigned",
+  "unassigned_info" : {
+    "reason" : "NODE_LEFT",
+    "at" : "2022-12-14T21:37:11.280Z",
+    "details" : "node_left [MkhnDKBtTOWBd-7QxUlBSw]",
+    "last_allocation_status" : "no_valid_shard_copy"
+  },
+  "can_allocate" : "no_valid_shard_copy",
+  "allocate_explanation" : "cannot allocate because a previous copy of the primary shard existed but can no longer be found on the nodes in the cluster",
+  "node_allocation_decisions" : [
+    {
+      "node_id" : "2L4W085XSGaRHDxkE-5L8Q",
+      "node_name" : "os-node-01",
+      "transport_address" : "172.28.0.2:9300",
+      "node_attributes" : {
+        "shard_indexing_pressure_enabled" : "true"
+      },
+      "node_decision" : "no",
+      "store" : {
+        "found" : false
+      }
+    },
+    {
+      "node_id" : "8EwXgQBAQX2zP89nrgrKFA",
+      "node_name" : "os-node-07",
+      "transport_address" : "172.28.0.8:9300",
+      "node_attributes" : {
+        "shard_indexing_pressure_enabled" : "true"
+      },
+      "node_decision" : "no",
+      "store" : {
+        "found" : false
+      }
+    },
+    {
+      "node_id" : "Ih-SG920RC6DPidgcXNvJA",
+      "node_name" : "os-node-06",
+      "transport_address" : "172.28.0.7:9300",
+      "node_attributes" : {
+        "shard_indexing_pressure_enabled" : "true"
+      },
+      "node_decision" : "no",
+      "store" : {
+        "found" : false
+      }
+    },
+    {
+      "node_id" : "L0mkCS3kQFKBNa5yOJPYDQ",
+      "node_name" : "os-node-05",
+      "transport_address" : "172.28.0.6:9300",
+      "node_attributes" : {
+        "shard_indexing_pressure_enabled" : "true"
+      },
+      "node_decision" : "no",
+      "store" : {
+        "found" : false
+      }
+    },
+    {
+      "node_id" : "ePSKdgWdRTWh-p21ix2LRw",
+      "node_name" : "os-node-04",
+      "transport_address" : "172.28.0.5:9300",
+      "node_attributes" : {
+        "shard_indexing_pressure_enabled" : "true"
+      },
+      "node_decision" : "no",
+      "store" : {
+        "found" : false
+      }
+    },
+    {
+      "node_id" : "oBfqwDTkSKOmTN6jxBBQ2w",
+      "node_name" : "os-node-03",
+      "transport_address" : "172.28.0.4:9300",
+      "node_attributes" : {
+        "shard_indexing_pressure_enabled" : "true"
+      },
+      "node_decision" : "no",
+      "store" : {
+        "found" : false
+      }
+    },
+    {
+      "node_id" : "v0emxjXpSJSmoKAqKQ1a8g",
+      "node_name" : "os-node-02",
+      "transport_address" : "172.28.0.3:9300",
+      "node_attributes" : {
+        "shard_indexing_pressure_enabled" : "true"
+      },
+      "node_decision" : "no",
+      "store" : {
+        "found" : false
+      }
+    }
+  ]
+}
+```
