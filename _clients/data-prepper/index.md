@@ -47,7 +47,7 @@ To understand how all pipeline components function within a Data Prepper configu
 
 ### Minimal component
 
-This pipeline configuration reads from the file source and writes to that same source. It uses the default options for the buffer and processor.
+This pipeline configuration reads from the file source and writes to another file in the same path. It uses the default options for the buffer and processor.
 
 ```yml
 sample-pipeline:
