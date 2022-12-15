@@ -13,7 +13,7 @@ The Neural Search plugin is an experimental feature. For updates on the progress
 
 The OpenSearch Neural Search plugin enables the integration of machine learning (ML) language models into your search workloads. During ingestion and search, the Neural Search plugin transforms text into vectors. Then, Neural Search uses the transformed vectors in vector-based search.
 
-The Neural Search plugin comes bundled with OpenSearch. For more information, see [Managing plugins](({{site.url}}{{site.baseurl}}/opensearch/install/plugins#managing-plugins)).
+The Neural Search plugin comes bundled with OpenSearch. For more information, see [Managing plugins]({{site.url}}{{site.baseurl}}/opensearch/install/plugins#managing-plugins)).
 
 ## Ingest data with Neural Search
 
@@ -42,7 +42,7 @@ output_field_name  | string | The name of the field in which output text is stor
 
 Use the following example request to create a pipeline:
 
-```json
+```
 PUT _ingest/pipeline/nlp-pipeline
 {
   "description": "An example neural search pipeline",
@@ -51,7 +51,7 @@ PUT _ingest/pipeline/nlp-pipeline
       "text_embedding": {
         "model_id": "bxoDJ7IHGM14UqatWc_2j",
         "field_map": {
-           "text": "text_knn"
+           "passage_text": "passage_embedding"
         }
       }
     }
@@ -76,7 +76,7 @@ In order to use the text embedding processor defined in your pipelines, create a
 
 ### Example request
 
-The following example request creates an index that attaches to a Neural Search pipeline. Because the index maps to k-NN vector fields, the index setting field `index-knn` is set to `true`. Furthermore, `mapping` settings use [k-NN method definitions](https://opensearch.org/docs/latest/search-plugins/knn/knn-index/#method-definitions) to match the maps defined in the Neural Search pipeline.
+The following example request creates an index that attaches to a Neural Search pipeline. Because the index maps to k-NN vector fields, the index setting field `index-knn` is set to `true`. Furthermore, `mapping` settings use [k-NN method definitions]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/#method-definitions) to match the maps defined in the Neural Search pipeline.
 
 ```json
 PUT /my-nlp-index-1
@@ -119,7 +119,7 @@ OpenSearch responds with information about your new index:
 
 ## Ingest documents into Neural Search
 
-Document ingestion is managed by OpenSearch's [Ingest API](https://opensearch.org/docs/latest/api-reference/ingest-apis/index/), similarly to other OpenSearch indexes. For example, you can ingest a document that contains the `passage_text: "Hello world"` with a simple POST method:
+Document ingestion is managed by OpenSearch's [Ingest API]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/), similarly to other OpenSearch indexes. For example, you can ingest a document that contains the `passage_text: "Hello world"` with a simple POST method:
 
 ```json
 POST /my-nlp-index-1/_doc
@@ -132,7 +132,7 @@ With the text_embedding processor in place through a Neural Search pipeline, the
 
 ## Search a neural index 
 
-If you want to use a language model to convert a text query into a k-NN vector query, use the `neural` query fields in your query. The neural query request fields can be used in both the [Search API](https://opensearch.org/docs/latest/search-plugins/knn/api/#search-model) and [Query DSL](https://opensearch.org/docs/latest/opensearch/query-dsl/index/). 
+If you want to use a language model to convert a text query into a k-NN vector query, use the `neural` query fields in your query. The neural query request fields can be used in both the [Search API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api/#search-model) and [Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index/). 
 
 ### Neural request fields
 
