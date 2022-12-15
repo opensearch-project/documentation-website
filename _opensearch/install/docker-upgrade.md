@@ -821,3 +821,42 @@ os-node-03  2.4.1    dimr       -
 os-node-01  2.4.1    dimr       -
 os-node-04  2.4.1    dimr       -
 ```
+
+Shards are all unassigned:
+```bash
+$ curl "http://localhost:9201/_cat/shards"
+.opendistro-reports-instances   0 p UNASSIGNED    
+.opendistro-reports-instances   0 r UNASSIGNED    
+.opendistro-reports-instances   0 r UNASSIGNED    
+ecommerce                       0 p UNASSIGNED    
+ecommerce                       0 r UNASSIGNED    
+.opendistro-reports-definitions 0 p UNASSIGNED    
+.opendistro-reports-definitions 0 r UNASSIGNED    
+.opendistro-reports-definitions 0 r UNASSIGNED    
+.kibana_1                       0 p UNASSIGNED    
+.kibana_1                       0 r UNASSIGNED 
+```
+
+```bash
+$ curl "http://localhost:9201/_cluster/health?pretty"
+{
+  "cluster_name" : "opensearch-dev-cluster",
+  "status" : "red",
+  "timed_out" : false,
+  "number_of_nodes" : 7,
+  "number_of_data_nodes" : 7,
+  "discovered_master" : true,
+  "discovered_cluster_manager" : true,
+  "active_primary_shards" : 0,
+  "active_shards" : 0,
+  "relocating_shards" : 0,
+  "initializing_shards" : 0,
+  "unassigned_shards" : 10,
+  "delayed_unassigned_shards" : 0,
+  "number_of_pending_tasks" : 0,
+  "number_of_in_flight_fetch" : 0,
+  "task_max_waiting_in_queue_millis" : 0,
+  "active_shards_percent_as_number" : 0.0
+}
+```
+
