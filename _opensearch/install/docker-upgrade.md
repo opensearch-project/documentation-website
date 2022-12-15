@@ -783,3 +783,41 @@ os-node-04  2.4.1    dimr       -
 os-node-07  2.4.1    dimr       -
 os-node-05  2.4.1    dimr       *
 ```
+
+Remove `os-node-02`:
+```bash
+$  docker container stop os-node-02 && docker rm os-node-02 && docker volume rm os-data-02
+os-node-02
+os-node-02
+os-data-02
+```
+
+Add:
+```bash
+docker run -d \
+	-p 9202:9200 -p 9602:9600 \
+	-e "discovery.seed_hosts=os-node-01,os-node-02" -e "DISABLE_SECURITY_PLUGIN=true" \
+	-e "DISABLE_INSTALL_DEMO_CONFIG=true" -e "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" \
+	-e "cluster.name=opensearch-dev-cluster" -e "node.name=os-node-02" \
+	-e "cluster.initial_cluster_manager_nodes=os-node-01,os-node-02,os-node-03,os-node-04" \
+	-e "bootstrap.memory_lock=true" -e "path.repo=/mnt/snapshots" \
+	--ulimit nofile=65536:65536 --ulimit memlock=-1:-1 \
+	-v os-data-02:/usr/share/opensearch/data \
+  	-v /Users/jeffhuss/Documents/opensearch/snapshots/repo-01:/mnt/snapshots \
+	--network opensearch-dev-net \
+	--name os-node-02 \
+	opensearchproject/opensearch:2.4.1
+```
+
+Confirm:
+```bash
+$ curl -s "http://localhost:9201/_cat/nodes?v&h=name,version,node.role,master" | column -t
+name        version  node.role  master
+os-node-06  2.4.1    dimr       -
+os-node-05  2.4.1    dimr       *
+os-node-02  2.4.1    dimr       -
+os-node-07  2.4.1    dimr       -
+os-node-03  2.4.1    dimr       -
+os-node-01  2.4.1    dimr       -
+os-node-04  2.4.1    dimr       -
+```
