@@ -927,3 +927,43 @@ $ curl -H 'Content-Type: application/json' -X POST "http://localhost:9201/_snaps
   "status" : 500
 }
 ```
+
+
+
+
+
+
+Attempt #2 - this time without doing a `docker volume rm` after removing each node. Also, only using the first 4 nodes (`os-node-0[1,4]`)
+
+```bash
+curl -H 'Content-Type: application/json' -X PUT http://localhost:9201/_snapshot/snapshots -d'{"type":"fs","settings":{"location":"/mnt/snapshots"}}'
+```
+
+Query returns a good response:
+```bash
+curl -H 'Content-Type: application/json' -X GET "http://localhost:9201/ecommerce/_search?pretty=true" -d'{"query":{"match":{"customer_first_name":"Sonya"}}}'
+```
+
+```bash
+$ curl -s "http://localhost:9201/_cat/nodes?v&h=name,version,node.role,master" | column -t
+name        version  node.role  master
+os-node-03  1.3.7    dimr       -
+os-node-04  1.3.7    dimr       -
+os-node-01  1.3.7    dimr       *
+os-node-02  1.3.7    dimr       -
+```
+
+```bash
+$ curl "http://localhost:9201/_cat/shards"
+.opendistro-reports-definitions 0 p STARTED    0  208b 172.29.0.3 os-node-02
+.opendistro-reports-definitions 0 r STARTED    0  208b 172.29.0.5 os-node-04
+.opendistro-reports-definitions 0 r STARTED    0  208b 172.29.0.2 os-node-01
+.opendistro-reports-instances   0 r STARTED    0  208b 172.29.0.5 os-node-04
+.opendistro-reports-instances   0 p STARTED    0  208b 172.29.0.2 os-node-01
+.opendistro-reports-instances   0 r STARTED    0  208b 172.29.0.4 os-node-03
+ecommerce                       0 r STARTED 4675 3.9mb 172.29.0.3 os-node-02
+ecommerce                       0 p STARTED 4675 3.9mb 172.29.0.4 os-node-03
+.kibana_1                       0 p STARTED    0  208b 172.29.0.3 os-node-02
+.kibana_1                       0 r STARTED    0  208b 172.29.0.5 os-node-04
+```
+
