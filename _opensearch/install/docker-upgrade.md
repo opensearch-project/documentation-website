@@ -875,3 +875,37 @@ $ curl "http://localhost:9201/_cluster/allocation/explain?include_yes_decisions=
 }
 ```
 
+The snapshot is still accessible, though. But at this point the "zero downtime" upgrade process is failed due to the lack of shard availability.
+```bash
+$ curl -H 'Content-Type: application/json' -X GET "http://localhost:9201/_snapshot/snapshots/_all?pretty=true"
+{
+  "snapshots" : [
+    {
+      "snapshot" : "snapshot-137-all",
+      "uuid" : "NQDJaX5ISBmjJYkk-muyQQ",
+      "version_id" : 135248527,
+      "version" : "1.3.7",
+      "indices" : [
+        ".opendistro-reports-definitions",
+        ".opendistro-reports-instances",
+        "ecommerce",
+        ".kibana_1"
+      ],
+      "data_streams" : [ ],
+      "include_global_state" : true,
+      "state" : "SUCCESS",
+      "start_time" : "2022-12-14T20:45:43.454Z",
+      "start_time_in_millis" : 1671050743454,
+      "end_time" : "2022-12-14T20:45:43.854Z",
+      "end_time_in_millis" : 1671050743854,
+      "duration_in_millis" : 400,
+      "failures" : [ ],
+      "shards" : {
+        "total" : 4,
+        "failed" : 0,
+        "successful" : 4
+      }
+    }
+  ]
+}
+```
