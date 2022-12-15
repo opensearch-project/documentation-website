@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Running queries in the console
-nav_order: 110
+parent: Discover
+nav_order: 2
 ---
 
 # Running queries in the console

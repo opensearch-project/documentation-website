@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Dashboards query language
-nav_order: 99
+parent: Discover
+nav_order: 1
 ---
 
 # Dashboards Query Language
