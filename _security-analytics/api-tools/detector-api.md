@@ -216,7 +216,7 @@ POST _plugins/_security_analytics/detectors
 ---
 ## Update Detector API
 
-The Update detector API can be used to update a detector definition. It requires the detector ID to specify the detector.
+The Update Detector API can be used to update a detector definition. It requires the detector ID to specify the detector.
 
 ```json
 PUT /_plugins/_security_analytics/detectors/<detector_Id>
@@ -356,7 +356,7 @@ DELETE /_plugins/_security_analytics/detectors/IJAXz4QBrmVplM4JYxx_
 ---
 ## Get Detector API
 
-The Get detector API retrieves the detector details. Use the detector ID in the call to fetch detector details.
+The Get Detector API retrieves the detector details. Use the detector ID in the call to fetch detector details.
 
 ### Sample request
 
@@ -405,7 +405,7 @@ GET /_plugins/_security_analytics/detectors/MFRg1IMByX0LvTiGHtcN
 ---
 ## Search Detector API
 
-The Search detector API searches for detector matches by detector ID, detector name, or detector type.
+The Search Detector API searches for detector matches by detector ID, detector name, or detector type.
 
 ### Request fields
 
