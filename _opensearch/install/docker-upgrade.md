@@ -967,3 +967,125 @@ ecommerce                       0 p STARTED 4675 3.9mb 172.29.0.4 os-node-03
 .kibana_1                       0 r STARTED    0  208b 172.29.0.5 os-node-04
 ```
 
+Remove `os-node-01`:
+```bash
+$  docker container stop os-node-01 && docker rm os-node-01
+```
+
+Add:
+```bash
+$ docker run -d \
+> -p 9201:9200 -p 9601:9600 \
+> -e "discovery.seed_hosts=os-node-01,os-node-02,os-node-03,os-node-04" -e "DISABLE_SECURITY_PLUGIN=true" \
+> -e "DISABLE_INSTALL_DEMO_CONFIG=true" -e "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" \
+> -e "cluster.name=opensearch-dev-cluster" -e "node.name=os-node-01" \
+> -e "cluster.initial_cluster_manager_nodes=os-node-01,os-node-02,os-node-03,os-node-04" \
+> -e "bootstrap.memory_lock=true" -e "path.repo=/mnt/snapshots" \
+> --ulimit nofile=65536:65536 --ulimit memlock=-1:-1 \
+> -v os-data-01:/usr/share/opensearch/data \
+>   -v /Users/jeffhuss/Documents/opensearch/snapshots/repo-01:/mnt/snapshots \
+> --network opensearch-dev-net \
+> --name os-node-01 \
+> opensearchproject/opensearch:2.4.1
+c310ca8886dd5b19002c5bc080c6f2544a8b92c4178a49314e4b23bdb5ffff80
+```
+
+Confirm:
+```bash
+$ curl -s "http://localhost:9201/_cat/nodes?v&h=name,version,node.role,master" | column -t
+name        version  node.role  master
+os-node-02  1.3.7    dimr       -
+os-node-01  2.4.1    dimr       -
+os-node-03  1.3.7    dimr       *
+os-node-04  1.3.7    dimr       -
+```
+
+Shards:
+```bash
+$ curl "http://localhost:9201/_cat/shards"
+.kibana_1                       0 p STARTED    0  208b 172.29.0.3 os-node-02
+.kibana_1                       0 r STARTED    0  208b 172.29.0.5 os-node-04
+.opendistro-reports-definitions 0 p STARTED    0  208b 172.29.0.3 os-node-02
+.opendistro-reports-definitions 0 r STARTED    0  208b 172.29.0.5 os-node-04
+.opendistro-reports-definitions 0 r STARTED    0  208b 172.29.0.2 os-node-01
+ecommerce                       0 r STARTED 4675 3.9mb 172.29.0.3 os-node-02
+ecommerce                       0 p STARTED 4675 3.9mb 172.29.0.4 os-node-03
+.opendistro-reports-instances   0 p STARTED    0  208b 172.29.0.5 os-node-04
+.opendistro-reports-instances   0 r STARTED    0  208b 172.29.0.2 os-node-01
+.opendistro-reports-instances   0 r STARTED    0  208b 172.29.0.4 os-node-03
+```
+
+```bash
+$ curl "http://localhost:9201/_cluster/health?pretty"
+{
+  "cluster_name" : "opensearch-dev-cluster",
+  "status" : "green",
+  "timed_out" : false,
+  "number_of_nodes" : 4,
+  "number_of_data_nodes" : 4,
+  "discovered_master" : true,
+  "discovered_cluster_manager" : true,
+  "active_primary_shards" : 4,
+  "active_shards" : 10,
+  "relocating_shards" : 0,
+  "initializing_shards" : 0,
+  "unassigned_shards" : 0,
+  "delayed_unassigned_shards" : 0,
+  "number_of_pending_tasks" : 0,
+  "number_of_in_flight_fetch" : 0,
+  "task_max_waiting_in_queue_millis" : 0,
+  "active_shards_percent_as_number" : 100.0
+}
+```
+
+I continued down this path and upon replacing all nodes:
+```bash
+$ curl -s "http://localhost:9201/_cat/nodes?v&h=name,version,node.role,master" | column -t
+name        version  node.role  master
+os-node-02  2.4.1    dimr       -
+os-node-03  2.4.1    dimr       *
+os-node-01  2.4.1    dimr       -
+os-node-04  2.4.1    dimr       -
+
+$ curl "http://localhost:9201/_cat/shards"
+.kibana_1                       0 p STARTED    0  208b 172.29.0.3 os-node-02
+.kibana_1                       0 r STARTED    0  208b 172.29.0.5 os-node-04
+.opendistro-reports-definitions 0 r STARTED    0  208b 172.29.0.3 os-node-02
+.opendistro-reports-definitions 0 r STARTED    0  208b 172.29.0.5 os-node-04
+.opendistro-reports-definitions 0 p STARTED    0  208b 172.29.0.2 os-node-01
+ecommerce                       0 p STARTED 4675 3.9mb 172.29.0.3 os-node-02
+ecommerce                       0 r STARTED 4675 3.9mb 172.29.0.4 os-node-03
+.opendistro-reports-instances   0 r STARTED    0  208b 172.29.0.5 os-node-04
+.opendistro-reports-instances   0 p STARTED    0  208b 172.29.0.2 os-node-01
+.opendistro-reports-instances   0 r STARTED    0  208b 172.29.0.4 os-node-03
+
+$ curl -H 'Content-Type: application/json' -X GET "http://localhost:9201/ecommerce/_search?pretty=true" -d'{"query":{"match":{"customer_first_name":"Sonya"}}}'
+{
+  "took" : 7,
+  "timed_out" : false,
+  "_shards" : {
+    "total" : 1,
+    "successful" : 1,
+    "skipped" : 0,
+    "failed" : 0
+  },
+  "hits" : {
+    "total" : {
+      "value" : 106,
+      "relation" : "eq"
+    },
+    "max_score" : 3.9562898,
+[...]
+            "region_name" : "Bogota D.C.",
+            "continent_name" : "South America",
+            "city_name" : "Bogotu00e1"
+          },
+          "event" : {
+            "dataset" : "sample_ecommerce"
+          }
+        }
+      }
+    ]
+  }
+}
+```
