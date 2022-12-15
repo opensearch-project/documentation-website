@@ -909,3 +909,21 @@ $ curl -H 'Content-Type: application/json' -X GET "http://localhost:9201/_snapsh
   ]
 }
 ```
+
+Snapshot restore fails:
+```bash
+$ curl -H 'Content-Type: application/json' -X POST "http://localhost:9201/_snapshot/snapshots/snapshot-137-all/_restore?pretty"
+{
+  "error" : {
+    "root_cause" : [
+      {
+        "type" : "snapshot_restore_exception",
+        "reason" : "[snapshots:snapshot-137-all/NQDJaX5ISBmjJYkk-muyQQ] cannot restore index [ecommerce] because an open index with same name already exists in the cluster. Either close or delete the existing index or restore the index under a different name by providing a rename pattern and replacement name"
+      }
+    ],
+    "type" : "snapshot_restore_exception",
+    "reason" : "[snapshots:snapshot-137-all/NQDJaX5ISBmjJYkk-muyQQ] cannot restore index [ecommerce] because an open index with same name already exists in the cluster. Either close or delete the existing index or restore the index under a different name by providing a rename pattern and replacement name"
+  },
+  "status" : 500
+}
+```
