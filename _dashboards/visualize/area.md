@@ -27,8 +27,8 @@ In this tutorial you'll create a simple area chart in the [OpenSearch Dashboards
 
 # Create an aggregation-based area chart
 
-In Dashboards you have several ways to aggregate numeric data using using a sum, average, count, minimum, and much more. 
+In Dashboards you have several ways to aggregate numeric data using using a sum, average, count, minimum, and much more. For more information on aggregations in OpenSearch, see the [Aggregations]({{site.url}}{{site.baseurl}}/opensearch/aggregations/) page.
 
-Following the steps below, you'll learn how to create an aggregation-based visualization. change the y-axis to represent other [aggregations]({{site.url}}{{site.baseurl}}/opensearch/aggregations/) in an area chart.
+Following the steps below, you'll learn how to create an aggregation-based visualization in Dashboards.
 
 1. 
