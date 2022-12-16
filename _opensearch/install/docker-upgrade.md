@@ -16,6 +16,30 @@ This guide assumes that you are comfortable working from the Linux command line 
 The Docker Compose commands used in this guide are written with a hyphen (for example, `docker-compose`). If you installed Docker Desktop on your machine, which automatically installs a bundled version of Docker Compose, then you should remove the hyphen. For example, change `docker-compose` to `docker compose`.
 {:.note}
 
+## Prepare to upgrade
+
+There are a few options available to choose from when it comes to upgrading your OpenSearch cluster. The option you choose depends on your specific workflow requirements.
+
+[Restart upgrade](#restart-upgrade) 
+
+[Rolling upgrade](#rolling-upgrade)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-- Moving this down and writing above it --
+
 ## Minor version upgrade
 
 Upgrading your OpenSearch cluster to a newer **minor** version is straightforward because a minor version upgrade will inherit the configuration and data that already exist in your cluster. You should still create and store a remote backup of your cluster to mitigate any risk of data loss. See [Snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/index/) for more information.
