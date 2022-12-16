@@ -1,11 +1,12 @@
 ---
 layout: default
-title: Area chart
+title: Using Area charts
 parent: Visualize
+child: Visualization types
 nav_order: 5
 ---
 
-# Area chart
+# Using Area charts
 
 Area charts can be created by searching OpenSearch, extracting data, and processing the results and can be added to a dashboard. An area chart is a line chart with the area between the line and the axis shaded with a color, and is a primary visualization type used to display time series data. You can create area charts in Dashboards using the Area visualization type or using the TSVB, Vega, or VisBuilder visualization tools. For this tutorial, you'll use the Area visualization type.
 
