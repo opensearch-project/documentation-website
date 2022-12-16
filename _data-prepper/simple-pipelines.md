@@ -26,7 +26,7 @@ Create a Data Prepper configuration file, `data-prepper-config.yaml`, and includ
 ssl: true
 ```
 
-Create a Data Prepper pipeline file, `pipelines.yaml`, with:
+Create a Data Prepper pipeline file, `pipelines.yaml`, and include the following lines:
 
 ```
 simple-sample-pipeline:
@@ -40,21 +40,21 @@ simple-sample-pipeline:
 
 ## Run Data Prepper
 
-Following are examples for running Data Prepper from the Docker image. If you built from source, you need to make some modifications to the example commands.
+Following are examples of running Data Prepper from the Docker image. If you made changes to the code and built artifacts locally, you need to make some modifications to the example commands. 
 
-For Data Prepper 2.0 or after, use this command:
+For Data Prepper 2.0 or later, use this command:
 
 ```
 docker run --name data-prepper -p 4900:4900 -v ${PWD}/pipelines.yaml:/usr/share/data-prepper/pipelines/pipelines.yaml -v ${PWD} /data-prepper-config.yaml:/usr/share/data-prepper/config/data-prepper-config.yaml opensearchproject/data-prepper:latest
 ```
 
-For Data Prepper versions before 2.0, use this command:
+For Data Prepper versions previous to 2.0, use this command:
 
 ```
 docker run --name data-prepper -p 4900:4900 -v ${PWD}/pipelines.yaml:/usr/share/data-prepper/pipelines.yaml -v ${PWD}/data-prepper-config.yaml:/usr/share/data-prepper/data-prepper-config.yaml opensearchproject/data-prepper:latest
 ```
 
-You should see log output and after a few seconds some UUIDs in the output. It should look something like the following:
+You should see log output and, after a few seconds, some UUIDs in the log output. It should look something like the following:
 
 ```
 2021-09-30T20:19:44,147 [main] INFO  org.opensearch.dataprepper.pipeline.server.DataPrepperServer - Data Prepper server running at :4900
@@ -77,7 +77,7 @@ e51e700e-5cab-4f6d-879a-1c3235a77d18
 b4ed2d7e-cf9c-4e9d-967c-b18e8af35c90
 ```
 
-In another terminal, you can access the Data Prepper server API.
+In another terminal, you can access the Data Prepper server API:
 
 ```
 curl https://localhost:4900/list
@@ -92,7 +92,7 @@ It will output a JSON response with the current pipelines:
 
 ## Shut down Data Prepper
 
-You can shutdown Data Prepper either by using the shutdown API, or stopping the Docker process.
+You can shut down Data Prepper either by using the shutdown API, or by stopping the Docker process.
 
 ```
 curl -X POST https://localhost:4900/shutdown
@@ -100,7 +100,7 @@ curl -X POST https://localhost:4900/shutdown
 
 ## Adding a processor
 
-The sample above just demonstrates the bare minimum a pipeline can have: A source sending data to a sink. The following example adds a string converter processor. This simple processor transforms the string by making it uppercase.
+The previous example demonstrates the bare minimum a pipeline can have: A source sending data to a sink. The following example adds a string converter processor. This simple processor transforms the string by making it uppercase:
 
 ```
 simple-sample-pipeline:
@@ -117,17 +117,17 @@ simple-sample-pipeline:
 
 Once configured, run Data Prepper again.
 
-For Data Prepper 2.0 or above, use this command:
+For Data Prepper 2.0 or later, use this command:
 ```
 docker run --name data-prepper -p 4900:4900 -v ${PWD}/pipelines.yaml:/usr/share/data-prepper/pipelines/pipelines.yaml -v ${PWD} /data-prepper-config.yaml:/usr/share/data-prepper/config/data-prepper-config.yaml opensearchproject/data-prepper:latest
 ```
 
-For Data Prepper before version 2.0, use this command:
+For Data Prepper versions previous to 2.0, use this command:
 ```
 docker run --name data-prepper -p 4900:4900 -v ${PWD}/pipelines.yaml:/usr/share/data-prepper/pipelines.yaml -v ${PWD}/data-prepper-config.yaml:/usr/share/data-prepper/data-prepper-config.yaml opensearchproject/data-prepper:latest
 ```
 
-You will see output that looks like the following.
+You will see output that looks like the following:
 
 ```
 2021-10-01T09:58:19,907 [random-source-pool-0] INFO  org.opensearch.dataprepper.plugins.source.RandomStringSource - Writing to buffer
@@ -140,7 +140,7 @@ EFC73B62-E976-4314-86C8-1E76F7EF9BCC
 8D4E7DB3-6D6C-4AB7-925F-5F7C6CCD1058
 ```
 
-Shut down Data Prepper.
+Shut down Data Prepper:
 
 ```
 curl -X POST http://localhost:4900/shutdown
@@ -148,4 +148,4 @@ curl -X POST http://localhost:4900/shutdown
 
 ## Next steps
 
-This page explains the basics of Data Prepper. If you want to setup a useful observability suite, visit the [Trace Analytics documentation](trace_analytics.md).
+This page explains the basics of Data Prepper. If you want to set up a useful observability suite, visit the [Trace Analytics documentation](trace_analytics.md).
