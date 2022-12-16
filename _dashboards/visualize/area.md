@@ -23,7 +23,7 @@ In this tutorial you'll create a simple area chart in the [OpenSearch Dashboards
 <img src="{{site.url}}{{site.baseurl}}/images/area-chart-3.png" alt="Visual of Step 5 process">
 1. Next, select **+Add** => **Split series** in Buckets.
   <img src="{{site.url}}{{site.baseurl}}/images/area-chart-4.png" alt="Visual of Step 6 process"> 
-1. Select **Save** from the menu bar at the top left of the screen, enter tutorial - Area in Title, and select **Save** to save. Note that you'll get an error message not allowing you to save the query. The error is because this tutorial uses the Dashboards playground, which is read-only.
+1. Select **Save** from the menu bar at the top left of the screen, enter tutorial - Area in Title, and select **Save** to save. Note that Dashboards playground is read-only and will not save any of your session details such as queries.
 
 # Create an aggregation-based area chart
 
