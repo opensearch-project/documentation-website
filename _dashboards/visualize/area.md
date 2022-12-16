@@ -31,4 +31,4 @@ In Dashboards you have several ways to aggregate numeric data using using a sum,
 
 Following the steps below, you'll learn how to create an aggregation-based visualization in Dashboards.
 
-1. 
+1. Select **Dashboard** in the 
