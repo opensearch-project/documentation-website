@@ -3,6 +3,8 @@ layout: default
 title: Dashboards query language
 parent: Discover
 nav_order: 1
+redirect_from: 
+  - /dashboards/dql/
 ---
 
 # Dashboards Query Language
