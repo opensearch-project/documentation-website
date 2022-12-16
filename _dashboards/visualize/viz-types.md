@@ -2,7 +2,7 @@
 layout: default
 title: Visualization types
 parent: Visualize
-nav_order: 5
+has_children: true
 ---
 
 # Visualization types in OpenSearch Dashboards

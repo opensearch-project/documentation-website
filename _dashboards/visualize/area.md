@@ -1,8 +1,8 @@
 ---
 layout: default
 title: Using Area charts
-parent: Visualize
-child: Visualization types
+parent: Visualization types
+grand_parent: Visualize
 nav_order: 5
 ---
 
