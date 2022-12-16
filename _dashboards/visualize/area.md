@@ -24,3 +24,11 @@ In this tutorial you'll create a simple area chart in the [OpenSearch Dashboards
 1. Next, select **+Add** => **Split series** in Buckets.
   <img src="{{site.url}}{{site.baseurl}}/images/area-chart-4.png" alt="Visual of Step 6 process"> 
 1. Select **Save** from the menu bar at the top left of the screen, enter tutorial - Area in Title, and select **Save** to save. Note that you'll get an error message not allowing you to save the query. The error is because this tutorial uses the Dashboards playground, which is read-only.
+
+# Create an aggregation-based area chart
+
+In Dashboards you have several ways to aggregate numeric data using using a sum, average, count, minimum, and much more. 
+
+Following the steps below, you'll learn how to create an aggregation-based visualization. change the y-axis to represent other [aggregations]({{site.url}}{{site.baseurl}}/opensearch/aggregations/) in an area chart.
+
+1. 
