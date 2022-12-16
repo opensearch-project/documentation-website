@@ -1,17 +1,17 @@
 ---
 layout: default
-title: cat health
+title: CAT health
 parent: CAT API
 
 nav_order: 20
 has_children: false
 ---
 
-# cat health
+# CAT health
 Introduced 1.0
 {: .label .label-purple }
 
-The cat health operation lists the status of the cluster, how long the cluster has been up, the number of nodes, and other useful information that helps you analyze the health of your cluster.
+The CAT health operation lists the status of the cluster, how long the cluster has been up, the number of nodes, and other useful information that helps you analyze the health of your cluster.
 
 ## Example
 
@@ -27,7 +27,7 @@ GET _cat/health?v
 
 ## URL parameters
 
-All cat health URL parameters are optional.
+All CAT health URL parameters are optional.
 
 Parameter | Type | Description
 :--- | :--- | :---

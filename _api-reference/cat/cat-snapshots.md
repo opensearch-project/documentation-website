@@ -1,17 +1,17 @@
 ---
 layout: default
-title: cat snapshots
+title: CAT snapshots
 parent: CAT API
 
 nav_order: 65
 has_children: false
 ---
 
-# cat snapshots
+# CAT snapshots
 Introduced 1.0
 {: .label .label-purple }
 
-The cat snapshots operation lists all snapshots for a repository.
+The CAT snapshots operation lists all snapshots for a repository.
 
 ## Example
 
@@ -27,13 +27,13 @@ GET _cat/snapshots
 
 ## URL parameters
 
-All cat snapshots URL parameters are optional.
+All CAT snapshots URL parameters are optional.
 
 In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameter:
 
 Parameter | Type | Description
 :--- | :--- | :---
-master_timeout | Time | The amount of time to wait for a connection to the master node. Default is 30 seconds.
+cluster_manager_timeout | Time | The amount of time to wait for a connection to the cluster manager node. Default is 30 seconds.
 time | Time | Specify the units for time. For example, `5d` or `7h`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).
 
 

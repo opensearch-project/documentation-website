@@ -1,17 +1,17 @@
 ---
 layout: default
-title: cat recovery
+title: CAT recovery
 parent: CAT API
 
 nav_order: 50
 has_children: false
 ---
 
-# cat recovery
+# CAT recovery
 Introduced 1.0
 {: .label .label-purple }
 
-The cat recovery operation lists all completed and ongoing index and shard recoveries.
+The CAT recovery operation lists all completed and ongoing index and shard recoveries.
 
 ## Example
 
@@ -28,7 +28,7 @@ GET _cat/recovery/<index>?v
 If you want to get information for more than one index, separate the indices with commas:
 
 ```json
-GET _cat/aliases/index1,index2,index3
+GET _cat/recovery/index1,index2,index3
 ```
 
 ## Path and HTTP methods
@@ -39,7 +39,7 @@ GET _cat/recovery
 
 ## URL parameters
 
-All cat recovery URL parameters are optional.
+All CAT recovery URL parameters are optional.
 
 In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameters:
 

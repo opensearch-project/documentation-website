@@ -1,13 +1,13 @@
 ---
 layout: default
-title: cat segments
+title: CAT segments
 parent: CAT API
 
 nav_order: 55
 has_children: false
 ---
 
-# cat segments
+# CAT segments
 Introduced 1.0
 {: .label .label-purple }
 
@@ -39,7 +39,7 @@ GET _cat/segments
 
 ## URL parameters
 
-All cat segments URL parameters are optional.
+All CAT segments URL parameters are optional.
 
 In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameter:
 

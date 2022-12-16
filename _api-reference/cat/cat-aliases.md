@@ -1,17 +1,17 @@
 ---
 layout: default
-title: cat aliases
+title: CAT aliases
 parent: CAT API
 
 nav_order: 1
 has_children: false
 ---
 
-# cat aliases
+# CAT aliases
 Introduced 1.0
 {: .label .label-purple }
 
-The cat aliases operation lists the mapping of aliases to indices, plus routing and filtering information.
+The CAT aliases operation lists the mapping of aliases to indices, plus routing and filtering information.
 
 ## Example
 
@@ -41,7 +41,7 @@ GET _cat/aliases
 
 ## URL parameters
 
-All cat aliases URL parameters are optional.
+All CAT aliases URL parameters are optional.
 
 In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameters:
 
@@ -57,7 +57,7 @@ The following response shows that `alias1` refers to a `movies` index and has a 
 ```json
 alias   | index     | filter  | routing.index | routing.search  | is_write_index
 alias1  | movies    |   *     |      -        |       -         |      -
-.kibana | .kibana_1 |   -     |      -        |       -         |      -
+.opensearch-dashboards | .opensearch-dashboards_1 |   -     |      -        |       -         |      -
 ```
 
 To learn more about index aliases, see [Index aliases]({{site.url}}{{site.baseurl}}/opensearch/index-alias).

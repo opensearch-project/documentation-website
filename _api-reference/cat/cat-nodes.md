@@ -1,17 +1,17 @@
 ---
 layout: default
-title: cat nodes
+title: CAT nodes operation
 parent: CAT API
 
 nav_order: 40
 has_children: false
 ---
 
-# cat nodes
+# CAT nodes
 Introduced 1.0
 {: .label .label-purple }
 
-The cat nodes operation lists node-level information, including node roles and load metrics.
+The CAT nodes operation lists node-level information, including node roles and load metrics.
 
 A few important node metrics are `pid`, `name`, `cluster_manager`, `ip`, `port`, `version`, `build`, `jdk`, along with `disk`, `heap`, `ram`, and `file_desc`.
 
@@ -29,7 +29,7 @@ GET _cat/nodes
 
 ## URL parameters
 
-All cat nodes URL parameters are optional.
+All CAT nodes URL parameters are optional.
 
 In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameters:
 
@@ -46,6 +46,6 @@ include_unloaded_segments | Boolean | Whether to include information from segmen
 ## Response
 
 ```json
-ip       |   heap.percent | ram.percent | cpu load_1m | load_5m | load_15m | node.role | node.roles |     master |  name
+ip       |   heap.percent | ram.percent | cpu load_1m | load_5m | load_15m | node.role | node.roles |     cluster_manager |  name
 10.11.1.225  |         31   |    32  | 0  |  0.00  |  0.00   | di  | data,ingest,ml  | - |  data-e5b89ad7
 ```
