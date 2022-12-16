@@ -6,7 +6,7 @@ nav_order: 12
 
 # Simple pipelines
 
-This tutorial walks you through creating a simple Data Prepper pipeline and how to configure it.
+This tutorial guides you through creating a simple Data Prepper pipeline and how to configure it.
 
 ## Installation
 
@@ -18,9 +18,9 @@ docker pull opensearchproject/data-prepper:latest
 
 ## Simple configuration
 
-To help you get started, we have a simple configuration which you can use to run Data Prepper. It generates random strings and writes them to `stdout`. 
+To help you get started, we have provided a simple configuration that you can use to run Data Prepper. It generates random strings and writes them to `stdout`. 
 
-Create a Data Prepper configuration file, `data-prepper-config.yaml` and include the following line:
+Create a Data Prepper configuration file, `data-prepper-config.yaml`, and include the following line:
 
 ```
 ssl: true
@@ -40,14 +40,16 @@ simple-sample-pipeline:
 
 ## Run Data Prepper
 
-Below are examples for running Data Prepper from the Docker image. If you built from source, you need to make some modifications to the example commands.
+Following are examples for running Data Prepper from the Docker image. If you built from source, you need to make some modifications to the example commands.
 
 For Data Prepper 2.0 or after, use this command:
+
 ```
 docker run --name data-prepper -p 4900:4900 -v ${PWD}/pipelines.yaml:/usr/share/data-prepper/pipelines/pipelines.yaml -v ${PWD} /data-prepper-config.yaml:/usr/share/data-prepper/config/data-prepper-config.yaml opensearchproject/data-prepper:latest
 ```
 
 For Data Prepper versions before 2.0, use this command:
+
 ```
 docker run --name data-prepper -p 4900:4900 -v ${PWD}/pipelines.yaml:/usr/share/data-prepper/pipelines.yaml -v ${PWD}/data-prepper-config.yaml:/usr/share/data-prepper/data-prepper-config.yaml opensearchproject/data-prepper:latest
 ```
