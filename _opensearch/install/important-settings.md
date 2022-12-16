@@ -21,7 +21,7 @@ vm.max_map_count=262144
 
 Then run `sudo sysctl -p` to reload.
 
-The [sample docker-compose.yml]({{site.url}}{{site.baseurl}}/opensearch/install/docker#sample-docker-compose-file) file also contains several key settings:
+The [sample docker-compose.yml]({{site.url}}{{site.baseurl}}/opensearch/install/docker#sample-docker-composeyml) file also contains several key settings:
 
 - `bootstrap.memory_lock=true`
 

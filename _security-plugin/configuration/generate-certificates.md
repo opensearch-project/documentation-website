@@ -228,7 +228,7 @@ plugins.security.nodes_dn:
   - 'CN=node2.dns.a-record,OU=UNIT,O=ORG,L=TORONTO,ST=ONTARIO,C=CA'
 ```
 
-For more information about adding and using these certificates in your own setup, see [Docker security configuration]({{site.url}}{{site.baseurl}}//opensearch/install/docker-security/), [Configure TLS certificates]({{site.url}}{{site.baseurl}}/security-plugin/configuration/tls/), and [Client certificate authentication]({{site.url}}{{site.baseurl}}/security-plugin/configuration/client-auth/).
+For more information about adding and using these certificates in your own setup, see [Configuring basic security settings]({{site.url}}{{site.baseurl}}/opensearch/install/docker#configuring-basic-security-settings) for Docker, [Configure TLS certificates]({{site.url}}{{site.baseurl}}/security-plugin/configuration/tls/), and [Client certificate authentication]({{site.url}}{{site.baseurl}}/security-plugin/configuration/client-auth/).
 
 
 ## Run securityadmin.sh

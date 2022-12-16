@@ -488,16 +488,16 @@ To create a cluster metrics monitor:
 
 ### Supported APIs
 
-Trigger conditions use responses from the following APIs. Most APIs that can be used to monitor cluster status support path parameters as described in their documentation (e.g., comma-separated lists of index names). However, they do not support query parameters.
+Trigger conditions use responses from the following cat API endpoints. Most APIs that can be used to monitor cluster status support path parameters as described in their documentation (e.g., comma-separated lists of index names). However, they do not support query parameters.
 
-1. [_cluster/health]({{site.url}}{{site.baseurl}}/opensearch/rest-api/cluster-health/)
-2. [_cluster/stats]({{site.url}}{{site.baseurl}}/opensearch/rest-api/cluster-stats/)
-3. [_cluster/settings]({{site.url}}{{site.baseurl}}/opensearch/rest-api/cluster-settings/)
+1. [_cluster/health]({{site.url}}{{site.baseurl}}/api-reference/cluster-health/)
+2. [_cluster/stats]({{site.url}}{{site.baseurl}}/api-reference/cluster-stats/)
+3. [_cluster/settings]({{site.url}}{{site.baseurl}}/api-reference/cluster-settings/)
 4. [_nodes/stats]({{site.url}}{{site.baseurl}}/opensearch/popular-api/#get-node-statistics)
-5. [_cat/pending_tasks]({{site.url}}{{site.baseurl}}/opensearch/rest-api/cat/cat-pending-tasks/)
-6. [_cat/recovery]({{site.url}}{{site.baseurl}}/opensearch/rest-api/cat/cat-recovery/)
-7. [_cat/snapshots]({{site.url}}{{site.baseurl}}/opensearch/rest-api/cat/cat-snapshots/)
-8. [_cat/tasks]({{site.url}}{{site.baseurl}}/opensearch/rest-api/cat/cat-tasks/)
+5. [_cat/pending_tasks]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-pending-tasks/)
+6. [_cat/recovery]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-recovery/)
+7. [_cat/snapshots]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-snapshots/)
+8. [_cat/tasks]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-tasks/)
 
 ### Restrict API fields
 
