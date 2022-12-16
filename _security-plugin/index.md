@@ -1,6 +1,6 @@
 ---
 layout: default
-title: About the security plugin
+title: About Security
 nav_order: 1
 has_children: false
 has_toc: false
@@ -8,7 +8,7 @@ redirect_from:
   - /security-plugin/
 ---
 
-# About security in OpenSearch
+# About Security in OpenSearch
 
 Security in OpenSearch is built around four main features that work together to safeguard data and track activity within a cluster. Separately, these features are:
 

@@ -1,18 +1,18 @@
 ---
 layout: default
-title: Applying changes to settings
+title: Applying changes to configuration files
 parent: Configuration
 nav_order: 25
 ---
 
-# Applying changes to settings
+# Applying changes to configuration files
 
 On **Windows**, use **securityadmin.bat** in place of **securityadmin.sh**. For more information, see [Windows usage](#windows-usage).
 {: .note}
 
-The security plugin stores its configuration---including users, roles, and permissions---in an index on the OpenSearch cluster (`.opendistro_security`). Storing these settings in an index lets you change settings without restarting the cluster and eliminates the need to edit configuration files on every single node.
+The Security plugin stores its configuration---including users, roles, and permissions---in an index on the OpenSearch cluster (the name of the index is `.opendistro_security`). Storing these settings in an index lets you change settings without restarting the cluster and eliminates the need to edit configuration files on every individual node. This is accomplished by running the `securityadmin.sh` script. The script can be found at `plugins/opensearch-security/tools/securityadmin.sh`.
 
-To initialize the `.opendistro_security` index, however, you must run `plugins/opensearch-security/tools/securityadmin.sh`. This script loads your initial configuration into the index using the configuration files in `config/opensearch-security`. After the `.opendistro_security` index is initialized, use OpenSearch Dashboards or the REST API to manage your users, roles, and permissions.
+The first job of the script, however, is to initialize the `.opendistro_security` index. This loads your initial configuration into the index using the configuration files in `config/opensearch-security`. After the `.opendistro_security` index is initialized, you can use OpenSearch Dashboards or the REST API to manage your users, roles, and permissions.
 
 
 ## A word of caution
@@ -60,7 +60,7 @@ To resolve all environment variables before applying the security configurations
  -key ../../../kirk.key.pem
 ```
 
-Here’s an example of an environment variable in the `config.yml` file:
+The following example shows an environment variable in the `config.yml` file:
 
 ```yml
 password: ${env.LDAP_PASSWORD}
@@ -81,7 +81,7 @@ You can't use node certificates as admin certificates. The two must be separate.
 
 ## Basic usage
 
-The `securityadmin.sh` tool can be run from any machine that has access to the http port of your OpenSearch cluster (the default port is 9200). You can change the security plugin configuration without having to access your nodes through SSH.
+The `securityadmin.sh` tool can be run from any machine that has access to the http port of your OpenSearch cluster (the default port is 9200). You can change the Security plugin configuration without having to access your nodes through SSH.
 
 `securityadmin.sh` requires that SSL/TLS transport is enabled on your opensearch cluster. In other words, make sure that the `plugins.security.ssl.http.enabled: true` is set in `opensearch.yml` before proceeding.
 {: .note}
@@ -107,8 +107,8 @@ To load your initial configuration (all YAML files), you might use the following
   -key ../../../config/kirk-key.pem
 ```
 
-- The `-cd` option specifies where the security plugin configuration files can be found.
-- The `-icl` (`--ignore-clustername`) option tells the security plugin to upload the configuration regardless of the cluster name. As an alternative, you can also specify the cluster name with the `-cn` (`--clustername`) option.
+- The `-cd` option specifies where the Security plugin configuration files can be found.
+- The `-icl` (`--ignore-clustername`) option tells the Security plugin to upload the configuration regardless of the cluster name. As an alternative, you can also specify the cluster name with the `-cn` (`--clustername`) option.
 - Because the demo certificates are self-signed, this command disables hostname verification with the `-nhnv` (`--disable-host-name-verification`) option.
 - The `-cacert`, `-cert` and `-key` options define the location of your root CA certificate, the admin certificate, and the private key for the admin certificate. If the private key has a password, specify it with the `-keypass` option.
 
@@ -175,11 +175,11 @@ Name | Description
 :--- | :---
 `-ks` | The location of the keystore containing the admin certificate and all intermediate certificates, if any. You can use an absolute or relative path. Relative paths are resolved relative to the execution directory of `securityadmin.sh`.
 `-kspass` | The password for the keystore.
-`-kst` | The key store type, either JKS or PKCS#12/PFX. If not specified, the security plugin tries to determine the type from the file extension.
+`-kst` | The key store type, either JKS or PKCS#12/PFX. If not specified, the Security plugin tries to determine the type from the file extension.
 `-ksalias` | The alias of the admin certificate, if any.
 `-ts` | The location of the truststore containing the root certificate. You can use an absolute or relative path. Relative paths are resolved relative to the execution directory of `securityadmin.sh`.
 `-tspass` | The password for the truststore.
-`-tst` | The truststore type, either JKS or PKCS#12/PFX. If not specified, the security plugin tries to determine the type from the file extension.
+`-tst` | The truststore type, either JKS or PKCS#12/PFX. If not specified, the Security plugin tries to determine the type from the file extension.
 `-tsalias` | The alias for the root certificate, if any.
 
 
@@ -210,11 +210,11 @@ Name | Description
 
 ### Configuration files settings
 
-The following switches define which configuration files you want to push to the security plugin. You can either push a single file or specify a directory containing one or more configuration files.
+The following switches define which configuration files you want to push to the Security plugin. You can either push a single file or specify a directory containing one or more configuration files.
 
 Name | Description
 :--- | :---
-`-cd` | Directory containing multiple security plugin configuration files.
+`-cd` | Directory containing multiple Security plugin configuration files.
 `-f` | Single configuration file. Can't be used with `-cd`.
 `-t` | File type.
 `-rl` | Reload the current configuration and flush the internal cache.
@@ -259,7 +259,7 @@ You can download all current configuration files from your cluster with the foll
 ./securityadmin.sh -backup my-backup-directory -ts ... -tspass ... -ks ... -kspass ...
 ```
 
-This command dumps the current security plugin configuration from your cluster to individual files in the directory you specify. You can then use these files as backups or to load the configuration into a different cluster. This command is useful when moving a proof-of-concept to production or if you need to add additional [reserved or hidden resources]({{site.url}}{{site.baseurl}}/security-plugin/access-control/api/#reserved-and-hidden-resources):
+This command dumps the current Security plugin configuration from your cluster to individual files in the directory you specify. You can then use these files as backups or to load the configuration into a different cluster. This command is useful when moving a proof-of-concept to production or if you need to add additional [reserved or hidden resources]({{site.url}}{{site.baseurl}}/security-plugin/access-control/api/#reserved-and-hidden-resources):
 
 ```bash
 ./securityadmin.sh \
@@ -285,7 +285,7 @@ To migrate configuration YAML files from the Open Distro for Elasticsearch 0.x.x
 
 Name | Description
 :--- | :---
-`-backup` | Retrieve the current security plugin configuration from a running cluster and dump it to the working directory.
+`-backup` | Retrieve the current Security plugin configuration from a running cluster and dump it to the working directory.
 `-migrate` | Migrate configuration YAML files from Open Distro for Elasticsearch 0.x.x to OpenSearch 1.x.x.
 
 
@@ -293,11 +293,11 @@ Name | Description
 
 Name | Description
 :--- | :---
-`-dci` | Delete the security plugin configuration index and exit. This option is useful if the cluster state is red due to a corrupted security plugin index.
-`-esa` | Enable shard allocation and exit. This option is useful if you disabled shard allocation while performing a full cluster restart and need to recreate the security plugin index.
+`-dci` | Delete the Security plugin configuration index and exit. This option is useful if the cluster state is red due to a corrupted Security plugin index.
+`-esa` | Enable shard allocation and exit. This option is useful if you disabled shard allocation while performing a full cluster restart and need to recreate the Security plugin index.
 `-w` | Displays information about the used admin certificate.
-`-rl` | By default, the security plugin caches authenticated users, along with their roles and permissions, for one hour. This option reloads the current security plugin configuration stored in your cluster, invalidating any cached users, roles, and permissions.
-`-i` | The security plugin index name. Default is `.opendistro_security`.
+`-rl` | By default, the Security plugin caches authenticated users, along with their roles and permissions, for one hour. This option reloads the current Security plugin configuration stored in your cluster, invalidating any cached users, roles, and permissions.
+`-i` | The Security plugin index name. Default is `.opendistro_security`.
 `-er` | Set explicit number of replicas or auto-expand expression for the `opensearch_security` index.
 `-era` | Enable replica auto-expand.
 `-dra` | Disable replica auto-expand.
