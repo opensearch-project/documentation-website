@@ -18,7 +18,7 @@ A more permanent option is to remove the security plugin entirely:
 1. Delete the `plugins/opensearch-security` folder on all nodes.
 1. Delete all `plugins.security.*` configuration entries from `opensearch.yml`.
 
-To perform these steps on the Docker image, see [Customize the Docker image]({{site.url}}{{site.baseurl}}/opensearch/install/docker#customize-the-docker-image).
+To perform these steps on the Docker image, see [Working with plugins]({{site.url}}{{site.baseurl}}/opensearch/install/docker#working-with-plugins).
 
 Disabling or removing the plugin exposes the configuration index for the security plugin. If the index contains sensitive information, be sure to protect it through some other means. If you no longer need the index, delete it.
 {: .warning }
