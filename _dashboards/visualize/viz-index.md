@@ -124,7 +124,7 @@ Timeline is a data visualization tool in Dashboards that you can use to create t
 
 ## VisBuilder
 
-VisBuilder is a drag-and-drop data visualization tool in Dashboards. It gives you an immediate view of your data without the need to preselect the visualization type output. Currently, VisBuilder can be used to create the following Dashboards visualization types: Area, Bar, Line, Metric, and Data Table. Reference [VisBuilder]({{site.url}}{{site.baseurl}}/dashboards/visbuilder/) to learn how to create and use drag-and-drop visualizations in Dashboards.
+VisBuilder is a drag-and-drop data visualization tool in Dashboards. It gives you an immediate view of your data without the need to preselect the datasource or visualization type output. Currently, VisBuilder can be used to create the following Dashboards visualization types: Area, Bar, Line, Metric, and Data Table. Reference [VisBuilder]({{site.url}}{{site.baseurl}}/dashboards/visbuilder/) to learn how to create and use drag-and-drop visualizations in Dashboards.
 
 <img src="{{site.url}}{{site.baseurl}}/images/drag-drop-generated-viz.png" alt="Example Timeline in OpenSearch Dashboards" height="100">
 
