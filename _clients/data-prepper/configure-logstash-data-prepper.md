@@ -5,9 +5,10 @@ parent: Data Prepper
 nav_order: 2
 ---
 # Configure Logstash for Data Prepper
+
 You can run Data Prepper with a Logstash configuration.
 
-As mentioned in the [Getting Started]({{site.url}}{{site.baseurl}}/opensearch/clients/data-prepper/getting-started) guide, you'll need to configure Data Prepper with a pipeline using a `pipelines.yaml` file.
+As mentioned in the [Getting Started]({{site.url}}{{site.baseurl}}/data-prepper/get-started/) guide, you'll need to configure Data Prepper with a pipeline using a `pipelines.yaml` file.
 
 Alternatively, if you have a Logstash configuration `logstash.conf` to configure Data Prepper instead of `pipelines.yaml`.
 
@@ -25,7 +26,7 @@ As of the Data Prepper 1.2 release, the following plugins from the Logstash conf
 
 ## Running Data Prepper with a Logstash configuration
 
-1. To install Data Prepper's Docker image, see the _Installation_ section in the [Getting Started]({{site.url}}{{site.baseurl}}/opensearch/clients/data-prepper/getting_started) guide.
+1. To install Data Prepper's Docker image, see the Installing Data Prepper in [Get Started]({{site.url}}{{site.baseurl}}/data-prepper/get-started#1-installing-data-prepper).
 
 2. Run the Docker image installed in Step 1 by supplying your `logstash.conf` configuration.
 
