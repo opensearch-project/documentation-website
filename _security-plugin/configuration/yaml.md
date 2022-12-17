@@ -7,7 +7,7 @@ nav_order: 10
 
 # Modifying the YAML files
 
-The Security installation provides a number of YAML confguration files that are used to store the necessary settings that determine the way Security runs. These settings range from authentication backend configurations to settings for users and roles to a list of allowed endpoints and HTTP requests. 
+The Security installation provides a number of YAML confguration files that are used to store the necessary settings that define the way Security manages users, roles, and activity within the cluster. These settings range from configurations for authentication backends to lists of allowed endpoints and HTTP requests. 
 
 Before running [`securityadmin.sh`]({{site.url}}{{site.baseurl}}/security-plugin/configuration/security-admin/) to load the settings into the `.opendistro_security` index, perform an initial configuration of the YAML files. The files can be found in the `config/opensearch-security` directory. It's also good practice to back up these files so that you can reuse them for other clusters.
 

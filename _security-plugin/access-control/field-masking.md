@@ -68,7 +68,7 @@ someonerole:
 
 ### REST API
 
-See [Create role]({{site.url}}{{site.baseurl}}/security-plugin/access-control/api#create-role).
+See [Create role]({{site.url}}{{site.baseurl}}/security-plugin/access-control/api/#create-role).
 
 
 ## (Advanced) Use an alternative hash algorithm

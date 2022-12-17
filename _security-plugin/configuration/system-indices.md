@@ -2,24 +2,25 @@
 layout: default
 title: System indexes
 parent: Configuration
-nav_order: 30
+nav_order: 4
 ---
 
 # System indexes
 
-By default, OpenSearch has a protected system index, `.opendistro_security`, which you create using [securityadmin.sh]({{site.url}}{{site.baseurl}}/security-plugin/configuration/security-admin/). Even if your user account has read permissions for all indices, you can't directly access the data in this system index.
+By default, OpenSearch has a protected system index, `.opendistro_security`, which is used to store the Security configuration YAML files. You create this index using [securityadmin.sh]({{site.url}}{{site.baseurl}}/security-plugin/configuration/security-admin/). Even with a user account that has read permissions for all indexes, you can't directly access the data in this system index.
 
-You can add additional system indices in in `opensearch.yml`. In addition to automatically creating `.opendistro_security`, the demo configuration adds several indices for the various OpenSearch plugins that integrate with the security plugin:
+Instead, you first need to authenticate with an [admin certificate]({{site.url}}{{site.baseurl}}/security-plugin/configuration/tls/#configure-admin-certificates) to gain access:
+
+```bash
+curl -k --cert ./kirk.pem --key ./kirk-key.pem -XGET 'https://localhost:9200/.opendistro_security/_search'
+```
+
+When Security is installed, the demo configuration automatically creates the `.opendistro_security` system index. It also adds several other indexes for the various OpenSearch plugins that integrate with the Security plugin:
 
 ```yml
 plugins.security.system_indices.enabled: true
 plugins.security.system_indices.indices: [".opendistro-alerting-config", ".opendistro-alerting-alert*", ".opendistro-anomaly-results*", ".opendistro-anomaly-detector*", ".opendistro-anomaly-checkpoints", ".opendistro-anomaly-detection-state", ".opendistro-reports-*", ".opendistro-notifications-*", ".opendistro-notebooks", ".opendistro-asynchronous-search-response*"]
 ```
 
-To access these indices, you must authenticate with an [admin certificate]({{site.url}}{{site.baseurl}}/security-plugin/configuration/tls#configure-admin-certificates):
+You can add additional system indexes in `opensearch.yml`. An alternative way to remove indexes is to delete the index from the `plugins.security.system_indices.indices` list on each node and restart OpenSearch.
 
-```bash
-curl -k --cert ./kirk.pem --key ./kirk-key.pem -XGET 'https://localhost:9200/.opendistro_security/_search'
-```
-
-The alternative is to remove indices from the `plugins.security.system_indices.indices` list on each node and restart OpenSearch.

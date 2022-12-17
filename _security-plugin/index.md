@@ -29,7 +29,7 @@ Encryption protects both data at rest and in transit. At rest, encryption secure
 
 Encryption in transit encrypts data moving to, from, and within the cluster. OpenSearch uses the TLS protocol, which covers both client-to-node encryption (the REST layer) and node-to-node encryption (the transport layer). This combination of in-transit encryption helps ensure that both requests to OpenSearch and the movement of data among different nodes are safe from tampering.
 
-You can find out more about configuring TLS in the [Configure TLS certificates]({{site.url}}{{site.baseurl}}/security-plugin/configuration/tls/) section.
+You can find out more about configuring TLS in the [Configuring TLS certificates]({{site.url}}{{site.baseurl}}/security-plugin/configuration/tls/) section.
 
 ### Authentication
 

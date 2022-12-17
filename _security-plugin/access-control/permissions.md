@@ -41,7 +41,7 @@ These permissions also allow you add, update, or delete documents (e.g. `PUT tes
 
 ## Test permissions
 
-If you want a user to have the absolute minimum set of permissions necessary to perform some function---the [principle of least privilege](https://en.wikipedia.org/wiki/Principle_of_least_privilege)----the best way is to send representative requests to your cluster as a new test user. In the case of a permissions error, the security plugin is very explicit about which permissions are missing. Consider this request and response:
+If you want a user to have the absolute minimum set of permissions necessary to perform some function—the [principle of least privilege](https://en.wikipedia.org/wiki/Principle_of_least_privilege)—the best way is to send representative requests to your cluster as a new test user. In the case of a permissions error, the security plugin is very explicit about which permissions are missing. Consider this request and response:
 
 ```json
 GET _cat/shards?v

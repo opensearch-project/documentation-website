@@ -10,7 +10,7 @@ redirect_from:
 
 # Access control
 
-After you [configure the security plugin]({{site.url}}{{site.baseurl}}/security-plugin/configuration/index/) to use your own certificates and preferred authentication backend, you can start adding users, creating roles, and mapping roles to users.
+After you [configure the Security plugin]({{site.url}}{{site.baseurl}}/security-plugin/configuration/index/) to use your own certificates and preferred authentication backend, you can start adding users, creating roles, and mapping roles to users.
 
 This section of the documentation covers what a user is allowed to see and do after successfully authenticating.
 
