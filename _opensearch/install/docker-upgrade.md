@@ -18,10 +18,14 @@ The Docker Compose commands used in this guide are written with a hyphen (for ex
 
 ## Prepare to upgrade
 
-To mitigate the risk of data loss, you should backup any important configuration files before upgrading. Generally speaking, these files will be located in `opensearch/config` for OpenSearch and `opensearch-dashboards/config` for OpenSearch Dashboards.
+To mitigate the risk of data loss, you should backup any important configuration files before upgrading. Generally speaking, these files will be located in `opensearch/config` for OpenSearch and `opensearch-dashboards/config` for OpenSearch Dashboards. Some examples include:
+
 - opensearch.yml
 - opensearch_dashboards.yml
-- 
+- Security plugin backup YAMLs
+- TLS certificates
+
+
 
 [Restart upgrade](#restart-upgrade) 
 
