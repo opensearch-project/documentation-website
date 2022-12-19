@@ -14,7 +14,7 @@ curl -X POST http://localhost:4900/shutdown
 
 ## APIs
 
-The following table lists the available APIs:4
+The following table lists the available APIs:
 
 | Name | Description |
 | --- | --- | 
