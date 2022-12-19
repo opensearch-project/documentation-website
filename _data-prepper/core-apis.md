@@ -44,7 +44,7 @@ keyStorePassword: "secret"
 privateKeyPassword: "secret"
 ```
 
-For more information about configuring your Data Prepper server with SSL, see [Server Configuration](https://github.com/opensearch-project/data-prepper/blob/main/docs/configuration.md#server-configuration). If you are using a self-signed certificate, you can add the `-k` flag to quickly test sending curl requests for the core APIs with SSL. Use the following curl request, which includes the `-k` flag:
+For more information about configuring your Data Prepper server with SSL, see [Server Configuration](https://github.com/opensearch-project/data-prepper/blob/main/docs/configuration.md#server-configuration). If you are using a self-signed certificate, you can add the `-k` flag to quickly test sending curl requests for the core APIs with SSL. Use the following curl request to test for core APIs with SSL:
 
 
 ```
@@ -53,7 +53,7 @@ curl -k -X POST https://localhost:4900/shutdown
 
 ### Authentication
 
-The Data Prepper Core APIs support HTTP Basic authentication. You can set the username and password with the following configuration in `data-prepper-config.yaml`:
+The Data Prepper core APIs support HTTP basic authentication. You can set the username and password with the following configuration in `data-prepper-config.yaml` file:
 
 ```yaml
 authentication:
@@ -71,12 +71,11 @@ authentication:
 
 ### Peer Forwarder
 
-Peer forwarder can be configured to enable stateful aggregation across multiple Data Prepper nodes. For more information on configuring Peer Forwarder, see [Peer Forwarder Configuration](https://github.com/opensearch-project/data-prepper/blob/main/docs/peer_forwarder.md).
-It is supported by `service_map_stateful`, `otel_trace_raw` and `aggregate` processors.
+Peer Forwarder can be configured to enable stateful aggregation across multiple Data Prepper nodes. For more information about configuring Peer Forwarder, see [Peer Forwarder Configuration](https://github.com/opensearch-project/data-prepper/blob/main/docs/peer_forwarder.md). It is supported by the `service_map_stateful`, `otel_trace_raw`, and `aggregate` processors.
 
 ### Shutdown timeouts
 
-When the DataPrepper `shutdown` API is invoked, the sink and processor `ExecutorService` are given time to gracefully shutdown and clear any in-flight data. The default graceful shutdown timeout for the `ExecutorService` processes is 10 seconds. You can configure the timeout with the following optional parameters:
+When the Data Prepper `shutdown` API is invoked, the `ExecutorService` sink and processor are given time to gracefully shut down and clear any in-flight data. The default graceful shutdown timeout for the `ExecutorService` process is 10 seconds. You can configure the timeout with the following optional YAML file parameters:
 
 ```yaml
 processorShutdownTimeout: "PT15M"
