@@ -7,7 +7,9 @@ nav_order: 999
 
 # Upgrade Overview
 
-The OpenSearch Project releases regular updates that include new features and bug fixes. OpenSearch uses [Semantic Versioning](https://semver.org/), which means that breaking changes are only introduced between major version releases. All minor versions in a major release are backwards-compatible. That means that you can upgrade nodes from one minor version to a newer minor version, but you can't downgrade to an older version.
+The OpenSearch Project releases regular updates that include new features and bug fixes. OpenSearch uses [Semantic Versioning](https://semver.org/), which means that breaking changes are only introduced between major version releases. Each major version release is backwards-compatible with 
+
+All minor versions in a major release are backwards-compatible. That means that you can upgrade nodes from one minor version to a newer minor version, but you can't downgrade to an older version.
 
 To learn about upcoming features and fixes, review the [OpenSearch Project Roadmap](https://github.com/orgs/opensearch-project/projects/1) on GitHub. To see a list of previous releases, or to learn more about how OpenSearch uses versioning, check out the [Release Schedule and Maintenance Policy]({{site.url}}/releases.html).
 
@@ -33,3 +35,6 @@ Choose an appropriate upgrade method for your situation.
 - [Rolling upgrade](#rolling-upgrade)
 - [Node replacement](#node-replacement)
 
+
+Compatibility matrix relative url for use later:
+/tools/index/#compatibility-matrices
