@@ -157,7 +157,7 @@ s = Search(using=client, index=index_name) \
 response = s.execute()
 ```
 
-The preceding query is equivalent to the following query in OpenSearch domain-specific language:
+The preceding query is equivalent to the following query in OpenSearch domain-specific language (DSL):
 
 ```json
 GET my-dsl-index/_search 
