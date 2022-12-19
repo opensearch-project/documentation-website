@@ -7,7 +7,7 @@ nav_order: 1000
 
 # Upgrade OpenSearch - Docker
 
-It's important to keep OpenSearch updated to ensure that your workflow 
+It's important to keep OpenSearch updated to ensure that your workflow is benefiting from the latest features, enhancements, and bug fixes.
 
 This guide assumes that you are comfortable working from the Linux command line interface (CLI). You should understand how to input commands, navigate between directories, and edit text files. For help with [Docker](https://www.docker.com/) or [Docker Compose](https://github.com/docker/compose), refer to the official documentation on their websites.
 {:.note}
@@ -19,7 +19,9 @@ The Docker Compose commands used in this guide are written with a hyphen (for ex
 
 Mitigate the risk of data loss by backing up any important files before you start the upgrade process. Generally speaking, these files will be located in `opensearch/config` (OpenSearch) and `opensearch-dashboards/config` (OpenSearch Dashboards). Some examples include `opensearch.yml`, `opensearch_dashboards.yml`, security plugin backups, and TLS certificates. Once you identify which files you need to back up, copy them to remote storage so they can be restored, if necessary.
 
-In addition to backing up specific configuration files, we also recommend that you back up your cluster state and indexes using [Snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/index/). If you enabled security plugin then you will need to take a additional steps, because the `.opendistro_security` index can't be directly restored. See [A word of caution]({{site.url}}{{site.baseurl}}/security-plugin/configuration/security-admin/#a-word-of-caution) for details about backing up and restoring your security plugin configuration.
+We recommend that you back up your cluster state and indexes using [Snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/index/). If security plugin is enabled then you will need to take a additional steps, because the `.opendistro_security` index can't be directly restored. See [A word of caution]({{site.url}}{{site.baseurl}}/security-plugin/configuration/security-admin/#a-word-of-caution) for details about backing up and restoring your security settings, which includes internal users, roles, etc.
+
+
 
 [Restart upgrade](#restart-upgrade) 
 

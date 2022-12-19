@@ -17,9 +17,13 @@ As with any upgrade, you should take time to plan the process before upgrading y
 
 An important part of the upgrade process is understanding how the new version of OpenSearch fits into your workflow. At a minimum, you should consider the following:
 
-- Review any [breaking changes]({{site.url}}{{site.baseurl}}/breaking-changes/).
+- Review [breaking changes]({{site.url}}{{site.baseurl}}/breaking-changes/).
 - Confirm that any plugins you use are compatible with the new version of OpenSearch.
-- Backup configuration files (like TLS certificates or YAML files) to remote storage.
+- Backup configuration files to remote storage.
+
+### Review breaking changes
+
+It's important to determine how new version of OpenSearch will fit into your production environment. Review the list of [breaking changes]({{site.url}}{{site.baseurl}}/breaking-changes/) before beginning any upgrade procedures to determine if you will need to make any adjustments to your upstream or downstream components or any custom tooling your workflow uses.
 
 ## Upgrade methods
 
