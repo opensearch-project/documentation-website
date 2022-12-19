@@ -150,6 +150,10 @@ layout: table_wrappers
           {% else %}
             {{ content }}
           {% endif %}
+          
+          <a class="top-link" href="#top">
+            <svg viewBox="0 0 24 24"><use xlink:href="#svg-arrow-right"></use></svg>
+          </a>
 
           {% if page.has_children == true and page.has_toc != false %}
             <hr>
@@ -201,9 +205,13 @@ layout: table_wrappers
         </div>
       </div>
       <div class="toc-wrap">
-        <div class="toc">
-          {% include toc.html html=content h_min=2 h_max=2 class="toc-list" item_class="toc-item" sanitize=true %}
+        <div class="sticky-wrap">
+          <div class="toc">
+            {% include toc.html html=content h_min=2 h_max=2 class="toc-list" item_class="toc-item" sanitize=true %}
+          </div>
+          {% include feedback.html %}
         </div>
+        {% comment %}{% include feedback.html %}{% endcomment %}
       </div>
       {% if site.search_enabled != false %}
         {% if site.search.button %}
@@ -226,5 +234,9 @@ layout: table_wrappers
   {% if site.search_enabled == false and site.use_custom_search == true %}
   <script src="{{ '/assets/js/search.js' | relative_url }}"></script>
   {% endif %}
+  <script src="{{ '/assets/js/copy.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/nav-scroll.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/feedback.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/link-feedback.js' | relative_url }}"></script>
 </body>
 </html>
