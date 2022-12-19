@@ -6,7 +6,7 @@ nav_order: 2
 
 # Core APIs
 
-All Data Prepper instances expose a server with some control APIs. By default, this server runs on port 4900. Some plugins, especially source plugins may expose other servers. These will be on different ports, and their configurations are independent of the core API. For example, to shut down Data Prepper, you can run the following curl command:
+All Data Prepper instances expose a server with some control APIs. By default, this server runs on port 4900. Some plugins, especially source plugins may expose other servers. These will be on different ports, and their configurations are independent of the core API. For example, to shut down Data Prepper, you can run the following curl request:
 
 ```
 curl -X POST http://localhost:4900/shutdown
@@ -35,8 +35,7 @@ Many of the Getting Started guides in this project disable SSL on the endpoint.
 ssl: false
 ```
 
-To enable SSL on your Data Prepper endpoint, configure your `data-prepper-config.yaml`
-with the following:
+To enable SSL on your Data Prepper endpoint, configure your `data-prepper-config.yaml` file with the following options:
 
 ```yaml
 ssl: true
@@ -45,7 +44,8 @@ keyStorePassword: "secret"
 privateKeyPassword: "secret"
 ```
 
-For more information on configuring your Data Prepper server with SSL, see [Server Configuration](https://github.com/opensearch-project/data-prepper/blob/main/docs/configuration.md#server-configuration). If you are using a self-signed certificate, you can add the `-k` flag to quickly test out sending curl requests for the core APIs with SSL.
+For more information about configuring your Data Prepper server with SSL, see [Server Configuration](https://github.com/opensearch-project/data-prepper/blob/main/docs/configuration.md#server-configuration). If you are using a self-signed certificate, you can add the `-k` flag to quickly test sending curl requests for the core APIs with SSL. Use the following curl request, which includes the `-k` flag:
+
 
 ```
 curl -k -X POST https://localhost:4900/shutdown
@@ -62,10 +62,7 @@ authentication:
     password: "mys3cr3t"
 ```
 
-You can disable authentication of core endpoints using the following
-configuration. Use this with caution because the shutdown API and
-others will be accessible to anybody with network access to
-your Data Prepper instance.
+You can disable authentication of core endpoints using the following configuration. Use this with caution because the shutdown API and others will be accessible to anybody with network access to your Data Prepper instance.
 
 ```yaml
 authentication:
