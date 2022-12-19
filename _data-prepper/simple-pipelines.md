@@ -40,7 +40,7 @@ simple-sample-pipeline:
 
 ## Run Data Prepper
 
-Following are examples of running Data Prepper from the Docker image. If you made changes to the code and built artifacts locally, you need to make some modifications to the example commands. 
+The following are examples of running Data Prepper from the Docker image. If you make changes to the code and build artifacts locally, you need to make some modifications to the example commands. 
 
 For Data Prepper 2.0 or later, use this command:
 
