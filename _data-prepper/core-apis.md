@@ -20,8 +20,8 @@ The following table lists the available APIs:4
 | --- | --- | 
 | ```GET /list```<br>```POST /list``` | Returns a list of running pipelines. |
 | ```POST /shutdown``` | Starts a graceful shutdown of Data Prepper. |
-| ```GET /metrics/prometheus```<br>```POST /metrics/prometheus``` | Returns a scrape of Data Prepper metrics in Prometheus text format. This API is available as the  `metricsRegistries` parameter in the Data Prepper configuration file `data-prepper-config.yaml`, and contains `Prometheus` as part of the registry.
-| ```GET /metrics/sys```<br>```POST /metrics/sys``` | Returns JVM metrics in Prometheus text format. This API is available as the `metricsRegistries` parameter in the Data Prepper configuration file `data-prepper-config.yaml`, and contains `Prometheus` as part of the registry.
+| ```GET /metrics/prometheus```<br>```POST /metrics/prometheus``` | Returns a scrape of Data Prepper metrics in Prometheus text format. This API is available as a  `metricsRegistries` parameter in the Data Prepper configuration file `data-prepper-config.yaml`, and contains `Prometheus` as part of the registry.
+| ```GET /metrics/sys```<br>```POST /metrics/sys``` | Returns JVM metrics in Prometheus text format. This API is available as a `metricsRegistries` parameter in the Data Prepper configuration file `data-prepper-config.yaml`, and contains `Prometheus` as part of the registry.
 
 ## Configuring the server
 
