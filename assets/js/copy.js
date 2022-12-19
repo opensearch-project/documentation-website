@@ -50,8 +50,8 @@ function addCurl(textToCopy) {
     const httpMethod = textToCopy.substring(0, firstSpaceIndex);
 
     const firstCurlyIndex = textToCopy.indexOf("{");
-    var body;
-    var path;
+    let body;
+    let path;
     if (firstCurlyIndex == -1) {
         body = "";
         path = textToCopy.substring(firstSpaceIndex + 1);

@@ -5,28 +5,14 @@ feedbackButtons.forEach((button) => {
         gtag('event', 'feedback_click', { 
             'helpful': button.value
         });
-        // find the hidden feedback text
-        sibling = button.nextElementSibling;
-
-        while (!(sibling.classList.contains('text-small') && sibling.classList.contains('hidden'))) {
-            sibling = sibling.nextElementSibling;
-        }
         // show the hidden feedback text
-        if (sibling != null) {
-            sibling.classList.remove('hidden');
-        }
+        const parent = button.parentElement;
+        const index = [...parent.children].indexOf(button) + 1;
+        const sibling = parent.querySelector(`:nth-child(${index}) ~ .text-small.hidden`);
+        sibling?.classList.remove('hidden');
 
         // disable the feedback buttons
         button.disabled = true;
-        var buttonSibling;
-        if (button.id === 'yes') {
-            buttonSibling = button.nextElementSibling;
-        }
-        else {
-            buttonSibling = button.previousElementSibling;
-        }
-        if (buttonSibling != null) {
-            buttonSibling.disabled = true;
-        }
+        button[button.id === 'yes' ? 'nextElementSibling' : 'previousElementSibling']?.setAttribute('disabled', true);
     });
 });
