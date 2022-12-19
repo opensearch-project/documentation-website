@@ -17,9 +17,9 @@ The Docker Compose commands used in this guide are written with a hyphen (for ex
 
 ## Prepare to upgrade
 
-To mitigate the risk of data loss, you should back up any important files before upgrading. Generally speaking, these files will be located in `opensearch/config` (OpenSearch) and `opensearch-dashboards/config` (OpenSearch Dashboards). Some examples include `opensearch.yml`, `opensearch_dashboards.yml`, security plugin backup YAML files, and TLS certificates. Once you identify which files you want to back up, copy them to remote storage so they can be restored if necessary.
+Mitigate the risk of data loss by backing up any important files before you start the upgrade process. Generally speaking, these files will be located in `opensearch/config` (OpenSearch) and `opensearch-dashboards/config` (OpenSearch Dashboards). Some examples include `opensearch.yml`, `opensearch_dashboards.yml`, security plugin backups, and TLS certificates. Once you identify which files you need to back up, copy them to remote storage so they can be restored, if necessary.
 
-We also recommend that you back up your cluster using [Snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/index/).
+In addition to backing up specific configuration files, we also recommend that you back up your cluster using [Snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/index/). If you enabled security plugin then you will need to take an additional step, because the `.opendistro_security` index can't be directly restored. See [A word of caution]({{site.url}}{{site.baseurl}}/security-plugin/configuration/security-admin/#a-word-of-caution) for steps to back up and restore your security plugin configuration.
 
 [Restart upgrade](#restart-upgrade) 
 
