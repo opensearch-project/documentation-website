@@ -15,15 +15,15 @@ As with any upgrade, you should take time to plan the process before upgrading y
 
 ## Workflow considerations
 
-An important part of the upgrade process is understanding how the new version of OpenSearch fits into your workflow. In general, consider the following:
+An important part of the upgrade process is understanding how the new version of OpenSearch fits into your workflow. At a minimum, you should consider the following:
 
 - Review any [breaking changes]({{site.url}}{{site.baseurl}}/breaking-changes/).
 - Confirm that any plugins you use are compatible with the new version of OpenSearch.
-- Track any files (like TLS certificates or configuration files) that must be manually backed up.
+- Backup configuration files (like TLS certificates or YAML files) to remote storage.
 
 ## Upgrade methods
 
-There are a few methods you can leverage to upgrade your OpenSearch cluster.
+Choose an appropriate upgrade method for your situation.
 
 - [Restart upgrade](#restart-upgrade)
 - [Rolling upgrade](#rolling-upgrade)

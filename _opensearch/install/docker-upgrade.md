@@ -18,7 +18,7 @@ The Docker Compose commands used in this guide are written with a hyphen (for ex
 
 ## Prepare to upgrade
 
-There are a few options available to choose from when it comes to upgrading your OpenSearch cluster. The option you choose depends on your specific workflow requirements.
+
 
 [Restart upgrade](#restart-upgrade) 
 
