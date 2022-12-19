@@ -34,6 +34,7 @@ POST _aliases
   ]
 }
 ```
+{% include copy-curl.html %}
 
 ## Path and HTTP methods
 
