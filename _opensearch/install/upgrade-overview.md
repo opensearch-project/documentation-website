@@ -7,7 +7,17 @@ nav_order: 999
 
 # Upgrade Overview
 
-The OpenSearch Project releases regular updates that include new features and bug fixes. OpenSearch uses [Semantic Versioning](https://semver.org/), which means that breaking changes are only introduced between major version releases. Each major version release is backwards-compatible with 
+The OpenSearch Project releases regular updates that include new features, enhancements, and bug fixes. OpenSearch uses [Semantic Versioning](https://semver.org/), which means that breaking changes are only introduced between major version releases. OpenSearch nodes and indexes are backwards-compatible by one major version. That means, for example, that you can restore an index to an OpenSearch 2.4.1 cluster from a snapshot that was taken on an OpenSearch 1.x cluster.
+
+If your upgrade path spans more than a single major version, you will need to reindex your data before it can be read by the target version. For example, if your cluster is currently running Elasticsearch 6.8 and you want to upgrade to OpenSearch 2.x, you must first upgrade to OpenSearch 1.x, reindex your data, and then upgrade to 2.x. 
+
+WORKING ON THIS PART HERE
+
+Upgrades spanning more than a single major version will require reindexing, s
+
+If your upgrade 
+Keep in mind that index versions reflect the Lucene version used to create th
+{: .note}
 
 All minor versions in a major release are backwards-compatible. That means that you can upgrade nodes from one minor version to a newer minor version, but you can't downgrade to an older version.
 
