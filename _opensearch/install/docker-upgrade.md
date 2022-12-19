@@ -7,8 +7,7 @@ nav_order: 1000
 
 # Upgrade OpenSearch - Docker
 
-Before upgrading, you should create a backup of your cluster's current state using [Snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/index/) so you can restore the cluster to its original state if a rollback is necessary.
-{:.note}
+It's important to keep OpenSearch updated to ensure that your workflow 
 
 This guide assumes that you are comfortable working from the Linux command line interface (CLI). You should understand how to input commands, navigate between directories, and edit text files. For help with [Docker](https://www.docker.com/) or [Docker Compose](https://github.com/docker/compose), refer to the official documentation on their websites.
 {:.note}
@@ -18,14 +17,9 @@ The Docker Compose commands used in this guide are written with a hyphen (for ex
 
 ## Prepare to upgrade
 
-To mitigate the risk of data loss, you should backup any important configuration files before upgrading. Generally speaking, these files will be located in `opensearch/config` for OpenSearch and `opensearch-dashboards/config` for OpenSearch Dashboards. Some examples include:
+To mitigate the risk of data loss, you should back up any important files before upgrading. Generally speaking, these files will be located in `opensearch/config` (OpenSearch) and `opensearch-dashboards/config` (OpenSearch Dashboards). Some examples include `opensearch.yml`, `opensearch_dashboards.yml`, security plugin backup YAML files, and TLS certificates. Once you identify which files you want to back up, copy them to remote storage so they can be restored if necessary.
 
-- opensearch.yml
-- opensearch_dashboards.yml
-- Security plugin backup YAMLs
-- TLS certificates
-
-
+We also recommend that you back up your cluster using [Snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/index/).
 
 [Restart upgrade](#restart-upgrade) 
 
