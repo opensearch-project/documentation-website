@@ -1,6 +1,6 @@
 ---
 layout: default
-title: string_converter
+title: substitute_string
 parent: Processors
 nav_order: 45
 ---

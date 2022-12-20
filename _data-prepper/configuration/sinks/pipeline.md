@@ -1,11 +1,11 @@
 ---
 layout: default
 title: Pipeline sink
-parent: Reference
+parent: sinks
 nav_order: 45
 ---
 
-# pipeline sink
+# Pipeline sink
 
 ## Overview
 

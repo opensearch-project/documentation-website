@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Sinks
+parent: sinks
 nav_order: 45
 ---
 

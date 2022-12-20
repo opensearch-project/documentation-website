@@ -1,7 +1,7 @@
 ---
 layout: default
 title: OpenSearch sink
-parent: Reference
+parent: sinks
 nav_order: 45
 ---
 

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Aggregate
+title: aggregate
 parent: Processors
 nav_order: 45
 ---

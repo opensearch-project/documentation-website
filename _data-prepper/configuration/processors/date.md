@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Date
+title: date
 parent: Processors
 nav_order: 45
 ---

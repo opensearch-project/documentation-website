@@ -1,7 +1,7 @@
 ---
 layout: default
 title: file sink
-parent: Reference
+parent: sinks
 nav_order: 45
 ---
 

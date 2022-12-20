@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Processors
+has_children: true
 nav_order: 44
 ---
 
