@@ -42,6 +42,8 @@ Review the plugins used by your OpenSearch cluster to determine whether or not t
 
 Always back up your files before making any changes.
 
+
+
 ### Create a snapshot
 
 
