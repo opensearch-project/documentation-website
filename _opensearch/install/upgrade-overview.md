@@ -22,14 +22,22 @@ As with any upgrade, you should take time to plan the process before upgrading y
 
 - Review [breaking changes]({{site.url}}{{site.baseurl}}/breaking-changes/).
 - Review the [OpenSearch tools compatibility matrices]({{site.url}}{{site.baseurl}}/tools/index/#compatibility-matrices).
-- Confirm that any plugins you use are compatible with the new version of OpenSearch.
-- Backup configuration files to remote storage.
+- Check plugin compatibility.
+- Backup configuration files.
 
 ### Review breaking changes
 
 It's important to determine how the new version of OpenSearch will fit into your production environment. Review the list of [breaking changes]({{site.url}}{{site.baseurl}}/breaking-changes/) before beginning any upgrade procedures to determine if you will need to make any adjustments to your upstream or downstream components or any custom tooling your workflow uses.
 
 ### Review the OpenSearch tools compatibility matrices
+
+Your OpenSearch cluster may interact with other services in your environment, like Logstash or Beats. Check the [OpenSearch tools compatibility matrices]({{site.url}}{{site.baseurl}}/tools/index/#compatibility-matrices) to see if any of your tooling will also need to be upgraded.
+
+### Check plugin compatibility
+
+Be sure to review the plugins installed in your OpenSearch cluster to determine whether or not they are compatible with the target version of OpenSearch. Many of the official plugins can be found in the official [OpenSearch Project](https://github.com/opensearch-project) repository on GitHub. If you use any unofficial or third party plugins, then you should check the documentation for those plugins to determine if they will be compatible.
+
+### Backup configuration files
 
 
 
