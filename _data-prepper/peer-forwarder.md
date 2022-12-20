@@ -8,7 +8,7 @@ nav_order: 12
 
 Peer Forwarder is an HTTP service that performs peer forwarding of an `event` between Data Prepper nodes for aggregation. Currently, Peer Forwarder is supported by the `aggregate`, `service_map_stateful`, and `otel_trace_raw` processors.
 
-Peer Forwarder groups events based on the identification keys provided by the processors. For `service_map_stateful` and `otel_trace_raw`, the identification key is `traceId` by default and cannot be configured. The `aggregate` processor is configured using the `identification_keys` configuration option. From here, you can specify which keys to use for Peer Forwarder. See [Aggregate Processor Page](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/aggregate-processor#identification_keys)  for more information about identification keys.
+Peer Forwarder groups events based on the identification keys provided by the processors. For `service_map_stateful` and `otel_trace_raw`, the identification key is `traceId` by default and cannot be configured. The `aggregate` processor is configured using the `identification_keys` configuration option. From here, you can specify which keys to use for Peer Forwarder. See [Aggregate Processor page](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/aggregate-processor#identification_keys) for more information about identification keys.
 
 Peer discovery is currently provided by a static list, a DNS record lookup, or AWS Cloud Map.  
 
@@ -28,7 +28,7 @@ peer_forwarder:4
 
 ### DNS lookup
 
-DNS discovery is preferred over static discovery when scaling out a Data Prepper cluster. The core concept is to configure a DNS provider to return a list of Data Prepper hosts when given a single domain name. This is a [DNS A Record](https://www.cloudflare.com/learning/dns/dns-records/dns-a-record/), which indicates a list of IP addresses of a given domain. See the following yaml file example of DNS lookup:
+DNS discovery is preferred over static discovery when scaling out a Data Prepper cluster. DNS discovery configures a DNS provider to return a list of Data Prepper hosts when given a single domain name. This list that is returned is a [DNS A Record](https://www.cloudflare.com/learning/dns/dns-records/dns-a-record/), which indicates a list of IP addresses of a given domain. See the following yaml file example of DNS lookup:
 
 ```yaml
 peer_forwarder:
