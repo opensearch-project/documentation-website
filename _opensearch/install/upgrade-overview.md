@@ -18,12 +18,12 @@ Reindexing data is a resource-intensive process. We recommend that you only rein
 
 ## Workflow considerations
 
-You should take time to plan the process before making any changes to your cluster. For example, consider how long the upgrade process will take. If your cluster is being used in production, how impactful is downtime? Do you have infrastructure in place to stand up the new cluster in a dev environment before you move it into production, or do you need to upgrade the hosts in-place? The answers to questions like these will help you determine which upgrade path will work best in your environment. At a minimum, you should consider the following:
+You should take time to plan the process before making any changes to your cluster. For example, consider how long the upgrade process will take. If your cluster is being used in production, how impactful is downtime? Do you have infrastructure in place to stand up the new cluster in a dev environment before you move it into production, or do you need to upgrade the hosts in-place? The answers to questions like these will help you determine which upgrade path will work best in your environment. At a minimum, you should:
 
 - [Review breaking changes](#review-breaking-changes)
 - [Review the OpenSearch tools compatibility matrices](#review-the-opensearch-tools-compatibility-matrices)
 - [Check plugin compatibility](#check-plugin-compatibility)
-- [Backup configuration files](#backup-configuration-files)
+- [Back up configuration files](#back-up-configuration-files)
 - [Create a snapshot](#create-a-snapshot)
 
 ### Review breaking changes
@@ -38,7 +38,7 @@ Your OpenSearch cluster may interact with other services in your environment, li
 
 Review the plugins you use to determine whether or not they are compatible with the target version of OpenSearch. Many of the official plugins can be found in the official [OpenSearch Project](https://github.com/opensearch-project) repository on GitHub. If you use any unofficial or third party plugins, then you should check the documentation for those plugins to determine if they will be compatible.
 
-### Backup configuration files
+### Back up configuration files
 
 Mitigate the risk of data loss by backing up any important files before you start an upgrade. Generally speaking, these files will be located in `opensearch/config` (OpenSearch) and `opensearch-dashboards/config` (OpenSearch Dashboards). Some examples include `opensearch.yml`, `opensearch_dashboards.yml`, security plugin backups, and TLS certificates. Once you identify which files you need to back up, copy them to remote storage so they can be restored, if necessary.
 
@@ -48,14 +48,14 @@ We recommend that you back up your cluster state and indexes using [Snapshots]({
 
 ## Upgrade methods
 
-Choose an appropriate upgrade method for your situation.
+Choose an appropriate method for upgrading your cluster to a new version of OpenSearch based on your requirements.
 
 - [Restart upgrade](#restart-upgrade)
 - [Rolling upgrade](#rolling-upgrade)
 
 ### Restart upgrade
 
-
+Restart upgrades, also referred to as cluster restart upgrades, are very straightforward but will incur downtime.
 
 ### Rolling upgrade
 
