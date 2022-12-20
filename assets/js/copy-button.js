@@ -30,16 +30,10 @@ function createButton(textToCopy, buttonText, buttonAriaLabel, curl) {
     copyButton.ariaLabel = buttonAriaLabel;
 
     if (curl) {
-        copyButton.addEventListener('click', function onClick() {
-            // Copy snippet as curl
-            window.navigator.clipboard.writeText(addCurl(textToCopy));
-        });
+        copyButton.setAttribute('data-text', addCurl(textToCopy));
     }
     else {
-        copyButton.addEventListener('click', function onClick() {
-            // Copy snippet to clipboard
-            window.navigator.clipboard.writeText(textToCopy);
-        });
+        copyButton.setAttribute('data-text', textToCopy);
     }
 
     return copyButton;

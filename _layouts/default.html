@@ -206,7 +206,7 @@ layout: table_wrappers
           <div class="toc">
             {% include toc.html html=content h_min=2 h_max=2 class="toc-list" item_class="toc-item" sanitize=true %}
           </div>
-          {% include feedback.html %}
+          {% comment %} Commented out until feedback mechanism is determined {% include feedback.html %} {% endcomment %}
         </div>
       </div>
       {% if site.search_enabled != false %}
@@ -230,9 +230,8 @@ layout: table_wrappers
   {% if site.search_enabled == false and site.use_custom_search == true %}
   <script src="{{ '/assets/js/search.js' | relative_url }}"></script>
   {% endif %}
-  <script src="{{ '/assets/js/copy.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/copy-button.js' | relative_url }}"></script>
   <script src="{{ '/assets/js/nav-scroll.js' | relative_url }}"></script>
-  <script src="{{ '/assets/js/feedback.js' | relative_url }}"></script>
-  <script src="{{ '/assets/js/link-feedback.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/listener.js' | relative_url }}"></script>
 </body>
 </html>
