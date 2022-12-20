@@ -22,7 +22,8 @@ To get information from your indexed data, you create a *search query*, or *quer
 ## Search methods and plugins
 
 There are several methods to perform search queries with OpenSearch. You can perform a simple HTTP search, or you can create searches with more options using either of the query languages:
-* [Search with Query DSL]({{site.url}}{{site.baseurl}}/search-query/query-dsl/index) – Use a wider range of search options for your queries.
+
+* [Search with Query DSL]({{site.url}}{{site.baseurl}}/search-query/query-dsl/index/) – Use a wider range of search options for your queries.
 * [Piped processing language (PPL)]({{site.url}}{{site.baseurl}}/search-query/sql/ppl/index/) – Use pipe syntax to explore and discover your data.
 
 You can also use the search plugins for specialized searches.
@@ -46,7 +47,7 @@ Feature | Description
 
 ## How to run a search
 
-Use the [search API]({{site.url}}{{site.baseurl}}/api-reference/search/) to run queries on data you've indexed with OpenSearch.
+Use the [search]({{site.url}}{{site.baseurl}}/api-reference/search/) API to run queries on data you've indexed with OpenSearch.
 
 The following request queries an index of hotel documents that provide parking.
 
