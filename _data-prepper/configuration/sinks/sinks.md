@@ -2,7 +2,8 @@
 layout: default
 title: Sinks
 parent: Configuring Data Prepper
-nav_order: 45
+has_children: true
+nav_order: 44
 ---
 
 # Sinks

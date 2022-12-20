@@ -1,8 +1,8 @@
 ---
 layout: default
 title: Sources
-has_children: true
 parent: Configuring Data Prepper
+has_children: true
 nav_order: 42
 ---
 
