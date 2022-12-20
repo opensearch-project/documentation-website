@@ -92,7 +92,7 @@ It will output a JSON response with the current pipelines:
 
 ## Shut down Data Prepper
 
-You can shut down Data Prepper either by using the shutdown API, or by stopping the Docker process.
+You can shut down Data Prepper either by using the shutdown API or by stopping the Docker process:
 
 ```
 curl -X POST https://localhost:4900/shutdown
