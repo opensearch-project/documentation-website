@@ -18,12 +18,13 @@ Reindexing data is a resource-intensive process. We recommend that you only rein
 
 ## Workflow considerations
 
-As with any upgrade, you should take time to plan the process before upgrading your OpenSearch cluster. For example, consider how long the upgrade process will take. If your cluster is being used in production, how impactful is downtime? Do you have infrastructure in place to stand up the new cluster in a dev environment before you move it into production, or do you need to upgrade the hosts in-place? The answers to questions like these will help you determine which upgrade path will work best in your environment. At a minimum, you should consider the following:
+You should take time to plan the process before making any changes to your cluster. For example, consider how long the upgrade process will take. If your cluster is being used in production, how impactful is downtime? Do you have infrastructure in place to stand up the new cluster in a dev environment before you move it into production, or do you need to upgrade the hosts in-place? The answers to questions like these will help you determine which upgrade path will work best in your environment. At a minimum, you should consider the following:
 
-- Review [breaking changes]({{site.url}}{{site.baseurl}}/breaking-changes/).
-- Review the [OpenSearch tools compatibility matrices]({{site.url}}{{site.baseurl}}/tools/index/#compatibility-matrices).
-- Check plugin compatibility.
-- Backup configuration files.
+- [Review breaking changes](#review-breaking-changes)
+- [Review the OpenSearch tools compatibility matrices](#review-the-opensearch-tools-compatibility-matrices)
+- [Check plugin compatibility](#check-plugin-compatibility)
+- [Backup configuration files](#backup-configuration-files)
+- [Create a snapshot](#create-a-snapshot)
 
 ### Review breaking changes
 
@@ -38,6 +39,10 @@ Your OpenSearch cluster may interact with other services in your environment, li
 Review the plugins used by your OpenSearch cluster to determine whether or not they are compatible with the target version of OpenSearch. Many of the official plugins can be found in the official [OpenSearch Project](https://github.com/opensearch-project) repository on GitHub. If you use any unofficial or third party plugins, then you should check the documentation for those plugins to determine if they will be compatible.
 
 ### Backup configuration files
+
+Always back up your files before making any changes.
+
+### Create a snapshot
 
 
 
