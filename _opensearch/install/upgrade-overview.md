@@ -35,7 +35,7 @@ Your OpenSearch cluster may interact with other services in your environment, li
 
 ### Check plugin compatibility
 
-Be sure to review the plugins installed in your OpenSearch cluster to determine whether or not they are compatible with the target version of OpenSearch. Many of the official plugins can be found in the official [OpenSearch Project](https://github.com/opensearch-project) repository on GitHub. If you use any unofficial or third party plugins, then you should check the documentation for those plugins to determine if they will be compatible.
+Review the plugins used by your OpenSearch cluster to determine whether or not they are compatible with the target version of OpenSearch. Many of the official plugins can be found in the official [OpenSearch Project](https://github.com/opensearch-project) repository on GitHub. If you use any unofficial or third party plugins, then you should check the documentation for those plugins to determine if they will be compatible.
 
 ### Backup configuration files
 
