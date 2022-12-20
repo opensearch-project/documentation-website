@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Configuring Data Prepper
-has_childre: yes
+has_children: true
 nav_order: 40
 ---
 
