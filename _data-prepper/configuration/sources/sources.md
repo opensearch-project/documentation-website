@@ -2,6 +2,7 @@
 layout: default
 title: Sources
 has_children: true
+parent: Configuring Data Prepper
 nav_order: 42
 ---
 

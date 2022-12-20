@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Data Prepper configuration
-parent: Reference
+title: Configuring Data Prepper
+has_childre: yes
 nav_order: 40
 ---
 
-# Data Prepper configuration
+# Configuring Data Prepper
 
 This is the reference for Data Prepper configuration files (data-prepper-config.yaml). These are general Data Prepper configurations independent from pipelines.
 
