@@ -40,13 +40,11 @@ Review the plugins you use to determine whether or not they are compatible with 
 
 ### Backup configuration files
 
-Always back up your files before making any changes.
-
-
+Mitigate the risk of data loss by backing up any important files before you start an upgrade. Generally speaking, these files will be located in `opensearch/config` (OpenSearch) and `opensearch-dashboards/config` (OpenSearch Dashboards). Some examples include `opensearch.yml`, `opensearch_dashboards.yml`, security plugin backups, and TLS certificates. Once you identify which files you need to back up, copy them to remote storage so they can be restored, if necessary.
 
 ### Create a snapshot
 
-
+We recommend that you back up your cluster state and indexes using [Snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/index/). If the security plugin is enabled then you will need to take a additional steps, because the `.opendistro_security` index can't be directly restored. See [A word of caution]({{site.url}}{{site.baseurl}}/security-plugin/configuration/security-admin/#a-word-of-caution) for details about backing up and restoring your security settings.
 
 ## Upgrade methods
 
@@ -54,7 +52,10 @@ Choose an appropriate upgrade method for your situation.
 
 - [Restart upgrade](#restart-upgrade)
 - [Rolling upgrade](#rolling-upgrade)
-- [Node replacement](#node-replacement)
+
+### Restart upgrade
 
 
-Compatibility matrix relative url for use later:
+
+### Rolling upgrade
+
