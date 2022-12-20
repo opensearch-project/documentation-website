@@ -81,7 +81,7 @@ You can't use node certificates as admin certificates. The two must be separate.
 
 ## Basic usage
 
-The `securityadmin.sh` tool can be run from any machine that has access to the http port of your OpenSearch cluster (the default port is 9200). You can change the Security plugin configuration without having to access your nodes through SSH.
+The `securityadmin.sh` tool can be run from any machine that has access to the HTTP port of your OpenSearch cluster (the default port is 9200). You can change the Security plugin configuration without having to access your nodes through SSH.
 
 `securityadmin.sh` requires that SSL/TLS transport is enabled on your opensearch cluster. In other words, make sure that the `plugins.security.ssl.http.enabled: true` is set in `opensearch.yml` before proceeding.
 {: .note}
