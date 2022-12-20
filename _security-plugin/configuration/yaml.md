@@ -11,7 +11,7 @@ The Security installation provides a number of YAML confguration files that are 
 
 Before running [`securityadmin.sh`]({{site.url}}{{site.baseurl}}/security-plugin/configuration/security-admin/) to load the settings into the `.opendistro_security` index, perform an initial configuration of the YAML files. The files can be found in the `config/opensearch-security` directory. It's also good practice to back up these files so that you can reuse them for other clusters.
 
-One approach to using the YAML files is to configure [reserved and hidden resources]({{site.url}}{{site.baseurl}}/security-plugin/access-control/api#reserved-and-hidden-resources), such as the `admin` and `kibanaserver` users. Then you can create other users, roles, mappings, action groups, and tenants using OpenSearch Dashboards or the REST API.
+One approach to using the YAML files—which we recommend—is to first configure [reserved and hidden resources]({{site.url}}{{site.baseurl}}/security-plugin/access-control/api#reserved-and-hidden-resources), such as the `admin` and `kibanaserver` users. Thereafter you can create other users, roles, mappings, action groups, and tenants using OpenSearch Dashboards or the REST API.
 
 
 ## internal_users.yml
