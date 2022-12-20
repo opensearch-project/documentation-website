@@ -28,11 +28,11 @@ You should take time to plan the process before making any changes to your clust
 
 ### Review breaking changes
 
-It's important to determine how the new version of OpenSearch will fit into your production environment. Review the list of [breaking changes]({{site.url}}{{site.baseurl}}/breaking-changes/) before beginning any upgrade procedures to determine if you will need to make any adjustments to your upstream or downstream components or any custom tooling your workflow uses.
+It's important to determine how the new version of OpenSearch will fit into your production environment. Review the list of [breaking changes]({{site.url}}{{site.baseurl}}/breaking-changes/) before beginning any upgrade procedures to determine if you will need to make adjustments in your workflow. For example, upstream or downstream components might need to be adjusted to take an API change into account.
 
 ### Review the OpenSearch tools compatibility matrices
 
-Your OpenSearch cluster may interact with other services in your environment, like Logstash or Beats. Check the [OpenSearch tools compatibility matrices]({{site.url}}{{site.baseurl}}/tools/index/#compatibility-matrices) to see if any of your tooling will also need to be upgraded.
+Your OpenSearch cluster may interact with other services in your environment, like Logstash or Beats. Check the [OpenSearch tools compatibility matrices]({{site.url}}{{site.baseurl}}/tools/index/#compatibility-matrices) to see if any of your tools will also need to be upgraded.
 
 ### Check plugin compatibility
 
