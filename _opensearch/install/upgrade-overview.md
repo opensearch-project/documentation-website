@@ -50,12 +50,14 @@ We recommend that you back up your cluster state and indexes using [Snapshots]({
 
 Choose an appropriate method for upgrading your cluster to a new version of OpenSearch based on your requirements.
 
-- [Restart upgrade](#restart-upgrade)
 - [Rolling upgrade](#rolling-upgrade)
+- [Restart upgrade](#restart-upgrade)
+
+### Rolling upgrade
+
+
 
 ### Restart upgrade
 
 Restart upgrades, also referred to as cluster restart upgrades, are very straightforward but will incur downtime.
-
-### Rolling upgrade
 
