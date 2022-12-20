@@ -130,7 +130,7 @@ Subjects (for example, user names) are usually stored in the `NameID` element of
 
 If your IdP is compliant with the SAML 2.0 specification, you do not need to set anything special. If your IdP uses a different element name, you can also specify its name explicitly.
 
-Role attributes are optional. However, most IdPs can be configured to add roles in the SAML assertions as well. If present, you can use these roles in your [role mappings]({{site.url}}{{site.baseurl}}/security-plugin/configuration/concepts/):
+Role attributes are optional. However, most IdPs can be configured to add roles in the SAML assertions as well. If present, you can use these roles in your [role mappings]({{site.url}}{{site.baseurl}}/security-plugin/access-control/index/#concepts):
 
 ```
 <saml2:Attribute Name='Role'>
@@ -314,7 +314,7 @@ If you use the logout POST binding, you also need to ad the logout endpoint to y
 server.xsrf.allowlist: ["/_opendistro/_security/saml/acs", "/_opendistro/_security/saml/logout"]
 ```
 
-To include SAML with other authentication types in the Dashboards sign-in window, see [Multiple option authentication for Dashboards sign-in]({{site.url}}{{site.baseurl}}/security-plugin/configuration/multi-auth/).
+To include SAML with other authentication types in the Dashboards sign-in window, see [Configuring sign-in options]({{site.url}}{{site.baseurl}}/security-plugin/configuration/multi-auth/).
 {: .note }
 
 ### IdP-initiated SSO

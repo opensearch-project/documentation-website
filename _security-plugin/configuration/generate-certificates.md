@@ -77,7 +77,7 @@ Follow the prompts to fill in the details. You don't need to specify a challenge
 
 If you generate TLS certificates and have enabled hostname verification by setting `plugins.security.ssl.transport.enforce_hostname_verification` to `true` (default), be sure to specify a common name (CN) for each certificate signing request (CSR) that matches the corresponding DNS A record of the intended node.
 
-If you want to use the same node certificate on all nodes (not recommended), set hostname verification to `false`. For more information, see [Configure TLS certificates]({{site.url}}{{site.baseurl}}/security-plugin/configuration/tls#advanced-hostname-verification-and-dns-lookup).
+If you want to use the same node certificate on all nodes (not recommended), set hostname verification to `false`. For more information, see [Configure TLS certificates]({{site.url}}{{site.baseurl}}/security-plugin/configuration/tls/#advanced-hostname-verification-and-dns-lookup).
 
 Now that the private key and signing request have been created, generate the certificate:
 
@@ -228,14 +228,14 @@ plugins.security.nodes_dn:
   - 'CN=node2.dns.a-record,OU=UNIT,O=ORG,L=TORONTO,ST=ONTARIO,C=CA'
 ```
 
-For more information about adding and using these certificates in your own setup, see [Configuring basic security settings]({{site.url}}{{site.baseurl}}/opensearch/install/docker#configuring-basic-security-settings) for Docker, [Configure TLS certificates]({{site.url}}{{site.baseurl}}/security-plugin/configuration/tls/), and [Client certificate authentication]({{site.url}}{{site.baseurl}}/security-plugin/configuration/client-auth/).
+For more information about adding and using these certificates in your own setup, see [Configuring basic security settings]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker/#configuring-basic-security-settings) for Docker, [Configure TLS certificates]({{site.url}}{{site.baseurl}}/security-plugin/configuration/tls/), and [Client certificate authentication]({{site.url}}{{site.baseurl}}/security-plugin/configuration/client-auth/).
 
 
 ## Run securityadmin.sh
 
-After configuring your certificates and starting OpenSearch, run `securityadmin.sh` to initialize the security plugin. For information about how to use this script, see [Apply configuration changes]({{site.url}}{{site.baseurl}}/security-plugin/configuration/security-admin/).
+After configuring your certificates and starting OpenSearch, run `securityadmin.sh` to initialize the security plugin. For information about how to use this script, see [Applying changes to configuration files]({{site.url}}{{site.baseurl}}/security-plugin/configuration/security-admin/).
 
 
 ## OpenSearch Dashboards
 
-For information on using your root CA and a client certificate to enable TLS for OpenSearch Dashboards, see [Configure TLS for OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/install/tls/).
+For information on using your root CA and a client certificate to enable TLS for OpenSearch Dashboards, see [Configure TLS for OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/tls/).

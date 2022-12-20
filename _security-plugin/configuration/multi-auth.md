@@ -14,7 +14,7 @@ You can configure the sign-in window for OpenSearch Dashboards to provide either
 Consider the following sequence of steps before configuring the sign-in window for multiple authentication options. 
 
 1. Decide which types of authentication to make available at sign-in.
-1. Configure each authentication type, including an authentication domain for the identity provider (IdP) and the essential settings that give each type sign-in access to OpenSearch Dashboards. For OpenId Connect backend configuration, see [OpenID Connect]({{site.url}}{{site.baseurl}}/security-plugin/configuration/openid-connect/). For SAML backend configuration, see [SAML]({{site.url}}{{site.baseurl}}/security-plugin/configuration/saml/).
+1. Configure each authentication type, including an authentication domain for the identity provider (IdP) and the essential settings that give each type sign-in access to OpenSearch Dashboards. For OpenId Connect backend configuration, see [OpenID Connect]({{site.url}}{{site.baseurl}}/security-plugin/authentication-backends/openid-connect/). For SAML backend configuration, see [SAML]({{site.url}}{{site.baseurl}}/security-plugin/authentication-backends/saml/).
 1. Add, enable, and configure multiple option authentication settings in the `opensearch_dashboards.yml` file.
 
 ## Enabling multiple authentication options
@@ -74,7 +74,7 @@ Setting | Description
 
 ### OpenID Connect authentication settings
 
-These settings allow you to customize the sign-in button associated with OpenID Connect authentication. For the essential settings required to use OpenID Connect as a single sign-in option, see [OpenSearch Dashboards single sign-on]({{site.url}}{{site.baseurl}}/security-plugin/configuration/openid-connect/#opensearch-dashboards-single-sign-on).
+These settings allow you to customize the sign-in button associated with OpenID Connect authentication. For the essential settings required to use OpenID Connect as a single sign-in option, see [OpenSearch Dashboards single sign-on]({{site.url}}{{site.baseurl}}/security-plugin/authentication-backends/openid-connect/#opensearch-dashboards-single-sign-on).
 
 Setting | Description
 :--- | :--- |:--- |:--- |
@@ -84,7 +84,7 @@ Setting | Description
 
 ### SAML authentication settings
 
-These settings allow you to customize the sign-in button associated with SAML authentication. For the essential settings required to use SAML as a sign-in option, see [OpenSearch Dashboards configuration]({{site.url}}{{site.baseurl}}/security-plugin/configuration/saml/#opensearch-dashboards-configuration).
+These settings allow you to customize the sign-in button associated with SAML authentication. For the essential settings required to use SAML as a sign-in option, see [OpenSearch Dashboards configuration]({{site.url}}{{site.baseurl}}/security-plugin/authentication-backends/saml/#opensearch-dashboards-configuration).
 
 Setting | Description
 :--- | :--- |:--- |:--- |
