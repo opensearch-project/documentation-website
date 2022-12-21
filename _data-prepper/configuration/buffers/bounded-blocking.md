@@ -5,7 +5,7 @@ parent: Buffers
 nav_order: 50
 ---
 
-# bounded_blocking
+# Bounded blocking
 
 ## Overview
 
