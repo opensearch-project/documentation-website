@@ -2,7 +2,7 @@
 layout: default
 title: k-NN Index
 nav_order: 5
-parent: k-NN
+parent: k-NN plugin
 has_children: false
 ---
 
@@ -32,7 +32,7 @@ Method definitions are used when the underlying Approximate k-NN algorithm does 
 ```
 
 Model IDs are used when the underlying Approximate k-NN algorithm requires a training step. As a prerequisite, the
-model has to be created with the [Train API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#train-model). The
+model has to be created with the [Train API]({{site.url}}{{site.baseurl}}/search-query/knn/api#train-model). The
 model contains the information needed to initialize the native library segment files.
 
 ```json
@@ -50,7 +50,7 @@ However, if you intend to just use painless scripting or a k-NN score script, yo
 
 ## Method Definitions
 
-A method definition refers to the underlying configuration of the Approximate k-NN algorithm you want to use. Method definitions are used to either create a `knn_vector` field (when the method does not require training) or [create a model during training]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#train-model) that can then be used to [create a `knn_vector` field]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/#building-a-k-nn-index-from-a-model).
+A method definition refers to the underlying configuration of the Approximate k-NN algorithm you want to use. Method definitions are used to either create a `knn_vector` field (when the method does not require training) or [create a model during training]({{site.url}}{{site.baseurl}}/search-query/knn/api#train-model) that can then be used to [create a `knn_vector` field]({{site.url}}{{site.baseurl}}/search-query/knn/approximate-knn/#building-a-k-nn-index-from-a-model).
 
 A method definition will always contain the name of the method, the space_type the method is built for, the engine
 (the library) to use, and a map of parameters.
@@ -110,7 +110,7 @@ For more information about setting these parameters, please refer to [*faiss*'s 
 #### IVF training requirements
 
 The IVF algorithm requires a training step. To create an index that uses IVF, you need to train a model with the
-[Train API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#train-model), passing the IVF method definition. IVF requires that, at a minimum, there should be `nlist` training
+[Train API]({{site.url}}{{site.baseurl}}/search-query/knn/api#train-model), passing the IVF method definition. IVF requires that, at a minimum, there should be `nlist` training
 data points, but it is [recommended that you use more](https://github.com/facebookresearch/faiss/wiki/Guidelines-to-choose-an-index#how-big-is-the-dataset).
 Training data can be composed of either the same data that is going to be ingested or a separate dataset.
 
@@ -231,6 +231,6 @@ Setting | Default | Updateable | Description
 :--- | :--- | :--- | :---
 `index.knn` | false | false | Whether the index should build native library indices for the `knn_vector` fields. If set to false, the `knn_vector` fields will be stored in doc values, but Approximate k-NN search functionality will be disabled.
 `index.knn.algo_param.ef_search` | 512 | true | The size of the dynamic list used during k-NN searches. Higher values lead to more accurate but slower searches. Only available for nmslib.
-`index.knn.algo_param.ef_construction` | 512 | false | Deprecated in 1.0.0. Use the [mapping parameters](https://opensearch.org/docs/latest/search-plugins/knn/knn-index/#method-definitions) to set this value instead.
-`index.knn.algo_param.m` | 16 | false | Deprecated in 1.0.0. Use the [mapping parameters](https://opensearch.org/docs/latest/search-plugins/knn/knn-index/#method-definitions) to set this value instead.
-`index.knn.space_type` | l2 | false | Deprecated in 1.0.0. Use the [mapping parameters](https://opensearch.org/docs/latest/search-plugins/knn/knn-index/#method-definitions) to set this value instead.
+`index.knn.algo_param.ef_construction` | 512 | false | Deprecated in 1.0.0. Use the [mapping parameters](https://opensearch.org/docs/latest/search-query/knn/knn-index/#method-definitions) to set this value instead.
+`index.knn.algo_param.m` | 16 | false | Deprecated in 1.0.0. Use the [mapping parameters](https://opensearch.org/docs/latest/search-query/knn/knn-index/#method-definitions) to set this value instead.
+`index.knn.space_type` | l2 | false | Deprecated in 1.0.0. Use the [mapping parameters](https://opensearch.org/docs/latest/search-query/knn/knn-index/#method-definitions) to set this value instead.

@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Performance tuning
-parent: k-NN
+parent: k-NN plugin
 nav_order: 45
 ---
 
@@ -39,7 +39,7 @@ Take the following steps to improve indexing performance, especially when you pl
 
 * **Increase the number of indexing threads**
 
-   If the hardware you choose has multiple cores, you can allow multiple threads in native library index construction by speeding up the indexing process. Determine the number of threads to allot with the [knn.algo_param.index_thread_qty]({{site.url}}{{site.baseurl}}/search-plugins/knn/settings#cluster-settings) setting.
+   If the hardware you choose has multiple cores, you can allow multiple threads in native library index construction by speeding up the indexing process. Determine the number of threads to allot with the [knn.algo_param.index_thread_qty]({{site.url}}{{site.baseurl}}/search-query/knn/settings#cluster-settings) setting.
 
   Keep an eye on CPU utilization and choose the correct number of threads. Because native library index construction is costly, having multiple threads can cause additional CPU load.
 
@@ -86,7 +86,7 @@ Take the following steps to improve search performance:
 
 Recall depends on multiple factors like number of vectors, number of dimensions, segments, and so on. Searching over a large number of small segments and aggregating the results leads to better recall than searching over a small number of large segments and aggregating results. The larger the native library index, the more chances of losing recall if you're using smaller algorithm parameters. Choosing larger values for algorithm parameters should help solve this issue but sacrifices search latency and indexing time. That being said, it's important to understand your system's requirements for latency and accuracy, and then choose the number of segments you want your index to have based on experimentation.
 
-The default parameters work on a broader set of use cases, but make sure to run your own experiments on your data sets and choose the appropriate values. For index-level settings, see [Index settings]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index#index-settings).
+The default parameters work on a broader set of use cases, but make sure to run your own experiments on your data sets and choose the appropriate values. For index-level settings, see [Index settings]({{site.url}}{{site.baseurl}}/search-query/knn/knn-index#index-settings).
 
 ## Approximate nearest neighbor versus score script
 

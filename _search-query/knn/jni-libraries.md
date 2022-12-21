@@ -2,7 +2,7 @@
 layout: default
 title: JNI libraries
 nav_order: 35
-parent: k-NN
+parent: k-NN plugin
 has_children: false
 ---
 

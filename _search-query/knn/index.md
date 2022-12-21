@@ -22,7 +22,7 @@ This plugin supports three different methods for obtaining the k-nearest neighbo
 
     Approximate k-NN is the best choice for searches over large indices (i.e. hundreds of thousands of vectors or more) that require low latency. You should not use approximate k-NN if you want to apply a filter on the index before the k-NN search, which greatly reduces the number of vectors to be searched. In this case, you should use either the script scoring method or painless extensions.
 
-    For more details about this method, including recommendations for which engine to use, see [Approximate k-NN search]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn/).
+    For more details about this method, including recommendations for which engine to use, see [Approximate k-NN search]({{site.url}}{{site.baseurl}}/search-query/knn/approximate-knn/).
 
 2. **Script Score k-NN**
 
@@ -30,7 +30,7 @@ This plugin supports three different methods for obtaining the k-nearest neighbo
 
     Use this approach for searches over smaller bodies of documents or when a pre-filter is needed. Using this approach on large indices may lead to high latencies.
 
-    For more details about this method, see [Exact k-NN with scoring script]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-score-script/).
+    For more details about this method, see [Exact k-NN with scoring script]({{site.url}}{{site.baseurl}}/search-query/knn/knn-score-script/).
 
 3. **Painless extensions**
 
@@ -38,6 +38,6 @@ This plugin supports three different methods for obtaining the k-nearest neighbo
 
     This approach has slightly slower query performance compared to the k-NN Script Score. If your use case requires more customization over the final score, you should use this approach over Script Score k-NN.
 
-    For more details about this method, see [Painless scripting functions]({{site.url}}{{site.baseurl}}/search-plugins/knn/painless-functions/).
+    For more details about this method, see [Painless scripting functions]({{site.url}}{{site.baseurl}}/search-query/knn/painless-functions/).
 
 Overall, for larger data sets, you should generally choose the approximate nearest neighbor method because it scales significantly better. For smaller data sets, where you may want to apply a filter, you should choose the custom scoring approach. If you have a more complex use case where you need to use a distance function as part of their scoring method, you should use the painless scripting approach.

@@ -2,7 +2,7 @@
 layout: default
 title: Approximate search
 nav_order: 10
-parent: k-NN
+parent: k-NN plugin
 has_children: false
 has_math: true
 ---
@@ -13,10 +13,10 @@ Standard k-NN search methods compute similarity using a brute-force approach tha
 
 The Approximate k-NN search methods leveraged by OpenSearch use approximate nearest neighbor (ANN) algorithms from the [nmslib](https://github.com/nmslib/nmslib), [faiss](https://github.com/facebookresearch/faiss), and [Lucene](https://lucene.apache.org/) libraries to power k-NN search. These search methods employ ANN to improve search latency for large datasets. Of the three search methods the k-NN plugin provides, this method offers the best search scalability for large datasets. This approach is the preferred method when a dataset reaches hundreds of thousands of vectors.
 
-For details on the algorithms the plugin currently supports, see [k-NN Index documentation]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index#method-definitions).
+For details on the algorithms the plugin currently supports, see [k-NN Index documentation]({{site.url}}{{site.baseurl}}/search-query/knn/knn-index#method-definitions).
 {: .note}
 
-The k-NN plugin builds a native library index of the vectors for each knn-vector field/Lucene segment pair during indexing, which can be used to efficiently find the k-nearest neighbors to a query vector during search. To learn more about Lucene segments, see the [Apache Lucene documentation](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/codecs/lucene87/package-summary.html#package.description). These native library indexes are loaded into native memory during search and managed by a cache. To learn more about preloading native library indexes into memory, refer to the [warmup API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#warmup-operation). Additionally, you can see which native library indexes are already loaded in memory. To learn more about this, see the [stats API section]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#stats).
+The k-NN plugin builds a native library index of the vectors for each knn-vector field/Lucene segment pair during indexing, which can be used to efficiently find the k-nearest neighbors to a query vector during search. To learn more about Lucene segments, see the [Apache Lucene documentation](https://lucene.apache.org/core/8_9_0/core/org/apache/lucene/codecs/lucene87/package-summary.html#package.description). These native library indexes are loaded into native memory during search and managed by a cache. To learn more about preloading native library indexes into memory, refer to the [warmup API]({{site.url}}{{site.baseurl}}/search-query/knn/api#warmup-operation). Additionally, you can see which native library indexes are already loaded in memory. To learn more about this, see the [stats API section]({{site.url}}{{site.baseurl}}/search-query/knn/api#stats).
 
 Because the native library indexes are constructed during indexing, it is not possible to apply a filter on an index
 and then use this search method. All filters are applied on the results produced by the approximate nearest neighbor search.
@@ -80,7 +80,7 @@ PUT my-knn-index-1
 }
 ```
 
-In the example above, both `knn_vector` fields are configured from method definitions. Additionally, `knn_vector` fields can also be configured from models. You can learn more about this in the [knn_vector data type]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index#knn_vector-data-type) section.
+In the example above, both `knn_vector` fields are configured from method definitions. Additionally, `knn_vector` fields can also be configured from models. You can learn more about this in the [knn_vector data type]({{site.url}}{{site.baseurl}}/search-query/knn/knn-index#knn_vector-data-type) section.
 
 The `knn_vector` data type supports a vector of floats that can have a dimension of up to 10000 for the nmslib and faiss engines, as set by the dimension mapping parameter. The maximum dimension for the Lucene library is 1024.
 
@@ -135,7 +135,7 @@ indicates how many results the query actually returns. The plugin returns `k` am
 
 ### Building a k-NN index from a model
 
-For some of the algorithms that we support, the native library index needs to be trained before it can be used. It would be expensive to training every newly created segment, so, instead, we introduce the concept of a *model* that is used to initialize the native library index during segment creation. A *model* is created by calling the [Train API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api#train-model), passing in the source of training data as well as the method definition of the model. Once training is complete, the model will be serialized to a k-NN model system index. Then, during indexing, the model is pulled from this index to initialize the segments.
+For some of the algorithms that we support, the native library index needs to be trained before it can be used. It would be expensive to training every newly created segment, so, instead, we introduce the concept of a *model* that is used to initialize the native library index during segment creation. A *model* is created by calling the [Train API]({{site.url}}{{site.baseurl}}/search-query/knn/api#train-model), passing in the source of training data as well as the method definition of the model. Once training is complete, the model will be serialized to a k-NN model system index. Then, during indexing, the model is pulled from this index to initialize the segments.
 
 To train a model, we first need an OpenSearch index with training data in it. Training data can come from
 any `knn_vector` field that has a dimension matching the dimension of the model you want to create. Training data can be the same data that you are going to index or have in a separate set. Let's create a training index:
@@ -276,7 +276,7 @@ GET my-knn-index-1/_search
 
 ## Spaces
 
-A space corresponds to the function used to measure the distance between two points in order to determine the k-nearest neighbors. From the k-NN perspective, a lower score equates to a closer and better result. This is the opposite of how OpenSearch scores results, where a greater score equates to a better result. To convert distances to OpenSearch scores, we take 1 / (1 + distance). The k-NN plugin the spaces the plugin supports are below. Not every method supports each of these spaces. Be sure to check out [the method documentation]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index#method-definitions) to make sure the space you are interested in is supported.
+A space corresponds to the function used to measure the distance between two points in order to determine the k-nearest neighbors. From the k-NN perspective, a lower score equates to a closer and better result. This is the opposite of how OpenSearch scores results, where a greater score equates to a better result. To convert distances to OpenSearch scores, we take 1 / (1 + distance). The k-NN plugin the spaces the plugin supports are below. Not every method supports each of these spaces. Be sure to check out [the method documentation]({{site.url}}{{site.baseurl}}/search-query/knn/knn-index#method-definitions) to make sure the space you are interested in is supported.
 
 <table>
   <thead style="text-align: center">

@@ -2,18 +2,18 @@
 layout: default
 title: k-NN Painless extensions
 nav_order: 25
-parent: k-NN
+parent: k-NN plugin
 has_children: false
 has_math: true
 ---
 
 # k-NN Painless Scripting extensions
 
-With the k-NN plugin's Painless Scripting extensions, you can use k-NN distance functions directly in your Painless scripts to perform operations on `knn_vector` fields. Painless has a strict list of allowed functions and classes per context to ensure its scripts are secure. The k-NN plugin adds Painless Scripting extensions to a few of the distance functions used in [k-NN score script]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-score-script), so you can use them to customize your k-NN workload.
+With the k-NN plugin's Painless Scripting extensions, you can use k-NN distance functions directly in your Painless scripts to perform operations on `knn_vector` fields. Painless has a strict list of allowed functions and classes per context to ensure its scripts are secure. The k-NN plugin adds Painless Scripting extensions to a few of the distance functions used in [k-NN score script]({{site.url}}{{site.baseurl}}/search-query/knn/knn-score-script), so you can use them to customize your k-NN workload.
 
 ## Get started with k-NN's Painless Scripting functions
 
-To use k-NN's Painless Scripting functions, first create an index with `knn_vector` fields like in [k-NN score script]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-score-script#getting-started-with-the-score-script-for-vectors). Once the index is created and you ingest some data, you can use the painless extensions:
+To use k-NN's Painless Scripting functions, first create an index with `knn_vector` fields like in [k-NN score script]({{site.url}}{{site.baseurl}}/search-query/knn/knn-score-script#getting-started-with-the-score-script-for-vectors). Once the index is created and you ingest some data, you can use the painless extensions:
 
 ```json
 GET my-knn-index-2/_search

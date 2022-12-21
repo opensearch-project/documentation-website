@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Settings
-parent: k-NN
+parent: k-NN plugin
 nav_order: 40
 ---
 

@@ -2,7 +2,7 @@
 layout: default
 title: API
 nav_order: 30
-parent: k-NN
+parent: k-NN plugin
 has_children: false
 ---
 
@@ -170,7 +170,7 @@ For the warmup operation to function properly, follow these best practices:
 
 * Don't run merge operations on indices that you want to warm up. During merge, the k-NN plugin creates new segments, and old segments are sometimes deleted. For example, you could encounter a situation in which the warmup API operation loads native library indices A and B into native memory, but segment C is created from segments A and B being merged. The native library indices for A and B would no longer be in memory, and native library index C would also not be in memory. In this case, the initial penalty for loading native library index C is still present.
 
-* Confirm that all native library indices you want to warm up can fit into native memory. For more information about the native memory limit, see the [knn.memory.circuit_breaker.limit statistic]({{site.url}}{{site.baseurl}}/search-plugins/knn/settings#cluster-settings). High graph memory usage causes cache thrashing, which can lead to operations constantly failing and attempting to run again.
+* Confirm that all native library indices you want to warm up can fit into native memory. For more information about the native memory limit, see the [knn.memory.circuit_breaker.limit statistic]({{site.url}}{{site.baseurl}}/search-query/knn/settings#cluster-settings). High graph memory usage causes cache thrashing, which can lead to operations constantly failing and attempting to run again.
 
 * Don't index any documents that you want to load into the cache. Writing new information to segments prevents the warmup API operation from loading the native library indices until they're searchable. This means that you would have to run the warmup operation again after indexing finishes.
 
@@ -312,7 +312,7 @@ Request Parameter |  Description
 `max_training_vector_count` | (Optional) Maximum number of vectors from the training index to use for training. Defaults to all of the vectors in the index.
 `search_size` | (Optional) Training data is pulled from the training index with scroll queries. Defines the number of results to return per scroll query. Defaults to 10,000.
 `description` | (Optional) User provided description of the model.
-`method` | Configuration of ANN method used for search. For more information on possible methods, refer to the [method documentation]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index#method-definitions). Method must require training to be valid.
+`method` | Configuration of ANN method used for search. For more information on possible methods, refer to the [method documentation]({{site.url}}{{site.baseurl}}/search-query/knn/knn-index#method-definitions). Method must require training to be valid.
    
 
 ### Usage
