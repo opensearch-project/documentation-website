@@ -38,7 +38,7 @@ Bar charts, vertical or horizontal, compare categorical data and depict changes 
 
 ## Controls
 
-Controls is a panel, instead of a visualization type, added to a dashboard to filter data. Controls gives users the capability to add interactive inputs to a dashboard. You can create two types of controls in Dashboards: **Options list** and **Range slider**. **Options list** is a drop-down options list that allows filtering of data by a terms aggregation, such as `machine.os.keyword`. **Range slider** allows filtering within specified value ranges, such as `hour_of_day`.  
+Controls is a panel, instead of a visualization type, added to a dashboard to filter data. Controls gives users the capability to add interactive inputs to a dashboard. You can create two types of controls in Dashboards: **Options list** and **Range slider**. **Options list** is a dropdown options list that allows filtering of data by a terms aggregation, such as `machine.os.keyword`. **Range slider** allows filtering within specified value ranges, such as `hour_of_day`.  
 
 <img src="{{site.url}}{{site.baseurl}}/images/controls-1.png" alt="Example visualization using controls to filter data in OpenSearch Dashboards" height="100">
 
