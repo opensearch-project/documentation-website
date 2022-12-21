@@ -3,6 +3,8 @@ layout: default
 title: Term-level queries
 parent: Search with Query DSL
 nav_order: 30
+redirect_from:
+  - /opensearch/query-dsl/
 ---
 
 # Term-level queries

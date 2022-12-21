@@ -3,6 +3,8 @@ layout: default
 title: Full-text queries
 parent: Search with Query DSL
 nav_order: 40
+redirect_from:
+  - /opensearch/query-dsl/
 ---
 
 # Full-text query types and options

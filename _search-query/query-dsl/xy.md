@@ -3,6 +3,8 @@ layout: default
 title: xy queries
 parent: Search with Query DSL
 nav_order: 65
+redirect_from:
+  - /opensearch/query-dsl/
 ---
 
 # xy queries

@@ -3,6 +3,8 @@ layout: default
 title: Boolean queries
 parent: Search with Query DSL
 nav_order: 45
+redirect_from:
+  - /opensearch/query-dsl/
 ---
 
 # Boolean queries
