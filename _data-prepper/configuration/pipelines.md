@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Pipelines
-parent: Configuring Data Prepper
+parent: Reference
 nav_order: 41
 ---
 
