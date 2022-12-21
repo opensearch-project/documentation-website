@@ -22,7 +22,13 @@ OpenSearch nodes cannot be downgraded. If you need to revert the upgrade, then y
 
 ### Rolling upgrade
 
-Rolling upgrades can be performed 
+1. Disable shard replication to prevent shard replicas from being created while nodes are being taken offline.
+```bash
+curl -X PUT "http://localhost:9201/_cluster/settings?pretty" -H 'Content-type: application/json' -d'{"persistent":{"cluster.routing.allocation.enable":"primaries"}}'
+```
+1. 
+
+
 
 ### Cluster restart upgrade (Docker Compose)
 
