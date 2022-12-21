@@ -1,7 +1,6 @@
 ---
 layout: default
 title: Buffers
-parent: Configuring Data Prepper
 has_children: true
 nav_order: 44
 ---
