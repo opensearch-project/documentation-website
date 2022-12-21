@@ -802,6 +802,7 @@ First, create an ISM policy:
 ```bash
 PUT /_plugins/_ism/policies/rollover_policy?pretty
 ```
+{% include copy-curl.html %}
 
 ```json
 {
@@ -855,6 +856,7 @@ Next, create an index template to enable the policy on:
 ```bash
 PUT /_index_template/ism_rollover?
 ```
+{% include copy-curl.html %}
 
 ```json
 {
@@ -872,6 +874,7 @@ Then, change the cluster settings to trigger jobs every minute:
 ```bash
 PUT /_cluster/settings?pretty=true
 ```
+{% include copy-curl.html %}
 
 ```json
 {
@@ -886,6 +889,7 @@ Next, create a new index:
 ```bash
 PUT /log-000001
 ```
+{% include copy-curl.html %}
 
 ```json
 {
@@ -902,6 +906,7 @@ Finally, add a document to the index to trigger the job:
 ```bash
 POST /log-000001/_doc
 ```
+{% include copy-curl.html %}
 
 ```json
 {
@@ -913,8 +918,13 @@ You can verify these steps using the alias and index API:
 
 ```bash
 GET /_cat/indices?pretty
+```
+{% include copy-curl.html %}
+
+```
 GET /_cat/aliases?pretty
 ```
+{% include copy-curl.html %}
 
 #### Fail if a user tries to apply an alias action on a specific index or indexes
 
@@ -923,6 +933,7 @@ The following policy creates an illegal argument exception with the error `"Alia
 ```bash
 PUT /_plugins/_ism/policies/remove_action_policy?pretty
 ```
+{% include copy-curl.html %}
 
 ```json
 {
@@ -968,6 +979,7 @@ The following policy will create an illegal argument exception with the error `"
 ```bash
 PUT /_plugins/_ism/policies/remove_index_policy?pretty
 ```
+{% include copy-curl.html %}
 
 ```json
 {
@@ -1005,6 +1017,7 @@ You can then use the following command to make the cluster green:
 ```bash
 PUT /log-000001/_settings
 ```
+{% include copy-curl.html %}
 
 ```json
 {
