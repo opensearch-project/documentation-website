@@ -57,7 +57,7 @@ Gantt charts show the start, end, and duration of unique events in a sequence. G
 
 ## Gauge charts
 
-Gauge charts look similar to an analog speedometer that reads left-to-right from zero. They display how much there is of the thing you are measuring, and this measurement can exist alone or in relation to another measurement, such as tracking performance against benchmarks or goals. Reference [Gauge charts]({{site.url}}{{site.baseurl}}/dashboards/visualize/gauge) to learn how to create and use them in Dashboards.
+Gauge charts look similar to an analog speedometer that reads left to right from zero. They display how much there is of the thing you are measuring, and this measurement can exist alone or in relation to another measurement, such as tracking performance against benchmarks or goals. Reference [Gauge charts]({{site.url}}{{site.baseurl}}/dashboards/visualize/gauge) to learn how to create and use them in Dashboards.
 
 <img src="{{site.url}}{{site.baseurl}}/images/gauge-1.png" alt="Example gauge chart in OpenSearch Dashboards" width="90%">
 
