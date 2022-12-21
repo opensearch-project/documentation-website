@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Geo-bounding box queries
-parent: Query DSL
+parent: Search with Query DSL
 nav_order: 55
 ---
 
