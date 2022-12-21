@@ -21,7 +21,7 @@ Area charts depict changes over time, and they are commonly used to show trends.
 
 ## Bar charts
 
-Bar charts, vertical or horizontal, compare categorical data and demonstrate changes of a variable over a period of time. Reference [Graphs and charts]({{site.url}}{{site.baseurl}}/dashboards/visualize/graphs-and-charts) to learn more about how to create and use them in Dashboards.
+Bar charts, vertical or horizontal, compare categorical data and depict changes of a variable over a period of time. Reference [Graphs and charts]({{site.url}}{{site.baseurl}}/dashboards/visualize/graphs-and-charts) to learn more about how to create and use them in Dashboards.
 
 <table style="table-layout: fixed ; width: 100%;">
 <tbody>
