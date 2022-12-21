@@ -58,7 +58,7 @@ curl -X PUT "http://localhost:9200/_cluster/settings?pretty" -H 'Content-type: a
 ```
 1. Verify the health of your OpenSearch cluster.
 ```bash
-curl "http://localhost:9201/_cluster/health?pretty"
+curl "http://localhost:9200/_cluster/health?pretty"
 ```
 **Sample response:**
 ```bash
