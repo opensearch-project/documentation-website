@@ -118,7 +118,7 @@ Tag (or word) clouds are a way to display how often a word is used in relation t
 
 ## Timeline
 
-Timeline is a data visualization tool in Dashboards that you can use to create time-series visualizations. Currently, Timeline can be used to create the following Dashboards visualization types: Area and Line. Reference [Timelines]({{site.url}}{{site.baseurl}}/dashboards/visualize/timeline/) to learn how to create and use timelines in Dashboards.
+Timeline is a data visualization tool in Dashboards that you can use to create time-series visualizations. Currently, Timeline can be used to create the following Dashboards visualization types: Area and Line. Reference [Timelines]({{site.url}}{{site.baseurl}}/dashboards/visualize/timeline/) to learn how to create and use them in Dashboards.
 
 <img src="{{site.url}}{{site.baseurl}}/images/timeline-1.png" alt="Example Timeline in OpenSearch Dashboards" height="100">
 
