@@ -24,10 +24,39 @@ OpenSearch nodes cannot be downgraded. If you need to revert the upgrade, then y
 
 1. Disable shard replication to prevent shard replicas from being created while nodes are being taken offline.
 ```bash
-curl -X PUT "http://localhost:9201/_cluster/settings?pretty" -H 'Content-type: application/json' -d'{"persistent":{"cluster.routing.allocation.enable":"primaries"}}'
+curl -X PUT "http://localhost:9200/_cluster/settings?pretty" -H 'Content-type: application/json' -d'{"persistent":{"cluster.routing.allocation.enable":"primaries"}}'
+```
+**Sample response:**
+```bash
+{
+  "acknowledged" : true,
+  "persistent" : {
+    "cluster" : {
+      "routing" : {
+        "allocation" : {
+          "enable" : "primaries"
+        }
+      }
+    }
+  },
+  "transient" : { }
+}
+```
+1. Perform a flush operation on the cluster to commit pending transaction log entries to the Lucene index
+```bash
+curl -X POST "http://localhost:9200/_flush?pretty"
+```
+**Sample response:**
+```bash
+{
+  "_shards" : {
+    "total" : 10,
+    "successful" : 10,
+    "failed" : 0
+  }
+}
 ```
 1. 
-
 
 
 ### Cluster restart upgrade (Docker Compose)
