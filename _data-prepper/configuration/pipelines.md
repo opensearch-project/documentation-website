@@ -5,6 +5,8 @@ parent: Reference
 nav_order: 41
 ---
 
+# Pipeline options
+
 This page provides information about pipeline configuration options in Data Prepper.
 
 ## General pipeline options
