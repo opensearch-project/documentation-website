@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Pipeline sink
-parent: sinks
+parent: Sinks
 nav_order: 45
 ---
 
