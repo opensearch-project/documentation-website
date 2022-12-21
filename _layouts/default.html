@@ -96,7 +96,7 @@ layout: table_wrappers
             {% endif %}
           {% endfor %}
         {% endif %}
-      </nav>
+        </nav>
     </div>
     <div class="copy-banner">
       <div class="container">
@@ -154,7 +154,7 @@ layout: table_wrappers
 
           {% if page.has_children == true and page.has_toc != false %}
             <hr>
-            <h2 class="text-delta">Table of contents</h2>
+            <h2>Related articles</h2>
             <ul>
               {% for child in toc_list %}
                 <li>
@@ -206,7 +206,7 @@ layout: table_wrappers
           <div class="toc">
             {% include toc.html html=content h_min=2 h_max=2 class="toc-list" item_class="toc-item" sanitize=true %}
           </div>
-          {% comment %} Commented out until feedback mechanism is determined {% include feedback.html %} {% endcomment %}
+          {% include feedback.html %}
         </div>
       </div>
       {% if site.search_enabled != false %}
