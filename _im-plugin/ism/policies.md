@@ -789,6 +789,231 @@ If you want to skip rollovers for an index, set `index.plugins.index_state_manag
    GET _plugins/_ism/explain/log-000001?pretty
    ```
 
+## Sample policies with ISM templates for the alias action
+
+The following sample template policies are for an alias action use case.
+
+#### Rollover an index policy with deletion of indexes when the doc count exceeds a certain value
+
+In the following example, the first job will trigger the rollover action and a new index will be created. Next, another document is added to the two indexes. The new job will then cause the second index to point to the log alias and the older index will be removed due to the alias action.
+
+First, create an ISM policy:
+
+```bash
+PUT /_plugins/_ism/policies/rollover_policy?pretty
+```
+
+```json
+{
+  "policy": {
+    "description": "Example rollover policy.",
+    "default_state": "rollover",
+    "states": [
+      {
+        "name": "rollover",
+        "actions": [
+          {
+            "rollover": {
+              "min_doc_count": 1
+            }
+          }
+        ],
+        "transitions": [{
+            "state_name": "alias",
+            "conditions": {
+              "min_doc_count": "2"
+            }
+          }]
+      },
+      {
+        "name": "alias",
+        "actions": [
+          {
+            "alias": {
+              "actions": [
+                {
+                  "remove": {
+                      "alias": "log"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "ism_template": {
+      "index_patterns": ["log*"],
+      "priority": 100
+    }
+  }
+}
+```
+
+Next, create an index template to enable the policy on:
+
+```bash
+PUT /_index_template/ism_rollover?
+```
+
+```json
+{
+  "index_patterns": ["log*"],
+  "template": {
+   "settings": {
+    "plugins.index_state_management.rollover_alias": "log"
+   }
+ }
+}
+```
+
+Then, change the cluster settings to trigger jobs every minute:
+
+```bash
+PUT /_cluster/settings?pretty=true
+```
+
+```json
+{
+  "persistent" : {
+    "plugins.index_state_management.job_interval" : 1
+  }
+}
+```
+
+Next, create a new index:
+
+```bash
+PUT /log-000001
+```
+
+```json
+{
+  "aliases": {
+    "log": {
+      "is_write_index": true
+    }
+  }
+}
+```
+
+Finally, add a document to the index to trigger the job:
+
+```bash
+POST /log-000001/_doc
+```
+
+```json
+{
+  "message": "dummy"
+}
+```
+
+You can verify these steps using the alias and index API:
+
+```bash
+GET /_cat/indices?pretty
+GET /_cat/aliases?pretty
+```
+
+#### Fail if a user tries to apply an alias action on a specific index or indexes
+
+The following policy creates an illegal argument exception with the error `"Alias action can only work on its applied index so don't accept index/indices parameter."`:
+
+```bash
+PUT /_plugins/_ism/policies/remove_action_policy?pretty
+```
+
+```json
+{
+  "policy": {
+    "description": "Example remove action policy.",
+    "default_state": "alias",
+    "states": [
+      {
+        "name": "alias",
+        "actions": [
+          {
+            "alias": {
+              "actions": [
+                {
+                  "add": {
+                      "alias": "log"
+                  }
+                },
+                {
+                  "remove": {
+                      "index": "log-00001",
+                      "alias": "log"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "ism_template": {
+      "index_patterns": ["log*"],
+      "priority": 100
+    }
+  }
+}
+```
+
+#### Fail if a user tries to remove index using alias action
+
+The following policy will create an illegal argument exception with the error `"Only ADD and REMOVE actions are allowed."`:
+
+```bash
+PUT /_plugins/_ism/policies/remove_index_policy?pretty
+```
+
+```json
+{
+  "policy": {
+    "description": "Example remove index policy.",
+    "default_state": "alias",
+    "states": [
+      {
+        "name": "alias",
+        "actions": [
+          {
+            "alias": {
+              "actions": [
+                {
+                  "remove_index": {
+                      "index": "log"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "ism_template": {
+      "index_patterns": ["log*"],
+      "priority": 100
+    }
+  }
+}
+```
+
+You can then use the following command to make the cluster green:
+
+```bash
+PUT /log-000001/_settings
+```
+
+```json
+{
+    "index" : {
+        "number_of_replicas" : 0
+    }
+}
+```
+
 ## Example policy
 
 The following example policy implements a `hot`, `warm`, and `delete` workflow. You can use this policy as a template to prioritize resources to your indexes based on their levels of activity.
