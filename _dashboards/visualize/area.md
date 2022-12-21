@@ -10,7 +10,7 @@ nav_order: 5
 
 Area charts can be created by searching OpenSearch, extracting data, and processing the results and can be added to a dashboard. An area chart is a line chart with the area between the line and the axis shaded with a color, and is a primary visualization type used to display time series data. You can create area charts in Dashboards using the Area visualization type or using the TSVB, Vega, or VisBuilder visualization tools. For this tutorial, you'll use the Area visualization type.
 
-# Create an area chart
+# Create a basic area chart
 
 In this tutorial you'll create a simple area chart in the [OpenSearch Dashboards playground](https://playground.opensearch.org/app/home#/) using sample data.
 
@@ -25,10 +25,10 @@ In this tutorial you'll create a simple area chart in the [OpenSearch Dashboards
   <img src="{{site.url}}{{site.baseurl}}/images/area-chart-4.png" alt="Visual of Step 6 process"> 
 1. Select **Save** from the menu bar at the top left of the screen, enter tutorial - Area in Title, and select **Save** to save. Note that Dashboards playground is read-only and will not save any of your session details such as queries.
 
-# Create an aggregation-based area chart
+# Create a simple aggregation-based area chart
 
 In Dashboards you have several ways to aggregate numeric data using using a sum, average, count, minimum, and much more. For more information on aggregations in OpenSearch, see the [Aggregations]({{site.url}}{{site.baseurl}}/opensearch/aggregations/) page.
 
-Following the steps below, you'll learn how to create an aggregation-based visualization in Dashboards.
+Following the steps below, you'll learn how to create a simple aggregation-based visualization in Dashboards.
 
 1. Select **Dashboard** in the 
