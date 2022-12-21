@@ -17,13 +17,10 @@ The Docker Compose commands used in this guide are written with a hyphen (for ex
 
 ## Prepare to upgrade
 
+Review the [Upgrade Overview](NEEDLINK) before you begin for recommendations about backing up your configuration files and creating a snapshot of the cluster state and indexes.
 
-
-
-
-[Restart upgrade](#restart-upgrade) 
-
-[Rolling upgrade](#rolling-upgrade)
+Storing a snapshot of your cluster before upgrading is important because OpenSearch nodes cannot be downgraded. If you need to revert the upgrade, then you will need to perform a fresh installation of OpenSearch and restore the cluster from your snapshot.
+{: .note}
 
 
 
