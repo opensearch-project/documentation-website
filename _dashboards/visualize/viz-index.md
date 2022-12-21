@@ -80,7 +80,7 @@ Coordinate maps show location-based data on a map. Use coordinate maps to visual
 
 ### Region maps
 
-Region maps show patterns and trends across geographic locations. A region map is one of the basemaps in Dashboards. For information about creating custom vector maps in Dashboards, see [Region maps visualizations](https://opensearch.org/docs/latest/dashboards/geojson-regionmaps/).
+Region maps show patterns and trends across geographic locations. A region map is one of the basemaps in Dashboards. For information about creating custom vector maps in Dashboards, see [Region map visualizations](https://opensearch.org/docs/latest/dashboards/geojson-regionmaps/).
 
 Reference [Maps]({{site.url}}{{site.baseurl}}/dashboards/visualize/maps/) to learn how to create and use them in Dashboards. 
 
