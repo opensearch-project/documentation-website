@@ -7,8 +7,6 @@ nav_order: 1000
 
 # Upgrade OpenSearch - Docker
 
-It's important to keep OpenSearch updated to ensure that your workflow is benefiting from the latest features, enhancements, and bug fixes.
-
 This guide assumes that you are comfortable working from the Linux command line interface (CLI). You should understand how to input commands, navigate between directories, and edit text files. For help with [Docker](https://www.docker.com/) or [Docker Compose](https://github.com/docker/compose), refer to the official documentation on their websites.
 {:.note}
 
@@ -17,12 +15,16 @@ The Docker Compose commands used in this guide are written with a hyphen (for ex
 
 ## Prepare to upgrade
 
-Review the [Upgrade Overview](NEEDLINK) before you begin for recommendations about backing up your configuration files and creating a snapshot of the cluster state and indexes.
+Review the [Upgrade Overview](NEEDLINK) for recommendations about backing up your configuration files and creating a snapshot of the cluster state and indexes before you make any changes to your OpenSearch cluster.
 
-Storing a snapshot of your cluster before upgrading is important because OpenSearch nodes cannot be downgraded. If you need to revert the upgrade, then you will need to perform a fresh installation of OpenSearch and restore the cluster from your snapshot.
+OpenSearch nodes cannot be downgraded. If you need to revert the upgrade, then you will need to perform a fresh installation of OpenSearch and restore the cluster from a snapshot.
 {: .note}
 
+### Rolling upgrade
 
+
+
+### Cluster restart upgrade (Docker Compose)
 
 
 
