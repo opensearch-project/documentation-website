@@ -2,7 +2,7 @@
 layout: default
 title: otel_trace_source source
 parent: Sources
-nav_order: 45
+nav_order: 15
 ---
 
 

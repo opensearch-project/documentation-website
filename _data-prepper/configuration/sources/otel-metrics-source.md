@@ -2,7 +2,7 @@
 layout: default
 title: otel_metrics_source
 parent: Sources
-nav_order: 45
+nav_order: 10
 ---
 
 
