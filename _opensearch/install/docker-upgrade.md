@@ -22,7 +22,7 @@ OpenSearch nodes cannot be downgraded. If you need to revert the upgrade, then y
 
 ### Rolling upgrade
 
-
+Rolling upgrades can be performed 
 
 ### Cluster restart upgrade (Docker Compose)
 

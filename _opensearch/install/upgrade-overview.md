@@ -56,6 +56,8 @@ Choose an appropriate method for upgrading your cluster to a new version of Open
 - [Rolling upgrade](#rolling-upgrade) allows you to upgrade nodes individually without stopping the cluster.
 - [Cluster restart upgrade](#cluster-restart-upgrade) allows the upgrade to be performed while the cluster is stopped.
 
+Upgrades spanning more than a single major version of OpenSearch will require additional effort due to the need for reindexing. You should upgrade in steps, one major version at a time. After each upgrade you should reindex because OpenSearch is not compatible with indexes that are more than a single major version behind your cluster's OpenSearch/Lucene version. For more information, refer to the [Reindex]({{site.url}}{{site.baseurl}}/api-reference/document-apis/reindex/) API.
+
 ### Rolling upgrade
 
 Rolling upgrades are a great option if you want to keep your cluster operational throughout the process. Shard replication is stopped temporarily, then nodes are upgraded one at a time. A variation of the rolling upgrade, often referred to as "node replacement," is exactly the same process except hosts or containers are not reused for the new node.
