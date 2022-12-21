@@ -53,10 +53,12 @@ We recommend that you back up your cluster state and indexes using [Snapshots]({
 
 Choose an appropriate method for upgrading your cluster to a new version of OpenSearch based on your requirements.
 
-- [Rolling upgrade](#rolling-upgrade)
-- [Restart upgrade](#restart-upgrade)
+- [Rolling upgrade](#rolling-upgrade) allows you to upgrade nodes individually without stopping the cluster.
+- [Restart upgrade](#restart-upgrade) ????? -- Need to follow-up on why someone would ever want to do a restart upgrade.
 
 ### Rolling upgrade
+
+The rolling upgrade involves shutting down one node at a time, upgrading it, then starting the node so it can rejoin the cluster. A variation of this method, called "node replacement," is essentially the same process except hosts or containers are not reused.
 
 
 
