@@ -54,15 +54,12 @@ We recommend that you back up your cluster state and indexes using [Snapshots]({
 Choose an appropriate method for upgrading your cluster to a new version of OpenSearch based on your requirements.
 
 - [Rolling upgrade](#rolling-upgrade) allows you to upgrade nodes individually without stopping the cluster.
-- [Restart upgrade](#restart-upgrade) ????? -- Need to follow-up on why someone would ever want to do a restart upgrade.
+- [Cluster restart upgrade](#cluster-restart-upgrade) ????? -- Need to follow-up on why someone would ever want to do a restart upgrade.
 
 ### Rolling upgrade
 
-The rolling upgrade involves shutting down one node at a time, upgrading it, then starting the node so it can rejoin the cluster. A variation of this method, called "node replacement," is essentially the same process except hosts or containers are not reused.
+Rolling upgrades are a great option if you want to keep your cluster operational throughout the process. Shard replication is stopped temporarily, then nodes are upgraded one at a time. A variation of the rolling upgrade, often referred to as "node replacement," is exactly the same process except hosts or containers are not reused for the new node.
 
+### Cluster restart upgrade
 
-
-### Restart upgrade
-
-Restart upgrades, also referred to as cluster restart upgrades, are very straightforward but will incur downtime.
-
+OpenSearch administrators might choose a restart upgrade if they aren't comfortable performing maintenance on a running cluster, or if the cluster is being migrated to different infrastructure. During a rolling upgrade, only a single node is offline at any point in time. The cluster restart upgrade, however, involves stopping all nodes in the cluster, performing the upgrade, and starting the cluster back up.
