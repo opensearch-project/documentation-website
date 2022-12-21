@@ -11,7 +11,7 @@ By visualizing your data, you translate complex, high-volume, or numerical data 
 
 # Visualization types in OpenSearch Dashboards
 
-Dashboards has several visualization types to support your data analysis needs. The following sections give you an overview of the visualization types in Dashboards and their common use cases.
+Dashboards has several visualization types to support your data analysis needs. The following sections provide an overview of the visualization types in Dashboards and their common use cases.
 
 ## Area charts
 
