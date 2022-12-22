@@ -2,6 +2,7 @@
 layout: default
 title: drop_events
 parent: Processors
+grand_parent: Configuring Data Prepper
 nav_order: 45
 ---
 

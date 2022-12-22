@@ -2,6 +2,7 @@
 layout: default
 title: aggregate
 parent: Processors
+grand_parent: Configuring Data Prepper
 nav_order: 45
 ---
 

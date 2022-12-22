@@ -2,6 +2,7 @@
 layout: default
 title: add_entries
 parent: Processors
+grand_parent: Configuring Data Prepper
 nav_order: 45
 ---
 

@@ -2,6 +2,7 @@
 layout: default
 title: substitute_string
 parent: Processors
+grand_parent: Configuring Data Prepper
 nav_order: 45
 ---
 

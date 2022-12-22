@@ -3,6 +3,7 @@ layout: default
 title: routes
 parent: Processors
 nav_order: 45
+grand_parent: Configuring Data Prepper
 ---
 
 # Routes

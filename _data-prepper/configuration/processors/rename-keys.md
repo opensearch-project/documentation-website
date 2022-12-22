@@ -2,6 +2,7 @@
 layout: default
 title: rename_keys
 parent: Processors
+grand_parent: Configuring Data Prepper
 nav_order: 44
 ---
 

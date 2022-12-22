@@ -2,6 +2,7 @@
 layout: default
 title: otel_trace_raw
 parent: Processors
+grand_parent: Configuring Data Prepper
 nav_order: 45
 ---
 
