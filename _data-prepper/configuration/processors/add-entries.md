@@ -19,10 +19,10 @@ key | N/A | N/A | Key of the new event to be added.
 value | N/A | N/A | Value of the new entry to be added. Valid data types are strings, booleans, numbers, null, nested objects, and arrays containing the aforementioned data types.
 overwrite_if_key_exists | No | Boolean | If true, the existing value gets overwritten if the key already exists within the event. Default is `false`.
 
-## Configuration
+<!--- ## Configuration
 
 Content will be added to this section.
 
 ## Metrics
 
-Content will be added to this section.
+Content will be added to this section.---->

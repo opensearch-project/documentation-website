@@ -25,10 +25,12 @@ prefix | No | String | A prefix given to all keys. Default value is empty string
 delete_key_regex | No | String | A regex used to delete characters from the key. Special regex characters such as `[` and `]` must be escaped using `\\`. There is no default value.
 delete_value_regex | No | String | A regex used to delete characters from the value. Special regex characters such as `[` and `]` must be escaped using `\\`. There is no default value.
 
-## Configuration
+
+
+<!--- ## Configuration
 
 Content will be added to this section.
 
 ## Metrics
 
-Content will be added to this section.
+Content will be added to this section. --->

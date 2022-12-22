@@ -21,10 +21,10 @@ source_timezone | No | String | Time zone used to parse dates. It is used in cas
 destination_timezone | No | String | Timezone used for storing timestamp in `destination` field. The available timezone values are the same as `source_timestamp`.
 locale | No | String | Locale is used for parsing dates. It's commonly used for parsing month names(`MMM`). It can have language, country and variant fields using IETF BCP 47 or String representation of [Locale](https://docs.oracle.com/javase/8/docs/api/java/util/Locale.html) object. For example `en-US` for IETF BCP 47 and `en_US` for string representation of Locale. Full list of locale fields which includes language, country and variant can be found [the language subtag registry](https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry). Default value is `Locale.ROOT`.
 
-## Configuration
+<!---## Configuration
 
 Content will be added to this section.
 
 ## Metrics
 
-Content will be added to this section.
+Content will be added to this section.--->

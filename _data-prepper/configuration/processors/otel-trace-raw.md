@@ -23,10 +23,10 @@ Option | Required | Type | Description
 :--- | :--- | :--- | :---
 trace_flush_interval | No | Integer | Represents the time interval in seconds to flush all the descendant spans without any root span. Default is 180.
 
-## Configuration
+<!---## Configuration
 
 Content will be added to this section.
 
 ## Metrics
 
-Content will be added to this section.
+Content will be added to this section.--->

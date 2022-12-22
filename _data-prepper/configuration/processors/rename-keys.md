@@ -19,10 +19,10 @@ from_key | N/A | N/A | The key of the entry to be renamed.
 to_key | N/A | N/A | The new key of the entry.
 overwrite_if_to_key_exists | No | Boolean | If true, the existing value gets overwritten if `to_key` already exists in the event.
 
-## Configuration
+<!---## Configuration
 
 Content will be added to this section.
 
 ## Metrics
 
-Content will be added to this section.
+Content will be added to this section.--->

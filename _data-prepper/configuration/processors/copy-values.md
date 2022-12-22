@@ -19,10 +19,10 @@ from_key | N/A | N/A | The key of the entry to be copied.
 to_key | N/A | N/A | The key of the new entry to be added.
 overwrite_if_to_key_exists | No | Boolean | If true, the existing value is overwritten if the key already exists within the event. Default is `false`.
 
-## Configuration
+<!---## Configuration
 
 Content will be added to this section.
 
 ## Metrics
 
-Content will be added to this section.
+Content will be added to this section.--->

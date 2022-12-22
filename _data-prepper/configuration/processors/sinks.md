@@ -12,10 +12,10 @@ nav_order: 45
 
 Sinks define where Data Prepper writes your data to. 
 
-## Configuration
+<!---## Configuration
 
 Content will be added to this section.
 
 ## Metrics
 
-Content will be added to this section.
+Content will be added to this section.--->

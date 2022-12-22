@@ -16,10 +16,10 @@ Option | Required | Type | Description
 :--- | :--- | :--- | :---
 upper_case | No | Boolean | Whether to convert to uppercase (`true`) or lowercase (`false`).
 
-## Configuration
+<!---## Configuration
 
 Content will be added to this section.
 
 ## Metrics
 
-Content will be added to this section.
+Content will be added to this section.--->

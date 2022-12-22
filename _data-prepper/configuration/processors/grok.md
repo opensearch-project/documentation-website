@@ -25,10 +25,10 @@ pattern_files_glob | No | String | Specifies which pattern files to use from the
 target_key | No | String | Specifies a parent level key to store all captures. Default value is `null`.
 timeout_millis | No | Integer | Maximum amount of time that should take place for the matching. Setting to `0` disables the timeout. Default value is `30,000`.
 
-## Configuration
+<!---## Configuration
 
 Content will be added to this section.
 
 ## Metrics
 
-Content will be added to this section.
+Content will be added to this section.--->

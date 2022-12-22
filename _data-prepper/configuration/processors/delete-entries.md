@@ -16,10 +16,10 @@ Option | Required | Type | Description
 :--- | :--- | :--- | :---
 with_keys | Yes | List |  An array of keys of the entries to be deleted.
 
-## Configuration
+<!---## Configuration
 
 Content will be added to this section.
 
 ## Metrics
 
-Content will be added to this section.
+Content will be added to this section.--->
