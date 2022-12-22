@@ -536,7 +536,7 @@ The following configuration is only suitable for testing in a non-production env
 ## Related links
 
 - [OpenSearch configuration]({{site.url}}{{site.baseurl}}/opensearch/configuration/)
-- [Configure Performance Analyzer for Tarball Installation]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/index/#configure-performance-analyzer-for-tarball-installation)
+- [Configure Performance Analyzer for Tarball Installation]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/index/#install-performance-analyzer)
 - [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/install/index/)
 - [OpenSearch plugin installation]({{site.url}}{{site.baseurl}}/opensearch/install/plugins/)
 - [About the security plugin]({{site.url}}{{site.baseurl}}/security-plugin/index/)
