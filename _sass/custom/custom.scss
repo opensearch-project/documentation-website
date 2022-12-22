@@ -227,11 +227,12 @@ img {
   width: 2.5rem;
   height: 2.5rem;
   color: $blue-dk-100;
+  background-color: white;
   border-width:2px; 
   border-style:solid;
   border-color: $grey-lt-300;
   border-radius: 10px;
-  box-shadow: 1px 2px 3px $grey-lt-300;
+  box-shadow: 1px 1px 1px $grey-lt-300;
   padding: 0.2rem;
   position: fixed;
   bottom: 30px;
@@ -557,6 +558,10 @@ main {
 
 .container {
   box-sizing: content-box;
+
+  @include mq(xs) {
+    margin: 0 calc(#{$top-button-margin} + 1rem);
+  }
 
   @include mq(md) {
     margin: 0 auto;
