@@ -560,7 +560,7 @@ main {
   box-sizing: content-box;
 
   @include mq(xs) {
-    margin: 0 calc(#{$top-button-margin} + 1rem);
+    padding: 0 calc(#{$top-button-margin} + 1rem);
   }
 
   @include mq(md) {
