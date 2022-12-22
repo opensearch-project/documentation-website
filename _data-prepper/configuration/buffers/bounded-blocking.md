@@ -2,6 +2,7 @@
 layout: default
 title: Bounded blocking
 parent: Buffers
+grand_parent: Configuring Data Prepper
 nav_order: 50
 ---
 
