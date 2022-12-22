@@ -51,6 +51,10 @@ Most OpenSearch plugins have corresponding OpenSearch Dashboards plugins that pr
 
 For specifics around the project, see the [FAQ](https://opensearch.org/faq/).
 
+
+---
+
+
 ---
 
 ## Installation
