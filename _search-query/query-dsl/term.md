@@ -143,7 +143,7 @@ The search query “To be, or not to be” is analyzed and tokenized into an arr
 ...
 ```
 
-For a list of all full-text queries, see [Full-text queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/).
+For a list of all full-text queries, see [Full-text queries]({{site.url}}{{site.baseurl}}/search-query/query-dsl/full-text/).
 
 If you want to query for an exact term like “HAMLET” in the speaker field and don't need the results to be sorted by relevance scores, a term-level query is more efficient:
 

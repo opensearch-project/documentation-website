@@ -114,7 +114,7 @@ POST _reindex
 }
 ```
 
-For a list of all query operations, see [Full-text queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/).
+For a list of all query operations, see [Full-text queries]({{site.url}}{{site.baseurl}}/search-query/query-dsl/full-text/).
 
 ## Combine one or more indices
 
