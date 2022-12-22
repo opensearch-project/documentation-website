@@ -2,7 +2,7 @@
 layout: default
 title: Processors
 has_children: true
-parent: Reference
+has_parent: Configuring Data Prepper
 nav_order: 44
 ---
 
