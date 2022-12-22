@@ -1,7 +1,8 @@
 ---
 layout: default
-title: Get started
+title: OpenSearch documentation
 nav_order: 1
+has_children: true
 redirect_from: /404.html
 permalink: /
 ---
@@ -13,7 +14,13 @@ This site contains the technical documentation for [OpenSearch](https://opensear
 [Get started](#docker-quickstart){: .btn .btn-blue }
 
 
----
+## Getting started
+
+- [About OpenSearch]({{site.url}}{{site.baseurl}}/opensearch/)
+- [Quickstart]({{site.url}}{{site.baseurl}}/quickstart/)
+- [Install OpenSearch]({{site.url}}{{site.baseurl}}/opensearch/install/)
+- [Install OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/install/)
+- [See the FAQ](https://opensearch.org/faq)
 
 ## Why use OpenSearch?
 
@@ -46,65 +53,6 @@ For specifics around the project, see the [FAQ](https://opensearch.org/faq/).
 
 
 ---
-
-## Docker quickstart
-Docker
-{: .label .label-green }
-
-1. Install and start [Docker Desktop](https://www.docker.com/products/docker-desktop).
-1. Run the following commands:
-
-   ```bash
-   docker pull opensearchproject/opensearch:{{site.opensearch_version}}
-   docker run -p 9200:9200 -p 9600:9600 -e "discovery.type=single-node" opensearchproject/opensearch:{{site.opensearch_version}}
-   ```
-
-1. In a new terminal session, run:
-
-   ```bash
-   curl -XGET --insecure -u 'admin:admin' 'https://localhost:9200'
-   ```
-1. [Create]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/) your first index.
-
-   ```bash
-   curl -XPUT --insecure -u 'admin:admin' 'https://localhost:9200/my-first-index'
-   ```
-
-1. [Add some data]({{site.url}}{{site.baseurl}}/opensearch/index-data/) to your newly created index.
-
-   ```bash
-   curl -XPUT --insecure -u 'admin:admin' 'https://localhost:9200/my-first-index/_doc/1' -H 'Content-Type: application/json' -d '{"Description": "To be or not to be, that is the question."}'
-   ```
-
-1. [Retrieve the data]({{site.url}}{{site.baseurl}}/opensearch/index-data/#read-data) to see that it was added properly.
-
-   ```bash
-   curl -XGET --insecure -u 'admin:admin' 'https://localhost:9200/my-first-index/_doc/1'
-   ```
-
-1. After verifying that the data is correct, [delete the document]({{site.url}}{{site.baseurl}}/opensearch/index-data/#delete-data).
-
-   ```bash
-   curl -XDELETE --insecure -u 'admin:admin' 'https://localhost:9200/my-first-index/_doc/1'
-   ```
-
-1. Finally, [delete the index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/delete-index).
-
-   ```bash
-   curl -XDELETE --insecure -u 'admin:admin' 'https://localhost:9200/my-first-index/'
-   ```
-
-To learn more, see [Docker image]({{site.url}}{{site.baseurl}}/opensearch/install/docker/) and [Configuring basic security settings]({{site.url}}{{site.baseurl}}/opensearch/install/docker#configuring-basic-security-settings).
-
-
----
-
-## Installation
-
-For more comprehensive installation instructions for other download types, such as tarballs, see these pages:
-
-- [Install and configure OpenSearch]({{site.url}}{{site.baseurl}}/opensearch/install/)
-- [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/install/)
 
 
 ## The secure path forward
