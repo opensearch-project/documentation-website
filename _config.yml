@@ -64,6 +64,9 @@ collections:
   clients:
     permalink: /:collection/:path/
     output: true
+  api-reference:
+    permalink: /:collection/:path/
+    output: true  
   troubleshoot:
     permalink: /:collection/:path/
     output: true
@@ -111,6 +114,9 @@ just_the_docs:
       nav_fold: true
     clients:
       name: Clients and tools
+      nav_fold: true
+    api-reference:
+      name: API reference
       nav_fold: true
     troubleshoot:
       name: Troubleshooting
