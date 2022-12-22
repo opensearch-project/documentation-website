@@ -189,7 +189,7 @@ You can use composable index templates to overcome these challenges. Composable 
 
 You can combine component templates to compose an index template.
 
-Settings and mappings that you specify directly in the [create index]({{site.url}}{{site.baseurl}}/opensearch/rest-api/index-apis/create-index/) request override any settings or mappings specified in an index template and its component templates.
+Settings and mappings that you specify directly in the [create index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/) request override any settings or mappings specified in an index template and its component templates.
 {: .note }
 
 ### Create a component template
