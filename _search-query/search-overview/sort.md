@@ -295,7 +295,7 @@ GET shakespeare/_search
 
 The results are sorted by the `play_name` field in alphabetical order.
 
-Use `sort` with the [`search_after` parameter]({{site.url}}{{site.baseurl}}/opensearch/search/paginate#the-search_after-parameter) for more efficient scrolling.
+Use `sort` with the [`search_after` parameter]({{site.url}}{{site.baseurl}}/search-query/search-overview/paginate#the-search_after-parameter) for more efficient scrolling.
 The results start with the document that comes after the sort values you specify in the `search_after` array.
 
 Make sure you have the same number of values in the `search_after` array as in the `sort` array, also ordered in the same way.

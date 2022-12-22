@@ -23,7 +23,7 @@ For example, you can see how results change when you apply one of the following 
 
 ## Prerequisites
 
-Before you get started, you must index data in OpenSearch. To learn how to create a new index, see [Index data]({{site.url}}{{site.baseurl}}/opensearch/index-data). 
+Before you get started, you must index data in OpenSearch. To learn how to create a new index, see [Index data]({{site.url}}{{site.baseurl}}/search-query/prep-data/index-data).
 
 Alternatively, you can add sample data in OpenSearch Dashboards using the following steps:
 

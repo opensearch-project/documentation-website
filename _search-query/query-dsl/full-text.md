@@ -428,6 +428,7 @@ GET _search
 You can filter your query results by using some of the optional query fields, such as wildcards, fuzzy query fields, and synonyms. You can also use analyzers as optional query fields. To learn more, see [How to use text analyzers]({{site.url}}{{site.baseurl}}/search-query/optimize-text/optimize-text-analyzers/#how-to-use-text-analyzers).
 
 
+
 ### Wildcard options
 
 Option | Valid values | Description
