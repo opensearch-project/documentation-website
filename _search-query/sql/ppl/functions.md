@@ -8,7 +8,7 @@ nav_order: 2
 
 # Commands
 
-`PPL` supports all [`SQL` common]({{site.url}}{{site.baseurl}}/search-plugins/sql/functions/) functions, including [relevance search]({{site.url}}{{site.baseurl}}/search-plugins/sql/full-text/), but also introduces few more functions (called `commands`) which are available in `PPL` only.
+`PPL` supports all [`SQL` common]({{site.url}}{{site.baseurl}}/search-query/sql/functions/) functions, including [relevance search]({{site.url}}{{site.baseurl}}/search-query/sql/full-text/), but also introduces few more functions (called `commands`) which are available in `PPL` only.
 
 ## dedup
 

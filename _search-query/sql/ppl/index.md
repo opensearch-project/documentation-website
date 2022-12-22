@@ -15,7 +15,7 @@ redirect_from:
 
 Piped Processing Language (PPL) is a query language that lets you use pipe (`|`) syntax to explore, discover, and query data stored in OpenSearch.
 
-To quickly get up and running with PPL, use **Query Workbench** in OpenSearch Dashboards. To learn more, see [Workbench]({{site.url}}{{site.baseurl}}/search-plugins/sql/workbench/).
+To quickly get up and running with PPL, use **Query Workbench** in OpenSearch Dashboards. To learn more, see [Workbench]({{site.url}}{{site.baseurl}}/search-query/sql/workbench/).
 
 The PPL syntax consists of commands delimited by the pipe character (`|`) where data flows from left to right through each pipeline.
 

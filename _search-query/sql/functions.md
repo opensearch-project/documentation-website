@@ -134,4 +134,4 @@ isnull | `isnull(es_type) -> integer` | `SELECT isnull(null) FROM my-index LIMIT
 
 ## Relevance-based search (full-text search)
 
-These functions are only available in the `WHERE` clause. For their descriptions and usage examples in SQL and PPL, see [Full-text search]({{site.url}}{{site.baseurl}}/search-plugins/sql/full-text/).
+These functions are only available in the `WHERE` clause. For their descriptions and usage examples in SQL and PPL, see [Full-text search]({{site.url}}{{site.baseurl}}/search-query/sql/full-text/).

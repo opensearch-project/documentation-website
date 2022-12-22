@@ -17,7 +17,7 @@ To learn more about search query classes, see [Lucene query JavaDocs](https://lu
 
 The full-text query types shown in this section use the standard analyzer, which analyzes text automatically when the query is submitted.
 
-You can also analyze fields when you index them. To learn more about how to convert unstructured text into structured text that is optimized for search, see [Optimizing text for searches with text analyzers]({{site.url}}{{site.baseurl}}/search-query/query-dsl/text-analyzers).
+You can also analyze fields when you index them. To learn more about how to convert unstructured text into structured text that is optimized for search, see [Optimizing text for searches with text analyzers]({{site.url}}{{site.baseurl}}/search-query/optimize-text/optimize-text-analyzers).
 {: .note }
 
 <!-- to do: rewrite query type definitions per issue: https://github.com/opensearch-project/documentation-website/issues/1116
