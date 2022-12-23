@@ -98,7 +98,7 @@ If you are upgrading an Open Distro for Elasticsearch cluster, we recommend firs
    }
    ```
 
-1. If you upgraded from 5.x to 6.x, [reindex]({{site.url}}{{site.baseurl}}/opensearch/reindex-data/) all indices.
+1. If you upgraded from 5.x to 6.x, [reindex]({{site.url}}{{site.baseurl}}/search-query/prep-data/reindex-data/) all indices.
 
 1. Repeat all steps as necessary until you arrive at your desired Elasticsearch OSS version.
 

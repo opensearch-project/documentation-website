@@ -80,7 +80,7 @@ The best way to try out OpenSearch is to use Docker Compose. Setting up OpenSear
    curl -XPUT --insecure -u 'admin:admin' 'https://localhost:9200/my-first-index'
    ```
 
-1. [Add some data]({{site.url}}{{site.baseurl}}/opensearch/index-data/) to your newly created index.
+1. [Add some data]({{site.url}}{{site.baseurl}}/search-query/prep-data/index-data/) to your newly created index.
 
    ```bash
    curl -XPUT --insecure -u 'admin:admin' 'https://localhost:9200/my-first-index/_doc/1' -H 'Content-Type: application/json' -d '{"Description": "To be or not to be, that is the question."}'

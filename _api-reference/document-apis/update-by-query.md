@@ -80,7 +80,7 @@ wait_for_completion | boolean | When set to `false`, the response body includes 
 
 ## Request body
 
-To update your indices and documents by query, you must include a [query]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index) and a script in the request body that OpenSearch can run to update your documents. If you don't specify a query, then every document in the index gets updated.
+To update your indices and documents by query, you must include a [query]({{site.url}}{{site.baseurl}}/search-query/query-dsl/index) and a script in the request body that OpenSearch can run to update your documents. If you don't specify a query, then every document in the index gets updated.
 
 ```json
 {
