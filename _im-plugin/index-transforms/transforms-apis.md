@@ -48,9 +48,9 @@ source_index | String | The source index containing the data to be transformed. 
 target_index | String | The target index the newly transformed data is added to. You can create a new index or update an existing one. | Yes
 data_selection_query | Object | The query DSL to use to filter a subset of the source index for the transform job. See [query domain-specific language(DSL)]({{site.url}}{{site.baseurl}}/opensearch/query-dsl) for more information. | Yes
 page_size | Integer | The number of buckets IM processes and indexes concurrently. A higher number results in better performance, but it requires more memory. If your machine runs out of memory, Index Management (IM) automatically adjusts this field and retries until the operation succeeds. | Yes
-groups | Array | Specifies the grouping(s) to use in the transform job. Supported groups are `terms`, `histogram`, and `date_histogram`. For more information, see [Bucket Aggregations]({{site.url}}{{site.baseurl}}/opensearch/bucket-agg). | Yes if not using aggregations.
+groups | Array | Specifies the grouping(s) to use in the transform job. Supported groups are `terms`, `histogram`, and `date_histogram`. For more information, see [Bucket Aggregations]({{site.url}}{{site.baseurl}}/search-query/aggregate/bucket-agg). | Yes if not using aggregations.
 source_field | String | The field(s) to transform. | Yes
-aggregations | Object | The aggregations to use in the transform job. Supported aggregations are `sum`, `max`, `min`, `value_count`, `avg`, `scripted_metric`, and `percentiles`. For more information, see [Metric Aggregations]({{site.url}}{{site.baseurl}}/opensearch/metric-agg). | Yes if not using groups.
+aggregations | Object | The aggregations to use in the transform job. Supported aggregations are `sum`, `max`, `min`, `value_count`, `avg`, `scripted_metric`, and `percentiles`. For more information, see [Metric Aggregations]({{site.url}}{{site.baseurl}}/search-query/aggregate/metric-agg). | Yes if not using groups.
 
 #### Sample Request
 

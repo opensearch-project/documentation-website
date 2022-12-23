@@ -42,7 +42,7 @@ On the other hand, aggregations let you perform simple calculations. For example
 
 1. In the data table, select the fields you want to transform and expand the drop-down menu within the column header to choose the grouping or aggregation you want to use.
 
-    Currently, transform jobs support histogram, date_histogram, and terms groupings. For more information about groupings, see [Bucket Aggregations]({{site.url}}{{site.baseurl}}/opensearch/bucket-agg/). In terms of aggregations, you can select from `sum`, `avg`, `max`, `min`, `value_count`, `percentiles`, and `scripted_metric`. For more information about aggregations, see [Metric Aggregations]({{site.url}}{{site.baseurl}}/opensearch/metric-agg/).
+    Currently, transform jobs support histogram, date_histogram, and terms groupings. For more information about groupings, see [Bucket Aggregations]({{site.url}}{{site.baseurl}}/search-query/aggregate/bucket-agg/). In terms of aggregations, you can select from `sum`, `avg`, `max`, `min`, `value_count`, `percentiles`, and `scripted_metric`. For more information about aggregations, see [Metric Aggregations]({{site.url}}{{site.baseurl}}/search-query/aggregate/metric-agg/).
 
 1. Repeat step 1 for any other fields that you want to transform.
 1. After selecting the fields that you want to transform and verifying the transformation, choose **Next**.
