@@ -48,7 +48,7 @@ To see the number of documents in an index:
 GET opensearch_dashboards_sample_data_logs/_count
 ```
 
-To check for the number of documents in a [data stream]({{site.url}}{{site.baseurl}}/opensearch/data-streams/), replace the index name with the data stream name.
+To check for the number of documents in a [data stream]({{site.url}}{{site.baseurl}}/search-query/prep-data/data-streams/), replace the index name with the data stream name.
 
 To see the number of documents in your cluster:
 

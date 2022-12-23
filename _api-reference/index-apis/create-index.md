@@ -66,7 +66,7 @@ timeout | Time | How long to wait for the request to return. Default is `30s`.
 
 ## Request body
 
-As part of your request, you can supply parameters in your request's body that specify index settings, mappings, and [aliases]({{site.url}}{{site.baseurl}}/opensearch/index-alias/) for your newly created index. The following sections provide more information about index settings and mappings.
+As part of your request, you can supply parameters in your request's body that specify index settings, mappings, and [aliases]({{site.url}}{{site.baseurl}}/search-query/prep-data/index-alias/) for your newly created index. The following sections provide more information about index settings and mappings.
 
 
 ### Index settings

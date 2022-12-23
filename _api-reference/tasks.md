@@ -22,7 +22,7 @@ By including a task ID, you can get information specific to a particular task. N
 GET _tasks/<task_id>
 ```
 
-Note that if a task finishes running, it won't be returned as part of your request. For an example of a task that takes a little longer to finish, you can run the [`_reindex`]({{site.url}}{{site.baseurl}}/opensearch/reindex-data) API operation on a larger document, and then run `tasks`.
+Note that if a task finishes running, it won't be returned as part of your request. For an example of a task that takes a little longer to finish, you can run the [`_reindex`]({{site.url}}{{site.baseurl}}/search-query/prep-data/reindex-data) API operation on a larger document, and then run `tasks`.
 
 **Sample Response**
 ```json

@@ -12,7 +12,7 @@ Restores a snapshot of a cluster or specified data streams and indices.
 
 * For information about indices and clusters, see [Introduction to OpenSearch]({{site.url}}{{site.baseurl}}/opensearch/index).
 
-* For information about data streams, see [Data streams]({{site.url}}{{site.baseurl}}/opensearch/data-streams).
+* For information about data streams, see [Data streams]({{site.url}}{{site.baseurl}}/search-query/prep-data/data-streams).
 
 If open indices with the same name that you want to restore already exist in the cluster, you must close, delete, or rename the indices. See [Sample Request](#sample-request) for information about renaming an index. See [Close index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/close-index) for information about closing an index.
 {: .note}

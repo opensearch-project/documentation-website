@@ -60,4 +60,4 @@ alias1  | movies    |   *     |      -        |       -         |      -
 .opensearch-dashboards | .opensearch-dashboards_1 |   -     |      -        |       -         |      -
 ```
 
-To learn more about index aliases, see [Index aliases]({{site.url}}{{site.baseurl}}/opensearch/index-alias).
+To learn more about index aliases, see [Index aliases]({{site.url}}{{site.baseurl}}/search-query/prep-data/index-alias).

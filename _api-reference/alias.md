@@ -79,4 +79,4 @@ search_routing | String | Assigns a custom value to a shard only for search oper
 }
 ```
 
-For more alias API operations, see [Index aliases]({{site.url}}{{site.baseurl}}/opensearch/index-alias/).
+For more alias API operations, see [Index aliases]({{site.url}}{{site.baseurl}}/search-query/prep-data/index-alias/).

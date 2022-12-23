@@ -6,7 +6,7 @@ nav_order: 10
 
 # Event analytics
 
-Event analytics in Observability is where you can use [Piped Processing Language]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index) (PPL) queries to build and view different visualizations of your data.
+Event analytics in Observability is where you can use [Piped Processing Language]({{site.url}}{{site.baseurl}}/search-query/sql/ppl/index) (PPL) queries to build and view different visualizations of your data.
 
 ## Get started with event analytics
 
@@ -24,7 +24,7 @@ source = opensearch_dashboards_sample_data_logs | fields host | stats count()
 
 By default, Dashboards shows results from the last 15 minutes of your data. To see data from a different timeframe, use the date and time selector.
 
-For more information about building PPL queries, see [Piped Processing Language]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index).
+For more information about building PPL queries, see [Piped Processing Language]({{site.url}}{{site.baseurl}}/search-query/sql/ppl/index).
 
 ## Save a visualization
 

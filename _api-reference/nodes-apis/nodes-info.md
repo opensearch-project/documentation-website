@@ -63,7 +63,7 @@ transport | Mostly static information about the transport layer.
 http | Mostly static information about the HTTP layer.
 plugins | Information about installed plugins and modules.
 ingest | Information about ingest pipelines and available ingest processors.
-aggregations | Information about available [aggregations]({{site.url}}{{site.baseurl}}/opensearch/aggregations).
+aggregations | Information about available [aggregations]({{site.url}}{{site.baseurl}}/search-query/aggregate/aggregations).
 indices | Static index settings configured at the node level.
 
 ## Query parameters

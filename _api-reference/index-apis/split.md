@@ -57,7 +57,7 @@ timeout | Time | How long to wait for the request to return. Default is `30s`.
 
 ## Request body
 
-The split index API operation creates a new target index, so you can specify any [index settings]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/#index-settings) and [aliases]({{site.url}}{{site.baseurl}}/opensearch/index-alias) to apply to the target index.
+The split index API operation creates a new target index, so you can specify any [index settings]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/#index-settings) and [aliases]({{site.url}}{{site.baseurl}}/search-query/prep-data/index-alias) to apply to the target index.
 
 ## Response
 

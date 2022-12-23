@@ -50,4 +50,4 @@ name | index_patterns order version composed_of
 tenant_template | [opensearch-dashboards*] | 0  |    
 ```
 
-To learn more about index templates, see [Index templates]({{site.url}}{{site.baseurl}}/opensearch/index-templates).
+To learn more about index templates, see [Index templates]({{site.url}}{{site.baseurl}}/search-query/prep-data/index-templates).
