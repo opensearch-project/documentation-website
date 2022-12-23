@@ -799,12 +799,8 @@ In the following example, the first job will trigger the rollover action and a n
 
 First, create an ISM policy:
 
-```bash
-PUT /_plugins/_ism/policies/rollover_policy?pretty
-```
-{% include copy-curl.html %}
-
 ```json
+PUT /_plugins/_ism/policies/rollover_policy?pretty
 {
   "policy": {
     "description": "Example rollover policy.",
@@ -853,12 +849,8 @@ PUT /_plugins/_ism/policies/rollover_policy?pretty
 
 Next, create an index template to enable the policy on:
 
-```bash
-PUT /_index_template/ism_rollover?
-```
-{% include copy-curl.html %}
-
 ```json
+PUT /_index_template/ism_rollover?
 {
   "index_patterns": ["log*"],
   "template": {
@@ -868,30 +860,24 @@ PUT /_index_template/ism_rollover?
  }
 }
 ```
+{% include copy-curl.html %}
 
 Then, change the cluster settings to trigger jobs every minute:
 
-```bash
-PUT /_cluster/settings?pretty=true
-```
-{% include copy-curl.html %}
-
 ```json
+PUT /_cluster/settings?pretty=true
 {
   "persistent" : {
     "plugins.index_state_management.job_interval" : 1
   }
 }
 ```
+{% include copy-curl.html %}
 
 Next, create a new index:
 
-```bash
-PUT /log-000001
-```
-{% include copy-curl.html %}
-
 ```json
+PUT /log-000001
 {
   "aliases": {
     "log": {
@@ -900,28 +886,26 @@ PUT /log-000001
   }
 }
 ```
+{% include copy-curl.html %}
 
 Finally, add a document to the index to trigger the job:
 
-```bash
-POST /log-000001/_doc
-```
-{% include copy-curl.html %}
-
 ```json
+POST /log-000001/_doc
 {
   "message": "dummy"
 }
 ```
+{% include copy-curl.html %}
 
 You can verify these steps using the alias and index API:
 
-```bash
+```json
 GET /_cat/indices?pretty
 ```
 {% include copy-curl.html %}
 
-```
+```json
 GET /_cat/aliases?pretty
 ```
 {% include copy-curl.html %}
@@ -930,12 +914,8 @@ GET /_cat/aliases?pretty
 
 The following policy creates an illegal argument exception with the error `"Alias action can only work on its applied index so don't accept index/indices parameter."`:
 
-```bash
-PUT /_plugins/_ism/policies/remove_action_policy?pretty
-```
-{% include copy-curl.html %}
-
 ```json
+PUT /_plugins/_ism/policies/remove_action_policy?pretty
 {
   "policy": {
     "description": "Example remove action policy.",
@@ -971,17 +951,14 @@ PUT /_plugins/_ism/policies/remove_action_policy?pretty
   }
 }
 ```
+{% include copy-curl.html %}
 
 #### Fail if a user tries to remove index using alias action
 
 The following policy will create an illegal argument exception with the error `"Only ADD and REMOVE actions are allowed."`:
 
-```bash
-PUT /_plugins/_ism/policies/remove_index_policy?pretty
-```
-{% include copy-curl.html %}
-
 ```json
+PUT /_plugins/_ism/policies/remove_index_policy?pretty
 {
   "policy": {
     "description": "Example remove index policy.",
@@ -1011,21 +988,19 @@ PUT /_plugins/_ism/policies/remove_index_policy?pretty
   }
 }
 ```
+{% include copy-curl.html %}
 
 You can then use the following command to make the cluster green:
 
-```bash
-PUT /log-000001/_settings
-```
-{% include copy-curl.html %}
-
 ```json
+PUT /log-000001/_settings
 {
     "index" : {
         "number_of_replicas" : 0
     }
 }
 ```
+{% include copy-curl.html %}
 
 ## Example policy
 
