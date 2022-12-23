@@ -142,7 +142,7 @@ Rule `tableName`:
 
 ![tableName]({{site.url}}{{site.baseurl}}/images/tableName.png)
 
-*Example 1*: Use index aliases to query across indexes. To learn about index aliases, see [Index Alias]({{site.url}}{{site.baseurl}}/opensearch/index-alias/).
+*Example 1*: Use index aliases to query across indexes. To learn about index aliases, see [Index Alias]({{site.url}}{{site.baseurl}}/search-query/prep-data/index-alias/).
 In this sample query, `acc` is an alias for the `accounts` index:
 
 ```sql

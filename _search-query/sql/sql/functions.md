@@ -8,12 +8,12 @@ nav_order: 7
 
 # Functions
 
-The SQL language supports all SQL plugin [common functions]({{site.url}}{{site.baseurl}}/search-plugins/sql/functions/), including [relevance search]({{site.url}}{{site.baseurl}}/search-plugins/sql/full-text/), but also introduces a few function synonyms, which are available in SQL only.
-These synonyms are provided by the `V1` engine. For more information, see [Limitations]({{site.url}}{{site.baseurl}}/search-plugins/sql/limitation).
+The SQL language supports all SQL plugin [common functions]({{site.url}}{{site.baseurl}}/search-query/sql/functions/), including [relevance search]({{site.url}}{{site.baseurl}}/search-query/sql/full-text/), but also introduces a few function synonyms, which are available in SQL only.
+These synonyms are provided by the `V1` engine. For more information, see [Limitations]({{site.url}}{{site.baseurl}}/search-query/sql/limitation).
 
 ## Match query
 
-The `MATCHQUERY` and `MATCH_QUERY` functions are synonyms for the [`MATCH`]({{site.url}}{{site.baseurl}}/search-plugins/sql/full-text#match) relevance function. They don't accept additional arguments but provide an alternate syntax.
+The `MATCHQUERY` and `MATCH_QUERY` functions are synonyms for the [`MATCH`]({{site.url}}{{site.baseurl}}/search-query/sql/full-text#match) relevance function. They don't accept additional arguments but provide an alternate syntax.
 
 ### Syntax
 
@@ -57,7 +57,7 @@ The results contain documents in which the address contains "Holmes":
 
 ## Multi-match
 
-There are three synonyms for [`MULTI_MATCH`]({{site.url}}{{site.baseurl}}/search-plugins/sql/full-text#multi-match), each with a slightly different syntax. They accept a query string and a fields list with weights. They can also accept additional optional parameters.
+There are three synonyms for [`MULTI_MATCH`]({{site.url}}{{site.baseurl}}/search-query/sql/full-text#multi-match), each with a slightly different syntax. They accept a query string and a fields list with weights. They can also accept additional optional parameters.
 
 ### Syntax
 
@@ -89,7 +89,7 @@ You can specify the following options in any order:
 
 ## Query string
 
-The `QUERY` function is a synonym for [`QUERY_STRING`]({{site.url}}{{site.baseurl}}/search-plugins/sql/full-text#query-string).
+The `QUERY` function is a synonym for [`QUERY_STRING`]({{site.url}}{{site.baseurl}}/search-query/sql/full-text#query-string).
 
 ### Syntax
 
@@ -149,7 +149,7 @@ The results contain addresses that contain "Lane" or "Street":
 
 ## Match phrase
 
-The `MATCHPHRASEQUERY` function is a synonym for [`MATCH_PHRASE`]({{site.url}}{{site.baseurl}}/search-plugins/sql/full-text#query-string).
+The `MATCHPHRASEQUERY` function is a synonym for [`MATCH_PHRASE`]({{site.url}}{{site.baseurl}}/search-query/sql/full-text#query-string).
 
 ### Syntax
 
