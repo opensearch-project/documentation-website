@@ -49,6 +49,12 @@ code {
 
 .site-nav {
   padding-top: 1rem;
+
+  display: static;
+  position: sticky;
+  top: 1rem;
+  max-height: calc(100vh - 2rem);
+  overflow-x: hidden;
 }
 
 .nav-category {
@@ -101,6 +107,14 @@ code {
   @include mq(lg) {
     display: block;
   }
+}
+
+.div-feedback {
+  text-align: center;
+  margin: auto;
+  width: 50%;
+  border: 3px solid $grey-lt-300;
+  padding: 10px;
 }
 
 .external-arrow {
