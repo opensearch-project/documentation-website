@@ -96,9 +96,6 @@ layout: table_wrappers
             {% endif %}
           {% endfor %}
         {% endif %}
-        <div class="site-footer">
-          <p class="text-small text-grey-dk-100">See a problem? Submit <a href="https://github.com/opensearch-project/documentation-website/issues">issues</a> or <a href="https://github.com/opensearch-project/documentation-website/edit/main/{{ page.path }}">edit this page</a> on <a href="https://github.com/opensearch-project/documentation-website/">GitHub</a>.</p>
-        </div>
       </nav>
     </div>
     <div class="copy-banner">
@@ -152,7 +149,7 @@ layout: table_wrappers
           {% endif %}
           
           <a class="top-link" href="#top">
-            &uarr;
+            <svg viewBox="0 0 24 24"><use xlink:href="#svg-arrow-right"></use></svg>
           </a>
 
           {% if page.has_children == true and page.has_toc != false %}
@@ -166,10 +163,7 @@ layout: table_wrappers
               {% endfor %}
             </ul>
           {% endif %}
-          <!--
-          <hr>
-          {% include feedback.html %}
-          -->
+          
           {% capture footer_custom %}
             {%- include footer_custom.html -%}
           {% endcapture %}
@@ -208,9 +202,13 @@ layout: table_wrappers
         </div>
       </div>
       <div class="toc-wrap">
-        <div class="toc">
-          {% include toc.html html=content h_min=2 h_max=2 class="toc-list" item_class="toc-item" sanitize=true %}
+        <div class="sticky-wrap">
+          <div class="toc">
+            {% include toc.html html=content h_min=2 h_max=2 class="toc-list" item_class="toc-item" sanitize=true %}
+          </div>
+          {% include feedback.html %}
         </div>
+        {% comment %}{% include feedback.html %}{% endcomment %}
       </div>
       {% if site.search_enabled != false %}
         {% if site.search.button %}
@@ -236,5 +234,6 @@ layout: table_wrappers
   <script src="{{ '/assets/js/copy.js' | relative_url }}"></script>
   <script src="{{ '/assets/js/nav-scroll.js' | relative_url }}"></script>
   <script src="{{ '/assets/js/feedback.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/link-feedback.js' | relative_url }}"></script>
 </body>
 </html>
