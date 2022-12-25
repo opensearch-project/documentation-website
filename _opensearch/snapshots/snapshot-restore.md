@@ -87,7 +87,7 @@ Setting | Description
    sudo ./bin/opensearch-plugin install repository-s3
    ```
 
-   If you're using the Docker installation, see [Customize the Docker image]({{site.url}}{{site.baseurl}}/opensearch/install/docker#customize-the-docker-image). Your `Dockerfile` should look something like this:
+   If you're using the Docker installation, see [Working with plugins]({{site.url}}{{site.baseurl}}/opensearch/install/docker#working-with-plugins). Your `Dockerfile` should look something like this:
 
    ```
    FROM opensearchproject/opensearch:{{site.opensearch_version}}
@@ -381,3 +381,6 @@ The `.opendistro_security` index contains sensitive data, so we recommend exclud
 ```bash
 curl -k --cert ./kirk.pem --key ./kirk-key.pem -XPOST 'https://localhost:9200/_snapshot/my-repository/3/_restore?pretty'
 ```
+
+We strongly recommend against restoring `.opendistro_security` using an admin certificate because doing so can alter the security posture of the entire cluster. See [A word of caution]({{site.url}}{{site.baseurl}}/security-plugin/configuration/security-admin/#a-word-of-caution) for a recommended process to back up and restore your security plugin configuration.
+{: .warning}

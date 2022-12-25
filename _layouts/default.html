@@ -100,9 +100,6 @@ layout: table_wrappers
           <p class="text-small text-grey-dk-100">See a problem? Submit <a href="https://github.com/opensearch-project/documentation-website/issues">issues</a> or <a href="https://github.com/opensearch-project/documentation-website/edit/main/{{ page.path }}">edit this page</a> on <a href="https://github.com/opensearch-project/documentation-website/">GitHub</a>.</p>
         </div>
       </nav>
-      <div class="site-footer">
-        <p class="text-small text-grey-dk-100">See a problem? Submit <a href="https://github.com/opensearch-project/documentation-website/issues">issues</a> or <a href="https://github.com/opensearch-project/documentation-website/edit/main/{{ page.path }}">edit this page</a> on <a href="https://github.com/opensearch-project/documentation-website/">GitHub</a>.</p>
-      </div>
     </div>
     <div class="copy-banner">
       <div class="container">
@@ -153,6 +150,10 @@ layout: table_wrappers
           {% else %}
             {{ content }}
           {% endif %}
+          
+          <a class="top-link" href="#top">
+            &uarr;
+          </a>
 
           {% if page.has_children == true and page.has_toc != false %}
             <hr>
@@ -165,6 +166,10 @@ layout: table_wrappers
               {% endfor %}
             </ul>
           {% endif %}
+          <!--
+          <hr>
+          {% include feedback.html %}
+          -->
           {% capture footer_custom %}
             {%- include footer_custom.html -%}
           {% endcapture %}
@@ -228,5 +233,8 @@ layout: table_wrappers
   {% if site.search_enabled == false and site.use_custom_search == true %}
   <script src="{{ '/assets/js/search.js' | relative_url }}"></script>
   {% endif %}
+  <script src="{{ '/assets/js/copy.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/nav-scroll.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/feedback.js' | relative_url }}"></script>
 </body>
 </html>

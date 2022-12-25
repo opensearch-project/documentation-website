@@ -19,7 +19,7 @@ OpenSearch uses a command line tool called `opensearch-plugin` for managing plug
 
 Print help text by passing `-h` or `--help`. Depending on your host configuration, you might also need to run the command with `sudo` privileges.
 
-If you are running OpenSearch in a Docker container, plugins must be installed, removed, and configured by modifying the Docker image. For information, see [Install, configure or remove plugins]({{site.url}}{{site.baseurl}}/opensearch/install/docker#install-configure-or-remove-plugins)
+If you are running OpenSearch in a Docker container, plugins must be installed, removed, and configured by modifying the Docker image. For information, see [Working with plugins]({{site.url}}{{site.baseurl}}/opensearch/install/docker#working-with-plugins)
 {: .note}
 
 ## List
@@ -52,9 +52,32 @@ opensearch-security
 opensearch-sql
 ```
 
+You can also list installed plugins by using the [CAT API]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-plugins/).
+
+#### Path and HTTP method
+
+```bash
+GET _cat/plugins
+```
+
+#### Sample response
+
+```bash
+opensearch-node1 opensearch-alerting                  2.0.1.0
+opensearch-node1 opensearch-anomaly-detection         2.0.1.0
+opensearch-node1 opensearch-asynchronous-search       2.0.1.0
+opensearch-node1 opensearch-cross-cluster-replication 2.0.1.0
+opensearch-node1 opensearch-index-management          2.0.1.0
+opensearch-node1 opensearch-job-scheduler             2.0.1.0
+opensearch-node1 opensearch-knn                       2.0.1.0
+opensearch-node1 opensearch-ml                        2.0.1.0
+opensearch-node1 opensearch-notifications             2.0.1.0
+opensearch-node1 opensearch-notifications-core        2.0.1.0
+```
+
 ## Install
 
-There are three ways to install plugins using `opensearch-plugin`:
+There are three ways to install plugins using the `opensearch-plugin`:
 
 - [Install a plugin by name]({{site.url}}{{site.baseurl}}/opensearch/install/plugins#install-a-plugin-by-name)
 - [Install a plugin by from a zip file]({{site.url}}{{site.baseurl}}/opensearch/install/plugins#install-a-plugin-from-a-zip-file)

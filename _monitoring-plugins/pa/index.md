@@ -298,6 +298,6 @@ The following is an example response:
 Further documentation on the use of performance analyzer and RCA can be found at the following links:
 
 - [Performance analyzer API guide]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/api/).
-- [Root cause analysis]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/rca/index/).
-- [Root cause analysis API guide]({{site.url}}{{site.baseurl}}/latest/monitoring-plugins/pa/rca/api/).
+- [RCA]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/rca/index/).
+- [RCA API guide]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/rca/api/).
 - [RFC: Root cause analysis](https://github.com/opensearch-project/performance-analyzer-rca/blob/main/docs/rfc-rca.pdf).
