@@ -4,7 +4,7 @@ title: Building a plugin for Job Scheduler
 nav_order: 10
 ---
 
-# Buidling a plugin for Job Scheduler
+# Building a plugin for Job Scheduler
 
 OpenSearch plugin developers can extend the Job Scheduler plugin to schedule jobs like running aggregation query against raw data and saving the aggregated data into a new index every hour, or continue monitoring the shard allocation by calling the OpenSearch API and then post the output to a Webhook.
 
@@ -12,12 +12,14 @@ Reference the following [README](https://github.com/opensearch-project/job-sched
 
 ## Defining an endpoint
 
-You can configure your plugin's API endpoint by referencing the [example](https://github.com/opensearch-project/job-scheduler/blob/main/sample-extension-plugin/src/main/java/org/opensearch/jobscheduler/sampleextension/SampleExtensionRestHandler.java) `SampleExtensionRestHandler.java` file. Set the `WATCH_INDEX_URI` to the endpoint name that your plugin will use:
+You can configure your plugin's API endpoint by referencing the [example](https://github.com/opensearch-project/job-scheduler/blob/main/sample-extension-plugin/src/main/java/org/opensearch/jobscheduler/sampleextension/SampleExtensionRestHandler.java) `SampleExtensionRestHandler.java` file. Set the endpoint url that your plugin will expose with `WATCH_INDEX_URI`:
 
 ```java
 public class SampleExtensionRestHandler extends BaseRestHandler {
     public static final String WATCH_INDEX_URI = "/_plugins/scheduler_sample/watch";
 ```
+
+You then need to define the job configuration by [extending](https://github.com/opensearch-project/job-scheduler/blob/main/sample-extension-plugin/src/main/java/org/opensearch/jobscheduler/sampleextension/SampleJobParameter.java) `ScheduledJobParameter`. You can also define the fields used by your plugin like `indexToWatch` as shown in the [example](https://github.com/opensearch-project/job-scheduler/blob/main/sample-extension-plugin/src/main/java/org/opensearch/jobscheduler/sampleextension/SampleJobParameter.java) `SampleJobParameter` file. This job configuration will be saved as a document in an index defined by you as shown this [example](https://github.com/opensearch-project/job-scheduler/blob/main/sample-extension-plugin/src/main/java/org/opensearch/jobscheduler/sampleextension/SampleExtensionPlugin.java#L54).
 
 ## Parameters configuration
 
@@ -101,45 +103,9 @@ public SampleJobParameter(String id, String name, String indexToWatch, Schedule 
     @Override public Double getJitter() {
         return jitter;
     }
-
-    public String getIndexToWatch() {
-        return this.indexToWatch;
-    }
-
-    public void setJobName(String jobName) {
-        this.jobName = jobName;
-    }
-
-    public void setLastUpdateTime(Instant lastUpdateTime) {
-        this.lastUpdateTime = lastUpdateTime;
-    }
-
-    public void setEnabledTime(Instant enabledTime) {
-        this.enabledTime = enabledTime;
-    }
-
-    public void setEnabled(boolean enabled) {
-        isEnabled = enabled;
-    }
-
-    public void setSchedule(Schedule schedule) {
-        this.schedule = schedule;
-    }
-
-    public void setIndexToWatch(String indexToWatch) {
-        this.indexToWatch = indexToWatch;
-    }
-
-    public void setLockDurationSeconds(Long lockDurationSeconds) {
-        this.lockDurationSeconds = lockDurationSeconds;
-    }
-
-    public void setJitter(Double jitter) {
-        this.jitter = jitter;
-    }
 ```
 
-The example code above defines the request parameters that can be set when building your plugin. Reference the following table configured by the example code above.
+The example code above defines request parameters set when building your plugin. Reference the following table for request parameters configured by the example code above. All request parameters listed are required.
 
 | Field | Data type | Description |
 :--- | :--- | :---
@@ -150,14 +116,7 @@ The example code above defines the request parameters that can be set when build
 | isEnabled | Boolean | Whether or not the job is enabled. |
 | getLockDurationSeconds | Integer | Returns the duration of time that the job is locked. |
 | getJitter | Integer | Returns the defined jitter value. |
-| getIndexToWatch | String | Returns the name of the index that the job monitors. |
-| setJobName | String | Sets the name of the job. |
-| setLastUpdateTime | Time unit | Sets the time that the job was last updated at. |
-| setEnabledTime | Time unit | Sets the time for when the job is enabled. |
-| setEnabled | Boolean | Enables or disables the job. |
-| setSchedule | Unix cron | Sets the job's schedule using Unix cron syntax. |
-| setIndexToWatch | String | Set the index that the job will monitor. |
-| setLockDurationSeconds | Integer | Sets the duration that the job is locked for. |
-| setJitter | Double | Sets the jitter value. |
+
+The logic run by your job should be defined by a class extending `ScheduledJobRunner` such as `SampleJobRunner`. While the job is running, there is a locking mechanism you can use to prevent other nodes from running the same job. [Acquire](https://github.com/opensearch-project/job-scheduler/blob/main/sample-extension-plugin/src/main/java/org/opensearch/jobscheduler/sampleextension/SampleJobRunner.java#L96) the lock. Then, make sure to release the lock before the [job finishes](https://github.com/opensearch-project/job-scheduler/blob/main/sample-extension-plugin/src/main/java/org/opensearch/jobscheduler/sampleextension/SampleJobRunner.java#L116).
 
 For further information, reference the Job Scheduler [sample extention](https://github.com/opensearch-project/job-scheduler/blob/main/sample-extension-plugin/src/main/java/org/opensearch/jobscheduler/sampleextension/SampleJobParameter.java) directory in the [Job Scheduler Github repro](https://github.com/opensearch-project/job-scheduler).

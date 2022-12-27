@@ -2,8 +2,8 @@
 layout: default
 title: Job Scheduler Plugin
 nav_order: 1
-redirect_from:
-  - /opensearch/job-scheduler-plugin/
+has_children: false
+has_toc: false
 ---
 
 # Job Scheduler plugin
