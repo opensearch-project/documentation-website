@@ -62,7 +62,7 @@ Upgrades spanning more than a single major version of OpenSearch will require ad
 
 Rolling upgrades are a great option if you want to keep your cluster operational throughout the process. Shard replication is stopped temporarily, then nodes are upgraded one at a time. A variation of the rolling upgrade, often referred to as "node replacement," is exactly the same process except hosts or containers are not reused for the new node.
 
-OpenSearch nodes cannot join a cluster if the cluster manager is running a newer version of OpenSearch than the node requesting membership. To avoid this issue, upgrade cluster manager-eligible nodes last.
+OpenSearch nodes cannot join a cluster if the cluster manager is running a newer version of OpenSearch than the node requesting membership. To avoid this issue, you upgrade cluster manager-eligible nodes last.
 
 ### Cluster restart upgrade
 
