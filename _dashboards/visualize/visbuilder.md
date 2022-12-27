@@ -1,7 +1,8 @@
 ---
 layout: default
 title: VisBuilder
-parent: Visualize
+parent: Visualization types
+grand_parent: Visualize
 nav_order: 100
 redirect_from:
   - /dashboards/drag-drop-wizard/

@@ -27,7 +27,7 @@ If `true`, ML Commons tasks and models run machine learning (ML) tasks on ML nod
 - Default value: `false`
 - Value range: `true` or `false`
 
-## Dispatch tasks to ML node with least load
+## Dispatch tasks to ML node 
 
 ### Setting
 
@@ -42,7 +42,7 @@ plugins.ml_commons.task_dispatch_policy: round_robin
 ### Values
 
 - Dafault value: `round_robin`
-- Value range: `round_robin or least_load`
+- Value range: `round_robin` or `least_load`
 
 
 ## Set sync up job intervals 
