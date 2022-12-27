@@ -17,7 +17,7 @@ The Docker Compose commands used in this guide are written with a hyphen (for ex
 
 Review the [Upgrade Overview](NEEDLINK) for recommendations about backing up your configuration files and creating a snapshot of the cluster state and indexes before you make any changes to your OpenSearch cluster.
 
-OpenSearch nodes cannot be downgraded. If you need to revert the upgrade, then you will need to perform a fresh installation of OpenSearch and restore the cluster from a snapshot.
+OpenSearch nodes cannot be downgraded. If you need to revert the upgrade, then you will need to perform a fresh installation of OpenSearch and restore the cluster from a snapshot. Take a snapshot and store it in a remote repository before beginning the upgrade procedure.
 {: .note}
 
 ### Rolling upgrade
