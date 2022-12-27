@@ -49,8 +49,6 @@ code {
 
 .site-nav {
   padding-top: 1rem;
-
-  display: static;
   position: sticky;
   top: 1rem;
   max-height: calc(100vh - 2rem);
@@ -229,11 +227,12 @@ img {
   width: 2.5rem;
   height: 2.5rem;
   color: $blue-dk-100;
+  background-color: white;
   border-width:2px; 
   border-style:solid;
   border-color: $grey-lt-300;
   border-radius: 10px;
-  box-shadow: 1px 2px 3px $grey-lt-300;
+  box-shadow: 1px 1px 1px $grey-lt-300;
   padding: 0.2rem;
   position: fixed;
   bottom: 30px;
@@ -252,6 +251,7 @@ img {
 .copy-button-wrap {
   background-color: $sidebar-color;
   padding: 0 2rem 0.5rem 2rem;
+  margin-bottom: 0.75rem;
   display: flex;
   justify-content: flex-end; 
 }
@@ -564,6 +564,10 @@ main {
 
 .container {
   box-sizing: content-box;
+
+  @include mq(xs) {
+    padding: 0 calc(#{$top-button-margin} + 1rem);
+  }
 
   @include mq(md) {
     margin: 0 auto;
