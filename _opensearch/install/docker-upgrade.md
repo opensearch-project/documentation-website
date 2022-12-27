@@ -22,7 +22,7 @@ OpenSearch nodes cannot be downgraded. If you need to revert the upgrade, then y
 
 ### Rolling upgrade
 
-1. Perform a flush operation on the cluster to commit pending transaction log entries to the Lucene index.
+1. Perform a flush operation on the cluster to commit transaction log entries to the Lucene index.
 ```bash
 curl -X POST "http://localhost:9200/_flush?pretty"
 ```
@@ -81,7 +81,19 @@ curl "http://localhost:9200/_cluster/health?pretty"
   "active_shards_percent_as_number" : 100.0
 }
 ```
-1. 
+1. Record the IDs your running containers.
+```bash
+docker container ls
+```
+**Sample output:**
+```bash
+
+```
+1. Select a node to upgrade first. Stop and remove the container, but do not remove the volume.
+```bash
+docker stop <containerId> && docker container rm <containerId>
+```
+1. Create a new container mapped to the same volume as the container you deleted.
 
 
 ### Cluster restart upgrade (Docker Compose)
