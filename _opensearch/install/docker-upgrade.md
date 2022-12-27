@@ -81,17 +81,38 @@ curl "http://localhost:9200/_cluster/health?pretty"
   "active_shards_percent_as_number" : 100.0
 }
 ```
-1. Record the IDs your running containers.
+1. List the running containers in your OpenSearch cluster and make a note of the container IDs and names.
 ```bash
 docker container ls
 ```
 **Sample output:**
 ```bash
-
+CONTAINER ID   IMAGE                                           COMMAND                  CREATED         STATUS         PORTS                                                                NAMES
+6422ae3e672c   opensearchproject/opensearch-dashboards:1.3.7   "./opensearch-dashbo…"   4 minutes ago   Up 4 minutes   0.0.0.0:5601->5601/tcp                                               os-dashboards-01
+af1ec1c3fef7   opensearchproject/opensearch:1.3.7              "./opensearch-docker…"   4 minutes ago   Up 4 minutes   9300/tcp, 9650/tcp, 0.0.0.0:9200->9200/tcp, 0.0.0.0:9600->9600/tcp   os-node-04
+1d47c0da60ad   opensearchproject/opensearch:1.3.7              "./opensearch-docker…"   4 minutes ago   Up 4 minutes   9300/tcp, 9650/tcp, 0.0.0.0:9200->9200/tcp, 0.0.0.0:9600->9600/tcp   os-node-03
+f553b5ec870b   opensearchproject/opensearch:1.3.7              "./opensearch-docker…"   4 minutes ago   Up 4 minutes   9300/tcp, 9650/tcp, 0.0.0.0:9200->9200/tcp, 0.0.0.0:9600->9600/tcp   os-node-02
+934e4325d9a4   opensearchproject/opensearch:1.3.7              "./opensearch-docker…"   4 minutes ago   Up 4 minutes   9300/tcp, 9650/tcp, 0.0.0.0:9200->9200/tcp, 0.0.0.0:9600->9600/tcp   os-node-01
 ```
-1. Select a node to upgrade first. Stop and remove the container, but do not remove the volume.
+1. Query `_cat/nodes` to determine which node is operating as the cluster manager. Note that OpenSearch 1.x versions use the heading "master," which has been deprecated and replaced by "cluster_manager" in OpenSearch 2.x versions.
+```bash
+curl -s "http://localhost:9200/_cat/nodes?v&h=name,version,node.role,master" | column -t
+```
+**Sample output:**
+```bash
+name        version  node.role  master
+os-node-03  1.3.7    dimr       -
+os-node-04  1.3.7    dimr       -
+os-node-01  1.3.7    dimr       -
+os-node-02  1.3.7    dimr       *
+```
+1. Select a node to upgrade first. Cluster manager-eligible nodes should be upgraded last because nodes cannot join an OpenSearch cluster if they are running an older version of OpenSearch than the elected cluster manager. For information about node roles, see []().
 ```bash
 docker stop <containerId> && docker container rm <containerId>
+```
+**Sample output:**
+```bash
+
 ```
 1. Create a new container mapped to the same volume as the container you deleted.
 

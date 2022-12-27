@@ -29,6 +29,9 @@ You should take time to plan the process before making any changes to your clust
 Before upgrading your production cluster, test the new version of OpenSearch in a development environment to validate functionality and compatibility with components in your production workflow.
 {: .tip}
 
+Stop any non-essential indexing before you begin the upgrade procedure.
+{: .tip}
+
 ### Review breaking changes
 
 It's important to determine how the new version of OpenSearch will fit into your production environment. Review the list of [breaking changes]({{site.url}}{{site.baseurl}}/breaking-changes/) before beginning any upgrade procedures to determine if you will need to make adjustments in your workflow. For example, upstream or downstream components might need to be adjusted to take an API change into account.
