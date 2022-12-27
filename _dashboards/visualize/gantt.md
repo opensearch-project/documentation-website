@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Gantt charts
-parent: Visualize
+parent: Visualization types
+grand_parent: Visualize
 nav_order: 25
 ---
 
@@ -10,6 +11,8 @@ nav_order: 25
 OpenSearch Dashboards includes a Gantt chart visualization. Gantt charts show the start, end, and duration of unique events in a sequence. Gantt charts are useful in trace analytics, telemetry, and anomaly detection use cases, where you want to understand interactions and dependencies between various events in a schedule.
 
 For example, consider an index of log data. The fields in a typical set of log data, especially audit logs, contain a specific operation or event with a start time and duration.
+
+# Create a simple Gantt chart
 
 To create a Gantt chart, perform the following steps:
 
