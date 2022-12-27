@@ -55,7 +55,7 @@ To set up an alert for the detector at this stage of detector creation, continue
 
 1. In the **Trigger name** box, enter a name for the trigger.
 1. To define rule matches for the alert, select security rules, severity levels, and tags.
-<img src="{{site.url}}{{site.baseurl}}/images/Security/alert_rules.png" alt="Rules used to define an alert">
+<br><img src="{{site.url}}{{site.baseurl}}/images/Security/alert_rules.png" alt="Rules used to define an alert">
 * Select one rule or multiple rules that will trigger the alert. Put the cursor in the **Rule names** box and type a name to search for it. To remove a rule name, select the **X** beside the name. To remove all rule names, select the **X** beside the dropdown menu's down arrow.
 <br><img src="{{site.url}}{{site.baseurl}}/images/Security/rule_name_delete.png" alt="Deletes all selected rules">
 * Select one or more rule severities as conditions for the alert.
@@ -64,8 +64,8 @@ To set up an alert for the detector at this stage of detector creation, continue
 <img src="{{site.url}}{{site.baseurl}}/images/Security/alert_notify.png" alt="Notification settings for the alert">
 * Assign a level of severity for the alert to give the recipient an indication of its urgency.
 * Select a channel for the notification. Examples include Slack, Chime, or email. Select the  **Manage channels** link to the right of the field to create a channel and set up a notification.
-Creating a new channel for notifications requires the Notifications plugin to be installed in OpenSearch. See [Create a channel]({{site.url}}{{site.baseurl}}/notifications-plugin/index/#create-a-channel) to learn about managing plugin notifications.
-{: .note }
+>Creating a new channel for notifications requires the Notifications plugin to be installed in OpenSearch. See [Create a channel]({{site.url}}{{site.baseurl}}/>notifications-plugin/index/#create-a-channel) to learn about managing plugin notifications.
+>{: .note }
 * Select the **Show notify message** label to expand message preferences. You can add a subject for the message and a note to inform recipients of the nature of the message.
 1. After configuring the conditions in the fields above, select the **Next** button in the lower-right corner of the screen. The Review and create page opens.
 
