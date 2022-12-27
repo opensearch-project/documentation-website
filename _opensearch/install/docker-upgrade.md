@@ -86,7 +86,6 @@ docker container ls
 **Sample output:**
 ```bash
 CONTAINER ID   IMAGE                                           COMMAND                  CREATED         STATUS         PORTS                                                                NAMES
-6422ae3e672c   opensearchproject/opensearch-dashboards:1.3.7   "./opensearch-dashbo…"   4 minutes ago   Up 4 minutes   0.0.0.0:5601->5601/tcp                                               os-dashboards-01
 af1ec1c3fef7   opensearchproject/opensearch:1.3.7              "./opensearch-docker…"   4 minutes ago   Up 4 minutes   9300/tcp, 9650/tcp, 0.0.0.0:9200->9200/tcp, 0.0.0.0:9600->9600/tcp   os-node-04
 1d47c0da60ad   opensearchproject/opensearch:1.3.7              "./opensearch-docker…"   4 minutes ago   Up 4 minutes   9300/tcp, 9650/tcp, 0.0.0.0:9200->9200/tcp, 0.0.0.0:9600->9600/tcp   os-node-03
 f553b5ec870b   opensearchproject/opensearch:1.3.7              "./opensearch-docker…"   4 minutes ago   Up 4 minutes   9300/tcp, 9650/tcp, 0.0.0.0:9200->9200/tcp, 0.0.0.0:9600->9600/tcp   os-node-02
@@ -158,4 +157,55 @@ os-node-03  1.3.7    dimr       -
 os-node-04  1.3.7    dimr       -
 os-node-02  1.3.7    dimr       *
 os-node-01  2.4.1    dimr       -
+```
+1. Repeat steps 5 through 9 for each node in your cluster. Remember to upgrade an eligible cluster manager node last. When you are finished replacing the last node, query `_cat/nodes` to confirm that all nodes have joined the cluster and are running the desired version of OpenSearch.
+```bash
+curl -s "http://localhost:9200/_cat/nodes?v&h=name,version,node.role,master" | column -t
+```
+**Sample output:**
+```bash
+name        version  node.role  master
+os-node-02  2.4.1    dimr       -
+os-node-03  2.4.1    dimr       *
+os-node-04  2.4.1    dimr       -
+os-node-01  2.4.1    dimr       -
+```
+There are no longer any cluster manager-eligible nodes running the old version, so a cluster manager running the new version is elected. The cluster has now been bootstrapped with the new version.
+1. Reenable shard replication.
+```bash
+curl -X PUT "http://localhost:9200/_cluster/settings?pretty" -H 'Content-type: application/json' -d'{"persistent":{"cluster.routing.allocation.enable":null}}'
+```
+**Sample output:**
+```bash
+{
+  "acknowledged" : true,
+  "persistent" : { },
+  "transient" : { }
+}
+```
+1. Confirm that the cluster is healthy.
+```bash
+curl "http://localhost:9200/_cluster/health?pretty"
+```
+**Sample output:**
+```bash
+{
+  "cluster_name" : "opensearch-dev-cluster",
+  "status" : "green",
+  "timed_out" : false,
+  "number_of_nodes" : 4,
+  "number_of_data_nodes" : 4,
+  "discovered_master" : true,
+  "discovered_cluster_manager" : true,
+  "active_primary_shards" : 2,
+  "active_shards" : 4,
+  "relocating_shards" : 0,
+  "initializing_shards" : 0,
+  "unassigned_shards" : 0,
+  "delayed_unassigned_shards" : 0,
+  "number_of_pending_tasks" : 0,
+  "number_of_in_flight_fetch" : 0,
+  "task_max_waiting_in_queue_millis" : 0,
+  "active_shards_percent_as_number" : 100.0
+}
 ```
