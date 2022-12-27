@@ -789,11 +789,9 @@ If you want to skip rollovers for an index, set `index.plugins.index_state_manag
    GET _plugins/_ism/explain/log-000001?pretty
    ```
 
-## Sample policies with ISM templates for the alias action
+## Sample policy with ISM templates for the alias action
 
-The following sample template policies are for an alias action use case.
-
-#### Rollover an index policy with deletion of indexes when the doc count exceeds a certain value
+The following sample policy is for an alias action use case.
 
 In the following example, the first job will trigger the rollover action and a new index will be created. Next, another document is added to the two indexes. The new job will then cause the second index to point to the log alias and the older index will be removed due to the alias action.
 
@@ -910,97 +908,8 @@ GET /_cat/aliases?pretty
 ```
 {% include copy-curl.html %}
 
-#### Fail if a user tries to apply an alias action on a specific index or indexes
-
-The following policy creates an illegal argument exception with the error `"Alias action can only work on its applied index so don't accept index/indices parameter."`:
-
-```json
-PUT /_plugins/_ism/policies/remove_action_policy?pretty
-{
-  "policy": {
-    "description": "Example remove action policy.",
-    "default_state": "alias",
-    "states": [
-      {
-        "name": "alias",
-        "actions": [
-          {
-            "alias": {
-              "actions": [
-                {
-                  "add": {
-                      "alias": "log"
-                  }
-                },
-                {
-                  "remove": {
-                      "index": "log-00001",
-                      "alias": "log"
-                  }
-                }
-              ]
-            }
-          }
-        ]
-      }
-    ],
-    "ism_template": {
-      "index_patterns": ["log*"],
-      "priority": 100
-    }
-  }
-}
-```
-{% include copy-curl.html %}
-
-#### Fail if a user tries to remove index using alias action
-
-The following policy will create an illegal argument exception with the error `"Only ADD and REMOVE actions are allowed."`:
-
-```json
-PUT /_plugins/_ism/policies/remove_index_policy?pretty
-{
-  "policy": {
-    "description": "Example remove index policy.",
-    "default_state": "alias",
-    "states": [
-      {
-        "name": "alias",
-        "actions": [
-          {
-            "alias": {
-              "actions": [
-                {
-                  "remove_index": {
-                      "index": "log"
-                  }
-                }
-              ]
-            }
-          }
-        ]
-      }
-    ],
-    "ism_template": {
-      "index_patterns": ["log*"],
-      "priority": 100
-    }
-  }
-}
-```
-{% include copy-curl.html %}
-
-You can then use the following command to make the cluster green:
-
-```json
-PUT /log-000001/_settings
-{
-    "index" : {
-        "number_of_replicas" : 0
-    }
-}
-```
-{% include copy-curl.html %}
+Note: the `index` and `remove_index` parameters are not allowed with alias action policies. Only the `add` and `remove` alias action parameters are allowed.
+{: .warning }
 
 ## Example policy
 
