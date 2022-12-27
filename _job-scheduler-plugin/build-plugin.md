@@ -6,20 +6,20 @@ nav_order: 10
 
 # Building a plugin for Job Scheduler
 
-OpenSearch plugin developers can extend the Job Scheduler plugin to schedule jobs like running aggregation query against raw data and saving the aggregated data into a new index every hour, or continue monitoring the shard allocation by calling the OpenSearch API and then post the output to a Webhook.
+OpenSearch plugin developers can extend the Job Scheduler plugin to schedule jobs like running aggregation query against raw data and saving the aggregated data into a new index every hour, or continue monitoring the shard allocation by calling the OpenSearch API and then posting the output to a webhook.
 
-Reference the following [README](https://github.com/opensearch-project/job-scheduler/blob/main/README.md) for examples on building a plugin that utilizes Job Scheduler.
+Reference the following [README](https://github.com/opensearch-project/job-scheduler/blob/main/README.md) for examples of building a plugin that utilizes Job Scheduler.
 
 ## Defining an endpoint
 
-You can configure your plugin's API endpoint by referencing the [example](https://github.com/opensearch-project/job-scheduler/blob/main/sample-extension-plugin/src/main/java/org/opensearch/jobscheduler/sampleextension/SampleExtensionRestHandler.java) `SampleExtensionRestHandler.java` file. Set the endpoint url that your plugin will expose with `WATCH_INDEX_URI`:
+You can configure your plugin's API endpoint by referencing the [example](https://github.com/opensearch-project/job-scheduler/blob/main/sample-extension-plugin/src/main/java/org/opensearch/jobscheduler/sampleextension/SampleExtensionRestHandler.java) `SampleExtensionRestHandler.java` file. Set the endpoint URL that your plugin will expose with `WATCH_INDEX_URI`:
 
 ```java
 public class SampleExtensionRestHandler extends BaseRestHandler {
     public static final String WATCH_INDEX_URI = "/_plugins/scheduler_sample/watch";
 ```
 
-You then need to define the job configuration by [extending](https://github.com/opensearch-project/job-scheduler/blob/main/sample-extension-plugin/src/main/java/org/opensearch/jobscheduler/sampleextension/SampleJobParameter.java) `ScheduledJobParameter`. You can also define the fields used by your plugin like `indexToWatch` as shown in the [example](https://github.com/opensearch-project/job-scheduler/blob/main/sample-extension-plugin/src/main/java/org/opensearch/jobscheduler/sampleextension/SampleJobParameter.java) `SampleJobParameter` file. This job configuration will be saved as a document in an index defined by you as shown this [example](https://github.com/opensearch-project/job-scheduler/blob/main/sample-extension-plugin/src/main/java/org/opensearch/jobscheduler/sampleextension/SampleExtensionPlugin.java#L54).
+You then need to define the job configuration by [extending](https://github.com/opensearch-project/job-scheduler/blob/main/sample-extension-plugin/src/main/java/org/opensearch/jobscheduler/sampleextension/SampleJobParameter.java) `ScheduledJobParameter`. You can also define the fields used by your plugin like `indexToWatch` as shown in the [example](https://github.com/opensearch-project/job-scheduler/blob/main/sample-extension-plugin/src/main/java/org/opensearch/jobscheduler/sampleextension/SampleJobParameter.java) `SampleJobParameter` file. This job configuration will be saved as a document in an index defined by you as shown in this [example](https://github.com/opensearch-project/job-scheduler/blob/main/sample-extension-plugin/src/main/java/org/opensearch/jobscheduler/sampleextension/SampleExtensionPlugin.java#L54).
 
 ## Parameters configuration
 
