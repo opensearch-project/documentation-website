@@ -1,9 +1,8 @@
-$content-width: 740px !default;
-
 @import "../../assets/fonts/open-sans/webfont.css";
 @import "../../assets/fonts/open-sans-condensed/webfont.css";
 @import "../../assets/fonts/noto-serif/webfont.css";
 @import "../../assets/fonts/fira-mono/webfont.css";
+@import "../color_schemes/opensearch.scss";
 
 // Font Family Mixins
 @mixin serif {
@@ -37,10 +36,6 @@ $content-width: 740px !default;
   }
 }
 
-// Additional variables
-$table-border-color: $grey-lt-300;
-$toc-width: 232px !default;
-
 body {
   @include sans-serif;
 }
@@ -54,8 +49,6 @@ code {
 
 .site-nav {
   padding-top: 1rem;
-
-  display: static;
   position: sticky;
   top: 1rem;
   max-height: calc(100vh - 2rem);
@@ -112,14 +105,6 @@ code {
   @include mq(lg) {
     display: block;
   }
-}
-
-.div-feedback {
-  text-align: center;
-  margin: auto;
-  width: 50%;
-  border: 3px solid $grey-lt-300;
-  padding: 10px;
 }
 
 .external-arrow {
@@ -200,57 +185,82 @@ img {
   @include btn-color($white, $green-300);
 }
 
+.btn-general {
+  color: $blue-100;
+  background-color: white;
+  font-size: 0.9rem;
+  font-weight: 510;
+  border-width:1px; 
+  border-style:solid;
+  border-color: $blue-100;
+  border-radius: 5px;
+  box-shadow: 1px 1px $grey-lt-300;
+  padding: 0.5rem 1rem;
+  margin-left: 0.4rem;
+  margin-right: 0.4rem;
+  transition: 0.3s;
+  &:hover {
+    &:not([disabled]) {
+      background-color: #EAF4F9;
+      box-shadow: 1px 2px 4px $grey-lt-300;
+      transform: translateY(-1px);
+      text-decoration:underline;
+      text-underline-offset: 2px;
+      display:inline-block;
+    }
+    &:active {
+      transform: translateY(1px);
+    }
+  }
+  &:disabled {
+    color: mix(black, $base-button-color, 25%);
+    border: none;
+    cursor: default;
+    background-color: mix(white, $base-button-color, 75%);
+    box-shadow: none;
+  }
+}
+
 // Back to top button
 .top-link {
   display: block;
-  color: $body-text-color;
-  font-size: 2rem;
-  font-weight: bold;
+  width: 2.5rem;
+  height: 2.5rem;
+  color: $blue-dk-100;
+  background-color: white;
   border-width:2px; 
   border-style:solid;
   border-color: $grey-lt-300;
-  border-radius: 12px;
-  box-shadow: 1px 2px $grey-dk-000;
-  padding: 0.1rem 1rem;
+  border-radius: 10px;
+  box-shadow: 1px 1px 1px $grey-lt-300;
+  padding: 0.2rem;
   position: fixed;
   bottom: 30px;
-  right: 40px;
+  right: 16px;
+  z-index: 1;
+  svg {
+    transform: rotate(-90deg);
+  }
   &:hover {
-    border-color: $body-text-color;
+    border-color: $blue-dk-100;
+    background-color: $sidebar-color; 
+    color: $blue-100;
   }
 }
 
 .copy-button-wrap {
   background-color: $sidebar-color;
-  padding: 0.2rem 2rem;
+  padding: 0 2rem 0.5rem 2rem;
+  margin-bottom: 0.75rem;
   display: flex;
   justify-content: flex-end; 
 }
  
 // Copy code button
 .copy-button {
+  @extend .btn-general;
+  background-color: $sidebar-color;
   display: inline;
-  background-color: $base-button-color;
-  color: $body-text-color;
-  border-width: 1px; 
-  border-style: solid;
-  border-color: $grey-lt-300;
-  border-radius: 12px;
-  height: fit-content;
-  cursor: pointer;
-  font-size: 1rem;
-  padding: 0.2rem 0.4rem;
-  margin: 0.4rem 0.2rem; 
-  opacity: 0.7;
-  &:hover {
-    border-color: $body-text-color;
-    opacity: 1;
-  }
-}
-
-.copy-button:active {
-  transform: scale(0.98);
-  box-shadow: 0 1px 2px;
 }
 
 // Copy as curl button
@@ -258,41 +268,26 @@ img {
   @extend .copy-button;
 }
 
-.copy-curl-button:active {
-  transform: scale(0.98);
-  box-shadow: 0 1px 2px;
-}
-
 // Feedback buttons
 .feedback-button {
-  color: $body-text-color;
-  background-color: $sidebar-color;
-  font-size: 0.9rem;
-  border-width:2px; 
-  border-style:solid;
-  border-color: $grey-lt-300;
-  border-radius: 12px;
-  box-shadow: 1px 2px $grey-dk-000;
-  padding: 0.1rem 1rem;
-  margin-left: 0.4rem;
-  margin-right: 0.4rem;
-  width: 4.8rem;
-  transition-duration: 0.4s;
-  &:hover {
-    background-color: $base-button-color;
-  }
+  @extend .btn-general;
+  margin-left: 0.2rem;
+  margin-right: 0.2rem;
 }
 
 // Feedback question
 .feedback-header {
-    @include heading-sans-serif;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    margin-top: 1rem;
-    margin-bottom: 2.5rem;
-    font-size: 14px !important;
+  @extend %toc-font;
+  letter-spacing: 0.08em;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
+// Feedback confirmation
+
+.hidden {
+  visibility: hidden;
+}
 
 // Tables
 th,
@@ -333,23 +328,28 @@ p.label {
 
 // Modifies margins in xl layout to support TOC
 .side-bar {
-  @include mq(xl) {
-    width: calc(#{$nav-width} + 1rem);
+  @include mq(lg) {
+    width: $nav-width;
   }
 }
 
 .main {
+  @include mq(lg) {
+    max-width: calc(100% - #{$nav-width + $top-button-margin});
+  }
+
   @include mq(xl) {
-    max-width: calc(100% - (#{$nav-width + $toc-width} + 4rem));
+    max-width: calc(min(#{$max-content-width + $toc-width + $top-button-margin}, calc(100% - (#{$nav-width + $top-button-margin}))));
   }
 }
 
-// Adds TOC to righthand side in xl layout
+// Adds TOC to right hand side in xl layout
 .main-content-wrap {
   max-width: 100%;
+  min-width: 0;
 }
+
 .toc-wrap {
-  width: 0;
   display: none;
 
   @include mq(xl) {
@@ -357,30 +357,37 @@ p.label {
     padding: 2rem 0;
   }
 }
-.toc {
-  display: none;
 
+.sticky-wrap {
   @include mq(xl) {
     z-index: 1;
-    display: block;
     position: sticky;
     top: 2rem;
     width: $toc-width;
+  }
+}
+
+.toc {
+  @include mq(xl) {
     max-height: calc(100vh - 4rem);
     overflow: auto;
   }
 }
 
+%toc-font {
+  @include heading-sans-serif;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  font-size: 14px !important;
+}
+
 .toc-list {
   &:before {
     content: "On this page";
-    // Basically duplicates h4 styling
-    font-size: 12px;
-    font-weight: 300;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: $grey-dk-300;
-    line-height: 1.8;
+    @extend %toc-font;
   }
   border: 1px solid $border-color;
   font-size: 14px;
@@ -388,7 +395,7 @@ p.label {
   background-color: $sidebar-color;
   padding: $sp-6 $sp-4;
   margin-left: $sp-6;
-  margin-right: 0;
+  margin-right: $sp-6;
   margin-bottom: 0;
   overflow: auto;
 }
@@ -396,6 +403,18 @@ p.label {
 .toc-item {
   padding-top: .25rem;
   padding-bottom: .25rem;
+}
+
+.div-feedback {
+  @extend .table-wrapper;
+  width: calc(#{$toc-width} - 4rem);
+  text-align: center;
+  margin-top: 3rem;
+  margin-left: $sp-6;
+  margin-right: $sp-6;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  display: block;
 }
 
 /* Website Header & Footer */
@@ -540,6 +559,10 @@ main {
 
 .container {
   box-sizing: content-box;
+
+  @include mq(xs) {
+    padding: 0 calc(#{$top-button-margin} + 1rem);
+  }
 
   @include mq(md) {
     margin: 0 auto;
