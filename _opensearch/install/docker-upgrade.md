@@ -143,7 +143,6 @@ docker run -d \
 	--name os-node-01 \
 	opensearchproject/opensearch:2.4.1
 ```
-Docker will print the container ID.
 **Sample output:**
 ```bash
 778e33168157e39814cb66ff81523c9d40772d122472c718bb3839e0c365cfe2
@@ -160,4 +159,3 @@ os-node-04  1.3.7    dimr       -
 os-node-02  1.3.7    dimr       *
 os-node-01  2.4.1    dimr       -
 ```
-
