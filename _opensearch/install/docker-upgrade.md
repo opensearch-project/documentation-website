@@ -60,6 +60,7 @@ curl -X PUT "http://localhost:9200/_cluster/settings?pretty" -H 'Content-type: a
 ```bash
 curl "http://localhost:9200/_cluster/health?pretty"
 ```
+A status of **green** indicates that all primary and replica shards are allocated.
 **Sample response:**
 ```bash
 {
@@ -106,16 +107,63 @@ os-node-04  1.3.7    dimr       -
 os-node-01  1.3.7    dimr       -
 os-node-02  1.3.7    dimr       *
 ```
-1. Select a node to upgrade first. Cluster manager-eligible nodes should be upgraded last because nodes cannot join an OpenSearch cluster if they are running an older version of OpenSearch than the elected cluster manager. For information about node roles, see []().
+1. Select a node to upgrade first. Cluster manager-eligible nodes should be upgraded last because nodes cannot join an OpenSearch cluster if they are running an older version of OpenSearch than the elected cluster manager.
 ```bash
 docker stop <containerId> && docker container rm <containerId>
 ```
 **Sample output:**
 ```bash
-
+$ docker stop 934e4325d9a4 && docker rm 934e4325d9a4
+934e4325d9a4
+934e4325d9a4
 ```
-1. Create a new container mapped to the same volume as the container you deleted.
-
+Do not delete the volume associated with the container when you delete the container. The new OpenSearch container will use the existing volume. Deleting the volume will result in data loss.
+{: .warning}
+1. Confirm that the associated node has been dismissed from the cluster.
+```bash
+curl -s "http://localhost:9200/_cat/nodes?v&h=name,version,node.role,master" | column -t
+```
+**Sample output:**
+```bash
+name        version  node.role  master
+os-node-03  1.3.7    dimr       -
+os-node-04  1.3.7    dimr       -
+os-node-02  1.3.7    dimr       *
+```
+`os-node-01` is no longer listed because the container has been stopped and deleted.
+1. Deploy a new container running the desired version of OpenSearch, mapped to the same volume as the container you deleted.
+```bash
+docker run -d \
+	-p 9201:9200 -p 9601:9600 \
+	-e "discovery.seed_hosts=os-node-01,os-node-02,os-node-03,os-node-04" -e "DISABLE_SECURITY_PLUGIN=true" \
+	-e "DISABLE_INSTALL_DEMO_CONFIG=true" -e "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" \
+	-e "cluster.name=opensearch-dev-cluster" -e "node.name=os-node-01" \
+	-e "cluster.initial_cluster_manager_nodes=os-node-01,os-node-02,os-node-03,os-node-04" \
+	-e "bootstrap.memory_lock=true" -e "path.repo=/mnt/snapshots" \
+	--ulimit nofile=65536:65536 --ulimit memlock=-1:-1 \
+	-v os-data-01:/usr/share/opensearch/data \
+  -v /Users/username/Documents/opensearch/snapshots/repo-01:/mnt/snapshots \
+	--network opensearch-dev-net \
+	--name os-node-01 \
+	opensearchproject/opensearch:2.4.1
+```
+Docker will print the container ID.
+**Sample output:**
+```bash
+778e33168157e39814cb66ff81523c9d40772d122472c718bb3839e0c365cfe2
+```
+1. Give the new container time to start, then query `_cat/nodes` to confirm that the new node has joined the cluster, and that it is running the desired version of OpenSearch.
+```bash
+curl -s "http://localhost:9200/_cat/nodes?v&h=name,version,node.role,master" | column -t
+```
+**Sample output:**
+```bash
+name        version  node.role  master
+os-node-03  1.3.7    dimr       -
+os-node-04  1.3.7    dimr       -
+os-node-02  1.3.7    dimr       *
+os-node-01  2.4.1    dimr       -
+```
 
 ### Cluster restart upgrade (Docker Compose)
 
