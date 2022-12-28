@@ -4,17 +4,17 @@ title: Monitoring
 nav_order: 12
 ---
 
-# Monitoring
+# Monitoring Data Prepper with Metrics
 
-Metrics in Data Prepper are instrumented using [Micrometer.io](https://micrometer.io/). There are two types of metrics: JVM and system metrics, and plugin metrics. Prometheus is used as the default metrics backend.
+Monitoring metrics in Data Prepper is instrumented using [Micrometer](https://micrometer.io/). There are two types of metrics: JVM and system metrics, and plugin metrics. [Prometheus](https://prometheus.io/) is used as the default metrics backend.
 
 ## JVM and system metrics
 
-JVM and system metrics are Data Prepper instance runtime metrics that include metrics on classloaders, memory, garbage collection, and threads. See [JVM and system metrics](https://micrometer.io/docs/ref/jvm) for details. 
+JVM and system metrics are runtime metrics used to monitor Data Prepper instances. They include metrics for classloaders, memory, garbage collection, threads, and others. For details, [JVM and system metrics](https://micrometer.io/docs/ref/jvm) for details. 
 
 ### Naming
 
-JVM and system metrics in Data Prepper follow pre-defined names in Micrometer.io, such as `jvm_classes_loaded`, and `jvm_memory_used`. 
+JVM and system metrics in Data Prepper follow pre-defined names in Micrometer, such as `jvm_classes_loaded`, and `jvm_memory_used`. 
 
 ### Serving
 
@@ -54,4 +54,4 @@ Metrics follow a naming convention of **PIPELINE_NAME_PLUGIN_NAME_METRIC_NAME** 
 
 ### Serving
 
-By default, metrics are served from the **/metrics/sys** endpoint on the Data Prepper server. The format is a text Prometheus scrape. This port can be used for any frontend which accepts Prometheus metrics, such as [Grafana](https://prometheus.io/docs/visualization/grafana/). The configuration can be updated to serve metrics to other registries like CloudWatch which does not require or host the endpoint, but publishes the metrics directly to CloudWatch.
+By default, metrics are served from the **/metrics/sys** endpoint on the Data Prepper server. The format is a text Prometheus scrape. This port can be used for any frontend accepts Prometheus metrics, such as [Grafana](https://prometheus.io/docs/visualization/grafana/). The configuration can be updated to serve metrics to other registries like CloudWatch which does not require or host the endpoint, but publishes the metrics directly to CloudWatch.
