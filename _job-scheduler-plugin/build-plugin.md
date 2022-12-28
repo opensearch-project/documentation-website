@@ -8,7 +8,7 @@ nav_order: 10
 
 OpenSearch plugin developers can extend the Job Scheduler plugin to schedule jobs to perform on the cluster. Jobs you can schedule include running aggregation queries against raw data and saving the aggregated data into a new index every hour, or continuing to monitor the shard allocation by calling the OpenSearch API and then posting the output to a webhook.
 
-Reference the following [README](https://github.com/opensearch-project/job-scheduler/blob/main/README.md) for examples of building a plugin that utilizes Job Scheduler.
+For examples of building a plugin that utilizes the Job Scheduler plugin, see the Job Scheduler [README](https://github.com/opensearch-project/job-scheduler/blob/main/README.md).
 
 ## Defining an endpoint
 
@@ -54,7 +54,7 @@ public class SampleJobParameter implements ScheduledJobParameter {
     private Double jitter;
 ```
 
-Next, build out your parameters from the declared variables:
+Next, build out your parameters from the declared variables. The following sample shows the request parameters to set while building your plugin:
 
 ```java
 public SampleJobParameter(String id, String name, String indexToWatch, Schedule schedule, Long lockDurationSeconds, Double jitter) {
@@ -105,7 +105,7 @@ public SampleJobParameter(String id, String name, String indexToWatch, Schedule 
     }
 ```
 
-The example code above defines request parameters set when building your plugin. Reference the following table for request parameters configured by the example code above. All request parameters listed are required.
+The following table describes the request parameters configured in the previous sample. All the request parameters shown are required.
 
 | Field | Data type | Description |
 :--- | :--- | :---
@@ -119,4 +119,4 @@ The example code above defines request parameters set when building your plugin.
 
 The logic run by your job should be defined by a class extending `ScheduledJobRunner` such as `SampleJobRunner`. While the job is running, there is a locking mechanism you can use to prevent other nodes from running the same job. [Acquire](https://github.com/opensearch-project/job-scheduler/blob/main/sample-extension-plugin/src/main/java/org/opensearch/jobscheduler/sampleextension/SampleJobRunner.java#L96) the lock. Then, make sure to release the lock before the [job finishes](https://github.com/opensearch-project/job-scheduler/blob/main/sample-extension-plugin/src/main/java/org/opensearch/jobscheduler/sampleextension/SampleJobRunner.java#L116).
 
-For further information, reference the Job Scheduler [sample extention](https://github.com/opensearch-project/job-scheduler/blob/main/sample-extension-plugin/src/main/java/org/opensearch/jobscheduler/sampleextension/SampleJobParameter.java) directory in the [Job Scheduler Github repro](https://github.com/opensearch-project/job-scheduler).
+For more information, see the Job Scheduler [sample extention](https://github.com/opensearch-project/job-scheduler/blob/main/sample-extension-plugin/src/main/java/org/opensearch/jobscheduler/sampleextension/SampleJobParameter.java) directory in the [Job Scheduler Github repro](https://github.com/opensearch-project/job-scheduler).
