@@ -2,6 +2,7 @@
 layout: default
 title: file sink
 parent: Sinks
+grand_parent: Configuring Data Prepper
 nav_order: 45
 ---
 
@@ -15,10 +16,10 @@ Option | Required | Type | Description
 :--- | :--- | :--- | :---
 path | Yes | String | Path for the output file (e.g. `logs/my-transformed-log.log`).
 
-## Configuration
+<!--- ## Configuration
 
 Content will be added to this section.
 
 ## Metrics
 
-Content will be added to this section.
+Content will be added to this section. --->
