@@ -14,14 +14,14 @@ curl -X POST http://localhost:4900/shutdown
 
 ## APIs
 
-The following table lists the available APIs:
+The following table lists the available APIs.
 
 | Name | Description |
 | --- | --- | 
 | ```GET /list```<br>```POST /list``` | Returns a list of running pipelines. |
 | ```POST /shutdown``` | Starts a graceful shutdown of Data Prepper. |
-| ```GET /metrics/prometheus```<br>```POST /metrics/prometheus``` | Returns a scrape of Data Prepper metrics in Prometheus text format. This API is available as a  `metricsRegistries` parameter in the Data Prepper configuration file `data-prepper-config.yaml`, and contains `Prometheus` as part of the registry.
-| ```GET /metrics/sys```<br>```POST /metrics/sys``` | Returns JVM metrics in Prometheus text format. This API is available as a `metricsRegistries` parameter in the Data Prepper configuration file `data-prepper-config.yaml`, and contains `Prometheus` as part of the registry.
+| ```GET /metrics/prometheus```<br>```POST /metrics/prometheus``` | Returns a scrape of Data Prepper metrics in Prometheus text format. This API is available as a `metricsRegistries` parameter in the Data Prepper configuration file `data-prepper-config.yaml` and contains `Prometheus` as part of the registry.
+| ```GET /metrics/sys```<br>```POST /metrics/sys``` | Returns JVM metrics in Prometheus text format. This API is available as a `metricsRegistries` parameter in the Data Prepper configuration file `data-prepper-config.yaml` and contains `Prometheus` as part of the registry.
 
 ## Configuring the server
 
@@ -29,7 +29,7 @@ You can configure your Data Prepper core APIs through the `data-prepper-config.y
 
 ### SSL/TLS connection
 
-Many of the Getting Started guides in this project disable SSL on the endpoint.
+Many of the Getting Started guides for this project disable SSL on the endpoint:
 
 ```yaml
 ssl: false
@@ -44,7 +44,7 @@ keyStorePassword: "secret"
 privateKeyPassword: "secret"
 ```
 
-For more information about configuring your Data Prepper server with SSL, see [Server Configuration](https://github.com/opensearch-project/data-prepper/blob/main/docs/configuration.md#server-configuration). If you are using a self-signed certificate, you can add the `-k` flag to quickly test sending curl requests for the core APIs with SSL. Use the following curl request to test for core APIs with SSL:
+For more information about configuring your Data Prepper server with SSL, see [Server Configuration](https://github.com/opensearch-project/data-prepper/blob/main/docs/configuration.md#server-configuration). If you are using a self-signed certificate, you can add the `-k` flag to quickly test sending curl requests for the core APIs with SSL. Use the following curl request to test for core APIs with SSL.
 
 
 ```
@@ -53,7 +53,7 @@ curl -k -X POST https://localhost:4900/shutdown
 
 ### Authentication
 
-The Data Prepper core APIs support HTTP basic authentication. You can set the username and password with the following configuration in `data-prepper-config.yaml` file:
+The Data Prepper core APIs support HTTP basic authentication. You can set the username and password with the following configuration in the `data-prepper-config.yaml` file:
 
 ```yaml
 authentication:
