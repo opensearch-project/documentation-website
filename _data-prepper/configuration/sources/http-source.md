@@ -2,13 +2,11 @@
 layout: default
 title: http_source
 parent: Sources
+grand_parent: Configuring Data Prepper
 nav_order: 5
 ---
 
-
-# Overview
-
-## http_source
+# http_source
 
 This is a source plugin that supports HTTP protocol. Currently ONLY support Json UTF-8 codec for incoming request, e.g. `[{"key1": "value1"}, {"key2": "value2"}]`.
 
@@ -31,10 +29,10 @@ acm_private_key_password | No | String | ACM private key password that decrypts 
 acm_certificate_timeout_millis | No | Integer | Timeout in milliseconds for ACM to get certificates. Default is 120000.
 aws_region | Conditionally | String | AWS region to use ACM or S3. Required if `use_acm_certificate_for_ssl` is set to true or `ssl_certificate_file` and `ssl_key_file` is AWS S3 path.
 
-## Configuration
+<!--- ## Configuration
 
 Content will be added to this section.
 
 ## Metrics
 
-Content will be added to this section.
+Content will be added to this section. ---?
