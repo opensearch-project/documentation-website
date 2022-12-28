@@ -69,7 +69,7 @@ docker run --name data-prepper \
     opensearchproject/opensearch-data-prepper:latest
 ```
 
-This sample pipeline configuration above demonstrates a simple pipeline with a source (`random`) sending data to a sink (`stdout`). For more examples and details on more advanced pipeline configurations, see [Pipelines]({{site.url}}{{site.baseurl}}/clients/data-prepper/pipelines).
+This sample pipeline configuration above demonstrates a simple pipeline with a source (`random`) sending data to a sink (`stdout`). For more examples and details on more advanced pipeline configurations, see [Pipelines]({{site.url}}{{site.baseurl}}/data-prepper/pipelines).
 
 After starting Data Prepper, you should see log output and some UUIDs after a few seconds:
 

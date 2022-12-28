@@ -27,7 +27,7 @@ If you encounter problems or have questions when contributing to the documentati
 
 ## How the website works
 
-This repository contains [Markdown](https://guides.github.com/features/mastering-markdown/) files organized into Jekyll "collections" (e.g., `_search-plugins`, `_opensearch`, etc.). Each Markdown file correlates with one page on the website.
+This repository contains [Markdown](https://guides.github.com/features/mastering-markdown/) files organized into Jekyll "collections" (e.g., `_search-query`, `_opensearch`, etc.). Each Markdown file correlates with one page on the website.
 
 Using plain text on GitHub has many advantages:
 

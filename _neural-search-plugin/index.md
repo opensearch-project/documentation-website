@@ -76,7 +76,7 @@ In order to use the text embedding processor defined in your pipelines, create a
 
 ### Example request
 
-The following example request creates an index that attaches to a Neural Search pipeline. Because the index maps to k-NN vector fields, the index setting field `index-knn` is set to `true`. Furthermore, `mapping` settings use [k-NN method definitions]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/#method-definitions) to match the maps defined in the Neural Search pipeline.
+The following example request creates an index that attaches to a Neural Search pipeline. Because the index maps to k-NN vector fields, the index setting field `index-knn` is set to `true`. Furthermore, `mapping` settings use [k-NN method definitions]({{site.url}}{{site.baseurl}}/search-query/knn/knn-index/#method-definitions) to match the maps defined in the Neural Search pipeline.
 
 ```json
 PUT /my-nlp-index-1
@@ -132,7 +132,7 @@ With the text_embedding processor in place through a Neural Search pipeline, the
 
 ## Search a neural index 
 
-If you want to use a language model to convert a text query into a k-NN vector query, use the `neural` query fields in your query. The neural query request fields can be used in both the [Search API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api/#search-model) and [Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index/). 
+If you want to use a language model to convert a text query into a k-NN vector query, use the `neural` query fields in your query. The neural query request fields can be used in both the [Search API]({{site.url}}{{site.baseurl}}/search-query/knn/api/#search-model) and [Query DSL]({{site.url}}{{site.baseurl}}/search-query/query-dsl/index/). 
 
 ### Neural request fields
 

@@ -52,12 +52,12 @@ With OpenSearch, you can perform the following use cases:
 
 OpenSearch has several features and plugins to help index, secure, monitor, and analyze your data. Most OpenSearch plugins have corresponding OpenSearch Dashboards plugins that provide a convenient, unified user interface.
 - [Anomaly detection]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/) - Identify atypical data and receive automatic notifications
-- [KNN]({{site.url}}{{site.baseurl}}/search-plugins/knn/) - Find “nearest neighbors” in your vector data
+- [KNN]({{site.url}}{{site.baseurl}}/search-query/knn/) - Find “nearest neighbors” in your vector data
 - [Performance Analyzer]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/) - Monitor and optimize your cluster
-- [SQL]({{site.url}}{{site.baseurl}}/search-plugins/sql/) - Use SQL or a piped processing language to query your data
+- [SQL]({{site.url}}{{site.baseurl}}/search-query/sql/) - Use SQL or a piped processing language to query your data
 - [Index State Management]({{site.url}}{{site.baseurl}}/im-plugin/) - Automate index operations
 - [ML Commons plugin]({{site.url}}{{site.baseurl}}/ml-commons-plugin/index/) - Train and execute machine-learning models
-- [Asynchronous search]({{site.url}}{{site.baseurl}}/search-plugins/async/) - Run search requests in the background
+- [Asynchronous search]({{site.url}}{{site.baseurl}}/search-query/async/) - Run search requests in the background
 - [Cross-cluster replication]({{site.url}}{{site.baseurl}}/replication-plugin/index/) - Replicate your data across multiple OpenSearch clusters
 
 

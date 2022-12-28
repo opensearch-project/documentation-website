@@ -18,7 +18,7 @@ To get started, select the Menu button on the upper left corner of the OpenSearc
 2. Enter a name for your application and optionally add a description.
 3. Do at least one of the following:
 
-- Use [PPL]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index) to specify the base query.
+- Use [PPL]({{site.url}}{{site.baseurl}}/search-query/sql/ppl/index) to specify the base query.
 
 You can't change the base query after the application is created.
 {: .note }
@@ -31,7 +31,7 @@ You can't change the base query after the application is created.
 ### Create a visualization
 
 1. Choose the **Log Events** tab.
-1. Use [PPL]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index) to build upon your base query.
+1. Use [PPL]({{site.url}}{{site.baseurl}}/search-query/sql/ppl/index) to build upon your base query.
 1. Choose the **Visualizations** tab to see your visualizations.
 1. Expand the **Save** dropdown menu, enter a name for your visualization, then choose **Save**.
 

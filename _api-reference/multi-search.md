@@ -46,7 +46,7 @@ Query\n
 ```
 
 - Metadata lines include options, such as which indices to search and the type of search.
-- Query lines use the [query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/).
+- Query lines use the [query DSL]({{site.url}}{{site.baseurl}}/search-query/query-dsl/index/).
 
 Just like the [bulk]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/) operation, the JSON doesn't need to be minified---spaces are fine---but it does need to be on a single line. OpenSearch uses newline characters to parse multi-search requests and requires that the request body end with a newline character.
 

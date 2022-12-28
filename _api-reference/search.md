@@ -95,7 +95,7 @@ explain | String | Whether to return details about how OpenSearch computed the d
 from | Integer | The starting index to search from. Default is 0.
 indices_boost | Array of objects | Scores used to boost specified indices' scores. Specify in the format of &lt;index&gt; : &lt;boost-multiplier&gt;
 min_score | Integer | Specify a score threshold to return only documents above the threshold.
-query | Object | The [DSL query]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index) to use in the request.
+query | Object | The [DSL query]({{site.url}}{{site.baseurl}}/search-query/query-dsl/index) to use in the request.
 seq_no_primary_term | Boolean | Whether to return sequence number and primary term of the last operation of each document hit.
 size | Integer | How many results to return. Default is 10.
 _source | | Whether to include the `_source` field in the response.

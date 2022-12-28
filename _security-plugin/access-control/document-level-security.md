@@ -165,7 +165,7 @@ You can perform term-level lookup queries (TLQs) with document-level security (D
 
 By default, the security plugin detects if a DLS query contains a TLQ or not and chooses the appropriate mode automatically at runtime.
 
-To learn more about OpenSearch queries, see [Term-level queries](https://opensearch.org/docs/latest/opensearch/query-dsl/term/).
+To learn more about OpenSearch queries, see [Term-level queries](https://opensearch.org/docs/latest/search-query/query-dsl/term/).
 
 ### How to set the DLS evaluation mode in `opensearch.yml`
 

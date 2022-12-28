@@ -46,7 +46,7 @@ collections:
   security-analytics:
     permalink: /:collection/:path/
     output: true
-  search-plugins:
+  search-query:
     permalink: /:collection/:path/
     output: true
   im-plugin:
@@ -112,8 +112,8 @@ just_the_docs:
     security-analytics:
       name: Security analytics plugin
       nav_fold: true
-    search-plugins:
-      name: Search plugins
+    search-query:
+      name: Searching and querying your data
       nav_fold: true
     im-plugin:
       name: Index management plugin

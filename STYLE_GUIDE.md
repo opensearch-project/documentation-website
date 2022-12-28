@@ -49,7 +49,7 @@ Use lowercase when referring to features, unless you are referring to a formally
 
 A plugin is a feature or distinct component that extends the functionality of OpenSearch. For now, capitalize plugin names, but use *plugin* sparingly. The concept of plugins will become obsolete once we re-architect the product. For example:
 
-* “Interaction with the *ML Commons* plugin occurs through either the REST API or [ad](https://opensearch.org/docs/latest/search-plugins/sql/ppl/functions#ad) and [kmeans](https://opensearch.org/docs/latest/search-plugins/sql/ppl/functions#kmeans) Piped Processing Language (PPL) commands.”
+* “Interaction with the *ML Commons* plugin occurs through either the REST API or [ad](https://opensearch.org/docs/latest/search-query/sql/ppl/functions#ad) and [kmeans](https://opensearch.org/docs/latest/search-query/sql/ppl/functions#kmeans) Piped Processing Language (PPL) commands.”
 * “Use the *Neural Search* plugin to integrate ML language models into your search workloads.”
 
 ### Voice and tone

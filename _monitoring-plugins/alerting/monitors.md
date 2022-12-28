@@ -142,7 +142,7 @@ Per query monitors run your specified query and then check whether the query's r
 
    - Visual definition works well for monitors that you can define as "some value is above or below some threshold for some amount of time."
 
-   - Query definition gives you flexibility in terms of what you query for (using [the OpenSearch query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text)) and how you evaluate the results of that query (Painless scripting).
+   - Query definition gives you flexibility in terms of what you query for (using [the OpenSearch query DSL]({{site.url}}{{site.baseurl}}/search-query/query-dsl/full-text)) and how you evaluate the results of that query (Painless scripting).
 
      This example averages the `cpu_usage` field:
 
@@ -195,7 +195,7 @@ Per query monitors run your specified query and then check whether the query's r
 
     If you use the Security plugin, you can only choose indexes that you have permission to access. For details, see [Alerting security]({{site.url}}{{site.baseurl}}/security-plugin/).
 
-    To use a query, choose **Extraction query editor**, add your query (using [the OpenSearch query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/)), and test it using the **Run** button.
+    To use a query, choose **Extraction query editor**, add your query (using [the OpenSearch query DSL]({{site.url}}{{site.baseurl}}/search-query/query-dsl/full-text/)), and test it using the **Run** button.
 
     The monitor makes this query to OpenSearch as often as the schedule dictates; check the **Query Performance** section and make sure you're comfortable with the performance implications.
 

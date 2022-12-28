@@ -11,9 +11,9 @@ Creates or updates a stored script or search template.
 
 For additional information about Painless scripting, see:
 
-* [k-NN Painless Scripting extensions]({{site.url}}{{site.baseurl}}/search-plugins/knn/painless-functions/).
+* [k-NN Painless Scripting extensions]({{site.url}}{{site.baseurl}}/search-query/knn/painless-functions/).
 
-* [k-NN]({{site.url}}{{site.baseurl}}/search-plugins/knn/index/).
+* [k-NN]({{site.url}}{{site.baseurl}}/search-query/knn/index/).
 
 
 ### Path parameters

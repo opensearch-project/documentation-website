@@ -15,7 +15,7 @@ Observability is collection of plugins and applications that let you visualize d
 
 Your experience of exploring data might differ, but if you're new to exploring data to create visualizations, we recommend trying a workflow like the following:
 
-1. Explore data within a certain timeframe using [Piped Processing Language]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index).
+1. Explore data within a certain timeframe using [Piped Processing Language]({{site.url}}{{site.baseurl}}/search-query/sql/ppl/index).
 2. Use [event analytics]({{site.url}}{{site.baseurl}}/observability-plugin/event-analytics) to turn data-driven events into visualizations.
   ![Sample Event Analytics View]({{site.url}}{{site.baseurl}}/images/event-analytics.png)
 3. Create [operational panels]({{site.url}}{{site.baseurl}}/observability-plugin/operational-panels) and add visualizations to compare data the way you like.

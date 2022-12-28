@@ -73,7 +73,7 @@ wait_for_completion | Boolean | Setting this parameter to false indicates to Ope
 
 ## Request body
 
-To search your index for specific documents, you must include a [query]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index) in the request body that OpenSearch uses to match documents. If you don't use a query, OpenSearch treats your delete request as a simple [delete document operation]({{site.url}}{{site.baseurl}}/api-reference/document-apis/delete-document).
+To search your index for specific documents, you must include a [query]({{site.url}}{{site.baseurl}}/search-query/query-dsl/index) in the request body that OpenSearch uses to match documents. If you don't use a query, OpenSearch treats your delete request as a simple [delete document operation]({{site.url}}{{site.baseurl}}/api-reference/document-apis/delete-document).
 
 ```json
 {

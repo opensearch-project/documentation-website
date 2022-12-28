@@ -87,7 +87,7 @@ To configure an anomaly detection model based on a JSON aggregation query, follo
 1. For **Find anomalies based on**, select **Custom expression**. You will see the JSON editor window open up.
 1. Enter your JSON aggregation query in the editor.
 
-For acceptable JSON query syntax, see [OpenSearch Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index/)
+For acceptable JSON query syntax, see [OpenSearch Query DSL]({{site.url}}{{site.baseurl}}/search-query/query-dsl/index/)
 {: .note }
 
 #### (Optional) Set category fields for high cardinality
