@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Autocomplete
+parent: Customizing search results
 nav_order: 10
 ---
 

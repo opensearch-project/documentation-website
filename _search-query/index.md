@@ -35,11 +35,12 @@ What users expect from search engines has evolved over the years. Just returning
 
 Feature | Description
 :--- | :---
-[Autocomplete functionality]({{site.url}}{{site.baseurl}}/search-query/autocomplete/) | Suggest phrases as the user types.
-[Did-you-mean functionality]({{site.url}}{{site.baseurl}}/search-query/did-you-mean/) | Check spelling of phrases as the user types.
-[Paginate results]({{site.url}}{{site.baseurl}}/search-query/paginate/) | Rather than a single, long list, separate search results into pages.
-[Sort results]({{site.url}}{{site.baseurl}}/search-query/sort/) | Allow sorting of results by different criteria.
-[Highlight query matches]({{site.url}}{{site.baseurl}}t/search-query/highlight/) | Highlight the search term in the results.
+[Autocomplete functionality]({{site.url}}{{site.baseurl}}/search-query/customizing-search/autocomplete/) | Suggest phrases as the user types.
+[Did-you-mean functionality]({{site.url}}{{site.baseurl}}/search-query/customizing-search/did-you-mean/) | Check spelling of phrases as the user types.
+[Paginate results]({{site.url}}{{site.baseurl}}/search-query/customizing-search/paginate/) | Rather than a single, long list, separate search results into pages.
+[Sort results]({{site.url}}{{site.baseurl}}/search-query/customizing-search/sort/) | Allow sorting of results by different criteria.
+[Highlight query matches]({{site.url}}{{site.baseurl}}t/search-query/customizing-search/highlight/) | Highlight the search term in the results.
+[Search relevance]({{site.url}}{{site.baseurl}}t/search-query/search-relevance/) | Compare two queries to see which produces a better result. 
 
 ## How to run a search
 

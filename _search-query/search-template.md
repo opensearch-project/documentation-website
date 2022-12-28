@@ -1,8 +1,8 @@
 ---
 layout: default
 title: Search templates
-nav_order: 60
-redirect_from: /search-query/search-templates/
+nav_order: 5
+redirect_from: /opensearch/search-templates/
 ---
 
 # Search templates

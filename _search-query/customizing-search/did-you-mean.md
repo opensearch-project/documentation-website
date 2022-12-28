@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Did-you-mean
+parent: Customizing search results
 nav_order: 20
 ---
 
@@ -329,7 +330,7 @@ The phrase suggester returns the corrected phrase:
 }
 ```
 
-To highlight suggestions, set up the [`highlight`]({{site.url}}{{site.baseurl}}/search-query/highlight) field for the phrase suggester:
+To highlight suggestions, set up the [`highlight`]({{site.url}}{{site.baseurl}}/search-query/customizing-search/highlight/) field for the phrase suggester:
 
 ```json
 GET books2/_search

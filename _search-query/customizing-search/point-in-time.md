@@ -3,7 +3,7 @@ layout: default
 title: Point in Time
 nav_order: 50
 has_children: true
-has_toc: false
+parent: Customizing search results
 redirect_from: /opensearch/point-in-time/
 ---
 
@@ -15,7 +15,7 @@ Normally, if you run a query on an index multiple times, the same query may retu
 
 ## Paginating search results
 
-Besides the PIT functionality, there are three ways to [paginate search results]({{site.url}}{{site.baseurl}}/search-query/paginate) in OpenSearch: using the Scroll API, specifying `from` and `size` parameters for your search, and using the `search_after` functionality. However, all three have limitations:
+Besides the PIT functionality, there are three ways to [paginate search results]({{site.url}}{{site.baseurl}}/search-query/customizing-search/paginate) in OpenSearch: using the Scroll API, specifying `from` and `size` parameters for your search, and using the `search_after` functionality. However, all three have limitations:
 
 - The Scroll API's search results are frozen at the moment of the request, but they are bound to a particular query. Additionally, scroll can only move forward in the search, so if a request for a page fails, the subsequent request skips that page and returns the following one.
 - If you specify the `from` and `size` parameters for your search, the search results are not frozen in time, so they may be inconsistent because of documents being indexed or deleted. The `from` and `size` feature is not recommended for deep pagination because every page request requires processing of all results and filtering them for the requested page.

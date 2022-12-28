@@ -2,8 +2,8 @@
 layout: default
 title: Point in Time API
 nav_order: 58
-has_children: false
 parent: Point in Time
+grand_parent: Customizing search results
 redirect_from: /opensearch/point-in-time-api/
 ---
 

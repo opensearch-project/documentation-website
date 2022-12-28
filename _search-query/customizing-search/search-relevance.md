@@ -1,9 +1,8 @@
 ---
 layout: default
 title: Search relevance
-nav_order: 80
-has_children: false
-has_toc: false
+nav_order: 65
+parent: Customizing search results
 redirect_from:
   - /opensearch/search-relevance/
 ---
@@ -40,7 +39,7 @@ To compare search results in OpenSearch Dashboards, perform the following steps.
 
 **Step 2:** Enter the search text in the search bar.
 
-**Step 3:** Select an index for **Query 1** and enter a query (request body only) in [OpenSearch Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl). The `GET` HTTP method and the `_search` endpoint are implicit. Use the `%SearchText%` variable to refer to the text in the search bar.
+**Step 3:** Select an index for **Query 1** and enter a query (request body only) in [OpenSearch Query DSL]({{site.url}}{{site.baseurl}}/search-query/query-dsl/index/). The `GET` HTTP method and the `_search` endpoint are implicit. Use the `%SearchText%` variable to refer to the text in the search bar.
 
 The following is an example query:
 

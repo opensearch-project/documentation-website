@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Highlight query matches
+parent: Customizing search results
 nav_order: 30
 ---
 

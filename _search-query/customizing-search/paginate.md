@@ -1,10 +1,11 @@
 ---
 layout: default
 title: Paginate results
+parent: Customizing search results
 nav_order: 40
 ---
 
-## Paginate results
+# Paginate results
 
 You can use the following methods to paginate search results in OpenSearch: 
 
