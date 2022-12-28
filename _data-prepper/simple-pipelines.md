@@ -140,7 +140,7 @@ EFC73B62-E976-4314-86C8-1E76F7EF9BCC
 8D4E7DB3-6D6C-4AB7-925F-5F7C6CCD1058
 ```
 
-Shut down Data Prepper:
+Shut down Data Prepper by using this curl request:
 
 ```
 curl -X POST http://localhost:4900/shutdown
