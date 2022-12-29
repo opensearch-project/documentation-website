@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Text analyzers
-has_childen: true
+has_children: true
 nav_order: 140
 ---
 
