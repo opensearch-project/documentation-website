@@ -1,12 +1,12 @@
 ---
 layout: default
 title: Expression syntax
-nav_order: 12
+nav_order: 40
 ---
 
 # Expression syntax 
 
-The following sections provide information about expression syntax.
+The following sections provide information about expression syntax in Data Prepper.
 
 ## Supported operators
 
