@@ -25,7 +25,7 @@ We recommend:
  * `buffer_size` >= `workers` * `batch_size` in the `raw-trace-pipeline`
  
 
-### Workers
+### Workers 
 
 The `workers` setting determines the number of threads that will be used by Data Prepper to process requests from the buffer. 
 
