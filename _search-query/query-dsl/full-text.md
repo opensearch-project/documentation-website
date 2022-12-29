@@ -15,7 +15,7 @@ To learn more about search query classes, see [Lucene query JavaDocs](https://lu
 
 The full-text query types shown in this section use the standard analyzer, which analyzes text automatically when the query is submitted.
 
-You can also analyze fields when you index them. To learn more about how to convert unstructured text into structured text that is optimized for search, see [Optimizing text for searches with text analyzers]({{site.url}}{{site.baseurl}}/search-query/query-dsl/text-analyzers).
+You can also analyze fields when you index them. To learn more about how to convert unstructured text into structured text that is optimized for search, see [Optimizing text for searches with text analyzers]({{site.url}}{{site.baseurl}}/search-query/text-analyzers/text-analyzers/).
 {: .note }
 
 <!-- to do: rewrite query type definitions per issue: https://github.com/opensearch-project/documentation-website/issues/1116
@@ -423,7 +423,7 @@ GET _search
 -->
 ## Advanced filter options
 
-You can filter your query results by using some of the optional query fields, such as wildcards, fuzzy query fields, and synonyms. You can also use analyzers as optional query fields. To learn more, see [How to use text analyzers]({{site.url}}{{site.baseurl}}/search-query/query-dsl/text-analyzers/#how-to-use-text-analyzers).
+You can filter your query results by using some of the optional query fields, such as wildcards, fuzzy query fields, and synonyms. You can also use analyzers as optional query fields. To learn more, see [How to use text analyzers]({{site.url}}{{site.baseurl}}/search-query/text-analyzers/text-analyzers#how-to-use-text-analyzers).
 
 ### Wildcard options
 

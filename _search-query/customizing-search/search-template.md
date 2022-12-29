@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Search templates
+parent: Customizing search results
 nav_order: 5
 redirect_from: /opensearch/search-templates/
 ---

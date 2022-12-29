@@ -96,7 +96,7 @@ search_backpressure.<br>&nbsp;&nbsp;&nbsp;&nbsp;search_shard_task.<br>&nbsp;&nbs
 Introduced 2.4
 {: .label .label-purple }
 
-You can use the [nodes stats API operation]({{site.url}}{{site.baseurl}}/search-query/query-dsl/text-analyzers/#how-to-use-text-analyzers) to monitor server-side request cancellations.
+You can use the [nodes stats API operation]({{site.url}}{{site.baseurl}}/search-query/text-analyzers/text-analyzers#how-to-use-text-analyzers) to monitor server-side request cancellations.
 
 #### Sample request
 
