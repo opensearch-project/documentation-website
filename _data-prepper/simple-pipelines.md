@@ -100,7 +100,7 @@ curl -X POST https://localhost:4900/shutdown
 
 ## Adding a processor
 
-The previous example demonstrates the bare minimum a pipeline can have: A source sending data to a sink. The following example adds a string converter processor. This simple processor transforms the string by making it uppercase:
+The previous example demonstrates the bare minimum a pipeline can have: a source sending data to a sink. The following example adds a string converter processor. This simple processor transforms the string by making it uppercase:
 
 ```
 simple-sample-pipeline:
@@ -118,11 +118,13 @@ simple-sample-pipeline:
 Once configured, run Data Prepper again.
 
 For Data Prepper 2.0 or later, use this command:
+
 ```
 docker run --name data-prepper -p 4900:4900 -v ${PWD}/pipelines.yaml:/usr/share/data-prepper/pipelines/pipelines.yaml -v ${PWD} /data-prepper-config.yaml:/usr/share/data-prepper/config/data-prepper-config.yaml opensearchproject/data-prepper:latest
 ```
 
 For Data Prepper versions previous to 2.0, use this command:
+
 ```
 docker run --name data-prepper -p 4900:4900 -v ${PWD}/pipelines.yaml:/usr/share/data-prepper/pipelines.yaml -v ${PWD}/data-prepper-config.yaml:/usr/share/data-prepper/data-prepper-config.yaml opensearchproject/data-prepper:latest
 ```
