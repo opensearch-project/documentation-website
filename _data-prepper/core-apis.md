@@ -6,7 +6,7 @@ nav_order: 2
 
 # Core APIs
 
-All Data Prepper instances expose a server with some control APIs. By default, this server runs on port 4900. Some plugins, especially source plugins may expose other servers. These will be on different ports, and their configurations are independent of the core API. For example, to shut down Data Prepper, you can run the following curl request:
+All Data Prepper instances expose a server with some control APIs. By default, this server runs on port 4900. Some plugins, especially source plugins, may expose other servers that run on different ports. Configurations for these plugins are independent of the core API. For example, to shut down Data Prepper, you can run the following curl request:
 
 ```
 curl -X POST http://localhost:4900/shutdown
@@ -44,7 +44,7 @@ keyStorePassword: "secret"
 privateKeyPassword: "secret"
 ```
 
-For more information about configuring your Data Prepper server with SSL, see [Server Configuration](https://github.com/opensearch-project/data-prepper/blob/main/docs/configuration.md#server-configuration). If you are using a self-signed certificate, you can add the `-k` flag to quickly test sending curl requests for the core APIs with SSL. Use the following curl request to test for core APIs with SSL.
+For more information about configuring your Data Prepper server with SSL, see [Server Configuration](https://github.com/opensearch-project/data-prepper/blob/main/docs/configuration.md#server-configuration). If you are using a self-signed certificate, you can add the `-k` flag to the request to quickly test core APIs with SSL. Use the following curl request to test for core APIs with SSL:
 
 
 ```
