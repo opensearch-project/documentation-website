@@ -2,7 +2,7 @@
 layout: default
 title: Configuring Data Prepper
 has_children: true
-nav_order: 40
+nav_order: 100
 ---
 
 # Configuring Data Prepper

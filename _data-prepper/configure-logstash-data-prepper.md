@@ -1,7 +1,6 @@
 ---
 layout: default
 title: Configure Logstash for Data Prepper
-parent: Data Prepper
 nav_order: 12
 ---
 
