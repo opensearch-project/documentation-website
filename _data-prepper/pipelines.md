@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Pipelines
-nav_order: 41
+nav_order: 20
 ---
 
 # Pipelines
