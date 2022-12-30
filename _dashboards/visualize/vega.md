@@ -1,10 +1,11 @@
 ---
 layout: default
-title: Vega and Vega-Lite
-parent: Visualize
+title: Using Vega and Vega-Lite
+parent: Visualization types
+grand_parent: Visualize
 nav_order: 90
 ---
-# Vega and Vega-Lite
+# Using Vega and Vega-Lite in OpenSearch Dashboards
 
 [Vega](https://vega.github.io/vega/) and [Vega-Lite](https://vega.github.io/vega-lite/) are open-source, declarative language visualization grammars for creating, sharing, and saving interactive data visualizations.You can use Vega or its simpler form, Vega-Lite (Dashboards supports both) to control what data is loaded, how that data is transformed, and what visual elements to use in your visualization. Vega-Lite is a good starting point for use who are new to declarative data visualizations, as it’s a simplified version of Vega higher level  for quick visualization authoring.
 
