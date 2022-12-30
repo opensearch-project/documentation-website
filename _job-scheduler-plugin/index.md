@@ -10,7 +10,7 @@ has_toc: false
 
 The OpenSearch Job Scheduler plugin provides a framework that can be used to build schedules for common tasks performed on your cluster. You use the job scheduler’s Service Provider Interface (SPI) to define schedules for cluster management tasks such as taking snapshots, managing your data’s lifecycle, and running periodic jobs. Job Scheduler has a sweeper that listens for updated events on the OpenSearch cluster, and a scheduler that manages when jobs run.
 
-You can install the Job Scheduler plugin by following the standard [OpenSearch plugin installation]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/plugins/) process. The sample-extension-plugin example provided in the [Job Scheduler Github repo](https://github.com/opensearch-project/job-scheduler) provides a complete example of utilizing Job Scheduler when building a plugin. To define schedules, you build a plugin that implements the interfaces provided in the job scheduler library. You can schedule jobs by specifying an interval, or you can use a Unix cron expression to define a more flexible schedule for which to execute a job.
+You can install the Job Scheduler plugin by following the standard [OpenSearch plugin installation]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/plugins/) process. The sample-extension-plugin example provided in the [Job Scheduler Github repo](https://github.com/opensearch-project/job-scheduler) provides a complete example of utilizing Job Scheduler when building a plugin. To define schedules, you build a plugin that implements the interfaces provided in the job scheduler library. You can schedule jobs by specifying an interval, or you can use a Unix cron expression such as `0 12 * * ?` which runs at noon every day, to define a more flexible schedule for which to execute a job.
 
 ## Building a plugin for Job Scheduler
 
@@ -27,7 +27,7 @@ public class SampleExtensionRestHandler extends BaseRestHandler {
     public static final String WATCH_INDEX_URI = "/_plugins/scheduler_sample/watch";
 ```
 
-You then need to define the job configuration by [extending](https://github.com/opensearch-project/job-scheduler/blob/main/sample-extension-plugin/src/main/java/org/opensearch/jobscheduler/sampleextension/SampleJobParameter.java) `ScheduledJobParameter`. You can also define the fields used by your plugin like `indexToWatch` as shown in the [example](https://github.com/opensearch-project/job-scheduler/blob/main/sample-extension-plugin/src/main/java/org/opensearch/jobscheduler/sampleextension/SampleJobParameter.java) `SampleJobParameter` file. This job configuration will be saved as a document in an index defined by you as shown in this [example](https://github.com/opensearch-project/job-scheduler/blob/main/sample-extension-plugin/src/main/java/org/opensearch/jobscheduler/sampleextension/SampleExtensionPlugin.java#L54).
+You can define the job configuration by [extending](https://github.com/opensearch-project/job-scheduler/blob/main/sample-extension-plugin/src/main/java/org/opensearch/jobscheduler/sampleextension/SampleJobParameter.java) `ScheduledJobParameter`. You can also define the fields used by your plugin like `indexToWatch` as shown in the [example](https://github.com/opensearch-project/job-scheduler/blob/main/sample-extension-plugin/src/main/java/org/opensearch/jobscheduler/sampleextension/SampleJobParameter.java) `SampleJobParameter` file. This job configuration will be saved as a document in an index defined by you as shown in this [example](https://github.com/opensearch-project/job-scheduler/blob/main/sample-extension-plugin/src/main/java/org/opensearch/jobscheduler/sampleextension/SampleExtensionPlugin.java#L54).
 
 ## Parameters configuration
 
@@ -62,7 +62,7 @@ public class SampleJobParameter implements ScheduledJobParameter {
     private Double jitter;
 ```
 
-Next, build out your parameters from the declared variables. The following sample shows the request parameters to set while building your plugin:
+Next, configure the request parameters you would like your plugin to use with Job Scheduler. These will be based on the variables that are declared when configuring your plugin. The sample below shows the request parameters you set when building your plugin:
 
 ```java
 public SampleJobParameter(String id, String name, String indexToWatch, Schedule schedule, Long lockDurationSeconds, Double jitter) {
@@ -125,6 +125,6 @@ The following table describes the request parameters configured in the previous 
 | getLockDurationSeconds | Integer | Returns the duration of time that the job is locked. |
 | getJitter | Integer | Returns the defined jitter value. |
 
-The logic run by your job should be defined by a class extending `ScheduledJobRunner` such as `SampleJobRunner`. While the job is running, there is a locking mechanism you can use to prevent other nodes from running the same job. [Acquire](https://github.com/opensearch-project/job-scheduler/blob/main/sample-extension-plugin/src/main/java/org/opensearch/jobscheduler/sampleextension/SampleJobRunner.java#L96) the lock. Then, make sure to release the lock before the [job finishes](https://github.com/opensearch-project/job-scheduler/blob/main/sample-extension-plugin/src/main/java/org/opensearch/jobscheduler/sampleextension/SampleJobRunner.java#L116).
+The logic used by your job should be defined by a class extended from `ScheduledJobRunner` in the `SampleJobParameter.java` sample file, such as `SampleJobRunner`. While the job is running, there is a locking mechanism you can use to prevent other nodes from running the same job. [Acquire](https://github.com/opensearch-project/job-scheduler/blob/main/sample-extension-plugin/src/main/java/org/opensearch/jobscheduler/sampleextension/SampleJobRunner.java#L96) the lock. Then, make sure to release the lock before the [job finishes](https://github.com/opensearch-project/job-scheduler/blob/main/sample-extension-plugin/src/main/java/org/opensearch/jobscheduler/sampleextension/SampleJobRunner.java#L116).
 
-For more information, see the Job Scheduler [sample extention](https://github.com/opensearch-project/job-scheduler/blob/main/sample-extension-plugin/src/main/java/org/opensearch/jobscheduler/sampleextension/SampleJobParameter.java) directory in the [Job Scheduler Github repro](https://github.com/opensearch-project/job-scheduler).
+For more information, see the Job Scheduler [sample extention](https://github.com/opensearch-project/job-scheduler/blob/main/sample-extension-plugin/src/main/java/org/opensearch/jobscheduler/sampleextension/SampleJobParameter.java) directory in the [Job Scheduler Github repository](https://github.com/opensearch-project/job-scheduler).
