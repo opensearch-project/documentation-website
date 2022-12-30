@@ -1,19 +1,19 @@
 ---
 layout: default
-title: Region map visualizations
-nav_order: 7
+title: Using Region Map
+parent: Visualization types
+grand_parent: Visualize
+nav_order: 70
 ---
 
-# Region map visualizations
+# Using Region Map
 
-OpenSearch Dashboards provides basic map tiles with a standard vector map that you can use to create your region map visualizations. You can configure the base map tiles using the Web Map Service (WMS) map server.
+OpenSearch Dashboards provides basic map tiles with a standard vector map that you can use to create region map visualizations. You can configure the base map tiles using the [Web Map Service (WMS)](https://opensearch.org/docs/latest/dashboards/maptiles/) map server. Dashboards also has a standard set of GeoJSON files to provide a vector map with your regional maps.
 
 You can't configure a server to support user-defined vector map layers. However, you can configure your own GeoJSON file and upload it for this purpose.
 {: .note}
 
-OpenSearch also has a standard set of GeoJSON files to provide a vector map with your regional maps.
-
-## Custom vector maps with GeoJSON
+## Try it: Custom vector maps with GeoJSON
 
 If you have a specific locale that is not provided by OpenSearch Dashboards vector maps, such as a US county or US ZIP Code, you can create your own custom vector map with a GeoJSON file. To create a custom region map you would define a geographic shape such as a polygon with multiple coordinates. To learn more about the various geographic shapes that support a custom region map location, see [Geoshape field type]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-shape/).
 
