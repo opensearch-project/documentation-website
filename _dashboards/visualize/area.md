@@ -34,6 +34,6 @@ Dashboards playground is read-only and will not save the session details for thi
 
 # Related links
 
-- 
-- [Aggregations](https://opensearch.org/docs/latest/opensearch/aggregations/)
-- 
+- [Visualize]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/)
+- [Visualization types in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-types/)
+- [Aggregations]({{site.url}}{{site.baseurl}}/opensearch/aggregations/)
