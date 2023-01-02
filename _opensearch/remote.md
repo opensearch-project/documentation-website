@@ -97,13 +97,17 @@ curl -X PUT "https://localhost:9200/my-index?pretty" -ku admin:admin -H 'Content
   "settings": {
     "index": {
       "number_of_shards": 1,
-      "number_of_replicas": 0,
+      "number_of_replicas": 1,
       "replication": {
         "type": "SEGMENT"
       },
       "remote_store": {
         "enabled": true,
-        "repository": "my-repo-1"
+        "repository": "segment-repo",
+        "translog": {
+          "enabled": true,
+          "repository": "translog-repo"
+        }
       }
     }
   }
@@ -111,7 +115,7 @@ curl -X PUT "https://localhost:9200/my-index?pretty" -ku admin:admin -H 'Content
 '
 ```
 
-All data that is added to the index will also be uploaded to the remote storage once it is committed.
+The segment & translog repository can be same or different. All data that is added to the index will also be continuously uploaded to the remote storage on account of refreshes / flushes / translog fsync (to disk) in the form of segment and translog files. Along with this, there are other metadata files uploaded.
 
 ### Restoring from a backup
 
@@ -133,3 +137,18 @@ curl -X POST "https://localhost:9200/_remotestore/_restore" -ku admin:admin -H '
 
 If the security plugin is enabled, a user must have the `cluster:admin/remotestore/restore` permission. See [Access control](/security-plugin/access-control/index/) for information about configuring user permissions.
 {: .note}
+
+## Potential use cases
+
+The following are potential use cases for the remote-backed storage feature:
+
+- The ability to restore red clusters / indices.
+- The ability to recover all data until the last acknowledged write regardless of replica count if `index.translog.durability=request`. 
+
+## Known limitations
+
+The following are known limitations of the remote-backed storage feature:
+
+- Writing data to a remote store can be a high latency operation when compared to writing data on local file system. This, in expectation, impacts the indexing throughput.
+- [Known issues](https://github.com/opensearch-project/OpenSearch/issues/5678).
+
