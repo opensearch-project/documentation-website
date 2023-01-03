@@ -28,7 +28,7 @@ peer_forwarder:4
 
 ### DNS lookup
 
-DNS discovery is preferred over static discovery when scaling out a Data Prepper cluster. DNS discovery configures a DNS provider to return a list of Data Prepper hosts when given a single domain name. This list that is returned is a [DNS A Record](https://www.cloudflare.com/learning/dns/dns-records/dns-a-record/), which indicates a list of IP addresses of a given domain. See the following yaml file example of DNS lookup:
+DNS discovery is preferred over static discovery when scaling out a Data Prepper cluster. DNS discovery configures a DNS provider to return a list of Data Prepper hosts when given a single domain name. This list that is returned is a [DNS A record](https://www.cloudflare.com/learning/dns/dns-records/dns-a-record/), which indicates a list of IP addresses of a given domain. See the following yaml file example of DNS lookup:
 
 ```yaml
 peer_forwarder:
@@ -94,13 +94,13 @@ The following table provides optional configuration values.
 | `request_timeout` | An `int` representing the request timeout duration in milliseconds for the Peer Forwarder HTTP server. Default value is `10000`. |
 | `server_thread_count` | An `int` representing the number of threads used by the Peer Forwarder server. Default value is `200`.|
 | `client_thread_count` | An `int` representing the number of threads used by the Peer Forwarder client. Default value is `200`.|
-| `maxConnectionCount`  |  An `int` representing the maximum number of open connections for Peer Forwarder server. Default value is `500`. |
+| `maxConnectionCount`  |  An `int` representing the maximum number of open connections for the Peer Forwarder server. Default value is `500`. |
 | `discovery_mode` | A `String` representing the peer discovery mode to be used. Allowable values are `local_node`, `static`, `dns`, and `aws_cloud_map`. Defaults to `local_node`, which processes events locally. |
 | `static_endpoints` |  A `list` containing the endpoints of all Data Prepper instances. Required if `discovery_mode` is set to `static`. |
 |  `domain_name` | A `String` representing the single domain name to query DNS against. Typically, used by creating multiple [DNS A records](https://www.cloudflare.com/learning/dns/dns-records/dns-a-record/) for the same domain. Required if `discovery_mode` is set to `dns`. |
 | `aws_cloud_map_namespace_name`  | A `String` representing the AWS Cloud Map namespace when using AWS Cloud Map service discovery. Required if `discovery_mode` is set to `aws_cloud_map`.  |
-| `aws_cloud_map_service_name` |  A `String` representing the Cloud Map service when using AWS Cloud Map service discovery. Required if `discovery_mode` is set to `aws_cloud_map`. |
-| `aws_cloud_map_query_parameters`  |  A `Map` of Key/value pairs to filter the results based on the custom attributes attached to an instance. Only instances that match all the specified key-value pairs are returned. |
+| `aws_cloud_map_service_name` |  A `String` representing the AWS Cloud Map service when using AWS Cloud Map service discovery. Required if `discovery_mode` is set to `aws_cloud_map`. |
+| `aws_cloud_map_query_parameters`  |  A `Map` of key-value pairs used to filter the results based on the custom attributes attached to an instance. Only instances that match all the specified key-value pairs are returned. |
 | `buffer_size` |  An `int` representing the maximum number of unchecked records the buffer accepts (the number of unchecked records equals the number of records written into the buffer plus the number of in-flight records not yet checked by the Checkpointing API). Default is `512`. |
 | `batch_size` |  An `int` representing max number of records the buffer returns on read. Default is `48`. |
 |  `aws_region` |  A `String` represents the AWS Region to use `ACM`, `S3` or `AWS Cloud Map`. Required if `use_acm_certificate_for_ssl` is set to `true` or `ssl_certificate_file`,  and `ssl_key_file` is set to the `AWS S3` path, or if `discovery_mode` is set to `aws_cloud_map`. |
@@ -120,8 +120,8 @@ The following SSL configuration table provides optional SSL configuration values
 | `use_acm_certificate_for_ssl` | A `Boolean` that enables TLS/SSL using the certificate and private key from AWS Certificate Manager (ACM). Default value is `false`. |
 | `acm_certificate_arn`| A `String` representing the ACM certificate Amazon Resource Name (ARN). The ACM certificate takes precedence over S3 or the local file system certificate. Required if `use_acm_certificate_for_ssl` is set to `true`. |
 | `acm_private_key_password` | A `String` representing the ACM private key password that will be used to decrypt the private key. If it's not provided, a random password will be generated. |
-| `acm_certificate_timeout_millis` | An `Int` representing the timeout in milliseconds for ACM to get certificates. Default value is `120000`. |
-| `aws_region` | A `String` representing the AWS Region to use `ACM`, `S3` or `AWS Cloud Map`. Required if `use_acm_certificate_for_ssl` is set to `true` or `ssl_certificate_file`,  and `ssl_key_file` is set to the `AWS S3` path, or if `discovery_mode` is set to `aws_cloud_map`. |
+| `acm_certificate_timeout_millis` | An `Int` representing the timeout in milliseconds required for ACM to get certificates. Default value is `120000`. |
+| `aws_region` | A `String` representing the AWS Region that uses `ACM`, `S3` or `AWS Cloud Map`. Required if `use_acm_certificate_for_ssl` is set to `true` or `ssl_certificate_file`. Also required when the `ssl_key_file` is set to the `AWS S3` path, or if `discovery_mode` is set to `aws_cloud_map`. |
 
 #### Example configuration
 
@@ -138,7 +138,7 @@ peer_forwarder:
 
 This section describes optional authentication.
 
-`authentication` is optional and is a `Map` that enables mTLS. It can either be `mutual_tls` or `unauthenticated`. The default value is `unauthenticated`. The following yaml file provides an exmaple for authentication:
+`Authentication` is optional and is a `Map` that enables mTLS. It can either be `mutual_tls` or `unauthenticated`. The default value is `unauthenticated`. The following yaml file provides an exmaple for authentication:
 
 ```yaml
 peer_forwarder:
@@ -154,7 +154,9 @@ Core Peer Forwarder introduces the following custom metrics. All the metrics are
 
 ### Timer
 
-- `requestForwardingLatency`: Measures latency of requestes forwarded by the Peer Forwarder client.
+Peer Forwarder's timer capability provides the following information:
+
+- `requestForwardingLatency`: Measures latency of requests forwarded by the Peer Forwarder client.
 - `requestProcessingLatency`: Measures latency of requests processed by the Peer Forwarder server.
 
 ### Counter
@@ -168,10 +170,10 @@ The following table provides counter metric options.
 | `requestsSuccessful`|  Measures the total number of successful requests. Requests with HTTP response code `200`. |
 | `requestsTooLarge`| Measures the total number of requests that are too large to be written to the Peer Forwarder buffer. Requests with HTTP response code `413`. |
 | `requestTimeouts`| Measures the total number of requests that time out while writing content to the Peer Forwarder buffer. Requests with HTTP response code `408`. |
-| `requestsUnprocessable`| Measures the total number of requests that failed due to unprocessable entity. Requests with HTTP response code `422`. |
+| `requestsUnprocessable`| Measures the total number of requests that fail due to an unprocessable entity. Requests with HTTP response code `422`. |
 | `badRequests`| Measures the total number of requests with bad request format. Requests with HTTP response code `400`. |
-| `recordsSuccessfullyForwarded`| Measures the total number of forwarded records successfully. |
-| `recordsFailedForwarding`| Measures the total number of records failed to be forwarded. |
+| `recordsSuccessfullyForwarded`| Measures the total number of successfully forwarded records. |
+| `recordsFailedForwarding`| Measures the total number of records fail to be forwarded. |
 | `recordsToBeForwarded` | Measures the total number of records to be forwarded. |
 | `recordsToBeProcessedLocally` | Measures the total number of records to be processed locally. |
 | `recordsActuallyProcessedLocally`| Measures the total number of records actually processed locally. This value is the sum of `recordsToBeProcessedLocally` and `recordsFailedForwarding`. |
