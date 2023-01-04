@@ -33,7 +33,7 @@ import openseach_py_ml as oml
 
 ## API reference
 
-For information on all opensearch-py-ml objects, functions, and methods, see the [opensearch-pl-ml API reference](https://opensearch-project.github.io/opensearch-py-ml/reference/index.html).
+For information on all opensearch-py-ml objects, functions, and methods, see the [opensearch-py-ml API reference](https://opensearch-project.github.io/opensearch-py-ml/reference/index.html).
 
 ## Next steps
 
