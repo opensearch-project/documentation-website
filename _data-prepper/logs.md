@@ -14,7 +14,7 @@ The following describes how Data Prepper performs logging. Data Prepper uses [SL
 
 For Data Prepper version 2.0 and later, the Log4j 2 configuration file can be found and edited in `config/log4j2.properties` in the application's home directory. The default properties for Log4j 2 can be found in `log4j2-rolling.properties` in the *shared-config* directory.
 
-For Data Prepper before version 2.0, Log4j 2 configuration can be overridden by setting "log4j.configurationFile" system property when running Data Prepper. Default properties for Log4j 2 can be found in `log4j2.properties` in the *shared-config* directory. 
+For Data Prepper versions before 2.0, Log4j 2 configuration can be overridden by setting "log4j.configurationFile" system property when running Data Prepper. Default properties for Log4j 2 can be found in `log4j2.properties` in the *shared-config* directory. 
 
 ### Example
 
