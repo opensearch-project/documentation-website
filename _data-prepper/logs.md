@@ -18,7 +18,7 @@ For Data Prepper before version 2.0, Log4j 2 configuration can be overridden by 
 
 ### Example
 
-The following command is how the `log4j.configurationFile` property is set when running Data Prepper.  This property uses `-D{property_name}={property_value}` as the value, which is a path to the Log4j2 configuration file.
+When running Data Prepper, the following command can be overridden by setting system property `-Dlog4j.configurationFile={property_value}`, where `{property_value}` is a path to the Log4j2 configuration file.
 
 ```
 java "-Dlog4j.configurationFile=config/custom-log4j2.properties" -jar data-prepper-core-$VERSION.jar pipelines.yaml data-prepper-config.yaml
