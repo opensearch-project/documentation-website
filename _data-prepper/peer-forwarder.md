@@ -181,4 +181,4 @@ The following table provides counter metric options.
 
 ### Gauge
 
-`peerEndpoints` Measures number of dynamically discovered peer Data Prepper endpoints. For `static` mode, the size is fixed.
+`peerEndpoints` Measures the number of dynamically discovered peer Data Prepper endpoints. For `static` mode, the size is fixed.
