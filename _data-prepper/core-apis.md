@@ -44,11 +44,11 @@ keyStorePassword: "secret"
 privateKeyPassword: "secret"
 ```
 
-For more information about configuring your Data Prepper server with SSL, see [Server Configuration](https://github.com/opensearch-project/data-prepper/blob/main/docs/configuration.md#server-configuration). If you are using a self-signed certificate, you can add the `-k` flag to the request to quickly test core APIs with SSL. Use the following curl request to test for core APIs with SSL:
+For more information about configuring your Data Prepper server with SSL, see [Server Configuration](https://github.com/opensearch-project/data-prepper/blob/main/docs/configuration.md#server-configuration). If you are using a self-signed certificate, you can add the `-k` flag to the request to quickly test core APIs with SSL. Use the `shutdown` request to test core APIs with SSL:
 
 
 ```
-curl -k -X POST https://localhost:4900/shutdown
+curl -k -X POST https://localhost:4900/shutdown 
 ```
 
 ### Authentication
@@ -75,7 +75,7 @@ Peer Forwarder can be configured to enable stateful aggregation across multiple 
 
 ### Shutdown timeouts
 
-When the Data Prepper `shutdown` API is invoked, the `ExecutorService` sink and processor are given time to gracefully shut down and clear any in-flight data. The default graceful shutdown timeout for the `ExecutorService` process is 10 seconds. You can configure the timeout with the following optional YAML file parameters:
+When you run the Data Prepper shutdown API, the process gracefully shuts down and clears any remaining data for both the ExecutorService sink and ExecutorService processor. The default timeout for shutdown of both processes is 10 seconds. You can configure the timeout with the following optional `data-prepper-config.yaml` file parameters:
 
 ```yaml
 processorShutdownTimeout: "PT15M"
