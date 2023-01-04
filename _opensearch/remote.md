@@ -143,12 +143,14 @@ If the security plugin is enabled, a user must have the `cluster:admin/remotesto
 The following are potential use cases for the remote-backed storage feature:
 
 - The ability to restore red clusters / indices.
-- The ability to recover all data until the last acknowledged write regardless of replica count if `index.translog.durability=request`. 
+- The ability to recover all data until the last acknowledged write regardless of replica count if `index.translog.durability=request`.
 
 ## Known limitations
 
 The following are known limitations of the remote-backed storage feature:
 
-- Writing data to a remote store can be a high latency operation when compared to writing data on local file system. This, in expectation, impacts the indexing throughput.
-- [Known issues](https://github.com/opensearch-project/OpenSearch/issues/5678).
+- Writing data to a remote store can be a high latency operation when compared to writing data on local file system. This, in expectation, impacts the indexing throughput and latency.
+- Primary to primary relocation is unstable as handover of upload of translogs from older primary to new is yet to be implemented.
+- Garbage collection of metadata file is yet to be implemented.
+- & [Other known issues](https://github.com/opensearch-project/OpenSearch/issues/5678).
 
