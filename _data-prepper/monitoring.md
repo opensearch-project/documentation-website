@@ -22,7 +22,9 @@ By default, metrics are served from the **/metrics/sys** endpoint on the Data Pr
 
 ## Plugin metrics
 
-Each plugin (if necessary, each class within a plugin) is responsible for posting relevant metrics. Besides custom metrics introduced by specific plugins, `data-prepper-api` already introduced the following common metrics for plugin types:
+Each plugin (if necessary, each class within a plugin) is responsible for posting relevant metrics. Besides custom metrics introduced by specific plugins, `data-prepper-api` introduced the following common metrics for plugin types. 
+
+<!--- Include link to data-prepper-api? https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-api.--->
 
 1. AbstractBuffer
     - Counter
