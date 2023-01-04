@@ -19,7 +19,7 @@ You have several aggregation options in Dashboards, and the choice influences yo
 The Dashboards playground is read-only and will not save the session details for this tutorial.
 {: .note}
 
-<<Note to self: insert video of these steps>>
+[Video showing area chart steps](../../images/dashboards/aggregation-based-area.mp4)
 
 ## Set up the area chart
 
@@ -46,7 +46,6 @@ You'll create an area chart that displays the top five logs for flights cancelle
 You've now created the following simple aggregation-based area chart.
 
 <img src="{{site.url}}{{site.baseurl}}/images/aggregation-area.png" alt="Example aggregation-based area chart in OpenSearch Dashboards" height="100">
-
 
 # Related links
 
