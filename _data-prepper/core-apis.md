@@ -75,7 +75,7 @@ Peer Forwarder can be configured to enable stateful aggregation across multiple 
 
 ### Shutdown timeouts
 
-When you run the Data Prepper shutdown API, the process gracefully shuts down and clears any remaining data for both the ExecutorService sink and ExecutorService processor. The default timeout for shutdown of both processes is 10 seconds. You can configure the timeout with the following optional `data-prepper-config.yaml` file parameters:
+When you run the Data Prepper `shutdown` API, the process gracefully shuts down and clears any remaining data for both the `ExecutorService` sink and `ExecutorService` processor. The default timeout for shutdown of both processes is 10 seconds. You can configure the timeout with the following optional `data-prepper-config.yaml` file parameters:
 
 ```yaml
 processorShutdownTimeout: "PT15M"
