@@ -14,7 +14,7 @@ You can install the Job Scheduler plugin by following the standard [OpenSearch p
 
 ## Building a plugin for Job Scheduler
 
-OpenSearch plugin developers can extend the Job Scheduler plugin to schedule jobs to perform on the cluster. Jobs you can schedule include running aggregation queries against raw data and saving the aggregated data into a new index every hour, or continuing to monitor the shard allocation by calling the OpenSearch API and then posting the output to a webhook.
+OpenSearch plugin developers can extend the Job Scheduler plugin to schedule jobs to perform on the cluster. Jobs you can schedule include running aggregation queries against raw data, saving the aggregated data to a new index every hour, or continuing to monitor the shard allocation by calling the OpenSearch API and then posting the output to a webhook.
 
 For examples of building a plugin that utilizes the Job Scheduler plugin, see the Job Scheduler [README](https://github.com/opensearch-project/job-scheduler/blob/main/README.md).
 
