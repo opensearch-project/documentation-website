@@ -908,7 +908,7 @@ GET /_cat/aliases?pretty
 ```
 {% include copy-curl.html %}
 
-Note: the `index` and `remove_index` parameters are not allowed with alias action policies. Only the `add` and `remove` alias action parameters are allowed.
+Note: The `index` and `remove_index` parameters are not allowed with alias action policies. Only the `add` and `remove` alias action parameters are allowed.
 {: .warning }
 
 ## Example policy
