@@ -113,7 +113,7 @@ public SampleJobParameter(String id, String name, String indexToWatch, Schedule 
     }
 ```
 
-The following table describes the request parameters configured in the previous sample. All the request parameters shown are required.
+The following table describes the request parameters configured in the previous example. All the request parameters shown are required.
 
 | Field | Data type | Description |
 :--- | :--- | :---
