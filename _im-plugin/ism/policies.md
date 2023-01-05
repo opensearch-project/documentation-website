@@ -860,7 +860,7 @@ PUT /_index_template/ism_rollover?
 ```
 {% include copy-curl.html %}
 
-Then, change the cluster settings to trigger jobs every minute:
+Next, change the cluster settings to trigger jobs every minute:
 
 ```json
 PUT /_cluster/settings?pretty=true
