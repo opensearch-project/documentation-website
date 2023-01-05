@@ -896,7 +896,7 @@ POST /log-000001/_doc
 ```
 {% include copy-curl.html %}
 
-You can verify these steps using the alias and index API:
+You can verify these steps using the Alias and Index API:
 
 ```json
 GET /_cat/indices?pretty
