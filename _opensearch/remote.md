@@ -115,7 +115,7 @@ curl -X PUT "https://localhost:9200/my-index?pretty" -ku admin:admin -H 'Content
 '
 ```
 
-The segment & translog repository can be same or different. All data that is added to the index will also be continuously uploaded to the remote storage on account of refreshes / flushes / translog fsync (to disk) in the form of segment and translog files. Along with this, there are other metadata files uploaded.
+The segment repository and translog repository can be the same or different. As data is added to the index, it will also be continuously uploaded to the remote storage in the form of segment and translog files because of refreshes, flushes, and translog fsync to disk. Along with data, other metadata files will be uploaded.
 
 ### Restoring from a backup
 
@@ -140,17 +140,17 @@ If the security plugin is enabled, a user must have the `cluster:admin/remotesto
 
 ## Potential use cases
 
-The following are potential use cases for the remote-backed storage feature:
+You can use remote-backed storage for the following purposes:
 
-- The ability to restore red clusters / indices.
-- The ability to recover all data until the last acknowledged write regardless of replica count if `index.translog.durability=request`.
+- To restore red clusters or indexes
+- To recover all data up to the last acknowledged write regardless of replica count if `index.translog.durability` is set to `request`
 
 ## Known limitations
 
 The following are known limitations of the remote-backed storage feature:
 
-- Writing data to a remote store can be a high latency operation when compared to writing data on local file system. This, in expectation, impacts the indexing throughput and latency.
+- Writing data to a remote store can be a high latency operation when compared to writing data on local file system. This may impact the indexing throughput and latency.
 - Primary to primary relocation is unstable as handover of upload of translogs from older primary to new is yet to be implemented.
-- Garbage collection of metadata file is yet to be implemented.
-- & [Other known issues](https://github.com/opensearch-project/OpenSearch/issues/5678).
+- Garbage collection of the metadata file is not implemented yet.
+For other limitations, see the [Remote store known issue list](https://github.com/opensearch-project/OpenSearch/issues/5678).
 
