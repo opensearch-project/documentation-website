@@ -118,7 +118,7 @@ The following table describes the request parameters configured in the previous 
 | Field | Data type | Description |
 :--- | :--- | :---
 | getName | String | Returns the name of the job. |
-| getLastUpdateTime | Time unit | Returns the last time the job ran. |
+| getLastUpdateTime | Time unit | Returns the time that the job was last run. |
 | getEnabledTime | Time unit | Returns the time that the job was enabled. |
 | getSchedule | Unix cron | Returns the job schedule formatted in Unix cron syntax. |
 | isEnabled | Boolean | Whether or not the job is enabled. |
