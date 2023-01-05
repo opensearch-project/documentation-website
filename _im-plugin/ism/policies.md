@@ -789,7 +789,7 @@ If you want to skip rollovers for an index, set `index.plugins.index_state_manag
    GET _plugins/_ism/explain/log-000001?pretty
    ```
 
-## Sample policy with ISM templates for the alias action
+## Example policy with ISM templates for the alias action
 
 The following sample policy is for an alias action use case.
 
