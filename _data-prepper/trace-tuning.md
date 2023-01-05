@@ -22,7 +22,7 @@ The total number of trace requests to OpenSearch is equal to the product of `bat
 
 We recommend that you use the following parameters:
  * That you have the same `buffer_size` value in `otel-trace-pipeline` and `raw-trace-pipeline`
- * The values `buffer_size` >= `workers` * `batch_size` in the `raw-trace-pipeline`
+ * That the values `buffer_size` >= `workers` * `batch_size` in the `raw-trace-pipeline`
  
 
 ### Workers 
@@ -37,9 +37,9 @@ As mentioned in the [setup](trace_setup.md#opentelemetry-collector), set `otel_s
 
 ### Disk
 
-Data Prepper uses disk to store metadata required for service-map processing, so we recommend only storing key fields `traceId`, `spanId`, `parentSpanId`, `spanKind`, `spanName` and `serviceName`. The service-map plugin ensures that it only stores two files with each storing `window_duration` seconds of data. During testing, we found that for a throughput of `3000 spans/second`, the total disk usage was `4 MB`.
+Data Prepper uses disk to store metadata required for service-map processing, so we recommend only storing the key fields `traceId`, `spanId`, `parentSpanId`, `spanKind`, `spanName` and `serviceName`. The service-map plugin ensures that it only stores two files with each storing `window_duration` seconds of data. During testing, we found that, for a throughput of `3000 spans/second`, the total disk usage was `4 MB`.
 
-Data Prepper uses the disk to write logs. In the current version, you can redirect the logs to the path of your preference.
+Data Prepper uses the disk to write logs. In the most recent version, you can redirect the logs to the path of your preference.
 
 
 ## AWS
@@ -50,12 +50,12 @@ Data Prepper uses the disk to write logs. In the current version, you can redire
 
 ## Benchmark
 
-We ran tests in a `r5.xlarge` with the below configuration,
+We ran tests in a `r5.xlarge` with the following configuration:
  
- * `buffer_size` : `4096`
- * `batch_size` : `256`
- * `workers` : 8
- * `Heap` : 10GB
+ * `buffer_size`: 4096
+ * `batch_size`: 256
+ * `workers`: 8
+ * `Heap`: 10GB
  
 The above setup was able to handle a throughput of `2100` spans/second at `20` percent CPU utilization.
  
