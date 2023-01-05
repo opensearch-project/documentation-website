@@ -31,7 +31,7 @@ You can define the job configuration by [extending](https://github.com/opensearc
 
 ## Parameters configuration
 
-You can configure your plugin's parameters by referencing and modifying the [example](https://github.com/opensearch-project/job-scheduler/blob/main/sample-extension-plugin/src/main/java/org/opensearch/jobscheduler/sampleextension/SampleJobParameter.java) `SampleJobParameter.java` file to fit your needs:
+You can configure your plugin's parameters by referencing the [example](https://github.com/opensearch-project/job-scheduler/blob/main/sample-extension-plugin/src/main/java/org/opensearch/jobscheduler/sampleextension/SampleJobParameter.java) `SampleJobParameter.java` file and modifying it to fit your needs:
 
 ```java
 /**
