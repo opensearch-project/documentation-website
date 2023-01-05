@@ -793,7 +793,7 @@ If you want to skip rollovers for an index, set `index.plugins.index_state_manag
 
 The following example policy is for an alias action use case.
 
-In the following example, the first job will trigger the rollover action and a new index will be created. Next, another document is added to the two indexes. The new job will then cause the second index to point to the log alias and the older index will be removed due to the alias action.
+In the following example, the first job will trigger the rollover action, and a new index will be created. Next, another document is added to the two indexes. The new job will then cause the second index to point to the log alias, and the older index will be removed due to the alias action.
 
 First, create an ISM policy:
 
