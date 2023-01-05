@@ -845,7 +845,7 @@ PUT /_plugins/_ism/policies/rollover_policy?pretty
 }
 ```
 
-Next, create an index template to enable the policy on:
+Next, create an index template on which to enable the policy:
 
 ```json
 PUT /_index_template/ism_rollover?
