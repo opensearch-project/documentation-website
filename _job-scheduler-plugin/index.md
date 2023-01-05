@@ -62,7 +62,7 @@ public class SampleJobParameter implements ScheduledJobParameter {
     private Double jitter;
 ```
 
-Next, configure the request parameters you would like your plugin to use with Job Scheduler. These will be based on the variables that are declared when configuring your plugin. The sample below shows the request parameters you set when building your plugin:
+Next, configure the request parameters you would like your plugin to use with Job Scheduler. These will be based on the variables you declare when configuring your plugin. The following example shows the request parameters you set when building your plugin:
 
 ```java
 public SampleJobParameter(String id, String name, String indexToWatch, Schedule schedule, Long lockDurationSeconds, Double jitter) {
