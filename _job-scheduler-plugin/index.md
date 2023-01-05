@@ -120,7 +120,7 @@ The following table describes the request parameters configured in the previous 
 | getName | String | Returns the name of the job. |
 | getLastUpdateTime | Time unit | Returns the last time the job ran. |
 | getEnabledTime | Time unit | Returns the time that the job was enabled. |
-| getSchedule | Unix cron | Returns the schedule that the job runs on formatted in Unix cron syntax. |
+| getSchedule | Unix cron | Returns the job schedule formatted in Unix cron syntax. |
 | isEnabled | Boolean | Whether or not the job is enabled. |
 | getLockDurationSeconds | Integer | Returns the duration of time that the job is locked. |
 | getJitter | Integer | Returns the defined jitter value. |
