@@ -122,7 +122,7 @@ The following table describes the request parameters configured in the previous 
 | getEnabledTime | Time unit | Returns the time that the job was enabled. |
 | getSchedule | Unix cron | Returns the job schedule formatted in Unix cron syntax. |
 | isEnabled | Boolean | Whether or not the job is enabled. |
-| getLockDurationSeconds | Integer | Returns the duration of time that the job is locked. |
+| getLockDurationSeconds | Integer | Returns the duration of time for which the job is locked. |
 | getJitter | Integer | Returns the defined jitter value. |
 
 The logic used by your job should be defined by a class extended from `ScheduledJobRunner` in the `SampleJobParameter.java` sample file, such as `SampleJobRunner`. While the job is running, there is a locking mechanism you can use to prevent other nodes from running the same job. [Acquire](https://github.com/opensearch-project/job-scheduler/blob/main/sample-extension-plugin/src/main/java/org/opensearch/jobscheduler/sampleextension/SampleJobRunner.java#L96) the lock. Then, make sure to release the lock before the [job finishes](https://github.com/opensearch-project/job-scheduler/blob/main/sample-extension-plugin/src/main/java/org/opensearch/jobscheduler/sampleextension/SampleJobRunner.java#L116).
