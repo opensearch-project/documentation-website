@@ -19,14 +19,16 @@ You have several aggregation options in Dashboards, and the choice influences yo
 The Dashboards playground is read-only and will not save the session details for this tutorial.
 {: .note}
 
-[Video showing area chart steps](../../images/dashboards/aggregation-based-area.mp4)
-
 ## Set up the area chart
 
 1. Select **Visualize** from the menu and then select **Create visualization**.
 2. Select **Area** from the window.
 3. Select **opensearch_dashboards_sample_data_flights** in the **New Area/Choose a source** window.
 4. Select the calendar icon and set the time filter to **Last 7 days.**
+
+The following area chart is displayed on your screen:
+
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/area-set-up.png" alt="Example area chart set up " height="100">
 
 ## Add aggregations to the area chart
 
