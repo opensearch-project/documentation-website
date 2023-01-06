@@ -697,7 +697,7 @@ Sample Response
 }
 ```
 
-The `date_histogram` aggregation uses date math to generate histograms for time-series data.
+The `date_histogram` aggregation uses [date math]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/date/#date-math) to generate histograms for time-series data.
 
 For example, you can find how many hits your website gets per month:
 
