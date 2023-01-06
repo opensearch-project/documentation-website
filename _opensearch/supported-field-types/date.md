@@ -212,7 +212,7 @@ GET testindex/_search
 
 ## Date math
 
-The date field type supports date math to specify duration in queries. For example, the `gt`, `gte`, `lt`, and `lte` parameters in [range queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/term/#range-query) and the `from` and `to` parameters in [date range aggregations]({{site.url}}{{site.baseurl}}/opensearch/bucket-agg/#range-date_range-ip_range) accept date math expressions.
+The date field type supports using date math to specify duration in queries. For example, the `gt`, `gte`, `lt`, and `lte` parameters in [range queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/term/#range-query) and the `from` and `to` parameters in [date range aggregations]({{site.url}}{{site.baseurl}}/opensearch/bucket-agg/#range-date_range-ip_range) accept date math expressions.
 
 A date math expression contains a fixed date, optionally followed by one or more mathematical expressions. The fixed date may be either `now` (current date and time in milliseconds since the epoch) or a string ending with `||` that specifies a date (for example, `2022-05-18||`). The date must be in the `strict_date_optional_time||epoch_millis` format.
 
@@ -220,9 +220,9 @@ Date math supports the following mathematical operators.
 
 Operator | Description | Example
 :--- | :--- | :---
-`+` | Addition | `+1M`: Add one month
-`-` | Subtraction | `-1y`: Subtract one year
-`/` | Rounding down | `/h`: Round to the beginning of the hour
+`+` | Addition | `+1M`: Add 1 month.
+`-` | Subtraction | `-1y`: Subtract 1 year.
+`/` | Rounding down | `/h`: Round to the beginning of the hour.
 
 Date math supports the following time units:
 
@@ -239,10 +239,10 @@ Date math supports the following time units:
 
 The following example expressions illustrate using date math:
 
-- `now+1M`: The current date and time in milliseconds since the epoch, plus one month.
+- `now+1M`: The current date and time in milliseconds since the epoch, plus 1 month.
 - `2022-05-18||/M`: 05/18/2022, rounded to the beginning of the month. Resolves to `2022-05-01`.
 - `2022-05-18T15:23||/h`: 15:23 on 05/18/2022, rounded to the beginning of the hour. Resolves to `2022-05-18T15`.
-- `2022-05-18T15:23:17.789||+2M-1d/d`: 15:23:17.789 on 05/18/2022 plus two months minus one day, rounded to the beginning of the day. Resolves to `2022-07-17`.
+- `2022-05-18T15:23:17.789||+2M-1d/d`: 15:23:17.789 on 05/18/2022 plus 2 months minus 1 day, rounded to the beginning of the day. Resolves to `2022-07-17`.
 
 
 ### Using date math in a range query
@@ -278,7 +278,7 @@ PUT testindex/_doc/2
 }
 ```
 
-The following query searches for documents with `release_date` within two months and one day of 09/14/2022. The lower boundary of the range is rounded to the beginning of the day on 09/14/2022:
+The following query searches for documents with `release_date` within 2 months and 1 day of 09/14/2022. The lower boundary of the range is rounded to the beginning of the day on 09/14/2022:
 
 ```json
 GET testindex/_search
