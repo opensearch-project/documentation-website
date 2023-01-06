@@ -44,7 +44,7 @@ keyStorePassword: "secret"
 privateKeyPassword: "secret"
 ```
 
-For more information about configuring your Data Prepper server with SSL, see [Server Configuration](https://github.com/opensearch-project/data-prepper/blob/main/docs/configuration.md#server-configuration). If you are using a self-signed certificate, you can add the `-k` flag to the request to quickly test core APIs with SSL. Use the `shutdown` request to test core APIs with SSL:
+For more information about configuring your Data Prepper server with SSL, see [Server Configuration](https://github.com/opensearch-project/data-prepper/blob/main/docs/configuration.md#server-configuration). If you are using a self-signed certificate, you can add the `-k` flag to the request to quickly test core APIs with SSL. Use the following `shutdown` request to test core APIs with SSL:
 
 
 ```
