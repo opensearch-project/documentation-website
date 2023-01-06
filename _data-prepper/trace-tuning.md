@@ -6,7 +6,7 @@ nav_order: 12
 
 # Trace tuning
 
-Data Prepper for trace analytics in version 0.8.x supports both vertical and horizontal scaling. You can adjust the size of your single Data Prepper instance to meet your workload's demands and scale vertically. 
+Starting in version 0.8.x, Data Prepper for trace analytics supports both vertical and horizontal scaling. You can adjust the size of your single Data Prepper instance to meet your workload's demands and scale vertically. 
 
 You can scale horizontally by deploying multiple Data Prepper instances to form a cluster by using the [Core Peer Forwarder](https://github.com/opensearch-project/data-prepper/blob/main/docs/peer_forwarder.md). This enables Data Prepper instances to communicate with instances in the cluster, and is required for horizontally-scaling deployments.
 
