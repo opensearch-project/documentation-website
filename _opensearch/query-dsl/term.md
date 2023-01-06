@@ -331,7 +331,7 @@ GET products/_search
 
 Specify relative dates by using [date math]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/date/#date-math).
 
-To subtract 1 year and 1 day from the specified date:
+To subtract one year and one day from the specified date:
 
 ```json
 GET products/_search

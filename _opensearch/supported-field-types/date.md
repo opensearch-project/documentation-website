@@ -214,9 +214,9 @@ GET testindex/_search
 
 The date field type supports date math to specify duration in queries. For example, the `gt`, `gte`, `lt`, and `lte` parameters in [range queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/term/#range-query) and the `from` and `to` parameters in [date range aggregations]({{site.url}}{{site.baseurl}}/opensearch/bucket-agg/#range-date_range-ip_range) accept date math expressions.
 
-A date math expression contains a fixed date, optionally followed by one or more mathematical expressions. The fixed date may be either `now` (current date/time in milliseconds since the epoch) or a string ending with `||` that specifies a date (for example, `2022-05-18||`). The date must be in the `strict_date_optional_time||epoch_millis` format.
+A date math expression contains a fixed date, optionally followed by one or more mathematical expressions. The fixed date may be either `now` (current date and time in milliseconds since the epoch) or a string ending with `||` that specifies a date (for example, `2022-05-18||`). The date must be in the `strict_date_optional_time||epoch_millis` format.
 
-Date math supports the following mathematical operators:
+Date math supports the following mathematical operators.
 
 Operator | Description | Example
 :--- | :--- | :---
@@ -239,7 +239,7 @@ Date math supports the following time units:
 
 The following example expressions illustrate using date math:
 
-- `now+1M`: The current date/time in milliseconds since the epoch, plus one month.
+- `now+1M`: The current date and time in milliseconds since the epoch, plus one month.
 - `2022-05-18||/M`: 05/18/2022, rounded to the beginning of the month. Resolves to `2022-05-01`.
 - `2022-05-18T15:23||/h`: 15:23 on 05/18/2022, rounded to the beginning of the hour. Resolves to `2022-05-18T15`.
 - `2022-05-18T15:23:17.789||+2M-1d/d`: 15:23:17.789 on 05/18/2022 plus two months minus one day, rounded to the beginning of the day. Resolves to `2022-07-17`.
@@ -247,7 +247,7 @@ The following example expressions illustrate using date math:
 
 ### Using date math in a range query
 
-The following example shows using date math in a [range query]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/term/#range-query).
+The following example illustrates using date math in a [range query]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/term/#range-query).
 
 Set up an index with `release_date` mapped as `date`:
 
