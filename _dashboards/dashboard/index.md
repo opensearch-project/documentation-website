@@ -7,9 +7,7 @@ has_children: true
 
 # Dashboard
 
-A dashboard condenses multiple data visualizations in to a single view, allowing users to visualize and review data at a glance. With a high-level graphical display of key metrics, decision-makers, data analysts, and casual business users are empowered to make better better decisions.
-
-Using the Dashboard feature in OpenSearch Dashboards, you can interact with your data in real time and customize data visualizations to track metrics and extract actionable insights. 
+A dashboard condenses multiple data visualizations in to a single view, allowing you to visualize and review data at a glance. Using the Dashboard feature in OpenSearch Dashboards, you can interact with your data in real time and customize data visualizations to track metrics and extract actionable insights. With this high-level graphical display of key metrics, decision-makers, data analysts, and casual business users are empowered to make better better decisions. 
 
 In this tutorial you'll learn the basics of creating a dashboard using OpenSearch sample log data in Dashboards on the [OpenSearch playground](https://playground.opensearch.org/app/home#/). 
 
