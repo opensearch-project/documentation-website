@@ -58,8 +58,4 @@ You can use the request body to configure some index settings for the target ind
 Field | Type | Description
 alias | Object | Sets an alias for the target index. Can have the fields `filter`, `index_routing`, `is_hidden`, `is_write_index`, `routing`, and `search_routing`. See [Index Aliases]({{site.url}}{{site.baseurl}}/api-reference/alias/#request-body).
 settings | Object | Index settings you can apply to your target index. See [Index Settings]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/#index-settings).
-
-{% comment %}
-The new parameter to be called max_shard_size. 
-max_primary_shard_size | Bytes | Sets the maximum size of a primary shard in the target index. For example, if this field is set to 100 GB, and the source index's primary shards total to 300 GB, then the target index has 3 primary shards of 100 GB each.
-{% endcomment %}
+max_shard_size | Bytes | Sets the maximum size of a primary shard in the target index, this field conflicts with `index.number_of_shards` in `settings`, you cannot set both of them at the same time. Target index's primary shard count is calculated by this field and the primary shards' storage in the source index. The primary shard count of the target index is the lowest factor of the source index's primary shard count which satisfies this field's requirement. For example, if this field is set to 100 GB, and the source index's primary shards total to 300 GB and count is 6, then the target index has 3 primary shards of 100 GB each; if the source index's primary shards total to 600GB and count is 5, then the target index will still have 5 primary shards.
