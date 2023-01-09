@@ -13,7 +13,7 @@ The following liquid syntax declares a variable, major_version_mask, which is tr
 
 # DEB
 
-Installing OpenSearch using the APT package manager simplifies the process considerably compared to the [Tarball]({{site.url}}{{site.baseurl}}/opensearch/install/tar/) method. Several technical considerations, such as the installation path, location of configuration files, and creation of a service managed by `systemd`, as examples, are handled automatically by the package manager.
+Installing OpenSearch using the Advanced Packaging Tool (APT) package manager simplifies the process considerably compared to the [Tarball]({{site.url}}{{site.baseurl}}/opensearch/install/tar/) method. Several technical considerations, such as the installation path, location of configuration files, and creation of a service managed by `systemd`, as examples, are handled automatically by the package manager.
 
 Generally speaking, installing OpenSearch from the DEB distribution can be broken down into a few steps:
 
@@ -32,3 +32,78 @@ The DEB distribution provides everything you need to run OpenSearch inside Debia
 This guide assumes that you are comfortable working from the Linux command line interface (CLI). You should understand how to input commands, navigate between directories, and edit text files. Some example commands reference the `vi` text editor, but you may use any text editor available.
 {:.note}
 
+## Step 1: Download and install OpenSearch
+
+### Install OpenSearch from a package
+
+1. Download the DEB package for the desired version directly from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'}. The DEB package can be downloaded for both **x64** and **arm64** architectures.
+1. Import the public GNU Privacy Guard (GPG) key. This key verifies that your OpenSearch package is signed.
+    ```bash
+    wget -qO - https://artifacts.opensearch.org/GPG-KEY-opensearch | sudo gpg --dearmor -o /usr/share/keyrings/opensearch-keyring.gpg
+    ```
+1. From the CLI, you can install the package with `dpkg` or `apt`.
+   **x64**
+   ```bash
+   # Install the x64 package using dpkg.
+   
+   # Install the x64 package using apt.
+   
+   ```
+   **arm64**
+   ```bash
+   # Install the arm64 package using dpkg.
+   
+   # Install the arm64 package using apt.
+   
+   ```
+1. After the installation succeeds, enable OpenSearch as a service.
+    ```bash
+    sudo systemctl enable opensearch
+    ```
+1. Start OpenSearch.
+    ```bash
+    sudo systemctl start opensearch
+    ```
+1. Verify that OpenSearch launched correctly.
+    ```bash
+    sudo systemctl status opensearch
+    ```
+
+### Install OpenSearch from a local APT repository
+
+APT, the primary package management tool for Debian–based operating systems, allows you to download and install the DEB package from the APT repository. 
+
+1. Create a local repository file for OpenSearch:
+   ```bash
+   echo "deb https://artifacts.opensearch.org/releases/bundle/opensearch/2.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/opensearch-2.x.list
+   ```
+1. Verify that the repository was created successfully.
+    ```bash
+    sudo apt-get update
+    ```
+1. With the repository file downloaded, list all available versions of OpenSearch:
+   ```bash
+   sudo apt list -a opensearch
+   ```
+1. Choose the version of OpenSearch you want to install: 
+   - Unless otherwise indicated, the latest available version of OpenSearch is installed.
+   ```bash
+   sudo apt-get install opensearch
+   ```
+   - To install a specific version of OpenSearch:
+   ```bash
+   # Specify the version manually after appending a "=" to the end of opensearch in the command:
+   sudo apt-get install opensearch={{site.opensearch_version}}
+   ```
+1. During installation, the installer will present you with the GPG key fingerprint. Verify that the information matches the following:
+   ```bash
+   Fingerprint: c5b7 4989 65ef d1c2 924b a9d5 39d3 1987 9310 d3fc
+   ```
+1. Once complete, you can run OpenSearch.
+    ```bash
+    sudo systemctl start opensearch
+    ```
+1. Verify that OpenSearch launched correctly.
+    ```bash
+    sudo systemctl status opensearch
+    ```
