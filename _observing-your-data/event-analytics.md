@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Event analytics
-nav_order: 10
+nav_order: 20
 redirect_from:
   - /observing-your-data/event-analytics/
 ---

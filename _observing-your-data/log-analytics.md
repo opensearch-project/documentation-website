@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Log analytics
-nav_order: 70
+nav_order: 30
 redirect_from:
   - /observing-your-data/log-analytics/
 ---
