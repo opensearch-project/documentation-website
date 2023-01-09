@@ -102,15 +102,15 @@ You cannot save a given comparison for future use, so Compare Search Results is 
 
 ## Comparing OpenSearch search results with re-ranked results
 
-One use case of Compare Search Results is to compare raw OpenSearch results with the same results processed by a re-ranking application. An example of such a re-ranker is **Kendra Intelligent Ranking for OpenSearch**, contributed by the Amazon Kendra team. This plugin takes search results from OpenSearch and applies Kendra’s semantic relevance rankings calculated using vector embeddings and other semantic search techniques. For many applications, this gives better result rankings.
+One use case for Compare Search Results is to compare raw OpenSearch results with the same results processed by a re-ranking application. An example of such a re-ranker is **Kendra Intelligent Ranking for OpenSearch**, contributed by the Amazon Kendra team. This plugin takes search results from OpenSearch and applies Amazon Kendra’s semantic relevance rankings calculated using vector embeddings and other semantic search techniques. For many applications, this provides better result rankings.
 
 To try Kendra Intelligent Ranking, you must first set up the Amazon Kendra service. To get started, see [Amazon Kendra](https://aws.amazon.com/kendra/). For detailed information, including plugin setup instructions, see [Intelligently ranking OpenSearch (self managed) results using Amazon Kendra](https://docs.aws.amazon.com/kendra/latest/dg/opensearch-rerank.html).
 
-Once you've set up Kendra Intelligent Ranking, enter a query in **Query 1** and the same query using the Kendra Intelligent Ranking service for re-ranking in **Query 2**. Then compare search results from OpenSearch and Amazon Kendra.
+Once you've set up Kendra Intelligent Ranking, enter a query in **Query 1** and enter the same query using Kendra Intelligent Ranking in **Query 2**. Then compare the search results from OpenSearch and Amazon Kendra.
 
 ### Example
 
-The following example searches for the text "snacking nuts" in the `abo` index. The documents in the index hold snack descriptions in the `bullet_point` array. 
+The following example searches for the text "snacking nuts" in the `abo` index. The documents in the index contain snack descriptions in the `bullet_point` array. 
 
 <img src="{{site.url}}{{site.baseurl}}/images/kendra_query.png" alt="OpenSearch Intelligent Ranking query"/>{: .img-fluid }
 
@@ -153,5 +153,5 @@ The following example searches for the text "snacking nuts" in the `abo` index. 
     }
     ```
 
-    In the preceding query, `body_field` refers to the body field of the documents in the index, on which Kendra Intelligent Ranking ranks the results. The `body_field` is required, while the `title_field` is optional.
+    In the preceding query, `body_field` refers to the body field of the documents in the index, which Kendra Intelligent Ranking uses to rank the results. The `body_field` is required, while the `title_field` is optional.
 1. Select **Search** and compare the results in **Result 1** and **Result 2**.
