@@ -55,7 +55,7 @@ collections:
   im-plugin:
     permalink: /:collection/:path/
     output: true
-  observability-plugin:
+  observing-your-data:
     permalink: /:collection/:path/
     output: true
   ml-commons-plugin:
@@ -64,13 +64,7 @@ collections:
   neural-search-plugin:
     permalink: /:collection/:path/
     output: true
-  monitoring-plugins:
-    permalink: /:collection/:path/
-    output: true
-  notifications-plugin:
-    permalink: /:collection/:path/
-    output: true
-  job-scheduler-plugin:
+  monitoring-your-cluster:
     permalink: /:collection/:path/
     output: true
   clients:
@@ -124,8 +118,8 @@ just_the_docs:
     im-plugin:
       name: Index management plugin
       nav_fold: true
-    observability-plugin:
-      name: Observability plugin
+    observing-your-data:
+      name: Observing your data
       nav_fold: true
     ml-commons-plugin:
       name: ML Commons plugin
@@ -133,14 +127,8 @@ just_the_docs:
     neural-search-plugin:
       name: Neural Search plugin
       nav_fold: true
-    monitoring-plugins:
-      name: Monitoring plugins
-      nav_fold: true
-    notifications-plugin:
-      name: Notifications plugin
-      nav_fold: true
-    job-scheduler-plugin:
-      name: Job Scheduler plugin
+    monitoring-your-cluster:
+      name: Monitoring your cluster
       nav_fold: true
     clients:
       name: Clients

@@ -8,7 +8,7 @@ has_toc: false
 redirect_from:
   - /search-plugins/sql/ppl
   - /search-plugins/ppl
-  - /observability-plugin/ppl
+  - /observing-your-data/ppl
 ---
 
 # PPL &ndash; Piped Processing Language
