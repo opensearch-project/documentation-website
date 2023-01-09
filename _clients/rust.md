@@ -220,7 +220,7 @@ serde_json = "~1"
 ```
 {% include copy.html %}
 
-The following sample program creates a client, adds an index with non-default mappings, inserts a document, performs bulk operations, searches for the document, deletes the document, and, finally, deletes the index:
+The following sample program creates a client, adds an index with non-default mappings, inserts a document, performs bulk operations, searches for the document, deletes the document, and then, deletes the index:
 
 ```rust
 use opensearch::{DeleteParts, OpenSearch, IndexParts, http::request::JsonBody, BulkParts, SearchParts};

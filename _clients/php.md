@@ -131,7 +131,7 @@ $client->indices()->delete([
 
 ## Sample program
 
-The following sample program creates a client, adds an index with non-default settings, inserts a document, searches for the document, deletes the document, and, finally, deletes the index:
+The following sample program creates a client, adds an index with non-default settings, inserts a document, searches for the document, deletes the document, and then, deletes the index:
 
 ```php
 <?php
