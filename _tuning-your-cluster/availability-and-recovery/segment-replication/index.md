@@ -1,10 +1,12 @@
 ---
 layout: default
 title: Segment replication 
-nav_order: 64
+nav_order: 70
 has_children: true
+parent: Availability and Recovery
 redirect_from:
   - /opensearch/segment-replication/
+  - /opensearch/segment-replication/index/
 ---
 
 # Segment replication

@@ -2,8 +2,10 @@
 layout: default
 title: Settings
 parent: Shard indexing backpressure
-nav_order: 1
-has_children: false
+nav_order: 50
+grand_parent: Availability and Recovery
+redirect_from: 
+  - /opensearch/shard-indexing-settings/
 ---
 
 # Settings

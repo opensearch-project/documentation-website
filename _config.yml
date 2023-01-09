@@ -40,6 +40,9 @@ collections:
   dashboards:
     permalink: /:collection/:path/
     output: true
+  tuning-your-cluster:
+    permalink: /:collection/:path/
+    output: true
   security-plugin:
     permalink: /:collection/:path/
     output: true
@@ -50,9 +53,6 @@ collections:
     permalink: /:collection/:path/
     output: true
   im-plugin:
-    permalink: /:collection/:path/
-    output: true
-  replication-plugin:
     permalink: /:collection/:path/
     output: true
   observability-plugin:
@@ -109,6 +109,9 @@ just_the_docs:
     dashboards:
       name: OpenSearch Dashboards
       nav_fold: true
+    tuning-your-cluster:
+      name: Tuning your cluster
+      nav_fold: true
     security-plugin:
       name: Security plugin
       nav_fold: true
@@ -120,9 +123,6 @@ just_the_docs:
       nav_fold: true
     im-plugin:
       name: Index management plugin
-      nav_fold: true
-    replication-plugin:
-      name: Replication plugin
       nav_fold: true
     observability-plugin:
       name: Observability plugin

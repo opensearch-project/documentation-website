@@ -2,6 +2,9 @@
 layout: default
 title: Replication security
 nav_order: 30
+parent: Cross-cluster replication
+redirect_from:
+  - /replication-plugin/permissions/
 ---
 
 # Cross-cluster replication security

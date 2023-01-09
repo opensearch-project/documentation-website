@@ -2,8 +2,9 @@
 layout: default
 title: Auto-follow
 nav_order: 20
-has_children: false
-
+parent: Cross-cluster replication
+redirect_from:
+  - /replication-plugin/auto-follow/
 ---
 
 # Auto-follow for cross-cluster replication

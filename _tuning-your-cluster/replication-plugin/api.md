@@ -2,6 +2,9 @@
 layout: default
 title: API
 nav_order: 50
+parent: Cross-cluster replication
+redirect_from:
+  - /replication-plugin/api/
 ---
 
 # Cross-cluster replication API

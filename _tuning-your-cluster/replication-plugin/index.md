@@ -1,10 +1,11 @@
 ---
 layout: default
 title: Cross-cluster replication
-nav_order: 1
-has_children: false
+nav_order: 12
+has_children: true
 redirect_from:
   - /replication-plugin/
+  - /replication-plugin/index/
 ---
 
 # Cross-cluster replication

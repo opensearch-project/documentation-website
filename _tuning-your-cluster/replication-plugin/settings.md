@@ -2,6 +2,9 @@
 layout: default
 title: Settings
 nav_order: 40
+parent: Cross-cluster replication
+redirect_from:
+  - /replication-plugin/settings/
 ---
 
 # Replication settings

@@ -1,7 +1,10 @@
 ---
 layout: default
 title: Remote-backed storage
-nav_order: 19
+nav_order: 40
+parent: Availability and Recovery
+redirect_from: 
+  - /opensearch/remote/
 ---
 
 # Remote-backed storage

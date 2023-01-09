@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Cluster manager task throttling
-nav_order: 70
+nav_order: 10
 has_children: false
 ---
 

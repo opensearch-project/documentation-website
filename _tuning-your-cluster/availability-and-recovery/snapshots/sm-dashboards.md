@@ -3,6 +3,7 @@ layout: default
 title: Snapshot Management in OpenSearch Dashboards
 parent: Snapshots
 nav_order: 35
+grand_parent: Availability and Recovery
 has_children: false
 ---
 

@@ -4,6 +4,9 @@ title: Take and restore snapshots
 parent: Snapshots
 nav_order: 10
 has_children: false
+grand_parent: Availability and Recovery
+redirect_from: 
+  - /opensearch/snapshots/snapshot-restore/
 ---
 
 # Take and restore snapshots

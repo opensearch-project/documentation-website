@@ -1,7 +1,10 @@
 ---
 layout: default
 title: Get started
-nav_order: 10
+nav_order: 15
+parent: Cross-cluster replication
+redirect_from:
+  - /replication-plugin/get-started/
 ---
 
 # Get started with cross-cluster replication

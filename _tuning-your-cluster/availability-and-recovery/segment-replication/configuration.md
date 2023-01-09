@@ -3,6 +3,7 @@ layout: default
 title: Segment replication configuration
 nav_order: 12
 parent: Segment replication
+grand_parent: Availability and Recovery
 ---
 
 # Segment replication configuration
