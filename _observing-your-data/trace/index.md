@@ -1,11 +1,11 @@
 ---
 layout: default
 title: Trace analytics
-nav_order: 60
+nav_order: 40
 has_children: true
 has_toc: false
 redirect_from:
-  - /observing-your-data/trace/index/
+  - /observablity-plugin/trace/index/
 ---
 
 # Trace Analytics

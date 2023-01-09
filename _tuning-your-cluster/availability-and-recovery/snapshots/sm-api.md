@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Snapshot Management API
+title: Snapshot management API
 parent: Snapshots
 nav_order: 30
 has_children: false
@@ -11,7 +11,7 @@ redirect_from:
 
 # Snapshot Management API
 
-Use the [Snapshot Management (SM)]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore#take-snapshots) API to automate [taking snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore#take-snapshots). 
+Use the [snapshot management (SM)]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore#take-snapshots) API to automate [taking snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore#take-snapshots). 
 
 ---
 

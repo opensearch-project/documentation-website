@@ -4,7 +4,7 @@ title: Get Started
 parent: Trace analytics
 nav_order: 1
 redirect_from:
-  - /observing-your-data/trace/get-started/
+  - /observability-plugin/trace/get-started/
 ---
 
 # Get started with Trace Analytics

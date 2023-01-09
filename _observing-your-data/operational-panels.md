@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Operational panels
-nav_order: 30
+nav_order: 60
 redirect_from:
   - /observing-your-data/operational-panels/
 ---

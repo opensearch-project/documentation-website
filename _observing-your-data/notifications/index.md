@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Notifications
-nav_order: 1
+nav_order: 35
 has_children: false
 redirect_from:
   - /notifications-plugin/
