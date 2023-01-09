@@ -8,6 +8,8 @@ nav_order: 100
 
 The OpenSearch Rust client lets you connect your Rust application with the data in your OpenSearch cluster. For the client's complete API documentation and more examples, see the [OpenSearch docs.rs documentation](https://docs.rs/opensearch/).
 
+This getting started guide illustrates how to connect to OpenSearch, index documents, and run queries. For the client source code, see the [opensearch-rs repo](https://github.com/opensearch-project/opensearch-rs).
+
 ## Setup
 
 If you're starting a new project, add the `opensearch` crate to Cargo.toml:
@@ -16,18 +18,22 @@ If you're starting a new project, add the `opensearch` crate to Cargo.toml:
 [dependencies]
 opensearch = "1.0.0"
 ```
+{% include copy.html %}
+
 Additionally, you may want to add the following `serde` dependencies that help serialize types to JSON and deserialize JSON responses:
 
 ```rust
 serde = "~1"
 serde_json = "~1"
 ```
+{% include copy.html %}
 
 The Rust client uses the [`reqwest`](https://crates.io/crates/reqwest) higher level HTTP client library for HTTP requests, and reqwest uses the [`tokio`](https://crates.io/crates/tokio) platform to support asynchronous requests. If you are planning to use asynchronous functions, you need to add the `tokio` dependency to Cargo.toml:
 
 ```rust
 tokio = { version = "*", features = ["full"] }
 ```
+{% include copy.html %}
 
 See the [Sample program](#sample-program) section for the complete Cargo.toml file.
 
@@ -36,6 +42,8 @@ To use the Rust client API, import the modules, structs, and enums you need:
 ```rust
 use opensearch::OpenSearch;
 ```
+{% include copy.html %}
+
 ## Connecting to OpenSearch
 
 To connect to the default OpenSearch host, create a default client object that connects to OpenSearch at the address `http://localhost:9200`:
@@ -43,6 +51,7 @@ To connect to the default OpenSearch host, create a default client object that c
 ```rust
 let client = OpenSearch::default();
 ```
+{% include copy.html %}
 
 To connect to OpenSearch that is running at a different address, create a client with the specified address:
 
@@ -50,6 +59,7 @@ To connect to OpenSearch that is running at a different address, create a client
 let transport = Transport::single_node("http://localhost:9200")?;
 let client = OpenSearch::new(transport);
 ```
+{% include copy.html %}
 
 Alternatively, you can customize the URL and use a connection pool by creating a TransportBuilder struct and passing it to OpenSearch::new to create a new instance of the client: 
 
@@ -59,6 +69,7 @@ let conn_pool = SingleNodeConnectionPool::new(url);
 let transport = TransportBuilder::new(conn_pool).disable_proxy().build()?;
 let client = OpenSearch::new(transport);
 ```
+{% include copy.html %}
 
 ## Creating an index
 
@@ -78,6 +89,7 @@ let response = client
     .send()
     .await?;
 ```
+{% include copy.html %}
 
 ## Indexing a document
 
@@ -95,6 +107,7 @@ let response = client
     .send()
     .await?;
 ```
+{% include copy.html %}
 
 ## Performing bulk operations
 
@@ -127,6 +140,7 @@ let response = client
     .send()
     .await?;
 ```
+{% include copy.html %}
 
 ## Searching for documents
 
@@ -148,6 +162,7 @@ response = client
     .send()
     .await?;
 ```
+{% include copy.html %}
 
 You can then read the response body as JSON and iterate over the `hits` array to read all the `_source` documents:
 
@@ -158,6 +173,7 @@ for hit in response_body["hits"]["hits"].as_array().unwrap() {
     println!("{}", serde_json::to_string_pretty(&hit["_source"]).unwrap());
 }
 ```
+{% include copy.html %}
 
 ## Deleting a document
 
@@ -169,6 +185,7 @@ let response = client
     .send()
     .await?;
 ```
+{% include copy.html %}
 
 ## Deleting an index
 
@@ -181,10 +198,11 @@ let response = client
     .send()
     .await?;
 ```
+{% include copy.html %}
 
 ## Sample program
 
-The sample program is part of the uses the following Cargo.toml file with all dependencies described in the [Setup](#setup) section:
+The sample program uses the following Cargo.toml file with all dependencies described in the [Setup](#setup) section:
 
 ```rust
 [package]
@@ -200,6 +218,7 @@ tokio = { version = "*", features = ["full"] }
 serde = "~1"
 serde_json = "~1"
 ```
+{% include copy.html %}
 
 The following sample program creates a client, adds an index with non-default mappings, inserts a document, performs bulk operations, searches for the document, deletes the document, and, finally, deletes the index:
 
@@ -357,3 +376,4 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     Ok(())
 }
 ```
+{% include copy.html %}

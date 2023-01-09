@@ -18,12 +18,14 @@ To add the client to your project, install it from [npm](https://www.npmjs.com):
 ```bash
 npm install @opensearch-project/opensearch
 ```
+{% include copy.html %}
 
 To install a specific major version of the client, run the following command:
 
 ```bash
 npm install @opensearch-project/opensearch@<version>
 ```
+{% include copy.html %}
 
 If you prefer to add the client manually or just want to examine the source code, see [opensearch-js](https://github.com/opensearch-project/opensearch-js) on GitHub.
 
@@ -32,8 +34,133 @@ Then require the client:
 ```javascript
 const { Client } = require("@opensearch-project/opensearch");
 ```
+{% include copy.html %}
 
-## Sample code
+## Connecting to OpenSearch
+
+To connect to the default OpenSearch host, create a client object with the address `https://localhost:9200` if you are using the Security plugin:  
+
+```javascript
+var host = "localhost";
+var protocol = "https";
+var port = 9200;
+var auth = "admin:admin"; // For testing only. Don't store credentials in code.
+var ca_certs_path = "/full/path/to/root-ca.pem";
+
+// Optional client certificates if you don't want to use HTTP basic authentication.
+// var client_cert_path = '/full/path/to/client.pem'
+// var client_key_path = '/full/path/to/client-key.pem'
+
+// Create a client with SSL/TLS enabled.
+var { Client } = require("@opensearch-project/opensearch");
+var fs = require("fs");
+var client = new Client({
+  node: protocol + "://" + auth + "@" + host + ":" + port,
+  ssl: {
+    ca: fs.readFileSync(ca_certs_path),
+    // You can turn off certificate verification (rejectUnauthorized: false) if you're using 
+    // self-signed certificates with a hostname mismatch.
+    // cert: fs.readFileSync(client_cert_path),
+    // key: fs.readFileSync(client_key_path)
+  },
+});
+```
+{% include copy.html %}
+
+## Creating an index
+
+To create an OpenSearch index, use the `indices.create()` method. You can use the following code to construct a JSON object with custom settings :
+
+```javascript
+var index_name = "books";
+
+var settings = {
+  settings: {
+    index: {
+      number_of_shards: 4,
+      number_of_replicas: 3,
+    },
+  },
+};
+
+var response = await client.indices.create({
+  index: index_name,
+  body: settings,
+});
+```
+{% include copy.html %}
+
+## Indexing a document
+
+You can index a document into OpenSearch using the client's `index` method:
+
+```javascript
+var document = {
+  title: "The Outsider",
+  author: "Stephen King",
+  year: "2018",
+  genre: "Crime fiction",
+};
+
+var id = "1";
+
+var response = await client.index({
+  id: id,
+  index: index_name,
+  body: document,
+  refresh: true,
+});
+```
+{% include copy.html %}
+
+## Searching for documents
+
+The easiest way to search for documents is to construct a query string. The following code uses a `match` query to search for "The Outsider" in the title field:
+
+```javascript
+var query = {
+  query: {
+    match: {
+      title: {
+        query: "The Outsider",
+      },
+    },
+  },
+};
+
+var response = await client.search({
+  index: index_name,
+  body: query,
+});
+```
+{% include copy.html %}
+
+## Deleting a document
+
+You can delete a document using the client's `delete` method:
+
+```javascript
+var response = await client.delete({
+  index: index_name,
+  id: id,
+});
+```
+{% include copy.html %}
+
+## Deleting an index
+
+You can delete an index using the `indices.delete()` method:
+
+```javascript
+var response = await client.indices.delete({
+  index: index_name,
+});
+```
+{% include copy.html %}
+
+## Sample program
+
+The following sample program creates a client, adds an index with non-default settings, inserts a document, searches for the document, deletes the document, and, finally, deletes the index:
 
 ```javascript
 "use strict";
@@ -55,7 +182,8 @@ var client = new Client({
   node: protocol + "://" + auth + "@" + host + ":" + port,
   ssl: {
     ca: fs.readFileSync(ca_certs_path),
-    // You can turn off certificate verification (rejectUnauthorized: false) if you're using self-signed certificates with a hostname mismatch.
+    // You can turn off certificate verification (rejectUnauthorized: false) if you're using 
+    // self-signed certificates with a hostname mismatch.
     // cert: fs.readFileSync(client_cert_path),
     // key: fs.readFileSync(client_key_path)
   },
@@ -64,6 +192,7 @@ var client = new Client({
 async function search() {
   // Create an index with non-default settings.
   var index_name = "books";
+  
   var settings = {
     settings: {
       index: {
@@ -140,8 +269,9 @@ async function search() {
 
 search().catch(console.log);
 ```
+{% include copy.html %}
 
-## Authenticate with Amazon OpenSearch Service - AWS Sigv4
+## Authenticating with Amazon OpenSearch Service - AWS Sigv4
 
 Use the following code to authenticate with AWS V2 SDK:
 
@@ -175,6 +305,7 @@ const client = new Client({
   node: "https://search-xxx.region.es.amazonaws.com", // OpenSearch domain URL
 });
 ```
+{% include copy.html %}
 
 Use the following code to authenticate with AWS V3 SDK:
 
@@ -202,6 +333,7 @@ const client = new Client({
   node: "https://search-xxx.region.es.amazonaws.com", // OpenSearch domain URL
 });
 ```
+{% include copy.html %}
 
 ## Circuit breaker
 
@@ -222,3 +354,4 @@ var client = new Client({
   },
 });
 ```
+{% include copy.html %}

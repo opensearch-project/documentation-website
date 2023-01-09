@@ -8,6 +8,8 @@ nav_order: 5
 
 The OpenSearch high-level Python client (`opensearch-dsl-py`) provides wrapper classes for common OpenSearch entities, like documents, so you can work with them as Python objects. Additionally, the high-level client simplifies writing queries and supplies convenient Python methods for common OpenSearch operations. The high-level Python client supports creating and indexing documents, searching with and without filters, and updating documents using queries.
 
+This getting started guide illustrates how to connect to OpenSearch, index documents, and run queries. For the client source code, see the [opensearch-dsl-py repo](https://github.com/opensearch-project/opensearch-dsl-py).
+
 ## Setup
 
 To add the client to your project, install it using [pip](https://pip.pypa.io/):
@@ -15,6 +17,7 @@ To add the client to your project, install it using [pip](https://pip.pypa.io/):
 ```bash
 pip install opensearch-dsl
 ```
+{% include copy.html %}
 
 After installing the client, you can import it like any other module:
 
@@ -22,8 +25,7 @@ After installing the client, you can import it like any other module:
 from opensearchpy import OpenSearch
 from opensearch_dsl import Search
 ```
-
-If you prefer to add the client manually or just want to examine the source code, see [opensearch-dsl-py](https://github.com/opensearch-project/opensearch-dsl-py) on GitHub.
+{% include copy.html %}
 
 ## Connecting to OpenSearch
 
@@ -47,6 +49,7 @@ client = OpenSearch(
     ca_certs = ca_certs_path
 )
 ```
+{% include copy.html %}
 
 If you have your own client certificates, specify them in the `client_cert_path` and `client_key_path` parameters:
 
@@ -74,6 +77,7 @@ client = OpenSearch(
     ca_certs = ca_certs_path
 )
 ```
+{% include copy.html %}
 
 If you are not using the Security plugin, create a client object with SSL disabled:
 
@@ -91,6 +95,7 @@ client = OpenSearch(
     ssl_show_warn = False
 )
 ```
+{% include copy.html %}
 
 ## Creating an index
 
@@ -108,6 +113,7 @@ index_body = {
 
 response = client.indices.create(index_name, body=index_body)
 ```
+{% include copy.html %}
 
 ## Indexing a document
 
@@ -125,6 +131,7 @@ class Movie(Document):
     def save(self, ** kwargs):
         return super(Movie, self).save(** kwargs)
 ```
+{% include copy.html %}
 
 To index a document, create an object of the new class and call its `save()` method:
 
@@ -134,6 +141,7 @@ Movie.init(using=client)
 doc = Movie(meta={'id': 1}, title='Moneyball', director='Bennett Miller', year='2011')
 response = doc.save(using=client)
 ```
+{% include copy.html %}
 
 ## Performing bulk operations
 
@@ -144,6 +152,7 @@ movies = '{ "index" : { "_index" : "my-dsl-index", "_id" : "2" } } \n { "title" 
 
 client.bulk(movies)
 ```
+{% include copy.html %}
 
 ## Searching for documents
 
@@ -156,6 +165,7 @@ s = Search(using=client, index=index_name) \
 
 response = s.execute()
 ```
+{% include copy.html %}
 
 The preceding query is equivalent to the following query in OpenSearch domain-specific language (DSL):
 
@@ -189,6 +199,7 @@ response = client.delete(
     id = '1'
 )
 ```
+{% include copy.html %}
 
 ## Deleting an index
 
@@ -199,6 +210,7 @@ response = client.indices.delete(
     index = 'my-dsl-index'
 )
 ```
+{% include copy.html %}
 
 ## Sample program
 
@@ -288,3 +300,4 @@ response = client.indices.delete(
 print('\nDeleting index:')
 print(response)
 ```
+{% include copy.html %}
