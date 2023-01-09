@@ -61,7 +61,7 @@ let client = OpenSearch::new(transport);
 ```
 {% include copy.html %}
 
-Alternatively, you can customize the URL and use a connection pool by creating a TransportBuilder struct and passing it to OpenSearch::new to create a new instance of the client: 
+Alternatively, you can customize the URL and use a connection pool by creating a `TransportBuilder` struct and passing it to `OpenSearch::new` to create a new instance of the client: 
 
 ```rust
 let url = Url::parse("http://localhost:9200")?;
