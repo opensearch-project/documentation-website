@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Dashboards query language
-nav_order: 99
+nav_order: 90
 ---
 
 # Dashboards Query Language
