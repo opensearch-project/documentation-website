@@ -49,7 +49,7 @@ Continuing with the area chart created in the preceding steps, you'll create an 
    1. From the **Field** dropdown, select **FlightDelay**.
    1. Select **Update** to reflect these parameters in the graph.  
 
-You've now created the following simple aggregation-based area chart.
+You've now created the following aggregation-based area chart.
 
 ![Resulting aggregation-based area chart]({{site.url}}{{site.baseurl}}/images/dashboards/area-aggregation-tutorial.png)
 
