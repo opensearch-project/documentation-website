@@ -51,7 +51,7 @@ Continuing with the area chart created in the preceding steps, you'll create an 
 
 You've now created the following simple aggregation-based area chart.
 
-![Aggregation-based area chart created in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}images/dashboards/aggregation-area.png)
+![Resulting aggregation-based area chart]({{site.url}}{{site.baseurl}}/images/dashboards/area-aggregation-tutorial.png)
 
 # Related links
 
