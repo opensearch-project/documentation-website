@@ -18,7 +18,7 @@ Installing OpenSearch using the Advanced Packaging Tool (APT) package manager si
 Generally speaking, installing OpenSearch from the Debian distribution can be broken down into a few steps:
 
 1. **Download and install OpenSearch.**
-   - Install manually from a Debian distribution or by creating a local repository.
+   - Install manually from a Debian distribution or from an APT repository.
 1. **Configure important system settings.**
    - These settings are applied to the host before modifying any OpenSearch files.
 1. **(Optional) Test OpenSearch.**
@@ -37,39 +37,44 @@ This guide assumes that you are comfortable working from the Linux command line 
 ### Install OpenSearch from a package
 
 1. Download the Debian package for the desired version directly from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'}. The Debian package can be downloaded for both **x64** and **arm64** architectures.
-1. Import the public GNU Privacy Guard (GPG) key. This key verifies that your OpenSearch package is signed.
-    ```bash
-    wget -qO - https://artifacts.opensearch.org/GPG-KEY-opensearch | sudo gpg --dearmor -o /usr/share/keyrings/opensearch-keyring.gpg
-    ```
-1. From the CLI, you can install the package with `dpkg` or `apt`.
+1. From the CLI, install using `dpkg`.
     **x64**
     ```bash
-    # Install the x64 package using dpkg.
     sudo dpkg -i opensearch-{{site.opensearch_version}}-linux-x64.deb
-    # Install the x64 package using apt.
-    sudo apt insall ./opensearch-{{site.opensearch_version}}-linux-x64.deb
     ```
     **arm64**
     ```bash
-    # Install the arm64 package using dpkg.
     sudo dpkg -i opensearch-{{site.opensearch_version}}-linux-arm64.deb
-    # Install the arm64 package using apt.
-    sudo apt install ./opensearch-{{site.opensearch_version}}-linux-arm64.deb
     ```
 1. After the installation succeeds, enable OpenSearch as a service.
     ```bash
-    sudo systemctl enable --now opensearch
+    sudo systemctl enable opensearch
+    ```
+1. Start the OpenSearch service.
+    ```bash
+    sudo systemctl start opensearch
     ```
 1. Verify that OpenSearch launched correctly.
     ```bash
     sudo systemctl status opensearch
     ```
 
-### Install OpenSearch from a local APT repository
+### Fingerprint verification
+
+The Debian package is not signed, but you can use . If you would like to verify the fingerprint the OpenSearch Project provides a `.sig` file as well as the `.deb` package. To download the signature file, append `.sig` to the end of the URL, as in the following example.
+
+
+
+
+### Install OpenSearch from an APT repository
 
 APT, the primary package management tool for Debian–based operating systems, allows you to download and install the Debian package from the APT repository. 
 
-1. Create a local repository for OpenSearch:
+1. Import the public GNU Privacy Guard (GPG) key. This key is used to verify that the APT repository is signed.
+    ```bash
+    curl -o- https://artifacts.opensearch.org/publickeys/opensearch.pgp | sudo apt-key add -
+    ```
+1. Create an APT repository for OpenSearch:
    ```bash
    echo "deb https://artifacts.opensearch.org/releases/bundle/opensearch/2.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/opensearch-2.x.list
    ```
@@ -77,7 +82,7 @@ APT, the primary package management tool for Debian–based operating systems, a
     ```bash
     sudo apt-get update
     ```
-1. With the repository file created, list all available versions of OpenSearch:
+1. With the repository information added, list all available versions of OpenSearch:
    ```bash
    sudo apt list -a opensearch
    ```
@@ -104,31 +109,7 @@ APT, the primary package management tool for Debian–based operating systems, a
     sudo systemctl status opensearch
     ```
 
-## Step 2: Configure important system settings
-
-Before launching OpenSearch you should review some [important system settings]({{site.url}}{{site.baseurl}}/opensearch/install/important-settings/){:target='\_blank'}.
-1. Disable memory paging and swapping performance on the host to improve performance.
-   ```bash
-   sudo swapoff -a
-   ```
-1. Increase the number of memory maps available to OpenSearch.
-   ```bash
-   # Edit the sysctl config file
-   sudo vi /etc/sysctl.conf
-
-   # Add a line to define the desired value
-   # or change the value if the key exists,
-   # and then save your changes.
-   vm.max_map_count=262144
-
-   # Reload the kernel parameters using sysctl
-   sudo sysctl -p
-
-   # Verify that the change was applied by checking the value
-   cat /proc/sys/vm/max_map_count
-   ```
-
-## Step 3: (Optional) Test OpenSearch
+## Step 2: (Optional) Test OpenSearch
 
 Before proceeding with any configuration, you should test your installation of OpenSearch. Otherwise, it can be difficult to determine whether future problems are due to installation issues or custom settings you applied after installation.
 
@@ -190,7 +171,7 @@ An OpenSearch node in its default configuration (with demo certificates and user
     hostname      opensearch-sql                       2.4.0.0
     ```
 
-## Step 4: Set up OpenSearch in your environment
+## Step 3: Set up OpenSearch in your environment
 
 Users who do not have prior experience with OpenSearch may want a list of recommended settings in order to get started with the service. By default, OpenSearch is not bound to a network interface and cannot be reached by external hosts. Additionally, security settings are populated by default user names and passwords. The following recommendations will enable a user to bind OpenSearch to a network interface, create and sign TLS certificates, and configure basic authentication.
 
