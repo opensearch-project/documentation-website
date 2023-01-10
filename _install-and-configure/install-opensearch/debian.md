@@ -36,14 +36,12 @@ This guide assumes that you are comfortable working from the Linux command line 
 
 1. Download the Debian package for the desired version directly from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'}. The Debian package can be downloaded for both **x64** and **arm64** architectures.
 1. From the CLI, install using `dpkg`.
-    **x64**
-    ```bash
-    sudo dpkg -i opensearch-{{site.opensearch_version}}-linux-x64.deb
-    ```
-    **arm64**
-    ```bash
-    sudo dpkg -i opensearch-{{site.opensearch_version}}-linux-arm64.deb
-    ```
+   ```bash
+   # x64
+   sudo dpkg -i opensearch-{{site.opensearch_version}}-linux-x64.deb
+   # arm64
+   sudo dpkg -i opensearch-{{site.opensearch_version}}-linux-arm64.deb
+   ```
 1. After the installation succeeds, enable OpenSearch as a service.
     ```bash
     sudo systemctl enable opensearch
