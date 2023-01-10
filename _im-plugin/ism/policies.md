@@ -196,7 +196,7 @@ Parameter | Description | Type | Example | Required
 `aliases` | Aliases to add to the new index. | object | `myalias` | No, but must be an array of alias objects
 `force_unsafe` | If true, executes the shrink action even if there are no replicas. | boolean | `false` | No
 
-If you want to add `aliases` to the action, the parameter must include an array of [alias objects]({{site.url}}{{site.baseurl}}/opensearch/rest-api/alias/). For example,
+If you want to add `aliases` to the action, the parameter must include an array of [alias objects]({{site.url}}{{site.baseurl}}/api-reference/alias/). For example,
 
 ```json
 "aliases": [
@@ -788,6 +788,128 @@ If you want to skip rollovers for an index, set `index.plugins.index_state_manag
    ```json
    GET _plugins/_ism/explain/log-000001?pretty
    ```
+
+## Example policy with ISM templates for the alias action
+
+The following example policy is for an alias action use case.
+
+In the following example, the first job will trigger the rollover action, and a new index will be created. Next, another document is added to the two indexes. The new job will then cause the second index to point to the log alias, and the older index will be removed due to the alias action.
+
+First, create an ISM policy:
+
+```json
+PUT /_plugins/_ism/policies/rollover_policy?pretty
+{
+  "policy": {
+    "description": "Example rollover policy.",
+    "default_state": "rollover",
+    "states": [
+      {
+        "name": "rollover",
+        "actions": [
+          {
+            "rollover": {
+              "min_doc_count": 1
+            }
+          }
+        ],
+        "transitions": [{
+            "state_name": "alias",
+            "conditions": {
+              "min_doc_count": "2"
+            }
+          }]
+      },
+      {
+        "name": "alias",
+        "actions": [
+          {
+            "alias": {
+              "actions": [
+                {
+                  "remove": {
+                      "alias": "log"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "ism_template": {
+      "index_patterns": ["log*"],
+      "priority": 100
+    }
+  }
+}
+```
+
+Next, create an index template on which to enable the policy:
+
+```json
+PUT /_index_template/ism_rollover?
+{
+  "index_patterns": ["log*"],
+  "template": {
+   "settings": {
+    "plugins.index_state_management.rollover_alias": "log"
+   }
+ }
+}
+```
+{% include copy-curl.html %}
+
+Next, change the cluster settings to trigger jobs every minute:
+
+```json
+PUT /_cluster/settings?pretty=true
+{
+  "persistent" : {
+    "plugins.index_state_management.job_interval" : 1
+  }
+}
+```
+{% include copy-curl.html %}
+
+Next, create a new index:
+
+```json
+PUT /log-000001
+{
+  "aliases": {
+    "log": {
+      "is_write_index": true
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+Finally, add a document to the index to trigger the job:
+
+```json
+POST /log-000001/_doc
+{
+  "message": "dummy"
+}
+```
+{% include copy-curl.html %}
+
+You can verify these steps using the Alias and Index API:
+
+```json
+GET /_cat/indices?pretty
+```
+{% include copy-curl.html %}
+
+```json
+GET /_cat/aliases?pretty
+```
+{% include copy-curl.html %}
+
+Note: The `index` and `remove_index` parameters are not allowed with alias action policies. Only the `add` and `remove` alias action parameters are allowed.
+{: .warning }
 
 ## Example policy
 
