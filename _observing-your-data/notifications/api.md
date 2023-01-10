@@ -2,7 +2,8 @@
 layout: default
 title: API
 nav_order: 50
-has_children: false
+has_children: true
+parent: Notifications
 redirect_from:
   - /notifications-plugin/api/
 ---
