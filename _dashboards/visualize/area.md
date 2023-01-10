@@ -27,7 +27,7 @@ Make sure you have [installed the latest version of Dashboards](https://opensear
 1. Select **Visualize** from the menu and then select **Create visualization**.
 1. Select **Area** from the window.
 1. Select **opensearch_dashboards_sample_data_flights** in the **New Area/Choose a source** window.
-1. Select the calendar icon and set the time filter to **Last 7 days.**
+1. Select the calendar icon and set the time filter to **Last 7 days**.
 1. Select **Update**.
 
 ## Add aggregations to the area chart
