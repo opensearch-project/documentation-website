@@ -45,16 +45,16 @@ This guide assumes that you are comfortable working from the Linux command line 
    **x64**
    ```bash
    # Install the x64 package using dpkg.
-   
+   sudo dpkg -i opensearch-2.4.1-linux-x64.deb
    # Install the x64 package using apt.
-   
+   sudo apt insall ./opensearch-2.4.1-linux-x64.deb
    ```
    **arm64**
    ```bash
    # Install the arm64 package using dpkg.
-   
+   sudo dpkg -i opensearch-2.4.1-linux-arm64.deb
    # Install the arm64 package using apt.
-   
+   sudo apt install ./opensearch-2.4.1-linux-arm64.deb
    ```
 1. After the installation succeeds, enable OpenSearch as a service.
     ```bash
@@ -132,13 +132,11 @@ Before launching OpenSearch you should review some [important system settings]({
    cat /proc/sys/vm/max_map_count
    ```
 
--- Not validated below this line --
-
 ## Step 3: (Optional) Test OpenSearch
 
 Before proceeding with any configuration, you should test your installation of OpenSearch. Otherwise, it can be difficult to determine whether future problems are due to installation issues or custom settings you applied after installation.
 
-When OpenSearch is installed using the RPM package, some demo security settings are automatically applied. This includes self-signed TLS certificates and several users and roles. If you would like to configure these yourself, see [Set up OpenSearch in your environment](#step-4-set-up-opensearch-in-your-environment).
+When OpenSearch is installed using the DEB package, some demo security settings are automatically applied. This includes self-signed TLS certificates and several users and roles. If you would like to configure these yourself, see [Set up OpenSearch in your environment](#step-4-set-up-opensearch-in-your-environment).
 
 An OpenSearch node in its default configuration (with demo certificates and users with default passwords) is not suitable for a production environment. If you plan to use the node in a production environment, you should, at a minimum, replace the demo TLS certificates with your own TLS certificates and [update the list of internal users and passwords]({{site.url}}{{site.baseurl}}/security-plugin/configuration/yaml). See [Security configuration]({{site.url}}{{site.baseurl}}/security-plugin/configuration/index/) for additional guidance to ensure that your nodes are configured according to your security requirements.
 {: .warning}
