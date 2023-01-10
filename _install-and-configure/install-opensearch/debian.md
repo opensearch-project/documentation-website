@@ -11,14 +11,14 @@ The following liquid syntax declares a variable, major_version_mask, which is tr
 {% assign version_parts = site.opensearch_major_minor_version | split: "." %}
 {% assign major_version_mask = version_parts[0] | append: ".x" %}
 
-# DEB
+# Debian
 
 Installing OpenSearch using the Advanced Packaging Tool (APT) package manager simplifies the process considerably compared to the [Tarball]({{site.url}}{{site.baseurl}}/opensearch/install/tar/) method. Several technical considerations, such as the installation path, location of configuration files, and creation of a service managed by `systemd`, as examples, are handled automatically by the package manager.
 
-Generally speaking, installing OpenSearch from the DEB distribution can be broken down into a few steps:
+Generally speaking, installing OpenSearch from the Debian distribution can be broken down into a few steps:
 
 1. **Download and install OpenSearch.**
-   - Install manually from a DEB distribution or by creating a local repository.
+   - Install manually from a Debian distribution or by creating a local repository.
 1. **Configure important system settings.**
    - These settings are applied to the host before modifying any OpenSearch files.
 1. **(Optional) Test OpenSearch.**
@@ -27,7 +27,7 @@ Generally speaking, installing OpenSearch from the DEB distribution can be broke
 1. **Configure OpenSearch for your environment.**
    -  Apply basic settings to OpenSearch and start using it in your environment.
 
-The DEB distribution provides everything you need to run OpenSearch inside Debian-based Linux Distributions, such as Ubuntu.
+The Debian distribution provides everything you need to run OpenSearch inside Debian-based Linux Distributions, such as Ubuntu.
 
 This guide assumes that you are comfortable working from the Linux command line interface (CLI). You should understand how to input commands, navigate between directories, and edit text files. Some example commands reference the `vi` text editor, but you may use any text editor available.
 {:.note}
@@ -36,26 +36,26 @@ This guide assumes that you are comfortable working from the Linux command line 
 
 ### Install OpenSearch from a package
 
-1. Download the DEB package for the desired version directly from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'}. The DEB package can be downloaded for both **x64** and **arm64** architectures.
+1. Download the Debian package for the desired version directly from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'}. The Debian package can be downloaded for both **x64** and **arm64** architectures.
 1. Import the public GNU Privacy Guard (GPG) key. This key verifies that your OpenSearch package is signed.
     ```bash
     wget -qO - https://artifacts.opensearch.org/GPG-KEY-opensearch | sudo gpg --dearmor -o /usr/share/keyrings/opensearch-keyring.gpg
     ```
 1. From the CLI, you can install the package with `dpkg` or `apt`.
-   **x64**
-   ```bash
-   # Install the x64 package using dpkg.
-   sudo dpkg -i opensearch-{{site.opensearch_version}}-linux-x64.deb
-   # Install the x64 package using apt.
-   sudo apt insall ./opensearch-{{site.opensearch_version}}-linux-x64.deb
-   ```
-   **arm64**
-   ```bash
-   # Install the arm64 package using dpkg.
-   sudo dpkg -i opensearch-{{site.opensearch_version}}-linux-arm64.deb
-   # Install the arm64 package using apt.
-   sudo apt install ./opensearch-{{site.opensearch_version}}-linux-arm64.deb
-   ```
+    **x64**
+    ```bash
+    # Install the x64 package using dpkg.
+    sudo dpkg -i opensearch-{{site.opensearch_version}}-linux-x64.deb
+    # Install the x64 package using apt.
+    sudo apt insall ./opensearch-{{site.opensearch_version}}-linux-x64.deb
+    ```
+    **arm64**
+    ```bash
+    # Install the arm64 package using dpkg.
+    sudo dpkg -i opensearch-{{site.opensearch_version}}-linux-arm64.deb
+    # Install the arm64 package using apt.
+    sudo apt install ./opensearch-{{site.opensearch_version}}-linux-arm64.deb
+    ```
 1. After the installation succeeds, enable OpenSearch as a service.
     ```bash
     sudo systemctl enable --now opensearch
@@ -67,7 +67,7 @@ This guide assumes that you are comfortable working from the Linux command line 
 
 ### Install OpenSearch from a local APT repository
 
-APT, the primary package management tool for Debian–based operating systems, allows you to download and install the DEB package from the APT repository. 
+APT, the primary package management tool for Debian–based operating systems, allows you to download and install the Debian package from the APT repository. 
 
 1. Create a local repository for OpenSearch:
    ```bash
@@ -88,7 +88,7 @@ APT, the primary package management tool for Debian–based operating systems, a
    ```
    - To install a specific version of OpenSearch:
    ```bash
-   # Specify the version manually after appending a "=" to the end of opensearch in the command:
+   # Specify the version manually using opensearch=<version>
    sudo apt-get install opensearch={{site.opensearch_version}}
    ```
 1. During installation, the installer will present you with the GPG key fingerprint. Verify that the information matches the following:
@@ -132,7 +132,7 @@ Before launching OpenSearch you should review some [important system settings]({
 
 Before proceeding with any configuration, you should test your installation of OpenSearch. Otherwise, it can be difficult to determine whether future problems are due to installation issues or custom settings you applied after installation.
 
-When OpenSearch is installed using the DEB package, some demo security settings are automatically applied. This includes self-signed TLS certificates and several users and roles. If you would like to configure these yourself, see [Set up OpenSearch in your environment](#step-4-set-up-opensearch-in-your-environment).
+When OpenSearch is installed using the Debian package, some demo security settings are automatically applied. This includes self-signed TLS certificates and several users and roles. If you would like to configure these yourself, see [Set up OpenSearch in your environment](#step-4-set-up-opensearch-in-your-environment).
 
 An OpenSearch node in its default configuration (with demo certificates and users with default passwords) is not suitable for a production environment. If you plan to use the node in a production environment, you should, at a minimum, replace the demo TLS certificates with your own TLS certificates and [update the list of internal users and passwords]({{site.url}}{{site.baseurl}}/security-plugin/configuration/yaml). See [Security configuration]({{site.url}}{{site.baseurl}}/security-plugin/configuration/index/) for additional guidance to ensure that your nodes are configured according to your security requirements.
 {: .warning}
@@ -443,7 +443,7 @@ OpenSearch instances installed using `dpkg` or `apt-get` can be easily upgraded 
 
 ### Manual upgrade with DPKG 
 
-Download the DEB package for the desired upgrade version directly from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'}.
+Download the Debian package for the desired upgrade version directly from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'}.
 
 Navigate to the directory containing the distribution and run the following command:
 ```bash
