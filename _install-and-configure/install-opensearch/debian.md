@@ -18,7 +18,7 @@ Installing OpenSearch using the Advanced Packaging Tool (APT) package manager si
 Generally speaking, installing OpenSearch from the Debian distribution can be broken down into a few steps:
 
 1. **Download and install OpenSearch.**
-   - Install manually from a Debian distribution or from an APT repository.
+   - Install manually from a Debian package or from an APT repository.
 1. **(Optional) Test OpenSearch.**
    - Confirm that OpenSearch is able to run before you apply any custom configuration.
    - This can be done without any security (no password, no certificates) or with a demo security configuration that can be applied by a packaged script.
