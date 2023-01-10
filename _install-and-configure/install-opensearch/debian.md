@@ -151,15 +151,15 @@ An OpenSearch node in its default configuration (with demo certificates and user
       {
          "name" : "hostname",
          "cluster_name" : "opensearch",
-         "cluster_uuid" : "6XNc9m2gTUSIoKDqJit0PA",
+         "cluster_uuid" : "oG0pPKNWT42HT3UqWgmxuw",
          "version" : {
             "distribution" : "opensearch",
-            "number" : "2.3.0",
-            "build_type" : "rpm",
-            "build_hash" : "6f6e84ebc54af31a976f53af36a5c69d474a5140",
-            "build_date" : "2022-09-09T00:07:32.109283578Z",
+            "number" : "2.4.0",
+            "build_type" : "deb",
+            "build_hash" : "744ca260b892d119be8164f48d92b8810bd7801c",
+            "build_date" : "2023-01-06T22:20:28.713671066Z",
             "build_snapshot" : false,
-            "lucene_version" : "9.3.0",
+            "lucene_version" : "9.4.1",
             "minimum_wire_compatibility_version" : "7.10.0",
             "minimum_index_compatibility_version" : "7.0.0"
          },
