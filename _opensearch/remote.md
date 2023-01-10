@@ -11,6 +11,51 @@ Remote-backed storage is an experimental feature. Therefore, we do not recommend
 
 Remote-backed storage offers OpenSearch users a new way to protect against data loss by automatically creating backups of all index transactions and sending them to remote storage. In order to expose this feature, segment replication must also be enabled. See [Segment replication]({{site.url}}{{site.baseurl}}/opensearch/segment-replication/) for additional information.
 
+## Translog
+
+When documents are indexed, updated, or deleted, the data needs to eventually be persisted to disk so it can be recovered in case of failure. However, Lucene commits are expensive operations, and as such cannot be performed after every change to the index. Instead, each shard records every indexing operation in a transaction log called *translog*. When a document is indexed, it is added to the memory buffer and also recorded in the translog. Frequent refresh operations write the documents in the memory buffer to a segment, and clear the memory buffer. Periodically, a flush performs a Lucene commit, which includes writing the segments to disk using `fsync`, purging the old translog, and starting a new translog. 
+
+Thus, a translog contains all operations that have not yet been written to disk. 
+
+## Segment replication and remote-backed storage
+
+When neither segment replication nor remote-backed storage is enabled, OpenSearch uses document replication. In document replication, when a write request lands on the primary shard, the request is indexed to Lucene and stored in the translog as a single unit of transaction for durability. After this, the request is sent to the replicas, where, in turn, it is indexed to Lucene and stored in the translog. 
+
+With segment replication, the segments are created on the primary shard only and then copied to all replicas. The replicas do not index a request to Lucene, but they do create and maintain a translog.
+
+With remote-backed storage, when a write request lands on the primary shard, the request is indexed to Lucene on primary shard only, and then stored in the translog. The translogs are fsynced to local disk and then uploaded into remote store. OpenSearch does not send the write request to the replicas, but rather performs a primary term validation. Primary term validation entails confirming that the request originator shard is still the primary shard. This is necessary to ensure that the acting primary shard fails in case the acting primary is isolated and unaware of the cluster manager electing a new primary.
+
+## Translog settings
+
+Without remote-backed storage, indexing operations are only persisted to disk when the translog is fsynced. Therefore, any data that has not been written to disk can potentially be lost. 
+
+The `index.translog.durability` setting controls how frequently OpenSearch fsyncs the translog to disk:
+
+- By default, `index.translog.durability` is set to `request`. This means that fsync happens after every request, and all acknowledged write requests persist in case of failure.
+
+- If you set` index.translog.durability` to `async`, fsync happens periodically at the specified `sync_interval` (5 seconds by default). The fsync operation is asynchronous, so acknowledge is sent without waiting for fsync. Consequently, all acknowledged writes since the last commit are lost in case of failure.
+
+With remote-backed storage, the translog is not only fsynced to disk, but also uploaded into a remote store.
+
+## Refresh-level and request-level durability
+
+The remote store feature supports two levels of durability:
+
+- Refresh-level durability: Segment files are uploaded to remote store after every refresh. Set the `remote_store` flag to `true` to achieve refresh-level durability. Commit-level durability is inherent, and uploads are asynchronous.
+
+  If you need to activate a refresh manually, you can use the `_refresh` API. For example, to refresh the `my_index` index, use the following request:
+   
+  ```json
+  POST my_index/_refresh
+  ```
+
+  To refresh all indexes, use the following request:
+
+  ```json
+  POST /_refresh
+  ```
+
+- Request-level durability: Translogs are uploaded before acknowledging the request. Set the `translog` flag to `true` to achieve request-level durability. In this scenario, it is beneficial to batch as many requests as possible in a bulk request. This will improve indexing throughput and latency compared to sending individual write requests.
 
 ## Enable the feature flag
 
