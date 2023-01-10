@@ -13,9 +13,7 @@ Remote-backed storage offers OpenSearch users a new way to protect against data 
 
 ## Translog
 
-Any index changes are written to disk during a Lucene commit. However, Lucene commits are expensive operations, so they cannot be performed after every change to the index. Instead, each shard records every indexing operation in a transaction log called *translog*. When a document is indexed, it is added to the memory buffer and also recorded in the translog. Frequent refresh operations write the documents in the memory buffer to a segment and then clear the memory buffer. Periodically, a flush performs a Lucene commit, which includes writing the segments to disk using fsync, purging the old translog, and starting a new translog. 
-
-Thus, a translog contains all operations that have not yet been flushed. 
+Any index changes, such as indexing or deleting documents, are written to disk during a Lucene commit. However, Lucene commits are expensive operations, so they cannot be performed after every change to the index. Instead, each shard records every indexing operation in a transaction log called *translog*. When a document is indexed, it is added to the memory buffer and recorded in the translog. Frequent refresh operations write the documents in the memory buffer to a segment and then clear the memory buffer. Periodically, a flush performs a Lucene commit, which includes writing the segments to disk using fsync, purging the old translog, and starting a new translog. Thus, a translog contains all operations that have not yet been flushed. 
 
 ## Segment replication and remote-backed storage
 
@@ -23,7 +21,7 @@ When neither segment replication nor remote-backed storage is enabled, OpenSearc
 
 With segment replication, segments are created on the primary shard only and then copied to all replicas. The replicas do not index requests to Lucene, but they do create and maintain a translog.
 
-With remote-backed storage, when a write request lands on the primary shard, the request is indexed to Lucene on the primary shard only, and then stored in the translog. The translogs are fsynced to local disk and then uploaded to remote store. OpenSearch does not send the write request to the replicas, but rather performs a primary term validation to confirm that the request originator shard is still the primary shard. Primary term validation ensures that the acting primary shard fails if it becomes isolated and is unaware of the cluster manager electing a new primary.
+With remote-backed storage, when a write request lands on the primary shard, the request is indexed to Lucene on the primary shard only and then stored in the translog. The translogs are fsynced to local disk and then uploaded to remote store. OpenSearch does not send the write request to the replicas, but rather performs a primary term validation to confirm that the request originator shard is still the primary shard. Primary term validation ensures that the acting primary shard fails if it becomes isolated and is unaware of the cluster manager electing a new primary.
 
 ## The `index.translog.durability` translog setting
 
@@ -35,7 +33,7 @@ The `index.translog.durability` setting controls how frequently OpenSearch fsync
 
 - If you set `index.translog.durability` to `async`, fsync happens periodically at the specified `sync_interval` (5 seconds by default). The fsync operation is asynchronous, so acknowledge is sent without waiting for fsync. Consequently, all acknowledged writes since the last commit are lost in case of failure.
 
-With remote-backed storage, the translog is not only fsynced to disk, but also uploaded to a remote store.
+With remote-backed storage, the translog is not only fsynced to disk but also uploaded to a remote store.
 
 `index.translog.durability` is a dynamic setting. To update it, use the following query:
 
@@ -60,7 +58,7 @@ The remote store feature supports two levels of durability:
   POST my_index/_refresh
   ```
 
-- Request-level durability: Translogs are uploaded before acknowledging the request. Set the `translog` flag to `true` to achieve request-level durability. In this scenario, we recommend to batch as many requests as possible in a bulk request. This will improve indexing throughput and latency compared to sending individual write requests.
+- Request-level durability: Translogs are uploaded before acknowledging the request. Set the `translog` flag to `true` to achieve request-level durability. In this scenario, we recommend to batch as many requests as possible in a bulk request. Batching requests will improve indexing throughput and latency compared to sending individual write requests.
 
 ## Enable the feature flag
 
@@ -190,7 +188,7 @@ curl -X PUT "https://localhost:9200/my-index?pretty" -ku admin:admin -H 'Content
 The segment repository and translog repository can be the same or different. 
 {: .note}
 
-As data is added to the index, it will also be continuously uploaded to the remote storage in the form of segment and translog files because of refreshes, flushes, and translog fsyncs to disk. Along with data, other metadata files will be uploaded.
+As data is added to the index, it also will be continuously uploaded to the remote storage in the form of segment and translog files because of refreshes, flushes, and translog fsyncs to disk. Along with data, other metadata files will be uploaded.
 
 Setting `translog.enabled` to `true` is currently an irreversible operation.
 {: .warning}
@@ -227,8 +225,8 @@ You can use remote-backed storage for the following purposes:
 
 The following are known limitations of the remote-backed storage feature:
 
-- Writing data to a remote store can be a high latency operation when compared to writing data on local file system. This may impact the indexing throughput and latency.
-- Primary to primary relocation is unstable as handover of upload of translogs from older primary to new is yet to be implemented.
-- Garbage collection of the metadata file is not implemented yet.
+- Writing data to a remote store can be a high-latency operation when compared to writing data on the local file system. This may impact the indexing throughput and latency.
+- Primary to primary relocation is unstable because handover of translog uploads from older to new primary has not been implemented.
+- Garbage collection of the metadata file has not been implemented.
 For other limitations, see the [Remote store known issue list](https://github.com/opensearch-project/OpenSearch/issues/5678).
 
