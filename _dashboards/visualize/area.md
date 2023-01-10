@@ -46,7 +46,7 @@ Continuing with the area chart created in the preceding steps, you'll create an 
 1. Add a sub-aggregation.
    1. Select **Add** and then in the **Add Sub-Buckets** window, select **Split series**.
    1. From the **Sub aggregation** dropdown, select **Terms**.
-   1. From the **Field** dropdown, select **FlightDelay.**
+   1. From the **Field** dropdown, select **FlightDelay**.
    1. Select **Update** to reflect these parameters in the graph.  
 
 You've now created the following simple aggregation-based area chart.
