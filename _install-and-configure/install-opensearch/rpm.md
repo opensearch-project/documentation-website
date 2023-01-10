@@ -40,17 +40,16 @@ This guide assumes that you are comfortable working from the Linux command line 
     sudo rpm --import https://artifacts.opensearch.org/publickeys/opensearch.pgp
     ```
 1. From the CLI, you can install the package with `rpm` or `yum`.
-   **x64**  FIXME
    ```bash
    # Install the x64 package using yum.
    sudo yum install opensearch-{{site.opensearch_version}}-linux-x64.rpm
+
    # Install the x64 package using rpm.
    sudo rpm -ivh opensearch-{{site.opensearch_version}}-linux-x64.rpm
-   ```
-   **arm64**
-   ```bash
+
    # Install the arm64 package using yum.
    sudo yum install opensearch-{{site.opensearch_version}}-linux-x64.rpm
+
    # Install the arm64 package using rpm.
    sudo rpm -ivh opensearch-{{site.opensearch_version}}-linux-x64.rpm
    ```
