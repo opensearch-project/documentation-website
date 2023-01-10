@@ -110,9 +110,13 @@ APT, the primary package management tool for Debian–based operating systems, a
    ```bash
    Fingerprint: c5b7 4989 65ef d1c2 924b a9d5 39d3 1987 9310 d3fc
    ```
-1. Once complete, you can run OpenSearch.
+1. Once complete, enable OpenSearch.
     ```bash
-    sudo systemctl enable --now opensearch
+    sudo systemctl enable opensearch
+    ```
+1. Start OpenSear h.
+    ```bash
+    sudo systemctl start opensearch
     ```
 1. Verify that OpenSearch launched correctly.
     ```bash
