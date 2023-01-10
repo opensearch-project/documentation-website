@@ -1,7 +1,7 @@
 ---
 layout: default
 title: WMS map server
-nav_order: 5
+nav_order: 20
 redirect_from:
   - /docs/opensearch-dashboards/maptiles/
 ---

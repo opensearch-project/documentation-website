@@ -23,6 +23,7 @@ To add the client to your project, install it using [pip](https://pip.pypa.io/):
 ```bash
 pip install opensearch-py-ml
 ```
+{% include copy.html %}
 
 Then import the client into OpenSearch like any other module:
 
@@ -30,6 +31,7 @@ Then import the client into OpenSearch like any other module:
 from opensearchpy import OpenSearch
 import openseach_py_ml as oml
 ```
+{% include copy.html %}
 
 ## API reference
 
