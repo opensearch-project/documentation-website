@@ -67,9 +67,9 @@ The Debian package is not signed. If you would like to verify the fingerprint, t
    ```bash
    curl -SLO https://artifacts.opensearch.org/releases/bundle/opensearch/{{site.opensearch_version}}/opensearch-{{site.opensearch_version}}-linux-x64.deb.sig
    ```
-1. Import the GPG key.
+1. Download and import the GPG key.
    ```bash
-   gpg --import opensearch-{{site.opensearch_version}}-linux-x64.deb.sig
+   curl -o- https://artifacts.opensearch.org/publickeys/opensearch.pgp | gpg --import -
    ```
 1. Verify the signature.
    ```bash
