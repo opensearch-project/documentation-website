@@ -36,7 +36,7 @@ You can now point your Java client to the truststore and set basic authenticatio
 
 If you run into issues when configuring security, see [common issues]({{site.url}}{{site.baseurl}}/troubleshoot/index) and [troubleshoot TLS]({{site.url}}{{site.baseurl}}/troubleshoot/tls).
 
-## Sample code
+## Sample program
 
 This code example uses basic credentials that come with the default OpenSearch configuration. If you’re using the OpenSearch Java high-level REST client with your own OpenSearch cluster, be sure to change the code to use your own credentials.
 

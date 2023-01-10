@@ -231,7 +231,12 @@ img {
 
 .copy-button-wrap {
   background-color: $sidebar-color;
+<<<<<<< HEAD
   padding: 0.2rem 2rem;
+=======
+  padding: 0.25rem 2rem 0.5rem 2rem;
+  margin-bottom: 0.75rem;
+>>>>>>> c25ff903 (Adds Rust client documentation (#2342))
   display: flex;
   justify-content: flex-end; 
 }
