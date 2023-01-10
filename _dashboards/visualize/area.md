@@ -32,7 +32,7 @@ Make sure you have [installed the latest version of Dashboards](https://opensear
 
 ## Add aggregations to the area chart
 
-Continuing with the area chart created in the preceding steps, you'll create an area chart that displays the top five logs for flights delayed for every three hours over the last seven days.
+Continuing with the area chart created in the preceding steps, you'll create an area chart that displays the top five logs for flights delayed for every three hours over the last seven days:
 
 1. Add a **Metrics** aggregation.
    1. Under **Metrics**, select the **Aggregation** dropdown and choose **Average** and then select the **Field** dropdown and choose **FlightDelayMin**.
