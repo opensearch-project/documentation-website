@@ -82,7 +82,8 @@ Data Prepper must also be running with the necessary permissions. The following 
     ]
 }
 ```
----
+
+
 ## Configuration
 
 The following table provides optional configuration values.
@@ -136,8 +137,6 @@ peer_forwarder:
 
 ## Authentication
 
-This section describes optional authentication.
-
 `Authentication` is optional and is a `Map` that enables mTLS. It can either be `mutual_tls` or `unauthenticated`. The default value is `unauthenticated`. The following yaml file provides an exmaple for authentication:
 
 ```yaml
@@ -147,8 +146,6 @@ peer_forwarder:
 ```
 
 ## Metrics
-
-This section describes Peer Forwarder's metrics capabilities, including timer, counter, and gauge.
 
 Core Peer Forwarder introduces the following custom metrics. All the metrics are prefixed by `core.peerForwarder`.
 
