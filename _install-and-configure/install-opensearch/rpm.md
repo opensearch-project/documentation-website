@@ -18,7 +18,7 @@ Installing OpenSearch using RPM Package Manager (RPM) simplifies the process con
 Generally speaking, installing OpenSearch from the RPM distribution can be broken down into a few steps:
 
 1. **Download and install OpenSearch.**
-   - Install manually from an RPM distribution or by creating a local YUM repository.
+   - Install manually from an RPM package or from a YUM repository.
 1. **Configure important system settings.**
    - These settings are applied to the host before modifying any OpenSearch files.
 1. **(Optional) Test OpenSearch.**
@@ -42,7 +42,7 @@ This guide assumes that you are comfortable working from the Linux command line 
     sudo rpm --import https://artifacts.opensearch.org/publickeys/opensearch.pgp
     ```
 1. From the CLI, you can install the package with `rpm` or `yum`.
-   **x64**
+   **x64**  FIXME
    ```bash
    # Install the x64 package using yum.
    sudo yum install opensearch-{{site.opensearch_version}}-linux-x64.rpm
@@ -69,7 +69,7 @@ This guide assumes that you are comfortable working from the Linux command line 
     sudo systemctl status opensearch
     ```
 
-### Install OpenSearch from a local YUM repository
+### Install OpenSearch from a YUM repository
 
 YUM, the primary package management tool for Red Hat–based operating systems, allows you to download and install the RPM package from the YUM repository. 
 
@@ -77,14 +77,14 @@ YUM, the primary package management tool for Red Hat–based operating systems, 
    ```bash
    sudo curl -SL https://artifacts.opensearch.org/releases/bundle/opensearch/{{major_version_mask}}/opensearch-{{major_version_mask}}.repo -o /etc/yum.repos.d/opensearch-{{major_version_mask}}.repo
    ```
-1. Verify that the repository was created successfully.
-    ```bash
-    sudo yum repolist
-    ```
 1. Clean your YUM cache to ensure a smooth installation:
    ```bash
    sudo yum clean all
    ```
+1. Verify that the repository was created successfully.
+    ```bash
+    sudo yum repolist
+    ```
 1. With the repository file downloaded, list all available versions of OpenSearch:
    ```bash
    sudo yum list opensearch --showduplicates
