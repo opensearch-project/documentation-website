@@ -433,12 +433,12 @@ sudo dpkg -i opensearch-2.4.1-linux-x64.deb
 
 To upgrade to the latest version of OpenSearch using `apt-get`:
 ```bash
-sudo apt-get install opensearch
+sudo apt-get upgrade opensearch
 ```
 
 You can also upgrade to a specific OpenSearch version:
 ```bash
-sudo apt-get install opensearch=<version>
+sudo apt-get upgrade opensearch=<version>
 ```
 
 ## Related links
