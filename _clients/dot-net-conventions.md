@@ -30,6 +30,7 @@ To create a node, pass a `Uri` object into its constructor:
 var uri = new Uri("http://example.org/opensearch");
 var node = new Node(uri);
 ```
+{% include copy.html %}
 
 When first created, a node is master eligible, and its `HoldsData` property is set to true. 
 The `AbsolutePath` property of the node created above is `"/opensearch/"`: A trailing forward slash is appended so that the paths can be easily combined. If not specified, the default `Port` is 80.
@@ -76,6 +77,7 @@ To set the maximum number of retries, specify the number in the `MaximumRetries`
 ```cs
 var settings = new ConnectionSettings(connectionPool).MaximumRetries(5);
 ```
+{% include copy.html %}
 
 You can also set a `RequestTimeout` that specifies a timeout for a single request and a `MaxRetryTimeout` that specifies the time limit for all retry attempts. In the example below, `RequestTimeout` is set to 4 seconds, and `MaxRetryTimeout` is set to 12 seconds, so the maximum number of attempts for a query is 3. 
 
@@ -84,6 +86,7 @@ var settings = new ConnectionSettings(connectionPool)
             .RequestTimeout(TimeSpan.FromSeconds(4))
             .MaxRetryTimeout(TimeSpan.FromSeconds(12));
 ```
+{% include copy.html %}
 
 ## Failover
 
