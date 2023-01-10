@@ -11,15 +11,15 @@ A dashboard condenses multiple data visualizations in to a single view, allowing
 
 In this tutorial you'll learn the basics of creating a dashboard using OpenSearch Dashboards [http://localhost:5601](http://localhost:5601) and sample log data. 
 
-Before you begin, you should be familiar with [Dashboards visualization concepts]({{site.url}}{{site.baseurl}}/dashboards/visualize/index/). 
+Before you begin, make sure to familiarize yourself with [Dashboards visualization concepts]({{site.url}}{{site.baseurl}}/dashboards/visualize/index/). 
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboard-1.png" alt="Example dashboard in OpenSearch Dashboards">
+<img src="{{site.url}}{{site.baseurl}}/images/dashboard-1.png" alt="View of dashboard in OpenSearch Dashboards">
 
-# Try it: Create your first dashboard
+# Try it: Create a dashboard
 
 1. Access OpenSearch Dashboards at by connecting to [http://localhost:5601](http://localhost:5601) from a browser. 
-2. From the menu, select **Dashboard**.
-3. From the **Dashboards** window, select **Create Dashboard** and then **Add an existing**.
-4. From the **Add panels** window, select **Create new** and **Visualization**. 
-5. 
+1. From the menu, select **Dashboard**.
+1. From the **Dashboards** window, select **Create Dashboard** and then **Add an existing**.
+1. From the **Add panels** window, select **Create new** and **Visualization**. 
+1. 
 
