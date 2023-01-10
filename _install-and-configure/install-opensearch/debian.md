@@ -19,8 +19,6 @@ Generally speaking, installing OpenSearch from the Debian distribution can be br
 
 1. **Download and install OpenSearch.**
    - Install manually from a Debian distribution or from an APT repository.
-1. **Configure important system settings.**
-   - These settings are applied to the host before modifying any OpenSearch files.
 1. **(Optional) Test OpenSearch.**
    - Confirm that OpenSearch is able to run before you apply any custom configuration.
    - This can be done without any security (no password, no certificates) or with a demo security configuration that can be applied by a packaged script.
