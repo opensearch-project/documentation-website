@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Gantt charts
-nav_order: 10
+nav_order: 60
 ---
 
 # Gantt charts
