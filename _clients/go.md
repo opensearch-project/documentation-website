@@ -147,7 +147,7 @@ blk, err := client.Bulk(
 
 ## Searching for documents
 
-The easiest way to search for documents is to construct a query string. The following code uses a `multi_match` query to search for "miller" in the title and director fields. It boosts the documents where "miller" is in the title field:
+The easiest way to search for documents is to construct a query string. The following code uses a `multi_match` query to search for "miller" in the title and director fields. It boosts the documents where "miller" appears in the title field:
 
 ```go
 content := strings.NewReader(`{
@@ -198,7 +198,7 @@ deleteIndexResponse, err := deleteIndex.Do(context.Background(), client)
 
 ## Sample program
 
-The following sample program creates a client, adds an index with non-default settings, inserts a document, performs bulk operations, searches for the document, deletes the document, and then, deletes the index:
+The following sample program creates a client, adds an index with non-default settings, inserts a document, performs bulk operations, searches for the document, deletes the document, and then deletes the index:
 
 ```go
 package main

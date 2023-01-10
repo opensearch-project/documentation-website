@@ -69,7 +69,7 @@ var client = new Client({
 
 ## Creating an index
 
-To create an OpenSearch index, use the `indices.create()` method. You can use the following code to construct a JSON object with custom settings :
+To create an OpenSearch index, use the `indices.create()` method. You can use the following code to construct a JSON object with custom settings:
 
 ```javascript
 var index_name = "books";
@@ -160,7 +160,7 @@ var response = await client.indices.delete({
 
 ## Sample program
 
-The following sample program creates a client, adds an index with non-default settings, inserts a document, searches for the document, deletes the document, and then, deletes the index:
+The following sample program creates a client, adds an index with non-default settings, inserts a document, searches for the document, deletes the document, and then deletes the index:
 
 ```javascript
 "use strict";
@@ -271,7 +271,7 @@ search().catch(console.log);
 ```
 {% include copy.html %}
 
-## Authenticating with Amazon OpenSearch Service - AWS Sigv4
+## Authenticating with Amazon OpenSearch Service – AWS Sigv4
 
 Use the following code to authenticate with AWS V2 SDK:
 

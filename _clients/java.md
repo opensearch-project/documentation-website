@@ -97,7 +97,7 @@ static class IndexData {
 
 ## Initializing the client with SSL and TLS enabled
 
-This code example uses basic credentials that come with the default OpenSearch configuration. If you’re using the Java client with your own OpenSearch cluster, be sure to change the code to use your own credentials.
+This code example uses basic credentials that come with the default OpenSearch configuration. If you’re using the Java client with your own OpenSearch cluster, be sure to change the code so that it uses your own credentials.
 
 The following sample code initializes a client with SSL and TLS enabled:
 
@@ -224,7 +224,7 @@ DeleteResponse deleteResponse = client.indices().delete(deleteRequest);
 
 ## Sample program
 
-The following sample program creates a client, adds an index with non-default settings, inserts a document, searches for the document, deletes the document, and then, deletes the index:
+The following sample program creates a client, adds an index with non-default settings, inserts a document, searches for the document, deletes the document, and then deletes the index:
 
 ```java
 import org.apache.http.HttpHost;

@@ -28,7 +28,7 @@ serde_json = "~1"
 ```
 {% include copy.html %}
 
-The Rust client uses the [`reqwest`](https://crates.io/crates/reqwest) higher level HTTP client library for HTTP requests, and reqwest uses the [`tokio`](https://crates.io/crates/tokio) platform to support asynchronous requests. If you are planning to use asynchronous functions, you need to add the `tokio` dependency to Cargo.toml:
+The Rust client uses the higher-level [`reqwest`](https://crates.io/crates/reqwest) HTTP client library for HTTP requests, and reqwest uses the [`tokio`](https://crates.io/crates/tokio) platform to support asynchronous requests. If you are planning to use asynchronous functions, you need to add the `tokio` dependency to Cargo.toml:
 
 ```rust
 tokio = { version = "*", features = ["full"] }
@@ -53,7 +53,7 @@ let client = OpenSearch::default();
 ```
 {% include copy.html %}
 
-To connect to OpenSearch that is running at a different address, create a client with the specified address:
+To connect to an OpenSearch host that is running at a different address, create a client with the specified address:
 
 ```rust
 let transport = Transport::single_node("http://localhost:9200")?;
@@ -93,7 +93,7 @@ let response = client
 
 ## Indexing a document
 
-You can index a document into OpenSearch using the `index` function of the client:
+You can index a document into OpenSearch using the client's `index` function:
 
 ```rust
 let response = client
@@ -111,7 +111,7 @@ let response = client
 
 ## Performing bulk operations
 
-You can perform several operations at the same time by using the `bulk` function of the client. First, create the JSON body of a Bulk API call, and then pass it to the `bulk` function:
+You can perform several operations at the same time by using the client's `bulk` function. First, create the JSON body of a Bulk API call, and then pass it to the `bulk` function:
 
 ```rust
 let mut body: Vec<JsonBody<_>> = Vec::with_capacity(4);
@@ -144,7 +144,7 @@ let response = client
 
 ## Searching for documents
 
-The easiest way to search for documents is to construct a query string. The following code uses a `multi_match` query to search for "miller" in the title and director fields. It boosts the documents where "miller" is in the title field: 
+The easiest way to search for documents is to construct a query string. The following code uses a `multi_match` query to search for "miller" in the title and director fields. It boosts the documents where "miller" appears in the title field: 
 
 ```rust
 response = client
@@ -177,7 +177,7 @@ for hit in response_body["hits"]["hits"].as_array().unwrap() {
 
 ## Deleting a document
 
-You can delete a document using the `delete` function of the client:
+You can delete a document using the client's `delete` function:
 
 ```rust
 let response = client
@@ -220,7 +220,7 @@ serde_json = "~1"
 ```
 {% include copy.html %}
 
-The following sample program creates a client, adds an index with non-default mappings, inserts a document, performs bulk operations, searches for the document, deletes the document, and then, deletes the index:
+The following sample program creates a client, adds an index with non-default mappings, inserts a document, performs bulk operations, searches for the document, deletes the document, and then deletes the index:
 
 ```rust
 use opensearch::{DeleteParts, OpenSearch, IndexParts, http::request::JsonBody, BulkParts, SearchParts};

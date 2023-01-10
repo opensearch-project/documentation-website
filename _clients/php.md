@@ -6,7 +6,7 @@ nav_order: 70
 
 # PHP client
 
-The OpenSearch PHP client provides a safer and easier way to interact with your OpenSearch cluster. Rather than using OpenSearch from the browser and potentially exposing your data to the public, you can build an OpenSearch client that takes care of sending requests to your cluster. The client contains a library of APIs that let you perform different operations on your cluster and return a standard response body.
+The OpenSearch PHP client provides a safer and easier way to interact with your OpenSearch cluster. Rather than using OpenSearch from a browser and potentially exposing your data to the public, you can build an OpenSearch client that takes care of sending requests to your cluster. The client contains a library of APIs that let you perform different operations on your cluster and return a standard response body.
 
 This getting started guide illustrates how to connect to OpenSearch, index documents, and run queries. For the client source code, see the [opensearch-php repo](https://github.com/opensearch-project/opensearch-php).
 
@@ -86,7 +86,7 @@ $client->create([
 
 ## Searching for documents
 
-The following code uses a `multi_match` query to search for "miller" in the title and director fields. It boosts the documents where "miller" is in the title field:
+The following code uses a `multi_match` query to search for "miller" in the title and director fields. It boosts the documents where "miller" appears in the title field:
 
 ```php
 var_dump(
@@ -131,7 +131,7 @@ $client->indices()->delete([
 
 ## Sample program
 
-The following sample program creates a client, adds an index with non-default settings, inserts a document, searches for the document, deletes the document, and then, deletes the index:
+The following sample program creates a client, adds an index with non-default settings, inserts a document, searches for the document, deletes the document, and then deletes the index:
 
 ```php
 <?php
