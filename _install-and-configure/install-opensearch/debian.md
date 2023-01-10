@@ -172,24 +172,27 @@ An OpenSearch node in its default configuration (with demo certificates and user
       ```
 
       The response should look like this:
-      ```bash
-      name     component                            version
-      hostname opensearch-alerting                  2.1.0.0
-      hostname opensearch-anomaly-detection         2.1.0.0
-      hostname opensearch-asynchronous-search       2.1.0.0
-      hostname opensearch-cross-cluster-replication 2.1.0.0
-      hostname opensearch-index-management          2.1.0.0
-      hostname opensearch-job-scheduler             2.1.0.0
-      hostname opensearch-knn                       2.1.0.0
-      hostname opensearch-ml                        2.1.0.0
-      hostname opensearch-notifications             2.1.0.0
-      hostname opensearch-notifications-core        2.1.0.0
-      hostname opensearch-observability             2.1.0.0
-      hostname opensearch-performance-analyzer      2.1.0.0
-      hostname opensearch-reports-scheduler         2.1.0.0
-      hostname opensearch-security                  2.1.0.0
-      hostname opensearch-sql                       2.1.0.0
-      ```
+    ```bash
+    name          component                            version
+    hostname      opensearch-alerting                  2.4.0.0
+    hostname      opensearch-anomaly-detection         2.4.0.0
+    hostname      opensearch-asynchronous-search       2.4.0.0
+    hostname      opensearch-cross-cluster-replication 2.4.0.0
+    hostname      opensearch-geospatial                2.4.0.0
+    hostname      opensearch-index-management          2.4.0.0
+    hostname      opensearch-job-scheduler             2.4.0.0
+    hostname      opensearch-knn                       2.4.0.0
+    hostname      opensearch-ml                        2.4.0.0
+    hostname      opensearch-neural-search             2.4.0.0
+    hostname      opensearch-notifications             2.4.0.0
+    hostname      opensearch-notifications-core        2.4.0.0
+    hostname      opensearch-observability             2.4.0.0
+    hostname      opensearch-performance-analyzer      2.4.0.0
+    hostname      opensearch-reports-scheduler         2.4.0.0
+    hostname      opensearch-security                  2.4.0.0
+    hostname      opensearch-security-analytics        2.4.0.0
+    hostname      opensearch-sql                       2.4.0.0
+    ```
 
 ## Step 4: Set up OpenSearch in your environment
 
@@ -420,17 +423,17 @@ You should add trust for the root certificate to your client before sending requ
 ```bash
 $ curl https://your.host.address:9200 -u admin:yournewpassword -k
 {
-  "name" : "hostname-here",
+  "name" : "hostname",
   "cluster_name" : "opensearch",
-  "cluster_uuid" : "efC0ANNMQlGQ5TbhNflVPg",
+  "cluster_uuid" : "oG0pPKNWT42HT3UqWgmxuw",
   "version" : {
     "distribution" : "opensearch",
-    "number" : "2.1.0",
-    "build_type" : "tar",
-    "build_hash" : "388c80ad94529b1d9aad0a735c4740dce2932a32",
-    "build_date" : "2022-06-30T21:31:04.823801692Z",
+    "number" : "2.4.0",
+    "build_type" : "deb",
+    "build_hash" : "744ca260b892d119be8164f48d92b8810bd7801c",
+    "build_date" : "2023-01-06T22:20:28.713671066Z",
     "build_snapshot" : false,
-    "lucene_version" : "9.2.0",
+    "lucene_version" : "9.4.1",
     "minimum_wire_compatibility_version" : "7.10.0",
     "minimum_index_compatibility_version" : "7.0.0"
   },
