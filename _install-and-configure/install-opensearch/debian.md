@@ -45,24 +45,20 @@ This guide assumes that you are comfortable working from the Linux command line 
    **x64**
    ```bash
    # Install the x64 package using dpkg.
-   sudo dpkg -i opensearch-2.4.1-linux-x64.deb
+   sudo dpkg -i opensearch-{{site.opensearch_version}}-linux-x64.deb
    # Install the x64 package using apt.
-   sudo apt insall ./opensearch-2.4.1-linux-x64.deb
+   sudo apt insall ./opensearch-{{site.opensearch_version}}-linux-x64.deb
    ```
    **arm64**
    ```bash
    # Install the arm64 package using dpkg.
-   sudo dpkg -i opensearch-2.4.1-linux-arm64.deb
+   sudo dpkg -i opensearch-{{site.opensearch_version}}-linux-arm64.deb
    # Install the arm64 package using apt.
-   sudo apt install ./opensearch-2.4.1-linux-arm64.deb
+   sudo apt install ./opensearch-{{site.opensearch_version}}-linux-arm64.deb
    ```
 1. After the installation succeeds, enable OpenSearch as a service.
     ```bash
-    sudo systemctl enable opensearch
-    ```
-1. Start OpenSearch.
-    ```bash
-    sudo systemctl start opensearch
+    sudo systemctl enable --now opensearch
     ```
 1. Verify that OpenSearch launched correctly.
     ```bash
@@ -73,7 +69,7 @@ This guide assumes that you are comfortable working from the Linux command line 
 
 APT, the primary package management tool for Debian–based operating systems, allows you to download and install the DEB package from the APT repository. 
 
-1. Create a local repository file for OpenSearch:
+1. Create a local repository for OpenSearch:
    ```bash
    echo "deb https://artifacts.opensearch.org/releases/bundle/opensearch/2.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/opensearch-2.x.list
    ```
@@ -81,7 +77,7 @@ APT, the primary package management tool for Debian–based operating systems, a
     ```bash
     sudo apt-get update
     ```
-1. With the repository file downloaded, list all available versions of OpenSearch:
+1. With the repository file created, list all available versions of OpenSearch:
    ```bash
    sudo apt list -a opensearch
    ```
@@ -101,7 +97,7 @@ APT, the primary package management tool for Debian–based operating systems, a
    ```
 1. Once complete, you can run OpenSearch.
     ```bash
-    sudo systemctl start opensearch
+    sudo systemctl enable --now opensearch
     ```
 1. Verify that OpenSearch launched correctly.
     ```bash
@@ -167,11 +163,11 @@ An OpenSearch node in its default configuration (with demo certificates and user
       }
       ```
    - Query the plugins endpoint:
-      ```bash
-      curl -X GET https://localhost:9200/_cat/plugins?v -u 'admin:admin' --insecure
-      ```
+    ```bash
+    curl -X GET https://localhost:9200/_cat/plugins?v -u 'admin:admin' --insecure
+    ```
 
-      The response should look like this:
+    The response should look like this:
     ```bash
     name          component                            version
     hostname      opensearch-alerting                  2.4.0.0
@@ -443,29 +439,28 @@ $ curl https://your.host.address:9200 -u admin:yournewpassword -k
 
 ## Upgrade to a newer version
 
-OpenSearch instances installed using RPM or YUM can be easily upgraded to a newer version. We recommend updating with YUM, but you can also upgrade using RPM.
+OpenSearch instances installed using `dpkg` or `apt-get` can be easily upgraded to a newer version.
 
+### Manual upgrade with DPKG 
 
-### Manual upgrade with RPM 
-
-Download the RPM package for the desired upgrade version directly from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'}.
+Download the DEB package for the desired upgrade version directly from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'}.
 
 Navigate to the directory containing the distribution and run the following command:
 ```bash
-rpm -Uvh opensearch-{{site.opensearch_version}}-linux-x64.rpm
+sudo dpkg -i opensearch-2.4.1-linux-x64.deb
 ```
 
-### YUM
+### APT-GET
 
-To upgrade to the latest version of OpenSearch using YUM:
+To upgrade to the latest version of OpenSearch using `apt-get`:
 ```bash
-sudo yum update
+sudo apt-get install opensearch
 ```
 
- You can also upgrade to a specific OpenSearch version:
- ```bash
- sudo yum update opensearch-<version-number>
- ```
+You can also upgrade to a specific OpenSearch version:
+```bash
+sudo apt-get install opensearch=<version>
+```
 
 ## Related links
 
