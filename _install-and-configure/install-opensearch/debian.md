@@ -61,11 +61,11 @@ The Debian package is not signed. If you would like to verify the fingerprint, t
 
 1. Download the desired Debian package.
    ```bash
-   curl -O https://artifacts.opensearch.org/releases/bundle/opensearch/{{site.opensearch_version}}/opensearch-{{site.opensearch_version}}-linux-x64.deb
+   curl -SLO https://artifacts.opensearch.org/releases/bundle/opensearch/{{site.opensearch_version}}/opensearch-{{site.opensearch_version}}-linux-x64.deb
    ```
 1. Download the corresponding signature file.
    ```bash
-   curl -O https://artifacts.opensearch.org/releases/bundle/opensearch/{{site.opensearch_version}}/opensearch-{{site.opensearch_version}}-linux-x64.deb.sig
+   curl -SLO https://artifacts.opensearch.org/releases/bundle/opensearch/{{site.opensearch_version}}/opensearch-{{site.opensearch_version}}-linux-x64.deb.sig
    ```
 1. Import the GPG key.
    ```bash
