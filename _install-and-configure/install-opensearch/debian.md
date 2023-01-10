@@ -59,16 +59,30 @@ This guide assumes that you are comfortable working from the Linux command line 
 
 ### Fingerprint verification
 
-The Debian package is not signed, but you can use . If you would like to verify the fingerprint the OpenSearch Project provides a `.sig` file as well as the `.deb` package. To download the signature file, append `.sig` to the end of the URL, as in the following example.
+The Debian package is not signed. If you would like to verify the fingerprint, the OpenSearch Project provides a `.sig` file as well as the `.deb` package for us with GNU Privacy Guard (GPG).
 
-
-
+1. Download the desired Debian package.
+   ```bash
+   curl -O https://artifacts.opensearch.org/releases/bundle/opensearch/{{site.opensearch_version}}/opensearch-{{site.opensearch_version}}-linux-x64.deb
+   ```
+1. Download the corresponding signature file.
+   ```bash
+   curl -O https://artifacts.opensearch.org/releases/bundle/opensearch/{{site.opensearch_version}}/opensearch-{{site.opensearch_version}}-linux-x64.deb.sig
+   ```
+1. Import the GPG key.
+   ```bash
+   gpg --import opensearch-{{site.opensearch_version}}-linux-x64.deb.sig
+   ```
+1. Verify the signature.
+   ```bash
+   gpg --verify opensearch-{{site.opensearch_version}}-linux-x64.deb.sig opensearch-{{site.opensearch_version}}-linux-x64.deb
+   ```
 
 ### Install OpenSearch from an APT repository
 
 APT, the primary package management tool for Debian–based operating systems, allows you to download and install the Debian package from the APT repository. 
 
-1. Import the public GNU Privacy Guard (GPG) key. This key is used to verify that the APT repository is signed.
+1. Import the public GPG key. This key is used to verify that the APT repository is signed.
     ```bash
     curl -o- https://artifacts.opensearch.org/publickeys/opensearch.pgp | sudo apt-key add -
     ```
