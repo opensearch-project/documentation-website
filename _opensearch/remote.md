@@ -13,7 +13,7 @@ Remote-backed storage offers OpenSearch users a new way to protect against data 
 
 ## Translog
 
-Any index changes are written to disk during a Lucene commit. However, Lucene commits are expensive operations, and as such cannot be performed after every change to the index. Instead, each shard records every indexing operation in a transaction log called *translog*. When a document is indexed, it is added to the memory buffer and also recorded in the translog. Frequent refresh operations write the documents in the memory buffer to a segment, and clear the memory buffer. Periodically, a flush performs a Lucene commit, which includes writing the segments to disk using `fsync`, purging the old translog, and starting a new translog. 
+Any index changes are written to disk during a Lucene commit. However, Lucene commits are expensive operations, so they cannot be performed after every change to the index. Instead, each shard records every indexing operation in a transaction log called *translog*. When a document is indexed, it is added to the memory buffer and also recorded in the translog. Frequent refresh operations write the documents in the memory buffer to a segment and then clear the memory buffer. Periodically, a flush performs a Lucene commit, which includes writing the segments to disk using fsync, purging the old translog, and starting a new translog. 
 
 Thus, a translog contains all operations that have not yet been flushed. 
 
