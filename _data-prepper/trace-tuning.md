@@ -16,11 +16,11 @@ The following sections describe useful tips for scaling. We recommend that you m
 
 ### Buffer
 
-The total number of trace requests that Data Prepper is processing is equal to sum of `buffer_size` in `otel-trace-pipeline` and `raw-trace-pipeline`. The total number of trace requests to OpenSearch is equal to the product of `batch_size` and `workers` in `raw-trace-pipeline`.
+The total number of trace requests that Data Prepper is processing is equal to sum of `buffer_size` in `otel-trace-pipeline` and `raw-pipeline`. The total number of trace requests to OpenSearch is equal to the product of `batch_size` and `workers` in `raw-trace-pipeline`. For more information about `raw-pipeline`, see [Trace analytics pipeline](https://opensearch.org/docs/latest/data-prepper/pipelines/#trace-analytics-pipeline).
 
-We recommend that you use the following parameters for buffer settings:
- * Have the same `buffer_size` value in `otel-trace-pipeline` and `raw-trace-pipeline`
- * That the values `buffer_size` >= `workers` * `batch_size` in the `raw-trace-pipeline`
+We recommend the following guidelines when making changes to buffer settings:
+ * Have the same `buffer_size` value in `otel-trace-pipeline` and `raw-pipeline`
+ * Make values for `buffer_size` >= `workers` * `batch_size` in the `raw-pipeline`
  
 
 ### Workers 
@@ -31,9 +31,7 @@ The `workers` setting determines the number of threads that are used by Data Pre
 
 Configure the heap of Data Prepper by setting the `JVM_OPTS` environmental variable. We recommend that you set the heap value to a minimum of `4` * `batch_size` * `otel_send_batch_size` * `maximum size of indvidual span`.
 
-As mentioned in the [setup setpes](trace_setup.md#opentelemetry-collector), set `otel_send_batch_size` to a value of `50` in your opentelemetry collector configuration.
-
-<!--- This link doesn't work. Is there a current link we can use? --->
+As mentioned in the [setup](https://github.com/opensearch-project/data-prepper/blob/main/docs/trace_analytics.md#opentelemetry-collector), set `otel_send_batch_size` to a value of `50` in your OpenTelemetry collector configuration.
 
 ### Local disk
 
