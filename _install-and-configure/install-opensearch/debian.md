@@ -143,7 +143,7 @@ An OpenSearch node in its default configuration (with demo certificates and user
          "cluster_uuid" : "oG0pPKNWT42HT3UqWgmxuw",
          "version" : {
             "distribution" : "opensearch",
-            "number" : "2.4.0",
+            "number" : "2.5.0",
             "build_type" : "deb",
             "build_hash" : "744ca260b892d119be8164f48d92b8810bd7801c",
             "build_date" : "2023-01-06T22:20:28.713671066Z",
@@ -163,24 +163,24 @@ An OpenSearch node in its default configuration (with demo certificates and user
     The response should look like this:
     ```bash
     name          component                            version
-    hostname      opensearch-alerting                  2.4.0.0
-    hostname      opensearch-anomaly-detection         2.4.0.0
-    hostname      opensearch-asynchronous-search       2.4.0.0
-    hostname      opensearch-cross-cluster-replication 2.4.0.0
-    hostname      opensearch-geospatial                2.4.0.0
-    hostname      opensearch-index-management          2.4.0.0
-    hostname      opensearch-job-scheduler             2.4.0.0
-    hostname      opensearch-knn                       2.4.0.0
-    hostname      opensearch-ml                        2.4.0.0
-    hostname      opensearch-neural-search             2.4.0.0
-    hostname      opensearch-notifications             2.4.0.0
-    hostname      opensearch-notifications-core        2.4.0.0
-    hostname      opensearch-observability             2.4.0.0
-    hostname      opensearch-performance-analyzer      2.4.0.0
-    hostname      opensearch-reports-scheduler         2.4.0.0
-    hostname      opensearch-security                  2.4.0.0
-    hostname      opensearch-security-analytics        2.4.0.0
-    hostname      opensearch-sql                       2.4.0.0
+    hostname      opensearch-alerting                  2.5.0.0
+    hostname      opensearch-anomaly-detection         2.5.0.0
+    hostname      opensearch-asynchronous-search       2.5.0.0
+    hostname      opensearch-cross-cluster-replication 2.5.0.0
+    hostname      opensearch-geospatial                2.5.0.0
+    hostname      opensearch-index-management          2.5.0.0
+    hostname      opensearch-job-scheduler             2.5.0.0
+    hostname      opensearch-knn                       2.5.0.0
+    hostname      opensearch-ml                        2.5.0.0
+    hostname      opensearch-neural-search             2.5.0.0
+    hostname      opensearch-notifications             2.5.0.0
+    hostname      opensearch-notifications-core        2.5.0.0
+    hostname      opensearch-observability             2.5.0.0
+    hostname      opensearch-performance-analyzer      2.5.0.0
+    hostname      opensearch-reports-scheduler         2.5.0.0
+    hostname      opensearch-security                  2.5.0.0
+    hostname      opensearch-security-analytics        2.5.0.0
+    hostname      opensearch-sql                       2.5.0.0
     ```
 
 ## Step 3: Set up OpenSearch in your environment
@@ -417,7 +417,7 @@ $ curl https://your.host.address:9200 -u admin:yournewpassword -k
   "cluster_uuid" : "oG0pPKNWT42HT3UqWgmxuw",
   "version" : {
     "distribution" : "opensearch",
-    "number" : "2.4.0",
+    "number" : "2.5.0",
     "build_type" : "deb",
     "build_hash" : "744ca260b892d119be8164f48d92b8810bd7801c",
     "build_date" : "2023-01-06T22:20:28.713671066Z",
@@ -440,7 +440,7 @@ Download the Debian package for the desired upgrade version directly from the [O
 
 Navigate to the directory containing the distribution and run the following command:
 ```bash
-sudo dpkg -i opensearch-2.4.1-linux-x64.deb
+sudo dpkg -i opensearch-2.5.0-linux-x64.deb
 ```
 
 ### APT-GET
