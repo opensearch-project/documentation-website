@@ -6,7 +6,7 @@ nav_order: 12
 
 # Monitoring Data Prepper with metrics
 
-Monitoring metrics in Data Prepper is instrumented using [Micrometer](https://micrometer.io/). There are two types of metrics: JVM and system metrics, and plugin metrics. [Prometheus](https://prometheus.io/) is used as the default metrics backend.
+Data Prepper can be monitored with metrics using [Micrometer](https://micrometer.io/). There are two types of metrics: JVM and system metrics and plugin metrics. [Prometheus](https://prometheus.io/) is used as the default metrics backend.
 
 ## JVM and system metrics
 
