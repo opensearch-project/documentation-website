@@ -41,7 +41,7 @@ Each plugin (and, if necessary, each class within a plugin) is responsible for p
 2. AbstractProcessor
     - Counter
         - `recordsIn`: The number of records ingressed into a processor
-        - `recordsOut`: number of egress records from a processor.
+        - `recordsOut`: The number of records egressed from a processor
     - Timer
         - `timeElapsed`: time elapsed during execution of a processor.
 3. AbstractSink
