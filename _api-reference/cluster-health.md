@@ -84,23 +84,23 @@ The response contains cluster health information:
 
 The following table lists all response fields.
 
-|Field	|Data type	|Description	|
+|Field |Data type |Description |
 |:---	|:---	|:---	|
-|cluster_name	| String	| The name of the cluster.	|
-|status	| String	| The cluster health status that represents the state of shard allocation in the cluster. May be `green`, `yellow`, or `red`.|
-|number_of_nodes	| Integer	| The number of nodes in the cluster.	|
-|number_of_data_nodes	| Integer	| The number of data nodes in the cluster.	|
-|discovered_cluster_manager	| Boolean	| Specifies whether the cluster manager is discovered.	|
-|active_primary_shards	| Integer	|  The number of active primary shards.	|
-|active_shards	| Integer	| The total number of active shards, including primary and replica shards.	|
-|relocating_shards | Integer	| The number of relocating shards.	|
-|initializing_shards	| Integer	| The number of intializing shards.	|
-|unassigned_shards	| Integer	| The number of unassigned shards.	|
-|delayed_unassigned_shards	| Integer	| The number of delayed unassigned shards.	|
-|number_of_pending_tasks	| Integer	| The number of pending tasks in the cluster.	|
-|number_of_in_flight_fetch	| Integer	| The number of unfinished fetches.	|
-|task_max_waiting_in_queue_millis	| Integer	| The maximum wait time for all tasks waiting to be performed, in milliseconds.|
-|active_shards_percent_as_number	| Double	| The percentage of active shards in the cluster.	|
+|cluster_name	| String | The name of the cluster. |
+|status	| String | The cluster health status that represents the state of shard allocation in the cluster. May be `green`, `yellow`, or `red`. |
+|number_of_nodes | Integer | The number of nodes in the cluster. |
+|number_of_data_nodes | Integer | The number of data nodes in the cluster. |
+|discovered_cluster_manager | Boolean | Specifies whether the cluster manager is discovered. |
+|active_primary_shards | Integer |  The number of active primary shards. |
+|active_shards | Integer | The total number of active shards, including primary and replica shards. |
+|relocating_shards | Integer | The number of relocating shards. |
+|initializing_shards | Integer | The number of intializing shards. |
+|unassigned_shards | Integer | The number of unassigned shards. |
+|delayed_unassigned_shards | Integer | The number of delayed unassigned shards. |
+|number_of_pending_tasks | Integer | The number of pending tasks in the cluster. |
+|number_of_in_flight_fetch | Integer | The number of unfinished fetches. |
+|task_max_waiting_in_queue_millis | Integer | The maximum wait time for all tasks waiting to be performed, in milliseconds. |
+|active_shards_percent_as_number | Double | The percentage of active shards in the cluster. |
 
 ## Required permissions
 
