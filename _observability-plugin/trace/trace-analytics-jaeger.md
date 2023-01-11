@@ -15,7 +15,7 @@ Trace analytics now supports Jaeger trace data. Jaeger can store its trace data 
 When you perform trace analytics, you can select from two data sources:
 
 - **Data Prepper** – Data ingested into OpenSearch through Data Prepper. This data source requires OpenTelemetry (OTEL) index type.
-- **Jaeger** – Trace data stored within OpenSearch as its backend. This data source requires that the data is indexed with the Jaeger index type.
+- **Jaeger** – Trace data stored within OpenSearch as its backend. This data source requires the Jaeger index type.
 
 If you currently store your Jaeger trace data in OpenSearch, you can now use the trace analytics capability. When you ingest Jaeger data into OpenSearch, it gets stored in a different index than the OTA-generated index that gets created when you run data through the Data Prepper. You can indicate which data source on which you want to perform trace analytics with the data source selector in the Dashboards.
 
