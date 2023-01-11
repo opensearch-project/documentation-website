@@ -6,7 +6,7 @@ nav_order: 15
 
 # Maps
 
-OpenSearch Dashboards lets you construct map visualizations in a single layer or multiple layers, with each layer built from different data sources either directly or using simple to ML-powered aggregations. Additionally, you can configure maps to show specific data at different zoom levels. OpenSearch maps are powered by the OpenSearch maps service, which uses vector tiles to render maps. 
+With OpenSearch Dashboards, you can create maps to visualize your geographical data. OpenSearch lets you construct map visualizations with multiple layers, combining data across different indexes. You can build each layer from a different data source either directly or using simple or ML-powered aggregations. Additionally, you can configure maps to show specific data at different zoom levels. OpenSearch maps are powered by the OpenSearch maps service, which uses vector tiles to render maps. 
 
 ## Getting started
 
@@ -114,13 +114,13 @@ To view tooltips, hover over the geographical point you're interested in. One to
 
 If a point on the map contains data from multiple layers, one tooltip can display data from multiple layers. To choose a particular layer you're interested in, select the layer name in the tooltip layer selection panel. To see all layers, select **All layers**:
 
-<img src="{{site.url}}{{site.baseurl}}/images/maps/layer-selection-panel.png" alt="Tooltip with a layer selection panel">
+<img src="{{site.url}}{{site.baseurl}}/images/maps/layer-selection-panel.png" alt="Tooltip with a layer selection panel" width="450">
 
 ## Reordering, hiding, and deleting layers
 
 The **Layers** panel lets you reorder, hide, and delete layers:
 
-- Layers on a map are stacked on top of each other. To reorder layers, use the handle bar (two horizontal lines) icon next to the layer name in the **Layers** panel to drag the layer to the desired position. 
+- Layers on a map are stacked on top of each other. To reorder layers, use the handle bar (two horizontal lines) icon next to the layer name to drag the layer to the desired position. 
 
 - If you'd like to hide a layer, select the show/hide (eye) icon next to the layer name. Toggle the show/hide icon to show the layer again.
 
@@ -128,13 +128,13 @@ The **Layers** panel lets you reorder, hide, and delete layers:
 
 ## Refreshing data for a real-time dataset
 
-If you want to visualize a real-time dataset, after adding layers to the map, use the following steps to set the refresh interval:
+If you want to visualize a real-time dataset, after adding layers to the map use the following steps to set the refresh interval:
 
 1. Select the calendar icon in the upper-right corner.
 1. Under **Refresh every**, select or enter the refresh interval (for example, 1 second).
 1. Select the **Start** button.
 
-<img src="{{site.url}}{{site.baseurl}}/images/maps/refresh.png" alt="Refreshing a map">
+<img src="{{site.url}}{{site.baseurl}}/images/maps/refresh.png" alt="Refreshing a map" width="450">
 
 ## Saving a map
 
