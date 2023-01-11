@@ -38,8 +38,6 @@ Jaeger and OTEL indexes have different field names. Therefore when you run trace
 
 <!-- Need info to confirm usage of query or aggregations on nested objects. can they also enable them with --es.tags-as-fields.all=true ?
 -->
-
-
 ## Use trace analytics in OpenSearch Dashboards
 
 To analyze your Jaeger trace data in the Dashboards, you need to set up Trace Analytics first. To get started, see [Get started with Trace Analytics]({{site.url}}{{site.baseurl}}/observability-plugin/trace/get-started/).
