@@ -70,7 +70,7 @@ The following example assumes that you have the `opensearch_dashboards_sample_da
 1. On the top menu bar, go to **OpenSearch Dashboards > Overview**.
 1. Select the **View app directory** link. 
 1. Select **Add sample data**.
-1. On the **Sample flight data** panel, select the **Add data** button .
+1. In the **Sample flight data** panel, select the **Add data** button .
 
 Add a document layer as follows:
 
