@@ -34,9 +34,9 @@ To add a layer to the map, in the **Layers** panel, select the **Add layer** but
 
 <img src="{{site.url}}{{site.baseurl}}/images/maps/add-layer.png" alt="Add layer">
 
-You can add a **base layer** or **data layers**to the map:
+You can add **base layers** or **data layers**to the map:
 
-- A **base layer** serves as the visualization basemap. To use your own or a third-party map as a basemap, [add it as a **Custom map**](#adding-a-custom-map).
+- A **base layer** serves as a basemap. To use your own or a third-party map as a base layer, [add it as a **Custom map**](#adding-a-custom-map).
 
 - **Data layers** let you visualize data from various data sources. 
 
