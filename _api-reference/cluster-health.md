@@ -87,7 +87,7 @@ The following table lists all response fields.
 |Field |Data type |Description |
 |:---	|:---	|:---	|
 |cluster_name | String | The name of the cluster. |
-|status	| String | The cluster health status that represents the state of shard allocation in the cluster. May be `green`, `yellow`, or `red`. |
+|status	| String | The cluster health status, which represents the state of shard allocation in the cluster. May be `green`, `yellow`, or `red`. |
 |number_of_nodes | Integer | The number of nodes in the cluster. |
 |number_of_data_nodes | Integer | The number of data nodes in the cluster. |
 |discovered_cluster_manager | Boolean | Specifies whether the cluster manager is discovered. |
