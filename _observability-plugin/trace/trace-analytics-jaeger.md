@@ -1,0 +1,68 @@
+---
+layout: default
+title: Analyze Jaeger trace data 
+parent: Trace analytics
+nav_order: 55
+---
+
+# Analyze Jaeger trace data
+
+Introduced 2.5
+{: .label .label-purple }
+
+Trace analytics now supports Jaeger formatted data. Jaeger can store its trace data in OpenSearch, but users that use OpenSearch as their backend for Jaeger data can now benefit from trace analytics capability.
+
+When you perform trace analytics, you can select from two data sources:
+
+- Data Prepper – Data ingested into OpenSearch through Data Prepper.
+- Jaeger – Trace data stored within OpenSearch as its backend.
+
+If you currently store your Jaeger trace data in OpenSearch, you can now use the trace analytics capability. When you ingest Jaeger data into OpenSearch, it gets stored in a different index than the OTA-generated index that gets created when you run data through the Data Prepper. You can indicate which data source on which you want to perform trace analytics with the data source selector in the Dashboards.
+
+Each time you ingest data for Jaeger, it creates a separate index for that day. The Dashboards will show the current index that has a mapping.
+
+<!-- need more details from engineer or PM for how they would be able to switch from different indexes to display in the Dashboards Data selector menu.-->
+
+
+
+## Data sources
+
+You can specify either Data Prepper or Jaeger as your data source when you perform trace analytics. 
+From the OpenSearch Dashboards, go to **Observability > Trace Analytics** and select Jaeger.
+
+![Select data source]({{site.url}}{{site.baseurl}}/images/trace-analytics/select-data.png)
+
+## Error rate
+
+You can view the Trace error rate over time in the Dashboard, and also view the combination of services and operations that have a non-zero operation rate.
+
+![Error rate]({{site.url}}{{site.baseurl}}/images/trace-analytics/error-rate.png)
+
+## Throughput
+
+With **Throughput** selected, you can select an individual Trace from **Top 5 Service and Operation Latency** list and view the detailed trace data.
+
+You can view throughput of Jaeger indexes that are being added as a function of time.
+
+![Throughput]({{site.url}}{{site.baseurl}}/images/trace-analytics/throughput.png)
+
+You can also see the combinations of services and operations that have the highest latency.
+
+If you select one of the entries for Service and Operation Name and go to the **Traces** column to select a trace, it will add the service and operation as filters for you.
+
+![Select data source]({{site.url}}{{site.baseurl}}/images/trace-analytics/service-trace-data.png)
+
+Next, you can select an individual Trace ID to view more detailed information including all of the spans for the service and operations.
+
+![Select data source]({{site.url}}{{site.baseurl}}/images/trace-analytics/trace-details.png)
+
+You can also view the individual index payload in JSON format. 
+
+## Services
+
+You can also look at individual error rates and latency for each individual service. Go to **Observability > Trace Analytics > Services**.
+
+![Services list]({{site.url}}{{site.baseurl}}/images/trace-analytics/services.png)
+
+
+
