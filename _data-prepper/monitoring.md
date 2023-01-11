@@ -28,7 +28,7 @@ Each plugin (and, if necessary, each class within a plugin) is responsible for p
 
 1. AbstractBuffer
     - Counter
-        - `recordsWritten`: number of records written into a buffer.
+        - `recordsWritten`: The number of records written into a buffer
         - `recordsRead`: number of records read from a buffer.
         - `recordsProcessed`: number of records read from a buffer and marked as processed.
         - `writeTimeouts`: count of write timeouts in a buffer.
