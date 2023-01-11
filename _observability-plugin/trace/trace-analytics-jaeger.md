@@ -25,9 +25,60 @@ Each time you ingest data for Jaeger, it creates a separate index for that day. 
 
 To learn more about Jaeger data tracing, see the [Jaeger](https://www.jaegertracing.io/) open source documentation.
 
-## Requirements
+## Data Ingestion Requirements
 
-Jaeger data that is ingested for OpenSearch needs to have the `--es.tags-as-fields.all=true` flag set for errors. If data is not ingested in this format it will not work for trace analytics with OpenSearch.
+If you want to see errors in your trace data, you need to set the following ElasticSearch flag to true prior to data ingestion: `--es.tags-as-fields.all=true`.
+
+Jaeger data that is ingested for OpenSearch needs to have the  flag set for errors. If data is not ingested in this format it will not work for trace analytics with OpenSearch.
+
+### Step 1: Set up OpenSearch and OpenSearch Dashboards
+
+You need to set up a local instance with Docker.
+
+Run the following command to set up OpenSearch with Docker:
+
+```
+docker run --rm -it --name=opensearch -e "ES_JAVA_OPTS=-Xms2g -Xmx2g" -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" -e "DISABLE_SECURITY_PLUGIN=true" opensearchproject/opensearch:latest
+```
+
+Run the following command to set up OpenSearch Dashboards with Docker:
+
+```
+```
+<!-- from the step 1 - need the opensearch-dashboards version of the kibana 6.8.0 command here -->
+
+
+### Step 2: Set up Jaeger
+
+To deploy Jaeger to run all the backend components in the same process, you need to get either the Jaeger binary or the Docker image from [Download Jaeger](https://www.jaegertracing.io/download/).
+
+The required flags are:
+
+- `--link=opensearch` – Link to the OpenSearch container.
+- `SPAN_STORAGE_TYPE=elasticsearch` – Defines the ElasticSearch storage type to store the Jaeger traces.
+- `ES_TAGS_AS_FIELDS_ALL=true` – Sets OpenSearch mapping to ElasticSearch tags in Jaeger traces.
+
+Jaeger currently provides ElasticSearch as the storage type. 
+{:.note}
+
+Run the following command to deploy Jaeger.
+
+```
+docker run --rm -it --link=opensearch --name=jaeger -e SPAN_STORAGE_TYPE=elasticsearch -e ES_SERVER_URLS=http://172.17.0.2:9200 -e ES_TAGS_AS_FIELDS_ALL=true -e ES_VERSION=7 -p 16686:16686 jaegertracing/all-in-one:1.38
+```
+
+Upon success, you should be able to get to the Jaeger from http://localhost:16686.
+<!--ES_SERVER_URLS=http://172.17.0.2:9200 - need to replace this with correct entry for OpenSearch  -->
+
+### Step 3: Simulate trace data
+
+With Jaeger running, now you can create traces to verify they are stored with the OpenSearch instance.
+
+To verify trace storage with OpenSearch, run the following command.
+
+```
+docker run --rm --link jaeger -e JAEGER_AGENT_HOST=jaeger -e JAEGER_AGENT_PORT=6831 -p 8080-8083:8080-8083 jaegertracing/example-hotrod:latest all
+```
 
 ### About Data ingestion with Jaeger indexes
 
@@ -35,8 +86,10 @@ Trace analytics for non-Jaeger data use OTEL indexes with the naming conventions
 
 Jaeger indexes follow the naming conventions `jaeger-span-*` or `jaeger-service-*`.
 
+<!--> need to confirm. this was provided in the spec and eng tickets. need more info to add it to the docs.
 Jaeger and OTEL indexes have different field names. Therefore when you run trace analytics, you'll need to create different queries and components depending on which index type you are using.
 {:.note}
+-->
 
 ## Use trace analytics in OpenSearch Dashboards
 
