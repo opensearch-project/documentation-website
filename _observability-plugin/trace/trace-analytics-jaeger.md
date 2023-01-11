@@ -10,14 +10,16 @@ nav_order: 55
 Introduced 2.5
 {: .label .label-purple }
 
-Trace analytics now supports Jaeger formatted data. Jaeger can store its trace data in OpenSearch, but users that use OpenSearch as their backend for Jaeger data can now benefit from trace analytics capability.
+Trace analytics now supports Jaeger trace data. Jaeger can store its trace data in OpenSearch, but users that use OpenSearch as their backend for Jaeger data can now benefit from trace analytics capability.
 
 When you perform trace analytics, you can select from two data sources:
 
-- **Data Prepper** – Data ingested into OpenSearch through Data Prepper. This data source requires OTEL index type.
+- **Data Prepper** – Data ingested into OpenSearch through Data Prepper. This data source requires OpenTelemetry (OTEL) index type.
 - **Jaeger** – Trace data stored within OpenSearch as its backend. This data source requires that the data is indexed with the Jaeger index type.
 
 If you currently store your Jaeger trace data in OpenSearch, you can now use the trace analytics capability. When you ingest Jaeger data into OpenSearch, it gets stored in a different index than the OTA-generated index that gets created when you run data through the Data Prepper. You can indicate which data source on which you want to perform trace analytics with the data source selector in the Dashboards.
+
+Jaeger trace data that you can analyze includes span data, service dependency data, and service and operation endpoint data. Jaeger span data analysis requires some configuration.
 
 Each time you ingest data for Jaeger, it creates a separate index for that day. The Dashboards will show the current index that has a mapping.
 
@@ -33,6 +35,9 @@ Jaeger indexes follow the naming conventions `jaeger-span-*` or `jaeger-service-
 
 Jaeger and OTEL indexes have different field names. Therefore when you run trace analytics, you'll need to create different queries and components depending on which index type you are using.
 {:.note}
+
+<!-- Need info to confirm usage of query or aggregations on nested objects. can they also enable them with --es.tags-as-fields.all=true ?
+-->
 
 
 ## Use trace analytics in OpenSearch Dashboards
@@ -77,9 +82,6 @@ Next, you can select an individual Trace ID to view more detailed information in
 
 ### Services
 
-You can also look at individual error rates and latency for each individual service. Go to **Observability > Trace Analytics > Services**.
+You can also look at individual error rates and latency for each individual service. Go to **Observability > Trace Analytics > Services**. In **Services**, you can see the average latency, error rate, throughput and trace for each service in the list.
 
-![Services list]({{site.url}}{{site.baseurl}}/images/trace-analytics/services.png)
-
-
-
+![Services list]({{site.url}}{{site.baseurl}}/images/trace-analytics/services-jaeger.png)
