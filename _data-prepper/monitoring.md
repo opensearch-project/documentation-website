@@ -33,7 +33,7 @@ Each plugin (and, if necessary, each class within a plugin) is responsible for p
         - `recordsProcessed`: The number of records read from a buffer and marked as processed
         - `writeTimeouts`: The count of write timeouts in a buffer
     - Gaugefir 
-        - `recordsInBuffer`: number of records in the buffer.
+        - `recordsInBuffer`: The number of records in a buffer
         - `recordsInFlight`: number of records read from a buffer and being processed by data-prepper downstreams (e.g. processor, sink).
     - Timer
         - `readTimeElapsed`: time elapsed while reading from a buffer
