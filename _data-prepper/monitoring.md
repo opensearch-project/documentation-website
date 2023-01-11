@@ -14,7 +14,7 @@ JVM and system metrics are runtime metrics used to monitor Data Prepper instance
 
 ### Naming
 
-JVM and system metrics in Data Prepper follow pre-defined names in [Micrometer](https://micrometer.io/docs/concepts#_naming_meters), such as `jvm_classes_loaded`, and `jvm_memory_used`. 
+JVM and system metrics follow predefined names in [Micrometer](https://micrometer.io/docs/concepts#_naming_meters), such as `jvm_classes_loaded` and `jvm_memory_used`. 
 
 ### Serving
 
