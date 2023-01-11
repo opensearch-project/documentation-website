@@ -40,7 +40,7 @@ Each plugin (and, if necessary, each class within a plugin) is responsible for p
         - `checkpointTimeElapsed`: The time elapsed while checkpointing
 2. AbstractProcessor
     - Counter
-        - `recordsIn`: number of ingress records into a processor.
+        - `recordsIn`: The number of records ingressed into a processor
         - `recordsOut`: number of egress records from a processor.
     - Timer
         - `timeElapsed`: time elapsed during execution of a processor.
