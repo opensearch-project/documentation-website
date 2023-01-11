@@ -10,14 +10,16 @@ nav_order: 55
 Introduced 2.5
 {: .label .label-purple }
 
-Trace analytics now supports Jaeger trace data. Jaeger can store its trace data in OpenSearch, but users that use OpenSearch as their backend for Jaeger data can now benefit from trace analytics capability.
+The Trace analytics functionality in the OpenSearch Observability plugin now supports Jaeger trace data. If you use OpenSearch as the backend for Jaeger trace data, you can use the Trace analytics built-in analysis capabilities. This provides support for OpenTelemetry (OTEL) formatted trace data.
 
 When you perform trace analytics, you can select from two data sources:
 
-- **Data Prepper** – Data ingested into OpenSearch through Data Prepper. This data source requires OpenTelemetry (OTEL) index type.
-- **Jaeger** – Trace data stored within OpenSearch as its backend. This data source requires the Jaeger index type.
+- **Data Prepper** – Data ingested into OpenSearch through Data Prepper. <!--This data source requires OpenTelemetry (OTEL) index type.-->
+- **Jaeger** – Trace data stored within OpenSearch as its backend. <!--This data source requires the Jaeger index type.-->
 
-If you currently store your Jaeger trace data in OpenSearch, you can now use the trace analytics capability. When you ingest Jaeger data into OpenSearch, it gets stored in a different index than the OTA-generated index that gets created when you run data through the Data Prepper. You can indicate which data source on which you want to perform trace analytics with the data source selector in the Dashboards.
+If you currently store your Jaeger trace data in OpenSearch, you can now use the capabilities built into Trace Analytics to analyze the error rates and latencies You can also filter the traces and look into the span details of a trace to pinpoint any service issues.
+
+When you ingest Jaeger data into OpenSearch, it gets stored in a different index than the OTA-generated index that gets created when you run data through the Data Prepper. You can indicate which data source on which you want to perform trace analytics with the data source selector in the Dashboards.
 
 Jaeger trace data that you can analyze includes span data, as well as service and operation endpoint data. Jaeger span data analysis requires some configuration.
 
@@ -30,6 +32,17 @@ To learn more about Jaeger data tracing, see the [Jaeger](https://www.jaegertrac
 If you want to see errors in your trace data, you need to set the following ElasticSearch flag to true prior to data ingestion: `--es.tags-as-fields.all=true`.
 
 Jaeger data that is ingested for OpenSearch needs to have the  flag set for errors. If data is not ingested in this format it will not work for trace analytics with OpenSearch.
+
+### About Data ingestion with Jaeger indexes
+
+Trace analytics for non-Jaeger data use OTEL indexes with the naming conventions `otel-v1-apm-span-*` or `otel-v1-apm-service-map*`.
+
+Jaeger indexes follow the naming conventions `jaeger-span-*` or `jaeger-service-*`.
+
+<!--> need to confirm. this was provided in the spec and eng tickets. need more info to add it to the docs.
+Jaeger and OTEL indexes have different field names. Therefore when you run trace analytics, you'll need to create different queries and components depending on which index type you are using.
+{:.note}
+-->
 
 ### Step 1: Set up OpenSearch and OpenSearch Dashboards
 
@@ -80,17 +93,6 @@ To verify trace storage with OpenSearch, run the following command.
 docker run --rm --link jaeger -e JAEGER_AGENT_HOST=jaeger -e JAEGER_AGENT_PORT=6831 -p 8080-8083:8080-8083 jaegertracing/example-hotrod:latest all
 ```
 
-### About Data ingestion with Jaeger indexes
-
-Trace analytics for non-Jaeger data use OTEL indexes with the naming conventions `otel-v1-apm-span-*` or `otel-v1-apm-service-map*`.
-
-Jaeger indexes follow the naming conventions `jaeger-span-*` or `jaeger-service-*`.
-
-<!--> need to confirm. this was provided in the spec and eng tickets. need more info to add it to the docs.
-Jaeger and OTEL indexes have different field names. Therefore when you run trace analytics, you'll need to create different queries and components depending on which index type you are using.
-{:.note}
--->
-
 ## Use trace analytics in OpenSearch Dashboards
 
 To analyze your Jaeger trace data in the Dashboards, you need to set up Trace Analytics first. To get started, see [Get started with Trace Analytics]({{site.url}}{{site.baseurl}}/observability-plugin/trace/get-started/).
@@ -104,10 +106,11 @@ From the OpenSearch Dashboards, go to **Observability > Trace Analytics** and se
 
 ## Dashboards views
 
-After you select Jaeger for the data source, you can view all of your indexed data in the Dashboards, including Error rate, Throughput, and Services.
+After you select Jaeger for the data source, you can view all of your indexed data in **Dashboard** view including **Error rate** and **Throughput**.
+
 ### Error rate
 
-You can view the Trace error rate over time in the Dashboard, and also view the top five combinations of services and operations that have a non-zero error rate.
+You can view the Trace error count over time in the Dashboard, and also view the top five combinations of services and operations that have a non-zero error rate.
 
 ![Error rate]({{site.url}}{{site.baseurl}}/images/trace-analytics/error-rate.png)
 
