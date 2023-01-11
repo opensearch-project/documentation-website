@@ -32,22 +32,22 @@ Make sure you have [installed the latest version of Dashboards](https://opensear
 
 ## Add aggregations to the area chart
 
-Continuing with the area chart created in the preceding steps, you'll create an area chart that displays the top five logs for flights delayed for every three hours over the last seven days:
+Continuing with the area chart created in the preceding steps, you'll create a visualization that displays the top five logs for flights delayed for every three hours over the last seven days:
 
 1. Add a **Metrics** aggregation.
-   1. Under **Metrics**, select the **Aggregation** dropdown and choose **Average** and then select the **Field** dropdown and choose **FlightDelayMin**.
+   1. Under **Metrics**, select the **Aggregation** dropdown list and choose **Average** and then select the **Field** dropdown list and choose **FlightDelayMin**.
    1. Under **Metrics**, select **Add** to add another Y-axis aggregation. 
-   1. Select the **Aggregation** dropdown and choose **Max** and then select the **Field** dropdown and choose **FlightDelayMin**.
+   1. Select the **Aggregation** dropdown list and choose **Max** and then select the **Field** dropdown list and choose **FlightDelayMin**.
 1. Add a **Buckets** aggregation.
-   1. Select **Add** and then **X-axis** in the **Add Bucket** window.
-   1. From the **Aggregation** dropdown, select **Date Histogram**. 
-   1. From the **Field** dropdown, select **timestamp**. 
-   1. Select **Update**. 
-1. Add a sub-aggregation.
-   1. Select **Add** and then in the **Add Sub-Buckets** window, select **Split series**.
-   1. From the **Sub aggregation** dropdown, select **Terms**.
-   1. From the **Field** dropdown, select **FlightDelay**.
-   1. Select **Update** to reflect these parameters in the graph.  
+   1. Select **Add** to open the **Add Bucket** window and then select **X-axis**.
+   2. From the **Aggregation** dropdown list, select **Date Histogram**. 
+   3. From the **Field** dropdown list, select **timestamp**. 
+   4. Select **Update**. 
+2. Add a sub-aggregation.
+   1. Select **Add** to open the **Add Sub-Buckets** window and then select **Split series**.
+   2. From the **Sub aggregation** dropdown list, select **Terms**.
+   3. From the **Field** dropdown list, select **FlightDelay**.
+   4. Select **Update** to reflect these parameters in the graph.  
 
 You've now created the following aggregation-based area chart.
 
