@@ -213,9 +213,9 @@ echo "$(whoami) - nofile 65535" | sudo tee -a /etc/security/limits.conf
 sudo sysctl -w vm.max_map_count=262144
 ```
 
-## Install GPU accelerator drivers manually
+## (AWS Inferntia) Install GPU accelerator drivers manually
 
-If the previous two scripts do not provision your GPU accelerated node properly, you can install the drivers manually.  
+If the previous two scripts do not provision your GPU accelerated node properly, you can install the drivers for AWS Inferentia manually.
 
 1. Deploy an AWS accelerator instance based on your chosen Linux operating system. For instructions, [Deploy on AWS accelerator instance](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/frameworks/torch/torch-neuron/setup/pytorch-install.html#deploy-on-aws-ml-accelerator-instance).
 
