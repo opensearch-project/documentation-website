@@ -56,4 +56,4 @@ Metrics follow a naming convention of **PIPELINE_NAME_PLUGIN_NAME_METRIC_NAME**.
 
 ### Serving
 
-By default, metrics are served from the **/metrics/sys** endpoint on the Data Prepper server. The format is a text Prometheus scrape. The format is a text Prometheus scrape. This port can be used for any frontend which accepts Prometheus metrics, such as [Grafana](https://prometheus.io/docs/visualization/grafana/). The configuration can be updated to serve metrics to other registries like CloudWatch which does not require or host the endpoint, but publishes the metrics directly to CloudWatch.
+By default, metrics are served from the **/metrics/sys** endpoint on the Data Prepper server. The format is a text Prometheus scrape. This port can be used for any frontend that accepts Prometheus metrics, such as [Grafana](https://prometheus.io/docs/visualization/grafana/). The configuration can be updated to serve metrics to other registries like CloudWatch, which does not require or host the endpoint but publishes the metrics directly to CloudWatch.
