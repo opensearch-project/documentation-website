@@ -12,7 +12,7 @@ With OpenSearch Dashboards, you can create maps to visualize your geographical d
 
 To get started, perform the following steps:
 
-1. On the top menu bar, go to **OpenSearch Dashboards > Maps**.
+1. On the top menu bar, go to **OpenSearch Plugins > Maps**.
 1. Select the **Create map** button. You can now see the default OpenSearch basemap.
 1. To examine the **Default map** layer configuration, in the **Layers** panel on the upper left of the map, select **Default map**.
 ![Default map]({{site.url}}{{site.baseurl}}/images/maps/maps-default.png)
