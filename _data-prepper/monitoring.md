@@ -36,7 +36,7 @@ Each plugin (and, if necessary, each class within a plugin) is responsible for p
         - `recordsInBuffer`: The number of records in a buffer
         - `recordsInFlight`: The number of records read from a buffer and being processed by data-prepper downstreams (for example, processor, sink)
     - Timer
-        - `readTimeElapsed`: time elapsed while reading from a buffer
+        - `readTimeElapsed`: The time elapsed while reading from a buffer
         - `checkpointTimeElapsed`: time elapsed while checkpointing.
 2. AbstractProcessor
     - Counter
