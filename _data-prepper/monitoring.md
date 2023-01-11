@@ -48,7 +48,7 @@ Each plugin (and, if necessary, each class within a plugin) is responsible for p
     - Counter
         - `recordsIn`: The number of records ingressed into a sink
     - Timer
-        - `timeElapsed`: time elapsed during execution of a sink. 
+        - `timeElapsed`: The time elapsed during execution of a sink 
 
 ### Naming
 
