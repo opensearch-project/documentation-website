@@ -106,3 +106,85 @@ The following table lists all response fields.
 
 If you use the security plugin, make sure you have the appropriate permissions:
 `cluster:monitor/health`.
+
+## Cluster health by awareness attribute
+Introduced 2.5
+{: .label .label-purple }
+
+Cluster health by awareness attribute is an experimental feature. Therefore, we do not recommend the use of cluster health by awareness attribute in a production environment. For updates on the progress of cluster health by awareness attribute, or if you want leave feedback that could help improve the feature, refer to the [GitHub issue]().
+{: .warning}
+
+Previously, cluster health check could be performed only for the full cluster. Cluster health by awareness attribute lets you perform a cluster health check for a specified awareness attribute (for example, zone or rack). With cluster health by awareness attribute, shard allocation awareness attempts to separate primary and replica shards across multiple awareness attribute values. This partition gives you a closer look into a specific awareness attribute.
+
+To check cluster health by awareness attribute, specify `awareness_attributes` in the `level` query parameter:
+
+```json
+GET _cluster/health?level=awareness_attributes
+```
+
+The response contains cluster health metrics partitioned by awareness attribute:
+
+```json
+{
+  "cluster_name" : "runTask",
+  "status" : "green",
+  "timed_out" : false,
+  "number_of_nodes" : 3,
+  "number_of_data_nodes" : 3,
+  "discovered_master" : true,
+  "discovered_cluster_manager" : true,
+  "active_primary_shards" : 0,
+  "active_shards" : 0,
+  "relocating_shards" : 0,
+  "initializing_shards" : 0,
+  "unassigned_shards" : 0,
+  "delayed_unassigned_shards" : 0,
+  "number_of_pending_tasks" : 0,
+  "number_of_in_flight_fetch" : 0,
+  "task_max_waiting_in_queue_millis" : 0,
+  "active_shards_percent_as_number" : 100.0,
+  "awareness_attributes" : {
+    "zone" : {
+      "zone-3" : {
+        "active_shards" : 0,
+        "initializing_shards" : 0,
+        "relocating_shards" : 0,
+        "unassigned_shards" : -1,
+        "data_nodes" : 1,
+        "weight" : 1.0
+      },
+      "zone-1" : {
+        "active_shards" : 0,
+        "initializing_shards" : 0,
+        "relocating_shards" : 0,
+        "unassigned_shards" : -1,
+        "data_nodes" : 1,
+        "weight" : 1.0
+      },
+      "zone-2" : {
+        "active_shards" : 0,
+        "initializing_shards" : 0,
+        "relocating_shards" : 0,
+        "unassigned_shards" : -1,
+        "data_nodes" : 1,
+        "weight" : 1.0
+      }
+    }
+  }
+}
+```
+
+The `awareness_attributes` object contains cluster health information for each awareness attribute.
+
+Refer to the [Response fields section](#response-fields) for a description of the response fields. The `weight` field refers to the awareness attribute value weight. 
+
+If you're interested in a particular awareness attribute, you can include the name of the awareness attribute as a query parameter:
+
+```json
+GET _cluster/health?level=awareness_attributes&awareness_attribute=zone
+```
+
+In response to the preceding request, OpenSearch returns cluster health information only for the `zone` awareness attribute.
+
+Cluster health by awareness attribute can return accurate information about unassigned shards only if you [enable replica count enforcement]({{site.url}}{{site.baseurl}}/opensearch/cluster#forced-replica-count-enforcement) and [configure forced awareness]({{site.url}}{{site.baseurl}}/opensearch/cluster#forced-awareness) for the awareness attribute at the start of the cluster. If you enable replica enforcement after the cluster starts, unassigned shard information may be inaccurate.
+{: .note}
