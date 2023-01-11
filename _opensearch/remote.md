@@ -185,10 +185,10 @@ curl -X PUT "https://localhost:9200/my-index?pretty" -ku admin:admin -H 'Content
 '
 ```
 
-The segment repository and translog repository can be the same or different. 
+You can have the same repository serve as both the segment repository and translog repository. 
 {: .note}
 
-As data is added to the index, it also will be continuously uploaded to the remote storage in the form of segment and translog files because of refreshes, flushes, and translog fsyncs to disk. Along with data, other metadata files will be uploaded.
+As data is added to the index, it also will be continuously uploaded to remote storage in the form of segment and translog files because of refreshes, flushes, and translog fsyncs to disk. Along with data, other metadata files will be uploaded.
 
 Setting `translog.enabled` to `true` is currently an irreversible operation.
 {: .warning}
@@ -219,14 +219,14 @@ If the security plugin is enabled, a user must have the `cluster:admin/remotesto
 You can use remote-backed storage for the following purposes:
 
 - To restore red clusters or indexes
-- To recover all data up to the last acknowledged write regardless of replica count if `index.translog.durability` is set to `request`
+- To recover all data up to the last acknowledged write, regardless of replica count, if `index.translog.durability` is set to `request`
 
 ## Known limitations
 
 The following are known limitations of the remote-backed storage feature:
 
 - Writing data to a remote store can be a high-latency operation when compared to writing data on the local file system. This may impact the indexing throughput and latency.
-- Primary to primary relocation is unstable because handover of translog uploads from older to new primary has not been implemented.
+- Primary-to-primary relocation is unstable because handover of translog uploads from older to new primary has not been implemented.
 - Garbage collection of the metadata file has not been implemented.
 For other limitations, see the [Remote store known issue list](https://github.com/opensearch-project/OpenSearch/issues/5678).
 
