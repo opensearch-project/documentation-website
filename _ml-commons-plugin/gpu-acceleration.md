@@ -63,7 +63,7 @@ fi
 
 After verification that `nvidia-uvm` exists under `/dev`, you can start OpenSearch inside your cluster. 
 
-### Mount AWS Inferentia
+### Prepare AWS Inferentia
 
 Depending on the Linux operating system running on AWS Inferentia, use the follow commands and scripts to set provision an ML node and get OpenSearch running inside your cluster.
 
@@ -80,7 +80,7 @@ source ~/.bash_profile
 
 Next, create a shell script file called `prepare_torch_neuron.sh`. Use the following examples based on your Linux operating system. After you've run the scripts, exit your current terminal and open a new terminal to start OpenSearch.
 
-GPU acceleration only supports Ubuntu 20.04 and Amazon Linux2.
+GPU acceleration has only been tested on Ubuntu 20.04 and Amazon Linux2. However, other you can use other Linux operating systems.
 {: .note}
 
 #### Ubuntu 20.04
@@ -215,10 +215,71 @@ sudo sysctl -w vm.max_map_count=262144
 
 ## Install GPU accelerator drivers manually
 
-If the previous two scripts do not provision your GPU accelerated node properly, you can install the drivers manually. For information on how to do so, see [Deploy on AWS accelerator instance](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/frameworks/torch/torch-neuron/setup/pytorch-install.html#deploy-on-aws-ml-accelerator-instance).
+If the previous two scripts do not provision your GPU accelerated node properly, you can install the drivers manually.  
 
+1. Deploy an AWS accelerator instance based on your chosen Linux operating system. For instructions, [Deploy on AWS accelerator instance](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/frameworks/torch/torch-neuron/setup/pytorch-install.html#deploy-on-aws-ml-accelerator-instance).
+
+2. To monitor GPU usage of your accelerator instance, install [Neuron tools](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/tools/index.html), which allows models to be used inside your instance.
+
+  ```
+  # Install Neuron Tools
+  sudo apt-get install aws-neuronx-tools -y
+
+  export PATH=/opt/aws/neuron/bin:$PATH
+
+  # Test 
+  neuron-top
+  ```
+
+3. Copy the Neuron library into OpenSearch.
+
+  ```
+  OS_HOME=<OpenSearch installation path>
+  # For example, if you install OS_HOME in your home folder, it will be 
+  # OS_HOME=~/opensearch-2.5.0
+
+  # Activate pytorch_venv first if you haven't. Refer to "Install Driver" part
+  source pytorch_venv/bin/activate
+
+ 
+  # Set pytorch neuron lib path. In this example, we create pytorch_venv in home folder, so 
+  PYTORCH_NEURON_LIB_PATH=~/pytorch_venv/lib/python3.7/site-packages/torch_neuron/lib/
+
+
+  mkdir -p $OS_HOME/lib/torch_neuron; cp -r $PYTORCH_NEURON_LIB_PATH/ $OS_HOME/lib/torch_neuron
+  export PYTORCH_EXTRA_LIBRARY_PATH=$OS_HOME/lib/torch_neuron/lib/libtorchneuron.so
+  ```
+
+4. To make sure we have enough memory to upload a model, increase the JVM stack size to `>+2MB`. 
+
+  ```
+  echo "-Xss2m" | sudo tee -a $OS_HOME/config/jvm.options
+  ```
+
+5. Start OpenSearch. 
+
+### Troubleshooting
+
+If OpenSearch does not start, you'll receive a response similar to the following:
+
+```
+[1]: max file descriptors [8192] for opensearch process is too low, increase to at least [65535]
+[2]: max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]
+```
+
+To troubleshoot this error, open a new terminal window and run the following command. This command overrides the `vm.max_map_count` limit to the minimum requirement.
+
+```
+echo "$(whoami) - nofile 65535" | sudo tee -a /etc/security/limits.conf
+```
+
+With the limit increased, run this command to increase the `vm.max_map_count` to `262114`.
+
+```
+sudo sysctl -w vm.max_map_count=262144
+```
 
 ## Next steps
 
-If you want to try your new GPU accelerated ML node with a pre-trained HuggingFace model, see [Compiling and Deploying HuggingFace Pretrained BERT](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/src/examples/pytorch/bert_tutorial/tutorial_pretrained_bert.html).
+If you want to try out GPU accelerated ML node using AWS Inferentia with a pre-trained HuggingFace model, see [Compiling and Deploying HuggingFace Pretrained BERT](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/src/examples/pytorch/bert_tutorial/tutorial_pretrained_bert.html).
 

@@ -35,7 +35,7 @@ Most deep learning models are over 100 MBs, making it difficult to fit the model
 
 ## GPU acceleration
 
-To achieve better performance within the model-serving framework, you can take advantage of [GPU acceleration] on your ML node. For more information, see [GPU acceleration]
+To achieve better performance within the model-serving framework, you can take advantage of GPU acceleration on your ML node. For more information, see [GPU acceleration]({{site.url}}{{site.baseurl}}/ml-commons-plugin/gpu-acceleration/).
 
 
 ## Upload model to OpenSearch
