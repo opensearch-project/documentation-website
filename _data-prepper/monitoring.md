@@ -10,7 +10,7 @@ Data Prepper can be monitored with metrics using [Micrometer](https://micrometer
 
 ## JVM and system metrics
 
-JVM and system metrics are runtime metrics used to monitor Data Prepper instances. They include metrics for classloaders, memory, garbage collection, threads, and others. For details, [JVM and system metrics](https://micrometer.io/docs/ref/jvm) for details. 
+JVM and system metrics are runtime metrics used to monitor Data Prepper instances. They include metrics for classloaders, memory, garbage collection, threads, and others. For more information, see [JVM and system metrics](https://micrometer.io/docs/ref/jvm). 
 
 ### Naming
 
