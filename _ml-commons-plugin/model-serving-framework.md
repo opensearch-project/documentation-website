@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Model-serving framework 
-has_children: false
+has_children: true
 nav_order: 110
 ---
 
@@ -32,6 +32,10 @@ Furthermore, files must be saved as zip files before upload. Therefore, to ensur
 ### Model size
 
 Most deep learning models are over 100 MBs, making it difficult to fit the model into a single document. OpenSearch splits the model file into smaller chunks to be stored in a model index. When allocating machine learning (ML) or data nodes for your OpenSearch cluster, be aware of the size of your model to prevent any downtime when making inferences. 
+
+## GPU acceleration
+
+To achieve better performance within the model-serving framework, you can take advantage of [GPU acceleration] on your ML node. For more information, see [GPU acceleration]
 
 
 ## Upload model to OpenSearch
