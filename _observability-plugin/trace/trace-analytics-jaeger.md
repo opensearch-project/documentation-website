@@ -19,14 +19,16 @@ When you perform trace analytics, you can select from two data sources:
 
 If you currently store your Jaeger trace data in OpenSearch, you can now use the trace analytics capability. When you ingest Jaeger data into OpenSearch, it gets stored in a different index than the OTA-generated index that gets created when you run data through the Data Prepper. You can indicate which data source on which you want to perform trace analytics with the data source selector in the Dashboards.
 
-Jaeger trace data that you can analyze includes span data, service dependency data, and service and operation endpoint data. Jaeger span data analysis requires some configuration.
+Jaeger trace data that you can analyze includes span data, as well as service and operation endpoint data. Jaeger span data analysis requires some configuration. 
 
 Each time you ingest data for Jaeger, it creates a separate index for that day. The Dashboards will show the current index that has a mapping.
 
 To learn more about Jaeger data tracing, see the Jaeger open source documentation [Jaeger](https://www.jaegertracing.io/).
 
 <!-- need more details from engineer or PM for how they would be able to switch from different indexes to display in the Dashboards Data selector menu.-->
+### Limitations
 
+Jaeger data that is ingested for OpenSearch needs to have the `--es.tags-as-fields.all=true` flag set for errors. If data is not ingested in this format it will not work for trace analytics with OpenSearch.
 ### About Data ingestion with Jaeger indexes
 
 Trace analytics for non-Jaeger data use OTEL indexes with the naming conventions `otel-v1-apm-span-*` or `otel-v1-apm-service-map*`.
