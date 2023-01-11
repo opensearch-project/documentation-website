@@ -30,7 +30,7 @@ Each plugin (and, if necessary, each class within a plugin) is responsible for p
     - Counter
         - `recordsWritten`: The number of records written into a buffer
         - `recordsRead`: The number of records read from a buffer
-        - `recordsProcessed`: number of records read from a buffer and marked as processed.
+        - `recordsProcessed`: The number of records read from a buffer and marked as processed
         - `writeTimeouts`: count of write timeouts in a buffer.
     - Gaugefir 
         - `recordsInBuffer`: number of records in the buffer.
