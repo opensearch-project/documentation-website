@@ -52,7 +52,7 @@ Each plugin (and, if necessary, each class within a plugin) is responsible for p
 
 ### Naming
 
-Metrics follow a naming convention of **PIPELINE_NAME_PLUGIN_NAME_METRIC_NAME** . For example, a **recordsIn** metric for the **opensearch-sink** plugin in a pipeline named **output-pipeline** has a qualified name of **output-pipeline_opensearch_sink_recordsIn**.
+Metrics follow a naming convention of **PIPELINE_NAME_PLUGIN_NAME_METRIC_NAME**. For example, a **recordsIn** metric for the **opensearch-sink** plugin in a pipeline named **output-pipeline** has a qualified name of **output-pipeline_opensearch_sink_recordsIn**.
 
 ### Serving
 
