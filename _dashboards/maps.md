@@ -6,7 +6,7 @@ nav_order: 15
 
 # Maps
 
-With OpenSearch Dashboards, you can create maps to visualize your geographical data. OpenSearch lets you construct map visualizations with multiple layers, combining data across different indexes. You can build each layer from a different data source either directly or using simple or ML-powered aggregations. Additionally, you can configure maps to show specific data at different zoom levels. OpenSearch maps are powered by the OpenSearch maps service, which uses vector tiles to render maps. 
+With OpenSearch Dashboards, you can create maps to visualize your geographical data. OpenSearch lets you construct map visualizations with multiple layers, combining data across different indexes. You can build each layer from a different index pattern. Additionally, you can configure maps to show specific data at different zoom levels. OpenSearch maps are powered by the OpenSearch maps service, which uses vector tiles to render maps. 
 
 ## Getting started
 
@@ -24,7 +24,7 @@ To hide the **Layers** panel, select the collapse (arrow) icon in the panel's up
 
 To change the default map settings, select **Default map** in the **Layers** panel. Under **Layer settings**, you can change the layer name and description and configure zoom levels and opacity for your layer:
 
-- **Zoom levels**: If you want to make a layer visible only on a certain range of zoom levels, you can specify the zoom levels for this layer either by entering them in the text boxes or by sliding the range slider to the desired values.
+- **Zoom levels**: By default, a layer is visible at all zoom levels. If you want to make a layer visible only on a certain range of zoom levels, you can specify the zoom levels either by entering them in the text boxes or by sliding the range slider to the desired values.
 
 - **Opacity**: If your map contains multiple layers, one layer can obscure another one. In this case, you may want to reduce the opacity of the top layer so you can see both layers at the same time.
 
@@ -34,10 +34,11 @@ To add a layer to the map, in the **Layers** panel, select the **Add layer** but
 
 <img src="{{site.url}}{{site.baseurl}}/images/maps/add-layer.png" alt="Add layer">
 
-You can add either **data layers** or **reference layers** to the map:
-- **Data layers** let you visualize data from various data sources. 
+You can add a **base layer** or **data layers**to the map:
 
-- **Reference layers** serve as basemaps. To use your own or a third-party map as a basemap, [add it as a **Custom map**](#adding-a-custom-map).
+- A **base layer** serves as the visualization basemap. To use your own or a third-party map as a basemap, [add it as a **Custom map**](#adding-a-custom-map).
+
+- **Data layers** let you visualize data from various data sources. 
 
 ## Adding a custom map
 
@@ -50,7 +51,7 @@ OpenSearch supports Web Map Service (WMS) or Tile Map Service (TMS) custom maps.
 
 1. In the **Custom type** dropdown, select **Tile Map Service (TMS)**. 
 1. Enter the TMS URL.
-1. (Optional) In **TMS attribution**, enter a TMS attribution for the basemap. For example, if you're using Maptiler, enter `Maptiler`. The name `Maptiler` will be displayed in the lower-right corner of the map.
+1. (Optional) In **TMS attribution**, enter a TMS attribution for the basemap. For example, if you're using a custom basemap, you can add its name to display in the lower-right corner of the map.
 1. Select the **Settings** tab to edit the layer settings.
 1. Enter the layer name in **Name**.
 1. (Optional) Enter layer description in **Description**.
@@ -70,8 +71,8 @@ Add a document layer as follows:
 
 1. In the **Layers** panel, select the **Add layer** button.
 1. From the **Add layer** dialog, select **Data layer > Documents**.
-1. In **Data source**, select `opensearch_dashboards_sample_data_flights`. Alternatively, you can enter another index name or index pattern to visualize.
-1. In **Geospatial field**, select a data field to be displayed in the visualization. In this example, select `DestLocation`.
+1. In **Data source**, select `opensearch_dashboards_sample_data_flights`. Alternatively, you can enter another index pattern to visualize.
+1. In **Geospatial field**, select a geospatial field (geopoint or geoshape) to be displayed in the visualization. In this example, select `DestLocation`.
 1. (Optional) Select the **Style** tab to change the fill color, border color, border thickness, or marker size.
 1. Select the **Settings** tab to edit layer settings.
 1. Enter `Flight destination` in **Name**.
@@ -100,7 +101,7 @@ For large datasets, you may want to avoid loading data for the whole map. To loa
 
 ## Using tooltips to visualize additional data
 
-The map layers show geopoint and geoshape document fields as locations on the map. To add more information to the locations, you can use tooltips. For example, you may want to to show flight delay, destination weather, and destination country in the Flight destination layer. Perform the following steps to configure tooltips to show additional data:
+Document layers show geopoint and geoshape document fields as locations on the map. To add more information to the locations, you can use tooltips. For example, you may want to to show flight delay, destination weather, and destination country in the Flight destination layer. Perform the following steps to configure tooltips to show additional data:
 
 1. In the **Layers** panel, select **Flight destination**.
 1. Select **Tooltips**. 
