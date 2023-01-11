@@ -56,15 +56,15 @@ From the OpenSearch Dashboards, go to **Observability > Trace Analytics** and se
 After you select Jaeger for the data source, you can view all of your indexed data in the Dashboards, including Error rate, Throughput, and Services.
 ### Error rate
 
-You can view the Trace error rate over time in the Dashboard, and also view the combination of services and operations that have a non-zero operation rate.
+You can view the Trace error rate over time in the Dashboard, and also view the top five combinations of services and operations that have a non-zero error rate.
 
 ![Error rate]({{site.url}}{{site.baseurl}}/images/trace-analytics/error-rate.png)
 
 ### Throughput
 
-With **Throughput** selected, you can select an individual Trace from **Top 5 Service and Operation Latency** list and view the detailed trace data.
+With **Throughput** selected, you can see the throughput of traces on Jaeger indexes that are coming in over time.
 
-You can view throughput of Jaeger indexes that are being added as a function of time.
+You can select an individual Trace from **Top 5 Service and Operation Latency** list and view the detailed trace data.
 
 ![Throughput]({{site.url}}{{site.baseurl}}/images/trace-analytics/throughput.png)
 
@@ -72,11 +72,11 @@ You can also see the combinations of services and operations that have the highe
 
 If you select one of the entries for Service and Operation Name and go to the **Traces** column to select a trace, it will add the service and operation as filters for you.
 
-In **Traces**, you can see the latency and errors for the filtered service and operation for each individual Trace ID in the list.
+In **Traces**, you can see the latency and errors for the filtered service and operation for each individual Trace ID in the list. 
 
 ![Select data source]({{site.url}}{{site.baseurl}}/images/trace-analytics/service-trace-data.png)
 
-Next, you can select an individual Trace ID to view more detailed information including all of the spans for the service and operations.
+If you select an individual Trace ID, you can see more detailed information about the trace, such as time spent by the service and each span for the service and operation. You can also view the payload that you get from the index in JSON format.
 
 ![Select data source]({{site.url}}{{site.baseurl}}/images/trace-analytics/trace-details.png)
 
