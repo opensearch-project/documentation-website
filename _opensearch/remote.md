@@ -21,7 +21,7 @@ When neither segment replication nor remote-backed storage is enabled, OpenSearc
 
 With segment replication, segments are created on the primary shard only and then copied to all replicas. The replicas do not index requests to Lucene, but they do create and maintain a translog.
 
-With remote-backed storage, when a write request lands on the primary shard, the request is indexed to Lucene on the primary shard only and then stored in the translog. The translogs are fsynced to local disk and then uploaded to remote store. OpenSearch does not send the write request to the replicas, but rather performs a primary term validation to confirm that the request originator shard is still the primary shard. Primary term validation ensures that the acting primary shard fails if it becomes isolated and is unaware of the cluster manager electing a new primary.
+With remote-backed storage, when a write request lands on the primary shard, the request is indexed to Lucene on the primary shard only. The corresponding translog is then uploaded to remote store. OpenSearch does not send the write request to the replicas, but rather performs a primary term validation to confirm that the request originator shard is still the primary shard. Primary term validation ensures that the acting primary shard fails if it becomes isolated and is unaware of the cluster manager electing a new primary.
 
 ## The `index.translog.durability` translog setting
 
@@ -33,7 +33,7 @@ The `index.translog.durability` setting controls how frequently OpenSearch fsync
 
 - If you set `index.translog.durability` to `async`, fsync happens periodically at the specified `sync_interval` (5 seconds by default). The fsync operation is asynchronous, so acknowledge is sent without waiting for fsync. Consequently, all acknowledged writes since the last commit are lost in case of failure.
 
-With remote-backed storage, the translog is not only fsynced to disk but also uploaded to a remote store.
+With remote-backed storage, the translog is uploaded to a remote store for durability.
 
 `index.translog.durability` is a dynamic setting. To update it, use the following query:
 
