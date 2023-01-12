@@ -43,9 +43,6 @@ Jaeger indexes follow the naming conventions `jaeger-span-*` or `jaeger-service-
 
 To use trace analytics with Jaeger data, you need to configure error capability for use with trace analytics. We provide a sample Docker compose file that contains the required configurations.
 
-The sample Docker compose file disables security, so we do not recommend that you use it in a production environment.
-{: .note }
-
 ### Step 1: Run the Docker compose file
 
 Use the following Docker compose file to enable Jaeger data for trace analytics. Copy the following Docker compose file contents and save it as `docker-compose.yml`.
@@ -60,10 +57,9 @@ services:
       - cluster.name=opensearch-cluster # Name the cluster
       - node.name=opensearch-node1 # Name the node that will run in this container
       - discovery.seed_hosts=opensearch-node1,opensearch-node2 # Nodes to look for when discovering the cluster
-      - cluster.initial_cluster_manager_nodes=opensearch-node1,opensearch-node2 # Nodes eligibile to serve as cluster manager
+      - cluster.initial_cluster_manager_nodes=opensearch-node1,opensearch-node2 # Nodes eligible to serve as cluster manager
       - bootstrap.memory_lock=true # Disable JVM heap memory swapping
       - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" # Set min and max JVM heap sizes to at least 50% of system RAM
-      - "DISABLE_SECURITY_PLUGIN=true"
     ulimits:
       memlock:
         soft: -1 # Set memlock to unlimited (no soft or hard limit)
@@ -78,6 +74,7 @@ services:
       - "9600:9600"
     networks:
       - opensearch-net # All of the containers will join the same Docker bridge network
+
   opensearch-node2:
     image: opensearchproject/opensearch:latest # This should be the same image used for opensearch-node1 to avoid issues
     container_name: opensearch-node2
@@ -88,7 +85,6 @@ services:
       - cluster.initial_cluster_manager_nodes=opensearch-node1,opensearch-node2
       - bootstrap.memory_lock=true
       - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
-      - "DISABLE_SECURITY_PLUGIN=true"
     ulimits:
       memlock:
         soft: -1
@@ -108,10 +104,10 @@ services:
     expose:
       - "5601" # Expose port 5601 for web access to OpenSearch Dashboards
     environment:
-      OPENSEARCH_HOSTS: '["http://opensearch-node1:9200","http://opensearch-node2:9200"]' # Define the OpenSearch nodes that OpenSearch Dashboards will query
-      DISABLE_SECURITY_DASHBOARDS_PLUGIN: true
+      OPENSEARCH_HOSTS: '["https://opensearch-node1:9200","https://opensearch-node2:9200"]' # Define the OpenSearch nodes that OpenSearch Dashboards will query
     networks:
       - opensearch-net
+
   jaeger-collector:
     image: jaegertracing/jaeger-collector:latest
     ports:
@@ -126,8 +122,12 @@ services:
     environment:
       - SPAN_STORAGE_TYPE=opensearch
       - ES_TAGS_AS_FIELDS_ALL=true
+      - ES_USERNAME=admin
+      - ES_PASSWORD=admin
+      - ES_TLS_SKIP_HOST_VERIFY=true
     command: [
-      "--es.server-urls=http://opensearch-node1:9200",
+      "--es.server-urls=https://opensearch-node1:9200",
+      "--es.tls.enabled=true",
     ]
     depends_on:
       - opensearch-node1
