@@ -39,20 +39,13 @@ Trace analytics for non-Jaeger data use OTEL indexes with the naming conventions
 
 Jaeger indexes follow the naming conventions `jaeger-span-*` or `jaeger-service-*`.
 
-<!--> need to confirm. this was provided in the spec and eng tickets. need more info to add it to the docs.
-Jaeger and OTEL indexes have different field names. Therefore when you run trace analytics, you'll need to create different queries and components depending on which index type you are using.
-{:.note}
--->
-
 ## How to set up OpenSearch to use Jaeger data
 
-To use trace analytics with Jaeger data, you need to configure error capability for use with trace analytics. You can use a We provide a sample Docker compose file that contains the required configurations.
+To use trace analytics with Jaeger data, you need to configure error capability for use with trace analytics. We provide a sample Docker compose file that contains the required configurations.
 
 ### Step 1: Run the Docker compose file
 
-Use the following Docker compose file to enable Jaeger data for trace analytics.
-
-Copy the following Docker compose file contents and save it as `docker-compose.yml`.
+Use the following Docker compose file to enable Jaeger data for trace analytics. Copy the following Docker compose file contents and save it as `docker-compose.yml`.
 
 ```
 version: '3'
