@@ -23,15 +23,15 @@ When you ingest Jaeger data into OpenSearch, it gets stored in a different index
 
 Jaeger trace data that you can analyze includes span data, as well as service and operation endpoint data. Jaeger span data analysis requires some configuration.
 
-Each time you ingest data for Jaeger, it creates a separate index for that day. The Dashboards will show the current index that has a mapping.
+By default, each time you ingest data for Jaeger, it creates a separate index for that day.
 
 To learn more about Jaeger data tracing, see the [Jaeger](https://www.jaegertracing.io/) open source documentation.
 
 ## Data Ingestion Requirements
 
-If you want to see errors in your trace data, you need to set the following ElasticSearch flag to true prior to data ingestion: `--es.tags-as-fields.all=true`.
+To use Trace Analytics with Jaeger data, you need to configure error capability for use with trace analytics.
 
-Jaeger data that is ingested for OpenSearch needs to have the  flag set for errors. If data is not ingested in this format it will not work for trace analytics with OpenSearch.
+Jaeger data that is ingested for OpenSearch needs to have the environment variable ` ES_TAGS_AS_FIELDS_ALL` set to `true` for errors. If data is not ingested in this format it will not work for errors and error data will not be available for traces in trace analytics with OpenSearch.
 
 ### About Data ingestion with Jaeger indexes
 
@@ -41,11 +41,11 @@ Jaeger indexes follow the naming conventions `jaeger-span-*` or `jaeger-service-
 
 ## How to set up OpenSearch to use Jaeger data
 
-To use trace analytics with Jaeger data, you need to configure error capability for use with trace analytics. We provide a sample Docker compose file that contains the required configurations.
+We provide a sample Docker compose file that contains the required configurations.
 
 ### Step 1: Run the Docker compose file
 
-Use the following Docker compose file to enable Jaeger data for trace analytics. Copy the following Docker compose file contents and save it as `docker-compose.yml`.
+Use the following Docker compose file to enable Jaeger data for trace analytics with the ` ES_TAGS_AS_FIELDS_ALL` environment variable set to `true` to enable errors to be added to trace data. Copy the following Docker compose file contents and save it as `docker-compose.yml`.
 
 ```
 version: '3'
@@ -201,7 +201,7 @@ From the OpenSearch Dashboards, go to **Observability > Trace Analytics** and se
 
 ![Select data source]({{site.url}}{{site.baseurl}}/images/trace-analytics/select-data.png)
 
-## Dashboards views
+## Dashboard view
 
 After you select Jaeger for the data source, you can view all of your indexed data in **Dashboard** view including **Error rate** and **Throughput**.
 
@@ -223,6 +223,8 @@ You can also see the combinations of services and operations that have the highe
 
 If you select one of the entries for Service and Operation Name and go to the **Traces** column to select a trace, it will add the service and operation as filters for you.
 
+## Traces
+
 In **Traces**, you can see the latency and errors for the filtered service and operation for each individual Trace ID in the list.
 
 ![Select data source]({{site.url}}{{site.baseurl}}/images/trace-analytics/service-trace-data.png)
@@ -231,7 +233,7 @@ If you select an individual Trace ID, you can see more detailed information abou
 
 ![Select data source]({{site.url}}{{site.baseurl}}/images/trace-analytics/trace-details.png)
 
-### Services
+## Services
 
 You can also look at individual error rates and latency for each individual service. Go to **Observability > Trace Analytics > Services**. In **Services**, you can see the average latency, error rate, throughput and trace for each service in the list.
 
