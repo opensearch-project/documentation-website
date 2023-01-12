@@ -31,7 +31,7 @@ Furthermore, files must be saved as zip files before upload. Therefore, to ensur
 
 ### Model size
 
-Most deep learning models are over 100 MBs, making it difficult to fit the model into a single document. OpenSearch splits the model file into smaller chunks to be stored in a model index. When allocating machine learning (ML) or data nodes for your OpenSearch cluster, be aware of the size of your model to prevent any downtime when making inferences. 
+Most deep learning models are over 100 MBs, making it difficult to fit the model into a single document. OpenSearch splits the model file into smaller chunks to be stored in a model index. When allocating machine learning (ML) or data nodes for your OpenSearch cluster, make sure you correctly size your ML nodes so that you have enough memory when making ML inferences.
 
 ## GPU acceleration
 
