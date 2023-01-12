@@ -6,18 +6,18 @@ has_children: true
 has_toc: false
 ---
 
-# Trace Analytics
+# Trace analytics
 
-Trace Analytics provides a way to ingest and visualize [OpenTelemetry](https://opentelemetry.io/) data in OpenSearch. This data can help you find and fix performance problems in distributed applications.
+Trace analytics provides a way to ingest and visualize [OpenTelemetry](https://opentelemetry.io/) data in OpenSearch. This data can help you find and fix performance problems in distributed applications.
 
 A single operation, such as a user clicking a button, can trigger an extended series of events. The front end might call a back end service, which calls another service, which queries a database, processes the data, and sends it to the original service, which sends a confirmation to the front end.
 
-Trace Analytics can help you visualize this flow of events and identify performance problems.
+Trace analytics can help you visualize this flow of events and identify performance problems.
 
 ![Detailed trace view]({{site.url}}{{site.baseurl}}/images/ta-trace.png)
 
-## Trace Analytics with Jaeger data
+## Trace analytics with Jaeger data
 
-The Trace Analytics functionality in the OpenSearch Observability plugin now supports Jaeger trace data. If you use OpenSearch as the backend for Jaeger trace data, you can use the Trace Analytics built-in analysis capabilities.
+The trace analytics functionality in the OpenSearch Observability plugin now supports Jaeger trace data. If you use OpenSearch as the backend for Jaeger trace data, you can use the Trace analytics built-in analysis capabilities.
 
-To set up your environment to perform Trace Analytics, see [Analyze Jaeger trace data]({{site.url}}{{site.baseurl}}/observability-plugin/trace/trace-analytics-jaeger/).
+To set up your environment to perform trace analytics, see [Analyze Jaeger trace data]({{site.url}}{{site.baseurl}}/observability-plugin/trace/trace-analytics-jaeger/).
