@@ -57,6 +57,7 @@ docker run --rm -it --name=opensearch -e "ES_JAVA_OPTS=-Xms2g -Xmx2g" -p 9200:92
 Run the following command to set up OpenSearch Dashboards with Docker:
 
 ```
+Need info here 
 ```
 <!-- from the step 1 - need the opensearch-dashboards version of the kibana 6.8.0 command here -->
 
