@@ -173,17 +173,23 @@ volumes:
 networks:
   opensearch-net:
 ```
-In a command-line interface, run the following command: 
+
+### Step 2: Start the cluster
+
+Run the following command to deploy the Docker compose YAML file.
 
 ```
 docker compose up -d
 ```
+To stop the cluster, run the following command:
 
-You can now navigate to http://localhost:8080 to generate your Jaeger data.
+``` 
+docker compose down
+```
 
 ## Step 2: View trace data in OpenSearch Dashboards
 
-After you generate Jaeger trace data you can go to OpenSearch Dashboards to view your trace data on http://localhost:5601
+After you generate Jaeger trace data you can go to OpenSearch Dashboards to view your trace data. OpenSearch Dashboards at `https://<host>:<port>`. For example, [https://localhost:5601](https://localhost:5601).
 
 <!-- saving these instructions. using entire docker compose file instead of individual commands. 
 ### Step 1: Set up OpenSearch and OpenSearch Dashboards
