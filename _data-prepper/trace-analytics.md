@@ -162,8 +162,7 @@ service-map-pipeline:
         index_type: trace-analytics-service-map
 ```
 
-To maintain similar ingestion throughput and latency, scale the `buffer_size` and `batch_size` by the estimated maximum batch size in the client request payload.
-{: .tip}
+To maintain similar ingestion throughput and latency, scale the `buffer_size` and `batch_size` by the estimated maximum batch size in the client request payload. {: .tip}
 
 
 #### Example: otel trace
@@ -361,12 +360,8 @@ After you run OpenTelemetry in your service environment, you must configure your
 
 The [OpenSearch Dashboards Observability plugin]({{site.url}}{{site.baseurl}}/observability-plugin/trace/ta-dashboards/) documentation provides additional details on configuring OpenSearch for viewing trace analytics. In particular, it documents how to use OpenSearch Dashboards.
 
-<!--- Adjust this section after adding in Trace tuning content
-
 The [Trace Tuning page](trace_tuning.md) has information to help you tune and scale Data Prepper for
 trace analytics use cases.
-
---->
 
 ## Migrating to Data Prepper 2.0
 
