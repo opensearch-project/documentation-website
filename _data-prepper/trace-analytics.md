@@ -8,7 +8,7 @@ nav_order: 21
 
 ## Introduction
 
-Data Prepper ingests [Trace Analytics](https://opensearch.org/docs/latest/observability-plugin/trace/index/) into OpenSearch and Amazon OpenSearch Service. Data Prepper is a last mile server-side component which collects telemetry data from [AWS Distro OpenTelemetry collector](https://aws-otel.github.io/docs/getting-started/collector) or [OpenTelemetry collector](https://github.com/open-telemetry/opentelemetry-collector) and transforms it for OpenSearch. The transformed trace data is the visualized using the [OpenSearch Dashboards Observability plugin](https://opensearch.org/docs/latest/observability-plugin/trace/ta-dashboards/), which provides at-a-glance visibility into your application performance, along with the ability to drill down on individual traces.
+Data Prepper ingests [Trace Analytics](https://opensearch.org/docs/latest/observability-plugin/trace/index/) into OpenSearch and Amazon OpenSearch Service. Data Prepper is a last-mile server-side component which collects telemetry data from [AWS Distro OpenTelemetry collector](https://aws-otel.github.io/docs/getting-started/collector) or [OpenTelemetry collector](https://github.com/open-telemetry/opentelemetry-collector), and transforms it for OpenSearch. Then, the transformed trace data is visualized using the [OpenSearch Dashboards Observability plugin](https://opensearch.org/docs/latest/observability-plugin/trace/ta-dashboards/), which provides at-a-glance visibility into your application performance, along with the ability to drill down on individual traces.
 
 Here is how all the components work in trace analytics:
 
@@ -38,7 +38,7 @@ We have two processor for the Trace Analytics feature,
 
 We have a generic sink that writes the data to OpenSearch as the destination. The [OpenSearch sink](../data-prepper-plugins/opensearch/README.md) has configuration options related to OpenSearch cluster, such as endpoint, SSL, username/password, index name, index template, and index state management.
 
-For the trace analytics feature, the sink has specific configurations which enables the sink to use indices and index templates specific to this feature. Trace analytics specific OpenSearch indices are,
+For the trace analytics feature, the sink has specific configurations which enables the sink to use indexes and index templates specific to this feature. Trace analytics specific OpenSearch indexes are,
 
 * *otel-v1-apm-span* -  This index stores the output from [otel_trace_raw](../data-prepper-plugins/otel-trace-raw-processor/README.md).
 * *otel-v1-apm-service-map* - This index stores the output from the [service_map_stateful](https://github.com/opensearch-project/documentation-website/blob/main/_data-prepper/configuration/processors/service-map-stateful.md).
@@ -316,11 +316,11 @@ trace analytics use cases.
 
 ## Migrating to Data Prepper 2.0
 
-Starting in Data Prepper 1.4, the trace processing uses Data Prepper's Event model. This allows pipeline authors the ability to configure other processors to modify spans or traces. To provide a migration path, Data Prepper 1.4 introduced the following changes.
+Starting in Data Prepper version 1.4, trace processing uses Data Prepper's event model. This allows pipeline authors to configure other processors to modify spans or traces. To provide a migration path, Data Prepper version 1.4 introduced the following changes:
+
 * The `otel_trace_source` has an optional parameter `record_type` which can be set to `event`. When configured, it will output event objects.
 * The `otel_trace_raw` replaces `otel_trace_raw_prepper` for event-based spans.
 * The `otel_trace_group` replaces `otel_trace_group_prepper` for event-based spans.
 
-In Data Prepper 2.0, the `otel_trace_source` will only output Events. Data Prepper 2.0 also removes
-`otel_trace_raw_prepper` and `otel_trace_group_prepper` entirely. To help migrate to 2.0,
-you can configure your trace pipeline using the Event model.
+In Data Prepper version 2.0, the `otel_trace_source` source will only output events. Data Prepper version 2.0 also removes the `otel_trace_raw_prepper` and `otel_trace_group_prepper` entirely. To migrate to Data Prepper version 2.0, you can configure your trace pipeline using the event model.
+ 
