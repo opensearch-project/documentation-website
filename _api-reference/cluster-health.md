@@ -126,57 +126,83 @@ The response contains cluster health metrics partitioned by awareness attribute:
 
 ```json
 {
-  "cluster_name" : "runTask",
-  "status" : "green",
-  "timed_out" : false,
-  "number_of_nodes" : 3,
-  "number_of_data_nodes" : 3,
-  "discovered_master" : true,
-  "discovered_cluster_manager" : true,
-  "active_primary_shards" : 0,
-  "active_shards" : 0,
-  "relocating_shards" : 0,
-  "initializing_shards" : 0,
-  "unassigned_shards" : 0,
-  "delayed_unassigned_shards" : 0,
-  "number_of_pending_tasks" : 0,
-  "number_of_in_flight_fetch" : 0,
-  "task_max_waiting_in_queue_millis" : 0,
-  "active_shards_percent_as_number" : 100.0,
-  "awareness_attributes" : {
-    "zone" : {
-      "zone-3" : {
-        "active_shards" : 0,
-        "initializing_shards" : 0,
-        "relocating_shards" : 0,
-        "unassigned_shards" : -1,
-        "data_nodes" : 1,
-        "weight" : 1.0
-      },
-      "zone-1" : {
-        "active_shards" : 0,
-        "initializing_shards" : 0,
-        "relocating_shards" : 0,
-        "unassigned_shards" : -1,
-        "data_nodes" : 1,
-        "weight" : 1.0
-      },
-      "zone-2" : {
-        "active_shards" : 0,
-        "initializing_shards" : 0,
-        "relocating_shards" : 0,
-        "unassigned_shards" : -1,
-        "data_nodes" : 1,
-        "weight" : 1.0
-      }
-    }
-  }
+	"cluster_name": "runTask",
+	"status": "green",
+	"timed_out": false,
+	"number_of_nodes": 3,
+	"number_of_data_nodes": 3,
+	"discovered_master": true,
+	"discovered_cluster_manager": true,
+	"active_primary_shards": 0,
+	"active_shards": 0,
+	"relocating_shards": 0,
+	"initializing_shards": 0,
+	"unassigned_shards": 0,
+	"delayed_unassigned_shards": 0,
+	"number_of_pending_tasks": 0,
+	"number_of_in_flight_fetch": 0,
+	"task_max_waiting_in_queue_millis": 0,
+	"active_shards_percent_as_number": 100.0,
+	"awareness_attributes": {
+		"zone": {
+			"zone-3": {
+				"active_shards": 0,
+				"initializing_shards": 0,
+				"relocating_shards": 0,
+				"unassigned_shards": 0,
+				"data_nodes": 1,
+				"weight": 1.0
+			},
+			"zone-1": {
+				"active_shards": 0,
+				"initializing_shards": 0,
+				"relocating_shards": 0,
+				"unassigned_shards": 0,
+				"data_nodes": 1,
+				"weight": 1.0
+			},
+			"zone-2": {
+				"active_shards": 0,
+				"initializing_shards": 0,
+				"relocating_shards": 0,
+				"unassigned_shards": 0,
+				"data_nodes": 1,
+				"weight": 1.0
+			}
+		},
+		"rack": {
+			"rack-3": {
+				"active_shards": 0,
+				"initializing_shards": 0,
+				"relocating_shards": 0,
+				"unassigned_shards": 0,
+				"data_nodes": 1,
+				"weight": 1.0
+			},
+			"rack-1": {
+				"active_shards": 0,
+				"initializing_shards": 0,
+				"relocating_shards": 0,
+				"unassigned_shards": 0,
+				"data_nodes": 1,
+				"weight": 1.0
+			},
+			"rack-2": {
+				"active_shards": 0,
+				"initializing_shards": 0,
+				"relocating_shards": 0,
+				"unassigned_shards": 0,
+				"data_nodes": 1,
+				"weight": 1.0
+			}
+		}
+	}
 }
 ```
 
 The `awareness_attributes` object contains cluster health information for each awareness attribute.
 
-Refer to the [Response fields section](#response-fields) for a description of the response fields. The `weight` field refers to the awareness attribute value weight. 
+Refer to the [Response fields section](#response-fields) for a description of the response fields. The `weight` field refers to the awareness attribute weight. 
 
 If you're interested in a particular awareness attribute, you can include the name of the awareness attribute as a query parameter:
 
@@ -186,5 +212,5 @@ GET _cluster/health?level=awareness_attributes&awareness_attribute=zone
 
 In response to the preceding request, OpenSearch returns cluster health information only for the `zone` awareness attribute.
 
-Cluster health by awareness attribute can return accurate information about unassigned shards only if you [enable replica count enforcement]({{site.url}}{{site.baseurl}}/opensearch/cluster#forced-replica-count-enforcement) and [configure forced awareness]({{site.url}}{{site.baseurl}}/opensearch/cluster#forced-awareness) for the awareness attribute at the start of the cluster. If you enable replica enforcement after the cluster starts, unassigned shard information may be inaccurate.
+Cluster health by awareness attribute can return accurate information about unassigned shards only if you [enable replica count enforcement]({{site.url}}{{site.baseurl}}/opensearch/cluster#forced-replica-count-enforcement) and [configure forced awareness]({{site.url}}{{site.baseurl}}/opensearch/cluster#forced-awareness) for the awareness attribute either before cluster start or after cluster start but before any indexing requests. If you enable replica enforcement after the cluster starts, unassigned shard information may be inaccurate. In this case, the `unassigned_shards` field will contain -1.
 {: .note}
