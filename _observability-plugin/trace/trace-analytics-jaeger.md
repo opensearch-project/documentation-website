@@ -46,7 +46,7 @@ Jaeger and OTEL indexes have different field names. Therefore when you run trace
 
 ## How to set up OpenSearch to use Jaeger data
 
-To use trace analytics with Jaeger data, you need to configure error capability. You can use a Docker compose file with required configurations to make sure that.
+To use trace analytics with Jaeger data, you need to configure error capability for use with trace analytics. You can use a We provide a sample Docker compose file that contains the required configurations.
 
 ### Step 1: Run the Docker compose file
 
@@ -176,14 +176,14 @@ networks:
 In a command-line interface, run the following command: 
 
 ```
-docker compose up
+docker compose up -d
 ```
 
 You can now navigate to http://localhost:8080 to generate your Jaeger data.
 
 ## Step 2: View trace data in OpenSearch Dashboards
 
-Now you can go to OpenSearch Dashboards to view your trace data on http://localhost:5601
+After you generate Jaeger trace data you can go to OpenSearch Dashboards to view your trace data on http://localhost:5601
 
 <!-- saving these instructions. using entire docker compose file instead of individual commands. 
 ### Step 1: Set up OpenSearch and OpenSearch Dashboards
