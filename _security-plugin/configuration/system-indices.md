@@ -22,5 +22,5 @@ plugins.security.system_indices.enabled: true
 plugins.security.system_indices.indices: [".opendistro-alerting-config", ".opendistro-alerting-alert*", ".opendistro-anomaly-results*", ".opendistro-anomaly-detector*", ".opendistro-anomaly-checkpoints", ".opendistro-anomaly-detection-state", ".opendistro-reports-*", ".opendistro-notifications-*", ".opendistro-notebooks", ".opendistro-asynchronous-search-response*"]
 ```
 
-You can add additional system indexes in `opensearch.yml`. An alternative way to remove indexes is to delete the index from the `plugins.security.system_indices.indices` list on each node and restart OpenSearch.
+You can add additional system indexes in `opensearch.yml`. An alternative way to remove a system index is to delete it from the `plugins.security.system_indices.indices` list on each node and restart OpenSearch.
 
