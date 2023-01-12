@@ -111,10 +111,10 @@ If you use the security plugin, make sure you have the appropriate permissions:
 Introduced 2.5
 {: .label .label-purple }
 
-Cluster health by awareness attribute is an experimental feature. Therefore, we do not recommend the use of cluster health by awareness attribute in a production environment. For updates on the progress of cluster health by awareness attribute, or if you want leave feedback that could help improve the feature, refer to the [GitHub issue]().
+We are introducing the ability to perform a cluster health check on specified awareness attributes of the cluster is an experimental feature. We do not recommend using it in a production environment. For updates on the progress of the feature, or if you want leave feedback that could help improve it, refer to the [GitHub issue]().
 {: .warning}
 
-Previously, cluster health check could be performed only for the full cluster. Cluster health by awareness attribute lets you perform a cluster health check for a specified awareness attribute (for example, zone or rack). With cluster health by awareness attribute, shard allocation awareness attempts to separate primary and replica shards across multiple awareness attribute values. This partition gives you a closer look into a specific awareness attribute.
+Previously, cluster health check could be performed only for the full cluster. You can now perform a cluster health check for a specified awareness attribute (for example, zone or rack). With this functionality, shard allocation awareness attempts to separate primary and replica shards across multiple awareness attribute values. This partition gives you a closer look into a specific awareness attribute.
 
 To check cluster health by awareness attribute, specify `awareness_attributes` in the `level` query parameter:
 
@@ -212,5 +212,5 @@ GET _cluster/health?level=awareness_attributes&awareness_attribute=zone
 
 In response to the preceding request, OpenSearch returns cluster health information only for the `zone` awareness attribute.
 
-Cluster health by awareness attribute returns accurate information about unassigned shards only if you [enable replica count enforcement]({{site.url}}{{site.baseurl}}/opensearch/cluster#forced-replica-count-enforcement) and [configure forced awareness]({{site.url}}{{site.baseurl}}/opensearch/cluster#forced-awareness) for the awareness attribute either before cluster start or after cluster start but before any indexing requests. If you enable replica enforcement after the cluster receives indexing requests, unassigned shard information may be inaccurate. In this case, the `unassigned_shards` field will contain -1.
+Cluster health by awareness attribute returns accurate information about unassigned shards only if you [enable replica count enforcement]({{site.url}}{{site.baseurl}}/opensearch/cluster#forced-replica-count-enforcement) and [configure forced awareness]({{site.url}}{{site.baseurl}}/opensearch/cluster#forced-awareness) for the awareness attribute either before cluster start, or after cluster start but before any indexing requests. If you enable replica enforcement after the cluster receives indexing requests, unassigned shard information may be inaccurate. In this case, the `unassigned_shards` field will contain -1.
 {: .note}
