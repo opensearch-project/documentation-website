@@ -31,9 +31,9 @@ The [OpenTelemetry source](../data-prepper-plugins/otel-trace-source/README.md) 
 
 There are two processors for the Trace Analytics feature:
 
-* *otel_trace_raw* -  This is a processor that receives collection of [Span](../../data-prepper-api/src/main/java/com/amazon/dataprepper/model/trace/Span.java) records sent from [otel-trace-source](../dataPrepper-plugins/otel-trace-source), does stateful processing on extracting and filling-in trace group related fields.
+* *otel_trace_raw* -  This is a processor that receives collection of [Span](../../data-prepper-api/src/main/java/com/amazon/dataprepper/model/trace/Span.java) records sent from [otel-trace-source](../dataPrepper-plugins/otel-trace-source), and performs stateful processing on extracting and filling-in trace group related fields.
 * *otel_trace_group* -  This is a processor that fills in the missing trace group related fields in the collection of [Span](../../data-prepper-api/src/main/java/com/amazon/dataprepper/model/trace/Span.java) records by looking up the OpenSearch backend.
-* *service_map_stateful* -  This processor performs the required preprocessing on the trace data and build metadata to display the service-map OpenSearch Dashboards dashboards.
+* *service_map_stateful* -  This processor performs required pre-processing for trace data and builds metadata to display the `service-map` OpenSearch Dashboards dashboards.
 
 ### OpenSearch sink
 
@@ -48,7 +48,7 @@ For the trace analytics feature, the sink has specific configurations which enab
 
 ## Trace tuning
 
-Starting in version 0.8.x, Data Prepper for trace analytics supports both vertical and horizontal scaling. You can adjust the size of your single Data Prepper instance to meet your workload's demands and scale vertically. 
+Starting in version 0.8.x, Data Prepper supports both vertical and horizontal scaling for trace analytics. You can adjust the size of your single Data Prepper instance to meet your workload's demands and scale vertically. 
 
 You can scale horizontally by deploying multiple Data Prepper instances to form a cluster by using the [Core Peer Forwarder](https://github.com/opensearch-project/data-prepper/blob/main/docs/peer_forwarder.md). This enables Data Prepper instances to communicate with instances in the cluster, and is required for horizontally-scaling deployments.
 
@@ -71,9 +71,9 @@ The `workers` setting determines the number of threads that are used by Data Pre
 
 #### Heap
 
-Configure the heap of Data Prepper by setting the `JVM_OPTS` environmental variable. We recommend that you set the heap value to a minimum of `4` * `batch_size` * `otel_send_batch_size` * `maximum size of indvidual span`.
+Configure the heap of Data Prepper by setting the `JVM_OPTS` environmental variable. We recommend that you set the heap value to a minimum value of `4` * `batch_size` * `otel_send_batch_size` * `maximum size of indvidual span`.
 
-As mentioned in the [setup](https://github.com/opensearch-project/data-prepper/blob/main/docs/trace_analytics.md#opentelemetry-collector), set `otel_send_batch_size` to a value of `50` in your OpenTelemetry collector configuration.
+As mentioned in the [setup guide](https://github.com/opensearch-project/data-prepper/blob/main/docs/trace_analytics.md#opentelemetry-collector), set `otel_send_batch_size` to a value of `50` in your OpenTelemetry collector configuration.
 
 #### Local disk
 
@@ -91,7 +91,6 @@ The [Kubernetes configuration files](https://github.com/opensearch-project/data-
 ### Benchmark
 
 We ran tests in a `r5.xlarge` EC2 instance with the following configuration:
-
  
  * `buffer_size`: 4096
  * `batch_size`: 256
@@ -106,7 +105,7 @@ The following sections describe pipeline configuration.
 
 ### Trace analytics pipeline example
 
-The following example demonstrates how to build a pipeline that supports the [OpenSearch Dashboards Observability plugin]({{site.url}}{{site.baseurl}}/observability-plugin/trace/ta-dashboards/). This pipeline takes data from the OpenTelemetry Collector and uses two other pipelines as sinks. These two separate pipelines index trace and the service map documents for the dashboard plugin.
+The following example demonstrates how to build a pipeline that supports the [OpenSearch Dashboards Observability plugin]({{site.url}}{{site.baseurl}}/observability-plugin/trace/ta-dashboards/). This pipeline takes data from the OpenTelemetry Collector and uses two other pipelines as sinks. These two, separate pipelines index trace and the service map documents for the dashboard plugin.
 
 Starting with Data Prepper version 2.0, Data Prepper no longer supports the `otel_trace_raw_prepper` processor due to the Data Prepper internal data model evolution. Instead, users should use the  `otel_trace_raw` processor. See the following .yaml file example:
 
@@ -164,10 +163,9 @@ service-map-pipeline:
 
 To maintain similar ingestion throughput and latency, scale the `buffer_size` and `batch_size` by the estimated maximum batch size in the client request payload. {: .tip}
 
-
 #### Example: otel trace
 
-Example `otel-trace-source` with SSL and Basic Authentication enabled. Note that you will have to change your `otel-collector-config.yaml` accordingly:
+Note that you will have to change your `otel-collector-config.yaml` file accordingly. See the following `otel-trace-source` .yaml file example with SSL and basic authentication enabled. 
 
 ```yaml
 source:
@@ -181,7 +179,6 @@ source:
         username: "my-user"
         password: "my_s3cr3t"
 ```
-
 
 #### Example: pipeline.yaml
 
