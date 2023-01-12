@@ -187,7 +187,9 @@ docker compose down
 
 ## Step 2: Generate sample data
 
-Use the sample app provided with the Docker file to generate data. After you run the Docker compose file, it opens the sample app for you at http://localhost:8080.
+Use the sample app provided with the Docker file to generate data. After you run the Docker compose file, it runs the sample app in your local host port 8080. To open the app, go to http://localhost:8080.
+
+![Services list]({{site.url}}{{site.baseurl}}/images/trace-analytics/sample-app.png)
 
 In the sample app, Hot R.O.D., select any one of the buttons to generate data. Now you can view trace data in Dashboards.
 
