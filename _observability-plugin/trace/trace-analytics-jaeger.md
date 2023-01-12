@@ -185,7 +185,7 @@ To stop the cluster, run the following command:
 docker compose down
 ```
 
-## Step 3: Generate sample data
+### Step 3: Generate sample data
 
 Use the sample app provided with the Docker file to generate data. After you run the Docker compose file, it runs the sample app in your local host port 8080. To open the app, go to http://localhost:8080.
 
@@ -193,7 +193,7 @@ Use the sample app provided with the Docker file to generate data. After you run
 
 In the sample app, Hot R.O.D., select any one of the buttons to generate data. Now you can view trace data in Dashboards.
 
-## Step 4: View trace data in OpenSearch Dashboards
+### Step 4: View trace data in OpenSearch Dashboards
 
 After you generate Jaeger trace data you can go to OpenSearch Dashboards to view your trace data.
 
