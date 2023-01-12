@@ -219,7 +219,7 @@ If the previous two scripts do not provision your GPU accelerated node properly,
 
 1. Deploy an AWS accelerator instance based on your chosen Linux operating system. For instructions, [Deploy on AWS accelerator instance](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/frameworks/torch/torch-neuron/setup/pytorch-install.html#deploy-on-aws-ml-accelerator-instance).
 
-2. To monitor GPU usage of your accelerator instance, install [Neuron tools](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/tools/index.html), which allows models to be used inside your instance.
+2. (Optional) To monitor GPU usage of your accelerator instance, install [Neuron tools](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/frameworks/torch/torch-neuron/setup/pytorch-install.html), which allows models to be used inside your instance.
 
   ```
   # Install Neuron Tools
