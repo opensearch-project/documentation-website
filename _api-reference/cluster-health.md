@@ -111,10 +111,10 @@ If you use the security plugin, make sure you have the appropriate permissions:
 Introduced 2.5
 {: .label .label-purple }
 
-We are introducing the ability to perform a cluster health check on specified awareness attributes of the cluster is an experimental feature. We do not recommend using it in a production environment. For updates on the progress of the feature, or if you want leave feedback that could help improve it, refer to the [GitHub issue]().
+We are introducing the ability to perform a cluster health check on specified awareness attributes of the cluster as an experimental feature. We do not recommend using it in a production environment. For updates on the progress of the feature, or if you want leave feedback that could help improve it, refer to the [GitHub issue]().
 {: .warning}
 
-Previously, cluster health check could be performed only for the full cluster. You can now perform a cluster health check for a specified awareness attribute (for example, zone or rack). With this functionality, shard allocation awareness attempts to separate primary and replica shards across multiple awareness attribute values. This partition gives you a closer look into a specific awareness attribute.
+Previously, a cluster health check could be performed only for the full cluster. You can now perform a cluster health check for a specified awareness attribute (for example, zone or rack). With this functionality, shard allocation awareness attempts to separate primary and replica shards across multiple awareness attribute values. This partition gives you a closer look into a specific awareness attribute.
 
 To check cluster health by awareness attribute, specify `awareness_attributes` in the `level` query parameter:
 
