@@ -29,7 +29,7 @@ You can configure your Data Prepper core APIs through the `data-prepper-config.y
 
 ### SSL/TLS connection
 
-Many of the Getting Started guides for this project disable SSL on the endpoint:
+Many of the getting started guides for this project disable SSL on the endpoint:
 
 ```yaml
 ssl: false
