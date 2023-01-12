@@ -49,20 +49,20 @@ OpenSearch supports Web Map Service (WMS) or Tile Map Service (TMS) custom maps.
 
     <img src="{{site.url}}{{site.baseurl}}/images/maps/custom-map.png" alt="Add custom map">
 
-1. In the **Custom type** dropdown, select **Tile Map Service (TMS)**. 
+1. In the **Custom type** dropdown list, select **Tile Map Service (TMS)**. 
 1. Enter the TMS URL.
 1. (Optional) In **TMS attribution**, enter a TMS attribution for the basemap. For example, if you're using a custom basemap, you can add its name to display in the lower-right corner of the map.
 1. Select the **Settings** tab to edit the layer settings.
 1. Enter the layer name in **Name**.
 1. (Optional) Enter layer description in **Description**.
-1. (Optional) select the zoom levels and opacity for this layer.
+1. (Optional) Select the zoom levels and opacity for this layer.
 1. Select the **Update** button.
 
 ## Adding a document layer
 
 Adding document layers lets you visualize your data. You can use a single index or multiple indexes as a data source for a visualization. 
 
-OpenSearch supports displaying documents that contain both geopoint and geoshape fields on a map.
+Document layers can display geopoint and geoshape document fields.
 {: .note}
 
 The following example assumes that you have the `opensearch_dashboards_sample_data_flights` dataset installed. If you don't have this dataset installed, perform the following steps:
@@ -70,7 +70,7 @@ The following example assumes that you have the `opensearch_dashboards_sample_da
 1. On the top menu bar, go to **OpenSearch Dashboards > Overview**.
 1. Select the **View app directory** link. 
 1. Select **Add sample data**.
-1. In the **Sample flight data** panel, select the **Add data** button .
+1. In the **Sample flight data** panel, select the **Add data** button.
 
 Add a document layer as follows:
 
@@ -82,7 +82,7 @@ Add a document layer as follows:
 1. Select the **Settings** tab to edit layer settings.
 1. Enter `Flight destination` in **Name**.
 1. Select the **Update** button.
-1. To see more data, in the upper-right corner select the calendar icon dropdown, then under **Quick select** choose **Last 15 days**. 
+1. To see more data, in the upper-right corner select the calendar icon dropdown list, then under **Quick select** choose **Last 15 days**. 
 
 You should see the flight destination data similar to the following image:
 
@@ -90,7 +90,7 @@ You should see the flight destination data similar to the following image:
 
 ## Filtering data
 
-To show a subset of the data in the index, filter the data. The following example filters the Flight destination data to see only United States destinations:
+To show a subset of the data in the index, filter the data. The following example filters the flight destination data to see only United States destinations:
 
 1. In the **Layers** panel, select **Flight destination**.
 1. Select **Filters**.
@@ -111,7 +111,7 @@ Document layers show geopoint and geoshape document fields as locations on the m
 1. In the **Layers** panel, select **Flight destination**.
 1. Select **Tooltips**. 
 1. Select the **Show tooltips** checkbox.
-1. In the **Tooltip fields** dropdown, select the fields that you'd like to display. In this example, select `FlightDelay`, `DestWeather`, and `DestCountry`.
+1. In the **Tooltip fields** dropdown list, select the fields that you'd like to display. In this example, select `FlightDelay`, `DestWeather`, and `DestCountry`.
 1. Select the **Update** button.
 
 To view tooltips, hover over the geographical point you're interested in. One tooltip can display many data points. For example, in the Flight destination layer there are multiple flights for a single destination city. To paginate over the flights, select the city you're interested in and use the arrows in the tooltip:
