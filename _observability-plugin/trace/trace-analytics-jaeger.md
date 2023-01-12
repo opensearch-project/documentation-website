@@ -31,7 +31,7 @@ To learn more about Jaeger data tracing, see the [Jaeger](https://www.jaegertrac
 
 To use Trace Analytics with Jaeger data, you need to configure error capability for use with trace analytics.
 
-Jaeger data that is ingested for OpenSearch needs to have the environment variable ` ES_TAGS_AS_FIELDS_ALL` set to `true` for errors. If data is not ingested in this format it will not work for errors and error data will not be available for traces in trace analytics with OpenSearch.
+Jaeger data that is ingested for OpenSearch needs to have the environment variable `ES_TAGS_AS_FIELDS_ALL` set to `true` for errors. If data is not ingested in this format it will not work for errors and error data will not be available for traces in trace analytics with OpenSearch.
 
 ### About Data ingestion with Jaeger indexes
 
@@ -45,7 +45,7 @@ We provide a sample Docker compose file that contains the required configuration
 
 ### Step 1: Run the Docker compose file
 
-Use the following Docker compose file to enable Jaeger data for trace analytics with the ` ES_TAGS_AS_FIELDS_ALL` environment variable set to `true` to enable errors to be added to trace data. Copy the following Docker compose file contents and save it as `docker-compose.yml`.
+Use the following Docker compose file to enable Jaeger data for trace analytics with the `ES_TAGS_AS_FIELDS_ALL` environment variable set to `true` to enable errors to be added to trace data. Copy the following Docker compose file contents and save it as `docker-compose.yml`.
 
 ```
 version: '3'
