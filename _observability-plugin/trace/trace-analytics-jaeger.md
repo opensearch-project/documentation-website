@@ -10,9 +10,9 @@ nav_order: 55
 Introduced 2.5
 {: .label .label-purple }
 
-The trace analytics functionality in the OpenSearch Observability plugin now supports Jaeger trace data. If you use OpenSearch as the backend for Jaeger trace data, you can use the Trace analytics built-in analysis capabilities. This provides support for OpenTelemetry (OTEL) formatted trace data.
+The trace analytics functionality in the OpenSearch Observability plugin now supports Jaeger trace data. If you use OpenSearch as the backend for Jaeger trace data, you can use the trace analytics built-in analysis capabilities. This provides support for OpenTelemetry (OTEL) formatted trace data.
 
-When you perform Trace analytics, you can select from two data sources:
+When you perform trace analytics, you can select from two data sources:
 
 - **Data Prepper** – Data ingested into OpenSearch through Data Prepper.
 - **Jaeger** – Trace data stored within OpenSearch as its backend.
@@ -29,7 +29,7 @@ To learn more about Jaeger data tracing, see the [Jaeger](https://www.jaegertrac
 
 ## Data ingestion requirements
 
-To use trace analytics with Jaeger data, you need to configure error capability for use with trace analytics.
+To use trace analytics with Jaeger data, you need to configure error capability.
 
 Jaeger data that is ingested for OpenSearch needs to have the environment variable `ES_TAGS_AS_FIELDS_ALL` set to `true` for errors. If data is not ingested in this format it will not work for errors and error data will not be available for traces in trace analytics with OpenSearch.
 
@@ -41,11 +41,13 @@ Jaeger indexes follow the naming conventions `jaeger-span-*` or `jaeger-service-
 
 ## How to set up OpenSearch to use Jaeger data
 
-A sample Docker compose file that contains the required configurations is provided in the following section.
+The following section provides a sample Docker compose file that contains the required configuration to enable errors for trace analytics.
 
 ### Step 1: Run the Docker compose file
 
-Use the following Docker compose file to enable Jaeger data for trace analytics with the `ES_TAGS_AS_FIELDS_ALL` environment variable set to `true` to enable errors to be added to trace data. Copy the following Docker compose file contents and save it as `docker-compose.yml`.
+Use the following Docker compose file to enable Jaeger data for trace analytics with the `ES_TAGS_AS_FIELDS_ALL` environment variable set to `true` to enable errors to be added to trace data.
+
+Copy the following Docker compose file contents and save it as `docker-compose.yml`.
 
 ```
 version: '3'
