@@ -108,8 +108,7 @@ The following sections describe pipeline configuration.
 
 The following example demonstrates how to build a pipeline that supports the [OpenSearch Dashboards Observability plugin]({{site.url}}{{site.baseurl}}/observability-plugin/trace/ta-dashboards/). This pipeline takes data from the OpenTelemetry Collector and uses two other pipelines as sinks. These two separate pipelines index trace and the service map documents for the dashboard plugin.
 
-Starting from Data Prepper 2.0, Data Prepper no longer supports `otel_trace_raw_prepper` processor due to the Data Prepper internal data model evolution. 
-Instead, users should use `otel_trace_raw`.
+Starting with Data Prepper version 2.0, Data Prepper no longer supports the `otel_trace_raw_prepper` processor due to the Data Prepper internal data model evolution. Instead, users should use the  `otel_trace_raw` processor. See the following .yaml file example:
 
 ```yml
 entry-pipeline:
