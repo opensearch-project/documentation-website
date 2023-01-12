@@ -189,7 +189,7 @@ docker compose down
 
 After you generate Jaeger trace data you can go to OpenSearch Dashboards to view your trace data.
 
-Go to Dashboards **Trace analytics** at [Trace analytics](http://localhost:5601/app/observability-dashboards#/trace_analytics/home).
+Go to Dashboards **Trace analytics** at [http://localhost:5601/app/observability-dashboards#/trace_analytics/home](http://localhost:5601/app/observability-dashboards#/trace_analytics/home).
 
 ## Use trace analytics in OpenSearch Dashboards
 
