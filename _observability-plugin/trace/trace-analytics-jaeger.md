@@ -14,8 +14,8 @@ The Trace analytics functionality in the OpenSearch Observability plugin now sup
 
 When you perform trace analytics, you can select from two data sources:
 
-- **Data Prepper** – Data ingested into OpenSearch through Data Prepper. <!--This data source requires OpenTelemetry (OTEL) index type.-->
-- **Jaeger** – Trace data stored within OpenSearch as its backend. <!--This data source requires the Jaeger index type.-->
+- **Data Prepper** – Data ingested into OpenSearch through Data Prepper.
+- **Jaeger** – Trace data stored within OpenSearch as its backend.
 
 If you currently store your Jaeger trace data in OpenSearch, you can now use the capabilities built into Trace Analytics to analyze the error rates and latencies You can also filter the traces and look into the span details of a trace to pinpoint any service issues.
 
