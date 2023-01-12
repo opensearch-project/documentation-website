@@ -15,3 +15,9 @@ A single operation, such as a user clicking a button, can trigger an extended se
 Trace Analytics can help you visualize this flow of events and identify performance problems.
 
 ![Detailed trace view]({{site.url}}{{site.baseurl}}/images/ta-trace.png)
+
+## Trace Analytics with Jaeger data
+
+The Trace Analytics functionality in the OpenSearch Observability plugin now supports Jaeger trace data. If you use OpenSearch as the backend for Jaeger trace data, you can use the Trace analytics built-in analysis capabilities.
+
+To set up your environment to perfom Trace Analytics, see [Analyze Jaeger trace data]({{site.url}}{{site.baseurl}}/observability-plugin/trace/trace-analytics-jaeger/).
