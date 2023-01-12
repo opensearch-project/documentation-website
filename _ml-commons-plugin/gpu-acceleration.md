@@ -82,7 +82,7 @@ echo "export PYTORCH_VERSION=1.12.1" | tee -a ~/.bash_profile
 source ~/.bash_profile
 ```
 
-Next, create a shell script file called `prepare_torch_neuron.sh`. You can use one the following examples based on your Linux operating system.
+Next, create a shell script file called `prepare_torch_neuron.sh`. You can copy and customize one the following examples based on your Linux operating system.
 
 - [Ubuntu 20.04](#ubuntu-2004)
 - [Amazon Linux 2](#amazon-linux2)
