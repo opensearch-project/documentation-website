@@ -13,7 +13,7 @@ The Index Management section in the admin UI allows you to preform the operation
 
 ## Index Policies
 
-[Policies]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/) are are configurations (JSON documents can also be uploaded) that define the following:
+[Policies]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/) are configurations that define the possible states of an index, the actions to perform when an index enters a state, and the conditions that must be met to transition between states:
 
 1. The states that an index can be in, including the default state for new indexes. For example, you might name your states “hot,” “warm,” “delete,” and so on. For more information, see [States]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/#states).
 2. Any actions that you want the plugin to take when an index enters a state, such as performing a rollover. For more information, see [Actions]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/#actions).
