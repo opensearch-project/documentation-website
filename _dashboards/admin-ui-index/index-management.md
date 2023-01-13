@@ -1,17 +1,17 @@
 ---
 layout: default
-title: Index Management
+title: Index management
 parent: Admin UI for index operations in OpenSearch Dashboards
 nav_order: 10
 ---
 
-# Index Management
+# Index management
 Introduced 2.5
 {: .label .label-purple }
 
-The Index Management section in the admin UI allows you to preform the operations available in the [Index API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/index/) from OpenSearch Dashboards' web UI.
+The Index Management section in the admin UI allows you to perform the operations available in the [Index API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/index/) from OpenSearch Dashboards' web UI.
 
-## Index Policies
+## Index policies
 
 [Policies]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/) are configurations that define the possible states of an index, the actions to perform when an index enters a state, and the conditions that must be met to transition between states:
 
@@ -31,14 +31,14 @@ To attach policies to indices, perform the following steps:
 3. Choose **Apply policy**.
 4. From the **Policy ID** menu, choose the policy that you created.
     You can see a preview of your policy.
-6. If your policy includes a rollover operation, specify a rollover alias. Make sure that the alias that you enter already exists. For more information about the rollover operation, see rollover.
-7. Choose **Apply**.
+5. (Optional): Specify a rollover alias if your policy includes a rollover operation. Make sure that the alias that you enter already exists. For more information about the rollover operation, see [rollover]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies#rollover).
+6. Choose **Apply**.
 After you attach a policy to an index, ISM creates a job that runs every 5 minutes by default to perform policy actions, check conditions, and transition the index into different states. To change the default time interval for this job, see Settings.
 
-Policy jobs are not run if the cluster state is red.
+Policy jobs don't run if the cluster state is red.
 {: .note}
 
-## Managed Indexes
+## Managed indexes
 
 To attach policies to indexes, perform the following steps:
 
@@ -51,7 +51,7 @@ To attach policies to indexes, perform the following steps:
 
 The **Indices** section displays a list of indexes in your OpenSearch cluster. For each index including, you can see its heath status (`green`, `yellow`, or `red`), policy (if the index is managed by a policy), status, total size, size of primaries, total documents, deleted documents, primaries and replicas.
 
-#### Create Index
+#### Create index
 
 While you can [create an index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/) by using a document as a base, you can also create an empty index for later use. 
 
@@ -153,7 +153,7 @@ To create an alias, perform the following steps:
 
 1. Select the **Create Alias** button on the **Aliases** page under **Index Management**.
 2. Specify the alias name.
-3. Enter the index, or index patterns to be part of the alias.
+3. Enter the index, or index patterns, to be part of the alias.
 4. Select **Create alias**.
 
 <img src="{{site.url}}{{site.baseurl}}/images/admin-ui-index/create-alias.PNG" alt="User interface showing creat Alias page">
@@ -170,7 +170,7 @@ To delete an alias, perform the following steps:
 2. Select the **Actions** button.
 3. Select **Delete** from the dropdown list.
 
-## Rollup Jobs
+## Rollup jobs
 
 The **Rollup Jobs** section under **Index Management** allows you to create or update index rollup jobs.
 
@@ -190,7 +190,7 @@ To create a rollup job, perform the following steps:
 
 You can also disable and enable rollup jobs by selecting the corresponding buttons on the **Rollup Jobs** page.
 
-## Transform Jobs
+## Transform jobs
 
 Using the admin UI in OpenSearch Dashboards, you can create, start, stop, and complete operations with [transform]({{site.url}}{{site.baseurl}}/im-plugin/index-transforms/transforms-apis/) jobs.
 
@@ -215,10 +215,10 @@ Certain index operations take time to complete (usually more than 30 seconds, up
 
 You can check the status of the reindex, shrink, and split operations because they are one-time non-recursive operations.
 
-## Security Integration
+## Security integration
 
   Permission control is managed with existing [permissions]({{site.url}}{{site.baseurl}}/security-plugin/access-control/permissions/) or action groups that are enforced at the API level. There is currently no UI-level permission control. Users with permissions to access the ISM plugin are able to view new pages. They can also make changes if they have permissions to run the related APIs.
 
-## Error Handling
+## Error handling
 
 Similar to API calls, if the operation fails immediately, you will be notified with an error message. However, if it is a long-running operation, you will be notified of the failure at the time of failure, or you can check the index status on the **Indices** page.

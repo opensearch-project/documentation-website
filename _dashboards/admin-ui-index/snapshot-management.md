@@ -1,17 +1,17 @@
 ---
 layout: default
-title: Snapshot Management
+title: Snapshot management
 parent: Admin UI for index operations in OpenSearch Dashboards
 nav_order: 20
 ---
 
-# Snapshot Management
+# Snapshot management
 Introduced 2.5
 {: .label .label-purple }
 
 The Snapshot Management section in the admin UI allows you to preform operations available in the [Snapshots API]({{site.url}}{{site.baseurl}}/api-reference/snapshots/index/) from OpenSearch Dashboards' web UI.
 
-## Snapshot Policies
+## Snapshot policies
 
 [Snapshot Management]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-management) (SM) lets you automate taking snapshots. To use this feature, you need to install the [Index Management (IM) Plugin]({{site.url}}{{site.baseurl}}/im-plugin/index/). Snapshots store only incremental changes since the last snapshot. Thus, while taking an initial snapshot may be a heavy operation, subsequent snapshots have minimal overhead. To set up automatic snapshots, you have to create a snapshot policy with a desired SM schedule and configuration.
 
