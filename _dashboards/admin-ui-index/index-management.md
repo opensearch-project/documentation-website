@@ -213,7 +213,7 @@ You can also disable and enable rollup jobs by selecting the corresponding butto
 
 Certain index operations take time to complete (usually more than 30 seconds, up to tens of minutes or hours). This is tracked on the index status on **Indices** page.
 
-For reindex, shrink, and split operations as they are one-time operations and not recursive, you can check the new index status for the progress of these operations.
+You can check the status of the reindex, shrink, and split operations because they are one-time non-recursive operations.
 
 ## Security Integration
 
