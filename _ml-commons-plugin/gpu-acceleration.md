@@ -16,7 +16,7 @@ Currently, ML nodes support any CUDA-enabled GPUs, including the following:
 - [NVIDIA G-series instances](https://aws.amazon.com/nvidia/)
 - [AWS Inferentia](https://aws.amazon.com/machine-learning/inferentia/)
 
-If you need GPU power, you can provision GPU instances through Amazon Elastic Compute Cloud ([Amazon EC2])(https://aws.amazon.com/ec2/). For more information on how to provision a GPU instance, see [Recommended GPU Instances](https://docs.aws.amazon.com/dlami/latest/devguide/gpu.html).
+If you need GPU power, you can provision GPU instances through [Amazon Elastic Compute Cloud (Amazon EC2)](https://aws.amazon.com/ec2/). For more information on how to provision a GPU instance, see [Recommended GPU Instances](https://docs.aws.amazon.com/dlami/latest/devguide/gpu.html).
 
 ## Supported images
 
