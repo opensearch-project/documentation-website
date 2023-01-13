@@ -136,7 +136,7 @@ python3.7 -m venv pytorch_venv
 source pytorch_venv/bin/activate
 pip install -U pip
 
-# Set Pip repository  to point to the Neuron repository
+# Set pip repository to point to the Neuron repository
 pip config set global.extra-index-url https://pip.repos.neuron.amazonaws.com
 
 #Install Neuron PyTorch
