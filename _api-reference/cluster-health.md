@@ -107,7 +107,7 @@ The following table lists all response fields.
 If you use the security plugin, make sure you have the appropriate permissions:
 `cluster:monitor/health`.
 
-## Cluster health by awareness attribute
+## Returning cluster health by awareness attribute
 Introduced 2.5
 {: .label .label-purple }
 
@@ -212,5 +212,5 @@ GET _cluster/health?level=awareness_attributes&awareness_attribute=zone
 
 In response to the preceding request, OpenSearch returns cluster health information only for the `zone` awareness attribute.
 
-Cluster health by awareness attribute returns accurate information about unassigned shards only if you [enable replica count enforcement]({{site.url}}{{site.baseurl}}/opensearch/cluster#forced-replica-count-enforcement) and [configure forced awareness]({{site.url}}{{site.baseurl}}/opensearch/cluster#forced-awareness) for the awareness attribute either before cluster start, or after cluster start but before any indexing requests. If you enable replica enforcement after the cluster receives indexing requests, unassigned shard information may be inaccurate. If replica count enforcement and forced awareness are not configured, the `unassigned_shards` field will contain -1.
+The unassigned shard information will be accurate only if you [enable replica count enforcement]({{site.url}}{{site.baseurl}}/opensearch/cluster#forced-replica-count-enforcement) and [configure forced awareness]({{site.url}}{{site.baseurl}}/opensearch/cluster#forced-awareness) for the awareness attribute either before cluster start, or after cluster start but before any indexing requests. If you enable replica enforcement after the cluster receives indexing requests, the unassigned shard information may be inaccurate. If replica count enforcement and forced awareness are not configured, the `unassigned_shards` field will contain -1.
 {: .warning}
