@@ -144,7 +144,7 @@ pip install torch-neuron torchvision
 # If need to trace neuron model, install torch neuron with this command
 # pip install torch-neuron neuron-cc[tensorflow] "protobuf==3.20.1" torchvision
 
-# If need to trace neuron model, install transformers for tracing Huggingface model.
+# If you need to trace neuron model, install the transformers for tracing the Huggingface model.
 # pip install transformers
 
 # Copy torch neuron lib to OpenSearch
@@ -201,7 +201,7 @@ pip install -U pip
 # Set Pip repository  to point to the Neuron repository
 pip config set global.extra-index-url https://pip.repos.neuron.amazonaws.com
 
-#Install Neuron PyTorch
+# Install Neuron PyTorch
 pip install torch-neuron torchvision
 # If need to trace neuron model, install torch neuron with this command
 # pip install torch-neuron neuron-cc[tensorflow] "protobuf<4" torchvision
