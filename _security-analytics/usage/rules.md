@@ -14,7 +14,7 @@ The Rules window lists all security rules and provides options for filtering the
 
 When you open the Rules page, all rules are listed in the table. Use the search bar to search for specific rules by entering a full or partial name and pressing **Return/Enter** on your keyboard. The list is filtered and displays matching results.
 
-Alternatively, you can use the **Rule type**, **Rule severity**, and **Source** dropdown menus to drill down in the list of alerts and filter for preferred results. You can use all three menus in combination to narrow results. Select only one option per menu.
+Alternatively, you can use the **Rule type**, **Rule severity**, and **Source** dropdown menus to drill down in the list of alerts and filter for preferred results. You can select multiple options from each menu and use all three menus in combination to narrow results.
 <img src="{{site.url}}{{site.baseurl}}/images/Security/rule-menu.png" alt="Rule menus for filtering results">
 
 ### Rule details
@@ -34,7 +34,7 @@ There are a number of ways to create rules on the Rules page. The first is to ma
 
 If you choose to create the rule manually, you can refer to Sigma's [Rule Creation Guide](https://github.com/SigmaHQ/sigma/wiki/Rule-Creation-Guide) to help understand details for each field.
 * By default, the Visual Editor is displayed. Enter the appropriate content in each field and select **Create** in the lower-right corner of the window to save the rule.
-* the Create a rule window also provides the YAML Editor so that you can create the rule directly in a YAML file format. Select **YAML Editor** and then enter information for the pre-populated field types.
+* The Create a rule window also provides the YAML Editor so that you can create the rule directly in a YAML file format. Select **YAML Editor** and then enter information for the pre-populated field types.
 
 The alternatives to manually creating a rule, however, make the process easier and faster. They involve either importing a rule in a YAML file or duplicating an existing rule and customizing it. See the next two sections for detailed steps.
 
