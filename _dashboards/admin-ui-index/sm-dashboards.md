@@ -1,14 +1,29 @@
 ---
 layout: default
-title: Snapshot Management in OpenSearch Dashboards
-parent: Snapshots
-nav_order: 35
-has_children: false
+title: Using Snapshot Management in OpenSearch Dashboards
+parent: Admin UI for index operations in OpenSearch Dashboards
+nav_order: 30
 ---
 
 # Using Snapshot Management in OpenSearch Dashboards
 
 You can set up Snapshot Management (SM) in OpenSearch Dashboards.
+
+Snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/index/) are backups of a cluster’s indices and state. The state includes cluster settings, node information, index metadata (mappings, settings, templates, etc.), and shard allocation.
+
+Snapshots have two main uses:
+
+1. Recovering from failure
+
+For example, if cluster health goes red, you might restore the red indexes from a snapshot.
+
+2. Migrating from one cluster to another
+
+For example, if you’re moving from a proof-of-concept to a production cluster, you might take a snapshot of the former and restore it on the latter.
+
+You can take and restore snapshots using the admin UI in Dashboards.
+
+If you need to automate taking snapshots, you can use a Snapshot policy.
 
 ## Create a repository
 
@@ -29,6 +44,10 @@ Before you create an SM policy, you need to set up a repository for snapshots.
 }
 ```
 1. Select the **Add** button.
+
+#### Delete a repository
+
+To delete a snapshot repository configuration, select the repository in the **Repositories** list and select the **Delete** button above.
 
 ## Create an SM policy
 
@@ -147,3 +166,10 @@ Use the steps below to take a snapshot manually:
  After the restore operation is complete, the restored indexes are listed in the **Indices** panel. To view the indexes, in the left panel, under **Index Management**, select **Indices**.
 
 <img src="{{site.url}}{{site.baseurl}}/images/restore-snapshot/restore-snapshot-indices-panel.png" alt="View Indices">{: .img-fluid}
+
+#### Delete a snapshot
+
+[Deletes]({{site.url}}{{site.baseurl}}/api-reference/snapshots/delete-snapshot/) a snapshot from a repository.
+
+1. To view a list of your repositories, select **Repositories** under the **Snapshot Management** section.
+2. To view a list of your snapshots, select **Snapshots** under the **Snapshot Management** section.
