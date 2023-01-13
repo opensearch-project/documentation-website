@@ -19,7 +19,8 @@ The Index Management section in the admin UI allows you to preform the operation
 2. **Actions**: Any actions that you want the plugin to take when an index enters a state, such as performing a rollover. For more information, see [Actions]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/#actions).
 3. **Transitions**: The conditions that must be met for an index to move into a new state. For example, if an index is more than eight weeks old, you might want to move it to the `delete` state. For more information, see [Transitions]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/#transitions).
 
-In other words, a policy defines the states that an index can be in, the actions to perform when in a state, and the conditions that must be met to transition between states.
+You can also upload a JSON document to specify an index policy.
+{: .note}
 
 You have complete flexibility in the way you can design your policies. You can create any state, transition to any other state, and specify any number of actions in each state.
 
