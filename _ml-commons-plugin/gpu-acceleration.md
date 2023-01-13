@@ -7,7 +7,7 @@ nav_order: 150
 
 # GPU acceleration 
 
-When running a natural language processing (NLP) model in your OpenSearch cluster with a machine learning (ML) node, you can achieve better performance on the ML node using graphic processing unit (GPU) acceleration. GPUs can work in tandem with the central processing unit (CPU) of your cluster to speed up the model upload and training. 
+When running a natural language processing (NLP) model in your OpenSearch cluster with a machine learning (ML) node, you can achieve better performance on the ML node using graphics processing unit (GPU) acceleration. GPUs can work in tandem with the CPU of your cluster to speed up the model upload and training. 
 
 ## Supported GPUs
 
