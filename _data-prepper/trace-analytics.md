@@ -41,10 +41,8 @@ We have a generic sink that writes the data to OpenSearch as the destination. Th
 
 For the trace analytics feature, the sink has specific configurations which enables the sink to use indexes and index templates specific to this feature. Trace analytics specific OpenSearch indexes are,
 
-* *otel-v1-apm-span* -  This index stores the output from [otel_trace_raw](../data-prepper-plugins/otel-trace-raw-processor/README.md).
+* *otel-v1-apm-span* -  This index stores the output from [otel_trace_raw](/data-prepper/configuration/processors/otel-trace-raw/).
 * *otel-v1-apm-service-map* - This index stores the output from the [service_map_stateful](https://github.com/opensearch-project/documentation-website/blob/main/_data-prepper/configuration/processors/service-map-stateful.md).
-
-<!--- ADD TRACE TUNING CONTENT-->
 
 ## Trace tuning
 
@@ -301,8 +299,7 @@ service-map-pipeline:
         #aws_region: us-east-1
 ```
 
-You will need to modify the configuration above for your OpenSearch cluster. Note that it has two
-`opensearch` sinks which need to be modified.
+You will need to modify the configuration above for your OpenSearch cluster. Note that it has two `opensearch` sinks which need to be modified.
 
 You must make the following changes:
 * `hosts` - Set to your hosts
@@ -311,8 +308,7 @@ You must make the following changes:
 * `aws_sigv4` - If you are Amazon OpenSearch Service with AWS signing, set this value to `true`. It will sign requests with the default AWS credentials provider.
 * `aws_region` - If you are Amazon OpenSearch Service with AWS signing, set this value to your region.
 
-The the [Data Prepper OpenSearch Sink](https://github.com/opensearch-project/documentation-website/blob/main/_data-prepper/configuration/sinks/opensearch.md) documents
-other configurations available for OpenSearch.
+For other configurations available for OpenSearch sinks, see [Data Prepper OpenSearch Sink]({{site.url}}{{site.baseurl}}/data-prepper/configuration/sinks/sinks/).
 
 ## OpenTelemetry Collector
 
@@ -357,8 +353,7 @@ After you run OpenTelemetry in your service environment, you must configure your
 
 The [OpenSearch Dashboards Observability plugin]({{site.url}}{{site.baseurl}}/observability-plugin/trace/ta-dashboards/) documentation provides additional details on configuring OpenSearch for viewing trace analytics. In particular, it documents how to use OpenSearch Dashboards.
 
-The [Trace Tuning page](trace_tuning.md) has information to help you tune and scale Data Prepper for
-trace analytics use cases.
+For more information about how to tune and scale Data Prepper for trace analytics, see [trace tuning](#trace-tuning).
 
 ## Migrating to Data Prepper 2.0
 
