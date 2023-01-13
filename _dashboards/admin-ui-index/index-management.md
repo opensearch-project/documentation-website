@@ -221,4 +221,4 @@ For reindex, shrink, and split operations as they are one-time operations and no
 
 ## Error Handling
 
-Similar to API calls, if the operation fails immediately, you will be notified with an error message. However, if it is a long running operation, you will be notified of the failure at the time of failure, or you can check the index status on the **Indices** page.
+Similar to API calls, if the operation fails immediately, you will be notified with an error message. However, if it is a long-running operation, you will be notified of the failure at the time of failure, or you can check the index status on the **Indices** page.
