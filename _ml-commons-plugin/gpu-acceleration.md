@@ -232,50 +232,50 @@ If the previous two scripts do not provision your GPU-accelerated node properly,
 
 2. (Optional) To monitor the GPU usage of your accelerator instance, install [Neuron tools](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/tools/index.html), which allows models to be used inside your instance:
 
-  ```
-  # Install Neuron Tools
-  sudo apt-get install aws-neuronx-tools -y
-  ```
+   ```
+   # Install Neuron Tools
+   sudo apt-get install aws-neuronx-tools -y
+   ```
 
-  ```
-  # Add Neuron tools your PATH
-  export PATH=/opt/aws/neuron/bin:$PATH
-  ```
+   ```
+   # Add Neuron tools your PATH
+   export PATH=/opt/aws/neuron/bin:$PATH
+   ```
   
-  ```
-  # Test Neuron tools
-  neuron-top
-  ```
+   ```
+   # Test Neuron tools
+   neuron-top
+   ```
 
 4. Copy the Neuron library into OpenSearch. The following command uses a directory named `opensearch-2.5.0`:
 
-  ```
-  OPENSEARCH_HOME=~/opensearch-2.5.0
-  ```
+   ```
+   OPENSEARCH_HOME=~/opensearch-2.5.0
+   ```
 
 5. Activate  the `pytorch` virtual environment:
 
-  ```
-  source pytorch_venv/bin/activate
-  ```
+   ```
+   source pytorch_venv/bin/activate
+   ```
  
 6. Set the `PYTORCH_NEURON_LIB_PAT` path. In this example, we create a `pytorch` virtual environment in the OPENSEARCH_HOME folder:
 
-  ```
-  PYTORCH_NEURON_LIB_PATH=~/pytorch_venv/lib/python3.7/site-packages/torch_neuron/lib/
+   ```
+   PYTORCH_NEURON_LIB_PATH=~/pytorch_venv/lib/python3.7/site-packages/torch_neuron/lib/
 
 
-  mkdir -p $OPENSEARCH_HOME/lib/torch_neuron; cp -r $PYTORCH_NEURON_LIB_PATH/ $OPENSEARCH_HOME/lib/torch_neuron
-  export PYTORCH_EXTRA_LIBRARY_PATH=$OPENSEARCH_HOME/lib/torch_neuron/lib/libtorchneuron.so
-  ```
-
-4. To make sure you have enough memory to upload a model, increase the JVM stack size to `>+2MB`:
-
-  ```
-  echo "-Xss2m" | sudo tee -a $OPENSEARCH_HOME/config/jvm.options
+   mkdir -p $OPENSEARCH_HOME/lib/torch_neuron; cp -r  $PYTORCH_NEURON_LIB_PATH/ $OPENSEARCH_HOME/lib/torch_neuron
+   export PYTORCH_EXTRA_LIBRARY_PATH=$OPENSEARCH_HOME/lib/torch_neuron/lib/libtorchneuron.so
   ```
 
-5. Start OpenSearch. 
+7. To make sure you have enough memory to upload a model, increase the JVM stack size to `>+2MB`:
+
+   ```
+   echo "-Xss2m" | sudo tee -a $OPENSEARCH_HOME/config/jvm.options
+   ```
+
+8. Start OpenSearch. 
 
 ### Troubleshooting
 
