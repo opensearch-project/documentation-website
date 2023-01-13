@@ -30,7 +30,7 @@ To attach policies to indices, perform the following steps:
 2. Choose the index or indexes to which you want to attach your policy.
 3. Choose **Apply policy**.
 4. From the **Policy ID** menu, choose the policy that you created.
-    You can see a preview of your policy.
+    View the preview of your policy.
 5. (Optional): Specify a rollover alias if your policy includes a rollover operation. Make sure that the alias that you enter already exists. For more information about the rollover operation, see [rollover]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies#rollover).
 6. Choose **Apply**.
 After you attach a policy to an index, ISM creates a job that runs every 5 minutes by default to perform policy actions, check conditions, and transition the index into different states. To change the default time interval for this job, see Settings.
@@ -109,7 +109,7 @@ To shrink an index, select the index you want to shrink in the **Indices** list 
 
 #### Split
 
-The [split]({{site.url}}{{site.baseurl}}/api-reference/index-apis/split/) index operation splits an existing read-only index into a new index, splitting each primary shard into a number of primary shards in the new index.
+The [split index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/split/) operation splits an existing read-only index into a new index, splitting each primary shard into a number of primary shards in the new index.
 
 To split an index, select the index you want to split in the **Indices** list under **Index Management**. Then select the **Actions** button, and select **Split** from the dropdown list.
 
@@ -183,7 +183,7 @@ To create a rollup job, perform the following steps:
 5. Optionally, set additional aggregations and additional metrics.
 6. Select **Next**.
 7. Under **Schedule**, check or uncheck **Enable job by default**.
-8. Set the **Continuous**, **Execution frequency**, **Rollup interval** and **Page per execution** settings.
+8. Set the **Continuous**, **Execution frequency**, **Rollup interval**, and **Pages per execution** settings.
 9. Additionally, you can set an execution delay.
 10. Select **Next**.
 11. Review the settings for the rollup job and select **Create**.
@@ -203,7 +203,7 @@ To create a transform job, perform the following steps:
 5. Select **Next**.
 6. Check or uncheck **Job enabled by default**.
 7. Set wheter the schedule is continuous and the transform execution interval.
-8. Optionally, set pages per execution under the **Advanced** drop-down.
+8. Optionally, set pages per execution under the **Advanced** dropdown list.
 9. Select **Next**.
 10. Review the settings for the rollup job and select **Create**.
 
