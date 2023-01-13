@@ -114,7 +114,7 @@ Introduced 2.5
 We are introducing the ability to perform a cluster health check on specified awareness attributes of the cluster as an experimental feature. For updates on the progress of the feature, or if you want leave feedback that could help improve it, refer to the [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/5851).
 {: .warning}
 
-Previously, a cluster health check could be performed only for the full cluster. The Cluster Health API can now return the health status of each awareness attribute and how the shards are distributed across the attribute. In addition, you can check cluster health for a specified awareness attribute (for example, zone or rack).
+Previously, a cluster health check could be performed only for the full cluster. The Cluster Health API can now return the health status and shard distribution of each awareness attribute. In addition, you can check cluster health for a specified awareness attribute (for example, zone or rack).
 
 To check cluster health by awareness attribute, specify `awareness_attributes` in the `level` query parameter:
 
