@@ -17,7 +17,7 @@ The Index Management section in the admin UI allows you to preform the operation
 
 1. **States**: The possible states of an index, including the default state for new indexes. For example, you might name your states `hot`, `warm`, or `delete`. For more information, see [States]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/#states).
 2. Any actions that you want the plugin to take when an index enters a state, such as performing a rollover. For more information, see [Actions]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/#actions).
-3. The conditions that must be met for an index to move into a new state, known as transitions. For example, if an index is more than eight weeks old, you might want to move it to the “delete” state. For more information, see [Transitions]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/#transitions).
+3. **Transitions**: The conditions that must be met for an index to move into a new state. For example, if an index is more than eight weeks old, you might want to move it to the `delete` state. For more information, see [Transitions]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/#transitions).
 
 In other words, a policy defines the states that an index can be in, the actions to perform when in a state, and the conditions that must be met to transition between states.
 
