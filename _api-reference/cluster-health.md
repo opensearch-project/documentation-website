@@ -104,7 +104,7 @@ The following table lists all response fields.
 
 ## Required permissions
 
-If you use the security plugin, make sure you have the appropriate permissions:
+If you use the Security plugin, make sure you have the appropriate permissions:
 `cluster:monitor/health`.
 
 ## Returning cluster health by awareness attribute
