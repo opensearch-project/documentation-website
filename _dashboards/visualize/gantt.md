@@ -10,7 +10,7 @@ redirect_from:
 
 # Using Gantt charts
 
-Gantt charts are a visualization type that display events, steps, and tasks as horizontal bars. The length of the bars shows the amount of time associated with that event, step, or task. Gantt charts are used to represent a series of events that contain a parent-child relationship. This can be particularly useful in trace analytics, telemetry, and monitoring use cases, in which the users need to understand the overall interaction between traces or events.
+Gantt charts are a visualization type that displays events, steps, and tasks as horizontal bars. The length of the bars shows the amount of time associated with that event, step, or task. Gantt charts are used to represent a series of events that contain a parent-child relationship. This can be particularly useful in trace analytics, telemetry, and monitoring use cases, in which the users need to understand the overall interaction between traces or events.
 
 # Try it: Create a Gantt chart in OpenSearch Dashboards
 
