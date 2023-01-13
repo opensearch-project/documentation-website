@@ -67,8 +67,7 @@ Document layers can display geopoint and geoshape document fields.
 
 The following example assumes that you have the `opensearch_dashboards_sample_data_flights` dataset installed. If you don't have this dataset installed, perform the following steps:
 
-1. On the top menu bar, go to **OpenSearch Dashboards > Overview**.
-1. Select the **View app directory** link. 
+1. On the top menu bar, select the home icon.
 1. Select **Add sample data**.
 1. In the **Sample flight data** panel, select the **Add data** button.
 
