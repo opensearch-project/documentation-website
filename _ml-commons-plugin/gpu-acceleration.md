@@ -141,7 +141,7 @@ pip config set global.extra-index-url https://pip.repos.neuron.amazonaws.com
 
 #Install Neuron PyTorch
 pip install torch-neuron torchvision
-# If need to trace neuron model, install torch neuron with this command
+# If you need to trace the neuron model, install torch neuron with this command
 # pip install torch-neuron neuron-cc[tensorflow] "protobuf==3.20.1" torchvision
 
 # If you need to trace neuron model, install the transformers for tracing the Huggingface model.
