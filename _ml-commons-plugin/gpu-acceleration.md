@@ -11,7 +11,7 @@ When running a natural language processing (NLP) model in your OpenSearch cluste
 
 ## Supported GPUs
 
-Currently, ML nodes support any CUDA-enabled GPUs, including
+Currently, ML nodes support any CUDA-enabled GPUs, including the following:
 
 - [NVIDIA G-series instances](https://aws.amazon.com/nvidia/)
 - [AWS Inferentia](https://aws.amazon.com/machine-learning/inferentia/)
