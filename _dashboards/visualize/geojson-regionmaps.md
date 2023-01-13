@@ -1,12 +1,16 @@
 ---
 layout: default
-title: Region map visualizations
-nav_order: 40
+title: Using region maps
+parent: Visualization types
+grand_parent: Visualize
+nav_order: 70
+redirect_from:
+  - /dashboards/geojson-regionmaps/
 ---
 
-# Region map visualizations
+# Using region maps
 
-OpenSearch Dashboards provides basic map tiles with a standard vector map that you can use to create your region map visualizations. You can configure the base map tiles using the Web Map Service (WMS) map server.
+OpenSearch Dashboards provides basic map tiles with a standard vector map that you can use to create region map visualizations. You can configure the base map tiles using the Web Map Service (WMS) map server.
 
 You can't configure a server to support user-defined vector map layers. However, you can configure your own GeoJSON file and upload it for this purpose.
 {: .note}
@@ -15,7 +19,7 @@ OpenSearch also has a standard set of GeoJSON files to provide a vector map with
 
 ## Custom vector maps with GeoJSON
 
-If you have a specific locale that is not provided by OpenSearch Dashboards vector maps, such as a US county or US ZIP Code, you can create your own custom vector map with a GeoJSON file. To create a custom region map you would define a geographic shape such as a polygon with multiple coordinates. To learn more about the various geographic shapes that support a custom region map location, see [Geoshape field type]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-shape/).
+If you have a specific locale that is not provided by Dashboards vector maps, such as a US county or US ZIP Code, you can create your own custom vector map with a GeoJSON file. To create a custom region map you would define a geographic shape such as a polygon with multiple coordinates. To learn more about the various geographic shapes that support a custom region map location, see [Geoshape field type]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-shape/).
 
 GeoJSON format allows you to encode geographic data structures. To learn more about the GeoJSON specification, go to [geojson.org](https://geojson.org/).
 
@@ -28,7 +32,7 @@ You can use [geojson.io](https://geojson.io/#map=2/20.0/0.0) to extract GeoJSON 
 {: .note}
 ### Step 1: Create a region map visualization
 
-To create your own custom vector map, upload a JSON file that contains GEO data for your customized regional maps. The JSON file contains vector layers for visualization.
+To create a custom vector map, upload a JSON file that contains GEO data for your customized regional maps. The JSON file contains vector layers for visualization.
 
 1. Prepare a JSON file to upload. Make sure the file has either a .geojson or .json extension.
 1. On the top menu bar, go to **OpenSearch Dashboards > Visualize**.

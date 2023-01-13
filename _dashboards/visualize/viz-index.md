@@ -15,7 +15,7 @@ Dashboards has several visualization types to support your data analysis needs. 
 
 ## Area charts
 
-Area charts depict changes over time, and they are commonly used to show trends. Area charts more efficiently identify patterns in log data, such as sales data for a time range and trends over that time. See [Graphs and charts]({{site.url}}{{site.baseurl}}/dashboards/visualize/graphs-and-charts) to learn more about how to create and use them in Dashboards.
+Area charts depict changes over time, and they are commonly used to show trends. Area charts more efficiently identify patterns in log data, such as sales data for a time range and trends over that time. See [Using area charts]({{site.url}}{{site.baseurl}}/dashboards/visualize/area/) to learn more about how to create and use them in Dashboards.
 
  <img src="{{site.url}}{{site.baseurl}}/images/area-chart-1.png" alt="Example area chart in OpenSearch Dashboards" height="90%">
 
@@ -51,7 +51,7 @@ See [Data tables]({{site.url}}{{site.baseurl}}/dashboards/visualize/tables) to l
 
 ## Gantt charts
 
-Gantt charts show the start, end, and duration of unique events in a sequence. Gantt charts are useful in trace analytics, telemetry, and anomaly detection use cases where you want to understand interactions and dependencies between various events in a schedule. **Gantt chart** is currently a plugin, instead of built-in, visualization type in Dashboards. See [Gantt charts]({{site.url}}{{site.baseurl}}/dashboards/visualize/gantt/) to learn how to create and use them in Dashboards.
+Gantt charts show the start, end, and duration of unique events in a sequence. Gantt charts are useful in trace analytics, telemetry, and anomaly detection use cases where you want to understand interactions and dependencies between various events in a schedule. **Gantt chart** is currently a plugin, instead of built-in, visualization type in Dashboards. See [Using Gantt charts]({{site.url}}{{site.baseurl}}/dashboards/visualize/gantt/) to learn how to create and use them in Dashboards.
 
 <img src="{{site.url}}{{site.baseurl}}/images/gantt-chart.png" alt="Example Gantt chart in OpenSearch Dashboards" height="100">
 
@@ -82,7 +82,7 @@ Coordinate maps show location-based data on a map. Use coordinate maps to visual
 
 ### Region maps
 
-Region maps show patterns and trends across geographic locations. A region map is one of the basemaps in Dashboards. For information about creating custom vector maps in Dashboards, see [Region map visualizations](https://opensearch.org/docs/latest/dashboards/geojson-regionmaps/).
+Region maps show patterns and trends across geographic locations. A region map is one of the basemaps in Dashboards. For information about creating custom vector maps in Dashboards, see [Using region maps]({{site.url}}{{site.baseurl}}/dashboards/visualize/geojson-regionmaps/).
 
 See [Maps]({{site.url}}{{site.baseurl}}/dashboards/visualize/maps/) to learn how to create and use them in Dashboards. 
 
@@ -126,7 +126,7 @@ Timeline is a data visualization tool in Dashboards that you can use to create t
 
 ## VisBuilder
 
-VisBuilder is a drag-and-drop data visualization tool in Dashboards. It gives you an immediate view of your data without the need to preselect the data source or visualization type output. Currently, VisBuilder can be used to create the following Dashboards visualization types: Area, Bar, Line, Metric, and Data Table. See [VisBuilder]({{site.url}}{{site.baseurl}}/dashboards/visbuilder/) to learn how to create and use drag-and-drop visualizations in Dashboards.
+VisBuilder is a drag-and-drop data visualization tool in Dashboards. It gives you an immediate view of your data without the need to preselect the data source or visualization type output. Currently, VisBuilder can be used to create the following Dashboards visualization types: Area, Bar, Line, Metric, and Data Table. See [Using VisBuilder]({{site.url}}{{site.baseurl}}/dashboards/visualize/visbuilder/) to learn how to create and use drag-and-drop visualizations in Dashboards.
 
 <img src="{{site.url}}{{site.baseurl}}/images/drag-drop-generated-viz.png" alt="Example Timeline in OpenSearch Dashboards" height="100">
 
