@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Monitoring
-nav_order: 12
+nav_order: 33
 ---
 
 # Monitoring Data Prepper with metrics
