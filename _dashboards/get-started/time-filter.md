@@ -1,8 +1,8 @@
 ---
 layout: default
 title: Set the time filter
+parent: OpenSearch Dashboards core concepts
 nav_order: 10
-has_children: false
 ---
 
 ## Set the time filter
