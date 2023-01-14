@@ -1,9 +1,8 @@
 ---
 layout: default
 title: Quickstart for OpenSearch Dashboards
-nav_order: 2
+nav_order: 20
 has_children: false
-has_toc: false
 ---
 
 # Quickstart for OpenSearch Dashboards
@@ -22,10 +21,21 @@ Before you get started, make sure you've installed OpenSearch and OpenSearch Das
 Sample data sets come with visualizations, dashboards, and more to help you explore OpenSearch Dashboards before you add your own data. To add sample data, perform the following steps:
 
 1. Verify access to OpenSearch Dashboards by connecting to [http://localhost:5601](http://localhost:5601) from a browser. The default username and password are `admin`.
-2. On the Home page, select **Add sample data**.
-3. Select **Add data** to add the data sets.
+1. On the OpenSearch Dashboards **Home** page, select **Add sample data**.
+1. Select **Add data** to add the data sets.
 
 ![Sample data sets]({{site.url}}{{site.baseurl}}/images/add-sample-data.png)
 
 # Explore and inspect data
 
+In **Discover**, you can: 
+
+- Select data to explore, set a time range for that data, search it using [Dashboards Query Language (DQL)]({{site.url}}{{site.baseurl}}/dashboards/dql/), and filter the results.
+- Explore the data's details, view individual documents, and create tables summarizing the data's contents.
+- Visualize your findings.
+
+Get familiar with **Discover** in the following steps:
+
+1. On the OpenSearch Dashboards **Home** page, select **Discover.**
+1. Change the time filter to **Last 7 days**.
+    

@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Get started with OpenSearch Dashboards
-nav_order: 1
+nav_order: 10
 has_children: false
 has_toc: false
 redirect_from:
