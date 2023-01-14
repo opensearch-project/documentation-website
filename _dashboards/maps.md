@@ -14,8 +14,9 @@ To get started, perform the following steps:
 
 1. On the top menu bar, go to **OpenSearch Plugins > Maps**.
 1. Select the **Create map** button. You can now see the default OpenSearch basemap.
-1. To examine the **Default map** layer configuration, in the **Layers** panel on the upper left of the map, select **Default map**.
-![Default map]({{site.url}}{{site.baseurl}}/images/maps/maps-default.png)
+1. To examine the **Default map** layer configuration, in the **Layers** panel on the upper left of the map, select **Default map**, as shown in the following image.
+
+<img src="{{site.url}}{{site.baseurl}}/images/maps/maps-default.png" alt="Default map" width="900">
 
 To hide the **Layers** panel, select the collapse (arrow) icon in the panel's upper-right corner.
 {: .tip}
@@ -30,7 +31,7 @@ To change the default map settings, select **Default map** in the **Layers** pan
 
 ## Adding layers
 
-To add a layer to the map, in the **Layers** panel, select the **Add layer** button.
+To add a layer to the map, in the **Layers** panel, select the **Add layer** button. The **Add layer** dialog is shown in the following image.
 
 <img src="{{site.url}}{{site.baseurl}}/images/maps/add-layer.png" alt="Add layer" width="450">
 
@@ -46,6 +47,7 @@ OpenSearch supports Web Map Service (WMS) or Tile Map Service (TMS) custom maps.
 
 1. In the **Layers** panel, select the **Add layer** button.
 1. From the **Add layer** dialog, select **Base layer > Custom map**.
+    Follow the next steps in the **New layer** dialog, which is shown in the following image.
 
     <img src="{{site.url}}{{site.baseurl}}/images/maps/custom-map.png" alt="Add custom map">
 
@@ -81,7 +83,7 @@ Add a document layer as follows:
 1. Select the **Settings** tab to edit layer settings.
 1. Enter `Flight destination` in **Name**.
 1. Select the **Update** button.
-1. To see more data, in the upper-right corner select the calendar icon dropdown list, then under **Quick select**, choose **Last 15 days**. 
+1. To see more data, in the upper-right corner select the calendar icon dropdown list, then under **Quick select**, choose **Last 15 days** and select the **Apply** button. 
 
 You should see the flight destination data, as in the following image.
 
