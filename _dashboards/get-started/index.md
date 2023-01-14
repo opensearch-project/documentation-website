@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Getting started with OpenSearch Dashboards
+title: Get started with OpenSearch Dashboards
 nav_order: 1
 has_children: false
 has_toc: false
@@ -11,7 +11,7 @@ redirect_from:
 
 {%- comment -%}The `/docs/opensearch-dashboards/` redirect is specifically to support the UI links in OpenSearch Dashboards 1.0.0.{%- endcomment -%}
 
-# Getting started with OpenSearch Dashboards
+# Get started with OpenSearch Dashboards
 
 OpenSearch Dashboards is an open-source, integrated visualization tool that makes it easy for users to explore their data in OpenSearch. From real-time application monitoring, threat detection, and incident management to personalized search, OpenSearch Dashboards gives you the data visualizations needed to graphically represent trends, outliers, and patterns in your data. The image below shows a sample of data visualizations in OpenSearch Dashboards.  
 
@@ -19,7 +19,7 @@ OpenSearch Dashboards is an open-source, integrated visualization tool that make
 
 ## Use cases for OpenSearch Dashboards
 
-In OpenSearch Dashboards, a data dashboard is a collection of charts, graphs, gauges, and other visualizations that gives you a snapshot of the data that you're interested in and that you interact with. You can track, analyze, and display real-time search, monitoring, and analysis of business and operational data for use cases like application monitoring, log analytics, observability, and website search. The image below shows data visualization use cases for OpenSearch Dashboards.   
+A dashboard is a collection of charts, graphs, gauges, and other visualizations that gives you a snapshot of the data that you're interested in and that you interact with. You can track, analyze, and display real-time search, monitoring, and analysis of business and operational data for use cases like application monitoring, log analytics, observability, and website search. The image below shows data visualization use cases for OpenSearch Dashboards.   
 
 <table style="table-layout: fixed; width: 100%;">
 <tbody>
@@ -53,8 +53,7 @@ The image below shows a [Logs] Web Traffic dashboard with filters applied.
 You can run OpenSearch Dashboards on a local host after installing OpenSearch. See [Install and configure OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/) and [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/) for installation instructions.  
 
 ## Related links
-- [Getting Started with OpenSearch]({{site.url}}{{site.baseurl}}).
-- [Launch Highlight: OpenSearch Playground](https://www.opensearch.org/blog/community/2022/10/opensearch-playground/)
-- [Upgrade from Kibana OSS to OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/upgrade-to/dashboards-upgrade-to/)
+- [OpenSearch Dashboards Quickstart]()
 - [OpenSearch Frequently Asked Questions]({{site.url}}/faq/)
 - [OpenSearch Dashboards Developer Guide](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/DEVELOPER_GUIDE.md)
+- [Upgrade from Kibana OSS to OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/upgrade-to/dashboards-upgrade-to/)
