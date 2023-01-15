@@ -46,21 +46,24 @@ To make any changes to the automatically populated mappings, use the dropdown ar
 
 ## Step 3. Setting up alerts
 
-At least one alert condition is required before a detector can begin generating findings. It is, however, possible to skip this step, save the new detector, and set up an alert at a later time. Nevertheless,    
+The third step in creating a detector involves setting up alerts. Alerts are configured to create triggers that, when matched with a set of detection rule criteria, send a notification of a possible security event. You can select the criteria (rules, rule severity, and tags) in any combination to define the trigger. Once the trigger is defined, the alert setup lets you choose the channel on which to be notified and provides options for customizing a message for the notification.
 
-Alerts can be configured at any time, including from the Findings window. This section describes the process for defining the alert conditions during creation of a detector. To see how to set up alerts from the Findings window, see [The findings list]({{site.url}}{{site.baseurl}}/security-analytics/usage/findings/#the-findings-list).
+At least one alert condition is required before a detector can begin generating findings.
+{: .note }
+
+You can also configure alerts from the Findings window. To see how to set up alerts from the Findings window, see [The findings list]({{site.url}}{{site.baseurl}}/security-analytics/usage/findings/#the-findings-list). A final option for adding additional alerts is to edit a detector and navigate to the **Alert triggers** tab, where you can edit existing alerts as well as add new ones. For details, see [Editing a detector]({{site.url}}{{site.baseurl}}security-analytics/usage/detectors/#editing-a-detector).
 
 To set up an alert for the detector, continue with the following steps:
 
 1. In the **Trigger name** box, enter a name for the trigger.
 1. To define rule matches for the alert, select security rules, severity levels, and tags.
-<img src="{{site.url}}{{site.baseurl}}/images/Security/alert_rules.png" alt="Rules used to define an alert">
+<br><img src="{{site.url}}{{site.baseurl}}/images/Security/alert_rules.png" alt="Rules used to define an alert">
 * Select one rule or multiple rules that will trigger the alert. Put the cursor in the **Rule names** box and type a name to search for it. To remove a rule name, select the **X** beside the name. To remove all rule names, select the **X** beside the dropdown menu's down arrow.
 <br><img src="{{site.url}}{{site.baseurl}}/images/Security/rule_name_delete.png" alt="Deletes all selected rules">
 * Select one or more rule severities as conditions for the alert.
 * Select from a list of tags to include as conditions for the alert.
 1. To define a notification for the alert, assign an alert severity, select a channel for the notification, and customize a message generated for the alert.
-<img src="{{site.url}}{{site.baseurl}}/images/Security/alert_notify.png" alt="Notification settings for the alert">
+<br><img src="{{site.url}}{{site.baseurl}}/images/Security/alert_notify.png" alt="Notification settings for the alert">
 * Assign a level of severity for the alert to give the recipient an indication of its urgency.
 * Select a channel for the notification. Examples include Slack, Chime, or email. Select the  **Manage channels** link to the right of the field to link the notification to a preferred channel.
 * Select the **Show notify message** label to expand message preferences. You can add a subject for the message and a note to inform recipients of the nature of the message.
