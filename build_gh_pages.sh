@@ -1,17 +1,14 @@
 function_help()
 {
    echo ""
-   echo "Usage: $0 -u my-github-username -d build-directory"
+   echo "Usage: $0 -u my-github-username [-d build-directory]"
    echo -e "\t-u Your GitHub username. Required."
-   echo -e "\t-d Build directory where the site is saved. If you don't provide this parameter, the site is built in the ../build directory."
-   echo -e "\t-r Remove build directory automatically when done."
    exit 0
 }
 
-while getopts d:u: option
+while getopts u: option
 do
    case $option in
-      d) build_dir=${OPTARG};;        
       u) gh_username=${OPTARG};;
       ?) function_help;;
    esac
@@ -22,9 +19,7 @@ if [ -z "${gh_username}" ]; then
     function_help
 fi
 
-if [ -z "${build_dir}" ]; then 
-    build_dir='../build'
-fi
+build_dir=$(mktemp -d -t build-XXXX)
 
 echo "Building site into the directory ${build_dir}."
 echo "GitHub username is ${gh_username}."
@@ -35,7 +30,7 @@ echo "url: \"https://${gh_username}.github.io\"" >> _config_temp.yml
 
 bundle exec jekyll build --config _config.yml,_config_temp.yml --destination ${build_dir} --incremental
 
-# Remove the temp config file
+# Delete the temp config file
 rm _config_temp.yml
 
 cd ${build_dir}
@@ -48,5 +43,6 @@ git commit -sm "GitHub pages update $(date)"
 git push -f --set-upstream origin master
 
 # Delete the build directory
-echo "Done building GitHub pages. You can now safely delete the directory ${build_dir}."
+cd ..
+rm -rf "${build_dir}"
 exit 0
