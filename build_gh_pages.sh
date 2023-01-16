@@ -1,7 +1,7 @@
 function_help()
 {
    echo ""
-   echo "Usage: $0 -u my-github-username [-d build-directory]"
+   echo "Usage: $0 -u my-github-username"
    echo -e "\t-u Your GitHub username. Required."
    exit 0
 }
