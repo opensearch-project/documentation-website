@@ -238,7 +238,7 @@ In **Traces**, you can see the latency and errors for the filtered service and o
 
 ![Select data source]({{site.url}}{{site.baseurl}}/images/trace-analytics/service-trace-data.png)
 
-If you select an individual trace ID, you can see more detailed information about the trace, such as **Time spent by the service** and **Spans** for each service. You can also view the payload received from the index in JSON format.
+If you select an individual trace ID, you can see more detailed information about the trace, such as **Time spent by the service** and **Spans**. You can also view the index payload in JSON format.
 
 ![Select data source]({{site.url}}{{site.baseurl}}/images/trace-analytics/trace-details.png)
 
