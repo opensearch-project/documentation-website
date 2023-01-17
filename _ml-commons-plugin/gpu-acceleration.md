@@ -226,7 +226,7 @@ When the script completes running, open a new terminal for the settings to take 
 
 OpenSearch should now be running inside your GPU-accelerated cluster. However, if any errors occur during provisioning, you can install the GPU accelerator drivers manually.
 
-## (AWS Inferentia) Installing GPU accelerator drivers manually
+## (AWS Inferentia) Prepare ML node manually
 
 If the previous two scripts do not provision your GPU-accelerated node properly, you can install the drivers for AWS Inferentia manually:
 
