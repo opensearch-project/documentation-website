@@ -40,7 +40,7 @@ Field mapping matches field names for the rule with field names from the log bei
 
 For example, if you prefer to have the log field name UserID rather than EventID correspond to the event_uid rule field name, you can use the **Log field name** dropdown menu to select **UserID**.
 
-<img src="{{site.url}}{{site.baseurl}}/images/Security/field_map.png" alt="Rule and log field mapping example">
+<img src="{{site.url}}{{site.baseurl}}/images/Security/field-mappings.png" alt="Rule and log field mapping example">
 
 To make any changes to the automatically populated mappings, use the dropdown arrows across from the rule field names to specify a preferred log field name for the mapping. After completing the mappings, select the **Next** button in the lower-right corner of the screen. The Set up alerts page appears and displays settings for an alert trigger.
 
