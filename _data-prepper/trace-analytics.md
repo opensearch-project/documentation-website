@@ -12,7 +12,7 @@ Data Prepper ingests [Trace Analytics](https://opensearch.org/docs/latest/observ
 
 The following image describes how components work in trace analytics.
 
-![Trace analytics component]({{site.url}}{{site.baseurl}}/images/data-prepper/trace-analytics/trace-analytics-components.png)
+<img src="{{site.url}}{{site.baseurl}}/images/data-prepper/trace-analytics/trace-analytics-components.png" alt="Trace analyticis component overview">{: .img-fluid}
 
 In your service environment, you need to run OpenTelemetry collector. You can run it as a sidecar or daemonset for EKS, a sidecar for ECS, or an agent on EC2. You should configure the collector to export trace data to Data Prepper. Then, you need to deploy Data Prepper as an intermediate component and configure it to send the enriched trace data to your OpenSearch cluster or Amazon OpenSearch Service domain. Finally, use OpenSearch Dashboards to visualize and detect problems in your distributed applications.
 
@@ -20,28 +20,28 @@ In your service environment, you need to run OpenTelemetry collector. You can ru
 
 To achieve trace analytics in Data Prepper, we have three pipelines: `entry-pipeline`, `raw-trace-pipeline` and `service-map-pipeline`.
 
-![Trace analytics pipeline]({{site.url}}{{site.baseurl}}/images/data-prepper/trace-analytics/trace-analytics-feature.jpeg)
+<img src="{{site.url}}{{site.baseurl}}/images/data-prepper/trace-analytics/trace-analytics-feature.jpg" alt="Trace analyticis pipeline overview">{: .img-fluid}
 
 
 ### OpenTelemetry trace source
 
-The [OpenTelemetry source](../data-prepper-plugins/otel-trace-source/README.md) accepts trace data from the OpenTelemetry collector. The source depends on [OpenTelemetry Protocol](https://github.com/open-telemetry/opentelemetry-specification/tree/master/specification/protocol). The source officially support transport over gRPC. The source also supports industry-standard encryption (TLS/HTTPS).
+The [OpenTelemetry source]({{site.url}}{{site.baseurl}}/data-prepper-plugins/otel-trace-source/README.md) accepts trace data from the OpenTelemetry collector. The source depends on [OpenTelemetry Protocol](https://github.com/open-telemetry/opentelemetry-specification/tree/master/specification/protocol). The source officially support transport over gRPC. The source also supports industry-standard encryption (TLS/HTTPS).
 
 ### Processor
 
 There are two processors for the Trace Analytics feature:
 
-* *otel_trace_raw* -  This is a processor that receives collection of [Span](../../data-prepper-api/src/main/java/com/amazon/dataprepper/model/trace/Span.java) records sent from [otel-trace-source](../dataPrepper-plugins/otel-trace-source), and performs stateful processing on extracting and filling-in trace group related fields.
-* *otel_trace_group* -  This is a processor that fills in the missing trace group related fields in the collection of [Span](../../data-prepper-api/src/main/java/com/amazon/dataprepper/model/trace/Span.java) records by looking up the OpenSearch backend.
+* *otel_trace_raw* -  This is a processor that receives collection of [Span]({{site.url}}{{site.baseurl}}/data-prepper-api/src/main/java/com/amazon/dataprepper/model/trace/Span.java) records sent from [otel-trace-source]({{site.url}}{{site.baseurl}}/dataPrepper-plugins/otel-trace-source), and performs stateful processing on extracting and filling-in trace group related fields.
+* *otel_trace_group* -  This is a processor that fills in the missing trace group related fields in the collection of [Span]({{site.url}}{{site.baseurl}}/data-prepper-api/src/main/java/com/amazon/dataprepper/model/trace/Span.java) records by looking up the OpenSearch backend.
 * *service_map_stateful* -  This processor performs required pre-processing for trace data and builds metadata to display the `service-map` OpenSearch Dashboards dashboards.
 
 ### OpenSearch sink
 
-We have a generic sink that writes the data to OpenSearch as the destination. The [OpenSearch sink](../data-prepper-plugins/opensearch/README.md) has configuration options related to OpenSearch cluster, such as endpoint, SSL, username/password, index name, index template, and index state management.
+We have a generic sink that writes the data to OpenSearch as the destination. The [OpenSearch sink]({{site.url}}{{site.baseurl}}/data-prepper-plugins/opensearch/README.md) has configuration options related to OpenSearch cluster, such as endpoint, SSL, username/password, index name, index template, and index state management.
 
 For the trace analytics feature, the sink has specific configurations which enables the sink to use indexes and index templates specific to this feature. Trace analytics specific OpenSearch indexes are,
 
-* *otel-v1-apm-span* -  This index stores the output from [otel_trace_raw](/data-prepper/configuration/processors/otel-trace-raw/).
+* *otel-v1-apm-span* -  This index stores the output from [otel_trace_raw]({{site.url}}{{site.baseurl}}/data-prepper/configuration/processors/otel-trace-raw/).
 * *otel-v1-apm-service-map* - This index stores the output from the [service_map_stateful](https://github.com/opensearch-project/documentation-website/blob/main/_data-prepper/configuration/processors/service-map-stateful.md).
 
 ## Trace tuning
@@ -56,7 +56,7 @@ The following sections describe useful tips for scaling. We recommend that you m
 
 #### Buffer
 
-The total number of trace requests that Data Prepper is processing is equal to sum of `buffer_size` in `otel-trace-pipeline` and `raw-pipeline`. The total number of trace requests to OpenSearch is equal to the product of `batch_size` and `workers` in `raw-trace-pipeline`. For more information about `raw-pipeline`, see [Trace analytics pipeline](https://opensearch.org/docs/latest/data-prepper/pipelines/#trace-analytics-pipeline).
+The total number of trace requests that Data Prepper is processing is equal to sum of `buffer_size` in `otel-trace-pipeline` and `raw-pipeline`. The total number of trace requests to OpenSearch is equal to the product of `batch_size` and `workers` in `raw-trace-pipeline`. For more information about `raw-pipeline`, see [Trace analytics pipeline]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/#trace-analytics-pipeline).
 
 We recommend the following guidelines when making changes to buffer settings:
  * Have the same `buffer_size` value in `otel-trace-pipeline` and `raw-pipeline`
