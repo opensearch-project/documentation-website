@@ -8,9 +8,9 @@ nav_order: 21
 
 ## Introduction
 
-Data Prepper ingests [Trace Analytics](https://opensearch.org/docs/latest/observability-plugin/trace/index/) into OpenSearch and Amazon OpenSearch Service. Data Prepper is a last-mile server-side component which collects telemetry data from [AWS Distro OpenTelemetry collector](https://aws-otel.github.io/docs/getting-started/collector) or [OpenTelemetry collector](https://github.com/open-telemetry/opentelemetry-collector), and transforms it for OpenSearch. Then, the transformed trace data is visualized using the [OpenSearch Dashboards Observability plugin](https://opensearch.org/docs/latest/observability-plugin/trace/ta-dashboards/), which provides visibility into your application performance, along with the ability to drill down on individual traces.
+Data Prepper ingests [Trace Analytics](https://opensearch.org/docs/latest/observability-plugin/trace/index/) into OpenSearch and Amazon OpenSearch Service. Data Prepper is a last-mile, server-side component which collects telemetry data from [AWS Distro OpenTelemetry collector](https://aws-otel.github.io/docs/getting-started/collector) or [OpenTelemetry collector](https://github.com/open-telemetry/opentelemetry-collector), and transforms it for OpenSearch. Then, the transformed trace data is visualized using the [OpenSearch Dashboards Observability plugin](https://opensearch.org/docs/latest/observability-plugin/trace/ta-dashboards/), which provides visibility into your application performance, along with the ability to drill down on individual traces.
 
-The following describes how components work in trace analytics.
+The following image describes how components work in trace analytics.
 
 ![Trace analytics component]({{site.url}}{{site.baseurl}}/images/data-prepper/trace-analytics/trace-analytics-components.png)
 
