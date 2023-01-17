@@ -3,13 +3,15 @@ layout: default
 title: Dashboards Query Language
 parent: OpenSearch Dashboards core concepts
 nav_order: 40
+redirect_from:
+  - /dashboards/dql/
 ---
 
 # Dashboards Query Language
 
-Dashboards Query Language (DQL) is used in OpenSearch Dashboards to search for data and visualizations. Similar to [Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index), DQL uses the HTTP request body to search for data. For example, if you want to see all visualizations of visits to a host based in the United States, enter `geo.dest:US` into the search field. Dashboards then refreshes to display all related data. And,like Query DSL, DQL has various query types that you can choose based on your use case.
+Dashboards Query Language (DQL) is a simple text-based query language for filtering data in OpenSearch Dashboards. Similar to [Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index), DQL uses HTTP request body. For example, to display your site visitor data for a host in the United States, you would enter `geo.dest:US` into the search field.
 
-This tutorial uses the sample web log data set. See [Quickstart for OpenSearch Dashboards]() to learn about adding sample data sets.
+This documentation uses the Dashboards web log sample data set. See [Quickstart for OpenSearch Dashboards]() to learn how to add sample data to Dashboards.
 {: .note}
 
 ## Terms query

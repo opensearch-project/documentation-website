@@ -9,9 +9,9 @@ has_children: false
 
 This quickstart covers the core concepts for you to get started with OpenSearch Dashboards. You'll learn how to:
 
-- Add the sample data
-- Explore and inspect data with Discover
-- Visualize data with Dashboard
+- Add sample data
+- Explore and inspect data with **Discover**
+- Visualize data with **Dashboard**
 
 Before you get started, make sure you've installed OpenSearch and OpenSearch Dashboards. For information on installation and configuration, see [Install and configure OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/) and [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/).
 {: .note}
@@ -37,5 +37,6 @@ In **Discover**, you can:
 Get familiar with **Discover** in the following steps:
 
 1. On the OpenSearch Dashboards **Home** page, select **Discover.**
-1. Change the time filter to **Last 7 days**.
-    
+1. Change the [time filter](time-filter.md) to **Last 7 days**.
+![Time filter interface]({{site.url}}{{site.baseurl}}/images/last-7--days.png)
+1. To view the flights that are delayed 60 minutes or longer, use the DQL search field:
