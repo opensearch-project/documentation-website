@@ -173,3 +173,4 @@ The **Delete** button [deletes]({{site.url}}{{site.baseurl}}/api-reference/snaps
  After the restore operation is complete, the restored indexes are listed in the **Indices** panel. To view the indexes, in the left panel, under **Index Management**, select **Indices**.
 
 <img src="{{site.url}}{{site.baseurl}}/images/restore-snapshot/restore-snapshot-indices-panel.png" alt="View Indices">{: .img-fluid}
+ 
