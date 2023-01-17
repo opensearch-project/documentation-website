@@ -51,7 +51,7 @@ To attach policies to indexes, perform the following steps:
 
 The **Indices** section displays a list of indexes in your OpenSearch cluster. For each index included, you can see its heath status (`green`, `yellow`, or `red`), policy (if the index is managed by a policy), status, total size, size of primaries, total documents, deleted documents, primaries and replicas.
 
-#### Create index
+### Create index
 
 While you can [create an index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/) by using a document as a base, you can also create an empty index for later use. 
 
@@ -66,7 +66,7 @@ You can also add fields and objects using either the visual editor or the JSON e
 
 **Advanced settings** allows you to upload a JSON configuration.
 
-#### Apply policy
+### Apply policy
 
 If you analyze time series data, you likely want to prioritize new data over old data. You might periodically perform certain operations on older indexes, such as reducing replica count or deleting them.
 
@@ -80,19 +80,19 @@ To apply a policy, select the index to which you want to apply the policy in the
 
 <img src="{{site.url}}{{site.baseurl}}/images/admin-ui-index/apply-policy.PNG" alt="User interface showing apply policy prompt">
 
-#### Close
+### Close
 
 The [close index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/close-index/) operation closes an index. Once an index is closed, you cannot add data to it or search for any data within the index.
 
 To close an index, select the index you want to close in the **Indices** list under **Index Management**. Then select the **Actions** button, and select **Close** from the dropdown list.
 
-#### Open
+### Open
 
 The [open index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/open-index/) operation opens a closed index, letting you add or search for data within the index.
 
 To open an index, select the index you want to open in the **Indices** list under **Index Management**. Then select the **Actions** button, and select **Open** from the dropdown list.
 
-#### Reindex
+### Reindex
 
 The [reindex]({{site.url}}{{site.baseurl}}/api-reference/document-apis/reindex/) operation lets you copy all your data or a subset of data from a source index into a destination index.
 
@@ -100,7 +100,7 @@ To reindex an index, select the index in the **Indices** list under **Index Mana
 
 <img src="{{site.url}}{{site.baseurl}}/images/admin-ui-index/reindex-expanded.png" alt="User interface showing reindex prompt">
 
-#### Shrink
+### Shrink
 
 The [shrink]({{site.url}}{{site.baseurl}}/api-reference/index-apis/shrink-index/) index operation moves all of your data in an existing index into a new index with fewer primary shards.
 
@@ -108,7 +108,7 @@ To shrink an index, select the index you want to shrink in the **Indices** list 
 
 <img src="{{site.url}}{{site.baseurl}}/images/admin-ui-index/shrink.png" alt="User interface showing shrink prompt">
 
-#### Split
+### Split
 
 The [split index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/split/) operation splits an existing read-only index into a new index, splitting each primary shard into a number of primary shards in the new index.
 
@@ -116,7 +116,7 @@ To split an index, select the index you want to split in the **Indices** list un
 
 <img src="{{site.url}}{{site.baseurl}}/images/admin-ui-index/split-expanded.png" alt="User interface showing split page">
 
-#### Delete
+### Delete
 
 If you no longer need an index, you can use the [delete index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/delete-index/) operation to delete it.
 

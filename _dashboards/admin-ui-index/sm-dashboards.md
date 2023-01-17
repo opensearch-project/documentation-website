@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Using Snapshot Management in OpenSearch Dashboards
+title: Snapshot management
 parent: Admin UI for index operations in OpenSearch Dashboards
 nav_order: 30
 ---
 
-# Using Snapshot Management in OpenSearch Dashboards
+# Snapshot management
 
 You can set up Snapshot Management (SM) in OpenSearch Dashboards.
 
@@ -15,7 +15,7 @@ Snapshots have two main uses:
 
 1. Recovering from failure
 
-For example, if cluster health goes red, you might restore the red indexes from a snapshot.
+    For example, if cluster health goes red, you might restore the red indexes from a snapshot.
 
 2. Migrating from one cluster to another
 
