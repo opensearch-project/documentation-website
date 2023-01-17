@@ -222,6 +222,8 @@ echo "$(whoami) - nofile 65535" | sudo tee -a /etc/security/limits.conf
 sudo sysctl -w vm.max_map_count=262144
 ```
 
+When the script completes running, open a new terminal for the settings to take effect. Then, start OpenSearch.
+
 OpenSearch should now be running inside your GPU-accelerated cluster. However, if any errors occur during provisioning, you can install the GPU accelerator drivers manually.
 
 ## (AWS Inferentia) Installing GPU accelerator drivers manually
@@ -273,7 +275,7 @@ If the previous two scripts do not provision your GPU-accelerated node properly,
 
 ### Troubleshooting
 
-Due to the high memory required to load models, you might encounter the following error when trying to run OpenSearch in a GPU-accelerated cluster: 
+Due to the amount of data required to work with ML models, you might encounter the following `max file descriptors` error when trying to run OpenSearch in a GPU-accelerated cluster: 
 
 ```
 [1]: max file descriptors [8192] for opensearch process is too low, increase to at least [65535]
