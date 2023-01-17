@@ -20,7 +20,7 @@ Each section provides a summary description for each element of Security Analyti
 
 The upper portion of the Overview page contains two control buttons for refreshing information and getting started with Security Analytics. You can select the **Refresh** button to refresh all of the information on the page. 
 
-You can also select the **Getting started** link to expand the Get started with Security Analytics window, which inludes a summary of the steps for set up as well as control buttons that allow you to jump to any of the steps.
+You can also select the **Getting started** link to expand the Get started with Security Analytics window, which includes a summary of the steps for set up as well as control buttons that allow you to jump to any of the steps.
 <br><img src="{{site.url}}{{site.baseurl}}/images/Security/overview.png" alt="The overview page with getting started quick launch window" width="900">
 * In step 1 of setup, select **Create detector** to define a detector. 
 * In step 2, select **View findings** to go to the Findings page. For details about this page, see [Working with findings]({{site.url}}{{site.baseurl}}/security-analytics/usage/findings/).
@@ -29,7 +29,7 @@ You can also select the **Getting started** link to expand the Get started with 
 
 ## Findings and alert count
 
-The Findings and alert count section provides a graph showing data on the latest findings. Use the **Group by** dropdown menu to select between all findings and findings by log type.
+The Findings and alert count section provides a graph showing data on the latest findings. Use the Group by menu to select either **All findings** or **Log type**.
 
 ## Recent alerts
 

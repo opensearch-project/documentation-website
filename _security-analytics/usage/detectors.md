@@ -27,7 +27,7 @@ To edit a detector, begin by selecting the link to the detector in the Detector 
 * Finally, you can select the **Field mappings** tab to edit field mappings for the detector, or select the **Alert triggers** tab to make edits to alerts associated with the detector.
 <br><img src="{{site.url}}{{site.baseurl}}/images/Security/detector-details2.png" alt="Field mappings and Alert triggers tabs" width="400">
 
-    After you select the **Alert triggers** tab, you also have the option to add additional alerts for the detector by selecting the **Add another alert condition** button at the bottom of the page.
+    After you select the **Alert triggers** tab, you also have the option to add additional alerts for the detector by selecting **Add another alert condition** at the bottom of the page.
     {: .tip }
 
 ## Detector actions
