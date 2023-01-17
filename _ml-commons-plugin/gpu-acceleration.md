@@ -15,9 +15,9 @@ When running a natural language processing (NLP) model in your OpenSearch cluste
 
 ## Supported GPUs
 
-Currently, ML nodes support any GPU instances that use CUDA 11.6 or greater, including the following:
+Currently, ML nodes following GPU instances:
 
-- [NVIDIA instances](https://aws.amazon.com/nvidia/)
+- [NVIDIA instances with CUDA 11.6](https://aws.amazon.com/nvidia/)
 - [AWS Inferentia](https://aws.amazon.com/machine-learning/inferentia/)
 
 If you need GPU power, you can provision GPU instances through [Amazon Elastic Compute Cloud (Amazon EC2)](https://aws.amazon.com/ec2/). For more information on how to provision a GPU instance, see [Recommended GPU Instances](https://docs.aws.amazon.com/dlami/latest/devguide/gpu.html).
@@ -28,13 +28,13 @@ You can use GPU acceleration with both [Docker images](https://gitlab.com/nvidia
 
 ## PyTorch
 
-GPU-accelerated ML nodes require [PyTorch](https://pytorch.org/docs/stable/index.html) 1.12.1 or greater to work with ML models.
+GPU-accelerated ML nodes require [PyTorch](https://pytorch.org/docs/stable/index.html) 1.12.1 work with ML models.
 
 ## Setting up a GPU-accelerated ML node
 
 Depending on the GPU, you can provision a GPU-accelerated ML node manually or by using automated initialization scripts. 
 
-### Mounting an nvidia-uvm device
+### Preparing an NVIDIA ML node
 
 NVIDIA uses CUDA to increase node performance. In order to take advantage of CUDA, you need to make sure that your drivers include the `nvidia-uvm` kernel inside the `/dev` directory. To check for the kernel, enter `ls -al /dev | grep nvidia-uvm`.
 
@@ -71,7 +71,7 @@ fi
 
 After verifying that `nvidia-uvm` exists under `/dev`, you can start OpenSearch inside your cluster. 
 
-### Preparing AWS Inferentia
+### Preparing AWS Inferentia ML node
 
 Depending on the Linux operating system running on AWS Inferentia, you can use the following commands and scripts to provision an ML node and run OpenSearch inside your cluster. 
 
@@ -229,13 +229,13 @@ When the script completes running, open a new terminal for the settings to take 
 
 OpenSearch should now be running inside your GPU-accelerated cluster. However, if any errors occur during provisioning, you can install the GPU accelerator drivers manually.
 
-## (AWS Inferentia) Prepare ML node manually
+#### Prepare ML node manually
 
 If the previous two scripts do not provision your GPU-accelerated node properly, you can install the drivers for AWS Inferentia manually:
 
 1. Deploy an AWS accelerator instance based on your chosen Linux operating system. For instructions, see [Deploy on AWS accelerator instance](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/frameworks/torch/torch-neuron/setup/pytorch-install.html#deploy-on-aws-ml-accelerator-instance).
 
-2. Set the `PYTORCH_NEURON_LIB_PAT` path. In this example, we create a `pytorch` virtual environment in the OPENSEARCH_HOME folder:
+2. Set the `PYTORCH_EXTRA_LIBRARY_PATH` path. In this example, we create a `pytorch` virtual environment in the OPENSEARCH_HOME folder:
 
    ```
    PYTORCH_NEURON_LIB_PATH=~/pytorch_venv/lib/python3.7/site-packages/torch_neuron/lib/
@@ -276,22 +276,22 @@ If the previous two scripts do not provision your GPU-accelerated node properly,
 
 6. Start OpenSearch. 
 
-### Troubleshooting
+## Troubleshooting
 
-Due to the amount of data required to work with ML models, you might encounter the following `max file descriptors` error when trying to run OpenSearch in a GPU-accelerated cluster: 
+Due to the amount of data required to work with ML models, you might encounter the following `max file descriptors` or `vm.max_map_count` errors when trying to run OpenSearch in a your cluster: 
 
 ```
 [1]: max file descriptors [8192] for opensearch process is too low, increase to at least [65535]
 [2]: max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]
 ```
 
-To troubleshoot this error, run the following command. This command overrides the `vm.max_map_count` limit to the minimum requirement:
+To troubleshoot the max file descriptors error, run the following command:
 
 ```
 echo "$(whoami) - nofile 65535" | sudo tee -a /etc/security/limits.conf
 ```
 
-With the limit increased, run this command to increase the `vm.max_map_count` to `262114`:
+To fix the `vm.max_map_count` error, run this command to increase the count to `262114`:
 
 ```
 sudo sysctl -w vm.max_map_count=262144
