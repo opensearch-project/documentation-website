@@ -5,13 +5,14 @@ parent: Model-serving framework
 nav_order: 150
 ---
 
+
 # GPU acceleration 
 
 When running a natural language processing (NLP) model in your OpenSearch cluster with a machine learning (ML) node, you can achieve better performance on the ML node using graphics processing unit (GPU) acceleration. GPUs can work in tandem with the CPU of your cluster to speed up the model upload and training. 
 
 ## Supported GPUs
 
-Currently, ML nodes support any CUDA-enabled GPUs, including the following:
+Currently, ML nodes support any GPU instances that use CUDA 11.6 or greater, including the following:
 
 - [NVIDIA G-series instances](https://aws.amazon.com/nvidia/)
 - [AWS Inferentia](https://aws.amazon.com/machine-learning/inferentia/)
@@ -20,7 +21,11 @@ If you need GPU power, you can provision GPU instances through [Amazon Elastic C
 
 ## Supported images
 
-You can use GPU acceleration with both [Docker images](https://github.com/NVIDIA/nvidia-docker) and [Amazon Machine Images (AMIs)](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html).
+You can use GPU acceleration with both [Docker images](https://gitlab.com/nvidia/container-images/cuda/blob/master/doc/supported-tags.md) with CUDA 11.6 and [Amazon Machine Images (AMIs)](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html).
+
+## PyTorch
+
+GPU-accelerated ML nodes require [PyTorch](https://pytorch.org/docs/stable/index.html) 1.12.1 or greater to work with ML models.
 
 ## Setting up a GPU-accelerated ML node
 
@@ -67,14 +72,9 @@ After verifying that `nvidia-uvm` exists under `/dev`, you can start OpenSearch 
 
 Depending on the Linux operating system running on AWS Inferentia, you can use the following commands and scripts to provision an ML node and run OpenSearch inside your cluster. 
 
-Download OpenSearch: 
+To start, [download and install OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/index/) on your cluster.
 
-```
-cd ~; wget https://artifacts.opensearch.org/releases/bundle/opensearch/2.5.0/opensearch-2.5.0-linux-x64.tar.gz
-tar -xvf opensearch-2.5.0-linux-x64.tar.gz
-```
-
-Then export OpenSearch and set up your environment variables. For this example, `OPENSEARCH_HOME` = `opensearch-2.5.0`:
+Then export OpenSearch and set up your environment variables. This example exports OpenSearch into the directory `opensearch-2.5.0`, so `OPENSEARCH_HOME` = `opensearch-2.5.0`:
 
 ```
 echo "export OPENSEARCH_HOME=~/opensearch-2.5.0" | tee -a ~/.bash_profile
@@ -230,7 +230,17 @@ If the previous two scripts do not provision your GPU-accelerated node properly,
 
 1. Deploy an AWS accelerator instance based on your chosen Linux operating system. For instructions, see [Deploy on AWS accelerator instance](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/frameworks/torch/torch-neuron/setup/pytorch-install.html#deploy-on-aws-ml-accelerator-instance).
 
-2. (Optional) To monitor the GPU usage of your accelerator instance, install [Neuron tools](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/tools/index.html), which allows models to be used inside your instance:
+2. Set the `PYTORCH_NEURON_LIB_PAT` path. In this example, we create a `pytorch` virtual environment in the OPENSEARCH_HOME folder:
+
+   ```
+   PYTORCH_NEURON_LIB_PATH=~/pytorch_venv/lib/python3.7/site-packages/torch_neuron/lib/
+
+
+   mkdir -p $OPENSEARCH_HOME/lib/torch_neuron; cp -r  $PYTORCH_NEURON_LIB_PATH/ $OPENSEARCH_HOME/lib/torch_neuron
+   export PYTORCH_EXTRA_LIBRARY_PATH=$OPENSEARCH_HOME/lib/torch_neuron/lib/libtorchneuron.so
+  ```
+
+3. (Optional) To monitor the GPU usage of your accelerator instance, install [Neuron tools](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/tools/index.html), which allows models to be used inside your instance:
 
    ```
    # Install Neuron Tools
@@ -253,29 +263,13 @@ If the previous two scripts do not provision your GPU-accelerated node properly,
    OPENSEARCH_HOME=~/opensearch-2.5.0
    ```
 
-5. Activate  the `pytorch` virtual environment:
-
-   ```
-   source pytorch_venv/bin/activate
-   ```
- 
-6. Set the `PYTORCH_NEURON_LIB_PAT` path. In this example, we create a `pytorch` virtual environment in the OPENSEARCH_HOME folder:
-
-   ```
-   PYTORCH_NEURON_LIB_PATH=~/pytorch_venv/lib/python3.7/site-packages/torch_neuron/lib/
-
-
-   mkdir -p $OPENSEARCH_HOME/lib/torch_neuron; cp -r  $PYTORCH_NEURON_LIB_PATH/ $OPENSEARCH_HOME/lib/torch_neuron
-   export PYTORCH_EXTRA_LIBRARY_PATH=$OPENSEARCH_HOME/lib/torch_neuron/lib/libtorchneuron.so
-  ```
-
-7. To make sure you have enough memory to upload a model, increase the JVM stack size to `>+2MB`:
+5. To make sure you have enough memory to upload a model, increase the JVM stack size to `>+2MB`:
 
    ```
    echo "-Xss2m" | sudo tee -a $OPENSEARCH_HOME/config/jvm.options
    ```
 
-8. Start OpenSearch. 
+6. Start OpenSearch. 
 
 ### Troubleshooting
 
