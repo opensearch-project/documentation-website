@@ -18,7 +18,7 @@ JVM and system metrics follow predefined names in [Micrometer](https://micromete
 
 ### Serving
 
-By default, metrics are served from the **/metrics/sys** endpoint on the Data Prepper server. The format is a text Prometheus scrape. This port can be used for any frontend that accepts Prometheus metrics, such as [Grafana](https://prometheus.io/docs/visualization/grafana/). You can update the configuration to serve metrics to other registries like Amazon CloudWatch, that does not require or host the endpoint but publishes the metrics directly to CloudWatch.
+By default, metrics are served from the **/metrics/sys** endpoint on the Data Prepper server. The format is a text Prometheus scrape. The Data Prepper server port has a default value of `4900` that can can modify, and this port can be used for any frontend that accepts Prometheus metrics, such as [Grafana](https://prometheus.io/docs/visualization/grafana/). You can update the configuration to serve metrics to other registries like Amazon CloudWatch, that does not require or host the endpoint but publishes the metrics directly to CloudWatch.
 
 ## Plugin metrics
 
@@ -55,4 +55,4 @@ Metrics follow a naming convention of **PIPELINE_NAME_PLUGIN_NAME_METRIC_NAME**.
 
 ### Serving
 
-By default, metrics are served from the **/metrics/sys** endpoint on the Data Prepper server. The format is a text Prometheus scrape. You can use this port for any frontend that accepts Prometheus metrics, such as [Grafana](https://prometheus.io/docs/visualization/grafana/). You can update the configuration to serve metrics to other registries like CloudWatch, that does not require or host the endpoint, but publishes the metrics directly to CloudWatch.
+By default, metrics are served from the **/metrics/sys** endpoint on the Data Prepper server. The format is a text Prometheus scrape. The Data Prepper server port has a default value of `4900` that you can can modify, and this port can be used for any frontend that accepts Prometheus metrics, such as [Grafana](https://prometheus.io/docs/visualization/grafana/). You can update the configuration to serve metrics to other registries like CloudWatch, that does not require or host the endpoint, but publishes the metrics directly to CloudWatch.
