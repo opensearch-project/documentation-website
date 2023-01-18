@@ -19,7 +19,7 @@ Snapshots have two main uses:
 
 2. Migrating from one cluster to another
 
-For example, if you’re moving from a proof-of-concept to a production cluster, you might take a snapshot of the former and restore it on the latter.
+    For example, if you’re moving from a proof-of-concept to a production cluster, you might take a snapshot of the former and restore it on the latter.
 
 You can take and restore snapshots using the snapshot management in Dashboards.
 
