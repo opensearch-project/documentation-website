@@ -14,7 +14,11 @@ The following flowchart illustrates the trace analytics workflow, from running O
 
 <img src="{{site.url}}{{site.baseurl}}/images/data-prepper/trace-analytics/trace-analytics-components.png" alt="Trace analyticis component overview">{: .img-fluid}
 
-In your service environment, you need to run OpenTelemetry collector. You can run it as a sidecar or daemonset for EKS, a sidecar for ECS, or an agent on EC2. You should configure the collector to export trace data to Data Prepper. Then, you need to deploy Data Prepper as an intermediate component and configure it to send the enriched trace data to your OpenSearch cluster or Amazon OpenSearch Service domain. Finally, use OpenSearch Dashboards to visualize and detect problems in your distributed applications.
+To monitor trace analytics, you need to set up the following components in your service environment:
+- Add an **instrumentation** to your application so it can generate telemetry data and send it to an OpenTelemetry collector.
+- Run an **OpenTelemetry collector** as a sidecar or daemonset for EKS, a sidecar for ECS, or an agent on EC2. You should configure the collector to export trace data to Data Prepper. 
+- Deploy **Data Prepper** as an intermediate component and configure it to send the enriched trace data to your OpenSearch cluster or Amazon OpenSearch Service domain. 
+- Use **OpenSearch Dashboards** to visualize and detect problems in your distributed applications.
 
 ## Trace analytics pipeline
 
