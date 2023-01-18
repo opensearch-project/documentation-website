@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Getting started
-nav_order: 5
+nav_order: 2
 redirect_from:
   - /clients/data-prepper/get-started/
 ---
