@@ -134,6 +134,8 @@ To delete an index, select the index you want to delete in the **Indices** list 
 
 <img src="{{site.url}}{{site.baseurl}}/images/admin-ui-index/templates.PNG" alt="User interface showing Templates page">
 
+### Create a template
+
 To create a template, select the **Create template** button on the **Templates** page under **Index Management**.
 
 Next, define the template:
@@ -151,7 +153,11 @@ Next, define the template:
 
 <img src="{{site.url}}{{site.baseurl}}/images/admin-ui-index/create-template-expanded.png" alt="User interface showing Create Template page">
 
+### Edit a template
+
 To edit a template, select the template you want to edit from the list of templates. Next, select the **Actions** dropdown and select the **Edit** option.
+
+### Delete a template
 
 To delete a template, select the template you want to delete from the list of templates. Next, select the **Actions** dropdown and select the **Delete** option.
 
