@@ -303,7 +303,8 @@ service-map-pipeline:
         #aws_region: us-east-1
 ```
 
-You will need to modify the configuration above for your OpenSearch cluster. Note that it has two `opensearch` sinks which need to be modified.
+You need to modify the preceding configuration for your OpenSearch cluster. Note that it has two `opensearch` sinks which need to be modified.
+{: .note}
 
 You must make the following changes:
 * `hosts` - Set to your hosts
