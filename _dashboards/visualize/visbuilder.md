@@ -1,12 +1,14 @@
 ---
 layout: default
-title: VisBuilder
+title: Using VisBuilder
+parent: Visualization types
+grand_parent: Visualize
 nav_order: 50
 redirect_from:
   - /dashboards/drag-drop-wizard/
 ---
 
-# VisBuilder
+# Using VisBuilder
 
 VisBuilder is an experimental feature and shouldn't be used in a production environment. For updates on its progress, or if you want to leave feedback that helps improve the feature, see the [GitHub issue](https://github.com/opensearch-project/OpenSearch-Dashboards/issues/2280).
 {: .warning}
