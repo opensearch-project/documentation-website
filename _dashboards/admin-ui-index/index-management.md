@@ -51,6 +51,12 @@ To attach policies to indexes, perform the following steps:
 
 The **Indices** section displays a list of indexes in your OpenSearch cluster. For each index included, you can see its heath status (`green`, `yellow`, or `red`), policy (if the index is managed by a policy), status, total size, size of primaries, total documents, deleted documents, primaries and replicas.
 
+Below are the health statuses an index can be in:
+
+- Green: All primary and replica shards are assigned.
+- Yellow: At least one replica shard is not assigned.
+- Red: At least one primary shard is not assigned.
+
 ### Create index
 
 While you can [create an index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/) by using a document as a base, you can also create an empty index for later use. 
@@ -102,7 +108,7 @@ To reindex an index, select the index in the **Indices** list under **Index Mana
 
 ### Shrink
 
-The [shrink]({{site.url}}{{site.baseurl}}/api-reference/index-apis/shrink-index/) index operation moves all of your data in an existing index into a new index with fewer primary shards.
+The [shrink]({{site.url}}{{site.baseurl}}/api-reference/index-apis/shrink-index/) index operation copies all of the data in an existing index into a new index with fewer primary shards.
 
 To shrink an index, select the index you want to shrink in the **Indices** list under **Index Management**. Then select the **Actions** button, and select **Shrink** from the dropdown list.
 
@@ -141,8 +147,13 @@ Next, define the template:
 7. Set the number of replicas.
 8. Set the refresh intervals.
 9. Add fields and objects for your index mapping using either the visual editor or the JSON editor.
+10. Under **Advanced Settings** you can specify advanced index settings with a comma-delimited list.
 
 <img src="{{site.url}}{{site.baseurl}}/images/admin-ui-index/create-template-expanded.png" alt="User interface showing Create Template page">
+
+To edit a template, select the template you want to edit from the list of templates. Next, select the **Actions** dropdown and select the **Edit** option.
+
+To delete a template, select the template you want to delete from the list of templates. Next, select the **Actions** dropdown and select the **Delete** option.
 
 ## Aliases
 
