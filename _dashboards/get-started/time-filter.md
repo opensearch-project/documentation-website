@@ -9,8 +9,11 @@ nav_order: 10
 
 You can change the time range to display dashboard data over minutes, hours, days, weeks, months, or years.
 
-The default time range is **Last 15 minutes**.
+The default time range is **Last 15 minutes**. You can change the time range at the dashboard level or 
 {: .note}
+
+To change the time range at the dashboard level:
+
 1. Select the calendar icon.
 1. Choose one of the following:
    - **Quick select:** Choose a time based on the last or next number of seconds, minutes, hours, days, or other time unit. 
@@ -22,7 +25,7 @@ The default time range is **Last 15 minutes**.
 
 1. Select **Show dates** to set start and end times.
 1. Choose **Absolute**, **Relative**, or **Now** and specify ranges.
-1. Select **Update** to apply chages.
+1. Select **Update** to apply changes.
 
 ![Start and end times interface]({{site.url}}{{site.baseurl}}/images/start-end-time.png)
 
