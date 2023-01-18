@@ -235,7 +235,13 @@ If the previous two scripts do not provision your GPU-accelerated node properly,
 
 1. Deploy an AWS accelerator instance based on your chosen Linux operating system. For instructions, see [Deploy on AWS accelerator instance](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/frameworks/torch/torch-neuron/setup/pytorch-install.html#deploy-on-aws-ml-accelerator-instance).
 
-2. Set the `PYTORCH_EXTRA_LIBRARY_PATH` path. In this example, we create a `pytorch` virtual environment in the OPENSEARCH_HOME folder:
+2. Copy the Neuron library into OpenSearch. The following command uses a directory named `opensearch-2.5.0`:
+
+   ```
+   OPENSEARCH_HOME=~/opensearch-2.5.0
+   ```
+
+3. Set the `PYTORCH_EXTRA_LIBRARY_PATH` path. In this example, we create a `pytorch` virtual environment in the OPENSEARCH_HOME folder:
 
    ```
    PYTORCH_NEURON_LIB_PATH=~/pytorch_venv/lib/python3.7/site-packages/torch_neuron/lib/
@@ -245,7 +251,7 @@ If the previous two scripts do not provision your GPU-accelerated node properly,
    export PYTORCH_EXTRA_LIBRARY_PATH=$OPENSEARCH_HOME/lib/torch_neuron/lib/libtorchneuron.so
   ```
 
-3. (Optional) To monitor the GPU usage of your accelerator instance, install [Neuron tools](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/tools/index.html), which allows models to be used inside your instance:
+4. (Optional) To monitor the GPU usage of your accelerator instance, install [Neuron tools](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/tools/index.html), which allows models to be used inside your instance:
 
    ```
    # Install Neuron Tools
@@ -262,11 +268,6 @@ If the previous two scripts do not provision your GPU-accelerated node properly,
    neuron-top
    ```
 
-4. Copy the Neuron library into OpenSearch. The following command uses a directory named `opensearch-2.5.0`:
-
-   ```
-   OPENSEARCH_HOME=~/opensearch-2.5.0
-   ```
 
 5. To make sure you have enough memory to upload a model, increase the JVM stack size to `>+2MB`:
 
