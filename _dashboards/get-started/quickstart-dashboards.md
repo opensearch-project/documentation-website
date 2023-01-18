@@ -7,7 +7,7 @@ has_children: false
 
 # Quickstart for OpenSearch Dashboards
 
-This quickstart covers the core concepts for you to get started with OpenSearch Dashboards. You'll learn how to:
+This quickstart covers the core concepts for getting started with OpenSearch Dashboards. You'll learn how to:
 
 - Add sample data
 - Explore and inspect data with **Discover**
@@ -18,11 +18,11 @@ Before you get started, make sure you've installed OpenSearch and OpenSearch Das
 
 # Add sample data
 
-Sample data sets come with visualizations, dashboards, and more to help you explore OpenSearch Dashboards before you add your own data. To add sample data, perform the following steps:
+Sample data sets come with visualizations, dashboards, and more to help you explore Dashboards before you add your own data. To add sample data, perform the following steps:
 
 1. Verify access to OpenSearch Dashboards by connecting to [http://localhost:5601](http://localhost:5601) from a browser. The default username and password are `admin`.
-1. On the OpenSearch Dashboards **Home** page, select **Add sample data**.
-1. Select **Add data** to add the data sets.
+2. On the OpenSearch Dashboards **Home** page, select **Add sample data**.
+3. Select **Add data** to add the data sets.
 
 ![Sample data sets]({{site.url}}{{site.baseurl}}/images/add-sample-data.png)
 
@@ -72,3 +72,31 @@ Continuing with the preceding dashboard, you'll create a bar chart comparing the
 1. Select **Save** and name the visualization in the **Title** field.
 1. Select *Save and return**. The bar chart is added as the last panel to the dashboard. 
 ![Bar chart visualization panel]({{site.url}}{{site.baseurl}}/images/viz-panel-quickstart.png)
+
+# Interact with the data
+
+Interactive dashboards allow you analyze data more deeply and filter it several ways. In Dashboards, you can interact directly with data on a dashboard by using dashboard-level filters. For example, continuing with the preceding dashboard, you can filter to show delays and cancellations for a specific airline.
+
+## Try it: Interact with the flight data
+
+1. On the **[Flights] Airline Carrier** panel, select **OpenSearch-Air**. The dashboard updates automatically .
+1. Select **Save** to save the customized dashboard.
+
+Alternatively, you can apply filters using the dashboard toolbar:
+
+1. In the dashboard toolbar, select **Add filter**.
+1. From the **Field**, **Operator**, and **Value** dropdown lists, select **Carrier**, **is**, and **OpenSearch-Air**, respectively.
+![Edit field interface]({{site.url}}{{site.baseurl}}/images/edit-filter.png)
+1. Select **Save**. The dashboard updates automatically.
+
+The result is the following dashboard: 
+
+![Dashboard view after applying Carrier filter]({{site.url}}{{site.baseurl}}/images/interact-filter-dashboard.png)
+
+# Next steps
+
+**Visualize data**. Learn more about data visualizations in OpenSearch Dashboards. Go to **[Visualize]**({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/).
+
+**Create dashboards.** Learn more about visualizing data in OpenSearch Dashboards. Go to **[Dashboard]**(add link-content in development).
+
+**Explore data**. Learn more about exploring data in OpenSearch Dashboards. Go to **[Discover]**({{site.url}}{{site.baseurl}}/dashboards/discover/). 
