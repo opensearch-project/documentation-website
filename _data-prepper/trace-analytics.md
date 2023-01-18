@@ -311,7 +311,7 @@ You must make the following changes:
 * `username` - Provide the OpenSearch username.
 * `password` - Provide your OpenSearch password.
 * `aws_sigv4` - If you are using Amazon OpenSearch Service with AWS signing, set this value to `true`. It will sign requests with the default AWS credentials provider.
-* `aws_region` - If you are Amazon OpenSearch Service with AWS signing, set this value to your region.
+* `aws_region` - If you are using Amazon OpenSearch Service with AWS signing, set this value to your region.
 
 For other configurations available for OpenSearch sinks, see [Data Prepper OpenSearch Sink]({{site.url}}{{site.baseurl}}/data-prepper/configuration/sinks/sinks/).
 
