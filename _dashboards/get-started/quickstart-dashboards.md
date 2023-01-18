@@ -61,7 +61,7 @@ Raw data can be hard to comprehend and use, and data visualizations help you pre
 
 ## Try it: Create a visualization panel
 
-Following these steps, you'll create a visualization panel with a bar chart comparing the number of cancelled flights and delayed flights versus delay type, and then add the panel to the dashboard.
+Continuing with the preceding dashboard, you'll create a bar chart comparing the number of cancelled flights and delayed flights to delay type, and then add the panel to the dashboard.
 
 1. Change the default [time range](time-filter.md) from **24 hours** to **Last 7 days**. 
 1. In the toolbar, select **Edit**, then **Create new**.
@@ -69,5 +69,6 @@ Following these steps, you'll create a visualization panel with a bar chart comp
 1. In the **Data Source** dropdown list, select `opensearch_dashboards_sample_data_flights`.
 1. Drag the fields **Cancelled** and **FlightDelay** to the y-axis column.
 1. Drag the field **FlightDelayType** to the x-axis column.
-1. Select **Refresh**.
-![Visualization panel interface]({{site.url}}{{site.baseurl}}/images/viz-panel-quickstart.png)
+1. Select **Save** and name the visualization in the **Title** field.
+1. Select *Save and return**. The bar chart is added as the last panel to the dashboard. 
+![Bar chart visualization panel]({{site.url}}{{site.baseurl}}/images/viz-panel-quickstart.png)
