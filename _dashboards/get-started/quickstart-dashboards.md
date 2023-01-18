@@ -28,15 +28,46 @@ Sample data sets come with visualizations, dashboards, and more to help you expl
 
 # Explore and inspect data
 
-In **Discover**, you can: 
+In [**Discover**](discover/index.md), you can: 
 
 - Select data to explore, set a time range for that data, search it using [Dashboards Query Language (DQL)]({{site.url}}{{site.baseurl}}/dashboards/dql/), and filter the results.
 - Explore the data's details, view individual documents, and create tables summarizing the data's contents.
 - Visualize your findings.
 
-Get familiar with **Discover** in the following steps:
+## Try it: Get familiar with Discover
 
 1. On the OpenSearch Dashboards **Home** page, select **Discover.**
 1. Change the [time filter](time-filter.md) to **Last 7 days**.
 ![Time filter interface]({{site.url}}{{site.baseurl}}/images/last-7--days.png)
-1. To view the flights that are delayed 60 minutes or longer, use the DQL search field:
+1. To view US-bound flights delayed 60 minutes or longer in a specific region, use the DQL search field:
+`FlightDelay:true AND DestCountry: US AND FlightDelayMin >= 60`
+1. To filter data by delay type, select the field under **Available field**.
+![Filter data interface]({{site.url}}{{site.baseurl}}/images/filter-data.png)
+
+# Visualize the data
+
+Raw data can be hard to comprehend and use, and data visualizations help you prepare and present data in a visual form. In **Dashboard** you can:
+
+- Display data in a single view.
+- Build dynamic dashboards.
+- Create and share reports.
+- Embed analytics to differentiate your applications.
+
+## Try it: Get familiar with Dashboard
+
+1. On the OpenSearch Dashboards **Home** page, select **Dashboard**.
+1. Select **[Flights] Global Flight Data** in the **Dashboards** window.
+![Data visualization dashboard]({{site.url}}{{site.baseurl}}/images/dashboard-flight-quickstart.png)
+
+## Try it: Create a visualization panel
+
+Following these steps, you'll create a visualization panel with a bar chart comparing the number of cancelled flights and delayed flights versus delay type, and then add the panel to the dashboard.
+
+1. Change the default [time range](time-filter.md) from **24 hours** to **Last 7 days**. 
+1. In the toolbar, select **Edit**, then **Create new**.
+1. Select **VisBuilder** in the **New Visualizations** window.
+1. In the **Data Source** dropdown list, select `opensearch_dashboards_sample_data_flights`.
+1. Drag the fields **Cancelled** and **FlightDelay** to the y-axis column.
+1. Drag the field **FlightDelayType** to the x-axis column.
+1. Select **Refresh**.
+![Visualization panel interface]({{site.url}}{{site.baseurl}}/images/viz-panel-quickstart.png)
