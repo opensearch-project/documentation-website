@@ -9,9 +9,9 @@ nav_order: 15
 
 Security Analytics provides the options and functionality to monitor and respond to a wide range of security threats. Detectors are the essential components that determine what to look for and how to respond to those threats. This section covers their creation and configuration. 
 
-## Step 1. Define the detector
+## Step 1. Defining a detector
 
-Defining a new detector involves naming the detector, selecting a data source and detector type, and specifying a detector schedule. You can also create alerts for the detector at this stage, although there are options to create alerts in other areas of the interface. Follow the steps in this section to define a new detector.
+Defining a new detector involves naming the detector, selecting a data source and detector type, and specifying a detector schedule. After defining a detector, you can also configure field mappings and set up alerts. Follow the steps in this section to accomplish all three of these setup tasks.
 
 1. On the Detectors page, select the **Create detector** button. The Define detector page opens.
 1. Give the detector a name and, as an option, add a description for the detector. 
@@ -34,7 +34,7 @@ Defining a new detector involves naming the detector, selecting a data source an
 1. In the **Detector schedule** section, set how often the detector will run. Specify a unit of time and a corresponding number to set the interval.
 1. Select the **Next** button in the lower-right corner of the screen to continue. The Configure field mapping page appears.
 
-## Step 2. Make field mappings
+## Step 2. Making field mappings
 
 Field mapping matches field names for the rule with field names from the log being used to provide data. The mappings are automatically applied once the detector is defined in previous steps. This page offers the user the option to map log-specific field names to the internal rule field names.
 
@@ -44,24 +44,26 @@ For example, if you prefer to have the log field name UserID rather than EventID
 
 To make any changes to the automatically populated mappings, use the dropdown arrows across from the rule field names to specify a preferred log field name for the mapping. After completing the mappings, select the **Next** button in the lower-right corner of the screen. The Set up alerts page appears and displays settings for an alert trigger.
 
-## Step 3. Set up alerts
+## Step 3. Setting up alerts
 
-At this stage, setting up alerts is optional for creating a new detector. Alerts can be configured at any time, including from the Findings window. This section describes the process for defining the alert conditions during creation of a detector. To see how to initiate creation of alerts from the Findings window, see [The findings list]({{site.url}}{{site.baseurl}}/security-analytics/usage/findings/#the-findings-list).
+The third step in creating a detector involves setting up alerts. Alerts are configured to create triggers that, when matched with a set of detection rule criteria, send a notification of a possible security event. You can select the criteria (rules, rule severity, and tags) in any combination to define a trigger. Once a trigger is defined, the alert setup lets you choose the channel on which to be notified and provides options for customizing a message for the notification.
 
-To skip directly to generating findings from the detector, select the **Remove alert trigger** button and then the **Next** button in the lower-right corner of the screen. Review the detector's definition and then select the **Create** button in the lower-right corner of the screen. The detector is created.
-{: .tip }
+At least one alert condition is required before a detector can begin generating findings.
+{: .note }
 
-To set up an alert for the detector at this stage of detector creation, continue with the following steps:
+You can also configure alerts from the Findings window. To see how to set up alerts from the Findings window, see [The findings list]({{site.url}}{{site.baseurl}}/security-analytics/usage/findings/#the-findings-list). A final option for adding additional alerts is to edit a detector and navigate to the **Alert triggers** tab, where you can edit existing alerts as well as add new ones. For details, see [Editing a detector]({{site.url}}{{site.baseurl}}security-analytics/usage/detectors/#editing-a-detector).
+
+To set up an alert for a detector, continue with the following steps:
 
 1. In the **Trigger name** box, enter a name for the trigger.
 1. To define rule matches for the alert, select security rules, severity levels, and tags.
-<img src="{{site.url}}{{site.baseurl}}/images/Security/alert_rules.png" alt="Rules used to define an alert">
+<br><img src="{{site.url}}{{site.baseurl}}/images/Security/alert_rules.png" alt="Rules used to define an alert">
 * Select one rule or multiple rules that will trigger the alert. Put the cursor in the **Rule names** box and type a name to search for it. To remove a rule name, select the **X** beside the name. To remove all rule names, select the **X** beside the dropdown menu's down arrow.
 <br><img src="{{site.url}}{{site.baseurl}}/images/Security/rule_name_delete.png" alt="Deletes all selected rules">
 * Select one or more rule severities as conditions for the alert.
 * Select from a list of tags to include as conditions for the alert.
 1. To define a notification for the alert, assign an alert severity, select a channel for the notification, and customize a message generated for the alert.
-<img src="{{site.url}}{{site.baseurl}}/images/Security/alert_notify.png" alt="Notification settings for the alert">
+<br><img src="{{site.url}}{{site.baseurl}}/images/Security/alert_notify.png" alt="Notification settings for the alert">
 * Assign a level of severity for the alert to give the recipient an indication of its urgency.
 * Select a channel for the notification. Examples include Slack, Chime, or email. Select the  **Manage channels** link to the right of the field to link the notification to a preferred channel.
 * Select the **Show notify message** label to expand message preferences. You can add a subject for the message and a note to inform recipients of the nature of the message.
