@@ -9,9 +9,9 @@ nav_order: 15
 
 Security Analytics provides the options and functionality to monitor and respond to a wide range of security threats. Detectors are the essential components that determine what to look for and how to respond to those threats. This section covers their creation and configuration. 
 
-## Step 1. Defining the detector
+## Step 1. Defining a detector
 
-Defining a new detector involves naming the detector, selecting a data source and detector type, and specifying a detector schedule. After defining the detector, you can also configure field mappings and set up alerts. Follow the steps in this section to accomplish all three of these setup tasks.
+Defining a new detector involves naming the detector, selecting a data source and detector type, and specifying a detector schedule. After defining a detector, you can also configure field mappings and set up alerts. Follow the steps in this section to accomplish all three of these setup tasks.
 
 1. On the Detectors page, select the **Create detector** button. The Define detector page opens.
 1. Give the detector a name and, as an option, add a description for the detector. 
@@ -46,14 +46,14 @@ To make any changes to the automatically populated mappings, use the dropdown ar
 
 ## Step 3. Setting up alerts
 
-The third step in creating a detector involves setting up alerts. Alerts are configured to create triggers that, when matched with a set of detection rule criteria, send a notification of a possible security event. You can select the criteria (rules, rule severity, and tags) in any combination to define the trigger. Once the trigger is defined, the alert setup lets you choose the channel on which to be notified and provides options for customizing a message for the notification.
+The third step in creating a detector involves setting up alerts. Alerts are configured to create triggers that, when matched with a set of detection rule criteria, send a notification of a possible security event. You can select the criteria (rules, rule severity, and tags) in any combination to define a trigger. Once a trigger is defined, the alert setup lets you choose the channel on which to be notified and provides options for customizing a message for the notification.
 
 At least one alert condition is required before a detector can begin generating findings.
 {: .note }
 
 You can also configure alerts from the Findings window. To see how to set up alerts from the Findings window, see [The findings list]({{site.url}}{{site.baseurl}}/security-analytics/usage/findings/#the-findings-list). A final option for adding additional alerts is to edit a detector and navigate to the **Alert triggers** tab, where you can edit existing alerts as well as add new ones. For details, see [Editing a detector]({{site.url}}{{site.baseurl}}security-analytics/usage/detectors/#editing-a-detector).
 
-To set up an alert for the detector, continue with the following steps:
+To set up an alert for a detector, continue with the following steps:
 
 1. In the **Trigger name** box, enter a name for the trigger.
 1. To define rule matches for the alert, select security rules, severity levels, and tags.
