@@ -317,7 +317,7 @@ For other configurations available for OpenSearch sinks, see [Data Prepper OpenS
 
 ## OpenTelemetry Collector
 
-You will have to run OpenTelemetry collector in your service environment. You can find the installation guide of OpenTelemetry collector [here](https://opentelemetry.io/docs/collector/getting-started/#getting-started).  Ensure that you configure the collector with an exporter configured to your Data Prepper. Below is an example `otel-collector-config.yaml` that receives data from various instrumentations and export it to Data Prepper.
+You need to run OpenTelemetry collector in your service environment. Follow the [getting started guide](https://opentelemetry.io/docs/collector/getting-started/#getting-started) to install an OpenTelemetry collector.  Ensure that you configure the collector with an exporter configured to your Data Prepper. The following example `otel-collector-config.yaml` receives data from various instrumentations and exports it to Data Prepper.
 
 ### Example otel-collector-config.yaml file
 
