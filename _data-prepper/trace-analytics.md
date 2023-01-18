@@ -29,7 +29,7 @@ To achieve trace analytics in Data Prepper, we have three pipelines: `entry-pipe
 
 ### OpenTelemetry trace source
 
-The [OpenTelemetry source]({{site.url}}{{site.baseurl}}/data-prepper-plugins/otel-trace-source/README.md) accepts trace data from the OpenTelemetry collector. The source depends on [OpenTelemetry Protocol](https://github.com/open-telemetry/opentelemetry-specification/tree/master/specification/protocol). The source officially support transport over gRPC. The source also supports industry-standard encryption (TLS/HTTPS).
+The [OpenTelemetry source]({{site.url}}{{site.baseurl}}/data-prepper-plugins/otel-trace-source/README.md) accepts trace data from the OpenTelemetry collector. The source follows the [OpenTelemetry Protocol](https://github.com/open-telemetry/opentelemetry-specification/tree/master/specification/protocol). The source officially supports transport over gRPC and the use of industry-standard encryption (TLS/HTTPS).
 
 ### Processor
 
