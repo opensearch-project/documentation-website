@@ -203,5 +203,5 @@ The unassigned shard information will be accurate only if you [enable replica co
 
 ## Required permissions
 
-If you use the security plugin, make sure you have the appropriate permissions:
+If you use the Security plugin, make sure you have the appropriate permissions:
 `cluster:monitor/health`.
