@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Index management
-parent: Admin UI for index operations in OpenSearch Dashboards
+parent: Index management in OpenSearch Dashboards
 nav_order: 10
 ---
 
@@ -9,7 +9,7 @@ nav_order: 10
 Introduced 2.5
 {: .label .label-purple }
 
-The Index Management section in the admin UI allows you to perform the operations available in the [Index API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/index/) from OpenSearch Dashboards' web UI.
+The **Index Management** section in Dashboards allows you to perform the operations available in the [Index API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/index/) from OpenSearch Dashboards' web UI.
 
 ## Index policies
 
@@ -76,7 +76,7 @@ You can also add fields and objects using either the visual editor or the JSON e
 
 If you analyze time series data, you likely want to prioritize new data over old data. You might periodically perform certain operations on older indexes, such as reducing replica count or deleting them.
 
-[Index State Management]({{site.url}}{{site.baseurl}}/im-plugin/ism/index/) (ISM) is a plugin that lets you automate these periodic administrative operations by triggering them based on changes in the index age, index size, or number of documents. The admin UI uses the ISM plugin to define policies that automatically handle index rollovers or deletions to fit your use case.
+[Index State Management]({{site.url}}{{site.baseurl}}/im-plugin/ism/index/) (ISM) is a plugin that lets you automate these periodic administrative operations by triggering them based on changes in the index age, index size, or number of documents. The **Index Management** section in Dashboards uses the ISM plugin to define policies that automatically handle index rollovers or deletions to fit your use case.
 
 For example, you can define a policy that moves your index into a **read_only** state after 30 days and then deletes it after a set period of 90 days. You can also set up the policy to send you a notification message when the index is deleted.
 
@@ -210,7 +210,7 @@ You can also disable and enable rollup jobs by selecting the corresponding butto
 
 ## Transform jobs
 
-Using the admin UI in OpenSearch Dashboards, you can create, start, stop, and complete operations with [transform]({{site.url}}{{site.baseurl}}/im-plugin/index-transforms/transforms-apis/) jobs.
+Using the **Index Management** section in Dashboards, you can create, start, stop, and complete operations with [transform]({{site.url}}{{site.baseurl}}/im-plugin/index-transforms/transforms-apis/) jobs.
 
 To create a transform job, perform the following steps:
 

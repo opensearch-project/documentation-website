@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Snapshot management
-parent: Admin UI for index operations in OpenSearch Dashboards
+parent: Index management in OpenSearch Dashboards
 nav_order: 30
 ---
 
@@ -21,7 +21,7 @@ Snapshots have two main uses:
 
 For example, if you’re moving from a proof-of-concept to a production cluster, you might take a snapshot of the former and restore it on the latter.
 
-You can take and restore snapshots using the admin UI in Dashboards.
+You can take and restore snapshots using the snapshot management in Dashboards.
 
 If you need to automate taking snapshots, you can use a snapshot policy.
 
