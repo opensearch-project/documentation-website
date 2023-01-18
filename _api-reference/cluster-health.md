@@ -36,7 +36,8 @@ The following table lists the available query parameters. All query parameters a
 Parameter | Type | Description
 :--- | :--- | :---
 expand_wildcards | Enum | Expands wildcard expressions to concrete indexes. Combine multiple values with commas. Supported values are `all`, `open`, `closed`, `hidden`, and `none`. Default is `open`.
-level | Enum | The level of detail for returned health information. Supported values are `cluster`, `indices`, and `shards`. Default is `cluster`.
+level | Enum | The level of detail for returned health information. Supported values are `cluster`, `indices`, `shards`, and `awareness_attributes`. Default is `cluster`.
+awareness_attribute | String | The name of the awareness attribute, for which to return cluster health (for example, `zone`). Applicable only if `level` is set to `awareness_attributes`.
 local | Boolean | Whether to return information from the local node only instead of from the cluster manager node. Default is false.
 cluster_manager_timeout | Time | The amount of time to wait for a connection to the cluster manager node. Default is 30 seconds.
 timeout | Time | The amount of time to wait for a response. If the timeout expires, the request fails. Default is 30 seconds.
@@ -101,22 +102,11 @@ The following table lists all response fields.
 |number_of_in_flight_fetch | Integer | The number of unfinished fetches. |
 |task_max_waiting_in_queue_millis | Integer | The maximum wait time for all tasks waiting to be performed, in milliseconds. |
 |active_shards_percent_as_number | Double | The percentage of active shards in the cluster. |
-
-## Required permissions
-
-If you use the security plugin, make sure you have the appropriate permissions:
-`cluster:monitor/health`.
+|awareness_attributes | Object | Contains cluster health information for each awareness attribute. |
 
 ## Returning cluster health by awareness attribute
-Introduced 2.5
-{: .label .label-purple }
 
-We are introducing the ability to perform a cluster health check on specified awareness attributes of the cluster as an experimental feature. For updates on the progress of the feature, or if you want leave feedback that could help improve it, refer to the [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/5851).
-{: .warning}
-
-Previously, a cluster health check could be performed only for the full cluster. The Cluster Health API can now return the health status and shard distribution of each awareness attribute. In addition, you can check cluster health for a specified awareness attribute (for example, zone or rack).
-
-To check cluster health by awareness attribute, specify `awareness_attributes` in the `level` query parameter:
+To check cluster health by awareness attribute (for example, zone or rack), specify `awareness_attributes` in the `level` query parameter:
 
 ```json
 GET _cluster/health?level=awareness_attributes
@@ -200,10 +190,6 @@ The response contains cluster health metrics partitioned by awareness attribute:
 }
 ```
 
-The `awareness_attributes` object contains cluster health information for each awareness attribute.
-
-Refer to the [Response fields section](#response-fields) for a description of the response fields. The `weight` field refers to the awareness attribute weight. 
-
 If you're interested in a particular awareness attribute, you can include the name of the awareness attribute as a query parameter:
 
 ```json
@@ -214,3 +200,8 @@ In response to the preceding request, OpenSearch returns cluster health informat
 
 The unassigned shard information will be accurate only if you [enable replica count enforcement]({{site.url}}{{site.baseurl}}/opensearch/cluster#forced-replica-count-enforcement) and [configure forced awareness]({{site.url}}{{site.baseurl}}/opensearch/cluster#forced-awareness) for the awareness attribute either before cluster start, or after cluster start but before any indexing requests. If you enable replica enforcement after the cluster receives indexing requests, the unassigned shard information may be inaccurate. If you don't configure replica count enforcement and forced awareness, the `unassigned_shards` field will contain -1.
 {: .warning}
+
+## Required permissions
+
+If you use the security plugin, make sure you have the appropriate permissions:
+`cluster:monitor/health`.
