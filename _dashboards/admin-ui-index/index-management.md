@@ -51,7 +51,7 @@ To attach policies to indexes, perform the following steps:
 
 The **Indices** section displays a list of indexes in your OpenSearch cluster. For each index included, you can see its heath status (`green`, `yellow`, or `red`), policy (if the index is managed by a policy), status, total size, size of primaries, total documents, deleted documents, primaries and replicas.
 
-Below are the health statuses an index can be in:
+The following are the three index health statuses:
 
 - Green: All primary and replica shards are assigned.
 - Yellow: At least one replica shard is not assigned.
@@ -86,13 +86,13 @@ To apply a policy, select the index to which you want to apply the policy in the
 
 <img src="{{site.url}}{{site.baseurl}}/images/admin-ui-index/apply-policy.PNG" alt="User interface showing apply policy prompt">
 
-### Close
+### Close index
 
 The [close index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/close-index/) operation closes an index. Once an index is closed, you cannot add data to it or search for any data within the index.
 
 To close an index, select the index you want to close in the **Indices** list under **Index Management**. Then select the **Actions** button, and select **Close** from the dropdown list.
 
-### Open
+### Open index
 
 The [open index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/open-index/) operation opens a closed index, letting you add or search for data within the index.
 
@@ -106,7 +106,7 @@ To reindex an index, select the index in the **Indices** list under **Index Mana
 
 <img src="{{site.url}}{{site.baseurl}}/images/admin-ui-index/reindex-expanded.png" alt="User interface showing reindex prompt">
 
-### Shrink
+### Shrink index
 
 The [shrink]({{site.url}}{{site.baseurl}}/api-reference/index-apis/shrink-index/) index operation copies all of the data in an existing index into a new index with fewer primary shards.
 
@@ -114,7 +114,7 @@ To shrink an index, select the index you want to shrink in the **Indices** list 
 
 <img src="{{site.url}}{{site.baseurl}}/images/admin-ui-index/shrink.png" alt="User interface showing shrink prompt">
 
-### Split
+### Split index
 
 The [split index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/split/) operation splits an existing read-only index into a new index, splitting each primary shard into a number of primary shards in the new index.
 
@@ -122,7 +122,7 @@ To split an index, select the index you want to split in the **Indices** list un
 
 <img src="{{site.url}}{{site.baseurl}}/images/admin-ui-index/split-expanded.png" alt="User interface showing split page">
 
-### Delete
+### Delete index
 
 If you no longer need an index, you can use the [delete index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/delete-index/) operation to delete it.
 
@@ -134,7 +134,7 @@ To delete an index, select the index you want to delete in the **Indices** list 
 
 <img src="{{site.url}}{{site.baseurl}}/images/admin-ui-index/templates.PNG" alt="User interface showing Templates page">
 
-### Create a template
+### Creating a template
 
 To create a template, select the **Create template** button on the **Templates** page under **Index Management**.
 
@@ -153,11 +153,11 @@ Next, define the template:
 
 <img src="{{site.url}}{{site.baseurl}}/images/admin-ui-index/create-template-expanded.png" alt="User interface showing Create Template page">
 
-### Edit a template
+### Editing a template
 
 To edit a template, select the template you want to edit from the list of templates. Next, select the **Actions** dropdown and select the **Edit** option.
 
-### Delete a template
+### Deleting a template
 
 To delete a template, select the template you want to delete from the list of templates. Next, select the **Actions** dropdown and select the **Delete** option.
 
