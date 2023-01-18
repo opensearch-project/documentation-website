@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Maps
-nav_order: 15
+nav_order: 70
 ---
 
 # Maps

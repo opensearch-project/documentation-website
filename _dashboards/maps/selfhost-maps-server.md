@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Self-host maps server
-nav_order: 30
+parent: Maps
+nav_order: 20
 ---
 
 # Self-host maps server
