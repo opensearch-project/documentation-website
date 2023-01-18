@@ -3,6 +3,8 @@ layout: default
 title: Self-host maps server
 parent: Maps
 nav_order: 20
+redirect_from:
+  - /docs/opensearch-dashboards/selfhost-maps-server/
 ---
 
 # Self-host maps server
