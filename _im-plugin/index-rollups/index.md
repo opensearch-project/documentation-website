@@ -529,7 +529,7 @@ In ISM rollup, the `target_index` field may contain a template that is compiled 
 The `source_index` parameter in {% raw %}`{{ctx.source_index}}`{% endraw %} cannot contain wildcards.
 {: .note}
 
-## Query strings
+## Query string queries
 
 To take advantage of shorter and easier to write strings in Query DSL, you can use [query strings]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/#query-string) to simplify search queries in rollup indexes. To use query strings, add the following fields to your rollup search request.
 
@@ -539,6 +539,43 @@ To take advantage of shorter and easier to write strings in Query DSL, you can u
           "query": "field_name:field_value"
       }
   }
+```
+
+The following example uses a query string with a `*` wildcard operator to search inside a rollup index called `my_server_logs_rollup`.
+
+```json
+GET my_server_logs_rollup/_search
+{
+  "size": 0,
+  "query": {
+      "query_string": {
+          "query": "email* OR inventory",
+          "default_field": "service_name"
+      }
+  },  
+  
+  "aggs": {
+    "service_name": {
+      "terms": {
+        "field": "service_name"
+      },
+      "aggs": {
+        "region": {
+          "terms": {
+            "field": "region"
+          },
+          "aggs": {
+            "average quantity": {
+               "avg": {
+                  "field": "cpu_usage"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+}
 ```
 
 For more information on what fields are supported in query strings, see [Advanced filter options]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/#advanced-filter-options/).
