@@ -356,7 +356,7 @@ After you run OpenTelemetry in your service environment, you must configure your
 
 ## Next steps and more information
 
-The [OpenSearch Dashboards Observability plugin]({{site.url}}{{site.baseurl}}/observability-plugin/trace/ta-dashboards/) documentation provides additional details on configuring OpenSearch for viewing trace analytics. In particular, it documents how to use OpenSearch Dashboards.
+The [OpenSearch Dashboards Observability plugin]({{site.url}}{{site.baseurl}}/observability-plugin/trace/ta-dashboards/) documentation provides additional details on configuring OpenSearch for viewing trace analytics in OpenSearch Dashboards.
 
 For more information about how to tune and scale Data Prepper for trace analytics, see [trace tuning](#trace-tuning).
 
