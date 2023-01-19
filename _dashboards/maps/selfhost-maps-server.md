@@ -16,17 +16,17 @@ The following sections provide steps for setting up and using the self-host maps
 You can access the `maps-server` image via the official OpenSearch [Docker Hub repository](https://hub.docker.com/u/opensearchproject).
 {: .note}
 
-# Pulling the Docker image
+## Pulling the Docker image
 
 Open your terminal and run the following command:
 
 `docker pull opensearch/opensearch-maps-server`
 
-# Setting up the server
+## Setting up the server
 
 You must set up the map tiles before running the server. You have two setup options: Use the OpenSearch-provided maps service tiles set, or generate the raster tiles set.
 
-## Option 1: Use the OpenSearch-provided maps service tiles set
+### Option 1: Use the OpenSearch-provided maps service tiles set
 
 Create a Docker volume to hold the tiles set:
 
@@ -48,11 +48,11 @@ docker run \
     import
 ```
 
-## Option 2: Generate the raster tiles set
+### Option 2: Generate the raster tiles set
 
 To generate the raster tiles set, use the [raster tile generation pipeline](https://github.com/opensearch-project/maps/tree/main/tiles-generation/cdk) and then use the tiles set absolute path to create a volume to start the server.
 
-# Starting the server
+## Starting the server
 
 Use the following command to start the server using the Docker volume `tiles-data`. The following command is an example using host URL "localhost" and port "8080":
 
@@ -83,28 +83,22 @@ Confirm the server is running by opening each of the following links in a browse
 * Map tiles URL: `http://localhost:8080/tiles/data/{z}/{x}/{y}.png`
 * Map tiles demo URL: `http://localhost:8080/`
 
-# Using the self-host maps server with OpenSearch Dashboards
+## Using the self-host maps server with OpenSearch Dashboards
 
 You can use the self-host maps server with OpenSearch Dashboards by either adding the parameter to `opensearch_dashboards.yml` or configuring the default WMS properties in OpenSearch Dashboards.
 
-## Option 1: Configure opensearch_dashboards.yml
+### Option 1: Configure opensearch_dashboards.yml
 
 Configure the manifest URL in `opensearch_dashboards.yml`:
 
 `map.opensearchManifestServiceUrl: "http://localhost:8080/manifest.json"`
 
-## Option 2: Configure Default WMS properties in OpenSearch Dashboards
+### Option 2: Configure Default WMS properties in OpenSearch Dashboards
 
 1. On the OpenSearch Dashboards console, select **Stack Management > Advanced Settings**. 
 2. Locate `visualization:tileMap:WMSdefaults` under **Default WMS properties**. 
 3. Change `"enabled": false` to `"enabled": true` and add the URL for the valid map server.
 
-# Licenses
+## Licenses
 
 Tiles are generated per [Terms of Use for Natural Earth vector map data](https://www.naturalearthdata.com/about/terms-of-use/) and [Copyright and License for OpenStreetMap](https://www.openstreetmap.org/copyright).
-
-# Related links
-
-* [Using maps in OpenSearch Dashboards]()
-* [Configuring the Web Map Service]({{site.url}}{{site.baseurl}}/dashboards/maptiles/)
-* [Using region maps]({{site.url}}{{site.baseurl}}/dashboards/geojson-regionmaps/)
