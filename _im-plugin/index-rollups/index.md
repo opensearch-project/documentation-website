@@ -518,6 +518,57 @@ POST example_rollup/_search
 
 The `doc_count` field in bucket aggregations contains the number of documents collected in each bucket. When calculating the bucket's `doc_count`, the number of documents is incremented by the number of the pre-aggregated documents in each summary document. The `doc_count` returned from rollup searches represents the total number of matching documents from the source index. Thus, the document count for each bucket is the same whether you search the source index or the rollup target index.
 
+## Query string queries
+
+o take advantage of shorter and easier to write strings in Query DSL, you can use [query strings]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/query-string/) to simplify search queries in rollup indexes. To use query strings, add the following fields to your rollup search request.
+
+```json
+"query": {
+      "query_string": {
+          "query": "field_name:field_value"
+      }
+  }
+```
+
+The following example uses a query string with a `*` wildcard operator to search inside a rollup index called `my_server_logs_rollup`.
+
+```json
+GET my_server_logs_rollup/_search
+{
+  "size": 0,
+  "query": {
+      "query_string": {
+          "query": "email* OR inventory",
+          "default_field": "service_name"
+      }
+  },  
+  
+  "aggs": {
+    "service_name": {
+      "terms": {
+        "field": "service_name"
+      },
+      "aggs": {
+        "region": {
+          "terms": {
+            "field": "region"
+          },
+          "aggs": {
+            "average quantity": {
+               "avg": {
+                  "field": "cpu_usage"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+}
+```
+
+For more information on which parameters are supported in query strings, see [Advanced filter options]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/query-string/#parameters).
+
 ## Dynamic target index
 
 <style>
