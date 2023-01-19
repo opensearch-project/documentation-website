@@ -1,10 +1,10 @@
 ---
 layout: default
-title: Maps
+title: Creating maps in OpenSearch Dashboards
 nav_order: 70
 ---
 
-# Maps
+# Creating maps in OpenSearch Dashboards
 
 With OpenSearch Dashboards, you can create maps to visualize your geographical data. OpenSearch lets you construct map visualizations with multiple layers, combining data across different indexes. You can build each layer from a different index pattern. Additionally, you can configure maps to show specific data at different zoom levels. OpenSearch maps are powered by the OpenSearch maps service, which uses vector tiles to render maps. 
 

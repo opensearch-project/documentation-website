@@ -1,7 +1,7 @@
 ---
 layout: default
-title: Configure WMS map server
-parent: Maps
+title: Configuring the Web Map Service
+parent: Creating maps in OpenSearch Dashboards
 nav_order: 10
 redirect_from:
   - /docs/opensearch-dashboards/maptiles/
@@ -9,15 +9,22 @@ redirect_from:
 
 {%- comment -%}The `/docs/opensearch-dashboards/maptiles/` redirect is specifically to support the UI links in OpenSearch Dashboards 1.0.0.{%- endcomment -%}
 
-# Configure WMS map server
+# Configuring the Web Map Service
 
-OpenSearch Dashboards includes default map tiles, but if you need more specialized maps, you can configure OpenSearch Dashboards to use a WMS map server:
+OpenSearch Dashboards includes default map tiles. If you need specialized maps, you can use the [Web Map Service (WMS)](https://www.ogc.org/standards/wms). 
+
+Some map services have licensing fees or restrictions. You're responsible for all such considerations on any map server that you specify.
+{: .note }
+
+## Try it: Configuring your Dashboards and WMS
+
+Follow these steps to configure your Dashboards and WMS. 
 
 1. Open OpenSearch Dashboards at `https://<host>:<port>`. For example, [https://localhost:5601](https://localhost:5601).
-1. If necessary, log in.
-1. Choose **Management** and **Advanced Settings**.
-1. Locate `visualization:tileMap:WMSdefaults`.
-1. Change `enabled` to true and add the URL of a valid WMS map server:
+2. If necessary, log in.
+3. Choose **Management** and **Advanced Settings**.
+4. Locate `visualization:tileMap:WMSdefaults`.
+5. Change `enabled` to true, and add the URL of a valid WMS map server:
 
    ```json
    {
@@ -29,6 +36,3 @@ OpenSearch Dashboards includes default map tiles, but if you need more specializ
      }
    }
    ```
-
-Map services often have licensing fees or restrictions. You're responsible for all such considerations on any map server that you specify.
-{: .note }
