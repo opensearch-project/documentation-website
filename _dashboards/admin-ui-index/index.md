@@ -1,13 +1,13 @@
 ---
 layout: default
-title: Index management in OpenSearch Dashboards
+title: Index and snapshot management in OpenSearch Dashboards
 nav_order: 1
 has_children: true
 redirect_from:
   - /dashboards/admin-ui-index/
 ---
 
-# Index management in OpenSearch Dashboards
+# Index and snapshot management in OpenSearch Dashboards
 Introduced 2.5
 {: .label .label-purple }
 
