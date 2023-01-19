@@ -42,3 +42,23 @@ This guide assumes that you are comfortable working from the Linux command line 
     sudo systemctl status opensearch-dashboards
     ```
 
+### Fingerprint verification
+
+The Debian package is not signed. If you would like to verify the fingerprint, the OpenSearch Project provides a `.sig` file as well as the `.deb` package for use with GNU Privacy Guard (GPG).
+
+1. Download the desired Debian package.
+   ```bash
+   curl -SLO https://artifacts.opensearch.org/releases/bundle/opensearch-dashboards/{{site.opensearch_version}}/opensearch-dashboards-{{site.opensearch_version}}-linux-x64.deb
+   ```
+1. Download the corresponding signature file.
+   ```bash
+   curl -SLO https://artifacts.opensearch.org/releases/bundle/opensearch-dashboards/{{site.opensearch_version}}/opensearch-dashboards-{{site.opensearch_version}}-linux-x64.deb.sig
+   ```
+1. Download and import the GPG key.
+   ```bash
+   curl -o- https://artifacts.opensearch.org/publickeys/opensearch.pgp | gpg --import -
+   ```
+1. Verify the signature.
+   ```bash
+   gpg --verify opensearch-dashboards-{{site.opensearch_version}}-linux-x64.deb.sig opensearch-dashboards-{{site.opensearch_version}}-linux-x64.deb
+   ```
