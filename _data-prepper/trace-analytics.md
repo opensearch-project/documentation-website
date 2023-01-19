@@ -100,7 +100,7 @@ The [Kubernetes configuration files](https://github.com/opensearch-project/data-
 
 ### Benchmark
 
-We ran tests in a `r5.xlarge` EC2 instance with the following configuration:
+The benchmark tests were performed in a `r5.xlarge` EC2 instance with the following configuration:
  
  * `buffer_size`: 4096
  * `batch_size`: 256
