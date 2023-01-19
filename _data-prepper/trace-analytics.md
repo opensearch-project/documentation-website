@@ -107,7 +107,7 @@ The benchmark tests were performed in a `r5.xlarge` EC2 instance with the follow
  * `workers`: 8
  * `Heap`: 10GB
  
-The above setup was able to handle a throughput of `2100` spans/second at `20` percent CPU utilization.
+This setup was able to handle a throughput of `2100` spans/second at `20` percent CPU utilization.
 
 ## Pipeline configuration
 
