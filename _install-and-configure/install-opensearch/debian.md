@@ -57,7 +57,7 @@ This guide assumes that you are comfortable working from the Linux command line 
 
 ### Fingerprint verification
 
-The Debian package is not signed. If you would like to verify the fingerprint, the OpenSearch Project provides a `.sig` file as well as the `.deb` package for us with GNU Privacy Guard (GPG).
+The Debian package is not signed. If you would like to verify the fingerprint, the OpenSearch Project provides a `.sig` file as well as the `.deb` package for use with GNU Privacy Guard (GPG).
 
 1. Download the desired Debian package.
    ```bash
