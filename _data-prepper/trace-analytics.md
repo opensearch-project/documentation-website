@@ -70,7 +70,7 @@ The total number of trace requests that Data Prepper is processing is equal to s
 
 We recommend the following guidelines when making changes to buffer settings:
  * The `buffer_size` value in `otel-trace-pipeline` and `raw-pipeline` should be the same.
- * Make values for `buffer_size` >= `workers` * `batch_size` in the `raw-pipeline`
+ * The `buffer_size` should be greater than or equal to `workers` * `batch_size` in the `raw-pipeline`.
  
 
 #### Workers 
