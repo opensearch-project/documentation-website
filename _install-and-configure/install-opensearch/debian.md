@@ -114,7 +114,7 @@ APT, the primary package management tool for Debian–based operating systems, a
     ```bash
     sudo systemctl enable opensearch
     ```
-1. Start OpenSear h.
+1. Start OpenSearch.
     ```bash
     sudo systemctl start opensearch
     ```
