@@ -2,6 +2,8 @@
 layout: default
 title: Creating maps in OpenSearch Dashboards
 nav_order: 70
+redirect_from:
+  - /dashboards/maps/
 ---
 
 # Creating maps in OpenSearch Dashboards
