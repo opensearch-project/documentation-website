@@ -62,3 +62,50 @@ The Debian package is not signed. If you would like to verify the fingerprint, t
    ```bash
    gpg --verify opensearch-dashboards-{{site.opensearch_version}}-linux-x64.deb.sig opensearch-dashboards-{{site.opensearch_version}}-linux-x64.deb
    ```
+
+### Install OpenSearch Dashboards from an APT repository
+
+APT, the primary package management tool for Debian–based operating systems, allows you to download and install the Debian package from the APT repository. 
+
+1. Import the public GPG key. This key is used to verify that the APT repository is signed.
+    ```bash
+    curl -o- https://artifacts.opensearch.org/publickeys/opensearch.pgp | sudo apt-key add -
+    ```
+1. Create an APT repository for OpenSearch:
+   ```bash
+   echo "deb https://artifacts.opensearch.org/releases/bundle/opensearch-dashboards/2.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/opensearch-2.x.list
+   ```
+1. Verify that the repository was created successfully.
+    ```bash
+    sudo apt-get update
+    ```
+1. With the repository information added, list all available versions of OpenSearch:
+   ```bash
+   sudo apt list -a opensearch-dashboards
+   ```
+1. Choose the version of OpenSearch you want to install: 
+   - Unless otherwise indicated, the latest available version of OpenSearch is installed.
+   ```bash
+   sudo apt-get install opensearch-dashboards
+   ```
+   - To install a specific version of OpenSearch Dashboards:
+   ```bash
+   # Specify the version manually using opensearch=<version>
+   sudo apt-get install opensearch-dashboards={{site.opensearch_version}}
+   ```
+1. During installation, the installer will present you with the GPG key fingerprint. Verify that the information matches the following:
+   ```bash
+   Fingerprint: c5b7 4989 65ef d1c2 924b a9d5 39d3 1987 9310 d3fc
+   ```
+1. Once complete, enable OpenSearch.
+    ```bash
+    sudo systemctl enable opensearch-dashboards
+    ```
+1. Start OpenSear h.
+    ```bash
+    sudo systemctl start opensearch-dashboards
+    ```
+1. Verify that OpenSearch launched correctly.
+    ```bash
+    sudo systemctl status opensearch-dashboards
+    ```
