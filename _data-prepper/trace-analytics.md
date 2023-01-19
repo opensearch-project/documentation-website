@@ -94,7 +94,7 @@ Data Prepper also uses the local disk to write logs. In the most recent version 
 
 ### AWS
 
-The [AWS EC2 Cloudformation](https://github.com/opensearch-project/data-prepper/blob/main/deployment-template/ec2/data-prepper-ec2-deployment-cfn.yaml) template provides a user-friendly mechanism to configure the above scaling attributes.
+The [AWS EC2 Cloudformation](https://github.com/opensearch-project/data-prepper/blob/main/deployment-template/ec2/data-prepper-ec2-deployment-cfn.yaml) template provides a user-friendly mechanism to configure the scaling attributes described in the [Trace tuning section](#trace-tuning).
 
 The [Kubernetes configuration files](https://github.com/opensearch-project/data-prepper/blob/main/examples/dev/k8s/README.md) and [EKS configuration files](https://github.com/opensearch-project/data-prepper/blob/main/deployment-template/eks/README.md) are available to configure these attributes in a cluster deployment.
 
