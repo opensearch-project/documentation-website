@@ -75,7 +75,7 @@ We recommend the following guidelines when making changes to buffer settings:
 
 #### Workers 
 
-The `workers` setting determines the number of threads that are used by Data Prepper to process requests from the buffer. We recommend that you set `workers` based on the CPU utilization. This value can be higher than available processors, as Data Prepper spends significant input/output time when sending data to OpenSearch.
+The `workers` setting determines the number of threads that are used by Data Prepper to process requests from the buffer. We recommend that you set `workers` based on the CPU utilization. This value can be higher than the number of available processors, because Data Prepper spends significant input/output time when sending data to OpenSearch.
 
 #### Heap
 
