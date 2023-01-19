@@ -516,7 +516,7 @@ POST example_rollup/_search
 
 ## The doc_count field
 
-The `doc_count` field in bucket aggregations contains the number of documents collected in each bucket. When calculating the bucket's `doc_count`, the number of documents is incremented by the number of the pre-aggregated documents in each summary document. The `doc_count` returned from rollup searches represents the total number of matching documents from the source index. Thus, the document count for each bucket is the same whether you search the source index or the rollup target index.
+The `doc_count` field in bucket aggregations contains the number of documents collected in each bucket. When calculating the bucket's `doc_count`, the number of documents is incremented by the number of the pre-aggregated documents in each summary document. The `doc_count` returned from rollup searches represents the total number of matching documents from the source index. The document count for each bucket is the same whether you search the source index or the rollup target index.
 
 ## Query string queries
 
