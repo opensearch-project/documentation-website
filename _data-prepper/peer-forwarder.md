@@ -6,7 +6,9 @@ nav_order: 12
 
 # Peer Forwarder
 
-Peer Forwarder is an HTTP service that performs peer forwarding of an `event` between Data Prepper nodes for aggregation. Currently, Peer Forwarder is supported by the `aggregate`, `service_map_stateful`, and `otel_trace_raw` processors.
+Peer Forwarder is an HTTP service that performs peer forwarding of an `event` between Data Prepper nodes for aggregation. This HTTP service uses a hash-ring approach to aggregate events and determine which Data Prepper node should handle on a given trace before rerouting it to that node. Currently, Peer Forwarder is supported by the `aggregate`, `service_map_stateful`, and `otel_trace_raw` processors.
+
+<!--- Need a replacement for "hash-ring" if the audience isn't familiar with this term. Also need to check "trace".--->
 
 Peer Forwarder groups events based on the identification keys provided by the processors. For `service_map_stateful` and `otel_trace_raw`, the identification key is `traceId` by default and cannot be configured. The `aggregate` processor is configured using the `identification_keys` configuration option. From here, you can specify which keys to use for Peer Forwarder. See [Aggregate Processor page](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/aggregate-processor#identification_keys) for more information about identification keys.
 
@@ -18,7 +20,7 @@ The following sections provide information about discovery modes.
 
 ### Static
 
-Static discovery mode allows a Data Prepper node to discover nodes using a list of IP addresses or domain names. See the following yaml file for an example of static discovery mode:
+Static discovery mode allows a Data Prepper node to discover nodes using a list of IP addresses or domain names. See the following YAML file for an example of static discovery mode:
 
 ```yaml
 peer_forwarder:4
@@ -28,7 +30,7 @@ peer_forwarder:4
 
 ### DNS lookup
 
-DNS discovery is preferred over static discovery when scaling out a Data Prepper cluster. DNS discovery configures a DNS provider to return a list of Data Prepper hosts when given a single domain name. This list that is returned is a [DNS A record](https://www.cloudflare.com/learning/dns/dns-records/dns-a-record/), which indicates a list of IP addresses of a given domain. See the following yaml file example of DNS lookup:
+DNS discovery is preferred over static discovery when scaling out a Data Prepper cluster. DNS discovery configures a DNS provider to return a list of Data Prepper hosts when given a single domain name. This list is a [DNS A record](https://www.cloudflare.com/learning/dns/dns-records/dns-a-record/), and a list of IP addresses of a given domain. See the following YAML file example of DNS lookup:
 
 ```yaml
 peer_forwarder:
@@ -49,11 +51,11 @@ Your Data Prepper configuration needs to include the following:
 * `discovery_mode` – Set to `aws_cloud_map`.
 
 Your Data Prepper configuration can optionally include the following:
-* `aws_cloud_map_query_parameters` – Key-value pairs are used to filter the results based on the custom attributes attached to an instance. Only instances that match all the specified key-value pairs are returned.
+* `aws_cloud_map_query_parameters` – Key-value pairs are used to filter the results based on the custom attributes attached to an instance. Results include only those instances that match all of the specified key-value pairs.
 
 #### Example configuration
 
-See the following yaml file example of AWS Cloud Map configuration:
+See the following YAML file example of AWS Cloud Map configuration:
 
 ```yaml
 peer_forwarder:
@@ -115,7 +117,7 @@ The following SSL configuration table provides optional SSL configuration values
 | ----- | ----------- |
 | `ssl` | A `Boolean` that enables TLS/SSL. Default value is `true`. |
 | `ssl_certificate_file`| A `String` representing the SSL certificate chain file path or Amazon Simple Storage Service (Amazon S3) path. The following is an example of an Amazon S3 path: `s3://<bucketName>/<path>`. Defaults to the default certificate file,`config/default_certificate.pem`. See [Default Certificates](https://github.com/opensearch-project/data-prepper/tree/main/examples/certificates) for more information about how the certificate is generated. |
-| `ssl_key_file`| A `String` represents the SSL key file path or AWS S3 path. S3 path example `s3://<bucketName>/<path>`. Defaults to `config/default_private_key.pem` which is default private key file. Read more about how the private key file is generated at the [Default Certificates](https://github.com/opensearch-project/data-prepper/tree/main/examples/certificates) page. |
+| `ssl_key_file`| A `String` that represents the SSL key file path or AWS S3 path. S3 path example `s3://<bucketName>/<path>`. Defaults to `config/default_private_key.pem` which is default private key file. Read more about how the private key file is generated at the [Default Certificates](https://github.com/opensearch-project/data-prepper/tree/main/examples/certificates) page. |
 | `ssl_insecure_disable_verification` | A `Boolean` that disables the verification of the server's TLS certificate chain. Default value is `false`. |
 | `ssl_fingerprint_verification_only` | A `Boolean` that disables the verification of the server's TLS certificate chain and instead verifies only the certificate fingerprint. Default value is `false`. |
 | `use_acm_certificate_for_ssl` | A `Boolean` that enables TLS/SSL using the certificate and private key from AWS Certificate Manager (ACM). Default value is `false`. |
@@ -126,7 +128,7 @@ The following SSL configuration table provides optional SSL configuration values
 
 #### Example configuration
 
-The following yaml file provides an example configuration:
+The following YAML file provides an example configuration:
 
 ```yaml
 peer_forwarder:
@@ -137,7 +139,7 @@ peer_forwarder:
 
 ## Authentication
 
-`Authentication` is optional and is a `Map` that enables mTLS. It can either be `mutual_tls` or `unauthenticated`. The default value is `unauthenticated`. The following yaml file provides an exmaple for authentication:
+`Authentication` is optional and is a `Map` that enables mutual TLS (mTLS). It can either be `mutual_tls` or `unauthenticated`. The default value is `unauthenticated`. The following YAML file provides an exmaple for authentication:
 
 ```yaml
 peer_forwarder:
@@ -163,12 +165,12 @@ The following table provides counter metric options.
 | Value | Description |
 | ----- | ----------- |
 | `requests`| Measures the total number of forwarded requests. |
-| `requestsFailed`| Measures the total number of failed requests. Requests with HTTP response code other than `200`. |
-| `requestsSuccessful`|  Measures the total number of successful requests. Requests with HTTP response code `200`. |
-| `requestsTooLarge`| Measures the total number of requests that are too large to be written to the Peer Forwarder buffer. Requests with HTTP response code `413`. |
-| `requestTimeouts`| Measures the total number of requests that time out while writing content to the Peer Forwarder buffer. Requests with HTTP response code `408`. |
-| `requestsUnprocessable`| Measures the total number of requests that fail due to an unprocessable entity. Requests with HTTP response code `422`. |
-| `badRequests`| Measures the total number of requests with bad request format. Requests with HTTP response code `400`. |
+| `requestsFailed`| Measures the total number of failed requests. Applies to requests with HTTP response code other than `200`. |
+| `requestsSuccessful`|  Measures the total number of successful requests. Applies to requests with HTTP response code `200`. |
+| `requestsTooLarge`| Measures the total number of requests that are too large to be written to the Peer Forwarder buffer. Applies to requests with HTTP response code `413`. |
+| `requestTimeouts`| Measures the total number of requests that time out while writing content to the Peer Forwarder buffer. Applies to requests with HTTP response code `408`. |
+| `requestsUnprocessable`| Measures the total number of requests that fail due to an unprocessable entity. Applies to requests with HTTP response code `422`. |
+| `badRequests`| Measures the total number of requests with bad request format. Applies to requests with HTTP response code `400`. |
 | `recordsSuccessfullyForwarded`| Measures the total number of successfully forwarded records. |
 | `recordsFailedForwarding`| Measures the total number of records fail to be forwarded. |
 | `recordsToBeForwarded` | Measures the total number of records to be forwarded. |
