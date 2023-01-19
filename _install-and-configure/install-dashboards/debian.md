@@ -9,19 +9,36 @@ nav_order: 55
 
 Installing OpenSearch Dashboards using the Advanced Packaging Tool (APT) package manager simplifies the process considerably compared to the [Tarball]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/tar/) method. Several technical considerations, such as the installation path, location of configuration files, and creation of a service managed by `systemd`, as examples, are handled automatically by the package manager.
 
-OpenSearch Dashboards requires a <waiting-for-tech-feedback-for-prereq-wording>
-
-Generally speaking, installing OpenSearch Dashboards from the Debian distribution can be broken down into a few steps:
-
-1. **Download and install OpenSearch Dashboards.**
-   - Install manually from a Debian package or from an APT repository.
-1. **(Optional) Test OpenSearch.**
-   - Confirm that OpenSearch is able to run before you apply any custom configuration.
-   - This can be done without any security (no password, no certificates) or with a demo security configuration that can be applied by a packaged script.
-1. **Configure OpenSearch for your environment.**
-   -  Apply basic settings to OpenSearch and start using it in your environment.
-
-The Debian distribution provides everything you need to run OpenSearch inside Debian-based Linux Distributions, such as Ubuntu.
+Before installing OpenSearch Dashboards you must configure an OpenSearch cluster. Refer to the OpenSearch [Debian]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/debian/) installation guide for steps.
+{: .important}
 
 This guide assumes that you are comfortable working from the Linux command line interface (CLI). You should understand how to input commands, navigate between directories, and edit text files. Some example commands reference the `vi` text editor, but you may use any text editor available.
 {:.note}
+
+## Install OpenSearch Dashboards from a package
+
+1. Download the Debian package for the desired version directly from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'}. The Debian package can be downloaded for both **x64** and **arm64** architectures.
+1. From the CLI, install using `dpkg`.
+   ```bash
+   # x64
+   sudo dpkg -i opensearch-dashboards-{{site.opensearch_version}}-linux-x64.deb
+   # arm64
+   sudo dpkg -i opensearch-dashboards-{{site.opensearch_version}}-linux-arm64.deb
+   ```
+1. After the installation succeeds, reload the systemd manager configuration.
+    ```bash
+    sudo systemctl daemon-reload
+    ```
+1. Enable OpenSearch as a service.
+    ```bash
+    sudo systemctl enable opensearch-dashboards
+    ```
+1. Start the OpenSearch service.
+    ```bash
+    sudo systemctl start opensearch-dashboards
+    ```
+1. Verify that OpenSearch launched correctly.
+    ```bash
+    sudo systemctl status opensearch-dashboards
+    ```
+
