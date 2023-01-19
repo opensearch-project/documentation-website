@@ -33,7 +33,7 @@ The [OpenTelemetry source]({{site.url}}{{site.baseurl}}/data-prepper/configurati
 
 ### Processor
 
-There are two processors for the Trace Analytics feature:
+There are two processors for the Trace analytics feature:
 
 * *otel_trace_raw* -  This processor receives collection of [Span](https://github.com/opensearch-project/data-prepper/blob/fa65e9efb3f8d6a404a1ab1875f21ce85e5c5a6d/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/trace/Span.java) records sent from [otel-trace-source]({{site.url}}{{site.baseurl}}/data-prepper/configuration/sources/otel-trace/), and performs stateful processing when extracting and filling-in trace group related fields.
 * *otel_trace_group* -  This processor fills in the missing trace group related fields in the collection of [Span](https://github.com/opensearch-project/data-prepper/blob/fa65e9efb3f8d6a404a1ab1875f21ce85e5c5a6d/data-prepper-api/src/main/java/com/amazon/dataprepper/model/trace/Span.java) records by looking up the OpenSearch backend.
@@ -115,9 +115,11 @@ The following sections describe pipeline configuration.
 
 ### Trace analytics pipeline example
 
-The following example demonstrates how to build a pipeline that supports the [OpenSearch Dashboards Observability plugin]({{site.url}}{{site.baseurl}}/observability-plugin/trace/ta-dashboards/). This pipeline takes data from the OpenTelemetry Collector and uses two other pipelines as sinks. These two, separate pipelines index trace and the service map documents for the dashboard plugin.
+The following example demonstrates how to build a pipeline that supports the [OpenSearch Dashboards Observability plugin]({{site.url}}{{site.baseurl}}/observability-plugin/trace/ta-dashboards/). This pipeline takes data from the OpenTelemetry Collector and uses two other pipelines as sinks. These two separate pipelines index trace and the service map documents for the dashboard plugin.
 
-Starting with Data Prepper version 2.0, Data Prepper no longer supports the `otel_trace_raw_prepper` processor due to the Data Prepper internal data model evolution. Instead, users should use the  `otel_trace_raw` processor. See the following .yaml file example:
+<!--- "These two separate pipelines index trace and the service map documents for the dashboard plugin" - seems to be missing a word.--->
+
+Starting with Data Prepper version 2.0, Data Prepper no longer supports the `otel_trace_raw_prepper` processor due to the Data Prepper internal data model evolution. Instead, users should use the `otel_trace_raw` processor. See the following .yaml file example:
 
 ```yml
 entry-pipeline:
@@ -192,7 +194,7 @@ source:
 
 #### Example: pipeline.yaml
 
-The following is an example `pipeline.yaml` file without SSL and Basic Authentication for the `otel-trace-pipeline` pipeline:
+The following is an example `pipeline.yaml` file without SSL and basic authentication for the `otel-trace-pipeline` pipeline:
 
 ```yaml
 otel-trace-pipeline:
