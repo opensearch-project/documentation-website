@@ -43,18 +43,20 @@ There are two processors for the Trace Analytics feature:
 
 ### OpenSearch sink
 
-We have a generic sink that writes the data to OpenSearch as the destination. The [OpenSearch sink]({{site.url}}{{site.baseurl}}/data-prepper-plugins/opensearch/README.md) has configuration options related to OpenSearch cluster, such as endpoint, SSL, username/password, index name, index template, and index state management.
+We have a generic sink that writes the data to OpenSearch as the destination. The [OpenSearch sink]({{site.url}}{{site.baseurl}}/data-prepper/configuration/sinks/opensearch/) has configuration options related to the OpenSearch cluster, such as endpoint, SSL, username/password, index name, index template, and index state management.
 
-For the trace analytics feature, the sink has specific configurations which enables the sink to use indexes and index templates specific to this feature. Trace analytics specific OpenSearch indexes are,
+For the trace analytics feature, the sink has specific configurations which enables the sink to use indexes and index templates specific to this feature. Trace analytics specific OpenSearch indexes include the following:
 
 * *otel-v1-apm-span* -  This index stores the output from [otel_trace_raw]({{site.url}}{{site.baseurl}}/data-prepper/configuration/processors/otel-trace-raw/) processor.
-* *otel-v1-apm-service-map* - This index stores the output from the [service_map_stateful](https://github.com/opensearch-project/documentation-website/blob/main/_data-prepper/configuration/processors/service-map-stateful.md) processor.
+* *otel-v1-apm-service-map* - This index stores the output from the [service_map_stateful]({{site.url}}{{site.baseurl}}/data-prepper/configuration/processors/service-map-stateful/) processor.
 
 ## Trace tuning
 
 Starting in version 0.8.x, Data Prepper supports both vertical and horizontal scaling for trace analytics. You can adjust the size of your single Data Prepper instance to meet your workload's demands and scale vertically. 
 
-You can scale horizontally by deploying multiple Data Prepper instances to form a cluster by using the [Core Peer Forwarder](https://github.com/opensearch-project/data-prepper/blob/main/docs/peer_forwarder.md). This enables Data Prepper instances to communicate with instances in the cluster, and is required for horizontally-scaling deployments.
+You can scale horizontally by deploying multiple Data Prepper instances to form a cluster by using the [Core Peer Forwarder]({{site.url}}{{site.baseurl}}/data-prepper/peer_forwarder/). This enables Data Prepper instances to communicate with instances in the cluster, and is required for horizontally-scaling deployments.
+
+<!--- The link to Peer Forwarder needs to be updated but doesn't exist yet.--->
 
 ### Scaling tips
 
@@ -62,7 +64,9 @@ The following sections describe useful tips for scaling. We recommend that you m
 
 #### Buffer
 
-The total number of trace requests that Data Prepper is processing is equal to sum of `buffer_size` in `otel-trace-pipeline` and `raw-pipeline`. The total number of trace requests to OpenSearch is equal to the product of `batch_size` and `workers` in `raw-trace-pipeline`. For more information about `raw-pipeline`, see [Trace analytics pipeline]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/#trace-analytics-pipeline).
+The total number of trace requests that Data Prepper is processing is equal to sum of `buffer_size` in `otel-trace-pipeline` and `raw-pipeline`. The total number of trace requests to OpenSearch is equal to the product of `batch_size` and `workers` in `raw-trace-pipeline`. For more information about `raw-pipeline`, see [Trace analytics pipeline]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines).
+
+<!--- Where should this link to? Pipelines? Or another page? Not seeing one specifically for Trace analytics.--->
 
 We recommend the following guidelines when making changes to buffer settings:
  * Have the same `buffer_size` value in `otel-trace-pipeline` and `raw-pipeline`
@@ -77,7 +81,9 @@ The `workers` setting determines the number of threads that are used by Data Pre
 
 Configure the heap of Data Prepper by setting the `JVM_OPTS` environmental variable. We recommend that you set the heap value to a minimum value of `4` * `batch_size` * `otel_send_batch_size` * `maximum size of indvidual span`.
 
-As mentioned in the [setup guide](https://github.com/opensearch-project/data-prepper/blob/main/docs/trace_analytics.md#opentelemetry-collector), set `otel_send_batch_size` to a value of `50` in your OpenTelemetry collector configuration.
+As mentioned in the [setup guide]({{site.url}}{{site.baseurl}}/data-prepper/trace_analytics/#opentelemetry-collector), set `otel_send_batch_size` to a value of `50` in your OpenTelemetry collector configuration.
+
+<!--- This link needs to be checked.--->
 
 #### Local disk
 
