@@ -6,8 +6,7 @@ nav_order: 16
 
 # Cluster routing and awareness
 
-Weights per awareness attribute(say zone) can be assigned to enable weighted shard search routing policy. This allows users to control the distribution of shard search traffic across zones, which can commonly be used for cases like zonal deployments, heterogeneous instance types per zone and weighing away a zone during a zonal failure. 
-Weights can be set in any ratio eg: 2:3:5, which in this case would ensure that for every 100 requests sent to the cluster each of the zones would receive 20, 30 and 50 shard search requests respectively in a random order. A weight of zero, when assigned to any zone would cut-off any shard search traffic to be routed to that zone.
+To control the distribution of search or HTTP traffic, you can use the weights per awareness attribute to control the distribution of search or HTTP traffic across zones. This is commonly used for zonal deployments, heterogenous instances, and weighing traffic away from zones during zonal failure.
 
 ## HTTP and Path methods
 
@@ -25,16 +24,19 @@ attribute | String | The name of the awareness attribute, usually `zone`. The at
 
 ## Request body
 
-You can assign weights to zone within the request body of the PUT request. For example, if you have zones with the value `zone_1` and `zone_2`, you can assign weights using a whole number inside the request body.
+You can assign weights to zone within the request body of the PUT request. Weights can be set in any ration, for example, 2:3:5. In a 2:3:5 ratio with three zones, for every 100 requests sent to the cluster, each zone would receive either 20, 30, or 50 search requests in a random order.
+
+When assigned a weight of `0`, the zone is cut off from an search traffic. 
+
+In the following example request body, `zone_1` and `zone_2` receive 50 requests each, whereas `zone_3` is cut for from receiving requests.
 
 ```
 { 
-      "zone_1": "1", 
-      "zone_2": "1", 
+      "zone_1": "5", 
+      "zone_2": "5",
+      "zone_3": "0", 
 }
 ```
-
-When assigned the same weight, the weighted value of the zones are equal. This means that traffic routes to both zones in cases of zonal failure, also called _round robin_ allocation.
 
 ## Example: Weighted round robin search
 
