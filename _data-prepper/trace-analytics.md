@@ -8,7 +8,7 @@ nav_order: 21
 
 ## Introduction
 
-Data Prepper ingests [Trace Analytics](https://opensearch.org/docs/latest/observability-plugin/trace/index/) into OpenSearch and Amazon OpenSearch Service. Data Prepper is a last-mile, server-side component which collects telemetry data from [AWS Distro OpenTelemetry collector](https://aws-otel.github.io/docs/getting-started/collector) or [OpenTelemetry collector](https://github.com/open-telemetry/opentelemetry-collector) and transforms it for OpenSearch. You can visualize the transformed trace data using the [OpenSearch Dashboards Observability plugin](https://opensearch.org/docs/latest/observability-plugin/trace/ta-dashboards/), which provides visibility into your application performance and gives you the ability to drill down on individual traces.
+When using Data Prepper as a server-side component to collect trace data, you can customize a Data Prepper pipeline to ingest and transform the data for use in OpenSearch. Upon transformation, you can visualize the transformed trace data for use in the Obervability plugin inside of OpenSearch Dashboards. Trace data gives visibility into your application's performance, and helps you discover more details on individual traces.
 
 The following flowchart illustrates the trace analytics workflow, from running OpenTelemetry Collector to using OpenSearch Dashboards for visualization.
 
@@ -38,6 +38,8 @@ There are two processors for the Trace Analytics feature:
 * *otel_trace_raw* -  This processor receives collection of [Span](https://github.com/opensearch-project/data-prepper/blob/fa65e9efb3f8d6a404a1ab1875f21ce85e5c5a6d/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/trace/Span.java) records sent from [otel-trace-source]({{site.url}}{{site.baseurl}}/dataPrepper-plugins/otel-trace-source), and performs stateful processing when extracting and filling-in trace group related fields.
 * *otel_trace_group* -  This processor fills in the missing trace group related fields in the collection of [Span](https://github.com/opensearch-project/data-prepper/blob/fa65e9efb3f8d6a404a1ab1875f21ce85e5c5a6d/data-prepper-api/src/main/java/com/amazon/dataprepper/model/trace/Span.java) records by looking up the OpenSearch backend.
 * *service_map_stateful* -  This processor performs the required pre-processing for trace data and builds metadata to display the `service-map` OpenSearch Dashboards dashboards.
+
+<!--- Editorial: "to display the `service-map` OpenSearch Dashboards dashboards" sounds like it could be improved, but not sure if removing the second "dashboards" would help, or where to move it. --->
 
 ### OpenSearch sink
 
