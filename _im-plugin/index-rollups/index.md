@@ -520,7 +520,7 @@ The `doc_count` field in bucket aggregations contains the number of documents co
 
 ## Query string queries
 
-o take advantage of shorter and easier to write strings in Query DSL, you can use [query strings]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/query-string/) to simplify search queries in rollup indexes. To use query strings, add the following fields to your rollup search request.
+To take advantage of shorter and easier to write strings in Query DSL, you can use [query strings]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/query-string/) to simplify search queries in rollup indexes. To use query strings, add the following fields to your rollup search request.
 
 ```json
 "query": {
