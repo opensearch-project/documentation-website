@@ -49,7 +49,7 @@ To attach policies to indexes, perform the following steps:
 
 ## Indexes
 
-The **Indices** section displays a list of indexes in your OpenSearch cluster. For each index included, you can see its heath status (`green`, `yellow`, or `red`), policy (if the index is managed by a policy), status, total size, size of primaries, total documents, deleted documents, primaries and replicas.
+The **Indices** section displays a list of indexes in your OpenSearch cluster. For each index included, you can see its health status (`green`, `yellow`, or `red`), policy (if the index is managed by a policy), status, total size, size of primaries, total documents, deleted documents, primaries, and replicas.
 
 The following are the three index health statuses:
 
@@ -141,25 +141,25 @@ To create a template, select the **Create template** button on the **Templates**
 Next, define the template:
 
 1. Enter the template name.
-2. Select the template type.
-3. Specify any index patterns you would like to use.
-4. Set the priority of the template.
-5. Select an index alias.
-6. Set the number of primary shards.
-7. Set the number of replicas.
-8. Set the refresh intervals.
-9. Add fields and objects for your index mapping using either the visual editor or the JSON editor.
-10. Under **Advanced Settings** you can specify advanced index settings with a comma-delimited list.
+1. Select the template type.
+1. Specify any index patterns you would like to use.
+1. Set the priority of the template.
+1. Select an index alias.
+1. Set the number of primary shards.
+1. Set the number of replicas.
+1. Set the refresh intervals.
+1. Add fields and objects for your index mapping using either the visual editor or the JSON editor.
+1. Under **Advanced Settings** you can specify advanced index settings with a comma-delimited list.
 
 <img src="{{site.url}}{{site.baseurl}}/images/admin-ui-index/create-template-expanded.png" alt="User interface showing Create Template page">
 
 ### Editing a template
 
-To edit a template, select the template you want to edit from the list of templates. Next, select the **Actions** dropdown and select the **Edit** option.
+To edit a template, select the template you want to edit from the list of templates. Next, select the **Actions** dropdown list and select the **Edit** option.
 
 ### Deleting a template
 
-To delete a template, select the template you want to delete from the list of templates. Next, select the **Actions** dropdown and select the **Delete** option.
+To delete a template, select the template you want to delete from the list of templates. Next, select the **Actions** dropdown list and select the **Delete** option.
 
 ## Aliases
 
