@@ -6,7 +6,8 @@ nav_order: 16
 
 # Cluster routing and awareness
 
-The Cluster routing and awareness operations assign weights to cluster zones for weighted zonal search requests. Weighted zonal requests ensures that if one of your zones fails, you can spread HTTP and search traffic across zones with lower weights.
+Weights per awareness attribute(say zone) can be assigned to enable weighted shard search routing policy. This allows users to control the distribution of shard search traffic across zones, which can commonly be used for cases like zonal deployments, heterogeneous instance types per zone and weighing away a zone during a zonal failure. 
+Weights can be set in any ratio eg: 2:3:5, which in this case would ensure that for every 100 requests sent to the cluster each of the zones would receive 20, 30 and 50 shard search requests respectively in a random order. A weight of zero, when assigned to any zone would cut-off any shard search traffic to be routed to that zone.
 
 ## HTTP and Path methods
 
