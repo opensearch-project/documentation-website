@@ -60,7 +60,7 @@ You can scale horizontally by deploying multiple Data Prepper instances to form 
 
 ### Scaling tips
 
-The following sections describe useful tips for scaling. We recommend that you modify parameters based on the requirements. We also recommend that you monitor the Data Prepper host metrics and OpenSearch metrics to ensure the configuration is working as expected.
+Use the following tips for scaling Data Prepper. We recommend that you modify parameters based on the requirements. We also recommend that you monitor the Data Prepper host metrics and OpenSearch metrics to ensure the configuration is working as expected.
 
 #### Buffer
 
