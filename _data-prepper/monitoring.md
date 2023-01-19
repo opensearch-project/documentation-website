@@ -14,15 +14,15 @@ JVM and system metrics are runtime metrics that are used to monitor Data Prepper
 
 ### Naming
 
-JVM and system metrics follow predefined names in [Micrometer](https://micrometer.io/docs/concepts#_naming_meters), such as `jvm_classes_loaded` and `jvm_memory_used`. 
+JVM and system metrics follow predefined names in [Micrometer](https://micrometer.io/docs/concepts#_naming_meters). For example, the Micrometer metrics name for memory usage is `jvm.memory.used`. Micrometer changes the name to match the metrics system. Following the same example, `jvm.memory.used` is reported to Prometheus as `jvm_memory_used`, and reported to Amazon CloudWatch as `jvm.memory.used.value`.
 
 ### Serving
 
-By default, metrics are served from the **/metrics/sys** endpoint on the Data Prepper server. The format is a text Prometheus scrape. The Data Prepper server port has a default value of `4900` that can can modify, and this port can be used for any frontend that accepts Prometheus metrics, such as [Grafana](https://prometheus.io/docs/visualization/grafana/). You can update the configuration to serve metrics to other registries like Amazon CloudWatch, that does not require or host the endpoint but publishes the metrics directly to CloudWatch.
+By default, metrics are served from the **/metrics/sys** endpoint on the Data Prepper server. The format is a text Prometheus scrape. The Data Prepper server port has a default value of `4900` that can can modify, and this port can be used for any frontend that accepts Prometheus metrics, such as [Grafana](https://prometheus.io/docs/visualization/grafana/). You can update the configuration to serve metrics to other registries like CloudWatch, that does not require or host the endpoint but publishes the metrics directly to CloudWatch.
 
 ## Plugin metrics
 
-Each plugin (and, if necessary, each class within a plugin) is responsible for posting relevant metrics. Besides custom metrics introduced by specific plugins, the [Data Prepper API](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-api) introduces the following common metrics for plugin types: 
+Plugins report their own metrics. Data Prepper uses a naming convention to help with consistency in the metrics. Plugin metrics do not use dimensions. 
 
 
 1. AbstractBuffer
