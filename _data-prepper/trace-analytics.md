@@ -177,7 +177,7 @@ To maintain similar ingestion throughput and latency, scale the `buffer_size` an
 
 #### Example: otel trace
 
-Note that you will have to change your `otel-collector-config.yaml` file accordingly. See the following `otel-trace-source` .yaml file example with SSL and basic authentication enabled. 
+The following is an example `otel-trace-source` .yaml file with SSL and basic authentication enabled. Note that you will have to change your `otel-collector-config.yaml` file to use your own credentials. 
 
 ```yaml
 source:
