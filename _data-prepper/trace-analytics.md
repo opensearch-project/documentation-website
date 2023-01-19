@@ -29,13 +29,13 @@ To achieve trace analytics in Data Prepper, we have three pipelines: `entry-pipe
 
 ### OpenTelemetry trace source
 
-The [OpenTelemetry source]({{site.url}}{{site.baseurl}}/data-prepper-plugins/otel-trace-source/README.md) accepts trace data from the OpenTelemetry collector. The source follows the [OpenTelemetry Protocol](https://github.com/open-telemetry/opentelemetry-specification/tree/master/specification/protocol). The source officially supports transport over gRPC and the use of industry-standard encryption (TLS/HTTPS).
+The [OpenTelemetry source]({{site.url}}{{site.baseurl}}/data-prepper/configuration/processors/otel-trace-raw/) accepts trace data from the OpenTelemetry collector. The source follows the [OpenTelemetry Protocol](https://github.com/open-telemetry/opentelemetry-specification/tree/master/specification/protocol). The source officially supports transport over gRPC and the use of industry-standard encryption (TLS/HTTPS).
 
 ### Processor
 
 There are two processors for the Trace Analytics feature:
 
-* *otel_trace_raw* -  This processor receives collection of [Span](https://github.com/opensearch-project/data-prepper/blob/fa65e9efb3f8d6a404a1ab1875f21ce85e5c5a6d/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/trace/Span.java) records sent from [otel-trace-source]({{site.url}}{{site.baseurl}}/dataPrepper-plugins/otel-trace-source), and performs stateful processing when extracting and filling-in trace group related fields.
+* *otel_trace_raw* -  This processor receives collection of [Span](https://github.com/opensearch-project/data-prepper/blob/fa65e9efb3f8d6a404a1ab1875f21ce85e5c5a6d/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/trace/Span.java) records sent from [otel-trace-source]({{site.url}}{{site.baseurl}}/data-prepper/configuration/sources/otel-trace/), and performs stateful processing when extracting and filling-in trace group related fields.
 * *otel_trace_group* -  This processor fills in the missing trace group related fields in the collection of [Span](https://github.com/opensearch-project/data-prepper/blob/fa65e9efb3f8d6a404a1ab1875f21ce85e5c5a6d/data-prepper-api/src/main/java/com/amazon/dataprepper/model/trace/Span.java) records by looking up the OpenSearch backend.
 * *service_map_stateful* -  This processor performs the required pre-processing for trace data and builds metadata to display the `service-map` OpenSearch Dashboards dashboards.
 
