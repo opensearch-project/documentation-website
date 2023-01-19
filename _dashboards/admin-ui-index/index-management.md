@@ -2,7 +2,7 @@
 layout: default
 title: Index management
 parent: Index and snapshot management in OpenSearch Dashboards
-nav_order: 10
+nav_order: 16
 ---
 
 # Index management
