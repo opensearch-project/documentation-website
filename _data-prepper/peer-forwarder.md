@@ -8,8 +8,6 @@ nav_order: 12
 
 Peer Forwarder is an HTTP service that performs peer forwarding of an `event` between Data Prepper nodes for aggregation. This HTTP service uses a hash-ring approach to aggregate events and determine which Data Prepper node should handle on a given trace before rerouting it to that node. Currently, Peer Forwarder is supported by the `aggregate`, `service_map_stateful`, and `otel_trace_raw` processors.
 
-<!--- Need a replacement for "hash-ring" if the audience isn't familiar with this term. Also need to check "trace".--->
-
 Peer Forwarder groups events based on the identification keys provided by the processors. For `service_map_stateful` and `otel_trace_raw`, the identification key is `traceId` by default and cannot be configured. The `aggregate` processor is configured using the `identification_keys` configuration option. From here, you can specify which keys to use for Peer Forwarder. See [Aggregate Processor page](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/aggregate-processor#identification_keys) for more information about identification keys.
 
 Peer discovery is currently provided by a static list, a DNS record lookup, or AWS Cloud Map.  
