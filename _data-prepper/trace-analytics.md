@@ -89,7 +89,7 @@ As mentioned in the [setup guide]({{site.url}}{{site.baseurl}}/data-prepper/trac
 
 Data Prepper uses the local disk to store metadata required for service-map processing, so we recommend storing only the key fields: `traceId`, `spanId`, `parentSpanId`, `spanKind`, `spanName` and `serviceName`. The service-map plugin stores only two files, each of which stores `window_duration` seconds of data. As an example, testing with a throughput of `3000 spans/second` resulted in the total disk usage of `4 MB`.
 
-Data Prepper also uses the local disk to write logs. In the most recent version of Data Prepper, you can redirect the logs to the path of your preference.
+Data Prepper also uses the local disk to write logs. In the most recent version of Data Prepper, you can redirect the logs to the path you prefer.
 
 
 ### AWS
