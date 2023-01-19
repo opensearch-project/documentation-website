@@ -113,7 +113,7 @@ This setup was able to handle a throughput of `2100` spans/second at `20` percen
 
 The following sections describe pipeline configuration.
 
-### Trace analytics pipeline example
+### Example: Trace analytics pipeline
 
 The following example demonstrates how to build a pipeline that supports the [OpenSearch Dashboards Observability plugin]({{site.url}}{{site.baseurl}}/observability-plugin/trace/ta-dashboards/). This pipeline takes data from the OpenTelemetry Collector and uses two other pipelines as sinks. These two separate pipelines index trace and the service map documents for the dashboard plugin.
 
