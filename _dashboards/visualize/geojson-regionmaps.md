@@ -1,8 +1,7 @@
 ---
 layout: default
 title: Using region maps
-parent: Visualization types
-grand_parent: Visualize
+parent: Visualize
 nav_order: 70
 redirect_from:
   - /dashboards/geojson-regionmaps/
