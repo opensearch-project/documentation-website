@@ -63,7 +63,7 @@ The Debian package is not signed. If you would like to verify the fingerprint, t
    gpg --verify opensearch-dashboards-{{site.opensearch_version}}-linux-x64.deb.sig opensearch-dashboards-{{site.opensearch_version}}-linux-x64.deb
    ```
 
-### Install OpenSearch Dashboards from an APT repository
+## Install OpenSearch Dashboards from an APT repository
 
 APT, the primary package management tool for Debian–based operating systems, allows you to download and install the Debian package from the APT repository. 
 
@@ -92,10 +92,6 @@ APT, the primary package management tool for Debian–based operating systems, a
    ```bash
    # Specify the version manually using opensearch=<version>
    sudo apt-get install opensearch-dashboards={{site.opensearch_version}}
-   ```
-1. During installation, the installer will present you with the GPG key fingerprint. Verify that the information matches the following:
-   ```bash
-   Fingerprint: c5b7 4989 65ef d1c2 924b a9d5 39d3 1987 9310 d3fc
    ```
 1. Once complete, enable OpenSearch.
     ```bash
