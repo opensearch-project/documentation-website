@@ -36,11 +36,12 @@ Defining a new detector involves naming the detector, selecting a data source an
 
 ## Step 2. Make field mappings
 
-Field mapping matches field names for the rule with field names from the log being used to provide data. The mappings are automatically applied once the detector is defined in previous steps. This page offers the user the option to map log-specific field names to the internal rule field names.
+The field mapping step matches field names for the rule with field names for the log index being used to provide data. Correctly mapping the log field names with rule field names allows the system to accurately convey event data from the log to the detector and then use the data for triggering alerts.
 
-For example, if you prefer to have the log field name UserID rather than EventID correspond to the event_uid rule field name, you can use the **Log field name** dropdown menu to select **UserID**.
+The data source (log index), log type, and detection rules specified in the first step determine which fields are available for mapping. For example, when "Windows logs" is selected as the log type, this parameter along with the specific detection rules determine the list of rule field names available for mapping. Similarly, the selected data source (log index) determines the list of log field names that are available for mapping.
 
-<img src="{{site.url}}{{site.baseurl}}/images/Security/field-mappings.png" alt="Rule and log field mapping example">
+Once you navigate to the Configure field mapping page, the system attempts to automatically map fields between the two sources. Those field names that are not automatically mapped appear in the **Pending field mappings** table.
+<br><img src="{{site.url}}{{site.baseurl}}/images/Security/pending-mappings.png" alt="Field mapping example for pending mappings">
 
 To make any changes to the automatically populated mappings, use the dropdown arrows across from the rule field names to specify a preferred log field name for the mapping. After completing the mappings, select the **Next** button in the lower-right corner of the screen. The Set up alerts page appears and displays settings for an alert trigger.
 
