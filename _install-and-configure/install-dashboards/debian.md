@@ -2,7 +2,7 @@
 layout: default
 title: Debian
 parent: Install OpenSearch Dashboards
-nav_order: 55
+nav_order: 33
 ---
 
 # Install OpenSearch Dashboards (Debian)
@@ -106,3 +106,24 @@ APT, the primary package management tool for Debian–based operating systems, a
     sudo systemctl status opensearch-dashboards
     ```
 
+## Explore OpenSearch Dashboards
+
+By default, OpenSearch Dashboards, like OpenSearch, binds to `localhost` when you initially install it. As a result, OpenSearch Dashboards is not reachable from a remote host unless the configuration is updated.
+
+1. Open `opensearch_dashboards.yml`.
+    ```bash
+    sudo vi /etc/opensearch-dashboards/opensearch_dashboards.yml
+    ```
+1. Specify a network interface that OpenSearch Dashboards should bind to.
+    ```bash
+    # Use 0.0.0.0 to bind to any available interface.
+    server.host: 0.0.0.0
+    ```
+1. Save and quit.
+1. Restart OpenSearch Dashboards to apply the configuration change.
+    ```bash
+    sudo systemctl restart opensearch-dashboards
+    ```
+1. From a web browser, navigate to OpenSearch Dashboards. The default port is 5601.
+1. Log in with the default username `admin` and the default password `admin`.
+1. Visit [Getting started with OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/index/) to learn more.
