@@ -29,6 +29,8 @@ To use a model in OpenSearch, you'll need to export the model into a portable fo
 
 Furthermore, files must be saved as zip files before upload. Therefore, to ensure that ML Commons can upload your model, compress your TorchScript file before uploading. You can download an example file [here](https://github.com/opensearch-project/ml-commons/blob/2.x/ml-algorithms/src/test/resources/org/opensearch/ml/engine/algorithms/text_embedding/all-MiniLM-L6-v2_torchscript_sentence-transformer.zip).
 
+The model-serving framework also supports the [ONNX][https://onnx.ai/] format.
+
 ### Model size
 
 Most deep learning models are more than 100 MB, making it difficult to fit them into a single document. OpenSearch splits the model file into smaller chunks to be stored in a model index. When allocating machine learning (ML) or data nodes for your OpenSearch cluster, make sure you correctly size your ML nodes so that you have enough memory when making ML inferences.
