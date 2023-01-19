@@ -26,7 +26,7 @@ GET shakespeare/_search
 
 ## Parameters
 
-Query string query supports the following parameters. All parameters except `query` are optional.
+The following table lists the parameters that `query_string` query supports. All parameters except `query` are optional.
 
 Parameter | Data type | Description
 :--- | :--- | :---
@@ -34,7 +34,7 @@ Parameter | Data type | Description
 `fields` | String array | The list of fields to search (for example, `"fields": ["title^4", "description"]`). Supports wildcards.
 `default_field` | String | The field in which to search if the field is not specified in the query string. Supports wildcards. Defaults to the value specified in the `index.query.default_field` index setting. By default, the `index.query.default_field` is `*`, which means extract all fields eligible for term query and filter the metadata fields. The extracted fields are combined into a query if the `prefix` is not specified. Eligible fields do not include nested documents. Searching all eligible fields could be a resource-intensive operation. The `indices.query.bool.max_clause_count` search setting defines the maximum value for the product of the number of fields and the number of terms that can be queried at one time. The default value for `indices.query.bool.max_clause_count` is 4,096.
 `allow_leading_wildcard` | Boolean | Specifies whether `*` and `?` are allowed as first characters of a search term. Default is `true`.
-`analyze_wildcard` | Boolean | Specifies whether OpenSearch should attempt to analyze wildcard terms. Some analyzers do a poor job at this task, so the default is `false`.
+`analyze_wildcard` | Boolean | Specifies whether OpenSearch should attempt to analyze wildcard terms. Default is `false`.
 `analyzer` | String | The analyzer used to tokenize the query string text. Default is the index-time analyzer specified for the `default_field`. If no analyzer is specified for the `default_field`, the `analyzer` is the default analyzer for the index.
 `quote_analyzer` | String | The analyzer used to tokenize quoted text in the query string. Overrides the `analyzer` parameter for quoted text. Default is the `search_quote_analyzer` specified for the `default_field`. 
 `quote_field_suffix` | String | This option lets you search for exact matches (surrounded with quotation marks) using a different analysis method than non-exact matches use. For example, if `quote_field_suffix` is `.exact` and you search for `\"lightly\"` in the `title` field, OpenSearch searches for the word `lightly` in the `title.exact` field. This second field might use a different type (for example, `keyword` rather than `text`) or a different analyzer. 
