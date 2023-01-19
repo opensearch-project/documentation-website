@@ -35,9 +35,9 @@ The [OpenTelemetry source]({{site.url}}{{site.baseurl}}/data-prepper-plugins/ote
 
 There are two processors for the Trace Analytics feature:
 
-* *otel_trace_raw* -  This is a processor that receives collection of [Span]({{site.url}}{{site.baseurl}}/data-prepper-api/src/main/java/com/amazon/dataprepper/model/trace/Span.java) records sent from [otel-trace-source]({{site.url}}{{site.baseurl}}/dataPrepper-plugins/otel-trace-source), and performs stateful processing on extracting and filling-in trace group related fields.
-* *otel_trace_group* -  This is a processor that fills in the missing trace group related fields in the collection of [Span]({{site.url}}{{site.baseurl}}/data-prepper-api/src/main/java/com/amazon/dataprepper/model/trace/Span.java) records by looking up the OpenSearch backend.
-* *service_map_stateful* -  This processor performs required pre-processing for trace data and builds metadata to display the `service-map` OpenSearch Dashboards dashboards.
+* *otel_trace_raw* -  This processor receives collection of [Span](https://github.com/opensearch-project/data-prepper/blob/fa65e9efb3f8d6a404a1ab1875f21ce85e5c5a6d/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/trace/Span.java) records sent from [otel-trace-source]({{site.url}}{{site.baseurl}}/dataPrepper-plugins/otel-trace-source), and performs stateful processing when extracting and filling-in trace group related fields.
+* *otel_trace_group* -  This processor fills in the missing trace group related fields in the collection of [Span](https://github.com/opensearch-project/data-prepper/blob/fa65e9efb3f8d6a404a1ab1875f21ce85e5c5a6d/data-prepper-api/src/main/java/com/amazon/dataprepper/model/trace/Span.java) records by looking up the OpenSearch backend.
+* *service_map_stateful* -  This processor performs the required pre-processing for trace data and builds metadata to display the `service-map` OpenSearch Dashboards dashboards.
 
 ### OpenSearch sink
 
@@ -45,8 +45,8 @@ We have a generic sink that writes the data to OpenSearch as the destination. Th
 
 For the trace analytics feature, the sink has specific configurations which enables the sink to use indexes and index templates specific to this feature. Trace analytics specific OpenSearch indexes are,
 
-* *otel-v1-apm-span* -  This index stores the output from [otel_trace_raw]({{site.url}}{{site.baseurl}}/data-prepper/configuration/processors/otel-trace-raw/).
-* *otel-v1-apm-service-map* - This index stores the output from the [service_map_stateful](https://github.com/opensearch-project/documentation-website/blob/main/_data-prepper/configuration/processors/service-map-stateful.md).
+* *otel-v1-apm-span* -  This index stores the output from [otel_trace_raw]({{site.url}}{{site.baseurl}}/data-prepper/configuration/processors/otel-trace-raw/) processor.
+* *otel-v1-apm-service-map* - This index stores the output from the [service_map_stateful](https://github.com/opensearch-project/documentation-website/blob/main/_data-prepper/configuration/processors/service-map-stateful.md) processor.
 
 ## Trace tuning
 
