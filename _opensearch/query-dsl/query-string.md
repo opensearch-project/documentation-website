@@ -7,7 +7,7 @@ nav_order: 70
 
 # Query string queries
 
-A `query_string` query parses the query string based on the `query_string` syntax. 
+A `query_string` query parses the query string based on the `query_string` syntax. It lets you create powerful yet concise queries that can incorporate wildcards and search multiple fields.
 
 ## Example
 
