@@ -12,7 +12,8 @@ redirect_from:
 
 # Query DSL
 
-OpenSearch provides its own proprietary query domain-specific language (DSL) that you can use to perform customized searches on your data.
+OpenSearch provides a query domain-specific language (DSL) that you can use to perform customized searches on your data.
+
 ## Term-level and full-text queries
 
 OpenSearch supports two types of query DSL queries when you search for data: term-level queries and full-text queries. The following table describes the differences between them:
@@ -33,7 +34,7 @@ While you can use HTTP request parameters to perform simple searches, you can al
 
 ### Performing simple searches with HTTP request parameters
 
-The following request performs a simple search to search for a `speaker` field that has a value of `queen`.
+The following request performs a simple search to search for a `speaker` field that has a value of `queen`:
 
 #### Sample request
 
@@ -78,7 +79,7 @@ GET _search?q=speaker:queen
 
 ### Using query DSL to create customized searches
 
-With query DSL you can include an HTTP request body to look for results more tailored to your needs. The following example shows how to search for `speaker` and `text_entry` fields that have a value of `QUEEN`.
+With query DSL you can include an HTTP request body to look for results more tailored to your needs. The following example shows how to search for `speaker` and `text_entry` fields that have a value of `QUEEN`:
 
 <!-- need to include the HTTP method in example here GET _search is missing from code block 
 -->
@@ -182,4 +183,3 @@ The examples below illustrate values containing special characters that will be 
 To avoid this circumstance when using either query DSL or the REST API, you can use a custom analyzer or map the field as `keyword`, which performs an exact-match search. See [Keyword field type](https://opensearch.org/docs/2.2/opensearch/supported-field-types/keyword/) for the latter option.
 
 For a list of characters that should be avoided when field type is `text`, see [Word Boundaries](https://unicode.org/reports/tr29/#Word_Boundaries).
-
