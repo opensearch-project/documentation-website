@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Multiple data sources
-parent: Discover
+title: Adding multiple data sources
+parent: Exploring data with Discover
 nav_order: 5
 ---
 
-# Multiple data sources
+# Adding multiple data sources
 
 The multiple data sources feature is an experimental feature released in OpenSearch 2.4. It can't be used in a production environment. For updates on the feature’s progress or to leave feedback on improving the feature, see the [OpenSearch Forum discussion](https://forum.opensearch.org/t/feedback-experimental-feature-connect-to-external-data-sources/11144).
 {: .warning }
@@ -14,14 +14,14 @@ You can add multiple data sources to a single dashboard. OpenSearch Dashboards a
 
 In this tutorial we provide the steps for enabling the `data_source` setting in Dashboards; adding credentials, data source connections, and index patterns; and combining visualizations in a single dashboard.
 
-## Try out the multiple data sources feature in your local environment
+## Try it: Exploring multiple data sources feature in your local environment
 
 This tutorial uses a preconfigured data source and index pattern, and you aren’t required to configure settings. However, you’ll need to enable the `data_source` setting in the configuration file before before getting started with exploring this feature.
 {: .note }
 
 The multiple data sources feature is experimental and can't be deployed into production. You can try it out with a sample data source and a sample index pattern. Before getting started, you must first edit the YAML configuration. The following section provides the steps for enabling the feature.
 
-## Edit the YAML configuration to enable the multiple data sources feature
+## Modifying the multiple data sources settings
 
 Dashboards is configured in the cluster settings, and the multiple data sources feature is disabled by default. To enable it, you need to edit the configuration in `opensearch_dashboards.yml` and then restart the cluster.
 
@@ -33,7 +33,7 @@ To enable the feature:
 4. Restart the Dashboards container.
 5. Verify the feature configuration settings were created and configured properly by connecting to Dashboards through [http://localhost:5601](http://localhost:5601/) and viewing the **Stack Management** console. **Data Sources `Experimental`** will appear in the sidebar. Alternatively, you can open on [http://localhost:5601/app/management/opensearch-dashboards/dataSources](http://localhost:5601/app/management/opensearch-dashboards/dataSource).
 
-## Create a data source connection
+## Creating a data source connection
 
 A data source connection specifies the parameters needed to connect to a data source. These parameters form a connection string for the data source. In Dashboards, you can add new data source connections or edit existing connections.
 
@@ -55,7 +55,7 @@ To create a new data source connection:
 6. (Optional): Select the data source to verify that the settings are configured properly.
 <img src="{{site.url}}{{site.baseurl}}/images/multi-data-sources-4.png" width=500 alt="Data sources settings verification user interface">
 
-## Create  an index pattern
+## Creating an index pattern
 
 Index patterns allow you to access the OpenSearch data that you want to explore. An index pattern selects the data to use and allows you to define the field properties. Learn how to load your own data and create an index pattern following these steps. This tutorial uses the preconfigured index pattern `opensearch_dashboards_sample_data_ecommerce Default`.
 
@@ -72,11 +72,11 @@ Index patterns allow you to access the OpenSearch data that you want to explore.
 5. Select an option for the **Time field** and then choose **Create index pattern**.
 <img src="{{site.url}}{{site.baseurl}}/images/multi-data-sources-8.png" width=500 alt="Index pattern time field user interface">
 
-## Search data
+## Searching data
 
 Before you start searching for data, set up the time filter. The sample index pattern used for this tutorial contains time-based data. You can set a time filter that displays only the data within a specified time range, and you can select the time filter to change the time range or select a specific time range in the histogram.
 
-### Use the time filter
+### Using the time filter
 
 1. In the Dashboards console, select **Discover** and confirm the index pattern being used is `opensearch_dashboards_sample_data_ecommerce`.
 2. Select the calendar icon to change the time field. The default is **Last 15 minutes**.
@@ -86,7 +86,7 @@ Before you start searching for data, set up the time filter. The sample index pa
 4. To set the start and end times, select the bar next to the time filter. In the popup, select **Absolute**, **Relative**, or **Now** and then specify the required options.
 <img src="{{site.url}}{{site.baseurl}}/images/multi-data-sources-10.png" width=300 alt="Start and end times user interface">
 
-### Select a time range from the histogram
+### Selecting a time range from the histogram
 
 To select a time range for the histogram, you can do one of the following:
 
@@ -96,7 +96,7 @@ To select a time range for the histogram, you can do one of the following:
 
 <img src="{{site.url}}{{site.baseurl}}/images/multi-data-sources-11.jpg" alt="Histogram user interface">
 
-## Create visualizations
+## Creating visualizations
 
 Follow these steps to learn how to connect your visualizations in a single dashboard:
 
@@ -107,7 +107,7 @@ Follow these steps to learn how to connect your visualizations in a single dashb
 5. In the **Aggregation** field, select **Date Histogram** and then **Update**.
 6. Select **Save** and add the file name. This tutorial uses preconfigured visualizations, so you won’t be able to save your visualization.
 
-## Connect visualizations in a single dashboard
+## Connecting visualizations in a single dashboard
 
 Follow these steps to connect your visualizations in a single dashboard: 
 
@@ -122,7 +122,7 @@ Your dashboard might look like this:
 
 You have now explored the data sources experimental feature. We look forward to your feedback on how we can improve this feature ahead of its release for production use.
 
-## Limitations
+## Understanding the feature's limitations
 
 The following limitations apply to the OpenSearch 2.4 release of this experimental feature:
 

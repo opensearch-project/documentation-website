@@ -1,35 +1,94 @@
 ---
 layout: default
-title: Discover
-nav_order: 10
+title: Exploring data with Discover
+nav_order: 20
 has_children: true
 ---
 
-# Discover 
+# Exploring data with Discover 
 
-**Discover** in OpenSearch Dashboards helps you extract insights and get value out of data assets across your organization. You can ingest and query your data, display that data in visualizations and interactive dashboards, and deliver insights. 
+**Discover** in OpenSearch Dashboards helps you extract insights and get value out of data assets across your organization. Discover enables you to:
 
-Discover is an internal plugin in the Dashboards core. Its three primary functions enable you to:
+1. **Select data.** You can explore, customize, and filter data, as well as search data using the [Dashboards Query Language (DQL)]({{site.url}}{{site.baseurl}}/dashboards/dql/).
+2. **Explore the data.** You can analyze data details, view individual documents, and create tables summarizing data contents.
+3. **Visualize data.** You can display findings in a single dashboard showing different data visualization types.
 
-1. Select data for exploration, set a time range for that data, search it with the [Dashboards Query Language (DQL)]({{site.url}}{{site.baseurl}}/dashboards/dql/), and filter the results.
-2. Explore the data's details, view individual documents, and create tables summarizing the data's contents.
-3. Present the findings in a visualization.
+## Try it: Exploring sample data with Discover
 
-<img src="{{site.url}}{{site.baseurl}}/images/discover-index.png" alt="Discover user interface">
+This tutorial shows you how to use Discover to analyze and understand a sample data set. At the end of this tutorial, you should be ready to use Discover with your own data.
 
-# Required plugins
+Before continuing this tutorial, make sure you've added the **Sample flight data**. See [OpenSearch Dashboards Quickstart]() for more details on getting started.
+{: .warning}
+### Setting up data
 
-Certain plugins are required before Dashboards can be used. Those plugins are listed in the following table.
+![Setting up the sample data in Discover]({{site.url}}{{site.baseurl}}/images/discover-setting-up-data.gif)
 
-| Plugin name | Description
-:-- | :--
-| <name> | 
+1. Verify access to OpenSearch Dashboards by connecting to [http://localhost:5601](http://localhost:5601) from a browser. The default username and password are `admin`. 
+2. On the **Home** page, select **Discover** in the navigation pane.
+3. On the index pattern toolbar, select the **opensearch_dashboards_sample_data_flights** data set.
+4. On the time filter toolbar, select the calendar icon and change the time range to **Last 7 days**.
 
-<https://opensearch.org/docs/2.4/install-and-configure/install-opensearch/plugins/ and https://opensearch.org/docs/2.4/install-and-configure/install-dashboards/plugins/>
+### Exploring the data fields
 
+In the Discover panel, you'll see a table that shows all the documents that match your search. The table includes a list of data fields that are available in the document table.
 
+1. View the list of **Available fields**.
+1. Select **Cancelled** to view the **Top 5 Values**.
+2. Select the plus sign icon to add the field to the document table. You'll see this field automatically add to **Selected fields** and the document table.  
+3. Select **FlightDelay** from the **Available fields** list, and then select the plus sign icon to add the field to the document table.
+4. (Optional) Rearrange the table columns by selecting the table header and then **Move left** or **Move right**.
 
-# What's next?
+![Exploring data fields interface]({{site.url}}{{site.baseurl}}/images/discover-data-fields.png)
 
-- [Running queries in the console]({{site.url}}{{site.baseurl}}/dashboards/run-queries/)
-- [Creating a dashboard with multiple data sources]({{site.url}}{{site.baseurl}}/)
+## Searching data
+
+You can use the search toolbar or DQL to search data in Dashboards. The search toolbar is best for basic queries, such as searching by a field name. DQL is best for more complex queries, such as searching data using a term query, string query, boolean query, date or range query, or nested query.
+
+1. In the search toolbar, enter the boolean query `FlightDelay:true AND FlightDelayMin >= 60` to search the data for flights delayed 60 minutes or longer.
+1. Select **Update**.
+2. (Optional) Select the arrow icon `>` in a table row to expand the row and view the document table details.
+
+![Searching data interface]({{site.url}}{{site.baseurl}}/images/discover-search.png)
+
+## Filtering data
+
+Filters allow you to refine sets of documents to subsets of those documents. For example, you can filter data to include or exclude certain fields.
+
+1. In the filter bar, select **Add filter**.
+1. Select **Field > Operator > Value** (for example, `Cancelled > is > true`).
+1. Select **Save**.
+1. To remove the filter, select the close icon `x` next to filter name.
+1. (Optional) Add more filters to further explore the data.  
+
+![Filtering data interface]({{site.url}}{{site.baseurl}}/images/discover-filter.png)
+
+## Analyzing data in the document table
+
+You can view the document table fields to better understand the data and gather insights for more informed decision-making. 
+
+1. Select the arrow icon `>` to expand a table row.
+1. View the fields and details.
+1. Switch between **Table** and **JSON** tabs to view the different formats.  
+
+![Analyzing data in the document table]({{site.url}}{{site.baseurl}}/images/discover-analyze.png)
+
+## Saving the search
+
+You can save your search to use it later, generate a report, or build visualizations and dashboards. Saving a search saves the query text, filters, and current data view.  
+
+1. Select the save icon in the toolbar. 
+1. Give the search a title, and then select **Save**.## 
+1. Select the save icon to access the saved search. 
+
+![Save search interface]({{site.url}}{{site.baseurl}}/images/discover-save.png)
+
+## Visualizing the search
+
+You can quickly visualize an aggregated field from **Discover**.
+
+1. From the **Available fields** list, select `FlightDelayType`, and then select **Visualize**.
+![Visualizing search queries from Discover]({{site.url}}{{site.baseurl}}/images/discover-visualize.png)
+
+Dashboards creates a visualization for this field. In this example, it's a basic bar chart.
+
+![Bar chart created from Discover]({{site.url}}{{site.baseurl}}/images/discover-visualize-2.png)
