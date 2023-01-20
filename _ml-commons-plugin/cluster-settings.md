@@ -22,7 +22,7 @@ plugins.ml_commons.only_run_on_ml_node: true
 
 ### Values
 
-- Default value: `false`
+- Default value: `true`
 - Value range: `true` or `false`
 
 ## Dispatch tasks to ML node 
