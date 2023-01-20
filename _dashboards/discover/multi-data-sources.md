@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Multiple data sources
-parent: Discover
+parent: Exploring data with Discover
 nav_order: 5
 ---
 

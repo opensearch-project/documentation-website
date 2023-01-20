@@ -1,17 +1,33 @@
 ---
 layout: default
-title: Discover
+title: Exploring data with Discover
 nav_order: 10
 has_children: true
 ---
 
-# Discover 
+# Exploring data with Discover 
 
 **Discover** in OpenSearch Dashboards helps you extract insights and get value out of data assets across your organization. You can quickly ingest and query your data, display that data in visualizations and interactive dashboards, and deliver insights to your organization.
 
-<img src="{{site.url}}{{site.baseurl}}/images/discover-index.png" alt="Discover user interface">
+![Discover user interface]({{site.url}}{{site.baseurl}}/images/dashboards/discover-index.png)
 
-## What's next?
+## Exploring and querying data
 
-- [Running queries in the console]({{site.url}}{{site.baseurl}}/dashboards/run-queries/)
-- [Creating a dashboard with multiple data sources]({{site.url}}{{site.baseurl}}/)
+## Finding data
+
+## Exploring fields in data
+
+## Adding a field to the data view
+
+## Searching the data
+
+## Filtering the data
+
+## Viewing a document
+
+## Saving a search
+
+## Visualizing the findings
+
+## Sharing the findings
+
