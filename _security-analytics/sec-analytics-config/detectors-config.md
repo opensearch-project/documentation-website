@@ -28,7 +28,7 @@ Defining a new detector involves naming the detector, selecting a data source an
 * Use the **Log type**, **Rule severity**, and **Source** dropdown menus to filter the rules you want to select from. 
 * Use the **Search** bar to search for specific rules.
 
-    To quickly select one or more known rules and dismiss others, first deselect all rules by moving the **rule name** toggle to the left, then search for your target rule names and select each individually by moving its toggle to the right.
+    To quickly select one or more known rules and dismiss others, first deselect all rules by moving the **Rule name** toggle to the left, then search for your target rule names and select each individually by moving its toggle to the right.
     {: .tip }
 
 1. In the **Detector schedule** section, set how often the detector will run. Specify a unit of time and a corresponding number to set the interval.
@@ -38,12 +38,31 @@ Defining a new detector involves naming the detector, selecting a data source an
 
 The field mapping step matches field names for the rule with field names for the log index being used to provide data. Correctly mapping the log field names with rule field names allows the system to accurately convey event data from the log to the detector and then use the data for triggering alerts.
 
-The data source (log index), log type, and detection rules specified in the first step determine which fields are available for mapping. For example, when "Windows logs" is selected as the log type, this parameter along with the specific detection rules determine the list of rule field names available for mapping. Similarly, the selected data source (log index) determines the list of log field names that are available for mapping.
+The data source (log index), log type, and detection rules specified in the first step determine which fields are available for mapping. For example, when "Windows logs" is selected as the log type, this parameter along with the specific detection rules determine the list of rule field names available for the mapping. Similarly, the selected data source (log index) determines the list of log field names that are available for the mapping.
 
-Once you navigate to the Configure field mapping page, the system attempts to automatically map fields between the two sources. Those field names that are not automatically mapped appear in the **Pending field mappings** table.
-<br><img src="{{site.url}}{{site.baseurl}}/images/Security/pending-mappings.png" alt="Field mapping example for pending mappings">
+### Pending field mappings
 
-To make any changes to the automatically populated mappings, use the dropdown arrows across from the rule field names to specify a preferred log field name for the mapping. After completing the mappings, select the **Next** button in the lower-right corner of the screen. The Set up alerts page appears and displays settings for an alert trigger.
+Once you navigate to the Configure field mapping page, the system attempts to automatically map fields between the two sources. Those field names that are not automatically mapped appear in the **Pending field mapping** table. In this table you can manually map rule fields to log fields.
+<br><img src="{{site.url}}{{site.baseurl}}/images/Security/pending-mappings.png" alt="Field mapping example for pending mappings" width="900">
+
+This process requires that the user or administrator have some familiarity with the field names in the log index and an understanding of the data contained in those fields. Rule fields are named to promote their standardization and normalize them in the industry, and the names themselves are typically self explanatory. If a user has an understanding of the log data contained in a particular log field, the mapping is typically a simple and straightforward process.
+{: .note }
+
+* The Rule field name column lists field names based on the selected log type and the rules that have been assigned to the detector.
+* The log field name column includes a dropdown menu for each of the rule fields. Each dropdown menu contains a list of field names extracted from the log index.
+* Use the dropdown arrow to open the list of log fields and select the log field name that corresponds to the rule field name directly to the left in the Rule field name column. You can enter text in the **Select a mapping field** box at the top of the menu to search for names in the log field list. 
+<br><img src="{{site.url}}{{site.baseurl}}/images/Security/log-field.png" alt="Field mapping example for pending mappings" width="600">
+* Once the log field name is selected and mapped to the rule field name, the icon in the Status colum to the right changes to a green check mark.
+* Make as many matches between field names as possible to complete an accurate mapping for rule and log fields. 
+
+### Default field mappings
+
+The **Default mapped fields** table contains mappings that the system made automatically after defining the detector. As shown in the image that follows, when the field names are similar to one another the system can successfully match the two.
+<br><img src="{{site.url}}{{site.baseurl}}/images/Security/default-mappings.png" alt="Field mapping example for pending mappings" width="900">
+
+Nevertheless, it's a good idea to review the mappings and verify that they are matched as expected and correct. If you find a mapping that doesn't appear to be accurate, you can use the dropdown menu as described in the **Pending field mappings** section above to correct the field mapping.  
+
+After completing the mappings, select the **Next** button in the lower-right corner of the screen. The Set up alerts page appears and displays settings for an alert trigger.
 
 ## Step 3. Set up alerts
 
