@@ -54,10 +54,10 @@ Once you navigate to the Configure field mapping page, the system attempts to au
 <br><img src="{{site.url}}{{site.baseurl}}/images/Security/pending-mappings.png" alt="Field mapping example for pending mappings" width="900">
 
 * The Rule field name column lists field names based on all of the pre-packaged rules associated with the selected log type.
-* The log field name column includes a dropdown menu for each of the rule fields. Each dropdown menu contains a list of field names extracted from the log index.
-* Use the dropdown arrow to open the list of log fields and select the log field name that corresponds to the rule field name directly to the left in the Rule field name column. You can enter text in the **Select a mapping field** box at the top of the menu to search for names in the log field list. 
+* The log field name column includes a dropdown list for each of the rule fields. Each dropdown list contains field names extracted from the log index.
+* To map a rule field name to a log field name, use the dropdown arrow to open the list of log fields and select the log field name from the list. To search for names in the log field list, enter text in the **Select a mapping field** box.
 <br><img src="{{site.url}}{{site.baseurl}}/images/Security/log-field.png" alt="Field mapping example for pending mappings" width="600">
-* Once the log field name is selected and mapped to the rule field name, the icon in the Status colum to the right changes to a green check mark.
+* Once the log field name is selected and mapped to the rule field name, the icon in the Status column to the right changes to a green check mark.
 * Make as many matches between field names as possible to complete an accurate mapping for rule and log fields. 
 
 ### Default field mappings
@@ -65,9 +65,9 @@ Once you navigate to the Configure field mapping page, the system attempts to au
 The **Default mapped fields** table contains mappings that the system made automatically after defining the detector. As shown in the image that follows, when the field names are similar to one another the system can successfully match the two.
 <br><img src="{{site.url}}{{site.baseurl}}/images/Security/default-mappings.png" alt="Field mapping example for pending mappings" width="900">
 
-Nevertheless, it's a good idea to review the mappings and verify that they are matched as expected and correct. If you find a mapping that doesn't appear to be accurate, you can use the dropdown menu as described in the **Pending field mappings** section above to correct the field mapping.  
+Nevertheless, it's a good idea to review the mappings and verify that they are correct and matched as expected. If you find a mapping that doesn't appear to be accurate, you can use the dropdown list as described in the [Pending field mappings](#pending-field-mappings) section above to correct the field mapping.  
 
-After completing the mappings, select the **Next** button in the lower-right corner of the screen. The Set up alerts page appears and displays settings for an alert trigger.
+After completing the mappings, select the **Next** button in the lower-right corner of the screen. The **Set up alerts** page appears and displays settings for an alert trigger.
 
 ## Step 3. Set up alerts
 
