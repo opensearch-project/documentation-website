@@ -12,7 +12,7 @@ This page provides an overview of `opensearch.yml` settings that can be configur
 
 ## Run tasks and models on ML nodes only
 
-If `true`, ML Commons tasks and models run machine learning (ML) tasks on ML nodes only. If `false`, tasks and models run on ML nodes first. If no ML nodes exist, tasks and models run on data nodes. Don't set as "false" on production cluster. 
+If `true`, ML Commons tasks and models run machine learning (ML) tasks on ML nodes only. If `false`, tasks and models run on ML nodes first. If no ML nodes exist, tasks and models run on data nodes. Don't set as `false` on a production cluster. 
 
 ### Setting
 
