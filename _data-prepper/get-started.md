@@ -1,12 +1,12 @@
 ---
 layout: default
-title: Get started
+title: Getting started
 nav_order: 10
 redirect_from:
   - /clients/data-prepper/get-started/
 ---
 
-# Get started with Data Prepper
+# Getting started with Data Prepper
 
 Data Prepper is an independent component, not an OpenSearch plugin, that converts data for use with OpenSearch. It's not bundled with the all-in-one OpenSearch installation packages.
 
