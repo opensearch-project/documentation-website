@@ -107,7 +107,7 @@ plugins.ml_commons.max_load_model_tasks_per_node: 10
 
 ## Add trusted URL
 
-The default value allows uploading a model file from any http/https/ftp/local file. You can change this value to restrict trusted model URL.
+The default value allows uploading a model file from any `http`, `https`, `ftp`, or local file. You can change this value to restrict trusted model URL.
 
 
 ### Setting
