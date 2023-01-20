@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Configuring the Web Map Service
+title: Using Web Map Service
 parent: Creating maps in OpenSearch Dashboards
 nav_order: 10
 redirect_from:
@@ -9,31 +9,32 @@ redirect_from:
 
 {%- comment -%}The `/docs/opensearch-dashboards/maptiles/` redirect is specifically to support the UI links in OpenSearch Dashboards 1.0.0.{%- endcomment -%}
 
-# Configuring the Web Map Service
+# Using Web Map Service
 
-OpenSearch Dashboards includes default map tiles. If you need specialized maps, you can use the [Web Map Service (WMS)](https://www.ogc.org/standards/wms). 
+OpenSearch supports [Web Map Service (WMS)](https://www.ogc.org/standards/wms).  WMS is necessary for customizing region and coordinate maps in OpenSearch Dashboards.
 
-Some map services have licensing fees or restrictions. You're responsible for all such considerations on any map server that you specify.
-{: .note }
+To add a WMS custom map, perform the following steps: 
 
-## Try it: Configuring your Dashboards and WMS
+1. On the top menu bar, go to **OpenSearch Plugins > Maps**.
+1. Select **Create map**. You can now see the default OpenSearch basemap.
+1. In the **Layers** panel, select **Add layer**.
+1. In the **Custom type** dropdown list, select **Web Map Service (WMS)**.
+1. In the Data tab, enter data for the required fields:
+   - WMS URL
+   - WMS layers
+   - WMS version
+   - WMS format
+1. (Optional) Enter data for the optional fields:
+   - WMS CRS
+   - WMS box
+   - WMS attribution
+   - WMS styles
+1. Select the **Settings** tab to edit the layer settings.
+1. Enter the layer name in Name.
+1. (Optional) Enter the layer description in Description.
+1. (Optional) Select the zoom levels and opacity for this layer.
+1. Select **Update**.
 
-Follow these steps to configure your Dashboards and WMS. 
+## Related links
 
-1. Open OpenSearch Dashboards at `https://<host>:<port>`. For example, [https://localhost:5601](https://localhost:5601).
-2. If necessary, log in.
-3. Choose **Management** and **Advanced Settings**.
-4. Locate `visualization:tileMap:WMSdefaults`.
-5. Change `enabled` to true, and add the URL of a valid WMS map server:
-
-   ```json
-   {
-     "enabled": true,
-     "url": "<wms-map-server-url>",
-     "options": {
-       "format": "image/png",
-       "transparent": true
-     }
-   }
-   ```
-   
+- [Using region maps](dashboards/visualize/geojson-regionmaps/)
