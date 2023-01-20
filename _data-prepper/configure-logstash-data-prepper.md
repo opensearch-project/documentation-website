@@ -1,10 +1,10 @@
 ---
 layout: default
-title: Configuring Logstash for Data Prepper
-nav_order: 12
+title: Migrating from Logstash
+nav_order: 30
 ---
 
-# Configuring Logstash for Data Prepper
+# Migrating from Logstash
 
 You can run Data Prepper with a Logstash configuration.
 
