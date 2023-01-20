@@ -22,7 +22,13 @@ Parameter | Type | Description
 :--- | :--- | :---
 attribute | String | The name of the awareness attribute, usually `zone`. The attribute name must match the values listed in the request body when assigning weights to zones.
 
-## Request body
+## Request body parameters
+
+Parameter | Type | Description
+:--- | :--- | :---
+weights | JSON object | Assigns weights to attributes within the request body of the PUT request. Weights can be set in any ration, for example, 2:3:5. In a 2:3:5 ratio with three zones, for every 100 requests sent to the cluster, each zone would receive either 20, 30, or 50 search requests in a random order. When assigned a weight of `0`, the zone is cut off from an search traffic. 
+_version | String | Implements Optimistic concurrency control (OCC) through versioning. The parameter uses simple versioning, such as `1`, and increments upward based  
+
 
 You can assign weights to zone within the request body of the PUT request. Weights can be set in any ration, for example, 2:3:5. In a 2:3:5 ratio with three zones, for every 100 requests sent to the cluster, each zone would receive either 20, 30, or 50 search requests in a random order.
 

@@ -12,15 +12,13 @@ This page provides an overview of `opensearch.yml` settings that can be configur
 
 ## Run tasks and models on ML nodes only
 
+If `true`, ML Commons tasks and models run machine learning (ML) tasks on ML nodes only. If `false`, tasks and models run on ML nodes first. If no ML nodes exist, tasks and models run on data nodes. Don't set as "false" on production cluster. 
+
 ### Setting
 
 ```
 plugins.ml_commons.only_run_on_ml_node: true
 ```
-
-### Description
-
-If `true`, ML Commons tasks and models run machine learning (ML) tasks on ML nodes only. If `false`, tasks and models run on ML nodes first. If no ML nodes exist, tasks and models run on data nodes. Don't set as "false" on production cluster. 
 
 ### Values
 
@@ -29,15 +27,15 @@ If `true`, ML Commons tasks and models run machine learning (ML) tasks on ML nod
 
 ## Dispatch tasks to ML node 
 
+`round_robin` dispatches ML tasks to ML nodes using round robin routing. `least_load` gathers all an ML nodes' runtime information, like JVM heap memory usage and running tasks, then dispatches tasks to the ML node with the least load.
+
+
 ### Setting
 
 ```
 plugins.ml_commons.task_dispatch_policy: round_robin
 ```
 
-### Description
-
-`round_robin` dispatches ML tasks to ML nodes using round robin routing. `least_load` gathers all an ML nodes' runtime information, like JVM heap memory usage and running tasks, then dispatches tasks to the ML node with the least load. 
 
 ### Values
 
@@ -47,15 +45,13 @@ plugins.ml_commons.task_dispatch_policy: round_robin
 
 ## Set sync up job intervals 
 
+When returning runtime information with the [profile API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api#profile), ML Commons will run a regular sync up job to sync up newly loaded or unloaded models on each node. When set to `0`, ML Commons immediately stops sync up jobs.
+
 ### Setting
 
 ```
 plugins.ml_commons.sync_up_job_interval_in_seconds: 10
 ```
-
-### Description
-
-When returning runtime information with the [profile API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api#profile), ML Commons will run a regular sync up job to sync up newly loaded or unloaded models on each node. When set to `0`, ML Commons immediately stops sync up jobs.
 
 ### Values
 
@@ -64,15 +60,13 @@ When returning runtime information with the [profile API]({{site.url}}{{site.bas
 
 ## Predict monitoring requests
 
+Controls how many upload model tasks can run in parallel on one node. If set to `0`, you cannot upload models to any node.
+
 ### Setting
 
 ```
 plugins.ml_commons.monitoring_request_count: 100
 ```
-
-### Description
-
-Controls how many upload model tasks can run in parallel on one node. If set to `0`, you cannot upload models to any node.
 
 ### Value range
 
@@ -81,15 +75,14 @@ Controls how many upload model tasks can run in parallel on one node. If set to 
 
 ## Upload model tasks per node
 
+Controls how many upload model tasks can run in parallel on one node. If set to `0`, you cannot upload models to any node.
+
 ### Setting
 
 ```
 plugins.ml_commons.max_upload_model_tasks_per_node: 10
 ```
 
-### Description
-
-Controls how many upload model tasks can run in parallel on one node. If set to `0`, you cannot upload models to any node.
 
 ### Values 
 
@@ -99,15 +92,13 @@ Controls how many upload model tasks can run in parallel on one node. If set to 
 
 ## Load model tasks per node
 
+Controls how many load model tasks can run in parallel on one node. If set as 0, you cannot load models to any node.
+
 ### Setting
 
 ```
 plugins.ml_commons.max_load_model_tasks_per_node: 10
 ```
-
-### Description
-
-Controls how many load model tasks can run in parallel on one node. If set as 0, you cannot load models to any node.
 
 ### Values 
 
@@ -116,17 +107,48 @@ Controls how many load model tasks can run in parallel on one node. If set as 0,
 
 ## Add trusted URL
 
+The default value allows uploading a model file from any http/https/ftp/local file. You can change this value to restrict trusted model URL.
+
+
 ### Setting
 
 ```
 plugins.ml_commons.trusted_url_regex: ^(https?\|ftp\|file)://[-a-zA-Z0-9+&@#/%?=~_\|!:,.;]*[-a-zA-Z0-9+&@#/%=~_\|]
 ```
 
-### Description
-
-The default value allows uploading a model file from any http/https/ftp/local file. You can change this value to restrict trusted model URL
-
 ### Values
 
 - Default value: `^(https?\|ftp\|file)://[-a-zA-Z0-9+&@#/%?=~_\|!:,.;]*[-a-zA-Z0-9+&@#/%=~_\|]`
 - Value range: Java regular expression (regex) string
+
+## Assign task timeout
+
+Assigns how long an ML task will live in seconds. After timeout, the task will fail.
+
+### Setting
+
+```
+plugins.ml_commons.ml_task_timeout_in_seconds: 600
+```
+
+### Values
+
+- Default value: 600
+- Value range: [1, 86400]
+
+## Set native memory threshold 
+
+Sets a circuit breaker that checks all system memory usage before running an ML task. If the native memory exceeds the threshold, OpenSearch puts up an exception and stops running any ML task. 
+
+Values are based on the percentage of memory available. When set to `0`, no ML tasks will run. When set to `100`, the circuit breaker closes and no threshold exists.
+
+### Setting
+
+```
+plugins.ml_commons.native_memory_threshold: 90
+```
+
+### Values
+
+- Default value: 90
+- Value range: [0, 100]
