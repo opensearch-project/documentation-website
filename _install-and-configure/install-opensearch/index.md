@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Install OpenSearch
+title: Installing OpenSearch
 nav_order: 2
 has_children: true
 redirect_from:
@@ -10,7 +10,7 @@ redirect_from:
   - /install-and-configure/index/
 ---
 
-# Install OpenSearch
+# Installing OpenSearch
 
 This section details how to install OpenSearch on your host, including which operating systems are [compatible with OpenSearch](#operating-system-compatibility), which [ports to open](#network-requirements), and which [important settings](#important-settings) to configure on your host.
 

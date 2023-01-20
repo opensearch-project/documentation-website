@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Install OpenSearch Dashboards
+title: Installing OpenSearch Dashboards
 nav_order: 3
 has_children: true
 redirect_from:
@@ -8,7 +8,7 @@ redirect_from:
   - /dashboards/compatibility/
 ---
 
-# Install and configure OpenSearch Dashboards
+# Installing OpenSearch Dashboards
 
 This section details how to install and configure OpenSearch Dashboards.
 
@@ -35,4 +35,4 @@ Other Chromium-based browsers might work, as well. Internet Explorer and Microso
 
 ## Configuration
 
-To learn how to configure TLS for OpenSearch Dashboards, see [Configure TLS]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/tls/)
+To learn how to configure TLS for OpenSearch Dashboards, see [Configure TLS]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/tls/).
