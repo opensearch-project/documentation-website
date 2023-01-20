@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Plugin installation
+title: Installing plugins
 nav_order: 90
 redirect_from:
    - /opensearch/install/plugins/
