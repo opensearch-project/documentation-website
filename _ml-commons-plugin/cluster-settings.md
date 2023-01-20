@@ -92,7 +92,7 @@ plugins.ml_commons.max_upload_model_tasks_per_node: 10
 
 ## Load model tasks per node
 
-Controls how many load model tasks can run in parallel on one node. If set as 0, you cannot load models to any node.
+Controls how many load model tasks can run in parallel on one node. If set to `0`, you cannot load models to any node.
 
 ### Setting
 
