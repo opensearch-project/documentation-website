@@ -7,19 +7,26 @@ nav_order: 30
 
 # Term-level queries
 
-OpenSearch supports two types of queries when you search for data: term-level queries and full-text queries.
+Term-level queries search an index for all documents that contain a search term. Documents returned by a term-level query are not sorted by their relevance scores.
 
-The following table describes the differences between them:
+If you want to search an entire cluster of documents that you've indexed with OpenSearch, use a term-level query.
 
-| | Term-level queries | Full-text queries
+## Term-level query types
+
+You can use any of the following query types to perform a term-level query:
+
+| | Query type | Description
 :--- | :--- | :---
-*Description* | Term-level queries answer which documents match a query. | Full-text queries answer how well the documents match a query.
-*Analyzer* | The search term isn't analyzed. This means that the term query searches for your search term as it is.  | The search term is analyzed by the same analyzer that was used for the specific field of the document at the time it was indexed. This means that your search term goes through the same analysis process that the document's field did.
-*Relevance* | Term-level queries simply return documents that match without sorting them based on the relevance score. They still calculate the relevance score, but this score is the same for all the documents that are returned. | Full-text queries calculate a relevance score for each match and sort the results by decreasing order of relevance.
-*Use Case* | Use term-level queries when you want to match exact values such as numbers, dates, tags, and so on, and don't need the matches to be sorted by relevance. | Use full-text queries to match text fields and sort by relevance after taking into account factors like casing and stemming variants.
+`term` | Specifies a search for an exact term for a provided field.
+`terms` | Specifies a search for multiple terms in the same provided field.
+`ids` | Specifies a search for one or more documents by the ID value.
+`range` | Specifies a search within an upper and lower bound of values in a provided field.
+`prefix` | Specifies a search for terms that begin with a prefix.
+`exists` | Specifies a search for documents that contain a specific field.
+`wildcard` | Specifies a search for terms that match a wildcard pattern. Indicate all values with an asterisk (*) or a single value by a question mark (?).
+`regex` | Specifies a search for terms that match a regular expression. 
 
-OpenSearch uses a probabilistic ranking framework called Okapi BM25 to calculate relevance scores. To learn more about Okapi BM25, see [Wikipedia](https://en.wikipedia.org/wiki/Okapi_BM25).
-{: .note }
+#### Sample request
 
 Assume that you have the complete works of Shakespeare indexed in an OpenSearch cluster. We use a term-level query to search for the phrase "To be, or not to be" in the `text_entry` field:
 
