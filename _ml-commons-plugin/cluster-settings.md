@@ -27,7 +27,7 @@ plugins.ml_commons.only_run_on_ml_node: true
 
 ## Dispatch tasks to ML node 
 
-`round_robin` dispatches ML tasks to ML nodes using round robin routing. `least_load` gathers all an ML nodes' runtime information, like JVM heap memory usage and running tasks, then dispatches tasks to the ML node with the least load.
+`round_robin` dispatches ML tasks to ML nodes using round robin routing. `least_load` gathers all ML nodes' runtime information, such as JVM heap memory usage and running tasks, then dispatches tasks to the ML node with the least load.
 
 
 ### Setting
