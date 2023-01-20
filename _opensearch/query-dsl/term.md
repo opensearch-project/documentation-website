@@ -13,7 +13,7 @@ If you want to search an entire cluster of documents that you've indexed with Op
 
 ## Term-level query types
 
-You can use any of the following query types to perform a term-level query:
+You can use any of the query types to perform a term-level query shown in the following table:
 
 | Query type | Description
 :--- | :--- | :---
