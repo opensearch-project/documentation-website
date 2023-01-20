@@ -7,7 +7,7 @@ nav_order: 33
 
 # Install OpenSearch Dashboards (Debian)
 
-Installing OpenSearch Dashboards using the Advanced Packaging Tool (APT) package manager simplifies the process considerably compared to the [Tarball]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/tar/) method. Several technical considerations, such as the installation path, location of configuration files, and creation of a service managed by `systemd`, as examples, are handled automatically by the package manager.
+Installing OpenSearch Dashboards using the Advanced Packaging Tool (APT) package manager simplifies the process considerably compared to the [Tarball]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/tar/) method. For example, the package manager handles several technical considerations, such as the installation path, location of configuration files, and creation of a service managed by `systemd`.
 
 Before installing OpenSearch Dashboards you must configure an OpenSearch cluster. Refer to the OpenSearch [Debian]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/debian/) installation guide for steps.
 {: .important}
@@ -25,7 +25,7 @@ This guide assumes that you are comfortable working from the Linux command line 
    # arm64
    sudo dpkg -i opensearch-dashboards-{{site.opensearch_version}}-linux-arm64.deb
    ```
-1. After the installation succeeds, reload the systemd manager configuration.
+1. After the installation completes, reload the systemd manager configuration.
     ```bash
     sudo systemctl daemon-reload
     ```
