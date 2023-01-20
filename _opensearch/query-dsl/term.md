@@ -15,7 +15,7 @@ If you want to search an entire cluster of documents that you've indexed with Op
 
 You can use any of the following query types to perform a term-level query:
 
-| | Query type | Description
+| Query type | Description
 :--- | :--- | :---
 `term` | Specifies a search for an exact term for a provided field.
 `terms` | Specifies a search for multiple terms in the same provided field.
@@ -24,7 +24,7 @@ You can use any of the following query types to perform a term-level query:
 `prefix` | Specifies a search for terms that begin with a prefix.
 `exists` | Specifies a search for documents that contain a specific field.
 `wildcard` | Specifies a search for terms that match a wildcard pattern. Indicate all values with an asterisk (*) or a single value by a question mark (?).
-`regex` | Specifies a search for terms that match a regular expression. 
+`regex` | Specifies a search for terms that match a regular expression.
 
 #### Sample request
 
