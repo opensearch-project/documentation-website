@@ -36,7 +36,7 @@ Defining a new detector involves naming the detector, selecting a data source an
 
 ## Step 2. Make field mappings
 
-The field mapping step matches field names for the rule with field names for the log index being used to provide data. Correctly mapping the log field names with rule field names allows the system to accurately convey event data from the log to the detector and then use the data for triggering alerts.
+The field mapping step matches field names from the rule with field names from the log index being used to provide data. Correctly mapping the log field names with rule field names allows the system to accurately convey event data from the log to the detector and then use the data for triggering alerts.
 
 The data source (log index), log type, and detection rules specified in the first step determine which fields are available for mapping. For example, when "Windows logs" is selected as the log type, this parameter along with the specific detection rules determine the list of rule field names available for the mapping. Similarly, the selected data source (log index) determines the list of log field names that are available for the mapping.
 
