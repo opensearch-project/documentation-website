@@ -46,4 +46,4 @@ plugins.anomaly_detection.dedicated_cache_size | 10 | If the real-time analysis 
 plugins.anomaly_detection.max_concurrent_preview | 2 | The maximum number of concurrent previews. You can use this setting to limit resource usage.
 plugins.anomaly_detection.model_max_size_percent | 0.1 | The upper bound of the memory percentage for a model.
 plugins.anomaly_detection.door_keeper_in_cache.enabled | False | We have a bloom filter placed in front of an inactive entity cache to filter out unpopular items that are not likely to appear more than once. This setting allows you to either enable the bloom filter or not.
-plugins.anomaly_detection.hcad_cold_start_interpolation.enabled | False | Whether interpolation in HCAD cold start is enabled or not.
+plugins.anomaly_detection.hcad_cold_start_interpolation.enabled | False | When set to `true`, enables interpolation in high-cardinality anomaly detection (HCAD) cold start.
