@@ -45,10 +45,10 @@ There are two processors for the Trace analytics feature:
 
 We have a generic sink that writes the data to OpenSearch as the destination. The [OpenSearch sink]({{site.url}}{{site.baseurl}}/data-prepper/configuration/sinks/opensearch/) has configuration options related to the OpenSearch cluster, such as endpoint, SSL, username/password, index name, index template, and index state management.
 
-For the trace analytics feature, the sink has specific configurations which enables the sink to use indexes and index templates specific to this feature. Trace analytics specific OpenSearch indexes include the following:
+The sink provides specific configurations for the trace analytics feature. These configurations allow the sink to use indexes and index templates specific to trace analytics. The following OpenSearch indexes are trace-analytics specific:
 
-* *otel-v1-apm-span* -  This index stores the output from [otel_trace_raw]({{site.url}}{{site.baseurl}}/data-prepper/configuration/processors/otel-trace-raw/) processor.
-* *otel-v1-apm-service-map* - This index stores the output from the [service_map_stateful]({{site.url}}{{site.baseurl}}/data-prepper/configuration/processors/service-map-stateful/) processor.
+* *otel-v1-apm-span* -  The *otel-v1-apm-span* index stores the output from the [otel_trace_raw]({{site.url}}{{site.baseurl}}/data-prepper/configuration/processors/otel-trace-raw/) processor.
+* *otel-v1-apm-service-map* - The *otel-v1-apm-service-map* index stores the output from the [service_map_stateful]({{site.url}}{{site.baseurl}}/data-prepper/configuration/processors/service-map-stateful/) processor.
 
 ## Trace tuning
 
