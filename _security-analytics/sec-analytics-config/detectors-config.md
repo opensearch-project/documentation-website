@@ -36,7 +36,7 @@ Defining a new detector involves naming the detector, selecting a data source an
 
 ## Step 2. Create field mappings
 
-The field mapping step matches field names from the rule with field names from the log index being used to provide data. Creating field mappings allows the system to accurately convey event data from the log to the detector and then use the data for triggering alerts.
+The field mapping step matches field names from the rule with field names from the log index being used to provide data. Creating field mappings allows the system to accurately pass event data from the log to the detector and then use the data for triggering alerts.
 
 The data source (log index), log type, and detection rules specified in the first step determine which fields are available for mapping. For example, when "Windows logs" is selected as the log type, this parameter along with the specific detection rules determine the list of rule field names available for the mapping. Similarly, the selected data source (log index) determines the list of log field names that are available for the mapping.
 
@@ -46,24 +46,24 @@ The field mapping process requires that you are familiar with the field names in
 
 Security Analytics takes advantage of pre-packaged Sigma rules for security event detection. Therefore, the rule field names are derived from a Sigma rule field standard. To make them easier to identify, however, we create aliases for the Sigma rule fields based on the open source Elastic Common Schema (ECS) specification. These alias rule field names are the field names used in these steps. 
 
-Although the ECS rule field names are largely self explanatory, you can find pre-defined mappings of the Sigma rule field names with ECS rule field names for all supported log types in the GitHub Security Analytics repository. First navigate to the [OSMappings](https://github.com/opensearch-project/security-analytics/tree/main/src/main/resources/OSMapping) folder, select the folder named for the log type, and open the `fieldmappings.yml` file. For example, to see the Sigma rule fields that correspond to ECS rule fields for the Windows log type, open the [fieldmappings.yml file](https://github.com/opensearch-project/security-analytics/blob/main/src/main/resources/OSMapping/windows/fieldmappings.yml) in the **windows** folder.
+Although the ECS rule field names are largely self explanatory, you can find pre-defined mappings of the Sigma rule field names with ECS rule field names, for all supported log types, in the GitHub Security Analytics repository. First navigate to the [OSMappings](https://github.com/opensearch-project/security-analytics/tree/main/src/main/resources/OSMapping) folder, select the folder named for the log type, and open the `fieldmappings.yml` file. For example, to see the Sigma rule fields that correspond to ECS rule fields for the Windows log type, open the [fieldmappings.yml file](https://github.com/opensearch-project/security-analytics/blob/main/src/main/resources/OSMapping/windows/fieldmappings.yml) in the **windows** folder.
 
 ### Pending field mappings
 
 Once you navigate to the Configure field mapping page, the system attempts to automatically map fields between the two sources. Those field names that are not automatically mapped appear in the **Pending field mapping** table. In this table you can manually map rule fields to log fields.
-<br><img src="{{site.url}}{{site.baseurl}}/images/Security/pending-mappings.png" alt="Field mapping example for pending mappings" width="900">
+<br><img src="{{site.url}}{{site.baseurl}}/images/Security/pending-mappings.png" alt="Field mapping example for pending mappings" width="85%">
 
 * The Rule field name column lists field names based on all of the pre-packaged rules associated with the selected log type.
 * The log field name column includes a dropdown list for each of the rule fields. Each dropdown list contains field names extracted from the log index.
 * To map a rule field name to a log field name, use the dropdown arrow to open the list of log fields and select the log field name from the list. To search for names in the log field list, enter text in the **Select a mapping field** box.
-<br><img src="{{site.url}}{{site.baseurl}}/images/Security/log-field.png" alt="Field mapping example for pending mappings" width="600">
+<br><img src="{{site.url}}{{site.baseurl}}/images/Security/log-field.png" alt="Field mapping example for pending mappings" width="60%">
 * Once the log field name is selected and mapped to the rule field name, the icon in the Status column to the right changes to a green check mark.
 * Make as many matches between field names as possible to complete an accurate mapping for rule and log fields. 
 
 ### Default field mappings
 
 The **Default mapped fields** table contains mappings that the system made automatically after defining the detector. As shown in the image that follows, when the field names are similar to one another the system can successfully match the two.
-<br><img src="{{site.url}}{{site.baseurl}}/images/Security/default-mappings.png" alt="Field mapping example for pending mappings" width="900">
+<br><img src="{{site.url}}{{site.baseurl}}/images/Security/default-mappings.png" alt="Field mapping example for pending mappings" width="85%">
 
 Nevertheless, it's a good idea to review the mappings and verify that they are correct and matched as expected. If you find a mapping that doesn't appear to be accurate, you can use the dropdown list as described in the [Pending field mappings](#pending-field-mappings) section above to correct the field mapping.  
 
