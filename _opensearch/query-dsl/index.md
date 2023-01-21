@@ -92,8 +92,6 @@ GET _search?q=speaker:queen
 
 With query DSL you can include an HTTP request body to look for results that are better tailored to your needs. The following example shows how to search for `speaker` and `text_entry` fields that have a value of `QUEEN`:
 
-<!-- need to include the HTTP method in example here GET _search is missing from code block 
--->
 #### Sample request
 
 ```json
