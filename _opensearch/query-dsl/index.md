@@ -19,12 +19,11 @@ Query DSL provides several query categories. You can even perform more complicat
 The following query DSL categories include:
 
 - **Compound boolean queries** – To search with clause rules that act as logical operators to combine several simple query terms.
-- **Term-level queries** – To search documents for a specific term without any relevance score or text analysis.
+- **Term-level queries** – To search documents for one or more terms, IDs, value ranges, with optional filtering by wildcard or regex, but does not provide any relevance score or text analysis.
 - **Full-text queries** – To search documents for one or more terms and filter with advanced options. These queries return detailed information including relevance scores per document match, and perform text analysis.
-- **Geo-bounding box queries** –  To search documents within a range of `geo_point` field values.
+- **Geo-bounding box queries** – To search documents within a range of `geo_point` field values.
 - **xy point queries** – To search two-dimensional coordinates with `xy_point` or `xy_shape` fields.
-- **Query string** – To perform complex queries on a string with multiple fields.
-
+- **Query string** – To perform complex queries for a string with multiple optional fields using `query_string` syntax.
 
 ## About term-level and full-text queries
 
