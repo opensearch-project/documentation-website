@@ -9,7 +9,7 @@ nav_order: 30
 
 Term-level queries search an index for all documents that contain a search term. Documents returned by a term-level query are not sorted by their relevance scores.
 
-When working with text data, use term-level queries only for fields mapped as keyword only.
+When working with text data, use term-level queries for fields mapped as keyword only.
 
 Term-level queries are not suited for searching analyzed text fields. To return analyzed fields, use a full-text query.
 
