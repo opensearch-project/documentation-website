@@ -11,6 +11,10 @@ Term-level queries search an index for all documents that contain a search term.
 
 If you want to search an entire cluster of documents that you've indexed with OpenSearch, use a term-level query.
 
+Term-level queries are not suited for searching analyzed text fields. To return analyzed fields, use a full-text query.
+
+When working with text data, use term-level queries only for fields mapped as keyword only.
+
 ## Term-level query types
 
 You can use any of the term-level query types shown in the following table:
@@ -26,9 +30,14 @@ You can use any of the term-level query types shown in the following table:
 `wildcard` | Specifies a search for terms that match a wildcard pattern. Indicate all values with an asterisk (*) or a single value by a question mark (?).
 `regex` | Specifies a search for terms that match a regular expression.
 
+
+## Should I use a full-text or a term-level query?
+
+To see the difference between full-text and term-level queries in action, consider the following two example requests that search for a specific text phrase. The complete works of Shakespeare are indexed in an OpenSearch cluster.
+
 #### Sample request
 
-Assume that you have the complete works of Shakespeare indexed in an OpenSearch cluster. We use a term-level query to search for the phrase "To be, or not to be" in the `text_entry` field:
+The following term-level query searches the documents for the phrase "To be, or not to be" in the `text_entry` field:
 
 ```json
 GET shakespeare/_search
@@ -64,9 +73,11 @@ GET shakespeare/_search
 }
 ```
 
-We don’t get back any matches (`hits`). This is because the term “To be, or not to be” is searched literally in the inverted index, where only the analyzed values of the text fields are stored. Term-level queries aren't suited for searching on analyzed text fields because they often yield unexpected results. When working with text data, use term-level queries only for fields mapped as keyword only.
+The response indicates zero `hits` to denote a match. This is because the term “To be, or not to be” is searched literally in the inverted index, where only the analyzed values of the text fields are stored.
 
-Using a full-text query:
+#### Sample request
+
+The following full-text query searches the analyzed text field values:
 
 ```json
 GET shakespeare/_search
