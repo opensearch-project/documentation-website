@@ -9,11 +9,9 @@ nav_order: 30
 
 Term-level queries search an index for all documents that contain a search term. Documents returned by a term-level query are not sorted by their relevance scores.
 
-If you want to search an entire cluster of documents that you've indexed with OpenSearch, use a term-level query.
+When working with text data, use term-level queries only for fields mapped as keyword only.
 
 Term-level queries are not suited for searching analyzed text fields. To return analyzed fields, use a full-text query.
-
-When working with text data, use term-level queries only for fields mapped as keyword only.
 
 ## Term-level query types
 
