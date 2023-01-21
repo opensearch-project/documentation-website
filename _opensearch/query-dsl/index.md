@@ -14,9 +14,21 @@ redirect_from:
 
 OpenSearch provides a query domain-specific language (DSL) that you can use to perform customized searches on your data.
 
-## Term-level and full-text queries
+Query DSL provides several query categories. You can even perform more complicated searches by using different elements from each variety to find more granular data that you need.
 
-OpenSearch supports two types of query DSL queries when you search for data: term-level queries and full-text queries. The following table describes the differences between them:
+The following query DSL categories include:
+
+- **Compound boolean queries** – To search with clause rules that act as logical operators to combine several simple query terms.
+- **Term-level queries** – To search documents for a specific term without any relevance score or text analysis.
+- **Full-text queries** – To search documents for one or more terms and filter with advanced options. These queries return detailed information including relevance scores per document match, and perform text analysis.
+- **Geo-bounding box queries** –  To search documents within a range of `geo_point` field values.
+- **xy point queries** – To search two-dimensional coordinates with `xy_point` or `xy_shape` fields.
+- **Query string** – To perform complex queries on a string with multiple fields.
+
+
+## About term-level and full-text queries
+
+Although term-level and full-text queries both search for terms, there are some differences as described in the following table:
 
 | | Term-level queries | Full-text queries
 :--- | :--- | :---
@@ -79,7 +91,7 @@ GET _search?q=speaker:queen
 
 ### Using query DSL to create customized searches
 
-With query DSL you can include an HTTP request body to look for results more tailored to your needs. The following example shows how to search for `speaker` and `text_entry` fields that have a value of `QUEEN`:
+With query DSL you can include an HTTP request body to look for results that are better tailored to your needs. The following example shows how to search for `speaker` and `text_entry` fields that have a value of `QUEEN`:
 
 <!-- need to include the HTTP method in example here GET _search is missing from code block 
 -->
@@ -148,7 +160,6 @@ GET _search
   }
 }
 ```
-The OpenSearch query DSL comes in three varieties: term-level queries, full-text queries, and boolean queries. You can even perform more complicated searches by using different elements from each variety to find whatever data you need.
 
 ## A note on Unicode special characters in text fields
 
