@@ -23,7 +23,7 @@ The following query DSL categories include:
 - **Full-text queries** – To search documents for one or more terms and filter with advanced options. These queries return detailed information including relevance scores per document match, and perform text analysis.
 - **Geo-bounding box queries** – To search documents within a range of `geo_point` field values.
 - **xy point queries** – To search two-dimensional coordinates with `xy_point` or `xy_shape` fields.
-- **Query string** – To perform complex queries for a string with multiple optional fields using `query_string` syntax.
+- **Query string queries** – To perform complex queries for a string with multiple optional fields using `query_string` syntax.
 
 ## About term-level and full-text queries
 
