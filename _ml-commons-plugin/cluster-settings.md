@@ -123,7 +123,7 @@ plugins.ml_commons.trusted_url_regex: ^(https?\|ftp\|file)://[-a-zA-Z0-9+&@#/%?=
 
 ## Assign task timeout
 
-Assigns how long an ML task will live in seconds. After timeout, the task will fail.
+Assigns how long in seconds an ML task will live. After the timeout, the task will fail.
 
 ### Setting
 
