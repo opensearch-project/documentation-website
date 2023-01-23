@@ -74,6 +74,25 @@ GET /_cluster/decommission/awareness/zone/_status
 }
 ```
 
+## Example: Recommisson a decommissioned zone
 
+Use the `DELETE` method to recommission a previously decommissioned zone.
 
+### Request
 
+```
+DELETE /_cluster/decommission/awareness
+```
+
+### Response
+
+```
+{
+      "acknowledged": true
+}
+```
+
+## Next steps
+
+- For more information about zone awareness and weight, see [Cluster awareness]({{site.url}}{{site.baseurl}}/api-reference/cluster-awareness/).
+- For more information about allocation awareness, see [Cluster formation]({{site.url}}{{site.baseurl}}/opensearch/cluster/#advanced-step-6-configure-shard-allocation-awareness-or-forced-awareness).
