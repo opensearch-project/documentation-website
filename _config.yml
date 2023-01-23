@@ -28,6 +28,9 @@ color_scheme: opensearch
 # Define Jekyll collections
 collections:
   # Define a collection named "tests", its documents reside in the "_tests" directory
+  install-and-configure:
+    permalink: /:collection/:path/
+    output: true  
   upgrade-to:
     permalink: /:collection/:path/
     output: true
@@ -80,6 +83,9 @@ collections:
 just_the_docs:
   # Define the collections used in the theme
   collections:
+    install-and-configure:
+      name: Install and configure
+      nav_fold: true
     upgrade-to:
       name: Upgrade to OpenSearch
       # nav_exclude: true

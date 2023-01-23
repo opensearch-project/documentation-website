@@ -56,7 +56,7 @@ PUT testindex/_doc/1
 }
 ```
 
-You can use a [term query](#term-query) or a [range query](#range-query) to search for values within range fields. 
+You can use a [term query](#term-query) or a [range query](#range-query-optional-parameters) to search for values within range fields. 
 
 ### Term query
 

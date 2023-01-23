@@ -2,14 +2,16 @@
 layout: default
 title: Docker
 parent: Install OpenSearch
-nav_order: 3
+nav_order: 5
+redirect_from: 
+  - /opensearch/install/docker/
 ---
 
-# Why use OpenSearch with Docker?
+# Docker
 
 [Docker](https://www.docker.com/) greatly simplifies the process of configuring and managing your OpenSearch clusters. You can pull official images from [Docker Hub](https://hub.docker.com/u/opensearchproject) or [Amazon Elastic Container Registry (Amazon ECR)](https://gallery.ecr.aws/opensearchproject/) and quickly deploy a cluster using [Docker Compose](https://github.com/docker/compose) and any of the sample Docker Compose files included in this guide. Experienced OpenSearch users can further customize their deployment by creating a custom Docker Compose file.
 
-Docker containers are portable and will run on any compatible host that supports Docker (such as Linux, MacOS, or Windows). The portability of a Docker container offers flexibility over other installations methods, like [RPM]({{site.url}}{{site.baseurl}}/opensearch/install/rpm/) or a manual [Tarball]({{site.url}}{{site.baseurl}}/opensearch/install/tar/) installation, which both require additional configuration after downloading and unpacking.
+Docker containers are portable and will run on any compatible host that supports Docker (such as Linux, MacOS, or Windows). The portability of a Docker container offers flexibility over other installations methods, like [RPM]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/rpm/) or a manual [Tarball]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/tar/) installation, which both require additional configuration after downloading and unpacking.
 
 This guide assumes that you are comfortable working from the Linux command line interface (CLI). You should understand how to input commands, navigate between directories, and edit text files. For help with [Docker](https://www.docker.com/) or [Docker Compose](https://github.com/docker/compose), refer to the official documentation on their websites.
 {:.note}
@@ -28,7 +30,8 @@ If you need to install Docker Compose manually and your host supports Python, yo
 
 ## Important host settings
 
-Before launching OpenSearch you should review some [important system settings]({{site.url}}{{site.baseurl}}/opensearch/install/important-settings/){:target='\_blank'} that can impact the performance of your services.
+Before launching OpenSearch you should review some [important system settings]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#important-settings){:target='\_blank'} that can impact the performance of your services.
+
 1. Disable memory paging and swapping performance on the host to improve performance.
    ```bash
    sudo swapoff -a
@@ -71,9 +74,6 @@ To download a specific version of OpenSearch or OpenSearch Dashboards other than
 
 Before continuing, you should verify that Docker is working correctly by deploying OpenSearch in a single container.
 
-<<<<<<< HEAD
-OpenSearch images use `amazonlinux:2` as the base image. If you run Docker locally, set Docker to use at least 4 GB of RAM in **Preferences** > **Resources**.
-=======
 1. Run the following command:
     ```bash
     # This command maps ports 9200 and 9600, sets the discovery type to "single-node" and requests the newest image of OpenSearch
@@ -116,7 +116,6 @@ OpenSearch images use `amazonlinux:2` as the base image. If you run Docker local
 
 Remember that `docker container ls` does not list stopped containers. If you would like to review stopped containers, use `docker container ls -a`. You can remove unneeded containers manually with `docker container rm <containerId_1> <containerId_2> <containerId_3> [...]` (pass all container IDs you wish to stop, separated by spaces), or if you want to remove all stopped containers, you can use the shorter command `docker prune`.
 {: .tip}
->>>>>>> da65102 (Putting all the Docker install material on a single page (#1452))
 
 ## Deploy an OpenSearch cluster using Docker Compose
 
@@ -458,7 +457,7 @@ COPY --chown=opensearch:opensearch my-root-cas.pem /usr/share/opensearch/config/
 
 ## Related links
 
-- [OpenSearch configuration]({{site.url}}{{site.baseurl}}/opensearch/configuration/)
+- [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuration/)
 - [Performance analyzer]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/index/)
-- [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/install/index/)
+- [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/)
 - [About the security plugin]({{site.url}}{{site.baseurl}}/security-plugin/index/)
