@@ -43,9 +43,6 @@ collections:
   security-plugin:
     permalink: /:collection/:path/
     output: true
-  security-analytics:
-    permalink: /:collection/:path/
-    output: true
   search-plugins:
     permalink: /:collection/:path/
     output: true
@@ -111,9 +108,6 @@ just_the_docs:
       nav_fold: true
     security-plugin:
       name: Security plugin
-      nav_fold: true
-    security-analytics:
-      name: Security analytics plugin
       nav_fold: true
     search-plugins:
       name: Search plugins
