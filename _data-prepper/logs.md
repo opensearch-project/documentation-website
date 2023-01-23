@@ -1,16 +1,16 @@
 ---
 layout: default
-title: Log4j configuration
-nav_order: 12
+title: Configuring Log4j
+nav_order: 25
 ---
 
-# Log4j configuration
+# Configuring Log4j
 
-This section provides information about configuring Log4j. 
+You can configure logging using Log4j in Data Prepper. 
 
 ## Logging 
 
-The following describes how Data Prepper performs logging. Data Prepper uses [SLF4J](http://www.slf4j.org/) with a [Log4j 2 binding](http://logging.apache.org/log4j/2.x/log4j-slf4j-impl/). 
+Data Prepper uses [SLF4J](http://www.slf4j.org/) with a [Log4j 2 binding](http://logging.apache.org/log4j/2.x/log4j-slf4j-impl/). 
 
 For Data Prepper versions 2.0 and later, the Log4j 2 configuration file can be found and edited in `config/log4j2.properties` in the application's home directory. The default properties for Log4j 2 can be found in `log4j2-rolling.properties` in the *shared-config* directory.
 
