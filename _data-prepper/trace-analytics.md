@@ -22,7 +22,7 @@ To monitor trace analytics, you need to set up the following components in your 
 
 ## Trace analytics pipeline
 
-To achieve trace analytics in Data Prepper, we have three pipelines: `entry-pipeline`, `raw-trace-pipeline` and `service-map-pipeline`.
+To monitor trace analytics in Data Prepper, we have three pipelines: `entry-pipeline`, `raw-trace-pipeline` and `service-map-pipeline`.
 
 <img src="{{site.url}}{{site.baseurl}}/images/data-prepper/trace-analytics/trace-analytics-feature.jpg" alt="Trace analytics pipeline overview">{: .img-fluid}
 
@@ -66,7 +66,6 @@ Use the following tips for scaling Data Prepper. We recommend that you modify pa
 
 The total number of trace requests that Data Prepper is processing is equal to sum of `buffer_size` in `otel-trace-pipeline` and `raw-pipeline`. The total number of trace requests to OpenSearch is equal to the product of `batch_size` and `workers` in `raw-trace-pipeline`. For more information about `raw-pipeline`, see [Trace analytics pipeline]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines).
 
-<!--- Where should this link to? Pipelines? Or another page? Not seeing one specifically for Trace analytics.--->
 
 We recommend the following guidelines when making changes to buffer settings:
  * The `buffer_size` value in `otel-trace-pipeline` and `raw-pipeline` should be the same.
@@ -82,8 +81,6 @@ The `workers` setting determines the number of threads that are used by Data Pre
 Configure the heap of Data Prepper by setting the `JVM_OPTS` environmental variable. We recommend that you set the heap value to a minimum value of `4` * `batch_size` * `otel_send_batch_size` * `maximum size of indvidual span`.
 
 As mentioned in the [setup guide]({{site.url}}{{site.baseurl}}/data-prepper/trace_analytics/#opentelemetry-collector), set `otel_send_batch_size` to a value of `50` in your OpenTelemetry collector configuration.
-
-<!--- This link needs to be checked.--->
 
 #### Local disk
 
@@ -111,14 +108,13 @@ This setup was able to handle a throughput of `2100` spans/second at `20` percen
 
 ## Pipeline configuration
 
-The following sections describe pipeline configuration.
+The following sections describe examples of different types of pipelines and how to configure them. 
 
 ### Example: Trace analytics pipeline
 
 The following example demonstrates how to build a pipeline that supports the [OpenSearch Dashboards Observability plugin]({{site.url}}{{site.baseurl}}/observability-plugin/trace/ta-dashboards/). This pipeline takes data from the OpenTelemetry Collector and uses two other pipelines as sinks. These two separate pipelines perform index tracing, then service map documents for the dashboard plugin. The first pipeline prepares trace data for OpenSearch, enriches, and ingests the span documents into a span index within OpenSearch. The second pipeline aggregates traces into a service map and writes service map documents into a service map index within OpenSearch.
 
-
-Starting with Data Prepper version 2.0, Data Prepper no longer supports the `otel_trace_raw_prepper` processor due to the Data Prepper internal data model structure. Instead, users should use the `otel_trace_raw` processor. See the following .yaml file example:
+Starting with Data Prepper version 2.0, Data Prepper no longer supports the `otel_trace_raw_prepper` processor due to the Data Prepper internal data model structure. Instead, users should use the `otel_trace_raw` processor. See the following YAML file example:
 
 ```yml
 entry-pipeline:
