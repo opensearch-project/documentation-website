@@ -1,8 +1,8 @@
 ---
 layout: default
-title: RPM
+title: Debian
 parent: Install OpenSearch
-nav_order: 51
+nav_order: 55
 ---
 
 {% comment %}
@@ -11,21 +11,21 @@ The following liquid syntax declares a variable, major_version_mask, which is tr
 {% assign version_parts = site.opensearch_major_minor_version | split: "." %}
 {% assign major_version_mask = version_parts[0] | append: ".x" %}
 
-# RPM
+# Debian
 
-Installing OpenSearch using RPM Package Manager (RPM) simplifies the process considerably compared to the [Tarball]({{site.url}}{{site.baseurl}}/opensearch/install/tar/) method. Several technical considerations, such as the installation path, location of configuration files, and creation of a service managed by `systemd`, as examples, are handled automatically by the package manager.
+Installing OpenSearch using the Advanced Packaging Tool (APT) package manager simplifies the process considerably compared to the [Tarball]({{site.url}}{{site.baseurl}}/opensearch/install/tar/) method. Several technical considerations, such as the installation path, location of configuration files, and creation of a service managed by `systemd`, as examples, are handled automatically by the package manager.
 
-Generally speaking, installing OpenSearch from the RPM distribution can be broken down into a few steps:
+Generally speaking, installing OpenSearch from the Debian distribution can be broken down into a few steps:
 
 1. **Download and install OpenSearch.**
-   - Install manually from an RPM package or from a YUM repository.
+   - Install manually from a Debian package or from an APT repository.
 1. **(Optional) Test OpenSearch.**
    - Confirm that OpenSearch is able to run before you apply any custom configuration.
    - This can be done without any security (no password, no certificates) or with a demo security configuration that can be applied by a packaged script.
 1. **Configure OpenSearch for your environment.**
    -  Apply basic settings to OpenSearch and start using it in your environment.
 
-The RPM distribution provides everything you need to run OpenSearch inside Red Hat or Red Hat–based Linux Distributions, such as supported CentOS and RHEL versions, and Amazon Linux 2. If you have your own Java installation and set `JAVA_HOME` in your terminal application, macOS works, as well.
+The Debian distribution provides everything you need to run OpenSearch inside Debian-based Linux Distributions, such as Ubuntu.
 
 This guide assumes that you are comfortable working from the Linux command line interface (CLI). You should understand how to input commands, navigate between directories, and edit text files. Some example commands reference the `vi` text editor, but you may use any text editor available.
 {:.note}
@@ -34,26 +34,83 @@ This guide assumes that you are comfortable working from the Linux command line 
 
 ### Install OpenSearch from a package
 
-1. Download the RPM package for the desired version directly from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'}. The RPM package can be downloaded for both **x64** and **arm64** architectures.
-1. Import the public GNU Privacy Guard (GPG) key. This key verifies that your OpenSearch instance is signed.
-    ```bash
-    sudo rpm --import https://artifacts.opensearch.org/publickeys/opensearch.pgp
-    ```
-1. From the CLI, you can install the package with `rpm` or `yum`.
+1. Download the Debian package for the desired version directly from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'}. The Debian package can be downloaded for both **x64** and **arm64** architectures.
+1. From the CLI, install using `dpkg`.
    ```bash
-   # Install the x64 package using yum.
-   sudo yum install opensearch-{{site.opensearch_version}}-linux-x64.rpm
-
-   # Install the x64 package using rpm.
-   sudo rpm -ivh opensearch-{{site.opensearch_version}}-linux-x64.rpm
-
-   # Install the arm64 package using yum.
-   sudo yum install opensearch-{{site.opensearch_version}}-linux-x64.rpm
-
-   # Install the arm64 package using rpm.
-   sudo rpm -ivh opensearch-{{site.opensearch_version}}-linux-x64.rpm
+   # x64
+   sudo dpkg -i opensearch-{{site.opensearch_version}}-linux-x64.deb
+   # arm64
+   sudo dpkg -i opensearch-{{site.opensearch_version}}-linux-arm64.deb
    ```
 1. After the installation succeeds, enable OpenSearch as a service.
+    ```bash
+    sudo systemctl enable opensearch
+    ```
+1. Start the OpenSearch service.
+    ```bash
+    sudo systemctl start opensearch
+    ```
+1. Verify that OpenSearch launched correctly.
+    ```bash
+    sudo systemctl status opensearch
+    ```
+
+### Fingerprint verification
+
+The Debian package is not signed. If you would like to verify the fingerprint, the OpenSearch Project provides a `.sig` file as well as the `.deb` package for use with GNU Privacy Guard (GPG).
+
+1. Download the desired Debian package.
+   ```bash
+   curl -SLO https://artifacts.opensearch.org/releases/bundle/opensearch/{{site.opensearch_version}}/opensearch-{{site.opensearch_version}}-linux-x64.deb
+   ```
+1. Download the corresponding signature file.
+   ```bash
+   curl -SLO https://artifacts.opensearch.org/releases/bundle/opensearch/{{site.opensearch_version}}/opensearch-{{site.opensearch_version}}-linux-x64.deb.sig
+   ```
+1. Download and import the GPG key.
+   ```bash
+   curl -o- https://artifacts.opensearch.org/publickeys/opensearch.pgp | gpg --import -
+   ```
+1. Verify the signature.
+   ```bash
+   gpg --verify opensearch-{{site.opensearch_version}}-linux-x64.deb.sig opensearch-{{site.opensearch_version}}-linux-x64.deb
+   ```
+
+### Install OpenSearch from an APT repository
+
+APT, the primary package management tool for Debian–based operating systems, allows you to download and install the Debian package from the APT repository. 
+
+1. Import the public GPG key. This key is used to verify that the APT repository is signed.
+    ```bash
+    curl -o- https://artifacts.opensearch.org/publickeys/opensearch.pgp | sudo apt-key add -
+    ```
+1. Create an APT repository for OpenSearch:
+   ```bash
+   echo "deb https://artifacts.opensearch.org/releases/bundle/opensearch/2.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/opensearch-2.x.list
+   ```
+1. Verify that the repository was created successfully.
+    ```bash
+    sudo apt-get update
+    ```
+1. With the repository information added, list all available versions of OpenSearch:
+   ```bash
+   sudo apt list -a opensearch
+   ```
+1. Choose the version of OpenSearch you want to install: 
+   - Unless otherwise indicated, the latest available version of OpenSearch is installed.
+   ```bash
+   sudo apt-get install opensearch
+   ```
+   - To install a specific version of OpenSearch:
+   ```bash
+   # Specify the version manually using opensearch=<version>
+   sudo apt-get install opensearch={{site.opensearch_version}}
+   ```
+1. During installation, the installer will present you with the GPG key fingerprint. Verify that the information matches the following:
+   ```bash
+   Fingerprint: c5b7 4989 65ef d1c2 924b a9d5 39d3 1987 9310 d3fc
+   ```
+1. Once complete, enable OpenSearch.
     ```bash
     sudo systemctl enable opensearch
     ```
@@ -66,54 +123,11 @@ This guide assumes that you are comfortable working from the Linux command line 
     sudo systemctl status opensearch
     ```
 
-### Install OpenSearch from a YUM repository
-
-YUM, the primary package management tool for Red Hat–based operating systems, allows you to download and install the RPM package from the YUM repository. 
-
-1. Create a local repository file for OpenSearch:
-   ```bash
-   sudo curl -SL https://artifacts.opensearch.org/releases/bundle/opensearch/{{major_version_mask}}/opensearch-{{major_version_mask}}.repo -o /etc/yum.repos.d/opensearch-{{major_version_mask}}.repo
-   ```
-1. Clean your YUM cache to ensure a smooth installation:
-   ```bash
-   sudo yum clean all
-   ```
-1. Verify that the repository was created successfully.
-    ```bash
-    sudo yum repolist
-    ```
-1. With the repository file downloaded, list all available versions of OpenSearch:
-   ```bash
-   sudo yum list opensearch --showduplicates
-   ```
-1. Choose the version of OpenSearch you want to install: 
-   - Unless otherwise indicated, the latest available version of OpenSearch is installed.
-   ```bash
-   sudo yum install opensearch
-   ```
-   - To install a specific version of OpenSearch:
-   ```bash
-   sudo yum install 'opensearch-{{site.opensearch_version}}'
-   ```
-1. During installation, the installer will present you with the GPG key fingerprint. Verify that the information matches the following:
-   ```bash
-   Fingerprint: c5b7 4989 65ef d1c2 924b a9d5 39d3 1987 9310 d3fc
-   ```
-    - If correct, enter `yes` or `y`. The OpenSearch installation continues.
-1. Once complete, you can run OpenSearch.
-    ```bash
-    sudo systemctl start opensearch
-    ```
-1. Verify that OpenSearch launched correctly.
-    ```bash
-    sudo systemctl status opensearch
-    ```
-
 ## Step 2: (Optional) Test OpenSearch
 
 Before proceeding with any configuration, you should test your installation of OpenSearch. Otherwise, it can be difficult to determine whether future problems are due to installation issues or custom settings you applied after installation.
 
-When OpenSearch is installed using the RPM package, some demo security settings are automatically applied. This includes self-signed TLS certificates and several users and roles. If you would like to configure these yourself, see [Set up OpenSearch in your environment](#step-3-set-up-opensearch-in-your-environment).
+When OpenSearch is installed using the Debian package, some demo security settings are automatically applied. This includes self-signed TLS certificates and several users and roles. If you would like to configure these yourself, see [Set up OpenSearch in your environment](#step-3-set-up-opensearch-in-your-environment).
 
 An OpenSearch node in its default configuration (with demo certificates and users with default passwords) is not suitable for a production environment. If you plan to use the node in a production environment, you should, at a minimum, replace the demo TLS certificates with your own TLS certificates and [update the list of internal users and passwords]({{site.url}}{{site.baseurl}}/security-plugin/configuration/yaml). See [Security configuration]({{site.url}}{{site.baseurl}}/security-plugin/configuration/index/) for additional guidance to ensure that your nodes are configured according to your security requirements.
 {: .warning}
@@ -126,47 +140,50 @@ An OpenSearch node in its default configuration (with demo certificates and user
       You should get a response that looks like this:
       ```bash
       {
-         "name" : "hostname",
-         "cluster_name" : "opensearch",
-         "cluster_uuid" : "6XNc9m2gTUSIoKDqJit0PA",
-         "version" : {
-            "distribution" : "opensearch",
-            "number" : "2.3.0",
-            "build_type" : "rpm",
-            "build_hash" : "6f6e84ebc54af31a976f53af36a5c69d474a5140",
-            "build_date" : "2022-09-09T00:07:32.109283578Z",
-            "build_snapshot" : false,
-            "lucene_version" : "9.3.0",
-            "minimum_wire_compatibility_version" : "7.10.0",
-            "minimum_index_compatibility_version" : "7.0.0"
+         "name":"hostname",
+         "cluster_name":"opensearch",
+         "cluster_uuid":"QqgpHCbnSRKcPAizqjvoOw",
+         "version":{
+            "distribution":"opensearch",
+            "number":"2.5.0",
+            "build_type":"deb",
+            "build_hash":"b8a8b6c4d7fc7a7e32eb2cb68ecad8057a4636ad",
+            "build_date":"2023-01-18T23:48:43.426713304Z",
+            "build_snapshot":false,
+            "lucene_version":"9.4.2",
+            "minimum_wire_compatibility_version":"7.10.0",
+            "minimum_index_compatibility_version":"7.0.0"
          },
-         "tagline" : "The OpenSearch Project: https://opensearch.org/"
+         "tagline":"The OpenSearch Project: https://opensearch.org/"
       }
       ```
    - Query the plugins endpoint:
-      ```bash
-      curl -X GET https://localhost:9200/_cat/plugins?v -u 'admin:admin' --insecure
-      ```
+    ```bash
+    curl -X GET https://localhost:9200/_cat/plugins?v -u 'admin:admin' --insecure
+    ```
 
-      The response should look like this:
-      ```bash
-      name     component                            version
-      hostname opensearch-alerting                  2.1.0.0
-      hostname opensearch-anomaly-detection         2.1.0.0
-      hostname opensearch-asynchronous-search       2.1.0.0
-      hostname opensearch-cross-cluster-replication 2.1.0.0
-      hostname opensearch-index-management          2.1.0.0
-      hostname opensearch-job-scheduler             2.1.0.0
-      hostname opensearch-knn                       2.1.0.0
-      hostname opensearch-ml                        2.1.0.0
-      hostname opensearch-notifications             2.1.0.0
-      hostname opensearch-notifications-core        2.1.0.0
-      hostname opensearch-observability             2.1.0.0
-      hostname opensearch-performance-analyzer      2.1.0.0
-      hostname opensearch-reports-scheduler         2.1.0.0
-      hostname opensearch-security                  2.1.0.0
-      hostname opensearch-sql                       2.1.0.0
-      ```
+    The response should look like this:
+    ```bash
+    name          component                            version
+    hostname      opensearch-alerting                  2.5.0.0
+    hostname      opensearch-anomaly-detection         2.5.0.0
+    hostname      opensearch-asynchronous-search       2.5.0.0
+    hostname      opensearch-cross-cluster-replication 2.5.0.0
+    hostname      opensearch-geospatial                2.5.0.0
+    hostname      opensearch-index-management          2.5.0.0
+    hostname      opensearch-job-scheduler             2.5.0.0
+    hostname      opensearch-knn                       2.5.0.0
+    hostname      opensearch-ml                        2.5.0.0
+    hostname      opensearch-neural-search             2.5.0.0
+    hostname      opensearch-notifications             2.5.0.0
+    hostname      opensearch-notifications-core        2.5.0.0
+    hostname      opensearch-observability             2.5.0.0
+    hostname      opensearch-performance-analyzer      2.5.0.0
+    hostname      opensearch-reports-scheduler         2.5.0.0
+    hostname      opensearch-security                  2.5.0.0
+    hostname      opensearch-security-analytics        2.5.0.0
+    hostname      opensearch-sql                       2.5.0.0
+    ```
 
 ## Step 3: Set up OpenSearch in your environment
 
@@ -397,49 +414,48 @@ You should add trust for the root certificate to your client before sending requ
 ```bash
 $ curl https://your.host.address:9200 -u admin:yournewpassword -k
 {
-  "name" : "hostname-here",
-  "cluster_name" : "opensearch",
-  "cluster_uuid" : "efC0ANNMQlGQ5TbhNflVPg",
-  "version" : {
-    "distribution" : "opensearch",
-    "number" : "2.1.0",
-    "build_type" : "tar",
-    "build_hash" : "388c80ad94529b1d9aad0a735c4740dce2932a32",
-    "build_date" : "2022-06-30T21:31:04.823801692Z",
-    "build_snapshot" : false,
-    "lucene_version" : "9.2.0",
-    "minimum_wire_compatibility_version" : "7.10.0",
-    "minimum_index_compatibility_version" : "7.0.0"
-  },
-  "tagline" : "The OpenSearch Project: https://opensearch.org/"
+   "name":"hostname",
+   "cluster_name":"opensearch",
+   "cluster_uuid":"QqgpHCbnSRKcPAizqjvoOw",
+   "version":{
+      "distribution":"opensearch",
+      "number":"2.5.0",
+      "build_type":"deb",
+      "build_hash":"b8a8b6c4d7fc7a7e32eb2cb68ecad8057a4636ad",
+      "build_date":"2023-01-18T23:48:43.426713304Z",
+      "build_snapshot":false,
+      "lucene_version":"9.4.2",
+      "minimum_wire_compatibility_version":"7.10.0",
+      "minimum_index_compatibility_version":"7.0.0"
+   },
+   "tagline":"The OpenSearch Project: https://opensearch.org/"
 }
 ```
 
 ## Upgrade to a newer version
 
-OpenSearch instances installed using RPM or YUM can be easily upgraded to a newer version. We recommend updating with YUM, but you can also upgrade using RPM.
+OpenSearch instances installed using `dpkg` or `apt-get` can be easily upgraded to a newer version.
 
+### Manual upgrade with DPKG 
 
-### Manual upgrade with RPM 
-
-Download the RPM package for the desired upgrade version directly from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'}.
+Download the Debian package for the desired upgrade version directly from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'}.
 
 Navigate to the directory containing the distribution and run the following command:
 ```bash
-rpm -Uvh opensearch-{{site.opensearch_version}}-linux-x64.rpm
+sudo dpkg -i opensearch-2.5.0-linux-x64.deb
 ```
 
-### YUM
+### APT-GET
 
-To upgrade to the latest version of OpenSearch using YUM:
+To upgrade to the latest version of OpenSearch using `apt-get`:
 ```bash
-sudo yum update
+sudo apt-get upgrade opensearch
 ```
 
- You can also upgrade to a specific OpenSearch version:
- ```bash
- sudo yum update opensearch-<version-number>
- ```
+You can also upgrade to a specific OpenSearch version:
+```bash
+sudo apt-get upgrade opensearch=<version>
+```
 
 ## Related links
 
