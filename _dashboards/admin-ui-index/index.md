@@ -1,16 +1,16 @@
 ---
 layout: default
-title: Admin UI for index operations in OpenSearch Dashboards
-nav_order: 1
+title: Index and snapshot management in OpenSearch Dashboards
+nav_order: 15
 has_children: true
 redirect_from:
   - /dashboards/admin-ui-index/
 ---
 
-# Admin UI for index operations in OpenSearch Dashboards
+# Index and snapshot management in OpenSearch Dashboards
 Introduced 2.5
 {: .label .label-purple }
 
-The admin user interface (UI) for index operation allows you to perform common index operations through a user-friendly interface and prevent unintentional changes.
+Previously, users relied on REST APIs or YAML configurations for basic administrative operations and interventions. This release takes the first step toward a unified administration panel in OpenSearch Dashboards with the launch of several index management UI enhancements. The new interface provides a more user-friendly way to run common indexing and data stream operations. Now you can perform create, read, update, and delete (CRUD) and mapping operations for indexes, index templates, and aliases through the UI. Additionally, you can open, close, reindex, shrink, and split indexes. The UI runs index status and data validation before submitting requests and lets you compare changes with previously saved settings before making updates.
 
-The admin UI interface allows you to perform basic cluster administrative operations, or to view cluster health metrics and status. While there have been some administration user experiences in OpenSearch Dashboards (ISM, Alerting on HTTP inputs, Security, etc.), there is now a unified web UI experience for cluster administrators to administer their deployments.
+<img src="{{site.url}}{{site.baseurl}}/images/admin-ui-index/admin-UI-preview.gif" alt="Index management demo gif">{: .img-fluid}

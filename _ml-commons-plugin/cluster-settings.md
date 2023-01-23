@@ -7,7 +7,7 @@ nav_order: 10
 
 # ML Commons cluster settings
 
-This page provides an overview of `opensearch.yml` settings that can be configured for the ML commons plugin.
+To enhance and customize your OpenSearch cluster for machine learning (ML), you can add and modify several configuration settings for the ML commons plugin in your 'opensearch.yml' file.
 
 
 ## Run tasks and models on ML nodes only
@@ -22,7 +22,7 @@ plugins.ml_commons.only_run_on_ml_node: true
 
 ### Values
 
-- Default value: `false`
+- Default value: `true`
 - Value range: `true` or `false`
 
 ## Dispatch tasks to ML node 
@@ -46,6 +46,8 @@ plugins.ml_commons.task_dispatch_policy: round_robin
 ## Set sync job intervals 
 
 When returning runtime information with the [profile API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api#profile), ML Commons will run a regular job to sync newly loaded or unloaded models on each node. When set to `0`, ML Commons immediately stops sync up jobs.
+
+When returning runtime information with the [profile API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api#profile), ML Commons will run a regular sync up job to sync up newly loaded or unloaded models on each node. When set to `0`, ML Commons immediately stops sync up jobs.
 
 ### Setting
 

@@ -1,12 +1,14 @@
 ---
 layout: default
 title: Pipelines
-nav_order: 20
+nav_order: 10
 ---
 
 # Pipelines
 
-![Data Prepper Pipeline]({{site.url}}{{site.baseurl}}/images/data-prepper-pipeline.png)
+The following image illustrates how a pipeline works. 
+
+<img src="{{site.url}}{{site.baseurl}}/images/data-prepper-pipeline.png" alt="Data Prepper pipeline">{: .img-fluid}
 
 To use Data Prepper, you define pipelines in a configuration YAML file. Each pipeline is a combination of a source, a buffer, zero or more processors, and one or more sinks. For example:
 
