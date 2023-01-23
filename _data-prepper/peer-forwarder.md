@@ -10,7 +10,7 @@ Peer Forwarder is an HTTP service that performs peer forwarding of an `event` be
 
 Peer Forwarder groups events based on the identification keys provided by the processors. For `service_map_stateful` and `otel_trace_raw`, the identification key is `traceId` by default and cannot be configured. The `aggregate` processor is configured using the `identification_keys` configuration option. From here, you can specify which keys to use for Peer Forwarder. See [Aggregate Processor page](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/aggregate-processor#identification_keys) for more information about identification keys.
 
-Peer discovery is currently provided by a static list, a DNS record lookup, or AWS Cloud Map.  
+Peer discovery allows Data Prepper to find other nodes that it will communicate with. Currently, peer discovery is currently provided by a static list, a DNS record lookup, or AWS Cloud Map.  
 
 ## Discovery modes
 
