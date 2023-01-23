@@ -72,7 +72,7 @@ PUT /_cluster/routing/awareness/zone/weights
 
 ## Example: Get weights for all zones
 
-The following sample request gets weights for all zones.
+The following sample request gets weights for all zones:
 
 ### Request
 
