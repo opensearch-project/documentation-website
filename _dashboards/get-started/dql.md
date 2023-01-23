@@ -22,7 +22,7 @@ The most basic query is to specify the search term.
 host:www.example.com
 ```
 
-To access an object's nested field, list the complete path to the field separated by periods. For example, to retrieve the `lat` field in the `coordinates` object:
+To access an object's nested field, list the complete path to the field separated by periods. For example, use the following path to retrieve the `lat` field in the `coordinates` object:
 
 ```
 coordinates.lat:43.7102
