@@ -82,7 +82,7 @@ GET /_cluster/routing/awareness/zone/weights
 
 ### Response
 
-OpenSearch responds with the weight of each zone.
+OpenSearch responds with the weight of each zone:
 
 ```json
 {
