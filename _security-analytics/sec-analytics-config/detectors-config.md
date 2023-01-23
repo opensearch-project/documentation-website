@@ -42,7 +42,7 @@ The data source (log index), log type, and detection rules specified in the firs
 
 #### A note on field names
 
-The field mapping process requires that you are familiar with the field names in the log index and have an understanding of the data contained in those fields. If you have an understanding of the log fields in the index, the mapping is typically a simple and straightforward process.
+The field mapping process requires that you are familiar with the field names in the log index and have an understanding of the data contained in those fields. If you have an understanding of the log fields in the index, the mapping is typically a straightforward process.
 
 Security Analytics takes advantage of prepackaged Sigma rules for security event detection. Therefore, the rule field names are derived from a Sigma rule field standard. To make them easier to identify, however, we create aliases for the Sigma rule fields based on the open source Elastic Common Schema (ECS) specification. These alias rule field names are the field names used in these steps. 
 
@@ -53,7 +53,8 @@ Although the ECS rule field names are largely self explanatory, you can find pre
 Once you navigate to the **Configure field mapping** page, the system attempts to automatically map fields between the two sources. Those field names that are not automatically mapped appear in the **Pending field mapping** table. In this table you can manually map rule fields to log fields, as shown in the following image.
 <br><img src="{{site.url}}{{site.baseurl}}/images/Security/pending-mappings.png" alt="Field mapping example for pending mappings" width="85%">
 
-* The Rule field name column lists field names based on all of the pre-packaged rules associated with the selected log type.
+While mapping fields, consider the following:
+* The Rule field name column lists field names based on all of the prepackaged rules associated with the selected log type.
 * The log field name column includes a dropdown list for each of the rule fields. Each dropdown list contains field names extracted from the log index.
 * To map a rule field name to a log field name, use the dropdown arrow to open the list of log fields and select the log field name from the list. To search for names in the log field list, enter text in the **Select a mapping field** box.
 <br><img src="{{site.url}}{{site.baseurl}}/images/Security/log-field.png" alt="Field mapping example for pending mappings" width="60%">
@@ -62,10 +63,10 @@ Once you navigate to the **Configure field mapping** page, the system attempts t
 
 ### Default field mappings
 
-The **Default mapped fields** table contains mappings that the system made automatically after defining the detector. As shown in the image that follows, when the field names are similar to one another the system can successfully match the two.
+The **Default mapped fields** table contains mappings that the system created automatically after defining the detector. As shown in the image that follows, when the field names are similar to one another the system can successfully match the two.
 <br><img src="{{site.url}}{{site.baseurl}}/images/Security/default-mappings.png" alt="Field mapping example for pending mappings" width="85%">
 
-Nevertheless, it's a good idea to review the mappings and verify that they are correct and matched as expected. If you find a mapping that doesn't appear to be accurate, you can use the dropdown list as described in the [Pending field mappings](#pending-field-mappings) section above to correct the field mapping.  
+Although these automatic matches are normally dependable, it's still a good idea to review the mappings and verify that they are correct and matched as expected. If you find a mapping that doesn't appear to be accurate, you can use the dropdown list as described in the [Pending field mappings](#pending-field-mappings) section above to correct the field mapping.  
 
 After completing the mappings, select the **Next** button in the lower-right corner of the screen. The **Set up alerts** page appears and displays settings for an alert trigger.
 
