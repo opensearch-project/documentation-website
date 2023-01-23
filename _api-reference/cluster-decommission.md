@@ -6,7 +6,7 @@ nav_order: 20
 
 # Cluster decommission
 
-The cluster decommission operation adds support for zonal cluster deployments based on awareness. When a particular zone overloads with traffic, you can decommission the zone to ensure uptime during large search requests. This greatly benefits use cases with multi-zone deployment, since rolling restarts per node can take more time than decommissioning a zone. 
+The cluster decommission operation adds support decommissioning based on awareness. It greatly benefits uses with multi-zone deployments, where awareness attributes, such as `zones`, can aid in applying new upgrades to a cluster in controlled fashion. This is especially useful during outages, in which case, you can decommission that unhealthy zone to prevent replication requests from getting stalled and prevent your request backlog from becoming to large.
 
 For more information on allocation awareness, see [Shard allocation awareness]({{site.url}}{{site.baseurl}}//opensearch/cluster/#shard-allocation-awareness)
 
@@ -47,7 +47,6 @@ DELETE /_cluster/decommission/awareness
 
 ### Response
 
-When recommissioning or decommissioning a zone, OpenSearch responds with the following:
 
 ```json
 {
@@ -74,23 +73,6 @@ GET /_cluster/decommission/awareness/zone/_status
 }
 ```
 
-## Example: Recommisson a decommissioned zone
-
-Use the `DELETE` method to recommission a previously decommissioned zone.
-
-### Request
-
-```
-DELETE /_cluster/decommission/awareness
-```
-
-### Response
-
-```
-{
-      "acknowledged": true
-}
-```
 
 ## Next steps
 
