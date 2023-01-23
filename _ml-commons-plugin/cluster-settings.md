@@ -43,9 +43,9 @@ plugins.ml_commons.task_dispatch_policy: round_robin
 - Value range: `round_robin` or `least_load`
 
 
-## Set sync up job intervals 
+## Set sync job intervals 
 
-When returning runtime information with the [profile API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api#profile), ML Commons will run a regular sync up job to sync up newly loaded or unloaded models on each node. When set to `0`, ML Commons immediately stops sync up jobs.
+When returning runtime information with the [profile API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api#profile), ML Commons will run a regular job to sync newly loaded or unloaded models on each node. When set to `0`, ML Commons immediately stops sync up jobs.
 
 ### Setting
 
@@ -138,7 +138,7 @@ plugins.ml_commons.ml_task_timeout_in_seconds: 600
 
 ## Set native memory threshold 
 
-Sets a circuit breaker that checks all system memory usage before running an ML task. If the native memory exceeds the threshold, OpenSearch puts up an exception and stops running any ML task. 
+Sets a circuit breaker that checks all system memory usage before running an ML task. If the native memory exceeds the threshold, OpenSearch throws an exception and stops running any ML task. 
 
 Values are based on the percentage of memory available. When set to `0`, no ML tasks will run. When set to `100`, the circuit breaker closes and no threshold exists.
 
