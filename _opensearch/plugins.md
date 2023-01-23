@@ -1,11 +1,19 @@
 ---
 layout: default
+<<<<<<<< HEAD:_opensearch/install/plugins.md
 title: OpenSearch plugin installation
 parent: Install OpenSearch
 nav_order: 90
+========
+title: Installing plugins
+nav_order: 90
+redirect_from:
+   - /opensearch/install/plugins/
+   - /install-and-configure/install-opensearch/plugins/
+>>>>>>>> c2e423ff (Remove Install and Configure home page (#2449)):_opensearch/plugins.md
 ---
 
-# OpenSearch plugin installation
+# Installing plugins
 
 You can install individual plugins for OpenSearch based on your needs. For information about available plugins, see [Available plugins]({{site.url}}{{site.baseurl}}/opensearch/install/plugins#available-plugins).
 
