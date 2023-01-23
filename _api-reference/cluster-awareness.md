@@ -46,7 +46,7 @@ In the following example request body, `zone_1` and `zone_2` receive 50 requests
 
 ## Example: Weighted round robin search
 
-The following sample request creates a round robin shard allocation for search traffic, using an undefined ratio.
+The following sample request creates a round robin shard allocation for search traffic, using an undefined ratio:
 
 ### Request
 
