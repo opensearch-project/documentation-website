@@ -12,7 +12,7 @@ redirect_from:
 
 # Data Prepper
 
-Data Prepper is a server-side data collector capable of filtering, enriching, transforming, normalizing and aggregating data for downstream analytics and visualization.
+Data Prepper is a server-side data collector capable of filtering, enriching, transforming, normalizing, and aggregating data for downstream analytics and visualization.
 
 Data Prepper lets users build custom pipelines to improve the operational view of applications. Two common uses for Data Prepper are trace and log analytics. [Trace analytics]({{site.url}}{{site.baseurl}}/observability-plugin/trace/index/) can help you visualize the flow of events and identify performance problems, and [log analytics]({{site.url}}{{site.baseurl}}/observability-plugin/log-analytics/) can improve searching, analyzing and provide insights into your application.
 
