@@ -1,10 +1,15 @@
 ---
 layout: default
+<<<<<<< HEAD:_opensearch/configuration.md
 title: Configuration
 nav_order: 5
+=======
+title: Configuring OpenSearch
+nav_order: 10
+>>>>>>> c2e423ff (Remove Install and Configure home page (#2449)):_install-and-configure/configuration.md
 ---
 
-# OpenSearch configuration
+# Configuring OpenSearch
 
 Most OpenSearch configuration can take place in the cluster settings API. Certain operations require you to modify `opensearch.yml` and restart the cluster.
 
