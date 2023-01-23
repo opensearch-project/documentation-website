@@ -18,7 +18,7 @@ JVM and system metrics follow predefined names in [Micrometer](https://micromete
 
 ### Serving
 
-By default, metrics are served from the **/metrics/sys** endpoint on the Data Prepper server. The format is a text Prometheus scrape. The Data Prepper server port has a default value of `4900` that can can modify, and this port can be used for any frontend that accepts Prometheus metrics, such as [Grafana](https://prometheus.io/docs/visualization/grafana/). You can update the configuration to serve metrics to other registries like CloudWatch, that does not require or host the endpoint but publishes the metrics directly to CloudWatch.
+By default, metrics are served from the **/metrics/sys** endpoint on the Data Prepper server in Prometheus scrape format. You can configure Prometheus to scrape from the Data Prepper URL. Prometheus then polls Data Prepper for metrics and stores them in its database. To visualize the data, you can set up any frontend that accepts Prometheus metrics, such as [Grafana](https://prometheus.io/docs/visualization/grafana/). You can update the configuration to serve metrics to other registries like Amazon CloudWatch, which does not require or host the endpoint but publishes the metrics directly to CloudWatch.
 
 ## Plugin metrics
 
