@@ -34,7 +34,7 @@ Use `pipeline_name` to create a name for your Neural Search pipeline.
 Field | Data type | Description
 :--- | :--- | :--- 
 description | string | A description of the processor.
-model_id | string | The ID of the model that will be used in the embedding interface. The model must be indexed in OpenSearch before it can be used in Neural Search. For more information, see [Model Serving Framework]
+model_id | string | The ID of the model that will be used in the embedding interface. The model must be indexed in OpenSearch before it can be used in Neural Search. For more information, see [Model Serving Framework]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-serving-framework/)
 input_field_name | string | The field name used to cache text for text embeddings.
 output_field_name  | string | The name of the field in which output text is stored.
 

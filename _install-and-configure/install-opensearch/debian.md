@@ -57,7 +57,7 @@ This guide assumes that you are comfortable working from the Linux command line 
 
 ### Fingerprint verification
 
-The Debian package is not signed. If you would like to verify the fingerprint, the OpenSearch Project provides a `.sig` file as well as the `.deb` package for us with GNU Privacy Guard (GPG).
+The Debian package is not signed. If you would like to verify the fingerprint, the OpenSearch Project provides a `.sig` file as well as the `.deb` package for use with GNU Privacy Guard (GPG).
 
 1. Download the desired Debian package.
    ```bash
@@ -114,7 +114,7 @@ APT, the primary package management tool for Debian–based operating systems, a
     ```bash
     sudo systemctl enable opensearch
     ```
-1. Start OpenSear h.
+1. Start OpenSearch.
     ```bash
     sudo systemctl start opensearch
     ```
@@ -140,21 +140,21 @@ An OpenSearch node in its default configuration (with demo certificates and user
       You should get a response that looks like this:
       ```bash
       {
-         "name" : "hostname",
-         "cluster_name" : "opensearch",
-         "cluster_uuid" : "oG0pPKNWT42HT3UqWgmxuw",
-         "version" : {
-            "distribution" : "opensearch",
-            "number" : "2.5.0",
-            "build_type" : "deb",
-            "build_hash" : "744ca260b892d119be8164f48d92b8810bd7801c",
-            "build_date" : "2023-01-06T22:20:28.713671066Z",
-            "build_snapshot" : false,
-            "lucene_version" : "9.4.1",
-            "minimum_wire_compatibility_version" : "7.10.0",
-            "minimum_index_compatibility_version" : "7.0.0"
+         "name":"hostname",
+         "cluster_name":"opensearch",
+         "cluster_uuid":"QqgpHCbnSRKcPAizqjvoOw",
+         "version":{
+            "distribution":"opensearch",
+            "number":"2.5.0",
+            "build_type":"deb",
+            "build_hash":"b8a8b6c4d7fc7a7e32eb2cb68ecad8057a4636ad",
+            "build_date":"2023-01-18T23:48:43.426713304Z",
+            "build_snapshot":false,
+            "lucene_version":"9.4.2",
+            "minimum_wire_compatibility_version":"7.10.0",
+            "minimum_index_compatibility_version":"7.0.0"
          },
-         "tagline" : "The OpenSearch Project: https://opensearch.org/"
+         "tagline":"The OpenSearch Project: https://opensearch.org/"
       }
       ```
    - Query the plugins endpoint:
@@ -414,21 +414,21 @@ You should add trust for the root certificate to your client before sending requ
 ```bash
 $ curl https://your.host.address:9200 -u admin:yournewpassword -k
 {
-  "name" : "hostname",
-  "cluster_name" : "opensearch",
-  "cluster_uuid" : "oG0pPKNWT42HT3UqWgmxuw",
-  "version" : {
-    "distribution" : "opensearch",
-    "number" : "2.5.0",
-    "build_type" : "deb",
-    "build_hash" : "744ca260b892d119be8164f48d92b8810bd7801c",
-    "build_date" : "2023-01-06T22:20:28.713671066Z",
-    "build_snapshot" : false,
-    "lucene_version" : "9.4.1",
-    "minimum_wire_compatibility_version" : "7.10.0",
-    "minimum_index_compatibility_version" : "7.0.0"
-  },
-  "tagline" : "The OpenSearch Project: https://opensearch.org/"
+   "name":"hostname",
+   "cluster_name":"opensearch",
+   "cluster_uuid":"QqgpHCbnSRKcPAizqjvoOw",
+   "version":{
+      "distribution":"opensearch",
+      "number":"2.5.0",
+      "build_type":"deb",
+      "build_hash":"b8a8b6c4d7fc7a7e32eb2cb68ecad8057a4636ad",
+      "build_date":"2023-01-18T23:48:43.426713304Z",
+      "build_snapshot":false,
+      "lucene_version":"9.4.2",
+      "minimum_wire_compatibility_version":"7.10.0",
+      "minimum_index_compatibility_version":"7.0.0"
+   },
+   "tagline":"The OpenSearch Project: https://opensearch.org/"
 }
 ```
 
