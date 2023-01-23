@@ -5,7 +5,7 @@ parent: Install OpenSearch Dashboards
 nav_order: 33
 ---
 
-# Install OpenSearch Dashboards (Debian)
+# Installing OpenSearch Dashboards (Debian)
 
 Installing OpenSearch Dashboards using the Advanced Packaging Tool (APT) package manager simplifies the process considerably compared to the [Tarball]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/tar/) method. For example, the package manager handles several technical considerations, such as the installation path, location of configuration files, and creation of a service managed by `systemd`.
 
@@ -15,7 +15,7 @@ Before installing OpenSearch Dashboards you must configure an OpenSearch cluster
 This guide assumes that you are comfortable working from the Linux command line interface (CLI). You should understand how to input commands, navigate between directories, and edit text files. Some example commands reference the `vi` text editor, but you may use any text editor available.
 {:.note}
 
-## Install OpenSearch Dashboards from a package
+## Installing OpenSearch Dashboards from a package
 
 1. Download the Debian package for the desired version directly from the [OpenSearch downloads page](https://opensearch.org/downloads.html){:target='\_blank'}. The Debian package can be downloaded for both **x64** and **arm64** architectures.
 1. From the CLI, install using `dpkg`.
@@ -63,7 +63,7 @@ The Debian package is not signed. If you would like to verify the fingerprint, t
    gpg --verify opensearch-dashboards-{{site.opensearch_version}}-linux-x64.deb.sig opensearch-dashboards-{{site.opensearch_version}}-linux-x64.deb
    ```
 
-## Install OpenSearch Dashboards from an APT repository
+## Installing OpenSearch Dashboards from an APT repository
 
 APT, the primary package management tool for Debian–based operating systems, allows you to download and install the Debian package from the APT repository. 
 
@@ -71,7 +71,7 @@ APT, the primary package management tool for Debian–based operating systems, a
     ```bash
     curl -o- https://artifacts.opensearch.org/publickeys/opensearch.pgp | sudo apt-key add -
     ```
-1. Create an APT repository for OpenSearch:
+1. Create an APT repository for OpenSearch.
    ```bash
    echo "deb https://artifacts.opensearch.org/releases/bundle/opensearch-dashboards/2.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/opensearch-dashboards-2.x.list
    ```
@@ -88,7 +88,7 @@ APT, the primary package management tool for Debian–based operating systems, a
    ```bash
    sudo apt-get install opensearch-dashboards
    ```
-   - To install a specific version of OpenSearch Dashboards:
+   - To install a specific version of OpenSearch Dashboards, pass a version number after the package name.
    ```bash
    # Specify the version manually using opensearch=<version>
    sudo apt-get install opensearch-dashboards={{site.opensearch_version}}
@@ -106,7 +106,7 @@ APT, the primary package management tool for Debian–based operating systems, a
     sudo systemctl status opensearch-dashboards
     ```
 
-## Explore OpenSearch Dashboards
+## Exploring OpenSearch Dashboards
 
 By default, OpenSearch Dashboards, like OpenSearch, binds to `localhost` when you initially install it. As a result, OpenSearch Dashboards is not reachable from a remote host unless the configuration is updated.
 
