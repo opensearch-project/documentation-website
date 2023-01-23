@@ -7,7 +7,7 @@ redirect_from:
    - /install-and-configure/install-opensearch/plugins/
 ---
 
-# OpenSearch plugin installation
+# Installing plugins
 
 You can install individual plugins for OpenSearch based on your needs. For information about available plugins, see [Available plugins](#available-plugins).
 
