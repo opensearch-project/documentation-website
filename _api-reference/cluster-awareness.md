@@ -97,7 +97,7 @@ OpenSearch responds with the weight of each zone:
 }
 ```
 
-## Example: Delete weights
+## Example: Deleting weights
 
 You can remove your weight ratio for each zone using the `DELETE` method.
 
