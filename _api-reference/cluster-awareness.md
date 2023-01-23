@@ -30,7 +30,7 @@ weights | JSON object | Assigns weights to attributes within the request body of
 _version | String | Implements optimistic concurrency control (OCC) through versioning. The parameter uses simple versioning, such as `1`, and increments upward based on each subsequent modification. This allows any servers from which a request originates to validate whether or not a zone has been modified. 
 
 
-In the following example request body, `zone_1` and `zone_2` receive 50 requests each, whereas `zone_3` is cut for from receiving requests:
+In the following example request body, `zone_1` and `zone_2` receive 50 requests each, whereas `zone_3` is prevented from receiving requests:
 
 ```
 { 
