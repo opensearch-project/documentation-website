@@ -6,7 +6,7 @@ nav_order: 16
 
 # Cluster routing and awareness
 
-To control the distribution of search or HTTP traffic, you can use the weights per awareness attribute to control the distribution of search or HTTP traffic across zones. This is commonly used for zonal deployments, heterogenous instances, and weighing traffic away from zones during zonal failure.
+To control the distribution of search or HTTP traffic, you can use the weights per awareness attribute to control the distribution of search or HTTP traffic across zones. This is commonly used for zonal deployments, heterogeneous instances, and weighing traffic away from zones during zonal failure.
 
 ## HTTP and ath methods
 
