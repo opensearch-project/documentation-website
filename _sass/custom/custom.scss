@@ -48,9 +48,9 @@ code {
 }
 
 .site-nav {
-  padding-top: 1rem;
+  padding-top: 0;
   position: sticky;
-  top: 1rem;
+  top: 0;
   max-height: calc(100vh - 2rem);
   overflow-x: hidden;
 }
@@ -1251,12 +1251,17 @@ main {
 
 .version-wrapper {
   text-align: center;
-  margin-bottom: 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 9999999;
+  background-color: $sidebar-color;
 }
 
 version-selector {
   z-index: 1;
   font-size: .9rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 
   --normal-bg: linear-gradient(#{lighten($blue-300, 5%)}, #{darken($blue-300, 2%)});
   --hover-bg: linear-gradient(#{lighten($blue-300, 2%)}, #{darken($blue-300, 4%)});
