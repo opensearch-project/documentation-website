@@ -59,7 +59,7 @@ plugins.ml_commons.max_ml_task_per_node: 10
 
 ## Set number of ML models per node
 
-Sets the number of ML models which can load on each ML node. When set to `0`, no ML models can load on any node.
+Sets the number of ML models that can be loaded on to each ML node. When set to `0`, no ML models can load on any node.
 
 ### Setting
 
