@@ -12,7 +12,7 @@ You can change the time range to display dashboard data over minutes, hours, day
 The default time range is **Last 15 minutes**. You can change the time range at the dashboard level or under **Stack Management > Advanced Settings > Time filter defaults**. 
 {: .note}
 
-To change the time range at the dashboard level:
+To change the time range at the dashboard level, perform the following steps:
 
 1. Select the calendar icon.
 1. Choose one of the following:
@@ -23,9 +23,11 @@ To change the time range at the dashboard level:
   
    <img src="{{site.url}}{{site.baseurl}}/images/time-range.png" alt="Time range interface" width="400"/>
 
-1. Select **Show dates** to set start and end times.
+1. Select **Show dates** to set start and end times, and then select inside the toolbar to access the time filter pop-up window.
+
+   <img src="{{site.url}}{{site.baseurl}}/images/time-filter-popup.png" alt="Time filter pop-up window" width="400"/>
+
 2. Choose **Absolute**, **Relative**, or **Now** and specify ranges.
 3. Select **Update** to apply changes.
 
-   <img src="{{site.url}}{{site.baseurl}}/images/start-end-time.png" alt="Start and end times interface" width="500"/>
-
+   <img src="{{site.url}}{{site.baseurl}}/images/start-end-time.png" alt="Start and end times interface" width="400"/>
