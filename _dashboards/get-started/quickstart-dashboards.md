@@ -83,7 +83,7 @@ Continuing with the preceding dashboard, you'll create a bar chart comparing the
 1. Drag the fields **Cancelled** and **FlightDelay** to the y-axis column.
 1. Drag the field **FlightDelayType** to the x-axis column.
 1. Select **Save** and name the visualization in the **Title** field.
-2. Select **Save and return**. The bar chart is added as the last panel to the dashboard.
+1. Select **Save and return**. The bar chart is added as the last panel to the dashboard.
 
 <img src="{site.url}}{{site.baseurl}}/images/viz-panel-quickstart.png" alt="Creating a visualization panel" width="1000"/>
 
@@ -103,7 +103,7 @@ Alternatively, you can apply filters using the dashboard toolbar:
 
     <img src="{{site.url}}{{site.baseurl}}/images/edit-filter.png" alt="Edit field interface" width="400"/>
 
-2. Select **Save**. The dashboard updates automatically.
+1. Select **Save**. The dashboard updates automatically.
 
 The result is the following dashboard: 
 
