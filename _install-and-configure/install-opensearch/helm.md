@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Helm
-parent: Install OpenSearch
+parent: Installing OpenSearch
 nav_order: 6
 redirect_from:
   - /opensearch/install/helm/

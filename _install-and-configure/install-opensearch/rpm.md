@@ -1,7 +1,7 @@
 ---
 layout: default
 title: RPM
-parent: Install OpenSearch
+parent: Installing OpenSearch
 nav_order: 51
 ---
 
