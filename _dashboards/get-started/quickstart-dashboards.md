@@ -63,7 +63,7 @@ Raw data can be hard to comprehend and use, and data visualizations help you pre
 
 Continuing with the preceding dashboard, you'll create a bar chart comparing the number of cancelled flights and delayed flights to delay type, and then add the panel to the dashboard.
 
-1. Change the default [time range](time-filter.md) from **24 hours** to **Last 7 days**. 
+1. Change the default [time range]({{site.url}}{{site.baseurl}}/dashboards/get-started/time-filter) from **24 hours** to **Last 7 days**. 
 1. In the toolbar, select **Edit**, then **Create new**.
 1. Select **VisBuilder** in the **New Visualizations** window.
 1. In the **Data Source** dropdown list, select `opensearch_dashboards_sample_data_flights`.
