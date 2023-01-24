@@ -5,7 +5,7 @@ parent: OpenSearch Dashboards core concepts
 nav_order: 10
 ---
 
-## Set the time range
+# Set the time range
 
 You can change the time range to display dashboard data over minutes, hours, days, weeks, months, or years.
 
