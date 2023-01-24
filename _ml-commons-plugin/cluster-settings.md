@@ -42,6 +42,35 @@ plugins.ml_commons.task_dispatch_policy: round_robin
 - Dafault value: `round_robin`
 - Value range: `round_robin` or `least_load`
 
+## Set number of ML tasks per node
+
+Sets the number of ML tasks that can run on each ML node. When set to `0`, no ML tasks run on any nodes.
+
+### Setting
+
+```
+plugins.ml_commons.max_ml_task_per_node: 10
+```
+
+### Values
+
+- Default value: `10`
+- Value range: [0, 10000]
+
+## Set number of ML models per node
+
+Sets the number of ML models which can load on each ML node. When set to `0`, no ML models can load on any node.
+
+### Setting
+
+```
+plugins.ml_commons.max_model_on_node: 10
+```
+
+### Values
+
+- Default value: `10`
+- Value range: [0, 10000]
 
 ## Set sync job intervals 
 
