@@ -1,8 +1,15 @@
 ---
 layout: default
+<<<<<<< HEAD:_data-prepper/configure-logstash-data-prepper.md
 title: Configure Logstash for Data Prepper
 parent: Data Prepper
 nav_order: 12
+=======
+title: Migrating from Logstash
+nav_order: 30
+redirect_from:
+  - /data-prepper/configure-logstash-data-prepper/
+>>>>>>> 5bbeac23 (Fix links for 2.5 doc changes. (#2465)):_data-prepper/migrating-from-logstash-data-prepper.md
 ---
 
 # Configure Logstash for Data Prepper
@@ -27,7 +34,7 @@ As of the Data Prepper 1.2 release, the following plugins from the Logstash conf
 
 ## Running Data Prepper with a Logstash configuration
 
-1. To install Data Prepper's Docker image, see the Installing Data Prepper in [Get Started]({{site.url}}{{site.baseurl}}/data-prepper/get-started#1-installing-data-prepper).
+1. To install Data Prepper's Docker image, see the Installing Data Prepper in [Get Started]({{site.url}}{{site.baseurl}}/data-prepper/getting-started#1-installing-data-prepper).
 
 2. Run the Docker image installed in Step 1 by supplying your `logstash.conf` configuration.
 
