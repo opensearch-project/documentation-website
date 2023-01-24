@@ -132,7 +132,9 @@ With the text_embedding processor in place through a Neural Search pipeline, the
 
 ## Search a neural index 
 
-If you want to use a language model to convert a text query into a k-NN vector query, use the `neural` query fields in your query. The neural query request fields can be used in both the [Search API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api/#search-model) and [Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index/). 
+If you want to use a language model to convert a text query into a k-NN vector query, use the `neural` query fields in your query. The neural query request fields can be used in both the [k-NN plugin API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api/#search-model), [Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index/), and inside a [k-NN search filter]({{site.url}}{{site.baseurl}}/search-plugins/knn/filter-search-knn/).
+
+
 
 ### Neural request fields
 
