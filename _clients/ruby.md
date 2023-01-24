@@ -7,7 +7,7 @@ has_children: false
 
 # Ruby client
 
-The OpenSearch Ruby client allows you to interact with your OpenSearch clusters through Ruby methods rather than HTTP methods and raw JSON. 
+The OpenSearch Ruby client allows you to interact with your OpenSearch clusters through Ruby methods rather than HTTP methods and raw JSON. For the client's complete API documentation and additional examples, see the [`opensearch-transport`](https://rubydoc.info/gems/opensearch-transport), [`opensearch-api`](https://rubydoc.info/gems/opensearch-api), [`opensearch-dsl`](https://rubydoc.info/gems/opensearch-dsl), and [`opensearch-ruby`](https://rubydoc.info/gems/opensearch-ruby/) gem documentation.
 
 This getting started guide illustrates how to connect to OpenSearch, index documents, and run queries. For the client source code, see the [opensearch-ruby repo](https://github.com/opensearch-project/opensearch-ruby).
 
