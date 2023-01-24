@@ -49,7 +49,7 @@ The following table lists the parameters accepted by completion fields.
 
 Parameter | Description 
 :--- | :--- 
-`input` | A list of possible completions as a string or array of strings. Cannot contain `\u0000` (null), `\u001f` (information separator one), or `u001e` (information separator two). Required.
+`input` | A list of possible completions as a string or array of strings. Cannot contain `\u0000` (null), `\u001f` (information separator one), or `\u001e` (information separator two). Required.
 `weight` | A positive integer or a positive integer string for ranking suggestions. Optional.
 
 Multiple suggestions can be indexed as follows:

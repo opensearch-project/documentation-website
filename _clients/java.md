@@ -6,15 +6,15 @@ nav_order: 65
 
 # Java client
 
-The OpenSearch Java client allows you to interact with your OpenSearch clusters through Java methods and data structures rather than HTTP methods and raw JSON. 
+The OpenSearch Java client allows you to interact with your OpenSearch clusters through Java methods and data structures rather than HTTP methods and raw JSON. For example, you can submit requests to your cluster using objects to create indexes, add data to documents, or complete some other operation using the client's built-in methods. For the client's complete API documentation and additional examples, see the [javadoc](https://www.javadoc.io/doc/org.opensearch.client/opensearch-java/latest/index.html).
 
-For example, you can submit requests to your cluster using objects to create indices, add data to documents, or complete some other operation using the client's built-in methods.
+This getting started guide illustrates how to connect to OpenSearch, index documents, and run queries. For the client source code, see the [opensearch-java repo](https://github.com/opensearch-project/opensearch-java).
 
-## Install the client
+## Installing the client
 
 To start using the OpenSearch Java client, ensure that you have the following dependencies in your project's `pom.xml` file:
 
-```
+```xml
 <dependency>
   <groupId>org.opensearch.client</groupId>
   <artifactId>opensearch-rest-client</artifactId>
@@ -26,6 +26,7 @@ To start using the OpenSearch Java client, ensure that you have the following de
   <version>2.0.0</version>
 </dependency>
 ```
+{% include copy.html %}
 
 If you're using Gradle, add the following dependencies to your project.
 
@@ -35,6 +36,7 @@ dependencies {
     implementation 'org.opensearch.client:opensearch-java:2.0.0'
 }
 ```
+{% include copy.html %}
 
 You can now start your OpenSearch cluster.
 
@@ -47,6 +49,7 @@ If you're using certificates from a trusted Certificate Authority (CA), you don'
 ```bash
 keytool -import <path-to-cert> -alias <alias-to-call-cert> -keystore <truststore-name>
 ```
+{% include copy.html %}
 
 You can now point your Java client to the truststore and set basic authentication credentials that can access a secure cluster (refer to the sample code below on how to do so).
 
@@ -90,10 +93,11 @@ static class IndexData {
   }
 }
 ```
+{% include copy.html %}
 
-## Initialize the client with SSL and TLS enabled
+## Initializing the client with SSL and TLS enabled
 
-This code example uses basic credentials that come with the default OpenSearch configuration. If you’re using the Java client with your own OpenSearch cluster, be sure to change the code to use your own credentials.
+This code example uses basic credentials that come with the default OpenSearch configuration. If you’re using the Java client with your own OpenSearch cluster, be sure to change the code so that it uses your own credentials.
 
 The following sample code initializes a client with SSL and TLS enabled:
 
@@ -144,12 +148,11 @@ public class OpenSearchClientExample {
  }
 }
 ```
+{% include copy.html %}
 
-## OpenSearch client examples
+## Creating an index 
 
-This section has sample code that shows you how to create an index with non-default settings, add a document to the index, search for the document, delete the document, and finally delete the index.
-
-### Create an index with non-default settings
+You can create an index with non-default settings using the following code:
 
 ```java
 String index = "sample-index";
@@ -161,16 +164,22 @@ IndexSettingsBody settingsBody = new IndexSettingsBody.Builder().settings(indexS
 PutSettingsRequest putSettingsRequest = new PutSettingsRequest.Builder().index(index).value(settingsBody).build();
 client.indices().putSettings(putSettingsRequest);
 ```
+{% include copy.html %}
 
-### Index data
+## Indexing data
+
+You can index data into OpenSearch using the following code:
 
 ```java
 IndexData indexData = new IndexData("first_name", "Bruce");
 IndexRequest<IndexData> indexRequest = new IndexRequest.Builder<IndexData>().index(index).id("1").value(indexData).build();
 client.index(indexRequest);
 ```
+{% include copy.html %}
 
-### Search for the document
+## Searching for documents
+
+You can search for a document using the following code:
 
 ```java
 SearchResponse<IndexData> searchResponse = client.search(s -> s.index(index), IndexData.class);
@@ -178,16 +187,20 @@ for (int i = 0; i< searchResponse.hits().hits().size(); i++) {
   System.out.println(searchResponse.hits().hits().get(i).source());
 }
 ```
+{% include copy.html %}
 
-### Delete the document
+## Deleting a document
 
-The following sample code deletes a document whose ID is 1.
+The following sample code deletes a document whose ID is 1:
 
 ```java
 client.delete(b -> b.index(index).id("1"));
 ```
+{% include copy.html %}
 
-### Delete the index
+### Deleting an index
+
+The following sample code deletes an index:
 
 ```java
 DeleteRequest deleteRequest = new DeleteRequest.Builder().index(index).build();
@@ -207,8 +220,11 @@ DeleteResponse deleteResponse = client.indices().delete(deleteRequest);
   }
 }
 ```
+{% include copy.html %}
 
-## Complete code sample
+## Sample program
+
+The following sample program creates a client, adds an index with non-default settings, inserts a document, searches for the document, deletes the document, and then deletes the index:
 
 ```java
 import org.apache.http.HttpHost;
@@ -297,3 +313,4 @@ public class OpenSearchClientExample {
   }
 }
 ```
+{% include copy.html %}

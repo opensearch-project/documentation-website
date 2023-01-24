@@ -61,9 +61,15 @@ collections:
   notifications-plugin:
     permalink: /:collection/:path/
     output: true
+  job-scheduler-plugin:
+    permalink: /:collection/:path/
+    output: true
   clients:
     permalink: /:collection/:path/
     output: true
+  api-reference:
+    permalink: /:collection/:path/
+    output: true  
   troubleshoot:
     permalink: /:collection/:path/
     output: true
@@ -109,8 +115,14 @@ just_the_docs:
     notifications-plugin:
       name: Notifications plugin
       nav_fold: true
+    job-scheduler-plugin:
+      name: Job Scheduler plugin
+      nav_fold: true
     clients:
       name: Clients and tools
+      nav_fold: true
+    api-reference:
+      name: API reference
       nav_fold: true
     troubleshoot:
       name: Troubleshooting
