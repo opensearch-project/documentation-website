@@ -27,7 +27,7 @@ To change the time range at the dashboard level, perform the following steps:
 
    <img src="{{site.url}}{{site.baseurl}}/images/time-filter-popup.png" alt="Time filter pop-up window" width="400"/>
 
-2. Choose **Absolute**, **Relative**, or **Now** and specify ranges.
-3. Select **Update** to apply changes.
+1. Choose **Absolute**, **Relative**, or **Now** and specify ranges.
+1. Select **Update** to apply changes.
 
    <img src="{{site.url}}{{site.baseurl}}/images/start-end-time.png" alt="Start and end times interface" width="400"/>
