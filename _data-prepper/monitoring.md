@@ -14,7 +14,7 @@ JVM and system metrics are runtime metrics that are used to monitor Data Prepper
 
 ### Naming
 
-JVM and system metrics follow predefined names in [Micrometer](https://micrometer.io/docs/concepts#_naming_meters). For example, the Micrometer metrics name for memory usage is `jvm.memory.used`. Micrometer changes the name to match the metrics system. Following the same example, `jvm.memory.used` is reported to Prometheus as `jvm_memory_used`, and reported to Amazon CloudWatch as `jvm.memory.used.value`.
+JVM and system metrics follow predefined names in [Micrometer](https://micrometer.io/docs/concepts#_naming_meters). For example, the Micrometer metrics name for memory usage is `jvm.memory.used`. Micrometer changes the name to match the metrics system. Following the same example, `jvm.memory.used` is reported to Prometheus as `jvm_memory_used`, and is reported to Amazon CloudWatch as `jvm.memory.used.value`.
 
 ### Serving
 
