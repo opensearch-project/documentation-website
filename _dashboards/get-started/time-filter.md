@@ -9,7 +9,7 @@ nav_order: 10
 
 You can change the time range to display dashboard data over minutes, hours, days, weeks, months, or years.
 
-The default time range is **Last 15 minutes**. You can change the time range at the dashboard level or 
+The default time range is **Last 15 minutes**. You can change the time range at the dashboard level or under **Stack Management > Advanced Settings > Time filter defaults**. 
 {: .note}
 
 To change the time range at the dashboard level:
@@ -21,11 +21,11 @@ To change the time range at the dashboard level:
    - **Recently used date ranges:** Select a previously used time range.
    - **Refresh every:** Set an automatic refresh period.
   
-![Time range interface]({{site.url}}{{site.baseurl}}/images/time-range.png)
+   <img src="{{site.url}}{{site.baseurl}}/images/time-range.png" alt="Time range interface" width="400"/>
 
 1. Select **Show dates** to set start and end times.
-1. Choose **Absolute**, **Relative**, or **Now** and specify ranges.
-1. Select **Update** to apply changes.
+2. Choose **Absolute**, **Relative**, or **Now** and specify ranges.
+3. Select **Update** to apply changes.
 
-![Start and end times interface]({{site.url}}{{site.baseurl}}/images/start-end-time.png)
+   <img src="{{site.url}}{{site.baseurl}}/images/start-end-time.png" alt="Start and end times interface" width="500"/>
 
