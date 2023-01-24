@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Docker
-parent: Install OpenSearch
+parent: Installing OpenSearch
 nav_order: 5
 redirect_from: 
   - /opensearch/install/docker/

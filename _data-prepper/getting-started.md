@@ -4,6 +4,8 @@ title: Getting started
 nav_order: 5
 redirect_from:
   - /clients/data-prepper/getting-started/
+  - /data-prepper/get-started/
+  - /clients/data-prepper/get-started/
 ---
 
 # Getting started with Data Prepper

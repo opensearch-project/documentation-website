@@ -5,7 +5,7 @@ The OpenSearch 2.5.0 documentation includes the following additions and updates.
 ## New documentation for 2.5.0
 
 - Add k-NN filter to neural search [#2466](https://github.com/opensearch-project/documentation-website/pull/2466)
-- add two new settings for Anomaly Detection 2.5 [#2450](https://github.com/opensearch-project/documentation-website/pull/2450)
+- Add two new settings for Anomaly Detection 2.5 [#2450](https://github.com/opensearch-project/documentation-website/pull/2450)
 - Add new ML cluster settings for 2.5 [#2442](https://github.com/opensearch-project/documentation-website/pull/2442)
 - Adds installation guide for OpenSearch Dashboards debian distribution [#2440](https://github.com/opensearch-project/documentation-website/pull/2440)
 - Add cluster awareness and decommission docs [#2438](https://github.com/opensearch-project/documentation-website/pull/2438)

@@ -88,7 +88,7 @@ source ~/.bash_profile
 Next, create a shell script file called `prepare_torch_neuron.sh`. You can copy and customize one of the following examples based on your Linux operating system:
 
 - [Ubuntu 20.04](#ubuntu-2004)
-- [Amazon Linux 2](#amazon-linux2)
+- [Amazon Linux 2](#amazon-linux-2)
 
 After you've run the scripts, exit your current terminal and open a new terminal to start OpenSearch.
 
