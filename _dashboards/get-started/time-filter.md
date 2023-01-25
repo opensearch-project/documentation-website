@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Set the time range
+title: Setting the time filter
 parent: OpenSearch Dashboards core concepts
 nav_order: 10
 ---
 
-# Set the time range
+# Setting the time filter
 
 You can change the time range to display dashboard data over minutes, hours, days, weeks, months, or years.
 

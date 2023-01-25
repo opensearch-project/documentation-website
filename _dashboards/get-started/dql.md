@@ -1,21 +1,17 @@
 ---
 layout: default
-title: Understanding Dashboards Query Language
+title: Using Dashboards Query Language
 parent: OpenSearch Dashboards core concepts
 nav_order: 40
 redirect_from:
   - /dashboards/dql/
 ---
 
-# Understanding Dashboards Query Language
+# Using Dashboards Query Language
 
 Dashboards Query Language (DQL) is a simple text-based query language for filtering data in OpenSearch Dashboards. Similar to [Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index), DQL uses HTTP request body. For example, to display your site visitor data for a host in the United States, you would enter `geo.dest:US` into the search field.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dql-interface.png" alt="DQL toolbar in Dashboard" width="500">
-
-This documentation uses the **[Logs] Web Traffic** sample data set. See [Quickstart for OpenSearch Dashboards]({{site.url}}{{site.baseurl}}dashboards/get-started/quickstart-dashboards/) to learn how to add sample data to Dashboards.
-
-<img src="{{site.url}}{{site.baseurl}}/mages/dql-sample-dataset.png" alt="DQL sample data set" width="500">
+<img src="{{site.url}}{{site.baseurl}}/images/dql-interface.png" alt="DQL toolbar in Dashboard" width="700">
 
 ## Searching with terms queries
 
@@ -81,11 +77,11 @@ Similarly, you can use the same method to find a date before or after the query.
 
 ## Querying nested fields
 
-Searching a document with nested fields requires you to specify which parts of the document to retrieve. Consider the following example, where `superheroes` is a nested field. 
+Searching a document with nested fields requires you to specify which parts of the document to retrieve. In this example, `superheroes` is the nested field type.
 
 ```json
 {
-  "superheroes":[
+ "superheroes":[
     {
       "hero-name": "Superman",
       "real-identity": "Clark Kent",
@@ -110,25 +106,25 @@ Searching a document with nested fields requires you to specify which parts of t
 }
 ```
 
-The following example shows how to use DQL to retrieve a specific field.
+To retrieve a specific field using DQL, use the notation:
 
 ```
 superheroes: {hero-name: Superman}
 ```
 
-To retrieve multiple objects from your document, specify all the fields you want to retrieve.
+To retrieve multiple objects from your document, specify all the fields you want to retrieve, as shown in the following notation:
 
 ```
 superheroes: {hero-name: Superman} and superheroes: {hero-name: Batman}
 ```
 
-The previous boolean and range queries still work, so you can submit a more refined query.
+The previous boolean and range queries still work, so you can submit a more refined query, as shown in the following notation:
 
 ```
 superheroes: {hero-name: Superman and age < 50}
 ```
 
-If your document has an object nested within another object, you can retrieve data by specifying all the levels.
+Additionally, if a document has an object nested within another object, you can retrieve data by specifying all the levels, as shown in the following notation: 
 
 ```
 justice-league.superheroes: {hero-name:Superman}
