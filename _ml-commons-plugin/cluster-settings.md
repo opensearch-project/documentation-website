@@ -102,7 +102,7 @@ plugins.ml_commons.monitoring_request_count: 100
 ### Value range
 
 - Default value: `100`
-- Value range: [0, 100,000,000]
+- Value range: [0, 10,000,000]
 
 ## Upload model tasks per node
 
