@@ -532,13 +532,13 @@ Avoid using *primitive* (especially plural *primitives*) as a colloquial way of 
 
 Use only in reference to specific programming methods. Otherwise, use *delete*, *clear*, or *remove* instead.
 
-## Q 
+### Q 
 
 **query**
 
 A call used to request information about your data.
 
-## R 
+### R 
 
 **real time (n.) real-time (adj.)**
 
@@ -638,7 +638,7 @@ Data that's provided as part of a metric. The time value is assumed to be when t
 
 Avoid using as a verb to refer to an action that precipitates a subsequent action. It is OK to use when referring to a feature name, such as a *trigger function* or *time-triggered architecture*. As a verb, use an alternative, such as *initiate*, *invoke*, *launch*, or *start*.
 
-## U 
+### U 
 
 **UltraWarm**
 

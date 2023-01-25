@@ -352,19 +352,18 @@ Follow these basic guidelines when writing UI text.
 ##### Mechanics
 
 * Use sentence case for all UI text. (Capitalize only the first word in a sentence or phrase as well as any proper nouns, such as service names. All other words are lowercase.)
-* Use parallel construction (use phrases and sentences that are grammatically similar). For example, items in a list should start with either all verbs or all nouns.
-     
+* Use parallel construction (use phrases and sentences that are grammatically similar). For example, items in a list should start with either all verbs or all nouns.<br>
      **Correct**
 
      Snapshots have two main uses:
      * Recovering from failure
-     * Migrating from one cluster to another
+     * Migrating from one cluster to another<br><br>
 
      **Incorrect**
 
      Snapshots have two main uses:
      * Failure recovery
-     * Migrating from one cluster to another
+     * Migrating from one cluster to another<br><br>
 
 * Use the serial (Oxford) comma. For example, “issues, bug fixes, and features”, not “issues, bug fixes and features”.
 * Don’t use the ampersand (&).
