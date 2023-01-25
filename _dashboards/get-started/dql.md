@@ -1,20 +1,23 @@
 ---
 layout: default
-title: Dashboards Query Language
+title: Understanding Dashboards Query Language
 parent: OpenSearch Dashboards core concepts
 nav_order: 40
 redirect_from:
   - /dashboards/dql/
 ---
 
-# Dashboards Query Language
+# Understanding Dashboards Query Language
 
 Dashboards Query Language (DQL) is a simple text-based query language for filtering data in OpenSearch Dashboards. Similar to [Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index), DQL uses HTTP request body. For example, to display your site visitor data for a host in the United States, you would enter `geo.dest:US` into the search field.
 
-This documentation uses the Dashboards web log sample data set. See [Quickstart for OpenSearch Dashboards]() to learn how to add sample data to Dashboards.
-{: .note}
+<img src="{{site.url}}{{site.baseurl}}/images/dql-interface.png" alt="DQL toolbar in Dashboard" width="500">
 
-## Terms query
+This documentation uses the **[Logs] Web Traffic** sample data set. See [Quickstart for OpenSearch Dashboards]({{site.url}}{{site.baseurl}}dashboards/get-started/quickstart-dashboards/) to learn how to add sample data to Dashboards.
+
+<img src="{{site.url}}{{site.baseurl}}/mages/dql-sample-dataset.png" alt="DQL sample data set" width="500">
+
+## Searching with terms queries
 
 The most basic query is to specify the search term.
 
@@ -40,7 +43,7 @@ To check if a field exists or has any data, use a wildcard to see if Dashboards 
 host.keyword:*
 ```
 
-## Boolean query
+## Searching with Boolean queries
 
 To mix and match or combine multiple queries for more refined results, you can use the boolean operators `and`, `or`, and `not`. DQL is not case sensitive, so `AND` and `and` are the same.
 
@@ -62,7 +65,7 @@ To avoid confusion, use parentheses to dictate the order in which you want to ev
 (geo.dest:US or response.keyword:200) and host.keyword:www.example.com
 ```
 
-## Date and range queries
+## Querying dates and ranges
 
 DQL supports numeric inequalities.
 
@@ -76,11 +79,9 @@ Similarly, you can use the same method to find a date before or after the query.
 @timestamp > "2020-12-14T09:35:33"
 ```
 
-## Nested field query
+## Querying nested fields
 
-If you have a document with nested fields, you must specify which parts of the document to retrieve.
-
-For example, if you have the following document:
+Searching a document with nested fields requires you to specify which parts of the document to retrieve. Consider the following example, where `superheroes` is a nested field. 
 
 ```json
 {
@@ -115,7 +116,7 @@ The following example shows how to use DQL to retrieve a specific field.
 superheroes: {hero-name: Superman}
 ```
 
-If you want to retrieve multiple objects from your document, specify all the fields you want to retrieve.
+To retrieve multiple objects from your document, specify all the fields you want to retrieve.
 
 ```
 superheroes: {hero-name: Superman} and superheroes: {hero-name: Batman}

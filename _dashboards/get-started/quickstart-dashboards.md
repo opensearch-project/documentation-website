@@ -24,7 +24,7 @@ Sample data sets come with visualizations, dashboards, and other tools to help y
 1. On the OpenSearch Dashboards **Home** page, select **Add sample data**.
 1. Select **Add data** to add the data sets.
 
-    <img src="{{site.url}}{{site.baseurl}}/images/add-sample-data.png" alt="Sample data sets" width="1000">
+    <img src="{{site.url}}{{site.baseurl}}/images/add-sample-data.png" alt="Sample data sets" width="800">
 
 # Exploring and inspecting data
 
@@ -47,7 +47,7 @@ In [**Discover**](discover/index.md), you can:
 
 1. To filter data by delay type, select the field under **Available fields**.
 
-    <img src="{{site.url}}{{site.baseurl}}/images/filter-data.png" alt="Filter filter by Available fields" width="400"/>
+    <img src="{{site.url}}{{site.baseurl}}/images/filter-data.png" alt="Filter filter by Available fields" width="300"/>
 
 # Visualizing data
 
@@ -63,20 +63,20 @@ Raw data can be hard to comprehend and use. Data visualizations help you prepare
 1. On the OpenSearch Dashboards **Home** page, select **Dashboard**.
 1. Select **[Flights] Global Flight Data** in the **Dashboards** window.
 
-    <img src="{{site.url}}{{site.baseurl}}/images/dashboard-flight-quickstart.png" alt="Data visualization dashboard" width="1000"/>
+    <img src="{{site.url}}{{site.baseurl}}/images/dashboard-flight-quickstart.png" alt="Data visualization dashboard" width="800"/>
 
 1. To add panels to the dashboard, select **Edit** and then **Add** from the toolbar.
 1. In the **Add panels** window, select the existing panel **[Flights] Delay Buckets**. You'll see a pop-up window in the bottom right confirming you've added the panel.
 1. Select `x` to close the Add panels window.
 1. View the added panel **[Flights] Delay Buckets**, which is added as the last panel on the dashboard.
 
-    <img src="{{site.url}}{{site.baseurl}}/images/add-panel.png" alt="Add panel to dashboard" width="500"/>
+    <img src="{{site.url}}{{site.baseurl}}/images/add-panel.png" alt="Add panel to dashboard" width="600"/>
 
 ## Try it: Creating a visualization panel
 
 Continuing with the preceding dashboard, you'll create a bar chart comparing the number of cancelled flights and delayed flights to delay type, and then add the panel to the dashboard.
 
-1. Change the default [time range]({{site.url}}{{site.baseurl}}/dashboards/get-started/time-filter) from **24 hours** to **Last 7 days**. 
+1. Change the default [time range]({{site.url}}{{site.baseurl}}/dashboards/get-started/time-filter/) from **24 hours** to **Last 7 days**. 
 1. In the toolbar, select **Edit**, then **Create new**.
 1. Select **VisBuilder** in the **New Visualizations** window.
 1. In the **Data Source** dropdown list, select `opensearch_dashboards_sample_data_flights`.
@@ -85,7 +85,7 @@ Continuing with the preceding dashboard, you'll create a bar chart comparing the
 1. Select **Save** and name the visualization in the **Title** field.
 1. Select **Save and return**. The bar chart is added as the last panel to the dashboard.
 
-<img src="{site.url}}{{site.baseurl}}/images/viz-panel-quickstart.png" alt="Creating a visualization panel" width="1000"/>
+<img src="{{site.url}}{{site.baseurl}}/images/viz-panel-quickstart.png" alt="Creating a visualization panel" width="500"/>
 
 # Interacting with data
 
@@ -107,7 +107,7 @@ Alternatively, you can apply filters using the dashboard toolbar:
 
 The result is the following dashboard: 
 
-  <img src="{{site.url}}{{site.baseurl}}/images/interact-filter-dashboard.png" alt="Dashboard view after applying Carrier filter" width="1000"/>
+  <img src="{{site.url}}{{site.baseurl}}/images/interact-filter-dashboard.png" alt="Dashboard view after applying Carrier filter" width="800"/>
 
 # Taking the next steps
 
