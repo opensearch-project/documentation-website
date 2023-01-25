@@ -91,7 +91,7 @@ plugins.ml_commons.sync_up_job_interval_in_seconds: 10
 
 ## Predict monitoring requests
 
-Controls how many predict requests are monitored on one node. If set to `0`, OpenSearch clears all monitoring predict request in cache and does monitor for new predict requests.
+Controls how many predict requests are monitored on one node. If set to `0`, OpenSearch clears all monitoring predict request in cache and does not monitor for new predict requests.
 
 ### Setting
 
