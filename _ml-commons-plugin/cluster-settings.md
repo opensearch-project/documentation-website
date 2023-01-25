@@ -42,6 +42,35 @@ plugins.ml_commons.task_dispatch_policy: round_robin
 - Dafault value: `round_robin`
 - Value range: `round_robin` or `least_load`
 
+## Set number of ML tasks per node
+
+Sets the number of ML tasks that can run on each ML node. When set to `0`, no ML tasks run on any nodes.
+
+### Setting
+
+```
+plugins.ml_commons.max_ml_task_per_node: 10
+```
+
+### Values
+
+- Default value: `10`
+- Value range: [0, 10,000]
+
+## Set number of ML models per node
+
+Sets the number of ML models that can be loaded on to each ML node. When set to `0`, no ML models can load on any node.
+
+### Setting
+
+```
+plugins.ml_commons.max_model_on_node: 10
+```
+
+### Values
+
+- Default value: `10`
+- Value range: [0, 10,000]
 
 ## Set sync job intervals 
 
@@ -62,7 +91,7 @@ plugins.ml_commons.sync_up_job_interval_in_seconds: 10
 
 ## Predict monitoring requests
 
-Controls how many upload model tasks can run in parallel on one node. If set to `0`, you cannot upload models to any node.
+Controls how many predict requests are monitored on one node. If set to `0`, OpenSearch clears all monitoring predict requests in cache and does not monitor for new predict requests.
 
 ### Setting
 
@@ -73,7 +102,7 @@ plugins.ml_commons.monitoring_request_count: 100
 ### Value range
 
 - Default value: `100`
-- Value range: [0, 100,000,000]
+- Value range: [0, 10,000,000]
 
 ## Upload model tasks per node
 
@@ -136,7 +165,7 @@ plugins.ml_commons.ml_task_timeout_in_seconds: 600
 ### Values
 
 - Default value: 600
-- Value range: [1, 86400]
+- Value range: [1, 86,400]
 
 ## Set native memory threshold 
 
