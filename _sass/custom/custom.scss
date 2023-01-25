@@ -53,6 +53,7 @@ code {
   top: 0;
   max-height: calc(100vh - 2rem);
   overflow-x: hidden;
+  min-width: 14rem;
 }
 
 .nav-category {
