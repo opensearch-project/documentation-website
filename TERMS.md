@@ -262,6 +262,12 @@ Exception: *Execution* is unavoidable for third-party terms for which no alterna
 **frontend (n., adj.)**
 
 Use frontend as an adjective and a noun. Do not use front end or front-end. Do not make frontend possessive except as part of a compound noun, such as frontend system.
+
+## G
+
+**geopoint**
+
+**geoshape**
  
 ## H
 
@@ -619,6 +625,10 @@ A numerical statistic that is intended to reflect how important a word is to a d
 Never hyphenate. Use _time out_ as a verb (“The request will time out if the server doesn’t respond”). Use _timeout_ as a noun or adjective (“You can set the timeout interval by entering a number into...”).
 
 **time frame**
+
+**time-series data**
+
+Data that's provided as part of a metric. The time value is assumed to be when the value occurred.
 
 **timestamp**
 
