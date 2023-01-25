@@ -2,7 +2,7 @@ let siteNav = document.querySelector('.site-nav');
 const key = 'scroll';
 
 document.addEventListener('DOMContentLoaded', () => {
-    const scroll = JSON.parse(localStorage.getItem(key));
+    const scroll = JSON.parse(sessionStorage.getItem(key));
 
     const currentDate = new Date();
     
@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
       siteNav.scrollTop = parseInt(scroll.value);
     }
     else {
-      localStorage.removeItem(key);
+      sessionStorage.removeItem(key);
     }
 });
 
@@ -23,5 +23,5 @@ window.addEventListener('beforeunload', () => {
     expiry: currentDate.getTime() + 24 * 60 * 60 * 1000,
   }
   
-  localStorage.setItem(key, JSON.stringify(scroll));
+  sessionStorage.setItem(key, JSON.stringify(scroll));
 });
