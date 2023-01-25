@@ -124,7 +124,41 @@ The previous boolean and range queries still work, so you can submit a more refi
 superheroes: {hero-name: Superman and age < 50}
 ```
 
-Additionally, if a document has an object nested within another object, you can retrieve data by specifying all the levels, as shown in the following notation: 
+## Querying double nested objects 
+
+If a document has double nested objects (object nested inside another object), retrieve data by specifying all the levels. In the following example document, `superheroes` is double nested.
+
+
+
+```json
+{
+ "superheroes":[
+    {
+      "hero-name": "Superman",
+      "real-identity": "Clark Kent",
+      "age": 28
+    },
+    {
+      "hero-name": "Batman",
+      "real-identity": "Bruce Wayne",
+      "age": 26
+    },
+    {
+      "hero-name": "Flash",
+      "real-identity": "Barry Allen",
+      "age": 28
+    },
+    {
+      "hero-name": "Robin",
+      "real-identity": "Dick Grayson",
+      "age": 15
+    }
+  ]
+}
+```
+
+
+To retrieve data, you can use the following example notation: 
 
 ```
 justice-league.superheroes: {hero-name:Superman}
