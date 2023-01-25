@@ -55,7 +55,7 @@ plugins.ml_commons.max_ml_task_per_node: 10
 ### Values
 
 - Default value: `10`
-- Value range: [0, 10000]
+- Value range: [0, 10,000]
 
 ## Set number of ML models per node
 
@@ -70,7 +70,7 @@ plugins.ml_commons.max_model_on_node: 10
 ### Values
 
 - Default value: `10`
-- Value range: [0, 10000]
+- Value range: [0, 10,000]
 
 ## Set sync job intervals 
 
@@ -91,7 +91,7 @@ plugins.ml_commons.sync_up_job_interval_in_seconds: 10
 
 ## Predict monitoring requests
 
-Controls how many predict requests are monitored on one node. If set to `0`, OpenSearch clears all monitoring predict request in cache and does not monitor for new predict requests.
+Controls how many predict requests are monitored on one node. If set to `0`, OpenSearch clears all monitoring predict requests in cache and does not monitor for new predict requests.
 
 ### Setting
 
@@ -165,7 +165,7 @@ plugins.ml_commons.ml_task_timeout_in_seconds: 600
 ### Values
 
 - Default value: 600
-- Value range: [1, 86400]
+- Value range: [1, 86,400]
 
 ## Set native memory threshold 
 
