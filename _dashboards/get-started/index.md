@@ -17,7 +17,7 @@ OpenSearch Dashboards is an open-source, integrated visualization tool that make
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboard-flight.png" alt="User interface showing several data visualizations">
 
-## Knowing the use cases for OpenSearch Dashboards
+## Understanding the use cases for OpenSearch Dashboards
 
 A dashboard is a collection of charts, graphs, gauges, and other visualizations that gives you a snapshot of the data that you're interested in and that you interact with. You can track, analyze, and display real-time search, monitoring, and analysis of business and operational data for use cases like application monitoring, log analytics, observability, and website search. The image below shows data visualization use cases for OpenSearch Dashboards.   
 
