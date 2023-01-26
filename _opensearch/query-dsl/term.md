@@ -25,7 +25,7 @@ You can use any of the term-level query types shown in the following table:
 `range` | Specifies a search within an upper and lower bound of values in a provided field.
 `prefix` | Specifies a search for terms that begin with a prefix.
 `exists` | Specifies a search for documents that contain a specific field.
-`wildcard` | Specifies a search for terms that match a wildcard pattern. Indicate all values with an asterisk (*) or a single value by a question mark (?).
+`wildcard` | Specifies a search for terms that match a wildcard pattern. Indicate matching zero or more characters with an asterisk (*) or a single character by a question mark (?).
 `regex` | Specifies a search for terms that match a regular expression.
 
 
@@ -71,7 +71,7 @@ GET shakespeare/_search
 }
 ```
 
-The response indicates zero `hits` to denote a match. This is because the term “To be, or not to be” is searched literally in the inverted index, where only the analyzed values of the text fields are stored.
+The response contains no matches, indicated by zero `hits`. This is because the term “To be, or not to be” is searched literally in the inverted index, where only the analyzed values of the text fields are stored.
 
 #### Sample request
 
