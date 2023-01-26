@@ -77,7 +77,7 @@ Similarly, you can use the same method to find a date before or after the query.
 
 ## Querying nested fields
 
-Searching a document with nested fields requires you to specify which parts of the document to retrieve. In this example, `superheroes` is the nested field type.
+Searching a document with [nested fields]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/nested/) requires you to specify the full path of the field to retrieve. In this example, the `superheroes` field has nested objects:
 
 ```json
 {
