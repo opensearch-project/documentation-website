@@ -106,7 +106,7 @@ Searching a document with [nested fields]({{site.url}}{{site.baseurl}}/opensearc
 }
 ```
 
-To retrieve a specific field using DQL, use the notation:
+To retrieve a specific field using DQL, use the following notation:
 
 ```
 superheroes: {hero-name: Superman}
