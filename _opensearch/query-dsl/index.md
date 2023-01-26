@@ -16,14 +16,23 @@ OpenSearch provides a query domain-specific language (DSL) that you can use to p
 
 Query DSL provides several query categories. You can even perform more complicated searches by combining query fields to find more granular data that you need.
 
-The following query DSL categories include:
+OpenSearch supports the following query DSL categories:
 
-- **Compound boolean queries** – To search with clause rules that act as logical operators to combine several simple query terms.
+- **Compound queries** – To perform combined queries with the following query types: `bool`, `boost`, `contstant_score`, `disjunction_max`, `function_score`. Boolean queries use clause rules that act as logical operators to combine several simple query terms.  
+- **Span queries** – To perform `containing`, `field_masking`, `first`, `multi-term`, `near`, `not`, `or`, `term` or `within` queries.
 - **Term-level queries** – To search documents for one or more terms, IDs, value ranges, with optional filtering by wildcard or regex. Term-level queries do not sort results by relevance score or analyze search terms.
 - **Full-text queries** – To search documents for one or more terms and filter with advanced options. These queries return detailed information including relevance scores per document match, and perform text analysis.
-- **Geo-bounding box queries** – To search for documents with `geo_point` field values that are within a bounding box.
-- **xy point queries** – To search for documents with two-dimensional coordinates in `xy_point` or `xy_shape` fields.
+- **Geographic queries** – To perform geographic queries such as: `distance`, `grid`, `polygon` or `geo_point`.
+    - **Geo-bounding box queries** – To search for documents with `geo_point` field values that are within a bounding box.
+    - **xy point queries** – To search for documents with two-dimensional coordinates in `xy_point` or `xy_shape` fields.
+- **Shape queries** – To perform `pre-indexed_shape`, `ignore_unmapped`, or spacial relations queries such as: `intersect`, `disjoin`, `within`, or `contains`.
+- **Query context** – To perform `relevance_score`, `query_context` to show how well a document matches a query clause, or `filter_context` to indicate whether or not a doc matches the query clause.
 - **Query string queries** – To perform complex queries for a string with multiple optional fields using `query_string` syntax.
+- **Regular expression queries** – To perform all regular expression queries. 
+- **Joining queries** – To perform `nested`, `has_child`, `has_parent`, and `parent_id` queries.
+- **Parameter queries** – To perform `minimum_should_match` and `rewrite` queries.
+- **Specialized queries** – To perform specialized queries: `distance_feature`, `more_like_this`, `percolate`, `rank_feature`, `script`, `script_score`, `wrapper`, or `pinned_query`.
+
 
 ## About term-level and full-text queries
 
