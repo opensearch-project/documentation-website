@@ -22,7 +22,7 @@ OpenSearch supports the following query DSL categories:
 - **Span queries** – To perform `containing`, `field_masking`, `first`, `multi-term`, `near`, `not`, `or`, `term` or `within` queries.
 - **Term-level queries** – To search documents for one or more terms, IDs, value ranges, with optional filtering by wildcard or regex. Term-level queries do not sort results by relevance score or analyze search terms.
 - **Full-text queries** – To search documents for one or more terms and filter with advanced options. These queries return detailed information including relevance scores per document match, and perform text analysis.
-- **Geographic queries** – To perform geographic queries such as: `distance`, `grid`, `polygon` or `geo_point`.
+- **Geographic queries** – To perform geographic queries such as `distance`, `grid`, `polygon`, as well as the following queries:
     - **Geo-bounding box queries** – To search for documents with `geo_point` field values that are within a bounding box.
     - **xy point queries** – To search for documents with two-dimensional coordinates in `xy_point` or `xy_shape` fields.
 - **Shape queries** – To perform `pre-indexed_shape`, `ignore_unmapped`, or spacial relations queries such as: `intersect`, `disjoin`, `within`, or `contains`.
@@ -32,7 +32,6 @@ OpenSearch supports the following query DSL categories:
 - **Joining queries** – To perform `nested`, `has_child`, `has_parent`, and `parent_id` queries.
 - **Parameter queries** – To perform `minimum_should_match` and `rewrite` queries.
 - **Specialized queries** – To perform specialized queries: `distance_feature`, `more_like_this`, `percolate`, `rank_feature`, `script`, `script_score`, `wrapper`, or `pinned_query`.
-
 
 ## About term-level and full-text queries
 
