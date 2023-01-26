@@ -15,7 +15,7 @@ This page provides an overview of `opensearch.yml` settings that can be configur
 ### Setting
 
 ```
-plugins.ml_commons.only_run_on_ml_node: true
+plugins.ml_commons.only_run_on_ml_node: false
 ```
 
 ### Description
