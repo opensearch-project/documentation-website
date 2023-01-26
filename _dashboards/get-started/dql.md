@@ -159,7 +159,7 @@ If a document has doubly nested objects (object nested inside another object), r
 }
 ```
 
-To retrieve data, you can use the following example notation: 
+To retrieve data, you can use the following example notation:
 
 ```
 justice-league.superheroes: {hero-name:Superman}
