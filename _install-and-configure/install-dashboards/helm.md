@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Helm
-parent: Installing OpenSearch Dashboards
+parent: Install OpenSearch Dashboards
 nav_order: 35
 redirect_from: 
   - /dashboards/install/helm/

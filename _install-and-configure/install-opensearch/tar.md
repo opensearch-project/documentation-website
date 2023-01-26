@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Tarball
-parent: Installing OpenSearch
+parent: Install OpenSearch
 nav_order: 10
 redirect_from:
   - /opensearch/install/tar/

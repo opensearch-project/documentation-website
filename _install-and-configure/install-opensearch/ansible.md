@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Ansible playbook
-parent: Installing OpenSearch
+parent: Install OpenSearch
 nav_order: 60
 redirect_from:
   - /opensearch/install/ansible/

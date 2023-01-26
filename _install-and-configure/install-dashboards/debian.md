@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Debian
-parent: Installing OpenSearch Dashboards
+parent: Install OpenSearch Dashboards
 nav_order: 33
 ---
 

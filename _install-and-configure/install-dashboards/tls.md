@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Configure TLS
-parent: Installing OpenSearch Dashboards
+parent: Install OpenSearch Dashboards
 nav_order: 40
 redirect_from: 
   - /dashboards/install/tls/

@@ -1,11 +1,7 @@
 ---
 layout: default
-title: Using maps
+title: Maps
 nav_order: 15
-parent: Visualization types
-grand_parent: Visualize
-redirect_from:
-  - /dashboards/maps/
 ---
 
 # Maps

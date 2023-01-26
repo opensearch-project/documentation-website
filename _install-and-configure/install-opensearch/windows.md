@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Windows
-parent: Installing OpenSearch
+parent: Install OpenSearch
 nav_order: 65
 ---
 
