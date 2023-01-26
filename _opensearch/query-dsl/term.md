@@ -71,7 +71,7 @@ GET shakespeare/_search
 }
 ```
 
-The response indicates zero `hits` to denote a match. This is because the term “To be, or not to be” is searched literally in the inverted index, where only the analyzed values of the text fields are stored.
+The response contains no matches, indicated by zero `hits`. This is because the term “To be, or not to be” is searched literally in the inverted index, where only the analyzed values of the text fields are stored.
 
 #### Sample request
 
