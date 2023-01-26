@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Snapshot management
-parent: Index and snapshot management in OpenSearch Dashboards
-nav_order: 17
+title: Using Snapshot Management in OpenSearch Dashboards
+parent: Admin UI for index operations in OpenSearch Dashboards
+nav_order: 30
 ---
 
-# Snapshot management
+# Using Snapshot Management in OpenSearch Dashboards
 
 You can set up Snapshot Management (SM) in OpenSearch Dashboards.
 
@@ -15,13 +15,13 @@ Snapshots have two main uses:
 
 1. Recovering from failure
 
-    For example, if cluster health goes red, you might restore the red indexes from a snapshot.
+For example, if cluster health goes red, you might restore the red indexes from a snapshot.
 
 2. Migrating from one cluster to another
 
-    For example, if you’re moving from a proof-of-concept to a production cluster, you might take a snapshot of the former and restore it on the latter.
+For example, if you’re moving from a proof-of-concept to a production cluster, you might take a snapshot of the former and restore it on the latter.
 
-You can take and restore snapshots using snapshot management in OpenSearch Dashboards.
+You can take and restore snapshots using the admin UI in Dashboards.
 
 If you need to automate taking snapshots, you can use a snapshot policy.
 
@@ -173,4 +173,3 @@ The **Delete** button [deletes]({{site.url}}{{site.baseurl}}/api-reference/snaps
  After the restore operation is complete, the restored indexes are listed in the **Indices** panel. To view the indexes, in the left panel, under **Index Management**, select **Indices**.
 
 <img src="{{site.url}}{{site.baseurl}}/images/restore-snapshot/restore-snapshot-indices-panel.png" alt="View Indices">{: .img-fluid}
- 

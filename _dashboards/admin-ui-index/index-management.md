@@ -1,15 +1,15 @@
 ---
 layout: default
 title: Index management
-parent: Index and snapshot management in OpenSearch Dashboards
-nav_order: 16
+parent: Admin UI for index operations in OpenSearch Dashboards
+nav_order: 10
 ---
 
 # Index management
 Introduced 2.5
 {: .label .label-purple }
 
-In the **Index Management** section, you can perform the operations available in the [Index API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/index/).
+The Index Management section in the admin UI allows you to perform the operations available in the [Index API]({{site.url}}{{site.baseurl}}/api-reference/index-apis/index/) from OpenSearch Dashboards' web UI.
 
 ## Index policies
 
@@ -49,15 +49,9 @@ To attach policies to indexes, perform the following steps:
 
 ## Indexes
 
-The **Indices** section displays a list of indexes in your OpenSearch cluster. For each index included, you can see its health status (`green`, `yellow`, or `red`), policy (if the index is managed by a policy), status, total size, size of primaries, total documents, deleted documents, primaries, and replicas.
+The **Indices** section displays a list of indexes in your OpenSearch cluster. For each index included, you can see its heath status (`green`, `yellow`, or `red`), policy (if the index is managed by a policy), status, total size, size of primaries, total documents, deleted documents, primaries and replicas.
 
-The following are the three index health statuses:
-
-- Green: All primary and replica shards are assigned.
-- Yellow: At least one replica shard is not assigned.
-- Red: At least one primary shard is not assigned.
-
-### Create index
+#### Create index
 
 While you can [create an index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/) by using a document as a base, you can also create an empty index for later use. 
 
@@ -72,11 +66,11 @@ You can also add fields and objects using either the visual editor or the JSON e
 
 **Advanced settings** allows you to upload a JSON configuration.
 
-### Apply policy
+#### Apply policy
 
 If you analyze time series data, you likely want to prioritize new data over old data. You might periodically perform certain operations on older indexes, such as reducing replica count or deleting them.
 
-[Index State Management]({{site.url}}{{site.baseurl}}/im-plugin/ism/index/) (ISM) is a plugin that lets you automate these periodic administrative operations by triggering them based on changes in the index age, index size, or number of documents. You can define policies that automatically handle index rollovers or deletions to fit your use case.
+[Index State Management]({{site.url}}{{site.baseurl}}/im-plugin/ism/index/) (ISM) is a plugin that lets you automate these periodic administrative operations by triggering them based on changes in the index age, index size, or number of documents. The admin UI uses the ISM plugin to define policies that automatically handle index rollovers or deletions to fit your use case.
 
 For example, you can define a policy that moves your index into a **read_only** state after 30 days and then deletes it after a set period of 90 days. You can also set up the policy to send you a notification message when the index is deleted.
 
@@ -86,19 +80,19 @@ To apply a policy, select the index to which you want to apply the policy in the
 
 <img src="{{site.url}}{{site.baseurl}}/images/admin-ui-index/apply-policy.PNG" alt="User interface showing apply policy prompt">
 
-### Close index
+#### Close
 
 The [close index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/close-index/) operation closes an index. Once an index is closed, you cannot add data to it or search for any data within the index.
 
 To close an index, select the index you want to close in the **Indices** list under **Index Management**. Then select the **Actions** button, and select **Close** from the dropdown list.
 
-### Open index
+#### Open
 
 The [open index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/open-index/) operation opens a closed index, letting you add or search for data within the index.
 
 To open an index, select the index you want to open in the **Indices** list under **Index Management**. Then select the **Actions** button, and select **Open** from the dropdown list.
 
-### Reindex
+#### Reindex
 
 The [reindex]({{site.url}}{{site.baseurl}}/api-reference/document-apis/reindex/) operation lets you copy all your data or a subset of data from a source index into a destination index.
 
@@ -106,15 +100,15 @@ To reindex an index, select the index in the **Indices** list under **Index Mana
 
 <img src="{{site.url}}{{site.baseurl}}/images/admin-ui-index/reindex-expanded.png" alt="User interface showing reindex prompt">
 
-### Shrink index
+#### Shrink
 
-The [shrink]({{site.url}}{{site.baseurl}}/api-reference/index-apis/shrink-index/) index operation copies all of the data in an existing index into a new index with fewer primary shards.
+The [shrink]({{site.url}}{{site.baseurl}}/api-reference/index-apis/shrink-index/) index operation moves all of your data in an existing index into a new index with fewer primary shards.
 
 To shrink an index, select the index you want to shrink in the **Indices** list under **Index Management**. Then select the **Actions** button, and select **Shrink** from the dropdown list.
 
 <img src="{{site.url}}{{site.baseurl}}/images/admin-ui-index/shrink.png" alt="User interface showing shrink prompt">
 
-### Split index
+#### Split
 
 The [split index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/split/) operation splits an existing read-only index into a new index, splitting each primary shard into a number of primary shards in the new index.
 
@@ -122,7 +116,7 @@ To split an index, select the index you want to split in the **Indices** list un
 
 <img src="{{site.url}}{{site.baseurl}}/images/admin-ui-index/split-expanded.png" alt="User interface showing split page">
 
-### Delete index
+#### Delete
 
 If you no longer need an index, you can use the [delete index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/delete-index/) operation to delete it.
 
@@ -134,32 +128,21 @@ To delete an index, select the index you want to delete in the **Indices** list 
 
 <img src="{{site.url}}{{site.baseurl}}/images/admin-ui-index/templates.PNG" alt="User interface showing Templates page">
 
-### Creating a template
-
 To create a template, select the **Create template** button on the **Templates** page under **Index Management**.
 
 Next, define the template:
 
 1. Enter the template name.
-1. Select the template type.
-1. Specify any index patterns you would like to use.
-1. Set the priority of the template.
-1. Select an index alias.
-1. Set the number of primary shards.
-1. Set the number of replicas.
-1. Set the refresh intervals.
-1. Add fields and objects for your index mapping using either the visual editor or the JSON editor.
-1. Under **Advanced Settings** you can specify advanced index settings with a comma-delimited list.
+2. Select the template type.
+3. Specify any index patterns you would like to use.
+4. Set the priority of the template.
+5. Select an index alias.
+6. Set the number of primary shards.
+7. Set the number of replicas.
+8. Set the refresh intervals.
+9. Add fields and objects for your index mapping using either the visual editor or the JSON editor.
 
 <img src="{{site.url}}{{site.baseurl}}/images/admin-ui-index/create-template-expanded.png" alt="User interface showing Create Template page">
-
-### Editing a template
-
-To edit a template, select the template you want to edit from the list of templates. Next, select the **Actions** dropdown list and select the **Edit** option.
-
-### Deleting a template
-
-To delete a template, select the template you want to delete from the list of templates. Next, select the **Actions** dropdown list and select the **Delete** option.
 
 ## Aliases
 
@@ -210,7 +193,7 @@ You can also disable and enable rollup jobs by selecting the corresponding butto
 
 ## Transform jobs
 
-You can create, start, stop, and complete operations with [transform]({{site.url}}{{site.baseurl}}/im-plugin/index-transforms/transforms-apis/) jobs.
+Using the admin UI in OpenSearch Dashboards, you can create, start, stop, and complete operations with [transform]({{site.url}}{{site.baseurl}}/im-plugin/index-transforms/transforms-apis/) jobs.
 
 To create a transform job, perform the following steps:
 
@@ -240,4 +223,3 @@ You can check the status of the reindex, shrink, and split operations because th
 ## Error handling
 
 Similar to API calls, if the operation fails immediately, you will be notified with an error message. However, if it is a long-running operation, you will be notified of the failure at the time of failure, or you can check the index status on the **Indices** page.
- 
