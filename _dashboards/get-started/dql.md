@@ -13,6 +13,9 @@ Dashboards Query Language (DQL) is a simple text-based query language for filter
 
 <img src="{{site.url}}{{site.baseurl}}/images/dql-interface.png" alt="DQL toolbar in Dashboard" width="700">
 
+Before you can search data in Dashboards, you must index it. In OpenSearch, the basic unit of data is a JSON document. Within an index, OpenSearch identifies each document using a unique ID. To learn more about indexing in OpenSearch, see [Index data]({{site.url}}{{site.baseurl}}/opensearch/index-data).
+{: .note purple}
+
 ## Searching with terms queries
 
 The most basic query is to specify the search term.
@@ -20,24 +23,28 @@ The most basic query is to specify the search term.
 ```
 host:www.example.com
 ```
+{% include copy.html %}
 
 To access an object's nested field, list the complete path to the field separated by periods. For example, use the following path to retrieve the `lat` field in the `coordinates` object:
 
 ```
 coordinates.lat:43.7102
 ```
+{% include copy.html %}
 
 DQL supports leading and trailing wildcards, so you can search for any terms that match your pattern.
 
 ```
 host.keyword:*.example.com/*
 ```
+{% include copy.html %}
 
 To check if a field exists or has any data, use a wildcard to see if Dashboards returns any results.
 
 ```
 host.keyword:*
 ```
+{% include copy.html %}
 
 ## Searching with Boolean queries
 
@@ -46,12 +53,14 @@ To mix and match or combine multiple queries for more refined results, you can u
 ```
 host.keyword:www.example.com and response.keyword:200
 ```
+{% include copy.html %}
 
 The following example shows how to use multiple operators in one query.
 
 ```
 geo.dest:US or response.keyword:200 and host.keyword:www.example.com
 ```
+{% include copy.html %}
 
 Remember that boolean operators follow the logical precedence order of `not`, `and`, and `or`, so if you have an expression like the previous example, `response.keyword:200 and host.keyword:www.example.com` gets evaluated first.
 
@@ -60,6 +69,7 @@ To avoid confusion, use parentheses to dictate the order in which you want to ev
 ```
 (geo.dest:US or response.keyword:200) and host.keyword:www.example.com
 ```
+{% include copy.html %}
 
 ## Querying dates and ranges
 
@@ -68,12 +78,14 @@ DQL supports numeric inequalities.
 ```
 bytes >= 15 and memory < 15
 ```
+{% include copy.html %}
 
 Similarly, you can use the same method to find a date before or after the query. `>` indicates a search for a date after the specified date, and `<` returns dates before.
 
 ```
 @timestamp > "2020-12-14T09:35:33"
 ```
+{% include copy.html %}
 
 ## Querying nested fields
 
@@ -105,24 +117,28 @@ Searching a document with [nested fields]({{site.url}}{{site.baseurl}}/opensearc
   ]
 }
 ```
+{% include copy.html %}
 
 To retrieve a specific field using DQL, use the following notation:
 
 ```
 superheroes: {hero-name: Superman}
 ```
+{% include copy.html %}
 
 To retrieve multiple objects from your document, specify all the fields you want to retrieve, as shown in the following notation:
 
 ```
 superheroes: {hero-name: Superman} and superheroes: {hero-name: Batman}
 ```
+{% include copy.html %}
 
 The previous boolean and range queries still work, so you can submit a more refined query, as shown in the following notation:
 
 ```
 superheroes: {hero-name: Superman and age < 50}
 ```
+{% include copy.html %}
 
 ## Querying doubly nested objects 
 
@@ -158,9 +174,15 @@ If a document has doubly nested objects (object nested inside another object), r
 ]
 }
 ```
+{% include copy.html %}
 
 To retrieve data, you can use the following example notation:
 
 ```
 justice-league.superheroes: {hero-name:Superman}
 ```
+{% include copy.html %}
+
+The following image shows the query result using the example notation.
+
+<img src="{{site.url}}{{site.baseurl}}/images/dql-query-result.png" alt="DQL query result" width="1000">
