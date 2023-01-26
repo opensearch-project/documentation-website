@@ -26,7 +26,7 @@ To monitor trace analytics, you need to set up the following components in your 
 
 ## Trace analytics pipeline
 
-To monitor trace analytics in Data Prepper, we have three pipelines: `entry-pipeline`, `raw-trace-pipeline` and `service-map-pipeline`.
+To monitor trace analytics in Data Prepper, we provide three pipelines: `entry-pipeline`, `raw-trace-pipeline`, and `service-map-pipeline`.
 
 <img src="{{site.url}}{{site.baseurl}}/images/data-prepper/trace-analytics/trace-analytics-feature.jpg" alt="Trace analytics pipeline overview">{: .img-fluid}
 
