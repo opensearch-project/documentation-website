@@ -128,35 +128,36 @@ superheroes: {hero-name: Superman and age < 50}
 
 If a document has doubly nested objects (object nested inside another object), retrieve a field value by specifying the full path to the field. In the following example document, the `superheroes` object is nested inside the `justice-league` object:
 
-
-
 ```json
 {
- "superheroes":[
-    {
-      "hero-name": "Superman",
-      "real-identity": "Clark Kent",
-      "age": 28
-    },
-    {
-      "hero-name": "Batman",
-      "real-identity": "Bruce Wayne",
-      "age": 26
-    },
-    {
-      "hero-name": "Flash",
-      "real-identity": "Barry Allen",
-      "age": 28
-    },
-    {
-      "hero-name": "Robin",
-      "real-identity": "Dick Grayson",
-      "age": 15
-    }
-  ]
+"justice-league": [
+{
+"superheroes":[
+{
+"hero-name": "Superman",
+"real-identity": "Clark Kent",
+"age": 28
+},
+{
+"hero-name": "Batman",
+"real-identity": "Bruce Wayne",
+"age": 26
+},
+{
+"hero-name": "Flash",
+"real-identity": "Barry Allen",
+"age": 28
+},
+{
+"hero-name": "Robin",
+"real-identity": "Dick Grayson",
+"age": 15
+}
+]
+}
+]
 }
 ```
-
 
 To retrieve data, you can use the following example notation: 
 
