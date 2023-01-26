@@ -1,6 +1,6 @@
 # OpenSearch Documentation Website 2.5.0 Release Notes
 
-The OpenSearch 2.5.0 documentation includes the following additions and updates.
+The following page provides a list of updates made to OpenSearch documentation for OpenSearch 2.5.0.
 
 ## New documentation for 2.5.0
 
