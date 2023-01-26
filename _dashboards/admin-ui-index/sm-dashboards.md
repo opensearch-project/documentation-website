@@ -9,7 +9,7 @@ nav_order: 17
 
 You can set up Snapshot Management (SM) in OpenSearch Dashboards.
 
-[Snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/index/) are backups of a cluster’s indexes and state. The state includes cluster settings, node information, index metadata (mappings, settings, templates), and shard allocation.
+[Snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/index/) are backups of a cluster’s indexes and state. The state includes cluster settings, node information, index metadata (mappings, settings, templates, etc.), and shard allocation.
 
 Snapshots have two main uses:
 
@@ -19,37 +19,37 @@ Snapshots have two main uses:
 
 2. Migrating from one cluster to another
 
-    For example, if you’re moving from a proof of concept to a production cluster, you might take a snapshot of the former and restore it on the latter.
+    For example, if you’re moving from a proof-of-concept to a production cluster, you might take a snapshot of the former and restore it on the latter.
 
 You can take and restore snapshots using snapshot management in OpenSearch Dashboards.
 
-If you need to automate snapshots creation, you can use a snapshot policy.
+If you need to automate taking snapshots, you can use a snapshot policy.
 
-## Creating a repository
+## Create a repository
 
 Before you create an SM policy, you need to set up a repository for snapshots. 
 
 1. On the top menu bar, go to **OpenSearch Plugins > Snapshot Management**.
 1. In the left panel, under **Snapshot Management**, select **Repositories**.
-1. Choose the **Create Repository** button.
+1. Select the **Create Repository** button.
 1. Enter the repository name, type, and location. 
 1. (Optional) Select **Advanced Settings** and enter additional settings for this repository as a JSON object. Example:
-    ```json
-    {
-        "chunk_size": null,
-        "compress": false,
-        "max_restore_bytes_per_sec": "40m",
-        "max_snapshot_bytes_per_sec": "40m",
-        "readonly": false
-    }
-    ```
-1. Choose the **Add** button.
+```json
+{
+    "chunk_size": null,
+    "compress": false,
+    "max_restore_bytes_per_sec": "40m",
+    "max_snapshot_bytes_per_sec": "40m",
+    "readonly": false
+}
+```
+1. Select the **Add** button.
 
-## Deleting a repository
+#### Delete a repository
 
-To delete a snapshot repository configuration, select the repository from the **Repositories** list and then choose the **Delete** button.
+To delete a snapshot repository configuration, select the repository in the **Repositories** list, then select the **Delete** button.
 
-## Creating an SM policy
+## Create an SM policy
 
 Create an SM policy to set up automatic snapshots. An SM policy defines an automated snapshot creation schedule and an optional automated deletion schedule.
 
@@ -113,16 +113,16 @@ Use the steps below to take a snapshot manually:
     - **Include cluster state in snapshots**
     - **Ignore unavailable indices**
     - **Allow partial snapshots**
-1. Choose the **Add** button.
+1. Select the **Add** button.
 
-## Deleting a snapshot
+## Delete a snapshot
 
 The **Delete** button [deletes]({{site.url}}{{site.baseurl}}/api-reference/snapshots/delete-snapshot/) a snapshot from a repository.
 
-1. To view a list of your repositories, choose **Repositories** under the **Snapshot Management** section.
-2. To view a list of your snapshots, choose **Snapshots** under the **Snapshot Management** section.
+1. To view a list of your repositories, select **Repositories** under the **Snapshot Management** section.
+2. To view a list of your snapshots, select **Snapshots** under the **Snapshot Management** section.
 
-## Restoring a snapshot
+## Restore a snapshot
 
 1. On the top menu bar, go to **OpenSearch Plugins > Snapshot Management**.
 1. In the left panel, under **Snapshot Management**, select **Snapshots**. The **Snapshots** tab is selected by default.
@@ -170,7 +170,7 @@ The **Delete** button [deletes]({{site.url}}{{site.baseurl}}/api-reference/snaps
 
     <img src="{{site.url}}{{site.baseurl}}/images/restore-snapshot/restore-snapshot-indices.png" alt="Restore Indices">{: .img-fluid}
 
- After the restore operation is complete, the restored indexes are listed in the **Indices** panel. To view the indexes, in the left panel, under **Index Management**, choose **Indices**.
+ After the restore operation is complete, the restored indexes are listed in the **Indices** panel. To view the indexes, in the left panel, under **Index Management**, select **Indices**.
 
 <img src="{{site.url}}{{site.baseurl}}/images/restore-snapshot/restore-snapshot-indices-panel.png" alt="View Indices">{: .img-fluid}
  
