@@ -1,10 +1,10 @@
 ---
 layout: default
-title: Configuring OpenSearch
+title: Configuration
 nav_order: 10
 ---
 
-# Configuring OpenSearch
+# OpenSearch configuration
 
 Most OpenSearch configuration can take place in the cluster settings API. Certain operations require you to modify `opensearch.yml` and restart the cluster.
 

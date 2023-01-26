@@ -7,7 +7,7 @@ redirect_from:
   - /opensearch/install/helm/
 ---
 
-# Helm
+# Run OpenSearch using Helm
 
 Helm is a package manager that allows you to easily install and manage OpenSearch in a Kubernetes cluster. You can define your OpenSearch configurations in a YAML file and use Helm to deploy your applications in a version-controlled and reproducible way.
 

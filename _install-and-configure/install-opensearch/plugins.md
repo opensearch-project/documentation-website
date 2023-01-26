@@ -1,13 +1,12 @@
 ---
 layout: default
-title: Installing plugins
+title: Plugin installation
 nav_order: 90
 redirect_from:
    - /opensearch/install/plugins/
-   - /install-and-configure/install-opensearch/plugins/
 ---
 
-# Installing plugins
+# OpenSearch plugin installation
 
 You can install individual plugins for OpenSearch based on your needs. For information about available plugins, see [Available plugins](#available-plugins).
 
