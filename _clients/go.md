@@ -6,9 +6,7 @@ nav_order: 50
 
 # Go client
 
-The OpenSearch Go client lets you connect your Go application with the data in your OpenSearch cluster. This getting started guide illustrates how to connect to OpenSearch, index documents, and run queries. For the client's complete API documentation and additional examples, see the [Go client API documentation](https://pkg.go.dev/github.com/opensearch-project/opensearch-go/v2).
-
-For the client source code, see the [opensearch-go repo](https://github.com/opensearch-project/opensearch-go).
+The OpenSearch Go client lets you connect your Go application with the data in your OpenSearch cluster. This getting started guide illustrates how to connect to OpenSearch, index documents, and run queries. For the client source code, see the [opensearch-go repo](https://github.com/opensearch-project/opensearch-go).
 
 
 ## Setup
