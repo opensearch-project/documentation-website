@@ -14,11 +14,11 @@ redirect_from:
 
 OpenSearch provides a query domain-specific language (DSL) that you can use to perform customized searches on your data.
 
-Query DSL provides several query categories. You can even perform more complicated searches by using different elements from each variety to find more granular data that you need.
+Query DSL provides several query categories. You can even perform more complicated searches by combining query fields to find more granular data that you need.
 
 The following query DSL categories include:
 
-- **Compound boolean queries** – To search with clause rules that act as logical operators to combine several simple query terms.
+- **Compound boolean queries** – To search with clause rules that act as logical operators to combine several simple query terms, use the `bool` query type.
 - **Term-level queries** – To search documents for one or more terms, IDs, value ranges, with optional filtering by wildcard or regex, but does not provide any relevance score or text analysis.
 - **Full-text queries** – To search documents for one or more terms and filter with advanced options. These queries return detailed information including relevance scores per document match, and perform text analysis.
 - **Geo-bounding box queries** – To search documents within a range of `geo_point` field values.
