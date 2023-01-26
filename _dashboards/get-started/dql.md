@@ -124,7 +124,7 @@ The previous boolean and range queries still work, so you can submit a more refi
 superheroes: {hero-name: Superman and age < 50}
 ```
 
-## Querying double nested objects 
+## Querying doubly nested objects 
 
 If a document has double nested objects (object nested inside another object), retrieve data by specifying all the levels. In the following example document, `superheroes` is double nested.
 
