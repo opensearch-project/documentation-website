@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Setting the time filter
-parent: OpenSearch Dashboards core concepts
+parent: Understanding the core concepts of OpenSearch Dashboards
 nav_order: 10
 ---
 

@@ -1,11 +1,11 @@
 ---
 layout: default
-title: OpenSearch Dashboards core concepts
+title: Understanding the core concepts of OpenSearch Dashboards
 nav_order: 30
 has_children: true
 ---
 
-# OpenSearch Dashboards core concepts
+# Understanding the core concepts of OpenSearch Dashboards
 
 For information on Dashboards core concepts, see [Quickstart for OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/get-started/quickstart-dashboards/).
 
