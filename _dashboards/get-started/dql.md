@@ -126,7 +126,7 @@ superheroes: {hero-name: Superman and age < 50}
 
 ## Querying doubly nested objects 
 
-If a document has double nested objects (object nested inside another object), retrieve data by specifying all the levels. In the following example document, `superheroes` is double nested.
+If a document has doubly nested objects (object nested inside another object), retrieve a field value by specifying the full path to the field. In the following example document, the `superheroes` object is nested inside the `justice-league` object:
 
 
 
