@@ -161,5 +161,5 @@ If a document has double nested objects (object nested inside another object), r
 To retrieve data, you can use the following example notation: 
 
 ```
-justice-league.superheroes: {hero-name:Superman}
+justice-league.superheroes: {hero-name:Superman
 ```
