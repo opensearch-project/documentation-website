@@ -16,7 +16,7 @@ OpenSearch provides a query domain-specific language (DSL) that you can use to p
 
 Query DSL provides several query categories. You can even perform more complicated searches by combining query fields to find more granular data that you need.
 
-OpenSearch supports the following query DSL categories:
+OpenSearch supports the following query DSL query type categories:
 
 - **Compound queries** – To perform combined queries with the following query types: `bool`, `boost`, `contstant_score`, `disjunction_max`, `function_score`. The `bool` queries use clause rules that act as logical operators to combine several simple query terms.  
 - **Span queries** – To perform `containing`, `field_masking`, `first`, `multi-term`, `near`, `not`, `or`, `term` or `within` queries.
