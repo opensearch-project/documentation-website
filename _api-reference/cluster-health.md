@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Cluster health
-nav_order: 17
+nav_order: 16
 ---
 
 # Cluster health
@@ -47,7 +47,6 @@ wait_for_events | Enum | Wait until all currently queued events with the given p
 wait_for_no_relocating_shards | Boolean | Whether to wait until there are no relocating shards in the cluster. Default is false.
 wait_for_no_initializing_shards | Boolean | Whether to wait until there are no initializing shards in the cluster. Default is false.
 wait_for_status | Enum | Wait until the cluster health reaches the specified status or better. Supported values are `green`, `yellow`, and `red`.
-weights | JSON object | Assigns weights to attributes within the request body of the PUT request. Weights can be set in any ration, for example, 2:3:5. In a 2:3:5 ratio with three zones, for every 100 requests sent to the cluster, each zone would receive either 20, 30, or 50 search requests in a random order. When assigned a weight of `0`, the zone does not receive any search traffic. 
 
 #### Sample request
 

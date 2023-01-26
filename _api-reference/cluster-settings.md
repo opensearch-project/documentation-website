@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Cluster settings
-nav_order: 18
+nav_order: 17
 ---
 
 # Cluster settings
