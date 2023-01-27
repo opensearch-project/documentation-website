@@ -48,7 +48,7 @@ If a snapshot operation fails, it is retried a maximum of three times. The failu
 
 ## Security
 
-The Security plugin has two built-in roles for Snapshot Management actions: `snapshot_management_full_access` and `snapshot_management_read_access`. For descriptions of each, see [Predefined roles]({{site.url}}{{site.baseurl}}/security-plugin/access-control/users-roles#predefined-roles).
+The Security plugin has two built-in roles for Snapshot Management actions: `snapshot_management_full_access` and `snapshot_management_read_access`. For descriptions of each, see [Predefined roles]({{site.url}}{{site.baseurl}}/security/access-control/users-roles#predefined-roles).
 
 The following table lists the required permissions for each Snapshot Management API.
 
