@@ -13,9 +13,9 @@ If you use the security plugin alongside alerting, you might want to limit certa
 
 ## Basic permissions
 
-The security plugin has three built-in roles that cover most alerting use cases: `alerting_read_access`, `alerting_ack_alerts`, and `alerting_full_access`. For descriptions of each, see [Predefined roles]({{site.url}}{{site.baseurl}}/security-plugin/access-control/users-roles#predefined-roles).
+The security plugin has three built-in roles that cover most alerting use cases: `alerting_read_access`, `alerting_ack_alerts`, and `alerting_full_access`. For descriptions of each, see [Predefined roles]({{site.url}}{{site.baseurl}}/security/access-control/users-roles#predefined-roles).
 
-If these roles don't meet your needs, mix and match individual alerting [permissions]({{site.url}}{{site.baseurl}}/security-plugin/access-control/permissions/) to suit your use case. Each action corresponds to an operation in the REST API. For example, the `cluster:admin/opensearch/alerting/destination/delete` permission lets you delete destinations.
+If these roles don't meet your needs, mix and match individual alerting [permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/) to suit your use case. Each action corresponds to an operation in the REST API. For example, the `cluster:admin/opensearch/alerting/destination/delete` permission lets you delete destinations.
 
 
 ## How monitors access data
@@ -29,7 +29,7 @@ Later, the user `psantos` wants to edit the monitor to run every two hours, but 
 - Update the monitor so that it only checks `store1-returns`.
 - Ask an administrator for read access to the other two indices.
 
-After making the change, the monitor now runs with the same permissions as `psantos`, including any [document-level security]({{site.url}}{{site.baseurl}}/security-plugin/access-control/document-level-security/) queries, [excluded fields]({{site.url}}{{site.baseurl}}/security-plugin/access-control/field-level-security/), and [masked fields]({{site.url}}{{site.baseurl}}/security-plugin/access-control/field-masking/). If you use an extraction query to define your monitor, use the **Run** button to ensure that the response includes the fields you need.
+After making the change, the monitor now runs with the same permissions as `psantos`, including any [document-level security]({{site.url}}{{site.baseurl}}/security/access-control/document-level-security/) queries, [excluded fields]({{site.url}}{{site.baseurl}}/security/access-control/field-level-security/), and [masked fields]({{site.url}}{{site.baseurl}}/security/access-control/field-masking/). If you use an extraction query to define your monitor, use the **Run** button to ensure that the response includes the fields you need.
 
 Once a monitor is created, the Alerting plugin will continue executing the monitor, even if the user who created the monitor has their permissions removed. Only a user with the correct cluster permissions can manually disable or delete a monitor to stop it from executing:
 
@@ -42,7 +42,11 @@ If your monitor's trigger has notifications configured, the Alerting plugin cont
 
 Out of the box, the alerting plugin has no concept of ownership. For example, if you have the `cluster:admin/opensearch/alerting/monitor/write` permission, you can edit *all* monitors, regardless of whether you created them. If a small number of trusted users manage your monitors and destinations, this lack of ownership generally isn't a problem. A larger organization might need to segment access by backend role.
 
+<<<<<<< HEAD
 First, make sure that your users have the appropriate [backend roles]({{site.url}}{{site.baseurl}}/security-plugin/access-control/index/). Backend roles usually come from an [LDAP server]({{site.url}}{{site.baseurl}}/security-plugin/configuration/ldap/) or [SAML provider]({{site.url}}{{site.baseurl}}/security-plugin/configuration/saml/). However, if you use the internal user database, you can use the REST API to [add them manually]({{site.url}}{{site.baseurl}}/security-plugin/access-control/api#create-user).
+=======
+First, make sure that your users have the appropriate [backend roles]({{site.url}}{{site.baseurl}}/security/access-control/index/). Backend roles usually come from an [LDAP server]({{site.url}}{{site.baseurl}}/security/configuration/ldap/) or [SAML provider]({{site.url}}{{site.baseurl}}/security/configuration/saml/). However, if you use the internal user database, you can use the REST API to add them manually with a create user operation. To add a backend role to a create user request, follow the [Create user]({{site.url}}{{site.baseurl}}/security/access-control/api#create-user) instructions in the Security Plugin API documentation.
+>>>>>>> d04e88b4 (Reorganize Configuration section of the Security TOC (#2212))
 
 Next, enable the following setting:
 
@@ -63,7 +67,7 @@ If `jdoe` creates a monitor, `jroe` can see and modify it, but `psantos` can't. 
 
 <!-- ## (Advanced) Limit access by individual
 
-If you only want users to be able to see and modify their own monitors and destinations, duplicate the `alerting_full_access` role and add the following [DLS query]({{site.url}}{{site.baseurl}}/security-plugin/access-control/document-level-security/) to it:
+If you only want users to be able to see and modify their own monitors and destinations, duplicate the `alerting_full_access` role and add the following [DLS query]({{site.url}}{{site.baseurl}}/security/access-control/document-level-security/) to it:
 
 ```json
 {
@@ -82,3 +86,42 @@ If you only want users to be able to see and modify their own monitors and desti
 ```
 
 Then, use this new role for all alerting users. -->
+
+### Specify RBAC backend roles
+
+You can specify role-based access control (RBAC) backend roles when you create or update a monitor with the Alerting API.
+
+In a create monitor scenario, follow these guidelines to specify roles:
+
+User type  | Role is specified by user or not (Y/N) | How to use the RBAC roles
+:--- | :--- | :---
+Admin user | Yes | Use all the specified backend roles to associate to the monitor.
+Regular user | Yes | Use all the specified backend roles from the list of backend roles that the user has permission to use to associate with the monitor.
+Regular user | No | Copy user’s backend roles and associate them to the monitor.
+
+In an update monitor scenario, follow these guidelines to specify roles:
+
+User type  | Role is specified by user or not (Y/N) | How to use the RBAC roles
+:--- | :--- | :---
+Admin user | Yes | Remove all the backend roles associate to the monitor and then use all the specified backend roles associated to the monitor.
+Regular user | Yes | Remove backend roles associated to the monitor that the user has access to, but didn’t specify. Then add all the other specified backend roles from the list of backend roles that the user has permission to use to the monitor.
+Regular user | No | Don’t update the backend roles on the monitor.
+
+- For admin users, an empty list is considered the same as removing all permissions that the user possesses. If a non-admin user passes in an empty list, that will throw an exception, because that is not allowed by non-admin users.
+- If the user tries to associate roles that they don't have permission to use, it will throw an exception.
+{: .note }
+
+To create an RBAC role, follow instructions in the Security Plugin API documentation to [Create role]({{site.url}}{{site.baseurl}}/security/access-control/api#create-role).
+### Create a monitor with an RBAC role
+
+When you create a monitor with the Alerting API, you can specify the RBAC roles at the bottom of the request body. Use the `rbac_roles` parameter.
+
+The following sample shows the RBAC roles specified by the RBAC parameter:
+
+```json
+... 
+  "rbac_roles": ["role1", "role2"]
+}
+```
+
+To see a full request sample, see [Create a monitor]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/api/#create-a-query-level-monitor).
