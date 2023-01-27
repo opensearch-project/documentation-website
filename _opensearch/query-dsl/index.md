@@ -18,7 +18,12 @@ Query DSL provides several query categories. You can even perform more complicat
 
 OpenSearch supports the following query DSL query type categories:
 
-- **Compound queries** – To perform combined queries with the following query types: `bool`, `boost`, `contstant_score`, `disjunction_max`, `function_score`. The `bool` queries use clause rules that act as logical operators to combine several simple query terms.  
+- **Compound queries** – To perform combined queries with the following query types:
+    - **Boolean** `bool`queries use clause rules that act as logical operators to combine several simple query terms.
+    - **Constant score** `constant_score`– Provides a `filter` query with the relevance score as a floating point number assigned by the `boost` field. Acts as a wrapper for the filter.
+    - **Disjunction max** `dis_max`– Returns documents that match one or more queries that are wrapped together by clauses. If a document matches multiple query clauses, it gets the highest relevant score assigned to it.
+    - **Function score** `function_score` – Modifies the score of documents that are returned by a query. You define a query and one or more functions that each compute a score for each document that matches the query.
+
 - **Span queries** – To perform `containing`, `field_masking`, `first`, `multi-term`, `near`, `not`, `or`, `term` or `within` queries.
 - **Term-level queries** – To search documents for one or more terms, IDs, value ranges, with optional filtering by wildcard or regex. Term-level queries do not sort results by relevance score or analyze search terms.
 - **Full-text queries** – To search documents for one or more terms and filter with advanced options. These queries return detailed information including relevance scores per document match, and perform text analysis.
