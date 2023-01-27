@@ -26,7 +26,7 @@ To monitor trace analytics, you need to set up the following components in your 
 
 ## Trace analytics pipeline
 
-To monitor trace analytics in Data Prepper, we provide three pipelines: `entry-pipeline`, `raw-trace-pipeline`, and `service-map-pipeline`.
+To monitor trace analytics in Data Prepper, we provide three pipelines: `entry-pipeline`, `raw-trace-pipeline`, and `service-map-pipeline`. The following image provides an overview of how the pipelines work together to monitor trace analytics. 
 
 <img src="{{site.url}}{{site.baseurl}}/images/data-prepper/trace-analytics/trace-analytics-feature.jpg" alt="Trace analytics pipeline overview">{: .img-fluid}
 
@@ -65,34 +65,34 @@ Use the following recommendations to scale Data Prepper. We recommend that you m
 
 #### Buffer
 
-The total number of trace requests that Data Prepper is processing is equal to the sum of the `buffer_size` values in `otel-trace-pipeline` and `raw-pipeline`. The total number of trace requests to OpenSearch is equal to the product of `batch_size` and `workers` in `raw-trace-pipeline`. For more information about `raw-pipeline`, see [Trace analytics pipeline]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines).
+The total number of trace requests processed by Data Prepper is equal to the sum of the `buffer_size` values in `otel-trace-pipeline` and `raw-pipeline`. The total number of trace requests sent to OpenSearch is equal to the product of `batch_size` and `workers` in `raw-trace-pipeline`. For more information about `raw-pipeline`, see [Trace analytics pipeline]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines).
 
 
-We recommend the following guidelines when making changes to buffer settings:
+We recommend the following when making changes to buffer settings:
  * The `buffer_size` value in `otel-trace-pipeline` and `raw-pipeline` should be the same.
  * The `buffer_size` should be greater than or equal to `workers` * `batch_size` in the `raw-pipeline`.
  
 
 #### Workers 
 
-The `workers` setting determines the number of threads that are used by Data Prepper to process requests from the buffer. We recommend that you set `workers` based on the CPU utilization. This value can be higher than the number of available processors, because Data Prepper spends significant input/output time when sending data to OpenSearch.
+The `workers` setting determines the number of threads that are used by Data Prepper to process requests from the buffer. We recommend that you set `workers` based on the CPU utilization. This value can be higher than the number of available processors because Data Prepper uses significant input/output time when sending data to OpenSearch.
 
 #### Heap
 
-Configure the heap of Data Prepper by setting the `JVM_OPTS` environmental variable. We recommend that you set the heap value to a minimum value of `4` * `batch_size` * `otel_send_batch_size` * `maximum size of indvidual span`.
+Configure the Data Prepper heap by setting the `JVM_OPTS` environment variable. We recommend that you set the heap value to a minimum value of `4` * `batch_size` * `otel_send_batch_size` * `maximum size of indvidual span`.
 
 As mentioned in the [setup guide]({{site.url}}{{site.baseurl}}/data-prepper/trace_analytics/#opentelemetry-collector), set `otel_send_batch_size` to a value of `50` in your OpenTelemetry collector configuration.
 
 #### Local disk
 
-Data Prepper uses the local disk to store metadata required for service-map processing, so we recommend storing only the key fields: `traceId`, `spanId`, `parentSpanId`, `spanKind`, `spanName` and `serviceName`. The service-map plugin stores only two files, each of which stores `window_duration` seconds of data. As an example, testing with a throughput of `3000 spans/second` resulted in the total disk usage of `4 MB`.
+Data Prepper uses the local disk to store metadata required for service-map processing, so we recommend storing only the key fields: `traceId`, `spanId`, `parentSpanId`, `spanKind`, `spanName` and `serviceName`. The `service-map` plugin stores only two files, each of which stores `window_duration` seconds of data. As an example, testing with a throughput of `3000 spans/second` resulted in the total disk usage of `4 MB`.
 
-Data Prepper also uses the local disk to write logs. In the most recent version of Data Prepper, you can redirect the logs to the path you prefer.
+Data Prepper also uses the local disk to write logs. In the most recent version of Data Prepper, you can redirect the logs to your preferred path.
 
 
 ### AWS
 
-The [AWS EC2 Cloudformation](https://github.com/opensearch-project/data-prepper/blob/main/deployment-template/ec2/data-prepper-ec2-deployment-cfn.yaml) template provides a user-friendly mechanism to configure the scaling attributes described in the [Trace tuning section](#trace-tuning).
+The [AWS CloudFormation](https://github.com/opensearch-project/data-prepper/blob/main/deployment-template/ec2/data-prepper-ec2-deployment-cfn.yaml) template provides a user-friendly mechanism for configuring the scaling attributes described in the [Trace tuning section](#trace-tuning) section.
 
 The [Kubernetes configuration files](https://github.com/opensearch-project/data-prepper/blob/main/examples/dev/k8s/README.md) and [EKS configuration files](https://github.com/opensearch-project/data-prepper/blob/main/deployment-template/eks/README.md) are available to configure these attributes in a cluster deployment.
 
