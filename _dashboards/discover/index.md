@@ -36,7 +36,7 @@ In the Discover panel, you'll see a table that shows all the documents that matc
 2. Select **Cancelled** to view the values (`true` and `false`).
 3. Select the plus sign icon to add the field to the document table. You'll see this field automatically add to **Selected fields** and the document table.  
 4. Select **FlightDelay** from the **Available fields** list, and then select the plus sign icon to add the field to the document table.
-5. (Optional) Rearrange the table columns by selecting the table header and then **Move left** or **Move right**.
+5. *(Optional)*: Rearrange the table columns by selecting the table header and then **Move left** or **Move right**.
 
 ![Exploring data fields interface]({{site.url}}{{site.baseurl}}/images/discover-data-fields.png)
 
