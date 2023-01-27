@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Log analytics
-nav_order: 12
+nav_order: 15
 ---
 
 # Log analytics

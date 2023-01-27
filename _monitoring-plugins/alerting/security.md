@@ -85,7 +85,7 @@ Then, use this new role for all alerting users. -->
 
 ### Specify RBAC backend roles
 
-You can specify RBAC backend roles when you create or update a monitor with the Alerting API.
+You can specify role-based access control (RBAC) backend roles when you create or update a monitor with the Alerting API.
 
 In a create monitor scenario, follow these guidelines to specify roles:
 
@@ -110,7 +110,7 @@ Regular user | No | Don’t update the backend roles on the monitor.
 To create an RBAC role, follow instructions in the Security Plugin API documentation to [Create role]({{site.url}}{{site.baseurl}}/security/access-control/api#create-role).
 ### Create a monitor with an RBAC role
 
-When you create a monitor with the Alerting API, you can specify the role-based access control (RBAC) roles at the bottom of the request body. Use the `rbac_roles` parameter.
+When you create a monitor with the Alerting API, you can specify the RBAC roles at the bottom of the request body. Use the `rbac_roles` parameter.
 
 The following sample shows the RBAC roles specified by the RBAC parameter:
 

@@ -1,7 +1,7 @@
 ---
 layout: default
 title: RPM
-parent: Install OpenSearch Dashboards
+parent: Installing OpenSearch Dashboards
 nav_order: 31
 redirect_from: 
   - /dashboards/install/rpm/

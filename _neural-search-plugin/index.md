@@ -13,7 +13,7 @@ The Neural Search plugin is an experimental feature. For updates on the progress
 
 The OpenSearch Neural Search plugin enables the integration of machine learning (ML) language models into your search workloads. During ingestion and search, the Neural Search plugin transforms text into vectors. Then, Neural Search uses the transformed vectors in vector-based search.
 
-The Neural Search plugin comes bundled with OpenSearch. For more information, see [Managing plugins]({{site.url}}{{site.baseurl}}/opensearch/install/plugins#managing-plugins)).
+The Neural Search plugin comes bundled with OpenSearch. For more information, see [Managing plugins]({{site.url}}{{site.baseurl}}/opensearch/install/plugins#managing-plugins).
 
 ## Ingest data with Neural Search
 
@@ -34,7 +34,7 @@ Use `pipeline_name` to create a name for your Neural Search pipeline.
 Field | Data type | Description
 :--- | :--- | :--- 
 description | string | A description of the processor.
-model_id | string | The ID of the model that will be used in the embedding interface. The model must be indexed in OpenSearch before it can be used in Neural Search. For more information, see [Model Serving Framework]
+model_id | string | The ID of the model that will be used in the embedding interface. The model must be indexed in OpenSearch before it can be used in Neural Search. For more information, see [Model Serving Framework]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-serving-framework/)
 input_field_name | string | The field name used to cache text for text embeddings.
 output_field_name  | string | The name of the field in which output text is stored.
 
@@ -42,7 +42,7 @@ output_field_name  | string | The name of the field in which output text is stor
 
 Use the following example request to create a pipeline:
 
-```json
+```
 PUT _ingest/pipeline/nlp-pipeline
 {
   "description": "An example neural search pipeline",
@@ -51,7 +51,7 @@ PUT _ingest/pipeline/nlp-pipeline
       "text_embedding": {
         "model_id": "bxoDJ7IHGM14UqatWc_2j",
         "field_map": {
-           "text": "text_knn"
+           "passage_text": "passage_embedding"
         }
       }
     }
@@ -132,7 +132,9 @@ With the text_embedding processor in place through a Neural Search pipeline, the
 
 ## Search a neural index 
 
-If you want to use a language model to convert a text query into a k-NN vector query, use the `neural` query fields in your query. The neural query request fields can be used in both the [Search API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api/#search-model) and [Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index/). 
+If you want to use a language model to convert a text query into a k-NN vector query, use the `neural` query fields in your query. The neural query request fields can be used in both the [k-NN plugin API]({{site.url}}{{site.baseurl}}/search-plugins/knn/api/#search-model) and [Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index/). Furthermore, you can use a [k-NN search filter]({{site.url}}{{site.baseurl}}/search-plugins/knn/filter-search-knn/) to refine your neural search query.
+
+
 
 ### Neural request fields
 

@@ -1,14 +1,16 @@
 ---
 layout: default
 title: Pipelines
-nav_order: 20
-redirect_from:
+nav_order: 10
+redirect_from: 
   - /clients/data-prepper/pipelines/
 ---
 
 # Pipelines
 
-![Data Prepper Pipeline]({{site.url}}{{site.baseurl}}/images/data-prepper-pipeline.png)
+The following image illustrates how a pipeline works. 
+
+<img src="{{site.url}}{{site.baseurl}}/images/data-prepper-pipeline.png" alt="Data Prepper pipeline">{: .img-fluid}
 
 To use Data Prepper, you define pipelines in a configuration YAML file. Each pipeline is a combination of a source, a buffer, zero or more processors, and one or more sinks. For example:
 
@@ -44,7 +46,7 @@ simple-sample-pipeline:
 Starting from Data Prepper 2.0, you can define pipelines across multiple configuration YAML files, where each file contains the configuration for one or more pipelines. This gives you more freedom to organize and chain complex pipeline configurations. For Data Prepper to load your pipeline configuration properly, place your configuration YAML files in the `pipelines` folder under your application's home directory (e.g. `/usr/share/data-prepper`).
 {: .note }
 
-## Conditional Routing
+## Conditional routing
 
 Pipelines also support **conditional routing**  which allows you to route Events to different sinks based on specific conditions. To add conditional routing to a pipeline, specify a list of named routes under the `route` component and add specific routes to sinks under the `routes` property. Any sink with the `routes` property will only accept Events that match at least one of the routing conditions. 
 

@@ -34,6 +34,7 @@ const result = await client.helpers.bulk({
 
 console.log(result)
 ```
+{% include copy.html %}
 
 Bulk helper operations return an object with the following fields:
 
@@ -85,6 +86,7 @@ client.helpers.bulk({
   }
 })
 ```
+{% include copy.html %}
 
 The following bulk operation indexes documents into `example-index` with document overwrite:
 
@@ -101,6 +103,7 @@ client.helpers.bulk({
   }
 })
 ```
+{% include copy.html %}
 
 #### Create
 
@@ -118,6 +121,7 @@ client.helpers.bulk({
   }
 })
 ```
+{% include copy.html %}
 
 The following bulk operation creates documents in the `example-index` with document overwrite:
 
@@ -134,6 +138,7 @@ client.helpers.bulk({
   }
 })
 ```
+{% include copy.html %}
 
 #### Update
 
@@ -156,6 +161,7 @@ client.helpers.bulk({
   }
 })
 ```
+{% include copy.html %}
 
 The following bulk operation updates documents in the `arrayOfDocuments` with document overwrite:
 
@@ -175,6 +181,7 @@ client.helpers.bulk({
   }
 })
 ```
+{% include copy.html %}
 
 #### Delete
 
@@ -192,3 +199,4 @@ client.helpers.bulk({
   }
 })
 ```
+{% include copy.html %}

@@ -1,13 +1,13 @@
 ---
 layout: default
 title: Docker
-parent: Install OpenSearch
+parent: Installing OpenSearch
 nav_order: 5
 redirect_from: 
   - /opensearch/install/docker/
 ---
 
-# Why use OpenSearch with Docker?
+# Docker
 
 [Docker](https://www.docker.com/) greatly simplifies the process of configuring and managing your OpenSearch clusters. You can pull official images from [Docker Hub](https://hub.docker.com/u/opensearchproject) or [Amazon Elastic Container Registry (Amazon ECR)](https://gallery.ecr.aws/opensearchproject/) and quickly deploy a cluster using [Docker Compose](https://github.com/docker/compose) and any of the sample Docker Compose files included in this guide. Experienced OpenSearch users can further customize their deployment by creating a custom Docker Compose file.
 
@@ -149,7 +149,7 @@ services:
       - cluster.name=opensearch-cluster # Name the cluster
       - node.name=opensearch-node1 # Name the node that will run in this container
       - discovery.seed_hosts=opensearch-node1,opensearch-node2 # Nodes to look for when discovering the cluster
-      - cluster.initial_cluster_manager_nodes=opensearch-node1,opensearch-node2 # Nodes eligibile to serve as cluster manager
+      - cluster.initial_cluster_manager_nodes=opensearch-node1,opensearch-node2 # Nodes eligible to serve as cluster manager
       - bootstrap.memory_lock=true # Disable JVM heap memory swapping
       - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" # Set min and max JVM heap sizes to at least 50% of system RAM
     ulimits:
@@ -460,4 +460,8 @@ COPY --chown=opensearch:opensearch my-root-cas.pem /usr/share/opensearch/config/
 - [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuration/)
 - [Performance analyzer]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/index/)
 - [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/)
+<<<<<<< HEAD
 - [About the security plugin]({{site.url}}{{site.baseurl}}/security/index/)
+=======
+- [About the security plugin]({{site.url}}{{site.baseurl}}/security-plugin/index/)
+>>>>>>> main

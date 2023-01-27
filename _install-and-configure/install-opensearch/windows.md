@@ -1,11 +1,11 @@
 ---
 layout: default
 title: Windows
-parent: Install OpenSearch
+parent: Installing OpenSearch
 nav_order: 65
 ---
 
-# Install OpenSearch on Windows
+# Windows
 
 The following sections describe installing OpenSearch on Windows from a zip archive.
 
