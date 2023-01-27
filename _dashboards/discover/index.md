@@ -11,7 +11,7 @@ has_children: true
 
 1. **Select data.** You can explore, customize, and filter data, as well as search data using the [Dashboards Query Language (DQL)]({{site.url}}{{site.baseurl}}/dashboards/dql/).
 2. **Explore the data.** You can analyze data details, view individual documents, and create tables summarizing data contents.
-3. **Visualize data.** You can display findings in a single dashboard showing different data visualization types.
+3. **Visualize data.** You can display findings from your saved searches in a single dashboard showing different data visualization types.
 
 ## Try it: Exploring sample data with Discover
 
@@ -33,10 +33,10 @@ Before continuing this tutorial, make sure you've added the **Sample flight data
 In the Discover panel, you'll see a table that shows all the documents that match your search. The table includes a list of data fields that are available in the document table.
 
 1. View the list of **Available fields**.
-1. Select **Cancelled** to view the **Top 5 Values**.
-2. Select the plus sign icon to add the field to the document table. You'll see this field automatically add to **Selected fields** and the document table.  
-3. Select **FlightDelay** from the **Available fields** list, and then select the plus sign icon to add the field to the document table.
-4. (Optional) Rearrange the table columns by selecting the table header and then **Move left** or **Move right**.
+2. Select **Cancelled** to view the values (`true` and `false`).
+3. Select the plus sign icon to add the field to the document table. You'll see this field automatically add to **Selected fields** and the document table.  
+4. Select **FlightDelay** from the **Available fields** list, and then select the plus sign icon to add the field to the document table.
+5. (Optional) Rearrange the table columns by selecting the table header and then **Move left** or **Move right**.
 
 ![Exploring data fields interface]({{site.url}}{{site.baseurl}}/images/discover-data-fields.png)
 
