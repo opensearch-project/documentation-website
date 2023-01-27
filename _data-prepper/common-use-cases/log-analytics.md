@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Log analytics
+parent: Common use cases
 nav_order: 15
 ---
 
