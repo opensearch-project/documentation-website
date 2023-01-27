@@ -40,7 +40,7 @@ collections:
   dashboards:
     permalink: /:collection/:path/
     output: true
-  security-plugin:
+  security:
     permalink: /:collection/:path/
     output: true
   search-plugins:
@@ -97,8 +97,8 @@ just_the_docs:
     dashboards:
       name: OpenSearch Dashboards
       nav_fold: true
-    security-plugin:
-      name: Security plugin
+    security:
+      name: Security in OpenSearch
       nav_fold: true
     search-plugins:
       name: Search plugins
