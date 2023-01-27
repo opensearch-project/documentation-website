@@ -5,7 +5,7 @@ nav_order: 45
 has_children: true
 has_toc: false
 redirect_from:
-  - /security-plugin/authentication-backends/
+  - /security/authentication-backends/
 ---
 
 # Authentication backends
@@ -22,7 +22,7 @@ Authentication backend configurations determine the method or methods you use fo
 
    The plugin supports chaining backends in `config/opensearch-security/config.yml`. If more than one backend is present, the plugin tries to authenticate the user sequentially against each until one succeeds. A common use case is to combine the internal user database of the security plugin with LDAP/Active Directory.
 
-3. After a backend verifies the user's credentials, the plugin collects any [backend roles]({{site.url}}{{site.baseurl}}/security-plugin/access-control/index/#concepts). The authentication provider determines the way these roles are retrieved. For example, LDAP extracts backend roles from its directory service based on their mappings to roles in OpenSearch, while SAML stores the roles as attributes. When basic authentication is used, the internal user database refers to role mappings configured in OpenSearch.
+3. After a backend verifies the user's credentials, the plugin collects any [backend roles]({{site.url}}{{site.baseurl}}/security/access-control/index/#concepts). The authentication provider determines the way these roles are retrieved. For example, LDAP extracts backend roles from its directory service based on their mappings to roles in OpenSearch, while SAML stores the roles as attributes. When basic authentication is used, the internal user database refers to role mappings configured in OpenSearch.
 
 4. After the user is authenticated and any backend roles are retrieved, the security plugin uses the role mapping to assign security roles to the user.
 

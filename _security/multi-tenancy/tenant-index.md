@@ -5,7 +5,7 @@ nav_order: 140
 has_children: true
 has_toc: false
 redirect_from:
-  - /security-plugin/multi-tenancy/
+  - /security/multi-tenancy/
 ---
 
 # OpenSearch Dashboards multi-tenancy
@@ -31,5 +31,5 @@ http://<opensearch_dashboards_host>:5601/app/opensearch-dashboards?security_tena
 
 ## Next steps
 
-To get started with tenants, see [Multi-tenancy configuration]({{site.url}}{{site.baseurl}}/security-plugin/multi-tenancy/multi-tenancy-config/) for information on enabling multi-tenancy, adding tenants, and assigning roles to tenants.   
+To get started with tenants, see [Multi-tenancy configuration]({{site.url}}{{site.baseurl}}/security/multi-tenancy/multi-tenancy-config/) for information on enabling multi-tenancy, adding tenants, and assigning roles to tenants.   
 

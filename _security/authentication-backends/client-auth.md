@@ -3,11 +3,14 @@ layout: default
 title: Client certificate authentication
 parent: Authentication backends
 nav_order: 70
+redirect_from:
+  - /security/configuration/client-auth/
+  - /security-plugin/configuration/client-auth/
 ---
 
 # Client certificate authentication
 
-After obtaining your own certificates either from a certificate authority (CA) or by [generating your own certificates using OpenSSL]({{site.url}}{{site.baseurl}}/security-plugin/configuration/generate-certificates), you can start configuring OpenSearch to authenticate a user using a client certificate.
+After obtaining your own certificates either from a certificate authority (CA) or by [generating your own certificates using OpenSSL]({{site.url}}{{site.baseurl}}/security/configuration/generate-certificates), you can start configuring OpenSearch to authenticate a user using a client certificate.
 
 Client certificate authentication offers more security advantages than just using basic authentication (username and password). Because client certificate authentication requires both a client certificate and its private key, which are often in the user's possession, it is less vulnerable to brute force attacks in which malicious individuals try to guess a user's password.
 
@@ -40,9 +43,9 @@ clientcert_auth_domain:
 
 ## Assigning roles to your common name
 
-You can now assign your certificate's common name (CN) to a role. For this step, you must know your certificate's CN and the role you want to assign to. To get a list of all predefined roles in OpenSearch, refer to our [list of predefined roles]({{site.url}}{{site.baseurl}}/security-plugin/access-control/users-roles/#predefined-roles). If you want to first create a role, refer to [how to create a role]({{site.url}}{{site.baseurl}}/security-plugin/access-control/users-roles/#create-users), and then map your certificate's CN to that role.
+You can now assign your certificate's common name (CN) to a role. For this step, you must know your certificate's CN and the role you want to assign to. To get a list of all predefined roles in OpenSearch, refer to our [list of predefined roles]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/#predefined-roles). If you want to first create a role, refer to [how to create a role]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/#create-users), and then map your certificate's CN to that role.
 
-After deciding which role you want to map your certificate's CN to, you can use [OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/security-plugin/access-control/users-roles/#map-users-to-roles), [`roles_mapping.yml`]({{site.url}}{{site.baseurl}}/security-plugin/configuration/yaml/#roles_mappingyml), or the [REST API]({{site.url}}{{site.baseurl}}/security-plugin/access-control/api/#create-role-mapping) to map your certificate's CN to the role. The following example uses the `REST API` to map the common name `CLIENT1` to the role `readall`.
+After deciding which role you want to map your certificate's CN to, you can use [OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/#map-users-to-roles), [`roles_mapping.yml`]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#roles_mappingyml), or the [REST API]({{site.url}}{{site.baseurl}}/security/access-control/api/#create-role-mapping) to map your certificate's CN to the role. The following example uses the `REST API` to map the common name `CLIENT1` to the role `readall`.
 
 **Sample request**
 

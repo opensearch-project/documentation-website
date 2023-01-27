@@ -3,6 +3,9 @@ layout: default
 title: Active Directory and LDAP
 parent: Authentication backends
 nav_order: 60
+redirect_from:
+  - /security/configuration/ldap/
+  - /security-plugin/configuration/ldap/
 ---
 
 # Active Directory and LDAP

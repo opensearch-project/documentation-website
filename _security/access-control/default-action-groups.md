@@ -7,7 +7,7 @@ nav_order: 115
 
 # Default action groups
 
-This page catalogs all default action groups. Often, the most coherent way to create new action groups is to use a combination of these default groups and [individual permissions]({{site.url}}{{site.baseurl}}/security-plugin/access-control/permissions/).
+This page catalogs all default action groups. Often, the most coherent way to create new action groups is to use a combination of these default groups and [individual permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/).
 
 
 ## General

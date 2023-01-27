@@ -10,7 +10,7 @@ nav_order: 25
 On **Windows**, use **securityadmin.bat** in place of **securityadmin.sh**. For more information, see [Windows usage](#windows-usage).
 {: .note}
 
-The Security plugin stores its configuration—including users, roles, permissions, and backend settings—in a [system index]({{site.url}}{{site.baseurl}}/security-plugin/configuration/system-indices) on the OpenSearch cluster. Storing these settings in an index lets you change settings without restarting the cluster and eliminates the need to edit configuration files on every individual node. This is accomplished by running the `securityadmin.sh` script. The script can be found at `plugins/opensearch-security/tools/securityadmin.sh`.
+The Security plugin stores its configuration—including users, roles, permissions, and backend settings—in a [system index]({{site.url}}{{site.baseurl}}/security/configuration/system-indices) on the OpenSearch cluster. Storing these settings in an index lets you change settings without restarting the cluster and eliminates the need to edit configuration files on every individual node. This is accomplished by running the `securityadmin.sh` script. The script can be found at `plugins/opensearch-security/tools/securityadmin.sh`.
 
 The first job of the script, however, is to initialize the `.opendistro_security` index. This loads your initial configuration into the index using the configuration files in `config/opensearch-security`. After the `.opendistro_security` index is initialized, you can use OpenSearch Dashboards or the REST API to manage your users, roles, and permissions.
 
@@ -23,7 +23,7 @@ Running `securityadmin.sh` **overwrites** one or more portions of the `.opendist
 
 1. You initialize the `.opendistro_security` index.
 1. You create ten users using the REST API.
-1. You decide to create a new [reserved user]({{site.url}}{{site.baseurl}}/security-plugin/access-control/api/#reserved-and-hidden-resources) using `internal_users.yml`.
+1. You decide to create a new [reserved user]({{site.url}}{{site.baseurl}}/security/access-control/api/#reserved-and-hidden-resources) using `internal_users.yml`.
 1. You run `securityadmin.sh` again to load the new reserved user into the index.
 1. You lose all ten users that you created using the REST API.
 
@@ -259,7 +259,7 @@ You can download all current configuration files from your cluster with the foll
 ./securityadmin.sh -backup my-backup-directory -ts ... -tspass ... -ks ... -kspass ...
 ```
 
-This command dumps the current Security plugin configuration from your cluster to individual files in the directory you specify. You can then use these files as backups or to load the configuration into a different cluster. This command is useful when moving a proof-of-concept to production or if you need to add additional [reserved or hidden resources]({{site.url}}{{site.baseurl}}/security-plugin/access-control/api/#reserved-and-hidden-resources):
+This command dumps the current Security plugin configuration from your cluster to individual files in the directory you specify. You can then use these files as backups or to load the configuration into a different cluster. This command is useful when moving a proof-of-concept to production or if you need to add additional [reserved or hidden resources]({{site.url}}{{site.baseurl}}/security/access-control/api/#reserved-and-hidden-resources):
 
 ```bash
 ./securityadmin.sh \

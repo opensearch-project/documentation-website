@@ -91,7 +91,7 @@ If your node certificates have an Object ID (OID) identifier in the SAN section,
 
 ## Configure admin certificates
 
-Admin certificates are regular client certificates that have elevated rights to perform administrative tasks. You need an admin certificate to change the security plugin configuration using [`plugins/opensearch-security/tools/securityadmin.sh`]({{site.url}}{{site.baseurl}}/security-plugin/configuration/security-admin/) or the REST API. Admin certificates are configured in `opensearch.yml` by stating their DN(s):
+Admin certificates are regular client certificates that have elevated rights to perform administrative tasks. You need an admin certificate to change the security plugin configuration using [`plugins/opensearch-security/tools/securityadmin.sh`]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/) or the REST API. Admin certificates are configured in `opensearch.yml` by stating their DN(s):
 
 ```yml
 plugins.security.authcz.admin_dn:

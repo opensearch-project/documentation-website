@@ -7,7 +7,7 @@ nav_order: 90
 
 # Field-level security
 
-Field-level security lets you control which document fields a user can see. Just like [document-level security]({{site.url}}{{site.baseurl}}/security-plugin/access-control/document-level-security/), you control access by index within a role.
+Field-level security lets you control which document fields a user can see. Just like [document-level security]({{site.url}}{{site.baseurl}}/security/access-control/document-level-security/), you control access by index within a role.
 
 The easiest way to get started with document- and field-level security is open OpenSearch Dashboards and choose **Security**. Then choose **Roles**, create a new role, and review the **Index permissions** section.
 
@@ -93,7 +93,7 @@ someonerole:
 
 ### REST API
 
-See [Create role]({{site.url}}{{site.baseurl}}/security-plugin/access-control/api/#create-role).
+See [Create role]({{site.url}}{{site.baseurl}}/security/access-control/api/#create-role).
 
 
 ## Interaction with multiple roles
@@ -118,4 +118,4 @@ For example, in the `movies` index, if you include `actors`, `title`, and `year`
 
 ## Interaction with document-level security
 
-[Document-level security]({{site.url}}{{site.baseurl}}/security-plugin/access-control/document-level-security/) relies on OpenSearch queries, which means that all fields in the query must be visible in order for it to work properly. If you use field-level security in conjunction with document-level security, make sure you don't restrict access to the fields that document-level security uses.
+[Document-level security]({{site.url}}{{site.baseurl}}/security/access-control/document-level-security/) relies on OpenSearch queries, which means that all fields in the query must be visible in order for it to work properly. If you use field-level security in conjunction with document-level security, make sure you don't restrict access to the fields that document-level security uses.

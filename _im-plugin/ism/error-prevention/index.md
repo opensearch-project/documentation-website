@@ -25,11 +25,11 @@ Error prevention validates Index State Management (ISM) actions before they are 
 
 ISM does not perform a `rollover` action for an index under any of these conditions: 
 
-- [The index is not the write index]({{site.url}}{{site.baseurl}}/im_plugin/ism/error-prevention/resolutions/#the-index-is-not-the-write-index).
-- [The index does not have an alias]({{site.url}}{{site.baseurl}}/im_plugin/ism/error-prevention/resolutions/#the-index-does-not-have-an-alias).
-- [The rollover policy does not contain a rollover_alias index setting]({{site.url}}{{site.baseurl}}/im_plugin/ism/error-prevention/resolutions/#the-rollover-policy-misses-rollover_alias-index-setting).
-- [Skipping of a rollover action has occured]({{site.url}}{{site.baseurl}}/im_plugin/ism/error-prevention/resolutions/#skipping-rollover-action-is-true).
-- [The index has already been rolled over using the alias successfully]({{site.url}}{{site.baseurl}}/im_plugin/ism/error-prevention/resolutions/#this-index-has-already-been-rolled-over-successfully).
+- [The index is not the write index]({{site.url}}{{site.baseurl}}/im-plugin/ism/error-prevention/resolutions#the-index-is-not-the-write-index).
+- [The index does not have an alias]({{site.url}}{{site.baseurl}}/im-plugin/ism/error-prevention/resolutions#the-index-does-not-have-an-alias).
+- [The rollover policy does not contain a rollover_alias index setting]({{site.url}}{{site.baseurl}}/im-plugin/ism/error-prevention/resolutions/##the-rollover-policy-misses-rollover_alias-index-setting).
+- [Skipping of a rollover action has occured]({{site.url}}{{site.baseurl}}/im-plugin/ism/error-prevention/resolutions#skipping-rollover-action-is-true).
+- [The index has already been rolled over using the alias successfully]({{site.url}}{{site.baseurl}}/im-plugin/ism/error-prevention/resolutions/#this-index-has-already-been-rolled-over-successfully).
 
 ## delete 
 

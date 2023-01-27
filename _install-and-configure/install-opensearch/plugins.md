@@ -292,7 +292,7 @@ Members of the OpenSearch community have built countless plugins for the service
 
 - [About Observability]({{site.url}}{{site.baseurl}}/observability-plugin/index/)
 - [About security analytics]({{site.url}}{{site.baseurl}}/security-analytics/index/)
-- [About the security plugin]({{site.url}}{{site.baseurl}}/security-plugin/index/)
+- [About the security plugin]({{site.url}}{{site.baseurl}}/security/index/)
 - [Alerting]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/index/)
 - [Anomaly detection]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/index/)
 - [Asynchronous search]({{site.url}}{{site.baseurl}}/search-plugins/async/index/)

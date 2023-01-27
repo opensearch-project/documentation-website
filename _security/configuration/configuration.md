@@ -7,7 +7,7 @@ nav_order: 5
 
 # Configuring the Security backend
 
-One of the first steps to using the security plugin is to decide on an authentication backend, which handles [steps 2-3 of the authentication flow]({{site.url}}{{site.baseurl}}/security-plugin/authentication-backends/authc-index/#authentication-flow). The plugin has an internal user database, but many people prefer to use an existing authentication backend, such as an LDAP server, or some combination of the two.
+One of the first steps to using the security plugin is to decide on an authentication backend, which handles [steps 2-3 of the authentication flow]({{site.url}}{{site.baseurl}}/security/authentication-backends/authc-index/#authentication-flow). The plugin has an internal user database, but many people prefer to use an existing authentication backend, such as an LDAP server, or some combination of the two.
 
 The main configuration file for authentication and authorization backends is `config/opensearch-security/config.yml`. It defines how the security plugin retrieves the user credentials, how it verifies these credentials, and how to fetch additional roles from backend systems (optional).
 
@@ -95,7 +95,7 @@ These are the possible values for `type`:
 
 - `noop`: No further authentication against any backend system is performed. Use `noop` if the HTTP authenticator has already authenticated the user completely, as in the case of JWT, Kerberos, or client certificate authentication.
 - `internal`: Use the users and roles defined in `internal_users.yml` for authentication.
-- `ldap`: Authenticate users against an LDAP server. This setting requires [additional, LDAP-specific configuration settings]({{site.url}}{{site.baseurl}}/security-plugin/authentication-backends/ldap/).
+- `ldap`: Authenticate users against an LDAP server. This setting requires [additional, LDAP-specific configuration settings]({{site.url}}{{site.baseurl}}/security/authentication-backends/ldap/).
 
 
 ## Authorization
@@ -118,7 +118,7 @@ You can define multiple entries in this section the same way as you can for auth
 These are the possible values for `type`:
 
 - `noop`: Skip this step altogether.
-- `ldap`: Fetch additional roles from an LDAP server. This setting requires [additional, LDAP-specific configuration settings]({{site.url}}{{site.baseurl}}/security-plugin/authentication-backends/ldap/).
+- `ldap`: Fetch additional roles from an LDAP server. This setting requires [additional, LDAP-specific configuration settings]({{site.url}}{{site.baseurl}}/security/authentication-backends/ldap/).
 
 
 ## Configuration examples

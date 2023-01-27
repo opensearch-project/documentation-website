@@ -65,7 +65,7 @@ To create tenants, use OpenSearch Dashboards, the REST API, or `tenants.yml`.
 
 #### REST API
 
-See [Create tenant]({{site.url}}{{site.baseurl}}/security-plugin/access-control/api/#create-tenant).
+See [Create tenant]({{site.url}}{{site.baseurl}}/security/access-control/api/#create-tenant).
 
 
 #### tenants.yml
@@ -99,7 +99,7 @@ After creating a tenant, give a role access to it using OpenSearch Dashboards, t
 
 #### REST API
 
-See [Create role]({{site.url}}{{site.baseurl}}/security-plugin/access-control/api/#create-role).
+See [Create role]({{site.url}}{{site.baseurl}}/security/access-control/api/#create-role).
 
 
 #### roles.yml

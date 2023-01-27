@@ -5,7 +5,7 @@ nav_order: 125
 has_children: true
 has_toc: false
 redirect_from:
-  - /security-plugin/audit-logs/
+  - /security/audit-logs/
 ---
 
 # Audit logs
@@ -20,7 +20,7 @@ To enable audit logging:
    plugins.security.audit.type: internal_opensearch
    ```
 
-   This setting stores audit logs on the current cluster. For other storage options, see [Audit Log Storage Types]({{site.url}}{{site.baseurl}}/security-plugin/audit-logs/storage-types/).
+   This setting stores audit logs on the current cluster. For other storage options, see [Audit Log Storage Types]({{site.url}}{{site.baseurl}}/security/audit-logs/storage-types/).
 
 2. Restart each node.
 
