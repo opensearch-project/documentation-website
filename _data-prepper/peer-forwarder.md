@@ -104,7 +104,7 @@ The following table provides optional configuration values.
 | `aws_cloud_map_query_parameters`  | Map | Key-value pairs used to filter the results based on the custom attributes attached to an instance. Only instances that match all the specified key-value pairs are returned. |
 | `buffer_size` | Integer | Represents the maximum number of unchecked records the buffer accepts (the number of unchecked records equals the number of records written into the buffer plus the number of records that are still processing and not yet checked by the Checkpointing API). Default is `512`. |
 | `batch_size` |  Integer | Representing max number of records the buffer returns on read. Default is `48`. |
-|  `aws_region` |  String | Represents the AWS Region to use `ACM`, `S3` or `AWS Cloud Map`. Required if `use_acm_certificate_for_ssl` is set to `true` or `ssl_certificate_file`,  and `ssl_key_file` is set to the `AWS S3` path, or if `discovery_mode` is set to `aws_cloud_map`. |
+|  `aws_region` |  String | Represents the AWS Region to use `ACM`, `S3` or `AWS Cloud Map` and is required when any of the following conditions are met:<br> - The `use_acm_certificate_for_ssl` setting is `true`. <br> - Either `ssl_certificate_file` or `ssl_key_file` specifies an AWS S3 URI (for example, s3://mybucket/path/to/public.cert).<br> - The `discovery_mode` setting is `aws_cloud_map`. |
 | `drain_timeout`  | Duration | Represents the wait time for the Peer Forwarder to complete processing data before shutdown. |
 
 ## SSL configuration
