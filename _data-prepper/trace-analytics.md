@@ -37,34 +37,31 @@ The [OpenTelemetry source]({{site.url}}{{site.baseurl}}/data-prepper/configurati
 
 ### Processor
 
-There are two processors for the Trace analytics feature:
+There are three processors for the trace analytics feature:
 
-* *otel_trace_raw* -  The *otel_trace_raw* processor receives collection of [Span](https://github.com/opensearch-project/data-prepper/blob/fa65e9efb3f8d6a404a1ab1875f21ce85e5c5a6d/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/trace/Span.java) records sent from [otel-trace-source]({{site.url}}{{site.baseurl}}/data-prepper/configuration/sources/otel-trace/), and performs stateful processing when extracting and filling-in trace group related fields.
-* *otel_trace_group* -  The *otel_trace_group* processor fills in the missing trace group related fields in the collection of [Span](https://github.com/opensearch-project/data-prepper/blob/fa65e9efb3f8d6a404a1ab1875f21ce85e5c5a6d/data-prepper-api/src/main/java/com/amazon/dataprepper/model/trace/Span.java) records by looking up the OpenSearch backend.
-* *service_map_stateful* -  The *service_map_stateful* processor performs the required pre-processing for trace data and builds metadata to display the `service-map` OpenSearch Dashboards dashboards.
+* *otel_trace_raw* -  The *otel_trace_raw* processor receives the collection of [Span](https://github.com/opensearch-project/data-prepper/blob/fa65e9efb3f8d6a404a1ab1875f21ce85e5c5a6d/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/trace/Span.java) records sent from [otel-trace-source]({{site.url}}{{site.baseurl}}/data-prepper/configuration/sources/otel-trace/), and performs stateful processing when extracting and filling in trace-group-related fields.
+* *otel_trace_group* -  The *otel_trace_group* processor fills in the missing trace-group-related fields in the collection of [Span](https://github.com/opensearch-project/data-prepper/blob/fa65e9efb3f8d6a404a1ab1875f21ce85e5c5a6d/data-prepper-api/src/main/java/com/amazon/dataprepper/model/trace/Span.java) records by looking up the OpenSearch backend.
+* *service_map_stateful* -  The *service_map_stateful* processor performs the required preprocessing for trace data and builds metadata to display the `service-map` dashboards.
 
-<!--- Editorial: "to display the `service-map` OpenSearch Dashboards dashboards" sounds like it could be improved, but not sure if removing the second "dashboards" would help, or where to move it. --->
 
 ### OpenSearch sink
 
-We have a generic sink that writes the data to OpenSearch as the destination. The [OpenSearch sink]({{site.url}}{{site.baseurl}}/data-prepper/configuration/sinks/opensearch/) has configuration options related to the OpenSearch cluster, such as endpoint, SSL, username/password, index name, index template, and index state management.
+We have a generic sink that writes data to OpenSearch as the destination. The [OpenSearch sink]({{site.url}}{{site.baseurl}}/data-prepper/configuration/sinks/opensearch/) has configuration options related to the OpenSearch cluster, such as endpoint, SSL, username/password, index name, index template, and index state management.
 
-The sink provides specific configurations for the trace analytics feature. These configurations allow the sink to use indexes and index templates specific to trace analytics. The following OpenSearch indexes are trace-analytics specific:
+The sink provides specific configurations for the trace analytics feature. These configurations allow the sink to use indexes and index templates specific to trace analytics. The following OpenSearch indexes are specific to trace analytics:
 
-* *otel-v1-apm-span* -  The *otel-v1-apm-span* index stores the output from the [otel_trace_raw]({{site.url}}{{site.baseurl}}/data-prepper/configuration/processors/otel-trace-raw/) processor.
-* *otel-v1-apm-service-map* - The *otel-v1-apm-service-map* index stores the output from the [service_map_stateful]({{site.url}}{{site.baseurl}}/data-prepper/configuration/processors/service-map-stateful/) processor.
+* *otel-v1-apm-span* – The *otel-v1-apm-span* index stores the output from the [otel_trace_raw]({{site.url}}{{site.baseurl}}/data-prepper/configuration/processors/otel-trace-raw/) processor.
+* *otel-v1-apm-service-map* – The *otel-v1-apm-service-map* index stores the output from the [service_map_stateful]({{site.url}}{{site.baseurl}}/data-prepper/configuration/processors/service-map-stateful/) processor.
 
 ## Trace tuning
 
-Starting in version 0.8.x, Data Prepper supports both vertical and horizontal scaling for trace analytics. You can adjust the size of your single Data Prepper instance to meet your workload's demands and scale vertically. 
+Starting with version 0.8.x, Data Prepper supports both vertical and horizontal scaling for trace analytics. You can adjust the size of a single Data Prepper instance to meet your workload's demands and scale vertically. 
 
-You can scale horizontally using the [Core Peer Forwarder]({{site.url}}{{site.baseurl}}/data-prepper/peer_forwarder/), which deploys multiple Data Prepper instances form a cluster. Data Prepper instances can then communicate with instances in a cluster, which is required for horizontally-scaling deployments.
+You can scale horizontally using the [Core Peer Forwarder]({{site.url}}{{site.baseurl}}/data-prepper/peer_forwarder/) to deploy multiple Data Prepper instances to form a cluster. This enables Data Prepper instances to communicate with instances in the cluster and is required for horizontally scaling deployments.
 
-<!--- The link to Peer Forwarder needs to be updated but doesn't exist yet.--->
+### Scaling recommendations
 
-### Scaling tips
-
-Use the following tips for scaling Data Prepper. We recommend that you modify parameters based on the requirements. We also recommend that you monitor the Data Prepper host metrics and OpenSearch metrics to ensure the configuration is working as expected.
+Use the following recommendations to scale Data Prepper. We recommend that you modify parameters based on the requirements. We also recommend that you monitor the Data Prepper host metrics and OpenSearch metrics to ensure that the configuration works as expected.
 
 #### Buffer
 
