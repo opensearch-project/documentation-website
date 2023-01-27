@@ -23,14 +23,30 @@ OpenSearch supports the following query DSL query type categories:
     - **Constant score** `constant_score`– Provides a `filter` query with the relevance score as a floating point number assigned by the `boost` field. Acts as a wrapper for the filter.
     - **Disjunction max** `dis_max`– Returns documents that match one or more queries that are wrapped together by clauses. If a document matches multiple query clauses, it gets the highest relevant score assigned to it.
     - **Function score** `function_score` – Modifies the score of documents that are returned by a query. You define a query and one or more functions that each compute a score for each document that matches the query.
-
-- **Span queries** – To perform `containing`, `field_masking`, `first`, `multi-term`, `near`, `not`, `or`, `term` or `within` queries.
+- **Span queries** – To perform queries that provide control over the order and proximity of query terms that you specify. The primary use case is for legal documents. Span queries include the following query types:
+    - **Span containing** `span_containing` – Takes a list of span queries and only returns spans that match a second span query.
+    - **Span field masking** `span_field_masking` – Combines `span_near` or `span_or` across different fields.
+    - **Span first** `span_first` – Combines another span query that returned matches within the first *N* positions of the field.
+    - **Span multi-term** `span_multi-term`– Provides a wrapper around the following query types: `term`, `range`, `prefix`, `wildcard` `regexp` or `fuzzy`.
+    - **Span near** `span_near` – Combines multiple span queries that much match documents in the same order and within the specified distance of each other.
+    - **Span not** `span_not` – Provides a wrapper for another span query and functions to exclude any documents that match the internal query.
+    - **Span or** `span_or` – Provides a wrapper for multiple span queries and includes any documents that match any of the specified queries.
+    - **Span term** `span_term` – Functions the same as a `term` query, but is designed to be used with other span queries.
+    - **Span within** `span_within` – Used with other span queries to returns a single span query result if its span is also within the spans that get returned by the list of other span queries.
 - **Term-level queries** – To search documents for one or more terms, IDs, value ranges, with optional filtering by wildcard or regex. Term-level queries do not sort results by relevance score or analyze search terms.
 - **Full-text queries** – To search documents for one or more terms and filter with advanced options. These queries return detailed information including relevance scores per document match, and perform text analysis.
-- **Geographic queries** – To perform geographic queries such as `distance`, `grid`, `polygon`, as well as the following queries:
-    - **Geo-bounding box queries** – To search for documents with `geo_point` field values that are within a bounding box.
-    - **xy point queries** – To search for documents with two-dimensional coordinates in `xy_point` or `xy_shape` fields.
-- **Shape queries** – To perform `pre-indexed_shape`, `ignore_unmapped`, or spacial relations queries such as: `intersect`, `disjoin`, `within`, or `contains`.
+- **Geographic queries** – To perform the following geographic queries that search for documents that include `geo_point` field data:
+    - **Geo-bounding box** `geo_bounding_box`– Returns documents with `geo_point` field values that are within a bounding box.
+    - **Geo distance** `geo_distance` – Returns documents that contain the geographic points within a specified distance from a central point.
+    - **Geo polygon** `geo_polygon` – Returns documents that contain the specified geographic points within the specified polygon.
+    - **xy point queries** – Returns documents that contain two-dimensional coordinates in `xy_point` or `xy_shape` fields.
+- **Shape queries** – To perform two-dimensional geometries to map out cartesian data such as `point` fields that support x/y pairs and `shape` fields that support points, lines, circles and polygon shapes.
+    - **Pre-indexed shape** `indexed_shape`– Specifies a `shape` query for a shape that has been previously been indexed. You need to specify the following pre-indexed shape fields `id`, `index` `path` and `routing`. Use the `ignore_unmapped` option set to `true` to ignore any fields not mapped to the previous index specified in the `indexed_shape` query. By default, `ignore_unmapped` is set to `false` to throw an exception if the field is not mapped.
+        - **Spacial relation operators** – You can use the following spacial relation operators with Pre-indexed shape queries:
+            - `intersects` – Returns all documents with intersecting values specified by the `shape` field.
+            - `disjoin` – Returns all documents that do not match the `shape` field coordinates specified in the query.
+            - `within` – Returns all documents that match the specified geometry for the `shape` field.
+            - `contains` – Returns all documents with `shape` field values that match the geometry specified in the `shape` query.
 - **Query context** – To perform `relevance_score`, `query_context` to show how well a document matches a query clause, or `filter_context` to indicate whether or not a doc matches the query clause.
 - **Query string queries** – To perform complex queries for a string with multiple optional fields using `query_string` syntax.
 - **Regular expression queries** – To perform all regular expression queries. 
