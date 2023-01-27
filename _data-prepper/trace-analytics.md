@@ -90,32 +90,32 @@ Data Prepper uses the local disk to store metadata required for service-map proc
 Data Prepper also uses the local disk to write logs. In the most recent version of Data Prepper, you can redirect the logs to your preferred path.
 
 
-### AWS
+### AWS CloudFormation template and Kubernetes/EKS configuration files
 
 The [AWS CloudFormation](https://github.com/opensearch-project/data-prepper/blob/main/deployment-template/ec2/data-prepper-ec2-deployment-cfn.yaml) template provides a user-friendly mechanism for configuring the scaling attributes described in the [Trace tuning section](#trace-tuning) section.
 
-The [Kubernetes configuration files](https://github.com/opensearch-project/data-prepper/blob/main/examples/dev/k8s/README.md) and [EKS configuration files](https://github.com/opensearch-project/data-prepper/blob/main/deployment-template/eks/README.md) are available to configure these attributes in a cluster deployment.
+The [Kubernetes configuration files](https://github.com/opensearch-project/data-prepper/blob/main/examples/dev/k8s/README.md) and [Amazon EKS configuration files](https://github.com/opensearch-project/data-prepper/blob/main/deployment-template/eks/README.md) are available for configuring these attributes in a cluster deployment.
 
-### Benchmark
+### Benchmark tests
 
-The benchmark tests were performed in a `r5.xlarge` EC2 instance with the following configuration:
+The benchmark tests were performed on an `r5.xlarge` EC2 instance with the following configuration:
  
  * `buffer_size`: 4096
  * `batch_size`: 256
  * `workers`: 8
- * `Heap`: 10GB
+ * `Heap`: 10 GB
  
 This setup was able to handle a throughput of `2100` spans/second at `20` percent CPU utilization.
 
 ## Pipeline configuration
 
-The following sections describe examples of different types of pipelines and how to configure each type. 
+The following sections provide examples of different types of pipelines and how to configure each type. 
 
 ### Example: Trace analytics pipeline
 
-The following example demonstrates how to build a pipeline that supports the [OpenSearch Dashboards Observability plugin]({{site.url}}{{site.baseurl}}/observability-plugin/trace/ta-dashboards/). This pipeline takes data from the OpenTelemetry Collector and uses two other pipelines as sinks. These two separate pipelines perform index tracing, then service map documents for the dashboard plugin. The first pipeline prepares trace data for OpenSearch, enriches, and ingests the span documents into a span index within OpenSearch. The second pipeline aggregates traces into a service map and writes service map documents into a service map index within OpenSearch.
+The following example demonstrates how to build a pipeline that supports the [OpenSearch Dashboards Observability plugin]({{site.url}}{{site.baseurl}}/observability-plugin/trace/ta-dashboards/). This pipeline takes data from the OpenTelemetry Collector and uses two other pipelines as sinks. These two separate pipelines perform index tracing and then service map documents for the Observability plugin. The first pipeline prepares trace data for OpenSearch and enriches and ingests the span documents into a span index within OpenSearch. The second pipeline aggregates traces into a service map and writes service map documents into a service map index within OpenSearch.
 
-Starting with Data Prepper version 2.0, Data Prepper no longer supports the `otel_trace_raw_prepper` processor due to the Data Prepper internal data model structure. Instead, users should use the `otel_trace_raw` processor. See the following YAML file example:
+Starting with Data Prepper version 2.0, Data Prepper no longer supports the `otel_trace_raw_prepper` processor due to the Data Prepper internal data model structure. Instead, you should use the `otel_trace_raw` processor. See the following YAML file example:
 
 ```yml
 entry-pipeline:
@@ -171,9 +171,9 @@ service-map-pipeline:
 
 To maintain similar ingestion throughput and latency, scale the `buffer_size` and `batch_size` by the estimated maximum batch size in the client request payload. {: .tip}
 
-#### Example: otel trace
+#### Example: `otel trace`
 
-The following is an example `otel-trace-source` .yaml file with SSL and basic authentication enabled. Note that you will have to change your `otel-collector-config.yaml` file to use your own credentials. 
+The following is an example `otel-trace-source` .yaml file with SSL and basic authentication enabled. Note that you need to change your `otel-collector-config.yaml` file to use your own credentials. 
 
 ```yaml
 source:
@@ -190,7 +190,7 @@ source:
 
 #### Example: pipeline.yaml
 
-The following is an example `pipeline.yaml` file without SSL and basic authentication for the `otel-trace-pipeline` pipeline:
+The following is an example `pipeline.yaml` file without SSL and basic authentication enabled for the `otel-trace-pipeline` pipeline:
 
 ```yaml
 otel-trace-pipeline:
@@ -309,21 +309,21 @@ service-map-pipeline:
         #aws_region: us-east-1
 ```
 
-You need to modify the preceding configuration for your OpenSearch cluster. Note that it has two `opensearch` sinks which need to be modified.
+You need to modify the preceding configuration for your OpenSearch cluster. Note that it has two `opensearch` sinks that need to be modified.
 {: .note}
 
 You must make the following changes:
-* `hosts` - Set to your hosts
-* `username` - Provide the OpenSearch username.
-* `password` - Provide your OpenSearch password.
-* `aws_sigv4` - If you are using Amazon OpenSearch Service with AWS signing, set this value to `true`. It will sign requests with the default AWS credentials provider.
-* `aws_region` - If you are using Amazon OpenSearch Service with AWS signing, set this value to your region.
+* `hosts` – Set to your hosts.
+* `username` – Provide your OpenSearch username.
+* `password` – Provide your OpenSearch password.
+* `aws_sigv4` – If you are using Amazon OpenSearch Service with AWS signing, set this value to `true`. It will sign requests with the default AWS credentials provider.
+* `aws_region` – If you are using Amazon OpenSearch Service with AWS signing, set this value to your AWS region.
 
 For other configurations available for OpenSearch sinks, see [Data Prepper OpenSearch Sink]({{site.url}}{{site.baseurl}}/data-prepper/configuration/sinks/sinks/).
 
 ## OpenTelemetry Collector
 
-You need to run OpenTelemetry collector in your service environment. Follow the [getting started guide](https://opentelemetry.io/docs/collector/getting-started/#getting-started) to install an OpenTelemetry collector.  Ensure that you configure the collector with an exporter configured to your Data Prepper. The following example `otel-collector-config.yaml` receives data from various instrumentations and exports it to Data Prepper.
+You need to run OpenTelemetry Collector in your service environment. Follow the [Getting Started](https://opentelemetry.io/docs/collector/getting-started/#getting-started) guide to install an OpenTelemetry collector.  Ensure that you configure the collector with an exporter configured to your Data Prepper. The following example `otel-collector-config.yaml` receives data from various instrumentations and exports it to Data Prepper.
 
 ### Example otel-collector-config.yaml file
 
@@ -358,21 +358,21 @@ service:
       exporters: [otlp/data-prepper]
 ```
 
-After you run OpenTelemetry in your service environment, you must configure your application to use the OpenTelemetry collector. The OpenTelemetry collector typically runs alongside your application.
+After you run OpenTelemetry in your service environment, you must configure your application to use the OpenTelemetry Collector. The OpenTelemetry Collector typically runs alongside your application.
 
 ## Next steps and more information
 
-The [OpenSearch Dashboards Observability plugin]({{site.url}}{{site.baseurl}}/observability-plugin/trace/ta-dashboards/) documentation provides additional details on configuring OpenSearch for viewing trace analytics in OpenSearch Dashboards.
+The [OpenSearch Dashboards Observability plugin]({{site.url}}{{site.baseurl}}/observability-plugin/trace/ta-dashboards/) documentation provides additional information about configuring OpenSearch to view trace analytics in OpenSearch Dashboards.
 
 For more information about how to tune and scale Data Prepper for trace analytics, see [trace tuning](#trace-tuning).
 
 ## Migrating to Data Prepper 2.0
 
-Starting in Data Prepper version 1.4, trace processing uses Data Prepper's event model. This allows pipeline authors to configure other processors to modify spans or traces. To provide a migration path, Data Prepper version 1.4 introduced the following changes:
+Starting with Data Prepper version 1.4, trace processing uses Data Prepper's event model. This allows pipeline authors to configure other processors to modify spans or traces. To provide a migration path, Data Prepper version 1.4 introduced the following changes:
 
-* The `otel_trace_source` has an optional parameter `record_type` which can be set to `event`. When configured, it will output event objects.
-* The `otel_trace_raw` replaces `otel_trace_raw_prepper` for event-based spans.
-* The `otel_trace_group` replaces `otel_trace_group_prepper` for event-based spans.
+* `otel_trace_source` has an optional `record_type` parameter that can be set to `event`. When configured, it will output event objects.
+* `otel_trace_raw` replaces `otel_trace_raw_prepper` for event-based spans.
+* `otel_trace_group` replaces `otel_trace_group_prepper` for event-based spans.
 
-In Data Prepper version 2.0, the `otel_trace_source` source will only output events. Data Prepper version 2.0 also removes the `otel_trace_raw_prepper` and `otel_trace_group_prepper` entirely. To migrate to Data Prepper version 2.0, you can configure your trace pipeline using the event model.
+In Data Prepper version 2.0,  `otel_trace_source` will only output events. Data Prepper version 2.0 also removes `otel_trace_raw_prepper` and `otel_trace_group_prepper` entirely. To migrate to Data Prepper version 2.0, you can configure your trace pipeline using the event model.
  
