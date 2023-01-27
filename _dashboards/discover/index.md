@@ -42,7 +42,7 @@ In the Discover panel, you'll see a table that shows all the documents that matc
 
 ## Searching data
 
-You can use the search toolbar or DQL to search data in Dashboards. The search toolbar is best for basic queries, such as searching by a field name. DQL is best for more complex queries, such as searching data using a term query, string query, boolean query, date or range query, or nested query.
+You can use the search toolbar or enter a DQL query in the **DevTools** console to search data in Dashboards. The search toolbar is best for basic queries, such as searching by a field name. DQL is best for complex queries, such as searching data using a term, string, boolean, date, range, or nested query.
 
 1. In the search toolbar, enter the boolean query `FlightDelay:true AND FlightDelayMin >= 60` to search the data for flights delayed 60 minutes or longer.
 1. Select **Update**.
