@@ -6,9 +6,7 @@ nav_order: 21
 
 # Trace analytics
 
-<!---Trace analytics allows you to collect trace data and customize a pipeline that ingests and transforms the data for use in OpenSearch.---> 
-
-This page provides an overview of the trace analytics workflow in Data Prepper, how to configure it, and how to visualize trace data.
+Trace analytics allows you to collect trace data and customize a pipeline that ingests and transforms the data for use in OpenSearch. The following provides an overview of the trace analytics workflow in Data Prepper, how to configure it, and how to visualize trace data.
 
 ## Introduction
 
@@ -319,7 +317,7 @@ You must make the following changes:
 * `aws_sigv4` – If you are using Amazon OpenSearch Service with AWS signing, set this value to `true`. It will sign requests with the default AWS credentials provider.
 * `aws_region` – If you are using Amazon OpenSearch Service with AWS signing, set this value to your AWS region.
 
-For other configurations available for OpenSearch sinks, see [Data Prepper OpenSearch Sink]({{site.url}}{{site.baseurl}}/data-prepper/configuration/sinks/sinks/).
+For other configurations available for OpenSearch sinks, see [Data Prepper OpenSearch sink]({{site.url}}{{site.baseurl}}/data-prepper/configuration/sinks/opensearch/).
 
 ## OpenTelemetry Collector
 
