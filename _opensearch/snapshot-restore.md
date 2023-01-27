@@ -357,7 +357,7 @@ We recommend ceasing write requests to a cluster before restoring from a snapsho
 
 Snapshots are only forward-compatible by one major version. If you have an old snapshot, you can sometimes restore it into an intermediate cluster, reindex all indices, take a new snapshot, and repeat until you arrive at your desired version, but you might find it easier to just manually index your data on the new cluster.
 
-## Security plugin considerations
+## Security considerations
 
 If you're using the security plugin, snapshots have some additional restrictions:
 

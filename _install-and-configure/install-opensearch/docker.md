@@ -460,8 +460,5 @@ COPY --chown=opensearch:opensearch my-root-cas.pem /usr/share/opensearch/config/
 - [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuration/)
 - [Performance analyzer]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/index/)
 - [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/)
-<<<<<<< HEAD
 - [About the security plugin]({{site.url}}{{site.baseurl}}/security/index/)
-=======
-- [About the security plugin]({{site.url}}{{site.baseurl}}/security/index/)
->>>>>>> main
+
