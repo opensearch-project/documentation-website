@@ -46,5 +46,5 @@ This section provides a graphical representation of detection rules that trigger
 
 ## Detectors
 
-Detectors displays a list of available detectors by detector name, status (active/inactive), and log type. Select **View all detectors** to go to the Detectors page. Select **Create detector** to go directly to the Define detector page.
+The Detectors section displays a list of available detectors by detector name, status (active/inactive), and log type. Select **View all detectors** to go to the Detectors page. Select **Create detector** to go directly to the Define detector page.
 
