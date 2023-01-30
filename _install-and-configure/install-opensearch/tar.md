@@ -81,7 +81,7 @@ The demo security script will apply a generic configuration to your instance of 
 
 If you only want to verify that the service is properly configured and you intend to configure security settings yourself, then you may want to disable the security plugin and launch the service without encryption or authentication.
 
-An OpenSearch node configured by the demo security script is not suitable for a production environment. If you plan to use the node in a production environment after running `opensearch-tar-install.sh`, you should, at a minimum, replace the demo TLS certificates with your own TLS certificates and [update the list of internal users and passwords]({{site.url}}{{site.baseurl}}/security-plugin/configuration/yaml). See [Security configuration]({{site.url}}{{site.baseurl}}/security-plugin/configuration/index/) for additional guidance to ensure that your nodes are configured according to your security requirements.
+An OpenSearch node configured by the demo security script is not suitable for a production environment. If you plan to use the node in a production environment after running `opensearch-tar-install.sh`, you should, at a minimum, replace the demo TLS certificates with your own TLS certificates and [update the list of internal users and passwords]({{site.url}}{{site.baseurl}}/security/configuration/yaml). See [Security configuration]({{site.url}}{{site.baseurl}}/security/configuration/index/) for additional guidance to ensure that your nodes are configured according to your security requirements.
 {: .warning}
 
 ### Option 1: Test your Opensearch settings with security enabled
@@ -264,7 +264,7 @@ Before modifying any configuration files, it's always a good idea to save a back
 
 ### Configure TLS
 
-TLS certificates provide additional security for your cluster by allowing clients to confirm the identity of hosts and encrypt traffic between the client and host. For more information, refer to [Configure TLS Certificates]({{site.url}}{{site.baseurl}}/security-plugin/configuration/tls/) and [Generate Certificates]({{site.url}}{{site.baseurl}}/security-plugin/configuration/generate-certificates/), which are included in the [Security Plugin]({{site.url}}{{site.baseurl}}/security-plugin/index/) documentation. For work performed in a development environment, self-signed certificates are usually adequate. This section will guide you through the basic steps required to generate your own TLS certificates and apply them to your OpenSearch host.
+TLS certificates provide additional security for your cluster by allowing clients to confirm the identity of hosts and encrypt traffic between the client and host. For more information, refer to [Configure TLS Certificates]({{site.url}}{{site.baseurl}}/security/configuration/tls/) and [Generate Certificates]({{site.url}}{{site.baseurl}}/security/configuration/generate-certificates/), which are included in the [Security Plugin]({{site.url}}{{site.baseurl}}/security/index/) documentation. For work performed in a development environment, self-signed certificates are usually adequate. This section will guide you through the basic steps required to generate your own TLS certificates and apply them to your OpenSearch host.
 
 1. Navigate to the OpenSearch `config` directory. This is where the certificates will be stored.
    ```bash
@@ -317,7 +317,7 @@ TLS certificates provide additional security for your cluster by allowing client
    ```bash
    rm *temp.pem *csr *ext
    ```
-1. Add these certificates to `opensearch.yml` as described in [Generate Certificates]({{site.url}}{{site.baseurl}}/security-plugin/configuration/generate-certificates/#add-distinguished-names-to-opensearchyml). Advanced users might also choose to append the settings using a script:
+1. Add these certificates to `opensearch.yml` as described in [Generate Certificates]({{site.url}}{{site.baseurl}}/security/configuration/generate-certificates/#add-distinguished-names-to-opensearchyml). Advanced users might also choose to append the settings using a script:
    ```bash
    #! /bin/bash
 
@@ -353,7 +353,7 @@ TLS certificates provide additional security for your cluster by allowing client
 
 ### Configure a user
 
-Users are defined and authenticated by OpenSearch in a variety of ways. One method, which does not require additional backend infrastructure, is to manually configure users in `internal_users.yml`. See [YAML files]({{site.url}}{{site.baseurl}}/security-plugin/configuration/yaml/) for more information about configuring users. The following steps explain how to remove all demo users except for the `admin` user and how to replace the `admin` default password using a script.
+Users are defined and authenticated by OpenSearch in a variety of ways. One method, which does not require additional backend infrastructure, is to manually configure users in `internal_users.yml`. See [YAML files]({{site.url}}{{site.baseurl}}/security/configuration/yaml/) for more information about configuring users. The following steps explain how to remove all demo users except for the `admin` user and how to replace the `admin` default password using a script.
 
 1. Make the security plugin scripts executable.
    ```bash
@@ -418,7 +418,7 @@ Now that TLS certificates are installed and demo users were removed or assigned 
    # Change to the correct directory
    cd /path/to/opensearch-{{site.opensearch_version}}/plugins/opensearch-security/tools
    ```
-1. Invoke the script. See [Apply changes using securityadmin.sh]({{site.url}}{{site.baseurl}}/security-plugin/configuration/security-admin/) for definitions of the arguments you must pass.
+1. Invoke the script. See [Apply changes using securityadmin.sh]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/) for definitions of the arguments you must pass.
    ```bash
    # You can omit the environment variable if you declared this in your $PATH.
    OPENSEARCH_JAVA_HOME=/path/to/opensearch-{{site.opensearch_version}}/jdk ./securityadmin.sh -cd /path/to/opensearch-{{site.opensearch_version}}/config/opensearch-security/ -cacert /path/to/opensearch-{{site.opensearch_version}}/config/root-ca.pem -cert /path/to/opensearch-{{site.opensearch_version}}/config/admin.pem -key /path/to/opensearch-{{site.opensearch_version}}/config/admin-key.pem -icl -nhnv
@@ -541,4 +541,4 @@ The following configuration is only suitable for testing in a non-production env
 - [Configure Performance Analyzer for Tarball Installation]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/index/#install-performance-analyzer)
 - [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/)
 - [OpenSearch plugin installation]({{site.url}}{{site.baseurl}}/opensearch/install/plugins/)
-- [About the security plugin]({{site.url}}{{site.baseurl}}/security-plugin/index/)
+- [About the security plugin]({{site.url}}{{site.baseurl}}/security/index/)
