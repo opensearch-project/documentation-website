@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Pipelines
-nav_order: 10
+nav_order: 35
 redirect_from: 
   - /clients/data-prepper/pipelines/
 ---
