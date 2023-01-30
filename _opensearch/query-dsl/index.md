@@ -24,24 +24,14 @@ OpenSearch supports the following query DSL query type categories:
     - **Disjunction max** `dis_max` – Returns documents that match one or more queries that are wrapped together by clauses. If a document matches multiple query clauses, it gets the highest relevant score assigned to it.
     - **Function score** `function_score` – Modifies the score of documents that are returned by a query. You define a query and one or more functions that each compute a score for each document that matches the query.
 - **Span queries** – To perform queries that provide control over the order and proximity of query terms that you specify. The primary use case is for legal documents.  To learn more, see [Span queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/span-query/).
-- **Term-level queries** – To search documents for one or more terms, IDs, value ranges, with optional filtering by wildcard or regex. Term-level queries do not sort results by relevance score or analyze search terms. To learn more, see [Term-level queries]().
+- **Term-level queries** – To search documents for one or more terms, IDs, value ranges, with optional filtering by wildcard or regex. Term-level queries do not sort results by relevance score or analyze search terms. To learn more, see [Term-level queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/term/).
 - **Full-text queries** – To search documents for one or more terms and filter with advanced options. These queries return detailed information including relevance scores per document match, and perform text analysis. To learn more, see [Full-text queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/).
-- **Geographic queries** – To perform the following geographic queries that search for documents that include `geo_point` field data:
-    - **Geo-bounding box** `geo_bounding_box` – Returns documents with `geo_point` field values that are within a bounding box.
-    - **Geo distance** `geo_distance` – Returns documents that contain the geographic points within a specified distance from a central point.
-    - **Geo polygon** `geo_polygon` – Returns documents that contain the specified geographic points within the specified polygon.
-    - **xy point queries** – Returns documents that contain two-dimensional coordinates in `xy_point` or `xy_shape` fields.
-- **Shape queries** – To perform two-dimensional geometries to map out cartesian data such as `point` fields that support x/y pairs and `shape` fields that support points, lines, circles and polygon shapes.
-    - **Pre-indexed shape** `indexed_shape` – Specifies a `shape` query for a shape that has been previously been indexed. You need to specify the following pre-indexed shape fields `id`, `index` `path` and `routing`. Use the `ignore_unmapped` option set to `true` to ignore any fields not mapped to the previous index specified in the `indexed_shape` query. By default, `ignore_unmapped` is set to `false` to throw an exception if the field is not mapped.
-        - **Spacial relation operators** – You can use the following spacial relation operators with Pre-indexed shape queries:
-            - `intersects` – Returns all documents with intersecting values specified by the `shape` field.
-            - `disjoin` – Returns all documents that do not match the `shape` field coordinates specified in the query.
-            - `within` – Returns all documents that match the specified geometry for the `shape` field.
-            - `contains` – Returns all documents with `shape` field values that match the geometry specified in the `shape` query.
+- **Geographic and shape queries** – To create queries to search two-dimensional geometries that map out cartesian data such as `point` fields that support x and y pairs and `shape` fields that support points, lines, circles and polygon shapes. To learn more, see [Geographic and shape queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/geo-and-shape/).
+
 - **Query context** – To use the default `relevance_score` returned with a query to indicate how well a document matches a query, or whether or not it matches at all with the following query clauses:
     - **Query context** – Indicates Boolean query clauses to indicate specifically how well a document matches a query.
     - **Filter context**  - Returns documents that match the query clause specified by the `filter` parameter to indicate `term` and `range` fields.
-- **Query string queries** – To perform complex queries for a string with multiple optional fields using `query_string` syntax.
+- **Query string queries** – To perform complex queries for a string with multiple optional fields using `query_string` syntax. To learn more, see [Full-text queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/query-string/).
 - **Regular expression queries** – To perform all regular expression queries. 
 - **Joining queries** – To perform `nested`, `has_child`, `has_parent`, and `parent_id` queries.
 - **Parameter queries** – To perform `minimum_should_match` and `rewrite` queries.
