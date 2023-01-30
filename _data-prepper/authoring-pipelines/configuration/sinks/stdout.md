@@ -2,7 +2,7 @@
 layout: default
 title: stdout sink
 parent: Sinks
-grand_parent: Configuring Data Prepper
+grand_parent: Authoring pipelines
 nav_order: 45
 ---
 
