@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Migrating from Logstash
-nav_order: 30
+nav_order: 25
 redirect_from:
   - /data-prepper/configure-logstash-data-prepper/
 ---
