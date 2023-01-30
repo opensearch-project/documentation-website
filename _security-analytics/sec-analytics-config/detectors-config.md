@@ -40,7 +40,7 @@ The field mapping step matches field names from the rule with field names from t
 
 The data source (log index), log type, and detection rules specified in the first step determine which fields are available for mapping. For example, when "Windows logs" is selected as the log type, this parameter, along with the specific detection rules, determines the list of rule field names available for the mapping. Similarly, the selected data source (log index) determines the list of log field names that are available for the mapping.
 
-When a detector includes prepackaged rules in its definition, the system makes an attempt to automatically map all required fields. In this case, the field mapping process provides the opportunity to verify these default mappings and create more mappings if necessary. When a detector includes custom rules, you can follow this step to manually map rule field names to log field names.
+Because the system uses prepackaged Sigma rules for detector creation, it can automatically map important fields for a specific log type with the corresponding fields in the Sigma rules. The field mapping step presents a view of automatically mapped fields while also providing the option to customize, change, or add new field mappings. When a detector includes custom rules, you can follow this step to manually map rule field names to log field names.
 
 #### A note on field names
 
