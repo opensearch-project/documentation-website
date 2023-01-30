@@ -2,7 +2,7 @@
 layout: default
 title: drop_events
 parent: Processors
-grand_parent: Configuring Data Prepper
+grand_parent: Authoring pipelines
 nav_order: 45
 ---
 

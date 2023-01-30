@@ -2,8 +2,7 @@
 layout: default
 title: uppercase_string
 parent: Processors
-grand_parent: Configuring Data Prepper
-nav_order: 45
+grand_parent: Configuring Data Preppergrand_parent: Authoring pipelinesnav_order: 45
 ---
 
 # uppercase_string
