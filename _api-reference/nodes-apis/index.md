@@ -50,12 +50,14 @@ To get statistics from the elected master node only, use the following query :
 ```json
 GET /_nodes/_master/stats
 ```
+{% include copy-curl.html %}
 
 To get statistics from nodes that are data-only nodes, use the following query:
 
 ```json
 GET /_nodes/data:true/stats
 ```
+{% include copy-curl.html %}
 
 ### Order of resolution mechanisms
 
@@ -66,9 +68,11 @@ To get statistics from all the nodes except the master node, use the following q
 ```json
 GET /_nodes/_all,master:false/stats
 ```
+{% include copy-curl.html %}
 
 However, if you switch the resolution mechanisms, the result will include all the cluster nodes, including the master node: 
 
 ```json
 GET /_nodes/master:false,_all/stats
 ```
+{% include copy-curl.html %}

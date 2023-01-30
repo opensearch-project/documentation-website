@@ -14,6 +14,7 @@ After you create a pipeline, use the get ingest pipeline API operation to return
 ```
 GET _ingest/pipeline/12345
 ```
+{% include copy-curl.html %}
 
 ## Path and HTTP methods
 

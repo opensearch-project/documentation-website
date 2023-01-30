@@ -39,6 +39,7 @@ PUT testindex
   }
 }
 ```
+{% include copy-curl.html %}
 
 Index a document with a double range and a date range:
 
@@ -55,6 +56,7 @@ PUT testindex/_doc/1
   }
 }
 ```
+{% include copy-curl.html %}
 
 You can use a [term query](#term-query) or a [range query](#range-query) to search for values within range fields. 
 
@@ -76,6 +78,7 @@ GET testindex/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 ### Range query
 
@@ -105,6 +108,7 @@ GET testindex1/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 The above query will return document 1 for the `within` and `intersects` relations but will not return it for the `contains` relation.
 
@@ -129,6 +133,7 @@ PUT testindex
   }
 }
 ```
+{% include copy-curl.html %}
 
 Index a document with IP address ranges in both formats:
 
@@ -142,6 +147,7 @@ PUT testindex/_doc/2
   "ip_address_cidr" : "10.24.34.0/24"
 }
 ```
+{% include copy-curl.html %}
 
 ## Parameters
 
