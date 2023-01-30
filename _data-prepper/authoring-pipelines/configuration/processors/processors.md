@@ -13,10 +13,6 @@ Processors perform some action on your data: filter, transform, enrich, etc.
 Prior to Data Prepper 1.3, Processors were named Preppers. Starting in Data Prepper 1.3, the term Prepper is deprecated in favor of Processor. Data Prepper will continue to support the term "Prepper" until 2.0, where it will be removed.
 {: .note }
 
-
-
-
-
 ## copy_values
 
 Copy values within an event. `copy_values`  is part of [mutate event](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/mutate-event-processors#mutate-event-processors) processors.
