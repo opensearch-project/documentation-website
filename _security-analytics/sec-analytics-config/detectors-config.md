@@ -25,7 +25,7 @@ Defining a new detector involves naming the detector, selecting a data source an
 1. In the **Detection rules** section, specify only those rules you want mapped to the detector.
 <img src="{{site.url}}{{site.baseurl}}/images/Security/select_rules.png" alt="Select or deselect rules that detector will use for findings" width="85%">
 * Use the toggle to the left of the rule name to select or deselect rules.
-* Use the **Log type**, **Rule severity**, and **Source** dropdown menus to filter the rules you want to select from. 
+* Use the **Log type**, **Rule severity**, and **Source** dropdown lists to filter the rules you want to select from. 
 * Use the **Search** bar to search for specific rules.
 
     To quickly select one or more known rules and dismiss others, first deselect all rules by moving the **Rule name** toggle to the left, then search for your target rule names and select each individually by moving its toggle to the right.

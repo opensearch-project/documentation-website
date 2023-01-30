@@ -12,10 +12,10 @@ After creating a detector, it appears on the Threat detectors page along with ot
 
 ## Threat detector list
 
-The list of threat detectors includes the search bar, the **Status** dropdown menu, and the **Log type** dropdown menu.
+The list of threat detectors includes the search bar, the **Status** dropdown list, and the **Log type** dropdown list.
 * Use the search bar to filter by detector name.
-* Select the **Status** dropdown menu to filter detectors in the list by Active and Inactive status.
-* Select the **Log type** dropdown menu to filter detectors by any log type that appears in the list (the options depend on the detectors present in the list and their log types).
+* Select the **Status** dropdown list to filter detectors in the list by Active and Inactive status.
+* Select the **Log type** dropdown list to filter detectors by any log type that appears in the list (the options depend on the detectors present in the list and their log types).
 
 ### Editing a detector
 
@@ -37,12 +37,12 @@ Threat detector actions allow you to stop and start detectors or delete a detect
 
 ### Changing detector status
 
-1.  Select the detector or detectors in the list whose status you would like to change. The **Actions** dropdown menu becomes enabled.
+1.  Select the detector or detectors in the list whose status you would like to change. The **Actions** dropdown list becomes enabled.
 1.  Depending on whether the detector is currently active or inactive, select either **Stop detector** or **Start detector**. After a moment, the change in status of the detector appears in the detector list as either Inactive or Active.
 
 ### Deleting a detector
 
-1. Select the detector or detectors in the list that you would like to delete. The **Actions** dropdown menu becomes enabled.
-1. Select **Delete** in the dropdown menu. The Delete detector popup window opens and asks you to verify that you want to delete the detector or detectors.
+1. Select the detector or detectors in the list that you would like to delete. The **Actions** dropdown list becomes enabled.
+1. Select **Delete** in the dropdown list. The Delete detector popup window opens and asks you to verify that you want to delete the detector or detectors.
 1. Select **Cancel** to decline the action. Select **Delete detector** to delete the detector or detectors permanently from the list.
 

@@ -14,7 +14,7 @@ The Rules window lists all security rules and provides options for filtering the
 
 When you open the Rules page, all rules are listed in the table. Use the search bar to search for specific rules by entering a full or partial name and pressing **Return/Enter** on your keyboard. The list is filtered and displays matching results.
 
-Alternatively, you can use the **Rule type**, **Rule severity**, and **Source** dropdown menus to drill down in the list of alerts and filter for preferred results. You can select multiple options from each menu and use all three menus in combination to narrow results.
+Alternatively, you can use the **Rule type**, **Rule severity**, and **Source** dropdown lists to drill down in the alerts and filter for preferred results. You can select multiple options from each list and use all three in combination to narrow results.
 <br><img src="{{site.url}}{{site.baseurl}}/images/Security/rule-menu.png" alt="Rule menus for filtering results" width="40%">
 
 ### Rule details

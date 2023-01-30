@@ -29,7 +29,7 @@ You can also select the **Getting started** link to expand the Get started with 
 
 ## Findings and alert count
 
-The Findings and alert count section provides a graph showing data on the latest findings. Use the **Group by** menu to select either **All findings** or **Log type**.
+The Findings and alert count section provides a graph showing data on the latest findings. Use the **Group by** dropdown list to select either **All findings** or **Log type**.
 
 ## Recent alerts
 
