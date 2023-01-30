@@ -31,8 +31,7 @@ OpenSearch supports the following query DSL query type categories:
 - **Query context** – To use the default `relevance_score` returned with a query to indicate how well a document matches a query, or whether or not it matches at all with the following query clauses:
     - **Query context** – Indicates Boolean query clauses to indicate specifically how well a document matches a query.
     - **Filter context**  - Returns documents that match the query clause specified by the `filter` parameter to indicate `term` and `range` fields.
-- **Query string queries** – To perform complex queries for a string with multiple optional fields using `query_string` syntax. To learn more, see [Full-text queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/query-string/).
-- **Regular expression queries** – To perform all regular expression queries. 
+- **Query string queries** – To perform complex queries for a string with multiple optional fields using `query_string` syntax. To learn more, see [Query string queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/query-string/).
 - **Joining queries** – To perform `nested`, `has_child`, `has_parent`, and `parent_id` queries.
 - **Parameter queries** – To perform `minimum_should_match` and `rewrite` queries.
 - **Specialized queries** – To perform specialized queries: `distance_feature`, `more_like_this`, `percolate`, `rank_feature`, `script`, `script_score`, `wrapper`, or `pinned_query`.
