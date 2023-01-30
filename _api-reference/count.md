@@ -26,6 +26,7 @@ GET opensearch_dashboards_sample_data_logs/_count
   }
 }
 ```
+{% include copy-curl.html %}
 
 The following call to the search API produces equivalent results:
 
@@ -41,12 +42,14 @@ GET opensearch_dashboards_sample_data_logs/_search
   "track_total_hits": true
 }
 ```
+{% include copy-curl.html %}
 
 To see the number of documents in an index:
 
 ```json
 GET opensearch_dashboards_sample_data_logs/_count
 ```
+{% include copy-curl.html %}
 
 To check for the number of documents in a [data stream]({{site.url}}{{site.baseurl}}/opensearch/data-streams/), replace the index name with the data stream name.
 
@@ -55,6 +58,7 @@ To see the number of documents in your cluster:
 ```json
 GET _count
 ```
+{% include copy-curl.html %}
 
 Alternatively, you could use the [cat indices]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-indices/) and [cat count]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-count/) APIs to see the number of documents per index or data stream.
 {: .note }

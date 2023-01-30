@@ -35,15 +35,17 @@ You can use the following example requests to decommission and recommission a zo
 
 The following example request decommissions `zone-a`:
 
-```
+```json
 PUT /_cluster/decommission/awareness/<zone>/<zone-a>
 ```
+{% include copy-curl.html %}
 
 If you want to recommission a decommissioned zone, you can use the `DELETE` method:
 
-```
+```json
 DELETE /_cluster/decommission/awareness
 ```
+{% include copy-curl.html %}
 
 ### Response
 
@@ -60,10 +62,10 @@ The following example requests returns the decommission status of all zones.
 
 ### Request
 
-```
+```json
 GET /_cluster/decommission/awareness/zone/_status
 ```
-
+{% include copy-curl.html %}
 
 ### Response
 

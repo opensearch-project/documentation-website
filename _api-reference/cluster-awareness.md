@@ -8,7 +8,7 @@ nav_order: 16
 
 To control the distribution of search or HTTP traffic, you can use the weights per awareness attribute to control the distribution of search or HTTP traffic across zones. This is commonly used for zonal deployments, heterogeneous instances, and routing traffic away from zones during zonal failure.
 
-## HTTP and path methods
+## Path and HTTP methods
 
 ```
 PUT /_cluster/routing/awareness/<attribute>/weights
@@ -50,6 +50,7 @@ The following example request creates a round robin shard allocation for search 
 
 ### Request
 
+```json
 PUT /_cluster/routing/awareness/zone/weights
 { 
       "weights":
@@ -60,6 +61,8 @@ PUT /_cluster/routing/awareness/zone/weights
       }
       "_version" : 1
 }
+```
+{% include copy-curl.html %}
 
 ### Response
 
@@ -76,9 +79,10 @@ The following example request gets weights for all zones.
 
 ### Request
 
-```
+```json
 GET /_cluster/routing/awareness/zone/weights
 ```
+{% include copy-curl.html %}
 
 ### Response
 
@@ -103,9 +107,10 @@ You can remove your weight ratio for each zone using the `DELETE` method.
 
 ### Request
 
-```
+```json
 DELETE /_cluster/routing/awareness/zone/weights
 ```
+{% include copy-curl.html %}
 
 ### Response
 
