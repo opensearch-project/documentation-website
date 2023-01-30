@@ -3,7 +3,7 @@ layout: default
 title: Sources
 parent: Authoring pipelines
 has_children: true
-nav_order: 42
+nav_order: 15
 ---
 
 # Sources

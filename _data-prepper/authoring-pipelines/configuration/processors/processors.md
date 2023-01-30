@@ -3,7 +3,7 @@ layout: default
 title: Processors
 has_children: true
 parent: Authoring pipelines
-nav_order: 30
+nav_order: 25
 ---
 
 # Processors
