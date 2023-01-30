@@ -21,13 +21,14 @@ OpenSearch supports the following query DSL query type categories:
     - **Constant score** `constant_score` – Provides a `filter` query with the relevance score as a floating point number assigned by the `boost` field. Acts as a wrapper for the filter.
     - **Disjunction max** `dis_max` – Returns documents that match one or more queries that are wrapped together by clauses. If a document matches multiple query clauses, it gets the highest relevant score assigned to it.
     - **Function score** `function_score` – Modifies the score of documents that are returned by a query. You define a query and one or more functions that each compute a score for each document that matches the query.
-- **Span queries** – To perform queries that provide control over the order and proximity of query terms that you specify. The primary use case is for legal documents.  To learn more, see [Span queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/span-query/).
-
-- **Term-level queries** – To search documents for one or more terms, IDs, value ranges, with optional filtering by wildcard or regex. Term-level queries do not sort results by relevance score or analyze search terms. To learn more, see [Term-level queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/term/).
 
 - **Full-text queries** – To search documents for one or more terms and filter with advanced options. These queries return detailed information including relevance scores per document match, and perform text analysis. To learn more, see [Full-text queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/).
 
 - **Geographic and shape queries** – To create queries to search two-dimensional geometries that map out cartesian data such as `point` fields that support x and y pairs and `shape` fields that support points, lines, circles and polygon shapes. To learn more, see [Geographic and shape queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/geo-and-shape/).
+
+- **Joining queries** – To perform `nested`, `has_child`, `has_parent`, and `parent_id` queries.
+
+- **Parameter queries** – To perform `minimum_should_match` and `rewrite` queries.
 
 - **Query context** – To use the default `relevance_score` returned with a query to indicate how well a document matches a query, or whether or not it matches at all with the following query clauses:
     - **Query context** – Indicates Boolean query clauses to indicate specifically how well a document matches a query.
@@ -35,11 +36,11 @@ OpenSearch supports the following query DSL query type categories:
 
 - **Query string queries** – To perform complex queries for a string with multiple optional fields using `query_string` syntax. To learn more, see [Query string queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/query-string/).
 
-- **Joining queries** – To perform `nested`, `has_child`, `has_parent`, and `parent_id` queries.
-
-- **Parameter queries** – To perform `minimum_should_match` and `rewrite` queries.
+- **Span queries** – To perform queries that provide control over the order and proximity of query terms that you specify. The primary use case is for legal documents.  To learn more, see [Span queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/span-query/).
 
 - **Specialized queries** – To perform specialized queries: `distance_feature`, `more_like_this`, `percolate`, `rank_feature`, `script`, `script_score`, `wrapper`, or `pinned_query`.
+
+ - **Term-level queries** – To search documents for one or more terms, IDs, value ranges, with optional filtering by wildcard or regex. Term-level queries do not sort results by relevance score or analyze search terms. To learn more, see [Term-level queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/term/).
 
 ## About term-level and full-text queries
 
