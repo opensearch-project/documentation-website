@@ -5,7 +5,7 @@ parent: Install OpenSearch
 nav_order: 65
 ---
 
-# Windows
+# Install OpenSearch on Windows
 
 The following sections describe installing OpenSearch on Windows from a zip archive.
 
