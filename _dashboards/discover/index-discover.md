@@ -89,8 +89,9 @@ You can save your search to use it later, generate a report, or build visualizat
 You can quickly visualize an aggregated field from **Discover**.
 
 1. From the **Available fields** list, select `FlightDelayType`, and then select **Visualize**.
+
 ![Visualizing search queries from Discover]({{site.url}}{{site.baseurl}}/images/discover-visualize.png)
 
-Dashboards creates a visualization for this field. In this example, it's a basic bar chart.
+Dashboards creates a visualization for this field (in this example, a basic bar chart).
 
 ![Bar chart created from Discover]({{site.url}}{{site.baseurl}}/images/discover-visualize-2.png)
