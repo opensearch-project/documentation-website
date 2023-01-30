@@ -2,7 +2,7 @@
 layout: default
 title: Monitoring
 parent: Administrating Data Prepper
-nav_order: 33
+nav_order: 25
 ---
 
 # Monitoring Data Prepper with metrics
