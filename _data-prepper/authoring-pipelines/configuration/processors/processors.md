@@ -2,7 +2,7 @@
 layout: default
 title: Processors
 has_children: true
-grand_parent: Authoring pipelines
+parent: Authoring pipelines
 nav_order: 100
 ---
 
