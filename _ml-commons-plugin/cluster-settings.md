@@ -17,7 +17,7 @@ If `true`, ML Commons tasks and models run machine learning (ML) tasks on ML nod
 ### Setting
 
 ```
-plugins.ml_commons.only_run_on_ml_node: true
+plugins.ml_commons.only_run_on_ml_node: false
 ```
 
 ### Values
