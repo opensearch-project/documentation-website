@@ -2,7 +2,7 @@
 layout: default
 title: Processors
 has_children: true
-parent: Configuring Data Prepper
+parent: Authoring pipelines
 nav_order: 100
 ---
 

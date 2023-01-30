@@ -2,7 +2,7 @@
 layout: default
 title: http_source
 parent: Sources
-grand_parent: Configuring Data Prepper
+grand_parent: Authoring pipelines
 nav_order: 5
 ---
 

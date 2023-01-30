@@ -2,7 +2,7 @@
 layout: default
 title: otel_trace_source source
 parent: Sources
-grand_parent: Configuring Data Prepper
+grand_parent: Authoring pipelines
 nav_order: 15
 ---
 

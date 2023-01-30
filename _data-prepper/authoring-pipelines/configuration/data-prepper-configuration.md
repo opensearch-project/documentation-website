@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Configuring Data Prepper
-has_children: true
+parent: Administrating Data Prepper
 nav_order: 100
 redirect_from:
   - /clients/data-prepper/data-prepper-reference/

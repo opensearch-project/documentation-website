@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Sinks
-parent: Configuring Data Prepper
+parent: Authoring pipelines
 has_children: true
 nav_order: 44
 ---
