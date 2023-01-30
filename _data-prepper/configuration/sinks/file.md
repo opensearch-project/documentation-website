@@ -10,7 +10,7 @@ nav_order: 45
 
 ## Overview
 
-The file sink creates a flat file output.
+Sink for flat file output.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---

@@ -1,14 +1,14 @@
 ---
 layout: default
-title: Migrating from Logstash
-nav_order: 30
+title: Configure Logstash for Data Prepper
+nav_order: 12
 ---
 
-# Migrating from Logstash
+# Configure Logstash for Data Prepper
 
 You can run Data Prepper with a Logstash configuration.
 
-As mentioned in the [Getting started]({{site.url}}{{site.baseurl}}/data-prepper/get-started/) guide, you'll need to configure Data Prepper with a pipeline using a `pipelines.yaml` file.
+As mentioned in the [Getting Started]({{site.url}}{{site.baseurl}}/data-prepper/get-started/) guide, you'll need to configure Data Prepper with a pipeline using a `pipelines.yaml` file.
 
 Alternatively, if you have a Logstash configuration `logstash.conf` to configure Data Prepper instead of `pipelines.yaml`.
 
