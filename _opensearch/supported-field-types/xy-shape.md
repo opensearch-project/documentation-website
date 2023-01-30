@@ -29,6 +29,7 @@ PUT testindex
   }
 }
 ```
+{% include copy-curl.html %}
 
 ## Formats
 
@@ -70,6 +71,7 @@ PUT testindex/_doc/1
   }
 }
 ```
+{% include copy-curl.html %}
 
 Index a point in WKT format:
 
@@ -79,6 +81,7 @@ PUT testindex/_doc/1
   "location" : "POINT (0.5 4.5)"        
 }
 ```
+{% include copy-curl.html %}
 
 ## Linestring
 
@@ -95,6 +98,7 @@ PUT testindex/_doc/2
   }
 }
 ```
+{% include copy-curl.html %}
 
 Index a linestring in WKT format:
 
@@ -104,6 +108,7 @@ PUT testindex/_doc/2
   "location" : "LINESTRING (0.5 4.5, -1.5 2.3)"
 }
 ```
+{% include copy-curl.html %}
 
 ## Polygon
 
@@ -128,6 +133,7 @@ PUT testindex/_doc/3
   }
 }
 ```
+{% include copy-curl.html %}
 
 Index a polygon (triangle) in WKT format:
 
@@ -137,6 +143,7 @@ PUT testindex/_doc/3
   "location" : "POLYGON ((0.5 4.5, 2.5 6.0, 1.5 2.0, 0.5 4.5))"
 }
 ```
+{% include copy-curl.html %}
 
 The polygon may have holes inside. In this case, the `coordinates` field will contain multiple arrays. The first array represents the outer polygon, and each subsequent array represents a hole. Holes are represented as polygons and specified as arrays of coordinates.
 
@@ -164,6 +171,7 @@ PUT testindex/_doc/4
   }
 }
 ```
+{% include copy-curl.html %}
 
 Index a polygon (triangle) with a triangular hole in WKT format:
 
@@ -173,6 +181,8 @@ PUT testindex/_doc/4
   "location" : "POLYGON ((0.5 4.5, 2.5 6.0, 1.5 2.0, 0.5 4.5), (1.0 4.5, 1.5 4.5, 1.5 4.0, 1.0 4.5))"
 }
 ```
+{% include copy-curl.html %}
+
 By default, the vertices of the polygon are traversed in a counterclockwise order. You can define an [`orientation`](#parameters) parameter to specify the vertex traversal order at mapping time:
 
 ```json
@@ -188,6 +198,7 @@ PUT testindex
   }
 }
 ```
+{% include copy-curl.html %}
 
 Subsequently indexed documents can override the `orientation` setting:
 
@@ -206,6 +217,7 @@ PUT testindex/_doc/3
   }
 }
 ```
+{% include copy-curl.html %}
 
 ## Multipoint
 
@@ -225,6 +237,7 @@ PUT testindex/_doc/6
   }
 }
 ```
+{% include copy-curl.html %}
 
 Index a multipoint in WKT format:
 
@@ -234,6 +247,7 @@ PUT testindex/_doc/6
   "location" : "MULTIPOINT (0.5 4.5, 2.5 6.0)"
 }
 ```
+{% include copy-curl.html %}
 
 ## Multilinestring
 
@@ -253,6 +267,7 @@ PUT testindex/_doc/2
   }
 }
 ```
+{% include copy-curl.html %}
 
 Index a linestring in WKT format:
 
@@ -262,6 +277,7 @@ PUT testindex/_doc/2
   "location" : "MULTILINESTRING ((0.5 4.5, 2.5 6.0), (1.5 2.0, 3.5 3.5))"
 }
 ```
+{% include copy-curl.html %}
 
 ## Multipolygon
 
@@ -296,6 +312,7 @@ PUT testindex/_doc/4
   }
 }
 ```
+{% include copy-curl.html %}
 
 Index a multipolygon in WKT format:
 
@@ -305,6 +322,7 @@ PUT testindex/_doc/4
   "location" : "MULTIPOLYGON (((0.5 4.5, 2.5 6.0, 1.5 2.0, 0.5 4.5), (1.0 4.5, 1.5 4.5, 1.5 4.0, 1.0 4.5)), ((2.0 0.0, 1.0 2.0, 3.0 1.0, 2.0 0.0)))"
 }
 ```
+{% include copy-curl.html %}
 
 ## Geometry collection
 
@@ -330,6 +348,7 @@ PUT testindex/_doc/7
   }
 }
 ```
+{% include copy-curl.html %}
 
 Index a geometry collection in WKT format:
 
@@ -339,6 +358,7 @@ PUT testindex/_doc/7
   "location" : "GEOMETRYCOLLECTION (POINT (0.5 4.5), LINESTRING(2.5 6.0, 1.5 2.0))"
 }
 ```
+{% include copy-curl.html %}
 
 ## Envelope
 
@@ -355,6 +375,7 @@ PUT testindex/_doc/2
   }
 }
 ```
+{% include copy-curl.html %}
 
 In WKT format, use `BBOX (minX, maxY, maxX, minY)`.
 
@@ -366,6 +387,7 @@ PUT testindex/_doc/8
   "location" : "BBOX (3.0, 2.0, 6.0, 0.0)"
 }
 ```
+{% include copy-curl.html %}
 
 ## Parameters
 

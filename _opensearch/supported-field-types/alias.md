@@ -28,6 +28,7 @@ PUT movies
   }
 }
 ```
+{% include copy-curl.html %}
 
 ## Parameters
 
@@ -70,6 +71,7 @@ To use an alias in the field capabilities API, specify it in the fields paramete
 ```json
 GET movies/_field_caps?fields=release_date
 ```
+{% include copy-curl.html %}
 
 ## Exceptions
 
@@ -87,3 +89,4 @@ In search and field capabilities wildcard queries, both the original field and t
 ```json
 GET movies/_field_caps?fields=release*
 ```
+{% include copy-curl.html %}

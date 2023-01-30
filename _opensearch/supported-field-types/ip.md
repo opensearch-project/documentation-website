@@ -29,6 +29,7 @@ PUT testindex
   }
 }
 ```
+{% include copy-curl.html %}
 
 Index a document with an IP address:
 
@@ -38,6 +39,7 @@ PUT testindex/_doc/1
   "ip_address" : "10.24.34.0"
 }
 ```
+{% include copy-curl.html %}
 
 Query an index for a specific IP address:
 
@@ -51,6 +53,7 @@ GET testindex/_doc/1
   }
 }
 ```
+{% include copy-curl.html %}
 
 ## Searching for an IP address and its associated network mask
 
@@ -68,6 +71,7 @@ GET testindex/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 #### Example query in IPv6 format
 
@@ -81,6 +85,7 @@ GET testindex/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 If you use an IP address in IPv6 format in a `query_string` query, you need to escape `:` characters because they are parsed as special characters. You can accomplish this by wrapping the IP address in quotation marks and escaping those quotation marks with `\`.
 
@@ -94,6 +99,7 @@ GET testindex/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 ## Parameters
 

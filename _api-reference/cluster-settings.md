@@ -33,6 +33,7 @@ timeout (PUT only) | Time unit | The amount of time to wait for a response from 
 ```json
 GET _cluster/settings?include_defaults=true
 ```
+{% include copy-curl.html %}
 
 #### Sample response
 
@@ -114,6 +115,7 @@ PUT _cluster/settings
    }
 }
 ```
+{% include copy-curl.html %}
 
 For more information about transient settings, persistent settings, and precedence, see [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuration/).
 

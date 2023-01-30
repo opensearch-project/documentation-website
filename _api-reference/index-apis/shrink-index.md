@@ -23,6 +23,7 @@ POST /my-old-index/_shrink/my-new-index
   }
 }
 ```
+{% include copy-curl.html %}
 
 ## Path and HTTP methods
 

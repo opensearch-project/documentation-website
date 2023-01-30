@@ -14,6 +14,7 @@ The get script language API operation retrieves all supported script languages a
 ```json
 GET _script_language
 ```
+{% include copy-curl.html %}
 
 #### Sample response
 
