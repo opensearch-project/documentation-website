@@ -16,6 +16,7 @@ The close index API operation closes an index. Once an index is closed, you cann
 ```json
 POST /sample-index/_close
 ```
+{% include copy-curl.html %}
 
 ## Path and HTTP methods
 

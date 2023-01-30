@@ -30,6 +30,7 @@ POST test-index1/_update_by_query
   }
 }
 ```
+{% include copy-curl.html %}
 
 ## Path and HTTP methods
 

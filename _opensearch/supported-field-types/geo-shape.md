@@ -27,6 +27,7 @@ PUT testindex
   }
 }
 ```
+{% include copy-curl.html %}
 
 ## Formats
 
@@ -68,6 +69,7 @@ PUT testindex/_doc/1
   }
 }
 ```
+{% include copy-curl.html %}
 
 Index a point in WKT format:
 
@@ -77,6 +79,7 @@ PUT testindex/_doc/1
   "location" : "POINT (74.0060 40.7128)"
 }
 ```
+{% include copy-curl.html %}
 
 ## Linestring
 
@@ -93,6 +96,7 @@ PUT testindex/_doc/2
   }
 }
 ```
+{% include copy-curl.html %}
 
 Index a linestring in WKT format:
 
@@ -102,6 +106,7 @@ PUT testindex/_doc/2
   "location" : "LINESTRING (74.0060 40.7128, 71.0589 42.3601)"
 }
 ```
+{% include copy-curl.html %}
 
 ## Polygon
 
@@ -126,6 +131,7 @@ PUT testindex/_doc/3
   }
 }
 ```
+{% include copy-curl.html %}
 
 Index a polygon (triangle) in WKT format:
 
@@ -135,6 +141,7 @@ PUT testindex/_doc/3
   "location" : "POLYGON ((74.0060 40.7128, 71.0589 42.3601, 73.7562 42.6526, 74.0060 40.7128))"
 }
 ```
+{% include copy-curl.html %}
 
 The polygon may have holes inside. In this case, the `coordinates` field will contain multiple arrays. The first array represents the outer polygon, and each subsequent array represents a hole. Holes are represented as polygons and specified as arrays of coordinates.
 
@@ -162,6 +169,7 @@ PUT testindex/_doc/4
   }
 }
 ```
+{% include copy-curl.html %}
 
 Index a polygon (triangle) with a triangular hole in WKT format:
 
@@ -171,6 +179,7 @@ PUT testindex/_doc/4
   "location" : "POLYGON ((40.7128 74.0060, 42.3601 71.0589, 42.6526 73.7562, 40.7128 74.0060), (41.7658 72.6734, 41.5623 72.6506, 41.5582 73.0515, 41.7658 72.6734))"
 }
 ```
+{% include copy-curl.html %}
 
 In OpenSearch, you can specify a polygon by listing its vertices clockwise or counterclockwise. This works well for polygons that do not cross the date line (are narrower than 180&deg;). However, a polygon that crosses the date line (is wider than 180&deg;) might be ambiguous because  WKT does not impose a specific order on vertices. Thus, you must specify polygons that cross the date line by listing their vertices counterclockwise. 
 
@@ -189,6 +198,7 @@ PUT testindex
   }
 }
 ```
+{% include copy-curl.html %}
 
 Subsequently indexed documents can override the `orientation` setting:
 
@@ -207,6 +217,7 @@ PUT testindex/_doc/3
   }
 }
 ```
+{% include copy-curl.html %}
 
 ## Multipoint
 
@@ -226,6 +237,7 @@ PUT testindex/_doc/6
   }
 }
 ```
+{% include copy-curl.html %}
 
 Index a multipoint in WKT format:
 
@@ -235,6 +247,7 @@ PUT testindex/_doc/6
   "location" : "MULTIPOINT (74.0060 40.7128, 71.0589 42.3601)"
 }
 ```
+{% include copy-curl.html %}
 
 ## Multilinestring
 
@@ -254,6 +267,7 @@ PUT testindex/_doc/2
   }
 }
 ```
+{% include copy-curl.html %}
 
 Index a linestring in WKT format:
 
@@ -263,6 +277,7 @@ PUT testindex/_doc/2
   "location" : "MULTILINESTRING ((74.0060 40.7128, 71.0589 42.3601), (73.7562 42.6526, 72.6734 41.7658))"
 }
 ```
+{% include copy-curl.html %}
 
 ## Multipolygon
 
@@ -297,6 +312,7 @@ PUT testindex/_doc/4
   }
 }
 ```
+{% include copy-curl.html %}
 
 Index a multipolygon in WKT format:
 
@@ -306,8 +322,7 @@ PUT testindex/_doc/4
   "location" : "MULTIPOLYGON (((40.7128 74.0060, 42.3601 71.0589, 42.6526 73.7562, 40.7128 74.0060), (41.7658 72.6734, 41.5623 72.6506, 41.5582 73.0515, 41.7658 72.6734)), ((73.9776 40.7614, 73.9554 40.7827, 73.9631 40.7812, 73.9776 40.7614)))"
 }
 ```
-
-
+{% include copy-curl.html %}
 
 ## Geometry collection
 
@@ -333,6 +348,7 @@ PUT testindex/_doc/7
   }
 }
 ```
+{% include copy-curl.html %}
 
 Index a geometry collection in WKT format:
 
@@ -342,6 +358,7 @@ PUT testindex/_doc/7
   "location" : "GEOMETRYCOLLECTION (POINT (74.0060 40.7128), LINESTRING(73.7562 42.6526, 72.6734 41.7658))"
 }
 ```
+{% include copy-curl.html %}
 
 ## Envelope
 
@@ -358,6 +375,7 @@ PUT testindex/_doc/2
   }
 }
 ```
+{% include copy-curl.html %}
 
 In WKT format, use `BBOX (minLon, maxLon, maxLat, minLat)`.
 
@@ -369,6 +387,7 @@ PUT testindex/_doc/8
   "location" : "BBOX (71.0589, 74.0060, 42.3601, 40.7128)"
 }
 ```
+{% include copy-curl.html %}
 
 ## Parameters
 

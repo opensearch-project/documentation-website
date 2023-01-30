@@ -26,6 +26,7 @@ The following request deletes the `my-opensearch-repo` repository:
 ````json
 DELETE _snapshot/my-opensearch-repo
 ````
+{% include copy-curl.html %}
 
 #### Sample response
 
