@@ -15,6 +15,7 @@ The cluster stats API operation returns statistics about your cluster.
 ```json
 GET _cluster/stats/nodes/_cluster_manager
 ```
+{% include copy-curl.html %}
 
 ## Path and HTTP methods
 

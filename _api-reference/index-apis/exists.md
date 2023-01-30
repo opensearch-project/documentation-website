@@ -16,6 +16,7 @@ The index exists API operation returns whether or not an index already exists.
 ```json
 HEAD /sample-index
 ```
+{% include copy-curl.html %}
 
 ## Path and HTTP methods
 

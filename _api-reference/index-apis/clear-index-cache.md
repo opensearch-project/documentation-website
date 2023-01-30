@@ -46,6 +46,7 @@ The following request clears the fields cache only:
 ````json
 POST /my-index/_cache/clear?fielddata=true
 ````
+{% include copy-curl.html %}
 
 <hr />
 
@@ -54,6 +55,7 @@ The following request clears the query cache only:
 ````json
 POST /my-index/_cache/clear?query=true
 ````
+{% include copy-curl.html %}
 
 <hr />
 
@@ -62,6 +64,7 @@ The following request clears the request cache only:
 ````json
 POST /my-index/_cache/clear?request=true
 ````
+{% include copy-curl.html %}
 
 ##### Clear the cache for specific fields
 
@@ -70,6 +73,7 @@ The following request clears the fields caches of `fielda` and `fieldb`:
 ````json
 POST /my-index/_cache/clear?fields=fielda,fieldb
 ````
+{% include copy-curl.html %}
 
 ##### Clear caches for specific data streams and indexes
 
@@ -78,6 +82,7 @@ The following request clears the cache for two specific indexes:
 ````json
 POST /my-index,my-index2/_cache/clear
 ````
+{% include copy-curl.html %}
 
 ##### Clear caches for all data streams and indexes
 
@@ -86,6 +91,7 @@ The following request clears the cache for all data streams and indexes:
 ````json
 POST /_cache/clear
 ````
+{% include copy-curl.html %}
 
 #### Sample response
 

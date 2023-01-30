@@ -33,6 +33,7 @@ PUT testindex1/_mappings
     }
 }
 ```
+{% include copy-curl.html %}
 
 Index a document with an object field:
 
@@ -45,6 +46,7 @@ PUT testindex1/_doc/1
   } 
 }
 ```
+{% include copy-curl.html %}
 
 Nested objects are stored as flat key/value pairs internally. To refer to a field in a nested object, use `parent field`.`child field` (for example, `patient.id`).
 
@@ -60,6 +62,7 @@ GET testindex1/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 ## Parameters
 
@@ -92,6 +95,7 @@ PUT testindex1/_mappings
     }
 }
 ```
+{% include copy-curl.html %}
 
 Then you index a document with a new `id` field in `patient`:
 
@@ -104,6 +108,7 @@ PUT testindex1/_doc/1
   } 
 }
 ```
+{% include copy-curl.html %}
 
 As a result, the field `id` is added to the mappings:
 

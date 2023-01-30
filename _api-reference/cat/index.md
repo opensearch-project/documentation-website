@@ -21,6 +21,7 @@ To see the available operations in the CAT API, use the following command:
 ```
 GET _cat
 ```
+{% include copy-curl.html %}
 
 ## Optional query parameters
 
@@ -45,6 +46,7 @@ To query aliases and get verbose output that includes all column headings in the
 ```json
 GET _cat/aliases?v
 ```
+{% include copy-curl.html %}
 
 The response provides more details, such as names of each column in the response. 
 

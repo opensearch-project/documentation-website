@@ -30,6 +30,7 @@ POST opensearch_dashboards_sample_data_ecommerce/_search?explain=true
   }
 }
 ```
+{% include copy-curl.html %}
 
 More often, you want the output for a single document. In that case, specify the document ID in the URL:
 
@@ -43,6 +44,7 @@ POST opensearch_dashboards_sample_data_ecommerce/_explain/EVz1Q3sBgg5eWQP6RSte
   }
 }
 ```
+{% include copy-curl.html %}
 
 ## Path and HTTP methods
 
