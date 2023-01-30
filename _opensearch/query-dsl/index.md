@@ -24,8 +24,7 @@ OpenSearch supports the following query DSL query type categories:
 
 - **Full-text queries** – To search documents for one or more terms and filter with advanced options. These queries return detailed information including relevance scores per document match, and perform text analysis. To learn more, see [Full-text queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/).
 
-- **Geographic and shape queries** – To create geographic queries to support either 
-queries to search two-dimensional geometries that map out cartesian data such as `xy_point` field that supports x and y pairs and `xy_shape` field that support points, lines, circles and polygon shapes. To learn more, see [Geographic and shape queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/geo-and-shape/).
+- **Geographic and cartesian shape queries** – To search documents that include geopoint field data, or to search two-dimensional geometries that map out cartesian data such as the `xy_point` field that supports x and y pairs and the `xy_shape` field that supports points, lines, circles and polygon shapes. To learn more, see [Geographic and shape queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/geo-and-shape/).
 
 - **Joining queries** – To perform `nested`, `has_child`, `has_parent`, and `parent_id` queries.
 

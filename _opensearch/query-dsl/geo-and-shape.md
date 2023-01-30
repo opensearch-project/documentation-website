@@ -11,7 +11,7 @@ You can search multiple dimensions with the geographic and cartesian shape queri
 
 ## Cartesian shape queries
 
-You can create queries to search two-dimensional geometries that map out cartesian data such as `xy_point` field that supports x and y pairs and `xy_shape` field that supports points, lines, circles and polygon shapes. These queries return documents that contain two-dimensional coordinates in `xy_point` or `xy_shape` fields. To learn more, see [xy queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/xy/).
+You can create queries to search two-dimensional geometries that map out cartesian data such as the `xy_point` field that supports x and y pairs and the `xy_shape` field that supports points, lines, circles and polygon shapes. These queries return documents that contain two-dimensional coordinates in `xy_point` or `xy_shape` fields. To learn more, see [xy queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/xy/).
 ## Geographic queries
 
 You can use the following geographic queries to search documents that include geopoint field data:
