@@ -75,6 +75,7 @@ author:
   - David ANDRE
 status: experimental
 ```
+{% include copy.html %}
 
 1. To begin, select the **Import rule** button in the upper-right corner of the page. The Import rule page opens.
 1. Either drag a YAML-formatted Sigma rule into the window or browse for the file by selecting the link and opening it. The Import a rule window opens and the rule definition fields are automatically populated in both the Visual Editor and YAML Editor.
