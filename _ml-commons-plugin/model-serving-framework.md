@@ -1,13 +1,13 @@
 ---
 layout: default
 title: Model-serving framework 
-has_children: false
+has_children: true
 nav_order: 110
 ---
 
 # Model-serving framework
 
-The Model-serving framework is an experimental feature. For updates on the progress of the Neural Search plugin, or if you want to leave feedback that could help improve the feature, join the discussion in the [Model-serving framework forum](https://forum.opensearch.org/t/feedback-machine-learning-model-serving-framework-experimental-release/11439).    
+The model-serving framework is an experimental feature. For updates on the progress of the model-serving framework, or if you want to leave feedback that could help improve the feature, join the discussion in the [Model-serving framework forum](https://forum.opensearch.org/t/feedback-machine-learning-model-serving-framework-experimental-release/11439).    
 {: .warning}
 
 ML Commons allows you to serve custom models and use those models to make inferences. For those who want to run their PyTorch deep learning model inside an OpenSearch cluster, you can upload and run that model with the ML Commons REST API.
@@ -25,13 +25,19 @@ As of OpenSearch 2.4, the model-serving framework only supports text embedding m
 
 ### Model format
 
-To use a model in OpenSearch, you'll need to export the model into a portable format. As of Version 2.4, OpenSearch only supports the [TorchScript](https://pytorch.org/docs/stable/jit.html) format.
+To use a model in OpenSearch, you'll need to export the model into a portable format. As of Version 2.5, OpenSearch only supports the [TorchScript](https://pytorch.org/docs/stable/jit.html) and [ONNX](https://onnx.ai/) formats.
 
 Furthermore, files must be saved as zip files before upload. Therefore, to ensure that ML Commons can upload your model, compress your TorchScript file before uploading. You can download an example file [here](https://github.com/opensearch-project/ml-commons/blob/2.x/ml-algorithms/src/test/resources/org/opensearch/ml/engine/algorithms/text_embedding/all-MiniLM-L6-v2_torchscript_sentence-transformer.zip).
 
+
+
 ### Model size
 
-Most deep learning models are over 100 MBs, making it difficult to fit the model into a single document. OpenSearch splits the model file into smaller chunks to be stored in a model index. When allocating machine learning (ML) or data nodes for your OpenSearch cluster, be aware of the size of your model to prevent any downtime when making inferences. 
+Most deep learning models are more than 100 MB, making it difficult to fit them into a single document. OpenSearch splits the model file into smaller chunks to be stored in a model index. When allocating machine learning (ML) or data nodes for your OpenSearch cluster, make sure you correctly size your ML nodes so that you have enough memory when making ML inferences.
+
+## GPU acceleration
+
+To achieve better performance within the model-serving framework, you can take advantage of GPU acceleration on your ML node. For more information, see [GPU acceleration]({{site.url}}{{site.baseurl}}/ml-commons-plugin/gpu-acceleration/).
 
 
 ## Upload model to OpenSearch

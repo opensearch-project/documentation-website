@@ -20,6 +20,7 @@ public class Student
     public double Gpa { get; init; }
 }
 ```
+{% include copy.html %}
 
 ## Mappings
 
@@ -31,6 +32,7 @@ Similarly, OpenSearch.Client uses auto mapping to infer field data types based o
 var createResponse = await osClient.Indices.CreateAsync("students",
     c => c.Map(m => m.AutoMap<Student>()));
 ```
+{% include copy.html %}
 
 If you use auto mapping, Id and GradYear are mapped as integers, Gpa is mapped as a double, and FirstName and LastName are mapped as text with a keyword subfield. If you want to search for FirstName and LastName and allow only case-sensitive full matches, you can suppress analyzing by mapping these fields as keyword only. In Query DSL, you can accomplish this using the following query:
 
@@ -59,6 +61,7 @@ var createResponse = await osClient.Indices.CreateAsync(index,
                 .Keyword(k => k.Name(f => f.FirstName))
                 .Keyword(k => k.Name(f => f.LastName)))));
 ```
+{% include copy.html %}
 
 ## Settings
 
@@ -94,6 +97,7 @@ var createResponse = await osClient.Indices.CreateAsync(index,
                             .Keyword(k => k.Name(f => f.LastName))))
                             .Settings(s => s.NumberOfShards(1).NumberOfReplicas(2)));
 ```
+{% include copy.html %}
 
 ## Indexing multiple documents using the Bulk API
 
@@ -114,6 +118,7 @@ var bulkAll = osClient.BulkAll(ReadData(), r => r
             .MaxDegreeOfParallelism(4)
             .Size(100));
 ```
+{% include copy.html %}
 
 ## Searching with Boolean query
 
@@ -131,6 +136,7 @@ var gradResponse = await osClient.SearchAsync<Student>(s => s
                         .Term(t => t.Field(fld => fld.GradYear).Value(2022)))))
                         .Sort(srt => srt.Ascending(f => f.LastName)));
 ```
+{% include copy.html %}
 
 The response contains the Documents property with matching documents from OpenSearch. The data is in the form of deserialized JSON objects of Student type, so you can access their properties in a strongly typed fashion. All serialization and deserialization is handled by OpenSearch.Client.
 
@@ -149,6 +155,7 @@ var aggResponse = await osClient.SearchAsync<Student>(s => s
                                 .Average("average gpa", 
                                             avg => avg.Field(fld => fld.Gpa))));
 ```
+{% include copy.html %}
 
 ## Sample program for creating an index and indexing data
 
@@ -215,6 +222,7 @@ internal class Program
     }
 }
 ```
+{% include copy.html %}
 
 ## Sample program for search
 
@@ -317,3 +325,4 @@ internal class Program
     }
 }
 ```
+{% include copy.html %}

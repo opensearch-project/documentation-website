@@ -25,12 +25,15 @@ To edit a detector, begin by selecting the link to the detector in the Detector 
 * In the upper-right corner of the window, you can select **View alerts** to go to the Alerts window or **View findings** to go to the Findings window. You can also select **Actions** to perform actions for the detector. See [Detector actions]({{site.url}}{{site.baseurl}}/security-analytics/usage/detectors/#detector-actions).
 * In the lower portion of the window, select the **Edit** button for either Detector details or Detection rules to make changes accordingly.
 * Finally, you can select the **Field mappings** tab to edit field mappings for the detector, or select the **Alert triggers** tab to make edits to alerts associated with the detector.
-<img src="{{site.url}}{{site.baseurl}}/images/Security/detector-details2.png" alt="Field mappings and Alert triggers tabs" width="400">
+<br><img src="{{site.url}}{{site.baseurl}}/images/Security/detector-details2.png" alt="Field mappings and Alert triggers tabs" width="400">
+
+    After you select the **Alert triggers** tab, you also have the option to add additional alerts for the detector by selecting **Add another alert condition** at the bottom of the page.
+    {: .tip }
 
 ## Detector actions
 
 Threat detector actions allow you to stop and start detectors or delete a detector. To enable actions, first select the checkbox beside one or more detectors in the list.
-<img src="{{site.url}}{{site.baseurl}}/images/Security/detector-action.png" alt="Threat detector actions" width="500">
+<br><img src="{{site.url}}{{site.baseurl}}/images/Security/detector-action.png" alt="Threat detector actions" width="500">
 
 ### Changing detector status
 

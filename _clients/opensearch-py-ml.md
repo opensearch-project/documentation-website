@@ -14,7 +14,7 @@ nav_order: 11
 
 ## Prerequisites 
 
-To use `opensearch-py-ml`, install the [OpenSearch Python client]({{site.url}}{{site.baseurl}}/clients/python#setup). The Python client allows OpenSearch to use the Python syntax required to run DataFrames in `opensearch-py-ml`.
+To use `opensearch-py-ml`, install the [OpenSearch Python client]({{site.url}}{{site.baseurl}}/clients/python-low-level#setup). The Python client allows OpenSearch to use the Python syntax required to run DataFrames in `opensearch-py-ml`.
 
 ## Install `opensearch-py-ml`
 
@@ -23,6 +23,7 @@ To add the client to your project, install it using [pip](https://pip.pypa.io/):
 ```bash
 pip install opensearch-py-ml
 ```
+{% include copy.html %}
 
 Then import the client into OpenSearch like any other module:
 
@@ -30,6 +31,7 @@ Then import the client into OpenSearch like any other module:
 from opensearchpy import OpenSearch
 import openseach_py_ml as oml
 ```
+{% include copy.html %}
 
 ## API reference
 

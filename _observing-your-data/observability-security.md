@@ -13,7 +13,7 @@ You can use the security plugin with Observability in OpenSearch to limit non-ad
 
 ## Basic permissions
 
-The security plugin has two built-in roles that cover most Observability use cases: `observability_full_access` and `observability_read_access`. For descriptions of each, see [Predefined roles]({{site.url}}{{site.baseurl}}/security-plugin/access-control/users-roles#predefined-roles). If you don't see these predefined roles in OpenSearch Dashboards, you can create them with the following commands:
+The security plugin has two built-in roles that cover most Observability use cases: `observability_full_access` and `observability_read_access`. For descriptions of each, see [Predefined roles]({{site.url}}{{site.baseurl}}/security/access-control/users-roles#predefined-roles). If you don't see these predefined roles in OpenSearch Dashboards, you can create them with the following commands:
 
 ```json
 PUT _plugins/_security/api/roles/observability_read_access
@@ -33,7 +33,7 @@ PUT _plugins/_security/api/roles/observability_full_access
 }
 ```
 
-If these roles don't meet your needs, mix and match individual Observability [permissions]({{site.url}}{{site.baseurl}}/security-plugin/access-control/permissions/) to suit your use case. For example, the `cluster:admin/opensearch/observability/create` permission lets you create Observability objects (visualizations, operational panels, notebooks, etc.).
+If these roles don't meet your needs, mix and match individual Observability [permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/) to suit your use case. For example, the `cluster:admin/opensearch/observability/create` permission lets you create Observability objects (visualizations, operational panels, notebooks, etc.).
 
 The following is an example role that provides access to Observability:
 

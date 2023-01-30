@@ -28,10 +28,10 @@ With OpenSearch, you can perform the following use cases:
 <table style="table-layout: auto ; width: 100%;">
 <tbody>
 <tr style="text-align: center; vertical-align:center;">
-<td><img src="{{site.url}}{{site.baseurl}}/images/1_search.png" alt="Fast, scalable full-text search" height="100"/></td>
-<td><img src="{{site.url}}{{site.baseurl}}/images/2_monitoring.png" alt="Application and infrastructure monitoring" height="100"/></td>
-<td><img src="{{site.url}}{{site.baseurl}}/images/3_security.png" alt="Security and event information management" height="100"/></td>
-<td><img src="{{site.url}}{{site.baseurl}}/images/4_tracking.png" alt="Operational health tracking" height="100"/></td>
+<td><img src="{{site.url}}{{site.baseurl}}/images/1_search.png" class="no-border" alt="Fast, scalable full-text search" height="100"/></td>
+<td><img src="{{site.url}}{{site.baseurl}}/images/2_monitoring.png" class="no-border" alt="Application and infrastructure monitoring" height="100"/></td>
+<td><img src="{{site.url}}{{site.baseurl}}/images/3_security.png" class="no-border" alt="Security and event information management" height="100"/></td>
+<td><img src="{{site.url}}{{site.baseurl}}/images/4_tracking.png" class="no-border" alt="Operational health tracking" height="100"/></td>
 </tr>
 <tr style="text-align: left; vertical-align:top; font-weight: bold; color: rgb(0,59,92)">
 <td>Fast, Scalable Full-text Search</td>
@@ -62,7 +62,7 @@ OpenSearch has several features and plugins to help index, secure, monitor, and 
 
 
 ## The secure path forward
-OpenSearch includes a demo configuration so that you can get up and running quickly, but before using OpenSearch in a production environment, you must [configure the security plugin manually]({{site.url}}{{site.baseurl}}/security-plugin/configuration/index/) with your own certificates, authentication method, users, and passwords.
+OpenSearch includes a demo configuration so that you can get up and running quickly, but before using OpenSearch in a production environment, you must [configure the security plugin manually]({{site.url}}{{site.baseurl}}/security/configuration/index/) with your own certificates, authentication method, users, and passwords.
 
 ## Looking for the Javadoc?
 

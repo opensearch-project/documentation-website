@@ -12,18 +12,18 @@ redirect_from:
 
 # Data Prepper
 
-Data Prepper is a server side data collector capable of filtering, enriching, transforming, normalizing and aggregating data for downstream analytics and visualization.
+Data Prepper is a server-side data collector capable of filtering, enriching, transforming, normalizing, and aggregating data for downstream analytics and visualization.
 
 Data Prepper lets users build custom pipelines to improve the operational view of applications. Two common uses for Data Prepper are trace and log analytics. [Trace analytics]({{site.url}}{{site.baseurl}}/observing-your-data/trace/index/) can help you visualize the flow of events and identify performance problems, and [log analytics]({{site.url}}{{site.baseurl}}/observing-your-data/log-analytics/) can improve searching, analyzing and provide insights into your application.
 
 ## Concepts
 
-Data Prepper is composed of one or more **Pipelines** that collect and filter data based on the components set within the pipeline. Each component is pluggable, enabling you to use your own custom implementation of each component. These components include the following: 
+Data Prepper is composed of one or more **pipelines** that collect and filter data based on the components set within the pipeline. Each component is pluggable, enabling you to use your own custom implementation of each component. These components include the following: 
 
 - One [source](#source)
 - One or more [sinks](#sink)
 - (Optional) One [buffer](#buffer)
-- (Optional) One or more[processors](#processor)
+- (Optional) One or more [processors](#processor)
 
 A single instance of Data Prepper can have one or more pipelines. 
 
@@ -88,5 +88,5 @@ sample-pipeline:
 
 ## Next steps
 
-To get started building your own custom pipelines with Data Prepper, see the [Get Started]({{site.url}}{{site.baseurl}}/clients/data-prepper/get-started/) guide.
+To get started building your own custom pipelines with Data Prepper, see [Getting started]({{site.url}}{{site.baseurl}}/clients/data-prepper/get-started/).
 
