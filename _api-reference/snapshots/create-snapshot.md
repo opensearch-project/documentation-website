@@ -53,6 +53,7 @@ The following request creates a snapshot called `my-first-snapshot` in an S3 rep
 ```json
 POST _snapshot/my-s3-repository/my-first-snapshot
 ```
+{% include copy-curl.html %}
 
 ##### Request with a body
 
@@ -67,6 +68,7 @@ PUT _snapshot/my-s3-repository/2
   "partial": false
 }
 ```
+{% include copy-curl.html %}
 
 #### Sample responses
 
@@ -120,6 +122,7 @@ The snapshot definition is returned.
   }
 }
 ```
+
 #### Response fields
 
 | Field | Data Type | Description |

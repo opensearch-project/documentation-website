@@ -75,6 +75,8 @@ PUT _scripts/my-first-script
   }
 }
 ````
+{% include copy.html %}
+
 The example above uses the syntax of the Dev Tools console in OpenSearch Dashboards. You can also use a curl request.
 {: .note }
 
@@ -89,6 +91,7 @@ curl -XPUT "http://opensearch:9200/_scripts/my-first-script" -H 'Content-Type: a
   }
 }'
 ````
+{% include copy.html %}
 
 See [Execute Painless stored script]({{site.url}}{{site.baseurl}}/api-reference/script-apis/exec-stored-script/) for information about running the script.
 
