@@ -14,6 +14,7 @@ The nodes hot threads endpoint provides information about busy JVM threads for s
 ```json
 GET /_nodes/hot_threads
 ```
+{% include copy-curl.html %}
 
 ## Path and HTTP methods
 
@@ -48,6 +49,7 @@ timeout | Time | Sets the time limit for node response. Default value is `30s`.
 ```json
 GET /_nodes/hot_threads
 ```
+{% include copy-curl.html %}
 
 #### Sample response
 

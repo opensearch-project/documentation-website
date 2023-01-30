@@ -14,6 +14,7 @@ If you no longer want to use an ingest pipeline, use the delete ingest pipeline 
 ```
 DELETE _ingest/pipeline/12345
 ```
+{% include copy-curl.html %}
 
 ## Path and HTTP methods
 

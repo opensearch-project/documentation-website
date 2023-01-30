@@ -78,6 +78,7 @@ PUT /sample-index/_mapping
   }
 }
 ```
+{% include copy-curl.html %}
 
 #### Sample Response
 
