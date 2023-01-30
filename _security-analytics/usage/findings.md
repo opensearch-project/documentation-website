@@ -15,19 +15,19 @@ You can select the **Refresh** button at any time to refresh information on the 
 
 ## The Findings graph
 
-The findings graph can display findings by log type or rule severity. Use the **Group by** dropdown menu to specify either log type or rule severity.
+The findings graph can display findings by log type or rule severity. Use the **Group by** dropdown list to specify either log type or rule severity.
 
-To specify the date range you would like the graph to display, first select the calendar dropdown menu. The date selector window opens.
-<img src="{{site.url}}{{site.baseurl}}/images/Security/find-date-pick.png" alt="Date selector for findings graph">
+To specify the date range you would like the graph to display, first select the calendar dropdown list. The date selector window opens.
+<br><img src="{{site.url}}{{site.baseurl}}/images/Security/find-date-pick.png" alt="Date selector for findings graph" width="55%">
 
 You can use the **Quick select** settings to specify an exact window of time.
 * Select either **Last** or **Next** in the first dropdown menu to set the window of time behind the current setting or ahead of the current setting.
 * Select a number in the second dropdown menu to define a value for the range.
 * Select a unit of time in the third dropdown menu. Available options are seconds, minutes, hours, days, weeks, months, and years.
 Select the **Apply** button to apply the range of dates to the graph. Information on the graph changes accordingly.
-<img src="{{site.url}}{{site.baseurl}}/images/Security/quickset.png" alt="Quick select settings example">
+<br><img src="{{site.url}}{{site.baseurl}}/images/Security/quickset.png" alt="Quick select settings example" width="40%">
 <br>You can use the left and right arrows to move the window of time behind the current range of dates or ahead of the current range of dates. When you use these arrows, the start date and end date appear in the date range field. You can then select each one to set an absolute, relative, or current date and time. For absolute and relative changes, select the **Update** button to apply the changes.
-<img src="{{site.url}}{{site.baseurl}}/images/Security/date-pick.png" alt="Altering date range">
+<br><img src="{{site.url}}{{site.baseurl}}/images/Security/date-pick.png" alt="Altering date range" width="55%">
 
 As an alternative, you can select an option in the **Commonly used** section (see the preceding image of the calendar dropdown menu) to conveniently set a window of time. Options include date ranges such as **Today**, **Yesterday**, **this week**, and **week to date**. 
 
@@ -38,7 +38,7 @@ As one more alternative, you can select an option from the **Recently used date 
 ## The Findings list
 
 The Findings list displays all findings according to time of the finding, the finding ID, the rule name that generated the finding, the detector that captured the finding, and other details.
-<img src="{{site.url}}{{site.baseurl}}/images/Security/finding-list.png" alt="A list of all findings">
+<br><img src="{{site.url}}{{site.baseurl}}/images/Security/finding-list.png" alt="A list of all findings" width="85%">
 Use the **Rule severity** dropdown menu to filter the list of findings by severity. Use the **log type** dropdown menu to filter the list by log type.
 Each finding in the list includes a finding ID. You can select the ID to open the Finding details pane, which describes the finding by parameters defined when creating the detector.
 The Actions column includes two options for each finding:
