@@ -82,7 +82,7 @@ You can save your search to use it later, generate a report, or build visualizat
 1. Give the search a title, and then select **Save**.## 
 1. Select the save icon to access the saved search. 
 
-![Save search interface]({{site.url}}{{site.baseurl}}/images/discover-save.png)
+<img src="{{site.url}}{{site.baseurl}}/images/discover-save.png" alt= "Save search interface" width="400" height="400">
 
 ## Visualizing the search
 
@@ -90,8 +90,8 @@ You can quickly visualize an aggregated field from **Discover**.
 
 1. From the **Available fields** list, select `FlightDelayType`, and then select **Visualize**.
 
-![Visualizing search queries from Discover]({{site.url}}{{site.baseurl}}/images/discover-visualize.png)
+<img src="{{site.url}}{{site.baseurl}}/images/discover-visualize.png" alt= "Visualizing search queries from Discover" width="500" height="500">
 
 Dashboards creates a visualization for this field (in this example, a basic bar chart).
 
-![Bar chart created from Discover]({{site.url}}{{site.baseurl}}/images/discover-visualize-2.png)
+<img src="{{site.url}}{{site.baseurl}}/images/discover-visualize-2.png" alt= "Bar chart created from Discover" width="600" height="600">
