@@ -3,7 +3,7 @@ layout: default
 title: Buffers
 parent: Authoring pipelines
 has_children: true
-nav_order: 50
+nav_order: 20
 ---
 
 # Buffers
