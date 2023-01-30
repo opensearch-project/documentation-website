@@ -57,7 +57,7 @@ To learn more about findings, see [Working with findings]({{site.url}}{{site.bas
 
 ### Alerts
 
-When defining a detector, you can specify certain conditions that will trigger an alert. When an event triggers an alert, the system sends a notification to a preferred channel, such as Amazon Chime, Slack, or email. The alert can be triggered when the detector matches one or multiple rules. Further conditions can be set by rule severity and tags. You can also create a notification message with a customized subject line and message body.
+When defining a detector, you can specify certain conditions that will trigger an alert. When an event triggers an alert, the system sends a notification to a channel—such as Chime, Slack, email, etc.—that you specify during configuration of the alert. The alert can be triggered when the detector matches one or multiple rules. Further conditions can be set by rule severity and tags. You can also create a notification message with a customzied subject line and message body.
 
 For information on setting up alerts, see [Step 3. Set up alerts]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/detectors-config/#step-3-set-up-alerts) in detector creation documentation. For information on managing alerts on the Alerts window, see [Working with alerts]({{site.url}}{{site.baseurl}}/security-analytics/usage/alerts/).
 
