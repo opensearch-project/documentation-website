@@ -9,17 +9,19 @@ has_children: true
 
 **Discover** in OpenSearch Dashboards helps you extract insights and get value out of data assets across your organization. Discover enables you to:
 
-1. **Select data.** You can explore, customize, and filter data, as well as search data using the [Dashboards Query Language (DQL)]({{site.url}}{{site.baseurl}}/dashboards/dql/).
+1. **Select data.** You can explore, customize, and filter data, as well as search data using [Dashboards Query Language (DQL)]({{site.url}}{{site.baseurl}}/dashboards/dql/).
 2. **Explore the data.** You can analyze data details, view individual documents, and create tables summarizing data contents.
-3. **Visualize data.** You can display findings from your saved searches in a single dashboard showing different data visualization types.
+3. **Visualize data.** You can display findings from your saved searches in a single dashboard that combines different data visualization types.
 
 ## Try it: Exploring sample data with Discover
 
 This tutorial shows you how to use Discover to analyze and understand a sample data set. At the end of this tutorial, you should be ready to use Discover with your own data.
 
-Before continuing this tutorial, make sure you've added the **Sample flight data**. See [OpenSearch Dashboards Quickstart]() for more details on getting started.
+Before starting this tutorial, make sure you've added the **Sample flight data**. See [Quickstart for OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/quickstart/) for details about how to get started.
 {: .warning}
 ### Setting up data
+
+Watch the following short video or start with the tutorial steps to learn how to set up a sample data set in Discover.
 
 ![Setting up the sample data in Discover]({{site.url}}{{site.baseurl}}/images/discover-setting-up-data.gif)
 
