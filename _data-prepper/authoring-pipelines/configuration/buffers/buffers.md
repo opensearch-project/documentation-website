@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Buffers
-parent: Configuring Data Prepper
+parent: Authoring pipelines
 has_children: true
 nav_order: 50
 ---

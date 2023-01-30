@@ -2,7 +2,7 @@
 layout: default
 title: Bounded blocking
 parent: Buffers
-grand_parent: Configuring Data Prepper
+grand_parent: Authoring pipelines
 nav_order: 50
 ---
 
