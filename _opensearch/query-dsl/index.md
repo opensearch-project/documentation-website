@@ -19,22 +19,13 @@ Query DSL provides several query categories. You can even perform more complicat
 OpenSearch supports the following query DSL query type categories:
 
 - **Compound queries** – To perform combined queries with the following query types:
-    - **Boolean** `bool` – Combines several simple query terms by boolean clause rules that act as logical operators.
+    - **Boolean** `bool` – Combines several simple query terms by boolean clause rules that act as logical operators. To learn more, see [Boolean queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/bool/).
     - **Constant score** `constant_score` – Provides a `filter` query with the relevance score as a floating point number assigned by the `boost` field. Acts as a wrapper for the filter.
     - **Disjunction max** `dis_max` – Returns documents that match one or more queries that are wrapped together by clauses. If a document matches multiple query clauses, it gets the highest relevant score assigned to it.
     - **Function score** `function_score` – Modifies the score of documents that are returned by a query. You define a query and one or more functions that each compute a score for each document that matches the query.
-- **Span queries** – To perform queries that provide control over the order and proximity of query terms that you specify. The primary use case is for legal documents. Span queries include the following query types:
-    - **Span containing** `span_containing` – Takes a list of span queries and only returns spans that match a second span query.
-    - **Span field masking** `span_field_masking` – Combines `span_near` or `span_or` across different fields.
-    - **Span first** `span_first` – Combines another span query that returned matches within the first *N* positions of the field.
-    - **Span multi-term** `span_multi-term` – Provides a wrapper around the following query types: `term`, `range`, `prefix`, `wildcard` `regexp` or `fuzzy`.
-    - **Span near** `span_near` – Combines multiple span queries that much match documents in the same order and within the specified distance of each other.
-    - **Span not** `span_not` – Provides a wrapper for another span query and functions to exclude any documents that match the internal query.
-    - **Span or** `span_or` – Provides a wrapper for multiple span queries and includes any documents that match any of the specified queries.
-    - **Span term** `span_term` – Functions the same as a `term` query, but is designed to be used with other span queries.
-    - **Span within** `span_within` – Used with other span queries to returns a single span query result if its span is also within the spans that get returned by the list of other span queries.
-- **Term-level queries** – To search documents for one or more terms, IDs, value ranges, with optional filtering by wildcard or regex. Term-level queries do not sort results by relevance score or analyze search terms.
-- **Full-text queries** – To search documents for one or more terms and filter with advanced options. These queries return detailed information including relevance scores per document match, and perform text analysis.
+- **Span queries** – To perform queries that provide control over the order and proximity of query terms that you specify. The primary use case is for legal documents.  To learn more, see [Span queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/span-query/).
+- **Term-level queries** – To search documents for one or more terms, IDs, value ranges, with optional filtering by wildcard or regex. Term-level queries do not sort results by relevance score or analyze search terms. To learn more, see [Term-level queries]().
+- **Full-text queries** – To search documents for one or more terms and filter with advanced options. These queries return detailed information including relevance scores per document match, and perform text analysis. To learn more, see [Full-text queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/).
 - **Geographic queries** – To perform the following geographic queries that search for documents that include `geo_point` field data:
     - **Geo-bounding box** `geo_bounding_box` – Returns documents with `geo_point` field values that are within a bounding box.
     - **Geo distance** `geo_distance` – Returns documents that contain the geographic points within a specified distance from a central point.
@@ -219,6 +210,6 @@ The examples below illustrate values containing special characters that will be 
 }
 ```
 
-To avoid this circumstance when using either query DSL or the REST API, you can use a custom analyzer or map the field as `keyword`, which performs an exact-match search. See [Keyword field type](https://opensearch.org/docs/2.2/opensearch/supported-field-types/keyword/) for the latter option.
+To avoid this circumstance when using either query DSL or the REST API, you can use a custom analyzer or map the field as `keyword`, which performs an exact-match search. See [Keyword field type]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/keyword/) for the latter option.
 
 For a list of characters that should be avoided when field type is `text`, see [Word Boundaries](https://unicode.org/reports/tr29/#Word_Boundaries).
