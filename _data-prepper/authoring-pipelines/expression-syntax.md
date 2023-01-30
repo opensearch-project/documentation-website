@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Expression syntax
+parent: Authoring pipelines
 nav_order: 40
 ---
 
