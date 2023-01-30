@@ -122,7 +122,7 @@ Your dashboard might look like this:
 
 You have now explored the data sources experimental feature. We look forward to your feedback on how we can improve this feature ahead of its release for production use.
 
-## Understanding the feature's limitations
+## Understanding feature limitations
 
 The following limitations apply to the OpenSearch 2.4 release of this experimental feature:
 
