@@ -12,7 +12,7 @@ redirect_from:
 
 # Query DSL
 
-OpenSearch provides a query domain-specific language (DSL) that you can use to perform customized searches on your data.You can even perform more complicated searches by combining query fields to find more granular data that you need.
+OpenSearch provides a query domain-specific language (DSL) that you can use to perform customized searches on your data. You can even perform more complicated searches by combining query fields to find more granular data that you need.
 
 OpenSearch supports the following query DSL query type categories:
 
@@ -24,15 +24,13 @@ OpenSearch supports the following query DSL query type categories:
 
 - **Full-text queries** – To search documents for one or more terms and filter with advanced options. These queries return detailed information including relevance scores per document match, and perform text analysis. To learn more, see [Full-text queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/).
 
-- **Geographic and shape queries** – To create queries to search two-dimensional geometries that map out cartesian data such as `point` fields that support x and y pairs and `shape` fields that support points, lines, circles and polygon shapes. To learn more, see [Geographic and shape queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/geo-and-shape/).
+- **Geographic and shape queries** – To create geographic queries to support either 
+queries to search two-dimensional geometries that map out cartesian data such as `xy_point` field that supports x and y pairs and `xy_shape` field that support points, lines, circles and polygon shapes. To learn more, see [Geographic and shape queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/geo-and-shape/).
 
 - **Joining queries** – To perform `nested`, `has_child`, `has_parent`, and `parent_id` queries.
 
-- **Parameter queries** – To perform `minimum_should_match` and `rewrite` queries.
-
-- **Query context** – To use the default `relevance_score` returned with a query to indicate how well a document matches a query, or whether or not it matches at all with the following query clauses:
-    - **Query context** – Indicates Boolean query clauses to indicate specifically how well a document matches a query.
-    - **Filter context**  - Returns documents that match the query clause specified by the `filter` parameter to indicate `term` and `range` fields.
+- **Query context** – Indicates Boolean query clauses to indicate specifically how well a document matches a query based on the `relevance_score` returned with a query.
+- **Filter context**  - Returns documents that match the query clause specified by the `filter` parameter to indicate `term` and `range` fields.
 
 - **Query string queries** – To perform complex queries for a string with multiple optional fields using `query_string` syntax. To learn more, see [Query string queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/query-string/).
 
