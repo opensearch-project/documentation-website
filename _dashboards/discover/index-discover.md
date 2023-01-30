@@ -10,8 +10,8 @@ has_children: true
 **Discover** in OpenSearch Dashboards helps you extract insights and get value out of data assets across your organization. Discover enables you to:
 
 1. **Select data.** You can explore, customize, and filter data, as well as search data using [Dashboards Query Language (DQL)]({{site.url}}{{site.baseurl}}/dashboards/dql/).
-2. **Explore the data.** You can analyze data details, view individual documents, and create tables summarizing data contents.
-3. **Visualize data.** You can display findings from your saved searches in a single dashboard that combines different data visualization types.
+1. **Explore the data.** You can analyze data details, view individual documents, and create tables summarizing data contents.
+1. **Visualize data.** You can display findings from your saved searches in a single dashboard that combines different data visualization types.
 
 ## Try it: Exploring sample data with Discover
 
@@ -26,19 +26,19 @@ Watch the following short video or start with the tutorial steps to learn how to
 ![Setting up the sample data in Discover]({{site.url}}{{site.baseurl}}/images/discover-setting-up-data.gif)
 
 1. Verify access to OpenSearch Dashboards by connecting to [http://localhost:5601](http://localhost:5601) from a browser. The default username and password are `admin`. 
-2. On the **Home** page, select **Discover** in the navigation pane.
-3. On the index pattern toolbar, select the **opensearch_dashboards_sample_data_flights** data set.
-4. On the time filter toolbar, select the calendar icon and change the time range to **Last 7 days**.
+1. On the **Home** page, select **Discover** in the navigation pane.
+1. On the index pattern toolbar, select the **opensearch_dashboards_sample_data_flights** data set.
+1. On the time filter toolbar, select the calendar icon and change the time range to **Last 7 days**.
 
 ### Exploring the data fields
 
 In the Discover panel, you'll see a table that shows all the documents that match your search. The table includes a list of data fields that are available in the document table.
 
 1. View the list of **Available fields**.
-2. Select **Cancelled** to view the values (`true` and `false`).
-3. Select the plus sign (+) to add the field to the document table. You'll see this field automatically add to **Selected fields** and the document table.  
-4. Select **FlightDelay** from the **Available fields** list, and then select the plus sign icon to add the field to the document table.
-5. *(Optional)*: Rearrange the table columns by selecting the table header and then **Move left** or **Move right**.
+1. Select **Cancelled** to view the values (`true` and `false`).
+1. Select the plus sign (+) to add the field to the document table. You'll see this field automatically add to **Selected fields** and the document table.  
+1. Select **FlightDelay** from the **Available fields** list, and then select the plus sign icon to add the field to the document table.
+1. Optional: Rearrange the table columns by selecting the table header and then **Move left** or **Move right**.
 
 ![Exploring data fields interface]({{site.url}}{{site.baseurl}}/images/discover-data-fields.png)
 
@@ -48,7 +48,7 @@ You can use the search toolbar or enter a DQL query in the **DevTools** console 
 
 1. In the search toolbar, enter the boolean query. For example, `FlightDelay:true AND FlightDelayMin >= 60` to search the data for flights delayed 60 minutes or longer.
 1. Select **Update**.
-2. (Optional) Select the arrow icon `>` in a table row to expand the row and view the document table details.
+1. Optional: Select the arrow icon `>` in a table row to expand the row and view the document table details.
 
 ![Searching data interface]({{site.url}}{{site.baseurl}}/images/discover-search.png)
 
@@ -60,7 +60,7 @@ Filters allow you to refine sets of documents to subsets of those documents. For
 1. Select **Field > Operator > Value** (for example, `Cancelled > is > true`).
 1. Select **Save**.
 1. To remove the filter, select the close icon `x` next to filter name.
-1. (Optional) Add more filters to further explore the data.  
+1. Optional: Add more filters to further explore the data.  
 
 ![Filtering data interface]({{site.url}}{{site.baseurl}}/images/discover-filter.png)
 
