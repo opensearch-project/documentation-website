@@ -24,6 +24,7 @@ POST /_reindex
    }
 }
 ```
+{% include copy-curl.html %}
 
 ## Path and HTTP methods
 

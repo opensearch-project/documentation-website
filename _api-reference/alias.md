@@ -29,7 +29,6 @@ POST _aliases
         "alias": "old-index-alias"
       }
     }
-
   ]
 }
 ```
