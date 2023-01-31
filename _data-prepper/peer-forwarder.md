@@ -6,11 +6,11 @@ nav_order: 12
 
 # Peer Forwarder
 
-Peer Forwarder is an HTTP service that performs peer forwarding of an `event` between Data Prepper nodes for aggregation. This HTTP service uses a hash-ring approach to aggregate events and determine which Data Prepper node should handle on a given trace before rerouting it to that node. Currently, Peer Forwarder is supported by the `aggregate`, `service_map_stateful`, and `otel_trace_raw` processors.
+Peer Forwarder is an HTTP service that performs peer forwarding of an `event` between Data Prepper nodes for aggregation. This HTTP service uses a hash-ring approach to aggregate events and determine which Data Prepper node should handle on a given trace before rerouting it to that node. Currently, Peer Forwarder is supported by the `aggregate`, `service_map_stateful`, and `otel_trace_raw` [processors]({{site.url}}{{site.baseurl}}/data-prepper/configuration/processors/processors/).
 
-Peer Forwarder groups events based on the identification keys provided by the processors. For `service_map_stateful` and `otel_trace_raw`, the identification key is `traceId` by default and cannot be configured. The `aggregate` processor is configured using the `identification_keys` configuration option. From here, you can specify which keys to use for Peer Forwarder. See [Aggregate Processor page](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/aggregate-processor#identification_keys) for more information about identification keys.
+Peer Forwarder groups events based on the identification keys provided by the supported processors. For `service_map_stateful` and `otel_trace_raw`, the identification key is `traceId` by default and cannot be configured. The `aggregate` processor is configured using the `identification_keys` configuration option. From here, you can specify which keys to use for Peer Forwarder. See [Aggregate Processor page](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/aggregate-processor#identification_keys) for more information about identification keys.
 
-Peer discovery allows Data Prepper to find other nodes that it will communicate with. Currently, peer discovery is currently provided by a static list, a DNS record lookup, or AWS Cloud Map.  
+Peer discovery allows Data Prepper to find other nodes that it will communicate with. Currently, peer discovery is provided by a static list, a DNS record lookup, or anAWS Cloud Map.  
 
 ## Discovery modes
 
@@ -40,7 +40,7 @@ peer_forwarder:
 
 [AWS Cloud Map](https://docs.aws.amazon.com/cloud-map/latest/dg/what-is-cloud-map.html) provides API-based service discovery as well as DNS-based service discovery.
 
-Peer Forwarder can use the API-based service discovery. To support this, you must have an existing namespace configured for API instance discovery. You can create a new one by following the instructions provided by the [AWS Cloud Map documentation](https://docs.aws.amazon.com/cloud-map/latest/dg/working-with-namespaces.html).
+Peer Forwarder can use the API-based service discovery in AWS Cloud Map. To support this, you must have an existing namespace configured for API instance discovery. You can create a new one by following the instructions provided by the [AWS Cloud Map documentation](https://docs.aws.amazon.com/cloud-map/latest/dg/working-with-namespaces.html).
 
 Your Data Prepper configuration needs to include the following:
 * `aws_cloud_map_namespace_name` – Set to your AWS Cloud Map namespace name.
@@ -114,14 +114,14 @@ The following SSL configuration table provides optional SSL configuration values
 | Value | Type | Description |
 | ----- | ---- | ----------- |
 | `ssl` | Boolean | Enables TLS/SSL. Default value is `true`. |
-| `ssl_certificate_file`| String | Representings the SSL certificate chain file path or Amazon Simple Storage Service (Amazon S3) path. The following is an example of an Amazon S3 path: `s3://<bucketName>/<path>`. Defaults to the default certificate file,`config/default_certificate.pem`. See [Default Certificates](https://github.com/opensearch-project/data-prepper/tree/main/examples/certificates) for more information about how the certificate is generated. |
+| `ssl_certificate_file`| String | Represents the SSL certificate chain file path or Amazon Simple Storage Service (Amazon S3) path. The following is an example of an Amazon S3 path: `s3://<bucketName>/<path>`. Defaults to the default certificate file,`config/default_certificate.pem`. See [Default Certificates](https://github.com/opensearch-project/data-prepper/tree/main/examples/certificates) for more information about how the certificate is generated. |
 | `ssl_key_file`| String | Represents the SSL key file path or AWS S3 path. S3 path example `s3://<bucketName>/<path>`. Defaults to `config/default_private_key.pem` which is default private key file. Read more about how the private key file is generated at the [Default Certificates](https://github.com/opensearch-project/data-prepper/tree/main/examples/certificates) page. |
-| `ssl_insecure_disable_verification` | Boolean | that disables the verification of the server's TLS certificate chain. Default value is `false`. |
+| `ssl_insecure_disable_verification` | Boolean | Disables the verification of the server's TLS certificate chain. Default value is `false`. |
 | `ssl_fingerprint_verification_only` | Boolean | Disables the verification of the server's TLS certificate chain and instead verifies only the certificate fingerprint. Default value is `false`. |
 | `use_acm_certificate_for_ssl` | Boolean | Enables TLS/SSL using the certificate and private key from AWS Certificate Manager (ACM). Default value is `false`. |
-| `acm_certificate_arn`| String | Representings the ACM certificate Amazon Resource Name (ARN). The ACM certificate takes precedence over S3 or the local file system certificate. Required if `use_acm_certificate_for_ssl` is set to `true`. |
+| `acm_certificate_arn`| String | Represents the ACM certificate Amazon Resource Name (ARN). The ACM certificate takes precedence over S3 or the local file system certificate. Required if `use_acm_certificate_for_ssl` is set to `true`. |
 | `acm_private_key_password` | String | Represents the ACM private key password that will be used to decrypt the private key. If it's not provided, a random password will be generated. |
-| `acm_certificate_timeout_millis` | Integer |representing the timeout in milliseconds required for ACM to get certificates. Default value is `120000`. |
+| `acm_certificate_timeout_millis` | Integer | Represents the timeout in milliseconds required for ACM to get certificates. Default value is `120000`. |
 | `aws_region` | String | Represents the AWS Region that uses `ACM`, `S3` or `AWS Cloud Map`. Required if `use_acm_certificate_for_ssl` is set to `true` or `ssl_certificate_file`. Also required when the `ssl_key_file` is set to the `AWS S3` path, or if `discovery_mode` is set to `aws_cloud_map`. |
 
 #### Example configuration
