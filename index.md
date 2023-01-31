@@ -7,13 +7,9 @@ redirect_from: /404.html
 permalink: /
 ---
 
-# OpenSearch documentation
+{% include banner.html %}
 
-Welcome to the OpenSearch documentation! With this documentation, you’ll learn how to use OpenSearch &mdash;  the only 100% open-source search, analytics, and visualization suite.
-We have a dedicated and growing number of technical writers who are building our documentation library. We also welcome and encourage community input. To contribute, see the [Contributing](https://opensearch.org/source.html) file. A good place to start is by browsing  issues labeled “_good first issue_.”
-
-
-## Getting started
+# Getting started
 
 - [About OpenSearch]({{site.url}}{{site.baseurl}}/opensearch/)
 - [Quickstart]({{site.url}}{{site.baseurl}}/quickstart/)
