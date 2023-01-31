@@ -18,7 +18,7 @@ Before you get started, make sure you've installed OpenSearch and OpenSearch Das
 
 # Adding sample data
 
-Sample data sets come with visualizations, dashboards, and other tools to help you explore Dashboards before you add your own data. To add sample data, perform the following steps:
+Sample datasets come with visualizations, dashboards, and other tools to help you explore Dashboards before you add your own data. To add sample data, perform the following steps:
 
 1. Verify access to OpenSearch Dashboards by connecting to [http://localhost:5601](http://localhost:5601) from a browser. The default username and password are `admin`.
 1. On the OpenSearch Dashboards **Home** page, select **Add sample data**.
