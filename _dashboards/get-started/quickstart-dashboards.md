@@ -10,7 +10,7 @@ has_children: false
 This quickstart covers the core concepts for getting started with OpenSearch Dashboards. You'll learn how to:
 
 - Add sample data.
-- Explore and inspect data with **Discover**
+- Explore and inspect data with **Discover**.
 - Visualize data with **Dashboard**
 
 Before you get started, make sure you've installed OpenSearch and OpenSearch Dashboards. For information on installation and configuration, see [Install and configure OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/) and [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/).
