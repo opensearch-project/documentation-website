@@ -41,7 +41,7 @@ In [**Discover**](discover/index.md), you can:
 
     <img src="{{site.url}}{{site.baseurl}}/images/last-7--days.png" alt="Time filter interface" width="400"/>
 
-1. To view US-bound flights delayed 60 minutes or longer in a specific region, use the DQL search field:
+1. To view US-bound flights delayed by 60 minutes or more in a specific region, use the DQL search field:
 
     `FlightDelay:true AND DestCountry: US AND FlightDelayMin >= 60`.
 
