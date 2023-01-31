@@ -18,7 +18,7 @@ The following flowchart illustrates the trace analytics workflow, from running O
 
 To monitor trace analytics, you need to set up the following components in your service environment:
 - Add **instrumentation** to your application so it can generate telemetry data and send it to an OpenTelemetry collector.
-- Run an **OpenTelemetry collector** as a sidecar or daemonset for Amazon Elastic Kubernetes Service (Amazon EKS), a sidecar for AMazon Elastic Container Service (Amazon ECS), or an agent on EC2. You should configure the collector to export trace data to Data Prepper. 
+- Run an **OpenTelemetry collector** as a sidecar or daemonset for Amazon Elastic Kubernetes Service (Amazon EKS), a sidecar for Amazon Elastic Container Service (Amazon ECS), or an agent on Amazon Elastic Computer Cloud (Amazon EC2). You should configure the collector to export trace data to Data Prepper. 
 - Deploy **Data Prepper** as the ingestion collector for OpenSearch. Configure it to send the enriched trace data to your OpenSearch cluster or to the Amazon OpenSearch Service domain.
 - Use **OpenSearch Dashboards** to visualize and detect problems in your distributed applications.
 
@@ -37,9 +37,9 @@ The [OpenTelemetry source]({{site.url}}{{site.baseurl}}/data-prepper/configurati
 
 There are three processors for the trace analytics feature:
 
-* *otel_trace_raw* -  The *otel_trace_raw* processor receives the collection of [Span](https://github.com/opensearch-project/data-prepper/blob/fa65e9efb3f8d6a404a1ab1875f21ce85e5c5a6d/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/trace/Span.java) records sent from [otel-trace-source]({{site.url}}{{site.baseurl}}/data-prepper/configuration/sources/otel-trace/), and performs stateful processing when extracting and filling in trace-group-related fields.
-* *otel_trace_group* -  The *otel_trace_group* processor fills in the missing trace-group-related fields in the collection of [Span](https://github.com/opensearch-project/data-prepper/blob/fa65e9efb3f8d6a404a1ab1875f21ce85e5c5a6d/data-prepper-api/src/main/java/com/amazon/dataprepper/model/trace/Span.java) records by looking up the OpenSearch backend.
-* *service_map_stateful* -  The *service_map_stateful* processor performs the required preprocessing for trace data and builds metadata to display the `service-map` dashboards.
+* *otel_trace_raw* - The *otel_trace_raw* processor receives the collection of [Span](https://github.com/opensearch-project/data-prepper/blob/fa65e9efb3f8d6a404a1ab1875f21ce85e5c5a6d/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/trace/Span.java) records sent from [otel-trace-source]({{site.url}}{{site.baseurl}}/data-prepper/configuration/sources/otel-trace/), and performs stateful processing when extracting and filling in trace-group-related fields.
+* *otel_trace_group* - The *otel_trace_group* processor fills in the missing trace-group-related fields in the collection of [Span](https://github.com/opensearch-project/data-prepper/blob/fa65e9efb3f8d6a404a1ab1875f21ce85e5c5a6d/data-prepper-api/src/main/java/com/amazon/dataprepper/model/trace/Span.java) records by looking up the OpenSearch backend.
+* *service_map_stateful* - The *service_map_stateful* processor performs the required preprocessing for trace data and builds metadata to display the `service-map` dashboards.
 
 
 ### OpenSearch sink
@@ -83,20 +83,24 @@ As mentioned in the [setup guide]({{site.url}}{{site.baseurl}}/data-prepper/trac
 
 #### Local disk
 
-Data Prepper uses the local disk to store metadata required for service-map processing, so we recommend storing only the key fields: `traceId`, `spanId`, `parentSpanId`, `spanKind`, `spanName` and `serviceName`. The `service-map` plugin stores only two files, each of which stores `window_duration` seconds of data. As an example, testing with a throughput of `3000 spans/second` resulted in the total disk usage of `4 MB`.
+Data Prepper uses the local disk to store metadata required for service-map processing, so we recommend storing only the key fields: `traceId`, `spanId`, `parentSpanId`, `spanKind`, `spanName`, and `serviceName`. The `service-map` plugin stores only two files, each of which stores `window_duration` seconds of data. As an example, testing with a throughput of `3000 spans/second` resulted in the total disk usage of `4 MB`.
 
 Data Prepper also uses the local disk to write logs. In the most recent version of Data Prepper, you can redirect the logs to your preferred path.
 
 
 ### AWS CloudFormation template and Kubernetes/EKS configuration files
 
-The [AWS CloudFormation](https://github.com/opensearch-project/data-prepper/blob/main/deployment-template/ec2/data-prepper-ec2-deployment-cfn.yaml) template provides a user-friendly mechanism for configuring the scaling attributes described in the [Trace tuning section](#trace-tuning) section.
+<!---Editorial: Are we able to use slashes in headings?--->
+
+The [AWS CloudFormation](https://github.com/opensearch-project/data-prepper/blob/main/deployment-template/ec2/data-prepper-ec2-deployment-cfn.yaml) template provides a user-friendly mechanism for configuring the scaling attributes described in the [Trace tuning](#trace-tuning) section.
 
 The [Kubernetes configuration files](https://github.com/opensearch-project/data-prepper/blob/main/examples/dev/k8s/README.md) and [Amazon EKS configuration files](https://github.com/opensearch-project/data-prepper/blob/main/deployment-template/eks/README.md) are available for configuring these attributes in a cluster deployment.
 
 ### Benchmark tests
 
 The benchmark tests were performed on an `r5.xlarge` EC2 instance with the following configuration:
+
+<!---Editorial: Do we need to specify what the other values represent here? Heap is defined in GB, but the rest of these values aren't.--->
  
  * `buffer_size`: 4096
  * `batch_size`: 256
@@ -171,7 +175,7 @@ To maintain similar ingestion throughput and latency, scale the `buffer_size` an
 
 #### Example: `otel trace`
 
-The following is an example `otel-trace-source` .yaml file with SSL and basic authentication enabled. Note that you need to change your `otel-collector-config.yaml` file to use your own credentials. 
+The following is an example `otel-trace-source` .yaml file with SSL and basic authentication enabled. Note that you will need to change your `otel-collector-config.yaml` file to use your own credentials. 
 
 ```yaml
 source:
@@ -321,7 +325,9 @@ For other configurations available for OpenSearch sinks, see [Data Prepper OpenS
 
 ## OpenTelemetry Collector
 
-You need to run OpenTelemetry Collector in your service environment. Follow the [Getting Started](https://opentelemetry.io/docs/collector/getting-started/#getting-started) guide to install an OpenTelemetry collector.  Ensure that you configure the collector with an exporter configured to your Data Prepper. The following example `otel-collector-config.yaml` receives data from various instrumentations and exports it to Data Prepper.
+You need to run OpenTelemetry Collector in your service environment. Follow the [Getting Started](https://opentelemetry.io/docs/collector/getting-started/#getting-started) guide to install an OpenTelemetry collector.  Ensure that you configure the collector with an exporter configured to your Data Prepper instance. The following example `otel-collector-config.yaml` file receives data from various instrumentations and exports it to Data Prepper.
+
+<!---Editorial: Can we keep "instrumentations" or does it need to be replaced?--->
 
 ### Example otel-collector-config.yaml file
 
@@ -372,5 +378,5 @@ Starting with Data Prepper version 1.4, trace processing uses Data Prepper's eve
 * `otel_trace_raw` replaces `otel_trace_raw_prepper` for event-based spans.
 * `otel_trace_group` replaces `otel_trace_group_prepper` for event-based spans.
 
-In Data Prepper version 2.0,  `otel_trace_source` will only output events. Data Prepper version 2.0 also removes `otel_trace_raw_prepper` and `otel_trace_group_prepper` entirely. To migrate to Data Prepper version 2.0, you can configure your trace pipeline using the event model.
+In Data Prepper version 2.0, `otel_trace_source` will only output events. Data Prepper version 2.0 also removes `otel_trace_raw_prepper` and `otel_trace_group_prepper` entirely. To migrate to Data Prepper version 2.0, you can configure your trace pipeline using the event model.
  
