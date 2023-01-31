@@ -55,7 +55,7 @@ host.keyword:www.example.com and response.keyword:200
 ```
 {% include copy.html %}
 
-The following example shows how to use multiple operators in one query.
+The following example shows how to use multiple operators in one query:
 
 ```
 geo.dest:US or response.keyword:200 and host.keyword:www.example.com
