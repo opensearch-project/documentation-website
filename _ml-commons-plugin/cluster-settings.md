@@ -143,7 +143,7 @@ The default value allows you to upload a model file from any http/https/ftp/loca
 
 ### Setting
 
-The default URL value for this trusted URL setting is not secure. To ensure the security, please use you own regex string to the repostory that contains your models, for example `https://github.com/opensearch-project/ml-commons/blob/2.x/ml-algorithms/src/test/resources/org/opensearch/ml/engine/algorithms/text_embedding/*`.
+The default URL value for this trusted URL setting is not secure. To ensure the security, please use you own regex string to the trusted repository that contains your models, for example `https://github.com/opensearch-project/ml-commons/blob/2.x/ml-algorithms/src/test/resources/org/opensearch/ml/engine/algorithms/text_embedding/*`.
 {: .warning }
 
 
