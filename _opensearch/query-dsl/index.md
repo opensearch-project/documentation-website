@@ -22,7 +22,7 @@ OpenSearch supports the following query DSL query type categories:
     - **Disjunction max** `dis_max` – Returns documents that match one or more queries that are wrapped together by clauses. If a document matches multiple query clauses, it gets the highest relevant score assigned to it.
     - **Function score** `function_score` – Modifies the score of documents that are returned by a query. You define a query and one or more functions to compute a score for each document that matches the query.
 
-- **Full-text queries** – Used to search documents for one or more terms and filter with advanced options. These queries return detailed information including relevance scores per document match, and perform text analysis. To learn more, see [Full-text queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/).
+- **Full-text queries** – Used to search documents for one or more terms and filter with advanced options. These queries perform text analysis and return detailed information, including relevance scores for each document match. To learn more, see [Full-text queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/).
 
 - **Geographic and cartesian shape queries** – Used to search documents that include geographic geopoint field data. Also used to search two-dimensional geometries that map out cartesian data, such as the `xy_point` field that supports x and y pairs and the `xy_shape` field that supports points, lines, circles, and polygon shapes. To learn more, see [Geographic and shape queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/geo-and-shape/).
 
