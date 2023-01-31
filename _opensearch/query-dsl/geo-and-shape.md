@@ -21,5 +21,5 @@ You can search for an xy shape that was previously indexed by defining the shape
 You can use the following geographic queries to search documents that include geopoint field data:
 
 - **Geo-bounding box** `geo_bounding_box` – Returns documents with `geo_point` field values that are within a bounding box. To learn more, see [Geo-bounding box queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/geo-bounding-box/).
-- **Geo distance** `geo_distance` – Returns documents that contain the geographic points within a specified distance from a central point.
+- **Geo distance** `geo_distance` – Returns documents that contain the geographic points within a specified distance from a geopoint.
 - **Geo polygon** `geo_polygon` – Returns documents that contain the specified geographic points within the specified polygon.
