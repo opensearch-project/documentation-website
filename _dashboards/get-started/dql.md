@@ -80,7 +80,7 @@ bytes >= 15 and memory < 15
 ```
 {% include copy.html %}
 
-Similarly, you can use the same method to find a date before or after the query. `>` indicates a search for a date after the specified date, and `<` returns dates before.
+You can use the same method to find a date before or after the date specified in the query. `>` indicates a search for a date after the specified date, and `<` returns dates before the specified date.
 
 ```
 @timestamp > "2020-12-14T09:35:33"
