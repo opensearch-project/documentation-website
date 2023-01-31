@@ -141,16 +141,14 @@ plugins.ml_commons.max_load_model_tasks_per_node: 10
 The default value allows you to upload a model file from any http/https/ftp/local file. You can change this value to restrict trusted model URLs.
 
 
-
-
 ### Setting
 
-The default URL as shown in the following example is not secure. Therefore, please use you own regex string from the repository which houses your models.
+The default URL value for this trusted URL setting is not secure. To ensure the security, please use you own regex string to the repostory that contains your models, for example `https://github.com/opensearch-project/ml-commons/blob/2.x/ml-algorithms/src/test/resources/org/opensearch/ml/engine/algorithms/text_embedding/*`.
 {: .warning }
 
 
 ```
-plugins.ml_commons.trusted_url_regex: ^(https?\|ftp\|file)://[-a-zA-Z0-9+&@#/%?=~_\|!:,.;]*[-a-zA-Z0-9+&@#/%=~_\|]
+plugins.ml_commons.trusted_url_regex: <your-model-url>
 ```
 
 ### Values
