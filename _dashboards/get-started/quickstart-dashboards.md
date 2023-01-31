@@ -9,7 +9,7 @@ has_children: false
 
 This quickstart covers the core concepts for getting started with OpenSearch Dashboards. You'll learn how to:
 
-- Add sample data
+- Add sample data.
 - Explore and inspect data with **Discover**
 - Visualize data with **Dashboard**
 
