@@ -22,7 +22,7 @@ Sample datasets come with visualizations, dashboards, and other tools to help yo
 
 1. Verify access to OpenSearch Dashboards by connecting to [http://localhost:5601](http://localhost:5601) from a browser. The default username and password are `admin`.
 1. On the OpenSearch Dashboards **Home** page, select **Add sample data**.
-1. Select **Add data** to add the data sets.
+1. Select **Add data** to add the datasets.
 
     <img src="{{site.url}}{{site.baseurl}}/images/add-sample-data.png" alt="Sample data sets" width="800">
 
