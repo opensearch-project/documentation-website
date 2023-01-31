@@ -11,7 +11,7 @@ You can use span queries to perform searches that provide control over the order
 
 - **Span containing** `span_containing` – Takes a list of span queries and only returns spans that match a second span query. 
 - **Span field masking** `span_field_masking` – Combines `span_near` or `span_or` across different fields.
-- **Span first** `span_first` – Combines another span query that returned matches within the first *N* positions of the field.
+- **Span first** `span_first` – Takes another span query that returned matches within the first *N* positions of the field.
 - **Span multi-term** `span_multi-term` – Provides a wrapper around the following query types: `term`, `range`, `prefix`, `wildcard` `regexp` or `fuzzy`.
 - **Span near** `span_near` – Combines multiple span queries that must match documents in the same order and within the specified distance of each other.
 - **Span not** `span_not` – Provides a wrapper for another span query and functions to exclude any documents that match the internal query.
