@@ -148,7 +148,7 @@ The default URL value for this trusted URL setting is not secure. To ensure the 
 
 
 ```
-plugins.ml_commons.trusted_url_regex: <your-model-url>
+plugins.ml_commons.trusted_url_regex: <model-repository-url>
 ```
 
 ### Values
