@@ -133,7 +133,7 @@ superheroes: {hero-name: Superman} and superheroes: {hero-name: Batman}
 ```
 {% include copy.html %}
 
-The previous boolean and range queries still work, so you can submit a more refined query, as shown in the following notation:
+The previous Boolean and range queries still work, so you can submit a more refined query, as shown in the following notation:
 
 ```
 superheroes: {hero-name: Superman and age < 50}
