@@ -9,7 +9,7 @@ nav_order: 65
 
 You can use span queries to perform searches that provide control over the order and proximity of query terms that you specify. The primary use case is for legal documents. Span queries include the following query types:
 
- - **Span containing** `span_containing` – Takes a list of span queries and only returns spans that match a second span query. 
+- **Span containing** `span_containing` – Takes a list of span queries and only returns spans that match a second span query. 
 - **Span field masking** `span_field_masking` – Combines `span_near` or `span_or` across different fields.
 - **Span first** `span_first` – Combines another span query that returned matches within the first *N* positions of the field.
 - **Span multi-term** `span_multi-term` – Provides a wrapper around the following query types: `term`, `range`, `prefix`, `wildcard` `regexp` or `fuzzy`.
