@@ -17,4 +17,4 @@ You can use span queries to perform searches that provide control over the order
 - **Span not** `span_not` – Provides a wrapper for another span query and functions to exclude any documents that match the internal query.
 - **Span or** `span_or` – Provides a wrapper for multiple span queries and includes any documents that match any of the specified queries.
 - **Span term** `span_term` – Functions the same as a `term` query, but is designed to be used with other span queries.
-- **Span within** `span_within` – Used with other span queries to return a single span query result if its span is also within the spans that get returned by the list of other span queries.
+- **Span within** `span_within` – Used with other span queries to return a single span query result if its span is within the spans that are returned by the list of other span queries.
