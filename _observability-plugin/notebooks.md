@@ -18,7 +18,7 @@ You can also generate [reports]({{site.url}}{{site.baseurl}}/dashboards/reportin
 
 Common use cases include creating postmortem reports, designing runbooks, building live infrastructure reports, and writing documentation.
 
-Tenants in OpenSearch Dashboards are spaces for saving notebooks and other OpenSearch Dashboards objects. For more information, see [OpenSearch Dashboards multi-tenancy]({{site.url}}{{site.baseurl}}/security-plugin/access-control/multi-tenancy/).
+Tenants in OpenSearch Dashboards are spaces for saving notebooks and other OpenSearch Dashboards objects. For more information, see [OpenSearch Dashboards multi-tenancy]({{site.url}}{{site.baseurl}}/security/multi-tenancy/tenant-index/).
 {: .note }
 
 

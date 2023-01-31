@@ -10,7 +10,7 @@ nav_order: 5
 
 ## Alerting indices
 
-The alerting feature creates several indices and one alias. The security plugin demo script configures them as [system indices]({{site.url}}{{site.baseurl}}/security-plugin/configuration/system-indices/) for an extra layer of protection. Don't delete these indices or modify their contents without using the alerting APIs.
+The alerting feature creates several indices and one alias. The security plugin demo script configures them as [system indices]({{site.url}}{{site.baseurl}}/security/configuration/system-indices/) for an extra layer of protection. Don't delete these indices or modify their contents without using the alerting APIs.
 
 Index | Purpose
 :--- | :---
