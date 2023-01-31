@@ -153,7 +153,7 @@ plugins.ml_commons.trusted_url_regex: <model-repository-url>
 
 ### Values
 
-- Default value: `^(https?\|ftp\|file)://[-a-zA-Z0-9+&@#/%?=~_\|!:,.;]*[-a-zA-Z0-9+&@#/%=~_\|]`
+- Default value: `"^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]"`
 - Value range: Java regular expression (regex) string
 
 ## Assign task timeout
