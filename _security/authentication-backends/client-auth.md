@@ -5,7 +5,7 @@ parent: Authentication backends
 nav_order: 70
 redirect_from:
   - /security/configuration/client-auth/
-  - /security-plugin/configuration/client-auth/
+  - /security/configuration/client-auth/
 ---
 
 # Client certificate authentication

@@ -5,7 +5,7 @@ parent: Authentication backends
 nav_order: 60
 redirect_from:
   - /security/configuration/ldap/
-  - /security-plugin/configuration/ldap/
+  - /security/configuration/ldap/
 ---
 
 # Active Directory and LDAP

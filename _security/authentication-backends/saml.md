@@ -5,7 +5,7 @@ parent: Authentication backends
 nav_order: 55
 redirect_from:
   - /security/configuration/saml/
-  - /security-plugin/configuration/saml/
+  - /security/configuration/saml/
 ---
 
 # SAML
