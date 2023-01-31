@@ -6,6 +6,7 @@ has_children: false
 has_toc: false
 redirect_from:
   - /security/
+  - /security-plugin/index/
 ---
 
 # About Security in OpenSearch
