@@ -26,7 +26,7 @@ OpenSearch supports the following query DSL query type categories:
 
 - **Geographic and cartesian shape queries** – Use geographic queries to search documents that include geographic data. Use xy queries to search documents that include points and shapes in a two-dimensional Cartesian coordinate system. To learn more, see [Geographic and shape queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/geo-and-shape/).
 
-- **Joining queries** – Used to perform `nested`, `has_child`, `has_parent`, and `parent_id` queries.
+- **Joining queries** – Used to search nested fields or return parent and child documents that match a specific query. Types of joining queries include `nested`, `has_child`, `has_parent`, and `parent_id` queries.
 
 - **Query string queries** – Used to perform complex queries for a string with multiple optional fields using `query_string` syntax. To learn more, see [Query string queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/query-string/).
 
