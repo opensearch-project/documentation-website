@@ -28,7 +28,7 @@ OpenSearch supports the following query DSL query type categories:
 
 - **Joining queries** – Used to search nested fields or return parent and child documents that match a specific query. Types of joining queries include `nested`, `has_child`, `has_parent`, and `parent_id` queries.
 
-- **Query string queries** – Used to perform complex queries for a string with multiple optional fields using `query_string` syntax. To learn more, see [Query string queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/query-string/).
+- **Query string queries** – Query string queries use a more concise `query_string` syntax. They can incorporate wildcards and search multiple fields. To learn more, see [Query string queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/query-string/).
 
 - **Span queries** – Used to perform queries that provide control over the order and proximity of query terms that you specify. The primary use case is for legal documents.  To learn more, see [Span queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/span-query/).
 
