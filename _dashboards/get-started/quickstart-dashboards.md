@@ -36,7 +36,7 @@ In [**Discover**](discover/index.md), you can:
 
 ## Try it: Getting familiar with Discover
 
-1. On the OpenSearch Dashboards **Home** page, select **Discover.**
+1. On the OpenSearch Dashboards **Home** page, select **Discover**.
 1. Change the [time filter](time-filter.md) to **Last 7 days**.
 
     <img src="{{site.url}}{{site.baseurl}}/images/last-7--days.png" alt="Time filter interface" width="400"/>
