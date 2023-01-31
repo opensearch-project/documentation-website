@@ -11,11 +11,11 @@ You can search multiple dimensions with the geographic and cartesian shape queri
 
 ## Cartesian shape queries
 
-You can create queries to search two-dimensional geometries that map out cartesian data such as the `xy_point` field that supports x and y pairs and the `xy_shape` field that supports points, lines, circles and polygon shapes. These queries return documents that contain two-dimensional coordinates in `xy_point` or `xy_shape` fields. To learn more, see [xy queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/xy/).
+You can create queries to search two-dimensional geometries that map out cartesian data such as the `xy_point` field that supports x and y pairs and the `xy_shape` field that supports points, lines, circles, and polygon shapes. These queries return documents that contain two-dimensional coordinates in `xy_point` or `xy_shape` fields. To learn more, see [xy queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/xy/).
 
 ### Pre-indexed shape query
 
-You can search for an xy shape that was previously indexed by defining the shape with the `indexed_shape` object.For the indexed shape, need to specify the the `id` field, and optionally any of the following other fields: `index` `path` and `routing`. Use the `ignore_unmapped` option set to `true` to ignore any fields not mapped to the previous index specified in the `indexed_shape` query. By default, `ignore_unmapped` is set to `false` to throw an exception if the field is not mapped. For more details, see [Pre-indexed shape definition]({{site.url}}{{site.baseurl}}(/opensearch/query-dsl/xy/#using-a-pre-indexed-shape-definition)).
+You can search for an xy shape that was previously indexed by defining the shape with the `indexed_shape` object, and referencing the shape name in the `id` field. Specifying the `id` field is required, while  `index`, `path`, and `routing` fields are optional. Set the `ignore_unmapped` option to `true` to ignore any pre-indexed fields that were mapped in the shape to which you are referencing. By default, `ignore_unmapped` is set to `false`, which throws an exception if the field is not mapped. For more details, see [Pre-indexed shape definition]({{site.url}}{{site.baseurl}}(/opensearch/query-dsl/xy/#using-a-pre-indexed-shape-definition)).
 ## Geographic queries
 
 You can use the following geographic queries to search documents that include geopoint field data:

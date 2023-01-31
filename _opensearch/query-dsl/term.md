@@ -19,7 +19,7 @@ You can use any of the term-level query types shown in the following table:
 
 | Query type | Description
 :--- | :--- | :---
-`term` | Specifies a search for an exact term for a provided field.
+`term` | Specifies a search for an exact term in the field provided.
 `terms` | Specifies a search for multiple terms in the same provided field.
 `ids` | Specifies a search for one or more documents by the ID value.
 `range` | Specifies a search within an upper and lower bound of values in a provided field.

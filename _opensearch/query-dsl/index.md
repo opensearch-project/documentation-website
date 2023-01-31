@@ -12,29 +12,29 @@ redirect_from:
 
 # Query DSL
 
-OpenSearch provides a query domain-specific language (DSL) that you can use to perform customized searches on your data. You can even perform more complicated searches by combining query fields to find more granular data that you need.
+OpenSearch provides a query domain-specific language (DSL) that you can use to perform customized searches on your data. You can also combine query fields to perform more complex searches and find more granular data.
 
 OpenSearch supports the following query DSL query type categories:
 
-- **Compound queries** – To perform combined queries with the following query types:
-    - **Boolean** `bool` – Combines several simple query terms by boolean clause rules that act as logical operators. To learn more, see [Boolean queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/bool/).
+- **Compound queries** – Used to perform combined queries with the following query types:
+    - **Boolean** `bool` – Combines several simple query terms by Boolean clause rules that act as logical operators. To learn more, see [Boolean queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/bool/).
     - **Constant score** `constant_score` – Provides a `filter` query with the relevance score as a floating point number assigned by the `boost` field. Acts as a wrapper for the filter.
     - **Disjunction max** `dis_max` – Returns documents that match one or more queries that are wrapped together by clauses. If a document matches multiple query clauses, it gets the highest relevant score assigned to it.
-    - **Function score** `function_score` – Modifies the score of documents that are returned by a query. You define a query and one or more functions that each compute a score for each document that matches the query.
+    - **Function score** `function_score` – Modifies the score of documents that are returned by a query. You define a query and one or more functions to compute a score for each document that matches the query.
 
-- **Full-text queries** – To search documents for one or more terms and filter with advanced options. These queries return detailed information including relevance scores per document match, and perform text analysis. To learn more, see [Full-text queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/).
+- **Full-text queries** – Used to search documents for one or more terms and filter with advanced options. These queries return detailed information including relevance scores per document match, and perform text analysis. To learn more, see [Full-text queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/).
 
-- **Geographic and cartesian shape queries** – To search documents that include geographic geopoint field data, or to search two-dimensional geometries that map out cartesian data such as the `xy_point` field that supports x and y pairs and the `xy_shape` field that supports points, lines, circles and polygon shapes. To learn more, see [Geographic and shape queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/geo-and-shape/).
+- **Geographic and cartesian shape queries** – Used to search documents that include geographic geopoint field data. Also used to search two-dimensional geometries that map out cartesian data, such as the `xy_point` field that supports x and y pairs and the `xy_shape` field that supports points, lines, circles, and polygon shapes. To learn more, see [Geographic and shape queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/geo-and-shape/).
 
-- **Joining queries** – To perform `nested`, `has_child`, `has_parent`, and `parent_id` queries.
+- **Joining queries** – Used to perform `nested`, `has_child`, `has_parent`, and `parent_id` queries.
 
-- **Query string queries** – To perform complex queries for a string with multiple optional fields using `query_string` syntax. To learn more, see [Query string queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/query-string/).
+- **Query string queries** – Used to perform complex queries for a string with multiple optional fields using `query_string` syntax. To learn more, see [Query string queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/query-string/).
 
-- **Span queries** – To perform queries that provide control over the order and proximity of query terms that you specify. The primary use case is for legal documents.  To learn more, see [Span queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/span-query/).
+- **Span queries** – Used to perform queries that provide control over the order and proximity of query terms that you specify. The primary use case is for legal documents.  To learn more, see [Span queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/span-query/).
 
-- **Specialized queries** – To perform specialized queries: `distance_feature`, `more_like_this`, `percolate`, `rank_feature`, `script`, `script_score`, `wrapper`, or `pinned_query`.
+- **Specialized queries** – Used to perform specialized queries: `distance_feature`, `more_like_this`, `percolate`, `rank_feature`, `script`, `script_score`, `wrapper`, or `pinned_query`.
 
- - **Term-level queries** – To search documents for one or more terms, IDs, value ranges, with optional filtering by wildcard or regex. Term-level queries do not sort results by relevance score or analyze search terms. To learn more, see [Term-level queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/term/).
+ - **Term-level queries** – Used to search documents for one or more terms, IDs, value ranges, with optional filtering by wildcard or regex. Term-level queries do not sort results by relevance score or analyze search terms. To learn more, see [Term-level queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/term/).
 
 ## About term-level and full-text queries
 
