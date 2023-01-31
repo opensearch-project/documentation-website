@@ -89,7 +89,7 @@ You can use the same method to find a date before or after the date specified in
 
 ## Querying nested fields
 
-Searching a document with [nested fields]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/nested/) requires you to specify the full path of the field to retrieve. In this example, the `superheroes` field has nested objects:
+Searching a document with [nested fields]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/nested/) requires you to specify the full path of the field to be retrieved. In this example, the `superheroes` field has nested objects:
 
 ```json
 {
