@@ -9,9 +9,9 @@ redirect_from:
 
 # Using Dashboards Query Language
 
-Dashboards Query Language (DQL) is a simple text-based query language for filtering data in OpenSearch Dashboards. Similar to [Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index), DQL uses an HTTP request body. For example, to display your site visitor data for a host in the United States, you would enter `geo.dest:US` in the search field.
+Dashboards Query Language (DQL) is a simple text-based query language for filtering data in OpenSearch Dashboards. Similar to [Query DSL]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index), DQL uses an HTTP request body. For example, to display your site visitor data for a host in the United States, you would enter `geo.dest:US` in the search field, as shown in the following image.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dql-interface.png" alt="DQL toolbar in Dashboard" width="700">
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/dql-interface.png" alt="Search term using DQL toolbar in Dashboard" width="500">
 
 Before you can search data in Dashboards, you must index it. In OpenSearch, the basic unit of data is a JSON document. Within an index, OpenSearch identifies each document using a unique ID. To learn more about indexing in OpenSearch, see [Index data]({{site.url}}{{site.baseurl}}/opensearch/index-data).
 {: .note purple}
@@ -73,23 +73,13 @@ To avoid confusion, use parentheses to dictate the order in which you want to ev
 
 ## Querying dates and ranges
 
-DQL supports numeric inequalities.
+DQL supports numeric inequalities, for example, `bytes >= 15 and memory < 15`.
 
-```
-bytes >= 15 and memory < 15
-```
-{% include copy.html %}
-
-You can use the same method to find a date before or after the date specified in the query. `>` indicates a search for a date after the specified date, and `<` returns dates before the specified date.
-
-```
-@timestamp > "2020-12-14T09:35:33"
-```
-{% include copy.html %}
+You can use the same method to find a date before or after the date specified in the query. `>` indicates a search for a date after the specified date, and `<` returns dates before the specified date, for example, `@timestamp > "2020-12-14T09:35:33`.
 
 ## Querying nested fields
 
-Searching a document with [nested fields]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/nested/) requires you to specify the full path of the field to be retrieved. In this example, the `superheroes` field has nested objects:
+Searching a document with [nested fields]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/nested/) requires you to specify the full path of the field to be retrieved. In this example, the `superheroes` field has nested objects.
 
 ```json
 {
@@ -142,7 +132,7 @@ superheroes: {hero-name: Superman and age < 50}
 
 ## Querying doubly nested objects 
 
-If a document has doubly nested objects (objects nested inside other objects), retrieve a field value by specifying the full path to the field. In the following example document, the `superheroes` object is nested inside the `justice-league` object:
+If a document has doubly nested objects (objects nested inside other objects), retrieve a field value by specifying the full path to the field. In the following example document, the `superheroes` object is nested inside the `justice-league` object.
 
 ```json
 {
@@ -185,4 +175,4 @@ justice-league.superheroes: {hero-name:Superman}
 
 The following image shows the query result using the example notation.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dql-query-result.png" alt="DQL query result" width="1000">
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/dql-query-result.png" alt="DQL query result" width="1000">
