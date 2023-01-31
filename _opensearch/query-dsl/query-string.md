@@ -2,7 +2,7 @@
 layout: default
 title: Query string queries
 parent: Query DSL
-nav_order: 70
+nav_order: 55
 ---
 
 # Query string queries

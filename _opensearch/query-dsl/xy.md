@@ -2,7 +2,7 @@
 layout: default
 title: xy queries
 parent: Query DSL
-nav_order: 65
+nav_order: 50
 ---
 
 # xy queries

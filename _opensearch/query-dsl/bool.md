@@ -2,7 +2,7 @@
 layout: default
 title: Boolean queries
 parent: Query DSL
-nav_order: 45
+nav_order: 30
 ---
 
 # Boolean queries

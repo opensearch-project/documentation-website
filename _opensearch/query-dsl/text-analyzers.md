@@ -2,7 +2,7 @@
 layout: default
 title: Text analyzers
 parent: Query DSL
-nav_order: 41
+nav_order: 70
 ---
 
 
