@@ -39,7 +39,7 @@ host.keyword:*.example.com/*
 ```
 {% include copy.html %}
 
-To check if a field exists or has any data, use a wildcard to see if Dashboards returns any results.
+To check whether a field exists or has any data, use a wildcard to see whether Dashboards returns any results:
 
 ```
 host.keyword:*
