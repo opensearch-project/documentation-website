@@ -28,9 +28,6 @@ OpenSearch supports the following query DSL query type categories:
 
 - **Joining queries** – To perform `nested`, `has_child`, `has_parent`, and `parent_id` queries.
 
-- **Query context** – Indicates Boolean query clauses to indicate specifically how well a document matches a query based on the `relevance_score` returned with a query.
-- **Filter context**  - Returns documents that match the query clause specified by the `filter` parameter to indicate `term` and `range` fields.
-
 - **Query string queries** – To perform complex queries for a string with multiple optional fields using `query_string` syntax. To learn more, see [Query string queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/query-string/).
 
 - **Span queries** – To perform queries that provide control over the order and proximity of query terms that you specify. The primary use case is for legal documents.  To learn more, see [Span queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/span-query/).
