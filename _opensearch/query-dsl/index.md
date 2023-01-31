@@ -17,7 +17,7 @@ OpenSearch provides a query domain-specific language (DSL) that you can use to p
 OpenSearch supports the following query DSL query type categories:
 
 - **Compound queries** – Used to perform combined queries with the following query types:
-    - **Boolean** `bool` – Combines several simple query terms by Boolean clause rules that act as logical operators. To learn more, see [Boolean queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/bool/).
+    - **Boolean** `bool` – Combines multiple query clauses with Boolean logic. To learn more, see [Boolean queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/bool/).
     - **Constant score** `constant_score` – Provides a `filter` query with the relevance score as a floating point number assigned by the `boost` field. Acts as a wrapper for the filter.
     - **Disjunction max** `dis_max` – Returns documents that match one or more queries that are wrapped together by clauses. If a document matches multiple query clauses, it gets the highest relevant score assigned to it.
     - **Function score** `function_score` – Modifies the score of documents that are returned by a query. You define a query and one or more functions to compute a score for each document that matches the query.
