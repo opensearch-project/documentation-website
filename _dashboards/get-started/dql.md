@@ -48,7 +48,7 @@ host.keyword:*
 
 ## Searching with Boolean queries
 
-To mix and match or combine multiple queries for more refined results, you can use the boolean operators `and`, `or`, and `not`. DQL is not case sensitive, so `AND` and `and` are the same.
+To mix and match or combine multiple queries for more refined results, you can use the Boolean operators `and`, `or`, and `not`. DQL is not case sensitive, so `AND` and `and` are the same.
 
 ```
 host.keyword:www.example.com and response.keyword:200
