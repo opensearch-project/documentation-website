@@ -1,15 +1,17 @@
 ---
 layout: default
 title: Docker
-parent: Install OpenSearch
-nav_order: 3
+parent: Installing OpenSearch
+nav_order: 5
+redirect_from: 
+  - /opensearch/install/docker/
 ---
 
-# Why use OpenSearch with Docker?
+# Docker
 
 [Docker](https://www.docker.com/) greatly simplifies the process of configuring and managing your OpenSearch clusters. You can pull official images from [Docker Hub](https://hub.docker.com/u/opensearchproject) or [Amazon Elastic Container Registry (Amazon ECR)](https://gallery.ecr.aws/opensearchproject/) and quickly deploy a cluster using [Docker Compose](https://github.com/docker/compose) and any of the sample Docker Compose files included in this guide. Experienced OpenSearch users can further customize their deployment by creating a custom Docker Compose file.
 
-Docker containers are portable and will run on any compatible host that supports Docker (such as Linux, MacOS, or Windows). The portability of a Docker container offers flexibility over other installations methods, like [RPM]({{site.url}}{{site.baseurl}}/opensearch/install/rpm/) or a manual [Tarball]({{site.url}}{{site.baseurl}}/opensearch/install/tar/) installation, which both require additional configuration after downloading and unpacking.
+Docker containers are portable and will run on any compatible host that supports Docker (such as Linux, MacOS, or Windows). The portability of a Docker container offers flexibility over other installations methods, like [RPM]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/rpm/) or a manual [Tarball]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/tar/) installation, which both require additional configuration after downloading and unpacking.
 
 This guide assumes that you are comfortable working from the Linux command line interface (CLI). You should understand how to input commands, navigate between directories, and edit text files. For help with [Docker](https://www.docker.com/) or [Docker Compose](https://github.com/docker/compose), refer to the official documentation on their websites.
 {:.note}
@@ -28,7 +30,8 @@ If you need to install Docker Compose manually and your host supports Python, yo
 
 ## Important host settings
 
-Before launching OpenSearch you should review some [important system settings]({{site.url}}{{site.baseurl}}/opensearch/install/important-settings/){:target='\_blank'} that can impact the performance of your services.
+Before launching OpenSearch you should review some [important system settings]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#important-settings){:target='\_blank'} that can impact the performance of your services.
+
 1. Disable memory paging and swapping performance on the host to improve performance.
    ```bash
    sudo swapoff -a
@@ -146,7 +149,7 @@ services:
       - cluster.name=opensearch-cluster # Name the cluster
       - node.name=opensearch-node1 # Name the node that will run in this container
       - discovery.seed_hosts=opensearch-node1,opensearch-node2 # Nodes to look for when discovering the cluster
-      - cluster.initial_cluster_manager_nodes=opensearch-node1,opensearch-node2 # Nodes eligibile to serve as cluster manager
+      - cluster.initial_cluster_manager_nodes=opensearch-node1,opensearch-node2 # Nodes eligible to serve as cluster manager
       - bootstrap.memory_lock=true # Disable JVM heap memory swapping
       - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" # Set min and max JVM heap sizes to at least 50% of system RAM
     ulimits:
@@ -353,7 +356,7 @@ networks:
 
 ### Configuring basic security settings
 
-Before making your OpenSearch cluster available to external hosts, it's a good idea to review the deployment's security configuration. You may recall from the first [Sample docker-compose.yml](#sample-docker-composeyml) file that, unless disabled by setting `DISABLE_SECURITY_PLUGIN=true`, a bundled script will apply a default demo security configuration to the nodes in the cluster. Because this configuration is used for demo purposes, the default usernames and passwords are known. For that reason, we recommend that you create your own security configuration files and use `volumes` to pass these files to the containers. For specific guidance on OpenSearch security settings, see [Security configuration]({{site.url}}{{site.baseurl}}/security-plugin/configuration/index/).
+Before making your OpenSearch cluster available to external hosts, it's a good idea to review the deployment's security configuration. You may recall from the first [Sample docker-compose.yml](#sample-docker-composeyml) file that, unless disabled by setting `DISABLE_SECURITY_PLUGIN=true`, a bundled script will apply a default demo security configuration to the nodes in the cluster. Because this configuration is used for demo purposes, the default usernames and passwords are known. For that reason, we recommend that you create your own security configuration files and use `volumes` to pass these files to the containers. For specific guidance on OpenSearch security settings, see [Security configuration]({{site.url}}{{site.baseurl}}/security/configuration/index/).
 
 To use your own certificates in your configuration, add all of the necessary certificates to the volumes section of the compose file:
 ```yml
@@ -376,7 +379,7 @@ volumes:
   - ./custom-opensearch.yml:/usr/share/opensearch/config/opensearch.yml
 ```
 
-Remember that the certificates you specify in your compose file must be the same as the certificates defined in your custom `opensearch.yml` file. You should replace the root, admin, and node certificates with your own. For more information see [Configure TLS certificates]({{site.url}}{{site.baseurl}}/security-plugin/configuration/tls).
+Remember that the certificates you specify in your compose file must be the same as the certificates defined in your custom `opensearch.yml` file. You should replace the root, admin, and node certificates with your own. For more information see [Configure TLS certificates]({{site.url}}{{site.baseurl}}/security/configuration/tls).
 ```yml
 plugins.security.ssl.transport.pemcert_filepath: node1.pem
 plugins.security.ssl.transport.pemkey_filepath: node1-key.pem
@@ -412,9 +415,9 @@ opendistro_security.audit.config.disabled_rest_categories: NONE
 opendistro_security.audit.config.disabled_transport_categories: NONE
 ```
 
-For a full list of settings, see [Security]({{site.url}}{{site.baseurl}}/security-plugin/configuration/index/).
+For a full list of settings, see [Security]({{site.url}}{{site.baseurl}}/security/configuration/index/).
 
-Use the same process to specify a [Backend configuration]({{site.url}}{{site.baseurl}}/security-plugin/configuration/configuration/) in `/usr/share/opensearch/config/opensearch-security/config.yml` as well as new internal users, roles, mappings, action groups, and tenants in their respective [YAML files]({{site.url}}{{site.baseurl}}/security-plugin/configuration/yaml/).
+Use the same process to specify a [Backend configuration]({{site.url}}{{site.baseurl}}/security/configuration/configuration/) in `/usr/share/opensearch/config/opensearch-security/config.yml` as well as new internal users, roles, mappings, action groups, and tenants in their respective [YAML files]({{site.url}}{{site.baseurl}}/security/configuration/yaml/).
 
 After replacing the certificates and creating your own internal users, roles, mappings, action groups, and tenants, use Docker Compose to start the cluster:
 ```bash
@@ -443,7 +446,7 @@ FROM opensearchproject/opensearch:latest
 RUN /usr/share/opensearch/bin/opensearch-plugin remove opensearch-security
 ```
 
-You can also use a Dockerfile to pass your own certificates for use with the [Security Plugin]({{site.url}}{{site.baseurl}}/security-plugin/):
+You can also use a Dockerfile to pass your own certificates for use with the [Security Plugin]({{site.url}}{{site.baseurl}}/security/):
 ```
 FROM opensearchproject/opensearch:latest
 COPY --chown=opensearch:opensearch opensearch.yml /usr/share/opensearch/config/
@@ -454,7 +457,11 @@ COPY --chown=opensearch:opensearch my-root-cas.pem /usr/share/opensearch/config/
 
 ## Related links
 
-- [OpenSearch configuration]({{site.url}}{{site.baseurl}}/opensearch/configuration/)
+- [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuration/)
 - [Performance analyzer]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/index/)
-- [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/install/index/)
-- [About the security plugin]({{site.url}}{{site.baseurl}}/security-plugin/index/)
+- [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/)
+<<<<<<< HEAD
+- [About the security plugin]({{site.url}}{{site.baseurl}}/security/index/)
+=======
+- [About the security plugin]({{site.url}}{{site.baseurl}}/security/index/)
+>>>>>>> main

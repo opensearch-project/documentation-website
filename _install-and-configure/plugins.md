@@ -1,25 +1,27 @@
 ---
 layout: default
-title: OpenSearch plugin installation
-parent: Install OpenSearch
+title: Installing plugins
 nav_order: 90
+redirect_from:
+   - /opensearch/install/plugins/
+   - /install-and-configure/install-opensearch/plugins/
 ---
 
-# OpenSearch plugin installation
+# Installing plugins
 
-You can install individual plugins for OpenSearch based on your needs. For information about available plugins, see [Available plugins]({{site.url}}{{site.baseurl}}/opensearch/install/plugins#available-plugins).
+You can install individual plugins for OpenSearch based on your needs. For information about available plugins, see [Available plugins](#available-plugins).
 
 ## Managing plugins
 
 OpenSearch uses a command line tool called `opensearch-plugin` for managing plugins. This tool allows you to:
 
-- [List]({{site.url}}{{site.baseurl}}/opensearch/install/plugins#list) installed plugins.
-- [Install]({{site.url}}{{site.baseurl}}/opensearch/install/plugins#install) plugins.
-- [Remove]({{site.url}}{{site.baseurl}}/opensearch/install/plugins#remove) an installed plugin.
+- [List](#list) installed plugins.
+- [Install](#install) plugins.
+- [Remove](#remove) an installed plugin.
 
 Print help text by passing `-h` or `--help`. Depending on your host configuration, you might also need to run the command with `sudo` privileges.
 
-If you are running OpenSearch in a Docker container, plugins must be installed, removed, and configured by modifying the Docker image. For information, see [Working with plugins]({{site.url}}{{site.baseurl}}/opensearch/install/docker#working-with-plugins)
+If you are running OpenSearch in a Docker container, plugins must be installed, removed, and configured by modifying the Docker image. For information, see [Working with plugins]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/docker#working-with-plugins)
 {: .note}
 
 ## List
@@ -85,7 +87,7 @@ There are three ways to install plugins using the `opensearch-plugin`:
 
 ### Install a plugin by name:
 
-For a list of plugins that can be installed by name, see [Additional plugins]({{site.url}}{{site.baseurl}}/opensearch/install/plugins#additional-plugins)
+For a list of plugins that can be installed by name, see [Additional plugins]({{site.url}}{{site.baseurl}}/opensearch/install/plugins#additional-plugins).
 
 #### Usage:
 ```bash
@@ -97,7 +99,7 @@ bin/opensearch-plugin install <plugin-name>
 $ sudo ./opensearch-plugin install analysis-icu
 -> Installing analysis-icu
 -> Downloading analysis-icu from opensearch
-[=================================================] 100%   
+[=================================================] 100%   
 -> Installed analysis-icu with folder name analysis-icu
 ```
 
@@ -116,7 +118,7 @@ bin/opensearch-plugin install <zip-file>
 $ sudo ./opensearch-plugin install https://repo1.maven.org/maven2/org/opensearch/plugin/opensearch-anomaly-detection/2.2.0.0/opensearch-anomaly-detection-2.2.0.0.zip
 -> Installing https://repo1.maven.org/maven2/org/opensearch/plugin/opensearch-anomaly-detection/2.2.0.0/opensearch-anomaly-detection-2.2.0.0.zip
 -> Downloading https://repo1.maven.org/maven2/org/opensearch/plugin/opensearch-anomaly-detection/2.2.0.0/opensearch-anomaly-detection-2.2.0.0.zip
-[=================================================] 100%   
+[=================================================] 100%   
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @     WARNING: plugin requires additional permissions     @
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -140,7 +142,7 @@ Continue with installation? [y/N]y
 $ sudo ./opensearch-plugin install file:/home/user/opensearch-anomaly-detection-2.2.0.0.zip
 -> Installing file:/home/user/opensearch-anomaly-detection-2.2.0.0.zip
 -> Downloading file:/home/user/opensearch-anomaly-detection-2.2.0.0.zip
-[=================================================] 100%   
+[=================================================] 100%   
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @     WARNING: plugin requires additional permissions     @
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -175,7 +177,7 @@ bin/opensearch-plugin install <groupId>:<artifactId>:<version>
 $ sudo ./opensearch-plugin install org.opensearch.plugin:opensearch-anomaly-detection:2.2.0.0
 -> Installing org.opensearch.plugin:opensearch-anomaly-detection:2.2.0.0
 -> Downloading org.opensearch.plugin:opensearch-anomaly-detection:2.2.0.0 from maven central
-[=================================================] 100%   
+[=================================================] 100%   
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @     WARNING: plugin requires additional permissions     @
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -251,12 +253,14 @@ The following plugins are bundled with all OpenSearch distributions except for m
 | ML Commons | [opensearch-ml](https://github.com/opensearch-project/ml-commons) | 1.3.0 |
 | Neural Search | [neural-search](https://github.com/opensearch-project/neural-search) | 2.4.0 |
 | Observability | [opensearch-observability](https://github.com/opensearch-project/observability) | 1.2.0 |
-| Performance Analyzer | [opensearch-performance-analyzer](https://github.com/opensearch-project/performance-analyzer) | 1.0.0 |
+| Performance Analyzer<sup>2</sup> | [opensearch-performance-analyzer](https://github.com/opensearch-project/performance-analyzer) | 1.0.0 |
 | Security | [opensearch-security](https://github.com/opensearch-project/security) | 1.0.0 |
-| Security Analytics | [security-analytics](https://github.com/opensearch-project/security-analytics) | 2.4.0 |
+| Security Analytics | [opensearch-security-analytics](https://github.com/opensearch-project/security-analytics) | 2.4.0 |
 | SQL | [opensearch-sql](https://github.com/opensearch-project/sql) | 1.0.0 |
 
-_<sup>1</sup>Dashboard Notebooks was merged in to the Observability plugin with the release of OpenSearch 1.2.0._
+_<sup>1</sup>Dashboard Notebooks was merged in to the Observability plugin with the release of OpenSearch 1.2.0._<br>
+_<sup>2</sup>Performance Analyzer is not available on Windows._
+
 
 ### Additional plugins
 
@@ -288,7 +292,8 @@ Members of the OpenSearch community have built countless plugins for the service
 ## Related links
 
 - [About Observability]({{site.url}}{{site.baseurl}}/observability-plugin/index/)
-- [About the security plugin]({{site.url}}{{site.baseurl}}/security-plugin/index/)
+- [About security analytics]({{site.url}}{{site.baseurl}}/security-analytics/index/)
+- [About the security plugin]({{site.url}}{{site.baseurl}}/security/index/)
 - [Alerting]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/index/)
 - [Anomaly detection]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/index/)
 - [Asynchronous search]({{site.url}}{{site.baseurl}}/search-plugins/async/index/)
@@ -296,6 +301,7 @@ Members of the OpenSearch community have built countless plugins for the service
 - [Index State Management]({{site.url}}{{site.baseurl}}/im-plugin/ism/index/)
 - [k-NN]({{site.url}}{{site.baseurl}}/search-plugins/knn/index/)
 - [ML Commons Plugin]({{site.url}}{{site.baseurl}}/ml-commons-plugin/index/)
+- [Neural Search]({{site.url}}{{site.baseurl}}/neural-search-plugin/index/)
 - [Notifications]({{site.url}}{{site.baseurl}}/notifications-plugin/index/)
 - [OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/index/)
 - [Performance Analyzer]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/index/)
