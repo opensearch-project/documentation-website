@@ -64,7 +64,7 @@ geo.dest:US or response.keyword:200 and host.keyword:www.example.com
 
 Remember that Boolean operators follow the logical precedence order of `not`, `and`, and `or`, so if you have an expression like the one in the preceding example, `response.keyword:200 and host.keyword:www.example.com` is evaluated first.
 
-To avoid confusion, use parentheses to dictate the order in which you want to evaluate operands. If you want to evaluate `geo.dest:US or response.keyword:200` first, the expression is:
+To avoid confusion, use parentheses to dictate the order in which you want to evaluate operands. If you want to evaluate `geo.dest:US or response.keyword:200` first, use the following expression:
 
 ```
 (geo.dest:US or response.keyword:200) and host.keyword:www.example.com
