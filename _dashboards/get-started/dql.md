@@ -18,7 +18,7 @@ Before you can search data in Dashboards, you must index it. In OpenSearch, the 
 
 ## Searching with terms queries
 
-The most basic query is to specify the search term.
+The most basic query specifies the search term:
 
 ```
 host:www.example.com
