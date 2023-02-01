@@ -6,7 +6,7 @@ nav_order: 12
 
 # Peer Forwarder
 
-Peer Forwarder is an HTTP service that performs peer forwarding of an `event` between Data Prepper nodes for aggregation. This HTTP service uses a hash-ring approach to aggregate events and determine which Data Prepper node should handle on a given trace before rerouting it to that node. Currently, Peer Forwarder is supported by the `aggregate`, `service_map_stateful`, and `otel_trace_raw` [processors]({{site.url}}{{site.baseurl}}/data-prepper/configuration/processors/processors/).
+Peer Forwarder is an HTTP service that performs peer forwarding of an `event` between Data Prepper nodes for aggregation. This HTTP service uses a hash-ring approach to aggregate events and determine which Data Prepper node it should handle on a given trace before rerouting it to that node. Currently, Peer Forwarder is supported by the `aggregate`, `service_map_stateful`, and `otel_trace_raw` [processors]({{site.url}}{{site.baseurl}}/data-prepper/configuration/processors/processors/).
 
 Peer Forwarder groups events based on the identification keys provided by the supported processors. For `service_map_stateful` and `otel_trace_raw`, the identification key is `traceId` by default and cannot be configured. The `aggregate` processor is configured using the `identification_keys` configuration option. From here, you can specify which keys to use for Peer Forwarder. See [Aggregate Processor page](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/aggregate-processor#identification_keys) for more information about identification keys.
 
@@ -115,7 +115,7 @@ The following SSL configuration table provides optional SSL configuration values
 | ----- | ---- | ----------- |
 | `ssl` | Boolean | Enables TLS/SSL. Default value is `true`. |
 | `ssl_certificate_file`| String | Represents the SSL certificate chain file path or Amazon Simple Storage Service (Amazon S3) path. The following is an example of an Amazon S3 path: `s3://<bucketName>/<path>`. Defaults to the default certificate file,`config/default_certificate.pem`. See [Default Certificates](https://github.com/opensearch-project/data-prepper/tree/main/examples/certificates) for more information about how the certificate is generated. |
-| `ssl_key_file`| String | Represents the SSL key file path or AWS S3 path. S3 path example `s3://<bucketName>/<path>`. Defaults to `config/default_private_key.pem` which is default private key file. Read more about how the private key file is generated at the [Default Certificates](https://github.com/opensearch-project/data-prepper/tree/main/examples/certificates) page. |
+| `ssl_key_file`| String | Represents the SSL key file path or AWS S3 path. S3 path example `s3://<bucketName>/<path>`. Defaults to `config/default_private_key.pem` which is the default private key file. Read more about how the private key file is generated at the [Default Certificates](https://github.com/opensearch-project/data-prepper/tree/main/examples/certificates) page. |
 | `ssl_insecure_disable_verification` | Boolean | Disables the verification of the server's TLS certificate chain. Default value is `false`. |
 | `ssl_fingerprint_verification_only` | Boolean | Disables the verification of the server's TLS certificate chain and instead verifies only the certificate fingerprint. Default value is `false`. |
 | `use_acm_certificate_for_ssl` | Boolean | Enables TLS/SSL using the certificate and private key from AWS Certificate Manager (ACM). Default value is `false`. |
@@ -170,7 +170,7 @@ The following table provides counter metric options.
 | `requestsUnprocessable`| Measures the total number of requests that fail due to an unprocessable entity. Applies to requests with HTTP response code `422`. |
 | `badRequests`| Measures the total number of requests with bad request format. Applies to requests with HTTP response code `400`. |
 | `recordsSuccessfullyForwarded`| Measures the total number of successfully forwarded records. |
-| `recordsFailedForwarding`| Measures the total number of records fail to be forwarded. |
+| `recordsFailedForwarding`| Measures the total number of records that fail to be forwarded. |
 | `recordsToBeForwarded` | Measures the total number of records to be forwarded. |
 | `recordsToBeProcessedLocally` | Measures the total number of records to be processed locally. |
 | `recordsActuallyProcessedLocally`| Measures the total number of records actually processed locally. This value is the sum of `recordsToBeProcessedLocally` and `recordsFailedForwarding`. |
