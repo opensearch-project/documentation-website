@@ -12,7 +12,7 @@ redirect_from:
 
 # Query DSL
 
-OpenSearch provides a query domain-specific language (DSL) that you can use to perform customized searches on your data. You can also combine query fields to perform more complex searches and find more granular data.
+OpenSearch provides a query domain-specific language (DSL) that you can use to perform customized searches of your data. You can also combine query fields to perform more complex searches and find more granular data.
 
 OpenSearch supports the following query DSL query type categories:
 
@@ -25,15 +25,15 @@ To learn more, see [Compound queries]({{site.url}}{{site.baseurl}}/opensearch/qu
 
 - **Joining queries** – Used to search nested fields or return parent and child documents that match a specific query. Types of joining queries include `nested`, `has_child`, `has_parent`, and `parent_id` queries.
 
-- **Query string queries** – Query string queries use a more concise `query_string` syntax. They can incorporate wildcards and search multiple fields. To learn more, see [Query string queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/query-string/).
+- **Span queries** – Used to perform queries that provide control over the order and proximity of specified query terms. Primarily used for legal documents. To learn more, see [Span queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/span-query/).
 
 - **Specialized queries** – Include the following query categories: `distance_feature`, `more_like_this`, `percolate`, `rank_feature`, `script`, `script_score`, `wrapper`, or `pinned_query`.
 
- - **Term-level queries** – Used to search documents for one or more terms, IDs, value ranges, with optional filtering by wildcard or regex. Term-level queries do not sort results by relevance score or analyze search terms. To learn more, see [Term-level queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/term/).
+ - **Term-level queries** – Used to search documents for one or more terms, IDs, or value ranges, with optional filtering by wildcard or regex. Term-level queries do not sort results by relevance score or analyze search terms. To learn more, see [Term-level queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/term/).
 
 ## About term-level and full-text queries
 
-Although term-level and full-text queries both search for terms, there are some differences as described in the following table:
+Although term-level and full-text queries both search for terms, there are some differences between the two, as described in the following table.
 
 | | Term-level queries | Full-text queries
 :--- | :--- | :---
