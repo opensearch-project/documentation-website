@@ -45,6 +45,7 @@ PUT testindex
   }
 }
 ```
+{% include copy-curl.html %}
 
 Index a document with an integer value:
 
@@ -54,6 +55,7 @@ PUT testindex/_doc/1
   "integer_value" : 123
 }
 ```
+{% include copy-curl.html %}
 
 ## Scaled float field type
 
@@ -79,6 +81,7 @@ PUT testindex
   }
 }
 ```
+{% include copy-curl.html %}
 
 Index a document with a scaled_float value:
 
@@ -88,6 +91,7 @@ PUT testindex/_doc/1
   "scaled" : 2.3
 }
 ```
+{% include copy-curl.html %}
 
 The `scaled` value will be stored as 23.
 

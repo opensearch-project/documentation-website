@@ -15,12 +15,14 @@ The following request returns information about all of your tasks:
 ```
 GET _tasks
 ```
+{% include copy-curl.html %}
 
 By including a task ID, you can get information specific to a particular task. Note that a task ID consists of a node's identifying string and the task's numerical ID. For example, if your node's identifying string is `nodestring` and the task's numerical ID is `1234`, then your task ID is `nodestring:1234`. You can find this information by running the `tasks` operation:
 
 ```
 GET _tasks/<task_id>
 ```
+{% include copy-curl.html %}
 
 Note that if a task finishes running, it won't be returned as part of your request. For an example of a task that takes a little longer to finish, you can run the [`_reindex`]({{site.url}}{{site.baseurl}}/opensearch/reindex-data) API operation on a larger document, and then run `tasks`.
 
@@ -76,6 +78,7 @@ Note that if a task finishes running, it won't be returned as part of your reque
   }
 }
 ```
+
 You can also use the following parameters with your query.
 
 Parameter | Data type | Description |
@@ -96,6 +99,7 @@ For example, this request returns tasks currently running on a node named `opens
 ```
 GET /_tasks?nodes=opensearch-node1
 ```
+{% include copy-curl.html %}
 
 **Sample Response**
 
@@ -148,6 +152,7 @@ After getting a list of tasks, you can cancel all cancelable tasks with the foll
 ```
 POST _tasks/_cancel
 ```
+{% include copy-curl.html %}
 
 Note that not all tasks are cancelable. To see if a task is cancelable, refer to the `cancellable` field in the response to your `tasks` API request.
 
@@ -156,12 +161,14 @@ You can also cancel a task by including a specific task ID.
 ```
 POST _tasks/<task_id>/_cancel
 ```
+{% include copy-curl.html %}
 
 The `cancel` operation supports the same parameters as the `tasks` operation. The following example shows how to cancel all cancelable tasks on multiple nodes.
 
 ```
 POST _tasks/_cancel?nodes=opensearch-node1,opensearch-node2
 ```
+{% include copy-curl.html %}
 
 ## Attaching headers to tasks
 
@@ -172,6 +179,7 @@ Usage:
 ```bash
 curl -i -H "X-Opaque-Id: 111111" "https://localhost:9200/_tasks" -u 'admin:admin' --insecure
 ```
+{% include copy.html %}
 
 The `_tasks` operation returns the following result.
 
@@ -230,3 +238,4 @@ This operation supports the same parameters as the `tasks` operation. The follow
 ```bash
 curl -i -H "X-Opaque-Id: 123456" "https://localhost:9200/_tasks?nodes=opensearch-node1" -u 'admin:admin' --insecure
 ```
+{% include copy.html %}

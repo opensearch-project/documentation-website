@@ -41,6 +41,7 @@ The following is an example API request:
 ```
 POST _nodes/reload_secure_settings
 ```
+{% include copy-curl.html %}
 
 #### Sample response
 

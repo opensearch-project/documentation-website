@@ -50,6 +50,7 @@ GET _snapshot/my-opensearch-repo/my-first-snapshot/_status
    "ignore_unavailable": true 
 }
 ````
+{% include copy-curl.html %}
 
 #### Sample response
 

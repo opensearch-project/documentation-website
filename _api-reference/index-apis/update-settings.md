@@ -24,6 +24,7 @@ PUT /sample-index1/_settings
   }
 }
 ```
+{% include copy-curl.html %}
 
 ## Path and HTTP methods
 

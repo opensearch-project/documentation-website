@@ -38,6 +38,7 @@ PUT testindex1
   }
 }
 ```
+{% include copy-curl.html %}
 
 Index a query:
 
@@ -68,6 +69,7 @@ PUT testindex1/_doc/1
   }
 }
 ```
+{% include copy-curl.html %}
 
 Fields referenced in the query must already exist in the mapping.
 {: .note }
@@ -93,6 +95,7 @@ GET testindex1/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 The response contains the originally indexed query:
 

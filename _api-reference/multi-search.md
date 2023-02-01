@@ -21,6 +21,7 @@ GET _msearch
 { "query": { "match_all": {} } }
 
 ```
+{% include copy-curl.html %}
 
 
 ## Path and HTTP methods
