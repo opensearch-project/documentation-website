@@ -31,6 +31,7 @@ PUT movies
   }
 }
 ```
+{% include copy-curl.html %}
 
 ## Parameters
 
@@ -94,6 +95,7 @@ PUT testindex
   }
 }
 ```
+{% include copy-curl.html %}
 
 Index a document with a text field:
 
@@ -103,6 +105,7 @@ PUT testindex/_doc/1
     "dob" : "The patient's date of birth."
 }
 ```
+{% include copy-curl.html %}
 
 Query for "date of birth" and highlight it in the original field:
 
@@ -121,6 +124,7 @@ GET testindex/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 The words "date of birth" are highlighted in the response:
 

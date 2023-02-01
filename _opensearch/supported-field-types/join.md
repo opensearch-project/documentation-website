@@ -30,6 +30,7 @@ PUT testindex1
   }
 }
 ```
+{% include copy-curl.html %}
 
 Then, index a parent document with a join field type:
 
@@ -42,6 +43,7 @@ PUT testindex1/_doc/1
   }
 }
 ```
+{% include copy-curl.html %}
 
 You can also use a shortcut without object notation to index a parent document:
 
@@ -52,6 +54,7 @@ PUT testindex1/_doc/1
   "product_to_brand" : "brand" 
 }
 ```
+{% include copy-curl.html %}
 
 When indexing child documents, you have to specify the `routing` query parameter because parent and child documents in the same relation have to be indexed on the same shard. Each child document refers to its parent's ID in the `parent` field.
 
@@ -66,7 +69,10 @@ PUT testindex1/_doc/3?routing=1
     "parent": "1" 
   }
 }
+```
+{% include copy-curl.html %}
 
+```json
 PUT testindex1/_doc/4?routing=1
 {
   "name": "Product 2",
@@ -76,6 +82,7 @@ PUT testindex1/_doc/4?routing=1
   }
 }
 ```
+{% include copy-curl.html %}
 
 ## Querying a join field
 
@@ -91,6 +98,7 @@ GET testindex1/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 The response indicates whether a document is a parent or a child:
 
@@ -175,6 +183,7 @@ GET testindex1/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 The response contains Product 1 and Product 2, which are associated with Brand 1:
 
@@ -247,6 +256,7 @@ GET testindex1/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 The response returns Brand 1 as Product 1's parent:
 
@@ -303,6 +313,7 @@ PUT testindex1
   }
 }
 ```
+{% include copy-curl.html %}
 
 ## Join field type notes 
 

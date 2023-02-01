@@ -18,6 +18,7 @@ The CAT cluster manager operation lists information that helps identify the elec
 ```
 GET _cat/cluster_manager?v
 ```
+{% include copy-curl.html %}
 
 ## Path and HTTP methods
 

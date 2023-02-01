@@ -19,6 +19,7 @@ This request waits 50 seconds for the cluster to reach the yellow status or bett
 ```
 GET _cluster/health?wait_for_status=yellow&timeout=50s
 ```
+{% include copy-curl.html %}
 
 If the cluster health becomes yellow or green before 50 seconds elapse, it returns a response immediately. Otherwise it returns a response as soon as it exceeds the timeout.
 
@@ -54,6 +55,7 @@ The following sample request retrieves cluster health for all indexes in the clu
 ```json
 GET _cluster/health
 ```
+{% include copy-curl.html %}
 
 #### Sample response
 

@@ -57,6 +57,7 @@ GET _nodes/stats/
 GET _nodes/stats/_all
 GET _nodes/stats/indices
 ```
+
 The following index metrics are supported:
 
 - docs
@@ -80,6 +81,7 @@ For example, the following query requests statistics for `docs` and `search`:
 ```json
 GET _nodes/stats/indices/docs,search
 ```
+{% include copy-curl.html %}
 
 ## Query parameters
 
@@ -100,6 +102,7 @@ include_segment_file_sizes | Boolean | If segment statistics are requested, this
 ```json
 GET _nodes/stats/
 ```
+{% include copy-curl.html %}
 
 #### Sample response
 
