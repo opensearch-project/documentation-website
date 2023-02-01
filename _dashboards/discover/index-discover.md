@@ -10,7 +10,7 @@ has_children: true
 **Discover** in OpenSearch Dashboards helps you extract insights and get value out of data assets across your organization. Discover enables you to:
 
 1. **Explore data**. You can explore, customize, and filter data as well as search data using [Dashboards Query Language (DQL)]({{site.url}}{{site.baseurl}}/dashboards/dql/).
-2. **Analyze data.** You can analyze data details, view individual documents, and create tables summarizing data contents.
+2. **Analyze data**. You can analyze data, view individual documents, and create tables summarizing data contents.
 3. **Visualize data**. You can display findings from your saved searches in a single dashboard that combines different data visualization types.
 
 ## Try it: Exploring sample data with Discover
@@ -54,8 +54,8 @@ You can use the search toolbar or enter a DQL query in the **DevTools** console 
 Follow these steps to search data:
 
 1. In the search toolbar, enter the Boolean query. For example, enter `FlightDelay:true AND FlightDelayMin >= 60` to search the data for flights delayed by 60 minutes or more.
-2. Choose **Update**.
-3. Optional: Choose the arrow (`>`) in a table row to expand the row and view the document table details.
+1. Choose **Update**.
+1. Optional: Choose the arrow (`>`) in a table row to expand the row and view the document table details.
 
 ## Filtering data
 
@@ -68,16 +68,16 @@ Follow these steps to filter data:
 1. In the filter bar, choose **Add filter**.
 1. Select options from the **Field**, **Operator**, and **Value** dropdown lists. For example, `Cancelled`, `is`, and `true`.
 1. Choose **Save**.
-2. To remove the filter, choose the close icon (x) next to the filter name.
-3. Optional: Add more filters to further explore the data.  
+1. To remove the filter, choose the close icon (x) next to the filter name.
+1. Optional: Add more filters to further explore the data.  
 
 ## Analyzing data in the document table
 
 You can view the document table fields to better understand the data and gather insights for more informed decision-making: 
 
 1. Choose the arrow icon (>) to expand a table row.
-2. View the fields and details.
-3. Switch between the **Table** and **JSON** tabs to view the different formats, as shown in the following image.  
+1. View the fields and details.
+1. Switch between the **Table** and **JSON** tabs to view the different formats, as shown in the following image.  
 
 ![Analyzing data in the document table]({{site.url}}{{site.baseurl}}/images/discover-analyze.png)
 
