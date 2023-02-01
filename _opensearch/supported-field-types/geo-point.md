@@ -86,22 +86,6 @@ PUT testindex1/_doc/5
 ```
 {% include copy-curl.html %}
 
-<<<<<<< HEAD
-=======
-- GeoJSON format, where the `coordinates` are in the [`longitude`, `latitude`] format
-
-```json
-PUT testindex1/_doc/6
-{
-  "point": {
-    "type": "Point",
-    "coordinates": [74.00, 40.71]
-  }
-}
-```
-{% include copy-curl.html %}
-
->>>>>>> 7992ec01 (Adds copy buttons to API and field type sections (#2518))
 ## Parameters
 
 The following table lists the parameters accepted by geopoint field types. All parameters are optional.
