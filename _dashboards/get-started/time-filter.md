@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Setting the time filter
-parent: Understanding the core concepts of OpenSearch Dashboards
+parent: Exploring data with Discover
 nav_order: 10
 ---
 
