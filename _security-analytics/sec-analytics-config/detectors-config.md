@@ -11,7 +11,7 @@ Security Analytics provides the options and functionality to monitor and respond
 
 ## Step 1. Define a detector
 
-Defining a new detector involves naming the detector, selecting a data source and detector type, and specifying a detector schedule. After defining a detector, you can also configure field mappings and set up alerts. Follow the steps in this section to accomplish all three of these setup tasks.
+You can define a new detector by naming the detector, selecting a data source and detector type, and specifying a detector schedule. After defining a detector, you can also configure field mappings and set up alerts. Follow the steps in this section to accomplish all three of these setup tasks.
 
 1. On the Detectors page, select the **Create detector** button. The Define detector page opens.
 1. Give the detector a name and, as an option, add a description for the detector. 
