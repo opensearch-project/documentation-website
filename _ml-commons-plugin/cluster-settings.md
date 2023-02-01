@@ -143,13 +143,17 @@ The default value allows you to upload a model file from any http/https/ftp/loca
 
 ### Setting
 
+The default URL value for this trusted URL setting is not secure. To ensure the security, please use you own regex string to the trusted repository that contains your models, for example `https://github.com/opensearch-project/ml-commons/blob/2.x/ml-algorithms/src/test/resources/org/opensearch/ml/engine/algorithms/text_embedding/*`.
+{: .warning }
+
+
 ```
-plugins.ml_commons.trusted_url_regex: ^(https?\|ftp\|file)://[-a-zA-Z0-9+&@#/%?=~_\|!:,.;]*[-a-zA-Z0-9+&@#/%=~_\|]
+plugins.ml_commons.trusted_url_regex: <model-repository-url>
 ```
 
 ### Values
 
-- Default value: `^(https?\|ftp\|file)://[-a-zA-Z0-9+&@#/%?=~_\|!:,.;]*[-a-zA-Z0-9+&@#/%=~_\|]`
+- Default value: `"^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]"`
 - Value range: Java regular expression (regex) string
 
 ## Assign task timeout
