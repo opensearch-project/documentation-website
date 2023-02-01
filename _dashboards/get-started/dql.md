@@ -18,58 +18,51 @@ Before you can search data in Dashboards, you must index it. In OpenSearch, the 
 
 ## Searching with terms queries
 
-The most basic query specifies the search term:
+The most basic query specifies the search term, for example:
 
 ```
 host:www.example.com
 ```
-{% include copy.html %}
 
 To access an object's nested field, list the complete path to the field separated by periods. For example, use the following path to retrieve the `lat` field in the `coordinates` object:
 
 ```
 coordinates.lat:43.7102
 ```
-{% include copy.html %}
 
-DQL supports leading and trailing wildcards, so you can search for any terms that match your pattern.
+DQL supports leading and trailing wildcards, so you can search for any terms that match your pattern, for example:
 
 ```
 host.keyword:*.example.com/*
 ```
-{% include copy.html %}
 
-To check whether a field exists or has any data, use a wildcard to see whether Dashboards returns any results:
+To check whether a field exists or has any data, use a wildcard to see whether Dashboards returns any results,for example:
 
 ```
 host.keyword:*
 ```
-{% include copy.html %}
 
 ## Searching with Boolean queries
 
-To mix and match or combine multiple queries for more refined results, you can use the Boolean operators `and`, `or`, and `not`. DQL is not case sensitive, so `AND` and `and` are the same.
+To mix and match or combine multiple queries for more refined results, you can use the Boolean operators `and`, `or`, and `not`. DQL is not case sensitive, so `AND` and `and` are the same, for example: 
 
 ```
 host.keyword:www.example.com and response.keyword:200
 ```
-{% include copy.html %}
 
-The following example shows how to use multiple operators in one query:
+You also can use multiple Boolean operators in one query, for example:
 
 ```
 geo.dest:US or response.keyword:200 and host.keyword:www.example.com
 ```
-{% include copy.html %}
 
 Remember that Boolean operators follow the logical precedence order of `not`, `and`, and `or`, so if you have an expression like the one in the preceding example, `response.keyword:200 and host.keyword:www.example.com` is evaluated first.
 
-To avoid confusion, use parentheses to dictate the order in which you want to evaluate operands. If you want to evaluate `geo.dest:US or response.keyword:200` first, use the following expression:
+To avoid confusion, use parentheses to dictate the order in which you want to evaluate operands. If you want to evaluate `geo.dest:US or response.keyword:200` first, you can use an expression like the following:
 
 ```
 (geo.dest:US or response.keyword:200) and host.keyword:www.example.com
 ```
-{% include copy.html %}
 
 ## Querying dates and ranges
 
@@ -79,7 +72,7 @@ You can use the same method to find a date before or after the date specified in
 
 ## Querying nested fields
 
-Searching a document with [nested fields]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/nested/) requires you to specify the full path of the field to be retrieved. In this example, the `superheroes` field has nested objects.
+Searching a document with [nested fields]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/nested/) requires you to specify the full path of the field to be retrieved. In the following example document, the `superheroes` field has nested objects:
 
 ```json
 {
@@ -109,21 +102,21 @@ Searching a document with [nested fields]({{site.url}}{{site.baseurl}}/opensearc
 ```
 {% include copy.html %}
 
-To retrieve a specific field using DQL, use the following notation:
+To retrieve a specific field using DQL, specify the field, for example:
 
 ```
 superheroes: {hero-name: Superman}
 ```
 {% include copy.html %}
 
-To retrieve multiple objects from your document, specify all the fields you want to retrieve, as shown in the following notation:
+To retrieve multiple objects from the document, specify all the fields you want to retrieve, for example:
 
 ```
 superheroes: {hero-name: Superman} and superheroes: {hero-name: Batman}
 ```
 {% include copy.html %}
 
-The previous Boolean and range queries still work, so you can submit a more refined query, as shown in the following notation:
+Continuing with the preceding Boolean and range queries, you can submit a more refined query, for example:
 
 ```
 superheroes: {hero-name: Superman and age < 50}
@@ -132,7 +125,7 @@ superheroes: {hero-name: Superman and age < 50}
 
 ## Querying doubly nested objects 
 
-If a document has doubly nested objects (objects nested inside other objects), retrieve a field value by specifying the full path to the field. In the following example document, the `superheroes` object is nested inside the `justice-league` object.
+If a document has doubly nested objects (objects nested inside other objects), retrieve a field value by specifying the full path to the field. In the following example document, the `superheroes` object is nested inside the `justice-league` object:
 
 ```json
 {
@@ -166,13 +159,6 @@ If a document has doubly nested objects (objects nested inside other objects), r
 ```
 {% include copy.html %}
 
-To retrieve data, you can use the following example notation:
-
-```
-justice-league.superheroes: {hero-name:Superman}
-```
-{% include copy.html %}
-
-The following image shows the query result using the example notation.
+The following image shows the query result using the example notation `justice-league.superheroes: {hero-name:Superman}`.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/dql-query-result.png" alt="DQL query result" width="1000">

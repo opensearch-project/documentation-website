@@ -25,9 +25,9 @@ Sample datasets come with visualizations, dashboards, and other tools to help yo
 
 1. Verify access to OpenSearch Dashboards by connecting to [http://localhost:5601](http://localhost:5601) from a browser. The default username and password are `admin`.
 1. On the OpenSearch Dashboards **Home** page, choose **Add sample data**.
-1. Choose **Add data** to add the data sets, as shown in the following image.
+2. Choose **Add data** to add the datasets, as shown in the following image.
 
-    <img src="{{site.url}}{{site.baseurl}}/images/add-sample-data.png" alt="Sample data sets" width="800">
+    <img src="{{site.url}}{{site.baseurl}}/images/add-sample-data.png" alt="Sample datasets" width="800">
 
 # Exploring and inspecting data
 
@@ -39,7 +39,7 @@ In [**Discover**](discover/index.md), you can:
 
 ## Try it: Getting familiar with Discover
 
-1. On the OpenSearch Dashboards **Home** page, choose **Discover.**
+1. On the OpenSearch Dashboards **Home** page, choose **Discover**.
 1. Change the [time filter](time-filter.md) to **Last 7 days**, as shown in the following image.
 
     <img src="{{site.url}}{{site.baseurl}}/images/last-7--days.png" alt="Time filter interface" width="350"/>
@@ -48,7 +48,7 @@ In [**Discover**](discover/index.md), you can:
    
     <img src="{{site.url}}{{site.baseurl}}/images/dashboards/dql-search-field.png" alt="DQL search field example" width="1000"/>
 
-3. To filter data, choose **Add filter** and then select an **Available field**. For example, select `FlightDelayType`, **is**, and **Weather delay** from the **Field, Operator, and Value** dropdown lists, as shown in the following image.
+3. To filter data, choose **Add filter** and then select an **Available field**. For example, select `FlightDelayType`, **is**, and **Weather delay** from the **Field**, **Operator**, and **Value** dropdown lists, as shown in the following image.
 
     <img src="{{site.url}}{{site.baseurl}}/images/dashboards/filter-data-discover.png" alt="Filter data by FlightDelayType field" width="350"/>
 
@@ -70,14 +70,14 @@ Raw data can be difficult to comprehend and use. Data visualizations help you pr
 
 1. To add panels to the dashboard, choose **Edit** and then **Add** from the toolbar.
 1. In the **Add panels** window, choose the existing panel **[Flights] Delay Buckets**. You'll see a pop-up window on the lower right confirming that you've added the panel.
-1. Select `x` to close the Add panels window.
+1. Select `x` to close the **Add panels** window.
 1. View the added panel **[Flights] Delay Buckets**, which is added as the last panel on the dashboard, as shown in the following image.
 
     <img src="{{site.url}}{{site.baseurl}}/images/dashboards/add-panel.png" alt="Add panel to dashboard" width="600"/>
 
 ## Try it: Creating a visualization panel
 
-Continuing with the preceding dashboard, you'll create a bar chart comparing the number of canceled flights and delayed flights to delay type and then add the panel to the dashboard.
+Continuing with the preceding dashboard, you'll create a bar chart comparing the number of canceled flights and delayed flights to delay type and then add the panel to the dashboard:
 
 1. Change the default [time range]({{site.url}}{{site.baseurl}}/dashboards/get-started/time-filter/) from **24 hours** to **Last 7 days**. 
 1. In the toolbar, choose **Edit**, then **Create new**.
@@ -112,6 +112,6 @@ Alternatively, you can apply filters using the dashboard toolbar:
 
 # Taking the next steps
 
-- **Visualize data**. To learn more about data visualizations in OpenSearch Dashboards, see [**Visualize**]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/).
-- **Create dashboards.** To learn more about creating dashboards in OpenSearch Dashboards, see **Dashboard**.
-- **Explore data**. To learn more about exploring data in OpenSearch Dashboards, see [**Discover**]({{site.url}}{{site.baseurl}}/dashboards/discover/). 
+- **Visualize data**. To learn more about data visualizations in OpenSearch Dashboards, see [**Building data visualizations with Visualize**]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/).
+- **Create dashboards**. To learn more about creating dashboards in OpenSearch Dashboards, see [**Creating dashboards with Dashboard**]({{site.url}}{{site.baseurl}}/dashboards/dashboard/).
+- **Explore data**. To learn more about exploring data in OpenSearch Dashboards, see [**Exploring data with Discover**]({{site.url}}{{site.baseurl}}/dashboards/discover/). 
