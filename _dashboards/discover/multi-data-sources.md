@@ -129,7 +129,7 @@ Your dashboard might look like the one in the following image.
 
 <img src="{{site.url}}{{site.baseurl}}/images/multi-data-sources-12.jpg" width=700 alt="Example dashboard using data visualizations from many data sources">
 
-You have now explored the data sources experimental feature. To provide feedback on how the OpenSearch Project team can improve this feature ahead of its release for production use, comment in the [OpenSearch forum](https://forum.opensearch.org/).
+You have now explored the data sources experimental feature. To provide feedback on how this feature can be improved ahead of its release for production use, comment in the [OpenSearch forum](https://forum.opensearch.org/).
 
 ## Understanding feature limitations
 
