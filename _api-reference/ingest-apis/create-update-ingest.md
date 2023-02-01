@@ -25,6 +25,7 @@ PUT _ingest/pipeline/12345
   ]
 }
 ```
+{% include copy-curl.html %}
 
 ## Path and HTTP methods
 ```

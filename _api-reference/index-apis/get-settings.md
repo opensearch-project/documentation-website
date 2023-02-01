@@ -16,6 +16,7 @@ The get settings API operation returns all the settings in your index.
 ```json
 GET /sample-index1/_settings
 ```
+{% include copy-curl.html %}
 
 ## Path and HTTP methods
 

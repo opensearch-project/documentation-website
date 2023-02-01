@@ -29,6 +29,7 @@ PUT books
   }
 }
 ```
+{% include copy-curl.html %}
 
 In addition to the `suggestions` field, this creates `suggestions._2gram`, `suggestions._3gram`, and `suggestions._index_prefix` fields. 
 
@@ -40,6 +41,7 @@ PUT books/_doc/1
   "suggestions": "one two three four"
 }
 ```
+{% include copy-curl.html %}
 
 To match terms in any order, use a bool_prefix or multi-match query. These queries rank the documents in which search terms are in the specified order higher than the documents in which terms are out of order.
 
@@ -59,6 +61,7 @@ GET books/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 The response contains the matching document:
 
@@ -105,6 +108,7 @@ GET books/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 The response contains the matching document:
 
@@ -151,6 +155,7 @@ GET books/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 Response:
 

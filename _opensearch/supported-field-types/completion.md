@@ -30,6 +30,7 @@ PUT chess_store
   }
 }
 ```
+{% include copy-curl.html %}
 
 Index suggestions into OpenSearch:
 
@@ -42,6 +43,7 @@ PUT chess_store/_doc/1
     }
 }
 ```
+{% include copy-curl.html %}
 
 ## Parameters
 
@@ -73,6 +75,7 @@ PUT chess_store/_doc/2
   ]
 }
 ```
+{% include copy-curl.html %}
 
 As an alternative, you can use the following shorthand notation (note that you cannot provide the `weight` parameter in this notation):
 
@@ -82,6 +85,7 @@ PUT chess_store/_doc/3
   "suggestions" : [ "Chess clock", "Chess timer" ]
 }
 ```
+{% include copy-curl.html %}
 
 ## Querying completion field types
 
@@ -102,6 +106,7 @@ GET chess_store/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 The response contains autocomplete suggestions:
 
@@ -192,6 +197,7 @@ GET chess_store/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 The response contains the suggestions:
 
@@ -297,6 +303,7 @@ GET chess_store/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 To use all default fuzziness options, specify `"fuzzy": {}` or `"fuzzy": true`.
 {: .tip}
@@ -330,6 +337,7 @@ GET chess_store/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 The response matches the string "abcde":
 

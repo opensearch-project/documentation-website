@@ -33,19 +33,27 @@ PUT testindex
   }
 }
 ```
+{% include copy-curl.html %}
 
 Index three documents with text fields:
 
 ```json
 PUT testindex/_doc/1
 { "sentence": "To be, or not to be: that is the question." }
+```
+{% include copy-curl.html %}
 
+```json
 PUT testindex/_doc/2
 { "sentence": "All the world’s a stage, and all the men and women are merely players." }
+```
+{% include copy-curl.html %}
 
+```json
 PUT testindex/_doc/3
 { "sentence": "Now is the winter of our discontent." }
 ```
+{% include copy-curl.html %}
 
 Search for sentences with fewer than 10 words:
 
@@ -61,6 +69,7 @@ GET testindex/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 The response contains one matching sentence:
 
