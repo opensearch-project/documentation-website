@@ -21,4 +21,4 @@ Before Security Analytics can begin generating findings and sending alerts, admi
 1. To get started, select the top menu on the Dashboards home page and then select **Security Analytics**. The Overview page for Security Analytics is displayed.
 1. From the options on the left side of the page, select **Detectors** to begin creating a detector.
 
-<img src="{{site.url}}{{site.baseurl}}/images/Security/secanalytics-det-nav.png" alt="Navigating to create a detector page">
+<img src="{{site.url}}{{site.baseurl}}/images/Security/secanalytics-det-nav.png" alt="Navigating to create a detector page" width="70%">
