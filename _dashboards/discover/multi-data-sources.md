@@ -75,7 +75,7 @@ Index patterns allow you to access the OpenSearch data that you want to explore.
 
     <img src="{{site.url}}{{site.baseurl}}/images/multi-data-sources-7.png" width=500 alt="Index pattern define user interface">
 
-1. Select an option for the **Time field** and then choose **Create index pattern**.
+1. Select an option for the **Time field** and then choose **Create index pattern**, as shown in the following image.
 
     <img src="{{site.url}}{{site.baseurl}}/images/multi-data-sources-8.png" width=500 alt="Index pattern time field user interface">
 
