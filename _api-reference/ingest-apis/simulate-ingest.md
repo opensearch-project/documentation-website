@@ -32,6 +32,7 @@ POST /_ingest/pipeline/35678/_simulate
   ]
 }
 ```
+{% include copy-curl.html %}
 
 ## Path and HTTP methods
 

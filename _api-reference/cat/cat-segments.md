@@ -18,18 +18,21 @@ The cat segments operation lists Lucene segment-level information for each index
 ```
 GET _cat/segments?v
 ```
+{% include copy-curl.html %}
 
 To see only the information about segments of a specific index, add the index name after your query.
 
 ```
 GET _cat/segments/<index>?v
 ```
+{% include copy-curl.html %}
 
 If you want to get information for more than one index, separate the indices with commas:
 
 ```
 GET _cat/segments/index1,index2,index3
 ```
+{% include copy-curl.html %}
 
 ## Path and HTTP methods
 

@@ -16,6 +16,7 @@ The open index API operation opens a closed index, letting you add or search for
 ```json
 POST /sample-index/_open
 ```
+{% include copy-curl.html %}
 
 ## Path and HTTP methods
 
