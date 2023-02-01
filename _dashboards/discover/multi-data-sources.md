@@ -83,7 +83,7 @@ Index patterns allow you to access the OpenSearch data that you want to explore.
 
 Before you start searching for data, set up the time filter. The sample index pattern used for this tutorial contains time-based data. You can set a time filter that displays only the data within a specified time range, and you can choose the time filter to change the time range or select a specific time range in the histogram.
 
-### Using the time filter
+### Adjusting the time filter
 
 To adjust the time filter:
 
