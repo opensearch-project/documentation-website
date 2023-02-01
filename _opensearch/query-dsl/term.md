@@ -26,8 +26,8 @@ You can use any of the term-level query types shown in the following table:
 `prefix` | Specifies a search for terms that begin with a prefix.
 `exists` | Specifies a search for documents that contain a specific field.
 `wildcard` | Specifies a search for terms that match a wildcard pattern. Indicate matching zero or more characters with an asterisk (*) or a single character by a question mark (?).
-`regex` | Specifies a search for terms that match a regular expression.
-
+`regexp` | Specifies a search for terms that match a regular expression.
+`terms_set` | Similar to a `terms` query, but you specify the number of matching terms that are required to return a document.
 
 ## Should I use a full-text or a term-level query?
 

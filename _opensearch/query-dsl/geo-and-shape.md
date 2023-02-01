@@ -7,7 +7,7 @@ nav_order: 40
 
 # Geographic and shape queries
 
-You can search multiple dimensions with the geographic and cartesian shape queries.
+You can search for documents that contain points and shapes in a Cartesian coordinate system using xy shape queries. You can use geographic queries to search for documents that contain geographic points and shapes.
 
 ## Cartesian shape queries
 
@@ -15,11 +15,11 @@ You can create queries to search two-dimensional geometries that map out cartesi
 
 ### Pre-indexed shape query
 
-You can search for an xy shape that was previously indexed by defining the shape with the `indexed_shape` object, and referencing the shape name in the `id` field. Specifying the `id` field is required, while  `index`, `path`, and `routing` fields are optional. Set the `ignore_unmapped` option to `true` to ignore any pre-indexed fields that were mapped in the shape to which you are referencing. By default, `ignore_unmapped` is set to `false`, which throws an exception if the field is not mapped. For more details, see [Pre-indexed shape definition]({{site.url}}{{site.baseurl}}(/opensearch/query-dsl/xy/#using-a-pre-indexed-shape-definition)).
+You can define the shape in an xy query either by providing a new shape definition at the query time or by referencing the name of a shape that was pre-indexed in a different index. For more details, see [Pre-indexed shape definition]({{site.url}}{{site.baseurl}}(/opensearch/query-dsl/xy/#using-a-pre-indexed-shape-definition)).
 ## Geographic queries
 
 You can use the following geographic queries to search documents that include geopoint field data:
 
 - **Geo-bounding box** `geo_bounding_box` – Returns documents with `geo_point` field values that are within a bounding box. To learn more, see [Geo-bounding box queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/geo-bounding-box/).
-- **Geo distance** `geo_distance` – Returns documents that contain the geographic points within a specified distance from a central point.
+- **Geo distance** `geo_distance` – Returns documents that contain the geographic points within a specified distance from a geopoint.
 - **Geo polygon** `geo_polygon` – Returns documents that contain the specified geographic points within the specified polygon.
