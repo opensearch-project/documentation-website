@@ -15,7 +15,7 @@ has_children: true
 
 ## Try it: Exploring sample data with Discover
 
-This tutorial shows you how to use Discover to analyze and understand a sample data set. At the end of this tutorial, you should be ready to use Discover with your own data.
+This tutorial shows you how to use Discover to analyze and understand a sample dataset. At the end of this tutorial, you should be ready to use Discover with your own data.
 
 Before starting this tutorial, make sure you've added the **Sample flight data**. See [Quickstart guide for OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/quickstart/) for information about how to get started.
 {: .warning}
