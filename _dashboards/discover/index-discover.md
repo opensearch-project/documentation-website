@@ -28,7 +28,7 @@ Watch the following short video or start with the tutorial steps to learn how to
 
 1. Verify access to OpenSearch Dashboards by connecting to [http://localhost:5601](http://localhost:5601) from a browser. The default username and password are `admin`. 
 1. On the **Home** page, choose **Discover** in the navigation pane.
-1. On the index pattern toolbar, select the **opensearch_dashboards_sample_data_flights** data set.
+1. On the index pattern toolbar, select the **opensearch_dashboards_sample_data_flights** dataset.
 1. On the time filter toolbar, choose the calendar icon and then change the time range to **Last 7 days**.
 
 ### Exploring the data fields
