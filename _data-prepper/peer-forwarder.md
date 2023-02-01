@@ -10,7 +10,7 @@ Peer Forwarder is an HTTP service that performs peer forwarding of an `event` be
 
 Peer Forwarder groups events based on the identification keys provided by the supported processors. For `service_map_stateful` and `otel_trace_raw`, the identification key is `traceId` by default and cannot be configured. The `aggregate` processor is configured using the `identification_keys` configuration option. From here, you can specify which keys to use for Peer Forwarder. See [Aggregate Processor page](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/aggregate-processor#identification_keys) for more information about identification keys.
 
-Peer discovery allows Data Prepper to find other nodes that it will communicate with. Currently, peer discovery is provided by a static list, a DNS record lookup, or anAWS Cloud Map.  
+Peer discovery allows Data Prepper to find other nodes that it will communicate with. Currently, peer discovery is provided by a static list, a DNS record lookup, or AWS Cloud Map.  
 
 ## Discovery modes
 
@@ -28,7 +28,7 @@ peer_forwarder:4
 
 ### DNS lookup
 
-DNS discovery is preferred over static discovery when scaling out a Data Prepper cluster. DNS discovery configures a DNS provider to return a list of Data Prepper hosts when given a single domain name. This list is a [DNS A record](https://www.cloudflare.com/learning/dns/dns-records/dns-a-record/), and a list of IP addresses of a given domain. See the following YAML file example of DNS lookup:
+DNS discovery is preferred over static discovery when scaling out a Data Prepper cluster. DNS discovery configures a DNS provider to return a list of Data Prepper hosts when given a single domain name. This list consists of a [DNS A record](https://www.cloudflare.com/learning/dns/dns-records/dns-a-record/), and a list of IP addresses of a given domain. See the following YAML file for an example of DNS lookup:
 
 ```yaml
 peer_forwarder:
@@ -45,7 +45,7 @@ Peer Forwarder can use the API-based service discovery in AWS Cloud Map. To supp
 Your Data Prepper configuration needs to include the following:
 * `aws_cloud_map_namespace_name` – Set to your AWS Cloud Map namespace name.
 * `aws_cloud_map_service_name` – Set to the service name within your specified namespace.
-* `aws_region` – Set to the AWS Region where your namespace exists.
+* `aws_region` – Set to the AWS Region in which your namespace exists.
 * `discovery_mode` – Set to `aws_cloud_map`.
 
 Your Data Prepper configuration can optionally include the following:
@@ -91,7 +91,7 @@ The following table provides optional configuration values.
 
 | Value | Type | Description |
 | ----  | --- |  ----------- |
-| `port` | Integer | A value between 0 and 65535 represents the port that the Peer Forwarder server is running on. Default value is `4994`. |
+| `port` | Integer | A value between 0 and 65535 that represents the port that the Peer Forwarder server is running on. Default value is `4994`. |
 | `request_timeout` | Integer | Represents the request timeout duration in milliseconds for the Peer Forwarder HTTP server. Default value is `10000`. |
 | `server_thread_count` | Integer | Represents the number of threads used by the Peer Forwarder server. Default value is `200`.|
 | `client_thread_count` | Integer | Represents the number of threads used by the Peer Forwarder client. Default value is `200`.|
@@ -103,26 +103,26 @@ The following table provides optional configuration values.
 | `aws_cloud_map_service_name` | String | Represents the AWS Cloud Map service when using AWS Cloud Map service discovery. Required if `discovery_mode` is set to `aws_cloud_map`. |
 | `aws_cloud_map_query_parameters`  | Map | Key-value pairs used to filter the results based on the custom attributes attached to an instance. Only instances that match all the specified key-value pairs are returned. |
 | `buffer_size` | Integer | Represents the maximum number of unchecked records the buffer accepts (the number of unchecked records equals the number of records written into the buffer plus the number of records that are still processing and not yet checked by the Checkpointing API). Default is `512`. |
-| `batch_size` |  Integer | Representing max number of records the buffer returns on read. Default is `48`. |
-|  `aws_region` |  String | Represents the AWS Region to use `ACM`, `S3` or `AWS Cloud Map` and is required when any of the following conditions are met:<br> - The `use_acm_certificate_for_ssl` setting is `true`. <br> - Either `ssl_certificate_file` or `ssl_key_file` specifies an AWS S3 URI (for example, s3://mybucket/path/to/public.cert).<br> - The `discovery_mode` setting is `aws_cloud_map`. |
-| `drain_timeout`  | Duration | Represents the wait time for the Peer Forwarder to complete processing data before shutdown. |
+| `batch_size` |  Integer | Represents the maximum number of records that the buffer returns on read. Default is `48`. |
+|  `aws_region` |  String | Represents the AWS Region that uses `ACM`, `S3`, or `AWS Cloud Map` and is required when any of the following conditions are met:<br> - The `use_acm_certificate_for_ssl` setting is set to `true`. <br> - Either `ssl_certificate_file` or `ssl_key_file` specifies an Amazon Simple Storage Service (Amazon S3) URI (for example, s3://mybucket/path/to/public.cert).<br> - The `discovery_mode` is set to `aws_cloud_map`. |
+| `drain_timeout`  | Duration | Represents the amount of time that Peer Forwarder will wait to complete data processing before shutdown. |
 
 ## SSL configuration
 
-The following SSL configuration table provides optional SSL configuration values and allows you to set up trust manager for the peer forwarding client to connect to other Data Prepper instances.
+The following SSL configuration table provides optional SSL configuration values and allows you to set up Trust Manager for the Peer Forwarder client to connect to other Data Prepper instances.
 
 | Value | Type | Description |
 | ----- | ---- | ----------- |
 | `ssl` | Boolean | Enables TLS/SSL. Default value is `true`. |
-| `ssl_certificate_file`| String | Represents the SSL certificate chain file path or Amazon Simple Storage Service (Amazon S3) path. The following is an example of an Amazon S3 path: `s3://<bucketName>/<path>`. Defaults to the default certificate file,`config/default_certificate.pem`. See [Default Certificates](https://github.com/opensearch-project/data-prepper/tree/main/examples/certificates) for more information about how the certificate is generated. |
-| `ssl_key_file`| String | Represents the SSL key file path or AWS S3 path. S3 path example `s3://<bucketName>/<path>`. Defaults to `config/default_private_key.pem` which is the default private key file. Read more about how the private key file is generated at the [Default Certificates](https://github.com/opensearch-project/data-prepper/tree/main/examples/certificates) page. |
+| `ssl_certificate_file`| String | Represents the SSL certificate chain file path or Amazon S3 path. The following is an example of an Amazon S3 path: `s3://<bucketName>/<path>`. Defaults to the default certificate file,`config/default_certificate.pem`. See [Default Certificates](https://github.com/opensearch-project/data-prepper/tree/main/examples/certificates) for more information about how the certificate is generated. |
+| `ssl_key_file`| String | Represents the SSL key file path or Amazon S3 path. Amazon S3 path example: `s3://<bucketName>/<path>`. Defaults to `config/default_private_key.pem` which is the default private key file. See [Default Certificates](https://github.com/opensearch-project/data-prepper/tree/main/examples/certificates) for more information about how the private key file is generated. |
 | `ssl_insecure_disable_verification` | Boolean | Disables the verification of the server's TLS certificate chain. Default value is `false`. |
 | `ssl_fingerprint_verification_only` | Boolean | Disables the verification of the server's TLS certificate chain and instead verifies only the certificate fingerprint. Default value is `false`. |
 | `use_acm_certificate_for_ssl` | Boolean | Enables TLS/SSL using the certificate and private key from AWS Certificate Manager (ACM). Default value is `false`. |
-| `acm_certificate_arn`| String | Represents the ACM certificate Amazon Resource Name (ARN). The ACM certificate takes precedence over S3 or the local file system certificate. Required if `use_acm_certificate_for_ssl` is set to `true`. |
+| `acm_certificate_arn`| String | Represents the ACM certificate Amazon Resource Name (ARN). The ACM certificate takes precedence over Amazon S3 or the local file system certificate. Required if `use_acm_certificate_for_ssl` is set to `true`. |
 | `acm_private_key_password` | String | Represents the ACM private key password that will be used to decrypt the private key. If it's not provided, a random password will be generated. |
 | `acm_certificate_timeout_millis` | Integer | Represents the timeout in milliseconds required for ACM to get certificates. Default value is `120000`. |
-| `aws_region` | String | Represents the AWS Region that uses `ACM`, `S3` or `AWS Cloud Map`. Required if `use_acm_certificate_for_ssl` is set to `true` or `ssl_certificate_file`. Also required when the `ssl_key_file` is set to the `AWS S3` path, or if `discovery_mode` is set to `aws_cloud_map`. |
+| `aws_region` | String | Represents the AWS Region that uses `ACM`, `S3`, or `AWS Cloud Map`. Required if `use_acm_certificate_for_ssl` is set to `true` or `ssl_certificate_file`. Also required when the `ssl_key_file` is set to the `AWS S3` path, or if `discovery_mode` is set to `aws_cloud_map`. |
 
 #### Example configuration
 
@@ -137,7 +137,7 @@ peer_forwarder:
 
 ## Authentication
 
-`Authentication` is optional and is a `Map` that enables mutual TLS (mTLS). It can either be `mutual_tls` or `unauthenticated`. The default value is `unauthenticated`. The following YAML file provides an exmaple for authentication:
+`Authentication` is optional and is a `Map` that enables mutual TLS (mTLS). It can either be `mutual_tls` or `unauthenticated`. The default value is `unauthenticated`. The following YAML file provides an example of authentication:
 
 ```yaml
 peer_forwarder:
@@ -163,12 +163,12 @@ The following table provides counter metric options.
 | Value | Description |
 | ----- | ----------- |
 | `requests`| Measures the total number of forwarded requests. |
-| `requestsFailed`| Measures the total number of failed requests. Applies to requests with HTTP response code other than `200`. |
+| `requestsFailed`| Measures the total number of failed requests. Applies to requests with an HTTP response code other than `200`. |
 | `requestsSuccessful`|  Measures the total number of successful requests. Applies to requests with HTTP response code `200`. |
 | `requestsTooLarge`| Measures the total number of requests that are too large to be written to the Peer Forwarder buffer. Applies to requests with HTTP response code `413`. |
 | `requestTimeouts`| Measures the total number of requests that time out while writing content to the Peer Forwarder buffer. Applies to requests with HTTP response code `408`. |
 | `requestsUnprocessable`| Measures the total number of requests that fail due to an unprocessable entity. Applies to requests with HTTP response code `422`. |
-| `badRequests`| Measures the total number of requests with bad request format. Applies to requests with HTTP response code `400`. |
+| `badRequests`| Measures the total number of requests with a bad request format. Applies to requests with HTTP response code `400`. |
 | `recordsSuccessfullyForwarded`| Measures the total number of successfully forwarded records. |
 | `recordsFailedForwarding`| Measures the total number of records that fail to be forwarded. |
 | `recordsToBeForwarded` | Measures the total number of records to be forwarded. |
