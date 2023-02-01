@@ -2,7 +2,7 @@
 layout: default
 title: Geo-bounding box queries
 parent: Query DSL
-nav_order: 45
+nav_order: 50
 ---
 
 # Geo-bounding box queries

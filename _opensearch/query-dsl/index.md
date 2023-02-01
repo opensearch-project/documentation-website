@@ -16,12 +16,8 @@ OpenSearch provides a query domain-specific language (DSL) that you can use to p
 
 OpenSearch supports the following query DSL query type categories:
 
-- **Compound queries** – Used to perform combined queries with the following query types:
-    - **Boolean** `bool` – Combines multiple query clauses with Boolean logic. To learn more, see [Boolean queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/bool/).
-    - **Constant score** `constant_score` – Uses a `filter` query to return all matching documents and gives each document the same relevance score that is equal to the `boost` value.
-    - **Disjunction max** `dis_max` – Returns documents that match one or more query clauses. If a document matches multiple query clauses, its relevance score is calculated using the highest score from any matching clause and, optionally, the scores from the other matching clauses multiplied by the tie breaker value.
-    - **Function score** `function_score` – Modifies the score of documents that are returned by a query. You define a query and one or more functions to compute a score for each document that matches the query.
-    - **Boosting** `boosting` – Changes the relevancy score for documents without removing them from the search results. Returns documents that match a `positive` query, as well as changing the relevance score for documents that match a `negative` query.
+- **Compound queries** – Used to create combined queries such as Boolean, disjunction max, constant score, disjunction max, function score or boosting.
+To learn more, see [Compound queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/compound/).
 
 - **Full-text queries** – Used to search documents for one or more terms and filter with advanced options. These queries perform text analysis and return detailed information, including relevance scores for each document match. To learn more, see [Full-text queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/). A query string query is a subtype of a full-text query that you can use to perform complex queries for a string with multiple optional fields using `query_string` syntax. To learn more, see [Query string queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/query-string/).
 

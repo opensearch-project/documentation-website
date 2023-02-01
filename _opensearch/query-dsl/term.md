@@ -2,7 +2,7 @@
 layout: default
 title: Term-level queries
 parent: Query DSL
-nav_order: 65
+nav_order: 70
 ---
 
 # Term-level queries

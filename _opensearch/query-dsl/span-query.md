@@ -2,7 +2,7 @@
 layout: default
 title: Span queries
 parent: Query DSL
-nav_order: 60
+nav_order: 65
 ---
 
 # Span queries
