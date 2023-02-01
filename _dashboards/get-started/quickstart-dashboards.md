@@ -27,7 +27,7 @@ Sample datasets come with visualizations, dashboards, and other tools to help yo
 1. On the OpenSearch Dashboards **Home** page, choose **Add sample data**.
 2. Choose **Add data** to add the datasets, as shown in the following image.
 
-    <img src="{{site.url}}{{site.baseurl}}/images/add-sample-data.png" alt="Sample datasets" width="800">
+    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/add-sample-data.png" alt="Sample datasets" width="800">
 
 # Exploring and inspecting data
 
