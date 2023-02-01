@@ -34,6 +34,7 @@ The following are an example request and response.
 ````json
 POST /shakespeare/_reload_search_analyzers
 ````
+{% include copy-curl.html %}
  
 #### Sample response
 

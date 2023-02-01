@@ -18,18 +18,21 @@ The CAT aliases operation lists the mapping of aliases to indices, plus routing 
 ```json
 GET _cat/aliases?v
 ```
+{% include copy-curl.html %}
 
 To limit the information to a specific alias, add the alias name after your query:
 
 ```json
 GET _cat/aliases/<alias>?v
 ```
+{% include copy-curl.html %}
 
 If you want to get information for more than one alias, separate the alias names with commas:
 
 ```json
 GET _cat/aliases/alias1,alias2,alias3
 ```
+{% include copy-curl.html %}
 
 ## Path and HTTP methods
 
