@@ -54,7 +54,7 @@ To create a new data source connection:
 
     <img src="{{site.url}}{{site.baseurl}}/images/multi-data-sources-3.png" width=500 alt="Data sources list user interface">
 
-1. Optional: Select the data source to verify that the settings are configured properly, for example, as shown in the following image.
+1. Optional: Select the data source to verify that the settings are configured properly, as shown in the following image.
 
     <img src="{{site.url}}{{site.baseurl}}/images/multi-data-sources-4.png" width=500 alt="Data sources settings verification user interface">
 
