@@ -18,6 +18,7 @@ The CAT pending tasks operation lists the progress of all pending tasks, includi
 ```
 GET _cat/pending_tasks?v
 ```
+{% include copy-curl.html %}
 
 ## Path and HTTP methods
 

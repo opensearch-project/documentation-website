@@ -24,9 +24,12 @@ snapshot | String | Snapshot to delete. |
 
 #### Sample request
 
-The following request deletes a snapshot called `my-first-snapshot` from the `my-opensearch-repo` repository.
+The following request deletes a snapshot called `my-first-snapshot` from the `my-opensearch-repo` repository:
 
-`DELETE _snapshot/my-opensearch-repo/my-first-snapshot`
+```json
+DELETE _snapshot/my-opensearch-repo/my-first-snapshot
+```
+{% include copy-curl.html %}
 
 #### Sample response
 

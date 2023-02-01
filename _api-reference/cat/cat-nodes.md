@@ -20,6 +20,7 @@ A few important node metrics are `pid`, `name`, `cluster_manager`, `ip`, `port`,
 ```
 GET _cat/nodes?v
 ```
+{% include copy-curl.html %}
 
 ## Path and HTTP methods
 
