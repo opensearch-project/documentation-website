@@ -53,7 +53,7 @@ You can use the search toolbar or enter a DQL query in the **DevTools** console 
 
 Follow these steps to search data:
 
-1. In the search toolbar, enter the boolean query. For example, `FlightDelay:true AND FlightDelayMin >= 60` to search the data for flights delayed 60 minutes or longer.
+1. In the search toolbar, enter the Boolean query. For example, enter `FlightDelay:true AND FlightDelayMin >= 60` to search the data for flights delayed by 60 minutes or more.
 2. Choose **Update**.
 3. Optional: Choose the arrow (`>`) in a table row to expand the row and view the document table details.
 
