@@ -77,7 +77,7 @@ You can view the document table fields to better understand the data and gather 
 
 1. Choose the arrow icon (>) to expand a table row.
 2. View the fields and details.
-3. Switch between **Table** and **JSON** tabs to view the different formats, for example, as shown in the following image.  
+3. Switch between the **Table** and **JSON** tabs to view the different formats, as shown in the following image.  
 
 ![Analyzing data in the document table]({{site.url}}{{site.baseurl}}/images/discover-analyze.png)
 
