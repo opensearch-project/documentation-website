@@ -71,7 +71,7 @@ Index patterns allow you to access the OpenSearch data that you want to explore.
 
     <img src="{{site.url}}{{site.baseurl}}/images/multi-data-sources-6.png" width=500 alt="Index pattern search user interface">
 
-1. Add an **Index pattern name** to define the index pattern and then choose **Next step**.
+1. Add an **Index pattern name** to define the index pattern and then choose **Next step**, as shown in the following image.
 
     <img src="{{site.url}}{{site.baseurl}}/images/multi-data-sources-7.png" width=500 alt="Index pattern define user interface">
 
