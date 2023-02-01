@@ -23,7 +23,7 @@ To change the time range at the dashboard level, perform the following steps:
 
     <img src="{{site.url}}{{site.baseurl}}/images/dashboards/time-range.png" alt="Time range interface" width="400"/>
 
-3. Choose **Show dates** to set start and end times, and then select inside the toolbar to access the time filter pop-up window, as shown in the following image.
+3. Choose **Show dates** to set start and end times, and then select anywhere inside the toolbar to access the time filter pop-up window, as shown in the following image.
 
    <img src="{{site.url}}{{site.baseurl}}/images/dashboards/time-filter-popup.png" alt="Time filter pop-up window" width="400"/>
 

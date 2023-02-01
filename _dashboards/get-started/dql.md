@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Using Dashboards Query Language
-parent: Understanding the core concepts of OpenSearch Dashboards
+parent: Exploring data with Discover
 nav_order: 40
 redirect_from:
   - /dashboards/dql/
