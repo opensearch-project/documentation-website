@@ -9,11 +9,11 @@ has_children: false
 
 Using the security plugin with index management lets you limit non-admin users to certain actions. For example, you might want to set up your security such that a group of users can only read ISM policies, while others can create, delete, or change policies.
 
-All index management data are protected as system indices, and only a super admin or an admin with a Transport Layer Security (TLS) certificate can access system indices. For more information, see [System indices]({{site.url}}{{site.baseurl}}/security-plugin/configuration/system-indices).
+All index management data are protected as system indices, and only a super admin or an admin with a Transport Layer Security (TLS) certificate can access system indices. For more information, see [System indexes]({{site.url}}{{site.baseurl}}/security/configuration/system-indices).
 
 ## Basic permissions
 
-The security plugin comes with one role that offers full access to index management: `index_management_full_access`. For a description of the role's permissions, see [Predefined roles]({{site.url}}{{site.baseurl}}/security-plugin/access-control/users-roles#predefined-roles).
+The security plugin comes with one role that offers full access to index management: `index_management_full_access`. For a description of the role's permissions, see [Predefined roles]({{site.url}}{{site.baseurl}}/security/access-control/users-roles#predefined-roles).
 
 With security enabled, users not only need the correct index management permissions, but they also need permissions to execute actions to involved indices. For example, if a user wants to use the REST API to attach a policy that executes a rollup job to an index named `system-logs`, they would need the permissions to attach a policy and execute a rollup job, as well as access to `system-logs`.
 
@@ -23,7 +23,7 @@ Finally, with the exceptions of Create Policy, Get Policy, and Delete Policy, us
 
 You can use backend roles to configure fine-grained access to index management policies and actions. For example, users of different departments in an organization might view different policies depending on what roles and permissions they are assigned.
 
-First, ensure your users have the appropriate [backend roles]({{site.url}}{{site.baseurl}}/security-plugin/access-control/index/). Backend roles usually come from an [LDAP server]({{site.url}}{{site.baseurl}}/security-plugin/configuration/ldap/) or [SAML provider]({{site.url}}{{site.baseurl}}/security-plugin/configuration/saml/). However, if you use the internal user database, you can use the REST API to [add them manually]({{site.url}}{{site.baseurl}}/security-plugin/access-control/api#create-user).
+First, ensure your users have the appropriate [backend roles]({{site.url}}{{site.baseurl}}/security/access-control/index/). Backend roles usually come from an [LDAP server]({{site.url}}{{site.baseurl}}/security/configuration/ldap/) or [SAML provider]({{site.url}}{{site.baseurl}}/security/configuration/saml/). However, if you use the internal user database, you can use the REST API to [add them manually]({{site.url}}{{site.baseurl}}/security/access-control/api#create-user).
 
 Use the REST API to enable the following setting:
 
