@@ -32,7 +32,7 @@ Defining a new detector involves naming the detector, selecting a data source an
     {: .tip }
 
 1. In the **Detector schedule** section, set how often the detector will run. Specify a unit of time and a corresponding number to set the interval.
-1. Select the **Next** button in the lower-right corner of the screen to continue. The Configure field mapping page appears.
+1. Select the **Next** button in the lower-right corner of the screen to continue. The **Configure field mapping** page appears.
 
 ## Step 2. Create field mappings
 
@@ -74,7 +74,7 @@ After completing the mappings, select the **Next** button in the lower-right cor
 
 ## Step 3. Set up alerts
 
-The third step in creating a detector involves setting up alerts. Alerts are configured to create triggers that, when matched with a set of detection rule criteria, send a notification of a possible security event. You can select the criteria (rules, rule severity, and tags) in any combination to define a trigger. Once a trigger is defined, the alert setup lets you choose the channel on which to be notified and provides options for customizing a message for the notification.
+The third step in creating a detector involves setting up alerts. Alerts are configured to create triggers that, when matched with a set of detection rule criteria, send a notification of a possible security event. You can select rule names, rule severity, and tags in any combination to define a trigger. Once a trigger is defined, the alert setup lets you choose the channel on which to be notified and provides options for customizing a message for the notification.
 
 At least one alert condition is required before a detector can begin generating findings.
 {: .note }
