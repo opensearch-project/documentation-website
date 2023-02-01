@@ -43,6 +43,7 @@ The following request returns usage details for all nodes:
 ```
 GET _nodes/usage
 ```
+{% include copy-curl.html %}
 
 #### Sample response
 
