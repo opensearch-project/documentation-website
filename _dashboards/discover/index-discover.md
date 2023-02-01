@@ -83,7 +83,7 @@ You can view the document table fields to better understand the data and gather 
 
 ## Saving the search
 
-You can save your search to use it later, generate a report, or build visualizations and dashboards. Saving a search saves the query text, filters, and current data view.  
+Saving a search saves the query text, filters, and current data view. To save your search to use it later, generate a report, or build visualizations and dashboards:  
 
 1. Choose the save icon in the toolbar. 
 1. Give the search a title, and then choose **Save**. 
