@@ -93,7 +93,7 @@ You can save your search to use it later, generate a report, or build visualizat
 
 ## Visualizing the search
 
-You can quickly visualize an aggregated field from **Discover**.
+You can quickly visualize an aggregated field from **Discover**:
 
 1. From the **Available fields** list, select `FlightDelayType` and then choose **Visualize**, as shown in the following image.
 
