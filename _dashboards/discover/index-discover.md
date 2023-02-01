@@ -22,7 +22,7 @@ Before starting this tutorial, make sure you've added the **Sample flight data**
 
 ### Setting up data
 
-Watch the following short video or start with the tutorial steps to learn how to set up a sample data set in Discover.
+Watch the following short video or start with the tutorial steps to learn how to set up a sample dataset in Discover.
 
 ![Setting up the sample data in Discover]({{site.url}}{{site.baseurl}}/images/discover-setting-up-data.gif)
 
