@@ -9,7 +9,7 @@ has_children: true
 
 **Discover** in OpenSearch Dashboards helps you extract insights and get value out of data assets across your organization. Discover enables you to:
 
-1. **Explore data.** You can explore, customize, and filter data, as well as search data using [Dashboards Query Language (DQL)]({{site.url}}{{site.baseurl}}/dashboards/dql/).
+1. **Explore data**. You can explore, customize, and filter data as well as search data using [Dashboards Query Language (DQL)]({{site.url}}{{site.baseurl}}/dashboards/dql/).
 2. **Analyze data.** You can analyze data details, view individual documents, and create tables summarizing data contents.
 3. **Visualize data.** You can display findings from your saved searches in a single dashboard that combines different data visualization types.
 
