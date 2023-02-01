@@ -125,7 +125,7 @@ Follow these steps to connect your visualizations in a single dashboard:
 3. Choose **Save** and add the dashboard name in the **Title field**. This tutorial uses preconfigured dashboards, so you won’t be able to save your dashboard.
 4. Click on the white space left of **Add panels** to view the visualizations in a single dashboard.
 
-Your dashboard might look like the following image:
+Your dashboard might look like the one in the following image.
 
 <img src="{{site.url}}{{site.baseurl}}/images/multi-data-sources-12.jpg" width=700 alt="Example dashboard using data visualizations from many data sources">
 
