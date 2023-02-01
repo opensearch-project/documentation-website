@@ -102,21 +102,21 @@ Searching a document with [nested fields]({{site.url}}{{site.baseurl}}/opensearc
 ```
 {% include copy.html %}
 
-To retrieve a specific field using DQL, specify the field, for example:
+To retrieve documents that match a specific field using DQL, specify the field, for example:
 
 ```
 superheroes: {hero-name: Superman}
 ```
 {% include copy.html %}
 
-To retrieve multiple objects from the document, specify all the fields you want to retrieve, for example:
+To retrieve documents that match multiple fields, specify all the fields, for example:
 
 ```
 superheroes: {hero-name: Superman} and superheroes: {hero-name: Batman}
 ```
 {% include copy.html %}
 
-Continuing with the preceding Boolean and range queries, you can submit a more refined query, for example:
+You can combine multiple Boolean and range queries to create a more refined query, for example:
 
 ```
 superheroes: {hero-name: Superman and age < 50}

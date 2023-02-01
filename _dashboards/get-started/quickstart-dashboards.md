@@ -110,7 +110,7 @@ Alternatively, you can apply filters using the dashboard toolbar:
 
   <img src="{{site.url}}{{site.baseurl}}/images/interact-filter-dashboard.png" alt="Dashboard view after applying Carrier filter" width="800"/>
 
-# Taking the next steps
+# Next steps
 
 - **Visualize data**. To learn more about data visualizations in OpenSearch Dashboards, see [**Building data visualizations with Visualize**]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/).
 - **Create dashboards**. To learn more about creating dashboards in OpenSearch Dashboards, see [**Creating dashboards with Dashboard**]({{site.url}}{{site.baseurl}}/dashboards/dashboard/).
