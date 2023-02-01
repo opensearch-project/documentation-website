@@ -6,7 +6,9 @@ nav_order: 10
 
 # Low-level Python client
 
-The OpenSearch low-level Python client (`opensearch-py`) provides wrapper methods for the OpenSearch REST API so that you can interact with your cluster more naturally in Python. Rather than sending raw HTTP requests to a given URL, you can create an OpenSearch client for your cluster and call the client's built-in functions.
+The OpenSearch low-level Python client (`opensearch-py`) provides wrapper methods for the OpenSearch REST API so that you can interact with your cluster more naturally in Python. Rather than sending raw HTTP requests to a given URL, you can create an OpenSearch client for your cluster and call the client's built-in functions. For the client's complete API documentation and additional examples, see the [`opensearch-py` API documentation](https://opensearch-project.github.io/opensearch-py/).
+
+This getting started guide illustrates how to connect to OpenSearch, index documents, and run queries. For the client source code, see the [opensearch-py repo](https://github.com/opensearch-project/opensearch-py).
 
 ## Setup
 
@@ -15,14 +17,14 @@ To add the client to your project, install it using [pip](https://pip.pypa.io/):
 ```bash
 pip install opensearch-py
 ```
+{% include copy.html %}
 
 After installing the client, you can import it like any other module:
 
 ```python
 from opensearchpy import OpenSearch
 ```
-
-If you prefer to add the client manually or just want to examine the source code, see [opensearch-py](https://github.com/opensearch-project/opensearch-py) on GitHub.
+{% include copy.html %}
 
 ## Connecting to OpenSearch
 
@@ -46,6 +48,7 @@ client = OpenSearch(
     ca_certs = ca_certs_path
 )
 ```
+{% include copy.html %}
 
 If you have your own client certificates, specify them in the `client_cert_path` and `client_key_path` parameters:
 
@@ -73,6 +76,7 @@ client = OpenSearch(
     ca_certs = ca_certs_path
 )
 ```
+{% include copy.html %}
 
 If you are not using the Security plugin, create a client object with SSL disabled:
 
@@ -90,6 +94,7 @@ client = OpenSearch(
     ssl_show_warn = False
 )
 ```
+{% include copy.html %}
 
 ## Creating an index
 
@@ -107,6 +112,7 @@ index_body = {
 
 response = client.indices.create(index_name, body=index_body)
 ```
+{% include copy.html %}
 
 ## Indexing a document
 
@@ -126,6 +132,7 @@ response = client.index(
     refresh = True
 )
 ```
+{% include copy.html %}
 
 ## Performing bulk operations
 
@@ -136,6 +143,7 @@ movies = '{ "index" : { "_index" : "my-dsl-index", "_id" : "2" } } \n { "title" 
 
 client.bulk(movies)
 ```
+{% include copy.html %}
 
 ## Searching for documents
 
@@ -158,6 +166,7 @@ response = client.search(
     index = 'python-test-index'
 )
 ```
+{% include copy.html %}
 
 ## Deleting a document
 
@@ -169,6 +178,7 @@ response = client.delete(
     id = '1'
 )
 ```
+{% include copy.html %}
 
 ## Deleting an index
 
@@ -179,10 +189,11 @@ response = client.indices.delete(
     index = 'python-test-index'
 )
 ```
+{% include copy.html %}
 
 ## Sample program
 
-The following sample program creates a client, adds an index with non-default settings, inserts a document, performs bulk operations, searches for the document, deletes the document, and, finally, deletes the index:
+The following sample program creates a client, adds an index with non-default settings, inserts a document, performs bulk operations, searches for the document, deletes the document, and then deletes the index:
 
 ```python
 from opensearchpy import OpenSearch
@@ -284,3 +295,4 @@ response = client.indices.delete(
 print('\nDeleting index:')
 print(response)
 ```
+{% include copy.html %}

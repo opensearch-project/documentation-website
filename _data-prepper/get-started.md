@@ -3,6 +3,11 @@ layout: default
 title: Get Started
 nav_order: 10
 redirect_from:
+<<<<<<< HEAD:_data-prepper/get-started.md
+=======
+  - /clients/data-prepper/getting-started/
+  - /data-prepper/get-started/
+>>>>>>> 5bbeac23 (Fix links for 2.5 doc changes. (#2465)):_data-prepper/getting-started.md
   - /clients/data-prepper/get-started/
 ---
 
@@ -65,11 +70,11 @@ Run the following command with your pipeline configuration YAML.
 
 ```bash
 docker run --name data-prepper \
-    -v /full/path/to/pipelines.yaml:/usr/share/data-prepper/pipelines.yaml \
-    opensearchproject/opensearch-data-prepper:latest
+    -v /full/path/to/pipelines.yaml:/usr/share/data-prepper/pipelines/pipelines.yaml \
+    opensearchproject/data-prepper:latest
 ```
 
-This sample pipeline configuration above demonstrates a simple pipeline with a source (`random`) sending data to a sink (`stdout`). For more examples and details on more advanced pipeline configurations, see [Pipelines]({{site.url}}{{site.baseurl}}/clients/data-prepper/pipelines).
+This sample pipeline configuration above demonstrates a simple pipeline with a source (`random`) sending data to a sink (`stdout`). For more examples and details about more advanced pipeline configurations, see [Pipelines]({{site.url}}{{site.baseurl}}/clients/data-prepper/pipelines).
 
 After starting Data Prepper, you should see log output and some UUIDs after a few seconds:
 

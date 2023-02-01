@@ -1,8 +1,13 @@
 ---
 layout: default
 title: Pipelines
+<<<<<<< HEAD
 nav_order: 20
 redirect_from:
+=======
+nav_order: 10
+redirect_from: 
+>>>>>>> 5bbeac23 (Fix links for 2.5 doc changes. (#2465))
   - /clients/data-prepper/pipelines/
 ---
 
