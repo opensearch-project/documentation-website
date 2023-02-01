@@ -85,13 +85,15 @@ Before you start searching for data, set up the time filter. The sample index pa
 
 ### Using the time filter
 
+To adjust the time filter:
+
 1. In the Dashboards console, choose **Discover** and confirm that the index pattern being used is `opensearch_dashboards_sample_data_ecommerce`.
-1. Choose the calendar icon to change the time field. The default is **Last 15 minutes**.
-1. Change the time field to **Last 7 days** and choose **Refresh**, as shown in the following image.
+2. Choose the calendar icon to change the time field. The default is **Last 15 minutes**.
+3. Change the time field to **Last 7 days** and choose **Refresh**, as shown in the following image.
 
     <img src="{{site.url}}{{site.baseurl}}/images/multi-data-sources-9.png" alt="Time filter user interface">
 
-1. To set the start and end times, choose the bar next to the time filter. In the popup, select **Absolute**, **Relative**, or **Now** and then specify the required options, as shown in the following image.
+4. To set the start and end times, choose the bar next to the time filter. In the popup, select **Absolute**, **Relative**, or **Now** and then specify the required options, as shown in the following image.
 
     <img src="{{site.url}}{{site.baseurl}}/images/multi-data-sources-10.png" width=300 alt="Start and end times user interface">
 
@@ -100,7 +102,7 @@ Before you start searching for data, set up the time filter. The sample index pa
 To select a time range for the histogram, you can do one of the following:
 
 * Select the bar that represents the time range you want to zoom in on.
-* Select the bar and drag to view a specific time range. You must start the selection with the cursor over the background of the chart—the cursor changes to a plus sign when you hover over a valid start point.
+* Select the bar and drag to view a specific time range. You must start the selection with the cursor over the background of the chart (the cursor changes to a plus sign when you hover over a valid start point).
 * Select the dropdown and then select an interval.
 
 The following image shows a date histogram with an interval dropdown list.
