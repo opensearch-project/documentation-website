@@ -6,7 +6,7 @@ nav_order: 15
  - /clients/data-prepper/pipelines/
 ---
 
-# Pipelines
+# Authoring pipelines
 
 The following image illustrates how a pipeline works. 
 

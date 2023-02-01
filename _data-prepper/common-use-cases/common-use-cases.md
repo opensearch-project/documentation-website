@@ -7,12 +7,4 @@ nav_order: 10
 
 # Common use cases
 
-<!--- Link out to the following pages once this is complete.--->
-
-## Trace analytics
-
-## Log analytics
-
-## S3 log analytics
-
-## Metrics ingestion
+You can use Data Prepper for several different purposes, including trace analytics, log analytics, S3 log analytics, and metrics ingestion.
