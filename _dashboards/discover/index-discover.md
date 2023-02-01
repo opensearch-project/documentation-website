@@ -41,7 +41,7 @@ Follow these steps to explore the data fields:
 
 1. View the list of **Available fields**.
 1. Choose **Cancelled** to view the values (`true` and `false`).
-1. Choose the plus (+) sign to add the field to the document table. You'll see this field automatically add to **Selected fields** and the document table.  
+1. Choose the plus (+) sign to add the field to the document table. The field will be automatically added to **Selected fields** and the document table.  
 1. Select **FlightDelay** from the **Available fields** list, and then choose the plus (+) sign to add the field to the document table.
 1. Optional: Rearrange the table columns by selecting the table header and then choosing **Move left** or **Move right**.
 
