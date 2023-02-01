@@ -11,7 +11,7 @@ Security Analytics provides the options and functionality to monitor and respond
 
 ## Step 1. Define a detector
 
-Defining a new detector involves naming the detector, selecting a data source and detector type, and specifying a detector schedule. After defining a detector, you can also configure field mappings and set up alerts. Follow the steps in this section to accomplish all three of these setup tasks.
+You can define a new detector by naming the detector, selecting a data source and detector type, and specifying a detector schedule. After defining a detector, you can also configure field mappings and set up alerts. Follow the steps in this section to accomplish all three of these setup tasks.
 
 1. On the Detectors page, select the **Create detector** button. The Define detector page opens.
 1. Give the detector a name and, as an option, add a description for the detector. 
@@ -79,7 +79,7 @@ The third step in creating a detector involves setting up alerts. Alerts are con
 At least one alert condition is required before a detector can begin generating findings.
 {: .note }
 
-You can also configure alerts from the Findings window. To see how to set up alerts from the Findings window, see [The findings list]({{site.url}}{{site.baseurl}}/security-analytics/usage/findings/#the-findings-list). A final option for adding additional alerts is to edit a detector and navigate to the **Alert triggers** tab, where you can edit existing alerts as well as add new ones. For details, see [Editing a detector]({{site.url}}{{site.baseurl}}security-analytics/usage/detectors/#editing-a-detector).
+You can also configure alerts from the **Findings** window. To see how to set up alerts from the **Findings** window, see [The findings list]({{site.url}}{{site.baseurl}}/security-analytics/usage/findings/#the-findings-list). A final option for adding additional alerts is to edit a detector and navigate to the **Alert triggers** tab, where you can edit existing alerts as well as add new ones. For details, see [Editing a detector]({{site.url}}{{site.baseurl}}security-analytics/usage/detectors/#editing-a-detector).
 
 To set up an alert for a detector, continue with the following steps:
 
