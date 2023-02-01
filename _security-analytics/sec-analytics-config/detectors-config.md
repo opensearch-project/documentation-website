@@ -55,7 +55,7 @@ Although the ECS rule field names are largely self-explanatory, you can find pre
 Once you navigate to the **Configure field mapping** page, the system attempts to automatically map fields between the two sources. The **Default mapped fields** table contains mappings that the system created automatically after defining the detector. As shown in the image that follows, when the field names are similar to one another the system can successfully match the two.
 <br><img src="{{site.url}}{{site.baseurl}}/images/Security/default-mappings.png" alt="Field mapping example for pending mappings" width="85%">
 
-Although these automatic matches are normally dependable, it's still a good idea to review the mappings and verify that they are correct and matched as expected. If you find a mapping that doesn't appear to be accurate, you can use the dropdown list as described in the [Pending field mappings](#pending-field-mappings) section that follows to correct the field mapping.  
+Although these automatic matches are normally dependable, it's still a good idea to review the mappings in the **Default mapped fields** table and verify that they are correct and matched as expected. If you find a mapping that doesn't appear to be accurate, you can use the dropdown list as described in the [Pending field mappings](#pending-field-mappings) section that follows to correct the field mapping.  
 
 ### Pending field mappings
 
