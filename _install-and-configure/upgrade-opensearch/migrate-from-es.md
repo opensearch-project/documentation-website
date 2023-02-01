@@ -12,10 +12,14 @@ This guide assumes that you are comfortable working from the Linux command line 
 
 ## Prepare to upgrade
 
-Before you upgrade, review [Upgrade Overview](NEEDLINK) for recommendations about backing up your configuration files and creating a snapshot of the cluster state and indexes before you make any changes to your OpenSearch cluster.
+Before you upgrade, review [Upgrade Overview]({{site.url}}{{site.baseurl}}/upgrade-opensearch/index/) for recommendations about backing up your configuration files and creating a snapshot of the cluster state and indexes before you make any changes to your OpenSearch cluster.
 
 OpenSearch nodes cannot be downgraded. If you need to revert the upgrade, then you will need to perform a fresh installation of OpenSearch and restore the cluster from a snapshot. Take a snapshot and store it in a remote repository before beginning the upgrade procedure.
 {: .note}
+
+## About this guide
+
+Sample output and API responses included in this document were generated in a development environment using Docker. However, this process can be applied to any **N → N+1** version upgrade of OpenSearch.
 
 ### Rolling upgrade
 
