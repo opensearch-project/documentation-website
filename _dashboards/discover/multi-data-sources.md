@@ -67,7 +67,7 @@ Index patterns allow you to access the OpenSearch data that you want to explore.
     <img src="{{site.url}}{{site.baseurl}}/images/multi-data-sources-5.png" width=500 alt="Index pattern user interface">
 
 1. Choose **Use external data source connection**.
-1. Start typing in the **Search data sources** field to search for the data source you created earlier and then select the data source and **Next step**.
+1. Start typing in the **Search data sources** field to search for the data source you created earlier and then select the data source and **Next step**, as shown in the following image.
 
     <img src="{{site.url}}{{site.baseurl}}/images/multi-data-sources-6.png" width=500 alt="Index pattern search user interface">
 
