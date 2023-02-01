@@ -16,6 +16,7 @@ After adding a JSON document to your index, you can use the get document API ope
 ```json
 GET sample-index1/_doc/1
 ```
+{% include copy-curl.html %}
 
 ## Path and HTTP methods
 

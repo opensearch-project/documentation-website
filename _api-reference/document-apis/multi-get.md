@@ -31,6 +31,7 @@ GET _mget
   ]
 }
 ```
+{% include copy-curl.html %}
 
 ## Example of specifying index in URL
 
@@ -50,6 +51,7 @@ GET sample-index1/_mget
   ]
 }
 ```
+{% include copy-curl.html %}
 
 ## Path and HTTP methods
 

@@ -18,18 +18,21 @@ The CAT Templates operation lists the names, patterns, order numbers, and versio
 ```
 GET _cat/templates?v
 ```
+{% include copy-curl.html %}
 
 If you want to get information for a specific template or pattern:
 
 ```
 GET _cat/templates/<template_name_or_pattern>
 ```
+{% include copy-curl.html %}
 
 ## Path and HTTP methods
 
 ```
 GET _cat/templates
 ```
+{% include copy-curl.html %}
 
 ## URL parameters
 

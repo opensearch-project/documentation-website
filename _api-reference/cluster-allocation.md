@@ -23,7 +23,7 @@ GET _cluster/allocation/explain?include_yes_decisions=true
   "primary": true
 }
 ```
-
+{% include copy-curl.html %}
 
 ## Path and HTTP methods
 

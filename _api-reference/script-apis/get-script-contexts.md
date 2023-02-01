@@ -14,6 +14,7 @@ Retrieves all contexts for stored scripts.
 ````json
 GET _script_context
 ````
+{% include copy-curl.html %}
 
 #### Sample response
 

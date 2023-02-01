@@ -19,6 +19,7 @@ This request waits 50 seconds for the cluster to reach the yellow status or bett
 ```
 GET _cluster/health?wait_for_status=yellow&timeout=50s
 ```
+{% include copy-curl.html %}
 
 If the cluster health becomes yellow or green before 50 seconds elapse, it returns a response immediately. Otherwise it returns a response as soon as it exceeds the timeout.
 
@@ -54,6 +55,7 @@ The following sample request retrieves cluster health for all indexes in the clu
 ```json
 GET _cluster/health
 ```
+{% include copy-curl.html %}
 
 #### Sample response
 
@@ -112,6 +114,7 @@ To check cluster health by awareness attribute (for example, zone or rack), spec
 ```json
 GET _cluster/health?level=awareness_attributes
 ```
+{% include copy-curl.html %}
 
 The response contains cluster health metrics partitioned by awareness attribute:
 
@@ -196,6 +199,7 @@ If you're interested in a particular awareness attribute, you can include the na
 ```json
 GET _cluster/health?level=awareness_attributes&awareness_attribute=zone
 ```
+{% include copy-curl.html %}
 
 In response to the preceding request, OpenSearch returns cluster health information only for the `zone` awareness attribute.
 
