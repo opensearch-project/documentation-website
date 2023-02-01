@@ -85,7 +85,7 @@ Before you start searching for data, set up the time filter. The sample index pa
 
 ### Using the time filter
 
-1. In the Dashboards console, choose **Discover** and confirm the index pattern being used is `opensearch_dashboards_sample_data_ecommerce`.
+1. In the Dashboards console, choose **Discover** and confirm that the index pattern being used is `opensearch_dashboards_sample_data_ecommerce`.
 1. Choose the calendar icon to change the time field. The default is **Last 15 minutes**.
 1. Change the time field to **Last 7 days** and choose **Refresh**.
 
