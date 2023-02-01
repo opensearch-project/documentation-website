@@ -73,7 +73,7 @@ Follow these steps to filter data:
 
 ## Analyzing data in the document table
 
-You can view the document table fields to better understand the data and gather insights for more informed decision-making. 
+You can view the document table fields to better understand the data and gather insights for more informed decision-making: 
 
 1. Choose the arrow icon (>) to expand a table row.
 2. View the fields and details.
