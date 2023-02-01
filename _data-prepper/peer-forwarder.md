@@ -109,7 +109,7 @@ The following table provides optional configuration values.
 
 ## SSL configuration
 
-The following SSL configuration table provides optional SSL configuration values and allows you to set up Trust Manager for the Peer Forwarder client to connect to other Data Prepper instances.
+The following SSL configuration table provides optional SSL configuration values that you to set up a trust manager for the Peer Forwarder client in order to connect to other Data Prepper instances.
 
 | Value | Type | Description |
 | ----- | ---- | ----------- |
