@@ -68,7 +68,7 @@ Follow these steps to filter data:
 1. In the filter bar, choose **Add filter**.
 1. Select options from the **Field**, **Operator**, and **Value** dropdown lists. For example, `Cancelled`, `is`, and `true`.
 1. Choose **Save**.
-2. To remove the filter, choose the close icon (x) next to filter name.
+2. To remove the filter, choose the close icon (x) next to the filter name.
 3. Optional: Add more filters to further explore the data.  
 
 ## Analyzing data in the document table
