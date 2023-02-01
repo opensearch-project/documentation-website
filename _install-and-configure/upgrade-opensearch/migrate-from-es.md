@@ -1,18 +1,18 @@
 ---
 layout: default
-title: Upgrade OpenSearch - Docker
-parent: Install OpenSearch
-nav_order: 1000
+title: Upgrading OpenSearch
+parent: Upgrade Overview
+nav_order: 10
 ---
 
-# Upgrade OpenSearch - Docker
+# OpenSearch Version Upgrades
 
 This guide assumes that you are comfortable working from the Linux command line interface (CLI). You should understand how to input commands, navigate between directories, and edit text files. For help with [Docker](https://www.docker.com/) or [Docker Compose](https://github.com/docker/compose), refer to the official documentation on their websites.
 {:.note}
 
 ## Prepare to upgrade
 
-Review the [Upgrade Overview](NEEDLINK) for recommendations about backing up your configuration files and creating a snapshot of the cluster state and indexes before you make any changes to your OpenSearch cluster.
+Before you upgrade, review [Upgrade Overview](NEEDLINK) for recommendations about backing up your configuration files and creating a snapshot of the cluster state and indexes before you make any changes to your OpenSearch cluster.
 
 OpenSearch nodes cannot be downgraded. If you need to revert the upgrade, then you will need to perform a fresh installation of OpenSearch and restore the cluster from a snapshot. Take a snapshot and store it in a remote repository before beginning the upgrade procedure.
 {: .note}

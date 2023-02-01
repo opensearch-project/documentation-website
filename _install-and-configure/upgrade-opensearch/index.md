@@ -1,8 +1,7 @@
 ---
 layout: default
 title: Upgrade Overview
-parent: Install OpenSearch
-nav_order: 999
+nav_order: 1
 ---
 
 # Upgrade Overview
