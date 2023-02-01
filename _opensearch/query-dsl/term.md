@@ -25,7 +25,7 @@ You can use any of the term-level query types shown in the following table:
 `range` | Specifies a search within an upper and lower bound of values in a provided field.
 `prefix` | Specifies a search for terms that begin with a prefix.
 `exists` | Specifies a search for documents that contain a specific field.
-`fuzzy` | Specifies a [Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance) that measures the number of one-character changes needed to change one term to another term. The fuzzy query creates sets of all possible variations of a term specified by the `value` field, and returns exact matches for terms that match the specified edit distance.    
+`fuzzy` | Returns terms that are similar to the search term within the maximum allowed [Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance). The Levenshtein distance measures the number of one-character changes needed to change one term to another term.
 `wildcard` | Specifies a search for terms that match a wildcard pattern. Indicate matching zero or more characters with an asterisk (*) or a single character by a question mark (?).
 `regexp` | Specifies a search for terms that match a regular expression.
 `terms_set` | Similar to a `terms` query, but you specify the number of matching terms that are required to return a document.
