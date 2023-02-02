@@ -2,6 +2,8 @@
 layout: default
 title: Getting started
 nav_order: 5
+redirect_from:
+  - /clients/data-prepper/get-started/
 ---
 
 # Getting started with Data Prepper
@@ -40,7 +42,7 @@ You will configure two files:
 Depending on your use case, we have a few different guides to configuring Data Prepper.
 
 * [Trace Analytics](https://github.com/opensearch-project/data-prepper/blob/main/docs/trace_analytics.md)
-* [Log Ingestion](https://github.com/opensearch-project/data-prepper/blob/main/docs/log_analytics.md): Learn how to set up Data Prepper for log observability.
+* [Log Analytics]({{site.url}}{{site.baseurl}}/data-prepper/common-use-cases/log-analytics/): Learn how to set up Data Prepper for log observability.
 * [Simple Pipeline](https://github.com/opensearch-project/data-prepper/blob/main/docs/simple_pipelines.md): Learn the basics of Data Prepper pipelines with some simple configurations.
 
 ## 3. Defining a pipeline
@@ -67,7 +69,7 @@ docker run --name data-prepper \
     opensearchproject/data-prepper:latest
 ```
 
-This sample pipeline configuration above demonstrates a simple pipeline with a source (`random`) sending data to a sink (`stdout`). For more examples and details about more advanced pipeline configurations, see [Pipelines]({{site.url}}{{site.baseurl}}/clients/data-prepper/pipelines).
+This sample pipeline configuration above demonstrates a simple pipeline with a source (`random`) sending data to a sink (`stdout`). For more examples and details about more advanced pipeline configurations, see [Pipelines]({{site.url}}{{site.baseurl}}/clients/data-prepper/pipelines/).
 
 After starting Data Prepper, you should see log output and some UUIDs after a few seconds:
 

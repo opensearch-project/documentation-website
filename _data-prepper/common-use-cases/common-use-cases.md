@@ -2,7 +2,7 @@
 layout: default
 title: Common use cases
 has_children: true
-nav_order: 10
+nav_order: 15
 redirect_from: 
   - /data-prepper/common-use-cases/
 ---
