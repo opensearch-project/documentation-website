@@ -139,6 +139,7 @@ In the crontab editor, enter the report request. For example, the following exam
 ## Using AWS Lambda
 
 You can use AWS Lambda with the Reporting CLI tool.
+
 ### Prerequisites
 
 To use the Reporting CLI with AWS Lambda, you need to do the following preliminary steps.
