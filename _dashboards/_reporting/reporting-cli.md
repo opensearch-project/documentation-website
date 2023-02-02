@@ -103,7 +103,7 @@ Upon success, the email will be sent to the specified email address with the CSV
 
 ## Automatically run reports with a cron job
 
-You can create a report by setting up a cron job to run a report at a specified time. OpenSearch Reporting CLI supports any cron job use case, such as setting a specified time of day.
+You can run reports automatically by setting up a cron job. OpenSearch Reporting CLI supports any cron job use case, such as setting a specified time of day.
 
 ### Prerequisites
 
