@@ -13,7 +13,7 @@ Introduced 1.0
 
 The CAT nodes operation lists node-level information, including node roles and load metrics.
 
-A few important node metrics are `pid`, `name`, `cluster_manager`, `ip`, `port`, `version`, `build`, `jdk`, along with `disk`, `heap`, `ram`, and `file_desc`.
+A few important node metrics are `pid`, `name`, `master`, `ip`, `port`, `version`, `build`, `jdk`, along with `disk`, `heap`, `ram`, and `file_desc`.
 
 ## Example
 
@@ -38,8 +38,8 @@ Parameter | Type | Description
 :--- | :--- | :---
 bytes | Byte size | Specify the units for byte size. For example, `7kb` or `6gb`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).
 full_id | Boolean | If true, return the full node ID. If false, return the shortened node ID. Defaults to false.
-local | Boolean | Whether to return information from the local node only instead of from the cluster_manager node. Default is false.
-cluster_manager_timeout | Time | The amount of time to wait for a connection to the cluster manager node. Default is 30 seconds.
+local | Boolean | Whether to return information from the local node only instead of from the master node. Default is false.
+master_timeout | Time | The amount of time to wait for a connection to the master node. Default is 30 seconds.
 time | Time | Specify the units for time. For example, `5d` or `7h`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).
 include_unloaded_segments | Boolean | Whether to include information from segments not loaded into memory. Default is false.
 
@@ -47,6 +47,6 @@ include_unloaded_segments | Boolean | Whether to include information from segmen
 ## Response
 
 ```json
-ip       |   heap.percent | ram.percent | cpu load_1m | load_5m | load_15m | node.role | node.roles |     cluster_manager |  name
+ip       |   heap.percent | ram.percent | cpu load_1m | load_5m | load_15m | node.role | node.roles |     master |  name
 10.11.1.225  |         31   |    32  | 0  |  0.00  |  0.00   | di  | data,ingest,ml  | - |  data-e5b89ad7
 ```

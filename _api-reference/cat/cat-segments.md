@@ -49,7 +49,7 @@ In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-refe
 Parameter | Type | Description
 :--- | :--- | :---
 bytes | Byte size | Specify the units for byte size. For example, `7kb` or `6gb`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/)..
-cluster_manager_timeout | Time | The amount of time to wait for a connection to the cluster manager node. Default is 30 seconds.
+master_timeout | Time | The amount of time to wait for a connection to the master node. Default is 30 seconds.
 
 
 ## Response

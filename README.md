@@ -144,7 +144,7 @@ If you're making major changes to the documentation and need to see the rendered
 
 1. Create a new branch.
 
-1. Edit the Markdown files in each collection (e.g. `_security-plugin/`).
+1. Edit the Markdown files in each collection (e.g. `_security/`).
 
    If you're a web developer, you can customize `_layouts/default.html` and `_sass/custom/custom.scss`.
 
