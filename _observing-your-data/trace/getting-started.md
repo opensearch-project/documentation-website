@@ -4,7 +4,11 @@ title: Getting Started
 parent: Trace analytics
 nav_order: 1
 redirect_from:
+<<<<<<<< HEAD:_observing-your-data/trace/getting-started.md
   - /observability-plugin/trace/get-started/
+========
+  - /observing-your-data/trace/get-started/
+>>>>>>>> 1040f24a (Add one last file):_observing-your-data/trace/get-started.md
 ---
 
 # Getting started with Trace Analytics
