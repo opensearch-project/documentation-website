@@ -37,8 +37,8 @@ Parameter | Type | Description
 :--- | :--- | :---
 expand_wildcards | Enum | Expands wildcard expressions to concrete indexes. Combine multiple values with commas. Supported values are `all`, `open`, `closed`, `hidden`, and `none`. Default is `open`.
 level | Enum | The level of detail for returned health information. Supported values are `cluster`, `indices`, and `shards`. Default is `cluster`.
-local | Boolean | Whether to return information from the local node only instead of from the cluster manager node. Default is false.
-master_timeout | Time | The amount of time to wait for a connection to the cluster manager node. Default is 30 seconds.
+local | Boolean | Whether to return information from the local node only instead of from the master node. Default is false.
+master_timeout | Time | The amount of time to wait for a connection to the master node. Default is 30 seconds.
 timeout | Time | The amount of time to wait for a response. If the timeout expires, the request fails. Default is 30 seconds.
 wait_for_active_shards | String | Wait until the specified number of shards is active before returning a response. `all` for all shards. Default is `0`.
 wait_for_nodes | String | Wait for N number of nodes. Use `12` for exact match, `>12` and `<12` for range.
@@ -90,7 +90,7 @@ The following table lists all response fields.
 |status	| String | The cluster health status, which represents the state of shard allocation in the cluster. May be `green`, `yellow`, or `red`. |
 |number_of_nodes | Integer | The number of nodes in the cluster. |
 |number_of_data_nodes | Integer | The number of data nodes in the cluster. |
-|discovered_cluster_manager | Boolean | Specifies whether the cluster manager is discovered. |
+|discovered_master | Boolean | Specifies whether the master node is discovered. |
 |active_primary_shards | Integer |  The number of active primary shards. |
 |active_shards | Integer | The total number of active shards, including primary and replica shards. |
 |relocating_shards | Integer | The number of relocating shards. |

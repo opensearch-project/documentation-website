@@ -29,7 +29,7 @@ All parameters are optional.
 | Parameter | Data Type | Description | 
 :--- | :--- | :---
 | context | String | Context in which the script or search template is to run. To prevent errors, the API immediately compiles the script or template in this context. |
-| cluster_manager_timeout | Time | Amount of time to wait for a connection to the cluster manager. Defaults to 30 seconds. |
+| master_timeout | Time | Amount of time to wait for a connection to the master. Defaults to 30 seconds. |
 | timeout | Time | The period of time to wait for a response. If a response is not received before the timeout value, the request fails and returns an error. Defaults to 30 seconds.|
 
 ### Request fields
