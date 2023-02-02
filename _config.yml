@@ -43,9 +43,6 @@ collections:
   tuning-your-cluster:
     permalink: /:collection/:path/
     output: true
-  tuning-your-cluster:
-    permalink: /:collection/:path/
-    output: true
   security:
     permalink: /:collection/:path/
     output: true

@@ -1,12 +1,12 @@
 ---
 layout: default
-title: Cluster formation
+title: Creating a cluster
 nav_order: 8
 redirect_from: 
   - /opensearch/cluster/
 ---
 
-# Cluster formation
+# Creating a cluster
 
 Before diving into OpenSearch and searching and aggregating data, you first need to create an OpenSearch cluster.
 

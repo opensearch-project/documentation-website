@@ -1,13 +1,13 @@
 ---
 layout: default
-title: Get started
+title: Getting started
 nav_order: 15
 parent: Cross-cluster replication
 redirect_from:
   - /replication-plugin/get-started/
 ---
 
-# Get started with cross-cluster replication
+# Getting started with cross-cluster replication
 
 With cross-cluster replication, you index data to a leader index, and OpenSearch replicates that data to one or more read-only follower indexes. All subsequent operations on the leader are replicated on the follower, such as creating, updating, or deleting documents.
 
