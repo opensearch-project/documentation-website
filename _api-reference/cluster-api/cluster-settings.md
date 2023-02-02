@@ -1,7 +1,9 @@
 ---
 layout: default
 title: Cluster settings
-nav_order: 18
+nav_order: 50
+parent: Cluster APIs
+has_children: false
 ---
 
 # Cluster settings
