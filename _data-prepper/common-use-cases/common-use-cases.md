@@ -4,7 +4,7 @@ title: Common use cases
 has_children: true
 nav_order: 10
 redirect_from: 
-  - /clients/data-prepper/common-use-cases/
+  - /data-prepper/common-use-cases/
 ---
 
 # Common use cases

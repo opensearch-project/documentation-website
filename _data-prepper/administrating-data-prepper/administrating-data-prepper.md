@@ -3,7 +3,7 @@ layout: default
 title: Administrating Data Prepper
 has_children: true
 nav_order: 20
-  - /clients/data-prepper/administrating-data-prepper/
+  - /data-prepper/administrating-data-prepper/
 ---
 
 # Administrating Data Prepper

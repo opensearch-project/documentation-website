@@ -4,7 +4,7 @@ title: Authoring pipelines
 has_children: true
 nav_order: 15
 redirect_from:
-  - /clients/data-prepper/authoring-pipelines/
+  - /data-prepper/authoring-pipelines/
 ---
 
 # Authoring pipelines
