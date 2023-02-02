@@ -3,7 +3,8 @@ layout: default
 title: Authoring pipelines
 has_children: true
 nav_order: 15
- - /clients/data-prepper/pipelines/
+redirect_from:
+  - /clients/data-prepper/pipelines/
 ---
 
 # Authoring pipelines
