@@ -3,6 +3,8 @@ layout: default
 title: Configuring TLS certificates
 parent: Configuration
 nav_order: 15
+redirect_from:
+  - /security-plugin/configuration/tls/
 ---
 
 # Configuring TLS certificates
