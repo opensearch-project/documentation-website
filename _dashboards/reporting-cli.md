@@ -101,6 +101,154 @@ opensearch-reporting-cli -u https://search-basic-auth2-3-b477rrluhlckrmwmtvp6k3x
 
 Upon success, the email will be sent to the specified email address with the CSV file attached.
 
+## Using cron
+
+You can use cron with the Reporting CLI tool.
+
+### Prerequisites
+
+You need a machine with Ubuntu and root access privileges.
+
+If cron is not installed by default, run the following command: 
+
+```
+sudo apt install cron
+```
+
+### Step 1: Install the reporting CLI
+
+Install the Reporting CLI by running the following command:
+
+```
+npm i @opensearch-project/opensearch-reporting-cli
+```
+
+Open the crontab editor by running the following command:
+
+```
+crontab -e
+```
+In the crontab editor, enter the report request. For example, the following example shows a cron report that runs every day at 8am.
+
+```
+0 8 * * * opensearch-reporting-cli -u https://playground.opensearch.org/app/dashboards#/view/084aed50-6f48-11ed-a3d5-1ddbf0afc873 -e ses -s <sender_email> -r <recipient_email>
+```
+
+## Using AWS Lambda
+You can use AWS Lambda with the Reporting CLI tool. <need info on why they would use it>.
+
+### Prerequisites
+
+To use the Reporting CLI with AWS Lambda, you need to do the following preliminary steps.
+
+- Get an AWS account. For instructions, see [Creating an AWS account](https://docs.aws.amazon.com/accounts/latest/reference/manage-acct-creating.html) in the AWS Account Management reference guide.
+- Get a docker file to assemble an image.
+
+You can use the following sample configurations to set up and assemble the image:
+
+```linux
+
+# Define function directory
+ARG FUNCTION_DIR="/function"
+# Base image of the docker container
+FROM node:lts-slim as build-image
+# Include global arg in this stage of the build
+ARG FUNCTION_DIR
+# AWS Lambda runtime dependencies
+RUN apt-get update && \
+    apt-get install -y \
+        g++ \
+        make \
+        unzip \
+        libcurl4-openssl-dev \
+        autoconf \
+        automake \
+        libtool \
+        cmake \
+        python3 \
+        libkrb5-dev \
+        curl
+# Copy function code
+RUN mkdir -p ${FUNCTION_DIR}/
+COPY package.json src/ ${FUNCTION_DIR}/
+RUN ls ${FUNCTION_DIR}/
+WORKDIR ${FUNCTION_DIR}
+RUN npm install
+RUN npm install aws-lambda-ric
+# Build Stage 2: Copy Build Stage 1 files in to Stage 2. Install chromium dependencies and chromium.
+FROM node:lts-slim
+# Include global arg in this stage of the build
+ARG FUNCTION_DIR
+# Set working directory to function root directory
+WORKDIR ${FUNCTION_DIR}
+# Copy in the build image dependencies
+COPY --from=build-image ${FUNCTION_DIR} ${FUNCTION_DIR}
+RUN ls ${FUNCTION_DIR}/
+# Install latest chrome dev package and fonts to support major charsets (Chinese, Japanese, Arabic, Hebrew, Thai and a few others)
+# Note: this installs the necessary libs to make the bundled version of Chromium that Puppeteer
+# installs, work.
+RUN apt-get update \
+    && apt-get install -y wget gnupg \
+    && wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
+    && sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' \
+    && apt-get update \
+    && apt-get install -y google-chrome-stable fonts-ipafont-gothic fonts-wqy-zenhei fonts-thai-tlwg fonts-kacst fonts-freefont-ttf libxss1 \
+      --no-install-recommends \
+    && rm -rf /var/lib/apt/lists/*
+ENTRYPOINT ["/usr/local/bin/npx", "aws-lambda-ric"]
+ENV IS_LAMBDA=true
+ENV HOME="/tmp"
+CMD [ "/function/index.handler" ]
+
+```
+
+### Step 1: Create a repository with Amazon ECR
+
+Follow the instructions in the Amazon ECR user guide to create a repository with the name `opensearch-reporting-cli`.
+
+To learn more about using the Amazon ECR, see [Getting started with Amazon ECR using the AWS Management Console](https://docs.aws.amazon.com/AmazonECR/latest/userguide/getting-started-console.html).
+
+### Step 2: Run the <?> commands
+
+In the AWS ECR console, choose **view push command**.
+Locate the 4 commands in the Dockerfile directory.
+
+### Step 3: Create a lambda function with the container image
+
+Go to **Lambda function > Configuration > General configuration> Edit timeout** and set the timeout in lambda to 5 minutes.
+
+Set the memory size to 4096.
+
+*(Optional):* If you are using Amazon SES, you need to set the following user permissions:
+
+```json
+{
+            "Effect": "Allow",
+            "Action": [
+                "ses:SendEmail",
+                "ses:SendRawEmail"
+            ],
+            "Resource": "<arn of ses resource>"
+        }
+```
+Next, test the function with the following required values in the event JSON file:
+
+```json
+{
+  "url": "https://playground.opensearch.org/app/dashboards#/view/084aed50-6f48-11ed-a3d5-1ddbf0afc873",
+  "transport": "ses",
+  "from": "<sender_email>",
+  "to": "<recipient_email>",
+  "subject": "Test lambda docker image"
+}
+```
+
+### Step 4: Add the trigger to <what does trigger do?>
+
+Set the trigger to initiate <need info why do they set the trigger?>.
+
+For example, you can set a CloudWatchEvents Rule to set a trigger.
+
 ## Getting help
 
 To get a list of all available CLI arguments, run the following command:
