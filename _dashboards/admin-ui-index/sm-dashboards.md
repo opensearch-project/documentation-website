@@ -1,8 +1,16 @@
 ---
 layout: default
+<<<<<<<< HEAD:_dashboards/admin-ui-index/sm-dashboards.md
 title: Snapshot management
 parent: Index and snapshot management in OpenSearch Dashboards
 nav_order: 17
+========
+title: Snapshot Management in OpenSearch Dashboards
+parent: Snapshots
+nav_order: 35
+grand_parent: Availability and Recovery
+has_children: false
+>>>>>>>> 0767f742 (Create Tuning your cluster section):_tuning-your-cluster/availability-and-recovery/snapshots/sm-dashboards.md
 ---
 
 # Snapshot management

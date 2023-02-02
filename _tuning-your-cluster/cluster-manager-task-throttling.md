@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Cluster manager task throttling
-nav_order: 70
+nav_order: 10
 has_children: false
 ---
 
@@ -101,4 +101,8 @@ PUT _cluster/settings
 ```
 
 Set the threshold to `-1` to disable throttling for a task type. 
+<<<<<<< HEAD
 {: .note}
+=======
+{: .note}
+>>>>>>> f07c7c3a (Merge main)

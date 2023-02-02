@@ -47,7 +47,11 @@ We don't recommend setting up the same repository for multiple SM policies with 
 
 ## Failure management
 
+<<<<<<< HEAD:_opensearch/snapshots/snapshot-management.md
 If a snapshot operation fails, it is retried a maximum of three times. The failure message is saved in `metadata.latest_execution` and is overwritten when a subsequent snapshot operation starts. You can view the failure message using the [explain API]({{site.url}}{{site.baseurl}}/opensearch/snapshots/sm-api#explain). When using OpenSearch Dashboards, you can view the failure message on the [policy details page]({{site.url}}{{site.baseurl}}/dashboards/admin-ui-index/sm-dashboards/#enable-disable-or-delete-sm-policies). Possible reasons for failure include red index status and shard reallocation.
+=======
+If a snapshot operation fails, it is retried a maximum of three times. The failure message is saved in `metadata.latest_execution` and is overwritten when a subsequent snapshot operation starts. You can view the failure message using the [explain API]({{site.url}}{{site.baseurl}}/opensearch/snapshots/sm-api#explain). When using OpenSearch Dashboards, you can view the failure message on the [policy details page]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/sm-dashboards/#view-edit-or-delete-an-sm-policy). Possible reasons for failure include red index status and shard reallocation.
+>>>>>>> 0767f742 (Create Tuning your cluster section):_tuning-your-cluster/availability-and-recovery/snapshots/snapshot-management.md
 
 ## Security
 
