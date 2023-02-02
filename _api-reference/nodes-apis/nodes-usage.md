@@ -34,7 +34,7 @@ You can include the following optional query parameters in your request.
 Parameter | Type | Description
 :--- | :---| :---
 timeout | Time | Sets the time limit for a response from the node. Default is `30s`.
-cluster_manager_timeout | Time | Sets the time limit for a response from the cluster manager. Default is `30s`.
+master_timeout | Time | Sets the time limit for a response from the master node. Default is `30s`.
 
 #### Sample request
 

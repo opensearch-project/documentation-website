@@ -33,7 +33,7 @@ In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-refe
 
 Parameter | Type | Description
 :--- | :--- | :---
-cluster_manager_timeout | Time | The amount of time to wait for a connection to the cluster manager node. Default is 30 seconds.
+master_timeout | Time | The amount of time to wait for a connection to the master node. Default is 30 seconds.
 time | Time | Specify the units for time. For example, `5d` or `7h`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).
 
 

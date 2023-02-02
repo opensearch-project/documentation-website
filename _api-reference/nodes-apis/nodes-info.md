@@ -24,7 +24,7 @@ To get information about all nodes in a cluster, use the following query:
 GET /_nodes
 ```
 
-To get thread pool information about the cluster manager node only, use the following query:
+To get thread pool information about the master node only, use the following query:
 
 ```json
 GET /_nodes/master:true/thread_pool
@@ -77,10 +77,10 @@ timeout | Time | Sets the time limit for node response. Default value is `30s`.
 
 #### Sample request
 
-The following query requests the `process` and `transport` metrics from the cluster manager node: 
+The following query requests the `process` and `transport` metrics from the master node: 
 
 ```json
-GET /_nodes/cluster_manager:true/process,transport
+GET /_nodes/master:true/process,transport
 ```
 
 #### Sample response
