@@ -138,8 +138,7 @@ In the crontab editor, enter the report request. For example, the following exam
 
 ## Using AWS Lambda
 
-You can use AWS Lambda with the Reporting CLI tool. <need info on why they would use it>.
-
+You can use AWS Lambda with the Reporting CLI tool.
 ### Prerequisites
 
 To use the Reporting CLI with AWS Lambda, you need to do the following preliminary steps.
@@ -247,11 +246,11 @@ Next, test the function with the following required values in the event JSON fil
 }
 ```
 
-### Step 4: Add the trigger to <what does trigger do?>
+### Step 4: Add the trigger to initiate a report request
 
-Set the trigger to initiate <need info why do they set the trigger?>.
+Set the trigger to start running the report.
 
-For example, you can set a CloudWatchEvents Rule to set a trigger.
+For example, you can set a `CloudWatchEvents` Rule to set a trigger. To learn more about Amazon ECR events you can schedule, see [Sample events from Amazon ECR](https://docs.aws.amazon.com/AmazonECR/latest/userguide/ecr-eventbridge.html#ecr-eventbridge-bus).
 
 ## Getting help
 
