@@ -3,6 +3,8 @@ layout: default
 title: Generating self-signed certificates
 parent: Configuration
 nav_order: 20
+redirect_from:
+  - /security-plugin/configuration/generate-certificates/
 ---
 
 # Generating self-signed certificates
