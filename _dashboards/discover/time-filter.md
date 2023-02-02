@@ -3,6 +3,8 @@ layout: default
 title: Setting the time filter
 parent: Exploring data with Discover
 nav_order: 10
+redirect_from:
+  - /dashboards/get-started/time-filter/
 ---
 
 # Setting the time filter

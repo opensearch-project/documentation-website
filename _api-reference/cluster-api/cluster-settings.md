@@ -3,7 +3,8 @@ layout: default
 title: Cluster settings
 nav_order: 50
 parent: Cluster APIs
-has_children: false
+redirect_from:
+  - /api-reference/cluster-settings/
 ---
 
 # Cluster settings

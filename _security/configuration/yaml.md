@@ -3,6 +3,8 @@ layout: default
 title: Modifying the YAML files
 parent: Configuration
 nav_order: 10
+redirect_from: 
+  - /security-plugin/configuration/yaml/
 ---
 
 # Modifying the YAML files
