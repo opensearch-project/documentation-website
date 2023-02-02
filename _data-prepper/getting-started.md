@@ -2,8 +2,6 @@
 layout: default
 title: Getting started
 nav_order: 5
-redirect_from:
-  - /data-prepper/getting-started/
 ---
 
 # Getting started with Data Prepper
