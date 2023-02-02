@@ -26,6 +26,7 @@ PUT testindex
   }
 }
 ```
+{% include copy-curl.html %}
 
 Index a document with a binary value:
 
@@ -35,6 +36,7 @@ PUT testindex/_doc/1
   "binary_value" : "bGlkaHQtd29rfx4="
 }
 ```
+{% include copy-curl.html %}
 
 Use `=` as a padding character. Embedded newline characters are not allowed.
 {: .note }

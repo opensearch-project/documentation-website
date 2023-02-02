@@ -28,6 +28,7 @@ The following retrieves the `my-first-script` stored script.
 ````json
 GET _scripts/my-first-script
 ````
+{% include copy-curl.html %}
 
 #### Sample response
 

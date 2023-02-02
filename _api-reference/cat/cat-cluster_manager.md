@@ -18,6 +18,7 @@ The CAT master operation lists information that helps identify the elected maste
 ```
 GET _cat/master?v
 ```
+{% include copy-curl.html %}
 
 ## Path and HTTP methods
 

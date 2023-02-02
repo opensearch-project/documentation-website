@@ -44,6 +44,7 @@ GET books/_search
   }
 }
 ````
+{% include copy-curl.html %}
 
 #### Sample response
 

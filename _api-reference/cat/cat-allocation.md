@@ -18,18 +18,21 @@ The CAT allocation operation lists the allocation of disk space for indices and 
 ```json
 GET _cat/allocation?v
 ```
+{% include copy-curl.html %}
 
 To limit the information to a specific node, add the node name after your query:
 
 ```json
 GET _cat/allocation/<node_name>
 ```
+{% include copy-curl.html %}
 
 If you want to get information for more than one node, separate the node names with commas:
 
 ```json
 GET _cat/allocation/node_name_1,node_name_2,node_name_3
 ```
+{% include copy-curl.html %}
 
 ## Path and HTTP methods
 

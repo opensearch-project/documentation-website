@@ -31,6 +31,7 @@ The following request deletes the `my-first-script` script:
 ````json
 DELETE _scripts/my-script
 ````
+{% include copy-curl.html %}
 
 #### Sample response
 

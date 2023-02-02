@@ -72,6 +72,7 @@ GET shakespeare/_rank_eval
   ]
 }
 ````
+{% include copy-curl.html %}
 
 #### Sample response
 

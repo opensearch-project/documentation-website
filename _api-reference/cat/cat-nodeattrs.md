@@ -18,6 +18,7 @@ The CAT nodeattrs operation lists the attributes of custom nodes.
 ```
 GET _cat/nodeattrs?v
 ```
+{% include copy-curl.html %}
 
 ## Path and HTTP methods
 

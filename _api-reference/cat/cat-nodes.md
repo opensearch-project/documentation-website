@@ -20,6 +20,7 @@ A few important node metrics are `pid`, `name`, `master`, `ip`, `port`, `version
 ```
 GET _cat/nodes?v
 ```
+{% include copy-curl.html %}
 
 ## Path and HTTP methods
 
