@@ -101,15 +101,15 @@ opensearch-reporting-cli -u https://search-basic-auth2-3-b477rrluhlckrmwmtvp6k3x
 
 Upon success, the email will be sent to the specified email address with the CSV file attached.
 
-## Using cron
+## Creating a cron job to request a report
 
-You can use cron with the Reporting CLI tool.
+You can create a report by setting up a cron job to run a report at a specified time.
 
 ### Prerequisites
 
 You need a machine with Ubuntu and root access privileges.
 
-If cron is not installed by default, run the following command: 
+If cron is not installed by default, run the following command:
 
 ```
 sudo apt install cron
