@@ -17,7 +17,7 @@ Security Analytics is a security information and event management (SIEM) solutio
 
 As part of the OpenSearch Project, Security Analytics exists in the open source community and benefits from the feedback and contributions of that community. To learn more about proposals for its development, options for making contributions, and general information on the platform, see the [Security Analytics repository](https://github.com/opensearch-project/security-analytics) at GitHub.
 
-If you would like to leave feedback that could help improve Security Analytics, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/t/feedback-experimental-feature-security-analytics/11418).
+If you would like to leave feedback that could help improve Security Analytics, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/c/plugins/security-analytics/73).
 
 ## Components and concepts
 
