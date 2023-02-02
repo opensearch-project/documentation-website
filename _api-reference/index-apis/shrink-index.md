@@ -70,7 +70,7 @@ The primary shard count of the target index is the smallest factor of the source
 1. Calculate the minimum number of primary shards as 400/150, rounded to the nearest whole integer. The minimum number of primary shards is 3.
 1. Calculate the number of primary shards as the smallest factor of 8 that is greater than 3. The number of primary shards is 4.
 
-The maximum number of primary shards for the target index is equal to the number of primary shards in the source index because the shrink operation is used to reduce the primary shard count. As an example, consider the source index with 5 primary shards that occupy a total of 600 GB of storage. If `max_shard_size` is 100 GB, the minimum number of primary shards is 600/100, which is 6. However, because the number of primary shards in the source index is smaller than 6, the number of primary shards in the target index is set to 5.
+The maximum number of primary shards for the target index is equal to the number of primary shards in the source index because the shrink operation is used to reduce the primary shard count. As an example, consider a source index with 5 primary shards that occupy a total of 600 GB of storage. If `max_shard_size` is 100 GB, the minimum number of primary shards is 600/100, which is 6. However, because the number of primary shards in the source index is smaller than 6, the number of primary shards in the target index is set to 5.
 
 The minimum number of primary shards for the target index is 1.
 {: .note}
