@@ -1,7 +1,9 @@
 ---
 layout: default
 title: Cluster decommission 
-nav_order: 20
+nav_order: 30
+parent: Cluster APIs
+has_children: false
 ---
 
 # Cluster decommission

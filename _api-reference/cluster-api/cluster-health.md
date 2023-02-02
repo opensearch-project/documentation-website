@@ -1,7 +1,9 @@
 ---
 layout: default
 title: Cluster health
-nav_order: 17
+nav_order: 40
+parent: Cluster APIs
+has_children: false
 ---
 
 # Cluster health
