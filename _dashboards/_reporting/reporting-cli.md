@@ -101,9 +101,9 @@ opensearch-reporting-cli -u https://search-basic-auth2-3-b477rrluhlckrmwmtvp6k3x
 
 Upon success, the email will be sent to the specified email address with the CSV file attached.
 
-## Creating a cron job to request a report
+## Automatically run reports with a cron job
 
-You can create a report by setting up a cron job to run a report at a specified time.
+You can create a report by setting up a cron job to run a report at a specified time. OpenSearch Reporting CLI supports any cron job use case, such as setting a specified time of day.
 
 ### Prerequisites
 
@@ -135,6 +135,7 @@ In the crontab editor, enter the report request. For example, the following exam
 ```
 
 ## Using AWS Lambda
+
 You can use AWS Lambda with the Reporting CLI tool. <need info on why they would use it>.
 
 ### Prerequisites
@@ -142,7 +143,8 @@ You can use AWS Lambda with the Reporting CLI tool. <need info on why they would
 To use the Reporting CLI with AWS Lambda, you need to do the following preliminary steps.
 
 - Get an AWS account. For instructions, see [Creating an AWS account](https://docs.aws.amazon.com/accounts/latest/reference/manage-acct-creating.html) in the AWS Account Management reference guide.
-- Get a docker file to assemble an image.
+- Get a Dockerfile to assemble an image. For Docker instructions, see [Dockerfile reference](https://docs.docker.com/engine/reference/builder/).
+- Set up an Amazon Elastic Container Registry (ECR). For instructions, see [Getting started with Amazon ECR using the AWS Management Console](https://docs.aws.amazon.com/AmazonECR/latest/userguide/getting-started-console.html).
 
 You can use the following sample configurations to set up and assemble the image:
 
@@ -206,12 +208,12 @@ CMD [ "/function/index.handler" ]
 
 Follow the instructions in the Amazon ECR user guide to create a repository with the name `opensearch-reporting-cli`.
 
-To learn more about using the Amazon ECR, see [Getting started with Amazon ECR using the AWS Management Console](https://docs.aws.amazon.com/AmazonECR/latest/userguide/getting-started-console.html).
+Go to [Getting started with Amazon ECR using the AWS Management Console](https://docs.aws.amazon.com/AmazonECR/latest/userguide/getting-started-console.html) and follow both procedures.
 
-### Step 2: Run the <?> commands
+### Step 2: Run the push commands
 
 In the AWS ECR console, choose **view push command**.
-Locate the 4 commands in the Dockerfile directory.
+Locate the 4 commands in the Dockerfile directory, and select them all.
 
 ### Step 3: Create a lambda function with the container image
 
