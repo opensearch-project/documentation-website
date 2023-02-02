@@ -10,7 +10,7 @@ redirect_from:
 
 You can run Data Prepper with a Logstash configuration.
 
-As mentioned in the [Getting started]({{site.url}}{{site.baseurl}}/data-prepper/get-started/) guide, you'll need to configure Data Prepper with a pipeline using a `pipelines.yaml` file.
+As mentioned in the [Getting started]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/) guide, you'll need to configure Data Prepper with a pipeline using a `pipelines.yaml` file.
 
 Alternatively, if you have a Logstash configuration `logstash.conf` to configure Data Prepper instead of `pipelines.yaml`.
 
