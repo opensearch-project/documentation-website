@@ -123,6 +123,8 @@ Install the Reporting CLI by running the following command:
 npm i @opensearch-project/opensearch-reporting-cli
 ```
 
+### Step 2: Specify the details for the report
+
 Open the crontab editor by running the following command:
 
 ```
