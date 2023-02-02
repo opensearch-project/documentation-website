@@ -1,7 +1,9 @@
 ---
 layout: default
 title: Cluster routing and awareness
-nav_order: 16
+nav_order: 20
+parent: Cluster APIs
+has_children: false
 ---
 
 # Cluster routing and awareness
