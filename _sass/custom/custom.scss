@@ -339,7 +339,11 @@ p.label {
   flex-direction: column;
   justify-content: space-between;
   color: white;
-  background: linear-gradient(to right, $blue-dk-300, $blue-dk-200 80%);
+  background: linear-gradient(to right, $blue-dk-300, $blue-dk-200 80%); // fallback if image is not rendered
+}
+
+.banner-head {
+  @extend .panel;
 }
 
 .banner-text-div {
