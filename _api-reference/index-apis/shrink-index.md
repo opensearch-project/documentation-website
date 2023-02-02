@@ -65,7 +65,7 @@ settings | Object | Index settings you can apply to your target index. See [Inde
 
 The `max_shard_size` parameter specifies the maximum size of a primary shard in the target index. OpenSearch uses `max_shard_size` and the total storage for all primary shards in the source index to calculate the number of primary shards and their size for the target index. 
 
-The primary shard count of the target index is the smallest factor of the source index's primary shard count, for which the shard size does not exceed `max_shard_size`. Consider the following example. Let's say the source index has 8 primary shards and they occupy a total of 400 GB of storage. If `max_shard_size` is equal to 150 GB, OpenSearch calculates the number of primary shards in the target index using the following algorithm:
+The primary shard count of the target index is the smallest factor of the source index's primary shard count, for which the shard size does not exceed `max_shard_size`. For example, if the source index has 8 primary shards, they occupy a total of 400 GB of storage, and the `max_shard_size` is equal to 150 GB, OpenSearch calculates the number of primary shards in the target index using the following algorithm:
 
 1. Calculate the minimum number of primary shards as 400/150, rounded to the nearest whole integer. The minimum number of primary shards is 3.
 1. Calculate the number of primary shards as the smallest factor of 8 that is greater than 3. The number of primary shards is 4.
