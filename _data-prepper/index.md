@@ -5,9 +5,8 @@ nav_order: 1
 has_children: false
 has_toc: false
 redirect_from:
-  - /clients/tools/data-prepper/
-  - /clients/data-prepper/
-  - /clients/data-prepper/index/
+  - /data-prepper/
+  - /data-prepper/index/
 ---
 
 # Data Prepper
