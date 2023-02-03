@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Migrating from Open Distro
-nav_order: 35
+nav_order: 30
 ---
 
 # Migrating from Open Distro
