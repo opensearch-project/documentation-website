@@ -33,8 +33,8 @@ The following section details various configuration options for peer forwarder.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
-port | No | Integer | The port number that the peer forwarding server is running on. Valid options are between 0 and 65535. Defaults is 4994.
-request_timeout | No | Integer | Request timeout in milliseconds for the peer forwarder HTTP server. Default is 10000.
+port | No | Integer | The peer forwarding server port. Valid options are between 0 and 65535. Defaults is 4994.
+request_timeout | No | Integer | Request timeout for the peer forwarder HTTP server in milliseconds. Default is 10000.
 server_thread_count | No | Integer | Number of threads used by the peer forwarder server. Default is 200.
 client_thread_count | No | Integer | Number of threads used by the peer forwarder client. Default is 200.
 max_connection_count | No | Integer | Maximum number of open connections for the peer forwarder server. Default is 500.

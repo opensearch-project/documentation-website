@@ -79,7 +79,7 @@ conditional-routing-sample-pipeline:
 
 ## Examples
 
-This section provides some pipeline examples that you can use to start creating your own pipelines. For more options when creating pipelines, select from the following options for each component:
+This section provides some pipeline examples that you can use to start creating your own pipelines. For more pipeline configurations, select from the following options for each component:
 
 - [Buffers]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/buffers/buffers/)
 - [Processors]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/processors/)
@@ -220,7 +220,7 @@ metrics-pipeline:
 
 ### S3 log ingestion pipeline
 
-The following example demonstrates how to use the S3Source and Grok Processor plugins to process unstructured log data from [Amazon Simple Storage Service](https://aws.amazon.com/s3/) (Amazon S3). This example uses application load balancer logs. As the application load balancer writes logs to S3, S3 creates notifications in Amazon SQS. Data Prepper reads those notifications and reads the S3 objects to get the log data and process it.
+The following example demonstrates how to use the S3Source and Grok Processor plugins to process unstructured log data from [Amazon Simple Storage Service](https://aws.amazon.com/s3/) (Amazon S3). This example uses application load balancer logs. As the application load balancer writes logs to S3, S3 creates notifications in Amazon SQS. Data Prepper monitors those notifications and reads the S3 objects to get the log data and process it.
 
 ```yml
 log-pipeline:
@@ -301,9 +301,9 @@ docker run --name data-prepper \
 
 Data Prepper provides an HTTP service to forward Events between Data Prepper nodes for aggregation. This is required for operating Data Prepper in a clustered deployment. Currently, peer forwarding is supported in `aggregate`, `service_map_stateful`, and `otel_trace_raw` processors. Peer forwarder groups events based on the identification keys provided by the processors. For `service_map_stateful` and `otel_trace_raw` it's `traceId` by default and can not be configured. For `aggregate` processor, it is configurable using `identification_keys` option. 
 
-Peer Forwarder supports peer discovery through one of three options: a static list, a DNS record lookup , or AWS Cloud Map. This option can be configured using `discovery_mode` option. Peer forwarder also supports SSL for verification and encrytion, and mTLS for mutual authentication in peer forwarding service.
+Peer forwarder supports peer discovery through one of three options: a static list, a DNS record lookup , or AWS Cloud Map. Peer discovery can be configured using `discovery_mode` option. Peer forwarder also supports SSL for verification and encryption, and mTLS for mutual authentication in a peer forwarding service.
 
-To configure peer forwarder, add configuration options to `data-prepper-config.yaml` mentioned in the previous [Configure the Data Prepper server](#configure-the-data-prepper-server) section:
+To configure peer forwarder, add configuration options to `data-prepper-config.yaml` mentioned in the [Configure the Data Prepper server](#configure-the-data-prepper-server) section:
 
 ```yml
 peer_forwarder:
