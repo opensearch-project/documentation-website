@@ -1,7 +1,9 @@
 ---
 layout: default
 title: Cluster allocation explain
-nav_order: 15
+nav_order: 10
+parent: Cluster APIs
+has_children: false
 ---
 
 # Cluster allocation explain
