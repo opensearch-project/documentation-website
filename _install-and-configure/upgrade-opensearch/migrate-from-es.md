@@ -3,6 +3,8 @@ layout: default
 title: Upgrading OpenSearch
 parent: Upgrade Overview
 nav_order: 10
+redirect_from:
+  - /upgrade-opensearch/index/
 ---
 
 # OpenSearch Version Upgrades

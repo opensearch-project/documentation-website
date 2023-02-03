@@ -2,6 +2,8 @@
 layout: default
 title: Upgrade Overview
 nav_order: 1
+redirect_from:
+  - /upgrade-opensearch/index/
 ---
 
 # Upgrade Overview
@@ -19,7 +21,7 @@ Lucene Version | OpenSearch Version | ElasticSearch Version
 9.4.0 | - | 8.5
 9.3.0 | 2.3.0</br>2.2.x | 8.4
 9.2.0 | 2.1.0 | 8.3
-9.1.0 | 2.0.x | 8.2
+9.1.0 | 2.0.x | 8.2Oops 
 9.0.0 | - | 8.1</br>8.0
 8.11.1 | - | 7.17
 8.10.1 | 1.3.x</br>1.2.x | 7.16
@@ -36,7 +38,7 @@ Lucene Version | OpenSearch Version | ElasticSearch Version
 8.0.0 | - | 7.2</br>7.1
 7.7.3 | - | 6.8
 
-If your upgrade path spans more than a single major version, and you want to maintain existing indexes, then you will need to use the [Reindex]({{site.url}}{{site.baseurl}}/api-reference/document-apis/reindex/) API to make your indexes compatible with the target version of OpenSearc before upgrading. For example, if your cluster is currently running Elasticsearch 6.8 and you want to upgrade to OpenSearch 2.x, then you must first upgrade to OpenSearch 1.x, recreate your indexes using the [Reindex]({{site.url}}{{site.baseurl}}/api-reference/document-apis/reindex/) API, and finally upgrade to 2.x.
+If your upgrade path spans more than a single major version, and you want to maintain existing indexes, then you will need to use the [Reindex]({{site.url}}{{site.baseurl}}/api-reference/document-apis/reindex/) API to make your indexes compatible with the target version of OpenSearch before upgrading. For example, if your cluster is currently running Elasticsearch 6.8 and you want to upgrade to OpenSearch 2.x, then you must first upgrade to OpenSearch 1.x, recreate your indexes using the [Reindex]({{site.url}}{{site.baseurl}}/api-reference/document-apis/reindex/) API, and finally upgrade to 2.x.
 
 ## Workflow considerations
 
