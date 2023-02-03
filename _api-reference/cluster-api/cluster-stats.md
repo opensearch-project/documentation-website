@@ -1,7 +1,9 @@
 ---
 layout: default
 title: Cluster stats
-nav_order: 18
+nav_order: 60
+parent: Cluster APIs
+has_children: false
 ---
 
 # Cluster stats
