@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Configuring a web map service (WMS)
+title: Configuring a Web Map Service (WMS)
 parent: Using coordinate and region maps
 grand_parent: Building data visualizations with Visualize
 nav_order: 5
@@ -10,9 +10,9 @@ redirect_from:
 
 {%- comment -%}The `/docs/opensearch-dashboards/maptiles/` redirect is specifically to support the UI links in OpenSearch Dashboards 1.0.0.{%- endcomment -%}
 
-# Configuring a web map service (WMS)
+# Configuring a Web Map Service (WMS)
 
-OpenSearch Dashboards includes default map tiles. To use specialized maps, you can configure a WMS by following these steps: 
+The Open Geospatial Consortium (OGC) Web Map Service (WMS) specification is an international specification for requesting dynamic maps on the web. OpenSearch Dashboards includes default map tiles. For specialized maps, you can configure a WMS on OpenSearch Dashboards following these steps:
 
 1. Open and log in to OpenSearch Dashboards at `https://<host>:<port>`. Alternatively, you can connect to OpenSearch Dashboards by connecting to [https://localhost:5601](https://localhost:5601). The default username and password are `admin`. 
 2. Choose **Management** > **Advanced Settings**.
