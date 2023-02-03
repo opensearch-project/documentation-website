@@ -101,12 +101,5 @@ PUT _cluster/settings
 ```
 
 Set the threshold to `-1` to disable throttling for a task type. 
-<<<<<<< HEAD
 {: .note}
-=======
-{: .note}
-<<<<<<< HEAD
->>>>>>> f07c7c3a (Merge main)
-=======
->>>>>>> 4b8790cd (Fix links and other things)
->>>>>>> 805aae66 (Fix links and other things)
+
