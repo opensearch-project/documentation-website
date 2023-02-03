@@ -4,7 +4,7 @@ title: Notebooks
 nav_order: 50
 redirect_from: 
   - /notebooks/
-  - /observing-your-data/notebooks/
+  - /observability-plugin/notebooks/
 has_children: false
 ---
 
