@@ -5,7 +5,7 @@ nav_order: 20
 has_children: true
 ---
 
-# Exploring data with Discover 
+# Exploring data 
 
 **Discover** in OpenSearch Dashboards helps you extract insights and get value out of data assets across your organization. Discover enables you to:
 
