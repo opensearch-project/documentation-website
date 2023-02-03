@@ -1,10 +1,8 @@
 ---
 layout: default
 title: Configuring Data Prepper
-has_children: true
-nav_order: 100
-redirect_from:
-  - /clients/data-prepper/data-prepper-reference/
+parent: Managing Data Prepper
+nav_order: 10
 ---
 
 # Configuring Data Prepper
@@ -31,15 +29,15 @@ peer_forwarder | No | Object | Peer forwarder configurations. See [Peer forwarde
 
 The following section details various configuration options for peer forwarder.
 
-#### General options for peer forwarder
+#### General options for peer forwarding
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
-port | No | Integer | The port number peer forwarder server is running on. Valid options are between 0 and 65535. Defaults is 4994.
-request_timeout | No | Integer | Request timeout in milliseconds for peer forwarder HTTP server. Default is 10000.
-server_thread_count | No | Integer | Number of threads used by peer forwarder server. Default is 200.
-client_thread_count | No | Integer | Number of threads used by peer forwarder client. Default is 200.
-max_connection_count | No | Integer | Maximum number of open connections for peer forwarder server. Default is 500.
+port | No | Integer | The peer forwarding server port. Valid options are between 0 and 65535. Defaults is 4994.
+request_timeout | No | Integer | Request timeout for the peer forwarder HTTP server in milliseconds. Default is 10000.
+server_thread_count | No | Integer | Number of threads used by the peer forwarder server. Default is 200.
+client_thread_count | No | Integer | Number of threads used by the peer forwarder client. Default is 200.
+max_connection_count | No | Integer | Maximum number of open connections for the peer forwarder server. Default is 500.
 max_pending_requests | No | Integer | Maximum number of allowed tasks in ScheduledThreadPool work queue. Default is 1024.
 discovery_mode | No | String | Peer discovery mode to use. Valid options are `local_node`, `static`, `dns`, or `aws_cloud_map`. Defaults to `local_node`, which processes events locally.
 static_endpoints | Conditionally | List | A list containing endpoints of all Data Prepper instances. Required if `discovery_mode` is set to static.
