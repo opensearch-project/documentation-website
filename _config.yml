@@ -40,13 +40,19 @@ collections:
   dashboards:
     permalink: /:collection/:path/
     output: true
+  security:
+    permalink: /:collection/:path/
+    output: true 
+  security-analytics:
+    permalink: /:collection/:path/
+    output: true   
   tuning-your-cluster:
     permalink: /:collection/:path/
     output: true
-  security:
+  monitoring-your-cluster:
     permalink: /:collection/:path/
     output: true
-  security-analytics:
+  observing-your-data:
     permalink: /:collection/:path/
     output: true
   search-plugins:
@@ -55,16 +61,10 @@ collections:
   im-plugin:
     permalink: /:collection/:path/
     output: true
-  observing-your-data:
-    permalink: /:collection/:path/
-    output: true
   ml-commons-plugin:
     permalink: /:collection/:path/
     output: true
   neural-search-plugin:
-    permalink: /:collection/:path/
-    output: true
-  monitoring-your-cluster:
     permalink: /:collection/:path/
     output: true
   clients:
@@ -103,14 +103,20 @@ just_the_docs:
     dashboards:
       name: OpenSearch Dashboards
       nav_fold: true
-    tuning-your-cluster:
-      name: Tuning your cluster
-      nav_fold: true
     security:
       name: Security in OpenSearch
       nav_fold: true
     security-analytics:
       name: Security analytics plugin
+      nav_fold: true
+    tuning-your-cluster:
+      name: Tuning your cluster
+      nav_fold: true 
+    monitoring-your-cluster:
+      name: Monitoring your cluster
+      nav_fold: true
+    observing-your-data:
+      name: Observing your data
       nav_fold: true
     search-plugins:
       name: Search plugins
@@ -118,17 +124,11 @@ just_the_docs:
     im-plugin:
       name: Index management plugin
       nav_fold: true
-    observing-your-data:
-      name: Observing your data
-      nav_fold: true
     ml-commons-plugin:
       name: ML Commons plugin
       nav_fold: true
     neural-search-plugin:
       name: Neural Search plugin
-      nav_fold: true
-    monitoring-your-cluster:
-      name: Monitoring your cluster
       nav_fold: true
     clients:
       name: Clients
