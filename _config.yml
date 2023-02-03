@@ -8,7 +8,7 @@ permalink: /:path/
 opensearch_version: 2.5.0
 opensearch_dashboards_version: 2.5.0
 opensearch_major_minor_version: 2.5
-lucene_version: 9_4_2
+lucene_version: 9_4_1
 
 # Build settings
 markdown: kramdown
@@ -40,6 +40,9 @@ collections:
   dashboards:
     permalink: /:collection/:path/
     output: true
+  tuning-your-cluster:
+    permalink: /:collection/:path/
+    output: true
   security:
     permalink: /:collection/:path/
     output: true
@@ -52,10 +55,7 @@ collections:
   im-plugin:
     permalink: /:collection/:path/
     output: true
-  replication-plugin:
-    permalink: /:collection/:path/
-    output: true
-  observability-plugin:
+  observing-your-data:
     permalink: /:collection/:path/
     output: true
   ml-commons-plugin:
@@ -64,13 +64,7 @@ collections:
   neural-search-plugin:
     permalink: /:collection/:path/
     output: true
-  monitoring-plugins:
-    permalink: /:collection/:path/
-    output: true
-  notifications-plugin:
-    permalink: /:collection/:path/
-    output: true
-  job-scheduler-plugin:
+  monitoring-your-cluster:
     permalink: /:collection/:path/
     output: true
   clients:
@@ -109,6 +103,9 @@ just_the_docs:
     dashboards:
       name: OpenSearch Dashboards
       nav_fold: true
+    tuning-your-cluster:
+      name: Tuning your cluster
+      nav_fold: true
     security:
       name: Security in OpenSearch
       nav_fold: true
@@ -121,11 +118,8 @@ just_the_docs:
     im-plugin:
       name: Index management plugin
       nav_fold: true
-    replication-plugin:
-      name: Replication plugin
-      nav_fold: true
-    observability-plugin:
-      name: Observability plugin
+    observing-your-data:
+      name: Observing your data
       nav_fold: true
     ml-commons-plugin:
       name: ML Commons plugin
@@ -133,14 +127,8 @@ just_the_docs:
     neural-search-plugin:
       name: Neural Search plugin
       nav_fold: true
-    monitoring-plugins:
-      name: Monitoring plugins
-      nav_fold: true
-    notifications-plugin:
-      name: Notifications plugin
-      nav_fold: true
-    job-scheduler-plugin:
-      name: Job Scheduler plugin
+    monitoring-your-cluster:
+      name: Monitoring your cluster
       nav_fold: true
     clients:
       name: Clients
