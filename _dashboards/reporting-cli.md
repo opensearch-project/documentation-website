@@ -50,7 +50,7 @@ npm i @opensearch-project/opensearch-reporting-cli
 
 ### Downloading and installing the Reporting CLI from OpenSearch.org
 
-You can download the `opensearch-reporting-cli` tool from the OpenSearch.org [Command Line Tools](https://opensearch.org/downloads.html#command-line-tools#opensearch-reporting-cli) section.
+You can download the `opensearch-reporting-cli` tool from the OpenSearch.org [Reporting CLI Tool](https://opensearch.org/downloads.html#opensearch-reporting-cli) section.
 
 Next, run the following command to install the .tar archive:
 
