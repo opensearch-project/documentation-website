@@ -154,7 +154,7 @@ To use the Reporting CLI with AWS Lambda, you need to do the following prelimina
 
 You need to assemble the image by running a Dockerfile. When you run the Dockerfile, it downloads the OpenSearch artifact required to use the Reporting CLI.
 
-1. Copy the following sample configurations into a Dockerfile.
+Copy the following sample configurations into a Dockerfile.
 
 ```dockerfile
 
@@ -217,51 +217,40 @@ CMD [ "/function/src/index.handler" ]
 
 ```
 
-1. Run the following build command within the same directory that contains the Dockerfile:
+Next, run the following build command within the same directory that contains the Dockerfile:
 
 ```
 docker build -t opensearch-reporting-cli .
 ```
 
-### Step 2: Create a repository with Amazon ECR
+### Step 2: Create a private repository with Amazon ECR
 
-Follow the instructions in the Amazon ECR user guide to create a repository with the name `opensearch-reporting-cli`.
+Follow the instructions in the Amazon ECR user guide to create a repository with the name `opensearch-reporting-cli`. For instructions, see [Getting started with Amazon ECR using the AWS Management Console](https://docs.aws.amazon.com/AmazonECR/latest/userguide/getting-started-console.html).
 
-Go to [Getting started with Amazon ECR using the AWS Management Console](https://docs.aws.amazon.com/AmazonECR/latest/userguide/getting-started-console.html) and follow both procedures.
+In addition to the Amazon EC2 instructions, you need to make the following adjustments for the Reporting CLI to function properly:
 
-Navigate to the test function **Configuration** tab to modify two required settings:
+Navigate to the test function **Configuration** tab to modify two required settings.
 - Make sure to set **Timeout** to at least 5 minutes to allow the reporting CLI to generate the report.
 - Change the setting for **Ephemeral storage** to 1024MB. The default setting is not a sufficient storage amount.
 {: .note }
 
 ### Step 3: Run the push commands
 
-In the AWS ECR console, choose **view push command**.
-Locate the 4 commands in the Dockerfile directory, and select them all.
+You need to get several commands from the AWS EC2 Console to run within the Dockerfile directory, as shown in the following image:
+
+![Amazon ECR console view push commands]({{site.url}}{{site.baseurl}}/images/dashboards/push-commands.png)
+
+1. In the AWS ECR console, go to **Repositories** and choose **opensearch-reporting-cli**.
+1. Choose **view push commands**.
+1. In **Push commands for opensearch-reporting-cli**, copy each push command and run it in the Dockerfile directory.
 
 ### Step 4: Create a lambda function with the container image
 
 1. Select the container image that you created in step 2, and select **architecture** x86_64.
 
 1. Go to **Lambda function > Configuration > General configuration> Edit timeout** and set the timeout in lambda to 5 minutes.
-
 1. Set the memory size to at least 1024MB.
-
-
-1. *(Optional):* If you are using Amazon SES, you need to set the following user permissions:
-
-```json
-{
-            "Effect": "Allow",
-            "Action": [
-                "ses:SendEmail",
-                "ses:SendRawEmail"
-            ],
-            "Resource": "<arn of ses resource>"
-        }
-```
-
-1. *(Optional):* Next, test the function either by providing fixed values or variable values in a JSON file.
+1. Next, test the function either by providing fixed values or variable values in a JSON file.
 
 - If the function contains fixed values, such as email address you do not need a JSON file. You can specify an environment variable in AWS Lambda.
 - If the function takes a variable key-pair value, then you need to specify the values in a JSON file.
@@ -273,23 +262,46 @@ Locate the 4 commands in the Dockerfile directory, and select them all.
 {
   "url": "https://playground.opensearch.org/app/dashboards#/view/084aed50-6f48-11ed-a3d5-1ddbf0afc873",
   "transport": "ses",
-  "from": "<sender_email>",
-  "to": "<recipient_email>",
+  "from": "sender@amazon.com", 
+  "to": "recipient@amazon.com", 
   "subject": "Test lambda docker image"
 }
 ```
 
 ### Step 5: Select the container image
 
-In **Select container image**, select the container you created from the list, and then choose **Select image**.
-
-In **Architecture**, choose x86_64.
+1. In **Select container image**, select the container `opensearch-reporting-cli` from the list, and then choose **Select image**.
+1. Specify a name for the function.
+1. In **Architecture**, choose **x86_64**.
+1. Choose **Create function**.
 
 ### Step 6: Add the trigger to start the AWS Lambda function
 
-Set the trigger to start running the report.
+Set the trigger to start running the report. AWS Lambda can use any AWS service as a trigger, such as SNS, S3, or an AWS CloudWatch EventBridge.
 
-For example, you can set a `CloudWatchEvents` Rule to set a trigger. To learn more about Amazon ECR events you can schedule, see [Sample events from Amazon ECR](https://docs.aws.amazon.com/AmazonECR/latest/userguide/ecr-eventbridge.html#ecr-eventbridge-bus).
+1. In the **Triggers** section, choose **Add trigger**.
+1. Select a trigger from the list. For example, you can set an AWS CloudWatch Event. To learn more about Amazon ECR events you can schedule, see [Sample events from Amazon ECR](https://docs.aws.amazon.com/AmazonECR/latest/userguide/ecr-eventbridge.html#ecr-eventbridge-bus).
+1. Choose **Test** to initiate the function.
+
+### (Optional) Step 7: Add the role permission for Amazon SES
+
+1. Select **Configuration** and choose **Excecution role**.
+1. In **Summary**, choose **Permissions**.
+1. Select **{}JSON** to open the JSON policy editor.
+1. Add the permissions for the Amazon SES resource that you want to use.
+
+The following example provides the resource ARN for the send email action:
+
+```json
+{
+            "Effect": "Allow",
+            "Action": [
+                "ses:SendEmail",
+                "ses:SendRawEmail"
+            ],
+            "Resource": "arn:aws:ses:us-west-2:840298398745:identity/username@amazon.com"
+        }
+```
 
 ## Getting help
 
