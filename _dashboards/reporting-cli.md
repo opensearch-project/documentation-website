@@ -146,19 +146,25 @@ To use the Reporting CLI with AWS Lambda, you need to do the following prelimina
 - Get an AWS account. For instructions, see [Creating an AWS account](https://docs.aws.amazon.com/accounts/latest/reference/manage-acct-creating.html) in the AWS Account Management reference guide.
 - Get a Dockerfile to assemble an image. For Docker instructions, see [Dockerfile reference](https://docs.docker.com/engine/reference/builder/).
 - Set up an Amazon Elastic Container Registry (ECR). For instructions, see [Getting started with Amazon ECR using the AWS Management Console](https://docs.aws.amazon.com/AmazonECR/latest/userguide/getting-started-console.html).
+- Use an AM64 system
 
-### Step 1: Create a Dockerfile with setup and image assembly configurations
+### Step 1: Create a container image with a Dockerfile
 
-Copy the following sample configurations to set up and assemble the image into a Dockerfile.
+You need to assemble the image by running a Dockerfile. When you run the Dockerfile, it downloads the OpenSearch artifact required to use the Reporting CLI.
 
-```json
+1. Copy the following sample configurations into a Dockerfile.
+
+```dockerfile
 
 # Define function directory
 ARG FUNCTION_DIR="/function"
+
 # Base image of the docker container
 FROM node:lts-slim as build-image
+
 # Include global arg in this stage of the build
 ARG FUNCTION_DIR
+
 # AWS Lambda runtime dependencies
 RUN apt-get update && \
     apt-get install -y \
@@ -173,13 +179,14 @@ RUN apt-get update && \
         python3 \
         libkrb5-dev \
         curl
+
 # Copy function code
-RUN mkdir -p ${FUNCTION_DIR}/
-COPY package.json src/ ${FUNCTION_DIR}/
-RUN ls ${FUNCTION_DIR}/
 WORKDIR ${FUNCTION_DIR}
-RUN npm install
-RUN npm install aws-lambda-ric
+RUN curl -LJO https://artifacts.opensearch.org/reporting-cli/opensearch-reporting-cli-1.0.0.tgz
+RUN tar -xzf opensearch-reporting-cli-1.0.0.tgz
+RUN mv package/* .
+RUN npm install && npm install aws-lambda-ric
+
 # Build Stage 2: Copy Build Stage 1 files in to Stage 2. Install chromium dependencies and chromium.
 FROM node:lts-slim
 # Include global arg in this stage of the build
@@ -188,10 +195,9 @@ ARG FUNCTION_DIR
 WORKDIR ${FUNCTION_DIR}
 # Copy in the build image dependencies
 COPY --from=build-image ${FUNCTION_DIR} ${FUNCTION_DIR}
-RUN ls ${FUNCTION_DIR}/
-# Install latest chrome dev package and fonts to support major charsets (Chinese, Japanese, Arabic, Hebrew, Thai and a few others)
-# Note: this installs the necessary libs to make the bundled version of Chromium that Puppeteer
-# installs, work.
+
+# Install latest chrome dev package and fonts to support major char sets (Chinese, Japanese, Arabic, Hebrew, Thai and a few others)
+# Note: this installs the necessary libs to make the bundled version of Chromium that Puppeteer installs, work.
 RUN apt-get update \
     && apt-get install -y wget gnupg \
     && wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
@@ -199,12 +205,20 @@ RUN apt-get update \
     && apt-get update \
     && apt-get install -y google-chrome-stable fonts-ipafont-gothic fonts-wqy-zenhei fonts-thai-tlwg fonts-kacst fonts-freefont-ttf libxss1 \
       --no-install-recommends \
+    && apt-get remove -y google-chrome-stable \
     && rm -rf /var/lib/apt/lists/*
-ENTRYPOINT ["/usr/local/bin/npx", "aws-lambda-ric"]
-ENV IS_LAMBDA=true
-ENV HOME="/tmp"
-CMD [ "/function/index.handler" ]
 
+ENTRYPOINT ["/usr/local/bin/npx", "aws-lambda-ric"]
+
+ENV HOME="/tmp"
+CMD [ "/function/src/index.handler" ]
+
+```
+
+1. Run the following build command within the same directory that contains the Dockerfile:
+
+```
+docker build -t opensearch-reporting-cli .
 ```
 
 ### Step 2: Create a repository with Amazon ECR
@@ -225,9 +239,12 @@ Locate the 4 commands in the Dockerfile directory, and select them all.
 
 ### Step 4: Create a lambda function with the container image
 
-Go to **Lambda function > Configuration > General configuration> Edit timeout** and set the timeout in lambda to 5 minutes.
+1. Select the container image that you created in step 2, and select **architecture** x86_64.
 
-Set the memory size to 4096.
+1. Go to **Lambda function > Configuration > General configuration> Edit timeout** and set the timeout in lambda to 5 minutes.
+
+1. Set the memory size to at least 1024MB.
+
 
 *(Optional):* If you are using Amazon SES, you need to set the following user permissions:
 
@@ -242,7 +259,13 @@ Set the memory size to 4096.
         }
 ```
 
-Next, test the function with the following required values in the event JSON file:
+Next, test the function either by providing fixed values or variable values in a JSON file.
+
+If the function contains fixed values, such as email address you do not need a JSON file.
+If the function takes a variable key-pair value, then you need to specify the values in a JSON file.
+{: .note }
+
+ The following example shows fixed values provided for the sender and recipient email addresses:
 
 ```json
 {
@@ -254,7 +277,13 @@ Next, test the function with the following required values in the event JSON fil
 }
 ```
 
-### Step 5: Add the trigger to initiate a report request
+### Step 5: Select the container image
+
+In **Select container image**, select the container you created from the list, and then choose **Select image**.
+
+In **Architecture**, choose x86_64.
+
+### Step 6: Add the trigger to initiate a report request
 
 Set the trigger to start running the report.
 
