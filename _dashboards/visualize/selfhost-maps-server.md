@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Using the self-host maps server
-grand_parent: Building data visualizations with Visualize
+grand_parent: Building data visualizations
 parent: Using coordinate and region maps
 nav_order: 10
 ---

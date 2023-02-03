@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Configuring a Web Map Service (WMS)
-grand_parent: Building data visualizations with Visualize
+grand_parent: Building data visualizations
 parent: Using coordinate and region maps
 nav_order: 5
 redirect_from:

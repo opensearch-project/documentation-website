@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Building data visualizations with Visualize
+title: Building data visualizations
 nav_order: 40
 has_children: true
 ---

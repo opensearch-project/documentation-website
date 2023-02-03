@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Using coordinate and region maps
-parent: Building data visualizations with Visualize
+parent: Building data visualizations
 has_children: true
 nav_order: 15
 redirect_from:

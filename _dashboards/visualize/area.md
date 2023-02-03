@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Using area charts
-parent: Building data visualizations with Visualize
+parent: Building data visualizations
 nav_order: 5
 ---
 
