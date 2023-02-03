@@ -13,7 +13,7 @@ If you want to download a CSV file, you need to have the Reporting plugin instal
 
 For any dashboard view, you can request a report in PNG or PDF format to be sent to an email address. This can be useful for sending reports to multiple email recipients with an email alias. The only dashboard view that supports creating a CSV report is the **Discover** view.
 
-With the Reporting CLI, you can specify options for your report in the command line. The report is sent to an email address as a PDF attachment by default. You can also request a PNG image or a CSV file with the `--formats` argument or embed the image in the email body instead of attaching it.
+With the Reporting CLI, you can specify options for your report in the command line. The report is sent to an email address as a PDF attachment by default. You can also request a PNG image or a CSV file with the `--formats` argument.
 
 You can download the report to the directory in which you are running the Reporting CLI, or you can email the report by specifying Amazon Simple Email Service (Amazon SES) or SMTP for the email transport option.
 
@@ -50,7 +50,7 @@ npm i @opensearch-project/opensearch-reporting-cli
 
 ### Downloading and installing the Reporting CLI from OpenSearch.org
 
-You can download the `opensearch-reporting-cli` tool from the OpenSearch.org [Command Line Tools](https://opensearch.org/downloads.html#command-line-tools) section.
+You can download the `opensearch-reporting-cli` tool from the OpenSearch.org [Command Line Tools](https://opensearch.org/downloads.html#command-line-tools#opensearch-reporting-cli) section.
 
 Next, run the following command to install the .tar archive:
 
@@ -95,7 +95,7 @@ Upon success, the file will be sent to the specified email address. The followin
 The following command generates a report that contains all table content in CSV format and sends the report to an email address using Amazon SES transport:
 
 ```
-opensearch-reporting-cli -u https://search-basic-auth2-3-b477rrluhlckrmwmtvp6k3xxsi.us-west-2.es.amazonaws.com/_dashboards/goto/f166434919d2d8d3708a4705b6f2ed2d?security_tenant=global -f csv -a basic -c admin:Test1234 -e ses -s <email address> -r <email address>
+opensearch-reporting-cli -u https://localhost:5601/app/dashboards#/view/7adfa750-4c81-11e8-b3d7-01146121b73d -f csv -a basic -c admin:Test1234 -e ses -s <email address> -r <email address>
 ```
 
 Upon success, the email will be sent to the specified email address with the CSV file attached.
@@ -106,13 +106,7 @@ You can run reports automatically by setting up a cron job. OpenSearch Reporting
 
 ### Prerequisites
 
-You need a machine with Ubuntu and root access privileges.
-
-If cron is not installed by default, run the following command:
-
-```
-sudo apt install cron
-```
+You need a machine with cron installed and root access privileges.
 
 ### Step 1: Install the reporting CLI
 
@@ -242,7 +236,10 @@ You need to get several commands from the AWS EC2 Console to run within the Dock
 
 1. In the AWS ECR console, go to **Repositories** and choose **opensearch-reporting-cli**.
 1. Choose **view push commands**.
-1. In **Push commands for opensearch-reporting-cli**, copy each push command and run it in the Dockerfile directory.
+1. In **Push commands for opensearch-reporting-cli**, copy and run each command sequentially in the Dockerfile directory.
+
+If you run the push commands from a directory that does not contain the Dockerfile, you will get an error.
+{: .note }
 
 ### Step 4: Create a lambda function with the container image
 
@@ -322,7 +319,7 @@ You can use any of the following arguments with the `opensearch-reporting-cli` t
 `-f`, `--format` | The file format for the report. | Can be either `pdf`, `png`, or `csv`. The default is `pdf`.| N/A
 `-w`, `--width` | The window width in pixels for the report. | Default is `1680`.| N/A
 `-l`, `--height` | The minimum window height in pixels for the report. | Default is `600`. | N/A
-`-n`, `--filename` | The file name of the report. | Default is `reporting`. | OPENSEARCH_FILENAME
+`-n`, `--filename` | The file name of the report. | Default is `reporting`. | opensearch-report-YYY-MM-DDTHH-mm-ss.sssZ
 `-e`, `--transport` | The transport mechanism for sending the email. | For Amazon SES, specify `ses`. Amazon SES requires an AWS configuration on your system to store the credentials. For SMTP, use `smtp` and also specify the login credentials with `--smtpusername` and `--smtppassword`. | OPENSEARCH_TRANSPORT
 `-s`, `--from` | The email address of the sender. | For example, `user@amazon.com`. | OPENSEARCH_FROM
 `-r`, `--to` | The email address of the recipient. | For example, `user@amazon.com`. | OPENSEARCH_TO
@@ -332,6 +329,7 @@ You can use any of the following arguments with the `opensearch-reporting-cli` t
 `--smtpusername` | The SMTP username.| For example, `SMTP_USERNAME`. | OPENSEARCH_SMTP_USERNAME
 `--smtppassword` | The SMTP password.| For example, `SMTP_PASSWORD`. | OPENSEARCH_SMTP_PASSWORD
 `--subject` | The email subject text encased in quotes. | Can be any string. The default is "This is an email containing your dashboard report". | OPENSEARCH_EMAIL_SUBJECT
+--note | The email body, either a string or a path to a text file. | The default note is "Hi,\\nHere is the latest report!" | OPENSEARCH_EMAIL_NOTE
 `-h`, `--help` | Specifies to display the list of optional arguments from the command line. | N/A
 
 ## Using environment variables with the Reporting CLI
