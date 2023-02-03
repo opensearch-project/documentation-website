@@ -2,7 +2,6 @@
 layout: default
 title: Creating reports with the Reporting CLI
 nav_order: 75
-has_children: false
 ---
 
 # Creating reports with the Reporting CLI
