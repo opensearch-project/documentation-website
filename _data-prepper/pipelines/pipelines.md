@@ -220,7 +220,7 @@ metrics-pipeline:
 
 ### S3 log ingestion pipeline
 
-The following example demonstrates how to use the S3 Source and Grok Processor plugins to process unstructured log data
+The following example demonstrates how to use the S3Source and Grok Processor plugins to process unstructured log data
 from [Amazon Simple Storage Service](https://aws.amazon.com/s3/) (Amazon S3). This example uses Application Load 
 Balancer logs. As the Application Load Balancer writes logs to S3, S3 creates notifications in Amazon SQS. Data Prepper 
 reads those notifications and reads the S3 objects to get the log data and process it.
