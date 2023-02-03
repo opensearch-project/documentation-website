@@ -122,7 +122,7 @@ The following table provides optional SSL configuration values that allow you to
 | `acm_certificate_arn`| String | Represents the ACM certificate Amazon Resource Name (ARN). The ACM certificate takes precedence over Amazon S3 or the local file system certificate. Required if `use_acm_certificate_for_ssl` is set to `true`. |
 | `acm_private_key_password` | String | Represents the ACM private key password that will be used to decrypt the private key. If it's not provided, a random password will be generated. |
 | `acm_certificate_timeout_millis` | Integer | Represents the timeout in milliseconds required for ACM to get certificates. Default value is `120000`. |
-| `aws_region` | String | Represents the AWS Region that uses ACM, Amazon S3, or AWS Cloud Map. Required if `use_acm_certificate_for_ssl` is set to `true` or `ssl_certificate_file`. Also required when the `ssl_key_file` is set to use the Amazon S3 path, or if `discovery_mode` is set to `aws_cloud_map`. |
+| `aws_region` | String | Represents the AWS Region that uses ACM, Amazon S3, or AWS Cloud Map. Required if `use_acm_certificate_for_ssl` is set to `true` or `ssl_certificate_file`. Also required when the `ssl_key_file` is set to use the Amazon S3 path or if `discovery_mode` is set to `aws_cloud_map`. |
 
 #### Example configuration
 
