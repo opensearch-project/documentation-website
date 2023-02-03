@@ -1,7 +1,6 @@
 ---
 layout: default
 title: Creating reports with the Reporting CLI
-parent: Reporting
 nav_order: 75
 ---
 

@@ -2,7 +2,6 @@
 layout: default
 title: Reporting
 nav_order: 70
-has_children: true
 ---
 
 
