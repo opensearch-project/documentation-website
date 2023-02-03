@@ -73,6 +73,7 @@ PUT _snapshot/my-opensearch-repo
   }
 }
 ```
+{% include copy-curl.html %}
 
 #### Sample response
 

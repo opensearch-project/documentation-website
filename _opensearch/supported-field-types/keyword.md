@@ -30,6 +30,7 @@ PUT movies
   }
 }
 ```
+{% include copy-curl.html %}
 
 ## Parameters
 

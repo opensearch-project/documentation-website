@@ -11,8 +11,6 @@ permalink: /
 
 This site contains the technical documentation for [OpenSearch](https://opensearch.org/), the Apache 2.0-licensed search, analytics, and visualization suite with advanced security, alerting, SQL support, automated index management, deep performance analysis, and more.
 
-[Get started](#docker-quickstart){: .btn .btn-blue }
-
 
 ## Getting started
 
@@ -66,9 +64,7 @@ For more comprehensive installation instructions for other download types, such 
 
 
 ## The secure path forward
-
-OpenSearch includes a demo configuration so that you can get up and running quickly, but before using OpenSearch in a production environment, you must [configure the security plugin manually]({{site.url}}{{site.baseurl}}/security-plugin/configuration/index/): your own certificates, your own authentication method, your own users, and your own passwords.
-
+OpenSearch includes a demo configuration so that you can get up and running quickly, but before using OpenSearch in a production environment, you must [configure the security plugin manually]({{site.url}}{{site.baseurl}}/security/configuration/index/) with your own certificates, authentication method, users, and passwords.
 
 ## Looking for the Javadoc?
 

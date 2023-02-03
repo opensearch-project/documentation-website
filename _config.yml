@@ -28,6 +28,9 @@ color_scheme: opensearch
 # Define Jekyll collections
 collections:
   # Define a collection named "tests", its documents reside in the "_tests" directory
+  install-and-configure:
+    permalink: /:collection/:path/
+    output: true  
   upgrade-to:
     permalink: /:collection/:path/
     output: true
@@ -37,7 +40,7 @@ collections:
   dashboards:
     permalink: /:collection/:path/
     output: true
-  security-plugin:
+  security:
     permalink: /:collection/:path/
     output: true
   search-plugins:
@@ -61,6 +64,9 @@ collections:
   notifications-plugin:
     permalink: /:collection/:path/
     output: true
+  job-scheduler-plugin:
+    permalink: /:collection/:path/
+    output: true
   clients:
     permalink: /:collection/:path/
     output: true
@@ -77,6 +83,9 @@ collections:
 just_the_docs:
   # Define the collections used in the theme
   collections:
+    install-and-configure:
+      name: Install and configure
+      nav_fold: true
     upgrade-to:
       name: Upgrade to OpenSearch
       # nav_exclude: true
@@ -88,8 +97,8 @@ just_the_docs:
     dashboards:
       name: OpenSearch Dashboards
       nav_fold: true
-    security-plugin:
-      name: Security plugin
+    security:
+      name: Security in OpenSearch
       nav_fold: true
     search-plugins:
       name: Search plugins
@@ -111,6 +120,9 @@ just_the_docs:
       nav_fold: true
     notifications-plugin:
       name: Notifications plugin
+      nav_fold: true
+    job-scheduler-plugin:
+      name: Job Scheduler plugin
       nav_fold: true
     clients:
       name: Clients and tools

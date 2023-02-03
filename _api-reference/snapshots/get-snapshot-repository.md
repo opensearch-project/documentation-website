@@ -34,6 +34,7 @@ The following request retrieves information for the `my-opensearch-repo` reposit
 ````json
 GET /_snapshot/my-opensearch-repo
 ````
+{% include copy-curl.html %}
 
 #### Sample response
 

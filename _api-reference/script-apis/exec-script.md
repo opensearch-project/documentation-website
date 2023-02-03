@@ -41,6 +41,7 @@ GET /_scripts/painless/_execute
   }
 }
 ```
+{% include copy-curl.html %}
 
 #### Sample response
 
@@ -95,6 +96,7 @@ PUT /testindex1
   }
 }
 ```
+{% include copy-curl.html %}
 
 Run a script to determine if a student is eligible to graduate with honors:
 
@@ -117,6 +119,7 @@ POST /_scripts/painless/_execute
   }
 }
 ```
+{% include copy-curl.html %}
 
 The response contains the result:
 
@@ -152,6 +155,7 @@ PUT /testindex1
   }
 }
 ```
+{% include copy-curl.html %}
 
 Run a script that converts a GPA on a 4.0 scale into a different scale that is provided as a parameter:
 
@@ -173,6 +177,7 @@ POST /_scripts/painless/_execute
   }
 }
 ```
+{% include copy-curl.html %}
 
 The response contains the result:
 

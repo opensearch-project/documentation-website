@@ -25,6 +25,7 @@ POST _bulk
 { "doc" : { "title": "World War Z" } }
 
 ```
+{% include copy-curl.html %}
 
 
 ## Path and HTTP methods

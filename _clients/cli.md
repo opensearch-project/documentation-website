@@ -3,6 +3,8 @@ layout: default
 title: OpenSearch CLI
 nav_order: 52
 has_children: false
+redirect_from:
+  - /clients/cli/
 ---
 
 # OpenSearch CLI
