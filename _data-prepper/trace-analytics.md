@@ -115,9 +115,9 @@ The following sections provide examples of different types of pipelines and how 
 
 ### Example: Trace analytics pipeline
 
-The following example demonstrates how to build a pipeline that supports the [OpenSearch Dashboards Observability plugin]({{site.url}}{{site.baseurl}}/observability-plugin/trace/ta-dashboards/). This pipeline takes data from the OpenTelemetry Collector and uses two other pipelines as sinks. These two separate pipelines perform index tracing and then service map documents for the Observability plugin. The first pipeline prepares trace data for OpenSearch and enriches and ingests the span documents into a span index within OpenSearch. The second pipeline aggregates traces into a service map and writes service map documents into a service map index within OpenSearch.
+The following example demonstrates how to build a pipeline that supports the [OpenSearch Dashboards Observability plugin]({{site.url}}{{site.baseurl}}/observability-plugin/trace/ta-dashboards/). This pipeline takes data from the OpenTelemetry Collector and uses two other pipelines as sinks. These two separate pipelines serve two different purposes and write to different OpenSearch indexes. The first pipeline prepares trace data for OpenSearch and enriches and ingests the span documents into a span index within OpenSearch. The second pipeline aggregates traces into a service map and writes service map documents into a service map index within OpenSearch.
 
-Starting with Data Prepper version 2.0, Data Prepper no longer supports the `otel_trace_raw_prepper` processor due to the Data Prepper internal data model structure. Instead, you should use the `otel_trace_raw` processor. See the following YAML file example:
+Starting with Data Prepper version 2.0, Data Prepper no longer supports the `otel_trace_raw_prepper` processor. The `otel_trace_raw` processor replaces the `otel_trace_raw_prepper` processor and supports some of Data Prepper's recent data model changes. Instead, you should use the `otel_trace_raw` processor. See the following YAML file example:
 
 ```yml
 entry-pipeline:
@@ -311,7 +311,7 @@ service-map-pipeline:
         #aws_region: us-east-1
 ```
 
-You need to modify the preceding configuration for your OpenSearch cluster. Note that it has two `opensearch` sinks that need to be modified.
+You need to modify the preceding configuration for your OpenSearch cluster so that the configuration matches your environment. Note that it has two `opensearch` sinks that need to be modified.
 {: .note}
 
 You must make the following changes:
@@ -325,9 +325,7 @@ For other configurations available for OpenSearch sinks, see [Data Prepper OpenS
 
 ## OpenTelemetry Collector
 
-You need to run OpenTelemetry Collector in your service environment. Follow the [Getting Started](https://opentelemetry.io/docs/collector/getting-started/#getting-started) guide to install an OpenTelemetry collector.  Ensure that you configure the collector with an exporter configured to your Data Prepper instance. The following example `otel-collector-config.yaml` file receives data from various instrumentations and exports it to Data Prepper.
-
-<!---Editorial: Can we keep "instrumentations" or does it need to be replaced?--->
+You need to run OpenTelemetry Collector in your service environment. Follow [Getting Started](https://opentelemetry.io/docs/collector/getting-started/#getting-started) to install an OpenTelemetry collector.  Ensure that you configure the collector with an exporter configured to your Data Prepper instance. The following example `otel-collector-config.yaml` file receives data from various instrumentations and exports it to Data Prepper.
 
 ### Example otel-collector-config.yaml file
 
@@ -368,7 +366,7 @@ After you run OpenTelemetry in your service environment, you must configure your
 
 The [OpenSearch Dashboards Observability plugin]({{site.url}}{{site.baseurl}}/observability-plugin/trace/ta-dashboards/) documentation provides additional information about configuring OpenSearch to view trace analytics in OpenSearch Dashboards.
 
-For more information about how to tune and scale Data Prepper for trace analytics, see [trace tuning](#trace-tuning).
+For more information about how to tune and scale Data Prepper for trace analytics, see [Trace tuning](#trace-tuning).
 
 ## Migrating to Data Prepper 2.0
 
