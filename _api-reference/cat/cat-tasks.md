@@ -18,6 +18,7 @@ The CAT tasks operation lists the progress of all tasks currently running on you
 ```
 GET _cat/tasks?v
 ```
+{% include copy-curl.html %}
 
 ## Path and HTTP methods
 

@@ -1,7 +1,8 @@
 ---
 layout: default
-title: Getting Started with OpenSearch
+title: OpenSearch documentation
 nav_order: 1
+has_children: true
 redirect_from: /404.html
 permalink: /
 ---
@@ -15,6 +16,7 @@ We have a dedicated and growing number of technical writers who are building our
 ## Getting started
 
 - [About OpenSearch]({{site.url}}{{site.baseurl}}/opensearch/)
+- [Quickstart]({{site.url}}{{site.baseurl}}/quickstart/)
 - [Install OpenSearch]({{site.url}}{{site.baseurl}}/opensearch/install/)
 - [Install OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/install/)
 - [See the FAQ](https://opensearch.org/faq)
@@ -26,10 +28,10 @@ With OpenSearch, you can perform the following use cases:
 <table style="table-layout: auto ; width: 100%;">
 <tbody>
 <tr style="text-align: center; vertical-align:center;">
-<td><img src="{{site.url}}{{site.baseurl}}/images/1_search.png" alt="Fast, scalable full-text search" height="100"/></td>
-<td><img src="{{site.url}}{{site.baseurl}}/images/2_monitoring.png" alt="Application and infrastructure monitoring" height="100"/></td>
-<td><img src="{{site.url}}{{site.baseurl}}/images/3_security.png" alt="Security and event information management" height="100"/></td>
-<td><img src="{{site.url}}{{site.baseurl}}/images/4_tracking.png" alt="Operational health tracking" height="100"/></td>
+<td><img src="{{site.url}}{{site.baseurl}}/images/1_search.png" class="no-border" alt="Fast, scalable full-text search" height="100"/></td>
+<td><img src="{{site.url}}{{site.baseurl}}/images/2_monitoring.png" class="no-border" alt="Application and infrastructure monitoring" height="100"/></td>
+<td><img src="{{site.url}}{{site.baseurl}}/images/3_security.png" class="no-border" alt="Security and event information management" height="100"/></td>
+<td><img src="{{site.url}}{{site.baseurl}}/images/4_tracking.png" class="no-border" alt="Operational health tracking" height="100"/></td>
 </tr>
 <tr style="text-align: left; vertical-align:top; font-weight: bold; color: rgb(0,59,92)">
 <td>Fast, Scalable Full-text Search</td>
@@ -58,57 +60,9 @@ OpenSearch has several features and plugins to help index, secure, monitor, and 
 - [Asynchronous search]({{site.url}}{{site.baseurl}}/search-plugins/async/) - Run search requests in the background
 - [Cross-cluster replication]({{site.url}}{{site.baseurl}}/replication-plugin/index/) - Replicate your data across multiple OpenSearch clusters
 
-## Docker quickstart
-
-Docker
-{: .label .label-green }
-
-The best way to try out OpenSearch is to use Docker Compose. Setting up OpenSearch with Docker Compose sets up a two-node cluster of OpenSearch plus OpenSearch Dashboards.
-1. Install and start [Docker Desktop](https://www.docker.com/products/docker-desktop).
-1. Run the following commands:
-   ```bash
-   docker pull opensearchproject/opensearch:{{site.opensearch_version}}
-   docker run -p 9200:9200 -p 9600:9600 -e "discovery.type=single-node" opensearchproject/opensearch:{{site.opensearch_version}}
-   ```
-1. In a new terminal session, run:
-   ```bash
-   curl -XGET --insecure -u 'admin:admin' 'https://localhost:9200'
-   ```
-1. [Create]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/) your first index.
-
-   ```bash
-   curl -XPUT --insecure -u 'admin:admin' 'https://localhost:9200/my-first-index'
-   ```
-
-1. [Add some data]({{site.url}}{{site.baseurl}}/opensearch/index-data/) to your newly created index.
-
-   ```bash
-   curl -XPUT --insecure -u 'admin:admin' 'https://localhost:9200/my-first-index/_doc/1' -H 'Content-Type: application/json' -d '{"Description": "To be or not to be, that is the question."}'
-   ```
-
-1. [Retrieve the data]({{site.url}}{{site.baseurl}}/opensearch/index-data/#read-data) to see that it was added properly.
-
-   ```bash
-   curl -XGET --insecure -u 'admin:admin' 'https://localhost:9200/my-first-index/_doc/1'
-   ```
-
-1. After verifying that the data is correct, [delete the document]({{site.url}}{{site.baseurl}}/opensearch/index-data/#delete-data).
-
-   ```bash
-   curl -XDELETE --insecure -u 'admin:admin' 'https://localhost:9200/my-first-index/_doc/1'
-   ```
-
-1. Finally, [delete the index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/delete-index).
-
-   ```bash
-   curl -XDELETE --insecure -u 'admin:admin' 'https://localhost:9200/my-first-index/'
-   ```
-
-To learn more, see [Docker image]({{site.url}}{{site.baseurl}}/opensearch/install/docker/) and [Configuring basic security settings]({{site.url}}{{site.baseurl}}/opensearch/install/docker#configuring-basic-security-settings).
-
 
 ## The secure path forward
-OpenSearch includes a demo configuration so that you can get up and running quickly, but before using OpenSearch in a production environment, you must [configure the security plugin manually]({{site.url}}{{site.baseurl}}/security-plugin/configuration/index/) with your own certificates, authentication method, users, and passwords.
+OpenSearch includes a demo configuration so that you can get up and running quickly, but before using OpenSearch in a production environment, you must [configure the security plugin manually]({{site.url}}{{site.baseurl}}/security/configuration/index/) with your own certificates, authentication method, users, and passwords.
 
 ## Looking for the Javadoc?
 

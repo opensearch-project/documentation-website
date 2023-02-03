@@ -14,6 +14,7 @@ Retrieves all contexts for stored scripts.
 ````json
 GET _script_context
 ````
+{% include copy-curl.html %}
 
 #### Sample response
 
@@ -548,20 +549,20 @@ The `GET _script_context` request returns the following fields:
 
 The `GET _script_context` request returns the following response fields:
 
-| Field | Data Type | Description | 
+| Field | Data type | Description | 
 :--- | :--- | :---
 | contexts | List | A list of all contexts. See [Script object](#script-context).  |
 
 #### Script context
 
-| Field | Data Type | Description | 
+| Field | Data type | Description | 
 :--- | :--- | :---
 | name | String | The context name. |
 |  methods | List | List of the context's allowable methods. See [Script object](#context-methods). |
 
 #### Context methods
 
-| Field | Data Type | Description | 
+| Field | Data type | Description | 
 :--- | :--- | :---
 | name | String | Method name. |
 | name | String | Type that the method returns (`boolean`, `object`, `number`, and so on). |
@@ -569,7 +570,7 @@ The `GET _script_context` request returns the following response fields:
 
 #### Method parameters 
 
-| Field | Data Type | Description | 
+| Field | Data type | Description | 
 :--- | :--- | :---
 | type | String | Parameter data type. | 
 | name | String | Parameter name. |

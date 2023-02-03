@@ -15,7 +15,7 @@ nav_order: 3
 
 ### Path parameters
 
-Parameter | Data Type | Description
+Parameter | Data type | Description
 :--- | :--- | :---
 repository | String | Repository to delete. |
 
@@ -26,6 +26,7 @@ The following request deletes the `my-opensearch-repo` repository:
 ````json
 DELETE _snapshot/my-opensearch-repo
 ````
+{% include copy-curl.html %}
 
 #### Sample response
 

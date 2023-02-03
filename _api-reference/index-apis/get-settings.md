@@ -16,6 +16,7 @@ The get settings API operation returns all the settings in your index.
 ```json
 GET /sample-index1/_settings
 ```
+{% include copy-curl.html %}
 
 ## Path and HTTP methods
 
@@ -29,7 +30,7 @@ GET /<target-index>/_settings/<setting>
 
 All update settings parameters are optional.
 
-Parameter | Data Type | Description
+Parameter | Data type | Description
 :--- | :--- | :---
 &lt;target-index&gt; | String | The index to get settings from. Can be a comma-separated list to get settings from multiple indexes, or use `_all` to return settings from all indexes within the cluster.
 &lt;setting&gt; | String | Filter to return specific settings.

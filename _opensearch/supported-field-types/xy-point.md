@@ -27,6 +27,7 @@ PUT testindex1
   }
 }
 ```
+{% include copy-curl.html %}
 
 ## Formats
 
@@ -43,6 +44,7 @@ PUT testindex1/_doc/1
   }
 }
 ```
+{% include copy-curl.html %}
 
 - A string in the "`x`, `y`" format
 
@@ -52,6 +54,7 @@ PUT testindex1/_doc/2
   "point": "0.5, 4.5" 
 }
 ```
+{% include copy-curl.html %}
 
 - An array in the [`x`, `y`] format
 
@@ -61,6 +64,7 @@ PUT testindex1/_doc/3
   "point": [0.5, 4.5] 
 }
 ```
+{% include copy-curl.html %}
 
 - A [well-known text (WKT)](https://docs.opengeospatial.org/is/12-063r5/12-063r5.html) POINT in the "POINT(`x` `y`)" format
 
@@ -70,6 +74,7 @@ PUT testindex1/_doc/4
   "point": "POINT (0.5 4.5)"
 }
 ```
+{% include copy-curl.html %}
 
 - GeoJSON format
 
@@ -82,6 +87,7 @@ PUT testindex1/_doc/5
   }
 }
 ```
+{% include copy-curl.html %}
 
 In all xy point formats, the coordinates must be specified in the `x, y` order. 
 {: .note}

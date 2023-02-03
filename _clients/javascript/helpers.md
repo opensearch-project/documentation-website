@@ -34,6 +34,7 @@ const result = await client.helpers.bulk({
 
 console.log(result)
 ```
+{% include copy.html %}
 
 Bulk helper operations return an object with the following fields:
 
@@ -53,7 +54,7 @@ Bulk helper operations return an object with the following fields:
 
 When creating a new bulk helper instance, you can use the following configuration options.
 
-| Option | Data Type | Required/Default | Description 
+| Option | Data type | Required/Default | Description 
 | :--- | :--- | :--- | :---
 | `datasource` | An array, async generator or a readable stream of strings or objects | Required | Represents the documents you need to create, delete, index, or update. 
 | `onDocument` | Function | Required | A function to be invoked with each document in the given `datasource`. It returns the operation to be executed for this document. Optionally, the document can be manipulated for `create` and `index` operations by returning a new document as part of the function's result.
@@ -85,6 +86,7 @@ client.helpers.bulk({
   }
 })
 ```
+{% include copy.html %}
 
 The following bulk operation indexes documents into `example-index` with document overwrite:
 
@@ -101,6 +103,7 @@ client.helpers.bulk({
   }
 })
 ```
+{% include copy.html %}
 
 #### Create
 
@@ -118,6 +121,7 @@ client.helpers.bulk({
   }
 })
 ```
+{% include copy.html %}
 
 The following bulk operation creates documents in the `example-index` with document overwrite:
 
@@ -134,6 +138,7 @@ client.helpers.bulk({
   }
 })
 ```
+{% include copy.html %}
 
 #### Update
 
@@ -156,6 +161,7 @@ client.helpers.bulk({
   }
 })
 ```
+{% include copy.html %}
 
 The following bulk operation updates documents in the `arrayOfDocuments` with document overwrite:
 
@@ -175,6 +181,7 @@ client.helpers.bulk({
   }
 })
 ```
+{% include copy.html %}
 
 #### Delete
 
@@ -192,3 +199,4 @@ client.helpers.bulk({
   }
 })
 ```
+{% include copy.html %}

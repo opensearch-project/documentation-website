@@ -14,10 +14,15 @@ Community contributions remain essential in keeping this documentation comprehen
 
 If you encounter problems or have questions when contributing to the documentation, these people can help:
 
-- [Naarcha-AWS](https://github.com/Naarcha-AWS)
 - [alicejw-AWS](https://github.com/alicejw-AWS)
-- [keithhc2](https://github.com/keithhc2)
-- [lizsnyder](https://github.com/lizsnyder)
+- [ariamarble](https://github.com/ariamarble)
+- [carolxob](https://github.com/carolxob)
+- [cwillum](https://github.com/cwillum)
+- [hdhalter](https://github.com/hdhalter)
+- [JeffH-AWS](https://github.com/JeffH-AWS)
+- [kolchfa-aws](https://github.com/kolchfa-aws)
+- [Naarcha-AWS](https://github.com/Naarcha-AWS)
+- [vegimeli](https://github.com/vagimeli)
 
 
 ## How the website works
@@ -112,7 +117,7 @@ If you're making major changes to the documentation and need to see the rendered
 
 1. Create a new branch.  
 
-1. Edit the Markdown files in each collection (e.g. `_security-plugin/`).
+1. Edit the Markdown files in each collection (e.g. `_security/`).
 
    If you're a web developer, you can customize `_layouts/default.html` and `_sass/custom/custom.scss`.
 

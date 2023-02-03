@@ -32,7 +32,7 @@ Alternatively, you can add sample data in OpenSearch Dashboards using the follow
 1. Select **Add sample data**.  
 1. Choose one of the built-in datasets and select **Add data**.
 
-## Using search relevance in OpenSearch Dashboards
+## Using Compare Search Results in OpenSearch Dashboards
 
 To compare search results in OpenSearch Dashboards, perform the following steps.
 
@@ -49,7 +49,7 @@ The following is an example query:
   "query": {
     "multi_match": {
       "query": "%SearchText%",
-      "fields": [ "title", "text" ]
+      "fields": [ "description", "item_name" ]
     }
   }
 }
@@ -64,7 +64,7 @@ The following example query boosts the `title` field in search results:
   "query": {
     "multi_match": {
       "query": "%SearchText%",
-      "fields": [ "title^3", "text" ]
+      "fields": [ "description", "item_name^3" ]
     }
   }
 }
@@ -72,11 +72,11 @@ The following example query boosts the `title` field in search results:
 
 **Step 5:** Select **Search** and compare the results in **Result 1** and **Result 2**.
 
-The following example screen shows a search for the word "container" in the `title` and `text` fields with and without boosting the `title`:
+The following example screen shows a search for the word "cup" in the `description` and `item_name` fields with and without boosting the `item_name`:
 
 <img src="{{site.url}}{{site.baseurl}}/images/search_relevance.png" alt="Compare search results"/>{: .img-fluid }
 
-If a result in Result 1 appears in Result 2, the `Up` and `Down` indicators below the result number signify how many places the result moved up or down compared to the same result in Result 2. In this example, the document with the ID 10 is `Up 1` place in Result 2 compared to Result 1 and `Down 1` place in Result 1 compared to Result 2. 
+If a result in Result 1 appears in Result 2, the `Up` and `Down` indicators below the result number signify how many places the result moved up or down compared to the same result in Result 2. In this example, the document with the ID 2 is `Up 1` place in Result 2 compared to Result 1 and `Down 1` place in Result 1 compared to Result 2. 
 
 ## Changing the number of results
 
@@ -99,3 +99,59 @@ Setting `size` to a high value (for example, larger than 250 documents) may degr
 
 You cannot save a given comparison for future use, so Compare Search Results is not suitable for systematic testing.
 {: .note}
+
+## Comparing OpenSearch search results with re-ranked results
+
+One use case for Compare Search Results is to compare raw OpenSearch results with the same results processed by a re-ranking application. An example of such a re-ranker is **Kendra Intelligent Ranking for OpenSearch**, contributed by the Amazon Kendra team. This plugin takes search results from OpenSearch and applies Amazon Kendra’s semantic relevance rankings calculated using vector embeddings and other semantic search techniques. For many applications, this provides better result rankings.
+
+To try Kendra Intelligent Ranking, you must first set up the Amazon Kendra service. To get started, see [Amazon Kendra](https://aws.amazon.com/kendra/). For detailed information, including plugin setup instructions, see [Intelligently ranking OpenSearch (self managed) results using Amazon Kendra](https://docs.aws.amazon.com/kendra/latest/dg/opensearch-rerank.html).
+
+Once you've set up Kendra Intelligent Ranking, enter a query in **Query 1** and enter the same query using Kendra Intelligent Ranking in **Query 2**. Then compare the search results from OpenSearch and Amazon Kendra.
+
+### Example
+
+The following example searches for the text "snacking nuts" in the `abo` index. The documents in the index contain snack descriptions in the `bullet_point` array. 
+
+<img src="{{site.url}}{{site.baseurl}}/images/kendra_query.png" alt="OpenSearch Intelligent Ranking query"/>{: .img-fluid }
+
+1. Enter `snacking nuts` in the search bar.
+1. Enter the following query, which searches the `bullet_point` field for the search text "snacking nuts", in **Query 1**:
+
+    ```json
+    {
+      "query": {
+        "match": {
+          "bullet_point": "%SearchText%"
+        }
+      },
+      "size": 25
+    }
+    ```
+1. Enter the same query with intelligent ranking in **Query 2**:
+
+    ```json
+    {
+      "query" : {
+        "match" : {
+          "bullet_point": "%SearchText%"
+        }
+      },
+      "size": 25,
+      "ext": {
+        "search_configuration":{
+          "result_transformer" : {
+            "kendra_intelligent_ranking": {
+              "order": 1,
+              "properties": {
+                "title_field": "item_name",
+                "body_field": "bullet_point"
+              }
+            }
+          }
+        }
+      }
+    }
+    ```
+
+    In the preceding query, `body_field` refers to the body field of the documents in the index, which Kendra Intelligent Ranking uses to rank the results. The `body_field` is required, while the `title_field` is optional.
+1. Select **Search** and compare the results in **Result 1** and **Result 2**.

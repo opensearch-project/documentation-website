@@ -18,18 +18,21 @@ The CAT indices operation lists information related to indices⁠—how much dis
 ```
 GET _cat/indices?v
 ```
+{% include copy-curl.html %}
 
 To limit the information to a specific index, add the index name after your query.
 
 ```
 GET _cat/indices/<index>?v
 ```
+{% include copy-curl.html %}
 
 If you want to get information for more than one index, separate the indices with commas:
 
 ```json
-GET _cat/aliases/index1,index2,index3
+GET _cat/indices/index1,index2,index3
 ```
+{% include copy-curl.html %}
 
 ## Path and HTTP methods
 

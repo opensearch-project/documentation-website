@@ -29,7 +29,7 @@ Although you can issue an analyzer request via both `GET` and `POST` requests, t
 
 You can include the following optional path parameter in your request.
 
-Parameter | Data Type | Description
+Parameter | Data type | Description
 :--- | :--- | :---
 index | String | Index that is used to derive the analyzer.
 
@@ -37,7 +37,7 @@ index | String | Index that is used to derive the analyzer.
 
 You can include the following optional query parameters in your request.
 
-Field | Data Type | Description
+Field | Data type | Description
 :--- | :--- | :---
 analyzer | String | The name of the analyzer to apply to the `text` field. The analyzer can be built in or configured in the index.<br /><br />If `analyzer` is not specified, the analyze API uses the analyzer defined in the mapping of the `field` field.<br /><br />If the `field` field is not specified, the analyze API uses the default analyzer for the index.<br /><br > If no index is specified or the index does not have a default analyzer, the analyze API uses the standard analyzer.
 attributes | Array of Strings | Array of token attributes for filtering the output of the `explain` field.
@@ -50,7 +50,7 @@ tokenizer | String | Tokenizer for converting the `text` field into tokens.
 
 The following query parameter is required.
 
-Field | Data Type | Description
+Field | Data type | Description
 :--- | :--- | :---
 text | String or Array of Strings | Text to analyze. If you provide an array of strings, the text is analyzed as a multi-value field.
 
@@ -85,6 +85,7 @@ GET /_analyze
   "text" : ["first array element", "second array element"]
 }
 ````
+{% include copy-curl.html %}
 
 The previous request returns the following fields:
 
@@ -150,6 +151,7 @@ GET /_analyze
   "text" : "OpenSearch text analysis"
 }
 ````
+{% include copy-curl.html %}
 
 The previous request returns the following fields:
 
@@ -196,6 +198,7 @@ GET /books2/_analyze
   "text" : "Le garçon m'a SUIVI."
 }
 ````
+{% include copy-curl.html %}
 
 The previous request returns the following fields:
 
@@ -248,6 +251,7 @@ GET /_analyze
   "text" : "OpenSearch filter"
 }
 ````
+{% include copy-curl.html %}
 
 The previous request returns the following fields:
 
@@ -277,6 +281,7 @@ GET /_analyze
   "text" : "<b>Leave</b> right now!"
 }
 ````
+{% include copy-curl.html %}
 
 The previous request returns the following fields:
 
@@ -308,6 +313,7 @@ GET /_analyze
   "text" : "how to train your dog in five steps"
 }
 ````
+{% include copy-curl.html %}
 
 The previous request returns the following fields:
 
@@ -372,6 +378,7 @@ GET /books/_analyze
   "text" : "OpenSearch analyze test"
 }
 ````
+{% include copy-curl.html %}
 
 The previous request returns the following fields:
 
@@ -414,6 +421,7 @@ GET /books/_analyze
   "text" : "OpenSearch analyze test"
 }
 ````
+{% include copy-curl.html %}
 
 The previous request returns the following fields:
 
@@ -446,6 +454,7 @@ GET /books2/_analyze
   "text" : "OpenSearch analyze test"
 }
 ````
+{% include copy-curl.html %}
 
 The previous request returns the following fields:
 
@@ -492,6 +501,7 @@ GET /books2/_analyze
   "text" : "C'est le garçon qui m'a suivi."
 }
 ````
+{% include copy-curl.html %}
 
 The previous request returns the following fields:
 
@@ -522,6 +532,7 @@ GET /_analyze
   "text" : "That is the boy who followed me."
 }
 ````
+{% include copy-curl.html %}
 
 The previous request returns the following fields:
 
@@ -555,6 +566,7 @@ GET /_analyze
   "attributes" : ["keyword"] 
 }
 ````
+{% include copy-curl.html %}
 
 The previous request returns the following fields:
 
@@ -635,6 +647,8 @@ PUT /books2
   }
 }
 ````
+{% include copy-curl.html %}
+
 The preceding request is an index API rather than an analyze API. See [DYNAMIC INDEX SETTINGS]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/#dynamic-index-settings) for additional details.
 {: .note}
 
@@ -642,14 +656,14 @@ The preceding request is an index API rather than an analyze API. See [DYNAMIC I
 
 The text analysis endpoints return the following response fields.
 
-Field | Data Type | Description
+Field | Data type | Description
 :--- | :--- | :---
 tokens | Array | Array of tokens derived from the `text`. See [token object](#token-object).
 detail | Object | Details about the analysis and each token. Included only when you request token details. See [detail object](#detail-object).
 
 #### Token object
 
-Field | Data Type | Description
+Field | Data type | Description
 :--- | :--- | :---
 token  | String | The token's text.
 start_offset | Integer | The token's starting position within the original text string. Offsets are zero-based.
@@ -659,7 +673,7 @@ position |  Integer | The token's position within the `tokens` array.
 
 #### Detail object
 
-Field | Data Type | Description
+Field | Data type | Description
 :--- | :--- | :---
 custom_analyzer | Boolean | Whether the analyzer applied to the text is custom or built in.
 charfilters | Array | List of character filters applied to the text.

@@ -27,6 +27,7 @@ PUT testindex1
   }
 }
 ```
+{% include copy-curl.html %}
 
 ## Formats
 
@@ -43,6 +44,7 @@ PUT testindex1/_doc/1
   }
 }
 ```
+{% include copy-curl.html %}
 
 - A string in the "`latitude`,`longitude`" format
 
@@ -52,6 +54,7 @@ PUT testindex1/_doc/2
   "point": "40.71,74.00" 
 }
 ```
+{% include copy-curl.html %}
 
 - A geohash
 
@@ -61,6 +64,7 @@ PUT testindex1/_doc/3
   "point": "txhxegj0uyp3"
 }
 ```
+{% include copy-curl.html %}
 
 - An array in the [`longitude`, `latitude`] format
 
@@ -70,6 +74,7 @@ PUT testindex1/_doc/4
   "point": [74.00, 40.71] 
 }
 ```
+{% include copy-curl.html %}
 
 - A [Well-Known Text](https://docs.opengeospatial.org/is/12-063r5/12-063r5.html) POINT in the "POINT(`longitude` `latitude`)" format
 
@@ -79,6 +84,7 @@ PUT testindex1/_doc/5
   "point": "POINT (74.00 40.71)"
 }
 ```
+{% include copy-curl.html %}
 
 - GeoJSON format, where the `coordinates` are in the [`longitude`, `latitude`] format
 
@@ -88,8 +94,10 @@ PUT testindex1/_doc/6
   "point": {
     "type": "Point",
     "coordinates": [74.00, 40.71]
+  }
 }
 ```
+{% include copy-curl.html %}
 
 ## Parameters
 

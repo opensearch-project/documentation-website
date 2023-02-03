@@ -99,6 +99,78 @@ If you use a custom webhook for your destination and need to embed JSON in the m
 }
 ```
 
+Optionally, to specify a backend role, you can add the `rbac_roles` parameter and backend role names to the bottom of your create monitor request.
+
+#### Sample request
+
+The following request creates a query-level monitor and provides two backend roles, `role1` and `role2`. The section at the bottom of the request shows the line that specifies the roles with this syntax: `"rbac_roles": ["role1", "role2"]`.
+
+```json
+POST _plugins/_alerting/monitors
+{
+  "type": "monitor",
+  "name": "test-monitor",
+  "monitor_type": "query_level_monitor",
+  "enabled": true,
+  "schedule": {
+    "period": {
+      "interval": 1,
+      "unit": "MINUTES"
+    }
+  },
+  "inputs": [{
+    "search": {
+      "indices": ["movies"],
+      "query": {
+        "size": 0,
+        "aggregations": {},
+        "query": {
+          "bool": {
+            "filter": {
+              "range": {
+                "@timestamp": {
+                  "gte": "{{period_end}}||-1h",
+                  "lte": "{{period_end}}",
+                  "format": "epoch_millis"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }],
+  "triggers": [{
+    "name": "test-trigger",
+    "severity": "1",
+    "condition": {
+      "script": {
+        "source": "ctx.results[0].hits.total.value > 0",
+        "lang": "painless"
+      }
+    },
+    "actions": [{
+      "name": "test-action",
+      "destination_id": "ld7912sBlQ5JUWWFThoW",
+      "message_template": {
+        "source": "This is my message body."
+      },
+      "throttle_enabled": true,
+      "throttle": {
+        "value": 27,
+        "unit": "MINUTES"
+      },
+      "subject_template": {
+        "source": "TheSubject"
+      }
+    }]
+  }],
+  "rbac_roles": ["role1", "role2"]
+}
+```
+
+To learn more about using backend roles to limit access, see [(Advanced) Limit access by backend role]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/security/#advanced-limit-access-by-backend-role).
+
 #### Sample response
 
 ```json

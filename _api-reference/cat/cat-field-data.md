@@ -18,18 +18,21 @@ The CAT fielddata operation lists the memory size used by each field per node.
 ```json
 GET _cat/fielddata?v
 ```
+{% include copy-curl.html %}
 
 To limit the information to a specific field, add the field name after your query:
 
 ```json
 GET _cat/fielddata/<field_name>?v
 ```
+{% include copy-curl.html %}
 
 If you want to get information for more than one field, separate the field names with commas:
 
 ```json
-GET _cat/aliases/field_name_1,field_name_2,field_name_3
+GET _cat/fielddata/field_name_1,field_name_2,field_name_3
 ```
+{% include copy-curl.html %}
 
 ## Path and HTTP methods
 

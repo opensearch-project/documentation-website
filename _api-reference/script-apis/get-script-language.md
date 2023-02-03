@@ -14,6 +14,7 @@ The get script language API operation retrieves all supported script languages a
 ```json
 GET _script_language
 ```
+{% include copy-curl.html %}
 
 #### Sample response
 
@@ -90,7 +91,7 @@ The `GET _script_language` request returns the available contexts for each langu
 
 The request contains the following response fields.
 
-Field | Data Type | Description | 
+Field | Data type | Description | 
 :--- | :--- | :---
 types_allowed | List of strings | The types of scripts that are enabled, determined by the `script.allowed_types` setting. May contain `inline` and/or `stored`.
 language_contexts | List of objects | A list of objects, each of which maps a supported language to its available contexts.

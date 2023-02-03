@@ -8,6 +8,12 @@ This is how we use our terms, but we’re always open to hearing your suggestion
 
 Do not use because it has unpleasant associations and is unnecessarily harsh sounding. Use *stop*, *end*, or *cancel* instead.
 
+**above**
+
+Use only for physical space or screen descriptions, for example, "the outlet above the floor" or "the button above the bar pane."
+
+For orientation within a document use *previous*, *preceding*, or *earlier*.
+
 **ad hoc**
 
 Avoid. Use *one-time* instead.
@@ -104,6 +110,10 @@ Do not use. Use *deny list* instead.
 **blackout**
 
 Avoid using. Use *service outage* or *blocked* instead.
+
+**BM25**
+
+A ranking function used to estimate the relevance of documents to a given search query. BM25 extends [TF–IDF](#t) by normalizing document length.
 
 **Boolean**
 
@@ -252,6 +262,12 @@ Exception: *Execution* is unavoidable for third-party terms for which no alterna
 **frontend (n., adj.)**
 
 Use frontend as an adjective and a noun. Do not use front end or front-end. Do not make frontend possessive except as part of a compound noun, such as frontend system.
+
+## G
+
+**geopoint**
+
+**geoshape**
  
 ## H
 
@@ -367,6 +383,10 @@ Use with technologies with interfaces that use this verb. Also note that you log
 
 A light-weight, open-source, server-side data processing pipeline that allows you to collect data from a variety of sources, transform it on the fly, and send it to your desired destination.
 
+**lower left, lower right**
+
+Hyphenate as adjectives. Use instead of *bottom left* and *bottom right*, unless the field name uses *bottom*. For example, "The lower-right corner."
+
 **LTS**
 
 Long-Term Support
@@ -470,9 +490,9 @@ The default scripting language for OpenSearch, either used inline or stored for 
 
 **percent**
 
-Spell out (for example, 30 percent).
+Spell out in blog posts (for example, 30 percent).
 
-Exceptions: Use % in headlines, quotations, art callouts, and tables.
+Use % in headlines, quotations, and tables or in technical copy.
 
 **Performance Analyzer**
 
@@ -487,6 +507,10 @@ Avoid using except in quoted text.
 Tools inside of OpenSearch that can be customized to enhance OpenSearch’s functionality. For a list of core plugins, see the [OpenSearch plugin installation]({{site.url}}{{site.baseurl}}/opensearch/install/plugins/) page. Capitalize if it appears as part of the product name in the UI.
 
 **pop-up**
+
+**precision**
+
+The accuracy of the results returned from a query.
 
 **premise, premises**
 
@@ -508,17 +532,21 @@ Avoid using *primitive* (especially plural *primitives*) as a colloquial way of 
 
 Use only in reference to specific programming methods. Otherwise, use *delete*, *clear*, or *remove* instead.
 
-### Q 
+## Q 
 
 **query**
 
 A call used to request information about your data.
 
-### R 
+## R 
 
 **real time (n.) real-time (adj.)**
 
 Use with caution; this term can imply a degree of responsiveness or speed that may not be true. When needed, use _real time_ as a noun (for example “The request is sent in real time”). Use _real-time_ as an adjective (“A real-time feed is displayed...”).
+
+**recall**
+
+The quantity of documents returned from a query.
 
 **replica shard**
 
@@ -586,13 +614,21 @@ Never hyphenated. Use _startup_ as a noun (for example, “The following startup
 
 **Stochastic Gradient Descent (SGD)**
 
-## T 
+## T
+
+**term frequency–inverse document frequency (TF–IDF)**
+
+A numerical statistic that is intended to reflect how important a word is to a document in a collection or corpus.
 
 **time out (verb), timeout (noun, adjective)**
 
 Never hyphenate. Use _time out_ as a verb (“The request will time out if the server doesn’t respond”). Use _timeout_ as a noun or adjective (“You can set the timeout interval by entering a number into...”).
 
 **time frame**
+
+**time-series data**
+
+Data that's provided as part of a metric. The time value is assumed to be when the value occurred.
 
 **timestamp**
 
@@ -602,11 +638,15 @@ Never hyphenate. Use _time out_ as a verb (“The request will time out if the s
 
 Avoid using as a verb to refer to an action that precipitates a subsequent action. It is OK to use when referring to a feature name, such as a *trigger function* or *time-triggered architecture*. As a verb, use an alternative, such as *initiate*, *invoke*, *launch*, or *start*.
 
-### U 
+## U 
 
 **UltraWarm**
 
 A storage tier that you can use to store and analyze your data with Elasticsearch and Kibana that is optimized for performance. To learn more about the service, see the introductory [blog post](https://aws.amazon.com/about-aws/whats-new/2020/05/aws-announces-amazon-elasticsearch-service-ultrawarm-general-availability/).
+
+**upper left, upper right**
+
+Hyphenate as adjectives. Use instead of *top left* and *top right*, unless the field name uses *top*. For example, "The upper-right corner."
 
 **US**
 
@@ -618,7 +658,9 @@ In most cases, replace with the more direct form you. Reserve _user_ for cases w
 
 **username**
 
-## V 
+## V
+
+**version**
 
 **v., vs., versus**
 

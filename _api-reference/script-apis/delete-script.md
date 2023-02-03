@@ -13,13 +13,13 @@ Deletes a stored script
 
 Path parameters are optional. 
 
-| Parameter | Data Type | Description | 
+| Parameter | Data type | Description | 
 :--- | :--- | :---
 | script-id | String | ID of script to delete. |
 
 ### Query parameters
 
-| Parameter | Data Type | Description | 
+| Parameter | Data type | Description | 
 :--- | :--- | :---
 | cluster_manager_timeout | Time | Amount of time to wait for a connection to the cluster manager. Optional, defaults to `30s`. |
 | timeout | Time | The period of time to wait for a response. If a response is not received before the timeout value, the request will be dropped.
@@ -31,6 +31,7 @@ The following request deletes the `my-first-script` script:
 ````json
 DELETE _scripts/my-script
 ````
+{% include copy-curl.html %}
 
 #### Sample response
 
@@ -48,6 +49,6 @@ To determine whether the stored script was successfully deleted, use the [Get st
 
 The <HTTP METHOD> <endpoint> request returns the following response fields:
 
-| Field | Data Type | Description | 
+| Field | Data type | Description | 
 :--- | :--- | :---
 | acknowledged | Boolean | Whether the delete script request was received. |

@@ -18,18 +18,21 @@ The CAT shards operation lists the state of all primary and replica shards and h
 ```
 GET _cat/shards?v
 ```
+{% include copy-curl.html %}
 
 To see only the information about shards of a specific index, add the index name after your query.
 
 ```
 GET _cat/shards/<index>?v
 ```
+{% include copy-curl.html %}
 
 If you want to get information for more than one index, separate the indices with commas:
 
 ```
 GET _cat/shards/index1,index2,index3
 ```
+{% include copy-curl.html %}
 
 ## Path and HTTP methods
 
@@ -46,8 +49,8 @@ In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-refe
 Parameter | Type | Description
 :--- | :--- | :---
 bytes | Byte size | Specify the units for byte size. For example, `7kb` or `6gb`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).
-local | Boolean | Whether to return information from the local node only instead of from the master node. Default is false.
-master_timeout | Time | The amount of time to wait for a connection to the master node. Default is 30 seconds.
+local | Boolean | Whether to return information from the local node only instead of from the cluster_manager node. Default is false.
+cluster_manager_timeout | Time | The amount of time to wait for a connection to the cluster_manager node. Default is 30 seconds.
 time | Time | Specify the units for time. For example, `5d` or `7h`. For more information, see [Supported units]({{site.url}}{{site.baseurl}}/opensearch/units/).
 
 

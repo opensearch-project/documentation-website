@@ -12,11 +12,45 @@ The following sections provide guidance on OpenSearch Project naming conventions
 
 The following naming conventions should be observed in OpenSearch Project content:
 
-* Capitalize both words when referring to the *OpenSearch Project*. The OpenSearch Project has three products:  OpenSearch, OpenSearch Dashboards, and Data Prepper.
+* Capitalize both words when referring to the *OpenSearch Project*.
 * *OpenSearch* is the name for the distributed search and analytics engine used by Amazon OpenSearch Service.
 * Amazon OpenSearch Service is a managed service that makes it easy to deploy, operate, and scale OpenSearch. Use the full name *Amazon OpenSearch Service* on first appearance. The abbreviated service name, *OpenSearch Service*, can be used for subsequent appearances. 
 * OpenSearch Dashboards is the UI for OpenSearch. On first appearance, use the full name *OpenSearch Dashboards*. *Dashboards* can be used for subsequent appearances. 
-* Refer to OpenSearch Project customers as *users*, and refer to the larger group of users as *the community* or *the OpenSearch community*.
+* Refer to OpenSearch Project customers as *users*, and refer to the larger group of users as *the community*.
+
+#### Product names
+
+Capitalize product names. The OpenSearch Project has three products: OpenSearch, OpenSearch Dashboards, and Data Prepper. For example:
+
+* “To install *OpenSearch*, download the Docker image.”
+* “To access *OpenSearch Dashboards*, open your browser and navigate to http://localhost:5601/app/home.”
+* “*Data Prepper* contains the following components:”
+
+Capitalize the names of clients and tools. For example:
+
+* “The OpenSearch *Python* client provides a more natural syntax for interacting with your cluster.”
+* “The *Go* client retries requests for a maximum of three times by default.”
+* “The *OpenSearch Kubernetes Operator* is an open-source Kubernetes operator that helps automate the deployment and provisioning of OpenSearch and OpenSearch Dashboards in a containerized environment.”
+* “You can send events to *Logstash* from many different sources.”
+
+#### Features
+
+Features are the individual building blocks of user experiences, reflect the functionality of a product, and are shared across different experiences. For example, the SQL/PPL, reporting, notifications, alerting, and anomaly detection used for observability are the same SQL/PPL, reporting, notifications, alerting, and anomaly detection used for general analytics, security analytics, and search analytics. Components of the user experience such as navigation, credentials management, theming, etc. are also considered to be features.
+
+Use lowercase when referring to features, unless you are referring to a formally named feature that is specific to OpenSearch. For example:
+
+* “The Notifications plugin provides a central location for all of your *notifications* from OpenSearch plugins.”
+* “*Remote-backed storage* is an experimental feature. Therefore, we do not recommend the use of *remote-backed storage* in a production environment.”
+* “You can take and restore *snapshots* using the snapshot API.”
+* “You can use the *VisBuilder* visualization type in OpenSearch Dashboards to create data visualizations by using a drag-and-drop gesture.” (You can refer to VisBuilder alone or qualify the term with “visualization type”.)
+* “As of OpenSearch 2.4, the *model-serving framework* only supports text embedding models without GPU acceleration.”
+
+#### Plugin names
+
+A plugin is a feature or distinct component that extends the functionality of OpenSearch. For now, capitalize plugin names, but use *plugin* sparingly. The concept of plugins will become obsolete once we re-architect the product. For example:
+
+* “Interaction with the *ML Commons* plugin occurs through either the REST API or [ad](https://opensearch.org/docs/latest/search-plugins/sql/ppl/functions#ad) and [kmeans](https://opensearch.org/docs/latest/search-plugins/sql/ppl/functions#kmeans) Piped Processing Language (PPL) commands.”
+* “Use the *Neural Search* plugin to integrate ML language models into your search workloads.”
 
 ### Voice and tone
 
@@ -26,9 +60,9 @@ Voice is the point of view or style of a writer. Voice can refer to active or pa
 
 The voice of the OpenSearch Project is people oriented and focused on empowering the user directly. We use language that emphasizes what the user can do with OpenSearch rather than what tasks OpenSearch can perform.
 
-Whenever possible, use the active voice instead of the passive voice. The passive form is typically wordier and can often cause writers to obscure the details of the action. For example, change the agentless passive it is recommended to the more direct we recommend.
+Whenever possible, use the active voice instead of the passive voice. The passive form is typically wordier and can often cause writers to obscure the details of the action. For example, change the agentless passive _it is recommended_ to the more direct _we recommend_.
 
-Refer to the reader as you (second person), and refer to the OpenSearch Project as we (first person). If there are multiple authors for a blog post, you can use we to refer to the authors as individuals.
+Refer to the reader as _you_ (second person), and refer to the OpenSearch Project as _we_ (first person). If there are multiple authors for a blog post, you can use _we_ to refer to the authors as individuals.
 
 For procedures or instructions, ensure that action is taken by the user (“Then you can stop the container...”) rather than the writer (“We also have to stop the container...”). Reserve the first-person plural for speaking as the OpenSearch Project, with recommendations, warnings, or explanations.
 
@@ -46,7 +80,7 @@ Avoid excessive words, such as please. Be courteous but not wordy. Extra detail 
 
 | Personality trait | Description | Guidance |
 | :--------- | :------- | :------ |
-| **Clear and precise** | The OpenSearch Project understands that our community works, develops, and builds in roles and organizations that require precise thinking and thorough documentation. We strive to use precise language—to clearly say what we mean without leaving ideas open to interpretation, to support our assertions with facts and figures, and to provide credible and current (third-party) references where called for. <br> <br> We communicate in plain, direct language that is easily understood. Complex concepts are introduced in a concise, unambiguous way that does not assume knowledge on the part of the reader. High-level content is supported by links to more in-depth or technical content that users can engage with at their convenience. | - Write with clarity and choose words carefully. Think about the audience and how they might interpret your assertions. <br> - Be specific. Avoid estimates or general claims when exact data can be provided. <br> - Support claims with data. If something is “faster” or “more accurate,” say how much. <br> - When citing third-party references, include direct links. |
+| **Clear and precise** | The OpenSearch Project understands that our community works, develops, and builds in roles and organizations that require precise thinking and thorough documentation. We strive to use precise language—to clearly say what we mean without leaving ideas open to interpretation, to support our assertions with facts and figures, and to provide credible and current (third-party) references where called for. <br> <br> We communicate in plain, direct language that is easily understood. Complex concepts are introduced in a concise, unambiguous way. High-level content is supported by links to more in-depth or technical content that users can engage with at their convenience. | - Write with clarity and choose words carefully. Think about the audience and how they might interpret your assertions. <br> - Be specific. Avoid estimates or general claims when exact data can be provided. <br> - Support claims with data. If something is “faster” or “more accurate,” say how much. <br> - When citing third-party references, include direct links. |
 | **Transparent and open** | As an open-source project, we exchange information with the community in an accessible and transparent manner. We publish our product plans in the open on GitHub, share relevant and timely information related to the project through our forum and/or our blog, and engage in open dialogues related to product and feature development in the public sphere. Anyone can view our roadmap, raise a question or an issue, or participate in our community meetings. | - Tell a complete story. If you’re walking the reader through a solution or sharing news, don’t skip important information. <br> - Be forthcoming. Communicate time-sensitive news and information in a thorough and timely manner. <br> - If there’s something the reader needs to know, say it up front. Don’t “bury the lede.” |
 | **Collaborative and supportive** | We’re part of a community that is here to help. We aim to be resourceful on behalf of the community and encourage others to do the same. To facilitate an open exchange of ideas, we provide forums through which the community can ask and answer one another’s questions. | - Use conversational language that welcomes and engages the audience. Have a dialogue. <br> - Invite discussion and feedback. We have several mechanisms for open discussion, including requests for comment (RFCs), a [community forum](https://forum.opensearch.org/), and [community meetings](https://www.meetup.com/OpenSearch/).
 | **Trustworthy and personable** | We stay grounded in the facts and the data. We do not overstate what our products are capable of. We demonstrate our knowledge in a humble but authoritative way and reliably deliver what we promise. We provide mechanisms and support that allow the audience to explore our products for themselves, demonstrating that our actions consistently match our words. <br> <br> We speak to the community in a friendly, welcoming, judgment-free way so that our audience perceives us as being approachable. Our content is people oriented and focused on empowering the user directly. | - Claims and assertions should be grounded in facts and data and supported accordingly. <br> - Do not exaggerate or overstate. Let the facts and results speak for themselves. <br> - Encourage the audience to explore our products for themselves. Offer guidance to help them do so. <br> - Write directly and conversationally. Have a dialogue with your audience. Imagine writing as if you’re speaking directly to the person for whom you’re creating content. <br> - Write from the community, for the community. Anyone creating or consuming content about OpenSearch is a member of the same group, with shared interest in learning about and building better search and analytics solutions. <br> - Use judgment-free language. Words like simple, easy, and just create a skill judgment that may not apply to everyone in the OpenSearch community. |
@@ -56,33 +90,110 @@ Avoid excessive words, such as please. Be courteous but not wordy. Extra detail 
 
 The following guidelines should be observed in OpenSearch Project content.
 
-### Punctuation and capitalization
+### Acronyms
 
-- Use lowercase for nouns and noun phrases that are not proper nouns; for example, *big data*. This style follows the standard rules of American English grammar.
+Spell out acronyms the first time that you use them on a page and follow them with the acronym in parentheses. Use the format `spelled-out term (acronym)`. On subsequent use, use the acronym alone.
 
-- For plural forms of nouns that end in “s”, form the possessive case by adding only an apostrophe.
+Do not capitalize the spelled-out form of an acronym unless the spelled-out form is a proper noun or the community generally capitalizes it. In all cases, our usage should reflect the community’s usage.
 
-- When a colon introduces a list of words, a phrase, or other sentence fragment, the first word following the colon is lowercased unless it is a proper name. When a colon introduces one or more complete sentences, the first word following it is capitalized. When text introduces a table, it should be a complete sentence and end with a period, not a colon.
+In general, spell out acronyms once on a page. However, you can spell them out more often for clarity.
 
-- Use commas to separate the following:
-     - Independent clauses separated by coordinating conjunctions (but, or, yet, for, and, nor, so).
-     - Introductory clauses, phrases, words that precede the main clause.
-     - Words, clauses, and phrases listed in a series. Also known as the Oxford comma.
-     - Skip the comma after single-word adverbs of time at the beginning of a sentence, such as *afterward*, *then*, *later*, or *subsequently*.
+Make an acronym plural by adding an *s* to the end of it. Do not add an apostrophe.
 
-- An em dash (—) is the width of an uppercase M. Do not include spacing on either side. Use an em dash to set off parenthetical phrases within a sentence or set off phrases or clauses at the end of a sentence for restatement or emphasis.
+How an acronym is pronounced determines whether you use the article *an* or *a* before it. If it's pronounced with an initial vowel sound, use *an*. Otherwise, use *a*.
 
-- An en dash (–) is the width of an uppercase N. In ranges, do not include spacing on either side. Use an en dash to indicate ranges in values and dates, separate a bullet heading from the following text in a list, or separate an open compound adjective (two compounds, only one of which is hyphenated) from the word that it modifies.
+If the first use of an acronym is in a heading, retain the acronym in the heading, and then write out the term in the following body text, followed by the acronym in parentheses. Don't spell out the term in the heading with the acronym included in parentheses. If the first use of the service name is in a title or heading, use the short form of the name in the heading, and then use the long form followed by the short form in parentheses in the following body text.
 
-- Words with prefixes are normally closed (no hyphen), whether they are nouns, verbs, adjectives, or adverbs. Note that some industry terms don’t follow this hyphenation guidance. For example, *Command Line Interface* and *high performance computing* aren’t hyphenated, and *machine learning* isn’t hyphenated when used as an adjective. Other terms are hyphenated to improve readability. Examples include *non-production*, *post-migration*, and *pre-migration*.
+In general, spell out abbreviations that end with *-bit* or *-byte*. Use abbreviations only with numbers in specific measurements. Always include a space between the number and unit. Abbreviations that are well known and don't need to be spelled out are *KB*, *MB*, *GB*, and *TB*. 
 
-- Use sentence case for topic titles. Titles of guides and references use title case.
+Some acronyms are better known than their spelled-out counterparts or might be used almost exclusively. These include industry-standard protocols, markdown and programming languages, and common file formats. You don't need to spell out these acronyms.
 
-- The ampersand (&) should never be used in a sentence as a replacement for the word and. An exception to this is in acronyms where the ampersand is commonly used, such as in Operations & Maintenance (O&M).
+The following table lists acronyms that you don't need to spell out.
 
-- When using a forward slash between words, do not insert space on either side of the slash. For example, *AI/ML* is correct whereas *AI / ML* is incorrect.
+| Acronym | Spelled-out term |
+| :--------- | :------- |
+| 3D | three-dimensional |
+| API | application programming interface |
+| ASCII | American Standard Code for Information Interchange |
+| BASIC | Beginner's All-Purpose Symbolic Instruction Code |
+| BM25 | Best Match 25 |
+| CPU | central processing unit |
+| DOS | disk operating system |
+| FAQ | frequently asked questions |
+| FTP | File Transfer Protocol |
+| GIF | Graphics Interchange Format |
+| HTML | hypertext markup language |
+| HTTP | hypertext transfer protocol |
+| HTTPS | hypertext transfer protocol secure |
+| HTTP(s) | Use to refer to both protocols, HTTP and HTTPS. |
+| I/O | input/output |
+| ID | identifier |
+| IP | Internet protocol |
+| JPEG | Joint Photographic Experts Group |
+| JSON | JavaScript Object Notation |
+| NAT | network address translation |
+| NGINX | engine x |
+| PDF | Portable Document Format |
+| RAM | random access memory |
+| REST | Representational State Transfer |
+| RGB | red-green-blue |
+| ROM | read-only memory |
+| SAML | Security Assertion Markup Language |
+| SDK | software development kit |
+| SSL | Secure Sockets Layer |
+| TCP | Transmission Control Protocol |
+| TIFF | Tagged Image File Format |
+| TLS | Transport Layer Security |
+| UI | user interface |
+| URI | uniform resource identifier |
+| URL | uniform resource locator |
+| UTC | Coordinated Universal Time |
+| UTF | Unicode Transformation Format |
+| XML | Extensible Markup Language |
+| YAML | YAML Ain't Markup Language |
 
-- When referring to API parameters, capitalize *Boolean*. Otherwise, primitive Java data types (*byte*, *short*, *int*, *long*, *float*, *double*, and *char*) start with a lowercase letter, while non-primitive types start with an uppercase letter.
+### Formatting and organization
+
+- Use a colon to introduce example blocks (for example, sample code and scripts) and most lists. Do not use a colon to introduce tables or images.
+
+- Use bold text for all UI elements, including pages, panes, and dialog boxes. In all cases, emphasize what the user must do as opposed to talking about the UI element itself.
+
+- Reference images in the text that precedes them. For example, "..., as shown in the following image."
+
+- Stacked headings should never appear in our content. Stacked headings are any two consecutive headings without intervening text. Even if it is just an introductory sentence, there should always be text under any heading.
+
+- Use italics for the titles of books, periodicals, and reference guides. However, do not use italics when the title of a work is also a hyperlink.
+
+- You can refer to APIs in three ways:
+     1. When referring to API names, capitalize all words in the name (example: "Field Capabilities API").
+     2. When referring to API operations by the exact name of the endpoint, use lowercase with code format (example: "`_field_caps` API").
+     3. When describing API operations but not using the exact name of the endpoint, use lowercase (example: "field capabilities API operations" or "field capabilities operations").
+
+### Links
+
+- **Formal cross-references**: In most cases, a formal cross-reference (the title of the page you're linking to) is the preferred style because it provides context and helps readers understand where they're going when they choose the link. Follow these guidelines for formal cross-references:
+     - Introduce links with formal introductory text:
+          - Use "For information *about*" or "For more information *about*." Don't use "For information *on*."
+          - If you are linking to procedures, you can use either "For instructions *on*" or "instructions *for*." Don't use "instructions *about*."
+          - Where space is limited (for example, in a table), you can use "*See* [link text]." Don't use *go to*.
+     - Ensure that the link text matches the section title text. <br> <br> Example: "To get involved, see [Contributing](https://opensearch.org/source.html) on the OpenSearch website." <br>
+
+- **Embedded links**: Embedded links are woven into a sentence without formal introductory text. They're especially useful in tables or other elements where space is tight. The text around the embedded link must relate to the information in the link so that the reader understands the context. Do not use *here* or *click here* for link text because it creates accessibility problems. <br> <br> Example: "Finally, [delete the index](https://opensearch.org/docs/latest/api-reference/index-apis/delete-index)."
+
+### Lists
+
+The following guidelines apply to all list types:
+- Make lists parallel in content and structure. Don’t mix single words with phrases, don’t start some phrases with a noun and others with a verb, and don’t mix verb forms.
+- Present the items in alphabetical order if the order of items is arbitrary.
+- Capitalize the ﬁrst letter of the ﬁrst word of each list item.
+- If the list is simple, you don’t need end punctuation for the list items.
+- If the list has a mixture of phrases and sentences, punctuate each list item.
+- Punctuate each list item with a period if a list item has more than one sentence.
+- Punctuate list items consistently. If at least one item in a list requires a period, use a period for all items in that list.
+- Introductory sentences are required for lists.
+- Introductory sentences should be complete sentences.
+- Introductory sentences should end with a colon.
+- Don’t use semicolons, commas, or conjunctions (like and or or) at the end of list items.
 
 ### Numbers and measurement
 
@@ -101,39 +212,6 @@ The following guidelines should be observed in OpenSearch Project content.
      - Incorrect
         - One hundred GB
         - 1TB
-
-### Formatting and organization
-
-- Links: In most cases, a formal cross-reference (the title of the page you're linking to) is the preferred style because it provides context and helps readers understand where they're going when they choose the link. Follow these guidelines for formal cross-references:
-     - Introduce links with formal introductory text:
-          - Use "For information *about*" or "For more information *about*." Don't use "For information *on*."
-          - If you are linking to procedures, you can use either "For instructions *on*" or "instructions *for*." Don't use "instructions *about*."
-          - Where space is limited (for example, in a table), you can use "*See* [link text]." Don't use "*go to*".
-
-- You can refer to APIs in three ways:
-     1. When referring to API names, capitalize all words in the name (example: "Field Capabilities API").
-     2. When referring to API operations by the exact name of the endpoint, use lowercase with code format (example: "`_field_caps` API").
-     3. When describing API operations but not using the exact name of the endpoint, use lowercase (example: "field capabilities API operations" or "field capabilities operations").
-
-- The following guidelines apply to all list types:
-     - Make lists parallel in content and structure. Don’t mix single words with phrases, don’t start some phrases with a noun and others with a verb, and don’t mix verb forms.
-     - Present the items in alphabetical order if the order of items is arbitrary.
-     - Capitalize the ﬁrst letter of the ﬁrst word of each list item.
-     - If the list is simple, you don’t need end punctuation for the list items.
-     - If the list has a mixture of phrases and sentences, punctuate each list item.
-     - Punctuate each list item with a period if a list item has more than one sentence.
-     - Punctuate list items consistently. If at least one item in a list requires a period, use a period for all items in that list.
-     - Titles are optional for most lists. If used, the title comes after an introductory sentence.
-     - Titles are highly recommended for procedures. Avoid titles for bulleted lists.
-     - Introductory sentences are required for lists.
-     - Introductory sentences should be complete sentences.
-     - Introductory sentences should end with a period if the list has a title.
-     - Introductory sentences should end with a colon if the list does not have a title.
-     - Don’t use semicolons, commas, or conjunctions (like and or or) at the end of list items.
-
-- Start all task-based headings with an infinitive. For example: “Create an index”. For conceptual sections, use a noun phrase. For example: “Migration to OpenSearch 2.0”
-
-- Stacked headings should never appear in our content. Stacked headings are any two consecutive headings without intervening text. Even if it is just an introductory sentence, there should always be text under any heading.
 
 ### Procedures
 
@@ -155,7 +233,7 @@ Use the following language to describe UI interactions:
 - Use *enter* to describe information that users add using a keyboard.
 - Do not use *hit* or *strike*.
 
-The following table provides examples of language to be used to describe interactions with UI elements.
+The following table provides examples of language to be used to describe interactions with UI elements. Note that bold text is used for UI elements.
 
 | UI element | Language | Example |
 | :--------- | :------- | :------ |
@@ -177,17 +255,123 @@ Following is an example of procedure phrasing and formatting from Amazon EC2.
 
 ![Procedure example](/images/procedures.PNG)
 
-### Miscellaneous
+### Punctuation and capitalization
 
 - Use contractions carefully for a more casual tone. Use common contractions. Avoid future tense (I’ll), archaic (‘twas), colloquial (ain’t), or compound (couldn’t’ve) contractions.
 
-- Use italics for the titles of books, periodicals, and reference guides. However, do not use italics when the title of a work is also a hyperlink.
+- Use sentence case for titles, headings, and table headers. Titles of standalone documents may use title case.
 
-- On first use, acronyms should always be defined; for example, _access control list (ACL)_. The acronym itself should be used for subsequent appearances; for example, _ACL_. Some acronyms, like _IT_ and _CPU_, are commonly understood and do not need to be defined. Do not capitalize the spelled-out form of an acronym unless the spelled-out form is a proper noun or the community generally capitalizes it. In all cases, our usage should reflect the community’s usage.
+- Use lowercase for nouns and noun phrases that are not proper nouns; for example, *big data*. This style follows the standard rules of American English grammar.
 
-- If the first use of an acronym is in a heading, retain the acronym in the heading, and then write out the term in the following body text, followed by the acronym in parentheses. Don't spell out the term in the heading with the acronym included in parentheses.
+- For plural forms of nouns that end in “s”, form the possessive case by adding only an apostrophe.
 
-- We may not alter quotations in any way. This includes defining acronyms within the quote or altering the quote for context.
+- When a colon introduces a list of words, a phrase, or other sentence fragment, the first word following the colon is lowercased unless it is a proper name. When a colon introduces one or more complete sentences, the first word following it is capitalized. When text introduces a table or image, it should be a complete sentence and end with a period, not a colon.
+
+- Use commas to separate the following:
+     - Independent clauses separated by coordinating conjunctions (but, or, yet, for, and, nor, so).
+     - Introductory clauses, phrases, words that precede the main clause.
+     - Words, clauses, and phrases listed in a series. Also known as the Oxford comma.
+     - Skip the comma after single-word adverbs of time at the beginning of a sentence, such as *afterward*, *then*, *later*, or *subsequently*.
+
+- An em dash (—) is the width of an uppercase M. Do not include spacing on either side. Use an em dash to set off parenthetical phrases within a sentence or set off phrases or clauses at the end of a sentence for restatement or emphasis.
+
+- An en dash (–) is the width of an uppercase N. In ranges, do not include spacing on either side. Use an en dash to indicate ranges in values and dates, separate a bullet heading from the following text in a list, or separate an open compound adjective (two compounds, only one of which is hyphenated) from the word that it modifies.
+
+- Words with prefixes are normally closed (no hyphen), whether they are nouns, verbs, adjectives, or adverbs. Note that some industry terms don’t follow this hyphenation guidance. For example, *Command Line Interface* and *high performance computing* aren’t hyphenated, and *machine learning* isn’t hyphenated when used as an adjective. Other terms are hyphenated to improve readability. Examples include *non-production*, *post-migration*, and *pre-migration*.
+
+- The ampersand (&) should never be used in a sentence as a replacement for the word and. An exception to this is in acronyms where the ampersand is commonly used, such as in Operations & Maintenance (O&M).
+
+- When using a forward slash between words, do not insert space on either side of the slash. For example, *AI/ML* is correct whereas *AI / ML* is incorrect.
+
+- When referring to API parameters, capitalize *Boolean*. Otherwise, primitive Java data types (*byte*, *short*, *int*, *long*, *float*, *double*, and *char*) start with a lowercase letter, while non-primitive types start with an uppercase letter.
+
+### Topic titles
+
+Here are two styles you can use for topic titles:
+
+* *Present participle phrase* + *noun-based phrase* or *present participle phrase* + *preposition* + *noun-based phrase*, used most often for concept or task topics. For example:
+     * Configuring security
+     * Visualizing your data
+     * Running queries in the console
+
+* *Noun-based phrase*, used most often for reference topics. For example:
+     * REST API reference
+     * OpenSearch CLI
+     * Field types
+     * Security analytics
+
+## UI text
+
+Consistent, succinct, and clear text is a critical component of a good UI. We help our users complete their tasks by providing simple instructions that follow a logical flow.
+
+### UI best practices
+
+* Follow the OpenSearch Project [naming conventions, voice, tone, and brand personality traits](#naming-conventions-voice-tone-and-brand-personality-traits) guidelines.
+* Be consistent with other elements on the page and on the rest of the site.
+* Use sentence case in the UI, except for product names and other proper nouns.
+
+### UI voice and tone
+
+Our UI text is people oriented and focused on empowering the user directly. We use language that is conversational, welcoming, engaging, and open and that emphasizes what the user can do with OpenSearch rather than what tasks OpenSearch can perform. The overall tone is knowledgeable but humble, informal but authoritative, informative but not dry, and friendly without being overly familiar.
+
+We talk to readers in their own words, never assuming that they understand how OpenSearch works. We use precise technical terms where appropriate, but we avoid technical jargon and insider lingo. We speak to readers in simple, plain, everyday language.
+
+For more information, see [Voice and tone](#voice-and-tone) and [Brand personality traits](#brand-personality-traits).
+
+### Writing guidelines
+
+UI text is a critical component of a user interface. We help users complete tasks by explaining concepts and providing simple instructions that follow a logical flow. We strive to use language that is consistent, succinct, and clear.
+
+#### What's the purpose of UI text?
+
+UI text includes all words, phrases, and sentences on a screen, and it has the following purposes:
+
+* Describes a concept or defines a term
+* Explains how to complete a task
+* Describes the purpose of a page, section, table, graph, or dialog box
+* Walks users through tutorials and first-run experiences
+* Provides context and explanation for individual UI elements that might be unfamiliar to users
+* Helps users make a choice or decide if settings are relevant or required for their particular deployment scenario or environment
+* Explains an alert or error
+
+#### Basic guidelines
+
+Follow these basic guidelines when writing UI text.
+
+##### Style
+
+* Keep it short. Users don’t want to read dense text. Remember that UI text can expand by 30% when it’s translated into other languages.
+* Keep it simple. Try to use simple sentences (one subject, one verb, one main clause and idea) rather than compound or complex sentences.
+* Prefer active voice over passive voice. For example, "You can attach up to 10 policies" is active voice, and "Up to 10 policies can be attached" is passive voice.
+* Use device-agnostic language rather than mouse-specific language. For example, use _choose_ instead of _click_ (exception: use _select_ for check boxes).
+
+##### Tone
+
+* Use a tone that is knowledgeable but humble, informal but authoritative, informative but not dry, and friendly without being overly familiar.
+* Use everyday language that most users will understand.
+* Use second person (you, your) when you address the user.
+* Use _we_ if you need to refer to the OpenSearch Project as an organization; for example, "We recommend…."
+
+##### Mechanics
+
+* Use sentence case for all UI text. (Capitalize only the first word in a sentence or phrase as well as any proper nouns, such as service names. All other words are lowercase.)
+* Use parallel construction (use phrases and sentences that are grammatically similar). For example, items in a list should start with either all verbs or all nouns.
+     
+     **Correct**
+
+     Snapshots have two main uses:
+     * Recovering from failure
+     * Migrating from one cluster to another
+
+     **Incorrect**
+
+     Snapshots have two main uses:
+     * Failure recovery
+     * Migrating from one cluster to another
+
+* Use the serial (Oxford) comma. For example, “issues, bug fixes, and features”, not “issues, bug fixes and features”.
+* Don’t use the ampersand (&).
+* Avoid Latinisms, such as _e.g._, _i.e._, or _etc._ Instead of _e.g._, use _for example_ or _such as_. Instead of _i.e._, use _that is_ or _specifically_. Generally speaking, _etc._ and its equivalents (such as _and more_ or _and so on_) aren’t necessary.
 
 ## Special considerations for blog posts
 

@@ -41,7 +41,7 @@ index-uuid | UUID of index.
 
 Query parameters are optional.
 
-Query parameter | Data Type | Description
+Query parameter | Data type | Description
 :--- | :--- | :---
 accept_data_loss | Boolean | Must be set to `true` for an `import` or `delete` because Opensearch is unaware of where the dangling index data came from.
 timeout | Time units | The amount of time to wait for a response. If no response is received in the defined time period, an error is returned. Default is `30` seconds.
@@ -56,12 +56,14 @@ The following are sample requests and a sample response.
 ````bash
 GET /_dangling
 ````
+{% include copy-curl.html %}
 
 #### Sample import
 
 ````bash
 POST /_dangling/msdjernajxAT23RT-BupMB?accept_data_loss=true
 ````
+{% include copy-curl.html %}
  
 #### Sample delete
 
