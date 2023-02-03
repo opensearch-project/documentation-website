@@ -1,9 +1,8 @@
 ---
 layout: default
 title: Using Gantt charts
-parent: Visualization types
-grand_parent: Visualize
-nav_order: 60
+parent: Building data visualizations with Visualize
+nav_order: 30
 redirect_from:
   - /dashboards/gantt/
 ---
