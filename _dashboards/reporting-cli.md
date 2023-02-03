@@ -1,8 +1,8 @@
 ---
 layout: default
 title: Creating reports with the Reporting CLI
-parent: Reporting
 nav_order: 75
+has_children: false
 ---
 
 # Creating reports with the Reporting CLI
@@ -237,6 +237,7 @@ Set the memory size to 4096.
             "Resource": "<arn of ses resource>"
         }
 ```
+
 Next, test the function with the following required values in the event JSON file:
 
 ```json
