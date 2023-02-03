@@ -135,11 +135,11 @@ In the crontab editor, enter the report request. For example, the following exam
 0 8 * * * opensearch-reporting-cli -u https://playground.opensearch.org/app/dashboards#/view/084aed50-6f48-11ed-a3d5-1ddbf0afc873 -e ses -s <sender_email> -r <recipient_email>
 ```
 
-## Using AWS Lambda
+## Scheduling reports with AWS Lambda
 
 You can use AWS Lambda with the Reporting CLI tool to specify an AWS Lambda function to trigger the report generation.
 
-This requires that you use an AM64 system.
+This requires that you use an AM64 system and Docker.
 
 ### Prerequisites
 
