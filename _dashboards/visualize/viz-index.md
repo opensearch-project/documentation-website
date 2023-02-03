@@ -50,7 +50,7 @@ Data tables, or tables, show your raw data in tabular form.
 
 ## Gantt charts
 
-Gantt charts show the start, end, and duration of unique events in a sequence. Gantt charts are useful in trace analytics, telemetry, and anomaly detection use cases where you want to understand interactions and dependencies between various events in a schedule. **Gantt chart** is currently a plugin, instead of built-in, visualization type in Dashboards. See [Gantt charts]({{site.url}}{{site.baseurl}}/dashboards/visualize/gantt/) to learn how to create and use them in Dashboards.
+Gantt charts show the start, end, and duration of unique events in a sequence. Gantt charts are useful in trace analytics, telemetry, and anomaly detection use cases where you want to understand interactions and dependencies between various events in a schedule. **Gantt chart** is currently a plugin, instead of built-in, visualization type in Dashboards. See [Gantt charts]({{site.url}}{{site.baseurl}}2.5/dashboards/visualize/gantt/) to learn how to create and use them in Dashboards.
 
 <img src="{{site.url}}{{site.baseurl}}/images/gantt-chart.png" alt="Example Gantt chart in OpenSearch Dashboards" height="100">
 
@@ -126,7 +126,7 @@ Timeline is a data visualization tool in Dashboards that you can use to create t
 
 ## VisBuilder
 
-VisBuilder is a drag-and-drop data visualization tool in Dashboards. It gives you an immediate view of your data without the need to preselect the data source or visualization type output. Currently, VisBuilder can be used to create the following Dashboards visualization types: Area, Bar, Line, Metric, and Data Table. See [VisBuilder]({{site.url}}{{site.baseurl}}/dashboards/visualize/visbuilder/) to learn how to create and use drag-and-drop visualizations in Dashboards.
+VisBuilder is a drag-and-drop data visualization tool in Dashboards. It gives you an immediate view of your data without the need to preselect the data source or visualization type output. Currently, VisBuilder can be used to create the following Dashboards visualization types: Area, Bar, Line, Metric, and Data Table. See [VisBuilder](https://opensearch.org/docs/2.5/dashboards/visualize/visbuilder/) to learn how to create and use drag-and-drop visualizations in Dashboards.
 
 <img src="{{site.url}}{{site.baseurl}}/images/drag-drop-generated-viz.png" alt="Example Timeline in OpenSearch Dashboards" height="100">
 

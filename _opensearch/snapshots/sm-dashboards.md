@@ -42,7 +42,7 @@ Create an SM policy to set up automatic snapshots. An SM policy defines an autom
     1. (Optional) Enter the policy description.
 1. In the **Source and destination** section:
     1. Select or enter source indexes either as a list or as an index pattern.
-    1. Select a repository for snapshots. To [create a new repository](#creating-a-repository), select the **Create** button.
+    1. Select a repository for snapshots. To create a new repository, select the **Create** button.
 1. In the **Snapshot schedule** section:
     1. Select the desired snapshot frequency or enter a custom cron expression for snapshot frequency.
     1. Select the start time and time zone.
