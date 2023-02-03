@@ -60,9 +60,9 @@ Voice is the point of view or style of a writer. Voice can refer to active or pa
 
 The voice of the OpenSearch Project is people oriented and focused on empowering the user directly. We use language that emphasizes what the user can do with OpenSearch rather than what tasks OpenSearch can perform.
 
-Whenever possible, use the active voice instead of the passive voice. The passive form is typically wordier and can often cause writers to obscure the details of the action. For example, change the agentless passive it is recommended to the more direct we recommend.
+Whenever possible, use the active voice instead of the passive voice. The passive form is typically wordier and can often cause writers to obscure the details of the action. For example, change the agentless passive _it is recommended_ to the more direct _we recommend_.
 
-Refer to the reader as you (second person), and refer to the OpenSearch Project as we (first person). If there are multiple authors for a blog post, you can use we to refer to the authors as individuals.
+Refer to the reader as _you_ (second person), and refer to the OpenSearch Project as _we_ (first person). If there are multiple authors for a blog post, you can use _we_ to refer to the authors as individuals.
 
 For procedures or instructions, ensure that action is taken by the user (“Then you can stop the container...”) rather than the writer (“We also have to stop the container...”). Reserve the first-person plural for speaking as the OpenSearch Project, with recommendations, warnings, or explanations.
 
@@ -80,7 +80,7 @@ Avoid excessive words, such as please. Be courteous but not wordy. Extra detail 
 
 | Personality trait | Description | Guidance |
 | :--------- | :------- | :------ |
-| **Clear and precise** | The OpenSearch Project understands that our community works, develops, and builds in roles and organizations that require precise thinking and thorough documentation. We strive to use precise language—to clearly say what we mean without leaving ideas open to interpretation, to support our assertions with facts and figures, and to provide credible and current (third-party) references where called for. <br> <br> We communicate in plain, direct language that is easily understood. Complex concepts are introduced in a concise, unambiguous way that does not assume knowledge on the part of the reader. High-level content is supported by links to more in-depth or technical content that users can engage with at their convenience. | - Write with clarity and choose words carefully. Think about the audience and how they might interpret your assertions. <br> - Be specific. Avoid estimates or general claims when exact data can be provided. <br> - Support claims with data. If something is “faster” or “more accurate,” say how much. <br> - When citing third-party references, include direct links. |
+| **Clear and precise** | The OpenSearch Project understands that our community works, develops, and builds in roles and organizations that require precise thinking and thorough documentation. We strive to use precise language—to clearly say what we mean without leaving ideas open to interpretation, to support our assertions with facts and figures, and to provide credible and current (third-party) references where called for. <br> <br> We communicate in plain, direct language that is easily understood. Complex concepts are introduced in a concise, unambiguous way. High-level content is supported by links to more in-depth or technical content that users can engage with at their convenience. | - Write with clarity and choose words carefully. Think about the audience and how they might interpret your assertions. <br> - Be specific. Avoid estimates or general claims when exact data can be provided. <br> - Support claims with data. If something is “faster” or “more accurate,” say how much. <br> - When citing third-party references, include direct links. |
 | **Transparent and open** | As an open-source project, we exchange information with the community in an accessible and transparent manner. We publish our product plans in the open on GitHub, share relevant and timely information related to the project through our forum and/or our blog, and engage in open dialogues related to product and feature development in the public sphere. Anyone can view our roadmap, raise a question or an issue, or participate in our community meetings. | - Tell a complete story. If you’re walking the reader through a solution or sharing news, don’t skip important information. <br> - Be forthcoming. Communicate time-sensitive news and information in a thorough and timely manner. <br> - If there’s something the reader needs to know, say it up front. Don’t “bury the lede.” |
 | **Collaborative and supportive** | We’re part of a community that is here to help. We aim to be resourceful on behalf of the community and encourage others to do the same. To facilitate an open exchange of ideas, we provide forums through which the community can ask and answer one another’s questions. | - Use conversational language that welcomes and engages the audience. Have a dialogue. <br> - Invite discussion and feedback. We have several mechanisms for open discussion, including requests for comment (RFCs), a [community forum](https://forum.opensearch.org/), and [community meetings](https://www.meetup.com/OpenSearch/).
 | **Trustworthy and personable** | We stay grounded in the facts and the data. We do not overstate what our products are capable of. We demonstrate our knowledge in a humble but authoritative way and reliably deliver what we promise. We provide mechanisms and support that allow the audience to explore our products for themselves, demonstrating that our actions consistently match our words. <br> <br> We speak to the community in a friendly, welcoming, judgment-free way so that our audience perceives us as being approachable. Our content is people oriented and focused on empowering the user directly. | - Claims and assertions should be grounded in facts and data and supported accordingly. <br> - Do not exaggerate or overstate. Let the facts and results speak for themselves. <br> - Encourage the audience to explore our products for themselves. Offer guidance to help them do so. <br> - Write directly and conversationally. Have a dialogue with your audience. Imagine writing as if you’re speaking directly to the person for whom you’re creating content. <br> - Write from the community, for the community. Anyone creating or consuming content about OpenSearch is a member of the same group, with shared interest in learning about and building better search and analytics solutions. <br> - Use judgment-free language. Words like simple, easy, and just create a skill judgment that may not apply to everyone in the OpenSearch community. |
@@ -106,7 +106,7 @@ If the first use of an acronym is in a heading, retain the acronym in the headin
 
 In general, spell out abbreviations that end with *-bit* or *-byte*. Use abbreviations only with numbers in specific measurements. Always include a space between the number and unit. Abbreviations that are well known and don't need to be spelled out are *KB*, *MB*, *GB*, and *TB*. 
 
-Some acronyms are better known than their spelled-out counterparts or might be used almost exclusively. These include industry standard protocols, markdown and programming languages, and common file formats. You don't need to spell out these acronyms.
+Some acronyms are better known than their spelled-out counterparts or might be used almost exclusively. These include industry-standard protocols, markdown and programming languages, and common file formats. You don't need to spell out these acronyms.
 
 The following table lists acronyms that you don't need to spell out.
 
@@ -154,32 +154,20 @@ The following table lists acronyms that you don't need to spell out.
 
 ### Formatting and organization
 
-- You can refer to APIs in three ways:
-     1. When referring to API names, capitalize all words in the name (example: "Field Capabilities API").
-     2. When referring to API operations by the exact name of the endpoint, use lowercase with code format (example: "`_field_caps` API").
-     3. When describing API operations but not using the exact name of the endpoint, use lowercase (example: "field capabilities API operations" or "field capabilities operations").
+- Use a colon to introduce example blocks (for example, sample code and scripts) and most lists. Do not use a colon to introduce tables or images.
 
-- The following guidelines apply to all list types:
-     - Make lists parallel in content and structure. Don’t mix single words with phrases, don’t start some phrases with a noun and others with a verb, and don’t mix verb forms.
-     - Present the items in alphabetical order if the order of items is arbitrary.
-     - Capitalize the ﬁrst letter of the ﬁrst word of each list item.
-     - If the list is simple, you don’t need end punctuation for the list items.
-     - If the list has a mixture of phrases and sentences, punctuate each list item.
-     - Punctuate each list item with a period if a list item has more than one sentence.
-     - Punctuate list items consistently. If at least one item in a list requires a period, use a period for all items in that list.
-     - Titles are optional for most lists. If used, the title comes after an introductory sentence.
-     - Titles are highly recommended for procedures. Avoid titles for bulleted lists.
-     - Introductory sentences are required for lists.
-     - Introductory sentences should be complete sentences.
-     - Introductory sentences should end with a period if the list has a title.
-     - Introductory sentences should end with a colon if the list does not have a title.
-     - Don’t use semicolons, commas, or conjunctions (like and or or) at the end of list items.
+- Use bold text for all UI elements, including pages, panes, and dialog boxes. In all cases, emphasize what the user must do as opposed to talking about the UI element itself.
+
+- Reference images in the text that precedes them. For example, "..., as shown in the following image."
 
 - Stacked headings should never appear in our content. Stacked headings are any two consecutive headings without intervening text. Even if it is just an introductory sentence, there should always be text under any heading.
 
 - Use italics for the titles of books, periodicals, and reference guides. However, do not use italics when the title of a work is also a hyperlink.
 
-- Reference images in the text that precedes them. For example, "..., as shown in the following image."
+- You can refer to APIs in three ways:
+     1. When referring to API names, capitalize all words in the name (example: "Field Capabilities API").
+     2. When referring to API operations by the exact name of the endpoint, use lowercase with code format (example: "`_field_caps` API").
+     3. When describing API operations but not using the exact name of the endpoint, use lowercase (example: "field capabilities API operations" or "field capabilities operations").
 
 ### Links
 
@@ -188,9 +176,24 @@ The following table lists acronyms that you don't need to spell out.
           - Use "For information *about*" or "For more information *about*." Don't use "For information *on*."
           - If you are linking to procedures, you can use either "For instructions *on*" or "instructions *for*." Don't use "instructions *about*."
           - Where space is limited (for example, in a table), you can use "*See* [link text]." Don't use *go to*.
-     - Ensure that the link text matches the section title text. <br> <br> Example: "To get involved, see [Contributing](https://opensearch.org/source.html) on the OpenSearch website." <br> <br>
+     - Ensure that the link text matches the section title text. <br> <br> Example: "To get involved, see [Contributing](https://opensearch.org/source.html) on the OpenSearch website." <br>
 
 - **Embedded links**: Embedded links are woven into a sentence without formal introductory text. They're especially useful in tables or other elements where space is tight. The text around the embedded link must relate to the information in the link so that the reader understands the context. Do not use *here* or *click here* for link text because it creates accessibility problems. <br> <br> Example: "Finally, [delete the index](https://opensearch.org/docs/latest/api-reference/index-apis/delete-index)."
+
+### Lists
+
+The following guidelines apply to all list types:
+     - Make lists parallel in content and structure. Don’t mix single words with phrases, don’t start some phrases with a noun and others with a verb, and don’t mix verb forms.
+     - Present the items in alphabetical order if the order of items is arbitrary.
+     - Capitalize the ﬁrst letter of the ﬁrst word of each list item.
+     - If the list is simple, you don’t need end punctuation for the list items.
+     - If the list has a mixture of phrases and sentences, punctuate each list item.
+     - Punctuate each list item with a period if a list item has more than one sentence.
+     - Punctuate list items consistently. If at least one item in a list requires a period, use a period for all items in that list.
+     - Introductory sentences are required for lists.
+     - Introductory sentences should be complete sentences.
+     - Introductory sentences should end with a colon.
+     - Don’t use semicolons, commas, or conjunctions (like and or or) at the end of list items.
 
 ### Numbers and measurement
 
@@ -230,7 +233,7 @@ Use the following language to describe UI interactions:
 - Use *enter* to describe information that users add using a keyboard.
 - Do not use *hit* or *strike*.
 
-The following table provides examples of language to be used to describe interactions with UI elements.
+The following table provides examples of language to be used to describe interactions with UI elements. Note that bold text is used for UI elements.
 
 | UI element | Language | Example |
 | :--------- | :------- | :------ |
