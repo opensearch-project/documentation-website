@@ -213,6 +213,11 @@ Follow the instructions in the Amazon ECR user guide to create a repository with
 
 Go to [Getting started with Amazon ECR using the AWS Management Console](https://docs.aws.amazon.com/AmazonECR/latest/userguide/getting-started-console.html) and follow both procedures.
 
+Navigate to the test function **Configuration** tab to modify two required settings:
+- Make sure to set **Timeout** to at least 5 minutes to allow the reporting CLI to generate the report.
+- Change the setting for **Ephemeral storage** to 1024MB. The default setting is not a sufficient storage amount.
+{: .note }
+
 ### Step 3: Run the push commands
 
 In the AWS ECR console, choose **view push command**.
