@@ -148,9 +148,11 @@ To use the Reporting CLI with AWS Lambda, you need to do the following prelimina
 - Get a Dockerfile to assemble an image. For Docker instructions, see [Dockerfile reference](https://docs.docker.com/engine/reference/builder/).
 - Set up an Amazon Elastic Container Registry (ECR). For instructions, see [Getting started with Amazon ECR using the AWS Management Console](https://docs.aws.amazon.com/AmazonECR/latest/userguide/getting-started-console.html).
 
-You can use the following sample configurations to set up and assemble the image:
+### Step 1: Create a Dockerfile with setup and image assembly configurations
 
-```linux
+Copy the following sample configurations to set up and assemble the image into a Dockerfile.
+
+```json
 
 # Define function directory
 ARG FUNCTION_DIR="/function"
@@ -206,18 +208,18 @@ CMD [ "/function/index.handler" ]
 
 ```
 
-### Step 1: Create a repository with Amazon ECR
+### Step 2: Create a repository with Amazon ECR
 
 Follow the instructions in the Amazon ECR user guide to create a repository with the name `opensearch-reporting-cli`.
 
 Go to [Getting started with Amazon ECR using the AWS Management Console](https://docs.aws.amazon.com/AmazonECR/latest/userguide/getting-started-console.html) and follow both procedures.
 
-### Step 2: Run the push commands
+### Step 3: Run the push commands
 
 In the AWS ECR console, choose **view push command**.
 Locate the 4 commands in the Dockerfile directory, and select them all.
 
-### Step 3: Create a lambda function with the container image
+### Step 4: Create a lambda function with the container image
 
 Go to **Lambda function > Configuration > General configuration> Edit timeout** and set the timeout in lambda to 5 minutes.
 
@@ -247,7 +249,7 @@ Next, test the function with the following required values in the event JSON fil
 }
 ```
 
-### Step 4: Add the trigger to initiate a report request
+### Step 5: Add the trigger to initiate a report request
 
 Set the trigger to start running the report.
 
