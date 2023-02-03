@@ -17,18 +17,21 @@ The CAT thread pool operation lists the active, queued, and rejected threads of 
 ```
 GET _cat/thread_pool?v
 ```
+{% include copy-curl.html %}
 
 If you want to get information for more than one thread pool, separate the thread pool names with commas:
 
 ```
 GET _cat/thread_pool/thread_pool_name_1,thread_pool_name_2,thread_pool_name_3
 ```
+{% include copy-curl.html %}
 
 If you want to limit the information to a specific thread pool, add the thread pool name after your query:
 
 ```
 GET _cat/thread_pool/<thread_pool_name>?v
 ```
+{% include copy-curl.html %}
 
 ## Path and HTTP methods
 

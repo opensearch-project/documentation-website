@@ -18,6 +18,7 @@ The CAT repositories operation lists all completed and ongoing index and shard r
 ```
 GET _cat/repositories?v
 ```
+{% include copy-curl.html %}
 
 ## Path and HTTP methods
 

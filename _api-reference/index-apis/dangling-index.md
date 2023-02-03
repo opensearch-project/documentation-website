@@ -56,12 +56,14 @@ The following are sample requests and a sample response.
 ````bash
 GET /_dangling
 ````
+{% include copy-curl.html %}
 
 #### Sample import
 
 ````bash
 POST /_dangling/msdjernajxAT23RT-BupMB?accept_data_loss=true
 ````
+{% include copy-curl.html %}
  
 #### Sample delete
 

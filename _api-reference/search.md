@@ -22,6 +22,7 @@ GET /movies/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 ## Path and HTTP Methods
 

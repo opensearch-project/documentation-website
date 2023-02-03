@@ -26,6 +26,7 @@ PUT testindex1/_doc/100
   ] 
 }
 ```
+{% include copy-curl.html %}
 
 When these objects are stored, they are flattened, so their internal represenation has an array of all values for each field:
 
@@ -62,6 +63,7 @@ GET testindex1/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 The query correctly returns document 100:
 
@@ -132,6 +134,7 @@ GET testindex1/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 However, this query still incorrectly returns document 100. This is because the relation between age and smoking was lost when arrays of values for individual fields were created.
 
@@ -151,6 +154,7 @@ PUT testindex1
     }
 }
 ```
+{% include copy-curl.html %}
 
 Then, index a document with a nested field type:
 
@@ -163,6 +167,7 @@ PUT testindex1/_doc/100
   ] 
 }
 ```
+{% include copy-curl.html %}
 
 Now if you run the same query to search for patients older than 75 AND smokers, nothing is returned, which is correct.
 

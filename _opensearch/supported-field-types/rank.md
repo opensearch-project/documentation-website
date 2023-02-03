@@ -45,6 +45,7 @@ PUT chessplayers
   }
 }
 ```
+{% include copy-curl.html %}
 
 Index three documents with a rank_feature field that boosts the score (`rating`) and a rank_feature field that decreases the score (`age`):
 
@@ -55,14 +56,20 @@ PUT testindex1/_doc/1
   "rating" : 2554,
   "age" : 75
 }
+```
+{% include copy-curl.html %}
 
+```json
 PUT testindex1/_doc/2
 {
   "name" : "Kwaku Mensah",
   "rating" : 2067,
   "age": 10
 }
+```
+{% include copy-curl.html %}
 
+```json
 PUT testindex1/_doc/3
 {
   "name" : "Nikki Wolf",
@@ -70,6 +77,7 @@ PUT testindex1/_doc/3
   "age" : 22
 }
 ```
+{% include copy-curl.html %}
 
 ## Rank feature query
 
@@ -98,6 +106,7 @@ GET chessplayers/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 When ranked by both age and rating, younger players and players who are more highly ranked score better:
 
@@ -176,6 +185,7 @@ PUT testindex1
   }
 }
 ```
+{% include copy-curl.html %}
 
 To index a document with a rank features field, use a hashmap with string keys and positive float values:
 
@@ -188,7 +198,10 @@ PUT testindex1/_doc/1
     "teens" : 25.9
   }
 }
+```
+{% include copy-curl.html %}
 
+```json
 PUT testindex1/_doc/2
 {
   "correlations": {
@@ -197,6 +210,7 @@ PUT testindex1/_doc/2
   }
 }
 ```
+{% include copy-curl.html %}
 
 Query the documents using a rank feature query:
 
@@ -210,6 +224,7 @@ GET testindex1/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 The response is ranked by relevance score:
 
