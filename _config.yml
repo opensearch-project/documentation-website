@@ -37,6 +37,9 @@ collections:
   opensearch:
     permalink: /:collection/:path/
     output: true
+  im-plugin:
+    permalink: /:collection/:path/
+    output: true
   dashboards:
     permalink: /:collection/:path/
     output: true
@@ -44,6 +47,15 @@ collections:
     permalink: /:collection/:path/
     output: true 
   security-analytics:
+    permalink: /:collection/:path/
+    output: true
+  search-plugins:
+    permalink: /:collection/:path/
+    output: true 
+  ml-commons-plugin:
+    permalink: /:collection/:path/
+    output: true
+  neural-search-plugin:
     permalink: /:collection/:path/
     output: true   
   tuning-your-cluster:
@@ -53,12 +65,6 @@ collections:
     permalink: /:collection/:path/
     output: true
   observing-your-data:
-    permalink: /:collection/:path/
-    output: true
-  search-plugins:
-    permalink: /:collection/:path/
-    output: true
-  im-plugin:
     permalink: /:collection/:path/
     output: true
   ml-commons-plugin:
@@ -100,6 +106,9 @@ just_the_docs:
     opensearch:
       name: OpenSearch
       nav_fold: true
+    im-plugin:
+      name: Managing Indexes
+      nav_fold: true
     dashboards:
       name: OpenSearch Dashboards
       nav_fold: true
@@ -109,6 +118,15 @@ just_the_docs:
     security-analytics:
       name: Security analytics plugin
       nav_fold: true
+    search-plugins:
+      name: Search 
+      nav_fold: true
+    ml-commons-plugin:
+      name: Machine learning
+      nav_fold: true
+    neural-search-plugin:
+      name: Neural Search 
+      nav_fold: true
     tuning-your-cluster:
       name: Tuning your cluster
       nav_fold: true 
@@ -117,18 +135,6 @@ just_the_docs:
       nav_fold: true
     observing-your-data:
       name: Observing your data
-      nav_fold: true
-    search-plugins:
-      name: Search plugins
-      nav_fold: true
-    im-plugin:
-      name: Index management plugin
-      nav_fold: true
-    ml-commons-plugin:
-      name: ML Commons plugin
-      nav_fold: true
-    neural-search-plugin:
-      name: Neural Search plugin
       nav_fold: true
     clients:
       name: Clients
