@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Reporting
+title: Creating reports from the Dashboards UI
 nav_order: 70
 ---
 
 
-# Reporting
+# Creating reports from the Dashboards UI
 
 You can use OpenSearch Dashboards to create PNG, PDF, and CSV reports. To create reports, you must have the correct permissions. For a summary of the predefined roles and the permissions they grant, see the [security plugin]({{site.url}}{{site.baseurl}}/security/access-control/users-roles#predefined-roles).
 
@@ -13,7 +13,7 @@ CSV reports have a non-configurable 10,000 row limit. They have no explicit size
 {: .tip }
 
 
-## Create reports from Discovery, Visualize, Dashboard, or Notebooks
+## Creating reports from OpenSearch Dashboards
 
 Quickly generate an on-demand report from the current view.
 
@@ -25,7 +25,7 @@ Quickly generate an on-demand report from the current view.
 1. To create a schedule-based report, choose **Create report definition**. Then proceed to [Create reports using a definition](#create-reports-using-a-definition). This option pre-fills many of the fields for you based on the visualization, dashboard, or data you were viewing.
 
 
-## Create reports using a definition
+## Creating reports using a definition
 
 Definitions let you generate reports on a periodic schedule.
 
