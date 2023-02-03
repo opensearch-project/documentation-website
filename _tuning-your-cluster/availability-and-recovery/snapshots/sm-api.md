@@ -11,7 +11,7 @@ redirect_from:
 
 # Snapshot Management API
 
-Use the [snapshot management (SM)]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore#take-snapshots) API to automate [taking snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore#take-snapshots). 
+Use the snapshot management (SM) API to automate [taking snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore#take-snapshots). 
 
 ---
 
