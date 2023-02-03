@@ -246,7 +246,7 @@ Locate the 4 commands in the Dockerfile directory, and select them all.
 1. Set the memory size to at least 1024MB.
 
 
-*(Optional):* If you are using Amazon SES, you need to set the following user permissions:
+1. *(Optional):* If you are using Amazon SES, you need to set the following user permissions:
 
 ```json
 {
@@ -259,10 +259,10 @@ Locate the 4 commands in the Dockerfile directory, and select them all.
         }
 ```
 
-Next, test the function either by providing fixed values or variable values in a JSON file.
+1. *(Optional):* Next, test the function either by providing fixed values or variable values in a JSON file.
 
-If the function contains fixed values, such as email address you do not need a JSON file.
-If the function takes a variable key-pair value, then you need to specify the values in a JSON file.
+- If the function contains fixed values, such as email address you do not need a JSON file. You can specify an environment variable in AWS Lambda.
+- If the function takes a variable key-pair value, then you need to specify the values in a JSON file.
 {: .note }
 
  The following example shows fixed values provided for the sender and recipient email addresses:
@@ -283,7 +283,7 @@ In **Select container image**, select the container you created from the list, a
 
 In **Architecture**, choose x86_64.
 
-### Step 6: Add the trigger to initiate a report request
+### Step 6: Add the trigger to start the AWS Lambda function
 
 Set the trigger to start running the report.
 
@@ -306,7 +306,7 @@ You can use any of the following arguments with the `opensearch-reporting-cli` t
 :--------------------- | :--- | :--- |
 `-u`, `--url` | The URL for the visualization. | Obtain from OpenSearch Dashboards > Visualize > Share > Permalinks > Copy link. | OPENSEARCH_URL
 `-a`, `--auth` | The authentication type for the report. | You can specify either Basic `basic`, Cognito `cognito`, SAML `saml`, or No Auth `none`. If no value is specified, the Reporting CLI tool defaults to no authentication, type `none`. Basic, Cognito, and SAML require credentials with the `-c` flag. | N/A
-`-c`, `--credentials` | The OpenSearch login credentials. | Enter your username and password separated by a colon. For example, username:password. Required for Cognito and SAML authentication types. | OPENSEARCH_USERNAME and OPENSEARCH_PASSWORD
+`-c`, `--credentials` | The OpenSearch login credentials. | Enter your username and password separated by a colon. For example, username:password. Required for Basic, Cognito, and SAML authentication types. | OPENSEARCH_USERNAME and OPENSEARCH_PASSWORD
 `-t`, `--tenant` | The tenants in OpenSearch Dashboards. | The default tenant is private.| N/A
 `-f`, `--format` | The file format for the report. | Can be either `pdf`, `png`, or `csv`. The default is `pdf`.| N/A
 `-w`, `--width` | The window width in pixels for the report. | Default is `1680`.| N/A
