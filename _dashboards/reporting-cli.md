@@ -137,7 +137,9 @@ In the crontab editor, enter the report request. For example, the following exam
 
 ## Using AWS Lambda
 
-You can use AWS Lambda with the Reporting CLI tool.
+You can use AWS Lambda with the Reporting CLI tool to specify an AWS Lambda function to trigger the report generation.
+
+This requires that you use an AM64 system.
 
 ### Prerequisites
 
@@ -146,7 +148,7 @@ To use the Reporting CLI with AWS Lambda, you need to do the following prelimina
 - Get an AWS account. For instructions, see [Creating an AWS account](https://docs.aws.amazon.com/accounts/latest/reference/manage-acct-creating.html) in the AWS Account Management reference guide.
 - Get a Dockerfile to assemble an image. For Docker instructions, see [Dockerfile reference](https://docs.docker.com/engine/reference/builder/).
 - Set up an Amazon Elastic Container Registry (ECR). For instructions, see [Getting started with Amazon ECR using the AWS Management Console](https://docs.aws.amazon.com/AmazonECR/latest/userguide/getting-started-console.html).
-- Use an AM64 system
+
 
 ### Step 1: Create a container image with a Dockerfile
 
