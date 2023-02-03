@@ -7,4 +7,4 @@ nav_order: 20
 
 # Managing Data Prepper
 
-You can perform administrator functions for Data Prepper, including basic configuration, interacting with core APIs, Log4j configuration, monitoring. You can also use Peer Forwarder as an HTTP service to peer forward an `event` between Data Prepper nodes for aggregation.
+You can perform administrator functions for Data Prepper, including system configuration, interacting with core APIs, Log4j configuration, monitoring. You can set up Peer Forwarder to coordinate multiple Data Prepper nodes when using stateful aggregation. 
