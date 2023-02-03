@@ -41,7 +41,7 @@ Field | Type | Description
 `triggers` | Array | Trigger settings for alerts.
 `triggers.ids` | Array | A list of rule IDs that become part of the trigger condition.
 `triggers.tags` | Array | Tags are specified in a security rule. Tags can then be selected and applied to the alert trigger to focus the trigger conditions for alerts. See an example of how tags are used in a Sigma rule in Sigma's [Rule Creation Guide](https://github.com/SigmaHQ/sigma/wiki/Rule-Creation-Guide#tags).
-`triggers.id` | String | The unique ID for the trigger. User generated.
+`triggers.id` | String | The unique ID for the trigger.
 `triggers.sev_levels` | Array | Sigma rule severity levels: `informational`; `low`; `medium`; `high`; `criticial`. See [Level](https://github.com/SigmaHQ/sigma/wiki/Rule-Creation-Guide#level) in the Sigma Rule Creation Guide.
 `triggers.name` | String | The name of the trigger. Name should only consist of upper and lowercase letters, numbers 0-9, hyphens, spaces, and underscores. Use between 5 and 50 characters. Required.
 `triggers.severity` | Integer | Severity level for the trigger expressed as an integer: 5 = lowest; 4 = low; 3 = medium; 2 = high; 1 = highest. Trigger severity is part of the alert definition.
@@ -133,6 +133,7 @@ POST _plugins/_security_analytics/detectors
   "name": "nbReFCjlfn"
 }
 ```
+{% include copy.html %}
 
 ### Sample response
 
@@ -264,9 +265,13 @@ PUT /_plugins/_security_analytics/detectors/J1RX1IMByX0LvTiGTddR
         "indices": [
           "windows"
         ],
-        "rules": [
+        "custom_rules": [],
+        "pre_packaged_rules": [
           {
-            "id": "46"
+            "id": "73a883d0-0348-4be4-a8d8-51031c2564f8"
+          },
+          {
+            "id": "1a4bd6e3-4c6e-405d-a9a3-53a116e341d4"
           }
         ]
       }
@@ -286,6 +291,7 @@ PUT /_plugins/_security_analytics/detectors/J1RX1IMByX0LvTiGTddR
   ]
 }
 ```
+{% include copy.html %}
 
 ### Sample response
 
@@ -341,8 +347,9 @@ This API uses the detector ID to specify and delete a detector.
 ### Sample request
 
 ```json
-DELETE /_plugins/_security_analytics/detectors/IJAXz4QBrmVplM4JYxx_
+DELETE /_plugins/_security_analytics/detectors/<detector Id>
 ```
+{% include copy-curl.html %}
 
 ### Sample response
 
@@ -361,44 +368,45 @@ The Get Detector API retrieves the detector details. Use the detector ID in the 
 ### Sample request
 
 ```json
-GET /_plugins/_security_analytics/detectors/MFRg1IMByX0LvTiGHtcN
+GET /_plugins/_security_analytics/detectors/<detector Id>
 ```
+{% include copy-curl.html %}
 
 ### Sample response
 
 ```json
 {
-    "_id": "MFRg1IMByX0LvTiGHtcN",
-    "_version": 1,
-    "detector": {
-        "name": "windows_detector",
-        "detector_type": "windows",
-        "enabled": true,
-        "schedule": {
-            "period": {
-                "interval": 1,
-                "unit": "MINUTES"
+  "_id" : "x-dwFIYBT6_n8WeuQjo4",
+  "_version" : 1,
+  "detector" : {
+    "name" : "DetectorTest1",
+    "detector_type" : "windows",
+    "enabled" : true,
+    "schedule" : {
+      "period" : {
+        "interval" : 1,
+        "unit" : "MINUTES"
+      }
+    },
+    "inputs" : [
+      {
+        "detector_input" : {
+          "description" : "Test and delete",
+          "indices" : [
+            "windows1"
+          ],
+          "custom_rules" : [ ],
+          "pre_packaged_rules" : [
+            {
+              "id" : "847def9e-924d-4e90-b7c4-5f581395a2b4"
             }
-        },
-        "inputs": [
-          {
-            "detector_input": {
-              "description": "windows detector for security analytics",
-              "indices": [
-                "windows"
-              ],
-              "custom_rules" : [ ],
-              "pre_packaged_rules" : [
-                {
-                  "id" : "1a4bd6e3-4c6e-405d-a9a3-53a116e341d4"
-                }
-              ]
-            }
-          }
-        ],
-        "last_update_time": "2022-10-14T02:43:11.693Z",
-        "enabled_time": "2022-10-14T02:43:11.693Z"
-    }
+          ]
+        }
+      }
+    ],
+    "last_update_time" : "2023-02-02T23:22:26.454Z",
+    "enabled_time" : "2023-02-02T23:22:26.454Z"
+  }
 }
 ```
 
@@ -428,6 +436,7 @@ POST /_plugins/_security_analytics/detectors/_search
     }
 }
 ```
+{% include copy-curl.html %}
 
 **Detector name**
 ```json
@@ -440,7 +449,7 @@ POST /_plugins/_security_analytics/detectors/_search
       "query": {
         "bool": {
           "must": [
-            { "match": {"detector.name": "windows_detector"} }
+            { "match": {"detector.name": "DetectorTest1"} }
           ]
         }
       }
@@ -448,76 +457,123 @@ POST /_plugins/_security_analytics/detectors/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 ### Sample response
 
 ```json
 {
-    "took": 2,
-    "timed_out": false,
-    "_shards": {
-        "total": 1,
-        "successful": 1,
-        "skipped": 0,
-        "failed": 0
+  "took" : 0,
+  "timed_out" : false,
+  "_shards" : {
+    "total" : 1,
+    "successful" : 1,
+    "skipped" : 0,
+    "failed" : 0
+  },
+  "hits" : {
+    "total" : {
+      "value" : 1,
+      "relation" : "eq"
     },
-    "hits": {
-        "total": {
-            "value": 1,
-            "relation": "eq"
-        },
-        "max_score": 1.0,
-        "hits": [
-            {
-                "_index": ".opensearch-detectors-config",
-                "_id": "MFRg1IMByX0LvTiGHtcN",
-                "_version": 1,
-                "_seq_no": 6,
-                "_primary_term": 1,
-                "_score": 1.0,
-                "_source": {
-                    "type": "detector",
-                    "name": "windows_detector",
-                    "detector_type": "WINDOWS",
-                    "enabled": true,
-                    "enabled_time": 1665715391693,
-                    "schedule": {
-                        "period": {
-                            "interval": 1,
-                            "unit": "MINUTES"
-                        }
-                    },
-                    "inputs": [
-                        {
-                            "detector_input": {
-                                "description": "windows detector for security analytics",
-                                "indices": [
-                                    "windows"
-                                ],
-                                "rules": []
-                            }
-                        }
-                    ],
-                    "triggers": [
-                        {
-                            "id": "fyAy1IMBK2A1DZyOuW_b",
-                            "name": "test-trigger",
-                            "types": [
-                                "windows"
-                            ],
-                            "sev_levels": [],
-                            "tags": [],
-                            "actions": []
-                        }
-                    ],
-                    "last_update_time": 1665715391693,
-                    "monitor_id": [
-                        "LlRf1IMByX0LvTiGzdeX"
-                    ]
-                }
+    "max_score" : 3.671739,
+    "hits" : [
+      {
+        "_index" : ".opensearch-sap-detectors-config",
+        "_id" : "x-dwFIYBT6_n8WeuQjo4",
+        "_version" : 1,
+        "_seq_no" : 76,
+        "_primary_term" : 17,
+        "_score" : 3.671739,
+        "_source" : {
+          "type" : "detector",
+          "name" : "DetectorTest1",
+          "detector_type" : "windows",
+          "enabled" : true,
+          "enabled_time" : 1675380146454,
+          "schedule" : {
+            "period" : {
+              "interval" : 1,
+              "unit" : "MINUTES"
             }
-        ]
-    }
+          },
+          "inputs" : [
+            {
+              "detector_input" : {
+                "description" : "Test and delete",
+                "indices" : [
+                  "windows1"
+                ],
+                "custom_rules" : [ ],
+                "pre_packaged_rules" : [
+                  {
+                    "id" : "847def9e-924d-4e90-b7c4-5f581395a2b4"
+                  }
+                ]
+              }
+            }
+          ],
+          "triggers" : [
+            {
+              "id" : "w-dwFIYBT6_n8WeuQToW",
+              "name" : "trigger 1",
+              "severity" : "1",
+              "types" : [
+                "windows"
+              ],
+              "ids" : [
+                "847def9e-924d-4e90-b7c4-5f581395a2b4"
+              ],
+              "sev_levels" : [
+                "critical"
+              ],
+              "tags" : [
+                "attack.t1003.002"
+              ],
+              "actions" : [
+                {
+                  "id" : "",
+                  "name" : "Triggered alert condition:  - Severity: 1 (Highest) - Threat detector: DetectorTest1",
+                  "destination_id" : "",
+                  "message_template" : {
+                    "source" : """Triggered alert condition: 
+Severity: 1 (Highest)
+Threat detector: DetectorTest1
+Description: Test and delete
+Detector data sources:
+	windows1""",
+                    "lang" : "mustache"
+                  },
+                  "throttle_enabled" : false,
+                  "subject_template" : {
+                    "source" : "Triggered alert condition:  - Severity: 1 (Highest) - Threat detector: DetectorTest1",
+                    "lang" : "mustache"
+                  },
+                  "throttle" : {
+                    "value" : 10,
+                    "unit" : "MINUTES"
+                  }
+                }
+              ]
+            }
+          ],
+          "last_update_time" : 1675380146454,
+          "monitor_id" : [
+            "xOdwFIYBT6_n8WeuQToa"
+          ],
+          "bucket_monitor_id_rule_id" : {
+            "-1" : "xOdwFIYBT6_n8WeuQToa"
+          },
+          "rule_topic_index" : ".opensearch-sap-windows-detectors-queries",
+          "alert_index" : ".opensearch-sap-windows-alerts",
+          "alert_history_index" : ".opensearch-sap-windows-alerts-history",
+          "alert_history_index_pattern" : "<.opensearch-sap-windows-alerts-history-{now/d}-1>",
+          "findings_index" : ".opensearch-sap-windows-findings",
+          "findings_index_pattern" : "<.opensearch-sap-windows-findings-{now/d}-1>"
+        }
+      }
+    ]
+  }
 }
 ```
 
