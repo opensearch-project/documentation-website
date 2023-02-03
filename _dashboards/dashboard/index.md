@@ -1,15 +1,13 @@
 ---
 layout: default
-title: Dashboard
+title: Creating dashboards
 nav_order: 5
 has_children: true
 ---
 
-# Dashboard
+# Creating dashboards
 
-A dashboard condenses multiple data visualizations into a single view, allowing you to visualize and review data at a glance while giving you different views into your data.
-
-With Dashboard you can:
+A dashboard combines multiple data visualizations into a single view. With the **Dashboard** application you can:
 
 - Get started with pre-built panels and dashboards and customize display properties to create the dashboard you need.
 - Analyze, monitor, and alarm on metrics, logs, and traces across multiple data sources.
@@ -17,5 +15,18 @@ With Dashboard you can:
 
 ![Single-view dashboard in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/images/dashboards/dashboard-index.png)
 
-For an overview of data visualizations in Dashboards, see [Visualize]({{site.url}}{{site.baseurl}}/dashboards/visualize/index/).
+To learn about data visualizations in Dashboards, see [Building data visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/).
+
+## Try it: Creating your first dashboard
+
+In this tutorial you'll learn the basics of creating a dashboard using the **Dashboard** application and OpenSearch sample log data. You'll learn to query indexed data, filter query results to highlight key metrics, build visualizations using the data, and incorporate the visualizations into the dashboard.
+
+Before you begin, make sure you've installed OpenSearch and OpenSearch Dashboards and that you're connected to Dashboards at [http://localhost:5601](http://localhost:5601). The username and password are `admin`.
 {: .note}
+
+To create a dashboard:
+
+1. From the navigation panel, select **Dashboard**.
+1. From the **Dashboards** window, select **Create Dashboard** and then **Add an existing**.
+1. From the **Add panels** window, select **Create new** and **Visualization**. 
+1. 
