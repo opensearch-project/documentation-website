@@ -14,6 +14,10 @@ OpenSearch nodes and indexes are backwards-compatible by one major version. That
 
 The following table can be used as a reference for Lucene versions running in OpenSearch 1.0 and later and [ElasticSearch](https://www.elastic.co/) 6.8 and later.
 
+{% comment %}
+The following table needs some love. There's an issue with the CSS (I think) that's not drawing a right border for tr:last-child
+{% endcomment %}
+
 <table>
     <tr>
         <th>Lucene Version</th>
