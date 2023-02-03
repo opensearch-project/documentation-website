@@ -23,21 +23,21 @@ metricTags | No | Map | Key-value pairs as common metric tags to metric registri
 authentication | No | Object | Authentication configuration. Valid option is `http_basic` with `username` and `password` properties. If not defined, the server does not perform authentication.
 processorShutdownTimeout | No | Duration | Time given to processors to clear any in-flight data and gracefully shutdown. Default is 30s.
 sinkShutdownTimeout | No | Duration | Time given to sinks to clear any in-flight data and gracefully shutdown. Default is 30s.
-peer_forwarder | No | Object | Peer forwarder configurations. See [Peer forwarder options](#peer-forwarder-options) for more details.
+peer_forwarder | No | Object | Peer Forwarder configurations. See [Peer Forwarder options](#peer-forwarder-options) for more details.
 
-### Peer forwarder options
+### Peer Forwarder options
 
-The following section details various configuration options for peer forwarder.
+The following section details various configuration options for Peer Forwarder.
 
-#### General options for peer forwarder
+#### General options for Peer Forwarder
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
-port | No | Integer | The port number peer forwarder server is running on. Valid options are between 0 and 65535. Defaults is 4994.
-request_timeout | No | Integer | Request timeout in milliseconds for peer forwarder HTTP server. Default is 10000.
-server_thread_count | No | Integer | Number of threads used by peer forwarder server. Default is 200.
-client_thread_count | No | Integer | Number of threads used by peer forwarder client. Default is 200.
-max_connection_count | No | Integer | Maximum number of open connections for peer forwarder server. Default is 500.
+port | No | Integer | The port number Peer Forwarder server is running on. Valid options are between 0 and 65535. Defaults is 4994.
+request_timeout | No | Integer | Request timeout in milliseconds for Peer Forwarder HTTP server. Default is 10000.
+server_thread_count | No | Integer | Number of threads used by Peer Forwarder server. Default is 200.
+client_thread_count | No | Integer | Number of threads used by Peer Forwarder client. Default is 200.
+max_connection_count | No | Integer | Maximum number of open connections for Peer Forwarder server. Default is 500.
 max_pending_requests | No | Integer | Maximum number of allowed tasks in ScheduledThreadPool work queue. Default is 1024.
 discovery_mode | No | String | Peer discovery mode to use. Valid options are `local_node`, `static`, `dns`, or `aws_cloud_map`. Defaults to `local_node`, which processes events locally.
 static_endpoints | Conditionally | List | A list containing endpoints of all Data Prepper instances. Required if `discovery_mode` is set to static.
@@ -48,9 +48,9 @@ aws_cloud_map_query_parameters | No | Map | Key-value pairs to filter the result
 buffer_size | No | Integer | Max number of unchecked records the buffer accepts. Number of unchecked records is the sum of the number of records written into the buffer and the num of in-flight records not yet checked by the Checkpointing API. Default is 512.
 batch_size | No | Integer | Max number of records the buffer returns on read. Default is 48.
 aws_region | Conditionally | String | AWS region to use ACM, S3 or AWS Cloud Map. Required if `use_acm_certificate_for_ssl` is set to true or `ssl_certificate_file` and `ssl_key_file` is AWS S3 path or `discovery_mode` is set to `aws_cloud_map`.
-drain_timeout | No | Duration | Wait time for the peer forwarder to complete processing data before shutdown. Default is 10s.
+drain_timeout | No | Duration | Wait time for the Peer Forwarder to complete processing data before shutdown. Default is 10s.
 
-#### TLS/SSL options for peer forwarder
+#### TLS/SSL options for Peer Forwarder
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
@@ -65,7 +65,7 @@ acm_private_key_password | No | String | ACM private key password that decrypts 
 acm_certificate_timeout_millis | No | Integer | Timeout in milliseconds for ACM to get certificates. Default is 120000.
 aws_region | Conditionally | String | AWS region to use ACM, S3 or AWS Cloud Map. Required if `use_acm_certificate_for_ssl` is set to true or `ssl_certificate_file` and `ssl_key_file` is AWS S3 path or `discovery_mode` is set to `aws_cloud_map`.
 
-#### Authentication options for peer forwarder
+#### Authentication options for Peer Forwarder
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---

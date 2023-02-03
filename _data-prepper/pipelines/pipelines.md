@@ -300,13 +300,13 @@ docker run --name data-prepper \
     opensearchproject/data-prepper:latest
 ```
 
-## Configure the peer forwarder
+## Configure Peer Forwarder
 
-Data Prepper provides an HTTP service to forward Events between Data Prepper nodes for aggregation. This is required for operating Data Prepper in a clustered deployment. Currently, peer forwarding is supported in `aggregate`, `service_map_stateful`, and `otel_trace_raw` processors. Peer forwarder groups events based on the identification keys provided by the processors. For `service_map_stateful` and `otel_trace_raw` it's `traceId` by default and can not be configured. For `aggregate` processor, it is configurable using `identification_keys` option. 
+Data Prepper provides an HTTP service to forward Events between Data Prepper nodes for aggregation. This is required for operating Data Prepper in a clustered deployment. Currently, peer forwarding is supported in `aggregate`, `service_map_stateful`, and `otel_trace_raw` processors. Peer Forwarder groups events based on the identification keys provided by the processors. For `service_map_stateful` and `otel_trace_raw` it's `traceId` by default and can not be configured. For `aggregate` processor, it is configurable using `identification_keys` option. 
 
-Peer forwarder supports peer discovery through one of three options: a static list, a DNS record lookup , or AWS Cloud Map. This option can be configured using `discovery_mode` option. Peer forwarder also supports SSL for verification and encrytion, and mTLS for mutual authentication in peer forwarding service.
+Peer Forwarder supports peer discovery through one of three options: a static list, a DNS record lookup , or AWS Cloud Map. This option can be configured using `discovery_mode` option. Peer Forwarder also supports SSL for verification and encrytion, and mTLS for mutual authentication in peer forwarding service.
 
-To configure the peer forwarder, add configuration options to `data-prepper-config.yaml` mentioned in the previous [Configure the Data Prepper server](#configure-the-data-prepper-server) section:
+To configure Peer Forwarder, add configuration options to `data-prepper-config.yaml` mentioned in the previous [Configure the Data Prepper server](#configure-the-data-prepper-server) section:
 
 ```yml
 peer_forwarder:
