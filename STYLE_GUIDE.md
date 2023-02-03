@@ -183,17 +183,17 @@ The following table lists acronyms that you don't need to spell out.
 ### Lists
 
 The following guidelines apply to all list types:
-     - Make lists parallel in content and structure. Don’t mix single words with phrases, don’t start some phrases with a noun and others with a verb, and don’t mix verb forms.
-     - Present the items in alphabetical order if the order of items is arbitrary.
-     - Capitalize the ﬁrst letter of the ﬁrst word of each list item.
-     - If the list is simple, you don’t need end punctuation for the list items.
-     - If the list has a mixture of phrases and sentences, punctuate each list item.
-     - Punctuate each list item with a period if a list item has more than one sentence.
-     - Punctuate list items consistently. If at least one item in a list requires a period, use a period for all items in that list.
-     - Introductory sentences are required for lists.
-     - Introductory sentences should be complete sentences.
-     - Introductory sentences should end with a colon.
-     - Don’t use semicolons, commas, or conjunctions (like and or or) at the end of list items.
+- Make lists parallel in content and structure. Don’t mix single words with phrases, don’t start some phrases with a noun and others with a verb, and don’t mix verb forms.
+- Present the items in alphabetical order if the order of items is arbitrary.
+- Capitalize the ﬁrst letter of the ﬁrst word of each list item.
+- If the list is simple, you don’t need end punctuation for the list items.
+- If the list has a mixture of phrases and sentences, punctuate each list item.
+- Punctuate each list item with a period if a list item has more than one sentence.
+- Punctuate list items consistently. If at least one item in a list requires a period, use a period for all items in that list.
+- Introductory sentences are required for lists.
+- Introductory sentences should be complete sentences.
+- Introductory sentences should end with a colon.
+- Don’t use semicolons, commas, or conjunctions (like and or or) at the end of list items.
 
 ### Numbers and measurement
 
