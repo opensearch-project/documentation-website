@@ -1,11 +1,7 @@
 ---
 layout: default
 title: Getting started
-<<<<<<< HEAD:_data-prepper/get-started.md
-nav_order: 10
-=======
 nav_order: 5
->>>>>>> main:_data-prepper/getting-started.md
 redirect_from:
   - /clients/data-prepper/get-started/
 ---
