@@ -128,7 +128,7 @@ img {
   border: 1px solid $grey-lt-300;
 }
 
-// Note, tip, and warning blocks
+// Note, tip, important, and warning blocks
 %callout {
   border: 1px solid $grey-lt-300;
   border-radius: 5px;
@@ -145,6 +145,11 @@ img {
 .tip {
   @extend %callout;
   border-left: 5px solid $green-100;
+}
+
+.important {
+  @extend %callout;
+  border-left: 5px solid $yellow-000;
 }
 
 .warning {
