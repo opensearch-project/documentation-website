@@ -246,8 +246,10 @@ You need to get several commands from the AWS EC2 Console to run within the Dock
 
 ### Step 4: Create a lambda function with the container image
 
-1. Select the container image that you created in step 2, and select **architecture** x86_64.
-
+1. In **Select container image**, select the container `opensearch-reporting-cli` from the list, and then choose **Select image**.
+1. Specify a name for the function.
+1. In **Architecture**, choose **x86_64**.
+1. Choose **Create function**.
 1. Go to **Lambda function > Configuration > General configuration> Edit timeout** and set the timeout in lambda to 5 minutes.
 1. Set the memory size to at least 1024MB.
 1. Next, test the function either by providing fixed values or variable values in a JSON file.
@@ -268,14 +270,9 @@ You need to get several commands from the AWS EC2 Console to run within the Dock
 }
 ```
 
-### Step 5: Select the container image
 
-1. In **Select container image**, select the container `opensearch-reporting-cli` from the list, and then choose **Select image**.
-1. Specify a name for the function.
-1. In **Architecture**, choose **x86_64**.
-1. Choose **Create function**.
 
-### Step 6: Add the trigger to start the AWS Lambda function
+### Step 5: Add the trigger to start the AWS Lambda function
 
 Set the trigger to start running the report. AWS Lambda can use any AWS service as a trigger, such as SNS, S3, or an AWS CloudWatch EventBridge.
 
@@ -283,7 +280,7 @@ Set the trigger to start running the report. AWS Lambda can use any AWS service 
 1. Select a trigger from the list. For example, you can set an AWS CloudWatch Event. To learn more about Amazon ECR events you can schedule, see [Sample events from Amazon ECR](https://docs.aws.amazon.com/AmazonECR/latest/userguide/ecr-eventbridge.html#ecr-eventbridge-bus).
 1. Choose **Test** to initiate the function.
 
-### (Optional) Step 7: Add the role permission for Amazon SES
+### (Optional) Step 6: Add the role permission for Amazon SES
 
 1. Select **Configuration** and choose **Excecution role**.
 1. In **Summary**, choose **Permissions**.
