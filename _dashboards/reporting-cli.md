@@ -106,7 +106,7 @@ You can run reports automatically by setting up a cron job. OpenSearch Reporting
 
 ### Prerequisites
 
-You need a machine with cron installed and root access privileges.
+You need a machine with cron installed.
 
 ### Step 1: Install the reporting CLI
 
@@ -133,25 +133,23 @@ In the crontab editor, enter the report request. For example, the following exam
 
 You can use AWS Lambda with the Reporting CLI tool to specify an AWS Lambda function to trigger the report generation.
 
-This requires that you use an AM64 system and Docker.
+This requires that you use an AMD64 system and Docker.
 
 ### Prerequisites
 
 To use the Reporting CLI with AWS Lambda, you need to do the following preliminary steps.
 
 - Get an AWS account. For instructions, see [Creating an AWS account](https://docs.aws.amazon.com/accounts/latest/reference/manage-acct-creating.html) in the AWS Account Management reference guide.
-- Get a Dockerfile to assemble an image. For Docker instructions, see [Dockerfile reference](https://docs.docker.com/engine/reference/builder/).
 - Set up an Amazon Elastic Container Registry (ECR). For instructions, see [Getting started with Amazon ECR using the AWS Management Console](https://docs.aws.amazon.com/AmazonECR/latest/userguide/getting-started-console.html).
 
 
 ### Step 1: Create a container image with a Dockerfile
 
-You need to assemble the image by running a Dockerfile. When you run the Dockerfile, it downloads the OpenSearch artifact required to use the Reporting CLI.
+You need to assemble the image by running a Dockerfile. When you run the Dockerfile, it downloads the OpenSearch artifact required to use the Reporting CLI. To learn more about Dockerfiles, see [Dockerfile reference](https://docs.docker.com/engine/reference/builder/).
 
 Copy the following sample configurations into a Dockerfile.
 
 ```dockerfile
-
 # Define function directory
 ARG FUNCTION_DIR="/function"
 
@@ -219,40 +217,35 @@ docker build -t opensearch-reporting-cli .
 
 ### Step 2: Create a private repository with Amazon ECR
 
-Follow the instructions in the Amazon ECR user guide to create a repository with the name `opensearch-reporting-cli`. For instructions, see [Getting started with Amazon ECR using the AWS Management Console](https://docs.aws.amazon.com/AmazonECR/latest/userguide/getting-started-console.html).
+You need to follow the instructions to create an image repository, see [Getting started with Amazon ECR using the AWS Management Console](https://docs.aws.amazon.com/AmazonECR/latest/userguide/getting-started-console.html).
 
-In addition to the Amazon EC2 instructions, you need to make the following adjustments for the Reporting CLI to function properly:
+Give your repository the name `opensearch-reporting-cli`.
 
-Navigate to the test function **Configuration** tab to modify two required settings.
-- Make sure to set **Timeout** to at least 5 minutes to allow the reporting CLI to generate the report.
-- Change the setting for **Ephemeral storage** to 1024MB. The default setting is not a sufficient storage amount.
-{: .note }
+In addition to the Amazon EC2 instructions, you need to make several adjustments for the Reporting CLI to function properly.
 
 ### Step 3: Run the push commands
 
-You need to get several commands from the AWS EC2 Console to run within the Dockerfile directory, as shown in the following image:
-
-![Amazon ECR console view push commands]({{site.url}}{{site.baseurl}}/images/dashboards/push-commands.png)
-
-1. In the AWS ECR console, go to **Repositories** and choose **opensearch-reporting-cli**.
+1. After you create your repository, select it from **Private repositories**.
 1. Choose **view push commands**.
 1. In **Push commands for opensearch-reporting-cli**, copy and run each command sequentially in the Dockerfile directory.
 
-If you run the push commands from a directory that does not contain the Dockerfile, you will get an error.
-{: .note }
+You need to get several commands from the AWS ECR Console to run within the Dockerfile directory. For more details about docker push commands, see [Pushing a Docker image](https://docs.aws.amazon.com/AmazonECR/latest/userguide/docker-push-ecr-image.html) in the Amazon ECR user guide.
 
 ### Step 4: Create a lambda function with the container image
 
-1. In **Select container image**, select the container `opensearch-reporting-cli` from the list, and then choose **Select image**.
-1. Specify a name for the function.
+1. In the AWS Console, select **Lambda**, and choose **Create a function**.
+1. In **Create a function**, choose **Container image** and give a name for the function.
+1. In **Container image URI**, choose **Browse images** and select `opensearch-reporting-cli` for the image repository.
+1. In **Images** select the image, and choose **Select image**.
 1. In **Architecture**, choose **x86_64**.
 1. Choose **Create function**.
-1. Go to **Lambda function > Configuration > General configuration> Edit timeout** and set the timeout in lambda to 5 minutes.
-1. Set the memory size to at least 1024MB.
-1. Next, test the function either by providing fixed values or variable values in a JSON file.
+1. Go to **Lambda function > Configuration > General configuration> Edit timeout** and set the timeout in lambda to 5 minutes to allow the reporting CLI to generate the report.
+1. Change the **Ephemeral storage** setting to 1024MB. The default setting is not a sufficient storage amount.
+
+1. Next, test the function either by providing values JSON format or by providing AWS Lambda environment variables.
 
 - If the function contains fixed values, such as email address you do not need a JSON file. You can specify an environment variable in AWS Lambda.
-- If the function takes a variable key-pair value, then you need to specify the values in a JSON file.
+- If the function takes a variable key-value pair, then you need to specify the values in the JSON with the same naming convention as command options, for example `--credentials`.
 {: .note }
 
  The following example shows fixed values provided for the sender and recipient email addresses:
@@ -266,8 +259,6 @@ If you run the push commands from a directory that does not contain the Dockerfi
   "subject": "Test lambda docker image"
 }
 ```
-
-
 
 ### Step 5: Add the trigger to start the AWS Lambda function
 
@@ -288,13 +279,13 @@ The following example provides the resource ARN for the send email action:
 
 ```json
 {
-            "Effect": "Allow",
-            "Action": [
-                "ses:SendEmail",
-                "ses:SendRawEmail"
+"Effect": "Allow",
+"Action": [
+      "ses:SendEmail",
+      "ses:SendRawEmail"
             ],
-            "Resource": "arn:aws:ses:us-west-2:840298398745:identity/username@amazon.com"
-        }
+"Resource": "arn:aws:ses:us-west-2:555555511111:identity/username@amazon.com"
+}
 ```
 
 ## Getting help
@@ -329,7 +320,7 @@ You can use any of the following arguments with the `opensearch-reporting-cli` t
 `--smtpusername` | The SMTP username.| For example, `SMTP_USERNAME`. | OPENSEARCH_SMTP_USERNAME
 `--smtppassword` | The SMTP password.| For example, `SMTP_PASSWORD`. | OPENSEARCH_SMTP_PASSWORD
 `--subject` | The email subject text encased in quotes. | Can be any string. The default is "This is an email containing your dashboard report". | OPENSEARCH_EMAIL_SUBJECT
---note | The email body, either a string or a path to a text file. | The default note is "Hi,\\nHere is the latest report!" | OPENSEARCH_EMAIL_NOTE
+`--note` | The email body, either a string or a path to a text file. | The default note is "Hi,\\nHere is the latest report!" | OPENSEARCH_EMAIL_NOTE
 `-h`, `--help` | Specifies to display the list of optional arguments from the command line. | N/A
 
 ## Using environment variables with the Reporting CLI
@@ -363,10 +354,10 @@ Upon success, the report will download to the current directory.
 
 To use Amazon SES as the email transport mechanism, the following prerequisites apply:
 
-- If a URL contains an exclamation point (!), then the history expansion needs to be disabled temporarily. The sender's email address must be verified by [Amazon SES](https://aws.amazon.com/ses/). The [AWS Command Line Interface (AWS CLI)](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html) is required to interact with Amazon SES. To configure basic settings used by the AWS CLI, see [Quick configuration with `aws configure`](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html#cli-configure-quickstart-config) in the AWS Command Line Interface user guide.
+- The sender's email address must be verified by [Amazon SES](https://aws.amazon.com/ses/). The [AWS Command Line Interface (AWS CLI)](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-welcome.html) is required to interact with Amazon SES. To configure basic settings used by the AWS CLI, see [Quick configuration with `aws configure`](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html#cli-configure-quickstart-config) in the AWS Command Line Interface user guide.
 - Amazon SES transport requires the `ses:SendRawEmail` role:
 
-```
+```json
 {
   "Statement": [
     {
@@ -406,7 +397,7 @@ You can choose to set options using either your *.env* file or the command line 
 
 To modify the body of your email, you can edit the *index.hbs* file.
 
-## Environment variable limitations
+## Limitations
 
 The following limitations apply to environment variable usage with the Reporting CLI:
 
