@@ -142,7 +142,6 @@ To use the Reporting CLI with AWS Lambda, you need to do the following prelimina
 - Get an AWS account. For instructions, see [Creating an AWS account](https://docs.aws.amazon.com/accounts/latest/reference/manage-acct-creating.html) in the AWS Account Management reference guide.
 - Set up an Amazon Elastic Container Registry (ECR). For instructions, see [Getting started with Amazon ECR using the AWS Management Console](https://docs.aws.amazon.com/AmazonECR/latest/userguide/getting-started-console.html).
 
-
 ### Step 1: Create a container image with a Dockerfile
 
 You need to assemble the image by running a Dockerfile. When you run the Dockerfile, it downloads the OpenSearch artifact required to use the Reporting CLI. To learn more about Dockerfiles, see [Dockerfile reference](https://docs.docker.com/engine/reference/builder/).
@@ -181,7 +180,7 @@ RUN tar -xzf opensearch-reporting-cli-1.0.0.tgz
 RUN mv package/* .
 RUN npm install && npm install aws-lambda-ric
 
-# Build Stage 2: Copy Build Stage 1 files in to Stage 2. Install chromium dependencies and chromium.
+# Build Stage 2: Copy Build Stage 1 files in to Stage 2. Install chrome, then remove chrome to keep the dependencies.
 FROM node:lts-slim
 # Include global arg in this stage of the build
 ARG FUNCTION_DIR
@@ -221,7 +220,7 @@ You need to follow the instructions to create an image repository, see [Getting 
 
 Give your repository the name `opensearch-reporting-cli`.
 
-In addition to the Amazon EC2 instructions, you need to make several adjustments for the Reporting CLI to function properly.
+In addition to the Amazon ECR instructions, you need to make several adjustments for the Reporting CLI to function properly.
 
 ### Step 3: Run the push commands
 
@@ -240,7 +239,7 @@ You need to get several commands from the AWS ECR Console to run within the Dock
 1. In **Architecture**, choose **x86_64**.
 1. Choose **Create function**.
 1. Go to **Lambda function > Configuration > General configuration> Edit timeout** and set the timeout in lambda to 5 minutes to allow the reporting CLI to generate the report.
-1. Change the **Ephemeral storage** setting to 1024MB. The default setting is not a sufficient storage amount.
+1. Change the **Ephemeral storage** setting to at least 1024MB. The default setting is not a sufficient storage amount.
 
 1. Next, test the function either by providing values JSON format or by providing AWS Lambda environment variables.
 
