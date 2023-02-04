@@ -29,9 +29,9 @@ GET _cluster/health
 GET _cluster/health/<index>
 ```
 
-## Query parameters
+## URL parameters
 
-The following table lists the available query parameters. All query parameters are optional.
+All cluster health parameters are optional.
 
 Parameter | Type | Description
 :--- | :--- | :---
@@ -47,17 +47,7 @@ wait_for_no_relocating_shards | Boolean | Whether to wait until there are no rel
 wait_for_no_initializing_shards | Boolean | Whether to wait until there are no initializing shards in the cluster. Default is false.
 wait_for_status | Enum | Wait until the cluster health reaches the specified status or better. Supported values are `green`, `yellow`, and `red`.
 
-#### Sample request
-
-The following sample request retrieves cluster health for all indexes in the cluster:
-
-```json
-GET _cluster/health
-```
-
-#### Sample response
-
-The response contains cluster health information:
+## Response
 
 ```json
 {
@@ -79,28 +69,6 @@ The response contains cluster health information:
   "active_shards_percent_as_number" : 100.0
 }
 ```
-
-## Response fields
-
-The following table lists all response fields.
-
-|Field |Data type |Description |
-|:---	|:---	|:---	|
-|cluster_name | String | The name of the cluster. |
-|status	| String | The cluster health status, which represents the state of shard allocation in the cluster. May be `green`, `yellow`, or `red`. |
-|number_of_nodes | Integer | The number of nodes in the cluster. |
-|number_of_data_nodes | Integer | The number of data nodes in the cluster. |
-|discovered_cluster_manager | Boolean | Specifies whether the cluster manager is discovered. |
-|active_primary_shards | Integer |  The number of active primary shards. |
-|active_shards | Integer | The total number of active shards, including primary and replica shards. |
-|relocating_shards | Integer | The number of relocating shards. |
-|initializing_shards | Integer | The number of intializing shards. |
-|unassigned_shards | Integer | The number of unassigned shards. |
-|delayed_unassigned_shards | Integer | The number of delayed unassigned shards. |
-|number_of_pending_tasks | Integer | The number of pending tasks in the cluster. |
-|number_of_in_flight_fetch | Integer | The number of unfinished fetches. |
-|task_max_waiting_in_queue_millis | Integer | The maximum wait time for all tasks waiting to be performed, in milliseconds. |
-|active_shards_percent_as_number | Double | The percentage of active shards in the cluster. |
 
 ## Required permissions
 
