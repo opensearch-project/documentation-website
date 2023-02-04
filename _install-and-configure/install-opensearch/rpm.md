@@ -18,7 +18,9 @@ Installing OpenSearch using RPM Package Manager (RPM) simplifies the process con
 Generally speaking, installing OpenSearch from the RPM distribution can be broken down into a few steps:
 
 1. **Download and install OpenSearch.**
-   - Install manually from an RPM package or from a YUM repository.
+   - Install manually from an RPM distribution or by creating a local YUM repository.
+1. **Configure important system settings.**
+   - These settings are applied to the host before modifying any OpenSearch files.
 1. **(Optional) Test OpenSearch.**
    - Confirm that OpenSearch is able to run before you apply any custom configuration.
    - This can be done without any security (no password, no certificates) or with a demo security configuration that can be applied by a packaged script.
@@ -40,16 +42,17 @@ This guide assumes that you are comfortable working from the Linux command line 
     sudo rpm --import https://artifacts.opensearch.org/publickeys/opensearch.pgp
     ```
 1. From the CLI, you can install the package with `rpm` or `yum`.
+   **x64**
    ```bash
    # Install the x64 package using yum.
    sudo yum install opensearch-{{site.opensearch_version}}-linux-x64.rpm
-
    # Install the x64 package using rpm.
    sudo rpm -ivh opensearch-{{site.opensearch_version}}-linux-x64.rpm
-
+   ```
+   **arm64**
+   ```bash
    # Install the arm64 package using yum.
    sudo yum install opensearch-{{site.opensearch_version}}-linux-x64.rpm
-
    # Install the arm64 package using rpm.
    sudo rpm -ivh opensearch-{{site.opensearch_version}}-linux-x64.rpm
    ```
@@ -66,7 +69,7 @@ This guide assumes that you are comfortable working from the Linux command line 
     sudo systemctl status opensearch
     ```
 
-### Install OpenSearch from a YUM repository
+### Install OpenSearch from a local YUM repository
 
 YUM, the primary package management tool for Red Hat–based operating systems, allows you to download and install the RPM package from the YUM repository. 
 
@@ -74,14 +77,14 @@ YUM, the primary package management tool for Red Hat–based operating systems, 
    ```bash
    sudo curl -SL https://artifacts.opensearch.org/releases/bundle/opensearch/{{major_version_mask}}/opensearch-{{major_version_mask}}.repo -o /etc/yum.repos.d/opensearch-{{major_version_mask}}.repo
    ```
-1. Clean your YUM cache to ensure a smooth installation:
-   ```bash
-   sudo yum clean all
-   ```
 1. Verify that the repository was created successfully.
     ```bash
     sudo yum repolist
     ```
+1. Clean your YUM cache to ensure a smooth installation:
+   ```bash
+   sudo yum clean all
+   ```
 1. With the repository file downloaded, list all available versions of OpenSearch:
    ```bash
    sudo yum list opensearch --showduplicates
@@ -109,7 +112,31 @@ YUM, the primary package management tool for Red Hat–based operating systems, 
     sudo systemctl status opensearch
     ```
 
-## Step 2: (Optional) Test OpenSearch
+## Step 2: Configure important system settings
+
+Before launching OpenSearch you should review some [important system settings]({{site.url}}{{site.baseurl}}/opensearch/install/important-settings/){:target='\_blank'}.
+1. Disable memory paging and swapping performance on the host to improve performance.
+   ```bash
+   sudo swapoff -a
+   ```
+1. Increase the number of memory maps available to OpenSearch.
+   ```bash
+   # Edit the sysctl config file
+   sudo vi /etc/sysctl.conf
+
+   # Add a line to define the desired value
+   # or change the value if the key exists,
+   # and then save your changes.
+   vm.max_map_count=262144
+
+   # Reload the kernel parameters using sysctl
+   sudo sysctl -p
+
+   # Verify that the change was applied by checking the value
+   cat /proc/sys/vm/max_map_count
+   ```
+
+## Step 3: (Optional) Test OpenSearch
 
 Before proceeding with any configuration, you should test your installation of OpenSearch. Otherwise, it can be difficult to determine whether future problems are due to installation issues or custom settings you applied after installation.
 
@@ -168,7 +195,7 @@ An OpenSearch node in its default configuration (with demo certificates and user
       hostname opensearch-sql                       2.1.0.0
       ```
 
-## Step 3: Set up OpenSearch in your environment
+## Step 4: Set up OpenSearch in your environment
 
 Users who do not have prior experience with OpenSearch may want a list of recommended settings in order to get started with the service. By default, OpenSearch is not bound to a network interface and cannot be reached by external hosts. Additionally, security settings are populated by default user names and passwords. The following recommendations will enable a user to bind OpenSearch to a network interface, create and sign TLS certificates, and configure basic authentication.
 
