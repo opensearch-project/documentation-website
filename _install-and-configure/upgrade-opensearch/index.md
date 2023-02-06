@@ -18,122 +18,6 @@ The following table can be used as a reference for Lucene versions running in Op
 The following table needs some love. There's an issue with the CSS (I think) that's not drawing a right border for tr:last-child
 {% endcomment %}
 
-<table>
-    <tr>
-        <th>Lucene Version</th>
-        <th>OpenSearch Version</th>
-        <th>ElasticSearch Version</th>
-    </tr>
-    <tr>
-        <td rowspan="2">9.4.2</td>
-        <td>2.5.0</td>
-        <td rowspan="2">8.6</td>
-    </tr>
-        <tr>
-        <td>2.4.1</td>
-    </tr>
-    <tr>
-        <td>9.4.1</td>
-        <td>2.4.0</td>
-        <td>-</td>
-    </tr>
-    <tr>
-        <td>9.4.0</td>
-        <td>-</td>
-        <td>8.5</td>
-    </tr>
-    <tr>
-        <td>9.3.0</td>
-        <td>2.3.0X2.2.x</td>
-        <td>8.4</td>
-    </tr>
-    <tr>
-        <td>9.2.0</td>
-        <td>2.1.0</td>
-        <td>8.3</td>
-    </tr>
-    <tr>
-        <td>9.1.0</td>
-        <td>2.0.x</td>
-        <td>8.2Oops</td>
-    </tr>
-    <tr>
-        <td>9.0.0</td>
-        <td>-</td>
-        <td>8.1X8.0</td>
-    </tr>
-    <tr>
-        <td>8.11.1</td>
-        <td>-</td>
-        <td>7.17</td>
-    </tr>
-    <tr>
-        <td>8.10.1</td>
-        <td>1.3.xX1.2.x</td>
-        <td>7.16</td>
-    </tr>
-    <tr>
-        <td>8.9.0</td>
-        <td>1.1.0</td>
-        <td>7.15X7.14</td>
-    </tr>
-    <tr>
-        <td>8.8.2</td>
-        <td>1.0.0</td>
-        <td>7.13</td>
-    </tr>
-    <tr>
-        <td>8.8.0</td>
-        <td>-</td>
-        <td>7.12</td>
-    </tr>
-    <tr>
-        <td>8.7.0</td>
-        <td>-</td>
-        <td>7.11X7.10</td>
-    </tr>
-    <tr>
-        <td>8.6.2</td>
-        <td>-</td>
-        <td>7.9</td>
-    </tr>
-    <tr>
-        <td>8.5.1</td>
-        <td>-</td>
-        <td>7.8X7.7</td>
-    </tr>
-    <tr>
-        <td>8.4.0</td>
-        <td>-</td>
-        <td>7.6</td>
-    </tr>
-    <tr>
-        <td>8.3.0</td>
-        <td>-</td>
-        <td>7.5</td>
-    </tr>
-    <tr>
-        <td>8.2.0</td>
-        <td>-</td>
-        <td>7.4</td>
-    </tr>
-    <tr>
-        <td>8.1.0</td>
-        <td>-</td>
-        <td>7.3</td>
-    </tr>
-    <tr>
-        <td>8.0.0</td>
-        <td>-</td>
-        <td>7.2X7.1</td>
-    </tr>
-    <tr>
-        <td>7.7.3</td>
-        <td>-</td>
-        <td>6.8</td>
-    </tr>
-</table>
-
 If your upgrade path spans more than a single major version, and you want to maintain existing indexes, then you will need to use the [Reindex]({{site.url}}{{site.baseurl}}/api-reference/document-apis/reindex/) API to make your indexes compatible with the target version of OpenSearch before upgrading. For example, if your cluster is currently running Elasticsearch 6.8 and you want to upgrade to OpenSearch 2.x, then you must first upgrade to OpenSearch 1.x, recreate your indexes using the [Reindex]({{site.url}}{{site.baseurl}}/api-reference/document-apis/reindex/) API, and finally upgrade to 2.x.
 
 ## Workflow considerations
@@ -190,3 +74,137 @@ OpenSearch nodes cannot join a cluster if the cluster manager is running a newer
 ### Cluster restart upgrade
 
 OpenSearch administrators might choose a restart upgrade if they aren't comfortable performing maintenance on a running cluster, if the cluster is being migrated to different infrastructure, or if they manage their cluster with [Docker Compose](https://github.com/docker/compose). During a rolling upgrade, only a single node is offline at any point in time. The cluster restart upgrade, however, involves stopping all nodes in the cluster, performing the upgrade, and starting the cluster back up.
+
+## Compatibility
+
+ADD TO ME! Here I'll add some commentary about what version compatibility considerations can be taken into account. Maybe another table or external link references would be good.
+
+### Lucene version reference
+
+If you plan to retain old indexes after the OpenSearch version upgrade, then you might need to reindex or reingest the data. Refer to the table below for Lucene versions across recent OpenSearch and Elasticsearch releases.
+
+<style>
+table {
+    border-collapse: collapse;
+}
+th {
+  background-color: #F5F7F7;
+}
+th,
+td {
+  text-align: left;
+  padding: 0.5em 1em;
+}
+</style>
+<table>
+    <tr>
+        <th>Lucene Version</th>
+        <th>OpenSearch Version</th>
+        <th>ElasticSearch Version</th>
+    </tr>
+    <tr>
+        <td>9.4.2</td>
+        <td>2.5.0<br>2.4.1</td>
+        <td>8.6</td>
+    </tr>
+    <tr>
+        <td>9.4.1</td>
+        <td>2.4.0</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td>9.4.0</td>
+        <td>-</td>
+        <td>8.5</td>
+    </tr>
+    <tr>
+        <td>9.3.0</td>
+        <td>2.3.0<br>2.2.x</td>
+        <td>8.4</td>
+    </tr>
+    <tr>
+        <td>9.2.0</td>
+        <td>2.1.0</td>
+        <td>8.3</td>
+    </tr>
+    <tr>
+        <td>9.1.0</td>
+        <td>2.0.x</td>
+        <td>8.2</td>
+    </tr>
+    <tr>
+        <td>9.0.0</td>
+        <td>-</td>
+        <td>8.1<br>8.0</td>
+    </tr>
+    <tr>
+        <td>8.11.1</td>
+        <td>-</td>
+        <td>7.17</td>
+    </tr>
+    <tr>
+        <td>8.10.1</td>
+        <td>1.3.x<br>1.2.x</td>
+        <td>7.16</td>
+    </tr>
+    <tr>
+        <td>8.9.0</td>
+        <td>1.1.0</td>
+        <td>7.15<br>7.14</td>
+    </tr>
+    <tr>
+        <td>8.8.2</td>
+        <td>1.0.0</td>
+        <td>7.13</td>
+    </tr>
+    <tr>
+        <td>8.8.0</td>
+        <td>-</td>
+        <td>7.12</td>
+    </tr>
+    <tr>
+        <td>8.7.0</td>
+        <td>-</td>
+        <td>7.11<br>7.10</td>
+    </tr>
+<!-- Commenting this section of the table out - is this valuable to readers or should we only go back to 1.0.0 / 7.10.2?   <tr>
+        <td>8.6.2</td>
+        <td>-</td>
+        <td>7.9</td>
+    </tr>
+    <tr>
+        <td>8.5.1</td>
+        <td>-</td>
+        <td>7.8<br>7.7</td>
+    </tr>
+    <tr>
+        <td>8.4.0</td>
+        <td>-</td>
+        <td>7.6</td>
+    </tr>
+    <tr>
+        <td>8.3.0</td>
+        <td>-</td>
+        <td>7.5</td>
+    </tr>
+    <tr>
+        <td>8.2.0</td>
+        <td>-</td>
+        <td>7.4</td>
+    </tr>
+    <tr>
+        <td>8.1.0</td>
+        <td>-</td>
+        <td>7.3</td>
+    </tr>
+    <tr>
+        <td>8.0.0</td>
+        <td>-</td>
+        <td>7.2X7.1</td>
+    </tr>
+    <tr>
+        <td>7.7.3</td>
+        <td>-</td>
+        <td>6.8</td>
+    </tr>-->
+</table>
