@@ -4,6 +4,8 @@ title: Cluster decommission
 nav_order: 30
 parent: Cluster APIs
 has_children: false
+redirect_from: 
+  - /api-reference/cluster-decommission/
 ---
 
 # Cluster decommission
