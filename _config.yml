@@ -5,10 +5,17 @@ baseurl: "/docs/latest" # the subpath of your site, e.g. /blog
 url: "https://opensearch.org" # the base hostname & protocol for your site, e.g. http://example.com
 permalink: /:path/
 
+<<<<<<< HEAD
 opensearch_version: 2.2.1
 opensearch_dashboards_version: 2.2.1
 opensearch_major_minor_version: 2.2
 lucene_version: 9_3_0
+=======
+opensearch_version: 2.5.0
+opensearch_dashboards_version: 2.5.0
+opensearch_major_minor_version: 2.5
+lucene_version: 9_4_1
+>>>>>>> 45834d6f (Once more... Managing, Monitoring, Tuning. (#2653))
 
 # Build settings
 markdown: kramdown
@@ -37,27 +44,46 @@ collections:
   opensearch:
     permalink: /:collection/:path/
     output: true
+  im-plugin:
+    permalink: /:collection/:path/
+    output: true
   dashboards:
+    permalink: /:collection/:path/
+    output: true
+  tuning-your-cluster:
     permalink: /:collection/:path/
     output: true
   security:
     permalink: /:collection/:path/
+<<<<<<< HEAD
+=======
+    output: true 
+  security-analytics:
+    permalink: /:collection/:path/
+>>>>>>> 45834d6f (Once more... Managing, Monitoring, Tuning. (#2653))
     output: true
   search-plugins:
     permalink: /:collection/:path/
-    output: true
-  im-plugin:
+    output: true 
+  ml-commons-plugin:
     permalink: /:collection/:path/
     output: true
-  replication-plugin:
+  neural-search-plugin:
+    permalink: /:collection/:path/
+    output: true   
+  tuning-your-cluster:
     permalink: /:collection/:path/
     output: true
-  observability-plugin:
+  monitoring-your-cluster:
+    permalink: /:collection/:path/
+    output: true
+  observing-your-data:
     permalink: /:collection/:path/
     output: true
   ml-commons-plugin:
     permalink: /:collection/:path/
     output: true
+<<<<<<< HEAD
   monitoring-plugins:
     permalink: /:collection/:path/
     output: true
@@ -65,6 +91,9 @@ collections:
     permalink: /:collection/:path/
     output: true
   job-scheduler-plugin:
+=======
+  neural-search-plugin:
+>>>>>>> 45834d6f (Once more... Managing, Monitoring, Tuning. (#2653))
     permalink: /:collection/:path/
     output: true
   clients:
@@ -94,35 +123,40 @@ just_the_docs:
     opensearch:
       name: OpenSearch
       nav_fold: true
+    im-plugin:
+      name: Managing Indexes
+      nav_fold: true
     dashboards:
       name: OpenSearch Dashboards
+      nav_fold: true
+    tuning-your-cluster:
+      name: Tuning your cluster
       nav_fold: true
     security:
       name: Security in OpenSearch
       nav_fold: true
     search-plugins:
-      name: Search plugins
-      nav_fold: true
-    im-plugin:
-      name: Index management plugin
-      nav_fold: true
-    replication-plugin:
-      name: Replication plugin
-      nav_fold: true
-    observability-plugin:
-      name: Observability plugin
+      name: Search 
       nav_fold: true
     ml-commons-plugin:
-      name: ML Commons plugin
+      name: Machine learning
       nav_fold: true
+<<<<<<< HEAD
     monitoring-plugins:
       name: Monitoring plugins
+=======
+    neural-search-plugin:
+      name: Neural Search 
       nav_fold: true
-    notifications-plugin:
-      name: Notifications plugin
+    tuning-your-cluster:
+      name: Tuning your cluster
+      nav_fold: true 
+    monitoring-your-cluster:
+      name: Monitoring your cluster
+>>>>>>> 45834d6f (Once more... Managing, Monitoring, Tuning. (#2653))
       nav_fold: true
-    job-scheduler-plugin:
-      name: Job Scheduler plugin
+    observing-your-data:
+      name: Observing your data
       nav_fold: true
     clients:
       name: Clients and tools
@@ -202,3 +236,7 @@ exclude:
   - vendor/gems/
   - vendor/ruby/
   - README.md
+<<<<<<< HEAD
+=======
+  - .idea
+>>>>>>> 45834d6f (Once more... Managing, Monitoring, Tuning. (#2653))
