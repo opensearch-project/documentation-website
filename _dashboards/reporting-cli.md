@@ -104,7 +104,7 @@ Upon success, the email will be sent to the specified email address with the CSV
 
 You can use the cron command-line utility to initiate a report request with the reporting CLI that runs periodically at any date or time interval. Follow the cron expression syntax to specify the date and time that precedes the command that you want to initiate.
 
-To learn about the cron expression syntax, see [cron](https://en.wikipedia.org/wiki/Cron.
+To learn about the cron expression syntax, see [cron](https://en.wikipedia.org/wiki/Cron).
 
 ### Prerequisite
 
