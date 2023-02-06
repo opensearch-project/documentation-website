@@ -1,19 +1,28 @@
 ---
 layout: default
+<<<<<<< HEAD:_dashboards/geojson-regionmaps.md
 title: Region map visualizations
 nav_order: 7
+=======
+title: Using coordinate and region maps
+parent: Building data visualizations
+has_children: true
+nav_order: 15
+redirect_from:
+  - /dashboards/geojson-regionmaps/
+>>>>>>> 65111760 ([DOC] Restructures Dashboards TOC (#2628)):_dashboards/visualize/geojson-regionmaps.md
 ---
 
-# Region map visualizations
+# Using coordinate and region maps
 
-OpenSearch Dashboards provides basic map tiles with a standard vector map that you can use to create your region map visualizations. You can configure the base map tiles using the Web Map Service (WMS) map server.
+OpenSearch has a standard set of GeoJSON files that provide a vector map with each region map. OpenSearch Dashboards also provides basic map tiles with a standard vector map to create region maps. You can configure the base map tiles using [Web Map Service (WMS)](https://www.ogc.org/standards/wms). For more information, see [Configuring WMS in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/maptiles/). 
 
-You can't configure a server to support user-defined vector map layers. However, you can configure your own GeoJSON file and upload it for this purpose.
+For air gapped environments, OpenSearch Dashboards provides a self-host maps server. For more information, see [Using the self-host maps server]({{site.url}}{{site.baseurl}}/dashboards/selfhost-maps-server/)
+
+While you can't configure a server to support user-defined vector map layers, you can configure your own GeoJSON file and upload it for this purpose. 
 {: .note}
 
-OpenSearch also has a standard set of GeoJSON files to provide a vector map with your regional maps.
-
-## Custom vector maps with GeoJSON
+## Customizing vector maps with GeoJSON
 
 If you have a specific locale that is not provided by OpenSearch Dashboards vector maps, such as a US county or US ZIP Code, you can create your own custom vector map with a GeoJSON file. To create a custom region map you would define a geographic shape such as a polygon with multiple coordinates. To learn more about the various geographic shapes that support a custom region map location, see [Geoshape field type]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-shape/).
 
@@ -26,7 +35,7 @@ You can use [geojson.io](https://geojson.io/#map=2/20.0/0.0) to extract GeoJSON 
 >   * OpenSearch Dashboards Maps [`dashboards-maps`](https://github.com/opensearch-project/dashboards-maps) front-end plugin
 >   * OpenSearch [`geospatial`](https://github.com/opensearch-project/geospatial) backend plugin
 {: .note}
-### Step 1: Create a region map visualization
+### Step 1: Creating a region map visualization
 
 To create your own custom vector map, upload a JSON file that contains GEO data for your customized regional maps. The JSON file contains vector layers for visualization.
 
@@ -41,18 +50,18 @@ Enter **Map name prefix** (for example, `usa-counties`). Your map will have the 
 1. Select the **Import file** button.
 Once the upload is successful, you will see a pop-up prompting you to refresh the map. Select the **Refresh** button. <img src="{{site.url}}{{site.baseurl}}/images/upload-success.png" alt="message upon a successful file upload" width="280"/>
 
-### Step 2: View the custom region map in OpenSearch Dashboards
+### Step 2: Viewing the custom region map in OpenSearch Dashboards
 
 After you upload a custom GeoJSON file, you need to set the vector map layer to custom, and select your vector map:
 
 1. From **Layer Options > Layer settings**, select **Custom vector map**.
 1. Under **Vector map**, select the name of the vector map that you just uploaded.
-1. *(Optional):* Under **Style settings**, increase **Border thickness** to see the borders more clearly.
-1. Select the **Update** button.
-1. View your region map in the Dashboards. For example, the following image shows the Los Angeles and San Diego county regions:
+2. Optional: Under **Style settings**, increase **Border thickness** to see the borders more clearly.
+3. Select the **Update** button.
+4. View your region map in the Dashboards. For example, the following image shows the Los Angeles and San Diego county regions:
 <img src="{{site.url}}{{site.baseurl}}/images/county-region-map.png" alt="view a custom GeoJSON region map" width="700"/>
 
-### Example GeoJSON file
+#### Example GeoJSON file
 
 The following example GeoJSON file provides coordinates for two US counties.
 
@@ -67,3 +76,4 @@ The following example GeoJSON file provides coordinates for two US counties.
 }
 
 ```
+
