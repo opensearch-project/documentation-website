@@ -104,7 +104,7 @@ Upon success, the email will be sent to the specified email address with the CSV
 
 You can use the cron command-line utility to initiate a report request with the reporting CLI that runs periodically at any date or time interval. Follow the cron expression syntax to specify the date and time that precedes the command that you want to initiate.
 
-To learn about the cron expression syntax, see [cron](https://en.wikipedia.org/wiki/Cron).
+To learn about the cron expression syntax, see [cron](https://en.wikipedia.org/wiki/Cron.
 
 ### Prerequisite
 
@@ -125,7 +125,7 @@ Open the crontab editor by running the following command:
 ```
 crontab -e
 ```
-In the crontab editor, enter the report request. For example, the following example shows a cron report that runs every day at 8am.
+In the crontab editor, enter the report request. For example, the following example shows a cron report that runs every day at 8:00 AM.
 
 ```
 0 8 * * * opensearch-reporting-cli -u https://playground.opensearch.org/app/dashboards#/view/084aed50-6f48-11ed-a3d5-1ddbf0afc873 -e ses -s <sender_email> -r <recipient_email>
@@ -222,7 +222,7 @@ You need to follow the instructions to create an image repository, see [Getting 
 
 Give your repository the name `opensearch-reporting-cli`.
 
-In addition to the Amazon ECR instructions, you need to make several adjustments for the Reporting CLI to function properly.
+In addition to the Amazon ECR instructions, you need to make several adjustments for the Reporting CLI to function properly as described in the following steps in this procedure.
 
 ### Step 3: Run the push commands
 
