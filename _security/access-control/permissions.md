@@ -3,6 +3,8 @@ layout: default
 title: Permissions
 parent: Access control
 nav_order: 110
+redirect_from:
+  - /security-plugin/access-control/permissions/
 ---
 
 # Permissions
