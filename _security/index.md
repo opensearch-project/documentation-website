@@ -5,6 +5,8 @@ nav_order: 1
 has_children: false
 has_toc: false
 redirect_from:
+  - /security-plugin/
+  - /security-plugin/index/
   - /security/
 ---
 
