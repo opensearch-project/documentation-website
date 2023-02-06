@@ -4,6 +4,8 @@ title: Cluster routing and awareness
 nav_order: 20
 parent: Cluster APIs
 has_children: false
+redirect_from:
+  - /api-reference/cluster-awareness/
 ---
 
 # Cluster routing and awareness
