@@ -1,9 +1,7 @@
 ---
 layout: default
-title: Using maps
-nav_order: 15
-parent: Visualization types
-grand_parent: Visualize
+title: Using the Maps plugin
+nav_order: 60
 redirect_from:
   - /dashboards/maps/
 ---
