@@ -14,7 +14,7 @@ OpenSearch has a standard set of GeoJSON files that provide a vector map with ea
 
 For air gapped environments, OpenSearch Dashboards provides a self-host maps server. For more information, see [Using the self-host maps server]({{site.url}}{{site.baseurl}}/dashboards/selfhost-maps-server/)
 
-While you can't configure a server to support user-defined vector map layers, you, however, can configure your own GeoJSON file and upload it for this purpose. 
+While you can't configure a server to support user-defined vector map layers, you can configure your own GeoJSON file and upload it for this purpose. 
 {: .note}
 
 ## Customizing vector maps with GeoJSON
