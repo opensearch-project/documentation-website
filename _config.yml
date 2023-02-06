@@ -5,17 +5,10 @@ baseurl: "/docs/latest" # the subpath of your site, e.g. /blog
 url: "https://opensearch.org" # the base hostname & protocol for your site, e.g. http://example.com
 permalink: /:path/
 
-<<<<<<< HEAD
 opensearch_version: 2.2.1
 opensearch_dashboards_version: 2.2.1
 opensearch_major_minor_version: 2.2
 lucene_version: 9_3_0
-=======
-opensearch_version: 2.5.0
-opensearch_dashboards_version: 2.5.0
-opensearch_major_minor_version: 2.5
-lucene_version: 9_4_1
->>>>>>> 45834d6f (Once more... Managing, Monitoring, Tuning. (#2653))
 
 # Build settings
 markdown: kramdown
@@ -50,27 +43,14 @@ collections:
   dashboards:
     permalink: /:collection/:path/
     output: true
-  tuning-your-cluster:
-    permalink: /:collection/:path/
-    output: true
   security:
     permalink: /:collection/:path/
-<<<<<<< HEAD
-=======
-    output: true 
-  security-analytics:
-    permalink: /:collection/:path/
->>>>>>> 45834d6f (Once more... Managing, Monitoring, Tuning. (#2653))
-    output: true
   search-plugins:
     permalink: /:collection/:path/
     output: true 
   ml-commons-plugin:
     permalink: /:collection/:path/
-    output: true
-  neural-search-plugin:
-    permalink: /:collection/:path/
-    output: true   
+    output: true  
   tuning-your-cluster:
     permalink: /:collection/:path/
     output: true
@@ -81,19 +61,6 @@ collections:
     permalink: /:collection/:path/
     output: true
   ml-commons-plugin:
-    permalink: /:collection/:path/
-    output: true
-<<<<<<< HEAD
-  monitoring-plugins:
-    permalink: /:collection/:path/
-    output: true
-  notifications-plugin:
-    permalink: /:collection/:path/
-    output: true
-  job-scheduler-plugin:
-=======
-  neural-search-plugin:
->>>>>>> 45834d6f (Once more... Managing, Monitoring, Tuning. (#2653))
     permalink: /:collection/:path/
     output: true
   clients:
@@ -129,9 +96,6 @@ just_the_docs:
     dashboards:
       name: OpenSearch Dashboards
       nav_fold: true
-    tuning-your-cluster:
-      name: Tuning your cluster
-      nav_fold: true
     security:
       name: Security in OpenSearch
       nav_fold: true
@@ -141,19 +105,11 @@ just_the_docs:
     ml-commons-plugin:
       name: Machine learning
       nav_fold: true
-<<<<<<< HEAD
-    monitoring-plugins:
-      name: Monitoring plugins
-=======
-    neural-search-plugin:
-      name: Neural Search 
-      nav_fold: true
     tuning-your-cluster:
       name: Tuning your cluster
       nav_fold: true 
     monitoring-your-cluster:
       name: Monitoring your cluster
->>>>>>> 45834d6f (Once more... Managing, Monitoring, Tuning. (#2653))
       nav_fold: true
     observing-your-data:
       name: Observing your data
@@ -236,7 +192,4 @@ exclude:
   - vendor/gems/
   - vendor/ruby/
   - README.md
-<<<<<<< HEAD
-=======
-  - .idea
->>>>>>> 45834d6f (Once more... Managing, Monitoring, Tuning. (#2653))
+
