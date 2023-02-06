@@ -102,13 +102,11 @@ Upon success, the email will be sent to the specified email address with the CSV
 
 ## Scheduling reports with the cron utility
 
-You can use the cron command-line utility to initiate a report request with the reporting CLI that runs periodically at any date or time interval.
+You can use the cron command-line utility to initiate a report request with the reporting CLI that runs periodically at any date or time interval. Follow the cron expression syntax to specify the date and time that precedes the command that you want to initiate.
 
-Specify the date and time using the crontab syntax in a sequence that precedes the command that you want to initiate. After the command prompt, enter the time criteria sequentially after the shell prompt for minute, hour, day of the month, month, and day of the week.
+To learn about the cron expression syntax, see [cron](https://en.wikipedia.org/wiki/Cron).
 
-To learn about the crontab file syntax, see [cron](https://en.wikipedia.org/wiki/Cron).
-
-### Prerequisites
+### Prerequisite
 
 You need a machine with cron installed.
 
