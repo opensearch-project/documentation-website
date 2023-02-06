@@ -4,6 +4,8 @@ title: Cluster stats
 nav_order: 60
 parent: Cluster APIs
 has_children: false
+redirect_from:
+  - /api-reference/cluster-stats/
 ---
 
 # Cluster stats
