@@ -167,7 +167,8 @@ td {
         <td>-</td>
         <td>7.11<br>7.10</td>
     </tr>
-<!-- Commenting this section of the table out - is this valuable to readers or should we only go back to 1.0.0 / 7.10.2?   <tr>
+<!-- Commenting this section of the table out - is this valuable to readers or should we only go back to 1.0.0 / 7.10.2?
+    <tr>
         <td>8.6.2</td>
         <td>-</td>
         <td>7.9</td>
@@ -206,5 +207,6 @@ td {
         <td>7.7.3</td>
         <td>-</td>
         <td>6.8</td>
-    </tr>-->
+    </tr>
+End of the trimmed section -->
 </table>
