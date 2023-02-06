@@ -102,18 +102,11 @@ Upon success, the email will be sent to the specified email address with the CSV
 
 ## Scheduling reports with the cron utility
 
-You can use the cron command-line utility to initiate a report request with the reporting CLI that runs periodically at any date or time interval. OpenSearch Reporting CLI supports any cron use case, such as setting a specified time of day.
+You can use the cron command-line utility to initiate a report request with the reporting CLI that runs periodically at any date or time interval.
 
 Specify the date and time using the crontab syntax in a sequence that precedes the command that you want to initiate. After the command prompt, enter the time criteria sequentially after the shell prompt for minute, hour, day of the month, month, and day of the week.
 
-Option | Value range | Description
-:--- | :--- | :---
-minute | 0 to 59 | Indicate digits for the minutes. For example, for 8:30, enter `30`.
-hour | 0 to 23 | Indicate the hour in digits.
-day of the month | 1 to 31 | Indicate the number for the day of the month.
-day of the week | 0 to 6 | Indicates the number for Sunday to Saturday. Specified in the fifth space after the shell prompt.
-
-To see the syntax for each element in a cron command, see [cron](https://en.wikipedia.org/wiki/Cron).
+To learn about the crontab file syntax, see [cron](https://en.wikipedia.org/wiki/Cron).
 
 ### Prerequisites
 
