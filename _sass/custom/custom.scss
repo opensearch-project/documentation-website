@@ -599,6 +599,7 @@ main {
   align-content: stretch;
   height: 100%;
   position: relative;
+  justify-content: center;
 
   @include mq(md) {
     padding-top: calc(4rem + 9px);
