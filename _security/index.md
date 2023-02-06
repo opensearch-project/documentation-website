@@ -5,6 +5,11 @@ nav_order: 1
 has_children: false
 has_toc: false
 redirect_from:
+<<<<<<< HEAD
+=======
+  - /security-plugin/
+  - /security-plugin/index/
+>>>>>>> 45834d6f (Once more... Managing, Monitoring, Tuning. (#2653))
   - /security/
 ---
 
