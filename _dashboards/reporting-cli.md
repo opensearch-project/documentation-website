@@ -125,7 +125,7 @@ Open the crontab editor by running the following command:
 ```
 crontab -e
 ```
-In the crontab editor, enter the report request. For example, the following example shows a cron report that runs every day at 8:00 AM.
+In the crontab editor, enter the report request. The following example shows a cron report that runs every day at 8:00 AM:
 
 ```
 0 8 * * * opensearch-reporting-cli -u https://playground.opensearch.org/app/dashboards#/view/084aed50-6f48-11ed-a3d5-1ddbf0afc873 -e ses -s <sender_email> -r <recipient_email>
@@ -146,9 +146,9 @@ To use the Reporting CLI with AWS Lambda, you need to do the following prelimina
 
 ### Step 1: Create a container image with a Dockerfile
 
-You need to assemble the image by running a Dockerfile. When you run the Dockerfile, it downloads the OpenSearch artifact required to use the Reporting CLI. To learn more about Dockerfiles, see [Dockerfile reference](https://docs.docker.com/engine/reference/builder/).
+You need to assemble the container image by running a Dockerfile. When you run the Dockerfile, it downloads the OpenSearch artifact required to use the Reporting CLI. To learn more about Dockerfiles, see [Dockerfile reference](https://docs.docker.com/engine/reference/builder/).
 
-Copy the following sample configurations into a Dockerfile.
+Copy the following sample configurations into a Dockerfile:
 
 ```dockerfile
 # Define function directory
@@ -226,11 +226,13 @@ In addition to the Amazon ECR instructions, you need to make several adjustments
 
 ### Step 3: Run the push commands
 
+You need to get several commands from the AWS ECR Console to run within the Dockerfile directory.
+
 1. After you create your repository, select it from **Private repositories**.
 1. Choose **view push commands**.
-1. In **Push commands for opensearch-reporting-cli**, copy and run each command sequentially in the Dockerfile directory.
+1. Copy and run each command shown in **Push commands for opensearch-reporting-cli** sequentially in the Dockerfile directory.
 
-You need to get several commands from the AWS ECR Console to run within the Dockerfile directory. For more details about docker push commands, see [Pushing a Docker image](https://docs.aws.amazon.com/AmazonECR/latest/userguide/docker-push-ecr-image.html) in the Amazon ECR user guide.
+For more details about docker push commands, see [Pushing a Docker image](https://docs.aws.amazon.com/AmazonECR/latest/userguide/docker-push-ecr-image.html) in the Amazon ECR user guide.
 
 ### Step 4: Create a lambda function with the container image
 
@@ -241,12 +243,12 @@ You need to get several commands from the AWS ECR Console to run within the Dock
 1. In **Architecture**, choose **x86_64**.
 1. Choose **Create function**.
 1. Go to **Lambda function > Configuration > General configuration> Edit timeout** and set the timeout in lambda to 5 minutes to allow the reporting CLI to generate the report.
-1. Change the **Ephemeral storage** setting to at least 1024MB. The default setting is not a sufficient storage amount.
+1. Change the **Ephemeral storage** setting to at least 1024MB. The default setting is not a sufficient storage amount to support report generation.
 
 1. Next, test the function either by providing values JSON format or by providing AWS Lambda environment variables.
 
 - If the function contains fixed values, such as email address you do not need a JSON file. You can specify an environment variable in AWS Lambda.
-- If the function takes a variable key-value pair, then you need to specify the values in the JSON with the same naming convention as command options, for example `--credentials`.
+- If the function takes a variable key-value pair, then you need to specify the values in the JSON with the same naming convention as command options, for example the `--credentials` option requires the username and password.
 {: .note }
 
  The following example shows fixed values provided for the sender and recipient email addresses:
