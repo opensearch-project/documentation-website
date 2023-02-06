@@ -37,7 +37,13 @@ collections:
   opensearch:
     permalink: /:collection/:path/
     output: true
+  im-plugin:
+    permalink: /:collection/:path/
+    output: true
   dashboards:
+    permalink: /:collection/:path/
+    output: true
+  tuning-your-cluster:
     permalink: /:collection/:path/
     output: true
   security:
@@ -45,20 +51,23 @@ collections:
     output: true
   search-plugins:
     permalink: /:collection/:path/
-    output: true
-  im-plugin:
-    permalink: /:collection/:path/
-    output: true
-  replication-plugin:
-    permalink: /:collection/:path/
-    output: true
-  observability-plugin:
-    permalink: /:collection/:path/
-    output: true
+    output: true 
   ml-commons-plugin:
     permalink: /:collection/:path/
     output: true
-  monitoring-plugins:
+  neural-search-plugin:
+    permalink: /:collection/:path/
+    output: true   
+  tuning-your-cluster:
+    permalink: /:collection/:path/
+    output: true
+  monitoring-your-cluster:
+    permalink: /:collection/:path/
+    output: true
+  observing-your-data:
+    permalink: /:collection/:path/
+    output: true
+  ml-commons-plugin:
     permalink: /:collection/:path/
     output: true
   clients:
@@ -88,29 +97,32 @@ just_the_docs:
     opensearch:
       name: OpenSearch
       nav_fold: true
+    im-plugin:
+      name: Managing Indexes
+      nav_fold: true
     dashboards:
       name: OpenSearch Dashboards
+      nav_fold: true
+    tuning-your-cluster:
+      name: Tuning your cluster
       nav_fold: true
     security:
       name: Security in OpenSearch
       nav_fold: true
     search-plugins:
-      name: Search plugins
-      nav_fold: true
-    im-plugin:
-      name: Index management plugin
-      nav_fold: true
-    replication-plugin:
-      name: Replication plugin
-      nav_fold: true
-    observability-plugin:
-      name: Observability plugin
+      name: Search 
       nav_fold: true
     ml-commons-plugin:
-      name: ML Commons plugin
+      name: Machine learning
       nav_fold: true
-    monitoring-plugins:
-      name: Monitoring plugins
+    tuning-your-cluster:
+      name: Tuning your cluster
+      nav_fold: true 
+    monitoring-your-cluster:
+      name: Monitoring your cluster
+      nav_fold: true
+    observing-your-data:
+      name: Observing your data
       nav_fold: true
     clients:
       name: Clients and tools

@@ -4,6 +4,7 @@ title: Cluster health
 nav_order: 40
 parent: Cluster APIs
 has_children: false
+redirect_from: /api-reference/cluster-health/
 ---
 
 # Cluster health
