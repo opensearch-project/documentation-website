@@ -224,7 +224,7 @@ Give your repository the name `opensearch-reporting-cli`.
 
 In addition to the Amazon ECR instructions, you need to make several adjustments for the Reporting CLI to function properly as described in the following steps in this procedure.
 
-### Step 3: Run the push commands
+### Step 3: Push the image to the private repository
 
 You need to get several commands from the AWS ECR Console to run within the Dockerfile directory.
 
@@ -232,9 +232,9 @@ You need to get several commands from the AWS ECR Console to run within the Dock
 1. Choose **view push commands**.
 1. Copy and run each command shown in **Push commands for opensearch-reporting-cli** sequentially in the Dockerfile directory.
 
-For more details about docker push commands, see [Pushing a Docker image](https://docs.aws.amazon.com/AmazonECR/latest/userguide/docker-push-ecr-image.html) in the Amazon ECR user guide.
+For more details about Docker push commands, see [Pushing a Docker image](https://docs.aws.amazon.com/AmazonECR/latest/userguide/docker-push-ecr-image.html) in the Amazon ECR user guide.
 
-### Step 4: Create a lambda function with the container image
+### Step 4: Create a Lambda function with the container image
 
 1. In the AWS Console, select **Lambda**, and choose **Create a function**.
 1. In **Create a function**, choose **Container image** and give a name for the function.
