@@ -1,10 +1,12 @@
 ---
 layout: default
-title: Self-host maps server
-nav_order: 30
+title: Using the self-host maps server
+grand_parent: Building data visualizations
+parent: Using coordinate and region maps
+nav_order: 10
 ---
 
-# Self-host maps server
+# Using the self-host maps server
 
 The self-host maps server for OpenSearch Dashboards allows users to access the default maps service in air-gapped environments. OpenSearch-compatible map URLs include a map manifest with map tiles and vectors, the map tiles, and the map vectors.
 
@@ -13,13 +15,13 @@ The following sections provide steps for setting up and using the self-host maps
 You can access the `maps-server` image via the official OpenSearch [Docker Hub repository](https://hub.docker.com/u/opensearchproject).
 {: .note}
 
-## Pull Docker image
+## Pulling the Docker image
 
 Open your terminal and run the following command:
 
 `docker pull opensearch/opensearch-maps-server`
 
-## Set up the server
+## Setting up the server
 
 You must set up the map tiles before running the server. You have two setup options: Use the OpenSearch-provided maps service tiles set, or generate the raster tiles set.
 
@@ -49,7 +51,7 @@ docker run \
 
 To generate the raster tiles set, use the [raster tile generation pipeline](https://github.com/opensearch-project/maps/tree/main/tiles-generation/cdk) and then use the tiles set absolute path to create a volume to start the server.
 
-## Start the server
+## Starting the server
 
 Use the following command to start the server using the Docker volume `tiles-data`. The following command is an example using host URL "localhost" and port "8080":
 
@@ -80,7 +82,7 @@ Confirm the server is running by opening each of the following links in a browse
 * Map tiles URL: `http://localhost:8080/tiles/data/{z}/{x}/{y}.png`
 * Map tiles demo URL: `http://localhost:8080/`
 
-## Use the self-host maps server with OpenSearch Dashboards
+## Using the self-host maps server with OpenSearch Dashboards
 
 You can use the self-host maps server with OpenSearch Dashboards by either adding the parameter to `opensearch_dashboards.yml` or configuring the default WMS properties in OpenSearch Dashboards.
 
@@ -100,7 +102,7 @@ Configure the manifest URL in `opensearch_dashboards.yml`:
 
 Tiles are generated per [Terms of Use for Natural Earth vector map data](https://www.naturalearthdata.com/about/terms-of-use/) and [Copyright and License for OpenStreetMap](https://www.openstreetmap.org/copyright).
 
-## Related links
+## Related articles
 
-* [Configure WMS map server]({{site.url}}{{site.baseurl}}/dashboards/maptiles/)
-* [Region map visualizations]({{site.url}}{{site.baseurl}}/dashboards/geojson-regionmaps/)
+* [Configuring a Web Map Service (WMS)]({{site.url}}{{site.baseurl}}/dashboards/visualize/maptiles/)
+* [Using coordinate and region maps]({{site.url}}{{site.baseurl}}/dashboards/visualize/geojson-regionmaps/)
