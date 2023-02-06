@@ -54,10 +54,7 @@ collections:
     output: true 
   ml-commons-plugin:
     permalink: /:collection/:path/
-    output: true
-  neural-search-plugin:
-    permalink: /:collection/:path/
-    output: true   
+    output: true 
   tuning-your-cluster:
     permalink: /:collection/:path/
     output: true
@@ -123,9 +120,6 @@ just_the_docs:
       nav_fold: true
     ml-commons-plugin:
       name: Machine learning
-      nav_fold: true
-    neural-search-plugin:
-      name: Neural Search 
       nav_fold: true
     tuning-your-cluster:
       name: Tuning your cluster
