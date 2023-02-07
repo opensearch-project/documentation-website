@@ -203,7 +203,14 @@ Use to describe a list of items that aren’t allowed (blocked). Do not use _bla
 
 **disable**
 
-Use *turn off*, *deactivate*, or *stop* instead of *disable* to support bias-free documentation, when possible. Otherwise, use *disable* to describe making a feature or command unavailable. If the UI uses *active* and *inactive* to describe these states, use *activate* and *deactivate* in the documentation. Don't use *disable* to refer to users.
+Use *disable* to describe making a feature or command unavailable. For example:
+
+- Clear the checkbox to disable automatic monitoring.
+- The feature is disabled by default.
+
+Note that alternatives to *disable*—such as *deactivate*, *turn off*, or *stop*—are acceptable usage where appropriate and may be found in existing documentation. In all cases, use language that corresponds to the language used in the UI, if applicable.
+
+Do not use *disable* to refer to users.
 
 **double-click**
 
@@ -233,7 +240,12 @@ Use as a singular noun or adjective to refer to the collective concept, and use 
 
 **enable**
 
-Use _turn on_ or _activate_ instead of *enable* to support bias-free documentation, when possible. Otherwise, use *enable* to describe making a feature or command available. If the UI uses *active* and *inactive* to describe these states, use *activate* and *deactivate* in the documentation.
+Use *enable* to describe making a feature or command available. For example:
+
+- Select the checkbox to enable automatic monitoring.
+- The feature is enabled by default.
+
+Note that alternatives to *enable*—such as *activate*, *turn on*, or *start*—are acceptable usage where appropriate and may be found in existing documentation. In all cases, use language that corresponds to the language used in the UI, if applicable.
 
 Avoid using *enable* to refer to making something possible for the user. Instead, rewrite to focus on what's important from the user's point of view. For example, “With ABC, you can do XYZ” is a stronger statement than “ABC enables you to XYZ.” Additionally, using a task-based statement is usually more clear than the vague “…enables you to….”
 
