@@ -2,6 +2,7 @@
 layout: default
 title: Upgrade Overview
 nav_order: 1
+has_children: true
 redirect_from:
   - /upgrade-opensearch/index/
 ---
@@ -100,7 +101,7 @@ td {
     <tr>
         <th>Lucene Version</th>
         <th>OpenSearch Version</th>
-        <th>ElasticSearch Version</th>
+        <th>Elasticsearch Version</th>
     </tr>
     <tr>
         <td>9.4.2</td>
