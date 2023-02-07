@@ -43,9 +43,6 @@ collections:
   dashboards:
     permalink: /:collection/:path/
     output: true
-  tuning-your-cluster:
-    permalink: /:collection/:path/
-    output: true
   security:
     permalink: /:collection/:path/
     output: true
@@ -55,9 +52,6 @@ collections:
   ml-commons-plugin:
     permalink: /:collection/:path/
     output: true
-  neural-search-plugin:
-    permalink: /:collection/:path/
-    output: true   
   tuning-your-cluster:
     permalink: /:collection/:path/
     output: true
@@ -102,9 +96,6 @@ just_the_docs:
       nav_fold: true
     dashboards:
       name: OpenSearch Dashboards
-      nav_fold: true
-    tuning-your-cluster:
-      name: Tuning your cluster
       nav_fold: true
     security:
       name: Security in OpenSearch
