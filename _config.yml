@@ -45,6 +45,7 @@ collections:
     output: true
   security:
     permalink: /:collection/:path/
+    output: true
   search-plugins:
     permalink: /:collection/:path/
     output: true 
@@ -64,6 +65,9 @@ collections:
     permalink: /:collection/:path/
     output: true
   clients:
+    permalink: /:collection/:path/
+    output: true
+  data-prepper: 
     permalink: /:collection/:path/
     output: true
   api-reference:
@@ -116,6 +120,9 @@ just_the_docs:
       nav_fold: true
     clients:
       name: Clients and tools
+      nav_fold: true
+    data-prepper: 
+      name: Data Prepper
       nav_fold: true
     api-reference:
       name: API reference
