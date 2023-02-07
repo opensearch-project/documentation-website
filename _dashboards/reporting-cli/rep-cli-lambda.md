@@ -111,13 +111,14 @@ For more details about Docker push commands, see [Pushing a Docker image](https:
 
 ## Step 4: Create a Lambda function with the container image
 
-1. In the AWS Console, select **Lambda**, and choose **Create a function**.
-1. In **Create a function**, choose **Container image** and give a name for the function.
+1. Open the AWS Lambda console and choose [Functions](https://us-west-2.console.aws.amazon.com/lambda/home?region=us-west-2#/functions).
+1. Choose **Create function**, then choose **Container image** and fill in a name for the function.
 1. In **Container image URI**, choose **Browse images** and select `opensearch-reporting-cli` for the image repository.
 1. In **Images** select the image, and choose **Select image**.
 1. In **Architecture**, choose **x86_64**.
 1. Choose **Create function**.
-1. Go to **Lambda function > Configuration > General configuration> Edit timeout** and set the timeout in lambda to 5 minutes to allow the Reporting CLI to generate the report.
+1. Go to **Lambda** > **functions** and choose the function you created.
+1. Choose **Configuration > General configuration > Edit timeout** and set the timeout in lambda to 5 minutes to allow the Reporting CLI to generate the report.
 1. Change the **Ephemeral storage** setting to at least 1024MB. The default setting is not a sufficient storage amount to support report generation.
 
 1. Next, test the function either by providing values JSON format or by providing AWS Lambda environment variables.
@@ -138,6 +139,7 @@ For more details about Docker push commands, see [Pushing a Docker image](https:
 }
 ```
 
+To learn more about AWS Lambda functions, see [Configuring AWS Lambda functions](https://docs.aws.amazon.com/lambda/latest/dg/lambda-functions.html) in the AWS Lambda documentation.
 ## Step 5: Add the trigger to start the AWS Lambda function
 
 Set the trigger to start running the report. AWS Lambda can use any AWS service as a trigger, such as SNS, S3, or an AWS CloudWatch EventBridge.
