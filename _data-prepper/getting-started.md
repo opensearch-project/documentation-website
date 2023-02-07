@@ -1,17 +1,12 @@
 ---
 layout: default
-title: Get Started
-nav_order: 10
+title: Getting started
+nav_order: 5
 redirect_from:
-<<<<<<< HEAD:_data-prepper/get-started.md
-=======
-  - /clients/data-prepper/getting-started/
-  - /data-prepper/get-started/
->>>>>>> 5bbeac23 (Fix links for 2.5 doc changes. (#2465)):_data-prepper/getting-started.md
   - /clients/data-prepper/get-started/
 ---
 
-# Get started with Data Prepper
+# Getting started with Data Prepper
 
 Data Prepper is an independent component, not an OpenSearch plugin, that converts data for use with OpenSearch. It's not bundled with the all-in-one OpenSearch installation packages.
 
@@ -24,8 +19,7 @@ There are two ways to install Data Prepper:
 1. Run the Docker image.
 2. Build from source.
 
-The easiest way to use Data Prepper is by running the Docker image. We suggest
-you use this approach if you have [Docker](https://www.docker.com) available.
+The easiest way to use Data Prepper is by running the Docker image. We suggest that you use this approach if you have [Docker](https://www.docker.com) available.
 
 You can pull the Docker image:
 
@@ -46,8 +40,9 @@ You will configure two files:
 * `pipelines.yaml`
 
 Depending on your use case, we have a few different guides to configuring Data Prepper.
+
 * [Trace Analytics](https://github.com/opensearch-project/data-prepper/blob/main/docs/trace_analytics.md)
-* [Log Ingestion](https://github.com/opensearch-project/data-prepper/blob/main/docs/log_analytics.md): Learn how to set up Data Prepper for log observability.
+* [Log Analytics]({{site.url}}{{site.baseurl}}/data-prepper/common-use-cases/log-analytics/): Learn how to set up Data Prepper for log observability.
 * [Simple Pipeline](https://github.com/opensearch-project/data-prepper/blob/main/docs/simple_pipelines.md): Learn the basics of Data Prepper pipelines with some simple configurations.
 
 ## 3. Defining a pipeline
@@ -74,7 +69,7 @@ docker run --name data-prepper \
     opensearchproject/data-prepper:latest
 ```
 
-This sample pipeline configuration above demonstrates a simple pipeline with a source (`random`) sending data to a sink (`stdout`). For more examples and details about more advanced pipeline configurations, see [Pipelines]({{site.url}}{{site.baseurl}}/clients/data-prepper/pipelines).
+The preceding example pipeline configuration above demonstrates a simple pipeline with a source (`random`) sending data to a sink (`stdout`). For further detailed examples of more advanced pipeline configurations, see [Pipelines]({{site.url}}{{site.baseurl}}/clients/data-prepper/pipelines/).
 
 After starting Data Prepper, you should see log output and some UUIDs after a few seconds:
 

@@ -1,19 +1,18 @@
 ---
 layout: default
 title: Pipelines
-<<<<<<< HEAD
-nav_order: 20
-redirect_from:
-=======
+has_children: true
 nav_order: 10
-redirect_from: 
->>>>>>> 5bbeac23 (Fix links for 2.5 doc changes. (#2465))
+redirect_from:
+  - /data-prepper/pipelines/
   - /clients/data-prepper/pipelines/
 ---
 
 # Pipelines
 
-![Data Prepper Pipeline]({{site.url}}{{site.baseurl}}/images/data-prepper-pipeline.png)
+The following image illustrates how a pipeline works. 
+
+<img src="{{site.url}}{{site.baseurl}}/images/data-prepper-pipeline.png" alt="Data Prepper pipeline">{: .img-fluid}
 
 To use Data Prepper, you define pipelines in a configuration YAML file. Each pipeline is a combination of a source, a buffer, zero or more processors, and one or more sinks. For example:
 
@@ -49,7 +48,7 @@ simple-sample-pipeline:
 Starting from Data Prepper 2.0, you can define pipelines across multiple configuration YAML files, where each file contains the configuration for one or more pipelines. This gives you more freedom to organize and chain complex pipeline configurations. For Data Prepper to load your pipeline configuration properly, place your configuration YAML files in the `pipelines` folder under your application's home directory (e.g. `/usr/share/data-prepper`).
 {: .note }
 
-## Conditional Routing
+## Conditional routing
 
 Pipelines also support **conditional routing**  which allows you to route Events to different sinks based on specific conditions. To add conditional routing to a pipeline, specify a list of named routes under the `route` component and add specific routes to sinks under the `routes` property. Any sink with the `routes` property will only accept Events that match at least one of the routing conditions. 
 
@@ -80,29 +79,51 @@ conditional-routing-sample-pipeline:
 
 ## Examples
 
-This section provides some pipeline examples that you can use to start creating your own pipelines. For more information, see [Data Prepper configuration reference]({{site.url}}{{site.baseurl}}/clients/data-prepper/data-prepper-reference/) guide.
+This section provides some pipeline examples that you can use to start creating your own pipelines. For more pipeline configurations, select from the following options for each component:
+
+- [Buffers]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/buffers/buffers/)
+- [Processors]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/processors/)
+- [Sinks]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sinks/sinks/)
+- [Sources]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/sources/)
 
 The Data Prepper repository has several [sample applications](https://github.com/opensearch-project/data-prepper/tree/main/examples) to help you get started.
 
 ### Log ingestion pipeline
 
-The following example demonstrates how to use HTTP source and Grok prepper plugins to process unstructured log data.
+The following example `pipeline.yaml` file with SSL and basic authentication enabled for the `http-source` demonstrates how to use the HTTP Source and Grok Prepper plugins to process unstructured log data:
 
-```yml
+
+```yaml
 log-pipeline:
   source:
     http:
-      ssl: false
+      ssl_certificate_file: "/full/path/to/certfile.crt"
+      ssl_key_file: "/full/path/to/keyfile.key"
+      authentication:
+        http_basic:
+          username: "myuser"
+          password: "mys3cret"
   processor:
     - grok:
         match:
+          # This will match logs with a "log" key against the COMMONAPACHELOG pattern (ex: { "log": "actual apache log..." } )
+          # You should change this to match what your logs look like. See the grok documenation to get started.
           log: [ "%{COMMONAPACHELOG}" ]
   sink:
     - opensearch:
-        hosts: [ "https://opensearch:9200" ]
-        insecure: true
-        username: admin
-        password: admin
+        hosts: [ "https://localhost:9200" ]
+        # Change to your credentials
+        username: "admin"
+        password: "admin"
+        # Add a certificate file if you are accessing an OpenSearch cluster with a self-signed certificate  
+        #cert: /path/to/cert
+        # If you are connecting to an Amazon OpenSearch Service domain without
+        # Fine-Grained Access Control, enable these settings. Comment out the
+        # username and password above.
+        #aws_sigv4: true
+        #aws_region: us-east-1
+        # Since we are grok matching for apache logs, it makes sense to send them to an OpenSearch index named apache_logs.
+        # You should change this to correspond with how your OpenSearch indices are set up.
         index: apache_logs
 ```
 
@@ -199,10 +220,7 @@ metrics-pipeline:
 
 ### S3 log ingestion pipeline
 
-The following example demonstrates how to use the S3 Source and Grok Processor plugins to process unstructured log data
-from [Amazon Simple Storage Service](https://aws.amazon.com/s3/) (Amazon S3). This example uses Application Load 
-Balancer logs. As the Application Load Balancer writes logs to S3, S3 creates notifications in Amazon SQS. Data Prepper 
-reads those notifications and reads the S3 objects to get the log data and process it.
+The following example demonstrates how to use the S3Source and Grok Processor plugins to process unstructured log data from [Amazon Simple Storage Service](https://aws.amazon.com/s3/) (Amazon S3). This example uses application load balancer logs. As the application load balancer writes logs to S3, S3 creates notifications in Amazon SQS. Data Prepper monitors those notifications and reads the S3 objects to get the log data and process it.
 
 ```yml
 log-pipeline:
@@ -279,13 +297,13 @@ docker run --name data-prepper \
     opensearchproject/data-prepper:latest
 ```
 
-## Configure the peer forwarder
+## Configure peer forwarder
 
 Data Prepper provides an HTTP service to forward Events between Data Prepper nodes for aggregation. This is required for operating Data Prepper in a clustered deployment. Currently, peer forwarding is supported in `aggregate`, `service_map_stateful`, and `otel_trace_raw` processors. Peer forwarder groups events based on the identification keys provided by the processors. For `service_map_stateful` and `otel_trace_raw` it's `traceId` by default and can not be configured. For `aggregate` processor, it is configurable using `identification_keys` option. 
 
-Peer forwarder supports peer discovery through one of three options: a static list, a DNS record lookup , or AWS Cloud Map. This option can be configured using `discovery_mode` option. Peer forwarder also supports SSL for verification and encrytion, and mTLS for mutual authentication in peer forwarding service.
+Peer forwarder supports peer discovery through one of three options: a static list, a DNS record lookup , or AWS Cloud Map. Peer discovery can be configured using `discovery_mode` option. Peer forwarder also supports SSL for verification and encryption, and mTLS for mutual authentication in a peer forwarding service.
 
-To configure the peer forwarder, add configuration options to `data-prepper-config.yaml` mentioned in the previous [Configure the Data Prepper server](#configure-the-data-prepper-server) section:
+To configure peer forwarder, add configuration options to `data-prepper-config.yaml` mentioned in the [Configure the Data Prepper server](#configure-the-data-prepper-server) section:
 
 ```yml
 peer_forwarder:
