@@ -111,6 +111,8 @@ For more details about Docker push commands, see [Pushing a Docker image](https:
 
 ## Step 4: Create a Lambda function with the container image
 
+Now that you have a container image created for the Reporting CLI, you need to create a function defined as the container image.
+
 1. Open the AWS Lambda console and choose [Functions](https://us-west-2.console.aws.amazon.com/lambda/home?region=us-west-2#/functions).
 1. Choose **Create function**, then choose **Container image** and fill in a name for the function.
 1. In **Container image URI**, choose **Browse images** and select `opensearch-reporting-cli` for the image repository.
@@ -139,7 +141,7 @@ For more details about Docker push commands, see [Pushing a Docker image](https:
 }
 ```
 
-To learn more about AWS Lambda functions, see [Configuring AWS Lambda functions](https://docs.aws.amazon.com/lambda/latest/dg/lambda-functions.html) in the AWS Lambda documentation.
+To learn more about AWS Lambda functions, see [Deploying Lambda functions as container images](https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-images.html) in the AWS Lambda documentation.
 ## Step 5: Add the trigger to start the AWS Lambda function
 
 Set the trigger to start running the report. AWS Lambda can use any AWS service as a trigger, such as SNS, S3, or an AWS CloudWatch EventBridge.
@@ -150,7 +152,9 @@ Set the trigger to start running the report. AWS Lambda can use any AWS service 
 
 ## (Optional) Step 6: Add the role permission for Amazon SES
 
-1. Select **Configuration** and choose **Excecution role**.
+If you want to use Amazon SES for the email transport, you need to set up permissions.
+
+1. Select **Configuration** and choose **Execution role**.
 1. In **Summary**, choose **Permissions**.
 1. Select **{}JSON** to open the JSON policy editor.
 1. Add the permissions for the Amazon SES resource that you want to use.
@@ -167,3 +171,5 @@ The following example provides the resource ARN for the send email action:
 "Resource": "arn:aws:ses:us-west-2:555555511111:identity/username@amazon.com"
 }
 ```
+
+To learn more about setting role permissions, see [Permissions](https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-images.html#gettingstarted-images-permissions) in the AWS Lambda user guide.
