@@ -1,32 +1,24 @@
 ---
 layout: default
 title: Take and restore snapshots
-<<<<<<<< HEAD:_opensearch/snapshot-restore.md
-nav_order: 65
-========
 parent: Snapshots
-nav_order: 10
-has_children: false
 grand_parent: Availability and Recovery
-redirect_from: 
+nav_order: 65
+has_children: false
+redirect_from:
   - /opensearch/snapshots/snapshot-restore/
->>>>>>>> 45834d6f (Once more... Managing, Monitoring, Tuning. (#2653)):_tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore.md
 ---
 
 # Take and restore snapshots
 
-Snapshots are backups of a cluster's indices and state. State includes cluster settings, node information, index metadata (mappings, settings, templates, etc.), and shard allocation.
+Snapshots aren't instantaneous. They take time to complete and do not represent perfect point-in-time views of the cluster. While a snapshot is in progress, you can still index documents and send other requests to the cluster, but new documents and updates to existing documents generally aren't included in the snapshot. The snapshot includes primary shards as they existed when OpenSearch initiated the snapshot. Depending on the size of your snapshot thread pool, different shards might be included in the snapshot at slightly different times.
 
-Snapshots have two main uses:
+OpenSearch snapshots are incremental, meaning that they only store data that has changed since the last successful snapshot. The difference in disk usage between frequent and infrequent snapshots is often minimal.
 
-- **Recovering from failure**
+In other words, taking hourly snapshots for a week (for a total of 168 snapshots) might not use much more disk space than taking a single snapshot at the end of the week. Also, the more frequently you take snapshots, the less time they take to complete. Some OpenSearch users take snapshots as often as every 30 minutes.
 
-  For example, if cluster health goes red, you might restore the red indices from a snapshot.
-
-- **Migrating from one cluster to another**
-
-  For example, if you're moving from a proof-of-concept to a production cluster, you might take a snapshot of the former and restore it on the latter.
-
+If you need to delete a snapshot, be sure to use the OpenSearch API rather than navigating to the storage location and purging files. Incremental snapshots from a cluster often share a lot of the same data; when you use the API, OpenSearch only removes data that no other snapshot is using.
+{: .tip }
 
 ---
 
@@ -36,17 +28,6 @@ Snapshots have two main uses:
 
 
 ---
-
-## About snapshots
-
-Snapshots aren't instantaneous. They take time to complete and do not represent perfect point-in-time views of the cluster. While a snapshot is in progress, you can still index documents and make other requests to the cluster, but new documents and updates to existing documents generally aren't included in the snapshot. The snapshot includes primary shards as they existed when OpenSearch initiated the snapshot. Depending on the size of your snapshot thread pool, different shards might be included in the snapshot at slightly different times.
-
-OpenSearch snapshots are incremental, meaning that they only store data that has changed since the last successful snapshot. The difference in disk usage between frequent and infrequent snapshots is often minimal.
-
-In other words, taking hourly snapshots for a week (for a total of 168 snapshots) might not use much more disk space than taking a single snapshot at the end of the week. Also, the more frequently you take snapshots, the less time they take to complete. Some OpenSearch users take snapshots as often as every half hour.
-
-If you need to delete a snapshot, be sure to use the OpenSearch API rather than navigating to the storage location and purging files. Incremental snapshots from a cluster often share a lot of the same data; when you use the API, OpenSearch only removes data that no other snapshot is using.
-{: .tip }
 
 
 ## Register repository
@@ -165,7 +146,22 @@ Setting | Description
    s3.client.default.proxy.port: 8080 # port for your proxy server
    s3.client.default.read_timeout: 50s # the S3 connection timeout
    s3.client.default.use_throttle_retries: true # whether the client should wait a progressively longer amount of time (exponential backoff) between each successive retry
+   s3.client.default.region: us-east-2 # AWS region to use
    ```
+
+1. (Optional) If you don't want to use AWS access and secret keys, you could configure the S3 plugin to use AWS Identity and Access Management (IAM) roles for service accounts:
+
+   ```bash
+   sudo ./bin/opensearch-keystore add s3.client.default.role_arn
+   sudo ./bin/opensearch-keystore add s3.client.default.role_session_name
+   ```
+
+   If you don't want to configure AWS access and secret keys, modify the following `opensearch.yml` setting. Make sure the file is accessible by the `repository-s3` plugin:
+   ```yml
+   s3.client.default.identity_token_file: /usr/share/opensearch/plugins/repository-s3/token
+   ```
+
+   IAM roles require at least one of the above settings. Other settings will be taken from environment variables (if available): `AWS_ROLE_ARN`, `AWS_WEB_IDENTITY_TOKEN_FILE`, `AWS_ROLE_SESSION_NAME`.
 
 1. If you changed `opensearch.yml`, you must restart each node in the cluster. Otherwise, you only need to reload secure cluster settings:
 
@@ -348,9 +344,9 @@ Setting | Description
 `partial` | Whether to allow the restoration of partial snapshots. Default is false.
 `rename_pattern` | If you want to rename indices as you restore them, use this option to specify a regular expression that matches all indices you want to restore. Use capture groups (`()`) to reuse portions of the index name.
 `rename_replacement` | If you want to rename indices as you restore them, use this option to specify the replacement pattern. Use `$0` to include the entire matching index name, `$1` to include the content of the first capture group, etc.
-`index_settings` | If you want to change [index settings]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/#index-settings) applied during restore, specify them here. You cannot change `index.number_of_shards`.
-`ignore_index_settings` | Rather than explicitly specifying new settings with `index_settings`, you can ignore certain index settings in the snapshot and use the cluster defaults applied during restore. You cannot ignore `index.number_of_shards`, `index.number_of_replicas`, or `index.auto_expand_replicas`.
-`storage_type` | `local` indicates that all snapshot metadata and index data will be downloaded to local storage. <br /><br > `remote_snapshot` indicates that snapshot metadata will be downloaded to the cluster, but the remote repository will remain the authoritative store of the index data. Data will be downloaded and cached as necessary to service queries. At least one node in the cluster must be configured with the [search role]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/) in order to restore a snapshot using the type `remote_snapshot`. <br /><br > Defaults to `local`.
+`index_settings` | If you want to change index settings on restore, specify them here.
+`ignore_index_settings` | Rather than explicitly specifying new settings with `index_settings`, you can ignore certain index settings in the snapshot and use the cluster defaults on restore.
+
 
 ### Conflicts and compatibility
 
@@ -388,3 +384,6 @@ The `.opendistro_security` index contains sensitive data, so we recommend exclud
 ```bash
 curl -k --cert ./kirk.pem --key ./kirk-key.pem -XPOST 'https://localhost:9200/_snapshot/my-repository/3/_restore?pretty'
 ```
+
+We strongly recommend against restoring `.opendistro_security` using an admin certificate because doing so can alter the security posture of the entire cluster. See [A word of caution]({{site.url}}{{site.baseurl}}/security-plugin/configuration/security-admin/#a-word-of-caution) for a recommended process to back up and restore your security plugin configuration.
+{: .warning}

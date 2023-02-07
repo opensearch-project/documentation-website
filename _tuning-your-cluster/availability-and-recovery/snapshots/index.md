@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Snapshots
-nav_order: 65
+nav_order: 10
 has_children: true
+parent: Availability and Recovery
 redirect_from: /opensearch/snapshots/
 has_toc: false
 ---

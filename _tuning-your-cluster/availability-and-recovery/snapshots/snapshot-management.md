@@ -3,7 +3,10 @@ layout: default
 title: Snapshot Management
 parent: Snapshots
 nav_order: 20
+grand_parent: Availability and Recovery
 has_children: false
+redirect_from:
+  - /opensearch/snapshots/snapshot-management/
 ---
 
 # Snapshot Management

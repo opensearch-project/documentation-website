@@ -2,8 +2,11 @@
 layout: default
 title: Snapshot Management API
 parent: Snapshots
+grand_parent: Availability and Recovery
 nav_order: 30
 has_children: false
+redirect_from:
+  - /opensearch/snapshots/sm-api/
 ---
 
 # Snapshot Management API
