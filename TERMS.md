@@ -208,7 +208,7 @@ Use *disable* to describe making a feature or command unavailable. Examples:
 - Clear the checkbox to disable automatic monitoring.
 - The feature is disabled by default.
 
-Note that other alternative terms to *disable*—such as *deactivate*, *turn off*, or *stop*—are acceptable usage where appropriate and may be found in existing documentation. One important consideration when choosing terminology for these cases is that the language matches corresponding language in the user interface, if applicable.
+Note that other alternative terms to *disable*—such as *deactivate*, *turn off*, or *stop*—are acceptable usage where appropriate and may be found in existing documentation. One important consideration when choosing terminology for these cases is that you make sure the language matches corresponding language in the user interface, if applicable.
 
 Do not use *disable* to refer to users.
 
@@ -245,7 +245,7 @@ Use *enable* to describe making a feature or command available. Examples:
 - Select the checkbox to enable automatic monitoring.
 - The feature is enabled by default.
 
-Note that other alternative terms to *enable*—such as *activate*, *turn on*, *start*, —are acceptable usage where appropriate and may be found in existing documentation. One important consideration when choosing terminology for these cases is that the language matches corresponding language in the user interface, if applicable.
+Note that other alternative terms to *enable*—such as *activate*, *turn on*, *start*—are acceptable usage where appropriate and may be found in existing documentation. One important consideration when choosing terminology for these cases is that you make sure the language matches corresponding language in the user interface, if applicable.
 
 Avoid using *enable* to refer to making something possible for the user. Instead, rewrite to focus on what's important from the user's point of view. For example, “With ABC, you can do XYZ” is a stronger statement than “ABC enables you to XYZ.” Additionally, using a task-based statement is usually more clear than the vague “…enables you to….”
 
