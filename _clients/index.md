@@ -34,19 +34,8 @@ OpenSearch provides clients for the following programming languages and platform
 * **Rust**
   * [OpenSearch Rust client]({{site.url}}{{site.baseurl}}/clients/rust/)
 
-<<<<<<< HEAD
-{% comment %}
-* [OpenSearch Java client]({{site.url}}{{site.baseurl}}/clients/java/)
-{% endcomment %}
-* [OpenSearch Python client]({{site.url}}{{site.baseurl}}/clients/python/)
-* [OpenSearch JavaScript (Node.js) client]({{site.url}}{{site.baseurl}}/clients/javascript/)
-* [OpenSearch .NET clients]({{site.url}}{{site.baseurl}}/clients/dot-net/)
-* [OpenSearch Go client]({{site.url}}{{site.baseurl}}/clients/go/)
-* [OpenSearch PHP client]({{site.url}}{{site.baseurl}}/clients/php/)
-=======
 All clients are compatible with any version of OpenSearch.
 {: .note}
->>>>>>> 41402893 (Refactors the clients index page (#2555))
 
 
 ## Legacy clients
