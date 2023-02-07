@@ -9,11 +9,11 @@ redirect_from:
 
 # OpenSearch language clients
 
-OpenSearch provides clients in JavaScript, Python, Ruby, Java, PHP, C#/.NET, Go and Rust.
+OpenSearch provides clients in JavaScript, Python, Ruby, Java, PHP, .NET, Go and Rust.
 
 ## OpenSearch clients
 
-OpenSearch provides clients for the following programming languages: 
+OpenSearch provides clients for the following programming languages and platforms: 
 
 * **Python**
   * [OpenSearch high-level Python client]({{site.url}}{{site.baseurl}}/clients/python-high-level/)
@@ -29,7 +29,7 @@ OpenSearch provides clients for the following programming languages:
   * [OpenSearch Ruby client]({{site.url}}{{site.baseurl}}/clients/ruby/)
 * **PHP**
   * [OpenSearch PHP client]({{site.url}}{{site.baseurl}}/clients/php/)
-* **C#/.NET**
+* **.NET**
   * [OpenSearch .NET clients]({{site.url}}{{site.baseurl}}/clients/dot-net/)
 * **Rust**
   * [OpenSearch Rust client]({{site.url}}{{site.baseurl}}/clients/rust/)
