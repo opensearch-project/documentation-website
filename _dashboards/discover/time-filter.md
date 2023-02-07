@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Setting the time filter
-parent: Exploring data with Discover
+parent: Exploring data
 nav_order: 10
 ---
 
