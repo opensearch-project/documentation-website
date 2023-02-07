@@ -11,7 +11,7 @@ You can programmatically create dashboard reports in PDF or PNG format with the 
 If you want to download a CSV file, you need to have the Reporting plugin installed.
 {: .note }
 
-For any dashboard view, you can request a report in PNG or PDF format to be sent to an email address. This can be useful for sending reports to multiple email recipients with an email alias. The only dashboard view that supports creating a CSV report is the **Discover** view.
+For any dashboard view, you can request a report in PNG or PDF format to be sent to an email address. This can be useful for sending reports to multiple email recipients with an email alias. The only dashboard application that supports creating a CSV report is **Discover**.
 
 With the Reporting CLI, you can specify options for your report in the command line. The report is sent to an email address as a PDF attachment by default. You can also request a PNG image or a CSV file with the `--formats` argument.
 
@@ -29,7 +29,7 @@ To learn more about Amazon Cognito, see [What is Amazon Cognito?](https://docs.a
 <!--
 ### Bypass authentication option
 
-The reporting CLI tool allows you to integrate it into your own workflow or environment so that you can bypass authentication or potential security issues. For example, if you use the Reporting CLI tool within an AWS Lambda instance, no security issues would occur as long as you run the Reporting plugin in OpenSearch Dashboards. In this case, you would use "No auth" to bypass the authentication process. To specify "No Auth" use `--auth none` in your request. Lambda users should test to make sure they can bypass access to Dashboards without credentials using No Auth.  
+The Reporting CLI tool allows you to integrate it into your own workflow or environment so that you can bypass authentication or potential security issues. For example, if you use the Reporting CLI tool within an AWS Lambda instance, no security issues would occur as long as you run the Reporting plugin in OpenSearch Dashboards. In this case, you would use "No auth" to bypass the authentication process. To specify "No Auth" use `--auth none` in your request. Lambda users should test to make sure they can bypass access to Dashboards without credentials using No Auth.  
 
 To get a list of all options, see [Reporting CLI options](#reporting-cli-options).
 -->
@@ -102,7 +102,7 @@ Upon success, the email will be sent to the specified email address with the CSV
 
 ## Scheduling reports with the cron utility
 
-You can use the cron command-line utility to initiate a report request with the reporting CLI that runs periodically at any date or time interval. Follow the cron expression syntax to specify the date and time that precedes the command that you want to initiate.
+You can use the cron command-line utility to initiate a report request with the Reporting CLI that runs periodically at any date or time interval. Follow the cron expression syntax to specify the date and time that precedes the command that you want to initiate.
 
 To learn about the cron expression syntax, see [cron](https://en.wikipedia.org/wiki/Cron).
 
@@ -110,7 +110,7 @@ To learn about the cron expression syntax, see [cron](https://en.wikipedia.org/w
 
 You need a machine with cron installed.
 
-### Step 1: Install the reporting CLI
+### Step 1: Install the Reporting CLI
 
 Install the Reporting CLI by running the following command:
 
@@ -118,7 +118,7 @@ Install the Reporting CLI by running the following command:
 npm i @opensearch-project/opensearch-reporting-cli
 ```
 
-### Step 2: Specify the details for the report
+### Step 2: Specify the report details
 
 Open the crontab editor by running the following command:
 
@@ -242,7 +242,7 @@ For more details about Docker push commands, see [Pushing a Docker image](https:
 1. In **Images** select the image, and choose **Select image**.
 1. In **Architecture**, choose **x86_64**.
 1. Choose **Create function**.
-1. Go to **Lambda function > Configuration > General configuration> Edit timeout** and set the timeout in lambda to 5 minutes to allow the reporting CLI to generate the report.
+1. Go to **Lambda function > Configuration > General configuration> Edit timeout** and set the timeout in lambda to 5 minutes to allow the Reporting CLI to generate the report.
 1. Change the **Ephemeral storage** setting to at least 1024MB. The default setting is not a sufficient storage amount to support report generation.
 
 1. Next, test the function either by providing values JSON format or by providing AWS Lambda environment variables.
