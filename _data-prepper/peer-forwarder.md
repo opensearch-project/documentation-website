@@ -4,7 +4,7 @@ title: Peer forwarder
 nav_order: 12
 ---
 
-# Peer Forwarder
+# Peer forwarder
 
 Peer forwarder is an HTTP service that performs peer forwarding of an `event` between Data Prepper nodes for aggregation. This HTTP service uses a hash-ring approach to aggregate events and determine which Data Prepper node it should handle on a given trace before rerouting it to that node. Currently, Peer forwarder is supported by the `aggregate`, `service_map_stateful`, and `otel_trace_raw` [processors]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/processors/).
 
