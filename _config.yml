@@ -28,7 +28,7 @@ color_scheme: opensearch
 # Define Jekyll collections
 collections:
   # Define a collection named "tests", its documents reside in the "_tests" directory
-   install-and-configure:
+  install-and-configure:
     permalink: /:collection/:path/
     output: true  
   upgrade-to:
