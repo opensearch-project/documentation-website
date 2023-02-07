@@ -21,10 +21,6 @@ man cron
 - You need a machine with cron installed.
 - You need to install the Reporting CLI. See [Downloading and installing the Reporting CLI tool]({{site.url}}{{site.baseurl}}/dashboards/reporting-cli/rep-cli-install/)
 
-```
-npm i @opensearch-project/opensearch-reporting-cli
-```
-
 ## Specifying the report details
 
 Open the crontab editor by running the following command:
