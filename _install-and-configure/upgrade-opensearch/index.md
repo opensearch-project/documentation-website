@@ -1,19 +1,19 @@
 ---
 layout: default
-title: Upgrade Overview
+title: Upgrading OpenSearch
 nav_order: 1
 has_children: true
 redirect_from:
   - /upgrade-opensearch/index/
 ---
 
-# Upgrade Overview
+# Upgrade OpenSearch
 
 The OpenSearch Project releases regular updates that include new features, enhancements, and bug fixes. OpenSearch uses [Semantic Versioning](https://semver.org/), which means that breaking changes are only introduced between major version releases. To learn about upcoming features and fixes, review the [OpenSearch Project Roadmap](https://github.com/orgs/opensearch-project/projects/1) on GitHub. To see a list of previous releases, or to learn more about how OpenSearch uses versioning, check out the [Release Schedule and Maintenance Policy]({{site.url}}/releases.html).
 
 OpenSearch nodes and indexes are backwards-compatible by one major version. That means, for example, that you can restore an index to an OpenSearch 2.4.1 cluster from a snapshot that was taken on an OpenSearch 1.x cluster. Index compatibility is determined by the version of OpenSearch or Lucene that created the index. If an index was created by an OpenSearch cluster running version 1.0, then the index could be used by any other OpenSearch cluster running up to the latest 1.x or 2.x release.
 
-The following table can be used as a reference for Lucene versions running in OpenSearch 1.0 and later and [ElasticSearch](https://www.elastic.co/) 6.8 and later.
+The following table can be used as a reference for Lucene versions running in OpenSearch 1.0 and later and [Elasticsearch](https://www.elastic.co/) 6.8 and later.
 
 {% comment %}
 The following table needs some love. There's an issue with the CSS (I think) that's not drawing a right border for tr:last-child

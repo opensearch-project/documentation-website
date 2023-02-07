@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Upgrading OpenSearch
+title: OpenSearch Version Upgrades
 parent: Upgrade Overview
 nav_order: 10
 redirect_from:
@@ -14,7 +14,7 @@ This guide assumes that you are comfortable working from the Linux command line 
 
 ### About this guide
 
-Sample output and API responses included in this document were generated in a development environment. Testing was performed by upgrading an Elasticsearch 7.10.2 cluster to OpenSearch 1.3.7. However, this process can be applied to any **N → N+1** version upgrade of OpenSearch.
+Sample output and API responses included in this document were generated in a development environment. Testing was performed by upgrading an Elasticsearch 7.10.2 cluster to OpenSearch 1.3.7. However, this process can be applied to any **N → N+1** version upgrade of OpenSearch. Sample terminal output and API responses are included for example purposes. Responses and terminal output for your OpenSearch cluster might look different.
 
 ### Prepare to upgrade
 
