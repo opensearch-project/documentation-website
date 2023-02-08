@@ -152,17 +152,10 @@ Core peer forwarder introduces the following custom metrics. All the metrics are
 
 ### Timer
 
-<<<<<<< HEAD:_data-prepper/peer-forwarder.md
 Peer forwarder's timer capability provides the following information:
-
-- `requestForwardingLatency`: Measures latency of requests forwarded by the Peer forwarder client.
-- `requestProcessingLatency`: Measures latency of requests processed by the Peer forwarder server.
-=======
-peer forwarder's timer capability provides the following information:
 
 - `requestForwardingLatency`: Measures latency of requests forwarded by the peer forwarder client.
 - `requestProcessingLatency`: Measures latency of requests processed by the peer forwarder server.
->>>>>>> main:_data-prepper/managing-data-prepper/peer-forwarder.md
 
 ### Counter
 
