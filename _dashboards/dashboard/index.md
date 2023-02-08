@@ -41,7 +41,7 @@ Now that you've added the sample data, you can create a dashboard using that dat
 
 1. From the navigation panel, choose **Dashboard**.
 1. From the **Dashboards** window, choose **Create Dashboard**.
-1. Set the time filter to **Last 90 days**.
+1. Set the time filter to **Last 30 days**.
 1. Choose **Add an existing**.
 1. From the **Add panels** window, choose **Create new** and **Visualization**. This is a shortcut for creating a dashboard and a visualization in one flow. Alternatively, you can use the **Visualize** application to create visualizations and then add them to the dashboard.
 1. From the **New Visualization** window, choose **[eCommerce] Average Sold Quantity**. The donut chart is automatically added to the dashboard.
@@ -49,17 +49,36 @@ Now that you've added the sample data, you can create a dashboard using that dat
 You've created the following basic dashboard, which you'll continue using throughout this tutorial.
 
 ![Creating a basic dashboard]({{site.url}}{{site.baseurl}}/images/dashboards/dashboard-basic.png)
-## Creating a visualization
+## Creating and configuring a visualization
 
-In the following steps, you'll create a new visualization and add it to the dashboard. Continuing with the dashboard you created in the preceding steps, perform the following steps:
+In the next steps, you'll create a new visualization in the **Dashboard** application, configure it, and add it to the dashboard. 
 
-1. From the dashboard toolbar, choose **Create new**. 
-1. From the **New Visualization** window, choose **Vertical Bar** and then choose **opensearch_dashboards_sample_data_ecommerce**. You'll see the following image:
+Continuing with the dashboard you created in the preceding steps, follow these steps:
 
-    
+1. From the dashboard toolbar, choose **Create new**.
+1. From the **New Visualization** window, choose **Vertical Bar** and then choose the index pattern **opensearch_dashboards_sample_data_ecommerce**. You'll see the following image:
 
+    ![New visualization vertical bar chart]({{site.url}}{{site.baseurl}}/images/dashboards/new-bar-viz.png)
 
- 
+Next you'll configure the visualization by following these steps.
+
+1. Verify you are on the **Data** panel. **Metrics** shows **Y-axis Count**.
+1. From the **Buckets** panel, choose **Add** and then select **X-axis** from the **Add Bucket** dropdown list.
+1. From the **Aggregation** dropdown list, select **Date histogram**.
+1. Choose **Update**. You should see the following image:
+
+    ![Configuring and creating a visualization]({{site.url}}{{site.baseurl}}/images/dashboards/configure-bar-viz.png)
+
+Next you'll save the visualization by following these steps.
+
+1. From the toolbar, select **Save**
+2. In the **Save visualization** window, add a title for the visualization. In this example, the title is Order Date.
+3. Select **Save and return**. The new visualization is automatically added to the dashboard you created previously. 
+
+The dashboard should now look like the following image:
+
+![Dashboard showing existing and new visualizations combined in a single view]({{site.url}}{{site.baseurl}}/images/dashboards/new-dashboard.png)
+
 ## Configuring the visualization
 
 saving the visualization takes you back to the dashboard
