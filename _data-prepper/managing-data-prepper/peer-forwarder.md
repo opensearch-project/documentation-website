@@ -2,13 +2,14 @@
 layout: default
 title: Peer forwarder
 nav_order: 12
+parent: Managing Data Prepper
 ---
 
 # Peer forwarder
 
-Peer forwarder is an HTTP service that performs peer forwarding of an `event` between Data Prepper nodes for aggregation. This HTTP service uses a hash-ring approach to aggregate events and determine which Data Prepper node it should handle on a given trace before rerouting it to that node. Currently, Peer forwarder is supported by the `aggregate`, `service_map_stateful`, and `otel_trace_raw` [processors]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/processors/).
+Peer forwarder is an HTTP service that performs peer forwarding of an `event` between Data Prepper nodes for aggregation. This HTTP service uses a hash-ring approach to aggregate events and determine which Data Prepper node it should handle on a given trace before rerouting it to that node. Currently, peer forwarder is supported by the `aggregate`, `service_map_stateful`, and `otel_trace_raw` [processors]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/processors/).
 
-Peer forwarder groups events based on the identification keys provided by the supported processors. For `service_map_stateful` and `otel_trace_raw`, the identification key is `traceId` by default and cannot be configured. The `aggregate` processor is configured using the `identification_keys` configuration option. From here, you can specify which keys to use for Peer forwarder. See [Aggregate Processor page](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/aggregate-processor#identification_keys) for more information about identification keys.
+Peer forwarder groups events based on the identification keys provided by the supported processors. For `service_map_stateful` and `otel_trace_raw`, the identification key is `traceId` by default and cannot be configured. The `aggregate` processor is configured using the `identification_keys` configuration option. From here, you can specify which keys to use for peer forwarder. See [Aggregate Processor page](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/aggregate-processor#identification_keys) for more information about identification keys.
 
 Peer discovery allows Data Prepper to find other nodes that it will communicate with. Currently, peer discovery is provided by a static list, a DNS record lookup, or AWS Cloud Map.  
 
@@ -151,10 +152,17 @@ Core peer forwarder introduces the following custom metrics. All the metrics are
 
 ### Timer
 
+<<<<<<< HEAD:_data-prepper/peer-forwarder.md
 Peer forwarder's timer capability provides the following information:
 
 - `requestForwardingLatency`: Measures latency of requests forwarded by the Peer forwarder client.
 - `requestProcessingLatency`: Measures latency of requests processed by the Peer forwarder server.
+=======
+peer forwarder's timer capability provides the following information:
+
+- `requestForwardingLatency`: Measures latency of requests forwarded by the peer forwarder client.
+- `requestProcessingLatency`: Measures latency of requests processed by the peer forwarder server.
+>>>>>>> main:_data-prepper/managing-data-prepper/peer-forwarder.md
 
 ### Counter
 
@@ -165,8 +173,8 @@ The following table provides counter metric options.
 | `requests`| Measures the total number of forwarded requests. |
 | `requestsFailed`| Measures the total number of failed requests. Applies to requests with an HTTP response code other than `200`. |
 | `requestsSuccessful`|  Measures the total number of successful requests. Applies to requests with HTTP response code `200`. |
-| `requestsTooLarge`| Measures the total number of requests that are too large to be written to the Peer forwarder buffer. Applies to requests with HTTP response code `413`. |
-| `requestTimeouts`| Measures the total number of requests that time out while writing content to the Peer forwarder buffer. Applies to requests with HTTP response code `408`. |
+| `requestsTooLarge`| Measures the total number of requests that are too large to be written to the peer forwarder buffer. Applies to requests with HTTP response code `413`. |
+| `requestTimeouts`| Measures the total number of requests that time out while writing content to the peer forwarder buffer. Applies to requests with HTTP response code `408`. |
 | `requestsUnprocessable`| Measures the total number of requests that fail due to an unprocessable entity. Applies to requests with HTTP response code `422`. |
 | `badRequests`| Measures the total number of requests with a bad request format. Applies to requests with HTTP response code `400`. |
 | `recordsSuccessfullyForwarded`| Measures the total number of successfully forwarded records. |
