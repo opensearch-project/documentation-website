@@ -1,8 +1,8 @@
 ---
 layout: default
 title: Peer forwarder
+nav_order: 12
 parent: Managing Data Prepper
-nav_order: 10
 ---
 
 # Peer forwarder
@@ -152,7 +152,7 @@ Core peer forwarder introduces the following custom metrics. All the metrics are
 
 ### Timer
 
-peer forwarder's timer capability provides the following information:
+Peer forwarder's timer capability provides the following information:
 
 - `requestForwardingLatency`: Measures latency of requests forwarded by the peer forwarder client.
 - `requestProcessingLatency`: Measures latency of requests processed by the peer forwarder server.
