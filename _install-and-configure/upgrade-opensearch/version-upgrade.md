@@ -7,38 +7,24 @@ nav_order: 10
 
 # OpenSearch Rolling Upgrade
 
+Rolling upgrades, sometimes referred to as "node replacement upgrades," can be performed on running clusters with virtually no downtime. Nodes are dismissed from the cluster and replaced one at a time by nodes running the target version. During this process you can continue to index and query data in your cluster.
+
 This guide assumes that you are comfortable working from the Linux command line interface (CLI). You should understand how to input commands, navigate between directories, and edit text files. For help with [Docker](https://www.docker.com/) or [Docker Compose](https://github.com/docker/compose), refer to the official documentation on their websites.
 {:.note}
 
 ### About this guide
 
-Sample output and API responses included in this document were generated in a development environment. Testing and validation was performed by upgrading an Elasticsearch 7.10.2 cluster to OpenSearch 1.3.7. However, this process can be applied to any **N → N+1** version upgrade of OpenSearch. Sample terminal output and API responses are included for example purposes and your terminal output and API responses may look slightly different.
+The sample outputs and API responses included in this document were generated in a development environment. Testing and validation was performed by upgrading an Elasticsearch 7.10.2 cluster of 4 nodes to OpenSearch 1.3.7. However, this process can be applied to any **N → N+1** version upgrade of OpenSearch.
 
 ### Prepare to upgrade
 
-Before you upgrade, review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/index/) for recommendations about backing up your configuration files and creating a snapshot of the cluster state and indexes before you make any changes to your OpenSearch cluster.
+Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/index/) for recommendations about backing up your configuration files and creating a snapshot of the cluster state and indexes before you make any changes to your OpenSearch cluster.
 
 OpenSearch nodes cannot be downgraded. If you need to revert the upgrade, then you will need to perform a fresh installation of OpenSearch and restore the cluster from a snapshot. Take a snapshot and store it in a remote repository before beginning the upgrade procedure.
 {: .note}
 
 ### Rolling upgrade
 
-
-
-1. Perform a flush operation on the cluster to commit transaction log entries to the Lucene index.
-```bash
-curl -X POST "http://localhost:9200/_flush?pretty"
-```
-**Sample response:**
-```bash
-{
-  "_shards" : {
-    "total" : 4,
-    "successful" : 4,
-    "failed" : 0
-  }
-}
-```
 1. Disable shard replication to prevent shard replicas from being created while nodes are being taken offline.
 ```bash
 curl -X PUT "http://localhost:9200/_cluster/settings?pretty" -H 'Content-type: application/json' -d'{"persistent":{"cluster.routing.allocation.enable":"primaries"}}'
@@ -57,6 +43,20 @@ curl -X PUT "http://localhost:9200/_cluster/settings?pretty" -H 'Content-type: a
     }
   },
   "transient" : { }
+}
+```
+1. Perform a flush operation on the cluster to commit transaction log entries to the Lucene index. This 
+```bash
+curl -X POST "http://localhost:9200/_flush?pretty"
+```
+**Sample response:**
+```bash
+{
+  "_shards" : {
+    "total" : 4,
+    "successful" : 4,
+    "failed" : 0
+  }
 }
 ```
 1. Verify the health of your OpenSearch cluster.
