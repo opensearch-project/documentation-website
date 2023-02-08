@@ -20,8 +20,33 @@ group_duration | No | String | The amount of time that a group should exist befo
 
 <!---## Configuration
 
-Content will be added to this section.
+Content will be added to this section.--->
 
 ## Metrics
 
-Content will be added to this section.--->
+Apart from common metrics in the [Abstract processor](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/processor/AbstractProcessor.java), the aggregate processor introduces the following custom metrics:
+
+**Counter**
+
+* `actionHandleEventsOut`: The number of Events that have been returned from the `handleEvent` call to the [action](#action) configured
+
+<!--- Global: what should action link to?--->
+
+
+* `actionHandleEventsDropped`: The number of Events that have not been returned from the `handleEvent` call to the [action](#action) configured.
+
+
+* `actionHandleEventsProcessingErrors`: The number of calls made to `handleEvent` for the [action](#action) configured that resulted in an error.
+
+
+* `actionConcludeGroupEventsOut`: The number of Events that have been returned from the `concludeGroup` call to the [action](#action) configured.
+
+
+* `actionConcludeGroupEventsDropped`: The number of Events that have not been returned from the `condludeGroup` call to the [action](#action) configured.
+
+
+* `actionConcludeGroupEventsProcessingErrors`: The number of calls made to `concludeGroup` for the [action](#action) configured that resulted in an error.
+
+**Gauge**
+
+* `currentAggregateGroups`: The current number of groups. This gauge decreases when groups are concluded, and increases when an Event triggers the creation of a new group.
