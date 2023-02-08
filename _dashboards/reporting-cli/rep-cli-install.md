@@ -17,7 +17,7 @@ To learn more about the npm software registry, see the [npm](https://docs.npmjs.
 To download and install the Reporting CLI from npm, run the following command to initiate installation:
 
 ```
-npm i @opensearch-project/opensearch-reporting-cli
+npm i @opensearch-project/reporting-cli
 ```
 
 ## Downloading and installing the Reporting CLI from OpenSearch.org
@@ -29,3 +29,6 @@ Next, run the following command to install the .tar archive:
 ```
 npm install -g opensearch-reporting-cli-1.0.0.tgz
 ```
+
+<!-- TBD - they are deciding whether or not to provide via downloads page, or on the Artifacts page
+https://opensearch.org/artifacts. -->
