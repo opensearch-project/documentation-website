@@ -114,9 +114,14 @@ code {
   left: 0.25rem;
 }
 
-img {
+.border {
   border-radius: $border-radius;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12), 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+img {
+  @extend .border;
+  border: none;
 }
 
 .no-border {
@@ -283,16 +288,42 @@ img {
 // Feedback buttons
 .feedback-button {
   @extend .btn-general;
-  margin-left: 0.2rem;
-  margin-right: 0.2rem;
+  margin: 0 0.2rem;
+}
+
+.send-button {
+  @extend .btn-general;
 }
 
 // Feedback question
 .feedback-header {
   @extend %toc-font;
   letter-spacing: 0.08em;
+  margin: 1rem 0;
+}
+
+.feedback-text-header {
+  text-align: left;
+  font-size: 10pt;
+  font-weight: 600; // or 600. 700 is bold
   margin-top: 1rem;
-  margin-bottom: 1rem;
+}
+
+// Feedback text area
+textarea {
+  @extend .border, .img-border;
+  width: 10.5rem;
+  height: 5rem;
+  color: $grey-dk-100;
+  background-color: mix(white, $grey-lt-000, 60%);
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  resize: vertical;
+  &:focus {
+    outline: none;
+    border: 1px solid $blue-100;
+    background-color: white;
+  }
 }
 
 // Feedback confirmation
