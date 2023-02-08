@@ -30,7 +30,7 @@ In this tutorial you'll learn the basics of creating a dashboard using the **Das
 - The **time filter** (D) allows you to customize the time and date.
 - The **panel** (E) allows you to add existing visualizations to the dashboard or create new ones for the dashboard.
 
-## Adding data and creating a dashboard
+## Adding data and creating the dashboard
 
 Add the sample dataset and then use it to create your first dashboard by performing the following steps:
 
@@ -49,10 +49,17 @@ Now that you've added the sample data, you can create a dashboard using that dat
 You've created the following basic dashboard, which you'll continue using throughout this tutorial.
 
 ![Creating a basic dashboard]({{site.url}}{{site.baseurl}}/images/dashboards/dashboard-basic.png)
-
 ## Creating a visualization
 
+In the following steps, you'll create a new visualization and add it to the dashboard. Continuing with the dashboard you created in the preceding steps, perform the following steps:
 
+1. From the dashboard toolbar, choose **Create new**. 
+1. From the **New Visualization** window, choose **Vertical Bar** and then choose **opensearch_dashboards_sample_data_ecommerce**. You'll see the following image:
+
+    
+
+
+ 
 ## Configuring the visualization
 
 saving the visualization takes you back to the dashboard
