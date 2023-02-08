@@ -15,10 +15,6 @@ OpenSearch nodes and indexes are backwards-compatible by one major version. That
 
 The following table can be used as a reference for Lucene versions running in OpenSearch 1.0 and later and [Elasticsearch](https://www.elastic.co/) 6.8 and later.
 
-{% comment %}
-The following table needs some love. There's an issue with the CSS (I think) that's not drawing a right border for tr:last-child
-{% endcomment %}
-
 If your upgrade path spans more than a single major version, and you want to maintain existing indexes, then you will need to use the [Reindex]({{site.url}}{{site.baseurl}}/api-reference/document-apis/reindex/) API to make your indexes compatible with the target version of OpenSearch before upgrading. For example, if your cluster is currently running Elasticsearch 6.8 and you want to upgrade to OpenSearch 2.x, then you must first upgrade to OpenSearch 1.x, recreate your indexes using the [Reindex]({{site.url}}{{site.baseurl}}/api-reference/document-apis/reindex/) API, and finally upgrade to 2.x.
 
 ## Workflow considerations

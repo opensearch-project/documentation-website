@@ -1,6 +1,6 @@
 ---
 layout: default
-title: OpenSearch Version Upgrade
+title: OpenSearch Rolling Upgrade
 parent: Upgrading OpenSearch
 nav_order: 10
 ---
@@ -30,7 +30,7 @@ OpenSearch nodes cannot be downgraded. If you need to revert the upgrade, then y
   curl "http://localhost:9201/_cluster/health?pretty"
   ```
   **Sample response:**
-  ```bash
+  ```json
   {
     "cluster_name" : "opensearch-dev-cluster",
     "status" : "green",
@@ -54,7 +54,7 @@ OpenSearch nodes cannot be downgraded. If you need to revert the upgrade, then y
   curl -X PUT "http://localhost:9201/_cluster/settings?pretty" -H 'Content-type: application/json' -d'{"persistent":{"cluster.routing.allocation.enable":"primaries"}}'
   ```
   **Sample response:**
-  ```bash
+  ```json
   {
     "acknowledged" : true,
     "persistent" : {
@@ -74,7 +74,7 @@ OpenSearch nodes cannot be downgraded. If you need to revert the upgrade, then y
   curl -X POST "http://localhost:9201/_flush?pretty"
   ```
   **Sample response:**
-  ```bash
+  ```json
   {
     "_shards" : {
       "total" : 4,
@@ -189,7 +189,7 @@ OpenSearch nodes cannot be downgraded. If you need to revert the upgrade, then y
   curl -X PUT "http://localhost:9201/_cluster/settings?pretty" -H 'Content-type: application/json' -d'{"persistent":{"cluster.routing.allocation.enable":"all"}}'
   ```
   Sample output:
-  ```bash
+  ```json
   {
     "acknowledged" : true,
     "persistent" : {
@@ -209,7 +209,7 @@ OpenSearch nodes cannot be downgraded. If you need to revert the upgrade, then y
   curl "http://localhost:9201/_cluster/health?pretty"
   ```
   Sample output:
-  ```bash
+  ```json
   {
     "cluster_name" : "opensearch-dev-cluster",
     "status" : "green",
