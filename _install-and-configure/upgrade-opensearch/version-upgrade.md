@@ -25,9 +25,34 @@ OpenSearch nodes cannot be downgraded. If you need to revert the upgrade, then y
 
 ### Rolling upgrade
 
+1. Verify the health of your OpenSearch cluster before you begin. You should resolve any index or shard allocation issues prior to upgrading to ensure that your data is preserved.
+```bash
+curl "http://localhost:9201/_cluster/health?pretty"
+```
+A status of **green** indicates that all primary and replica shards are allocated. See [Cluster health]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-health/) for more information.
+**Sample response:**
+```bash
+{
+  "cluster_name" : "opensearch-dev-cluster",
+  "status" : "green",
+  "timed_out" : false,
+  "number_of_nodes" : 4,
+  "number_of_data_nodes" : 4,
+  "active_primary_shards" : 1,
+  "active_shards" : 4,
+  "relocating_shards" : 0,
+  "initializing_shards" : 0,
+  "unassigned_shards" : 0,
+  "delayed_unassigned_shards" : 0,
+  "number_of_pending_tasks" : 0,
+  "number_of_in_flight_fetch" : 0,
+  "task_max_waiting_in_queue_millis" : 0,
+  "active_shards_percent_as_number" : 100.0
+}
+```
 1. Disable shard replication to prevent shard replicas from being created while nodes are being taken offline.
 ```bash
-curl -X PUT "http://localhost:9200/_cluster/settings?pretty" -H 'Content-type: application/json' -d'{"persistent":{"cluster.routing.allocation.enable":"primaries"}}'
+curl -X PUT "http://localhost:9201/_cluster/settings?pretty" -H 'Content-type: application/json' -d'{"persistent":{"cluster.routing.allocation.enable":"primaries"}}'
 ```
 **Sample response:**
 ```bash
@@ -47,7 +72,7 @@ curl -X PUT "http://localhost:9200/_cluster/settings?pretty" -H 'Content-type: a
 ```
 1. Perform a flush operation on the cluster to commit transaction log entries to the Lucene index. This 
 ```bash
-curl -X POST "http://localhost:9200/_flush?pretty"
+curl -X POST "http://localhost:9201/_flush?pretty"
 ```
 **Sample response:**
 ```bash
@@ -57,32 +82,6 @@ curl -X POST "http://localhost:9200/_flush?pretty"
     "successful" : 4,
     "failed" : 0
   }
-}
-```
-1. Verify the health of your OpenSearch cluster.
-```bash
-curl "http://localhost:9200/_cluster/health?pretty"
-```
-A status of **green** indicates that all primary and replica shards are allocated.
-**Sample response:**
-```bash
-{
-  "cluster_name" : "opensearch-dev-cluster",
-  "status" : "green",
-  "timed_out" : false,
-  "number_of_nodes" : 4,
-  "number_of_data_nodes" : 4,
-  "discovered_master" : true,
-  "active_primary_shards" : 2,
-  "active_shards" : 4,
-  "relocating_shards" : 0,
-  "initializing_shards" : 0,
-  "unassigned_shards" : 0,
-  "delayed_unassigned_shards" : 0,
-  "number_of_pending_tasks" : 0,
-  "number_of_in_flight_fetch" : 0,
-  "task_max_waiting_in_queue_millis" : 0,
-  "active_shards_percent_as_number" : 100.0
 }
 ```
 1. List the running containers in your OpenSearch cluster and make a note of the container IDs and names.
