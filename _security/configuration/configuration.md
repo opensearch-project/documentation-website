@@ -142,6 +142,8 @@ If `challenge` is set to `true`, the security plugin sends a response with statu
 
 If `challenge` is set to `false` and no `Authorization` header field is set, the security plugin does not send a `WWW-Authenticate` response back to the client, and authentication fails. You might want to use this setting if you have another challenge `http_authenticator` in your configured authentication domains. One such scenario is when you plan to use basic authentication and Kerberos together.
 
+{% comment %}
+*Commenting out this section until there is development that makes Kerberos available again. Still, I think it's worthwhile adding the warning below as a note somewhere above here. The comment will preserve the content until we're ready to work with it again.
 
 ### Kerberos
 
@@ -200,7 +202,7 @@ If you set `strip_realm_from_principal` to `true`, the security plugin strips th
 #### Authentication backend
 
 Because Kerberos/SPNEGO authenticates users on an HTTP level, no additional `authentication_backend` is needed. Set this value to `noop`.
-
+{% endcomment %}
 
 ### JSON web token
 
