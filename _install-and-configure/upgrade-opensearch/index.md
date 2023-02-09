@@ -11,9 +11,9 @@ redirect_from:
 
 The OpenSearch Project releases regular updates that include new features, enhancements, and bug fixes. OpenSearch uses [Semantic Versioning](https://semver.org/), which means that breaking changes are only introduced between major version releases. To learn about upcoming features and fixes, review the [OpenSearch Project Roadmap](https://github.com/orgs/opensearch-project/projects/1) on GitHub. To see a list of previous releases, or to learn more about how OpenSearch uses versioning, check out the [Release Schedule and Maintenance Policy]({{site.url}}/releases.html).
 
-OpenSearch nodes and indexes are backwards-compatible by one major version. That means, for example, that you can restore an index to an OpenSearch 2.4.1 cluster from a snapshot that was taken on an OpenSearch 1.x cluster. Index compatibility is determined by the version of OpenSearch or Lucene that created the index. If an index was created by an OpenSearch cluster running version 1.0, then the index could be used by any other OpenSearch cluster running up to the latest 1.x or 2.x release.
+OpenSearch nodes are compatible with nodes running any other minor version within the same major version release. For example, 1.1.0 is compatible with 1.3.7 because they are part of the same major version (1.x). Additionally, OpenSearch nodes and indexes are backwards-compatible with the previous major version (**N-1**). That means, for example, that an index created by an OpenSearch node running version 1.3.7 could be restored from a snapshot to an OpenSearch cluster running version 2.5.0. There are special considerations that should be taken into consideration if system indexes are also being restored. These considerations will be added as we continue to improve and expand this documentation.
 
-The following table can be used as a reference for Lucene versions running in OpenSearch 1.0 and later and [Elasticsearch](https://www.elastic.co/) 6.8 and later.
+Index compatibility is determined by the version of [Apache Lucene](https://lucene.apache.org/) that created the index. If an index was created by an OpenSearch cluster running version 1.0.0, then the index could be used by any other OpenSearch cluster running up to the latest 1.x or 2.x release. See the [Lucene version reference](#lucene-version-reference) table for Lucene versions running in OpenSearch 1.0.0 and later and [Elasticsearch](https://www.elastic.co/) 6.8 and later.
 
 If your upgrade path spans more than a single major version, and you want to maintain existing indexes, then you will need to use the [Reindex]({{site.url}}{{site.baseurl}}/api-reference/document-apis/reindex/) API to make your indexes compatible with the target version of OpenSearch before upgrading. For example, if your cluster is currently running Elasticsearch 6.8 and you want to upgrade to OpenSearch 2.x, then you must first upgrade to OpenSearch 1.x, recreate your indexes using the [Reindex]({{site.url}}{{site.baseurl}}/api-reference/document-apis/reindex/) API, and finally upgrade to 2.x.
 
@@ -164,7 +164,6 @@ td {
         <td>-</td>
         <td>7.11<br>7.10</td>
     </tr>
-<!-- Commenting this section of the table out - is this valuable to readers or should we only go back to 1.0.0 / 7.10.2?
     <tr>
         <td>8.6.2</td>
         <td>-</td>
@@ -205,5 +204,4 @@ td {
         <td>-</td>
         <td>6.8</td>
     </tr>
-End of the trimmed section -->
 </table>
