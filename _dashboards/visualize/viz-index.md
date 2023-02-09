@@ -5,7 +5,7 @@ nav_order: 40
 has_children: true
 ---
 
-# Visualize
+# Building data visualizations
 
 By visualizing your data, you translate complex, high-volume, or numerical data into a visual representation that is easier to process. OpenSearch Dashboards gives you data visualization tools to improve and automate the visual communication process. By using visual elements like charts, graphs, or maps to represent data, you can advance business intelligence and support data-driven decision-making and strategic planning.
 
