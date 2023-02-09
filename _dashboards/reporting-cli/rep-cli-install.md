@@ -30,6 +30,6 @@ Next, run the following command to install the .tar archive:
 npm install -g opensearch-reporting-cli-1.0.0.tgz
 ```
 
-Opionally, you can verify signatures by downloading the [Reporting CLI signature file](https://artifacts.opensearch.org/reporting-cli/opensearch-reporting-cli-1.0.0.tgz.sig).
+Optionally, you can verify signatures by downloading the [Reporting CLI signature file](https://artifacts.opensearch.org/reporting-cli/opensearch-reporting-cli-1.0.0.tgz.sig).
 
 To learn more about verifying signatures, see [How to verify signatures for downloadable artifacts](https://opensearch.org/verify-signatures.html).
