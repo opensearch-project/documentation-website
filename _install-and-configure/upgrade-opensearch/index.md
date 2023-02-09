@@ -19,10 +19,9 @@ If your upgrade path spans more than a single major version, and you want to ret
 
 ## A note about this document
 
---PENDING REVIEW FROM PRODUCT--
-We recognize that users are excited about upgrading OpenSearch, and eager to enjoy the latest features and improvements that have been added. Empowering users to upgrade existing clusters and migrate workflows from other solutions to OpenSearch is our goal, and we will continue to expand on these upgrade documents to cover additional topics, such as upgrading OpenSearch Dashboards, migrating your Kibana instance(s) to OpenSearch Dashboards, and preserving plugin configurations.
+We recognize that users are excited about upgrading OpenSearch and eager to enjoy the latest features and improvements that have been added. We will continue to expand on these upgrade and migration documents to cover [additional topics](link to meta issue), such as upgrading OpenSearch Dashboards, migrating your Kibana instance(s) to OpenSearch Dashboards, and preserving custom configurations, such as for the security plugin.
 
-If there's a specific process you would like to see added, please [submit an issue](https://github.com/opensearch-project/documentation-website/issues) on GitHub.
+If would like to see a specific process added, or would like to contribute yourself, please [submit an issue](https://github.com/opensearch-project/documentation-website/issues) on GitHub. Check out the [Contributor Guidelines](https://github.com/opensearch-project/documentation-website/blob/main/CONTRIBUTING.md) to see how you can help!
 
 ## Workflow considerations
 
@@ -68,7 +67,7 @@ Upgrades spanning more than a single major version of OpenSearch will require ad
 
 ### Rolling upgrade
 
-Rolling upgrades are a great option if you want to keep your cluster operational throughout the process. Users can continue using OpenSearch throughout the process, and data can continue to be ingested. A variation of the rolling upgrade, often referred to as "node replacement," is exactly the same process except hosts or containers are not reused for the new node.
+Rolling upgrades are a great option if you want to keep your cluster operational throughout the process. Users can continue using OpenSearch throughout the process, and data can continue to be ingested. A variation of the rolling upgrade, referred to as "node replacement," is exactly the same process except hosts or containers are not reused for the new node.
 
 OpenSearch nodes cannot join a cluster if the cluster manager is running a newer version of OpenSearch than the node requesting membership. To avoid this issue, you upgrade cluster manager-eligible nodes last.
 
