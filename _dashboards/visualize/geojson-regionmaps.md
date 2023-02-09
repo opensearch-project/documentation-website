@@ -1,16 +1,11 @@
 ---
 layout: default
-<<<<<<< HEAD:_dashboards/geojson-regionmaps.md
-title: Region map visualizations
-nav_order: 7
-=======
 title: Using coordinate and region maps
 parent: Building data visualizations
 has_children: true
 nav_order: 15
 redirect_from:
   - /dashboards/geojson-regionmaps/
->>>>>>> 65111760 ([DOC] Restructures Dashboards TOC (#2628)):_dashboards/visualize/geojson-regionmaps.md
 ---
 
 # Using coordinate and region maps
