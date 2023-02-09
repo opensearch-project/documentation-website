@@ -19,7 +19,7 @@ If your upgrade path spans more than a single major version, and you want to ret
 
 ## Workflow considerations
 
-You should take time to plan the process before making any changes to your cluster. For example, consider how long the upgrade process will take. If your cluster is being used in production, how impactful is downtime? Do you have infrastructure in place to stand up the new cluster in a dev environment before you move it into production, or do you need to upgrade the hosts in-place? The answers to questions like these will help you determine which upgrade path will work best in your environment. At a minimum, you should:
+Take time to plan the process before making any changes to your cluster. For example, consider how long the upgrade process will take. If your cluster is being used in production, how impactful is downtime? Do you have infrastructure in-place to stand up the new cluster in a testing or development environment before you move it into production, or do you need to upgrade the production hosts directly? The answers to questions like these will help you determine which upgrade path will work best in your environment. At a minimum, you should:
 
 - [Review breaking changes](#review-breaking-changes)
 - [Review the OpenSearch tools compatibility matrices](#review-the-opensearch-tools-compatibility-matrices)
@@ -27,23 +27,20 @@ You should take time to plan the process before making any changes to your clust
 - [Back up configuration files](#back-up-configuration-files)
 - [Create a snapshot](#create-a-snapshot)
 
-Before upgrading your production cluster, test the new version of OpenSearch in a development environment to validate functionality and compatibility with components in your production workflow.
-{: .tip}
-
 Stop any non-essential indexing before you begin the upgrade procedure.
 {: .tip}
 
 ### Review breaking changes
 
-It's important to determine how the new version of OpenSearch will fit into your production environment. Review the list of [breaking changes]({{site.url}}{{site.baseurl}}/breaking-changes/) before beginning any upgrade procedures to determine if you will need to make adjustments in your workflow. For example, upstream or downstream components might need to be adjusted to take an API change into account.
+It's important to determine how the new version of OpenSearch will fit into your production environment. Review [Breaking changes]({{site.url}}{{site.baseurl}}/breaking-changes/) before beginning any upgrade procedures to determine if you will need to make adjustments in your workflow. For example, upstream or downstream components might need to be adjusted due to an API change.
 
 ### Review the OpenSearch tools compatibility matrices
 
-Your OpenSearch cluster may interact with other services in your environment, like Logstash or Beats. Check the [OpenSearch tools compatibility matrices]({{site.url}}{{site.baseurl}}/tools/index/#compatibility-matrices) to see if any of your tools will also need to be upgraded.
+If your OpenSearch cluster interacts with other services in your environment, like Logstash or Beats, then you should check the [OpenSearch tools compatibility matrices]({{site.url}}{{site.baseurl}}/tools/index/#compatibility-matrices) to see if other components will need to be upgraded.
 
 ### Check plugin compatibility
 
-Review the plugins you use to determine whether or not they are compatible with the target version of OpenSearch. Many of the official plugins can be found in the official [OpenSearch Project](https://github.com/opensearch-project) repository on GitHub. If you use any unofficial or third party plugins, then you should check the documentation for those plugins to determine if they will be compatible.
+Review the plugins you use to determine compatibility with the target version of OpenSearch. Official OpenSearch Project plugins can be found in the official [OpenSearch Project](https://github.com/opensearch-project) repository on GitHub. If you use any third party plugins, then you should check the documentation for those plugins to determine if they are compatible.
 
 ### Back up configuration files
 
