@@ -20,9 +20,9 @@ Before you begin this tutorial, make sure you've installed OpenSearch and OpenSe
 
 ## Getting familiar with user interface
 
-In this tutorial you'll learn the basics of creating a dashboard using the **Dashboard** application and OpenSearch sample log data. Before getting started, get familiar with the Dashboard user interface. The user interface comprises five main parts, as shown in the following image:
+In this tutorial you'll learn the basics of creating a dashboard using the **Dashboard** application and OpenSearch sample data. Before getting started, get familiar with the Dashboard user interface. The user interface comprises five main parts, as shown in the following image:
 
-![Dashboard user interface]({{site.url}}{{site.baseurl}}/images/dashboards/user-interface.png)
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/user-interface.png" alt="Dashboard user interface" width="600" height="300">
 
 - The **navigation panel** (A) on the left contains the OpenSearch Dashboards applications.
 - The **toolbar** (B) contains frequently used commands and shortcuts.
