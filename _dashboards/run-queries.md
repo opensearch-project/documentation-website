@@ -4,7 +4,7 @@ title: Running queries in the Dev Tools Console
 nav_order: 110
 ---
 
-# Running queries in the console
+# Running queries in the Dev Tools Console
 
 You can use the OpenSearch Dev Tools Console to send queries to OpenSearch. 
 
