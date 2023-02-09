@@ -129,7 +129,7 @@ Log ingestion is also an important Data Prepper use case. To learn more, see [Lo
 
 To learn how to run Data Prepper with a Logstash configuration, see [Migrating from Logstash]({{site.url}}{{site.baseurl}}/data-prepper/migrating-from-logstash-data-prepper/).
 
-For information on how to monitor Data Prepper, see the [Monitoring](https://github.com/opensearch-project/data-prepper/blob/main/docs/monitoring.md) page.
+For information on how to monitor Data Prepper, see the [Monitoring]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/monitoring/) page.
 
 ## Other examples
 
