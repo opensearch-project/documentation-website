@@ -8,6 +8,8 @@ nav_order: 45
 
 # json
 
+<!--- Should we add "Parse" to the title? The original is "Parse JSON processor. --->
+
 ## Overview
 
 Takes in an event and parses its JSON data, including any nested fields.
