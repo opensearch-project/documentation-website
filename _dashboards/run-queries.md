@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Running queries in the console
+title: Running queries in the Dev Tools Console
 nav_order: 110
 ---
 
