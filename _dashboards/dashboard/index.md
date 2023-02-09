@@ -7,7 +7,7 @@ has_children: true
 
 # Creating dashboards
 
-A dashboard combines multiple data visualizations into a single view. With the **Dashboard** application you can:
+A dashboard combines multiple data visualizations into a single view. With the **Dashboard** application, you can:
 
 - Get started with pre-built panels and dashboards and customize display properties to create the dashboard you need.
 - Analyze, monitor, and alarm on metrics, logs, and traces across multiple data sources.
