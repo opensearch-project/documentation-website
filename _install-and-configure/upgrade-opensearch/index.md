@@ -17,6 +17,13 @@ Index compatibility is determined by the version of [Apache Lucene](https://luce
 
 If your upgrade path spans more than a single major version, and you want to retain any existing index(es), then you can use the [Reindex]({{site.url}}{{site.baseurl}}/api-reference/document-apis/reindex/) API to make your indexes compatible with the target version of OpenSearch before upgrading. For example, if your cluster is currently running Elasticsearch 6.8 and you want to upgrade to OpenSearch 2.x, then you must first upgrade to OpenSearch 1.x, recreate your indexes using the [Reindex]({{site.url}}{{site.baseurl}}/api-reference/document-apis/reindex/) API, and finally upgrade to 2.x. One alternative to reindexing is to reingest data from the origin, such as by replaying a datastream or ingesting data from a database.
 
+## A note about this document
+
+--PENDING REVIEW FROM PRODUCT--
+We recognize that users are excited about upgrading OpenSearch, and eager to enjoy the latest features and improvements that have been added. Empowering users to upgrade existing clusters and migrate workflows from other solutions to OpenSearch is our goal, and we will continue to expand on these upgrade documents to cover additional topics, such as upgrading OpenSearch Dashboards, migrating your Kibana instance(s) to OpenSearch Dashboards, and preserving plugin configurations.
+
+If there's a specific process you would like to see added, please [submit an issue](https://github.com/opensearch-project/documentation-website/issues) on GitHub.
+
 ## Workflow considerations
 
 Take time to plan the process before making any changes to your cluster. For example, consider how long the upgrade process will take. If your cluster is being used in production, how impactful is downtime? Do you have infrastructure in-place to stand up the new cluster in a testing or development environment before you move it into production, or do you need to upgrade the production hosts directly? The answers to questions like these will help you determine which upgrade path will work best in your environment. At a minimum, you should:
@@ -44,26 +51,28 @@ Review the plugins you use to determine compatibility with the target version of
 
 ### Back up configuration files
 
-Mitigate the risk of data loss by backing up any important files before you start an upgrade. Generally speaking, these files will be located in `opensearch/config` (OpenSearch) and `opensearch-dashboards/config` (OpenSearch Dashboards). Some examples include `opensearch.yml`, `opensearch_dashboards.yml`, security plugin backups, and TLS certificates. Once you identify which files you need to back up, copy them to remote storage so they can be restored, if necessary.
+Mitigate the risk of data loss by backing up any important files before you start an upgrade. Generally speaking, these files will be located in `opensearch/config` (OpenSearch) and `opensearch-dashboards/config` (OpenSearch Dashboards). Some examples include `opensearch.yml`, `opensearch_dashboards.yml`, security plugin backups, and TLS certificates. Once you identify which files you need to back up, copy them to remote storage for safety.
 
 ### Create a snapshot
 
-We recommend that you back up your cluster state and indexes using [Snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/index/). If the security plugin is enabled then you will need to take a additional steps, because the `.opendistro_security` index can't be directly restored. See [A word of caution]({{site.url}}{{site.baseurl}}/security-plugin/configuration/security-admin/#a-word-of-caution) for details about backing up and restoring your security settings.
+We recommend that you back up your cluster state and indexes using [Snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/index/). If you use the security plugin, make sure to read [A word of caution]({{site.url}}{{site.baseurl}}/security-plugin/configuration/security-admin/#a-word-of-caution) for details about backing up and restoring your security settings.
 
 ## Upgrade methods
 
 Choose an appropriate method for upgrading your cluster to a new version of OpenSearch based on your requirements.
 
-- [Rolling upgrade](#rolling-upgrade) allows you to upgrade nodes individually without stopping the cluster.
-- [Cluster restart upgrade](#cluster-restart-upgrade) allows the upgrade to be performed while the cluster is stopped.
+- [Rolling upgrade](#rolling-upgrade) allows you to upgrade nodes one at a time without stopping the cluster.
+- [Cluster restart upgrade](#cluster-restart-upgrade) is the process of upgrading while the cluster is stopped.
 
-Upgrades spanning more than a single major version of OpenSearch will require additional effort due to the need for reindexing. You should upgrade in steps, one major version at a time. After each upgrade you should reindex because OpenSearch is not compatible with indexes that are more than a single major version behind your cluster's OpenSearch/Lucene version. For more information, refer to the [Reindex]({{site.url}}{{site.baseurl}}/api-reference/document-apis/reindex/) API.
+Upgrades spanning more than a single major version of OpenSearch will require additional effort due to the need for reindexing. For more information, refer to the [Reindex]({{site.url}}{{site.baseurl}}/api-reference/document-apis/reindex/) API.
 
 ### Rolling upgrade
 
-Rolling upgrades are a great option if you want to keep your cluster operational throughout the process. Shard replication is stopped temporarily, then nodes are upgraded one at a time. A variation of the rolling upgrade, often referred to as "node replacement," is exactly the same process except hosts or containers are not reused for the new node.
+Rolling upgrades are a great option if you want to keep your cluster operational throughout the process. Users can continue using OpenSearch throughout the process, and data can continue to be ingested. A variation of the rolling upgrade, often referred to as "node replacement," is exactly the same process except hosts or containers are not reused for the new node.
 
 OpenSearch nodes cannot join a cluster if the cluster manager is running a newer version of OpenSearch than the node requesting membership. To avoid this issue, you upgrade cluster manager-eligible nodes last.
+
+See [Rolling Upgrade]({{site.url}}{{site.baseurl}}/upgrade-opensearch/rolling-upgrade/) for details about the process.
 
 ### Cluster restart upgrade
 
