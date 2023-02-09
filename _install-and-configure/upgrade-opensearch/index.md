@@ -75,7 +75,9 @@ See [Rolling Upgrade]({{site.url}}{{site.baseurl}}/upgrade-opensearch/rolling-up
 
 ### Cluster restart upgrade
 
-OpenSearch administrators might choose a restart upgrade if they aren't comfortable performing maintenance on a running cluster, if the cluster is being migrated to different infrastructure, or if they manage their cluster with [Docker Compose](https://github.com/docker/compose). During a rolling upgrade, only a single node is offline at any point in time. The cluster restart upgrade, however, involves stopping all nodes in the cluster, performing the upgrade, and starting the cluster back up.
+OpenSearch administrators might choose a restart upgrade if they aren't comfortable performing maintenance on a running cluster, if the cluster is being migrated to different infrastructure, or if they manage their cluster with [Docker Compose](https://github.com/docker/compose). During a rolling upgrade, only a single node is offline at any time.
+
+Conversely, a cluster restart upgrade requires you to stop OpenSearch on all nodes in the cluster and upgrade OpenSearch on each node. After all of the nodes are upgraded, OpenSearch is started and the cluster bootstraps to the new version.
 
 ## Compatibility
 
