@@ -23,8 +23,9 @@ locale | No | String | Locale is used for parsing dates. It's commonly used for 
 
 <!---## Configuration
 
-Content will be added to this section.
+Content will be added to this section.--->
 
 ## Metrics
 
-Content will be added to this section.--->
+* `dateProcessingMatchSuccessCounter`: Number of records that match with at least one pattern specified in match configuration option.
+* `dateProcessingMatchFailureCounter`: Number of records that did not match any of the patterns specified in patterns match configuration option.

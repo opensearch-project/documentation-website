@@ -23,8 +23,12 @@ column_names | No | List | User-specified names for the CSV columns. Default is 
 
 <!---## Configuration
 
-Content will be added to this section.
+Content will be added to this section.--->
 
 ## Metrics
 
-Content will be added to this section.--->
+Apart from common metrics in [AbstractProcessor](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/processor/AbstractProcessor.java), the CSV Processor includes the following custom metric.
+
+**Counter**
+
+* `csvInvalidEvents`: The number of invalid Events. An invalid Event causes an Exception to be thrown when parsed. This is most commonly due to an unclosed quote. 

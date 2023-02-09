@@ -25,8 +25,11 @@ trace_flush_interval | No | Integer | Represents the time interval in seconds to
 
 <!---## Configuration
 
-Content will be added to this section.
+Content will be added to this section.--->
 
 ## Metrics
 
-Content will be added to this section.--->
+In addition to the metrics from [AbstractProcessor](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/processor/AbstractProcessor.java):
+
+* `traceGroupCacheCount` - (gauge) The count of trace groups in the trace group cache
+* `spanSetCount` - (gauge) The count of span sets in the span set collection
