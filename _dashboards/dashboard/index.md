@@ -13,7 +13,7 @@ A dashboard combines multiple data visualizations into a single view. With the *
 - Analyze, monitor, and alarm on metrics, logs, and traces across multiple data sources.
 - Create interactive dashboards and share them with anyone in your organization.
 
-![Single-view dashboard in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/images/dashboards/dashboard-index.png)
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/dashboard-index.png" alt="Single-view dashboard in OpenSearch Dashboards" width="600" height="300">
 
 Before you begin this tutorial, make sure you've installed OpenSearch and OpenSearch Dashboards and that you've connected to Dashboards at [http://localhost:5601](http://localhost:5601). The username and password are `admin`.
 {: .note}
@@ -128,7 +128,7 @@ To organize panels, arrange them side-by-side, or resize them, you can use these
 
 The following is an example of a customized dashboard showing visualizations arranged side by side and without legends:
 
-![Dashboard with panels arranged side by side and without legends](../../images/dashboards/dashboard-arranged.png)
+![Dashboard with panels arranged side by side and without legends]({{site.url}}{{site.baseurl}}/images/dashboards/dashboard-arranged.png)
 
 ## Filtering documents
 
@@ -161,7 +161,3 @@ When you've finalized your dashboard, save it. If you're saving a new dashboard:
 2. On the **Save dashboard** window, enter the **Title**. The **Description** is optional.
 3. To save the time filter to the dashboard, select **Store time with dashboard**.
 4. Choose **Save**.
-
-Your saved dashboard may look similar to the following, which displays the edited area chart visualization and DQL filter:
-
-![Saved dashboard with filters and edits]({{site.url}}{{site.baseurl}}/images/dashboards/dashboard-final.png)
