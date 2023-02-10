@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Monitoring
-parent: Administrating Data Prepper
+parent: Managing Data Prepper
 nav_order: 25
 ---
 
