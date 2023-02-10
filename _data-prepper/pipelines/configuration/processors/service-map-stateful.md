@@ -14,7 +14,7 @@ Uses OpenTelemetry data to create a distributed service map for visualization in
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
-window_duration | No | Integer | Represents the fixed time window in seconds to evaluate service-map relationships. Default is 180.
+window_duration | No | Integer | Represents the fixed time window in seconds to evaluate service-map relationships. Default value is 180.
 
 <!---## Configuration
 
