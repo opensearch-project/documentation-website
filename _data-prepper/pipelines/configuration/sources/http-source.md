@@ -21,13 +21,13 @@ max_connection_count | No | Integer | The maximum allowed number of open connect
 max_pending_requests | No | Integer | The maximum number of allowed tasks in ScheduledThreadPool work queue. Default value is `1024`.
 authentication | No | Object | An authentication configuration. By default, this creates an unauthenticated server for the pipeline. This uses pluggable authentication for HTTPS. To use basic authentication define the `http_basic` plugin with a `username` and `password`. To provide customer authentication, use or create a plugin that implements [ArmeriaHttpAuthenticationProvider](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/armeria-common/src/main/java/com/amazon/dataprepper/armeria/authentication/ArmeriaHttpAuthenticationProvider.java).
 ssl | No | Boolean | Enables TLS/SSL. Default value is false.
-ssl_certificate_file | Conditionally | String | SSL certificate chain file path or AWS S3 path. S3 path example `s3://<bucketName>/<path>`. Required if `ssl` is true and `use_acm_certificate_for_ssl` is false.
-ssl_key_file | Conditionally | String | SSL key file path or AWS S3 path. S3 path example `s3://<bucketName>/<path>`. Required if `ssl` is true and `use_acm_certificate_for_ssl` is false.
+ssl_certificate_file | Conditionally | String | SSL certificate chain file path or Amazon Simple Storage Service (Amazon S3) path. S3 path example `s3://<bucketName>/<path>`. Required if `ssl` is true and `use_acm_certificate_for_ssl` is false.
+ssl_key_file | Conditionally | String | SSL key file path or Amazon S3 path. S3 path example `s3://<bucketName>/<path>`. Required if `ssl` is true and `use_acm_certificate_for_ssl` is false.
 use_acm_certificate_for_ssl | No | Boolean | Enables TLS/SSL using certificate and private key from AWS Certificate Manager (ACM). Default value is false.
 acm_certificate_arn | Conditionally | String | ACM certificate ARN. The ACM certificate takes preference over S3 or a local file system certificate. Required if `use_acm_certificate_for_ssl` is set to true.
 acm_private_key_password | No | String | ACM private key password that decrypts the private key. If not provided, Data Prepper generates a random password.
 acm_certificate_timeout_millis | No | Integer | Timeout in milliseconds for ACM to get certificates. Default value is 120000.
-aws_region | Conditionally | String | AWS region to use ACM or S3. Required if `use_acm_certificate_for_ssl` is set to true or `ssl_certificate_file` and `ssl_key_file` is AWS S3 path.
+aws_region | Conditionally | String | AWS region to use ACM or S3. Required if `use_acm_certificate_for_ssl` is set to true or `ssl_certificate_file` and `ssl_key_file` is Amazon S3 path.
 
 <!--- ## Configuration
 
