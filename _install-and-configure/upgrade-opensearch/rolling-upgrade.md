@@ -162,7 +162,7 @@ OpenSearch nodes cannot be downgraded. If you need to revert the upgrade, then y
    os-node-01  7.10.2   dimr       -
    os-node-03  7.10.2   dimr       -
    ```
-   In the sample output, the new OpenSearch node reports a running version of `7.10.2` to the cluster for compatibility purposes. You can manually confirm the version by reviewing the output of the `/_nodes` API endpoint, like the following command. Replace `<nodeName>` with the name of your node. See [Nodes API]({{site.url}}{{site.baseurl}}/latest/api-reference/nodes-apis/index/) to learn more.
+   In the sample output, the new OpenSearch node reports a running version of `7.10.2` to the cluster. This is the result of `compatibility.override_main_response_version`, which is used when connecting to a cluster with legacy clients that check for a version. You can manually confirm the version of the node by calling the `/_nodes` API endpoint, like the following command. Replace `<nodeName>` with the name of your node. See [Nodes API]({{site.url}}{{site.baseurl}}/latest/api-reference/nodes-apis/index/) to learn more.
    ```
    curl -s -X GET 'localhost:9201/_nodes/<nodeName>?pretty=true' | jq -r '.nodes | .[] | "\(.name) v\(.version)"'
    ```
@@ -229,3 +229,10 @@ OpenSearch nodes cannot be downgraded. If you need to revert the upgrade, then y
      "active_shards_percent_as_number" : 100.0
    }
    ```
+1. That's it! The upgrade is complete and your users can start using the latest features right away.
+
+### Relate links
+
+- []()
+- []()
+- []()
