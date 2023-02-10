@@ -12,6 +12,9 @@ document.addEventListener('click', function(event) {
     else if (target.matches('.copy-button')) {
         window.navigator.clipboard.writeText(target.getAttribute('data-text'));
     }
+    else if (target.matches('.btn-contribute')) {
+        window.open('https://github.com/opensearch-project', '_blank');
+    }
 });
 
 function sendFeedback(button) {
