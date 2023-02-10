@@ -28,25 +28,25 @@ Apart from common metrics in the [Abstract processor](https://github.com/opensea
 
 **Counter**
 
-* `actionHandleEventsOut`: The number of Events that have been returned from the `handleEvent` call to the [action](#action) configured
+* `actionHandleEventsOut`: The number of events that have been returned from the `handleEvent` call to the [action](#action) configured
 
 <!--- Global: what should action link to?--->
 
 
-* `actionHandleEventsDropped`: The number of Events that have not been returned from the `handleEvent` call to the [action](#action) configured.
+* `actionHandleEventsDropped`: The number of events that have not been returned from the `handleEvent` call to the [action](#action) configured.
 
 
 * `actionHandleEventsProcessingErrors`: The number of calls made to `handleEvent` for the [action](#action) configured that resulted in an error.
 
 
-* `actionConcludeGroupEventsOut`: The number of Events that have been returned from the `concludeGroup` call to the [action](#action) configured.
+* `actionConcludeGroupEventsOut`: The number of events that have been returned from the `concludeGroup` call to the [action](#action) configured.
 
 
-* `actionConcludeGroupEventsDropped`: The number of Events that have not been returned from the `condludeGroup` call to the [action](#action) configured.
+* `actionConcludeGroupEventsDropped`: The number of events that have not been returned from the `condludeGroup` call to the [action](#action) configured.
 
 
 * `actionConcludeGroupEventsProcessingErrors`: The number of calls made to `concludeGroup` for the [action](#action) configured that resulted in an error.
 
 **Gauge**
 
-* `currentAggregateGroups`: The current number of groups. This gauge decreases when groups are concluded, and increases when an Event triggers the creation of a new group.
+* `currentAggregateGroups`: The current number of groups. This gauge decreases when groups are concluded and increases when an event triggers the creation of a new group.

@@ -27,5 +27,9 @@ Content will be added to this section.--->
 
 ## Metrics
 
-* `dateProcessingMatchSuccessCounter`: Number of records that match with at least one pattern specified in match configuration option.
-* `dateProcessingMatchFailureCounter`: Number of records that did not match any of the patterns specified in patterns match configuration option.
+<!--- Add the following? "Apart from common metrics in [AbstractProcessor](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/processor/AbstractProcessor.java)..."--->
+
+The date processor introduces the following custom metrics:
+
+* `dateProcessingMatchSuccessCounter`: Returns the number of records that match with at least one pattern specified in the match configuration option. <!--- Should "match configuration option/patterns match configuration option" be in quotes, or tic marks? --->
+* `dateProcessingMatchFailureCounter`: Returns the number of records that did not match any of the patterns specified in the patterns match configuration option.

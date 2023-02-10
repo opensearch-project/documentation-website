@@ -21,7 +21,10 @@ window_duration | No | Integer | Represents the fixed time window in seconds to 
 Content will be added to this section.--->
 
 ## Metrics
+
 In addition to the metrics from [AbstractProcessor](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/processor/AbstractProcessor.java):
+
+<!--- This is incomplete. Add the following? "Apart from common metrics in the [Abstract processor](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/processor/AbstractProcessor.java)"--->
 
 * `traceGroupCacheCount` - (gauge) The count of trace groups in the trace group cache
 * `spanSetCount` - (gauge) The count of span sets in the span set collection
