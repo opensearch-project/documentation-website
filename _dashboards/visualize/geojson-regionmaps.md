@@ -30,20 +30,22 @@ You can use [geojson.io](https://geojson.io/#map=2/20.0/0.0) to extract GeoJSON 
 >   * OpenSearch Dashboards Maps [`dashboards-maps`](https://github.com/opensearch-project/dashboards-maps) front-end plugin
 >   * OpenSearch [`geospatial`](https://github.com/opensearch-project/geospatial) backend plugin
 {: .note}
+
 ### Step 1: Creating a region map visualization
 
 To create your own custom vector map, upload a JSON file that contains GEO data for your customized regional maps. The JSON file contains vector layers for visualization.
 
 1. Prepare a JSON file to upload. Make sure the file has either a .geojson or .json extension.
-1. On the top menu bar, go to **OpenSearch Dashboards > Visualize**.
-1. Select the **Create Visualization** button.
-1. Select **Region Map**.
-1. Choose a source. For example, **[Flights] Flight Log**.
-1. In the right panel, select **Import Vector Map**.
-1. In **Upload map**, select or drag and drop your JSON file.
-Enter **Map name prefix** (for example, `usa-counties`). Your map will have the prefix that you defined followed by the `-map` suffix (for example, `usa-counties-map`). <img src="{{site.url}}{{site.baseurl}}/images/import-geojson-file.png" alt="import a Geo .json file" width="340"/>
-1. Select the **Import file** button.
-Once the upload is successful, you will see a pop-up prompting you to refresh the map. Select the **Refresh** button. <img src="{{site.url}}{{site.baseurl}}/images/upload-success.png" alt="message upon a successful file upload" width="280"/>
+2. On the top menu bar, go to **OpenSearch Dashboards > Visualize**.
+3. Select the **Create Visualization** button.
+4. Select **Region Map**.
+5. Choose a source. For example, **[Flights] Flight Log**.
+6. In the right panel, select **Import Vector Map**.
+7. In **Upload map**, select or drag and drop your JSON file. Enter **Map name prefix** (for example, `usa-counties`). Your map will have the prefix that you defined followed by the `-map` suffix (for example, `usa-counties-map`). 
+  <img src="{{site.url}}{{site.baseurl}}/images/dashboards/import-geojson-file.png" alt="Importing a GeoJSON file" width="300"/>
+8. Select the **Import file** button. Once the upload is successful, you will see a pop-up prompting you to refresh the map. 
+9. Select the **Refresh** button. 
+  <img src="{{site.url}}{{site.baseurl}}/images/dashboards/upload-success.png" alt="Message confirming successful file upload" width="300"/>
 
 ### Step 2: Viewing the custom region map in OpenSearch Dashboards
 
@@ -51,10 +53,11 @@ After you upload a custom GeoJSON file, you need to set the vector map layer to 
 
 1. From **Layer Options > Layer settings**, select **Custom vector map**.
 1. Under **Vector map**, select the name of the vector map that you just uploaded.
-2. Optional: Under **Style settings**, increase **Border thickness** to see the borders more clearly.
-3. Select the **Update** button.
-4. View your region map in the Dashboards. For example, the following image shows the Los Angeles and San Diego county regions:
-<img src="{{site.url}}{{site.baseurl}}/images/county-region-map.png" alt="view a custom GeoJSON region map" width="700"/>
+1. Optional: Under **Style settings**, increase **Border thickness** to see the borders more clearly.
+1. Select the **Update** button.
+1. View your region map in the Dashboards. For example, the following image shows the Los Angeles and San Diego county regions:
+
+  <img src="{{site.url}}{{site.baseurl}}/images/dashboards/county-region-map.png" alt="Custom GeoJSON region map" width="700"/>
 
 #### Example GeoJSON file
 
