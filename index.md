@@ -7,14 +7,9 @@ redirect_from: /404.html
 permalink: /
 ---
 
-# OpenSearch documentation
+{% include banner.html %}
 
-This site contains the technical documentation for [OpenSearch](https://opensearch.org/), the Apache 2.0-licensed search, analytics, and visualization suite with advanced security, alerting, SQL support, automated index management, deep performance analysis, and more.
-
-[Get started](#docker-quickstart){: .btn .btn-blue }
-
-
-## Getting started
+# Getting started
 
 - [About OpenSearch]({{site.url}}{{site.baseurl}}/opensearch/)
 - [Quickstart]({{site.url}}{{site.baseurl}}/quickstart/)
