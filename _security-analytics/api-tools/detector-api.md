@@ -44,7 +44,7 @@ Field | Type | Description
 `triggers.id` | String | The unique ID for the trigger.
 `triggers.sev_levels` | Array | Sigma rule severity levels: `informational`; `low`; `medium`; `high`; `criticial`. See [Level](https://github.com/SigmaHQ/sigma/wiki/Rule-Creation-Guide#level) in the Sigma Rule Creation Guide.
 `triggers.name` | String | The name of the trigger. Name should only consist of upper and lowercase letters, numbers 0-9, hyphens, spaces, and underscores. Use between 5 and 50 characters. Required.
-`triggers.severity` | Integer | Severity level for the trigger expressed as an integer: 5 = lowest; 4 = low; 3 = medium; 2 = high; 1 = highest. Trigger severity is part of the alert definition.
+`triggers.severity` | Integer | Severity level for the trigger expressed as an integer: 1 = highest; 2 = high; 3 = medium; 4 = low; 5 = lowest. Trigger severity is part of the alert definition.
 `triggers.actions` | Object | Actions send notifications when trigger conditions are met. Optional, as a notification message is not required as part of an alert.
 `triggers.actions.id` | String | Unique ID for the action. User generated.
 `triggers.actions.destination_id` | String | Unique ID for the notification destination. User generated. 
@@ -133,7 +133,7 @@ POST _plugins/_security_analytics/detectors
   "name": "nbReFCjlfn"
 }
 ```
-{% include copy.html %}
+{% include copy-curl.html %}
 
 ### Sample response
 
@@ -239,7 +239,7 @@ Field | Type | Description
 `inputs.input.rules.id` | Array | A list of security rules for the detector definition.
 `triggers.sev_levels` | Array | Sigma rule severity levels: `informational`; `low`; `medium`; `high`; `criticial`. See [Level](https://github.com/SigmaHQ/sigma/wiki/Rule-Creation-Guide#level) in the Sigma Rule Creation Guide.
 `triggers.tags` | Array | Tags are specified in a security rule. Tags can then be selected and applied to the alert trigger to focus the trigger conditions for alerts. See an example of how tags are used in a Sigma rule in Sigma's [Rule Creation Guide](https://github.com/SigmaHQ/sigma/wiki/Rule-Creation-Guide#tags).
-`triggers.actions` | Object | Actions send notifications when trigger conditions are met. See trigger actions for [Create Detector API]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/detector-api/#create-detector).
+`triggers.actions` | Object | Actions send notifications when trigger conditions are met. See trigger actions for [Create Detector API]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/detector-api/#create-detector-api).
 
 
 ### Sample request
@@ -291,7 +291,7 @@ PUT /_plugins/_security_analytics/detectors/J1RX1IMByX0LvTiGTddR
   ]
 }
 ```
-{% include copy.html %}
+{% include copy-curl.html %}
 
 ### Sample response
 
@@ -344,6 +344,12 @@ Field | Type | Description
 
 This API uses the detector ID to specify and delete a detector.
 
+### Path and HTTP methods
+
+```json
+DELETE /_plugins/_security_analytics/detectors/IJAXz4QBrmVplM4JYxx_
+```
+
 ### Sample request
 
 ```json
@@ -364,6 +370,12 @@ DELETE /_plugins/_security_analytics/detectors/<detector Id>
 ## Get Detector API
 
 The Get Detector API retrieves the detector details. Use the detector ID in the call to fetch detector details.
+
+### Path and HTTP methods
+
+```json
+GET /_plugins/_security_analytics/detectors/x-dwFIYBT6_n8WeuQjo4
+```
 
 ### Sample request
 
