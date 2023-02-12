@@ -271,7 +271,7 @@ func main() {
     }
     fmt.Println("Inserting a document")
     fmt.Println(insertResponse)
-    insertResponse.Body.Close()
+    defer insertResponse.Body.Close()
    
     // Perform bulk operations.
     blk, err := client.Bulk(
@@ -315,7 +315,7 @@ func main() {
     }
     fmt.Println("Searching for a document")
     fmt.Println(searchResponse)
-    searchResponse.Body.Close()
+    defer searchResponse.Body.Close()
 
     // Delete the document.
     delete := opensearchapi.DeleteRequest{
@@ -330,7 +330,7 @@ func main() {
     }
     fmt.Println("Deleting a document")
     fmt.Println(deleteResponse)
-    deleteResponse.Body.Close()
+    defer deleteResponse.Body.Close()
 
     // Delete the previously created index.
     deleteIndex := opensearchapi.IndicesDeleteRequest{
@@ -344,7 +344,7 @@ func main() {
     }
     fmt.Println("Deleting the index")
     fmt.Println(deleteIndexResponse)
-    deleteIndexResponse.Body.Close()
+    defer deleteIndexResponse.Body.Close()
 }
 ```
 {% include copy.html %}
