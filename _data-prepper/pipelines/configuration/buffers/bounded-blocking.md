@@ -14,13 +14,13 @@ The default buffer. Memory-based.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
-buffer_size | No | Integer | The maximum number of records the buffer accepts. Default is `512`.
-batch_size | No | Integer | The maximum number of records the buffer drains after each read. Default is `8`.
+buffer_size | No | Integer | The maximum number of records the buffer accepts. Default is `12800`.
+batch_size | No | Integer | The maximum number of records the buffer drains after each read. Default is `200`.
 
-## Configuration
+<!--- ## Configuration
 
 Content will be added to this section.
 
 ## Metrics
 
-Content will be added to this section.
+Content will be added to this section. --->
