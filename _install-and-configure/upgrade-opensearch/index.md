@@ -11,8 +11,6 @@ redirect_from:
 
 The OpenSearch Project releases regular updates that include new features, enhancements, and bug fixes. OpenSearch uses [Semantic Versioning](https://semver.org/), which means that breaking changes are only introduced between major version releases. To learn about upcoming features and fixes, review the [OpenSearch Project Roadmap](https://github.com/orgs/opensearch-project/projects/1) on GitHub. To see a list of previous releases, or to learn more about how OpenSearch uses versioning, check out the [Release Schedule and Maintenance Policy]({{site.url}}/releases.html).
 
-## A note about this document
-
 We recognize that users are excited about upgrading OpenSearch to enjoy the latest features, and we will continue to expand on these upgrade and migration documents to cover additional topics, such as upgrading OpenSearch Dashboards and preserving custom configurations, such as for plugins. To see what's coming next, or to make a request for future content, leave a comment on the [upgrade and migration documentation meta issue](https://github.com/opensearch-project/documentation-website/issues/2830) in the [OpenSearch Project](https://github.com/opensearch-project) on GitHub.
 
 If would like to see a specific process added, or would like to contribute yourself, please [submit an issue](https://github.com/opensearch-project/documentation-website/issues) on GitHub. Check out the [Contributor Guidelines](https://github.com/opensearch-project/documentation-website/blob/main/CONTRIBUTING.md) to see how you can help!
