@@ -114,14 +114,13 @@ code {
   left: 0.25rem;
 }
 
-.border {
+.panel {
   border-radius: $border-radius;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12), 0 3px 10px rgba(0, 0, 0, 0.08);
 }
 
 img {
-  @extend .border;
-  border: none;
+  @extend .panel;
 }
 
 .no-border {
@@ -202,39 +201,46 @@ img {
   @include btn-color($white, $green-300);
 }
 
-.btn-general {
+%btn-default {
   color: $blue-100;
   background-color: white;
   font-size: 0.9rem;
   font-weight: 510;
-  border-width:1px; 
-  border-style:solid;
-  border-color: $blue-100;
+  border-width: 1px; 
+  border-style: solid;
   border-radius: 5px;
   box-shadow: 1px 1px $grey-lt-300;
+  cursor: pointer;
+}
+
+@mixin elt-disabled {
+  color: mix(black, $base-button-color, 40%);
+  border-color: $base-button-color;
+  cursor: default;
+  background-color: mix(white, $base-button-color, 50%);
+  box-shadow: none;
+}
+
+.btn-general {
+  @extend %btn-default;
+  border-color: $blue-100;
   padding: 0.5rem 1rem;
   margin-left: 0.4rem;
   margin-right: 0.4rem;
-  transition: 0.3s;
   &:hover {
     &:not([disabled]) {
-      background-color: #EAF4F9;
+      background-color: $blue-lt-100;
       box-shadow: 1px 2px 4px $grey-lt-300;
       transform: translateY(-1px);
-      text-decoration:underline;
+      text-decoration: underline;
       text-underline-offset: 2px;
-      display:inline-block;
     }
     &:active {
       transform: translateY(1px);
     }
   }
   &:disabled {
-    color: mix(black, $base-button-color, 25%);
-    border: none;
-    cursor: default;
-    background-color: mix(white, $base-button-color, 75%);
-    box-shadow: none;
+    @include elt-disabled;
   }
 }
 
@@ -285,12 +291,6 @@ img {
   @extend .copy-button;
 }
 
-// Feedback buttons
-.feedback-button {
-  @extend .btn-general;
-  margin: 0 0.2rem;
-}
-
 .send-button {
   @extend .btn-general;
 }
@@ -305,17 +305,51 @@ img {
 .feedback-text-header {
   text-align: left;
   font-size: 10pt;
-  font-weight: 600; // or 600. 700 is bold
+  font-weight: 600; 
   margin-top: 1rem;
+}
+
+.feedback-radio-div {
+  display: flex;
+  justify-content: space-between;  
+}
+
+// hide the browser-rendered radio button 
+.feedback-radio-div input[type="radio"] {
+  display: none;
+} 
+
+.feedback-radio {
+  @extend %btn-default;
+  border-color: $grey-lt-100;
+  margin: 0;
+  padding: 0.5rem 1.2rem;
+  border-color: $grey-lt-100;
+  &:hover {
+    &:not([disabled]) {    
+      background-color: mix(white, $blue-lt-000, 50%);
+      box-shadow: 1px 2px 4px $grey-lt-300;
+    }
+  }
+}
+
+.feedback-radio-div input[type="radio"]:checked+label {
+  border-color: $blue-100;
+  background-color: $blue-lt-100;
+  box-shadow: inset 1px 1px 3px $blue-dk-100;
+}
+
+.feedback-radio-div input[type="radio"]:disabled+label {
+  @include elt-disabled;
 }
 
 // Feedback text area
 textarea {
-  @extend .border, .img-border;
-  width: 10.5rem;
+  @extend .panel, .img-border;
+  width: 100%;
   height: 5rem;
   color: $grey-dk-100;
-  background-color: mix(white, $grey-lt-000, 60%);
+  background-color: mix(white, $grey-lt-000, 50%);
   margin-bottom: 0.5rem;
   font-size: 0.9rem;
   resize: vertical;
@@ -323,6 +357,9 @@ textarea {
     outline: none;
     border: 1px solid $blue-100;
     background-color: white;
+  }
+  &:disabled {
+    @include elt-disabled;
   }
 }
 
