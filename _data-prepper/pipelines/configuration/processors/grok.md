@@ -31,9 +31,7 @@ Content will be added to this section.--->
 
 ## Metrics
 
-<!---Tech: Is this block of text relevant/applicable here? "Apart from common metrics in [AbstractProcessor](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/processor/AbstractProcessor.java), the grok processor iontroduces the following custom metric."--->
-
-The grok processor introduces the following custom metrics:
+Apart from common metrics in [AbstractProcessor](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/processor/AbstractProcessor.java), the `grok` processor iontroduces the following custom metrics:
 
 ### Counter
 
