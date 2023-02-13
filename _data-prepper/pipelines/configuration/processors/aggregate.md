@@ -28,24 +28,22 @@ Apart from common metrics in the [Abstract processor](https://github.com/opensea
 
 **Counter**
 
-* `actionHandleEventsOut`: The number of events that have been returned from the `handleEvent` call to the [action](#action) configured
-
-<!--- Global: what should action link to?--->
+* `actionHandleEventsOut`: The number of events that have been returned from the `handleEvent` call to the [action](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/aggregate-processor#action) configured
 
 
-* `actionHandleEventsDropped`: The number of events that have not been returned from the `handleEvent` call to the [action](#action) configured.
+* `actionHandleEventsDropped`: The number of events that have not been returned from the `handleEvent` call to the [action](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/aggregate-processor#action) configured.
 
 
-* `actionHandleEventsProcessingErrors`: The number of calls made to `handleEvent` for the [action](#action) configured that resulted in an error.
+* `actionHandleEventsProcessingErrors`: The number of calls made to `handleEvent` for the [action](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/aggregate-processor#action) configured that resulted in an error.
 
 
-* `actionConcludeGroupEventsOut`: The number of events that have been returned from the `concludeGroup` call to the [action](#action) configured.
+* `actionConcludeGroupEventsOut`: The number of events that have been returned from the `concludeGroup` call to the [action](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/aggregate-processor#action) configured.
 
 
-* `actionConcludeGroupEventsDropped`: The number of events that have not been returned from the `condludeGroup` call to the [action](#action) configured.
+* `actionConcludeGroupEventsDropped`: The number of events that have not been returned from the `condludeGroup` call to the [action](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/aggregate-processor#action) configured.
 
 
-* `actionConcludeGroupEventsProcessingErrors`: The number of calls made to `concludeGroup` for the [action](#action) configured that resulted in an error.
+* `actionConcludeGroupEventsProcessingErrors`: The number of calls made to `concludeGroup` for the [action](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/aggregate-processor#action) configured that resulted in an error.
 
 **Gauge**
 
