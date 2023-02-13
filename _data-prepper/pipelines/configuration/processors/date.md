@@ -27,9 +27,7 @@ Content will be added to this section.--->
 
 ## Metrics
 
-<!--- Add the following? "Apart from common metrics in [AbstractProcessor](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/processor/AbstractProcessor.java)..."--->
-
-The date processor introduces the following custom metrics:
+Add the following? "Apart from common metrics in [AbstractProcessor](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/processor/AbstractProcessor.java), the `date` processor introduces the following custom metrics:
 
 * `dateProcessingMatchSuccessCounter`: Returns the number of records that match with at least one pattern specified in the `match configuration` option. 
 * `dateProcessingMatchFailureCounter`: Returns the number of records that did not match any of the patterns specified in the `patterns match` configuration option.
