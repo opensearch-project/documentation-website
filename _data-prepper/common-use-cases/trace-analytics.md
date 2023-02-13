@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Trace analytics
-nav_order: 21
+parent: Common use cases
+nav_order: 5
 ---
 
 # Trace analytics
