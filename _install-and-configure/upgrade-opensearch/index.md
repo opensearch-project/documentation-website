@@ -67,7 +67,7 @@ Upgrades spanning more than a single major version of OpenSearch will require ad
 
 ### Rolling upgrade
 
-Rolling upgrades are a great option if you want to keep your cluster operational throughout the process. Data may continue to be ingested, analyzed or queried throughout the process. A variation of the rolling upgrade, referred to as "node replacement," is exactly the same process except hosts or containers are not reused for the new node.
+Rolling upgrades are a great option if you want to keep your cluster operational throughout the process. Data may continue to be ingested, analyzed and queried as nodes are invididually stopped, upgraded, and restarted. A variation of the rolling upgrade, referred to as "node replacement," is exactly the same process except hosts or containers are not reused for the new node. You might perform node replacement if you are upgrading the underlying host(s) as well.
 
 OpenSearch nodes cannot join a cluster if the cluster manager is running a newer version of OpenSearch than the node requesting membership. To avoid this issue, you upgrade cluster manager-eligible nodes last.
 
@@ -75,13 +75,13 @@ See [Rolling Upgrade]({{site.url}}{{site.baseurl}}/install-and-configure/upgrade
 
 ### Cluster restart upgrade
 
-OpenSearch administrators might choose to perform a cluster restart upgrade if they aren't comfortable performing maintenance on a running cluster, if the cluster is being migrated to different infrastructure, or if they manage their cluster with [Docker Compose](https://github.com/docker/compose).
+OpenSearch administrators might choose to perform a cluster restart upgrade for several reasons. For example, if the administrator doesn't want to perform maintenance on a running cluster, or if the cluster is being migrated to different infrastructure.
 
 Unlike a rolling upgrade, where only one node is offline at a time, a cluster restart upgrade requires you to stop OpenSearch and OpenSearch Dashboards on all nodes in the cluster before proceeding. After the nodes are stopped, a new version of OpenSearch is installed. Then, OpenSearch is started and the cluster bootstraps to the new version.
 
 ## Compatibility
 
-OpenSearch nodes are compatible with other OpenSearch nodes running any other minor version within the same major version release. For example, 1.1.0 is compatible with 1.3.7 because they are part of the same major version (1.x). Additionally, OpenSearch nodes and indexes are backwards-compatible with the previous major version. That means, for example, that an index created by an OpenSearch node running any 1.x version could be restored from a snapshot to an OpenSearch cluster running any 2.x version.
+OpenSearch nodes are compatible with other OpenSearch nodes running any other *minor* version within the same *major* version release. For example, 1.1.0 is compatible with 1.3.7 because they are part of the same *major* version (1.x). Additionally, OpenSearch nodes and indexes are backwards-compatible with the previous major version. That means, for example, that an index created by an OpenSearch node running any 1.x version could be restored from a snapshot to an OpenSearch cluster running any 2.x version.
 
 Index compatibility is determined by the version of [Apache Lucene](https://lucene.apache.org/) that created the index. If an index was created by an OpenSearch cluster running version 1.0.0, then the index could be used by any other OpenSearch cluster running up to the latest 1.x or 2.x release. See the [Lucene version reference](#lucene-version-reference) table for Lucene versions running in OpenSearch 1.0.0 and later and [Elasticsearch](https://www.elastic.co/) 6.8 and later.
 
@@ -93,7 +93,9 @@ If you plan to retain old indexes after the OpenSearch version upgrade, then you
 
 <style>
 table {
+    width: 75%;
     border-collapse: collapse;
+    table-layout: fixed;
 }
 th {
   background-color: #F5F7F7;
