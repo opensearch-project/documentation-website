@@ -12,18 +12,17 @@ Rolling upgrades, sometimes referred to as "node replacement upgrades," can be p
 This guide assumes that you are comfortable working from the Linux command line interface (CLI). You should understand how to input commands, navigate between directories, and edit text files. For help with [Docker](https://www.docker.com/) or [Docker Compose](https://github.com/docker/compose), refer to the official documentation on their websites.
 {:.note}
 
-### About this guide
+The sample outputs and API responses included in this document were generated in a development environment using Docker containers. Validation was performed by upgrading an Elasticsearch 7.10.2 cluster to OpenSearch 1.3.7; however, this process can be applied to any **N→N+1** version upgrade of OpenSearch on any platform. Certain commands, such as listing running containers in Docker, are included as an aid to the reader but the specific commands used on your host(s) will be different depending on your distribution and host operating system.
+{: .note}
 
-The sample outputs and API responses included in this document were generated in a development environment. Testing and validation was performed by upgrading an Elasticsearch 7.10.2 cluster of 4 nodes to OpenSearch 1.3.7 in a Docker environment. However, this process can be applied to any **N→N+1** version upgrade of OpenSearch.
-
-### Prepare to upgrade
+## Prepare to upgrade
 
 Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/index/) for recommendations about backing up your configuration files and creating a snapshot of the cluster state and indexes before you make any changes to your OpenSearch cluster.
 
-OpenSearch nodes cannot be downgraded. If you need to revert the upgrade, then you will need to perform a fresh installation of OpenSearch and restore the cluster from a snapshot. Take a snapshot and store it in a remote repository before beginning the upgrade procedure.
+**Important:** OpenSearch nodes cannot be downgraded. If you need to revert the upgrade, then you will need to perform a fresh installation of OpenSearch and restore the cluster from a snapshot. Take a snapshot and store it in a remote repository before beginning the upgrade procedure.
 {: .note}
 
-### Rolling upgrade
+## Rolling upgrade
 
 1. Verify the health of your OpenSearch cluster before you begin. You should resolve any index or shard allocation issues prior to upgrading to ensure that your data is preserved. A status of **green** indicates that all primary and replica shards are allocated. See [Cluster health]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-health/) for more information.
    ```bash
@@ -162,7 +161,7 @@ OpenSearch nodes cannot be downgraded. If you need to revert the upgrade, then y
    os-node-01  7.10.2   dimr       -
    os-node-03  7.10.2   dimr       -
    ```
-   In the sample output, the new OpenSearch node reports a running version of `7.10.2` to the cluster. This is the result of `compatibility.override_main_response_version`, which is used when connecting to a cluster with legacy clients that check for a version. You can manually confirm the version of the node by calling the `/_nodes` API endpoint, like the following command. Replace `<nodeName>` with the name of your node. See [Nodes API]({{site.url}}{{site.baseurl}}/latest/api-reference/nodes-apis/index/) to learn more.
+   In the sample output, the new OpenSearch node reports a running version of `7.10.2` to the cluster. This is the result of `compatibility.override_main_response_version`, which is used when connecting to a cluster with legacy clients that check for a version. You can manually confirm the version of the node by calling the `/_nodes` API endpoint, like the following command. Replace `<nodeName>` with the name of your node. See [Nodes API]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/index/) to learn more.
    ```
    curl -s -X GET 'localhost:9201/_nodes/<nodeName>?pretty=true' | jq -r '.nodes | .[] | "\(.name) v\(.version)"'
    ```
