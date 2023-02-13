@@ -373,4 +373,3 @@ Starting with Data Prepper version 1.4, trace processing uses Data Prepper's eve
 * `otel_trace_group` replaces `otel_trace_group_prepper` for event-based spans.
 
 In Data Prepper version 2.0, `otel_trace_source` will only output events. Data Prepper version 2.0 also removes `otel_trace_raw_prepper` and `otel_trace_group_prepper` entirely. To migrate to Data Prepper version 2.0, you can configure your trace pipeline using the event model.
- 
