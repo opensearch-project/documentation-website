@@ -36,7 +36,7 @@ Dynamic | Delegates a specific node for custom work, such as machine learning (M
 
 By default, each node is a cluster-manager-eligible, data, ingest, and coordinating node. Deciding on the number of nodes, assigning node types, and choosing the hardware for each node type depends on your use case. You must take into account factors like the amount of time you want to hold on to your data, the average size of your documents, your typical workload (indexing, searches, aggregations), your expected price-performance ratio, your risk tolerance, and so on.
 
-After you assess all these requirements, we recommend you use a benchmark testing tool like Rally to provision a small sample cluster and run tests with varying workloads and configurations. Compare and analyze the system and query metrics for these tests to design an optimum architecture. To get started with Rally, see the [Rally documentation](https://esrally.readthedocs.io/en/stable/).
+After you assess all these requirements, we recommend you use a benchmark testing tool like [OpenSearch Benchmark](https://github.com/opensearch-project/opensearch-benchmark) to provision a small sample cluster and run tests with varying workloads and configurations. Compare and analyze the system and query metrics for these tests to design an optimum architecture.
 
 This page demonstrates how to work with the different node types. It assumes that you have a four-node cluster similar to the preceding illustration.
 
