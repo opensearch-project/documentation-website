@@ -83,17 +83,19 @@ Unlike a rolling upgrade, where only one node is offline at a time, a cluster re
 
 OpenSearch nodes are compatible with other OpenSearch nodes running any other *minor* version within the same *major* version release. For example, 1.1.0 is compatible with 1.3.7 because they are part of the same *major* version (1.x). Additionally, OpenSearch nodes and indexes are backwards-compatible with the previous major version. That means, for example, that an index created by an OpenSearch node running any 1.x version could be restored from a snapshot to an OpenSearch cluster running any 2.x version.
 
-Index compatibility is determined by the version of [Apache Lucene](https://lucene.apache.org/) that created the index. If an index was created by an OpenSearch cluster running version 1.0.0, then the index could be used by any other OpenSearch cluster running up to the latest 1.x or 2.x release. See the [Lucene version reference](#lucene-version-reference) table for Lucene versions running in OpenSearch 1.0.0 and later and [Elasticsearch](https://www.elastic.co/) 6.8 and later.
+OpenSearch 1.x nodes are compatible with nodes running Elasticsearch 7.x, but the existence of a mixed-version environment should not extend beyond cluster upgrade activities.
+{: .tip}
+
+Index compatibility is determined by the version of [Apache Lucene](https://lucene.apache.org/) that created the index. If an index was created by an OpenSearch cluster running version 1.0.0, then the index could be used by any other OpenSearch cluster running up to the latest 1.x or 2.x release. See the [Index compatibility reference](#index-compatibility-reference) table for Lucene versions running in OpenSearch 1.0.0 and later and [Elasticsearch](https://www.elastic.co/) 6.8 and later.
 
 If your upgrade path spans more than a single major version, and you want to retain any existing index(es), then you can use the [Reindex]({{site.url}}{{site.baseurl}}/api-reference/document-apis/reindex/) API to make your indexes compatible with the target version of OpenSearch before upgrading. For example, if your cluster is currently running Elasticsearch 6.8 and you want to upgrade to OpenSearch 2.x, then you must first upgrade to OpenSearch 1.x, recreate your indexes using the [Reindex]({{site.url}}{{site.baseurl}}/api-reference/document-apis/reindex/) API, and finally upgrade to 2.x. One alternative to reindexing is to reingest data from the origin, such as by replaying a datastream or ingesting data from a database.
 
-### Lucene version reference
+### Index compatibility reference
 
 If you plan to retain old indexes after the OpenSearch version upgrade, then you might need to reindex or reingest the data. Refer to the table below for Lucene versions across recent OpenSearch and Elasticsearch releases.
 
 <style>
 table {
-    width: 75%;
     border-collapse: collapse;
     table-layout: fixed;
 }
@@ -102,7 +104,7 @@ th {
 }
 th,
 td {
-  text-align: left;
+  text-align: center;
   padding: 0.5em 1em;
 }
 </style>
@@ -120,11 +122,11 @@ td {
     <tr>
         <td>9.4.1</td>
         <td>2.4.0</td>
-        <td>-</td>
+        <td>&#8212;</td>
     </tr>
     <tr>
         <td>9.4.0</td>
-        <td>-</td>
+        <td>&#8212;</td>
         <td>8.5</td>
     </tr>
     <tr>
@@ -144,12 +146,12 @@ td {
     </tr>
     <tr>
         <td>9.0.0</td>
-        <td>-</td>
+        <td>&#8212;</td>
         <td>8.1<br>8.0</td>
     </tr>
     <tr>
         <td>8.11.1</td>
-        <td>-</td>
+        <td>&#8212;</td>
         <td>7.17</td>
     </tr>
     <tr>
@@ -169,52 +171,53 @@ td {
     </tr>
     <tr>
         <td>8.8.0</td>
-        <td>-</td>
+        <td>&#8212;</td>
         <td>7.12</td>
     </tr>
     <tr>
         <td>8.7.0</td>
-        <td>-</td>
+        <td>&#8212;</td>
         <td>7.11<br>7.10</td>
     </tr>
     <tr>
         <td>8.6.2</td>
-        <td>-</td>
+        <td>&#8212;</td>
         <td>7.9</td>
     </tr>
     <tr>
         <td>8.5.1</td>
-        <td>-</td>
+        <td>&#8212;</td>
         <td>7.8<br>7.7</td>
     </tr>
     <tr>
         <td>8.4.0</td>
-        <td>-</td>
+        <td>&#8212;</td>
         <td>7.6</td>
     </tr>
     <tr>
         <td>8.3.0</td>
-        <td>-</td>
+        <td>&#8212;</td>
         <td>7.5</td>
     </tr>
     <tr>
         <td>8.2.0</td>
-        <td>-</td>
+        <td>&#8212;</td>
         <td>7.4</td>
     </tr>
     <tr>
         <td>8.1.0</td>
-        <td>-</td>
+        <td>&#8212;</td>
         <td>7.3</td>
     </tr>
     <tr>
         <td>8.0.0</td>
-        <td>-</td>
-        <td>7.2X7.1</td>
+        <td>&#8212;</td>
+        <td>7.2<br>7.1</td>
     </tr>
     <tr>
         <td>7.7.3</td>
-        <td>-</td>
+        <td>&#8212;</td>
         <td>6.8</td>
     </tr>
 </table>
+<p style="text-align:right"><sub><em>A dash (&#8212;) indicates that there is no product version containing the specified version of Apache Lucene.</em></sub></p>

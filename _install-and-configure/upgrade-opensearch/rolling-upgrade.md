@@ -9,11 +9,10 @@ nav_order: 10
 
 Rolling upgrades, sometimes referred to as "node replacement upgrades," can be performed on running clusters with virtually no downtime. Nodes are individually stopped and upgraded in place. Alternatively, nodes can be stopped and replaced, one at a time, by hosts running the new version. During this process you can continue to index and query data in your cluster.
 
+The sample outputs and API responses included in this document were generated in a development environment using Docker containers. Validation was performed by upgrading an Elasticsearch 7.10.2 cluster to OpenSearch 1.3.7; however, this process can be applied to any **N→N+1** version upgrade of OpenSearch on any platform. Certain commands, such as listing running containers in Docker, are included as an aid to the reader but the specific commands used on your host(s) will be different depending on your distribution and host operating system.
+
 This guide assumes that you are comfortable working from the Linux command line interface (CLI). You should understand how to input commands, navigate between directories, and edit text files. For help with [Docker](https://www.docker.com/) or [Docker Compose](https://github.com/docker/compose), refer to the official documentation on their websites.
 {:.note}
-
-The sample outputs and API responses included in this document were generated in a development environment using Docker containers. Validation was performed by upgrading an Elasticsearch 7.10.2 cluster to OpenSearch 1.3.7; however, this process can be applied to any **N→N+1** version upgrade of OpenSearch on any platform. Certain commands, such as listing running containers in Docker, are included as an aid to the reader but the specific commands used on your host(s) will be different depending on your distribution and host operating system.
-{: .note}
 
 ## Prepare to upgrade
 
@@ -22,7 +21,7 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/in
 **Important:** OpenSearch nodes cannot be downgraded. If you need to revert the upgrade, then you will need to perform a fresh installation of OpenSearch and restore the cluster from a snapshot. Take a snapshot and store it in a remote repository before beginning the upgrade procedure.
 {: .note}
 
-## Rolling upgrade
+## Upgrade steps
 
 1. Verify the health of your OpenSearch cluster before you begin. You should resolve any index or shard allocation issues prior to upgrading to ensure that your data is preserved. A status of **green** indicates that all primary and replica shards are allocated. See [Cluster health]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-health/) for more information.
    ```bash
@@ -83,18 +82,7 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/in
    }
    ```
 1. Review your cluster and identify the first node to upgrade. Eligible cluster manager nodes should be upgraded last because OpenSearch nodes can join a cluster with manager nodes running an older version, but they cannot join a cluster with all manager nodes running a newer version.
-   ```bash
-   docker container ls
-   ```
-   Sample output:
-   ```bash
-   CONTAINER ID   IMAGE                                                      COMMAND                  CREATED          STATUS          PORTS                                                                                            NAMES
-   a50a9617991b   docker.elastic.co/elasticsearch/elasticsearch-oss:7.10.2   "/tini -- /usr/local…"   18 minutes ago   Up 18 minutes   9300/tcp, 0.0.0.0:9204->9200/tcp, :::9204->9200/tcp, 0.0.0.0:9604->9600/tcp, :::9604->9600/tcp   os-node-04
-   fac35167fcbd   docker.elastic.co/elasticsearch/elasticsearch-oss:7.10.2   "/tini -- /usr/local…"   18 minutes ago   Up 18 minutes   9300/tcp, 0.0.0.0:9203->9200/tcp, :::9203->9200/tcp, 0.0.0.0:9603->9600/tcp, :::9603->9600/tcp   os-node-03
-   fa4efbe64cbf   docker.elastic.co/elasticsearch/elasticsearch-oss:7.10.2   "/tini -- /usr/local…"   18 minutes ago   Up 18 minutes   9300/tcp, 0.0.0.0:9202->9200/tcp, :::9202->9200/tcp, 0.0.0.0:9602->9600/tcp, :::9602->9600/tcp   os-node-02
-   17e898d67ac2   docker.elastic.co/elasticsearch/elasticsearch-oss:7.10.2   "/tini -- /usr/local…"   18 minutes ago   Up 18 minutes   9300/tcp, 0.0.0.0:9201->9200/tcp, :::9201->9200/tcp, 0.0.0.0:9601->9600/tcp, :::9601->9600/tcp   os-node-01
-   ```
-1. Query `_cat/nodes` to verify which node has been elected as cluster manager. Note that OpenSearch 1.x versions use the heading "master," which has been deprecated and replaced by "cluster_manager" in OpenSearch 2.x and later.
+1. Query the `_cat/nodes` endpoint to verify which node was promoted to cluster manager. Note that OpenSearch 1.x versions use the term "master," which has been deprecated and replaced by "cluster_manager" in OpenSearch 2.x and later.
    ```bash
    curl -s "http://localhost:9201/_cat/nodes?v&h=name,version,node.role,master" | column -t
    ```
@@ -106,17 +94,7 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/in
    os-node-03  7.10.2   dimr       -
    os-node-02  7.10.2   dimr       *
    ```
-1. Stop the node you are upgrading.
-   ```bash
-   docker stop <containerName> && docker container rm <containerName>
-   ```
-   Sample output:
-   ```bash
-   $ docker stop os-node-01 && docker container rm os-node-01
-   os-node-01
-   os-node-01
-   ```
-   **Important:** Do not delete the volume associated with the container when you delete the container. The new OpenSearch container will use the existing volume. **Deleting the volume will result in data loss.**
+1. Stop the node you are upgrading. Do not delete the volume associated with the container when you delete the container. The new OpenSearch container will use the existing volume. **Deleting the volume will result in data loss.**
 1. Confirm that the associated node has been dismissed from the cluster.
    ```bash
    curl -s "http://localhost:9202/_cat/nodes?v&h=name,version,node.role,master" | column -t
@@ -144,10 +122,6 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/in
        --network opensearch-dev-net \
        --name os-node-01 \
        opensearchproject/opensearch:1.3.7
-   ```
-   Sample output:
-   ```bash
-   b6d06de7a016aa3bb76c133c55ba4e0e605f522c7a6a4ebd2aa6c6a6d3f49728
    ```
 1. Query the `_cat/nodes` endpoint after OpenSearch is running on the new node to confirm that it has joined the cluster.
    ```bash
@@ -228,9 +202,9 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/in
      "active_shards_percent_as_number" : 100.0
    }
    ```
-1. That's it! The upgrade is complete and your users can start using the latest features right away.
+1. The upgrade is complete and you can begin enjoying the latest features and fixes!
 
-### Related links
+### Related articles
 
 - [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuration/)
 - [Performance analyzer]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/index/)
