@@ -31,5 +31,5 @@ Content will be added to this section.--->
 
 The date processor introduces the following custom metrics:
 
-* `dateProcessingMatchSuccessCounter`: Returns the number of records that match with at least one pattern specified in the match configuration option. <!--- Should "match configuration option/patterns match configuration option" be in quotes, or tic marks? --->
-* `dateProcessingMatchFailureCounter`: Returns the number of records that did not match any of the patterns specified in the patterns match configuration option.
+* `dateProcessingMatchSuccessCounter`: Returns the number of records that match with at least one pattern specified in the `match configuration` option. 
+* `dateProcessingMatchFailureCounter`: Returns the number of records that did not match any of the patterns specified in the `patterns match` configuration option.

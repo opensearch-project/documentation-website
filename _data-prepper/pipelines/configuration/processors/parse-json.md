@@ -1,14 +1,12 @@
 ---
 layout: default
-title: json
+title: Parse json
 parent: Processors
 grand_parent: Pipelines
 nav_order: 45
 ---
 
-# json
-
-<!--- Should we add "Parse" to the title? The original is "Parse JSON processor. --->
+# Parse json
 
 ## Overview
 
