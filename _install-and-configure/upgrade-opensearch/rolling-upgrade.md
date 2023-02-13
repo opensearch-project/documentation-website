@@ -231,8 +231,9 @@ OpenSearch nodes cannot be downgraded. If you need to revert the upgrade, then y
    ```
 1. That's it! The upgrade is complete and your users can start using the latest features right away.
 
-### Relate links
+### Related links
 
-- []()
-- []()
-- []()
+- [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuration/)
+- [Performance analyzer]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/index/)
+- [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/)
+- [About the security plugin]({{site.url}}{{site.baseurl}}/security-plugin/index/)
