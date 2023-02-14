@@ -14,12 +14,12 @@ The sample outputs and API responses included in this document were generated in
 This guide assumes that you are comfortable working from the Linux command line interface (CLI). You should understand how to input commands, navigate between directories, and edit text files. For help with [Docker](https://www.docker.com/) or [Docker Compose](https://github.com/docker/compose), refer to the official documentation on their websites.
 {:.note}
 
-## Prepare to upgrade
+## Preparing to upgrade
 
 Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/index/) for recommendations about backing up your configuration files and creating a snapshot of the cluster state and indexes before you make any changes to your OpenSearch cluster.
 
 **Important:** OpenSearch nodes cannot be downgraded. If you need to revert the upgrade, then you will need to perform a fresh installation of OpenSearch and restore the cluster from a snapshot. Take a snapshot and store it in a remote repository before beginning the upgrade procedure.
-{: .note}
+{: .important}
 
 ## Upgrade steps
 
@@ -107,22 +107,7 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/in
    os-node-03  7.10.2   dimr       -
    ```
    `os-node-01` is no longer listed because the container has been stopped and deleted.
-1. Deploy a new container running the desired version of OpenSearch, mapped to the same volume as the container you deleted. The command used in the dev environment is included below. 
-   ```bash
-   docker run -d \
-       -p 9201:9200 -p 9601:9600 \
-       -e "discovery.seed_hosts=os-node-01,os-node-02,os-node-03,os-node-04" -e "DISABLE_SECURITY_PLUGIN=true" \
-       -e "DISABLE_INSTALL_DEMO_CONFIG=true" -e "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" \
-       -e "cluster.name=opensearch-dev-cluster" -e "node.name=os-node-01" \
-       -e "cluster.initial_master_nodes=os-node-01,os-node-02,os-node-03,os-node-04" \
-       -e "bootstrap.memory_lock=true" -e "path.repo=/mnt/snapshots" \
-       --ulimit nofile=65536:65536 --ulimit memlock=-1:-1 \
-       -v data-01:/usr/share/opensearch/data \
-       -v repo-01:/mnt/snapshots \
-       --network opensearch-dev-net \
-       --name os-node-01 \
-       opensearchproject/opensearch:1.3.7
-   ```
+1. Deploy a new container running the desired version of OpenSearch, mapped to the same volume as the container you deleted.
 1. Query the `_cat/nodes` endpoint after OpenSearch is running on the new node to confirm that it has joined the cluster.
    ```bash
    curl -s "http://localhost:9201/_cat/nodes?v&h=name,version,node.role,master" | column -t
@@ -135,7 +120,7 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/in
    os-node-01  7.10.2   dimr       -
    os-node-03  7.10.2   dimr       -
    ```
-   In the sample output, the new OpenSearch node reports a running version of `7.10.2` to the cluster. This is the result of `compatibility.override_main_response_version`, which is used when connecting to a cluster with legacy clients that check for a version. You can manually confirm the version of the node by calling the `/_nodes` API endpoint, like the following command. Replace `<nodeName>` with the name of your node. See [Nodes API]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/index/) to learn more.
+   In the sample output, the new OpenSearch node reports a running version of `7.10.2` to the cluster. This is the result of `compatibility.override_main_response_version`, which is used when connecting to a cluster with legacy clients that check for a version. You can manually confirm the version of the node by calling the `/_nodes` API endpoint, as in the following command. Replace `<nodeName>` with the name of your node. See [Nodes API]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/index/) to learn more.
    ```
    curl -s -X GET 'localhost:9201/_nodes/<nodeName>?pretty=true' | jq -r '.nodes | .[] | "\(.name) v\(.version)"'
    ```
@@ -144,7 +129,7 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/in
    $ curl -s -X GET 'localhost:9201/_nodes/os-node-01?pretty=true' | jq -r '.nodes | .[] | "\(.name) v\(.version)"'
    os-node-01 v1.3.7
    ```
-1. Repeat steps 5 through 9 for each node in your cluster. Remember to upgrade an eligible cluster manager node last. When you are finished replacing the last node, query `_cat/nodes` to confirm that all nodes have joined the cluster. The cluster is now bootstrapped to the new version of OpenSearch.
+1. Repeat steps 5 through 9 for each node in your cluster. Remember to upgrade an eligible cluster manager node last. After replacing the last node, query the `_cat/nodes` endpoint to confirm that all nodes have joined the cluster. The cluster is now bootstrapped to the new version of OpenSearch.
    ```bash
    curl -s "http://localhost:9201/_cat/nodes?v&h=name,version,node.role,master" | column -t
    ```
@@ -156,7 +141,6 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/in
    os-node-01  1.3.7    dimr       -
    os-node-03  1.3.7    dimr       -
    ```
-   There are no longer any eligible cluster manager nodes running the old version, so a cluster manager running the new version was elected. The cluster has now been bootstrapped to the new version.
 1. Reenable shard replication.
    ```bash
    curl -X PUT "http://localhost:9201/_cluster/settings?pretty" -H 'Content-type: application/json' -d'{"persistent":{"cluster.routing.allocation.enable":"all"}}'
@@ -209,4 +193,4 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/in
 - [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuration/)
 - [Performance analyzer]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/index/)
 - [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/)
-- [About the security plugin]({{site.url}}{{site.baseurl}}/security-plugin/index/)
+- [About Security in OpenSearch]({{site.url}}{{site.baseurl}}/security/index/)
