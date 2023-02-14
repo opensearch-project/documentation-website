@@ -134,4 +134,4 @@ VisBuilder is a drag-and-drop data visualization tool in Dashboards. It gives yo
 
 [Vega](https://vega.github.io/vega/) and [Vega-Lite](https://vega.github.io/vega-lite/) are open-source, declarative language visualization grammars for creating, sharing, and saving interactive data visualizations. Vega visualizations give you the flexibility to visualize multidimensional data using a layered approach in order to build and manipulate visualizations in a structured manner. Vega can be used to create customized visualizations using any Dashboards visualization type.
 
-<img src="{{site.url}}{{site.baseurl}}/images/vega-1.png" alt="Example Vega visualization with JSON specification in OpenSearch Dashboards" height="100">
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/vega-1.png" width="600" height="600" alt="Example Vega visualization with JSON specification in OpenSearch Dashboards">
