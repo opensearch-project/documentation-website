@@ -18,6 +18,7 @@ The CAT plugins operation lists the names, components, and versions of the insta
 ```
 GET _cat/plugins?v
 ```
+{% include copy-curl.html %}
 
 ## Path and HTTP methods
 

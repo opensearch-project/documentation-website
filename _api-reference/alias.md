@@ -29,10 +29,10 @@ POST _aliases
         "alias": "old-index-alias"
       }
     }
-
   ]
 }
 ```
+{% include copy-curl.html %}
 
 ## Path and HTTP methods
 

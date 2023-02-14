@@ -30,6 +30,7 @@ The following request retrieves information for the `my-first-snapshot` located 
 ````json
 GET _snapshot/my-opensearch-repo/my-first-snapshot
 ````
+{% include copy-curl.html %}
 
 #### Sample response
 

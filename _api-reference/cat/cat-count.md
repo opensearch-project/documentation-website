@@ -18,18 +18,21 @@ The CAT count operation lists the number of documents in your cluster.
 ```json
 GET _cat/count?v
 ```
+{% include copy-curl.html %}
 
 To see the number of documents in a specific index or alias, add the index or alias name after your query:
 
 ```json
 GET _cat/count/<index_or_alias>?v
 ```
+{% include copy-curl.html %}
 
 If you want to get information for more than one index or alias, separate the index or alias names with commas:
 
 ```json
 GET _cat/count/index_or_alias_1,index_or_alias_2,index_or_alias_3
 ```
+{% include copy-curl.html %}
 
 ## Path and HTTP methods
 

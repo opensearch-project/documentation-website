@@ -23,6 +23,7 @@ POST sample-index1/_delete_by_query
   }
 }
 ```
+{% include copy-curl.html %}
 
 ## Path and HTTP methods
 

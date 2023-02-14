@@ -30,6 +30,9 @@ You can use the [Create PIT API]({{site.url}}{{site.baseurl}}/opensearch/point-i
 
 The create PIT operation returns a PIT ID, which you can use to run multiple queries on the frozen dataset. Even though the indexes continue to ingest data and modify or delete documents, the PIT references the data that has not changed since the PIT creation. When your query contains a PIT ID, you don't need to pass the indexes to the search because it will use that PIT. A search with a PIT ID will produce exactly the same result when you run it multiple times.
 
+In case of a cluster or node failure, all PIT data is lost.
+{: .note}
+
 ## Pagination with PIT and search_after
 
 When you run a query with a PIT ID, you can use the `search_after` parameter to retrieve the next page of results. This gives you control over the order of documents in the pages of results.
@@ -151,4 +154,4 @@ Function | API | Description
 [Delete PIT]({{site.url}}{{site.baseurl}}/opensearch/point-in-time-api#delete-pits) | `DELETE /_search/point_in_time`<br> `DELETE /_search/point_in_time/_all` | Deletes a PIT or all PITs.
 [PIT segments]({{site.url}}{{site.baseurl}}/opensearch/point-in-time-api#pit-segments) | `GET /_cat/pit_segments/_all` | Provides information about the disk utilization of a PIT by describing its Lucene segments.
 
-For information about the relevant cluster and node settings, see [PIT Settings]({{site.url}}{{site.baseurl}}/opensearch/point-in-time-api#pit-settings)
+For information about the relevant cluster and node settings, see [PIT Settings]({{site.url}}{{site.baseurl}}/opensearch/point-in-time-api#pit-settings).

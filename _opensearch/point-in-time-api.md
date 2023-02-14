@@ -40,11 +40,11 @@ target_indexes | String | The name(s) of the target index(es) for the PIT. May c
 
 Parameter | Data type | Description
 :--- | :--- | :---
-keep_alive | Time |  The amount of time to keep the PIT. Required.
+keep_alive | Time |  The amount of time to keep the PIT. Every time you access a PIT by using the Search API, the PIT lifetime is extended by the amount of time equal to the `keep_alive` parameter. Required.
 preference | String | The node or the shard used to perform the search. Optional. Default is random.
 routing | String | Specifies to route search requests to a specific shard. Optional. Default is the document's `_id`. 
 expand_wildcards | String | The type of index that can match the wildcard pattern. Supports comma-separated values. Valid values are the following:<br>- `all`: Match any index or data stream, including hidden ones. <br>- `open`: Match open, non-hidden indexes or non-hidden data streams. <br>- `closed`: Match closed, non-hidden indexes or non-hidden data streams. <br>- `hidden`: Match hidden indexes or data streams. Must be combined with `open`, `closed` or both `open` and `closed`.<br>- `none`: No wildcard patterns are accepted.<br> Optional. Default is `open`.
-allow_partial_pit_creation | Boolean | Specifies whether to create a PIT with partial failures. Optional. Default is `false`.
+allow_partial_pit_creation | Boolean | Specifies whether to create a PIT with partial failures. Optional. Default is `true`.
 
 #### Sample request
 
