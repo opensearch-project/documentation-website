@@ -18,3 +18,9 @@ With OpenSearch Dashboards, you can create maps to visualize your geographical d
 
 
 ## Getting started
+
+To get started, perform the following steps:
+
+1. In the **New Visualization** screen, go to  **Maps**.
+1. Select the **Add** button, then select the **Create new** button.
+1. Select **Maps**.
