@@ -27,10 +27,10 @@ Content will be added to this section.--->
 
 ## Metrics
 
-Apart from common metrics in [AbstractProcessor](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/processor/AbstractProcessor.java), the CSV Processor includes the following custom metric.
-
-<!--- "Apart from common metrics" seems like something that may confuse non-native English speakers. Need to replace this in several docs. --->
+Apart from common metrics in [AbstractProcessor](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/processor/AbstractProcessor.java), the `csv` processor introduces the following custom metrics:
 
 **Counter**
 
-* `csvInvalidEvents`: The number of invalid Events. An invalid Event causes an Exception to be thrown when parsed. This is most commonly due to an unclosed quote. 
+* `csvInvalidEvents`: The number of invalid events. An invalid event causes an exception to be thrown when parsed. An unclosed quote usually causes this exception. 
+
+<!--- Editorial: "...exception to be thrown" - is this something we should rework for clarity, or can we keep it as-is?--->

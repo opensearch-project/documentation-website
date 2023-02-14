@@ -31,15 +31,17 @@ Content will be added to this section.--->
 
 ## Metrics
 
-Apart from common metrics in [AbstractProcessor](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/processor/AbstractProcessor.java), the `grok` processor iontroduces the following custom metrics:
+Apart from common metrics in [AbstractProcessor](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/processor/AbstractProcessor.java), the `grok` processor introduces the following custom metrics:
 
 ### Counter
 
 * `grokProcessingMismatch`: Records the number of records that did not match any of the patterns specified in the match field.
-* `grokProcessingMatch`: Records the number of records that found at least one pattern match from the match field.
-* `grokProcessingErrors`: Records the total number of processing errors for Records.
+* `grokProcessingMatch`: Records the number of records that found at least one pattern match from the `match` field.
+* `grokProcessingErrors`: Records the total number of processing errors for records.
 * `grokProcessingTimeouts`: Records the total number of records that timed out while matching.
 
 ### Timer
 
-* `grokProcessingTime`: the time each individual Record takes matching against patterns from `match`. The `avg` is the most useful metric for this Timer.
+* `grokProcessingTime`: The time each individual record takes to match against patterns from `match`. The `avg` metric is the most useful metric for this timer.
+
+<!--- Editorial: Using "useful" seems too subjective. Suggestions on what may be preferred over that option?--->
