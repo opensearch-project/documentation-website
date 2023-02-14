@@ -12,161 +12,43 @@ redirect_from:
 
 # Query DSL
 
-OpenSearch provides a query domain-specific language (DSL) that you can use to perform customized searches of your data. You can also combine query fields to perform more complex searches and find more granular data.
+OpenSearch provides a search language called *query domain-specific language (DSL)* that you can use to search your data. Query DSL is a flexible language with a JSON interface.
 
-OpenSearch supports the following query DSL query type categories:
-
-- **Compound queries** – Used to create combined queries such as Boolean, disjunction max, constant score, disjunction max, function score or boosting.
-To learn more, see [Compound queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/compound/).
-
-- **Full-text queries** – Used to search documents for one or more terms and filter with advanced options. These queries perform text analysis and return detailed information, including relevance scores for each document match. To learn more, see [Full-text queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/). A query string query is a subtype of a full-text query that you can use to perform complex queries for a string with multiple optional fields using `query_string` syntax. To learn more, see [Query string queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/query-string/).
-
-- **Geographic and cartesian shape queries** – Use geographic queries to search documents that include geographic data. Use xy queries to search documents that include points and shapes in a two-dimensional Cartesian coordinate system. To learn more, see [Geographic and shape queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/geo-and-shape/).
-
-- **Joining queries** – Used to search nested fields or return parent and child documents that match a specific query. Types of joining queries include `nested`, `has_child`, `has_parent`, and `parent_id` queries.
-
-- **Span queries** – Used to perform queries that provide control over the order and proximity of specified query terms. Primarily used for legal documents. To learn more, see [Span queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/span-query/).
-
-- **Specialized queries** – Include the following query categories: `distance_feature`, `more_like_this`, `percolate`, `rank_feature`, `script`, `script_score`, `wrapper`, or `pinned_query`.
-
- - **Term-level queries** – Used to search documents for one or more terms, IDs, or value ranges, with optional filtering by wildcard or regex. Term-level queries do not sort results by relevance score or analyze search terms. To learn more, see [Term-level queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/term/).
-
-## About term-level and full-text queries
-
-Although term-level and full-text queries both search for terms, there are some differences between the two, as described in the following table.
-
-| | Term-level queries | Full-text queries
-:--- | :--- | :---
-*Description* | Term-level queries answer which documents match a query. | Full-text queries answer how well the documents match a query.
-*Analyzer* | The search term isn't analyzed. This means that the term query searches for your search term as it is.  | The search term is analyzed by the same analyzer that was used for the specific field of the document at the time it was indexed. This means that your search term goes through the same analysis process that the document's field did.
-*Relevance* | Term-level queries simply return documents that match without sorting them based on the relevance score. They still calculate the relevance score, but this score is the same for all the documents that are returned. | Full-text queries calculate a relevance score for each match and sort the results by decreasing order of relevance.
-*Use Case* | Use term-level queries when you want to match exact values such as numbers, dates, tags, and so on, and don't need the matches to be sorted by relevance. | Use full-text queries to match text fields and sort by relevance after taking into account factors like casing and stemming variants.
-
-OpenSearch uses a probabilistic ranking framework called Okapi BM25 to calculate relevance scores. To learn more about Okapi BM25, see [Wikipedia](https://en.wikipedia.org/wiki/Okapi_BM25).
-{: .note }
-
-## Comparing a simple HTTP request to a customized query DSL request
-
-While you can use HTTP request parameters to perform simple searches, you can also use the OpenSearch query DSL, which provides a wider range of search options. The query DSL uses the HTTP request body, so you can more easily customize your queries to get the exact results that you want.
-
-### Performing simple searches with HTTP request parameters
-
-The following request performs a simple search to search for a `speaker` field that has a value of `queen`:
-
-#### Sample request
+With query DSL, you need to specify a query in the `query` parameter of the search. One of the simplest searches in OpenSearch uses the `match_all` query, which matches all documents in an index:
 
 ```json
-GET _search?q=speaker:queen
-```
-
-#### Sample response
-
-```
-{
-  "took": 87,
-  "timed_out": false,
-  "_shards": {
-  "total": 68,
-  "successful": 68,
-  "skipped": 0,
-  "failed": 0
-  },
-  "hits": {
-  "total": {
-    "value": 4080,
-    "relation": "eq"
-  },
-  "max_score": 4.4368687,
-  "hits": [
-    {
-    "_index": "new_shakespeare",
-    "_id": "28559",
-    "_score": 4.4368687,
-    "_source": {
-      "type": "line",
-      "line_id": 28560,
-      "play_name": "Cymbeline",
-      "speech_number": 20,
-      "line_number": "1.1.81",
-      "speaker": "QUEEN",
-      "text_entry": "No, be assured you shall not find me, daughter,"
-    }
-    }
-```
-
-### Using query DSL to create customized searches
-
-With query DSL you can include an HTTP request body to look for results that are better tailored to your needs. The following example shows how to search for `speaker` and `text_entry` fields that have a value of `QUEEN`:
-
-#### Sample request
-
-```json
-GET _search
+GET testindex/_search
 {
   "query": {
-  "multi_match": {
-    "query": "QUEEN",
-    "fields": ["speaker", "text_entry"]
-    }
+     "match_all": { 
+     }
   }
 }
 ```
 
-#### Sample Response
+A query can consist of many query clauses. You can combine query clauses to produce complex queries. 
 
-```json
-{
-  "took": 39,
-  "timed_out": false,
-  "_shards": {
-    "total": 68,
-    "successful": 68,
-    "skipped": 0,
-    "failed": 0
-  },
-  "hits": {
-    "total": {
-      "value": 5837,
-      "relation": "eq"
-    },
-    "max_score": 7.8623476,
-    "hits": [
-      {
-        "_index": "new_shakespeare",
-        "_id": "100763",
-        "_score": 7.8623476,
-        "_source": {
-          "type": "line",
-          "line_id": 100764,
-          "play_name": "Troilus and Cressida",
-          "speech_number": 43,
-          "line_number": "3.1.68",
-          "speaker": "PANDARUS",
-          "text_entry": "Sweet queen, sweet queen! thats a sweet queen, i faith."
-        }
-      },
-      {
-        "_index": "shakespeare",
-        "_id": "28559",
-        "_score": 5.8923807,
-        "_source": {
-          "type": "line",
-          "line_id": 28560,
-          "play_name": "Cymbeline",
-          "speech_number": 20,
-          "line_number": "1.1.81",
-          "speaker": "QUEEN",
-          "text_entry": "No, be assured you shall not find me, daughter,"
-        }
-      }
-    ]
-  }
-}
-```
+Broadly, you can classify queries into two categories:
+
+- **Leaf queries**: Leaf queries search for a specified value in a certain field or fields. You can use leaf queries on their own. They include the following query types:
+
+    - **Full-text queries**: Use full-text queries to search text documents. For an analyzed text field search, full-text queries split the query string into terms with the same analyzer that was used when the field was indexed. For an exact value search, full-text queries look for the specified value without applying text analysis. To learn more, see [Full-text queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/index).
+
+    - **Term-level queries**: Use term-level queries to search documents for an exact specified term, such as an IDs or value range. Term-level queries do not analyze search terms or sort results by relevance score. To learn more, see [Term-level queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/term/).
+
+    - **Geographic and xy queries**: Use geographic queries to search documents that include geographic data. Use xy queries to search documents that include points and shapes in a two-dimensional coordinate system. To learn more, see [Geographic and xy queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/geo-and-xy/index).
+
+    - **Joining queries**: Use joining queries to search nested fields or return parent and child documents that match a specific query. Types of joining queries include `nested`, `has_child`, `has_parent`, and `parent_id` queries.
+
+    - **Span queries**: Use span queries to perform precise positional searches. Span queries are low-level, specific queries that provide control over the order and proximity of specified query terms. They are primarily used to search legal documents. To learn more, see [Span queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/span-query/).
+
+    - **Specialized queries**: Specialized queries include all other query types (`distance_feature`, `more_like_this`, `percolate`, `rank_feature`, `script`, `script_score`, `wrapper`, and `pinned_query`).
+
+- **Compound queries**: Compound queries serve as wrappers for multiple leaf or compound clauses either to combine their results or to modify their behavior. They include Boolean, disjunction max, constant score, disjunction max, function score, or boosting. To learn more, see [Compound queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/compound/index).
 
 ## A note on Unicode special characters in text fields
 
-Due to word boundaries associated with Unicode special characters, the Unicode standard analyzer cannot index a [text field type](https://opensearch.org/docs/2.2/opensearch/supported-field-types/text/) value as a whole value when it includes one of these special characters. As a result, a text field value that includes a special character is parsed by the standard analyzer as multiple values separated by the special character, effectively tokenizing the different elements on either side of it. This can lead to unintentional filtering of documents and potentially compromise control over their access. 
+Due to word boundaries associated with Unicode special characters, the Unicode standard analyzer cannot index a [text field type]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/text/) value as a whole value when it includes one of these special characters. As a result, a text field value that includes a special character is parsed by the standard analyzer as multiple values separated by the special character, effectively tokenizing the different elements on either side of it. This can lead to unintentional filtering of documents and potentially compromise control over their access. 
 
 The examples below illustrate values containing special characters that will be parsed improperly by the standard analyzer. In this example, the existence of the hyphen/minus sign in the value prevents the analyzer from distinguishing between the two different users for `user.id` and interprets them as one and the same:
 

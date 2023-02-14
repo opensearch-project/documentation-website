@@ -14,7 +14,7 @@ Introduced 2.4
 You can create custom filters using Query domain-specific language (DSL) search options to refine your k-NN searches. You define the filter criteria within the `knn_vector` field's `filter` subsection in your query. You can use any of the OpenSearch Query DSL query types as a filter. This includes the common query types: `term`, `range`, `regexp`, and `wildcard`, as well as custom query types. To include or exclude results, use Boolean query clauses. You can also specify a query point with the `knn_vector` type and search for nearest neighbors that match your filter criteria.
 To run k-NN queries with a filter, the Lucene search engine and Hierarchical Navigable Small World (HNSW) method are required.
 
-To learn more about how to use Query DSL Boolean query clauses, see [Boolean queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/bool). For more details about the `knn_vector` data type definition, see [k-NN Index]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/).
+To learn more about how to use Query DSL Boolean query clauses, see [Boolean queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/compound/bool). For more details about the `knn_vector` data type definition, see [k-NN Index]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/).
 {: .note }
 
 ## How does a k-NN filter work?
@@ -407,7 +407,7 @@ Upon success, you should receive a "200-OK" status with entries for each documen
 
 Now you can create a k-NN search that specifies filters by using Query DSL Boolean clauses. You need to include your reference point to search for nearest neighbors. Provide an x-y coordinate for the point within the `vector` field, such as `"vector": [ 5.0, 4.0]`.
 
- To learn more about how to specify ranges with Query DSL, see [Range query]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/term/#range-query).
+ To learn more about how to specify ranges with Query DSL, see [Range query]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/term/#range).
 {: .note }
 
 #### Sample request

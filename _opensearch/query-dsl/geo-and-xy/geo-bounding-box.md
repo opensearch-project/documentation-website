@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Geo-bounding box queries
-parent: Query DSL
-nav_order: 50
+parent: Geographic and xy queries
+grand_parent: Query DSL
+nav_order: 10
 ---
 
 # Geo-bounding box queries
