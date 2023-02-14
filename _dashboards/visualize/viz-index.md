@@ -17,7 +17,7 @@ Dashboards has several visualization types to support your data analysis needs. 
 
 Area charts depict changes over time, and they are commonly used to show trends. Area charts more efficiently identify patterns in log data, such as sales data for a time range and trends over that time. See [Using area charts]({{site.url}}{{site.baseurl}}/dashboards/visualize/area/) to learn more about how to create and use them in Dashboards.
 
- <img src="{{site.url}}{{site.baseurl}}/images/area-chart-1.png" width="600" height="600" alt="Example area chart in OpenSearch Dashboards">
+ <img src="{{site.url}}{{site.baseurl}}/images/dashboards/area-chart-1.png" width="600" height="600" alt="Example area chart in OpenSearch Dashboards">
 
 ### Bar charts
 
@@ -31,7 +31,7 @@ Vertical bar chart             |  Horizontal bar chart
 
 Controls is a panel, instead of a visualization type, added to a dashboard to filter data. Controls gives users the capability to add interactive inputs to a dashboard. You can create two types of controls in Dashboards: **Options list** and **Range slider**. **Options list** is a dropdown options list that allows filtering of data by a terms aggregation, such as `machine.os.keyword`. **Range slider** allows filtering within specified value ranges, such as `hour_of_day`.  
 
-<img src="{{site.url}}{{site.baseurl}}/images/controls-1.png" width="600" height="600" alt="Example visualization using controls to filter data in OpenSearch Dashboards">
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/controls-1.png" width="600" height="600" alt="Example visualization using controls to filter data in OpenSearch Dashboards">
 
 ### Data tables
 
@@ -43,19 +43,19 @@ Data tables, or tables, show your raw data in tabular form.
 
 Gantt charts show the start, end, and duration of unique events in a sequence. Gantt charts are useful in trace analytics, telemetry, and anomaly detection use cases where you want to understand interactions and dependencies between various events in a schedule. **Gantt chart** is currently a plugin, instead of built-in, visualization type in Dashboards. See [Gantt charts]({{site.url}}{{site.baseurl}}/dashboards/visualize/gantt/) to learn how to create and use them in Dashboards.
 
-<img src="{{site.url}}{{site.baseurl}}/images/gantt-chart.png" width="600" height="600" alt="Example Gantt chart in OpenSearch Dashboards">
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/gantt-chart.png" width="600" height="600" alt="Example Gantt chart in OpenSearch Dashboards">
 
 ### Gauge charts
 
 Gauge charts look similar to an analog speedometer that reads left to right from zero. They display how much there is of the thing you are measuring, and this measurement can exist alone or in relation to another measurement, such as tracking performance against benchmarks or goals. 
 
-<img src="{{site.url}}{{site.baseurl}}/images/gauge-1.png" width="400" height="400" alt="Example gauge chart in OpenSearch Dashboards">
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/gauge-1.png" width="400" height="400" alt="Example gauge chart in OpenSearch Dashboards">
 
 ### Heat maps
 
 A heat map is a view of a histogram (a graphical representation of the distribution of numerical data) over time. Instead of using bar height as a representation of frequency, as with a histogram, heat maps display data in a tabular form using colors to differentiate where values fall in a range. 
 
-<img src="{{site.url}}{{site.baseurl}}/images/heat-map-1.png" width="600" height="600" alt="Example heat map in OpenSearch Dashboards">
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/heat-map-1.png" width="600" height="600" alt="Example heat map in OpenSearch Dashboards">
 
 ### Line charts
 
@@ -87,7 +87,7 @@ Markdown is a the markup language used in Dashboards to provide context to your 
 
 Metric values, or number charts, compare values in different measures. For example, you can create a metrics visualization to compare two values, such as actual sales compared to sales goals. 
 
-<img src="{{site.url}}{{site.baseurl}}/images/metric-chart-1.png" width="400" height="400" alt="Example metric chart in OpenSearch Dashboards">
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/metric-chart-1.png" width="400" height="400" alt="Example metric chart in OpenSearch Dashboards">
 
 ### Pie charts
 
@@ -99,7 +99,7 @@ Pie charts compare values for items in a dimension, such as a percentage of a to
 
 The time-series visual builder (TSVB) is a data visualization tool in Dashboards used to create detailed time-series visualizations. For example, you can use TSVB to build visualizations that show data over time, such as flights by status over time or flight delays by delay type over time. Currently, TSVB can be used to create the following Dashboards visualization types: Area, Line, Metric, Gauge, Markdown, and Data Table. 
 
-<img src="{{site.url}}{{site.baseurl}}/images/TSVB-1.png" width="600" height="600" alt="Example TSVB in OpenSearch Dashboards">
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/TSVB-1.png" width="600" height="600" alt="Example TSVB in OpenSearch Dashboards">
 
 ### Tag cloud
 
@@ -111,16 +111,16 @@ Tag (or word) clouds are a way to display how often a word is used in relation t
 
 Timeline is a data visualization tool in Dashboards that you can use to create time-series visualizations. Currently, Timeline can be used to create the following Dashboards visualization types: Area and Line. 
 
-<img src="{{site.url}}{{site.baseurl}}/images/timeline-1.png" width="600" height="600" alt="Example Timeline in OpenSearch Dashboards">
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/timeline-1.png" width="600" height="600" alt="Example Timeline in OpenSearch Dashboards">
 
-## VisBuilder
+### VisBuilder
 
 VisBuilder is a drag-and-drop data visualization tool in Dashboards. It gives you an immediate view of your data without the need to preselect the data source or visualization type output. Currently, VisBuilder can be used to create the following Dashboards visualization types: Area, Bar, Line, Metric, and Data Table. See [VisBuilder]({{site.url}}{{site.baseurl}}/dashboards/visualize/visbuilder/) to learn how to create and use drag-and-drop visualizations in Dashboards.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/vis-builder-2.png" width="600" height="600" alt="Example VisBuilder in OpenSearch Dashboards">
 
-## Vega
+### Vega
 
 [Vega](https://vega.github.io/vega/) and [Vega-Lite](https://vega.github.io/vega-lite/) are open-source, declarative language visualization grammars for creating, sharing, and saving interactive data visualizations. Vega visualizations give you the flexibility to visualize multidimensional data using a layered approach in order to build and manipulate visualizations in a structured manner. Vega can be used to create customized visualizations using any Dashboards visualization type.
 
-<img src="{{site.url}}{{site.baseurl}}/images/vega-1.png" width="600" height="600" alt="Example Vega visualization with JSON specification in OpenSearch Dashboards">
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/vega-1.png" width="600" height="600" alt="Example Vega visualization with JSON specification in OpenSearch Dashboards">
