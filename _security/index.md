@@ -33,7 +33,7 @@ In transit, Security encrypts data moving to, from, and within the cluster. Open
 
 You can find out more about configuring TLS in the [Configuring TLS certificates]({{site.url}}{{site.baseurl}}/security/configuration/tls/) section.
 
-Encryption at rest, on the other hand, protects data stored in the cluster, including indexes, logs, swap files, automated snapshots, and all data in the application directory. This type of encryption is managed by the operating system on each OpenSearch node. For information on enabling encryption at rest, see [Encryption at rest]({{site.url}}{{site.baseurl}}/troubleshoot/index/#encryption-at-rest) in *Common issues*.
+Encryption at rest, on the other hand, protects data stored in the cluster, including indexes, logs, swap files, automated snapshots, and all data in the application directory. This type of encryption is managed by the operating system on each OpenSearch node. For information about enabling encryption at rest, see [Encryption at rest]({{site.url}}{{site.baseurl}}/troubleshoot/index/#encryption-at-rest).
 
 ### Authentication
 
