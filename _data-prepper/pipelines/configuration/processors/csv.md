@@ -10,7 +10,7 @@ nav_order: 45
 
 ## Overview
 
-Takes in an Event and parses its CSV data into columns.
+The `csv` processor takes in an event and parses its comma-separated values (CSV) data into columns.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---

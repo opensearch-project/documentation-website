@@ -10,7 +10,7 @@ nav_order: 45
 
 ## Overview
 
-Uses OpenTelemetry data to create a distributed service map for visualization in OpenSearch Dashboards.
+The `service_map_stateful` processor uses OpenTelemetry data to create a distributed service map for visualization in OpenSearch Dashboards.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---

@@ -10,7 +10,7 @@ nav_order: 45
 
 ## Overview
 
-Drops all the events that are passed into this processor.
+The `drop_events` processor drops all the events that are passed into this processor.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---

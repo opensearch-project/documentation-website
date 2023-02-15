@@ -10,7 +10,7 @@ nav_order: 45
 
 ## Overview
 
-Takes unstructured data and utilizes pattern matching to structure and extract important keys and make data more structured and queryable.
+The `grok` processor takes unstructured data and utilizes pattern matching to structure and extract important keys. It also makes data more structured and queryable.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---

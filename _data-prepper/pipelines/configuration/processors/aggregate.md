@@ -10,7 +10,7 @@ nav_order: 45
 
 ## Overview
 
-Groups events together based on the keys provided and performs a action on each group.
+The `aggregate` processor groups events together based on the keys provided and performs an action on each group.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---

@@ -10,7 +10,7 @@ nav_order: 45
 
 ## Overview
 
-Takes in a field and parses it into key/value pairs.
+The `key_value` processor takes in a field and parses it into key/value pairs.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---

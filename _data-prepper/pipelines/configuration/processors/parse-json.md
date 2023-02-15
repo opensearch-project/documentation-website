@@ -10,7 +10,7 @@ nav_order: 45
 
 ## Overview
 
-Takes in an event and parses its JSON data, including any nested fields.
+The `Parse json` processor takes in an event and parses its JSON data, including any nested fields.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---

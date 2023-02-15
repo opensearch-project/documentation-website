@@ -10,7 +10,7 @@ nav_order: 45
 
 ## Overview
 
-Adds a default timestamp to the event or parses timestamp fields, and converts it to ISO 8601 format, which can be used as event timestamp.
+The `date` processor adds a default timestamp to an event, parses timestamp fields, and converts it to an ISO 8601 format, which can be used as event timestamp.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---

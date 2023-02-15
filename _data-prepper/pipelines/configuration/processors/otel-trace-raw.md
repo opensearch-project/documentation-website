@@ -10,14 +10,16 @@ nav_order: 45
 
 ## Overview
 
-This processor is a Data Prepper event record type replacement of `otel_trace_raw_prepper` (no longer supported since Data Prepper 2.0). The processor fills in trace group related fields including the following.
+The `otel_trace_raw` processor is a Data Prepper event record type and replaces `otel_trace_raw_prepper` (no longer supported since Data Prepper 2.0). This processor completes trace group related fields including the following parameters:
 
 * `traceGroup`: root span name
 * `endTime`: end time of the entire trace in ISO 8601
 * `durationInNanos`: duration of the entire trace in nanoseconds
 * `statusCode`: status code for the entire trace in nanoseconds
 
-in all incoming Data Prepper span records by state caching the root span info per traceId. 
+in all incoming Data Prepper span records by state caching the root span info per `traceId`. 
+
+<!--- Tech: This isn't a complete sentence and needs more information.--->
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---

@@ -10,7 +10,7 @@ nav_order: 45
 
 ## Overview
 
-Converts a string to its lowercase counterpart. `lowercase_string` is part of [mutate string](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/mutate-string-processors#mutate-string-processors) processors.
+The `lowercase_string` processor converts a string to its lowercase counterpart and is a [mutate string](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/mutate-string-processors#mutate-string-processors) processors
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
