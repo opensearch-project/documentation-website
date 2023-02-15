@@ -13,7 +13,7 @@ The OpenSearch Project releases regular updates that include new features, enhan
 
 We recognize that users are excited about upgrading OpenSearch in order to enjoy the latest features, and we will continue to expand on these upgrade and migration documents to cover additional topics, such as upgrading OpenSearch Dashboards and preserving custom configurations, such as for plugins. To see what's coming next or to make a request for future content, leave a comment on the [upgrade and migration documentation meta issue](https://github.com/opensearch-project/documentation-website/issues/2830) in the [OpenSearch Project](https://github.com/opensearch-project) on GitHub.
 
-If would like to see a specific process added, or would like to contribute yourself, please [submit an issue](https://github.com/opensearch-project/documentation-website/issues) on GitHub. Check out the [Contributor Guidelines](https://github.com/opensearch-project/documentation-website/blob/main/CONTRIBUTING.md) to see how you can help.
+If you would like a specific process to be added or would like to contribute, [create an issue](https://github.com/opensearch-project/documentation-website/issues) on GitHub. See the [Contributor Guidelines](https://github.com/opensearch-project/documentation-website/blob/main/CONTRIBUTING.md) to learn how you can help.
 {: .tip}
 
 ## Workflow considerations
