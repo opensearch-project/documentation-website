@@ -8,7 +8,7 @@ nav_order: 10
 
 # otel_metrics_source
 
-Source for the OpenTelemetry Collector for collecting metric data.
+`otel_metrics_source` is a source for the OpenTelemetry Collector for collecting metric data.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
@@ -32,6 +32,8 @@ authentication | No | Object | An authentication configuration. By default, an u
 Content will be added to this section.--->
 
 ## Metrics
+
+The `otel_metrics_source` source includes the following metric:
 
 ### Counter
 - `requestTimeouts`: measures total number of requests that time out.

@@ -10,7 +10,7 @@ nav_order: 45
 
 ## Overview
 
-Sink for writing to another pipeline.
+You can write to another pipeline using the pipeline sink.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---

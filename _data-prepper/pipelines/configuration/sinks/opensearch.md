@@ -10,7 +10,7 @@ nav_order: 45
 
 ## Overview
 
-Sink for an OpenSearch cluster.
+The `OpenSearch` sink is a sink for your OpenSearch cluster.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---

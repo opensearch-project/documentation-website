@@ -11,7 +11,9 @@ nav_order: 15
 
 ## Overview
 
-Source for the OpenTelemetry Collector.
+`otel_trace_source` is a source for the OpenTelemetry Collector.
+
+<!--- What does otel_trace_source do? Other plugins include that in the overview section.--->
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
@@ -28,7 +30,7 @@ sslKeyCertChainFile | Conditionally | String | File-system path or Amazon Simple
 sslKeyFile | Conditionally | String | File-system path or Amazon S3 path to the security key (e.g. `"config/demo-data-prepper.key"` or `"s3://my-secrets-bucket/demo-data-prepper.key"`). Required if `ssl` is set to `true`.
 useAcmCertForSSL | No | Boolean | Whether to enable TLS/SSL using certificate and private key from AWS Certificate Manager (ACM). Default value is `false`.
 acmCertificateArn | Conditionally | String | Represents the ACM certificate ARN. ACM certificate take preference over S3 or local file system certificate. Required if `useAcmCertForSSL` is set to `true`.
-awsRegion | Conditionally | String | Represents the AWS region to use ACM or S3. Required if `useAcmCertForSSL` is set to `true` or `sslKeyCertChainFile` and `sslKeyFile` are Amazon S3 paths.
+awsRegion | Conditionally | String | Represents the AWS region to use ACM or Amazon S3. Required if `useAcmCertForSSL` is set to `true` or `sslKeyCertChainFile` and `sslKeyFile` are Amazon S3 paths.
 authentication | No | Object | An authentication configuration. By default, an unauthenticated server is created for the pipeline. This parameter uses pluggable authentication for HTTPS. To use basic authentication, define the `http_basic` plugin with a `username` and `password`. To provide customer authentication, use or create a plugin that implements [GrpcAuthenticationProvider](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/armeria-common/src/main/java/com/amazon/dataprepper/armeria/authentication/GrpcAuthenticationProvider.java).
 
 <!--- ## Configuration

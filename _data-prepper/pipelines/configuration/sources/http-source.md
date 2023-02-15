@@ -8,7 +8,7 @@ nav_order: 5
 
 # http_source
 
-This is a source plugin that supports HTTP protocol. Currently ONLY support Json UTF-8 codec for incoming request, e.g. `[{"key1": "value1"}, {"key2": "value2"}]`.
+`http_source` is a source plugin that supports HTTP protocol. Currently, `http_source` only supports JSON UTF-8 codec for incoming requests, such as `[{"key1": "value1"}, {"key2": "value2"}]`.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
@@ -21,13 +21,13 @@ max_connection_count | No | Integer | The maximum allowed number of open connect
 max_pending_requests | No | Integer | The maximum number of allowed tasks in ScheduledThreadPool work queue. Default value is `1024`.
 authentication | No | Object | An authentication configuration. By default, this creates an unauthenticated server for the pipeline. This uses pluggable authentication for HTTPS. To use basic authentication define the `http_basic` plugin with a `username` and `password`. To provide customer authentication, use or create a plugin that implements [ArmeriaHttpAuthenticationProvider](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/armeria-common/src/main/java/com/amazon/dataprepper/armeria/authentication/ArmeriaHttpAuthenticationProvider.java).
 ssl | No | Boolean | Enables TLS/SSL. Default value is false.
-ssl_certificate_file | Conditionally | String | SSL certificate chain file path or Amazon Simple Storage Service (Amazon S3) path. S3 path example `s3://<bucketName>/<path>`. Required if `ssl` is true and `use_acm_certificate_for_ssl` is false.
-ssl_key_file | Conditionally | String | SSL key file path or Amazon S3 path. S3 path example `s3://<bucketName>/<path>`. Required if `ssl` is true and `use_acm_certificate_for_ssl` is false.
+ssl_certificate_file | Conditionally | String | SSL certificate chain file path or Amazon Simple Storage Service (Amazon S3) path. Amazon S3 path example `s3://<bucketName>/<path>`. Required if `ssl` is true and `use_acm_certificate_for_ssl` is false.
+ssl_key_file | Conditionally | String | SSL key file path or Amazon S3 path. Amazon S3 path example `s3://<bucketName>/<path>`. Required if `ssl` is true and `use_acm_certificate_for_ssl` is false.
 use_acm_certificate_for_ssl | No | Boolean | Enables TLS/SSL using certificate and private key from AWS Certificate Manager (ACM). Default value is false.
-acm_certificate_arn | Conditionally | String | ACM certificate ARN. The ACM certificate takes preference over S3 or a local file system certificate. Required if `use_acm_certificate_for_ssl` is set to true.
+acm_certificate_arn | Conditionally | String | ACM certificate ARN. The ACM certificate takes preference over Amazon S3 or a local file system certificate. Required if `use_acm_certificate_for_ssl` is set to true.
 acm_private_key_password | No | String | ACM private key password that decrypts the private key. If not provided, Data Prepper generates a random password.
 acm_certificate_timeout_millis | No | Integer | Timeout in milliseconds for ACM to get certificates. Default value is 120000.
-aws_region | Conditionally | String | AWS region to use ACM or S3. Required if `use_acm_certificate_for_ssl` is set to true or `ssl_certificate_file` and `ssl_key_file` is Amazon S3 path.
+aws_region | Conditionally | String | AWS region to use ACM or Amazon S3. Required if `use_acm_certificate_for_ssl` is set to true or `ssl_certificate_file` and `ssl_key_file` is the Amazon S3 path.
 
 <!--- ## Configuration
 
@@ -35,17 +35,19 @@ Content will be added to this section.--->
 
 ## Metrics
 
+The `http_source` source includes the following metrics:
+
 ### Counter
-- `requestsReceived`: measures total number of requests received by `/log/ingest` endpoint.
-- `requestsRejected`: measures total number of requests rejected (429 response status code) by HTTP source plugin.
-- `successRequests`: measures total number of requests successfully processed (200 response status code) by HTTP source plugin.
-- `badRequests`: measures total number of requests with invalid content type or format processed by HTTP source plugin (400 response status code).
-- `requestTimeouts`: measures total number of requests that time out in the HTTP source server (415 response status code).
-- `requestsTooLarge`: measures total number of requests of which the events size in the content is larger than the buffer capacity (413 response status code).
-- `internalServerError`: measures total number of requests processed by the HTTP source with custom exception type (500 response status code).
+- `requestsReceived`: Measures the total number of requests received by `/log/ingest` endpoint.
+- `requestsRejected`: Measures the total number of requests rejected (429 response status code) by HTTP source plugin.
+- `successRequests`: Measures the total number of requests successfully processed (200 response status code) by HTTP source plugin.
+- `badRequests`: Measures the total number of requests with invalid content type or format processed by HTTP source plugin (400 response status code).
+- `requestTimeouts`: Measures the total number of requests that time out in the HTTP source server (415 response status code).
+- `requestsTooLarge`: Measures the total number of requests of which the events size in the content is larger than the buffer capacity (413 response status code).
+- `internalServerError`: Measures the total number of requests processed by the HTTP source with custom exception type (500 response status code).
 
 ### Timer
-- `requestProcessDuration`: measures latency of requests processed by the HTTP source plugin in seconds. 
+- `requestProcessDuration`: Measures the latency of requests processed by the HTTP source plugin in seconds. 
 
 ### Distribution Summary
-- `payloadSize`: measures the distribution of incoming requests payload sizes in bytes.
+- `payloadSize`: Measures the distribution of incoming requests payload sizes in bytes.
