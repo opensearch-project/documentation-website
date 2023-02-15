@@ -141,7 +141,7 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/in
    os-node-01  1.3.7    dimr       -
    os-node-03  1.3.7    dimr       -
    ```
-1. Reenable shard replication.
+1. Reenable shard replication:
    ```bash
    curl -X PUT "http://localhost:9201/_cluster/settings?pretty" -H 'Content-type: application/json' -d'{"persistent":{"cluster.routing.allocation.enable":"all"}}'
    ```
