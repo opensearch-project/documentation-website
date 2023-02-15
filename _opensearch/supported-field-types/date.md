@@ -154,7 +154,7 @@ Format name and description | Pattern and examples
 
 ## Custom formats
 
-You can create custom formats for date fields. For example, the following request specifies a date in the common "MM/dd/yyyy" format.
+You can create custom formats for date fields. For example, the following request specifies a date in the common "MM/dd/yyyy" format:
 
 ```json
 PUT testindex
@@ -217,7 +217,7 @@ GET testindex/_search
 
 ## Date math
 
-The date field type supports using date math to specify duration in queries. For example, the `gt`, `gte`, `lt`, and `lte` parameters in [range queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/term/#range-query) and the `from` and `to` parameters in [date range aggregations]({{site.url}}{{site.baseurl}}/opensearch/bucket-agg/#range-date_range-ip_range) accept date math expressions.
+The date field type supports using date math to specify durations in queries. For example, the `gt`, `gte`, `lt`, and `lte` parameters in [range queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/term/#range) and the `from` and `to` parameters in [date range aggregations]({{site.url}}{{site.baseurl}}/opensearch/bucket-agg/#range-date_range-ip_range) accept date math expressions.
 
 A date math expression contains a fixed date, optionally followed by one or more mathematical expressions. The fixed date may be either `now` (current date and time in milliseconds since the epoch) or a string ending with `||` that specifies a date (for example, `2022-05-18||`). The date must be in the `strict_date_optional_time||epoch_millis` format.
 
@@ -252,7 +252,7 @@ The following example expressions illustrate using date math:
 
 ### Using date math in a range query
 
-The following example illustrates using date math in a [range query]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/term/#range-query).
+The following example illustrates using date math in a [range query]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/term/#range).
 
 Set up an index with `release_date` mapped as `date`:
 
