@@ -9,7 +9,7 @@ has_children: true
 
 A dashboard combines multiple data visualizations into a single view. With the **Dashboard** application, you can:
 
-- Get started with pre-built panels and dashboards and customize display properties to create the dashboard you need.
+- Create a collection of visualizations that can be filtered and customized
 - Analyze, monitor, and alarm on metrics, logs, and traces across multiple data sources.
 - Create interactive dashboards and share them with anyone in your organization.
 
