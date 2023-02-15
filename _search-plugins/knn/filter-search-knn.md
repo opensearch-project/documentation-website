@@ -205,7 +205,7 @@ A very restrictive filter returns the lowest number of documents in your dataset
 
 ### Use case 2: Somewhat restrictive 38% filter
 
-A somewhat restrictive filter returns 38% of the documents in the data set that you search. For example, the following filter criteria specifies hotels with parking and feedback ratings less than or equal to 8 and returns 5 documents.
+A somewhat restrictive filter returns 38% of the documents in the data set that you search. For example, the following filter criteria specifies hotels with parking and feedback ratings less than or equal to 8 and returns 5 documents:
 
 ```json
                "filter": {
@@ -230,7 +230,7 @@ A somewhat restrictive filter returns 38% of the documents in the data set that 
 
 ### Use case 3: Not very restrictive 80% filter
 
-A filter that is not very restrictive will return 80% of the documents that you search. For example, the following filter criteria specifies hotels with feedback ratings greater than or equal to 5 and returns 10 documents.
+A filter that is not very restrictive will return 80% of the documents that you search. For example, the following filter criteria specifies hotels with feedback ratings greater than or equal to 5 and returns 10 documents:
 
 ```json
                 "filter": {
@@ -525,7 +525,7 @@ Depending on how restrictive you want your filter to be, you can add multiple qu
 
 #### Sample request
 
-The following request returns hotels that provide parking. This request illustrates multiple alternative mechanisms to obtain the parking filter criteria. It uses a regular expression for the value `true`, a term query for the key-value pair `"parking":"true"`, a wildcard for the characters that spell "true", and the `must_not` clause to eliminate hotels with "parking" set to `false`.
+The following request returns hotels that provide parking. This request illustrates multiple alternative mechanisms to obtain the parking filter criteria. It uses a regular expression for the value `true`, a term query for the key-value pair `"parking":"true"`, a wildcard for the characters that spell "true", and the `must_not` clause to eliminate hotels with "parking" set to `false`:
 
 ```json
 POST /hotels-index/_search

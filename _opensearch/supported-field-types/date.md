@@ -153,7 +153,7 @@ Format name and description | Pattern and examples
 
 ## Custom formats
 
-You can create custom formats for date fields. For example, the following request specifies a date in the common "MM/dd/yyyy" format.
+You can create custom formats for date fields. For example, the following request specifies a date in the common "MM/dd/yyyy" format:
 
 ```json
 PUT testindex
