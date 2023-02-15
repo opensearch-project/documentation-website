@@ -22,6 +22,7 @@ POST /sample-index1/_update/1
   }
 }
 ```
+{% include copy-curl.html %}
 
 ## Script example
 
@@ -33,6 +34,7 @@ POST /test-index1/_update/1
   }
 }
 ```
+{% include copy-curl.html %}
 
 ## Path and HTTP methods
 

@@ -18,6 +18,7 @@ The CAT snapshots operation lists all snapshots for a repository.
 ```
 GET _cat/snapshots?v
 ```
+{% include copy-curl.html %}
 
 ## Path and HTTP methods
 

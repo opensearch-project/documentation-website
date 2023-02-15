@@ -32,6 +32,7 @@ PUT testindex
   }
 }
 ```
+{% include copy-curl.html %}
 
 Index a document with Boolean values:
 
@@ -43,6 +44,7 @@ PUT testindex/_doc/1
   "c" : ""
 }
 ```
+{% include copy-curl.html %}
 
 As a result, `a` and `b` will be set to `true`, and `c` will be set to `false`.
 
@@ -58,6 +60,7 @@ GET testindex/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 ## Parameters
 
@@ -100,6 +103,7 @@ GET testindex/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 The script returns the value of `a` as `true`, `key` returns the value of `a` as `1`, and `key_as_string` returns the value of `a` as `"true"`:
 

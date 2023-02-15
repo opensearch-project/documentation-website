@@ -7,13 +7,9 @@ redirect_from: /404.html
 permalink: /
 ---
 
-# OpenSearch documentation
+{% include banner.html %}
 
-Welcome to the OpenSearch documentation! With this documentation, you’ll learn how to use OpenSearch &mdash;  the only 100% open-source search, analytics, and visualization suite.
-We have a dedicated and growing number of technical writers who are building our documentation library. We also welcome and encourage community input. To contribute, see the [Contributing](https://opensearch.org/source.html) file. A good place to start is by browsing  issues labeled “_good first issue_.”
-
-
-## Getting started
+# Getting started
 
 - [About OpenSearch]({{site.url}}{{site.baseurl}}/opensearch/)
 - [Quickstart]({{site.url}}{{site.baseurl}}/quickstart/)
@@ -62,7 +58,7 @@ OpenSearch has several features and plugins to help index, secure, monitor, and 
 
 
 ## The secure path forward
-OpenSearch includes a demo configuration so that you can get up and running quickly, but before using OpenSearch in a production environment, you must [configure the security plugin manually]({{site.url}}{{site.baseurl}}/security-plugin/configuration/index/) with your own certificates, authentication method, users, and passwords.
+OpenSearch includes a demo configuration so that you can get up and running quickly, but before using OpenSearch in a production environment, you must [configure the security plugin manually]({{site.url}}{{site.baseurl}}/security/configuration/index/) with your own certificates, authentication method, users, and passwords.
 
 ## Looking for the Javadoc?
 

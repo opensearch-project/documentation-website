@@ -23,12 +23,14 @@ To get information about all nodes in a cluster, use the following query:
 ```json
 GET /_nodes
 ```
+{% include copy-curl.html %}
 
 To get thread pool information about the cluster manager node only, use the following query:
 
 ```json
 GET /_nodes/master:true/thread_pool
 ```
+{% include copy-curl.html %}
 
 ## Path and HTTP methods
 
@@ -82,6 +84,7 @@ The following query requests the `process` and `transport` metrics from the clus
 ```json
 GET /_nodes/cluster_manager:true/process,transport
 ```
+{% include copy-curl.html %}
 
 #### Sample response
 
