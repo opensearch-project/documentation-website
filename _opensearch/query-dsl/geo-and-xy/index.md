@@ -8,7 +8,7 @@ nav_order: 50
 
 # Geographic and xy queries
 
-Geographic and xy queries let you search fields that contain points and shapes on a map or coordinate plane. Geoshape and xy queries are similar, but the former searches [geographic fields] while the latter searches Cartesian fields.
+Geographic and xy queries let you search fields that contain points and shapes on a map or coordinate plane. Geographic queries work on geospatial data, while xy queries work on two-dimensional coordinate data. Out of all geographic queries, the geoshape query is very similar to an an xy query, but the former searches [geographic fields]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geographic) while the latter searches [Cartesian fields]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/xy).
 
 ## xy queries
 

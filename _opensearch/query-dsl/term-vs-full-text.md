@@ -2,12 +2,12 @@
 layout: default
 title: Term-level vs. full-text queries
 parent: Query DSL
-nav_order: 20
+nav_order: 10
 ---
 
 # Term-level vs. full-text queries
 
-The main difference between term-level and full-text queries is that term-level queries search documents for an exact specified term, while full-text queries analyze the query string. The following table summarizes the differences between term-level and full-text queries.
+You can use both term-level and full-text queries to search text, but while term-level queries are usually used to search structured data, full-text queries are used for full text search. The main difference between term-level and full-text queries is that term-level queries search documents for an exact specified term, while full-text queries analyze the query string. The following table summarizes the differences between term-level and full-text queries.
 
 | | Term-level queries | Full-text queries
 :--- | :--- | :---
