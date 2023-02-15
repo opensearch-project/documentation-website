@@ -20,7 +20,7 @@ If you would like a specific process to be added or would like to contribute, [c
 
 Take time to plan the process before making any changes to your cluster. For example, consider the following questions:
 
-- How long the upgrade process will take?
+- How long will the upgrade process take?
 - If your cluster is being used in production, how impactful is downtime?
 - Do you have infrastructure in place to stand up the new cluster in a testing or development environment before you move it into production, or do you need to upgrade the production hosts directly?
 
