@@ -161,7 +161,7 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/in
      "transient" : { }
    }
    ```
-1. Confirm that the cluster is healthy.
+1. Confirm that the cluster is healthy:
    ```bash
    curl "http://localhost:9201/_cluster/health?pretty"
    ```
