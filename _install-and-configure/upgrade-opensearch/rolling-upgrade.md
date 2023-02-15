@@ -186,7 +186,7 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/in
      "active_shards_percent_as_number" : 100.0
    }
    ```
-1. The upgrade is complete and you can begin enjoying the latest features and fixes!
+1. The upgrade is now complete, and you can begin enjoying the latest features and fixes!
 
 ### Related articles
 
