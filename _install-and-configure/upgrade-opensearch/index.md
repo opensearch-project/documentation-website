@@ -29,7 +29,7 @@ The answers to questions like these will help you determine which upgrade path w
 At a minimum, you should:
 
 - [Review breaking changes](#review-breaking-changes).
-- [Review the OpenSearch tools compatibility matrices](#review-the-opensearch-tools-compatibility-matrices)
+- [Review the OpenSearch tools compatibility matrices](#review-the-opensearch-tools-compatibility-matrices).
 - [Check plugin compatibility](#review-plugin-compatibility)
 - [Back up configuration files](#back-up-configuration-files)
 - [Take a snapshot](#take-a-snapshot)
