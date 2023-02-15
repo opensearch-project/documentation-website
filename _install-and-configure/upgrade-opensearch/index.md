@@ -31,23 +31,23 @@ At a minimum, you should:
 - [Review breaking changes](#review-breaking-changes).
 - [Review the OpenSearch tools compatibility matrices](#review-the-opensearch-tools-compatibility-matrices).
 - [Check plugin compatibility](#review-plugin-compatibility).
-- [Back up configuration files](#back-up-configuration-files)
-- [Take a snapshot](#take-a-snapshot)
+- [Back up configuration files](#back-up-configuration-files).
+- [Take a snapshot](#take-a-snapshot).
 
-Stop any non-essential indexing before you begin the upgrade procedure to eliminate unnecessary resource strains on the cluster while you perform the upgrade.
+Stop any nonessential indexing before you begin the upgrade procedure to eliminate unnecessary resource demands on the cluster while you perform the upgrade.
 {: .tip}
 
 ### Review breaking changes
 
-It's important to determine how the new version of OpenSearch will fit into your environment. Review [Breaking changes]({{site.url}}{{site.baseurl}}/breaking-changes/) before beginning any upgrade procedures to determine if you will need to make adjustments in your workflow. For example, upstream or downstream components might need to be modified to be compatible with an API change.
+It's important to determine how the new version of OpenSearch will fit into your environment. Review [Breaking changes]({{site.url}}{{site.baseurl}}/breaking-changes/) before beginning any upgrade procedures to determine whether you will need to make adjustments to your workflow. For example, upstream or downstream components might need to be modified to be compatible with an API change.
 
 ### Review the OpenSearch tools compatibility matrices
 
-If your OpenSearch cluster interacts with other services in your environment, like Logstash or Beats, then you should check the [OpenSearch tools compatibility matrices]({{site.url}}{{site.baseurl}}/tools/index/#compatibility-matrices) to see if other components will need to be upgraded.
+If your OpenSearch cluster interacts with other services in your environment, like Logstash or Beats, then you should check the [OpenSearch tools compatibility matrices]({{site.url}}{{site.baseurl}}/tools/index/#compatibility-matrices) to determine whether other components will need to be upgraded.
 
 ### Review plugin compatibility
 
-Review the plugins you use to determine compatibility with the target version of OpenSearch. Official OpenSearch Project plugins can be found in the [OpenSearch Project](https://github.com/opensearch-project) repository on GitHub. If you use any third party plugins, then you should check the documentation for those plugins to determine if they are compatible.
+Review the plugins you use to determine compatibility with the target version of OpenSearch. Official OpenSearch Project plugins can be found in the [OpenSearch Project](https://github.com/opensearch-project) repository on GitHub. If you use any third-party plugins, then you should check the documentation for those plugins to determine whether they are compatible.
 
 ### Back up configuration files
 
@@ -60,41 +60,41 @@ Some examples include `opensearch.yml`, `opensearch_dashboards.yml`, plugin conf
 
 ### Take a snapshot
 
-We recommend that you back up your cluster state and indexes using [Snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/index/). If you use security features, make sure to read [A word of caution]({{site.url}}{{site.baseurl}}/security-plugin/configuration/security-admin/#a-word-of-caution) for details about backing up and restoring your security settings.
+We recommend that you back up your cluster state and indexes using [snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/index/). If you use security features, make sure to read [A word of caution]({{site.url}}{{site.baseurl}}/security-plugin/configuration/security-admin/#a-word-of-caution) for information about backing up and restoring your security settings.
 
 ## Upgrade methods
 
-Choose an appropriate method for upgrading your cluster to a new version of OpenSearch based on your requirements.
+Choose an appropriate method for upgrading your cluster to a new version of OpenSearch based on your requirements:
 
-- [Rolling upgrade](#rolling-upgrade) is the process of upgrading nodes one at a time without stopping the cluster.
-- [Cluster restart upgrade](#cluster-restart-upgrade) is the process of upgrading services while the cluster is stopped.
+- A [rolling upgrade](#rolling-upgrade) upgrades nodes one at a time without stopping the cluster.
+- A [cluster restart upgrade](#cluster-restart-upgrade) upgrades services while the cluster is stopped.
 
 Upgrades spanning more than a single major version of OpenSearch will require additional effort due to the need for reindexing. For more information, refer to the [Reindex]({{site.url}}{{site.baseurl}}/api-reference/document-apis/reindex/) API. See the [Lucene version reference](#lucene-version-reference) table included later in this guide for help planning your data migration.
 
 ### Rolling upgrade
 
-Rolling upgrades are a great option if you want to keep your cluster operational throughout the process. Data may continue to be ingested, analyzed, and queried as nodes are invididually stopped, upgraded, and restarted. A variation of the rolling upgrade, referred to as "node replacement," is exactly the same process except hosts or containers are not reused for the new node. You might perform node replacement if you are upgrading the underlying host(s) as well.
+A rolling upgrade is a great option if you want to keep your cluster operational throughout the process. Data may continue to be ingested, analyzed, and queried as nodes are individually stopped, upgraded, and restarted. A variation of the rolling upgrade referred to as "node replacement" follows exactly the same process except that hosts and containers are not reused for the new node. You might perform node replacement if you are upgrading the underlying host(s) as well.
 
-OpenSearch nodes cannot join a cluster if the cluster manager is running a newer version of OpenSearch than the node requesting membership. To avoid this issue, upgrade the cluster manager-eligible nodes last.
+OpenSearch nodes cannot join a cluster if the cluster manager is running a newer version of OpenSearch than the node requesting membership. To avoid this issue, upgrade the cluster-manager-eligible nodes last.
 
-See [Rolling Upgrade]({{site.url}}{{site.baseurl}}/install-and-configure/upgrade-opensearch/rolling-upgrade/) for details about the process.
+See [Rolling Upgrade]({{site.url}}{{site.baseurl}}/install-and-configure/upgrade-opensearch/rolling-upgrade/) for more information about the process.
 
 ### Cluster restart upgrade
 
-OpenSearch administrators might choose to perform a cluster restart upgrade for several reasons. For example, if the administrator doesn't want to perform maintenance on a running cluster, or if the cluster is being migrated to a different environment.
+OpenSearch administrators might choose to perform a cluster restart upgrade for several reasons, such as if the administrator doesn't want to perform maintenance on a running cluster or if the cluster is being migrated to a different environment.
 
 Unlike a rolling upgrade, where only one node is offline at a time, a cluster restart upgrade requires you to stop OpenSearch and OpenSearch Dashboards on all nodes in the cluster before proceeding. After the nodes are stopped, a new version of OpenSearch is installed. Then OpenSearch is started and the cluster bootstraps to the new version.
 
 ## Compatibility
 
-OpenSearch nodes are compatible with other OpenSearch nodes running any other *minor* version within the same *major* version release. For example, 1.1.0 is compatible with 1.3.7 because they are part of the same *major* version (1.x). Additionally, OpenSearch nodes and indexes are backwards-compatible with the previous major version. That means, for example, that an index created by an OpenSearch node running any 1.x version could be restored from a snapshot to an OpenSearch cluster running any 2.x version.
+OpenSearch nodes are compatible with other OpenSearch nodes running any other *minor* version within the same *major* version release. For example, 1.1.0 is compatible with 1.3.7 because they are part of the same *major* version (1.x). Additionally, OpenSearch nodes and indexes are backward compatible with the previous major version. That means, for example, that an index created by an OpenSearch node running any 1.x version can be restored from a snapshot to an OpenSearch cluster running any 2.x version.
 
 OpenSearch 1.x nodes are compatible with nodes running Elasticsearch 7.x, but the longevity of a mixed-version environment should not extend beyond cluster upgrade activities.
 {: .tip}
 
-Index compatibility is determined by the version of [Apache Lucene](https://lucene.apache.org/) that created the index. If an index was created by an OpenSearch cluster running version 1.0.0, then the index could be used by any other OpenSearch cluster running up to the latest 1.x or 2.x release. See the [Index compatibility reference](#index-compatibility-reference) table for Lucene versions running in OpenSearch 1.0.0 and later and [Elasticsearch](https://www.elastic.co/) 6.8 and later.
+Index compatibility is determined by the version of [Apache Lucene](https://lucene.apache.org/) that created the index. If an index was created by an OpenSearch cluster running version 1.0.0, then the index can be used by any other OpenSearch cluster running up to the latest 1.x or 2.x release. See the [Index compatibility reference](#index-compatibility-reference) table for Lucene versions running in OpenSearch 1.0.0 and later and [Elasticsearch](https://www.elastic.co/) 6.8 and later.
 
-If your upgrade path spans more than a single major version and you want to retain any existing index(es), then you can use the [Reindex]({{site.url}}{{site.baseurl}}/api-reference/document-apis/reindex/) API to make your indexes compatible with the target version of OpenSearch before upgrading. For example, if your cluster is currently running Elasticsearch 6.8 and you want to upgrade to OpenSearch 2.x, then you must first upgrade to OpenSearch 1.x, recreate your indexes using the [Reindex]({{site.url}}{{site.baseurl}}/api-reference/document-apis/reindex/) API, and finally upgrade to 2.x. One alternative to reindexing is to reingest data from the origin, such as by replaying a datastream or ingesting data from a database.
+If your upgrade path spans more than a single major version and you want to retain any existing indexes, then you can use the [Reindex]({{site.url}}{{site.baseurl}}/api-reference/document-apis/reindex/) API to make your indexes compatible with the target version of OpenSearch before upgrading. For example, if your cluster is currently running Elasticsearch 6.8 and you want to upgrade to OpenSearch 2.x, then you must first upgrade to OpenSearch 1.x, recreate your indexes using the [Reindex]({{site.url}}{{site.baseurl}}/api-reference/document-apis/reindex/) API, and finally upgrade to 2.x. One alternative to reindexing is to reingest data from the origin, such as by replaying a data stream or ingesting data from a database.
 
 ### Index compatibility reference
 
