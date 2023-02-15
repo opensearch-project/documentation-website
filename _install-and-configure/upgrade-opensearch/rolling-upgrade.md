@@ -9,7 +9,7 @@ nav_order: 10
 
 Rolling upgrades, sometimes referred to as "node replacement upgrades," can be performed on running clusters with virtually no downtime. Nodes are individually stopped and upgraded in place. Alternatively, nodes can be stopped and replaced, one at a time, by hosts running the new version. During this process you can continue to index and query data in your cluster.
 
-The sample outputs and API responses included in this document were generated in a development environment using Docker containers. Validation was performed by upgrading an Elasticsearch 7.10.2 cluster to OpenSearch 1.3.7; however, this process can be applied to any **N→N+1** version upgrade of OpenSearch on any platform. Certain commands, such as listing running containers in Docker, are included as an aid to the reader but the specific commands used on your host(s) will be different depending on your distribution and host operating system.
+The example outputs and API responses included in this document were generated in a development environment using Docker containers. Validation was performed by upgrading an Elasticsearch 7.10.2 cluster to OpenSearch 1.3.7; however, this process can be applied to any **N→N+1** version upgrade of OpenSearch on any platform. Certain commands, such as listing running containers in Docker, are included as an aid to the reader but the specific commands used on your host(s) will be different depending on your distribution and host operating system.
 
 This guide assumes that you are comfortable working from the Linux command line interface (CLI). You should understand how to input commands, navigate between directories, and edit text files. For help with [Docker](https://www.docker.com/) or [Docker Compose](https://github.com/docker/compose), refer to the official documentation on their websites.
 {:.note}
@@ -27,7 +27,7 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/in
    ```bash
    curl "http://localhost:9201/_cluster/health?pretty"
    ```
-   Sample output:
+   The response should look similar to the following example:
    ```json
    {
        "cluster_name":"opensearch-dev-cluster",
@@ -51,7 +51,7 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/in
    ```bash
    curl -X PUT "http://localhost:9201/_cluster/settings?pretty" -H 'Content-type: application/json' -d'{"persistent":{"cluster.routing.allocation.enable":"primaries"}}'
    ```
-   Sample output:
+   The response should look similar to the following example:
    ```json
    {
      "acknowledged" : true,
@@ -71,7 +71,7 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/in
    ```bash
    curl -X POST "http://localhost:9201/_flush?pretty"
    ```
-   Sample output:
+   The response should look similar to the following example:
    ```json
    {
      "_shards" : {
@@ -86,7 +86,7 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/in
    ```bash
    curl -s "http://localhost:9201/_cat/nodes?v&h=name,version,node.role,master" | column -t
    ```
-   Sample output:
+   The response should look similar to the following example:
    ```bash
    name        version  node.role  master
    os-node-01  7.10.2   dimr       -
@@ -99,7 +99,7 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/in
    ```bash
    curl -s "http://localhost:9202/_cat/nodes?v&h=name,version,node.role,master" | column -t
    ```
-   Sample output:
+   The response should look similar to the following example:
    ```bash
    name        version  node.role  master
    os-node-02  7.10.2   dimr       *
@@ -112,7 +112,7 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/in
    ```bash
    curl -s "http://localhost:9201/_cat/nodes?v&h=name,version,node.role,master" | column -t
    ```
-   Sample output:
+   The response should look similar to the following example:
    ```bash
    name        version  node.role  master
    os-node-02  7.10.2   dimr       *
@@ -120,11 +120,11 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/in
    os-node-01  7.10.2   dimr       -
    os-node-03  7.10.2   dimr       -
    ```
-   In the sample output, the new OpenSearch node reports a running version of `7.10.2` to the cluster. This is the result of `compatibility.override_main_response_version`, which is used when connecting to a cluster with legacy clients that check for a version. You can manually confirm the version of the node by calling the `/_nodes` API endpoint, as in the following command. Replace `<nodeName>` with the name of your node. See [Nodes API]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/index/) to learn more.
+   In the example output, the new OpenSearch node reports a running version of `7.10.2` to the cluster. This is the result of `compatibility.override_main_response_version`, which is used when connecting to a cluster with legacy clients that check for a version. You can manually confirm the version of the node by calling the `/_nodes` API endpoint, as in the following command. Replace `<nodeName>` with the name of your node. See [Nodes API]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/index/) to learn more.
    ```
    curl -s -X GET 'localhost:9201/_nodes/<nodeName>?pretty=true' | jq -r '.nodes | .[] | "\(.name) v\(.version)"'
    ```
-   Sample output:
+   The response should look similar to the following example:
    ```
    $ curl -s -X GET 'localhost:9201/_nodes/os-node-01?pretty=true' | jq -r '.nodes | .[] | "\(.name) v\(.version)"'
    os-node-01 v1.3.7
@@ -133,7 +133,7 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/in
    ```bash
    curl -s "http://localhost:9201/_cat/nodes?v&h=name,version,node.role,master" | column -t
    ```
-   Sample output:
+   The response should look similar to the following example:
    ```bash
    name        version  node.role  master
    os-node-04  1.3.7    dimr       -
@@ -145,7 +145,7 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/in
    ```bash
    curl -X PUT "http://localhost:9201/_cluster/settings?pretty" -H 'Content-type: application/json' -d'{"persistent":{"cluster.routing.allocation.enable":"all"}}'
    ```
-   Sample output:
+   The response should look similar to the following example:
    ```json
    {
      "acknowledged" : true,
@@ -165,7 +165,7 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/in
    ```bash
    curl "http://localhost:9201/_cluster/health?pretty"
    ```
-   Sample output:
+   The response should look similar to the following example:
    ```bash
    {
      "cluster_name" : "opensearch-dev-cluster",
