@@ -1,33 +1,33 @@
 ---
 layout: default
-title: Term-level vs. full-text queries
+title: Term-level and full-text queries compared
 parent: Query DSL
 nav_order: 10
 ---
 
-# Term-level vs. full-text queries
+# Term-level and full-text queries compared
 
-You can use both term-level and full-text queries to search text, but while term-level queries are usually used to search structured data, full-text queries are used for full text search. The main difference between term-level and full-text queries is that term-level queries search documents for an exact specified term, while full-text queries analyze the query string. The following table summarizes the differences between term-level and full-text queries.
+You can use both term-level and full-text queries to search text, but while term-level queries are usually used to search structured data, full-text queries are used for full-text search. The main difference between term-level and full-text queries is that term-level queries search documents for an exact specified term, while full-text queries analyze the query string. The following table summarizes the differences between term-level and full-text queries.
 
 | | Term-level queries | Full-text queries
 :--- | :--- | :---
 *Description* | Term-level queries answer which documents match a query. | Full-text queries answer how well the documents match a query.
-*Analyzer* | The search term isn't analyzed. This means that the term query searches for your search term as it is.  | The search term is analyzed by the same analyzer that was used for the specific field of the document at the time it was indexed. This means that your search term goes through the same analysis process that the document's field did.
+*Analyzer* | The search term isn't analyzed. This means that the term query searches for your search term as it is.  | The search term is analyzed by the same analyzer that was used for the specific document field at the time it was indexed. This means that your search term goes through the same analysis process as the document's field.
 *Relevance* | Term-level queries simply return documents that match without sorting them based on the relevance score. They still calculate the relevance score, but this score is the same for all the documents that are returned. | Full-text queries calculate a relevance score for each match and sort the results by decreasing order of relevance.
-*Use Case* | Use term-level queries when you want to match exact values such as numbers, dates, or tags, and don't need the matches to be sorted by relevance. | Use full-text queries to match text fields and sort by relevance after taking into account factors like casing and stemming variants.
+*Use Case* | Use term-level queries when you want to match exact values such as numbers, dates, or tags and don't need the matches to be sorted by relevance. | Use full-text queries to match text fields and sort by relevance after taking into account factors like casing and stemming variants.
 
 OpenSearch uses the BM25 ranking algorithm to calculate relevance scores. To learn more, see [Okapi BM25](https://en.wikipedia.org/wiki/Okapi_BM25).
 {: .note }
 
 ## Should I use a full-text or a term-level query?
 
-To see the difference between full-text and term-level queries in action, consider the following two examples that search for a specific text phrase. The complete works of Shakespeare are indexed in an OpenSearch cluster.
+To clarify the difference between full-text and term-level queries, consider the following two examples that search for a specific text phrase. The complete works of Shakespeare are indexed in an OpenSearch cluster.
 
 ### Example: Phrase search
 
 In this example, you'll search the complete works of Shakespeare for the phrase "To be, or not to be" in the `text_entry` field. 
 
-First, let's use a **term-level query** for this search:
+First, use a **term-level query** for this search:
 
 ```json
 GET shakespeare/_search
@@ -65,7 +65,7 @@ The response contains no matches, indicated by zero `hits`:
 
 This is because the term “To be, or not to be” is searched literally in the inverted index, where only the analyzed values of the text fields are stored. Term-level queries aren’t suited for searching analyzed text fields because they often yield unexpected results. When working with text data, use term-level queries only for fields mapped as `keyword`.
 
-Now let's search for the same phrase using a **full-text** query:
+Now search for the same phrase using a **full-text query**:
 
 ```json
 GET shakespeare/_search
@@ -78,7 +78,7 @@ GET shakespeare/_search
 }
 ```
 
-The search query “To be, or not to be” is analyzed and tokenized into an array of tokens just like the `text_entry` field of the documents. The full-text query takes an intersection of tokens between our search query and the `text_entry` fields for all the documents, and then sorts the results by relevance scores:
+The search query “To be, or not to be” is analyzed and tokenized into an array of tokens just like the `text_entry` field of the documents. The full-text query takes an intersection of tokens between the search query and the `text_entry` fields for all the documents, and then sorts the results by relevance score:
 
 ```json
 {
@@ -149,7 +149,7 @@ For a list of all full-text queries, see [Full-text queries]({{site.url}}{{site.
 
 ### Example: Exact term search
 
-If you want to search for an exact term like “HAMLET” in the `speaker` field and don't need the results to be sorted by relevance scores, a term-level query is more efficient:
+If you want to search for an exact term like “HAMLET” in the `speaker` field and don't need the results to be sorted by relevance score, a term-level query is more efficient:
 
 ```json
 GET shakespeare/_search
@@ -229,5 +229,5 @@ The response contains document matches:
 ...
 ```
 
-The term-level queries are exact matches. So, if you search for “Hamlet”, you don’t get back any matches, because “HAMLET” is a keyword field and is stored in OpenSearch literally and not in an analyzed form.
-The search query “HAMLET” is also searched literally. So, to get a match on this field, we need to enter the exact same characters.
+The term-level queries provide exact matches. So if you search for “Hamlet”, you don’t receive any matches, because “HAMLET” is a keyword field and is stored in OpenSearch literally and not in an analyzed form.
+The search query “HAMLET” is also searched literally. So to get a match for this field, we need to enter the exact same characters.

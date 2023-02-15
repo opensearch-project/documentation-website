@@ -16,10 +16,10 @@ OpenSearch provides several text analyzers to convert your structured text into 
 
 OpenSearch supports the following text analyzers:
 
-- **Standard analyzer** – Parses strings into terms at word boundaries per the Unicode text segmentation algorithm. It removes most, but not all, punctuation. It converts strings to lowercase. You can remove stop words if you turn on that option, but it does not remove stop words by default.
+- **Standard analyzer** – Parses strings into terms at word boundaries according to the Unicode text segmentation algorithm. It removes most, but not all, punctuation and converts strings to lowercase. You can remove stop words if you enable that option, but it does not remove stop words by default.
 - **Simple analyzer** – Converts strings to lowercase and removes non-letter characters when it splits a string into tokens on any non-letter character.
 - **Whitespace analyzer** – Parses strings into terms between each whitespace.
-- **Stop analyzer** – Converts strings to lowercase and removes non-letter characters by splitting strings into tokens at each non-letter character. It also removes stop words (e.g., "but" or "this") from strings.
+- **Stop analyzer** – Converts strings to lowercase and removes non-letter characters by splitting strings into tokens at each non-letter character. It also removes stop words (for example, "but" or "this") from strings.
 - **Keyword analyzer** – Receives a string as input and outputs the entire string as one term.
 - **Pattern analyzer** – Splits strings into terms using regular expressions and supports converting strings to lowercase. It also supports removing stop words.
 - **Language analyzer** – Provides analyzers specific to multiple languages.

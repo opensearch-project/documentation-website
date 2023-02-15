@@ -6,7 +6,7 @@ nav_order: 16
 
 # Reindex data
 
-After creating an index, you might need to make an extensive change such as adding a new field to every document or combining multiple indexes to form a new one. Rather than deleting your index, making the change offline, and then indexing your data all over again, you can use the `reindex` operation.
+After creating an index, you might need to make an extensive change such as adding a new field to every document or combining multiple indexes to form a new one. Rather than deleting your index, making the change offline, and then indexing your data again, you can use the `reindex` operation.
 
 With the `reindex` operation, you can copy all or a subset of documents that you select through a query to another index. Reindex is a `POST` operation. In its most basic form, you specify a source index and a destination index.
 
@@ -135,7 +135,7 @@ POST _reindex
    }
 }
 ```
-Make sure the number of shards for your source and destination indexes are the same.
+Make sure the number of shards for your source and destination indexes is the same.
 
 ## Reindex only unique documents
 
