@@ -8,7 +8,7 @@ nav_order: 5
 
 # Adding Maps to Dashboard
 
-With OpenSearch dashboards, you can create maps to visualize your geographical data, and add those maps to a new or existing dashboard. You can do the following things when adding maps to your dashboard:
+With OpenSearch dashboards, you can create maps to visualize your geographical data, and add those maps to a new or existing dashboard. You perform the following tasks when adding maps to your dashboard:
 
 * Add a map type that can be added to Dashboard panels
 * Add saved maps and display them on Dashboards
@@ -23,6 +23,6 @@ With OpenSearch dashboards, you can create maps to visualize your geographical d
 
 To get started, perform the following steps:
 
-1. In the **New Visualization** screen, go to  **Maps**.
-1. Select the **Add** button, then select the **Create new** button.
+1. In the **New Visualization** screen, go to **Maps**. 
+1. You can also start by selecting the **Add** button, then selecting the **Create new** button.
 1. Select **Maps**.
