@@ -23,11 +23,15 @@ document.addEventListener('click', function(event) {
 
 document.getElementById("comment").addEventListener("input", function() {
     const text = this.value.trim();
-    const sendButton = this['nextElementSibling'];
+    const sendButton = document.getElementById('send');
     
     if (!document.getElementById('yes').checked && !document.getElementById('no').checked) {
         text.length > 0 ? sendButton.disabled = false : sendButton.disabled = true;
     }
+
+    // calculate the number of characters remaining
+    counter = 350 - this.value.length;
+    document.getElementById('num-chars').innerText = counter + " characters left";
 });
 
 function sendFeedback(button) {
@@ -56,10 +60,7 @@ function sendFeedback(button) {
     }
 
     // show the hidden feedback text
-    const parent = button.parentElement;
-    const index = [...parent.children].indexOf(button) + 1;
-    const sibling = parent.parentElement.querySelector(`:nth-child(${index}) ~ .thank-you`);
-    sibling?.classList.remove('hidden');
+    document.getElementById('thank-you').classList.remove('hidden');
 
     // disable the feedback buttons
     document.getElementById('yes').disabled = true;
