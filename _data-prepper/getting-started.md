@@ -41,7 +41,7 @@ You will configure two files:
 
 Depending on your use case, we have a few different guides to configuring Data Prepper.
 
-* [Trace Analytics](https://github.com/opensearch-project/data-prepper/blob/main/docs/trace_analytics.md)
+* [Trace Analytics]({{site.url}}{{site.baseurl}}/data-prepper/common-use-cases/trace-analytics/): Learn how to collect trace data and customize a pipeline that ingests and transforms that data. 
 * [Log Analytics]({{site.url}}{{site.baseurl}}/data-prepper/common-use-cases/log-analytics/): Learn how to set up Data Prepper for log observability.
 * [Simple Pipeline](https://github.com/opensearch-project/data-prepper/blob/main/docs/simple_pipelines.md): Learn the basics of Data Prepper pipelines with some simple configurations.
 
@@ -123,16 +123,14 @@ like to pass a custom log4j2 properties file. If no properties file is provided,
 
 ## Next steps
 
-Trace Analytics is an important Data Prepper use case. If you haven't yet configured it,
-see the [Trace Analytics](https://github.com/opensearch-project/data-prepper/blob/main/docs/trace_analytics.md).
+Trace Analytics is an important Data Prepper use case. If you haven't yet configured it, see the [Trace Analytics]({{site.url}}{{site.baseurl}}/data-prepper/common-use-cases/trace-analytics/).
 
-Log Ingestion is also an important Data Prepper use case. To learn more, see the [Log Ingestion Documentation](https://github.com/opensearch-project/data-prepper/blob/main/docs/log_analytics.md).
+Log ingestion is also an important Data Prepper use case. To learn more, see [Log analytics]({{site.url}}{{site.baseurl}}/data-prepper/common-use-cases/log-analytics/).
 
-To learn how to run Data Prepper with a Logstash configuration, see the [Logstash Migration Guide]({{site.url}}{{site.baseurl}}/data-prepper/configure-logstash-data-prepper/).
+To learn how to run Data Prepper with a Logstash configuration, see [Migrating from Logstash]({{site.url}}{{site.baseurl}}/data-prepper/migrating-from-logstash-data-prepper/).
 
-For information on how to monitor Data Prepper, see the [Monitoring](https://github.com/opensearch-project/data-prepper/blob/main/docs/monitoring.md) page.
+For information on how to monitor Data Prepper, see the [Monitoring]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/monitoring/) page.
 
 ## Other examples
 
-We have several other Docker [examples](https://github.com/opensearch-project/data-prepper/tree/main/examples/)
-that allow you to run Data Prepper in different scenarios.
+We have several other Docker [examples](https://github.com/opensearch-project/data-prepper/tree/main/examples/) that allow you to run Data Prepper in different scenarios.

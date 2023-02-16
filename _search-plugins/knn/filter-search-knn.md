@@ -11,10 +11,10 @@ has_math: true
 Introduced 2.4
 {: .label .label-purple }
 
-You can create custom filters using Query domain-specific language (DSL) search options to refine your k-NN searches. You define the filter criteria within the `knn_vector` field's `filter` subsection in your query. You can use any of the OpenSearch Query DSL query types as a filter. This includes the common query types: `term`, `range`, `regexp`, and `wildcard`, as well as custom query types. To include or exclude results, use Boolean query clauses. You can also specify a query point with the `knn_vector` type and search for nearest neighbors that match your filter criteria.
+You can create custom filters using Query domain-specific language (DSL) search options to refine your k-NN searches. You define the filter criteria within the `knn_vector` field's `filter` subsection in your query. You can use any of the OpenSearch query DSL query types as a filter. This includes the common query types: `term`, `range`, `regexp`, and `wildcard`, as well as custom query types. To include or exclude results, use Boolean query clauses. You can also specify a query point with the `knn_vector` type and search for nearest neighbors that match your filter criteria.
 To run k-NN queries with a filter, the Lucene search engine and Hierarchical Navigable Small World (HNSW) method are required.
 
-To learn more about how to use Query DSL Boolean query clauses, see [Boolean queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/bool). For more details about the `knn_vector` data type definition, see [k-NN Index]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/).
+To learn more about how to use query DSL Boolean query clauses, see [Boolean queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/compound/bool). For more details about the `knn_vector` data type definition, see [k-NN Index]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-index/).
 {: .note }
 
 ## How does a k-NN filter work?
@@ -205,7 +205,7 @@ A very restrictive filter returns the lowest number of documents in your dataset
 
 ### Use case 2: Somewhat restrictive 38% filter
 
-A somewhat restrictive filter returns 38% of the documents in the data set that you search. For example, the following filter criteria specifies hotels with parking and feedback ratings less than or equal to 8 and returns 5 documents.
+A somewhat restrictive filter returns 38% of the documents in the data set that you search. For example, the following filter criteria specifies hotels with parking and feedback ratings less than or equal to 8 and returns 5 documents:
 
 ```json
                "filter": {
@@ -230,7 +230,7 @@ A somewhat restrictive filter returns 38% of the documents in the data set that 
 
 ### Use case 3: Not very restrictive 80% filter
 
-A filter that is not very restrictive will return 80% of the documents that you search. For example, the following filter criteria specifies hotels with feedback ratings greater than or equal to 5 and returns 10 documents.
+A filter that is not very restrictive will return 80% of the documents that you search. For example, the following filter criteria specifies hotels with feedback ratings greater than or equal to 5 and returns 10 documents:
 
 ```json
                 "filter": {
@@ -254,7 +254,7 @@ You can search with a filter by following these three steps:
 1. Create an index and specify the requirements for the Lucene engine and HNSW requirements in the mapping.
 1. Add your data to the index.
 1. Search the index and specify these three items in your query:
-* One or more filters defined by Query DSL
+* One or more filters defined by query DSL
 * A vector reference point defined by the `vector` field
 * The number of matches you want returned with the `k` field
 
@@ -405,9 +405,9 @@ Upon success, you should receive a "200-OK" status with entries for each documen
 
 ## Step 3: Search your data with a filter
 
-Now you can create a k-NN search that specifies filters by using Query DSL Boolean clauses. You need to include your reference point to search for nearest neighbors. Provide an x-y coordinate for the point within the `vector` field, such as `"vector": [ 5.0, 4.0]`.
+Now you can create a k-NN search that specifies filters by using query DSL Boolean clauses. You need to include your reference point to search for nearest neighbors. Provide an x-y coordinate for the point within the `vector` field, such as `"vector": [ 5.0, 4.0]`.
 
- To learn more about how to specify ranges with Query DSL, see [Range query]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/term/#range-query).
+ To learn more about how to specify ranges with query DSL, see [Range query]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/term/#range).
 {: .note }
 
 #### Sample request
@@ -525,7 +525,7 @@ Depending on how restrictive you want your filter to be, you can add multiple qu
 
 #### Sample request
 
-The following request returns hotels that provide parking. This request illustrates multiple alternative mechanisms to obtain the parking filter criteria. It uses a regular expression for the value `true`, a term query for the key-value pair `"parking":"true"`, a wildcard for the characters that spell "true", and the `must_not` clause to eliminate hotels with "parking" set to `false`.
+The following request returns hotels that provide parking. This request illustrates multiple alternative mechanisms to obtain the parking filter criteria. It uses a regular expression for the value `true`, a term query for the key-value pair `"parking":"true"`, a wildcard for the characters that spell "true", and the `must_not` clause to eliminate hotels with "parking" set to `false`:
 
 ```json
 POST /hotels-index/_search
