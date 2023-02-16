@@ -34,9 +34,6 @@ collections:
   upgrade-to:
     permalink: /:collection/:path/
     output: true
-  opensearch:
-    permalink: /:collection/:path/
-    output: true
   im-plugin:
     permalink: /:collection/:path/
     output: true
@@ -73,9 +70,6 @@ collections:
   ml-commons-plugin:
     permalink: /:collection/:path/
     output: true
-  neural-search-plugin:
-    permalink: /:collection/:path/
-    output: true
   clients:
     permalink: /:collection/:path/
     output: true
@@ -85,6 +79,12 @@ collections:
   tools:
     permalink: /:collection/:path/
     output: true
+  field-types:
+    permalink: /:collection/:path/
+    output: true
+  aggregations:
+    permalink: /:collection/:path/
+    output: true 
   api-reference:
     permalink: /:collection/:path/
     output: true  
@@ -106,9 +106,6 @@ just_the_docs:
       # nav_exclude: true
       nav_fold: true
       # search_exclude: true
-    opensearch:
-      name: OpenSearch
-      nav_fold: true
     im-plugin:
       name: Managing Indexes
       nav_fold: true
@@ -130,9 +127,6 @@ just_the_docs:
     ml-commons-plugin:
       name: Machine learning
       nav_fold: true
-    neural-search-plugin:
-      name: Neural Search 
-      nav_fold: true
     tuning-your-cluster:
       name: Tuning your cluster
       nav_fold: true 
@@ -151,6 +145,12 @@ just_the_docs:
     tools:
       name: Tools
       nav_fold: true
+    field-types:
+      name: Mappings and field types
+      nav_fold: true
+    aggregations:
+      name: Aggregations
+      nav_fold: true
     api-reference:
       name: API reference
       nav_fold: true
@@ -159,6 +159,7 @@ just_the_docs:
       nav_fold: true
     external_links:
       name: External links
+      nav_fold: true
 
 
 # Enable or disable the site search
