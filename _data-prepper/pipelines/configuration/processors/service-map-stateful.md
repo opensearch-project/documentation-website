@@ -25,5 +25,5 @@ Content will be added to this section.--->
 Apart from common metrics in the [Abstract processor](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/processor/AbstractProcessor.java), the `service-map-stateful` processor introduces the following custom metrics:
 
 
-* `traceGroupCacheCount` - (gauge) The count of trace groups in the trace group cache
-* `spanSetCount` - (gauge) The count of span sets in the span set collection
+* `traceGroupCacheCount` - (gauge) The count of trace groups in the trace group cache.
+* `spanSetCount` - (gauge) The count of span sets in the span set collection.

@@ -10,7 +10,7 @@ nav_order: 45
 
 ## Overview
 
-The `add_entries` processor adds an entry to event and is a [mutate event](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/mutate-event-processors#mutate-event-processors) processor.
+The `add_entries` processor adds an entry to the event and is a [mutate event](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/mutate-event-processors#mutate-event-processors) processor.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---

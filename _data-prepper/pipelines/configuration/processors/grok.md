@@ -16,7 +16,7 @@ Option | Required | Type | Description
 :--- | :--- | :--- | :---
 match | No | Map | Specifies which keys to match specific patterns against. Default value is an empty body.
 keep_empty_captures | No | Boolean | Enables preserving `null` captures. Default value is `false`.
-named_captures_only | No | Boolean | Enables whether to keep only named captures. Default value is `true`.
+named_captures_only | No | Boolean | Specifies whether to keep only named captures. Default value is `true`.
 break_on_match | No | Boolean | Specifies whether to match all patterns or stop once the first successful match is found. Default value is `true`.
 keys_to_overwrite | No | List | Specifies which existing keys will be overwritten if there is a capture with the same key value. Default value is `[]`.
 pattern_definitions | No | Map | Allows for custom pattern use inline. Default value is an empty body.

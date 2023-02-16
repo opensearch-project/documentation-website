@@ -10,7 +10,7 @@ nav_order: 45
 
 ## Overview
 
-The `uppercase_string` processor converts an entire string to uppercase and a [mutate string](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/mutate-string-processors#mutate-string-processors) processor.
+The `uppercase_string` processor converts an entire string to uppercase and is a [mutate string](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/mutate-string-processors#mutate-string-processors) processor.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
