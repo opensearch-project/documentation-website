@@ -12,12 +12,6 @@ You can use the security plugin with asynchronous searches to limit non-admin us
 
 All asynchronous search indices are protected as system indices. Only a super admin user or an admin user with a Transport Layer Security (TLS) certificate can access system indices. For more information, see [System indices]({{site.url}}{{site.baseurl}}/security-plugin/configuration/system-indices/).
 
-### A note on Asynchronous Search and fine-grained access control
-
-By design, the Asynchronous Search plugin extracts data from a target index and stores the data in a separate index to make search results available to users with the proper permissions. Although a user with either the `asynchronous_search_read_access` or `cluster:admin/opensearch/asynchronous_search/get` permission cannot submit the asynchronous search request itself, that user can get and view the search results using the associated search ID. OpenSearch Security’s document-level security (DLS) and field-level security (FLS) fine-grained access controls are designed to protect data in the target index. But once the data is stored outside this index, users with these access permissions are able to use search IDs to get and view asynchronous search results, which may include data that is otherwise concealed by DLS and FLS access control in the target index.
-
-To reduce the chances of unintended users viewing search results that could describe an index, we recommend that administrators enable role based access control and keep these kinds of design elements in mind when assigning permissions to the intended group of users. See [Limit access by backend role](#advanced-limit-access-by-backend-role) for details.
-
 ## Basic permissions
 
 As an admin user, you can use the security plugin to assign specific permissions to users based on which API operations they need access to. For a list of supported APIs operations, see [Asynchronous search]({{site.url}}{{site.baseurl}}/).
@@ -25,6 +19,12 @@ As an admin user, you can use the security plugin to assign specific permissions
 The security plugin has two built-in roles that cover most asynchronous search use cases: `asynchronous_search_full_access` and `asynchronous_search_read_access`. For descriptions of each, see [Predefined roles]({{site.url}}{{site.baseurl}}/security-plugin/access-control/users-roles#predefined-roles).
 
 If these roles don’t meet your needs, mix and match individual asynchronous search permissions to suit your use case. Each action corresponds to an operation in the REST API. For example, the `cluster:admin/opensearch/asynchronous_search/delete` permission lets you delete a previously submitted asynchronous search.
+
+### A note on Asynchronous Search and fine-grained access control
+
+By design, the Asynchronous Search plugin extracts data from a target index and stores the data in a separate index to make search results available to users with the proper permissions. Although a user with either the `asynchronous_search_read_access` or `cluster:admin/opensearch/asynchronous_search/get` permission cannot submit the asynchronous search request itself, that user can get and view the search results using the associated search ID. OpenSearch Security’s document-level security (DLS) and field-level security (FLS) fine-grained access controls are designed to protect data in the target index. But once the data is stored outside this index, users with these access permissions are able to use search IDs to get and view asynchronous search results, which may include data that is otherwise concealed by DLS and FLS access control in the target index.
+
+To reduce the chances of unintended users viewing search results that could describe an index, we recommend that administrators enable role based access control and keep these kinds of design elements in mind when assigning permissions to the intended group of users. See [Limit access by backend role](#advanced-limit-access-by-backend-role) for details.
 
 ## (Advanced) Limit access by backend role
 

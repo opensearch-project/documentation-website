@@ -15,12 +15,6 @@ All anomaly detection indices are protected as system indices. Only a super admi
 
 Security for anomaly detection works the same as [security for alerting]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/security/).
 
-### A note on alerts and fine-grained access control
-
-When a trigger generates an alert, the detector and monitor configurations, the alert itself, and any notification that is sent to a channel may include metadata describing the index being queried. By design, the plugin must extract data and store it as metadata outside of the index. OpenSearch Security’s document-level security (DLS) and field-level security (FLS) fine-grained access controls are designed to protect data in the index. But once data is stored outside the index as metadata, users with access to detector and monitor configurations, alerts, and their notifications will be able to view this metadata and possibly infer the contents and quality of data in the index, which would otherwise be concealed by DLS and FLS access control.
-
-To reduce the chances of unintended users viewing metadata that could describe an index, we recommend that administrators enable role based access control and keep these kinds of design elements in mind when assigning permissions to the intended group of users. See [Limit access by backend role](#advanced-limit-access-by-backend-role) for details.
-
 ## Basic permissions
 
 As an admin user, you can use the security plugin to assign specific permissions to users based on which APIs they need access to. For a list of supported APIs, see [Anomaly detection API]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/api/).
@@ -28,6 +22,12 @@ As an admin user, you can use the security plugin to assign specific permissions
 The security plugin has two built-in roles that cover most anomaly detection use cases: `anomaly_full_access` and `anomaly_read_access`. For descriptions of each, see [Predefined roles]({{site.url}}{{site.baseurl}}/security-plugin/access-control/users-roles#predefined-roles).
 
 If these roles don't meet your needs, mix and match individual anomaly detection [permissions]({{site.url}}{{site.baseurl}}/security-plugin/access-control/permissions/) to suit your use case. Each action corresponds to an operation in the REST API. For example, the `cluster:admin/opensearch/ad/detector/delete` permission lets you delete detectors.
+
+### A note on alerts and fine-grained access control
+
+When a trigger generates an alert, the detector and monitor configurations, the alert itself, and any notification that is sent to a channel may include metadata describing the index being queried. By design, the plugin must extract data and store it as metadata outside of the index. OpenSearch Security’s document-level security (DLS) and field-level security (FLS) fine-grained access controls are designed to protect data in the index. But once data is stored outside the index as metadata, users with access to detector and monitor configurations, alerts, and their notifications will be able to view this metadata and possibly infer the contents and quality of data in the index, which would otherwise be concealed by DLS and FLS access control.
+
+To reduce the chances of unintended users viewing metadata that could describe an index, we recommend that administrators enable role based access control and keep these kinds of design elements in mind when assigning permissions to the intended group of users. See [Limit access by backend role](#advanced-limit-access-by-backend-role) for details.
 
 ## (Advanced) Limit access by backend role
 
