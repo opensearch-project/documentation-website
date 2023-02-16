@@ -7,50 +7,47 @@ has_children: true
 
 # Creating dashboards
 
-A dashboard combines multiple data visualizations into a single view. With the **Dashboard** application, you can:
+A dashboard in OpenSearch Dashboards lets you visually represent your analytical, operational, and strategic data to help users quickly understand the current situation. A well-designed, effective dashboard provides a high-level view of key metrics, simplifies data exploration, and delivers insights to users when and where they need them. 
 
-- Create a collection of visualizations that can be filtered and customized
+The **Dashboard** application in OpenSearch Dashboards gives you the ability to:
+
+- Create a collection of visualizations that can be filtered and customized.
+- Build interactive dashboards and share them with anyone in your organization.
 - Analyze, monitor, and alarm on metrics, logs, and traces across multiple data sources.
-- Create interactive dashboards and share them with anyone in your organization.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/dashboard-index.png" alt="Single-view dashboard in OpenSearch Dashboards" width="600" height="300">
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/dashboard-index.png" alt="Single-view dashboard example in OpenSearch Dashboards" width="600" height="300">
 
 Before you begin this tutorial, make sure you've installed OpenSearch and OpenSearch Dashboards and that you've connected to Dashboards at [http://localhost:5601](http://localhost:5601). The username and password are `admin`.
 {: .note}
 
 ## Getting familiar with user interface
 
-In this tutorial you'll learn the basics of creating a dashboard using the **Dashboard** application and OpenSearch sample data. Before getting started, get familiar with the Dashboard user interface. The user interface comprises five main parts, as shown in the following image:
+In this tutorial you'll learn the basics of creating a dashboard using the **Dashboard** application and OpenSearch sample data. Before getting started, get familiar with the Dashboard user interface. The user interface comprises the following main parts:
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/user-interface.png" alt="Dashboard user interface" width="600" height="300">
 
 - The **navigation panel** (A) on the left contains the OpenSearch Dashboards applications.
 - The **toolbar** (B) contains frequently used commands and shortcuts.
-- The **search** bar (C) allows you to search for documents and other objects and add filters.
-- The **time filter** (D) allows you to customize the time and date.
-- The **panel** (E) allows you to add existing visualizations to the dashboard or create new ones for the dashboard.
-
+- The **search** bar (C) lets you search for documents and other objects and add filters.
+- The **filter** (D) lets you apply different data perspectives to narrow a dashboard's results.
+- The **time filter** (E) lets you customize the time and date.
+- The **panel** (F) allows you to add existing visualizations to the dashboard or create new ones for the dashboard.
 
 _Panel_ is a term used to refer to a visualization displayed on a dashboard. The terms _panel_ and _visualization_ may be used interchangeably throughout this and other Dashboard-related documentation.
 {: .note}
 
-## Adding sample data
+## Creating your first dashboard
 
-If you haven't already added the OpenSearch Dashboards sample datasets as described in [Quickstart guide for OpenSearch Dashboards](https://opensearch.org/docs/latest/dashboards/quickstart-dashboards/), add them before proceeding to the next steps. **Sample eCommerce orders** is used for this tutorial. 
+You'll use an OpenSearch Dashboards sample dataset to create a dashboard. The sample dataset has existing sample visualizations, and you can use those visualizations or create new visualizations for the dashboard. For this tutorial, you'll do both. Once you've completed this tutorial, you'll have learned the foundations of creating a new dashboard like the following in OpenSearch Dashboards.
 
-To add the sample dataset:
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/example-dashboard.png" alt="Dashboard user interface" width="600" height="300">
 
-1. On the OpenSearch Dashboards **Home** page, choose **Add sample data**.
-2. Choose **Add data** and choose **Sample eCommerce orders**.
-
-## Creating dashboards
-
-Now that you've added the sample data, you can create a dashboard using that data. The sample dataset has existing sample visualizations, and you can use those visualizations or create new visualizations for the dashboard. For this tutorial, you'll do both.
+To create a dashboard, follow these steps:
 
 1. From the navigation panel, choose **Dashboard**.
 2. From the **Dashboards** window, choose **Create Dashboard**.
 3. Set the time filter to **Last 30 days**.
-4. Choose **Add an existing**.
+4. From the panel, choose **Add an existing**.
 5. From the **Add panels** window, choose **Create new** and **Visualization**. This is a shortcut for creating a dashboard and a visualization in one flow. Alternatively, you can use the **Visualize** application to create visualizations and then add them to the dashboard.
 6. From the **New Visualization** window, choose **[eCommerce] Average Sold Quantity**. The donut chart is added to the dashboard.
 
@@ -132,9 +129,9 @@ The following is an example of a customized dashboard showing visualizations arr
 
 ## Filtering documents
 
-Filtering documents is helpful when you want to review data in an ad hoc manner. You can filter documents by applying filters and/or using Dashboards Query Language (DQL). For information about DQL, see [Using Dashboards Query Language]({{site.url}}{{site.baseurl}}/dashboards/discover/dql/). The dashboard queries the data it needs using the filter and/or DQL and applies the filter across the dashboard, that is, to all visualizations on the dashboard.  
+You can filter documents using the filter and apply that filter across the dashboard to all visualizations.  
 
-To filter the data by applying a filter:
+To filter the data:
 
 1. From the dashboard toolbar, choose **Add filter**.
 2. From the **Edit filter** flyout, select a field, operator, and value. For example, select **geoip.region_name**, **is**, and **California**, as shown in the following image:
