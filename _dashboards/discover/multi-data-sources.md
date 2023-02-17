@@ -45,7 +45,7 @@ To create a new data source connection:
 
     <img src="{{site.url}}{{site.baseurl}}/images/multi-data-sources-1.png" width=500 alt="Data sources user interface">
 
-1. Add information to each field to configure **Connection Details**, **Endpoint**, and **Authentication** to connect to a data source, as shown in the following image. For this tutorial, the **Endpoint URL** is `http://localhost:5601/app/management/opensearch-dashboards/dataSources`.
+1. Add information to each field to configure **Connection Details**, **Endpoint URL**, and **Authentication**, as shown in the following image. For this tutorial, the **Endpoint URL** is `http://localhost:5601/app/management/opensearch-dashboards/dataSources`.
 
     <img src="{{site.url}}{{site.baseurl}}/images/multi-data-sources-2.png" width=500 alt="Create a data source connection user interface">
 
