@@ -4,6 +4,8 @@ title: Full-text queries
 parent: Query DSL
 has_children: true
 nav_order: 30
+redirect_from:
+  - /opensearch/query-dsl/full-text/
 ---
 
 # Full-text queries
