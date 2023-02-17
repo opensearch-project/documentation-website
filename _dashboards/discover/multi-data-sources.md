@@ -41,7 +41,7 @@ To create a new data source connection:
 
 1. Open Dashboards. If you’re not running the security plugin, go to [`http://localhost:5601`](http://localhost:5601/). If you’re running the security plugin, go to [`https://localhost:5601`](https://localhost:5601/) and log in with the username `admin` and password `admin`.
 
-1. In the Dashboards console, choose **Stack Management** > **Data Sources `Experimental`** > **Data Sources** > **Create data source connection**, as shown in the following image.
+1. In the Dashboards console, choose **Stack Management** > **Data Sources `Experimental`**. In the **Data Sources** window, select **Create data source connection**, as shown in the following image.
 
     <img src="{{site.url}}{{site.baseurl}}/images/multi-data-sources-1.png" width=500 alt="Data sources user interface">
 
