@@ -34,49 +34,41 @@ In this tutorial you'll learn the basics of creating a dashboard using the **Das
 _Panel_ is a term used to refer to a visualization displayed on a dashboard. The terms _panel_ and _visualization_ may be used interchangeably throughout this and other Dashboard-related documentation.
 {: .note}
 
-## Creating your first dashboard
+## Creating the dashboard
 
 You'll use an OpenSearch Dashboards sample dataset to create a dashboard. The sample dataset has existing sample visualizations, and you can use those visualizations or create new visualizations for the dashboard. For this tutorial, you'll do both. Once you've completed this tutorial, you'll have learned the foundations of creating a new dashboard in OpenSearch Dashboards.
 
 ![Dashboard displaying sample dataset visualizations]({{site.url}}{{site.baseurl}}/images/dashboards/example-dashboard.png)
 
-To create a dashboard, follow these steps:
+To create the dashboard:
 
 1. From the navigation panel, choose **Dashboard**.
 2. From the **Dashboards** window, choose **Create Dashboard**.
 3. Set the time filter to **Last 30 days**.
 4. From the panel, choose **Add an existing**.
-5. From the **Add panels** window, choose **Create new** and **Visualization**. This is a shortcut for creating a dashboard and a visualization in one flow. Alternatively, you can use the **Visualize** application to create visualizations and then add them to the dashboard.
-6. From the **New Visualization** window, choose **[eCommerce] Average Sold Quantity**. The donut chart is added to the dashboard.
+5. From the **Add panels** window, choose **[eCommerce] Average Sold Quantity**. The donut chart is added to the dashboard.
 
+You've created a basic dashboard with a single panel, which you'll continue using throughout this tutorial.
 You've created a basic dashboard with a single panel like the following, which you'll continue using throughout this tutorial.
 
-![Creating a basic dashboard]({{site.url}}{{site.baseurl}}/images/dashboards/dashboard-basic.png)
+![Basic dashboard with single panel]({{site.url}}{{site.baseurl}}/images/dashboards/dashboard-basic.png)
 
-## Creating and saving visualizations
+## Creating visualizations
 
 Continuing with the dashboard you created in the preceding steps, you'll create a new visualization and save it to the dashboard.
 
-1. From the dashboard toolbar, choose **Create new**.
-1. From the **New Visualization** window, choose **Vertical Bar** and then select the index pattern **opensearch_dashboards_sample_data_ecommerce**. You'll see an image like the following.
-
-    ![New visualization vertical bar chart]({{site.url}}{{site.baseurl}}/images/dashboards/new-bar-viz.png)
-
-1. Configure the chart's **Data** settings by verifying **Metrics** is **Y-axis Count**.
-1. From the **Buckets** panel, choose **Add** and select **X-axis** from the **Add Bucket** dropdown list.
-1. From the **Aggregation** dropdown list, select **Date histogram**.
-1. Choose **Update**. You'll see a bar chart visualization like the following:
-
-    ![Configuring a visualization]({{site.url}}{{site.baseurl}}/images/dashboards/configure-bar-viz.png)
-
+1. From the dashboard toolbar, choose **Create new**, then **Visualization**.
+1. From the **New Visualization** window, choose **Vertical Bar** and then select the index pattern **opensearch_dashboards_sample_data_ecommerce**. 
 1. From the toolbar, select **Save**
 1. In the **Save visualization** window, add a title for the visualization. For example, the title for the bar chart panel is Order Date.
-1. Select **Save and return**.  
+9.  Select **Save and return**.  
 
+The bar chart visualization is now saved and you are taken back to the dashboard. You'll see two visualizations on the dashboard, as shown in the following image: 
 The bar chart visualization is now saved and you are taken back to the dashboard. You'll see two visualizations on the dashboard, as shown in the following image: 
 
 ![Dashboard showing visualizations combined in a single view]({{site.url}}{{site.baseurl}}/images/dashboards/new-dashboard.png)
 
+## Adding subsequent panels
 ## Adding subsequent panels
 
 Continuing with the dashboard you created in the preceding steps, you'll add a visualization to the dashboard.
@@ -88,6 +80,15 @@ Continuing with the dashboard you created in the preceding steps, you'll add a v
 You'll see an area chart visualization display on the dashboard, as shown in the following image: 
 
 ![Adding another panel to the dashboard]({{site.url}}{{site.baseurl}}/images/dashboards/new-area-viz.png)
+
+## Saving dashboards
+
+When you've finalized your dashboard, save it. If you're saving a new dashboard:
+
+1. In the toolbar, choose **Save**.
+2. On the **Save dashboard** window, enter the **Title**. The **Description** is optional.
+3. To save the time filter to the dashboard, select **Store time with dashboard**.
+4. Choose **Save**.
 
 ## Editing visualizations
 
@@ -147,12 +148,3 @@ To filter documents using DQL:
 2. Select **Update**. A dashboard similar to the following is displayed:
 
 ![Filtering using DQL]({{site.url}}{{site.baseurl}}/images/dashboards/dashboard-dql.png)
-
-## Saving dashboards
-
-When you've finalized your dashboard, save it. If you're saving a new dashboard:
-
-1. In the toolbar, choose **Save**.
-2. On the **Save dashboard** window, enter the **Title**. The **Description** is optional.
-3. To save the time filter to the dashboard, select **Store time with dashboard**.
-4. Choose **Save**.
