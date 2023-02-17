@@ -157,9 +157,6 @@ just_the_docs:
     troubleshoot:
       name: Troubleshooting
       nav_fold: true
-    external_links:
-      name: External links
-      nav_fold: true
 
 
 # Enable or disable the site search
