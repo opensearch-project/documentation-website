@@ -22,7 +22,15 @@ Content will be added to this section.--->
 
 ## Metrics
 
-Apart from common metrics in the [Abstract processor](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/processor/AbstractProcessor.java), the `service-map-stateful` processor introduces the following custom metrics:
+The following are common metrics in the [Abstract processor](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/processor/AbstractProcessor.java):
+
+| Metric Name | Type | Description |
+| ------------- | ---- | -----------|
+| `recordsIn` | Counter | Metric representing the ingress of records to a pipeline component. |
+| `recordsOut` | Counter | Metric representing the egress of records from a pipeline component. |
+| `timeElapsed` | Timer | Metric representing the time elapsed during execution of a pipeline component. |
+
+The `service-map-stateful` processor introduces the following custom metrics:
 
 
 * `traceGroupCacheCount` - (gauge) The count of trace groups in the trace group cache.

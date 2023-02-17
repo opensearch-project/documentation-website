@@ -27,7 +27,15 @@ Content will be added to this section.--->
 
 ## Metrics
 
-Apart from common metrics in [AbstractProcessor](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/processor/AbstractProcessor.java), the `date` processor introduces the following custom metrics:
+The following are common metrics in the [Abstract processor](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/processor/AbstractProcessor.java):
+
+| Metric Name | Type | Description |
+| ------------- | ---- | -----------|
+| `recordsIn` | Counter | Metric representing the ingress of records to a pipeline component. |
+| `recordsOut` | Counter | Metric representing the egress of records from a pipeline component. |
+| `timeElapsed` | Timer | Metric representing the time elapsed during execution of a pipeline component. |
+
+The `date` processor introduces the following custom metrics:
 
 * `dateProcessingMatchSuccessCounter`: Returns the number of records that match with at least one pattern specified in the `match configuration` option. 
 * `dateProcessingMatchFailureCounter`: Returns the number of records that did not match any of the patterns specified in the `patterns match` configuration option.
