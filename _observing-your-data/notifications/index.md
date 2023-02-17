@@ -2,7 +2,7 @@
 layout: default
 title: Notifications
 nav_order: 80
-has_children: false
+has_children: true
 redirect_from:
   - /notifications-plugin/
   - /notifications-plugin/index/
