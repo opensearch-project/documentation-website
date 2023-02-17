@@ -73,7 +73,7 @@ Continuing with the dashboard you created in the preceding steps, you'll create 
 1. In the **Save visualization** window, add a title for the visualization. For example, the title for the bar chart panel is Order Date.
 1. Select **Save and return**.  
 
-The bar chart visualization is now saved and you are taken back to the dashboard. You'll see three visualizations on the dashboard, as shown in the following image: 
+The bar chart visualization is now saved and you are taken back to the dashboard. You'll see two visualizations on the dashboard, as shown in the following image: 
 
 ![Dashboard showing visualizations combined in a single view]({{site.url}}{{site.baseurl}}/images/dashboards/new-dashboard.png)
 
