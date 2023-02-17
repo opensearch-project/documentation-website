@@ -69,7 +69,6 @@ The bar chart visualization is now saved and you are taken back to the dashboard
 ![Dashboard showing visualizations combined in a single view]({{site.url}}{{site.baseurl}}/images/dashboards/new-dashboard.png)
 
 ## Adding subsequent panels
-## Adding subsequent panels
 
 Continuing with the dashboard you created in the preceding steps, you'll add a visualization to the dashboard.
 
@@ -90,29 +89,26 @@ When you've finalized your dashboard, save it. If you're saving a new dashboard:
 3. To save the time filter to the dashboard, select **Store time with dashboard**.
 4. Choose **Save**.
 
-## Editing visualizations
+## Customizing the look of a panel
 
-You can edit visualizations, configure panels, and specify labels for a panel. For example, you can change the visualization's colors, title, and other attributes. Visualizations can be edited in the panel itself or in edit mode. Only changes made in edit mode are persistent, that is, they are saved in the visualization itself and will be reflected on any dashboard that uses the visualization. Editing in the panel is helpful for making minor changes at the dashboard level without saving them.
+Showing a legend can give readers more information, while hiding a legend can give it a cleaner look. If you want to show or hide the panel legend:
 
-Follow these steps to edit in the panel:
+1. To show the legend, 
+2. To hide the legend, select the list icon in the panel's lower left corner.
 
-1. Select a category in the legend and then select a color from the flyout.  
-
-Follow these steps to use edit mode:
+If you want to change the color of the panel legend:
 
 1. Select the gear icon on the area chart panel.
 2. From the **Options** window, select **Edit visualization**.
-3. From the visualization legend, select a category and then select a color from the flyout. The area chart updates with your edit.
+3. From the visualization legend, select a category and then select a color from the flyout. The area chart updates with your change.
 4. Select **Save and return**. 
 
-Using the **Options** window also allows you to edit or hide the title for a particular panel without applying the changes across the dashboard overall.
+If you want to show or hide panel title or customize it without applying the changes across the dashboard overall:
 
 1. Select the gear icon on the panel.
 2. From the **Options** window, select **Edit panel title**.
 3. From the **Customize panel**, add a title under **Panel title** or toggle the **Show panel title** to hide the title.
 4. Choose **Save**.
-
-To hide the legend, select the list icon in the panel's lower left corner.
 
 ## Arranging panels
 
@@ -120,31 +116,9 @@ To organize panels, arrange them side-by-side, or resize them, you can use these
 
 - To move, select and hold the panel title and drag to the new location.
 - To resize, select the resize icon in the panel's lower right corner and drag to the new dimensions.
-- To view in fullscreen mode, select the gear icon to open the panel menu and then then select **More > Maximize panel**.
+- To view in fullscreen mode, select the gear icon to open the panel menu and then select **More > Maximize panel**.
+- To minimize the fullscreen mode, select the 
 
 The following is an example of a customized dashboard showing visualizations arranged side by side and without legends:
 
 ![Dashboard with panels arranged side by side and without legends]({{site.url}}{{site.baseurl}}/images/dashboards/dashboard-arranged.png)
-
-## Filtering documents
-
-You can filter documents using the filter and apply that filter across the dashboard to all visualizations.  
-
-To filter the data:
-
-1. From the dashboard toolbar, choose **Add filter**.
-2. From the **Edit filter** flyout, select a field, operator, and value. For example, select **geoip.region_name**, **is**, and **California**, as shown in the following image:
-
-    ![Adding a filter]({{site.url}}{{site.baseurl}}/images/dashboards/edit-filter.png)    
-
-3. Choose **Save**. The filter is applied to all visualizations on the dashboard.
-4. To save the dashboard and filter, choose **Save** from the toolbar and then add a title and choose **Save** from the **Save dashboard** window.
-
-![Saving the dashboard and filter]({{site.url}}{{site.baseurl}}/images/dashboards/save-dashboard.png)
-
-To filter documents using DQL:
-
-1. From the DQL toolbar, specify the search term. For example, input `geoip.region_name: New York` in the query field.
-2. Select **Update**. A dashboard similar to the following is displayed:
-
-![Filtering using DQL]({{site.url}}{{site.baseurl}}/images/dashboards/dashboard-dql.png)
