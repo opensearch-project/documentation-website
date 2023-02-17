@@ -8,7 +8,7 @@ nav_order: 25
 
 # Filtering data in Maps
 
-With OpenSearch dashboards, you can filter your data in Maps.
+With OpenSearch dashboards, you can filter your data by drawing a shape, such as a rectangle, circle, or polygon, to form a boundary in Maps. This filter can be local or global.
 
 * 
 *
@@ -17,7 +17,7 @@ With OpenSearch dashboards, you can filter your data in Maps.
 
 ## Getting started
 
-<!--- This is placeholder text until content can be added.--->
+<!--- This is placeholder text until content can be added. Filtering data in maps will not be ready until 2.7--->
 
 To get started, perform the following steps:
 
