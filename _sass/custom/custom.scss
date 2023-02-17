@@ -201,7 +201,7 @@ img {
   @include btn-color($white, $green-300);
 }
 
-%btn-default {
+@mixin btn-default {
   color: $blue-100;
   background-color: white;
   font-size: 0.9rem;
@@ -222,7 +222,7 @@ img {
 }
 
 .btn-general {
-  @extend %btn-default;
+  @include btn-default;
   border-color: $blue-100;
   padding: 0.5rem 1rem;
   margin-left: 0.4rem;
@@ -304,7 +304,7 @@ img {
 
 .feedback-text-header {
   text-align: left;
-  font-size: 10pt;
+  font-size: 0.8rem;
   font-weight: 500; 
   margin-top: 1rem;
 }
@@ -320,7 +320,7 @@ img {
 } 
 
 .feedback-radio {
-  @extend %btn-default;
+  @include btn-default;
   border-color: $grey-lt-100;
   margin: 0;
   padding: 0.5rem 1.2rem;
