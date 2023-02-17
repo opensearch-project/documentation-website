@@ -10,7 +10,7 @@ nav_order: 45
 
 ## Overview
 
-The `csv` processor ingests an event and parses its comma-separated values (CSV) data into columns.
+The `csv` processor parses event data as comma-separated values (CSV).
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
