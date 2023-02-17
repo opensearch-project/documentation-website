@@ -15,21 +15,19 @@ The **Dashboard** application in OpenSearch Dashboards gives you the ability to:
 - Build interactive dashboards and share them with anyone in your organization.
 - Analyze, monitor, and alarm on metrics, logs, and traces across multiple data sources.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/dashboard-index.png" alt="Single-view dashboard example in OpenSearch Dashboards" width="600" height="300">
-
-Before you begin this tutorial, make sure you've installed OpenSearch and OpenSearch Dashboards and that you've connected to Dashboards at [http://localhost:5601](http://localhost:5601). The username and password are `admin`.
+The following tutorial assumes you're either using your existing installation of OpenSearch Dashboards or using the [OpenSearch playground](https://playground.opensearch.org/app/home#/). Depending on which one you use, certain capabilities aren't available. For example, sample datasets may not be in your existing installation and saving a dashboard isn't an option in the playground.
 {: .note}
 
 ## Getting familiar with user interface
 
-In this tutorial you'll learn the basics of creating a dashboard using the **Dashboard** application and OpenSearch sample data. Before getting started, get familiar with the Dashboard user interface. The user interface comprises the following main parts:
+In this tutorial you'll learn the basics of creating a dashboard using the **Dashboard** application and OpenSearch sample data. Before getting started, get familiar with the **Dashboard** user interface. The user interface comprises the following main parts:
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/user-interface.png" alt="Dashboard user interface" width="600" height="300">
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/dashboard-UI.png" alt="Dashboard user interface">
 
 - The **navigation panel** (A) on the left contains the OpenSearch Dashboards applications.
-- The **toolbar** (B) contains frequently used commands and shortcuts.
-- The **search** bar (C) lets you search for documents and other objects and add filters.
-- The **filter** (D) lets you apply different data perspectives to narrow a dashboard's results.
+- The **search** bar (B) lets you search for documents and other objects and add filters.
+- The **filter** (C) lets you apply different data perspectives to narrow a dashboard's results.
+- The **toolbar** (D) contains frequently used commands and shortcuts.
 - The **time filter** (E) lets you customize the time and date.
 - The **panel** (F) allows you to add existing visualizations to the dashboard or create new ones for the dashboard.
 
@@ -38,7 +36,7 @@ _Panel_ is a term used to refer to a visualization displayed on a dashboard. The
 
 ## Creating your first dashboard
 
-You'll use an OpenSearch Dashboards sample dataset to create a dashboard. The sample dataset has existing sample visualizations, and you can use those visualizations or create new visualizations for the dashboard. For this tutorial, you'll do both. Once you've completed this tutorial, you'll have learned the foundations of creating a new dashboard like the following in OpenSearch Dashboards.
+You'll use an OpenSearch Dashboards sample dataset to create a dashboard. The sample dataset has existing sample visualizations, and you can use those visualizations or create new visualizations for the dashboard. For this tutorial, you'll do both. Once you've completed this tutorial, you'll have learned the foundations of creating a new dashboard in OpenSearch Dashboards.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/example-dashboard.png" alt="Dashboard user interface" width="600" height="300">
 
