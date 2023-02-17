@@ -116,8 +116,7 @@ To organize panels, arrange them side-by-side, or resize them, you can use these
 
 - To move, select and hold the panel title and drag to the new location.
 - To resize, select the resize icon in the panel's lower right corner and drag to the new dimensions.
-- To view in fullscreen mode, select the gear icon to open the panel menu and then select **More > Maximize panel**.
-- To minimize the fullscreen mode, select the 
+- To view in fullscreen mode, select the vertical ellipsis in the top right of the panel and select **Maximize panel**. To minimize the fullscreen mode, select the vertical ellipsis and select **Minimize**.
 
 The following is an example of a customized dashboard showing visualizations arranged side by side and without legends:
 
