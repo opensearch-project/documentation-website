@@ -39,20 +39,15 @@ index | String | A comma-separated list or a wildcard expression of index names 
 
 ## Query parameters
 
-You can include the following query parameters in your request. All query parameters are optional.
+In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameters. All query parameters are optional.
 
 Parameter | Data type | Description
 :--- |:---| :---
 active_only | Boolean | If `true`, the response only includes active segment replications. Defaults to `false`.
-[default](#additional-metrics-returned-when-default-is-set-to-true) | String | If `true`, the response includes additional metrics about the start and stop time of a segment replication event. Defaults to `false`.
-[detailed](#additional-metrics-returned-when-detailed-is-set-to-true) | String | If `true`, the response includes detailed metrics about the files and stages of a segment replication event. Defaults to `false`.
-completed_only | Boolean | If `true`, the response only includes the latest completed segment replications. Defaults to `false`.
+[detailed](#additional-metrics-returned-when-detailed-is-set-to-true) | String | If `true`, the response includes additional metrics for a segment replication event. Defaults to `false`.
+completed_only | Boolean | If `true`, the response only includes the most recent completed segment replication event. Defaults to `false`.
 shards | String | A comma-separated list of shards to display.
-format | String | A short version of the HTTP accept header. Valid values are: `JSON`, `YAML`, and so on.
-h | String | A comma-separated list of metrics to display.
-help | Boolean | If `true`, the response includes help information. Defaults to `false`.
 time | Time value | [Units]({{site.url}}{{site.baseurl}}/opensearch/units) used to display time values. Defaults to `ms` (milliseconds).
-v | Boolean | If `true`, the response includes column headings. Defaults to `false`.
 
 ## Examples 
 
@@ -112,17 +107,6 @@ files_percent | The percentage of files fetched so far for a segment replication
 bytes_fetched | The number of bytes fetched so far for a segment replication event.
 bytes_percent| The number of bytes fetched so far for a segment replication event as a percentage.
 
-### Additional metrics returned when `default` is set to `true`
-
-The following table lists the additional response fields that if `default` is set to `true`.
-
-Metric | Description
-:--- |:---
-start_time | The segment replication start time.
-start_time_millis | The segment replication start time in epoch milliseconds.
-stop_time | The segment replication stop time.
-stop_time_millis | The segment replication stop time in epoch milliseconds. 
-
 ### Additional metrics returned when `detailed` is set to `true`
 
 The following table lists the additional response fields that if `detailed` is set to `true`.
@@ -138,3 +122,7 @@ get_checkpoint_info_stage_time_taken | The time the `get checkpoint info` stage 
 file_diff_stage_time_taken | The time the `file diff` stage of a segment replication event took to complete. 
 get_files_stage_time_taken | The time the `get files` stage of a segment replication event took to complete. 
 finalize_replication_stage_time_taken | The time the `finalize replication` stage of a segment replication event took to complete.
+start_time | The segment replication start time.
+start_time_millis | The segment replication start time in epoch milliseconds.
+stop_time | The segment replication stop time.
+stop_time_millis | The segment replication stop time in epoch milliseconds. 
