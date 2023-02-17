@@ -49,7 +49,7 @@ To create a dashboard, follow these steps:
 5. From the **Add panels** window, choose **Create new** and **Visualization**. This is a shortcut for creating a dashboard and a visualization in one flow. Alternatively, you can use the **Visualize** application to create visualizations and then add them to the dashboard.
 6. From the **New Visualization** window, choose **[eCommerce] Average Sold Quantity**. The donut chart is added to the dashboard.
 
-You've created a basic dashboard like the following, which you'll continue using throughout this tutorial.
+You've created a basic dashboard with a single panel like the following, which you'll continue using throughout this tutorial.
 
 ![Creating a basic dashboard]({{site.url}}{{site.baseurl}}/images/dashboards/dashboard-basic.png)
 
