@@ -77,7 +77,7 @@ The bar chart visualization is now saved and you are taken back to the dashboard
 
 ![Dashboard showing visualizations combined in a single view]({{site.url}}{{site.baseurl}}/images/dashboards/new-dashboard.png)
 
-## Adding panels
+## Adding subsequent panels
 
 Continuing with the dashboard you created in the preceding steps, you'll add a visualization to the dashboard.
 
