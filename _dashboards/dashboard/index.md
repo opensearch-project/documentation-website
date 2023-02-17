@@ -22,7 +22,7 @@ The following tutorial assumes you're either using your existing installation of
 
 In this tutorial you'll learn the basics of creating a dashboard using the **Dashboard** application and OpenSearch sample data. Before getting started, get familiar with the **Dashboard** user interface. The user interface comprises the following main parts:
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/dashboard-UI.png" alt="Dashboard user interface">
+![Dashboard user interface]({{site.url}}{{site.baseurl}}/images/dashboards/dashboard-UI.png)
 
 - The **navigation panel** (A) on the left contains the OpenSearch Dashboards applications.
 - The **search** bar (B) lets you search for documents and other objects and add filters.
@@ -38,7 +38,7 @@ _Panel_ is a term used to refer to a visualization displayed on a dashboard. The
 
 You'll use an OpenSearch Dashboards sample dataset to create a dashboard. The sample dataset has existing sample visualizations, and you can use those visualizations or create new visualizations for the dashboard. For this tutorial, you'll do both. Once you've completed this tutorial, you'll have learned the foundations of creating a new dashboard in OpenSearch Dashboards.
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/example-dashboard.png" alt="Dashboard user interface" width="600" height="300">
+![Dashboard displaying sample dataset visualizations]({{site.url}}{{site.baseurl}}/images/dashboards/example-dashboard.png)
 
 To create a dashboard, follow these steps:
 
