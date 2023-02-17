@@ -36,7 +36,7 @@ _Panel_ is a term used to refer to a visualization displayed on a dashboard. The
 
 ## Creating the dashboard
 
-You'll use an OpenSearch Dashboards sample dataset to create a dashboard. The sample dataset has existing sample visualizations, and you can use those visualizations or create new visualizations for the dashboard. For this tutorial, you'll do both. Once you've completed this tutorial, you'll have learned the foundations of creating a new dashboard in OpenSearch Dashboards.
+You'll use an OpenSearch Dashboards sample dataset to create a dashboard. The sample dataset has existing sample visualizations, and you can use those visualizations or create new visualizations for the dashboard. For this tutorial, you'll do both. Once you've completed this tutorial, you'll have learned the foundations of creating a new dashboard with multiple panels in OpenSearch Dashboards, similar to the following dashboard.
 
 ![Dashboard displaying sample dataset visualizations]({{site.url}}{{site.baseurl}}/images/dashboards/example-dashboard.png)
 
