@@ -35,7 +35,6 @@ document.getElementById("comment").addEventListener("input", function() {
 });
 
 function sendFeedback(button) {
-    // get and send the `helpful` value
     let helpful = 'none';
     if (document.getElementById('yes').checked) {
         helpful = 'yes';
@@ -43,21 +42,16 @@ function sendFeedback(button) {
     else if (document.getElementById('no').checked) {
         helpful = 'no';
     }
-
-    if (helpful !== 'none') {
-        gtag('event', 'feedback_click', { 
-            'helpful': helpful
-        });
+    
+    let comment = document.getElementById('comment').value.trim();
+    if(comment.length == 0) {
+        comment = 'none';
     }
 
-    // get and send the comment
-    const comment = document.getElementById('comment').value.trim();
-    if(comment.length > 0) {
-        gtag('event', 'feedback_comment', { 
-            'comment': comment,
-            'helpful': helpful
-        });
-    }
+    gtag('event', 'feedback_click', { 
+        'helpful': helpful,
+        'comment': comment
+    });
 
     // show the hidden feedback text
     document.getElementById('thank-you').classList.remove('hidden');
