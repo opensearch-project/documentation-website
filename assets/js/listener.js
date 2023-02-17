@@ -5,6 +5,8 @@ const sendButton = document.getElementById('send');
 const commentTextArea = document.getElementById('comment');
 const thankYouText = document.getElementById('thank-you');
 
+document.addEventListener('DOMContentLoaded', updateTextArea);
+
 document.addEventListener('click', function(event) {
     const { target } = event;
     if (target.matches('.feedback-issue')) {
@@ -27,17 +29,19 @@ document.addEventListener('click', function(event) {
     }
 });
 
-document.getElementById("comment").addEventListener("input", function() {
-    const text = this.value.trim();
+commentTextArea.addEventListener('input', updateTextArea);
+
+function updateTextArea() {
+    const text = commentTextArea.value.trim();
     
     if (!yesButton.checked && !noButton.checked) {
         text.length > 0 ? sendButton.disabled = false : sendButton.disabled = true;
     }
 
     // calculate the number of characters remaining
-    counter = 350 - this.value.length;
+    counter = 350 - commentTextArea.value.length;
     numCharsLabel.innerText = counter + " characters left";
-});
+}
 
 function sendFeedback() {
     let helpful = 'none';
@@ -54,7 +58,7 @@ function sendFeedback() {
     }
 
     if (helpful === 'none' && comment === 'none') return;
-    
+
     gtag('event', 'feedback_click', { 
         'helpful': helpful,
         'comment': comment
