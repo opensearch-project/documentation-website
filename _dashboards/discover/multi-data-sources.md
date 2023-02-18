@@ -69,7 +69,7 @@ To create a new data source connection:
 
 1. Optional: To make changes to the data source connection, select the connection in the list. The connection details window opens, as shown in the following image.
 
-    <img src="{{site.url}}{{site.baseurl}}/images/multi-data-sources-4.png" width=500 alt="Data sources settings verification and editing user interface">
+    <img src="{{site.url}}{{site.baseurl}}/images/multi-data-sources-3.5.png" width=500 alt="Data sources settings verification and editing user interface">
 
     To make changes to **Connection Details**, edit one or both of the **Title** and **Description** fields and select **Save changes** in the lower right corner of the screen. You can also cancel changes here. To change the **Authentication Method**, select a different authentication method and enter your credentials if applicable, then select **Save changes** in the lower right corner of the screen. The changes are saved.
 
