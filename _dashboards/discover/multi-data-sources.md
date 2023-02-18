@@ -41,16 +41,26 @@ To create a new data source connection:
 
 1. Open Dashboards. If you’re not running the security plugin, go to [`http://localhost:5601`](http://localhost:5601/). If you’re running the security plugin, go to [`https://localhost:5601`](https://localhost:5601/) and log in with the username `admin` and password `admin`.
 
-1. In the Dashboards console, choose **Stack Management** > **Data Sources `Experimental`**. In the **Data Sources** window, select **Create data source connection**, as shown in the following image.
+1. In the Dashboards console, navigate to **Stack Management** > **Data Sources `Experimental`** > **Data Sources**, and then select **Create data source connection**, as shown in the following image.
 
     <img src="{{site.url}}{{site.baseurl}}/images/multi-data-sources-1.png" width=500 alt="Data sources user interface">
 
-1. Add information to each field to configure **Connection Details**, **Endpoint URL**, and **Authentication**, as shown in the following image. For this tutorial, the **Endpoint URL** is `http://localhost:5601/app/management/opensearch-dashboards/dataSources`.
+1. Add information to each field to configure **Connection Details**, **Endpoint URL**, and **Authentication Method**, as shown in the following image. For this tutorial, the **Endpoint URL** is `http://localhost:5601/app/management/opensearch-dashboards/dataSources`.
 
     <img src="{{site.url}}{{site.baseurl}}/images/multi-data-sources-2.png" width=500 alt="Create a data source connection user interface">
 
-1. Choose **Create data source connection** to save your settings.
-1. Return to the **Data Sources** main page to confirm that the newly created data source is listed under **Data Sources**, as shown in the following image.
+    For **Connection Details**, enter a title for the connection and the endpoint URL used to connect to the data source. A description of the connection is optional. 
+    
+    For **Authentication Method**, first select the type of authentication:
+    * **No authentication**—No authentication is used to connect to the data source.
+    * **Username & Password**—A basic username and password is used to connect to the data source.
+    * **AWS SigV4**—AWS Signature Version 4 authenticating request is used  to connect. AWS SigV4 requires an access key ID and secret access key. First specify the **Region**, then enter the **Access Key** and **Secret Key** for authorization. For information on available regions for AWS accounts, see [Available Regions](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-available-regions). For more on SigV4 authentication requests, see [Authenticating Requests (AWS Signature Version 4)](https://docs.aws.amazon.com/AmazonS3/latest/API/sig-v4-authenticating-requests.html).
+    
+    When you select the authentication method, the applicable fields appear for the selected method. Enter the required details.
+
+    After all of the required fields have the appropriate details entered, the **Test connection** and **Create data source connection** buttons become active. You can select **Test connection** to confirm the connection is valid.
+
+1. Select **Create data source connection** to save your settings. The connection is created. The active window returns to the **Data Sources** main page, and the new connection appears in the list of data sources.
 
     <img src="{{site.url}}{{site.baseurl}}/images/multi-data-sources-3.png" width=500 alt="Data sources list user interface">
 
