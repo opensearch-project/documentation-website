@@ -67,7 +67,9 @@ To create a new data source connection:
     You can also delete the data source connection from this page by selecting the checkbox to the left of the title and then selecting **Delete 1 connection** to the right of the search bar. Selecting multiple checkboxes is also supported.
     {: .note }
 
-1. Optional: To make changes to the data source connection, select the connection in the list. The connection details window opens, as shown in the following image.
+### Editing and updating a data source connection
+
+To make changes to the data source connection, select the connection in the list on the **Data Sources** main page. The connection details window opens, as shown in the following image.
 
     <img src="{{site.url}}{{site.baseurl}}/images/multi-data-sources-3.5.png" width=500 alt="Data sources settings verification and editing user interface">
 
