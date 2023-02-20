@@ -72,7 +72,7 @@ To learn more about the dynamic searches you can perform with the score script p
 
 In a Boolean query that uses post-filtering, you can join a k-NN query with a filter using a `bool` `must` query clause.
 
-#### Sample request
+#### Example request
 
 The following k-NN query uses a Boolean query clause to filter results:
 
@@ -118,7 +118,7 @@ POST /hotels-index/_search
     }
 }
 ```
-#### Sample response
+#### Example response
 
 The Boolean query filter returns the following results in the response:
 
@@ -291,7 +291,7 @@ Make sure to specify "hnsw" method and "lucene" engine in the `knn_vector` field
             }
 ```
 
-#### Sample request
+#### Example request
 
 The following request creates a new index called "hotels-index":
 
@@ -325,7 +325,7 @@ PUT /hotels-index
     }
 }
 ```
-#### Sample response
+#### Example response
 
 Upon success, you should receive a "200-OK" status with the following response:
 
@@ -341,7 +341,7 @@ Upon success, you should receive a "200-OK" status with the following response:
 
 Next, add data to your index with a PUT HTTP request. Make sure that the search criteria is defined in the body of the request.
 
-#### Sample request
+#### Example request
 
 The following request adds 12 hotel documents that contain criteria such as feedback ratings and whether or not parking is available:  
 
@@ -373,7 +373,7 @@ POST /_bulk
 { "location": [5.0, 1.0], "parking" : "true", "rating" : 3 }
 ```
 
-#### Sample response
+#### Example response
 
 Upon success, you should receive a "200-OK" status with entries for each document ID added to the index. The following response is truncated to only show one document:
 
@@ -410,7 +410,7 @@ Now you can create a k-NN search that specifies filters by using Query DSL Boole
  To learn more about how to specify ranges with Query DSL, see [Range query]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/term/#range-query).
 {: .note }
 
-#### Sample request
+#### Example request
 
 The following request creates a k-NN query that only returns the top hotels rated between 8 and 10 and that provide parking. The filter criteria to indicate the range for the feedback ratings uses a `range` query and a `term` query clause to indicate "parking":
 
@@ -523,7 +523,7 @@ The following response indicates that only three hotels met the filter criteria:
 
 Depending on how restrictive you want your filter to be, you can add multiple query types to a single request, such as `term`, `wildcard`, `regexp`, or `range`. You can then filter out the search results with the Boolean clauses `must`, `should`, and `must_not`.
 
-#### Sample request
+#### Example request
 
 The following request returns hotels that provide parking. This request illustrates multiple alternative mechanisms to obtain the parking filter criteria. It uses a regular expression for the value `true`, a term query for the key-value pair `"parking":"true"`, a wildcard for the characters that spell "true", and the `must_not` clause to eliminate hotels with "parking" set to `false`.
 
@@ -583,7 +583,7 @@ POST /hotels-index/_search
     }
 } 
 ```
-#### Sample response
+#### Example response
 
 The following response indicates a few results for the search with filters:
 

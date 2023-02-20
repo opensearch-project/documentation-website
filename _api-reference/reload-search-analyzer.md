@@ -29,14 +29,14 @@ ignore_unavailable | Boolean | If an index is closed or missing, an error is ret
 
 The following are an example request and response.
 
-#### Sample request
+#### Example request
 
 ````json
 POST /shakespeare/_reload_search_analyzers
 ````
 {% include copy-curl.html %}
  
-#### Sample response
+#### Example response
 
 ````json
 {
