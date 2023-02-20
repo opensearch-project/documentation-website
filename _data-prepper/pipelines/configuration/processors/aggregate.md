@@ -35,8 +35,6 @@ The following are common metrics in the [Abstract processor](https://github.com/
 
 The `aggregate` processor introduces the following custom metrics:
 
-
-
 **Counter**
 
 * `actionHandleEventsOut`: The number of events that have been returned from the `handleEvent` call to the configured [action](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/aggregate-processor#action).

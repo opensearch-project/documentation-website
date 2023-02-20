@@ -21,8 +21,5 @@ overwrite_if_key_exists | No | Boolean | If true, the existing value gets overwr
 
 <!--- ## Configuration
 
-Content will be added to this section.
+Content will be added to this section.--->
 
-## Metrics
-
-Content will be added to this section.---->
