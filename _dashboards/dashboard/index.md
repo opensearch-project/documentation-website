@@ -7,7 +7,7 @@ has_children: true
 
 # Creating dashboards
 
-A dashboard in OpenSearch Dashboards lets you visually represent your analytical, operational, and strategic data to help users quickly understand the current situation. A well-designed, effective dashboard provides a high-level view of key metrics, simplifies data exploration, and delivers insights to users when and where they need them. 
+A [dashboard in OpenSearch Dashboards](https://playground.opensearch.org/app/dashboards#/view/722b74f0-b882-11e8-a6d9-e546fe2bba5f?_g=(filters:!(),refreshInterval:(pause:!f,value:900000),time:(from:now-7d,to:now))&_a=(description:'Analyze%20mock%20eCommerce%20orders%20and%20revenue',filters:!(),fullScreenMode:!f,options:(hidePanelTitles:!f,useMargins:!t),query:(language:kuery,query:''),timeRestore:!t,title:'%5BeCommerce%5D%20Revenue%20Dashboard',viewMode:view)) lets you visually represent your analytical, operational, and strategic data to help users quickly understand the current situation, giving users a high-level view of key metrics, simplifying data exploration, and delivering insights to users when and where they need them.
 
 The **Dashboard** application in OpenSearch Dashboards gives you the ability to:
 
@@ -18,9 +18,7 @@ The **Dashboard** application in OpenSearch Dashboards gives you the ability to:
 The following tutorial assumes you're either using your existing installation of OpenSearch Dashboards or using the [OpenSearch playground](https://playground.opensearch.org/app/home#/). Depending on which one you use, certain capabilities aren't available. For example, sample datasets may not be in your existing installation and saving a dashboard isn't an option in the playground.
 {: .note}
 
-In this tutorial you'll learn the basics of creating a dashboard using the **Dashboard** application and OpenSearch sample data. The sample dataset has existing sample visualizations, and you can use those visualizations or create new visualizations for the dashboard. For this tutorial, you'll do both. Once you've completed this tutorial, you'll have learned the foundations of creating a new dashboard with multiple panels in OpenSearch Dashboards, similar to the following dashboard.
-
-![Dashboard displaying sample dataset visualizations]({{site.url}}{{site.baseurl}}/images/dashboards/example-dashboard.png)
+In this tutorial you'll learn the basics of creating a dashboard using the **Dashboard** application and OpenSearch sample data. The sample dataset has existing sample visualizations, and you can use those visualizations or create new visualizations for the dashboard. For this tutorial, you'll do both. Once you've completed this tutorial, you'll have learned the foundations of creating a new dashboard with multiple panels in OpenSearch Dashboards.
 
 ## Getting familiar with user interface
 
@@ -38,9 +36,9 @@ Before getting started, let's get familiar with the **Dashboard** user interface
 _Panel_ is a term used to refer to a visualization displayed on a dashboard. The terms _panel_ and _visualization_ may be used interchangeably throughout this and other Dashboard-related documentation.
 {: .note}
 
-## Creating the dashboard
+## Creating a dashboard and adding an existing visualization
 
-To create the dashboard:
+To create the dashboard and add the sample visualization:
 
 1. From the navigation panel, choose **Dashboard**.
 2. From the **Dashboards** window, choose **Create Dashboard**.
@@ -48,8 +46,7 @@ To create the dashboard:
 4. From the panel, choose **Add an existing**.
 5. From the **Add panels** window, choose **[eCommerce] Average Sold Quantity**. The donut chart is added to the dashboard.
 
-You've created a basic dashboard with a single panel, which you'll continue using throughout this tutorial.
-You've created a basic dashboard with a single panel like the following, which you'll continue using throughout this tutorial.
+You've created the following basic dashboard with a single panel, which you'll continue using throughout this tutorial.
 
 ![Basic dashboard with single panel]({{site.url}}{{site.baseurl}}/images/dashboards/dashboard-basic.png)
 
@@ -61,9 +58,8 @@ Continuing with the dashboard you created in the preceding steps, you'll create 
 1. From the **New Visualization** window, choose **Vertical Bar** and then select the index pattern **opensearch_dashboards_sample_data_ecommerce**. 
 1. From the toolbar, select **Save**
 1. In the **Save visualization** window, add a title for the visualization. For example, the title for the bar chart panel is Order Date.
-9.  Select **Save and return**.  
+1.  Select **Save and return**.  
 
-The bar chart visualization is now saved and you are taken back to the dashboard. You'll see two visualizations on the dashboard, as shown in the following image: 
 The bar chart visualization is now saved and you are taken back to the dashboard. You'll see two visualizations on the dashboard, as shown in the following image: 
 
 ![Dashboard showing visualizations combined in a single view]({{site.url}}{{site.baseurl}}/images/dashboards/new-dashboard.png)
@@ -91,6 +87,10 @@ When you've finalized your dashboard, save it. If you're saving a new dashboard:
 
 ## Customizing the look of a panel
 
+To customize the panels, you'll need to be in edit mode:
+
+1. Select **Edit** at top right in the toolbar. 
+
 Showing a legend can give readers more information, while hiding a legend can give it a cleaner look. If you want to show or hide the panel legend:
 
 1. To show the legend, 
@@ -116,8 +116,8 @@ To organize panels, arrange them side-by-side, or resize them, you can use these
 
 - To move, select and hold the panel title and drag to the new location.
 - To resize, select the resize icon in the panel's lower right corner and drag to the new dimensions.
-- To view in fullscreen mode, select the vertical ellipsis in the top right of the panel and select **Maximize panel**. To minimize the fullscreen mode, select the vertical ellipsis and select **Minimize**.
+- To view in fullscreen mode, select the gear icon (edit mode) or vertical ellipsis () in the top right of the panel and select **Maximize panel**. To minimize the fullscreen mode, select the vertical ellipsis and select **Minimize**.
 
-The following is an example of a customized dashboard.
+The following is an example of a customized dashboard created in this tutorial.
 
 ![Customized dashboard with panels arranged side by side and without legends]({{site.url}}{{site.baseurl}}/images/dashboards/dashboard-arranged.png)
