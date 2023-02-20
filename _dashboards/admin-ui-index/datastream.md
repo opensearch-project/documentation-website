@@ -9,31 +9,82 @@ nav_order: 20
 Introduced 2.6
 {: .label .label-purple }
 
+In OpenSearch Dashboards, the **Index Management** section allows you to view and manage [data streams]({{site.url}}{{site.baseurl}}/opensearch/data-streams/).
+
 ![Data Streams]({{site.url}}{{site.baseurl}}/images/admin-ui-index/datastreams1.png)
 
 ## View data streams
 
-![Data Streams]({{site.url}}{{site.baseurl}}/images/admin-ui-index/datastreams5.png)
+To view data streams and their health status, choose **Data Streams** under **Index management**.
 
-Statuses:
-    - Green
-    - Yellow
-    - Red
+The following are the three data streams health statuses:
 
-## Create data stream
+- Green: All primary and replica shards are assigned.
+- Yellow: At least one replica shard is not assigned.
+- Red: At least one primary shard is not assigned.
 
-![Data Streams]({{site.url}}{{site.baseurl}}/images/admin-ui-index/datastreams2.png)
+    ![Data Streams]({{site.url}}{{site.baseurl}}/images/admin-ui-index/datastreams5.png)
 
-![Data Streams]({{site.url}}{{site.baseurl}}/images/admin-ui-index/datastreams3.png)
+## Create data streams
 
-![Data Streams]({{site.url}}{{site.baseurl}}/images/admin-ui-index/datastreams4.png)
+To create data streams, perform the following steps:
 
-## Delete data stream
+1. Under **Index Management**, choose **Data streams**.
 
-I AM ERROR
+1. Choose **Create data stream**.
 
-## Rollover data stream
+1. Enter a name for the data stream under **Data stream name**.
 
-![Rollover]({{site.url}}{{site.baseurl}}/images/admin-ui-index/rollover1.png)
+2. Ensure that you have a matching index template. This will be populated under **Matching index template** as seen in the image below.
 
-![Rollover]({{site.url}}{{site.baseurl}}/images/admin-ui-index/rollover3.png)
+    ![Data Streams]({{site.url}}{{site.baseurl}}/images/admin-ui-index/datastreams3.png)
+
+3. Under **Index alias**, select existing aliases or specify a new alias.
+
+4. Optionally, under **Advanced settings** you can specify the number of primary shards, number of replicas, and the refresh interval as seen in the following image.
+
+    ![Data Streams]({{site.url}}{{site.baseurl}}/images/admin-ui-index/datastreams4.png)
+
+5. Choose **Create data stream**.
+
+## Delete data streams
+
+To delete data streams, perform the following steps:
+
+1. Under **Index Management**, choose **Data streams**.
+
+1. Select the data stream you would like to delete.
+
+1. Choose **Actions**, then choose **Delete**.
+
+## Rollover data streams
+
+To perform a rollover operation on data streams, perform the following steps:
+
+1. Under **Index Management**, choose **Data streams**.
+
+2. Choose **Actions**, then choose **Rollover** as seen in the following image.
+
+    ![Rollover]({{site.url}}{{site.baseurl}}/images/admin-ui-index/rollover1.png)
+
+3. Under **Configure source**, select the source data stream you would like to preform the rollover operation.
+
+4. Choose **Rollover** as seen in the following image.
+
+    ![Rollover]({{site.url}}{{site.baseurl}}/images/admin-ui-index/rollover3.png)
+
+## Force merge data streams
+
+To perform a force merge operation on indices, perform the following steps:
+
+1. Under **Index Management**, choose **Data streams**.
+
+1. Select the data streams you want to perform a force merge operation on.
+
+1. Choose **Actions**, then choose **Force merge**.
+
+1. Under **Configure source index**, specify the data streams you want to force merge.
+
+1. Optionally, under **Advanced settings** you can to choose to **Flush indices**, **Only expunge delete**, and specify the **Max number of segments** to merge to.
+
+    ![Force Merge]({{site.url}}{{site.baseurl}}/images/admin-ui-index/forcemerge2.png)

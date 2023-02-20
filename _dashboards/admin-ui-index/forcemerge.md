@@ -9,6 +9,38 @@ nav_order: 30
 Introduced 2.6
 {: .label .label-purple }
 
-![Force Merge]({{site.url}}{{site.baseurl}}/images/admin-ui-index/forcemerge1.png)
+OpenSearch Dashboards allows you to perform a [force merge]({{site.url}}{{site.baseurl}}/im-plugin/ism/error-prevention/index/#force_merge/) operation on indexes with **Index Management**.
 
-![Force Merge]({{site.url}}{{site.baseurl}}/images/admin-ui-index/forcemerge2.png)
+## Force merge indexes
+
+To perform a force merge operation on indices, perform the following steps:
+
+1. Under **Index Management**, choose **Indices**.
+
+1. Select the index you want to perform a force merge operation on.
+
+1. Choose **Actions**, then choose **Force merge** as seen in the following image.
+
+    ![Force Merge]({{site.url}}{{site.baseurl}}/images/admin-ui-index/forcemerge1.png)
+
+1. Under **Configure source index**, specify the indexes you want to force merge.
+
+1. Optionally, under **Advanced settings** you can to choose to **Flush indices**, **Only expunge delete**, and specify the **Max number of segments** to merge to.
+
+    ![Force Merge]({{site.url}}{{site.baseurl}}/images/admin-ui-index/forcemerge2.png)
+
+## Force merge data streams
+
+To perform a force merge operation on indices, perform the following steps:
+
+1. Under **Index Management**, choose **Data streams**.
+
+1. Select the data streams you want to perform a force merge operation on.
+
+1. Choose **Actions**, then choose **Force merge**.
+
+1. Under **Configure source index**, specify the data streams you want to force merge.
+
+1. Optionally, under **Advanced settings** you can to choose to **Flush indices**, **Only expunge delete**, and specify the **Max number of segments** to merge to.
+
+    ![Force Merge]({{site.url}}{{site.baseurl}}/images/admin-ui-index/forcemerge2.png)

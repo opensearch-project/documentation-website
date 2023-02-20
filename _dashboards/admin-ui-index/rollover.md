@@ -9,10 +9,36 @@ nav_order: 40
 Introduced 2.6
 {: .label .label-purple }
 
-Select Actions and then select Rollover as seen in the following image.
+OpenSearch Dashboards allows you to perform an [index rollover]({{site.url}}{{site.baseurl}}/im-plugin/ism/error-prevention/index/#rollover) operation with **Index Management**.
 
-![Rollover]({{site.url}}{{site.baseurl}}/images/admin-ui-index/rollover1.png)
+## Data Steams
 
-![Rollover]({{site.url}}{{site.baseurl}}/images/admin-ui-index/rollover2.png)
+To perform a rollover operation on data streams, perform the following steps:
 
-![Rollover]({{site.url}}{{site.baseurl}}/images/admin-ui-index/rollover3.png)
+1. Under **Index Management**, choose **Data streams**.
+
+2. Choose **Actions**, then choose **Rollover** as seen in the following image.
+
+    ![Rollover]({{site.url}}{{site.baseurl}}/images/admin-ui-index/rollover1.png)
+
+3. Under **Configure source**, select the source data stream you would like to preform the rollover operation.
+
+4. Choose **Rollover** as seen in the following image.
+
+    ![Rollover]({{site.url}}{{site.baseurl}}/images/admin-ui-index/rollover3.png)
+
+## Aliases
+
+To perform a rollover operation on aliases, perform the following steps:
+
+1. Under **Index Management**, choose **Aliases**.
+
+2. Select **Actions**, then choose **Rollover** as seen in the following image.
+
+    ![Rollover]({{site.url}}{{site.baseurl}}/images/admin-ui-index/rollover2.png)
+
+3. Under **Configure source**, select the source data stream you would like to preform the rollover operation.
+
+4. Choose **Rollover** as seen in the following image.
+
+    ![Rollover]({{site.url}}{{site.baseurl}}/images/admin-ui-index/rollover3.png)
