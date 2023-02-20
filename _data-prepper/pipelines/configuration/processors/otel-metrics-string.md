@@ -8,17 +8,21 @@ nav_order: 45
 
 # OTel Metrics String Processor 
 
-This is a processor that serializes a collection of `ExportMetricsServiceRequest` sent from [otel-metrics-source](../dataPrepper-plugins/otel-metrics-source) into a collection of string records.
+The `OTel metrics string` processor serializes a collection of `ExportMetricsServiceRequest` sent from [otel-metrics-source](../dataPrepper-plugins/otel-metrics-source) into a collection of string records.
 
-## Usages
-Example `.yaml` configuration
+<!--- WHat should this link point to?--->
+
+## Usage
+
+See the following `.yaml` configuration file:
 ```
 processor:
     - otel_metrics_raw_processor
 ```
 
-## Configurations
-It is possible to create explicit representations of histogram buckets and their boundaries. This feature can be controlled with the following parameters:
+## Configuration
+
+You can create explicit representations of histogram buckets and their boundaries. You can control this feature by using the following parameters:
 
 ```yaml
   processor:
@@ -29,12 +33,10 @@ It is possible to create explicit representations of histogram buckets and their
         flatten_attributes: false
 ```
 
-There are three possible parameters: `calculate_histogram_buckets`, `calculate_exponential_histogram_buckets` and `exponential_histogram_max_allowed_scale`
-If `calculate_histogram_buckets` and `calculate_exponential_histogram_buckets` are not provided they default to `false`. 
-If `exponential_histogram_max_allowed_scale` is not provided it defaults to 10.
+There are three possible parameters: `calculate_histogram_buckets`, `calculate_exponential_histogram_buckets` and `exponential_histogram_max_allowed_scale` If `calculate_histogram_buckets` and `calculate_exponential_histogram_buckets` are not provided they default to `false`. If `exponential_histogram_max_allowed_scale` is not provided, the default value is 10.
 
-If `calculate_histogram_buckets` is not set to `false`, the following JSON will be added to every histogram JSON:
-If `flatten_attributes` is set to `false`, the json string format of the metrics will keep the attributes field as is, and if it is set to `true`, the fleds in attributes field are put in the parent json object. Default is `true`
+If `calculate_histogram_buckets` is not set to `false`, the following JSON file will be added to every histogram JSON.
+If `flatten_attributes` is set to `false`, the JSON string format of the metrics will keep the attributes field as is, and if it is set to `true`, the fleds in attributes field are put in the parent json object. The default value is `true`
 
 ```json
  "buckets": [
@@ -51,8 +53,9 @@ If `flatten_attributes` is set to `false`, the json string format of the metrics
   ]
 ```
 
-Each array element describes one bucket. Each bucket contains the lower boundary, upper boundary and its value count.
-This is an explicit form of the more dense OpenTelemetry representation that is already part of the JSON output created by this plugin:
+Each array element describes one bucket. Each bucket contains the lower boundary, upper boundary, and its value count. This is an explicit form of denser OpenTelemetry representation that is a part of the JSON output created by the following plugin:
+
+<!--- Is this correct? Is this a plugin? It looks like a JSON file.--->
 
 ```json
  "explicitBounds": [
@@ -66,7 +69,8 @@ This is an explicit form of the more dense OpenTelemetry representation that is 
 ```
 
 
-If `calculate_exponential_histogram_buckets` is not set to `false`, the following JSON will be added to every histogram JSON:
+If `calculate_exponential_histogram_buckets` is not set to `false`, the following JSON values will be added to every histogram JSON:
+
 ```json
 
     "negativeBuckets": [
@@ -96,8 +100,10 @@ If `calculate_exponential_histogram_buckets` is not set to `false`, the followin
     ],
 ```
 
-Again, this is a more explicit form of the dense OpenTelemetry representation which consists of negative and positive buckets along with
-a scale parameter, offset and list of bucket counts:
+This is a more explicit form of the dense OpenTelemetry representation, which consists of negative and positive buckets, a scale parameter, offset, and list of bucket counts. See the following JSON file:
+
+<!--- What does this mean "more explicit"? --->
+
 ```json
     "negative": [
         1,
@@ -114,16 +120,18 @@ a scale parameter, offset and list of bucket counts:
     "positiveOffset" : 1
 ```
 
-The `exponential_histogram_max_allowed_scale` parameter defines the maximum allowed scale for the exponential histogram. Increasing this parameter will increase potential
-memory consumption. See [the spec](https://github.com/open-telemetry/opentelemetry-proto/blob/main/opentelemetry/proto/metrics/v1/metrics.proto) for more information on exponential histograms and their computational complexity.
+The `exponential_histogram_max_allowed_scale` parameter defines the maximum allowed scale for the exponential histogram. Increasing this parameter will increase potential memory consumption. See the [OpenTelemetry specifications](https://github.com/open-telemetry/opentelemetry-proto/blob/main/opentelemetry/proto/metrics/v1/metrics.proto) for more information on exponential histograms and their computational complexity.
 
-All exponential histograms that have a scale that is above the configured parameter (by default, 10) will be discarded and logged with error level.
-**Note**: the absolute scale value is used for comparison, so a scale of -11 will be treated equally to 11 and thus exceed the configured value of 10 - and be discarded.
+All exponential histograms that have a scale that is above the configured parameter (by default, 10) will be discarded and logged with error level. 
+**Note**: The absolute scale value is used for comparison, so a scale of `-11` will be treated equally to `11`, will exceed the configured value of `10` and be discarded.
 
 ## Metrics
+
 This plugin uses all common metrics in [AbstractProcessor](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/processor/AbstractProcessor.java), and does not currently introduce custom metrics.
 
 ## Developer Guide
-This plugin is compatible with Java 8. See 
-- [CONTRIBUTING](https://github.com/opensearch-project/data-prepper/blob/main/CONTRIBUTING.md) 
-- [monitoring](https://github.com/opensearch-project/data-prepper/blob/main/docs/monitoring.md)
+
+This plugin is compatible with Java 8. See the following:
+
+- [Contributing](https://github.com/opensearch-project/data-prepper/blob/main/CONTRIBUTING.md) 
+- [Monitoring](https://github.com/opensearch-project/data-prepper/blob/main/docs/monitoring.md)
