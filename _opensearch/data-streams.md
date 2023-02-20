@@ -85,7 +85,7 @@ To see information about a specific data stream:
 GET _data_stream/logs-nginx
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -117,7 +117,7 @@ To see more insights about the data stream, use the `_stats` endpoint:
 GET _data_stream/logs-nginx/_stats
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -174,7 +174,7 @@ GET logs-redis/_search
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -218,7 +218,7 @@ To perform manual rollover operation on the data stream:
 POST logs-redis/_rollover
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {

@@ -62,7 +62,7 @@ Parameter | Type | Description
 `triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`throttle`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`unit` | String | In process
 `triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`throttle`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`value` | Integer | In process
 
-### Sample request
+### Example request
 
 ```json
 POST _plugins/_security_analytics/detectors
@@ -136,7 +136,7 @@ POST _plugins/_security_analytics/detectors
 }
 ```
 
-### Sample response
+### Example response
 
 ```json
 {
@@ -224,7 +224,7 @@ The Update detector API is used for updating a detector.
 PUT /_plugins/_security_analytics/detectors/<detector_Id>
 ```
 
-### Sample request
+### Example request
 
 ```json
 PUT /_plugins/_security_analytics/detectors/J1RX1IMByX0LvTiGTddR
@@ -270,7 +270,7 @@ PUT /_plugins/_security_analytics/detectors/J1RX1IMByX0LvTiGTddR
 }
 ```
 
-### Sample response
+### Example response
 
 ```json
 {
@@ -313,7 +313,7 @@ PUT /_plugins/_security_analytics/detectors/J1RX1IMByX0LvTiGTddR
 
 This API is used for deleting a detector.
 
-### Sample request
+### Example request
 
 ```json
 DELETE /_plugins/_security_analytics/detectors/J1RX1IMByX0LvTiGTddR
@@ -324,13 +324,13 @@ DELETE /_plugins/_security_analytics/detectors/J1RX1IMByX0LvTiGTddR
 
 The Get detector API retrieves the detector details.
 
-### Sample request
+### Example request
 
 ```json
 GET /_plugins/_security_analytics/detectors/MFRg1IMByX0LvTiGHtcN
 ```
 
-### Sample response
+### Example response
 
 ```json
 {
@@ -368,7 +368,7 @@ GET /_plugins/_security_analytics/detectors/MFRg1IMByX0LvTiGHtcN
 
 The Search detector API searches for detector matches by detector ID.
 
-### Sample request
+### Example request
 
 ```json
 POST /_plugins/_security_analytics/detectors/_search
@@ -383,7 +383,7 @@ Body:
 }
 ```
 
-### Sample response
+### Example response
 
 ```json
 {

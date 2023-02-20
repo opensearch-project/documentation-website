@@ -23,7 +23,7 @@ Retrieves information about a snapshot.
 | verbose | Boolean | Whether to show all, or just basic snapshot information. If `true`, returns all information. If `false`, omits information like start/end times, failures, and shards. Optional, defaults to `true`.|
 | ignore_unavailable | Boolean | How to handle snapshots that are unavailable (corrupted or otherwise temporarily can't be returned). If `true` and the snapshot is unavailable, the request does not return the snapshot. If `false` and the snapshot is unavailable, the request returns an error. Optional, defaults to `false`.|
 
-#### Sample request
+#### Example request
 
 The following request retrieves information for the `my-first-snapshot` located in the `my-opensearch-repo` repository:
 
@@ -32,7 +32,7 @@ GET _snapshot/my-opensearch-repo/my-first-snapshot
 ````
 {% include copy-curl.html %}
 
-#### Sample response
+#### Example response
 
 Upon success, the response returns snapshot information:
 
