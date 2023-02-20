@@ -6,16 +6,18 @@ grand_parent: Pipelines
 nav_order: 45
 ---
 
-# Trace Peer Forwarder Processor
+# Trace peer forwarder processor
 
-This processor is used to reduce the number of Events that will be forwarded in a Trace Analytics pipeline by half when using [Peer Forwarder](https://github.com/opensearch-project/data-prepper/blob/main/docs/peer_forwarder.md). 
+The `trace peer forwarder` processor is used to reduce the number of events that are forwarded in a trace analytics pipeline by half when using [Peer Forwarder](https://github.com/opensearch-project/data-prepper/blob/main/docs/peer_forwarder.md). 
 It groups the events based on `trace_id` similar to `service_map_stateful` and `otel_trace_raw ` processors. 
 
 In [Trace Analytics pipeline](https://github.com/opensearch-project/data-prepper/blob/main/docs/trace_analytics.md#trace-analytics-pipeline) each event is duplicated, when it is sent from `otel-trace-pipeline` to `raw-pipeline` and `service-map-pipeline`.
 So, the event will be forwarded once in each pipeline. Using this processor event will be forwarded only once in `otel-trace-pipeline` to correct peer. 
 
-## Basic Usage
-To get started with trace peer forwarder, create the following `pipeline.yaml` along with [Peer Forwarder](https://github.com/opensearch-project/data-prepper/blob/main/docs/peer_forwarder.md) in `data-prepper-config.yaml`
+## Basic usage
+
+To get started with `trace peer forwarder`, create the following `pipeline.yaml` file along with [Peer Forwarder]({{site.url}}{{site.baseurl}}/managing-data-prepper/peer-forwarder/) in the `data-prepper-config.yaml` file:
+
 
 ```yaml
 otel-trace-pipeline:
@@ -48,4 +50,4 @@ service-map-pipeline:
     - opensearch:
 ```
 
-In the above pipeline, events will be forwarded in the `otel-trace-pipeline` to correct peer and no forwarding will be done in `raw-pipeline` or `service-map-pipeline`.
+In the preceding pipeline, events are forwarded in the `otel-trace-pipeline` to correct peer, and no forwarding is performed in `raw-pipeline` or `service-map-pipeline`.
