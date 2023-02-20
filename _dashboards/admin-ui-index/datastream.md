@@ -35,17 +35,17 @@ To create data streams, perform the following steps:
 
 1. Enter a name for the data stream under **Data stream name**.
 
-2. Ensure that you have a matching index template. This will be populated under **Matching index template** as seen in the image below.
+1. Ensure that you have a matching index template. This will be populated under **Matching index template** as seen in the image below.
 
     ![Data Streams]({{site.url}}{{site.baseurl}}/images/admin-ui-index/datastreams3.png)
 
-3. Under **Index alias**, select existing aliases or specify a new alias.
+1. The **Template details** and **Index alias** sections are read only. This will inform you of the backing indexes used in the data stream.
 
-4. Optionally, under **Advanced settings** you can specify the number of primary shards, number of replicas, and the refresh interval as seen in the following image.
+1. Optionally, under **Advanced settings** you can specify the number of primary shards, number of replicas, and the refresh interval as seen in the following image.
 
     ![Data Streams]({{site.url}}{{site.baseurl}}/images/admin-ui-index/datastreams4.png)
 
-5. Choose **Create data stream**.
+1. Choose **Create data stream**.
 
 ## Delete data streams
 
@@ -63,13 +63,13 @@ To perform a rollover operation on data streams, perform the following steps:
 
 1. Under **Index Management**, choose **Data streams**.
 
-2. Choose **Actions**, then choose **Rollover** as seen in the following image.
+1. Choose **Actions**, then choose **Rollover** as seen in the following image.
 
     ![Rollover]({{site.url}}{{site.baseurl}}/images/admin-ui-index/rollover1.png)
 
-3. Under **Configure source**, select the source data stream you would like to preform the rollover operation.
+1. Under **Configure source**, select the source data stream you would like to preform the rollover operation.
 
-4. Choose **Rollover** as seen in the following image.
+1. Choose **Rollover** as seen in the following image.
 
     ![Rollover]({{site.url}}{{site.baseurl}}/images/admin-ui-index/rollover3.png)
 

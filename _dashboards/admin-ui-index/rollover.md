@@ -17,13 +17,13 @@ To perform a rollover operation on data streams, perform the following steps:
 
 1. Under **Index Management**, choose **Data streams**.
 
-2. Choose **Actions**, then choose **Rollover** as seen in the following image.
+1. Choose **Actions**, then choose **Rollover** as seen in the following image.
 
     ![Rollover]({{site.url}}{{site.baseurl}}/images/admin-ui-index/rollover1.png)
 
-3. Under **Configure source**, select the source data stream you would like to preform the rollover operation.
+1. Under **Configure source**, select the source data stream you would like to preform the rollover operation.
 
-4. Choose **Rollover** as seen in the following image.
+1. Choose **Rollover** as seen in the following image.
 
     ![Rollover]({{site.url}}{{site.baseurl}}/images/admin-ui-index/rollover3.png)
 
@@ -33,12 +33,20 @@ To perform a rollover operation on aliases, perform the following steps:
 
 1. Under **Index Management**, choose **Aliases**.
 
-2. Select **Actions**, then choose **Rollover** as seen in the following image.
+1. Choose **Actions**, then choose **Rollover** as seen in the following image.
 
     ![Rollover]({{site.url}}{{site.baseurl}}/images/admin-ui-index/rollover2.png)
 
-3. Under **Configure source**, select the source data stream you would like to preform the rollover operation.
+1. Under **Configure source**, select the source alias you would like to preform the rollover operation on.
 
-4. Choose **Rollover** as seen in the following image.
+1. If the alias does not contain a write index, you will be prompted to assign a write index as seen in the following image. 
 
-    ![Rollover]({{site.url}}{{site.baseurl}}/images/admin-ui-index/rollover3.png)
+    ![Rollover]({{site.url}}{{site.baseurl}}/images/admin-ui-index/rollover4.png)
+
+1. Under **Configure a new rollover index** and the **Define index** section, specify an index name and an optional index alias.
+
+1. Under **Index settings** specify the number of primary shards, the number of replicas, and the refresh interval as seen in the following image.
+
+    ![Rollover]({{site.url}}{{site.baseurl}}/images/admin-ui-index/rollover5.png)
+
+1. Finally, choose **Rollover**.
