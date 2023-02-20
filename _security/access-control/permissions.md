@@ -180,7 +180,7 @@ These permissions are for the cluster and can't be applied granularly. For examp
 - cluster:monitor/task/get
 - cluster:monitor/tasks/list
 
-These permissions are for indices but apply globally to the cluster
+The following permissions are for indexes but apply globally to the cluster:
 
 - indices:admin/index_template/delete
 - indices:admin/index_template/get
