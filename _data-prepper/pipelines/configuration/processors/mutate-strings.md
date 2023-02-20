@@ -6,20 +6,26 @@ grand_parent: Pipelines
 nav_order: 45
 ---
 
-# Mutate String Processors
-The following is a list of processors to mutate a string.
+# Mutate string processors
+
+The following is a list of processors that allow you to mutate a string:
 * [substitute_string](#substitutestringprocessor)
 * [split_string](#splitstringprocessor)
 * [uppercase_string](#uppercasestringprocessor)
 * [lowercase_string](#lowercasestringprocessor)
 * [trim_string](#trimstringprocessor)
 
----
-## SubstituteStringProcessor
-A processor that matches a key's value against a regular expression and replaces all matches with a replacement string.
+<!--- Is it necessary to provide this list, or to link to the processors within this page?--->
 
-### Basic Usage
-To get started, create the following `pipeline.yaml`.
+
+## substitute_string
+
+The `substitute_string` processor matches a key's value against a regular expression and replaces all matches with a replacement string.
+
+### Basic usage
+
+To get started, create the following `pipeline.yaml` file:
+
 ```yaml
 pipeline:
   source:
@@ -37,7 +43,7 @@ pipeline:
     - stdout:
 ```
 
-Create the following file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` with the path of this file.
+Create the following file named `logs_json.log` and replace the `path` in the file source in your `pipeline.yaml` file with the correct file path.
 
 ```json
 {"message": "ab:cd:ab:cd"}
@@ -47,22 +53,26 @@ When you run Data Prepper with this `pipeline.yaml`, you should see the followin
 ```json
 {"message": "ab-cd-ab-cd"}
 ```
-If `from` regex string does not have a match, the key will be returned as it is.
+If `from` regex string does not have a match, the key will be returned without any changes.
 
 ### Configuration
-* `entries` - (required) - A list of entries to add to an event
-    * `source` - (required) - The key to be modified
-    * `from` - (required) - The Regex String to be replaced. Special regex characters such as `[` and `]` 
-must be escaped using `\\` when using double quotes and `\ ` when using single quotes. See [here](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/regex/Pattern.html) for more information.
-    * `to` - (required) - The String to be substituted for each match of `from`
-    
----
 
-## SplitStringProcessor
-A processor that splits a field into an array using a delimiter character.
+<!--- Are these paramters? How are these items used? Need some intro text here.--->
+
+* `entries` - (required) - A list of entries to add to an event.
+    * `source` - (required) - The key to be modified.
+    * `from` - (required) - The regex string to be replaced. Special regex characters such as `[` and `]` must be escaped using `\\` when using double quotes and `\` when using single quotes. See [here](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/regex/Pattern.html) for more information.
+    * `to` - (required) - The string to be substituted for each match of `from`.
+    
+
+## split_string
+
+The `split_string` processor splits a field into an array using a delimiter character.
 
 ### Basic Usage
-To get started, create the following `pipeline.yaml`.
+
+To get started, create the following `pipeline.yaml` file:
+
 ```yaml
 pipeline:
   source:
@@ -79,30 +89,34 @@ pipeline:
     - stdout:
 ```
 
-Create the following file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` with the path of this file.
+Create the following file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` with the correct file path:
 
 ```json
 {"message": "hello,world"}
 ```
-When you run Data Prepper with this `pipeline.yaml`, you should see the following output:
+When you run Data Prepper with this `pipeline.yaml` file, you should see the following output:
 
 ```json
 {"message":["hello","world"]}
 ```
 
 ### Configuration
+
+<!--- Are these paramters? How are these items used? Need some intro text here.--->
+
 * `entries` - (required) - A list of entries to add to an event
     * `source` - (required) - The key to be split
     * `delimiter` - (optional) - The separator character responsible for the split. Cannot be defined at the same time as `delimiter_regex`. At least `delimiter` or `delimiter_regex` must be defined.
     * `delimiter_regex` - (optional) - A regex string responsible for the split. Cannot be defined at the same time as `delimiter`. At least `delimiter` or `delimiter_regex` must be defined.
 
----
+## uppercase_string
 
-## UppercaseStringProcessor
-A processor that converts a key to its uppercase counterpart.
+The `uppercase_string` processor converts a key to uppercase.
 
-### Basic Usage
-To get started, create the following `pipeline.yaml`.
+### Basic usage
+
+To get started, create the following `pipeline.yaml` file:
+
 ```yaml
 pipeline:
   source:
@@ -118,27 +132,32 @@ pipeline:
     - stdout:
 ```
 
-Create the following file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` with the path of this file.
+Create the following file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` with the correct file path:
 
 ```json
 {"uppercaseField": "hello"}
 ```
-When you run Data Prepper with this `pipeline.yaml`, you should see the following output:
+When you run Data Prepper with this `pipeline.yaml` file, you should see the following output:
 
 ```json
 {"uppercaseField": "HELLO"}
 ```
 
 ### Configuration
-* `with_keys` - (required) - A list of keys to convert to Uppercase
 
----
+<!--- Are these paramters? How are these items used? Need some intro text here.--->
 
-## LowercaseStringProcessor
-A processor that converts a string to its lowercase counterpart.
+* `with_keys` - (required) - A list of keys to convert to uppercase.
 
-### Basic Usage
-To get started, create the following `pipeline.yaml`.
+
+## Lowercase string
+
+The `lowercase string` processor converts a string to its lowercase counterpart.
+
+### Basic usage
+
+To get started, create the following `pipeline.yaml` file:
+
 ```yaml
 pipeline:
   source:
@@ -166,15 +185,19 @@ When you run Data Prepper with this `pipeline.yaml`, you should see the followin
 ```
 
 ### Configuration
+
+<!--- Are these paramters? How are these items used? Need some intro text here.--->
+
 * `with_keys` - (required) - A list of keys to convert to Lowercase
 
----
+## trim_string
 
-## TrimStringProcessor
-A processor that strips whitespace from the beginning and end of a key.
+The `trim_string` processor removes whitespace from the beginning and end of a key.
 
-### Basic Usage
-To get started, create the following `pipeline.yaml`.
+### Basic usage
+
+To get started, create the following `pipeline.yaml` file:
+
 ```yaml
 pipeline:
   source:
@@ -190,7 +213,7 @@ pipeline:
     - stdout:
 ```
 
-Create the following file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` with the path of this file.
+Create the following file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` with the your file path:
 
 ```json
 {"trimField": " Space Ship "}
@@ -202,11 +225,15 @@ When you run Data Prepper with this `pipeline.yaml`, you should see the followin
 ```
 
 ### Configuration
-* `with_keys` - (required) - A list of keys to trim the whitespace from
 
----
+<!--- Are these paramters? How are these items used? Need some intro text here.--->
 
-## Developer Guide
-This plugin is compatible with Java 14. See
-- [CONTRIBUTING](https://github.com/opensearch-project/data-prepper/blob/main/CONTRIBUTING.md)
-- [monitoring](https://github.com/opensearch-project/data-prepper/blob/main/docs/monitoring.md)
+* `with_keys` - (required) - A list of keys to trim the whitespace from.
+
+
+## Developer guide
+
+This plugin is compatible with Java 14. See the following::
+
+- [Contributing](https://github.com/opensearch-project/data-prepper/blob/main/CONTRIBUTING.md)
+- [Monitoring](https://github.com/opensearch-project/data-prepper/blob/main/docs/monitoring.md)
