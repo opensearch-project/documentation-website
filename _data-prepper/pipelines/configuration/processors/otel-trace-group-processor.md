@@ -8,8 +8,7 @@ nav_order: 45
 
 # OTel Trace Group Processor
 
-The `OTel trace group` processor completes missing trace group related fields in the collection of [Span](../../data-prepper-api/src/main/java/org/opensearch/dataprepper/model/trace/Span.java) records by looking up the OpenSearch backend.
-This processor t finds the missing trace group information for a `spanId` by looking up the relevant fields in its root `span` stored in OpenSearch, or the Amazon OpenSearch Service backend that the local Data Prepper host ingests into.
+The `OTel trace group` processor completes missing trace group related fields in the collection of [Span](https://github.com/opensearch-project/data-prepper/blob/834f28fdf1df6d42a6666e91e6407474b88e7ec6/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/trace/Span.java) records by looking up the OpenSearch backend. This processor finds the missing trace group information for a `spanId` by looking up the relevant fields in its root `span` stored in OpenSearch, or the Amazon OpenSearch Service backend that the local Data Prepper host ingests into.
 
 ## Usage
 
@@ -90,5 +89,5 @@ This plugin is compatible with Java 8. See the following:
 
 <!--- Java 8, or Java 14? Another plugin mentioned that it was compatible with Java 14.--->
 
-- [CONTRIBUTING](https://github.com/opensearch-project/data-prepper/blob/main/CONTRIBUTING.md) 
-- [monitoring](https://github.com/opensearch-project/data-prepper/blob/main/docs/monitoring.md)
+- [Contributing](https://github.com/opensearch-project/data-prepper/blob/main/CONTRIBUTING.md)
+- [Monitoring]({{site.url}}{{site.baseurl}}/data-prepper/monitoring/) <!--- Is this correct?---> 

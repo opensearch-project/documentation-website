@@ -55,11 +55,14 @@ When run, the processor will parse the message into the following output:
 
 ___
 
-## CopyValueProcessor
-A processor that copies values within an event
+## Copy value
 
-### Basic Usage
-To get started, create the following `pipeline.yaml`.
+The `copy value` processor copies values within an event.
+
+### Basic usage
+
+To get started, create the following `pipeline.yaml` file:
+
 ```yaml
 pipeline:
   source:
@@ -83,7 +86,7 @@ Create the following file named `logs_json.log` and replace the `path` in the fi
 {"message": "value"}
 ```
 
-When run, the processor will parse the message into the following output:
+When run, the processor parses the message into the following output:
 
 ```json
 {"message": "value", "newMessage": "value"}
@@ -99,11 +102,13 @@ When run, the processor will parse the message into the following output:
 
 ___
 
-## DeleteEntryProcessor
-A processor that deletes entries in an event
+## DeleteEntry
 
-### Basic Usage
-To get started, create the following `pipeline.yaml`.
+The `DeleteEntry` processor deletes entries in an event.
+
+### Basic usage
+
+To get started, create the following `pipeline.yaml` file:
 ```yaml
 pipeline:
   source:
@@ -124,7 +129,7 @@ Create the following file named `logs_json.log` and replace the `path` in the fi
 {"message": "value", "message2": "value2"}
 ```
 
-When run, the processor will parse the message into the following output:
+When run, the processor parses the message into the following output:
 
 ```json
 {"message2": "value2"}
@@ -133,14 +138,18 @@ When run, the processor will parse the message into the following output:
 > If `message` had not existed in the event, then nothing would have happened
 
 ### Configuration
-* `with_keys` - (required) - An array of keys of the entries to be deleted
 
-___
+<!---Need some intro text.--->
 
-## RenameKeyProcessor
-A processor that renames keys in an event
+* `with_keys` - (required) - An array of keys of the entries to be deleted.
 
-### Basic Usage
+
+## RenameKey
+
+The `rename key` processor renames keys in an event.
+
+### Basic usage
+
 To get started, create the following `pipeline.yaml`.
 ```yaml
 pipeline:
@@ -165,7 +174,7 @@ Create the following file named `logs_json.log` and replace the `path` in the fi
 {"message": "value"}
 ```
 
-When run, the processor will parse the message into the following output:
+When run, the processor parses the message into the following output:
 
 ```json
 {"newMessage": "value"}
@@ -174,13 +183,18 @@ When run, the processor will parse the message into the following output:
 > If `newMessage` had already existed, its existing value would have been overwritten with `value`
 
 ### Configuration
+
+<!--- Need some intro text here.--->
+
 * `entries` - (required) - A list of entries to rename in an event
     * `from_key` - (required) - The key of the entry to be renamed
     * `to_key` - (required) - The new key of the entry
     * `overwrite_if_to_key_exists` - (optional) - When set to `true`, if `to_key` already exists in the event, then the existing value will be overwritten. The default is `false`.
 
-### Special Consideration
-The renaming operation occurs in the order defined. This means that chaining is implicit with the RenameKeyProcessor. Take the following `piplines.yaml` for example:
+### Special considerations
+
+The renaming operation occurs in a defined order. <!--- Where is this order defined?---> This means that chaining is implicit with the `RenameKey` processor. See the following `piplines.yaml` file example:
+
 ```yaml
 pipeline:
   source:
@@ -211,13 +225,14 @@ After the processor runs, this will be the output
 
 ___
 
-## ConvertEntryProcessor
-A processor that converts the type of value associated with the specified key in a message to the specified type. Basically this is a "casting" processor that changes types of some fields in the event/message.
-Some of the data in the input may need to be converted to different types (ex integer or double) for passing the events through "condition" based processors or to do conditional routing.
+## ConvertEntry
 
-## Basic Usage
+The `ConvertEntry` processor converts the type of value associated with the specified key in a message to the specified type. It is a casting processor that changes the types of some fields in the event or message. Some of inputted data may need to be converted to different types, such as an integer or a double. The reason the data may need to be converted is so it will pass the events through condition based processors or to do conditional routing.
 
-To get started with type conversion processor using Data Prepper, create the following `pipeline.yaml`.
+## Basic usage
+
+To get started with type conversion processor using Data Prepper, create the following `pipeline.yaml` file:
+
 ```yaml
 type-conv-pipeline:
   source:
@@ -256,6 +271,10 @@ and the type conversion processor will change it to the following output, where 
 
 
 ## Developer Guide
-This plugin is compatible with Java 14. See
-- [CONTRIBUTING](https://github.com/opensearch-project/data-prepper/blob/main/CONTRIBUTING.md)
-- [monitoring](https://github.com/opensearch-project/data-prepper/blob/main/docs/monitoring.md)
+
+This plugin is compatible with Java 14. See the following:
+
+- [Contributing](https://github.com/opensearch-project/data-prepper/blob/main/CONTRIBUTING.md)
+- [Monitoring]({{site.url}}{{site.baseurl}}/data-prepper/monitoring/) <!--- Is this correct?---> 
+
+

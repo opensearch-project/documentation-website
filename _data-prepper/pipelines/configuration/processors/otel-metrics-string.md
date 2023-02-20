@@ -8,7 +8,7 @@ nav_order: 45
 
 # OTel Metrics String Processor 
 
-The `OTel metrics string` processor serializes a collection of `ExportMetricsServiceRequest` sent from [otel-metrics-source](../dataPrepper-plugins/otel-metrics-source) into a collection of string records.
+The `OTel metrics string` processor serializes a collection of `ExportMetricsServiceRequest` sent from [otel-metrics-source](/data-prepper/pipelines/configuration/sources/otel-metrics-source/) into a collection of string records.
 
 <!--- WHat should this link point to?--->
 
@@ -133,5 +133,5 @@ This plugin uses all common metrics in [AbstractProcessor](https://github.com/op
 
 This plugin is compatible with Java 8. See the following:
 
-- [Contributing](https://github.com/opensearch-project/data-prepper/blob/main/CONTRIBUTING.md) 
-- [Monitoring](https://github.com/opensearch-project/data-prepper/blob/main/docs/monitoring.md)
+- [Contributing](https://github.com/opensearch-project/data-prepper/blob/main/CONTRIBUTING.md)
+- [Monitoring]({{site.url}}{{site.baseurl}}/data-prepper/monitoring/) <!--- Is this correct?---> 

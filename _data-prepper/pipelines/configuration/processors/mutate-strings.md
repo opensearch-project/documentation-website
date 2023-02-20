@@ -236,4 +236,4 @@ When you run Data Prepper with this `pipeline.yaml`, you should see the followin
 This plugin is compatible with Java 14. See the following:
 
 - [Contributing](https://github.com/opensearch-project/data-prepper/blob/main/CONTRIBUTING.md)
-- [Monitoring](https://github.com/opensearch-project/data-prepper/blob/main/docs/monitoring.md)
+- [Monitoring]({{site.url}}{{site.baseurl}}/data-prepper/monitoring/) <!--- Is this correct?---> 

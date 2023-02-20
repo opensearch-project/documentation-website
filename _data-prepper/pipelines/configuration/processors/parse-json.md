@@ -74,7 +74,11 @@ The processor will parse the message into the following:
     * If the JSON Pointer is invalid then the entire `source` data is parsed into the outgoing `Event`.
     * If the pointed-to key already exists in the `Event` and the `destination` is the root, then the entire path of the key will be used.
 
-## Developer Guide
-This plugin is compatible with Java 8 and up. See
-- [CONTRIBUTING](https://github.com/opensearch-project/data-prepper/blob/main/CONTRIBUTING.md)
-- [monitoring](https://github.com/opensearch-project/data-prepper/blob/main/docs/monitoring.md)
+## Developer guide
+
+This plugin is compatible with Java 8 and up. See the following: 
+
+<!--- Java 8, or Java 14? Other docs say 14.--->
+
+- [Contributing](https://github.com/opensearch-project/data-prepper/blob/main/CONTRIBUTING.md)
+- [Monitoring]({{site.url}}{{site.baseurl}}/data-prepper/monitoring/) <!--- Is this correct?---> 
