@@ -43,7 +43,7 @@ pipeline:
     - stdout:
 ```
 
-Create the following file named `logs_json.log` and replace the `path` in the file source in your `pipeline.yaml` file with the correct file path.
+Create the following file named `logs_json.log` and replace the `path` in the file source in your `pipeline.yaml` file with your file path.
 
 ```json
 {"message": "ab:cd:ab:cd"}
@@ -89,7 +89,7 @@ pipeline:
     - stdout:
 ```
 
-Create the following file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` with the correct file path:
+Create the following file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` with your file path:
 
 ```json
 {"message": "hello,world"}
@@ -233,7 +233,7 @@ When you run Data Prepper with this `pipeline.yaml`, you should see the followin
 
 ## Developer guide
 
-This plugin is compatible with Java 14. See the following::
+This plugin is compatible with Java 14. See the following:
 
 - [Contributing](https://github.com/opensearch-project/data-prepper/blob/main/CONTRIBUTING.md)
 - [Monitoring](https://github.com/opensearch-project/data-prepper/blob/main/docs/monitoring.md)
