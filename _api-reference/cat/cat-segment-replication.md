@@ -51,15 +51,16 @@ time | Time value | [Units]({{site.url}}{{site.baseurl}}/opensearch/units) used 
 
 ## Examples 
 
-#### Sample request
+#### Example request
 
 The following query requests segment replication metrics for shards with the ID `0` from indexes `index1` and `index2` with column headings:
 
 ```json
 GET /_cat/segment_replication/index1,index2?v=true&shards=0
 ```
+{% include copy-curl.html %}
 
-#### Sample response
+#### Example response
 
 The response contains the metrics for the preceding request. The column headings correspond to the metric names:
 
@@ -71,15 +72,16 @@ index1 0 19ms done runTask-1 127.0.0.1 runTask-2 3 100.0% 3661 100.0%
 
 If `detailed` is set to `true`, the response contains additional metrics about the files and stages of a segment replication event.
 
-#### Sample request
+#### Example request
 
 The following query requests detailed segment replication metrics for shards with the ID `0` from indexes `index1` and `index2` with column headings:
 
 ```json
 GET /_cat/segment_replication/index1,index2?v=true&shards=0&detailed=true
 ```
+{% include copy-curl.html %}
 
-#### Sample response
+#### Example response
 
 The response contains the detailed metrics for the preceding request:
 
