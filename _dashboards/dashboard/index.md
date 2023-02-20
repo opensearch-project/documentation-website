@@ -7,13 +7,7 @@ has_children: true
 
 # Creating dashboards
 
-A [dashboard in OpenSearch Dashboards](https://playground.opensearch.org/app/dashboards#/view/722b74f0-b882-11e8-a6d9-e546fe2bba5f?_g=(filters:!(),refreshInterval:(pause:!f,value:900000),time:(from:now-7d,to:now))&_a=(description:'Analyze%20mock%20eCommerce%20orders%20and%20revenue',filters:!(),fullScreenMode:!f,options:(hidePanelTitles:!f,useMargins:!t),query:(language:kuery,query:''),timeRestore:!t,title:'%5BeCommerce%5D%20Revenue%20Dashboard',viewMode:view)) lets you visually represent your analytical, operational, and strategic data to help users quickly understand the current situation, giving users a high-level view of key metrics, simplifying data exploration, and delivering insights to users when and where they need them.
-
-The **Dashboard** application in OpenSearch Dashboards gives you the ability to:
-
-- Create a collection of visualizations that can be filtered and customized.
-- Build interactive dashboards and share them with anyone in your organization.
-- Analyze, monitor, and alarm on metrics, logs, and traces across multiple data sources.
+The **Dashboard** application in OpenSearch Dashboards lets you [visually represent your analytical, operational, and strategic data](https://playground.opensearch.org/app/dashboards#/view/722b74f0-b882-11e8-a6d9-e546fe2bba5f?_g=(filters:!(),refreshInterval:(pause:!f,value:900000),time:(from:now-7d,to:now))&_a=(description:'Analyze%20mock%20eCommerce%20orders%20and%20revenue',filters:!(),fullScreenMode:!f,options:(hidePanelTitles:!f,useMargins:!t),query:(language:kuery,query:''),timeRestore:!t,title:'%5BeCommerce%5D%20Revenue%20Dashboard',viewMode:view)) to help users quickly understand the current situation, giving users a high-level view of key metrics, simplifying data exploration, and delivering insights to users when and where they need them. 
 
 The following tutorial assumes you're either using your existing installation of OpenSearch Dashboards or using the [OpenSearch playground](https://playground.opensearch.org/app/home#/). Depending on which one you use, certain capabilities aren't available. For example, sample datasets may not be in your existing installation and saving a dashboard isn't an option in the playground.
 {: .note}
