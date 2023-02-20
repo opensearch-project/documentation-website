@@ -83,7 +83,7 @@ The following task types are supported:
 - `restore-snapshot` 
 - `cluster-reroute-api`
 
-#### Sample request
+#### Example request
 
 The following request sets the throttling threshold for the `put-mapping` task type to 100:
 

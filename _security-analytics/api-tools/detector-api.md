@@ -60,7 +60,7 @@ Field | Type | Description
 `triggers.actions.throttle.unit` | String | Unit of time for throttling.
 `triggers.actions.throttle.value` | Integer | The value for the unit of time.
 
-### Sample request
+### Example request
 
 ```json
 POST _plugins/_security_analytics/detectors
@@ -135,7 +135,7 @@ POST _plugins/_security_analytics/detectors
 ```
 {% include copy-curl.html %}
 
-### Sample response
+### Example response
 
 ```json
 {
@@ -293,7 +293,7 @@ PUT /_plugins/_security_analytics/detectors/J1RX1IMByX0LvTiGTddR
 ```
 {% include copy-curl.html %}
 
-### Sample response
+### Example response
 
 ```json
 {
@@ -350,7 +350,7 @@ This API uses the detector ID to specify and delete a detector.
 DELETE /_plugins/_security_analytics/detectors/IJAXz4QBrmVplM4JYxx_
 ```
 
-### Sample request
+### Example request
 
 ```json
 DELETE /_plugins/_security_analytics/detectors/<detector Id>
@@ -377,14 +377,14 @@ The Get Detector API retrieves the detector details. Use the detector ID in the 
 GET /_plugins/_security_analytics/detectors/x-dwFIYBT6_n8WeuQjo4
 ```
 
-### Sample request
+### Example request
 
 ```json
 GET /_plugins/_security_analytics/detectors/<detector Id>
 ```
 {% include copy-curl.html %}
 
-### Sample response
+### Example response
 
 ```json
 {
@@ -435,7 +435,7 @@ Field | Type | Description
 `detector.name` | String | Name of the detector.
 `detector_type` | String | The log type for the detector. Options are `linux`, `network` ,`windows`, `ad_ldap`, `apache_access`, `cloudtrail`, `dns`, and `s3`.
 
-### Sample request
+### Example request
 
 **Detector ID**
 ```json
@@ -471,7 +471,7 @@ POST /_plugins/_security_analytics/detectors/_search
 ```
 {% include copy-curl.html %}
 
-### Sample response
+### Example response
 
 ```json
 {

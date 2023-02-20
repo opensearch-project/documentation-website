@@ -25,7 +25,7 @@ Introduced 1.0
 
 Creates a policy.
 
-#### Sample request
+#### Example request
 
 ```json
 PUT _plugins/_ism/policies/policy_1
@@ -76,7 +76,7 @@ PUT _plugins/_ism/policies/policy_1
 ```
 
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -144,7 +144,7 @@ Introduced 1.0
 
 Adds a policy to an index. This operation does not change the policy if the index already has one.
 
-#### Sample request
+#### Example request
 
 ```json
 POST _plugins/_ism/add/index_1
@@ -153,7 +153,7 @@ POST _plugins/_ism/add/index_1
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -178,7 +178,7 @@ Updates a policy. Use the `seq_no` and `primary_term` parameters to update an ex
 
 It's possible that the policy currently applied to your index isn't the most up-to-date policy available. To see what policy is currently applied to your index, see [Explain index]({{site.url}}{{site.baseurl}}/im-plugin/ism/api/#explain-index). To get the most up-to-date version of a policy, see [Get policy]({{site.url}}{{site.baseurl}}/im-plugin/ism/api/#get-policy).
 
-#### Sample request
+#### Example request
 
 ```json
 PUT _plugins/_ism/policies/policy_1?if_seq_no=7&if_primary_term=1
@@ -229,7 +229,7 @@ PUT _plugins/_ism/policies/policy_1?if_seq_no=7&if_primary_term=1
 ```
 
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -297,14 +297,14 @@ Introduced 1.0
 
 Gets the policy by `policy_id`.
 
-#### Sample request
+#### Example request
 
 ```json
 GET _plugins/_ism/policies/policy_1
 ```
 
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -369,14 +369,14 @@ Introduced 1.0
 
 Removes any ISM policy from the index.
 
-#### Sample request
+#### Example request
 
 ```json
 POST _plugins/_ism/remove/index_1
 ```
 
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -398,7 +398,7 @@ A policy change is an asynchronous background process. The changes are queued an
 
 In this example, the policy applied on the `index_1` index is changed to `policy_1`, which could either be a completely new policy or an updated version of its existing policy. The process only applies the change if the index is currently in the `searches` state. After this change in policy takes place, `index_1` transitions to the `delete` state.
 
-#### Sample request
+#### Example request
 
 ```json
 POST _plugins/_ism/change_policy/index_1
@@ -414,7 +414,7 @@ POST _plugins/_ism/change_policy/index_1
 ```
 
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -432,7 +432,7 @@ Introduced 1.0
 
 Retries the failed action for an index. For the retry call to succeed, ISM must manage the index, and the index must be in a failed state. You can use index patterns (`*`) to retry multiple failed indexes.
 
-#### Sample request
+#### Example request
 
 ```json
 POST _plugins/_ism/retry/index_1
@@ -442,7 +442,7 @@ POST _plugins/_ism/retry/index_1
 ```
 
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -460,14 +460,14 @@ Introduced 1.0
 
 Gets the current state of the index. You can use index patterns to get the status of multiple indexes.
 
-#### Sample request
+#### Example request
 
 ```json
 GET _plugins/_ism/explain/index_1
 ```
 
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -479,13 +479,13 @@ GET _plugins/_ism/explain/index_1
 
 Optionally, you can add the `show_policy` parameter to your request's path to get the policy that is currently applied to your index, which is useful for seeing whether the policy applied to your index is the latest one. To get the most up-to-date policy, see [Get Policy API]({{site.url}}{{site.baseurl}}/im-plugin/ism/api/#get-policy).
 
-#### Sample request
+#### Example request
 
 ```json
 GET _plugins/_ism/explain/index_1?show_policy=true
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -521,14 +521,14 @@ Introduced 1.0
 
 Deletes the policy by `policy_id`.
 
-#### Sample request
+#### Example request
 
 ```json
 DELETE _plugins/_ism/policies/policy_1
 ```
 
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -564,7 +564,7 @@ PUT _cluster/settings
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -588,7 +588,7 @@ To check an error prevention validation status and message, pass `validate_actio
 GET _plugins/_ism/explain/test-000001?validate_action=true
 ```
 
-#### Sample response
+#### Example response
 
 The response contains an additional validate object with a validation message and status:
 
@@ -650,7 +650,7 @@ Or:
 GET _plugins/_ism/explain/test-000001
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {

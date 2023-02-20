@@ -101,7 +101,7 @@ Introduced 2.4
 
 You can use the [nodes stats API operation]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/text-analyzers/#how-to-use-text-analyzers) to monitor server-side request cancellations.
 
-#### Sample request
+#### Example request
 
 To retrieve the statistics, use the following request:
 
@@ -109,7 +109,7 @@ To retrieve the statistics, use the following request:
 GET _nodes/stats/search_backpressure
 ```
 
-#### Sample response
+#### Example response
 
 The response contains server-side request cancellation statistics:
 
