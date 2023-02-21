@@ -1,11 +1,13 @@
 ---
 layout: default
-title: Force merge management
-parent: Index and snapshot management in OpenSearch Dashboards
+title: Force merge
+parent: Index management in Dashboards
 nav_order: 30
+redirect_from:
+  - /dashboards/admin-ui-index/forcemerge/
 ---
 
-# Force merge management
+# Force merge
 Introduced 2.6
 {: .label .label-purple }
 
