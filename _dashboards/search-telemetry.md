@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Search telemetry
-nav_order: 30
+title: Managing search telemetry settings
+nav_order: 100
 ---
 
 
-# About search telemetry
+# Managing search telemetry settings
 
 You can use search telemetry to analyze search request performance by success or failure in OpenSearch Dashboards. OpenSearch stores telemetry data in the `.kibana_1` index.
 
@@ -14,7 +14,7 @@ Because there are thousands of concurrent search requests from OpenSearch Dashbo
 OpenSearch clusters perform better with search telemetry turned off.
 {: .tip }
 
-## Turn on search telemetry
+## Turning on search telemetry
 
 Search usage telemetry is turned off by default. To turn it on, you need to set `data.search.usageTelemetry.enabled` to `true` in the `opensearch_dashboards.yml` file.
 
@@ -23,7 +23,7 @@ You can find the [OpenSearch Dashboards YAML file](https://github.com/opensearch
 Turning on telemetry in the `opensearch_dashboards.yml` file overrides the default search telemetry setting of `false` in the [Data plugin configuration file](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/src/plugins/data/config.ts).
 {: .note }
 
-### Turn search telemetry on or off
+### Turning search telemetry on or off
 
 The following table shows the `data.search.usageTelemetry.enabled` values you can set in `opensearch_dashboards.yml` to turn search telemetry on or off.
 

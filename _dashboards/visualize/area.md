@@ -1,8 +1,7 @@
 ---
 layout: default
 title: Using area charts
-parent: Visualization types
-grand_parent: Visualize
+parent: Building data visualizations
 nav_order: 5
 ---
 
@@ -12,7 +11,7 @@ An area chart is a line chart with the area between the line and the axis shaded
 
 ![Demonstration of the area chart tutorial steps]({{site.url}}{{site.baseurl}}/images/area-tutorial.gif)
 
-# Try it: Create a simple aggregation-based area chart
+## Creating a simple aggregation-based area chart
 
 In this tutorial you'll create a simple area chart using sample data and aggregations in OpenSearch Dashboards by connecting to [http://localhost:5601](http://localhost:5601) from a browser.
 
@@ -21,7 +20,7 @@ You have several aggregation options in Dashboards, and the choice influences yo
 Make sure you have [installed the latest version of Dashboards](https://opensearch.org/docs/latest/install-and-configure/install-dashboards/index/) and added the sample data before continuing with this tutorial. _This tutorial uses Dashboards version 2.4.1_.
 {: .note}
 
-## Set up the area chart
+### Setting up the area chart
 
 1. Access Dashboards by connecting to [http://localhost:5601](http://localhost:5601) from a browser.
 1. Select **Visualize** from the menu and then select **Create visualization**.
@@ -30,7 +29,7 @@ Make sure you have [installed the latest version of Dashboards](https://opensear
 1. Select the calendar icon and set the time filter to **Last 7 days**.
 1. Select **Update**.
 
-## Add aggregations to the area chart
+### Adding aggregations to the area chart
 
 Continuing with the area chart created in the preceding steps, you'll create a visualization that displays the top five logs for flights delayed for every three hours over the last seven days:
 
@@ -53,7 +52,7 @@ You've now created the following aggregation-based area chart.
 
 ![Resulting aggregation-based area chart]({{site.url}}{{site.baseurl}}/images/area-aggregation-tutorial.png)
 
-# Related links
+## Related links
 
 - [Visualize]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/)
 - [Visualization types in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-types/)
