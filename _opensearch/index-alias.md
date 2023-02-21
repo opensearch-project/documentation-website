@@ -114,7 +114,7 @@ To list the mapping of aliases to indexes, run the following command:
 GET _cat/aliases?v
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 alias     index   filter    routing.index   routing.search
@@ -127,7 +127,7 @@ To check which indexes an alias points to, run the following command:
 GET _alias/alias1
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {

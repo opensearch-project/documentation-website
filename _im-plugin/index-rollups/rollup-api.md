@@ -122,7 +122,7 @@ Options | Description | Type | Required
 `dimensions.metrics.field.metrics` | Specify the metric aggregations you want to calculate for the field. | Multiple strings | No
 
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -147,7 +147,7 @@ GET _plugins/_rollup/jobs/<rollup_id>
 ```
 
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -173,7 +173,7 @@ Deletes an index rollup job based on the `rollup_id`.
 DELETE _plugins/_rollup/jobs/<rollup_id>
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 200 OK
@@ -196,7 +196,7 @@ POST _plugins/_rollup/jobs/<rollup_id>/_stop
 ```
 
 
-#### Sample response
+#### Example response
 
 ```json
 200 OK
@@ -218,7 +218,7 @@ GET _plugins/_rollup/jobs/<rollup_id>/_explain
 ```
 
 
-#### Sample response
+#### Example response
 
 ```json
 {

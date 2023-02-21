@@ -26,14 +26,14 @@ Note the use of port 9600. Provide parameters for metrics, aggregations, dimensi
 For a full list of metrics, see [Metrics reference]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/reference/). Performance Analyzer updates its data every five seconds. If you create a custom client, we recommend using that same interval for calls to the API.
 
 
-#### Sample request
+#### Example request
 
 ```
 GET localhost:9600/_plugins/_performanceanalyzer/metrics?metrics=Latency,CPU_Utilization&agg=avg,max&dim=ShardID&nodes=all
 ```
 
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -105,14 +105,14 @@ In this case, each top-level object represents a node. The API returns names and
 Performance Analyzer has one additional URI that returns the unit for each metric.
 
 
-#### Sample request
+#### Example request
 
 ```
 GET localhost:9600/_plugins/_performanceanalyzer/metrics/units
 ```
 
 
-#### Sample response
+#### Example response
 
 ```json
 {
