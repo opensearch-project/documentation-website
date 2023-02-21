@@ -2,7 +2,8 @@
 layout: default
 title: Full-text queries
 parent: Query DSL
-nav_order: 40
+has_children: true
+nav_order: 30
 ---
 
 # Full-text queries
