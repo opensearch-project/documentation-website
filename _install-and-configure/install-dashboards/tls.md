@@ -27,7 +27,7 @@ opensearch.hosts: ["https://localhost:9200"]
 opensearch.ssl.verificationMode: full
 opensearch.username: "kibanaserver"
 opensearch.password: "kibanaserver"
-opensearch.requestHeadersAllowlist: [ authorization,securitytenant ]
+opensearch.requestHeadersWhitelist: [ authorization,securitytenant ]
 server.ssl.enabled: true
 server.ssl.certificate: /usr/share/opensearch-dashboards/config/client-cert.pem
 server.ssl.key: /usr/share/opensearch-dashboards/config/client-cert-key.pem
