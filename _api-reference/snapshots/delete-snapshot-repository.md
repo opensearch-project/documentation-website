@@ -19,7 +19,7 @@ Parameter | Data type | Description
 :--- | :--- | :---
 repository | String | Repository to delete. |
 
-#### Sample request
+#### Example request
 
 The following request deletes the `my-opensearch-repo` repository:
 
@@ -28,7 +28,7 @@ DELETE _snapshot/my-opensearch-repo
 ````
 {% include copy-curl.html %}
 
-#### Sample response
+#### Example response
 
 Upon success, the response returns the following JSON object:
 
