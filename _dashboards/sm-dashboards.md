@@ -6,7 +6,7 @@ redirect_from:
   - /dashboards/admin-ui-index/sm-dashboards/
 ---
 
-# Snapshot management in Dashboards
+# Snapshot management
 
 You can set up Snapshot Management (SM) in OpenSearch Dashboards.
 
