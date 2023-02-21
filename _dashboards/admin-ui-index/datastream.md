@@ -9,7 +9,7 @@ nav_order: 20
 Introduced 2.6
 {: .label .label-purple }
 
-In OpenSearch Dashboards, the **Index Management** application allows you to view and manage [data streams]({{site.url}}{{site.baseurl}}/opensearch/data-streams/).
+In OpenSearch Dashboards, the **Index Management** application allows you to view and manage [data streams]({{site.url}}{{site.baseurl}}/opensearch/data-streams/) as shown in the following image.
 
 ![Data Streams]({{site.url}}{{site.baseurl}}/images/admin-ui-index/datastreams1.png)
 
@@ -75,7 +75,7 @@ To perform a rollover operation on a data stream, perform the following steps:
 
 ## Force merging data streams
 
-To perform a force merge operation on indexes, perform the following steps:
+To perform a force merge operation on two or more indexes, perform the following steps:
 
 1. Under **Index Management**, choose **Data streams**.
 
@@ -85,6 +85,6 @@ To perform a force merge operation on indexes, perform the following steps:
 
 1. Under **Configure source index**, specify the data streams you want to force merge.
 
-1. Optionally, under **Advanced settings** you can to choose to **Flush indices** or **Only expunge delete** and then specify the **Max number of segments** to merge to.
+1. Optionally, under **Advanced settings** you can to choose to **Flush indices** or **Only expunge delete** and then specify the **Max number of segments** to merge to as shown in the following image.
 
     ![Force Merge]({{site.url}}{{site.baseurl}}/images/admin-ui-index/forcemerge2.png)
