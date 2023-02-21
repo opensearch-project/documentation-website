@@ -15,15 +15,15 @@ In OpenSearch Dashboards, the **Index Management** application allows you to vie
 
 ## Viewing a data stream
 
-To view a data stream and its health status, choose **Data Streams** under **Index management**.
+To view a data stream and its health status, choose **Data streams** under **Index management** as shown in the following image.
+
+![Data Streams]({{site.url}}{{site.baseurl}}/images/admin-ui-index/datastreams5.png)
 
 The following are the three data stream health statuses:
 
 - Green: All primary and replica shards are assigned.
 - Yellow: At least one replica shard is not assigned.
 - Red: At least one primary shard is not assigned.
-
-![Data Streams]({{site.url}}{{site.baseurl}}/images/admin-ui-index/datastreams5.png)
 
 ## Creating a data stream
 

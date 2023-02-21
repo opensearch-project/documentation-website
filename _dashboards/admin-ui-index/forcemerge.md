@@ -17,7 +17,7 @@ To perform a force merge operation on two or more indexes, perform the following
 
 1. Under **Index Management**, choose **Indices**.
 
-1. Select the index on which you want to perform a force merge operation.
+1. Select the indexes you want to force merge.
 
 1. Choose **Actions**, and then choose **Force merge**, as shown in the following image.
 
