@@ -64,7 +64,7 @@ You can use a [term query](#term-query) or a [range query](#range-query) to sear
 
 A term query takes a value and matches all range fields for which the value is within the range.
 
-The following query will return document 1 because 3.5 is within the range [1.0, 4.0].
+The following query will return document 1 because 3.5 is within the range [1.0, 4.0]:
 
 ```json
 GET testindex/_search
