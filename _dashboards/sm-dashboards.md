@@ -1,10 +1,7 @@
 ---
 layout: default
 title: Snapshot management in Dashboards
-parent: Snapshots
-nav_order: 50
-has_children: false
-grand_parent: Availability and Recovery
+nav_order: 90
 redirect_from:
   - /dashboards/admin-ui-index/sm-dashboards/
 ---
