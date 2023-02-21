@@ -2,231 +2,33 @@
 layout: default
 title: Term-level queries
 parent: Query DSL
-nav_order: 30
+nav_order: 20
 ---
 
 # Term-level queries
 
-OpenSearch supports two types of queries when you search for data: term-level queries and full-text queries.
+Term-level queries search an index for documents that contain an exact search term. Documents returned by a term-level query are not sorted by their relevance scores.
 
-The following table describes the differences between them:
+When working with text data, use term-level queries for fields mapped as `keyword` only.
 
-| | Term-level queries | Full-text queries
+Term-level queries are not suited for searching analyzed text fields. To return analyzed fields, use a [full-text query]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text).
+
+## Term-level query types
+
+The following table lists all term-level query types.
+
+| Query type | Description
 :--- | :--- | :---
-*Description* | Term-level queries answer which documents match a query. | Full-text queries answer how well the documents match a query.
-*Analyzer* | The search term isn't analyzed. This means that the term query searches for your search term as it is.  | The search term is analyzed by the same analyzer that was used for the specific field of the document at the time it was indexed. This means that your search term goes through the same analysis process that the document's field did.
-*Relevance* | Term-level queries simply return documents that match without sorting them based on the relevance score. They still calculate the relevance score, but this score is the same for all the documents that are returned. | Full-text queries calculate a relevance score for each match and sort the results by decreasing order of relevance.
-*Use Case* | Use term-level queries when you want to match exact values such as numbers, dates, tags, and so on, and don't need the matches to be sorted by relevance. | Use full-text queries to match text fields and sort by relevance after taking into account factors like casing and stemming variants.
-
-OpenSearch uses a probabilistic ranking framework called Okapi BM25 to calculate relevance scores. To learn more about Okapi BM25, see [Wikipedia](https://en.wikipedia.org/wiki/Okapi_BM25).
-{: .note }
-
-Assume that you have the complete works of Shakespeare indexed in an OpenSearch cluster. We use a term-level query to search for the phrase "To be, or not to be" in the `text_entry` field:
-
-```json
-GET shakespeare/_search
-{
-  "query": {
-    "term": {
-      "text_entry": "To be, or not to be"
-    }
-  }
-}
-```
-
-#### Sample response
-
-```json
-{
-  "took" : 3,
-  "timed_out" : false,
-  "_shards" : {
-    "total" : 1,
-    "successful" : 1,
-    "skipped" : 0,
-    "failed" : 0
-  },
-  "hits" : {
-    "total" : {
-      "value" : 0,
-      "relation" : "eq"
-    },
-    "max_score" : null,
-    "hits" : [ ]
-  }
-}
-```
-
-We don’t get back any matches (`hits`). This is because the term “To be, or not to be” is searched literally in the inverted index, where only the analyzed values of the text fields are stored. Term-level queries aren't suited for searching on analyzed text fields because they often yield unexpected results. When working with text data, use term-level queries only for fields mapped as keyword only.
-
-Using a full-text query:
-
-```json
-GET shakespeare/_search
-{
-  "query": {
-    "match": {
-      "text_entry": "To be, or not to be"
-    }
-  }
-}
-```
-
-The search query “To be, or not to be” is analyzed and tokenized into an array of tokens just like the `text_entry` field of the documents. The full-text query performs an intersection of tokens between our search query and the `text_entry` fields for all the documents, and then sorts the results by relevance scores:
-
-#### Sample response
-
-```json
-{
-  "took" : 19,
-  "timed_out" : false,
-  "_shards" : {
-    "total" : 1,
-    "successful" : 1,
-    "skipped" : 0,
-    "failed" : 0
-  },
-  "hits" : {
-    "total" : {
-      "value" : 10000,
-      "relation" : "gte"
-    },
-    "max_score" : 17.419369,
-    "hits" : [
-      {
-        "_index" : "shakespeare",
-        "_id" : "34229",
-        "_score" : 17.419369,
-        "_source" : {
-          "type" : "line",
-          "line_id" : 34230,
-          "play_name" : "Hamlet",
-          "speech_number" : 19,
-          "line_number" : "3.1.64",
-          "speaker" : "HAMLET",
-          "text_entry" : "To be, or not to be: that is the question:"
-        }
-      },
-      {
-        "_index" : "shakespeare",
-        "_id" : "109930",
-        "_score" : 14.883024,
-        "_source" : {
-          "type" : "line",
-          "line_id" : 109931,
-          "play_name" : "A Winters Tale",
-          "speech_number" : 23,
-          "line_number" : "4.4.153",
-          "speaker" : "PERDITA",
-          "text_entry" : "Not like a corse; or if, not to be buried,"
-        }
-      },
-      {
-        "_index" : "shakespeare",
-        "_id" : "103117",
-        "_score" : 14.782743,
-        "_source" : {
-          "type" : "line",
-          "line_id" : 103118,
-          "play_name" : "Twelfth Night",
-          "speech_number" : 53,
-          "line_number" : "1.3.95",
-          "speaker" : "SIR ANDREW",
-          "text_entry" : "will not be seen; or if she be, its four to one"
-        }
-      }
-    ]
-  }
-}
-...
-```
-
-For a list of all full-text queries, see [Full-text queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/).
-
-If you want to query for an exact term like “HAMLET” in the speaker field and don't need the results to be sorted by relevance scores, a term-level query is more efficient:
-
-```json
-GET shakespeare/_search
-{
-  "query": {
-    "term": {
-      "speaker": "HAMLET"
-    }
-  }
-}
-```
-
-#### Sample response
-
-```json
-{
-  "took" : 5,
-  "timed_out" : false,
-  "_shards" : {
-    "total" : 1,
-    "successful" : 1,
-    "skipped" : 0,
-    "failed" : 0
-  },
-  "hits" : {
-    "total" : {
-      "value" : 1582,
-      "relation" : "eq"
-    },
-    "max_score" : 4.2540946,
-    "hits" : [
-      {
-        "_index" : "shakespeare",
-        "_id" : "32700",
-        "_score" : 4.2540946,
-        "_source" : {
-          "type" : "line",
-          "line_id" : 32701,
-          "play_name" : "Hamlet",
-          "speech_number" : 9,
-          "line_number" : "1.2.66",
-          "speaker" : "HAMLET",
-          "text_entry" : "[Aside]  A little more than kin, and less than kind."
-        }
-      },
-      {
-        "_index" : "shakespeare",
-        "_id" : "32702",
-        "_score" : 4.2540946,
-        "_source" : {
-          "type" : "line",
-          "line_id" : 32703,
-          "play_name" : "Hamlet",
-          "speech_number" : 11,
-          "line_number" : "1.2.68",
-          "speaker" : "HAMLET",
-          "text_entry" : "Not so, my lord; I am too much i' the sun."
-        }
-      },
-      {
-        "_index" : "shakespeare",
-        "_id" : "32709",
-        "_score" : 4.2540946,
-        "_source" : {
-          "type" : "line",
-          "line_id" : 32710,
-          "play_name" : "Hamlet",
-          "speech_number" : 13,
-          "line_number" : "1.2.75",
-          "speaker" : "HAMLET",
-          "text_entry" : "Ay, madam, it is common."
-        }
-      }
-    ]
-  }
-}
-...
-```
-
-The term-level queries are exact matches. So, if you search for “Hamlet”, you don’t get back any matches, because “HAMLET” is a keyword field and is stored in OpenSearch literally and not in an analyzed form.
-The search query “HAMLET” is also searched literally. So, to get a match on this field, we need to enter the exact same characters.
-
----
+[`term`](#term) | Searches for documents with an exact term in a specific field.
+[`terms`](#terms) | Searches for documents with one or more terms in a specific field.
+[`terms_set`](#terms-set) | Searches for documents that match a minimum number of terms in a specific field.
+[`ids`](#ids) | Searches for documents by document ID.
+[`range`](#range) | Searches for documents with field values in a specific range.
+[`prefix`](#prefix) | Searches for documents with terms that begin with a specific prefix.
+[`exists`](#exists) | Searches for documents with any indexed value in a specific field.
+[`fuzzy`](#fuzzy) | Searches for documents with terms that are similar to the search term within the maximum allowed [Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance). The Levenshtein distance measures the number of one-character changes needed to change one term to another term.
+[`wildcard`](#wildcard) | Searches for documents with terms that match a wildcard pattern. 
+[`regexp`](#regexp) | Searches for documents with terms that match a regular expression.
 
 ## Term
 
@@ -244,6 +46,7 @@ GET shakespeare/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 ## Terms
 
@@ -262,8 +65,145 @@ GET shakespeare/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 You get back documents that match any of the terms.
+
+## Terms set
+
+With a terms set query, you can search for documents that match a minimum number of exact terms in a specified field. The `terms_set` query is similar to the `terms` query, but you can specify the minimum number of matching terms that are required to return a document. You can specify this number either in a field in the index or with a script.
+
+As an example, consider an index that contains students with classes they have taken. When setting up the mapping for this index, you need to provide a [numeric]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/numeric) field that specifies the minimum number of matching terms that are required to return a document:
+
+```json
+PUT students
+{
+  "mappings": {
+    "properties": {
+      "name": {
+        "type": "keyword"
+      },
+      "classes": {
+        "type": "keyword"
+      },
+      "min_required": {
+        "type": "integer"
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+Next, index two documents that correspond to students:
+
+```json
+PUT students/_doc/1
+{
+  "name": "Mary Major",
+  "classes": [ "CS101", "CS102", "MATH101" ],
+  "min_required": 2
+}
+```
+{% include copy-curl.html %}
+
+```json
+PUT students/_doc/2
+{
+  "name": "John Doe",
+  "classes": [ "CS101", "MATH101", "ENG101" ],
+  "min_required": 2
+}
+```
+{% include copy-curl.html %}
+
+Now search for students who have taken at least two of the following classes: `CS101`, `CS102`, `MATH101`:
+
+```json
+GET students/_search
+{
+  "query": {
+    "terms_set": {
+      "classes": {
+        "terms": [ "CS101", "CS102", "MATH101" ],
+        "minimum_should_match_field": "min_required"
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The response contains both students:
+
+```json
+{
+  "took" : 44,
+  "timed_out" : false,
+  "_shards" : {
+    "total" : 1,
+    "successful" : 1,
+    "skipped" : 0,
+    "failed" : 0
+  },
+  "hits" : {
+    "total" : {
+      "value" : 2,
+      "relation" : "eq"
+    },
+    "max_score" : 1.4544616,
+    "hits" : [
+      {
+        "_index" : "students",
+        "_id" : "1",
+        "_score" : 1.4544616,
+        "_source" : {
+          "name" : "Mary Major",
+          "classes" : [
+            "CS101",
+            "CS102",
+            "MATH101"
+          ],
+          "min_required" : 2
+        }
+      },
+      {
+        "_index" : "students",
+        "_id" : "2",
+        "_score" : 0.5013843,
+        "_source" : {
+          "name" : "John Doe",
+          "classes" : [
+            "CS101",
+            "MATH101",
+            "ENG101"
+          ],
+          "min_required" : 2
+        }
+      }
+    ]
+  }
+}
+```
+
+To specify the minimum number of terms a document should match with a script, provide the script in the `minimum_should_match_script` field:
+
+```json
+GET students/_search
+{
+  "query": {
+    "terms_set": {
+      "classes": {
+        "terms": [ "CS101", "CS102", "MATH101" ],
+        "minimum_should_match_script": {
+          "source": "Math.min(params.num_terms, doc['min_required'].value)"
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
 
 ## IDs
 
@@ -282,6 +222,7 @@ GET shakespeare/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 ## Range
 
@@ -302,6 +243,7 @@ GET shakespeare/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 Parameter | Behavior
 :--- | :---
@@ -325,6 +267,7 @@ GET products/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 Specify relative dates by using [date math]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/date/#date-math).
 
@@ -342,6 +285,7 @@ GET products/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 The first date that we specify is the anchor date or the starting point for the date math. Add two trailing pipe symbols. You could then add one day (`+1d`) or subtract two weeks (`-2w`). This math expression is relative to the anchor date that you specify.
 
@@ -361,6 +305,7 @@ GET products/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 The keyword `now` refers to the current date and time.
 
@@ -378,6 +323,7 @@ GET shakespeare/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 ## Exists
 
@@ -393,8 +339,59 @@ GET shakespeare/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
-## Wildcards
+## Fuzzy
+
+A fuzzy query searches for documents with terms that are similar to the search term within the maximum allowed [Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance). The Levenshtein distance measures the number of one-character changes needed to change one term to another term. These changes include:
+
+- Replacements: **c**at to **b**at
+- Insertions: cat to cat**s**
+- Deletions: **c**at to at
+- Transpositions: **ca**t to **ac**t
+
+A fuzzy query creates a list of all possible expansions of the search term that fall within the Levenshtein distance. You can specify the maximum number of such expansions in the `max_expansions` field. Then is searches for documents that match any of the expansions.
+
+The following example query searches for the speaker `HALET` (misspelled `HAMLET`). The maximum edit distance is not specified, so the default `AUTO` edit distance is used:
+
+```json
+GET shakespeare/_search
+{
+  "query": {
+    "fuzzy": {
+      "speaker": {
+        "value": "HALET"
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+The response contains all documents where `HAMLET` is the speaker.
+
+The following example query searches for the word `cat` with advanced parameters:
+
+```json
+GET shakespeare/_search
+{
+  "query": {
+    "fuzzy": {
+      "speaker": {
+        "value": "HALET",
+        "fuzziness": "2",
+        "max_expansions": 40,
+        "prefix_length": 0,
+        "transpositions": true,
+        "rewrite": "constant_score"
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+## Wildcard
 
 Use wildcard queries to search for terms that match a wildcard pattern.
 
@@ -417,12 +414,13 @@ GET shakespeare/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 If we change `*` to `?`, we get no matches, because `?` refers to a single character.
 
 Wildcard queries tend to be slow because they need to iterate over a lot of terms. Avoid placing wildcard characters at the beginning of a query because it could be a very expensive operation in terms of both resources and time.
 
-## Regex
+## Regexp
 
 Use the `regexp` query to search for terms that match a regular expression.
 
@@ -438,6 +436,7 @@ GET shakespeare/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 A few important notes:
 
