@@ -178,6 +178,14 @@ These permissions are for the cluster and can't be applied granularly. For examp
 - cluster:monitor/task/get
 - cluster:monitor/tasks/list
 
+The following permissions are for indexes but apply globally to the cluster:
+
+- indices:admin/index_template/delete
+- indices:admin/index_template/get
+- indices:admin/index_template/put
+- indices:admin/index_template/simulate
+- indices:admin/index_template/simulate_index
+
 
 ## Index permissions
 
@@ -200,11 +208,6 @@ These permissions apply to an index or index pattern. You might want a user to h
 - indices:admin/flush*
 - indices:admin/forcemerge
 - indices:admin/get (retrieve index and mapping)
-- indices:admin/index_template/delete
-- indices:admin/index_template/get
-- indices:admin/index_template/put
-- indices:admin/index_template/simulate
-- indices:admin/index_template/simulate_index
 - indices:admin/mapping/put
 - indices:admin/mappings/fields/get
 - indices:admin/mappings/fields/get*
