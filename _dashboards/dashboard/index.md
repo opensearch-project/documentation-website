@@ -7,14 +7,13 @@ has_children: true
 
 # Creating dashboards
 
-The **Dashboard** application in OpenSearch Dashboards lets you visually represent your analytical, operational, and strategic data to help users quickly understand the current situation, giving users a high-level view of key metrics, simplifying data exploration, and delivering insights to users when and where they need them. 
+The **Dashboard** application in OpenSearch Dashboards lets you visually represent your analytical, operational, and strategic data to help users quickly understand the current situation, giving users a high-level view of key metrics, simplifying data exploration, and delivering insights to users when and where they need them.
 
 In this tutorial you'll learn the basics of creating a dashboard using the **Dashboard** application and OpenSearch sample data. The sample dataset has existing sample visualizations, and you can use those visualizations or create new visualizations for the dashboard. For this tutorial, you'll do both. Once you've completed this tutorial, you'll have learned the foundations of creating a new dashboard with multiple panels in OpenSearch Dashboards. 
 
-The following tutorial assumes you're either using your existing installation of OpenSearch Dashboards or using the [OpenSearch playground](https://playground.opensearch.org/app/home#/). Depending on which one you use, certain capabilities aren't available. For example, sample datasets may not be in your existing installation and saving a dashboard isn't an option in the playground.
-
 This dashboard example (https://playground.opensearch.org/app/dashboards#/view/722b74f0-b882-11e8-a6d9-e546fe2bba5f?_g=(filters:!(),refreshInterval:(pause:!f,value:900000),time:(from:now-7d,to:now))&_a=(description:'Analyze%20mock%20eCommerce%20orders%20and%20revenue',filters:!(),fullScreenMode:!f,options:(hidePanelTitles:!f,useMargins:!t),query:(language:kuery,query:''),timeRestore:!t,title:'%5BeCommerce%5D%20Revenue%20Dashboard',viewMode:view) shows you what's possible with OpenSearch Dashboards.
 {: .note}
+
 ## Getting familiar with user interface
 
 Before getting started, let's get familiar with the **Dashboard** user interface. The user interface comprises the following main parts:
@@ -28,7 +27,16 @@ Before getting started, let's get familiar with the **Dashboard** user interface
 - The **time filter** (E) lets you customize the time and date.
 - The **panel** (F) allows you to add existing visualizations to the dashboard or create new ones for the dashboard.
 
-_Panel_ is a term used to refer to a visualization displayed on a dashboard. The terms _panel_ and _visualization_ may be used interchangeably throughout this and other Dashboard-related documentation.
+## Definitions
+
+Learn some useful terminology for working with OpenSearch Dashboards and the **Dashboard** application.
+
+- _Dashboards_ is the abbreviated proper name for OpenSearch Dashboards. OpenSearch Dashboards is an open-source visualization tool designed to work with OpenSearch.
+- _Dashboard_ is the application in OpenSearch Dashboards that is used to track, analyze, and display data at a glance.
+- _dashboard_ or _dashboards_ refer to common names for a tool used to visually display data.
+- _Panel_ is a term used to refer to a visualization displayed on a dashboard. The terms _panel_ and _visualization_ may be used interchangeably throughout this and other Dashboard-related documentation.
+
+The following tutorial assumes you're either using your existing installation of OpenSearch Dashboards or using the [OpenSearch playground](https://playground.opensearch.org/app/home#/). Depending on which one you use, certain capabilities aren't available. For example, sample datasets may not be in your existing installation and saving a dashboard isn't an option in the playground.
 {: .note}
 
 ## Creating a dashboard and adding an existing visualization
