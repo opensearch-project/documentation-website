@@ -1,10 +1,10 @@
 ---
 layout: default
-title: Custom branding
-nav_order: 200
+title: Customizing your branding
+nav_order: 15
 ---
 
-# OpenSearch Dashboards custom branding
+# Customizing your branding
 Introduced 1.2
 {: .label .label-purple }
 
