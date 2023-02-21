@@ -162,13 +162,13 @@ Request fields | Description
    s3.client.default.identity_token_file: /usr/share/opensearch/plugins/repository-s3/token
    ```
 
-   If copying is not an option, you could alternatively create a symlink to the web identity token file  inside `${OPENSEARCH_PATH_CONFIG}` folder:
+   If copying is not an option, you can create a symlink to the web identity token file in the `${OPENSEARCH_PATH_CONFIG}` folder:
 
    ```
    ln -s $AWS_WEB_IDENTITY_TOKEN_FILE "${OPENSEARCH_PATH_CONFIG}/aws-web-identity-token-file"
    ```
 
-   And reference it by `repository-s3` plugin using the relative path (that is going to be resolved against `${OPENSEARCH_PATH_CONFIG}`):
+   You can reference the web identity token file in the following `opensearch.yml` setting by specifying the relative path that is resolved against `${OPENSEARCH_PATH_CONFIG}`:
 
    ```yaml
    s3.client.default.identity_token_file: aws-web-identity-token-file
