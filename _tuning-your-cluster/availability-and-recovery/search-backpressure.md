@@ -20,7 +20,7 @@ To decide whether to apply search backpressure, OpenSearch periodically measures
 - Heap usage
 - Elapsed time 
 
-An observer thread periodically measures the resource usage of the node. If OpenSearch determines that the node is under duress, OpenSearch examines the resource usage of each search shard task and compares it against configurable thresholds. OpenSearch considers CPU usage, heap usage, and elapsed time and assigns each task a cancellation score that is then used to cancel the most resource-intensive tasks.
+An observer thread periodically measures the resource usage of the node. If OpenSearch determines that the node is under duress, OpenSearch examines the resource usage of each search task and search shard task and compares it against configurable thresholds. OpenSearch considers CPU usage, heap usage, and elapsed time and assigns each task a cancellation score that is then used to cancel the most resource-intensive tasks.
 
 OpenSearch limits the number of cancellations to a fraction of successful task completions. Additionally, it limits the number of cancellations per unit time. OpenSearch continues to monitor and cancel tasks until the node is no longer under duress.
 
@@ -81,7 +81,6 @@ Search backpressure adds several settings to the standard OpenSearch cluster set
 Setting | Default | Description
 :--- | :--- | :---
 search_backpressure.mode | `monitor_only` | The search backpressure [mode](#search-backpressure-modes). Valid values are `monitor_only`, `enforced`, or `disabled`.
-search_backpressure.interval_millis | 1,000 | The interval at which the observer thread measures the resource usage and cancels tasks, in milliseconds.
 search_backpressure.cancellation_ratio<br> *Deprecated in 2.6. Replaced by search_backpressure.search_shard_task.cancellation_ratio* | 10% | The maximum number of tasks to cancel, as a percentage of successful task completions.
 search_backpressure.cancellation_rate<br> *Deprecated in 2.6. Replaced by search_backpressure.search_shard_task.cancellation_rate* | 0.003 | The maximum number of tasks to cancel per millisecond of elapsed time.
 search_backpressure.cancellation_burst<br> *Deprecated in 2.6. Replaced by search_backpressure.search_shard_task.cancellation_burst* | 10 | The maximum number of search shard tasks to cancel in a single iteration of the observer thread.
@@ -112,7 +111,7 @@ search_backpressure.search_shard_task.cpu_time_millis_threshold | 15,000 | The C
 Introduced 2.4
 {: .label .label-purple }
 
-You can use the [nodes stats API operation]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/text-analyzers/#how-to-use-text-analyzers) to monitor server-side request cancellations.
+You can use the [nodes stats API operation]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/nodes-stats) to monitor server-side request cancellations.
 
 #### Example request
 
@@ -149,6 +148,30 @@ The response contains server-side request cancellation statistics:
         "shard_indexing_pressure_enabled": "true"
       },
       "search_backpressure": {
+        "search_task": {
+          "resource_tracker_stats": {
+            "heap_usage_tracker": {
+              "cancellation_count": 57,
+              "current_max_bytes": 5739204,
+              "current_avg_bytes": 962465,
+              "rolling_avg_bytes": 4009239
+            },
+            "elapsed_time_tracker": {
+              "cancellation_count": 97,
+              "current_max_millis": 15902,
+              "current_avg_millis": 9705
+            },
+            "cpu_usage_tracker": {
+              "cancellation_count": 64,
+              "current_max_millis": 8483,
+              "current_avg_millis": 7843
+            }
+          },
+          "cancellation_stats": {
+            "cancellation_count": 102,
+            "cancellation_limit_reached_count": 25
+          }
+        },
         "search_shard_task": {
           "resource_tracker_stats": {
             "heap_usage_tracker": {
@@ -187,9 +210,12 @@ The response contains the following fields.
 Field Name | Data type | Description
 :--- | :--- | :---
 search_backpressure | Object | Statistics about search backpressure.
+search_backpressure.search_task | Object | Statistics specific to the search task.
+search_backpressure.search_task.[resource_tracker_stats](#resource_tracker_stats) | Object | Statistics about the current search tasks.
+search_backpressure.search_task.[cancellation_stats](#cancellation_stats) | Object | Statistics about the search tasks canceled since the node last restarted.
 search_backpressure.search_shard_task | Object | Statistics specific to the search shard task.
-search_backpressure.search_shard_task.[resource_tracker_stats](#resource_tracker_stats) | Object | Statistics about the current tasks.
-search_backpressure.search_shard_task.[cancellation_stats](#cancellation_stats) | Object |  Statistics about the tasks canceled since the node last restarted.
+search_backpressure.search_shard_task.[resource_tracker_stats](#resource_tracker_stats) | Object | Statistics about the current search shard tasks.
+search_backpressure.search_shard_task.[cancellation_stats](#cancellation_stats) | Object |  Statistics about the search shard tasks canceled since the node last restarted.
 search_backpressure.mode | String | The [mode](#search-backpressure-modes) for search backpressure. 
 
 ### `resource_tracker_stats`
