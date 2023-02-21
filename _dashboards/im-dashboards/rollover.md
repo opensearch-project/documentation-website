@@ -1,8 +1,10 @@
 ---
 layout: default
 title: Rollover management
-parent: Index and snapshot management in OpenSearch Dashboards
+parent: Index and management in Dashboards
 nav_order: 40
+redirect_from:
+  - /dashboards/admin-ui-index/rollover/
 ---
 
 # Rollover management

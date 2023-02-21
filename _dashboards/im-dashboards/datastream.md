@@ -1,8 +1,10 @@
 ---
 layout: default
 title: Data stream management
-parent: Index and snapshot management in OpenSearch Dashboards
+parent: Index and management in Dashboards
 nav_order: 20
+redirect_from:
+  - /dashboards/admin-ui-index/datastream/
 ---
 
 # Data stream management

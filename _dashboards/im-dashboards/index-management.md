@@ -1,8 +1,10 @@
 ---
 layout: default
 title: Index management
-parent: Index and snapshot management in OpenSearch Dashboards
+parent: Index and management in Dashboards
 nav_order: 16
+redirect_from:
+  - /dashboards/admin-ui-index/index-management/
 ---
 
 # Index management

@@ -1,11 +1,15 @@
 ---
 layout: default
-title: Snapshot management
-parent: Index and snapshot management in OpenSearch Dashboards
-nav_order: 17
+title: Snapshot management in Dashboards
+parent: Snapshots
+nav_order: 50
+has_children: false
+grand_parent: Availability and Recovery
+redirect_from:
+  - /dashboards/admin-ui-index/sm-dashboards/
 ---
 
-# Snapshot management
+# Snapshot management in Dashboards
 
 You can set up Snapshot Management (SM) in OpenSearch Dashboards.
 
