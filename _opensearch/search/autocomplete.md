@@ -42,7 +42,7 @@ GET shakespeare/_search
 }
 ```
 
-To make the word order and relative positions flexible, specify a `slop` value. To learn about the `slop` option, see [Other optional query fields]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text#other-optional-query-fields).
+To make the word order and relative positions flexible, specify a `slop` value. To learn about the `slop` option, see [Other advanced options]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/index#other-advanced-options).
 
 Prefix matching doesn’t require any special mappings. It works with your data as is.
 However, it’s a fairly resource-intensive operation. A prefix of `a` could match hundreds of thousands of terms and not be useful to your user.
@@ -63,7 +63,7 @@ GET shakespeare/_search
 }
 ```
 
-To learn about the `max_expansions` option, see [Other advanced options]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text#other-advanced-options).
+To learn about the `max_expansions` option, see [Other advanced options]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/index#other-advanced-options).
 
 The ease of implementing query-time autocomplete comes at the cost of performance.
 When implementing this feature on a large scale, we recommend an index-time solution. With an index-time solution, you might experience slower indexing, but it’s a price you pay only once and not for every query. The edge n-gram, search-as-you-type, and completion suggester methods are index-time solutions.
