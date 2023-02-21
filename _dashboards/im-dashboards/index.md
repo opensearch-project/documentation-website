@@ -1,13 +1,13 @@
 ---
 layout: default
-title: Index and management in Dashboards
+title: Index management in Dashboards
 nav_order: 80
 has_children: true
 redirect_from:
   - /dashboards/admin-ui-index/
 ---
 
-# Index and management in Dashboards
+# Index management in Dashboards
 Introduced 2.5
 {: .label .label-purple }
 

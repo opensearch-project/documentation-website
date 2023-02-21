@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Force merge management
-parent: Index and management in Dashboards
+parent: Index management in Dashboards
 nav_order: 30
 redirect_from:
   - /dashboards/admin-ui-index/forcemerge/

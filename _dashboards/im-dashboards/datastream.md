@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Data stream management
-parent: Index and management in Dashboards
+parent: Index management in Dashboards
 nav_order: 20
 redirect_from:
   - /dashboards/admin-ui-index/datastream/
