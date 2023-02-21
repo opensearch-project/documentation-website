@@ -157,8 +157,21 @@ Request fields | Description
    ```
 
    If you don't want to configure AWS access and secret keys, modify the following `opensearch.yml` setting. Make sure the file is accessible by the `repository-s3` plugin:
+   
    ```yml
    s3.client.default.identity_token_file: /usr/share/opensearch/plugins/repository-s3/token
+   ```
+
+   If copying is not an option, you could alternatively create a symlink to the web identity token file  inside `${OPENSEARCH_PATH_CONFIG}` folder:
+
+   ```
+   ln -s $AWS_WEB_IDENTITY_TOKEN_FILE "${OPENSEARCH_PATH_CONFIG}/aws-web-identity-token-file"
+   ```
+
+   And reference it by `repository-s3` plugin using the relative path (that is going to be resolved against `${OPENSEARCH_PATH_CONFIG}`):
+
+   ```yaml
+   s3.client.default.identity_token_file: aws-web-identity-token-file
    ```
 
    IAM roles require at least one of the above settings. Other settings will be taken from environment variables (if available): `AWS_ROLE_ARN`, `AWS_WEB_IDENTITY_TOKEN_FILE`, `AWS_ROLE_SESSION_NAME`.
