@@ -1,8 +1,9 @@
 ---
 layout: default
 title: xy queries
-parent: Query DSL
-nav_order: 65
+parent: Geographic and xy queries
+grand_parent: Query DSL
+nav_order: 50
 ---
 
 # xy queries
