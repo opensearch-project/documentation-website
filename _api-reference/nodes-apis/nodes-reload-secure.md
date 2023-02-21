@@ -34,7 +34,7 @@ The request may include an optional object containing the password for the OpenS
 }
 ```
 
-#### Sample request
+#### Example request
 
 The following is an example API request:
 
@@ -43,7 +43,7 @@ POST _nodes/reload_secure_settings
 ```
 {% include copy-curl.html %}
 
-#### Sample response
+#### Example response
 
 The following is an example response:
 

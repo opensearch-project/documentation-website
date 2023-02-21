@@ -31,7 +31,7 @@ Options | Description | Default value | Required
 `keep_on_completion` |  Whether you want to save the results in the cluster after the search is complete. You can examine the stored results at a later time. | `false` | No
 `keep_alive` |  The amount of time that the result is saved in the cluster. For example, `2d` means that the results are stored in the cluster for 48 hours. The saved search results are deleted after this period or if the search is canceled. Note that this includes the query execution time. If the query overruns this time, the process cancels this query automatically. | 12 hours | No
 
-#### Sample request
+#### Example request
 
 ```json
 POST _plugins/_asynchronous_search/?pretty&size=10&wait_for_completion_timeout=1ms&keep_on_completion=true&request_cache=false
@@ -47,7 +47,7 @@ POST _plugins/_asynchronous_search/?pretty&size=10&wait_for_completion_timeout=1
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -122,7 +122,7 @@ After you submit an asynchronous search request, you can request partial respons
 GET _plugins/_asynchronous_search/<ID>?pretty
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -203,7 +203,7 @@ DELETE _plugins/_asynchronous_search/<ID>?pretty
 - If the search is complete, OpenSearch deletes the saved results.
 
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -221,7 +221,7 @@ You can use the stats API operation to monitor asynchronous searches that are ru
 GET _plugins/_asynchronous_search/stats
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
