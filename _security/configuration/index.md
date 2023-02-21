@@ -5,7 +5,8 @@ nav_order: 2
 has_children: true
 has_toc: false
 redirect_from:
-  - /security/configuration/
+  - /security-plugin/configuration/
+  - /security-plugin/configuration/index/
 ---
 
 # Security configuration
