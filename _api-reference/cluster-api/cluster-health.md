@@ -50,16 +50,16 @@ wait_for_no_relocating_shards | Boolean | Whether to wait until there are no rel
 wait_for_no_initializing_shards | Boolean | Whether to wait until there are no initializing shards in the cluster. Default is false.
 wait_for_status | Enum | Wait until the cluster health reaches the specified status or better. Supported values are `green`, `yellow`, and `red`.
 
-#### Sample request
+#### Example request
 
-The following sample request retrieves cluster health for all indexes in the cluster:
+The following example request retrieves cluster health for all indexes in the cluster:
 
 ```json
 GET _cluster/health
 ```
 {% include copy-curl.html %}
 
-#### Sample response
+#### Example response
 
 The response contains cluster health information:
 
