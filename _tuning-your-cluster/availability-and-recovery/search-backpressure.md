@@ -199,7 +199,7 @@ The `heap_usage_tracker` object contains the following statistics related to the
 
 Field Name | Data type | Description
 :--- | :--- | :---
-cancellation_count | Integer | The number of tasks canceled because of excessive heap usage since the node last restarted.
+cancellation_count | Integer | The number of tasks marked for cancellation because of excessive heap usage since the node last restarted.
 current_max_bytes | Integer | The maximum heap usage for all tasks currently running on the node, in bytes.
 current_avg_bytes | Integer | The average heap usage for all tasks currently running on the node, in bytes.
 rolling_avg_bytes | Integer | The rolling average heap usage for `n` most recent tasks, in bytes. `n` is configurable and defined by the `search_backpressure.search_shard_task.heap_moving_average_window_size` setting. The default value for this setting is 100.
@@ -210,7 +210,7 @@ The `cpu_usage_tracker` object contains the following statistics related to the 
 
 Field Name | Data type | Description
 :--- | :--- | :---
-cancellation_count | Integer | The number of tasks canceled because of excessive CPU usage since the node last restarted.
+cancellation_count | Integer | The number of tasks marked for cancellation because of excessive CPU usage since the node last restarted.
 current_max_millis | Integer | The maximum CPU time for all tasks currently running on the node, in milliseconds.
 current_avg_millis | Integer | The average CPU time for all tasks currently running on the node, in milliseconds.
 
@@ -220,5 +220,5 @@ The `cancellation_stats` object contains the following statistics for canceled t
 
 Field Name | Data type | Description
 :--- | :--- | :---
-cancellation_count | Integer | The total number of tasks canceled since the node last restarted.
+cancellation_count | Integer | The total number of tasks marked for cancellation since the node last restarted.
 cancellation_limit_reached_count | Integer | The number of times when the number of tasks eligible for cancellation exceeded the set cancellation threshold.
