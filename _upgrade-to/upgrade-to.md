@@ -103,7 +103,7 @@ If you are migrating an Open Distro for Elasticsearch cluster, we recommend firs
 1. Repeat all steps as necessary until you arrive at your desired Elasticsearch OSS version.
 
 
-## MIgrate to OpenSearch
+## Migrate to OpenSearch
 
 1. Disable shard allocation to prevent Elasticsearch OSS from replicating shards as you shut down nodes:
 
