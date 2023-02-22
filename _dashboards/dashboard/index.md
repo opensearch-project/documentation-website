@@ -66,7 +66,7 @@ Continuing with the dashboard you created in the preceding steps, you'll create 
 
 The gauge chart visualization is now saved and you are taken back to the dashboard. You'll see two visualizations on the dashboard, like the following: 
 
-![Dashboard showing visualizations combined in a single view]({{site.url}}{{site.baseurl}}/images/dashboards/new-dashboard.png)
+![Dashboard showing visualizations combined in a single view]({{site.url}}{{site.baseurl}}/images/dashboards/dashboard-combined.png)
 
 ## Adding subsequent panels
 
@@ -78,7 +78,7 @@ Continuing with the dashboard you created in the preceding steps, you'll add an 
 
 You'll see an area chart visualization display on the dashboard, as shown in the following image: 
 
-![Adding another panel to the dashboard]({{site.url}}{{site.baseurl}}/images/dashboards/new-area-viz.png)
+![Adding another panel to the dashboard]({{site.url}}{{site.baseurl}}/images/dashboards/dashboard-adding-panels.png)
 
 ## Saving dashboards
 
@@ -123,4 +123,4 @@ To organize panels, arrange them side-by-side, or resize them, you can use these
 
 The following is an example of a customized dashboard created in this tutorial.
 
-![Customized dashboard with panels arranged side by side and without legends]({{site.url}}{{site.baseurl}}/images/dashboards/dashboard-arranged.png)
+![Customized dashboard with panels arranged side by side and without legends]({{site.url}}{{site.baseurl}}/images/dashboards/dashboard-customized.png)
