@@ -11,7 +11,7 @@ The **Dashboard** application in OpenSearch Dashboards lets you visually represe
 
 In this tutorial you'll learn the basics of creating a dashboard using the **Dashboard** application and OpenSearch sample data. The sample dataset has existing sample visualizations, and you can use those visualizations or create new visualizations for the dashboard. For this tutorial, you'll do both. Once you've completed this tutorial, you'll have learned the foundations of creating a new dashboard with multiple panels in OpenSearch Dashboards. 
 
-This OpenSearch playground [dashboard example](https://playground.opensearch.org/app/dashboards#/view/722b74f0-b882-11e8-a6d9-e546fe2bba5f?_g=(filters:!(),refreshInterval:(pause:!f,value:900000),time:(from:now-7d,to:now))&_a=(description:'Analyze%20mock%20eCommerce%20orders%20and%20revenue',filters:!(),fullScreenMode:!f,options:(hidePanelTitles:!f,useMargins:!t),query:(language:kuery,query:''),timeRestore:!t,title:'%5BeCommerce%5D%20Revenue%20Dashboard',viewMode:view) shows you what's possible with OpenSearch Dashboards.
+This OpenSearch playground [dashboard example](https://playground.opensearch.org/app/dashboards#/view/722b74f0-b882-11e8-a6d9-e546fe2bba5f?_g=(filters:!(),refreshInterval:(pause:!f,value:900000),time:(from:now-7d,to:now))&_a=(description:'Analyze%20mock%20eCommerce%20orders%20and%20revenue',filters:!(),fullScreenMode:!f,options:(hidePanelTitles:!f,useMargins:!t),query:(language:kuery,query:''),timeRestore:!t,title:'%5BeCommerce%5D%20Revenue%20Dashboard',viewMode:view)) shows you what's possible with OpenSearch Dashboards.
 {: .note}
 
 ## Getting familiar with user interface
