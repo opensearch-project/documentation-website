@@ -10,7 +10,7 @@ nav_order: 45
 
 ## Overview
 
-The `trim_string` processor removes whitespace from the beginning and end of a key, and is a [mutate string](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/mutate-string-processors#mutate-string-processors) processor.
+The `trim_string` processor removes whitespace from the beginning and end of a key and is a [mutate string](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/mutate-string-processors#mutate-string-processors) processor.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
