@@ -85,9 +85,9 @@ search_backpressure.interval_millis | 1,000 ms | The interval at which the obser
 search_backpressure.cancellation_ratio | 10% | The maximum number of tasks to cancel, as a percentage of successful task completions.
 search_backpressure.cancellation_rate | 0.003 | The maximum number of tasks to cancel per millisecond of elapsed time.
 search_backpressure.cancellation_burst | 10 | The maximum number of tasks to cancel in a single iteration of the observer thread.
-search_backpressure.node_duress.num_successive_breaches | 3 | The number of successive limit breaches after which the node is considered to be under duress.
-search_backpressure.node_duress.cpu_threshold | 90% | The CPU usage threshold (as a percentage) required for a node to be considered to be under duress.
-search_backpressure.node_duress.heap_threshold | 70% | The heap usage threshold (as a percentage) required for a node to be considered to be under duress.
+search_backpressure.node_duress.num_successive_breaches | 3 | The number of successive limit breaches after which the node is considered under duress.
+search_backpressure.node_duress.cpu_threshold | 90% | The CPU usage threshold (as a percentage) required for a node to be considered under duress.
+search_backpressure.node_duress.heap_threshold | 70% | The heap usage threshold (as a percentage) required for a node to be considered under duress.
 search_backpressure.search_shard_task.total_heap_percent_threshold | 5% | The heap usage threshold (as a percentage) required for the sum of heap usages of all search shard tasks before cancellation is applied.
 search_backpressure.search_shard_task.heap_percent_threshold | 0.5% | The heap usage threshold (as a percentage) required for a single search shard task before it is considered for cancellation.
 search_backpressure.search_shard_task.heap_variance | 2.0 | The minimum variance required for a single search shard task's heap usage compared to the rolling average of previously completed tasks before it is considered for cancellation.
