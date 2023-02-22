@@ -48,7 +48,7 @@ To create the dashboard and add the sample visualization:
 1. From the **Dashboards** window, choose **Create Dashboard**.
 1. Select the calendar icon and set the time filter to **Last 30 days**.
 1. From the panel, choose **Add an existing**.
-1. From the **Add panels** window, choose **[eCommerce] Average Sold Quantity**, and then select `x` to close the panel. A donut chart is added to the dashboard.
+1. From the **Add panels** window, choose **[eCommerce] Promotion Tracking**, and then select `x` to close the panel.
 
 You've now created the following basic dashboard with a single panel, which you'll continue using throughout this tutorial.
 
@@ -61,16 +61,16 @@ Continuing with the dashboard you created in the preceding steps, you'll create 
 1. From the dashboard toolbar, choose **Create new**, then **Visualization**.
 1. From the **New Visualization** window, choose **Vertical Bar** and then select the index pattern **opensearch_dashboards_sample_data_ecommerce**. 
 1. From the toolbar, select **Save**
-1. In the **Save visualization** window, add a title for the visualization. For example, the title for the bar chart panel is Order Date.
+1. In the **Save visualization** window, add a title for the visualization. For example, the title for the gauge chart panel is [eCommerce] Orders.
 1.  Select **Save and return**.  
 
-The bar chart visualization is now saved and you are taken back to the dashboard. You'll see two visualizations on the dashboard, similar to the following: 
+The gauge chart visualization is now saved and you are taken back to the dashboard. You'll see two visualizations on the dashboard, like the following: 
 
 ![Dashboard showing visualizations combined in a single view]({{site.url}}{{site.baseurl}}/images/dashboards/new-dashboard.png)
 
 ## Adding subsequent panels
 
-Continuing with the dashboard you created in the preceding steps, you'll add a visualization to the dashboard.
+Continuing with the dashboard you created in the preceding steps, you'll add an existing visualization to the dashboard.
 
 1. From the dashboard toolbar, choose **Add**.
 1. From the **Add panels** window, choose **[eCommerce] Sales by Category**.
@@ -97,8 +97,7 @@ To customize the panels, you'll need to be in edit mode:
 
 Showing a legend can give readers more information, while hiding a legend can give it a cleaner look. If you want to show or hide the panel legend:
 
-1. To show the legend, 
-2. To hide the legend, select the list icon in the panel's lower left corner.
+1. To show or hide the legend, select the list icon in the panel's lower left corner.
 
 If you want to change the color of the panel legend:
 
