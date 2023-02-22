@@ -33,5 +33,5 @@ The following table describes common metrics in the [Abstract processor](https:/
 The `service-map-stateful` processor introduces the following custom metrics:
 
 
-* `traceGroupCacheCount` - (gauge) The count of trace groups in the trace group cache.
-* `spanSetCount` - (gauge) The count of span sets in the span set collection.
+* `traceGroupCacheCount` - The number of trace groups in the trace group cache.
+* `spanSetCount` - The number of span sets in the span set collection.

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Parse json
+title: Parse JSON
 parent: Processors
 grand_parent: Pipelines
 nav_order: 45
@@ -10,7 +10,7 @@ nav_order: 45
 
 ## Overview
 
-The `parse_json` processor takes in an event and parses its JSON data, including any nested fields.
+The `parse_json` processor parses JSON data for an event, including any nested fields. The following table describes several optional parameters you can configure in the `parse_json` processor. 
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
