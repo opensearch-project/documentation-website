@@ -10,7 +10,7 @@ nav_order: 45
 
 ## Overview
 
-The `aggregate` processor groups events based on the keys provided and performs an action on each group.
+The `aggregate` processor groups events based on the keys provided and performs an action on each group. The following table describes the options you can use to configure the `aggregate` processor.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---

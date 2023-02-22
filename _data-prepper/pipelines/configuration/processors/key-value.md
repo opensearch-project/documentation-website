@@ -10,7 +10,7 @@ nav_order: 45
 
 ## Overview
 
-The `key_value` processor ingests a field and parses it into key/value pairs. The following table describes `key_value` processor options available that help you with parsing the field information into pairs.
+The `key_value` processor parses a field into key/value pairs. The following table describes `key_value` processor options available that help you parse field information into pairs.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---

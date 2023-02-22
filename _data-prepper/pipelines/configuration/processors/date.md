@@ -10,7 +10,7 @@ nav_order: 45
 
 ## Overview
 
-The `date` processor adds a default timestamp to an event, parses timestamp fields, and converts timestamp information to the International Organization for Standardization (ISO) 8601 format. This timestamp information can be used as an event timestamp.
+The `date` processor adds a default timestamp to an event, parses timestamp fields, and converts timestamp information to the International Organization for Standardization (ISO) 8601 format. This timestamp information can be used as an event timestamp. The following table describes the options you can use to configure the `date` processor.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---

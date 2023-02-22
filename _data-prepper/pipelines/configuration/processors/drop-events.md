@@ -10,7 +10,7 @@ nav_order: 45
 
 ## Overview
 
-The `drop_events` processor drops all the events that are passed into it. The following table describes when events are dropped and how exceptions for dropping events are handled.
+The `drop_events` processor drops all the events that are passed into it. The following table describes when events are dropped and how exceptions for dropping events are handled. The following table describes the options you can use to configure the `drop_events` processor.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---

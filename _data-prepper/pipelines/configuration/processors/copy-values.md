@@ -10,7 +10,7 @@ nav_order: 45
 
 ## Overview
 
-The `copy_values` processor copies values within an event and is a [mutate event](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/mutate-event-processors#mutate-event-processors) processor.
+The `copy_values` processor copies values within an event and is a [mutate event](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/mutate-event-processors#mutate-event-processors) processor. The following table describes the options you can use to configure the `copy_values` processor.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---

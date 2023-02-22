@@ -10,12 +10,14 @@ nav_order: 45
 
 ## Overview
 
-This processor completes trace-group-related fields in all incoming Data Prepper span records by state caching the root span information for each `tradeId`. This process includes the following parameters:
+This processor completes trace-group-related fields in all incoming Data Prepper span records by state caching the root span information for each `tradeId`. This processor includes the following parameters:
 
 * `traceGroup`: Root span name
 * `endTime`: End time of the entire trace in International Organization for Standardization (ISO) 8601 format
 * `durationInNanos`: Duration of the entire trace in nanoseconds
 * `statusCode`: Status code for the entire trace in nanoseconds
+
+The following table describes the options you can use to configure the `otel_trace_raw` processor.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---

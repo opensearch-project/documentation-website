@@ -10,7 +10,7 @@ nav_order: 44
 
 ## Overview
 
-The `rename_keys` processor renames keys in an event and is a [mutate event](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/mutate-event-processors#mutate-event-processors) processor.
+The `rename_keys` processor renames keys in an event and is a [mutate event](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/mutate-event-processors#mutate-event-processors) processor. The following table describes the options you can use to configure the `rename_keys` processor.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
