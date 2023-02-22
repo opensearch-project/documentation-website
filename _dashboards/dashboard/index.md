@@ -49,7 +49,7 @@ To create the dashboard and add the sample visualization:
 4. From the panel, choose **Add an existing**.
 5. From the **Add panels** window, choose **[eCommerce] Average Sold Quantity**, and then select `x` to close the panel. A donut chart is added to the dashboard.
 
-You've created the following basic dashboard with a single panel, which you'll continue using throughout this tutorial.
+You've now created the following basic dashboard with a single panel, which you'll continue using throughout this tutorial.
 
 ![Basic dashboard with single panel]({{site.url}}{{site.baseurl}}/images/dashboards/dashboard-basic.png)
 
