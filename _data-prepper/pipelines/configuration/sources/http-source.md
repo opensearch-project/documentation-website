@@ -37,7 +37,7 @@ Content will be added to this section.--->
 
 The `http_source` source includes the following metrics.
 
-### Counter
+### Counters
 
 - `requestsReceived`: Measures the total number of requests received by the `/log/ingest` endpoint.
 - `requestsRejected`: Measures the total number of requests rejected (429 response status code) by the HTTP Source plugin.
@@ -47,10 +47,10 @@ The `http_source` source includes the following metrics.
 - `requestsTooLarge`: Measures the total number of requests where the size of the event is larger than the buffer capacity (413 response status code).
 - `internalServerError`: Measures the total number of requests processed by the HTTP Source with a custom exception type (500 response status code).
 
-### Timer
+### Timers
 
 - `requestProcessDuration`: Measures the latency of requests processed by the HTTP Source plugin in seconds. 
 
-### Distribution summary
+### Distribution summaries
 
 - `payloadSize`: Measures the incoming request payload size in bytes.

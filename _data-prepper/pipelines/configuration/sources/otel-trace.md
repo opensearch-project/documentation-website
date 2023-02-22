@@ -11,7 +11,7 @@ nav_order: 15
 
 ## Overview
 
-The `otel_trace` source is a source for the OpenTelemetry Collector.
+The `otel_trace` source is a source for the OpenTelemetry Collector. The following table describes options you can use to configure the `otel_trace` source.
 
 <!--- What does otel_trace_source do? Other plugins include that in the overview section.--->
 
@@ -39,7 +39,7 @@ Content will be added to this section.--->
 
 ## Metrics
 
-### Counter
+### Counters
 
 - `requestTimeouts`: Measures the total number of requests that time out.
 - `requestsReceived`: Measures the total number of requests received by the `otel_trace` source.
@@ -48,10 +48,10 @@ Content will be added to this section.--->
 - `requestsTooLarge`: Measures the total number of requests whose number of spans exceeds the buffer capacity.
 - `internalServerError`: Measures the total number of requests processed by the `otel_trace` source with a custom exception type.
 
-### Timer
+### Timers
 
 - `requestProcessDuration`: Measures the latency of requests processed by the `otel_trace` source plugin in seconds.
 
-### Distribution summary
+### Distribution summaries
 
 - `payloadSize`: Measures the incoming request payload size distribution in bytes.

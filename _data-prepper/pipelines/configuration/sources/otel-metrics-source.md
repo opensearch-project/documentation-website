@@ -35,7 +35,7 @@ Content will be added to this section.--->
 
 The `otel_metrics_source` source includes the following metrics.
 
-### Counter
+### Counters
 
 - `requestTimeouts`: Measures the total number of requests that time out.
 - `requestsReceived`: Measures the total number of requests received by the OpenTelemetry metrics source.
