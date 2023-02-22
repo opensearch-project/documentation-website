@@ -31,7 +31,7 @@ Content will be added to this section.--->
 
 ## Metrics
 
-The following are common metrics in the [Abstract processor](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/processor/AbstractProcessor.java):
+The following table describes common metrics in the [Abstract processor](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/processor/AbstractProcessor.java) metrics.
 
 | Metric Name | Type | Description |
 | ------------- | ---- | -----------|

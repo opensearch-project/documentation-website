@@ -10,7 +10,7 @@ nav_order: 45
 
 ## Overview
 
-The `grok` processor takes unstructured data and utilizes pattern matching to structure and extract important keys. It also makes data more structured and queryable.
+The `Grok` processor takes unstructured data and utilizes pattern matching to structure and extract important keys. The following table describes options you can use with the `Grok` processor to structure your data and make your data easier to query.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
@@ -22,8 +22,8 @@ keys_to_overwrite | No | List | Specifies which existing keys will be overwritte
 pattern_definitions | No | Map | Allows for custom pattern use inline. Default value is an empty body.
 patterns_directories | No | List | Specifies the path of directories that contain customer pattern files. Default value is an empty list.
 pattern_files_glob | No | String | Specifies which pattern files to use from the directories specified for `pattern_directories`. Default value is `*`.
-target_key | No | String | Specifies a parent-level key to store all captures. Default value is `null`.
-timeout_millis | No | Integer | Maximum amount of time that takes place for matching. Setting to `0` disables the timeout. Default value is `30,000`.
+target_key | No | String | Specifies a parent-level key used to store all captures. Default value is `null`.
+timeout_millis | No | Integer | The maximum amount of time during which matching occurs. Setting to `0` disables the timeout. Default value is `30,000`.
 
 <!---## Configuration
 
@@ -31,25 +31,23 @@ Content will be added to this section.--->
 
 ## Metrics
 
-The following are common metrics in the [Abstract processor](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/processor/AbstractProcessor.java):
+The following table describes common in the [Abstract processor](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/processor/AbstractProcessor.java) metrics.
 
-| Metric Name | Type | Description |
+| Metric name | Type | Description |
 | ------------- | ---- | -----------|
 | `recordsIn` | Counter | Metric representing the ingress of records to a pipeline component. |
 | `recordsOut` | Counter | Metric representing the egress of records from a pipeline component. |
 | `timeElapsed` | Timer | Metric representing the time elapsed during execution of a pipeline component. |
 
-Te `Grok` processor introduces the following custom metrics:
+The `Grok` processor introduces the following custom metrics:
 
 ### Counter
 
 * `grokProcessingMismatch`: Records the number of records that did not match any of the patterns specified in the match field.
-* `grokProcessingMatch`: Records the number of records that found at least one pattern match from the `match` field.
-* `grokProcessingErrors`: Records the total number of processing errors for records.
+* `grokProcessingMatch`: Records the number of records that matched at least one pattern match from the `match` field.
+* `grokProcessingErrors`: Records the total number of record processing errors.
 * `grokProcessingTimeouts`: Records the total number of records that timed out while matching.
 
 ### Timer
 
-* `grokProcessingTime`: The time each individual record takes to match against patterns from `match`. The `avg` metric is the most useful metric for this timer.
-
-<!--- Editorial: Using "useful" seems too subjective. Suggestions on what may be preferred over that option?--->
+* `grokProcessingTime`: The time taken by individual records to match against patterns from `match`. The `avg` metric is the most useful metric for this timer because it provides you with an average value of the time it takes records to match. 

@@ -10,7 +10,7 @@ nav_order: 45
 
 ## Overview
 
-The `date` processor adds a default timestamp to an event, parses timestamp fields, and converts it to an ISO 8601 format, which can be used as event timestamp.
+The `date` processor adds a default timestamp to an event, parses timestamp fields, and converts timestamp information to the International Organization for Standardization (ISO) 8601 format. This timestamp information can be used as an event timestamp.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
@@ -27,15 +27,15 @@ Content will be added to this section.--->
 
 ## Metrics
 
-The following are common metrics in the [Abstract processor](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/processor/AbstractProcessor.java):
+The following table describes common [Abstract processor](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/processor/AbstractProcessor.java) metrics.
 
-| Metric Name | Type | Description |
+| Metric name | Type | Description |
 | ------------- | ---- | -----------|
 | `recordsIn` | Counter | Metric representing the ingress of records to a pipeline component. |
 | `recordsOut` | Counter | Metric representing the egress of records from a pipeline component. |
 | `timeElapsed` | Timer | Metric representing the time elapsed during execution of a pipeline component. |
 
-The `date` processor introduces the following custom metrics:
+The `date` processor includes the following custom metrics:
 
-* `dateProcessingMatchSuccessCounter`: Returns the number of records that match with at least one pattern specified in the `match configuration` option. 
-* `dateProcessingMatchFailureCounter`: Returns the number of records that did not match any of the patterns specified in the `patterns match` configuration option.
+* `dateProcessingMatchSuccessCounter`: Returns the number of records that match with at least one pattern specified by the `match configuration` option. 
+* `dateProcessingMatchFailureCounter`: Returns the number of records that did not match any of the patterns specified by the `patterns match` configuration option.
