@@ -45,7 +45,7 @@ To create the dashboard and add the sample visualization:
 
 1. From the navigation panel, choose **Dashboard**.
 2. From the **Dashboards** window, choose **Create Dashboard**.
-3. Set the time filter to **Last 30 days**.
+3. Select the calendar icon and set the time filter to **Last 30 days**.
 4. From the panel, choose **Add an existing**.
 5. From the **Add panels** window, choose **[eCommerce] Average Sold Quantity**. The donut chart is added to the dashboard.
 
