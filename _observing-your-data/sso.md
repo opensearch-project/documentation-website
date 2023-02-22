@@ -35,7 +35,7 @@ Schema definitions for traces and metrics are defined and supported by the Obser
 
 These schema definitions include:
 
-- The Index structure (mapping).
-- The [Index naming conventions](https://github.com/opensearch-project/observability/issues/1405).
+- The index structure (mapping).
+- The [index naming conventions](https://github.com/opensearch-project/observability/issues/1405).
 - A JSON schema for enforcement and validation of the structure.
-- The [Integration](https://github.com/opensearch-project/OpenSearch-Dashboards/issues/3412) feature for adding pre-configured dashboards and assets.
+- The [integration](https://github.com/opensearch-project/OpenSearch-Dashboards/issues/3412) feature for adding preconfigured dashboards and assets.
