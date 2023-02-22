@@ -43,11 +43,12 @@ The following tutorial assumes you're either using your existing installation of
 
 To create the dashboard and add the sample visualization:
 
+1. Connect to `https://localhost:5601`. The username and password are `admin`. Alternatively, connect to your local environment or the [OpenSearch playground](https://playground.opensearch.org/app/home#/).
 1. From the navigation panel, choose **Dashboard**.
-2. From the **Dashboards** window, choose **Create Dashboard**.
-3. Select the calendar icon and set the time filter to **Last 30 days**.
-4. From the panel, choose **Add an existing**.
-5. From the **Add panels** window, choose **[eCommerce] Average Sold Quantity**, and then select `x` to close the panel. A donut chart is added to the dashboard.
+1. From the **Dashboards** window, choose **Create Dashboard**.
+1. Select the calendar icon and set the time filter to **Last 30 days**.
+1. From the panel, choose **Add an existing**.
+1. From the **Add panels** window, choose **[eCommerce] Average Sold Quantity**, and then select `x` to close the panel. A donut chart is added to the dashboard.
 
 You've now created the following basic dashboard with a single panel, which you'll continue using throughout this tutorial.
 
