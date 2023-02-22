@@ -27,7 +27,7 @@ Before getting started, let's get familiar with the **Dashboard** user interface
 - The **time filter** (E) lets you customize the time and date.
 - The **panel** (F) allows you to add existing visualizations to the dashboard or create new ones for the dashboard.
 
-## Definitions
+## Defining terminology
 
 Learn some useful terminology for working with OpenSearch Dashboards and the **Dashboard** application.
 
@@ -97,7 +97,7 @@ To customize the panels, you'll need to be in edit mode:
 
 Showing a legend can give readers more information, while hiding a legend can give it a cleaner look. If you want to show or hide the panel legend:
 
-1. To show or hide the legend, select the list icon in the panel's lower left corner.
+1. Select the list icon in the panel's lower left corner.
 
 If you want to change the color of the panel legend:
 
