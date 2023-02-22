@@ -12,7 +12,7 @@ OpenSearch 2.6 introduced a standardization for conforming to a common and unifi
 
 With the schema in place, Observability tools can ingest, automatically extract, and aggregate data and create custom dashboards, making it easier to understand the system at a higher level.
 
-SSO is inspired by both [OpenTelemetry](https://opentelemetry.io/docs/) and the Elastic Common Schema (ECS) and uses [ECS events](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs_cwe_events.html) for logs with the OpenTelemetry metadata.
+SSO is inspired by both [OpenTelemetry](https://opentelemetry.io/docs/) and the Elastic Common Schema (ECS) and uses Amazon Elastic Container Service [(Amazon ECS)](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs_cwe_events.html) event logs and OpenTelemetry metadata.
 
 Alerts will be supported in a future release.
 {: .note }
