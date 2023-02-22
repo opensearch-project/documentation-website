@@ -8,7 +8,7 @@ nav_order: 5
 
 # http_source
 
-`http_source` is a source plugin that supports HTTP. Currently, `http_source` only supports the JSON UTF-8 codec for incoming requests, such as `[{"key1": "value1"}, {"key2": "value2"}]`.
+`http_source` is a source plugin that supports HTTP. Currently, `http_source` only supports the JSON UTF-8 codec for incoming requests, such as `[{"key1": "value1"}, {"key2": "value2"}]`. The following table describes options you can use to configure the `http_source` source.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
@@ -27,7 +27,7 @@ use_acm_certificate_for_ssl | No | Boolean | Enables a TLS/SSL using certificate
 acm_certificate_arn | Conditionally | String | The ACM certificate Amazon Resource Name (ARN). The ACM certificate takes preference over Amazon S3 or a local file system certificate. Required if `use_acm_certificate_for_ssl` is set to true.
 acm_private_key_password | No | String | ACM private key password that decrypts the private key. If not provided, Data Prepper generates a random password.
 acm_certificate_timeout_millis | No | Integer | Timeout, in milliseconds, that ACM takes to get certificates. Default value is 120000.
-aws_region | Conditionally | String | AWS region to use ACM or Amazon S3. Required if `use_acm_certificate_for_ssl` is set to true or `ssl_certificate_file` and `ssl_key_file` is the Amazon S3 path.
+aws_region | Conditionally | String | AWS region used by ACM or Amazon S3. Required if `use_acm_certificate_for_ssl` is set to true or `ssl_certificate_file` and `ssl_key_file` is the Amazon S3 path.
 
 <!--- ## Configuration
 
@@ -35,19 +35,22 @@ Content will be added to this section.--->
 
 ## Metrics
 
-The `http_source` source includes the following metrics:
+The `http_source` source includes the following metrics.
 
 ### Counter
-- `requestsReceived`: Measures the total number of requests received by `/log/ingest` endpoint.
-- `requestsRejected`: Measures the total number of requests rejected (429 response status code) by HTTP source plugin.
-- `successRequests`: Measures the total number of requests successfully processed (200 response status code) by HTTP source plugin.
-- `badRequests`: Measures the total number of requests with invalid content type or format processed by HTTP source plugin (400 response status code).
+
+- `requestsReceived`: Measures the total number of requests received by the `/log/ingest` endpoint.
+- `requestsRejected`: Measures the total number of requests rejected (429 response status code) by the HTTP Source plugin.
+- `successRequests`: Measures the total number of requests successfully processed (200 response status code) the by HTTP Source plugin.
+- `badRequests`: Measures the total number of requests with either an invalid content type or format processed by the HTTP Source plugin (400 response status code).
 - `requestTimeouts`: Measures the total number of requests that time out in the HTTP source server (415 response status code).
-- `requestsTooLarge`: Measures the total number of requests of which the events size in the content is larger than the buffer capacity (413 response status code).
-- `internalServerError`: Measures the total number of requests processed by the HTTP source with custom exception type (500 response status code).
+- `requestsTooLarge`: Measures the total number of requests where the size of the event is larger than the buffer capacity (413 response status code).
+- `internalServerError`: Measures the total number of requests processed by the HTTP Source with a custom exception type (500 response status code).
 
 ### Timer
-- `requestProcessDuration`: Measures the latency of requests processed by the HTTP source plugin in seconds. 
 
-### Distribution Summary
-- `payloadSize`: Measures the distribution of incoming requests payload sizes in bytes.
+- `requestProcessDuration`: Measures the latency of requests processed by the HTTP Source plugin in seconds. 
+
+### Distribution summary
+
+- `payloadSize`: Measures the incoming request payload size in bytes.
