@@ -1,10 +1,10 @@
 ---
 layout: default
-title: Upgrade from Elasticsearch OSS to OpenSearch
+title: Migrating from Elasticsearch OSS to OpenSearch
 nav_order: 15
 ---
 
-# Upgrade from Elasticsearch OSS to OpenSearch
+# Migrating from Elasticsearch OSS to OpenSearch
 
 If you want to upgrade from an existing Elasticsearch OSS cluster to OpenSearch and find the [snapshot approach]({{site.url}}{{site.baseurl}}/upgrade-to/snapshot-migrate/) unappealing, you can upgrade your existing nodes from Elasticsearch OSS to OpenSearch.
 

@@ -1,10 +1,10 @@
 ---
 layout: default
-title: Upgrade from Kibana OSS to OpenSearch Dashboards
+title: Migrating from Kibana OSS to OpenSearch Dashboards
 nav_order: 50
 ---
 
-# Upgrade from Kibana OSS to OpenSearch Dashboards
+# Migrating from Kibana OSS to OpenSearch Dashboards
 
 Kibana OSS stores its visualizations and dashboards in one or more indices (`.kibana*`) on the Elasticsearch OSS cluster. As such, the most important step is to leave those indices intact as you upgrade from Elasticsearch OSS to OpenSearch.
 

@@ -1,10 +1,10 @@
 ---
 layout: default
-title: Upgrade Docker clusters to OpenSearch
+title: Migrating Docker clusters to OpenSearch
 nav_order: 25
 ---
 
-# Upgrade Docker clusters to OpenSearch
+# Migrating Docker clusters to OpenSearch
 
 If you use a container orchestration system like Kubernetes (or manage your containers manually) and want to avoid downtime, think of the process not as an upgrade of each node, but as a decommissioning and replacement of each node. One by one, add OpenSearch nodes to the cluster and remove Elasticsearch OSS nodes, pointing to existing data volumes as necessary and allowing time for all indices to return to a green status prior to proceeding.
 
