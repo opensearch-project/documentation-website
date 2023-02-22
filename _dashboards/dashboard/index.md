@@ -33,7 +33,7 @@ Learn some useful terminology for working with OpenSearch Dashboards and the **D
 
 - _Dashboards_ is the abbreviated proper name for OpenSearch Dashboards. OpenSearch Dashboards is an open-source visualization tool designed to work with OpenSearch.
 - _Dashboard_ is the application in OpenSearch Dashboards that is used to track, analyze, and display data at a glance.
-- _dashboard_ or _dashboards_ refer to common names for a tool used to visually display data.
+- _dashboard_ or _dashboards_ are common names for a tool used to visually display data.
 - _Panel_ is a term used to refer to a visualization displayed on a dashboard. The terms _panel_ and _visualization_ may be used interchangeably throughout this and other Dashboard-related documentation.
 
 The following tutorial assumes you're either using your existing installation of OpenSearch Dashboards or using the [OpenSearch playground](https://playground.opensearch.org/app/home#/). Depending on which one you use, certain capabilities aren't available. For example, sample datasets may not be in your existing installation and saving a dashboard isn't an option in the playground.
