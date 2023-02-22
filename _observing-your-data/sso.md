@@ -21,8 +21,8 @@ Alerts will be supported in a future release.
 
 Use cases for SSO include:
 
-* Ingesting Observability data from different data types.
-* Moving from proprietary configurations that are non-transferable to a consolidated, sharable Observability solution that allows users to ingest and display an analysis of any type of telemetry data from any type of provider.
+* Ingesting observability data from different data types.
+* Moving from proprietary configurations that are non-transferable to a consolidated, sharable observability solution that allows users to ingest and display an analysis of any type of telemetry data from any type of provider.
 
 Data Prepper conforms to the SSO schema for metrics and will gradually support traces and logs.
 
