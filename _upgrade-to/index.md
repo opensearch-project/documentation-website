@@ -1,14 +1,14 @@
 ---
 layout: default
-title: About the process
+title: About the migration process
 nav_order: 1
 redirect_from:
   - /upgrade-to/
 ---
 
-# About the process
+# About the migration process
 
-The process of upgrading from Elasticsearch OSS to OpenSearch varies depending on your current version of Elasticsearch OSS, installation type, tolerance for downtime, and cost-sensitivity. Rather than concrete steps to cover every situation, we have general guidance for the process.
+The process of migrating from Elasticsearch OSS to OpenSearch varies depending on your current version of Elasticsearch OSS, installation type, tolerance for downtime, and cost-sensitivity. Rather than concrete steps to cover every situation, we have general guidance for the process.
 
 Three approaches exist:
 
