@@ -189,7 +189,7 @@ The `elapsed_time_tracker` object contains the following statistics related to t
 
 Field Name | Data type | Description
 :--- | :--- | :---
-cancellation_count | Integer | The number of tasks canceled because of excessive elapsed time since the node last restarted.
+cancellation_count | Integer | The number of tasks marked for cancellation because of excessive elapsed time since the node last restarted.
 current_max_millis | Integer | The maximum elapsed time for all tasks currently running on the node, in milliseconds.
 current_avg_millis | Integer | The average elapsed time for all tasks currently running on the node, in milliseconds.
 
@@ -216,7 +216,7 @@ current_avg_millis | Integer | The average CPU time for all tasks currently runn
 
 ### `cancellation_stats`
 
-The `cancellation_stats` object contains the following statistics for canceled tasks.
+The `cancellation_stats` object contains the following statistics for the tasks that are marked for cancellation.
 
 Field Name | Data type | Description
 :--- | :--- | :---
