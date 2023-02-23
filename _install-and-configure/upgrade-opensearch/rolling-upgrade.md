@@ -9,6 +9,8 @@ nav_order: 10
 
 Rolling upgrades, sometimes referred to as "node replacement upgrades," can be performed on running clusters with virtually no downtime. Nodes are individually stopped and upgraded in place. Alternatively, nodes can be stopped and replaced, one at a time, by hosts running the new version. During this process you can continue to index and query data in your cluster.
 
+This document describes the 
+
 The example outputs and API responses included in this document were generated in a development environment using Docker containers. Validation was performed by upgrading an Elasticsearch 7.10.2 cluster to OpenSearch 1.3.7; however, this process can be applied to any **N→N+1** version upgrade of OpenSearch on any platform. Certain commands, such as listing running containers in Docker, are included as an aid to the reader, but the specific commands used on your host(s) will be different depending on your distribution and host operating system.
 
 This guide assumes that you are comfortable working from the Linux command line interface (CLI). You should understand how to input commands, navigate between directories, and edit text files. For help with [Docker](https://www.docker.com/) or [Docker Compose](https://github.com/docker/compose), refer to the official documentation on their websites.
