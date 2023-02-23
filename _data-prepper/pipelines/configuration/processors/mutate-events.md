@@ -6,16 +6,21 @@ grand_parent: Pipelines
 nav_order: 45
 ---
 
-# Mutate Event Processors
-The following is a list of processors available to mutate an event.
+# Mutate event processors
 
-___
+The following processors allow you to mutate an event.
 
-## AddEntryProcessor
-A processor that adds entries to an event
+<!--- Why would users want to mutate an event? What does it achieve?--->
 
-### Basic Usage
-To get started, create the following `pipeline.yaml`.
+
+## AddEntry
+
+The `AddEntry` adds entries to an event
+
+### Basic usage
+
+To get started, create the following `pipeline.yaml` file:
+
 ```yaml
 pipeline:
   source:
@@ -33,13 +38,13 @@ pipeline:
     - stdout:
 ```
 
-Create the following file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` with the path of this file.
+Create the following file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` with this filepath.
 
 ```json
 {"message": "value"}
 ```
 
-When run, the processor will parse the message into the following output:
+When run, the processor parses the message into the following output:
 
 ```json
 {"message": "value", "newMessage": 3}
@@ -48,10 +53,13 @@ When run, the processor will parse the message into the following output:
 > If `newMessage` had already existed, its existing value would have been overwritten with `3`
 
 ### Configuration
-* `entries` - (required) - A list of entries to add to an event
-  * `key` - (required) - The key of the new entry to be added
-  * `value` - (required) - The value of the new entry to be added. Strings, booleans, numbers, null, nested objects, and arrays containing the aforementioned data types are valid to use
-  * `overwrite_if_key_exists` - (optional) - When set to `true`, if `key` already exists in the event, then the existing value will be overwritten. The default is `false`. 
+
+
+
+* `entries`: (required) A list of entries to add to an event
+* `key`: (required) The key of the new entry to be added
+* `value`: (required) The value of the new entry to be added. Strings, booleans, numbers, null, nested objects, and arrays containing the aforementioned data types are valid to use
+* `overwrite_if_key_exists`: (optional) When set to `true`, if `key` already exists in the event, then the existing value will be overwritten. The default is `false`. 
 
 ___
 
