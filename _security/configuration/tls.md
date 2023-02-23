@@ -74,9 +74,9 @@ Name | Description
 `plugins.security.ssl.http.truststore_password` | Truststore password. Default is `changeit`.
 
 
-## Configure node certificates
+## Configuring node certificates
 
-The security plugin needs to identify inter-cluster requests (i.e. requests between the nodes). The simplest way of configuring node certificates is to list the Distinguished Names (DNs) of these certificates in `opensearch.yml`. All DNs must be included in `opensearch.yml` on all nodes. The security plugin supports wildcards and regular expressions:
+OpenSearch Security needs to identify requests between the nodes in the cluster. It uses node certificates to secure these requests. The simplest way to configure node certificates is to list the Distinguished Names (DNs) of these certificates in `opensearch.yml`. All DNs must be included in `opensearch.yml` on all nodes. Keep in mind that the security plugin supports wildcards and regular expressions:
 
 ```yml
 plugins.security.nodes_dn:
@@ -89,7 +89,7 @@ plugins.security.nodes_dn:
 If your node certificates have an Object ID (OID) identifier in the SAN section, you can omit this configuration.
 
 
-## Configure admin certificates
+## Configuring admin certificates
 
 Admin certificates are regular client certificates that have elevated rights to perform administrative tasks. You need an admin certificate to change the security plugin configuration using [`plugins/opensearch-security/tools/securityadmin.sh`]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/) or the REST API. Admin certificates are configured in `opensearch.yml` by stating their DN(s):
 
@@ -201,6 +201,6 @@ plugins.security.ssl.http.enabled_protocols:
 ```
 
 
-## (Advanced) Disable client initiated renegotiation for Java 8
+## (Advanced) Disabling client initiated renegotiation for Java 8
 
 Set `-Djdk.tls.rejectClientInitiatedRenegotiation=true` to disable secure client initiated renegotiation, which is enabled by default. This can be set via `OPENSEARCH_JAVA_OPTS` in `config/jvm.options`.
