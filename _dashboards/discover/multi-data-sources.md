@@ -52,13 +52,13 @@ To create a new data source connection:
     In **Connection Details**, enter a title for the connection and the endpoint URL used to connect to the data source. A description of the connection is optional. 
     
     For **Authentication Method**, first select the type of authentication:
-    * **No authentication**—No authentication is used to connect to the data source.
-    * **Username & Password**—A basic username and password is used to connect to the data source.
-    * **AWS SigV4**—AWS Signature Version 4 authenticating request is used  to connect. AWS SigV4 requires an access key ID and a secret access key. First specify the **Region**, then enter the **Access Key** and **Secret Key** for authorization. For information on available regions for AWS accounts, see [Available Regions](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-available-regions). For more on SigV4 authentication requests, see [Authenticating Requests (AWS Signature Version 4)](https://docs.aws.amazon.com/AmazonS3/latest/API/sig-v4-authenticating-requests.html).
+    * **No authentication**: No authentication is used to connect to the data source.
+    * **Username & Password**: A basic username and password are used to connect to the data source.
+    * **AWS SigV4**: An AWS Signature Version 4 authenticating request is used to connect to the data source. AWS SigV4 requires an access key ID and a secret access key. First specify the **Region**, and then enter the **Access Key** and **Secret Key** for authorization. For information on available Regions for AWS accounts, see [Available Regions](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-available-regions). For more on SigV4 authentication requests, see [Authenticating Requests (AWS Signature Version 4)](https://docs.aws.amazon.com/AmazonS3/latest/API/sig-v4-authenticating-requests.html).
     
     When you select the authentication method, the applicable fields appear for the selected method. Enter the required details.
 
-    After all of the required fields have the appropriate details entered, the **Test connection** and **Create data source connection** buttons become active. You can choose **Test connection** to confirm the connection is valid.
+    After you have entered the appropriate details in all of the required fields, the **Test connection** and **Create data source connection** buttons become active. You can choose **Test connection** to confirm that the connection is valid.
 
 1. Choose **Create data source connection** to save your settings. The connection is created. The active window returns to the **Data Sources** main page, and the new connection appears in the list of data sources.
 
@@ -69,17 +69,17 @@ To create a new data source connection:
 
 ### Editing and updating a data source connection
 
-To make changes to the data source connection, choose a connection in the list on the **Data Sources** main page. The connection details window opens, as shown in the following image.
+To make changes to the data source connection, select a connection in the list on the **Data Sources** main page. The connection details window opens, as shown in the following image.
 
 <img src="{{site.url}}{{site.baseurl}}/images/multi-data-sources-3.5.png" width=500 alt="Data sources settings verification and editing user interface">
 
-To make changes to **Connection Details**, edit one or both of the **Title** and **Description** fields and choose **Save changes** in the lower right corner of the screen. You can also cancel changes here. To change the **Authentication Method**, choose a different authentication method and enter your credentials if applicable, then choose **Save changes** in the lower right corner of the screen. The changes are saved.
+To make changes to **Connection Details**, edit one or both of the **Title** and **Description** fields and choose **Save changes** in the lower-right corner of the screen. You can also cancel changes here. To change the **Authentication Method**, choose a different authentication method, enter your credentials if applicable, and then choose **Save changes** in the lower-right corner of the screen. The changes are saved.
 
-When **Username & Password** is the selected authentication method, you can update the password by choosing **Update stored password** beside the **Password** field. In the popup window, enter a a new password in the first field and then enter it again in the second field to confirm. Choose **Update stored password** in the popup window. The new password is saved. Choose **Test connection** in the upper right corner of the screen to confirm the connection is valid.
+When **Username & Password** is the selected authentication method, you can update the password by choosing **Update stored password** next to the **Password** field. In the pop-up window, enter a a new password in the first field and then enter it again in the second field to confirm. Choose **Update stored password** in the pop-up window. The new password is saved. Choose **Test connection** in the upper-right corner of the screen to confirm that the connection is valid.
 
-When **AWS SigV4** is the selected authentication method, you can update the credentials by choosing **Update stored AWS credential**. In the popup window, enter a new  access key in the first field and a new secret key in the second field. Choose **Update stored aws credential** in the popup window. The new credentials are saved. Choose **Test connection** in the upper right corner of the screen to confirm the connection is valid.
+When **AWS SigV4** is the selected authentication method, you can update the credentials by choosing **Update stored AWS credential**. In the pop-up window, enter a new  access key in the first field and a new secret key in the second field. Choose **Update stored AWS credential** in the pop-up window. The new credentials are saved. Choose **Test connection** in the upper-right corner of the screen to confirm that the connection is valid.
 
-To delete the data source connection, choose the red trash can icon in the upper right corner of the screen.
+To delete the data source connection, choose the red trash can icon in the upper-right corner of the screen.
 
 ## Creating an index pattern
 
