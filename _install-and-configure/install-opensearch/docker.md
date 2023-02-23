@@ -149,7 +149,7 @@ services:
       - cluster.name=opensearch-cluster # Name the cluster
       - node.name=opensearch-node1 # Name the node that will run in this container
       - discovery.seed_hosts=opensearch-node1,opensearch-node2 # Nodes to look for when discovering the cluster
-      - cluster.initial_cluster_manager_nodes=opensearch-node1,opensearch-node2 # Nodes eligible to serve as cluster manager
+      - cluster.initial_master_nodes=opensearch-node1,opensearch-node2 # Nodes eligible to serve as cluster manager
       - bootstrap.memory_lock=true # Disable JVM heap memory swapping
       - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" # Set min and max JVM heap sizes to at least 50% of system RAM
     ulimits:
@@ -173,7 +173,7 @@ services:
       - cluster.name=opensearch-cluster
       - node.name=opensearch-node2
       - discovery.seed_hosts=opensearch-node1,opensearch-node2
-      - cluster.initial_cluster_manager_nodes=opensearch-node1,opensearch-node2
+      - cluster.initial_master_nodes=opensearch-node1,opensearch-node2
       - bootstrap.memory_lock=true
       - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
     ulimits:
@@ -291,7 +291,7 @@ services:
       - cluster.name=opensearch-cluster # Name the cluster
       - node.name=opensearch-node1 # Name the node that will run in this container
       - discovery.seed_hosts=opensearch-node1,opensearch-node2 # Nodes to look for when discovering the cluster
-      - cluster.initial_cluster_manager_nodes=opensearch-node1,opensearch-node2 # Nodes eligibile to serve as cluster manager
+      - cluster.initial_master_nodes=opensearch-node1,opensearch-node2 # Nodes eligible to serve as cluster manager
       - bootstrap.memory_lock=true # Disable JVM heap memory swapping
       - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" # Set min and max JVM heap sizes to at least 50% of system RAM
       - "DISABLE_INSTALL_DEMO_CONFIG=true" # Prevents execution of bundled demo script which installs demo certificates and security configurations to OpenSearch
@@ -317,7 +317,7 @@ services:
       - cluster.name=opensearch-cluster # Name the cluster
       - node.name=opensearch-node2 # Name the node that will run in this container
       - discovery.seed_hosts=opensearch-node1,opensearch-node2 # Nodes to look for when discovering the cluster
-      - cluster.initial_cluster_manager_nodes=opensearch-node1,opensearch-node2 # Nodes eligibile to serve as cluster manager
+      - cluster.initial_master_nodes=opensearch-node1,opensearch-node2 # Nodes eligible to serve as cluster manager
       - bootstrap.memory_lock=true # Disable JVM heap memory swapping
       - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" # Set min and max JVM heap sizes to at least 50% of system RAM
       - "DISABLE_INSTALL_DEMO_CONFIG=true" # Prevents execution of bundled demo script which installs demo certificates and security configurations to OpenSearch
