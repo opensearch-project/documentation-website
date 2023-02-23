@@ -106,7 +106,6 @@ search_backpressure.search_shard_task.heap_variance | 2.0 | The minimum variance
 search_backpressure.search_shard_task.heap_moving_average_window_size | 100 | The number of previously completed search shard tasks to consider when calculating the rolling average of heap usage.
 search_backpressure.search_shard_task.cpu_time_millis_threshold | 15,000 | The CPU usage threshold (in milliseconds) required for a single search shard task before it is considered for cancellation.
 
-
 ## Search Backpressure Stats API
 Introduced 2.4
 {: .label .label-purple }
@@ -259,5 +258,5 @@ The `cancellation_stats` object contains the following statistics for canceled t
 
 Field Name | Data type | Description
 :--- | :--- | :---
-cancellation_count | Integer | The total number of tasks canceled since the node last restarted.
+cancellation_count | Integer | The total number of tasks marked for cancellation since the node last restarted.
 cancellation_limit_reached_count | Integer | The number of times when the number of tasks eligible for cancellation exceeded the set cancellation threshold.
