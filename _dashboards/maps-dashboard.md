@@ -27,6 +27,8 @@ To get started, perform the following steps:
 1. Select **Visualize**.
 1. Select **Create visualization**.
 1. In the **New Visualization** screen, select **Maps**. 
-1. To save your map, enter a name in the **Title** field.
+1. To save your map, choose the **Save** button. 
+1. Enter a name in the **Title** field.
+1. (Optional) Enter a description in the **Description** field.
 1. Choose **Add to Dashboard after saving**.
-1. Choose **Save and return**.
+1. Choose the **Save** button.
