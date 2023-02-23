@@ -93,10 +93,10 @@ just_the_docs:
   # Define the collections used in the theme
   collections:
     install-and-configure:
-      name: Install and configure
+      name: Install and upgrade
       nav_fold: true
     upgrade-to:
-      name: Upgrade to OpenSearch
+      name: Migrate to OpenSearch
       # nav_exclude: true
       nav_fold: true
       # search_exclude: true
