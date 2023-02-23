@@ -10,7 +10,7 @@ nav_order: 45
 
 ## Overview
 
-The `OpenSearch` sink is a sink for your OpenSearch cluster.
+You can use the `OpenSearch` sink to send data to an OpenSearch, Amazon OpenSearch Service, or Elasticsearch cluster using the REST client. The following table describes options you can configure for the `OpenSearch` sink.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---

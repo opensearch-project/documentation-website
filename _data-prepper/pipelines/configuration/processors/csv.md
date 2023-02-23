@@ -10,7 +10,7 @@ nav_order: 45
 
 ## Overview
 
-The `csv` processor parses event data as comma-separated values (CSVs). The following table describes the options you can use to configure the `csv` processor.
+The `csv` processor parses comma-separated values (CSVs) from the event into columns. The following table describes the options you can use to configure the `csv` processor.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---

@@ -10,7 +10,7 @@ nav_order: 45
 
 ## Overview
 
-You can write to another pipeline using the pipeline sink.
+You can use the `pipeline` sink to write to another pipeline.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
