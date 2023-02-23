@@ -10,7 +10,7 @@ nav_order: 45
 
 ## Overview
 
-The `otel_trace_raw` processor completes trace-group-related fields in all incoming Data Prepper span records by state caching the root span information for each `tradeId`. This processor includes the following parameters:
+The `otel_trace_raw` processor completes trace-group-related fields in all incoming Data Prepper span records by state caching the root span information for each `tradeId`. This processor includes the following parameters.
 
 * `traceGroup`: Root span name
 * `endTime`: End time of the entire trace in International Organization for Standardization (ISO) 8601 format
@@ -37,7 +37,7 @@ The following table describes common [Abstract processor](https://github.com/ope
 | `recordsOut` | Counter | Metric representing the egress of records from a pipeline component. |
 | `timeElapsed` | Timer | Metric representing the time elapsed during execution of a pipeline component. |
 
-The `OTel_trace_raw` processor includes the following custom metrics:
+The `OTel_trace_raw` processor includes the following custom metrics.
 
 * `traceGroupCacheCount`: The number of trace groups in the trace group cache.
 * `spanSetCount`: The number of span sets in the span set collection.

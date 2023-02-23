@@ -35,7 +35,7 @@ The following table describes common [Abstract processor](https://github.com/ope
 | `recordsOut` | Counter | Metric representing the egress of records from a pipeline component. |
 | `timeElapsed` | Timer | Metric representing the time elapsed during execution of a pipeline component. |
 
-The `date` processor includes the following custom metrics:
+The `date` processor includes the following custom metrics.
 
 * `dateProcessingMatchSuccessCounter`: Returns the number of records that match with at least one pattern specified by the `match configuration` option. 
 * `dateProcessingMatchFailureCounter`: Returns the number of records that did not match any of the patterns specified by the `patterns match` configuration option.

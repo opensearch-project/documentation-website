@@ -39,12 +39,12 @@ The following table describes common [Abstract processor](https://github.com/ope
 | `recordsOut` | Counter | Metric representing the egress of records from a pipeline component. |
 | `timeElapsed` | Timer | Metric representing the time elapsed during execution of a pipeline component. |
 
-The `Grok` processor introduces the following custom metrics:
+The `Grok` processor includes the following custom metrics.
 
 ### Counter
 
 * `grokProcessingMismatch`: Records the number of records that did not match any of the patterns specified in the match field.
-* `grokProcessingMatch`: Records the number of records that matched at least one pattern match from the `match` field.
+* `grokProcessingMatch`: Records the number of records that matched at least one pattern from the `match` field.
 * `grokProcessingErrors`: Records the total number of record processing errors.
 * `grokProcessingTimeouts`: Records the total number of records that timed out while matching.
 
