@@ -106,7 +106,6 @@ search_backpressure.search_shard_task.heap_variance | 2.0 | The minimum variance
 search_backpressure.search_shard_task.heap_moving_average_window_size | 100 | The number of previously completed search shard tasks to consider when calculating the rolling average of heap usage.
 search_backpressure.search_shard_task.cpu_time_millis_threshold | 15,000 | The CPU usage threshold (in milliseconds) required for a single search shard task before it is considered for cancellation.
 
-
 ## Search Backpressure Stats API
 Introduced 2.4
 {: .label .label-purple }
