@@ -255,9 +255,9 @@ current_avg_millis | Integer | The average CPU time for all tasks currently runn
 
 ### `cancellation_stats`
 
-The `cancellation_stats` object contains the following statistics for canceled tasks.
+The `cancellation_stats` object contains the following statistics for the tasks that are marked for cancellation.
 
 Field Name | Data type | Description
 :--- | :--- | :---
-cancellation_count | Integer | The total number of tasks canceled since the node last restarted.
+cancellation_count | Integer | The total number of tasks marked for cancellation since the node last restarted.
 cancellation_limit_reached_count | Integer | The number of times when the number of tasks eligible for cancellation exceeded the set cancellation threshold.
