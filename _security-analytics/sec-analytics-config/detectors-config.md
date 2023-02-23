@@ -13,18 +13,25 @@ Security Analytics provides the options and functionality to monitor and respond
 
 You can define a new detector by naming the detector, selecting a data source and detector type, and specifying a detector schedule. After defining a detector, you can also configure field mappings and set up alerts. Follow the steps in this section to accomplish all three of these setup tasks.
 
-1. On the Detectors page, select the **Create detector** button. The Define detector page opens.
-1. Give the detector a name and, as an option, add a description for the detector. 
-1. In the Data source section, select the dropdown arrow and select a source for the log data.
-1. In the threat detection type section, select the data type. The Sigma security rules associated with the log data are automatically populated in the Detection rules section below it.
-<img src="{{site.url}}{{site.baseurl}}/images/Security/detector_rules.png" alt="Selecting threat detector type to auto-populate rules" width="80%">
+1. On the **Threat detectors** page, choose **Create detector**. The **Define detector** page opens.
+1. In **Detector details**, give the detector a name and, as an option, add a description for the detector. 
+1. In the **Data source** section, select the dropdown arrow and choose one or multiple sources for the log data.
 
-    You can skip the next step for mapping rules if you are satisfied with those automatically populated by the system. Otherwise, go to the next step to specify select rules.
+    When multiple data sources are selected, the logs must be of the same type. We recommend creating separate detectors for different log types.
     {: .note }
 
-1. In the **Detection rules** section, specify only those rules you want mapped to the detector.
+1. In the **Log types and rules** section, select the log type for the data source. The Sigma security rules associated with the log data are automatically populated in the Detection rules section below it.
+
+<img src="{{site.url}}{{site.baseurl}}/images/Security/detector_rules.png" alt="Selecting threat detector type to auto-populate rules" width="80%">
+
+    You can skip the next step for applying select rules if you are satisfied with those automatically populated by the system. Otherwise, go to the next step to choose rules individually.
+    {: .note }
+
+1. In the **Detection rules** section, specify only those rules you want applied to the detector.
+
 <img src="{{site.url}}{{site.baseurl}}/images/Security/select_rules.png" alt="Select or deselect rules that detector will use for findings" width="85%">
-* Use the toggle to the left of the rule name to select or deselect rules.
+
+* Use the toggle to the left of **Rule name** to select or deselect rules.
 * Use the **Log type**, **Rule severity**, and **Source** dropdown lists to filter the rules you want to select from. 
 * Use the **Search** bar to search for specific rules.
 
@@ -32,7 +39,7 @@ You can define a new detector by naming the detector, selecting a data source an
     {: .tip }
 
 1. In the **Detector schedule** section, set how often the detector will run. Specify a unit of time and a corresponding number to set the interval.
-1. Select the **Next** button in the lower-right corner of the screen to continue. The **Configure field mapping** page appears.
+1. Choose **Next** in the lower-right corner of the screen to continue. The **Configure field mapping** page appears.
 
 ## Step 2. Create field mappings
 
@@ -48,7 +55,7 @@ The field mapping process requires that you are familiar with the field names in
 
 Security Analytics takes advantage of prepackaged Sigma rules for security event detection. Therefore, the rule field names are derived from a Sigma rule field standard. To make them easier to identify, however, we create aliases for the Sigma rule fields based on the open source Elastic Common Schema (ECS) specification. These alias rule field names are the field names used in these steps. 
 
-Although the ECS rule field names are largely self-explanatory, you can find predefined mappings of the Sigma rule field names with ECS rule field names, for all supported log types, in the GitHub Security Analytics repository. Navigate to the [OSMappings](https://github.com/opensearch-project/security-analytics/tree/main/src/main/resources/OSMapping) folder, select the folder named for the log type, and open the `fieldmappings.yml` file. For example, to see the Sigma rule fields that correspond to ECS rule fields for the Windows log type, open the [fieldmappings.yml file](https://github.com/opensearch-project/security-analytics/blob/main/src/main/resources/OSMapping/windows/fieldmappings.yml) in the **windows** folder.
+Although the ECS rule field names are largely self-explanatory, you can find predefined mappings of the Sigma rule field names with ECS rule field names, for all supported log types, in the GitHub Security Analytics repository. Navigate to the [OSMappings](https://github.com/opensearch-project/security-analytics/tree/main/src/main/resources/OSMapping) folder, choose the folder named for the log type, and open the `fieldmappings.yml` file. For example, to see the Sigma rule fields that correspond to ECS rule fields for the Windows log type, open the [fieldmappings.yml file](https://github.com/opensearch-project/security-analytics/blob/main/src/main/resources/OSMapping/windows/fieldmappings.yml) in the **windows** folder.
 
 ### Default field mappings
 
