@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Upgrade Appendix
+title: Appendix
 parent: Upgrading OpenSearch
 nav_order: 99
 ---
 
-# Upgrade Appendix
+# Appendix
 
 Refer to the topics in this appendix for additional supporting documentation, such as example API requests and configuration files that were used for testing and validation of steps in upgrade procedures. If you would like to request specific topics to include in this appendix, please comment on the [upgrade and migration documentation meta issue](https://github.com/opensearch-project/documentation-website/issues/2830) in the [OpenSearch Project](https://github.com/opensearch-project) on GitHub.
 
