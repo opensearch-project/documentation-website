@@ -41,7 +41,7 @@ To create a new data source connection:
 
 1. Open Dashboards. If you’re not running the security plugin, go to [`http://localhost:5601`](http://localhost:5601/). If you’re running the security plugin, go to [`https://localhost:5601`](https://localhost:5601/) and log in with the username `admin` and password `admin`.
 
-1. In the Dashboards console, navigate to **Stack Management** > **Data Sources `Experimental`** > **Data Sources**, and then select **Create data source connection**, as shown in the following image.
+1. Under **Management** in the OpenSearch Dashboards main menu, choose **Stack Management**, **Data Sources `Experimental`**, **Data Sources**, and then choose **Create data source connection**, as shown in the following image.
 
     <img src="{{site.url}}{{site.baseurl}}/images/multi-data-sources-1.png" width=500 alt="Data sources user interface">
 
@@ -49,37 +49,37 @@ To create a new data source connection:
 
     <img src="{{site.url}}{{site.baseurl}}/images/multi-data-sources-2.png" width=500 alt="Create a data source connection user interface">
 
-    For **Connection Details**, enter a title for the connection and the endpoint URL used to connect to the data source. A description of the connection is optional. 
+    In **Connection Details**, enter a title for the connection and the endpoint URL used to connect to the data source. A description of the connection is optional. 
     
     For **Authentication Method**, first select the type of authentication:
     * **No authentication**—No authentication is used to connect to the data source.
     * **Username & Password**—A basic username and password is used to connect to the data source.
-    * **AWS SigV4**—AWS Signature Version 4 authenticating request is used  to connect. AWS SigV4 requires an access key ID and secret access key. First specify the **Region**, then enter the **Access Key** and **Secret Key** for authorization. For information on available regions for AWS accounts, see [Available Regions](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-available-regions). For more on SigV4 authentication requests, see [Authenticating Requests (AWS Signature Version 4)](https://docs.aws.amazon.com/AmazonS3/latest/API/sig-v4-authenticating-requests.html).
+    * **AWS SigV4**—AWS Signature Version 4 authenticating request is used  to connect. AWS SigV4 requires an access key ID and a secret access key. First specify the **Region**, then enter the **Access Key** and **Secret Key** for authorization. For information on available regions for AWS accounts, see [Available Regions](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-available-regions). For more on SigV4 authentication requests, see [Authenticating Requests (AWS Signature Version 4)](https://docs.aws.amazon.com/AmazonS3/latest/API/sig-v4-authenticating-requests.html).
     
     When you select the authentication method, the applicable fields appear for the selected method. Enter the required details.
 
-    After all of the required fields have the appropriate details entered, the **Test connection** and **Create data source connection** buttons become active. You can select **Test connection** to confirm the connection is valid.
+    After all of the required fields have the appropriate details entered, the **Test connection** and **Create data source connection** buttons become active. You can choose **Test connection** to confirm the connection is valid.
 
-1. Select **Create data source connection** to save your settings. The connection is created. The active window returns to the **Data Sources** main page, and the new connection appears in the list of data sources.
+1. Choose **Create data source connection** to save your settings. The connection is created. The active window returns to the **Data Sources** main page, and the new connection appears in the list of data sources.
 
     <img src="{{site.url}}{{site.baseurl}}/images/multi-data-sources-3.png" width=500 alt="Data sources list user interface">
 
-    You can also delete the data source connection from this page by selecting the checkbox to the left of the title and then selecting **Delete 1 connection** to the right of the search bar. Selecting multiple checkboxes for multiple connections is also supported.
+    You can also delete the data source connection from this page by selecting the check box to the left of the title and then choosing **Delete 1 connection** to the right of the search bar. Selecting multiple check boxes for multiple connections is also supported.
     {: .note }
 
 ### Editing and updating a data source connection
 
-To make changes to the data source connection, select the connection in the list on the **Data Sources** main page. The connection details window opens, as shown in the following image.
+To make changes to the data source connection, choose a connection in the list on the **Data Sources** main page. The connection details window opens, as shown in the following image.
 
 <img src="{{site.url}}{{site.baseurl}}/images/multi-data-sources-3.5.png" width=500 alt="Data sources settings verification and editing user interface">
 
-To make changes to **Connection Details**, edit one or both of the **Title** and **Description** fields and select **Save changes** in the lower right corner of the screen. You can also cancel changes here. To change the **Authentication Method**, select a different authentication method and enter your credentials if applicable, then select **Save changes** in the lower right corner of the screen. The changes are saved.
+To make changes to **Connection Details**, edit one or both of the **Title** and **Description** fields and choose **Save changes** in the lower right corner of the screen. You can also cancel changes here. To change the **Authentication Method**, choose a different authentication method and enter your credentials if applicable, then choose **Save changes** in the lower right corner of the screen. The changes are saved.
 
-When **Username & Password** is the selected authentication method, you can update the password by selecting **Update stored password** beside the **Password** field. In the popup window, enter a a new password in the first field and then enter it again in the second field to confirm. Select **Update stored password** in the popup window. The new password is saved. Select **Test connection** in the upper right corner of the screen to confirm the connection is valid.
+When **Username & Password** is the selected authentication method, you can update the password by choosing **Update stored password** beside the **Password** field. In the popup window, enter a a new password in the first field and then enter it again in the second field to confirm. Choose **Update stored password** in the popup window. The new password is saved. Choose **Test connection** in the upper right corner of the screen to confirm the connection is valid.
 
-When **AWS SigV4** is the selected authentication method, you can update the credentials by selecting **Update stored AWS credential**. In the popup window, enter a new  access key in the first field and a new secret key in the second field. Select **Update stored aws credential** in the popup window. The new credentials are saved. Select **Test connection** in the upper right corner of the screen to confirm the connection is valid.
+When **AWS SigV4** is the selected authentication method, you can update the credentials by choosing **Update stored AWS credential**. In the popup window, enter a new  access key in the first field and a new secret key in the second field. Choose **Update stored aws credential** in the popup window. The new credentials are saved. Choose **Test connection** in the upper right corner of the screen to confirm the connection is valid.
 
-To delete the data source connection, select the red trash can icon in the upper right corner of the screen.
+To delete the data source connection, choose the red trash can icon in the upper right corner of the screen.
 
 ## Creating an index pattern
 
