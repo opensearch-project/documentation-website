@@ -182,7 +182,7 @@ You can add a new or existing map to a new or existing dashboard by performing t
 - To add a map to an existing dashboard, first open the dashboard as follows:
   1. On the top menu bar, go to **OpenSearch Dashboards > Dashboard**.
   1. Select the dashboard you want to open from the list.
-  1. In the upper right corner, select **Edit**.
+  1. In the upper-right corner, select **Edit**.
 
 Once you've opened a dashboard, you can add a new or existing map to it.
 
@@ -197,15 +197,15 @@ Once you've opened a dashboard, you can add a new or existing map to it.
 1. From the top menu, select the **Create new** button.
 1. In the **New Visualization** dialog, select **Maps**.
 1. Add any default map, layers, and tooltips to the map.
-1. In the upper right corner, select the **Save** button.
+1. In the upper-right corner, select the **Save** button.
 1. In the **Save map** dialog, enter the **Title** and optional **Description** of the map.
 1. Select **Add to Dashboard after saving**.
 1. Select the **Save and return** button.
 
 ## Editing a map from a dashboard
 
-1. In the dashboard, select the gear icon in the upper right corner of the map you want to edit.
+1. In the dashboard, select the gear icon in the upper-right corner of the map you want to edit.
 1. Select **Edit maps**.
 1. Edit the map.
-1. In the upper right corner, select the **Save** button.
+1. In the upper-right corner, select the **Save** button.
 1. In the **Save map** dialog, select the **Save and return** button.
