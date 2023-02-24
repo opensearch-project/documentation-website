@@ -24,7 +24,7 @@ The rolling upgrade procedure was tested and validated on a Linux host running [
 
 Testing was performed using [Amazon Elastic Compute Cloud (Amazon EC2)](https://aws.amazon.com/ec2/) with a `t2.large` instance type. The instance was provisioned with 2 vCPUs, 8 GiB memory, and an attached 20 GiB gp2 [Amazon Elastic Block Store (EBS)](https://aws.amazon.com/ebs/) root volume. Kernel version `Linux 5.10.162-141.675.amzn2.x86_64` was used for testing.
 
-References to the `$HOME` path on the host machine in this procedure are represented by `~` to make the instructions more portable. If you would prefer to specify an absolute path, modify the volume paths define in `upgrade-demo-cluster.sh` to reflect your environment.
+References to the `$HOME` path on the host machine in this procedure are represented by the tilde character ("~") to make the instructions more portable. If you would prefer to specify an absolute path, modify the volume paths define in `upgrade-demo-cluster.sh` to reflect your environment.
 {: .note}
 
 If you want to clean up resources created during this rolling upgrade demonstration, run the following command. If any unrelated Docker resources are running on your host, then you should modify this command to avoid deleting any of those resources unintentionally.
@@ -61,18 +61,19 @@ docker container stop $(docker container ls -aqf name=os-); \
 	   sudo sysctl -p
 	   ```
 	   {% include copy.html %}
-	1. Confirm that the change was applied with the following command which will print the value:
-	   ```bash
-	   cat /proc/sys/vm/max_map_count
-	   ```
-	   {% include copy.html %}
 1. Navigate to your home directory and create a new directory called `deploy`. You will use `~/deploy` for the deployment script, configuration files and TLS certificates.
    ```bash
    mkdir ~/deploy && cd ~/deploy
    ```
    {% include copy.html %}
-1. Download `upgrade-demo-cluster.sh` from the OpenSearch [documentation-website](https://github.com/opensearch-project/documentation-website) repository.
-   ```
-   cd ~ && wget https://raw.githubusercontent.com/opensearch-project/documentation-website/main/assets/examples/upgrade-demo-cluster.sh
+1. Download `upgrade-demo-cluster.sh` from the OpenSearch [documentation-website](https://github.com/opensearch-project/documentation-website) repository:
+   ```bash
+   wget https://raw.githubusercontent.com/opensearch-project/documentation-website/main/assets/examples/upgrade-demo-cluster.sh
    ```
    {% include copy.html %}
+1. Run the script without any changes to deploy four containers running OpenSearch and one container running OpenSearch Dashboards, with custom self-signed TLS certificates and a pre-defined set of internal users:
+   ```bash
+   sh upgrade-demo-cluster.sh
+   ```
+   {% include copy.html %}
+1. 
