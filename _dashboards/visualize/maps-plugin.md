@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Using Maps 
+title: Using maps 
 grand_parent: Building data visualizations
 parent: Using coordinate and region maps
 nav_order: 5
@@ -8,13 +8,13 @@ redirect_from:
   - /dashboards/maps/
 ---
 
-# Using Maps 
+# Using maps 
 
 With OpenSearch Dashboards, you can create maps to visualize your geographical data. OpenSearch lets you construct map visualizations with multiple layers, combining data across different indexes. You can build each layer from a different index pattern. Additionally, you can configure maps to show specific data at different zoom levels. OpenSearch maps are powered by the OpenSearch maps service, which uses vector tiles to render maps. 
 
 ## Creating a new map
 
-You can create a new map from the **Maps** or **Visualize** workflows: 
+You can create a new map from the **Maps** or **Visualize** workflows by performing the following steps: 
 
 - To create a new map from the **Maps** workflow, perform the following steps:
 
@@ -171,7 +171,7 @@ To open your saved map, select **Maps** in the upper-left corner. The list of sa
 
 ## Adding a map to a dashboard
 
-You can add a new or existing map to a new or existing dashboard:
+You can add a new or existing map to a new or existing dashboard by performing the following steps:
 
 - To add a map to a new dashboard, first create the dashboard as follows:
 
