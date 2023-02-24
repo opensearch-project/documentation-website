@@ -27,9 +27,6 @@ You can create a new map from the **Maps** or **Visualize** workflows:
   1. Select the **Create visualization** button.
   1. In the **New Visualization** dialog, select **Maps**.
 
-If you choose the **Visualize** workflow, you'll be able to add the newly created map to a dashboard after saving.
-{: .tip}
-
 You can now see the default OpenSearch basemap.
 
 To examine the **Default map** layer configuration, in the **Layers** panel on the upper left of the map, select **Default map**, as shown in the following image.
