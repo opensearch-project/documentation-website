@@ -76,4 +76,18 @@ docker container stop $(docker container ls -aqf name=os-); \
    sh upgrade-demo-cluster.sh
    ```
    {% include copy.html %}
+1. Confirm that the containers were launched successfully with the following command:
+   ```bash
+   docker container ls
+   ```
+   {% include copy.html %}
+   You should see a response that looks like the following example, but with different container IDs:
+   ```bash
+   CONTAINER ID   IMAGE                                           COMMAND                  CREATED          STATUS          PORTS                                                                                                      NAMES
+   f5ba7046c517   opensearchproject/opensearch-dashboards:1.3.7   "./opensearch-dashbo…"   17 minutes ago   Up 17 minutes   0.0.0.0:5601->5601/tcp, :::5601->5601/tcp                                                                  os-dashboards-01
+   9e80c56cd304   opensearchproject/opensearch:1.3.7              "./opensearch-docker…"   17 minutes ago   Up 17 minutes   9300/tcp, 9650/tcp, 0.0.0.0:9204->9200/tcp, :::9204->9200/tcp, 0.0.0.0:9604->9600/tcp, :::9604->9600/tcp   os-node-04
+   3c06dee32be1   opensearchproject/opensearch:1.3.7              "./opensearch-docker…"   17 minutes ago   Up 17 minutes   9300/tcp, 9650/tcp, 0.0.0.0:9203->9200/tcp, :::9203->9200/tcp, 0.0.0.0:9603->9600/tcp, :::9603->9600/tcp   os-node-03
+   996075b7dfad   opensearchproject/opensearch:1.3.7              "./opensearch-docker…"   17 minutes ago   Up 17 minutes   9300/tcp, 9650/tcp, 0.0.0.0:9202->9200/tcp, :::9202->9200/tcp, 0.0.0.0:9602->9600/tcp, :::9602->9600/tcp   os-node-02
+   65fc7d1e8935   opensearchproject/opensearch:1.3.7              "./opensearch-docker…"   17 minutes ago   Up 17 minutes   9300/tcp, 9650/tcp, 0.0.0.0:9201->9200/tcp, :::9201->9200/tcp, 0.0.0.0:9601->9600/tcp, :::9601->9600/tcp   os-node-01
+   ```
 1. 
