@@ -28,28 +28,36 @@ Testing was performed using [Amazon Elastic Compute Cloud (Amazon EC2)](https://
 
 1. Install the appropriate version of [Docker Engine](https://docs.docker.com/engine/install/) for your Linux distribution and architecture. 
 1. Configure [important system settings]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#important-settings) on your host.
-    a. Disable memory paging and swapping performance on the host to improve performance:
-	```bash
-	sudo swapoff -a
-	```
-	{% include copy.html %}
-	b. Increase the number of memory maps available to OpenSearch. First, open the `sysctl` configuration file for editing. This example command uses the `vim` text editor, but you may use whichever text editor you prefer.
-	```bash
-	sudo vim /etc/sysctl.conf
-	```
-	{% include copy.html %}
-	c. Add
-	```bash
-	vm.max_map_count=262144
-	```
-	{% include copy.html %}
-	d. Save and quit.
-	e. Apply the configuration change:
-	```bash
-	sudo sysctl -p
-	```
-	{% include copy.html %}
-1. 
+    1. Disable memory paging and swapping performance on the host to improve performance:
+	   ```bash
+	   sudo swapoff -a
+	   ```
+	   {% include copy.html %}
+	1. Increase the number of memory maps available to OpenSearch. First, open the `sysctl` configuration file for editing. This example command uses the [vim](https://www.vim.org/), but you should use whichever available text editor you prefer:
+	   ```bash
+	   sudo vim /etc/sysctl.conf
+	   ```
+	   {% include copy.html %}
+	1. Add the following line to the file:
+	   ```bash
+	   vm.max_map_count=262144
+	   ```
+	   {% include copy.html %}
+	1. Save and quit.
+	1. Apply the configuration change:
+	   ```bash
+	   sudo sysctl -p
+	   ```
+	   {% include copy.html %}
+	1. Confirm that the change was applied with the following command which will print the value:
+	   ```bash
+	   cat /proc/sys/vm/max_map_count
+	   ```
+	   {% include copy.html %}
+1. Navigate to your home directory and copy the script you will use to deploy your local Docker cluster:
+   ```
+   wget https://github.com/opensearch-project/documentation-website/tree/main/assets/examples/upgrade-demo-cluster.sh
+   ```
 The following command is executed prior to deploying any nodes to ensure that artifacts from previous testing are erased:
 ```bash
 docker container stop $(docker container ls -aq) ; docker container rm $(docker container ls -aq) ; docker volume rm -f $(docker volume ls -q) ; docker network rm $(docker network ls -q)
