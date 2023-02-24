@@ -128,7 +128,7 @@ just_the_docs:
       name: Monitoring your cluster
       nav_fold: true
     observing-your-data:
-      name: Observing your data
+      name: Observability
       nav_fold: true
     clients:
       name: Clients
