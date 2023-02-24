@@ -14,7 +14,7 @@ Security Analytics provides the options and functionality to monitor and respond
 You can define a new detector by naming the detector, selecting a data source and detector type, and specifying a detector schedule. After defining a detector, you can also configure field mappings and set up alerts. Follow the steps in this section to accomplish all three of these setup tasks.
 
 1. On the **Threat detectors** page, choose **Create detector**. The **Define detector** page opens.
-1. In **Detector details**, give the detector a name and, as an option, add a description for the detector. 
+1. In **Detector details**, give the detector a name. Adding a description for the detector is optional. 
 1. In the **Data source** section, select the dropdown arrow and choose one or multiple sources for the log data.
 
     When multiple data sources are selected, the logs must be of the same type. We recommend creating separate detectors for different log types.
@@ -56,7 +56,7 @@ Although the ECS rule field names are largely self-explanatory, you can find pre
 
 ### Automatically mapped fields
 
-Once you navigate to the **Configure field mapping** page, the system attempts to automatically map fields between the two sources. The **Automatically mapped fields** table contains mappings that the system created automatically after defining the detector. As shown in the image that follows, when the field names are similar to one another the system can successfully match the two.
+Once you navigate to the **Configure field mapping** page, the system attempts to automatically map fields between the two sources. The **Automatically mapped fields** table contains mappings that the system created automatically after defining the detector. When the field names are similar to one another the system can successfully match the two, as shown in the following image.
 
 <img src="{{site.url}}{{site.baseurl}}/images/Security/automatic-mappings.png" alt="Field mapping example for automatic mappings" width="85%">
 
