@@ -67,14 +67,16 @@ If you use security features, make sure to read [A word of caution]({{site.url}}
 
 ### Take a snapshot
 
-We recommend that you back up your cluster state and indexes using [snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/index/). Snapshots you take before the upgrade can be used as restore points if you need to rollback the cluster.
+We recommend that you back up your cluster state and indexes using [snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/index/). Snapshots you take before the upgrade can be used as restore points if you need to rollback the cluster to its original version.
 
-Mitigate the risk of data loss by storing your snapshots on external storage, such as a mounted filesystem volume from a remote host, or a cloud storage solution like:
+You can further reduce the risk of data loss by storing your snapshots on external storage, such as a mounted NFS or a cloud storage solution like one of the following:
 
-- [Amazon Simple Storage Service (Amazon S3)](https://aws.amazon.com/s3/)
-- [Google Cloud Storage (GCS)](https://cloud.google.com/storage)
-- [Apache Hadoop Distributed File System (HDFS)](https://hadoop.apache.org/)
-- [Microsoft Azure Blob Storage](https://azure.microsoft.com/en-us/products/storage/blobs)
+| Snapshot Repository Location | Required OpenSearch Plugin |
+| :--- | :--- |
+| [Amazon Simple Storage Service (Amazon S3)](https://aws.amazon.com/s3/) | [repository-s3](https://github.com/opensearch-project/OpenSearch/tree/{{site.opensearch_version}}/plugins/repository-s3) |
+| [Google Cloud Storage (GCS)](https://cloud.google.com/storage) | [repository-gcs](https://github.com/opensearch-project/OpenSearch/tree/{{site.opensearch_version}}/plugins/repository-gcs) |
+| [Apache Hadoop Distributed File System (HDFS)](https://hadoop.apache.org/) | [repository-hdfs](https://github.com/opensearch-project/OpenSearch/tree/{{site.opensearch_version}}/plugins/repository-hdfs) |
+| [Microsoft Azure Blob Storage](https://azure.microsoft.com/en-us/products/storage/blobs) | [repository-azure](https://github.com/opensearch-project/OpenSearch/tree/{{site.opensearch_version}}/plugins/repository-azure) |
 
 ## Upgrade methods
 
