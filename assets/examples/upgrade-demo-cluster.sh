@@ -10,7 +10,7 @@
 os_node_count=4
 
 # Create Docker network if it doesn't exist. A subnet is defined
-# so that static IP addresses can be assigned to individual continers
+# so that static IP addresses can be assigned to individual containers
 # for TLS certificate SANS purposes.
 create_network()	{
 	docker network create --subnet=172.20.0.0/16 opensearch-dev-net || true
