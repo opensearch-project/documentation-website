@@ -29,7 +29,10 @@ References to the `$HOME` path on the host machine in this procedure are represe
 
 If you want to clean up resources created during this rolling upgrade demonstration, then run the following command. If any unrelated Docker resources are running on your host, then you should modify this command to avoid deleting any of those resources unintentionally.
 ```bash
-docker container stop $(docker container ls -aq | egrep 'os-node-|os-dashboards-') ; docker container rm $(docker container ls -aq | egrep 'os-node-|os-dashboards-') ; docker volume rm -f $(docker volume ls -q | egrep 'data-0|repo-0') ; docker network rm opensearch-dev-net
+docker container stop $(docker container ls -aqf name=os-); \
+	docker container rm $(docker container ls -aqf name=os-); \
+	docker volume rm -f $(docker volume ls -q | egrep 'data-0|repo-0'); \
+	docker network rm opensearch-dev-net
 ```
 {% include copy.html %}
 
@@ -63,7 +66,13 @@ docker container stop $(docker container ls -aq | egrep 'os-node-|os-dashboards-
 	   cat /proc/sys/vm/max_map_count
 	   ```
 	   {% include copy.html %}
-1. Navigate to your home directory and download the script that will deploy your local Docker cluster:
+1. Navigate to your home directory and create a new directory called `deploy`. You will use `~/deploy` for the deployment script, configuration files and TLS certificates.
+   ```bash
+   mkdir ~/deploy && cd ~/deploy
+   ```
+   {% include copy.html %}
+1. Download `upgrade-demo-cluster.sh` from the OpenSearch [documentation-website](https://github.com/opensearch-project/documentation-website) repository.
    ```
    cd ~ && wget https://raw.githubusercontent.com/opensearch-project/documentation-website/main/assets/examples/upgrade-demo-cluster.sh
    ```
+   {% include copy.html %}
