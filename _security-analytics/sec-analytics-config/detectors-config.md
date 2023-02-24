@@ -70,7 +70,7 @@ The field names that are not automatically mapped appear in the **Pending field 
 
 While mapping fields, consider the following:
 * The **Detector field name** column lists field names based on all of the prepackaged rules associated with the selected log type.
-* The **Log source field name** column includes a dropdown list for each of the rule fields. Each dropdown list contains field names extracted from the log index.
+* The **Log source field name** column includes a dropdown list for each of the detector fields. Each dropdown list contains field names extracted from the log index.
 * To map a detector field name to a log source field name, use the dropdown arrow to open the list of log source fields and choose the log field name from the list. To search for names in the log field list, enter text in the **Select a mapping field** box.
 
 <img src="{{site.url}}{{site.baseurl}}/images/Security/log-field.png" alt="Field mapping example for pending mappings" width="60%">
@@ -105,7 +105,7 @@ To set up an alert for a detector, continue with the following steps:
 * Select the **Show notify message** label to expand message preferences. You can add a subject for the message and a note to inform recipients of the nature of the message.
 1. After configuring the conditions in the fields above, choose **Next** in the lower-right corner of the screen. The **Review and create** page opens.
 
-After reviewing the specifications for the detector, select the **Create** button in the lower-right corner of the screen to create the detector. The screen returns to the list of all detectors, and the new detector appears in the list.
+After reviewing the specifications for the detector, choose **Create** in the lower-right corner of the screen to create the detector. The screen returns to the list of all detectors, and the new detector appears in the list.
 
 ## What's next
 
