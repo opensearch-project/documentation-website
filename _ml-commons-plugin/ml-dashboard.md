@@ -38,10 +38,11 @@ The dashboard includes the following information about the model:
 - **Model ID**: The model ID.
 - **Action**: What actions you can take with the model.
 
-As of OpenSearch 2.6, the only action available is **View Status Details**. When selected, the Status Details panel appears. 
+As of OpenSearch 2.6, the only action available is **View Status Details**. 
 
 <img src="{{site.url}}{{site.baseurl}}/images/ml/ml-dashboard/view-status-details.png" alt="You can view status details under actions.">
 
+When selected, the Status Details panel appears.
 
 You can see the following details inside the panel:
 
