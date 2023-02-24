@@ -39,7 +39,7 @@ Stop any nonessential indexing before you begin the upgrade procedure to elimina
 
 ### Review breaking changes
 
-It's important to determine how the new version of OpenSearch will fit into your environment. Review [Breaking changes]({{site.url}}{{site.baseurl}}/breaking-changes/) before beginning any upgrade procedures to determine whether you will need to make adjustments to your workflow. For example, upstream or downstream components might need to be modified to be compatible with an API change.
+It's important to determine how the new version of OpenSearch will fit into your environment. Review [Breaking changes]({{site.url}}{{site.baseurl}}/breaking-changes/) before beginning any upgrade procedures to determine whether you will need to make adjustments to your workflow. For example, upstream or downstream components might need to be modified to be compatible with an API change (see meta issue [#2589](https://github.com/opensearch-project/OpenSearch/issues/2589)).
 
 ### Review the OpenSearch tools compatibility matrices
 
@@ -48,6 +48,11 @@ If your OpenSearch cluster interacts with other services in your environment, li
 ### Review plugin compatibility
 
 Review the plugins you use to determine compatibility with the target version of OpenSearch. Official OpenSearch Project plugins can be found in the [OpenSearch Project](https://github.com/opensearch-project) repository on GitHub. If you use any third-party plugins, then you should check the documentation for those plugins to determine whether they are compatible.
+
+Visit [Available plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/#available-plugins) to see a reference table that highlights version compatibility for bundled OpenSearch plugins.
+
+Major, minor, and patch plugin versions must match OpenSearch major, minor, and patch versions in order to be compatible. For example, plugin versions 2.3.0.x work only with OpenSearch 2.3.0.
+{: .important}
 
 ### Back up configuration files
 
@@ -58,9 +63,18 @@ Mitigate the risk of data loss by backing up any important files before you star
 
 Some examples include `opensearch.yml`, `opensearch_dashboards.yml`, plugin configuration files, and TLS certificates. Once you identify which files you want to back up, copy them to remote storage for safety.
 
+If you use security features, make sure to read [A word of caution]({{site.url}}{{site.baseurl}}/security-plugin/configuration/security-admin/#a-word-of-caution) for information about backing up and restoring your security settings.
+
 ### Take a snapshot
 
-We recommend that you back up your cluster state and indexes using [snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/index/). If you use security features, make sure to read [A word of caution]({{site.url}}{{site.baseurl}}/security-plugin/configuration/security-admin/#a-word-of-caution) for information about backing up and restoring your security settings.
+We recommend that you back up your cluster state and indexes using [snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/index/). Snapshots you take before the upgrade can be used as restore points if you need to rollback the cluster.
+
+Mitigate the risk of data loss by storing your snapshots on external storage, such as a mounted filesystem volume from a remote host, or a cloud storage solution like:
+
+- [Amazon Simple Storage Service (Amazon S3)](https://aws.amazon.com/s3/)
+- [Google Cloud Storage (GCS)](https://cloud.google.com/storage)
+- [Apache Hadoop Distributed File System (HDFS)](https://hadoop.apache.org/)
+- [Microsoft Azure Blob Storage](https://azure.microsoft.com/en-us/products/storage/blobs)
 
 ## Upgrade methods
 
