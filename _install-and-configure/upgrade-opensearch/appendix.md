@@ -12,13 +12,44 @@ You can refer to this appendix for additional supporting documentation, such as 
 Specific commands are included in this appendix to serve as examples of interacting with the OpenSearch API, and the underlying host, in order to demonstrate the steps described in the related upgrade process documents. The intention is not to be overly prescriptive, but instead to add context for users who are new to OpenSearch and want to see practical examples.
 {:.note}
 
-## Rolling upgrade
+## Upgrading OpenSearch
 
-The rolling upgrade procedure was tested and validated on a Linux host running [Amazon Linux 2](https://aws.amazon.com/amazon-linux-2/) with [Docker](https://www.docker.com/). You can follow these steps to recreate the same cluster state used for generating the procedure if you want to try the upgrade process in a test environment yourself.
+This section of the appendix includes materials relating to version upgrades of OpenSearch and OpenSearch Dashboards.
 
-1. Install [Docker](https://www.docker.com/).
+### Rolling upgrade
+
+The rolling upgrade procedure was tested and validated on a Linux host running [Amazon Linux 2](https://aws.amazon.com/amazon-linux-2/) with [Docker](https://www.docker.com/). You can follow these steps to recreate the same cluster state used for generating the procedure if you want to try the upgrade process in a test environment.
+
+#### Environment details
+
+Testing was performed using [Amazon Elastic Compute Cloud (Amazon EC2)](https://aws.amazon.com/ec2/) with a `t2.large` instance type. The instance was provisioned with 2 vCPUs, 8 GiB memory, and an attached 20 GiB gp2 [Amazon Elastic Block Store (EBS)](https://aws.amazon.com/ebs/) root volume. Kernel version `Linux 5.10.162-141.675.amzn2.x86_64` was used for testing.
+
+#### Upgrade steps
+
+1. Install the appropriate version of [Docker Engine](https://docs.docker.com/engine/install/) for your Linux distribution and architecture. 
+1. Configure [important system settings]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#important-settings) on your host.
+    a. Disable memory paging and swapping performance on the host to improve performance:
+	```bash
+	sudo swapoff -a
+	```
+	{% include copy.html %}
+	b. Increase the number of memory maps available to OpenSearch. First, open the `sysctl` configuration file for editing. This example command uses the `vim` text editor, but you may use whichever text editor you prefer.
+	```bash
+	sudo vim /etc/sysctl.conf
+	```
+	{% include copy.html %}
+	c. Add
+	```bash
+	vm.max_map_count=262144
+	```
+	{% include copy.html %}
+	d. Save and quit.
+	e. Apply the configuration change:
+	```bash
+	sudo sysctl -p
+	```
+	{% include copy.html %}
 1. 
-
 The following command is executed prior to deploying any nodes to ensure that artifacts from previous testing are erased:
 ```bash
 docker container stop $(docker container ls -aq) ; docker container rm $(docker container ls -aq) ; docker volume rm -f $(docker volume ls -q) ; docker network rm $(docker network ls -q)
