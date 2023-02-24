@@ -96,7 +96,7 @@ write_os_configs ()	{
 
 # Write config file for OpenSearch Dashboards.
 write_osd_configs ()	{
-	cat <<-'EOF' > opensearch_dashboards.yml
+	cat <<- 'EOF' > opensearch_dashboards.yml
 	---
 	server.host: "0.0.0.0"
 	server.name: "opensearch-dashboards-dev"
