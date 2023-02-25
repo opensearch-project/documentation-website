@@ -32,14 +32,19 @@ For information on configuring detectors, see [Creating detectors]({{site.url}}{
 ### Log types
 
 Log types provide the data used to evaluate events occuring in a system. OpenSearch supports several types of logs and provides out-of-the-box mappings for the most common log sources. Currently supported log sources include:
-* Netflow
+* Network events
 * DNS logs
 * Apache access logs
 * Windows logs
-* AD/LDAP
+* AD/LDAP logs
 * System logs
 * AWS CloudTrail logs
 * Amazon S3 access logs
+* Google Workspace logs
+* GitHub actions
+* Microsoft 365 logs
+* Okta events
+* Microsoft Azure logs
 
 Log types are specified during the creation of detectors, including steps for mapping log fields to the detector. Security Analytics also automatically selects an appropriate set of rules based on a specific log type and populates them for the detector.
 
