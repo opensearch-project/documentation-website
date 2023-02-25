@@ -196,10 +196,10 @@ Once you've opened a dashboard, you can add a new or existing map to it.
 
 1. From the top menu, select the **Create new** button.
 1. In the **New Visualization** dialog, select **Maps**.
-1. Add any default map, layers, and tooltips to the map.
+1. Edit the default map by adding a basemap, layers, or tooltips.
 1. In the upper-right corner, select the **Save** button.
 1. In the **Save map** dialog, enter the **Title** and optional **Description** of the map.
-1. Select **Add to Dashboard after saving**.
+1. Select **Add to Dashboard after saving** (this option is selected by default).
 1. Select the **Save and return** button.
 
 ## Editing a map from a dashboard
