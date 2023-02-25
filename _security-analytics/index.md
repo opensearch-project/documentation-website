@@ -41,10 +41,10 @@ Log types provide the data used to evaluate events occuring in a system. OpenSea
 * AWS CloudTrail logs
 * Amazon S3 access logs
 * Google Workspace logs
-* Github actions
+* GitHub actions
 * Microsoft 365 logs
 * Okta events
-* Azure logs
+* Microsoft Azure logs
 
 Log types are specified during the creation of detectors, including steps for mapping log fields to the detector. Security Analytics also automatically selects an appropriate set of rules based on a specific log type and populates them for the detector.
 
