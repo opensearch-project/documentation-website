@@ -59,9 +59,18 @@ function sendFeedback() {
 
     if (helpful === 'none' && comment === 'none') return;
 
+    // split the comment into 100-char parts because of GA limitation on custom dimensions
+    const commentLines = ["", "", "", ""];
+    for (let i = 0; i <= (comment.length - 1)/100; i++) {
+        commentLines[i] = comment.substring(i * 100, Math.min((i + 1)*100, comment.length));
+    }
+
     gtag('event', 'feedback_click', { 
         'helpful': helpful,
-        'comment': comment
+        'comment': commentLines[0],
+        'comment_2': commentLines[1],
+        'comment_3': commentLines[2],
+        'comment_4': commentLines[3],
     });
 
     // show the hidden feedback text
