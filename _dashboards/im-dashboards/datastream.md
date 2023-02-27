@@ -55,7 +55,7 @@ To delete a data stream, perform the following steps:
 
 1. Under **Index Management**, choose **Data streams**.
 
-1. Select the data stream you would like to delete.
+1. Select the data stream that you want to delete.
 
 1. Choose **Actions**, and then choose **Delete**.
 
