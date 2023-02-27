@@ -7,7 +7,7 @@ nav_order: 120
 Machine Learning in OpenSearch dashboards is an experimental feature released in OpenSearch 2.6. It can't be used in a production environment. For updates on the feature’s progress or to leave feedback on improving the feature, see the [OpenSearch Forum discussion](https://forum.opensearch.org/t/feedback-ml-commons-ml-model-health-dashboard-for-admins-experimental-release/12494).
 {: .warning }
 
-Administrators of machine-learning (ML) clusters can use OpenSearch dashboards to manage and check the status of ML models running inside their cluster. This can aid in assisting ML developers with provisioning nodes to make sure their models run efficiently.
+Administrators of machine-learning (ML) clusters can use OpenSearch Dashboards to manage and check the status of ML models running inside their cluster. This can aid in assisting ML developers with provisioning nodes to make sure their models run efficiently.
 
 As of OpenSearch 2.6, you can only upload models using the API. For more information about how to upload a model to your cluster, see [Upload model to OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-serving-framework#upload-model-to-opensearch)
 
@@ -33,7 +33,7 @@ Inside the Machine Learning section, you now have access to the **Deployed model
 
 ## Deployed models dashboard
 
-The model health dashboards give admins the ability to check the status of any models stored inside your OpenSearch cluster. 
+The model health dashboards gives admins the ability to check the status of any models stored inside your OpenSearch cluster. 
 
 <img src="{{site.url}}{{site.baseurl}}/images/ml/ml-dashboard/deployed-models.png" alt="The deployed models view.">
 
@@ -64,4 +64,4 @@ A list of nodes gives you a view of each node the model is running on, including
 
 ## Next steps
 
-For more information about how manage models in OpenSearch, see the [Model-serving framework]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-serving-framework/).
+For more information about how to manage ML models in OpenSearch, see the [Model-serving framework]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-serving-framework/).
