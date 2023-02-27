@@ -7,7 +7,7 @@ redirect_from:
   - /observability-plugin/index/
 ---
 
-# Observing your data
+# Observability
 OpenSearch Dashboards
 {: .label .label-yellow :}
 
