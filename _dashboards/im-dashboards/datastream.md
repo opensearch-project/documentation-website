@@ -41,7 +41,7 @@ To create a data stream, perform the following steps:
 
     ![Data Streams]({{site.url}}{{site.baseurl}}/images/admin-ui-index/datastreams3.png)
 
-1. The **Inherited settings from template** and **Index alias** sections are read-only. This will inform you of the backing indexes used in the data stream.
+1. The **Inherited settings from template** and **Index alias** sections are read-only, and display the backing indexes that are contained in the data stream.
 
 1. The number of primary shards, number of replicas, and the refresh interval are inherited from the template, as shown in the following image.
 
@@ -61,7 +61,7 @@ To delete a data stream, perform the following steps:
 
 ## Rolling over a data stream
 
-To perform a roll over operation on a data stream, perform the following steps:
+To perform a rollover operation on a data stream, perform the following steps:
 
 1. Under **Index Management**, choose **Data streams**.
 
