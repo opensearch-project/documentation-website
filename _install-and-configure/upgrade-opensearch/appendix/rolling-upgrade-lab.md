@@ -5,7 +5,7 @@ parent: Appendix
 grand_parent: Upgrading OpenSearch
 nav_order: 50
 redirect_from:
-  - /upgrade-opensearch/appendix/rolling-upgrade-lab/
+  - /upgrade-opensearch/appendix/lab-rolling-upgrade/
 ---
 
 # Lab - Rolling Upgrade
@@ -19,7 +19,7 @@ Testing was performed using [Amazon Elastic Compute Cloud (Amazon EC2)](https://
 References to the `$HOME` path on the host machine in this procedure are represented by the tilde character ("~") to make the instructions more portable. If you would prefer to specify an absolute path, modify the volume paths define in `upgrade-demo-cluster.sh` to reflect your environment.
 {: .note}
 
-If you want to clean up resources created during this rolling upgrade demonstration, run the following command. If any unrelated Docker resources are running on your host, then you should modify this command to avoid deleting any of those resources unintentionally.
+If you want to clean up resources created during this rolling upgrade procedure, run the following command. If any unrelated Docker resources are running on your host, then you should modify this command as needed to avoid deleting any other resources.
 ```bash
 docker container stop $(docker container ls -aqf name=os-); \
 	docker container rm $(docker container ls -aqf name=os-); \
