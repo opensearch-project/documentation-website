@@ -25,10 +25,7 @@ To enable the feature:
 
 ## Accessing Machine Learning in Dashboards
 
-To access Machine Learning in OpenSearch Dashboards:
-
-1. Log in to OpenSearch Dashboards in your cluster. 
-2. Select **OpenSearch plugins** > **Machine Learning**. 
+To access Machine Learning in OpenSearch Dashboards,select **OpenSearch plugins** > **Machine Learning**. 
 
 <img src="{{site.url}}{{site.baseurl}}/images/ml/ml-dashboard/ml-dashboard.png" alt="Machine Learning section in OpenSearch dashboards">
 
