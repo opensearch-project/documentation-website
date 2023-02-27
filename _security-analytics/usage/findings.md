@@ -42,7 +42,9 @@ The Findings list displays all findings according to time of the finding, the fi
 
 Use the **Rule severity** dropdown list to filter the list of findings by severity. Use the **log type** dropdown list to filter the list by log type.
 
-Each finding in the list includes a **Finding ID**. You can select the ID to open the **Finding details** pane, which describes the finding by parameters defined when creating the detector and includes the document that generated the finding.
+Each finding in the list includes a **Finding ID**. You can select the ID to open the **Finding details** pane, which describes the finding by parameters defined when creating the detector and includes the document that generated the finding. An example of **Finding details** is shown in the following image.
+
+<img src="{{site.url}}{{site.baseurl}}/images/Security/findings1.png" alt="Finding details pane" width="85%">
 
 The Actions column includes two options for each finding:
 * The diagonal arrow provides another way to open the Findings detail pane.
@@ -54,7 +56,7 @@ For details on setting up an alert, see [Set up alerts]({{site.url}}{{site.baseu
 The **Finding details** pane contains specific information about the finding, including the document that generated the finding. To investigate the series of events that led to the finding or followed the finding, you can select **View surrounding documents** to open the document in the **Discover** panel and view other documents preceding or following it.
 
 1. Open **Finding details** by selecting the **Finding ID** in the list of findings.
-1. In the **Documents** section, select **View surrounding documents**. If an index pattern already exists for the document, the **Discover** panel opens and displays the document. If an index pattern does not exist, the**Create index pattern to view documents** window opens and prompts you to add create an index pattern, as shown in the following image.
+1. In the **Documents** section, select **View surrounding documents**. If an index pattern already exists for the document, the **Discover** panel opens and displays the document. If an index pattern does not exist, the **Create index pattern to view documents** window opens and prompts you to create an index pattern, as shown in the following image.
 <br><img src="{{site.url}}{{site.baseurl}}/images/Security/findings2.png" alt="popup window prompting users to create an index pattern" width="60%">
 1. Enter the index pattern name, and then enter the appropriate time field from the log index used to determine the timing for log events. For details on mapping log fields to detector fields, see [Step 2. Create field mappings]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/detectors-config/#step-2-create-field-mappings). Select **Create index pattern**. The **Create index pattern to view documents** confirmation window opens.
 1. Select **View surrounding documents** in the confirmation window. The **Discover** panel opens, as shown in the following image.
