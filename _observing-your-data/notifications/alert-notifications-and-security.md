@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Alerting security
+title: Alert notifications and security
 nav_order: 60
 has_children: true
 parent: Notifications
