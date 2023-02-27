@@ -10,7 +10,7 @@ nav_order: 45
 
 ## Overview
 
-Converts string to uppercase or lowercase. Mostly useful as an example if you want to develop your own processor.
+The `string_converter` processor converts a string to uppercase or lowercase. You can use it as an example for developing your own processor. The following table describes the option you can use to configure the `string_converter` processor.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
