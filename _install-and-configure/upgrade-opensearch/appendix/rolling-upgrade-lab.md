@@ -1,14 +1,14 @@
 ---
 layout: default
-title: Lab - Rolling Upgrade
+title: Rolling Upgrade - Lab
 parent: Upgrades Appendix
 grand_parent: Upgrading OpenSearch
 nav_order: 50
 redirect_from:
-  - /upgrade-opensearch/appendix/lab-rolling-upgrade/
+  - /upgrade-opensearch/appendix/rolling-upgrade-lab/
 ---
 
-# Lab - Rolling Upgrade
+# Rolling Upgrade - Lab
 
 The rolling upgrade procedure was tested and validated on a Linux host running [Amazon Linux 2](https://aws.amazon.com/amazon-linux-2/) with [Docker](https://www.docker.com/). You can follow these steps to recreate the same cluster state used for generating the procedure if you want to try the upgrade process in a test environment.
 
