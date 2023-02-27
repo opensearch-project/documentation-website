@@ -2,7 +2,7 @@
 layout: default
 title: ML Commons cluster settings
 has_children: false
-nav_order: 10
+nav_order: 160
 ---
 
 # ML Commons cluster settings
