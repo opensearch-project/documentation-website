@@ -10,7 +10,7 @@ nav_order: 45
 
 ## Overview
 
-Matches a key's value against a regular expression and replaces all matches with a replacement string. `substitute_string` is part of [mutate string](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/mutate-string-processors#mutate-string-processors) processors.
+The `substitute_string` processor matches a key's value against a regular expression and replaces all matches with a replacement string. `substitute_string` is a [mutate string](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/mutate-string-processors#mutate-string-processors) processor. The following table describes the options you can use to configure the `substitue_string` processor.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
