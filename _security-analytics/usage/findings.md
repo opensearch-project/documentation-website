@@ -42,14 +42,14 @@ The Findings list displays all findings according to time of the finding, the fi
 
 Use the **Rule severity** dropdown list to filter the list of findings by severity. Use the **log type** dropdown list to filter the list by log type.
 
-Each finding in the list includes a **Finding ID**. You can select the ID to open the **Finding details** pane, which describes the finding by parameters defined when creating the detector and includes the document that generated the finding. An example of **Finding details** is shown in the following image.
-
-<img src="{{site.url}}{{site.baseurl}}/images/Security/findings1.png" alt="Finding details pane" width="85%">
-
-The Actions column includes two options for each finding:
-* The diagonal arrow provides another way to open the Findings detail pane.
-* The bell icon allows you to open the Create detector alert trigger pane, where you can quickly set up an alert for the specific finding and modify rules and their conditions as required.
+The **Actions** column includes two options for each finding:
+* The diagonal arrow provides a way to open the **Finding details** pane, which describes the finding by parameters defined when creating the detector and includes the document that generated the finding.
+* The bell icon allows you to open the **Create detector alert trigger** pane, where you can quickly set up an alert for the specific finding and modify rules and their conditions as required.
 For details on setting up an alert, see [Set up alerts]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/detectors-config/#step-3-set-up-alerts) in detector creation documentation.
+
+Each finding in the list also includes a **Finding ID**. You can select the ID as another option for opening the **Finding details** pane. An example of **Finding details** is shown in the following image.
+
+<img src="{{site.url}}{{site.baseurl}}/images/Security/findings1.png" alt="Finding details pane" width="60%">
 
 ### Viewing surrounding documents
 
