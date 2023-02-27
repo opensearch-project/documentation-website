@@ -19,8 +19,3 @@ If you would like to request specific topics to include in this appendix, please
 
 Specific commands are included in this appendix to serve as examples of interacting with the OpenSearch API, and the underlying host, in order to demonstrate the steps described in the related upgrade process documents. The intention is not to be overly prescriptive, but instead to add context for users who are new to OpenSearch and want to see practical examples.
 {:.note}
-
-## Upgrading OpenSearch
-
-This section of the appendix includes materials relating to version upgrades of OpenSearch and OpenSearch Dashboards.
-
