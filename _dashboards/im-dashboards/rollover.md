@@ -41,7 +41,7 @@ To perform a rollover operation on an alias, perform the following steps:
 
 1. Under **Configure source**, select the source alias on which you want to perform the rollover operation.
 
-1. If the alias does not contain a write index, you will be prompted to assign a write index, as shown in the following image. 
+1. If the alias does not contain a write index, you are prompted to assign a write index, as shown in the following image. 
 
     ![Roll over]({{site.url}}{{site.baseurl}}/images/admin-ui-index/rollover4.png)
 
