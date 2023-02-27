@@ -7,7 +7,7 @@ nav_order: 120
 Released in OpenSearch 2.6, the machine learning (ML) functionality in OpenSearch Dashboards is experimental and can't be used in a production environment. For updates or to leave feedback, see the [OpenSearch Forum discussion](https://forum.opensearch.org/t/feedback-ml-commons-ml-model-health-dashboard-for-admins-experimental-release/12494).
 {: .warning }
 
-Administrators of machine-learning (ML) clusters can use OpenSearch Dashboards to manage and check the status of ML models running inside their cluster. This can aid in assisting ML developers with provisioning nodes to make sure their models run efficiently.
+Administrators of machine learning (ML) clusters can use OpenSearch Dashboards to manage and check the status of ML models running inside a cluster. This can help ML developers provision nodes to ensure their models run efficiently.
 
 As of OpenSearch 2.6, you can only upload models using the API. For more information about how to upload a model to your cluster, see [Upload model to OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-serving-framework#upload-model-to-opensearch)
 
