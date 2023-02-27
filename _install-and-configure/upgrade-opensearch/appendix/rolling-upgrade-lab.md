@@ -10,11 +10,11 @@ redirect_from:
 
 # Rolling Upgrade - Lab
 
-The rolling upgrade procedure was tested and validated on a Linux host running [Amazon Linux 2](https://aws.amazon.com/amazon-linux-2/) with [Docker](https://www.docker.com/). You can follow these steps to recreate the same cluster state used for generating the procedure if you want to try the upgrade process in a test environment.
+The following procedure was validated on an [Amazon Elastic Compute Cloud (Amazon EC2)](https://aws.amazon.com/ec2/) instance (`t2.large`) using [Amazon Linux 2](https://aws.amazon.com/amazon-linux-2/) kernel version `Linux 5.10.162-141.675.amzn2.x86_64` and [Docker](https://www.docker.com/) version `20.10.17, build 100c701`. 
 
-## Environment details
+Testing was performed using [Amazon Elastic Compute Cloud (Amazon EC2)](https://aws.amazon.com/ec2/) with a `t2.large` instance type. The instance was provisioned with 2 vCPUs, 8 GiB memory, and an attached 20 GiB gp2 [Amazon Elastic Block Store (EBS)](https://aws.amazon.com/ebs/) root volume.
 
-Testing was performed using [Amazon Elastic Compute Cloud (Amazon EC2)](https://aws.amazon.com/ec2/) with a `t2.large` instance type. The instance was provisioned with 2 vCPUs, 8 GiB memory, and an attached 20 GiB gp2 [Amazon Elastic Block Store (EBS)](https://aws.amazon.com/ebs/) root volume. Kernel version `Linux 5.10.162-141.675.amzn2.x86_64` was used for testing.
+You can follow these steps to recreate the same cluster state used for generating the procedure if you want to try the upgrade process in a test environment.
 
 References to the `$HOME` path on the host machine in this procedure are represented by the tilde character ("~") to make the instructions more portable. If you would prefer to specify an absolute path, modify the volume paths define in `upgrade-demo-cluster.sh` to reflect your environment.
 {: .note}
@@ -28,9 +28,7 @@ docker container stop $(docker container ls -aqf name=os-); \
 ```
 {% include copy.html %}
 
-## Upgrade steps
-
-### Set up the environment
+## Set up the environment
 
 1. Install the appropriate version of [Docker Engine](https://docs.docker.com/engine/install/) for your Linux distribution and architecture. 
 1. Configure [important system settings]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#important-settings) on your host.
