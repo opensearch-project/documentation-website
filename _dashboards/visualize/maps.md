@@ -19,13 +19,13 @@ You can create a new map from the **Maps** or **Visualize** workflows by perform
 - To create a new map from the **Maps** workflow, perform the following steps:
 
   1. On the top menu bar, go to **OpenSearch Plugins > Maps**. 
-  1. Select the **Create map** button. 
+  1. Choose the **Create map** button. 
 
 - To create a new map from the **Visualize** workflow, perform the following steps:
 
   1. On the top menu bar, go to **OpenSearch Dashboards > Visualize**.
-  1. Select the **Create visualization** button.
-  1. In the **New Visualization** dialog, select **Maps**.
+  1. Choose the **Create visualization** button.
+  1. In the **New Visualization** dialog, choose **Maps**.
 
 You can now see the default OpenSearch basemap.
 
@@ -167,7 +167,7 @@ To save a map with all the layers that you set up, perform the following steps:
 1. (Optional) In the **Description** text box, enter the map description.
 1. Select the **Save** button.
 
-To open your saved map, select **Maps** in the upper-left corner. The list of saved maps is displayed.
+To open your saved map, choose **Maps** in the upper-left corner. The list of saved maps is displayed.
 
 ## Adding a map to a dashboard
 
@@ -176,36 +176,36 @@ You can add a new or existing map to a new or existing dashboard by performing t
 - To add a map to a new dashboard, first create the dashboard as follows:
 
   1. On the top menu bar, go to **OpenSearch Dashboards > Dashboard**.
-  1. Select the **Create dashboard** button.
-  1. Select the **Create new** button.
+  1. Choose the **Create dashboard** button.
+  1. Choose the **Create new** button.
 
 - To add a map to an existing dashboard, first open the dashboard as follows:
   1. On the top menu bar, go to **OpenSearch Dashboards > Dashboard**.
   1. Select the dashboard you want to open from the list.
-  1. In the upper-right corner, select **Edit**.
+  1. In the upper-right corner, choose **Edit**.
 
 Once you've opened a dashboard, you can add a new or existing map to it.
 
 ### Adding an existing map
 
-1. From the top menu, select **Add**.
+1. From the top menu, choose **Add**.
 1. In the **Types** dropdown list, select **Maps**.
 1. Select the map you want to add from the list.
 
 ### Adding a new map
 
-1. From the top menu, select the **Create new** button.
-1. In the **New Visualization** dialog, select **Maps**.
+1. From the top menu, choose the **Create new** button.
+1. In the **New Visualization** dialog, choose **Maps**.
 1. Edit the default map by adding a basemap, layers, or tooltips.
-1. In the upper-right corner, select the **Save** button.
+1. In the upper-right corner, choose the **Save** button.
 1. In the **Save map** dialog, enter the **Title** and optional **Description** of the map.
 1. Select **Add to Dashboard after saving** (this option is selected by default).
-1. Select the **Save and return** button.
+1. Choose the **Save and return** button.
 
 ## Editing a map from a dashboard
 
-1. In the dashboard, select the gear icon in the upper-right corner of the map you want to edit.
-1. Select **Edit maps**.
+1. In the dashboard, choose the gear icon in the upper-right corner of the map you want to edit.
+1. Choose **Edit maps**.
 1. Edit the map.
-1. In the upper-right corner, select the **Save** button.
-1. In the **Save map** dialog, select the **Save and return** button.
+1. In the upper-right corner, choose the **Save** button.
+1. In the **Save map** dialog, choose the **Save and return** button.
