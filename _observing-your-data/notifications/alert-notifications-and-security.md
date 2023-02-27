@@ -8,7 +8,7 @@ redirect_from:
   - /notifications-plugin/alerting-security/
 ---
 
-# Alerting security
+# Alert notifications and security
 
 If you use the security plugin alongside alerting, you might want to limit certain users to certain actions. For example, you might want some users to only be able to view and acknowledge alerts, while others can modify monitors and destinations.
 
