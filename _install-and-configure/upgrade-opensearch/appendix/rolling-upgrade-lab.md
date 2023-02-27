@@ -10,9 +10,7 @@ redirect_from:
 
 # Rolling Upgrade - Lab
 
-The following procedure was validated on an [Amazon Elastic Compute Cloud (Amazon EC2)](https://aws.amazon.com/ec2/) instance (`t2.large`) using [Amazon Linux 2](https://aws.amazon.com/amazon-linux-2/) kernel version `Linux 5.10.162-141.675.amzn2.x86_64` and [Docker](https://www.docker.com/) version `20.10.17, build 100c701`. 
-
-Testing was performed using [Amazon Elastic Compute Cloud (Amazon EC2)](https://aws.amazon.com/ec2/) with a `t2.large` instance type. The instance was provisioned with 2 vCPUs, 8 GiB memory, and an attached 20 GiB gp2 [Amazon Elastic Block Store (EBS)](https://aws.amazon.com/ebs/) root volume.
+The following procedure was validated on an [Amazon Elastic Compute Cloud (Amazon EC2)](https://aws.amazon.com/ec2/) instance (`t2.large`) using [Amazon Linux 2](https://aws.amazon.com/amazon-linux-2/) kernel version `Linux 5.10.162-141.675.amzn2.x86_64` and [Docker](https://www.docker.com/) version `20.10.17, build 100c701`. The instance used an attached 20 GiB gp2 [Amazon Elastic Block Store (EBS)](https://aws.amazon.com/ebs/) root volume.
 
 You can follow these steps to recreate the same cluster state used for generating the procedure if you want to try the upgrade process in a test environment.
 
