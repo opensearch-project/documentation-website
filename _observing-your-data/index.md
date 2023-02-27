@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Observing your data
+title: Observability
 nav_order: 1
 has_children: false
 redirect_from:
