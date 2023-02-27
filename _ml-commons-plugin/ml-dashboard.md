@@ -13,7 +13,7 @@ As of OpenSearch 2.6, you can only upload models using the API. For more informa
 
 ## Enabling Machine Learning in Dashboards
 
-In OpenSearch 2.6, Machine Learning is disabled by default. To enable it, you need to edit the configuration in `opensearch_dashboards.yml` and then restart you cluster.
+In OpenSearch 2.6, Machine Learning is disabled by default. To enable it, you need to edit the configuration in `opensearch_dashboards.yml` and then restart your cluster.
 
 To enable the feature:
 
