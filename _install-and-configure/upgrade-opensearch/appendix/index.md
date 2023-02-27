@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Appendix
+title: Upgrades Appendix
 parent: Upgrading OpenSearch
 has_children: true
 nav_order: 30
