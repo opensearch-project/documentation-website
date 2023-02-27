@@ -1,4 +1,4 @@
-# OpenSearch Project style guidelines
+# OpenSearch Project Style Guidelines
 
 Welcome to the content style guide for the OpenSearch Project. This guide covers the style standards to be observed when creating OpenSearch content and will evolve as we implement best practices and lessons learned in order to best serve the community.
 
@@ -154,7 +154,7 @@ The following table lists acronyms that you don't need to spell out.
 
 ### Formatting and organization
 
-- Use a colon to introduce example blocks (for example, sample code and scripts) and most lists. Do not use a colon to introduce tables or images.
+- Use a colon to introduce example blocks (for example, code and scripts) and most lists. Do not use a colon to introduce tables or images.
 
 - Use bold text for all UI elements, including pages, panes, and dialog boxes. In all cases, emphasize what the user must do as opposed to talking about the UI element itself.
 
@@ -220,6 +220,8 @@ A procedure is a series of numbered steps that a user follows to complete a spec
 - Predictable content parts
 - Parallel language constructions
 - Consistent formatting
+
+Use *example*, not *sample*, to introduce example blocks (for example, code, scripts, and API requests and responses).
 
 Replace pointer-specific language with device-agnostic language to accommodate readers with disabilities and users of various input methods and devices, including the pointer, keyboard, and touch screens.
 
@@ -299,6 +301,8 @@ Here are two styles you can use for topic titles:
      * OpenSearch CLI
      * Field types
      * Security analytics
+
+Use *example*, not *sample*, in headings that introduce example blocks (for example, code, scripts, and API requests and responses).
 
 ## UI text
 

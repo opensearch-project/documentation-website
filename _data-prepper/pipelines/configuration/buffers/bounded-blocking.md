@@ -14,6 +14,7 @@ nav_order: 50
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
+
 buffer_size | No | Integer | The maximum number of records the buffer accepts. Default value is `12800`.
 batch_size | No | Integer | The maximum number of records the buffer drains after each read. Default value is `200`.
 

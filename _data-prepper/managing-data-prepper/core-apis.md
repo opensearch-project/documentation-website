@@ -72,7 +72,7 @@ authentication:
 
 ### Peer Forwarder
 
-Peer Forwarder can be configured to enable stateful aggregation across multiple Data Prepper nodes. For more information about configuring Peer Forwarder, see [Peer Forwarder configuration](https://github.com/opensearch-project/data-prepper/blob/main/docs/peer_forwarder.md). It is supported by the `service_map_stateful`, `otel_trace_raw`, and `aggregate` processors.
+Peer Forwarder can be configured to enable stateful aggregation across multiple Data Prepper nodes. For more information about configuring Peer Forwarder, see [Peer forwarder]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/peer-forwarder/). It is supported by the `service_map_stateful`, `otel_trace_raw`, and `aggregate` processors.
 
 ### Shutdown timeouts
 

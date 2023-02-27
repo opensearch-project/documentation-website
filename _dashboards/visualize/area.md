@@ -9,7 +9,7 @@ nav_order: 5
 
 An area chart is a line chart with the area between the line and the axis shaded with a color, and is a primary visualization type used to display time series data. You can create area charts in Dashboards using the Area visualization type or using the Time Series Visual Builder (TSVB), Vega, or VisBuilder visualization tools. For this tutorial, you'll use the Area visualization type.
 
-![Demonstration of the area chart tutorial steps]({{site.url}}{{site.baseurl}}/images/area-tutorial.gif)
+![Demonstration of the area chart tutorial steps]({{site.url}}{{site.baseurl}}/images/dashboards/area-tutorial.gif)
 
 # Try it: Create a simple aggregation-based area chart
 
@@ -55,6 +55,6 @@ You've now created the following aggregation-based area chart.
 # Related links
 
 - [Visualize]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/)
-- [Visualization types in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-types/)
+- [Visualization types in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/)
 - [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/)
 - [Aggregations]({{site.url}}{{site.baseurl}}/opensearch/aggregations/)

@@ -1,11 +1,13 @@
 ---
 layout: default
-title: Index management
-parent: Index and snapshot management in OpenSearch Dashboards
+title: Indexes
+parent: Index management in Dashboards
 nav_order: 16
+redirect_from:
+  - /dashboards/admin-ui-index/index-management/
 ---
 
-# Index management
+# Indexes
 Introduced 2.5
 {: .label .label-purple }
 

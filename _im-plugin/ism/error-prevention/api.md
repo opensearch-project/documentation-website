@@ -14,7 +14,7 @@ The ISM Error Prevention API allows you to enable Index State Management (ISM) e
 
 You can configure error prevention validation by setting the `plugins.index_state_management.validation_service.enabled` parameter.
 
-#### Sample request
+#### Example request
 
 ```bash
 PUT _cluster/settings
@@ -25,7 +25,7 @@ PUT _cluster/settings
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -47,13 +47,13 @@ PUT _cluster/settings
 
 Pass the `validate_action=true` path parameter in the Explain API URI to see the validation status and message. 
 
-#### Sample request
+#### Example request
 
 ```bash
 GET _plugins/_ism/explain/test-000001?validate_action=true
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -103,7 +103,7 @@ GET _plugins/_ism/explain/test-000001?validate_action=true
 
 If you pass the parameter without a value or false, then it doesn't return the validation status and message. Only if you pass `validate_action=true` will the response will return the validation status and message.
 
-#### Sample request
+#### Example request
 
 ```bash
 GET _plugins/_ism/explain/test-000001?validate_action=false
@@ -111,7 +111,7 @@ GET _plugins/_ism/explain/test-000001?validate_action=false
 GET _plugins/_ism/explain/test-000001
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
