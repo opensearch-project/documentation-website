@@ -4,7 +4,7 @@ title: Managing ML models in OpenSearch Dashboards
 nav_order: 120
 ---
 
-Machine Learning in OpenSearch dashboards is an experimental feature released in OpenSearch 2.6. It can't be used in a production environment. For updates on the feature’s progress or to leave feedback on improving the feature, see the [OpenSearch Forum discussion](https://forum.opensearch.org/t/feedback-ml-commons-ml-model-health-dashboard-for-admins-experimental-release/12494).
+Released in OpenSearch 2.6, the machine learning (ML) functionality in OpenSearch Dashboards is experimental and can't be used in a production environment. For updates or to leave feedback, see the [OpenSearch Forum discussion](https://forum.opensearch.org/t/feedback-ml-commons-ml-model-health-dashboard-for-admins-experimental-release/12494).
 {: .warning }
 
 Administrators of machine-learning (ML) clusters can use OpenSearch Dashboards to manage and check the status of ML models running inside their cluster. This can aid in assisting ML developers with provisioning nodes to make sure their models run efficiently.
