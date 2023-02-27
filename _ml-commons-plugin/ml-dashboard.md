@@ -11,6 +11,18 @@ Administrators of machine-learning (ML) clusters can use OpenSearch dashboards t
 
 As of OpenSearch 2.6, you can only upload models using the API. For more information about how to upload a model to your cluster, see [Upload model to OpenSearch]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-serving-framework#upload-model-to-opensearch)
 
+## Enabling Machine Learning in Dashboards
+
+In OpenSearch 2.6, Machine Learning is disabled by default. To enable it, you need to edit the configuration in `opensearch_dashboards.yml` and then restart you cluster.
+
+To enable the feature:
+
+1. In your OpenSearch cluster, navigate to your Dashboards home directory; for example, in Docker, `/usr/share/opensearch-dashboards`.
+2. Open your local copy of the Dashboards configuration file, `opensearch_dashboards.yml`. If you don't have a copy, get one from GitHub: [`opensearch_dashboards.yml`](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/config/opensearch_dashboards.yml).
+3. Add the setting `ml_commons_dashboards.enabled:` and set it to  `ml_commons_dashboards.enabled: true` and save the configuration.
+4. Restart the Dashboards container.
+5. Verify the feature configuration settings were created and configured properly by connecting launching OpenSearch Dashboards. The Machine Learning section should appear under **OpenSearch plugins**.
+
 ## Accessing Machine Learning in Dashboards
 
 To access Machine Learning in OpenSearch Dashboards:
