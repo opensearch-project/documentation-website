@@ -7,24 +7,21 @@ nav_order: 1
 
 # Register or update snapshot repository
 
-Registers a new repository to store snapshots, or updates information for an existing repository.
-
-```
-POST /_snapshot/my-first-repo/ 
-```
-{% include copy-curl.html %}
-
-```
-PUT /_snapshot/my-first-repo/
-```
-{% include copy-curl.html %}
+You can register a new repository to store snapshots, or update information for an existing repository, using the snapshots API.
 
 Snapshot repositories can be of two types:
 
-* File system (`fs`)
-* Amazon S3 bucket (`s3`)
+* File system (`fs`). For steps on creating an `fs` repository, see [Register repository shared file system]({{site.url}}{{site.baseurl}}/availability-and-recovery/snapshots/snapshot-restore/#shared-file-system).
+* Amazon S3 bucket (`s3`). For steps on creating an `s3` repository, see [Register repository Amazon S3]({{site.url}}{{site.baseurl}}/availability-and-recovery/snapshots/snapshot-restore/#amazon-s3).
 
 For steps on creating a repository, see [Register repository]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore#register-repository).
+
+## Path and HTTP methods
+
+```
+POST /_snapshot/my-first-repo/ 
+PUT /_snapshot/my-first-repo/
+```
 
 ## Path parameters
 
@@ -38,8 +35,6 @@ Request parameters depend on whether the repository is `fs` or `s3`.
 
 ### fs repository
 
-For steps on creating an `fs` repository, see [Register repository shared file system]({{site.url}}{{site.baseurl}}/availability-and-recovery/snapshots/snapshot-restore/#shared-file-system).
-
 Request field | Description
 :--- | :---
 `location` | The file system directory for snapshots, such as a mounted directory from a file server or a samba share. Must be accessible by all nodes. Required.
@@ -49,7 +44,7 @@ Request field | Description
 `max_snapshot_bytes_per_sec` | The maximum rate at which snapshots take. Default is 40 MB per second (`40m`). Optional.
 `readonly` | Whether the repository is read-only. Useful when migrating from one cluster (`"readonly": false` when registering) to another cluster (`"readonly": true` when registering). Optional.
 
-#### Example
+#### Example request
 
 The following example registers an `fs` repository using the local directory  `/mnt/snapshots` as `location`.
 
@@ -64,19 +59,7 @@ PUT /_snapshot/my-fs-repository
 ```
 {% include copy-curl.html %}
 
-#### Response
-
-Upon success, the following JSON object is returned:
-
-```json
-{
- "acknowledged": true
-}
-```
-
 ### s3 repository
-
-For steps on creating an `s3` repository, see [Register repository Amazon S3]({{site.url}}{{site.baseurl}}/availability-and-recovery/snapshots/snapshot-restore/#amazon-s3).
 
 Request field | Description
 :--- | :---
