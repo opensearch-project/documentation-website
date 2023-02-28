@@ -1,6 +1,6 @@
 # Formatting Guide
 
-This guide provides an overview of the formatted elements commonly used in OpenSearch documentation. 
+This guide provides an overview of the formatted elements commonly used in the OpenSearch documentation. 
 
 * * *
 
@@ -33,7 +33,7 @@ You can style text in the following ways:
 
 ## Dashes
 
-Use one dash for hyphens, two for en dashes, and three for em dashes.
+Use one dash for hyphens, two for en dashes, and three for em dashes:
 
 ```
 upper-right
@@ -46,7 +46,8 @@ There is one candidate generator available---`direct_generator`.
 A horizontal rule is used to separate text sections. Use three asterisks separated by spaces for a horizontal rule:
 
 ```
-**## Why use OpenSearch?**
+## Why use OpenSearch?
+
 * * *
 ```
 
@@ -81,7 +82,7 @@ Use all 1s for ordered lists:
 
 Jekyll will automatically correctly number the items, and it will be much easier for you to insert and delete items without renumbering.
 
-If there is a paragraph in the middle of a list, the list will restart with 1 after the paragraph. If you want to continue the list after the paragraph, use `counter-reset: none` :
+If there is a paragraph in the middle of a list, the list will restart with 1 after the paragraph. If you want to continue the list after the paragraph, use `counter-reset: none`:
 
 ```
 1.  One
