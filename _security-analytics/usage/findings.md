@@ -60,8 +60,8 @@ The **Finding details** pane contains specific information about the finding, in
 <br><img src="{{site.url}}{{site.baseurl}}/images/Security/findings2.png" alt="popup window prompting users to create an index pattern" width="60%">
 1. In the **Create index pattern to view documents** window, the index pattern name is automatically populated. Enter the appropriate time field from the log index used to determine the timing for log events. For information on mapping log fields to detector fields, see [Step 2. Create field mappings]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/detectors-config/#step-2-create-field-mappings). Select **Create index pattern**. The **Create index pattern to view documents** confirmation window opens.
 1. Select **View surrounding documents** in the confirmation window. The **Discover** panel opens, as shown in the following image.
-<br><img src="{{site.url}}{{site.baseurl}}/images/Security/findings4.png" alt="popup window prompting users to create an index pattern" width="85%">
+<br><img src="{{site.url}}{{site.baseurl}}/images/Security/findings4.png" alt="Discover panel with surrounding documents" width="85%">
 
-The **Discover** panel displays the document that generated the finding with a light blue background. Other documents that came either before or after the event are also displayed.
+The **Discover** panel displays the document that generated the finding with a highlighted background. Other documents that came either before or after the event are also displayed.
 
 For details about working with **Discover** in OpenSearch Dashboards, see [Exploring data]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/).
