@@ -34,15 +34,15 @@ repository | String | Repository name. |
 
 ## Request parameters
 
-Request parameters depend on if the repository is `fs` or `s3`.
+Request parameters depend on whether the repository is `fs` or `s3`.
 
 ### fs repository
 
 For steps on creating an `fs` repository, see [Register repository shared file system]({{site.url}}{{site.baseurl}}/availability-and-recovery/snapshots/snapshot-restore/#shared-file-system).
 
-Request Parameter | Description
+Request field | Description
 :--- | :---
-`location` | The file system directory for snapshots. Must be accessible by all nodes, such as a mounted directory from a file server, or a samba share. Required.
+`location` | The file system directory for snapshots, such as a mounted directory from a file server or a samba share. Must be accessible by all nodes. Required.
 `chunk_size` | Breaks large files into chunks during snapshot operations (e.g. `64mb`, `1gb`), which is important for cloud storage providers and far less important for shared file systems. Default is `null` (unlimited). Optional.
 `compress` | Whether to compress metadata files. This setting does not affect data files, which might already be compressed, depending on your index settings. Default is `false`. Optional.
 `max_restore_bytes_per_sec` | The maximum rate at which snapshots restore. Default is 40 MB per second (`40m`). Optional.
@@ -51,7 +51,7 @@ Request Parameter | Description
 
 #### Example
 
-The following example registers an `fs` repository using the local directory location of `/mnt/snapshots`
+The following example registers an `fs` repository using the local directory  `/mnt/snapshots` as `location`.
 
 ```json
 PUT /_snapshot/my-fs-repository
@@ -78,9 +78,9 @@ Upon success, the following JSON object is returned:
 
 For steps on creating an `s3` repository, see [Register repository Amazon S3]({{site.url}}{{site.baseurl}}/availability-and-recovery/snapshots/snapshot-restore/#amazon-s3).
 
-Request Parameter | Description
+Request field | Description
 :--- | :---
-`base_path` | The path within the bucket where you want to store snapshots (e.g. `my/snapshot/directory`). Optional. If not specified, snapshots are stored in the s3 bucket root.
+`base_path` | The path within the bucket where you want to store snapshots (for example, `my/snapshot/directory`). Optional. If not specified, snapshots are stored in the s3 bucket root.
 `bucket` | Name of the S3 bucket. Required.
 `buffer_size` | The threshold beyond which chunks (of `chunk_size`) should be broken into pieces (of `buffer_size`) and sent to S3 using a different API. Default is the smaller of two values: 100 MB or 5% of the Java heap. Valid values are between `5mb` and `5gb`. We don't recommend changing this option.
 `canned_acl` | S3 has several [canned ACLs](https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl) that the `repository-s3` plugin can add to objects as it creates them in S3. Default is `private`. Optional.
@@ -93,10 +93,10 @@ Request Parameter | Description
 `server_side_encryption` | Whether to encrypt snapshot files in the S3 bucket. This setting uses AES-256 with S3-managed keys. See [Protecting data using server-side encryption](https://docs.aws.amazon.com/AmazonS3/latest/dev/serv-side-encryption.html). Default is false. Optional.
 `storage_class` | Specifies the [S3 storage class](https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html) for the snapshots files. Default is `standard`. Do not use the `glacier` and `deep_archive` storage classes. Optional.
 
-For the `base_path` parameter, you do not enter the `s3://` prefix when entering your s3 bucket details. Only the name of the bucket is required.
+For the `base_path` parameter, do not enter the `s3://` prefix when entering your s3 bucket details. Only the name of the bucket is required.
 {: .note}
 
-#### Example
+#### Example request
 
 The following request registers a new S3 repository called `my-opensearch-repo` in an existing bucket called `my-open-search-bucket`. By default, all snapshots are stored in the `my/snapshot/directory`.
 
@@ -112,7 +112,7 @@ PUT /_snapshot/my-opensearch-repo
 ```
 {% include copy-curl.html %}
 
-#### Response
+#### Example response
 
 Upon success, the following JSON object is returned:
 

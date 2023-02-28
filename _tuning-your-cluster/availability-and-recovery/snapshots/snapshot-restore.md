@@ -63,7 +63,7 @@ Before you can take a snapshot, you have to "register" a snapshot repository. A 
    ```
   {% include copy-curl.html %}
 
-You most likely will not need to specify anything but `location`. For allowed request parameters, see [Register or update snapshot repository API](https://opensearch.org/docs/latest/api-reference/snapshots/create-repository/)
+You most likely will not need to specify any parameters except `location`. For allowed request parameters, see [Register or update snapshot repository API](https://opensearch.org/docs/latest/api-reference/snapshots/create-repository/)
 
 ### Amazon S3
 
@@ -198,7 +198,7 @@ You most likely will not need to specify anything but `location`. For allowed re
    ```
    {% include copy-curl.html %}
 
-You most likely will not need to specify anything but `bucket` and `base_path`. For allowed request parameters, see [Register or update snapshot repository API](https://opensearch.org/docs/latest/api-reference/snapshots/create-repository/)
+You most likely will not need to specify any parameters except `bucket` and `base_path`. For allowed request parameters, see [Register or update snapshot repository API](https://opensearch.org/docs/latest/api-reference/snapshots/create-repository/)
 
 ## Take snapshots
 
@@ -227,7 +227,7 @@ PUT /_snapshot/my-repository/2
 ```
 {% include copy-curl.html %}
 
-Request parameters | Description
+Request fields | Description
 :--- | :---
 `indices` | The indices you want to include in the snapshot. You can use `,` to create a list of indices, `*` to specify an index pattern, and `-` to exclude certain indices. Don't put spaces between items. Default is all indices.
 `ignore_unavailable` | If an index from the `indices` list doesn't exist, whether to ignore it rather than fail the snapshot. Default is false.
