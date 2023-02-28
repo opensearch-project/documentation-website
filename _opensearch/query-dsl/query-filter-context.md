@@ -52,14 +52,14 @@ A query clause in a query context asks the question "_How well_ does the documen
 
 For a query context, every matching document contains a relevance score in the `_score` field, which you can use to [sort]({{site.url}}{{site.baseurl}}/opensearch/search/sort) documents by relevance. 
 
-To run a query clause in a query context, pass it to a `query` parameter. For example, the following query searches for a phrase "To be, or not to be" in the `shakespeare` index:
+To run a query clause in a query context, pass it to a `query` parameter. For example, the following query searches for documents that match the words `long live king` in the `shakespeare` index:
 
 ```json
 GET shakespeare/_search
 {
   "query": {
     "match": {
-      "text_entry": "To be, or not to be"
+      "text_entry": "long live king"
     }
   }
 }
