@@ -106,7 +106,7 @@ Use tabs to nest lists:
 
 Markdown automatically adjusts numbered lists so that they use numbers and letters, so always use 1s for nested numbered lists. If you need to position an image or a code snippet within a list, use tabs to signal to Markdown that the image or code snippet is part of the list item.
 
-**Example**:
+**Example with code snippets**:
 
 ```
 1. Run the demo batch script.
@@ -124,6 +124,16 @@ Markdown automatically adjusts numbered lists so that they use numbers and lette
          ```bat
          .\opensearch-windows-install.bat
          ```
+```
+
+**Example with images**:
+
+```
+1. To begin, select the rule in the Rule name column. The rule details pane opens.
+    <img src="{{site.url}}{{site.baseurl}}/images/Security/rule-dup2.png" alt="Opening the rule details pane" width="50%">
+
+1. Select the **Duplicate** button in the upper-right corner of the pane. The Duplicate rule window opens in Visual Editor view and all of the fields are automatically populated with the rule's details. Details are also populated in YAML Editor view.
+    <img src="{{site.url}}{{site.baseurl}}/images/Security/dupe-rule.png" alt="Selecting the duplicate button opens the Duplicate rule window" width="50%">
 ```
 
 ## Tables
