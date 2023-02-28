@@ -7,7 +7,7 @@ nav_order: 120
 
 # Pretrained models
 
-The model-serving framework supports a variety of open-source pretrained models that can assist with a variety of machine learning (ML) search and analytics use cases. 
+The model-serving framework supports a variety of open-source pretrained models that can assist with a range of machine learning (ML) search and analytics use cases. 
 
 ## Uploading pretrained models
 
