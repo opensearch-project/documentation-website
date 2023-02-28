@@ -6,9 +6,11 @@ grand_parent: Pipelines
 nav_order: 45
 ---
 
-# OTel Trace Group Processor
+# OpenTelemetry (OTel) trace group processor
 
-The `OTel trace group` processor completes missing trace group related fields in the collection of [Span](https://github.com/opensearch-project/data-prepper/blob/834f28fdf1df6d42a6666e91e6407474b88e7ec6/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/trace/Span.java) records by looking up the OpenSearch backend. This processor finds the missing trace group information for a `spanId` by looking up the relevant fields in its root `span` stored in OpenSearch, or the Amazon OpenSearch Service backend that the local Data Prepper host ingests into.
+The `OTel trace group` processor completes missing trace group related fields in the collection of [span](https://github.com/opensearch-project/data-prepper/blob/834f28fdf1df6d42a6666e91e6407474b88e7ec6/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/trace/Span.java) records by looking up the OpenSearch backend. The `OTel trace group` processor iedntifies the missing trace group information for a `spanId` by looking up the relevant fields in its root `span` stored in OpenSearch, or in the Amazon OpenSearch Service backend that the local Data Prepper host ingests into.
+
+<!--- Do we want to keep "ingests into"?--->
 
 ## Usage
 
@@ -54,14 +56,16 @@ See [OpenSearch Sink Security](https://github.com/opensearch-project/data-preppe
 
 - `hosts`: A list of IP addresses of OpenSearch nodes.
 
-- `cert`(optional): CA certificate that is pem encoded. Accepts both .pem or .crt. This enables the client to trust the CA that has signed the certificate that OpenSearch is using.
+- `cert`(optional): certificate authority (CA) certificate that is pem encoded. Accepts both .pem or .crt. This enables the client to trust the CA that has signed the certificate that OpenSearch is using.
 Default is null.
 
-- `aws_sigv4`: A boolean flag to sign the HTTP request with AWS credentials. Only applies to Amazon OpenSearch Service. See [security](security.md) for details. Default to `false`.
+- `aws_sigv4`: A boolean flag to sign the HTTP request with AWS credentials. Only applies to Amazon OpenSearch Service. See [security](security.md) for details. Default value is `false`.
 
-- `aws_region`: A String represents the region of Amazon OpenSearch Service domain, e.g. us-west-2. Only applies to Amazon OpenSearch Service. Defaults to `us-east-1`.
+<!--- Need to fix this link to the security page.--->
 
-- `aws_sts_role_arn`: An IAM role arn which the sink plugin will assume to sign request to the Amazon OpenSearch Service. If not provided, the plugin uses the default credentials.
+- `aws_region`: A String represents the region of Amazon OpenSearch Service domain, e.g. us-west-2. Only applies to Amazon OpenSearch Service. Defaults value is `us-east-1`.
+
+- `aws_sts_role_arn`: An identity and access management (IAM) role that the sink plugin will assume to sign request to the Amazon OpenSearch Service. If not provided, the plugin uses the default credentials.
 
 - `aws_sts_header_overrides`: An optional map of header overrides to make when assuming the IAM role for the sink plugin.
 
@@ -77,17 +81,17 @@ Default is null.
 
 ### Counter
 
-The `otel_trace_group` processor introduces the following custom metrics:
+The `otel_trace_group` processor includes the following custom metrics:
 
 - `recordsInMissingTraceGroup`: The number of ingress records missing trace group fields.
-- `recordsOutFixedTraceGroup`: The number of egress records with trace group fields filled successfully.
+- `recordsOutFixedTraceGroup`: The number of egress records with successfully completed trace group fields.
 - `recordsOutMissingTraceGroup`: The number of egress records missing trace group fields.
 
-## Developer Guide
+## Developer guide
 
 This plugin is compatible with Java 8. See the following:
 
 <!--- Java 8, or Java 14? Another plugin mentioned that it was compatible with Java 14.--->
 
 - [Contributing](https://github.com/opensearch-project/data-prepper/blob/main/CONTRIBUTING.md)
-- [Monitoring]({{site.url}}{{site.baseurl}}/data-prepper/monitoring/) <!--- Is this correct?---> 
+- [Monitoring]({{site.url}}{{site.baseurl}}/data-prepper/monitoring/)

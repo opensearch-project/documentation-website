@@ -6,11 +6,9 @@ grand_parent: Pipelines
 nav_order: 45
 ---
 
-# otel Metrics String Processor 
+# OpenTelemetry (OTel) metrics string processor 
 
-The `otel metrics string` processor serializes a collection of `ExportMetricsServiceRequest` sent from the [otel-metrics-source](/data-prepper/pipelines/configuration/sources/otel-metrics-source/) into a collection of string records.
-
-<!--- WHat should this link point to?--->
+The `otel metrics string` processor serializes a collection of `ExportMetricsServiceRequest` sent from the [otel-metrics-source]({{site.url}}{{site.baseurl}}//data-prepper/pipelines/configuration/sources/otel-metrics-source/) into a collection of string records.
 
 ## Usage
 
@@ -34,10 +32,11 @@ You can create explicit representations of histogram buckets and their boundarie
         flatten_attributes: false
 ```
 
-There are three possible parameters: `calculate_histogram_buckets`, `calculate_exponential_histogram_buckets` and `exponential_histogram_max_allowed_scale`. If `calculate_histogram_buckets` and `calculate_exponential_histogram_buckets` are not provided they default to `false`. If `exponential_histogram_max_allowed_scale` is not provided, the default value is 10.
+There are three possible parameters: `calculate_histogram_buckets`, `calculate_exponential_histogram_buckets` and `exponential_histogram_max_allowed_scale`. If `calculate_histogram_buckets` and `calculate_exponential_histogram_buckets` are not provided, then the default value is `false`. If the `exponential_histogram_max_allowed_scale` parameter is not provided, the default value is `10`.
 
-If `calculate_histogram_buckets` is not set to `false`, the following JSON file will be added to every histogram JSON.
-If `flatten_attributes` is set to `false`, the JSON string format of the metrics will keep the attributes field as is, and if it is set to `true`, the fleds in attributes field are put in the parent json object. The default value is `true`
+If `calculate_histogram_buckets` is not set to `false`, the following JSON file will be added to every histogram JSON. If `flatten_attributes` is set to `false`, the JSON string format of the metrics does not change the attributes field. If `flatten_attributes` is set to `true`, the values in the attributes field are placed in the parent JSON object. The default value is `true`
+
+<!--- Is this phrasing appropriate? "...are placed in..."?--->
 
 ```json
  "buckets": [
@@ -128,11 +127,13 @@ All exponential histograms that have a scale that is above the configured parame
 
 ## Metrics
 
-This plugin uses all common metrics in [AbstractProcessor](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/processor/AbstractProcessor.java), and does not currently introduce custom metrics.
+This plugin uses all common metrics in [AbstractProcessor](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/processor/AbstractProcessor.java), and does not currently include custom metrics.
 
 ## Developer guide
 
 This plugin is compatible with Java 8. See the following:
+
+<!--- Java 8, or Java 14? The rest of the docs in this PR refer to Java 14, not 8.--->
 
 - [Contributing](https://github.com/opensearch-project/data-prepper/blob/main/CONTRIBUTING.md)
 - [Monitoring]({{site.url}}{{site.baseurl}}/data-prepper/monitoring/) <!--- Is this correct?---> 
