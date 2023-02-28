@@ -16,7 +16,7 @@ The model-serving framework supports a variety of open-source pretrained models 
 
 To use a pretrained model in your OpenSearch cluster:
 
-1. Select the model and download the model artifact and config.json file. For a list of pretrained models, see [supported pretrained models](#supported-pretrained-models).
+1. Select the model you want to upload. For a list of pretrained models, see [supported pretrained models](#supported-pretrained-models).
 2. Upload the model using the [upload API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-serving-framework#upload-model-to-opensearch). Because a pretrained model originates from the ML Commons model repository, you only need to provide the `name`, `version`, and `model_format` in the upload API request.  
 
 ```
