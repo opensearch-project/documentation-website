@@ -23,6 +23,8 @@ You can define a new detector by naming the detector, selecting a data source an
 1. In the **Log types and rules** section, select the log type for the data source. The Sigma security rules associated with the log data are automatically populated in the **Detection rules** section, as shown in the following image.
 
     <img src="{{site.url}}{{site.baseurl}}/images/Security/detector_rules.png" alt="Selecting threat detector type to auto-populate rules" width="80%">
+
+    When selecting **Network events**, **CloudTrail logs**, or **S3 access logs** as the log type, a detector dashboard is automatically created. The dashboard offers visualizations for the detector and can provide security-related insight into log source data. For more information about visualizations, see [Building data visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/).
     
     You can skip the next step for applying select rules if you are satisfied with those automatically populated by the system. Otherwise, go to the next step to select rules individually.
     {: .note }
@@ -32,10 +34,8 @@ You can define a new detector by naming the detector, selecting a data source an
     <img src="{{site.url}}{{site.baseurl}}/images/Security/select_rules.png" alt="Select or deselect rules that detector will use for findings" width="85%">
 
     * Use the toggle to the left of **Rule name** to select or deselect rules.
-    * Use the **Log type**, **Rule severity**, and **Source** dropdown lists to filter the rules you want to select from. 
+    * Use the **Rule severity** and **Source** dropdown lists to filter the rules you want to select from. 
     * Use the **Search** bar to search for specific rules.
-
-    When selecting **Network events**, **CloudTrail logs**, or **S3 access logs** as the log type, a detector dashboard is automatically created. The dashboard offers visualizations for the detector and can provide security-related insight into log source data. For more information about visualizations, see [Building data visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/).
 
     To quickly select one or more known rules and dismiss others, first deselect all rules by moving the **Rule name** toggle to the left, then search for your target rule names and select each individually by moving its toggle to the right.
     {: .tip }
@@ -115,10 +115,10 @@ To set up an alert for a detector, continue with the following steps:
     * Assign a level of severity for the alert to give the recipient an indication of its urgency.
     * Select a channel for the notification. Examples include Slack, Chime, or email. Select the  **Manage channels** link to the right of the field to link the notification to a preferred channel.
     * Select the **Show notify message** label to expand message preferences. You can add a subject for the message and a note to inform recipients of the nature of the message.
-    
+
 1. After configuring the conditions in the preceding fields, select **Next** in the lower-right corner of the screen. The **Review and create** page opens.
 
-After reviewing the specifications for the detector, select **Create** in the lower-right corner of the screen to create the detector. The screen returns to the list of all detectors, and the new detector appears in the list.
+After reviewing the specifications for the detector, choose **Create** in the lower-right corner of the screen to create the detector. The screen returns to the list of all detectors, and the new detector appears in the list.
 
 ## What's next
 
