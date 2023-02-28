@@ -38,7 +38,8 @@ As one more alternative, you can select an option from the **Recently used date 
 ## The Findings list
 
 The **Findings** list displays all findings according to time of the finding, the finding ID, the rule name that generated the finding, the detector that captured the finding, and other details.
-<br><img src="{{site.url}}{{site.baseurl}}/images/Security/finding-list.png" alt="A list of all findings" width="85%">
+
+<img src="{{site.url}}{{site.baseurl}}/images/Security/finding-list.png" alt="A list of all findings" width="85%">
 
 Use the **Rule severity** dropdown list to filter the list of findings by severity. Use the **log type** dropdown list to filter the list by log type.
 
@@ -47,7 +48,7 @@ The **Actions** column includes two options for each finding:
 * The bell icon allows you to open the **Create detector alert trigger** pane, where you can quickly set up an alert for the specific finding and modify rules and their conditions as required.
 For details on setting up an alert, see [Set up alerts]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/detectors-config/#step-3-set-up-alerts) in detector creation documentation.
 
-Each finding in the list also includes a **Finding ID**. You can select the ID as another option for opening the **Finding details** pane. An example of **Finding details** is shown in the following image.
+Each finding in the list also includes a **Finding ID**. In addition to using the diagonal arrow in **Actions**, you can select the ID to open the **Finding details** pane. An example of **Finding details** is shown in the following image.
 
 <img src="{{site.url}}{{site.baseurl}}/images/Security/findings1.png" alt="Finding details pane" width="60%">
 
@@ -57,11 +58,14 @@ The **Finding details** pane contains specific information about the finding, in
 
 1. Open **Finding details** by selecting the **Finding ID** in the list of findings.
 1. In the **Documents** section, select **View surrounding documents**. If an index pattern already exists for the document, the **Discover** panel opens and displays the document. If an index pattern does not exist, the **Create index pattern to view documents** window opens and prompts you to create an index pattern, as shown in the following image.
-<br><img src="{{site.url}}{{site.baseurl}}/images/Security/findings2.png" alt="popup window prompting users to create an index pattern" width="60%">
+
+    <img src="{{site.url}}{{site.baseurl}}/images/Security/findings2.png" alt="popup window prompting users to create an index pattern" width="60%">
+
 1. In the **Create index pattern to view documents** window, the index pattern name is automatically populated. Enter the appropriate time field from the log index used to determine the timing for log events. For information on mapping log fields to detector fields, see [Step 2. Create field mappings]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/detectors-config/#step-2-create-field-mappings). Select **Create index pattern**. The **Create index pattern to view documents** confirmation window opens.
 1. Select **View surrounding documents** in the confirmation window. The **Discover** panel opens, as shown in the following image.
-<br><img src="{{site.url}}{{site.baseurl}}/images/Security/findings4.png" alt="Discover panel with surrounding documents" width="85%">
 
+    <img src="{{site.url}}{{site.baseurl}}/images/Security/findings4.png" alt="Discover panel with surrounding documents" width="85%">
+    
 The **Discover** panel displays the document that generated the finding with a highlighted background. Other documents that came either before or after the event are also displayed.
 
 For details about working with **Discover** in OpenSearch Dashboards, see [Exploring data]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/).
