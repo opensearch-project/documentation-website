@@ -26,27 +26,6 @@ As you follow along with this document you will define several Docker resources 
 
 The [command](#docker-restart) removes container names matching the regular expression `os-*`, data volumes matching `data-0*` and `repo-0*`, and the Docker network named `opensearch-dev-net`. If you have other Docker resources running on the host, then, if necessary, you should take care to review and modify the command to avoid removing a container or volume unintentionally. This command does not revert changes to host memory swapping or the value of `vm.max_map_count`.
 
-<style>
-.codeblock-label {
-    display: inline-block;
-    border-top-left-radius: 0.5rem;
-    border-top-right-radius: 0.5rem;
-    font-family: Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;
-    font-size: .75rem;
-    --bg-opacity: 1;
-    background-color: #e1e7ef;
-    background-color: rgba(224.70600000000002,231.07080000000002,239.394,var(--bg-opacity));
-    padding: 0.25rem 0.75rem;
-    border-top-width: 1px;
-    border-left-width: 1px;
-    border-right-width: 1px;
-    --border-opacity: 1;
-    border-color: #ccd6e0;
-    border-color: rgba(204,213.85999999999999,224.39999999999998,var(--border-opacity));
-    margin-bottom: 0;
-}
-</style>
-<p class="codeblock-label" id="docker-restart">Delete Docker artifacts</p>
 ```markdown
 docker container stop $(docker container ls -aqf name=os-); \
 	docker container rm $(docker container ls -aqf name=os-); \
@@ -146,19 +125,24 @@ docker container stop $(docker container ls -aqf name=os-); \
 
 ## Add data and configure OpenSearch Security
 
-Now that the OpenSearch cluster is running it's a good time to add data and configure some OpenSearch Security settings. The data you add and settings you configure can be used to validate that these artifacts are preserved after a version upgrade.
+Now that the OpenSearch cluster is running it's time to add data and configure a couple OpenSearch Security settings. The data you add and settings you configure can be used to validate that these artifacts are preserved after a version upgrade.
 
-1. From the termi
+1. We provide sample data that you can index for validation of the upgrade process. Download the field mappings file first:
+    ```bash
+    wget https://raw.githubusercontent.com/opensearch-project/documentation-website/main/assets/examples/ecommerce-field_mappings.json
+    ```
+    {% include copy.html %}
+1. 
+
+
+
+
+
 1. Open a web browser and navigate to port `5601` of your host (for example, https://<hostAddress>:5601). If OpenSearch Dashboards is running, and you have network access to the host from the browser client, then you will be presented with a login page.
     1. The web browser will probably raise an error because the certificates used by the test cluster are self-signed, and therefore they are not trusted. You can work around this by bypassing the certificate check in your browser. Remember that the common name (CN) for each certficate is generated with respect to the container and node name for intra-cluster communication, so connecting to the host from a browser will still result in an "invalid CN" error.
 1. Enter the default username (`admin`) and password (`admin`).
 1. 
 
-1. Download the field mappings file:
-    ```bash
-    wget https://raw.githubusercontent.com/opensearch-project/documentation-website/main/assets/examples/ecommerce-field_mappings.json
-    ```
-    {% include copy.html %}
 1. Download the bulk document:
     ```bash
     wget https://raw.githubusercontent.com/opensearch-project/documentation-website/main/assets/examples/ecommerce.json
