@@ -6,15 +6,16 @@ grand_parent: Pipelines
 nav_order: 45
 ---
 
-# OTel Metrics String Processor 
+# otel Metrics String Processor 
 
-The `OTel metrics string` processor serializes a collection of `ExportMetricsServiceRequest` sent from [otel-metrics-source](/data-prepper/pipelines/configuration/sources/otel-metrics-source/) into a collection of string records.
+The `otel metrics string` processor serializes a collection of `ExportMetricsServiceRequest` sent from the [otel-metrics-source](/data-prepper/pipelines/configuration/sources/otel-metrics-source/) into a collection of string records.
 
 <!--- WHat should this link point to?--->
 
 ## Usage
 
 See the following `.yaml` configuration file:
+
 ```
 processor:
     - otel_metrics_raw_processor
@@ -33,7 +34,7 @@ You can create explicit representations of histogram buckets and their boundarie
         flatten_attributes: false
 ```
 
-There are three possible parameters: `calculate_histogram_buckets`, `calculate_exponential_histogram_buckets` and `exponential_histogram_max_allowed_scale` If `calculate_histogram_buckets` and `calculate_exponential_histogram_buckets` are not provided they default to `false`. If `exponential_histogram_max_allowed_scale` is not provided, the default value is 10.
+There are three possible parameters: `calculate_histogram_buckets`, `calculate_exponential_histogram_buckets` and `exponential_histogram_max_allowed_scale`. If `calculate_histogram_buckets` and `calculate_exponential_histogram_buckets` are not provided they default to `false`. If `exponential_histogram_max_allowed_scale` is not provided, the default value is 10.
 
 If `calculate_histogram_buckets` is not set to `false`, the following JSON file will be added to every histogram JSON.
 If `flatten_attributes` is set to `false`, the JSON string format of the metrics will keep the attributes field as is, and if it is set to `true`, the fleds in attributes field are put in the parent json object. The default value is `true`

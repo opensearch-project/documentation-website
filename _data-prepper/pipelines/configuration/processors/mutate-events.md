@@ -54,14 +54,10 @@ When run, the processor parses the message into the following output:
 
 ### Configuration
 
-
-
 * `entries`: (required) A list of entries to add to an event
 * `key`: (required) The key of the new entry to be added
 * `value`: (required) The value of the new entry to be added. Strings, booleans, numbers, null, nested objects, and arrays containing the aforementioned data types are valid to use
 * `overwrite_if_key_exists`: (optional) When set to `true`, if `key` already exists in the event, then the existing value will be overwritten. The default is `false`. 
-
-___
 
 ## Copy value
 
@@ -88,7 +84,7 @@ pipeline:
     - stdout:
 ```
 
-Create the following file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` with the path of this file.
+Create the following file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` with the path of this file:
 
 ```json
 {"message": "value"}
@@ -221,17 +217,17 @@ pipeline:
     - stdout:
 ```
 
-Let the contents of `logs_json.log` be the following:
+Add the following contents to the `logs_json.log` file:
+
 ```json
 {"message": "value"}
 ```
 
-After the processor runs, this will be the output
+After the processor runs, the following output appears:
+
 ```json
 {"message3": "value"}
 ```
-
-___
 
 ## ConvertEntry
 
@@ -265,15 +261,20 @@ Create the following file named `logs_json.log` and replace the `path` in the fi
 {"message": "10.10.10.19 [19/Feb/2015:15:50:36 -0500] 200"}
 ```
 
-When run, the grok processor will parse the message into the following output:
+When run, the `Grok` processor will parse the message into the following output:
+
 ```json
 {"message": "10.10.10.10 [19/Feb/2015:15:50:36 -0500] 200", "clientip":"10.10.10.10", "timestamp": "19/Feb/2015:15:50:36 -0500", "response_status": "200"}
 ```
-and the type conversion processor will change it to the following output, where type of `response_status` value is changed to integer
+
+and the type conversion processor will change it to the following output, where the type of `response_status` value is changed to an integer:
+
 ```json
 {"message": "10.10.10.10 [19/Feb/2015:15:50:36 -0500] 200", "clientip":"10.10.10.10", "timestamp": "19/Feb/2015:15:50:36 -0500", "response_status": 200}
 ```
+
 ### Configuration
+
 * `key` - (required) - keys whose value needs to be converted to a different type
 * `type` - target type for the value of the key. Possible values are `integer`, `double`, `string`, and `boolean`. Default is `integer`.
 

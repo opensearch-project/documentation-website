@@ -8,7 +8,10 @@ nav_order: 45
 
 # Mutate string processors
 
+<!--- Need intro text on what mutate string processors do as a whole.--->
+
 The following is a list of processors that allow you to mutate a string:
+
 * [substitute_string](#substitutestringprocessor)
 * [split_string](#splitstringprocessor)
 * [uppercase_string](#uppercasestringprocessor)
@@ -43,17 +46,19 @@ pipeline:
     - stdout:
 ```
 
-Create the following file named `logs_json.log` and replace the `path` in the file source in your `pipeline.yaml` file with your file path.
+Create the following file named `logs_json.log` and replace the `path` of the file source in your `pipeline.yaml` file with your file path:
 
 ```json
 {"message": "ab:cd:ab:cd"}
 ```
-When you run Data Prepper with this `pipeline.yaml`, you should see the following output:
+
+When you run Data Prepper with the `pipeline.yaml` file, you will see the following output:
 
 ```json
 {"message": "ab-cd-ab-cd"}
 ```
-If `from` regex string does not have a match, the key will be returned without any changes.
+
+If the `from` regex string does not return a match, the key returns without any changes.
 
 ### Configuration
 
