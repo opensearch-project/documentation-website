@@ -16,7 +16,10 @@ To use a pre-trained model in your OpenSearch cluster:
 
 ## Supported pre-trained models
 
-The model-serving framework supports the following models. Although models might have similar use cases, they many of them contain different performance metrics and sizes. While we recommend experimenting against your own cluster, you can compare the performances of similar models in the [sbert documentation](https://www.sbert.net/docs/pretrained_models.html#model-overview).
+The model-serving framework supports the following models. 
+
+Although models might have similar use cases, they many of them contain different performance metrics and model sizes. For a comparison of the performances of pre-trained models, see the [sbert documentation](https://www.sbert.net/docs/pretrained_models.html#model-overview).
+{: .note}
 
 
 ### Sentence transformers
