@@ -34,7 +34,7 @@ You can create explicit representations of histogram buckets and their boundarie
 
 There are three possible parameters: `calculate_histogram_buckets`, `calculate_exponential_histogram_buckets` and `exponential_histogram_max_allowed_scale`. If `calculate_histogram_buckets` and `calculate_exponential_histogram_buckets` are not provided, then the default value is `false`. If the `exponential_histogram_max_allowed_scale` parameter is not provided, the default value is `10`.
 
-If `calculate_histogram_buckets` is not set to `false`, the following JSON file will be added to every histogram JSON. If `flatten_attributes` is set to `false`, the JSON string format of the metrics does not change the attributes field. If `flatten_attributes` is set to `true`, the values in the attributes field are placed in the parent JSON object. The default value is `true`
+If `calculate_histogram_buckets` is not set to `false`, the following JSON file will be added to every histogram JSON. If `flatten_attributes` is set to `false`, the JSON string format of the metrics does not change the attributes field. If `flatten_attributes` is set to `true`, the values in the attributes field are placed in the parent JSON object. The default value is `true`.
 
 <!--- Is this phrasing appropriate? "...are placed in..."?--->
 
