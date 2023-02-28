@@ -13,7 +13,7 @@ The model-serving framework supports a variety of open-source pretrained models 
 
 To use a pretrained model in your OpenSearch cluster:
 
-1. Select the model and download the model artifact and config.json file. For a list of pretrained models, see [supported pretrained model](#supported-pretrained-models).
+1. Select the model and download the model artifact and config.json file. For a list of pretrained models, see [supported pretrained models](#supported-pretrained-models).
 2. Upload the model using the [upload API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-serving-framework#upload-model-to-opensearch). For more information on how to upload and use ML models, see [Model-serving framework]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-serving-framework).
 
 ## Supported pretrained models
@@ -23,7 +23,9 @@ The model-serving framework supports the following models, categorized by type. 
 
 ### Sentence transformers
 
-Sentence transformer models map sentences and paragraphs across a dimensional dense vector space. The number of vectors depends on the model. Use these models for use cases such as clustering and semantic search.
+Sentence transformer models map sentences and paragraphs across a dimensional dense vector space. The number of vectors depends on the model. Use these models for use cases such as clustering and semantic search. 
+
+The following table provides a list of sentence transformer models and artifact links to download them:
 
 | **Model name** | **Vector dimensions** | **Torchscript artifact** | **ONNX artifact** |
 |---|---|---|---|
