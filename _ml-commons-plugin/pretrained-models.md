@@ -5,7 +5,9 @@ parent: Model-serving framework
 nav_order: 120
 ---
 
-The model-serving framework supports a variety of open-source pre-built models that can assist with a variety of machine learning (ML) search and analytics use-cases. 
+# Pre-trained models
+
+The model-serving framework supports a variety of open-source pre-trained models that can assist with a variety of machine learning (ML) search and analytics use-cases. 
 
 ## Uploading pre-trained models
 
@@ -16,10 +18,7 @@ To use a pre-trained model in your OpenSearch cluster:
 
 ## Supported pre-trained models
 
-The model-serving framework supports the following models. 
-
-Although models might have similar use cases, they many of them contain different performance metrics and model sizes. For a comparison of the performances of pre-trained models, see the [sbert documentation](https://www.sbert.net/docs/pretrained_models.html#model-overview).
-{: .note}
+The model-serving framework supports the following models, categorized based on type. Although models with the same type will have similar use cases, each model has a different model size and performs differently depending on your cluster. For a comparison of the performances some pre-trained models, see the [sbert documentation](https://www.sbert.net/docs/pretrained_models.html#model-overview).
 
 
 ### Sentence transformers
