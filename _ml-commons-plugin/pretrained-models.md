@@ -5,6 +5,9 @@ parent: Model-serving framework
 nav_order: 120
 ---
 
+The model-serving framework is an experimental feature. For updates on the progress of the model-serving framework, or if you want to leave feedback that could help improve the feature, join the discussion in the [Model-serving framework forum](https://forum.opensearch.org/t/feedback-machine-learning-model-serving-framework-experimental-release/11439).    
+{: .warning}
+
 # Pretrained models
 
 The model-serving framework supports a variety of open-source pretrained models that can assist with a range of machine learning (ML) search and analytics use cases. 
@@ -14,7 +17,7 @@ The model-serving framework supports a variety of open-source pretrained models 
 To use a pretrained model in your OpenSearch cluster:
 
 1. Select the model and download the model artifact and config.json file. For a list of pretrained models, see [supported pretrained models](#supported-pretrained-models).
-2. Upload the model using the [upload API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-serving-framework#upload-model-to-opensearch). For more information on how to upload and use ML models, see [Model-serving framework]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-serving-framework).
+2. Upload the model using the [upload API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-serving-framework#upload-model-to-opensearch). Since models come  For more information on how to upload and use ML models, see [Model-serving framework]({{site.url}}{{site.baseurl}}/ml-commons-plugin/model-serving-framework).
 
 ## Supported pretrained models
 

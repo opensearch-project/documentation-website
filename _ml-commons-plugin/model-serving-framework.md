@@ -21,7 +21,7 @@ To upload a custom model to OpenSearch, you need to prepare it outside of your O
 
 ### Model support
 
-As of OpenSearch 2.6, the model-serving framework supports text embedding and sentence transformer models. 
+As of OpenSearch 2.6, the model-serving framework supports text embedding models.
 
 ### Model format
 
