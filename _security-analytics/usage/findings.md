@@ -7,11 +7,11 @@ nav_order: 35
 
 # Working with findings
 
-The Findings window includes features for viewing and working with findings. The two main features are:
+The **Findings** window includes features for viewing and working with findings. The two main features are:
 * The bar graph with findings information arranged by count, date, and log type or rule severity.
-* The Findings list arranged by time, finding ID, rule name, and other details.
+* The **Findings** list arranged by time, finding ID, rule name, and other details.
 
-You can select the **Refresh** button at any time to refresh information on the Findings page.
+You can select the **Refresh** button at any time to refresh information on the **Findings** page.
 
 ## The Findings graph
 
@@ -37,7 +37,7 @@ As one more alternative, you can select an option from the **Recently used date 
 
 ## The Findings list
 
-The Findings list displays all findings according to time of the finding, the finding ID, the rule name that generated the finding, the detector that captured the finding, and other details.
+The **Findings** list displays all findings according to time of the finding, the finding ID, the rule name that generated the finding, the detector that captured the finding, and other details.
 <br><img src="{{site.url}}{{site.baseurl}}/images/Security/finding-list.png" alt="A list of all findings" width="85%">
 
 Use the **Rule severity** dropdown list to filter the list of findings by severity. Use the **log type** dropdown list to filter the list by log type.
