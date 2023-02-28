@@ -70,7 +70,7 @@ Each array element describes one bucket. Each bucket contains the lower boundary
 ```
 
 
-If `calculate_exponential_histogram_buckets` is not set to `false`, the following JSON values will be added to every histogram JSON:
+If `calculate_exponential_histogram_buckets` is not set to `false`, the following JSON values are added to each JSON historgram:
 
 ```json
 
@@ -101,7 +101,7 @@ If `calculate_exponential_histogram_buckets` is not set to `false`, the followin
     ],
 ```
 
-This is a more explicit form of the dense OpenTelemetry representation, which consists of negative and positive buckets, a scale parameter, offset, and list of bucket counts. See the following JSON file:
+The following JSON file is a more explicit form of the dense OpenTelemetry representation, which consists of negative and positive buckets, a scale parameter, offset, and list of bucket counts. 
 
 <!--- What does this mean "more explicit"? --->
 
@@ -121,7 +121,7 @@ This is a more explicit form of the dense OpenTelemetry representation, which co
     "positiveOffset" : 1
 ```
 
-The `exponential_histogram_max_allowed_scale` parameter defines the maximum allowed scale for the exponential histogram. Increasing this parameter will increase potential memory consumption. See the [OpenTelemetry specifications](https://github.com/open-telemetry/opentelemetry-proto/blob/main/opentelemetry/proto/metrics/v1/metrics.proto) for more information on exponential histograms and their computational complexity.
+The `exponential_histogram_max_allowed_scale` parameter defines the maximum allowed scale for an exponential histogram. Increasing this parameter increases potential memory consumption. See the [OpenTelemetry specifications](https://github.com/open-telemetry/opentelemetry-proto/blob/main/opentelemetry/proto/metrics/v1/metrics.proto) for more information on exponential histograms and their computational complexity.
 
 All exponential histograms that have a scale that is above the configured parameter (by default, 10) will be discarded and logged with error level. 
 **Note**: The absolute scale value is used for comparison, so a scale of `-11` will be treated equally to `11`, will exceed the configured value of `10` and be discarded.
@@ -130,7 +130,7 @@ All exponential histograms that have a scale that is above the configured parame
 
 This plugin uses all common metrics in [AbstractProcessor](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/processor/AbstractProcessor.java), and does not currently introduce custom metrics.
 
-## Developer Guide
+## Developer guide
 
 This plugin is compatible with Java 8. See the following:
 

@@ -8,11 +8,11 @@ nav_order: 45
 
 <!--- This file may be unnecessary. "JSON" is being renamed to "Parse JSON" in another PR.--->
 
-# Parse JSON Processor
+# Parse JSON processor
 
 This is a processor that takes in an Event and parses its JSON data, including any nested fields.
 
-## Basic Usage
+## Basic usage
 
 To get started, create the following `pipelines.yaml`.
 ```yaml
@@ -24,7 +24,7 @@ parse-json-pipeline:
   sink:
     - stdout:
 ```
-#### Basic Example
+#### Basic example
 
 If you wish to test the JSON Processor with the above config then you may find the following example useful.
 Run the pipeline and paste the following line into your console, and then enter `exit` on a new line.
@@ -36,7 +36,7 @@ The processor will parse the message into the following:
 ```
 {"message": {"outer_key": {"inner_key": "inner_value"}}", "outer_key":{"inner_key":"inner_value"}}}
 ```
-#### Example with JSON Pointer
+#### Example with JSON pointer
 
 If you wish to parse a selection of the JSON data, you can specify a JSON Pointer using the `pointer` option in the configuration. The following configuration file and example demonstrates a basic pointer use case.
 ```yaml

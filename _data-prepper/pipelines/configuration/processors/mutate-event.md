@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Mutate events
+title: Mutate event
 parent: Processors
 grand_parent: Pipelines
 nav_order: 45
@@ -15,7 +15,7 @@ The following processors allow you to mutate an event.
 
 ## AddEntry
 
-The `AddEntry` adds entries to an event
+The `AddEntry` pcessor adds entries to an event.
 
 ### Basic usage
 
