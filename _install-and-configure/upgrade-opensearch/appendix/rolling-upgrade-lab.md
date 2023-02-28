@@ -10,15 +10,44 @@ redirect_from:
 
 # Rolling Upgrade - Lab
 
-The following procedure was validated on an [Amazon Elastic Compute Cloud (Amazon EC2)](https://aws.amazon.com/ec2/) instance (`t2.large`) using [Amazon Linux 2](https://aws.amazon.com/amazon-linux-2/) kernel version `Linux 5.10.162-141.675.amzn2.x86_64` and [Docker](https://www.docker.com/) version `20.10.17, build 100c701`. The instance used an attached 20 GiB gp2 [Amazon Elastic Block Store (EBS)](https://aws.amazon.com/ebs/) root volume.
+This lab will walk You can follow these steps on your own compatible host to recreate the same cluster state the OpenSearch Project used for testing [rolling upgrades]({{site.url}}{{site.baseurl}}/install-and-configure/upgrade-opensearch/rolling-upgrade/).
 
-You can follow these steps to recreate the same cluster state used for generating the procedure if you want to try the upgrade process in a test environment.
+The steps used in this lab were validated on an [Amazon Elastic Compute Cloud (Amazon EC2)](https://aws.amazon.com/ec2/) `t2.large` instance using [Amazon Linux 2](https://aws.amazon.com/amazon-linux-2/) kernel version `Linux 5.10.162-141.675.amzn2.x86_64` and [Docker](https://www.docker.com/) version `20.10.17, build 100c701`. The instance was provisioned with an attached 20 GiB gp2 [Amazon Elastic Block Store (EBS)](https://aws.amazon.com/ebs/) root volume.
 
 References to the `$HOME` path on the host machine in this procedure are represented by the tilde character ("~") to make the instructions more portable. If you would prefer to specify an absolute path, modify the volume paths define in `upgrade-demo-cluster.sh` to reflect your environment.
 {: .note}
 
-If you want to clean up resources created during this rolling upgrade procedure, run the following command. If any unrelated Docker resources are running on your host, then you should modify this command as needed to avoid deleting any other resources.
-```bash
+The host type used for testing was chosen arbitrarily. Specifications are included for informational purposes only and do not represent a recommendation of system hardware requirements.
+{: .note}
+
+## Set up the environment
+
+As you follow along with this document you will define several Docker resources including containers, volumes, and a dedicated Docker network using a script we provide. You can clean up your environment with the following command if you want to start the process over.
+
+The [command](#docker-restart) removes container names matching the regular expression `os-*`, data volumes matching `data-0*` and `repo-0*`, and the Docker network named `opensearch-dev-net`. If you have other Docker resources running on the host, then, if necessary, you should take care to review and modify the command to avoid removing a container or volume unintentionally. This command does not revert changes to host memory swapping or the value of `vm.max_map_count`.
+
+<style>
+.codeblock-label {
+    display: inline-block;
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+    font-family: Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;
+    font-size: .75rem;
+    --bg-opacity: 1;
+    background-color: #e1e7ef;
+    background-color: rgba(224.70600000000002,231.07080000000002,239.394,var(--bg-opacity));
+    padding: 0.25rem 0.75rem;
+    border-top-width: 1px;
+    border-left-width: 1px;
+    border-right-width: 1px;
+    --border-opacity: 1;
+    border-color: #ccd6e0;
+    border-color: rgba(204,213.85999999999999,224.39999999999998,var(--border-opacity));
+    margin-bottom: 0;
+}
+</style>
+<p class="codeblock-label" id="docker-restart">Delete Docker artifacts</p>
+```markdown
 docker container stop $(docker container ls -aqf name=os-); \
 	docker container rm $(docker container ls -aqf name=os-); \
 	docker volume rm -f $(docker volume ls -q | egrep 'data-0|repo-0'); \
@@ -26,16 +55,16 @@ docker container stop $(docker container ls -aqf name=os-); \
 ```
 {% include copy.html %}
 
-## Set up the environment
-
 1. Install the appropriate version of [Docker Engine](https://docs.docker.com/engine/install/) for your Linux distribution and architecture. 
 1. Configure [important system settings]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#important-settings) on your host.
-    1. Disable memory paging and swapping performance on the host to improve performance:
+    1. <p class="codeblock-label">Disable memory paging and swapping on the host to improve performance:</p>
 	   ```bash
 	   sudo swapoff -a
 	   ```
 	   {% include copy.html %}
-	1. Increase the number of memory maps available to OpenSearch. First, open the `sysctl` configuration file for editing. This example command uses the [vim](https://www.vim.org/), but you should use whichever available text editor you prefer:
+
+	1. Increase the number of memory maps available to OpenSearch. Open the `sysctl` configuration file for editing. This example command uses the [vim](https://www.vim.org/) text editor, but you can use any available text editor you prefer:
+       <p class="codeblock-label">Open sysctl.conf</p>
 	   ```bash
 	   sudo vim /etc/sysctl.conf
 	   ```
@@ -51,7 +80,7 @@ docker container stop $(docker container ls -aqf name=os-); \
 	   sudo sysctl -p
 	   ```
 	   {% include copy.html %}
-1. Navigate to your home directory and create a directory named `deploy`. You will use the path `~/deploy` for the deployment script, configuration files and TLS certificates.
+1. Navigate to your home directory and create a directory named `deploy`. You will use the path `~/deploy` for the deployment script, configuration files, and TLS certificates.
    ```bash
    mkdir ~/deploy && cd ~/deploy
    ```
@@ -80,17 +109,6 @@ docker container stop $(docker container ls -aqf name=os-); \
    f894054a9378   opensearchproject/opensearch:1.3.7              "./opensearch-docker…"   27 seconds ago   Up 26 seconds   9300/tcp, 9650/tcp, 0.0.0.0:9202->9200/tcp, :::9202->9200/tcp, 0.0.0.0:9602->9600/tcp, :::9602->9600/tcp   os-node-02
    2e9c91c959cd   opensearchproject/opensearch:1.3.7              "./opensearch-docker…"   28 seconds ago   Up 27 seconds   9300/tcp, 9650/tcp, 0.0.0.0:9201->9200/tcp, :::9201->9200/tcp, 0.0.0.0:9601->9600/tcp, :::9601->9600/tcp   os-node-01
    ```
-1. While you wait for the containers to start, download the sample data provided by the OpenSearch Project.
-   1. Download the field mappings file:
-      ```bash
-      wget https://raw.githubusercontent.com/opensearch-project/documentation-website/main/assets/examples/ecommerce-field_mappings.json
-      ```
-      {% include copy.html %}
-   1. Download the bulk document:
-      ```bash
-      wget https://raw.githubusercontent.com/opensearch-project/documentation-website/main/assets/examples/ecommerce.json
-      ```
-      {% include copy.html %}
 1. The amount of time it takes to initialize and bootstrap the cluster will vary depending on the performance capabilities of the underlying host. You can watch the container logs to see what OpenSearch is doing during cluster formation.
    1. Enter the following command to display logs for container `os-node-01` in the terminal window:
       ```bash
@@ -125,3 +143,25 @@ docker container stop $(docker container ls -aqf name=os-); \
        "tagline" : "The OpenSearch Project: https://opensearch.org/"
    }
    ```
+
+## Add data and configure OpenSearch Security
+
+Now that the OpenSearch cluster is running it's a good time to add data and configure some OpenSearch Security settings. The data you add and settings you configure can be used to validate that these artifacts are preserved after a version upgrade.
+
+1. From the termi
+1. Open a web browser and navigate to port `5601` of your host (for example, https://<hostAddress>:5601). If OpenSearch Dashboards is running, and you have network access to the host from the browser client, then you will be presented with a login page.
+    1. The web browser will probably raise an error because the certificates used by the test cluster are self-signed, and therefore they are not trusted. You can work around this by bypassing the certificate check in your browser. Remember that the common name (CN) for each certficate is generated with respect to the container and node name for intra-cluster communication, so connecting to the host from a browser will still result in an "invalid CN" error.
+1. Enter the default username (`admin`) and password (`admin`).
+1. 
+
+1. Download the field mappings file:
+    ```bash
+    wget https://raw.githubusercontent.com/opensearch-project/documentation-website/main/assets/examples/ecommerce-field_mappings.json
+    ```
+    {% include copy.html %}
+1. Download the bulk document:
+    ```bash
+    wget https://raw.githubusercontent.com/opensearch-project/documentation-website/main/assets/examples/ecommerce.json
+    ```
+    {% include copy.html %}
+
