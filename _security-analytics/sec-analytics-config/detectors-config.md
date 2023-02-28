@@ -32,6 +32,8 @@ You can define a new detector by naming the detector, selecting a data source an
 * Use the **Log type**, **Rule severity**, and **Source** dropdown lists to filter the rules you want to select from. 
 * Use the **Search** bar to search for specific rules.
 
+When selecting **Network events**, **CloudTrail logs**, or **S3 access logs** as the log type, a detector dashboard is automatically created. The dashboard offers visualizations for the detector and can provide security-related insight into log source data. For more information about visualizations, see [Building data visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/).
+
     To quickly select one or more known rules and dismiss others, first deselect all rules by moving the **Rule name** toggle to the left, then search for your target rule names and select each individually by moving its toggle to the right.
     {: .tip }
 
