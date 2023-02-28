@@ -2,7 +2,7 @@
 layout: default
 title: Model-serving framework 
 has_children: true
-nav_order: 110
+nav_order: 50
 ---
 
 # Model-serving framework
@@ -21,7 +21,7 @@ To upload a custom model to OpenSearch, you need to prepare it outside of your O
 
 ### Model support
 
-As of OpenSearch 2.4, the model-serving framework only supports text embedding models without GPU acceleration.
+As of OpenSearch 2.6, the model-serving framework supports text embedding models.
 
 ### Model format
 
