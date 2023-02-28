@@ -193,7 +193,7 @@ You can have the same repository serve as both the segment repository and transl
 {: .note}
 
 As data is added to the index, it also will be continuously uploaded to remote storage in the form of segment and translog files because of refreshes, flushes, and translog fsyncs to disk. Along with data, other metadata files will be uploaded.
-`buffer_interval` field in settings indicates time interval to buffer translog operations. Instead of uploading small translog files, single translog file is created with all the write operations received during the configured interval. This helps in achieving higher throughput but also increases latency. Default value is 100ms.
+The `buffer_interval` setting specifies the time interval during which translog operations are buffered. Instead of uploading individual translog files, OpenSearch creates a single translog file with all the write operations received during the configured interval. Bundling translog files leads to higher throughput but also increases latency. The default `buffer_interval` value is 100 ms.
 
 Setting `translog.enabled` to `true` is currently an irreversible operation.
 {: .warning}
@@ -230,5 +230,5 @@ You can use remote-backed storage for the following purposes:
 
 The following are known limitations of the remote-backed storage feature:
 
-- Writing data to a remote store can be a high-latency operation when compared to writing data on the local file system. This may impact the indexing throughput and latency. Performance benchamrking results will be tracked in https://github.com/opensearch-project/OpenSearch/issues/6376
+- Writing data to a remote store can be a high-latency operation when compared to writing data on the local file system. This may impact the indexing throughput and latency. For performance benchmarking results, see [issue #6376](https://github.com/opensearch-project/OpenSearch/issues/6376).
 
