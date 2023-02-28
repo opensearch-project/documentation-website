@@ -5,7 +5,7 @@ The OpenSearch 2.6.0 documentation includes the following additions and updates.
 ## New documentation for 2.6.0
 
 - Add changes to remote backed storage documentation for 2.6 release [#3098](https://github.com/opensearch-project/documentation-website/pull/3098)
-- Add documentation for log type updates in Security Analytics - pt. 2 [#3083](https://github.com/opensearch-project/documentation-website/pull/3083)
+- Add documentation dashboard generation and Discover panel in Security Analytics [#3083](https://github.com/opensearch-project/documentation-website/pull/3083)
 - Add documentation for log type updates in Security Analytics [#3066](https://github.com/opensearch-project/documentation-website/pull/3066)
 - Revise search backpressure documentation for 2.6 [#2989](https://github.com/opensearch-project/documentation-website/pull/2989)
 - Add documentation for Simple Schema [#2940](https://github.com/opensearch-project/documentation-website/pull/2940)
