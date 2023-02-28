@@ -7,7 +7,7 @@ has_children: true
 
 # Creating dashboards
 
-The **Dashboard** application in OpenSearch Dashboards lets you visually represent your analytical, operational, and strategic data to help users quickly understand the current situation, giving users a high-level view of key metrics, simplifying data exploration, and delivering insights to users when and where they need them.
+The **Dashboard** application in OpenSearch Dashboards lets you visually represent your analytical, operational, and strategic data to help you quickly understand the trends in your data, giving you a high-level view of key metrics, simplifying data exploration, and delivering insights when and where you need them.
 
 In this tutorial you'll learn the basics of creating a dashboard using the **Dashboard** application and OpenSearch sample data. The sample dataset has existing sample visualizations, and you can use those visualizations or create new visualizations for the dashboard. For this tutorial, you'll do both. Once you've completed this tutorial, you'll have learned the foundations of creating a new dashboard with multiple panels in OpenSearch Dashboards. 
 
@@ -22,7 +22,7 @@ Before getting started, let's get familiar with the **Dashboard** user interface
 
 - The **navigation panel** (A) on the left contains the OpenSearch Dashboards applications.
 - The **search** bar (B) lets you search for documents and other objects and add filters.
-- The **filter** (C) lets you apply different data perspectives to narrow a dashboard's results.
+- The **filter** (C) lets you narrow a dashboard's results.
 - The **toolbar** (D) contains frequently used commands and shortcuts.
 - The **time filter** (E) lets you customize the time and date.
 - The **panel** (F) allows you to add existing visualizations to the dashboard or create new ones for the dashboard.
@@ -43,12 +43,12 @@ The following tutorial assumes you're either using your existing installation of
 
 To create the dashboard and add the sample visualization:
 
-1. Connect to `https://localhost:5601`. The username and password are `admin`. Alternatively, connect to your local environment or the [OpenSearch playground](https://playground.opensearch.org/app/home#/).
-1. From the navigation panel, choose **Dashboard**.
-1. From the **Dashboards** window, choose **Create Dashboard**.
+1. Connect to `https://localhost:5601`. The username and password are `admin`. Alternatively, go to the [OpenSearch playground](https://playground.opensearch.org/app/home#/).
+1. On the top menu, go to **OpenSearch Dashboards > Dashboard**.
+1. From the **Dashboards** panel, choose **Create Dashboard**.
 1. Select the calendar icon and set the time filter to **Last 30 days**.
 1. From the panel, choose **Add an existing**.
-1. From the **Add panels** window, choose **[eCommerce] Promotion Tracking**, and then select `x` to close the panel.
+1. From the **Add panels** window, choose **[eCommerce] Promotion Tracking**, and then choose `x` to close the panel.
 
 You've now created the following basic dashboard with a single panel, which you'll continue using throughout this tutorial.
 
@@ -58,11 +58,11 @@ You've now created the following basic dashboard with a single panel, which you'
 
 Continuing with the dashboard you created in the preceding steps, you'll create a new visualization and save it to the dashboard.
 
-1. From the dashboard toolbar, choose **Create new**, then **Visualization**.
-1. From the **New Visualization** window, choose **Vertical Bar** and then select the index pattern **opensearch_dashboards_sample_data_ecommerce**. 
-1. From the toolbar, select **Save**
+1. From the dashboard toolbar, choose **Create new**.
+1. From the **New Visualization** window, choose **Gauge** and then select the index pattern **opensearch_dashboards_sample_data_ecommerce**. 
+1. From the toolbar, choose **Save**.
 1. In the **Save visualization** window, add a title for the visualization. For example, the title for the gauge chart panel is [eCommerce] Orders.
-1.  Select **Save and return**.  
+1. Choose **Save and return**.  
 
 The gauge chart visualization is now saved and you are taken back to the dashboard. You'll see two visualizations on the dashboard, like the following: 
 
@@ -93,33 +93,49 @@ When you've finalized your dashboard, save it. If you're saving a new dashboard:
 
 To customize the panels, you'll need to be in edit mode:
 
-1. Select **Edit** at top right in the toolbar. 
+- Choose **Edit** at top right in the toolbar. 
+
+If you see **Create new** at the top right in the toolbar, you're already in edit mode.
+{: .note}
 
 Showing a legend can give readers more information, while hiding a legend can give it a cleaner look. If you want to show or hide the panel legend:
 
-1. Select the list icon in the panel's lower left corner.
+- Select the list icon in the panel's lower left corner.
 
 If you want to change the color of the panel legend:
+
+- From the visualization legend, select a category and then select a color from the flyout. The area chart updates with your change.
+
+This color change is only saved for the current panel and dashboard and doesn't affect the saved visualization.
+{: .note}
+
+If you want to change the color of the panel legend in the visualization:
 
 1. Select the gear icon on the area chart panel.
 2. From the **Options** window, select **Edit visualization**.
 3. From the visualization legend, select a category and then select a color from the flyout. The area chart updates with your change.
 4. Select **Save and return**. 
 
-If you want to show or hide panel title or customize it without applying the changes across the dashboard overall:
+This color change affects the saved visualization and any dashboard that links to the visualization.
+{: .note}
+
+If you want to show or hide panel title or customize it:
 
 1. Select the gear icon on the panel.
 2. From the **Options** window, select **Edit panel title**.
 3. From the **Customize panel**, add a title under **Panel title** or toggle the **Show panel title** to hide the title.
 4. Choose **Save**.
 
+Changing panel titles only affects the particular panel on the particular dashboard, and won't affect any other panel containing that same visualization or any other dashboard.
+{: .note}
+
 ## Arranging panels
 
 To organize panels, arrange them side-by-side, or resize them, you can use these options:
 
-- To move, select and hold the panel title and drag to the new location.
+- To move, select and hold the panel title or the panel top and drag to the new location.
 - To resize, select the resize icon in the panel's lower right corner and drag to the new dimensions.
-- To view in fullscreen mode, select the gear icon (edit mode) or vertical ellipsis (⋮) in the top right of the panel and select **Maximize panel**. To minimize the fullscreen mode, select the vertical ellipsis and select **Minimize**.
+- To view in fullscreen mode, select the gear icon (edit mode) or vertical ellipsis (⋮) in the top right of the panel and select **Maximize panel**. To minimize the fullscreen mode, select the gear icon or vertical ellipsis and select **Minimize**.
 
 The following is an example of a customized dashboard created in this tutorial.
 
