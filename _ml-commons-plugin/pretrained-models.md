@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Pre-trained models
+title: Pretrained models
 parent: Model-serving framework
 nav_order: 120
 ---
