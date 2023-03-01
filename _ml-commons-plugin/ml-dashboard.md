@@ -6,6 +6,8 @@ redirect_from:
   - /ml-commons-plugin/ml-dashbaord/
 ---
 
+# Managing ML models in OpenSearch Dashboards
+
 Released in OpenSearch 2.6, the machine learning (ML) functionality in OpenSearch Dashboards is experimental and can't be used in a production environment. For updates or to leave feedback, see the [OpenSearch Forum discussion](https://forum.opensearch.org/t/feedback-ml-commons-ml-model-health-dashboard-for-admins-experimental-release/12494).
 {: .warning }
 
