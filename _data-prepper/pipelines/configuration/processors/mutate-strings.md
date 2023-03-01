@@ -8,7 +8,7 @@ nav_order: 45
 
 # Mutate string processors
 
-Mutate string processesors allow you to change the way that a string appears. For example, you can use the `uppercase_string` processor to convert a string to uppercase, and you can use the `lowercase_string` processor to convert a string to lowercase. The following is a list of processors that allow you to mutate a string:
+You can change the way that a string appears using mutate string processesors. For example, you can use the `uppercase_string` processor to convert a string to uppercase, and you can use the `lowercase_string` processor to convert a string to lowercase. The following is a list of processors that allow you to mutate a string:
 
 * [substitute_string](#substitutestringprocessor)
 * [split_string](#splitstringprocessor)
