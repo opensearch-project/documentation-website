@@ -21,18 +21,21 @@ You can define a new detector by naming the detector, selecting a data source an
     {: .note }
 
 1. In the **Log types and rules** section, select the log type for the data source. The Sigma security rules associated with the log data are automatically populated in the **Detection rules** section, as shown in the following image.
-<br><img src="{{site.url}}{{site.baseurl}}/images/Security/detector_rules.png" alt="Selecting threat detector type to auto-populate rules" width="80%">
+
+    <img src="{{site.url}}{{site.baseurl}}/images/Security/detector_rules.png" alt="Selecting threat detector type to auto-populate rules" width="80%">
+
+    When selecting **Network events**, **CloudTrail logs**, or **S3 access logs** as the log type, a detector dashboard is automatically created. The dashboard offers visualizations for the detector and can provide security-related insight into log source data. For more information about visualizations, see [Building data visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/).
     
     You can skip the next step for applying select rules if you are satisfied with those automatically populated by the system. Otherwise, go to the next step to select rules individually.
     {: .note }
 
 1. In the **Detection rules** section, specify only those rules you want applied to the detector, as shown in the following image.
-<br><img src="{{site.url}}{{site.baseurl}}/images/Security/select_rules.png" alt="Select or deselect rules that detector will use for findings" width="85%">
-* Use the toggle to the left of **Rule name** to select or deselect rules.
-* Use the **Log type**, **Rule severity**, and **Source** dropdown lists to filter the rules you want to select from. 
-* Use the **Search** bar to search for specific rules.
 
-When selecting **Network events**, **CloudTrail logs**, or **S3 access logs** as the log type, a detector dashboard is automatically created. The dashboard offers visualizations for the detector and can provide security-related insight into log source data. For more information about visualizations, see [Building data visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/).
+    <img src="{{site.url}}{{site.baseurl}}/images/Security/select_rules.png" alt="Select or deselect rules that detector will use for findings" width="85%">
+
+    * Use the toggle to the left of **Rule name** to select or deselect rules.
+    * Use the **Rule severity** and **Source** dropdown lists to filter the rules you want to select from. 
+    * Use the **Search** bar to search for specific rules.
 
     To quickly select one or more known rules and dismiss others, first deselect all rules by moving the **Rule name** toggle to the left, then search for your target rule names and select each individually by moving its toggle to the right.
     {: .tip }
@@ -95,19 +98,27 @@ To set up an alert for a detector, continue with the following steps:
 
 1. In the **Trigger name** box, enter a name for the trigger.
 1. To define rule matches for the alert, select security rules, severity levels, and tags.
-<br><img src="{{site.url}}{{site.baseurl}}/images/Security/alert_rules.png" alt="Rules used to define an alert" width="70%">
-* Select one rule or multiple rules that will trigger the alert. Put the cursor in the **Rule names** box and type a name to search for it. To remove a rule name, select the **X** beside the name. To remove all rule names, select the **X** beside the dropdown list's down arrow.
-<br><img src="{{site.url}}{{site.baseurl}}/images/Security/rule_name_delete.png" alt="Deletes all selected rules" width="45%">
-* Select one or more rule severities as conditions for the alert.
-* Select from a list of tags to include as conditions for the alert.
+    
+    <img src="{{site.url}}{{site.baseurl}}/images/Security/alert_rules.png" alt="Rules used to define an alert" width="70%">
+
+    * Select one rule or multiple rules that will trigger the alert. Put the cursor in the **Rule names** box and type a name to search for it. To remove a rule name, select the **X** beside the name. To remove all rule names, select the **X** beside the dropdown list's down arrow.
+
+    <img src="{{site.url}}{{site.baseurl}}/images/Security/rule_name_delete.png" alt="Deletes all selected rules" width="45%">
+
+    * Select one or more rule severities as conditions for the alert.
+    * Select from a list of tags to include as conditions for the alert.
+
 1. To define a notification for the alert, assign an alert severity, select a channel for the notification, and customize a message generated for the alert.
-<br><img src="{{site.url}}{{site.baseurl}}/images/Security/alert_notify.png" alt="Notification settings for the alert" width="45%">
-* Assign a level of severity for the alert to give the recipient an indication of its urgency.
-* Select a channel for the notification. Examples include Slack, Chime, or email. Select the  **Manage channels** link to the right of the field to link the notification to a preferred channel.
-* Select the **Show notify message** label to expand message preferences. You can add a subject for the message and a note to inform recipients of the nature of the message.
+
+    <img src="{{site.url}}{{site.baseurl}}/images/Security/alert_notify.png" alt="Notification settings for the alert" width="45%">
+
+    * Assign a level of severity for the alert to give the recipient an indication of its urgency.
+    * Select a channel for the notification. Examples include Slack, Chime, or email. Select the  **Manage channels** link to the right of the field to link the notification to a preferred channel.
+    * Select the **Show notify message** label to expand message preferences. You can add a subject for the message and a note to inform recipients of the nature of the message.
+
 1. After configuring the conditions in the preceding fields, select **Next** in the lower-right corner of the screen. The **Review and create** page opens.
 
-After reviewing the specifications for the detector, select **Create** in the lower-right corner of the screen to create the detector. The screen returns to the list of all detectors, and the new detector appears in the list.
+After reviewing the specifications for the detector, choose **Create** in the lower-right corner of the screen to create the detector. The screen returns to the list of all detectors, and the new detector appears in the list.
 
 ## What's next
 

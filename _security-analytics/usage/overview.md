@@ -21,7 +21,9 @@ Each section provides a summary description for each element of Security Analyti
 The upper portion of the Overview page contains two control buttons for refreshing information and getting started with Security Analytics. You can select the **Refresh** button to refresh all of the information on the page. 
 
 You can also select the **Getting started** link to expand the Get started with Security Analytics window, which includes a summary of the setup steps as well as control buttons that allow you to jump to any of the steps.
-<br><img src="{{site.url}}{{site.baseurl}}/images/Security/overview.png" alt="The overview page with getting started quick launch window" width="85%">
+
+<img src="{{site.url}}{{site.baseurl}}/images/Security/overview.png" alt="The overview page with getting started quick launch window" width="85%">
+
 * In step 1 of setup, select **Create detector** to define a detector. 
 * In step 2, select **View findings** to go to the Findings page. For details about this page, see [Working with findings]({{site.url}}{{site.baseurl}}/security-analytics/usage/findings/).
 * In step 3, select **View alerts** to go to the Security alerts page. For details about this page, see [Working with alerts]({{site.url}}{{site.baseurl}}/security-analytics/usage/alerts/).
@@ -42,7 +44,8 @@ The Recent findings table displays recent findings by time, rule name, rule seve
 ## Most frequent detection rules
 
 This section provides a graphical representation of detection rules that trigger findings most often and how they compare to others as a percentage of the whole. The rule names represented by the graph are listed to the right.
-<br><img src="{{site.url}}{{site.baseurl}}/images/Security/rule_graph.png" alt="The detection rule graph on the Overview page" width="50%">
+
+<img src="{{site.url}}{{site.baseurl}}/images/Security/rule_graph.png" alt="The detection rule graph on the Overview page" width="50%">
 
 ## Detectors
 
