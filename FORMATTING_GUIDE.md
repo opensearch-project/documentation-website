@@ -233,14 +233,22 @@ You can use the following labels:
 * label-red 
 * label-yellow 
 
-Use a purple label to specify in which version an API was introduced.
-
-**Example**:
+Use a purple label to specify in which version an API was introduced:
 
 ```
 # Alias
 Introduced 1.0
 {: .label .label-purple }
+```
+
+If we introduce a breaking change to an operation, add an additional label with a link to the release note for that breaking change:
+
+```
+## Get roles
+Introduced 1.0
+{: .label .label-purple }
+[Last breaking change 2.0](https://example.com)
+{: .label .label-red }
 ```
 
 ## Callouts
@@ -379,28 +387,3 @@ When linking to a GitHub issue or PR, refer to the issue or PR number in the fol
 ```
 For more details, see issue [#1940](https://github.com/opensearch-project/opensearch/issues/1940).
 ```
-
-## Labels for APIs
-
-Each API operation has a label indicating when it was introduced. For most operations, this label is 1.0:
-
-```
-## Get roles
-Introduced 1.0
-{: .label .label-purple }
-```
-
-If we introduce a breaking change to an operation, add an additional label with a link to the release note for that breaking change:
-
-```
-## Get roles
-Introduced 1.0
-{: .label .label-purple }
-[Last breaking change 2.0](https://example.com)
-{: .label .label-red }
-```
-
-
-## Math
-
-If you want to use the sorts of pretty formulas that [MathJax](https://www.mathjax.org) allows, add `has_math: true` to the Jekyll page metadata. T
