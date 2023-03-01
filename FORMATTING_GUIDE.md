@@ -12,15 +12,17 @@ This guide provides an overview of the formatted elements commonly used in the O
 * [Unordered lists](#unordered-lists)
 * [Ordered lists](#ordered-lists)
 * [Nested lists](#nested-lists)
+* [Lists with code snippets or images](#lists-with-code-snippets-or-images)
 * [Tables](#tables)
 * [Images](#images)
 * [Labels](#labels)
 * [Callouts](#callouts)
 * [Buttons](#buttons)
-* [Adding pages or secitons](#adding-pages-or-sections)
+* [Adding pages or sections](#adding-pages-or-sections)
 * [Videos](#videos)
 * [Math](#math)
 * [Variables in curly braces](#variables-in-curly-braces)
+* [Links](#links)
 
 * * *
 
@@ -104,7 +106,11 @@ Use tabs to nest lists:
         - Grandchild 1
 ```
 
-Markdown automatically adjusts numbered lists so that they use numbers and letters, so always use 1s for nested numbered lists. If you need to position an image or a code snippet within a list, use tabs to signal to Markdown that the image or code snippet is part of the list item.
+Markdown automatically adjusts numbered lists so that they use numbers and letters, so always use 1s for nested numbered lists. 
+
+## Lists with code snippets or images
+
+If you need to position an image or a code snippet within a list, use tabs to signal to Markdown that the image or code snippet is part of the list item.
 
 **Example with code snippets**:
 
@@ -177,6 +183,8 @@ Body 1 | List:<br>&ensp;&#x2022; One<br>&ensp;&#x2022; Two
 
 ## Images
 
+Place images in the `images` directory of the documentation website. To refer to images, use relative links (see [Internal links](#internal-links) for more information).
+
 Markdown images are responsive by default. To insert a Markdown image, use the `![<alternate text>](link)` syntax:
 
 ```
@@ -203,7 +211,17 @@ To take high-resolution screenshots, in Firefox, right-click on the page and cho
 
 Image borders are automatic; do not manually add a border to an image.
 
-Always **place an image on a new line**—not next to text. Otherwise, the text might render as aligned to the bottom of the image, with the image on the right. If the image is under a list item, place it on a new line with a tab. Don’t insert artificial line breaks using `<br>`.
+Always **separate an image from the text with a blank line**:
+
+```
+To send a query to OpenSearch, select the query by placing the cursor anywhere in the query text. Then choose the triangle on the top right of the request or press `Ctrl/Cmd+Enter`:
+
+<img src="{{site.url}}{{site.baseurl}}/images/dev-tools/dev-tools-send.png" alt="Send request">
+```
+
+Do not place an image next to text or insert artificial line breaks using `<br>`. Otherwise, the text might render as aligned to the bottom of the image, with the image on the right. 
+
+If the image is under a list item, place it on a new line with a tab. For more examples, see [Lists with code snippets or images](#lists-with-code-snippets-or-images).
 
 ## Labels
 
@@ -285,7 +303,7 @@ PUT /sample-index1/_clone/cloned-index1
 
 ## Adding pages or sections
 
-When adding a page or a section, make the `nav_order` of the child pages multiples of 10. For example, if you have a parent page `Clients`, make child pages `Java`, `Python`, and `JavaScript` have a `nav_order` of 10, 20, and 30, respectively. Doing so makes inserting child pages easier.
+When adding a page or a section, make the `nav_order` of the child pages multiples of 10. For example, if you have a parent page `Clients`, make child pages `Java`, `Python`, and `JavaScript` have a `nav_order` of 10, 20, and 30, respectively. Doing so makes inserting additional child pages easier because it does not require renumbering existing pages.
 
 ## Videos
 
@@ -295,7 +313,7 @@ To insert a video, add a youtube player include similar to the following:
 {% include youtube-player.html id='_g46WiGPhFs' %}
 ```
 
-Note that the `id` variable refers to the youtube video ID that is the last part of the URL. For example, the youtube video at the URL `https://youtu.be/_g46WiGPhFs` has the id `_g46WiGPhFs`. The ID must be surrounded with single quotation marks.
+Note that the `id` variable refers to the youtube video ID at the end of the URL. For example, the youtube video at the URL `https://youtu.be/_g46WiGPhFs` has the id `_g46WiGPhFs`. The ID must be surrounded with single quotation marks.
 
 ## Math
 
@@ -312,3 +330,39 @@ To correctly display variables that are in curly braces, escape the curly braces
 ````
 
 The variable `ctx.index` is rendered in double curly braces.
+
+## Links
+
+To add a link to a document, section, or image, use the `[Name](link)` syntax, for example:
+
+```
+## Looking for the Javadoc?
+
+See [opensearch.org/javadocs/](https://opensearch.org/javadocs/).
+```
+
+### Section links
+
+**Section links** are links to headings in your document. Markdown lowercases the headings for links, drops back ticks, and replaces spaces with hyphens:
+
+```
+## The `minimum_should_match` parameter
+
+For more information, see [the `minimum_should_match` parameter](#the-minimum_should_match-parameter).
+```
+
+### Internal links
+
+**Internal links** are links to another document or image within the documentation website. Because the documentation website is versioned, do not hard code the version number in the link. Use the relative path where `{{site.url}}{{site.baseurl}}` refers to the main directory instead:
+
+```
+If you need to use a field for exact-value search, map it as a [`keyword`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/keyword/).
+```
+
+### GitHub links
+
+When linking to a GitHub issue or PR, refer to the issue or PR number in the following format:
+
+```
+For more details, see issue [#1940](https://github.com/opensearch-project/opensearch/issues/1940).
+```
