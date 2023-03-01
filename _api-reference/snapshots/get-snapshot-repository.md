@@ -27,7 +27,7 @@ You can also get details about a snapshot during and after snapshot creation. Se
 | local | Boolean | Whether to get information from the local node. Optional, defaults to `false`.|
 | cluster_manager_timeout | Time | Amount of time to wait for a connection to the master node. Optional, defaults to 30 seconds. |
 
-#### Sample request
+#### Example request
 
 The following request retrieves information for the `my-opensearch-repo` repository:
 
@@ -36,7 +36,7 @@ GET /_snapshot/my-opensearch-repo
 ````
 {% include copy-curl.html %}
 
-#### Sample response
+#### Example response
 
 Upon success, the response returns repositry information. This sample is for an `s3` repository type.
 
