@@ -63,7 +63,7 @@ Before you can take a snapshot, you have to "register" a snapshot repository. A 
    ```
   {% include copy-curl.html %}
 
-You most likely will not need to specify any parameters except `location`. For allowed request parameters, see [Register or update snapshot repository API](https://opensearch.org/docs/latest/api-reference/snapshots/create-repository/)
+You will most likely not need to specify any parameters except for `location`. For allowed request parameters, see [Register or update snapshot repository API](https://opensearch.org/docs/latest/api-reference/snapshots/create-repository/).
 
 ### Amazon S3
 
@@ -198,7 +198,7 @@ You most likely will not need to specify any parameters except `location`. For a
    ```
    {% include copy-curl.html %}
 
-You most likely will not need to specify any parameters except `bucket` and `base_path`. For allowed request parameters, see [Register or update snapshot repository API](https://opensearch.org/docs/latest/api-reference/snapshots/create-repository/)
+You will most likely not need to specify any parameters except for `bucket` and `base_path`. For allowed request parameters, see [Register or update snapshot repository API](https://opensearch.org/docs/latest/api-reference/snapshots/create-repository/).
 
 ## Take snapshots
 
