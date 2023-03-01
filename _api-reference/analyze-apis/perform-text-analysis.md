@@ -54,7 +54,7 @@ Field | Data type | Description
 :--- | :--- | :---
 text | String or Array of Strings | Text to analyze. If you provide an array of strings, the text is analyzed as a multi-value field.
 
-#### Sample requests
+#### Example requests
 
 [Analyze array of text strings](#analyze-array-of-text-strings)
 
@@ -85,6 +85,7 @@ GET /_analyze
   "text" : ["first array element", "second array element"]
 }
 ````
+{% include copy-curl.html %}
 
 The previous request returns the following fields:
 
@@ -150,6 +151,7 @@ GET /_analyze
   "text" : "OpenSearch text analysis"
 }
 ````
+{% include copy-curl.html %}
 
 The previous request returns the following fields:
 
@@ -196,6 +198,7 @@ GET /books2/_analyze
   "text" : "Le garçon m'a SUIVI."
 }
 ````
+{% include copy-curl.html %}
 
 The previous request returns the following fields:
 
@@ -248,6 +251,7 @@ GET /_analyze
   "text" : "OpenSearch filter"
 }
 ````
+{% include copy-curl.html %}
 
 The previous request returns the following fields:
 
@@ -277,6 +281,7 @@ GET /_analyze
   "text" : "<b>Leave</b> right now!"
 }
 ````
+{% include copy-curl.html %}
 
 The previous request returns the following fields:
 
@@ -308,6 +313,7 @@ GET /_analyze
   "text" : "how to train your dog in five steps"
 }
 ````
+{% include copy-curl.html %}
 
 The previous request returns the following fields:
 
@@ -372,6 +378,7 @@ GET /books/_analyze
   "text" : "OpenSearch analyze test"
 }
 ````
+{% include copy-curl.html %}
 
 The previous request returns the following fields:
 
@@ -414,6 +421,7 @@ GET /books/_analyze
   "text" : "OpenSearch analyze test"
 }
 ````
+{% include copy-curl.html %}
 
 The previous request returns the following fields:
 
@@ -446,6 +454,7 @@ GET /books2/_analyze
   "text" : "OpenSearch analyze test"
 }
 ````
+{% include copy-curl.html %}
 
 The previous request returns the following fields:
 
@@ -492,6 +501,7 @@ GET /books2/_analyze
   "text" : "C'est le garçon qui m'a suivi."
 }
 ````
+{% include copy-curl.html %}
 
 The previous request returns the following fields:
 
@@ -522,6 +532,7 @@ GET /_analyze
   "text" : "That is the boy who followed me."
 }
 ````
+{% include copy-curl.html %}
 
 The previous request returns the following fields:
 
@@ -555,6 +566,7 @@ GET /_analyze
   "attributes" : ["keyword"] 
 }
 ````
+{% include copy-curl.html %}
 
 The previous request returns the following fields:
 
@@ -635,6 +647,8 @@ PUT /books2
   }
 }
 ````
+{% include copy-curl.html %}
+
 The preceding request is an index API rather than an analyze API. See [DYNAMIC INDEX SETTINGS]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/#dynamic-index-settings) for additional details.
 {: .note}
 

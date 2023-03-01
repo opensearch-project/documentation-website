@@ -49,19 +49,21 @@ master_timeout | Time units | The amount of time to wait for the connection to t
 
 ## Examples
 
-The following are sample requests and a sample response.
+The following are example requests and a example response.
 
 #### Sample list
 
 ````bash
 GET /_dangling
 ````
+{% include copy-curl.html %}
 
 #### Sample import
 
 ````bash
 POST /_dangling/msdjernajxAT23RT-BupMB?accept_data_loss=true
 ````
+{% include copy-curl.html %}
  
 #### Sample delete
 
@@ -69,7 +71,7 @@ POST /_dangling/msdjernajxAT23RT-BupMB?accept_data_loss=true
 DELETE /_dangling/msdjernajxAT23RT-BupMB?accept_data_loss=true
 ````
 
-#### Sample response body
+#### Example response body
 
 ````json
 {

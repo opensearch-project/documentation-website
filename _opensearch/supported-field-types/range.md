@@ -39,6 +39,7 @@ PUT testindex
   }
 }
 ```
+{% include copy-curl.html %}
 
 Index a document with a double range and a date range:
 
@@ -55,6 +56,7 @@ PUT testindex/_doc/1
   }
 }
 ```
+{% include copy-curl.html %}
 
 You can use a [Term query](#term-query) or a [Range query](#range-query) to search for values within range fields. 
 
@@ -62,7 +64,7 @@ You can use a [Term query](#term-query) or a [Range query](#range-query) to sear
 
 A term query takes a value and matches all range fields for which the value is within the range.
 
-The following query will return document 1 because 3.5 is within the range [1.0, 4.0].
+The following query will return document 1 because 3.5 is within the range [1.0, 4.0]:
 
 ```json
 GET testindex/_search
@@ -76,6 +78,7 @@ GET testindex/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 ### Range query
 
@@ -88,7 +91,7 @@ relation | Provides a relation between the query's date range and the document's
 
 To use a date format other than the field's mapped format in a query, specify it in the `format` field.
 
-To see the full description of range query usage, including all range query parameters, see [Range query]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/term/#range-query).
+For a full description of range query usage, including all range query parameters, see [Range query]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/term/#range).
 {: .tip }
 
 Query for all graduation dates in 2019, providing the date range in a "MM/dd/yyyy" format:
@@ -108,6 +111,7 @@ GET testindex1/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 The above query will return document 1 for the `within` and `intersects` relations but will not return it for the `contains` relation.
 
@@ -132,6 +136,7 @@ PUT testindex
   }
 }
 ```
+{% include copy-curl.html %}
 
 Index a document with IP address ranges in both formats:
 
@@ -145,6 +150,7 @@ PUT testindex/_doc/2
   "ip_address_cidr" : "10.24.34.0/24"
 }
 ```
+{% include copy-curl.html %}
 
 ## Parameters
 

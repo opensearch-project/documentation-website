@@ -6,7 +6,9 @@ nav_order: 50
 
 # Go client
 
-The OpenSearch Go client lets you connect your Go application with the data in your OpenSearch cluster. This getting started guide illustrates how to connect to OpenSearch, index documents, and run queries. For the client source code, see the [opensearch-go repo](https://github.com/opensearch-project/opensearch-go).
+The OpenSearch Go client lets you connect your Go application with the data in your OpenSearch cluster. This getting started guide illustrates how to connect to OpenSearch, index documents, and run queries. For the client's complete API documentation and additional examples, see the [Go client API documentation](https://pkg.go.dev/github.com/opensearch-project/opensearch-go/v2).
+
+For the client source code, see the [opensearch-go repo](https://github.com/opensearch-project/opensearch-go).
 
 
 ## Setup
@@ -269,6 +271,7 @@ func main() {
     }
     fmt.Println("Inserting a document")
     fmt.Println(insertResponse)
+    defer insertResponse.Body.Close()
    
     // Perform bulk operations.
     blk, err := client.Bulk(
@@ -312,6 +315,7 @@ func main() {
     }
     fmt.Println("Searching for a document")
     fmt.Println(searchResponse)
+    defer searchResponse.Body.Close()
 
     // Delete the document.
     delete := opensearchapi.DeleteRequest{
@@ -326,6 +330,7 @@ func main() {
     }
     fmt.Println("Deleting a document")
     fmt.Println(deleteResponse)
+    defer deleteResponse.Body.Close()
 
     // Delete the previously created index.
     deleteIndex := opensearchapi.IndicesDeleteRequest{
@@ -339,6 +344,7 @@ func main() {
     }
     fmt.Println("Deleting the index")
     fmt.Println(deleteIndexResponse)
+    defer deleteIndexResponse.Body.Close()
 }
 ```
 {% include copy.html %}

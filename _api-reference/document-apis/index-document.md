@@ -19,6 +19,7 @@ PUT sample-index/_doc/1
   "Description": "To be or not to be, that is the question."
 }
 ```
+{% include copy-curl.html %}
 
 ## Path and HTTP methods
 

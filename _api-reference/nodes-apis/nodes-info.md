@@ -23,12 +23,14 @@ To get information about all nodes in a cluster, use the following query:
 ```json
 GET /_nodes
 ```
+{% include copy-curl.html %}
 
 To get thread pool information about the cluster manager node only, use the following query:
 
 ```json
 GET /_nodes/master:true/thread_pool
 ```
+{% include copy-curl.html %}
 
 ## Path and HTTP methods
 
@@ -75,15 +77,16 @@ Parameter | Type | Description
 flat_settings| Boolean | Specifies whether to return the `settings` object of the response in flat format. Default is `false`.
 timeout | Time | Sets the time limit for node response. Default value is `30s`.
 
-#### Sample request
+#### Example request
 
 The following query requests the `process` and `transport` metrics from the cluster manager node: 
 
 ```json
 GET /_nodes/cluster_manager:true/process,transport
 ```
+{% include copy-curl.html %}
 
-#### Sample response
+#### Example response
 
 The response contains the metric groups specified in the `<metrics>` request parameter (in this case, `process` and `transport`):
 

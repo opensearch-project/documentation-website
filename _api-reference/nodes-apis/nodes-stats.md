@@ -57,6 +57,7 @@ GET _nodes/stats/
 GET _nodes/stats/_all
 GET _nodes/stats/indices
 ```
+
 The following index metrics are supported:
 
 - docs
@@ -80,6 +81,7 @@ For example, the following query requests statistics for `docs` and `search`:
 ```json
 GET _nodes/stats/indices/docs,search
 ```
+{% include copy-curl.html %}
 
 ## Query parameters
 
@@ -95,13 +97,14 @@ level | String | Specifies whether statistics are aggregated at the cluster, ind
 timeout | Time | Sets the time limit for node response. Default is `30s`.
 include_segment_file_sizes | Boolean | If segment statistics are requested, this field specifies to return the aggregated disk usage of every Lucene index file. Default is `false`. 
 
-#### Sample request
+#### Example request
 
 ```json
 GET _nodes/stats/
 ```
+{% include copy-curl.html %}
 
-#### Sample response
+#### Example response
 
 ```json
 {

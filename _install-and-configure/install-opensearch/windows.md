@@ -1,11 +1,11 @@
 ---
 layout: default
 title: Windows
-parent: Install OpenSearch
+parent: Installing OpenSearch
 nav_order: 65
 ---
 
-# Install OpenSearch on Windows
+# Windows
 
 The following sections describe installing OpenSearch on Windows from a zip archive.
 
@@ -42,7 +42,7 @@ The batch script will apply a generic configuration to your instance of OpenSear
 
 If you only want to verify that the service is properly configured and you intend to configure security settings yourself, then you may want to disable the security plugin and launch the service without encryption or authentication.
 
-An OpenSearch node in its default configuration (with demo certificates and users with default passwords) is not suitable for a production environment. If you plan to use the node in a production environment, you should, at a minimum, replace the demo TLS certificates with your own TLS certificates and [update the list of internal users and passwords]({{site.url}}{{site.baseurl}}/security-plugin/configuration/yaml). See [Security configuration]({{site.url}}{{site.baseurl}}/security-plugin/configuration/index/) for additional guidance to ensure that your nodes are configured according to your security requirements.
+An OpenSearch node in its default configuration (with demo certificates and users with default passwords) is not suitable for a production environment. If you plan to use the node in a production environment, you should, at a minimum, replace the demo TLS certificates with your own TLS certificates and [update the list of internal users and passwords]({{site.url}}{{site.baseurl}}/security/configuration/yaml). See [Security configuration]({{site.url}}{{site.baseurl}}/security/configuration/index/) for additional guidance to ensure that your nodes are configured according to your security requirements.
 {: .warning}
 
 ### Option 1: Test your OpenSearch settings with security enabled
@@ -246,4 +246,4 @@ The Performance Analyzer plugin is not available on Windows. All other OpenSearc
 
 - [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuration/)
 - [OpenSearch plugin installation]({{site.url}}{{site.baseurl}}/opensearch/install/plugins/)
-- [About the security plugin]({{site.url}}{{site.baseurl}}/security-plugin/index/)
+- [About the security plugin]({{site.url}}{{site.baseurl}}/security/index/)

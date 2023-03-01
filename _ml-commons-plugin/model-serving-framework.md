@@ -1,13 +1,13 @@
 ---
 layout: default
 title: Model-serving framework 
-has_children: false
-nav_order: 110
+has_children: true
+nav_order: 50
 ---
 
 # Model-serving framework
 
-The Model-serving framework is an experimental feature. For updates on the progress of the Neural Search plugin, or if you want to leave feedback that could help improve the feature, join the discussion in the [Model-serving framework forum](https://forum.opensearch.org/t/feedback-machine-learning-model-serving-framework-experimental-release/11439).    
+The model-serving framework is an experimental feature. For updates on the progress of the model-serving framework, or if you want to leave feedback that could help improve the feature, join the discussion in the [Model-serving framework forum](https://forum.opensearch.org/t/feedback-machine-learning-model-serving-framework-experimental-release/11439).    
 {: .warning}
 
 ML Commons allows you to serve custom models and use those models to make inferences. For those who want to run their PyTorch deep learning model inside an OpenSearch cluster, you can upload and run that model with the ML Commons REST API.
@@ -21,17 +21,23 @@ To upload a custom model to OpenSearch, you need to prepare it outside of your O
 
 ### Model support
 
-As of OpenSearch 2.4, the model-serving framework only supports text embedding models without GPU acceleration.
+As of OpenSearch 2.6, the model-serving framework supports text embedding models.
 
 ### Model format
 
-To use a model in OpenSearch, you'll need to export the model into a portable format. As of Version 2.4, OpenSearch only supports the [TorchScript](https://pytorch.org/docs/stable/jit.html) format.
+To use a model in OpenSearch, you'll need to export the model into a portable format. As of Version 2.5, OpenSearch only supports the [TorchScript](https://pytorch.org/docs/stable/jit.html) and [ONNX](https://onnx.ai/) formats.
 
 Furthermore, files must be saved as zip files before upload. Therefore, to ensure that ML Commons can upload your model, compress your TorchScript file before uploading. You can download an example file [here](https://github.com/opensearch-project/ml-commons/blob/2.x/ml-algorithms/src/test/resources/org/opensearch/ml/engine/algorithms/text_embedding/all-MiniLM-L6-v2_torchscript_sentence-transformer.zip).
 
+
+
 ### Model size
 
-Most deep learning models are over 100 MBs, making it difficult to fit the model into a single document. OpenSearch splits the model file into smaller chunks to be stored in a model index. When allocating machine learning (ML) or data nodes for your OpenSearch cluster, be aware of the size of your model to prevent any downtime when making inferences. 
+Most deep learning models are more than 100 MB, making it difficult to fit them into a single document. OpenSearch splits the model file into smaller chunks to be stored in a model index. When allocating machine learning (ML) or data nodes for your OpenSearch cluster, make sure you correctly size your ML nodes so that you have enough memory when making ML inferences.
+
+## GPU acceleration
+
+To achieve better performance within the model-serving framework, you can take advantage of GPU acceleration on your ML node. For more information, see [GPU acceleration]({{site.url}}{{site.baseurl}}/ml-commons-plugin/gpu-acceleration/).
 
 
 ## Upload model to OpenSearch
@@ -62,10 +68,10 @@ Field | Data type | Description
 | `framework_type` | string  | The framework the model is using. Currently, we support `sentence_transformers` and `huggingface_transformers` frameworks. The `sentence_transformers` model outputs text embeddings directly, so ML Commons does not perform any post processing. For `huggingface_transformers`, ML Commons performs post processing by applying mean pooling to get text embeddings. See the example [`all-MiniLM-L6-v2` Huggingface model](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2) for more details. |
 | `all_config` _(Optional)_ | string | This field is used for reference purposes. You can specify all model configurations in this field. For example, if you are using a Huggingface model, you can minify the `config.json` file to one line and save its contents in the `all_config` field. Once the model is uploaded, you can use the get model API operation to get all model configurations stored in this field. |
 
-#### Sample request
+#### Example request
 
 
-The following sample request uploads version `1.0.0` of a natural language processing (NLP) sentence transformation model named `all-MiniLM-L6-v2`:
+The following example request uploads version `1.0.0` of a natural language processing (NLP) sentence transformation model named `all-MiniLM-L6-v2`:
 
 ```json
 POST /_plugins/_ml/models/_upload
@@ -83,7 +89,7 @@ POST /_plugins/_ml/models/_upload
 }
 ```
 
-#### Sample response
+#### Example response
 
 
 OpenSearch responds with the `task_id` and task `status`:
@@ -142,7 +148,7 @@ POST /_plugins/_ml/models/<model_id>/_load
 By default, the ML Commons setting `plugins.ml_commons.only_run_on_ml_node` is set to `false`. When `false`, models load on ML nodes first. If no ML nodes exist, models load on data nodes. When running ML models in production, set `plugins.ml_commons.only_run_on_ml_node` to `true` so that models only load on ML nodes.
 
 
-#### Sample request: Load into any available ML node
+#### Example request: Load into any available ML node
 
 
 In this example request, OpenSearch loads the model into all available OpenSearch node: 
@@ -151,7 +157,7 @@ In this example request, OpenSearch loads the model into all available OpenSearc
 POST /_plugins/_ml/models/WWQI44MBbzI2oUKAvNUt/_load
 ```
 
-#### Sample request: Load into a specific node
+#### Example request: Load into a specific node
 
 
 If you want to reserve the memory of other ML nodes within your cluster, you can load your model into a specific node(s) by specifying each node's ID in the request body:
@@ -164,7 +170,7 @@ POST /_plugins/_ml/models/WWQI44MBbzI2oUKAvNUt/_load
 ```
 
 
-#### Sample response
+#### Example response
 
 All models load asynchronously. Therefore, the load API responds with a new `task_id` based on the load and responds with a new `status` for the task.
 
@@ -181,14 +187,14 @@ All models load asynchronously. Therefore, the load API responds with a new `tas
 With your `task_id` from the load response, you can use the `GET _ml/tasks` API to see the load status of your model. Before a loaded model can be used for inferences, the load task's `state` must be `COMPLETED`.
 
 
-#### Sample request
+#### Example request
 
 
 ```json
 GET /_plugins/_ml/tasks/hA8P44MBhyWuIwnfvTKP
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -213,7 +219,7 @@ POST /_plugins/_ml/models/<model_id>/_predict
 ```
 
 
-### Sample request
+### Example request
 
 
 ```json
@@ -225,7 +231,7 @@ POST /_plugins/_ml/_predict/text_embedding/WWQI44MBbzI2oUKAvNUt
 }
 ```
 
-### Sample response
+### Example response
 
 
 ```json
@@ -261,14 +267,14 @@ If you're done making predictions with your model, use the unload operation to r
 POST /_plugins/_ml/models/<model_id>/_unload
 ```
 
-### Sample request
+### Example request
 
 
 ```json
 POST /_plugins/_ml/models/MGqJhYMBbbh0ushjm8p_/_unload
 ```
 
-### Sample response
+### Example response
 
 
 ```json

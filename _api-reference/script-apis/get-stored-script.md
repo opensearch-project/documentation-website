@@ -21,15 +21,16 @@ Retrieves a stored script.
 :--- | :--- | :---
 | cluster_manager_timeout | Time | Amount of time to wait for a connection to the cluster manager. Optional, defaults to `30s`. |
 
-#### Sample request
+#### Example request
 
 The following retrieves the `my-first-script` stored script.
 
 ````json
 GET _scripts/my-first-script
 ````
+{% include copy-curl.html %}
 
-#### Sample response
+#### Example response
 
 The `GET _scripts/my-first-script` request returns the following fields:
 

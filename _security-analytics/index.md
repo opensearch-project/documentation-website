@@ -11,14 +11,13 @@ redirect_from:
 
 # About Security Analytics
 
-Security Analytics is an experimental plugin for OpenSearch 2.4. Therefore, we do not recommend the use of Security Analytics in a production environment at this time. For updates on the progress of Security Analytics or for information on how to make contributions, visit the [Security Analytics repository](https://github.com/opensearch-project/security-analytics) on GitHub. If you would like to leave feedback that could help improve Security Analytics, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/t/feedback-experimental-feature-security-analytics/11418).
-{: .warning }
-
 Security Analytics is a security information and event management (SIEM) solution for OpenSearch, designed to investigate, detect, analyze, and respond to security threats that can jeopardize the success of businesses and organizations and their online operations. These threats include the potential exposure of confidential data, cyber attacks, and other adverse security events. Security Analytics provides an out-of-the-box solution that installs automatically with any OpenSearch distribution. It includes the tools and features necessary for defining detection parameters, generating alerts, and responding effectively to potential threats.
 
 ### Resources and information
 
 As part of the OpenSearch Project, Security Analytics exists in the open source community and benefits from the feedback and contributions of that community. To learn more about proposals for its development, options for making contributions, and general information on the platform, see the [Security Analytics repository](https://github.com/opensearch-project/security-analytics) at GitHub.
+
+If you would like to leave feedback that could help improve Security Analytics, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/c/plugins/security-analytics/73).
 
 ## Components and concepts
 
@@ -33,20 +32,25 @@ For information on configuring detectors, see [Creating detectors]({{site.url}}{
 ### Log types
 
 Log types provide the data used to evaluate events occuring in a system. OpenSearch supports several types of logs and provides out-of-the-box mappings for the most common log sources. Currently supported log sources include:
-* Netflow
+* Network events
 * DNS logs
 * Apache access logs
 * Windows logs
-* AD/LDAP
+* AD/LDAP logs
 * System logs
 * AWS CloudTrail logs
 * Amazon S3 access logs
+* Google Workspace logs
+* GitHub actions
+* Microsoft 365 logs
+* Okta events
+* Microsoft Azure logs
 
 Log types are specified during the creation of detectors, including steps for mapping log fields to the detector. Security Analytics also automatically selects an appropriate set of rules based on a specific log type and populates them for the detector.
 
 ### Rules
 
-Rules, or threat detection rules, define the conditional logic applied to ingested log data that allows the system to identify an event of interest. Security Analytics uses pre-packaged, open source [Sigma rules](https://github.com/SigmaHQ/sigma) as a starting point for describing relevant log events. But with their inherently flexible format and easy portability, Sigma rules provide users of Security Analytics with options for importing and customizing the rules. You can take advantage of these options using either Dashboards or the API.
+Rules, or threat detection rules, define the conditional logic applied to ingested log data that allows the system to identify an event of interest. Security Analytics uses prepackaged, open source [Sigma rules](https://github.com/SigmaHQ/sigma) as a starting point for describing relevant log events. But with their inherently flexible format and easy portability, Sigma rules provide users of Security Analytics with options for importing and customizing the rules. You can take advantage of these options using either Dashboards or the API.
 
 For information on configuring rules, see [Working with rules]({{site.url}}{{site.baseurl}}/security-analytics/usage/rules/).
 
@@ -58,7 +62,7 @@ To learn more about findings, see [Working with findings]({{site.url}}{{site.bas
 
 ### Alerts
 
-When defining a detector, you can specify certain conditions that will trigger an alert. When an event triggers an alert, the system sends a notification to a channel—such as Chime, Slack, email, etc.—that you specify during configuration of the alert. The alert can be triggered when the detector matches one or multiple rules. Further conditions can be set by rule severity and tags. You can also create a notification message with a customzied subject line and message body.
+When defining a detector, you can specify certain conditions that will trigger an alert. When an event triggers an alert, the system sends a notification to a preferred channel, such as Amazon Chime, Slack, or email. The alert can be triggered when the detector matches one or multiple rules. Further conditions can be set by rule severity and tags. You can also create a notification message with a customized subject line and message body.
 
 For information on setting up alerts, see [Step 3. Set up alerts]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/detectors-config/#step-3-set-up-alerts) in detector creation documentation. For information on managing alerts on the Alerts window, see [Working with alerts]({{site.url}}{{site.baseurl}}/security-analytics/usage/alerts/).
 

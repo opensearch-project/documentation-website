@@ -7,9 +7,9 @@ nav_order: 35
 
 # Detector APIs
 
-The following APIs can be used for a number of tasks related to detectors, from creating detectors to updating and searching for detectors.
+The following APIs can be used for a number of tasks related to detectors, from creating detectors to updating and searching for detectors. Many API calls use the detector ID in the request, which can be retrieved using the [Search Detector API](#search-detector-api).
 
-## Create Detector
+## Create Detector API
 
 Creates a new detector.
 
@@ -17,52 +17,50 @@ Creates a new detector.
 POST _plugins/_security_analytics/detectors
 ```
 
-### Parameters
+### Request fields
 
-You can specify the following parameters when creating a detector.
+You can specify the following fields when creating a detector.
 
-Parameter | Type | Description 
-:--- | :--- |:--- |:--- |
-`enabled` | Boolean | Enables the ability to add detectors through the API.
-`type` | String | The type is specified as "detector".
-`name` | String | Name of the detector.
-`detector_type` | Object | The log type that defines the detector.
-`schedule`| Object | the schedule that determines how often the detector runs.
-`schedule`<br>&nbsp;&nbsp;&nbsp;&nbsp;`period` | Object | the frequency at which the detector runs in repetition.
-`schedule`<br>&nbsp;&nbsp;&nbsp;&nbsp;`period`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`interval` | Integer | The duration of the period expressed as a number.
-`schedule`<br>&nbsp;&nbsp;&nbsp;&nbsp;`period`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`unit` | String | The unit of measure for the interval.
-`inputs` | Object | In process
-`inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;`detector_inputs` | Object | In process
-`inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;`detector_inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`description` | String | In process
-`inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;`detector_inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`custom_rules` | Object | In process
-`inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;`detector_inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`custom_rules`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`id` | String | In process
-`inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;`detector_inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`indices` | String | In process
-`inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;`detector_inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`pre_packaged_rules` | Object | In process
-`inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;`detector_inputs`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`pre_packaged_rules`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`id` | String | In process
-`triggers` | Object | In process
-`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`ids` | String | In process
-`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`types` | String | In process
-`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`tags` | String | In process
-`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`id` | String | In process
-`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`sev_levels` | String | In process
-`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`name` | String | In process
-`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`severity` | Integer | In process
-`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions` | Integer | In process
-`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`id` | Integer | In process
-`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`destination_id` | Integer | In process
-`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`subject_template` | Object | In process
-`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`subject_template`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`source` | String | In process
-`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`subject_template`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`lang` | String | In process
-`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`name` | String | In process
-`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`throttle_enabled` | Boolean | In process
-`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`message_template` | String | In process
-`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`message_template`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`source` | String | In process
-`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`message_template`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`lang` | String | In process
-`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`throttle` | Object | In process
-`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`throttle`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`unit` | String | In process
-`triggers`<br>&nbsp;&nbsp;&nbsp;&nbsp;`actions`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`throttle`<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`value` | Integer | In process
+Field | Type | Description
+:--- | :--- |:--- |
+`enabled` | Boolean | Sets the detector as either active (true) or inactive (false). Default is `true` when a new detector is created. Required.
+`name` | String | Name of the detector. Name should only consist of upper and lowercase letters, numbers 0-9, hyphens, spaces, and underscores. Use between 5 and 50 characters. Required.
+`detector_type` | String | The log type that defines the detector. Options are `linux`, `network` ,`windows`, `ad_ldap`, `apache_access`, `cloudtrail`, `dns`, and `s3`. Required.
+`schedule` | Object | The schedule that determines how often the detector runs. For information on specifying fixed intervals in the API, see [Cron expression reference]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/cron/).
+`schedule.period` | Object | Details for the frequency of the schedule.
+`schedule.period.interval` | Integer | The interval at which the detector runs.
+`schedule.period.unit` | String | The interval's unit of time.
+`inputs` | Object | Detector inputs.
+`inputs.detector_input` | Array | An array that contains the index and definition used to create the detector. Currently, only one log data source is allowed for the detector.
+`inputs.detector_input.description` | String | Description of the detector. Optional.
+`inputs.detector_input.custom_rules` | Array | Detector inputs for custom rules. At least one rule must be specified for a detector. Optional if pre-packaged rules are specified.
+`inputs.detector_input.custom_rules.id` | String | A valid rule ID for the custom rule generated by the user. Valid rules are formatted as a globally, or, universally unique identifier (UUID) See [Universally unique identifier](https://en.wikipedia.org/wiki/Universally_unique_identifier) for more information.
+`inputs.detector_input.indices` | Array | The log data source used for the detector, which can be either an index name or index pattern. Currently, only one entry is supported with plans to support multiple indexes in a future release. Required.
+`inputs.detector_input.pre_packaged_rules` | Array | Detector inputs for pre-packaged rules (as opposed to custom rules). At least one rule must be specified for a detector. Optional if custom rules are specified.
+`inputs.detector_input.pre_packaged_rules.id` | String | The rule ID for pre-packaged rules. See [Search Pre-Packaged Rules]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/rule-api/#search-pre-packaged-rules) for information on how to use the API to search for rules and obtain rule IDs in results.
+`triggers` | Array | Trigger settings for alerts.
+`triggers.ids` | Array | A list of rule IDs that become part of the trigger condition.
+`triggers.tags` | Array | Tags are specified in a security rule. Tags can then be selected and applied to the alert trigger to focus the trigger conditions for alerts. See an example of how tags are used in a Sigma rule in Sigma's [Rule Creation Guide](https://github.com/SigmaHQ/sigma/wiki/Rule-Creation-Guide#tags).
+`triggers.id` | String | The unique ID for the trigger.
+`triggers.sev_levels` | Array | Sigma rule severity levels: `informational`; `low`; `medium`; `high`; `criticial`. See [Level](https://github.com/SigmaHQ/sigma/wiki/Rule-Creation-Guide#level) in the Sigma Rule Creation Guide.
+`triggers.name` | String | The name of the trigger. Name should only consist of upper and lowercase letters, numbers 0-9, hyphens, spaces, and underscores. Use between 5 and 50 characters. Required.
+`triggers.severity` | Integer | Severity level for the trigger expressed as an integer: 1 = highest; 2 = high; 3 = medium; 4 = low; 5 = lowest. Trigger severity is part of the alert definition.
+`triggers.actions` | Object | Actions send notifications when trigger conditions are met. Optional, as a notification message is not required as part of an alert.
+`triggers.actions.id` | String | Unique ID for the action. User generated.
+`triggers.actions.destination_id` | String | Unique ID for the notification destination. User generated. 
+`triggers.actions.subject_template` | Object | Contains the information for the subject field of the notification message. Optional.
+`triggers.actions.subject_template.source` | String | The subject for the notification message.
+`triggers.actions.subject_template.lang` | String | The scripting language used to define the subject. Must be Mustache. See the [Mustache Manual](https://mustache.github.io/mustache.5.html) for more information about templates.
+`triggers.actions.name` | String | Name for the trigger alert. Name should only consist of upper and lowercase letters, numbers 0-9, hyphens, spaces, and underscores. Use between 5 and 50 characters.
+`triggers.actions.message_template` | String | Contains the information for the body of the notification message. Optional.
+`triggers.actions.message_template.source` | String | The body of the notification message.
+`triggers.actions.message_template.lang` | String | The scripting language used to define the message. Must be `Mustache`.
+`triggers.actions.throttle_enabled` | Boolean | Enables throttling for alert notifications. Optional. Default is `false`.
+`triggers.actions.throttle` | Object | Throttling limits the number of notifications you receive within a given span of time.
+`triggers.actions.throttle.unit` | String | Unit of time for throttling.
+`triggers.actions.throttle.value` | Integer | The value for the unit of time.
 
-### Sample request
+### Example request
 
 ```json
 POST _plugins/_security_analytics/detectors
@@ -117,8 +115,8 @@ POST _plugins/_security_analytics/detectors
           "throttle_enabled": false,
           "message_template": {
             "source": "Detector {{ctx.detector.name}} just entered alert status. Please investigate the issue." +
-						"- Trigger: {{ctx.trigger.name}}" +
-						"- Severity: {{ctx.trigger.severity}}",
+            "- Trigger: {{ctx.trigger.name}}" +
+            "- Severity: {{ctx.trigger.severity}}",
             "lang": "mustache"
           },
           "throttle": {
@@ -135,8 +133,9 @@ POST _plugins/_security_analytics/detectors
   "name": "nbReFCjlfn"
 }
 ```
+{% include copy-curl.html %}
 
-### Sample response
+### Example response
 
 ```json
 {
@@ -197,8 +196,8 @@ POST _plugins/_security_analytics/detectors
                         "throttle_enabled": false,
                         "subject_template": {
                             "source": "Detector {{ctx.detector.name}} just entered alert status. Please investigate the issue." +
-										"- Trigger: {{ctx.trigger.name}}" +
-										"- Severity: {{ctx.trigger.severity}}",
+                    "- Trigger: {{ctx.trigger.name}}" +
+                    "- Severity: {{ctx.trigger.severity}}",
                             "lang": "mustache"
                         },
                         "throttle": {
@@ -216,15 +215,34 @@ POST _plugins/_security_analytics/detectors
 ```
 
 ---
-## Update Detector
+## Update Detector API
 
-The Update detector API is used for updating a detector.
+The Update Detector API can be used to update a detector definition. It requires the detector ID to specify the detector.
 
 ```json
 PUT /_plugins/_security_analytics/detectors/<detector_Id>
 ```
 
-### Sample request
+### Request fields
+
+You can specify the following fields when updating a detector.
+
+Field | Type | Description
+:--- | :--- |:--- |
+`detector_type` | String | The log type that defines the detector. Options are `linux`, `network` ,`windows`, `ad_ldap`, `apache_access`, `cloudtrail`, `dns`, and `s3`.
+`name` | String | The name of the detector. Name should only consist of upper and lowercase letters, numbers 0-9, hyphens, spaces, and underscores. Use between 5 and 50 characters. Required.
+`enabled` | Boolean | Sets the detector as either Active (true) or Inactive (false).
+`schedule.period.interval` | Integer | The interval at which the detector runs.
+`schedule.period.unit` | String | The interval's unit of time.
+`inputs.input.description` | String | Description of the detector.
+`inputs.input.indices` | Array | The log data source used for the detector. Only one source is allowed at this time.
+`inputs.input.rules.id` | Array | A list of security rules for the detector definition.
+`triggers.sev_levels` | Array | Sigma rule severity levels: `informational`; `low`; `medium`; `high`; `criticial`. See [Level](https://github.com/SigmaHQ/sigma/wiki/Rule-Creation-Guide#level) in the Sigma Rule Creation Guide.
+`triggers.tags` | Array | Tags are specified in a security rule. Tags can then be selected and applied to the alert trigger to focus the trigger conditions for alerts. See an example of how tags are used in a Sigma rule in Sigma's [Rule Creation Guide](https://github.com/SigmaHQ/sigma/wiki/Rule-Creation-Guide#tags).
+`triggers.actions` | Object | Actions send notifications when trigger conditions are met. See trigger actions for [Create Detector API]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/detector-api/#create-detector-api).
+
+
+### Example request
 
 ```json
 PUT /_plugins/_security_analytics/detectors/J1RX1IMByX0LvTiGTddR
@@ -247,9 +265,13 @@ PUT /_plugins/_security_analytics/detectors/J1RX1IMByX0LvTiGTddR
         "indices": [
           "windows"
         ],
-        "rules": [
+        "custom_rules": [],
+        "pre_packaged_rules": [
           {
-            "id": "46"
+            "id": "73a883d0-0348-4be4-a8d8-51031c2564f8"
+          },
+          {
+            "id": "1a4bd6e3-4c6e-405d-a9a3-53a116e341d4"
           }
         ]
       }
@@ -269,8 +291,9 @@ PUT /_plugins/_security_analytics/detectors/J1RX1IMByX0LvTiGTddR
   ]
 }
 ```
+{% include copy-curl.html %}
 
-### Sample response
+### Example response
 
 ```json
 {
@@ -308,72 +331,115 @@ PUT /_plugins/_security_analytics/detectors/J1RX1IMByX0LvTiGTddR
 }
 ```
 
----
-## Delete Detector
+#### Response fields
 
-This API is used for deleting a detector.
-
-### Sample request
-
-```json
-DELETE /_plugins/_security_analytics/detectors/J1RX1IMByX0LvTiGTddR
-```
+Field | Type | Description
+:--- | :--- |:--- |
+`_version` | String | Version number for the update.
+`detector.last_update_time` | String | Date and time of the last update.
+`detector.enabled_time` | String | Date and time when the detector was last enabled.
 
 ---
-## Get Detector
+## Delete Detector API
 
-The Get detector API retrieves the detector details.
+This API uses the detector ID to specify and delete a detector.
 
-### Sample request
+### Path and HTTP methods
 
 ```json
-GET /_plugins/_security_analytics/detectors/MFRg1IMByX0LvTiGHtcN
+DELETE /_plugins/_security_analytics/detectors/IJAXz4QBrmVplM4JYxx_
 ```
 
-### Sample response
+### Example request
+
+```json
+DELETE /_plugins/_security_analytics/detectors/<detector Id>
+```
+{% include copy-curl.html %}
+
+### Example response
 
 ```json
 {
-    "_id": "MFRg1IMByX0LvTiGHtcN",
-    "_version": 1,
-    "detector": {
-        "name": "windows_detector",
-        "detector_type": "windows",
-        "enabled": true,
-        "schedule": {
-            "period": {
-                "interval": 1,
-                "unit": "MINUTES"
-            }
-        },
-        "inputs": [
-            {
-                "detector_input": {
-                    "description": "windows detector for security analytics",
-                    "indices": [
-                        "windows"
-                    ],
-                    "rules": []
-                }
-            }
-        ],
-        "last_update_time": "2022-10-14T02:43:11.693Z",
-        "enabled_time": "2022-10-14T02:43:11.693Z"
-    }
+  "_id" : "IJAXz4QBrmVplM4JYxx_",
+  "_version" : 1
 }
 ```
 
 ---
-## Search Detector
+## Get Detector API
 
-The Search detector API searches for detector matches by detector ID.
+The Get Detector API retrieves the detector details. Use the detector ID in the call to fetch detector details.
 
-### Sample request
+### Path and HTTP methods
 
 ```json
-POST /_plugins/_security_analytics/detectors/_search
+GET /_plugins/_security_analytics/detectors/x-dwFIYBT6_n8WeuQjo4
+```
 
-Body:
+### Example request
+
+```json
+GET /_plugins/_security_analytics/detectors/<detector Id>
+```
+{% include copy-curl.html %}
+
+### Example response
+
+```json
+{
+  "_id" : "x-dwFIYBT6_n8WeuQjo4",
+  "_version" : 1,
+  "detector" : {
+    "name" : "DetectorTest1",
+    "detector_type" : "windows",
+    "enabled" : true,
+    "schedule" : {
+      "period" : {
+        "interval" : 1,
+        "unit" : "MINUTES"
+      }
+    },
+    "inputs" : [
+      {
+        "detector_input" : {
+          "description" : "Test and delete",
+          "indices" : [
+            "windows1"
+          ],
+          "custom_rules" : [ ],
+          "pre_packaged_rules" : [
+            {
+              "id" : "847def9e-924d-4e90-b7c4-5f581395a2b4"
+            }
+          ]
+        }
+      }
+    ],
+    "last_update_time" : "2023-02-02T23:22:26.454Z",
+    "enabled_time" : "2023-02-02T23:22:26.454Z"
+  }
+}
+```
+
+---
+## Search Detector API
+
+The Search Detector API searches for detector matches by detector ID, detector name, or detector type.
+
+### Request fields
+
+Field | Type | Description
+:--- | :--- |:--- |
+`_id` | String | Version number for the update.
+`detector.name` | String | Name of the detector.
+`detector_type` | String | The log type for the detector. Options are `linux`, `network` ,`windows`, `ad_ldap`, `apache_access`, `cloudtrail`, `dns`, and `s3`.
+
+### Example request
+
+**Detector ID**
+```json
+POST /_plugins/_security_analytics/detectors/_search
 {
     "query": {
         "match": {
@@ -382,76 +448,144 @@ Body:
     }
 }
 ```
+{% include copy-curl.html %}
 
-### Sample response
+**Detector name**
+```json
+POST /_plugins/_security_analytics/detectors/_search
+{
+  "size": 30,  
+  "query": {
+    "nested": {
+      "path": "detector",
+      "query": {
+        "bool": {
+          "must": [
+            { "match": {"detector.name": "DetectorTest1"} }
+          ]
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
+
+### Example response
 
 ```json
 {
-    "took": 2,
-    "timed_out": false,
-    "_shards": {
-        "total": 1,
-        "successful": 1,
-        "skipped": 0,
-        "failed": 0
+  "took" : 0,
+  "timed_out" : false,
+  "_shards" : {
+    "total" : 1,
+    "successful" : 1,
+    "skipped" : 0,
+    "failed" : 0
+  },
+  "hits" : {
+    "total" : {
+      "value" : 1,
+      "relation" : "eq"
     },
-    "hits": {
-        "total": {
-            "value": 1,
-            "relation": "eq"
-        },
-        "max_score": 1.0,
-        "hits": [
-            {
-                "_index": ".opensearch-detectors-config",
-                "_id": "MFRg1IMByX0LvTiGHtcN",
-                "_version": 1,
-                "_seq_no": 6,
-                "_primary_term": 1,
-                "_score": 1.0,
-                "_source": {
-                    "type": "detector",
-                    "name": "windows_detector",
-                    "detector_type": "WINDOWS",
-                    "enabled": true,
-                    "enabled_time": 1665715391693,
-                    "schedule": {
-                        "period": {
-                            "interval": 1,
-                            "unit": "MINUTES"
-                        }
-                    },
-                    "inputs": [
-                        {
-                            "detector_input": {
-                                "description": "windows detector for security analytics",
-                                "indices": [
-                                    "windows"
-                                ],
-                                "rules": []
-                            }
-                        }
-                    ],
-                    "triggers": [
-                        {
-                            "id": "fyAy1IMBK2A1DZyOuW_b",
-                            "name": "test-trigger",
-                            "types": [
-                                "windows"
-                            ],
-                            "sev_levels": [],
-                            "tags": [],
-                            "actions": []
-                        }
-                    ],
-                    "last_update_time": 1665715391693,
-                    "monitor_id": [
-                        "LlRf1IMByX0LvTiGzdeX"
-                    ]
-                }
+    "max_score" : 3.671739,
+    "hits" : [
+      {
+        "_index" : ".opensearch-sap-detectors-config",
+        "_id" : "x-dwFIYBT6_n8WeuQjo4",
+        "_version" : 1,
+        "_seq_no" : 76,
+        "_primary_term" : 17,
+        "_score" : 3.671739,
+        "_source" : {
+          "type" : "detector",
+          "name" : "DetectorTest1",
+          "detector_type" : "windows",
+          "enabled" : true,
+          "enabled_time" : 1675380146454,
+          "schedule" : {
+            "period" : {
+              "interval" : 1,
+              "unit" : "MINUTES"
             }
-        ]
-    }
+          },
+          "inputs" : [
+            {
+              "detector_input" : {
+                "description" : "Test and delete",
+                "indices" : [
+                  "windows1"
+                ],
+                "custom_rules" : [ ],
+                "pre_packaged_rules" : [
+                  {
+                    "id" : "847def9e-924d-4e90-b7c4-5f581395a2b4"
+                  }
+                ]
+              }
+            }
+          ],
+          "triggers" : [
+            {
+              "id" : "w-dwFIYBT6_n8WeuQToW",
+              "name" : "trigger 1",
+              "severity" : "1",
+              "types" : [
+                "windows"
+              ],
+              "ids" : [
+                "847def9e-924d-4e90-b7c4-5f581395a2b4"
+              ],
+              "sev_levels" : [
+                "critical"
+              ],
+              "tags" : [
+                "attack.t1003.002"
+              ],
+              "actions" : [
+                {
+                  "id" : "",
+                  "name" : "Triggered alert condition:  - Severity: 1 (Highest) - Threat detector: DetectorTest1",
+                  "destination_id" : "",
+                  "message_template" : {
+                    "source" : """Triggered alert condition: 
+Severity: 1 (Highest)
+Threat detector: DetectorTest1
+Description: Test and delete
+Detector data sources:
+  windows1""",
+                    "lang" : "mustache"
+                  },
+                  "throttle_enabled" : false,
+                  "subject_template" : {
+                    "source" : "Triggered alert condition:  - Severity: 1 (Highest) - Threat detector: DetectorTest1",
+                    "lang" : "mustache"
+                  },
+                  "throttle" : {
+                    "value" : 10,
+                    "unit" : "MINUTES"
+                  }
+                }
+              ]
+            }
+          ],
+          "last_update_time" : 1675380146454,
+          "monitor_id" : [
+            "xOdwFIYBT6_n8WeuQToa"
+          ],
+          "bucket_monitor_id_rule_id" : {
+            "-1" : "xOdwFIYBT6_n8WeuQToa"
+          },
+          "rule_topic_index" : ".opensearch-sap-windows-detectors-queries",
+          "alert_index" : ".opensearch-sap-windows-alerts",
+          "alert_history_index" : ".opensearch-sap-windows-alerts-history",
+          "alert_history_index_pattern" : "<.opensearch-sap-windows-alerts-history-{now/d}-1>",
+          "findings_index" : ".opensearch-sap-windows-findings",
+          "findings_index_pattern" : "<.opensearch-sap-windows-findings-{now/d}-1>"
+        }
+      }
+    ]
+  }
 }
 ```
 

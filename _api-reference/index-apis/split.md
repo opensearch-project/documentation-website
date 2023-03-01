@@ -25,6 +25,7 @@ PUT /sample-index1/_split/split-index1
   }
 }
 ```
+{% include copy-curl.html %}
 
 ## Path and HTTP methods
 

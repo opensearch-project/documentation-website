@@ -6,7 +6,7 @@ nav_order: 30
 
 # Java client
 
-The OpenSearch Java client allows you to interact with your OpenSearch clusters through Java methods and data structures rather than HTTP methods and raw JSON. For example, you can submit requests to your cluster using objects to create indexes, add data to documents, or complete some other operation using the client's built-in methods. 
+The OpenSearch Java client allows you to interact with your OpenSearch clusters through Java methods and data structures rather than HTTP methods and raw JSON. For example, you can submit requests to your cluster using objects to create indexes, add data to documents, or complete some other operation using the client's built-in methods. For the client's complete API documentation and additional examples, see the [javadoc](https://www.javadoc.io/doc/org.opensearch.client/opensearch-java/latest/index.html).
 
 This getting started guide illustrates how to connect to OpenSearch, index documents, and run queries. For the client source code, see the [opensearch-java repo](https://github.com/opensearch-project/opensearch-java).
 
@@ -172,7 +172,7 @@ You can index data into OpenSearch using the following code:
 
 ```java
 IndexData indexData = new IndexData("first_name", "Bruce");
-IndexRequest<IndexData> indexRequest = new IndexRequest.Builder<IndexData>().index(index).id("1").value(indexData).build();
+IndexRequest<IndexData> indexRequest = new IndexRequest.Builder<IndexData>().index(index).id("1").document(indexData).build();
 client.index(indexRequest);
 ```
 {% include copy.html %}
@@ -283,7 +283,7 @@ public class OpenSearchClientExample {
 
     //Index some data
     IndexData indexData = new IndexData("first_name", "Bruce");
-    IndexRequest<IndexData> indexRequest = new IndexRequest.Builder<IndexData>().index(index).id("1").value(indexData).build();
+    IndexRequest<IndexData> indexRequest = new IndexRequest.Builder<IndexData>().index(index).id("1").document(indexData).build();
     client.index(indexRequest);
 
     //Search for the document

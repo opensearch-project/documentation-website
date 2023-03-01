@@ -53,7 +53,7 @@ Setting | Description
 `server_side_encryption` | Whether to encrypt snapshot files in the S3 bucket. This setting uses AES-256 with S3-managed keys. See [Protecting data using server-side encryption](https://docs.aws.amazon.com/AmazonS3/latest/dev/serv-side-encryption.html). Default is false. Optional.
 `storage_class` | Specifies the [S3 storage class](https://docs.aws.amazon.com/AmazonS3/latest/dev/storage-class-intro.html) for the snapshots files. Default is `standard`. Do not use the `glacier` and `deep_archive` storage classes. Optional.
 
-#### Sample request
+#### Example request
 
 The following requests register or update a repository called `my-first-repo`. Both require a request body as described in [Request fields](#request-fields).
 
@@ -73,8 +73,9 @@ PUT _snapshot/my-opensearch-repo
   }
 }
 ```
+{% include copy-curl.html %}
 
-#### Sample response
+#### Example response
 
 Upon success, the following JSON object is returned:
 

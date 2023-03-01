@@ -34,6 +34,7 @@ PUT testindex
   }
 }
 ```
+{% include copy-curl.html %}
 
 ## Parameters
 
@@ -153,7 +154,7 @@ Format name and description | Pattern and examples
 
 ## Custom formats
 
-You can create custom formats for date fields. For example, the following request specifies a date in the common "MM/dd/yyyy" format.
+You can create custom formats for date fields. For example, the following request specifies a date in the common "MM/dd/yyyy" format:
 
 ```json
 PUT testindex
@@ -168,6 +169,7 @@ PUT testindex
   }
 }
 ```
+{% include copy-curl.html %}
 
 Index a document with a date:
 
@@ -177,6 +179,7 @@ PUT testindex/_doc/21
   "release_date" : "03/21/2019"
 }
 ```
+{% include copy-curl.html %}
 
 When searching for an exact date, provide that date in the same format:
 
@@ -192,6 +195,7 @@ GET testindex/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 Range queries by default use the field's mapped format. You can also specify the range of dates in a different format by providing the `format` parameter:
 
@@ -209,10 +213,11 @@ GET testindex/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 ## Date math
 
-The date field type supports using date math to specify duration in queries. For example, the `gt`, `gte`, `lt`, and `lte` parameters in [range queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/term/#range-query) and the `from` and `to` parameters in [date range aggregations]({{site.url}}{{site.baseurl}}/opensearch/bucket-agg/#range-date_range-ip_range) accept date math expressions.
+The date field type supports using date math to specify durations in queries. For example, the `gt`, `gte`, `lt`, and `lte` parameters in [range queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/term/#range) and the `from` and `to` parameters in [date range aggregations]({{site.url}}{{site.baseurl}}/opensearch/bucket-agg/#range-date_range-ip_range) accept date math expressions.
 
 A date math expression contains a fixed date, optionally followed by one or more mathematical expressions. The fixed date may be either `now` (current date and time in milliseconds since the epoch) or a string ending with `||` that specifies a date (for example, `2022-05-18||`). The date must be in the `strict_date_optional_time||epoch_millis` format.
 
@@ -247,7 +252,7 @@ The following example expressions illustrate using date math:
 
 ### Using date math in a range query
 
-The following example illustrates using date math in a [range query]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/term/#range-query).
+The following example illustrates using date math in a [range query]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/term/#range).
 
 Set up an index with `release_date` mapped as `date`:
 
@@ -263,6 +268,7 @@ PUT testindex
   }
 }
 ```
+{% include copy-curl.html %}
 
 Index two documents into the index:
 
@@ -271,12 +277,16 @@ PUT testindex/_doc/1
 {
   "release_date": "2022-09-14"
 }
+```
+{% include copy-curl.html %}
 
+```json
 PUT testindex/_doc/2
 {
   "release_date": "2022-11-15"
 }
 ```
+{% include copy-curl.html %}
 
 The following query searches for documents with `release_date` within 2 months and 1 day of 09/14/2022. The lower boundary of the range is rounded to the beginning of the day on 09/14/2022:
 
@@ -293,6 +303,7 @@ GET testindex/_search
   }
 }
 ```
+{% include copy-curl.html %}
 
 The response contains both documents:
 

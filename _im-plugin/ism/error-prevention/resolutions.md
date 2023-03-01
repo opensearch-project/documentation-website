@@ -2,6 +2,7 @@
 layout: default
 title: ISM Error Prevention resolutions
 parent: ISM Error Prevention
+grand_parent: Index State Management
 nav_order: 5
 ---
 

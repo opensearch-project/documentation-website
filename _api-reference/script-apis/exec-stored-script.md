@@ -19,7 +19,7 @@ OpenSearch provides several ways to run a script; the following sections show ho
 | script_fields | Object | Fields to include in output. | 
 | script | Object | ID of the script that produces a value for a field. |
 
-#### Sample request
+#### Example request
 
 The following request runs the stored script that was created in [Create or update stored script]({{site.url}}{{site.baseurl}}/api-reference/script-apis/create-stored-script/). The script sums the ratings for each book and displays the sum in the `total_ratings` field in the output.
 
@@ -44,8 +44,9 @@ GET books/_search
   }
 }
 ````
+{% include copy-curl.html %}
 
-#### Sample response
+#### Example response
 
 The `GET books/_search` request returns the following fields:
 

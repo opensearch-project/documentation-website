@@ -26,9 +26,12 @@ The PIT functionality does not have the limitations of other pagination methods,
 
 PIT search has the same capabilities as regular search, except PIT search acts on an older dataset, while a regular search acts on a live dataset. PIT search is not bound to a query, so you can run different queries on the same dataset, which is frozen in time. 
 
-You can use the [Create PIT API]({{site.url}}{{site.baseurl}}/opensearch/point-in-time) to create a PIT. When you create a PIT for a set of indexes, OpenSearch locks a set of segments for those indexes, freezing them in time. On a lower level, none of the resources required for this PIT are modified or deleted. If the segments that are part of a PIT are merged, OpenSearch retains a copy of those segments for the period of time specified at PIT creation by the `keep_alive` parameter. 
+You can use the [Create PIT API]({{site.url}}{{site.baseurl}}/opensearch/point-in-time-api#create-a-pit) to create a PIT. When you create a PIT for a set of indexes, OpenSearch locks a set of segments for those indexes, freezing them in time. On a lower level, none of the resources required for this PIT are modified or deleted. If the segments that are part of a PIT are merged, OpenSearch retains a copy of those segments for the period of time specified at PIT creation by the `keep_alive` parameter. 
 
 The create PIT operation returns a PIT ID, which you can use to run multiple queries on the frozen dataset. Even though the indexes continue to ingest data and modify or delete documents, the PIT references the data that has not changed since the PIT creation. When your query contains a PIT ID, you don't need to pass the indexes to the search because it will use that PIT. A search with a PIT ID will produce exactly the same result when you run it multiple times.
+
+In case of a cluster or node failure, all PIT data is lost.
+{: .note}
 
 ## Pagination with PIT and search_after
 
@@ -151,4 +154,4 @@ Function | API | Description
 [Delete PIT]({{site.url}}{{site.baseurl}}/opensearch/point-in-time-api#delete-pits) | `DELETE /_search/point_in_time`<br> `DELETE /_search/point_in_time/_all` | Deletes a PIT or all PITs.
 [PIT segments]({{site.url}}{{site.baseurl}}/opensearch/point-in-time-api#pit-segments) | `GET /_cat/pit_segments/_all` | Provides information about the disk utilization of a PIT by describing its Lucene segments.
 
-For information about the relevant cluster and node settings, see [PIT Settings]({{site.url}}{{site.baseurl}}/opensearch/point-in-time-api#pit-settings)
+For information about the relevant cluster and node settings, see [PIT Settings]({{site.url}}{{site.baseurl}}/opensearch/point-in-time-api#pit-settings).

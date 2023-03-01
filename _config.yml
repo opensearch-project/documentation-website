@@ -5,10 +5,10 @@ baseurl: "/docs/latest" # the subpath of your site, e.g. /blog
 url: "https://opensearch.org" # the base hostname & protocol for your site, e.g. http://example.com
 permalink: /:path/
 
-opensearch_version: 2.4.0
-opensearch_dashboards_version: 2.4.0
-opensearch_major_minor_version: 2.4
-lucene_version: 9_4_1
+opensearch_version: 2.6.0
+opensearch_dashboards_version: 2.6.0
+opensearch_major_minor_version: 2.6
+lucene_version: 9_5_0
 
 # Build settings
 markdown: kramdown
@@ -37,40 +37,43 @@ collections:
   opensearch:
     permalink: /:collection/:path/
     output: true
+  im-plugin:
+    permalink: /:collection/:path/
+    output: true
   dashboards:
     permalink: /:collection/:path/
     output: true
-  security-plugin:
+  tuning-your-cluster:
     permalink: /:collection/:path/
     output: true
+  security:
+    permalink: /:collection/:path/
+    output: true 
   security-analytics:
     permalink: /:collection/:path/
     output: true
   search-plugins:
     permalink: /:collection/:path/
-    output: true
-  im-plugin:
+    output: true 
+  ml-commons-plugin:
     permalink: /:collection/:path/
     output: true
-  replication-plugin:
+  neural-search-plugin:
+    permalink: /:collection/:path/
+    output: true   
+  tuning-your-cluster:
     permalink: /:collection/:path/
     output: true
-  observability-plugin:
+  monitoring-your-cluster:
+    permalink: /:collection/:path/
+    output: true
+  observing-your-data:
     permalink: /:collection/:path/
     output: true
   ml-commons-plugin:
     permalink: /:collection/:path/
     output: true
   neural-search-plugin:
-    permalink: /:collection/:path/
-    output: true
-  monitoring-plugins:
-    permalink: /:collection/:path/
-    output: true
-  notifications-plugin:
-    permalink: /:collection/:path/
-    output: true
-  job-scheduler-plugin:
     permalink: /:collection/:path/
     output: true
   clients:
@@ -96,51 +99,48 @@ just_the_docs:
   # Define the collections used in the theme
   collections:
     install-and-configure:
-      name: Install and configure
+      name: Install and upgrade
       nav_fold: true
     upgrade-to:
-      name: Upgrade to OpenSearch
+      name: Migrate to OpenSearch
       # nav_exclude: true
       nav_fold: true
       # search_exclude: true
     opensearch:
       name: OpenSearch
       nav_fold: true
+    im-plugin:
+      name: Managing Indexes
+      nav_fold: true
     dashboards:
       name: OpenSearch Dashboards
       nav_fold: true
-    security-plugin:
-      name: Security plugin
+    tuning-your-cluster:
+      name: Tuning your cluster
+      nav_fold: true
+    security:
+      name: Security in OpenSearch
       nav_fold: true
     security-analytics:
       name: Security analytics plugin
       nav_fold: true
     search-plugins:
-      name: Search plugins
-      nav_fold: true
-    im-plugin:
-      name: Index management plugin
-      nav_fold: true
-    replication-plugin:
-      name: Replication plugin
-      nav_fold: true
-    observability-plugin:
-      name: Observability plugin
+      name: Search 
       nav_fold: true
     ml-commons-plugin:
-      name: ML Commons plugin
+      name: Machine learning
       nav_fold: true
     neural-search-plugin:
-      name: Neural Search plugin
+      name: Neural Search 
       nav_fold: true
-    monitoring-plugins:
-      name: Monitoring plugins
+    tuning-your-cluster:
+      name: Tuning your cluster
+      nav_fold: true 
+    monitoring-your-cluster:
+      name: Monitoring your cluster
       nav_fold: true
-    notifications-plugin:
-      name: Notifications plugin
-      nav_fold: true
-    job-scheduler-plugin:
-      name: Job Scheduler plugin
+    observing-your-data:
+      name: Observability
       nav_fold: true
     clients:
       name: Clients

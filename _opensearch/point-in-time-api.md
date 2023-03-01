@@ -40,19 +40,19 @@ target_indexes | String | The name(s) of the target index(es) for the PIT. May c
 
 Parameter | Data type | Description
 :--- | :--- | :---
-keep_alive | Time |  The amount of time to keep the PIT. Required.
+keep_alive | Time |  The amount of time to keep the PIT. Every time you access a PIT by using the Search API, the PIT lifetime is extended by the amount of time equal to the `keep_alive` parameter. Required.
 preference | String | The node or the shard used to perform the search. Optional. Default is random.
 routing | String | Specifies to route search requests to a specific shard. Optional. Default is the document's `_id`. 
 expand_wildcards | String | The type of index that can match the wildcard pattern. Supports comma-separated values. Valid values are the following:<br>- `all`: Match any index or data stream, including hidden ones. <br>- `open`: Match open, non-hidden indexes or non-hidden data streams. <br>- `closed`: Match closed, non-hidden indexes or non-hidden data streams. <br>- `hidden`: Match hidden indexes or data streams. Must be combined with `open`, `closed` or both `open` and `closed`.<br>- `none`: No wildcard patterns are accepted.<br> Optional. Default is `open`.
-allow_partial_pit_creation | Boolean | Specifies whether to create a PIT with partial failures. Optional. Default is `false`.
+allow_partial_pit_creation | Boolean | Specifies whether to create a PIT with partial failures. Optional. Default is `true`.
 
-#### Sample request
+#### Example request
 
 ```json
 POST /my-index-1/_search/point_in_time?keep_alive=100m
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -114,13 +114,13 @@ Returns all PITs in the OpenSearch cluster.
 
 The List All PITs API returns only local PITs or mixed PITs (PITs created in both local and remote clusters). It does not return fully remote PITs. 
 
-#### Sample request
+#### Example request
 
 ```json
 GET /_search/point_in_time/_all
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -179,7 +179,7 @@ Field | Data type | Description
 :--- | :--- | :---
 pit_id | [Base64 encoded binary]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/binary) or an array of binaries | The PIT IDs of the PITs to be deleted. Required.
 
-#### Sample request: Delete PITs by ID
+#### Example request: Delete PITs by ID
 
 ```json
 DELETE /_search/point_in_time
@@ -192,7 +192,7 @@ DELETE /_search/point_in_time
 }
 ```
 
-#### Sample response
+#### Example response
 
 For each PIT, the response contains a JSON object with a PIT ID and a `successful` field that specifies whether the deletion was successful. Partial failures are treated as failures. 
 
@@ -224,7 +224,7 @@ Introduced 2.4
 
 Similarly to the [CAT Segments API]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-segments), the PIT Segments API provides low-level information about the disk utilization of a PIT by describing its Lucene segments. The PIT Segments API supports listing segment information of a specific PIT by ID or of all PITs at once.
 
-#### Sample request: PIT segments of all PITs
+#### Example request: PIT segments of all PITs
 
 ```json
 GET /_cat/pit_segments/_all
@@ -238,7 +238,7 @@ Field | Data type | Description
 :--- | :--- | :---
 pit_id | [Base64 encoded binary]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/binary) or an array of binaries | The PIT IDs of the PITs whose segments are to be listed. Required.
 
-#### Sample request: PIT segments of PITs by ID
+#### Example request: PIT segments of PITs by ID
 
 ```json
 GET /_cat/pit_segments
@@ -251,7 +251,7 @@ GET /_cat/pit_segments
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 index  shard prirep ip            segment generation docs.count docs.deleted  size size.memory committed searchable version compound

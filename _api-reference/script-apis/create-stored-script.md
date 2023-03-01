@@ -45,7 +45,7 @@ All parameters are optional.
 | lang | String | Scripting language. Required. |
 | source | String or Object | Required. <br /> <br /> For scripts, a string with the contents of the script. <br /> <br /> For search templates, an object that defines the search template. Supports the same parameters as the [Search]({{site.url}}{{site.baseurl}}/api-reference/search) API request body. Search templates also support Mustache variables. |
 
-#### Sample request
+#### Example request
 
 The sample uses an index called `books` with the following documents:
 
@@ -75,6 +75,8 @@ PUT _scripts/my-first-script
   }
 }
 ````
+{% include copy.html %}
+
 The example above uses the syntax of the Dev Tools console in OpenSearch Dashboards. You can also use a curl request.
 {: .note }
 
@@ -89,10 +91,11 @@ curl -XPUT "http://opensearch:9200/_scripts/my-first-script" -H 'Content-Type: a
   }
 }'
 ````
+{% include copy.html %}
 
 See [Execute Painless stored script]({{site.url}}{{site.baseurl}}/api-reference/script-apis/exec-stored-script/) for information about running the script.
 
-#### Sample response
+#### Example response
 
 The `PUT _scripts/my-first-script` request returns the following field:
 
