@@ -333,7 +333,7 @@ The variable `ctx.index` is rendered in double curly braces.
 
 ## Links
 
-To add a link to a document, section, or image, use the `[Name](link)` syntax, for example:
+To add a link to a document, section, or image, use the `[name](link)` syntax, for example:
 
 ```
 ## Looking for the Javadoc?
