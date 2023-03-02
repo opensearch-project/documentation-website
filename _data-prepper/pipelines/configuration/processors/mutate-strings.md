@@ -18,7 +18,7 @@ You can change the way that a string appears using mutate string processesors. F
 
 ## substitute_string
 
-The `substitute_string` processor matches a key's value against a regular expression (regex) and replaces all matches with a replacement string.
+The `substitute_string` processor matches a key's value against a regular expression (regex) and replaces all returned matches with a replacement string.
 
 ### Basic usage
 
