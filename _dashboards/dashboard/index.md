@@ -2,7 +2,7 @@
 layout: default
 title: Creating dashboards
 nav_order: 30
-has_children: true
+has_children: false
 ---
 
 # Creating dashboards
@@ -98,7 +98,7 @@ To customize the panels, you'll need to be in edit mode:
 If you see **Create new** at the top right of the toolbar, you're already in edit mode.
 {: .note}
 
-Displaying a legend can give readers more information, while hiding a legend can give a panel a cleaner look. If you want to display or hide the panel legend:
+Displaying a legend can give readers more information, while hiding a legend can give the panel a cleaner look. If you want to display or hide the panel legend:
 
 - Choose the list icon in the panel's lower left corner.
 
