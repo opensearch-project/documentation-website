@@ -112,8 +112,6 @@ You can configure the `split_string` processor with the following options:
 
 The `uppercase_string` processor converts a key to uppercase.
 
-<!--- Converts a key or a string? Are only keys and strings being converted?--->
-
 ### Basic usage
 
 To get started, create the following `pipeline.yaml` file:
