@@ -235,7 +235,7 @@ After the processor runs, the following output appears:
 
 ## ConvertEntry
 
-The `ConvertEntry` processor converts value type associated with the specified key in a message to the specified type. It is a casting processor that changes the types of some fields in the event or message. Some of inputted data may need to be converted to different types, such as an integer or a double. The data may need to be converted so that it will pass the events through condition-based processors, or to perform conditional routing.
+The `ConvertEntry` processor converts value type associated with the specified key in a message to the specified type. It is a casting processor that changes the types of some fields in the event or message. Some of inputted data may need to be converted to different types, such as an integer or a double, so that it will pass the events through condition-based processors, or to perform conditional routing.
 
 ## Basic usage
 

@@ -68,14 +68,16 @@ The processor parses the message into the following format:
 
 ## Configuration
 
-* `source` (optional): The field in the `Event` that will be parsed.
+You can configure the `Parse JSON` processor with the following options:
+
+* `source` (optional): The field in the `Event` that is parsed.
     * Default: `message`
 
 * `destination` (optional): The destination field of the parsed JSON. Defaults to the root of the `Event`.
     * Defaults to writing to the root of the `Event`. The processor writes to root when the `destination` has a value of `null`.
     * Cannot be `""`, `/`, or any whitespace-only `String` because these options are not valid `Event` fields.
 
-* `pointer` (optional): A JSON pointer to the field to be parsed.
+* `pointer` (optional): A JSON pointer to the field that must be parsed.
     * There is no `pointer` by default, and the entire `source` is parsed.
     * The `pointer` can access JSON array indexes.
     * If the JSON pointer is invalid, then the entire `source` data is parsed into the outgoing `Event`.

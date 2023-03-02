@@ -100,9 +100,8 @@ If `calculate_exponential_histogram_buckets` is not set to `false`, the followin
     ],
 ```
 
-The following JSON file is a more explicit form of the dense OpenTelemetry representation, which consists of negative and positive buckets, a scale parameter, offset, and list of bucket counts. 
+The following JSON file is a more detailed form of the dense OpenTelemetry representation, which consists of negative and positive buckets, a scale parameter, offset, and list of bucket counts. 
 
-<!--- What does this mean "more explicit"? --->
 
 ```json
     "negative": [

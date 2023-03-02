@@ -75,7 +75,7 @@ Default is null.
 
 ## Metrics
 
-<!---Need an introduction here.--->
+This plugin uses common metrics in [AbstractProcessor](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/processor/AbstractProcessor.java) and includes the following custom metrics.
 
 ### Counter
 
