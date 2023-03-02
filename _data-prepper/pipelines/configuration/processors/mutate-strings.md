@@ -232,4 +232,4 @@ When you run Data Prepper with this `pipeline.yaml` file, you will see the follo
 
 You can configure the `trim_string` processor with the following options:
 
-* `with_keys` (required): A list of keys to trim the whitespace from.
+`with_keys` (required): A list of keys to trim the whitespace from.
