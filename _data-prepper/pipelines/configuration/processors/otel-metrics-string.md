@@ -128,13 +128,4 @@ All exponential histograms that have a scale that is above the configured parame
 
 ## Metrics
 
-This plugin uses common metrics [AbstractProcessor](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/processor/AbstractProcessor.java), and does not include custom metrics.
-
-## Developer guide
-
-See the following:
-
-<!--- Why would users find the following links helpful as part of a developer guide? What are they using these links for?--->
-
-- [Contributing](https://github.com/opensearch-project/data-prepper/blob/main/CONTRIBUTING.md)
-- [Monitoring]({{site.url}}{{site.baseurl}}/data-prepper/monitoring/)
+This plugin uses common metrics in [AbstractProcessor](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/processor/AbstractProcessor.java) and does not include custom metrics.

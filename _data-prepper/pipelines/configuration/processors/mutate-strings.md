@@ -227,11 +227,3 @@ When you run Data Prepper with this `pipeline.yaml` file, you will see the follo
 <!--- Are these parameters? How are these items used? Need some intro text here.--->
 
 * `with_keys` (required): A list of keys to trim the whitespace from.
-
-
-## Developer guide
-
-This plugin is compatible with Java 14. See the following:
-
-- [Contributing](https://github.com/opensearch-project/data-prepper/blob/main/CONTRIBUTING.md)
-- [Monitoring]({{site.url}}{{site.baseurl}}/data-prepper/monitoring/)

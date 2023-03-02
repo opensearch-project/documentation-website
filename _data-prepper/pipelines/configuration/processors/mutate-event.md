@@ -283,13 +283,3 @@ You can configure the `ConvertEntry` processor with the following options:
 
 * `key` (required): Keys whose value needs to be converted to a different type
 * `type`: Target type for key value. Possible values are `integer`, `double`, `string`, and `boolean`. Default value is `integer`.
-
-
-## Developer guide
-
-This plugin is compatible with Java 14. See the following:
-
-- [Contributing](https://github.com/opensearch-project/data-prepper/blob/main/CONTRIBUTING.md)
-- [Monitoring]({{site.url}}{{site.baseurl}}/data-prepper/monitoring/) 
-
-

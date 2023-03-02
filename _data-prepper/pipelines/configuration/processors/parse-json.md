@@ -80,12 +80,3 @@ The processor parses the message into the following format:
     * The `pointer` can access JSON array indexes.
     * If the JSON pointer is invalid, then the entire `source` data is parsed into the outgoing `Event`.
     * If the key that is pointed to exists in the `Event`, and the `destination` is the root, then the entire path of the key will be used.
-
-## Developer guide
-
-This plugin is compatible with Java 8 and up. See the following: 
-
-<!--- Java 8, or Java 14? Other docs say 14.--->
-
-- [Contributing](https://github.com/opensearch-project/data-prepper/blob/main/CONTRIBUTING.md)
-- [Monitoring]({{site.url}}{{site.baseurl}}/data-prepper/monitoring/) <!--- Is this correct?---> 
