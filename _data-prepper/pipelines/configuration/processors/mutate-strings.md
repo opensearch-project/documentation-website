@@ -224,7 +224,7 @@ When you run Data Prepper with this `pipeline.yaml` file, you will see the follo
 
 ### Configuration
 
-<!--- Are these paramters? How are these items used? Need some intro text here.--->
+<!--- Are these parameters? How are these items used? Need some intro text here.--->
 
 * `with_keys` (required): A list of keys to trim the whitespace from.
 

@@ -1,6 +1,6 @@
 ---
 layout: default
-title: OTel metrics string
+title: OpenTelemetry metrics string
 parent: Processors
 grand_parent: Pipelines
 nav_order: 45
@@ -123,6 +123,7 @@ The following JSON file is a more explicit form of the dense OpenTelemetry repre
 The `exponential_histogram_max_allowed_scale` parameter defines the maximum allowed scale for an exponential histogram. Increasing this parameter increases potential memory consumption. See the [OpenTelemetry specifications](https://github.com/open-telemetry/opentelemetry-proto/blob/main/opentelemetry/proto/metrics/v1/metrics.proto) for more information on exponential histograms and their computational complexity.
 
 All exponential histograms that have a scale that is above the configured parameter (by default, 10) will be discarded and logged with error level. 
+
 **Note**: The absolute scale value is used for comparison, so a scale of `-11` will be treated equally to `11`, will exceed the configured value of `10` and be discarded.
 
 ## Metrics
@@ -136,4 +137,4 @@ This plugin is compatible with Java 8. See the following:
 <!--- Java 8, or Java 14? The rest of the docs in this PR refer to Java 14, not 8.--->
 
 - [Contributing](https://github.com/opensearch-project/data-prepper/blob/main/CONTRIBUTING.md)
-- [Monitoring]({{site.url}}{{site.baseurl}}/data-prepper/monitoring/) <!--- Is this correct?---> 
+- [Monitoring]({{site.url}}{{site.baseurl}}/data-prepper/monitoring/)

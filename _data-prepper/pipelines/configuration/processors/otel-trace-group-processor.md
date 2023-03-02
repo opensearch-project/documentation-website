@@ -1,6 +1,6 @@
 ---
 layout: default
-title: OTel trace group processor
+title: OpenTelemetry trace group processor
 parent: Processors
 grand_parent: Pipelines
 nav_order: 45
