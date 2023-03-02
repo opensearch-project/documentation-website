@@ -29,7 +29,7 @@ pipeline:
         password: YOUR_PASSWORD_HERE
 ```
 
-See [OpenSearch Security](https://github.com/opensearch-project/data-prepper/blob/834f28fdf1df6d42a6666e91e6407474b88e7ec6/data-prepper-plugins/opensearch/opensearch_security.md#L4) for a detailed explanation. <!--- ...explaination of?--->
+See [OpenSearch Security](https://github.com/opensearch-project/data-prepper/blob/834f28fdf1df6d42a6666e91e6407474b88e7ec6/data-prepper-plugins/opensearch/opensearch_security.md#L4) for a detailed explanation.
 
 ### Amazon OpenSearch Service
 
