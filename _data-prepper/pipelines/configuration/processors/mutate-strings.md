@@ -90,7 +90,7 @@ pipeline:
 ```
 {% include copy.html %}
 
-Create a log file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` with your file path:
+Create a log file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` file with your file path:
 
 ```json
 {"message": "hello,world"}
@@ -134,7 +134,7 @@ pipeline:
 ```
 {% include copy.html %}
 
-Create a log file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` with the correct file path:
+Create a log file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` file with the correct file path:
 
 ```json
 {"uppercaseField": "hello"}
@@ -175,7 +175,7 @@ pipeline:
 ```
 {% include copy.html %}
 
-Create a log file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` with the path of this file.
+Create a log file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` file with the path of this file.
 
 ```json
 {"lowercaseField": "TESTmeSSage"}
@@ -216,7 +216,7 @@ pipeline:
 ```
 {% include copy.html %}
 
-Create a log file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` with the your file path:
+Create a log file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` file with the your file path:
 
 ```json
 {"trimField": " Space Ship "}
