@@ -16,7 +16,7 @@ Starting with OpenSearch 2.4, you can visualize metrics data from the open-sourc
 
 ## Creating a connection to Prometheus
 
-You can create a connection from [Prometheus](https://prometheus.io/) to OpenSearch via the SQL plugin in order to view metrics collected from Prometheus in OpenSearch Dashboards.
+You can create a connection from [Prometheus](https://prometheus.io/) to OpenSearch using the SQL plugin in order to view metrics collected from Prometheus in OpenSearch Dashboards.
 
 ![Prometheus example 1]({{site.url}}{{site.baseurl}}/images/metrics/metrics4.png)
 
@@ -110,7 +110,7 @@ You can save visualizations from created metrics in the **Metrics analytics** se
 
 Additionally, you can save a visualization created with [Event analytics]({{site.url}}{{site.baseurl}}/observing-your-data/event-analytics/) as seen in the following image.
 
-Only queries that include a Time Series visualization and stats/span can be saved as a metric.
+Only queries that include a time series visualization and stats/span can be saved as a metric.
 {: .note }
 
 ![Metrics UI example 3]({{site.url}}{{site.baseurl}}/images/metrics/metrics3.png)
