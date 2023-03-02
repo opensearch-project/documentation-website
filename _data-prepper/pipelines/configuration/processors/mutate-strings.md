@@ -40,14 +40,15 @@ pipeline:
   sink:
     - stdout:
 ```
+{% include copy.html %}
 
-Create the following file named `logs_json.log` and replace the `path` of the file source in your `pipeline.yaml` file with your file path:
+Create a log file named `logs_json.log` and replace the `path` of the file source in your `pipeline.yaml` file with your file path:
 
 ```json
 {"message": "ab:cd:ab:cd"}
 ```
 
-When you run Data Prepper with the `pipeline.yaml` file, you will see the following output:
+When you run Data Prepper, the source is converted from this format: `{"message": "ab:cd:ab:cd"}` to this format: `{"message": "ab-cd-ab-cd"}`. You will see the following output:
 
 ```json
 {"message": "ab-cd-ab-cd"}
@@ -60,9 +61,9 @@ If the `from` regex string does not return a match, the key returns without any 
 You can configure the `substitute_string` processor with the following options:
 
 * `entries` (required): A list of entries to add to an event.
-    * `source` (required): The key to be modified.
-    * `from` (required): The regex string to be replaced. Special regex characters such as `[` and `]` must be escaped using `\\` when using double quotes and `\` when using single quotes. See [Class Pattern](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/regex/Pattern.html) for more information.
-    * `to` (required): The string to be substituted for each match of `from`.
+* `source` (required): The key to be modified.
+* `from` (required): The regex string to be replaced. Special regex characters such as `[` and `]` must be escaped using `\\` when using double quotes and `\` when using single quotes. See [Class Pattern](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/regex/Pattern.html) for more information.
+* `to` (required): The string to be substituted for each match of `from`.
     
 ## split_string
 
@@ -87,8 +88,9 @@ pipeline:
   sink:
     - stdout:
 ```
+{% include copy.html %}
 
-Create the following file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` with your file path:
+Create a log file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` with your file path:
 
 ```json
 {"message": "hello,world"}
@@ -130,8 +132,9 @@ pipeline:
   sink:
     - stdout:
 ```
+{% include copy.html %}
 
-Create the following file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` with the correct file path:
+Create a log file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` with the correct file path:
 
 ```json
 {"uppercaseField": "hello"}
@@ -146,7 +149,7 @@ When you run Data Prepper with this `pipeline.yaml` file, you should see the fol
 
 You can configure the `uppercase_string` processor with the following options:
 
-* `with_keys` (required): A list of keys to convert to uppercase.
+`with_keys` (required): A list of keys to convert to uppercase.
 
 ## Lowercase string
 
@@ -170,8 +173,9 @@ pipeline:
   sink:
     - stdout:
 ```
+{% include copy.html %}
 
-Create the following file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` with the path of this file.
+Create a log file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` with the path of this file.
 
 ```json
 {"lowercaseField": "TESTmeSSage"}
@@ -186,7 +190,7 @@ When you run Data Prepper with this `pipeline.yaml` file, you will see the follo
 
 You can configure the `lowercase string` processor with the following options:
 
-* `with_keys` (required): A list of keys to convert to lowercase
+`with_keys` (required): A list of keys to convert to lowercase.
 
 ## trim_string
 
@@ -210,12 +214,14 @@ pipeline:
   sink:
     - stdout:
 ```
+{% include copy.html %}
 
-Create the following file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` with the your file path:
+Create a log file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` with the your file path:
 
 ```json
 {"trimField": " Space Ship "}
 ```
+
 When you run Data Prepper with this `pipeline.yaml` file, you will see the following output:
 
 ```json

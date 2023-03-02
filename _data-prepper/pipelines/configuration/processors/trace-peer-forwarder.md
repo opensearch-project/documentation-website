@@ -8,15 +8,13 @@ nav_order: 45
 
 # Trace peer forwarder processor
 
-The `trace peer forwarder` processor is used to reduce the number of events that are forwarded in a trace analytics pipeline by half when using [Peer Forwarder](https://github.com/opensearch-project/data-prepper/blob/main/docs/peer_forwarder.md). 
-It groups the events based on `trace_id` similar to `service_map_stateful` and `otel_trace_raw ` processors. 
+The `trace peer forwarder` processor is used to reduce the number of events that are forwarded in a trace analytics pipeline by half when using [Peer Forwarder]({{site.url}}{{site.baseurl}}/managing-data-prepper/peer-forwarder/). It groups the events based on `trace_id` similar to `service_map_stateful` and `otel_trace_raw ` processors. 
 
-In [Trace Analytics pipeline](https://github.com/opensearch-project/data-prepper/blob/main/docs/trace_analytics.md#trace-analytics-pipeline) each event is duplicated, when it is sent from `otel-trace-pipeline` to `raw-pipeline` and `service-map-pipeline`.
-The event is forwarded once in each pipeline. Using this processor event will be forwarded only once in `otel-trace-pipeline` to correct peer. 
+In [Trace analytics]({{site.url}}{{site.baseurl}}/data-prepper/common-use-cases/trace-analytics/) each event is duplicated, when it is sent from `otel-trace-pipeline` to `raw-pipeline` and `service-map-pipeline`. The event is forwarded once in each pipeline. Using this processor event will be forwarded only once in `otel-trace-pipeline` to correct peer. 
 
 ## Basic usage
 
-To get started with `trace peer forwarder`, create the following `pipeline.yaml` file along with [Peer Forwarder]({{site.url}}{{site.baseurl}}/managing-data-prepper/peer-forwarder/) in the `data-prepper-config.yaml` file:
+To get started with `trace peer forwarder`, create the following `pipeline.yaml` file along with [Peer forwarder]({{site.url}}{{site.baseurl}}/managing-data-prepper/peer-forwarder/) in the `data-prepper-config.yaml` file:
 
 
 ```yaml

@@ -35,7 +35,7 @@ pipeline:
     - stdout:
 ```
 
-Create the following file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` with this filepath.
+Create a log file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` with this filepath.
 
 ```json
 {"message": "value"}
@@ -83,7 +83,7 @@ pipeline:
     - stdout:
 ```
 
-Create the following file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` with the path of this file:
+Create a log file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` with the path of this file:
 
 ```json
 {"message": "value"}
@@ -156,7 +156,8 @@ The `rename key` processor renames keys in an event.
 
 ### Basic usage
 
-To get started, create the following `pipeline.yaml`.
+To get started, create the following `pipeline.yaml` file:
+
 ```yaml
 pipeline:
   source:
@@ -174,7 +175,7 @@ pipeline:
     - stdout:
 ```
 
-Create the following file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` with the path of this file.
+Create a log file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` with the path of this file.
 
 ```json
 {"message": "value"}
@@ -259,7 +260,7 @@ type-conv-pipeline:
     - stdout:
 ```
 
-Create the following file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` with the path of this file.
+Create a log file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` with the path of this file.
 
 ```json
 {"message": "10.10.10.19 [19/Feb/2015:15:50:36 -0500] 200"}

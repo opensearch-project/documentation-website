@@ -10,7 +10,7 @@ nav_order: 45
 
 The `OTel trace group` processor completes missing trace group related fields in the collection of [span](https://github.com/opensearch-project/data-prepper/blob/834f28fdf1df6d42a6666e91e6407474b88e7ec6/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/trace/Span.java) records by looking up the OpenSearch backend. The `OTel trace group` processor iedntifies the missing trace group information for a `spanId` by looking up the relevant fields in its root `span` stored in OpenSearch, or in the Amazon OpenSearch Service backend that the local Data Prepper host ingests.
 
-## Usage
+## Basic usage
 
 <!---Other sections introduce a YAML file here. Is this section missing that example?--->
 
