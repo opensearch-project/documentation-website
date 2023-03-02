@@ -36,8 +36,6 @@ There are three possible parameters: `calculate_histogram_buckets`, `calculate_e
 
 If `calculate_histogram_buckets` is not set to `false`, the following JSON file will be added to every histogram JSON. If `flatten_attributes` is set to `false`, the JSON string format of the metrics does not change the attributes field. If `flatten_attributes` is set to `true`, the values in the attributes field are placed in the parent JSON object. The default value is `true`.
 
-<!--- Is this phrasing appropriate? "...are placed in..."?--->
-
 ```json
  "buckets": [
     {

@@ -57,7 +57,7 @@ If the `from` regex string does not return a match, the key returns without any 
 
 ### Configuration
 
-<!--- Are these paramters? How are these items used? Need some intro text here.--->
+You can configure the `substitute_string` processor with the following options:
 
 * `entries` (required): A list of entries to add to an event.
     * `source` (required): The key to be modified.
@@ -100,6 +100,8 @@ When you run Data Prepper with this `pipeline.yaml` file, you should see the fol
 ```
 
 ### Configuration
+
+You can configure the `split_string` processor with the following options:
 
 * `entries` (required): A list of entries to add to an event
 * `source` (required): The key to be split
@@ -144,7 +146,7 @@ When you run Data Prepper with this `pipeline.yaml` file, you should see the fol
 
 ### Configuration
 
-<!--- Are these paramters? How are these items used? Need some intro text here.--->
+You can configure the `uppercase_string` processor with the following options:
 
 * `with_keys` (required): A list of keys to convert to uppercase.
 
@@ -184,7 +186,7 @@ When you run Data Prepper with this `pipeline.yaml` file, you will see the follo
 
 ### Configuration
 
-<!--- Are these paramters? How are these items used? Need some intro text here.--->
+You can configure the `lowercase string` processor with the following options:
 
 * `with_keys` (required): A list of keys to convert to lowercase
 
@@ -224,6 +226,6 @@ When you run Data Prepper with this `pipeline.yaml` file, you will see the follo
 
 ### Configuration
 
-<!--- Are these parameters? How are these items used? Need some intro text here.--->
+You can configure the `trim_string` processor with the following options:
 
 * `with_keys` (required): A list of keys to trim the whitespace from.
