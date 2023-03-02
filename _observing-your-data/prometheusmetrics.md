@@ -100,7 +100,7 @@ source = my_prometheus.prometheus_http_requests_total | stats avg(@value) by spa
 
 ## Metrics Analytics UI
 
-The Metrics Analytics UI is a new component in the **Observability** application for OpenSearch Dashboards, as seen in the following image.
+The Metrics Analytics UI is a new component in the **Observability** application for OpenSearch Dashboards, as seen in the following image, that allows you to create visualizations based on metrics collected by your OpenSearch cluster.
 
 ![Metrics UI example 1]({{site.url}}{{site.baseurl}}/images/metrics/metrics1.png)
 
