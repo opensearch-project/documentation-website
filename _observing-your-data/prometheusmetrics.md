@@ -82,7 +82,7 @@ POST /_nodes/reload_secure_settings
 ```
 {% include copy-curl.html %}
 
-After configuring the Prometheus connection to OpenSearch, your Prometheus metrics will appear in Dashboards in the **Observability** > **Metrics analytics** window, as shown in the following image.
+After configuring the Prometheus connection to OpenSearch, Prometheus metrics are displayed in Dashboards in the **Observability** > **Metrics analytics** window, as shown in the following image.
 
 ![Metrics UI example 1]({{site.url}}{{site.baseurl}}/images/metrics/metrics1.png)
 
@@ -90,22 +90,22 @@ For more information, see the [Prometheus Connector](https://github.com/opensear
 
 ## Creating visualizations based on metrics
 
-You can create visualizations based on metrics collected by your OpenSearch cluster in the new **Observability** > **Metrics analytics** window in Dashboards, as shown in the following image.
+You can create visualizations based on Prometheus and other metrics collected by your OpenSearch cluster.
 
-To create a visualization, see the following steps: 
+To create a visualization, do the following:
 
-1. In the **Observability** > **Metrics analytics** window, choose the metrics you would like to include from the list under **Available Metrics**.
+1. In the **Observability** > **Metrics analytics** > **Available Metrics** select the metrics you would like to include in your visualization.
 1. These visualizations can now be saved.
 1. From the **Metrics analytics** window, select **Save**.
 1. When prompted for a **Custom operational dashboards/application**, choose one of the available options.
 1. Optionally, you can edit the pre-defined name values under the **Metric Name** fields to fit your needs.
 1. Select **Save**.
 
-The image belows shows an example of the visualizations that are generated are displayed in the **Observability** > **Metrics analytics** window.
+The image belows shows an example of the visualizations that are displayed in the **Observability** > **Metrics analytics** window.
 
 ![Metrics UI example 2]({{site.url}}{{site.baseurl}}/images/metrics/metrics2.png)
 
-## Using PPL queries with Prometheus
+## Defining PPL queries for use with Prometheus
 
 You can define [Piped Processing Language]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index) (PPL) queries against metrics collected by Prometheus. The following example shows a metric-selecting query with specific dimensions:
 
@@ -113,16 +113,14 @@ You can define [Piped Processing Language]({{site.url}}{{site.baseurl}}/search-p
 source = my_prometheus.prometheus_http_requests_total | stats avg(@value) by span(@timestamp,15s), handler, code
 ```
 
-Additionally, you can create a custom visualization generated with a PPL query under [Event Analytics]({{site.url}}{{site.baseurl}}/observing-your-data/event-analytics/) to fit your needs.
+Additionally, you can create a custom visualization generated with the following steps:
 
-You can save a visualization created with a PPL query with the following steps:
-
-1. After running a PPL query from the **Events Analytics** window, you will be taken to the **Explorer page**.
-1. From the **Explorer page**, select **Save**.
-1. When prompted for a **Custom operational dashboards/application**, choose one of the available options.
-1. Optionally, you can edit the pre-defined name values under the **Metric Name** fields to fit your needs.
-1. Optionally, you can choose to save the visualization as a metric.
-1. Select **Save**.
+1. From the **Events Analytics** window, enter your PPL query and select **Refresh**. The **Explorer page** is now displayed.
+2. From the **Explorer page**, select **Save**.
+3. When prompted for a **Custom operational dashboards/application**, choose one of the available options.
+4. Optionally, you can edit the pre-defined name values under the **Metric Name** fields to fit your needs.
+5. Optionally, you can choose to save the visualization as a metric.
+6. Select **Save**.
 
 Note: Only queries that include a time series visualization and stats/span can be saved as a metric, as shown in the following image.
 
