@@ -1,22 +1,24 @@
 ---
 layout: default
-title: Using Prometheus to visualize metrics
+title: Prometheus and Metrics Analytics
 nav_order: 40
 redirect_from:
   - /observing-your-data/prometheusmetrics/
 ---
 
-# Using Prometheus to visualize metrics
+# Prometheus and Metrics Analytics
 Introduced 2.4
 {: .label .label-purple }
 
-Starting with OpenSearch 2.4, you can visualize metrics data from the open-source [Prometheus](https://prometheus.io/) monitoring solution and from log data aggregated within OpenSearch, allowing you to analyze and correlate data across logs and traces as well as metrics. Previously, OpenSearch Observability allowed you to ingest and visualize logs and traces only from your monitored environments. With this feature, you can observe your digital assets with more granularity, gain deeper insight into the health of your infrastructure, and better inform your root cause analysis.
+Starting with OpenSearch 2.4, you can ingest and visualize metrics data from the open-source [Prometheus](https://prometheus.io/) monitoring solution and from log data aggregated within OpenSearch, allowing you to analyze and correlate data across logs, traces, and metrics. Previously, you could ingest and visualize only logs and traces from your monitored environments. With this feature, you can observe your digital assets with more granularity, gain deeper insight into the health of your infrastructure, and better inform your root cause analysis.
+
+The following image shows the process of pulling in metrics and viewing them in **Observability**.
+
+![Prometheus and Metrics]({{site.url}}{{site.baseurl}}/images/metrics/metricsgif.gif)
 
 ## Creating a connection to Prometheus
 
 You can view metrics collected from Prometheus in OpenSearch Dashboards by first creating a connection from [Prometheus](https://prometheus.io/) to OpenSearch using the SQL plugin. 
-
-![Prometheus and Metrics]({{site.url}}{{site.baseurl}}/images/metrics/metricsgif.gif)
 
 ### Configuring a Prometheus data source connection to OpenSearch
 
@@ -94,17 +96,30 @@ source = my_prometheus.prometheus_http_requests_total | stats avg(@value) by spa
 
 ## Creating visualizations based on metrics
 
-You can create visualizations based on metrics collected by your OpenSearch cluster in the in the new **Metrics Analytics** application of OpenSearch Dashboards, shown in the following image. 
-
-![Metrics UI example 1]({{site.url}}{{site.baseurl}}/images/metrics/metrics1.png)
-
-After creating a visualization, you can save it in the **Metrics analytics** section of the **Observability** application, as seen in the following image.
+You can create visualizations based on metrics collected by your OpenSearch cluster in the in the new **Metrics Analytics** section of the **Observability** application in OpenSearch Dashboards. To create a visualization, choose the metrics you would like to include from the list under **Available Metrics**. These visualizations will be displayed in the **Metrics Analytics** section of **Observability** as seen in the following image. 
 
 ![Metrics UI example 2]({{site.url}}{{site.baseurl}}/images/metrics/metrics2.png)
 
-Additionally, you can save a custom visualization created with [Event analytics]({{site.url}}{{site.baseurl}}/observing-your-data/event-analytics/) to fit your needs, as seen in the following image.
+After creating a visualization, you can save it with the following steps:
+
+1. Select **Save**.
+2. You are then prompted for a **Custom operational dashboards/application**.
+3. Choose one of the provided options.
+4. Enter name values under the **Metric Name** fields.
+5. Select **Save**.
+
+Additionally, you can create a custom visualization generated with a PPL query under [Event analytics]({{site.url}}{{site.baseurl}}/observing-your-data/event-analytics/) to fit your needs. The following image is an example of a visualization based on a PPL query.
+
+![Metrics UI example 3]({{site.url}}{{site.baseurl}}/images/metrics/metrics3.png)
+
+You can save the visualization with the following steps:
+
+1. Select **Save**.
+2. You are then prompted for a **Custom operational dashboards/application**.
+3. Choose one of the provided options.
+4. Enter name values under the **Metric Name** fields.
+5. Optionally, you can choose to save the visualization as a metric.
+6. Select **Save**.
 
 Only queries that include a time series visualization and stats/span can be saved as a metric.
 {: .note }
-
-![Metrics UI example 3]({{site.url}}{{site.baseurl}}/images/metrics/metrics3.png)
