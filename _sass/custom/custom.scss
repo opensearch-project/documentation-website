@@ -677,6 +677,14 @@ main {
   position: relative;
   justify-content: center;
 
+  @include mq(lg) {
+    background: linear-gradient(to right, $sidebar-color $nav-width, transparent $nav-width); 
+  }
+
+  @include mq(xl) {
+    background: linear-gradient(to right, $sidebar-color calc((100% - #{$nav-width + $max-content-width }) / 2 + 2 * #{$top-button-margin} ), transparent calc((100% - #{$nav-width + $max-content-width }) / 2 + 2 * #{$top-button-margin} ));
+  }
+
   @include mq(md) {
     padding-top: calc(4rem + 9px);
   }
