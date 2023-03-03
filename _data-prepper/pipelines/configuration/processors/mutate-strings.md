@@ -42,13 +42,15 @@ pipeline:
 ```
 {% include copy.html %}
 
-Create a log file named `logs_json.log` and replace the `path` of the file source in your `pipeline.yaml` file with your file path:
+Next, create a log file named `logs_json.log`. After that, replace the `path` of the file source in your `pipeline.yaml` file with your file path.
+
+Before you run Data Prepper, the source appears in the following format:
 
 ```json
 {"message": "ab:cd:ab:cd"}
 ```
 
-When you run Data Prepper, the source is converted from this format: `{"message": "ab:cd:ab:cd"}` to this format: `{"message": "ab-cd-ab-cd"}`. You will see the following output:
+After you run Data Prepper, the source is converted to the new format:
 
 ```json
 {"message": "ab-cd-ab-cd"}
@@ -90,12 +92,14 @@ pipeline:
 ```
 {% include copy.html %}
 
-Create a log file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` file with your file path:
+Next, create a log file named `logs_json.log`. After that, replace the `path` in the file source of your `pipeline.yaml` file with your file path.
+
+Before you run Data Prepper, the source appears in the following format:
 
 ```json
 {"message": "hello,world"}
 ```
-When you run Data Prepper with this `pipeline.yaml` file, you should see the following output:
+After you run Data Prepper, the source is converted to the new format:
 
 ```json
 {"message":["hello","world"]}
@@ -134,12 +138,14 @@ pipeline:
 ```
 {% include copy.html %}
 
-Create a log file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` file with the correct file path:
+Create a log file named `logs_json.log`. After that, replace the `path` in the file source of your `pipeline.yaml` file with the correct file path.
+
+Before you run Data Prepper, the source appears in the following format:
 
 ```json
 {"uppercaseField": "hello"}
 ```
-When you run Data Prepper with this `pipeline.yaml` file, you should see the following output:
+After you run Data Prepper, the source is converted to the new format:
 
 ```json
 {"uppercaseField": "HELLO"}
@@ -175,12 +181,15 @@ pipeline:
 ```
 {% include copy.html %}
 
-Create a log file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` file with the path of this file.
+Create a log file named `logs_json.log`. After that, replace the `path` in the file source of your `pipeline.yaml` file with the correct file path.
+
+Before you run Data Prepper, the source appears in the following format:
 
 ```json
 {"lowercaseField": "TESTmeSSage"}
 ```
-When you run Data Prepper with this `pipeline.yaml` file, you will see the following output:
+
+After you run Data Prepper, the source is converted to the new format:
 
 ```json
 {"lowercaseField": "testmessage"}
@@ -216,13 +225,16 @@ pipeline:
 ```
 {% include copy.html %}
 
-Create a log file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` file with the your file path:
+Create a log file named `logs_json.log`. After that, replace the `path` in the file source of your `pipeline.yaml` file with the correct file path.
+
+Before you run Data Prepper, the source appears in the following format:
 
 ```json
 {"trimField": " Space Ship "}
 ```
 
-When you run Data Prepper with this `pipeline.yaml` file, you will see the following output:
+After you run Data Prepper, the source is converted to the new format:
+
 
 ```json
 {"trimField": "Space Ship"}

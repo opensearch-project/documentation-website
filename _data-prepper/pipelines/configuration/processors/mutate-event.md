@@ -145,9 +145,9 @@ When you run the `DeleteEntry` processor, it parses the message into the followi
 
 ### Configuration
 
-<!---Need some intro text.--->
+You can configure the `DeleteEntry` processor with the following options:
 
-* `with_keys` - (required) - An array of keys of the entries to be deleted.
+`with_keys` - (required) - An array of keys of the entries to be deleted.
 
 
 ## rename key
