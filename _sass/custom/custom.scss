@@ -678,7 +678,11 @@ main {
   justify-content: center;
 
   @include mq(lg) {
-    background: linear-gradient(to right, $sidebar-color calc((100% - #{$nav-width + $max-content-width + $toc-width}) / 2 + #{$nav-width}), transparent calc((100% - #{$nav-width + $content-width + $toc-width}) / 2 + #{$nav-width}));
+    background: linear-gradient(to right, $sidebar-color $nav-width, transparent $nav-width); 
+  }
+
+  @include mq(xl) {
+    background: linear-gradient(to right, $sidebar-color calc((100% - #{$nav-width + $max-content-width }) / 2 + 2 * #{$top-button-margin} ), transparent calc((100% - #{$nav-width + $max-content-width }) / 2 + 2 * #{$top-button-margin} ));
   }
 
   @include mq(md) {
