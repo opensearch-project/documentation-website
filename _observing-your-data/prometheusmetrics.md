@@ -82,9 +82,28 @@ POST /_nodes/reload_secure_settings
 ```
 {% include copy-curl.html %}
 
-After configuring the Prometheus connection to OpenSearch, your Prometheus metrics will appear in Dashboards in the **Observability** > **Metrics analytics** window, as shown in the following image. For further information, see the [Prometheus Connector](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/admin/prometheus_connector.rst) GitHub page.
+After configuring the Prometheus connection to OpenSearch, your Prometheus metrics will appear in Dashboards in the **Observability** > **Metrics analytics** window, as shown in the following image.
 
 ![Metrics UI example 1]({{site.url}}{{site.baseurl}}/images/metrics/metrics1.png)
+
+For more information, see the [Prometheus Connector](https://github.com/opensearch-project/sql/blob/main/docs/user/ppl/admin/prometheus_connector.rst) GitHub page.
+
+## Creating visualizations based on metrics
+
+You can create visualizations based on metrics collected by your OpenSearch cluster in the new **Observability** > **Metrics analytics** window in Dashboards, as shown in the following image.
+
+To create a visualization, see the following steps: 
+
+1. In the **Observability** > **Metrics analytics** window, choose the metrics you would like to include from the list under **Available Metrics**.
+1. These visualizations can now be saved.
+1. From the **Metrics analytics** window, select **Save**.
+1. When prompted for a **Custom operational dashboards/application**, choose one of the available options.
+1. Optionally, you can edit the pre-defined name values under the **Metric Name** fields to fit your needs.
+1. Select **Save**.
+
+The image belows shows an example of the visualizations that are generated are displayed in the **Observability** > **Metrics analytics** window.
+
+![Metrics UI example 2]({{site.url}}{{site.baseurl}}/images/metrics/metrics2.png)
 
 ## Using PPL queries with Prometheus
 
@@ -108,19 +127,3 @@ You can save a visualization created with a PPL query with the following steps:
 Note: Only queries that include a time series visualization and stats/span can be saved as a metric, as shown in the following image.
 
 ![Metrics UI example 3]({{site.url}}{{site.baseurl}}/images/metrics/metrics3.png)
-
-## Creating visualizations based on metrics
-
-You can create visualizations based on metrics collected by your OpenSearch cluster in the new **Observability** > **Metrics analytics** window in Dashboards, as shown in the following image.
-
-![Metrics UI example 2]({{site.url}}{{site.baseurl}}/images/metrics/metrics2.png)
-
-To create a visualization, see the following steps: 
-
-1. Choose the metrics you would like to include from the list under **Available Metrics**.
-1. The visualizations that are generated are then displayed in the **Observability** > **Metrics analytics** window.
-1. These visualizations can now be saved.
-1. From the **Metrics analytics** window, select **Save**.
-1. When prompted for a **Custom operational dashboards/application**, choose one of the available options.
-1. Optionally, you can edit the pre-defined name values under the **Metric Name** fields to fit your needs.
-1. Select **Save**.
