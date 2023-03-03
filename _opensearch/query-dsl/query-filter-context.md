@@ -34,7 +34,7 @@ A _relevance score_ measures how well a document matches a query. It is a positi
 
 A higher score indicates a more relevant document. While different query types calculate relevance scores differently, all query types take into account whether a query clause is run in a filter or query context. 
 
-Use query clauses that should affect the relevance score in a query context, and all other query clauses in a filter context.
+Use query clauses that you want to affect the relevance score in a query context, and use all other query clauses in a filter context.
 {: .tip}
 
 ## Filter context
