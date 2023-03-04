@@ -1,7 +1,9 @@
 ---
 layout: default
 title: Aggregations
-nav_order: 14
+nav_order: 1
+redirect_from:
+  - /opensearch/aggregations/
 ---
 
 # Aggregations

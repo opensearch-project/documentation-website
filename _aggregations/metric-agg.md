@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Metric aggregations
-nav_order: 1
-has_children: false
+nav_order: 2
+redirect_from:
+  - /opensearch/metric-agg/
 ---
 
 # Metric aggregations

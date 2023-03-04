@@ -4,6 +4,8 @@ title: Percolator
 nav_order: 65
 has_children: false
 parent: Supported field types
+redirect_from:
+  - /opensearch/supported-field-types/percolator/
 ---
 
 # Percolator field type

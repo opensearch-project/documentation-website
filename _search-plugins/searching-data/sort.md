@@ -3,6 +3,8 @@ layout: default
 title: Sort results
 parent: Searching data
 nav_order: 22
+redirect_from:
+  - /opensearch/search/sort/
 ---
 
 ## Sort results

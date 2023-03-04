@@ -3,6 +3,8 @@ layout: default
 title: Span queries
 parent: Query DSL
 nav_order: 60
+redirect_from: 
+  - /opensearch/query-dsl/span-query/
 ---
 
 # Span queries

@@ -5,6 +5,8 @@ nav_order: 57
 has_children: true
 has_toc: false
 parent: Supported field types
+redirect_from:
+  - /opensearch/supported-field-types/xy/
 ---
 
 # Cartesian field types

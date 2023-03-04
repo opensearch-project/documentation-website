@@ -5,6 +5,8 @@ nav_order: 48
 has_children: false
 parent: String field types
 grand_parent: Supported field types
+redirect_from:
+  - /opensearch/supported-field-types/token-count/
 ---
 
 # Token count field type

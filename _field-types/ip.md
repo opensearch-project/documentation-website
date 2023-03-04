@@ -4,6 +4,8 @@ title: IP address
 nav_order: 30
 has_children: false
 parent: Supported field types
+redirect_from:
+  - /opensearch/supported-field-types/ip/
 ---
 
 # IP address field type

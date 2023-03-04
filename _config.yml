@@ -67,9 +67,6 @@ collections:
   observing-your-data:
     permalink: /:collection/:path/
     output: true
-  ml-commons-plugin:
-    permalink: /:collection/:path/
-    output: true
   clients:
     permalink: /:collection/:path/
     output: true

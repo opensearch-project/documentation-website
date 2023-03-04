@@ -3,6 +3,8 @@ layout: default
 title: Autocomplete
 parent: Searching data
 nav_order: 24
+redirect_from:
+  - /opensearch/search/autocomplete/
 ---
 
 # Autocomplete functionality

@@ -4,6 +4,8 @@ title: Compound queries
 parent: Query DSL
 has_children: true
 nav_order: 40
+redirect_from: 
+  - /opensearch/query-dsl/compound/index
 ---
 
 # Compound queries

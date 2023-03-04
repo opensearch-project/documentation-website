@@ -5,6 +5,8 @@ nav_order: 59
 has_children: false
 parent: Cartesian field types
 grand_parent: Supported field types
+redirect_from:
+  - /opensearch/supported-field-types/xy-shape/
 ---
 
 # xy shape field type

@@ -5,7 +5,8 @@ nav_order: 50
 has_children: false
 has_toc: false
 redirect_from: 
-- /im-plugin/refresh-analyzer/
+  - /im-plugin/refresh-analyzer/
+  - /im-plugin/refresh-analyzer/index/
 ---
 
 # Refresh search analyzer

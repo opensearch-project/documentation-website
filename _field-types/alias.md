@@ -4,6 +4,8 @@ title: Alias
 nav_order: 10
 has_children: false
 parent: Supported field types
+redirect_from:
+  - /opensearch/supported-field-types/alias/
 ---
 
 # Alias field type

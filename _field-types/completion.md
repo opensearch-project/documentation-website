@@ -5,6 +5,8 @@ nav_order: 51
 has_children: false
 parent: Autocomplete field types
 grand_parent: Supported field types
+redirect_from:
+  - /opensearch/supported-field-types/completion/
 ---
 
 # Completion field type

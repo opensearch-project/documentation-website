@@ -2,6 +2,8 @@
 layout: default
 title: Popular APIs
 nav_order: 96
+redirect_from:
+  - /opensearch/popular-api/
 ---
 
 # Popular APIs

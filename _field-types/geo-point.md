@@ -5,6 +5,8 @@ nav_order: 56
 has_children: false
 parent: Geographic field types
 grand_parent: Supported field types
+redirect_from:
+  - /opensearch/supported-field-types/geo-point/
 ---
 
 # Geopoint field type

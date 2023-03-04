@@ -4,6 +4,8 @@ title: Point in Time
 nav_order: 58
 has_children: true
 has_toc: false
+redirect_from:
+  - /opensearch/point-in-time/
 ---
 
 # Point in Time

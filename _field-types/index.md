@@ -6,6 +6,7 @@ has_children: true
 has_toc: false
 redirect_from:
   - /opensearch/supported-field-types/
+  - //opensearch/supported-field-types/index/
 ---
 
 # Supported field types

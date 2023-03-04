@@ -3,6 +3,8 @@ layout: default
 title: Highlight query matches
 parent: Searching data
 nav_order: 23
+redirect_from:
+  - /opensearch/search/highlight/
 ---
 
 # Highlight query matches

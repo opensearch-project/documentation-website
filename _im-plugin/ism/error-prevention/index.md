@@ -6,6 +6,7 @@ has_children: true
 has_toc: false
 redirect_from:
   - /im-plugin/ism/error-prevention/
+  - /im-plugin/ism/error-prevention/index/
 ---
 
 # ISM error prevention

@@ -2,6 +2,8 @@
 layout: default
 title: Mapping
 nav_order: 13
+redirect_from: 
+  - /opensearch/mappings/
 ---
 
 # Mapping

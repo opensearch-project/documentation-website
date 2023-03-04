@@ -5,6 +5,8 @@ nav_order: 42
 has_children: false
 parent: Object field types
 grand_parent: Supported field types
+redirect_from:
+  - /opensearch/supported-field-types/nested/
 ---
 
 # Nested field type

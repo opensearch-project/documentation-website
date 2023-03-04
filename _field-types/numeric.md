@@ -4,6 +4,8 @@ title: Numeric field types
 parent: Supported field types
 nav_order: 15
 has_children: false
+redirect_from:
+  - /opensearch/supported-field-types/numeric/
 ---
 
 # Numeric field types

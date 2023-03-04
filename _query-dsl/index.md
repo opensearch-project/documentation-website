@@ -5,6 +5,7 @@ nav_order: 27
 has_children: true
 redirect_from:
   - /opensearch/query-dsl/
+  - /opensearch/query-dsl/index/
   - /docs/opensearch/query-dsl/
 ---
 
