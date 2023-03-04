@@ -223,7 +223,7 @@ POST movies/_update/2
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {

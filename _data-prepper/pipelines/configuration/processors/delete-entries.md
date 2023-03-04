@@ -10,16 +10,12 @@ nav_order: 45
 
 ## Overview
 
-Delete entries in an event. `delete_entries` is part of [mutate event](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/mutate-event-processors#mutate-event-processors) processors.
+The `delete_entries` processor deletes entries in an event and is a [mutate event](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/mutate-event-processors#mutate-event-processors) processor. The following table describes the options you can use to configure the `delete-entries` processor.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
 with_keys | Yes | List |  An array of keys of the entries to be deleted.
 
 <!---## Configuration
-
-Content will be added to this section.
-
-## Metrics
 
 Content will be added to this section.--->

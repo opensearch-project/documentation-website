@@ -12,7 +12,7 @@ OpenSearch supports the following parameters for all REST operations:
 
 To convert output units to human-readable values (for example, `1h` for 1 hour and `1kb` for 1,024 bytes), add `?human=true` to the request URL.  
 
-### Sample request
+### Example request
 
 The following request requires response values to be in human-readable format:
 
@@ -25,7 +25,7 @@ GET <index_name>/_search?human=true
 
 To get back JSON responses in a readable format, add `?pretty=true` to the request URL.  
 
-### Sample request
+### Example request
 
 The following request requires the response to be displayed in pretty JSON format:
 
@@ -38,7 +38,7 @@ GET <index_name>/_search?pretty=true
 
 To specify the type of content in the request body, use the `Content-Type` key name in the request header. Most operations support JSON, YAML, and CBOR formats.  
 
-### Sample request
+### Example request
 
 The following request specifies JSON format for the request body:
 
@@ -52,7 +52,7 @@ curl -H "Content-type: application/json" -XGET localhost:9200/_scripts/<template
 If the client library does not accept a request body for non-POST requests, use the `source` query string parameter to pass the request body. Also, specify the `source_content_type` parameter with a supported media type such as `application/json`.  
 
 
-### Sample request
+### Example request
 
 The following request searches the documents in the `shakespeare` index for a specific field and value:
 
@@ -65,7 +65,7 @@ GET shakespeare/search?source={"query":{"exists":{"field":"speaker"}}}&source_co
 
 To include the error stack trace in the response when an exception is raised, add `error_trace=true` to the request URL.  
 
-### Sample request
+### Example request
 
 The following request sets `error_trace` to `true` so that the response returns exception-triggered errors:
 
@@ -78,7 +78,7 @@ GET <index_name>/_search?error_trace=true
 
 To reduce the response size use the `filter_path` parameter to filter the fields that are returned. This parameter takes a comma-separated list of filters. It supports using wildcards to match any field or part of a field's name. You can also exclude fields with `-`.  
 
-### Sample request
+### Example request
 
 The following request specifies filters to limit the fields returned in the response:
 

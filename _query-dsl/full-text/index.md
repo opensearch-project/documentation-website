@@ -4,6 +4,11 @@ title: Full-text queries
 parent: Query DSL
 has_children: true
 nav_order: 30
+<<<<<<<< HEAD:_search-plugins/query-dsl/full-text/index.md
+========
+redirect_from:
+  - /opensearch/query-dsl/full-text/
+>>>>>>>> main:_opensearch/query-dsl/full-text/index.md
 ---
 
 # Full-text queries

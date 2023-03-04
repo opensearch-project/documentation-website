@@ -283,7 +283,7 @@ PUT logs-2020-01-01
 GET logs-2020-01-01
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {

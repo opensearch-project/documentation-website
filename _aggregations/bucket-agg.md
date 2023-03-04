@@ -120,7 +120,7 @@ GET /my_index/_search
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -318,7 +318,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 ...
@@ -372,7 +372,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 ...
@@ -428,7 +428,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 ...
@@ -498,7 +498,7 @@ GET shakespeare/_search
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 "aggregations" : {
@@ -621,7 +621,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 ...
@@ -715,7 +715,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 ...
@@ -782,7 +782,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 
 The response includes the `from` key values and excludes the `to` key values:
 
-#### Sample response
+#### Example response
 
 ```json
 ...
@@ -837,7 +837,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 ...
@@ -884,7 +884,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 ...
@@ -954,7 +954,7 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 ...
@@ -1007,7 +1007,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 ...
@@ -1070,7 +1070,7 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 ...
@@ -1195,7 +1195,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 ...
@@ -1258,7 +1258,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 ...
@@ -1334,7 +1334,7 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 }
 ```
 
-#### Sample response
+#### Example response
 
  ```json
  {
@@ -1466,7 +1466,7 @@ GET logs/_search
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 ...
@@ -1521,7 +1521,7 @@ GET logs/_search
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 ...

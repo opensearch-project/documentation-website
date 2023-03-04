@@ -1,22 +1,35 @@
 ---
 layout: default
-title: Using the Maps plugin
-nav_order: 60
+title: Using maps 
+grand_parent: Building data visualizations
+parent: Using coordinate and region maps
+nav_order: 5
 redirect_from:
   - /dashboards/maps/
 ---
 
-# Using the Maps plugin
+# Using maps 
 
 With OpenSearch Dashboards, you can create maps to visualize your geographical data. OpenSearch lets you construct map visualizations with multiple layers, combining data across different indexes. You can build each layer from a different index pattern. Additionally, you can configure maps to show specific data at different zoom levels. OpenSearch maps are powered by the OpenSearch maps service, which uses vector tiles to render maps. 
 
-## Getting started
+## Creating a new map
 
-To get started, perform the following steps:
+You can create a new map from the **Maps** or **Visualize** workflows by performing the following steps: 
 
-1. On the top menu bar, go to **OpenSearch Plugins > Maps**.
-1. Select the **Create map** button. You can now see the default OpenSearch basemap.
-1. To examine the **Default map** layer configuration, in the **Layers** panel on the upper left of the map, select **Default map**, as shown in the following image.
+- To create a new map from the **Maps** workflow, perform the following steps:
+
+  1. On the top menu bar, go to **OpenSearch Plugins > Maps**. 
+  1. Choose the **Create map** button. 
+
+- To create a new map from the **Visualize** workflow, perform the following steps:
+
+  1. On the top menu bar, go to **OpenSearch Dashboards > Visualize**.
+  1. Choose the **Create visualization** button.
+  1. In the **New Visualization** dialog, choose **Maps**.
+
+You can now see the default OpenSearch basemap.
+
+To examine the **Default map** layer configuration, in the **Layers** panel on the upper left of the map, select **Default map**, as shown in the following image.
 
 <img src="{{site.url}}{{site.baseurl}}/images/maps/maps-default.png" alt="Default map" width="900">
 
@@ -154,4 +167,45 @@ To save a map with all the layers that you set up, perform the following steps:
 1. (Optional) In the **Description** text box, enter the map description.
 1. Select the **Save** button.
 
-To open your saved map, select **Maps** in the upper-left corner. The list of saved maps is displayed.
+To open your saved map, choose **Maps** in the upper-left corner. The list of saved maps is displayed.
+
+## Adding a map to a dashboard
+
+You can add a new or existing map to a new or existing dashboard by performing the following steps:
+
+- To add a map to a new dashboard, first create the dashboard as follows:
+
+  1. On the top menu bar, go to **OpenSearch Dashboards > Dashboard**.
+  1. Choose the **Create dashboard** button.
+  1. Choose the **Create new** button.
+
+- To add a map to an existing dashboard, first open the dashboard as follows:
+  1. On the top menu bar, go to **OpenSearch Dashboards > Dashboard**.
+  1. Select the dashboard you want to open from the list.
+  1. In the upper-right corner, choose **Edit**.
+
+Once you've opened a dashboard, you can add a new or existing map to it.
+
+### Adding an existing map
+
+1. From the top menu, choose **Add**.
+1. In the **Types** dropdown list, select **Maps**.
+1. Select the map you want to add from the list.
+
+### Adding a new map
+
+1. From the top menu, choose the **Create new** button.
+1. In the **New Visualization** dialog, choose **Maps**.
+1. Edit the default map by adding a basemap, layers, or tooltips.
+1. In the upper-right corner, choose the **Save** button.
+1. In the **Save map** dialog, enter the **Title** and optional **Description** of the map.
+1. Select **Add to Dashboard after saving** (this option is selected by default).
+1. Choose the **Save and return** button.
+
+## Editing a map from a dashboard
+
+1. In the dashboard, choose the gear icon in the upper-right corner of the map you want to edit.
+1. Choose **Edit maps**.
+1. Edit the map.
+1. In the upper-right corner, choose the **Save** button.
+1. In the **Save map** dialog, choose the **Save and return** button.

@@ -179,7 +179,8 @@ curl -X PUT "https://localhost:9200/my-index?pretty" -ku admin:admin -H 'Content
         "repository": "segment-repo",
         "translog": {
           "enabled": true,
-          "repository": "translog-repo"
+          "repository": "translog-repo",
+          "buffer_interval": "300ms"
         }
       }
     }
@@ -192,6 +193,7 @@ You can have the same repository serve as both the segment repository and transl
 {: .note}
 
 As data is added to the index, it also will be continuously uploaded to remote storage in the form of segment and translog files because of refreshes, flushes, and translog fsyncs to disk. Along with data, other metadata files will be uploaded.
+The `buffer_interval` setting specifies the time interval during which translog operations are buffered. Instead of uploading individual translog files, OpenSearch creates a single translog file with all the write operations received during the configured interval. Bundling translog files leads to higher throughput but also increases latency. The default `buffer_interval` value is 100 ms.
 
 Setting `translog.enabled` to `true` is currently an irreversible operation.
 {: .warning}
@@ -228,8 +230,5 @@ You can use remote-backed storage for the following purposes:
 
 The following are known limitations of the remote-backed storage feature:
 
-- Writing data to a remote store can be a high-latency operation when compared to writing data on the local file system. This may impact the indexing throughput and latency.
-- Primary-to-primary relocation is unstable because handover of translog uploads from older to new primary has not been implemented.
-- Garbage collection of the metadata file has not been implemented.
-For other limitations, see the [Remote store known issue list](https://github.com/opensearch-project/OpenSearch/issues/5678).
+- Writing data to a remote store can be a high-latency operation when compared to writing data on the local file system. This may impact the indexing throughput and latency. For performance benchmarking results, see [issue #6376](https://github.com/opensearch-project/OpenSearch/issues/6376).
 

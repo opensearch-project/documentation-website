@@ -8,7 +8,7 @@ redirect_from:
 
 # Reindex data
 
-After creating an index, you might need to make an extensive change such as adding a new field to every document or combining multiple indices to form a new one. Rather than deleting your index, making the change offline, and then indexing your data all over again, you can use the `reindex` operation.
+After creating an index, you might need to make an extensive change such as adding a new field to every document or combining multiple indexes to form a new one. Rather than deleting your index, making the change offline, and then indexing your data again, you can use the `reindex` operation.
 
 With the `reindex` operation, you can copy all or a subset of documents that you select through a query to another index. Reindex is a `POST` operation. In its most basic form, you specify a source index and a destination index.
 
@@ -115,13 +115,13 @@ POST _reindex
 }
 ```
 
-For a list of all query operations, see [Full-text queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/).
+For a list of all query operations, see [Full-text queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/index).
 
-## Combine one or more indices
+## Combine one or more indexes
 
-You can combine documents from one or more indices by adding the source indices as a list.
+You can combine documents from one or more indexes by adding the source indexes as a list.
 
-This command copies all documents from two source indices to one destination index:
+This command copies all documents from two source indexes to one destination index:
 
 ```json
 POST _reindex
@@ -137,7 +137,7 @@ POST _reindex
    }
 }
 ```
-Make sure the number of shards for your source and destination indices are the same.
+Make sure the number of shards for your source and destination indexes is the same.
 
 ## Reindex only unique documents
 
@@ -248,7 +248,7 @@ You can specify the following options for your source index:
 
 Option | Valid values | Description | Required
 :--- | :--- | :---
-`index` | String | The name of the source index. You can provide multiple source indices as a list. | Yes
+`index` | String | The name of the source index. You can provide multiple source indexes as a list. | Yes
 `max_docs` | Integer | The maximum number of documents to reindex. | No
 `query` | Object | The search query to use for the reindex operation. | No
 `size` | Integer | The number of documents to reindex. | No

@@ -65,7 +65,7 @@ Line charts compare changes in measured values over a period of time, such as gr
 
 ### Maps
 
-You can create two types of maps in Dashboards: Coordinate maps and Region maps. Coordinate maps show the difference between data values for each location by size. Region maps show the difference between data values for each location by varying shades of color. See [Using the Maps plugin]({{site.url}}{{site.baseurl}}/dashboards/maps-plugin/) to learn more about maps capabilities in Dashboards.
+You can create two types of maps in Dashboards: Coordinate maps and Region maps. Coordinate maps show the difference between data values for each location by size. Region maps show the difference between data values for each location by varying shades of color. See [Using maps]({{site.url}}{{site.baseurl}}/dashboards/visualize/maps/) to learn more about maps capabilities in Dashboards.
 
 #### Coordinate maps
 

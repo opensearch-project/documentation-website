@@ -75,7 +75,7 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 ...
@@ -127,7 +127,7 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 ...
@@ -159,7 +159,7 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 ...
@@ -257,7 +257,7 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 ...
@@ -337,7 +337,7 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 ...
@@ -377,7 +377,7 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 ...
@@ -412,7 +412,7 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 "aggregations" : {
@@ -458,7 +458,7 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 ...

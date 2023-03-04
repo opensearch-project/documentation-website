@@ -65,7 +65,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 ...
@@ -148,7 +148,7 @@ POST opensearch_dashboards_sample_data_logs/_search
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 ...
@@ -223,7 +223,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 ...
@@ -240,7 +240,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 
 The `extended_stats` aggregation is an extended version of the `stats` aggregation. Apart from including basic stats, `extended_stats` also provides stats such as `sum_of_squares`, `variance`, and `std_deviation`.
 
-#### Sample response
+#### Example response
 
 ```json
 "stats_monthly_visits" : {
@@ -342,7 +342,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 "aggregations" : {
@@ -438,7 +438,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 "aggregations" : {
@@ -528,7 +528,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 "aggregations" : {
@@ -601,7 +601,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 ...
@@ -686,7 +686,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 ...
@@ -766,7 +766,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 ...
@@ -865,7 +865,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json  
 ...
@@ -941,7 +941,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 "aggregations" : {
@@ -1059,7 +1059,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 ```
 
 
-#### Sample response
+#### Example response
 
 ```json
 ...
@@ -1136,7 +1136,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 ...
@@ -1219,7 +1219,7 @@ GET opensearch_dashboards_sample_data_logs/_search
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 ...

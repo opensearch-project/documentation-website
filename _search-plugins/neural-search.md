@@ -5,7 +5,7 @@ nav_order: 1
 has_children: false
 has_toc: false
 redirect_from: 
-  - /neural-search/index/
+  - /neural-search-plugin/index/
 ---
 
 # Neural Search plugin

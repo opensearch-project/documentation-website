@@ -5,10 +5,10 @@ baseurl: "/docs/latest" # the subpath of your site, e.g. /blog
 url: "https://opensearch.org" # the base hostname & protocol for your site, e.g. http://example.com
 permalink: /:path/
 
-opensearch_version: 2.5.0
-opensearch_dashboards_version: 2.5.0
-opensearch_major_minor_version: 2.5
-lucene_version: 9_4_1
+opensearch_version: 2.6.0
+opensearch_dashboards_version: 2.6.0
+opensearch_major_minor_version: 2.6
+lucene_version: 9_5_0
 
 # Build settings
 markdown: kramdown
@@ -52,12 +52,12 @@ collections:
   search-plugins:
     permalink: /:collection/:path/
     output: true 
+  query-dsl:
+    permalink: /:collection/:path/
+    output: true  
   ml-commons-plugin:
     permalink: /:collection/:path/
-    output: true
-  neural-search-plugin:
-    permalink: /:collection/:path/
-    output: true   
+    output: true  
   tuning-your-cluster:
     permalink: /:collection/:path/
     output: true
@@ -99,10 +99,10 @@ just_the_docs:
   # Define the collections used in the theme
   collections:
     install-and-configure:
-      name: Install and configure
+      name: Install and upgrade
       nav_fold: true
     upgrade-to:
-      name: Upgrade to OpenSearch
+      name: Migrate to OpenSearch
       # nav_exclude: true
       nav_fold: true
       # search_exclude: true
@@ -124,6 +124,9 @@ just_the_docs:
     search-plugins:
       name: Search 
       nav_fold: true
+    query-dsl:
+      name: Query DSL
+      nav_fold: true
     ml-commons-plugin:
       name: Machine learning
       nav_fold: true
@@ -134,7 +137,7 @@ just_the_docs:
       name: Monitoring your cluster
       nav_fold: true
     observing-your-data:
-      name: Observing your data
+      name: Observability
       nav_fold: true
     clients:
       name: Clients
