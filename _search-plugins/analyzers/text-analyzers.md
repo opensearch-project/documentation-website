@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Text analyzers
-nav_order: 40
+nav_order: 190
+has_children: true
 redirect_from: 
   - /opensearch/query-dsl/text-analyzers/
 ---

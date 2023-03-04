@@ -51,9 +51,6 @@ collections:
     output: true
   search-plugins:
     permalink: /:collection/:path/
-    output: true 
-  query-dsl:
-    permalink: /:collection/:path/
     output: true  
   ml-commons-plugin:
     permalink: /:collection/:path/
@@ -120,9 +117,6 @@ just_the_docs:
       nav_fold: true
     search-plugins:
       name: Search 
-      nav_fold: true
-    query-dsl:
-      name: Query DSL
       nav_fold: true
     ml-commons-plugin:
       name: Machine learning

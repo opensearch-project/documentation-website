@@ -2,6 +2,7 @@
 layout: default
 title: Language analyzers
 nav_order: 45
+parent: Text analyzers
 ---
 
 # Language analyzer
