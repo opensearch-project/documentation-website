@@ -27,7 +27,7 @@ GET _nodes/_local/stats/shard_indexing_pressure
 
 If `enforced` is `true`:
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -134,7 +134,7 @@ If `enforced` is `true`:
 
 If `enforced` is `false`:
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -247,7 +247,7 @@ To include all the shards with both active and previous write operations perform
 GET _nodes/_local/stats/shard_indexing_pressure?include_all
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -362,7 +362,7 @@ GET _nodes/_local/stats/shard_indexing_pressure?top
 
 If `enforced` is `true`:
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -405,7 +405,7 @@ If `enforced` is `true`:
 
 If `enforced` is `false`:
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -454,7 +454,7 @@ To get the shard-level breakup of rejections for every node (only includes shard
 GET _nodes/stats/shard_indexing_pressure
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
