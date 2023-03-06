@@ -175,7 +175,7 @@ The following table lists acronyms that you don't need to spell out.
      - Introduce links with formal introductory text:
           - Use "For information *about*" or "For more information *about*." Don't use "For information *on*."
           - If you are linking to procedures, you can use either "For instructions *on*" or "instructions *for*." Don't use "instructions *about*."
-          - Where space is limited (for example, in a table), you can use "*See* [link text]." Don't use *go to*.
+          - Where space is limited (for example, in a table), you can use "*See* [link text]."
      - Ensure that the link text matches the section title text. <br> <br> Example: "To get involved, see [Contributing](https://opensearch.org/source.html) on the OpenSearch website." <br>
 
 - **Embedded links**: Embedded links are woven into a sentence without formal introductory text. They're especially useful in tables or other elements where space is tight. The text around the embedded link must relate to the information in the link so that the reader understands the context. Do not use *here* or *click here* for link text because it creates accessibility problems. <br> <br> Example: "Finally, [delete the index](https://opensearch.org/docs/latest/api-reference/index-apis/delete-index)."
@@ -223,39 +223,28 @@ A procedure is a series of numbered steps that a user follows to complete a spec
 
 Use *example*, not *sample*, to introduce example blocks (for example, code, scripts, and API requests and responses).
 
-Replace pointer-specific language with device-agnostic language to accommodate readers with disabilities and users of various input methods and devices, including the pointer, keyboard, and touch screens.
+#### Describing interactions with the UI
 
-For example, instead of the term *click*, which is pointer-specific, use *choose*, which is more generic and device-agnostic. However, when the generic language makes it difficult to understand the instructions (for example, in the case of opening a context menu), you can include pointer-specific hints. Use your judgment. If you have a question, ask your editor.
+Replace pointer-specific verbs with device-agnostic/generic verbs to accommodate readers with disabilities and users of various input methods and devices, including the pointer, keyboard, and touch screens. Don't use device-specific verbs such as _click_ or _swipe_. However, when the generic language makes it difficult to understand the instructions, you can include pointer-specific hints in parentheses. Use your judgment. If you have a question, ask your editor.
 
-Use the following language to describe UI interactions:
+We follow a slightly modified version of the _Microsoft Writing Style Guide_ guidance on describing interactions with a UI, provided here.
 
-- Use *choose* to describe moving to a UI component such as a tab or pane or taking action on a button or menu.
-- Use *select* to describe picking a user-specific resource or enabling one of several options. Contrast with *clear* to turn off previously selected options.
-- Use *press* to describe single key or key combination entries that users would perform on a keyboard.
-- Use *enter* to describe information that users add using a keyboard.
-- Do not use *hit* or *strike*.
-
-The following table provides examples of language to be used to describe interactions with UI elements. Note that bold text is used for UI elements.
-
-| UI element | Language | Example |
-| :--------- | :------- | :------ |
-| Menu | On the *menu* menu, choose *command*. | On the **Edit** menu, choose **Copy**. |
-| Cascading menu | [For AWS] On the navigation bar, choose *menu*, *submenu*, …, *command*. <br> <br> [For conventional Windows UIs] On the menu bar, choose *menu*, *submenu*, …, *command*. | On the navigation bar, choose **AWS**, **Create a Resource Group**. | 
-| Context menu | Open the context (right-click) menu for *item*, and then choose *command*. <br> <br> [Cascading] Open the context (right-click) menu for *item*, and then choose *submenu*, ..., *command*. | Open the context (right-click) menu for an AMI, and then choose **Launch Instance**. <br> <br> Open the context (right-click) menu for the instance, and then choose **Networking**, **Manage Private IP Addresses**. |
-| Command button | Choose *command*. | Choose **Next**. |
-| Option button | Choose *option*. <br> <br> For *label*, choose *option*. | For **Type of key to generate**, choose **SSH-2 RSA**. | 
-| Check box | Select *label*. <br> <br> Clear *label*. | To grant read access to anonymous requests, select **Make everything public**. | 
-| List box or dropdown | For *label*, choose *item*. | For **Backup Retention Period**, choose **0**. |
-| Text box | For *label*, enter *text*.<br> <br> [Combo box] For *label*, specify *xyz*. | For **Program/script**, enter `Powershell.exe`. <br> <br> For **Source**, specify the table name. |
-| Toggle switch | Turn on *text*.<br> <br> Turn off *text*. | Turn on **Expiration date**, and then choose **Confirm**. |
-| Other controls | Specify the type of control only if it’s helpful or unavoidable, and use the verb *choose*. | On the **Configure Security Group** page, choose an existing security group, and then choose **Next**. |
-| Double-clicking | Replace with menu instructions, or use a generic term such as "open." <br> <br> If double-clicking is the best or most familiar method, include it in parentheses. <br> <br> In general, use your best judgment depending on the context and your audience. | In AWS Explorer, open **Amazon VPC**, **VPCs**. On the **VPCs** tab, choose **Create VPC**. <br> <br> To display the EC2 Instances view, open the context (right-click) menu for the **Instances** node, and then choose **View**. (Or double-click the node.) | 
-| Displaying tooltips | Choose *item*. | In the **Your repositories** area, choose the target repository name to display the GitHub user or organization. | 
-| Selecting items | Select the *item*. | Select the row of the parameter group that you want to delete. | 
-
-Following is an example of procedure phrasing and formatting from Amazon EC2.
-
-![Procedure example](/images/procedures.PNG)
+| Verb | Use for | Examples |
+| :--------- | :------- | :------- |
+| **Open** | - Apps and programs <br> - Files and folders <br> - Shortcut menus <br> Use for websites and webpages only when necessary to match the UI. Otherwise, use _go to_. <br> - Don't use for commands and menus. | - Open Photos. <br> - Open the Reader app. <br> - Open the Filename file. <br> - To open the document in Outline view, select **View** > **Outline**. <br> - In WindowName, open the shortcut menu for ItemName. |
+| **Close** | - Apps and programs <br> - Dialog boxes <br> - Files and folders <br> - Notifications and alerts <br> - Tabs <br> - The action a program or app takes when it encounters a problem and can't continue. (Don't confuse with _stop responding_). | - Close the Alarms app. <br> - Close Excel. <br> - Save and close the document. <br> - Closing Excel also closes all open worksheets. |
+| **Leave** | Websites and webpages | Select **Submit** to complete the survey and leave this page. |
+| **Go to** | - Opening a menu. <br> - Going to a tab or another particular place in the UI. <br> - Going to a website or webpage. <br> - It's ok to use _On the **XXX** tab_ if the instruction is brief and continues immediately. | - Go to Search, enter the word **settings**, and then select **Settings**. <br> - Go to **File**, and then select **Close**. <br> - On the ribbon, go to the **Design** tab. <br> - Go to the **Deploy** tab. in the **Configuration** list ... <br> - On the **Deploy** tab, in the **Configuration** list ... <br> - Go to Example.com to register. |
+| **Select** | Instructing the user to select a specific item, including: <br> - Selecting an option, such as a button. <br> - Selecting a check box. <br> - Selecting a value from a list box. <br> - Selecting link text to go to a link. <br> - Selecting an item on a menu or shortcut menu. <br> - Selecting an item from a gallery. | - Select the **Modify** button. <br> - For **Alignment**, select **Left**. <br> - Select the text, open the shortcut menu, and then select **Font**. <br> - Select **Open in new tab**. <br> - Select the **LinkName** link. |
+| **Select and hold, select and hold (or right-click)** | Use to describe pressing and holding an element in the UI. It's OK to use _right-click_ with _select and hold_ when the instruction isn't specific to touch devices. | - To flag a message that you want to deal with later, select and hold it, and then select **Set flag**. <br> - Select and hold (or right-click) the Windows taskbar, and then select **Cascade windows**. <br> - Select and hold (or right-click) the **Start** button, and then select **Device Manager**. |
+| **>** | Use a greater-than symbol (>) to separate sequential steps. <br> Only use this approach when there's a clear and obvious path through the UI and the selection method is the same for each step. For example, don't mix things that require opening, selecting, and choosing. <br> Don't bold the greater-than symbol. Include a space before and after the symbol. | Select **Accounts** > **Other accounts** > **Add an account**. |
+| **Clear** | Clearing the selection from a check box. | Clear the **Header row** checkbox. | 
+| **Choose** | Choosing an option, based on the customer's preference or desired outcome. | On the **Font** tab, choose the effects you want. |
+| **Switch, turn on, turn off** | Turning a toggle key or toggle switch on or off. | - Use the **Caps lock** key to switch from typing capital letter to typing lowercase letters. <br> - To keep all applied filters, turn on the **Pass all filters** toggle. |
+| **Enter** | Instructing the customer to type or otherwise insert a value, or to type or select a value in a combo box. | - In the search box, enter... <br> - In the **Tab stop position** box, enter the location where you want to set the new tab. <br> - In the **Deployment script name** box, enter a name for this script. |
+| **Move, drag** | Moving anything from one place to another by dragging, cutting and pasting, or another method. Use for tiles and any open window (including apps, dialog boxes, and files). <br> Use _move through_ to describe moving around on a page, moving through screens or pages in an app, or moving up, down, right, and left in a UI. | - Drag the Filename file to the Foldername folder. <br> - Move the tile to the new section. <br> - Drag the Snipping Tool out of the way, if necessary, and then select the area you want to capture. <br> - If the **Apply Styles** task pane is in your way, just move it. |
+| **Press** | Use _press_ to describe single key or key combination entries that users would perform on a keyboard, such as keyboard shortcuts. | - Press **F5**. <br> - Press **Shift+Enter**. <br> - Press **Ctrl+Alt+Delete**. |
+| **Zoom, zoom in, zoom out** | Use _zoom_, _zoom in_, and _zoom out_ to refer to changing the magnification of the screen or window. | - Zoom in to see more details on the map. <br> - Zoom out to see a larger geographic area on the map. <br> - Zoom in or out to see more or less detail. |
 
 ### Punctuation and capitalization
 
