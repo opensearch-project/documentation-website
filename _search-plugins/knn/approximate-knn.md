@@ -133,17 +133,17 @@ any `knn_vector` field that has a dimension matching the dimension of the model 
 ```json
 PUT /train-index
 {
-  "settings" : {
-    "number_of_shards" : 3,
-    "number_of_replicas" : 0
+  "settings": {
+    "number_of_shards": 3,
+    "number_of_replicas": 0
   },
   "mappings": {
-       "properties": {
-       "train-field": {
-           "type": "knn_vector",
-           "dimension": 4
+    "properties": {
+      "train-field": {
+        "type": "knn_vector",
+        "dimension": 4
       }
-   }
+    }
   }
 }
 ```
@@ -176,17 +176,17 @@ POST /_plugins/_knn/models/my-model/_train
   "description": "My models description",
   "search_size": 500,
   "method": {
-      "name":"hnsw",
-      "engine":"faiss",
-      "parameters":{
-        "encoder":{
-            "name":"pq",
-            "parameters":{
-                "code_size": 8,
-                "m": 8
-            }
+    "name": "hnsw",
+    "engine": "faiss",
+    "parameters": {
+      "encoder": {
+        "name": "pq",
+        "parameters": {
+          "code_size": 8,
+          "m": 8
         }
       }
+    }
   }
 }
 ```
@@ -206,18 +206,18 @@ library indices:
 ```json
 PUT /target-index
 {
-  "settings" : {
-    "number_of_shards" : 3,
-    "number_of_replicas" : 1,
+  "settings": {
+    "number_of_shards": 3,
+    "number_of_replicas": 1,
     "index.knn": true
   },
   "mappings": {
-       "properties": {
-       "target-field": {
-           "type": "knn_vector",
-           "model_id": "my-model"
+    "properties": {
+      "target-field": {
+        "type": "knn_vector",
+        "model_id": "my-model"
       }
-   }
+    }
   }
 }
 ```

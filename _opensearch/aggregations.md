@@ -86,7 +86,7 @@ GET opensearch_dashboards_sample_data_ecommerce/_search
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
