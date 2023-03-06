@@ -175,7 +175,7 @@ The following table lists acronyms that you don't need to spell out.
      - Introduce links with formal introductory text:
           - Use "For information *about*" or "For more information *about*." Don't use "For information *on*."
           - If you are linking to procedures, you can use either "For instructions *on*" or "instructions *for*." Don't use "instructions *about*."
-          - Where space is limited (for example, in a table), you can use "*See* [link text]." Don't use *go to*.
+          - Where space is limited (for example, in a table), you can use "*See* [link text]."
      - Ensure that the link text matches the section title text. <br> <br> Example: "To get involved, see [Contributing](https://opensearch.org/source.html) on the OpenSearch website." <br>
 
 - **Embedded links**: Embedded links are woven into a sentence without formal introductory text. They're especially useful in tables or other elements where space is tight. The text around the embedded link must relate to the information in the link so that the reader understands the context. Do not use *here* or *click here* for link text because it creates accessibility problems. <br> <br> Example: "Finally, [delete the index](https://opensearch.org/docs/latest/api-reference/index-apis/delete-index)."
