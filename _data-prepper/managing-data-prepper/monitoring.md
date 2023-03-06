@@ -1,10 +1,10 @@
 ---
 layout: default
 title: Monitoring
-parent: Administrating Data Prepper
+parent: Managing Data Prepper
 nav_order: 25
 ---
-
+ 
 # Monitoring Data Prepper with metrics
 
 You can monitor Data Prepper with metrics using [Micrometer](https://micrometer.io/). There are two types of metrics: JVM/system metrics and plugin metrics. [Prometheus](https://prometheus.io/) is used as the default metrics backend.

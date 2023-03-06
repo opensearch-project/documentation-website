@@ -172,7 +172,7 @@ You can index data into OpenSearch using the following code:
 
 ```java
 IndexData indexData = new IndexData("first_name", "Bruce");
-IndexRequest<IndexData> indexRequest = new IndexRequest.Builder<IndexData>().index(index).id("1").value(indexData).build();
+IndexRequest<IndexData> indexRequest = new IndexRequest.Builder<IndexData>().index(index).id("1").document(indexData).build();
 client.index(indexRequest);
 ```
 {% include copy.html %}
@@ -283,7 +283,7 @@ public class OpenSearchClientExample {
 
     //Index some data
     IndexData indexData = new IndexData("first_name", "Bruce");
-    IndexRequest<IndexData> indexRequest = new IndexRequest.Builder<IndexData>().index(index).id("1").value(indexData).build();
+    IndexRequest<IndexData> indexRequest = new IndexRequest.Builder<IndexData>().index(index).id("1").document(indexData).build();
     client.index(indexRequest);
 
     //Search for the document
