@@ -1,8 +1,9 @@
 ---
 layout: default
 title: Query string queries
-parent: Query DSL
-nav_order: 70
+parent: Full-text queries
+grand_parent: Query DSL
+nav_order: 25
 ---
 
 # Query string queries
@@ -41,7 +42,7 @@ Parameter | Data type | Description
 `phrase_slop` | Integer | The maximum number of words that are allowed between the matched words. If `phrase_slop` is 2, a maximum of two words is allowed between matched words in a phrase. Transposed words have a slop of 2. Default is 0 (an exact phrase match where matched words must be next to each other).
 `minimum_should_match` | Positive or negative integer, positive or negative percentage, combination | If the query string contains multiple search terms and you used the `or` operator, the number of terms that need to match for the document to be considered a match. For example, if `minimum_should_match` is 2, "wind often rising" does not match "The Wind Rises." If `minimum_should_match` is 1, it matches.
 `rewrite` | String | Determines how OpenSearch rewrites and scores multi-term queries. Valid values are `constant_score`, `scoring_boolean`, `constant_score_boolean`, `top_terms_N`, `top_terms_boost_N`, and `top_terms_blended_freqs_N`. Default is `constant_score`.
-`auto_generate_synonyms_phrase_query` | Boolean | Specifies whether to create [match queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text#match) automatically for multi-term synonyms. Default is `true`.
+`auto_generate_synonyms_phrase_query` | Boolean | Specifies whether to create [match queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/full-text/index#match) automatically for multi-term synonyms. Default is `true`.
 `boost` | Floating-point | Boosts the clause by the given multiplier. Values less than 1.0 decrease relevance, and values greater than 1.0 increase relevance. Default is 1.0. 
 `default_operator`| String | The default Boolean operator used if no operators are specified. Valid values are:<br>- `OR`: The string `to be` is interpreted as `to OR be`<br>- `AND`: The string `to be` is interpreted as `to AND be`<br> Default is `OR`.
 `enable_position_increments` | Boolean | When true, resulting queries are aware of position increments. This setting is useful when the removal of stop words leaves an unwanted "gap" between terms. Default is `true`.
