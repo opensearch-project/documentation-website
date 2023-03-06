@@ -94,7 +94,6 @@ ERR: CN=node-0.example.com,OU=SSL,O=Test,L=Test,C=DE is not an admin user
 
 You must use an admin certificate when executing the script. To learn more, see [Configure admin certificates]({{site.url}}{{site.baseurl}}/security/configuration/tls/#configuring-admin-certificates).
 
-
 ## Use the diagnose option
 
 For more information on why `securityadmin.sh` is not executing, add the `--diagnose` option:

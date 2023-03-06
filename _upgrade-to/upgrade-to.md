@@ -203,7 +203,6 @@ The `opensearch-upgrade` tool doesn't perform an end-to-end upgrade:
 To perform a rolling upgrade using the [OpenSearch tarball]({{site.url}}{{site.baseurl}}/opensearch/install/tar/) distribution:
 
 Check [Upgrade paths](#migration-paths) to make sure that the version you’re upgrading to is supported and whether you need to upgrade to a supported Elasticsearch OSS version first.
-{: .note }
 
 1. Disable shard allocation to prevent Elasticsearch OSS from replicating shards as you shut down nodes:
 
