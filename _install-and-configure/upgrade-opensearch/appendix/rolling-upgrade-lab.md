@@ -8,6 +8,32 @@ redirect_from:
   - /upgrade-opensearch/appendix/rolling-upgrade-lab/
 ---
 
+<!--
+Testing out tabs for code blocks to identify example outputs and file names.
+To use, invoke class="codeblock-label"
+-->
+
+<style>
+.codeblock-label {
+    display: inline-block;
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+    font-family: Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;
+    font-size: .75rem;
+    --bg-opacity: 1;
+    background-color: #e1e7ef;
+    background-color: rgba(224.70600000000002,231.07080000000002,239.394,var(--bg-opacity));
+    padding: 0.25rem 0.75rem;
+    border-top-width: 1px;
+    border-left-width: 1px;
+    border-right-width: 1px;
+    --border-opacity: 1;
+    border-color: #ccd6e0;
+    border-color: rgba(204,213.85999999999999,224.39999999999998,var(--border-opacity));
+    margin-bottom: 0;
+}
+</style>
+
 # Rolling Upgrade - Lab
 
 This lab will walk You can follow these steps on your own compatible host to recreate the same cluster state the OpenSearch Project used for testing [rolling upgrades]({{site.url}}{{site.baseurl}}/install-and-configure/upgrade-opensearch/rolling-upgrade/).
@@ -36,14 +62,12 @@ docker container stop $(docker container ls -aqf name=os-); \
 
 1. Install the appropriate version of [Docker Engine](https://docs.docker.com/engine/install/) for your Linux distribution and architecture. 
 1. Configure [important system settings]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#important-settings) on your host.
-    1. <p class="codeblock-label">Disable memory paging and swapping on the host to improve performance:</p>
+    1. Disable memory paging and swapping on the host to improve performance:
 	   ```bash
 	   sudo swapoff -a
 	   ```
 	   {% include copy.html %}
-
 	1. Increase the number of memory maps available to OpenSearch. Open the `sysctl` configuration file for editing. This example command uses the [vim](https://www.vim.org/) text editor, but you can use any available text editor you prefer:
-       <p class="codeblock-label">Open sysctl.conf</p>
 	   ```bash
 	   sudo vim /etc/sysctl.conf
 	   ```
@@ -79,7 +103,7 @@ docker container stop $(docker container ls -aqf name=os-); \
    docker container ls
    ```
    {% include copy.html %}
-   You should see a response that looks like the following example, but with different container IDs:
+   <p class="codeblock-label">Example response</p>
    ```bash
    CONTAINER ID   IMAGE                                           COMMAND                  CREATED          STATUS          PORTS                                                                                                      NAMES
    6e5218c8397d   opensearchproject/opensearch-dashboards:1.3.7   "./opensearch-dashbo…"   24 seconds ago   Up 22 seconds   0.0.0.0:5601->5601/tcp, :::5601->5601/tcp                                                                  os-dashboards-01
@@ -93,16 +117,18 @@ docker container stop $(docker container ls -aqf name=os-); \
       ```bash
       docker logs -f os-node-01
       ```
+      {% include copy.html %}
    1. You will see a log entry like the following example when the node is ready:
       ```
       [INFO ][o.o.s.c.ConfigurationRepository] [os-node-01] Node 'os-node-01' initialized
       ```
    1. Press `Ctrl+C` to stop following container logs and return to the command prompt.
-1. Use `cURL` to query the API. In the following command, `os-node-01` is queried by sending the request to host port `9201`, which is mapped to port `9200` on the container:
+1. Use cURL to query the API. In the following command, `os-node-01` is queried by sending the request to host port `9201`, which is mapped to port `9200` on the container:
    ```bash
    curl -s "https://localhost:9201" -ku admin:admin
    ```
-   You should see a response that looks like the following example:
+   {% include copy.html %}
+   <p class="codeblock-label">Example response</p>
    ```json
    {
        "name" : "os-node-01",
@@ -136,8 +162,49 @@ Now that the OpenSearch cluster is running it's time to add data and configure s
    ```bash
    wget https://raw.githubusercontent.com/opensearch-project/documentation-website/main/assets/examples/ecommerce.json
    ```
+1. Use the [Create index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/) API to create an index using the mappings defined in `ecommerce-field_mappings.json`.
+   ```bash
+   curl -H "Content-Type: application/x-ndjson" -X PUT "https://localhost:9201/ecommerce?pretty" -ku admin:admin --data-binary "@ecommerce-field_mappings.json"
+   ```
+   <p class="codeblock-label">Example response</p>
+   ```json
+   {
+      "acknowledged" : true,
+      "shards_acknowledged" : true,
+      "index" : "ecommerce"
+   }
+   ```
+1. Use the [Bulk]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/) API to add data to the new `ecommerce` index from `ecommerce.json`:
+   ```bash
+   curl -H "Content-Type: application/x-ndjson" -X PUT "https://localhost:9201/ecommerce/_bulk?pretty" -ku admin:admin --data-binary "@ecommerce.json"
+   ```
+   {% include copy.html %}
+   <p class="codeblock-label">Example response (truncated)</p>
+   ```json
+   {
+      "took" : 3323,
+      "errors" : false,
+      "items" : [
+   ...
+         "index" : {
+            "_index" : "ecommerce",
+            "_type" : "_doc",
+            "_id" : "4674",
+            "_version" : 1,
+            "result" : "created",
+            "_shards" : {
+               "total" : 2,
+               "successful" : 2,
+               "failed" : 0
+            },
+            "_seq_no" : 4674,
+            "_primary_term" : 1,
+            "status" : 201
+         }
+      ]
+   }
+   ```
 1. 
-
 
 
 
