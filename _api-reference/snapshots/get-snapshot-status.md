@@ -54,7 +54,7 @@ GET _snapshot/my-opensearch-repo/my-first-snapshot/_status
 
 #### Example response
 
-The example that follows corresponds to the request above in the [Example request](#sample-request) section.
+The example that follows corresponds to the request above in the [Example request](#example-request) section.
 
 The `GET _snapshot/my-opensearch-repo/my-first-snapshot/_status` request returns the following fields:
 
