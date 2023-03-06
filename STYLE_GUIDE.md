@@ -225,7 +225,7 @@ Use *example*, not *sample*, to introduce example blocks (for example, code, scr
 
 #### Describing interactions with the UI
 
-We follow the _Microsoft Writing Style Guide_ guidance on describing interactions with a UI, provided here.
+We follow a slightly modified version of the _Microsoft Writing Style Guide_ guidance on describing interactions with a UI, provided here.
 
 Users interact with products using different input methods: keyboard, mouse, touch, voice, and more. So use generic verbs that work with any input method. Don't use input-specific verbs, such as _click_ or _swipe_. Instead, use the verbs listed here.
 
