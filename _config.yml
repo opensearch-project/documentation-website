@@ -113,7 +113,7 @@ just_the_docs:
       name: Security in OpenSearch
       nav_fold: true
     security-analytics:
-      name: Security analytics plugin
+      name: Security analytics 
       nav_fold: true
     search-plugins:
       name: Search 
