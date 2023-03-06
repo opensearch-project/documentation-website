@@ -225,9 +225,9 @@ Use *example*, not *sample*, to introduce example blocks (for example, code, scr
 
 #### Describing interactions with the UI
 
-We follow a slightly modified version of the _Microsoft Writing Style Guide_ guidance on describing interactions with a UI, provided here.
-
 Replace pointer-specific verbs with device-agnostic/generic verbs to accommodate readers with disabilities and users of various input methods and devices, including the pointer, keyboard, and touch screens. Don't use device-specific verbs such as _click_ or _swipe_. However, when the generic language makes it difficult to understand the instructions, you can include pointer-specific hints in parentheses. Use your judgment. If you have a question, ask your editor.
+
+We follow a slightly modified version of the _Microsoft Writing Style Guide_ guidance on describing interactions with a UI, provided here.
 
 | Verb | Use for | Examples |
 | :--------- | :------- | :------- |
