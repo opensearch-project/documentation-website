@@ -9,7 +9,7 @@ nav_order: 4
 
 By default, OpenSearch has a protected system index, `.opendistro_security`, which is used to store the Security configuration YAML files. You create this index using [securityadmin.sh]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/). Even with a user account that has read permissions for all indexes, you can't directly access the data in this system index.
 
-Instead, you first need to authenticate with an [admin certificate]({{site.url}}{{site.baseurl}}/security/configuration/tls/#configure-admin-certificates) to gain access:
+Instead, you first need to authenticate with an [admin certificate]({{site.url}}{{site.baseurl}}/security/configuration/tls/#configuring-admin-certificates) to gain access:
 
 ```bash
 curl -k --cert ./kirk.pem --key ./kirk-key.pem -XGET 'https://localhost:9200/.opendistro_security/_search'

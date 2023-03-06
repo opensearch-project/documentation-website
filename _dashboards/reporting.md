@@ -52,7 +52,7 @@ While creating a report for dashboards or visualizations, you might see a the fo
 
 This problem can occur for two reasons:
 
-- You don't have the correct version of `headless-chrome` to match the operating system on which OpenSearch Dashboards is running. Download the correct version [here](https://github.com/opensearch-project/dashboards-reports/releases/tag/chromium-1.12.0.0).
+- You don't have the correct version of `headless-chrome` to match the operating system on which OpenSearch Dashboards is running. Download the [correct version](https://github.com/opensearch-project/reporting/releases/tag/chromium-1.12.0.0).
 
 - You're missing additional dependencies. Install the required dependencies for your operating system from the [additional libraries](https://github.com/opensearch-project/dashboards-reports/blob/main/dashboards-reports/rendering-engine/headless-chrome/README.md#additional-libaries) section.
 

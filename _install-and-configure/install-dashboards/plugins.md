@@ -45,9 +45,9 @@ The following table lists available OpenSearch Dashboards plugins.
 | Index Management Dashboards | [index-management-dashboards-plugin](https://github.com/opensearch-project/index-management-dashboards-plugin) | 1.0.0 |
 | Notebooks Dashboards | [dashboards-notebooks](https://github.com/opensearch-project/dashboards-notebooks) | 1.0.0 |
 | Notifications Dashboards | [notifications](https://github.com/opensearch-project/notifications) | 2.0.0 |
-| Observability Dashboards | [dashboards-observability](https://github.com/opensearch-project/observability/tree/main/dashboards-observability) | 2.0.0 |
-| Query Workbench Dashboards | [query-workbench](https://github.com/opensearch-project/sql/tree/main/workbench) | 1.0.0 |
-| Reports Dashboards | [dashboards-reports](https://github.com/opensearch-project/dashboards-reports) | 1.0.0 |
+| Observability Dashboards | [dashboards-observability](https://github.com/opensearch-project/dashboards-observability) | 2.0.0 |
+| Query Workbench Dashboards | [query-workbench](https://github.com/opensearch-project/dashboards-query-workbench) | 1.0.0 |
+| Reports Dashboards | [dashboards-reporting](https://github.com/opensearch-project/dashboards-reporting) | 1.0.0 |
 | Security Analytics Dashboards | [security-analytics-dashboards-plugin](https://github.com/opensearch-project/security-analytics-dashboards-plugin)| 2.4.0 |
 | Security Dashboards | [security-dashboards-plugin](https://github.com/opensearch-project/security-analytics-dashboards-plugin) | 1.0.0 |
 
