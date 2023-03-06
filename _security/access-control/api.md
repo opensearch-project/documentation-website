@@ -106,7 +106,7 @@ Returns account details for the current user. For example, if you sign the reque
 GET _plugins/_security/api/account
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -150,7 +150,7 @@ PUT _plugins/_security/api/account
 ```
 
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -177,7 +177,7 @@ Retrieves one action group.
 GET _plugins/_security/api/actiongroups/<action-group>
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -210,7 +210,7 @@ GET _plugins/_security/api/actiongroups/
 ```
 
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -240,7 +240,7 @@ Introduced 1.0
 DELETE _plugins/_security/api/actiongroups/<action-group>
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -272,7 +272,7 @@ PUT _plugins/_security/api/actiongroups/<action-group>
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -299,7 +299,7 @@ PATCH _plugins/_security/api/actiongroups/<action-group>
 ]
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -329,7 +329,7 @@ PATCH _plugins/_security/api/actiongroups
 ]
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -357,7 +357,7 @@ GET _plugins/_security/api/internalusers/<username>
 ```
 
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -383,7 +383,7 @@ Introduced 1.0
 GET _plugins/_security/api/internalusers/
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -409,7 +409,7 @@ Introduced 1.0
 DELETE _plugins/_security/api/internalusers/<username>
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -442,7 +442,7 @@ PUT _plugins/_security/api/internalusers/<username>
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -475,7 +475,7 @@ PATCH _plugins/_security/api/internalusers/<username>
 ]
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -507,7 +507,7 @@ PATCH _plugins/_security/api/internalusers
 ]
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -534,7 +534,7 @@ Retrieves one role.
 GET _plugins/_security/api/roles/<role>
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -582,7 +582,7 @@ Retrieves all roles.
 GET _plugins/_security/api/roles/
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -622,7 +622,7 @@ Introduced 1.0
 DELETE _plugins/_security/api/roles/<role>
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -669,7 +669,7 @@ PUT _plugins/_security/api/roles/<role>
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -708,7 +708,7 @@ PATCH _plugins/_security/api/roles/<role>
 ]
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -741,7 +741,7 @@ PATCH _plugins/_security/api/roles
 ]
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -767,7 +767,7 @@ Retrieves one role mapping.
 GET _plugins/_security/api/rolesmapping/<role>
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -792,7 +792,7 @@ Retrieves all role mappings.
 GET _plugins/_security/api/rolesmapping
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -817,7 +817,7 @@ Deletes the specified role mapping.
 DELETE _plugins/_security/api/rolesmapping/<role>
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -844,7 +844,7 @@ PUT _plugins/_security/api/rolesmapping/<role>
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -874,7 +874,7 @@ PATCH _plugins/_security/api/rolesmapping/<role>
 ]
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -904,7 +904,7 @@ PATCH _plugins/_security/api/rolesmapping
 ]
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -930,7 +930,7 @@ Retrieves one tenant.
 GET _plugins/_security/api/tenants/<tenant>
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -956,7 +956,7 @@ Retrieves all tenants.
 GET _plugins/_security/api/tenants/
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -988,7 +988,7 @@ Deletes the specified tenant.
 DELETE _plugins/_security/api/tenants/<tenant>
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -1013,7 +1013,7 @@ PUT _plugins/_security/api/tenants/<tenant>
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -1040,7 +1040,7 @@ PATCH _plugins/_security/api/tenants/<tenant>
 ]
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -1076,7 +1076,7 @@ PATCH _plugins/_security/api/tenants/
 ]
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -1152,7 +1152,7 @@ PUT _plugins/_security/api/securityconfig/config
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -1185,7 +1185,7 @@ PATCH _plugins/_security/api/securityconfig
 ]
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -1217,7 +1217,7 @@ Retrieves all distinguished names in the allow list.
 GET _plugins/_security/api/nodesdn
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -1237,7 +1237,7 @@ To get the distinguished names from a specific cluster's or node's allow list, i
 GET _plugins/_security/api/nodesdn/<cluster-name>
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -1265,7 +1265,7 @@ PUT _plugins/_security/api/nodesdn/<cluster-name>
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -1285,7 +1285,7 @@ Deletes all distinguished names in the specified cluster's or node's allow list.
 DELETE _plugins/_security/api/nodesdn/<cluster-name>
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -1311,7 +1311,7 @@ Retrieves the cluster's security certificates.
 GET _plugins/_security/api/ssl/certs
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -1350,7 +1350,7 @@ PUT _opendistro/_security/api/ssl/transport/reloadcerts
 PUT _opendistro/_security/api/ssl/http/reloadcerts
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 { 
@@ -1375,7 +1375,7 @@ DELETE _plugins/_security/api/cache
 ```
 
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -1403,7 +1403,7 @@ GET _plugins/_security/health
 ```
 
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -1470,7 +1470,7 @@ Changes to the `_readonly` property result in a 409 error, as indicated in the r
 }
 ```
 
-#### Sample request
+#### Example request
 
 **GET**
 
@@ -1534,7 +1534,7 @@ curl -X PATCH -k -i --cert <admin_cert file name> --key <admin_cert_key file nam
 The OpenSearch Dashboards dev tool does not currently support the PATCH method. You can use [curl](https://curl.se/), [Postman](https://www.postman.com/), or another alternative process to update the configuration using this method. To follow the GitHub issue for support of the PATCH method in Dashboards, see [issue #2343](https://github.com/opensearch-project/OpenSearch-Dashboards/issues/2343).
 {: .note}
 
-#### Sample response
+#### Example response
 
 The GET call produces a response that appears similar to the following:
 

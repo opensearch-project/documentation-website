@@ -6,7 +6,7 @@ nav_order: 96
 
 # Popular APIs
 
-This page contains sample requests for popular OpenSearch operations.
+This page contains example requests for popular OpenSearch operations.
 
 
 ---

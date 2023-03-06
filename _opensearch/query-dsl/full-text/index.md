@@ -2,10 +2,11 @@
 layout: default
 title: Full-text queries
 parent: Query DSL
-nav_order: 40
+has_children: true
+nav_order: 30
 ---
 
-# Full-text query types and options
+# Full-text queries
 
 This page lists all full-text query types and common options. There are many optional fields that you can use to create subtle search behaviors, so we recommend that you test out some basic query types against representative indexes and verify the output before you perform more advanced or complex searches with multiple options.
 
