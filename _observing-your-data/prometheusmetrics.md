@@ -12,7 +12,7 @@ Introduced 2.4
 
 Starting with OpenSearch 2.4, you can ingest and visualize metric data from the open-source [Prometheus](https://prometheus.io/) monitoring solution and from log data aggregated within OpenSearch, allowing you to analyze and correlate data across logs, traces, and metrics. Previously, you could ingest and visualize only logs and traces from your monitored environments. With this feature, you can observe your digital assets with more granularity, gain deeper insight into the health of your infrastructure, and better inform your root cause analysis.
 
-The following image shows the process of pulling in metrics ingested through Prometheus and visualizing them in a dashboard.
+The following image shows the process of ingesting metrics from Prometheus and visualizing them in a dashboard.
 
 ![Prometheus and Metrics]({{site.url}}{{site.baseurl}}/images/metrics/metricsgif.gif)
 
@@ -116,11 +116,11 @@ source = my_prometheus.prometheus_http_requests_total | stats avg(@value) by spa
 Additionally, you can create a custom visualization by performing the following steps:
 
 1. From the **Events Analytics** window, enter your PPL query and select **Refresh**. The **Explorer page** is now displayed.
-2. From the **Explorer page**, select **Save**.
-3. When prompted for a **Custom operational dashboards/application**, choose one of the available options.
-4. Optionally, you can edit the predefined name values under the **Metric Name** fields to suit your needs.
-5. Optionally, you can choose to save the visualization as a metric.
-6. Select **Save**.
+1. From the **Explorer page**, select **Save**.
+1. When prompted for a **Custom operational dashboards/application**, choose one of the available options.
+1. Optionally, you can edit the predefined name values under the **Metric Name** fields to suit your needs.
+1. Optionally, you can choose to save the visualization as a metric.
+1. Select **Save**.
 
 Note: Only queries that include a time-series visualization and stats/span can be saved as a metric, as shown in the following image.
 
