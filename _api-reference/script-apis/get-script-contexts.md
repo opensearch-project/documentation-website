@@ -9,14 +9,14 @@ nav_order: 5
 
 Retrieves all contexts for stored scripts.
 
-#### Sample request
+#### Example request
 
 ````json
 GET _script_context
 ````
 {% include copy-curl.html %}
 
-#### Sample response
+#### Example response
 
 The `GET _script_context` request returns the following fields:
 
