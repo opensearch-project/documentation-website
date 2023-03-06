@@ -40,7 +40,7 @@ POST /_snapshot/my-opensearch-repo/_verify?timeout=0s&cluster_manager_timeout=50
 
 #### Example response
 
-The example that follows corresponds to the request above in the [Example request](#sample-request) section.
+The example that follows corresponds to the request above in the [Example request](#example-request) section.
 
 The `POST /_snapshot/my-opensearch-repo/_verify?timeout=0s&cluster_manager_timeout=50s` request returns the following fields:
 
