@@ -204,12 +204,24 @@ Now that the OpenSearch cluster is running it's time to add data and configure s
       ]
    }
    ```
-1. 
-
-
-
-1. Open a web browser and navigate to port `5601` of your host (for example, https://<hostAddress>:5601). If OpenSearch Dashboards is running, and you have network access to the host from the browser client, then you will be presented with a login page.
-    1. The web browser will probably raise an error because the certificates used by the test cluster are self-signed, and therefore they are not trusted. You can work around this by bypassing the certificate check in your browser. Remember that the common name (CN) for each certficate is generated with respect to the container and node name for intra-cluster communication, so connecting to the host from a browser will still result in an "invalid CN" error.
+1. Perform an additional check to confirm that the data was written to the `ecommerce` index. The following command queries for documents where `customer_first_name` is `Sonya`. You can compare the response to this command against the response to the same command after upgrading OpenSearch to confirm that the data is intact:
+   ```bash
+   curl -H 'Content-Type: application/json' -X GET "https://localhost:9201/ecommerce/_search?pretty=true&filter_path=hits.total" -d'{"query":{"match":{"customer_first_name":"Sonya"}}}' -ku admin:admin
+   ```
+   {% include copy.html %}
+   <p class="codeblock-label">Example response</p>
+   ```json
+   {
+   "hits" : {
+      "total" : {
+         "value" : 106,
+         "relation" : "eq"
+      }
+   }
+   }
+   ```
+1. Open a web browser and navigate to port `5601` of your host (for example, <code>https://<var>HOST_ADDRESS</var>:5601</code>). If OpenSearch Dashboards is running, and you have network access to the host from your browser client, then you will be presented with a login page.
+    1. If the web browser throws an error because the certificates used by the test cluster are self-signed, you can work around this by bypassing the certificate check in your browser. Remember that the common name (CN) for each certficate is generated with respect to the container and node name for intra-cluster communication, so connecting to the host from a browser will still result in an "invalid CN" error.
 1. Enter the default username (`admin`) and password (`admin`).
 1. 
 
