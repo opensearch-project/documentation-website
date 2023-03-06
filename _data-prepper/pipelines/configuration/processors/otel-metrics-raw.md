@@ -1,12 +1,12 @@
 ---
 layout: default
-title: OpenTelemetry metrics string
+title: OpenTelemetry metrics raw processor
 parent: Processors
 grand_parent: Pipelines
 nav_order: 45
 ---
 
-# OpenTelemetry (OTel) metrics string processor 
+# OpenTelemetry (OTel) metrics raw processor 
 
 The `otel metrics string` processor serializes a collection of `ExportMetricsServiceRequest` sent from the [otel-metrics-source]({{site.url}}{{site.baseurl}}//data-prepper/pipelines/configuration/sources/otel-metrics-source/) into a collection of string records.
 
