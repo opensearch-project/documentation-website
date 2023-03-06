@@ -125,15 +125,18 @@ docker container stop $(docker container ls -aqf name=os-); \
 
 ## Add data and configure OpenSearch Security
 
-Now that the OpenSearch cluster is running it's time to add data and configure a couple OpenSearch Security settings. The data you add and settings you configure can be used to validate that these artifacts are preserved after a version upgrade.
+Now that the OpenSearch cluster is running it's time to add data and configure some OpenSearch Security settings. The data you add and settings you configure can be used to validate that these artifacts are preserved after a version upgrade.
 
 1. We provide sample data that you can index for validation of the upgrade process. Download the field mappings file first:
-    ```bash
-    wget https://raw.githubusercontent.com/opensearch-project/documentation-website/main/assets/examples/ecommerce-field_mappings.json
-    ```
-    {% include copy.html %}
+   ```bash
+   wget https://raw.githubusercontent.com/opensearch-project/documentation-website/main/assets/examples/ecommerce-field_mappings.json
+   ```
+   {% include copy.html %}
+1. Next, download the bulk data that you will ingest to this index:
+   ```bash
+   wget https://raw.githubusercontent.com/opensearch-project/documentation-website/main/assets/examples/ecommerce.json
+   ```
 1. 
-
 
 
 
@@ -142,10 +145,4 @@ Now that the OpenSearch cluster is running it's time to add data and configure a
     1. The web browser will probably raise an error because the certificates used by the test cluster are self-signed, and therefore they are not trusted. You can work around this by bypassing the certificate check in your browser. Remember that the common name (CN) for each certficate is generated with respect to the container and node name for intra-cluster communication, so connecting to the host from a browser will still result in an "invalid CN" error.
 1. Enter the default username (`admin`) and password (`admin`).
 1. 
-
-1. Download the bulk document:
-    ```bash
-    wget https://raw.githubusercontent.com/opensearch-project/documentation-website/main/assets/examples/ecommerce.json
-    ```
-    {% include copy.html %}
 
