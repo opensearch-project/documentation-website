@@ -55,6 +55,11 @@ module Jekyll::LinkChecker
   # Driven by environment variables, it indicates the need to fail the build for dead links
   @should_build_fatally
 
+  # For red warning/error output to terminal
+  class String
+    def red;            "\e[31m#{self}\e[0m" end
+  end
+
   # Initializes the singleton by recording the site
   # return [void]
   def self.init(site)
@@ -111,10 +116,15 @@ module Jekyll::LinkChecker
     
     msg = "Found #{@failures.size} dead link#{@failures.size > 1 ? 's' : ''}:\n#{@failures.join("\n")}" unless @failures.empty?
 
-    if @should_build_fatally
-      raise msg
+    if !@failures.empty?
+      if @should_build_fatally
+        puts "\nLinkChecker: [Error] #{msg}\n".red 
+        exit(1)
+      else
+        puts "\nLinkChecker: [Warning] #{msg}\n".red
+      end
     else
-      puts "\nLinkChecker: [Warning] #{msg}\n"
+      puts "\nLinkChecker: [Notice] All links verified.\n"
     end
   end
 
