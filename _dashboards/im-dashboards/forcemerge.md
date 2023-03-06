@@ -11,7 +11,7 @@ redirect_from:
 Introduced 2.6
 {: .label .label-purple }
 
-OpenSearch Dashboards allows you to perform a [force merge]({{site.url}}{{site.baseurl}}/im-plugin/ism/error-prevention/index/#force_merge/) operation on two or more indexes with **Index Management**.
+OpenSearch Dashboards allows you to perform a [force merge]({{site.url}}{{site.baseurl}}/im-plugin/ism/error-prevention/index/#force_merge) operation on two or more indexes with **Index Management**.
 
 ## Force merging indexes
 
