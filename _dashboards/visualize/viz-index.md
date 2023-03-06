@@ -83,7 +83,7 @@ Region maps show patterns and trends across geographic locations. A region map i
 
 Markdown is a the markup language used in Dashboards to provide context to your data visualizations. Using Markdown, you can display information and instructions along with the visualization. 
 
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/markdown-1.png" width="600" height="600" alt="Example Markdown in OpenSearch Dashboards">
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/markdown-1.png" width="800" height="800" alt="Example Markdown in OpenSearch Dashboards">
 
 ### Metric values
 
