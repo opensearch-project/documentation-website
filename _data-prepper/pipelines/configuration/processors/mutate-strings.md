@@ -10,11 +10,11 @@ nav_order: 45
 
 You can change the way that a string appears using mutate string processesors. For example, you can use the `uppercase_string` processor to convert a string to uppercase, and you can use the `lowercase_string` processor to convert a string to lowercase. The following is a list of processors that allow you to mutate a string:
 
-* [substitute_string](#substitutestringprocessor)
-* [split_string](#splitstringprocessor)
-* [uppercase_string](#uppercasestringprocessor)
-* [lowercase_string](#lowercasestringprocessor)
-* [trim_string](#trimstringprocessor)
+* [substitute_string](#substitute_string)
+* [split_string](#split_string)
+* [uppercase_string](#uppercase_string)
+* [lowercase_string](#lowercase_string)
+* [trim_string](#trim_string)
 
 ## substitute_string
 
@@ -157,7 +157,7 @@ You can configure the `uppercase_string` processor with the following options:
 
 `with_keys` (required): A list of keys to convert to uppercase.
 
-## Lowercase string
+## lowercase_string
 
 The `lowercase string` processor converts a string to lowercase.
 
