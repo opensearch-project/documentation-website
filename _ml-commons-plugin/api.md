@@ -137,7 +137,7 @@ Field | Data type | Description
 
 ### Example
 
-The following sample request uploads version `1.0.0` of an NLP sentence transformation model named `all-MiniLM-L6-v2`.
+The following example request uploads version `1.0.0` of an NLP sentence transformation model named `all-MiniLM-L6-v2`.
 
 ```json
 POST /_plugins/_ml/models/_upload
@@ -444,7 +444,7 @@ task_ids | string | Returns runtime data for a specific task. You can string tog
 return_all_tasks | boolean | Determines whether or not a request returns all tasks. When set to `false` task profiles are left out of the response.
 return_all_models | boolean | Determines whether or not a profile request returns all models. When set to `false` model profiles are left out of the response.
 
-### Example: Return all tasks and models and models on a specific node
+### Example: Return all tasks and models on a specific node
 
 ```json
 GET /_plugins/_ml/profile

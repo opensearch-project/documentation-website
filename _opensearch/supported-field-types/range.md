@@ -64,7 +64,7 @@ You can use a [Term query](#term-query) or a [Range query](#range-query) to sear
 
 A term query takes a value and matches all range fields for which the value is within the range.
 
-The following query will return document 1 because 3.5 is within the range [1.0, 4.0].
+The following query will return document 1 because 3.5 is within the range [1.0, 4.0]:
 
 ```json
 GET testindex/_search
@@ -91,7 +91,7 @@ relation | Provides a relation between the query's date range and the document's
 
 To use a date format other than the field's mapped format in a query, specify it in the `format` field.
 
-To see the full description of range query usage, including all range query parameters, see [Range query]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/term/#range-query).
+For a full description of range query usage, including all range query parameters, see [Range query]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/term/#range).
 {: .tip }
 
 Query for all graduation dates in 2019, providing the date range in a "MM/dd/yyyy" format:
