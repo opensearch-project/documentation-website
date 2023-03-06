@@ -1,14 +1,14 @@
 ---
 layout: default
-title: OpenTelemetry metrics raw processor
+title: otel metrics raw processor
 parent: Processors
 grand_parent: Pipelines
 nav_order: 45
 ---
 
-# OpenTelemetry (OTel) metrics raw processor 
+# otel metrics raw processor 
 
-The `otel metrics string` processor serializes a collection of `ExportMetricsServiceRequest` sent from the [otel-metrics-source]({{site.url}}{{site.baseurl}}//data-prepper/pipelines/configuration/sources/otel-metrics-source/) into a collection of string records.
+The `otel metrics raw` processor serializes a collection of `ExportMetricsServiceRequest` sent from the [otel-metrics-source]({{site.url}}{{site.baseurl}}//data-prepper/pipelines/configuration/sources/otel-metrics-source/) into a collection of string records.
 
 ## Usage
 
@@ -125,4 +125,10 @@ All exponential histograms that have a scale that is above the configured parame
 
 ## Metrics
 
-This plugin uses common metrics in [AbstractProcessor](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/processor/AbstractProcessor.java) and does not include custom metrics.
+The following table describes common [Abstract processor](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/processor/AbstractProcessor.java) metrics and does not include custom metrics.
+
+| Metric name | Type | Description |
+| ------------- | ---- | -----------|
+| `recordsIn` | Counter | Metric representing the ingress of records to a pipeline component. |
+| `recordsOut` | Counter | Metric representing the egress of records from a pipeline component. |
+| `timeElapsed` | Timer | Metric representing the time elapsed during execution of a pipeline component. |
