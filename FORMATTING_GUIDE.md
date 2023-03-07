@@ -112,7 +112,7 @@ Markdown automatically adjusts numbered lists so that they use numbers and lette
 
 If you need to position an image or a code snippet within a list, use tabs to signal to Markdown that the image or code snippet is part of the list item.
 
-**Example with code snippets**:
+**Example with code snippets**
 
 ```
 1. Run the demo batch script.
@@ -132,13 +132,13 @@ If you need to position an image or a code snippet within a list, use tabs to si
          ```
 ```
 
-**Example with images**:
+**Example with images**
 
 ```
 1. To begin, select the rule in the Rule name column. The rule details pane opens.
     <img src="{{site.url}}{{site.baseurl}}/images/Security/rule-dup2.png" alt="Opening the rule details pane" width="50%">
 
-1. Select the **Duplicate** button in the upper-right corner of the pane. The Duplicate rule window opens in Visual Editor view and all of the fields are automatically populated with the rule's details. Details are also populated in YAML Editor view.
+1. Choose the **Duplicate** button in the upper-right corner of the pane. The Duplicate rule window opens in Visual Editor view, and all of the fields are automatically populated with the rule's details. Details are also populated in YAML Editor view.
     <img src="{{site.url}}{{site.baseurl}}/images/Security/dupe-rule.png" alt="Selecting the duplicate button opens the Duplicate rule window" width="50%">
 ```
 
@@ -146,12 +146,12 @@ If you need to position an image or a code snippet within a list, use tabs to si
 
 Markdown table columns are automatically sized, and there is no need to specify a different number of dashes in the formatting. 
 
-**Example**:
+**Example**
 
 ```
 Header 1 | Header 2
 :--- | :---
-Body 1 | Body 2 that is extremely lengthy but there is no need to specify its width
+Body 1 | Body 2, which is extremely lengthy, but there is no need to specify its width.
 ```
 
 To insert line breaks within tables, use `<br>`:
@@ -233,7 +233,7 @@ You can use the following labels:
 * label-red 
 * label-yellow 
 
-Use a purple label to specify in which version an API was introduced:
+Use a purple label to specify the version in which an API was introduced:
 
 ```
 # Alias
@@ -262,7 +262,7 @@ You can use four levels of callouts:
 
 Place a callout directly under the paragraph to which you want to apply the callout style.
 
-**Example**: 
+**Example**
 
 ```
 In case of a cluster or node failure, all PIT data is lost.
@@ -285,7 +285,7 @@ For a callout with multiple paragraphs or lists, use `>`:
 
 You can use either `copy` or `copy-curl` includes for code snippets. The `copy` include places a **Copy** button on the code snippet, while the `copy-curl` include places both **Copy** and **Copy as cURL** buttons. Use the `copy-curl` include for API requests. If an API request is already in the cURL format, use the `copy` include.
 
-**Example of a `copy` include:**
+**Example of a `copy` include**
 
 ````
 ```bash
@@ -295,7 +295,7 @@ curl -XGET "localhost:9200/_tasks?actions=*search&detailed
 ````
 
 
-**Example of a `copy-curl` include:**
+**Example of a `copy-curl` include**
 
 ````
 ```json
@@ -311,17 +311,17 @@ PUT /sample-index1/_clone/cloned-index1
 
 ## Adding pages or sections
 
-When adding a page or a section, make the `nav_order` of the child pages multiples of 10. For example, if you have a parent page `Clients`, make child pages `Java`, `Python`, and `JavaScript` have a `nav_order` of 10, 20, and 30, respectively. Doing so makes inserting additional child pages easier because it does not require renumbering existing pages.
+When adding a page or a section, make the `nav_order` of the child pages multiples of 10. For example, if you have a parent page `Clients`, make child pages `Java`, `Python`, and `JavaScript` have a `nav_order` of 10, 20, and 30, respectively. Doing so makes inserting additional child pages easier because it does not require you to renumber existing pages.
 
 ## Videos
 
-To insert a video, add a youtube player include similar to the following:
+To insert a video, add a YouTube player include similar to the following:
 
 ```
 {% include youtube-player.html id='_g46WiGPhFs' %}
 ```
 
-Note that the `id` variable refers to the youtube video ID at the end of the URL. For example, the youtube video at the URL `https://youtu.be/_g46WiGPhFs` has the id `_g46WiGPhFs`. The ID must be surrounded with single quotation marks.
+Note that the `id` variable refers to the YouTube video ID at the end of the URL. For example, the YouTube video at the URL `https://youtu.be/_g46WiGPhFs` has the ID `_g46WiGPhFs`. The ID must be surrounded with single quotation marks.
 
 ## Math
 
