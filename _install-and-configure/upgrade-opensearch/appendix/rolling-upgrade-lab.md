@@ -356,7 +356,68 @@ You can also export your OpenSearch Security settings by running `securityadmin.
    docker exec -it os-node-01 bash
    ```
    {% include copy.html %}
-1. 
+1. Create a directory called `backups` and navigate to it:
+   ```bash
+   mkdir /usr/share/opensearch/backups && cd /usr/share/opensearch/backups
+   ```
+   {% include copy.html %}
+1. Invoke `securityadmin.sh` and create backups of your OpenSearch Security settings in `/usr/share/opensearch/backups/`:
+   ```bash
+   /usr/share/opensearch/plugins/opensearch-security/tools/securityadmin.sh -backup /usr/share/opensearch/backups \
+      -icl \
+      -nhnv \
+      -cacert /usr/share/opensearch/config/root-ca.pem \
+      -cert /usr/share/opensearch/config/admin.pem \
+      -key /usr/share/opensearch/config/admin-key.pem
+   ```
+   {% include copy.html %}
+   <p class="codeblock-label">Example response</p>
+   ```bash
+   Security Admin v7
+   Will connect to localhost:9300 ... done
+   Connected as CN=A,OU=DOCS,O=OPENSEARCH,L=PORTLAND,ST=OREGON,C=US
+   OpenSearch Version: 1.3.7
+   OpenSearch Security Version: 1.3.7.0
+   Contacting opensearch cluster 'opensearch' and wait for YELLOW clusterstate ...
+   Clustername: opensearch-dev-cluster
+   Clusterstate: GREEN
+   Number of nodes: 4
+   Number of data nodes: 4
+   .opendistro_security index already exists, so we do not need to create one.
+   Will retrieve '/config' into /usr/share/opensearch/backups/config.yml 
+      SUCC: Configuration for 'config' stored in /usr/share/opensearch/backups/config.yml
+   Will retrieve '/roles' into /usr/share/opensearch/backups/roles.yml 
+      SUCC: Configuration for 'roles' stored in /usr/share/opensearch/backups/roles.yml
+   Will retrieve '/rolesmapping' into /usr/share/opensearch/backups/roles_mapping.yml 
+      SUCC: Configuration for 'rolesmapping' stored in /usr/share/opensearch/backups/roles_mapping.yml
+   Will retrieve '/internalusers' into /usr/share/opensearch/backups/internal_users.yml 
+      SUCC: Configuration for 'internalusers' stored in /usr/share/opensearch/backups/internal_users.yml
+   Will retrieve '/actiongroups' into /usr/share/opensearch/backups/action_groups.yml 
+      SUCC: Configuration for 'actiongroups' stored in /usr/share/opensearch/backups/action_groups.yml
+   Will retrieve '/tenants' into /usr/share/opensearch/backups/tenants.yml 
+      SUCC: Configuration for 'tenants' stored in /usr/share/opensearch/backups/tenants.yml
+   Will retrieve '/nodesdn' into /usr/share/opensearch/backups/nodes_dn.yml 
+      SUCC: Configuration for 'nodesdn' stored in /usr/share/opensearch/backups/nodes_dn.yml
+   Will retrieve '/whitelist' into /usr/share/opensearch/backups/whitelist.yml 
+      SUCC: Configuration for 'whitelist' stored in /usr/share/opensearch/backups/whitelist.yml
+   Will retrieve '/audit' into /usr/share/opensearch/backups/audit.yml 
+      SUCC: Configuration for 'audit' stored in /usr/share/opensearch/backups/audit.yml
+   ```
+1. Optional: Create a backup directory for TLS certificates and copy the certificates. Repeat this for each node they are configured with unique TLS certificates:
+   ```bash
+   mkdir /usr/share/opensearch/backups/certs && cp /usr/share/opensearch/config/*pem /usr/share/opensearch/backups/certs/
+   ```
+   {% include copy.html %}
+1. Terminate the pseudo-TTY session:
+   ```bash
+   exit
+   ```
+   {% include copy.html %}
+1. Copy the backups you generated to your host:
+   ```bash
+   docker cp os-node-01:/usr/share/opensearch/backups ~/deploy/
+   ```
+   {% include copy.html %}
 
 ### Copy backups to an external volume
 
