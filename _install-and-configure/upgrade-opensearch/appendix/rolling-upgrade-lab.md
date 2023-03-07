@@ -149,7 +149,7 @@ docker container stop $(docker container ls -aqf name=os-); \
    }
    ```
 
-## Add data and configure OpenSearch Security
+## Adding data and configure OpenSearch Security
 
 Now that the OpenSearch cluster is running, it's time to add data and configure some OpenSearch Security settings. The data you add and settings you configure will be used to validate that these artifacts are preserved through a version upgrade.
 
@@ -245,17 +245,16 @@ These steps walk you through downloading and indexing sample data, and then quer
 1. In the **Backend role** field, enter `admin`.
 1. Click **Create**.
 
-## Back up important files
+## Backing up important files
 
 Always create backups before making changes to your cluster, especially if the cluster is running in a production environment.
 
 In this section you will:
-- [Register a snapshot repository](#register-a-snapshot-repository)
-- [Create a snapshot](#create-a-snapshot)
-- [Back up security settings](#back-up-security-settings)
-- [Copy backups to an external volume](#copy-backups-to-an-external-volume)
+- [Register a snapshot repository](#registering-a-snapshot-repository)
+- [Create a snapshot](#creating-a-snapshot)
+- [Back up security settings](#backing-up-security-settings)
 
-### Register a snapshot repository
+### Registering a snapshot repository
 
 1. Register a repository using the volume that was mapped by `upgrade-demo-cluster.sh`:
    ```bash
@@ -293,7 +292,7 @@ In this section you will:
    }
    ```
 
-### Create a snapshot
+### Creating a snapshot
 
 Snapshots are backups of a cluster’s indexes and state. See [Snapshots]({{site.url}}{{site.baseurl}}/tuning-your-cluster/availability-and-recovery/snapshots/index/) to learn more.
 
@@ -339,7 +338,7 @@ Snapshots are backups of a cluster’s indexes and state. See [Snapshots]({{site
    }
    ```
 
-### Back up security settings
+### Backing up security settings
 
 Cluster administrators can modify OpenSearch Security settings using any of the following methods:
 
@@ -351,7 +350,7 @@ Regardless of the method you choose, OpenSearch Security writes your configurati
 
 You can also export your OpenSearch Security settings by running `securityadmin.sh` with the `-backup` option on any of your OpenSearch nodes. This generates YAML files in a specified directory that you can use to re-initialize the `.opendistro_security` index for failure recovery, as an example. The following steps will guide you through generating these backup files and copying them to your host for storage.
 
-1. Open an interactive pseudo-TTY session with one of the OpenSearch nodes by running the following command on your host:
+1. Open an interactive pseudo-TTY session with `os-node-01`:
    ```bash
    docker exec -it os-node-01 bash
    ```
@@ -403,7 +402,7 @@ You can also export your OpenSearch Security settings by running `securityadmin.
    Will retrieve '/audit' into /usr/share/opensearch/backups/audit.yml 
       SUCC: Configuration for 'audit' stored in /usr/share/opensearch/backups/audit.yml
    ```
-1. Optional: Create a backup directory for TLS certificates and copy the certificates. Repeat this for each node they are configured with unique TLS certificates:
+1. Optional: Create a backup directory for TLS certificates and store copies of the certificates. Repeat this for each node if you use unique TLS certificates:
    ```bash
    mkdir /usr/share/opensearch/backups/certs && cp /usr/share/opensearch/config/*pem /usr/share/opensearch/backups/certs/
    ```
@@ -419,7 +418,8 @@ You can also export your OpenSearch Security settings by running `securityadmin.
    ```
    {% include copy.html %}
 
-### Copy backups to an external volume
+## 
+
 
 
 ## Next steps:
