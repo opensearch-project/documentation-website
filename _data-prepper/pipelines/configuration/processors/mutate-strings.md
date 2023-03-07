@@ -20,6 +20,17 @@ You can change the way that a string appears using mutate string processesors. F
 
 The `substitute_string` processor matches a key's value against a regular expression (regex) and replaces all returned matches with a replacement string.
 
+### Configuration
+
+You can configure the `substitute_string` processor with the following options.
+
+Option | Required | Description
+:--- | :--- | :---
+| `entries` | Yes | A list of entries to add to an event. |
+| `source` | Yes | The key to be modified. |
+| `from` | Yes | The regular expression (regex) string to be replaced. Special regex characters such as `[` and `]` must be escaped using `\\` when using double quotes and `\` when using single quotes. See [Class Pattern](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/regex/Pattern.html) for more information. |
+| `to` | Yes | The string to be substituted for each match of `from`. |
+
 ### Basic usage
 
 To get started, create the following `pipeline.yaml` file: <!--- Where should this file be stored?--->
@@ -57,21 +68,21 @@ After you run Data Prepper, the source is converted to the following format:
 ```
 
 If the `from` regex string does not return a match, the key returns without any changes.
-
-### Configuration
-
-You can configure the `substitute_string` processor with the following options.
-
-Option | Required | Description
-:--- | :--- | :---
-| `entries` | Yes | A list of entries to add to an event. |
-| `source` | Yes | The key to be modified. |
-| `from` | Yes | The regular expression (regex) string to be replaced. Special regex characters such as `[` and `]` must be escaped using `\\` when using double quotes and `\` when using single quotes. See [Class Pattern](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/regex/Pattern.html) for more information. |
-| `to` | Yes | The string to be substituted for each match of `from`. |
     
 ## split_string
 
 The `split_string` processor splits a field into an array using a delimiter character.
+
+### Configuration
+
+You can configure the `split_string` processor with the following options.
+
+Option | Required | Description
+:--- | :--- | :---
+| `entries` | Yes | A list of entries to add to an event. |
+| `source` | Yes | The key to be split. |
+| `delimiter` | No | The separator character responsible for the split. Cannot be defined at the same time as `delimiter_regex`. At least `delimiter` or `delimiter_regex` must be defined. |
+|`delimiter_regex` | No | A regex string responsible for the split. Cannot be defined at the same time as `delimiter`. At least `delimiter` or `delimiter_regex` must be defined. |
 
 ### Basic usage
 
@@ -107,20 +118,17 @@ After you run Data Prepper, the source is converted to the following format:
 {"message":["hello","world"]}
 ```
 
-### Configuration
-
-You can configure the `split_string` processor with the following options.
-
-Option | Required | Description
-:--- | :--- | :---
-| `entries` | Yes | A list of entries to add to an event. |
-| `source` | Yes | The key to be split. |
-| `delimiter` | No | The separator character responsible for the split. Cannot be defined at the same time as `delimiter_regex`. At least `delimiter` or `delimiter_regex` must be defined. |
-|`delimiter_regex` | No | A regex string responsible for the split. Cannot be defined at the same time as `delimiter`. At least `delimiter` or `delimiter_regex` must be defined. |
-
 ## uppercase_string
 
 The `uppercase_string` processor converts a key to uppercase.
+
+### Configuration
+
+You can configure the `uppercase_string` processor with the following options.
+
+Option | Required | Description
+:--- | :--- | :---
+| `with_keys` | Yes | A list of keys to convert to uppercase. |
 
 ### Basic usage
 
@@ -155,17 +163,17 @@ After you run Data Prepper, the source is converted to the following format:
 {"uppercaseField": "HELLO"}
 ```
 
-### Configuration
-
-You can configure the `uppercase_string` processor with the following options.
-
-Option | Required | Description
-:--- | :--- | :---
-| `with_keys` | Yes | A list of keys to convert to uppercase. |
-
 ## lowercase_string
 
 The `lowercase string` processor converts a string to lowercase.
+
+### Configuration
+
+You can configure the `lowercase string` processor with the following options.
+
+Option | Required | Description
+:--- | :--- | :---
+| `with_keys` | Yes | A list of keys to convert to lowercase. |
 
 ### Basic usage
 
@@ -201,17 +209,18 @@ After you run Data Prepper, the source is converted to the following format:
 {"lowercaseField": "testmessage"}
 ```
 
-### Configuration
-
-You can configure the `lowercase string` processor with the following options:
-
-Option | Required | Description
-:--- | :--- | :---
-| `with_keys` | Yes | A list of keys to convert to lowercase. |
 
 ## trim_string
 
 The `trim_string` processor removes whitespace from the beginning and end of a key.
+
+### Configuration
+
+You can configure the `trim_string` processor with the following options.
+
+Option | Required | Description
+:--- | :--- | :---
+| `with_keys` | Yes | A list of keys to trim the whitespace from. |
 
 ### Basic usage
 
@@ -246,11 +255,3 @@ After you run Data Prepper, the source is converted to the following format:
 ```json
 {"trimField": "Space Ship"}
 ```
-
-### Configuration
-
-You can configure the `trim_string` processor with the following options.
-
-Option | Required | Description
-:--- | :--- | :---
-| `with_keys` | Yes | A list of keys to trim the whitespace from. |
