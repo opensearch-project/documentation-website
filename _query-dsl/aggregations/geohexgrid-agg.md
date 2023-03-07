@@ -1,8 +1,8 @@
 ---
 layout: default
 title: GeoHex grid aggregations
+parent: Aggregations
 nav_order: 4
-has_children: false
 ---
 
 # GeoHex grid aggregations

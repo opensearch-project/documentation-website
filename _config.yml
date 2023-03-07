@@ -76,7 +76,7 @@ collections:
   field-types:
     permalink: /:collection/:path/
     output: true
-  aggregations:
+  query-dsl:
     permalink: /:collection/:path/
     output: true 
   api-reference:
@@ -142,8 +142,8 @@ just_the_docs:
     field-types:
       name: Mappings and field types
       nav_fold: true
-    aggregations:
-      name: Aggregations
+    query-dsl:
+      name: Query DSL, Aggregations, and Analyzers
       nav_fold: true
     api-reference:
       name: API reference
