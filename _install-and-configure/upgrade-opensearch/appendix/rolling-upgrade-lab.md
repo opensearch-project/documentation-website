@@ -151,7 +151,7 @@ docker container stop $(docker container ls -aqf name=os-); \
 
 ## Add data and configure OpenSearch Security
 
-Now that the OpenSearch cluster is running it's time to add data and configure some OpenSearch Security settings. The data you add and settings you configure can be used to validate that these artifacts are preserved after a version upgrade.
+Now that the OpenSearch cluster is running, it's time to add data and configure some OpenSearch Security settings. You will perform the following steps using a combination of the command line interface (CLI) and the OpenSearch Dashboards web interface. The data you add and settings you configure will be used to validate that these artifacts are preserved through a version upgrade.
 
 1. We provide sample data that you can index for validation of the upgrade process. Download the field mappings file first:
    ```bash
@@ -220,8 +220,45 @@ Now that the OpenSearch cluster is running it's time to add data and configure s
    }
    }
    ```
-1. Open a web browser and navigate to port `5601` of your host (for example, <code>https://<var>HOST_ADDRESS</var>:5601</code>). If OpenSearch Dashboards is running, and you have network access to the host from your browser client, then you will be presented with a login page.
+1. Open a web browser and navigate to port `5601` on your Docker host (for example, <code>https://<var>HOST_ADDRESS</var>:5601</code>). If OpenSearch Dashboards is running, and you have network access to the host from your browser client, then you will be presented with a login page.
     1. If the web browser throws an error because the certificates used by the test cluster are self-signed, you can work around this by bypassing the certificate check in your browser. Remember that the common name (CN) for each certficate is generated with respect to the container and node name for intra-cluster communication, so connecting to the host from a browser will still result in an "invalid CN" error.
 1. Enter the default username (`admin`) and password (`admin`).
+1. On the OpenSearch Dashboards **Home** page, select **Add sample data**.
+1. Under **Sample web logs**, select **Add data**.
+   1. Optional: Select **View data** to review the **[Logs] Web Traffic** dashboard.
+1. Select the **Menu button** to open the **Navigation pane**, then go to **Security > Internal users**.
+1. Select **Create internal user**.
+1. Provide a **Username** and **Password**.
+1. In the **Backend role** field, enter `admin`.
+1. Click **Create**.
+
+## Back up important files
+
+Always create backups before making changes to your cluster, especially if the cluster is running in a production environment.
+
+In this section you will:
+- Register a snapshot repository
+- Take a snapshot
+- Back up security settings
+- Copy backups to an external volume
+
+### Register a snapshot repository
+
+1. Register a repository using the volume that was mapped by `upgrade-demo-cluster.sh`:
+   ```bash
+   curl -H 'Content-Type: application/json' -X PUT "https://localhost:9201/_snapshot/snapshot-repo?pretty" -d '{"type":"fs","settings":{"location":"/usr/share/opensearch/snapshots"}}' -ku admin:admin
+   ```
+   {% include copy.html %}
+   <p class="codeblock-label">Example response</p>
+   ```json
+   {
+      "acknowledged" : true
+   }
+   ```
 1. 
+
+
+
+## Next steps:
+- [Quickstart guide for OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/quickstart-dashboards/)
 
