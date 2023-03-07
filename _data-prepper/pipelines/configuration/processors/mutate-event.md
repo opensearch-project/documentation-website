@@ -22,15 +22,13 @@ The following processors allow you to mutate an event:
 
 --->
 
-## AddEntry
+## AddEntries
 
-The `AddEntry` processor adds entries to an event.
+The `AddEntries` processor adds entries to an event.
 
 ### Configuration
 
-You can configure the `AddEntries` processor with the following options:
-
-<!--- Table format.--->
+You can configure the `AddEntries` processor with the following options.
 
 Option | Required | Description
 :--- | :--- | :---
@@ -74,13 +72,13 @@ When you run this processor, it parses the message into the following output:
 
 > If `newMessage` already exists, its existing value is overwritten with a value of `3`.
 
-## CopyValue
+## copy value
 
 The `copy value` processor copies values within an event.
 
 ### Configuration
 
-You can configure the `copy value` processor with the following options:
+You can configure the `copy value` processor with the following options.
 
 Option | Required | Description
 :--- | :--- | :---
@@ -122,7 +120,7 @@ When you run this processor, it parses the message into the following output:
 {"message": "value", "newMessage": "value"}
 ```
 
-> If `newMessage` had already existed, its existing value would have been overwritten with `value`
+> If `newMessage` had already exists, its current value is overwritten with `value`.
 
 
 ## DeleteEntry
@@ -131,7 +129,7 @@ The `DeleteEntry` processor deletes entries in an event.
 
 ### Configuration
 
-You can configure the `DeleteEntry` processor with the following options:
+You can configure the `DeleteEntry` processor with the following options.
 
 Option | Required | Description
 :--- | :--- | :---
@@ -176,7 +174,7 @@ The `rename key` processor renames keys in an event.
 
 ### Configuration
 
-You can configure the `rename key` processor with the following options:
+You can configure the `rename key` processor with the following options.
 
 Option | Required | Description
 :--- | :--- | :---
@@ -260,7 +258,7 @@ The `ConvertEntry` processor converts a value type associated with the specified
 
 ### Configuration
 
-You can configure the `ConvertEntry` processor with the following options:
+You can configure the `ConvertEntry` processor with the following options.
 
 Option | Required | Description
 :--- | :--- | :---
