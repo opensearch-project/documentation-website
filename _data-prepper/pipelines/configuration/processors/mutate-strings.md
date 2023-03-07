@@ -209,7 +209,6 @@ After you run Data Prepper, the source is converted to the following format:
 {"lowercaseField": "testmessage"}
 ```
 
-
 ## trim_string
 
 The `trim_string` processor removes whitespace from the beginning and end of a key.
