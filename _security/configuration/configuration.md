@@ -202,9 +202,9 @@ If you set `strip_realm_from_principal` to `true`, the security plugin strips th
 Because Kerberos/SPNEGO authenticates users on an HTTP level, no additional `authentication_backend` is needed. Set this value to `noop`.
 
 
-### JSON web token
+### JSON Web Token
 
-JSON web tokens (JWTs) are JSON-based access tokens that assert one or more claims. They are commonly used to implement single sign-on (SSO) solutions and fall in the category of token-based authentication systems:
+JSON Web Tokens (JWTs) are JSON-based access tokens that assert one or more claims. They are commonly used to implement single sign-on (SSO) solutions and fall in the category of token-based authentication systems:
 
 1. A user logs in to an authentication server by providing credentials (for example, a user name and password).
 1. The authentication server validates the credentials.
@@ -293,6 +293,7 @@ jwt_auth_domain:
       jwt_url_parameter: null
       subject_key: null
       roles_key: null
+      jwt_clock_skew_tolerance_seconds: 20
   authentication_backend:
 I    type: noop
 ```
@@ -306,6 +307,7 @@ Name | Description
 `jwt_url_parameter` | If the token is not transmitted in the HTTP header, but as an URL parameter, define the name of this parameter here.
 `subject_key` | The key in the JSON payload that stores the user name. If not set, the [subject](https://tools.ietf.org/html/rfc7519#section-4.1.2) registered claim is used.
 `roles_key` | The key in the JSON payload that stores the user's roles. The value of this key must be a comma-separated list of roles.
+`jwt_clock_skew_tolerance_seconds` |  Sets a window of time in seconds to prevent authentication failures due to a misalignment between clock times for the JWT issuing server and the receiving server. Security sets 30 seconds as the default. Use this setting to apply a custom value.
 
 Because JSON web tokens are self-contained and the user is authenticated on the HTTP level, no additional `authentication_backend` is needed. Set this value to `noop`.
 

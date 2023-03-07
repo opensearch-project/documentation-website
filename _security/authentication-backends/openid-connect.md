@@ -15,7 +15,7 @@ The security plugin can integrate with identify providers that use the OpenID Co
 
 * Automatic key fetching
 
-  The security plugin automatically retrieves the public key for validating the JSON web tokens (JWTs) from the JSON web key set (JWKS) endpoint of your IdP. You don't have to configure keys or shared secrets in `config.yml`.
+  The security plugin automatically retrieves the public key for validating the JSON Web Tokens (JWTs) from the JSON Web Key Set (JWKS) endpoint of your IdP. You don't have to configure keys or shared secrets in `config.yml`.
 
 * Key rollover
 
@@ -100,9 +100,27 @@ For more information about IdP endpoints, see the following:
 - [IBM OpenID Connect](https://www.ibm.com/support/knowledgecenter/en/SSEQTP_8.5.5/com.ibm.websphere.wlp.doc/ae/rwlp_oidc_endpoint_urls.html)
 
 
+## Time disparity compensation for JSON Web Token validation
+
+Occasionally you may find that the clock times between the validation server and the OpenSearch node are not perfectly synchronized. When this is the case, even by a few seconds, the system that either issues or receives a JWT may try to validate `nbf` (not before) and `exp` (expiration) claims and fail to authenticate the user due to the time disparity.
+
+By default, Security allows for a window of 30 seconds to compensate for possible misalignment between server clock times. To set a custom value for this feature and override the default, you can add the `jwt_clock_skew_tolerance_seconds` setting to the `config.yml`.
+
+```yml
+http_authenticator:
+  type: openid
+  challenge: false
+  config:
+    subject_key: preferred_username
+    roles_key: roles
+    openid_connect_url: https://keycloak.example.com:8080/auth/realms/master/.well-known/openid-configuration
+    jwt_clock_skew_tolerance_seconds: 20
+```
+
+
 ## Fetching public keys
 
-When an IdP generates and signs a JSON web token, it must add the ID of the key to the JWT header. For example:
+When an IdP generates and signs a JSON Web Token, it must add the ID of the key to the JWT header. For example:
 
 ```
 {

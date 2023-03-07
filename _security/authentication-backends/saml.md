@@ -110,11 +110,21 @@ Name | Description
 `idp.entity_id` | The entity ID of your IdP. Required.
 `sp.entity_id` | The entity ID of the service provider. Required.
 
-## Time compensation for JWT validation
+## Time disparity compensation for JSON Web Token validation
 
-Occasionally you may find that the clock times between the validation server and the OpenSearch node are not perfectly synchronized. When this is the case, even by a few seconds, the system that either issues or receives a JSON Web Token may try to validate `nbf` (not before) and `exp` (expiration) claims and fail to authenticate the user due to the time disparity.
+Occasionally you may find that the clock times between the validation server and the OpenSearch node are not perfectly synchronized. When this is the case, even by a few seconds, the system that either issues or receives a JWT may try to validate `nbf` (not before) and `exp` (expiration) claims and fail to authenticate the user due to the time disparity.
 
-To compensate for a disparity in time between the issuer and receiver of the token, you can add the `jwt_clock_skew_tolerance_seconds` setting to the `config.yml` file and set a window of time that accounts for any misalignment.
+By default, Security allows for a window of 30 seconds to compensate for possible misalignment between server clock times. To set a custom value for this feature and override the default, you can add the `jwt_clock_skew_tolerance_seconds` setting to the `config.yml`.
+
+```yml
+http_authenticator:
+  type: saml
+  challenge: true
+  config:
+    idp:
+      metadata_file: okta.xml
+    jwt_clock_skew_tolerance_seconds: 20
+```
 
 ## OpenSearch Dashboards settings
 
