@@ -22,7 +22,7 @@ The `substitute_string` processor matches a key's value against a regular expres
 
 ### Basic usage
 
-To get started, create the following `pipeline.yaml` file:
+To get started, create the following `pipeline.yaml` file: <!--- Where should this file be stored?--->
 
 ```yaml
 pipeline:
@@ -50,7 +50,7 @@ Before you run Data Prepper, the source appears in the following format:
 {"message": "ab:cd:ab:cd"}
 ```
 
-After you run Data Prepper, the source is converted to the new format:
+After you run Data Prepper, the source is converted to the following format:
 
 ```json
 {"message": "ab-cd-ab-cd"}
@@ -60,12 +60,14 @@ If the `from` regex string does not return a match, the key returns without any 
 
 ### Configuration
 
-You can configure the `substitute_string` processor with the following options:
+You can configure the `substitute_string` processor with the following options.
 
-* `entries` (required): A list of entries to add to an event.
-* `source` (required): The key to be modified.
-* `from` (required): The regex string to be replaced. Special regex characters such as `[` and `]` must be escaped using `\\` when using double quotes and `\` when using single quotes. See [Class Pattern](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/regex/Pattern.html) for more information.
-* `to` (required): The string to be substituted for each match of `from`.
+Option | Required | Description
+:--- | :--- | :---
+| `entries` | Yes | A list of entries to add to an event. |
+| `source` | Yes | The key to be modified. |
+| `from` | Yes | The regular expression (regex) string to be replaced. Special regex characters such as `[` and `]` must be escaped using `\\` when using double quotes and `\` when using single quotes. See [Class Pattern](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/regex/Pattern.html) for more information. |
+| `to` | Yes | The string to be substituted for each match of `from`. |
     
 ## split_string
 
@@ -99,7 +101,7 @@ Before you run Data Prepper, the source appears in the following format:
 ```json
 {"message": "hello,world"}
 ```
-After you run Data Prepper, the source is converted to the new format:
+After you run Data Prepper, the source is converted to the following format:
 
 ```json
 {"message":["hello","world"]}
@@ -107,12 +109,14 @@ After you run Data Prepper, the source is converted to the new format:
 
 ### Configuration
 
-You can configure the `split_string` processor with the following options:
+You can configure the `split_string` processor with the following options.
 
-* `entries` (required): A list of entries to add to an event
-* `source` (required): The key to be split
-* `delimiter` (optional): The separator character responsible for the split. Cannot be defined at the same time as `delimiter_regex`. At least `delimiter` or `delimiter_regex` must be defined.
-* `delimiter_regex` (optional): A regex string responsible for the split. Cannot be defined at the same time as `delimiter`. At least `delimiter` or `delimiter_regex` must be defined.
+Option | Required | Description
+:--- | :--- | :---
+| `entries` | Yes | A list of entries to add to an event. |
+| `source` | Yes | The key to be split. |
+| `delimiter` | No | The separator character responsible for the split. Cannot be defined at the same time as `delimiter_regex`. At least `delimiter` or `delimiter_regex` must be defined. |
+|`delimiter_regex` | No | A regex string responsible for the split. Cannot be defined at the same time as `delimiter`. At least `delimiter` or `delimiter_regex` must be defined. |
 
 ## uppercase_string
 
@@ -145,7 +149,7 @@ Before you run Data Prepper, the source appears in the following format:
 ```json
 {"uppercaseField": "hello"}
 ```
-After you run Data Prepper, the source is converted to the new format:
+After you run Data Prepper, the source is converted to the following format:
 
 ```json
 {"uppercaseField": "HELLO"}
@@ -153,9 +157,11 @@ After you run Data Prepper, the source is converted to the new format:
 
 ### Configuration
 
-You can configure the `uppercase_string` processor with the following options:
+You can configure the `uppercase_string` processor with the following options.
 
-`with_keys` (required): A list of keys to convert to uppercase.
+Option | Required | Description
+:--- | :--- | :---
+| `with_keys` | Yes | A list of keys to convert to uppercase. |
 
 ## lowercase_string
 
@@ -189,7 +195,7 @@ Before you run Data Prepper, the source appears in the following format:
 {"lowercaseField": "TESTmeSSage"}
 ```
 
-After you run Data Prepper, the source is converted to the new format:
+After you run Data Prepper, the source is converted to the following format:
 
 ```json
 {"lowercaseField": "testmessage"}
@@ -199,7 +205,9 @@ After you run Data Prepper, the source is converted to the new format:
 
 You can configure the `lowercase string` processor with the following options:
 
-`with_keys` (required): A list of keys to convert to lowercase.
+Option | Required | Description
+:--- | :--- | :---
+| `with_keys` | Yes | A list of keys to convert to lowercase. |
 
 ## trim_string
 
@@ -233,8 +241,7 @@ Before you run Data Prepper, the source appears in the following format:
 {"trimField": " Space Ship "}
 ```
 
-After you run Data Prepper, the source is converted to the new format:
-
+After you run Data Prepper, the source is converted to the following format:
 
 ```json
 {"trimField": "Space Ship"}
@@ -242,6 +249,8 @@ After you run Data Prepper, the source is converted to the new format:
 
 ### Configuration
 
-You can configure the `trim_string` processor with the following options:
+You can configure the `trim_string` processor with the following options.
 
-`with_keys` (required): A list of keys to trim the whitespace from.
+Option | Required | Description
+:--- | :--- | :---
+| `with_keys` | Yes | A list of keys to trim the whitespace from. |
