@@ -8,7 +8,7 @@ redirect_from:
   - /opensearch/index-data/
 ---
 
-# About managing indexes
+# Managing indexes
 OpenSearch Dashboards
 {: .label .label-yellow :}
 
