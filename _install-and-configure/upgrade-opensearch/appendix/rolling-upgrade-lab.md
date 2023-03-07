@@ -237,10 +237,10 @@ Now that the OpenSearch cluster is running, it's time to add data and configure 
 Always create backups before making changes to your cluster, especially if the cluster is running in a production environment.
 
 In this section you will:
-- Register a snapshot repository
-- Take a snapshot
-- Back up security settings
-- Copy backups to an external volume
+- [Register a snapshot repository](#register-a-snapshot-repository)
+- [Take a snapshot](#take-a-snapshot)
+- [Back up security settings](#back-up-security-settings)
+- [Copy backups to an external volume](#copy-backups-to-an-external-volume)
 
 ### Register a snapshot repository
 
@@ -255,8 +255,35 @@ In this section you will:
       "acknowledged" : true
    }
    ```
-1. 
+1. Optional: Perform an additional check to verify that the repository was created successfully:
+   ```bash
+   curl -H 'Content-Type: application/json' -X POST "https://localhost:9201/_snapshot/snapshot-repo/_verify?timeout=0s&master_timeout=50s&pretty" -ku admin:admin
+   ```
+   <p class="codeblock-label">Example response</p>
+   ```json
+   {
+      "nodes" : {
+         "UODBXfAlRnueJ67grDxqgw" : {
+            "name" : "os-node-03"
+         },
+         "14I_OyBQQXio8nmk0xsVcQ" : {
+            "name" : "os-node-04"
+         },
+         "tQp3knPRRUqHvFNKpuD2vQ" : {
+            "name" : "os-node-02"
+         },
+         "rPe8D6ssRgO5twIP00wbCQ" : {
+            "name" : "os-node-01"
+         }
+      }
+   }
+   ```
 
+### Take a snapshot
+
+### Back up security settings
+
+### Copy backups to an external volume
 
 
 ## Next steps:
