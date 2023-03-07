@@ -243,7 +243,7 @@ These steps walk you through downloading and indexing sample data, and then quer
 ### Adding data using OpenSearch Dashboards
 
 1. Open a web browser and navigate to port `5601` on your Docker host (for example, <code>https://<var>HOST_ADDRESS</var>:5601</code>). If OpenSearch Dashboards is running, and you have network access to the host from your browser client, then you will be presented with a login page.
-    1. If the web browser throws an error because the certificates used by the test cluster are self-signed, you can work around this by bypassing the certificate check in your browser. Remember that the common name (CN) for each certficate is generated with respect to the container and node name for intra-cluster communication, so connecting to the host from a browser will still result in an "invalid CN" error.
+    1. If the web browser throws an error because the certificates used by the test cluster are self-signed, you can work around the error by bypassing the certificate check in your browser. Refer to the documentation for your specific browser and version for instructions on bypassing certificate checks. Remember that the common name (CN) for each certficate is generated with respect to the container and node name for intra-cluster communication, so connecting to the host from a browser will still result in an "invalid CN" error.
 1. Enter the default username (`admin`) and password (`admin`).
 1. On the OpenSearch Dashboards **Home** page, select **Add sample data**.
 1. Under **Sample web logs**, select **Add data**.
@@ -483,7 +483,7 @@ Now that the cluster is configured, and you made backups of important files and 
    docker stop os-node-01 && docker container rm os-node-01
    ```
    {% include copy.html %}
-1. Start a new container running OpenSearch 2.5.0 using the same mapped volumes as the original container:
+1. Start a new container named `os-node-01` with OpenSearch v2.5.0, and using the same mapped volumes as the original container:
    ```bash
    docker run -d \
       -p 9201:9200 -p 9601:9600 \
@@ -507,7 +507,7 @@ Now that the cluster is configured, and you made backups of important files and 
    ```bash
    d26d0cb2e1e93e9c01bb00f19307525ef89c3c3e306d75913860e6542f729ea4
    ```
-1. Optional: Query the cluster to see which node is acting as the cluster manager:
+1. Optional: Query the cluster to see which node is acting as the cluster manager. You can query the cluster manually:
    ```bash
    curl -s "https://localhost:9201/_cat/nodes?v&h=name,version,node.role,master" \
       -ku admin:admin | column -t
@@ -521,7 +521,124 @@ Now that the cluster is configured, and you made backups of important files and 
    os-node-02  1.3.7    dimr       -
    os-node-03  1.3.7    dimr       -
    ```
-1. Optional: Query the cluster to see how primary shards are allocated throughout the upgrade process.
+1. Optional: Query the cluster to see how shard allocation changes as nodes are removed and replaced:
+   ```bash
+   curl -s "https://localhost:9201/_cat/shards" \
+      -ku admin:admin
+   ```
+   {% include copy.html %}
+   <p class="codeblock-label">Example response</p>
+   ```bash
+   security-auditlog-2023.03.06           0 p STARTED       53 214.5kb 172.20.0.13 os-node-03
+   security-auditlog-2023.03.06           0 r UNASSIGNED                           
+   .kibana_1                              0 p STARTED        3  14.5kb 172.20.0.12 os-node-02
+   .kibana_1                              0 r STARTED        3  14.5kb 172.20.0.13 os-node-03
+   ecommerce                              0 p STARTED     4675   3.9mb 172.20.0.12 os-node-02
+   ecommerce                              0 r STARTED     4675   3.9mb 172.20.0.14 os-node-04
+   security-auditlog-2023.03.07           0 p STARTED       37 175.7kb 172.20.0.14 os-node-04
+   security-auditlog-2023.03.07           0 r UNASSIGNED                           
+   .opendistro_security                   0 p STARTED       10  67.9kb 172.20.0.12 os-node-02
+   .opendistro_security                   0 r STARTED       10  67.9kb 172.20.0.13 os-node-03
+   .opendistro_security                   0 r STARTED       10  64.5kb 172.20.0.14 os-node-04
+   .opendistro_security                   0 r UNASSIGNED                           
+   security-auditlog-2023.02.27           0 p STARTED        4  80.5kb 172.20.0.12 os-node-02
+   security-auditlog-2023.02.27           0 r UNASSIGNED                           
+   security-auditlog-2023.02.28           0 p STARTED        6 104.1kb 172.20.0.14 os-node-04
+   security-auditlog-2023.02.28           0 r UNASSIGNED                           
+   opensearch_dashboards_sample_data_logs 0 p STARTED    14074   9.1mb 172.20.0.12 os-node-02
+   opensearch_dashboards_sample_data_logs 0 r STARTED    14074   8.9mb 172.20.0.13 os-node-03
+   .kibana_92668751_admin_1               0 r STARTED       33  37.3kb 172.20.0.13 os-node-03
+   .kibana_92668751_admin_1               0 p STARTED       33  37.3kb 172.20.0.14 os-node-04
+   ```
+1. Stop `os-node-02`:
+   ```bash
+   docker stop os-node-02 && docker container rm os-node-02
+   ```
+   {% include copy.html %}
+1. Start a new container named `os-node-02` with OpenSearch v2.5.0, and using the same mapped volumes as the original container:
+   ```bash
+   docker run -d \
+      -p 9202:9200 -p 9602:9600 \
+      -e "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" \
+      --ulimit nofile=65536:65536 --ulimit memlock=-1:-1 \
+      -v data-02:/usr/share/opensearch/data \
+      -v repo-01:/usr/share/opensearch/snapshots \
+      -v ~/deploy/opensearch-02.yml:/usr/share/opensearch/config/opensearch.yml \
+      -v ~/deploy/root-ca.pem:/usr/share/opensearch/config/root-ca.pem \
+      -v ~/deploy/admin.pem:/usr/share/opensearch/config/admin.pem \
+      -v ~/deploy/admin-key.pem:/usr/share/opensearch/config/admin-key.pem \
+      -v ~/deploy/os-node-02.pem:/usr/share/opensearch/config/os-node-02.pem \
+      -v ~/deploy/os-node-02-key.pem:/usr/share/opensearch/config/os-node-02-key.pem \
+      --network opensearch-dev-net \
+      --ip 172.20.0.12 \
+      --name os-node-02 \
+      opensearchproject/opensearch:2.5.0
+   ```
+   {% include copy.html %}
+   <p class="codeblock-label">Example response</p>
+   ```bash
+   7b802865bd6eb420a106406a54fc388ed8e5e04f6cbd908c2a214ea5ce72ac00
+   ```
+1. Stop `os-node-03`:
+   ```bash
+   docker stop os-node-03 && docker container rm os-node-03
+   ```
+   {% include copy.html %}
+1. Start a new container named `os-node-03` with OpenSearch v2.5.0, and using the same mapped volumes as the original container:
+   ```bash
+   docker run -d \
+      -p 9203:9200 -p 9603:9600 \
+      -e "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" \
+      --ulimit nofile=65536:65536 --ulimit memlock=-1:-1 \
+      -v data-03:/usr/share/opensearch/data \
+      -v repo-01:/usr/share/opensearch/snapshots \
+      -v ~/deploy/opensearch-03.yml:/usr/share/opensearch/config/opensearch.yml \
+      -v ~/deploy/root-ca.pem:/usr/share/opensearch/config/root-ca.pem \
+      -v ~/deploy/admin.pem:/usr/share/opensearch/config/admin.pem \
+      -v ~/deploy/admin-key.pem:/usr/share/opensearch/config/admin-key.pem \
+      -v ~/deploy/os-node-03.pem:/usr/share/opensearch/config/os-node-03.pem \
+      -v ~/deploy/os-node-03-key.pem:/usr/share/opensearch/config/os-node-03-key.pem \
+      --network opensearch-dev-net \
+      --ip 172.20.0.13 \
+      --name os-node-03 \
+      opensearchproject/opensearch:2.5.0
+   ```
+   {% include copy.html %}
+   <p class="codeblock-label">Example response</p>
+   ```bash
+   d7f11726841a89eb88ff57a8cbecab392399f661a5205f0c81b60a995fc6c99d
+   ```
+1. Stop `os-node-04`:
+   ```bash
+   docker stop os-node-04 && docker container rm os-node-04
+   ```
+   {% include copy.html %}
+1. Start a new container named `os-node-04` with OpenSearch v2.5.0, and using the same mapped volumes as the original container:
+   ```bash
+   docker run -d \
+      -p 9204:9200 -p 9604:9600 \
+      -e "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" \
+      --ulimit nofile=65536:65536 --ulimit memlock=-1:-1 \
+      -v data-04:/usr/share/opensearch/data \
+      -v repo-01:/usr/share/opensearch/snapshots \
+      -v ~/deploy/opensearch-04.yml:/usr/share/opensearch/config/opensearch.yml \
+      -v ~/deploy/root-ca.pem:/usr/share/opensearch/config/root-ca.pem \
+      -v ~/deploy/admin.pem:/usr/share/opensearch/config/admin.pem \
+      -v ~/deploy/admin-key.pem:/usr/share/opensearch/config/admin-key.pem \
+      -v ~/deploy/os-node-04.pem:/usr/share/opensearch/config/os-node-04.pem \
+      -v ~/deploy/os-node-04-key.pem:/usr/share/opensearch/config/os-node-04-key.pem \
+      --network opensearch-dev-net \
+      --ip 172.20.0.14 \
+      --name os-node-04 \
+      opensearchproject/opensearch:2.5.0
+   ```
+   {% include copy.html %}
+      <p class="codeblock-label">Example response</p>
+   ```bash
+   26f8286ab11e6f8dcdf6a83c95f265172f9557578a1b292af84c6f5ef8738e1d
+   ```
+
+
 
 
 ## Next steps:
