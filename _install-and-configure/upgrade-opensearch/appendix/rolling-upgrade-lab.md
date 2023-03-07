@@ -50,9 +50,9 @@ The host type used for testing was chosen arbitrarily. Specifications are includ
 
 As you follow along with this document you will define several Docker resources including containers, volumes, and a dedicated Docker network using a script we provide. You can clean up your environment with the following command if you want to start the process over.
 
-The [command](#docker-restart) removes container names matching the regular expression `os-*`, data volumes matching `data-0*` and `repo-0*`, and the Docker network named `opensearch-dev-net`. If you have other Docker resources running on the host, then, if necessary, you should take care to review and modify the command to avoid removing a container or volume unintentionally. This command does not revert changes to host memory swapping or the value of `vm.max_map_count`.
+The following command removes container names matching the regular expression `os-*`, data volumes matching `data-0*` and `repo-0*`, and the Docker network named `opensearch-dev-net`. If you have other Docker resources running on your host, then you should take care to review and modify the command to avoid removing other resources unintentionally. This command does not revert changes to host memory swapping or the value of `vm.max_map_count`.
 
-```markdown
+```bash
 docker container stop $(docker container ls -aqf name=os-); \
 	docker container rm $(docker container ls -aqf name=os-); \
 	docker volume rm -f $(docker volume ls -q | egrep 'data-0|repo-0'); \
@@ -151,9 +151,17 @@ docker container stop $(docker container ls -aqf name=os-); \
 
 ## Add data and configure OpenSearch Security
 
-Now that the OpenSearch cluster is running, it's time to add data and configure some OpenSearch Security settings. You will perform the following steps using a combination of the command line interface (CLI) and the OpenSearch Dashboards web interface. The data you add and settings you configure will be used to validate that these artifacts are preserved through a version upgrade.
+Now that the OpenSearch cluster is running, it's time to add data and configure some OpenSearch Security settings. The data you add and settings you configure will be used to validate that these artifacts are preserved through a version upgrade.
 
-1. We provide sample data that you can index for validation of the upgrade process. Download the field mappings file first:
+You will perform the following steps by:
+- [Configuring host and cluster settings](#configuring-host-and-cluster-settings)
+- [Adding data using OpenSearch Dashboards](#adding-data-using-opensearch-dashboards)
+
+### Configuring host and cluster settings
+
+These steps walk you through downloading and indexing sample data, and then querying the data to establish a baseline that you can use to validate your cluster's state after the upgrade process is finished.
+
+1. Download the sample field mappings file first:
    ```bash
    wget https://raw.githubusercontent.com/opensearch-project/documentation-website/main/assets/examples/ecommerce-field_mappings.json
    ```
@@ -162,10 +170,12 @@ Now that the OpenSearch cluster is running, it's time to add data and configure 
    ```bash
    wget https://raw.githubusercontent.com/opensearch-project/documentation-website/main/assets/examples/ecommerce.json
    ```
+   {% include copy.html %}
 1. Use the [Create index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/) API to create an index using the mappings defined in `ecommerce-field_mappings.json`.
    ```bash
    curl -H "Content-Type: application/x-ndjson" -X PUT "https://localhost:9201/ecommerce?pretty" -ku admin:admin --data-binary "@ecommerce-field_mappings.json"
    ```
+   {% include copy.html %}
    <p class="codeblock-label">Example response</p>
    ```json
    {
@@ -220,6 +230,9 @@ Now that the OpenSearch cluster is running, it's time to add data and configure 
    }
    }
    ```
+
+### Adding data using OpenSearch Dashboards
+
 1. Open a web browser and navigate to port `5601` on your Docker host (for example, <code>https://<var>HOST_ADDRESS</var>:5601</code>). If OpenSearch Dashboards is running, and you have network access to the host from your browser client, then you will be presented with a login page.
     1. If the web browser throws an error because the certificates used by the test cluster are self-signed, you can work around this by bypassing the certificate check in your browser. Remember that the common name (CN) for each certficate is generated with respect to the container and node name for intra-cluster communication, so connecting to the host from a browser will still result in an "invalid CN" error.
 1. Enter the default username (`admin`) and password (`admin`).
@@ -238,7 +251,7 @@ Always create backups before making changes to your cluster, especially if the c
 
 In this section you will:
 - [Register a snapshot repository](#register-a-snapshot-repository)
-- [Take a snapshot](#take-a-snapshot)
+- [Create a snapshot](#create-a-snapshot)
 - [Back up security settings](#back-up-security-settings)
 - [Copy backups to an external volume](#copy-backups-to-an-external-volume)
 
@@ -259,6 +272,7 @@ In this section you will:
    ```bash
    curl -H 'Content-Type: application/json' -X POST "https://localhost:9201/_snapshot/snapshot-repo/_verify?timeout=0s&master_timeout=50s&pretty" -ku admin:admin
    ```
+   {% include copy.html %}
    <p class="codeblock-label">Example response</p>
    ```json
    {
@@ -279,7 +293,50 @@ In this section you will:
    }
    ```
 
-### Take a snapshot
+### Create a snapshot
+
+1. Create a snapshot that includes all indexes and the cluster state:
+   ```bash
+   curl -H 'Content-Type: application/json' -X PUT "https://localhost:9201/_snapshot/snapshot-repo/cluster-snapshot-v137?wait_for_completion=true&pretty" -ku admin:admin
+   ```
+   {% include copy.html %}
+   <p class="codeblock-label">Example response</p>
+   ```json
+   {
+      "snapshot" : {
+         "snapshot" : "cluster-snapshot-v137",
+         "uuid" : "-IYB8QNPShGOTnTtMjBjNg",
+         "version_id" : 135248527,
+         "version" : "1.3.7",
+         "indices" : [
+            "opensearch_dashboards_sample_data_logs",
+            ".opendistro_security",
+            "security-auditlog-2023.02.27",
+            ".kibana_1",
+            ".kibana_92668751_admin_1",
+            "ecommerce",
+            "security-auditlog-2023.03.06",
+            "security-auditlog-2023.02.28",
+            "security-auditlog-2023.03.07"
+         ],
+         "data_streams" : [ ],
+         "include_global_state" : true,
+         "state" : "SUCCESS",
+         "start_time" : "2023-03-07T18:33:00.656Z",
+         "start_time_in_millis" : 1678213980656,
+         "end_time" : "2023-03-07T18:33:01.471Z",
+         "end_time_in_millis" : 1678213981471,
+         "duration_in_millis" : 815,
+         "failures" : [ ],
+         "shards" : {
+            "total" : 9,
+            "failed" : 0,
+            "successful" : 9
+         }
+      }
+   }
+   ```
+1. 
 
 ### Back up security settings
 
