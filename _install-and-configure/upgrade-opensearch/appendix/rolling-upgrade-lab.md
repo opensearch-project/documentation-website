@@ -418,8 +418,47 @@ You can also export your OpenSearch Security settings by running `securityadmin.
    ```
    {% include copy.html %}
 
-## 
+## Performing the upgrade
 
+Now that the cluster is configured, and you made backups of important files and settings, you can begin the upgrade.
+
+1. Disable shard replication to prevent shard replicas from being created while nodes are being taken offline. This stops the movement of Lucene index segments on nodes in your cluster:
+   ```bash
+   curl -X PUT "https://localhost:9201/_cluster/settings?pretty" -H 'Content-type: application/json' -d'{"persistent":{"cluster.routing.allocation.enable":"primaries"}}' -ku admin:admin
+   ```
+   {% include copy.html %}
+   <p class="codeblock-label">Example response</p>
+   ```json
+   {
+      "acknowledged" : true,
+      "persistent" : {
+         "cluster" : {
+            "routing" : {
+               "allocation" : {
+                  "enable" : "primaries"
+               }
+            }
+         }
+      },
+      "transient" : { }
+   }
+   ```
+1. Perform a flush operation on the cluster to commit transaction log entries to the Lucene index:
+   ```bash
+   curl -X POST "https://localhost:9201/_flush?pretty" -ku admin:admin
+   ```
+   {% include copy.html %}
+   <p class="codeblock-label">Example response</p>
+   ```json
+   {
+      "_shards" : {
+         "total" : 20,
+         "successful" : 20,
+         "failed" : 0
+      }
+   }
+   ```
+1. 
 
 
 ## Next steps:
