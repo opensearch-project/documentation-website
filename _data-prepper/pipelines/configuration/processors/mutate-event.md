@@ -224,8 +224,6 @@ When run, the processor parses the message into the following output:
 
 The renaming operation occurs in a defined order. This means that chaining is implicit with the `RenameKey` processor. See the following `piplines.yaml` file example:
 
-<!--- What is "chaining"?--->
-
 ```yaml
 pipeline:
   source:
@@ -263,8 +261,6 @@ The `ConvertEntry` processor converts a value type associated with the specified
 ### Configuration
 
 You can configure the `ConvertEntry` processor with the following options:
-
-<!--- Is `type` (below) not required?--->
 
 Option | Required | Description
 :--- | :--- | :---
