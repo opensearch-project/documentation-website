@@ -10,7 +10,17 @@ nav_order: 45
 
 You can use mutate event processors to add entries to an event, delete entries from an event, rename keys in an event, copy values within an event, and convert value types in an event. <!---Need a better overall description to explain what they do in general.--->
 
-The following processors allow you to mutate an event.
+The following processors allow you to mutate an event:
+
+<!--- Need to find out why links below aren't working correctly.>
+
+* [AddEntry] (#AddEntry)
+* [CopyValue] (#CopyValue)
+* [DeleteEntry] (#DeleteEntry)
+* [RenameKey] (#RenameKey)
+* [ConvertEntry] (#ConvertEntry)
+
+--->
 
 ## AddEntry
 
@@ -22,10 +32,12 @@ You can configure the `AddEntries` processor with the following options:
 
 <!--- Table format.--->
 
-* `entries` (required): A list of entries to add to an event
-* `key` (required): The key of the new entry to be added
-* `value` (required): The value of the new entry to be added. Strings, booleans, numbers, null, nested objects, and arrays containing the aforementioned data types are valid to use
-* `overwrite_if_key_exists` (optional): When set to `true`, if `key` already exists in the event, then the existing value is overwritten. The default value is `false`. 
+Option | Required | Description
+:--- | :--- | :---
+|`entries` | Yes | A list of entries to add to an event. |
+|`key` | Yes | The key of the new entry to be added. |
+|`value` | Yes | The value of the new entry to be added. You can use the following data types: strings, booleans, numbers, null, nested objects, and arrays. |
+|`overwrite_if_key_exists` | No | When set to `true`, if `key` already exists in the event, then the existing value is overwritten. The default value is `false`. |
 
 ### Basic usage
 
@@ -62,7 +74,7 @@ When you run this processor, it parses the message into the following output:
 
 > If `newMessage` already exists, its existing value is overwritten with a value of `3`.
 
-## copy value
+## CopyValue
 
 The `copy value` processor copies values within an event.
 
@@ -70,12 +82,12 @@ The `copy value` processor copies values within an event.
 
 You can configure the `copy value` processor with the following options:
 
-<!--- Table format.--->
-
-* `entries` - (required) - A list of entries to be copied in an event
-    * `from_key` - (required) - The key of the entry to be copied
-    * `to_key` - (required) - The key of the new entry to be added
-    * `overwrite_if_to_key_exists` - (optional) - When set to `true`, if `to_key` already exists in the event, then the existing value will be overwritten. The default is `false`.
+Option | Required | Description
+:--- | :--- | :---
+| `entries` | Yes | A list of entries to be copied in an event. |
+| `from_key` | Yes | The key of the entry to be copied.
+| `to_key` | Yes | The key of the new entry to be added.
+| `overwrite_if_to_key_exists` | No | When set to a value of `true`, if `to_key` already exists in the event, then the existing value will be overwritten. The default value is `false`. |
 
 ### Basic usage
 
@@ -121,9 +133,9 @@ The `DeleteEntry` processor deletes entries in an event.
 
 You can configure the `DeleteEntry` processor with the following options:
 
-<!--- Table format.--->
-
-`with_keys` - (required) - An array of keys of the entries to be deleted.
+Option | Required | Description
+:--- | :--- | :---
+| `with_keys` | Yes | An array of keys of the entries to be deleted. | 
 
 ### Basic usage
 
@@ -158,7 +170,7 @@ When you run the `DeleteEntry` processor, it parses the message into the followi
 > If `message` does not exist in the event, then no action occurs.
 
 
-## rename key
+## RenameKey
 
 The `rename key` processor renames keys in an event.
 
@@ -166,12 +178,12 @@ The `rename key` processor renames keys in an event.
 
 You can configure the `rename key` processor with the following options:
 
-<!--- Convert the following to a table format.--->
-
-* `entries` - (required) - A list of entries to rename in an event
-    * `from_key` - (required) - The key of the entry to be renamed
-    * `to_key` - (required) - The new key of the entry
-    * `overwrite_if_to_key_exists` - (optional) - When set to `true`, if `to_key` already exists in the event, then the existing value will be overwritten. The default is `false`.
+Option | Required | Description
+:--- | :--- | :---
+| `entries` | Yes | A list of entries to rename in an event. | 
+| `from_key` | Yes | The key of the entry to be renamed. |
+| `to_key` | Yes | The new key of the entry.
+| `overwrite_if_to_key_exists` | No | When set to a value of`true`, if `to_key` already exists in the event, then the existing value will be overwritten. The default value is `false`.
 
 ### Basic usage
 
@@ -252,10 +264,12 @@ The `ConvertEntry` processor converts a value type associated with the specified
 
 You can configure the `ConvertEntry` processor with the following options:
 
-<!--- Convert the following to a table format.--->
+<!--- Is `type` (below) not required?--->
 
-* `key` (required): Keys whose value needs to be converted to a different type
-* `type`: Target type for key value. Possible values are `integer`, `double`, `string`, and `boolean`. Default value is `integer`.
+Option | Required | Description
+:--- | :--- | :---
+| `key`| Yes | Keys whose value needs to be converted to a different type. | 
+| `type` | No | Target type for key value. Possible values are `integer`, `double`, `string`, and `boolean`. Default value is `integer`.|
 
 ### Basic usage
 
