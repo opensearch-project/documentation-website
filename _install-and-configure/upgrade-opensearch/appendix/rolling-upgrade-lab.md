@@ -173,7 +173,10 @@ These steps walk you through downloading and indexing sample data, and then quer
    {% include copy.html %}
 1. Use the [Create index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/) API to create an index using the mappings defined in `ecommerce-field_mappings.json`.
    ```bash
-   curl -H "Content-Type: application/x-ndjson" -X PUT "https://localhost:9201/ecommerce?pretty" -ku admin:admin --data-binary "@ecommerce-field_mappings.json"
+   curl -H "Content-Type: application/x-ndjson" \
+      -X PUT "https://localhost:9201/ecommerce?pretty" \
+      --data-binary "@ecommerce-field_mappings.json" \
+      -ku admin:admin
    ```
    {% include copy.html %}
    <p class="codeblock-label">Example response</p>
@@ -186,7 +189,10 @@ These steps walk you through downloading and indexing sample data, and then quer
    ```
 1. Use the [Bulk]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/) API to add data to the new `ecommerce` index from `ecommerce.json`:
    ```bash
-   curl -H "Content-Type: application/x-ndjson" -X PUT "https://localhost:9201/ecommerce/_bulk?pretty" -ku admin:admin --data-binary "@ecommerce.json"
+   curl -H "Content-Type: application/x-ndjson" \
+      -X PUT "https://localhost:9201/ecommerce/_bulk?pretty" \
+      --data-binary "@ecommerce.json" \
+      -ku admin:admin
    ```
    {% include copy.html %}
    <p class="codeblock-label">Example response (truncated)</p>
@@ -216,7 +222,10 @@ These steps walk you through downloading and indexing sample data, and then quer
    ```
 1. Perform an additional check to confirm that the data was written to the `ecommerce` index. The following command queries for documents where `customer_first_name` is `Sonya`. You can compare the response to this command against the response to the same command after upgrading OpenSearch to confirm that the data is intact:
    ```bash
-   curl -H 'Content-Type: application/json' -X GET "https://localhost:9201/ecommerce/_search?pretty=true&filter_path=hits.total" -d'{"query":{"match":{"customer_first_name":"Sonya"}}}' -ku admin:admin
+   curl -H 'Content-Type: application/json' \
+      -X GET "https://localhost:9201/ecommerce/_search?pretty=true&filter_path=hits.total" \
+      -d'{"query":{"match":{"customer_first_name":"Sonya"}}}' \
+      -ku admin:admin
    ```
    {% include copy.html %}
    <p class="codeblock-label">Example response</p>
@@ -258,7 +267,10 @@ In this section you will:
 
 1. Register a repository using the volume that was mapped by `upgrade-demo-cluster.sh`:
    ```bash
-   curl -H 'Content-Type: application/json' -X PUT "https://localhost:9201/_snapshot/snapshot-repo?pretty" -d '{"type":"fs","settings":{"location":"/usr/share/opensearch/snapshots"}}' -ku admin:admin
+   curl -H 'Content-Type: application/json' \
+      -X PUT "https://localhost:9201/_snapshot/snapshot-repo?pretty" \
+      -d '{"type":"fs","settings":{"location":"/usr/share/opensearch/snapshots"}}' \
+      -ku admin:admin
    ```
    {% include copy.html %}
    <p class="codeblock-label">Example response</p>
@@ -269,7 +281,9 @@ In this section you will:
    ```
 1. Optional: Perform an additional check to verify that the repository was created successfully:
    ```bash
-   curl -H 'Content-Type: application/json' -X POST "https://localhost:9201/_snapshot/snapshot-repo/_verify?timeout=0s&master_timeout=50s&pretty" -ku admin:admin
+   curl -H 'Content-Type: application/json' \
+      -X POST "https://localhost:9201/_snapshot/snapshot-repo/_verify?timeout=0s&master_timeout=50s&pretty" \
+      -ku admin:admin
    ```
    {% include copy.html %}
    <p class="codeblock-label">Example response</p>
@@ -298,7 +312,9 @@ Snapshots are backups of a cluster’s indexes and state. See [Snapshots]({{site
 
 1. Create a snapshot that includes all indexes and the cluster state:
    ```bash
-   curl -H 'Content-Type: application/json' -X PUT "https://localhost:9201/_snapshot/snapshot-repo/cluster-snapshot-v137?wait_for_completion=true&pretty" -ku admin:admin
+   curl -H 'Content-Type: application/json' \
+      -X PUT "https://localhost:9201/_snapshot/snapshot-repo/cluster-snapshot-v137?wait_for_completion=true&pretty" \
+      -ku admin:admin
    ```
    {% include copy.html %}
    <p class="codeblock-label">Example response</p>
@@ -362,7 +378,8 @@ You can also export your OpenSearch Security settings by running `securityadmin.
    {% include copy.html %}
 1. Invoke `securityadmin.sh` and create backups of your OpenSearch Security settings in `/usr/share/opensearch/backups/`:
    ```bash
-   /usr/share/opensearch/plugins/opensearch-security/tools/securityadmin.sh -backup /usr/share/opensearch/backups \
+   /usr/share/opensearch/plugins/opensearch-security/tools/securityadmin.sh \
+      -backup /usr/share/opensearch/backups \
       -icl \
       -nhnv \
       -cacert /usr/share/opensearch/config/root-ca.pem \
@@ -424,7 +441,10 @@ Now that the cluster is configured, and you made backups of important files and 
 
 1. Disable shard replication to prevent shard replicas from being created while nodes are being taken offline. This stops the movement of Lucene index segments on nodes in your cluster:
    ```bash
-   curl -X PUT "https://localhost:9201/_cluster/settings?pretty" -H 'Content-type: application/json' -d'{"persistent":{"cluster.routing.allocation.enable":"primaries"}}' -ku admin:admin
+   curl -H 'Content-type: application/json' \
+      -X PUT "https://localhost:9201/_cluster/settings?pretty" \
+      -d'{"persistent":{"cluster.routing.allocation.enable":"primaries"}}' \
+      -ku admin:admin
    ```
    {% include copy.html %}
    <p class="codeblock-label">Example response</p>
@@ -458,7 +478,50 @@ Now that the cluster is configured, and you made backups of important files and 
       }
    }
    ```
-1. 
+1. Select a node to upgrade. You can upgrade nodes in any order because all of the nodes in this demo cluster are eligible cluster managers. The following command will stop and remove container `os-node-01` whithout removing the mounted data volume:
+   ```bash
+   docker stop os-node-01 && docker container rm os-node-01
+   ```
+   {% include copy.html %}
+1. Start a new container running OpenSearch 2.5.0 using the same mapped volumes as the original container:
+   ```bash
+   docker run -d \
+      -p 9201:9200 -p 9601:9600 \
+      -e "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" \
+      --ulimit nofile=65536:65536 --ulimit memlock=-1:-1 \
+      -v data-01:/usr/share/opensearch/data \
+      -v repo-01:/usr/share/opensearch/snapshots \
+      -v ~/deploy/opensearch-01.yml:/usr/share/opensearch/config/opensearch.yml \
+      -v ~/deploy/root-ca.pem:/usr/share/opensearch/config/root-ca.pem \
+      -v ~/deploy/admin.pem:/usr/share/opensearch/config/admin.pem \
+      -v ~/deploy/admin-key.pem:/usr/share/opensearch/config/admin-key.pem \
+      -v ~/deploy/os-node-01.pem:/usr/share/opensearch/config/os-node-01.pem \
+      -v ~/deploy/os-node-01-key.pem:/usr/share/opensearch/config/os-node-01-key.pem \
+      --network opensearch-dev-net \
+      --ip 172.20.0.11 \
+      --name os-node-01 \
+      opensearchproject/opensearch:2.5.0
+   ```
+   {% include copy.html %}
+   <p class="codeblock-label">Example response</p>
+   ```bash
+   d26d0cb2e1e93e9c01bb00f19307525ef89c3c3e306d75913860e6542f729ea4
+   ```
+1. Optional: Query the cluster to see which node is acting as the cluster manager:
+   ```bash
+   curl -s "https://localhost:9201/_cat/nodes?v&h=name,version,node.role,master" \
+      -ku admin:admin | column -t
+   ```
+   {% include copy.html %}
+   <p class="codeblock-label">Example response</p>
+   ```bash
+   name        version  node.role  master
+   os-node-01  2.5.0    dimr       -
+   os-node-04  1.3.7    dimr       *
+   os-node-02  1.3.7    dimr       -
+   os-node-03  1.3.7    dimr       -
+   ```
+1. Optional: Query the cluster to see how primary shards are allocated throughout the upgrade process.
 
 
 ## Next steps:
