@@ -1,4 +1,4 @@
-exp---
+---
 layout: default
 title: SAML
 parent: Authentication backends
@@ -110,7 +110,7 @@ Name | Description
 `idp.entity_id` | The entity ID of your IdP. Required.
 `sp.entity_id` | The entity ID of the service provider. Required.
 
-## Clock skew tolderance for JWT validation
+## Time compensation for JWT validation
 
 Occasionally you may find that the clock times between the validation server and the OpenSearch node are not perfectly synchronized. When this is the case, even by a few seconds, the system that either issues or receives a JSON Web Token may try to validate `nbf` (not before) and `exp` (expiration) claims and fail to authenticate the user due to the time disparity.
 
