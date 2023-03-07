@@ -64,6 +64,12 @@ collections:
   observing-your-data:
     permalink: /:collection/:path/
     output: true
+  query-dsl:
+    permalink: /:collection/:path/
+    output: true 
+  field-types:
+    permalink: /:collection/:path/
+    output: true
   clients:
     permalink: /:collection/:path/
     output: true
@@ -73,12 +79,6 @@ collections:
   tools:
     permalink: /:collection/:path/
     output: true
-  field-types:
-    permalink: /:collection/:path/
-    output: true
-  query-dsl:
-    permalink: /:collection/:path/
-    output: true 
   api-reference:
     permalink: /:collection/:path/
     output: true  
@@ -130,6 +130,12 @@ just_the_docs:
     observing-your-data:
       name: Observability
       nav_fold: true
+    query-dsl:
+      name: Query DSL, Aggregations, and Analyzers
+      nav_fold: true
+    field-types:
+      name: Mappings and field types
+      nav_fold: true
     clients:
       name: Clients
       nav_fold: true
@@ -138,12 +144,6 @@ just_the_docs:
       nav_fold: true
     tools:
       name: Tools
-      nav_fold: true
-    field-types:
-      name: Mappings and field types
-      nav_fold: true
-    query-dsl:
-      name: Query DSL, Aggregations, and Analyzers
       nav_fold: true
     api-reference:
       name: API reference

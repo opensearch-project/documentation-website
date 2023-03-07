@@ -2,6 +2,7 @@
 layout: default
 title: Query and filter context
 parent: Query DSL
+permalink: /query-dsl/query-filter-context/
 nav_order: 5
 ---
 
