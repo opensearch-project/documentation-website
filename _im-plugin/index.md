@@ -1,6 +1,6 @@
 ---
 layout: default
-title: About Index Management
+title: Managing indexes
 nav_order: 1
 has_children: false
 redirect_from:
@@ -281,5 +281,5 @@ The DELETE operation increments the `_version` field. If you add the document ba
 
 - The Index Management (IM) plugin lets you automate recurring index management activities and reduce storage costs. For more information, see [Index State Management]({{site.url}}{{site.baseurl}}/im-plugin/ism/index).
 
-- For instructions on how to reindex data, see [Reindex data]({{site.url}}{{site.baseurl}}/im-plugin/reindex-data/)
+- For instructions on how to reindex data, see [Reindex data]({{site.url}}{{site.baseurl}}/im-plugin/reindex-data/).
 
