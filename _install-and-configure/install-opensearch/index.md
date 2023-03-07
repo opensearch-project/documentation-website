@@ -71,6 +71,8 @@ The [sample docker-compose.yml]({{site.url}}{{site.baseurl}}/install-and-configu
 
   Disables swapping (along with `memlock`). Swapping can dramatically decrease performance and stability, so you should ensure it is disabled on production clusters.
 
+  Note that this setting will cause the JVM to reserve all the memory it will ever need. On VMs with limited memory (such as t2.micro with 1GB) the [default 1GB Class Metadata](https://docs.oracle.com/javase/10/gctuning/other-considerations.htm#JSGCT-GUID-BFB89453-60C0-42AC-81CA-87D59B0ACE2E) native memory reservation will cause errors. Limiting this reserved memory size using `-XX:CompressedClassSpaceSize` or `-XX:MaxMetaspaceSize` may be required in addition to Java heap limits below.
+
 - `OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m`
 
   Sets the size of the Java heap (we recommend half of system RAM).
