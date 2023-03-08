@@ -169,7 +169,7 @@ This section covers two activities:
    wget https://raw.githubusercontent.com/opensearch-project/documentation-website/main/assets/examples/ecommerce.json
    ```
    {% include copy.html %}
-1. Use the [Create index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/) API to create an index using the mappings defined in `ecommerce-field_mappings.json`.
+1. Use the [Create index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/) API to create an index using the mappings defined in `ecommerce-field_mappings.json`:
    ```bash
    curl -H "Content-Type: application/x-ndjson" \
       -X PUT "https://localhost:9201/ecommerce?pretty" \
