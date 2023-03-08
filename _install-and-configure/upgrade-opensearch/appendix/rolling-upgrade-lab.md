@@ -745,7 +745,7 @@ For this cluster, post-upgrade validation steps can include verifying:
    1. Option 1: Check OpenSearch Dashboards version from the web interface.
       1. Open a web browser and navigate to port `5601` on your Docker host (for example, <code>https://<var>HOST_ADDRESS</var>:5601</code>).
       1. Log in with the default username (`admin`) and default password (`admin`).
-      1. Select the **Help** button in the top-right corner. The version is displayed is displayed in a pop-up window. Click the **Help** button again to close the pop-up window.
+      1. Select the **Help button** in the top-right corner. The version is displayed is displayed in a pop-up window. Click the **Help button**again to close the pop-up window.
    1. Option 2: Check OpenSearch Dashboards version by inspecting `manifest.yml`.
       1. From the command line, open an interactive pseudo-TTY session with the OpenSearch Dashboards container:
          ```bash
