@@ -242,7 +242,7 @@ This section can be broken down into two parts:
 ### Adding data using OpenSearch Dashboards
 
 1. Open a web browser and navigate to port `5601` on your Docker host (for example, <code>https://<var>HOST_ADDRESS</var>:5601</code>). If OpenSearch Dashboards is running, and you have network access to the host from your browser client, then you will be redirected to a login page.
-    1. If the web browser throws an error because the TLS certificates are self-signed, then you might need to bypass certificate checks in your browser. Refer to the documentation for your specific browser and version for instructions on bypassing certificate checks. Remember that the common name (CN) for each certficate is generated with respect to the container and node name for intra-cluster communication, so connecting to the host from a browser will still result in an "invalid CN" error.
+    1. If the web browser throws an error because the TLS certificates are self-signed, then you might need to bypass certificate checks in your browser. Refer to the browser's documentationn for information about bypassing certificate checks. Remember that the common name (CN) for each certficate is generated with respect to the container and node name for intra-cluster communication, so connecting to the host from a browser will still result in an "invalid CN" error.
 1. Enter the default username (`admin`) and password (`admin`).
 1. On the OpenSearch Dashboards **Home** page, select **Add sample data**.
 1. Under **Sample web logs**, select **Add data**.
