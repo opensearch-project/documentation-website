@@ -227,7 +227,7 @@ This section can be broken down into two parts:
       -ku admin:admin
    ```
    {% include copy.html %}
-   <p class="codeblock-label">Example response</p>
+   <p class="codeblock-label" id="query-validation">Example response</p>
    ```json
    {
       "hits" : {
@@ -853,7 +853,7 @@ For this cluster, post-upgrade validation steps can include verifying:
 
 Query the ecommerce index again to confirm that the sample data is still present.
 
-1. Compare the response from this command to the response you received after [indexing data with the REST API](#indexing-data-with-the-rest-api):
+1. Compare the response from this command to the [response](#query-validation) you received after [indexing data with the REST API](#indexing-data-with-the-rest-api):
    ```bash
    curl -H 'Content-Type: application/json' \
       -X GET "https://localhost:9201/ecommerce/_search?pretty=true&filter_path=hits.total" \
