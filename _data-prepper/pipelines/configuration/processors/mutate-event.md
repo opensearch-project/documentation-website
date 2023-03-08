@@ -293,7 +293,7 @@ Create a log file named `logs_json.log` and replace the `path` in the file sourc
 {"message": "10.10.10.19 [19/Feb/2015:15:50:36 -0500] 200"}
 ```
 
-When you run the `Grok` processor, it processor parses the message into the following output:
+When you run the `Grok` processor, the processor parses the message into the following output:
 
 ```json
 {"message": "10.10.10.10 [19/Feb/2015:15:50:36 -0500] 200", "clientip":"10.10.10.10", "timestamp": "19/Feb/2015:15:50:36 -0500", "response_status": "200"}
