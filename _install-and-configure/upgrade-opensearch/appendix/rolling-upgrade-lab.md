@@ -231,12 +231,12 @@ These steps walk you through downloading and indexing sample data, and then quer
    <p class="codeblock-label">Example response</p>
    ```json
    {
-   "hits" : {
-      "total" : {
-         "value" : 106,
-         "relation" : "eq"
+      "hits" : {
+         "total" : {
+            "value" : 106,
+            "relation" : "eq"
+         }
       }
-   }
    }
    ```
 
@@ -848,11 +848,37 @@ For this cluster, post-upgrade validation steps can include verifying:
 
 ### Checking data consistency
 
+The last check you will perform is to validate the data that was loaded into your OpenSearch cluster before performing the upgrade.
 
-
-
-
+1. Compare the response to this command against the response to the same command you ran before upgrading OpenSearch to confirm that the data is intact:
+   ```bash
+   curl -H 'Content-Type: application/json' \
+      -X GET "https://localhost:9201/ecommerce/_search?pretty=true&filter_path=hits.total" \
+      -d'{"query":{"match":{"customer_first_name":"Sonya"}}}' \
+      -ku admin:admin
+   ```
+   {% include copy.html %}
+   <p class="codeblock-label">Example response</p>
+   ```json
+   {
+      "hits" : {
+         "total" : {
+            "value" : 106,
+            "relation" : "eq"
+         }
+      }
+   }
+   ```
+1. Open a web browser and navigate to port `5601` on your Docker host (for example, <code>https://<var>HOST_ADDRESS</var>:5601</code>).
+1. Enter the default username (`admin`) and password (`admin`).
+1. On the OpenSearch Dashboards **Home** page, select the **Menu button** in the top-left corner of the web interface to open the **Navigation pane**.
+1. Select **Dashboard**.
+1. Choose **[Logs] Web Traffic** to open the dashboard that was created when you added sample data earlier in the process.
+1. When you are done reviewing the dashboard, select the **Profile** button. Choose **Log out** so you can log in as a different user.
+1. Enter the username and password you created before upgrading, then select **Log in**.
 
 ## Next steps:
+- [REST API reference]({{site.url}}{{site.baseurl}}/api-reference/index/)
 - [Quickstart guide for OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/quickstart-dashboards/)
+- [About Security in OpenSearch]({{site.url}}{{site.baseurl}}/security/index/)
 
