@@ -40,7 +40,7 @@ You can follow these steps on your own compatible host to recreate the same clus
 
 The steps used in this lab were validated on an arbitrarily-chosen [Amazon Elastic Compute Cloud (Amazon EC2)](https://aws.amazon.com/ec2/) `t2.large` instance using [Amazon Linux 2](https://aws.amazon.com/amazon-linux-2/) kernel version `Linux 5.10.162-141.675.amzn2.x86_64` and [Docker](https://www.docker.com/) version `20.10.17, build 100c701`. The instance was provisioned with an attached 20 GiB gp2 [Amazon Elastic Block Store (EBS)](https://aws.amazon.com/ebs/) root volume. These specifications are included for informational purposes and do not represent hardware requirements for OpenSearch or OpenSearch Dashboards.
 
-References to the `$HOME` path on the host machine in this procedure are represented by the tilde character ("~") to make the instructions more portable. If you would prefer to specify an absolute path, modify the volume paths define in `upgrade-demo-cluster.sh` to reflect your environment.
+References to the `$HOME` path on the host machine in this procedure are represented by the tilde character ("~") to make the instructions more portable. If you would prefer to specify an absolute path, modify the volume paths define in `upgrade-demo-cluster.sh` and used throughout relevant commands in this document to reflect your environment.
 
 ## Set up the environment
 
@@ -57,19 +57,19 @@ docker container stop $(docker container ls -aqf name=os-); \
 The command removes container names matching the regular expression `os-*`, data volumes matching `data-0*` and `repo-0*`, and the Docker network named `opensearch-dev-net`. If you have other Docker resources running on your host, then you should take care to review and modify the command to avoid removing other resources unintentionally. This command does not revert changes to host memory swapping or the value of `vm.max_map_count`.
 {: .warning}
 
-1. Install the appropriate version of [Docker Engine](https://docs.docker.com/engine/install/) for your Linux distribution and architecture. 
-1. Configure [important system settings]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#important-settings) on your host.
+1. Install the appropriate version of [Docker Engine](https://docs.docker.com/engine/install/) for your Linux distribution and system architecture. 
+1. Configure [important system settings]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#important-settings) on your host:
     1. Disable memory paging and swapping on the host to improve performance:
 	   ```bash
 	   sudo swapoff -a
 	   ```
 	   {% include copy.html %}
-	1. Increase the number of memory maps available to OpenSearch. Open the `sysctl` configuration file for editing. This example command uses the [vim](https://www.vim.org/) text editor, but you can use any available text editor you prefer:
+	1. Increase the number of memory maps available to OpenSearch. Open the `sysctl` configuration file for editing. This example command uses the [vim](https://www.vim.org/) text editor, but you can use any available text editor:
 	   ```bash
 	   sudo vim /etc/sysctl.conf
 	   ```
 	   {% include copy.html %}
-	1. Add the following line to the file:
+	1. Add the following line to `/etc/sysctl.conf`:
 	   ```bash
 	   vm.max_map_count=262144
 	   ```
@@ -80,12 +80,12 @@ The command removes container names matching the regular expression `os-*`, data
 	   sudo sysctl -p
 	   ```
 	   {% include copy.html %}
-1. Navigate to your home directory and create a directory named `deploy`. You will use the path `~/deploy` for the deployment script, configuration files, and TLS certificates.
+1. Create a new directory called `deploy` in your home directory, then navigate to it. You will use `~/deploy` for paths in the deployment script, configuration files, and TLS certificates:
    ```bash
    mkdir ~/deploy && cd ~/deploy
    ```
    {% include copy.html %}
-1. Download `upgrade-demo-cluster.sh` from the OpenSearch [documentation-website](https://github.com/opensearch-project/documentation-website) repository:
+1. Download `upgrade-demo-cluster.sh` from the OpenSearch Project [documentation-website](https://github.com/opensearch-project/documentation-website) repository:
    ```bash
    wget https://raw.githubusercontent.com/opensearch-project/documentation-website/main/assets/examples/upgrade-demo-cluster.sh
    ```
