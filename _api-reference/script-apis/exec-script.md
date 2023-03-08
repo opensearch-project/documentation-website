@@ -2,7 +2,6 @@
 layout: default
 title: Execute Painless script
 parent: Script APIs
-grand_parent: REST API reference
 nav_order: 7
 ---
 

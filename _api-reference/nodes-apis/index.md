@@ -31,11 +31,11 @@ Parameter | Type   | Description
 
 Node filters support several node resolution mechanisms:
 
-- Predefined constants: `_local`, `_master`, or `_all`.
+- Predefined constants: `_local`, `_cluster_manager`, or `_all`.
 - An exact match for `nodeID`
 - A simple case-sensitive wildcard pattern matching for `node-name`, `host-name`, or `host-IP-address`.
 - Node roles where the `<bool>` value is set either to `true` or `false`:
-  - `master:<bool>` refers to all master-eligible nodes.
+  - `cluster_manager:<bool>` refers to all cluster manager-eligible nodes.
   - `data:<bool>` refers to all data nodes.
   - `ingest:<bool>` refers to all ingest nodes.
   - `voting_only:<bool>` refers to all voting-only nodes.
@@ -45,10 +45,10 @@ Node filters support several node resolution mechanisms:
 
 Resolution mechanisms are applied sequentially in the order specified by the client. Each mechanism specification can either add or remove nodes.
 
-To get statistics from the elected master node only, use the following query :
+To get statistics from the elected cluster manager node only, use the following query :
 
 ```json
-GET /_nodes/_master/stats
+GET /_nodes/_cluster_manager/stats
 ```
 {% include copy-curl.html %}
 
@@ -63,16 +63,16 @@ GET /_nodes/data:true/stats
 
 The order of resolution mechanisms is applied sequentially, and each can add or remove nodes. The following examples yield different results.
 
-To get statistics from all the nodes except the master node, use the following query:
+To get statistics from all the nodes except the cluster manager node, use the following query:
 
 ```json
-GET /_nodes/_all,master:false/stats
+GET /_nodes/_all,cluster_manager:false/stats
 ```
 {% include copy-curl.html %}
 
-However, if you switch the resolution mechanisms, the result will include all the cluster nodes, including the master node: 
+However, if you switch the resolution mechanisms, the result will include all the cluster nodes, including the cluster manager node: 
 
 ```json
-GET /_nodes/master:false,_all/stats
+GET /_nodes/cluster_manager:false,_all/stats
 ```
 {% include copy-curl.html %}

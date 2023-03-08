@@ -1,7 +1,7 @@
 ---
 layout: default
 title: API
-nav_order: 5
+nav_order: 30
 parent: k-NN
 has_children: false
 ---
@@ -331,7 +331,7 @@ POST /_plugins/_knn/models/{model_id}/_train?preference={node_id}
         "engine":"faiss",
         "space_type": "l2",
         "parameters":{
-            "nlists":128,
+            "nlist":128,
             "encoder":{
                 "name":"pq",
                 "parameters":{
@@ -361,7 +361,7 @@ POST /_plugins/_knn/models/_train?preference={node_id}
         "engine":"faiss",
         "space_type": "l2",
         "parameters":{
-            "nlists":128,
+            "nlist":128,
             "encoder":{
                 "name":"pq",
                 "parameters":{

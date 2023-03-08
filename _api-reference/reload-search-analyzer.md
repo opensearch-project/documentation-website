@@ -19,7 +19,7 @@ GET /<index>/_reload_search_analyzers
 
 Request body parameters are optional.
 
-Field Type | Data Type | Description
+Field Type | Data type | Description
 :--- | :--- | :---
 allow_no_indices | Boolean | When set to `false`, an error is returned for indexes that are closed or missing and match any wildcard expression. Default is set to `true`.
 expand_wildcards | String | Allows you to set the wildcards that can be matched to a type of index. Available options are `open`, `closed`, `all`, `none`, and `hidden`. Default is set to `open`.

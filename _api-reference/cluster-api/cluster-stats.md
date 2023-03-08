@@ -17,7 +17,7 @@ The cluster stats API operation returns statistics about your cluster.
 ## Examples
 
 ```json
-GET _cluster/stats/nodes/_master
+GET _cluster/stats/nodes/_cluster_manager
 ```
 {% include copy-curl.html %}
 
@@ -38,7 +38,7 @@ Parameter | Type | Description
 &lt;node-filters&gt; | List | A comma-separated list of [node filters]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/index/#node-filters) that OpenSearch uses to filter results.
 
 
-  Although the `master` node is now called `master` for version 2.0, we retained the `master` field for backwards compatibility. If you have a node that has either a `master` role or a `master` role, the `count` increases for both fields by 1. To see an example node count increase, see the Response sample.
+  Although the `master` node is now called `cluster_manager` for version 2.0, we retained the `master` field for backwards compatibility. If you have a node that has either a `master` role or a `cluster_manager` role, the `count` increases for both fields by 1. To see an example node count increase, see the Response sample.
    {: .note }
 
 ## Response
@@ -225,7 +225,7 @@ Parameter | Type | Description
             "data": 1,
             "ingest": 1,
             "master": 1,
-            "master": 1,
+            "cluster_manager": 1,
             "remote_cluster_client": 1
         },
         "versions": [

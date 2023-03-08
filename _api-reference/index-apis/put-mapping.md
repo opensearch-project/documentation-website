@@ -50,13 +50,13 @@ PUT /sample-index/_mapping?ignore_unavailable
 
 The following table defines the put mapping query parameters:
 
-Parameter | Data Type | Description
+Parameter | Data type | Description
 :--- | :--- | :---
 allow_no_indices | Boolean | Whether to ignore wildcards that don’t match any indexes. Default is `true`.
 expand_wildcards | String | Expands wildcard expressions to different indexes. Combine multiple values with commas. Available values are `all` (match all indexes), `open` (match open indexes), `closed` (match closed indexes), `hidden` (match hidden indexes), and `none` (do not accept wildcard expressions), which must be used with `open`, `closed`, or both. Default is `open`.
 ignore_unavailable | Boolean | If true, OpenSearch does not include missing or closed indexes in the response.
 ignore_malformed | Boolean | Use this parameter with the `ip_range` data type to specify that OpenSearch should ignore malformed fields. If `true`, OpenSearch does not include entries that do not match the IP range specified in the index in the response. The default is `false`.
-master_timeout | Time | How long to wait for a connection to the master node. Default is `30s`.
+cluster_manager_timeout | Time | How long to wait for a connection to the cluster manager node. Default is `30s`.
 timeout | Time | How long to wait for the response to return. Default is `30s`.
 write_index_only | Boolean | Whether OpenSearch should apply mapping updates only to the write index.
 

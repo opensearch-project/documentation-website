@@ -16,17 +16,16 @@ Restores a snapshot of a cluster or specified data streams and indices.
 
 If open indices with the same name that you want to restore already exist in the cluster, you must close, delete, or rename the indices. See [Sample Request](#example-request) for information about renaming an index. See [Close index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/close-index) for information about closing an index.
 {: .note}
-
 ### Path parameters
 
-| Parameter | Data Type | Description |
+| Parameter | Data type | Description |
 :--- | :--- | :---
 repository | String | Repository containing the snapshot to restore. |
 | snapshot | String | Snapshot to restore. |
 
 ### Query parameters
 
-Parameter | Data Type | Description
+Parameter | Data type | Description
 :--- | :--- | :---
 wait_for_completion | Boolean |  Whether to wait for snapshot restoration to complete before continuing. |
 
@@ -34,7 +33,7 @@ wait_for_completion | Boolean |  Whether to wait for snapshot restoration to com
 
 All request body parameters are optional.
 
-| Parameter | Data Type | Description |
+| Parameter | Data type | Description |
 :--- | :--- | :--- 
 | ignore_unavailable | Boolean | How to handle data streams or indices that are missing or closed. If `false`, the request returns an error for any data stream or index that is missing or closed. If `true`, the request ignores data streams and indices in indices that are missing or closed. Defaults to `false`. |
 | ignore_index_settings | Boolean | A comma-delimited list of index settings that you don't want to restore from a snapshot. |
@@ -91,7 +90,7 @@ Except for the snapshot name, all properties are empty or `0`. This is because a
 
 ### Response fields
 
-| Field | Data Type | Description |
+| Field | Data type | Description |
 | :--- | :--- | :--- | 
 | snapshot | string | Snapshot name. |
 | indices | array | Indices in the snapshot. |
