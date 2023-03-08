@@ -46,14 +46,14 @@ pipeline:
         insecure: false
 ```
 
-See [OpenSearch Sink Security](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/opensearch/security.md) for a detailed explanation <!---...explanation of?--->.
+See [OpenSearch Sink Security](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/opensearch/security.md) for a detailed explanation.
 
 ## Configuration
 
 You can configure the Amazon OpenSearch Service with the following options.
 
 | Name | Required | Description | Default value
-| -----| ---- | -----------|
+| -----| ----| -----------| -----|
 |`hosts`| Yes | A list of IP addresses of OpenSearch nodes.
 |`cert` | No | A certificate authority (CA) certificate that is PEM-encoded. Accepts both .pem or .crt. This enables the client to trust the CA that has signed the certificate that OpenSearch is using. | `null` |
 |`aws_sigv4` | Yes | A boolean flag to sign the HTTP request with AWS credentials. Only applies to Amazon OpenSearch Service. See [security](security.md) for details. | `false`. |
@@ -80,8 +80,10 @@ The following table describes common [Abstract processor](https://github.com/ope
 
 ### Counter
 
-The `otel_trace_group` processor includes the following custom metrics:
+The `otel_trace_group` processor includes the following custom metrics.
 
-- `recordsInMissingTraceGroup`: The number of ingress records missing trace group fields.
-- `recordsOutFixedTraceGroup`: The number of egress records with successfully completed trace group fields.
-- `recordsOutMissingTraceGroup`: The number of egress records missing trace group fields.
+| Metric name | Description |
+| ------------- | -----------|
+| `recordsInMissingTraceGroup` | The number of ingress records missing trace group fields. |
+| `recordsOutFixedTraceGroup` | The number of egress records with successfully completed trace group fields. |
+| `recordsOutMissingTraceGroup` | The number of egress records missing trace group fields. |
