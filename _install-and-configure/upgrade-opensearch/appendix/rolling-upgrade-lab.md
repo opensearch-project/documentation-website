@@ -42,7 +42,7 @@ The steps used in this lab were validated on an arbitrarily-chosen [Amazon Elast
 
 References to the `$HOME` path on the host machine in this procedure are represented by the tilde character ("~") to make the instructions more portable. If you would prefer to specify an absolute path, modify the volume paths define in `upgrade-demo-cluster.sh` and used throughout relevant commands in this document to reflect your environment.
 
-## Set up the environment
+## Setting up the environment
 
 As you follow along with this document you will define several Docker resources including containers, volumes, and a dedicated Docker network using a script we provide. You can clean up your environment with the following command if you want to start the process over:
 
@@ -74,7 +74,7 @@ The command removes container names matching the regular expression `os-*`, data
 	   vm.max_map_count=262144
 	   ```
 	   {% include copy.html %}
-	1. Save and quit.
+	1. Save and quit. If you use the `vi` or `vim` text editor, you save and quit by switching to command mode, and entering `:wq!` or `ZZ`. 
 	1. Apply the configuration change:
 	   ```bash
 	   sudo sysctl -p
@@ -90,7 +90,7 @@ The command removes container names matching the regular expression `os-*`, data
    wget https://raw.githubusercontent.com/opensearch-project/documentation-website/main/assets/examples/upgrade-demo-cluster.sh
    ```
    {% include copy.html %}
-1. Run the script without any changes to deploy four containers running OpenSearch and one container running OpenSearch Dashboards, with custom self-signed TLS certificates and a pre-defined set of internal users:
+1. Run the script without any modifications to deploy four containers running OpenSearch and one container running OpenSearch Dashboards, with custom self-signed TLS certificates and a pre-defined set of internal users:
    ```bash
    sh upgrade-demo-cluster.sh
    ```
@@ -120,7 +120,7 @@ The command removes container names matching the regular expression `os-*`, data
       [INFO ][o.o.s.c.ConfigurationRepository] [os-node-01] Node 'os-node-01' initialized
       ```
    1. Press `Ctrl+C` to stop following container logs and return to the command prompt.
-1. Use cURL to query the API. In the following command, `os-node-01` is queried by sending the request to host port `9201`, which is mapped to port `9200` on the container:
+1. Use cURL to query the OpenSearch REST API. In the following command, `os-node-01` is queried by sending the request to host port `9201`, which is mapped to port `9200` on the container:
    ```bash
    curl -s "https://localhost:9201" -ku admin:admin
    ```
@@ -146,7 +146,7 @@ The command removes container names matching the regular expression `os-*`, data
    }
    ```
 
-## Adding data and configure OpenSearch Security
+## Adding data and configuring OpenSearch Security
 
 Now that the OpenSearch cluster is running, it's time to add data and configure some OpenSearch Security settings. The data you add and settings you configure will be used to validate that these artifacts are preserved through a version upgrade.
 
