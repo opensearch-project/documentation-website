@@ -830,8 +830,8 @@ For this cluster, post-upgrade validation steps can include verifying:
    .opendistro-reports-definitions        0 r STARTED     0    208b 172.20.0.14 os-node-04
    security-auditlog-2023.03.06           0 r STARTED    53 174.6kb 172.20.0.12 os-node-02
    security-auditlog-2023.03.06           0 p STARTED    53 174.6kb 172.20.0.14 os-node-04
-   .kibana_101107607_jhuss_1              0 r STARTED     1   5.1kb 172.20.0.13 os-node-03
-   .kibana_101107607_jhuss_1              0 p STARTED     1   5.1kb 172.20.0.11 os-node-01
+   .kibana_101107607_newuser_1              0 r STARTED     1   5.1kb 172.20.0.13 os-node-03
+   .kibana_101107607_newuser_1              0 p STARTED     1   5.1kb 172.20.0.11 os-node-01
    .opendistro_security                   0 r STARTED    10  64.5kb 172.20.0.12 os-node-02
    .opendistro_security                   0 r STARTED    10  64.5kb 172.20.0.13 os-node-03
    .opendistro_security                   0 r STARTED    10  64.5kb 172.20.0.11 os-node-01
