@@ -219,7 +219,7 @@ This section covers two activities:
       ]
    }
    ```
-1. A search query can also serve to confirm that the data was indexed successfully. The following query matches documents where `customer_first_name` is `Sonya`:
+1. A search query can also serve to confirm that the data was indexed successfully. The following query matches documents where keyword `customer_first_name` equals `Sonya`:
    ```bash
    curl -H 'Content-Type: application/json' \
       -X GET "https://localhost:9201/ecommerce/_search?pretty=true&filter_path=hits.total" \
