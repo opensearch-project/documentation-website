@@ -720,9 +720,90 @@ Now that the cluster is configured, and you made backups of important files and 
 
 You successfully deployed a secure OpenSearch cluster, indexed data, created a dashboard populated with sample data, created a new internal user, backed-up your important files, and upgraded the cluster from version 1.3.7 to 2.5.0. Before you continue exploring and experimenting with OpenSearch and OpenSearch Dashboards, you should validate the outcome of the upgrade.
 
-For this cluster, post-upgrade validation steps can include:
+For this cluster, post-upgrade validation steps can include verifying:
 
-- Checking shard allocation
+- Running version
+- Cluster health and shard allocation
+- Data consistency
+- Dashboard state
+
+### Checking the new running version
+
+1. Check the current running version of your OpenSearch nodes:
+   ```bash
+   curl -s "https://localhost:9201/_cat/nodes?v&h=name,version,node.role,master" \
+      -ku admin:admin | column -t
+   ```
+   {% include copy.html %}
+   <p class="codeblock-label">Example response</p>
+   ```bash
+   name        version  node.role  master
+   os-node-01  2.5.0    dimr       *
+   os-node-02  2.5.0    dimr       -
+   os-node-04  2.5.0    dimr       -
+   os-node-03  2.5.0    dimr       -
+   ```
+1. Check the current running version of OpenSearch Dashboards:
+   1. Option 1: Check OpenSearch Dashboards version from the web interface.
+      1. Open a web browser and navigate to port `5601` on your Docker host (for example, <code>https://<var>HOST_ADDRESS</var>:5601</code>).
+      1. Log in with the default username (`admin`) and default password (`admin`).
+      1. Select the **Help** button in the top-right corner. The version is displayed is displayed in a pop-up window. Click the **Help** button again to close the pop-up window.
+   1. Option 2: Check OpenSearch Dashboards version by inspecting `manifest.yml`.
+      1. From the command line, open an interactive pseudo-TTY session with the OpenSearch Dashboards container:
+         ```bash
+         docker exec -it os-dashboards-01 bash
+         ```
+         {% include copy.html %}
+      1. Check `manifest.yml` for the version:
+         ```bash
+         head -n 5 manifest.yml 
+         ```
+         {% include copy.html %}
+         <p class="codeblock-label">Example response</p>
+         ```bash
+         ---
+         schema-version: '1.1'
+         build:
+            name: OpenSearch Dashboards
+            version: 2.5.0
+         ```
+      1. Terminate the pseudo-TTY session:
+         ```bash
+         exit
+         ```
+         {% include copy.html %}
+
+### Checking cluster health and shard allocation
+
+1. Query the [Cluster health]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-health/) API to see information about the health of your cluster. You should see a status of `green`, which indicates that all primary and replica shards are allocated:
+   ```bash
+   curl -s "https://localhost:9201/_cluster/health?pretty" -ku admin:admin
+   ```
+   {% include copy.html %}
+   <p class="codeblock-label">Example response</p>
+   ```json
+   {
+      "cluster_name" : "opensearch-dev-cluster",
+      "status" : "green",
+      "timed_out" : false,
+      "number_of_nodes" : 4,
+      "number_of_data_nodes" : 4,
+      "discovered_master" : true,
+      "discovered_cluster_manager" : true,
+      "active_primary_shards" : 16,
+      "active_shards" : 36,
+      "relocating_shards" : 0,
+      "initializing_shards" : 0,
+      "unassigned_shards" : 0,
+      "delayed_unassigned_shards" : 0,
+      "number_of_pending_tasks" : 0,
+      "number_of_in_flight_fetch" : 0,
+      "task_max_waiting_in_queue_millis" : 0,
+      "active_shards_percent_as_number" : 100.0
+   }
+   ```
+1. 
+
 
 
 
