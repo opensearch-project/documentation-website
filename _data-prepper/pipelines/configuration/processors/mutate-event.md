@@ -210,7 +210,7 @@ Create a log file named `logs_json.log` and replace the `path` in the file sourc
 {"message": "value"}
 ```
 
-When run, the processor parses the message into the following output:
+When ran, the processor parses the message into the following output:
 
 ```json
 {"newMessage": "value"}
