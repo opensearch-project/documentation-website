@@ -246,7 +246,7 @@ This section covers two activities:
 1. Enter the default username (`admin`) and password (`admin`).
 1. On the OpenSearch Dashboards **Home** page, select **Add sample data**.
 1. Under **Sample web logs**, select **Add data**.
-   1. Optional: Select **View data** to review the **[Logs] Web Traffic** dashboard.
+   1. **Optional**: Select **View data** to review the **[Logs] Web Traffic** dashboard.
 1. Select the **Menu button** to open the **Navigation pane**, then go to **Security > Internal users**.
 1. Select **Create internal user**.
 1. Provide a **Username** and **Password**.
@@ -278,7 +278,7 @@ In this section you will:
       "acknowledged" : true
    }
    ```
-1. Optional: Perform an additional check to verify that the repository was created successfully:
+1. **Optional**: Perform an additional check to verify that the repository was created successfully:
    ```bash
    curl -H 'Content-Type: application/json' \
       -X POST "https://localhost:9201/_snapshot/snapshot-repo/_verify?timeout=0s&master_timeout=50s&pretty" \
@@ -418,7 +418,7 @@ You can also export your OpenSearch Security settings by running `securityadmin.
    Will retrieve '/audit' into /usr/share/opensearch/backups/audit.yml 
       SUCC: Configuration for 'audit' stored in /usr/share/opensearch/backups/audit.yml
    ```
-1. Optional: Create a backup directory for TLS certificates and store copies of the certificates. Repeat this for each node if you use unique TLS certificates:
+1. **Optional**: Create a backup directory for TLS certificates and store copies of the certificates. Repeat this for each node if you use unique TLS certificates:
    ```bash
    mkdir /usr/share/opensearch/backups/certs && cp /usr/share/opensearch/config/*pem /usr/share/opensearch/backups/certs/
    ```
@@ -506,7 +506,7 @@ Now that the cluster is configured, and you made backups of important files and 
    ```bash
    d26d0cb2e1e93e9c01bb00f19307525ef89c3c3e306d75913860e6542f729ea4
    ```
-1. Optional: Query the cluster to see which node is acting as the cluster manager. You can query the cluster manually:
+1. **Optional**: Query the cluster to see which node is acting as the cluster manager. You can query the cluster manually:
    ```bash
    curl -s "https://localhost:9201/_cat/nodes?v&h=name,version,node.role,master" \
       -ku admin:admin | column -t
@@ -520,7 +520,7 @@ Now that the cluster is configured, and you made backups of important files and 
    os-node-02  1.3.7    dimr       -
    os-node-03  1.3.7    dimr       -
    ```
-1. Optional: Query the cluster to see how shard allocation changes as nodes are removed and replaced:
+1. **Optional**: Query the cluster to see how shard allocation changes as nodes are removed and replaced:
    ```bash
    curl -s "https://localhost:9201/_cat/shards" \
       -ku admin:admin
@@ -742,12 +742,12 @@ For this cluster, post-upgrade validation steps can include verifying:
    os-node-03  2.5.0    dimr       -
    ```
 1. Check the current running version of OpenSearch Dashboards:
-   1. Option 1: Check OpenSearch Dashboards version from the web interface.
+   1. **Option 1**: Check OpenSearch Dashboards version from the web interface.
       1. Open a web browser and navigate to port `5601` on your Docker host (for example, <code>https://<var>HOST_ADDRESS</var>:5601</code>).
       1. Log in with the default username (`admin`) and default password (`admin`).
       1. Select the **Help button** in the top-right corner. The version is displayed in a pop-up window.
       1. Select the **Help button** again to close the pop-up window.
-   1. Option 2: Check OpenSearch Dashboards version by inspecting `manifest.yml`.
+   1. **Option 2**: Check OpenSearch Dashboards version by inspecting `manifest.yml`.
       1. From the command line, open an interactive pseudo-TTY session with the OpenSearch Dashboards container:
          ```bash
          docker exec -it os-dashboards-01 bash
