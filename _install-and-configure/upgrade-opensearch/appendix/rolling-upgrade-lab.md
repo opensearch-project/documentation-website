@@ -95,7 +95,7 @@ The command removes container names matching the regular expression `os-*`, data
    sh upgrade-demo-cluster.sh
    ```
    {% include copy.html %}
-1. Confirm that the containers were launched successfully with the following command:
+1. Confirm that the containers were launched successfully:
    ```bash
    docker container ls
    ```
