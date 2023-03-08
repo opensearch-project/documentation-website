@@ -1,4 +1,3 @@
-build_gh_pages.sh
 _site
 .sass-cache
 .jekyll-metadata
