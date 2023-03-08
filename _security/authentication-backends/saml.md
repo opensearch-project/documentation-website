@@ -112,7 +112,7 @@ Name | Description
 
 ## Time disparity compensation for JSON Web Token validation
 
-Occasionally you may find that the clock times between the validation server and the OpenSearch node are not perfectly synchronized. When this is the case, even by a few seconds, the system that either issues or receives a JWT may try to validate `nbf` (not before) and `exp` (expiration) claims and fail to authenticate the user due to the time disparity.
+Occasionally you may find that the clock times between the authentication server and the OpenSearch node are not perfectly synchronized. When this is the case, even by a few seconds, the system that either issues or receives a JWT may try to validate `nbf` (not before) and `exp` (expiration) claims and fail to authenticate the user due to the time disparity.
 
 By default, Security allows for a window of 30 seconds to compensate for possible misalignment between server clock times. To set a custom value for this feature and override the default, you can add the `jwt_clock_skew_tolerance_seconds` setting to the `config.yml`.
 
@@ -200,7 +200,7 @@ Currently, the security plugin supports only the `HTTP-Redirect` logout binding.
 
 ## Exchange key settings
 
-SAML, unlike other protocols, is not meant to be used for exchanging user credentials with each request. The security plugin trades the SAML response for a lightweight JSON web token that stores the validated user attributes. This token is signed by an exchange key that you can choose freely. Note that when you change this key, all tokens signed with it become invalid immediately.
+SAML, unlike other protocols, is not meant to be used for exchanging user credentials with each request. The security plugin trades the SAML response for a lightweight JSON Web Token that stores the validated user attributes. This token is signed by an exchange key that you can choose freely. Note that when you change this key, all tokens signed with it become invalid immediately.
 
 Name | Description
 :--- | :---

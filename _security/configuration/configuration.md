@@ -79,7 +79,7 @@ These are the allowed values for `type`:
 
 - `basic`: HTTP basic authentication. No additional configuration is needed.
 - `kerberos`: Kerberos authentication. Additional, [Kerberos-specific configuration](#kerberos) is needed.
-- `jwt`: JSON web token authentication. Additional, [JWT-specific configuration](#json-web-token) is needed.
+- `jwt`: JSON Web Token authentication. Additional, [JWT-specific configuration](#json-web-token) is needed.
 - `clientcert`: Authentication through a client TLS certificate. This certificate must be trusted by one of the root CAs in the truststore of your nodes.
 
 After setting an HTTP authenticator, you must specify against which backend system you want to authenticate the user:
@@ -214,9 +214,9 @@ JSON Web Tokens (JWTs) are JSON-based access tokens that assert one or more clai
 1. The user sends the access token alongside every request to the service that it wants to use.
 1. The service verifies the token and grants or denies access.
 
-A JSON web token is self-contained in the sense that it carries all necessary information to verify a user within itself. The tokens are base64-encoded, signed JSON objects.
+A JSON Web Token is self-contained in the sense that it carries all necessary information to verify a user within itself. The tokens are base64-encoded, signed JSON objects.
 
-JSON web tokens consist of three parts:
+JSON Web Tokens consist of three parts:
 
 1. Header
 1. Payload
@@ -239,7 +239,7 @@ In this case, the header states that the message was signed using HMAC-SHA256.
 
 #### Payload
 
-The payload of a JSON web token contains the so-called [JWT Claims](https://self-issued.info/docs/draft-ietf-oauth-json-web-token.html#RegisteredClaimName). A claim can be any piece of information about the user that the application that created the token has verified.
+The payload of a JSON Web Token contains the so-called [JWT Claims](https://self-issued.info/docs/draft-ietf-oauth-json-web-token.html#RegisteredClaimName). A claim can be any piece of information about the user that the application that created the token has verified.
 
 The specification defines a set of standard claims with reserved names ("registered claims"). These include, for example, the token issuer, the expiration date, or the creation date.
 
@@ -258,7 +258,7 @@ Public claims, on the other hand, can be created freely by the token issuer. The
 
 #### Signature
 
-The issuer of the token calculates the signature of the token by applying a cryptographic hash function on the base64-encoded header and payload. These three parts are then concatenated using periods to form a complete JSON web token:
+The issuer of the token calculates the signature of the token by applying a cryptographic hash function on the base64-encoded header and payload. These three parts are then concatenated using periods to form a complete JSON Web Token:
 
 ```
 encoded = base64UrlEncode(header) + "." + base64UrlEncode(payload)
@@ -272,9 +272,9 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWRtaW4iLCJpYXQiOjE0MjI
 ```
 
 
-## Configure JSON web tokens
+## Configure JSON Web Tokens
 
-If you use JSON web token as your only authentication method, disable the user cache by setting `plugins.security.cache.ttl_minutes: 0`.
+If you use JSON Web Token as your only authentication method, disable the user cache by setting `plugins.security.cache.ttl_minutes: 0`.
 {: .warning }
 
 Set up an authentication domain and choose `jwt` as the HTTP authentication type. Because the tokens already contain all required information to verify the request, `challenge` must be set to `false` and `authentication_backend` to `noop`.
@@ -307,9 +307,9 @@ Name | Description
 `jwt_url_parameter` | If the token is not transmitted in the HTTP header, but as an URL parameter, define the name of this parameter here.
 `subject_key` | The key in the JSON payload that stores the user name. If not set, the [subject](https://tools.ietf.org/html/rfc7519#section-4.1.2) registered claim is used.
 `roles_key` | The key in the JSON payload that stores the user's roles. The value of this key must be a comma-separated list of roles.
-`jwt_clock_skew_tolerance_seconds` |  Sets a window of time in seconds to prevent authentication failures due to a misalignment between clock times for the JWT issuing server and the receiving server. Security sets 30 seconds as the default. Use this setting to apply a custom value.
+`jwt_clock_skew_tolerance_seconds` |  Sets a window of time in seconds to prevent authentication failures due to a misalignment between clock times for the JWT authentication server and OpenSearch node. Security sets 30 seconds as the default. Use this setting to apply a custom value.
 
-Because JSON web tokens are self-contained and the user is authenticated on the HTTP level, no additional `authentication_backend` is needed. Set this value to `noop`.
+Because JSON Web Tokens are self-contained and the user is authenticated on the HTTP level, no additional `authentication_backend` is needed. Set this value to `noop`.
 
 
 ### Symmetric key algorithms: HMAC
@@ -349,7 +349,7 @@ The security plugin automatically detects the algorithm (RSA/ECDSA), and if nece
 
 ### Bearer authentication for HTTP requests
 
-The most common way of transmitting a JSON web token in an HTTP request is to add it as an HTTP header with the bearer authentication schema:
+The most common way of transmitting a JSON Web Token in an HTTP request is to add it as an HTTP header with the bearer authentication schema:
 
 ```
 Authorization: Bearer <JWT>
@@ -357,7 +357,7 @@ Authorization: Bearer <JWT>
 
 The default name of the header is `Authorization`. If required by your authentication server or proxy, you can also use a different HTTP header name using the `jwt_header` configuration key.
 
-As with HTTP basic authentication, you should use HTTPS instead of HTTP when transmitting JSON web tokens in HTTP requests.
+As with HTTP basic authentication, you should use HTTPS instead of HTTP when transmitting JSON Web Tokens in HTTP requests.
 
 
 ### URL parameters for HTTP requests
@@ -386,7 +386,7 @@ The following registered claims are validated automatically:
 
 ### Supported formats and algorithms
 
-The security plugin supports digitally signed, compact JSON web tokens with all standard algorithms:
+The security plugin supports digitally signed, compact JSON Web Tokens with all standard algorithms:
 
 ```
 HS256: HMAC using SHA-256

@@ -26,7 +26,7 @@ The security plugin can integrate with identify providers that use the OpenID Co
 
 ## Configure OpenID Connect integration
 
-To integrate with an OpenID IdP, set up an authentication domain and choose `openid` as the HTTP authentication type. JSON web tokens already contain all required information to verify the request, so set `challenge` to `false` and `authentication_backend` to `noop`.
+To integrate with an OpenID IdP, set up an authentication domain and choose `openid` as the HTTP authentication type. JSON Web Tokens already contain all required information to verify the request, so set `challenge` to `false` and `authentication_backend` to `noop`.
 
 This is the minimal configuration:
 
@@ -102,7 +102,7 @@ For more information about IdP endpoints, see the following:
 
 ## Time disparity compensation for JSON Web Token validation
 
-Occasionally you may find that the clock times between the validation server and the OpenSearch node are not perfectly synchronized. When this is the case, even by a few seconds, the system that either issues or receives a JWT may try to validate `nbf` (not before) and `exp` (expiration) claims and fail to authenticate the user due to the time disparity.
+Occasionally you may find that the clock times between the authentication server and the OpenSearch node are not perfectly synchronized. When this is the case, even by a few seconds, the system that either issues or receives a JWT may try to validate `nbf` (not before) and `exp` (expiration) claims and fail to authenticate the user due to the time disparity.
 
 By default, Security allows for a window of 30 seconds to compensate for possible misalignment between server clock times. To set a custom value for this feature and override the default, you can add the `jwt_clock_skew_tolerance_seconds` setting to the `config.yml`.
 
