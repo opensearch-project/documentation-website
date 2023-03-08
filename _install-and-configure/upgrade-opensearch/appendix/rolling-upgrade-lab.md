@@ -436,9 +436,9 @@ You can also export your OpenSearch Security settings as YAML files by running `
 
 ## Performing the upgrade
 
-Now that the cluster is configured, and you made backups of important files and settings, you can begin the upgrade.
+Now that the cluster is configured, and you made backups of important files and settings, it's time to begin the version upgrade.
 
-1. Disable shard replication to prevent shard replicas from being created while nodes are being taken offline. This stops the movement of Lucene index segments on nodes in your cluster:
+1. Start by turning off shard replication to stop the movement of Lucene index segments within your cluster. Shard movement can negatively impact cluster performance in an environment where OpenSearch continues to index data.
    ```bash
    curl -H 'Content-type: application/json' \
       -X PUT "https://localhost:9201/_cluster/settings?pretty" \
