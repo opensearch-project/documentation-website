@@ -67,7 +67,7 @@ After you run Data Prepper, the source is converted to the following format:
 {"message": "ab-cd-ab-cd"}
 ```
 
-If the `from` regex string does not return a match, the key returns without any changes.
+`from` defines which string is replaced, and `to` defines the string to replace the `from` string. In the preceding example, all instances of the `from` string `"."` are replaced with the `to` string `"-"`, where string `ab:cd:ab:cd` becomes `ab-cd-ab-cd`. If the `from` regex string does not return a match, the key returns without any changes. 
     
 ## split_string
 
