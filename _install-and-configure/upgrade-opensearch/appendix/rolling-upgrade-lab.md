@@ -146,20 +146,18 @@ The command removes container names matching the regular expression `os-*`, data
    }
    ```
 
-Use the `-s` option with `curl` to hide the progress meter and error messages.
+**TIP**: Use the `-s` option with `curl` to hide the progress meter and error messages.
 {: .tip}
 
 ## Adding data and configuring OpenSearch Security
 
-Now that the OpenSearch cluster is running, it's time to add data and configure some OpenSearch Security settings. The data you add and settings you configure will be used to validate that these artifacts are preserved through a version upgrade.
+Now that the OpenSearch cluster is running, it's time to add data and configure some OpenSearch Security settings. The data you add and settings you configure will be validated again after the version upgrade upgrade is complete.
 
-You will perform the following steps by:
-- [Configuring host and cluster settings](#configuring-host-and-cluster-settings)
+This section will describe two activities:
+- [Indexing data with the REST API](#indexing-data-with-the-rest-api)
 - [Adding data using OpenSearch Dashboards](#adding-data-using-opensearch-dashboards)
 
-### Configuring host and cluster settings
-
-These steps walk you through downloading and indexing sample data, and then querying the data to establish a baseline that you can use to validate your cluster's state after the upgrade process is finished.
+### Indexing data with the REST API
 
 1. Download the sample field mappings file first:
    ```bash
