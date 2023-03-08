@@ -10,18 +10,19 @@ redirect_from:
 
 Data Prepper is an independent component, not an OpenSearch plugin, that converts data for use with OpenSearch. It's not bundled with the all-in-one OpenSearch installation packages.
 
-If you are migrating from Open Distro Data Prepper, see the [Migrating from Open Distro]({{site.url}}{{site.baseurl}}/data-prepper/migrate-open-distro/) page. 
+If you are migrating from Open Distro Data Prepper, see [Migrating from Open Distro]({{site.url}}{{site.baseurl}}/data-prepper/migrate-open-distro/). 
 {: .note}
 
 ## 1. Installing Data Prepper
 
-There are two ways to install Data Prepper: Run the Docker image and build from source.
+There are two ways to install Data Prepper: you can run the Docker image or build from source.
 
-The easiest way to use Data Prepper is by running the Docker image. We suggest that you use this approach if you have [Docker](https://www.docker.com) available. Do the following: 
+The easiest way to use Data Prepper is by running the Docker image. We suggest that you use this approach if you have [Docker](https://www.docker.com) available. Run the following command:  
 
 ```
 docker pull opensearchproject/data-prepper:latest
 ```
+{% include copy.html %}
 
 If you have special requirements that require you to build from source, or if you want to contribute, see the [Developer Guide](https://github.com/opensearch-project/data-prepper/blob/main/docs/developer_guide.md).
 
@@ -50,6 +51,7 @@ simple-sample-pipeline:
   sink:
     - stdout:
 ```
+{% include copy.html %}
 
 ## 4. Running Data Prepper
 
@@ -61,6 +63,7 @@ docker run --name data-prepper \
     opensearchproject/data-prepper:latest
     
 ```
+{% include copy.html %}
 
 The example pipeline configuration above demonstrates a simple pipeline with a source (`random`) sending data to a sink (`stdout`). For examples of more advanced pipeline configurations, see [Pipelines]({{site.url}}{{site.baseurl}}/clients/data-prepper/pipelines/).
 
@@ -93,24 +96,27 @@ For Data Prepper 2.0 or later, use this command:
 ```
 docker run --name data-prepper -p 4900:4900 -v ${PWD}/pipelines.yaml:/usr/share/data-prepper/pipelines/pipelines.yaml -v ${PWD}/data-prepper-config.yaml:/usr/share/data-prepper/config/data-prepper-config.yaml opensearchproject/data-prepper:latest
 ```
+{% include copy.html %}
 
-For Data Prepper 2.0 and earlier, use this command:
+For Data Prepper versions earlier than 2.0, use this command:
 
 ```
 docker run --name data-prepper -p 4900:4900 -v ${PWD}/pipelines.yaml:/usr/share/data-prepper/pipelines.yaml -v ${PWD}/data-prepper-config.yaml:/usr/share/data-prepper/data-prepper-config.yaml opensearchproject/data-prepper:1.x
 ```
+{% include copy.html %}
 
 Once Data Prepper is running, it processes data until it is shut down. Once you are done, shut it down with the following command:
 
 ```
-curl -X POST http://localhost:4900/shutdown
+POST /shutdown
 ```
+{% include copy-curl.html %}
 
 ### Additional configurations
 
 For Data Prepper 2.0 or later, the Log4j 2 configuration file is read from `config/log4j2.properties` in the application's home directory. By default, it uses `log4j2-rolling.properties` in the *shared-config* directory.
 
-For Data Prepper 1.5 or earlier, optionally add `"-Dlog4j.configurationFile=config/log4j2.properties"` to the command if you would like to pass a custom log4j2 properties file. If no properties file is provided, Data Prepper defaults to the log4j2.properties file in the *shared-config* directory.
+For Data Prepper 1.5 or earlier, optionally add `"-Dlog4j.configurationFile=config/log4j2.properties"` to the command if you want to pass a custom log4j2 properties file. If no properties file is provided, Data Prepper defaults to the log4j2.properties file in the *shared-config* directory.
 
 ## Next steps
 
@@ -120,8 +126,8 @@ Log ingestion is also an important Data Prepper use case. To learn more, see [Lo
 
 To learn how to run Data Prepper with a Logstash configuration, see [Migrating from Logstash]({{site.url}}{{site.baseurl}}/data-prepper/migrating-from-logstash-data-prepper/).
 
-For information on how to monitor Data Prepper, see the [Monitoring]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/monitoring/) page.
+For information on how to monitor Data Prepper, see [Monitoring]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/monitoring/).
 
-## Other examples
+## More examples
 
-We have several other Docker [examples](https://github.com/opensearch-project/data-prepper/tree/main/examples/) that allow you to run Data Prepper in different scenarios.
+For more examples of Data Prepper, see [examples](https://github.com/opensearch-project/data-prepper/tree/main/examples/) in the Data Prepper repo. 
