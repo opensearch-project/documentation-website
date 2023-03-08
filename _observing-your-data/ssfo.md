@@ -8,25 +8,25 @@ nav_order: 120
 Introduced 2.6
 {: .label .label-purple }
 
-OpenSearch 2.6 introduced a standardization for conforming to a common and unified observability schema: Simple Schema for Observability (SSO). [Observability]({{site.url}}{{site.baseurl}}/observing-your-data/index/) is a collection of plugins and applications that let you visualize data-driven events by using Piped Processing Language (PPL) to explore and query data stored in OpenSearch.
+OpenSearch 2.6 introduced a standardization for conforming to a common and unified observability schema: Simple Schema for Observability (SSFO). [Observability]({{site.url}}{{site.baseurl}}/observing-your-data/index/) is a collection of plugins and applications that let you visualize data-driven events by using Piped Processing Language (PPL) to explore and query data stored in OpenSearch.
 
 With the schema in place, Observability tools can ingest, automatically extract, and aggregate data and create custom dashboards, making it easier to understand the system at a higher level.
 
-SSO is inspired by both [OpenTelemetry](https://opentelemetry.io/docs/) and the Elastic Common Schema (ECS) and uses Amazon Elastic Container Service ([Amazon ECS](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs_cwe_events.html)) event logs and OpenTelemetry metadata.
+SSFO is inspired by both [OpenTelemetry](https://opentelemetry.io/docs/) and the Elastic Common Schema (ECS) and uses Amazon Elastic Container Service ([Amazon ECS](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs_cwe_events.html)) event logs and OpenTelemetry metadata.
 
 Alerts will be supported in a future release.
 {: .note }
 
 ## Use cases
 
-Use cases for SSO include:
+Use cases for SSFO include:
 
 * Ingesting observability data from different data types.
 * Moving from proprietary configurations that are non-transferable to a consolidated, sharable observability solution that allows users to ingest and display an analysis of any type of telemetry data from any type of provider.
 
-Data Prepper conforms to the SSO schema for metrics and will gradually support traces and logs.
+Data Prepper conforms to the SSFO schema for metrics and will gradually support traces and logs.
 
-Data Prepper's [trace mapping]({{site.url}}{{site.baseurl}}/data-prepper/common-use-cases/trace-analytics/) currently provides `service-map` data in a different way than SSO traces. To make the trace mapping compatible with Observability, it will be integrated with the SSO traces schema and will introduce `service-map` as an enriched field.
+Data Prepper's [trace mapping]({{site.url}}{{site.baseurl}}/data-prepper/common-use-cases/trace-analytics/) currently provides `service-map` data in a different way than SSFO traces. To make the trace mapping compatible with Observability, it will be integrated with the SSFO traces schema and will introduce `service-map` as an enriched field.
 {: .note }
 
 ## Traces and metrics
