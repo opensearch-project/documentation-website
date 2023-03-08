@@ -258,9 +258,9 @@ This section can be broken down into two parts:
 Always create backups before making changes to your cluster, especially if the cluster is running in a production environment.
 
 In this section you will:
-- [Register a snapshot repository](#registering-a-snapshot-repository)
-- [Create a snapshot](#creating-a-snapshot)
-- [Back up security settings](#backing-up-security-settings)
+- [Registering a snapshot repository](#registering-a-snapshot-repository)
+- [Creating a snapshot](#creating-a-snapshot)
+- [Backing up security settings](#backing-up-security-settings)
 
 ### Registering a snapshot repository
 
