@@ -375,7 +375,7 @@ You can also export your OpenSearch Security settings as YAML files by running `
    mkdir /usr/share/opensearch/backups && cd /usr/share/opensearch/backups
    ```
    {% include copy.html %}
-1. Invoke `securityadmin.sh` and create backups of your OpenSearch Security settings in `/usr/share/opensearch/backups/`:
+1. Use `securityadmin.sh` to create backups of your OpenSearch Security settings in `/usr/share/opensearch/backups/`:
    ```bash
    /usr/share/opensearch/plugins/opensearch-security/tools/securityadmin.sh \
       -backup /usr/share/opensearch/backups \
