@@ -146,6 +146,9 @@ The command removes container names matching the regular expression `os-*`, data
    }
    ```
 
+Use the `-s` option with `curl` to hide the progress meter and error messages.
+{: .tip}
+
 ## Adding data and configuring OpenSearch Security
 
 Now that the OpenSearch cluster is running, it's time to add data and configure some OpenSearch Security settings. The data you add and settings you configure will be used to validate that these artifacts are preserved through a version upgrade.
