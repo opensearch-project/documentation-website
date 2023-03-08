@@ -116,6 +116,7 @@ The command removes container names matching the regular expression `os-*`, data
       ```
       {% include copy.html %}
    1. You will see a log entry like the following example when the node is ready:
+      <p class="codeblock-label">Example</p>
       ```
       [INFO ][o.o.s.c.ConfigurationRepository] [os-node-01] Node 'os-node-01' initialized
       ```
