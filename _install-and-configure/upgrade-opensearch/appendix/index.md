@@ -8,7 +8,7 @@ redirect_from:
   - /upgrade-opensearch/appendix/
 ---
 
-# Appendix
+# Upgrades Appendix
 
 Use the upgrades appendix to find additional supporting documentation, such as labs that include example API requests and configuration files to supplement the related process documentation. Specific procedures outlined in the appendix section can be used in a variety of ways:
 
