@@ -17,7 +17,7 @@ If you are migrating from Open Distro Data Prepper, see [Migrating from Open Dis
 
 There are two ways to install Data Prepper: you can run the Docker image or build from source.
 
-The easiest way to use Data Prepper is by running the Docker image. We suggest that you use this approach if you have [Docker](https://www.docker.com) available. Do the following: 
+The easiest way to use Data Prepper is by running the Docker image. We suggest that you use this approach if you have [Docker](https://www.docker.com) available. Run the following command:  
 
 ```
 docker pull opensearchproject/data-prepper:latest
@@ -98,7 +98,7 @@ docker run --name data-prepper -p 4900:4900 -v ${PWD}/pipelines.yaml:/usr/share/
 ```
 {% include copy.html %}
 
-For Data Prepper 2.0 and earlier, use this command:
+For Data Prepper versions earlier than 2.0, use this command:
 
 ```
 docker run --name data-prepper -p 4900:4900 -v ${PWD}/pipelines.yaml:/usr/share/data-prepper/pipelines.yaml -v ${PWD}/data-prepper-config.yaml:/usr/share/data-prepper/data-prepper-config.yaml opensearchproject/data-prepper:1.x
@@ -108,9 +108,9 @@ docker run --name data-prepper -p 4900:4900 -v ${PWD}/pipelines.yaml:/usr/share/
 Once Data Prepper is running, it processes data until it is shut down. Once you are done, shut it down with the following command:
 
 ```
-curl -X POST http://localhost:4900/shutdown
+POST /shutdown
 ```
-{% include copy.html %}
+{% include copy-curl.html %}
 
 ### Additional configurations
 
