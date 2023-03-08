@@ -219,7 +219,7 @@ This section can be broken down into two parts:
       ]
    }
    ```
-1. A search query can also serve to confirm that the data was indexed successfully. The following query returns a count of documents where keyword `customer_first_name` equals `Sonya`:
+1. <p id="validation">A search query can also serve to confirm that the data was indexed successfully. The following query returns a count of documents where keyword `customer_first_name` equals `Sonya`:</p>
    ```bash
    curl -H 'Content-Type: application/json' \
       -X GET "https://localhost:9201/ecommerce/_search?pretty=true&filter_path=hits.total" \
@@ -853,7 +853,7 @@ For this cluster, post-upgrade validation steps can include verifying:
 
 Query the ecommerce index again to confirm that the sample data is still present.
 
-1. Compare the response from this command to the [response](#query-validation) you received after [indexing data with the REST API](#indexing-data-with-the-rest-api):
+1. Compare the response to this query with the response you received in the [last step](#validation) of [Indexing data with the REST API](#indexing-data-with-the-rest-api):
    ```bash
    curl -H 'Content-Type: application/json' \
       -X GET "https://localhost:9201/ecommerce/_search?pretty=true&filter_path=hits.total" \
