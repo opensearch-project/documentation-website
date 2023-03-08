@@ -67,6 +67,7 @@ module Jekyll::LinkChecker
     @urls = {}
     @failures = []
     @base_url_matcher = /^#{@site.config["url"]}#{@site.baseurl}(\/.*)$/.freeze
+    @bad_url_matcher = /^#{@site.config["url"]}#{@site.baseurl}[^\/]/.freeze
   end
 
   # Processes a Document or Page and adds the links to a collection
@@ -116,7 +117,7 @@ module Jekyll::LinkChecker
     
     msg = "Found #{@failures.size} dead link#{@failures.size > 1 ? 's' : ''}:\n#{@failures.join("\n")}" unless @failures.empty?
 
-    if !@failures.empty?
+    unless @failures.empty?
       if @should_build_fatally
         puts "\nLinkChecker: [Error] #{msg}\n".red 
         exit(1)
@@ -136,6 +137,8 @@ module Jekyll::LinkChecker
     unless match.nil?
       url = match[1]
     end
+
+    return false if @bad_url_matcher =~ url
 
     if @external_matcher =~ url
       return true unless @check_external_links
