@@ -109,7 +109,7 @@ The command removes container names matching the regular expression `os-*`, data
    f894054a9378   opensearchproject/opensearch:1.3.7              "./opensearch-docker…"   27 seconds ago   Up 26 seconds   9300/tcp, 9650/tcp, 0.0.0.0:9202->9200/tcp, :::9202->9200/tcp, 0.0.0.0:9602->9600/tcp, :::9602->9600/tcp   os-node-02
    2e9c91c959cd   opensearchproject/opensearch:1.3.7              "./opensearch-docker…"   28 seconds ago   Up 27 seconds   9300/tcp, 9650/tcp, 0.0.0.0:9201->9200/tcp, :::9201->9200/tcp, 0.0.0.0:9601->9600/tcp, :::9601->9600/tcp   os-node-01
    ```
-1. The amount of time it takes to initialize and bootstrap the cluster will vary depending on the performance capabilities of the underlying host. You can watch the container logs to see what OpenSearch is doing during cluster formation.
+1. The amount of time OpenSearch needs to initialize and bootstrap the cluster will vary depending on the performance capabilities of the underlying host. You can watch container logs to see what OpenSearch is doing during the bootstrap process:
    1. Enter the following command to display logs for container `os-node-01` in the terminal window:
       ```bash
       docker logs -f os-node-01
