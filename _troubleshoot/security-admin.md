@@ -92,8 +92,12 @@ Connected as CN=node-0.example.com,OU=SSL,O=Test,L=Test,C=DE
 ERR: CN=node-0.example.com,OU=SSL,O=Test,L=Test,C=DE is not an admin user
 ```
 
+<<<<<<< HEAD
 You must use an admin certificate when executing the script. To learn more, see [Configure admin certificates]({{site.url}}{{site.baseurl}}/security/configuration/tls#configure-admin-certificates).
 
+=======
+You must use an admin certificate when executing the script. To learn more, see [Configure admin certificates]({{site.url}}{{site.baseurl}}/security/configuration/tls/#configuring-admin-certificates).
+>>>>>>> e119a937 (Index and OpenSearch TOC changes (#2946))
 
 ## Use the diagnose option
 
