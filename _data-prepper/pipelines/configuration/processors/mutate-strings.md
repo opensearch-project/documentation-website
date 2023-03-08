@@ -31,7 +31,7 @@ Option | Required | Description
 `from` | Yes | The regular expression (regex) string to be replaced. Special regex characters such as `[` and `]` must be escaped using `\\` when using double quotes and `\` when using single quotes. See [Class Pattern](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/regex/Pattern.html) for more information. |
 `to` | Yes | The string to be substituted for each match of `from`. |
 
-### Basic usage
+### Usage
 
 To get started, create the following `pipeline.yaml` file: <!--- Where should this file be stored? This may be covered in the Getting started guide config section.--->
 
@@ -84,7 +84,7 @@ Option | Required | Description
 | `delimiter` | No | The separator character responsible for the split. Cannot be defined at the same time as `delimiter_regex`. At least `delimiter` or `delimiter_regex` must be defined. |
 |`delimiter_regex` | No | A regex string responsible for the split. Cannot be defined at the same time as `delimiter`. At least `delimiter` or `delimiter_regex` must be defined. |
 
-### Basic usage
+### Usage
 
 To get started, create the following `pipeline.yaml` file:
 
@@ -130,7 +130,7 @@ Option | Required | Description
 :--- | :--- | :---
 | `with_keys` | Yes | A list of keys to convert to uppercase. |
 
-### Basic usage
+### Usage
 
 To get started, create the following `pipeline.yaml` file:
 
@@ -175,7 +175,7 @@ Option | Required | Description
 :--- | :--- | :---
 | `with_keys` | Yes | A list of keys to convert to lowercase. |
 
-### Basic usage
+### Usage
 
 To get started, create the following `pipeline.yaml` file:
 
@@ -221,7 +221,7 @@ Option | Required | Description
 :--- | :--- | :---
 | `with_keys` | Yes | A list of keys to trim the whitespace from. |
 
-### Basic usage
+### Usage
 
 To get started, create the following `pipeline.yaml` file:
 
