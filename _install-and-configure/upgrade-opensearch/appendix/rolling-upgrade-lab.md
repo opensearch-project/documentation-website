@@ -509,7 +509,7 @@ Some steps included in this section, like disabling shard replication and flushi
    ```bash
    d26d0cb2e1e93e9c01bb00f19307525ef89c3c3e306d75913860e6542f729ea4
    ```
-1. **Optional**: Query the cluster to see which node is acting as the cluster manager. You can query the cluster manually:
+1. **Optional**: Query the cluster to see which node is acting as the cluster manager. You can execute this command at any time during the process to see when a new cluster manager is elected:
    ```bash
    curl -s "https://localhost:9201/_cat/nodes?v&h=name,version,node.role,master" \
       -ku admin:admin | column -t
@@ -523,7 +523,7 @@ Some steps included in this section, like disabling shard replication and flushi
    os-node-02  1.3.7    dimr       -
    os-node-03  1.3.7    dimr       -
    ```
-1. **Optional**: Query the cluster to see how shard allocation changes as nodes are removed and replaced:
+1. **Optional**: Query the cluster to see how shard allocation changes as nodes are removed and replaced. You can execute this command at any time during the process to see how shard statuses change:
    ```bash
    curl -s "https://localhost:9201/_cat/shards" \
       -ku admin:admin
