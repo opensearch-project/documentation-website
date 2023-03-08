@@ -3,6 +3,7 @@ layout: default
 title: Aggregations
 has_children: true
 nav_order: 5
+permalink: /aggregations/
 redirect_from:
   - /opensearch/aggregations/
 ---

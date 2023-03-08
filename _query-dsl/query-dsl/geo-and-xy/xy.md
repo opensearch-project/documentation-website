@@ -4,6 +4,7 @@ title: xy queries
 parent: Geographic and xy queries
 grand_parent: Query DSL
 nav_order: 50
+permalink: /query-dsl/geo-and-xy/xy/
 redirect_from: 
   - /opensearch/query-dsl/geo-and-xy/xy/
 ---

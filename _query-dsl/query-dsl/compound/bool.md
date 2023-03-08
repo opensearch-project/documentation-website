@@ -4,6 +4,7 @@ title: Boolean queries
 parent: Compound queries
 grand_parent: Query DSL
 nav_order: 10
+permalink: /query-dsl/compound/bool/
 redirect_from:
   - /opensearch/query-dsl/compound/bool/
 ---

@@ -3,6 +3,7 @@ layout: default
 title: Pipeline aggregations
 parent: Aggregations
 nav_order: 5
+permalink: /aggregations/pipeline-agg/
 has_children: false
 ---
 

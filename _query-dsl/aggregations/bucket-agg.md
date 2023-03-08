@@ -2,6 +2,7 @@
 layout: default
 title: Bucket aggregations
 parent: Aggregations
+permalink: /aggregations/bucket-agg/
 nav_order: 3
 redirect_from:
   - /opensearch/bucket-agg/

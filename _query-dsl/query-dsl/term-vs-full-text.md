@@ -2,6 +2,7 @@
 layout: default
 title: Term-level and full-text queries compared
 parent: Query DSL
+permalink: /query-dsl/term-vs-full-text/
 nav_order: 10
 ---
 

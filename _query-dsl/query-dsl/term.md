@@ -3,6 +3,7 @@ layout: default
 title: Term-level queries
 parent: Query DSL
 nav_order: 20
+permalink: /query-dsl/term/
 redirect_from: 
   - /opensearch/query-dsl/term/
 ---

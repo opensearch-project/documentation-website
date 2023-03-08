@@ -4,6 +4,7 @@ title: Query string queries
 parent: Full-text queries
 grand_parent: Query DSL
 nav_order: 25
+permalink: /query-dsl/full-text/query-string/
 redirect_from:
   - /opensearch/query-dsl/full-text/query-string/
 ---
