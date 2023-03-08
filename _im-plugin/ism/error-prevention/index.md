@@ -1,11 +1,12 @@
 ---
 layout: default
 title: ISM Error Prevention
-nav_order: 1
+nav_order: 90
 has_children: true
 has_toc: false
 redirect_from:
   - /im-plugin/ism/error-prevention/
+  - /im-plugin/ism/error-prevention/index/
 ---
 
 # ISM error prevention
