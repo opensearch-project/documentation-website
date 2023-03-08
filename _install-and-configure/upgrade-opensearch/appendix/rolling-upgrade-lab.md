@@ -691,10 +691,38 @@ Now that the cluster is configured, and you made backups of important files and 
    Connection: keep-alive
    Keep-Alive: timeout=120
    ```
+1. Re-enable allocation of replica shards:
+   ```bash
+   curl -H 'Content-type: application/json' \
+      -X PUT "https://localhost:9201/_cluster/settings?pretty" \
+      -d'{"persistent":{"cluster.routing.allocation.enable":"all"}}' \
+      -ku admin:admin
+   ```
+   {% include copy.html %}
+   <p class="codeblock-label">Example response</p>
+   ```json
+   {
+      "acknowledged" : true,
+      "persistent" : {
+         "cluster" : {
+            "routing" : {
+               "allocation" : {
+                  "enable" : "all"
+               }
+            }
+         }
+      },
+      "transient" : { }
+   }
+   ```
 
 ## Validating the upgrade
 
+You successfully deployed a secure OpenSearch cluster, indexed data, created a dashboard populated with sample data, created a new internal user, backed-up your important files, and upgraded the cluster from version 1.3.7 to 2.5.0. Before you continue exploring and experimenting with OpenSearch and OpenSearch Dashboards, you should validate the outcome of the upgrade.
 
+For this cluster, post-upgrade validation steps can include:
+
+- Checking shard allocation
 
 
 
