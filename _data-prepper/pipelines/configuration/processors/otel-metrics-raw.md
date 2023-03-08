@@ -1,12 +1,12 @@
 ---
 layout: default
-title: otel metrics raw processor
+title: otel metrics raw
 parent: Processors
 grand_parent: Pipelines
 nav_order: 45
 ---
 
-# otel metrics raw processor 
+# otel metrics raw
 
 The `otel metrics raw` processor serializes a collection of `ExportMetricsServiceRequest` sent from the [otel-metrics-source]({{site.url}}{{site.baseurl}}//data-prepper/pipelines/configuration/sources/otel-metrics-source/) into a collection of string records.
 
