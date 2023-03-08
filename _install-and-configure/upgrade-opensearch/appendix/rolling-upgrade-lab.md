@@ -722,10 +722,9 @@ You successfully deployed a secure OpenSearch cluster, indexed data, created a d
 
 For this cluster, post-upgrade validation steps can include verifying:
 
-- Running version
-- Cluster health and shard allocation
-- Data consistency
-- Dashboard state
+- [Running version](#checking-the-new-running-version)
+- [Cluster health and shard allocation](#checking-cluster-health-and-shard-allocation)
+- [Data consistency](#checking-data-consistency)
 
 ### Checking the new running version
 
@@ -775,7 +774,7 @@ For this cluster, post-upgrade validation steps can include verifying:
 
 ### Checking cluster health and shard allocation
 
-1. Query the [Cluster health]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-health/) API to see information about the health of your cluster. You should see a status of `green`, which indicates that all primary and replica shards are allocated:
+1. Query the [Cluster health]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-health/) API endpoint to see information about the health of your cluster. You should see a status of `green`, which indicates that all primary and replica shards are allocated:
    ```bash
    curl -s "https://localhost:9201/_cluster/health?pretty" -ku admin:admin
    ```
@@ -802,7 +801,54 @@ For this cluster, post-upgrade validation steps can include verifying:
       "active_shards_percent_as_number" : 100.0
    }
    ```
-1. 
+1. Query the [CAT shards]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-shards/) API endpoint to see how shards are allocated after upgrading the cluster:
+   ```bash
+   curl -s "https://localhost:9201/_cat/shards" -ku admin:admin
+   ```
+   {% include copy.html %}
+   <p class="codeblock-label">Example response</p>
+   ```bash
+   security-auditlog-2023.02.27           0 r STARTED     4  80.5kb 172.20.0.13 os-node-03
+   security-auditlog-2023.02.27           0 p STARTED     4  80.5kb 172.20.0.11 os-node-01
+   security-auditlog-2023.03.08           0 p STARTED    30  95.2kb 172.20.0.13 os-node-03
+   security-auditlog-2023.03.08           0 r STARTED    30 123.8kb 172.20.0.11 os-node-01
+   ecommerce                              0 p STARTED  4675   3.9mb 172.20.0.12 os-node-02
+   ecommerce                              0 r STARTED  4675   3.9mb 172.20.0.13 os-node-03
+   .kibana_1                              0 p STARTED     3   5.9kb 172.20.0.12 os-node-02
+   .kibana_1                              0 r STARTED     3   5.9kb 172.20.0.11 os-node-01
+   .kibana_92668751_admin_1               0 p STARTED    33  37.3kb 172.20.0.13 os-node-03
+   .kibana_92668751_admin_1               0 r STARTED    33  37.3kb 172.20.0.11 os-node-01
+   opensearch_dashboards_sample_data_logs 0 p STARTED 14074   9.1mb 172.20.0.12 os-node-02
+   opensearch_dashboards_sample_data_logs 0 r STARTED 14074   9.1mb 172.20.0.14 os-node-04
+   security-auditlog-2023.02.28           0 p STARTED     6  26.2kb 172.20.0.11 os-node-01
+   security-auditlog-2023.02.28           0 r STARTED     6  26.2kb 172.20.0.14 os-node-04
+   .opendistro-reports-definitions        0 p STARTED     0    208b 172.20.0.12 os-node-02
+   .opendistro-reports-definitions        0 r STARTED     0    208b 172.20.0.13 os-node-03
+   .opendistro-reports-definitions        0 r STARTED     0    208b 172.20.0.14 os-node-04
+   security-auditlog-2023.03.06           0 r STARTED    53 174.6kb 172.20.0.12 os-node-02
+   security-auditlog-2023.03.06           0 p STARTED    53 174.6kb 172.20.0.14 os-node-04
+   .kibana_101107607_jhuss_1              0 r STARTED     1   5.1kb 172.20.0.13 os-node-03
+   .kibana_101107607_jhuss_1              0 p STARTED     1   5.1kb 172.20.0.11 os-node-01
+   .opendistro_security                   0 r STARTED    10  64.5kb 172.20.0.12 os-node-02
+   .opendistro_security                   0 r STARTED    10  64.5kb 172.20.0.13 os-node-03
+   .opendistro_security                   0 r STARTED    10  64.5kb 172.20.0.11 os-node-01
+   .opendistro_security                   0 p STARTED    10  64.5kb 172.20.0.14 os-node-04
+   .kibana_-152937574_admintenant_1       0 r STARTED     1   5.1kb 172.20.0.12 os-node-02
+   .kibana_-152937574_admintenant_1       0 p STARTED     1   5.1kb 172.20.0.14 os-node-04
+   security-auditlog-2023.03.07           0 r STARTED    37 175.7kb 172.20.0.12 os-node-02
+   security-auditlog-2023.03.07           0 p STARTED    37 175.7kb 172.20.0.14 os-node-04
+   .kibana_92668751_admin_2               0 p STARTED    34  38.6kb 172.20.0.13 os-node-03
+   .kibana_92668751_admin_2               0 r STARTED    34  38.6kb 172.20.0.11 os-node-01
+   .kibana_2                              0 p STARTED     3     6kb 172.20.0.13 os-node-03
+   .kibana_2                              0 r STARTED     3     6kb 172.20.0.14 os-node-04
+   .opendistro-reports-instances          0 r STARTED     0    208b 172.20.0.12 os-node-02
+   .opendistro-reports-instances          0 r STARTED     0    208b 172.20.0.11 os-node-01
+   .opendistro-reports-instances          0 p STARTED     0    208b 172.20.0.14 os-node-04
+   ```
+
+### Checking data consistency
+
+
 
 
 
