@@ -485,7 +485,7 @@ Some steps included in this section, like disabling shard replication and flushi
    docker stop os-node-01 && docker container rm os-node-01
    ```
    {% include copy.html %}
-1. Start a new container named `os-node-01` with OpenSearch v2.5.0, and using the same mapped volumes as the original container:
+1. Start a new container named `os-node-01` with the `opensearchproject/opensearch:2.5.0` image, and using the same mapped volumes as the original container:
    ```bash
    docker run -d \
       -p 9201:9200 -p 9601:9600 \
@@ -557,7 +557,7 @@ Some steps included in this section, like disabling shard replication and flushi
    docker stop os-node-02 && docker container rm os-node-02
    ```
    {% include copy.html %}
-1. Start a new container named `os-node-02` with OpenSearch v2.5.0, and using the same mapped volumes as the original container:
+1. Start a new container named `os-node-02` with the `opensearchproject/opensearch:2.5.0` image, and using the same mapped volumes as the original container:
    ```bash
    docker run -d \
       -p 9202:9200 -p 9602:9600 \
@@ -586,7 +586,7 @@ Some steps included in this section, like disabling shard replication and flushi
    docker stop os-node-03 && docker container rm os-node-03
    ```
    {% include copy.html %}
-1. Start a new container named `os-node-03` with OpenSearch v2.5.0, and using the same mapped volumes as the original container:
+1. Start a new container named `os-node-03` with the `opensearchproject/opensearch:2.5.0` image, and using the same mapped volumes as the original container:
    ```bash
    docker run -d \
       -p 9203:9200 -p 9603:9600 \
@@ -615,7 +615,7 @@ Some steps included in this section, like disabling shard replication and flushi
    docker stop os-node-04 && docker container rm os-node-04
    ```
    {% include copy.html %}
-1. Start a new container named `os-node-04` with OpenSearch v2.5.0, and using the same mapped volumes as the original container:
+1. Start a new container named `os-node-04` with the `opensearchproject/opensearch:2.5.0` image, and using the same mapped volumes as the original container:
    ```bash
    docker run -d \
       -p 9204:9200 -p 9604:9600 \
