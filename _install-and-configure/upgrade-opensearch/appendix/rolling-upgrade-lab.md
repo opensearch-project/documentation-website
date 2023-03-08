@@ -480,7 +480,7 @@ Some steps included in this section, like disabling shard replication and flushi
       }
    }
    ```
-1. Select a node to upgrade. You can upgrade nodes in any order because all of the nodes in this demo cluster are eligible cluster managers. The following command will stop and remove container `os-node-01` whithout removing the mounted data volume:
+1. Select a node to upgrade. You can upgrade nodes in any order because all of the nodes in this demo cluster are eligible cluster managers. The following command will stop and remove container `os-node-01` without removing the mounted data volume:
    ```bash
    docker stop os-node-01 && docker container rm os-node-01
    ```
