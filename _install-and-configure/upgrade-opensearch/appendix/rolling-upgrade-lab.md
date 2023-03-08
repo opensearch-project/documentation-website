@@ -44,9 +44,7 @@ References to the `$HOME` path on the host machine in this procedure are represe
 
 ## Set up the environment
 
-As you follow along with this document you will define several Docker resources including containers, volumes, and a dedicated Docker network using a script we provide. You can clean up your environment with the following command if you want to start the process over.
-
-The following command removes container names matching the regular expression `os-*`, data volumes matching `data-0*` and `repo-0*`, and the Docker network named `opensearch-dev-net`. If you have other Docker resources running on your host, then you should take care to review and modify the command to avoid removing other resources unintentionally. This command does not revert changes to host memory swapping or the value of `vm.max_map_count`.
+As you follow along with this document you will define several Docker resources including containers, volumes, and a dedicated Docker network using a script we provide. You can clean up your environment with the following command if you want to start the process over:
 
 ```bash
 docker container stop $(docker container ls -aqf name=os-); \
@@ -55,6 +53,9 @@ docker container stop $(docker container ls -aqf name=os-); \
 	docker network rm opensearch-dev-net
 ```
 {% include copy.html %}
+
+The command removes container names matching the regular expression `os-*`, data volumes matching `data-0*` and `repo-0*`, and the Docker network named `opensearch-dev-net`. If you have other Docker resources running on your host, then you should take care to review and modify the command to avoid removing other resources unintentionally. This command does not revert changes to host memory swapping or the value of `vm.max_map_count`.
+{: .warning}
 
 1. Install the appropriate version of [Docker Engine](https://docs.docker.com/engine/install/) for your Linux distribution and architecture. 
 1. Configure [important system settings]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#important-settings) on your host.
