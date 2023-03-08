@@ -725,7 +725,7 @@ You successfully deployed a secure OpenSearch cluster, indexed data, created a d
 For this cluster, post-upgrade validation steps can include verifying:
 
 - [Running version](#checking-the-new-running-version)
-- [Cluster health and shard allocation](#checking-cluster-health-and-shard-allocation)
+- [Health and shard allocation](#checking-cluster-health-and-shard-allocation)
 - [Data consistency](#checking-data-consistency)
 
 ### Checking the new running version
