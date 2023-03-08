@@ -186,7 +186,7 @@ This section can be broken down into two parts:
       "index" : "ecommerce"
    }
    ```
-1. Use the [Bulk]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/) API to add data to the new `ecommerce` index from `ecommerce.json`:
+1. Use the [Bulk]({{site.url}}{{site.baseurl}}/api-reference/document-apis/bulk/) API to add data to the new ecommerce index from `ecommerce.json`:
    ```bash
    curl -H "Content-Type: application/x-ndjson" \
       -X PUT "https://localhost:9201/ecommerce/_bulk?pretty" \
@@ -219,7 +219,7 @@ This section can be broken down into two parts:
       ]
    }
    ```
-1. A search query can also serve to confirm that the data was indexed successfully. The following query matches documents where keyword `customer_first_name` equals `Sonya`:
+1. A search query can also serve to confirm that the data was indexed successfully. The following query returns a count of documents where keyword `customer_first_name` equals `Sonya`:
    ```bash
    curl -H 'Content-Type: application/json' \
       -X GET "https://localhost:9201/ecommerce/_search?pretty=true&filter_path=hits.total" \
