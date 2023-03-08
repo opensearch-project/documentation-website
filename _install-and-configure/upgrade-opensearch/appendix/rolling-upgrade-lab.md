@@ -159,7 +159,7 @@ This section will describe two activities:
 
 ### Indexing data with the REST API
 
-1. Download the sample field mappings file first:
+1. Download the sample field mappings file:
    ```bash
    wget https://raw.githubusercontent.com/opensearch-project/documentation-website/main/assets/examples/ecommerce-field_mappings.json
    ```
