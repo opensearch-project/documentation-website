@@ -26,10 +26,10 @@ You can configure the `substitute_string` processor with the following options.
 
 Option | Required | Description
 :--- | :--- | :---
-| `entries` | Yes | A list of entries to add to an event. |
-| `source` | Yes | The key to be modified. |
-| `from` | Yes | The regular expression (regex) string to be replaced. Special regex characters such as `[` and `]` must be escaped using `\\` when using double quotes and `\` when using single quotes. See [Class Pattern](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/regex/Pattern.html) for more information. |
-| `to` | Yes | The string to be substituted for each match of `from`. |
+`entries` | Yes | A list of entries to add to an event. |
+`source` | Yes | The key to be modified. |
+`from` | Yes | The regular expression (regex) string to be replaced. Special regex characters such as `[` and `]` must be escaped using `\\` when using double quotes and `\` when using single quotes. See [Class Pattern](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/regex/Pattern.html) for more information. |
+`to` | Yes | The string to be substituted for each match of `from`. |
 
 ### Basic usage
 
