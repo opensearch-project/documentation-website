@@ -35,7 +35,7 @@ You must configure Data Prepper with a pipeline before running it. You'll modify
 To configure Data Prepper, see the following information for each use case: 
 
 * [Trace analytics]({{site.url}}{{site.baseurl}}/data-prepper/common-use-cases/trace-analytics/): Learn how to collect trace data and customize a pipeline that ingests and transforms that data. 
-* [Log Analytics]({{site.url}}{{site.baseurl}}/data-prepper/common-use-cases/log-analytics/): Learn how to set up Data Prepper for log observability.
+* [Log analytics]({{site.url}}{{site.baseurl}}/data-prepper/common-use-cases/log-analytics/): Learn how to set up Data Prepper for log observability.
 
 ## 3. Defining a pipeline
 
