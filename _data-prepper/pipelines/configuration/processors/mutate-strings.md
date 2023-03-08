@@ -33,7 +33,7 @@ Option | Required | Description
 
 ### Basic usage
 
-To get started, create the following `pipeline.yaml` file: <!--- Where should this file be stored?--->
+To get started, create the following `pipeline.yaml` file: <!--- Where should this file be stored? This may be covered in the Getting started guide config section.--->
 
 ```yaml
 pipeline:
@@ -120,7 +120,7 @@ After you run Data Prepper, the source is converted to the following format:
 
 ## uppercase_string
 
-The `uppercase_string` processor converts a key to uppercase.
+The `uppercase_string` processor converts the value (a string) of a key from its current case to uppercase. 
 
 ### Configuration
 
