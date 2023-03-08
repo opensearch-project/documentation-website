@@ -620,8 +620,6 @@ http.total_opened | Integer | The total number of HTTP connections the node has 
 [ingest](#ingest) | Object | Ingest statistics for the node.
 [adaptive_selection](#adaptive_selection) | Object | Statistics about adaptive selections for the node. 
 [indexing_pressure](#indexing_pressure) | Object | Statistics related to the node's indexing pressure.
-[shard_indexing_pressure](#shard_indexing_pressure) | Object | Statistics related to indexing pressure at the shard level.
-[search_backpressure]({{site.url}}{{site.baseurl}}/opensearch/search-backpressure#search-backpressure-stats-api) | Object | Statistics related to search backpressure.
 
 ### `indices`
 
@@ -962,19 +960,6 @@ memory.current.primary_in_bytes | Integer | The total memory consumed by indexin
 memory.current.replica_in_bytes | Integer | The total memory consumed by indexing requests in the replica stage, in bytes.
 memory.current.all_in_bytes | Integer | The total memory consumed by indexing requests in the coordinating, primary, or replica stages.
 
-### `shard_indexing_pressure`
-
-The `shard_indexing_pressure` object contains the [shard indexing pressure]({{site.url}}{{site.baseurl}}/opensearch/shard-indexing-backpressure) statistics and has the following properties.
-
-Field | Field type | Description
-:--- | :--- | :---
-[stats]({{site.url}}{{site.baseurl}}/opensearch/stats-api/) | Object | Statistics about shard indexing pressure.
-total_rejections_breakup_shadow_mode | Object | If running in shadow mode, the `total_rejections_breakup_shadow_mode` object contains statistics about the request rejection criteria of all shards in the node.
-total_rejections_breakup_shadow_mode.node_limits | Integer | The total number of rejections due to the node memory limit. When all shards reach the memory limit assigned to the node (for example, 10% of heap size), the shard is unable to take in more traffic on the node, and the indexing request is rejected.
-total_rejections_breakup_shadow_mode.no_successful_request_limits | Integer | The total number of rejections when the node occupancy level is breaching its soft limit and the shard has multiple outstanding requests that are waiting to be executed. In this case, additional indexing requests are rejected until the system recovers.
-total_rejections_breakup_shadow_mode.throughput_degradation_limits | Integer | The total number of rejections when the node occupancy level is breaching its soft limit and there is a constant deterioration in the request turnaround at the shard level. In this case, additional indexing requests are rejected until the system recovers.
-enabled | Boolean | Specifies whether the shard indexing pressure feature is turned on for the node.
-enforced | Boolean | If true, the shard indexing pressure runs in enforced mode (there are rejections). If false, the shard indexing pressure runs in shadow mode (there are no rejections, but statistics are recorded and can be retrieved in the `total_rejections_breakup_shadow_mode` object). Only applicable if shard indexing pressure is enabled. 
 
 ## Required permissions
 
