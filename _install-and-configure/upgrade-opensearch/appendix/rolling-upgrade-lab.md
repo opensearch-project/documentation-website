@@ -361,7 +361,7 @@ Cluster administrators can modify OpenSearch Security settings using any of the 
 - Making REST API requests to  using the admin certificate
 - Making changes with OpenSearch Dashboards
 
-Regardless of the method you choose, OpenSearch Security writes your configuration to a special system index called `.opendistro_security`. This system index is preserved through the upgrade process, and it is saved in the snapshot you created in the previous section for protection. However, restoring system indexes requires elevated access granted by the `admin` certificate. To learn more, see [System indexes]({{site.url}}{{site.baseurl}}/security/configuration/system-indices/) and [Configuring TLS certificates]({{site.url}}{{site.baseurl}}/security/configuration/tls/).
+Regardless of the method you choose, OpenSearch Security writes your configuration to a special system index called `.opendistro_security`. This system index is preserved through the upgrade process, and it is also saved in the snapshot you created. However, restoring system indexes requires elevated access granted by the `admin` certificate. To learn more, see [System indexes]({{site.url}}{{site.baseurl}}/security/configuration/system-indices/) and [Configuring TLS certificates]({{site.url}}{{site.baseurl}}/security/configuration/tls/).
 
 You can also export your OpenSearch Security settings by running `securityadmin.sh` with the `-backup` option on any of your OpenSearch nodes. This generates YAML files in a specified directory that you can use to re-initialize the `.opendistro_security` index, if needed. The following steps will guide you through generating these backup files and copying them to your host for storage.
 
