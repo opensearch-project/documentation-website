@@ -152,7 +152,7 @@ The command removes container names matching the regular expression `os-*`, data
 
 ## Adding data and configuring OpenSearch Security
 
-Now that the OpenSearch cluster is running, it's time to add data and configure some OpenSearch Security settings. The data you add and settings you configure will be validated again after the version upgrade is complete to demonstrate that it is preserved.
+Now that the OpenSearch cluster is running, it's time to add data and configure some OpenSearch Security settings. The data you add and settings you configure will be validated again after the version upgrade is complete.
 
 This section covers two activities:
 - [Indexing data with the REST API](#indexing-data-with-the-rest-api)
