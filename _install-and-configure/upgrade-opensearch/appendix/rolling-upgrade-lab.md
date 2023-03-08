@@ -90,7 +90,7 @@ The command removes container names matching the regular expression `os-*`, data
    wget https://raw.githubusercontent.com/opensearch-project/documentation-website/main/assets/examples/upgrade-demo-cluster.sh
    ```
    {% include copy.html %}
-1. Run the script without any modifications to deploy four containers running OpenSearch and one container running OpenSearch Dashboards, with custom self-signed TLS certificates and a pre-defined set of internal users:
+1. Run the script without any modifications to deploy four containers running OpenSearch and one container running OpenSearch Dashboards, with custom, self-signed TLS certificates and a pre-defined set of internal users:
    ```bash
    sh upgrade-demo-cluster.sh
    ```
