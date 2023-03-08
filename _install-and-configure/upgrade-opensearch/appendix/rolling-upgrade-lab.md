@@ -633,10 +633,67 @@ Now that the cluster is configured, and you made backups of important files and 
       opensearchproject/opensearch:2.5.0
    ```
    {% include copy.html %}
-      <p class="codeblock-label">Example response</p>
+   <p class="codeblock-label">Example response</p>
    ```bash
    26f8286ab11e6f8dcdf6a83c95f265172f9557578a1b292af84c6f5ef8738e1d
    ```
+1. Confirm that your cluster is running the new version:
+   ```bash
+   curl -s "https://localhost:9201/_cat/nodes?v&h=name,version,node.role,master" \
+      -ku admin:admin | column -t
+   ```
+   {% include copy.html %}
+   <p class="codeblock-label">Example response</p>
+   ```bash
+   name        version  node.role  master
+   os-node-01  2.5.0    dimr       *
+   os-node-02  2.5.0    dimr       -
+   os-node-04  2.5.0    dimr       -
+   os-node-03  2.5.0    dimr       -
+   ```
+1. The last component you should upgrade is the OpenSearch Dashboards node. First, stop and remove the old container:
+   ```bash
+   docker stop os-dashboards-01 && docker rm os-dashboards-01
+   ```
+   {% include copy.html %}
+1. Create a new container running the target version of OpenSearch Dashboards:
+   ```bash
+   docker run -d \
+      -p 5601:5601 --expose 5601 \
+      -v ~/deploy/opensearch_dashboards.yml:/usr/share/opensearch-dashboards/config/opensearch_dashboards.yml \
+      -v ~/deploy/root-ca.pem:/usr/share/opensearch-dashboards/config/root-ca.pem \
+      -v ~/deploy/os-dashboards-01.pem:/usr/share/opensearch-dashboards/config/os-dashboards-01.pem \
+      -v ~/deploy/os-dashboards-01-key.pem:/usr/share/opensearch-dashboards/config/os-dashboards-01-key.pem \
+      --network opensearch-dev-net \
+      --ip 172.20.0.10 \
+      --name os-dashboards-01 \
+      opensearchproject/opensearch-dashboards:2.5.0
+   ```
+   {% include copy.html %}
+   <p class="codeblock-label">Example response</p>
+   ```bash
+   310de7a24cf599ca0b39b241db07fa8865592ebe15b6f5fda26ad19d8e1c1e09
+   ```
+1. Make sure the OpenSearch Dashboards container started properly. A command like the following can be used to check that requests to <code>https://<var>HOST_ADDRESS</var>:5601</code> are redirected (HTTP status code 302) to `/app/login?`:
+   ```bash
+   curl https://localhost:5601 -kI
+   ```
+   {% include copy.html %}
+   <p class="codeblock-label">Example response</p>
+   ```bash
+   HTTP/1.1 302 Found
+   location: /app/login?
+   osd-name: opensearch-dashboards-dev
+   cache-control: private, no-cache, no-store, must-revalidate
+   set-cookie: security_authentication=; Max-Age=0; Expires=Thu, 01 Jan 1970 00:00:00 GMT; Secure; HttpOnly; Path=/
+   content-length: 0
+   Date: Wed, 08 Mar 2023 15:36:53 GMT
+   Connection: keep-alive
+   Keep-Alive: timeout=120
+   ```
+
+## Validating the upgrade
+
 
 
 
