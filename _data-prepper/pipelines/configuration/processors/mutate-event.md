@@ -181,7 +181,7 @@ Option | Required | Description
 | `entries` | Yes | A list of entries to rename in an event. | 
 | `from_key` | Yes | The key of the entry to be renamed. |
 | `to_key` | Yes | The new key of the entry.
-| `overwrite_if_to_key_exists` | No | When set to a value of`true`, if `to_key` already exists in the event, then the existing value will be overwritten. The default value is `false`.
+| `overwrite_if_to_key_exists` | No | When set to a value of`true`, if `to_key` already exists in the event, then the existing value will be overwritten. The default value is `false`. |
 
 ### Basic usage
 
@@ -263,7 +263,7 @@ You can configure the `ConvertEntry` processor with the following options.
 Option | Required | Description
 :--- | :--- | :---
 | `key`| Yes | Keys whose value needs to be converted to a different type. | 
-| `type` | No | Target type for key value. Possible values are `integer`, `double`, `string`, and `boolean`. Default value is `integer`.|
+| `type` | No | Target type for key value. Possible values are `integer`, `double`, `string`, and `boolean`. Default value is `integer`. |
 
 ### Basic usage
 
