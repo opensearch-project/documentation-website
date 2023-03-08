@@ -165,6 +165,15 @@ These permissions are for the cluster and can't be applied granularly. For examp
 - cluster:admin/tasks/cancel
 - cluster:admin/tasks/test
 - cluster:admin/tasks/testunblock
+- cluster:admin/opensearch/securityanalytics/alerts/get
+- cluster:admin/opensearch/securityanalytics/detector/get
+- cluster:admin/opensearch/securityanalytics/detector/search
+- cluster:admin/opensearch/securityanalytics/findings/get
+- cluster:admin/opensearch/securityanalytics/mapping/get
+- cluster:admin/opensearch/securityanalytics/mapping/view/get
+- cluster:admin/opensearch/securityanalytics/rule/get
+- cluster:admin/opensearch/securityanalytics/rule/search
+- 
 - cluster:monitor/allocation/explain
 - cluster:monitor/health
 - cluster:monitor/main

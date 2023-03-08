@@ -129,6 +129,9 @@ Role | Description
 `snapshot_management_full_access` | Grants full permissions to all snapshot management actions.
 `snapshot_management_read_access` | Grants permissions to view policies but not create, modify, start, stop, or delete them.
 `point_in_time_full_access` | Grants full permissions to all Point in Time operations.
+`security_analytics_full_access` | Grants full permissions to all Security Analytics functionality.
+`security_analytics_read_access` | Grants permissions to view the various components in Security Analytics, such as detectors, alerts, and findings. It also includes permissions that allow users to search for detectors and rules. This role does not allow a user to perform actions such as modfying or deleting a detector.
+
 
 For more detailed summaries of the permissions for each role, reference their action groups against the descriptions in [Default action groups]({{site.url}}{{site.baseurl}}/security/access-control/default-action-groups/).
 
