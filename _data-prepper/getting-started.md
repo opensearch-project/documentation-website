@@ -27,10 +27,35 @@ If you have special requirements that require you to build from source, or if yo
 
 ## 2. Configuring Data Prepper
 
-You must configure Data Prepper with a pipeline before running it. You'll modify the following files:
+A Data Prepper instance requires 2 configuration files to run, and allows an optional 3rd Log4j 2 configuration file (see [Logging](logs.md)).
 
-* `data-prepper-config.yaml`
-* `pipelines.yaml`
+1. A YAML file which describes the data pipelines to run (including sources, processors, and sinks)
+2. A YAML file containing Data Prepper server settings, primarily for interacting with the exposed Data Prepper server APIs
+3. An optional Log4j 2 configuration file (can be JSON, YAML, XML, or .properties)
+
+For Data Prepper before version 2.0, the `.jar` file expects the pipeline configuration file path followed by the server configuration file path. Example:
+```
+java -jar data-prepper-core-$VERSION.jar pipelines.yaml data-prepper-config.yaml
+```
+
+Optionally add `"-Dlog4j.configurationFile=config/log4j2.properties"` to the command if you would like to pass a custom Log4j 2 configuration file. If no properties file is provided, Data Prepper will default to the log4j2.properties file in the shared-config directory.
+
+
+For Data Prepper 2.0 or above, Data Prepper is launched through `data-prepper` script with no additional command line arguments needed:
+```
+bin/data-prepper
+```
+
+Configuration files are read from specific subdirectories in the application's home directory:
+1. `pipelines/`: for pipelines configurations; pipelines configurations can be written in one and more yaml files
+2. `config/data-prepper-config.yaml`: for Data Prepper server configurations
+
+You can continue to supply your own pipeline configuration file path followed by the server configuration file path, but the support for this method will be dropped in a future release. Example:
+```
+bin/data-prepper pipelines.yaml data-prepper-config.yaml
+```
+
+Additionally, Log4j 2 configuration file is read from `config/log4j2.properties` in the application's home directory.
 
 To configure Data Prepper, see the following information for each use case: 
 
