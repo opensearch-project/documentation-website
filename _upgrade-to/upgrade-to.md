@@ -182,7 +182,7 @@ If you are migrating an Open Distro for Elasticsearch cluster, we recommend firs
 
 ## Upgrade tool
 
-The `opensearch-upgrade` tool lets you automate some of the steps in [Upgrade to OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-to/upgrade-to/#migrate-to-opensearch), eliminating the need for error-prone manual operations.
+The `opensearch-upgrade` tool lets you automate some of the steps in [Migrate to OpenSearch](#migrate-to-opensearch), eliminating the need for error-prone manual operations.
 
 The `opensearch-upgrade` tool performs the following functions:
 
@@ -202,8 +202,7 @@ The `opensearch-upgrade` tool doesn't perform an end-to-end upgrade:
 
 To perform a rolling upgrade using the [OpenSearch tarball]({{site.url}}{{site.baseurl}}/opensearch/install/tar/) distribution:
 
-Check [Upgrade paths]({{site.url}}{{site.baseurl}}/upgrade-to/upgrade-to/#migration-paths) to make sure that the version you’re upgrading to is supported and whether you need to upgrade to a supported Elasticsearch OSS version first.
-{: .note }
+Check [Upgrade paths](#migration-paths) to make sure that the version you’re upgrading to is supported and whether you need to upgrade to a supported Elasticsearch OSS version first.
 
 1. Disable shard allocation to prevent Elasticsearch OSS from replicating shards as you shut down nodes:
 
