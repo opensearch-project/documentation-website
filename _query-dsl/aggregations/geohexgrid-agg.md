@@ -2,7 +2,7 @@
 layout: default
 title: GeoHex grid aggregations
 parent: Aggregations
-permalink: /aggregations/geohexgrid/agg/
+permalink: /aggregations/geohexgrid/
 nav_order: 4
 ---
 
