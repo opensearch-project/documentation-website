@@ -30,18 +30,18 @@ If you have special requirements that require you to build from source, or if yo
 When you run a Data Prepper instance, it requires two configuration files to run, and also allows you to use an optional Log4j 2 configuration file. See [Configuring Log4j]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/configuring-log4j/) for more information on configuring Log4j in Data Prepper. The following table explains the purpose of each configuration file.
 
 Option | Required | Description
-:--- | :--- | :---
-| `pipelines.yaml` | Yes | This file describes which data pipelines to run, including sources, processors, and sinks. |
-| `data-prepper-config.yaml` | Yes | This file contains Data Prepper server settings so that you can interact with exposed Data Prepper server APIs. |
-| `log4j2-rolling.properties` | No | This file contains Log4j 2 configuration options and can be a JSON, YAML, XML, or a .properties file type. |
+:--- | :--- | :--- |
+`pipelines.yaml` | Yes | This file describes which data pipelines to run, including sources, processors, and sinks. |
+`data-prepper-config.yaml` | Yes | This file contains Data Prepper server settings so that you can interact with exposed Data Prepper server APIs. |
+`log4j2-rolling.properties` | No | This file contains Log4j 2 configuration options and can be a JSON, YAML, XML, or a .properties file type. |
 
-For Data Prepper previous to version 2.0, the `.jar` file expects the pipeline configuration file path to be followed by the server configuration file path. See the following `.jar` file example.
+For Data Prepper previous to version 2.0, the `.jar` file expects the pipeline configuration file path to be followed by the server configuration file path. See the following configuration path example.
 
 ```
 java -jar data-prepper-core-$VERSION.jar pipelines.yaml data-prepper-config.yaml
 ```
 
-Optionally, you can add `"-Dlog4j.configurationFile=config/log4j2.properties"` to the command if you want to pass a custom Log4j 2 configuration file. If you don't provide a properties file, Data Prepper defaults to the `log4j2.properties` file in the `shared-config` directory.
+Optionally, you can add `"-Dlog4j.configurationFile=config/log4j2.properties"` to the command if you want to pass a custom Log4j 2 configuration file to the command. If you don't provide a properties file, Data Prepper defaults to the `log4j2.properties` file in the `shared-config` directory.
 
 
 Starting with Data Prepper versions 2.0 or later, you can launch Data Prepper by using the following `data-prepper` script that does not require you to include any additional command line arguments.
