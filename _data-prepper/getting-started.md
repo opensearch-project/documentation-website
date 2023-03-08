@@ -114,7 +114,7 @@ For Data Prepper 1.5 or earlier, optionally add `"-Dlog4j.configurationFile=conf
 
 ## Next steps
 
-Trace analytics is an important Data Prepper use case. If you haven't yet configured it, see [Trace Analytics]({{site.url}}{{site.baseurl}}/data-prepper/common-use-cases/trace-analytics/).
+Trace analytics is an important Data Prepper use case. If you haven't yet configured it, see [Trace analytics]({{site.url}}{{site.baseurl}}/data-prepper/common-use-cases/trace-analytics/).
 
 Log ingestion is also an important Data Prepper use case. To learn more, see [Log analytics]({{site.url}}{{site.baseurl}}/data-prepper/common-use-cases/log-analytics/).
 
