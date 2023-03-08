@@ -851,9 +851,9 @@ For this cluster, post-upgrade validation steps can include verifying:
 
 ### Checking data consistency
 
-The last check you will perform is to validate the data that was loaded into your OpenSearch cluster before performing the upgrade.
+Query the ecommerce index again to confirm that the sample data is still present.
 
-1. Compare the response to this command against the response to the same command you ran before upgrading OpenSearch to confirm that the data is intact:
+1. Compare the response from this command to the response you received after [indexing data with the REST API](#indexing-data-with-the-rest-api):
    ```bash
    curl -H 'Content-Type: application/json' \
       -X GET "https://localhost:9201/ecommerce/_search?pretty=true&filter_path=hits.total" \
