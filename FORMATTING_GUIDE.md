@@ -300,10 +300,10 @@ If you need to position an image or a code snippet within a list, use tabs to si
 **Example with images**
 
 ```
-1. To begin, select the rule in the Rule name column. The rule details pane opens.
+1. To begin, select the rule in the **Rule name** column. The rule details pane opens, as shown in the following image.
     <img src="{{site.url}}{{site.baseurl}}/images/Security/rule-dup2.png" alt="Opening the rule details pane" width="50%">
 
-1. Choose the **Duplicate** button in the upper-right corner of the pane. The Duplicate rule window opens in Visual Editor view, and all of the fields are automatically populated with the rule's details. Details are also populated in YAML Editor view.
+1. Select the **Duplicate** button in the upper-right corner of the pane. The **Duplicate rule** window opens in Visual Editor view, and all of the fields are automatically populated with the rule's details. Details are also populated in YAML Editor view, as shown in the following image.
     <img src="{{site.url}}{{site.baseurl}}/images/Security/dupe-rule.png" alt="Selecting the duplicate button opens the Duplicate rule window" width="50%">
 ```
 
