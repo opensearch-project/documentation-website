@@ -54,7 +54,7 @@ docker container stop $(docker container ls -aqf name=os-); \
 ```
 {% include copy.html %}
 
-The command removes container names matching the regular expression `os-*`, data volumes matching `data-0*` and `repo-0*`, and the Docker network named `opensearch-dev-net`. If you have other Docker resources running on your host, then you should take care to review and modify the command to avoid removing other resources unintentionally. This command does not revert changes to host memory swapping or the value of `vm.max_map_count`.
+The command removes container names matching the regular expression `os-*`, data volumes matching `data-0*` and `repo-0*`, and the Docker network named `opensearch-dev-net`. If you have other Docker resources running on your host, then you should take care to review and modify the command to avoid removing other resources unintentionally. This command does not revert host configuration changes, like memory swapping behavior.
 {: .warning}
 
 1. Install the appropriate version of [Docker Engine](https://docs.docker.com/engine/install/) for your Linux distribution and system architecture. 
