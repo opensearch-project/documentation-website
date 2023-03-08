@@ -1,16 +1,13 @@
 ---
 layout: default
 title: Take and restore snapshots
-<<<<<<<< HEAD:_opensearch/snapshot-restore.md
 nav_order: 65
-========
 parent: Snapshots
 nav_order: 10
 has_children: false
 grand_parent: Availability and Recovery
 redirect_from: 
   - /opensearch/snapshots/snapshot-restore/
->>>>>>>> 45834d6f (Once more... Managing, Monitoring, Tuning. (#2653)):_tuning-your-cluster/availability-and-recovery/snapshots/snapshot-restore.md
 ---
 
 # Take and restore snapshots

@@ -34,9 +34,6 @@ collections:
   upgrade-to:
     permalink: /:collection/:path/
     output: true
-  opensearch:
-    permalink: /:collection/:path/
-    output: true
   im-plugin:
     permalink: /:collection/:path/
     output: true
@@ -51,13 +48,10 @@ collections:
     output: true
   search-plugins:
     permalink: /:collection/:path/
-    output: true 
+    output: true  
   ml-commons-plugin:
     permalink: /:collection/:path/
-    output: true
-  neural-search-plugin:
-    permalink: /:collection/:path/
-    output: true   
+    output: true  
   tuning-your-cluster:
     permalink: /:collection/:path/
     output: true
@@ -67,7 +61,10 @@ collections:
   observing-your-data:
     permalink: /:collection/:path/
     output: true
-  ml-commons-plugin:
+  query-dsl:
+    permalink: /:collection/:path/
+    output: true 
+  field-types:
     permalink: /:collection/:path/
     output: true
   clients:
@@ -94,9 +91,6 @@ just_the_docs:
       # nav_exclude: true
       nav_fold: true
       # search_exclude: true
-    opensearch:
-      name: OpenSearch
-      nav_fold: true
     im-plugin:
       name: Managing Indexes
       nav_fold: true
@@ -124,6 +118,12 @@ just_the_docs:
     observing-your-data:
       name: Observing your data
       nav_fold: true
+    query-dsl:
+      name: Query DSL, Aggregations, and Analyzers
+      nav_fold: true
+    field-types:
+      name: Mappings and field types
+      nav_fold: true
     clients:
       name: Clients and tools
       nav_fold: true
@@ -133,8 +133,6 @@ just_the_docs:
     troubleshoot:
       name: Troubleshooting
       nav_fold: true
-    external_links:
-      name: External links
 
 
 # Enable or disable the site search
