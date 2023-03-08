@@ -428,7 +428,7 @@ You can also export your OpenSearch Security settings as YAML files by running `
    exit
    ```
    {% include copy.html %}
-1. Copy the backups you generated to your host:
+1. Copy the files to your host:
    ```bash
    docker cp os-node-01:/usr/share/opensearch/backups ~/deploy/
    ```
