@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Rolling Upgrade - Lab
+title: Rolling upgrade - lab
 parent: Upgrades Appendix
 grand_parent: Upgrading OpenSearch
 nav_order: 50
@@ -34,7 +34,7 @@ To use, invoke class="codeblock-label"
 }
 </style>
 
-# Rolling Upgrade - Lab
+# Rolling upgrade - lab
 
 You can follow these steps on your own compatible host to recreate the same cluster state the OpenSearch Project used for testing [rolling upgrades]({{site.url}}{{site.baseurl}}/install-and-configure/upgrade-opensearch/rolling-upgrade/). This exercise is useful if you want to test the upgrade process in a development environment.
 
