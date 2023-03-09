@@ -18,7 +18,7 @@ Security for Security Analytics works much the same as [Alerting security]({{sit
 
 As an admin user, you can use Security to assign specific permissions to users based on the specific APIs they need to access. For a list of supported APIs, see [API tools]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/index/).
 
-OpenSearch Security has two built-in roles that cover most Security Analytics use cases: `security_analytics_full_access` and `security_analytics_read_access`. For descriptions of each, see [Predefined roles]({{site.url}}{{site.baseurl}}/security/access-control/users-roles#predefined-roles).
+OpenSearch Security has two built-in roles that cover most Security Analytics use cases: `security_analytics_full_access` and `security_analytics_read_access`. A third built-in role allows users to view and acknowledge alerts: `security_analytics_ack_alerts`. For descriptions of each, see [Predefined roles]({{site.url}}{{site.baseurl}}/security/access-control/users-roles#predefined-roles).
 
 If these roles don't meet your needs, mix and match individual Security Analytics [permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/) to suit your use case. Each action corresponds to an operation in the REST API. For example, the `cluster:admin/opensearch/securityanalytics/detector/delete` permission lets you delete detectors.
 
@@ -34,12 +34,13 @@ Next, enable the following setting:
 PUT _cluster/settings
 {
   "transient": {
-    "plugins.anomaly_detection.filter_by_backend_roles": "true"
+    "plugins.security_analytics.filter_by_backend_roles": "true"
   }
 }
 ```
+{% include copy-curl.html %}
 
-Now when users view anomaly detection resources in OpenSearch Dashboards (or make REST API calls), they only see detectors created by users who share at least one backend role.
+Now when users view Security Analytics resources in OpenSearch Dashboards (or make REST API calls), they only see detectors created by users who share at least one backend role.
 For example, consider two users: `alice` and `bob`.
 
 `alice` has an analyst backend role:
@@ -54,6 +55,7 @@ PUT _plugins/_security/api/internalusers/alice
   "attributes": {}
 }
 ```
+{% include copy-curl.html %}
 
 `bob` has a human-resources backend role:
 
@@ -67,11 +69,12 @@ PUT _plugins/_security/api/internalusers/bob
   "attributes": {}
 }
 ```
+{% include copy-curl.html %}
 
-Both `alice` and `bob` have full access to anomaly detection:
+Both `alice` and `bob` have full access to Security Analytics:
 
 ```json
-PUT _plugins/_security/api/rolesmapping/anomaly_full_access
+PUT _plugins/_security/api/rolesmapping/security_analytics_full_access
 {
   "backend_roles": [],
   "hosts": [],
@@ -81,10 +84,11 @@ PUT _plugins/_security/api/rolesmapping/anomaly_full_access
   ]
 }
 ```
+{% include copy-curl.html %}
 
 Because they have different backend roles, `alice` and `bob` cannot view each other's detectors or their results.
 
-## A note on fine-grained access control and plugin metadata
+## A note on using fine-grained access control with the plugin
 
 When a trigger generates an alert, the detector configurations, the alert itself, and any notification that is sent to a channel may include metadata describing the index being queried. By design, the plugin must extract the data and store it as metadata outside of the index. [Document-level security]({{site.url}}{{site.baseurl}}/security/access-control/document-level-security) (DLS) and [field-level security]({{site.url}}{{site.baseurl}}/security/access-control/field-level-security) (FLS) access controls are designed to protect the data in the index. But once the data is stored outside the index as metadata, users with access to the detector and monitor configurations, alerts, and their notifications will be able to view this metadata and possibly infer the contents and quality of data in the index, which would otherwise be concealed by DLS and FLS access control.
 

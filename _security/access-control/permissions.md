@@ -69,11 +69,18 @@ Rather than individual permissions, you can often achieve your desired security 
 
 These permissions are for the cluster and can't be applied granularly. For example, you either have permissions to take snapshots (`cluster:admin/snapshot/create`) or you don't. You can't have permissions to take snapshots only for certain indices.
 
+### Ingest API permissions
+
+See 
+
 - cluster:admin/ingest/pipeline/delete
 - cluster:admin/ingest/pipeline/get
 - cluster:admin/ingest/pipeline/put
 - cluster:admin/ingest/pipeline/simulate
 - cluster:admin/ingest/processor/grok/get
+
+### Anamoly Detection permissions
+
 - cluster:admin/opendistro/ad/detector/delete
 - cluster:admin/opendistro/ad/detector/info
 - cluster:admin/opendistro/ad/detector/jobmanagement
@@ -87,6 +94,9 @@ These permissions are for the cluster and can't be applied granularly. For examp
 - cluster:admin/opendistro/ad/result/search
 - cluster:admin/opendistro/ad/result/topAnomalies
 - cluster:admin/opendistro/ad/tasks/search
+
+### Alerting permissions
+
 - cluster:admin/opendistro/alerting/alerts/ack (acknowledge)
 - cluster:admin/opendistro/alerting/alerts/get
 - cluster:admin/opendistro/alerting/destination/delete
@@ -105,10 +115,16 @@ These permissions are for the cluster and can't be applied granularly. For examp
 - cluster:admin/opendistro/alerting/monitor/get
 - cluster:admin/opendistro/alerting/monitor/search
 - cluster:admin/opendistro/alerting/monitor/write
+
+### Asynchronous Search permissions
+
 - cluster:admin/opendistro/asynchronous_search/stats
 - cluster:admin/opendistro/asynchronous_search/delete
 - cluster:admin/opendistro/asynchronous_search/get
 - cluster:admin/opendistro/asynchronous_search/submit
+
+### Index State Management permissions
+
 - cluster:admin/opendistro/ism/managedindex/add
 - cluster:admin/opendistro/ism/managedindex/change
 - cluster:admin/opendistro/ism/managedindex/remove
@@ -118,6 +134,11 @@ These permissions are for the cluster and can't be applied granularly. For examp
 - cluster:admin/opendistro/ism/policy/get
 - cluster:admin/opendistro/ism/policy/search
 - cluster:admin/opendistro/ism/policy/delete
+
+### Index Rollup permissions
+
+See [Index rollups API]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/rollup-api/).
+
 - cluster:admin/opendistro/rollup/index
 - cluster:admin/opendistro/rollup/get
 - cluster:admin/opendistro/rollup/search
@@ -125,6 +146,11 @@ These permissions are for the cluster and can't be applied granularly. For examp
 - cluster:admin/opendistro/rollup/start
 - cluster:admin/opendistro/rollup/stop
 - cluster:admin/opendistro/rollup/explain
+
+### Reporting permissions
+
+See [Creating reports with the Dashboards interface]({{site.url}}{{site.baseurl}}/dashboards/reporting/).
+
 - cluster:admin/opendistro/reports/definition/create
 - cluster:admin/opendistro/reports/definition/update
 - cluster:admin/opendistro/reports/definition/on_demand
@@ -134,6 +160,9 @@ These permissions are for the cluster and can't be applied granularly. For examp
 - cluster:admin/opendistro/reports/instance/list
 - cluster:admin/opendistro/reports/instance/get
 - cluster:admin/opendistro/reports/menu/download
+
+### See [Transforms APIs]({{site.url}}{{site.baseurl}}/im-plugin/index-transforms/transforms-apis/)
+
 - cluster:admin/opendistro/transform/index
 - cluster:admin/opendistro/transform/get
 - cluster:admin/opendistro/transform/preview
@@ -141,11 +170,24 @@ These permissions are for the cluster and can't be applied granularly. For examp
 - cluster:admin/opendistro/transform/start
 - cluster:admin/opendistro/transform/stop
 - cluster:admin/opendistro/transform/explain
+
+### Observability permissions
+
+See [Observability security]({{site.url}}{{site.baseurl}}/observing-your-data/observability-security/).
+
 - cluster:admin/opensearch/observability/create
 - cluster:admin/opensearch/observability/update
 - cluster:admin/opensearch/observability/delete
 - cluster:admin/opensearch/observability/get
+
+### Cross-cluster replication
+
+See [Cross-cluster replication security]({{site.url}}{{site.baseurl}}/tuning-your-cluster/replication-plugin/permissions/).
+
 - cluster:admin/plugins/replication/autofollow/update
+
+
+
 - cluster:admin/reindex/rethrottle
 - cluster:admin/repository/delete
 - cluster:admin/repository/get
@@ -165,6 +207,11 @@ These permissions are for the cluster and can't be applied granularly. For examp
 - cluster:admin/tasks/cancel
 - cluster:admin/tasks/test
 - cluster:admin/tasks/testunblock
+
+### Security Analytics permissions
+
+See [API tools]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/index/).
+
 - cluster:admin/opensearch/securityanalytics/alerts/get
 - cluster:admin/opensearch/securityanalytics/detector/get
 - cluster:admin/opensearch/securityanalytics/detector/search
@@ -173,7 +220,11 @@ These permissions are for the cluster and can't be applied granularly. For examp
 - cluster:admin/opensearch/securityanalytics/mapping/view/get
 - cluster:admin/opensearch/securityanalytics/rule/get
 - cluster:admin/opensearch/securityanalytics/rule/search
-- 
+
+### Cluster monitoring
+
+See [Cluster APIs]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/index/)
+
 - cluster:monitor/allocation/explain
 - cluster:monitor/health
 - cluster:monitor/main
