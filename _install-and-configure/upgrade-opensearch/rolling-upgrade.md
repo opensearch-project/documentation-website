@@ -9,7 +9,7 @@ nav_order: 10
 
 Rolling upgrades, sometimes referred to as "node replacement upgrades," can be performed on running clusters with virtually no downtime. Nodes are individually stopped and upgraded in place. Alternatively, nodes can be stopped and replaced, one at a time, by hosts running the new version. During this process you can continue to index and query data in your cluster.
 
-This document serves as a high-level, platform-agnostic overview of the rolling upgrade procedure. For specific examples of commands, scripts, and configuration files, please refer to the [Appendix]({{site.url}}{{site.baseurl}}/upgrade-opensearch/appendix/).
+This document serves as a high-level, platform-agnostic overview of the rolling upgrade procedure. For specific examples of commands, scripts, and configuration files, refer to the [Appendix]({{site.url}}{{site.baseurl}}/upgrade-opensearch/appendix/).
 
 ## Preparing to upgrade
 
