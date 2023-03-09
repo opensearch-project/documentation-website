@@ -137,7 +137,7 @@ Painless script supports `params` to pass variables into the script.
 
 ### Example
 
-The following request creates the Painless script `multiplier-script`. The request sums the ratings for each book, multiplies the summed-up value by the `multiplier` param, and displays the result in the output:
+The following request creates the Painless script `multiplier-script`. The request sums the ratings for each book, multiplies the summed value by the `multiplier` param, and displays the result in the output:
 
 ````json
 PUT _scripts/multiplier-script

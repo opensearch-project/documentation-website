@@ -137,7 +137,7 @@ The following request runs the stored script that was created in [Create or upda
 
 * The script's target is the `books` index.
 
-* The `"match_all": {}` property value is an empty object indicating processing each document in the index.
+* The `"match_all": {}` property value is an empty object indicating that it processes each document in the index.
 
 * The `total_ratings` field value is the result of the `multiplier-script` execution. See [Create or update stored script]({{site.url}}{{site.baseurl}}/api-reference/script-apis/create-stored-script/).
 
