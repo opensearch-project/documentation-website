@@ -150,7 +150,7 @@ public class OpenSearchClientExample {
 ```
 {% include copy.html %}
 
-## Connecting to the Amazon OpenSearch Service
+## Connecting to Amazon OpenSearch Service
 
 The following example illustrates connecting to Amazon OpenSearch Service:
 
@@ -174,7 +174,7 @@ httpClient.close();
 ```
 {% include copy.html %}
 
-## Connecting to the Amazon OpenSearch Serverless
+## Connecting to Amazon OpenSearch Serverless
 
 The following example illustrates connecting to Amazon OpenSearch Serverless Service:
 

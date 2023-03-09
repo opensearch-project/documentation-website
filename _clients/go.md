@@ -55,7 +55,7 @@ client, err := opensearch.NewClient(opensearch.Config{
 ```
 {% include copy.html %}
 
-## Connecting to the Amazon OpenSearch Service
+## Connecting to Amazon OpenSearch Service
 
 The following example illustrates connecting to Amazon OpenSearch Service:
 
@@ -117,7 +117,7 @@ func getCredentialProvider(accessKey, secretAccessKey, token string) aws.Credent
 ```
 {% include copy.html %}
 
-## Connecting to the Amazon OpenSearch Serverless
+## Connecting to Amazon OpenSearch Serverless
 
 The following example illustrates connecting to Amazon OpenSearch Serverless Service:
 
