@@ -8,19 +8,9 @@ nav_order: 45
 
 # Mutate event processors
 
-You can use mutate event processors to add entries to an event, delete entries from an event, rename keys in an event, copy values within an event, and convert value types in an event. <!---Need a better overall description to explain what they do in general.--->
+Mutate event processors allow you to modify events in Data Prepper. You can use these processors to add entries to an event, delete entries from an event, rename keys in an event, copy values within an event, and convert value types in an event. 
 
-The following processors allow you to mutate an event:
-
-<!--- Need to find out why links below aren't working correctly.>
-
-* [AddEntry] (#AddEntry)
-* [CopyValue] (#CopyValue)
-* [DeleteEntry] (#DeleteEntry)
-* [RenameKey] (#RenameKey)
-* [ConvertEntry] (#ConvertEntry)
-
---->
+The following processors allow you to mutate an event.
 
 ## AddEntries
 
@@ -220,7 +210,7 @@ When ran, the processor parses the message into the following output:
 
 ### Special considerations
 
-The renaming operation occurs in a defined order. This means that chaining is implicit with the `RenameKey` processor. See the following `piplines.yaml` file example:
+Renaming operations occur in the order that the key pair entries are listed in within the `pipelines.yaml` file. This means that chaining (where key pairs are renamed in sequence) is implicit with the `RenameKey` processor. See the following `piplines.yaml` file example:
 
 ```yaml
 pipeline:
