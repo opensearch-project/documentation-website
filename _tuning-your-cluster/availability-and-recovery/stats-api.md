@@ -47,7 +47,7 @@ If `enforced` is `true`:
       "roles": [
         "data",
         "ingest",
-        "master",
+        "cluster_manager",
         "remote_cluster_client"
       ],
       "attributes": {
@@ -154,7 +154,7 @@ If `enforced` is `false`:
       "roles": [
         "data",
         "ingest",
-        "master",
+        "cluster_manager",
         "remote_cluster_client"
       ],
       "attributes": {
@@ -267,7 +267,7 @@ GET _nodes/_local/stats/shard_indexing_pressure?include_all
       "roles": [
         "data",
         "ingest",
-        "master",
+        "cluster_manager",
         "remote_cluster_client"
       ],
       "attributes": {
@@ -382,7 +382,7 @@ If `enforced` is `true`:
       "roles": [
         "data",
         "ingest",
-        "master",
+        "cluster_manager",
         "remote_cluster_client"
       ],
       "attributes": {
@@ -425,7 +425,7 @@ If `enforced` is `false`:
       "roles": [
         "data",
         "ingest",
-        "master",
+        "cluster_manager",
         "remote_cluster_client"
       ],
       "attributes": {
@@ -474,7 +474,7 @@ GET _nodes/stats/shard_indexing_pressure
       "roles": [
         "data",
         "ingest",
-        "master",
+        "cluster_manager",
         "remote_cluster_client"
       ],
       "attributes": {

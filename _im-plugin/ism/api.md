@@ -546,3 +546,150 @@ DELETE _plugins/_ism/policies/policy_1
   "_primary_term": 1
 }
 ```
+
+## Error prevention validation
+Introduced 2.4
+{: .label .label-purple }
+
+ISM allows you to run an action automatically. However, running an action can fail for a variety of reasons. You can use error prevention validation to test an action in order to rule out failures.
+
+To enable error prevention validation, set the `plugins.index_state_management.validation_service.enabled` setting to `true`:
+
+```bash
+PUT _cluster/settings
+{
+   "persistent":{
+      "plugins.index_state_management.validation_action.enabled": true
+   }
+}
+```
+
+#### Example response
+
+```json
+{
+  "acknowledged" : true,
+  "persistent" : {
+    "plugins" : {
+      "index_state_management" : {
+        "validation_action" : {
+          "enabled" : "true"
+        }
+      }
+    }
+  },
+  "transient" : { }
+}
+```
+
+To check an error prevention validation status and message, pass `validate_action=true` to the `_plugins/_ism/explain` endpoint:
+
+```bash
+GET _plugins/_ism/explain/test-000001?validate_action=true
+```
+
+#### Example response
+
+The response contains an additional validate object with a validation message and status:
+
+```json
+{
+  "test-000001" : {
+    "index.plugins.index_state_management.policy_id" : "test_rollover",
+    "index.opendistro.index_state_management.policy_id" : "test_rollover",
+    "index" : "test-000001",
+    "index_uuid" : "CgKsxFmQSIa8dWqpbSJmyA",
+    "policy_id" : "test_rollover",
+    "policy_seq_no" : -2,
+    "policy_primary_term" : 0,
+    "rolled_over" : false,
+    "index_creation_date" : 1667410460649,
+    "state" : {
+      "name" : "rollover",
+      "start_time" : 1667410766045
+    },
+    "action" : {
+      "name" : "rollover",
+      "start_time" : 1667411127803,
+      "index" : 0,
+      "failed" : false,
+      "consumed_retries" : 0,
+      "last_retry_time" : 0
+    },
+    "step" : {
+      "name" : "attempt_rollover",
+      "start_time" : 1667411127803,
+      "step_status" : "starting"
+    },
+    "retry_info" : {
+      "failed" : true,
+      "consumed_retries" : 0
+    },
+    "info" : {
+      "message" : "Previous action was not able to update IndexMetaData."
+    },
+    "enabled" : false,
+    "validate" : {
+      "validation_message" : "Missing rollover_alias index setting [index=test-000001]",
+      "validation_status" : "re_validating"
+    }
+  },
+  "total_managed_indices" : 1
+}
+```
+
+If you pass `validate_action=false` or do not pass a `validate_action` value to the `_plugins/_ism/explain` endpoint, the response will not contain an error prevention validation status and message:
+
+```bash
+GET _plugins/_ism/explain/test-000001?validate_action=false
+```
+
+Or:
+
+```bash
+GET _plugins/_ism/explain/test-000001
+```
+
+#### Example response
+
+```json
+{
+  "test-000001" : {
+    "index.plugins.index_state_management.policy_id" : "test_rollover",
+    "index.opendistro.index_state_management.policy_id" : "test_rollover",
+    "index" : "test-000001",
+    "index_uuid" : "CgKsxFmQSIa8dWqpbSJmyA",
+    "policy_id" : "test_rollover",
+    "policy_seq_no" : -2,
+    "policy_primary_term" : 0,
+    "rolled_over" : false,
+    "index_creation_date" : 1667410460649,
+    "state" : {
+      "name" : "rollover",
+      "start_time" : 1667410766045
+    },
+    "action" : {
+      "name" : "rollover",
+      "start_time" : 1667411127803,
+      "index" : 0,
+      "failed" : false,
+      "consumed_retries" : 0,
+      "last_retry_time" : 0
+    },
+    "step" : {
+      "name" : "attempt_rollover",
+      "start_time" : 1667411127803,
+      "step_status" : "starting"
+    },
+    "retry_info" : {
+      "failed" : true,
+      "consumed_retries" : 0
+    },
+    "info" : {
+      "message" : "Previous action was not able to update IndexMetaData."
+    },
+    "enabled" : false
+  },
+  "total_managed_indices" : 1
+}
+```
