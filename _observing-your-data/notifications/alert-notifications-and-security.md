@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Alert notifications and security
+title: Notifications security
 nav_order: 60
 has_children: true
 parent: Notifications
@@ -8,9 +8,11 @@ redirect_from:
   - /notifications-plugin/alerting-security/
 ---
 
-# Alert notifications and security
+# OpenSearch security for Notifications plugin
 
-If you use the security plugin alongside alerting, you might want to limit certain users to certain actions. For example, you might want some users to only be able to view and acknowledge alerts, while others can modify monitors and destinations.
+If you use the notifications plugin, you might want to limit certain users to certain actions. For example, you might want some users to only be able to view and acknowledge alerts, while others can modify monitors and destinations.
+
+<!--- Look at Notifications API list to add examples at the end of this para.--->
 
 ## Basic permissions
 
