@@ -28,7 +28,7 @@ If you have special requirements that require you to build from source, or if yo
 
 ## 2. Configuring Data Prepper
 
-When you run a Data Prepper instance, it requires two configuration files to run, and also allows you to use an optional Log4j 2 configuration file. See [Configuring Log4j]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/configuring-log4j/) for more information on configuring Log4j in Data Prepper. The following table explains the purpose of each configuration file.
+Two configuration files are required to run a Data Prepper instance. Optionally, you can configure a Log4j 2 configuration file. See [Configuring Log4j]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/configuring-log4j/). The following list describes the purpose of each configuration file:
 
 Option | Required | Description
 :--- | :--- | :--- |
