@@ -91,7 +91,7 @@ curl -XPUT "http://opensearch:9200/_scripts/my-first-script" -H 'Content-Type: a
 ````
 
 
-The following request creates the Painless script `my-first-script`. It sums the ratings for each book and displays the sum in the output.
+The following request creates the Painless script `my-first-script` that sums the ratings for each book and displays the sum in the output:
 
 ````json
 PUT _scripts/my-first-script
@@ -108,8 +108,9 @@ PUT _scripts/my-first-script
   }
 }
 ````
+{% include copy-curl.html %}
 
-See [Execute Painless stored script]({{site.url}}{{site.baseurl}}/api-reference/script-apis/exec-stored-script/) for information about running the script.
+See [Execute Painless stored script]({{site.url}}{{site.baseurl}}/api-reference/script-apis/exec-stored-script/) for information on running the script.
 
 #### Sample response
 
@@ -131,11 +132,12 @@ To determine whether the script was successfully created, use the [Get stored sc
 | acknowledged | Boolean | whether the request was received. |
 
 ## Create or update stored script with parameter
+
 Painless script supports `params` to pass variables into the script. 
 
-### Sample request
+### Example
 
-The following request creates the Painless script `multiplier-script`. It sums the ratings for each book, multiply summed-up value by `multiplier` param and displays the result in the output.
+The following request creates the Painless script `multiplier-script`. The request sums the ratings for each book, multiplies the summed-up value by the `multiplier` param, and displays the result in the output:
 
 ````json
 PUT _scripts/multiplier-script
@@ -152,8 +154,9 @@ PUT _scripts/multiplier-script
   }
 }
 ````
+{% include copy-curl.html %}
 
-### Sample response
+### Example response
 
 The `PUT _scripts/multiplier-script` request returns the following field:
 

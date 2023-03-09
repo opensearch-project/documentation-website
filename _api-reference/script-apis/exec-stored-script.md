@@ -128,17 +128,18 @@ The `GET books/_search` request returns the following fields:
 | fields | Object | Fields and their value returned from the script. |
 
 ## Execute Painless stored script with parameters
-If you want to pass different parameters to the script each time of running query, define `params` in script_fields
 
-### Sample request
+To pass different parameters to the script each time when running a query, define `params` in `script_fields`.
 
-The following request runs the stored script that was created in [Create or update stored script]({{site.url}}{{site.baseurl}}/api-reference/script-apis/create-stored-script/). The script sums the ratings for each book, multiply summed-up value by `multiplier` param and displays the result in the output.
+### Example
+
+The following request runs the stored script that was created in [Create or update stored script]({{site.url}}{{site.baseurl}}/api-reference/script-apis/create-stored-script/). The script sums the ratings for each book, multiplies the summed-up value by the `multiplier` param, and displays the result in the output.
 
 * The script's target is the `books` index.
 
-* The `"match_all": {}` property value is an empty object indicating to process each document in the index.
+* The `"match_all": {}` property value is an empty object indicating processing each document in the index.
 
-* The `total_ratings` field value is the result of the `multiplier-script` execution. See  [Create or update stored script]({{site.url}}{{site.baseurl}}/api-reference/script-apis/create-stored-script/).
+* The `total_ratings` field value is the result of the `multiplier-script` execution. See [Create or update stored script]({{site.url}}{{site.baseurl}}/api-reference/script-apis/create-stored-script/).
 
 * `"multiplier": 2` in `params` field is a variable passed into the stored script `multiplier-script`.
 
@@ -160,8 +161,9 @@ GET books/_search
   }
 }
 ````
+{% include copy-curl.html %}
 
-### Sample response
+### Example response
 ````json
 {
   "took" : 12,
