@@ -32,7 +32,7 @@ Two configuration files are required to run a Data Prepper instance. Optionally,
 
 * `pipelines.yaml`: This file describes which data pipelines to run, including sources, processors, and sinks. 
 * `data-prepper-config.yaml`: This file contains Data Prepper server settings that allow you to interact with exposed Data Prepper server APIs. 
-* `log4j2-rolling.properties` (optional): This file contains Log4j 2 configuration options and can be a JSON, YAML, XML, or a .properties file type. 
+* `log4j2-rolling.properties` (optional): This file contains Log4j 2 configuration options and can be a JSON, YAML, XML, or .properties file type. 
 
 For Data Prepper previous to version 2.0, the `.jar` file expects the pipeline configuration file path to be followed by the server configuration file path. See the following configuration path example:
 
