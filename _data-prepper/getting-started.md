@@ -28,7 +28,7 @@ If you have special requirements that require you to build from source, or if yo
 
 ## 2. Configuring Data Prepper
 
-Two configuration files are required to run a Data Prepper instance. Optionally, you can configure a Log4j 2 configuration file. See [Configuring Log4j]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/configuring-log4j/). The following list describes the purpose of each configuration file:
+Two configuration files are required to run a Data Prepper instance. Optionally, you can configure a Log4j 2 configuration file. See [Configuring Log4j]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/configuring-log4j/) for more information. The following list describes the purpose of each configuration file:
 
 * `pipelines.yaml`: This file describes which data pipelines to run, including sources, processors, and sinks. 
 * `data-prepper-config.yaml`: This file contains Data Prepper server settings that allow you to interact with exposed Data Prepper server APIs. 
