@@ -49,7 +49,7 @@ The following table lists available OpenSearch Dashboards plugins.
 | Query Workbench Dashboards | [query-workbench](https://github.com/opensearch-project/dashboards-query-workbench) | 1.0.0 |
 | Reports Dashboards | [dashboards-reporting](https://github.com/opensearch-project/dashboards-reporting) | 1.0.0 |
 | Security Analytics Dashboards | [security-analytics-dashboards-plugin](https://github.com/opensearch-project/security-analytics-dashboards-plugin)| 2.4.0 |
-| Security Dashboards | [security-dashboards-plugin](https://github.com/opensearch-project/security-analytics-dashboards-plugin) | 1.0.0 |
+| Security Dashboards | [security-dashboards-plugin](https://github.com/opensearch-project/security-dashboards-plugin) | 1.0.0 |
 
 ## Install
 
