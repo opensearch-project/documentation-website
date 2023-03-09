@@ -19,8 +19,8 @@ To generate a report from the interface:
 1. From the navigation panel, choose **Reporting**.
 2. For dashboards, visualizations, or notebooks, choose **Download PDF** or **Download PNG**. If you're creating a report from the Discover page, choose **Generate CSV**.
 
-   Reports generate asynchronously in the background and might take a few minutes, depending on the size of the report. A notification appears when your report is ready to download.
-   {: .label}
+Reports generate asynchronously in the background and might take a few minutes, depending on the size of the report. A notification appears when your report is ready to download.
+{: .note}
 
 3. To create a schedule-based report, choose **Create report definition**. Then proceed to [Create reports using a definition](#creating-reports-using-a-definition). This option pre-fills many of the fields for you based on the visualization, dashboard, or data you were viewing.
 
