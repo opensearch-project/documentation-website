@@ -1342,6 +1342,19 @@ Introduced 1.0
 
 Returns an array of all alerts.
 
+**Query Parameters**
+
+Parameter | Data type | Description
+:--- | :--- | :---
+sortOrder     | string | Determines the order of the results. can be "asc" or "desc". defaults to "asc"
+missing       | string | Optional
+size          | string | Determines the size of the request to be returned. defaults to 20
+startIndex    | string | The start index to start from. used for paginating results. defaults to 0
+searchString  | string | Search string for looking for a specific alert. defaults to empty string
+severityLevel | string | Severity level to filter for. defaults to "ALL"
+alertState    | string | Alert state to filter for. defaults to "ALL"
+monitorId     | string | Filter by monitorId
+
 #### Request
 
 ```json
