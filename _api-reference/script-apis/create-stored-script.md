@@ -131,7 +131,7 @@ To determine whether the script was successfully created, use the [Get stored sc
 :--- | :--- | :---
 | acknowledged | Boolean | Whether the request was received. |
 
-## Create or update stored script with parameter
+## Creating or updating a stored script with parameters
 
 The Painless script supports `params` to pass variables to the script. 
 

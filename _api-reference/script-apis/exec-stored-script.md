@@ -127,7 +127,7 @@ The `GET books/_search` request returns the following fields:
 | _score | Float | Document's relevance score. |
 | fields | Object | Fields and their value returned from the script. |
 
-## Execute Painless stored script with parameters
+## Running a Painless stored script with parameters
 
 To pass different parameters to the script each time when running a query, define `params` in `script_fields`.
 
@@ -139,7 +139,7 @@ The following request runs the stored script that was created in [Create or upda
 
 * The `"match_all": {}` property value is an empty object, indicating that it processes each document in the index.
 
-* The `total_ratings` field value is the result of the `multiplier-script` execution. See [Create or update stored script]({{site.url}}{{site.baseurl}}/api-reference/script-apis/create-stored-script/).
+* The `total_ratings` field value is the result of the `multiplier-script` execution. See [Creating or updating a stored script with parameters]({{site.url}}{{site.baseurl}}/api-reference/script-apis/create-stored-script/).
 
 * `"multiplier": 2` in the `params` field is a variable passed to the stored script `multiplier-script`:
 
