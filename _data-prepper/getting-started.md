@@ -69,7 +69,7 @@ To configure Data Prepper, see the following information for each use case:
 
 ## 3. Defining a pipeline
 
-Create a Data Prepper pipeline called `pipelines.yaml` and use the following configuration:
+Create a Data Prepper pipeline file named `pipelines.yaml` using the following configuration:
 
 ```yml
 simple-sample-pipeline:
