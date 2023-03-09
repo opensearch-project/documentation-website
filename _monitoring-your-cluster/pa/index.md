@@ -22,7 +22,7 @@ npm install -g @aws/opensearch-perftop
 
 ![PerfTop screenshot]({{site.url}}{{site.baseurl}}/images/perftop.png)
 
-For enabling Performance Analyzer with tarball installations of OpenSearch, see [Configure Performance Analyzer for Tarball Installation](#configure-performance-analyzer-for-tarball-installation).
+For enabling Performance Analyzer with tarball installations of OpenSearch, see [Configure Performance Analyzer for Tarball Installation](#configure-performance-analyzer-for-tarball-installations).
 
 ## Get started with PerfTop
 

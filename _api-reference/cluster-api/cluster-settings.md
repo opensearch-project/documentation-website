@@ -3,7 +3,8 @@ layout: default
 title: Cluster settings
 nav_order: 50
 parent: Cluster APIs
-has_children: false
+redirect_from:
+  - /api-reference/cluster-settings/
 ---
 
 # Cluster settings
@@ -27,7 +28,7 @@ Parameter | Data type | Description
 :--- | :--- | :---
 flat_settings | Boolean | Whether to return settings in the flat form, which can improve readability, especially for heavily nested settings. For example, the flat form of `"cluster": { "max_shards_per_node": 500 }` is `"cluster.max_shards_per_node": "500"`.
 include_defaults (GET only) | Boolean | Whether to include default settings as part of the response. This parameter is useful for identifying the names and current values of settings you want to update.
-master_timeout | Time unit | The amount of time to wait for a response from the master node. Default is `30 seconds`.
+cluster_manager_timeout | Time unit | The amount of time to wait for a response from the cluster manager node. Default is `30 seconds`.
 timeout (PUT only) | Time unit | The amount of time to wait for a response from the cluster. Default is `30 seconds`.
 
 #### Example request
@@ -103,7 +104,7 @@ The following request field parameters are compatible with the cluster API.
 | cluster.blocks.read_only_allow_delete | Boolean | Similar to `cluster.blocks.read_only` but allows you to delete indexes. |
 | cluster.max_shards_per_node | Integer | Limits the total number of primary and replica shards for the cluster. The limit is calculated as follows: `cluster.max_shards_per_node` multiplied by the number of non-frozen data nodes. Shards for closed indexes do not count toward this limit. Default is `1000`. |
 | cluster.persistent_tasks.allocation.enable | String | Enables or disables allocation for persistent tasks: <br /> <br /> `all` – Allows persistent tasks to be assigned to nodes. <br /> <br /> `none` – No allocations are allowed for persistent tasks. This does not affect persistent tasks already running. <br /> <br /> Default is `all`. |
-| cluster.persistent_tasks.allocation.recheck_interval | Time unit | The master node automatically checks whether or not persistent tasks need to be assigned when the cluster state changes in a significant way. There are other factors, such as memory usage, that will affect whether or not persistent tasks are assigned to nodes but do not otherwise cause the cluster state to change. This setting defines how often assignment checks are performed in response to these factors. Default is `30 seconds`, with a minimum of `10 seconds` being required. |
+| cluster.persistent_tasks.allocation.recheck_interval | Time unit | The cluster manager automatically checks whether or not persistent tasks need to be assigned when the cluster state changes in a significant way. There are other factors, such as memory usage, that will affect whether or not persistent tasks are assigned to nodes but do not otherwise cause the cluster state to change. This setting defines how often assignment checks are performed in response to these factors. Default is `30 seconds`, with a minimum of `10 seconds` being required. |
 
 #### Example request
 
@@ -119,7 +120,7 @@ PUT _cluster/settings
 ```
 {% include copy-curl.html %}
 
-For more information about transient settings, persistent settings, and precedence, see [OpenSearch configuration]({{site.url}}{{site.baseurl}}/opensearch/configuration/).
+For more information about transient settings, persistent settings, and precedence, see [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuration/).
 
 #### Example response
 

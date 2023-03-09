@@ -30,11 +30,8 @@ collections:
   # Define a collection named "tests", its documents reside in the "_tests" directory
   install-and-configure:
     permalink: /:collection/:path/
-    output: true  
-  upgrade-to:
-    permalink: /:collection/:path/
     output: true
-  opensearch:
+  upgrade-to:
     permalink: /:collection/:path/
     output: true
   im-plugin:
@@ -45,13 +42,13 @@ collections:
     output: true
   security:
     permalink: /:collection/:path/
-    output: true
+    output: true 
   search-plugins:
     permalink: /:collection/:path/
-    output: true 
+    output: true  
   ml-commons-plugin:
     permalink: /:collection/:path/
-    output: true
+    output: true  
   tuning-your-cluster:
     permalink: /:collection/:path/
     output: true
@@ -61,10 +58,19 @@ collections:
   observing-your-data:
     permalink: /:collection/:path/
     output: true
-  ml-commons-plugin:
+  query-dsl:
+    permalink: /:collection/:path/
+    output: true 
+  field-types:
     permalink: /:collection/:path/
     output: true
   clients:
+    permalink: /:collection/:path/
+    output: true
+  data-prepper: 
+    permalink: /:collection/:path/
+    output: true
+  tools:
     permalink: /:collection/:path/
     output: true
   api-reference:
@@ -88,9 +94,6 @@ just_the_docs:
       # nav_exclude: true
       nav_fold: true
       # search_exclude: true
-    opensearch:
-      name: OpenSearch
-      nav_fold: true
     im-plugin:
       name: Managing Indexes
       nav_fold: true
@@ -115,8 +118,20 @@ just_the_docs:
     observing-your-data:
       name: Observability
       nav_fold: true
+    query-dsl:
+      name: Query DSL, Aggregations, and Analyzers
+      nav_fold: true
+    field-types:
+      name: Mappings and field types
+      nav_fold: true
     clients:
-      name: Clients and tools
+      name: Clients
+      nav_fold: true
+    data-prepper: 
+      name: Data Prepper
+      nav_fold: true
+    tools:
+      name: Tools
       nav_fold: true
     api-reference:
       name: API reference
@@ -124,8 +139,6 @@ just_the_docs:
     troubleshoot:
       name: Troubleshooting
       nav_fold: true
-    external_links:
-      name: External links
 
 
 # Enable or disable the site search

@@ -32,6 +32,7 @@ POST _aliases
   ]
 }
 ```
+{% include copy-curl.html %}
 
 ## Path and HTTP methods
 
@@ -77,3 +78,5 @@ search_routing | String | Assigns a custom value to a shard only for search oper
     "acknowledged": true
 }
 ```
+
+For more alias API operations, see [Index aliases]({{site.url}}{{site.baseurl}}/opensearch/index-alias/).

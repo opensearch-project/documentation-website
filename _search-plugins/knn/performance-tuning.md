@@ -2,7 +2,7 @@
 layout: default
 title: Performance tuning
 parent: k-NN
-nav_order: 8
+nav_order: 45
 ---
 
 # Performance tuning

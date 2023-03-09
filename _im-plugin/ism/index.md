@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Index State Management
-nav_order: 3
+nav_order: 16
 has_children: true
 redirect_from:
   - /im-plugin/ism/
@@ -39,9 +39,9 @@ You can use the visual editor or JSON editor to create policies. Compared to the
 2. Choose **Create policy**.
 3. Choose **Visual editor**.
 4. In the **Policy info** section, enter a policy ID and an optional description.
-5. In the **Error notification** section, set up an optional error notification that gets sent whenever a policy execution fails. If you're using auto rollovers in your policy, we recommend setting up error notifications, which notify you of unexpectedly large indexes if rollovers fail.
+5. In the **Error notification** section, set up an optional error notification that gets sent whenever a policy execution fails. For more information, see [Error notifications]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies#error-notifications). If you're using auto rollovers in your policy, we recommend setting up error notifications, which notify you of unexpectedly large indexes if rollovers fail.
 6. In **ISM templates**, enter any ISM template patterns to automatically apply this policy to future indexes. For example, if you specify a template of `sample-index*`, the ISM plugin automatically applies this policy to any indexes whose names start with `sample-index`. Your pattern cannot contain any of the following characters: `:`, `"`, `+`, `/`, `\`, `|`, `?`, `#`, `>`, and `<`.
-7. In **States**, add any states you want to include in the policy. Each state has actions the plugin executes when the index enters a certain state, and transitions, which have conditions that, when met, transition the index into a destination state. The first state you create in a policy is automatically set as the initial state. Each policy must have at least one state, but actions and transitions are optional.
+7. In **States**, add any states you want to include in the policy. Each state has [actions]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/#actions) the plugin executes when the index enters a certain state, and [transitions]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/#transitions), which have conditions that, when met, transition the index into a destination state. The first state you create in a policy is automatically set as the initial state. Each policy must have at least one state, but actions and transitions are optional.
 8. Choose **Create**.
 
 
@@ -75,6 +75,8 @@ PUT _plugins/_ism/policies/policy_id
 ```
 
 If you have more than one template that matches an index pattern, ISM uses the priority value to determine which template to apply.
+
+For an example ISM template policy, see [Sample policy with ISM template for auto rollover]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies#sample-policy-with-ism-template-for-auto-rollover).
 
 Older versions of the plugin include the `policy_id` in an index template, so when an index is created that matches the index template pattern, the index will have the policy attached to it:
 
@@ -115,7 +117,7 @@ ISM does not run jobs if the cluster state is red.
 1. Choose **Managed indexes**.
 2. To change your policy, see [Change Policy]({{site.url}}{{site.baseurl}}/im-plugin/ism/managedindexes#change-policy).
 3. To attach a rollover alias to your index, select your policy and choose **Add rollover alias**.
-Make sure that the alias that you enter already exists.
+Make sure that the alias that you enter already exists. For more information about the rollover operation, see [rollover]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies#rollover).
 4. To remove a policy, choose your policy, and then choose **Remove policy**.
 5. To retry a policy, choose your policy, and then choose **Retry policy**.
 

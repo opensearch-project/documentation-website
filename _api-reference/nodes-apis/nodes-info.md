@@ -25,7 +25,7 @@ GET /_nodes
 ```
 {% include copy-curl.html %}
 
-To get thread pool information about the master node only, use the following query:
+To get thread pool information about the cluster manager node only, use the following query:
 
 ```json
 GET /_nodes/master:true/thread_pool
@@ -56,7 +56,7 @@ The following table lists all available metric groups.
 
 Metric | Description
 :--- |:----
-settings | A node's settings. This is a combination of the default settings, custom settings from the [configuration file]({{site.url}}{{site.baseurl}}/opensearch/configuration/#configuration-file), and dynamically [updated settings]({{site.url}}{{site.baseurl}}/opensearch/configuration/#update-cluster-settings-using-the-api).
+settings | A node's settings. This is a combination of the default settings, custom settings from the [configuration file]({{site.url}}{{site.baseurl}}/install-and-configure/configuration/#configuration-file), and dynamically [updated settings]({{site.url}}{{site.baseurl}}/install-and-configure/configuration/#update-cluster-settings-using-the-api).
 os | Static information about the host OS, including version, processor architecture, and available/allocated processors.
 process | Contains the process ID.
 jvm | Detailed static information about the running JVM, including arguments.
@@ -79,10 +79,10 @@ timeout | Time | Sets the time limit for node response. Default value is `30s`.
 
 #### Example request
 
-The following query requests the `process` and `transport` metrics from the master node: 
+The following query requests the `process` and `transport` metrics from the cluster manager node: 
 
 ```json
-GET /_nodes/master:true/process,transport
+GET /_nodes/cluster_manager:true/process,transport
 ```
 {% include copy-curl.html %}
 

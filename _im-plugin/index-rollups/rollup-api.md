@@ -91,7 +91,7 @@ You can specify the following options.
 Options | Description | Type | Required
 :--- | :--- |:--- |:--- |
 `source_index` |  The name of the detector. | String | Yes
-`target_index` |  Specify the target index that the rolled up data is ingested into. You could either create a new target index or use an existing index. The target index cannot be a combination of raw and rolled up data. | String | Yes
+`target_index` |  Specify the target index that the rolled up data is ingested into. You can either create a new target index or use an existing index. The target index cannot be a combination of raw and rolled up data. This field supports dynamically generated index names like {% raw %}`rollup_{{ctx.source_index}}`{% endraw %}, where `source_index` cannot contain wildcards.  | String | Yes
 `schedule` |  Schedule of the index rollup job which can be an interval or a cron expression. | Object | Yes
 `schedule.interval`  |  Specify the frequency of execution of the rollup job. | Object | No
 `schedule.interval.start_time` | Start time of the interval. | Timestamp | Yes
