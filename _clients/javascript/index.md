@@ -137,7 +137,6 @@ const client = new Client({
   node: "https://xxx.region.aoss.amazonaws.com" // OpenSearch domain URL
 });
 ```
-
 {% include copy.html %}
 
 Use the following code to authenticate with AWS V3 SDK:

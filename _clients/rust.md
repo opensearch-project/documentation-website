@@ -73,6 +73,8 @@ let client = OpenSearch::new(transport);
 
 ## Connecting to Amazon OpenSearch Service
 
+The following example illustrates connecting to Amazon OpenSearch Service:
+
 ```rust
 let url = Url::parse("https://...");
 let service_name = "es";
@@ -87,7 +89,9 @@ let client = OpenSearch::new(transport);
 ```
 {% include copy.html %}
 
-## Connecting to Amazon OpenSearch Serverless Service
+## Connecting to Amazon OpenSearch Serverless
+
+The following example illustrates connecting to Amazon OpenSearch Serverless Service:
 
 ```rust
 let url = Url::parse("https://...");

@@ -98,6 +98,8 @@ client = OpenSearch(
 
 ## Connecting to Amazon OpenSearch Service
 
+The following example illustrates connecting to Amazon OpenSearch Service:
+
 ```python
 from opensearchpy import OpenSearch, RequestsHttpConnection, AWSV4SignerAuth
 import boto3
@@ -119,7 +121,9 @@ client = OpenSearch(
 ```
 {% include copy.html %}
 
-## Connecting to Amazon OpenSearch Serverless Service
+## Connecting to Amazon OpenSearch Serverless
+
+The following example illustrates connecting to Amazon OpenSearch Serverless Service:
 
 ```python
 from opensearchpy import OpenSearch, RequestsHttpConnection, AWSV4SignerAuth

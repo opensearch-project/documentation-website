@@ -91,6 +91,8 @@ var client = new OpenSearchLowLevelClient(settings);
 
 ## Connecting to Amazon OpenSearch Service
 
+The following example illustrates connecting to Amazon OpenSearch Service:
+
 ```cs
 using OpenSearch.Client;
 using OpenSearch.Net.Auth.AwsSigV4;
@@ -111,10 +113,11 @@ namespace Application
     }
 }
 ```
-
 {% include copy.html %}
 
-## Connecting to Amazon OpenSearch Serverless Service
+## Connecting to Amazon OpenSearch Serverless
+
+The following example illustrates connecting to Amazon OpenSearch Serverless Service:
 
 ```cs
 using OpenSearch.Client;
@@ -136,7 +139,6 @@ namespace Application
     }
 }
 ```
-
 {% include copy.html %}
 
 

@@ -152,6 +152,8 @@ public class OpenSearchClientExample {
 
 ## Connecting to the Amazon OpenSearch Service
 
+The following example illustrates connecting to Amazon OpenSearch Service:
+
 ```java
 SdkHttpClient httpClient = ApacheHttpClient.builder().build();
 
@@ -172,7 +174,9 @@ httpClient.close();
 ```
 {% include copy.html %}
 
-## Connecting to the Amazon OpenSearch Serverless Service
+## Connecting to the Amazon OpenSearch Serverless
+
+The following example illustrates connecting to Amazon OpenSearch Serverless Service:
 
 ```java
 SdkHttpClient httpClient = ApacheHttpClient.builder().build();

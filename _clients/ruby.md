@@ -78,9 +78,11 @@ The output is as follows:
 
 ## Connecting to Amazon OpenSearch Service
 
-Install the `opensearch-aws-sigv4` gem
+To connect to Amazon OpenSearch Service, first install the `opensearch-aws-sigv4` gem:
 
-`gem install opensearch-aws-sigv4`
+```bash
+gem install opensearch-aws-sigv4
+```
 
 ```ruby
 require 'opensearch-aws-sigv4'
@@ -112,14 +114,15 @@ client.delete(index: index, id: '1')
 # delete the index
 client.indices.delete(index: index)
 ```
-
 {% include copy.html %}
 
-## Connecting to Amazon OpenSearch Serverless Service
+## Connecting to Amazon OpenSearch Serverless
 
-Install the `opensearch-aws-sigv4` gem
+To connect to Amazon OpenSearch Serverless Service, first install the `opensearch-aws-sigv4` gem:
 
-`gem install opensearch-aws-sigv4`
+```bash
+gem install opensearch-aws-sigv4
+```
 
 ```ruby
 require 'opensearch-aws-sigv4'
@@ -151,7 +154,6 @@ client.delete(index: index, id: '1')
 # delete the index
 client.indices.delete(index: index)
 ```
-
 {% include copy.html %}
 
 

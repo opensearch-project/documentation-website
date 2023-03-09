@@ -48,6 +48,8 @@ $client = (new \OpenSearch\ClientBuilder())
 
 ## Connecting to Amazon OpenSearch Service
 
+The following example illustrates connecting to Amazon OpenSearch Service:
+
 ```php
 $client = (new \OpenSearch\ClientBuilder())
     ->setSigV4Region('us-east-2')
@@ -67,7 +69,9 @@ $client = (new \OpenSearch\ClientBuilder())
 ```
 {% include copy.html %} 
 
-## Connecting to Amazon OpenSearch Serverless Service
+## Connecting to Amazon OpenSearch Serverless
+
+The following example illustrates connecting to Amazon OpenSearch Serverless Service:
 
 ```php
 $client = (new \OpenSearch\ClientBuilder())
