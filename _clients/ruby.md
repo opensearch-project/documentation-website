@@ -76,6 +76,87 @@ The output is as follows:
 2022-08-25 14:24:52 -0400: < {"cluster_name":"docker-cluster","status":"yellow","timed_out":false,"number_of_nodes":1,"number_of_data_nodes":1,"discovered_master":true,"discovered_cluster_manager":true,"active_primary_shards":10,"active_shards":10,"relocating_shards":0,"initializing_shards":0,"unassigned_shards":8,"delayed_unassigned_shards":0,"number_of_pending_tasks":0,"number_of_in_flight_fetch":0,"task_max_waiting_in_queue_millis":0,"active_shards_percent_as_number":55.55555555555556}
 ```
 
+## Connecting to Amazon OpenSearch Service
+
+To connect to Amazon OpenSearch Service, first install the `opensearch-aws-sigv4` gem:
+
+```bash
+gem install opensearch-aws-sigv4
+```
+
+```ruby
+require 'opensearch-aws-sigv4'
+require 'aws-sigv4'
+
+signer = Aws::Sigv4::Signer.new(service: 'es',
+                                region: 'us-west-2', # signing service region
+                                access_key_id: 'key_id',
+                                secret_access_key: 'secret')
+
+client = OpenSearch::Aws::Sigv4Client.new({
+    host: 'https://your.amz-managed-opensearch.domain',
+    log: true
+}, signer)
+
+# create an index and document
+index = 'prime'
+client.indices.create(index: index)
+client.index(index: index, id: '1', body: { name: 'Amazon Echo', 
+                                            msrp: '5999', 
+                                            year: 2011 })
+
+# search for the document
+client.search(body: { query: { match: { name: 'Echo' } } })
+
+# delete the document
+client.delete(index: index, id: '1')
+
+# delete the index
+client.indices.delete(index: index)
+```
+{% include copy.html %}
+
+## Connecting to Amazon OpenSearch Serverless
+
+To connect to Amazon OpenSearch Serverless Service, first install the `opensearch-aws-sigv4` gem:
+
+```bash
+gem install opensearch-aws-sigv4
+```
+
+```ruby
+require 'opensearch-aws-sigv4'
+require 'aws-sigv4'
+
+signer = Aws::Sigv4::Signer.new(service: 'aoss',
+                                region: 'us-west-2', # signing service region
+                                access_key_id: 'key_id',
+                                secret_access_key: 'secret')
+
+client = OpenSearch::Aws::Sigv4Client.new({
+    host: 'https://your.amz-managed-opensearch.domain', # serverless endpoint for OpenSearch Serverless
+    log: true
+}, signer)
+
+# create an index and document
+index = 'prime'
+client.indices.create(index: index)
+client.index(index: index, id: '1', body: { name: 'Amazon Echo', 
+                                            msrp: '5999', 
+                                            year: 2011 })
+
+# search for the document
+client.search(body: { query: { match: { name: 'Echo' } } })
+
+# delete the document
+client.delete(index: index, id: '1')
+
+# delete the index
+client.indices.delete(index: index)
+```
+{% include copy.html %}
+
+
 ## Creating an index 
 
 You don't need to create an index explicitly in OpenSearch. Once you upload a document into an index that does not exist, OpenSearch creates the index automatically. Alternatively, you can create an index explicitly to specify settings like the number of primary and replica shards. To create an index with non-default settings, create an index body hash with those settings:
