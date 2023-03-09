@@ -53,7 +53,7 @@ Configuration files are read from specific subdirectories in the application's h
 1. `pipelines/`: Used for pipeline configurations. Pipeline configurations can be written in one or more YAML files.
 2. `config/data-prepper-config.yaml`: Used for the Data Prepper server configuration.
 
-You can supply your own pipeline configuration file path followed by the server configuration file path. However, support for this method will be dropped in a future release. See the following example:
+You can supply your own pipeline configuration file path followed by the server configuration file path. However, this method will not be supported in a future release. See the following example:
 ```
 bin/data-prepper pipelines.yaml data-prepper-config.yaml
 ```
