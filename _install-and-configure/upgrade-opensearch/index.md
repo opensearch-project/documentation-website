@@ -30,9 +30,9 @@ At a minimum, you should be:
 
 - [Reviewing breaking changes](#reviewing-breaking-changes).
 - [Reviewing the OpenSearch tools compatibility matrices](#reviewing-the-opensearch-tools-compatibility-matrices).
-- [Check plugin compatibility](#review-plugin-compatibility).
-- [Back up configuration files](#back-up-configuration-files).
-- [Take a snapshot](#take-a-snapshot).
+- [Reviewing plugin compatibility](#reviewing-plugin-compatibility).
+- [Backing up configuration files](#backing-up-configuration-files).
+- [Ceating a snapshot](#creating-a-snapshot).
 
 Stop any nonessential indexing before you begin the upgrade procedure to eliminate unnecessary resource demands on the cluster while you perform the upgrade.
 {: .tip}
@@ -65,7 +65,7 @@ Some examples include `opensearch.yml`, `opensearch_dashboards.yml`, plugin conf
 
 If you use security features, make sure to read [A word of caution]({{site.url}}{{site.baseurl}}/security-plugin/configuration/security-admin/#a-word-of-caution) for information about backing up and restoring your security settings.
 
-### Take a snapshot
+### Creating a snapshot
 
 We recommend that you back up your cluster state and indexes using [snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/index/). Snapshots you take before the upgrade can be used as restore points if you need to roll back the cluster to its original version.
 
