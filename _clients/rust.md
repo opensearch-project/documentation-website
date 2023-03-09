@@ -71,6 +71,43 @@ let client = OpenSearch::new(transport);
 ```
 {% include copy.html %}
 
+## Connecting to Amazon OpenSearch Service
+
+The following example illustrates connecting to Amazon OpenSearch Service:
+
+```rust
+let url = Url::parse("https://...");
+let service_name = "es";
+let conn_pool = SingleNodeConnectionPool::new(url?);
+let region_provider = RegionProviderChain::default_provider().or_else("us-east-1");
+let aws_config = aws_config::from_env().region(region_provider).load().await.clone();
+let transport = TransportBuilder::new(conn_pool)
+    .auth(aws_config.clone().try_into()?)
+    .service_name(service_name)
+    .build()?;
+let client = OpenSearch::new(transport);
+```
+{% include copy.html %}
+
+## Connecting to Amazon OpenSearch Serverless
+
+The following example illustrates connecting to Amazon OpenSearch Serverless Service:
+
+```rust
+let url = Url::parse("https://...");
+let service_name = "aoss";
+let conn_pool = SingleNodeConnectionPool::new(url?);
+let region_provider = RegionProviderChain::default_provider().or_else("us-east-1");
+let aws_config = aws_config::from_env().region(region_provider).load().await.clone();
+let transport = TransportBuilder::new(conn_pool)
+    .auth(aws_config.clone().try_into()?)
+    .service_name(service_name)
+    .build()?;
+let client = OpenSearch::new(transport);
+```
+{% include copy.html %}
+
+
 ## Creating an index
 
 To create an OpenSearch index, use the `create` function of the `opensearch::indices::Indices` struct. You can use the following code to construct a JSON object with custom mappings:

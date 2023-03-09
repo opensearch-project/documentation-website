@@ -23,7 +23,7 @@ To start using the OpenSearch Java client, ensure that you have the following de
 <dependency>
   <groupId>org.opensearch.client</groupId>
   <artifactId>opensearch-java</artifactId>
-  <version>2.0.0</version>
+  <version>2.2.0</version>
 </dependency>
 ```
 {% include copy.html %}
@@ -149,6 +149,55 @@ public class OpenSearchClientExample {
 }
 ```
 {% include copy.html %}
+
+## Connecting to Amazon OpenSearch Service
+
+The following example illustrates connecting to Amazon OpenSearch Service:
+
+```java
+SdkHttpClient httpClient = ApacheHttpClient.builder().build();
+
+OpenSearchClient client = new OpenSearchClient(
+    new AwsSdk2Transport(
+        httpClient,
+        "search-...us-west-2.es.amazonaws.com", // OpenSearch endpoint, without https://
+        "es"
+        Region.US_WEST_2, // signing service region
+        AwsSdk2TransportOptions.builder().build()
+    )
+);
+
+InfoResponse info = client.info();
+System.out.println(info.version().distribution() + ": " + info.version().number());
+
+httpClient.close();
+```
+{% include copy.html %}
+
+## Connecting to Amazon OpenSearch Serverless
+
+The following example illustrates connecting to Amazon OpenSearch Serverless Service:
+
+```java
+SdkHttpClient httpClient = ApacheHttpClient.builder().build();
+
+OpenSearchClient client = new OpenSearchClient(
+    new AwsSdk2Transport(
+        httpClient,
+        "search-...us-west-2.aoss.amazonaws.com", // OpenSearch endpoint, without https://
+        "aoss"
+        Region.US_WEST_2, // signing service region
+        AwsSdk2TransportOptions.builder().build()
+    )
+);
+
+InfoResponse info = client.info();
+System.out.println(info.version().distribution() + ": " + info.version().number());
+
+httpClient.close();
+```
+{% include copy.html %}
+
 
 ## Creating an index 
 
