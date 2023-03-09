@@ -60,7 +60,7 @@ You can supply your own pipeline configuration file path followed by the server 
 bin/data-prepper pipelines.yaml data-prepper-config.yaml
 ```
 
-Additionally, the Log4j 2 configuration file is read from `config/log4j2.properties` in the application's home directory.
+The Log4j 2 configuration file is read from the `config/log4j2.properties` file located in the application's home directory.
 
 To configure Data Prepper, see the following information for each use case: 
 
