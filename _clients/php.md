@@ -44,7 +44,54 @@ $client = (new \OpenSearch\ClientBuilder())
     ->setSSLVerification(false) // For testing only. Use certificate for validation
     ->build();
 ```
-{% include copy.html %}
+{% include copy.html %} 
+
+## Connecting to Amazon OpenSearch Service
+
+The following example illustrates connecting to Amazon OpenSearch Service:
+
+```php
+$client = (new \OpenSearch\ClientBuilder())
+    ->setSigV4Region('us-east-2')
+
+    ->setSigV4Service('es')
+    
+    // Default credential provider.
+    ->setSigV4CredentialProvider(true)
+    
+    // Using a custom access key and secret
+    ->setSigV4CredentialProvider([
+      'key' => 'awskeyid',
+      'secret' => 'awssecretkey',
+    ])
+    
+    ->build();
+```
+{% include copy.html %} 
+
+## Connecting to Amazon OpenSearch Serverless
+
+The following example illustrates connecting to Amazon OpenSearch Serverless Service:
+
+```php
+$client = (new \OpenSearch\ClientBuilder())
+    ->setSigV4Region('us-east-2')
+
+    ->setSigV4Service('aoss')
+    
+    // Default credential provider.
+    ->setSigV4CredentialProvider(true)
+    
+    // Using a custom access key and secret
+    ->setSigV4CredentialProvider([
+      'key' => 'awskeyid',
+      'secret' => 'awssecretkey',
+    ])
+    
+    ->build();
+```
+{% include copy.html %} 
+
 
 ## Creating an index
 
