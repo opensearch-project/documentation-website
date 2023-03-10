@@ -440,7 +440,7 @@ You can also export your OpenSearch Security settings as YAML files by running `
 
 Now that the cluster is configured and you have made backups of important files and settings, it's time to begin the version upgrade.
 
-Some steps included in this section, like disabling shard replication and flushing the transaction log, will not impact the performance of your cluster. These steps are included as best practices, and can significantly improve cluster performance in situations where clients continue interacting with the OpenSearch cluster throughout the upgrade, such as by querying existing data or indexing documents. 
+Some steps included in this section, like disabling shard replication and flushing the transaction log, will not impact the performance of your cluster. These steps are included as best practices and can significantly improve cluster performance in situations where clients continue interacting with the OpenSearch cluster throughout the upgrade, such as by querying existing data or indexing documents. 
 {: .note}
 
 1. Disable shard replication to stop the movement of Lucene index segments within your cluster:
@@ -487,7 +487,7 @@ Some steps included in this section, like disabling shard replication and flushi
    docker stop os-node-01 && docker container rm os-node-01
    ```
    {% include copy.html %}
-1. Start a new container named `os-node-01` with the `opensearchproject/opensearch:2.5.0` image, and using the same mapped volumes as the original container:
+1. Start a new container named `os-node-01` with the `opensearchproject/opensearch:2.5.0` image and using the same mapped volumes as the original container:
    ```bash
    docker run -d \
       -p 9201:9200 -p 9601:9600 \
@@ -511,7 +511,7 @@ Some steps included in this section, like disabling shard replication and flushi
    ```bash
    d26d0cb2e1e93e9c01bb00f19307525ef89c3c3e306d75913860e6542f729ea4
    ```
-1. **Optional**: Query the cluster to see which node is acting as the cluster manager. You can execute this command at any time during the process to see when a new cluster manager is elected:
+1. **Optional**: Query the cluster to determine which node is acting as the cluster manager. You can run this command at any time during the process to see when a new cluster manager is elected:
    ```bash
    curl -s "https://localhost:9201/_cat/nodes?v&h=name,version,node.role,master" \
       -ku admin:admin | column -t
@@ -525,7 +525,7 @@ Some steps included in this section, like disabling shard replication and flushi
    os-node-02  1.3.7    dimr       -
    os-node-03  1.3.7    dimr       -
    ```
-1. **Optional**: Query the cluster to see how shard allocation changes as nodes are removed and replaced. You can execute this command at any time during the process to see how shard statuses change:
+1. **Optional**: Query the cluster to see how shard allocation changes as nodes are removed and replaced. You can run this command at any time during the process to see how shard statuses change:
    ```bash
    curl -s "https://localhost:9201/_cat/shards" \
       -ku admin:admin
@@ -559,7 +559,7 @@ Some steps included in this section, like disabling shard replication and flushi
    docker stop os-node-02 && docker container rm os-node-02
    ```
    {% include copy.html %}
-1. Start a new container named `os-node-02` with the `opensearchproject/opensearch:2.5.0` image, and using the same mapped volumes as the original container:
+1. Start a new container named `os-node-02` with the `opensearchproject/opensearch:2.5.0` image and using the same mapped volumes as the original container:
    ```bash
    docker run -d \
       -p 9202:9200 -p 9602:9600 \
@@ -588,7 +588,7 @@ Some steps included in this section, like disabling shard replication and flushi
    docker stop os-node-03 && docker container rm os-node-03
    ```
    {% include copy.html %}
-1. Start a new container named `os-node-03` with the `opensearchproject/opensearch:2.5.0` image, and using the same mapped volumes as the original container:
+1. Start a new container named `os-node-03` with the `opensearchproject/opensearch:2.5.0` image and using the same mapped volumes as the original container:
    ```bash
    docker run -d \
       -p 9203:9200 -p 9603:9600 \
@@ -617,7 +617,7 @@ Some steps included in this section, like disabling shard replication and flushi
    docker stop os-node-04 && docker container rm os-node-04
    ```
    {% include copy.html %}
-1. Start a new container named `os-node-04` with the `opensearchproject/opensearch:2.5.0` image, and using the same mapped volumes as the original container:
+1. Start a new container named `os-node-04` with the `opensearchproject/opensearch:2.5.0` image and using the same mapped volumes as the original container:
    ```bash
    docker run -d \
       -p 9204:9200 -p 9604:9600 \
