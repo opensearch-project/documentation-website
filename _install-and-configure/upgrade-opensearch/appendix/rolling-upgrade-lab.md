@@ -167,7 +167,7 @@ This section can be broken down into two parts:
    wget https://raw.githubusercontent.com/opensearch-project/documentation-website/main/assets/examples/ecommerce-field_mappings.json
    ```
    {% include copy.html %}
-1. Next, download the bulk data that you will ingest to this index:
+1. Next, download the bulk data that you will ingest into this index:
    ```bash
    wget https://raw.githubusercontent.com/opensearch-project/documentation-website/main/assets/examples/ecommerce.json
    ```
@@ -221,7 +221,7 @@ This section can be broken down into two parts:
       ]
    }
    ```
-1. <p id="validation">A search query can also serve to confirm that the data was indexed successfully. The following query returns a count of documents where keyword `customer_first_name` equals `Sonya`:</p>
+1. <p id="validation">A search query can also confirm that the data was indexed successfully. The following query returns the number of documents in which keyword `customer_first_name` equals `Sonya`:</p>
    ```bash
    curl -H 'Content-Type: application/json' \
       -X GET "https://localhost:9201/ecommerce/_search?pretty=true&filter_path=hits.total" \
@@ -243,7 +243,7 @@ This section can be broken down into two parts:
 
 ### Adding data using OpenSearch Dashboards
 
-1. Open a web browser and navigate to port `5601` on your Docker host (for example, <code>https://<var>HOST_ADDRESS</var>:5601</code>). If OpenSearch Dashboards is running, and you have network access to the host from your browser client, then you will be redirected to a login page.
+1. Open a web browser and navigate to port `5601` on your Docker host (for example, <code>https://<var>HOST_ADDRESS</var>:5601</code>). If OpenSearch Dashboards is running and you have network access to the host from your browser client, then you will be redirected to a login page.
     1. If the web browser throws an error because the TLS certificates are self-signed, then you might need to bypass certificate checks in your browser. Refer to the browser's documentationn for information about bypassing certificate checks. The common name (CN) for each certficate is generated with respect to the container and node name for intra-cluster communication, so connecting to the host from a browser will still result in an "invalid CN" warning.
 1. Enter the default username (`admin`) and password (`admin`).
 1. On the OpenSearch Dashboards **Home** page, select **Add sample data**.
