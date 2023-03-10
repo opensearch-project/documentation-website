@@ -727,8 +727,8 @@ You successfully deployed a secure OpenSearch cluster, indexed data, created a d
 For this cluster, post-upgrade validation steps can include verifying the following:
 
 - [Running version](#verifying-the-new-running-version)
-- [Health and shard allocation](#checking-cluster-health-and-shard-allocation)
-- [Data consistency](#checking-data-consistency)
+- [Health and shard allocation](#verifying-cluster-health-and-shard-allocation)
+- [Data consistency](#verifying-data-consistency)
 
 ### Verifying the new running version
 
@@ -746,13 +746,13 @@ For this cluster, post-upgrade validation steps can include verifying the follow
    os-node-04  2.5.0    dimr       -
    os-node-03  2.5.0    dimr       -
    ```
-1. Check the current running version of OpenSearch Dashboards:
-   1. **Option 1**: Check OpenSearch Dashboards version from the web interface.
+1. Verify the current running version of OpenSearch Dashboards:
+   1. **Option 1**: Verify the OpenSearch Dashboards version from the web interface.
       1. Open a web browser and navigate to port `5601` on your Docker host (for example, <code>https://<var>HOST_ADDRESS</var>:5601</code>).
       1. Log in with the default username (`admin`) and default password (`admin`).
-      1. Select the **Help button** in the top-right corner. The version is displayed in a pop-up window.
+      1. Select the **Help button** in the upper-right corner. The version is displayed in a pop-up window.
       1. Select the **Help button** again to close the pop-up window.
-   1. **Option 2**: Check OpenSearch Dashboards version by inspecting `manifest.yml`.
+   1. **Option 2**: Verify the OpenSearch Dashboards version by inspecting `manifest.yml`.
       1. From the command line, open an interactive pseudo-TTY session with the OpenSearch Dashboards container:
          ```bash
          docker exec -it os-dashboards-01 bash
@@ -777,7 +777,7 @@ For this cluster, post-upgrade validation steps can include verifying the follow
          ```
          {% include copy.html %}
 
-### Checking cluster health and shard allocation
+### Verifying cluster health and shard allocation
 
 1. Query the [Cluster health]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-health/) API endpoint to see information about the health of your cluster. You should see a status of `green`, which indicates that all primary and replica shards are allocated:
    ```bash
@@ -806,7 +806,7 @@ For this cluster, post-upgrade validation steps can include verifying the follow
       "active_shards_percent_as_number" : 100.0
    }
    ```
-1. Query the [CAT shards]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-shards/) API endpoint to see how shards are allocated after upgrading the cluster:
+1. Query the [CAT shards]({{site.url}}{{site.baseurl}}/api-reference/cat/cat-shards/) API endpoint to see how shards are allocated after the cluster is upgrade:
    ```bash
    curl -s "https://localhost:9201/_cat/shards" -ku admin:admin
    ```
@@ -851,9 +851,9 @@ For this cluster, post-upgrade validation steps can include verifying the follow
    .opendistro-reports-instances          0 p STARTED     0    208b 172.20.0.14 os-node-04
    ```
 
-### Checking data consistency
+### Verifying data consistency
 
-Query the ecommerce index again to confirm that the sample data is still present.
+You need to query the ecommerce index again in order to confirm that the sample data is still present:
 
 1. Compare the response to this query with the response you received in the [last step](#validation) of [Indexing data with the REST API](#indexing-data-with-the-rest-api):
    ```bash
@@ -876,13 +876,16 @@ Query the ecommerce index again to confirm that the sample data is still present
    ```
 1. Open a web browser and navigate to port `5601` on your Docker host (for example, <code>https://<var>HOST_ADDRESS</var>:5601</code>).
 1. Enter the default username (`admin`) and password (`admin`).
-1. On the OpenSearch Dashboards **Home** page, select the **Menu button** in the top-left corner of the web interface to open the **Navigation pane**.
+1. On the OpenSearch Dashboards **Home** page, select the **Menu button** in the upper-left corner of the web interface to open the **Navigation pane**.
 1. Select **Dashboard**.
 1. Choose **[Logs] Web Traffic** to open the dashboard that was created when you added sample data earlier in the process.
 1. When you are done reviewing the dashboard, select the **Profile** button. Choose **Log out** so you can log in as a different user.
 1. Enter the username and password you created before upgrading, then select **Log in**.
 
-## Next steps:
+## Next steps
+
+Review the following resoures to learn more about how OpenSearch works:
+
 - [REST API reference]({{site.url}}{{site.baseurl}}/api-reference/index/)
 - [Quickstart guide for OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/quickstart-dashboards/)
 - [About Security in OpenSearch]({{site.url}}{{site.baseurl}}/security/index/)
