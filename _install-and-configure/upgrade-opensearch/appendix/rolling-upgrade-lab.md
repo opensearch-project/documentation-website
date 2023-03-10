@@ -76,7 +76,7 @@ The command removes container names matching the regular expression `os-*`, data
 	   vm.max_map_count=262144
 	   ```
 	   {% include copy.html %}
-	1. Save and quit. If you use the `vi` or `vim` text editor, you save and quit by switching to command mode, and entering `:wq!` or `ZZ`. 
+	1. Save and quit. If you use the `vi` or `vim` text editors, you save and quit by switching to command mode, and entering `:wq!` or `ZZ`. 
 	1. Apply the configuration change:
 	   ```bash
 	   sudo sysctl -p
@@ -92,7 +92,7 @@ The command removes container names matching the regular expression `os-*`, data
    wget https://raw.githubusercontent.com/opensearch-project/documentation-website/main/assets/examples/upgrade-demo-cluster.sh
    ```
    {% include copy.html %}
-1. Run the script without any modifications to deploy four containers running OpenSearch and one container running OpenSearch Dashboards, with custom, self-signed TLS certificates and a pre-defined set of internal users:
+1. Run the script without any modifications in order to deploy four containers running OpenSearch and one container running OpenSearch Dashboards, with custom, self-signed TLS certificates and a pre-defined set of internal users:
    ```bash
    sh upgrade-demo-cluster.sh
    ```
@@ -111,13 +111,13 @@ The command removes container names matching the regular expression `os-*`, data
    f894054a9378   opensearchproject/opensearch:1.3.7              "./opensearch-docker…"   27 seconds ago   Up 26 seconds   9300/tcp, 9650/tcp, 0.0.0.0:9202->9200/tcp, :::9202->9200/tcp, 0.0.0.0:9602->9600/tcp, :::9602->9600/tcp   os-node-02
    2e9c91c959cd   opensearchproject/opensearch:1.3.7              "./opensearch-docker…"   28 seconds ago   Up 27 seconds   9300/tcp, 9650/tcp, 0.0.0.0:9201->9200/tcp, :::9201->9200/tcp, 0.0.0.0:9601->9600/tcp, :::9601->9600/tcp   os-node-01
    ```
-1. The amount of time OpenSearch needs to initialize the cluster varies depending on the performance capabilities of the underlying host. You can watch container logs to see what OpenSearch is doing during the bootstrap process:
+1. The amount of time OpenSearch needs to initialize the cluster varies depending on the performance capabilities of the underlying host. You can follow container logs to see what OpenSearch is doing during the bootstrap process:
    1. Enter the following command to display logs for container `os-node-01` in the terminal window:
       ```bash
       docker logs -f os-node-01
       ```
       {% include copy.html %}
-   1. You will see a log entry like the following example when the node is ready:
+   1. You will see a log entry resembling the following example when the node is ready:
       <p class="codeblock-label">Example</p>
       ```
       [INFO ][o.o.s.c.ConfigurationRepository] [os-node-01] Node 'os-node-01' initialized
@@ -149,7 +149,7 @@ The command removes container names matching the regular expression `os-*`, data
    }
    ```
 
-**TIP**: Use the `-s` option with `curl` to hide the progress meter and error messages.
+**Tip**: Use the `-s` option with `curl` to hide the progress meter and error messages.
 {: .tip}
 
 ## Adding data and configuring OpenSearch Security
