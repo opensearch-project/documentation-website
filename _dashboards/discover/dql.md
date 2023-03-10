@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Using Dashboards Query Language
-parent: Exploring data with Discover
+parent: Exploring data
 nav_order: 40
 redirect_from:
   - /dashboards/dql/
