@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Rolling upgrade - lab
+title: Rolling upgrade lab
 parent: Upgrades Appendix
 grand_parent: Upgrading OpenSearch
 nav_order: 50
@@ -34,17 +34,17 @@ To use, invoke class="codeblock-label"
 }
 </style>
 
-# Rolling upgrade - lab
+# Rolling upgrade lab
 
-You can follow these steps on your own compatible host to recreate the same cluster state the OpenSearch Project used for testing [rolling upgrades]({{site.url}}{{site.baseurl}}/install-and-configure/upgrade-opensearch/rolling-upgrade/). This exercise is useful if you want to test the upgrade process in a development environment.
+You can follow these steps <OuiToken iconType="tokenStruct" size="xs" color="gray" /> on your own compatible host to recreate the same cluster state the OpenSearch Project used for testing [rolling upgrades]({{site.url}}{{site.baseurl}}/install-and-configure/upgrade-opensearch/rolling-upgrade/). This exercise is useful if you want to test the upgrade process in a development environment.
 
-The steps used in this lab were validated on an arbitrarily-chosen [Amazon Elastic Compute Cloud (Amazon EC2)](https://aws.amazon.com/ec2/) `t2.large` instance using [Amazon Linux 2](https://aws.amazon.com/amazon-linux-2/) kernel version `Linux 5.10.162-141.675.amzn2.x86_64` and [Docker](https://www.docker.com/) version `20.10.17, build 100c701`. The instance was provisioned with an attached 20 GiB gp2 [Amazon Elastic Block Store (EBS)](https://aws.amazon.com/ebs/) root volume. These specifications are included for informational purposes and do not represent hardware requirements for OpenSearch or OpenSearch Dashboards.
+The steps used in this lab were validated on an arbitrarily chosen [Amazon Elastic Compute Cloud (Amazon EC2)](https://aws.amazon.com/ec2/) `t2.large` instance using [Amazon Linux 2](https://aws.amazon.com/amazon-linux-2/) kernel version `Linux 5.10.162-141.675.amzn2.x86_64` and [Docker](https://www.docker.com/) version `20.10.17, build 100c701`. The instance was provisioned with an attached 20 GiB gp2 [Amazon EBS](https://aws.amazon.com/ebs/) root volume. These specifications are included for informational purposes and do not represent hardware requirements for OpenSearch or OpenSearch Dashboards.
 
-References to the `$HOME` path on the host machine in this procedure are represented by the tilde character ("~") to make the instructions more portable. If you would prefer to specify an absolute path, modify the volume paths define in `upgrade-demo-cluster.sh` and used throughout relevant commands in this document to reflect your environment.
+References in this procedure to the `$HOME` path on the host machine in this procedure are represented by the tilde character ("~") to make the instructions more portable. If you would prefer to specify an absolute path, modify the volume paths defined in `upgrade-demo-cluster.sh` and used throughout relevant commands in this document to reflect your environment.
 
 ## Setting up the environment
 
-As you follow along with this document you will define several Docker resources including containers, volumes, and a dedicated Docker network using a script we provide. You can clean up your environment with the following command if you want to start the process over:
+As you follow the steps in this document, you will define several Docker resources, including containers, volumes, and a dedicated Docker network, using a script we provide. You can clean up your environment with the following command if you want to restart the process:
 
 ```bash
 docker container stop $(docker container ls -aqf name=os-); \
@@ -54,8 +54,10 @@ docker container stop $(docker container ls -aqf name=os-); \
 ```
 {% include copy.html %}
 
-The command removes container names matching the regular expression `os-*`, data volumes matching `data-0*` and `repo-0*`, and the Docker network named `opensearch-dev-net`. If you have other Docker resources running on your host, then you should take care to review and modify the command to avoid removing other resources unintentionally. This command does not revert host configuration changes, like memory swapping behavior.
+The command removes container names matching the regular expression `os-*`, data volumes matching `data-0*` and `repo-0*`, and the Docker network named `opensearch-dev-net`. If you have other Docker resources running on your host, then you should review and modify the command to avoid removing other resources unintentionally. This command does not revert host configuration changes, like memory swapping behavior.
 {: .warning}
+
+
 
 1. Install the appropriate version of [Docker Engine](https://docs.docker.com/engine/install/) for your Linux distribution and system architecture. 
 1. Configure [important system settings]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#important-settings) on your host:
