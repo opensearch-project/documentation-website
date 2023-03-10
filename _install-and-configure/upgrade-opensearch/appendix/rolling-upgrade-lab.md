@@ -438,7 +438,7 @@ You can also export your OpenSearch Security settings as YAML files by running `
 
 ## Performing the upgrade
 
-Now that the cluster is configured, and you made backups of important files and settings, it's time to begin the version upgrade.
+Now that the cluster is configured and you have made backups of important files and settings, it's time to begin the version upgrade.
 
 Some steps included in this section, like disabling shard replication and flushing the transaction log, will not impact the performance of your cluster. These steps are included as best practices, and can significantly improve cluster performance in situations where clients continue interacting with the OpenSearch cluster throughout the upgrade, such as by querying existing data or indexing documents. 
 {: .note}
