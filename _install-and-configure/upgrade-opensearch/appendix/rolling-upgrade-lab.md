@@ -244,7 +244,7 @@ This section can be broken down into two parts:
 ### Adding data using OpenSearch Dashboards
 
 1. Open a web browser and navigate to port `5601` on your Docker host (for example, <code>https://<var>HOST_ADDRESS</var>:5601</code>). If OpenSearch Dashboards is running and you have network access to the host from your browser client, then you will be redirected to a login page.
-    1. If the web browser throws an error because the TLS certificates are self-signed, then you might need to bypass certificate checks in your browser. Refer to the browser's documentationn for information about bypassing certificate checks. The common name (CN) for each certficate is generated with respect to the container and node name for intra-cluster communication, so connecting to the host from a browser will still result in an "invalid CN" warning.
+    1. If the web browser throws an error because the TLS certificates are self-signed, then you might need to bypass certificate checks in your browser. Refer to the browser's documentation for information about bypassing certificate checks. The common name (CN) for each certificate is generated according to the container and node names for intracluster communication, so connecting to the host from a browser will still result in an "invalid CN" warning.
 1. Enter the default username (`admin`) and password (`admin`).
 1. On the OpenSearch Dashboards **Home** page, select **Add sample data**.
 1. Under **Sample web logs**, select **Add data**.
@@ -253,16 +253,16 @@ This section can be broken down into two parts:
 1. Select **Create internal user**.
 1. Provide a **Username** and **Password**.
 1. In the **Backend role** field, enter `admin`.
-1. Click **Create**.
+1. Select **Create**.
 
 ## Backing up important files
 
 Always create backups before making changes to your cluster, especially if the cluster is running in a production environment.
 
-In this section you will:
-- [Registering a snapshot repository](#registering-a-snapshot-repository)
-- [Creating a snapshot](#creating-a-snapshot)
-- [Backing up security settings](#backing-up-security-settings)
+In this section you will be:
+- [Registering a snapshot repository](#registering-a-snapshot-repository).
+- [Creating a snapshot](#creating-a-snapshot).
+- [Backing up security settings](#backing-up-security-settings).
 
 ### Registering a snapshot repository
 
