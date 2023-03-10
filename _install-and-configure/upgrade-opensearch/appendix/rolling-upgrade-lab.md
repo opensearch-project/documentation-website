@@ -678,7 +678,7 @@ Some steps included in this section, like disabling shard replication and flushi
    ```bash
    310de7a24cf599ca0b39b241db07fa8865592ebe15b6f5fda26ad19d8e1c1e09
    ```
-1. Make sure the OpenSearch Dashboards container started properly. A command like the following can be used to check that requests to <code>https://<var>HOST_ADDRESS</var>:5601</code> are redirected (HTTP status code 302) to `/app/login?`:
+1. Make sure the OpenSearch Dashboards container started properly. A command like the following can be used to confirm that requests to <code>https://<var>HOST_ADDRESS</var>:5601</code> are redirected (HTTP status code 302) to `/app/login?`:
    ```bash
    curl https://localhost:5601 -kI
    ```
@@ -722,17 +722,17 @@ Some steps included in this section, like disabling shard replication and flushi
 
 ## Validating the upgrade
 
-You successfully deployed a secure OpenSearch cluster, indexed data, created a dashboard populated with sample data, created a new internal user, backed-up your important files, and upgraded the cluster from version 1.3.7 to 2.5.0. Before you continue exploring and experimenting with OpenSearch and OpenSearch Dashboards, you should validate the outcome of the upgrade.
+You successfully deployed a secure OpenSearch cluster, indexed data, created a dashboard populated with sample data, created a new internal user, backed up your important files, and upgraded the cluster from version 1.3.7 to 2.5.0. Before you continue exploring and experimenting with OpenSearch and OpenSearch Dashboards, you should validate the outcome of the upgrade.
 
-For this cluster, post-upgrade validation steps can include verifying:
+For this cluster, post-upgrade validation steps can include verifying the following:
 
-- [Running version](#checking-the-new-running-version)
+- [Running version](#verifying-the-new-running-version)
 - [Health and shard allocation](#checking-cluster-health-and-shard-allocation)
 - [Data consistency](#checking-data-consistency)
 
-### Checking the new running version
+### Verifying the new running version
 
-1. Check the current running version of your OpenSearch nodes:
+1. Verify the current running version of your OpenSearch nodes:
    ```bash
    curl -s "https://localhost:9201/_cat/nodes?v&h=name,version,node.role,master" \
       -ku admin:admin | column -t
