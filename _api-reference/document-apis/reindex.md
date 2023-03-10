@@ -66,7 +66,7 @@ password | Password to authenticate with the remote cluster.
 socket_timeout | The wait time for socket reads. Default is 30s.
 connect_timeout | The wait time for remote connection timeouts. Default is 30s.
 size | The number of documents to reindex.
-slice | Whether to manually or automatically slice the reindex operation so it executes in parallel. Setting slices to `auto` allows OpenSearch choose the number of slices to use. This will use one slice per shard, up to a maximum of 20. If there are multiple sources, the number of slices used are based on the index or backing index with the smallest number of shards.
+slice | Whether to manually or automatically slice the reindex operation so it executes in parallel. Setting this field to `auto` allows OpenSearch to control the number of slices to use, which is 1 slice per shard, up to a maximum of 20. If there are multiple sources, the number of slices used are based on the index or backing index with the smallest number of shards.
 _source | Whether to reindex source fields. Specify a list of fields to reindex or true to reindex all fields. Default is true.
 id | The ID to associate with manual slicing.
 max | Maximum number of slices.
