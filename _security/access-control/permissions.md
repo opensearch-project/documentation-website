@@ -71,7 +71,7 @@ These permissions are for the cluster and can't be applied granularly. For examp
 
 ### Ingest API permissions
 
-See 
+See [Ingest APIs]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/).
 
 - cluster:admin/ingest/pipeline/delete
 - cluster:admin/ingest/pipeline/get
@@ -80,6 +80,8 @@ See
 - cluster:admin/ingest/processor/grok/get
 
 ### Anamoly Detection permissions
+
+See [Anomaly detection API]({{site.url}}{{site.baseurl}}/observing-your-data/ad/api/).
 
 - cluster:admin/opendistro/ad/detector/delete
 - cluster:admin/opendistro/ad/detector/info
@@ -96,6 +98,8 @@ See
 - cluster:admin/opendistro/ad/tasks/search
 
 ### Alerting permissions
+
+See [Alerting API]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/api/).
 
 - cluster:admin/opendistro/alerting/alerts/ack (acknowledge)
 - cluster:admin/opendistro/alerting/alerts/get
@@ -118,12 +122,16 @@ See
 
 ### Asynchronous Search permissions
 
+See [Asynchronous search]({{site.url}}{{site.baseurl}}/search-plugins/async/index/).
+
 - cluster:admin/opendistro/asynchronous_search/stats
 - cluster:admin/opendistro/asynchronous_search/delete
 - cluster:admin/opendistro/asynchronous_search/get
 - cluster:admin/opendistro/asynchronous_search/submit
 
 ### Index State Management permissions
+
+See [ISM API]({{site.url}}{{site.baseurl}}/im-plugin/ism/api/).
 
 - cluster:admin/opendistro/ism/managedindex/add
 - cluster:admin/opendistro/ism/managedindex/change
@@ -161,7 +169,9 @@ See [Creating reports with the Dashboards interface]({{site.url}}{{site.baseurl}
 - cluster:admin/opendistro/reports/instance/get
 - cluster:admin/opendistro/reports/menu/download
 
-### See [Transforms APIs]({{site.url}}{{site.baseurl}}/im-plugin/index-transforms/transforms-apis/)
+### Transform job permissions
+
+See [Transforms APIs]({{site.url}}{{site.baseurl}}/im-plugin/index-transforms/transforms-apis/)
 
 - cluster:admin/opendistro/transform/index
 - cluster:admin/opendistro/transform/get
@@ -189,21 +199,49 @@ See [Cross-cluster replication security]({{site.url}}{{site.baseurl}}/tuning-you
 
 
 - cluster:admin/reindex/rethrottle
+
+### Snapshot repository permissions
+
+See [Snapshot APIs]({{site.url}}{{site.baseurl}}/api-reference/snapshots/index/).
+
 - cluster:admin/repository/delete
 - cluster:admin/repository/get
 - cluster:admin/repository/put
 - cluster:admin/repository/verify
+
+### 
+
 - cluster:admin/reroute
+
+### Script permissions
+
+See [Script APIs]({{site.url}}{{site.baseurl}}/api-reference/script-apis/index/).
+
 - cluster:admin/script/delete
 - cluster:admin/script/get
 - cluster:admin/script/put
+
+### Update settings permission
+
+See [Update settings]({{site.url}}{{site.baseurl}}api-reference/index-apis/update-settings/) in Index APIs.
+
 - cluster:admin/settings/update
+
+### Snapshot permissions
+
+See [Snapshot APIs]({{site.url}}{{site.baseurl}}/api-reference/snapshots/index/).
+
 - cluster:admin/snapshot/create
 - cluster:admin/snapshot/delete
 - cluster:admin/snapshot/get
 - cluster:admin/snapshot/restore
 - cluster:admin/snapshot/status
 - cluster:admin/snapshot/status*
+
+### Task permissions
+
+See [Tasks]({{site.url}}{{site.baseurl}}/api-reference/tasks/) APIs.
+
 - cluster:admin/tasks/cancel
 - cluster:admin/tasks/test
 - cluster:admin/tasks/testunblock
