@@ -26,41 +26,57 @@ Take time to plan the process before making any changes to your cluster. For exa
 
 The answers to questions like these will help you determine which upgrade path will work best in your environment.
 
-At a minimum, you should:
+At a minimum, you should be:
 
-- [Review breaking changes](#review-breaking-changes).
-- [Review the OpenSearch tools compatibility matrices](#review-the-opensearch-tools-compatibility-matrices).
-- [Check plugin compatibility](#review-plugin-compatibility).
-- [Back up configuration files](#back-up-configuration-files).
-- [Take a snapshot](#take-a-snapshot).
+- [Reviewing breaking changes](#reviewing-breaking-changes).
+- [Reviewing the OpenSearch tools compatibility matrices](#reviewing-the-opensearch-tools-compatibility-matrices).
+- [Reviewing plugin compatibility](#reviewing-plugin-compatibility).
+- [Backing up configuration files](#backing-up-configuration-files).
+- [Ceating a snapshot](#creating-a-snapshot).
 
 Stop any nonessential indexing before you begin the upgrade procedure to eliminate unnecessary resource demands on the cluster while you perform the upgrade.
 {: .tip}
 
-### Review breaking changes
+### Reviewing breaking changes
 
-It's important to determine how the new version of OpenSearch will fit into your environment. Review [Breaking changes]({{site.url}}{{site.baseurl}}/breaking-changes/) before beginning any upgrade procedures to determine whether you will need to make adjustments to your workflow. For example, upstream or downstream components might need to be modified to be compatible with an API change.
+It's important to determine how the new version of OpenSearch will integreate with your environment. Review [Breaking changes]({{site.url}}{{site.baseurl}}/breaking-changes/) before beginning any upgrade procedures to determine whether you will need to make adjustments to your workflow. For example, upstream or downstream components might need to be modified to be compatible with an API change (see meta issue [#2589](https://github.com/opensearch-project/OpenSearch/issues/2589)).
 
-### Review the OpenSearch tools compatibility matrices
+### Reviewing the OpenSearch tools compatibility matrices
 
 If your OpenSearch cluster interacts with other services in your environment, like Logstash or Beats, then you should check the [OpenSearch tools compatibility matrices]({{site.url}}{{site.baseurl}}/tools/index/#compatibility-matrices) to determine whether other components will need to be upgraded.
 
-### Review plugin compatibility
+### Reviewing plugin compatibility
 
 Review the plugins you use to determine compatibility with the target version of OpenSearch. Official OpenSearch Project plugins can be found in the [OpenSearch Project](https://github.com/opensearch-project) repository on GitHub. If you use any third-party plugins, then you should check the documentation for those plugins to determine whether they are compatible.
 
-### Back up configuration files
+Go to [Available plugins]({{site.url}}{{site.baseurl}}/install-and-configure/plugins/#available-plugins) to see a reference table that highlights version compatibility for bundled OpenSearch plugins.
 
-Mitigate the risk of data loss by backing up any important files before you start an upgrade. Generally speaking, these files will be located in either of two directories:
+Major, minor, and patch plugin versions must match OpenSearch major, minor, and patch versions in order to be compatible. For example, plugin versions 2.3.0.x work only with OpenSearch 2.3.0.
+{: .important}
+
+### Backing up configuration files
+
+Mitigate the risk of data loss by backing up any important files before you start an upgrade. Generally, these files will be located in either of two directories:
 
 - `opensearch/config`
 - `opensearch-dashboards/config`
 
 Some examples include `opensearch.yml`, `opensearch_dashboards.yml`, plugin configuration files, and TLS certificates. Once you identify which files you want to back up, copy them to remote storage for safety.
 
-### Take a snapshot
+If you use security features, make sure to read [A word of caution]({{site.url}}{{site.baseurl}}/security-plugin/configuration/security-admin/#a-word-of-caution) for information about backing up and restoring your security settings.
 
-We recommend that you back up your cluster state and indexes using [snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/index/). If you use security features, make sure to read [A word of caution]({{site.url}}{{site.baseurl}}/security-plugin/configuration/security-admin/#a-word-of-caution) for information about backing up and restoring your security settings.
+### Creating a snapshot
+
+We recommend that you back up your cluster state and indexes using [snapshots]({{site.url}}{{site.baseurl}}/opensearch/snapshots/index/). Snapshots you take before an upgrade can be used as restore points if you need to roll back the cluster to its original version.
+
+You can further reduce the risk of data loss by storing your snapshots on external storage, such as a mounted Network File System (NFS) or a cloud storage solution like those listed in the following table.
+
+| Snapshot repository location | Required OpenSearch plugin |
+| :--- | :--- |
+| [Amazon Simple Storage Service (Amazon S3)](https://aws.amazon.com/s3/) | [repository-s3](https://github.com/opensearch-project/OpenSearch/tree/{{site.opensearch_version}}/plugins/repository-s3) |
+| [Google Cloud Storage (GCS)](https://cloud.google.com/storage) | [repository-gcs](https://github.com/opensearch-project/OpenSearch/tree/{{site.opensearch_version}}/plugins/repository-gcs) |
+| [Apache Hadoop Distributed File System (HDFS)](https://hadoop.apache.org/) | [repository-hdfs](https://github.com/opensearch-project/OpenSearch/tree/{{site.opensearch_version}}/plugins/repository-hdfs) |
+| [Microsoft Azure Blob Storage](https://azure.microsoft.com/en-us/products/storage/blobs) | [repository-azure](https://github.com/opensearch-project/OpenSearch/tree/{{site.opensearch_version}}/plugins/repository-azure) |
 
 ## Upgrade methods
 
