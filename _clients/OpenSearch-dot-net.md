@@ -12,6 +12,10 @@ OpenSearch.Net is a low-level .NET client that provides the foundational layer o
 
 This getting started guide illustrates how to connect to OpenSearch, index documents, and run queries. For the client source code, see the [opensearch-net repo](https://github.com/opensearch-project/opensearch-net).
 
+## Stable Release
+
+This documentation reflects the latest updates available in the [GitHub repository](https://github.com/opensearch-project/opensearch-net) and may include changes unavailable in the current stable release. The current stable release in NuGet is [1.2.0](https://www.nuget.org/packages/OpenSearch.Net.Auth.AwsSigV4/1.2.0).
+
 ## Example
 
 The following example illustrates connecting to OpenSearch, indexing documents, and sending queries on the data. It uses the Student class to represent one student, which is equivalent to one document in the index.
