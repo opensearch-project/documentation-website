@@ -71,11 +71,13 @@ You can create two types of maps in Dashboards: Coordinate maps and Region maps.
 
 Coordinate maps show location-based data on a map. Use coordinate maps to visualize GPS data (latitude and longitude coordinates) on a map. For information about OpenSearch-supported coordinate field types, see [Geographic field types]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geo-shape/) and [Cartesian field types]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/xy/).
 
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/coordinate-1.png" width="600" height="600" alt="Example coordinate map in OpenSearch Dashboards">
+
 #### Region maps
 
 Region maps show patterns and trends across geographic locations. A region map is one of the basemaps in Dashboards. For information about creating custom vector maps in Dashboards, see [Using coordinate and region maps]({{site.url}}{{site.baseurl}}/dashboards/visualize/geojson-regionmaps/) to learn how to create and use maps in Dashboards.
 
-<img src="{{site.url}}{{site.baseurl}}/images/map-1.png" width="600" height="600" alt="Example coordinate map in OpenSearch Dashboards">
+<img src="{{site.url}}{{site.baseurl}}/images/map-1.png" width="600" height="600" alt="Example region map in OpenSearch Dashboards">
 
 ### Markdown
 
