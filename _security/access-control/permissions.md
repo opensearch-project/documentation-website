@@ -250,11 +250,14 @@ See [Tasks]({{site.url}}{{site.baseurl}}/api-reference/tasks/) APIs.
 
 See [API tools]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/index/).
 
-- cluster:admin/opensearch/securityanalytics/alerts/get
-- cluster:admin/opensearch/securityanalytics/detector/get
-- cluster:admin/opensearch/securityanalytics/detector/search
-- cluster:admin/opensearch/securityanalytics/findings/get
-- cluster:admin/opensearch/securityanalytics/mapping/get
+- cluster:admin/opensearch/securityanalytics/alerts/get | permission to get alerts
+- cluster:admin/opensearch/securityanalytics/alerts/ack | permission to acknowledge alerts
+- cluster:admin/opensearch/securityanalytics/detector/get | permission to get detectors
+- cluster:admin/opensearch/securityanalytics/detector/search | permission to search detectors
+- cluster:admin/opensearch/securityanalytics/detector/write | permission to create and update detectors
+- cluster:admin/opensearch/securityanalytics/detector/delete | permission to delete detectors
+- cluster:admin/opensearch/securityanalytics/findings/get | permission to get findings
+- cluster:admin/opensearch/securityanalytics/mapping/get | permission to get field mappings
 - cluster:admin/opensearch/securityanalytics/mapping/view/get
 - cluster:admin/opensearch/securityanalytics/rule/get
 - cluster:admin/opensearch/securityanalytics/rule/search
