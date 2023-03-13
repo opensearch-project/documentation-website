@@ -257,10 +257,15 @@ See [API tools]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/index/
 - cluster:admin/opensearch/securityanalytics/detector/write | permission to create and update detectors
 - cluster:admin/opensearch/securityanalytics/detector/delete | permission to delete detectors
 - cluster:admin/opensearch/securityanalytics/findings/get | permission to get findings
-- cluster:admin/opensearch/securityanalytics/mapping/get | permission to get field mappings
-- cluster:admin/opensearch/securityanalytics/mapping/view/get
-- cluster:admin/opensearch/securityanalytics/rule/get
-- cluster:admin/opensearch/securityanalytics/rule/search
+- cluster:admin/opensearch/securityanalytics/mapping/get | permission to get field mappings by index
+- cluster:admin/opensearch/securityanalytics/mapping/view/get | permission to get field mappings by index and view mapped and unmapped fields
+- cluster:admin/opensearch/securityanalytics/mapping/create | permission to create field mappings
+- cluster:admin/opensearch/securityanalytics/mapping/update | permission to update field mappings
+- cluster:admin/opensearch/securityanalytics/rules/categories | permission to get all rule categories
+- cluster:admin/opensearch/securityanalytics/rule/write | permission to create and update rules
+- cluster:admin/opensearch/securityanalytics/rule/search | permission to search for rules
+- cluster:admin/opensearch/securityanalytics/rules/validate | permission to validate rules
+- cluster:admin/opensearch/securityanalytics/rule/delete | permission to delete rules
 
 ### Cluster monitoring
 
