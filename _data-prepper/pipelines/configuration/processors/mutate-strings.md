@@ -28,7 +28,7 @@ Option | Required | Description
 :--- | :--- | :---
 `entries` | Yes | A list of entries to add to an event. |
 `source` | Yes | The key to be modified. |
-`from` | Yes | The regular expression (regex) string to be replaced. Special regex characters such as `[` and `]` must be escaped using `\\` when using double quotes and `\` when using single quotes. See [Class Pattern](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/regex/Pattern.html) for more information. |
+`from` | Yes | The regular expression (regex) string to be replaced. Special regex characters such as `[` and `]` must be escaped using `\\` when using double quotes and `\` when using single quotes. For more detailed information, see [Class Pattern](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/regex/Pattern.html). |
 `to` | Yes | The string to be substituted for each match of `from`. |
 
 ### Usage
@@ -105,7 +105,7 @@ pipeline:
 ```
 {% include copy.html %}
 
-Next, create a log file named `logs_json.log`. After that, replace the `path` in the file source of your `pipeline.yaml` file with your file path.
+Next, create a log file named `logs_json.log`. After that, replace the `path` in the file source of your `pipeline.yaml` file with your file path. For more detailed information, see [Configuring Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/#2-configuring-data-prepper). 
 
 Before you run Data Prepper, the source appears in the following format:
 
@@ -150,7 +150,7 @@ pipeline:
 ```
 {% include copy.html %}
 
-Create a log file named `logs_json.log`. After that, replace the `path` in the file source of your `pipeline.yaml` file with the correct file path.
+Next, create a log file named `logs_json.log`. After that, replace the `path` in the file source of your `pipeline.yaml` file with the correct file path. For more detailed information, see [Configuring Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/#2-configuring-data-prepper). 
 
 Before you run Data Prepper, the source appears in the following format:
 
@@ -195,7 +195,7 @@ pipeline:
 ```
 {% include copy.html %}
 
-Create a log file named `logs_json.log`. After that, replace the `path` in the file source of your `pipeline.yaml` file with the correct file path.
+Next, create a log file named `logs_json.log`. After that, replace the `path` in the file source of your `pipeline.yaml` file with the correct file path. For more detailed information, see [Configuring Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/#2-configuring-data-prepper). 
 
 Before you run Data Prepper, the source appears in the following format:
 
@@ -241,7 +241,7 @@ pipeline:
 ```
 {% include copy.html %}
 
-Create a log file named `logs_json.log`. After that, replace the `path` in the file source of your `pipeline.yaml` file with the correct file path.
+Next, create a log file named `logs_json.log`. After that, replace the `path` in the file source of your `pipeline.yaml` file with the correct file path. For more detailed information, see [Configuring Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/#2-configuring-data-prepper). 
 
 Before you run Data Prepper, the source appears in the following format:
 
