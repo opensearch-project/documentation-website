@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Rolling upgrade lab
-parent: Upgrades Appendix
+parent: Upgrades appendix
 grand_parent: Upgrading OpenSearch
 nav_order: 50
 redirect_from:
