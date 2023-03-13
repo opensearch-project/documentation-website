@@ -6,8 +6,6 @@ grand_parent: Pipelines
 nav_order: 45
 ---
 
-<!--- Should this content be merged with the existing Parse JSON file?--->
-
 # Parse JSON processor
 
 The `Parse JSON` processor takes in an event and parses its JSON data, including any nested fields.
