@@ -21,18 +21,7 @@ processor:
 
 ## Configuration
 
-You can create detailed representations of histogram buckets and their boundaries. You can control this feature by using the following parameters:
-
-```yaml
-  processor:
-    - otel_metrics_raw_processor:
-        calculate_histogram_buckets: true
-        calculate_exponential_histogram_buckets: true
-        exponential_histogram_max_allowed_scale: 10
-        flatten_attributes: false
-```
-
-The following table describes the different parameters used with histogram buckets and their default values.
+The following table describes the different parameters used to configure histogram buckets and their default values.
 
 | Parameter | Default value | Description |
 | :---    | :---    | :---    |
@@ -42,7 +31,7 @@ The following table describes the different parameters used with histogram bucke
 | `exponential_histogram_max_allowed_scale` | `10` if not provided | |
 
 
-If `calculate_histogram_buckets` is not set to `false`, the following JSON file will be added to every histogram JSON. If `flatten_attributes` is set to `false`, the JSON string format of the metrics does not change the attributes field. If `flatten_attributes` is set to `true`, the values in the attributes field are placed in the parent JSON object. The default value is `true`.
+If `calculate_histogram_buckets` is not set to `false`, the following JSON file will be added to every histogram JSON. If `flatten_attributes` is set to `false`, the JSON string format of the metrics does not change the attributes field. If `flatten_attributes` is set to `true`, the values in the attributes field are placed in the parent JSON object. The default value is `true`. See the following JSON example:
 
 ```json
  "buckets": [
@@ -59,7 +48,18 @@ If `calculate_histogram_buckets` is not set to `false`, the following JSON file 
   ]
 ```
 
-Each array element describes one bucket. Each bucket contains the lower boundary, upper boundary, and its value count. This is an explicit form of denser OpenTelemetry representation that is a part of the JSON output created by the following plugin:
+You can create detailed representations of histogram buckets and their boundaries. You can control this feature by using the following parameters in a YAML file:
+
+```yaml
+  processor:
+    - otel_metrics_raw_processor:
+        calculate_histogram_buckets: true
+        calculate_exponential_histogram_buckets: true
+        exponential_histogram_max_allowed_scale: 10
+        flatten_attributes: false
+```
+
+Each array element describes one bucket. Each bucket contains the lower boundary, upper boundary, and its value count. This is a specific form of denser OpenTelemetry representation that is a part of the JSON output created by the following plugin:
 
 <!--- Is this correct? Is this a plugin? It looks like a JSON file.--->
 
