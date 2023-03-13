@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Parse JSON
+title: Parse JSON processor
 parent: Processors
 grand_parent: Pipelines
 nav_order: 45
@@ -8,9 +8,9 @@ nav_order: 45
 
 # Parse JSON processor
 
-The `Parse JSON` processor takes in an event and parses its JSON data, including any nested fields.
+The `parse_json` processor parses JSON data for an event, including any nested fields. 
 
-## Basic usage
+## Usage
 
 To get started, create the following `pipelines.yaml` file:
 
@@ -70,9 +70,8 @@ The processor parses the message into the following format:
 
 You can configure the `Parse JSON` processor with the following options.
 
-Option | Optional | Default value | Description
+Option | Required | Type | Description
 :--- | :--- | :--- | :---
-
- `source` | Yes | `message` | The field in the `Event` that is parsed.
- `destination` | Yes |  | * The destination field of the parsed JSON. The processor writes to root when the `destination` has a value of `null`. Cannot be `""`, `/`, or any whitespace-only `String` because these options are not valid `Event` fields.
-`pointer` | Yes | A JSON pointer that points to the field that must be parsed. No `pointer` exists by default and the entire `source` is parsed. The `pointer` can access JSON array indexes. If the JSON `pointer` is invalid, all `source` data is parsed into the outgoing `event`. If the key that is pointed to exists in `Event`, and the `destination` is the root, then the full path of the key is used. | 
+`source` | No | String | The field in the `Event` that will be parsed. Default value is `message`.
+`destination` | No | String | The destination field of the parsed JSON. Defaults to the root of the `Event`. Cannot be `""`, `/`, or any whitespace-only `String` because these are not valid `Event` fields.
+`pointer` | No | String | A JSON Pointer to the field to be parsed. There is no `pointer` by default, meaning the entire `source` is parsed. The `pointer` can access JSON Array indices as well. If the JSON Pointer is invalid then the entire `source` data is parsed into the outgoing `Event`. If the pointed-to key already exists in the `Event` and the `destination` is the root, then the pointer uses the entire path of the key.
