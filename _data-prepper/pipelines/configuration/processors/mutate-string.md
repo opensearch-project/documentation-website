@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Mutate strings
+title: Mutate string
 parent: Processors
 grand_parent: Pipelines
 nav_order: 45
