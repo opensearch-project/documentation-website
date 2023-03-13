@@ -33,7 +33,7 @@ Option | Required | Description
 
 ### Usage
 
-To get started, create the following `pipeline.yaml` file: <!--- Where should this file be stored? This may be covered in the Getting started guide config section.--->
+To get started, create the following `pipeline.yaml` file: 
 
 ```yaml
 pipeline:
@@ -53,7 +53,9 @@ pipeline:
 ```
 {% include copy.html %}
 
-Next, create a log file named `logs_json.log`. After that, replace the `path` of the file source in your `pipeline.yaml` file with your file path.
+Next, create a log file named `logs_json.log`. After that, replace the `path` of the file source in your `pipeline.yaml` file with your file path. 
+
+See [Configuring Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/#2-configuring-data-prepper) for more information on how to set up configuration files. 
 
 Before you run Data Prepper, the source appears in the following format:
 
