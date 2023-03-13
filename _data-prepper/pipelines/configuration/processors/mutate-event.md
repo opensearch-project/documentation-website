@@ -54,7 +54,7 @@ Next, create a log file named `logs_json.log` and replace the `path` in the file
 {"message": "value"}
 ```
 
-When you run this processor, it parses the message into the following output:
+When you run the `AddEntries` processor, it parses the message into the following output:
 
 ```json
 {"message": "value", "newMessage": 3}
