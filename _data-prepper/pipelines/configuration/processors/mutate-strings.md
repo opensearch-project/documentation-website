@@ -55,7 +55,7 @@ pipeline:
 
 Next, create a log file named `logs_json.log`. After that, replace the `path` of the file source in your `pipeline.yaml` file with your file path. 
 
-See [Configuring Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/#2-configuring-data-prepper) for more information on how to set up configuration files. 
+See [Configuring Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/#2-configuring-data-prepper) for more information on how to set up your configuration files. 
 
 Before you run Data Prepper, the source appears in the following format:
 
