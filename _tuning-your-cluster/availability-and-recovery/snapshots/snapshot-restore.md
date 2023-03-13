@@ -1,8 +1,13 @@
 ---
 layout: default
-title: Register Snapshot Repository
-parent: Snapshot APIs
-nav_order: 1
+title: Take and restore snapshots
+parent: Snapshots
+nav_order: 10
+has_children: false
+grand_parent: Availability and Recovery
+redirect_from: 
+  - /opensearch/snapshots/snapshot-restore/
+  - /availability-and-recovery/snapshots/snapshot-restore/
 ---
 
 # Registering or updating a snapshot repository
