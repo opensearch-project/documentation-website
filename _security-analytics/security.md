@@ -7,7 +7,7 @@ has_children: false
 
 # OpenSearch Security for Security Analytics
 
-You can use OpenSearch Security with Security Analytics to manage non-admin user permissions and assign the actions they can and cannot perform. For example, you might want some users to only be able to create, update, or delete detectors, while others to only view detectors.
+You can use OpenSearch Security with Security Analytics to assign user permissions and manage the actions that users can and cannot perform. For example, you might want one group of users to be able to create, update, or delete detectors and another group of users to only view detectors.
 
 All Security Analytics indexes are protected as system indexes. Only a super admin user or an admin user with a TLS certificate can access system indexes. For more information, see [System indexes]({{site.url}}{{site.baseurl}}/security/configuration/system-indices/).
 
