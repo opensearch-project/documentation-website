@@ -222,7 +222,13 @@ Always hyphenated. Don’t use _double click_.
 
 Don’t use. Use _because of_ instead.
 
-## E 
+## E
+
+**easy, easier, easily**
+
+Avoid the use of *easy*, *easier*, or *easily* if possible when describing or comparing an OpenSearch Project product, feature, or procedure in technical content. Use of these terms is audience dependent. These terms are potentially misleading or inaccurate and might be perceived as condescending by some technical users. Instead, describe what the user can do.
+
+On documentation landing pages, it’s acceptable to use *easy*, *easier*, or *easily* within the service description only.
 
 **effect**
 
@@ -342,6 +348,12 @@ Avoid using. Use *not valid* instead.
 **IP address**
 
 Don’t abbreviate as _IP only_.
+
+## J
+
+**just**
+
+Use *just* in the sense of *just now* (as in "the resources that you just created"). Otherwise, use *only* in all other contexts (to mean "limited to; nothing more than").
 
 ## K
 
@@ -603,6 +615,10 @@ Use _set up_ as a verb (“To set up a new user...”). Use _setup_ as a noun or
 **shard**
 
 A piece of an index that consumes CPU and memory. Operates as a full Lucene index.
+
+**simple, simply**
+
+Don't use. Both *simple* and *simply* are not neutral in tone and might sound condescending to some users. If you mean *only*, use *only* instead.
 
 **since**
 
