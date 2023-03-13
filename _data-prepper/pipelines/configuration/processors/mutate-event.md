@@ -64,13 +64,15 @@ When you run this processor, it parses the message into the following output:
 
 ## copy value
 
-The `copy value` processor copies values within an event.
+The `copy value` processor copies the values of an existing key within an event to another key. For example, in the following Usage section, the `copy value` processor copies the value of the key "message", which is "value" to another key called "newMessage". The value of the key "newMessage" is also "value".
+
+<!--- This feels like the wording could be improved for clarity.--->
 
 ### Configuration
 
 You can configure the `copy value` processor with the following options.
 
-Option | Required | Description
+Option | Required | Description 
 :--- | :--- | :---
 | `entries` | Yes | A list of entries to be copied in an event. |
 | `from_key` | Yes | The key of the entry to be copied.
@@ -115,7 +117,7 @@ When you run this processor, it parses the message into the following output:
 
 ## DeleteEntry
 
-The `DeleteEntry` processor deletes entries in an event.
+The `DeleteEntry` processor deletes entries in an event, such as key-value pairs. You can define the keys you want to delete in the `with-keys` field following `delete_entries` in the YAML configuration file. Those keys along with their values are deleted. See the example below in the Usage section, where `with_keys: ["message"] exists in the YAML file. This means that the entry {"message": "value"} is deleted. 
 
 ### Configuration
 
@@ -200,7 +202,7 @@ Next, create a log file named `logs_json.log` and replace the `path` in the file
 {"message": "value"}
 ```
 
-When ran, the processor parses the message into the following output:
+When you run the `RenameKey` processor, it parses the message into the following output:
 
 ```json
 {"newMessage": "value"}
@@ -244,7 +246,7 @@ After the processor runs, the following output appears:
 
 ## ConvertEntry
 
-The `ConvertEntry` processor converts a value type associated with the specified key in a message to the specified type. It is a casting processor that changes the types of some fields in the event or message. Some of inputted data may need to be converted to different types, such as an integer or a double, so that it will pass the events through condition-based processors, or to perform conditional routing.
+The `ConvertEntry` processor converts a value type associated with the specified key in a message to the specified type. It is a casting processor that changes the types of some fields in the event or message. Some of inputted data may need to be converted to different types, such as an integer or a double, or a string to an integer, so that it will pass the events through condition-based processors, or to perform conditional routing.
 
 ### Configuration
 
