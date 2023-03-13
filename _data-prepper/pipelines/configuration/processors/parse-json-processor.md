@@ -68,17 +68,11 @@ The processor parses the message into the following format:
 
 ## Configuration
 
-You can configure the `Parse JSON` processor with the following options:
+You can configure the `Parse JSON` processor with the following options.
 
-* `source` (optional): The field in the `Event` that is parsed.
-    * Default: `message`
+Option | Optional | Default value | Description
+:--- | :--- | :--- | :---
 
-* `destination` (optional): The destination field of the parsed JSON. Defaults to the root of the `Event`.
-    * Defaults to writing to the root of the `Event`. The processor writes to root when the `destination` has a value of `null`.
-    * Cannot be `""`, `/`, or any whitespace-only `String` because these options are not valid `Event` fields.
-
-* `pointer` (optional): A JSON pointer to the field that must be parsed.
-    * There is no `pointer` by default, and the entire `source` is parsed.
-    * The `pointer` can access JSON array indexes.
-    * If the JSON pointer is invalid, then the entire `source` data is parsed into the outgoing `Event`.
-    * If the key that is pointed to exists in the `Event`, and the `destination` is the root, then the entire path of the key will be used.
+ `source` | Yes | `message` | The field in the `Event` that is parsed.
+ `destination` | Yes |  | * The destination field of the parsed JSON. The processor writes to root when the `destination` has a value of `null`. Cannot be `""`, `/`, or any whitespace-only `String` because these options are not valid `Event` fields.
+`pointer` | Yes | A JSON pointer that points to the field that must be parsed. No `pointer` exists by default and the entire `source` is parsed. The `pointer` can access JSON array indexes. If the JSON `pointer` is invalid, all `source` data is parsed into the outgoing `event`. If the key that is pointed to exists in `Event`, and the `destination` is the root, then the full path of the key is used. | 
