@@ -202,13 +202,15 @@ Next, create a log file named `logs_json.log` and replace the `path` in the file
 {"message": "value"}
 ```
 
-When you run the `RenameKey` processor, it parses the message into the following output:
+When you run the `RenameKey` processor, it parses the message into the following output as the "newMessage":
 
 ```json
 {"newMessage": "value"}
 ```
 
 > If `newMessage` already exists, its existing value is overwritten with `value`.
+
+
 
 ### Special considerations
 
