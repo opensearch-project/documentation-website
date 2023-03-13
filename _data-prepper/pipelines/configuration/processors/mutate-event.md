@@ -27,7 +27,7 @@ Option | Required | Description
 |`value` | Yes | The value of the new entry to be added. You can use the following data types: strings, booleans, numbers, null, nested objects, and arrays. |
 |`overwrite_if_key_exists` | No | When set to `true`, if `key` already exists in the event, then the existing value is overwritten. The default value is `false`. |
 
-### Basic usage
+### Usage
 
 To get started, create the following `pipeline.yaml` file:
 
@@ -48,7 +48,7 @@ pipeline:
     - stdout:
 ```
 
-Create a log file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` with this filepath.
+Next, create a log file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` with this filepath. For more information, see [Configuring Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/#2-configuring-data-prepper).
 
 ```json
 {"message": "value"}
@@ -77,7 +77,7 @@ Option | Required | Description
 | `to_key` | Yes | The key of the new entry to be added.
 | `overwrite_if_to_key_exists` | No | When set to a value of `true`, if `to_key` already exists in the event, then the existing value will be overwritten. The default value is `false`. |
 
-### Basic usage
+### Usage
 
 To get started, create the following `pipeline.yaml` file:
 
@@ -98,7 +98,7 @@ pipeline:
     - stdout:
 ```
 
-Create a log file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` with the path of this file:
+Next, create a log file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` with this filepath. For more information, see [Configuring Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/#2-configuring-data-prepper).
 
 ```json
 {"message": "value"}
@@ -125,7 +125,7 @@ Option | Required | Description
 :--- | :--- | :---
 | `with_keys` | Yes | An array of keys of the entries to be deleted. | 
 
-### Basic usage
+### Usage
 
 To get started, create the following `pipeline.yaml` file:
 
@@ -143,7 +143,7 @@ pipeline:
     - stdout:
 ```
 
-Create the following file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` with the path of this file.
+Next, create a log file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` with this filepath. For more information, see [Configuring Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/#2-configuring-data-prepper).
 
 ```json
 {"message": "value", "message2": "value2"}
@@ -173,7 +173,7 @@ Option | Required | Description
 | `to_key` | Yes | The new key of the entry.
 | `overwrite_if_to_key_exists` | No | When set to a value of`true`, if `to_key` already exists in the event, then the existing value will be overwritten. The default value is `false`. |
 
-### Basic usage
+### Usage
 
 To get started, create the following `pipeline.yaml` file:
 
@@ -194,7 +194,7 @@ pipeline:
     - stdout:
 ```
 
-Create a log file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` with the path of this file.
+Next, create a log file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` with this filepath. For more information, see [Configuring Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/#2-configuring-data-prepper).
 
 ```json
 {"message": "value"}
@@ -255,7 +255,7 @@ Option | Required | Description
 | `key`| Yes | Keys whose value needs to be converted to a different type. | 
 | `type` | No | Target type for key value. Possible values are `integer`, `double`, `string`, and `boolean`. Default value is `integer`. |
 
-### Basic usage
+### Usage
 
 To get started with type conversion processor using Data Prepper, create the following `pipeline.yaml` file:
 
@@ -277,7 +277,7 @@ type-conv-pipeline:
     - stdout:
 ```
 
-Create a log file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` with the path of this file.
+Next, create a log file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` with this filepath. For more information, see [Configuring Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/#2-configuring-data-prepper).
 
 ```json
 {"message": "10.10.10.19 [19/Feb/2015:15:50:36 -0500] 200"}
