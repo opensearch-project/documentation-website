@@ -10,7 +10,7 @@ nav_order: 45
 
 The `trace peer forwarder` processor is used to reduce the number of events that are forwarded in a trace analytics pipeline by half when using [Peer Forwarder]({{site.url}}{{site.baseurl}}/managing-data-prepper/peer-forwarder/). It groups the events based on `trace_id` similar to `service_map_stateful` and `otel_trace_raw ` processors. 
 
-In [Trace analytics]({{site.url}}{{site.baseurl}}/data-prepper/common-use-cases/trace-analytics/) each event is duplicated, when it is sent from `otel-trace-pipeline` to `raw-pipeline` and `service-map-pipeline`. The event is forwarded once in each pipeline. Using this processor event will be forwarded only once in `otel-trace-pipeline` to correct peer. 
+In [Trace analytics]({{site.url}}{{site.baseurl}}/data-prepper/common-use-cases/trace-analytics/), each event is duplicated when it is sent from `otel-trace-pipeline` to `raw-pipeline` and `service-map-pipeline`. The event is forwarded once in each pipeline. When you use this processor, the event is forwarded only once in the `otel-trace-pipeline` pipeline to the correct peer. 
 
 ## Basic usage
 
