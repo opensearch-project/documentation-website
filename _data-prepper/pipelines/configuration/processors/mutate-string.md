@@ -79,10 +79,10 @@ You can configure the `split_string` processor with the following options.
 
 Option | Required | Description
 :--- | :--- | :---
-| `entries` | Yes | A list of entries to add to an event. |
-| `source` | Yes | The key to be split. |
-| `delimiter` | No | The separator character responsible for the split. Cannot be defined at the same time as `delimiter_regex`. At least `delimiter` or `delimiter_regex` must be defined. |
-|`delimiter_regex` | No | A regex string responsible for the split. Cannot be defined at the same time as `delimiter`. At least `delimiter` or `delimiter_regex` must be defined. |
+ `entries` | Yes | A list of entries to add to an event. |
+ `source` | Yes | The key to be split. |
+ `delimiter` | No | The separator character responsible for the split. Cannot be defined at the same time as `delimiter_regex`. At least `delimiter` or `delimiter_regex` must be defined. |
+`delimiter_regex` | No | A regex string responsible for the split. Cannot be defined at the same time as `delimiter`. At least `delimiter` or `delimiter_regex` must be defined. |
 
 ### Usage
 
@@ -128,7 +128,7 @@ You can configure the `uppercase_string` processor with the following options.
 
 Option | Required | Description
 :--- | :--- | :---
-| `with_keys` | Yes | A list of keys to convert to uppercase. |
+ `with_keys` | Yes | A list of keys to convert to uppercase. |
 
 ### Usage
 
@@ -173,7 +173,7 @@ You can configure the `lowercase string` processor with the following options.
 
 Option | Required | Description
 :--- | :--- | :---
-| `with_keys` | Yes | A list of keys to convert to lowercase. |
+ `with_keys` | Yes | A list of keys to convert to lowercase. |
 
 ### Usage
 
@@ -219,7 +219,7 @@ You can configure the `trim_string` processor with the following options.
 
 Option | Required | Description
 :--- | :--- | :---
-| `with_keys` | Yes | A list of keys to trim the whitespace from. |
+ `with_keys` | Yes | A list of keys to trim the whitespace from. |
 
 ### Usage
 
