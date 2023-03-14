@@ -29,7 +29,7 @@ Option | Required | Description
 `entries` | Yes | A list of entries to add to an event. |
 `source` | Yes | The key to be modified. |
 `from` | Yes | The regular expression (regex) string to be replaced. Special regex characters such as `[` and `]` must be escaped using `\\` when using double quotes and `\` when using single quotes. For more detailed information, see [Class Pattern](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/regex/Pattern.html). |
-`to` | Yes | The string to be substituted for each match of `from`. |
+`to` | Yes | The string that replaces each match of `from`. |
 
 ### Usage
 
@@ -67,7 +67,7 @@ After you run Data Prepper, the source is converted to the following format:
 {"message": "ab-cd-ab-cd"}
 ```
 
-`from` defines which string is replaced, and `to` defines the string to replace the `from` string. In the preceding example, all instances of the `from` string `"."` are replaced with the `to` string `"-"`, where string `ab:cd:ab:cd` becomes `ab-cd-ab-cd`. If the `from` regex string does not return a match, the key returns without any changes. 
+`from` defines which string is replaced, and `to` defines the string to replace the `from` string. In the preceding example, string `ab:cd:ab:cd` becomes `ab-cd-ab-cd`. If the `from` regex string does not return a match, the key returns without any changes. 
     
 ## split_string
 
