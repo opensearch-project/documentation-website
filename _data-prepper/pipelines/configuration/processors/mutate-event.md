@@ -12,9 +12,9 @@ Mutate event processors allow you to modify events in Data Prepper. You can use 
 
 The following processors allow you to mutate an event.
 
-## AddEntries
+## add_entries
 
-The `AddEntries` processor adds entries to an event.
+The `add_entries` processor adds entries to an event.
 
 ### Configuration
 
@@ -62,11 +62,13 @@ When you run the `AddEntries` processor, it parses the message into the followin
 
 > If `newMessage` already exists, its existing value is overwritten with a value of `3`.
 
+In the preceding example, the `add_entries` processor adds a new entry `{"newMessage": 3}` to the existing event, `{"message": "value"}` so that the new event contains two entries in the final output, which iss `{"message": "value","newMessage": 3}`.
+
 ## copy value
 
 The `copy value` processor copies the values of an existing key within an event to another key. For example, in the following Usage section, the `copy value` processor copies the value of the key "message", which is "value" to another key called "newMessage". The value of the key "newMessage" is also "value".
 
-<!--- This feels like the wording could be improved for clarity.--->
+<!-- Is there a way to link to this specific Usage section and not another one? They all have the same title. Should they be renamed to match their respective processors?--->
 
 ### Configuration
 
