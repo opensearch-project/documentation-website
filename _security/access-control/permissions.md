@@ -198,6 +198,8 @@ See [Cross-cluster replication security]({{site.url}}{{site.baseurl}}/tuning-you
 
 ### Reindex
 
+See [Reindex document]({{site.url}}{{site.baseurl}}/api-reference/document-apis/reindex/).
+
 - cluster:admin/reindex/rethrottle
 
 ### Snapshot repository permissions
@@ -210,6 +212,8 @@ See [Snapshot APIs]({{site.url}}{{site.baseurl}}/api-reference/snapshots/index/)
 - cluster:admin/repository/verify
 
 ### Reroute
+
+See [Cluster manager task throttling]({{site.url}}{{site.baseurl}}/tuning-your-cluster/cluster-manager-task-throttling/).
 
 - cluster:admin/reroute
 
@@ -271,7 +275,7 @@ cluster:admin/opensearch/securityanalytics/rule/delete | permission to delete ru
 
 ### Cluster monitoring
 
-See [Cluster APIs]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/index/)
+See [Cluster APIs]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/index/).
 
 - cluster:monitor/allocation/explain
 - cluster:monitor/health
@@ -287,6 +291,10 @@ See [Cluster APIs]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/index/
 - cluster:monitor/task
 - cluster:monitor/task/get
 - cluster:monitor/tasks/list
+
+### Index templates
+
+See [Index templates]({{site.url}}{{site.baseurl}}/im-plugin/index-templates/).
 
 The following permissions are for indexes but apply globally to the cluster:
 
