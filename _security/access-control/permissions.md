@@ -196,7 +196,7 @@ See [Cross-cluster replication security]({{site.url}}{{site.baseurl}}/tuning-you
 
 - cluster:admin/plugins/replication/autofollow/update
 
-
+### Reindex
 
 - cluster:admin/reindex/rethrottle
 
@@ -209,7 +209,7 @@ See [Snapshot APIs]({{site.url}}{{site.baseurl}}/api-reference/snapshots/index/)
 - cluster:admin/repository/put
 - cluster:admin/repository/verify
 
-### 
+### Reroute
 
 - cluster:admin/reroute
 
@@ -250,22 +250,24 @@ See [Tasks]({{site.url}}{{site.baseurl}}/api-reference/tasks/) APIs.
 
 See [API tools]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/index/).
 
-- cluster:admin/opensearch/securityanalytics/alerts/get | permission to get alerts
-- cluster:admin/opensearch/securityanalytics/alerts/ack | permission to acknowledge alerts
-- cluster:admin/opensearch/securityanalytics/detector/get | permission to get detectors
-- cluster:admin/opensearch/securityanalytics/detector/search | permission to search detectors
-- cluster:admin/opensearch/securityanalytics/detector/write | permission to create and update detectors
-- cluster:admin/opensearch/securityanalytics/detector/delete | permission to delete detectors
-- cluster:admin/opensearch/securityanalytics/findings/get | permission to get findings
-- cluster:admin/opensearch/securityanalytics/mapping/get | permission to get field mappings by index
-- cluster:admin/opensearch/securityanalytics/mapping/view/get | permission to get field mappings by index and view mapped and unmapped fields
-- cluster:admin/opensearch/securityanalytics/mapping/create | permission to create field mappings
-- cluster:admin/opensearch/securityanalytics/mapping/update | permission to update field mappings
-- cluster:admin/opensearch/securityanalytics/rules/categories | permission to get all rule categories
-- cluster:admin/opensearch/securityanalytics/rule/write | permission to create and update rules
-- cluster:admin/opensearch/securityanalytics/rule/search | permission to search for rules
-- cluster:admin/opensearch/securityanalytics/rules/validate | permission to validate rules
-- cluster:admin/opensearch/securityanalytics/rule/delete | permission to delete rules
+**Permission** | **Description**
+:--- | :---
+cluster:admin/opensearch/securityanalytics/alerts/get | permission to get alerts
+cluster:admin/opensearch/securityanalytics/alerts/ack | permission to acknowledge alerts
+cluster:admin/opensearch/securityanalytics/detector/get | permission to get detectors
+cluster:admin/opensearch/securityanalytics/detector/search | permission to search detectors
+cluster:admin/opensearch/securityanalytics/detector/write | permission to create and update detectors
+cluster:admin/opensearch/securityanalytics/detector/delete | permission to delete detectors
+cluster:admin/opensearch/securityanalytics/findings/get | permission to get findings
+cluster:admin/opensearch/securityanalytics/mapping/get | permission to get field mappings by index
+cluster:admin/opensearch/securityanalytics/mapping/view/get | permission to get field mappings by index and view mapped and unmapped fields
+cluster:admin/opensearch/securityanalytics/mapping/create | permission to create field mappings
+cluster:admin/opensearch/securityanalytics/mapping/update | permission to update field mappings
+cluster:admin/opensearch/securityanalytics/rules/categories | permission to get all rule categories
+cluster:admin/opensearch/securityanalytics/rule/write | permission to create and update rules
+cluster:admin/opensearch/securityanalytics/rule/search | permission to search for rules
+cluster:admin/opensearch/securityanalytics/rules/validate | permission to validate rules
+cluster:admin/opensearch/securityanalytics/rule/delete | permission to delete rules
 
 ### Cluster monitoring
 

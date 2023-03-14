@@ -20,7 +20,7 @@ As an admin user, you can use Security to assign specific permissions to users b
 
 OpenSearch Security has two built-in roles that cover most Security Analytics use cases: `security_analytics_full_access` and `security_analytics_read_access`. A third built-in role allows users to view and acknowledge alerts: `security_analytics_ack_alerts`. For descriptions of each, see [Predefined roles]({{site.url}}{{site.baseurl}}/security/access-control/users-roles#predefined-roles).
 
-If these roles don't meet your needs, mix and match individual Security Analytics [permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/) to suit your use case. Each action corresponds to an operation in the REST API. For example, the `cluster:admin/opensearch/securityanalytics/detector/delete` permission lets you delete detectors.
+If these roles don't meet your needs, mix and match individual Security Analytics [permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/#security-analytics-permissions) to suit your use case. Each action corresponds to an operation in the REST API. For example, the `cluster:admin/opensearch/securityanalytics/detector/delete` permission lets you delete detectors.
 
 ## (Advanced) Limit access by backend role
 
