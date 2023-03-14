@@ -69,6 +69,10 @@ Rather than individual permissions, you can often achieve your desired security 
 
 These permissions are for the cluster and can't be applied granularly. For example, you either have permissions to take snapshots (`cluster:admin/snapshot/create`) or you don't. You can't have permissions to take snapshots only for certain indices.
 
+Cross-references to API documentation in the permissions that follow are only to help support an understanding of the permissions. As stated at the beginning of this section, permissions often correlate to APIs but do not map directly to them.
+{: .note }
+
+
 ### Ingest API permissions
 
 See [Ingest APIs]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/).
@@ -275,7 +279,9 @@ cluster:admin/opensearch/securityanalytics/rule/delete | permission to delete ru
 
 ### Cluster monitoring
 
-See [Cluster APIs]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/index/).
+The monitor cluster permissions apply to read-only operations such as checking cluster health and getting information about usage on nodes or tasks executing in the cluster.
+
+See [REST API reference]({{site.url}}{{site.baseurl}}/api-reference/index/).
 
 - cluster:monitor/allocation/explain
 - cluster:monitor/health
@@ -294,9 +300,9 @@ See [Cluster APIs]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/index/
 
 ### Index templates
 
-See [Index templates]({{site.url}}{{site.baseurl}}/im-plugin/index-templates/).
+The index template permissions are for indexes but apply globally to the cluster.
 
-The following permissions are for indexes but apply globally to the cluster:
+See [Index templates]({{site.url}}{{site.baseurl}}/im-plugin/index-templates/).
 
 - indices:admin/index_template/delete
 - indices:admin/index_template/get
