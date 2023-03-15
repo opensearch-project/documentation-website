@@ -14,6 +14,9 @@ On **Windows**, use **securityadmin.bat** in place of **securityadmin.sh**. For 
 
 The Security plugin stores its configuration—including users, roles, permissions, and backend settings—in a [system index]({{site.url}}{{site.baseurl}}/security/configuration/system-indices) on the OpenSearch cluster. Storing these settings in an index lets you change settings without restarting the cluster and eliminates the need to edit configuration files on every individual node. This is accomplished by running the `securityadmin.sh` script. The script can be found at `plugins/opensearch-security/tools/securityadmin.sh`.
 
+The `securityadmin.sh` and `securityadmin.bat` tools will be deprecated and replaced in the next major release of OpenSearch. To learn more about current plans, see the GitHub issue [Security Plugin Tools will be replaced](https://github.com/opensearch-project/security/issues/1755), where you can leave comments about proposals for the replacement of the tools.
+{: .important }
+
 The first job of the script, however, is to initialize the `.opendistro_security` index. This loads your initial configuration into the index using the configuration files in `config/opensearch-security`. After the `.opendistro_security` index is initialized, you can use OpenSearch Dashboards or the REST API to manage your users, roles, and permissions.
 
 
