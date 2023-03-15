@@ -11,8 +11,8 @@ You can use OpenSearch Security with Security Analytics to assign user permissio
 
 All Security Analytics indexes are protected as system indexes. Only a super admin user or an admin user with a TLS certificate can access system indexes. For more information, see [System indexes]({{site.url}}{{site.baseurl}}/security/configuration/system-indices/).
 
-
 Security for Security Analytics works much the same as [Alerting security]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/security/).
+
 
 ## Basic permissions
 
@@ -21,6 +21,7 @@ As an admin user, you can use Security to assign specific permissions to users b
 OpenSearch Security has two built-in roles that cover most Security Analytics use cases: `security_analytics_full_access` and `security_analytics_read_access`. A third built-in role allows users to view and acknowledge alerts: `security_analytics_ack_alerts`. For descriptions of each, see [Predefined roles]({{site.url}}{{site.baseurl}}/security/access-control/users-roles#predefined-roles).
 
 If these roles don't meet your needs, mix and match individual Security Analytics [permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/#security-analytics-permissions) to suit your use case. Each action corresponds to an operation in the REST API. For example, the `cluster:admin/opensearch/securityanalytics/detector/delete` permission lets you delete detectors.
+
 
 ## (Advanced) Limit access by backend role
 
@@ -71,7 +72,7 @@ PUT _plugins/_security/api/internalusers/bob
 ```
 {% include copy-curl.html %}
 
-Both `alice` and `bob` have full access to Security Analytics:
+Both `alice` and `bob` are assigned the role that gives them full access to Security Analytics:
 
 ```json
 PUT _plugins/_security/api/rolesmapping/security_analytics_full_access
@@ -86,7 +87,8 @@ PUT _plugins/_security/api/rolesmapping/security_analytics_full_access
 ```
 {% include copy-curl.html %}
 
-Because they have different backend roles, `alice` and `bob` cannot view each other's detectors or their results.
+However, because they have different backend roles, `alice` and `bob` cannot view each other's detectors or their results.
+
 
 ## A note on using fine-grained access control with the plugin
 
