@@ -4,6 +4,7 @@ title: Using the Maps plugin
 nav_order: 60
 redirect_from:
   - /dashboards/maps/
+  - /dashboards/visualize/maps/
 ---
 
 # Using the Maps plugin
