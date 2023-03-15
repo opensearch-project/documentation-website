@@ -25,3 +25,5 @@ As an experimental feature, segment replication will be behind a feature flag an
 - Users with very high loads who want to add new nodes, as you do not need to index all nodes when adding a new node to the cluster.
 
 This is the first step in a series of features designed to decouple reads and writes in order to lower compute costs.
+
+GA Placeholder
