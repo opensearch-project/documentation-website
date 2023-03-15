@@ -12,7 +12,7 @@ The `parse_json` processor parses JSON data for an event, including any nested f
 
 ## Usage
 
-To get started, create the following `pipelines.yaml` file:
+To get started, create the following `pipeline.yaml` file:
 
 ```yaml
 parse-json-pipeline:
@@ -23,9 +23,12 @@ parse-json-pipeline:
   sink:
     - stdout:
 ```
+
+
+
 ### Basic example
 
-You can test the JSON Processor with the above configuration by using the following example.
+You can test the JSON Processor with the previous configuration by using the following example.
 
 Run the pipeline and paste the following line into your console, then enter `exit` on a new line:
 
