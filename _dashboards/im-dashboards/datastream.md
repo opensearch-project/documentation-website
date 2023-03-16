@@ -12,7 +12,7 @@ redirect_from:
 Introduced 2.6
 {: .label .label-purple }
 
-In OpenSearch Dashboards, the **Index Management** application allows you to view and manage [data streams]({{site.url}}{{site.baseurl}}/opensearch/data-streams/) as shown in the following image.
+In OpenSearch Dashboards, the **Index Management** application allows you to view and manage [data streams]({{site.url}}{{site.baseurl}}/im-plugin/data-streams/) as shown in the following image.
 
 ![Data Streams]({{site.url}}{{site.baseurl}}/images/admin-ui-index/datastreams1.png)
 
