@@ -12,13 +12,13 @@ This is a source plugin that supports HTTP protocol. Currently ONLY support Json
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
-port | No | Integer | The port the source is running on. Default is `2021`. Valid options are between `0` and `65535`.
-health_check_service | No | Boolean | Enables health check service on `/health` endpoint on the defined port. Default is `false`.
-unauthenticated_health_check | No | Boolean | Determines whether or not authentication is required on the health check endpoint. Data Prepper ignores this option if no authentication is defined. Default is `false`.
-request_timeout | No | Integer | The request timeout in millis. Default is `10_000`.
-thread_count | No | Integer | The number of threads to keep in the ScheduledThreadPool. Default is `200`.
-max_connection_count | No | Integer | The maximum allowed number of open connections. Default is `500`.
-max_pending_requests | No | Integer | The maximum number of allowed tasks in ScheduledThreadPool work queue. Default is `1024`.
+port | No | Integer | The port that the source is running on. Default value is `2021`. Valid options are between `0` and `65535`.
+health_check_service | No | Boolean | Enables the health check service on the `/health` endpoint on the defined port. Default value is `false`.
+unauthenticated_health_check | No | Boolean | Determines whether or not authentication is required on the health check endpoint. Data Prepper ignores this option if no authentication is defined. Default value is `false`.
+request_timeout | No | Integer | The request timeout, in milliseconds. Default value is `10000`.
+thread_count | No | Integer | The number of threads to keep in the ScheduledThreadPool. Default value is `200`.
+max_connection_count | No | Integer | The maximum allowed number of open connections. Default value is `500`.
+max_pending_requests | No | Integer | The maximum allowed number of tasks in the `ScheduledThreadPool` work queue. Default value is `1024`.
 authentication | No | Object | An authentication configuration. By default, this creates an unauthenticated server for the pipeline. This uses pluggable authentication for HTTPS. To use basic authentication define the `http_basic` plugin with a `username` and `password`. To provide customer authentication, use or create a plugin that implements [ArmeriaHttpAuthenticationProvider](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/armeria-common/src/main/java/com/amazon/dataprepper/armeria/authentication/ArmeriaHttpAuthenticationProvider.java).
 ssl | No | Boolean | Enables TLS/SSL. Default is false.
 ssl_certificate_file | Conditionally | String | SSL certificate chain file path or AWS S3 path. S3 path example `s3://<bucketName>/<path>`. Required if `ssl` is true and `use_acm_certificate_for_ssl` is false.
