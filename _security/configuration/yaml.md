@@ -11,7 +11,7 @@ redirect_from:
 
 The Security installation provides a number of YAML confguration files that are used to store the necessary settings that define the way Security manages users, roles, and activity within the cluster. These settings range from configurations for authentication backends to lists of allowed endpoints and HTTP requests. 
 
-Before running [`securityadmin.sh`]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/) to load the settings into the `.opendistro_security` index, perform an initial configuration of the YAML files. The files can be found in the `config/opensearch-security` directory. It's also good practice to back up these files so that you can reuse them for other clusters.
+Before running `securityadmin.sh` to [load the settings]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/) into the `.opendistro_security` index, perform an initial configuration of the YAML files. The files can be found in the `config/opensearch-security` directory. It's also good practice to back up these files so that you can reuse them for other clusters.
 
 The approach we recommend for using the YAML files is to first configure [reserved and hidden resources]({{site.url}}{{site.baseurl}}/security/access-control/api#reserved-and-hidden-resources), such as the `admin` and `kibanaserver` users. Thereafter you can create other users, roles, mappings, action groups, and tenants using OpenSearch Dashboards or the REST API.
 
@@ -21,6 +21,9 @@ The approach we recommend for using the YAML files is to first configure [reserv
 This file contains any initial users that you want to add to the security plugin's internal user database.
 
 The file format requires a hashed password. To generate one, run `plugins/opensearch-security/tools/hash.sh -p <new-password>`. If you decide to keep any of the demo users, *change their passwords* and re-run [securityadmin.sh]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/) to apply the new passwords.
+
+The `hash.sh` and `hash.bat` tools will be deprecated and replaced in the next major release of OpenSearch. To learn more about current plans, see the GitHub issue [Security Plugin Tools will be replaced](https://github.com/opensearch-project/security/issues/1755), where you can leave comments about proposals for the replacement of the tools.
+{: .important }
 
 ```yml
 ---
