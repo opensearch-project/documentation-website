@@ -3,8 +3,8 @@ layout: default
 title: Index rollups
 nav_order: 35
 has_children: true
-redirect_from: /im-plugin/index-rollups/
-has_toc: false
+redirect_from: 
+  - /im-plugin/index-rollups/
 ---
 
 # Index rollups
@@ -97,7 +97,7 @@ Then run a search:
 GET opensearch_dashboards_sample_data_ecommerce/_search
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {

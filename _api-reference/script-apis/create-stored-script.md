@@ -45,7 +45,7 @@ All parameters are optional.
 | lang | String | Scripting language. Required. |
 | source | String or Object | Required. <br /> <br /> For scripts, a string with the contents of the script. <br /> <br /> For search templates, an object that defines the search template. Supports the same parameters as the [Search]({{site.url}}{{site.baseurl}}/api-reference/search) API request body. Search templates also support Mustache variables. |
 
-#### Sample request
+#### Example request
 
 The sample uses an index called `books` with the following documents:
 
@@ -93,9 +93,29 @@ curl -XPUT "http://opensearch:9200/_scripts/my-first-script" -H 'Content-Type: a
 ````
 {% include copy.html %}
 
+
+The following request creates the Painless script `my-first-script`, which sums the ratings for each book and displays the sum in the output:
+
+````json
+PUT _scripts/my-first-script
+{
+  "script": {
+      "lang": "painless",
+      "source": """
+          int total = 0;
+          for (int i = 0; i < doc['ratings'].length; ++i) {
+            total += doc['ratings'][i];
+          }
+          return total;
+        """
+  }
+}
+````
+{% include copy-curl.html %}
+
 See [Execute Painless stored script]({{site.url}}{{site.baseurl}}/api-reference/script-apis/exec-stored-script/) for information about running the script.
 
-#### Sample response
+#### Example response
 
 The `PUT _scripts/my-first-script` request returns the following field:
 
@@ -112,4 +132,39 @@ To determine whether the script was successfully created, use the [Get stored sc
 
 | Field | Data type | Description | 
 :--- | :--- | :---
-| acknowledged | Boolean | whether the request was received. |
+| acknowledged | Boolean | Whether the request was received. |
+
+## Creating or updating a stored script with parameters
+
+The Painless script supports `params` to pass variables to the script. 
+
+### Example
+
+The following request creates the Painless script `multiplier-script`. The request sums the ratings for each book, multiplies the summed value by the `multiplier` parameter, and displays the result in the output:
+
+````json
+PUT _scripts/multiplier-script
+{
+  "script": {
+      "lang": "painless",
+      "source": """
+          int total = 0;
+          for (int i = 0; i < doc['ratings'].length; ++i) {
+            total += doc['ratings'][i];
+          }
+          return total * params['multiplier'];
+        """
+  }
+}
+````
+{% include copy-curl.html %}
+
+### Example response
+
+The `PUT _scripts/multiplier-script` request returns the following field:
+
+````json
+{
+  "acknowledged" : true
+}
+````
