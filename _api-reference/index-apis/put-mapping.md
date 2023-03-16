@@ -40,6 +40,23 @@ The request body must contain `properties`, which has all of the mappings that y
 }
 ```
 
+## Optional request body fields
+
+### dynamic
+
+You can make the document structure match the structure of the index mapping by setting the `dynamic` request body field to `strict`, as seen in the following example:
+
+```json
+{
+  "properties":{
+    "dynamic": "strict",
+    "color":{
+      "type": "text"
+    }
+  }
+}
+```
+
 ## Optional query parameters
 
 Optionally, you can add query parameters to make a more specific request. For example, to skip any missing or closed indexes in the response, you can add the `ignore_unavailable` query parameter to your request as follows:
