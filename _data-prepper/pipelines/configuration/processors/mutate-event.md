@@ -50,6 +50,8 @@ pipeline:
 
 Next, create a log file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` with this filepath. For more information, see [Configuring Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/#2-configuring-data-prepper).
 
+Before you run the `AddEntries` processor, you see the following:
+
 ```json
 {"message": "value"}
 ```
@@ -62,7 +64,7 @@ When you run the `AddEntries` processor, it parses the message into the followin
 
 > If `newMessage` already exists, its existing value is overwritten with a value of `3`.
 
-In the preceding example, the `add_entries` processor adds a new entry `{"newMessage": 3}` to the existing event, `{"message": "value"}` so that the new event contains two entries in the final output, which iss `{"message": "value","newMessage": 3}`.
+In the preceding example, the `add_entries` processor adds a new entry `{"newMessage": 3}` to the existing event `{"message": "value"}` so that the new event contains two entries in the final output: `{"message": "value","newMessage": 3}`.
 
 ## copy value
 
