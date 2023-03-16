@@ -25,7 +25,7 @@ Option | Required | Description
 |`entries` | Yes | A list of entries to add to an event. |
 |`key` | Yes | The key of the new entry to be added. |
 |`value` | Yes | The value of the new entry to be added. You can use the following data types: strings, booleans, numbers, null, nested objects, and arrays. |
-|`overwrite_if_key_exists` | No | When set to `true`, if `key` already exists in the event, then the existing value is overwritten. The default value is `false`. |
+|`overwrite_if_key_exists` | No | When set to `true`, if `key` already exists in the event, the existing value is overwritten. The default value is `false`. |
 
 ### Usage
 
