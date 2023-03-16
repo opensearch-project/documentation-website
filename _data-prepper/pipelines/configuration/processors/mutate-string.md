@@ -8,7 +8,7 @@ nav_order: 45
 
 # Mutate string processors
 
-You can change the way that a string appears using mutate string processesors. For example, you can use the `uppercase_string` processor to convert a string to uppercase, and you can use the `lowercase_string` processor to convert a string to lowercase. The following is a list of processors that allow you to mutate a string:
+You can change the way that a string appears by using a mutate string processesor. For example, you can use the `uppercase_string` processor to convert a string to uppercase, and you can use the `lowercase_string` processor to convert a string to lowercase. The following is a list of processors that allow you to mutate a string:
 
 * [substitute_string](#substitute_string)
 * [split_string](#split_string)
@@ -28,7 +28,7 @@ Option | Required | Description
 :--- | :--- | :---
 `entries` | Yes | A list of entries to add to an event. |
 `source` | Yes | The key to be modified. |
-`from` | Yes | The regular expression (regex) string to be replaced. Special regex characters such as `[` and `]` must be escaped using `\\` when using double quotes and `\` when using single quotes. For more detailed information, see [Class Pattern](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/regex/Pattern.html). |
+`from` | Yes | The regex string to be replaced. Special regex characters such as `[` and `]` must be escaped using `\\` when using double quotes and `\` when using single quotes. For more information, see [Class Pattern](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/regex/Pattern.html) in the Java documentation. |
 `to` | Yes | The string that replaces each match of `from`. |
 
 ### Usage
@@ -67,7 +67,7 @@ After you run Data Prepper, the source is converted to the following format:
 {"message": "ab-cd-ab-cd"}
 ```
 
-`from` defines which string is replaced, and `to` defines the string to replace the `from` string. In the preceding example, string `ab:cd:ab:cd` becomes `ab-cd-ab-cd`. If the `from` regex string does not return a match, the key returns without any changes. 
+`from` defines which string is replaced, and `to` defines the string that replaces the `from` string. In the preceding example, string `ab:cd:ab:cd` becomes `ab-cd-ab-cd`. If the `from` regex string does not return a match, the key is returned without any changes. 
     
 ## split_string
 
@@ -82,7 +82,7 @@ Option | Required | Description
  `entries` | Yes | A list of entries to add to an event. |
  `source` | Yes | The key to be split. |
  `delimiter` | No | The separator character responsible for the split. Cannot be defined at the same time as `delimiter_regex`. At least `delimiter` or `delimiter_regex` must be defined. |
-`delimiter_regex` | No | A regex string responsible for the split. Cannot be defined at the same time as `delimiter`. At least `delimiter` or `delimiter_regex` must be defined. |
+`delimiter_regex` | No | A regex string responsible for the split. Cannot be defined at the same time as `delimiter`. Either `delimiter` or `delimiter_regex` must be defined. |
 
 ### Usage
 
@@ -219,7 +219,7 @@ You can configure the `trim_string` processor with the following options.
 
 Option | Required | Description
 :--- | :--- | :---
- `with_keys` | Yes | A list of keys to trim the whitespace from. |
+ `with_keys` | Yes | A list of keys from which to trim the whitespace. |
 
 ### Usage
 
