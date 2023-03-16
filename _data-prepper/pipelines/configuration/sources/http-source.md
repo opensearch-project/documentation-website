@@ -12,7 +12,6 @@ nav_order: 5
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
-
 port | No | Integer | The port that the source is running on. Default value is `2021`. Valid options are between `0` and `65535`.
 health_check_service | No | Boolean | Enables the health check service on the `/health` endpoint on the defined port. Default value is `false`.
 unauthenticated_health_check | No | Boolean | Determines whether or not authentication is required on the health check endpoint. Data Prepper ignores this option if no authentication is defined. Default value is `false`.
