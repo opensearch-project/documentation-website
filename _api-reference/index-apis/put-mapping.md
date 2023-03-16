@@ -42,9 +42,9 @@ The request body must contain `properties`, which has all of the mappings that y
 
 ## Optional request body fields
 
-### Field "dynamic"
+### dynamic
 
-To enforce document structure to match the structure of the index mapping, specify property "dynamic" and set its value to "strict":
+You can make the document structure match the structure of the index mapping by setting the `dynamic` request body field to `strict`, as seen in the following example:
 
 ```json
 {
