@@ -337,6 +337,10 @@ Users are defined and authenticated by OpenSearch in a variety of ways. One meth
       WARNING: nor OPENSEARCH_JAVA_HOME nor JAVA_HOME is set, will use 
       ./hash.sh: line 35: java: command not found
       ```
+
+      The `hash.sh` and `hash.bat` tools will be deprecated and replaced in the next major release of OpenSearch. To learn more about current plans, see the GitHub issue [Security Plugin Tools will be replaced](https://github.com/opensearch-project/security/issues/1755), where you can leave comments about proposals for the replacement of the tools.
+      {: .important }
+
    - Declare an environment variable when you invoke the script in order to avoid issues:
       ```bash
       OPENSEARCH_JAVA_HOME=/usr/share/opensearch/jdk ./hash.sh
