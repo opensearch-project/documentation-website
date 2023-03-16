@@ -25,8 +25,7 @@ and then use this search method. All filters are applied on the results produced
 
 Each of the three engines used for approximate k-NN search has its own attributes that make one more sensible to use than the others in a given situation. You can follow the general information below to help determine which engine will best meet your requirements.
 
-* The faiss engine performs exceptionally well (on orders of magnitude) with hardware that includes a GPU. When cost is not the first concern, this is the recommended engine.
-* When only a CPU is available, nmslib is a good choice. In general, it outperforms both faiss and Lucene. 
+* In general, nmslib outperforms both faiss and Lucene on search. However, to optimize for indexing throughput, faiss is a good option.
 * For relatively smaller datasets (up to a few million vectors), the Lucene engine demonstrates better latencies and recall. At the same time, the size of the index is smallest compared to the other engines, which allows it to use smaller AWS instances for data nodes.<br>Also, the Lucene engine uses pure Java implementation and does not share any of the limitations that engines using platform-native code experience. However, one exception to this is that the maximum number of vector dimensions for the Lucene engine is 1024, compared with 10000 for the other engines. Refer to the sample mapping parameters in the following section to see where this is configured.
 
 When considering cluster node sizing, a general approach is to first establish an even distribution of the index across the cluster. However, there are other considerations. To help make these choices, you can refer to the OpenSearch managed service guidance in the section [Sizing domains](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/sizing-domains.html).
