@@ -11,21 +11,21 @@ You can use OpenSearch Security with Security Analytics to assign user permissio
 
 All Security Analytics indexes are protected as system indexes. Only a super admin user or an admin user with a TLS certificate can access system indexes. For more information, see [System indexes]({{site.url}}{{site.baseurl}}/security/configuration/system-indices/).
 
-Security for Security Analytics works much the same as [Alerting security]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/security/).
+Security for Security Analytics works similarly to [Alerting security]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/security/).
 
 
 ## Basic permissions
 
 As an admin user, you can use Security to assign specific permissions to users based on the specific APIs they need to access. For a list of supported APIs, see [API tools]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/index/).
 
-OpenSearch Security has two built-in roles that cover most Security Analytics use cases: `security_analytics_full_access` and `security_analytics_read_access`. A third built-in role allows users to view and acknowledge alerts: `security_analytics_ack_alerts`. For descriptions of each, see [Predefined roles]({{site.url}}{{site.baseurl}}/security/access-control/users-roles#predefined-roles).
+OpenSearch Security has three built-in roles that cover most use cases for Security Analytics: `security_analytics_full_access`, `security_analytics_read_access`, and `security_analytics_ack_alerts`. For descriptions of these and other roles, see [Predefined roles]({{site.url}}{{site.baseurl}}/security/access-control/users-roles#predefined-roles).
 
-If these roles don't meet your needs, mix and match individual Security Analytics [permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/#security-analytics-permissions) to suit your use case. Each action corresponds to an operation in the REST API. For example, the `cluster:admin/opensearch/securityanalytics/detector/delete` permission lets you delete detectors.
+If these roles don't meet your needs, mix and match individual Security Analytics [permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/#security-analytics-permissions) to suit your use case. Each action corresponds to an operation in the REST API. For example, the `cluster:admin/opensearch/securityanalytics/detector/delete` permission allows you to delete detectors.
 
 
 ## (Advanced) Limit access by backend role
 
-Use backend roles to configure fine-grained access to individual detectors based on roles. For example, users of different departments in an organization can view detectors owned by their own department.
+Use backend roles to configure fine-grained access to individual detectors based on roles. For example, backend roles can be assigned to users working in different departments of an organization so that they can view only those detectors owned by the departments in which they work.
 
 First, make sure your users have the appropriate [backend roles]({{site.url}}{{site.baseurl}}/security/access-control/index/). Backend roles usually come from an [LDAP server]({{site.url}}{{site.baseurl}}/security/configuration/ldap/) or [SAML provider]({{site.url}}{{site.baseurl}}/security/configuration/saml/), but if you use the internal user database, you can use the REST API to [add them manually]({{site.url}}{{site.baseurl}}/security/access-control/api#create-user).
 
