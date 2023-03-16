@@ -22,7 +22,7 @@ This file contains any initial users that you want to add to the security plugin
 
 The file format requires a hashed password. To generate one, run `plugins/opensearch-security/tools/hash.sh -p <new-password>`. If you decide to keep any of the demo users, *change their passwords* and re-run [securityadmin.sh]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/) to apply the new passwords.
 
-The `hash.sh` and `hash.bat` tools will be deprecated and replaced in the next major release of OpenSearch. To learn more about current plans, see the GitHub issue [Security Plugin Tools will be replaced](https://github.com/opensearch-project/security/issues/1755), where you can leave comments about proposals for the replacement of the tools.
+The `hash.sh`, `hash.bat`, `securityadmin.sh`, and `securityadmin.bat` tools will be deprecated and replaced in the next major release of OpenSearch. To learn more about current plans, see the GitHub issue [Security Plugin Tools will be replaced](https://github.com/opensearch-project/security/issues/1755), where you can leave comments about proposals for the replacement of the tools.
 {: .important }
 
 ```yml
