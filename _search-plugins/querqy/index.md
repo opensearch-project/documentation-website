@@ -11,6 +11,9 @@ nav_order: 210
 
 Querqy is a community plugin for query rewriting that helps to solve relevance issues, making search engines more precise regarding matching and scoring.
 
+Querqy is currently only supported in OpenSearch 2.3.
+{: .warning }
+
 ## Querqy plugin installation
 
 The Querqy plugin is now available for OpenSearch 2.3.0. Run the following command to install the Querqy plugin.
