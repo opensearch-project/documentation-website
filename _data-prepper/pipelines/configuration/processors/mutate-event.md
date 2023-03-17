@@ -8,17 +8,21 @@ nav_order: 45
 
 # Mutate event processors
 
-Mutate event processors allow you to modify events in Data Prepper. You can use these processors to add entries to an event, delete entries from an event, rename keys in an event, copy values within an event, and convert value types in an event. 
+Mutate event processors allow you to modify events in Data Prepper. You can use these processors to add entries to an event, delete entries from an event, rename keys in an event, copy values within an event, and convert value types in an event.  The following processors allow you to mutate an event:
 
-The following processors allow you to mutate an event.
+* [AddEntries](##AddEntries)
+* [CopyValues](##CopyValues)
+* [DeleteEntry](##DeleteEntry)
+* [RenameKey](##RenameKey)
+* [ConvertEntry](##ConvertEntry)
 
-## add_entries
+## AddEntries
 
-The `add_entries` processor adds entries to an event.
+The `AddEntries` processor adds entries to an event.
 
 ### Configuration
 
-You can configure the `add_entries` processor with the following options.
+You can configure the `AddEntries` processor with the following options.
 
 Option | Required | Description
 :--- | :--- | :---
@@ -68,13 +72,13 @@ When you run the `AddEntries` processor, it parses the message into the followin
 
 In the preceding example, the `add_entries` processor adds a new entry `{"newMessage": 3}` to the existing event `{"message": "hello"}` so that the new event contains two entries in the final output: `{"message": "hello","newMessage": 3}`.
 
-## copy value
+## CopyValues
 
-The `copy value` processor copies the values of an existing key within an event to another key.
+The `CopyValues` processor copies the values of an existing key within an event to another key.
 
 ### Configuration
 
-You can configure the `copy value` processor with the following options.
+You can configure the `CopyValues` processor with the following options.
 
 Option | Required | Description 
 :--- | :--- | :---
@@ -166,13 +170,13 @@ When you run the `DeleteEntry` processor, it parses the message into the followi
 > If `message` does not exist in the event, then no action occurs.
 
 
-## Rename Key
+## RenameKey
 
-The `Rename Key` processor renames keys in an event.
+The `RenameKey` processor renames keys in an event.
 
 ### Configuration
 
-You can configure the `Rename Key` processor with the following options.
+You can configure the `RenameKey` processor with the following options.
 
 Option | Required | Description
 :--- | :--- | :---
