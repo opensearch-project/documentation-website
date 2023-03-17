@@ -59,21 +59,21 @@ You'll need a special file, called a Compose file, that Docker Compose uses to d
     Sample response:
     ```json
     {
-    "name" : "opensearch-node1",
-    "cluster_name" : "opensearch-cluster",
-    "cluster_uuid" : "Cd7SL5ysRSyuau325M3h9w",
-    "version" : {
-        "distribution" : "opensearch",
-        "number" : "2.3.0",
-        "build_type" : "tar",
-        "build_hash" : "6f6e84ebc54af31a976f53af36a5c69d474a5140",
-        "build_date" : "2022-09-09T00:07:12.137133581Z",
-        "build_snapshot" : false,
-        "lucene_version" : "9.3.0",
-        "minimum_wire_compatibility_version" : "7.10.0",
-        "minimum_index_compatibility_version" : "7.0.0"
-    },
-    "tagline" : "The OpenSearch Project: https://opensearch.org/"
+        "name" : "26ceb87de6e6",
+        "cluster_name" : "docker-cluster",
+        "cluster_uuid" : "EEkKMk-_R5WDnhowaeEE3Q",
+        "version" : {
+            "distribution" : "opensearch",
+            "number" : "1.3.9",
+            "build_type" : "tar",
+            "build_hash" : "64d2aa341cf591dd20ab3966792e564a467fdcf7",
+            "build_date" : "2023-03-13T23:35:04.209792Z",
+            "build_snapshot" : false,
+            "lucene_version" : "8.10.1",
+            "minimum_wire_compatibility_version" : "6.8.0",
+            "minimum_index_compatibility_version" : "6.0.0-beta1"
+        },
+        "tagline" : "The OpenSearch Project: https://opensearch.org/"
     }
     ```
 1. Explore OpenSearch Dashboards by opening `http://localhost:5601/` in a web browser on the same host that is running your OpenSearch cluster. The default username is `admin` and the default password is `admin`.
