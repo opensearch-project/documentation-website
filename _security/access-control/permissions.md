@@ -67,7 +67,7 @@ Rather than individual permissions, you can often achieve your desired security 
 
 ## Cluster permissions
 
-These permissions are for the cluster and can't be applied granularly. For example, you either have permissions to take snapshots (`cluster:admin/snapshot/create`) or you don't. You can't have permissions to take snapshots only for certain indices.
+These permissions are for the cluster and can't be applied granularly. For example, you either have permissions to take snapshots (`cluster:admin/snapshot/create`) or you don't. The cluster permission, therefore, cannot grant a user privileges to take snapshots of a select set of indexes while preventing the user from taking snapshots of others.
 
 Cross-references to API documentation in the permissions that follow are only to help support an understanding of the permissions. As stated at the beginning of this section, permissions often correlate to APIs but do not map directly to them.
 {: .note }
@@ -279,7 +279,7 @@ cluster:admin/opensearch/securityanalytics/rule/delete | permission to delete ru
 
 ### Cluster monitoring
 
-The monitor cluster permissions apply to read-only operations such as checking cluster health and getting information about usage on nodes or tasks executing in the cluster.
+The monitor cluster permissions apply to read-only operations, such as checking cluster health and getting information about usage on nodes or tasks executing in the cluster.
 
 See [REST API reference]({{site.url}}{{site.baseurl}}/api-reference/index/).
 

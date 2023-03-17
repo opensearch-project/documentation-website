@@ -139,7 +139,7 @@ For more detailed summaries of the permissions for each role, reference their ac
 
 ## Sample roles
 
-The following examples show how you might set up a read-only and a bulk access role.
+The following examples show how you might set up a read-only role and a bulk access role.
 
 ### Set up a read-only user in OpenSearch Dashboards
 
