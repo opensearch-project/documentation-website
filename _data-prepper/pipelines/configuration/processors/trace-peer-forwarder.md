@@ -8,13 +8,13 @@ nav_order: 45
 
 # Trace peer forwarder
 
-The `trace peer forwarder` processor is used to reduce the number of events that are forwarded in a trace analytics pipeline by half when using [Peer forwarder]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/peer-forwarder/). It groups the events based on `trace_id` similar to `service_map_stateful` and `otel_trace_raw ` processors. 
+The `trace peer forwarder` processor is used to reduce the number of events that are forwarded in a trace analytics pipeline by half when using [Peer forwarder]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/peer-forwarder/). It groups the events based on `trace_id` similar to the `service_map_stateful` and `otel_trace_raw ` processors. 
 
-In [Trace analytics]({{site.url}}{{site.baseurl}}/data-prepper/common-use-cases/trace-analytics/), each event is duplicated when it is sent from `otel-trace-pipeline` to `raw-pipeline` and `service-map-pipeline`. The event is forwarded once in each pipeline. When you use this processor, the event is forwarded only once in the `otel-trace-pipeline` pipeline to the correct peer. 
+In [Trace analytics]({{site.url}}{{site.baseurl}}/data-prepper/common-use-cases/trace-analytics/), each event is duplicated when it is sent from the `otel-trace-pipeline` to the `raw-pipeline` and to the `service-map-pipeline`. The event is forwarded once in each pipeline. When you use this processor, the event is forwarded once in the `otel-trace-pipeline` pipeline to the correct peer. 
 
-## Basic usage
+## Usage
 
-To get started with `trace peer forwarder`, create the following `pipeline.yaml` file along with [Peer forwarder]({{site.url}}{{site.baseurl}}/managing-data-prepper/peer-forwarder/) in the `data-prepper-config.yaml` file:
+To get started with `trace peer forwarder`, create the following `pipeline.yaml` file along with [Peer forwarder]({{site.url}}{{site.baseurl}}/managing-data-prepper/peer-forwarder/) in your `data-prepper-config.yaml` file. For more detailed information, see [Configuring Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/#2-configuring-data-prepper).
 
 
 ```yaml
