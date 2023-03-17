@@ -58,7 +58,7 @@ Before you run the `AddEntries` processor, you see the following:
 {"message": "value"}
 ```
 
-<!--- Change "value" to "hello" as an example--->
+<!--- Change "value" to "hello" as an example?--->
 
 When you run the `AddEntries` processor, it parses the message into the following output:
 
@@ -203,6 +203,7 @@ pipeline:
   sink:
     - stdout:
 ```
+{% include copy.html %}
 
 Next, create a log file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` with this filepath. For more information, see [Configuring Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/#2-configuring-data-prepper).
 
@@ -286,6 +287,7 @@ type-conv-pipeline:
   sink:
     - stdout:
 ```
+{% include copy.html %}
 
 Next, create a log file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` with this filepath. For more information, see [Configuring Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/#2-configuring-data-prepper). 
 
