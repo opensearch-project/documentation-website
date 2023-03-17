@@ -18,7 +18,7 @@ The `add_entries` processor adds entries to an event.
 
 ### Configuration
 
-You can configure the `AddEntries` processor with the following options.
+You can configure the `add_entries` processor with the following options.
 
 Option | Required | Description
 :--- | :--- | :---
@@ -218,7 +218,7 @@ When you run the `RenameKey` processor, it parses the message into the following
 
 ### Special considerations
 
-Renaming operations occur in the order that the key pair entries are listed in within the `pipelines.yaml` file. This means that chaining (where key pairs are renamed in sequence) is implicit with the `RenameKey` processor. See the following `piplines.yaml` file example:
+Renaming operations occur in the order in which the key value pair entries are listed in the `pipelines.yaml` file. This means that chaining (where key value pairs are renamed in sequence) is implicit with the `RenameKey` processor. See the following `piplines.yaml` file example:
 
 ```yaml
 pipeline:
@@ -243,6 +243,7 @@ Add the following contents to the `logs_json.log` file:
 ```json
 {"message": "value"}
 ```
+{% include copy.html %}
 
 After the processor runs, the following output appears:
 
