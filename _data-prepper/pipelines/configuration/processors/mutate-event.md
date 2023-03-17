@@ -22,10 +22,10 @@ You can configure the `add_entries` processor with the following options.
 
 Option | Required | Description
 :--- | :--- | :---
-|`entries` | Yes | A list of entries to add to an event. |
-|`key` | Yes | The key of the new entry to be added. |
-|`value` | Yes | The value of the new entry to be added. You can use the following data types: strings, booleans, numbers, null, nested objects, and arrays. |
-|`overwrite_if_key_exists` | No | When set to `true`, if `key` already exists in the event, the existing value is overwritten. The default value is `false`. |
+`entries` | Yes | A list of entries to add to an event.
+`key` | Yes | The key of the new entry to be added.
+`value` | Yes | The value of the new entry to be added. You can use the following data types: strings, booleans, numbers, null, nested objects, and arrays.
+`overwrite_if_key_exists` | No | When set to `true`, if `key` already exists in the event, the existing value is overwritten. The default value is `false`.
 
 ### Usage
 
@@ -55,20 +55,18 @@ Next, create a log file named `logs_json.log` and replace the `path` in the file
 Before you run the `AddEntries` processor, you see the following:
 
 ```json4
-{"message": "value"}
+{"message": "hello"}
 ```
-
-<!--- Change "value" to "hello" as an example?--->
 
 When you run the `AddEntries` processor, it parses the message into the following output:
 
 ```json
-{"message": "value", "newMessage": 3}
+{"message": "hello", "newMessage": 3}
 ```
 
 > If `newMessage` already exists, its existing value is overwritten with a value of `3`.
 
-In the preceding example, the `add_entries` processor adds a new entry `{"newMessage": 3}` to the existing event `{"message": "value"}` so that the new event contains two entries in the final output: `{"message": "value","newMessage": 3}`.
+In the preceding example, the `add_entries` processor adds a new entry `{"newMessage": 3}` to the existing event `{"message": "hello"}` so that the new event contains two entries in the final output: `{"message": "hello","newMessage": 3}`.
 
 ## copy value
 
@@ -80,10 +78,10 @@ You can configure the `copy value` processor with the following options.
 
 Option | Required | Description 
 :--- | :--- | :---
-| `entries` | Yes | A list of entries to be copied in an event. 
-| `from_key` | Yes | The key of the entry to be copied.
-| `to_key` | Yes | The key of the new entry to be added.
-|`overwrite_if_key_exists` | No | When set to `true`, if `key` already exists in the event, the existing value is overwritten. The default value is `false`. |
+`entries` | Yes | A list of entries to be copied in an event. 
+`from_key` | Yes | The key of the entry to be copied.
+`to_key` | Yes | The key of the new entry to be added.
+`overwrite_if_key_exists` | No | When set to `true`, if `key` already exists in the event, the existing value is overwritten. The default value is `false`. 
 
 ### Usage
 
@@ -110,16 +108,16 @@ pipeline:
 Next, create a log file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` with this filepath. For more information, see [Configuring Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/#2-configuring-data-prepper).
 
 ```json
-{"message": "value"}
+{"message": "hello"}
 ```
 
 When you run this processor, it parses the message into the following output:
 
 ```json
-{"message": "value", "newMessage": "value"}
+{"message": "hello", "newMessage": "hello"}
 ```
 
-> If `newMessage` had already exists, its current value is overwritten with `value`.
+> If `newMessage` already exists, its existing value is overwritten with `value`.
 
 
 ## DeleteEntry
@@ -132,7 +130,7 @@ You can configure the `DeleteEntry` processor with the following options.
 
 Option | Required | Description
 :--- | :--- | :---
-| `with_keys` | Yes | An array of keys of the entries to be deleted. | 
+`with_keys` | Yes | An array of keys of the entries to be deleted. 
 
 ### Usage
 
@@ -156,13 +154,13 @@ pipeline:
 Next, create a log file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` with this filepath. For more information, see [Configuring Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/#2-configuring-data-prepper).
 
 ```json
-{"message": "value", "message2": "value2"}
+{"message": "hello", "message2": "goodbye"}
 ```
 
 When you run the `DeleteEntry` processor, it parses the message into the following output:
 
 ```json
-{"message2": "value2"}
+{"message2": "goodbye"}
 ```
 
 > If `message` does not exist in the event, then no action occurs.
@@ -178,10 +176,10 @@ You can configure the `Rename Key` processor with the following options.
 
 Option | Required | Description
 :--- | :--- | :---
-| `entries` | Yes | A list of entries to rename in an event. | 
-| `from_key` | Yes | The key of the entry to be renamed. |
-| `to_key` | Yes | The new key of the entry.
-| `overwrite_if_to_key_exists` | No | When set to a value of`true`, if `to_key` already exists in the event, then the existing value will be overwritten. The default value is `false`. |
+`entries` | Yes | A list of entries to rename in an event.
+`from_key` | Yes | The key of the entry to be renamed.
+`to_key` | Yes | The new key of the entry.
+`overwrite_if_to_key_exists` | No | When set to a value of`true`, if `to_key` already exists in the event, then the existing value will be overwritten. The default value is `false`.
 
 ### Usage
 
@@ -208,13 +206,13 @@ pipeline:
 Next, create a log file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` with this filepath. For more information, see [Configuring Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/#2-configuring-data-prepper).
 
 ```json
-{"message": "value"}
+{"message": "hello"}
 ```
 
 When you run the `RenameKey` processor, it parses the message into the following output as the "newMessage":
 
 ```json
-{"newMessage": "value"}
+{"newMessage": "hello"}
 ```
 
 > If `newMessage` already exists, its existing value is overwritten with `value`.
@@ -246,14 +244,14 @@ pipeline:
 Add the following contents to the `logs_json.log` file:
 
 ```json
-{"message": "value"}
+{"message": "hello"}
 ```
 {% include copy.html %}
 
 After the processor runs, the following output appears:
 
 ```json
-{"message3": "value"}
+{"message3": "hello"}
 ```
 
 ## ConvertEntry
@@ -266,8 +264,8 @@ You can configure the `ConvertEntry` processor with the following options.
 
 Option | Required | Description
 :--- | :--- | :---
-| `key`| Yes | Keys whose value needs to be converted to a different type. | 
-| `type` | No | Target type for key value pair. Possible values are `integer`, `double`, `string`, and `boolean`. Default value is `integer`. |
+`key`| Yes | Keys whose value needs to be converted to a different type.
+`type` | No | Target type for key value pair. Possible values are `integer`, `double`, `string`, and `boolean`. Default value is `integer`.
 
 ### Usage
 
