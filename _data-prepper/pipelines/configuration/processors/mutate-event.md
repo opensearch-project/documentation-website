@@ -52,9 +52,11 @@ Next, create a log file named `logs_json.log` and replace the `path` in the file
 
 Before you run the `AddEntries` processor, you see the following:
 
-```json
+```json4
 {"message": "value"}
 ```
+
+<!--- Change "value" to "hello" as an example--->
 
 When you run the `AddEntries` processor, it parses the message into the following output:
 
@@ -68,9 +70,7 @@ In the preceding example, the `add_entries` processor adds a new entry `{"newMes
 
 ## copy value
 
-The `copy value` processor copies the values of an existing key within an event to another key. For example, in the following Usage section, the `copy value` processor copies the value of the key "message", which is "value" to another key called "newMessage". The value of the key "newMessage" is also "value".
-
-<!-- Is there a way to link to this specific Usage section and not another one? They all have the same title. Should they be renamed to match their respective processors?--->
+The `copy value` processor copies the values of an existing key within an event to another key.
 
 ### Configuration
 
@@ -78,10 +78,10 @@ You can configure the `copy value` processor with the following options.
 
 Option | Required | Description 
 :--- | :--- | :---
-| `entries` | Yes | A list of entries to be copied in an event. |
+| `entries` | Yes | A list of entries to be copied in an event. 
 | `from_key` | Yes | The key of the entry to be copied.
 | `to_key` | Yes | The key of the new entry to be added.
-| `overwrite_if_to_key_exists` | No | When set to a value of `true`, if `to_key` already exists in the event, then the existing value will be overwritten. The default value is `false`. |
+|`overwrite_if_key_exists` | No | When set to `true`, if `key` already exists in the event, the existing value is overwritten. The default value is `false`. |
 
 ### Usage
 
@@ -121,7 +121,7 @@ When you run this processor, it parses the message into the following output:
 
 ## DeleteEntry
 
-The `DeleteEntry` processor deletes entries in an event, such as key-value pairs. You can define the keys you want to delete in the `with-keys` field following `delete_entries` in the YAML configuration file. Those keys along with their values are deleted. See the example below in the Usage section, where `with_keys: ["message"] exists in the YAML file. This means that the entry {"message": "value"} is deleted. 
+The `DeleteEntry` processor deletes entries in an event, such as key-value pairs. You can define the keys you want to delete in the `with-keys` field following `delete_entries` in the YAML configuration file. Those keys along with their values are deleted. 
 
 ### Configuration
 
@@ -164,13 +164,13 @@ When you run the `DeleteEntry` processor, it parses the message into the followi
 > If `message` does not exist in the event, then no action occurs.
 
 
-## RenameKey
+## Rename Key
 
-The `rename key` processor renames keys in an event.
+The `Rename Key` processor renames keys in an event.
 
 ### Configuration
 
-You can configure the `rename key` processor with the following options.
+You can configure the `Rename Key` processor with the following options.
 
 Option | Required | Description
 :--- | :--- | :---
@@ -252,7 +252,7 @@ After the processor runs, the following output appears:
 
 ## ConvertEntry
 
-The `ConvertEntry` processor converts a value type associated with the specified key in a message to the specified type. It is a casting processor that changes the types of some fields in the event or message. Some of inputted data may need to be converted to different types, such as an integer or a double, or a string to an integer, so that it will pass the events through condition-based processors, or to perform conditional routing.
+The `ConvertEntry` processor converts a value type associated with the specified key in a message to the specified type. It is a casting processor that changes the types of some fields in the event or message. Some of inputted data may need to be converted to different types, such as an integer or a double, or a string to an integer, so that it will pass the events through condition-based processors, or to perform conditional routing. 
 
 ### Configuration
 
@@ -261,7 +261,7 @@ You can configure the `ConvertEntry` processor with the following options.
 Option | Required | Description
 :--- | :--- | :---
 | `key`| Yes | Keys whose value needs to be converted to a different type. | 
-| `type` | No | Target type for key value. Possible values are `integer`, `double`, `string`, and `boolean`. Default value is `integer`. |
+| `type` | No | Target type for key value pair. Possible values are `integer`, `double`, `string`, and `boolean`. Default value is `integer`. |
 
 ### Usage
 
@@ -275,9 +275,6 @@ type-conv-pipeline:
       record_type: "event"
       format: "json"
   processor:
-    - grok:
-        match:
-          message: ['%{IPORHOST:clientip} \[%{HTTPDATE:timestamp}\] %{NUMBER:response_status}']
     - convert_entry_type:
         key: "response_status"
         type: "integer"
@@ -285,20 +282,15 @@ type-conv-pipeline:
     - stdout:
 ```
 
-Next, create a log file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` with this filepath. For more information, see [Configuring Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/#2-configuring-data-prepper).
+Next, create a log file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` with this filepath. For more information, see [Configuring Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/#2-configuring-data-prepper). 
+
 
 ```json
-{"message": "10.10.10.19 [19/Feb/2015:15:50:36 -0500] 200"}
-```
-
-When you run the `Grok` processor, the processor parses the message into the following output:
-
-```json
-{"message": "10.10.10.10 [19/Feb/2015:15:50:36 -0500] 200", "clientip":"10.10.10.10", "timestamp": "19/Feb/2015:15:50:36 -0500", "response_status": "200"}
+{"message": "value", "response_status":"200"}
 ```
 
 The type conversion processor changes the output received into the following output, where the type of `response_status` value changes to an integer:
 
 ```json
-{"message": "10.10.10.10 [19/Feb/2015:15:50:36 -0500] 200", "clientip":"10.10.10.10", "timestamp": "19/Feb/2015:15:50:36 -0500", "response_status": 200}
+{"message":"value","response_status":200}
 ```
