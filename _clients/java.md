@@ -11,7 +11,8 @@ The OpenSearch Java client allows you to interact with your OpenSearch clusters 
 This getting started guide illustrates how to connect to OpenSearch, index documents, and run queries. For the client source code, see the [opensearch-java repo](https://github.com/opensearch-project/opensearch-java).
 
 ## Installing the client using Apache HttpClient 5 Transport
-To start using the OpenSearch Java client, you need to provide the transport. The default one is `ApacheHttpClient5TransportBuilder` and comes with the Java client.
+
+To start using the OpenSearch Java client, you need to provide a transport. The default `ApacheHttpClient5TransportBuilder` transport comes with the Java client. To use the OpenSearch Java client with the default transport, add it to your `pom.xml` file as a dependency:
 
 ```xml
 <dependency>
@@ -22,7 +23,7 @@ To start using the OpenSearch Java client, you need to provide the transport. Th
 ```
 {% include copy.html %}
 
-If you're using Gradle, add the following dependencies to your project.
+If you're using Gradle, add the following dependencies to your project:
 
 ```
 dependencies {
@@ -35,7 +36,7 @@ You can now start your OpenSearch cluster.
 
 ## Installing the client using RestClient Transport
 
-The alternative way to create a Java client is by using `RestClient` based transport, ensure that you have the following dependencies in your project's `pom.xml` file:
+Alternatively, you can create a Java client by using the `RestClient`-based transport. In this case, make sure that you have the following dependencies in your project's `pom.xml` file:
 
 ```xml
 <dependency>
@@ -52,7 +53,7 @@ The alternative way to create a Java client is by using `RestClient` based trans
 ```
 {% include copy.html %}
 
-If you're using Gradle, add the following dependencies to your project.
+If you're using Gradle, add the following dependencies to your project"
 
 ```
 dependencies {
