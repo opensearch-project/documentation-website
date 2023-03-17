@@ -16,11 +16,14 @@ If you're a developer and want to create your own extensions, see <link to relev
 
 ## Adding an extension to a dashboard
 
+1. In the **Dashboard** application, open 
 
 ## Configuring a dashboard extension
 
 
+
 ## Ensuring extensions run on OpenSearch or OpenSearch Dashboards
+
 
 
 ## Getting support for dashboard extensions
