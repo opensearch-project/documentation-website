@@ -22,28 +22,6 @@ The security plugin has three built-in roles that cover most notifications use c
 
 If these roles don't meet your needs, mix and match individual notifications [permissions]({{site.url}}{{site.baseurl}}/security/access-control/permissions/) to suit your use case. Each action corresponds to an operation in the REST API. For example, the `cluster:admin/opensearch/alerting/destination/delete` permission lets you delete destinations.
 
-<!--- Change this instance of alerting to notifications? --->
-
-## How monitors access data
-
-Monitors run with the permissions of the user who created or last modified them. For example, consider the user `jdoe`, who works at a chain of retail stores. `jdoe` has two roles. Together, these two roles allow read access to three indexes: `store1-returns`, `store2-returns`, and `store3-returns`.
-
-`jdoe` creates a monitor that sends an email to management whenever the number of returns across all three indexes exceeds 40 per hour.
-
-Later, the user `psantos` wants to edit the monitor to run every two hours, but `psantos` only has access to `store1-returns`. To make the change, `psantos` has two options:
-
-- Update the monitor so that it only checks `store1-returns`.
-- Ask an administrator for read access to the other two indexes.
-
-After making the change, the monitor now runs with the same permissions as `psantos`, including any [document-level security]({{site.url}}{{site.baseurl}}/security/access-control/document-level-security/) queries, [excluded fields]({{site.url}}{{site.baseurl}}/security/access-control/field-level-security/), and [masked fields]({{site.url}}{{site.baseurl}}/security/access-control/field-masking/). If you use an extraction query to define your monitor, use the **Run** button to ensure that the response includes the fields you need.
-
-Once a monitor is created, the notifications plugin will continue executing the monitor, even if the user who created the monitor has their permissions removed. Only a user with the correct cluster permissions can manually disable or delete a monitor to stop it from executing:
-
-- Disable a monitor: `cluster:admin/opendistro/notifications/monitor/write` 
-- Delete a monitor: `cluster:admin/opendistro/notifications/monitor/delete` 
-
-If your monitor's trigger has notifications configured, the notifications plugin continues to send out notifications regardless of destination type. To stop notifications, a user must manually delete them in the trigger's actions.
-
 ### A note on alerts and fine-grained access control
 
 When a trigger generates an alert, the monitor configuration, the alert itself, and any notification that is sent to a channel may include metadata describing the index being queried. By design, the plugin must extract the data and store it as metadata outside of the index. [Document-level security]({{site.url}}{{site.baseurl}}/security/access-control/document-level-security) (DLS) and [field-level security]({{site.url}}{{site.baseurl}}/security/access-control/field-level-security) (FLS) access controls are designed to protect the data in the index. But once the data is stored outside the index as metadata, users with access to the monitor configurations, alerts, and their notifications will be able to view this metadata and possibly infer the contents and quality of data in the index, which would otherwise be concealed by DLS and FLS access control.
