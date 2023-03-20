@@ -7,16 +7,17 @@ has_children: false
 
 # OpenSearch Security for Security Analytics
 
-You can use OpenSearch Security with Security Analytics to assign user permissions and manage the actions that users can and cannot perform. For example, you might want one group of users to be able to create, update, or delete detectors and another group of users to only view detectors.
+You can use OpenSearch Security with Security Analytics to assign user permissions and manage the actions that users can and cannot perform. For example, you might want one group of users to be able to create, update, or delete detectors and another group of users to only view detectors. You may want still another group to be able to get and acknowledge alerts but to be prevented from performing other tasks. The Security framework allows you to control the level of access users have to Security Analytics functionality.
 
-All Security Analytics indexes are protected as system indexes. Only a super admin user or an admin user with a TLS certificate can access system indexes. For more information, see [System indexes]({{site.url}}{{site.baseurl}}/security/configuration/system-indices/).
 
-Security for Security Analytics works similarly to [Alerting security]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/security/).
+## Security Analytics system indexes
+
+Security Analytics indexes are protected as system indexes and treated differently than other indexes in the cluster. System indexes store configurations and other system settings and, for that reason, cannot be modified using the REST API or Dashboards interface. Only a user with a TLS [admin certificate]({{site.url}}{{site.baseurl}}/security/configuration/tls/#configuring-admin-certificates) can access system indexes. For more information about working with these types of indexes, see [System indexes]({{site.url}}{{site.baseurl}}/security/configuration/system-indices/).
 
 
 ## Basic permissions
 
-As an admin user, you can use Security to assign specific permissions to users based on the specific APIs they need to access. For a list of supported APIs, see [API tools]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/index/).
+As an administrator, you can use OpenSearch Dashboards or the Security REST API to assign specific permissions to users based on the specific APIs they need to access. For a list of supported APIs, see [API tools]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/index/).
 
 OpenSearch Security has three built-in roles that cover most use cases for Security Analytics: `security_analytics_full_access`, `security_analytics_read_access`, and `security_analytics_ack_alerts`. For descriptions of these and other roles, see [Predefined roles]({{site.url}}{{site.baseurl}}/security/access-control/users-roles#predefined-roles).
 
@@ -32,7 +33,7 @@ First, make sure your users have the appropriate [backend roles]({{site.url}}{{s
 Next, enable the following setting:
 
 ```json
-PUT _cluster/settings
+PUT /_cluster/settings
 {
   "transient": {
     "plugins.security_analytics.filter_by_backend_roles": "true"
@@ -44,10 +45,10 @@ PUT _cluster/settings
 Now when users view Security Analytics resources in OpenSearch Dashboards (or make REST API calls), they only see detectors created by users who share at least one backend role.
 For example, consider two users: `alice` and `bob`.
 
-`alice` has an analyst backend role:
+The following example assigns the user `alice` the `analyst` backend role:
 
 ```json
-PUT _plugins/_security/api/internalusers/alice
+PUT /_plugins/_security/api/internalusers/alice
 {
   "password": "alice",
   "backend_roles": [
@@ -58,10 +59,10 @@ PUT _plugins/_security/api/internalusers/alice
 ```
 {% include copy-curl.html %}
 
-`bob` has a human-resources backend role:
+The next example assigns the user `bob` the `human-resources` backend role:
 
 ```json
-PUT _plugins/_security/api/internalusers/bob
+PUT /_plugins/_security/api/internalusers/bob
 {
   "password": "bob",
   "backend_roles": [
@@ -72,10 +73,10 @@ PUT _plugins/_security/api/internalusers/bob
 ```
 {% include copy-curl.html %}
 
-Both `alice` and `bob` are assigned the role that gives them full access to Security Analytics:
+Finally, this last example assigns both `alice` and `bob` the role that gives them full access to Security Analytics:
 
 ```json
-PUT _plugins/_security/api/rolesmapping/security_analytics_full_access
+PUT /_plugins/_security/api/rolesmapping/security_analytics_full_access
 {
   "backend_roles": [],
   "hosts": [],
