@@ -24,12 +24,12 @@ The `AddEntries` processor adds entries to an event.
 
 You can configure the `AddEntries` processor with the following options.
 
-Option | Required | Description
+| Option | Required | Description |
 :--- | :--- | :---
-`entries` | Yes | A list of entries to add to an event.
-`key` | Yes | The key of the new entry to be added.
-`value` | Yes | The value of the new entry to be added. You can use the following data types: strings, booleans, numbers, null, nested objects, and arrays.
-`overwrite_if_key_exists` | No | When set to `true`, if `key` already exists in the event, the existing value is overwritten. The default value is `false`.
+| `entries` | Yes | A list of entries to add to an event. |
+| `key` | Yes | The key of the new entry to be added. |
+| `value` | Yes | The value of the new entry to be added. You can use the following data types: strings, booleans, numbers, null, nested objects, and arrays. |
+| `overwrite_if_key_exists` | No | When set to `true`, if `key` already exists in the event, the existing value is overwritten. The default value is `false`. |
 
 ### Usage
 
@@ -80,7 +80,7 @@ The `CopyValues` processor copies the values of an existing key within an event 
 
 You can configure the `CopyValues` processor with the following options.
 
-Option | Required | Description 
+| Option | Required | Description |
 :--- | :--- | :---
 `entries` | Yes | A list of entries to be copied in an event. 
 `from_key` | Yes | The key of the entry to be copied.
