@@ -12,8 +12,8 @@ nav_order: 45
 
 The `key_value` processor parses a field into key/value pairs. The following table describes `key_value` processor options available that help you parse field information into pairs.
 
-Option | Required | Type | Description | Example
-:--- | :--- | :--- | :--- | :---
+| Option | Required | Type | Description | Example |
+| :--- | :--- | :--- | :--- | :--- |
 source | No | String | The key in the event that is parsed. Default value is `message`. |
 destination | No | String | The destination key for the parsed source output. Outputting the parsed source overwrites the value of the key if it already exists. Default value is `parsed_message` |
 field_delimiter_regex | Conditionally | String | A regex specifying the delimiter between key/value pairs. Special regex characters such as `[` and `]` must be escaped using `\\`. This option cannot be defined at the same time as `field_split_characters`. |
