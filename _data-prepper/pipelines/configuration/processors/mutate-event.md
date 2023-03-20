@@ -226,7 +226,7 @@ When you run the `RenameKey` processor, it parses the message into the following
 
 ### Special considerations
 
-Renaming operations occur in the order in which the key value pair entries are listed in the `pipelines.yaml` file. This means that chaining (where key value pairs are renamed in sequence) is implicit with the `RenameKey` processor. See the following `piplines.yaml` file example:
+Renaming operations occur in the order that the key value pair entries are listed in the `pipeline.yaml` file. This means that chaining (where key value pairs are renamed in sequence) is implicit with the `RenameKey` processor. See the following `pipline.yaml` file example:
 
 ```yaml
 pipeline:
@@ -253,7 +253,7 @@ Add the following contents to the `logs_json.log` file:
 ```
 {% include copy.html %}
 
-After the processor runs, the following output appears:
+After the `RenameKey` processor runs, the following output appears:
 
 ```json
 {"message3": "hello"}
@@ -267,14 +267,14 @@ The `ConvertEntry` processor converts a value type associated with the specified
 
 You can configure the `ConvertEntry` processor with the following options.
 
-Option | Required | Description
-:--- | :--- | :---
-`key`| Yes | Keys whose value needs to be converted to a different type.
-`type` | No | Target type for key value pair. Possible values are `integer`, `double`, `string`, and `boolean`. Default value is `integer`.
+| Option | Required | Description |
+| :--- | :--- | :--- |
+| `key`| Yes | Keys whose value needs to be converted to a different type. |
+| `type` | No | Target type for key value pair. Possible values are `integer`, `double`, `string`, and `boolean`. Default value is `integer`. |
 
 ### Usage
 
-To get started with type conversion processor using Data Prepper, create the following `pipeline.yaml` file:
+To get started, create the following `pipeline.yaml` file:
 
 ```yaml
 type-conv-pipeline:
@@ -294,12 +294,11 @@ type-conv-pipeline:
 
 Next, create a log file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` with this filepath. For more information, see [Configuring Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/#2-configuring-data-prepper). 
 
-
 ```json
 {"message": "value", "response_status":"200"}
 ```
 
-The type conversion processor changes the output received into the following output, where the type of `response_status` value changes to an integer:
+The `ConvertEntry` processor changes the output received into the following output, where the type of `response_status` value changes from a string to an integer:
 
 ```json
 {"message":"value","response_status":200}
