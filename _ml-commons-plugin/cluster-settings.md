@@ -74,12 +74,15 @@ plugins.ml_commons.max_model_on_node: 10
 - Default value: `10`
 - Value range: [0, 10,000]
 
-## Set sync up job intervals 
+## Set sync job intervals 
+
+When returning runtime information with the [profile API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api#profile), ML Commons will run a regular job to sync newly loaded or unloaded models on each node. When set to `0`, ML Commons immediately stops sync up jobs.
+
 
 ### Setting
 
 ```
-plugins.ml_commons.sync_up_job_interval_in_seconds: 10
+plugins.ml_commons.sync_up_job_interval_in_seconds: 3
 ```
 
 ### Description
@@ -88,7 +91,7 @@ When returning runtime information with the [profile API]({{site.url}}{{site.bas
 
 ### Values
 
-- Default value: `10`
+- Default value: `3`
 - Value range: [0, 86,400]
 
 ## Predict monitoring requests
