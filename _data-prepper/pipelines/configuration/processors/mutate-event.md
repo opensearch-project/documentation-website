@@ -25,7 +25,7 @@ The `AddEntries` processor adds entries to an event.
 You can configure the `AddEntries` processor with the following options.
 
 | Option | Required | Description |
-:--- | :--- | :---
+| :--- | :--- | :--- |
 | `entries` | Yes | A list of entries to add to an event. |
 | `key` | Yes | The key of the new entry to be added. |
 | `value` | Yes | The value of the new entry to be added. You can use the following data types: strings, booleans, numbers, null, nested objects, and arrays. |
@@ -56,13 +56,13 @@ pipeline:
 
 Next, create a log file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` with this filepath. For more information, see [Configuring Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/#2-configuring-data-prepper).
 
-Before you run the `AddEntries` processor, you see the following:
+For example, before you run the `AddEntries` processor, if the `logs_json.log` file contains the following event record:
 
-```json4
+```json
 {"message": "hello"}
 ```
 
-When you run the `AddEntries` processor, it parses the message into the following output:
+Then, when you run the `AddEntries` processor using the previous configuration, it parses the message into the following output:
 
 ```json
 {"message": "hello", "newMessage": 3}
@@ -82,10 +82,10 @@ You can configure the `CopyValues` processor with the following options.
 
 | Option | Required | Description |
 :--- | :--- | :---
-`entries` | Yes | A list of entries to be copied in an event. 
-`from_key` | Yes | The key of the entry to be copied.
-`to_key` | Yes | The key of the new entry to be added.
-`overwrite_if_key_exists` | No | When set to `true`, if `key` already exists in the event, the existing value is overwritten. The default value is `false`. 
+| `entries` | Yes | A list of entries to be copied in an event. |
+| `from_key` | Yes | The key of the entry to be copied. |
+| `to_key` | Yes | The key of the new entry to be added. |
+| `overwrite_if_key_exists` | No | When set to `true`, if `key` already exists in the event, the existing value is overwritten. The default value is `false`. |
 
 ### Usage
 
@@ -132,9 +132,9 @@ The `DeleteEntry` processor deletes entries in an event, such as key-value pairs
 
 You can configure the `DeleteEntry` processor with the following options.
 
-Option | Required | Description
+| Option | Required | Description |
 :--- | :--- | :---
-`with_keys` | Yes | An array of keys of the entries to be deleted. 
+| `with_keys` | Yes | An array of keys of the entries to be deleted. |
 
 ### Usage
 
@@ -178,12 +178,12 @@ The `RenameKey` processor renames keys in an event.
 
 You can configure the `RenameKey` processor with the following options.
 
-Option | Required | Description
-:--- | :--- | :---
-`entries` | Yes | A list of entries to rename in an event.
-`from_key` | Yes | The key of the entry to be renamed.
-`to_key` | Yes | The new key of the entry.
-`overwrite_if_to_key_exists` | No | When set to a value of`true`, if `to_key` already exists in the event, then the existing value will be overwritten. The default value is `false`.
+Option | Required | Description |
+| :--- | :--- | :--- |
+| `entries` | Yes | A list of entries to rename in an event. |
+| `from_key` | Yes | The key of the entry to be renamed. |
+| `to_key` | Yes | The new key of the entry. |
+| `overwrite_if_to_key_exists` | No | When set to a value of`true`, if `to_key` already exists in the event, then the existing value will be overwritten. The default value is `false`. |
 
 ### Usage
 
@@ -207,13 +207,14 @@ pipeline:
 ```
 {% include copy.html %}
 
+
 Next, create a log file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` with this filepath. For more information, see [Configuring Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/#2-configuring-data-prepper).
 
 ```json
 {"message": "hello"}
 ```
 
-When you run the `RenameKey` processor, it parses the message into the following output as the "newMessage":
+When you run the `RenameKey` processor, it parses the message into the following "newMessage" output:
 
 ```json
 {"newMessage": "hello"}
