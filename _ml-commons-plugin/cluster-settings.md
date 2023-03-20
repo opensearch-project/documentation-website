@@ -76,7 +76,6 @@ plugins.ml_commons.max_model_on_node: 10
 
 When returning runtime information with the [profile API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api#profile), ML Commons will run a regular job to sync newly loaded or unloaded models on each node. When set to `0`, ML Commons immediately stops sync up jobs.
 
-When returning runtime information with the [profile API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api#profile), ML Commons will run a regular sync up job to sync up newly loaded or unloaded models on each node. When set to `0`, ML Commons immediately stops sync up jobs.
 
 ### Setting
 
