@@ -69,7 +69,7 @@ Rather than individual permissions, you can often achieve your desired security 
 
 These permissions are for the cluster and can't be applied granularly. For example, you either have permissions to take snapshots (`cluster:admin/snapshot/create`) or you don't. The cluster permission, therefore, cannot grant a user privileges to take snapshots of a select set of indexes while preventing the user from taking snapshots of others.
 
-Cross-references to API documentation in the permissions that follow are only to help support an understanding of the permissions. As stated at the beginning of this section, permissions often correlate to APIs but do not map directly to them.
+Cross-references to API documentation in the permissions that follow are only intended to provide an understanding of the permissions. As stated at the beginning of this section, permissions often correlate to APIs but do not map directly to them.
 {: .note }
 
 
@@ -147,7 +147,7 @@ See [ISM API]({{site.url}}{{site.baseurl}}/im-plugin/ism/api/).
 - cluster:admin/opendistro/ism/policy/search
 - cluster:admin/opendistro/ism/policy/delete
 
-### Index Rollup permissions
+### Index rollups permissions
 
 See [Index rollups API]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/rollup-api/).
 
@@ -231,7 +231,7 @@ See [Script APIs]({{site.url}}{{site.baseurl}}/api-reference/script-apis/index/)
 
 ### Update settings permission
 
-See [Update settings]({{site.url}}{{site.baseurl}}api-reference/index-apis/update-settings/) in Index APIs.
+See [Update settings]({{site.url}}{{site.baseurl}}api-reference/index-apis/update-settings/) on the Index APIs page.
 
 - cluster:admin/settings/update
 
@@ -248,7 +248,7 @@ See [Snapshot APIs]({{site.url}}{{site.baseurl}}/api-reference/snapshots/index/)
 
 ### Task permissions
 
-See [Tasks]({{site.url}}{{site.baseurl}}/api-reference/tasks/) APIs.
+See [Tasks]({{site.url}}{{site.baseurl}}/api-reference/tasks/) in the API Reference section.
 
 - cluster:admin/tasks/cancel
 - cluster:admin/tasks/test
@@ -260,22 +260,22 @@ See [API tools]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/index/
 
 | **Permission** | **Description** |
 | :--- | :--- |
-| cluster:admin/opensearch/securityanalytics/alerts/get | permission to get alerts |
-| cluster:admin/opensearch/securityanalytics/alerts/ack | permission to acknowledge alerts |
-| cluster:admin/opensearch/securityanalytics/detector/get | permission to get detectors |
-| cluster:admin/opensearch/securityanalytics/detector/search | permission to search detectors |
-| cluster:admin/opensearch/securityanalytics/detector/write | permission to create and update detectors |
-| cluster:admin/opensearch/securityanalytics/detector/delete | permission to delete detectors |
-| cluster:admin/opensearch/securityanalytics/findings/get | permission to get findings |
-| cluster:admin/opensearch/securityanalytics/mapping/get | permission to get field mappings by index |
-| cluster:admin/opensearch/securityanalytics/mapping/view/get | permission to get field mappings by index and view mapped and unmapped fields |
-| cluster:admin/opensearch/securityanalytics/mapping/create | permission to create field mappings |
-| cluster:admin/opensearch/securityanalytics/mapping/update | permission to update field mappings |
-| cluster:admin/opensearch/securityanalytics/rules/categories | permission to get all rule categories |
-| cluster:admin/opensearch/securityanalytics/rule/write | permission to create and update rules |
-| cluster:admin/opensearch/securityanalytics/rule/search | permission to search for rules |
-| cluster:admin/opensearch/securityanalytics/rules/validate | permission to validate rules |
-| cluster:admin/opensearch/securityanalytics/rule/delete | permission to delete rules |
+| cluster:admin/opensearch/securityanalytics/alerts/get | Permission to get alerts |
+| cluster:admin/opensearch/securityanalytics/alerts/ack | Permission to acknowledge alerts |
+| cluster:admin/opensearch/securityanalytics/detector/get | Permission to get detectors |
+| cluster:admin/opensearch/securityanalytics/detector/search | Permission to search detectors |
+| cluster:admin/opensearch/securityanalytics/detector/write | Permission to create and update detectors |
+| cluster:admin/opensearch/securityanalytics/detector/delete | Permission to delete detectors |
+| cluster:admin/opensearch/securityanalytics/findings/get | Permission to get findings |
+| cluster:admin/opensearch/securityanalytics/mapping/get | Permission to get field mappings by index |
+| cluster:admin/opensearch/securityanalytics/mapping/view/get | Permission to get field mappings by index and view mapped and unmapped fields |
+| cluster:admin/opensearch/securityanalytics/mapping/create | Permission to create field mappings |
+| cluster:admin/opensearch/securityanalytics/mapping/update | Permission to update field mappings |
+| cluster:admin/opensearch/securityanalytics/rules/categories | Permission to get all rule categories |
+| cluster:admin/opensearch/securityanalytics/rule/write | Permission to create and update rules |
+| cluster:admin/opensearch/securityanalytics/rule/search | Permission to search for rules |
+| cluster:admin/opensearch/securityanalytics/rules/validate | Permission to validate rules |
+| cluster:admin/opensearch/securityanalytics/rule/delete | Permission to delete rules |
 
 ### Monitoring permissions
 
