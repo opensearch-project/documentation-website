@@ -9,7 +9,16 @@ nav_order: 50
 Introduced 2.8
 {: .label .label-purple }
 
-With OpenSearch Dashboards' alerting and anomaly detection features, you can localize and address system performance issues before they reach other parts of your system. You have two options in OpenSearch Dashboards to create alert monitors and anomaly detectors to monitor your system's performance: the Discover application or the Alerting and Anomaly Detection plugins. In this tutorial you'll learn to use the Discover application to create and manage alert monitors and anomaly detectors and visualize them on a dashboard.
+With OpenSearch Dashboards' alerting and anomaly detection features, you can localize and address system performance issues before they reach other parts of your system. You have two options in OpenSearch Dashboards to monitor your system and data in OpenSearch Dashboards with alerting and anomaly detection: the Discover application or the Alerting and Anomaly Detection plugins. 
+
+In this tutorial you'll learn to use the Discover application to pair anomaly detection with alerting to notify you as soon as an anomaly is detected.
+
+![Dashboard view of alerts and anomalies]({{site.url}}{{site.baseurl}}//images/dashboards/alerting-dashboard.png)
+
+## Defining terminology
+
+The following is useful terminology to help you understand what alerting and anomaly detection means in OpenSearch Dashboards:
+
 
 
 
