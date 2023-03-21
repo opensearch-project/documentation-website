@@ -98,7 +98,7 @@ The following table describes metrics that are common to all processors.
 
 ### Counter
 
-The `otel_trace_group` processor includes the following custom metrics.
+The `otel_trace_group` processor includes the following custom counter metrics.
 
 | Metric name | Description |
 | ------------- | -----------|
