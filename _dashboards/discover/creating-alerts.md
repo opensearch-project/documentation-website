@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Creating alerts and anomaly detection dashboards
+title: Visualizing alerting monitors and anomaly detectors
 parent: Exploring data
 nav_order: 50
 ---
