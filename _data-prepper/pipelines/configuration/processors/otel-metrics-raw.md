@@ -12,6 +12,8 @@ The `otel metrics raw` processor serializes a collection of `ExportMetricsServic
 
 ## Usage
 
+<!--- This section needs more information. Right now, it just tells the user to look at the configuration file, but doesn't provide any actual usage information.--->
+
 See the following `.yaml` configuration file:
 
 ```
@@ -21,15 +23,14 @@ processor:
 
 ## Configuration
 
-The following table describes the different parameters used to configure histogram buckets and their default values.
+The following table describes the different parameters used to configure histogram buckets and their default values. A histogram displays numerical data by grouping data into buckets. You can use histrogram buckets to view sets of events that are organized by the total event count and aggregate sum for all events. For more detailed information, see (OpenTelemetry Histograms)[https://opentelemetry.io/docs/reference/specification/metrics/data-model/#histogram].
 
 | Parameter | Default value | Description |
 | :---    | :---    | :---    |
-| `calculate_histogram_buckets` | `False` if not provided | |
-| `calculate_histogram_buckets` | `False` if not provided | |
-| `calculate_exponential_histogram_buckets` |  | |
-| `exponential_histogram_max_allowed_scale` | `10` if not provided | |
-
+| `calculate_histogram_buckets` | `True` | Whether or not to calculate histogram buckets. |
+| `calculate_exponential_histogram_buckets` | `True` | Whether or not to calculate exponential histogram buckets. |
+| `exponential_histogram_max_allowed_scale` | `10` | Maximum allowed scale in exponential histogram calculation. | 
+| `flatten_attributes` | `False` | Whether or not to flatten the `attributes` field in the JSON data. |
 
 If `calculate_histogram_buckets` is not set to `false`, the following JSON file will be added to every histogram JSON. If `flatten_attributes` is set to `false`, the JSON string format of the metrics does not change the attributes field. If `flatten_attributes` is set to `true`, the values in the attributes field are placed in the parent JSON object. The default value is `true`. See the following JSON example:
 
@@ -75,7 +76,7 @@ Each array element describes one bucket. Each bucket contains the lower boundary
 ```
 
 
-If `calculate_exponential_histogram_buckets` is not set to `false`, the following JSON values are added to each JSON historgram:
+If `calculate_exponential_histogram_buckets` is set to `true` (the default setting), the following JSON values are added to each JSON histogram:
 
 ```json
 
@@ -125,9 +126,9 @@ The following JSON file is a more detailed form of the dense OpenTelemetry repre
     "positiveOffset" : 1
 ```
 
-The `exponential_histogram_max_allowed_scale` parameter defines the maximum allowed scale for an exponential histogram. Increasing this parameter increases potential memory consumption. See the [OpenTelemetry specifications](https://github.com/open-telemetry/opentelemetry-proto/blob/main/opentelemetry/proto/metrics/v1/metrics.proto) for more information on exponential histograms and their computational complexity.
+The `exponential_histogram_max_allowed_scale` parameter defines the maximum allowed scale for an exponential histogram. If you increase this parameter, you will increase potential memory consumption. See the [OpenTelemetry specifications](https://github.com/open-telemetry/opentelemetry-proto/blob/main/opentelemetry/proto/metrics/v1/metrics.proto) for more information on exponential histograms and their computational complexity.
 
-All exponential histograms that have a scale that is above the configured parameter (by default, a value of `10`) are discarded and logged with an error level. 
+All exponential histograms that have a scale that is above the configured parameter (by default, a value of `10`) are discarded and logged with an error level. You can check the llog that Data Prepper creates to see the `ERROR` log message.
 
 **Note**: The absolute scale value is used for comparison, so a scale of `-11` that is treated equally to `11` exceeds the configured value of `10` and can be discarded.
 
