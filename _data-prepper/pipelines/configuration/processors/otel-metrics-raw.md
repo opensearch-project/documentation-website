@@ -134,7 +134,7 @@ All exponential histograms that have a scale that is above the configured parame
 
 ## Metrics
 
-The following table describes common [Abstract processor](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/processor/AbstractProcessor.java) metrics and does not include custom metrics.
+The following table describes metrics that are common to all processors.
 
 | Metric name | Type | Description |
 | ------------- | ---- | -----------|
