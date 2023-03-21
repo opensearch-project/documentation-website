@@ -277,9 +277,9 @@ See [API tools]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/index/
 | cluster:admin/opensearch/securityanalytics/rules/validate | permission to validate rules |
 | cluster:admin/opensearch/securityanalytics/rule/delete | permission to delete rules |
 
-### Cluster monitoring
+### Monitoring permissions
 
-The monitor cluster permissions apply to read-only operations, such as checking cluster health and getting information about usage on nodes or tasks executing in the cluster.
+Cluster permissions for monitoring the cluster apply to read-only operations, such as checking cluster health and getting information about usage on nodes or tasks executing in the cluster.
 
 See [REST API reference]({{site.url}}{{site.baseurl}}/api-reference/index/).
 
