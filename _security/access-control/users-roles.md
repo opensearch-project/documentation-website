@@ -118,7 +118,7 @@ The security plugin includes several predefined roles that serve as useful defau
 | `logstash` | Grants permissions for Logstash to interact with the cluster: cluster-wide searches, cluster monitoring, and write to the various Logstash indexes. |
 | `manage_snapshots` | Grants permissions to manage snapshot repositories, take snapshots, and restore snapshots. |
 | `readall` | Grants permissions for cluster-wide searches like `msearch` and search permissions for all indexes. |
-| `readall_and_monitor` | Same as `readall` but with added cluster monitoring permissions. |
+| `readall_and_monitor` | Same as `readall` but with added cluster permissions for monitoring. |
 | `security_rest_api_access` | A special role that allows access to the REST API. See `plugins.security.restapi.roles_enabled` in `opensearch.yml` and [Access control for the API]({{site.url}}{{site.baseurl}}/security/access-control/api/#access-control-for-the-api). |
 | `reports_read_access` | Grants permissions to generate on-demand reports, download existing reports, and view report definitions but not to create report definitions. |
 | `reports_instances_read_access` | Grants permissions to generate on-demand reports and download existing reports but not to view or create report definitions. |
