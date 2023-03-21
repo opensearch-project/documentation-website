@@ -12,8 +12,6 @@ Introduced 2.7
 
 Extensions allow you to add particular features to dashboards or integrate them with applications outside OpenSearch Dashboards. Starting with OpenSearch Dashboards 2.7, you can incorporate dashboard extensions into dashboard layouts.
 
-If you're a developer and want to create your own extensions, see <link to relevant documentation>.
-
 ## Adding an extension to a dashboard
 
 1. In the **Dashboard** application, open 
