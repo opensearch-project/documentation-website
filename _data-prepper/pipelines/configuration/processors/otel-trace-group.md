@@ -53,9 +53,9 @@ You can configure the Amazon OpenSearch Service with the following options.
 | `hosts`| Yes | A list of IP addresses of OpenSearch nodes. | Default value | 
 | `cert` | No | A certificate authority (CA) certificate that is PEM-encoded. Accepts both .pem or .crt. This enables the client to trust the CA that has signed the certificate that OpenSearch is using. | `null` |
 | `aws_sigv4` | Yes | A boolean flag to sign the HTTP request with AWS credentials. Only applies to Amazon OpenSearch Service. See [OpenSearch security](https://github.com/opensearch-project/data-prepper/blob/129524227779ee35a327c27c3098d550d7256df1/data-prepper-plugins/opensearch/security.md) for details. | `false`. |
-| `aws_region` | A String that represents the region of Amazon OpenSearch Service domain, for example, `us-west-2`. Only applies to Amazon OpenSearch Service. | `us-east-1` |
-| `aws_sts_role_arn`| An identity and access management (IAM) role that the sink plugin assumes to sign the request to the Amazon OpenSearch Service. If not provided, the plugin uses the default credentials. | Default value |
-| `aws_sts_header_overrides` | No | A map of header overrides to make when assuming the IAM role for the sink plugin. | <!--- Need default ---> |
+| `aws_region` | *Required?* | A String that represents the region of Amazon OpenSearch Service domain, for example, `us-west-2`. Only applies to Amazon OpenSearch Service. | `us-east-1` |
+| `aws_sts_role_arn`| *Required?* | An identity and access management (IAM) role that the sink plugin assumes to sign the request to the Amazon OpenSearch Service. If not provided, the plugin uses the default credentials. | *Default value* |
+| `aws_sts_header_overrides` | No | A map of header overrides to make when assuming the IAM role for the sink plugin. | *Default value* |
 | `insecure` | Yes | A boolean flag to turn off SSL certificate verification. If set to `true`, CA certificate verification is turned off and insecure HTTP requests are sent. | `false` |
 | `username` | No | A string that contains the username and is used in the [internal users](https://opensearch.org/docs/latest/security/access-control/users-roles/) of your OpenSearch cluster. | `null` |
 | `password` | No | A string that contains the password and is used in the [internal users](https://opensearch.org/docs/latest/security/access-control/users-roles/) of your OpenSearch cluster. | `null` |
