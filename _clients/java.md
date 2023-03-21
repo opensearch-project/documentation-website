@@ -10,9 +10,33 @@ The OpenSearch Java client allows you to interact with your OpenSearch clusters 
 
 This getting started guide illustrates how to connect to OpenSearch, index documents, and run queries. For the client source code, see the [opensearch-java repo](https://github.com/opensearch-project/opensearch-java).
 
-## Installing the client
+## Installing the client using Apache HttpClient 5 Transport
 
-To start using the OpenSearch Java client, ensure that you have the following dependencies in your project's `pom.xml` file:
+To start using the OpenSearch Java client, you need to provide a transport. The default `ApacheHttpClient5TransportBuilder` transport comes with the Java client. To use the OpenSearch Java client with the default transport, add it to your `pom.xml` file as a dependency:
+
+```xml
+<dependency>
+  <groupId>org.opensearch.client</groupId>
+  <artifactId>opensearch-java</artifactId>
+  <version>2.3.0</version>
+</dependency>
+```
+{% include copy.html %}
+
+If you're using Gradle, add the following dependencies to your project:
+
+```
+dependencies {
+  implementation 'org.opensearch.client:opensearch-java:2.3.0'
+}
+```
+{% include copy.html %}
+
+You can now start your OpenSearch cluster.
+
+## Installing the client using RestClient Transport
+
+Alternatively, you can create a Java client by using the `RestClient`-based transport. In this case, make sure that you have the following dependencies in your project's `pom.xml` file:
 
 ```xml
 <dependency>
@@ -20,20 +44,21 @@ To start using the OpenSearch Java client, ensure that you have the following de
   <artifactId>opensearch-rest-client</artifactId>
   <version>{{site.opensearch_version}}</version>
 </dependency>
+
 <dependency>
   <groupId>org.opensearch.client</groupId>
   <artifactId>opensearch-java</artifactId>
-  <version>2.2.0</version>
+  <version>2.3.0</version>
 </dependency>
 ```
 {% include copy.html %}
 
-If you're using Gradle, add the following dependencies to your project.
+If you're using Gradle, add the following dependencies to your project"
 
 ```
 dependencies {
-    implementation 'org.opensearch.client:opensearch-rest-client: {{site.opensearch_version}}'
-    implementation 'org.opensearch.client:opensearch-java:2.0.0'
+  implementation 'org.opensearch.client:opensearch-rest-client: {{site.opensearch_version}}'
+  implementation 'org.opensearch.client:opensearch-java:2.3.0'
 }
 ```
 {% include copy.html %}
@@ -95,57 +120,118 @@ static class IndexData {
 ```
 {% include copy.html %}
 
-## Initializing the client with SSL and TLS enabled
+## Initializing the client with SSL and TLS enabled using Apache HttpClient 5 Transport
+
+This code example uses basic credentials that come with the default OpenSearch configuration. If you’re using the Java client with your own OpenSearch cluster, be sure to change the code so that it uses your own credentials.
+
+The following sample code initializes a client with SSL and TLS enabled:
+
+
+```java
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLEngine;
+
+import org.apache.hc.client5.http.auth.AuthScope;
+import org.apache.hc.client5.http.auth.UsernamePasswordCredentials;
+import org.apache.hc.client5.http.impl.auth.BasicCredentialsProvider;
+import org.apache.hc.client5.http.impl.nio.PoolingAsyncClientConnectionManager;
+import org.apache.hc.client5.http.impl.nio.PoolingAsyncClientConnectionManagerBuilder;
+import org.apache.hc.client5.http.ssl.ClientTlsStrategyBuilder;
+import org.apache.hc.core5.function.Factory;
+import org.apache.hc.core5.http.HttpHost;
+import org.apache.hc.core5.http.nio.ssl.TlsStrategy;
+import org.apache.hc.core5.reactor.ssl.TlsDetails;
+import org.apache.hc.core5.ssl.SSLContextBuilder;
+import org.opensearch.client.opensearch.OpenSearchClient;
+import org.opensearch.client.transport.OpenSearchTransport;
+import org.opensearch.client.transport.httpclient5.ApacheHttpClient5TransportBuilder;
+
+public class OpenSearchClientExample {
+  public static void main(String[] args) throws Exception {
+    System.setProperty("javax.net.ssl.trustStore", "/full/path/to/keystore");
+    System.setProperty("javax.net.ssl.trustStorePassword", "password-to-keystore");
+
+    final HttpHost host = new HttpHost("https", "localhost", 9200);
+    final BasicCredentialsProvider credentialsProvider = new BasicCredentialsProvider();
+    // Only for demo purposes. Don't specify your credentials in code.
+    credentialsProvider.setCredentials(new AuthScope(host), new UsernamePasswordCredentials("admin", "admin".toCharArray()));
+
+    final SSLContext sslcontext = SSLContextBuilder
+      .create()
+      .loadTrustMaterial(null, (chains, authType) -> true)
+      .build();
+
+    final ApacheHttpClient5TransportBuilder builder = ApacheHttpClient5TransportBuilder.builder(host);
+    builder.setHttpClientConfigCallback(httpClientBuilder -> {
+      final TlsStrategy tlsStrategy = ClientTlsStrategyBuilder.create()
+        .setSslContext(SSLContextBuilder.create().build())
+        // See https://issues.apache.org/jira/browse/HTTPCLIENT-2219
+        .setTlsDetailsFactory(new Factory<SSLEngine, TlsDetails>() {
+          @Override
+          public TlsDetails create(final SSLEngine sslEngine) {
+            return new TlsDetails(sslEngine.getSession(), sslEngine.getApplicationProtocol());
+          }
+        })
+        .build();
+
+      final PoolingAsyncClientConnectionManager connectionManager = PoolingAsyncClientConnectionManagerBuilder
+        .create()
+        .setTlsStrategy(tlsStrategy)
+        .build();
+
+      return httpClientBuilder
+        .setDefaultCredentialsProvider(credentialsProvider)
+        .setConnectionManager(connectionManager);
+    });
+
+    final OpenSearchTransport transport = ApacheHttpClient5TransportBuilder.builder(host).build();
+    OpenSearchClient client = new OpenSearchClient(transport);
+  }
+}
+
+```
+
+## Initializing the client with SSL and TLS enabled using RestClient Transport
 
 This code example uses basic credentials that come with the default OpenSearch configuration. If you’re using the Java client with your own OpenSearch cluster, be sure to change the code so that it uses your own credentials.
 
 The following sample code initializes a client with SSL and TLS enabled:
 
 ```java
-import org.apache.http.HttpHost;
-import org.apache.http.auth.AuthScope;
-import org.apache.http.auth.UsernamePasswordCredentials;
-import org.apache.http.client.CredentialsProvider;
-import org.apache.http.impl.client.BasicCredentialsProvider;
-import org.apache.http.impl.nio.client.HttpAsyncClientBuilder;
+import org.apache.hc.client5.http.auth.AuthScope;
+import org.apache.hc.client5.http.auth.UsernamePasswordCredentials;
+import org.apache.hc.client5.http.impl.async.HttpAsyncClientBuilder;
+import org.apache.hc.client5.http.impl.auth.BasicCredentialsProvider;
+import org.apache.hc.core5.http.HttpHost;
 import org.opensearch.client.RestClient;
 import org.opensearch.client.RestClientBuilder;
-import org.opensearch.client.base.RestClientTransport;
-import org.opensearch.client.base.Transport;
 import org.opensearch.client.json.jackson.JacksonJsonpMapper;
 import org.opensearch.client.opensearch.OpenSearchClient;
-import org.opensearch.client.opensearch._global.IndexRequest;
-import org.opensearch.client.opensearch._global.IndexResponse;
-import org.opensearch.client.opensearch._global.SearchResponse;
-import org.opensearch.client.opensearch.indices.*;
-import org.opensearch.client.opensearch.indices.put_settings.IndexSettingsBody;
-
-import java.io.IOException;
+import org.opensearch.client.transport.OpenSearchTransport;
+import org.opensearch.client.transport.rest_client.RestClientTransport;
 
 public class OpenSearchClientExample {
-  public static void main(String[] args) {
-    RestClient restClient = null;
-    try{
+  public static void main(String[] args) throws Exception {
     System.setProperty("javax.net.ssl.trustStore", "/full/path/to/keystore");
     System.setProperty("javax.net.ssl.trustStorePassword", "password-to-keystore");
 
+    final HttpHost host = new HttpHost("https", "localhost", 9200);
+    final BasicCredentialsProvider credentialsProvider = new BasicCredentialsProvider();
     //Only for demo purposes. Don't specify your credentials in code.
-    final CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
-    credentialsProvider.setCredentials(AuthScope.ANY,
-        new UsernamePasswordCredentials("admin", "admin"));
+    credentialsProvider.setCredentials(new AuthScope(host), new UsernamePasswordCredentials("admin", "admin".toCharArray()));
 
     //Initialize the client with SSL and TLS enabled
-    restClient = RestClient.builder(new HttpHost("localhost", 9200, "https")).
+    final RestClient restClient = RestClient.builder(host).
       setHttpClientConfigCallback(new RestClientBuilder.HttpClientConfigCallback() {
         @Override
         public HttpAsyncClientBuilder customizeHttpClient(HttpAsyncClientBuilder httpClientBuilder) {
         return httpClientBuilder.setDefaultCredentialsProvider(credentialsProvider);
         }
       }).build();
-    Transport transport = new RestClientTransport(restClient, new JacksonJsonpMapper());
-    OpenSearchClient client = new OpenSearchClient(transport);
+
+    final OpenSearchTransport transport = new RestClientTransport(restClient, new JacksonJsonpMapper());
+    final OpenSearchClient client = new OpenSearchClient(transport);
   }
- }
 }
 ```
 {% include copy.html %}
