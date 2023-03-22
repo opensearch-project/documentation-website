@@ -35,10 +35,22 @@ You must be running OpenSearch Dashboards before proceeding with the tutorial. M
 
 ## Creating alerting monitors
 
-By default, when you begin to create the alert monitor workflow with the Discover application, you are presented with a menu-driven interface. This interface provides you with a range of options displayed in full screen, pop up, pull down, or drop down.
+By default, when you begin to create the alert monitor workflow with the Discover application, you are presented with a menu-driven interface. This interface provides you with a range of options displayed in full screen, pop up, pull down, or drop down. In the interface, you can define rules to detect certain conditions, customize triggers that automate workflows, and generate actions when conditions are met.
 
 1. From the main menu, select **Discover**.
 2. 
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ## Considerations and limitations
