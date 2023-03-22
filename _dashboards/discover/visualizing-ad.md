@@ -29,13 +29,16 @@ The following is useful terminology to understand before getting started with th
 - _Triggers_ define the conditions that generate events. Trigger alerts can be configured via various channels, such as email, text message, or a dedicated dashboard.
 - _Actions_ are what happens after an alert is triggered.
 
-## Getting started through the Discover application
+## Getting started
 
-You must be running OpenSearch Dashboards before proceeding with the tutorial.
+You must be running OpenSearch Dashboards before proceeding with the tutorial. Make sure you're connected to your local OpenSearch Dashboards environment or use `https://localhost:5601`. The username and password are `admin`.
 
-1. Connect to `https://localhost:5601`. The username and password are `admin`.
-2. From the main menu, select **Discover**.
-3. 
+## Creating alerting monitors
+
+By default, when you begin to create the alert monitor workflow with the Discover application, you are presented with a menu-driven interface. This interface provides you with a range of options displayed in full screen, pop up, pull down, or drop down.
+
+1. From the main menu, select **Discover**.
+2. 
 
 
 ## Considerations and limitations
