@@ -5,13 +5,14 @@ parent: Index management in Dashboards
 nav_order: 20
 redirect_from:
   - /dashboards/admin-ui-index/datastream/
+  - /opensearch/data-streams/
 ---
 
 # Data streams
 Introduced 2.6
 {: .label .label-purple }
 
-In OpenSearch Dashboards, the **Index Management** application allows you to view and manage [data streams]({{site.url}}{{site.baseurl}}/opensearch/data-streams/) as shown in the following image.
+In OpenSearch Dashboards, the **Index Management** application allows you to view and manage [data streams]({{site.url}}{{site.baseurl}}/im-plugin/data-streams/) as shown in the following image.
 
 ![Data Streams]({{site.url}}{{site.baseurl}}/images/admin-ui-index/datastreams1.png)
 

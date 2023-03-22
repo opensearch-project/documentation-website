@@ -6,6 +6,7 @@ has_children: false
 has_toc: false
 redirect_from: 
   - /clients/data-prepper/index/
+  - /data-prepper/
 ---
 
 # Data Prepper
