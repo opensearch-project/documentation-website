@@ -11,13 +11,7 @@ Introduced 2.8
 
 OpenSearch Dashboards' alerting and anomaly detection features allow you to localize and address errors, fraud, or potential issues in your system before they become serious problems and to improve the accuracy of your data and analytics. Common use cases for alerting and anomaly detection include network behavior, application performance, and web application security.
 
-In this tutorial you'll: 
-
-- Try out the Discover application to create alerts and anomaly detection jobs for sample data
-- Perform data visualization techniques, and 
-- Use the results to identify possible anomalies in the data
-
-At the end of this tutorial, you should have a good idea of how to use the Discover application to detect anomalies in your own data.
+In this tutorial, you'll learn to perform anomaly detection using the Discover application and line chart visualizations. At the end of this tutorial, you should have a good idea of how to use the Discover application to identify potential issues in your data.
 
 The following video provides a quick overview of the steps performed in this tutorial:
 
@@ -35,14 +29,21 @@ The following is useful terminology to understand before getting started with th
 - _Triggers_ define the conditions that generate events. Trigger alerts can be configured via various channels, such as email, text message, or a dedicated dashboard.
 - _Actions_ are what happens after an alert is triggered.
 
-## Getting started through Discover application
+## Getting started through the Discover application
 
 You must be running OpenSearch Dashboards before proceeding with the tutorial.
 
 1. Connect to `https://localhost:5601`. The username and password are `admin`.
-2. In the  the top menu, go to **OpenSearch Dashboards > Dashboard**.
+2. From the main menu, select **Discover**.
+3. 
 
 
+## Considerations and limitations
+
+<Need SME input>
+
+- Alerting and anomaly detection is only supported for line chart visualizations containing time series data.
+- 
 
 ## Further readings
 
