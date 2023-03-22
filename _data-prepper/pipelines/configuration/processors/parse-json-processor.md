@@ -45,7 +45,7 @@ The processor parses the message into the following format:
 
 ### Example with JSON pointer
 
-You can parse a selection of the JSON data by specifying a JSON pointer and using the `pointer` option in the configuration. The following configuration file and example demonstrate a basic pointer use case:
+You can parse a selection of the JSON data by specifying a JSON pointer and using the `pointer` option in the configuration. See the following YAML configuration file and example of pointer use:
 
 ```yaml
 parse-json-pipeline:
