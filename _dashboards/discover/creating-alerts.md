@@ -1,36 +1,50 @@
 ---
 layout: default
-title: Visualizing alerting monitors and anomaly detectors using a dashboard
+title: Visualizing alerting monitors and anomaly detectors 
 parent: Exploring data
 nav_order: 50
 ---
 
-# Visualizing alerting monitors and anomaly detectors using a dashboard
+# Visualizing alerting monitors and anomaly detectors
 Introduced 2.8
 {: .label .label-purple }
 
-With OpenSearch Dashboards' alerting and anomaly detection features, you can localize and address system performance issues before they reach other parts of your system. You have two options in OpenSearch Dashboards to monitor your system and data in OpenSearch Dashboards with alerting and anomaly detection: the Discover application or the Alerting and Anomaly Detection plugins. Examples of common use cases for alerting and anomaly detection in OpenSearch include network behavior, application performance, and web application security.  
+OpenSearch Dashboards' alerting and anomaly detection features allow you to localize and address errors, fraud, or potential issues in your system before they become serious problems and to improve the accuracy of your data and analytics. Common use cases for alerting and anomaly detection include network behavior, application performance, and web application security.
 
-![Dashboard view of alerts and anomalies]({{site.url}}{{site.baseurl}}//images/dashboards/alerting-dashboard.png)
+In this tutorial you'll: 
+
+- Try out the Discover application to create alerts and anomaly detection jobs for sample data
+- Perform data visualization techniques, and 
+- Use the results to identify possible anomalies in the data
+
+At the end of this tutorial, you should have a good idea of how to use the Discover application to detect anomalies in your own data.
+
+The following video provides a quick overview of the steps performed in this tutorial:
+
+<insert demo from SME>
+
+If you need more context about the alerting and anomaly detection plugins in OpenSearch Dashboards, learn more in the documentation under [Observability]({{site.url}}{{site.baseurl}}/observing-your-data/index/).
 
 ## Defining terminology
 
-The following is useful terminology to help you understand what alerting and anomaly detection means in OpenSearch Dashboards:
+The following is useful terminology to understand before getting started with this tutorial:
 
-- _Alerting_ 
-- _Anomaly detection_ is the identification of unexpected events, observations, or items that differ from normal behavior.
-- _Monitor_ is a job that runs on a defined schedule and queries OpenSearch indexes.
-- _Triggers_ define the conditions that generate events.
+- _Anomaly detection_ is a technique used in data analysis to identify patterns or data points that deviate from the norm or expected behavior. It can be performed in real time, near real time, or on a scheduled basis.
+- _Alerting_ refers to the process of notifying relevant stakeholders when an anomaly is detected. 
+- _Monitors_ are jobs that run on a defined schedule and query OpenSearch indexes.
+- _Triggers_ define the conditions that generate events. Trigger alerts can be configured via various channels, such as email, text message, or a dedicated dashboard.
 - _Actions_ are what happens after an alert is triggered.
-- _Notifications_ 
 
-## 
+## Getting started through Discover application
 
-In this tutorial you'll learn to use the Discover application to pair anomaly detection with alerting to notify you as soon as an anomaly is detected.
+You must be running OpenSearch Dashboards before proceeding with the tutorial.
 
-## Related links
+1. Connect to `https://localhost:5601`. The username and password are `admin`.
+2. In the  the top menu, go to **OpenSearch Dashboards > Dashboard**.
 
-- [Alerting]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/index/) 
-- [Anomaly Detection]({{site.url}}{{site.baseurl}}/observing-your-data/ad/index/)
+
+
+## Further readings
+
 - [Introduction to OpenSearch Alerting](https://opensearch.org/blog/alerting-intro/)
 - [What's new: Document-level monitors](https://opensearch.org/blog/whatsnew-document-level-monitors/)
