@@ -20,8 +20,8 @@ In order for OpenSearch to include more inclusive naming conventions, we've repl
 - "Blacklist" is now "Deny list"
 - "Master" is now "Cluster Manager"
 
-If you are still using the outdated terms in the context of the security APIs or for node management, your calls and automation will continue to work until the terms are removed later in 2022. 
-
+If you are using any outdated terms in the context of the security APIs or for node management, your calls and automation will continue to work in all 2.x releases. However, support for the outdated terms will be removed in 3.0 -- which will be a breaking change -- so plan accordingly.  
+{: .warning}
 
 ### Add OpenSearch Notifications plugins
 
