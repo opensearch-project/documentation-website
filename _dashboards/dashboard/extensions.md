@@ -1,16 +1,16 @@
 ---
 layout: default
-title: Using dashboard extensions
+title: Adding and configuring plugins from the user interface
 parent: Creating dashboards
 nav_order: 5
 ---
 
-# Using dashboard extensions 
+# Adding and configuring plugins from the user interface 
 
 Introduced 2.7
 {: .label .label-purple }
 
-Extensions allow you to add particular features to dashboards or integrate them with applications outside OpenSearch Dashboards. Starting with OpenSearch Dashboards 2.7, you can incorporate dashboard extensions into dashboard layouts.
+In addition managing OpenSearch plugins from <where>, you can add, configure, and view OpenSearch plugins from the OpenSearch Dashboards user interface. 
 
 ## Adding an extension to a dashboard
 
@@ -24,6 +24,6 @@ Extensions allow you to add particular features to dashboards or integrate them 
 
 
 
-## Getting support for dashboard extensions
+## Learning more about OpenSearch Dashboards plugins
 
-To get help for an extension, you'll need to contact the developer or company who created it. 
+The [OpenSearch plugins repository](https://github.com/opensearch-project/opensearch-plugins) on GitHub keeps you updated on OpenSearch plugins, including managing, building, installing, developing plugins with and for OpenSearch. 
