@@ -7,21 +7,13 @@ parent: OpenSearch Benchmark
 
 # Installing OpenSearch Benchmark
 
-OpenSearch Benchmark can be installed on any compatible Linux host. This section of documentation covers the following:
+Before installing OpenSearch Benchmark you must verify that the host's operating system is compatible. There are also hardware considerations and a few required software packages that must be installed before you can use OpenSearch Benchmark.
 
-- [Operating system requirements](#operating-system-requirements)
-- [Hardware requirements](#hardware-requirements)
-- [Prequisite software packages](#prerequisite-software-packages)
-- [Installing OpenSearch Benchmark](#installing-opensearch-benchmark)
+## Supported operating systems
 
-This guide assumes that you are comfortable working from the Linux command line interface (CLI). You should understand how to input commands, navigate between directories, and edit text files. Some example commands reference the `vi` text editor, but you may use any text editor available.
-{:.note}
+OpenSearch Benchmark is developed for Linux and macOS and can only be installed on a compatible host, but you can run OpenSearch Benchmark workloads against any accessible OpenSearch cluster, regardless of that cluster's underlying operating system or hardware.
 
-## Operating system requirements
-
-OpenSearch Benchmark is only supported on Linux. 
-
-## Hardware requirements
+## Hardware considerations
 
 FOLLOWUP -> Asked in Slack, waiting for feedback.
 
