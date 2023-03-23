@@ -14,7 +14,7 @@ The `type` parameter has been removed from all OpenSearch API endpoints. Instead
 
 ### Deprecate non-inclusive terms 
 
-Non-inclusive terms have been deprecated in the 2.x releases and will be permanently removed in OpenSearch 3.0.  We are using the following replacements: 
+Non-inclusive terms are deprecated in version 2.x and will be permanently removed in OpenSearch 3.0.  We are using the following replacements: 
 
 - "Whitelist" is now "Allow list"
 - "Blacklist" is now "Deny list"
