@@ -10,11 +10,11 @@ nav_order: 45
 
 ## Overview
 
-This is a processor that takes structured data and runs anomaly detection algorithm on user configured fields in the data. The data needs to be a number(integer or real) for the anomaly detection algorithm to detect anomalies. It is recommended that the anomaly detector processor is deployed after aggregate processor in a pipeline for best results because aggregate processor aggregates events with same keys onto the same host.
+The `Anomaly detector` processor takes structured data and runs anomaly detection algorithms on fields you can configure in the data. The data must be a number (integer or real) for the anomaly detection algorithm to detect anomalies. We recommend that you deploy the `Anomaly detector` processor after the `Aggregate` processor in a pipeline to achieve the best results. This is because the `Aggregate` processor aggregates events with same keys onto the same host.
 
 ## Usage
 
-To get started, create the following `pipeline.yaml`. This following pipeline configuration will look for anomalies in the `latency` field in the events passed to the processor. It uses `random_cut_forest` mode to detect anomalies.
+To get started, create the following `pipeline.yaml`. You can use the following pipeline configuration to look for anomalies in the `latency` field in events passed to the processor. The following `yaml` configuration file uses `random_cut_forest` mode to detect anomalies.
 
 ```yaml
 ad-pipeline:
@@ -29,16 +29,18 @@ ad-pipeline:
     - stdout:
 ```
 
-When run, the processor will parse the messages and extracts the values for the key `latency` and pass it through RandomCutForest ML algorithm.
+When run, the processor will parses the messages and extracts the values for the key `latency` and passes it through `RandomCutForest` machine-learning algorithm.
 
 ## Configuration
 
 ### Options
 
+<!--- Make the content below into tables.--->
+
 * [keys](#keys) (Required)
 * [mode](#mode) (Required)
 
-### <a name="keys"></a>
+### keys
 * `keys` (Required): A non-ordered `List<String>` which are used as inputs to the ML algorithm to detect anomalies in the values of the keys in the list. At least one key is required.
 
 ### <a name="mode"></a>
@@ -46,9 +48,12 @@ When run, the processor will parse the messages and extracts the values for the 
     * [random_cut_forest](#random_cut_forest)
 
 
-## Available Anomaly detector modes
+## Anomaly detector modes
 
-### <a name="random_cut_forest"></a>
+<!--- Explain what these modes do with a brief overview.--->
+<!--- Make the following into a table.--->
+
+### random_cut_forest
 * `random_cut_forest`: Processes events using Random Cut Forest ML algorithm to detect anomalies.
   * After passing a bunch of events with `latency` value between 0.2 and 0.3 are passed through the anomaly detector, when an event with `latency` value 11.5 is sent, the following anomaly event will be generated
   * More details about this can be found at https://docs.aws.amazon.com/sagemaker/latest/dg/randomcutforest.html
