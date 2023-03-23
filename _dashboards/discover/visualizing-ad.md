@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Monitoring data using data visualizations 
+title: Creating and managing alerts and anomalies using data visualizations 
 parent: Exploring data
 nav_order: 50
 ---
 
-# Monitoring data using data visualizations
+# Creating and managing alerts and anomalies using data visualizations
 Introduced 2.8
 {: .label .label-purple }
 
@@ -41,7 +41,7 @@ By default, when you begin to create the alert monitor workflow with the Discove
 2. Choose 
 
 
-## Configuring admin settings in the OpenSearch Dashboards user interface
+## Configuring admin settings
 
 **Stack Management** is the place where you manage advanced settings. Access to the features is controlled by OpenSearch and OpenSearch Dashboards privileges. If you're an administrator, you can change the settings. If you don't have access, contact your administrator.   
 
