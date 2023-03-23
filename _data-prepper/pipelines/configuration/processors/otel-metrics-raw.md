@@ -12,13 +12,11 @@ The `otel metrics raw` processor serializes a collection of `ExportMetricsServic
 
 ## Usage
 
-<!--- This section needs more information. Right now, it just tells the user to look at the configuration file, but doesn't provide any actual usage information.--->
-
-See the following `.yaml` configuration file:
+To get started, you can add the following processor to your `.yaml` configuration file:
 
 ```
 processor:
-    - otel_metrics_raw_processor
+    - otel_metrics_raw_processor:
 ```
 
 ## Configuration
