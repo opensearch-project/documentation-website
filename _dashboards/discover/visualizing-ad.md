@@ -11,7 +11,7 @@ Introduced 2.8
 
 OpenSearch Dashboards' alerting and anomaly detection features allow you to localize and address errors, fraud, or potential issues in your system before they become serious problems and to improve the accuracy of your data and analytics. Common use cases for alerting and anomaly detection include network behavior, application performance, and web application security.
 
-In this tutorial, you'll learn to perform anomaly detection using the Discover application and line chart visualizations. At the end of this tutorial, you should have a good idea of how to use the Discover application to monitor your data.
+In this tutorial, you'll learn to perform anomaly detection using the Discover application and line chart visualizations. At the end of this tutorial, you should have a good idea of how to use the Discover application and visualizations to monitor your data.
 
 The following video provides a quick overview of the steps performed in this tutorial:
 
