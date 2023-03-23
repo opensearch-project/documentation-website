@@ -62,7 +62,7 @@ For example, before you run the `AddEntries` processor, if the `logs_json.log` f
 {"message": "hello"}
 ```
 
-Then, when you run the `AddEntries` processor using the previous configuration, it parses the message into the following output:
+Then, when you run the `AddEntries` processor using the previous configuration, it adds a new entry `{"newMessage": 3}` to the existing event `{"message": "hello"}` so that the new event contains two entries in the final output:
 
 ```json
 {"message": "hello", "newMessage": 3}
@@ -70,7 +70,6 @@ Then, when you run the `AddEntries` processor using the previous configuration, 
 
 > If `newMessage` already exists, its existing value is overwritten with a value of `3`.
 
-In the preceding example, the `add_entries` processor adds a new entry `{"newMessage": 3}` to the existing event `{"message": "hello"}` so that the new event contains two entries in the final output: `{"message": "hello","newMessage": 3}`.
 
 ## CopyValues
 
