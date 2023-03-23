@@ -25,7 +25,7 @@ In order for non-admin users to perform replication activities, they must be map
 
 The security plugin has two built-in roles that cover most replication use cases: `cross_cluster_replication_leader_full_access`, which provides replication permissions on the leader cluster, and `cross_cluster_replication_follower_full_access`, which provides replication permissions on the follower cluster. For descriptions of each, see [Predefined roles]({{site.url}}{{site.baseurl}}/security/access-control/users-roles#predefined-roles).
 
-If you don't want to use the default roles, you can combine individual replication [permissions]({{site.url}}{{site.baseurl}}/replication-plugin/permissions/#replication-permissions) to meet your needs. Most permissions correspond to specific REST API operations. For example, the `indices:admin/plugins/replication/index/pause` permission lets you pause replication.
+If you don't want to use the default roles, you can combine individual replication [permissions]({{site.url}}{{site.baseurl}}/tuning-your-cluster/replication-plugin/permissions/#replication-permissions) to meet your needs. Most permissions correspond to specific REST API operations. For example, the `indices:admin/plugins/replication/index/pause` permission lets you pause replication.
 
 ## Map the leader and follower cluster roles
 
