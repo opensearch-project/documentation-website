@@ -113,8 +113,8 @@ Role | Description
 `cross_cluster_replication_leader_full_access` | Grants full access to perform cross-cluster replication actions on the leader cluster.
 `observability_full_access` | Grants full access to perform actions on Observability objects such as visualizations, notebooks, and operational panels.
 `observability_read_access` | Grants permission to view Observability objects such as visualizations, notebooks, and operational panels, but not create, modify, or delete them.
-`opensearch_dashboards_read_only` | A special role that prevents users from making changes to visualizations, dashboards, and other OpenSearch Dashboards objects. See `opensearch_security.readonly_mode.roles` in `opensearch_dashboards.yml`. Pair with the `opensearch_dashboards_user` role.
-`opensearch_dashboards_user` | Grants permissions to use OpenSearch Dashboards: cluster-wide searches, index monitoring, and write to various OpenSearch Dashboards indices.
+`kibana_read_only` | A special role that prevents users from making changes to visualizations, dashboards, and other OpenSearch Dashboards objects. To enable read-only mode in Dashboards, add the `opensearch_security.readonly_mode.roles` setting to the `opensearch_dashboards.yml` file and include the role as a setting value. See the [example configuration]({{site.url}}{{site.baseurl}}/dashboards/branding/#sample-configuration) in Dashboards documentation.
+`kibana_user` | Grants permissions to use OpenSearch Dashboards: cluster-wide searches, index monitoring, and write to various OpenSearch Dashboards indexes.
 `logstash` | Grants permissions for Logstash to interact with the cluster: cluster-wide searches, cluster monitoring, and write to the various Logstash indices.
 `manage_snapshots` | Grants permissions to manage snapshot repositories, take snapshots, and restore snapshots.
 `readall` | Grants permissions for cluster-wide searches like `msearch` and search permissions for all indices.
