@@ -12,16 +12,13 @@ permalink: /breaking-changes/
 
 The `type` parameter has been removed from all OpenSearch API endpoints. Instead, indexes can be categorized by document type. For more details, see issue [#1940](https://github.com/opensearch-project/opensearch/issues/1940).
 
-### Deprecate outdated nomenclature 
+### Deprecate non-inclusive terms 
 
-In order for OpenSearch to include more inclusive naming conventions, we've replaced the following terms in our code with more inclusive terms:
+Non-inclusive terms are deprecated in version 2.x and will be permanently removed in OpenSearch 3.0.  We are using the following replacements: 
 
 - "Whitelist" is now "Allow list"
 - "Blacklist" is now "Deny list"
 - "Master" is now "Cluster Manager"
-
-If you are using any outdated terms in the context of the security APIs or for node management, your calls and automation will continue to work in all 2.x releases. However, support for the outdated terms will be removed in 3.0 -- which will be a breaking change -- so plan accordingly.  
-{: .warning}
 
 ### Add OpenSearch Notifications plugins
 
