@@ -113,8 +113,8 @@ The security plugin includes several predefined roles that serve as useful defau
 | `cross_cluster_replication_leader_full_access` | Grants full access to perform cross-cluster replication actions on the leader cluster. |
 | `observability_full_access` | Grants full access to perform actions on Observability objects such as visualizations, notebooks, and operational panels. |
 | `observability_read_access` | Grants permission to view Observability objects such as visualizations, notebooks, and operational panels, but not to create, modify, or delete them. |
-| `opensearch_dashboards_read_only` | A special role that prevents users from making changes to visualizations, dashboards, and other OpenSearch Dashboards objects. See `opensearch_security.readonly_mode.roles` in `opensearch_dashboards.yml`. Pair with the `opensearch_dashboards_user` role. |
-| `opensearch_dashboards_user` | Grants permissions to use OpenSearch Dashboards: cluster-wide searches, index monitoring, and write to various OpenSearch Dashboards indices. |
+| `kibana_read_only` | A special role that prevents users from making changes to visualizations, dashboards, and other OpenSearch Dashboards objects. To enable read-only mode in Dashboards, add the `opensearch_security.readonly_mode.roles` setting to the `opensearch_dashboards.yml` file and include the role as a setting value. See the [example configuration]({{site.url}}{{site.baseurl}}/dashboards/branding/#sample-configuration) in Dashboards documentation. |
+| `kibana_user` | Grants permissions to use OpenSearch Dashboards: cluster-wide searches, index monitoring, and write to various OpenSearch Dashboards indexes. |
 | `logstash` | Grants permissions for Logstash to interact with the cluster: cluster-wide searches, cluster monitoring, and write to the various Logstash indexes. |
 | `manage_snapshots` | Grants permissions to manage snapshot repositories, take snapshots, and restore snapshots. |
 | `readall` | Grants permissions for cluster-wide searches like `msearch` and search permissions for all indexes. |
@@ -132,7 +132,6 @@ The security plugin includes several predefined roles that serve as useful defau
 | `security_analytics_full_access` | Grants full permissions to all Security Analytics functionality. |
 | `security_analytics_read_access` | Grants permissions to view the various components in Security Analytics, such as detectors, alerts, and findings. It also includes permissions that allow users to search for detectors and rules. This role does not allow a user to perform actions such as modfying or deleting a detector. |
 | `security_analytics_ack_alerts` | Grants permissions to view and acknowledge alerts. |
-
 
 For more detailed summaries of the permissions for each role, reference their action groups against the descriptions in [Default action groups]({{site.url}}{{site.baseurl}}/security/access-control/default-action-groups/).
 
