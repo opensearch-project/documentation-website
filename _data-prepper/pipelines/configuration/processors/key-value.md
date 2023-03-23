@@ -22,7 +22,7 @@ key_value_delimiter_regex| Conditionally | String | A regex specifying the delim
 value_split_characters | Conditionally | String | A string of characters to split between keys and values. Special regex characters such as `[` and `]` must be escaped using `\\`. Default value is `=`. This option cannot be defined at the same time as `key_value_delimiter_regex`. |
 non_match_value | No | String | When a key/value cannot be successfully split, the key/value is placed in the `key` field, and the specified value is placed in the value field. Default value is `null`. | `key1value1&key2=value2` parses into `{"key1value1": null, "key2": "value2"}`. |
 prefix | No | String | A prefix given to all keys. Default value is empty string. |
-delete_key_regex | No | String | A regex used to delete characters from the key. Special regex characters such as `[` and `]` must be escaped using `\\`. There is no default value. | `delete_key_regex` is `"\s"`. `{"key1 =value1"}` parses into `{"key1": "value1"}`.
+delete_key_regex | No | String | A regex used to delete characters from the key. Special regex characters such as `[` and `]` must be escaped using `\\`. There is no default value. | `delete_key_regex` is `"\s"`. `{"key1 =value1"}` parses into `{"key1": "value1"}`. |
 delete_value_regex | No | String | A regex used to delete characters from the value. Special regex characters such as `[` and `]` must be escaped using `\\`. There is no default value. | `delete_value_regex` is `"\s"`. `{"key1=value1 "}` parses into `{"key1": "value1"}`. |
 
 
