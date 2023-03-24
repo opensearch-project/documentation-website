@@ -44,9 +44,13 @@ By default, when you begin to create the alert monitor workflow with the Discove
 
 ## Configuring admin settings
 
-**Stack Management** is the place where you manage advanced settings. Access to the features is controlled by OpenSearch and OpenSearch Dashboards privileges. If you're an administrator, you can change the settings. If you don't have access, contact your administrator.   
+**Stack Management** is the place where you manage advanced settings. Access to alerting and anomaly detection using visualizations is controlled by OpenSearch and OpenSearch Dashboards privileges. The settings are enabled by default. If you're an administrator, you can disable the settings at the cluster level through the `dashboards.yml` file, as shown the code sample below.
 
-To configure admin settings via the OpenSearch Dashboards UI, follow these steps:
+```bash
+
+```
+
+To configure the advanced settings, follow these steps:
 
 1. 
 
