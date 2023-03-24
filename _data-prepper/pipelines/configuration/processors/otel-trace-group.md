@@ -64,6 +64,16 @@ You can configure the Amazon OpenSearch Service with the following options.
 | `username` | No | A string that contains the username and is used in the [internal users](https://opensearch.org/docs/latest/security/access-control/users-roles/) of your OpenSearch cluster. | `null` |
 | `password` | No | A string that contains the password and is used in the [internal users](https://opensearch.org/docs/latest/security/access-control/users-roles/) of your OpenSearch cluster. | `null` |
 
+## Configuration option examples
+
+You can define the `aws_sts_header_overrides` configuration option values. See the following example.
+
+```
+aws_sts_header_overrides:
+  x-my-custom-header-1: my-custom-value-1
+  x-my-custom-header-2: my-custom-value-2
+```
+
 ## Metrics
 
 The following table describes both metrics common to all processors as well as metrics specific to the `otel_trace_group` processor.
