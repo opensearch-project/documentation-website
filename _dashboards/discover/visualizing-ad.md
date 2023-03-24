@@ -34,28 +34,24 @@ If you need more context about these features in OpenSearch Dashboards, see the 
 You must be running OpenSearch Dashboards before proceeding with the tutorial. Make sure you're connected to your local OpenSearch Dashboards environment or use `https://localhost:5601`. The username and password are `admin`.
 {: .note}
 
+## Configuring admin settings
+
+**Stack Management** is the place where you manage advanced settings. Access to alerting and anomaly detection using visualizations is controlled by OpenSearch and OpenSearch Dashboards privileges. The setting is enabled by default and appears as a feature in the **Stack Management > Advanced Settings > Visualizations** window. If the setting is disabled, it does not appear in this window. 
+
+If you're an administrator, you can disable the settings at the cluster level through the `dashboards.yml` configuration file, for example:
+
+```bash
+<insert code sample>
+```
+
+
+
 ## Creating alerting monitors
 
 By default, when you begin to create the alert monitor workflow with the Discover application, you are presented with a menu-driven interface. This interface provides you with a range of options displayed in full screen, pop up, pull down, or drop down. In the interface, you can define rules to detect certain conditions, customize triggers that automate workflows, and generate actions when conditions are met.
 
 1. From the OpenSearch Dashboards main menu, select **Discover**.
 2. Choose 
-
-
-## Configuring admin settings
-
-**Stack Management** is the place where you manage advanced settings. Access to alerting and anomaly detection using visualizations is controlled by OpenSearch and OpenSearch Dashboards privileges. The settings are enabled by default. If you're an administrator, you can disable the settings at the cluster level through the `dashboards.yml` file, as shown the code sample below.
-
-```bash
-
-```
-
-To configure the advanced settings, follow these steps:
-
-1. 
-
-
-
 
 
 
