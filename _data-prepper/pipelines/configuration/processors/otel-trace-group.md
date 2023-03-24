@@ -46,8 +46,6 @@ pipeline:
 
 You can configure the Amazon OpenSearch Service with the following options.
 
-<!--- Are we talking about the OTel processor or OpenSearch? This is confusing. --->
-
 | Name | Required | Description | Default value
 | -----| ----| -----------| -----|
 | `hosts`| Yes | A list of IP addresses of OpenSearch nodes. | Default value | 
