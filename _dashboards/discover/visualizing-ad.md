@@ -59,7 +59,7 @@ By default, when you begin to create the alert monitor workflow with the Discove
 Alerts and anomalies are visualized in line charts on a dashboard. To create an alerting monitor using the Discover application and sample data and to visualize the alerts on a dashboard, follow these steps:  
 
 1. From the OpenSearch Dashboards main menu, select **Discover**.
-2. From <window>, select the **[Logs] My dashboard** sample dataset. Line chart visualizations will automatically appear on the dashboard.
+2. From <window>, select the **<name> sample dataset. You will see a pre-populated dashboard with line chart visualizations.
 3. Select the ellipsis icon on the line chart titled **CPU Usage Across World**, then select **Alerting** > **Add alerting monitor**.
 4. Select **Create new monitor**.
 5. From the **Add alerting monitor** window, configure the **Monitor details** and **Triggers**
@@ -76,6 +76,12 @@ Once you've created a new monitor, the monitor is added both to the visualizatio
 
 ## Creating anomaly detectors
 
+Anomaly detectors identify unusual patterns or outliers in a dataset. Once  you've defined your problem and prepared your data, you can load it into OpenSearch for indexing. In the following steps, you'll continue using the sample dataset that you used in the preceding steps. 
+
+To create an anomaly detector using the Discover application and sample data and to visualize the anomalies on a dashboard, follow these steps: 
+
+1. From the From the OpenSearch Dashboards main menu, select **Discover**.
+2. From <window>, select the **<name>** sample dataset. You will see a pre-populated dashboard with line chart visualizations.
 
 ## Adding associated detectors
 
