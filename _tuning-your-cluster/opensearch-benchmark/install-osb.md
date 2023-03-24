@@ -11,11 +11,15 @@ Before installing OpenSearch Benchmark you must verify that the host's operating
 
 ## Supported operating systems
 
-OpenSearch Benchmark is developed for Linux and macOS and can only be installed on a compatible host, but you can run OpenSearch Benchmark workloads against any accessible OpenSearch cluster, regardless of that cluster's underlying operating system or hardware.
+OpenSearch Benchmark is supported on Linux and macOS, and can only be installed on a compatible host. You can run OpenSearch Benchmark workloads against any accessible OpenSearch cluster, regardless of that cluster's underlying operating system or hardware.
 
 ## Hardware considerations
 
-FOLLOWUP -> Asked in Slack, waiting for feedback.
+There are no specific hardware constraints regarding the OpenSearch Benchmark host, but there are still a few factors to keep in mind.
+
+First, you should decide whether you want to benchmark an existing cluster or if you want OpenSearch Benchmark to create a cluster 
+
+consider which type of [workload]({{site.url}}{{site.baseurl}}/_tuning-your-cluster/opensearch-benchmark/workloads/) you want to use to measure the performance of your OpenSearch cluster.
 
 ## Prerequisite software packages
 
