@@ -42,10 +42,6 @@ pipeline:
         insecure: false
 ```
 
-See [OpenSearch Sink Security](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/opensearch/security.md) for a detailed explanation.
-
-<!--- Does this security section need to be here? --->
-
 ## Configuration
 
 You can configure the Amazon OpenSearch Service with the following options.
