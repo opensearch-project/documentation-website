@@ -78,8 +78,3 @@ ad-pipeline:
 ```
 
 When you run the `Anomaly detector` processor, it parses the messages and extracts the values for the `latency` key, then passes it through `RandomCutForest` machine-learning algorithm.
-
-<!--- "...extracts the values for the `latency` key, then passes it..." - Passes what? The key? --->
-<!--- Where does `RandomCutForest` as it is typed here appear? Is it accurate? Does it need to align with other instances in this doc as `random_cut_forest`? Should we say random_cut_forest mode?--->
-<!--- Is parsing the correct terminlogy? Is it necessary to include it? --->
-<!--- Is latency the only option for the key? What are there other keys?--->
