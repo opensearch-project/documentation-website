@@ -8,7 +8,7 @@ nav_order: 45
 
 # Trace peer forwarder
 
-The `Trace peer forwarder` processor is used to reduce the number of events that are forwarded in a trace analytics pipeline <!--- Add link to Trace analytics here ---> by half when using [Peer forwarder]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/peer-forwarder/). It groups the events based on `trace_id` similar to the `service_map_stateful` and `otel_trace_raw ` processors. 
+The `Trace peer forwarder` processor is used to reduce the number of events that are forwarded in a [trace analytics]({{site.url}}{{site.baseurl}}/data-prepper/common-use-cases/trace-analytics/) pipeline by half when using [Peer forwarder]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/peer-forwarder/). It groups the events based on `trace_id` similar to the `service_map_stateful` and `otel_trace_raw ` processors. 
 
 <!--- Why is it reducing events? Why by half? WHat is the benefit/how does it help? How does it actually reduce events? Then lead into grouping by `trace_id` --->
 
