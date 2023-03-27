@@ -9,9 +9,11 @@ nav_order: 50
 Introduced 2.8
 {: .label .label-purple }
 
-OpenSearch Dashboards' alerting and anomaly detection features allow you to localize and address errors, fraud, or potential issues in your system before they become serious problems and to improve the accuracy of your data and analytics. Common use cases for alerting and anomaly detection include network behavior, application performance, and web application security.
+OpenSearch Dashboards' alerting and anomaly detection features allow you to localize and address errors, fraud, or potential issues in your system before they become serious problems and to improve the accuracy of your data and analytics.
 
-In this tutorial, you'll learn to perform anomaly detection using the **Discover** application and line chart visualizations with OpenSearch sample data. At the end of this tutorial, you should have a good idea of how to use the Discover application and visualizations to monitor your own data.
+Alerts and anomalies are closely related, but they serve different purposes. Alerts inform you of issues that require immediate attention, while anomalies help you detect issues that may not yet have triggered an alert. By using both alerts and anomalies in your monitoring system, you can proactively manage and troubleshoot your system. 
+
+In this tutorial, you'll learn to perform anomaly detection using the **Discover** application and line chart visualizations with OpenSearch sample data. At the end of this tutorial, you should have a good idea of how to use the Discover application and visualizations to monitor your own data. Common use cases for alerting and anomaly detection include network behavior, application performance, and web application security.
 
 The following video provides a quick overview of the steps performed in this tutorial:
 
@@ -86,20 +88,21 @@ An existing monitor is now associated to the visualization, as shown in the foll
 
  <insert UI>
 
-## Verifying an alerting monitor is running
+## Exploring alerting monitor details
 
-Once you have created or associated alerting monitors, verify the monitor is generating the alerts by following these steps:
+Once you have created or associated alerting monitors, you can verify the monitor is generating the alerts and explore the alert details by following these steps:
 
 1. From the dashboard, view the <**name**> visualization. Alerts are indicated with a red triangle. 
 2. Hover over a triangle to view the alert count details. To investigate the alert details, select a triangle to activate the pop-up window containing the monitor details. Alternatively, select the ellipsis icon in the visualization pane and choose **View events** to view those details.
+3. To explore a specific monitor's details from the visualization pane, select the ellipsis icon, **Alerting**, and **Associated monitors**. 
+4. From the Associated monitors window, view the monitor list and then choose an alerting monitor, for example, <**CPU Usage Across World**>. Monitor details such as history, alerts, and associated visualizations, are shown on the monitor page.
+5. _Optional_: From the Associated monitors window, unlink a monitor from the visualization by selecting the link icon under **Actions**. This unlinks the monitor from the visualization only; it does not delete the monitor itself.
+6. _Optional_: From the Associate monitors window, edit metrics, for example, for the threshold for CPU usage. 
 
-Monitor details are now viewable in the dashboard and visualization pane, as shown in the following image:
+
+Monitor details are viewable from the dashboard and visualization pane, as shown in the following image:
 
 <insert UI>
-
-## Monitoring alerting monitors 
-
-To monitor the alerting monitors, 
 
 ## Creating anomaly detectors
 
