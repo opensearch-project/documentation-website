@@ -42,8 +42,6 @@ Configuration for this processor involves specifying a key and specifying option
 
 You can configure `random_cut_forest` mode with the following options. 
 
- <!--- Convert to table.--->
-
 | Name | Default value | Range | Description |
 | :--- | :--- | :--- |
 | `shingle_size` | `4` | 1 - 60 | The shingle size to be used in the ML algorithm. |
