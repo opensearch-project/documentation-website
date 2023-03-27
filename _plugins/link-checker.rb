@@ -31,7 +31,7 @@ module Jekyll::LinkChecker
   ##
   # Pattern to identify documents that should be excluded based on their URL
 
-  @excluded_paths = %r{(/_faqs/|\.(css|js|json|map|xml|txt|yml|svg|)$)}i.freeze
+  @excluded_paths = %r{(/_faqs/|\.(css|js|tpl|json|map|xml|txt|yml|svg|)$)}i.freeze
 
   ##
   # Pattern to identify certain HTML tags whose content should be excluded from indexing
@@ -283,11 +283,12 @@ module Jekyll::LinkChecker
       return true if @ignored_domains.include? uri.host
 
       Net::HTTP.start(uri.host, uri.port, use_ssl: true) do |http|
-        # http.use_ssl = (uri.scheme == "https")
-
         request = Net::HTTP::Head.new(uri)
 
         http.request(request) do |response|
+          # retry with a GET on a 405 method not allowed or 404 not found
+          response = http.request(Net::HTTP::Get.new(uri)) if %w[405 404].include?(response.code) 
+
           return true if @success_codes.include? response.code
 
           if @@retry_codes.include? response.code
