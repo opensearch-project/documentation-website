@@ -44,6 +44,8 @@ You can configure `random_cut_forest` mode with the following options.
 
  <!--- Convert to table.--->
 
+| Name | Default value | Range | Description |
+| :--- | :--- | :--- |
 * `shingle_size` - shingle size to be used in the ML algorithm
   * Default: `4`
   * Range: 1 - 60
