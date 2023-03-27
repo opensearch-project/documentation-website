@@ -11,7 +11,7 @@ Introduced 2.8
 
 OpenSearch Dashboards' alerting and anomaly detection features allow you to localize and address errors, fraud, or potential issues in your system before they become serious problems and to improve the accuracy of your data and analytics. Common use cases for alerting and anomaly detection include network behavior, application performance, and web application security.
 
-In this tutorial, you'll learn to perform anomaly detection using the Discover application and line chart visualizations with OpenSearch sample data. At the end of this tutorial, you should have a good idea of how to use the Discover application and visualizations to monitor your own data.
+In this tutorial, you'll learn to perform anomaly detection using the **Discover** application and line chart visualizations with OpenSearch sample data. At the end of this tutorial, you should have a good idea of how to use the Discover application and visualizations to monitor your own data.
 
 The following video provides a quick overview of the steps performed in this tutorial:
 
@@ -29,7 +29,8 @@ The following is useful terminology to understand before getting started with th
 - _Action_ refers to the information that you want the monitor to send out after being triggered. Actions have a destination, a message subject, and a message body.
 - _Destination_ refers to a reusable location for an action. Supported locations are Slack, email, or custom webhook.
 
-If you need more context about these features in OpenSearch Dashboards, see the OpenSearch documentation for [Alerting]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/index/) and [Anomaly Detection]({{site.url}}{{site.baseurl}}/observing-your-data/ad/index/). 
+For an overview of the OpenSearch Alerting and Anomaly Detection plugins, see the OpenSearch documentation for [Alerting]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/index/) and [Anomaly Detection]({{site.url}}{{site.baseurl}}/observing-your-data/ad/index/).
+{: .note} 
 
 ## Prerequisites 
 
@@ -59,26 +60,52 @@ By default, when you begin to create the alert monitor workflow with the Discove
 Alerts and anomalies are visualized in line charts on a dashboard. To create an alerting monitor using the Discover application and sample data and to visualize the alerts on a dashboard, follow these steps:  
 
 1. From the OpenSearch Dashboards main menu, select **Discover**.
-2. From <window>, select the **<name> sample dataset. You will see a pre-populated dashboard with line chart visualizations.
-3. Select the ellipsis icon on the line chart titled **CPU Usage Across World**, then select **Alerting** > **Add alerting monitor**.
+2. From **<window>**, select the **<name>** sample dataset. You will see a pre-populated dashboard with line chart visualizations.
+3. Select the ellipsis icon on the line chart titled **<name>**, then select **Alerting** > **Add alerting monitor**.
 4. Select **Create new monitor**.
 5. From the **Add alerting monitor** window, configure the **Monitor details** and **Triggers**
 6. In **Monitor details**, select <option> from the dropdown menu.
-7. In **Triggers**, select <option> from the dropdown menu.
-8. In **Notifications**, select <option> from the dropdown menu. 
+7. In **Triggers**, select <option> from the dropdown menu, and then specify a name and severity level for the trigger.
+8. _Optional_: In **Notifications**, select <option> from the dropdown menu, and then customize the notification message and select the Notification channel.
 9. Choose **Create monitor**.
 
-Once you've created a new monitor, the monitor is added both to the visualization itself and the list of alerting monitors under the plugin.  
+Once you've created a new monitor, the monitor is added to the visualization, as shown in the following image.  
+
+ <insert UI>
 
 ## Adding an associated monitor
 
+You can add existing monitors to a visualization using the Discover application instead of Stack Management, giving you a single user interface where can add, view, and edit monitors and monitor details. Continuing with the visualization and dashboard in the preceding tutorial, follow these steps to associate an existing monitor to a visualization:
 
+1. From the dashboard, select the ellipsis icon on the **<name>**, then **Alerting**.
+2. Select **Associate existing monitor**.
+3. From the **Select monitor to associate** dropdown menu, view the list of existing monitors and then select the desired monitor. In this example, select **<name>**. Note that basic information about the monitor is summarized in the window. To view more comprehensive details, select **View monitor page**, which opens the monitor details from the Alerting plugin window. 
+4. Verify you have selected the appropriate monitor, and then select **Associate monitor**. 
+
+An existing monitor is now associated to the visualization, as shown in the following image:
+
+ <insert UI>
+
+## Verifying an alerting monitor is running
+
+Once you have created or associated alerting monitors, verify the monitor is generating the alerts by following these steps:
+
+1. From the dashboard, view the <**name**> visualization. Alerts are indicated with a red triangle. 
+2. Hover over a triangle to view the alert count details. To investigate the alert details, select a triangle to activate the pop-up window containing the monitor details. Alternatively, select the ellipsis icon in the visualization pane and choose **View events** to view those details.
+
+Monitor details are now viewable in the dashboard and visualization pane, as shown in the following image:
+
+<insert UI>
+
+## Monitoring alerting monitors 
+
+To monitor the alerting monitors, 
 
 ## Creating anomaly detectors
 
 Anomaly detectors identify unusual patterns or outliers in a dataset. Once  you've defined your problem and prepared your data, you can load it into OpenSearch for indexing. In the following steps, you'll continue using the sample dataset that you used in the preceding steps. 
 
-To create an anomaly detector using the Discover application and sample data and to visualize the anomalies on a dashboard, follow these steps: 
+To create an anomaly detector using the Discover application and OpenSearch sample data and then visualize the anomalies on a dashboard, follow these steps: 
 
 1. From the From the OpenSearch Dashboards main menu, select **Discover**.
 2. From <window>, select the **<name>** sample dataset. You will see a pre-populated dashboard with line chart visualizations.
