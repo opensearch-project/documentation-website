@@ -81,7 +81,7 @@ You can add existing monitors to a visualization using the Discover application 
 
 1. From the dashboard, select the ellipsis icon on the **<name>**, then **Alerting**.
 1. Select **Associate existing monitor**.
-1. From the **Select monitor to associate** dropdown menu, view the list of existing monitors and then select the desired monitor. In this example, select **<name>**. Note that basic information about the monitor is summarized in the window. To view more comprehensive details, select **View monitor page**, which opens the monitor details from the Alerting plugin window. 
+1. From the **Select monitor to associate** dropdown menu, view the list of existing monitors and then select the desired monitor. In this example, select **<name>**. Note that basic information about the monitor is summarized in the window. To view more comprehensive details, select **View monitor page**, which opens the monitor details from the Alerting plugin page. 
 1. Verify you have selected the appropriate monitor, and then select **Associate monitor**. 
 
 An existing monitor is now associated to the visualization, as shown in the following image:
@@ -122,15 +122,33 @@ Once you have created a new detector, the detector is added to the visualization
 
 <insert UI>
 
-### Creating an altering monitor from the detector
+### Creating an alerting monitor from the detector
 
-To set up an alerting monitor from the detector window, follow these steps:
+You can set up an alerting monitor based on your detector in one flow from the visualization. To set up an alerting monitor based on the detector created in the preceding steps, follow these steps:
 
-1. 
+1. In the notification pop-up window that appears after you have created the detector, select **Set up alerts**.
+2. Follow the steps described in [Creating alerting monitors](#creating-alerting-monitors).
 
-## Adding associated detectors
+You now have an alerting monitor and anomaly detector associated with the visualization.
 
+<insert UI>
 
+## Adding associated anomaly detectors
+
+You can add existing detectors to a visualization using the Discover application instead of Stack Management, giving you a single user interface where can add, view, and edit monitors and monitor details. Continuing with the visualization and dashboard in the preceding tutorial, follow these steps to associate an anomaly detector to a visualization: 
+ 
+1. From the dashboard, select the ellipsis icon on the **<name>**, then **Anomaly Detection**.
+2. Select **Associate a detector**.
+3. From the **Select detector to associate** dropdown menu, view the list of existing monitors and then select the desired monitor. In this example, select **<name>**. Note that basic information about the monitor is summarized in the window. To view more comprehensive details, select **View detector page**, which opens the detector details from the Anomaly Detection plugin page. 
+4. Verify you have selected the appropriate detector, and then select **Associate detector**. 
+
+An existing detector is now associated to the visualization, as shown in the following image:
+
+<insert UI>
+
+## Refreshing the visualization
+
+Depending on the threshold settings, the visualization refreshes at the set interval. To manually refresh the visualization to display real-time alerts and anomalies, select **Refresh** on the dashboard window.
 
 ## Considerations and limitations
 
