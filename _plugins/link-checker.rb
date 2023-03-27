@@ -326,7 +326,7 @@ module Jekyll::LinkChecker
     rescue OpenSSL::SSL::SSLError, Net::OpenTimeout, Errno::ETIMEDOUT, Errno::ECONNREFUSED => e
       Jekyll.logger.error "LinkChecker: [Error] Exception Occurred for URL #{url} #{e.class}. Message: #{e.message}."
       false
-    rescue StandardError => e
+    rescue URI::InvalidURIError, StandardError => e
       # TODO: This should not return false, but instead re raise. We should not have unknown exceptions
       Jekyll.logger.error "LinkChecker: [Error] Unknown Error::URL: #{url}\nError: #{e.class}. Message: #{e.message}."
       false
