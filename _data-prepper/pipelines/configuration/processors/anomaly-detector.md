@@ -22,7 +22,7 @@ Configuration for this processor involves specifying a key and specifying option
 | Name | Required | Description |
 | :--- | :--- | :--- |
 | `keys` | Yes | A non-ordered `List<String>` which are used as inputs to the ML algorithm to detect anomalies in the values of the keys in the list. At least one key is required.
-| `mode` | Yes |  The ML algorithm (or model) to use to detect anomalies. One of the existing [Modes](#modes) must be provided. See [random_cut_forest](#random_cut_forest).
+| `mode` | Yes |  The machine learning (ML) algorithm (or model) to use to detect anomalies. One of the existing [Modes](#modes) must be provided. See [random_cut_forest](#random_cut_forest).
 
 ### Keys
 
@@ -46,21 +46,11 @@ You can configure `random_cut_forest` mode with the following options.
 
 | Name | Default value | Range | Description |
 | :--- | :--- | :--- |
-* `shingle_size` - shingle size to be used in the ML algorithm
-  * Default: `4`
-  * Range: 1 - 60
-* `sample_size` - sample size size to be used in the ML algorithm
-  * Default: `256`
-  * Range: 100 - 2500
-* `time_decay` - time decay value to be used in the ML algorithm. Used as (timeDecay/SampleSize) in the ML algorithm
-  * Default: `0.1`
-  * Range: 0 - 1.0
-* `type` - Type of data that is being sent to the algorithm
-  * Default: `metrics`
-  * Others types like `traces` will be supported in future
-* `version` - version of the algorithm
-  * Default: `1.0`
-
+| `shingle_size` | `4` | 1 - 60 | The shingle size to be used in the ML algorithm. |
+| `sample_size` | `256` | 100 - 2500 | Sample size size to be used in the ML algorithm. |
+| `time_decay` | `0.1` | 0 - 1.0 | The time decay value to be used in the ML algorithm. Used as (timeDecay/SampleSize) in the ML algorithm. |
+| `type` | `metrics` | N/A | Type of data that is being sent to the algorithm. Other types, such as `traces`, will be supported in future releases. |
+| `version` | `1.0` | N/A | The algorithm version number. |
 
 ## Usage
 
