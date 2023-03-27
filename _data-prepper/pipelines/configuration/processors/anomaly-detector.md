@@ -38,7 +38,7 @@ Configuration for this processor involves specifying a key and specifying option
         ```
         Where `deviation_from_expected` is a list of deviations for each of the keys from their corresponding expected values and `grade` is the anomaly grade indicating the severity of the anomaly
 
-        <!--- What other modes exist? Is this the only mode?-->
+       
 
 You can configure `random_cut_forest` mode with the following options. 
 
@@ -77,7 +77,9 @@ ad-pipeline:
     - stdout:
 ```
 
-When you run the `Anomaly detector` processor, it parses the messages and extracts the values for the `latency` key, then passes it <!--- The key?---> through `RandomCutForest` <!--- Where does this appear? Is it accurate? Should it be random_cut_forest? Can we say random_cut_forest mode? ---> machine-learning algorithm.
+When you run the `Anomaly detector` processor, it parses the messages and extracts the values for the `latency` key, then passes it through `RandomCutForest` machine-learning algorithm.
 
+<!--- "...extracts the values for the `latency` key, then passes it..." - Passes what? The key? --->
+<!--- Where does `RandomCutForest` as it is typed here appear? Is it accurate? Does it need to align with other instances in this doc as `random_cut_forest`? Should we say random_cut_forest mode?--->
 <!--- Is parsing the correct terminlogy? Is it necessary to include it? --->
 <!--- Is latency the only option for the key? What are there other keys?--->
