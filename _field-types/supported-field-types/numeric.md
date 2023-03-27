@@ -25,6 +25,7 @@ Field data type | Description
 
 :--- | :--- 
 [`scaled_float`](#scaled-float-field-type) | A floating-point value that is multiplied by the double scale factor and stored as a long value.
+[`unsigned_long`](unsigned_long.md) | An unsigned 64-bit integer. Minimum value is 0. Maximum value of 2^64-1..
 
 Integer, long, float, and double field types have corresponding [range field types]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/range/).
 {: .note }
