@@ -278,14 +278,14 @@ module Jekyll::LinkChecker
   # Check if an external URL is accessible by making a HEAD call
 
   def self.check_external(url)
-    uri = URI(url)
-    return true if @ignored_domains.include? uri.host
-
     begin
+      uri = URI(url)
+      return true if @ignored_domains.include? uri.host
+
       Net::HTTP.start(uri.host, uri.port, use_ssl: true) do |http|
         # http.use_ssl = (uri.scheme == "https")
 
-        request = Net::HTTP::Get.new(uri)
+        request = Net::HTTP::Head.new(uri)
 
         http.request(request) do |response|
           return true if @success_codes.include? response.code
@@ -326,7 +326,7 @@ module Jekyll::LinkChecker
     rescue OpenSSL::SSL::SSLError, Net::OpenTimeout, Errno::ETIMEDOUT, Errno::ECONNREFUSED => e
       Jekyll.logger.error "LinkChecker: [Error] Exception Occurred for URL #{url} #{e.class}. Message: #{e.message}."
       false
-    rescue URI::InvalidURIError, StandardError => e
+    rescue StandardError => e
       # TODO: This should not return false, but instead re raise. We should not have unknown exceptions
       Jekyll.logger.error "LinkChecker: [Error] Unknown Error::URL: #{url}\nError: #{e.class}. Message: #{e.message}."
       false
