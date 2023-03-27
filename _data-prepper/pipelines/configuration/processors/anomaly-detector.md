@@ -12,7 +12,7 @@ nav_order: 45
 
 The `Anomaly detector` processor takes structured data and runs anomaly detection algorithms on fields you can configure in the data. The data must be either an integer or real number in order for the the anomaly detection algorithm to detect anomalies. We recommend that you deploy the `Aggregate` processor in a pipeline before the `Anomaly detector` processor to achieve the best results.  This is because the `Aggregate` processor aggregates events with same keys onto the same host.
 
-This processor uses the random cut forest mode to detect anomalies. <!--- Add other modes to this description if they exist.--->
+This processor uses the random cut forest mode to detect anomalies. 
 
 
 ## Configuration
