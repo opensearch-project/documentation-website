@@ -26,9 +26,6 @@ Configuration for this processor involves specifying a key and specifying option
 
 ### Keys
 
-<!-- Explain keys here,--->
-
-<!--- Examples of keys.--->
 
 <!--- Make the following into a table.--->
 
