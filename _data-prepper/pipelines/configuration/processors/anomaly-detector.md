@@ -27,16 +27,21 @@ Configuration for this processor involves specifying a key and specifying option
 ### Keys
 
 
-<!--- Make the following into a table.--->
-
 ### random_cut_forest mode
-* `random_cut_forest`: Processes events using Random Cut Forest ML algorithm to detect anomalies.
-  * After passing a bunch of events with `latency` value between 0.2 and 0.3 are passed through the anomaly detector, when an event with `latency` value 11.5 is sent, the following anomaly event will be generated
-  * More details about this can be found at https://docs.aws.amazon.com/sagemaker/latest/dg/randomcutforest.html
-        ```json
-            { "latency": 11.5, "deviation_from_expected":[10.469302736820003],"grade":1.0}
-        ```
-        Where `deviation_from_expected` is a list of deviations for each of the keys from their corresponding expected values and `grade` is the anomaly grade indicating the severity of the anomaly
+
+<!--- Add description for the random_forest_cut mode.--->
+
+| Name | Description |
+| :--- | :--- |
+| `random_cut_forest` | Processes events using Random Cut Forest ML algorithm to detect anomalies. After passing a bunch of events with `latency` value between 0.2 and 0.3 are passed through the anomaly detector, when an event with `latency` value 11.5 is sent, the following anomaly event will be generated. See [Random Cut Forest (RCF) Algorithm](https://docs.aws.amazon.com/sagemaker/latest/dg/randomcutforest.html) for more details.| 
+
+
+
+ ```json
+  { "latency": 11.5, "deviation_from_expected":[10.469302736820003],"grade":1.0}
+```
+
+Where `deviation_from_expected` is a list of deviations for each of the keys from their corresponding expected values and `grade` is the anomaly grade indicating the severity of the anomaly
 
        
 
