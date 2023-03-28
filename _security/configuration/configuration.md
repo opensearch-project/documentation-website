@@ -78,8 +78,8 @@ http_authenticator:
 These are the allowed values for `type`:
 
 - `basic`: HTTP basic authentication. No additional configuration is needed.
-- `kerberos`: Kerberos authentication. Additional, [Kerberos-specific configuration](#kerberos) is needed.
-- `jwt`: JSON Web Token authentication. Additional, [JWT-specific configuration](#json-web-token) is needed.
+- `kerberos`: Kerberos authentication. Additional [Kerberos-specific configuration](#kerberos) is needed.
+- `jwt`: JSON Web Token authentication. Additional [JWT-specific configuration](#json-web-token) is needed.
 - `clientcert`: Authentication through a client TLS certificate. This certificate must be trusted by one of the root CAs in the truststore of your nodes.
 
 After setting an HTTP authenticator, you must specify against which backend system you want to authenticate the user:
@@ -239,9 +239,9 @@ In this case, the header states that the message was signed using HMAC-SHA256.
 
 #### Payload
 
-The payload of a JSON Web Token contains the so-called [JWT Claims](https://self-issued.info/docs/draft-ietf-oauth-json-web-token.html#RegisteredClaimName). A claim can be any piece of information about the user that the application that created the token has verified.
+The payload of a JSON Web Token contains the so-called [JWT Claims](https://auth0.com/docs/secure/tokens/json-web-tokens/json-web-token-claims). A claim can be any piece of information about the user that the application that created the token has verified.
 
-The specification defines a set of standard claims with reserved names ("registered claims"). These include, for example, the token issuer, the expiration date, or the creation date.
+The specification defines a set of standard claims with reserved names, referred to as [registered claims](https://www.iana.org/assignments/jwt/jwt.xhtml#claims). Some examples of these claims include token issuer (iss), expiration time (exp), and subject (sub).
 
 Public claims, on the other hand, can be created freely by the token issuer. They can contain arbitrary information, such as the user name and the roles of the user.
 
