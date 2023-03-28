@@ -15,14 +15,9 @@ The `OTel logs source` is a source that follows the [OTLP Protocol](https://gith
 This source supports ```OTLP/grpc```. <!--- Is this a source or a processor?--->
 
 
-## Usages
-Example `.yaml` configuration:
-```
-source:
-    - otel_logs_source:
-```
+## Configuration
 
-## Configurations
+You can configure the `otel_logs_source` source with the following options.
 
 <!--- Convert to table.--->
 
@@ -37,8 +32,11 @@ source:
 
 ### SSL
 
-<!--- Convert to table.--->
+You can configure SSL in the `otel_logs_source` source with the following options.
 
+<!--- Convert to table.--->
+Option | Required | Type | Description
+:--- | :--- | :--- | :---
 * ssl(Optional) => A boolean enables TLS/SSL. Default is ```true```.
 * sslKeyCertChainFile(Optional) => A `String` represents the SSL certificate chain file path or AWS S3 path. S3 path example ```s3://<bucketName>/<path>```. Required if ```ssl``` is set to ```true```.
 * sslKeyFile(Optional) => A `String` represents the SSL key file path or AWS S3 path. S3 path example ```s3://<bucketName>/<path>```. Required if ```ssl``` is set to ```true```.
@@ -46,12 +44,25 @@ source:
 * acmCertificateArn(Optional) => A `String` represents the ACM certificate ARN. ACM certificate take preference over S3 or local file system certificate. Required if ```useAcmCertForSSL``` is set to ```true```.
 * awsRegion(Optional) => A `String` represents the AWS region to use ACM or S3. Required if ```useAcmCertForSSL``` is set to ```true``` or ```sslKeyCertChainFile``` and ```sslKeyFile``` is ```AWS S3 path```.
 
+## Usage
+
+To get started, create a `pipeline.yaml` file. See the following `YAML` file configuration example:
+
+```
+source:
+    - otel_logs_source:
+```
+
+
 ## Metrics
+
+You can use the following metrics with the `otel_logs_source` source.
 
 ### Counter
 
 <!--- Convert to table.--->
-
+Option | Required | Type | Description
+:--- | :--- | :--- | :---
 - `requestTimeouts`: measures total number of requests that time out.
 - `requestsReceived`: measures total number of requests received by Otel logs source.
 - `badRequests`: measures total number of requests that could not be parsed.
