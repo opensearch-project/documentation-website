@@ -204,4 +204,4 @@ Also make sure `.tdc` that was downloaded with the installer is copied correctly
 
 ## Connecting to Microsoft Power BI
 
-Follow the [installation instructions](https://github.com/opensearch-project/sql/blob/main/bi-connectors/PowerBIConnector/README.md) and the [configuration instructions](https://github.com/opensearch-project/sql/blob/main/bi-connectors/PowerBIConnector/power_bi_support.md) published in the GitHub repository.
+Follow the [installation instructions](https://github.com/opensearch-project/sql-odbc/tree/main/bi-connectors/PowerBIConnector/README.md) and the [configuration instructions](https://github.com/opensearch-project/sql-odbc/blob/main/bi-connectors/PowerBIConnector/power_bi_support.md) published in the GitHub repository.
