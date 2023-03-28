@@ -8,7 +8,7 @@ nav_order: 45
 
 # Parse JSON processor
 
-The `parse_json` processor parses JSON data for an event, including any nested fields. 
+The `parse_json` processor parses JSON data for an event, including any nested fields. The processor extracts the JSON pointer data and adds the input event to the extracted fields.
 
 ## Usage
 
