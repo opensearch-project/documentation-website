@@ -24,8 +24,6 @@ parse-json-pipeline:
     - stdout:
 ```
 
-
-
 ### Basic example
 
 You can test the JSON Processor with the previous configuration by using the following example.
