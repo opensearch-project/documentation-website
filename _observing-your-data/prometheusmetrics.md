@@ -1,16 +1,16 @@
 ---
 layout: default
-title: Prometheus and metrics analysis
+title: Metrics analytics
 nav_order: 40
 redirect_from:
   - /observing-your-data/prometheusmetrics/
 ---
 
-# Prometheus and metrics analysis
+# Metrics analytics
 Introduced 2.4
 {: .label .label-purple }
 
-Starting with OpenSearch 2.4, you can ingest and visualize metric data from the open-source [Prometheus](https://prometheus.io/) monitoring solution and from log data aggregated within OpenSearch, allowing you to analyze and correlate data across logs, traces, and metrics. Previously, you could ingest and visualize only logs and traces from your monitored environments. With this feature, you can observe your digital assets with more granularity, gain deeper insight into the health of your infrastructure, and better inform your root cause analysis.
+Starting with OpenSearch 2.4, you can ingest and visualize metric data from log data aggregated within OpenSearch, allowing you to analyze and correlate data across logs, traces, and metrics. Previously, you could ingest and visualize only logs and traces from your monitored environments. With this feature, you can observe your digital assets with more granularity, gain deeper insight into the health of your infrastructure, and better inform your root cause analysis.
 
 The following image shows the process of ingesting metrics from Prometheus and visualizing them in a dashboard.
 
