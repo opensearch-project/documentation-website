@@ -36,16 +36,26 @@ Finally, your OpenSearch Benchmark host should use solid-state drives (SSDs) for
 
 ## Software dependencies
 
-OpenSearch Benchmark has a few software dependencies that vary depending on your specific use case. If you only intend to benchmark existing, remote clusters, then you only need to install the [required software](#required-software). If you plan to run OpenSearch on the same host, however, then there is [additional optional software](#additional-optional-software) that you need to install.
+OpenSearch Benchmark has a few software dependencies based on your specific use case. If you only intend to benchmark existing, remote clusters then you only need to install the [required software](#required-software). If you plan to run OpenSearch on the same host, however, then there is [additional optional software](#additional-optional-software) that you need to install.
 
 ### Required software
 
-OpenSearch Benchmark is written in the [Python](https://www.python.org/) programming language. Before you can install OpenSearch Benchmark you must install **Python 3.8 or newer** along with [pip](https://pypi.org/project/pip/), the package installer for Python.
+OpenSearch Benchmark is written in the [Python](https://www.python.org/) programming language and requires **Python 3.8 or newer** along with [pip](https://pypi.org/project/pip/), the package installer for Python.
 
 You can check whether Python 3 is installed, and the version, with the following command:
 ```bash
 python3 --version
 ```
+{% include copy.html %}
+
+If a compatible version of Python 3 isn't installed, then we recommend using a Python management tool like [pyenv](https://github.com/pyenv/pyenv). For installation instructions, refer to the pyenv [Installation](https://github.com/pyenv/pyenv#installation) documentation.
+
+Lastly, confirm that pip is installed with the following command:
+```bash
+pip3 --version
+```
+
+For information about installing pip, see [pip documentation](https://pip.pypa.io/en/stable/).
 
 
 - [Git](https://git-scm.com/) 1.9 or newer.
