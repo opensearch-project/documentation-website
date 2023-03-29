@@ -17,32 +17,32 @@ This source supports ```OTLP/grpc```. <!--- Is this a source or a processor?--->
 
 ## Configuration
 
-You can configure the `otel_logs_source` source with the following options.
+You can configure the `otel_logs_source` source with the following options. <!--- Are all options in both of these tables optional?--->
 
-<!--- Convert to table.--->
-
-* port(Optional) => An `int` represents the port OTel logs source is running on. Default is ```21892```.
-* path(Optional) => A `String` which represents the path for sending unframed HTTP requests. This can be used for supporting unframed gRPC with HTTP idiomatic path to a configurable path. It should start with `/` and length should be at least 1. `/opentelemetry.proto.collector.logs.v1.LogsService/Export` endpoint will be disabled for both gRPC and HTTP requests if path is configured. Path can contain `${pipelineName}` placeholder which will be replaced with pipeline name.
-* request_timeout(Optional) => An `int` represents request timeout in millis. Default is ```10_000```.
-* health_check_service(Optional) => A boolean enables a gRPC health check service under ```grpc.health.v1 / Health / Check```. Default is ```false```.
-* proto_reflection_service(Optional) => A boolean enables a reflection service for Protobuf services (see [ProtoReflectionService](https://grpc.github.io/grpc-java/javadoc/io/grpc/protobuf/services/ProtoReflectionService.html) and [gRPC reflection](https://github.com/grpc/grpc-java/blob/master/documentation/server-reflection-tutorial.md) docs). Default is ```false```.
-* unframed_requests(Optional) => A boolean to enable requests not framed using the gRPC wire protocol. 
-* thread_count(Optional) => the number of threads to keep in the ScheduledThreadPool. Default is `200`.
-* max_connection_count(Optional) => the maximum allowed number of open connections. Default is `500`.
+| Option | Required | Default | Description |
+| :--- | :--- | :--- | :--- |
+| port | No | `21892` | An `int` that represents the port that `OTel logs source` is running on.
+| path | No | <!--- Is there a default? --->  | A `String` which represents the path for sending unframed HTTP requests. This can be used for supporting unframed gRPC with HTTP idiomatic path to a configurable path. It should start with `/` and length should be at least 1. `/opentelemetry.proto.collector.logs.v1.LogsService/Export` endpoint will be disabled for both gRPC and HTTP requests if path is configured. Path can contain `${pipelineName}` placeholder which will be replaced with pipeline name.
+| request_timeout | No | `10,000` | An `int` represents request timeout in milliseconds.
+| health_check_service | No | `false` | A boolean enables a gRPC health check service under `grpc.health.v1 / Health / Check`.
+| proto_reflection_service | No | `false` | A boolean enables a reflection service for Protobuf services (see [ProtoReflectionService](https://grpc.github.io/grpc-java/javadoc/io/grpc/protobuf/services/ProtoReflectionService.html) and [gRPC reflection](https://github.com/grpc/grpc-java/blob/master/documentation/server-reflection-tutorial.md) documents).
+| unframed_requests | No | <!--- Is there a default? ---> | A boolean to enable requests not framed using the gRPC wire protocol. 
+| thread_count(Optional) | No | `500` | The number of threads to keep in the `ScheduledThreadPool`.
+| max_connection_count | No | `500` |The maximum allowed number of open connections.
 
 ### SSL
 
 You can configure SSL in the `otel_logs_source` source with the following options.
 
 <!--- Convert to table.--->
-Option | Required | Type | Description
-:--- | :--- | :--- | :---
-* ssl(Optional) => A boolean enables TLS/SSL. Default is ```true```.
-* sslKeyCertChainFile(Optional) => A `String` represents the SSL certificate chain file path or AWS S3 path. S3 path example ```s3://<bucketName>/<path>```. Required if ```ssl``` is set to ```true```.
-* sslKeyFile(Optional) => A `String` represents the SSL key file path or AWS S3 path. S3 path example ```s3://<bucketName>/<path>```. Required if ```ssl``` is set to ```true```.
-* useAcmCertForSSL(Optional) => A boolean enables TLS/SSL using certificate and private key from AWS Certificate Manager (ACM). Default is ```false```.
-* acmCertificateArn(Optional) => A `String` represents the ACM certificate ARN. ACM certificate take preference over S3 or local file system certificate. Required if ```useAcmCertForSSL``` is set to ```true```.
-* awsRegion(Optional) => A `String` represents the AWS region to use ACM or S3. Required if ```useAcmCertForSSL``` is set to ```true``` or ```sslKeyCertChainFile``` and ```sslKeyFile``` is ```AWS S3 path```.
+| Option | Required | Default | Description |
+| :--- | :--- | :--- | :--- |
+| ssl | No | `true` | A boolean that enables TLS/SSL.
+| sslKeyCertChainFile | Yes, if `ssl` is set to `true`. | A `string` that represents the SSL certificate chain file path or AWS S3 path. S3 path example `s3://<bucketName>/<path>`.
+| sslKeyFile | Yes, if `ssl` is set to `true`. | A `string` that represents the SSL key file path or AWS S3 path. S3 path example `s3://<bucketName>/<path>`.
+| useAcmCertForSSL | No | `false` | A boolean enables TLS/SSL using certificate and private key from AWS Certificate Manager (ACM).
+| acmCertificateArn | No | Yes, if `useAcmCertForSSL` is set to `true`. | A `string` that represents the ACM certificate ARN. ACM certificate take preference over S3 or local file system certificate.
+| awsRegion | Yes, if `useAcmCertForSSL` is set to `true` or `sslKeyCertChainFile` and `sslKeyFile` is `AWS S3 path` | <!--- Is there a default? ---> | A `string` that represents the AWS region to use ACM or S3. Required .
 
 ## Usage
 
@@ -58,22 +58,13 @@ source:
 
 You can use the following metrics with the `otel_logs_source` source.
 
-### Counter
-
-<!--- Convert to table.--->
-Option | Required | Type | Description
-:--- | :--- | :--- | :---
-- `requestTimeouts`: measures total number of requests that time out.
-- `requestsReceived`: measures total number of requests received by Otel logs source.
-- `badRequests`: measures total number of requests that could not be parsed.
-- `requestsTooLarge`: measures total number of requests that exceed the maximum allowed size. Indicates the size of the data to be written into the buffer is beyond buffer's maximum capacity.
-- `internalServerError`: measures total number of requests that are erroneous due to any other reason than requestTimeouts or requestsTooLarge error.
-- `successRequests`: measures total number of requests successfully written to the buffer.
-
-<!--- Consolidate the entries below into the table?--->
-
-### Summary
-- `payloadSize`: measures the distribution of all incoming payload sizes.
-
-### Timer
-- `requestProcessDuration`: measures the duration of request processing.
+| Option | Type | Description |
+| :--- | :--- | :--- | :--- | 
+| `requestTimeouts` | Counter | Measures the total number of requests that time out. | 
+| `requestsReceived` | Counter | Measures the total number of requests received by Otel logs source. |
+| `badRequests` | Counter | Measures the total number of requests that could not be parsed. |
+| `requestsTooLarge` | Counter | Measures the total number of requests that exceed the maximum allowed size. Indicates the size of the data to be written into the buffer is beyond buffer's maximum capacity. |
+| `internalServerError` | Counter | Measures the total number of requests that are erroneous due to any other reason than requestTimeouts or requestsTooLarge error. |
+| `successRequests` | Counter | Measures the total number of requests successfully written to the buffer. |
+| `payloadSize` | Summary | Measures the distribution of all incoming payload sizes. |
+| `requestProcessDuration` | Timer | Measures the duration of request processing. |
