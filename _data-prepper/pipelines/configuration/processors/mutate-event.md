@@ -125,7 +125,7 @@ When you run this processor, it parses the message into the following output:
 
 ## DeleteEntry
 
-The `DeleteEntry` processor deletes entries in an event, such as key-value pairs. You can define the keys you want to delete in the `with-keys` field following `delete_entries` in the YAML configuration file. Those keys along with their values are deleted. 
+The `DeleteEntry` processor deletes entries from an event, such as key-value pairs. You can define the keys you want to delete in the `with-keys` field following `delete_entries` in the YAML configuration file. Those keys along with their values are deleted. 
 
 ### Configuration
 
@@ -260,7 +260,7 @@ After the `RenameKey` processor runs, the following output appears:
 
 ## ConvertEntry
 
-The `ConvertEntry` processor converts a value type associated with the specified key in a message to the specified type. It is a casting processor that changes the types of some fields in the event or message. Some entered data need to be converted to different types, such as an integer or a double, or a string to an integer, so that it will pass the events through condition-based processors or perform conditional routing. 
+The `ConvertEntry` processor converts a value type associated with the specified key in a message to the specified type. It is a casting processor that changes the types of some fields in the event or message. Some entered data needs to be converted to different types, such as an integer or a double, or a string to an integer, so that it will pass the events through condition-based processors or perform conditional routing. 
 
 ### Configuration
 
