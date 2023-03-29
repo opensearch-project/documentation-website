@@ -80,6 +80,11 @@ After the prerequisites are installed, you can install OpenSearch Benchmark with
 pip3 install opensearch-benchmark
 ```
 
+You can display information about usage and syntax by passing `-h` or `--help`:
+```bash
+opensearch-benchmark -h
+```
+
 ## Next steps
 
 ADD
