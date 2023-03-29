@@ -8,13 +8,13 @@ nav_order: 45
 
 # Mutate event processors
 
-Mutate event processors allow you to modify events in Data Prepper. You can use these processors to add entries to an event, delete entries from an event, rename keys in an event, copy values within an event, and convert value types in an event.  The following processors allow you to mutate an event:
+Mutate event processors allow you to modify events in Data Prepper. The following processors are available:
 
-* [AddEntries](#addentries)
-* [CopyValues](#copyvalues)
-* [DeleteEntry](#deleteentry)
-* [RenameKey](#renamekey)
-* [ConvertEntry](#convertentry)
+* [AddEntries](#addentries): Allows you to add entries to an event.
+* [CopyValues](#copyvalues): Allows you to copy values within an event.
+* [DeleteEntry](#deleteentry): Allows you to delete entries from an event.
+* [RenameKey](#renamekey): Allows you to rename keys in an event.
+* [ConvertEntry](#convertentry): Allows you to convert value types in an event.
 
 ## AddEntries
 
@@ -24,12 +24,12 @@ The `AddEntries` processor adds entries to an event.
 
 You can configure the `AddEntries` processor with the following options.
 
-| Option | Required | Description |
+| Option | Required | Description | Example | 
 | :--- | :--- | :--- |
-| `entries` | Yes | A list of entries to add to an event. |
-| `key` | Yes | The key of the new entry to be added. |
-| `value` | Yes | The value of the new entry to be added. You can use the following data types: strings, booleans, numbers, null, nested objects, and arrays. |
-| `overwrite_if_key_exists` | No | When set to `true`, if `key` already exists in the event, the existing value is overwritten. The default value is `false`. |
+| `entries` | Yes | A list of entries to add to an event. |    |
+| `key` | Yes | The key of the new entry to be added. |    |
+| `value` | Yes | The value of the new entry to be added. You can use the following data types: strings, booleans, numbers, null, nested objects, and arrays. |    |
+| `overwrite_if_key_exists` | No | When set to `true`, if `key` already exists in the event, the existing value is overwritten. The default value is `false`. |    |
 
 ### Usage
 
