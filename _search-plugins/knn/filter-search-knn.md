@@ -1,27 +1,25 @@
 ---
 layout: default
-title: Search with k-NN filters
-nav_order: 15
+title: k-NN search with filters
+nav_order: 20
 parent: k-NN
 has_children: false
 has_math: true
 ---
 
-# Search with k-NN filters
+# k-NN search with filters
 
 To refine k-NN results, you can filter a k-NN search using one of the following methods:
 
-- [Scoring script]({{site.url}}{{site.baseurl}}/search-plugins/knn/knn-score-script/#getting-started-with-the-score-script-for-vectors) on the subset of documents returned by a query: This approach is similar to running an exact k-NN search on the filtered subset but does not scale for large filtered subsets.
+- [Scoring script filter](#scoring-script-filter): This approach involves pre-filtering a document set and then running an exact k-NN search on the filtered subset. It does not scale for large filtered subsets.
 
-- [Boolean filter](#boolean-filter-with-ann-search): This approach runs an [Approximate nearest neighbor (ANN)]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn) search, and then applies the filter to the results. Because it uses post-filtering, a query with a Boolean filter may return significantly less than `k` results for a restrictive filter.
+- [Boolean filter](#boolean-filter-with-ann-search): This approach runs an [Approximate nearest neighbor (ANN)]({{site.url}}{{site.baseurl}}/search-plugins/knn/approximate-knn) search and then applies a filter to the results. Because of post-filtering, it may return significantly less than `k` results for a restrictive filter.
 
-- [Lucene k-NN filter](#using-a-lucene-k-nn-filter): This approach ensures that `k` results are returned because filtering is applied during the k-NN search as opposed to after the k-NN search, like in post-filtering. The drawback is that you can only use this method with the Hierarchical Navigable Small World (HNSW) algorithm implemented by a Lucene search engine.
+- [Lucene k-NN filter](#using-a-lucene-k-nn-filter): This approach applies filtering _during_ the k-NN search, as opposed to before or after the k-NN search, which ensures that `k` results are returned. You can only use this method with the Hierarchical Navigable Small World (HNSW) algorithm implemented by the Lucene search engine in k-NN plugin versions 2.4 and above.
 
 ## Filtered search optimization
 
-Overall, Lucene k-NN filters are more efficient compared to other filtering methods, both in terms of performance and relevancy of search results. 
-
-Depending on your dataset and use case, you might be more interested in maximizing recall or minimizing latency. The following table provides guidance on various k-NN search configurations and the filtering methods to use in order to optimize for better recall or lower latency. The first three columns of the table provide several example k-NN search configurations. A search configuration consists of:
+Depending on your dataset and use case, you might be more interested in maximizing recall or minimizing latency. The following table provides guidance on various k-NN search configurations and the filtering methods to use in order to optimize for higher recall or lower latency. The first three columns of the table provide several example k-NN search configurations. A search configuration consists of:
 
 - The number of documents in an index, where one OpenSearch document corresponds to one k-NN vector.
 - The percentage of documents left in the results after filtering. This value depends on the restrictiveness of the filter that you are providing in the query. The most restrictive filter in the table returns 2.5% of documents in the index, while the least restrictive filter returns 80% of documents.
@@ -29,7 +27,7 @@ Depending on your dataset and use case, you might be more interested in maximizi
 
 Once you've estimated the number of documents in your index, the restrictiveness of your filter, and the desired number of nearest neighbors, use the following table to choose a filtering method that optimizes for recall or latency.
 
-Number of documents in an index | Percentage of documents the filter returns | k | Filtering method to use for best recall | Filtering method to use for lowest latency
+Number of documents in an index | Percentage of documents the filter returns | k | Filtering method to use for higher recall | Filtering method to use for lower latency
 :-- | :-- | :-- | :-- | :--
 10M | 2.5 | 100 | Scoring script | Scoring script
 10M | 38 | 100 | Lucene filter | Boolean filter
@@ -37,6 +35,57 @@ Number of documents in an index | Percentage of documents the filter returns | k
 1M | 2.5 | 100 | Lucene filter | Scoring script
 1M | 38 | 100 | Lucene filter | Lucene filter/Scoring script
 1M | 80 | 100 | Boolean filter | Lucene filter
+
+## Scoring script filter
+
+A scoring script filter first filters the documents and then uses a brute-force exact k-NN search on the results. For example, the following query searches for hotels with a rating between 8 and 10, inclusive, that provide parking, and then performs a k-NN search to return the three hotels that are closest to the specified `location`:
+
+```json
+POST /hotels-index/_search
+{
+  "size": 3,
+  "query": {
+    "script_score": {
+      "query": {
+        "bool": {
+          "filter": {
+            "bool": {
+              "must": [
+                {
+                  "range": {
+                    "rating": {
+                      "gte": 8,
+                      "lte": 10
+                    }
+                  }
+                },
+                {
+                  "term": {
+                    "parking": "true"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      },
+      "script": {
+        "source": "knn_score",
+        "lang": "knn",
+        "params": {
+          "field": "location",
+          "query_value": [
+            5.0,
+            4.0
+          ],
+          "space_type": "l2"
+        }
+      }
+    }
+  }
+}
+```
+{% include copy-curl.html %}
 
 ## Boolean filter with ANN search
 
