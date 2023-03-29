@@ -50,25 +50,32 @@ python3 --version
 
 If a compatible version of Python 3 isn't installed, then we recommend using a Python management tool like [pyenv](https://github.com/pyenv/pyenv). For installation instructions, refer to the pyenv [Installation](https://github.com/pyenv/pyenv#installation) documentation.
 
-Lastly, confirm that pip is installed with the following command:
+Lastly, confirm that pip is installed on the host:
 ```bash
 pip3 --version
 ```
 
 For information about installing pip, see [pip documentation](https://pip.pypa.io/en/stable/).
 
-**Tip**: Install `pbzip2` to speed up the decompression of data corpora used by default OpenSearch Benchmark workloads.
-{: .tip}
-
 ### Additional optional software
 
 You may need to install additional software on the host if any of the following apply:
+- You want to use OpenSearch Benchmark to deploy a local instance of OpenSearch.
+- You want to run a benchmark using a default workload.
 
-- Launch local OS node (JDK, Docker, Docker Compose)
-- Use default workload (git)
-- 
+#### Deploying a local instance of OpenSearch
 
-- [Git](https://git-scm.com/) 1.9 or newer.
+When you use OpenSearch Benchmark to deploy a local instance of OpenSearch, the same requirements apply to the host as they would if you were manually installing OpenSearch. You must configure [important settings]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#important-settings), which includes increasing the maximum memory map count and installing an appropriate JDK version.
 
+[Docker Engine](https://docs.docker.com/engine/) and [Docker Compose](https://docs.docker.com/compose/) must also be installed because OpenSearch Benchmark uses Docker Compose to deploy a local container for testing.
+
+#### Running a benchmark using a default workload
+
+OpenSearch Benchmark requires git 1.9 or newer to retrieve default workloads from the [opensearch-benchmark-workloads](https://github.com/opensearch-project/opensearch-benchmark-workloads) repository on GitHub. Git is preinstalled on macOS. If your OpenSearch Benchmark host uses Linux, then you should refer to the Linux installation instructions for [git](https://git-scm.com/download/linux).
 
 ## Installing OpenSearch Benchmark
+
+After the prerequisites are installed, you can install OpenSearch Benchmark with pip:
+```bash
+pip3 install opensearch-benchmark
+```
