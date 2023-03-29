@@ -6,14 +6,16 @@ grand_parent: Pipelines
 nav_order: 45
 ---
 
-# OTel Logs Source
+# OTel Logs source
 
 ## Overview
 
-The `OTel logs source` is a source that follows the [OTLP Protocol](https://github.com/open-telemetry/oteps/blob/master/text/0035-opentelemetry-protocol.md) and exports `ExportLogsServiceRequest` records. 
+The `OTel logs source` is a source that follows the [OpenTelemtry Protocol Specification](https://github.com/open-telemetry/oteps/blob/master/text/0035-opentelemetry-protocol.md) and exports `ExportLogsServiceRequest` records. 
 
-This source supports ```OTLP/grpc```. <!--- Is this a source or a processor?--->
+<!--- Why do users want these records? Does this source do anything beyond exporting these records?--->
 
+This source supports the `OTLP/grpc` protocol.
+{: .note}
 
 ## Configuration
 
@@ -34,7 +36,6 @@ You can configure the `otel_logs_source` source with the following options. <!--
 
 You can configure SSL in the `otel_logs_source` source with the following options.
 
-<!--- Convert to table.--->
 | Option | Required | Default | Description |
 | :--- | :--- | :--- | :--- |
 | ssl | No | `true` | A boolean that enables TLS/SSL.
@@ -52,7 +53,6 @@ To get started, create a `pipeline.yaml` file. See the following `YAML` file con
 source:
     - otel_logs_source:
 ```
-
 
 ## Metrics
 
