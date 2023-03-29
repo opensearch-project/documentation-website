@@ -171,7 +171,6 @@ POST _bulk
 { "train-field": [4.5, 5.5, 6.7, 3.7]}
 { "index": { "_index": "train-index", "_id": "4" } }
 { "train-field": [1.5, 5.5, 4.5, 6.4]}
-...
 ```
 
 After indexing into the training index completes, we can call the Train API:
@@ -182,19 +181,14 @@ POST /_plugins/_knn/models/my-model/_train
   "training_index": "train-index",
   "training_field": "train-field",
   "dimension": 4,
-  "description": "My models description",
-  "search_size": 500,
+  "description": "My model description",
   "method": {
-    "name": "hnsw",
+    "name": "ivf",
     "engine": "faiss",
+    "space_type": "l2",
     "parameters": {
-      "encoder": {
-        "name": "pq",
-        "parameters": {
-          "code_size": 8,
-          "m": 8
-        }
-      }
+      "nlist": 4,
+      "nprobes": 2
     }
   }
 }
