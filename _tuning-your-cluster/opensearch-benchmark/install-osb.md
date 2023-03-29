@@ -36,17 +36,28 @@ Finally, your OpenSearch Benchmark host should use solid-state drives (SSDs) for
 
 ## Software dependencies
 
-OpenSearch Benchmark requires a few packages that should be installed first. These include:
-- [Python](https://www.python.org/) 3.8 or newer (with `pip3`).
+OpenSearch Benchmark has a few software dependencies that vary depending on your specific use case. If you only intend to benchmark existing, remote clusters, then you only need to install the [required software](#required-software). If you plan to run OpenSearch on the same host, however, then there is [additional optional software](#additional-optional-software) that you need to install.
+
+### Required software
+
+OpenSearch Benchmark is written in the [Python](https://www.python.org/) programming language. Before you can install OpenSearch Benchmark you must install **Python 3.8 or newer** along with [pip](https://pypi.org/project/pip/), the package installer for Python.
+
+You can check whether Python 3 is installed, and the version, with the following command:
+```bash
+python3 --version
+```
+
+
 - [Git](https://git-scm.com/) 1.9 or newer.
 
-You can check which version of Python is being used with the following command:
-```bash
-python3 -V
-```
+
 
 **Tip**:If your host is using an older version of Python, then you can use a utility like [pyenv](https://github.com/pyenv/pyenv) that allows users to install and manage multiple versions of Python.
 {: .tip}
+
+
+### Additional optional software
+
 
 
 
