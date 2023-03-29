@@ -29,7 +29,7 @@ You can configure the `AddEntries` processor with the following options.
 | `entries` | Yes | A list of entries to add to an event. |    |
 | `key` | Yes | The key of the new entry to be added. |    |
 | `value` | Yes | The value of the new entry to be added. You can use the following data types: strings, booleans, numbers, null, nested objects, and arrays. |    |
-| `overwrite_if_key_exists` | No | When set to `true`, if `key` already exists in the event, the existing value is overwritten. The default value is `false`. |    |
+| `overwrite_if_key_exists` | No | When set to `true`, the existing value is overwritten if `key` already exists in the event. The default value is `false`. |    |
 
 ### Usage
 
@@ -84,7 +84,7 @@ You can configure the `CopyValues` processor with the following options.
 | `entries` | Yes | A list of entries to be copied in an event. |
 | `from_key` | Yes | The key of the entry to be copied. |
 | `to_key` | Yes | The key of the new entry to be added. |
-| `overwrite_if_key_exists` | No | When set to `true`, if `key` already exists in the event, the existing value is overwritten. The default value is `false`. |
+| `overwrite_if_key_exists` | No | When set to `true`, the existing value is overwritten if `key` already exists in the event. The default value is `false`. |
 
 ### Usage
 
@@ -182,7 +182,7 @@ Option | Required | Description |
 | `entries` | Yes | A list of entries to rename in an event. |
 | `from_key` | Yes | The key of the entry to be renamed. |
 | `to_key` | Yes | The new key of the entry. |
-| `overwrite_if_to_key_exists` | No | When set to a value of`true`, if `to_key` already exists in the event, then the existing value will be overwritten. The default value is `false`. |
+| `overwrite_if_to_key_exists` | No | When set to `true`, the existing value is overwritten if `key` already exists in the event. The default value is `false`. |
 
 ### Usage
 
