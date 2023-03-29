@@ -57,18 +57,18 @@ pip3 --version
 
 For information about installing pip, see [pip documentation](https://pip.pypa.io/en/stable/).
 
-
-- [Git](https://git-scm.com/) 1.9 or newer.
-
-
-
-**Tip**:If your host is using an older version of Python, then you can use a utility like [pyenv](https://github.com/pyenv/pyenv) that allows users to install and manage multiple versions of Python.
+**Tip**: Install `pbzip2` to speed up the decompression of data corpora used by default OpenSearch Benchmark workloads.
 {: .tip}
-
 
 ### Additional optional software
 
+You may need to install additional software on the host if any of the following apply:
 
+- Launch local OS node (JDK, Docker, Docker Compose)
+- Use default workload (git)
+- 
+
+- [Git](https://git-scm.com/) 1.9 or newer.
 
 
 ## Installing OpenSearch Benchmark
