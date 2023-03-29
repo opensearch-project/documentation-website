@@ -6,11 +6,11 @@ grand_parent: Pipelines
 nav_order: 45
 ---
 
-# OTel Logs source
+# otel_logs_source
 
 ## Overview
 
-The `otel_logs_source` is a source that follows the [OpenTelemtry Protocol Specification](https://github.com/open-telemetry/oteps/blob/master/text/0035-opentelemetry-protocol.md) and exports `ExportLogsServiceRequest` records. 
+`otel_logs_source` is an OpenTelemetry source that follows the [OpenTelemtry Protocol Specification](https://github.com/open-telemetry/oteps/blob/master/text/0035-opentelemetry-protocol.md) and exports `ExportLogsServiceRequest` records. 
 
 This source supports the `OTLP/gRPC` protocol.
 {: .note}
