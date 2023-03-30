@@ -6,5 +6,8 @@ This document contains a list of maintainers in this repo. See [opensearch-proje
 
 | Maintainer     | GitHub ID                                     | Affiliation |
 | -------------- | --------------------------------------------- | ----------- |
+| Aria Marble | [ariamarble](https://github.com/ariamarble)   | Amazon |
 | Heather Halter | [hdhalter](https://github.com/hdhalter)       | Amazon      |
+| Fanit Kolchina | [kolchfa-aws](https://github.com/kolchfa-aws)  | Amazon  |
 | Nate Archer    | [Naarcha-AWS](https://github.com/Naarcha-AWS) | Amazon      |
+
