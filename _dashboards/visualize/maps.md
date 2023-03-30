@@ -128,7 +128,7 @@ You can filter your data by drawing shapes on your map.
 2. Select **Filters**.
 3. Select **Add filter**.
 4. Select **Shape**.
-5. Draw the shape over the area on the map that you want to select.
+5. Draw the shape over the area on the map that you want to select. (Shape? Boundary? Distance?)
 
 Map filters have the following properties:
 
