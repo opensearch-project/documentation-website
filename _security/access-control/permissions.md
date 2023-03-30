@@ -279,7 +279,7 @@ See [API tools]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/index/
 
 ### Monitoring permissions
 
-Cluster permissions for monitoring the cluster apply to read-only operations, such as checking cluster health and getting information about usage on nodes or tasks executing in the cluster.
+Cluster permissions for monitoring the cluster apply to read-only operations, such as checking cluster health and getting information about usage on nodes or tasks running in the cluster.
 
 See [REST API reference]({{site.url}}{{site.baseurl}}/api-reference/index/).
 
