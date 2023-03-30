@@ -122,11 +122,19 @@ For large datasets, you may want to avoid loading data for the whole map. To loa
 
 ### Drawing shapes to filter data
 
-1. 
-2. 
-3. 
-4.
-5. 
+You can filter your data by drawing shapes on your map. 
+
+1. In the **Layers** panel, select **Flight destination.
+2. Select **Filters**.
+3. Select **Add filter**.
+4. Select **Shape**.
+5. Draw the shape over the area on the map that you want to select.
+
+Map filters have the following properties:
+
+- [**Geometry label?** Allows you to give your filter a unique name.]
+- [**Spacial relation?** Determines which operator to use during search. Works like a Venn diagram, but as a query.]
+- [Action?] Whether the filter is applied to current the current view or another action. (When is this available?)]
 
 
 ## Using tooltips to visualize additional data
