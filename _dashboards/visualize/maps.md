@@ -120,6 +120,15 @@ To show a subset of the data in the index, filter the data. The following exampl
 For large datasets, you may want to avoid loading data for the whole map. To load data only for the part of the map that is currently visible, select the **Only request data around map extent** checkbox.
 {: .tip}
 
+### Drawing shapes to filter data
+
+1. 
+2. 
+3. 
+4.
+5. 
+
+
 ## Using tooltips to visualize additional data
 
 Document layers show geopoint and geoshape document fields as locations on the map. To add more information to the locations, you can use tooltips. For example, you may want to to show flight delay, destination weather, and destination country information in the **Flight destination** layer. Perform the following steps to configure tooltips to show additional data:
