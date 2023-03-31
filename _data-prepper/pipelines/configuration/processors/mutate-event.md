@@ -28,7 +28,7 @@ You can configure the `AddEntries` processor with the following options.
 | :--- | :--- | :--- |
 | `entries` | Yes | A list of entries to add to an event. |
 | `key` | Yes | The key of the new entry to be added. Some examples of keys include `my_key`, `myKey`, and `object/sub_Key`. |
-| `value` | Yes | The value of the new entry to be added. You can use the following data types: strings, booleans, numbers, null, nested objects, and arrays. |
+| `value` | Yes | The value of the new entry to be added. You can use the following data types: strings, Booleans, numbers, null, nested objects, and arrays. |
 | `overwrite_if_key_exists` | No | When set to `true`, the existing value is overwritten if `key` already exists in the event. The default value is `false`. |
 
 ### Usage
