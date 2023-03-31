@@ -154,7 +154,7 @@ pipeline:
 ```
 {% include copy.html %}
 
-Next, create a log file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` with this filepath. For more information, see [Configuring Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/#2-configuring-data-prepper).
+Next, create a log file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` file with this filepath. For more information, see [Configuring Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/#2-configuring-data-prepper).
 
 ```json
 {"message": "hello", "message2": "goodbye"}
