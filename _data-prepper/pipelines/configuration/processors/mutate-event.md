@@ -269,7 +269,7 @@ You can configure the `ConvertEntry` processor with the following options.
 | Option | Required | Description |
 | :--- | :--- | :--- |
 | `key`| Yes | Keys whose value needs to be converted to a different type. |
-| `type` | No | Target type for key value pair. Possible values are `integer`, `double`, `string`, and `boolean`. Default value is `integer`. |
+| `type` | No | Target type for the key-value pair. Possible values are `integer`, `double`, `string`, and `boolean`. Default value is `integer`. |
 
 ### Usage
 
