@@ -54,11 +54,7 @@ pipeline:
 {% include copy.html %}
 
 
-<<<<<<< HEAD
-Next, create a log file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` file with this filepath. For more information, see [Configuring Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/#2-configuring-data-prepper).
-=======
 Next, create a log file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` with that filepath. For more information, see [Configuring Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/#2-configuring-data-prepper).
->>>>>>> fc2247c2 (Incorporated editorial review feedback.)
 
 For example, before you run the `AddEntries` processor, if the `logs_json.log` file contains the following event record:
 
