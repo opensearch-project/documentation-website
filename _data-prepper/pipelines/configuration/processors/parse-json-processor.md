@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Parse JSON processor
+title: Parse_JSON processor
 parent: Processors
 grand_parent: Pipelines
 nav_order: 45
@@ -8,7 +8,7 @@ nav_order: 45
 
 # Parse JSON processor
 
-The `parse_json` processor parses JSON data for an event, including any nested fields. The processor extracts the JSON pointer data and adds the input event to the extracted fields.
+The `Parse_json` processor parses JSON data for an event, including any nested fields. The processor extracts the JSON pointer data and adds the input event to the extracted fields.
 
 ## Usage
 
@@ -56,7 +56,7 @@ parse-json-pipeline:
     - stdout:
 ```
 
-Run the pipeline and paste the following line into your console, then enter `exit` on a new line.
+Run the pipeline and paste the following line into your console, then enter `exit` on a new line:
 
 ```
 {"outer_key": {"inner_key": "inner_value"}}
@@ -71,7 +71,7 @@ The processor parses the message into the following format:
 
 ## Configuration
 
-You can configure the `Parse JSON` processor with the following options.
+You can configure the `Parse_JSON` processor with the following options.
 
 | Option | Required | Type | Description |
 | :--- | :--- | :--- | :--- | 
