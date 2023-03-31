@@ -297,7 +297,7 @@ Next, create a log file named `logs_json.log` and replace the `path` in the file
 {"message": "value", "response_status":"200"}
 ```
 
-The `ConvertEntry` processor changes the output received into the following output, where the type of `response_status` value changes from a string to an integer:
+The `ConvertEntry` processor converts the output received to the following output, where the type of `response_status` value changes from a string to an integer:
 
 ```json
 {"message":"value","response_status":200}
