@@ -54,7 +54,7 @@ pipeline:
 {% include copy.html %}
 
 
-Next, create a log file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` with that filepath. For more information, see [Configuring Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/#2-configuring-data-prepper).
+Next, create a log file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` file with that filepath. For more information, see [Configuring Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/#2-configuring-data-prepper).
 
 For example, before you run the `AddEntries` processor, if the `logs_json.log` file contains the following event record:
 
@@ -110,7 +110,7 @@ pipeline:
 
 Next, create a log file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` file with that filepath. For more information, see [Configuring Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/#2-configuring-data-prepper). 
 
-For example, before you run the `AddEntries` processor, if the `logs_json.log` file contains the following event record:
+For example, before you run the `CopyValues` processor, if the `logs_json.log` file contains the following event record:
 
 ```json
 {"message": "hello"}
@@ -127,7 +127,7 @@ When you run this processor, it parses the message into the following output:
 
 ## DeleteEntry
 
-The `DeleteEntry` processor deletes entries from an event, such as key-value pairs. You can define the keys you want to delete in the `with-keys` field following `delete_entries` in the YAML configuration file. Those keys and their values are deleted. 
+The `DeleteEntry` processor deletes entries, such as key-value pairs, from an event. You can define the keys you want to delete in the `with-keys` field following `delete_entries` in the YAML configuration file. Those keys and their values are deleted. 
 
 ### Configuration
 
@@ -135,7 +135,7 @@ You can configure the `DeleteEntry` processor with the following options.
 
 | Option | Required | Description |
 :--- | :--- | :---
-| `with_keys` | Yes | An array of keys of the entries to be deleted. |
+| `with_keys` | Yes | An array of keys for the entries to be deleted. |
 
 ### Usage
 
@@ -156,7 +156,9 @@ pipeline:
 ```
 {% include copy.html %}
 
-Next, create a log file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` file with this filepath. For more information, see [Configuring Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/#2-configuring-data-prepper).
+Next, create a log file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` file with that filepath. For more information, see [Configuring Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/#2-configuring-data-prepper).
+
+For example, before you run the `DeleteEntry` processor, if the `logs_json.log` file contains the following event record:
 
 ```json
 {"message": "hello", "message2": "goodbye"}
@@ -209,7 +211,9 @@ pipeline:
 {% include copy.html %}
 
 
-Next, create a log file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` file with this filepath. For more information, see [Configuring Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/#2-configuring-data-prepper).
+Next, create a log file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` file with that filepath. For more information, see [Configuring Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/#2-configuring-data-prepper).
+
+For example, before you run the `RenameKey` processor, if the `logs_json.log` file contains the following event record:
 
 ```json
 {"message": "hello"}
@@ -271,7 +275,7 @@ You can configure the `ConvertEntry` processor with the following options.
 | Option | Required | Description |
 | :--- | :--- | :--- |
 | `key`| Yes | Keys whose value needs to be converted to a different type. |
-| `type` | No | Target type for the key-value pair. Possible values are `integer`, `double`, `string`, and `boolean`. Default value is `integer`. |
+| `type` | No | Target type for the key-value pair. Possible values are `integer`, `double`, `string`, and `Boolean`. Default value is `integer`. |
 
 ### Usage
 
@@ -293,7 +297,10 @@ type-conv-pipeline:
 ```
 {% include copy.html %}
 
-Next, create a log file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` file with this filepath. For more information, see [Configuring Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/#2-configuring-data-prepper). 
+Next, create a log file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` file with that filepath. For more information, see [Configuring Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/#2-configuring-data-prepper). 
+
+For example, before you run the `ConvertEntry` processor, if the `logs_json.log` file contains the following event record:
+
 
 ```json
 {"message": "value", "response_status":"200"}
