@@ -179,7 +179,7 @@ You can configure the `RenameKey` processor with the following options.
 
 Option | Required | Description |
 | :--- | :--- | :--- |
-| `entries` | Yes | A list of entries to rename in an event. |
+| `entries` | Yes | A list of event entries to rename. |
 | `from_key` | Yes | The key of the entry to be renamed. |
 | `to_key` | Yes | The new key of the entry. |
 | `overwrite_if_to_key_exists` | No | When set to `true`, the existing value is overwritten if `key` already exists in the event. The default value is `false`. |
