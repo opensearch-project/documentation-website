@@ -130,11 +130,11 @@ You can filter your data by drawing shapes on your map.
 4. Select **Shape**.
 5. Draw the shape over the area on the map that you want to select. (Shape? Boundary? Distance?)
 
-Map filters have the following properties:
+You can configure the following map filter properties:
 
-- [**Geometry label?** Allows you to give your filter a unique name.]
-- [**Spacial relation?** Determines which operator to use during search. Works like a Venn diagram, but as a query.]
-- [Action?] Whether the filter is applied to current the current view or another action. (When is this available?)]
+- [**Filter label** Allows you to give your filter a unique name.]
+- [**Spacial relation** Determines which operator to use during search. Works like a Venn diagram, but as a query. (Need to go back and check this.)]
+- [**Impacted layers** Whether the filter is applied to current the current view or another action.]
 
 
 ## Using tooltips to visualize additional data
