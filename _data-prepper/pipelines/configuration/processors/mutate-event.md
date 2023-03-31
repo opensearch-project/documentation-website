@@ -11,7 +11,7 @@ nav_order: 45
 Mutate event processors allow you to modify events in Data Prepper. The following processors are available:
 
 * [AddEntries](#addentries) allows you to add entries to an event.
-* [CopyValues](#copyvalues): Allows you to copy values within an event.
+* [CopyValues](#copyvalues) allows you to copy values within an event.
 * [DeleteEntry](#deleteentry): Allows you to delete entries from an event.
 * [RenameKey](#renamekey): Allows you to rename keys in an event.
 * [ConvertEntry](#convertentry): Allows you to convert value types in an event.
