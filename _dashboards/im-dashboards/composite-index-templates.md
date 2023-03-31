@@ -13,7 +13,7 @@ Using them with [index templates]({{site.url}}{{site.baseurl}}/im-plugin/index-t
 
 Learn how to use the OpenSearch Dashboards user interface to create and manage composite index templates in the following tutorial.
 
-## Creating composite index templates
+## Creating composite index templates using the Dashboards interface
 
 To create composite index templates using the OpenSearch Dashboards user interface, follow these steps:
 
