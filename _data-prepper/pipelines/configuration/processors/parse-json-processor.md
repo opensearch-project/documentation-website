@@ -26,7 +26,7 @@ parse-json-pipeline:
 
 ### Basic example
 
-You can test the JSON Processor with the previous configuration by using the following example.
+You can test the JSON processor with the previous configuration by using the following example.
 
 Run the pipeline and paste the following line into your console, then enter `exit` on a new line:
 
