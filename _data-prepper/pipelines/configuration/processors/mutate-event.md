@@ -225,7 +225,7 @@ When you run the `RenameKey` processor, it parses the message into the following
 
 ### Special considerations
 
-Renaming operations occur in the order that the key value pair entries are listed in the `pipeline.yaml` file. This means that chaining (where key value pairs are renamed in sequence) is implicit with the `RenameKey` processor. See the following `pipline.yaml` file example:
+Renaming operations occur in the order that the key-value pair entries are listed in the `pipeline.yaml` file. This means that chaining (where key-value pairs are renamed in sequence) is implicit in the `RenameKey` processor. See the following example `pipline.yaml` file:
 
 ```yaml
 pipeline:
