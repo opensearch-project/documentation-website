@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Composite index templates
+title: Component index templates
 parent: Index management in Dashboards
 nav_order: 50
 ---
@@ -11,12 +11,14 @@ Composite index templates allow you to create a single index pattern that matche
 
 Using them with [index templates]({{site.url}}{{site.baseurl}}/im-plugin/index-templates/) can be a powerful tool for managing large volumes of data. You can create an index template that defines the basic structure and settings of your indexes, and then use the composite index template to apply the settings to all indexes that match a specific pattern or criteria. 
 
-Learn how to use the OpenSearch Dashboards user interface to create and manage composite index templates in the following tutorial.
+Learn how to use the OpenSearch Dashboards user interface to create and manage composite index templates in the following tutorial. 
 
-## Creating composite index templates using the Dashboards interface
+## Creating component index templates using the Dashboards interface
 
-To create composite index templates using the OpenSearch Dashboards user interface, follow these steps:
+This documentation is aimed at admin users who utilize the Dashboards interface to manage OpenSearch clusters and assumes you understand [index management in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/im-dashboards/index/).
 
-1. 
-1. 
+To create composite index templates using the Dashboards interface, follow these steps:
+
+1. In the OpenSearch Dashboards window, select **. 
+2. 
 
