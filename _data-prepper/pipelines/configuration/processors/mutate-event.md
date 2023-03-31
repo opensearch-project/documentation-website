@@ -125,7 +125,7 @@ When you run this processor, it parses the message into the following output:
 
 ## DeleteEntry
 
-The `DeleteEntry` processor deletes entries from an event, such as key-value pairs. You can define the keys you want to delete in the `with-keys` field following `delete_entries` in the YAML configuration file. Those keys along with their values are deleted. 
+The `DeleteEntry` processor deletes entries from an event, such as key-value pairs. You can define the keys you want to delete in the `with-keys` field following `delete_entries` in the YAML configuration file. Those keys and their values are deleted. 
 
 ### Configuration
 
