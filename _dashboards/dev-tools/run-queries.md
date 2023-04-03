@@ -1,13 +1,13 @@
 ---
 layout: default
-title: Running queries in the console
+title: Running queries in the Dev Tools console
 parent: Dev Tools
 nav_order: 10
 redirect_from:
   - /dashboards/run-queries/
 ---
 
-# Running queries in the console
+# Running queries in the Dev Tools console
 
 You can use the OpenSearch Dev Tools Console to send queries to OpenSearch. 
 
