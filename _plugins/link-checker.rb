@@ -52,6 +52,8 @@ module Jekyll::LinkChecker
   # LinkedIn mostly fails with 999 status codes
   @ignored_domains = [
     'localhost',
+    'playground.opensearch.org', # inifite redirect, https://github.com/opensearch-project/dashboards-anywhere/issues/172
+    'crates.io', # 404s on bots
   ]
 
   ##
