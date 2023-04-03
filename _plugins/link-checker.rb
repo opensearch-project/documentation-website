@@ -10,6 +10,8 @@ require 'json'
 require 'set'
 require 'uri'
 require 'pathname'
+require 'typhoeus'
+require 'ruby-link-checker'
 
 ##
 # This singleton checks links during build to warn or fail upon finding dead links.
@@ -31,7 +33,7 @@ module Jekyll::LinkChecker
   ##
   # Pattern to identify documents that should be excluded based on their URL
 
-  @excluded_paths = %r{(/_faqs/|\.(css|js|tpl|json|map|xml|txt|yml|svg|)$)}i.freeze
+  @excluded_paths = %r{(\.(css|js|json|map|xml|txt|yml)$|/version-selector\.tpl$)}i.freeze
 
   ##
   # Pattern to identify certain HTML tags whose content should be excluded from indexing
@@ -46,23 +48,15 @@ module Jekyll::LinkChecker
 
   ##
   # List of domains to ignore
-  @ignored_domains = %w[localhost]
+  # playground.opensearch.org is causing an infinite redirect
+  # LinkedIn mostly fails with 999 status codes
+  @ignored_domains = [
+    'localhost'
+  ]
 
   ##
   # Pattern of local paths to ignore
-  @ignored_paths = %r{(^/docs$|^mailto:|^/javadocs/)}.freeze
-
-  ##
-  # Valid response codes for successful links
-  @success_codes = %w[200 302]
-
-  ##
-  # Questionable response codes for successful links
-  @@questionable_codes = %w[301 308 403]
-
-  ##
-  # Retry response codes for links
-  @@retry_codes = %w[429]
+  @ignored_paths = %r{(^/javadocs|^mailto:)}.freeze
 
   ##
   # Holds the list of failures
@@ -70,19 +64,11 @@ module Jekyll::LinkChecker
 
   ##
   # Build flags driven by environment variables
-  @@LINK_CHECKER_STATES = %w[internal forced all retry]
+  @@LINK_CHECKER_STATES = %w[internal forced all]
   @check_links                # Enables the link checker
   @check_forced_external      # Enables checking internal links marked as external e.g. /docs
   @check_external_links       # Enables checking external links
-  @retry_external_links       # Enables retrying external links
   @should_build_fatally       # indicates the need to fail the build for dead links
-
-  ##
-  # The retry durations for host to retry
-  @retry_timeouts_dict = {}
-  @retry_iteration = 0
-  @@retry_buffer = 10
-  @@max_retry_iterations = 1
 
   ##
   # Defines the priority of the plugin
@@ -97,15 +83,13 @@ module Jekyll::LinkChecker
     @site = site
     @urls = {}
     @failures = []
-    @retry_timeouts = {}
 
     begin
       @should_build_fatally = true if ENV.key?('JEKYLL_FATAL_LINK_CHECKER')
       check_flag = @should_build_fatally ? ENV['JEKYLL_FATAL_LINK_CHECKER'] : ENV['JEKYLL_LINK_CHECKER']
 
       unless check_flag
-        return Jekyll.logger.info 'LinkChecker:',
-                                  'disabled. Enable with JEKYLL_LINK_CHECKER on the environment'
+        return Jekyll.logger.info 'LinkChecker:', 'disabled. Enable with JEKYLL_LINK_CHECKER on the environment'
       end
 
       unless @@LINK_CHECKER_STATES.include?(check_flag)
@@ -113,16 +97,24 @@ module Jekyll::LinkChecker
         return
       end
 
+      @external_link_checker = LinkChecker::Typhoeus::Hydra::Checker.new(
+        logger: Jekyll.logger,
+        hydra: { max_concurrency: 2 },
+        retries: 3
+      )
+
+      @external_link_checker.on :failure, :error do |result|
+        @failures << "#{result}, linked to in #{result.options[:location]}"
+      end
+
       @check_links = true if @@LINK_CHECKER_STATES.include?(check_flag)
       @check_forced_external = true if @@LINK_CHECKER_STATES[1..3].include?(check_flag)
       @check_external_links = true if @@LINK_CHECKER_STATES[2..3].include?(check_flag)
-      @retry_external_links = true if @@LINK_CHECKER_STATES[3].include?(check_flag)
 
       msg = {
         'internal' => 'internal links',
         'forced' => 'internal and forced external links',
-        'all' => 'all links',
-        'retry' => 'all links with retry'
+        'all' => 'all links'
       }
 
       # Process a Page as soon as its content is ready
@@ -167,7 +159,7 @@ module Jekyll::LinkChecker
       elsif href.start_with? '#'
         Jekyll.logger.info relative_path if (page.content =~ /<[a-z0-9-]+[^>]+(?:id|name)="#{href[1..]}"/i).nil?
         if (page.content =~ /<[a-z0-9-]+[^>]+(?:id|name)="#{href[1..]}"/i).nil?
-          @failures << "Process:: ##{href[1..]}, linked in ./#{relative_path}"
+          @failures << "##{href[1..]}, linked in ./#{relative_path}"
         end
       else
         @urls[href] = Set[] unless @urls.key?(href)
@@ -183,61 +175,16 @@ module Jekyll::LinkChecker
     return unless @check_links
 
     @base_url_matcher = %r{^#{@site.config["url"]}#{@site.baseurl}(/.*)$}.freeze
-    retry_hosts = {}
 
-    # Run atleast once
-    loop do
-      urls = @urls
-
-      # If its a retry
-      unless retry_hosts.empty?
-        # Get min sleep time in dict of timeouts and sleep
-        host_name, min_timeout_obj = @retry_timeouts_dict.min_by { |_k, v| v[:retry_timestamp] }
-        now = Process.clock_gettime(Process::CLOCK_MONOTONIC)
-        sleep_time = min_timeout_obj[:retry_timestamp] - now + @@retry_buffer
-
-        if sleep_time > 0
-          Jekyll.logger.info "LinkChecker: [Info] Going to sleep for #{sleep_time}".cyan
-          sleep(sleep_time)
-        end
-
-        # Get URLS to retry and clear from retry hash's
-        Jekyll.logger.info "LinkChecker: [Info] Retrying links for host #{host_name}".cyan
-        urls = retry_hosts[host_name].clone
-        @retry_timeouts_dict.delete(host_name)
-        retry_hosts.delete(host_name)
-      end
-
-      # checl each url
-      # - valid URL: should not be failures but or in retry_hosts hash
-      # - invalid URL: should be failures but not in retry_hosts hash
-      # - retry URL: should not be failures, only in retry_hosts hash
-      urls.each do |url, pages|
-        Jekyll.logger.info "LinkChecker: [Info] Checking #{url}".cyan
-
-        valid_or_retry, metadata = check(url)
-        @failures << "Verify:: #{url}, linked to in ./#{pages.to_a.join(', ./')}" unless valid_or_retry
-
-        next unless @retry_external_links and metadata&.key?(:retry_host_name)
-
-        retry_host_name = metadata[:retry_host_name]
-        retry_hosts[retry_host_name] = [] unless retry_hosts.key?(retry_host_name)
-        retry_hosts[retry_host_name] << url
-      end
-
-      @retry_iteration += 1
-      break if !@retry_external_links or (@retry_iteration >= @@max_retry_iterations) or retry_hosts.empty?
+    @urls.sort_by { |url, pages| rand }.each do |url, pages|
+      location = "./#{pages.to_a.join(', ./')}"
+      @failures << "#{url}, linked to in #{location}" unless check(url, location)
     end
+
+    @external_link_checker.run
 
     unless @failures.empty?
       msg = "Found #{@failures.size} dead link#{@failures.size > 1 ? 's' : ''}:\n#{@failures.join("\n")}"
-    end
-
-    unless retry_hosts.empty?
-      retry_msg = retry_hosts.map do |host, urls|
-        "Host:#{host}\n#{urls.map { |url| "- #{url}" }.join("\n")}\n"
-      end.join("\n")
-      msg = "Links we could not retry: \n#{retry_msg} \n#{msg}"
     end
 
     if !@failures.empty?
@@ -253,7 +200,7 @@ module Jekyll::LinkChecker
   ##
   # Check if URL is accessible
 
-  def self.check(url)
+  def self.check(url, location)
     match = @base_url_matcher.match(url)
     url = match[1] unless match.nil?
 
@@ -262,82 +209,37 @@ module Jekyll::LinkChecker
     if @forced_external_matcher =~ url
       return true unless @check_forced_external
 
-      return check_external(url)
+      return check_external(url, location)
     end
 
     if @external_matcher =~ url
       return true unless @check_external_links
 
-      return check_external(url)
+      return check_external(url, location)
     end
 
-    check_internal(url)
+    check_internal(url, location)
   end
 
   ##
-  # Check if an external URL is accessible by making a HEAD call
+  # Check if an external URL is accessible
 
-  def self.check_external(url)
-    begin
-      uri = URI(url)
-      return true if @ignored_domains.include? uri.host
-
-      Net::HTTP.start(uri.host, uri.port, use_ssl: true) do |http|
-        request = Net::HTTP::Head.new(uri)
-
-        http.request(request) do |response|
-          # retry with a GET on a 405 method not allowed or 404 not found
-          response = http.request(Net::HTTP::Get.new(uri)) if %w[405 404].include?(response.code) 
-
-          return true if @success_codes.include? response.code
-
-          if @@retry_codes.include? response.code
-            retry_after = response.header['retry-after']
-
-            if retry_after.nil?
-              Jekyll.logger.warn "LinkChecker: [Warning] Got #{response.code} from #{url}, cannot retry due to missing retry header"
-              return true
-            end
-
-            if @retry_external_links
-              now = Process.clock_gettime(Process::CLOCK_MONOTONIC)
-              retry_timestamp = retry_after.to_i + now # TODO: This could also be a timestamp
-
-              @retry_timeouts_dict[uri.host] = {
-                code: response.code,
-                retry_timestamp: retry_timestamp
-              }
-
-              Jekyll.logger.warn "LinkChecker: [Warning] Got #{response.code} from #{url}, will retry after #{retry_after}s"
-              return true, { retry_host_name: uri.host }
-            end
-
-            Jekyll.logger.warn "LinkChecker: [Warning] Got #{response.code} from #{url}, will not retry"
-            return true
-
-          elsif @@questionable_codes.include? response.code
-            Jekyll.logger.warn "LinkChecker: [Warning] Got #{response.code} from #{url}"
-            return true
-          end
-
-          Jekyll.logger.error "LinkChecker: [Error] Got #{response.code} from #{url}"
-          return false
-        end
-      end
-    rescue OpenSSL::SSL::SSLError, Net::OpenTimeout, Errno::ETIMEDOUT, Errno::ECONNREFUSED => e
-      Jekyll.logger.error "LinkChecker: [Error] Exception Occurred for URL #{url} #{e.class}. Message: #{e.message}."
-      false
-    rescue StandardError => e
-      # TODO: This should not return false, but instead re raise. We should not have unknown exceptions
-      Jekyll.logger.error "LinkChecker: [Error] Unknown Error::URL: #{url}\nError: #{e.class}. Message: #{e.message}."
-      false
+  def self.check_external(url, location)
+    url = begin
+      URI(url)
+    rescue StandardError
+      url
     end
+    return true if url.is_a?(URI) && @ignored_domains.include?(url.host)
+
+    @external_link_checker.check(url, { location: location })
   end
 
   ##
   # Check if an internal link is accessible
 
-  def self.check_internal(url)
+  def self.check_internal(url, location)
+    Jekyll.logger.info "LinkChecker: [Info] Checking #{url}".cyan
     return true if @ignored_paths =~ url
 
     path, hash = url.split('#')
@@ -366,7 +268,7 @@ module Jekyll::LinkChecker
 
     redirect = match[2]
     redirect << '#' + hash unless hash.nil? || hash.empty?
-    check(redirect)
+    check(redirect, location)
   end
 end
 
