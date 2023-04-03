@@ -192,7 +192,7 @@ module Jekyll::LinkChecker
     if !@failures.empty?
       if @should_build_fatally
         Jekyll.logger.error "\nLinkChecker: [Error] #{msg}\n".red
-        exit 1
+        raise msg
       else
         Jekyll.logger.warn "\nLinkChecker: [Warning] #{msg}\n".red
       end
