@@ -16,7 +16,7 @@ In [Trace analytics]({{site.url}}{{site.baseurl}}/data-prepper/common-use-cases/
 
 ## Usage
 
-To get started with `Trace peer forwarder`, configure [Peer forwarder]({{site.url}}{{site.baseurl}}/managing-data-prepper/peer-forwarder/). Then, create the a `pipelines.yaml` file and include `Trace peer forwarder` in your `data-prepper-config.yaml` file. For more detailed information, see [Configuring Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/#2-configuring-data-prepper).
+To get started with `Trace peer forwarder`, configure [Peer forwarder]({{site.url}}{{site.baseurl}}/managing-data-prepper/peer-forwarder/). Then, create the a `pipeline.yaml` file and include `Trace peer forwarder` in your `pipeline.yaml` file. You can configure `Peer forwarder` in your `data-prepper-config.yaml` file. For more detailed information, see [Configuring Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/#2-configuring-data-prepper).
 
 See the following `pipeline.yaml` file example: 
 
