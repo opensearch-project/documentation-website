@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Running queries in the console
-nav_order: 110
+parent: Dev Tools
+nav_order: 10
 ---
 
 # Running queries in the console
