@@ -51,7 +51,7 @@ module Jekyll::LinkChecker
   # playground.opensearch.org is causing an infinite redirect
   # LinkedIn mostly fails with 999 status codes
   @ignored_domains = [
-    'localhost'
+    'localhost',
   ]
 
   ##
@@ -188,10 +188,12 @@ module Jekyll::LinkChecker
     end
 
     if !@failures.empty?
-      raise msg if @should_build_fatally
-
-      Jekyll.logger.warn "\nLinkChecker: [Warning] #{msg}\n"
-
+      if @should_build_fatally
+        Jekyll.logger.error "\nLinkChecker: [Error] #{msg}\n".red
+        exit 1
+      else
+        Jekyll.logger.warn "\nLinkChecker: [Warning] #{msg}\n".red
+      end
     else
       Jekyll.logger.info "\nLinkChecker: [Success] No broken links!\n".green
     end
