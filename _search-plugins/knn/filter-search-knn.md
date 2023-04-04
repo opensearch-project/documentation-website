@@ -27,14 +27,14 @@ Depending on your dataset and use case, you might be more interested in maximizi
 
 Once you've estimated the number of documents in your index, the restrictiveness of your filter, and the desired number of nearest neighbors, use the following table to choose a filtering method that optimizes for recall or latency.
 
-Number of documents in an index | Percentage of documents the filter returns | k | Filtering method to use for higher recall | Filtering method to use for lower latency
-:-- | :-- | :-- | :-- | :--
-10M | 2.5 | 100 | Scoring script | Scoring script
-10M | 38 | 100 | Lucene filter | Boolean filter
-10M | 80 | 100 | Scoring script | Lucene filter
-1M | 2.5 | 100 | Lucene filter | Scoring script
-1M | 38 | 100 | Lucene filter | Lucene filter/Scoring script
-1M | 80 | 100 | Boolean filter | Lucene filter
+| Number of documents in an index | Percentage of documents the filter returns | k | Filtering method to use for higher recall | Filtering method to use for lower latency |
+| :-- | :-- | :-- | :-- | :-- |
+| 10M | 2.5 | 100 | Scoring script | Scoring script |
+| 10M | 38 | 100 | Lucene filter | Boolean filter |
+| 10M | 80 | 100 | Scoring script | Lucene filter |
+| 1M | 2.5 | 100 | Lucene filter | Scoring script |
+| 1M | 38 | 100 | Lucene filter | Lucene filter/Scoring script |
+| 1M | 80 | 100 | Boolean filter | Lucene filter |
 
 ## Scoring script filter
 
