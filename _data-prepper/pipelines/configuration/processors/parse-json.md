@@ -6,9 +6,9 @@ grand_parent: Pipelines
 nav_order: 45
 ---
 
-# Parse JSON
+# Parse_JSON
 
-The `Parse_json` processor parses JSON data for an event, including any nested fields. The processor extracts the JSON pointer data and adds the input event to the extracted fields.
+The `Parse_JSON` processor parses JSON data for an event, including any nested fields. The processor extracts the JSON pointer data and adds the input event to the extracted fields.
 
 
 ## Configuration
@@ -37,9 +37,7 @@ parse-json-pipeline:
 
 ### Basic example
 
-You can test the JSON processor with the previous configuration by using the following example.
-
-Run the pipeline and paste the following line into your console, then enter `exit` on a new line:
+To test the `Parse JSON` processor with the previous configuration, run the pipeline and paste the following line into your console, then enter `exit` on a new line:
 
 ```
 {"outer_key": {"inner_key": "inner_value"}}
@@ -54,7 +52,7 @@ The processor parses the message into the following format:
 
 ### Example with JSON pointer
 
-You can parse a selection of the JSON data by specifying a JSON pointer and using the `pointer` option in the configuration. See the following YAML configuration file and example of pointer use:
+Use a JSON pointer to parse a selection of the JSON data by specifying the `pointer` option in the configuration. To get started, create the following `pipeline.yaml` file:
 
 ```yaml
 parse-json-pipeline:
@@ -67,7 +65,7 @@ parse-json-pipeline:
     - stdout:
 ```
 
-Run the pipeline and paste the following line into your console, then enter `exit` on a new line:
+To test the JSON processor with the pointer option, run the pipeline, paste the following line into your console, and then enter `exit` on a new line:
 
 ```
 {"outer_key": {"inner_key": "inner_value"}}
