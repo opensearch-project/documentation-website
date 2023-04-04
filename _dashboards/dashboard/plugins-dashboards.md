@@ -1,16 +1,16 @@
 ---
 layout: default
-title: Integrating Observability plugins using Dashboards
+title: Managing plugins with Dashboards
 parent: Observability
 nav_order: 5
 ---
 
-# Integrating Observability plugins using Dashboards
+# Managing plugins with Dashboards
 
 Introduced 2.7
 {: .label .label-purple }
 
-Observability plugins are integrated automatically into **Dashboards**, giving you a dashboard view of your installed plugins. This dashboard view provides you:
+Plugins are integrated automatically into the **Dashboards** application, allowing you to manage them within a dashboard. A dashboard view of your installed plugins provides for:
 
 - **Easy access to installed plugins:** Viewing a list of plugins on a dashboard view displays all the plugins in one place to better configure and manage them.
 - **Improved efficiency:** With a list of plugins readily available on a dashboard view, you can enable, disable, update, or remove them with just a few clicks.
@@ -20,27 +20,27 @@ Observability plugins are integrated automatically into **Dashboards**, giving y
 
 <demo video>
 
-## Viewing your observability plugins in Dashboards
+## Viewing plugins
 
-To view your installed observability plugins in Dashboards, follow these steps:
+To view your installed plugins in Dashboards, follow these steps:
 
-1. From the OpenSearch Dashboards navigation menu, select **Dashboard** <UI needs to correct then aming convention (Dashboard) vs UI (Dashboards) before this release>.
-2. View the list of items and select your plugin. Plugins are set automatically to the data type **Observability Dashboard**.
+1. From the OpenSearch Dashboards navigation menu, select **Dashboard** <UI needs to correct the naming convention (Dashboard) vs UI (Dashboards) before this release>.
+2. View the list of items and select your plugin. Plugins are categorized automatically as the data type **Observability Dashboard**.
 
-An example dashboard view is shown below.
+The following image shows an example dashboard view of the plugins list in Dashboards.
 
 <insert UI>
 
-## Creating observability plugins from Dashboards
+## Installing plugins using Dashboards
 
-You can create observability plugins from Dashboards by following these steps:
+To install plugins from Dashboards, follow these steps:
 
 1. From the OpenSearch Dashboards navigation menu, select **Dashboard** <UI needs to correct then aming convention (Dashboard) vs UI (Dashboards) before this release>.
 2. From the Dashboard window, select **Create** > **Observability Dashboard**.
 3. In the **Create operational panel** window, enter a name in the **Name** field, and then select **Create**.
 
-The plugin is added to the Dashboards application and to the Observability > Operational panels application.    
+The plugin is added to both the Dashboards application and the Observability Plugins page.
 
 ## Staying updated about OpenSearch Dashboards plugins
 
-The [OpenSearch plugins repository](https://github.com/opensearch-project/opensearch-plugins) on GitHub is a great way to keep track of and contribute to tasks, feature requests, enhancements, and bugs.
+The [OpenSearch plugins repository](https://github.com/opensearch-project/opensearch-plugins) on GitHub is a great way to keep track of and contribute to tasks, feature requests, enhancements, and bugs. The OpenSearch Project team welcomes your input.
