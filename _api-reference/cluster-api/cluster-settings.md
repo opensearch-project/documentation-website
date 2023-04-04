@@ -63,7 +63,7 @@ The following request field parameters are compatible with the cluster API.
 | action.auto_create_index | Boolean | Automatically creates an index if the index doesn't already exist. Also applies any index templates that are configured. Default is `true`. |
 | action.destructive_requires_name | Boolean | When set to `true`, you must specify the index name to delete an index. You cannot delete all indexes or use wildcards. Default is `true`. |
 | cluster.indices.close.enable | Boolean | Enables closing of open indexes in OpenSearch. Default is `true`. |
-| indices.recovery.max_bytes_per_sec | String | Limits the total inbound and outbound recovery traffic for each node. This applies to peer recoveries and snapshot recoveries. Default is `40mb`. |
+| indices.recovery.max_bytes_per_sec | String | Limits the total inbound and outbound recovery traffic for each node. This applies to peer recoveries and snapshot recoveries. Default is `40mb`. If you set the recovery traffic value to less than or equal to `0mb`, rate limiting will be disabled, which causes recovery data to be transferred at the highest possible rate. |
 | indices.recovery.max_concurrent_file_chunks | Integer | The number of file chunks sent in parallel for each recovery operation. Default is `2`. |
 | indices.recovery.max_concurrent_operations | Integer | The number of operations sent in parallel for each recovery. Default is `1`. |
 | logger.org.opensearch.discovery | String | Loggers accept Log4j2’s built-in log levels: `OFF`, `FATAL`, `ERROR`, `WARN`, `INFO`, `DEBUG`, and `TRACE`. Default is `INFO`. |
