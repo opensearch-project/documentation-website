@@ -8,7 +8,7 @@ nav_order: 45
 
 # Trace peer forwarder
 
-The `Trace peer forwarder` processor is used to reduce the number of events that are forwarded in a [Trace analytics]({{site.url}}{{site.baseurl}}/data-prepper/common-use-cases/trace-analytics/) pipeline by half when using [Peer forwarder]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/peer-forwarder/). Pipelines peer forward events, which causes the core peer forwarder to make multiple HTTP requests for the same event. You can use `Trace peer forwarder` to forward the event one time in the entry pipeline (`otel-trace`) instead of other pipelines, such as `service--map-pipeline` and `raw-pipeline`, and prevents unnecessary HTTP requests. `Trace peer forwarder` groups events based on `trace_id` similar to the `service_map_stateful` and `otel_trace_raw ` processors. 
+The `Trace peer forwarder` processor is used to reduce the number of events that are forwarded in a [Trace analytics]({{site.url}}{{site.baseurl}}/data-prepper/common-use-cases/trace-analytics/) pipeline by half when using [Peer forwarder]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/peer-forwarder/). Pipelines peer forward events, which causes the core peer forwarder to make multiple HTTP requests for the same event. You can use `Trace peer forwarder` to forward the event one time in the entry pipeline (`otel-trace`) instead of other pipelines, such as `service-map-pipeline` and `raw-pipeline`, and prevents unnecessary HTTP requests. `Trace peer forwarder` groups events based on `trace_id` similar to the `service_map_stateful` and `otel_trace_raw ` processors. 
 
 You should use `Trace peer forwarder` when you have multiple nodes, and for trace analytics pipelines.
 
