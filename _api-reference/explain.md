@@ -10,7 +10,7 @@ Introduced 1.0
 
 Wondering why a specific document ranks higher (or lower) for a query? You can use the explain API for an explanation of how the relevance score (`_score`) is calculated for every result.
 
-OpenSearch uses a probabilistic ranking framework called [Okapi BM25](https://en.wikipedia.org/wiki/Okapi_BM25) to calculate relevance scores. Okapi BM25 is based on the original [TF/IDF](http://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/package-summary.html#scoring) framework used by Apache Lucene.
+OpenSearch uses a probabilistic ranking framework called [Okapi BM25](https://en.wikipedia.org/wiki/Okapi_BM25) to calculate relevance scores. Okapi BM25 is based on the original [TF/IDF](https://lucene.apache.org/core/{{site.lucene_version}}/core/org/apache/lucene/search/package-summary.html#scoring) framework used by Apache Lucene.
 
 The explain API is an expensive operation in terms of both resources and time. On production clusters, we recommend using it sparingly for the purpose of troubleshooting.
 {: .warning }
