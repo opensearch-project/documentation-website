@@ -41,6 +41,8 @@ To install plugins from Dashboards, follow these steps:
 
 The plugin is added to both the Dashboards application and the Observability Plugins page.
 
+<insert UI>
+
 ## Staying updated about OpenSearch Dashboards plugins
 
 The [OpenSearch plugins repository](https://github.com/opensearch-project/opensearch-plugins) on GitHub is a great way to keep track of and contribute to tasks, feature requests, enhancements, and bugs. The OpenSearch Project team welcomes your input.
