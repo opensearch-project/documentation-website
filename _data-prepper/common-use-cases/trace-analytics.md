@@ -39,7 +39,7 @@ The [OpenTelemetry source]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/c
 There are three processors for the trace analytics feature:
 
 * *otel_trace_raw* - The *otel_trace_raw* processor receives a collection of [span](https://github.com/opensearch-project/data-prepper/blob/fa65e9efb3f8d6a404a1ab1875f21ce85e5c5a6d/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/trace/Span.java) records from [*otel-trace-source*]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/otel-trace/), and performs stateful processing, extraction, and completion of trace-group-related fields.
-* *otel_trace_group* - The *otel_trace_group* processor fills in the missing trace-group-related fields in the collection of [span](https://github.com/opensearch-project/data-prepper/blob/fa65e9efb3f8d6a404a1ab1875f21ce85e5c5a6d/data-prepper-api/src/main/java/com/amazon/dataprepper/model/trace/Span.java) records by looking up the OpenSearch backend.
+* *otel_trace_group* - The *otel_trace_group* processor fills in the missing trace-group-related fields in the collection of [span](https://github.com/opensearch-project/data-prepper/blob/298e7931aa3b26130048ac3bde260e066857df54/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/trace/Span.java) records by looking up the OpenSearch backend.
 * *service_map_stateful* – The *service_map_stateful* processor performs the required preprocessing for trace data and builds metadata to display the `service-map` dashboards.
 
 
