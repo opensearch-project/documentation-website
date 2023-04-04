@@ -2,7 +2,7 @@
 layout: default
 title: Adding multiple data sources
 parent: Exploring data
-nav_order: 5
+nav_order: 20
 ---
 
 # Adding multiple data sources
@@ -10,11 +10,11 @@ nav_order: 5
 The multiple data sources feature is an experimental feature released in OpenSearch 2.4. It can't be used in a production environment. For updates on the feature’s progress or to leave feedback on improving the feature, see the [OpenSearch Forum discussion](https://forum.opensearch.org/t/feedback-experimental-feature-connect-to-external-data-sources/11144).
 {: .warning }
 
-You can add multiple data sources to a single dashboard. OpenSearch Dashboards allows you to dynamically manage data sources, create index patterns based on those data sources, and execute queries against a specific data source and then combine visualizations in one dashboard.
+ OpenSearch Dashboards allows you to dynamically manage data sources, create index patterns based on those data sources, and execute queries against a specific data source and then combine visualizations in one dashboard.
 
 In this tutorial we provide the steps for enabling the `data_source` setting in Dashboards; adding credentials, data source connections, and index patterns; and combining visualizations in a single dashboard.
 
-## Try it: Exploring the multiple data sources feature in your local environment
+## Exploring the multiple data sources feature in your local environment
 
 This tutorial uses a preconfigured data source and index pattern, and you aren’t required to configure settings. However, you’ll need to enable the `data_source` setting in the configuration file before before getting started with exploring this feature.
 {: .note }
@@ -157,6 +157,24 @@ Your dashboard might look like the one in the following image.
 <img src="{{site.url}}{{site.baseurl}}/images/multi-data-sources-12.jpg" width=700 alt="Example dashboard using data visualizations from many data sources">
 
 You have now explored the data sources experimental feature. To provide feedback on how this feature can be improved ahead of its release for production use, comment in the [OpenSearch forum](https://forum.opensearch.org/).
+
+## Selecting multiple data sources in the Dev Tools console
+
+Selecting multiple data sources in the Dev Tools console allows you to work with a broader range of data and gain deeper insights into your code and applications. You can follow these steps:
+
+1. To access the Dev Tools console, open OpenSearch Dashboards and select **Dev Tools** in the main menu.
+1. In the console, input the following query in the editor pane and then select the play button.
+
+```json
+GET /_cat/indices
+```
+
+1. From the **DataSource** dropdown menu, select a data source and then query the source
+1. Repeat the preceding steps for each data source you want to select.
+
+For an overview of this capability, watch this 20-second video.
+
+
 
 ## Understanding feature limitations
 
