@@ -50,9 +50,9 @@ The processor parses the message into the following format:
 {"message": {"outer_key": {"inner_key": "inner_value"}}", "outer_key":{"inner_key":"inner_value"}}}
 ```
 
-### Example with JSON pointer
+### Example with a JSON pointer
 
-Use a JSON pointer to parse a selection of the JSON data by specifying the `pointer` option in the configuration. To get started, create the following `pipeline.yaml` file:
+You can use a JSON pointer to parse a selection of the JSON data by specifying the `pointer` option in the configuration. To get started, create the following `pipeline.yaml` file:
 
 ```yaml
 parse-json-pipeline:
