@@ -19,7 +19,7 @@ There are two ways to get started with the operator:
 
 If you use Helm to manage your Kubernetes cluster, you can use the OpenSearch Kubernetes Operator's Cloud Native Computing Foundation (CNCF) project stored in Artifact Hub, a web-based application for finding, installing, and publishing CNCF packages. 
 
-To begin, log in to your Kubernetes cluster and add the Helm repository (repo) from [Artifact Hub](https://opster.github.io/opensearch-Kubernetes-operator/). 
+To begin, log in to your Kubernetes cluster and add the Helm repository (repo) from [Artifact Hub](https://artifacthub.io/packages/helm/opensearch-operator/opensearch-operator/). 
 
 ```
 helm repo add opensearch-operator https://opster.github.io/opensearch-k8s-operator/

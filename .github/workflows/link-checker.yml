@@ -1,0 +1,25 @@
+name: Check Links
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "30 11 * * *"
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.0'
+        bundler-cache: true
+    - run: |
+        JEKYLL_FATAL_LINK_CHECKER=all bundle exec jekyll build --future
+    - name: Create Issue On Build Failure
+      if: ${{ failure() }}
+      uses: dblock/create-a-github-issue@v3
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        WORKFLOW_URL: "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+      with:
+        update_existing: true
+        filename: .github/ISSUE_TEMPLATE/broken_links.md
