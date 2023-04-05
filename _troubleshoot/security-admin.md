@@ -6,7 +6,7 @@ nav_order: 10
 
 # securityadmin.sh Troubleshooting
 
-This page includes troubleshooting steps for `securityadmin.sh`.
+This page includes troubleshooting steps for `securityadmin.sh`. The script can be found at `/plugins/opensearch-security/tools/securityadmin.sh`. For more information about using this tool, see [Applying changes to configuration files]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/).
 
 
 ---
