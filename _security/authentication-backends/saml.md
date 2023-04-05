@@ -19,13 +19,13 @@ This profile is meant for use with web browsers. It is not a general-purpose way
 
 We provide a fully functional example that can help you understand how to use SAML with OpenSearch Dashboards.
 
-1. Download and unzip [the example zip file]({{site.url}}{{site.baseurl}}/assets/examples/saml-example.zip).
+1. Download and unzip [the example zip file]({{site.url}}{{site.baseurl}}/assets/examples/saml-example-custom.zip).
 1. At the command line, run `docker-compose up`.
 1. Review the files:
 
-   * `docker-compose.yml` defines two OpenSearch nodes, an OpenSearch Dashboards server, and a SAML server.
-   * `custom-opensearch_dashboards.yml` add a few SAML settings to the default `opensearch_dashboards.yml` file.
-   * `config.yml` configures SAML for authentication.
+   * `customize-docker-compose.yml` defines two OpenSearch nodes, an OpenSearch Dashboards server, and a SAML server.
+   * `customize-opensearch_dashboards.yml` add a few SAML settings to the default `opensearch_dashboards.yml` file.
+   * `customize-config.yml` configures SAML for authentication.
 
 1. Access OpenSearch Dashboards at [http://localhost:5601](http://localhost:5601){:target='\_blank'}. Note that OpenSearch Dashboards immediately redirects you to the SAML login page.
 
