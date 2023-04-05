@@ -163,14 +163,14 @@ You have now explored the data sources experimental feature. To provide feedback
 Selecting multiple data sources in the Dev Tools console allows you to work with a broader range of data and gain deeper insights into your code and applications. You can follow these steps:
 
 1. To access the Dev Tools console, open OpenSearch Dashboards and select **Dev Tools** in the main menu.
-1. In the console, input the following query in the editor pane and then select the play button.
+2. In the console, input the following query in the editor pane and then select the play button.
 
 ```json
 GET /_cat/indices
 ```
 
-1. From the **DataSource** dropdown menu, select a data source and then query the source
-1. Repeat the preceding steps for each data source you want to select.
+3. From the **DataSource** dropdown menu, select a data source and then query the source
+4. Repeat the preceding steps for each data source you want to select.
 
 For an overview of this capability, watch this 20-second video.
 
