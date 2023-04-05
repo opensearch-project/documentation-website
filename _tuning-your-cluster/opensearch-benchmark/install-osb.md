@@ -123,11 +123,16 @@ docker pull public.ecr.aws/opensearchproject/opensearch-benchmark:latest
 ```
 {% include copy.html %}
 
-To run OpenSearch Benchmark, use `docker run` to launch a container with the desired arguments. For example, the following command will display the help text for OpenSearch Benchmark on the command line:
+To run OpenSearch Benchmark, use `docker run` to launch a container with the desired arguments. For example, the following command will print the help text for OpenSearch Benchmark to the command line:
 ```bash
 docker run opensearchproject/opensearch-benchmark opensearch-benchmark -h
 ```
 {% include copy.html %}
+
+The following example command pulls down the latest OpenSearch Benchmark image from the Amazon ECR Public Gallery. It then runs the `geonames` workload against an OpenSearch cluster with default security settings at address `https://198.51.100.25:9200`:
+```bash
+docker run public.ecr.aws/opensearchproject/opensearch-benchmark:latest opensearch-benchmark execute_test --target-hosts https://198.51.100.25:9200 --pipeline benchmark-only --workload geonames --client-options basic_auth_user:admin,basic_auth_password:admin,verify_certs:false
+```
 
 ## Next steps
 
