@@ -40,7 +40,10 @@ Finally, your OpenSearch Benchmark host should use solid-state drives (SSDs) for
 
 ## Software dependencies
 
-OpenSearch Benchmark has a few software dependencies based on your specific use case. If you only intend to benchmark existing, remote clusters then you only need to install the [required software](#required-software). If you plan to run OpenSearch on the same host, however, then there is [additional optional software](#additional-optional-software) that you need to install.
+OpenSearch Benchmark has a few software dependencies based on your specific use case. If you only intend to benchmark existing clusters, then you only need to install the [required software](#required-software). If you plan to run OpenSearch on the same host, however, then there is [additional optional software](#additional-optional-software) that you need to install.
+
+**Important**: If you want to run OpenSearch Benchmark in a Docker container then you can skip to [Finishing the installation](#finishing-the-installation). The OpenSearch Benchmark image contains all of the required software dependencies so there are no additional steps for you to take.
+{: .important}
 
 ### Required software
 
@@ -58,6 +61,7 @@ Lastly, confirm that pip is installed on the host:
 ```bash
 pip3 --version
 ```
+{% include copy.html %}
 
 For information about installing pip, see [pip documentation](https://pip.pypa.io/en/stable/).
 
@@ -75,22 +79,37 @@ When you use OpenSearch Benchmark to deploy a local instance of OpenSearch, the 
 
 #### Running a benchmark using a default workload
 
-OpenSearch Benchmark requires git 1.9 or newer to retrieve default workloads from the [opensearch-benchmark-workloads](https://github.com/opensearch-project/opensearch-benchmark-workloads) repository on GitHub. Git is preinstalled on macOS. If your OpenSearch Benchmark host uses Linux, then you should refer to the Linux installation instructions for [git](https://git-scm.com/download/linux).
+OpenSearch Benchmark requires Git 1.9 or newer to retrieve default workloads from the [opensearch-benchmark-workloads](https://github.com/opensearch-project/opensearch-benchmark-workloads) repository on GitHub. Git is preinstalled on macOS. If your OpenSearch Benchmark host uses Linux, then you should refer to the Linux installation instructions for [git](https://git-scm.com/download/linux).
 
-**Tip**: Install `pbzip2` 
-{: .tip}
+## Finishing the installation
 
-## Installing OpenSearch Benchmark
+The last steps of the installation will depend on your host environment. If you are installing OpenSearch Benchmark directly on a Linux or macOS host, then you can use pip to install the package. Otherwise, if you are running OpenSearch Benchmark in a Docker container, then you only need to pull down the image and invoke `docker run` with the desired arguments.
 
-After the prerequisites are installed, you can install OpenSearch Benchmark with pip:
+### Installing on Linux and macOS
+
+After the prerequisites are installed, you can install OpenSearch Benchmark using either of the following commands:
+
+Using `pip3`:
 ```bash
 pip3 install opensearch-benchmark
 ```
+{% include copy.html %}
+
+Using `python3`:
+```bash
+python3 -m pip install opensearch-benchmark
+```
+{% include copy.html %}
 
 You can display information about usage and syntax by passing `-h` or `--help`:
 ```bash
 opensearch-benchmark -h
 ```
+{% include copy.html %}
+
+### Installing with Docker
+
+
 
 ## Next steps
 
