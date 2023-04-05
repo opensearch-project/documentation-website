@@ -27,8 +27,8 @@ We provide a fully functional example that can help you understand how to use SA
    * `customize-opensearch_dashboards.yml`: Includes SAML settings for the default `opensearch_dashboards.yml` file.
    * `customize-config.yml`: Configures SAML for authentication.
 
-  You can remove "customize" from the file names if you plan to modify and keep these files for production.
-  {: .tip }  
+   You can remove "customize" from the file names if you plan to modify and keep these files for production.
+   {: .tip }  
 
 1. In the `docker-compose.yml` file, specify your OpenSearch version number in the `image` field for nodes 1 and 2, and OpenSearch Dashboards server. For example, if you are running OpenSearch version 2.6, the `image` fields will resemble the following examples:
    
