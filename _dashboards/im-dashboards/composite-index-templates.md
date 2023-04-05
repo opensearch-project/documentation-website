@@ -9,30 +9,31 @@ nav_order: 50
 Introduced 2.7
 {: .label .label-purple }
 
-Template components allow you to create a single index pattern that matches multiple indexes. This pattern can include wildcards or regular expressions, enabling you to apply the same setting or mapping to multiple indexes simultaneously. 
+Template components allow you to create a single index pattern that matches multiple indexes. This pattern can include wildcards or regular expressions, enabling you to apply the same setting or mapping to multiple indexes simultaneously.
 
-Using them with [index templates]({{site.url}}{{site.baseurl}}/im-plugin/index-templates/) can be a powerful tool for managing large volumes of data. You can create an index template that defines the basic structure and settings of your indexes, and then use the composite index template to apply the settings to all indexes that match a specific pattern or criteria.
+Using them with [index templates]({{site.url}}{{site.baseurl}}/im-plugin/index-templates/) can be a powerful tool for managing large volumes of data. You can create an index template that defines the basic structure and settings of your indexes, and then use the template components to apply the settings to all indexes that match a specific pattern or criteria.
 
-The OpenSearch Dashboards user interface (UI) maximizes ease of use for common indexing and data stream administrative operations. Functionality includes Create, Read, Update, Delete (CRUD) and mapping indices, CRUD and mapping aliases, reindexing, open/close indices, shrink indices, and split indices. You also can monitor the actions taken within the user interface through a dashboard and log the audit records. 
+The OpenSearch Dashboards user interface (UI) maximizes ease of use for common indexing and data stream administrative operations. Functionality includes Create, Read, Update, Delete (CRUD) and mapping indices, CRUD and mapping aliases, reindexing, open/close indices, shrink indices, and split indices. You also can monitor actions from a dashboard and log audit records. 
 
 <insert short demo>
 
-## Creating component templates
+## Creating template components
 
-This documentation is aimed at admin users who manage OpenSearch clusters and assumes you understand [index management in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/im-dashboards/index/).
+This documentation is aimed at admin users who manage OpenSearch clusters, and it is assumed you understand [index management in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/im-dashboards/index/).
 
-To create component templates using the UI, follow these steps:
+To create template components using the UI, follow these steps:
 
 1. From the OpenSearch Dashboards main page, select **Index Management** in the navigation menu.
 2. From the Index Management window, select **Templates** > **Template components**.
 3. Select **Create** and then define the template component settings. 
 
-## Defining template component settings
+## Defining template components settings
 
-You can use predefined template components that come with OpenSearch Dashboards or customize template components either from scratch or by modifying existing templates. Predefined template components include preconfigured charts, tables, and graphs and are a good starting point for users who are new to OpenSearch Dashboards. Customized template components can be tailored to your specific requirements and preferences and can help you create reports and visualizations that are unique to your specific needs.  
+You can use predefined template components that come with OpenSearch Dashboards or customize them either from scratch or by modifying existing templates. Predefined component templates include preconfigured charts, tables, and graphs and are a good starting point for users who are new to OpenSearch Dashboards. Customized template components can be tailored to your specific requirements and preferences and can help you create reports and visualizations that are unique to your specific needs.  
 
-To define setting in your component templates, follow these steps:  
+To define setting in your template components, follow these steps:  
 
-1. 
+1. Determine the key data elements that need to be included in your indexes.
+2. 
 
 ** Working on final naming for the collection of screenshots
