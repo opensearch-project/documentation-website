@@ -174,7 +174,7 @@ GET /_cat/indices
 
 For an overview of this capability, watch this 20-second video.
 
-
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/multidata-dev-tools.gif" alt="Multiple data sources in Dev Tools demo">{: .img-fluid}
 
 ## Understanding feature limitations
 
