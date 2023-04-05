@@ -10,9 +10,6 @@ redirect_from:
 
 # Searchable snapshots
 
-Searchable snapshots is an experimental feature released in OpenSearch 2.4. Therefore, we do not recommend the use of this feature in a production environment. For updates on progress, follow us on [GitHub](https://github.com/opensearch-project/OpenSearch/issues/3739). If you have any feedback please [submit a new issue](https://github.com/opensearch-project/OpenSearch/issues/new/choose).
-{: .warning }
-
 A searchable snapshot is an index where data is read from a [snapshot repository]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore/#register-repository) on demand at search time rather than all index data being downloaded to cluster storage at restore time. Because the index data remains in the snapshot format in the repository, searchable snapshot indexes are inherently read-only. Any attempt to write to a searchable snapshot index will result in an error.
 
 To enable the searchable snapshots feature, reference the following steps.
@@ -36,18 +33,7 @@ The flag is toggled using a new jvm parameter that is set either in `OPENSEARCH_
     ```json
     export OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.searchable_snapshot.enabled=true"
     ```
-- Option 3: For developers using Gradle, update run.gradle by adding the following lines:
-
-    ```json
-    testClusters {
-      runTask {
-        testDistribution = 'archive'
-        if (numZones > 1) numberOfZones = numZones
-        if (numNodes > 1) numberOfNodes = numNodes
-        systemProperty 'opensearch.experimental.feature.searchable_snapshot.enabled', 'true'
-      }
-    }
-    ```
+- Option 3: Enable with the request body parameter.
 
 - Finally, create a node in your opensearch.yml file and define the node role as `search`:
 
@@ -123,5 +109,3 @@ The following are known limitations of the searchable snapshots feature:
 - Data is discarded immediately after being read. Subsequent searches for the same data will have to be downloaded again. This will be addressed in the future by implementing a disk-based cache for storing frequently accessed data.
 - Many remote object stores charge on a per-request basis for retrieval, so users should closely monitor any costs incurred.
 - Searching remote data can impact the performance of other queries running on the same node. We recommend that users provision dedicated nodes with the `search` role for performance-critical applications.
-
-GA Placeholder
