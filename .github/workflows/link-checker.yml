@@ -5,9 +5,14 @@ on:
     - cron: "30 11 * * *"
 jobs:
   check:
+    strategy:
+      matrix:
+        branch: [main, 2.*, 1.3]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
+      with:
+        ref: ${{ matrix.branch }}
     - uses: ruby/setup-ruby@v1
       with:
         ruby-version: '3.0'

@@ -13,4 +13,4 @@ jobs:
         ruby-version: '3.0'
         bundler-cache: true
     - run: |
-        JEKYLL_LINK_CHECKER=internal bundle exec jekyll build --future
+        JEKYLL_FATAL_LINK_CHECKER=internal bundle exec jekyll build --future
