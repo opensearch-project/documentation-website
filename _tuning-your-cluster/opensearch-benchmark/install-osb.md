@@ -7,15 +7,19 @@ parent: OpenSearch Benchmark
 
 # Installing OpenSearch Benchmark
 
-OpenSearch Benchmark is only supported on Linux and macOS, but you can use OpenSearch Benchmark to test any reachable OpenSearch cluster regardless of the cluster's underlying operating system. This section of documentation describes high-level considerations for your OpenSearch Benchmark host, as well as instructions about installing OpenSearch Benchmark.
+You can install OpenSearch Benchmark directly on a host running Linux or macOS or you can run OpenSearch Benchmark in a Docker container on any compatible host. This section of documentation describes high-level considerations for your OpenSearch Benchmark host, as well as instructions for installing OpenSearch Benchmark.
+
+Some OpenSearch Benchmark functionality is unavailable when you run OpenSearch Benchmark in a Docker container:
+- You cannot distribute the load test drivers with OpenSearch Benchmark running in a Docker container. Instead, you can distribute the load test drivers by installing OpenSearch Benchmark directly on your hosts and starting the OpenSearch Benchmark daemon.
+- You can only use the `benchmark-only` pipeline because OpenSearch Benchmark cannot recursively deploy an OpenSearch cluster in its own container.
 
 ## Hardware considerations
 
 OpenSearch Benchmark doesn't have any specific hardware requirements or constraints, but there are a few things to keep in mind.
 
-OpenSearch Benchmark can deploy a local OpenSearch node for testing. If you intend to leverage this functionality in your environment, then you will need to make sure the host is configured appropriately for OpenSearch. See [Installing OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/) for important host settings.
+OpenSearch Benchmark can deploy a local OpenSearch node for testing unless you are running OpenSearch Benchmark in a Docker container. If you intend to leverage this functionality in your environment, then you will need to install OpenSearch Benchmark directly on the host and make sure the host is configured appropriately for OpenSearch. See [Installing OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/) for important host settings.
 
-You should also think about which workloads you want to run. To see a list of default workload specifications for OpenSearch Benchmark, visit the [opensearch-benchmark-workloads](https://github.com/opensearch-project/opensearch-benchmark-workloads) repository on GitHub. As a general rule, make sure that the OpenSearch Benchmark host has enough free storage space to store the compressed data and the full decompressed data corpus. You can use the following table to determine the minimum amount of required free space by adding the compressed size with the uncompressed size for a particular workload:
+You should also think about which workloads you want to run. To see a list of default workload specifications for OpenSearch Benchmark, visit the [opensearch-benchmark-workloads](https://github.com/opensearch-project/opensearch-benchmark-workloads) repository on GitHub. As a general rule, make sure that the OpenSearch Benchmark host has enough free storage space to store the compressed data and the full decompressed data corpus. You can use the following table to determine the approximate minimum amount of required free space by adding the compressed size with the uncompressed size for a particular workload:
 
 | Workload Name | Document Count | Compressed Size | Uncompressed Size |
 | :----: | :----: | :----: | :----: |
@@ -72,6 +76,9 @@ When you use OpenSearch Benchmark to deploy a local instance of OpenSearch, the 
 #### Running a benchmark using a default workload
 
 OpenSearch Benchmark requires git 1.9 or newer to retrieve default workloads from the [opensearch-benchmark-workloads](https://github.com/opensearch-project/opensearch-benchmark-workloads) repository on GitHub. Git is preinstalled on macOS. If your OpenSearch Benchmark host uses Linux, then you should refer to the Linux installation instructions for [git](https://git-scm.com/download/linux).
+
+**Tip**: Install `pbzip2` 
+{: .tip}
 
 ## Installing OpenSearch Benchmark
 
