@@ -13,6 +13,8 @@ Template components allow you to create a single index pattern that matches mult
 
 Using them with [index templates]({{site.url}}{{site.baseurl}}/im-plugin/index-templates/) can be a powerful tool for managing large volumes of data. You can create an index template that defines the basic structure and settings of your indexes, and then use the composite index template to apply the settings to all indexes that match a specific pattern or criteria.
 
+The OpenSearch Dashboards user interface maximizes ease of use for common indexing and data stream administrative operations. Functionality will include the following: Create, Read, Update, Delete (CRUD) and mapping indices, CRUD and mapping aliases, reindexing, open/close indices, shrink indices, and split indices. Additionally, users will be able to monitor the actions taken within the UI through a dashboard, and audit records will be logged. 
+
 Learn how to use the OpenSearch Dashboards user interface to create and manage component templates in the following tutorial.
 
 ## Creating component templates
