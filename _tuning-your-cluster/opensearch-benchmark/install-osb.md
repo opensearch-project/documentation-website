@@ -109,8 +109,26 @@ opensearch-benchmark -h
 
 ### Installing with Docker
 
+You can find images for OpenSearch Benchmark on [Docker Hub](https://hub.docker.com/r/opensearchproject/opensearch-benchmark) or on the [Amazon ECR Public Gallery](https://gallery.ecr.aws/opensearchproject/opensearch-benchmark).
 
+Pull the image from Docker Hub:
+```bash
+docker pull opensearchproject/opensearch-benchmark:latest
+```
+{% include copy.html %}
+
+Pull the image from Amazon ECR Public Gallery:
+```bash
+docker pull public.ecr.aws/opensearchproject/opensearch-benchmark:latest
+```
+{% include copy.html %}
+
+To run OpenSearch Benchmark, use `docker run` to launch a container with the desired arguments. For example, the following command will display the help text for OpenSearch Benchmark on the command line:
+```bash
+docker run opensearchproject/opensearch-benchmark opensearch-benchmark -h
+```
+{% include copy.html %}
 
 ## Next steps
 
-ADD
+Coming soon™
