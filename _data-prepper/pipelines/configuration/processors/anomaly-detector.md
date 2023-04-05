@@ -1,23 +1,23 @@
 ---
 layout: default
-title: Anomaly detector
+title: anomaly_etector
 parent: Processors
 grand_parent: Pipelines
 nav_order: 45
 ---
 
-# Anomaly detector
+# anomaly_detector
 
 ## Overview
 
-The `Anomaly detector` processor takes structured data and runs anomaly detection algorithms on fields you can configure in the data. The data must be either an integer or real number in order for the the anomaly detection algorithm to detect anomalies. We recommend that you deploy the `Aggregate` processor in a pipeline before the `Anomaly detector` processor to achieve the best results.  This is because the `Aggregate` processor aggregates events with same keys onto the same host.
+The `anomaly_detector` processor takes structured data and runs anomaly detection algorithms on fields you can configure in the data. The data must be either an integer or real number in order for the the anomaly detection algorithm to detect anomalies. We recommend that you deploy the `Aggregate` processor in a pipeline before the `anomaly_detector` processor to achieve the best results.  This is because the `Aggregate` processor automatically aggregates events with same keys onto the same host. For example, if you are searching for an anomaly in latencies from a specific IP address, and if all of the events go to the same host, then the host has more data for these events. This additional data results in better training of the ML algorithm, which results in better anomaly detection. 
 
-This processor uses the `random_cut_forest` mode to detect anomalies. 
+This processor uses the `random_cut_forest` mode to detect anomalies. Currently, this is the only mode that the `anomaly_detector` processor uses, but other modes may be supported in future releases.
 
 
 ## Configuration
 
-Configuration for this processor involves specifying a key and specifying options for the mode. You can use the following options to configure the `Anomaly detector` processor.
+Configuration for this processor involves specifying a key and specifying options for the mode. You can use the following options to configure the `anomaly_detector` processor.
 
 | Name | Required | Description |
 | :--- | :--- | :--- |
@@ -33,15 +33,15 @@ Configuration for this processor involves specifying a key and specifying option
 
 | Name | Description |
 | :--- | :--- |
-| `random_cut_forest` | Processes events using Random Cut Forest ML algorithm to detect anomalies. After passing a bunch of events with `latency` value between 0.2 and 0.3 are passed through the anomaly detector, when an event with `latency` value 11.5 is sent, the following anomaly event will be generated. See [Random Cut Forest (RCF) Algorithm](https://docs.aws.amazon.com/sagemaker/latest/dg/randomcutforest.html) for more details.| 
+| `random_cut_forest` | Processes events using Random Cut Forest ML algorithm to detect anomalies. After passing a bunch of events with `latency` value between 0.2 and 0.3 are passed through the `anomaly_detector` processor, when an event with `latency` value 11.5 is sent, the following anomaly event will be generated. See [Random Cut Forest (RCF) Algorithm](https://docs.aws.amazon.com/sagemaker/latest/dg/randomcutforest.html) for more details.| 
 
-
+See the following example of what happens in the `anomaly_detector` processor when the processor receives input:
 
  ```json
   { "latency": 11.5, "deviation_from_expected":[10.469302736820003],"grade":1.0}
 ```
 
-Where `deviation_from_expected` is a list of deviations for each of the keys from their corresponding expected values and `grade` is the anomaly grade indicating the severity of the anomaly
+where `deviation_from_expected` is a list of deviations for each of the keys from their corresponding expected values and `grade` is the anomaly grade indicating the severity of the anomaly
 
        
 
@@ -72,4 +72,6 @@ ad-pipeline:
     - stdout:
 ```
 
-When you run the `Anomaly detector` processor, it parses the messages and extracts the values for the `latency` key, then passes it through `RandomCutForest` machine-learning algorithm.
+When you run the `anomaly_detector` processor, the extracted value parses the messages and extracts the values for the `latency` key, then passes it through the `random_cut_forest` ML algorithm. You can configure any key that is comprised of integers or real numbers as values. In the following example, you can configure `bytes` for use as an anomaly detector. 
+
+`{"ip":"1.2.3.4", "bytes":234234, "latency":0.2}`
