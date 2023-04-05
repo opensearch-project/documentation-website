@@ -132,6 +132,24 @@ The following image shows a date histogram with an interval dropdown list.
 
 <img src="{{site.url}}{{site.baseurl}}/images/multi-data-sources-11.jpg" alt="Histogram user interface">
 
+## Selecting multiple data sources in the Dev Tools console
+
+Selecting multiple data sources in the Dev Tools console allows you to work with a broader range of data and gain deeper insights into your code and applications. You can follow these steps:
+
+1. To access the Dev Tools console, open OpenSearch Dashboards and select **Dev Tools** in the main menu.
+2. In the console, input the following query in the editor pane and then select the play button.
+
+    ```json
+    GET /_cat/indices
+    ```
+
+3. From the **DataSource** dropdown menu, select a data source and then query the source.
+4. Repeat the preceding steps for each data source you want to select.
+
+For an overview of this capability, watch this 15-second video.
+
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/multidata-dev-tools.gif" alt="Multiple data sources in Dev Tools demo">{: .img-fluid}
+
 ## Creating data visualizations for a dashboard
 
 Follow these steps to learn how to create data visualizations for a dashboard:
@@ -157,24 +175,6 @@ Your dashboard might look like the one in the following image.
 <img src="{{site.url}}{{site.baseurl}}/images/multi-data-sources-12.jpg" width=700 alt="Example dashboard using data visualizations from many data sources">
 
 You have now explored the data sources experimental feature. To provide feedback on how this feature can be improved ahead of its release for production use, comment in the [OpenSearch forum](https://forum.opensearch.org/).
-
-## Selecting multiple data sources in the Dev Tools console
-
-Selecting multiple data sources in the Dev Tools console allows you to work with a broader range of data and gain deeper insights into your code and applications. You can follow these steps:
-
-1. To access the Dev Tools console, open OpenSearch Dashboards and select **Dev Tools** in the main menu.
-2. In the console, input the following query in the editor pane and then select the play button.
-
-    ```json
-    GET /_cat/indices
-    ```
-
-3. From the **DataSource** dropdown menu, select a data source and then query the source.
-4. Repeat the preceding steps for each data source you want to select.
-
-For an overview of this capability, watch this 15-second video.
-
-<img src="{{site.url}}{{site.baseurl}}/images/dashboards/multidata-dev-tools.gif" alt="Multiple data sources in Dev Tools demo">{: .img-fluid}
 
 ## Understanding feature limitations
 
