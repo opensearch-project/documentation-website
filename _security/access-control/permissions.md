@@ -67,13 +67,26 @@ Rather than individual permissions, you can often achieve your desired security 
 
 ## Cluster permissions
 
-These permissions are for the cluster and can't be applied granularly. For example, you either have permissions to take snapshots (`cluster:admin/snapshot/create`) or you don't. You can't have permissions to take snapshots only for certain indices.
+These permissions are for the cluster and can't be applied granularly. For example, you either have permissions to take snapshots (`cluster:admin/snapshot/create`) or you don't. The cluster permission, therefore, cannot grant a user privileges to take snapshots of a select set of indexes while preventing the user from taking snapshots of others.
+
+Cross-references to API documentation in the permissions that follow are only intended to provide an understanding of the permissions. As stated at the beginning of this section, permissions often correlate to APIs but do not map directly to them.
+{: .note }
+
+
+### Ingest API permissions
+
+See [Ingest APIs]({{site.url}}{{site.baseurl}}/api-reference/ingest-apis/index/).
 
 - cluster:admin/ingest/pipeline/delete
 - cluster:admin/ingest/pipeline/get
 - cluster:admin/ingest/pipeline/put
 - cluster:admin/ingest/pipeline/simulate
 - cluster:admin/ingest/processor/grok/get
+
+### Anomaly Detection permissions
+
+See [Anomaly detection API]({{site.url}}{{site.baseurl}}/observing-your-data/ad/api/).
+
 - cluster:admin/opendistro/ad/detector/delete
 - cluster:admin/opendistro/ad/detector/info
 - cluster:admin/opendistro/ad/detector/jobmanagement
@@ -87,7 +100,12 @@ These permissions are for the cluster and can't be applied granularly. For examp
 - cluster:admin/opendistro/ad/result/search
 - cluster:admin/opendistro/ad/result/topAnomalies
 - cluster:admin/opendistro/ad/tasks/search
-- cluster:admin/opendistro/alerting/alerts/ack (acknowledge)
+
+### Alerting permissions
+
+See [Alerting API]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/api/).
+
+- cluster:admin/opendistro/alerting/alerts/ack
 - cluster:admin/opendistro/alerting/alerts/get
 - cluster:admin/opendistro/alerting/destination/delete
 - cluster:admin/opendistro/alerting/destination/email_account/delete
@@ -105,10 +123,20 @@ These permissions are for the cluster and can't be applied granularly. For examp
 - cluster:admin/opendistro/alerting/monitor/get
 - cluster:admin/opendistro/alerting/monitor/search
 - cluster:admin/opendistro/alerting/monitor/write
+
+### Asynchronous Search permissions
+
+See [Asynchronous search]({{site.url}}{{site.baseurl}}/search-plugins/async/index/).
+
 - cluster:admin/opendistro/asynchronous_search/stats
 - cluster:admin/opendistro/asynchronous_search/delete
 - cluster:admin/opendistro/asynchronous_search/get
 - cluster:admin/opendistro/asynchronous_search/submit
+
+### Index State Management permissions
+
+See [ISM API]({{site.url}}{{site.baseurl}}/im-plugin/ism/api/).
+
 - cluster:admin/opendistro/ism/managedindex/add
 - cluster:admin/opendistro/ism/managedindex/change
 - cluster:admin/opendistro/ism/managedindex/remove
@@ -118,6 +146,11 @@ These permissions are for the cluster and can't be applied granularly. For examp
 - cluster:admin/opendistro/ism/policy/get
 - cluster:admin/opendistro/ism/policy/search
 - cluster:admin/opendistro/ism/policy/delete
+
+### Index rollups permissions
+
+See [Index rollups API]({{site.url}}{{site.baseurl}}/im-plugin/index-rollups/rollup-api/).
+
 - cluster:admin/opendistro/rollup/index
 - cluster:admin/opendistro/rollup/get
 - cluster:admin/opendistro/rollup/search
@@ -125,6 +158,11 @@ These permissions are for the cluster and can't be applied granularly. For examp
 - cluster:admin/opendistro/rollup/start
 - cluster:admin/opendistro/rollup/stop
 - cluster:admin/opendistro/rollup/explain
+
+### Reporting permissions
+
+See [Creating reports with the Dashboards interface]({{site.url}}{{site.baseurl}}/dashboards/reporting/).
+
 - cluster:admin/opendistro/reports/definition/create
 - cluster:admin/opendistro/reports/definition/update
 - cluster:admin/opendistro/reports/definition/on_demand
@@ -134,6 +172,11 @@ These permissions are for the cluster and can't be applied granularly. For examp
 - cluster:admin/opendistro/reports/instance/list
 - cluster:admin/opendistro/reports/instance/get
 - cluster:admin/opendistro/reports/menu/download
+
+### Transform job permissions
+
+See [Transforms APIs]({{site.url}}{{site.baseurl}}/im-plugin/index-transforms/transforms-apis/)
+
 - cluster:admin/opendistro/transform/index
 - cluster:admin/opendistro/transform/get
 - cluster:admin/opendistro/transform/preview
@@ -141,30 +184,105 @@ These permissions are for the cluster and can't be applied granularly. For examp
 - cluster:admin/opendistro/transform/start
 - cluster:admin/opendistro/transform/stop
 - cluster:admin/opendistro/transform/explain
+
+### Observability permissions
+
+See [Observability security]({{site.url}}{{site.baseurl}}/observing-your-data/observability-security/).
+
 - cluster:admin/opensearch/observability/create
 - cluster:admin/opensearch/observability/update
 - cluster:admin/opensearch/observability/delete
 - cluster:admin/opensearch/observability/get
+
+### Cross-cluster replication
+
+See [Cross-cluster replication security]({{site.url}}{{site.baseurl}}/tuning-your-cluster/replication-plugin/permissions/).
+
 - cluster:admin/plugins/replication/autofollow/update
+
+### Reindex
+
+See [Reindex document]({{site.url}}{{site.baseurl}}/api-reference/document-apis/reindex/).
+
 - cluster:admin/reindex/rethrottle
+
+### Snapshot repository permissions
+
+See [Snapshot APIs]({{site.url}}{{site.baseurl}}/api-reference/snapshots/index/).
+
 - cluster:admin/repository/delete
 - cluster:admin/repository/get
 - cluster:admin/repository/put
 - cluster:admin/repository/verify
+
+### Reroute
+
+See [Cluster manager task throttling]({{site.url}}{{site.baseurl}}/tuning-your-cluster/cluster-manager-task-throttling/).
+
 - cluster:admin/reroute
+
+### Script permissions
+
+See [Script APIs]({{site.url}}{{site.baseurl}}/api-reference/script-apis/index/).
+
 - cluster:admin/script/delete
 - cluster:admin/script/get
 - cluster:admin/script/put
+
+### Update settings permission
+
+See [Update settings]({{site.url}}{{site.baseurl}}api-reference/index-apis/update-settings/) on the Index APIs page.
+
 - cluster:admin/settings/update
+
+### Snapshot permissions
+
+See [Snapshot APIs]({{site.url}}{{site.baseurl}}/api-reference/snapshots/index/).
+
 - cluster:admin/snapshot/create
 - cluster:admin/snapshot/delete
 - cluster:admin/snapshot/get
 - cluster:admin/snapshot/restore
 - cluster:admin/snapshot/status
 - cluster:admin/snapshot/status*
+
+### Task permissions
+
+See [Tasks]({{site.url}}{{site.baseurl}}/api-reference/tasks/) in the API Reference section.
+
 - cluster:admin/tasks/cancel
 - cluster:admin/tasks/test
 - cluster:admin/tasks/testunblock
+
+### Security Analytics permissions
+
+See [API tools]({{site.url}}{{site.baseurl}}/security-analytics/api-tools/index/).
+
+| **Permission** | **Description** |
+| :--- | :--- |
+| cluster:admin/opensearch/securityanalytics/alerts/get | Permission to get alerts |
+| cluster:admin/opensearch/securityanalytics/alerts/ack | Permission to acknowledge alerts |
+| cluster:admin/opensearch/securityanalytics/detector/get | Permission to get detectors |
+| cluster:admin/opensearch/securityanalytics/detector/search | Permission to search detectors |
+| cluster:admin/opensearch/securityanalytics/detector/write | Permission to create and update detectors |
+| cluster:admin/opensearch/securityanalytics/detector/delete | Permission to delete detectors |
+| cluster:admin/opensearch/securityanalytics/findings/get | Permission to get findings |
+| cluster:admin/opensearch/securityanalytics/mapping/get | Permission to get field mappings by index |
+| cluster:admin/opensearch/securityanalytics/mapping/view/get | Permission to get field mappings by index and view mapped and unmapped fields |
+| cluster:admin/opensearch/securityanalytics/mapping/create | Permission to create field mappings |
+| cluster:admin/opensearch/securityanalytics/mapping/update | Permission to update field mappings |
+| cluster:admin/opensearch/securityanalytics/rules/categories | Permission to get all rule categories |
+| cluster:admin/opensearch/securityanalytics/rule/write | Permission to create and update rules |
+| cluster:admin/opensearch/securityanalytics/rule/search | Permission to search for rules |
+| cluster:admin/opensearch/securityanalytics/rules/validate | Permission to validate rules |
+| cluster:admin/opensearch/securityanalytics/rule/delete | Permission to delete rules |
+
+### Monitoring permissions
+
+Cluster permissions for monitoring the cluster apply to read-only operations, such as checking cluster health and getting information about usage on nodes or tasks running in the cluster.
+
+See [REST API reference]({{site.url}}{{site.baseurl}}/api-reference/index/).
+
 - cluster:monitor/allocation/explain
 - cluster:monitor/health
 - cluster:monitor/main
@@ -180,7 +298,11 @@ These permissions are for the cluster and can't be applied granularly. For examp
 - cluster:monitor/task/get
 - cluster:monitor/tasks/list
 
-The following permissions are for indexes but apply globally to the cluster:
+### Index templates
+
+The index template permissions are for indexes but apply globally to the cluster.
+
+See [Index templates]({{site.url}}{{site.baseurl}}/im-plugin/index-templates/).
 
 - indices:admin/index_template/delete
 - indices:admin/index_template/get
