@@ -401,9 +401,14 @@ The response returns the three hotels that are nearest to the search point and h
 }
 ```
 
-Note that there are multiple ways to construct a filter that returns hotels that provide parking. 
+Note that there are multiple ways to construct a filter that returns hotels that provide parking, for example:
 
-The following request illustrates alternative mechanisms to search for hotels with parking using a `term`, `wildcard`, and `regexp` query clauses in the `should` clause. Additionally, it uses the `must_not` clause to eliminate hotels with `parking` set to `false`:
+- A `term` query clause in the `should` clause
+- A `wildcard` query clause in the `should` clause
+- A `regexp` query clause in the `should` clause
+- A `must_not` clause to eliminate hotels with `parking` set to `false`.
+
+The following request illustrates these four different ways of searching for hotels with parking:
 
 ```json
 POST /hotels-index/_search
