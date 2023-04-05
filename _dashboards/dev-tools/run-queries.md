@@ -3,8 +3,6 @@ layout: default
 title: Running queries in the Dev Tools console
 parent: Dev Tools
 nav_order: 10
-redirect_from:
-  - /dashboards/run-queries/
 ---
 
 # Running queries in the Dev Tools console
