@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Approximate search
-nav_order: 10
+nav_order: 15
 parent: k-NN
 has_children: false
 has_math: true
