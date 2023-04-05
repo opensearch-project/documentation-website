@@ -169,10 +169,10 @@ Selecting multiple data sources in the Dev Tools console allows you to work with
     GET /_cat/indices
     ```
 
-3. From the **DataSource** dropdown menu, select a data source and then query the source
+3. From the **DataSource** dropdown menu, select a data source and then query the source.
 4. Repeat the preceding steps for each data source you want to select.
 
-For an overview of this capability, watch this 20-second video.
+For an overview of this capability, watch this 15-second video.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/multidata-dev-tools.gif" alt="Multiple data sources in Dev Tools demo">{: .img-fluid}
 
