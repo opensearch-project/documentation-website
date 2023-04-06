@@ -87,41 +87,36 @@ You cannot change the mapping of an existing field, you can only modify the fiel
 ---
 ## Mapping example usage
 
-The following example shows how to create a mapping to specify that OpenSearch should ignore any documents with malformed ip addresses that do not conform to the `ip_range` data type. You accomplish this by setting the `ignore_malformed` parameter to `true`.
+The following example shows how to create a mapping to specify that OpenSearch should ignore any documents with malformed ip addresses that do not conform to the [`ip`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/ip/) data type. You accomplish this by setting the `ignore_malformed` parameter to `true`.
 
-### Create an index with an ip_range mapping
+### Create an index with an `ip` mapping
 
 To create an index, use a PUT request:
 
 ```json
-PUT _index_ip
+PUT /testindex 
 {
-  "mappings": {
-    "dynamic_templates": [
-     {
-        "ip_range": {
-        "match": "*ip_range",
-        "mapping": {
-           "type": "ip_range",
-           "ignore_malformed": true
+  "mappings" : {
+    "properties" :  {
+      "ip_address" : {
+        "type" : "ip",
+        "ignore_malformed": true
       }
-     }
     }
-   ]
   }
 }
 ```
 
-You can add a document to your index that has an IP range specified:
+You can add a document to your index that has a malformed IP address:
 
 ```json
-PUT _index_ip/_doc/<id>
+PUT testindex/_doc/1 
 {
-  "source_ip_range": "192.168.1.1/32"
+  "ip_address" : "malformed ip address"
 }
 ```
 
-This indexed ip_range does not throw an error because `ignore_malformed` is set to true.
+This indexed IP address does not throw an error because `ignore_malformed` is set to true.
 
 ## Get a mapping
 
