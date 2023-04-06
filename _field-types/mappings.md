@@ -107,7 +107,7 @@ PUT /test-index
 }
 ```
 
-You can add a document to your index that has a malformed IP address:
+You can add a document that has a malformed IP address to your index:
 
 ```json
 PUT /test-index/_doc/1 
@@ -116,7 +116,48 @@ PUT /test-index/_doc/1
 }
 ```
 
-This indexed IP address does not throw an error because `ignore_malformed` is set to true.
+This indexed IP address does not throw an error because `ignore_malformed` is set to true. 
+
+You can query the index using the following request:
+
+```json
+GET /test-index/_search
+```
+
+The response shows that the `ip_address` field is ignored in the indexed document:
+
+```json
+{
+  "took": 14,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 1,
+      "relation": "eq"
+    },
+    "max_score": 1,
+    "hits": [
+      {
+        "_index": "test-index",
+        "_id": "1",
+        "_score": 1,
+        "_ignored": [
+          "ip_address"
+        ],
+        "_source": {
+          "ip_address": "malformed ip address"
+        }
+      }
+    ]
+  }
+}
+```
 
 ## Get a mapping
 
