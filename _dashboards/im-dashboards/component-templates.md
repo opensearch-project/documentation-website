@@ -1,25 +1,33 @@
 ---
 layout: default
-title: Template components
+title: Component templates
 parent: Index management in Dashboards
 nav_order: 50
 ---
 
-# Template components
+# Component templates
 Introduced 2.7
 {: .label .label-purple }
 
-Template components allow you to create a single index pattern that matches multiple indexes. This pattern can include wildcards or regular expressions, enabling you to apply the same setting or mapping to multiple indexes simultaneously.
+This documentation is aimed at admin users who manage OpenSearch clusters and are familiar with [index management in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/index/).
+{: .note}
+
+Component templates allow you to create a single index pattern that matches multiple indexes. This pattern can include wildcards or regular expressions, enabling you to apply the same setting or mapping to multiple indexes simultaneously.
 
 Using them with [index templates]({{site.url}}{{site.baseurl}}/im-plugin/index-templates/) can be a powerful tool for managing large volumes of data. You can create an index template that defines the basic structure and settings of your indexes, and then use the template components to apply the settings to all indexes that match a specific pattern or criteria.
 
-The OpenSearch Dashboards user interface (UI) maximizes ease of use for common indexing and data stream administrative operations. Functionality includes Create, Read, Update, Delete (CRUD) and mapping indices, CRUD and mapping aliases, reindexing, open/close indices, shrink indices, and split indices. You also can monitor actions from a dashboard and log audit records. 
+The OpenSearch Dashboards user interface (UI) maximizes ease of use for common indexing and data stream administrative operations such as create, read, update, delete (CRUD) and mapping indexes; CRUD and mapping aliases; reindexing; and open/close, shrink, and split indexes. You also can monitor actions and log audit records in the UI. 
 
 <insert short demo>
 
-## Creating template components
+## Key terms
 
-This documentation is aimed at admin users who manage OpenSearch clusters, and it is assumed you understand [index management in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/im-dashboards/index/).
+Before starting with this tutorial, it's helpful to understand the following terms:
+
+- *Component template* refers to a reusable building block with predefined settings, mappings, and aliases that can be associated with an index template.
+- *Index template* refers to a predefined structure used to organize and store data in a database or search index.
+
+## Creating component templates
 
 To create template components using the UI, follow these steps:
 
