@@ -69,6 +69,6 @@ ad-pipeline:
     - stdout:
 ```
 
-When you run the `anomaly_detector` processor, the extracted value parses the messages and extracts the values for the `latency` key, then passes it through the `random_cut_forest` ML algorithm. You can configure any key that is comprised of integers or real numbers as values. In the following example, you can configure `bytes` as an anomaly detector. 
+When you run the `anomaly_detector` processor, the extracted value parses the messages and extracts the values for the `latency` key, then passes it through the `random_cut_forest` ML algorithm. You can configure any key that is comprised of integers or real numbers as values. In the following example, you can configure `bytes` or `latency` as the key for an anomaly detector. 
 
 `{"ip":"1.2.3.4", "bytes":234234, "latency":0.2}`
