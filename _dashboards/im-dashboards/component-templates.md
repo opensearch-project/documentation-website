@@ -9,9 +9,6 @@ nav_order: 50
 Introduced 2.7
 {: .label .label-purple }
 
-This documentation is aimed at admin users who manage OpenSearch clusters and are familiar with [index management in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/index/).
-{: .note}
-
 Component templates allow you to create a single index pattern that matches multiple indexes. This pattern can include wildcards or regular expressions, enabling you to apply the same setting or mapping to multiple indexes simultaneously.
 
 Using them with [index templates]({{site.url}}{{site.baseurl}}/im-plugin/index-templates/) can be a powerful tool for managing large volumes of data. You can create an index template that defines the basic structure and settings of your indexes, and then use the component templates to apply the settings to all indexes that match a specific pattern or criteria.    
@@ -19,6 +16,10 @@ Using them with [index templates]({{site.url}}{{site.baseurl}}/im-plugin/index-t
 The OpenSearch Dashboards user interface (UI) maximizes ease of use for common indexing and data stream administrative operations such as create, read, update, delete (CRUD) and mapping indexes; CRUD and mapping aliases; reindexing; and open/close, shrink, and split indexes, along with the monitoring of actions and logging of audit records. 
 
 <insert short demo>
+
+## Prerequisites 
+
+This tutorial is aimed at admin users who [manage OpenSearch clusters]({site.url}}{{site.baseurl}}/tuning-your-cluster/cluster/) and are familiar with [index management in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/im-dashboards/index/).
 
 ## Key terms
 
@@ -33,7 +34,9 @@ To create template components using the UI, follow these steps:
 
 1. From the OpenSearch Dashboards main page, select **Index Management** in the navigation menu.
 2. From the Index Management window, select **Templates** > **Template components**.
-3. Select **Create** and then define the template component settings. 
+3. Select **Create** and then define the component template settings. 
+4. To configure aliases, settings, and mappings, toggle on **Use configuration**. 
+5.  
 
 Note that when you create component templates, those templates apply only to new index templates that you create, not existing index templates.
 
