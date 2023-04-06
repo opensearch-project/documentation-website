@@ -10,10 +10,7 @@ nav_order: 45
 
 ## Overview
 
-The `anomaly_detector` processor takes structured data and runs anomaly detection algorithms on fields you can configure in the data. The data must be either an integer or real number in order for the the anomaly detection algorithm to detect anomalies. We recommend that you deploy the `Aggregate` processor in a pipeline before the `anomaly_detector` processor to achieve the best results.  This is because the `Aggregate` processor automatically aggregates events with same keys onto the same host. For example, if you are searching for an anomaly in latencies from a specific IP address, and if all of the events go to the same host, then the host has more data for these events. This additional data results in better training of the ML algorithm, which results in better anomaly detection. 
-
-This processor uses the `random_cut_forest` mode to detect anomalies. Currently, this is the only mode that the `anomaly_detector` processor uses, but other modes may be supported in future releases.
-
+The `anomaly_detector` processor takes structured data and runs anomaly detection algorithms on fields that you can configure in that data. The data must be either an integer or real number in order for the the anomaly detection algorithm to detect anomalies. We recommend that you deploy the `Aggregate` processor in a pipeline before the `anomaly_detector` processor to achieve the best results.  This is because the `Aggregate` processor automatically aggregates events with same keys onto the same host. For example, if you are searching for an anomaly in latencies from a specific IP address, and if all of the events go to the same host, then the host has more data for these events. This additional data results in better training of the ML algorithm, which results in better anomaly detection. 
 
 ## Configuration
 
@@ -30,11 +27,11 @@ Keys that are used in the `anomaly_detector` processor are keys that are present
 
 ### random_cut_forest mode
 
-<!--- Add description for the random_forest_cut mode.--->
+The Random Cut Forest (RCF) ML algorithm is an unsupervised algorithm for detecting anomalous data points within a data set. In order to detect anomalies, the `anomaly_detector` processor uses the `random_cut_forest` mode. Currently, this is the only mode that the `anomaly_detector` processor uses, but other modes may be supported in future releases.
 
 | Name | Description |
 | :--- | :--- |
-| `random_cut_forest` | Processes events using Random Cut Forest ML algorithm to detect anomalies. After passing a bunch of events with `latency` value between 0.2 and 0.3 are passed through the `anomaly_detector` processor, when an event with `latency` value 11.5 is sent, the following anomaly event is generated. See [Random Cut Forest (RCF) Algorithm](https://docs.aws.amazon.com/sagemaker/latest/dg/randomcutforest.html) for more details.| 
+| `random_cut_forest` | Processes events using Random Cut Forest ML algorithm to detect anomalies. After passing a group of events with `latency`, a value between `0.2` and `0.3` is passed through the `anomaly_detector` processor. When an event with `latency` value `11.5` is sent, the following anomaly event is generated. See [Random Cut Forest (RCF) Algorithm](https://docs.aws.amazon.com/sagemaker/latest/dg/randomcutforest.html) for more details.| 
 
 See the following example of what happens in the `anomaly_detector` processor when it receives input:
 
@@ -42,9 +39,8 @@ See the following example of what happens in the `anomaly_detector` processor wh
   { "latency": 11.5, "deviation_from_expected":[10.469302736820003],"grade":1.0}
 ```
 
-In this example, `deviation_from_expected` is a list of deviations for each of the keys from their corresponding expected values and `grade` is the anomaly grade indicating the severity of the anomaly.
-
-       
+In this example, `deviation_from_expected` is a list of deviations for each of the keys from their corresponding expected values, and `grade` is the anomaly grade that indicates the severity of the anomaly.
+     
 
 You can configure `random_cut_forest` mode with the following options. 
 
