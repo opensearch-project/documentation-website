@@ -22,10 +22,11 @@ Configuration for this processor involves specifying a key and specifying option
 | Name | Required | Description |
 | :--- | :--- | :--- |
 | `keys` | Yes | A non-ordered `List<String>` which are used as inputs to the ML algorithm to detect anomalies in the values of the keys in the list. At least one key is required.
-| `mode` | Yes |  The machine learning (ML) algorithm (or model) to use to detect anomalies. One of the existing [Modes](#modes) must be provided. See [random_cut_forest](#random_cut_forest).
+| `mode` | Yes |  The machine learning (ML) algorithm (or model) to use to detect anomalies. You must be provide a mode. See [random_cut_forest mode](### random_cut_forest mode).
 
 ### Keys
 
+Keys that are used in the `anomaly_detector` processor are keys that are present in the input event. For example, if the input event is `{"key1":value1, "key2":value2, "key3":value3....}` then any of the keys (such as `key1`, `key2`, `key3`) in the input event can be used as anomaly detector keys as long as their value (such as `value1`, `value2`, `value3`) is an integer or real number.
 
 ### random_cut_forest mode
 
@@ -33,26 +34,26 @@ Configuration for this processor involves specifying a key and specifying option
 
 | Name | Description |
 | :--- | :--- |
-| `random_cut_forest` | Processes events using Random Cut Forest ML algorithm to detect anomalies. After passing a bunch of events with `latency` value between 0.2 and 0.3 are passed through the `anomaly_detector` processor, when an event with `latency` value 11.5 is sent, the following anomaly event will be generated. See [Random Cut Forest (RCF) Algorithm](https://docs.aws.amazon.com/sagemaker/latest/dg/randomcutforest.html) for more details.| 
+| `random_cut_forest` | Processes events using Random Cut Forest ML algorithm to detect anomalies. After passing a bunch of events with `latency` value between 0.2 and 0.3 are passed through the `anomaly_detector` processor, when an event with `latency` value 11.5 is sent, the following anomaly event is generated. See [Random Cut Forest (RCF) Algorithm](https://docs.aws.amazon.com/sagemaker/latest/dg/randomcutforest.html) for more details.| 
 
-See the following example of what happens in the `anomaly_detector` processor when the processor receives input:
+See the following example of what happens in the `anomaly_detector` processor when it receives input:
 
  ```json
   { "latency": 11.5, "deviation_from_expected":[10.469302736820003],"grade":1.0}
 ```
 
-where `deviation_from_expected` is a list of deviations for each of the keys from their corresponding expected values and `grade` is the anomaly grade indicating the severity of the anomaly
+In this example, `deviation_from_expected` is a list of deviations for each of the keys from their corresponding expected values and `grade` is the anomaly grade indicating the severity of the anomaly.
 
        
 
 You can configure `random_cut_forest` mode with the following options. 
 
 | Name | Default value | Range | Description |
-| :--- | :--- | :--- |
-| `shingle_size` | `4` | 1 - 60 | The shingle size to be used in the ML algorithm. |
-| `sample_size` | `256` | 100 - 2500 | Sample size size to be used in the ML algorithm. |
-| `time_decay` | `0.1` | 0 - 1.0 | The time decay value to be used in the ML algorithm. Used as (timeDecay/SampleSize) in the ML algorithm. |
-| `type` | `metrics` | N/A | Type of data that is being sent to the algorithm. Other types, such as `traces`, will be supported in future releases. |
+| :--- | :--- | :--- | :--- |
+| `shingle_size` | `4` | 1 - 60 | The shingle size used in the ML algorithm. |
+| `sample_size` | `256` | 100 - 2500 | Sample size size used in the ML algorithm. |
+| `time_decay` | `0.1` | 0 - 1.0 | The time decay value used in the ML algorithm. Used as (timeDecay/SampleSize) in the ML algorithm. |
+| `type` | `metrics` | N/A | Type of data sent to the algorithm. Other types, such as `traces`, will be supported in future releases. |
 | `version` | `1.0` | N/A | The algorithm version number. |
 
 ## Usage
@@ -72,6 +73,6 @@ ad-pipeline:
     - stdout:
 ```
 
-When you run the `anomaly_detector` processor, the extracted value parses the messages and extracts the values for the `latency` key, then passes it through the `random_cut_forest` ML algorithm. You can configure any key that is comprised of integers or real numbers as values. In the following example, you can configure `bytes` for use as an anomaly detector. 
+When you run the `anomaly_detector` processor, the extracted value parses the messages and extracts the values for the `latency` key, then passes it through the `random_cut_forest` ML algorithm. You can configure any key that is comprised of integers or real numbers as values. In the following example, you can configure `bytes` as an anomaly detector. 
 
 `{"ip":"1.2.3.4", "bytes":234234, "latency":0.2}`
