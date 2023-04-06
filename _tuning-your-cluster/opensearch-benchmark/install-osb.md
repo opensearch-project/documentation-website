@@ -9,17 +9,17 @@ parent: OpenSearch Benchmark
 
 You can install OpenSearch Benchmark directly on a host running Linux or macOS or you can run OpenSearch Benchmark in a Docker container on any compatible host. This section of documentation describes high-level considerations for your OpenSearch Benchmark host, as well as instructions for installing OpenSearch Benchmark.
 
-Some OpenSearch Benchmark functionality is unavailable when you run OpenSearch Benchmark in a Docker container:
-- You cannot distribute the load test drivers with OpenSearch Benchmark running in a Docker container. Instead, you can distribute the load test drivers by installing OpenSearch Benchmark directly on your hosts and starting the OpenSearch Benchmark daemon.
+Some OpenSearch Benchmark functionality is unavailable when you run OpenSearch Benchmark in a Docker container. Specifically, the following restrictions apply:
+- You cannot distribute load test drivers with OpenSearch Benchmark running in a Docker container. Instead, you can distribute the load test drivers by installing OpenSearch Benchmark directly on your hosts and starting the OpenSearch Benchmark daemon.
 - You can only use the `benchmark-only` pipeline because OpenSearch Benchmark cannot recursively deploy an OpenSearch cluster in its own container.
 
 ## Hardware considerations
 
-OpenSearch Benchmark doesn't have any specific hardware requirements or constraints, but there are a few things to keep in mind.
+OpenSearch Benchmark can be used to deploy OpenSearch nodes for testing. If you intend to leverage this functionality in your environment, then you will need to install OpenSearch Benchmark directly on each host where you plan to deploy an OpenSearch node. Additionally, you must configure each host for OpenSearch. See [Installing OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/) for guidance about important host settings that you must change.
 
-OpenSearch Benchmark can deploy a local OpenSearch node for testing unless you are running OpenSearch Benchmark in a Docker container. If you intend to leverage this functionality in your environment, then you will need to install OpenSearch Benchmark directly on the host and make sure the host is configured appropriately for OpenSearch. See [Installing OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/) for important host settings.
+You should also think about which workloads you want to run. To see a list of default workload specifications for OpenSearch Benchmark, visit the [opensearch-benchmark-workloads](https://github.com/opensearch-project/opensearch-benchmark-workloads) repository on GitHub. As a general rule, make sure that the OpenSearch Benchmark host has enough free storage space to store the compressed data and the full decompressed data corpus once OpenSearch Benchmark is installed.
 
-You should also think about which workloads you want to run. To see a list of default workload specifications for OpenSearch Benchmark, visit the [opensearch-benchmark-workloads](https://github.com/opensearch-project/opensearch-benchmark-workloads) repository on GitHub. As a general rule, make sure that the OpenSearch Benchmark host has enough free storage space to store the compressed data and the full decompressed data corpus. You can use the following table to determine the approximate minimum amount of required free space by adding the compressed size with the uncompressed size for a particular workload:
+If you want to benchmark with a default workload, then use the following table to determine the approximate minimum amount of required free space needed by adding the compressed size with the uncompressed size:
 
 | Workload Name | Document Count | Compressed Size | Uncompressed Size |
 | :----: | :----: | :----: | :----: |
@@ -36,7 +36,7 @@ You should also think about which workloads you want to run. To see a list of de
 | pmc | 574,199 | 5.5 GB | 21.7 GB |
 | so | 36,062,278 | 8.9 GB | 33.1 GB |
 
-Finally, your OpenSearch Benchmark host should use solid-state drives (SSDs) for storage because they perform significantly faster at read and write operations than traditional spinning disk hard drives. If your host uses spinning disk hard drives, then you might see performance bottlenecking which can skew benchmark results.
+Lastly, your OpenSearch Benchmark host should use solid-state drives (SSDs) for storage because they perform significantly faster at read and write operations than traditional spinning disk hard drives. If your host uses spinning disk hard drives, then you might observe performance bottlenecking which can skew benchmark results.
 
 ## Software dependencies
 
@@ -47,15 +47,15 @@ OpenSearch Benchmark has a few software dependencies based on your specific use 
 
 ### Required software
 
-OpenSearch Benchmark is written in the [Python](https://www.python.org/) programming language and requires **Python 3.8 or newer** along with [pip](https://pypi.org/project/pip/), the package installer for Python.
+OpenSearch Benchmark is written in the [Python](https://www.python.org/) programming language and requires **Python 3.8 or newer** and [pip](https://pypi.org/project/pip/), the package installer for Python.
 
-You can check whether Python 3 is installed, and the version, with the following command:
+Check your Python 3 version with the following command:
 ```bash
 python3 --version
 ```
 {% include copy.html %}
 
-If a compatible version of Python 3 isn't installed, then we recommend using a Python management tool like [pyenv](https://github.com/pyenv/pyenv). For installation instructions, refer to the pyenv [Installation](https://github.com/pyenv/pyenv#installation) documentation.
+If a compatible version of Python 3 isn't installed, then we recommend using a Python management tool like [pyenv](https://github.com/pyenv/pyenv). pyenv makes For installation instructions, see the pyenv [Installation](https://github.com/pyenv/pyenv#installation) documentation.
 
 Lastly, confirm that pip is installed on the host:
 ```bash
@@ -63,7 +63,7 @@ pip3 --version
 ```
 {% include copy.html %}
 
-For information about installing pip, see [pip documentation](https://pip.pypa.io/en/stable/).
+For information about installing pip, see the official [pip documentation](https://pip.pypa.io/en/stable/).
 
 ### Additional optional software
 
@@ -129,10 +129,14 @@ docker run opensearchproject/opensearch-benchmark opensearch-benchmark -h
 ```
 {% include copy.html %}
 
+OpenSearch Benchmark will exit with an error if no arguments are supplied. If you want to test the installation, use the `-h` option to print the help text in the command line.
+{: .warning}
+
 The following example command pulls down the latest OpenSearch Benchmark image from the Amazon ECR Public Gallery. It then runs the `geonames` workload against an OpenSearch cluster with default security settings at address `https://198.51.100.25:9200`:
 ```bash
 docker run public.ecr.aws/opensearchproject/opensearch-benchmark:latest opensearch-benchmark execute_test --target-hosts https://198.51.100.25:9200 --pipeline benchmark-only --workload geonames --client-options basic_auth_user:admin,basic_auth_password:admin,verify_certs:false
 ```
+{% include copy.html %}
 
 ## Next steps
 
