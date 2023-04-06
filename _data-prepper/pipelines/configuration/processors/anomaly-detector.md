@@ -19,13 +19,13 @@ Configuration for this processor involves specifying a key and specifying option
 | Name | Required | Description |
 | :--- | :--- | :--- |
 | `keys` | Yes | A non-ordered `List<String>` which are used as inputs to the ML algorithm to detect anomalies in the values of the keys in the list. At least one key is required.
-| `mode` | Yes |  The machine learning (ML) algorithm (or model) to use to detect anomalies. You must be provide a mode. See [random_cut_forest mode](#random_cut_forest_mode).
+| `mode` | Yes |  The machine learning (ML) algorithm (or model) to use to detect anomalies. You must be provide a mode. See [random_cut_forest mode](#random_cut_forest-mode).
 
 ### Keys
 
 Keys that are used in the `anomaly_detector` processor are keys that are present in the input event. For example, if the input event is `{"key1":value1, "key2":value2, "key3":value3....}` then any of the keys (such as `key1`, `key2`, `key3`) in the input event can be used as anomaly detector keys as long as their value (such as `value1`, `value2`, `value3`) is an integer or real number.
 
-### random_cut_forest_mode
+### random_cut_forest mode
 
 The Random Cut Forest (RCF) ML algorithm is an unsupervised algorithm for detecting anomalous data points within a data set. In order to detect anomalies, the `anomaly_detector` processor uses the `random_cut_forest` mode. Currently, this is the only mode that the `anomaly_detector` processor uses, but other modes may be supported in future releases.
 
