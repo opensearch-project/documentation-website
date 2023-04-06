@@ -23,7 +23,7 @@ You can configure the `anomaly_detector` processor by specifying a key and the o
 
 ### Keys
 
-Keys that are used in the `anomaly_detector` processor are present in the input event. For example, if the input event is `{"key1":value1, "key2":value2, "key3":value3}` then any of the keys (such as `key1`, `key2`, `key3`) in the input event can be used as anomaly detector keys as long as their value (such as `value1`, `value2`, `value3`) is an integer or real number.
+Keys that are used in the `anomaly_detector` processor are present in the input event. For example, if the input event is `{"key1":value1, "key2":value2, "key3":value3}`, then any of the keys (such as `key1`, `key2`, `key3`) in that input event can be used as anomaly detector keys as long as their value (such as `value1`, `value2`, `value3`) is an integer or real number.
 
 ### random_cut_forest mode
 
