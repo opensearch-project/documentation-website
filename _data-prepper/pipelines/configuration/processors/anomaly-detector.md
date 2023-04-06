@@ -14,16 +14,16 @@ The `anomaly_detector` processor takes structured data and runs anomaly detectio
 
 ## Configuration
 
-Configuration for this processor involves specifying a key and specifying options for the mode. You can use the following options to configure the `anomaly_detector` processor.
+You can configure the `anomaly_detector` processor by specifying a key and the options for the selected mode. You can use the following options to configure the `anomaly_detector` processor.
 
 | Name | Required | Description |
 | :--- | :--- | :--- |
-| `keys` | Yes | A non-ordered `List<String>` which are used as inputs to the ML algorithm to detect anomalies in the values of the keys in the list. At least one key is required.
-| `mode` | Yes |  The machine learning (ML) algorithm (or model) to use to detect anomalies. You must be provide a mode. See [random_cut_forest mode](#random_cut_forest-mode).
+| `keys` | Yes | A non-ordered `List<String>` that is used as input to the machine learning (ML) algorithm to detect anomalies in the values of the keys in the list. At least one key is required.
+| `mode` | Yes |  The ML algorithm (or model) to use to detect anomalies. You must be provide a mode. See [random_cut_forest mode](#random_cut_forest-mode).
 
 ### Keys
 
-Keys that are used in the `anomaly_detector` processor are keys that are present in the input event. For example, if the input event is `{"key1":value1, "key2":value2, "key3":value3....}` then any of the keys (such as `key1`, `key2`, `key3`) in the input event can be used as anomaly detector keys as long as their value (such as `value1`, `value2`, `value3`) is an integer or real number.
+Keys that are used in the `anomaly_detector` processor are present in the input event. For example, if the input event is `{"key1":value1, "key2":value2, "key3":value3}` then any of the keys (such as `key1`, `key2`, `key3`) in the input event can be used as anomaly detector keys as long as their value (such as `value1`, `value2`, `value3`) is an integer or real number.
 
 ### random_cut_forest mode
 
