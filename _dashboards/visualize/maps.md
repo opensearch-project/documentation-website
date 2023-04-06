@@ -122,20 +122,25 @@ For large datasets, you may want to avoid loading data for the whole map. To loa
 
 ### Drawing shapes to filter data
 
-You can filter your data by drawing shapes on your map. You can also modify the filter and remove it completely.
+You can filter your data by drawing shapes on your map. You can also modify the filter and remove it completely. In future releases, you will be able to modify the filter shape directly on the map from the Dashboards panel.
 
-In future releases, you will be able to modify the filter shape directly on the map from the Dashboards panel.
+When drawing a shape on the map across the International Dateline, you must draw it in a counterclockwise direction. Drawing in a clockwise direction will not include the correct datapoints.
 {: .note}
 
-When drawing a shape on the map across the International Dateline, you must draw it in a counterclockwise direction. Drawing in a clockwise direction does not include the correct datapoints.
-{: .note}
+You can configure the following map filter properties:
+
+- **Filter label** Allows you to give your filter a unique name.
+- **Spacial relation** Determines which operator to use during search. Works like a Venn diagram, but as a query. (Need to go back and check this.)
+- **Impacted layers** Whether the filter is applied to current the current view or another action.
 
 #### Creating a new filter using a rectangle
+
+You can filter your data by drawing a rectangular shape on the map to show a subset of your data.
 
 1. In the **Layers** panel, select your layer.
 1. Select the **Rectangle** button on the right side of the screen to draw a rectangle. 
 1. In the **Filter label** field, give your shape a name. 
-1. Choose a spatial relation type (intersects, disjoints, ?) [By default, is intersects selected?]
+1. Choose a spatial relation type. By default, **Intersects** is selected. See [Geographic queries](https://opensearch.org/docs/latest/field-types/geo-shape/) for more information on spatial relationship types. [Need to fix URL format.]
 1. Select the **Draw Rectangle** button.
 1. Draw the shape over the area on the map that you want to select.
 1. If you want to disable other filters from interacting with your shape filter, select your layer from the **Layers** panel. Then, in the **Filters** section, deselect **Apply global filters**. 
@@ -145,41 +150,27 @@ When drawing a shape on the map across the International Dateline, you must draw
 
 #### Creating a new filter using a polygon
 
+You can also filter your data by drawing a polygon shape on the map to show a subset of your data.
+
 1. In the **Layers** panel, select your layer.
 1. Select the **Polygon** button on the right side of the screen to draw a rectangle. 
 1. In the **Filter label** field, give your shape a name. 
-1. Choose a spatial relation type (intersects, disjoints, ?) [By default, is intersects selected?]
+1. Choose a spatial relation type. By default, **Intersects** is selected.See [Geographic queries](https://opensearch.org/docs/latest/field-types/geo-shape/) for more information on spatial relationship types. [Need to fix URL format.]
 1. Select the **Draw Polygon** button.
 1. Draw the shape over the area on the map that you want to select.
 1. Select the point that you started with to close the polygon shape.
+1. If you want to disable other filters from interacting with your shape filter, select your layer from the **Layers** panel. Then, in the **Filters** section, deselect **Apply global filters**. 
+1. Select the **Update** button. This prevents [what does this prevent? Need clarification on how global filters impact this.]
 
 [Image]
 
-
 #### Modifying an existing shape filter
 
+You can modify an existing map shape to change how your data is filtered.
+
 1. Select your filter from the top of the screen.
-1. Select **Edit filter**. [Other options: **Exclude results**, **Temporarily disable**, **Delete**]
-
-
-
-### Removing a shape filter
-
-[Apply global filters?]
-[Only request data]
-[Click shape in top menu bar, and can temporarily disable the filter (Edit, exclude results, temporarily disable, delete)]
-[Edit filter: can edit in the JSON editor to manually adjust coordinates, then click CANCEL or SAVE]
-[Change All Filters: Enable, Disable, Invert inclusion, ]
-
-
-
-
-You can configure the following map filter properties:
-
-- [**Filter label** Allows you to give your filter a unique name.]
-- [**Spacial relation** Determines which operator to use during search. Works like a Venn diagram, but as a query. (Need to go back and check this.)]
-- [**Impacted layers** Whether the filter is applied to current the current view or another action.]
-
+1. Select **Edit filter**.
+1. You can also select **Exclude results** to exclude results from your filter, **Temporarily disable** to temporarily disable your filter, or **Delete** to remove your filter completely.
 
 ## Using tooltips to visualize additional data
 
