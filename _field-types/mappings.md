@@ -94,7 +94,7 @@ The following example shows how to create a mapping to specify that OpenSearch s
 To create an index, use a PUT request:
 
 ```json
-PUT /testindex 
+PUT /test-index 
 {
   "mappings" : {
     "properties" :  {
@@ -110,7 +110,7 @@ PUT /testindex
 You can add a document to your index that has a malformed IP address:
 
 ```json
-PUT testindex/_doc/1 
+PUT /test-index/_doc/1 
 {
   "ip_address" : "malformed ip address"
 }
