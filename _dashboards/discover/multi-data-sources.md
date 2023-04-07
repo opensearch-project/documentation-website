@@ -145,7 +145,7 @@ Selecting multiple data sources in the Dev Tools console allows you to work with
     #data_source.enabled: true
     ```
 
-3. Open OpenSearch Dashboards on your local environment. Alternatively, you can open it on localhost http://localhost:5601/ with username and password admin.
+3. Verify access to OpenSearch Dashboards by connecting to http://localhost:5601 from a browser. The default username and password are admin.
 4. Select **Dev Tools** in the main menu.
 5. Input the following query in the editor pane of the **Console** and then select the play button.
 
