@@ -136,15 +136,25 @@ The following image shows a date histogram with an interval dropdown list.
 
 Selecting multiple data sources in the Dev Tools console allows you to work with a broader range of data and gain deeper insights into your code and applications. You can follow these steps:
 
-1. To access the Dev Tools console, open OpenSearch Dashboards and select **Dev Tools** in the main menu.
-2. In the console, input the following query in the editor pane and then select the play button.
+1. Open `opensearch_dashboards.yml` in the editor of your choice. 
+2. Modify the value `data_source.enabled:` from `false` to `true`, as shown in the following example.
+    
+    ```
+    # Set the value of this setting to true to enable the experimental multiple data source
+    # support feature. Use with caution.
+    #data_source.enabled: true
+    ```
+
+3. Open OpenSearch Dashboards on your local environment. Alternatively, you can open it on localhost http://localhost:5601/ with username and password admin.
+4. Select **Dev Tools** in the main menu.
+5. Input the following query in the editor pane of the **Console** and then select the play button.
 
     ```json
     GET /_cat/indices
     ```
 
-3. From the **DataSource** dropdown menu, select a data source and then query the source.
-4. Repeat the preceding steps for each data source you want to select.
+6. From the **DataSource** dropdown menu, select a data source and then query the source.
+7. Repeat the preceding steps for each data source you want to select.
 
 For an overview of this capability, watch this 15-second video.
 
