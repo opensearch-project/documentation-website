@@ -10,7 +10,7 @@ nav_order: 45
 
 ## Overview
 
-The `anomaly_detector` processor takes structured data and runs anomaly detection algorithms on fields that you can configure in that data. The data must be either an integer or real number in order for the the anomaly detection algorithm to detect anomalies. We recommend that you deploy the `Aggregate` processor in a pipeline before the `anomaly_detector` processor to achieve the best results.  This is because the `Aggregate` processor automatically aggregates events with same keys onto the same host. For example, if you are searching for an anomaly in latencies from a specific IP address, and if all of the events go to the same host, then the host has more data for these events. This additional data results in better training of the ML algorithm, which results in better anomaly detection. 
+The `anomaly_detector` processor takes structured data and runs anomaly detection algorithms on fields that you can configure in that data. The data must be either an integer or real number in order for the the anomaly detection algorithm to detect anomalies. We recommend that you deploy the `aggregate` processor in a pipeline before the `anomaly_detector` processor to achieve the best results.  This is because the `aggregate` processor automatically aggregates events with same keys onto the same host. For example, if you are searching for an anomaly in latencies from a specific IP address, and if all of the events go to the same host, then the host has more data for these events. This additional data results in better training of the ML algorithm, which results in better anomaly detection. 
 
 ## Configuration
 
@@ -49,7 +49,7 @@ You can configure `random_cut_forest` mode with the following options.
 | `shingle_size` | `4` | 1 - 60 | The shingle size used in the ML algorithm. |
 | `sample_size` | `256` | 100 - 2500 | Sample size size used in the ML algorithm. |
 | `time_decay` | `0.1` | 0 - 1.0 | The time decay value used in the ML algorithm. Used as (timeDecay/SampleSize) in the ML algorithm. |
-| `type` | `metrics` | N/A | Type of data sent to the algorithm. Other types, such as `traces`, will be supported in future releases. |
+| `type` | `metrics` | N/A | Type of data sent to the algorithm. |
 | `version` | `1.0` | N/A | The algorithm version number. |
 
 ## Usage
