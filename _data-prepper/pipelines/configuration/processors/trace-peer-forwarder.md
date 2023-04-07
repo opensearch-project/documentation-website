@@ -8,13 +8,13 @@ nav_order: 45
 
 # Trace peer forwarder
 
-The Trace peer forwarder processor is used with [Peer forwarder](https://github.com/opensearch-project/documentation-website/pull/3238/%7B%7Bsite.url%7D%7D%7B%7Bsite.baseurl%7D%7D/data-prepper/managing-data-prepper/peer-forwarder/) to reduce by half the number of events forwarded in a [Trace analytics](https://github.com/opensearch-project/documentation-website/pull/3238/%7B%7Bsite.url%7D%7D%7B%7Bsite.baseurl%7D%7D/data-prepper/common-use-cases/trace-analytics/) pipeline. Typically in Trace analytics, each event is duplicated when it is sent from `otel-trace-pipeline` to `raw-pipeline` and `service-map-pipeline`. When pipelines forward events, this causes the core peer forwarder to make multiple HTTP requests for the same event. You can use Trace peer forwarder to forward an event once through the `otel-trace-pipeline` instead of `raw-pipeline` and `service-map-pipeline`, which prevents unnecessary HTTP requests.
+The Trace peer forwarder processor is used with [Peer forwarder]({{site.url}}{{site.baseurl}}/managing-data-prepper/peer-forwarder/) to reduce by half the number of events forwarded in a [Trace analytics]({{site.url}}{{site.baseurl}}/data-prepper/common-use-cases/trace-analytics/) pipeline. Typically in Trace analytics, each event is duplicated when it is sent from `otel-trace-pipeline` to `raw-pipeline` and `service-map-pipeline`. When pipelines forward events, this causes the core peer forwarder to make multiple HTTP requests for the same event. You can use Trace peer forwarder to forward an event once through the `otel-trace-pipeline` instead of `raw-pipeline` and `service-map-pipeline`, which prevents unnecessary HTTP requests.
 
-You should use `Trace peer forwarder` for trace analytics pipelines when you have multiple nodes.
+You should use `trace peer forwarder` for trace analytics pipelines when you have multiple nodes.
 
 ## Usage
 
-To get started with `Trace peer forwarder`, first configure [Peer forwarder]({{site.url}}{{site.baseurl}}/managing-data-prepper/peer-forwarder/). Then, create the a `pipeline.yaml` file and specify `trace peer forwarder` as the processor. You can configure `Peer forwarder` in your `data-prepper-config.yaml` file. For more detailed information, see [Configuring Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/#2-configuring-data-prepper).
+To get started with `trace peer forwarder`, first configure [Peer forwarder]({{site.url}}{{site.baseurl}}/managing-data-prepper/peer-forwarder/). Then, create the a `pipeline.yaml` file and specify `trace peer forwarder` as the processor. You can configure `Peer forwarder` in your `data-prepper-config.yaml` file. For more detailed information, see [Configuring Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/#2-configuring-data-prepper).
 
 See the following `pipeline.yaml` file example: 
 
