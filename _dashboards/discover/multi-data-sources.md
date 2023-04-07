@@ -21,7 +21,7 @@ This tutorial uses a preconfigured data source and index pattern, and you arenâ€
 
 The multiple data sources feature is experimental and can't be deployed into production. You can try it out with a sample data source and a sample index pattern. Before getting started, you must first edit the YAML configuration. The following section provides the steps for enabling the feature.
 
-## Modifying the multiple data sources settings
+## Modifying the YAML file settings for multiple data sources
 
 Dashboards is configured in the cluster settings, and the multiple data sources feature is disabled by default. To enable it, you need to edit the configuration in `opensearch_dashboards.yml` and then restart the cluster.
 
