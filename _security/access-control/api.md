@@ -1524,7 +1524,7 @@ PUT /_opendistro/_security/api/audit/config
 
 A PATCH call is used to update specified fields in the audit configuration. The PATCH method requires an operation, a path, and a value to complete a valid request. For details on using the PATCH method, see the following [Patching resources](https://en.wikipedia.org/wiki/PATCH_%28HTTP%29#Patching_resources) description at Wikipedia.
 
-Using the PATCH method also requires a user to have a security configuration that includes admin certificates for encryption. To find out more about these certificates, see [Configure admin certificates]({{site.url}}{{site.baseurl}}/security/configuration/tls/#configuring-admin-certificates).
+Using the PATCH method also requires a user to have a security configuration that includes admin certificates for encryption. To find out more about these certificates, see [Configuring admin certificates]({{site.url}}{{site.baseurl}}/security/configuration/tls/#configuring-admin-certificates).
 
 ```bash
 curl -X PATCH -k -i --cert <admin_cert file name> --key <admin_cert_key file name> <domain>/_opendistro/_security/api/audit -H 'Content-Type: application/json' -d'[{"op":"add","path":"/config/enabled","value":"true"}]'
