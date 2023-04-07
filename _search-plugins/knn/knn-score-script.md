@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Exact k-NN with scoring script
-nav_order: 20
+nav_order: 10
 parent: k-NN
 has_children: false
 has_math: true

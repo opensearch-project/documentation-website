@@ -9,10 +9,7 @@ nav_order: 10
 
 Rolling upgrades, sometimes referred to as "node replacement upgrades," can be performed on running clusters with virtually no downtime. Nodes are individually stopped and upgraded in place. Alternatively, nodes can be stopped and replaced, one at a time, by hosts running the new version. During this process you can continue to index and query data in your cluster.
 
-The example outputs and API responses included in this document were generated in a development environment using Docker containers. Validation was performed by upgrading an Elasticsearch 7.10.2 cluster to OpenSearch 1.3.7; however, this process can be applied to any **N→N+1** version upgrade of OpenSearch on any platform. Certain commands, such as listing running containers in Docker, are included as an aid to the reader, but the specific commands used on your host(s) will be different depending on your distribution and host operating system.
-
-This guide assumes that you are comfortable working from the Linux command line interface (CLI). You should understand how to input commands, navigate between directories, and edit text files. For help with [Docker](https://www.docker.com/) or [Docker Compose](https://github.com/docker/compose), refer to the official documentation on their websites.
-{:.note}
+This document serves as a high-level, platform-agnostic overview of the rolling upgrade procedure. For specific examples of commands, scripts, and configuration files, refer to the [Appendix]({{site.url}}{{site.baseurl}}/upgrade-opensearch/appendix/).
 
 ## Preparing to upgrade
 
@@ -21,11 +18,11 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/in
 **Important:** OpenSearch nodes cannot be downgraded. If you need to revert the upgrade, then you will need to perform a fresh installation of OpenSearch and restore the cluster from a snapshot. Take a snapshot and store it in a remote repository before beginning the upgrade procedure.
 {: .important}
 
-## Upgrade steps
+## Performing the upgrade
 
 1. Verify the health of your OpenSearch cluster before you begin. You should resolve any index or shard allocation issues prior to upgrading to ensure that your data is preserved. A status of **green** indicates that all primary and replica shards are allocated. See [Cluster health]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-health/) for more information. The following command queries the `_cluster/health` API endpoint:
-   ```bash
-   curl "http://localhost:9201/_cluster/health?pretty"
+   ```json
+   GET "/_cluster/health?pretty"
    ```
    The response should look similar to the following example:
    ```json
@@ -48,8 +45,13 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/in
    }
    ```
 1. Disable shard replication to prevent shard replicas from being created while nodes are being taken offline. This stops the movement of Lucene index segments on nodes in your cluster. You can disable shard replication by querying the `_cluster/settings` API endpoint:
-   ```bash
-   curl -X PUT "http://localhost:9201/_cluster/settings?pretty" -H 'Content-type: application/json' -d'{"persistent":{"cluster.routing.allocation.enable":"primaries"}}'
+   ```json
+   PUT "/_cluster/settings?pretty"
+   {
+       "persistent": {
+           "cluster.routing.allocation.enable": "primaries"
+       }
+   }
    ```
    The response should look similar to the following example:
    ```json
@@ -68,8 +70,8 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/in
    }
    ```
 1. Perform a flush operation on the cluster to commit transaction log entries to the Lucene index:
-   ```bash
-   curl -X POST "http://localhost:9201/_flush?pretty"
+   ```json
+   POST "/_flush?pretty"
    ```
    The response should look similar to the following example:
    ```json
@@ -82,9 +84,9 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/in
    }
    ```
 1. Review your cluster and identify the first node to upgrade. Eligible cluster manager nodes should be upgraded last because OpenSearch nodes can join a cluster with manager nodes running an older version, but they cannot join a cluster with all manager nodes running a newer version.
-1. Query the `_cat/nodes` endpoint to identify which node was promoted to cluster manager. The following command queries `_cat/nodes` and requests only the name, version, node.role, and master headers. Note that OpenSearch 1.x versions use the term "master," which has been deprecated and replaced by "cluster_manager" in OpenSearch 2.x and later.
+1. Query the `_cat/nodes` endpoint to identify which node was promoted to cluster manager. The following command includes additional query parameters that request only the name, version, node.role, and master headers. Note that OpenSearch 1.x versions use the term "master," which has been deprecated and replaced by "cluster_manager" in OpenSearch 2.x and later.
    ```bash
-   curl -s "http://localhost:9201/_cat/nodes?v&h=name,version,node.role,master" | column -t
+   GET "/_cat/nodes?v&h=name,version,node.role,master" | column -t
    ```
    The response should look similar to the following example:
    ```bash
@@ -97,7 +99,7 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/in
 1. Stop the node you are upgrading. Do not delete the volume associated with the container when you delete the container. The new OpenSearch container will use the existing volume. **Deleting the volume will result in data loss**.
 1. Confirm that the associated node has been dismissed from the cluster by querying the `_cat/nodes` API endpoint:
    ```bash
-   curl -s "http://localhost:9202/_cat/nodes?v&h=name,version,node.role,master" | column -t
+   GET "/_cat/nodes?v&h=name,version,node.role,master" | column -t
    ```
    The response should look similar to the following example:
    ```bash
@@ -110,7 +112,7 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/in
 1. Deploy a new container running the desired version of OpenSearch and mapped to the same volume as the container you deleted.
 1. Query the `_cat/nodes` endpoint after OpenSearch is running on the new node to confirm that it has joined the cluster:
    ```bash
-   curl -s "http://localhost:9201/_cat/nodes?v&h=name,version,node.role,master" | column -t
+   GET "/_cat/nodes?v&h=name,version,node.role,master" | column -t
    ```
    The response should look similar to the following example:
    ```bash
@@ -121,17 +123,16 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/in
    os-node-03  7.10.2   dimr       -
    ```
    In the example output, the new OpenSearch node reports a running version of `7.10.2` to the cluster. This is the result of `compatibility.override_main_response_version`, which is used when connecting to a cluster with legacy clients that check for a version. You can manually confirm the version of the node by calling the `/_nodes` API endpoint, as in the following command. Replace `<nodeName>` with the name of your node. See [Nodes API]({{site.url}}{{site.baseurl}}/api-reference/nodes-apis/index/) to learn more.
-   ```
-   curl -s -X GET 'localhost:9201/_nodes/<nodeName>?pretty=true' | jq -r '.nodes | .[] | "\(.name) v\(.version)"'
+   ```bash
+   GET "/_nodes/<nodeName>?pretty=true" | jq -r '.nodes | .[] | "\(.name) v\(.version)"'
    ```
    The response should look similar to the following example:
-   ```
-   $ curl -s -X GET 'localhost:9201/_nodes/os-node-01?pretty=true' | jq -r '.nodes | .[] | "\(.name) v\(.version)"'
+   ```bash
    os-node-01 v1.3.7
    ```
 1. Repeat steps 5 through 9 for each node in your cluster. Remember to upgrade an eligible cluster manager node last. After replacing the last node, query the `_cat/nodes` endpoint to confirm that all nodes have joined the cluster. The cluster is now bootstrapped to the new version of OpenSearch. You can verify the cluster version by querying the `_cat/nodes` API endpoint:
    ```bash
-   curl -s "http://localhost:9201/_cat/nodes?v&h=name,version,node.role,master" | column -t
+   GET "/_cat/nodes?v&h=name,version,node.role,master" | column -t
    ```
    The response should look similar to the following example:
    ```bash
@@ -142,8 +143,13 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/in
    os-node-03  1.3.7    dimr       -
    ```
 1. Reenable shard replication:
-   ```bash
-   curl -X PUT "http://localhost:9201/_cluster/settings?pretty" -H 'Content-type: application/json' -d'{"persistent":{"cluster.routing.allocation.enable":"all"}}'
+   ```json
+   PUT "/_cluster/settings?pretty"
+   {
+       "persistent": {
+           "cluster.routing.allocation.enable": "all"
+       }
+   }
    ```
    The response should look similar to the following example:
    ```json
@@ -163,10 +169,10 @@ Review [Upgrading OpenSearch]({{site.url}}{{site.baseurl}}/upgrade-opensearch/in
    ```
 1. Confirm that the cluster is healthy:
    ```bash
-   curl "http://localhost:9201/_cluster/health?pretty"
+   GET "/_cluster/health?pretty"
    ```
    The response should look similar to the following example:
-   ```bash
+   ```json
    {
      "cluster_name" : "opensearch-dev-cluster",
      "status" : "green",

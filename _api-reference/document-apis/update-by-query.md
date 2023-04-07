@@ -60,7 +60,7 @@ pipeline | String | ID of the pipeline to use to process documents.
 preference | String | Specifies which shard or node OpenSearch should perform the update by query operation on.
 q | String | Lucene query string's query.
 request_cache | Boolean | Specifies whether OpenSearch should use the request cache. Default is whether it’s enabled in the index’s settings.
-refresh | Boolean | If true, OpenSearch refreshes shards to make the update by query operation available to search results. Valid options are `true`, `false`, and `wait_for`, which tells OpenSearch to wait for a refresh before executing the operation. Default is `false`.
+refresh | Boolean | If true, OpenSearch refreshes shards to make the update by query operation available to search results. Valid options are `true` and `false`. Default is `false`.
 requests_per_second | Integer | Specifies the request's throttling in sub-requests per second. Default is -1, which means no throttling.
 routing | String | Value used to route the update by query operation to a specific shard.
 scroll | Time | How long to keep the search context open.

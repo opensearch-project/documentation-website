@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Index State Management
-nav_order: 3
+nav_order: 16
 has_children: true
 redirect_from:
   - /im-plugin/ism/

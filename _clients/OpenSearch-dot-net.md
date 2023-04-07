@@ -89,6 +89,59 @@ var client = new OpenSearchLowLevelClient(settings);
 ```
 {% include copy.html %}
 
+## Connecting to Amazon OpenSearch Service
+
+The following example illustrates connecting to Amazon OpenSearch Service:
+
+```cs
+using OpenSearch.Client;
+using OpenSearch.Net.Auth.AwsSigV4;
+
+namespace Application
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var endpoint = new Uri("https://search-xxx.region.es.amazonaws.com");
+            var connection = new AwsSigV4HttpConnection(RegionEndpoint.APSoutheast2, service: AwsSigV4HttpConnection.OpenSearchService);
+            var config = new ConnectionSettings(endpoint, connection);
+            var client = new OpenSearchClient(config);
+
+            Console.WriteLine($"{client.RootNodeInfo().Version.Distribution}: {client.RootNodeInfo().Version.Number}");
+        }
+    }
+}
+```
+{% include copy.html %}
+
+## Connecting to Amazon OpenSearch Serverless
+
+The following example illustrates connecting to Amazon OpenSearch Serverless Service:
+
+```cs
+using OpenSearch.Client;
+using OpenSearch.Net.Auth.AwsSigV4;
+
+namespace Application
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var endpoint = new Uri("https://search-xxx.region.aoss.amazonaws.com");
+            var connection = new AwsSigV4HttpConnection(RegionEndpoint.APSoutheast2, service: AwsSigV4HttpConnection.OpenSearchServerlessService);
+            var config = new ConnectionSettings(endpoint, connection);
+            var client = new OpenSearchClient(config);
+
+            Console.WriteLine($"{client.RootNodeInfo().Version.Distribution}: {client.RootNodeInfo().Version.Number}");
+        }
+    }
+}
+```
+{% include copy.html %}
+
+
 ## Using ConnectionSettings
 
 `ConnectionConfiguration` is used to pass configuration options to the OpenSearch.Net client. `ConnectionSettings` inherits from `ConnectionConfiguration` and provides additional configuration options.
