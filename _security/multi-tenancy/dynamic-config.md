@@ -8,7 +8,23 @@ nav_order: 147
 
 # Dynamic configuration in OpenSearch Dashboards
 
-Multi-tenancy is enabled by default, but you can disable it or change its settings using `config/opensearch-security/config.yml`:
+Dynamic configuration of multi-tenancy in OpenSearch Dashboards provides options to make common settings for tenancy without having to make changes to the configuration YAML files on each node and then restart the cluster. You can take advantage of this functionality by using the Dashboards interface or the REST API. Dynamic settings include the ability to set the default tenant for all users, disable or enable private tenants, and disable or enable tenancy entirely for all users. The following table includes further description for the options covered by dynamic configuration:
+
+| Option | Description |
+| :--- | :--- |
+| Disable or enable multi-tenancy | Administrators can dynamically disable or enable multi-tenancy for all users. Disabling multi-tenancy poses no risk for loss of data. If and when an administrator chooses to re-enable tenancy, all previously saved objects are preserved and made available. |
+| Disable or enable private tenant  | This option allows administrators to disable private tenants. As with multi-tenancy as a whole, when private tenants are re-enabled all previously saved objects are preserved and made available. |
+| Default tenant | This option allows an administrator to choose either a global, private, or custom tenant as the default when users sign on. In the case where a user doesn't have access to the default tenant (for example, if a custom tenant was specified as the default), the default transitions to the next preferred tenant or to the global tenant. |
+
+## Configuring multi-tenancy in OpenSearch Dashboards
+
+
+
+
+
+## Configuring multi-tenancy with the REST API
+
+
 
 ```yml
 config:
