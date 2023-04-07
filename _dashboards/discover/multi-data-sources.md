@@ -14,7 +14,7 @@ The multiple data sources feature is an experimental feature released in OpenSea
 
 In this tutorial we provide the steps for enabling the `data_source` setting in Dashboards; adding credentials, data source connections, and index patterns; and combining visualizations in a single dashboard.
 
-## Exploring the multiple data sources feature in your local environment
+## Enabling the multiple data sources feature
 
 This tutorial uses a preconfigured data source and index pattern, and you aren’t required to configure settings. However, you’ll need to enable the `data_source` setting in the configuration file before before getting started with exploring this feature.
 {: .note }
