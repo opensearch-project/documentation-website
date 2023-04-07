@@ -52,7 +52,8 @@ To associate a component template to an index template, follow these steps:
 3. Select **Composable template** as the method to define your template.
 4. From the **Composable template** pane, select **Associate component template**.
 5. From the **Associate component template** pop-up window, select the component templates that you want to associate to your index template.
-6. Select **Associate**.   
+6. Select **Associate**.
+7. Select **Preview template** to view the template settings.  
 
 ** Working on final naming for the collection of screenshots 
     *Component templates* was the latest as of 4/6 demo; need to scrub doc for correct usage  
