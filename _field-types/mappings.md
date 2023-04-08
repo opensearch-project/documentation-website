@@ -87,41 +87,77 @@ You cannot change the mapping of an existing field, you can only modify the fiel
 ---
 ## Mapping example usage
 
-The following example shows how to create a mapping to specify that OpenSearch should ignore any documents with malformed ip addresses that do not conform to the `ip_range` data type. You accomplish this by setting the `ignore_malformed` parameter to `true`.
+The following example shows how to create a mapping to specify that OpenSearch should ignore any documents with malformed IP addresses that do not conform to the [`ip`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/ip/) data type. You accomplish this by setting the `ignore_malformed` parameter to `true`.
 
-### Create an index with an ip_range mapping
+### Create an index with an `ip` mapping
 
 To create an index, use a PUT request:
 
 ```json
-PUT _index_ip
+PUT /test-index 
 {
-  "mappings": {
-    "dynamic_templates": [
-     {
-        "ip_range": {
-        "match": "*ip_range",
-        "mapping": {
-           "type": "ip_range",
-           "ignore_malformed": true
+  "mappings" : {
+    "properties" :  {
+      "ip_address" : {
+        "type" : "ip",
+        "ignore_malformed": true
       }
-     }
     }
-   ]
   }
 }
 ```
 
-You can add a document to your index that has an IP range specified:
+You can add a document that has a malformed IP address to your index:
 
 ```json
-PUT _index_ip/_doc/<id>
+PUT /test-index/_doc/1 
 {
-  "source_ip_range": "192.168.1.1/32"
+  "ip_address" : "malformed ip address"
 }
 ```
 
-This indexed ip_range does not throw an error because `ignore_malformed` is set to true.
+This indexed IP address does not throw an error because `ignore_malformed` is set to true. 
+
+You can query the index using the following request:
+
+```json
+GET /test-index/_search
+```
+
+The response shows that the `ip_address` field is ignored in the indexed document:
+
+```json
+{
+  "took": 14,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
+  },
+  "hits": {
+    "total": {
+      "value": 1,
+      "relation": "eq"
+    },
+    "max_score": 1,
+    "hits": [
+      {
+        "_index": "test-index",
+        "_id": "1",
+        "_score": 1,
+        "_ignored": [
+          "ip_address"
+        ],
+        "_source": {
+          "ip_address": "malformed ip address"
+        }
+      }
+    ]
+  }
+}
+```
 
 ## Get a mapping
 
