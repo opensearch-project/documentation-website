@@ -12,51 +12,24 @@ redirect_from:
 
 A searchable snapshot is an index where data is read from a [snapshot repository]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore/#register-repository) on demand at search time rather than all index data being downloaded to cluster storage at restore time. Because the index data remains in the snapshot format in the repository, searchable snapshot indexes are inherently read-only. Any attempt to write to a searchable snapshot index will result in an error.
 
-To enable the searchable snapshots feature, reference the following steps.
+The searchable snapshot feature incorporates technics like caching frequently used data segments in cluster nodes and removing the least used data segment from the cluster nodes in order to make space for frequency used data segments. The data segments downloaded from snapshots on block storage reside alongside the general indexes of the cluster nodes. As such, the computing capacity of cluster nodes are shared between indexing, local search, and data segments on a snapshot residing on lower-cost object storage like Amazon S3.  While cluster node resources are utilized much more efficiently, the high number of tasks results in slower and longer snapshot searches. The local storage of the node is also used for caching the snapshot data.
 
-## Enabling the feature flag
+## Configuring a node for searchable snapshots
 
-There are several methods for enabling searchable snapshots, depending on the installation type.
-
-### Enable on a node using a tarball installation
-
-The flag is toggled using a new jvm parameter that is set either in `OPENSEARCH_JAVA_OPTS` or in config/jvm.options:
-
-- Option 1: Update config/jvm.options by adding the following line:
-
-    ```json
-    -Dopensearch.experimental.feature.searchable_snapshot.enabled=true
-    ```
-
-- Option 2: Use the `OPENSEARCH_JAVA_OPTS` environment variable:
-
-    ```json
-    export OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.searchable_snapshot.enabled=true"
-    ```
-- Option 3: Enable with the request body parameter.
-
-- Finally, create a node in your opensearch.yml file and define the node role as `search`:
+To configure the searchable snapshots feature, create a node in your opensearch.yml file and define the node role as `search`:
 
     ```bash
     node.name: snapshots-node
     node.roles: [ search ]
     ```
 
-### Enable with Docker containers
-
-If you're running Docker, add the following line to docker-compose.yml underneath the `opensearch-node` and `environment` sections:
-
-```json
-OPENSEARCH_JAVA_OPTS="-Dopensearch.experimental.feature.searchable_snapshot.enabled=true" # Enables searchable snapshot
-```
-
-To create a node with the `search` node role, add the line `- node.roles: [ search ]` to your docker-compose.yml file:
+If you're running Docker, you can create a node with the `search` node role by adding the line `- node.roles: [ search ]` to your docker-compose.yml file:
 
 ```bash
 version: '3'
 services:
   opensearch-node1:
-    image: opensearchproject/opensearch:2.4.0
+    image: opensearchproject/opensearch:2.7.0
     container_name: opensearch-node1
     environment:
       - cluster.name=opensearch-cluster
