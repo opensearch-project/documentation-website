@@ -38,7 +38,7 @@ PUT /my-index1
 
 ## Segment vs document replication benchmarks
 
-During initial benchmarks, segment replication user reported 40% higher throughput with than with document replication for the same cluster setup.
+During initial benchmarks, segment replication users reported 40% higher throughput than with document replication for the same cluster setup.
 
 The following benchmarks were collected with [OpenSearch-benchmark](https://github.com/opensearch-project/opensearch-benchmark) using the [`stackoverflow`](https://www.kaggle.com/datasets/stackoverflow/stackoverflow) and [`nyc_taxi`](https://github.com/topics/nyc-taxi-dataset) datasets.  
 
