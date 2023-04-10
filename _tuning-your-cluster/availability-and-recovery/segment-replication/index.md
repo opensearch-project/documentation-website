@@ -19,7 +19,7 @@ This is the first step in a series of features designed to decouple reads and wr
 
 - Users who have high write loads but do not have high search requirements and are comfortable with longer refresh times.
 - Users with very high loads who want to add new nodes, as you do not need to index all nodes when adding a new node to the cluster.
-- Compared to document replication, segment replication performs better in OpenSearch cluster deployments with low replica counts, such as those used for log analytics.
+- OpenSearch cluster deployments with low replica counts, such as those used for log analytics.
 
 ## Segment replication configuration
 
@@ -36,9 +36,9 @@ PUT /my-index1
 }
 ````
 
-## Benchmarking
+## Segment vs document replication benchmarks
 
-During experimental testing, our experimental release users reported up to 40% higher throughput with segment replication than with document replication for the same cluster setup.
+During initial benchmarks, segment replication user reported 40% higher throughput with than with document replication for the same cluster setup.
 
 The following benchmarks were collected with [OpenSearch-benchmark](https://github.com/opensearch-project/opensearch-benchmark) using the [`stackoverflow`](https://www.kaggle.com/datasets/stackoverflow/stackoverflow) and [`nyc_taxi`](https://github.com/topics/nyc-taxi-dataset) datasets.  
 
@@ -193,9 +193,9 @@ Your results may vary based on cluster topology, hardware used, shard count, and
 ## Other considerations
 
 1. Enabling segment replication for an existing index requires [reindexing](https://github.com/opensearch-project/OpenSearch/issues/3685).
-1. Rolling upgrades are currently not supported. Full cluster restarts are required when upgrading indexes using segment replication. [Issue 3881](https://github.com/opensearch-project/OpenSearch/issues/3881).
-1. [Cross-cluster replication](https://github.com/opensearch-project/OpenSearch/issues/4090) does not currently use segment replication to copy between clusters.
+1. Rolling upgrades currently are not supported. Full cluster restarts are required when upgrading indexes using segment replication. [Issue 3881](https://github.com/opensearch-project/OpenSearch/issues/3881).
+1. [Cross-cluster replication](https://github.com/opensearch-project/OpenSearch/issues/4090) currently does not use segment replication to copy between clusters.
 1. Increased network congestion on primary shards. [Issue - Optimize network bandwidth on primary shards](https://github.com/opensearch-project/OpenSearch/issues/4245).
 1. Integration with remote-backed storage as the source of replication is [currently unsupported](https://github.com/opensearch-project/OpenSearch/issues/4448). 
-1. Read-after-write guarantees:  The `wait_until` refresh policy is not compatible with segment replication.  If you use the `wait_until` refresh policy while ingesting documents, you'll get a response only after the primary node has refreshed and made those documents searchable.  Replica shards will respond only after having written to their local translog.  We are exploring other mechanisms for providing read-after-write guarantees. For more information, see the corresponding [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/6046).  
+1. Read-after-write guarantees: The `wait_until` refresh policy is not compatible with segment replication. If you use the `wait_until` refresh policy while ingesting documents, you'll get a response only after the primary node has refreshed and made those documents searchable. Replica shards will respond only after having written to their local translog. We are exploring other mechanisms for providing read-after-write guarantees. For more information, see the corresponding [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/6046).  
 1. System indexes will continue to use document replication internally until read-after-write guarantees are available. In this case, document replication does not hinder the overall performance because there are few system indexes.
