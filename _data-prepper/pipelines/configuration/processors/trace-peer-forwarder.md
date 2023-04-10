@@ -16,7 +16,7 @@ You should use `trace peer forwarder` for Trace Analytics pipelines when you hav
 
 To get started with `trace peer forwarder`, first configure [peer forwarder]({{site.url}}{{site.baseurl}}/managing-data-prepper/peer-forwarder/). Then create a `pipeline.yaml` file and specify `trace peer forwarder` as the processor. You can configure `peer forwarder` in your `data-prepper-config.yaml` file. For more detailed information, see [Configuring Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/#2-configuring-data-prepper).
 
-See the following `pipeline.yaml` file example: 
+See the following example `pipeline.yaml` file: 
 
 ```yaml
 otel-trace-pipeline:
