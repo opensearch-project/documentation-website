@@ -180,17 +180,12 @@ Both test runs were performed on a 10-node (m5.xlarge) cluster with 10 shards an
     </tr>
 </table>
 
-**Note** : Your results may vary based on the cluster topology, hardware used, shard count, and merge settings. 
-
 Your results may vary based on cluster topology, hardware used, shard count, and merge settings. 
 {: .note }
 
-## Further resources regarding segment replication
-
-1. Track [future enhancements on segment replication](https://github.com/orgs/opensearch-project/projects/99).
-2. [Segment replication blog post](https://github.com/opensearch-project/project-website/pull/1504/files).
-
 ## Other considerations
+
+When using segment replication, consider the following:
 
 1. Enabling segment replication for an existing index requires [reindexing](https://github.com/opensearch-project/OpenSearch/issues/3685).
 1. Rolling upgrades currently are not supported. Full cluster restarts are required when upgrading indexes using segment replication. [Issue 3881](https://github.com/opensearch-project/OpenSearch/issues/3881).
@@ -199,3 +194,8 @@ Your results may vary based on cluster topology, hardware used, shard count, and
 1. Integration with remote-backed storage as the source of replication is [currently unsupported](https://github.com/opensearch-project/OpenSearch/issues/4448). 
 1. Read-after-write guarantees: The `wait_until` refresh policy is not compatible with segment replication. If you use the `wait_until` refresh policy while ingesting documents, you'll get a response only after the primary node has refreshed and made those documents searchable. Replica shards will respond only after having written to their local translog. We are exploring other mechanisms for providing read-after-write guarantees. For more information, see the corresponding [GitHub issue](https://github.com/opensearch-project/OpenSearch/issues/6046).  
 1. System indexes will continue to use document replication internally until read-after-write guarantees are available. In this case, document replication does not hinder the overall performance because there are few system indexes.
+
+## Next steps
+
+1. Track [future enhancements on segment replication](https://github.com/orgs/opensearch-project/projects/99).
+1. [Segment replication blog post](https://github.com/opensearch-project/project-website/pull/1504/files).
