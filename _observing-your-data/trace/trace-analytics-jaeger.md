@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Analyzing Jaeger trace data 
-parent: Trace analytics
+parent: Trace Analytics
 nav_order: 55
 redirect_from:
   - /observability-plugin/trace/trace-analytics-jaeger/
@@ -12,16 +12,16 @@ redirect_from:
 Introduced 2.5
 {: .label .label-purple }
 
-The trace analytics functionality in the OpenSearch Observability plugin now supports Jaeger trace data. If you use OpenSearch as the backend for Jaeger trace data, you can use the built-in trace analytics capabilities. This provides support for OpenTelemetry (OTel) trace data.
+The Trace Analytics functionality in the OpenSearch Observability plugin now supports Jaeger trace data. If you use OpenSearch as the backend for Jaeger trace data, you can use the built-in Trace Analytics capabilities. This provides support for OpenTelemetry (OTel) trace data.
 
-When you perform trace analytics, you can select from two data sources:
+When you perform Trace Analytics, you can select from two data sources:
 
 - **Data Prepper** – Data ingested into OpenSearch through Data Prepper
 - **Jaeger** – Trace data stored within OpenSearch as its backend
 
-If you store your Jaeger trace data in OpenSearch, you can now use the built-in trace analytics capabilities to analyze the error rates and latency. You can also filter the traces and analyze the span details of a trace to pinpoint any service issues.
+If you store your Jaeger trace data in OpenSearch, you can now use the built-in Trace Analytics capabilities to analyze the error rates and latency. You can also filter the traces and analyze the span details of a trace to pinpoint any service issues.
 
-When you ingest Jaeger data into OpenSearch, it gets stored in a different index than the OTel-generated index that gets created when you run data through Data Prepper. Use the data source selector in OpenSearch Dashboards to indicate the data source on which you want to perform trace analytics.
+When you ingest Jaeger data into OpenSearch, it gets stored in a different index than the OTel-generated index that gets created when you run data through Data Prepper. Use the data source selector in OpenSearch Dashboards to indicate the data source on which you want to perform Trace Analytics.
 
 Jaeger trace data that you can analyze includes span data as well as service and operation endpoint data. <!-- Need more info for next release. add how to configure for span analysis. Jaeger span data analysis requires some configuration.-->
 
@@ -31,23 +31,23 @@ To learn more about Jaeger data tracing, see the [Jaeger](https://www.jaegertrac
 
 ## Data ingestion requirements
 
-To perform trace analytics on Jaeger data, you need to configure error capability.
+To perform Trace Analytics on Jaeger data, you need to configure error capability.
 
 Jaeger data that is ingested into OpenSearch must have the environment variable `ES_TAGS_AS_FIELDS_ALL` set to `true` for errors. If data is not ingested in this format, it will not work for errors, and error data will not be available for traces in trace analytics with OpenSearch.
 
 ### About data ingestion with Jaeger indexes
 
-Trace analytics for non-Jaeger data uses OTel indexes with the naming conventions `otel-v1-apm-span-*` or `otel-v1-apm-service-map*`.
+Trace Analytics for non-Jaeger data uses OTel indexes with the naming conventions `otel-v1-apm-span-*` or `otel-v1-apm-service-map*`.
 
 Jaeger indexes follow the naming conventions `jaeger-span-*` or `jaeger-service-*`.
 
 ## Setting up OpenSearch to use Jaeger data
 
-The following section provides a sample Docker Compose file that contains the configuration required to enable errors for trace analytics.
+The following section provides a sample Docker Compose file that contains the configuration required to enable errors for Trace Analytics.
 
 ### Step 1: Run the Docker Compose file
 
-Use the following Docker Compose file to enable Jaeger data for trace analytics.  Set the `ES_TAGS_AS_FIELDS_ALL` environment variable set to `true` to enable errors to be added to trace data.
+Use the following Docker Compose file to enable Jaeger data for Trace Analytics.  Set the `ES_TAGS_AS_FIELDS_ALL` environment variable set to `true` to enable errors to be added to trace data.
 
 Copy the following Docker Compose file and save it as `docker-compose.yml`:
 
@@ -201,13 +201,13 @@ After you generate Jaeger trace data, you can view it in Dashboards.
 
 Go to **Trace analytics** at [http://localhost:5601/app/observability-dashboards#/trace_analytics/home](http://localhost:5601/app/observability-dashboards#/trace_analytics/home).
 
-## Using trace analytics in OpenSearch Dashboards
+## Using Trace Analytics in OpenSearch Dashboards
 
-To analyze the Jaeger trace data in Dashboards, first set up the trace analytics functionality. To get started, see [Get started with trace analytics]({{site.url}}{{site.baseurl}}/observability-plugin/trace/get-started/).
+To analyze the Jaeger trace data in Dashboards, first set up the Trace Analytics functionality. To get started, see [Get started with Trace Analytics]({{site.url}}{{site.baseurl}}/observability-plugin/trace/get-started/).
 
 ### Data sources
 
-You can specify either Data Prepper or Jaeger as the data source when you perform trace analytics.
+You can specify either Data Prepper or Jaeger as the data source when you perform Trace Analytics.
 From Dashboards, go to **Observability > Trace analytics** and select Jaeger.
 
 ![Select data source]({{site.url}}{{site.baseurl}}/images/trace-analytics/select-data.png)
@@ -246,6 +246,6 @@ If you select an individual trace ID, you can see more detailed information abou
 
 ## Services
 
-You can also view the individual error rates and latency for each individual service. Go to **Observability > Trace analytics > Services**. In **Services**, you can see the average latency, error rate, throughput and trace for each service in the list.
+You can also view the individual error rates and latency for each individual service. Go to **Observability > Trace Analytics > Services**. In **Services**, you can see the average latency, error rate, throughput and trace for each service in the list.
 
 ![Services list]({{site.url}}{{site.baseurl}}/images/trace-analytics/services-jaeger.png)

@@ -1,33 +1,33 @@
 ---
 layout: default
-title: Trace analytics
+title: Trace Analytics
 parent: Common use cases
 nav_order: 5
 ---
 
-# Trace analytics
+# Trace Analytics
 
-Trace analytics allows you to collect trace data and customize a pipeline that ingests and transforms the data for use in OpenSearch. The following provides an overview of the trace analytics workflow in Data Prepper, how to configure it, and how to visualize trace data.
+Trace Analytics allows you to collect trace data and customize a pipeline that ingests and transforms the data for use in OpenSearch. The following provides an overview of the Trace Analytics workflow in Data Prepper, how to configure it, and how to visualize trace data.
 
 ## Introduction
 
 When using Data Prepper as a server-side component to collect trace data, you can customize a Data Prepper pipeline to ingest and transform the data for use in OpenSearch. Upon transformation, you can visualize the transformed trace data for use with the Observability plugin inside of OpenSearch Dashboards. Trace data provides visibility into your application's performance, and helps you gain more information about individual traces.
 
-The following flowchart illustrates the trace analytics workflow, from running OpenTelemetry Collector to using OpenSearch Dashboards for visualization.
+The following flowchart illustrates the Trace Analytics workflow, from running OpenTelemetry Collector to using OpenSearch Dashboards for visualization.
 
 <img src="{{site.url}}{{site.baseurl}}/images/data-prepper/trace-analytics/trace-analytics-components.png" alt="Trace analyticis component overview">{: .img-fluid}
 
-To monitor trace analytics, you need to set up the following components in your service environment:
+To monitor Trace Analytics, you need to set up the following components in your service environment:
 - Add **instrumentation** to your application so it can generate telemetry data and send it to an OpenTelemetry collector.
 - Run an **OpenTelemetry collector** as a sidecar or daemonset for Amazon Elastic Kubernetes Service (Amazon EKS), a sidecar for Amazon Elastic Container Service (Amazon ECS), or an agent on Amazon Elastic Compute Cloud (Amazon EC2). You should configure the collector to export trace data to Data Prepper. 
 - Deploy **Data Prepper** as the ingestion collector for OpenSearch. Configure it to send the enriched trace data to your OpenSearch cluster or to the Amazon OpenSearch Service domain.
 - Use **OpenSearch Dashboards** to visualize and detect problems in your distributed applications.
 
-## Trace analytics pipeline
+## Trace Analytics pipeline
 
-To monitor trace analytics in Data Prepper, we provide three pipelines: `entry-pipeline`, `raw-trace-pipeline`, and `service-map-pipeline`. The following image provides an overview of how the pipelines work together to monitor trace analytics. 
+To monitor Trace Analytics in Data Prepper, we provide three pipelines: `entry-pipeline`, `raw-trace-pipeline`, and `service-map-pipeline`. The following image provides an overview of how the pipelines work together to monitor Trace Analytics. 
 
-<img src="{{site.url}}{{site.baseurl}}/images/data-prepper/trace-analytics/trace-analytics-feature.jpg" alt="Trace analytics pipeline overview">{: .img-fluid}
+<img src="{{site.url}}{{site.baseurl}}/images/data-prepper/trace-analytics/trace-analytics-feature.jpg" alt="Trace Analytics pipeline overview">{: .img-fluid}
 
 
 ### OpenTelemetry trace source
@@ -36,7 +36,7 @@ The [OpenTelemetry source]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/c
 
 ### Processor
 
-There are three processors for the trace analytics feature:
+There are three processors for the Trace Analytics feature:
 
 * *otel_trace_raw* - The *otel_trace_raw* processor receives a collection of [span](https://github.com/opensearch-project/data-prepper/blob/fa65e9efb3f8d6a404a1ab1875f21ce85e5c5a6d/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/trace/Span.java) records from [*otel-trace-source*]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/otel-trace/), and performs stateful processing, extraction, and completion of trace-group-related fields.
 * *otel_trace_group* - The *otel_trace_group* processor fills in the missing trace-group-related fields in the collection of [span](https://github.com/opensearch-project/data-prepper/blob/298e7931aa3b26130048ac3bde260e066857df54/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/trace/Span.java) records by looking up the OpenSearch backend.
@@ -47,14 +47,14 @@ There are three processors for the trace analytics feature:
 
 OpenSearch provides a generic sink that writes data to OpenSearch as the destination. The [OpenSearch sink]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sinks/opensearch/) has configuration options related to the OpenSearch cluster, such as endpoint, SSL, username/password, index name, index template, and index state management.
 
-The sink provides specific configurations for the trace analytics feature. These configurations allow the sink to use indexes and index templates specific to trace analytics. The following OpenSearch indexes are specific to trace analytics:
+The sink provides specific configurations for the Trace Analytics feature. These configurations allow the sink to use indexes and index templates specific to Trace Analytics. The following OpenSearch indexes are specific to Trace Analytics:
 
 * *otel-v1-apm-span* – The *otel-v1-apm-span* index stores the output from the [otel_trace_raw]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/otel-trace-raw/) processor.
 * *otel-v1-apm-service-map* – The *otel-v1-apm-service-map* index stores the output from the [service_map_stateful]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/service-map-stateful/) processor.
 
 ## Trace tuning
 
-Starting with version 0.8.x, Data Prepper supports both vertical and horizontal scaling for trace analytics. You can adjust the size of a single Data Prepper instance to meet your workload's demands and scale vertically. 
+Starting with version 0.8.x, Data Prepper supports both vertical and horizontal scaling for Trace Analytics. You can adjust the size of a single Data Prepper instance to meet your workload's demands and scale vertically. 
 
 You can scale horizontally by using the core [peer forwarder]({{site.url}}{{site.baseurl}}/data-prepper/managing-data-prepper/peer-forwarder/) to deploy multiple Data Prepper instances to form a cluster. This enables Data Prepper instances to communicate with instances in the cluster and is required for horizontally scaling deployments.
 
@@ -64,7 +64,7 @@ Use the following recommended configurations to scale Data Prepper. We recommend
 
 #### Buffer
 
-The total number of trace requests processed by Data Prepper is equal to the sum of the `buffer_size` values in `otel-trace-pipeline` and `raw-pipeline`. The total number of trace requests sent to OpenSearch is equal to the product of `batch_size` and `workers` in `raw-trace-pipeline`. For more information about `raw-pipeline`, see [Trace analytics pipeline]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines).
+The total number of trace requests processed by Data Prepper is equal to the sum of the `buffer_size` values in `otel-trace-pipeline` and `raw-pipeline`. The total number of trace requests sent to OpenSearch is equal to the product of `batch_size` and `workers` in `raw-trace-pipeline`. For more information about `raw-pipeline`, see [Trace Analytics pipeline]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/pipelines).
 
 
 We recommend the following when making changes to buffer settings:
@@ -110,7 +110,7 @@ This setup was able to handle a throughput of `2100` spans/second at `20` percen
 
 The following sections provide examples of different types of pipelines and how to configure each type. 
 
-### Example: Trace analytics pipeline
+### Example: Trace Analytics pipeline
 
 The following example demonstrates how to build a pipeline that supports the [OpenSearch Dashboards Observability plugin]({{site.url}}{{site.baseurl}}/observability-plugin/trace/ta-dashboards/). This pipeline takes data from the OpenTelemetry Collector and uses two other pipelines as sinks. These two separate pipelines serve two different purposes and write to different OpenSearch indexes. The first pipeline prepares trace data for OpenSearch and enriches and ingests the span documents into a span index within OpenSearch. The second pipeline aggregates traces into a service map and writes service map documents into a service map index within OpenSearch.
 
@@ -361,7 +361,7 @@ After you run OpenTelemetry in your service environment, you must configure your
 
 ## Next steps and more information
 
-The [OpenSearch Dashboards Observability plugin]({{site.url}}{{site.baseurl}}/observability-plugin/trace/ta-dashboards/) documentation provides additional information about configuring OpenSearch to view trace analytics in OpenSearch Dashboards.
+The [OpenSearch Dashboards Observability plugin]({{site.url}}{{site.baseurl}}/observability-plugin/trace/ta-dashboards/) documentation provides additional information about configuring OpenSearch to view Trace Analytics in OpenSearch Dashboards.
 
 For more information about how to tune and scale Data Prepper for trace analytics, see [Trace tuning](#trace-tuning).
 

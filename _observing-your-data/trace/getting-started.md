@@ -80,4 +80,4 @@ curl -X GET -u 'admin:admin' -k 'https://localhost:9200/otel-v1-apm-span-000001/
 
 Navigate to `http://localhost:5601` in a web browser and choose **Trace Analytics**. You can see the results of your single click in the Jaeger HotROD web interface: the number of traces per API and HTTP method, latency trends, a color-coded map of the service architecture, and a list of trace IDs that you can use to drill down on individual operations.
 
-If you don't see your trace, adjust the timeframe in OpenSearch Dashboards. For more information on using the plugin, see [OpenSearch Dashboards plugin]({{site.url}}{{site.baseurl}}/observing-your-data/trace/ta-dashboards/).
+If you don't see your trace, adjust the timeframe in OpenSearch Dashboards. For more information on using the plugin, see [Trace Analytics OpenSearch Dashboards plugin]({{site.url}}{{site.baseurl}}/observing-your-data/trace/ta-dashboards/).
