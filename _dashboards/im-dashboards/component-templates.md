@@ -56,4 +56,5 @@ To associate a component template to an index template, follow these steps:
 7. Select **Preview template** to view the template settings.  
 
 ** Working on final naming for the collection of screenshots 
-    *Component templates* was the latest as of 4/6 demo; need to scrub doc for correct usage  
+    *Component templates* was the latest as of 4/6 demo; need to scrub doc for correct usage
+    *Waiting on editorial to approve final naming
