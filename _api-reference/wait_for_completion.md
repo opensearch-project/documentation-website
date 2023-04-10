@@ -13,7 +13,7 @@ Introduced 2.7
 ## Path and HTTP methods
 
  ```bash
-POST /_<index_name>
+POST /_tasks
 ```
 
 ## Request body parameter
@@ -34,3 +34,5 @@ Parameter | Type | Description |
 ```json
 
 ```
+
+https://opensearch.org/docs/2.6/api-reference/index-apis/open-index/ 
