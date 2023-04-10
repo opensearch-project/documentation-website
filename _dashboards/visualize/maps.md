@@ -122,16 +122,15 @@ For large datasets, you may want to avoid loading data for the full map. To load
 
 ### Drawing shapes to filter data
 
-You can filter your data by drawing shapes on your map. You can also modify the filter and remove it completely. 
+You can filter your data by drawing shapes on your map. You can also edit, temporarily disable, exclude, negate, and remove the filter completely. 
 
-When drawing a shape on the map, draw it in a counterclockwise direction to ensure the most accurate datapoints are included. Drawing in a clockwise direction does not include the correct datapoints. According to the GeoJSON specification, polygon orientation must follow the right-hand rule regarding the area that it bounds.
+When drawing a shape on the map, draw it in a counterclockwise direction to ensure the most accurate datapoints are included. According to the [GeoJSON specification](https://www.rfc-editor.org/rfc/rfc7946), polygon orientation must follow the right-hand rule regarding the area that it bounds.
 {: .note}
 
 You can configure the following map filter properties:
 
 - **Filter label** Allows you to give your filter a name.
-- **Spatial relation** Determines which operator to use during search. Works like a Venn diagram, but as a query. (Need to go back and check this.)
-- **Impacted layers** Whether the filter is applied the current view or another action.
+- **Spatial relation** Determines which operator to use during search. 
 
 #### Creating a new filter using a rectangle
 
