@@ -10,13 +10,13 @@ redirect_from:
 
 # Searchable snapshots
 
-A searchable snapshot is an index where data is read from a [snapshot repository]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore/#register-repository) on demand at search time rather than all index data being downloaded to cluster storage at restore time. Because the index data remains in the snapshot format in the repository, searchable snapshot indexes are inherently read-only. Any attempt to write to a searchable snapshot index will result in an error.
+A searchable snapshot index reads data from a [snapshot repository]({{site.url}}{{site.baseurl}}/opensearch/snapshots/snapshot-restore/#register-repository) on demand in real time (at search time) rather than downloading all index data to cluster storage at restore time. Because the index data remains in the snapshot format in the repository, searchable snapshot indexes are inherently read-only. Any attempt to write to a searchable snapshot index results in an error.
 
-The searchable snapshot feature incorporates technics like caching frequently used data segments in cluster nodes and removing the least used data segment from the cluster nodes in order to make space for frequency used data segments. The data segments downloaded from snapshots on block storage reside alongside the general indexes of the cluster nodes. As such, the computing capacity of cluster nodes are shared between indexing, local search, and data segments on a snapshot residing on lower-cost object storage like Amazon S3.  While cluster node resources are utilized much more efficiently, the high number of tasks results in slower and longer snapshot searches. The local storage of the node is also used for caching the snapshot data.
+The searchable snapshot feature incorporates technics like caching frequently used data segments in cluster nodes and removing the least-used data segment from the cluster nodes to make space for frequently used data segments. The data segments downloaded from snapshots on block storage reside alongside the general indexes of the cluster nodes. As such, the computing capacity of cluster nodes are shared between indexing, local search, and data segments on a snapshot residing on lower-cost object storage like Amazon S3. While cluster node resources are utilized much more efficiently, the high number of tasks results in slower and longer snapshot searches. The local storage of the node is also used for caching the snapshot data.
 
 ## Configuring a node for searchable snapshots
 
-To configure the searchable snapshots feature, create a node in your opensearch.yml file and define the node role as `search`:
+To configure the searchable snapshot feature, create a node in your opensearch.yml file and define the node role as `search`:
 
     ```bash
     node.name: snapshots-node
