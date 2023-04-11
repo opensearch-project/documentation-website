@@ -7,10 +7,10 @@ has_children: true
 
 # OpenSearch Benchmark
 
-OpenSearch Benchmark is a macrobenchmark utility provided by the [OpenSearch Project](https://github.com/opensearch-project) that measures and reports on the performance of OpenSearch clusters. OpenSearch Benchmark supports a wide variety of use cases, including:
+OpenSearch Benchmark is a macrobenchmark utility provided by the [OpenSearch Project](https://github.com/opensearch-project). You can use OpenSearch Benchmark to gather performance metrics from an OpenSearch cluster for a variety of purposes, including:
 
-- Running benchmark tests against an existing OpenSearch or Elasticsearch cluster.
-- Management of benchmark data and specifications, even across OpenSearch versions.
-- Identifying opportunities to improve performance using telemtry devices.
-- Setup and teardown of an OpenSearch cluster for benchmarking.
-- 
+- Tracking the overall performance of an OpenSearch cluster.
+- Informing decisions about when to upgrade your cluster to a new version.
+- Comparing how changes to your workflow might impact your OpenSearch cluster.
+
+OpenSearch Benchmark is supported on Linux and macOS. You can also run OpenSearch Benchmark in a Docker container. See [Installing OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/tuning-your-cluster/opensearch-benchmark/install-osb/) for more information.
