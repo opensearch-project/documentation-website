@@ -14,7 +14,7 @@ A searchable snapshot index reads data from a [snapshot repository]({{site.url}}
 
 The searchable snapshot feature incorporates techniques like caching frequently used data segments in cluster nodes and removing the least used data segment from the cluster nodes to make space for frequently used data segments. The data segments downloaded from snapshots on block storage reside alongside the general indexes of the cluster nodes. As such, the computing capacity of cluster nodes is shared between indexing, local search, and data segments on a snapshot residing on lower-cost object storage like Amazon Simple Storage Service (Amazon S3). While cluster node resources are utilized much more efficiently, the high number of tasks results in slower and longer snapshot searches. The local storage of the node is also used for caching the snapshot data.
 
-## Configuring a node for searchable snapshots
+## Configuring a node to use searchable snapshots
 
 To configure the searchable snapshots feature, create a node in your opensearch.yml file and define the node role as `search`:
 
