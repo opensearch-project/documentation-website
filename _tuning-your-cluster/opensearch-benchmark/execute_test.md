@@ -1,11 +1,21 @@
 ---
 layout: default
-title: execute_test
+title: Running a benchmark
 nav_order: 50
 parent: OpenSearch Benchmark
 ---
 
-# execute_test
+# Running a benchmark
+
+The primary use for OpenSearch Benchmark is to gather data about the performance of an OpenSearch cluster. You can either use preconfigured [OpenSearch Benchmark workloads](https://github.com/opensearch-project/opensearch-benchmark-workloads) or you can [create a custom workload]({{site.url}}{{site.baseurl}}/tuning-your-cluster/opensearch-benchmark/create-workload/) where you define what data to use and which OpenSearch operations the benchmark should test.
+
+Use the `execute_test` argument&#8212;sometimes referred to as a "subcommand"&#8212;to run a benchmark. You must provide, at minimum, 
+
+```bash
+opensearch-benchmark execute_test 
+```
+
+execute_test
 
 ```
 usage: opensearch-benchmark execute_test [-h] [--distribution-version DISTRIBUTION_VERSION] [--provision-config-path PROVISION_CONFIG_PATH] [--provision-config-repository PROVISION_CONFIG_REPOSITORY]
