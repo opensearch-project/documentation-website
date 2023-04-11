@@ -10,7 +10,7 @@ nav_order: 25
 
 ## Overview
 
-`otel_logs_source` is an OpenTelemetry source that follows the [OpenTelemtry Protocol Specification](https://github.com/open-telemetry/oteps/blob/master/text/0035-opentelemetry-protocol.md), receives logs from OpenTelemetry Collector, and exports `ExportLogsServiceRequest` records. 
+`otel_logs_source` is an OpenTelemetry source that follows the [OpenTelemtry Protocol Specification](https://github.com/open-telemetry/oteps/blob/master/text/0035-opentelemetry-protocol.md), receives logs from OpenTelemetry Collector, and receives `ExportLogsServiceRequest` records to process through a Data Prepper pipeline.
 
 This source supports the `OTLP/gRPC` protocol.
 {: .note}
