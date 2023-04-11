@@ -36,7 +36,7 @@ PUT /my-index1
 }
 ````
 
-## Segment vs document replication benchmarks
+## Comparing replication benchmarks
 
 During initial benchmarks, segment replication users reported 40% higher throughput than when using document replication with the same cluster setup.
 
