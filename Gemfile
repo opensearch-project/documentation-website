@@ -31,12 +31,9 @@ gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 # Performance-booster for watching directories on Windows
 gem "wdm", "~> 0.1.0" if Gem.win_platform?
 
-<<<<<<< HEAD
-=======
 # Installs webrick dependency for building locally
 gem "webrick", "~> 1.7"
 
 # Link checker
 gem "typhoeus"
 gem "ruby-link-checker"
->>>>>>> 680c8219 (Add CI with link checker. (#3584))
