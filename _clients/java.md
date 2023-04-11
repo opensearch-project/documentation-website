@@ -18,7 +18,7 @@ To start using the OpenSearch Java client, you need to provide a transport. The 
 <dependency>
   <groupId>org.opensearch.client</groupId>
   <artifactId>opensearch-java</artifactId>
-  <version>2.3.0</version>
+  <version>2.4.0</version>
 </dependency>
 ```
 {% include copy.html %}
@@ -27,7 +27,7 @@ If you're using Gradle, add the following dependencies to your project:
 
 ```
 dependencies {
-  implementation 'org.opensearch.client:opensearch-java:2.3.0'
+  implementation 'org.opensearch.client:opensearch-java:2.4.0'
 }
 ```
 {% include copy.html %}
@@ -48,7 +48,7 @@ Alternatively, you can create a Java client by using the `RestClient`-based tran
 <dependency>
   <groupId>org.opensearch.client</groupId>
   <artifactId>opensearch-java</artifactId>
-  <version>2.3.0</version>
+  <version>2.4.0</version>
 </dependency>
 ```
 {% include copy.html %}
@@ -58,7 +58,7 @@ If you're using Gradle, add the following dependencies to your project"
 ```
 dependencies {
   implementation 'org.opensearch.client:opensearch-rest-client: {{site.opensearch_version}}'
-  implementation 'org.opensearch.client:opensearch-java:2.3.0'
+  implementation 'org.opensearch.client:opensearch-java:2.4.0'
 }
 ```
 {% include copy.html %}
