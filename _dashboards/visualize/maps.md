@@ -145,7 +145,7 @@ You can filter your data by drawing a rectangular or polygon shape on the map to
 
 1. Select the **Draw Rectangle** button.
 1. Draw the shape over the map area that you want to select.
-1. You can disable other filters from interacting with your shape filter by selecting your layer from the **Layers** panel and then under the **Filters** section, deselect **Apply global filters**. You can use this option if you do not want the active layer to be filtered by spatial filters.
+1. Disable other filters from interacting with your shape filter by selecting your layer from the **Layers** panel and then under the **Filters** section, deselect **Apply global filters**. You can use this option if you do not want the active layer to be filtered by spatial filters.
 1. Select the **Update** button. 
 
 
@@ -154,7 +154,7 @@ You can filter your data by drawing a rectangular or polygon shape on the map to
 1. Select the **Draw Polygon** button.
 1. Draw the shape over the map area that you want to select.
 1. Select the point that you started with to close the polygon shape.
-1. You can disable other filters from interacting with your shape filter by selecting your layer from the **Layers** panel and then under the **Filters** section, deselect **Apply global filters**. You can use this option if you do not want the active layer to be filtered by spatial filters.
+1. Disable other filters from interacting with your shape filter by selecting your layer from the **Layers** panel and then under the **Filters** section, deselect **Apply global filters**. You can use this option if you do not want the active layer to be filtered by spatial filters.
 1. Select the **Update** button. 
 
 #### Modifying an existing shape filter
