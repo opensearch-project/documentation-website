@@ -106,7 +106,13 @@ You should see the flight destination data, as in the following image.
 
 ## Filtering data
 
-To show a subset of the data in the index, filter the data. The following example filters the flight destination data to display only United States destinations:
+To show a subset of the data in the index, filter the data. You can either filter data at the layer level or draw shapes on the map to show only the data points within that shape. 
+
+### Filtering data at the layer level
+
+To filter data at the layer level, select the layer and add a filter to it.
+
+The following example filters the flight destination data to display only United States destinations:
 
 1. In the **Layers** panel, select **Flight destination**.
 1. Select **Filters**.
@@ -122,48 +128,33 @@ For large datasets, you may want to avoid loading data for the full map. To load
 
 ### Drawing shapes to filter data
 
-You can filter your data by drawing shapes on your map. You can also edit, temporarily disable, exclude, negate, and remove the filter completely. 
+You can filter your data by drawing [shapes]({{site.url}}{{site.baseurl}}/field-types/geo-shape) on the map. To draw a rectangle or polygon on the map, perform the following steps:
 
-When drawing a shape on the map, draw it in a counterclockwise direction to ensure the most accurate datapoints are included. According to the [GeoJSON specification](https://www.rfc-editor.org/rfc/rfc7946), polygon orientation must follow the right-hand rule regarding the area that it bounds.
-{: .note}
+1. Select the **Rectangle** or **Polygon** icon on the right side of the map. 
+1. In the **Filter label** field, enter a name for the filter. 
+1. Choose a spatial relation type. By default, **Intersects** is selected. See [Spatial relations]({{site.url}}{{site.baseurl}}/query-dsl/geo-and-xy/xy#spatial-relations) for more information on spatial relationship types.
+1. Select the **Draw Rectangle** or **Draw Polygon** button.
+1. Draw the shape over the map area that you want to select:
+  - For a rectangle, select any starting point on the map (this point becomes a rectangle vertex). Then hover (do not drag) to another point on the map and select it (this point becomes the opposite vertex).  
+  - For a polygon, select any starting point on the map (this point becomes a polygon vertex) and hover (do not drag) to each subsequent vertex and select that point. Finally, make sure to select the starting point again to close the polygon, as shown in the following image.
 
-You can configure the following map filter properties:
+<img src="{{site.url}}{{site.baseurl}}/images/maps/draw-shape.png" alt="Drawing a polygon on a map">
 
-- **Filter label** Allows you to give your filter a name.
-- **Spatial relation** Determines which operator to use during search. 
+### Disabling the shape filter for a map layer
 
-#### Creating a new filter using a shape
-
-You can filter your data by drawing a rectangular or polygon shape on the map to show a subset of your data.
-
-1. In the **Layers** panel, select your layer.
-1. Select the **Rectangle** button on the right side of the screen to draw a rectangle. 
-1. In the **Filter label** field, enter a name. 
-1. Choose a spatial relation type. By default, **Intersects** is selected. See [Geographic queries]({{site.url}}{{site.baseurl}}/field-types/geo-shape/) for more information on spatial relationship types.
-
-##### Drawing a rectangle
-
-1. Select the **Draw Rectangle** button.
-1. Draw the shape over the map area that you want to select.
-1. Disable other filters from interacting with your shape filter by selecting your layer from the **Layers** panel and then under the **Filters** section, deselect **Apply global filters**. You can use this option if you do not want the active layer to be filtered by spatial filters.
+By default, the shape filter is applied globally to all layers on the map. If you want to disable your shape filter for a map layer, perform the following steps:
+1. Select the layer from the **Layers** panel.
+1. In the **Filters** section, deselect **Apply global filters**. 
 1. Select the **Update** button. 
 
+### Modifying an existing shape filter
 
-##### Drawing a polygon
+To modify an existing shape filter, select your filter on the top left above the map. You can perform the following operations on an existing filter:
 
-1. Select the **Draw Polygon** button.
-1. Draw the shape over the map area that you want to select.
-1. Select the point that you started with to close the polygon shape.
-1. Disable other filters from interacting with your shape filter by selecting your layer from the **Layers** panel and then under the **Filters** section, deselect **Apply global filters**. You can use this option if you do not want the active layer to be filtered by spatial filters.
-1. Select the **Update** button. 
-
-#### Modifying an existing shape filter
-
-You can modify an existing map shape to change how data is filtered.
-
-1. Select your filter from the top of the screen.
-1. Select **Edit filter**.
-1. You can also select **Exclude results** to exclude results from your filter, **Temporarily disable** to temporarily disable your filter, or **Delete** to remove your filter completely.
+- **Edit filter**: change the filter name or modify the shape's coordinates.
+- **Exclude results**: negate the filter, that is, show all data points _except_ those to which the filter applies.
+- **Temporarily disable**: disable the filter until you select **Re-enable**.
+- **Delete**: remove your filter completely.
 
 ## Using tooltips to visualize additional data
 
