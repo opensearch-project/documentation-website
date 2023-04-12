@@ -10,11 +10,11 @@ redirect_from:
 
 Event analytics in Observability is where you can use [Piped Processing Language]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index) (PPL) queries to build and view different visualizations of your data.
 
-## Get started with event analytics
+## Getting started with event analytics
 
 To get started, choose **Observability** in OpenSearch Dashboards, and then choose **Event analytics**. If you want to start exploring without adding any of your own data, choose **Add sample Events Data**, and Dashboards adds some sample visualizations you can interact with.
 
-## Build a query
+## Building a query
 
 To generate custom visualizations, you must first specify a PPL query. OpenSearch Dashboards then automatically creates a visualization based on the results of your query.
 
@@ -28,35 +28,36 @@ By default, Dashboards shows results from the last 15 minutes of your data. To s
 
 For more information about building PPL queries, see [Piped Processing Language]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index).
 
-## Save a visualization
+## Saving a visualization
 
 After Dashboards generates a visualization, you must save it if you want to return to it at a later time or if you want to add it to an [operational panel]({{site.url}}{{site.baseurl}}/observing-your-data/operational-panels).
 
 To save a visualization, expand the save dropdown menu next to **Refresh**, enter a name for your visualization, then choose **Save**. You can reopen any saved visualizations on the event analytics page.
 
-## Presenting visualizations using the Dashboards application
+## Consolidating visualizations into a dashboard
 
-Presenting existing event analytics visualizations in a dashboard, instead of through the Event Analytics admin page, makes it easier for users with varying levels of technical knowledge to understand and interpret the data.
+Presenting your visualizations on a dashboard, instead of the event analytics user interface, makes it easier for users with varying levels of technical knowledge to understand and interpret the data at a glance. 
+
+To consolidate your visualizations into a dashboard, open the **Dashboards** application 
 
 
-
-## View logs
+## Viewing logs
 
 The following are methods you can use to view logs.
 
-### Trace log correlation
+### Correlating logs and traces
 
 If you regularly track events across applications, you can correlate logs and traces. To view the correlation, you have to index the traces according to Open Telemetry standards (similar to trace analytics). Once you add a `TraceId` field to your logs, you can view the correlated trace information in the event explorer log details. This method lets you correlate logs and traces that correspond to the same execution context.
 
 ![Trace Log Correlation]({{site.url}}{{site.baseurl}}/images/trace_log_correlation.gif)
 
-### View surrounding events
+### Viewing surrounding events
 
 If you want to know more about a log event you're looking at, you can select **View surrounding events** to get a bigger picture of what was happening around the time of interest.
 
 ![Surrounding Events]({{site.url}}{{site.baseurl}}/images/surrounding_events.gif)
 
-### Live tail
+### Livestreaming logs
 
 If you prefer watching events happen live, you can configure an interval so event analytics automatically refreshes the content. Live tail lets you stream logs live to OpenSearch observability event analytics based on the provided PPL query, as well as provide rich functionality such as filters. Doing so improves your debugging experience and lets you monitor your logs in real-time without having to manually refresh.
 
