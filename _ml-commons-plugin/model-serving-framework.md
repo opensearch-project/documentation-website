@@ -68,12 +68,12 @@ Field | Data type | Description
 | `framework_type` | string  | The framework the model is using. Currently, we support `sentence_transformers` and `huggingface_transformers` frameworks. The `sentence_transformers` model outputs text embeddings directly, so ML Commons does not perform any post processing. For `huggingface_transformers`, ML Commons performs post processing by applying mean pooling to get text embeddings. See the example [`all-MiniLM-L6-v2` Huggingface model](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2) for more details. |
 | `all_config` _(Optional)_ | string | This field is used for reference purposes. You can specify all model configurations in this field. For example, if you are using a Huggingface model, you can minify the `config.json` file to one line and save its contents in the `all_config` field. Once the model is uploaded, you can use the get model API operation to get all model configurations stored in this field. |
 
-You can further customize a sentence transformer pre-trained model's post-processing logic with the following optional fields in the `model_config` object.
+You can further customize a pre-trained sentence transformer model's post-processing logic with the following optional fields in the `model_config` object.
 
 | Field | Data type | Description |
 | :--- | :--- | :--- |
-| `pooling_mode` | string | The post-process model output, either `mean`, `mean_sqrt_len`, `max`, `weightedmean`, or `cls`.|
-| `normalize_result` | boolean | When set to `true`, normalizes the model output in order to scale to a standard range for the model. |
+| `pooling_mode` | String | The post-process model output, either `mean`, `mean_sqrt_len`, `max`, `weightedmean`, or `cls`.|
+| `normalize_result` | Boolean | When set to `true`, normalizes the model output in order to scale to a standard range for the model. |
 
 #### Example request
 
