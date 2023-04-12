@@ -106,7 +106,7 @@ You should see the flight destination data, as in the following image.
 
 ## Filtering data
 
-To show a subset of the data in the index, filter the data. You can either filter data at the layer level or draw shapes on the map to show only the data points within that shape. 
+To show a subset of the data in the index, filter the data. You can either filter data at the layer level or draw shapes on the map to filter the data. 
 
 ### Filtering data at the layer level
 
