@@ -142,7 +142,7 @@ You can filter your data by drawing a rectangular shape on the map to show a sub
 1. Choose a spatial relation type. By default, **Intersects** is selected. See [Geographic queries]({{site.url}}{{site.baseurl}}/field-types/geo-shape/) for more information on spatial relationship types.
 1. Select the **Draw Rectangle** button.
 1. Draw the shape over the map area that you want to select.
-1. If you want to disable other filters from interacting with your shape filter, select your layer from the **Layers** panel and then under the **Filters** section, deselect **Apply global filters**. 
+1. You can disable other filters from interacting with your shape filter by selecting your layer from the **Layers** panel and then under the **Filters** section, deselect **Apply global filters**. You can use this option if you do not want the active layer to be filtered by spatial filters.
 1. Select the **Update** button. 
 
 [Image]
