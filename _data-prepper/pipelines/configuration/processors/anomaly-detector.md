@@ -33,7 +33,7 @@ The Random Cut Forest (RCF) ML algorithm is an unsupervised algorithm for detect
 | :--- | :--- |
 | `random_cut_forest` | Processes events using Random Cut Forest ML algorithm to detect anomalies. After passing a group of events with `latency`, a value between `0.2` and `0.3` is passed through the `anomaly_detector` processor. When an event with `latency` value `11.5` is sent, the following anomaly event is generated. See [Random Cut Forest (RCF) Algorithm](https://docs.aws.amazon.com/sagemaker/latest/dg/randomcutforest.html) for more details.| 
 
-See the following example of what happens in the `anomaly_detector` processor when it receives input:
+The following example shows what happens in the `anomaly_detector` processor when it receives input:
 
  ```json
   { "latency": 11.5, "deviation_from_expected":[10.469302736820003],"grade":1.0}
