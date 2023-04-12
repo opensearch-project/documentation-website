@@ -158,7 +158,7 @@ To modify an existing shape filter, select your filter on the top left above the
 
 ## Using tooltips to visualize additional data
 
-Document layers show geopoint and geoshape field types as locations on the map. To add more information to the locations, you can use tooltips. For example, you may want to to show flight delay, destination weather, and destination country information in the **Flight destination** layer, perform the following steps to configure tooltips to show additional data:
+Document layers show geopoint and geoshape document fields as locations on the map. To add more information to the locations, you can use tooltips. For example, you may want to to show flight delay, destination weather, and destination country information in the **Flight destination** layer. Perform the following steps to configure tooltips to show additional data:
 
 1. In the **Layers** panel, select **Flight destination**.
 1. Select **Tooltips**. 
