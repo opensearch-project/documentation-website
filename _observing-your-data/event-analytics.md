@@ -12,7 +12,7 @@ Event analytics in Observability is where you can use [Piped Processing Language
 
 ## Getting started with event analytics
 
-To get started, choose **Observability** in OpenSearch Dashboards, and then choose **Event analytics**. If you want to start exploring without adding any of your own data, choose **Add sample Events Data**, and Dashboards adds some sample visualizations you can interact with.
+To get started, choose **Observability** in OpenSearch Dashboards, and then choose **Event analytics**. If you want to start exploring without adding any of your own data, choose **Add samples**, and Dashboards adds some sample visualizations you can interact with.
 
 ## Building a query
 
@@ -24,7 +24,7 @@ For example, the following PPL query returns a count of how many host addresses 
 source = opensearch_dashboards_sample_data_logs | fields host | stats count()
 ```
 
-By default, Dashboards shows results from the last 15 minutes of your data. To see data from a different timeframe, use the date and time selector.
+By default, Dashboards shows results from the last 15 minutes of your data. To see data from a different time frame, use the date and time selector.
 
 For more information about building PPL queries, see [Piped Processing Language]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index).
 
