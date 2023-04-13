@@ -34,13 +34,6 @@ After Dashboards generates a visualization, you must save it if you want to retu
 
 To save a visualization, expand the save dropdown menu next to **Refresh**, enter a name for your visualization, then choose **Save**. You can reopen any saved visualizations on the event analytics page.
 
-## Consolidating visualizations into a dashboard
-
-Presenting your visualizations on a dashboard, instead of the event analytics user interface, makes it easier for users with varying levels of technical knowledge to understand and interpret the data at a glance. 
-
-To consolidate your visualizations into a dashboard, open the **Dashboards** application 
-
-
 ## Viewing logs
 
 The following are methods you can use to view logs.
