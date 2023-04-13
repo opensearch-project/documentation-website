@@ -7,10 +7,30 @@ parent: OpenSearch Benchmark
 
 # Getting started
 
-Start using OpenSearch Benchmark right now to measure the performance of your OpenSearch cluster with the official [Docker](https://www.docker.com/) distribution. The Docker distribution of OpenSearch Benchmark, which can be found on [Docker Hub](https://hub.docker.com/r/opensearchproject/opensearch-benchmark) and in the [Amazon ECR Public Gallery](https://gallery.ecr.aws/opensearchproject/opensearch-benchmark), is already bundled with the necessary software packages. That means that you can spend less time configuring OpenSearch Benchmark host and more time tuning your OpenSearch cluster for optimal performance.
+Start using OpenSearch Benchmark right now to measure the performance of your OpenSearch cluster. This guide walks you through prerequisites for installing and running OpenSearch Benchmark, and provides some basic information about configuring OpenSearch Benchmark.
 
-This quickstart guide is specific to the Docker distribution of OpenSearch Benchmark. For information about installing OpenSearch Benchmark manually on a Linux or macOS host, see [Install OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/tuning-your-cluster/opensearch-benchmark/install-osb/)
+## Installing software dependencies
+
+Depending on your desired use case, you can either install OpenSearch Benchmark on your host manually&#8212;using Python 3 and pip&#8212;or you can choose to run OpenSearch Benchmark in a Docker container.
+
+Using Docker to run OpenSearch Benchmark can be easier to configure than a manual installation, because all of the required software dependencies are included with the official image. There are, however, two important restrictions to keep in mind when you decide to run OpenSearch Benchmark in a Docker container:
+- You cannot distribute load test drivers using the OpenSearch Benchmark daemon.
+- You can only use the `benchmark-only` pipeline.
+
+You can find official images for OpenSearch Benchmark on [Docker Hub](https://hub.docker.com/r/opensearchproject/opensearch-benchmark) or on the [Amazon ECR Public Gallery](https://gallery.ecr.aws/opensearchproject/opensearch-benchmark).
 {: .note}
+
+### Option 1: Installing OpenSearch Benchmark manually with Python 3 and pip
+
+
+
+### Option 2: Installing OpenSearch Benchmark using Docker
+
+You can deploy OpenSearch Benchmark to your host using two different methods:
+1. You can install OpenSearch Benchmark with Python 3 and pip
+1. 
+
+with the official [Docker](https://www.docker.com/) distribution. The Docker distribution of OpenSearch Benchmark, which can be found on [Docker Hub](https://hub.docker.com/r/opensearchproject/opensearch-benchmark) and in the [Amazon ECR Public Gallery](https://gallery.ecr.aws/opensearchproject/opensearch-benchmark), is already bundled with the necessary software packages. That means that you can spend less time configuring OpenSearch Benchmark host and more time tuning your OpenSearch cluster for optimal performance.
 
 ## Verifying your Docker installation
 
