@@ -22,50 +22,28 @@ docker run hello-world
 ```
 {% include copy.html %}
 
-If the container can be started successfully then you will see a message and some helpful tips written to the standard output.
+If the container starts successfully then you will see a message written to the standard output.
 
 ## Running your first benchmark
 
-You can run commands using the OpenSearch Benchmark Docker image. When you invoke a command, the Docker container launches and executes the specified command, and then the container stops.
+You can run commands by passing them as arguments to the OpenSearch Benchmark Docker container. When you invoke a command using `docker run`, the Docker container launches and executes the command, and then the container exits.
 
-View the OpenSearch Benchmark help text with the following command:
+Try it out by using the following command to print the OpenSearch Benchmark help text:
 ```bash
 docker run opensearchproject/opensearch-benchmark opensearch-benchmark -h
 ```
 {% include copy.html %}
 
-You should see the following output:
-```
-usage: opensearch-benchmark [-h] [--version]
-                            {execute_test,list,info,create-workload,generate,compare,download,install,start,stop}
-                            ...
 
-   ____                  _____                      __       ____                  __                         __
-  / __ \____  ___  ____ / ___/___  ____ ___________/ /_     / __ )___  ____  _____/ /_  ____ ___  ____ ______/ /__
- / / / / __ \/ _ \/ __ \\__ \/ _ \/ __ `/ ___/ ___/ __ \   / __  / _ \/ __ \/ ___/ __ \/ __ `__ \/ __ `/ ___/ //_/
-/ /_/ / /_/ /  __/ / / /__/ /  __/ /_/ / /  / /__/ / / /  / /_/ /  __/ / / / /__/ / / / / / / / / /_/ / /  / ,<
-\____/ .___/\___/_/ /_/____/\___/\__,_/_/   \___/_/ /_/  /_____/\___/_/ /_/\___/_/ /_/_/ /_/ /_/\__,_/_/  /_/|_|
-    /_/
 
- A benchmarking tool for OpenSearch
+Exit code (0) indicates that OpenSearch Benchmark successfully completed the operation. Exit code (1) indicates that OpenSearch Benchmark encountered an error. You can review the logs by 
+{: .tip}
 
-options:
-  -h, --help            show this help message and exit
-  --version             show program's version number and exit
 
-subcommands:
-  {execute_test,list,info,create-workload,generate,compare,download,install,start,stop}
-    execute_test        Run a benchmark
-    list                List configuration options
-    info                Show info about a workload
-    create-workload     Create a Benchmark workload from existing data
-    generate            Generate artifacts
-    compare             Compare two test_executions
-    download            Downloads an artifact
-    install             Installs an OpenSearch node locally
-    start               Starts an OpenSearch node locally
-    stop                Stops an OpenSearch node locally
 
-Find out more about Benchmark at https://opensearch.org/docs
-```
 
+docker run -v $PWD/benchmarks:/benchmark/.benchmark opensearchproject/opensearch-benchmark opensearch-benchmark -h
+
+
+Open question: how to inspect logs from the Docker container if it only runs for the duration of a command?
+Correct way to mount?

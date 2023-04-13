@@ -19,4 +19,14 @@ OpenSearch Benchmark is supported on Linux and macOS. You can also run OpenSearc
 
 OpenSearch Benchmark supports the following operations:
 
-- list commands here (Work in progress)
+// Will convert these to a table
+    execute_test        Run a benchmark
+    list                List configuration options
+    info                Show info about a workload
+    create-workload     Create a Benchmark workload from existing data
+    generate            Generate artifacts
+    compare             Compare two test_executions
+    download            Downloads an artifact
+    install             Installs an OpenSearch node locally
+    start               Starts an OpenSearch node locally
+    stop                Stops an OpenSearch node locally
