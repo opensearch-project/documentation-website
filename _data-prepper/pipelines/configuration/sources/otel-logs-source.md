@@ -19,29 +19,29 @@ This source supports the `OTLP/gRPC` protocol.
 
 You can configure the `otel_logs_source` source with the following options. 
 
-| Option | Required | Default | Description |
-| :--- | :--- | :--- | :--- |
-| port | No | `21892` | An `int` that represents the port that the `OTel logs source` is running on. |
-| path | No | N/A | A `String` that represents the path for sending unframed HTTP requests. This can be used for supporting unframed gRPC with HTTP idiomatic path to a configurable path. It should start with `/` and length should be at least 1. `/opentelemetry.proto.collector.logs.v1.LogsService/Export` endpoint will be disabled for both gRPC and HTTP requests if path is configured. Path can contain `${pipelineName}` placeholder which will be replaced with pipeline name.  If the value is empty and `unframed_requests` is `true`, then the path that the source provides is `/opentelemetry.proto.collector.logs.v1.LogsService/Export`. | 
-| request_timeout | No | `10,000` | An `int` that represents the request timeout duration in milliseconds. |
-| health_check_service | No | `false` | A boolean that enables the gRPC health check service under `grpc.health.v1/Health/Check`. |
-| proto_reflection_service | No | `false` | A boolean that enables a reflection service for Protobuf services (see [ProtoReflectionService](https://grpc.github.io/grpc-java/javadoc/io/grpc/protobuf/services/ProtoReflectionService.html) and [gRPC reflection](https://github.com/grpc/grpc-java/blob/master/documentation/server-reflection-tutorial.md) documents). |
-| unframed_requests | No | `false ` | A `boolean` that enables requests which are not framed using the gRPC wire protocol. |
-| thread_count(Optional) | No | `500` | The number of threads to keep in the `ScheduledThreadPool`. |
-| max_connection_count | No | `500` | The maximum number of open connections allowed. |
+| Option | Type | Description |
+| :--- | :--- | :--- |
+| port | int | Represents the port that the `OTel logs source` is running on. Default value is `21892`. |
+| path | string | Represents the path for sending unframed HTTP requests. This can be used for supporting unframed gRPC with HTTP idiomatic path to a configurable path. It should start with `/` and length should be at least 1. `/opentelemetry.proto.collector.logs.v1.LogsService/Export` endpoint will be disabled for both gRPC and HTTP requests if path is configured. Path can contain `${pipelineName}` placeholder which will be replaced with pipeline name.  If the value is empty and `unframed_requests` is `true`, then the path that the source provides is `/opentelemetry.proto.collector.logs.v1.LogsService/Export`. There is no default value. | 
+| request_timeout | int | Represents the request timeout duration in milliseconds. Default value is `10,000`. |
+| health_check_service | Boolean | Enables the gRPC health check service under `grpc.health.v1/Health/Check`. Default value is `false`. |
+| proto_reflection_service | Boolean | Enables a reflection service for Protobuf services (see [ProtoReflectionService](https://grpc.github.io/grpc-java/javadoc/io/grpc/protobuf/services/ProtoReflectionService.html) and [gRPC reflection](https://github.com/grpc/grpc-java/blob/master/documentation/server-reflection-tutorial.md) documents). Default value is `false`. |
+| unframed_requests | Boolean | Enables requests which are not framed using the gRPC wire protocol. Default value is `false`.|
+| thread_count  | int | The number of threads to keep in the `ScheduledThreadPool`. Default value is `500`. |
+| max_connection_count | int | The maximum number of open connections allowed. Default value is `500`. |
 
 ### SSL
 
 You can configure SSL in the `otel_logs_source` source with the following options.
 
-| Option | Required | Default | Description |
+| Option | Required | Type | Description |
 | :--- | :--- | :--- | :--- |
-| ssl | No | `true` | A boolean that enables TLS/SSL. |
-| sslKeyCertChainFile | Yes, if `ssl` is set to `true`. | A `string` that represents the SSL certificate chain file path or AWS S3 path. S3 path example `s3://<bucketName>/<path>`. |
-| sslKeyFile | Yes, if `ssl` is set to `true`. | A `string` that represents the SSL key file path or AWS S3 path. S3 path example `s3://<bucketName>/<path>`. |
-| useAcmCertForSSL | No | `false` | A boolean enables TLS/SSL using certificate and private key from AWS Certificate Manager (ACM). |
-| acmCertificateArn | No | Yes, if `useAcmCertForSSL` is set to `true`. | A `string` that represents the ACM certificate ARN. ACM certificate take preference over S3 or local file system certificate. |
-| awsRegion | Yes, if `useAcmCertForSSL` is set to `true` or `sslKeyCertChainFile` and `sslKeyFile` is `AWS S3 path` | N/A. Must be provided. | A `string` that represents the AWS region to use ACM or S3. |
+| ssl | No | Boolean | Enables TLS/SSL. Default value is `true`. |
+| sslKeyCertChainFile | string | Represents the SSL certificate chain file path or AWS S3 path. For example, see the S3 path `s3://<bucketName>/<path>`. Required if `ssl` is set to `true`. Default value is |
+| sslKeyFile | string | Represents the SSL key file path or AWS S3 path. For example, see the S3 path: `s3://<bucketName>/<path>`. Required if `ssl` is set to `true`. Default value is |
+| useAcmCertForSSL | No | Boolean | Enables TLS/SSL using certificate and private key from AWS Certificate Manager (ACM). Default value is `false`. |
+| acmCertificateArn | No | string | Represents the ACM certificate ARN. ACM certificate take preference over S3 or local file system certificate. Default value is yes, if `useAcmCertForSSL` is set to `true`.|
+| awsRegion | string | Represents the AWS region to use ACM or S3. Default value is yes, if `useAcmCertForSSL` is set to `true` or `sslKeyCertChainFile` and `sslKeyFile` is `AWS S3 path`. |
 
 ## Usage
 
