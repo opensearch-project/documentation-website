@@ -143,7 +143,7 @@ OpenSearch supports the following types of monitors:
 **Per query monitors** run your specified query and then check whether the query's results trigger any alerts. Query-level monitors can only trigger one alert at a time. 
 **Per bucket monitors** let you select which fields to create buckets and categorize your results into those buckets. The Alerting plugin runs each bucket's unique results against a script you define later, so you have finer control over which results should trigger alerts. Furthermore, each bucket can trigger an alert.
 
-The maximum number of monitors you can create is **1,000**. If you want to change the default maximum number of alerts for your cluster to below **1,000**, you can configure the maximum number of alerts by calling the cluster settings API `plugins.alerting.monitor.max_monitors`.
+The maximum number of monitors you can create is **1,000**. You can change the default maximum number of alerts for your cluster by calling the cluster settings API `plugins.alerting.monitor.max_monitors`.
 
 <!--- You can only configure the maximum number of monitors in open source OpenSearch.
 {: .note}---> 
