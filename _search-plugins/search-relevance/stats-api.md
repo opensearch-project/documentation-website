@@ -28,30 +28,36 @@ The following is the response for the preceding request:
 ```json
 {
   "data": {
-    "search_relevance": {  
+    "search_relevance": {
       "fetch_index": {
         "200": {
-          "sum": 12.02572301030159,
+          "response_time_total": 28.79286289215088,
           "count": 1
         }
       },
       "single_search": {
         "200": {
-          "sum": 4.898337006568909,
+          "response_time_total": 29.817723274230957,
           "count": 1
+        }
+      },
+      "comparison_search": {
+        "200": {
+          "response_time_total": 13.265346050262451,
+          "count": 2
         }
       }
     }
   },
   "overall": {
-    "response_time_avg": 8.46203000843525,
-    "requests_per_second": 0.03333333333333333
+    "response_time_avg": 17.968983054161072,
+    "requests_per_second": 0.06666666666666667
   },
   "counts_by_component": {
-    "search_relevance": 2
+    "search_relevance": 4
   },
   "counts_by_status_code": {
-    "200": 2
+    "200": 4
   }
 }
 ```
@@ -84,5 +90,5 @@ Each of the `comparison_search`, `single_search`, and `fetch_index` objects cont
 
 | Field | Data type | Description |
 | :--- | :--- | :--- |
-| `sum` | Double | The sum of the response times for the responses with this HTTP code, in milliseconds. |
+| `response_time_total` | Double | The sum of the response times for the responses with this HTTP code, in milliseconds. |
 | `count` | Integer | The total number of responses with this HTTP code.  |
