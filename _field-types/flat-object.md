@@ -63,11 +63,11 @@ The following limitations apply to flat objects in the 2.7 release:
 
 This functionality is planned for a future release.
 
-## Using flat objects 
+## Using flat object
 
 The following example illustrates mapping a field as a flat object, indexing documents with flat object fields, and searching for leaf values of the flat object in those documents.
 
-Only root fields of a document can be defined as a flat objects. You cannot define an object that is part of another JSON object as a flat object because when a flat object it is flattened to a string, the nested architecture of the leaves is lost.
+Only the root field of a document can be defined as a flat object. You cannot define an object that is part of another JSON object as a flat object because when a flat object it is flattened to a string, the nested architecture of the leaves is lost.
 {: .note}
 
 First, create a mapping for your index, where `issue` is of type `flat_object`:
