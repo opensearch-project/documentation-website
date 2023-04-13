@@ -44,7 +44,7 @@ pipeline:
 
 ## Configuration
 
-You can configure the Amazon OpenSearch Service with the following options.
+You can configure the OTel trace group processor with the following options.
 
 | Name | Required | Description | Default value
 | -----| ----| -----------| -----|
@@ -60,7 +60,7 @@ You can configure the Amazon OpenSearch Service with the following options.
 
 ## Configuration option examples
 
-You can define the `aws_sts_header_overrides` configuration option values. See the following example.
+You can define the configuration option values in the `aws_sts_header_overrides` option. See the following example.
 
 ```
 aws_sts_header_overrides:
