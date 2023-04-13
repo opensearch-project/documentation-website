@@ -27,7 +27,7 @@ Setting | Description
 `index` | Must match the name of the OpenSearch Dashboards index from `opensearch_dashboards.yml`. Default is `.kibana`.
 `do_not_fail_on_forbidden` | If true, the security plugin removes any content that a user is not allowed to see from search results. If false, the plugin returns a security exception. Default is false.
 
-`opensearch_dashboards.yml` has some additional settings:
+The `opensearch_dashboards.yml` file includes additional settings:
 
 ```yml
 opensearch.username: kibanaserver

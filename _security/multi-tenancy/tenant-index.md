@@ -16,7 +16,7 @@ redirect_from:
 - **Global** - This tenant is shared between every OpenSearch Dashboards user. It does allow for sharing objects among users who have access to it.
 - **Custom** - Administrators can create custom tenants and assign them to specific roles. Once created, these tenants can then provide spaces for specific groups of users.
 
-The global tenant is not a *primary* tenant that replicates its content in a private tenant. To the contrary, if you make a change to your global tenant, you won't see that change reflected in your private tenant. Some example changes include, but are not limited to:
+The global tenant is not a *primary* tenant in the sense that it replicates its content in a private tenant. To the contrary, if you make a change to your global tenant, you won't see that change reflected in your private tenant. Some example changes include, but are not limited to:
 
 - Change advanced settings
 - Create visualizations
@@ -32,5 +32,7 @@ http://<opensearch_dashboards_host>:5601/app/opensearch-dashboards?security_tena
 
 ## Next steps
 
-To get started with tenants, see [Multi-tenancy configuration]({{site.url}}{{site.baseurl}}/security/multi-tenancy/multi-tenancy-config/) for information on enabling multi-tenancy, adding tenants, and assigning roles to tenants.   
+To get started with tenants, see [Multi-tenancy configuration]({{site.url}}{{site.baseurl}}/security/multi-tenancy/multi-tenancy-config/) for information about enabling multi-tenancy, adding tenants, and assigning roles to tenants.
+
+To see information about making dynamic changes to the multi-tenancy configuration, see [Dynamic configuration in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/security/multi-tenancy/dynamic-config/).
 
