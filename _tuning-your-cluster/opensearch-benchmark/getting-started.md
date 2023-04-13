@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Docker quickstart for OpenSearch Benchmark
+title: Getting started
 nav_order: 3
 parent: OpenSearch Benchmark
 ---
 
-# Docker quickstart guide for OpenSearch Benchmark
+# Getting started
 
 Start using OpenSearch Benchmark right now to measure the performance of your OpenSearch cluster with the official [Docker](https://www.docker.com/) distribution. The Docker distribution of OpenSearch Benchmark, which can be found on [Docker Hub](https://hub.docker.com/r/opensearchproject/opensearch-benchmark) and in the [Amazon ECR Public Gallery](https://gallery.ecr.aws/opensearchproject/opensearch-benchmark), is already bundled with the necessary software packages. That means that you can spend less time configuring OpenSearch Benchmark host and more time tuning your OpenSearch cluster for optimal performance.
 
