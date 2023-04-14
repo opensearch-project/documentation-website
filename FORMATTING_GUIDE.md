@@ -12,7 +12,7 @@ This guide provides an overview of the formatted elements commonly used in the O
 * [Dashes](#dashes)
 * [Horizontal rule](#horizontal-rule)
 * [Images](#images)
-  *[Images in line with text](#images-in-line-with-text)
+  * [Images in line with text](#images-in-line-with-text)
 * [Labels](#labels)
 * [Links](#links)
 * [Lists](#lists)
