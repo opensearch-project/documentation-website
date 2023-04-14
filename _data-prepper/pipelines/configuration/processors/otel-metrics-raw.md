@@ -58,7 +58,7 @@ You can create detailed representations of histogram buckets and their boundarie
         flatten_attributes: false
 ```
 
-Each array element describes one bucket. Each bucket contains the lower boundary, upper boundary, and its value count. This is a specific form of denser OpenTelemetry representation that is a part of the JSON output created by the following plugin. See the following `JSON` file, which is added to each historgram `JSON` by the otel metrics raw processor:
+Each array element describes one bucket. Each bucket contains the lower boundary, upper boundary, and its value count. This is a specific form of denser OpenTelemetry representation that is a part of the JSON output created by the following plugin. See the following `JSON` file, which is added to each histogram `JSON` by the otel metrics raw processor:
 
 ```json
  "explicitBounds": [
