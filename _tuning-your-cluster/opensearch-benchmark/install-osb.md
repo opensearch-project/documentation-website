@@ -10,7 +10,7 @@ parent: OpenSearch Benchmark
 You can install OpenSearch Benchmark directly on a host running Linux or macOS or you can run OpenSearch Benchmark in a Docker container on any compatible host. This section of documentation describes high-level considerations for your OpenSearch Benchmark host, as well as instructions for installing OpenSearch Benchmark.
 
 Some OpenSearch Benchmark functionality is unavailable when you run OpenSearch Benchmark in a Docker container. Specifically, the following restrictions apply:
-- You cannot distribute load test drivers.
+- You cannot distribute load worker coordinator hosts.
 - You can only use the `benchmark-only` pipeline.
 
 ## Hardware considerations
