@@ -22,6 +22,7 @@ gem "jekyll-redirect-from", "~> 0.16"
 
 # If you have any plugins, put them here!
 group :jekyll_plugins do
+  gem "jekyll-last-modified-at"
   gem "jekyll-sitemap"
 end
 
@@ -33,6 +34,7 @@ gem "wdm", "~> 0.1.0" if Gem.win_platform?
 
 # Installs webrick dependency for building locally
 gem "webrick", "~> 1.7"
+
 
 # Link checker
 gem "typhoeus"
