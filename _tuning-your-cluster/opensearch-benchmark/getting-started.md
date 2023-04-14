@@ -7,7 +7,7 @@ parent: OpenSearch Benchmark
 
 # Getting started
 
-Start using OpenSearch Benchmark right now to measure the performance of your OpenSearch cluster. This guide walks you through prerequisites for installing and running OpenSearch Benchmark, and provides some basic information about configuring OpenSearch Benchmark.
+Start using OpenSearch Benchmark right now to measure the performance of your OpenSearch cluster with this guide. In this document you will learn about the basic software dependencies required by OpenSearch Benchmark depending on your installation method. You will also learn about running a basic benchmark against an existing OpenSearch cluster.
 
 ## Installing prerequisite software
 
@@ -23,33 +23,76 @@ After selecting a host, you can verify that the prerequisite software is install
 - [Python](https://www.python.org/) 3.8 or newer (with pip).
 - [Git](https://git-scm.com/) 1.9 or newer.
 
-If you also intend to provision OpenSearch nodes using OpenSearch Benchmark, then you must also configure [important settings]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#important-settings) on your host, which includes increasing the maximum memory map count and installing an appropriate JDK version.
-
-
+If you plan to provision OpenSearch nodes using OpenSearch Benchmark, then you must also configure some [important settings]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#important-settings) on your host, such as increasing the maximum memory map count and installing an appropriate JDK version.
 
 We recommend using [pyenv](https://github.com/pyenv/pyenv), an open source tool for managing Python versions. Pyenv uses shim executables that allow you to use any available version of Python. See the official [installation](https://github.com/pyenv/pyenv#installation) documentation for more information.
 {: .tip}
 
-### Option 2: Installing OpenSearch Benchmark with Docker
+#### Checking software dependencies
 
-You can find official images for OpenSearch Benchmark on [Docker Hub](https://hub.docker.com/r/opensearchproject/opensearch-benchmark) or on the [Amazon ECR Public Gallery](https://gallery.ecr.aws/opensearchproject/opensearch-benchmark).
-{: .note}
-
-with the official [Docker](https://www.docker.com/) distribution. The Docker distribution of OpenSearch Benchmark, which can be found on [Docker Hub](https://hub.docker.com/r/opensearchproject/opensearch-benchmark) and in the [Amazon ECR Public Gallery](https://gallery.ecr.aws/opensearchproject/opensearch-benchmark), is already bundled with the necessary software packages. That means that you can spend less time configuring OpenSearch Benchmark host and more time tuning your OpenSearch cluster for optimal performance.
-
-## Verifying your Docker installation
-
-[Docker Desktop](https://docs.docker.com/desktop/) offers a graphical user interface (GUI) and you can install it on popular operating systems like Windows, macOS, and Linux. If your environment does not have a GUI&#8212;or if you just prefer to work with the command-line interface (CLI)&#8212;then you can install [Docker Engine](https://docs.docker.com/engine/). Refer to the official [Docker documentation](https://docs.docker.com/) for information about installing and configuring Docker in your environment.
-
-Verify that Docker is installed by running the official [hello-world](https://hub.docker.com/_/hello-world) Docker image:
+Check the installed version of Python 3:
 ```bash
-docker run hello-world
+python3 --version
 ```
 {% include copy.html %}
 
-If the container starts successfully then you will see a message written to the standard output.
+Check the installed version of pip:
+```bash
+pip --version
+```
+{% include copy.html %}
 
-## Running your first benchmark
+Check the installed version of Git:
+```bash
+git --version
+```
+{% include copy.html %}
+
+Refer to the official documentation of the respective software for information about installion.
+
+#### Installing OpenSearch Benchmark
+
+After the required software packages and versions are satisfied, you can install OpenSearch Benchmark:
+```bash
+pip install opensearch-benchmark
+```
+{% include copy.html %}
+
+Verify the installation by using the following command to print the help text to the standard output:
+```bash
+opensearch-benchmark -h
+```
+{% include copy.html %}
+
+### Option 2: Installing OpenSearch Benchmark with Docker
+
+Before deploying OpenSearch Benchmark in a Docker container you should verify that Docker is installed on the desired host. Refer to Docker's official documentation for instructions on installing and configuring Docker. All OpenSearch Benchmark software dependencies are bundled with the official image, so no additional setup is needed.
+
+You can find official images for OpenSearch Benchmark on [Docker Hub](https://hub.docker.com/r/opensearchproject/opensearch-benchmark) or on the [Amazon ECR Public Gallery](https://gallery.ecr.aws/opensearchproject/opensearch-benchmark).
+
+Pull the image from Docker Hub:
+```bash
+docker pull opensearchproject/opensearch-benchmark:latest
+```
+{% include copy.html %}
+
+Pull the image from Amazon ECR Public Gallery:
+```bash
+docker pull public.ecr.aws/opensearchproject/opensearch-benchmark:latest
+```
+{% include copy.html %}
+
+Verify that Docker is able to launch the container by using the following command to print help text to the standard output:
+```bash
+docker run opensearchproject/opensearch-benchmark opensearch-benchmark -h
+```
+{% include copy.html %}
+
+## Running your first benchmark in test mode
+
+The syntax you should use for issuing commands with OpenSearch Benchmark will depend on your installation method.
+
+If you installed 
 
 You can run commands by passing them as arguments to the OpenSearch Benchmark Docker container. When you invoke a command using `docker run`, the Docker container launches and executes the command, and then the container exits.
 
