@@ -6,13 +6,13 @@ grand_parent: Pipelines
 nav_order: 45
 ---
 
-# OTel trace group
+# OTel trace group processor
 
-The `OTel trace group` processor completes missing trace group related fields in the collection of [span](https://github.com/opensearch-project/data-prepper/blob/834f28fdf1df6d42a6666e91e6407474b88e7ec6/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/trace/Span.java) records by looking up the OpenSearch backend. The `OTel trace group` processor identifies the missing trace group information for a `spanId` by looking up the relevant fields in its root `span` stored in OpenSearch.
+The OTel trace group processor completes missing trace group related fields in the collection of [span](https://github.com/opensearch-project/data-prepper/blob/834f28fdf1df6d42a6666e91e6407474b88e7ec6/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/trace/Span.java) records by looking up the OpenSearch backend. The OTel trace group processor identifies the missing trace group information for a `spanId` by looking up the relevant fields in its root `span` stored in OpenSearch.
 
 ## OpenSearch
 
-See the following example `YAML` configuration file for the `OTel trace group` processor when you connect to an OpenSearch cluster using your username and password:
+See the following example `YAML` configuration file for the OTel trace group processor when you connect to an OpenSearch cluster using your username and password:
 
 ``` YAML
 pipeline:
@@ -25,11 +25,11 @@ pipeline:
         password: YOUR_PASSWORD_HERE
 ```
 
-See [OpenSearch security](https://github.com/opensearch-project/data-prepper/blob/834f28fdf1df6d42a6666e91e6407474b88e7ec6/data-prepper-plugins/opensearch/opensearch_security.md#L4) for a more detailed explanation of which OpenSearch credentials and permissions are required and how to configure those credentials for the `OTel trace group` processor.
+See [OpenSearch security](https://github.com/opensearch-project/data-prepper/blob/834f28fdf1df6d42a6666e91e6407474b88e7ec6/data-prepper-plugins/opensearch/opensearch_security.md#L4) for a more detailed explanation of which OpenSearch credentials and permissions are required and how to configure those credentials for the OTel trace group processor.
 
 ### Amazon OpenSearch Service
 
-See the following example `YAML` configuration file for the `OTel trace group` processor when you use the Amazon OpenSearch Service:
+See the following example `YAML` configuration file for the OTel trace group processor when you use the Amazon OpenSearch Service:
 
 ``` YAML
 pipeline:
