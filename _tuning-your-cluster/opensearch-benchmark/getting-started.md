@@ -17,7 +17,18 @@ You can install OpenSearch Benchmark on your host manually&#8212;using Python 3 
 
 ### Option 1: Installing OpenSearch Benchmark manually with Python 3 and pip
 
-First, you need to choose a host that will run OpenSearch Benchmark. You can install OpenSearch Benchmark on any compatible host running Linux&#8212;such as Ubuntu, Amazon Linux 2, and Red Hat-based distributions like CentOS&#8212;or macOS. We recommend that you do not install OpenSearch Benchmark on a host that is also running OpenSearch because 
+You can install OpenSearch Benchmark on any compatible host running Linux&#8212;such as Ubuntu, Amazon Linux 2, and Red Hat-based distributions like CentOS&#8212;or macOS. We recommend that you do not install OpenSearch Benchmark on a host that is also running OpenSearch because benchmark results can be inconsistent due to kernel thread scheduling between OpenSearch Benchmark processes and OpenSearch processes.
+
+After selecting a host, you can verify that the prerequisite software is installed. OpenSearch Benchmark requires:
+- [Python](https://www.python.org/) 3.8 or newer (with pip).
+- [Git](https://git-scm.com/) 1.9 or newer.
+
+If you also intend to provision OpenSearch nodes using OpenSearch Benchmark, then you must also configure [important settings]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#important-settings) on your host, which includes increasing the maximum memory map count and installing an appropriate JDK version.
+
+
+
+We recommend using [pyenv](https://github.com/pyenv/pyenv), an open source tool for managing Python versions. Pyenv uses shim executables that allow you to use any available version of Python. See the official [installation](https://github.com/pyenv/pyenv#installation) documentation for more information.
+{: .tip}
 
 ### Option 2: Installing OpenSearch Benchmark with Docker
 
