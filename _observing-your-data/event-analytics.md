@@ -34,6 +34,31 @@ After Dashboards generates a visualization, you must save it if you want to retu
 
 To save a visualization, expand the save dropdown menu next to **Refresh**, enter a name for your visualization, then choose **Save**. You can reopen any saved visualizations on the event analytics page.
 
+## Adding event analytics visualizations to dashboards
+
+Presenting your visualizations on a dashboard, instead of the event analytics page, makes it easier for users with varying levels of technical knowledge to understand and interpret the data at a glance. To create a new visualization and add it to a dashboard, follow these steps:
+
+1. On the main menu, select **Observability** > **Event analytics**.
+2. On the Event analytics window, enter the index source in the PPL query field, for example, `source = opensearch_dashboards_sample_data_logs | stats max(bytes), avg(bytes) by host`.
+3. Set the time filter, for example **Week to date**, then select **Refresh**.
+4. Choose the visualization type, for example **Time series**, from the right sidebar dropdown menu.  
+5. Select **Save** and enter a name for the visualization. To add the visualization to an existing dashboard, choose from the **Custom operational dashboards/application** dropdown menu. 
+6. Select **Save**.
+
+You've created a new visualization that can be added to an existing or new dashboard. To work with the dashboard view, follow these steps:  
+
+1. On the main menu, select **Dashboard**.
+2. On the **Dashboards** window, select **Create dashboard**.
+3. On the Dashboards window, select **Add existing** and then choose the visualization.
+4. To add more visualizations to the dashboard, select **Create new** and then select **PPL** on the New Visualization window. You'll return to the event analytics page and follow steps 1-6 in the preceding instructions.
+
+The following <xx>-second video is an overview of how to add event analytics visualizations to a dashboard.
+
+<insert demo once UI is finalized>
+
+This feature is available in OpenSearch Dashboards version 2.7 and later. It works with new objects created in version 2.7 or later and visualizations generated with PPL queries or Prometheus metrics.
+{: .note}
+
 ## Viewing logs
 
 The following are methods you can use to view logs.
