@@ -13,7 +13,13 @@ redirect_from:
 
 With segment replication, segment files are copied across shards instead of documents being indexed on each shard copy. This improves indexing throughput and lowers resource utilization at the expense of increased network utilization.
 
-This is the first feature in a series of features designed to decouple reads and writes in order to lower compute costs.
+When the primary shard sends a checkpoint to replica shards on a refresh, a new segment replication event is triggered on replica shards. This happens when:
+
+- A new replica shard is added to a cluster.
+- There are segment file changes on a primary shard refresh.
+- Replica shards are being recovered from primary shard using peer recovery.
+
+Segment replication is the first feature in a series of features designed to decouple reads and writes in order to lower compute costs.
 
 ## Use cases
 
@@ -36,13 +42,20 @@ PUT /my-index1
 }
 ````
 
+In segment replication, the primary shard is usually generating more network traffic than the replicas because it's copying all segment files to the replicas. Thus, it's essential to distribute primary shards equally between the nodes. To ensure equal or near-equal number of primary shards on each node, set the dynamic `cluster.routing.allocation.balance.prefer_primary` setting to `true`. For more information, see [Cluster settings]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/).
+
 ## Comparing replication benchmarks
 
 During initial benchmarks, segment replication users reported 40% higher throughput than when using document replication with the same cluster setup.
 
 The following benchmarks were collected with [OpenSearch-benchmark](https://github.com/opensearch-project/opensearch-benchmark) using the [`stackoverflow`](https://www.kaggle.com/datasets/stackoverflow/stackoverflow) and [`nyc_taxi`](https://github.com/topics/nyc-taxi-dataset) datasets.  
 
-Both test runs were performed on a 10-node (m5.xlarge) cluster with 10 shards and 5 replicas. Each shard was about <!-- TODO: insert size --> xxMBs in size. The benchmarking results are listed in the following table.
+Both test runs were performed on a 10-node (m5.xlarge) cluster with 10 shards and 5 replicas. Each shard was about <!-- TODO: insert size --> xxMBs in size. The tests were run with the following settings:
+
+- `indices.recovery.max_bytes_per_sec`: 10gb
+- `indices.recovery.max_concurrent_file_chunks`: 5
+
+The benchmarking results are listed in the following table.
 
 <table>
     <tr>
