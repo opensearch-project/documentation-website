@@ -18,7 +18,7 @@ You can configure the anomaly detector processor by specifying a key and the opt
 
 | Name | Required | Description |
 | :--- | :--- | :--- |
-| `keys` | Yes | A non-ordered `List<String>` that is used as input to the machine learning (ML) algorithm to detect anomalies in the values of the keys in the list. At least one key is required.
+| `keys` | Yes | A non-ordered `List<String>` that is used as input to the ML algorithm to detect anomalies in the values of the keys in the list. At least one key is required.
 | `mode` | Yes |  The ML algorithm (or model) to use to detect anomalies. You must be provide a mode. See [random_cut_forest mode](#random_cut_forest-mode).
 
 ### Keys
