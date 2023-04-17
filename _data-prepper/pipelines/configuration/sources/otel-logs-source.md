@@ -40,8 +40,8 @@ You can configure SSL in the `otel_logs_source` source with the following option
 | sslKeyCertChainFile | string | Represents the SSL certificate chain file path or AWS S3 path. For example, see the S3 path `s3://<bucketName>/<path>`. Required if `ssl` is set to `true`. There is no default value. |
 | sslKeyFile | string | Represents the SSL key file path or AWS S3 path. For example, see the S3 path: `s3://<bucketName>/<path>`. Required if `ssl` is set to `true`. There is no default value. |
 | useAcmCertForSSL | Boolean | Enables TLS/SSL using certificate and private key from AWS Certificate Manager (ACM). Default value is `false`. |
-| acmCertificateArn | string | Represents the ACM certificate ARN. ACM certificate take preference over S3 or local file system certificate. There is no default value. |
-| awsRegion | string | Represents the AWS region to use ACM or S3. There is no default value. |
+| acmCertificateArn | string | Represents the ACM certificate ARN. ACM certificate take preference over S3 or local file system certificate. There is no default value. Required if `useAcmCertForSSL` is set to `true`. |
+| awsRegion | string | Represents the AWS region to use ACM or S3. There is no default value. Required if `useAcmCertForSSL` is set to `true` or `sslKeyCertChainFile` and `sslKeyFile` is AWS S3 path. |
 
 ## Usage
 
