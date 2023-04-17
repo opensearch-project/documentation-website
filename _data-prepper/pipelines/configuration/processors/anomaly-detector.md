@@ -39,7 +39,7 @@ The following example shows what happens in the anomaly detector processor when 
   { "latency": 11.5, "deviation_from_expected":[10.469302736820003],"grade":1.0}
 ```
 
-In this example, `deviation_from_expected` is a list of deviations for each of the keys from their corresponding expected values, and `grade` is the anomaly grade that indicates the severity of the anomaly.
+In this example, `deviation_from_expected` is a list of deviations for each of the keys from their corresponding expected values, and `grade` is the anomaly grade that indicates the anomaly severity.
      
 
 You can configure `random_cut_forest` mode with the following options. 
