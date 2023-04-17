@@ -56,7 +56,7 @@ The following <xx>-second video is an overview of how to add event analytics vis
 
 <insert demo once UI is finalized>
 
-This feature is available in OpenSearch Dashboards version 2.7 and later. It works with new objects created in version 2.7 or later and visualizations generated with PPL queries or Prometheus metrics.
+This feature is available in OpenSearch Dashboards version 2.7 and later. It works with new visualizations created in version 2.7 or later that uses PPL to query data from OpenSearch or federated data sources like Prometheus.
 {: .note}
 
 ## Viewing logs
