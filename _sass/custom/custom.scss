@@ -128,6 +128,12 @@ img {
   box-shadow: none;
 }
 
+.inline-icon {
+  @extend .no-border;
+  height: 1.2rem;
+  vertical-align: middle;
+}
+
 .img-border {
   border: 1px solid $grey-lt-300;
 }
