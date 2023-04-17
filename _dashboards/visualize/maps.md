@@ -158,7 +158,7 @@ To modify an existing shape filter, select your filter on the top left above the
 
 ## Using tooltips to visualize additional data
 
-Document layers show geopoint and geoshape document fields as locations on the map. To add more information to the locations, you can use tooltips. For example, you may want to to show flight delay, destination weather, and destination country information in the **Flight destination** layer. Perform the following steps to configure tooltips to show additional data:
+Document layers show geopoint and geoshape document fields as locations on the map. To add more information to the locations, you can use tooltips. For example, you may want to show flight delay, destination weather, and destination country information in the **Flight destination** layer. Perform the following steps to configure tooltips to show additional data:
 
 1. In the **Layers** panel, select **Flight destination**.
 1. Select **Tooltips**. 
@@ -173,6 +173,22 @@ To view tooltips, hover over the geographical point you're interested in. One to
 If a point on the map contains data from multiple layers, one tooltip can display data from multiple layers. To see all layers, select **All layers**. To choose a particular layer, select the layer name in the tooltip layer selection panel, as shown in the following image.
 
 <img src="{{site.url}}{{site.baseurl}}/images/maps/layer-selection-panel.png" alt="Tooltip with a layer selection panel" width="450">
+
+## Adding labels to layers
+
+Adding a label to a layer lets you visualize additional data on the map. For example, you may want to see the origin weather in the **Flight destination** layer. Perform the following steps to add a label to the **Flight destination** layer:
+
+1. In the **Layers** panel, select **Flight destination**.
+1. In the **Style** tab, select the **Add label** checkbox.
+1. You can choose to add a label based on a fixed text to all data points in the layer or to use a field value as label text.
+  - To add a fixed text label, under **Label text**, select **Fixed** and enter label text.
+  - To add a label based on a field value, under **Label text**, select **Field value** and select the field name. In this example, select `OriginWeather`.
+1. (Optional) Change the label size, color, border color, or border width.
+1. Select the **Update** button.
+
+The label with the origin weather is visible on the map and also added to the tooltips, as shown in the following image.
+
+<img src="{{site.url}}{{site.baseurl}}/images/maps/label.png" alt="Label based on field type added to map and tooltips" width="450">
 
 ## Reordering, hiding, and deleting layers
 
