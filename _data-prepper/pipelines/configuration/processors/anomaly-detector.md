@@ -10,7 +10,7 @@ nav_order: 45
 
 ## Overview
 
-The `anomaly_detector` processor takes structured data and runs anomaly detection algorithms on fields that you can configure in that data. The data must be either an integer or real number in order for the the anomaly detection algorithm to detect anomalies. We recommend that you deploy the `aggregate` processor in a pipeline before the `anomaly_detector` processor to achieve the best results. The reason for this is that the `aggregate` processor can automatically aggregate events by key and then keep them on the same host. For example, if you are searching for an anomaly in latencies from a specific IP address, and if all of the events go to the same host, then the host has more data for these events. This additional data results in better training of the ML algorithm, which results in better anomaly detection. 
+The anomaly detector processor takes structured data and runs anomaly detection algorithms on fields that you can configure in that data. The data must be either an integer or a real number for the anomaly detection algorithm to detect anomalies. Deploying the aggregate processor in a pipeline before the anomaly detector processor can help you achieve the best results, as the aggregate processor automatically aggregates events by key and keeps them on the same host. For example, if you are searching for an anomaly in latencies from a specific IP address and if all the events go to the same host, then the host has more data for these events. This additional data results in better training of the machine learning (ML) algorithm, which results in better anomaly detection. 
 
 ## Configuration
 
