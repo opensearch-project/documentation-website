@@ -14,12 +14,21 @@ The Search Relevance Stats API provides information about the operations of the 
 
 #### Example request
 
-The following example request retrieves statistics for the Search Relevance plugin:
+You can access the Search Relevance Stats API by providing its address in the following format:
 
-```json
-GET /api/relevancy/stats
 ```
-{% include copy-curl.html %}
+<opensearch-dashboards-endpoint-address>:<port>/relevancy/stats
+```
+
+You can query the endpoint in two ways:
+  
+  - By accessing the endpoint address (for example`http://localhost:5601/api/relevancy/stats`) in a browser.
+
+  - By using the `curl` command in the terminal:
+    ```bash
+    curl -XGET http://localhost:5601/api/maps-dashboards/stats
+    ```
+    {% include copy.html %}
 
 #### Example response
 
