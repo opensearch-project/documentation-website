@@ -1,6 +1,6 @@
 ---
 layout: default
-title: anomaly_detector
+title: Anomaly detector processor
 parent: Processors
 grand_parent: Pipelines
 nav_order: 45
