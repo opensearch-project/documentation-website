@@ -10,7 +10,7 @@ has_children: false
 Introduced 2.7
 {: .label .label-purple }
 
-The Search Relevance Stats API provides information about the operations of the Search Relevance plugin. The Search Relevance plugin processes operations sent by the [Compare Search Results]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance) Dashboards tool.
+The Search Relevance Stats API provides information about the operations of the Search Relevance plugin within a one-minute time interval. The Search Relevance plugin processes operations sent by the [Compare Search Results]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance) Dashboards tool.
 
 #### Example request
 
@@ -22,11 +22,11 @@ You can access the Search Relevance Stats API by providing its address in the fo
 
 You can query the endpoint in two ways:
   
-  - By accessing the endpoint address (for example`http://localhost:5601/api/relevancy/stats`) in a browser.
+  - By accessing the endpoint address (for example, `http://localhost:5601/api/relevancy/stats`) in a browser
 
   - By using the `curl` command in the terminal:
     ```bash
-    curl -XGET http://localhost:5601/api/maps-dashboards/stats
+    curl -XGET http://localhost:5601/api/relevancy/stats
     ```
     {% include copy.html %}
 
