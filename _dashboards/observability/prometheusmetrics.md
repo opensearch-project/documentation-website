@@ -2,6 +2,7 @@
 layout: default
 title: Metrics analytics
 nav_order: 40
+parent: Observability
 redirect_from:
   - /observing-your-data/prometheusmetrics/
 ---

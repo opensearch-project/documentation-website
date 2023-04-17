@@ -6,6 +6,7 @@ parent: Alerting
 has_children: false
 redirect_from:
   - /monitoring-plugins/alerting/cron/
+  - /observing-your-data/alerting/cron/
 ---
 
 # Cron expression reference

@@ -3,6 +3,7 @@ layout: default
 title: API
 nav_order: 50
 parent: Notifications
+grand_parent: Observability
 redirect_from:
   - /notifications-plugin/api/
 ---

@@ -5,7 +5,9 @@ nav_order: 50
 redirect_from: 
   - /notebooks/
   - /observability-plugin/notebooks/
+  - /observing-your-data/notebooks/
 has_children: false
+parent: Observability
 ---
 
 # Notebooks

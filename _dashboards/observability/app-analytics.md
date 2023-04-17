@@ -2,6 +2,7 @@
 layout: default
 title: Application analytics
 nav_order: 10
+parent: Observability
 redirect_from:
   - /observing-your-data/app-analytics/
 ---

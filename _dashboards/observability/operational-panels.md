@@ -2,6 +2,7 @@
 layout: default
 title: Operational panels
 nav_order: 60
+parent: Observability
 redirect_from:
   - /observing-your-data/operational-panels/
 ---

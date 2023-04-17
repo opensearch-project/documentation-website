@@ -4,6 +4,7 @@ title: Log ingestion
 nav_order: 30
 redirect_from:
   - /observability-plugin/log-analytics/
+  - /observing-your-data/log-ingestion/
 ---
 
 # Log Ingestion

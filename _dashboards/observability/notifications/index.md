@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Notifications
-nav_order: 80
+nav_order: 20
+parent: Observability
 has_children: true
 redirect_from:
   - /notifications-plugin/

@@ -2,6 +2,7 @@
 layout: default
 title: Simple Schema for Observability
 nav_order: 120
+parent: Observability
 ---
 
 # Simple Schema for Observability

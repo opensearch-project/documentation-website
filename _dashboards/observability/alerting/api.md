@@ -3,8 +3,10 @@ layout: default
 title: API
 parent: Alerting
 nav_order: 15
+grand_parent: Observability
 redirect_from:
   - /monitoring-plugins/alerting/api/
+  - /observing-your-data/alerting/api/
 ---
 
 # Alerting API
