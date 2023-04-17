@@ -27,7 +27,7 @@ Keys that are used in the anomaly detector processor are present in the input ev
 
 ### random_cut_forest mode
 
-The Random Cut Forest (RCF) ML algorithm is an unsupervised algorithm for detecting anomalous data points within a data set. To detect anomalies, the `anomaly_detector` processor uses the `random_cut_forest` mode. Currently, this is the only mode that the `anomaly_detector` processor uses, but other modes may be supported in future releases.
+The random cut forest (RCF) ML algorithm is an unsupervised algorithm for detecting anomalous data points within a dataset. To detect anomalies, the anomaly detector processor uses the `random_cut_forest` mode.
 
 | Name | Description |
 | :--- | :--- |
