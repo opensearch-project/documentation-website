@@ -14,7 +14,7 @@ The anomaly detector processor takes structured data and runs anomaly detection 
 
 ## Configuration
 
-You can configure the `anomaly_detector` processor by specifying a key and the options for the selected mode. You can use the following options to configure the `anomaly_detector` processor.
+You can configure the anomaly detector processor by specifying a key and the options for the selected mode. You can use the following options to configure the anomaly detector processor.
 
 | Name | Required | Description |
 | :--- | :--- | :--- |
