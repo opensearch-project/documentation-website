@@ -4,6 +4,7 @@ title: Using maps
 grand_parent: Building data visualizations
 parent: Using coordinate and region maps
 nav_order: 5
+has_children: true
 redirect_from:
   - /dashboards/maps/
 ---
