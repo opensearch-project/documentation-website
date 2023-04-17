@@ -61,9 +61,6 @@ collections:
   monitoring-your-cluster:
     permalink: /:collection/:path/
     output: true
-  observing-your-data:
-    permalink: /:collection/:path/
-    output: true
   query-dsl:
     permalink: /:collection/:path/
     output: true 
@@ -126,9 +123,6 @@ just_the_docs:
       nav_fold: true 
     monitoring-your-cluster:
       name: Monitoring your cluster
-      nav_fold: true
-    observing-your-data:
-      name: Observability
       nav_fold: true
     query-dsl:
       name: Query DSL, Aggregations, and Analyzers

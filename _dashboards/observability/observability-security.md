@@ -5,6 +5,8 @@ nav_order: 5
 has_children: false
 redirect_from:
   - /observing-your-data/security/
+  - /observing-your-data/observability-security/
+parent: Observability
 ---
 
 # Observability security

@@ -4,6 +4,7 @@ title: Alerting security
 nav_order: 10
 parent: Alerting
 has_children: false
+grand_parent: Observability
 redirect_from:
   - /monitoring-plugins/alerting/security/
 ---

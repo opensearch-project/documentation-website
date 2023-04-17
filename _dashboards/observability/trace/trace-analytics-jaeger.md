@@ -3,6 +3,7 @@ layout: default
 title: Analyzing Jaeger trace data 
 parent: Trace analytics
 nav_order: 55
+grand_parent: Observability
 redirect_from:
   - /observability-plugin/trace/trace-analytics-jaeger/
 ---

@@ -1,10 +1,11 @@
 ---
 layout: default
 title: Observability
-nav_order: 1
-has_children: false
+nav_order: 200
+has_children: true
 redirect_from:
   - /observability-plugin/index/
+  - /observing-your-data/index/
 ---
 
 # Observability

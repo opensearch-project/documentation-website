@@ -3,6 +3,7 @@ layout: default
 title: Management
 parent: Alerting
 nav_order: 5
+grand_parent: Observability
 redirect_from:
   - /monitoring-plugins/alerting/settings/
 ---
