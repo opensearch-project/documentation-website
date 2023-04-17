@@ -52,10 +52,6 @@ You've created a new visualization that can be added to an existing or new dashb
 3. On the Dashboards window, select **Add existing** and then choose the visualization.
 4. To add more visualizations to the dashboard, select **Create new** and then select **PPL** on the New Visualization window. You'll return to the event analytics page and follow steps 1-6 in the preceding instructions.
 
-The following <xx>-second video is an overview of how to add event analytics visualizations to a dashboard.
-
-<insert demo once UI is finalized>
-
 This feature is available in OpenSearch Dashboards version 2.7 and later. It works with new visualizations created in version 2.7 or later that uses PPL to query data from OpenSearch or federated data sources like Prometheus.
 {: .note}
 
