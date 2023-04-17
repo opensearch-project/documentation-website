@@ -4,7 +4,6 @@ title: Monitors
 nav_order: 1
 parent: Alerting
 has_children: false
-grand_parent: Observability
 redirect_from:
   - /monitoring-plugins/alerting/monitors/
 ---
