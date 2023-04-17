@@ -13,11 +13,11 @@ redirect_from:
 
 With segment replication, segment files are copied across shards instead of documents being indexed on each shard copy. This improves indexing throughput and lowers resource utilization at the expense of increased network utilization.
 
-When the primary shard sends a checkpoint to replica shards on a refresh, a new segment replication event is triggered on replica shards. This happens when:
+When the primary shard sends a checkpoint to replica shards on a refresh, a new segment replication event is triggered on replica shards. This happens:
 
-- A new replica shard is added to a cluster.
-- There are segment file changes on a primary shard refresh.
-- Replica shards are being recovered from primary shard using peer recovery.
+- When a new replica shard is added to a cluster.
+- When there are segment file changes on a primary shard refresh.
+- During peer recovery, such as replica shard recovery and shard relocation (explicit allocation using the `move` allocation command or automatic shard rebalancing).
 
 Segment replication is the first feature in a series of features designed to decouple reads and writes in order to lower compute costs.
 
@@ -42,7 +42,7 @@ PUT /my-index1
 }
 ````
 
-In segment replication, the primary shard is usually generating more network traffic than the replicas because it's copying all segment files to the replicas. Thus, it's essential to distribute primary shards equally between the nodes. To ensure equal or near-equal number of primary shards on each node, set the dynamic `cluster.routing.allocation.balance.prefer_primary` setting to `true`. For more information, see [Cluster settings]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/).
+In segment replication, the primary shard is usually generating more network traffic than the replicas because it copies segment files to the replicas. Thus, it's beneficial to distribute primary shards equally between the nodes. To ensure balanced primary shard distribution, set the dynamic `cluster.routing.allocation.balance.prefer_primary` setting to `true`. For more information, see [Cluster settings]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/).
 
 ## Comparing replication benchmarks
 
