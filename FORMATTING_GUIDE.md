@@ -12,6 +12,7 @@ This guide provides an overview of the formatted elements commonly used in the O
 * [Dashes](#dashes)
 * [Horizontal rule](#horizontal-rule)
 * [Images](#images)
+  * [Images in line with text](#images-in-line-with-text)
 * [Labels](#labels)
 * [Links](#links)
 * [Lists](#lists)
@@ -149,6 +150,14 @@ To send a query to OpenSearch, select the query by placing the cursor anywhere i
 Do not place an image next to text or insert artificial line breaks using `<br>`. Otherwise, the text might render as aligned to the bottom of the image, with the image on the right. 
 
 If the image is under a list item, place it on a new line with a tab. For more examples, see [Lists with code snippets or images](#lists-with-code-snippets-or-images).
+
+### Images in line with text
+
+When describing an icon, use the icon's name followed by an inline image in parentheses. Insert the image in line with text using the `nomarkdown` extension and an HTML image:
+
+```
+Choose the play icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dev-tools/play-icon.png" class="inline-icon" alt="play icon"/>{:/}) on the top right of the request.
+```
 
 ## Labels
 
