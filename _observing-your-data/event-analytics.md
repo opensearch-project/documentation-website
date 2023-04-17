@@ -59,6 +59,13 @@ The following <xx>-second video is an overview of how to add event analytics vis
 This feature is available in OpenSearch Dashboards version 2.7 and later. It works with new visualizations created in version 2.7 or later that uses PPL to query data from OpenSearch or federated data sources like Prometheus.
 {: .note}
 
+### Limitations of PPL visualizations
+
+PPL visualizations currently do not support [Dashboards Query Language (DQL)]({{site.url}}{{site.baseurl}}/dashboards/discover/dql/) or [Query DSL]({{site.url}}{{site.baseurl}}/query-dsl/) and they do not use index patterns. Note the following limitations: 
+
+- PPL visualizations will only use filters created using the dropdown interface. If you have DQL query or DSL filters in a dashboard, PPL visualizations will not use them.
+- The **Dashboard** filter dropdown will only show fields from the index patterns used by other visualizations in the same dashboard (or from the default index pattern if PPL visualizations are the only visualization types in the dashboard).
+
 ## Viewing logs
 
 The following are methods you can use to view logs.
