@@ -189,7 +189,7 @@ plugins.ml_commons.native_memory_threshold: 90
 
 ## Enable auto redeploy
 
-Automatically redeploys previously deployed models upon cluster failure. 
+Automatically redeploys deployed or partially deployed models upon cluster failure. If all ML nodes inside inside a cluster crash, auto model redeployment fails, and the model must be deployed manually.
 
 ### Setting
 
