@@ -132,7 +132,7 @@ You can filter your data globally by drawing [shapes]({{site.url}}{{site.baseurl
 
 1. Select the **Rectangle** or **Polygon** icon on the right side of the map. 
 1. In the **Filter label** field, enter a name for the filter. 
-1. Choose a spatial relation type. By default, **Intersects** is selected. See [Spatial relations]({{site.url}}{{site.baseurl}}/query-dsl/geo-and-xy/xy#spatial-relations) for more information on spatial relationship types.
+1. Choose a spatial relation type. By default, **Intersects** is selected. See [Spatial relations]({{site.url}}{{site.baseurl}}/query-dsl/geo-and-xy/xy#spatial-relations) for more information about spatial relationship types.
 1. Select the **Draw Rectangle** or **Draw Polygon** button.
 1. Draw the shape over the map area that you want to select:
   - For a rectangle, select any starting point on the map (this point becomes a rectangle vertex). Then hover (do not drag) to another point on the map and select it (this point becomes the opposite vertex).  
