@@ -100,7 +100,7 @@ The `data.search_relevance` object contains the fields described in the followin
 | Field | Data type | Description |
 | :--- | :--- | :--- |
 | `comparison_search` | Object | Statistics related to the comparison search operation. A comparison search operation is a request to compare two queries when both Query 1 and Query 2 are filled out in the Compare Search Results tool. |
-| `single_search` | Object | Statistics related to the single search operation. A single search operation is a request to run a single query when only one of Query 1 and Query 2 is filled out in the Compare Search Results tool. |
+| `single_search` | Object | Statistics related to the single search operation. A single search operation is a request to run a single query when only Query 1 or Query 2, not both, is filled out in the Compare Search Results tool. |
 | `fetch_index` | Object | Statistics related to the operation of fetching the index or indexes for a comparison search or single search. |
 
 Each of the `comparison_search`, `single_search`, and `fetch_index` objects contains a list of HTTP response codes. The following table lists the fields for each response code.
