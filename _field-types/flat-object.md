@@ -11,19 +11,19 @@ grand_parent: Supported field types
 
 In OpenSearch, you don't have to specify a mapping before indexing documents. If you don't specify a mapping, OpenSearch uses [dynamic mapping]({{site.url}}{{site.baseurl}}/field-types/mappings#dynamic-mapping) to map every field and its subfields in the document automatically. When you ingest documents such as logs, you may not know every field's subfield name and type in advance. In this case, dynamically mapping all new subfields can quickly lead to a "mapping explosion," where the growing number of fields may degrade the performance of your cluster. 
 
-Flat object solves this problem by treating the entire JSON object as a string. Subfields within the JSON object are accessible using standard dot path notation, but they are not indexed for fast lookup.
+The flat object field type solves this problem by treating the entire JSON object as a string. Subfields within the JSON object are accessible using standard dot path notation, but they are not indexed for fast lookup.
 
 The maximum field value length in the dot notation is 2<sup>24</sup> &minus; 1.
 {: .note}
 
-Flat objects provide the following advantages:
+The flat object field type provides the following advantages:
 
 - Efficient reads: Fetching performance is similar to that of a keyword field.
 - Memory efficiency: Storing the entire complex JSON object in one field without indexing all its subfields reduces the number of fields in an index. 
 - Space efficiency: OpenSearch does not create an inverted index for subfields in flat objects, thereby saving space. 
 - Compatibility for migration: You can migrate your data from systems that support similar flat types to OpenSearch.
 
-Mapping a field as flat object applies when a field and its subfields are mostly read and not used as a search criteria because the subfields are not indexed. Flat objects are useful for objects with a large number of fields or when you don't know the keys in advance.
+Mapping a field as a flat object applies when a field and its subfields are mostly read and not used as a search criteria because the subfields are not indexed. Flat objects are useful for objects with a large number of fields or when you don't know the keys in advance.
 
 Flat objects support exact match queries with and without dot path notation. For a complete list of supported query types, see [Supported queries](#supported-queries).
 
