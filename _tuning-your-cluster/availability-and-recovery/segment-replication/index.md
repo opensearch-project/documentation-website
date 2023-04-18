@@ -50,7 +50,7 @@ During initial benchmarks, segment replication users reported 40% higher through
 
 The following benchmarks were collected with [OpenSearch-benchmark](https://github.com/opensearch-project/opensearch-benchmark) using the [`stackoverflow`](https://www.kaggle.com/datasets/stackoverflow/stackoverflow) and [`nyc_taxi`](https://github.com/topics/nyc-taxi-dataset) datasets.  
 
-Both test runs were performed on a 10-node (m5.xlarge) cluster with 10 shards and 5 replicas. Each shard was about <!-- TODO: insert size --> xxMBs in size. The tests were run with the following settings:
+Both test runs were performed on a 10-node (m5.xlarge) cluster with 10 shards and 5 replicas. Each shard was about 3.2GBs in size. The tests were run with the following settings:
 
 - `indices.recovery.max_bytes_per_sec`: 10gb
 - `indices.recovery.max_concurrent_file_chunks`: 5
@@ -211,4 +211,4 @@ When using segment replication, consider the following:
 ## Next steps
 
 1. Track [future enhancements to segment replication](https://github.com/orgs/opensearch-project/projects/99).
-1. Read [this blog post about segment replication](https://github.com/opensearch-project/project-website/pull/1504/files).
+1. Read [this blog post about segment replication](https://opensearch.org/blog).

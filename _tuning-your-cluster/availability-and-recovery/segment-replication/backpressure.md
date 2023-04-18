@@ -1,50 +1,43 @@
 ---
 layout: default
 title: Segment replication back-pressure
-nav_order: 10
+nav_order: 75
 parent: Segment replication
+has_children: false
+grand_parent: Availability and Recovery
 ---
 
 ## Segment replication back-pressure
 
-Segment replication back-pressure is a per-shard level rejection mechanism that dynamically rejects indexing requests when replica shards in your cluster are falling behind primary shards. Segment replication back-pressure mechanism starts rejecting indexing requests when more than half of the replication group is stale. This is defined by the `MAX_ALLOWED_STALE_SHARDS` parameter. A replica is considered stale if it's behind more than the defined `MAX_INDEXING_CHECKPOINTS` parameter, and its current replication lag is over the defined `MAX_REPLICATION_TIME_SETTING` parameter.
+Segment replication back-pressure is a per-shard level rejection mechanism that dynamically rejects indexing requests when the number of replica shards in your cluster are falling behind the number of primary shards. With Segment replication back-pressure, indexing requests are rejected when more than half of the replication group is stale, which is defined by the `MAX_ALLOWED_STALE_SHARDS` field. A replica is considered stale if it is behind by more than the defined `MAX_INDEXING_CHECKPOINTS` field, and its current replication lag is over the defined `MAX_REPLICATION_TIME_SETTING` field.
 
-Replica shards are also monitored to determine whether the shards are stuck or are lagging for an extended period of time. When replica shards are stuck or lagging for more than double the defined `MAX_REPLICATION_TIME_SETTING` parameter, shards are removed and replaced with new replica shards.
+Replica shards are also monitored to determine whether the shards are stuck or are lagging for an extended period of time. When replica shards are stuck or lagging for more than double the amount of time defined by the `MAX_REPLICATION_TIME_SETTING` field, the shards are removed and then replaced with new replica shards.
+
+## Request fields
+
+Segment replication back-pressure is enabled by default. The following are dynamic cluster settings, and can be enabled or disabled using the [cluster settings]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/) API endpoint.
+
+Field | Data type | Description
+:--- | :--- | :---
+SEGMENT_REPLICATION_INDEXING_PRESSURE_ENABLED | Boolean | Enables the segment replication back-pressure mechanism. Default is `true`.
+MAX_REPLICATION_TIME_SETTING | Time unit | The maximum time that a replica shard can take to copy from primary. Once `MAX_REPLICATION_TIME_SETTING` is breached along with `MAX_INDEXING_CHECKPOINTS`, the segment replication back-pressure mechanism is triggered. Default is `5 minutes`.
+MAX_INDEXING_CHECKPOINTS | Integer | The maximum number of indexing checkpoints that a replica shard can fall behind when copying from primary. Once `MAX_INDEXING_CHECKPOINTS` is breached along with `MAX_REPLICATION_TIME_SETTING`, the segment replication back-pressure mechanism is triggered. Default is `4` checkpoints.
+MAX_ALLOWED_STALE_SHARDS | Floating point | The maximum number of stale replica shards that can exist in a replication group. Once `MAX_ALLOWED_STALE_SHARDS` is breached, the segment replication back-pressure mechanism is triggered. Default is `.5`, which is 50% of a replication group.
 
 ## Path and HTTP methods
 
-```
-PUT _cluster/settings
-GET _cat/segment_replication
-```
-
-## Query parameters
-
-All settings below are dynamic cluster setting and users can enable or disable settings using `PUT _cluster/settings`.
-
-`SEGMENT_REPLICATION_INDEXING_PRESSURE_ENABLED` setting must be set to true for rest of the back-pressure settings to work.
-
-Parameter | Data type | Description
-:--- | :--- | :---
-SEGMENT_REPLICATION_INDEXING_PRESSURE_ENABLED | Boolean | is a setting that enables segment replication back-pressure mechanism. By default segment replication back-pressure is `false` (disabled).
-MAX_REPLICATION_TIME_SETTING | Time unit | setting is the maximum time that a replica shard can take to copy from primary. Once `MAX_REPLICATION_TIME_SETTING` is breached along with `MAX_INDEXING_CHECKPOINTS`, then segment replication back-pressure mechanism gets triggered. The default value of this setting is `5 minutes`.
-MAX_INDEXING_CHECKPOINTS | Integer | setting is the maximum number of indexing checkpoints that a replica shard can fall behind when copying from primary. Once `MAX_INDEXING_CHECKPOINTS` is breached along with `MAX_REPLICATION_TIME_SETTING` then segment replication back-pressure mechanism gets triggered. The default value of this setting is `4 checkpoints`.
-MAX_ALLOWED_STALE_SHARDS | Float | setting is the maximum number of stale replica shards that can exist in a replication group. Once `MAX_ALLOWED_STALE_SHARDS` is breached then segment replication back-pressure mechanism gets triggered. The default value of this setting is `.5` which 50% of a replication group.
-
-## API
+You can use the segment replication API endpoint to retrieve segment replication back-pressure metrics.
 
 ```bash
 GET _cat/segment_replication
 ```
 
-API is used to fetch metrics related to segment replication back-pressure:
-
 #### Example response
-
-- Parameters: checkpoints_behind and current_lag directly correlate with MAX_INDEXING_CHECKPOINTS and MAX_REPLICATION_TIME_SETTING .
-- These checkpoints_behind and current_lag metrics are taken into consideration when triggering segment replication back-pressure mechanism.
 
 ```json
 shardId       target_node    target_host   checkpoints_behind bytes_behind   current_lag   last_completed_lag   rejected_requests
 [index-1][0]     runTask-1    127.0.0.1              0              0b           0s              7ms                    0
 ```
+
+- `checkpoints_behind` and `current_lag` directly correlate with `MAX_INDEXING_CHECKPOINTS` and `MAX_REPLICATION_TIME_SETTING`.
+- `checkpoints_behind` and `current_lag` metrics are taken into consideration when triggering segment replication back-pressure.
