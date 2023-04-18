@@ -180,7 +180,7 @@ Adding a label to a layer lets you visualize additional data on the map. For exa
 
 1. In the **Layers** panel, select **Flight destination**.
 1. In the **Style** tab, select the **Add label** checkbox.
-1. You can choose to add a label based on a fixed text to all data points in the layer or to use a field value as label text.
+1. You can choose to add a label based on fixed text to all data points in the layer or to use a field value as the label text.
   - To add a fixed-text label, under **Label text**, select **Fixed** and enter your desired label text.
   - To add a label based on a field value, under **Label text**, select **Field value** and select the field name. In this example, select `OriginWeather`.
 1. (Optional) Change the label size, color, border color, or border width.
