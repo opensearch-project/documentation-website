@@ -23,7 +23,7 @@ The flat object field type provides the following benefits:
 - Space efficiency: OpenSearch does not create an inverted index for subfields in flat objects, thereby saving space. 
 - Compatibility for migration: You can migrate your data from systems that support similar flat types to OpenSearch.
 
-Mapping a field as a flat object applies when a field and its subfields are mostly read and not used as a search criteria because the subfields are not indexed. Flat objects are useful for objects with a large number of fields or when you don't know the keys in advance.
+Mapping a field as a flat object applies when a field and its subfields are mostly read and not used as search criteria because the subfields are not indexed. Flat objects are useful for objects with a large number of fields or when you don't know the keys in advance.
 
 Flat objects support exact match queries with and without dot path notation. For a complete list of supported query types, see [Supported queries](#supported-queries).
 
