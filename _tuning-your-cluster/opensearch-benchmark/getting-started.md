@@ -7,11 +7,13 @@ parent: OpenSearch Benchmark
 
 # Getting started
 
-Start using OpenSearch Benchmark right now to measure the performance of your OpenSearch cluster with this guide. In this document you will learn about the basic software dependencies required by OpenSearch Benchmark depending on your installation method. You will also learn about running a basic benchmark against an existing OpenSearch cluster.
+This guide explains how to install and run OpenSearch Benchmark to perform a test benchmark on an **existing** OpenSearch cluster. If you do not already have running OpenSearch cluster, then you should review the OpenSearch [Quickstart]({{site.url}}{{site.baseurl}}/quickstart/) guide to deploy a test cluster before continuing with the process outlined in this document.
 
 ## Installing prerequisite software
 
-You can install OpenSearch Benchmark on your host manually&#8212;using Python 3 and pip&#8212;or you can choose to run OpenSearch Benchmark in a Docker container. Running OpenSearch Benchmark in a Docker container might be easier to set up because all of the required software dependencies are included with the official image. There are, however, two important restrictions to consider when you decide to run OpenSearch Benchmark in a Docker container:
+You can install OpenSearch Benchmark on a host manually&#8212;using Python 3 and pip&#8212;or you can choose to run OpenSearch Benchmark in a Docker container. Running OpenSearch Benchmark in a Docker container simplifies the setup process because all of the required software dependencies are included with the official image. 
+
+There are two important restrictions to consider when you decide to run OpenSearch Benchmark in a Docker container:
 - You cannot distribute load worker coordinator hosts using the OpenSearch Benchmark daemon when you run OpenSearch Benchmark using Docker.
 - You can only use the `benchmark-only` pipeline when you run OpenSearch Benchmark using Docker.
 
@@ -23,7 +25,7 @@ After selecting a host, you can verify that the prerequisite software is install
 - [Python](https://www.python.org/) 3.8 or newer (with pip).
 - [Git](https://git-scm.com/) 1.9 or newer.
 
-If you plan to provision OpenSearch nodes using OpenSearch Benchmark, then you must also configure some [important settings]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#important-settings) on your host, such as increasing the maximum memory map count and installing an appropriate JDK version.
+If you do plan to provision OpenSearch nodes with OpenSearch Benchmark, then you must also configure some [important settings]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#important-settings) on the host, such as increasing the maximum memory map count and installing an appropriate JDK version.
 
 We recommend using [pyenv](https://github.com/pyenv/pyenv), an open source tool for managing Python versions. Pyenv uses shim executables that allow you to use any available version of Python. See the official [installation](https://github.com/pyenv/pyenv#installation) documentation for more information.
 {: .tip}
@@ -52,7 +54,7 @@ Refer to the official documentation of the respective software for information a
 
 #### Installing OpenSearch Benchmark
 
-After the required software packages and versions are satisfied, you can install OpenSearch Benchmark:
+After you confirm that software dependencies are satisfied, you can install OpenSearch Benchmark:
 ```bash
 pip install opensearch-benchmark
 ```
@@ -66,17 +68,17 @@ opensearch-benchmark -h
 
 ### Option 2: Installing OpenSearch Benchmark with Docker
 
-Before deploying OpenSearch Benchmark in a Docker container you should verify that Docker is installed on the desired host. Refer to Docker's official documentation for instructions on installing and configuring Docker. All OpenSearch Benchmark software dependencies are bundled with the official image, so no additional setup is needed.
+Docker must be installed on the host if you want to deploy OpenSearch Benchmark in a Docker container.. Refer to Docker's official documentation for instructions on installing and configuring Docker.
 
 You can find official images for OpenSearch Benchmark on [Docker Hub](https://hub.docker.com/r/opensearchproject/opensearch-benchmark) or on the [Amazon ECR Public Gallery](https://gallery.ecr.aws/opensearchproject/opensearch-benchmark).
 
-Pull the image from Docker Hub:
+Pull the image from Docker Hub using the following command:
 ```bash
 docker pull opensearchproject/opensearch-benchmark:latest
 ```
 {% include copy.html %}
 
-Pull the image from Amazon ECR Public Gallery:
+Pull the image from Amazon ECR Public Gallery using the following command:
 ```bash
 docker pull public.ecr.aws/opensearchproject/opensearch-benchmark:latest
 ```
@@ -88,19 +90,44 @@ docker run opensearchproject/opensearch-benchmark opensearch-benchmark -h
 ```
 {% include copy.html %}
 
+Use an alias to simplify the command syntax for Docker commands. For example, you could define an alias like `osb="docker run opensearchproject/opensearch-benchmark opensearch-benchmark"`. Then, using the previous command as an example, you could run `osb -h` which is much shorter than `docker run opensearchproject/opensearch-benchmark opensearch-benchmark -h`.
+{: .tip}
+
 ## Running your first benchmark in test mode
 
-The syntax you should use for issuing commands with OpenSearch Benchmark will depend on your installation method.
+The syntax you use to issue commands with OpenSearch Benchmark will depend on your installation method.
 
-If you installed 
+If you installed using **Python or pip**, you issue commands like any other Linux command line utility:
+```bash
+opensearch-benchmark [SUBCOMMAND] [ARGS]
+```
 
-You can run commands by passing them as arguments to the OpenSearch Benchmark Docker container. When you invoke a command using `docker run`, the Docker container launches and executes the command, and then the container exits.
+Alternatively, if you are running OpenSearch Benchmark in a Docker container, you issue commands by passing them as arguments when you run the container:
+```bash
+docker run opensearchproject/opensearch-benchmark [SUBCOMMAND] [ARGS]
+```
+
+You run commands by passing them as arguments to the OpenSearch Benchmark Docker container. When you invoke a command using `docker run`, the Docker container launches and executes the command, and then the container exits.
 
 Try it out by using the following command to print the OpenSearch Benchmark help text:
 ```bash
 docker run opensearchproject/opensearch-benchmark opensearch-benchmark -h
 ```
 {% include copy.html %}
+
+Alternatively, you can run an interactive pseudo-TTY session inside the Docker container and issue commands using standard command line syntax:
+1. To start the pseudo-TTY session, enter the following command:
+   ```bash
+   docker run --entrypoint bash -it opensearchproject/opensearch-benchmark -c /bin/bash
+   ```
+   {% include copy.html %}
+1. Run a command to display the help text:
+   ```bash
+   opensearch-benchmark -h
+   ```
+   {% include copy.html %}
+1. When you are done working with the container you end the pseudo-TTY session by entering `exit`.
+
 
 
 
