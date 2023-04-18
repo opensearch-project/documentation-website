@@ -31,7 +31,7 @@ By default, the **Manage** tab is displayed. Select the **Configure** tab to dis
 * In the **Tenants** field, you can enable or disable private tenants for users. By default the check box is selected and the feature is enabled.
 * In the **Default tenant** field, use the dropdown menu to select a default tenant. The menu includes Global, Private, and any other custom tenants that are available to users.
 
-After making selections, select **Save** in the lower right corner of the window. The changes are implemented dynamically.
+After making selections, select **Save changes** in the lower right corner of the window. The changes are implemented dynamically.
 
 ## Configuring multi-tenancy with the REST API
 
