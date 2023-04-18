@@ -244,7 +244,6 @@ The processor maps object `b` to value `val-b2`, since `val-b2` is the last elem
 ```
 
 
-
 ### Example: `flatten` set to false
 
 The following example `pipeline.yaml` sets `flatten` to `false`, causing the processor to out values from the generated map as a list. 
