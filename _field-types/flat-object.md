@@ -16,10 +16,10 @@ The flat object field type solves this problem by treating the entire JSON objec
 The maximum field value length in the dot notation is 2<sup>24</sup> &minus; 1.
 {: .note}
 
-The flat object field type provides the following advantages:
+The flat object field type provides the following benefits:
 
 - Efficient reads: Fetching performance is similar to that of a keyword field.
-- Memory efficiency: Storing the entire complex JSON object in one field without indexing all its subfields reduces the number of fields in an index. 
+- Memory efficiency: Storing the entire complex JSON object in one field without indexing all of its subfields reduces the number of fields in an index. 
 - Space efficiency: OpenSearch does not create an inverted index for subfields in flat objects, thereby saving space. 
 - Compatibility for migration: You can migrate your data from systems that support similar flat types to OpenSearch.
 
@@ -27,13 +27,13 @@ Mapping a field as a flat object applies when a field and its subfields are most
 
 Flat objects support exact match queries with and without dot path notation. For a complete list of supported query types, see [Supported queries](#supported-queries).
 
-Searching for a specific value of a nested field in a document may be inefficient because it may require a full scan of the index, which is an expensive operation.
+Searching for a specific value of a nested field in a document may be inefficient because it may require a full scan of the index, which can be an expensive operation.
 {: .note}
 
 Flat objects do not support:
 
 - Type-specific parsing.
-- Numerical operations, such as numerical comparison and numerical sorting.
+- Numerical operations, such as numerical comparison or numerical sorting.
 - Text analysis.
 - Highlighting.
 - Aggregations of subfields using dot notation.
@@ -56,7 +56,7 @@ The flat object field type supports the following queries:
 
 ## Limitations
 
-The following limitations apply to flat objects in the 2.7 release:
+The following limitations apply to flat objects in OpenSearch 2.7:
 
 - Flat objects do not support open parameters.
 - Painless scripting and wildcard queries are not supported for retrieving values of subfields.
@@ -149,7 +149,7 @@ POST /test-index/_search
 ```
 {% include copy-curl.html %}
 
-In both previous cases, the response is the same and contains document 2:
+In both cases, the response is the same and contains document 2:
 
 ```json
 {
