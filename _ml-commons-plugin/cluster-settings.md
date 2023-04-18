@@ -186,3 +186,35 @@ plugins.ml_commons.native_memory_threshold: 90
 
 - Default value: 90
 - Value range: [0, 100]
+
+## Enable auto redeploy
+
+Automatically redeploys previously deployed models upon cluster failure. 
+
+### Setting
+
+```
+plugins.ml_commons.model_auto_redeploy.enable: false
+```
+
+### Values
+
+- Default value: false
+- Value range: [false, true]
+
+## Set retires for auto redeploy
+
+Sets the limit for the number of times a previously deployed model will try and redeploy upon cluster failure.
+
+### Setting
+
+```
+plugins.ml_commons.model_auto_redeploy.lifetime_retry_times: 3
+```
+
+### Values
+
+- Default value: 3
+- Value range: [0, 100]
+
+
