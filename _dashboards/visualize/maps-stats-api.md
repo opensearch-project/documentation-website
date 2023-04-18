@@ -11,7 +11,7 @@ has_children: false
 Introduced 2.7
 {: .label .label-purple }
 
-When you create a [map]({{site.url}}{{site.baseurl}}/dashboards/visualize/maps/) in OpenSearch Dashboards, the map is registered as a saved object in the [Maps plugin](https://github.com/opensearch-project/dashboards-maps). The Maps Stats API provides information about all maps registered in the Maps plugin. 
+When you create and save a [map]({{site.url}}{{site.baseurl}}/dashboards/visualize/maps/) in OpenSearch Dashboards, the map becomes a saved object of type `map`. The Maps Stats API provides information about such saved objects in OpenSearch Dashboards. 
 
 #### Example request
 
@@ -100,6 +100,8 @@ The response contains statistics for the following layer types:
 
 - TMS layers: Custom TMS base layer maps you created.
 
+- Document layers: The data layers of the map.
+
 For more information about the layer types, see [Adding layers]({{site.url}}{{site.baseurl}}/dashboards/visualize/maps/#adding-layers).
 
 The following table lists all response fields.
@@ -109,7 +111,7 @@ The following table lists all response fields.
 | `maps_total` | Integer | The total number of maps registered as saved objects with the Maps plugin. |
 | `layers_filters_total` | Integer | The total number of filters for all layers in all maps. This includes [layer-level filters]({{site.url}}{{site.baseurl}}/dashboards/visualize/maps/#filtering-data-at-the-layer-level) but excludes global filters like [shape filters]({{site.url}}{{site.baseurl}}/dashboards/visualize/maps/#drawing-shapes-to-filter-data). |
 | `layers_total` | Object | Totals statistics for all layers in all maps. |
-| `layers_total.opensearch_vector_tile_map` | Integer | The total number of basemaps in all maps. |
+| `layers_total.opensearch_vector_tile_map` | Integer | The total number of OpenSearch basemaps in all maps. |
 | `layers_total.documents` | Integer | The total number of documents in all layers of all maps. |
 | `layers_total.wms` | Integer | The total number of WMS layers in all maps. |
 | `layers_total.tms` | Integer | The total number of TMS layers in all maps. |
@@ -122,7 +124,7 @@ Each map in the `map_list` contains the following fields.
 | `id` | String | The map's saved object ID. |
 | `layers_filters_total` | Integer | The total number of filters for all layers in the map. This includes [layer-level filters]({{site.url}}{{site.baseurl}}/dashboards/visualize/maps/#filtering-data-at-the-layer-level) but excludes global filters like [shape filters]({{site.url}}{{site.baseurl}}/dashboards/visualize/maps/#drawing-shapes-to-filter-data) . |
 | `layers_total` | Object | Totals statistics for all layers in this map. |
-| `layers_total.opensearch_vector_tile_map` | Integer | The total number of basemaps in this map. |
+| `layers_total.opensearch_vector_tile_map` | Integer | The total number of OpenSearch basemaps in this map. |
 | `layers_total.documents` | Integer | The total number of documents in all layers of this map. |
 | `layers_total.wms` | Integer | The total number of WMS layers in the map. |
 | `layers_total.tms` | Integer | The total number of TMS layers in the map. |
