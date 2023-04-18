@@ -141,3 +141,6 @@ docker run public.ecr.aws/opensearchproject/opensearch-benchmark:latest opensear
 ## Next steps
 
 Coming soon™
+
+
+docker run -v $PWD/benchmarks:/benchmark/.benchmark opensearchproject/opensearch-benchmark opensearch-benchmark -h

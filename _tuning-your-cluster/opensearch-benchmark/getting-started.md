@@ -93,7 +93,7 @@ docker run opensearchproject/opensearch-benchmark opensearch-benchmark -h
 Use an alias to simplify the command syntax for Docker commands. For example, you could define an alias like `osb="docker run opensearchproject/opensearch-benchmark opensearch-benchmark"`. Then, using the previous command as an example, you could run `osb -h` which is much shorter than `docker run opensearchproject/opensearch-benchmark opensearch-benchmark -h`.
 {: .tip}
 
-## Running your first benchmark in test mode
+## Understanding command line syntax
 
 The syntax you use to issue commands with OpenSearch Benchmark will depend on your installation method.
 
@@ -115,7 +115,7 @@ docker run opensearchproject/opensearch-benchmark opensearch-benchmark -h
 ```
 {% include copy.html %}
 
-Alternatively, you can run an interactive pseudo-TTY session inside the Docker container and issue commands using standard command line syntax:
+Alternatively, you can run an interactive pseudo-TTY session with the Docker container and issue commands using standard command line syntax:
 1. To start the pseudo-TTY session, enter the following command:
    ```bash
    docker run --entrypoint bash -it opensearchproject/opensearch-benchmark -c /bin/bash
@@ -128,17 +128,27 @@ Alternatively, you can run an interactive pseudo-TTY session inside the Docker c
    {% include copy.html %}
 1. When you are done working with the container you end the pseudo-TTY session by entering `exit`.
 
+## Running your first benchmark in test mode
 
+Now that you've installed OpenSearch Benchmark, it's time for you to run your first test. The following steps assume that the target OpenSearch cluster is secured with self-signed TLS certificates and default security credentials, so the username and password are both `admin`.
 
+Example commands in this section will use standard command line syntax: `opensearch-benchmark [SUBCOMMAND] [ARGS]`. You might need to modify the commands depending on your installation method or if you are using shell aliases.
+{: .note}
 
-Exit code (0) indicates that OpenSearch Benchmark successfully completed the operation. Exit code (1) indicates that OpenSearch Benchmark encountered an error. You can review the logs by 
-{: .tip}
+Run the following command, replacing `<host-address>` with your OpenSearch cluster's endpoint (for example, `https://your-cluster.your-domain.com:9200`):
+```bash
+opensearch-benchmark execute_test --target-hosts <host-address> --pipeline benchmark-only --workload geonames --client-options basic_auth_user:admin,basic_auth_password:admin,verify_certs:false --test-mode
+```
+{% include copy.html %}
 
+The following arguments are included:
+1. `execute_test` is specified as the subcommand because you want to run a benchmark.
+1. `--target-hosts` defines the endpoint of your OpenSearch cluster, including the protocol and port.
+1. `--pipeline` defines the steps OpenSearch Benchmark will take. Use `benchmark-only` because you are not using OpenSearch Benchmark to provision an OpenSearch cluster.
+1. `--workload` specifies the benchmarking workload you want to use. This example uses the [geonames](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/geonames) workload.
+1. `--client-options` allows you to define important parameters as a comma-separated list of key-value pairs:
+   1. `basic_auth_user` is the user that OpenSearch Benchmark uses to communicate with the OpenSearch REST API.
+   1. `basic_auth_password` is the password for the user that OpenSearch Benchmark uses to communicate with the OpenSearch REST API.
+   1. `verify_certs` is set to `false` because the TLS certificates are self-signed so they cannot be verified. You can omit this parameter if your OpenSearch cluster is secured with certificates signed by a trust certificate authority (CA).
+1. `--test-mode` is used when you want to validate a benchmark workload. The OpenSearch Benchmark command is checked for syntax errors, and benchmark operations are limited to a single instance each. This flag is useful for validating custom workloads, and it significantly reduces the time a benchmark takes to complete.
 
-
-
-docker run -v $PWD/benchmarks:/benchmark/.benchmark opensearchproject/opensearch-benchmark opensearch-benchmark -h
-
-
-Open question: how to inspect logs from the Docker container if it only runs for the duration of a command?
-Correct way to mount?
