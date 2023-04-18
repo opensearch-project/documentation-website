@@ -11,7 +11,7 @@ The following APIs can be used for a number of tasks related to mappings, from c
 
 ## Get Mappings View
 
-### Sample request
+### Example request
 
 ```json
 GET /_plugins/_security_analytics/mappings/view
@@ -22,7 +22,7 @@ GET /_plugins/_security_analytics/mappings/view
 }
 ```
 
-### Sample response
+### Example response
 
 ```json
 {
@@ -66,7 +66,7 @@ GET /_plugins/_security_analytics/mappings/view
 ---
 ## Create Mappings
 
-### Sample request
+### Example request
 
 ```json
 POST /_plugins/_security_analytics/mappings
@@ -86,7 +86,7 @@ POST /_plugins/_security_analytics/mappings
 }
 ```
 
-### Sample response
+### Example response
 
 ```json
 {
@@ -97,13 +97,13 @@ POST /_plugins/_security_analytics/mappings
 ---
 ## Get Mappings
 
-### Sample request
+### Example request
 
 ```json
 GET /_plugins/_security_analytics/mappings
 ```
 
-### Sample response
+### Example response
 
 ```json
 {
@@ -127,7 +127,7 @@ GET /_plugins/_security_analytics/mappings
 ---
 ## Update Mappings
 
-### Sample request
+### Example request
 
 ```json
 PUT /_plugins/_security_analytics/mappings
@@ -139,7 +139,7 @@ PUT /_plugins/_security_analytics/mappings
 }
 ```
 
-### Sample response
+### Example response
 
 ```json
 {

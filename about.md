@@ -71,7 +71,7 @@ Despite being a piece of an OpenSearch index, each shard is actually a full Luce
 
 ## REST API
 
-You interact with OpenSearch clusters using the REST API, which offers a lot of flexibility. You can use clients like [curl](https://curl.haxx.se/) or any programming language that can send HTTP requests. To add a JSON document to an OpenSearch index (i.e. index a document), you send an HTTP request:
+You interact with OpenSearch clusters using the REST API, which offers a lot of flexibility. You can use clients like [curl](https://curl.se/) or any programming language that can send HTTP requests. To add a JSON document to an OpenSearch index (i.e. index a document), you send an HTTP request:
 
 ```json
 PUT https://<host>:<port>/<index-name>/_doc/<document-id>

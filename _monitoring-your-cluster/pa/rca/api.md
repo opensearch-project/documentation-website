@@ -10,7 +10,7 @@ redirect_from:
 
 # RCA API
 
-## Sample request
+## Example request
 
 ```
 # Request all available RCAs
@@ -21,7 +21,7 @@ GET localhost:9600/_plugins/_performanceanalyzer/rca?name=HighHeapUsageClusterRc
 ```
 
 
-## Sample response
+## Example response
 
 ```json
 {

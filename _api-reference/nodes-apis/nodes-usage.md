@@ -36,7 +36,7 @@ Parameter | Type | Description
 timeout | Time | Sets the time limit for a response from the node. Default is `30s`.
 cluster_manager_timeout | Time | Sets the time limit for a response from the cluster manager. Default is `30s`.
 
-#### Sample request
+#### Example request
 
 The following request returns usage details for all nodes:
 
@@ -45,7 +45,7 @@ GET _nodes/usage
 ```
 {% include copy-curl.html %}
 
-#### Sample response
+#### Example response
 
 The following is an example response:
 

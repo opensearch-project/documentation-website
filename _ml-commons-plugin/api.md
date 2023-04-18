@@ -137,7 +137,7 @@ Field | Data type | Description
 
 ### Example
 
-The following sample request uploads version `1.0.0` of an NLP sentence transformation model named `all-MiniLM-L6-v2`.
+The following example request uploads version `1.0.0` of an NLP sentence transformation model named `all-MiniLM-L6-v2`.
 
 ```json
 POST /_plugins/_ml/models/_upload

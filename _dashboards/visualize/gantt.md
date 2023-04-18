@@ -23,6 +23,6 @@ To create a Gantt chart, perform the following steps:
 1. Choose **Panel settings** to adjust axis labels, time format, and colors.
 1. Choose **Update**.
 
-![Gantt Chart]({{site.url}}{{site.baseurl}}/images/gantt-chart.png)
+![Gantt Chart]({{site.url}}{{site.baseurl}}/images/dashboards/gantt-chart.png)
 
 This Gantt chart displays the ID of each log on the y-axis. Each bar is a unique event that spans some amount of time. Hover over a bar to see the duration of that event.

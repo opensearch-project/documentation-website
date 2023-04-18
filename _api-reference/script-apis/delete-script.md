@@ -24,7 +24,7 @@ Path parameters are optional.
 | cluster_manager_timeout | Time | Amount of time to wait for a connection to the cluster manager. Optional, defaults to `30s`. |
 | timeout | Time | The period of time to wait for a response. If a response is not received before the timeout value, the request will be dropped.
 
-#### Sample request
+#### Example request
 
 The following request deletes the `my-first-script` script:
 
@@ -33,7 +33,7 @@ DELETE _scripts/my-script
 ````
 {% include copy-curl.html %}
 
-#### Sample response
+#### Example response
 
 The `DELETE _scripts/my-first-script` request returns the following field:
 

@@ -10,7 +10,7 @@ nav_order: 45
 
 ## Overview
 
-Splits a field into an array using a delimiter character. `split_string` is part of [mutate string](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/mutate-string-processors#mutate-string-processors) processors.
+The `split_string` processor splits a field into an array using a delimiting character and is a [mutate string](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/mutate-string-processors#mutate-string-processors) processor. The following table describes the options you can use to configure the `split_string` processor.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---

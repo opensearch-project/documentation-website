@@ -103,7 +103,7 @@ If you use a custom webhook for your destination and need to embed JSON in the m
 
 Optionally, to specify a backend role, you can add the `rbac_roles` parameter and backend role names to the bottom of your create monitor request.
 
-#### Sample request
+#### Example request
 
 The following request creates a query-level monitor and provides two backend roles, `role1` and `role2`. The section at the bottom of the request shows the line that specifies the roles with this syntax: `"rbac_roles": ["role1", "role2"]`.
 
@@ -173,7 +173,7 @@ POST _plugins/_alerting/monitors
 
 To learn more about using backend roles to limit access, see [(Advanced) Limit access by backend role]({{site.url}}{{site.baseurl}}/monitoring-plugins/alerting/security/#advanced-limit-access-by-backend-role).
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -443,7 +443,7 @@ POST _plugins/_alerting/monitors
 }
 ```
 
-#### Sample response
+#### Example response
 ```json
 {
   "_id" : "Dfxr63sBwex6DxEhHV5N",
@@ -732,7 +732,7 @@ If you run a document-level query while the index is getting reindexed, the API 
 Introduced 1.0
 {: .label .label-purple }
 
-When updating a monitor, you can optionally include `seq_no` and `primary_term` as URL parameters. If these numbers don't match the existing monitor or the monitor doesn't exist, the alerting plugin throws an error. OpenSearch increments the version number and the sequence number automatically (see the sample response).
+When updating a monitor, you can optionally include `seq_no` and `primary_term` as URL parameters. If these numbers don't match the existing monitor or the monitor doesn't exist, the alerting plugin throws an error. OpenSearch increments the version number and the sequence number automatically (see the example response).
 
 #### Request
 
@@ -842,7 +842,7 @@ PUT _plugins/_alerting/monitors/<monitor_id>?if_seq_no=3&if_primary_term=1
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -916,7 +916,7 @@ Introduced 1.0
 GET _plugins/_alerting/monitors/<monitor_id>
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -995,7 +995,7 @@ GET _plugins/_alerting/<node-id>/stats
 GET _plugins/_alerting/<node-id>/stats/<metric>
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -1181,7 +1181,7 @@ Introduced 1.0
 DELETE _plugins/_alerting/monitors/<monitor_id>
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -1220,7 +1220,7 @@ GET _plugins/_alerting/monitors/_search
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -1315,7 +1315,7 @@ You can add the optional `?dryrun=true` parameter to the URL to show the results
 POST _plugins/_alerting/monitors/<monitor_id>/_execute
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -1422,7 +1422,7 @@ POST _plugins/_alerting/monitors/<monitor-id>/_acknowledge/alerts
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -1491,7 +1491,7 @@ POST _plugins/_alerting/destinations
 // The email_account_id and email_group_id will be the document IDs of the email_account and email_group you have created.
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -1517,7 +1517,7 @@ POST _plugins/_alerting/destinations
 Introduced 1.0
 {: .label .label-purple }
 
-When updating a destination, you can optionally include `seq_no` and `primary_term` as URL parameters. If these numbers don't match the existing destination or the destination doesn't exist, the alerting plugin throws an error. OpenSearch increments the version number and the sequence number automatically (see the sample response).
+When updating a destination, you can optionally include `seq_no` and `primary_term` as URL parameters. If these numbers don't match the existing destination or the destination doesn't exist, the alerting plugin throws an error. OpenSearch increments the version number and the sequence number automatically (see the example response).
 
 #### Request
 
@@ -1541,7 +1541,7 @@ PUT _plugins/_alerting/destinations/<destination-id>?if_seq_no=3&if_primary_term
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -1575,7 +1575,7 @@ Retrieve one destination.
 GET _plugins/_alerting/destinations/<destination-id>
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -1622,7 +1622,7 @@ Retrieve all destinations.
 GET _plugins/_alerting/destinations
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -1667,7 +1667,7 @@ Introduced 1.0
 DELETE _plugins/_alerting/destinations/<destination-id>
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -1704,7 +1704,7 @@ POST _plugins/_alerting/destinations/email_accounts
 }
 ```
 
-#### Sample response
+#### Example response
 ```json
 {
   "_id" : "email_account_id",
@@ -1726,7 +1726,7 @@ POST _plugins/_alerting/destinations/email_accounts
 Introduced 1.0
 {: .label .label-purple }
 
-When updating an email account, you can optionally include `seq_no` and `primary_term` as URL parameters. If these numbers don't match the existing email account or the email account doesn't exist, the alerting plugin throws an error. OpenSearch increments the version number and the sequence number automatically (see the sample response).
+When updating an email account, you can optionally include `seq_no` and `primary_term` as URL parameters. If these numbers don't match the existing email account or the email account doesn't exist, the alerting plugin throws an error. OpenSearch increments the version number and the sequence number automatically (see the example response).
 
 #### Request
 ```json
@@ -1748,7 +1748,7 @@ PUT _plugins/_alerting/destinations/email_accounts/<email_account_id>?if_seq_no=
   "method": "ssl"
 }
 ```
-#### Sample response
+#### Example response
 ```json
 {
   "_id" : "email_account_id",
@@ -1781,7 +1781,7 @@ GET _plugins/_alerting/destinations/email_accounts/<email_account_id>
   "method": "ssl"
 }
 ```
-#### Sample response
+#### Example response
 ```json
 {
   "_id" : "email_account_id",
@@ -1807,7 +1807,7 @@ Introduced 1.0
 ```
 DELETE _plugins/_alerting/destinations/email_accounts/<email_account_id>
 ```
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -1849,7 +1849,7 @@ POST _plugins/_alerting/destinations/email_accounts/_search
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -1911,7 +1911,7 @@ POST _plugins/_alerting/destinations/email_groups
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -1935,7 +1935,7 @@ POST _plugins/_alerting/destinations/email_groups
 Introduced 1.0
 {: .label .label-purple }
 
-When updating an email group, you can optionally include `seq_no` and `primary_term` as URL parameters. If these numbers don't match the existing email group or the email group doesn't exist, the alerting plugin throws an error. OpenSearch increments the version number and the sequence number automatically (see the sample response).
+When updating an email group, you can optionally include `seq_no` and `primary_term` as URL parameters. If these numbers don't match the existing email group or the email group doesn't exist, the alerting plugin throws an error. OpenSearch increments the version number and the sequence number automatically (see the example response).
 
 #### Request
 
@@ -1956,7 +1956,7 @@ PUT _plugins/_alerting/destinations/email_groups/<email_group_id>?if_seq_no=16&i
   }]
 }
 ```
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -1990,7 +1990,7 @@ GET _plugins/_alerting/destinations/email_groups/<email_group_id>
   }]
 }
 ```
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -2018,7 +2018,7 @@ Introduced 1.0
 ```
 DELETE _plugins/_alerting/destinations/email_groups/<email_group_id>
 ```
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -2060,7 +2060,7 @@ POST _plugins/_alerting/destinations/email_groups/_search
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {

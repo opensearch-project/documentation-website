@@ -60,7 +60,7 @@ The operating system for each OpenSearch node handles encryption of data at rest
 cryptsetup luksFormat --key-file <key> <partition>
 ```
 
-For full documentation on the command, see [the Linux man page](https://man7.org/linux/man-pages/man8/cryptsetup.8.html).
+For full documentation about the command, see [cryptsetup(8) — Linux manual page](https://man7.org/linux/man-pages/man8/cryptsetup.8.html).
 
 {% comment %}
 ## Beats

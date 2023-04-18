@@ -47,7 +47,7 @@ You can now assign your certificate's common name (CN) to a role. For this step,
 
 After deciding which role you want to map your certificate's CN to, you can use [OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/#map-users-to-roles), [`roles_mapping.yml`]({{site.url}}{{site.baseurl}}/security/configuration/yaml/#roles_mappingyml), or the [REST API]({{site.url}}{{site.baseurl}}/security/access-control/api/#create-role-mapping) to map your certificate's CN to the role. The following example uses the `REST API` to map the common name `CLIENT1` to the role `readall`.
 
-**Sample request**
+**Example request**
 
 ```json
 PUT _plugins/_security/api/rolesmapping/readall
@@ -58,7 +58,7 @@ PUT _plugins/_security/api/rolesmapping/readall
 }
 ```
 
-**Sample response**
+**Example response**
 
 ```json
 {

@@ -83,7 +83,7 @@ POST _plugins/_anomaly_detection/detectors
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -222,7 +222,7 @@ POST _plugins/_anomaly_detection/detectors
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -419,7 +419,7 @@ POST _plugins/_anomaly_detection/detectors/_validate/detector
 
 If the validate detector API doesn’t find any issue in the detector configuration, it returns an empty response:
 
-#### Sample response
+#### Example response
 
 ```json
 {}
@@ -427,7 +427,7 @@ If the validate detector API doesn’t find any issue in the detector configurat
 
 If the validate detector API finds an issue, it returns a message explaining what's wrong with the configuration. In this example, the feature query aggregates over a field that doesn’t exist in the data source:
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -544,7 +544,7 @@ Returns all information about a detector based on the `detector_id`.
 GET _plugins/_anomaly_detection/detectors/<detectorId>
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -641,7 +641,7 @@ Use `job=true` to get real-time analysis task information.
 GET _plugins/_anomaly_detection/detectors/<detectorId>?job=true
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -761,7 +761,7 @@ Use `task=true` to get information for both real-time and historical analysis ta
 GET _plugins/_anomaly_detection/detectors/<detectorId>?task=true
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -1104,7 +1104,7 @@ PUT _plugins/_anomaly_detection/detectors/<detectorId>
 ```
 
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -1199,7 +1199,7 @@ To delete a detector, you need to first stop both real-time detection and histor
 DELETE _plugins/_anomaly_detection/detectors/<detectorId>
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -1286,7 +1286,7 @@ POST _plugins/_anomaly_detection/detectors/_preview
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -1430,7 +1430,7 @@ POST _plugins/_anomaly_detection/detectors/_preview
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -1541,7 +1541,7 @@ POST _opendistro/_anomaly_detection/detectors/VEHKTXwBwf_U8gjUXY2s/_preview
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -1663,7 +1663,7 @@ To start a real-time detector job:
 POST _plugins/_anomaly_detection/detectors/<detectorId>/_start
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -1686,7 +1686,7 @@ POST _plugins/_anomaly_detection/detectors/<detectorId>/_start
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -1715,7 +1715,7 @@ To stop a real-time detector job:
 POST _plugins/_anomaly_detection/detectors/<detectorId>/_stop
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -1735,7 +1735,7 @@ Introduced 1.1
 POST _plugins/_anomaly_detection/detectors/<detectorId>/_stop?historical=true
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -1772,7 +1772,7 @@ POST _plugins/_anomaly_detection/detectors/_search
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -1903,7 +1903,7 @@ POST _plugins/_anomaly_detection/detectors/tasks/_search
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -2128,7 +2128,7 @@ POST _plugins/_anomaly_detection/detectors/tasks/_search
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -2241,7 +2241,7 @@ Real-time detection doesn't persist the task ID in the anomaly result, so the ta
 
 For information about the response body fields, see [Anomaly result mapping]({{site.url}}{{site.baseurl}}/monitoring-plugins/ad/result-mapping/#response-body-fields).
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -2366,7 +2366,7 @@ POST _plugins/_anomaly_detection/detectors/results/_search
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -2463,7 +2463,7 @@ GET _plugins/_anomaly_detection/detectors/<detectorId>/results/_topAnomalies?his
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -2520,7 +2520,7 @@ To get all stats:
 GET _plugins/_anomaly_detection/stats
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -2644,7 +2644,7 @@ For example, to get the `ad_execute_request_count` value for node `SWD7ihu9TaaW1
 GET _plugins/_anomaly_detection/SWD7ihu9TaaW1zKwFZNVNg/stats/ad_execute_request_count
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -2670,7 +2670,7 @@ For example:
 GET _plugins/_anomaly_detection/stats/ad_executing_batch_task_count
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -2900,7 +2900,7 @@ You can use this data to estimate how much memory is required for anomaly detect
 
 For a single-entity detector:
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -3257,7 +3257,7 @@ DELETE _plugins/_anomaly_detection/detectors/results
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -3389,7 +3389,7 @@ POST _plugins/_alerting/monitors
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {

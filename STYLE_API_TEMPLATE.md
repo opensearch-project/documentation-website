@@ -33,8 +33,8 @@ Depending on where the documentation appears within a section or subsection, hea
 1. Path parameters (heading level 3)
 1. Query parameters (heading level 3)
 1. Request fields (heading level 3)
-1. Sample request (heading level 4)
-1. Sample response (heading level 4)
+1. Example request (heading level 4)
+1. Example response (heading level 4)
 1. Response fields (heading level 3)
 
 ## API name
@@ -112,7 +112,7 @@ Include a table with these columns:
 Field | Data type | Description
 :--- | :--- | :--- 
 
-#### Sample request
+#### Example request
 
 Provide a sentence that describes what is shown in the example, followed by a cut-and-paste-ready API request in JSON format. Make sure that you test the request yourself in the Dashboards Dev Tools console to make sure it works. See the examples below.
 
@@ -136,7 +136,7 @@ POST _reindex
 }
 ```
 
-#### Sample response
+#### Example response
 
 Include a JSON example response to show what the API returns. See the examples below.
 

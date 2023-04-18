@@ -128,6 +128,12 @@ img {
   box-shadow: none;
 }
 
+.inline-icon {
+  @extend .no-border;
+  height: 1.2rem;
+  vertical-align: middle;
+}
+
 .img-border {
   border: 1px solid $grey-lt-300;
 }
@@ -201,25 +207,38 @@ img {
   @include btn-color($white, $green-300);
 }
 
-.btn-general {
+@mixin btn-default {
   color: $blue-100;
   background-color: white;
   font-size: 0.9rem;
   font-weight: 510;
-  border-width:1px; 
-  border-style:solid;
-  border-color: $blue-100;
+  border-width: 1px; 
+  border-style: solid;
   border-radius: 5px;
   box-shadow: 1px 1px $grey-lt-300;
+  cursor: pointer;
+}
+
+@mixin elt-disabled {
+  color: mix(black, $base-button-color, 40%);
+  border-color: $base-button-color;
+  cursor: default;
+  background-color: mix(white, $base-button-color, 50%);
+  box-shadow: none;
+}
+
+.btn-general {
+  @include btn-default;
+  border-color: $blue-100;
   padding: 0.5rem 1rem;
   margin-left: 0.4rem;
   margin-right: 0.4rem;
   &:hover {
     &:not([disabled]) {
-      background-color: $blue-lt-000;
+      background-color: $blue-lt-100;
       box-shadow: 1px 2px 4px $grey-lt-300;
       transform: translateY(-1px);
-      text-decoration:underline;
+      text-decoration: underline;
       text-underline-offset: 2px;
     }
     &:active {
@@ -227,11 +246,7 @@ img {
     }
   }
   &:disabled {
-    color: mix(black, $base-button-color, 25%);
-    border: none;
-    cursor: default;
-    background-color: mix(white, $base-button-color, 75%);
-    box-shadow: none;
+    @include elt-disabled;
   }
 }
 
@@ -282,22 +297,82 @@ img {
   @extend .copy-button;
 }
 
-// Feedback buttons
-.feedback-button {
+.send-button {
   @extend .btn-general;
-  margin-left: 0.2rem;
-  margin-right: 0.2rem;
 }
 
 // Feedback question
 .feedback-header {
   @extend %toc-font;
   letter-spacing: 0.08em;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin: 1rem 0;
 }
 
-// Feedback confirmation
+.feedback-text-header {
+  text-align: left;
+  font-size: 0.8rem;
+  font-weight: 500; 
+  margin-top: 1rem;
+}
+
+.feedback-radio-div {
+  display: flex;
+  justify-content: space-between;  
+}
+
+// hide the browser-rendered radio button 
+.feedback-radio-div input[type="radio"] {
+  display: none;
+} 
+
+.feedback-radio {
+  @include btn-default;
+  border-color: $grey-lt-100;
+  margin: 0;
+  padding: 0.5rem 1.2rem;
+  border-color: $grey-lt-100;
+  &:hover {
+    &:not([disabled]) {    
+      background-color: mix(white, $blue-lt-000, 50%);
+      box-shadow: 1px 2px 4px $grey-lt-300;
+    }
+  }
+}
+
+.feedback-radio-div input[type="radio"]:checked+label {
+  border-color: $blue-100;
+  background-color: $blue-lt-100;
+  box-shadow: inset 1px 1px 3px $blue-dk-100;
+}
+
+.feedback-radio-div input[type="radio"]:disabled+label {
+  @include elt-disabled;
+}
+
+// Feedback text area
+textarea {
+  @extend .panel, .img-border;
+  width: 100%;
+  height: 5rem;
+  color: $grey-dk-300;
+  background-color: mix(white, $grey-lt-000, 50%);
+  font-size: 0.9rem;
+  resize: vertical;
+  &:focus {
+    outline: none;
+    border: 1px solid $blue-100;
+    background-color: white;
+  }
+  &:disabled {
+    @include elt-disabled;
+  }
+}
+
+.num-chars {
+  margin-bottom: 0.5rem;
+  text-align: left;
+  color: mix(white, $grey-dk-300, 40%);
+}
 
 .hidden {
   visibility: hidden;
@@ -350,6 +425,7 @@ p.label {
 
 .banner-head {
   @extend .panel;
+  background-size: cover;
 }
 
 .banner-text-div {
@@ -606,6 +682,14 @@ main {
   height: 100%;
   position: relative;
   justify-content: center;
+
+  @include mq(lg) {
+    background: linear-gradient(to right, $sidebar-color $nav-width, transparent $nav-width); 
+  }
+
+  @include mq(xl) {
+    background: linear-gradient(to right, $sidebar-color calc((100% - #{$nav-width + $max-content-width }) / 2 + 2 * #{$top-button-margin} ), transparent calc((100% - #{$nav-width + $max-content-width }) / 2 + 2 * #{$top-button-margin} ));
+  }
 
   @include mq(md) {
     padding-top: calc(4rem + 9px);

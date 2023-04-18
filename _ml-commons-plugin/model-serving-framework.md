@@ -2,7 +2,7 @@
 layout: default
 title: Model-serving framework 
 has_children: true
-nav_order: 110
+nav_order: 50
 ---
 
 # Model-serving framework
@@ -21,7 +21,7 @@ To upload a custom model to OpenSearch, you need to prepare it outside of your O
 
 ### Model support
 
-As of OpenSearch 2.4, the model-serving framework only supports text embedding models without GPU acceleration.
+As of OpenSearch 2.6, the model-serving framework supports text embedding models.
 
 ### Model format
 
@@ -53,25 +53,32 @@ The URL upload method requires the following request fields.
 
 Field | Data type | Description
 :---  | :--- | :--- 
-`name`| string | The name of the model. |
-`version` | string | The version number of the model. Since OpenSearch does not enforce a specific version schema for models, you can choose any number or format that makes sense for your models. |
-`model_format` | string | The portable format of the model file. Currently only supports `TORCH_SCRIPT`. |
-[`model_config`](#the-model_config-object) | json object | The model's configuration, including the `model_type`, `embedding_dimension`, and `framework_type`. |
+`name`| String | The name of the model. |
+`version` | String | The version number of the model. Since OpenSearch does not enforce a specific version schema for models, you can choose any number or format that makes sense for your models. |
+`model_format` | String | The portable format of the model file. Currently only supports `TORCH_SCRIPT`. |
+[`model_config`](#the-model_config-object) | JSON object | The model's configuration, including the `model_type`, `embedding_dimension`, and `framework_type`. |
 `url` | string | The URL where the model is located. |
 
 ### The `model_config` object
 
 | Field | Data type | Description |
 | :--- | :--- | :--- |
-| `model_type` | string | The model type, such as `bert`. For a Huggingface model, the model type is specified in `config.json`. For an example, see the [`all-MiniLM-L6-v2` Huggingface model `config.json`](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/blob/main/config.json#L15).|
-| `embedding_dimension` | integer | The dimension of the model-generated dense vector. For a Huggingface model, the dimension is specified in the model card. For example, in the [`all-MiniLM-L6-v2` Huggingface model card](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2), the statement `384 dimensional dense vector space` specifies 384 as the embedding dimension. |
-| `framework_type` | string  | The framework the model is using. Currently, we support `sentence_transformers` and `huggingface_transformers` frameworks. The `sentence_transformers` model outputs text embeddings directly, so ML Commons does not perform any post processing. For `huggingface_transformers`, ML Commons performs post processing by applying mean pooling to get text embeddings. See the example [`all-MiniLM-L6-v2` Huggingface model](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2) for more details. |
-| `all_config` _(Optional)_ | string | This field is used for reference purposes. You can specify all model configurations in this field. For example, if you are using a Huggingface model, you can minify the `config.json` file to one line and save its contents in the `all_config` field. Once the model is uploaded, you can use the get model API operation to get all model configurations stored in this field. |
+| `model_type` | String | The model type, such as `bert`. For a Huggingface model, the model type is specified in `config.json`. For an example, see the [`all-MiniLM-L6-v2` Huggingface model `config.json`](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/blob/main/config.json#L15).|
+| `embedding_dimension` | Integer | The dimension of the model-generated dense vector. For a Huggingface model, the dimension is specified in the model card. For example, in the [`all-MiniLM-L6-v2` Huggingface model card](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2), the statement `384 dimensional dense vector space` specifies 384 as the embedding dimension. |
+| `framework_type` | String  | The framework the model is using. Currently, we support `sentence_transformers` and `huggingface_transformers` frameworks. The `sentence_transformers` model outputs text embeddings directly, so ML Commons does not perform any post processing. For `huggingface_transformers`, ML Commons performs post processing by applying mean pooling to get text embeddings. See the example [`all-MiniLM-L6-v2` Huggingface model](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2) for more details. |
+| `all_config` _(Optional)_ | String | This field is used for reference purposes. You can specify all model configurations in this field. For example, if you are using a Huggingface model, you can minify the `config.json` file to one line and save its contents in the `all_config` field. Once the model is uploaded, you can use the get model API operation to get all model configurations stored in this field. |
 
-#### Sample request
+You can further customize a pre-trained sentence transformer model's post-processing logic with the following optional fields in the `model_config` object.
+
+| Field | Data type | Description |
+| :--- | :--- | :--- |
+| `pooling_mode` | String | The post-process model output, either `mean`, `mean_sqrt_len`, `max`, `weightedmean`, or `cls`.|
+| `normalize_result` | Boolean | When set to `true`, normalizes the model output in order to scale to a standard range for the model. |
+
+#### Example request
 
 
-The following sample request uploads version `1.0.0` of a natural language processing (NLP) sentence transformation model named `all-MiniLM-L6-v2`:
+The following example request uploads version `1.0.0` of a natural language processing (NLP) sentence transformation model named `all-MiniLM-L6-v2`:
 
 ```json
 POST /_plugins/_ml/models/_upload
@@ -89,7 +96,7 @@ POST /_plugins/_ml/models/_upload
 }
 ```
 
-#### Sample response
+#### Example response
 
 
 OpenSearch responds with the `task_id` and task `status`:
@@ -148,7 +155,7 @@ POST /_plugins/_ml/models/<model_id>/_load
 By default, the ML Commons setting `plugins.ml_commons.only_run_on_ml_node` is set to `false`. When `false`, models load on ML nodes first. If no ML nodes exist, models load on data nodes. When running ML models in production, set `plugins.ml_commons.only_run_on_ml_node` to `true` so that models only load on ML nodes.
 
 
-#### Sample request: Load into any available ML node
+#### Example request: Load into any available ML node
 
 
 In this example request, OpenSearch loads the model into all available OpenSearch node: 
@@ -157,7 +164,7 @@ In this example request, OpenSearch loads the model into all available OpenSearc
 POST /_plugins/_ml/models/WWQI44MBbzI2oUKAvNUt/_load
 ```
 
-#### Sample request: Load into a specific node
+#### Example request: Load into a specific node
 
 
 If you want to reserve the memory of other ML nodes within your cluster, you can load your model into a specific node(s) by specifying each node's ID in the request body:
@@ -170,7 +177,7 @@ POST /_plugins/_ml/models/WWQI44MBbzI2oUKAvNUt/_load
 ```
 
 
-#### Sample response
+#### Example response
 
 All models load asynchronously. Therefore, the load API responds with a new `task_id` based on the load and responds with a new `status` for the task.
 
@@ -187,14 +194,14 @@ All models load asynchronously. Therefore, the load API responds with a new `tas
 With your `task_id` from the load response, you can use the `GET _ml/tasks` API to see the load status of your model. Before a loaded model can be used for inferences, the load task's `state` must be `COMPLETED`.
 
 
-#### Sample request
+#### Example request
 
 
 ```json
 GET /_plugins/_ml/tasks/hA8P44MBhyWuIwnfvTKP
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -219,7 +226,7 @@ POST /_plugins/_ml/models/<model_id>/_predict
 ```
 
 
-### Sample request
+### Example request
 
 
 ```json
@@ -231,7 +238,7 @@ POST /_plugins/_ml/_predict/text_embedding/WWQI44MBbzI2oUKAvNUt
 }
 ```
 
-### Sample response
+### Example response
 
 
 ```json
@@ -267,14 +274,14 @@ If you're done making predictions with your model, use the unload operation to r
 POST /_plugins/_ml/models/<model_id>/_unload
 ```
 
-### Sample request
+### Example request
 
 
 ```json
 POST /_plugins/_ml/models/MGqJhYMBbbh0ushjm8p_/_unload
 ```
 
-### Sample response
+### Example response
 
 
 ```json

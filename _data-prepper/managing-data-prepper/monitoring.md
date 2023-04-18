@@ -11,11 +11,11 @@ You can monitor Data Prepper with metrics using [Micrometer](https://micrometer.
 
 ## JVM and system metrics
 
-JVM and system metrics are runtime metrics that are used to monitor Data Prepper instances. They include metrics for classloaders, memory, garbage collection, threads, and others. For more information, see [JVM and system metrics](https://micrometer.io/docs/ref/jvm). 
+JVM and system metrics are runtime metrics that are used to monitor Data Prepper instances. They include metrics for classloaders, memory, garbage collection, threads, and others. For more information, see [JVM and system metrics](https://micrometer.io/?/docs/ref/jvm).
 
 ### Naming
 
-JVM and system metrics follow predefined names in [Micrometer](https://micrometer.io/docs/concepts#_naming_meters). For example, the Micrometer metrics name for memory usage is `jvm.memory.used`. Micrometer changes the name to match the metrics system. Following the same example, `jvm.memory.used` is reported to Prometheus as `jvm_memory_used`, and is reported to Amazon CloudWatch as `jvm.memory.used.value`.
+JVM and system metrics follow predefined names in [Micrometer](https://micrometer.io/?/docs/concepts#_naming_meters). For example, the Micrometer metrics name for memory usage is `jvm.memory.used`. Micrometer changes the name to match the metrics system. Following the same example, `jvm.memory.used` is reported to Prometheus as `jvm_memory_used`, and is reported to Amazon CloudWatch as `jvm.memory.used.value`.
 
 ### Serving
 

@@ -13,7 +13,7 @@ The SQL plugin provides the `jdbc`, `csv`, `raw`, and `json` response formats th
 
 By default, the SQL plugin returns the response in the standard JDBC format. This format is provided for the JDBC driver and clients that need both the schema and the result set to be well formatted.
 
-#### Sample request
+#### Example request
 
 The following query does not specify the response format, so the format is set to `jdbc`:
 
@@ -24,7 +24,7 @@ POST _plugins/_sql
 }
 ```
 
-#### Sample response
+#### Example response
 
 In the response, the `schema` contains the field names and types, and the `datarows` field contains the result set:
 
@@ -89,7 +89,7 @@ The response contains the error message and the cause of the error:
 
 If you set the format to `json`, the original OpenSearch response is returned in JSON format. Because this is the native response from OpenSearch, extra effort is needed to parse and interpret it.
 
-#### Sample request
+#### Example request
 
 The following query sets the response format to `json`:
 
@@ -100,7 +100,7 @@ POST _plugins/_sql?format=json
 }
 ```
 
-#### Sample response
+#### Example response
 
 The response is the original response from OpenSearch:
 
@@ -157,7 +157,7 @@ The response is the original response from OpenSearch:
 
 You can also specify to return results in CSV format. 
 
-#### Sample request
+#### Example request
 
 ```json
 POST /_plugins/_sql?format=csv
@@ -166,7 +166,7 @@ POST /_plugins/_sql?format=csv
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```text
 firstname,lastname,age
@@ -231,7 +231,7 @@ The response contains the results in the original CSV format:
 
 You can use the raw format to pipe the results to other command line tools for post-processing.
 
-#### Sample request
+#### Example request
 
 ```json
 POST /_plugins/_sql?format=raw
@@ -240,7 +240,7 @@ POST /_plugins/_sql?format=raw
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```text
 Nanette|Bates|28

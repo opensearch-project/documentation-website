@@ -14,7 +14,6 @@ Community contributions remain essential in keeping this documentation comprehen
 
 If you encounter problems or have questions when contributing to the documentation, these people can help:
 
-- [alicejw-AWS](https://github.com/alicejw-AWS)
 - [ariamarble](https://github.com/ariamarble)
 - [carolxob](https://github.com/carolxob)
 - [cwillum](https://github.com/cwillum)
@@ -22,7 +21,7 @@ If you encounter problems or have questions when contributing to the documentati
 - [JeffH-AWS](https://github.com/JeffH-AWS)
 - [kolchfa-aws](https://github.com/kolchfa-aws)
 - [Naarcha-AWS](https://github.com/Naarcha-AWS)
-- [vegimeli](https://github.com/vagimeli)
+- [vagimeli](https://github.com/vagimeli)
 
 
 ## How the website works
@@ -133,66 +132,9 @@ The OpenSearch team released [style guidelines](https://github.com/opensearch-pr
 We also provide guidelines on terminology. For a list of OpenSearch terms, see [Terms](https://github.com/opensearch-project/documentation-website/blob/main/TERMS.md).
 
 
+## Formatting documentation
 
-## Classes within Markdown
-
-This documentation uses a modified version of the [just-the-docs](https://github.com/pmarsceill/just-the-docs) Jekyll theme, which has some useful classes for labels and buttons:
-
-```
-[Get started](#get-started){: .btn .btn-blue }
-
-## Get started
-New
-{: .label .label-green }
-```
-
-* Labels come in default (blue), green, purple, yellow, and red.
-* Buttons come in default, purple, blue, green, and outline.
-* Warning, tip, and note blocks are available (`{: .warning }`, etc.).
-* If an image has a white background, you can use `{: .img-border }` to add a one pixel border to the image.
-
-These classes can help with readability, but should be used *sparingly*. Each addition of a class damages the portability of the Markdown files and makes moving to a different Jekyll theme (or a different static site generator) more difficult.
-
-Besides, standard Markdown elements suffice for most documentation.
-
-
-## Labels for APIs
-
-Each API operation has a label indicating when it was introduced. For most operations, this label is 1.0:
-
-```
-## Get roles
-Introduced 1.0
-{: .label .label-purple }
-```
-
-If we introduce a breaking change to an operation, add an additional label with a link to the release note for that breaking change:
-
-```
-## Get roles
-Introduced 1.0
-{: .label .label-purple }
-[Last breaking change 2.0](https://example.com)
-{: .label .label-red }
-```
-
-
-## Math
-
-If you want to use the sorts of pretty formulas that [MathJax](https://www.mathjax.org) allows, add `has_math: true` to the Jekyll page metadata. Then insert LaTeX math into HTML tags with the rest of your Markdown content:
-
-```
-## Math
-
-Some Markdown paragraph. Here's a formula:
-
-<p>
-  When \(a \ne 0\), there are two solutions to \(ax^2 + bx + c = 0\) and they are
-  \[x = {-b \pm \sqrt{b^2-4ac} \over 2a}.\]
-</p>
-
-And back to Markdown.
-```
+The OpenSearch documentation uses a modified version of the [just-the-docs](https://github.com/pmarsceill/just-the-docs) Jekyll theme. For an overview of the commonly used formatted elements, including callouts, videos, and buttons, see the [FORMATTING_GUIDE](FORMATTING_GUIDE.md). 
 
 
 ## Code of conduct

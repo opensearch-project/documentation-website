@@ -20,7 +20,7 @@ POST _plugins/_sql
 
 If a query isn't behaving the way you expect, use the `_explain` API to see the translated query, which you can then troubleshoot. For most operations, `_explain` returns OpenSearch query DSL. For `UNION`, `MINUS`, and `JOIN`, it returns something more akin to a SQL execution plan.
 
-#### Sample request
+#### Example request
 
 ```json
 POST _plugins/_sql/_explain
@@ -30,7 +30,7 @@ POST _plugins/_sql/_explain
 ```
 
 
-#### Sample response
+#### Example response
 
 ```json
 {

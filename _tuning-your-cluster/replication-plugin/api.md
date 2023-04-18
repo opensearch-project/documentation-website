@@ -44,7 +44,7 @@ Options | Description | Type | Required
 `leader_index` |  The index on the leader cluster that you want to replicate. | `string` | Yes
 `use_roles` |  The roles to use for all subsequent backend replication tasks between the indexes. Specify a `leader_cluster_role` and `follower_cluster_role`. See [Map the leader and follower cluster roles]({{site.url}}{{site.baseurl}}/replication-plugin/permissions/#map-the-leader-and-follower-cluster-roles). | `string` | If security plugin is enabled
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -65,7 +65,7 @@ POST /_plugins/_replication/<follower-index>/_stop
 {}
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -88,7 +88,7 @@ POST /_plugins/_replication/<follower-index>/_pause
 
 You can't resume replication after it's been paused for more than 12 hours. You must [stop replication]({{site.url}}{{site.baseurl}}/replication-plugin/api/#stop-replication), delete the follower index, and restart replication of the leader.
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -109,7 +109,7 @@ POST /_plugins/_replication/<follower-index>/_resume
 {}
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -129,7 +129,7 @@ Gets the status of index replication. Possible statuses are `SYNCING`, `BOOTSTRA
 GET /_plugins/_replication/<follower-index>/_status
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -161,7 +161,7 @@ Gets information about replicated leader indexes on a specified cluster.
 GET /_plugins/_replication/leader_stats
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -208,7 +208,7 @@ Gets information about follower (syncing) indexes on a specified cluster.
 GET /_plugins/_replication/follower_stats
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -266,7 +266,7 @@ Gets information about auto-follow activity and any replication rules configured
 GET /_plugins/_replication/autofollow_stats
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -309,7 +309,7 @@ PUT /_plugins/_replication/<follower-index>/_update
 }
 ```
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -352,7 +352,7 @@ Options | Description | Type | Required
 `pattern` |  An array of index patterns to match against indexes in the specified leader cluster. Supports wildcard characters. For example, `leader-*`. | `string` | Yes
 `use_roles` |  The roles to use for all subsequent backend replication tasks between the indexes. Specify a `leader_cluster_role` and `follower_cluster_role`. See [Map the leader and follower cluster roles]({{site.url}}{{site.baseurl}}/replication-plugin/permissions/#map-the-leader-and-follower-cluster-roles). | `string` | If security plugin is enabled
 
-#### Sample response
+#### Example response
 
 ```json
 {
@@ -385,7 +385,7 @@ Options | Description | Type | Required
 `leader_alias` |  The name of the cross-cluster connection. You define this alias when you [set up a cross-cluster connection]({{site.url}}{{site.baseurl}}/replication-plugin/get-started/#set-up-a-cross-cluster-connection). | `string` | Yes
 `name` |  The name of the pattern. | `string` | Yes
 
-#### Sample response
+#### Example response
 
 ```json
 {

@@ -10,11 +10,9 @@ nav_order: 45
 
 ## Overview
 
-The stdout sink can be used for console output and can be useful for testing. It has no configurable options.
+You can use the `stdout` sink for console output and testing. It has no configurable options.
 
-<!--- ## Configuration
-
-Content will be added to this section.
+<!--- 
 
 ## Metrics
 

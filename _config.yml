@@ -5,10 +5,10 @@ baseurl: "/docs/latest" # the subpath of your site, e.g. /blog
 url: "https://opensearch.org" # the base hostname & protocol for your site, e.g. http://example.com
 permalink: /:path/
 
-opensearch_version: 2.5.0
-opensearch_dashboards_version: 2.5.0
-opensearch_major_minor_version: 2.5
-lucene_version: 9_4_1
+opensearch_version: '2.6.0'
+opensearch_dashboards_version: '2.6.0'
+opensearch_major_minor_version: '2.6'
+lucene_version: '9_5_0'
 
 # Build settings
 markdown: kramdown
@@ -34,9 +34,6 @@ collections:
   upgrade-to:
     permalink: /:collection/:path/
     output: true
-  opensearch:
-    permalink: /:collection/:path/
-    output: true
   im-plugin:
     permalink: /:collection/:path/
     output: true
@@ -54,13 +51,10 @@ collections:
     output: true
   search-plugins:
     permalink: /:collection/:path/
-    output: true 
+    output: true  
   ml-commons-plugin:
     permalink: /:collection/:path/
-    output: true
-  neural-search-plugin:
-    permalink: /:collection/:path/
-    output: true   
+    output: true  
   tuning-your-cluster:
     permalink: /:collection/:path/
     output: true
@@ -70,10 +64,10 @@ collections:
   observing-your-data:
     permalink: /:collection/:path/
     output: true
-  ml-commons-plugin:
+  query-dsl:
     permalink: /:collection/:path/
-    output: true
-  neural-search-plugin:
+    output: true 
+  field-types:
     permalink: /:collection/:path/
     output: true
   clients:
@@ -99,16 +93,13 @@ just_the_docs:
   # Define the collections used in the theme
   collections:
     install-and-configure:
-      name: Install and configure
+      name: Install and upgrade
       nav_fold: true
     upgrade-to:
-      name: Upgrade to OpenSearch
+      name: Migrate to OpenSearch
       # nav_exclude: true
       nav_fold: true
       # search_exclude: true
-    opensearch:
-      name: OpenSearch
-      nav_fold: true
     im-plugin:
       name: Managing Indexes
       nav_fold: true
@@ -122,16 +113,13 @@ just_the_docs:
       name: Security in OpenSearch
       nav_fold: true
     security-analytics:
-      name: Security analytics plugin
+      name: Security analytics 
       nav_fold: true
     search-plugins:
       name: Search 
       nav_fold: true
     ml-commons-plugin:
       name: Machine learning
-      nav_fold: true
-    neural-search-plugin:
-      name: Neural Search 
       nav_fold: true
     tuning-your-cluster:
       name: Tuning your cluster
@@ -140,7 +128,13 @@ just_the_docs:
       name: Monitoring your cluster
       nav_fold: true
     observing-your-data:
-      name: Observing your data
+      name: Observability
+      nav_fold: true
+    query-dsl:
+      name: Query DSL, Aggregations, and Analyzers
+      nav_fold: true
+    field-types:
+      name: Mappings and field types
       nav_fold: true
     clients:
       name: Clients
@@ -157,8 +151,6 @@ just_the_docs:
     troubleshoot:
       name: Troubleshooting
       nav_fold: true
-    external_links:
-      name: External links
 
 
 # Enable or disable the site search
@@ -210,9 +202,14 @@ anchor_links: true
 footer_content:
 
 plugins:
+  - jekyll-last-modified-at
   - jekyll-remote-theme
   - jekyll-redirect-from
   - jekyll-sitemap
+
+# This format has to conform to RFC822
+last-modified-at:
+  date-format: '%a, %d %b %Y %H:%M:%S %z'
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list

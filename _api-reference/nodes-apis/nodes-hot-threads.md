@@ -44,14 +44,14 @@ ignore_idle_threads | Boolean   | Don’t show threads that are in known idle st
 type | String | Supported thread types are `cpu`, `wait`, or `block`. Defaults to `cpu`.
 timeout | Time | Sets the time limit for node response. Default value is `30s`.
 
-#### Sample request 
+#### Example request 
 
 ```json
 GET /_nodes/hot_threads
 ```
 {% include copy-curl.html %}
 
-#### Sample response
+#### Example response
 
 ```bash
 ::: {opensearch}{F-ByTQzVQ3GQeYzQJArJGQ}{GxbcLdCATPWggOuQHJAoCw}{127.0.0.1}{127.0.0.1:9300}{dimr}{shard_indexing_pressure_enabled=true}

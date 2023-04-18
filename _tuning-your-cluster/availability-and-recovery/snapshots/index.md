@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Snapshots
-nav_order: 30
+nav_order: 5
 has_children: true
 parent: Availability and Recovery
 redirect_from: 

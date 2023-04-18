@@ -49,7 +49,7 @@ master_timeout | Time units | The amount of time to wait for the connection to t
 
 ## Examples
 
-The following are sample requests and a sample response.
+The following are example requests and a example response.
 
 #### Sample list
 
@@ -71,7 +71,7 @@ POST /_dangling/msdjernajxAT23RT-BupMB?accept_data_loss=true
 DELETE /_dangling/msdjernajxAT23RT-BupMB?accept_data_loss=true
 ````
 
-#### Sample response body
+#### Example response body
 
 ````json
 {

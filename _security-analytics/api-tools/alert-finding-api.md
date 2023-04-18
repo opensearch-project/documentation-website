@@ -31,13 +31,13 @@ Parameter | Description
 `startIndex` | The pagination indicator. Optional.
 `searchString` | The alert attribute you want returned in the search. Optional.
 
-### Sample request
+### Example request
 
 ```json
 GET /_plugins/_security_analytics/alerts?detectorType=windows
 ```
 
-### Sample response
+### Example response
 
 ```json
 {
@@ -84,7 +84,7 @@ State | Description
 ---
 ## Acknowledge Alerts
 
-### Sample request
+### Example request
 
 ```json
 POST /_plugins/_security_analytics/<detector_id>/_acknowledge/alerts
@@ -92,7 +92,7 @@ POST /_plugins/_security_analytics/<detector_id>/_acknowledge/alerts
 {"alerts":["4dc7f5a9-2c82-4786-81ca-433a209d5205"]}
 ```
 
-### Sample response
+### Example response
 
 ```json
 {
@@ -137,7 +137,7 @@ POST /_plugins/_security_analytics/<detector_id>/_acknowledge/alerts
 
 The Get findings API based on detector attributes.
 
-### Sample request
+### Example request
 
 ```json
 GET /_plugins/_security_analytics/findings/_search?*detectorType*=

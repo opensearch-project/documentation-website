@@ -35,9 +35,9 @@ All query parameters are optional.
 | query | Boolean | If `true`, clears the query cache. Defaults to `true`. |
 | request | Boolean | If `true`, clears the request cache. Defaults to `true`. |
 
-#### Sample requests
+#### Example requests
 
-The following sample requests show multiple clear cache API uses.
+The following example requests show multiple clear cache API uses.
 
 ##### Clear a specific cache
 
@@ -93,7 +93,7 @@ POST /_cache/clear
 ````
 {% include copy-curl.html %}
 
-#### Sample response
+#### Example response
 
 The `POST /books,hockey/_cache/clear` request returns the following fields:
 

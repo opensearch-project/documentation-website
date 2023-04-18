@@ -17,7 +17,7 @@ The Create custom rule API uses Sigma security rule formatting to create a custo
 POST /_plugins/_security_analytics/rules?category=windows
 ```
 
-### Sample request
+### Example request
 
 ```yml
 Header:
@@ -52,7 +52,7 @@ falsepositives:
     - Unknown
 ```
 
-### Sample response
+### Example response
 
 **Sample 1:**
 
@@ -120,7 +120,7 @@ falsepositives:
 ---
 ## Update Custom Rule (not forced)
 
-### Sample request
+### Example request
 
 ```json
 PUT /_plugins/_security_analytics/rules/ZaFv1IMBdLpXWBiBa1XI?category=windows
@@ -156,7 +156,7 @@ falsepositives:
     - Unknown
 ```
 
-### Sample response
+### Example response
 
 ```json
 {
@@ -181,7 +181,7 @@ falsepositives:
 ---
 ## Update Custom Rule (forced)
 
-### Sample request
+### Example request
 
 ```json
 PUT /_plugins/_security_analytics/rules/ZaFv1IMBdLpXWBiBa1XI?category=windows&forced=true
@@ -217,7 +217,7 @@ falsepositives:
     - Unknown
 ```
 
-### Sample response
+### Example response
 
 ```json
 {
@@ -261,7 +261,7 @@ falsepositives:
 ---
 ## Search Pre-Packaged Rules
 
-### Sample request
+### Example request
 
 ```json
 POST /_plugins/_security_analytics/rules/_search?pre_packaged=true
@@ -284,7 +284,7 @@ POST /_plugins/_security_analytics/rules/_search?pre_packaged=true
 }
 ```
 
-### Sample response
+### Example response
 
 ```json
 {
@@ -356,7 +356,7 @@ POST /_plugins/_security_analytics/rules/_search?pre_packaged=true
 ---
 ## Search Custom Rules
 
-### Sample request
+### Example request
 
 ```json
 POST /_plugins/_security_analytics/rules/_search?pre_packaged=false
@@ -381,7 +381,7 @@ Body:
 }
 ```
 
-### Sample response
+### Example response
 
 ```json
 {
@@ -453,13 +453,13 @@ Body:
 ---
 ## Delete Custom Rule (not forced)
 
-### Sample request
+### Example request
 
 ```json
 DELETE /_plugins/_security_analytics/rules/ZaFv1IMBdLpXWBiBa1XI
 ```
 
-### Sample response
+### Example response
 
 ```json
 {
@@ -484,13 +484,13 @@ DELETE /_plugins/_security_analytics/rules/ZaFv1IMBdLpXWBiBa1XI
 ---
 ## Delete Custom Rule (forced)
 
-### Sample request
+### Example request
 
 ```json
 DELETE /_plugins/_security_analytics/rules/ZaFv1IMBdLpXWBiBa1XI?forced=true
 ```
 
-### Sample response
+### Example response
 
 ```json
 {

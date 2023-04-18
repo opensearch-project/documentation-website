@@ -31,14 +31,14 @@ include_defaults (GET only) | Boolean | Whether to include default settings as p
 cluster_manager_timeout | Time unit | The amount of time to wait for a response from the cluster manager node. Default is `30 seconds`.
 timeout (PUT only) | Time unit | The amount of time to wait for a response from the cluster. Default is `30 seconds`.
 
-#### Sample request
+#### Example request
 
 ```json
 GET _cluster/settings?include_defaults=true
 ```
 {% include copy-curl.html %}
 
-#### Sample response
+#### Example response
 
 ```json
 PUT _cluster/settings
@@ -63,7 +63,7 @@ The following request field parameters are compatible with the cluster API.
 | action.auto_create_index | Boolean | Automatically creates an index if the index doesn't already exist. Also applies any index templates that are configured. Default is `true`. |
 | action.destructive_requires_name | Boolean | When set to `true`, you must specify the index name to delete an index. You cannot delete all indexes or use wildcards. Default is `true`. |
 | cluster.indices.close.enable | Boolean | Enables closing of open indexes in OpenSearch. Default is `true`. |
-| indices.recovery.max_bytes_per_sec | String | Limits the total inbound and outbound recovery traffic for each node. This applies to peer recoveries and snapshot recoveries. Default is `40mb`. |
+| indices.recovery.max_bytes_per_sec | String | Limits the total inbound and outbound recovery traffic for each node. This applies to peer recoveries and snapshot recoveries. Default is `40mb`. If you set the recovery traffic value to less than or equal to `0mb`, rate limiting will be disabled, which causes recovery data to be transferred at the highest possible rate. |
 | indices.recovery.max_concurrent_file_chunks | Integer | The number of file chunks sent in parallel for each recovery operation. Default is `2`. |
 | indices.recovery.max_concurrent_operations | Integer | The number of operations sent in parallel for each recovery. Default is `1`. |
 | logger.org.opensearch.discovery | String | Loggers accept Log4j2’s built-in log levels: `OFF`, `FATAL`, `ERROR`, `WARN`, `INFO`, `DEBUG`, and `TRACE`. Default is `INFO`. |
@@ -106,7 +106,7 @@ The following request field parameters are compatible with the cluster API.
 | cluster.persistent_tasks.allocation.enable | String | Enables or disables allocation for persistent tasks: <br /> <br /> `all` – Allows persistent tasks to be assigned to nodes. <br /> <br /> `none` – No allocations are allowed for persistent tasks. This does not affect persistent tasks already running. <br /> <br /> Default is `all`. |
 | cluster.persistent_tasks.allocation.recheck_interval | Time unit | The cluster manager automatically checks whether or not persistent tasks need to be assigned when the cluster state changes in a significant way. There are other factors, such as memory usage, that will affect whether or not persistent tasks are assigned to nodes but do not otherwise cause the cluster state to change. This setting defines how often assignment checks are performed in response to these factors. Default is `30 seconds`, with a minimum of `10 seconds` being required. |
 
-#### Sample request
+#### Example request
 
 For a PUT operation, the request body must contain `transient` or `persistent`, along with the setting you want to update:
 
@@ -122,7 +122,7 @@ PUT _cluster/settings
 
 For more information about transient settings, persistent settings, and precedence, see [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuration/).
 
-#### Sample response
+#### Example response
 
 ```json
 {

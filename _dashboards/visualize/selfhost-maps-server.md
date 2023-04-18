@@ -3,7 +3,9 @@ layout: default
 title: Using the self-host maps server
 grand_parent: Building data visualizations
 parent: Using coordinate and region maps
-nav_order: 10
+nav_order: 40
+redirect_from:
+  - /dashboards/selfhost-maps-server/
 ---
 
 # Using the self-host maps server

@@ -10,16 +10,27 @@ nav_order: 45
 
 ## Overview
 
-Uses OpenTelemetry data to create a distributed service map for visualization in OpenSearch Dashboards.
+The `service_map_stateful` processor uses OpenTelemetry data to create a distributed service map for visualization in OpenSearch Dashboards. The following table describes the option you can use to configure the `service_map_stateful` processor.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
-window_duration | No | Integer | Represents the fixed time window in seconds to evaluate service-map relationships. Default is 180.
+window_duration | No | Integer | Represents the fixed time window, in seconds, during which service map relationships are evaluated. Default value is 180.
 
 <!---## Configuration
 
-Content will be added to this section.
+Content will be added to this section.--->
 
 ## Metrics
 
-Content will be added to this section.--->
+The following table describes common [Abstract processor](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-api/src/main/java/org/opensearch/dataprepper/model/processor/AbstractProcessor.java) metrics.
+
+| Metric name | Type | Description |
+| ------------- | ---- | -----------|
+| `recordsIn` | Counter | Metric representing the ingress of records to a pipeline component. |
+| `recordsOut` | Counter | Metric representing the egress of records from a pipeline component. |
+| `timeElapsed` | Timer | Metric representing the time elapsed during execution of a pipeline component. |
+
+The `service-map-stateful` processor includes following custom metrics:
+
+* `traceGroupCacheCount`: The number of trace groups in the trace group cache.
+* `spanSetCount`: The number of span sets in the span set collection.
