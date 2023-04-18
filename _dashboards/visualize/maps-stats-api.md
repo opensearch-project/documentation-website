@@ -15,11 +15,14 @@ When you create and save a [map]({{site.url}}{{site.baseurl}}/dashboards/visuali
 
 #### Example request
 
-You can access the Maps Stats API by providing its address in the following format:
+You can access the Maps Stats API by providing its URL address in the following format:
 
 ```
-<opensearch-dashboards-endpoint-address>:<port>/api/maps-dashboards/stats
+<opensearch-dashboards-endpoint-address>/api/maps-dashboards/stats
 ```
+
+The OpenSearch Dashboards endpoint address may contain a port number if it is specified in the OpenSearch configuration file. The specific URL format depends on the type of OpenSearch deployment and the network environment in which it is hosted.
+{: .note}  
 
 You can query the endpoint in two ways:
   
@@ -112,10 +115,10 @@ The following table lists all response fields.
 | `layers_filters_total` | Integer | The total number of filters for all layers in all maps. This includes [layer-level filters]({{site.url}}{{site.baseurl}}/dashboards/visualize/maps/#filtering-data-at-the-layer-level) but excludes global filters like [shape filters]({{site.url}}{{site.baseurl}}/dashboards/visualize/maps/#drawing-shapes-to-filter-data). |
 | `layers_total` | Object | Totals statistics for all layers in all maps. |
 | `layers_total.opensearch_vector_tile_map` | Integer | The total number of OpenSearch basemaps in all maps. |
-| `layers_total.documents` | Integer | The total number of documents in all layers of all maps. |
+| `layers_total.documents` | Integer | The total number of document layers in all maps. |
 | `layers_total.wms` | Integer | The total number of WMS layers in all maps. |
 | `layers_total.tms` | Integer | The total number of TMS layers in all maps. |
-| `maps_list` | Array | A list of all maps registered in the plugin. |
+| `maps_list` | Array | A list of all maps saved in OpenSearch Dashboards. |
 
 Each map in the `map_list` contains the following fields.
 
@@ -125,11 +128,9 @@ Each map in the `map_list` contains the following fields.
 | `layers_filters_total` | Integer | The total number of filters for all layers in the map. This includes [layer-level filters]({{site.url}}{{site.baseurl}}/dashboards/visualize/maps/#filtering-data-at-the-layer-level) but excludes global filters like [shape filters]({{site.url}}{{site.baseurl}}/dashboards/visualize/maps/#drawing-shapes-to-filter-data) . |
 | `layers_total` | Object | Totals statistics for all layers in this map. |
 | `layers_total.opensearch_vector_tile_map` | Integer | The total number of OpenSearch basemaps in this map. |
-| `layers_total.documents` | Integer | The total number of documents in all layers of this map. |
-| `layers_total.wms` | Integer | The total number of WMS layers in the map. |
-| `layers_total.tms` | Integer | The total number of TMS layers in the map. |
-| `maps_list` | Array | A list of all maps registered in the plugin. |
-
+| `layers_total.documents` | Integer | The total number of document layers in this map. |
+| `layers_total.wms` | Integer | The total number of WMS layers in this map. |
+| `layers_total.tms` | Integer | The total number of TMS layers in this map. |
 
 The saved object ID helps you navigate to a particular map because the ID is the last part of the map's URL. For example, in OpenSearch Playground, the address of the `[Flights] Flights Status on Maps Destination Location` map is `https://playground.opensearch.org/app/maps-dashboards/88a24e6c-0216-4f76-8bc7-c8db6c8705da`, where `88a24e6c-0216-4f76-8bc7-c8db6c8705da` is the saved object ID for this map.
 {: .tip}
