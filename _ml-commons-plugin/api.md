@@ -496,7 +496,7 @@ GET /_plugins/_ml/profile
 
 ### Example: Return auto deploy and node information
 
-The profile API returns additional information when the [auto redeploy]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api#enable-auto-redeploy) cluster setting is set to `true`.
+When the [auto redeploy]({{site.url}}{{site.baseurl}}/ml-commons-plugin/cluster-setting#enable-auto-redeploy) cluster setting is set to `true`, the profile API returns additional deployment information, including deployment time, retry count, and worker node IDs where the model is deployed.
 
 ```json
 {
