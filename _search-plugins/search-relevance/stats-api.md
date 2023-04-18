@@ -10,14 +10,22 @@ has_children: false
 Introduced 2.7
 {: .label .label-purple }
 
-The Search Relevance Stats API provides information about the operations of the Search Relevance plugin within a one-minute time interval. The Search Relevance plugin processes operations sent by the [Compare Search Results]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance) Dashboards tool.
+The Search Relevance Stats API provides information about the operations of the [Search Relevance plugin](https://github.com/opensearch-project/dashboards-search-relevance). The Search Relevance plugin processes operations sent by the [Compare Search Results]({{site.url}}{{site.baseurl}}/search-plugins/search-relevance) Dashboards tool.
+
+The Search Relevance Stats API captures statistics for a one-minute interval during which it receives the request. For example, if a request is received at 23:59:59.004, statistics are collected for the 23:58:00.000--23:58:59.999 time interval.
+
+To change the default time interval for which statistics are collected, update the `searchRelevanceDashboards.metrics.metricInterval` setting in the `opensearch_dashboards.yml` file with the new time interval in milliseconds. For example, the following sets the interval to one second:
+
+```yml
+searchRelevanceDashboards.metrics.metricInterval: 1000 
+```
 
 #### Example request
 
 You can access the Search Relevance Stats API by providing its address in the following format:
 
 ```
-<opensearch-dashboards-endpoint-address>:<port>/relevancy/stats
+<opensearch-dashboards-endpoint-address>:<port>/api/relevancy/stats
 ```
 
 You can query the endpoint in two ways:
@@ -26,7 +34,7 @@ You can query the endpoint in two ways:
 
   - By using the `curl` command in the terminal:
     ```bash
-    curl -XGET http://localhost:5601/api/relevancy/stats
+    curl -X GET http://localhost:5601/api/relevancy/stats
     ```
     {% include copy.html %}
 
