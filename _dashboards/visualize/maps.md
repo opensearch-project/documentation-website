@@ -3,7 +3,7 @@ layout: default
 title: Using maps 
 grand_parent: Building data visualizations
 parent: Using coordinate and region maps
-nav_order: 5
+nav_order: 10
 redirect_from:
   - /dashboards/maps/
 ---
@@ -106,7 +106,7 @@ You should see the flight destination data, as in the following image.
 
 ## Filtering data
 
-To show a subset of the data in the index, filter the data. You can either filter data at the layer level or draw shapes on the map to filter the data. 
+To show a subset of the data in the index, filter the data. You can either filter data at the layer level or draw shapes on the map to filter all layer data globally. 
 
 ### Filtering data at the layer level
 
@@ -128,7 +128,7 @@ For large datasets, you may want to avoid loading data for the full map. To load
 
 ### Drawing shapes to filter data
 
-You can filter your data by drawing [shapes]({{site.url}}{{site.baseurl}}/field-types/geo-shape) on the map. To draw a rectangle or polygon on the map, perform the following steps:
+You can filter your data globally by drawing [shapes]({{site.url}}{{site.baseurl}}/field-types/geo-shape) on the map. To draw a rectangle or polygon on the map, perform the following steps:
 
 1. Select the **Rectangle** or **Polygon** icon on the right side of the map. 
 1. In the **Filter label** field, enter a name for the filter. 
