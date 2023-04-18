@@ -3,7 +3,7 @@ layout: default
 title: Using maps 
 grand_parent: Building data visualizations
 parent: Using coordinate and region maps
-nav_order: 5
+nav_order: 10
 redirect_from:
   - /dashboards/maps/
 ---
@@ -106,7 +106,13 @@ You should see the flight destination data, as in the following image.
 
 ## Filtering data
 
-To show a subset of the data in the index, filter the data. The following example filters the flight destination data to display only United States destinations:
+To show a subset of the data in the index, filter the data. You can either filter data at the layer level or draw shapes on the map to filter all layer data globally. 
+
+### Filtering data at the layer level
+
+To filter data at the layer level, select the layer and add a filter to it.
+
+The following example shows how to filter the flight destination data to display only United States destinations:
 
 1. In the **Layers** panel, select **Flight destination**.
 1. Select **Filters**.
@@ -117,12 +123,42 @@ To show a subset of the data in the index, filter the data. The following exampl
 1. Select the **Save** button.
 1. Select the **Update** button.
 
-For large datasets, you may want to avoid loading data for the whole map. To load data only for the part of the map that is currently visible, select the **Only request data around map extent** checkbox.
+For large datasets, you may want to avoid loading data for the full map. To load data only for a specific geographic area, select **Only request data around map extent**.
 {: .tip}
+
+### Drawing shapes to filter data
+
+You can filter your data globally by drawing [shapes]({{site.url}}{{site.baseurl}}/field-types/geo-shape) on the map. To draw a rectangle or polygon on the map, perform the following steps:
+
+1. Select the **Rectangle** or **Polygon** icon on the right side of the map. 
+1. In the **Filter label** field, enter a name for the filter. 
+1. Choose a spatial relation type. By default, **Intersects** is selected. See [Spatial relations]({{site.url}}{{site.baseurl}}/query-dsl/geo-and-xy/xy#spatial-relations) for more information about spatial relationship types.
+1. Select the **Draw Rectangle** or **Draw Polygon** button.
+1. Draw the shape over the map area that you want to select:
+  - For a rectangle, select any starting point on the map (this point becomes a rectangle vertex). Then hover (do not drag) to another point on the map and select it (this point becomes the opposite vertex).  
+  - For a polygon, select any starting point on the map (this point becomes a polygon vertex) and hover (do not drag) to each subsequent vertex and select that point. Finally, make sure to select the starting point again to close the polygon, as shown in the following image.
+
+<img src="{{site.url}}{{site.baseurl}}/images/maps/draw-shape.png" alt="Drawing a polygon on a map">
+
+### Disabling the shape filter for a map layer
+
+By default, the shape filter is applied globally to all layers on the map. If you want to disable your shape filter for a map layer, perform the following steps:
+1. Select the layer from the **Layers** panel.
+1. In the **Filters** section, deselect **Apply global filters**. 
+1. Select the **Update** button. 
+
+### Modifying an existing shape filter
+
+To modify an existing shape filter, select your filter on the top left above the map. You can perform the following operations on an existing filter:
+
+- **Edit filter**: Change the filter name or modify the shape's coordinates.
+- **Exclude results**: Negate the filter, that is, show all data points _except_ those to which the filter applies.
+- **Temporarily disable**: Disable the filter until you select **Re-enable**.
+- **Delete**: Remove your filter completely.
 
 ## Using tooltips to visualize additional data
 
-Document layers show geopoint and geoshape document fields as locations on the map. To add more information to the locations, you can use tooltips. For example, you may want to to show flight delay, destination weather, and destination country information in the **Flight destination** layer. Perform the following steps to configure tooltips to show additional data:
+Document layers show geopoint and geoshape document fields as locations on the map. To add more information to the locations, you can use tooltips. For example, you may want to show flight delay, destination weather, and destination country information in the **Flight destination** layer. Perform the following steps to configure tooltips to show additional data:
 
 1. In the **Layers** panel, select **Flight destination**.
 1. Select **Tooltips**. 
@@ -137,6 +173,22 @@ To view tooltips, hover over the geographical point you're interested in. One to
 If a point on the map contains data from multiple layers, one tooltip can display data from multiple layers. To see all layers, select **All layers**. To choose a particular layer, select the layer name in the tooltip layer selection panel, as shown in the following image.
 
 <img src="{{site.url}}{{site.baseurl}}/images/maps/layer-selection-panel.png" alt="Tooltip with a layer selection panel" width="450">
+
+## Adding labels to layers
+
+Adding a label to a layer lets you visualize additional data on the map. For example, you may want to see the origin weather in the **Flight destination** layer. Perform the following steps to add a label to the **Flight destination** layer:
+
+1. In the **Layers** panel, select **Flight destination**.
+1. In the **Style** tab, select the **Add label** checkbox.
+1. You can choose to add a label based on fixed text to all data points in the layer or to use a field value as the label text.
+  - To add a fixed-text label, under **Label text**, select **Fixed** and enter your desired label text.
+  - To add a label based on a field value, under **Label text**, select **Field value** and select the field name. In this example, select `OriginWeather`.
+1. (Optional) Change the label size, color, border color, or border width.
+1. Select the **Update** button.
+
+The label with the origin weather is visible on the map and also added to the tooltips, as shown in the following image.
+
+<img src="{{site.url}}{{site.baseurl}}/images/maps/label.png" alt="Label based on field type added to map and tooltips" width="450">
 
 ## Reordering, hiding, and deleting layers
 
