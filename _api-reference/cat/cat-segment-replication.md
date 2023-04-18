@@ -8,19 +8,13 @@ has_children: false
 ---
 
 # CAT segment replication
-Introduced 2.6
+Introduced 2.7
 {: .label .label-purple }
 
-The CAT segment replication operation returns information about active and completed segment replication events for replica shards. This API returns metrics on a shard level.
+The CAT segment replication operation returns information about active and last completed [segment replication]({{site.url}}{{site.baseurl}}/opensearch/segment-replication/index) events on each replica shard. This API returns metrics on a shard level. The metrics provide information about how far behind the replicas are lagging with respect to the primary shard. 
 
 Call the CAT Segment Replication API only on indexes with segment replication enabled.
 {: .note}
-
-[Segment replication]({{site.url}}{{site.baseurl}}/opensearch/segment-replication/index) is the process of copying segment files from primary shard to replica shards. When the primary shard sends a checkpoint to replica shards on a refresh, a new segment replication event is triggered on replica shards. This happens when:
-
-- A new replica shard is added to a cluster.
-- There are segment file changes on a primary shard refresh.
-- Replica shards are being recovered from primary shard using peer recovery.
 
 ## Path and HTTP methods
 
@@ -34,62 +28,96 @@ GET /_cat/segment_replication/<index>
 The following table lists the available optional path parameter.
 
 Parameter | Type | Description
-:--- |:-------| :---
-index | String | A comma-separated list or a wildcard expression of index names used to filter results. Defaults to all indexes in the cluster.
+:--- | :--- | :---
+`index` | String | The name of the index, or a comma-separated list or a wildcard expression of index names used to filter results. If this parameters is not provided, the response contains information about all indexes in the cluster.
 
 ## Query parameters
 
-In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameters. All query parameters are optional.
+The CAT segment replication API operation supports the following optional query parameters.
 
 Parameter | Data type | Description
 :--- |:---| :---
-active_only | Boolean | If `true`, the response only includes active segment replications. Defaults to `false`.
-[detailed](#additional-metrics-returned-when-detailed-is-set-to-true) | String | If `true`, the response includes additional metrics for a segment replication event. Defaults to `false`.
-completed_only | Boolean | If `true`, the response only includes the most recent completed segment replication event. Defaults to `false`.
-shards | String | A comma-separated list of shards to display.
-time | Time value | [Units]({{site.url}}{{site.baseurl}}/opensearch/units) used to display time values. Defaults to `ms` (milliseconds).
+`active_only` | Boolean | If `true`, the response only includes active segment replications. Defaults to `false`. 
+[`detailed`](#additional-metrics-a-detailed-response-returns) | String | If `true`, the response includes additional metrics of each stage of a segment replication event. Defaults to `false`.
+`shards` | String | A comma-separated list of shards to display.
+`format` | String | A short version of the HTTP accept header. Valid values include `JSON` and `YAML`.  
+`h` | String | A comma-separated list of column names to display. 
+`help` | Boolean | If `true`, the response includes help information. Defaults to `false`.
+`time` | Time value | [Units]({{site.url}}{{site.baseurl}}/opensearch/units) used to display time values. Defaults to `ms` (milliseconds).
+`v` | Boolean | If `true`, the response includes column headings. Defaults to `false`.
+`s` | String | Specifies to sort the results. For example, `s=shardId:desc` sorts by shardId in descending order.
 
 ## Examples 
 
-#### Example request
+The following examples illustrate various segment replication responses.
 
-The following query requests segment replication metrics for shards with the ID `0` from indexes `index1` and `index2` with column headings:
+#### Example 1: No active segment replication events
+
+The following query requests segment replication metrics with column headings for all indexes:
+
+```json
+GET /_cat/segment_replication?v=true
+```
+{% include copy-curl.html %}
+
+The response contains the metrics for the preceding request:
+
+```bash
+shardId target_node target_host checkpoints_behind bytes_behind current_lag last_completed_lag rejected_requests
+[index-1][0] runTask-1 127.0.0.1 0 0b 0s 7ms 0
+```
+
+#### Example 2: Shard ID specified
+
+The following query requests segment replication metrics with column headings for shards with the ID `0` from indexes `index1` and `index2`:
 
 ```json
 GET /_cat/segment_replication/index1,index2?v=true&shards=0
 ```
 {% include copy-curl.html %}
 
-#### Example response
-
 The response contains the metrics for the preceding request. The column headings correspond to the metric names:
 
 ```bash
-index shardId time stage source_description target_host target_node files_fetched files_percent bytes_fetched bytes_percent
-index2 0 8ms done runTask-1 127.0.0.1 runTask-2 3 100.0% 3661 100.0%
-index1 0 19ms done runTask-1 127.0.0.1 runTask-2 3 100.0% 3661 100.0%
+shardId target_node target_host checkpoints_behind bytes_behind current_lag last_completed_lag rejected_requests
+[index-1][0] runTask-1 127.0.0.1 0 0b 0s 3ms 0
+[index-2][0] runTask-1 127.0.0.1 0 0b 0s 5ms 0
 ```
 
-If `detailed` is set to `true`, the response contains additional metrics about the files and stages of a segment replication event.
+#### Example 3: Detailed response
 
-#### Example request
-
-The following query requests detailed segment replication metrics for shards with the ID `0` from indexes `index1` and `index2` with column headings:
+The following query requests detailed segment replication metrics with column headings for all indexes:
 
 ```json
-GET /_cat/segment_replication/index1,index2?v=true&shards=0&detailed=true
+GET /_cat/segment_replication?v=true&detailed=true
 ```
 {% include copy-curl.html %}
 
-#### Example response
-
-The response contains the detailed metrics for the preceding request:
+The response contains additional metrics about the files and stages of a segment replication event:
 
 ```bash
-index shardId time stage source_description target_host target_node files_fetched files_percent bytes_fetched bytes_percent files files_total bytes bytes_total replicating_stage_time_taken get_checkpoint_info_stage_time_taken file_diff_stage_time_taken get_files_stage_time_taken finalize_replication_stage_time_taken
-index2 0 21ms done runTask-1 127.0.0.1 runTask-2 3 100.0% 3661 100.0% 3 3 3661 3661 0s 2ms 0s 4ms 14ms
-index1 0 9ms done runTask-1 127.0.0.1 runTask-2 3 100.0% 3661 100.0% 3 3 3661 3661 0s 2ms 0s 3ms 3ms
+shardId target_node target_host checkpoints_behind bytes_behind current_lag last_completed_lag rejected_requests stage time files_fetched files_percent bytes_fetched bytes_percent start_time stop_time files files_total bytes bytes_total replicating_stage_time_taken get_checkpoint_info_stage_time_taken file_diff_stage_time_taken get_files_stage_time_taken finalize_replication_stage_time_taken
+[index-1][0] runTask-1 127.0.0.1 0 0b 0s 3ms 0 done 10ms 6 100.0% 4753 100.0% 2023-03-16T13:46:16.802Z 2023-03-16T13:46:16.812Z 6 6 4.6kb 4.6kb 0s 2ms 0s 3ms 3ms
+[index-2][0] runTask-1 127.0.0.1 0 0b 0s 5ms 0 done 7ms 3 100.0% 3664 100.0% 2023-03-16T13:53:33.466Z 2023-03-16T13:53:33.474Z 3 3 3.5kb 3.5kb 0s 1ms 0s 2ms 2ms
 ```
+
+#### Example 4: Sort the results
+
+The following query requests segment replication metrics with column headings for all indexes, sorted by shard ID in descending order:
+
+```json
+GET /_cat/segment_replication?v&s=shardId:desc
+```
+{% include copy-curl.html %}
+
+The response contains the sorted results:
+
+```bash
+shardId    target_node  target_host checkpoints_behind bytes_behind current_lag last_completed_lag rejected_requests
+[test6][1] runTask-2   127.0.0.1   0                  0b           0s          5ms                0
+[test6][0] runTask-2   127.0.0.1   0                  0b           0s          4ms                0
+```
+
 
 ## Response metrics
 
@@ -97,24 +125,29 @@ The following table lists the response metrics that are returned for all request
 
 Metric | Description
 :--- |:---
-index | The name of the index.
 shardId | The ID of a specific shard.
-time | The time a segment replication event took to complete, in milliseconds.
-stage | The current stage of a segment replication event.
-source_description | The description of the source.
 target_host | The target host IP address.
 target_node | The target node name.
+checkpoints_behind | The number of checkpoints by which the replica shard is behind the primary shard.
+bytes_behind | The number of bytes by which the replica shard is behind the primary shard.
+current_lag | The time elapsed while waiting for a replica shard to catch up to the primary shard.
+last_completed_lag | The time it took for a replica shard to catch up to the latest primary shard refresh.
+rejected_requests | The number of rejected requests for the replication group.
+
+### Additional metrics a detailed response returns
+
+The following table lists the additional response fields returned if `detailed` is set to `true`.
+
+Metric | Description
+:--- |:---
+stage | The current stage of a segment replication event.
+time | The time a segment replication event took to complete, in milliseconds.
 files_fetched | The number of files fetched so far for a segment replication event.
 files_percent | The percentage of files fetched so far for a segment replication event.
 bytes_fetched | The number of bytes fetched so far for a segment replication event.
 bytes_percent| The number of bytes fetched so far for a segment replication event as a percentage.
-
-### Additional metrics returned when `detailed` is set to `true`
-
-The following table lists the additional response fields that if `detailed` is set to `true`.
-
-Metric | Description
-:--- |:---
+start_time | The segment replication start time.
+stop_time | The segment replication stop time.
 files | The number of files that needs to be fetched for a segment replication event.
 files_total | The total number of files that are part of this recovery, including both reused and recovered files.
 bytes | The number of bytes that needs to be fetched for a segment replication event.
@@ -124,7 +157,3 @@ get_checkpoint_info_stage_time_taken | The time the `get checkpoint info` stage 
 file_diff_stage_time_taken | The time the `file diff` stage of a segment replication event took to complete. 
 get_files_stage_time_taken | The time the `get files` stage of a segment replication event took to complete. 
 finalize_replication_stage_time_taken | The time the `finalize replication` stage of a segment replication event took to complete.
-start_time | The segment replication start time.
-start_time_millis | The segment replication start time in epoch milliseconds.
-stop_time | The segment replication stop time.
-stop_time_millis | The segment replication stop time in epoch milliseconds. 
