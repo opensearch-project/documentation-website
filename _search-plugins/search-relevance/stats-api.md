@@ -22,11 +22,14 @@ searchRelevanceDashboards.metrics.metricInterval: 1000
 
 #### Example request
 
-You can access the Search Relevance Stats API by providing its address in the following format:
+You can access the Search Relevance Stats API by providing its URL address in the following format:
 
 ```
-<opensearch-dashboards-endpoint-address>:<port>/api/relevancy/stats
+<opensearch-dashboards-endpoint-address>/api/relevancy/stats
 ```
+
+The OpenSearch Dashboards endpoint address may contain a port number if it is specified in the OpenSearch configuration file. The specific URL format depends on the type of OpenSearch deployment and the network environment in which it is hosted.
+{: .note}
 
 You can query the endpoint in two ways:
   
