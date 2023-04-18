@@ -48,7 +48,7 @@ You can configure the OTel trace group processor with the following options.
 
 | Name | Description | Default value |
 | -----| ----| -----------|
-| `hosts`| A list of IP addresses of OpenSearch nodes. Required. | Default value | 
+| `hosts`| A list of IP addresses of OpenSearch nodes. Required. | No default value. | 
 | `cert` | A certificate authority (CA) certificate that is PEM-encoded. Accepts both .pem or .crt. This enables the client to trust the CA that has signed the certificate that OpenSearch is using. Optional. | `null` |
 | `aws_sigv4` | A Boolean flag to sign the HTTP request with AWS credentials. Only applies to Amazon OpenSearch Service. See [OpenSearch security](https://github.com/opensearch-project/data-prepper/blob/129524227779ee35a327c27c3098d550d7256df1/data-prepper-plugins/opensearch/security.md) for details. Optional. | `false`. |
 | `aws_region` | A string that represents the region of Amazon OpenSearch Service domain, for example, `us-west-2`. Only applies to Amazon OpenSearch Service. Optional. | `us-east-1` |
@@ -70,13 +70,10 @@ aws_sts_header_overrides:
 
 ## Metrics
 
-The following table describes both metrics common to all processors as well as metrics specific to the OTel trace group processor.
+The following table describes custom metrics specific to the OTel trace group processor.
 
-| Metric name | Type | Description | Metric type |
+| Metric name | Type | Description |
 | ------------- | ---- | -----------| --- | 
-| `recordsIn` | Counter | Metric representing the ingress of records to a pipeline component. | Common |
-| `recordsOut` | Counter | Metric representing the egress of records from a pipeline component. | Common | 
-| `timeElapsed` | Timer | Metric representing the time elapsed during execution of a pipeline component. | Common |
 | `recordsInMissingTraceGroup` | Counter | The number of ingress records missing trace group fields. | Custom |
 | `recordsOutFixedTraceGroup` | Counter | The number of egress records with successfully completed trace group fields. | Custom |
 | `recordsOutMissingTraceGroup` | Counter | The number of egress records missing trace group fields. | Custom |
