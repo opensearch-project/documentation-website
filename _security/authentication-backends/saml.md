@@ -332,6 +332,13 @@ If you use the logout POST binding, you also need to ad the logout endpoint to y
 server.xsrf.allowlist: ["/_opendistro/_security/saml/acs", "/_opendistro/_security/saml/logout"]
 ```
 
+To improve session management—especially for users who have multiple roles assigned to them—you can split cookie payloads into multiple cookies and restitch the payloads when receiving them. This can help prevent larger assertions from hitting size limits for each cookie. The following two settings allow you to set a prefix name for additional cookies and choose a default number of cookies:
+
+```yml
+opensearch_security.saml.extra_storage.cookie_prefix: security_authentication_oidc
+opensearch_security.saml.extra_storage.additional_cookies: default: 3
+```
+
 To include SAML with other authentication types in the Dashboards sign-in window, see [Configuring sign-in options]({{site.url}}{{site.baseurl}}/security/configuration/multi-auth/).
 {: .note }
 
