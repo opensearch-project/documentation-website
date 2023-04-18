@@ -9,9 +9,9 @@ grand_parent: Supported field types
 
 # Flat object field type
 
-In OpenSearch, you don't have to specify a mapping before indexing documents. If you don't specify a mapping, OpenSearch uses [dynamic mapping]({{site.url}}{{site.baseurl}}/field-types/mappings#dynamic-mapping) to map every field and its subfields in the document automatically. When you ingest documents such as logs, you may not know every field's subfield name and type in advance. In this case, dynamically mapping all new subfields can quickly lead to a "mapping explosion", where the growing number of fields may degrade the performance of your cluster. 
+In OpenSearch, you don't have to specify a mapping before indexing documents. If you don't specify a mapping, OpenSearch uses [dynamic mapping]({{site.url}}{{site.baseurl}}/field-types/mappings#dynamic-mapping) to map every field and its subfields in the document automatically. When you ingest documents such as logs, you may not know every field's subfield name and type in advance. In this case, dynamically mapping all new subfields can quickly lead to a "mapping explosion," where the growing number of fields may degrade the performance of your cluster. 
 
-Flat object solves this problem by treating the entire JSON object as a string. Subfields within the JSON object are accessible using standard dot path notation but they are not indexed for fast lookup.
+Flat object solves this problem by treating the entire JSON object as a string. Subfields within the JSON object are accessible using standard dot path notation, but they are not indexed for fast lookup.
 
 The maximum field value length in the dot notation is 2<sup>24</sup> &minus; 1.
 {: .note}
@@ -25,7 +25,7 @@ Flat objects provide the following advantages:
 
 Mapping a field as flat object applies when a field and its subfields are mostly read and not used as a search criteria because the subfields are not indexed. Flat objects are useful for objects with a large number of fields or when you don't know the keys in advance.
 
-Flat objects support exact match queries with and without dot path. For a complete list of supported query types, see [Supported queries](#supported-queries).
+Flat objects support exact match queries with and without dot path notation. For a complete list of supported query types, see [Supported queries](#supported-queries).
 
 Searching for a specific value of a nested field in a document may be inefficient because it may require a full scan of the index, which is an expensive operation.
 {: .note}
@@ -67,7 +67,7 @@ This functionality is planned for a future release.
 
 The following example illustrates mapping a field as a flat object, indexing documents with flat object fields, and searching for leaf values of the flat object in those documents.
 
-Only the root field of a document can be defined as a flat object. You cannot define an object that is part of another JSON object as a flat object because when a flat object it is flattened to a string, the nested architecture of the leaves is lost.
+Only the root field of a document can be defined as a flat object. You cannot define an object that is part of another JSON object as a flat object because when a flat object is flattened to a string, the nested architecture of the leaves is lost.
 {: .note}
 
 First, create a mapping for your index, where `issue` is of type `flat_object`:
