@@ -16,7 +16,7 @@ Dynamic configuration of multi-tenancy in OpenSearch Dashboards provides options
   {: .note }
 
 - **Disable or enable private tenant** - This option allows administrators to disable and enable private tenants. As with the enable multi-tenancy setting, when private tenants are re-enabled all previously saved objects are preserved and made available.
-- **Default tenant** - This option allows an administrator to choose either a global, private, or custom tenant as the default when users sign on. In the case where a user doesn't have access to the default tenant (for example, if a custom tenant was specified as the default), the default transitions to the next preferred tenant for that user, or ultimately to the global tenant.
+- **Default tenant** - This option allows an administrator to choose either a global, private, or custom tenant as the default when users sign on. In the case where a user doesn't have access to the default tenant (for example, if a custom tenant unavailable to the user was specified as the default), the default transitions to the preferred tenant, which is specified by the `opensearch_security.multitenancy.tenants.preferred` setting in the `opensearch-dashboards.yml` file. See [Multi-tenancy configuration]({{site.url}}{{site.baseurl}}/security/multi-tenancy/multi-tenancy-config/) for details about this setting.
 
 Once you make changes to multi-tenancy with dynamic configuration and save, users are logged out of their sessions and must log back in.
 {: .note }
@@ -37,12 +37,18 @@ After making selections, select **Save** in the lower right corner of the window
 
 In addition to the Dashboards interface, dynamic configurations can be made using the REST API. 
 
-```json
-GET /_plugins/_security/authinfo
-```
+### Get tenancy configuration
+
+Retrieves settings for the dynamic configuration.
 
 ```json
-PUT /_plugins/_security/authinfo
+GET /_plugins/_security/api/tenancy/config
+```
+{% include copy-curl.html %}
+
+#### Example response
+
+```json
 {
     "mulitenancy_enabled": true,
     "private_tenant_enabled": true,
@@ -50,41 +56,51 @@ PUT /_plugins/_security/authinfo
 }
 ```
 
+### Update tenant configuration
+
+Updates settings for dynamic configuration.
+
 ```json
-PATCH /_plugins/_security/authinfo
-{
-    "private_tenant_enabled": false
-}
-```
-
-GET /_plugins/_security/api/tenancy/config
-
 PUT /_plugins/_security/api/tenancy/config
 {
-  "multitenancy_enabled": true,
-  "private_tenant_enabled": true,
-  "default_tenant": "global tenant"
+    "default_tenant": "custom tenant 1",
+    "private_tenant_enabled": false,
+    "mulitenancy_enabled": true
 }
+```
+{% include copy-curl.html %}
 
-PATCH /_plugins/_security/api/tenancy/config
-{
-   "private_tenant_enabled": false,
-}
+### Example response
 
-
-GET /_plugins/_security/authinfo
-
-PUT /_plugins/_security/authinfo
+```json
 {
     "mulitenancy_enabled": true,
-    "private_tenant_enabled": true,
-    "default_tenant": "global tenant"
+    "private_tenant_enabled": false,
+    "default_tenant": "custom tenant 1"
 }
+```
 
-PATCH /_plugins/_security/authinfo
+### Dashboardsinfo API
+
+You can also use the Dashboardsinfo API to retrieve the status of multi-tenancy settings for the user logged in to Dashboards.
+
+```json
+GET /_plugins/_security/dashboardsinfo
+```
+{% include copy-curl.html %}
+
+### Example response
+
+```json
 {
-    "private_tenant_enabled": false
+  "user_name" : "admin",
+  "not_fail_on_forbidden_enabled" : false,
+  "opensearch_dashboards_mt_enabled" : true,
+  "opensearch_dashboards_index" : ".kibana",
+  "opensearch_dashboards_server_user" : "kibanaserver",
+  "multitenancy_enabled" : true,
+  "private_tenant_enabled" : true,
+  "default_tenant" : "Private"
 }
-
-
+```
 
