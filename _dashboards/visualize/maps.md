@@ -112,7 +112,7 @@ To show a subset of the data in the index, filter the data. You can either filte
 
 To filter data at the layer level, select the layer and add a filter to it.
 
-The following example filters the flight destination data to display only United States destinations:
+The following example shows how to filter the flight destination data to display only United States destinations:
 
 1. In the **Layers** panel, select **Flight destination**.
 1. Select **Filters**.
