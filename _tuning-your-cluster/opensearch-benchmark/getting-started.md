@@ -152,3 +152,43 @@ The following arguments are included:
    1. `verify_certs` is set to `false` because the TLS certificates are self-signed so they cannot be verified. You can omit this parameter if your OpenSearch cluster is secured with certificates signed by a trust certificate authority (CA).
 1. `--test-mode` is used when you want to validate a benchmark workload. The OpenSearch Benchmark command is checked for syntax errors, and benchmark operations are limited to a single instance each. This flag is useful for validating custom workloads, and it significantly reduces the time a benchmark takes to complete.
 
+After you start the test, OpenSearch Benchmark will write progress and results to the standard output in the terminal window. The progress displays the order of test procedures performed, like in the following example:
+```
+Running delete-index                                                           [100% done]
+Running create-index                                                           [100% done]
+Running check-cluster-health                                                   [100% done]
+Running index-append                                                           [100% done]
+Running refresh-after-index                                                    [100% done]
+Running force-merge                                                            [100% done]
+Running refresh-after-force-merge                                              [100% done]
+Running wait-until-merges-finish                                               [100% done]
+Running index-stats                                                            [100% done]
+Running node-stats                                                             [100% done]
+Running default                                                                [100% done]
+Running term                                                                   [100% done]
+Running phrase                                                                 [100% done]
+Running country_agg_uncached                                                   [100% done]
+Running country_agg_cached                                                     [100% done]
+Running scroll                                                                 [100% done]
+Running expression                                                             [100% done]
+Running painless_static                                                        [100% done]
+Running painless_dynamic                                                       [100% done]
+Running decay_geo_gauss_function_score                                         [100% done]
+Running decay_geo_gauss_script_score                                           [100% done]
+Running field_value_function_score                                             [100% done]
+Running field_value_script_score                                               [100% done]
+Running large_terms                                                            [100% done]
+Running large_filtered_terms                                                   [100% done]
+Running large_prohibited_terms                                                 [100% done]
+Running desc_sort_population                                                   [100% done]
+Running asc_sort_population                                                    [100% done]
+Running asc_sort_with_after_population                                         [100% done]
+Running desc_sort_geonameid                                                    [100% done]
+Running desc_sort_with_after_geonameid                                         [100% done]
+Running asc_sort_geonameid                                                     [100% done]
+Running asc_sort_with_after_geonameid                                          [100% done]
+```
+
+You can review the test procedures and operations for the [geonames](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/geonames) workload GitHub to learn more about each individual operation.
+
+When the benchmark is completed, OpenSearch Benchmark will display the results. By default, OpenSearch Benchmark writes the results to the standard output, but you can also use OpenSearch as a remote metric store by modifying `benchmark.ini`. To learn more about configuring OpenSearch Benchmark, see [Installing and configuring OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/tuning-your-cluster/install-osb/).
