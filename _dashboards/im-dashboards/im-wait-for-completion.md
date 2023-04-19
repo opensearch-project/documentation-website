@@ -2,6 +2,8 @@
 layout: default
 title: Wait for completion
 nav_order: 50
+parent: Index management in Dashboards
+nav_order: 30
 ---
 
 # Wait for Completion in Dashboards
@@ -12,4 +14,4 @@ The index management plugin will provide a notification config for these long ru
 
 ** Screenshots and config below:
 
-`wait_for_completion` parameter [API reference](link/to/doc).
+`wait_for_completion` parameter [API reference]({{site.url}}{{site.baseurl}}/api-reference/wait_for_completion/).
