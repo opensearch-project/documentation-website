@@ -118,42 +118,50 @@ shardId    target_node  target_host checkpoints_behind bytes_behind current_lag 
 [test6][0] runTask-2   127.0.0.1   0                  0b           0s          4ms                0
 ```
 
+#### Example 5: Using a metric alias 
+
+You can either use the metric's full name or one of its aliases in a request. The following query is the same as the preceding query, but it uses the alias `s` instead of `shardID` for sorting:
+
+```json
+GET /_cat/segment_replication?v&s=s:desc
+```
+{% include copy-curl.html %}
 
 ## Response metrics
 
-The following table lists the response metrics that are returned for all requests.
+The following table lists the response metrics that are returned for all requests. For each metric, you can provide either its full name or any of the aliases when referring to the metric. For an example, see [Example: Using a metric alias](#example-5-using-a-metric-alias).
 
-Metric | Description
-:--- |:---
-shardId | The ID of a specific shard.
-target_host | The target host IP address.
-target_node | The target node name.
-checkpoints_behind | The number of checkpoints by which the replica shard is behind the primary shard.
-bytes_behind | The number of bytes by which the replica shard is behind the primary shard.
-current_lag | The time elapsed while waiting for a replica shard to catch up to the primary shard.
-last_completed_lag | The time it took for a replica shard to catch up to the latest primary shard refresh.
-rejected_requests | The number of rejected requests for the replication group.
+Metric | Alias | Description
+:--- |:--- |:---
+`shardId` | `s` | The ID of a specific shard.
+`target_host` | `thost` | The target host IP address.
+`target_node` | `tnode` | The target node name.
+`checkpoints_behind` | `cpb` | The number of checkpoints by which the replica shard is behind the primary shard.
+`bytes_behind` | `bb` | The number of bytes by which the replica shard is behind the primary shard.
+`current_lag` | `clag` | The time elapsed while waiting for a replica shard to catch up to the primary shard.
+`last_completed_lag` | `lcl` | The time it took for a replica shard to catch up to the latest primary shard refresh.
+`rejected_requests` | `rr` | The number of rejected requests for the replication group.
 
 ### Additional metrics a detailed response returns
 
 The following table lists the additional response fields returned if `detailed` is set to `true`.
 
-Metric | Description
-:--- |:---
-stage | The current stage of a segment replication event.
-time | The time a segment replication event took to complete, in milliseconds.
-files_fetched | The number of files fetched so far for a segment replication event.
-files_percent | The percentage of files fetched so far for a segment replication event.
-bytes_fetched | The number of bytes fetched so far for a segment replication event.
-bytes_percent| The number of bytes fetched so far for a segment replication event as a percentage.
-start_time | The segment replication start time.
-stop_time | The segment replication stop time.
-files | The number of files that needs to be fetched for a segment replication event.
-files_total | The total number of files that are part of this recovery, including both reused and recovered files.
-bytes | The number of bytes that needs to be fetched for a segment replication event.
-bytes_total | The total number of bytes in the shard.
-replicating_stage_time_taken | The time the `replicating` stage of a segment replication event took to complete. 
-get_checkpoint_info_stage_time_taken | The time the `get checkpoint info` stage of a segment replication event took to complete. 
-file_diff_stage_time_taken | The time the `file diff` stage of a segment replication event took to complete. 
-get_files_stage_time_taken | The time the `get files` stage of a segment replication event took to complete. 
-finalize_replication_stage_time_taken | The time the `finalize replication` stage of a segment replication event took to complete.
+Metric | Alias | Description
+:--- |:--- |:---
+`stage` | `st` | The current stage of a segment replication event.
+`time` | `t`, `ti` | The time a segment replication event took to complete, in milliseconds.
+`files_fetched` | `ff` | The number of files fetched so far for a segment replication event.
+`files_percent` | `fp` | The percentage of files fetched so far for a segment replication event.
+`bytes_fetched` | `bf` | The number of bytes fetched so far for a segment replication event.
+`bytes_percent` | `bp` | The number of bytes fetched so far for a segment replication event as a percentage.
+`start_time` | `start` | The segment replication start time.
+`stop_time` | `stop` | The segment replication stop time.
+`files` | `f` | The number of files that needs to be fetched for a segment replication event.
+`files_total` | `tf` | The total number of files that are part of this recovery, including both reused and recovered files.
+`bytes` | `b` | The number of bytes that needs to be fetched for a segment replication event.
+`bytes_total` | `tb` | The total number of bytes in the shard.
+`replicating_stage_time_taken` | `rstt` | The time the `replicating` stage of a segment replication event took to complete. 
+`get_checkpoint_info_stage_time_taken` | `gcistt` | The time the `get checkpoint info` stage of a segment replication event took to complete. 
+`file_diff_stage_time_taken` | `fdstt` | The time the `file diff` stage of a segment replication event took to complete. 
+`get_files_stage_time_taken` | `gfstt` | The time the `get files` stage of a segment replication event took to complete. 
+`finalize_replication_stage_time_taken` | `frstt` | The time the `finalize replication` stage of a segment replication event took to complete.
