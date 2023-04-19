@@ -193,7 +193,7 @@ The values from the generated map appear as original objects from the `.log` sou
 
 ### Example: `flattened_element` set to `last`
 
-The following example `pipeline.yaml` sets the `flattened_element` to last, therefore flattening the processor output based on each values last element. 
+The following example `pipeline.yaml` sets the `flattened_element` to last, therefore flattening the processor output based on each value's last element. 
 
 ```yaml
 pipeline:
