@@ -87,15 +87,15 @@ pip install opensearch-benchmark
 ```
 {% include copy.html %}
 
-You can display information about usage and syntax by passing `-h` or `--help`:
+After the installation completes you can use the following command to display information about usage and syntax:
 ```bash
 opensearch-benchmark -h
 ```
 {% include copy.html %}
 
-### Installing with Docker
+### Running OpenSearch Benchmark with Docker
 
-You can find official images for OpenSearch Benchmark on [Docker Hub](https://hub.docker.com/r/opensearchproject/opensearch-benchmark) or on the [Amazon ECR Public Gallery](https://gallery.ecr.aws/opensearchproject/opensearch-benchmark).
+You can find official Docker images for OpenSearch Benchmark on [Docker Hub](https://hub.docker.com/r/opensearchproject/opensearch-benchmark) or on the [Amazon ECR Public Gallery](https://gallery.ecr.aws/opensearchproject/opensearch-benchmark).
 
 Pull the image from Docker Hub:
 ```bash
