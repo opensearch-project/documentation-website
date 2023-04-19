@@ -198,7 +198,7 @@ First, create an IAM role that the pipeline will assume in order to write to the
             "Action": [
                 "aoss:BatchGetCollection"
             ],
-            "Resource": "arn:aws:aoss:*:<AccountId>:collection/*"
+            "Resource": "*"
         }
     ]
 }
