@@ -30,6 +30,8 @@ The following table describes the different parameters used to configure histogr
 | `exponential_histogram_max_allowed_scale` | `10` | Maximum allowed scale in exponential histogram calculation. | 
 | `flatten_attributes` | `False` | Whether or not to flatten the `attributes` field in the JSON data. |
 
+### `calculate_histogram_buckets`
+
 If `calculate_histogram_buckets` is not set to `false`, the following JSON file will be added to every histogram JSON. If `flatten_attributes` is set to `false`, the JSON string format of the metrics does not change the attributes field. If `flatten_attributes` is set to `true`, the values in the attributes field are placed in the parent JSON object. The default value is `true`. See the following JSON example:
 
 ```json
