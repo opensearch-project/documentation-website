@@ -60,7 +60,7 @@ pip --version
 ```
 {% include copy.html %}
 
-Use [pyenv](https://github.com/pyenv/pyenv) to manage multiple versions of Python. You can use pyenv to change Python versions as needed. This is especially useful if your "system" version of Python is older than version 3.8.
+Use [pyenv](https://github.com/pyenv/pyenv) to manage multiple versions of Python on your host. This is especially useful if your "system" version of Python is older than version 3.8.
 {: .tip}
 
 **Git 1.9 or newer** is not required for OpenSearch Benchmark installation, but it is required to fetch benchmark workload resources from a repository when you want to perform tests. See the official Git [Documentation](https://git-scm.com/doc) for help installing Git.
