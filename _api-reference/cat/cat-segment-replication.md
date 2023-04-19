@@ -3,7 +3,7 @@ layout: default
 title: CAT segment replication
 parent: CAT API
 
-nav_order: 57
+nav_order: 53
 has_children: false
 ---
 
@@ -129,10 +129,10 @@ GET /_cat/segment_replication?v&s=s:desc
 
 ## Response metrics
 
-The following table lists the response metrics that are returned for all requests. For each metric, you can provide either its full name or any of the aliases when referring to the metric. For an example, see [Example: Using a metric alias](#example-5-using-a-metric-alias).
+The following table lists the response metrics that are returned for all requests. When referring to a metric in a query parameter, you can provide either the metric's full name or any of its aliases, as shown in the previous [example](#example-5-using-a-metric-alias).
 
 Metric | Alias | Description
-:--- |:--- |:---
+:--- | :--- | :---
 `shardId` | `s` | The ID of a specific shard.
 `target_host` | `thost` | The target host IP address.
 `target_node` | `tnode` | The target node name.
