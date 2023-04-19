@@ -43,7 +43,37 @@ Your OpenSearch Benchmark host should use solid-state drives (SSDs) for storage 
 
 ## Software dependencies
 
-OpenSearch Benchmark has a few software dependencies based on your installation method and use case. If you only intend to benchmark existing OpenSearch clusters, then you only need the [required software](#required-software). If you plan to provision OpenSearch nodes using OpenSearch Benchmark, however, then there is [additional optional software](#additional-optional-software) that you need to install.
+If you want to install OpenSearch Benchmark manually there are a few software dependencies to satisfy.
+
+A manual installation of OpenSearch Benchmark&#8212;where you install OpenSearch Benchmark directly on the host, as opposed to using a Docker container&#8212;requires **Python 3.8 or newer** with **pip**. If you need help installing Python, refer to the official [Python Setup and Usage](https://docs.python.org/3/using/index.html) documentation. See pip [Installation](https://pip.pypa.io/en/stable/installation/) instructions for help installing pip if it isn't already present in your environment.
+
+Check the installed version of Python 3:
+```bash
+python3 --version
+```
+{% include copy.html %}
+
+Check the installed version of pip:
+```bash
+pip --version
+```
+{% include copy.html %}
+
+**Git 1.9 or newer** is not required for OpenSearch Benchmark installation, but it is required to fetch benchmark workload resources from a repository when you want to perform tests. See the official Git [Documentation](https://git-scm.com/doc) for help installing Git.
+
+Check the installed version of Git:
+```bash
+git --version
+```
+{% include copy.html %}
+
+
+
+
+
+
+
+If you only intend to benchmark existing OpenSearch clusters, then you only need the [required software](#required-software). If you plan to provision OpenSearch nodes using OpenSearch Benchmark, however, then there is [additional optional software](#additional-optional-software) that you need to install.
 
 **Important**: If you want to run OpenSearch Benchmark in a Docker container then you can skip to [Finishing the installation](#finishing-the-installation). The OpenSearch Benchmark image contains all of the required software dependencies so there are no additional steps for you to take.
 {: .important}
