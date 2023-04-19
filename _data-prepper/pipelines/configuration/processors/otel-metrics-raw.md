@@ -3,7 +3,7 @@ layout: default
 title: otel metrics raw
 parent: Processors
 grand_parent: Pipelines
-nav_order: 45
+nav_order: 72
 ---
 
 # otel metrics raw
