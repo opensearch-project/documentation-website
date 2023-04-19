@@ -135,4 +135,8 @@ run -v $HOME/benchmarks:/opensearch-benchmark/.benchmark opensearchproject/opens
 ```
 {% include copy.html %}
 
-Learn more about the contents of `/opensearch-benchmark/.benchmark` in [Configuring OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/tuning-your-cluster/opensearch-benchmark/config-osb/).
+See [Configuring OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/tuning-your-cluster/opensearch-benchmark/config-osb/) to learn more about the files and subdirectories located in `/opensearch-benchmark/.benchmark`.
+
+## Next steps
+
+- [Configuring OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/tuning-your-cluster/opensearch-benchmark/config-osb/)
