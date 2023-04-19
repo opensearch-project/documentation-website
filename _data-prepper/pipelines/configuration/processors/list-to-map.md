@@ -25,12 +25,12 @@ Option | Required | Type | Description
 
 ## Usage
 
-If you want to test the usage of the `list_to_map` processor before using the processor on your own source, you can use following the `.log` file as a source. 
+If you want to test the usage of the `list_to_map` processor before using the processor on your own source, use the following example. 
 
-First, create a file named `logs_json.log`.  Because the `file` source reads each line in the `.log` file as an event, the object list appears as one line even though it contains multiple objects.
+Create a source file named `logs_json.log`.  Because the `file` source reads each line in the `.log` file as an event, the object list appears as one line even though it contains multiple objects.
 
 ```json
-{"mylist":[{"name":"a","value":"val-a"},{"name":"b","value":"val-b1"},{"name":"b","value":"val-b2"},{"name":"c","value":"val-c"}]}
+{"mylist":[{"name":"a","value":"val-a"},{"name":"b","value":"val-b1"},{"name":"b",  "value":"val-b2"},{"name":"c","value":"val-c"}]}
 ```
 {% include copy.html %}
 
