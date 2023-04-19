@@ -48,6 +48,16 @@ simple-sample-pipeline:
 Starting from Data Prepper 2.0, you can define pipelines across multiple configuration YAML files, where each file contains the configuration for one or more pipelines. This gives you more freedom to organize and chain complex pipeline configurations. For Data Prepper to load your pipeline configuration properly, place your configuration YAML files in the `pipelines` folder under your application's home directory (e.g. `/usr/share/data-prepper`).
 {: .note }
 
+## End-to-end acknowledgements
+
+Data Prepper ensures the durability and reliability of data written from sources and delivered to sinks through end-to-end (E2E) acknowledgements. The E2E acknowledgement begins at the source, which monitors a batch of events set inside pipelines and waits for a positive acknowledgement when those events are successfully pushed to sinks. When a pipeline contains multiple sinks, including sinks set as additional Data Prepper pipelines, the E2E acknowledge sends when events are received by the final sink in a pipeline chain.
+
+Alternatively, the source sends a negative acknowledgement when an even cannot be delivered to a sink for any reason. 
+
+When any component of a pipeline fails and is unable to send an event through the pipeline, the source receives no acknowledgement. In the case of failure, the pipeline sources times out. This gives you the ability to take any necessary actions to address the source failure, including rerunning the pipeline or logging the failure.
+
+As of Data Prepper 2.2, only the S3 source and OpenSearch Sink support E2E acknowledgements. 
+
 ## Conditional routing
 
 Pipelines also support **conditional routing**  which allows you to route Events to different sinks based on specific conditions. To add conditional routing to a pipeline, specify a list of named routes under the `route` component and add specific routes to sinks under the `routes` property. Any sink with the `routes` property will only accept Events that match at least one of the routing conditions. 
