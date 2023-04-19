@@ -19,4 +19,4 @@ See [Getting started]({{site.url}}{{site.baseurl}}/tuning-your-cluster/opensearc
 
 ## OpenSearch Benchmark documentation status
 
-We are working diligently to provide complete documentation for OpenSearch Benchmark and will publish additional documentation iteratively. To see the current status of documentation efforts, or to request a specific topic, please review and comment on GitHub issue [#2862](https://github.com/opensearch-project/documentation-website/issues/2862).
+We are working diligently to provide complete documentation for OpenSearch Benchmark and will publish additional documentation iteratively. To see the current status of documentation efforts, or to request a specific topic, please review and comment on OpenSearch Project documentation-website issue [#2862](https://github.com/opensearch-project/documentation-website/issues/2862).
