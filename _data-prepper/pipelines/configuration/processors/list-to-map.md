@@ -17,7 +17,7 @@ The following table describes the configuration options to generate target keys 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
 `key` | Yes | String | The key of the fields to be extracted as keys in the generated mappings
-`source` | Yes | String | The list of objects with `key` fields that be converted to keys based on the generated mappings.
+`source` | Yes | String | The list of objects with `key` fields to be converted into keys for the generated map.
 `target` | No | String | The target for the generated map. When not specified, the generated map will be placed in the root node.
 `value_key` | No | String | When specified, values given a `value_key` in objects contained in the source list will be extracted and converted into the value specified by this option based on the generated map. When not specified, objects contained in the source list retain their original value when mapped.
 `flatten` | No | Boolean | When `true`, values in the generated map output flatten into single items based on the `flattened_element`. Otherwise, objects mapped to values from the generated map appear as lists.
