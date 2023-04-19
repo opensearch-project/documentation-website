@@ -11,22 +11,8 @@ OpenSearch Benchmark is a macrobenchmark utility provided by the [OpenSearch Pro
 
 - Tracking the overall performance of an OpenSearch cluster.
 - Informing decisions about when to upgrade your cluster to a new version.
-- Comparing how changes to your workflow might impact your OpenSearch cluster.
+- Determining how changes to your workflow&#8212;such as modifying mappings or queries&#8212;might impact your OpenSearch cluster.
 
-OpenSearch Benchmark is supported on Linux and macOS. You can also run OpenSearch Benchmark in a Docker container. See [Installing OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/tuning-your-cluster/opensearch-benchmark/install-osb/) for more information.
+OpenSearch Benchmark can be installed directly on a compatible host running Linux and macOS. You can also run OpenSearch Benchmark in a Docker container. See [Installing OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/tuning-your-cluster/opensearch-benchmark/install-osb/) for more information.
 
-## Running commands
-
-OpenSearch Benchmark supports the following operations:
-
-// Will convert these to a table
-    execute_test        Run a benchmark
-    list                List configuration options
-    info                Show info about a workload
-    create-workload     Create a Benchmark workload from existing data
-    generate            Generate artifacts
-    compare             Compare two test_executions
-    download            Downloads an artifact
-    install             Installs an OpenSearch node locally
-    start               Starts an OpenSearch node locally
-    stop                Stops an OpenSearch node locally
+See [Getting started]({{site.url}}{{site.baseurl}}/tuning-your-cluster/opensearch-benchmark/getting-started/) if you want to start using OpenSearch Benchmark right away with a test benchmark.
