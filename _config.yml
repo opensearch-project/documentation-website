@@ -95,62 +95,81 @@ just_the_docs:
     install-and-configure:
       name: Install and upgrade
       nav_fold: true
+      landing_page: /install-and-configure/install-opensearch/index/
     upgrade-to:
       name: Migrate to OpenSearch
       # nav_exclude: true
       nav_fold: true
+      landing_page: /upgrade-to/index/
       # search_exclude: true
     im-plugin:
       name: Managing Indexes
       nav_fold: true
+      landing_page: /im-plugin/index/
     dashboards:
       name: OpenSearch Dashboards
       nav_fold: true
+      landing_page: /dashboards/index/
     tuning-your-cluster:
       name: Tuning your cluster
       nav_fold: true
+      landing_page: /tuning-your-cluster/index/
     security:
       name: Security in OpenSearch
       nav_fold: true
+      landing_page: /security/index/
     security-analytics:
       name: Security analytics 
       nav_fold: true
+      landing_page: /security-analytics/index/
     search-plugins:
       name: Search 
       nav_fold: true
+      landing_page: /search-plugins/searching-data/index/
     ml-commons-plugin:
       name: Machine learning
       nav_fold: true
+      landing_page: /ml-commons-plugin/index/
     tuning-your-cluster:
       name: Tuning your cluster
       nav_fold: true 
+      landing_page: /tuning-your-cluster/cluster/
     monitoring-your-cluster:
       name: Monitoring your cluster
       nav_fold: true
+      landing_page: /monitoring-your-cluster/job-scheduler/index/
     observing-your-data:
       name: Observability
       nav_fold: true
+      landing_page: /observing-your-data/index/
     query-dsl:
       name: Query DSL, Aggregations, and Analyzers
       nav_fold: true
+      landing_page: /query-dsl/index/
     field-types:
       name: Mappings and field types
       nav_fold: true
+      landing_page: /field-types/index/
     clients:
       name: Clients
       nav_fold: true
+      landing_page: /clients/index/
     data-prepper: 
       name: Data Prepper
       nav_fold: true
+      landing_page: /data-prepper/index/
     tools:
       name: Tools
       nav_fold: true
+      landing_page: /tools/index/
     api-reference:
       name: API reference
       nav_fold: true
+      landing_page: /api-reference/index/
     troubleshoot:
       name: Troubleshooting
       nav_fold: true
+      landing_page: /troubleshoot/index/
 
 
 # Enable or disable the site search
