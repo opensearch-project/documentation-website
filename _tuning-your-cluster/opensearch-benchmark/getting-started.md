@@ -5,6 +5,32 @@ nav_order: 3
 parent: OpenSearch Benchmark
 ---
 
+<!--
+Testing out tabs for code blocks to identify example outputs and file names.
+To use, invoke class="codeblock-label"
+-->
+
+<style>
+.codeblock-label {
+    display: inline-block;
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+    font-family: Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;
+    font-size: .75rem;
+    --bg-opacity: 1;
+    background-color: #e1e7ef;
+    background-color: rgba(224.70600000000002,231.07080000000002,239.394,var(--bg-opacity));
+    padding: 0.25rem 0.75rem;
+    border-top-width: 1px;
+    border-left-width: 1px;
+    border-right-width: 1px;
+    --border-opacity: 1;
+    border-color: #ccd6e0;
+    border-color: rgba(204,213.85999999999999,224.39999999999998,var(--border-opacity));
+    margin-bottom: 0;
+}
+</style>
+
 # Getting started
 
 This guide explains how to get started with OpenSearch Benchmark, from installation to running your first test benchmark on an **existing** OpenSearch cluster. If you do not already have a running OpenSearch cluster then you should review the OpenSearch [Quickstart]({{site.url}}{{site.baseurl}}/quickstart/) guide to deploy a test cluster before continuing with the following procedure.
@@ -152,6 +178,7 @@ A few arguments are included in the command:
 - `--test-mode` is used when you want to validate a benchmark workload. When `--test-mode` is specified, OpenSearch benchmark checks the command for syntax errors and limits each benchmark operation to a single instance. This flag is useful for validating custom workloads and it significantly reduces the time a benchmark takes to complete.
 
 After you begin the benchmark, OpenSearch Benchmark will report progress to the standard output in the terminal window. You can see the order of test procedures performed and when they are completed, like in the following example output for the `geonames` benchmark workload that lists the operations sequentially and indicates that all operations were completed successfully:
+<p class="codeblock-label">Example output</p>
 ```
 Running delete-index                                                           [100% done]
 Running create-index                                                           [100% done]
@@ -191,12 +218,13 @@ Running asc_sort_with_after_geonameid                                          [
 You can review the test procedures and operations for the [geonames](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/geonames) workload GitHub to learn more about each individual operation.
 {: .note}
 
-When the benchmark is completed, OpenSearch Benchmark will display the results. By default, OpenSearch Benchmark writes the results to the standard output, but you can also use OpenSearch as a remote metric store by modifying `benchmark.ini`. To learn more about configuring OpenSearch Benchmark, see [Installing and configuring OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/tuning-your-cluster/install-osb/).
-
 ## Reviewing the output of the test benchmark
 
+When the benchmark is completed, OpenSearch Benchmark will display the results. By default, OpenSearch Benchmark prints the results to the standard output, but you can also use an OpenSearch cluster as a remote metric store by modifying `benchmark.ini`. To learn more about configuring OpenSearch Benchmark, see [Installing and configuring OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/tuning-your-cluster/install-osb/).
 
+The results summary lists various metrics in a table. You can review the summary to see how your OpenSearch cluster performed overall, as well as how it performed individually per operation. For a full explanation of the benchmark results summary, see [NEED-LINK](NEED-LINK).
 
+<p class="codeblock-label">Example benchmark summary</p>
 ```
 ------------------------------------------------------
     _______             __   _____
