@@ -15,7 +15,7 @@ Some OpenSearch Benchmark functionality is unavailable when you run OpenSearch B
 
 ## Hardware considerations
 
-OpenSearch Benchmark can be used to deploy OpenSearch nodes for testing. If you intend to leverage this functionality in your environment, then you will need to install OpenSearch Benchmark directly on each host where you plan to deploy an OpenSearch node. Additionally, you must configure each host for OpenSearch. See [Installing OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/) for guidance about important host settings that you must change.
+OpenSearch Benchmark can be used to deploy OpenSearch nodes for testing. If you intend to use OpenSearch Benchmark to deploy nodes in your environment, then you will need to install OpenSearch Benchmark directly on each host in the cluster. Additionally, you must configure each host in the cluster for OpenSearch. See [Installing OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/) for guidance about important host settings you should review.
 
 You should also think about which workloads you want to run. To see a list of default workload specifications for OpenSearch Benchmark, visit the [opensearch-benchmark-workloads](https://github.com/opensearch-project/opensearch-benchmark-workloads) repository on GitHub. As a general rule, make sure that the OpenSearch Benchmark host has enough free storage space to store the compressed data and the full decompressed data corpus once OpenSearch Benchmark is installed.
 
@@ -36,11 +36,11 @@ If you want to benchmark with a default workload, then use the following table t
 | pmc | 574,199 | 5.5 GB | 21.7 GB |
 | so | 36,062,278 | 8.9 GB | 33.1 GB |
 
-Lastly, your OpenSearch Benchmark host should use solid-state drives (SSDs) for storage because they perform significantly faster at read and write operations than traditional spinning disk hard drives. If your host uses spinning disk hard drives, then you might observe performance bottlenecking which can skew benchmark results.
+Lastly, your OpenSearch Benchmark host should use solid-state drives (SSDs) for storage because they perform significantly faster at read and write operations than traditional spinning-disk hard drives. Spinning-disk hard drives can introduce performance bottlenecking, which can make benchmark results unreliable and inconsistent.
 
 ## Software dependencies
 
-OpenSearch Benchmark has a few software dependencies based on your specific use case. If you only intend to benchmark existing clusters, then you only need to install the [required software](#required-software). If you plan to run OpenSearch on the same host, however, then there is [additional optional software](#additional-optional-software) that you need to install.
+OpenSearch Benchmark has a few software dependencies based on your installation method and use case. If you only intend to benchmark existing OpenSearch clusters, then you only need the [required software](#required-software). If you plan to provision OpenSearch nodes using OpenSearch Benchmark, however, then there is [additional optional software](#additional-optional-software) that you need to install.
 
 **Important**: If you want to run OpenSearch Benchmark in a Docker container then you can skip to [Finishing the installation](#finishing-the-installation). The OpenSearch Benchmark image contains all of the required software dependencies so there are no additional steps for you to take.
 {: .important}
