@@ -81,17 +81,9 @@ The last steps of the installation will depend on your host environment. If you 
 
 ### Installing on Linux and macOS
 
-After the prerequisites are installed, you can install OpenSearch Benchmark using either of the following commands:
-
-Using `pip3`:
+After the prerequisites are installed, you can install OpenSearch Benchmark using the following command:
 ```bash
-pip3 install opensearch-benchmark
-```
-{% include copy.html %}
-
-Using `python3`:
-```bash
-python3 -m pip install opensearch-benchmark
+pip install opensearch-benchmark
 ```
 {% include copy.html %}
 
