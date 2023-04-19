@@ -15,6 +15,7 @@ Mutate event processors allow you to modify events in Data Prepper. The followin
 * [delete_entries]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/delete-entries/) allows you to delete entries from an event.
 * [rename_keys]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/rename-keys/) allows you to rename keys in an event.
 * [convert_entry_type]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/convert_entry_type/) allows you to convert value types in an event.
+* [list_to_map]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/processors/list-to-map) allows you to convert list of objects from an event where each object contains a `key` field into a map of target keys.
 
 
 
