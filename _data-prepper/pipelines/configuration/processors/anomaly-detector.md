@@ -1,14 +1,12 @@
 ---
 layout: default
-title: Anomaly detector processor
+title: Anomaly detector
 parent: Processors
 grand_parent: Pipelines
 nav_order: 45
 ---
 
 # anomaly_detector
-
-## Overview
 
 The anomaly detector processor takes structured data and runs anomaly detection algorithms on fields that you can configure in that data. The data must be either an integer or a real number for the anomaly detection algorithm to detect anomalies. Deploying the aggregate processor in a pipeline before the anomaly detector processor can help you achieve the best results, as the aggregate processor automatically aggregates events by key and keeps them on the same host. For example, if you are searching for an anomaly in latencies from a specific IP address and if all the events go to the same host, then the host has more data for these events. This additional data results in better training of the machine learning (ML) algorithm, which results in better anomaly detection. 
 
@@ -31,7 +29,7 @@ The random cut forest (RCF) ML algorithm is an unsupervised algorithm for detect
 
 | Name | Description |
 | :--- | :--- |
-| `random_cut_forest` | Processes events using the RCF ML algorithm to detect anomalies. After passing a group of events with latency, a value between 0.2 and 0.3 is passed through the anomaly detector processor. When an event with latency value 11.5 is sent, the following anomaly event is generated.| 
+| `random_cut_forest` | Processes events using the RCF ML algorithm to detect anomalies. After passing a group of events with latency, a value between 0.2 and 0.3 is passed through the anomaly detector processor. | 
 
 The following example shows what happens in the anomaly detector processor when it receives input:
 
