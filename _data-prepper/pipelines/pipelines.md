@@ -48,15 +48,15 @@ simple-sample-pipeline:
 Starting from Data Prepper 2.0, you can define pipelines across multiple configuration YAML files, where each file contains the configuration for one or more pipelines. This gives you more freedom to organize and chain complex pipeline configurations. For Data Prepper to load your pipeline configuration properly, place your configuration YAML files in the `pipelines` folder under your application's home directory (e.g. `/usr/share/data-prepper`).
 {: .note }
 
-## End-to-end acknowledgements
+## End-to-end acknowledgments
 
-Data Prepper ensures the durability and reliability of data written from sources and delivered to sinks through end-to-end (E2E) acknowledgements. The E2E acknowledgement begins at the source, which monitors a batch of events set inside pipelines and waits for a positive acknowledgement when those events are successfully pushed to sinks. When a pipeline contains multiple sinks, including sinks set as additional Data Prepper pipelines, the E2E acknowledgement sends when events are received by the final sink in a pipeline chain.
+Data Prepper ensures the durability and reliability of data written from sources and delivered to sinks through end-to-end (E2E) acknowledgments. The E2E acknowledgment begins at the source, which monitors a batch of events set inside pipelines and waits for a positive acknowledgment when those events are successfully pushed to sinks. When a pipeline contains multiple sinks, including sinks set as additional Data Prepper pipelines, the E2E acknowledgment sends when events are received by the final sink in a pipeline chain.
 
-Alternatively, the source sends a negative acknowledgement when an event cannot be delivered to a sink for any reason. 
+Alternatively, the source sends a negative acknowledgment when an event cannot be delivered to a sink for any reason. 
 
-When any component of a pipeline fails and is unable to send an event, the source receives no acknowledgement. In the case of A failure, the pipeline's source times out. This gives you the ability to take any necessary actions to address the source failure, including rerunning the pipeline or logging the failure.
+When any component of a pipeline fails and is unable to send an event, the source receives no acknowledgment. In the case of A failure, the pipeline's source times out. This gives you the ability to take any necessary actions to address the source failure, including rerunning the pipeline or logging the failure.
 
-As of Data Prepper 2.2, only the S3 source and OpenSearch Sink support E2E acknowledgements. 
+As of Data Prepper 2.2, only the S3 source and OpenSearch Sink support E2E acknowledgments. 
 
 ## Conditional routing
 
