@@ -46,7 +46,7 @@ Your OpenSearch Benchmark host should use solid-state drives (SSDs) for storage 
 If you want to run OpenSearch Benchmark in a Docker container then you can skip to [Completing the installation](#completing-the-installation). The OpenSearch Benchmark Docker image includes all of the required software, so there are no additional steps for you to take.
 {: .important}
 
-A manual installation of OpenSearch Benchmark&#8212;where you install OpenSearch Benchmark directly on the host, as opposed to using a Docker container&#8212;requires **Python 3.8 or newer** with **pip**, the package installer for Python. If you need help installing Python, refer to the official [Python Setup and Usage](https://docs.python.org/3/using/index.html) documentation. See pip [Installation](https://pip.pypa.io/en/stable/installation/) for help installing pip if it isn't already installed.
+A manual installation of OpenSearch Benchmark&#8212;where you install OpenSearch Benchmark directly on the host, as opposed to using a Docker container&#8212;requires **Python 3.8 or newer** with **pip**, the package installer for Python. If you need help installing Python, refer to the official [Python Setup and Usage](https://docs.python.org/3/using/index.html) documentation. See pip [Installation](https://pip.pypa.io/en/stable/installation/) documentation for more information.
 
 Check the installed version of Python 3:
 ```bash
