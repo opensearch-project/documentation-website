@@ -12,7 +12,7 @@ The `otel metrics raw` processor serializes a collection of `ExportMetricsServic
 
 ## Usage
 
-To get started, you can add the following processor to your `.yaml` configuration file:
+To get started, you can add the following processor to your `pipeline.yaml` configuration file:
 
 ``` YAML
 processor:
