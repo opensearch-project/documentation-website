@@ -101,7 +101,7 @@ shardId target_node target_host checkpoints_behind bytes_behind current_lag last
 [index-2][0] runTask-1 127.0.0.1 0 0b 0s 5ms 0 done 7ms 3 100.0% 3664 100.0% 2023-03-16T13:53:33.466Z 2023-03-16T13:53:33.474Z 3 3 3.5kb 3.5kb 0s 1ms 0s 2ms 2ms
 ```
 
-#### Example 4: Sort the results
+#### Example 4: Sorting the results
 
 The following query requests segment replication metrics with column headings for all indexes, sorted by shard ID in descending order:
 
