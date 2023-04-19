@@ -54,7 +54,7 @@ You can configure `random_cut_forest` mode with the following options.
 
 ## Usage
 
-To get started, create the following `pipeline.yaml` file. You can use the following pipeline configuration to look for anomalies in the `latency` field in events that are passed to the processor. Then, you can use the following YAML configuration file `random_cut_forest` mode to detect anomalies:
+To get started, create the following `pipeline.yaml` file. You can use the following pipeline configuration to look for anomalies in the `latency` field in events that are passed to the processor. Then you can use the following YAML configuration file `random_cut_forest` mode to detect anomalies:
 
 ```yaml
 ad-pipeline:
