@@ -103,7 +103,7 @@ The response contains statistics for the following layer types:
 
 - TMS layers: Custom TMS base layer maps you created.
 
-- Document layers: The data layers of the map.
+- Document layers: The map's data layers.
 
 For more information about the layer types, see [Adding layers]({{site.url}}{{site.baseurl}}/dashboards/visualize/maps/#adding-layers).
 
