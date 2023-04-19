@@ -2,7 +2,6 @@
 layout: default
 title: CAT segment replication
 parent: CAT API
-
 nav_order: 53
 has_children: false
 ---
@@ -11,7 +10,7 @@ has_children: false
 Introduced 2.7
 {: .label .label-purple }
 
-The CAT segment replication operation returns information about active and last completed [segment replication]({{site.url}}{{site.baseurl}}/opensearch/segment-replication/index) events on each replica shard. This API returns metrics on a shard level. The metrics provide information about how far behind the replicas are lagging with respect to the primary shard. 
+The CAT segment replication operation returns information about active and last completed [segment replication]({{site.url}}{{site.baseurl}}/opensearch/segment-replication/index) events on each replica shard and related metrics on a shard level. These metrics provide information about how far behind the replicas are lagging with respect to the primary shard. 
 
 Call the CAT Segment Replication API only on indexes with segment replication enabled.
 {: .note}
