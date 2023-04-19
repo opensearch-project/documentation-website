@@ -332,15 +332,22 @@ If you use the logout POST binding, you also need to ad the logout endpoint to y
 server.xsrf.allowlist: ["/_opendistro/_security/saml/acs", "/_opendistro/_security/saml/logout"]
 ```
 
-To improve session management—especially for users who have multiple roles assigned to them—you can split cookie payloads into multiple cookies and restitch the payloads when receiving them. This can help prevent larger assertions from hitting size limits for each cookie. The following two settings allow you to set a prefix name for additional cookies and choose a default number of cookies:
+To include SAML with other authentication types in the Dashboards sign-in window, see [Configuring sign-in options]({{site.url}}{{site.baseurl}}/security/configuration/multi-auth/).
+{: .note }
+
+#### Session management with additional cookies
+
+To improve session management—especially for users who have multiple roles assigned to them—Dashboards provides and option to split cookie payloads into multiple cookies and then restitch the payloads when receiving them. This can help prevent larger SAML assertions from exceeding size limits for each cookie. The two settings in the following example allow you to set a prefix name for additional cookies and specify the number of them. The default number of additional cookies is three:
 
 ```yml
 opensearch_security.saml.extra_storage.cookie_prefix: security_authentication_oidc
-opensearch_security.saml.extra_storage.additional_cookies: default: 3
+opensearch_security.saml.extra_storage.additional_cookies: 3
 ```
 
-To include SAML with other authentication types in the Dashboards sign-in window, see [Configuring sign-in options]({{site.url}}{{site.baseurl}}/security/configuration/multi-auth/).
-{: .note }
+Note that reducing the number of additional cookies can cause some of the cookies in use before the change to stop working. We recommend establishing an appropriate number of additional cookies and leaving the setting in that configuration.
+
+If the ID token from the IdP is especially large, OpenSearch may throw a server log authentication error indicating that the HTTP header is too large. In this case, you can increase the value for the `http.max_header_size` setting in the `opensearch.yml` file.
+{: .tip }
 
 ### IdP-initiated SSO
 
