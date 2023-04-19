@@ -93,36 +93,46 @@ opensearch-benchmark -h
 ```
 {% include copy.html %}
 
+OpenSearch Benchmark will exit with an error if no arguments are supplied. Use the `-h` option to print the help text in the command line if you want to test the installation.
+{: .warning}
+
 Now that OpenSearch Benchmark is installed on your host you can learn about [Configuring OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/tuning-your-cluster/opensearch-benchmark/config-osb/).
 
 ### Running OpenSearch Benchmark with Docker
 
 Find official Docker images for OpenSearch Benchmark on [Docker Hub](https://hub.docker.com/r/opensearchproject/opensearch-benchmark) and on the [Amazon ECR Public Gallery](https://gallery.ecr.aws/opensearchproject/opensearch-benchmark).
 
-Pull the image from Docker Hub:
+To pull the image from Docker Hub:
 ```bash
 docker pull opensearchproject/opensearch-benchmark:latest
 ```
 {% include copy.html %}
 
-Pull the image from Amazon ECR:
+To pull the image from Amazon ECR:
 ```bash
 docker pull public.ecr.aws/opensearchproject/opensearch-benchmark:latest
 ```
 {% include copy.html %}
 
-To run OpenSearch Benchmark, use `docker run` to launch a container with the desired arguments. For example, the following command will print the help text for OpenSearch Benchmark to the command line:
+To run OpenSearch Benchmark, you use `docker run` to launch a container. OpenSearch Benchmark subcommands are passed as arguments when you start the container. OpenSearch Benchmark then processes the command, then stops the container after the requested operation completes.
+
+For example, the following command will print the help text for OpenSearch Benchmark to the command line, and then stop the container:
 ```bash
-docker run opensearchproject/opensearch-benchmark opensearch-benchmark -h
+docker run opensearchproject/opensearch-benchmark -h
 ```
 {% include copy.html %}
 
-OpenSearch Benchmark will exit with an error if no arguments are supplied. If you want to test the installation, use the `-h` option to print the help text in the command line.
+OpenSearch Benchmark will exit with an error if no arguments are supplied. Use the `-h` option to print the help text in the command line if you want to test the installation.
 {: .warning}
+
+#### Establishing volume persistence for OpenSearch Benchmark in a Docker container
+
+By default, OpenSearch Benchmark 
+
 
 The following example command pulls down the latest OpenSearch Benchmark image from the Amazon ECR Public Gallery. It then runs the `geonames` workload against an OpenSearch cluster with default security settings at address `https://198.51.100.25:9200`:
 ```bash
-docker run public.ecr.aws/opensearchproject/opensearch-benchmark:latest opensearch-benchmark execute_test --target-hosts https://198.51.100.25:9200 --pipeline benchmark-only --workload geonames --client-options basic_auth_user:admin,basic_auth_password:admin,verify_certs:false
+docker run public.ecr.aws/opensearchproject/opensearch-benchmark:latest execute_test --target-hosts https://198.51.100.25:9200 --pipeline benchmark-only --workload geonames --client-options basic_auth_user:admin,basic_auth_password:admin,verify_certs:false
 ```
 {% include copy.html %}
 

@@ -115,7 +115,7 @@ docker run opensearchproject/opensearch-benchmark opensearch-benchmark -h
 ```
 {% include copy.html %}
 
-Use an alias to simplify syntax when you interact with OpenSearch Benchmark using Docker commands. For example, you could define an alias like `osb="docker run opensearchproject/opensearch-benchmark opensearch-benchmark"`. Then, using the previous command as an example, you could run `osb -h` which is much shorter than the equivalent command `docker run opensearchproject/opensearch-benchmark opensearch-benchmark -h`.
+Use an alias to simplify syntax when you interact with OpenSearch Benchmark using Docker commands. For example, you could define an alias like `osb="docker run opensearchproject/opensearch-benchmark"`. Then, using the previous command as an example, you could run `osb -h` which is much shorter than the equivalent command `docker run opensearchproject/opensearch-benchmark -h`.
 {: .tip}
 
 ## Understanding command syntax
@@ -136,7 +136,7 @@ When you invoke a command using `docker run`, the Docker container launches and 
 
 Try it out by using the following command to print the OpenSearch Benchmark help text:
 ```bash
-docker run opensearchproject/opensearch-benchmark opensearch-benchmark -h
+docker run opensearchproject/opensearch-benchmark -h
 ```
 {% include copy.html %}
 
