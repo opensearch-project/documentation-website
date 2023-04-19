@@ -32,7 +32,7 @@ To use the `list_to_map` processor, create a `.log` file to create a list of sou
 ```
 {% include copy.html %}
 
-Next, create a `pipeline.yaml` that uses `logs_json.log` as `source` by pointing to the log files correct path.  
+Next, create a `pipeline.yaml` that uses `logs_json.log` as `source` by pointing to the log file's correct path.  
 
 ```yaml
 pipeline:
