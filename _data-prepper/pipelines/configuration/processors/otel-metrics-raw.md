@@ -49,7 +49,7 @@ If `calculate_histogram_buckets` is not set to `false`, the following JSON file 
   ]
 ```
 
-You can create detailed representations of histogram buckets and their boundaries. You can control this feature by using the following parameters in a YAML file:
+You can create detailed representations of histogram buckets and their boundaries. You can control this feature by using the following parameters your `pipeline.yaml` file:
 
 ```yaml
   processor:
