@@ -29,7 +29,7 @@ The following table lists the available optional path parameter.
 
 Parameter | Type | Description
 :--- | :--- | :---
-`index` | String | The name of the index, or a comma-separated list or a wildcard expression of index names used to filter results. If this parameters is not provided, the response contains information about all indexes in the cluster.
+`index` | String | The name of the index, or a comma-separated list or a wildcard expression of index names used to filter results. If this parameter is not provided, the response contains information about all indexes in the cluster.
 
 ## Query parameters
 
