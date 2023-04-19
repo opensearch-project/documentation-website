@@ -60,6 +60,9 @@ pip --version
 ```
 {% include copy.html %}
 
+Use [pyenv](https://github.com/pyenv/pyenv) to manage multiple versions of Python. You can use pyenv to change Python versions as needed. This is especially useful if your "system" version of Python is older than version 3.8.
+{: .tip}
+
 **Git 1.9 or newer** is not required for OpenSearch Benchmark installation, but it is required to fetch benchmark workload resources from a repository when you want to perform tests. See the official Git [Documentation](https://git-scm.com/doc) for help installing Git.
 
 Check the installed version of Git:
@@ -70,14 +73,7 @@ git --version
 
 ### Other dependencies
 
-When you use OpenSearch Benchmark to deploy a local instance of OpenSearch you must follow the same requirements as if you were manually installing OpenSearch. You must configure [important settings]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#important-settings) and install an appropriate JDK version.
-
-
-{: .note}
-
-#### Running a benchmark using a default workload
-
-OpenSearch Benchmark requires Git 1.9 or newer to retrieve default workloads from the [opensearch-benchmark-workloads](https://github.com/opensearch-project/opensearch-benchmark-workloads) repository on GitHub. Git is preinstalled on macOS. If your OpenSearch Benchmark host uses Linux, then you should refer to the Linux installation instructions for [git](https://git-scm.com/download/linux).
+When you use OpenSearch Benchmark to deploy a local instance of OpenSearch you must follow the same requirements as if you were manually installing OpenSearch on the node. For example, you must configure [important settings]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#important-settings) and install an appropriate JDK version.
 
 ## Finishing the installation
 
