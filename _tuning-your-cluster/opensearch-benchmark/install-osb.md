@@ -127,18 +127,12 @@ OpenSearch Benchmark will exit with an error if no arguments are supplied. Use t
 
 #### Establishing volume persistence for OpenSearch Benchmark in a Docker container
 
-By default, OpenSearch Benchmark 
+You should specify a Docker volume to mount when you work with OpenSearch Benchmark in a Docker container so that your configuration, benchmark data, and logs will persist after the container is stopped. To accomplish this, you use the `-v` option and specify a local directory to mount, and a directory in the container where the volume is attached.
 
-
-The following example command pulls down the latest OpenSearch Benchmark image from the Amazon ECR Public Gallery. It then runs the `geonames` workload against an OpenSearch cluster with default security settings at address `https://198.51.100.25:9200`:
+The following example command creates a volume in a user's home directory, mounts the volume to the OpenSearch Benchmark container at `/opensearch-benchmark/.benchmark`, and then executes a test benchmark using the geonames workload. Some client options are also specified:
 ```bash
-docker run public.ecr.aws/opensearchproject/opensearch-benchmark:latest execute_test --target-hosts https://198.51.100.25:9200 --pipeline benchmark-only --workload geonames --client-options basic_auth_user:admin,basic_auth_password:admin,verify_certs:false
+run -v $HOME/benchmarks:/opensearch-benchmark/.benchmark opensearchproject/opensearch-benchmark execute_test --target-hosts https://198.51.100.25:9200 --pipeline benchmark-only --workload geonames --client-options basic_auth_user:admin,basic_auth_password:admin,verify_certs:false --test-mode
 ```
 {% include copy.html %}
 
-## Next steps
-
-- [Configuring OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/tuning-your-cluster/opensearch-benchmark/config-osb/)
-
-
-docker run -v $PWD/benchmarks:/opensearch-benchmark/.benchmark opensearchproject/opensearch-benchmark opensearch-benchmark -h
+Learn more about the contents of `/opensearch-benchmark/.benchmark` in [Configuring OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/tuning-your-cluster/opensearch-benchmark/config-osb/).
