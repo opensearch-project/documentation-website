@@ -26,7 +26,7 @@ The OpenSearch Dashboards endpoint address may contain a port number if it is sp
 
 You can query the endpoint in two ways:
   
-  - By accessing the endpoint address (for example`http://localhost:5601/api/maps-dashboards/stats`) in a browser.
+  - By accessing the endpoint address (for example`http://localhost:5601/api/maps-dashboards/stats`) in a browser
 
   - By using the `curl` command in the terminal:
     ```bash
