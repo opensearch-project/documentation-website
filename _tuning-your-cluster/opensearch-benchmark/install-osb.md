@@ -43,9 +43,10 @@ Your OpenSearch Benchmark host should use solid-state drives (SSDs) for storage 
 
 ## Software dependencies
 
-If you want to install OpenSearch Benchmark manually there are a few software dependencies to satisfy.
+If you want to run OpenSearch Benchmark in a Docker container then you can skip to [Finishing the installation](#finishing-the-installation). The OpenSearch Benchmark Docker image includes all of the required software, so there are no additional steps for you to take.
+{: .important}
 
-A manual installation of OpenSearch Benchmark&#8212;where you install OpenSearch Benchmark directly on the host, as opposed to using a Docker container&#8212;requires **Python 3.8 or newer** with **pip**. If you need help installing Python, refer to the official [Python Setup and Usage](https://docs.python.org/3/using/index.html) documentation. See pip [Installation](https://pip.pypa.io/en/stable/installation/) instructions for help installing pip if it isn't already present in your environment.
+A manual installation of OpenSearch Benchmark&#8212;where you install OpenSearch Benchmark directly on the host, as opposed to using a Docker container&#8212;requires **Python 3.8 or newer** with **pip**, the package installer for Python. If you need help installing Python, refer to the official [Python Setup and Usage](https://docs.python.org/3/using/index.html) documentation. See pip [Installation](https://pip.pypa.io/en/stable/installation/) for help installing pip if it isn't already installed.
 
 Check the installed version of Python 3:
 ```bash
@@ -67,48 +68,12 @@ git --version
 ```
 {% include copy.html %}
 
+### Other dependencies
+
+When you use OpenSearch Benchmark to deploy a local instance of OpenSearch you must follow the same requirements as if you were manually installing OpenSearch. You must configure [important settings]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#important-settings) and install an appropriate JDK version.
 
 
-
-
-
-
-If you only intend to benchmark existing OpenSearch clusters, then you only need the [required software](#required-software). If you plan to provision OpenSearch nodes using OpenSearch Benchmark, however, then there is [additional optional software](#additional-optional-software) that you need to install.
-
-**Important**: If you want to run OpenSearch Benchmark in a Docker container then you can skip to [Finishing the installation](#finishing-the-installation). The OpenSearch Benchmark image contains all of the required software dependencies so there are no additional steps for you to take.
-{: .important}
-
-### Required software
-
-OpenSearch Benchmark is written in the [Python](https://www.python.org/) programming language and requires **Python 3.8 or newer** and [pip](https://pypi.org/project/pip/), the package installer for Python.
-
-Check your Python 3 version with the following command:
-```bash
-python3 --version
-```
-{% include copy.html %}
-
-If a compatible version of Python 3 isn't installed, then we recommend using a Python management tool like [pyenv](https://github.com/pyenv/pyenv). pyenv makes For installation instructions, see the pyenv [Installation](https://github.com/pyenv/pyenv#installation) documentation.
-
-Lastly, confirm that pip is installed on the host:
-```bash
-pip3 --version
-```
-{% include copy.html %}
-
-For information about installing pip, see the official [pip documentation](https://pip.pypa.io/en/stable/).
-
-### Additional optional software
-
-You may need to install additional software on the host if any of the following apply:
-- You want to use OpenSearch Benchmark to deploy a local instance of OpenSearch.
-- You want to run a benchmark using a default workload.
-
-#### Deploying a local instance of OpenSearch
-
-When you use OpenSearch Benchmark to deploy a local instance of OpenSearch, the same requirements apply to the host as they would if you were manually installing OpenSearch. You must configure [important settings]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#important-settings), which includes increasing the maximum memory map count and installing an appropriate JDK version.
-
-[Docker Engine](https://docs.docker.com/engine/) and [Docker Compose](https://docs.docker.com/compose/) must also be installed because OpenSearch Benchmark uses Docker Compose to deploy a local container for testing.
+{: .note}
 
 #### Running a benchmark using a default workload
 
