@@ -50,11 +50,11 @@ Starting from Data Prepper 2.0, you can define pipelines across multiple configu
 
 ## End-to-end acknowledgements
 
-Data Prepper ensures the durability and reliability of data written from sources and delivered to sinks through end-to-end (E2E) acknowledgements. The E2E acknowledgement begins at the source, which monitors a batch of events set inside pipelines and waits for a positive acknowledgement when those events are successfully pushed to sinks. When a pipeline contains multiple sinks, including sinks set as additional Data Prepper pipelines, the E2E acknowledge sends when events are received by the final sink in a pipeline chain.
+Data Prepper ensures the durability and reliability of data written from sources and delivered to sinks through end-to-end (E2E) acknowledgements. The E2E acknowledgement begins at the source, which monitors a batch of events set inside pipelines and waits for a positive acknowledgement when those events are successfully pushed to sinks. When a pipeline contains multiple sinks, including sinks set as additional Data Prepper pipelines, the E2E acknowledgement sends when events are received by the final sink in a pipeline chain.
 
-Alternatively, the source sends a negative acknowledgement when an even cannot be delivered to a sink for any reason. 
+Alternatively, the source sends a negative acknowledgement when an event cannot be delivered to a sink for any reason. 
 
-When any component of a pipeline fails and is unable to send an event through the pipeline, the source receives no acknowledgement. In the case of failure, the pipeline sources times out. This gives you the ability to take any necessary actions to address the source failure, including rerunning the pipeline or logging the failure.
+When any component of a pipeline fails and is unable to send an event, the source receives no acknowledgement. In the case of A failure, the pipeline's source times out. This gives you the ability to take any necessary actions to address the source failure, including rerunning the pipeline or logging the failure.
 
 As of Data Prepper 2.2, only the S3 source and OpenSearch Sink support E2E acknowledgements. 
 
