@@ -17,9 +17,12 @@ Some OpenSearch Benchmark functionality is unavailable when you run OpenSearch B
 
 OpenSearch Benchmark can be used to provision OpenSearch nodes for testing. If you intend to use OpenSearch Benchmark to provision nodes in your environment, then you will need to install OpenSearch Benchmark directly on each host in the cluster. Additionally, you must configure each host in the cluster for OpenSearch. See [Installing OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/) for guidance about important host settings you should review.
 
-You should also think about which workloads you want to run. To see a list of default benchmark workload, visit the [opensearch-benchmark-workloads](https://github.com/opensearch-project/opensearch-benchmark-workloads) repository on GitHub.
+Remember that OpenSearch Benchmark cannot be used to provision OpenSearch nodes when you run OpenSearch Benchmark in a Docker container. If you want to use OpenSearch Benchmark to provision nodes, or if you want to distribute the benchmark workload with the OpenSearch Benchmark daemon, then you must install OpenSearch Benchmark directly on each host using Python and pip.
+{: .important}
 
-As a general rule, make sure that the OpenSearch Benchmark host has enough free storage space to store the compressed data and the full decompressed data corpus once OpenSearch Benchmark is installed. If you want to benchmark with a default workload, then use the following table to determine the approximate minimum amount of required free space needed by adding the compressed size with the uncompressed size:
+When you select a host, you should also think about which workloads you want to run. To see a list of default benchmark workload, visit the [opensearch-benchmark-workloads](https://github.com/opensearch-project/opensearch-benchmark-workloads) repository on GitHub. As a general rule, make sure that the OpenSearch Benchmark host has enough free storage space to store the compressed data and the fully decompressed data corpus once OpenSearch Benchmark is installed.
+
+If you want to benchmark with a default workload, then use the following table to determine the approximate minimum amount of required free space needed by adding the compressed size with the uncompressed size:
 | Workload Name | Document Count | Compressed Size | Uncompressed Size |
 | :----: | :----: | :----: | :----: |
 | eventdata | 20,000,000 | 756.0 MB | 15.3 GB |
@@ -35,7 +38,8 @@ As a general rule, make sure that the OpenSearch Benchmark host has enough free 
 | pmc | 574,199 | 5.5 GB | 21.7 GB |
 | so | 36,062,278 | 8.9 GB | 33.1 GB |
 
-Lastly, your OpenSearch Benchmark host should use solid-state drives (SSDs) for storage because they perform significantly faster at read and write operations than traditional spinning-disk hard drives. Spinning-disk hard drives can introduce performance bottlenecking, which can make benchmark results unreliable and inconsistent.
+Your OpenSearch Benchmark host should use solid-state drives (SSDs) for storage because they perform significantly faster at read and write operations than traditional spinning-disk hard drives. Spinning-disk hard drives can introduce performance bottlenecking, which can make benchmark results unreliable and inconsistent.
+{: .tip}
 
 ## Software dependencies
 
