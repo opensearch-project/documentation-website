@@ -79,7 +79,7 @@ When you use OpenSearch Benchmark to deploy a local instance of OpenSearch you m
 
 The last steps of the installation will depend on your host environment. If you are installing OpenSearch Benchmark directly on a Linux or macOS host, then you can use pip to install the package. Otherwise, if you are running OpenSearch Benchmark in a Docker container, then you only need to pull down the image and invoke `docker run` with the desired arguments.
 
-### Installing on Linux and macOS
+### Installing OpenSearch Benchmark on Linux and macOS
 
 After the prerequisites are installed, you can install OpenSearch Benchmark using the following command:
 ```bash
@@ -87,15 +87,17 @@ pip install opensearch-benchmark
 ```
 {% include copy.html %}
 
-After the installation completes you can use the following command to display information about usage and syntax:
+After the installation completes you can use the following command to display help information:
 ```bash
 opensearch-benchmark -h
 ```
 {% include copy.html %}
 
+Now that OpenSearch Benchmark is installed on your host you can learn about [Configuring OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/tuning-your-cluster/opensearch-benchmark/config-osb/).
+
 ### Running OpenSearch Benchmark with Docker
 
-You can find official Docker images for OpenSearch Benchmark on [Docker Hub](https://hub.docker.com/r/opensearchproject/opensearch-benchmark) or on the [Amazon ECR Public Gallery](https://gallery.ecr.aws/opensearchproject/opensearch-benchmark).
+Find official Docker images for OpenSearch Benchmark on [Docker Hub](https://hub.docker.com/r/opensearchproject/opensearch-benchmark) and on the [Amazon ECR Public Gallery](https://gallery.ecr.aws/opensearchproject/opensearch-benchmark).
 
 Pull the image from Docker Hub:
 ```bash
@@ -103,7 +105,7 @@ docker pull opensearchproject/opensearch-benchmark:latest
 ```
 {% include copy.html %}
 
-Pull the image from Amazon ECR Public Gallery:
+Pull the image from Amazon ECR:
 ```bash
 docker pull public.ecr.aws/opensearchproject/opensearch-benchmark:latest
 ```
