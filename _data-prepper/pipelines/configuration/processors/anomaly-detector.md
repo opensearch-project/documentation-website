@@ -29,9 +29,9 @@ The random cut forest (RCF) ML algorithm is an unsupervised algorithm for detect
 
 | Name | Description |
 | :--- | :--- |
-| `random_cut_forest` | Processes events using the RCF ML algorithm to detect anomalies. After passing a group of events with latency, a value between 0.2 and 0.3 is passed through the anomaly detector processor. | 
+| `random_cut_forest` | Processes events using the RCF ML algorithm to detect anomalies. | 
 
-The following example shows what happens in the anomaly detector processor when it receives input:
+After passing a group of events with latency, a value between 0.2 and 0.3 is passed through the anomaly detector processor. When an event with latency value 11.5 is sent, the following anomaly event is generated. The following example shows what happens in the anomaly detector processor when it receives input:
 
  ```json
   { "latency": 11.5, "deviation_from_expected":[10.469302736820003],"grade":1.0}
@@ -67,6 +67,6 @@ ad-pipeline:
     - stdout:
 ```
 
-When you run the anomaly detector processor, the extracted value parses the messages, extracts the values for the `latency` key, and then passes it through the RCF ML algorithm. You can configure any key that comprises integers or real numbers as values. In the following example, you can configure `bytes` or `latency` as the key for an anomaly detector. 
+When you run the anomaly detector processor, the processor extracts the value for the `latency` key, and then passes the value through the RCF ML algorithm. You can configure any key that comprises integers or real numbers as values. In the following example, you can configure `bytes` or `latency` as the key for an anomaly detector. 
 
 `{"ip":"1.2.3.4", "bytes":234234, "latency":0.2}`
