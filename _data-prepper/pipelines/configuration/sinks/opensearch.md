@@ -213,8 +213,7 @@ The role must have the following trust relationship, which allows the pipeline t
         {
             "Effect": "Allow",
             "Principal": {
-                "AWS": "arn:aws:iam::<AccountId>:root",
-                "Service": "aoss.amazonaws.com"
+                "AWS": "arn:aws:iam::<AccountId>:root"
             },
             "Action": "sts:AssumeRole"
         }
