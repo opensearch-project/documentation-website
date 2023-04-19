@@ -33,8 +33,41 @@ To use, invoke class="codeblock-label"
 
 # Configuring OpenSearch Benchmark
 
-OpenSearch Benchmark configuration data is stored in `~/.benchmark/benchmark.ini` for manual installations, and in `/opensearch-benchmark/.benchmark/benchmark.ini` for the Docker distribution.
+OpenSearch Benchmark configuration data is stored in `~/.benchmark/benchmark.ini`. Settings are grouped into sections as follows:
+- [meta](#meta)
+- [system](#system)
+- [node](#node)
+- [source](#source)
+- [benchmarks](#benchmarks)
+- [results_publishing](#results_publishing)
+- [workloads](#workloads)
+- [provision_configs](#provision_configs)
+- [defaults](#defaults)
+- [distributions](#distributions)
 
+## meta
+
+## system
+
+## node
+
+## source
+
+## benchmarks
+
+## results_publishing
+
+## workloads
+
+## provision_configs
+
+## defaults
+
+## distributions
+
+## Example benchmark.ini
+
+The following example file uses default settings:
 <p class="codeblock-label">Example benchmark.ini</p>
 ```
 [meta]
@@ -44,15 +77,15 @@ config.version = 17
 env.name = local
 
 [node]
-root.dir = /Users/jeffhuss/.benchmark/benchmarks
-src.root.dir = /Users/jeffhuss/.benchmark/benchmarks/src
+root.dir = ~/.benchmark/benchmarks
+src.root.dir = ~/.benchmark/benchmarks/src
 
 [source]
 remote.repo.url = https://github.com/opensearch-project/OpenSearch.git
 opensearch.src.subdir = opensearch
 
 [benchmarks]
-local.dataset.cache = /Users/jeffhuss/.benchmark/benchmarks/data
+local.dataset.cache = ~/.benchmark/benchmarks/data
 
 [results_publishing]
 datastore.type = in-memory
