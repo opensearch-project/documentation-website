@@ -25,14 +25,16 @@ Option | Required | Type | Description
 
 ## Usage
 
-To use the `list_to_map` processor, create a `.log` file to create a list of source objects with values. The following example creates a file named `logs_json.log`.  Because the `file` source reads each line in the `.log` file as an event, the object list appears as one line even though it contains multiple objects.
+If you want to test the usage of the `list_to_map` processor before using the processor on your own source, you can use following the `.log` file as a source. 
+
+First, create a file named `logs_json.log`.  Because the `file` source reads each line in the `.log` file as an event, the object list appears as one line even though it contains multiple objects.
 
 ```json
 {"mylist":[{"name":"a","value":"val-a"},{"name":"b","value":"val-b1"},{"name":"b","value":"val-b2"},{"name":"c","value":"val-c"}]}
 ```
 {% include copy.html %}
 
-Next, create a `pipeline.yaml` that uses `logs_json.log` as `source` by pointing to the log file's correct path.  
+Next, create a `pipeline.yaml` that uses the `logs_json.log` file as `source` by pointing to the `.log` file's correct path.  
 
 ```yaml
 pipeline:
@@ -52,7 +54,7 @@ pipeline:
 ```
 {% include copy.html %}
 
-Run the pipeline. If successful, the processor returns the generated map based with objects mapped according to the `value_key`. For readability, the following example has been adjusted to multiple lines.
+Run the pipeline. If successful, the processor returns the generated map with objects mapped according to their `value_key`. Similar to the original source, which contains one line and therefore one event, the processors returns the following JSON as one line. For readability, the following example and all proceeding JSON example have been adjusted to multiple lines.
 
 ```json
 {
