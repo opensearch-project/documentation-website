@@ -13,7 +13,7 @@ Some OpenSearch Benchmark functionality is unavailable when you run OpenSearch B
 - You cannot distribute load worker coordinator hosts.
 - You can only use the `benchmark-only` pipeline.
 
-## Hardware considerations
+## Choosing appropriate hardware
 
 OpenSearch Benchmark can be used to provision OpenSearch nodes for testing. If you intend to use OpenSearch Benchmark to provision nodes in your environment, then you will need to install OpenSearch Benchmark directly on each host in the cluster. Additionally, you must configure each host in the cluster for OpenSearch. See [Installing OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/) for guidance about important host settings you should review.
 
@@ -41,9 +41,9 @@ If you want to benchmark with a default workload, then use the following table t
 Your OpenSearch Benchmark host should use solid-state drives (SSDs) for storage because they perform significantly faster at read and write operations than traditional spinning-disk hard drives. Spinning-disk hard drives can introduce performance bottlenecking, which can make benchmark results unreliable and inconsistent.
 {: .tip}
 
-## Software dependencies
+## Resolving software dependencies
 
-If you want to run OpenSearch Benchmark in a Docker container then you can skip to [Finishing the installation](#finishing-the-installation). The OpenSearch Benchmark Docker image includes all of the required software, so there are no additional steps for you to take.
+If you want to run OpenSearch Benchmark in a Docker container then you can skip to [Completing the installation](#completing-the-installation). The OpenSearch Benchmark Docker image includes all of the required software, so there are no additional steps for you to take.
 {: .important}
 
 A manual installation of OpenSearch Benchmark&#8212;where you install OpenSearch Benchmark directly on the host, as opposed to using a Docker container&#8212;requires **Python 3.8 or newer** with **pip**, the package installer for Python. If you need help installing Python, refer to the official [Python Setup and Usage](https://docs.python.org/3/using/index.html) documentation. See pip [Installation](https://pip.pypa.io/en/stable/installation/) for help installing pip if it isn't already installed.
@@ -71,11 +71,11 @@ git --version
 ```
 {% include copy.html %}
 
-### Other dependencies
+### Resolving optional software dependencies
 
 When you use OpenSearch Benchmark to deploy a local instance of OpenSearch you must follow the same requirements as if you were manually installing OpenSearch on the node. For example, you must configure [important settings]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/#important-settings) and install an appropriate JDK version.
 
-## Finishing the installation
+## Completing the installation
 
 The last steps of the installation will depend on your host environment. If you are installing OpenSearch Benchmark directly on a Linux or macOS host, then you can use pip to install the package. Otherwise, if you are running OpenSearch Benchmark in a Docker container, then you only need to pull down the image and invoke `docker run` with the desired arguments.
 
@@ -134,7 +134,7 @@ docker run public.ecr.aws/opensearchproject/opensearch-benchmark:latest opensear
 
 ## Next steps
 
-Coming soon™
+- [Configuring OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/tuning-your-cluster/opensearch-benchmark/config-osb/)
 
 
-docker run -v $PWD/benchmarks:/benchmark/.benchmark opensearchproject/opensearch-benchmark opensearch-benchmark -h
+docker run -v $PWD/benchmarks:/opensearch-benchmark/.benchmark opensearchproject/opensearch-benchmark opensearch-benchmark -h
