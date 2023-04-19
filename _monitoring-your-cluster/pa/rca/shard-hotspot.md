@@ -8,20 +8,20 @@ nav_order: 30
 
 ## Shard hotspot identification
 
-With the Shard Hotspot Identification RCA, you can identify a hot shard within an index. A hot shard is a resource consuming outlier within its counterparts. The RCA subscribes to following metrics:
+With the shard hotspot identification RCA, you can identify a hot shard within an index. A hot shard is an outlier that consumes more resources than its counterparts. The shard hotspot identification RCA monitors the following metrics:
 
 - `CPU_Utilization`
 - `Heap_AllocRate`
 
-While there is only two of them, these metrics provide accurate picture of operation intensities for a certain shard like Bulk request - high heap allocation rate, Search request - high CPU utilization and for more complex queries also heap allocation rate, Document update - relatively high balance between these two metrics. The RCA looks at the above two metric data and compares the values against the threshold for each resource and if the usage for any of the resources is greater than their individual threshold, we mark the context as 'UnHealthy' and create a `HotShardResourceSummary` for the shard.
+These metrics provide an accurate picture of operation intensities for certain shards, such as the following: 
 
-In order to have a full picture of the index-level shard stats, and to detect outliers, cluster variant - `HotShardClusterRCA` is to be used as a downstream RCA to the `HotShardRCAs` running on each Data node.
-  
-In every RCA period, all existing shards are taken into account within this RCA. This number can go up to 1000 per Node and thus create huge memory footprint for both the Cluster Manager and Data nodes, if implementation is handled naively.
+- Bulk requests - High heap allocation rate.
+- Search requests - High CPU utilization, more complex queries, and heap allocation rates.
+- Document updates - Relatively high balance between `CPU_Utilization` and `Heap_AllocRate`.
 
-To minimize the core of the footprint (memory allocated for the whole duration of each RCA period which directly scales with number of shards), a single map, mapping unique Index, Shard combination to the highly specific structure, called `SummarizedWindow` is used.
+The shard hotspot identification RCA looks at the `CPU_Utilization` and `Heap_AllocRate` metric data and compares the values against the threshold for each resource. If the usage for any of these resources is greater than their individual threshold, the context is marked as "unhealthy" and creates a "Hot Shard Resource Summary" for the shard.
 
-`HotShardRCA` period consists of `SLIDING_WINDOW_IN_SECONDS/5` (default being 12) operate ticks, each of them consuming metric aggregations from previous 5 seconds, more precisely the 5-second SUM aggregation of each metric. `SummarizedWindow` accumulates these aggregation over the period of `SLIDING_WINDOW_IN_SECONDS` (by default 1 minute) and is later used to calculate the over time average of these accumulated metrics. Note that summarization would give us a little less information than the average value as some shards may start or stop being active anywhere inside the RCA period. This is why more general case structures like `SlidingWindow` offer us a granularity that we don't need and by omitting them, considerable amount of heap is saved. Also, inside the same single `SummarizedWindow`, all metrics are getting aggregated at once, this way eliminating duplicated timestamps and shard identification data.
+For in-depth information regarding the operation of the shard hotspot identification RCA, see the following [Github readme](https://github.com/opensearch-project/performance-analyzer-rca/blob/main/src/main/java/org/opensearch/performanceanalyzer/rca/store/rca/hotshard/docs/README.md).
 
 #### Example request
 
