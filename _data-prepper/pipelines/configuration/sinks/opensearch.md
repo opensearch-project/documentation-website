@@ -67,7 +67,7 @@ index | Conditionally | String | Name of the export index. Applicable and requir
 index_type | No | String | This index type tells the Sink plugin what type of data it is handling. Valid values: `custom`, `trace-analytics-raw`, `trace-analytics-service-map`, `management-disabled`. Default value is `custom`.
 template_file | No | String | Path to a JSON [index template]({{site.url}}{{site.baseurl}}/opensearch/index-templates/) file (for example, `/your/local/template-file.json`) if `index_type` is `custom`. See [otel-v1-apm-span-index-template.json](https://github.com/opensearch-project/data-prepper/blob/main/data-prepper-plugins/opensearch/src/main/resources/otel-v1-apm-span-index-template.json) for an example.
 document_id_field | No | String | The field from the source data to use for the OpenSearch document ID (for example, `"my-field"`) if `index_type` is `custom`.
-dlq_file | No | String | The path to your preferred dead letter queue file (for example, `/your/local/dlq-file`). Data Prepper writes to this file when it fails to index a document on the OpenSearch cluster.
+dlq_file | No | String | The path to your preferred dead letter queue (DLQ) file (for example, `/your/local/dlq-file`). Data Prepper writes to this file when it fails to index a document on the OpenSearch cluster.
 bulk_size | No | Integer (long) | The maximum size (in MiB) of bulk requests sent to the OpenSearch cluster. Values below 0 indicate an unlimited size. If a single document exceeds the maximum bulk request size, Data Prepper sends it individually. Default value is 5.
 ism_policy_file | No | String | The absolute file path for an ISM (Index State Management) policy JSON file. This policy file is effective only when there is no built-in policy file for the index type. For example, `custom` index type is currently the only one without a built-in policy file, thus it would use the policy file here if it's provided through this parameter. For more information, see [ISM policies]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/).
 number_of_shards | No | Integer | The number of primary shards that an index should have on the destination OpenSearch server. This parameter is effective only when `template_file` is either explicitly provided in Sink configuration or built-in. If this parameter is set, it would override the value in index template file. For more information, see [Create index]({{site.url}}{{site.baseurl}}/api-reference/index-apis/create-index/).
@@ -260,7 +260,7 @@ Next, create a collection with the following settings:
 
 ### Create a pipeline
 
-Within your `pipelines.yaml` file, specify the OpenSearch Serverless collection endpoint in the `hosts` option  . In addition, you must set the `serverless` option to `true`. Specify the pipeline role in the `sts_role_arn` option.
+Within your `pipelines.yaml` file, specify the OpenSearch Serverless collection endpoint in the `hosts` option. In addition, you must set the `serverless` option to `true`. Specify the pipeline role in the `sts_role_arn` option.
 
 ```yaml
 log-pipeline:
@@ -272,7 +272,7 @@ log-pipeline:
         destination: "@timestamp"
   sink:
     - opensearch:
-        hosts: [ "https://<juno-public-collection-endpoint>" ]
+        hosts: [ "https://<serverless-public-collection-endpoint>" ]
         index: "my-serverless-index"
         aws:
           serverless: true
