@@ -31,7 +31,7 @@ The random cut forest (RCF) ML algorithm is an unsupervised algorithm for detect
 | :--- | :--- |
 | `random_cut_forest` | Processes events using the RCF ML algorithm to detect anomalies. | 
 
-After passing a group of events with latency values between 0.2 and 0.3 passed through the anomaly detector processor, when an event with latency value 11.5 is sent, the following anomaly event is generated:
+After passing a group of events with latency values between 0.2 and 0.3 through the anomaly detector processor, when an event with latency value 11.5 is sent, the following anomaly event is generated:
 
 
  ```json
