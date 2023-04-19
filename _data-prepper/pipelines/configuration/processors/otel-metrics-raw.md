@@ -74,6 +74,9 @@ Each array element describes one bucket. Each bucket contains the lower boundary
 ```
 
 
+
+### `calculate_exponential_histogram_buckets`
+
 If `calculate_exponential_histogram_buckets` is set to `true` (the default setting), the following JSON values are added to each JSON histogram:
 
 ```json
