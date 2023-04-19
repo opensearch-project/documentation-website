@@ -25,7 +25,7 @@ Option | Required | Type | Description
 
 ## Usage
 
-To use the `list_to_map` processor, create a `.log` file to create a list of source objects with values. The following example creates a file named `logs_json.log`.  Because the `source` parameter reads each line in the `.log` file as an event, the object list appears as one line even though it contains three objects.
+To use the `list_to_map` processor, create a `.log` file to create a list of source objects with values. The following example creates a file named `logs_json.log`.  Because the `file` source reads each line in the `.log` file as an event, the object list appears as one line even though it contains multiple objects.
 
 ```json
 {"mylist":[{"name":"a","value":"val-a"},{"name":"b","value":"val-b1"},{"name":"b","value":"val-b2"},{"name":"c","value":"val-c"}]}
