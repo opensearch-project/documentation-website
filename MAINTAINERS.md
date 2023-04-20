@@ -14,4 +14,6 @@ This document contains a list of maintainers in this repo. See [opensearch-proje
 | Fanit Kolchina   | [kolchfa-aws](https://github.com/kolchfa-aws)   | Amazon      |
 | Nate Archer      | [Naarcha-AWS](https://github.com/Naarcha-AWS)   | Amazon      |
 | Melissa Vagi     | [vagimeli](https://github.com/vagimeli)         | Amazon      |
-
+| Anan Zhuang      | [ananzh](https://github.com/ananzh)             | Amazon      |
+| Sean Neumann     | [seanneumann](https://github.com/seanneumann)   | Amazon      |
+| Miki Barahmand   | [AMoo-Miki](https://github.com/AMoo-Miki)       | Amazon      |
