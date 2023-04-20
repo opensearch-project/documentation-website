@@ -8,7 +8,7 @@ nav_order: 30
 
 ## Shard hotspot identification
 
-With the shard hotspot identification RCA, you can identify a hot shard within an index. A hot shard is an outlier that consumes more resources than its counterparts. The shard hotspot identification RCA monitors the following metrics:
+With the shard hotspot identification Root Cause Analysis (RCA), you can identify a hot shard within an index. A hot shard is an outlier that consumes more resources than other shards and may lead to poor indexing and search performance. The shard hotspot identification RCA monitors the following metrics:
 
 - `CPU_Utilization`
 - `Heap_AllocRate`
@@ -26,9 +26,12 @@ For more information about the shard hotspot identification RCA implementation, 
 
 #### Example request
 
+The following example requests the shard hotspot identification RCA:
+
 ```bash
-GET localhost:9600/_plugins/_performanceanalyzer/rca?name=HotShardClusterRca
+GET _plugins/_performanceanalyzer/rca?name=HotShardClusterRca
 ```
+{% include copy-curl.html %}
 
 #### Response
 
