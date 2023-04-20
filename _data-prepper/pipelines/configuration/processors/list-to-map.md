@@ -8,7 +8,7 @@ nav_order: 55
 
 # list_to_map
 
-The `list-to-map` processor converts a list of objects from an event, where each object contains a `key` field, into a map of target keys.
+The `list_to_map` processor converts a list of objects from an event, where each object contains a `key` field, into a map of target keys.
 
 ## Configuration
 
