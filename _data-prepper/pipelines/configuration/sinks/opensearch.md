@@ -85,7 +85,7 @@ sink:
       ...
 ```
 
-Alternately, rather than Admin credentials, you can specify the credentials of a user that's mapped to a role with the following minimum permissions:
+Alternately, rather than admin credentials, you can specify the credentials of a user mapped to a role with the minimum permissions listed in the following sections.
 
 ### Cluster permissions
 
@@ -99,13 +99,13 @@ Alternately, rather than Admin credentials, you can specify the credentials of a
 - Index: `.opendistro-ism-config`; Index permission: `indices_all`
 - Index: `*`; Index permission: `manage_aliases`
 
-For instructions to map users to roles, see [Map users to roles]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/#map-users-to-roles).
+For instructions on how to map users to roles, see [Map users to roles]({{site.url}}{{site.baseurl}}/security/access-control/users-roles/#map-users-to-roles).
 
 ## Amazon OpenSearch Service domain security
 
-The OpenSearch sink plugin can send data to an [Amazon OpenSearch Service](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/what-is.html) domain, which uses Identity and Access Management (IAM) for security. The plugin uses the default credential chain. Run `aws configure` using the [AWS CLI](https://aws.amazon.com/cli/) to set your credentials.
+The OpenSearch sink plugin can send data to an [Amazon OpenSearch Service](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/what-is.html) domain, which uses IAM for security. The plugin uses the default credential chain. Run `aws configure` using the [AWS Command Line Interface (AWS CLI)](https://aws.amazon.com/cli/) to set your credentials.
 
-Make sure the credentials that you configure have the required IAM permissions. The following domain access policy demonstrates the minimum required permissions for the sink to work:
+Make sure the credentials that you configure have the required IAM permissions. The following domain access policy demonstrates the minimum required permissions:
 
 ```json
 {
@@ -137,7 +137,7 @@ Make sure the credentials that you configure have the required IAM permissions. 
 }
 ```
 
-For instructions to configure the domain access policy, see [Resource-based policies
+For instructions on how to configure the domain access policy, see [Resource-based policies
 ](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/ac.html#ac-types-resource) in the Amazon OpenSearch Service documentation.
 
 ### Fine-grained access control
@@ -147,7 +147,7 @@ If your OpenSearch Service domain uses [fine-grained access control
 
 #### IAM ARN as master user
 
-If you're using an IAM ARN as the master user, include the `aws_sigv4` option in your sink configuration:
+If you're using an IAM Amazon Resource Name (ARN) as the master user, include the `aws_sigv4` option in your sink configuration:
 
 ```yaml
 ...
@@ -157,7 +157,7 @@ sink:
       aws_sigv4: true
 ```
 
-Run `aws configure` using the AWS CLI to set your credentials to the master IAM user. If you don't want to use the master user, you can specify a different IAM role using the `aws_sts_role_arn` option. The plugin will then use this role to sign requests to the domain sink. The ARN that you specify must be included in the [domain access policy]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sinks/opensearch/#amazon-opensearch-service-domain-security).
+Run `aws configure` using the AWS CLI to set your credentials to the master IAM user. If you don't want to use the master user, you can specify a different IAM role using the `aws_sts_role_arn` option. The plugin will then use this role to sign requests sent to the domain sink. The ARN that you specify must be included in the [domain access policy]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sinks/opensearch/#amazon-opensearch-service-domain-security).
 
 #### Master user in the internal user database
 
@@ -185,7 +185,7 @@ OpenSearch Serverless collection sinks have the following limitations:
 - You can't write to a collection that uses VPC access. The collection must be accessible from public networks.
 - The OTel trace group processor doesn't currently support collection sinks.
 
-### Create a pipeline role
+### Creating a pipeline role
 
 First, create an IAM role that the pipeline will assume in order to write to the collection. The role must have the following minimum permissions:
 
@@ -221,7 +221,7 @@ The role must have the following trust relationship, which allows the pipeline t
 }
 ```
 
-### Create a collection
+### Creating a collection
 
 Next, create a collection with the following settings:
 
@@ -253,13 +253,13 @@ Next, create a collection with the following settings:
  ]
   ```
 
-  ***Important***: Make sure to replace the Amazon Resource Name (ARN) in the `Principal` element with the ARN of the pipeline role that you created in the previous section.
+  ***Important***: Make sure to replace the ARN in the `Principal` element with the ARN of the pipeline role that you created in the preceding step.
 
-  For instructions to create a collections, see [Creating collections](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-manage.html#serverless-create) in the Amazon OpenSearch Service documentation.
+  For instructions on how to create collections, see [Creating collections](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless-manage.html#serverless-create) in the Amazon OpenSearch Service documentation.
 
-### Create a pipeline
+### Creating a pipeline
 
-Within your `pipelines.yaml` file, specify the OpenSearch Serverless collection endpoint in the `hosts` option. In addition, you must set the `serverless` option to `true`. Specify the pipeline role in the `sts_role_arn` option.
+Within your `pipelines.yaml` file, specify the OpenSearch Serverless collection endpoint as the `hosts` option. In addition, you must set the `serverless` option to `true`. Specify the pipeline role in the `sts_role_arn` option:
 
 ```yaml
 log-pipeline:
