@@ -1,16 +1,18 @@
 ---
 layout: default
-title: csv
+title: CSV processor
 parent: Processors
 grand_parent: Pipelines
-nav_order: 45
+nav_order: 49
 ---
 
 # csv
 
-## Overview
+The `csv` processor parses comma-separated values (CSVs) from the event into columns.
 
-The `csv` processor parses comma-separated values (CSVs) from the event into columns. The following table describes the options you can use to configure the `csv` processor.
+## Configuration
+
+The following table describes the options you can use to configure the `csv` processor.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
