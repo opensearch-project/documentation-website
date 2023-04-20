@@ -4,10 +4,14 @@ This document contains a list of maintainers in this repo. See [opensearch-proje
 
 ## Current Maintainers
 
-| Maintainer     | GitHub ID                                     | Affiliation |
-| -------------- | --------------------------------------------- | ----------- |
-| Aria Marble | [ariamarble](https://github.com/ariamarble)   | Amazon |
-| Heather Halter | [hdhalter](https://github.com/hdhalter)       | Amazon      |
-| Fanit Kolchina | [kolchfa-aws](https://github.com/kolchfa-aws)  | Amazon  |
-| Nate Archer    | [Naarcha-AWS](https://github.com/Naarcha-AWS) | Amazon      |
+| Maintainer       | GitHub ID                                       | Affiliation |
+| ---------------- | ----------------------------------------------- | ----------- |
+| Aria Marble      | [ariamarble](https://github.com/ariamarble)     | Amazon      |
+| Caroline O'Brien | [carolxob](https://github.com/carolxob)         | Amazon      |
+| Chris Moore      | [cwillum] (https://github.com/cwillum)          | Amazon      |
+| Heather Halter   | [hdhalter](https://github.com/hdhalter)         | Amazon      |
+| Jeff Huss        | [JeffH-AWS](https://github.com/JeffH-AWS)       | Amazon      |
+| Fanit Kolchina   | [kolchfa-aws](https://github.com/kolchfa-aws)   | Amazon      |
+| Nate Archer      | [Naarcha-AWS](https://github.com/Naarcha-AWS)   | Amazon      |
+| Melissa Vagi     | [vagimeli](https://github.com/vagimeli)         | Amazon      |
 
