@@ -1,9 +1,9 @@
 ---
 layout: default
-title: parse_json
+title: Parse JSON processor
 parent: Processors
 grand_parent: Pipelines
-nav_order: 45
+nav_order: 80
 ---
 
 # parse_json
