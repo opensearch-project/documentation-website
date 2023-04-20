@@ -66,7 +66,15 @@ When defining a detector, you can specify certain conditions that will trigger a
 
 For information on setting up alerts, see [Step 3. Set up alerts]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/detectors-config/#step-3-set-up-alerts) in detector creation documentation. For information on managing alerts on the Alerts window, see [Working with alerts]({{site.url}}{{site.baseurl}}/security-analytics/usage/alerts/).
 
+### Correlation engine
+
+The correlation engine gives Security Analytics the ability to compare findings from different log types and draw correlations between them. It accomplishes this by using correlation rules to first define relevant threat scenarios between different log types and then perform queries on findings to make matches. The matches can then be used by the correlation engine to create a graph of correlated findings, which depicts the relationship between the log types whose findings have been matched and assigns a proximity score to correlations, indicating their strength and relevance.
+
+While the correlation rules define what threat scenarios to look for between log types, the graph provides a visualization that helps users identify related activities happening in a chain of security events.
+
+To learn more about defining threat scenarios for correlation rules, see [Creating correlation rules]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/correlation-config/). To learn more about using the correlation graph, see [Working with the correlation graph]({{site.url}}{{site.baseurl}}/security-analytics/usage/correlation-graph/).
+
 ## First steps
 
-To get started with Security Analytics you need to define detectors, ingest log data, generate findings, and configure alerts. See [Setting up Security Analytics]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/index/) to begin configuring the platform to meet your objectives.
+To get started with Security Analytics you need to define detectors, ingest log data, generate findings, define correlation rules, and configure alerts. See [Setting up Security Analytics]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/index/) to begin configuring the platform to meet your objectives.
 
