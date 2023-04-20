@@ -51,7 +51,7 @@ Parameter | Type | description
 wait_for_active_shards | String | Specifies the number of active shards that must be available before OpenSearch processes the request. Default is 1 (only the primary shard). Set to all or a positive integer. Values greater than 1 require replicas. For example, if you specify a value of 3, the index must have two replicas distributed across two additional nodes for the request to succeed.
 master_timeout | Time | How long to wait for a connection to the master node. Default is `30s`.
 timeout | Time | How long to wait for the request to return a response. Default is `30s`.
-wait_for_completion | Boolean | When set to `false`, the request will return a task immediately and the operation will run in background. Default is `true`.
+wait_for_completion | Boolean | When set to `false`, the request will return immediately instead of waiting for the operation to finish. Default is `true`.
 task_execution_timeout | Time | Explicit task execution timeout, only useful when wait_for_completion is false. Default is `1h`.
 
 ## Request body
