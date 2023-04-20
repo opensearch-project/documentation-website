@@ -60,12 +60,6 @@ Findings are generated every time a detector matches a rule with a log event. Fi
 
 To learn more about findings, see [Working with findings]({{site.url}}{{site.baseurl}}/security-analytics/usage/findings/).
 
-### Alerts
-
-When defining a detector, you can specify certain conditions that will trigger an alert. When an event triggers an alert, the system sends a notification to a preferred channel, such as Amazon Chime, Slack, or email. The alert can be triggered when the detector matches one or multiple rules. Further conditions can be set by rule severity and tags. You can also create a notification message with a customized subject line and message body.
-
-For information on setting up alerts, see [Step 3. Set up alerts]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/detectors-config/#step-3-set-up-alerts) in detector creation documentation. For information on managing alerts on the Alerts window, see [Working with alerts]({{site.url}}{{site.baseurl}}/security-analytics/usage/alerts/).
-
 ### Correlation engine
 
 The correlation engine gives Security Analytics the ability to compare findings from different log types and draw correlations between them. It accomplishes this by using correlation rules to first define relevant threat scenarios between different log types and then perform queries on findings to make matches. The matches can then be used by the correlation engine to create a graph of correlated findings, which depicts the relationship between the log types whose findings have been matched and assigns a proximity score to correlations, indicating their strength and relevance.
@@ -73,6 +67,12 @@ The correlation engine gives Security Analytics the ability to compare findings 
 While the correlation rules define what threat scenarios to look for between log types, the graph provides a visualization that helps users identify related activities happening in a chain of security events.
 
 To learn more about defining threat scenarios for correlation rules, see [Creating correlation rules]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/correlation-config/). To learn more about using the correlation graph, see [Working with the correlation graph]({{site.url}}{{site.baseurl}}/security-analytics/usage/correlation-graph/).
+
+### Alerts
+
+When defining a detector, you can specify certain conditions that will trigger an alert. When an event triggers an alert, the system sends a notification to a preferred channel, such as Amazon Chime, Slack, or email. The alert can be triggered when the detector matches one or multiple rules. Further conditions can be set by rule severity and tags. You can also create a notification message with a customized subject line and message body.
+
+For information on setting up alerts, see [Step 3. Set up alerts]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/detectors-config/#step-3-set-up-alerts) in detector creation documentation. For information on managing alerts on the Alerts window, see [Working with alerts]({{site.url}}{{site.baseurl}}/security-analytics/usage/alerts/).
 
 ## First steps
 
