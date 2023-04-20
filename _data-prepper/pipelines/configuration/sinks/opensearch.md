@@ -75,7 +75,7 @@ number_of_replicas | No | Integer | The number of replica shards each primary sh
 
 ## OpenSearch cluster security
 
-In order to send data to an OpenSearch cluster using the OpenSearch sink plugin, you must specify your username and password within the pipeline configuration. The following example `pipelines.yaml` file demonstrates how to specify Admin security credentials:
+In order to send data to an OpenSearch cluster using the `opensearch` sink plugin, you must specify your username and password within the pipeline configuration. The following example `pipelines.yaml` file demonstrates how to specify admin security credentials:
 
 ```yaml
 sink:
