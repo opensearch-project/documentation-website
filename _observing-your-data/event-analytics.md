@@ -12,7 +12,7 @@ Event analytics in Observability is where you can use [Piped Processing Language
 
 ## Getting started with event analytics
 
-To get started, choose **Observability** in OpenSearch Dashboards, and then choose **Event analytics**. If you want to start exploring without adding any of your own data, choose **Add samples**, and Dashboards adds some sample visualizations you can interact with.
+To get started, choose **Observability** in OpenSearch Dashboards, and then choose **Event analytics**. If you want to start exploring without adding any of your own data, choose **Add samples**, and Dashboards adds sample visualizations you can interact with.
 
 ## Building a query
 
@@ -36,31 +36,35 @@ To save a visualization, expand the save dropdown menu next to **Refresh**, ente
 
 ## Adding event analytics visualizations to dashboards
 
-Presenting your visualizations on a dashboard, instead of the event analytics page, makes it easier for users with varying levels of technical knowledge to understand and interpret the data at a glance. To create a new visualization and add it to a dashboard, follow these steps:
+This feature is available in OpenSearch Dashboards version 2.7 and later. It works with new visualizations created in version 2.7 or later that uses PPL to query data from OpenSearch or federated data sources such as Prometheus.
+{: .note}
+
+Presenting your visualizations on a dashboard, instead of the event analytics page, makes it easier for users to understand and interpret the data at a glance. The following <XX>-second video shows you how to create a dashboard displaying event analytics visualizations.
+
+<insert video>
+
+To create a new visualization and add it to a dashboard, follow these steps:
 
 1. On the main menu, select **Observability** > **Event analytics**.
-2. On the Event analytics window, enter the index source in the PPL query field, for example, `source = opensearch_dashboards_sample_data_logs | stats max(bytes), avg(bytes) by host`.
+2. In the Event analytics window, enter the index source in the **PPL query** field, for example, `source = opensearch_dashboards_sample_data_logs | stats max(bytes), avg(bytes) by host`. You must enter the query using PPL syntax. 
 3. Set the time filter, for example **Week to date**, then select **Refresh**.
 4. Choose the visualization type, for example **Time series**, from the right sidebar dropdown menu.  
 5. Select **Save** and enter a name for the visualization. To add the visualization to an existing dashboard, choose from the **Custom operational dashboards/application** dropdown menu. 
 6. Select **Save**.
 
-You've created a new visualization that can be added to an existing or new dashboard. To work with the dashboard view, follow these steps:  
+You've created a new visualization that can be added to an existing or new dashboard. To add a PPL query to a dashboard, follow these steps:  
 
 1. On the main menu, select **Dashboard**.
 2. On the **Dashboards** window, select **Create dashboard**.
 3. On the Dashboards window, select **Add existing** and then choose the visualization.
 4. To add more visualizations to the dashboard, select **Create new** and then select **PPL** on the New Visualization window. You'll return to the event analytics page and follow steps 1-6 in the preceding instructions.
 
-This feature is available in OpenSearch Dashboards version 2.7 and later. It works with new visualizations created in version 2.7 or later that use PPL to query data from OpenSearch or federated data sources such as Prometheus.
-{: .note}
+### Limitations of event analytics visualizations
 
-### Limitations of PPL visualizations
+Event analytics visualizations currently do not support [Dashboards Query Language (DQL)]({{site.url}}{{site.baseurl}}/dashboards/discover/dql/) or [query domain-specific language (DSL)]({{site.url}}{{site.baseurl}}/query-dsl/) and they do not use index patterns. Note the following limitations: 
 
-PPL visualizations currently do not support [Dashboards Query Language (DQL)]({{site.url}}{{site.baseurl}}/dashboards/discover/dql/) or [query domain-specific language (DSL)]({{site.url}}{{site.baseurl}}/query-dsl/) and they do not use index patterns. Note the following limitations: 
-
-- PPL visualizations will only use filters created using the dropdown interface. If you have DQL query or DSL filters in a dashboard, PPL visualizations will not use them.
-- The **Dashboard** filter dropdown will only show fields from the index patterns used by other visualizations in the same dashboard (or from the default index pattern if PPL visualizations are the only visualization types in the dashboard).
+- Event analytics visualizations only use filters created using the dropdown interface. If you have DQL query or DSL filters in a dashboard, the visualizations do not use them.
+- The **Dashboard** filter dropdown interface only shows fields from the default index pattern or index patterns used by other visualizations in the same dashboard.
 
 ## Viewing logs
 
