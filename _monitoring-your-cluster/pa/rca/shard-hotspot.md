@@ -15,13 +15,14 @@ With the shard hotspot identification RCA, you can identify a hot shard within a
 
 These metrics provide an accurate picture of operation intensities for certain shards, such as the following: 
 
-- Bulk requests - High heap allocation rate.
-- Search requests - High CPU utilization, more complex queries, and heap allocation rates.
-- Document updates - Relatively high balance between `CPU_Utilization` and `Heap_AllocRate`.
+- Bulk requests: High heap allocation rate.
+- Search requests: High CPU utilization
+- Complex queries: High CPU utilization and high heap allocation rate.
+- Document updates: High CPU utilization and high heap allocation rate.
 
-The shard hotspot identification RCA looks at the `CPU_Utilization` and `Heap_AllocRate` metric data and compares the values against the threshold for each resource. If the usage for any of these resources is greater than their individual threshold, the context is marked as "unhealthy" and creates a "Hot Shard Resource Summary" for the shard.
+The shard hotspot identification RCA compares the CPU utilization and heap allocation rate against their threshold values. If the usage for either metric is greater than the threshold, the shard is considered a hot spot.
 
-For in-depth information regarding the operation of the shard hotspot identification RCA, see the following [Github readme](https://github.com/opensearch-project/performance-analyzer-rca/blob/main/src/main/java/org/opensearch/performanceanalyzer/rca/store/rca/hotshard/docs/README.md).
+For more information about the shard hotspot identification RCA implementation, see [Hot Shard RCA](https://github.com/opensearch-project/performance-analyzer-rca/blob/main/src/main/java/org/opensearch/performanceanalyzer/rca/store/rca/hotshard/docs/README.md).
 
 #### Example request
 
