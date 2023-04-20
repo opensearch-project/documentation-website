@@ -161,7 +161,7 @@ Run `aws configure` using the AWS CLI to set your credentials to the master IAM 
 
 #### Master user in the internal user database
 
-If your domain uses a master user in the internal user database, specify the master username and password as well as the Signature V4 option:
+If your domain uses a master user in the internal user database, specify the master username and password as well as the `aws_sigv4` option:
 
 ```yaml
 sink:
@@ -182,7 +182,7 @@ The OpenSearch sink plugin can send data to an [Amazon OpenSearch Serverless](ht
 
 OpenSearch Serverless collection sinks have the following limitations:
 
-- You can't write to a collection that uses VPC access. The collection must be accessible from public networks.
+- You can't write to a collection that uses virtual private cloud (VPC) access. The collection must be accessible from public networks.
 - The OTel trace group processor doesn't currently support collection sinks.
 
 ### Creating a pipeline role
@@ -278,8 +278,3 @@ log-pipeline:
           sts_role_arn: "arn:aws:iam::<AccountId>:role/PipelineRole"
           region: "us-east-1"
 ```
-
-
-<!--## Metrics
-
-Content will be added to this section. --->
