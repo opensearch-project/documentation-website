@@ -37,7 +37,7 @@ The CAT segment replication API operation supports the following optional query 
 Parameter | Data type | Description
 :--- |:---| :---
 `active_only` | Boolean | If `true`, the response only includes active segment replications. Defaults to `false`. 
-[`detailed`](#additional-metrics-a-detailed-response-returns) | String | If `true`, the response includes additional metrics for each stage of a segment replication event. Defaults to `false`.
+[`detailed`](#additional-detailed-response-metrics) | String | If `true`, the response includes additional metrics for each stage of a segment replication event. Defaults to `false`.
 `shards` | String | A comma-separated list of shards to display.
 `format` | String | A short version of the HTTP accept header. Valid values include `JSON` and `YAML`.  
 `h` | String | A comma-separated list of column names to display. 
