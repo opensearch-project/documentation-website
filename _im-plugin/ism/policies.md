@@ -117,7 +117,7 @@ Reduces the number of Lucene segments by merging the segments of individual shar
 Parameter | Description | Type | Required
 :--- | :--- |:--- |:--- |
 `max_num_segments` | The number of segments to reduce the shard to. | `number` | Yes
-wait_for_completion | Boolean | When set to `false`, the request will return immediately instead of waiting for the operation to finish. Default is `true`. | No
+wait_for_completion | Boolean | When set to `false`, the request will return a [task]({{site.url}}{{site.baseurl}}/api-reference/tasks/) ID and the operation will run in background. Default is `true`. | No
 task_execution_timeout | Time | Explicit task execution timeout, only useful when wait_for_completion is false. Default is `1h`. | No
 
 ```json
