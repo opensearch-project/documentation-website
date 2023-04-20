@@ -25,16 +25,16 @@ Option | Required | Type | Description
 
 ## Usage
 
-If you want to test the usage of the `list_to_map` processor before using the processor on your own source, use the following example. 
+The following example shows how to test the usage of the `list_to_map` processor before using the processor on your own source. 
 
-Create a source file named `logs_json.log`.  Because the `file` source reads each line in the `.log` file as an event, the object list appears as one line even though it contains multiple objects.
+Create a source file named `logs_json.log`. Because the `file` source reads each line in the `.log` file as an event, the object list appears as one line even though it contains multiple objects:
 
 ```json
 {"mylist":[{"name":"a","value":"val-a"},{"name":"b","value":"val-b1"},{"name":"b",  "value":"val-b2"},{"name":"c","value":"val-c"}]}
 ```
 {% include copy.html %}
 
-Next, create a `pipeline.yaml` that uses the `logs_json.log` file as `source` by pointing to the `.log` file's correct path.  
+Next, create a `pipeline.yaml` file that uses the `logs_json.log` file as the `source` by pointing to the `.log` file's correct path:  
 
 ```yaml
 pipeline:
@@ -54,7 +54,7 @@ pipeline:
 ```
 {% include copy.html %}
 
-Run the pipeline. If successful, the processor returns the generated map with objects mapped according to their `value_key`. Similar to the original source, which contains one line and therefore one event, the processors returns the following JSON as one line. For readability, the following example and all proceeding JSON example have been adjusted to multiple lines.
+Run the pipeline. If successful, the processor returns the generated map with objects mapped according to their `value_key`. Similar to the original source, which contains one line and therefore one event, the processor returns the following JSON as one line. For readability, the following example and all subsequent JSON examples have been adjusted to span multiple lines:
 
 ```json
 {
@@ -84,7 +84,7 @@ Run the pipeline. If successful, the processor returns the generated map with ob
 
 ### Example: Maps set to `target`
 
-The following example `pipeline.yaml` shows the `list_to_map` processor when set to a specified target, `mymap`.
+The following example `pipeline.yaml` file shows the `list_to_map` processor when set to a specified target, `mymap`:
 
 ```yaml
 pipeline:
@@ -105,7 +105,7 @@ pipeline:
 ```
 {% include copy.html %}
 
-The generated map appears under the target key.
+The generated map appears under the target key:
 
 ```json
 {
@@ -137,7 +137,7 @@ The generated map appears under the target key.
 
 ### Example: No `value_key` specified
 
-The follow example `pipeline.yaml` shows the `list_to_map` processor with no `value_key` specified. Since `key` is set to the objects `name`, the processor extracts the names of each object to use as keys in the map. 
+The follow example `pipeline.yaml` file shows the `list_to_map` processor with no `value_key` specified. Because `key` is set to `name`, the processor extracts the object names to use as keys in the map. 
 
 ```yaml
 pipeline:
@@ -156,7 +156,7 @@ pipeline:
 ```
 {% include copy.html %}
 
-The values from the generated map appear as original objects from the `.log` source as shown in the following example response:
+The values from the generated map appear as original objects from the `.log` source, as shown in the following example response:
 
 ```json
 {
@@ -195,7 +195,7 @@ The values from the generated map appear as original objects from the `.log` sou
 
 ### Example: `flattened_element` set to `last`
 
-The following example `pipeline.yaml` sets the `flattened_element` to last, therefore flattening the processor output based on each value's last element. 
+The following example `pipeline.yaml` file sets the `flattened_element` to last, therefore flattening the processor output based on each value's last element: 
 
 ```yaml
 pipeline:
@@ -217,7 +217,7 @@ pipeline:
 ```
 {% include copy.html %}
 
-The processor maps object `b` to value `val-b2`, since `val-b2` is the last element in object `b`, as shown in the following output:
+The processor maps object `b` to value `val-b2` because `val-b2` is the last element in object `b`, as shown in the following output:
 
 ```json
 {
@@ -248,7 +248,7 @@ The processor maps object `b` to value `val-b2`, since `val-b2` is the last elem
 
 ### Example: `flatten` set to false
 
-The following example `pipeline.yaml` sets `flatten` to `false`, causing the processor to output values from the generated map as a list. 
+The following example `pipeline.yaml` file sets `flatten` to `false`, causing the processor to output values from the generated map as a list: 
 
 ```yaml
 pipeline:
