@@ -12,7 +12,7 @@ The `list_to_map` processor converts a list of objects from an event, where each
 
 ## Configuration
 
-The following table describes the configuration options used to generate target keys for the mappings:
+The following table describes the configuration options used to generate target keys for the mappings.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
