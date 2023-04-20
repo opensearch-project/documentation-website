@@ -22,6 +22,7 @@ Depending on the specific changes made to multi-tenancy using dynamic configurat
 
 The global tenant, however, is a special case. Since this tenant is never disabled, users with global tenant selected as their active tenant will experience no interruption to their session. Furthermore, changing the default tenant has no impact on a user's session.
 
+
 ## Configuring multi-tenancy in OpenSearch Dashboards
 
 To make settings for multi-tenancy in Dashboards, follow these steps. 
@@ -33,6 +34,7 @@ To make settings for multi-tenancy in Dashboards, follow these steps.
    * In the **Default tenant** field, use the dropdown menu to select a default tenant. The menu includes Global, Private, and any other custom tenants that are available to users.
 1. After making your preferred changes, select **Save changes** in the lower right corner of the window. A popup window appears listing the configuration items you've changed and asks you to review your changes.
 1. Select the checkboxes beside the items you want to confirm and then select **Apply changes**. The changes are implemented dynamically.
+
 
 ## Configuring multi-tenancy with the REST API
 
