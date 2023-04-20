@@ -54,7 +54,7 @@ Data Prepper ensures the durability and reliability of data written from sources
 
 Alternatively, the source sends a negative acknowledgment when an event cannot be delivered to a sink for any reason. 
 
-When any component of a pipeline fails and is unable to send an event, the source receives no acknowledgment. In the case of A failure, the pipeline's source times out. This gives you the ability to take any necessary actions to address the source failure, including rerunning the pipeline or logging the failure.
+When any component of a pipeline fails and is unable to send an event, the source receives no acknowledgment. In the case of a failure, the pipeline's source times out. This gives you the ability to take any necessary actions to address the source failure, including rerunning the pipeline or logging the failure.
 
 As of Data Prepper 2.2, only the S3 source and OpenSearch Sink support E2E acknowledgments. 
 
