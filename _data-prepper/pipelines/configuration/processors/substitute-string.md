@@ -1,16 +1,18 @@
 ---
 layout: default
-title: substitute_string
+title: Substitute string processors
 parent: Processors
 grand_parent: Pipelines
-nav_order: 45
+nav_order: 110
 ---
 
 # substitute_string
 
-## Overview
+The `substitute_string` processor matches a key's value against a regular expression and replaces all matches with a replacement string. `substitute_string` is a [mutate string](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/mutate-string-processors#mutate-string-processors) processor. 
 
-The `substitute_string` processor matches a key's value against a regular expression and replaces all matches with a replacement string. `substitute_string` is a [mutate string](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/mutate-string-processors#mutate-string-processors) processor. The following table describes the options you can use to configure the `substitue_string` processor.
+## Configuration
+
+The following table describes the options you can use to configure the `substitue_string` processor.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---

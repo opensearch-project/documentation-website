@@ -1,14 +1,13 @@
 ---
 layout: default
-title: string_converter
+title: String converter processor
 parent: Processors
 grand_parent: Pipelines
-nav_order: 45
+nav_order: 105
 ---
 
 # string_converter
 
-## Overview
 
 The `string_converter` processor converts a string to uppercase or lowercase. You can use it as an example for developing your own processor. The following table describes the option you can use to configure the `string_converter` processor.
 

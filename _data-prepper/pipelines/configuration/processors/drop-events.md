@@ -1,14 +1,13 @@
 ---
 layout: default
-title: drop_events
+title: Drop events processor
 parent: Processors
 grand_parent: Pipelines
-nav_order: 45
+nav_order: 52
 ---
 
 # drop_events
 
-## Overview
 
 The `drop_events` processor drops all the events that are passed into it. The following table describes when events are dropped and how exceptions for dropping events are handled. 
 

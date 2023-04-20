@@ -1,14 +1,12 @@
 ---
 layout: default
-title: routes
+title: Routes
 parent: Processors
 grand_parent: Pipelines
-nav_order: 45
+nav_order: 90
 ---
 
 # Routes
-
-## Overview
 
 Routes define conditions that can be used in sinks for conditional routing. Routes are specified at the same level as processors and sinks under the name `route` and consist of a list of key-value pairs, where the key is the name of a route and the value is a Data Prepper expression representing the routing condition.
 

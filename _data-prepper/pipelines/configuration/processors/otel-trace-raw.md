@@ -1,21 +1,26 @@
 ---
 layout: default
-title: otel_trace_raw
+title: OTel trace raw processor
 parent: Processors
 grand_parent: Pipelines
-nav_order: 45
+nav_order: 75
 ---
 
 # otel_trace_raw
 
-## Overview
 
-The `otel_trace_raw` processor completes trace-group-related fields in all incoming Data Prepper span records by state caching the root span information for each `tradeId`. This processor includes the following parameters.
+The `otel_trace_raw` processor completes trace-group-related fields in all incoming Data Prepper span records by state caching the root span information for each `tradeId`. 
+
+## Parameters
+
+This processor includes the following parameters.
 
 * `traceGroup`: Root span name
 * `endTime`: End time of the entire trace in International Organization for Standardization (ISO) 8601 format
 * `durationInNanos`: Duration of the entire trace in nanoseconds
 * `statusCode`: Status code for the entire trace in nanoseconds
+
+## Configuration
 
 The following table describes the options you can use to configure the `otel_trace_raw` processor.
 
@@ -23,9 +28,6 @@ Option | Required | Type | Description
 :--- | :--- | :--- | :---
 trace_flush_interval | No | Integer | Represents the time interval in seconds to flush all the descendant spans without any root span. Default is 180.
 
-<!---## Configuration
-
-Content will be added to this section.--->
 
 ## Metrics
 
