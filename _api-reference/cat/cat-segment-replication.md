@@ -28,7 +28,7 @@ The following table lists the available optional path parameter.
 
 Parameter | Type | Description
 :--- | :--- | :---
-`index` | String | The name of the index, or a comma-separated list or a wildcard expression of index names used to filter results. If this parameter is not provided, the response contains information about all indexes in the cluster.
+`index` | String | The name of the index, or a comma-separated list or wildcard expression of index names used to filter results. If this parameter is not provided, the response contains information about all indexes in the cluster.
 
 ## Query parameters
 
@@ -37,7 +37,7 @@ The CAT segment replication API operation supports the following optional query 
 Parameter | Data type | Description
 :--- |:---| :---
 `active_only` | Boolean | If `true`, the response only includes active segment replications. Defaults to `false`. 
-[`detailed`](#additional-metrics-a-detailed-response-returns) | String | If `true`, the response includes additional metrics of each stage of a segment replication event. Defaults to `false`.
+[`detailed`](#additional-metrics-a-detailed-response-returns) | String | If `true`, the response includes additional metrics for each stage of a segment replication event. Defaults to `false`.
 `shards` | String | A comma-separated list of shards to display.
 `format` | String | A short version of the HTTP accept header. Valid values include `JSON` and `YAML`.  
 `h` | String | A comma-separated list of column names to display. 
@@ -119,7 +119,7 @@ shardId    target_node  target_host checkpoints_behind bytes_behind current_lag 
 
 #### Example 5: Using a metric alias 
 
-You can either use the metric's full name or one of its aliases in a request. The following query is the same as the preceding query, but it uses the alias `s` instead of `shardID` for sorting:
+In a request, you can either use a metric's full name or one of its aliases. The following query is the same as the preceding query, but it uses the alias `s` instead of `shardID` for sorting:
 
 ```json
 GET /_cat/segment_replication?v&s=s:desc
@@ -138,17 +138,17 @@ Metric | Alias | Description
 `checkpoints_behind` | `cpb` | The number of checkpoints by which the replica shard is behind the primary shard.
 `bytes_behind` | `bb` | The number of bytes by which the replica shard is behind the primary shard.
 `current_lag` | `clag` | The time elapsed while waiting for a replica shard to catch up to the primary shard.
-`last_completed_lag` | `lcl` | The time it took for a replica shard to catch up to the latest primary shard refresh.
+`last_completed_lag` | `lcl` | The time taken for a replica shard to catch up to the latest primary shard refresh.
 `rejected_requests` | `rr` | The number of rejected requests for the replication group.
 
-### Additional metrics a detailed response returns
+### Additional detailed response metrics
 
 The following table lists the additional response fields returned if `detailed` is set to `true`.
 
 Metric | Alias | Description
 :--- |:--- |:---
 `stage` | `st` | The current stage of a segment replication event.
-`time` | `t`, `ti` | The time a segment replication event took to complete, in milliseconds.
+`time` | `t`, `ti` | The amount of time a segment replication event took to complete, in milliseconds.
 `files_fetched` | `ff` | The number of files fetched so far for a segment replication event.
 `files_percent` | `fp` | The percentage of files fetched so far for a segment replication event.
 `bytes_fetched` | `bf` | The number of bytes fetched so far for a segment replication event.
@@ -159,8 +159,8 @@ Metric | Alias | Description
 `files_total` | `tf` | The total number of files that are part of this recovery, including both reused and recovered files.
 `bytes` | `b` | The number of bytes that needs to be fetched for a segment replication event.
 `bytes_total` | `tb` | The total number of bytes in the shard.
-`replicating_stage_time_taken` | `rstt` | The time the `replicating` stage of a segment replication event took to complete. 
-`get_checkpoint_info_stage_time_taken` | `gcistt` | The time the `get checkpoint info` stage of a segment replication event took to complete. 
-`file_diff_stage_time_taken` | `fdstt` | The time the `file diff` stage of a segment replication event took to complete. 
-`get_files_stage_time_taken` | `gfstt` | The time the `get files` stage of a segment replication event took to complete. 
-`finalize_replication_stage_time_taken` | `frstt` | The time the `finalize replication` stage of a segment replication event took to complete.
+`replicating_stage_time_taken` | `rstt` | The amount of time the `replicating` stage of a segment replication event took to complete. 
+`get_checkpoint_info_stage_time_taken` | `gcistt` | The amount of time the `get checkpoint info` stage of a segment replication event took to complete. 
+`file_diff_stage_time_taken` | `fdstt` | The amount of time the `file diff` stage of a segment replication event took to complete. 
+`get_files_stage_time_taken` | `gfstt` | The amount of time the `get files` stage of a segment replication event took to complete. 
+`finalize_replication_stage_time_taken` | `frstt` | The amount of time the `finalize replication` stage of a segment replication event took to complete.
