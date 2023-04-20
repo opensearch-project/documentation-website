@@ -14,7 +14,7 @@ The plugin supports OpenSearch 1.0 and later and Elasticsearch 7.3 and later.
 
 ## Usage
 
-To configure an OpenSearch cluster sink, specify the `opensearch` option within the pipeline configuration:
+To configure an `opensearch` sink, specify the `opensearch` option within the pipeline configuration:
 
 ```yaml
 pipeline:
@@ -103,7 +103,7 @@ For instructions on how to map users to roles, see [Map users to roles]({{site.u
 
 ## Amazon OpenSearch Service domain security
 
-The OpenSearch sink plugin can send data to an [Amazon OpenSearch Service](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/what-is.html) domain, which uses IAM for security. The plugin uses the default credential chain. Run `aws configure` using the [AWS Command Line Interface (AWS CLI)](https://aws.amazon.com/cli/) to set your credentials.
+The `opensearch` sink plugin can send data to an [Amazon OpenSearch Service](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/what-is.html) domain, which uses IAM for security. The plugin uses the default credential chain. Run `aws configure` using the [AWS Command Line Interface (AWS CLI)](https://aws.amazon.com/cli/) to set your credentials.
 
 Make sure the credentials that you configure have the required IAM permissions. The following domain access policy demonstrates the minimum required permissions:
 
@@ -142,8 +142,7 @@ For instructions on how to configure the domain access policy, see [Resource-bas
 
 ### Fine-grained access control
 
-If your OpenSearch Service domain uses [fine-grained access control
-](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/fgac.html), the OpenSearch sink plugin requires some additional configuration.
+If your OpenSearch Service domain uses [fine-grained access control](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/fgac.html), the `opensearch` sink plugin requires some additional configuration.
 
 #### IAM ARN as master user
 
@@ -178,7 +177,7 @@ For more information, see [Recommended configurations](https://docs.aws.amazon.c
 
 ## OpenSearch Serverless collection security
 
-The OpenSearch sink plugin can send data to an [Amazon OpenSearch Serverless](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless.html) collection.
+The `opensearch` sink plugin can send data to an [Amazon OpenSearch Serverless](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless.html) collection.
 
 OpenSearch Serverless collection sinks have the following limitations:
 
