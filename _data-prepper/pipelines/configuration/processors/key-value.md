@@ -1,14 +1,13 @@
 ---
 layout: default
-title: key_value
+title: Key value processor
 parent: Processors
 grand_parent: Pipelines
-nav_order: 45
+nav_order: 54
 ---
 
 # key_value
 
-## Overview
 
 The `key_value` processor parses a field into key/value pairs. The following table describes `key_value` processor options available that help you parse field information into pairs.
 

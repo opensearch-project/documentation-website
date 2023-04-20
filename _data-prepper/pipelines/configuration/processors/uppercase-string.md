@@ -1,14 +1,12 @@
 ---
 layout: default
-title: uppercase_string
+title: Uppercase string processor
 parent: Processors
 grand_parent: Pipelines
-nav_order: 45
+nav_order: 125
 ---
 
 # uppercase_string
-
-## Overview
 
 The `uppercase_string` processor converts an entire string to uppercase and is a [mutate string](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/mutate-string-processors#mutate-string-processors) processor. The following table describes the option you can use to configure the `uppercase_string` processor.
 

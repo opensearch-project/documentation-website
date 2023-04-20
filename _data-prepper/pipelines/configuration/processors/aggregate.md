@@ -1,16 +1,19 @@
 ---
 layout: default
-title: aggregate
+title: Aggregate processor
 parent: Processors
 grand_parent: Pipelines
-nav_order: 45
+nav_order: 41
 ---
 
 # aggregate
 
-## Overview
+The `aggregate` processor groups events based on the keys provided and performs an action on each group. 
 
-The `aggregate` processor groups events based on the keys provided and performs an action on each group. The following table describes the options you can use to configure the `aggregate` processor.
+
+## Configuration
+
+The following table describes the options you can use to configure the `aggregate` processor.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---

@@ -1,14 +1,13 @@
 ---
 layout: default
-title: split_string
+title: Split string processor
 parent: Processors
 grand_parent: Pipelines
-nav_order: 45
+nav_order: 100
 ---
 
 # split_string
 
-## Overview
 
 The `split_string` processor splits a field into an array using a delimiting character and is a [mutate string](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/mutate-string-processors#mutate-string-processors) processor. The following table describes the options you can use to configure the `split_string` processor.
 
