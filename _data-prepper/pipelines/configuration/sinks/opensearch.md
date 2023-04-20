@@ -31,7 +31,7 @@ pipeline:
       bulk_size: 4
 ```
 
-To configure an [Amazon OpenSearch Service](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/what-is.html) sink, specify the domain endpoint in the `hosts` option:
+To configure an [Amazon OpenSearch Service](https://docs.aws.amazon.com/opensearch-service/latest/developerguide/what-is.html) sink, specify the domain endpoint as the `hosts` option:
 
 ```yaml
 pipeline:
