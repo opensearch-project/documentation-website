@@ -1,14 +1,12 @@
 ---
 layout: default
-title: trim_string
+title: Trim string processors
 parent: Processors
 grand_parent: Pipelines
-nav_order: 45
+nav_order: 120
 ---
 
 # trim_string
-
-## Overview
 
 The `trim_string` processor removes whitespace from the beginning and end of a key and is a [mutate string](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/mutate-string-processors#mutate-string-processors) processor. The following table describes the option you can use to configure the `trim_string` processor.
 
