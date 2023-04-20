@@ -10,8 +10,8 @@ nav_order: 30
 
 With the shard hotspot identification Root Cause Analysis (RCA), you can identify a hot shard within an index. A hot shard is an outlier that consumes more resources than other shards and may lead to poor indexing and search performance. The shard hotspot identification RCA monitors the following metrics:
 
-- `CPU_Utilization`
-- `Heap_AllocRate`
+- CPU utilization
+- Heap allocation rate
 
 These metrics provide an accurate picture of operation intensities for certain shards, such as the following: 
 
