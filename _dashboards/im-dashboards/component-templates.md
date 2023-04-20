@@ -15,7 +15,7 @@ Using them with [index templates]({{site.url}}{{site.baseurl}}/im-plugin/index-t
 
 You can create component templates using the Index Management UI. The UI maximizes ease of use for common indexing and data stream administrative operations such as create, read, update, delete (CRUD) and mapping indexes; CRUD and mapping aliases; reindexing; and open/close, shrink, and split indexes, along with the monitoring of actions and logging of audit records.
 
-The following short video demonstrates creating a component template.
+The following GIF demonstrates creating a component template.
 
 ![Component template demo]({{site.url}}{{site.baseurl}}/images/admin-ui-index/component.gif)
 
@@ -39,7 +39,7 @@ To create template components using the UI, follow these steps:
 1. On the OpenSearch Dashboards main page, select **Index Management** in the navigation menu.
 1. In the Index Management window, select **Templates** > **Component templates**.
 1. Select **Create** and then define the component template settings. 
-1. To configure aliases, settings, and mappings, toggle **Use configuration** as shown in the following image.
+1. To configure aliases, settings, and mappings, toggle **Use configuration**, as shown in the following image.
 
     ![Component template use configuration]({{site.url}}{{site.baseurl}}/images/admin-ui-index/component_use_config.png)
 
@@ -56,7 +56,7 @@ To associate a component template with an index template, follow these steps:
 1. In the **Index Management** navigation menu, select **Templates**.
 1. In the Templates window, select **Create template**.
 1. Select **Component template** as the method for defining your template.
-1. In the **Component template** pane, select **Associate component template** as shown in the following image.
+1. In the **Component template** pane, select **Associate component template**, as shown in the following image.
 
     ![Component template associate configuration]({{site.url}}{{site.baseurl}}/images/admin-ui-index/associate_component.png)
 
