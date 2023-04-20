@@ -80,3 +80,19 @@ GET _plugins/_performanceanalyzer/rca?name=HotShardClusterRca
   ]
 }]
 ```
+
+Response field parameters.
+
+Field | Type | Description
+:--- | :--- | :---
+rca_name | String | The name of the RCA. In this case, "HotShardClusterRca".
+timestamp | Integer | The timestamp of the RCA
+state | Object | The state of the cluster determined by the RCA. Either `healthy` or `unhealthy`.
+HotClusterSummary.HotNodeSummary.number_of_nodes | Integer | The number of nodes in the cluster.
+HotClusterSummary.HotNodeSummary.number_of_unhealthy_nodes | Integer | The number of nodes found to be in an `unhealthy` state.
+HotClusterSummary.HotNodeSummary.HotResourceSummary.resource_type | Object | The type of resource checked, either "cpu usage" or "heap".
+HotClusterSummary.HotNodeSummary.HotResourceSummary.resource_metric | String | The definition of the resource_type. Either "cpu usage(num of cores)" or "heap alloc rate(heap alloc rate in bytes per second)".
+HotClusterSummary.HotNodeSummary.HotResourceSummary.threshold | Float | The value that determines if a resource is highly utilized.
+HotClusterSummary.HotNodeSummary.HotResourceSummary.value | Float | The current value of the resource.
+HotClusterSummary.HotNodeSummary.HotResourceSummary.time_period_seconds | Time | The amount of time that the resource_type has to be above the threshold value in order to mark the shard state as `unhealthy`.
+HotClusterSummary.HotNodeSummary.HotResourceSummary.meta_data | String | The metadata associated with the resource_type.
