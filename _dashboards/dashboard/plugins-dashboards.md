@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Managing plugins with Dashboards
+title: Managing plugins with Observability Dashboards
 parent: Observability
 nav_order: 5
 ---
@@ -10,19 +10,19 @@ nav_order: 5
 Introduced 2.7
 {: .label .label-purple }
 
-Plugins are integrated automatically into the **Dashboards** application to allow you to manage them within a dashboard. A dashboard view of your installed plugins provides for:
+Plugins are integrated automatically into **Observability Dashboards** to allow you to manage them within a dashboard, providing you:
 
-- **Easy access to installed plugins:** Viewing a list of plugins on a dashboard view displays all the plugins in one place to better configure and manage them.
-- **Improved efficiency:** With a list of plugins readily available on a dashboard view, you can enable, disable, update, or remove them with just a few clicks.
-- **Better troubleshooting:** Viewing a list of plugins on a dashboard view can help you quickly identify which plugins may be causing a problem.
-- **Enhanced security:** With a list of plugins on a dashboard view, you can easily see if any outdated or vulnerable plugins are present and then quickly remove or update them, minimizing or avoiding security risks.
-- **Improved website performance:** Viewing a list of plugins on a dashboard view can help you identify any plugins that may be slowing down your website or causing performance issues.
+- **Instant access to installed plugins:** Viewing a list of plugins from a dashboard displays all the installed plugins in one place.
+- **Improved efficiency:** With a list of plugins readily available from a dashboard, you can enable, disable, update, or remove them with just a few clicks.
+- **Better troubleshooting:** Viewing a list of plugins from a dashboard can help you quickly identify which plugins may be causing a problem.
+- **Enhanced security:** With a list of plugins readily available from a dashboard, you can easily see if any outdated or vulnerable plugins are present and then quickly remove or update them, minimizing or avoiding security risks.
+- **Improved website performance:** Viewing a list of plugins from a dashboard can help you identify any plugins that may be slowing down your website or causing performance issues.
 
-## Viewing installed plugins
+## Viewing installed plugins in one list
 
-To view your installed plugins in Dashboards, follow these steps:
+To view your installed plugins from the Observability Dashboards interface, follow these steps:
 
-1. From the OpenSearch Dashboards navigation menu, select **Dashboard** <UI needs to correct the naming convention (Dashboard) vs UI (Dashboards) before this release>.
+1. From the OpenSearch Dashboards main menu, select **Observability** > **Dashboard**. Alternatively, select **Dashboard**.
 2. View the list of items and select your plugin. Plugins are categorized automatically as the data type **Observability Dashboard**.
 
 ## Installing plugins using Dashboards
