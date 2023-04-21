@@ -7,6 +7,7 @@ has_toc: false
 parent: Supported field types
 redirect_from:
   - /opensearch/supported-field-types/string/
+  - /field-types/string/
 ---
 
 # String field types

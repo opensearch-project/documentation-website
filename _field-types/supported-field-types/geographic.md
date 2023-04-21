@@ -7,6 +7,7 @@ has_toc: false
 parent: Supported field types
 redirect_from:
   - /opensearch/supported-field-types/geographic/
+  - /field-types/geographic/
 ---
 
 # Geographic field types

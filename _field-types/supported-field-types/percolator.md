@@ -6,6 +6,7 @@ has_children: false
 parent: Supported field types
 redirect_from:
   - /opensearch/supported-field-types/percolator/
+  - /field-types/percolator/
 ---
 
 # Percolator field type

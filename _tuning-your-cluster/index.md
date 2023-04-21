@@ -1,9 +1,10 @@
 ---
 layout: default
 title: Creating a cluster
-nav_order: 8
+nav_order: 1
 redirect_from: 
   - /opensearch/cluster/
+  - /tuning-your-cluster/cluster/
 ---
 
 # Creating a cluster

@@ -7,6 +7,7 @@ parent: String field types
 grand_parent: Supported field types
 redirect_from:
   - /opensearch/supported-field-types/keyword/
+  - /field-types/keyword/
 ---
 
 # Keyword field type

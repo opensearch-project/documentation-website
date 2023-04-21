@@ -7,6 +7,7 @@ parent: Autocomplete field types
 grand_parent: Supported field types
 redirect_from:
   - /opensearch/supported-field-types/search-as-you-type/
+  - /field-types/search-as-you-type/
 ---
 
 # Search-as-you-type field type

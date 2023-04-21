@@ -1,10 +1,10 @@
 ---
 layout: default
 title: Quickstart guide for OpenSearch Dashboards
-nav_order: 10
+nav_order: 1
 has_children: false
 redirect_from:
-   - /dashboards/index/
+   - /dashboards/quickstart-dashboards/
 ---
 
 # Quickstart guide for OpenSearch Dashboards

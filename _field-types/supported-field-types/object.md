@@ -7,6 +7,7 @@ parent: Object field types
 grand_parent: Supported field types
 redirect_from: 
   - /opensearch/supported-field-types/object/
+  - /field-types/object/
 ---
 
 # Object field type
