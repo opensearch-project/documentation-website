@@ -42,7 +42,7 @@ In addition to using the Dashboards interface, you can manage dynamic configurat
 
 ### Get tenancy configuration
 
-Retrieves settings for the dynamic configuration.
+The GET call retrieves settings for the dynamic configuration:
 
 ```json
 GET /_plugins/_security/api/tenancy/config
@@ -61,7 +61,7 @@ GET /_plugins/_security/api/tenancy/config
 
 ### Update tenant configuration
 
-Updates settings for dynamic configuration.
+The PUT call updates settings for dynamic configuration:
 
 ```json
 PUT /_plugins/_security/api/tenancy/config
@@ -85,7 +85,7 @@ PUT /_plugins/_security/api/tenancy/config
 
 ### Dashboardsinfo API
 
-You can also use the Dashboardsinfo API to retrieve the status of multi-tenancy settings for the user logged in to Dashboards.
+You can also use the Dashboardsinfo API to retrieve the status of multi-tenancy settings for the user logged in to Dashboards:
 
 ```json
 GET /_plugins/_security/dashboardsinfo
