@@ -41,19 +41,36 @@ PUT /my-index1
   }
 }
 ````
+{% include copy-curl.html %}
 
 In segment replication, the primary shard is usually generating more network traffic than the replicas because it copies segment files to the replicas. Thus, it's beneficial to distribute primary shards equally between the nodes. To ensure balanced primary shard distribution, set the dynamic `cluster.routing.allocation.balance.prefer_primary` setting to `true`. For more information, see [Cluster settings]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/).
+
+Segment replication currently does not support the `wait_for` value in the `refresh` query parameter.
+{: .important }
+
+For the best performance, we recommend enabling both of the following settings:
+
+1. [Segment replication backpressure]({{site.url}}{{site.baseurl}}tuning-your-cluster/availability-and-recovery/segment-replication/backpressure/). 
+2. Balanced primary shard allocation:
+
+```json
+curl -X PUT "$host/_cluster/settings?pretty" -H 'Content-Type: application/json' -d'
+  {
+    "persistent": {
+    "cluster.routing.allocation.balance.prefer_primary": true,
+    "segrep.pressure.enabled": true
+   }
+  }
+```
+{% include copy-curl.html %}
 
 ## Comparing replication benchmarks
 
 During initial benchmarks, segment replication users reported 40% higher throughput than when using document replication with the same cluster setup.
 
-The following benchmarks were collected with [OpenSearch-benchmark](https://github.com/opensearch-project/opensearch-benchmark) using the [`stackoverflow`](https://www.kaggle.com/datasets/stackoverflow/stackoverflow) and [`nyc_taxi`](https://github.com/topics/nyc-taxi-dataset) datasets.  
+The following benchmarks were collected with [OpenSearch-benchmark](https://github.com/opensearch-project/opensearch-benchmark) using the [`nyc_taxi`](https://github.com/topics/nyc-taxi-dataset) dataset.  
 
-Both test runs were performed on a 10-node (m5.xlarge) cluster with 10 shards and 5 replicas. Each shard was about 3.2GBs in size. The tests were run with the following settings:
-
-- `indices.recovery.max_bytes_per_sec`: 10gb
-- `indices.recovery.max_concurrent_file_chunks`: 5
+The test run was performed on a 10-node (m5.xlarge) cluster with 10 shards and 5 replicas. Each shard was about 3.2GBs in size.
 
 The benchmarking results are listed in the following table.
 
@@ -61,135 +78,154 @@ The benchmarking results are listed in the following table.
     <tr>
         <td></td>
         <td></td>
-        <td>Document Replication</td>
-        <td>Segment Replication</td>
-        <td>Percent difference</td>
+        <td><b>Document Replication</b></td>
+        <td><b>Segment Replication</b></td>
+        <td><b>Percent difference</b></td>
     </tr>
     <tr>
-        <td>Test execution time (minutes)</td>
+        <td><b>Test execution time (minutes)</b></td>
         <td></td>
-        <td>40.00</td>
-        <td>22.00</td>
-        <td></td>
+        <td>118.00</td>
+        <td>98.00</td>
+        <td>27%</td>
     </tr>
     <tr>
-        <td rowspan="3">Throughput (number of requests per second)</td>
+        <td rowspan="3"><b>Index Throughput (number of requests per second)</b></td>
         <td>p0</td>
-        <td>17553.90</td>
-        <td>28584.30</td>
-        <td>63%</td>
+        <td>71917.20</td>
+        <td>105740.70</td>
+        <td>47.03%</td>
     </tr>
     <tr>
         <td>p50</td>
-        <td>20647.20</td>
-        <td>32790.20</td>
-        <td>59%</td>
+        <td>77392.90</td>
+        <td>110988.70</td>
+        <td>43.41%</td>
     </tr>
     <tr>
         <td>p100</td>
-        <td>23209.00</td>
-        <td>34286.00</td>
-        <td>48%</td>
+        <td>93032.90</td>
+        <td>123131.50</td>
+        <td>32.35%</td>
+    </tr>
+     <tr>
+        <td rowspan="3"><b>Query Throughput (number of requests per second)</b></td>
+        <td>p0</td>
+        <td>1.748</td>
+        <td>1.744</td>
+        <td>-0.23%</td>
     </tr>
     <tr>
-        <td rowspan="4">CPU (%)</td>
         <td>p50</td>
-        <td>65.00</td>
-        <td>30.00</td>
-        <td>-54%</td>
+        <td>1.754</td>
+        <td>1.753</td>
+        <td>0%</td>
+    </tr>
+    <tr>
+        <td>p100</td>
+        <td>1.769</td>
+        <td>1.768</td>
+        <td>-0.06%</td>
+    </tr>
+    <tr>
+        <td rowspan="4"><b>CPU (%)</b></td>
+        <td>p50</td>
+        <td>37.19</td>
+        <td>25.579</td>
+        <td>-31.22%</td>
     </tr>
     <tr>
         <td>p90</td>
-        <td>79.00</td>
-        <td>35.00</td>
-        <td>-56%</td>
+        <td>94.00</td>
+        <td>88.00</td>
+        <td>-6.38%</td>
     </tr>
     <tr>
         <td>p99</td>
-        <td>98.00</td>
-        <td>45.08</td>
-        <td>-54%</td>
+        <td>100</td>
+        <td>100</td>
+        <td>0%</td>
     </tr>
     <tr>
         <td>p100</td>
-        <td>98.00</td>
-        <td>59.00</td>
-        <td>-40%</td>
+        <td>100.00</td>
+        <td>100.00</td>
+        <td>0%</td>
     </tr>
     <tr>
-        <td rowspan="4">Memory (%)</td>
+        <td rowspan="4"><b>Memory (%)</b></td>
         <td>p50</td>
-        <td>48.20</td>
-        <td>39.00</td>
-        <td>-19%</td>
+        <td>30</td>
+        <td>24.241</td>
+        <td>-19.20%</td>
     </tr>
     <tr>
         <td>p90</td>
-        <td>62.00</td>
         <td>61.00</td>
-        <td>-2%</td>
+        <td>55.00</td>
+        <td>-9.84%</td>
     </tr>
     <tr>
         <td>p99</td>
-        <td>66.21</td>
-        <td>68.00</td>
-        <td>3%</td>
+        <td>72</td>
+        <td>62</td>
+        <td>-13.89%%</td>
     </tr>
     <tr>
         <td>p100</td>
-        <td>71.00</td>
-        <td>69.00</td>
-        <td>-3%</td>
+        <td>80.00</td>
+        <td>67.00</td>
+        <td>-16.25%</td>
     </tr>
     <tr>
-        <td rowspan="4">IOPS</td>
+        <td rowspan="4"><b>Index Latency (ms)</b></td>
         <td>p50</td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td>803</td>
+        <td>647.90</td>
+        <td>-19.32%</td>
     </tr>
     <tr>
         <td>p90</td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td>1215.50</td>
+        <td>908.60</td>
+        <td>-25.25%</td>
     </tr>
     <tr>
         <td>p99</td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td>9738.70</td>
+        <td>1565</td>
+        <td>-83.93%</td>
     </tr>
     <tr>
         <td>p100</td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td>21559.60</td>
+        <td>2747.70</td>
+        <td>-87.26%</td>
     </tr>
     <tr>
-        <td rowspan="4">Latency</td>
+        <td rowspan="4"><b>Query Latency (ms)</b></td>
         <td>p50</td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td>36.209</td>
+        <td>37.799</td>
+        <td>4.39%</td>
     </tr>
     <tr>
         <td>p90</td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td>42.971</td>
+        <td>60.823</td>
+        <td>41.54%</td>
     </tr>
     <tr>
         <td>p99</td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td>50.604</td>
+        <td>70.072</td>
+        <td>38.47%</td>
     </tr>
     <tr>
         <td>p100</td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td>52.883</td>
+        <td>73.911</td>
+        <td>39.76%</td>
     </tr>
 </table>
 
