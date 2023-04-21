@@ -10,7 +10,7 @@ nav_order: 5
 Introduced 2.7
 {: .label .label-purple }
 
-Plugins are integrated automatically into **Observability Dashboards** to allow you to manage them within a dashboard, providing you:
+**Observability Dashboards** show you a complete list of all installed plugins. The Plugins are integrated automatically into Observability Dashboards to allow you to manage them from a dashboard, instead of the plugin interface. Observability Dashboards provides you:
 
 - **Instant access to installed plugins:** Viewing a list of plugins from a dashboard displays all the installed plugins in one place.
 - **Improved efficiency:** With a list of plugins readily available from a dashboard, you can enable, disable, update, or remove them with just a few clicks.
@@ -23,7 +23,7 @@ Plugins are integrated automatically into **Observability Dashboards** to allow 
 To view your installed plugins from the Observability Dashboards interface, follow these steps:
 
 1. From the OpenSearch Dashboards main menu, select **Observability** > **Dashboard**. Alternatively, select **Dashboard**.
-2. View the list of items and select your plugin. Plugins are categorized automatically as the data type **Observability Dashboard**.
+2. View the list of items and select your plugin. Note that the plugins are categorized automatically as data type Observability Dashboard, by which you can filter to concentrate on just what you want to see. 
 
 ## Installing plugins using Dashboards
 
