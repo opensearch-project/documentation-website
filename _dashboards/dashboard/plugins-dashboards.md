@@ -23,7 +23,12 @@ Introduced 2.7
 There are two ways to view installed plugins from a dashboard: from the Observability Dashboards application or the Dashboard application. To view your installed plugins, follow these steps:
 
 1. From the OpenSearch Dashboards main menu, select **Observability** > **Dashboard**. Alternatively, select **Dashboard**.
-2. View the list of items and select your plugin. Note that the plugins are categorized automatically as data type Observability Dashboard, by which you can filter to concentrate on just what you want to see. 
+2. View the list of items and select your plugin. Plugins are categorized automatically as the Observability Dashboard data type, which you can filter to concentrate on just what you want to see.
+
+The following image shows a list of plugins in the Observability Dashboard interface.
+
+
+
 
 ## Installing plugins using Dashboards
 
