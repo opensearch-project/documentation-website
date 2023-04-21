@@ -34,9 +34,9 @@ In subsequent releases, we plan to expand the functionality of this feature to i
 
 In this first experimental phase of development, there are some limitations that should be observed before enabling the feature and using it in a test environment:
 
-* The feature can only be used in a new cluster. At this time, the feature is not suported by clusters already in use.
+* The feature can only be used in a new cluster. At this time, the feature is not supported by clusters already in use.
 * Also, the feature should be used only in a test environment, not in production. 
-* Finally, once the feature has been enabled and used in a test cluster, the feature cannot be disabled for the cluster. Disabling the feature once it has been used to work with tenants and saved objects can result in the loss of saved objects and have an impact on tenant-to-tenant functionality. 
+* Finally, once the feature has been enabled and used in a test cluster, the feature cannot be disabled for the cluster. Disabling the feature once it has been used to work with tenants and saved objects can result in the loss of saved objects and can have an impact on tenant-to-tenant functionality. This can occur when disabling the feature in any one of three ways: disabling the aggregate view feature with the [feature flag](#enabling-aggregate-view-for-saved-objects); disabling multi-tenancy with the traditional [multi-tenancy configuration]({{site.url}}{{site.baseurl}}/security/multi-tenancy/multi-tenancy-config/) setting; or disabling multi-tenancy with [dynamic configuration]({{site.url}}{{site.baseurl}}/security/multi-tenancy/dynamic-config/) settings.
 
 These limitations will be addressed in upcoming releases.
 
