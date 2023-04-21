@@ -18,9 +18,9 @@ Introduced 2.7
 - **Enhanced security:** With a list of plugins readily available from a dashboard, you can easily see if any outdated or vulnerable plugins are present and then quickly remove or update them, minimizing or avoiding security risks.
 - **Improved website performance:** Viewing a list of plugins from a dashboard can help you identify any plugins that may be slowing down your website or causing performance issues.
 
-## Viewing installed plugins in one list
+## Viewing installed plugins
 
-To view your installed plugins from the Observability Dashboards interface, follow these steps:
+There are two ways to view installed plugins from a dashboard: from the Observability Dashboards application or the Dashboard application. To view your installed plugins, follow these steps:
 
 1. From the OpenSearch Dashboards main menu, select **Observability** > **Dashboard**. Alternatively, select **Dashboard**.
 2. View the list of items and select your plugin. Note that the plugins are categorized automatically as data type Observability Dashboard, by which you can filter to concentrate on just what you want to see. 
