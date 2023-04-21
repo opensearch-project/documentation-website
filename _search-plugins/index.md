@@ -24,6 +24,6 @@ OpenSearch provides several features to customize your search use cases and impr
 
 - Use a dataset that is fixed in time to paginate results with [Point in Time]({{site.url}}{{site.baseurl}}/search-plugins/point-in-time/).
 
-- [Paginate]({{site.url}}{{site.baseurl}}/opensearch/search/paginate) and [sort]({{site.url}}{{site.baseurl}}/opensearch/search/sort/) search results, [highlight] search terms, and use the [autocomplete]({{site.url}}{{site.baseurl}}/opensearch/search/autocomplete/) and [did-you-mean]({{site.url}}{{site.baseurl}}/opensearch/search/did-you-mean/) functionality.
+- [Paginate]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/paginate) and [sort]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/sort/) search results, [highlight]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/highlight/) search terms, and use the [autocomplete]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/autocomplete/) and [did-you-mean]({{site.url}}{{site.baseurl}}/search-plugins/searching-data/did-you-mean/). functionality.
 
-- Rewrite queries with [Querqy]({{site.url}}{{site.baseurl}}/search-plugins/querqy)
+- Rewrite queries with [Querqy]({{site.url}}{{site.baseurl}}/search-plugins/querqy).
