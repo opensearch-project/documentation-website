@@ -18,18 +18,12 @@ Plugins are integrated automatically into the **Dashboards** application to allo
 - **Enhanced security:** With a list of plugins on a dashboard view, you can easily see if any outdated or vulnerable plugins are present and then quickly remove or update them, minimizing or avoiding security risks.
 - **Improved website performance:** Viewing a list of plugins on a dashboard view can help you identify any plugins that may be slowing down your website or causing performance issues.
 
-<demo video>
-
 ## Viewing installed plugins
 
 To view your installed plugins in Dashboards, follow these steps:
 
 1. From the OpenSearch Dashboards navigation menu, select **Dashboard** <UI needs to correct the naming convention (Dashboard) vs UI (Dashboards) before this release>.
 2. View the list of items and select your plugin. Plugins are categorized automatically as the data type **Observability Dashboard**.
-
-The following image shows an example dashboard view of the plugins list in Dashboards.
-
-<insert UI>
 
 ## Installing plugins using Dashboards
 
@@ -40,8 +34,6 @@ To install plugins using the Dashboards application, follow these steps:
 3. In the **Create operational panel** window, enter a name in the **Name** field, and then select **Create**.
 
 The plugin is added to both the Dashboards application and the Observability Plugins page.
-
-<insert UI>
 
 ## Staying updated about OpenSearch Dashboards plugins
 
