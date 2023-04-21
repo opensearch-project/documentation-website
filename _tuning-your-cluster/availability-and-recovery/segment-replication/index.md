@@ -68,7 +68,7 @@ curl -X PUT "$host/_cluster/settings?pretty" -H 'Content-Type: application/json'
 
 During initial benchmarks, segment replication users reported 40% higher throughput than when using document replication with the same cluster setup.
 
-The following benchmark was collected with [OpenSearch-benchmark](https://github.com/opensearch-project/opensearch-benchmark) using the [`nyc_taxi`](https://github.com/topics/nyc-taxi-dataset) dataset.  
+The following benchmarks were collected with [OpenSearch-benchmark](https://github.com/opensearch-project/opensearch-benchmark) using the [`nyc_taxi`](https://github.com/topics/nyc-taxi-dataset) dataset.  
 
 The test run was performed on a 10-node (m5.xlarge) cluster with 10 shards and 5 replicas. Each shard was about 3.2GBs in size.
 
