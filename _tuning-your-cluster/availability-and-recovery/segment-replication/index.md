@@ -45,13 +45,13 @@ PUT /my-index1
 
 In segment replication, the primary shard is usually generating more network traffic than the replicas because it copies segment files to the replicas. Thus, it's beneficial to distribute primary shards equally between the nodes. To ensure balanced primary shard distribution, set the dynamic `cluster.routing.allocation.balance.prefer_primary` setting to `true`. For more information, see [Cluster settings]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/).
 
-Please note that segment replication currently does not support `wait_for requests` in refresh API.
+Segment replication currently does not support the `wait_for` value in the `refresh` query parameter.
 {: .warning }
 
 For the best performance, we recommend enabling the following settings:
 
-1. [Segment replication back-pressure]({{site.url}}{{site.baseurl}}tuning-your-cluster/availability-and-recovery/segment-replication/backpressure/). 
-2. Balanced primary shard allocation. 
+1. [Segment replication backpressure]({{site.url}}{{site.baseurl}}tuning-your-cluster/availability-and-recovery/segment-replication/backpressure/). 
+2. Balanced primary shard allocation:
 
 ```json
 curl -X PUT "$host/_cluster/settings?pretty" -H 'Content-Type: application/json' -d'
