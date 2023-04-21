@@ -29,8 +29,8 @@ To configure multi-tenancy in Dashboards, follow these steps.
 
 1. Begin by selecting **Security** in the Dashboards home page menu. Then select **Tenancy** from the Security menu on the left side of the screen. The **Multi-tenancy** page is displayed. 
 1. By default, the **Manage** tab is displayed. Select the **Configure** tab to display the dynamic settings for multi-tenancy.
-   * In the **Multi-tenancy** field, select the **Enable tenancy** check box to enable multi-tenancy. Clear the check box to disable the feature. The default is `true`.
-   * In the **Tenants** field, you can enable or disable private tenants for users. By default the check box is selected and the feature is enabled.
+   * In the **Multi-tenancy** field, select the **Enable tenancy** checkbox to enable multi-tenancy. Clear the checkbox to disable the feature. The default is `true`.
+   * In the **Tenants** field, you can enable or disable private tenants for users. By default the checkbox is selected and the feature is enabled.
    * In the **Default tenant** field, use the dropdown menu to select a default tenant. The menu includes Global, Private, and any other custom tenants that are available to users.
 1. After making your preferred changes, select **Save changes** in the lower right corner of the window. A popup window appears listing the configuration items you've changed and asks you to review your changes.
 1. Select the checkboxes beside the items you want to confirm and then select **Apply changes**. The changes are implemented dynamically.
