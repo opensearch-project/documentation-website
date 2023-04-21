@@ -126,10 +126,10 @@ PUT /test-index/_doc/2
 ```
 {% include copy-curl.html %}
 
-To search for a leaf value of the flat object, use a POST request. Even if you don't know the field names, you can search for a leaf value in the entire flat object. For example, the following request searches for all issues labeled as bugs:
+To search for a leaf value of the flat object, use either a GET or a POST request. Even if you don't know the field names, you can search for a leaf value in the entire flat object. For example, the following request searches for all issues labeled as bugs:
 
 ```json
-POST /test-index/_search
+GET /test-index/_search
 {
   "query": {
     "match": {"issue": "bug"}
@@ -140,7 +140,7 @@ POST /test-index/_search
 Alternatively, if you know the subfield name in which to search, provide the field's path in dot notation:
 
 ```json
-POST /test-index/_search
+GET /test-index/_search
 {
   "query": {
     "match": {"issue.labels.category.level": "bug"}
@@ -193,7 +193,7 @@ In both cases, the response is the same and contains document 2:
 Using a prefix query, you can search for all issues for the versions that start with `2.`:
 
 ```json
-POST /test-index/_search
+GET /test-index/_search
 {
   "query": {
     "prefix": {"issue.labels.version": "2."}
@@ -204,7 +204,7 @@ POST /test-index/_search
 With a range query, you can search for all issues for versions 2.0--2.1:
 
 ```json
-POST /test-index/_search
+GET /test-index/_search
 {
   "query": {
     "range": {
