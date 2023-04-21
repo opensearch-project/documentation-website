@@ -12,9 +12,9 @@ You can define how documents and their fields are stored and indexed by creating
 
 If you're just starting to build out your cluster and data, you may not know exactly how your data should be stored. In those cases, you can use dynamic mappings, which tell OpenSearch to dynamically add data and its fields. However, if you know exactly what types your data falls under and want to enforce that standard, then you can use explicit mappings.
 
-For example, if you want to indicate that `year` should be of type `text` instead of an `integer`, and `age` should be an `integer`, you can do so with explicit mappings. Using dynamic mapping OpenSearch might interpret both `year` and `age` as integers.
+For example, if you want to indicate that `year` should be of type `text` instead of an `integer`, and `age` should be an `integer`, you can do so with explicit mappings. By using dynamic mapping, OpenSearch might interpret both `year` and `age` as integers.
 
-This section provides an example for how to create an index mapping, and how to add a document to it that will get ip_range validated.
+This section provides an example for how to create an index mapping and how to add a document to it that will get ip_range validated.
 
 #### Table of contents
 1. TOC

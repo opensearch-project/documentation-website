@@ -71,7 +71,7 @@ PUT books
 
 ## Null value
 
-Setting a field's value to `null`, an empty array or an array of `null` values makes this field equivalent to an empty field. Therefore, you cannot search for documents that have `null` in this field. 
+Setting a field's value to `null`, an empty array, or an array of `null` values makes this field equivalent to an empty field. Therefore, you cannot search for documents that have `null` in this field. 
 
 To make a field searchable for `null` values, you can specify its `null_value` parameter in the index's mappings. Then, all `null` values passed to this field will be replaced with the specified `null_value`.
 
