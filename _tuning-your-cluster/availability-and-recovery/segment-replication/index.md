@@ -46,9 +46,9 @@ PUT /my-index1
 In segment replication, the primary shard is usually generating more network traffic than the replicas because it copies segment files to the replicas. Thus, it's beneficial to distribute primary shards equally between the nodes. To ensure balanced primary shard distribution, set the dynamic `cluster.routing.allocation.balance.prefer_primary` setting to `true`. For more information, see [Cluster settings]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/).
 
 Segment replication currently does not support the `wait_for` value in the `refresh` query parameter.
-{: .warning }
+{: .important }
 
-For the best performance, we recommend enabling the following settings:
+For the best performance, we recommend enabling both of the following settings:
 
 1. [Segment replication backpressure]({{site.url}}{{site.baseurl}}tuning-your-cluster/availability-and-recovery/segment-replication/backpressure/). 
 2. Balanced primary shard allocation:
@@ -68,12 +68,9 @@ curl -X PUT "$host/_cluster/settings?pretty" -H 'Content-Type: application/json'
 
 During initial benchmarks, segment replication users reported 40% higher throughput than when using document replication with the same cluster setup.
 
-The following benchmarks were collected with [OpenSearch-benchmark](https://github.com/opensearch-project/opensearch-benchmark) using the [`stackoverflow`](https://www.kaggle.com/datasets/stackoverflow/stackoverflow) and [`nyc_taxi`](https://github.com/topics/nyc-taxi-dataset) datasets.  
+The following benchmarks were collected with [OpenSearch-benchmark](https://github.com/opensearch-project/opensearch-benchmark) using the [`nyc_taxi`](https://github.com/topics/nyc-taxi-dataset) dataset.  
 
-Both test runs were performed on a 10-node (m5.xlarge) cluster with 10 shards and 5 replicas. Each shard was about 3.2GBs in size. The tests were run with the following settings:
-
-- `indices.recovery.max_bytes_per_sec`: 10gb
-- `indices.recovery.max_concurrent_file_chunks`: 5
+The test run was performed on a 10-node (m5.xlarge) cluster with 10 shards and 5 replicas. Each shard was about 3.2GBs in size.
 
 The benchmarking results are listed in the following table.
 
