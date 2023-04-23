@@ -20,3 +20,29 @@ Begin by selecting **Security Analytics** in the Dashboards home page menu. Then
 
 ## Interpreting the graph
 
+The graph displays findings as circles with colored borders expressing their severity level. A three-letter abbreviation in the circle indicates the log type. The lines that connect findings represent the correlations between them. A heavy line indicates a strong correlation, while a light line shows a weaker connection.
+
+<img src="{{site.url}}{{site.baseurl}}/images/Security/sec-analytics/corr-graph-detail.png" alt="The correlation graph" width="75%">
+
+## Using the graph
+
+You can control which findings are displayed in the graph by filtering by severity level, log type, and window of time. The window of time controls the findings that appear in the graph by limiting the dates on which the findings were generated and, therefore, the correlations made between them.
+* Use the **Severity** dropdown menu to select which findings appear in the graph by their severity level. The number beside the menu name shows how many severity levels are being shown in the graph.
+* Use the **Log types** dropdown menu to select which log types to show on the graph. The number beside the menu name shows how many log types are being shown in the graph.
+* Select **Reset filters** to return the dropdown menus to their default (all items are shown).
+* Use the calendar bar to set the the date range and show only those findings that were generated within that span of time. Select **Refresh** bring the current number of findings up to date.
+
+You can drill down in the graph to look at specific correlations associated with a finding by selecting the finding in the graph. The graph then changes to show the selected finding along with the constellation of findings correlated to it.
+<img src="{{site.url}}{{site.baseurl}}/images/Security/sec-analytics/corr-drill-dn.png" alt="Zooming in on a specific finding in the graph" width="75%">
+
+After drilling down in the graph, informational cards for each of the findings appear in the right-hand margin of the screen. The selected finding appears first at the top of the cards and the correlated findings are listed below it in order of their correlation strength, represented by a correlation score.
+<img src="{{site.url}}{{site.baseurl}}/images/Security/sec-analytics/corr-cards.png" alt="Zooming in on a specific finding in the graph" width="75%">
+
+The cards display details about each finding:
+* The severity level of the finding.
+* A correlation score for correlated findings.
+* The detection rule that generated the finding.
+* For correlated findings, the correlation rule used to associate it with the selected finding.
+
+You can select one of the correlated findings in the graph to shift the perspective of the correlation relationships. This sends the newly selected finding first to the top of the list.
+
