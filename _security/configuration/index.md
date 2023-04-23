@@ -24,5 +24,5 @@ The plugin includes demo certificates so that you can get up and running quickly
 
 If you don't want to use the plugin, see [Disable security]({{site.url}}{{site.baseurl}}/security/configuration/disable).
 
-The security plugin has several default users, roles, action groups, permissions, and settings for OpenSearch Dashboards that use kibana in their names. We will change these names in a future release.
+The Security plugin has several default users, roles, action groups, permissions, and settings for OpenSearch Dashboards that use kibana in their names. We will change these names in a future release.
 {: .note }

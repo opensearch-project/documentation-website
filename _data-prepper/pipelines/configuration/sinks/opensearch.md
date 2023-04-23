@@ -53,7 +53,7 @@ The following table describes options you can configure for the `opensearch` sin
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
 hosts | Yes | List | List of OpenSearch hosts to write to (for example, `["https://localhost:9200", "https://remote-cluster:9200"]`).
-cert | No | String | Path to the security certificate (for example, `"config/root-ca.pem"`) if the cluster uses the OpenSearch security plugin.
+cert | No | String | Path to the security certificate (for example, `"config/root-ca.pem"`) if the cluster uses the OpenSearch Security plugin.
 username | No | String | Username for HTTP basic authentication.
 password | No | String | Password for HTTP basic authentication.
 aws_sigv4 | No | Boolean | Default value is false. Whether to use AWS Identity and Access Management (IAM) signing to connect to an Amazon OpenSearch Service domain. For your access key, secret key, and optional session token, Data Prepper uses the default credential chain (environment variables, Java system properties, `~/.aws/credential`, etc.).

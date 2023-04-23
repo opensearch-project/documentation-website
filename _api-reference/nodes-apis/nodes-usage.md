@@ -92,4 +92,4 @@ The following is an example response:
 
 ## Required permissions
 
-If you use the security plugin, make sure you set the following permissions: `cluster:manage/nodes` or `cluster:monitor/nodes`.
+If you use the Security plugin, make sure you set the following permissions: `cluster:manage/nodes` or `cluster:monitor/nodes`.
