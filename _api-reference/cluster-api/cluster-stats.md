@@ -318,7 +318,7 @@ Parameter | Type | Description
                 "version": "1.2.4.0",
                 "opensearch_version": "1.2.4",
                 "java_version": "1.8",
-                "description": "OpenSearch Cross-Cluster Replication plugin",
+                "description": "OpenSearch Cross Cluster Replication plugin",
                 "classname": "org.opensearch.replication.ReplicationPlugin",
                 "custom_foldername": "",
                 "extended_plugins": [],
