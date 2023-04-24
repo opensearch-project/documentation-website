@@ -1,6 +1,6 @@
 ---
 layout: default
-title: OTel logs source
+title: `otel_logs_source` 
 parent: Sources
 grand_parent: Pipelines
 nav_order: 25
