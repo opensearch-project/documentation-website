@@ -54,7 +54,7 @@ To create a new visualization and add it to a dashboard, follow these steps:
 
 You've created a new visualization that can be added to a new or existing dashboard. To add a PPL query to a dashboard, follow these steps:  
 
-1. On the main menu, select **Dashboard**.
+1. Select **Dashboard** from the main menu.
 2. On the **Dashboards** window, select **Create dashboard**.
 3. On the Dashboards window, select **Add existing** and then choose the visualization.
 4. To add more visualizations to the dashboard, select **Create new** and then select **PPL** on the New Visualization window. You'll return to the event analytics page and follow steps 1-6 in the preceding instructions.
