@@ -53,7 +53,7 @@ source:
 
 ## Metrics
 
-You can use the following metrics with the OTel logs source.
+You can use the following metrics with the `otel_logs_source`.
 
 | Option | Type | Description |
 | :--- | :--- | :--- | 
