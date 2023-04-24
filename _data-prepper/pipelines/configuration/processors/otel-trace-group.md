@@ -70,7 +70,7 @@ aws_sts_header_overrides:
 
 ## Metrics
 
-The following table describes custom metrics specific to the OTel trace group processor.
+The following table describes custom metrics specific to the `otel_trace_group` processor.
 
 | Metric name | Type | Description |
 | ------------- | ---- | ----------- |
