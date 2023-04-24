@@ -6,7 +6,7 @@ grand_parent: Pipelines
 nav_order: 25
 ---
 
-# OTel logs source
+# `otel_logs_source`
 
 
 The OTel logs source is an OpenTelemetry source that follows the [OpenTelemetry Protocol Specification](https://github.com/open-telemetry/oteps/blob/master/text/0035-opentelemetry-protocol.md), receives logs from the OTel Collector in the form of `ExportLogsServiceRequest` records.
