@@ -56,7 +56,7 @@ You've created a new visualization that can be added to a new or existing dashbo
 
 1. Select **Dashboard** from the main menu.
 2. On the **Dashboards** window, select **Create dashboard**.
-3. On the Dashboards window, select **Add existing** and then choose the visualization.
+3. In the **Dashboards** window, select **Add existing** and then choose the visualization.
 4. To add more visualizations to the dashboard, select **Create new** and then select **PPL** on the New Visualization window. You'll return to the event analytics page and follow steps 1-6 in the preceding instructions.
 
 ### Limitations of event analytics visualizations
