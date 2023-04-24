@@ -29,8 +29,8 @@ The graph displays findings as circles with colored borders expressing their sev
 You can control which findings are displayed in the graph by filtering by severity level, log type, and window of time. The window of time controls the findings that appear in the graph by limiting the dates on which the findings were generated and, therefore, the correlations made between them.
 * Use the **Severity** dropdown menu to select which findings appear in the graph by their severity level. The number beside the menu name shows how many severity levels are being shown in the graph.
 * Use the **Log types** dropdown menu to select which log types to show on the graph. The number beside the menu name shows how many log types are being shown in the graph.
-* Select **Reset filters** to return the dropdown menus to their default (all items are shown).
-* Use the calendar bar to set the the date range and show only those findings that were generated within that span of time. Select **Refresh** bring the current number of findings up to date.
+* Select **Reset filters** to return the dropdown menus to their default, showing all items.
+* Use the calendar bar to set the the date range and show only those findings that were generated within that span of time. Select **Refresh** to bring the current number of findings up to date.
 
 You can drill down in the graph to look at specific correlations associated with a finding by selecting the finding in the graph. The graph then changes to show the selected finding along with the constellation of findings correlated to it.
 
