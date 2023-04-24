@@ -44,7 +44,7 @@ pipeline:
 
 ## Configuration
 
-You can configure the OTel trace group processor with the following options.
+You can configure the `otel_trace_group` processor with the following options.
 
 | Name | Description | Default value |
 | -----| ----| -----------|
