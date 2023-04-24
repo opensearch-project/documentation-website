@@ -36,7 +36,7 @@ To save a visualization, expand the save dropdown menu next to **Refresh**, ente
 
 ## Adding event analytics visualizations to dashboards
 
-This feature is available in OpenSearch Dashboards version 2.7 and later. It works with new visualizations created in version 2.7 or later that uses PPL to query data from OpenSearch or federated data sources such as Prometheus.
+This feature is available in OpenSearch Dashboards version 2.7 and later. It works with new visualizations created in version 2.7 or later that use PPL to query data from OpenSearch or federated data sources such as Prometheus.
 {: .note}
 
 Presenting your visualizations on a dashboard, instead of the event analytics page, makes it easier for users to understand and interpret the data at a glance. The following <XX>-second video shows you how to create a dashboard displaying event analytics visualizations.
