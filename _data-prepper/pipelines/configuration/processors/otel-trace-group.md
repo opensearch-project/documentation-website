@@ -29,7 +29,7 @@ See [OpenSearch security]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/co
 
 ### Amazon OpenSearch Service
 
-See the following example `YAML` configuration file for the OTel trace group processor when you use Amazon OpenSearch Service:
+See the following example `YAML` configuration file for the `otel_trace_group` processor when you use Amazon OpenSearch Service:
 
 ``` YAML
 pipeline:
