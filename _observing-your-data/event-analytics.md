@@ -39,25 +39,26 @@ To save a visualization, expand the save dropdown menu next to **Refresh**, ente
 This feature is available in OpenSearch Dashboards version 2.7 and later. It works with new visualizations created in version 2.7 or later that use PPL to query data from OpenSearch or federated data sources such as Prometheus.
 {: .note}
 
-Presenting your visualizations on a dashboard, instead of the event analytics page, makes it easier for users to understand and interpret the data at a glance. The following <XX>-second video shows you how to create a dashboard displaying event analytics visualizations.
+Presenting your visualizations on a dashboard, instead of the event analytics page, makes it easier for users to understand and interpret the data at a glance. To create a new visualization and add it to a dashboard, follow these steps:
 
-<insert video>
-
-To create a new visualization and add it to a dashboard, follow these steps:
-
-1. On the main menu, select **Observability** > **Event analytics**.
+1. On the main menu, select **Observability** > **Logs**.
 2. In the **Event analytics** window, enter the index source in the **PPL query** field, for example, `source = opensearch_dashboards_sample_data_logs | stats max(bytes), avg(bytes) by host`. You must enter the query using PPL syntax. 
-3. Set the time filter, for example, **Week to date**, and then select **Refresh**.
+3. Set the time filter, for example, **This year**, and then select **Refresh**.
 4. Choose the visualization type, for example, **Time series**, from the right sidebar dropdown menu.  
-5. Select **Save** and enter a name for the visualization. To add the visualization to an existing dashboard, choose from the **Custom operational dashboards/application** dropdown menu. 
+5. Select **Save** and enter a name for the visualization. To add the visualization to an existing dashboard, choose from the **Custom operational dashboards/application** dropdown menu.
 6. Select **Save**.
 
 You've created a new visualization that can be added to a new or existing dashboard. To add a PPL query to a dashboard, follow these steps:  
 
 1. Select **Dashboard** from the main menu.
-2. In the **Dashboards** window, select **Create dashboard**.
-3. In the **Dashboards** window, select **Add existing** and then choose the visualization.
-4. To add more visualizations to the dashboard, select **Create new** and then select **PPL** in the **New Visualization** window. You'll return to the event analytics page and follow steps 1--6 in the preceding instructions.
+2. In the **Dashboards** window, select **Create > Observability Dashboard**.
+3. Enter a name in the **Create Observability Dashboard** window, and then select **Create**. 
+4. Choose **Add visualization** and then select **Select existing visualization** or **Create new visualization**. For example, choose **Select existing visualization** > **[Logs] Max and average bytes by host**.
+5. To add more visualizations to the dashboard, choose **Select existing visualization** and follow the preceding steps. Alternatively, choose **Create new** and then select **PPL** in the **New Visualization** window. You'll return to the event analytics page and follow steps 1--6 in the preceding instructions.
+
+The following image shows you an example observability dashboard.
+
+![Example dashboard displaying event analytics visualizations]({{site.url}}{{site.baseurl}}//images/dashboards/event-analytics-dashboard.png)
 
 ### Limitations of event analytics visualizations
 
