@@ -9,18 +9,18 @@ nav_order: 25
 # OTel logs source
 
 
-`otel_logs_source` is an OpenTelemetry source that follows the [OpenTelemtry Protocol Specification](https://github.com/open-telemetry/oteps/blob/master/text/0035-opentelemetry-protocol.md), receives logs from OpenTelemetry Collector, and receives `ExportLogsServiceRequest` records to process through a Data Prepper pipeline.
+The OTel logs source is an OpenTelemetry source that follows the [OpenTelemetry Protocol Specification](https://github.com/open-telemetry/oteps/blob/master/text/0035-opentelemetry-protocol.md), receives logs from the OTel Collector in the form of `ExportLogsServiceRequest` records.
 
 This source supports the `OTLP/gRPC` protocol.
 {: .note}
 
 ## Configuration
 
-You can configure the `otel_logs_source` source with the following options. 
+You can configure the OTel logs source with the following options. 
 
 | Option | Type | Description |
 | :--- | :--- | :--- |
-| port | int | Represents the port that the `OTel logs source` is running on. Default value is `21892`. |
+| port | int | Represents the port that the OTel logs source is running on. Default value is `21892`. |
 | path | string | Represents the path for sending unframed HTTP requests. This can be used for supporting unframed gRPC with HTTP idiomatic path to a configurable path. It should start with `/` and length should be at least 1. `/opentelemetry.proto.collector.logs.v1.LogsService/Export` endpoint will be disabled for both gRPC and HTTP requests if path is configured. Path can contain `${pipelineName}` placeholder which will be replaced with pipeline name.  If the value is empty and `unframed_requests` is `true`, then the path that the source provides is `/opentelemetry.proto.collector.logs.v1.LogsService/Export`. There is no default value. | 
 | request_timeout | int | Represents the request timeout duration in milliseconds. Default value is `10,000`. |
 | health_check_service | Boolean | Enables the gRPC health check service under `grpc.health.v1/Health/Check`. Default value is `false`. |
