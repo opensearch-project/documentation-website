@@ -58,11 +58,7 @@ You can use the following metrics with the OTel logs source.
 | Option | Type | Description |
 | :--- | :--- | :--- | 
 | `requestTimeouts` | Counter | Measures the total number of requests that time out. | 
-<<<<<<< HEAD
-| `requestsReceived` | Counter | Measures the total number of requests received by OTel logs source. |
-=======
 | `requestsReceived` | Counter | Measures the total number of requests received by the OTel logs source. |
->>>>>>> 6f064ad3 (Content updates based on feedback.)
 | `badRequests` | Counter | Measures the total number of requests that could not be parsed. |
 | `requestsTooLarge` | Counter | Measures the total number of requests that exceed the maximum allowed size. Indicates that the size of the data to be written into the buffer is beyond the buffer's maximum capacity. |
 | `internalServerError` | Counter | Measures the total number of requests that are erroneous due to any other reason than `requestTimeouts` or `requestsTooLarge` error. |
