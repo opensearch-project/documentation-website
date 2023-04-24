@@ -25,7 +25,7 @@ You can configure the `otel_logs_source` source with the following options.
 | request_timeout | int | Represents the request timeout duration in milliseconds. Default value is `10,000`. |
 | health_check_service | Boolean | Enables the gRPC health check service under `grpc.health.v1/Health/Check`. Default value is `false`. |
 | proto_reflection_service | Boolean | Enables a reflection service for Protobuf services (see [ProtoReflectionService](https://grpc.github.io/grpc-java/javadoc/io/grpc/protobuf/services/ProtoReflectionService.html) and [gRPC reflection](https://github.com/grpc/grpc-java/blob/master/documentation/server-reflection-tutorial.md) documents). Default value is `false`. |
-| unframed_requests | Boolean | Enables requests which are not framed using the gRPC wire protocol. Default value is `false`.|
+| unframed_requests | Boolean | Enables requests which are not framed using the gRPC wire protocol. Default value is `false`. |
 | thread_count  | int | The number of threads to keep in the `ScheduledThreadPool`. Default value is `500`. |
 | max_connection_count | int | The maximum number of open connections allowed. Default value is `500`. |
 
