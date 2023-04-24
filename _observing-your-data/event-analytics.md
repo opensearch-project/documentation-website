@@ -46,7 +46,7 @@ Presenting your visualizations on a dashboard, instead of the event analytics pa
 To create a new visualization and add it to a dashboard, follow these steps:
 
 1. On the main menu, select **Observability** > **Event analytics**.
-2. In the Event analytics window, enter the index source in the **PPL query** field, for example, `source = opensearch_dashboards_sample_data_logs | stats max(bytes), avg(bytes) by host`. You must enter the query using PPL syntax. 
+2. In the **Event analytics** window, enter the index source in the **PPL query** field, for example, `source = opensearch_dashboards_sample_data_logs | stats max(bytes), avg(bytes) by host`. You must enter the query using PPL syntax. 
 3. Set the time filter, for example **Week to date**, then select **Refresh**.
 4. Choose the visualization type, for example **Time series**, from the right sidebar dropdown menu.  
 5. Select **Save** and enter a name for the visualization. To add the visualization to an existing dashboard, choose from the **Custom operational dashboards/application** dropdown menu. 
