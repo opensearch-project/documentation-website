@@ -20,7 +20,7 @@ You can configure the `otel_logs_source` source with the following options.
 
 | Option | Type | Description |
 | :--- | :--- | :--- |
-| port | int | Represents the port that the OTel logs source is running on. Default value is `21892`. |
+| port | int | Represents the port that the `otel_logs_source` is running on. Default value is `21892`. |
 | path | string | Represents the path for sending unframed HTTP requests. You can use this option to support unframed gRPC with HTTP idiomatic path to a configurable path. The path should start with `/` and length should be at least 1. `/opentelemetry.proto.collector.logs.v1.LogsService/Export` endpoint is disabled for both gRPC and HTTP requests if the path is configured. The path can contain `${pipelineName}` placeholder, which is replaced with pipeline name.  If the value is empty and `unframed_requests` is `true`, then the path that the source provides is `/opentelemetry.proto.collector.logs.v1.LogsService/Export`. | 
 | request_timeout | int | Represents the request timeout duration in milliseconds. Default value is `10000`. |
 | health_check_service | Boolean | Enables the gRPC health check service under `grpc.health.v1/Health/Check`. Default value is `false`. |
