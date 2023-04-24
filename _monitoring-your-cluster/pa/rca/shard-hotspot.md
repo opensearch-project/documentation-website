@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Shard hotspot identification
+title: Hot shard identification
 parent: Root Cause Analysis
 grand_parent: Performance Analyzer
 nav_order: 30
@@ -8,25 +8,25 @@ nav_order: 30
 
 ## Shard hotspot identification
 
-With the shard hotspot identification Root Cause Analysis (RCA), you can identify a hot shard within an index. A hot shard is an outlier that consumes more resources than other shards and may lead to poor indexing and search performance. The shard hotspot identification RCA monitors the following metrics:
+Hot shard identification Root Cause Analysis (RCA) lets you can identify a hot shard within an index. A hot shard is an outlier that consumes more resources than other shards and may lead to poor indexing and search performance. The hot shard identification RCA monitors the following metrics:
 
 - CPU utilization
 - Heap allocation rate
 
-These metrics provide an accurate picture of operation intensities for certain shards, such as the following: 
+Although the metric that you should monitor depends on the cluster configuration and the workload, refer to the following list for common operations which may lead to increased resource consumption:
 
 - Bulk requests: High heap allocation rate.
 - Search requests: High CPU utilization
 - Complex queries: High CPU utilization and high heap allocation rate.
 - Document updates: High CPU utilization and high heap allocation rate.
 
-The shard hotspot identification RCA compares the CPU utilization and heap allocation rate against their threshold values. If the usage for either metric is greater than the threshold, the shard is considered a hot spot.
+The hot shard identification RCA compares the CPU utilization and heap allocation rate against their threshold values. If the usage for either metric is greater than the threshold, the shard is considered hot.
 
-For more information about the shard hotspot identification RCA implementation, see [Hot Shard RCA](https://github.com/opensearch-project/performance-analyzer-rca/blob/main/src/main/java/org/opensearch/performanceanalyzer/rca/store/rca/hotshard/docs/README.md).
+For more information about the hot shard identification RCA implementation, see [Hot Shard RCA](https://github.com/opensearch-project/performance-analyzer-rca/blob/main/src/main/java/org/opensearch/performanceanalyzer/rca/store/rca/hotshard/docs/README.md).
 
 #### Example request
 
-The following example requests the shard hotspot identification RCA:
+The following query requests hot shard identification:
 
 ```bash
 GET _plugins/_performanceanalyzer/rca?name=HotShardClusterRca
@@ -34,6 +34,8 @@ GET _plugins/_performanceanalyzer/rca?name=HotShardClusterRca
 {% include copy-curl.html %}
 
 #### Response
+
+The response contains a list of unhealthy shards:
 
 ```json
 "HotShardClusterRca": [{
@@ -81,13 +83,15 @@ GET _plugins/_performanceanalyzer/rca?name=HotShardClusterRca
 }]
 ```
 
-Response field parameters.
+## Response fields
+
+The following table lists the response fields.
 
 Field | Type | Description
 :--- | :--- | :---
 rca_name | String | The name of the RCA. In this case, "HotShardClusterRca".
-timestamp | Integer | The timestamp of the RCA
-state | Object | The state of the cluster determined by the RCA. Either `healthy` or `unhealthy`.
+timestamp | Integer | The timestamp of the RCA.
+state | Object | The state of the cluster determined by the RCA. The `state` can be `healthy`, `unhealthy`, or `unknown`.
 HotClusterSummary.HotNodeSummary.number_of_nodes | Integer | The number of nodes in the cluster.
 HotClusterSummary.HotNodeSummary.number_of_unhealthy_nodes | Integer | The number of nodes found to be in an `unhealthy` state.
 HotClusterSummary.HotNodeSummary.HotResourceSummary.resource_type | Object | The type of resource checked, either "cpu usage" or "heap".
