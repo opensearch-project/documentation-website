@@ -1,0 +1,10 @@
+extends: substitution
+message: "Use '%s' instead of '%s'."
+level: error
+ignorecase: false
+swap:
+  kb: KB
+  mb: MB
+  gb: GB
+  tb: TB
+  pb: PB

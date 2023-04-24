@@ -1,0 +1,6 @@
+extends: existence
+message: "Don't use an ampersand in place of 'and' in documentation."
+nonword: true
+level: warning
+tokens:
+  - '\w +& +\w'

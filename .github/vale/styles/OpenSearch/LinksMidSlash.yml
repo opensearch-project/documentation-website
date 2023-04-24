@@ -1,0 +1,7 @@
+extends: existence
+message: "Add a slash after {{site.url}}/{{site.baseurl}} '%s'."
+level: error
+nonword: true
+scope: raw
+tokens:
+  - '\(\{\{site.url\}\}\{\{site.baseurl\}\}([^\/])(?:(.*))?\)'

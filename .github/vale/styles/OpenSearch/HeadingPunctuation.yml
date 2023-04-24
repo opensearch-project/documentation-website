@@ -1,0 +1,7 @@
+extends: existence
+message: "Don't use punctuation at the end of a heading."
+nonword: true
+level: error
+scope: heading
+tokens:
+  - '[.?!]$'

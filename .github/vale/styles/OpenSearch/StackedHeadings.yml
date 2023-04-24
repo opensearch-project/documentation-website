@@ -1,0 +1,28 @@
+extends: script
+message: "Do not stack headings. Insert an introductory sentence between headings."
+level: error
+link: https://tengolang.com/
+# The unprocessed file contents.
+#
+# We need this to access heading markup.
+scope: raw
+script: |
+  text := import("text")
+  matches := []
+  // Remove all instances of code blocks since we don't want to count
+  // inter-block newlines as a new paragraph.
+  document := text.re_replace("(?s) *(\n```.*?```\n)", scope, "")
+  isHeading := false
+  for line in text.split(document, "\n") {
+    if text.trim_space(line) != "" {   
+      if text.has_prefix(line, "#") {
+        if isHeading == true {
+          start := text.index(scope, line)
+          matches = append(matches, {begin: start, end: start + len(line)})
+         }
+        isHeading = true // New section; reset count
+      } else {
+        isHeading = false
+      }
+    }
+  }  

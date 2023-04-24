@@ -1,0 +1,71 @@
+extends: conditional
+message: "'%s': Spell out acronyms the first time that you use them on a page and follow them with the acronym in parentheses. On subsequent use, use the acronym alone."
+link: 'https://github.com/opensearch-project/documentation-website/blob/main/STYLE_GUIDE.md#acronyms'
+level: warning
+ignorecase: false
+# Ensures that the existence of 'first' implies the existence of 'second'.
+first: '\b([A-Z\/]{2,6})\b'
+second: '(?:\b[A-Za-z]+ )+\(([A-Z\/]{2,6})\)'
+# ... with the exception of these:
+exceptions:
+  - 3D
+  - API
+  - ASCII
+  - BASIC
+  - BM25
+  - CPU
+  - DOS
+  - FAQ
+  - FTP
+  - GIF
+  - HTML
+  - HTTP
+  - HTTPS
+  - ID
+  - IP
+  - JPEG
+  - JSON
+  - NAT
+  - NGINX
+  - PDF
+  - RAM
+  - REST
+  - RGB
+  - ROM
+  - SAML
+  - SDK
+  - SSL
+  - TCP
+  - TIFF
+  - TLS
+  - UI
+  - URI
+  - URL
+  - UTC
+  - UTF
+  - XML
+  - YAML
+  - CAT
+  - GET
+  - PUT
+  - POST
+  - DELETE
+  - AND
+  - OR
+  - KB
+  - MB
+  - GB
+  - TB
+  - PB
+  - US
+  - AWS
+  - CLI
+  - PNG
+  - JVM
+  - N/A
+  - GROUP
+  - BY
+  - SELECT
+  - HAVING
+  - NULL
+  - SQL

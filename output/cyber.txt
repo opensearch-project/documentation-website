@@ -1,0 +1,1 @@
+_security-analytics/index.md:14:333:OpenSearch.Cyber:Use 'cyber' as a prefix in a closed compound in 'cyber attacks'.

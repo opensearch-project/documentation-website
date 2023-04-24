@@ -1,0 +1,295 @@
+CODE_OF_CONDUCT.md:1:4:OpenSearch.HeadingCapitalization:'Code of Conduct' is a heading and should be in sentence case.
+CONTRIBUTING.md:1:3:OpenSearch.HeadingCapitalization:'Contributing Guidelines' is a heading and should be in sentence case.
+FORMATTING_GUIDE.md:1:3:OpenSearch.HeadingCapitalization:'Formatting Guide' is a heading and should be in sentence case.
+MAINTAINERS.md:5:4:OpenSearch.HeadingCapitalization:'Current Maintainers' is a heading and should be in sentence case.
+STYLE_GUIDE.md:1:3:OpenSearch.HeadingCapitalization:'OpenSearch Project Style Guidelines' is a heading and should be in sentence case.
+_api-reference/search.md:37:4:OpenSearch.HeadingCapitalization:'URL Parameters' is a heading and should be in sentence case.
+_api-reference/cluster-api/cluster-decommission.md:18:4:OpenSearch.HeadingCapitalization:'HTTP and Path methods' is a heading and should be in sentence case.
+_api-reference/cluster-api/cluster-decommission.md:63:4:OpenSearch.HeadingCapitalization:'Example: Getting zone decommission status' is a heading and should be in sentence case.
+_api-reference/cluster-api/cluster-awareness.md:51:4:OpenSearch.HeadingCapitalization:'Example: Weighted round robin search' is a heading and should be in sentence case.
+_api-reference/cluster-api/cluster-awareness.md:108:4:OpenSearch.HeadingCapitalization:'Example: Deleting weights' is a heading and should be in sentence case.
+_api-reference/snapshots/create-snapshot.md:77:29:OpenSearch.HeadingCapitalization:'not included' is a heading and should be in sentence case.
+_api-reference/snapshots/create-snapshot.md:88:29:OpenSearch.HeadingCapitalization:'included' is a heading and should be in sentence case.
+_api-reference/snapshots/restore-snapshot.md:9:4:OpenSearch.HeadingCapitalization:'Restore Snapshot' is a heading and should be in sentence case.
+_api-reference/snapshots/create-repository.md:37:5:OpenSearch.HeadingCapitalization:'fs repository' is a heading and should be in sentence case.
+_api-reference/snapshots/create-repository.md:63:5:OpenSearch.HeadingCapitalization:'s3 repository' is a heading and should be in sentence case.
+_api-reference/index-apis/put-mapping.md:45:5:OpenSearch.HeadingCapitalization:'dynamic' is a heading and should be in sentence case.
+_api-reference/index-apis/put-mapping.md:80:6:OpenSearch.HeadingCapitalization:'Sample Request' is a heading and should be in sentence case.
+_api-reference/index-apis/put-mapping.md:100:6:OpenSearch.HeadingCapitalization:'Sample Response' is a heading and should be in sentence case.
+_api-reference/index-apis/create-index.md:89:6:OpenSearch.HeadingCapitalization:'Dynamic index Settings' is a heading and should be in sentence case.
+_api-reference/nodes-apis/nodes-stats.md:546:36:OpenSearch.HeadingCapitalization:'and' is a heading and should be in sentence case.
+_clients/opensearch-py-ml.md:7:3:OpenSearch.HeadingCapitalization:'opensearch-py-ml' is a heading and should be in sentence case.
+_clients/OSC-dot-net.md:85:4:OpenSearch.HeadingCapitalization:'Using ConnectionSettings' is a heading and should be in sentence case.
+_clients/java.md:13:4:OpenSearch.HeadingCapitalization:'Installing the client using Apache HttpClient 5 Transport' is a heading and should be in sentence case.
+_clients/java.md:37:4:OpenSearch.HeadingCapitalization:'Installing the client using RestClient Transport' is a heading and should be in sentence case.
+_clients/java.md:87:5:OpenSearch.HeadingCapitalization:'IndexData class' is a heading and should be in sentence case.
+_clients/java.md:123:4:OpenSearch.HeadingCapitalization:'Initializing the client with SSL and TLS enabled using Apache HttpClient 5 Transport' is a heading and should be in sentence case.
+_clients/OpenSearch-dot-net.md:145:4:OpenSearch.HeadingCapitalization:'Using ConnectionSettings' is a heading and should be in sentence case.
+_clients/ruby.md:635:3:OpenSearch.HeadingCapitalization:'Ruby AWS Sigv4 Client' is a heading and should be in sentence case.
+_dashboards/visualize/maptiles.md:13:3:OpenSearch.HeadingCapitalization:'Configuring a Web Map Service (WMS)' is a heading and should be in sentence case.
+_dashboards/visualize/selfhost-maps-server.md:91:5:OpenSearch.HeadingCapitalization:'Option 1: Configure' is a heading and should be in sentence case.
+_dashboards/visualize/selfhost-maps-server.md:97:5:OpenSearch.HeadingCapitalization:'Option 2: Configure Default WMS properties in OpenSearch Dashboards' is a heading and should be in sentence case.
+_dashboards/reporting-cli/rep-cli-create.md:21:6:OpenSearch.HeadingCapitalization:'Example: Requesting a PNG file' is a heading and should be in sentence case.
+_dashboards/reporting-cli/rep-cli-create.md:29:6:OpenSearch.HeadingCapitalization:'Example: Requesting a PDF file' is a heading and should be in sentence case.
+_dashboards/reporting-cli/rep-cli-create.md:41:6:OpenSearch.HeadingCapitalization:'Example: Requesting a CSV file' is a heading and should be in sentence case.
+_dashboards/reporting-cli/rep-cli-lambda.md:150:4:OpenSearch.HeadingCapitalization:'(Optional) Step 6: Add the role permission for Amazon SES' is a heading and should be in sentence case.
+_data-prepper/pipelines/configuration/sinks/file.md:9:3:OpenSearch.HeadingCapitalization:'file sink' is a heading and should be in sentence case.
+_data-prepper/pipelines/configuration/processors/trace-peer-forwarder.md:9:3:OpenSearch.HeadingCapitalization:'trace peer forwarder' is a heading and should be in sentence case.
+_data-prepper/pipelines/configuration/processors/csv.md:9:3:OpenSearch.HeadingCapitalization:'csv' is a heading and should be in sentence case.
+_data-prepper/pipelines/configuration/processors/anomaly-detector.md:20:145:OpenSearch.HeadingCapitalization:'mode' is a heading and should be in sentence case.
+_data-prepper/pipelines/configuration/processors/date.md:9:3:OpenSearch.HeadingCapitalization:'date' is a heading and should be in sentence case.
+_data-prepper/pipelines/configuration/processors/aggregate.md:9:3:OpenSearch.HeadingCapitalization:'aggregate' is a heading and should be in sentence case.
+_data-prepper/pipelines/configuration/processors/grok.md:9:3:OpenSearch.HeadingCapitalization:'grok' is a heading and should be in sentence case.
+_data-prepper/pipelines/configuration/sources/otel-trace.md:3:26:OpenSearch.HeadingCapitalization:'source' is a heading and should be in sentence case.
+_data-prepper/pipelines/configuration/processors/list-to-map.md:85:5:OpenSearch.HeadingCapitalization:'Example: Maps set to' is a heading and should be in sentence case.
+_data-prepper/pipelines/configuration/sources/s3.md:9:8:OpenSearch.HeadingCapitalization:'source' is a heading and should be in sentence case.
+_data-prepper/pipelines/configuration/sources/s3.md:18:121:OpenSearch.HeadingCapitalization:'sqs' is a heading and should be in sentence case.
+_data-prepper/pipelines/configuration/sources/s3.md:19:13:OpenSearch.HeadingCapitalization:'aws' is a heading and should be in sentence case.
+_data-prepper/pipelines/configuration/sources/s3.md:48:4:OpenSearch.HeadingCapitalization:'file' is a heading and should be in sentence case.
+_data-prepper/pipelines/configuration/sources/s3.md:58:4:OpenSearch.HeadingCapitalization:'pipeline' is a heading and should be in sentence case.
+_data-prepper/getting-started.md:16:4:OpenSearch.HeadingCapitalization:'1. Installing Data Prepper' is a heading and should be in sentence case.
+_data-prepper/getting-started.md:29:4:OpenSearch.HeadingCapitalization:'2. Configuring Data Prepper' is a heading and should be in sentence case.
+_data-prepper/getting-started.md:68:4:OpenSearch.HeadingCapitalization:'3. Defining a pipeline' is a heading and should be in sentence case.
+_data-prepper/getting-started.md:83:4:OpenSearch.HeadingCapitalization:'4. Running Data Prepper' is a heading and should be in sentence case.
+_data-prepper/pipelines/expression-syntax.md:158:5:OpenSearch.HeadingCapitalization:'JSON Pointer' is a heading and should be in sentence case.
+_data-prepper/managing-data-prepper/peer-forwarder.md:40:5:OpenSearch.HeadingCapitalization:'AWS Cloud Map' is a heading and should be in sentence case.
+_data-prepper/common-use-cases/trace-analytics.md:113:5:OpenSearch.HeadingCapitalization:'Example: Trace analytics pipeline' is a heading and should be in sentence case.
+_im-plugin/ism/error-prevention/api.md:9:3:OpenSearch.HeadingCapitalization:'ISM Error Prevention API' is a heading and should be in sentence case.
+_im-plugin/ism/index.md:30:5:OpenSearch.HeadingCapitalization:'Step 1: Set up policies' is a heading and should be in sentence case.
+_im-plugin/ism/index.md:115:5:OpenSearch.HeadingCapitalization:'Step 3: Manage indexes' is a heading and should be in sentence case.
+_im-plugin/ism/error-prevention/index.md:25:4:OpenSearch.HeadingCapitalization:'rollover' is a heading and should be in sentence case.
+_im-plugin/ism/error-prevention/index.md:35:4:OpenSearch.HeadingCapitalization:'delete' is a heading and should be in sentence case.
+_im-plugin/ism/error-prevention/index.md:54:4:OpenSearch.HeadingCapitalization:'open' is a heading and should be in sentence case.
+_im-plugin/index-transforms/index.md:29:5:OpenSearch.HeadingCapitalization:'Step 1: Choose indexes' is a heading and should be in sentence case.
+_im-plugin/index-transforms/index.md:50:5:OpenSearch.HeadingCapitalization:'Step 3: Specify a schedule' is a heading and should be in sentence case.
+_im-plugin/index-rollups/index.md:24:4:OpenSearch.HeadingCapitalization:'Create an Index Rollup Job' is a heading and should be in sentence case.
+_im-plugin/index-rollups/index.md:29:5:OpenSearch.HeadingCapitalization:'Step 1: Set up indexes' is a heading and should be in sentence case.
+_im-plugin/index-rollups/index.md:49:5:OpenSearch.HeadingCapitalization:'Step 3: Specify schedule' is a heading and should be in sentence case.
+_im-plugin/index-rollups/index.md:59:5:OpenSearch.HeadingCapitalization:'Step 4: Review and create' is a heading and should be in sentence case.
+_im-plugin/index-rollups/index.md:346:6:OpenSearch.HeadingCapitalization:'Sample Response' is a heading and should be in sentence case.
+_im-plugin/index-transforms/transforms-apis.md:55:6:OpenSearch.HeadingCapitalization:'Sample Request' is a heading and should be in sentence case.
+_im-plugin/index-transforms/transforms-apis.md:104:6:OpenSearch.HeadingCapitalization:'Sample Response' is a heading and should be in sentence case.
+_im-plugin/index-transforms/transforms-apis.md:196:6:OpenSearch.HeadingCapitalization:'Sample Request' is a heading and should be in sentence case.
+_im-plugin/index-transforms/transforms-apis.md:244:6:OpenSearch.HeadingCapitalization:'Sample Response' is a heading and should be in sentence case.
+_im-plugin/index-transforms/transforms-apis.md:302:6:OpenSearch.HeadingCapitalization:'Sample Request' is a heading and should be in sentence case.
+_im-plugin/index-transforms/transforms-apis.md:310:6:OpenSearch.HeadingCapitalization:'Sample Response' is a heading and should be in sentence case.
+_im-plugin/index-transforms/transforms-apis.md:370:6:OpenSearch.HeadingCapitalization:'Sample Request' is a heading and should be in sentence case.
+_im-plugin/index-transforms/transforms-apis.md:378:6:OpenSearch.HeadingCapitalization:'Sample Response' is a heading and should be in sentence case.
+_im-plugin/index-transforms/transforms-apis.md:452:6:OpenSearch.HeadingCapitalization:'Sample Request' is a heading and should be in sentence case.
+_im-plugin/index-transforms/transforms-apis.md:460:6:OpenSearch.HeadingCapitalization:'Sample Response' is a heading and should be in sentence case.
+_im-plugin/index-transforms/transforms-apis.md:584:6:OpenSearch.HeadingCapitalization:'Sample Request' is a heading and should be in sentence case.
+_im-plugin/index-transforms/transforms-apis.md:592:6:OpenSearch.HeadingCapitalization:'Sample Response' is a heading and should be in sentence case.
+_im-plugin/index-transforms/transforms-apis.md:612:6:OpenSearch.HeadingCapitalization:'Sample Request' is a heading and should be in sentence case.
+_im-plugin/index-transforms/transforms-apis.md:620:6:OpenSearch.HeadingCapitalization:'Sample Response' is a heading and should be in sentence case.
+_im-plugin/index-transforms/transforms-apis.md:640:6:OpenSearch.HeadingCapitalization:'Sample Request' is a heading and should be in sentence case.
+_im-plugin/index-transforms/transforms-apis.md:648:6:OpenSearch.HeadingCapitalization:'Sample Response' is a heading and should be in sentence case.
+_im-plugin/index-transforms/transforms-apis.md:683:6:OpenSearch.HeadingCapitalization:'Sample Request' is a heading and should be in sentence case.
+_im-plugin/index-transforms/transforms-apis.md:730:6:OpenSearch.HeadingCapitalization:'Sample Response' is a heading and should be in sentence case.
+_im-plugin/index-transforms/transforms-apis.md:776:6:OpenSearch.HeadingCapitalization:'Sample Request' is a heading and should be in sentence case.
+_im-plugin/index-transforms/transforms-apis.md:784:6:OpenSearch.HeadingCapitalization:'Sample Response' is a heading and should be in sentence case.
+_im-plugin/ism/policies.md:104:4:OpenSearch.HeadingCapitalization:'open' is a heading and should be in sentence case.
+_im-plugin/ism/policies.md:171:5:OpenSearch.HeadingCapitalization:'shrink' is a heading and should be in sentence case.
+_im-plugin/ism/policies.md:226:5:OpenSearch.HeadingCapitalization:'close' is a heading and should be in sentence case.
+_im-plugin/ism/policies.md:250:5:OpenSearch.HeadingCapitalization:'delete' is a heading and should be in sentence case.
+_im-plugin/ism/policies.md:260:5:OpenSearch.HeadingCapitalization:'rollover' is a heading and should be in sentence case.
+_im-plugin/ism/policies.md:310:5:OpenSearch.HeadingCapitalization:'notification' is a heading and should be in sentence case.
+_im-plugin/ism/policies.md:321:6:OpenSearch.HeadingCapitalization:'Example 1: Chime notification' is a heading and should be in sentence case.
+_im-plugin/ism/policies.md:338:6:OpenSearch.HeadingCapitalization:'Example 2: Custom webhook notification' is a heading and should be in sentence case.
+_im-plugin/ism/policies.md:355:6:OpenSearch.HeadingCapitalization:'Example 3: Slack notification' is a heading and should be in sentence case.
+_im-plugin/ism/policies.md:384:5:OpenSearch.HeadingCapitalization:'snapshot' is a heading and should be in sentence case.
+_im-plugin/ism/policies.md:424:5:OpenSearch.HeadingCapitalization:'allocation' is a heading and should be in sentence case.
+_im-plugin/ism/policies.md:651:6:OpenSearch.HeadingCapitalization:'Example 1: Chime notification' is a heading and should be in sentence case.
+_im-plugin/ism/policies.md:668:6:OpenSearch.HeadingCapitalization:'Example 2: Custom webhook notification' is a heading and should be in sentence case.
+_im-plugin/ism/policies.md:685:6:OpenSearch.HeadingCapitalization:'Example 3: Slack notification' is a heading and should be in sentence case.
+_install-and-configure/install-opensearch/windows.md:34:4:OpenSearch.HeadingCapitalization:'Step 2: (Optional) Test OpenSearch' is a heading and should be in sentence case.
+_install-and-configure/plugins.md:236:5:OpenSearch.HeadingCapitalization:'Bundled Plugins' is a heading and should be in sentence case.
+_install-and-configure/install-opensearch/debian.md:126:4:OpenSearch.HeadingCapitalization:'Step 2: (Optional) Test OpenSearch' is a heading and should be in sentence case.
+_install-and-configure/install-opensearch/rpm.md:112:4:OpenSearch.HeadingCapitalization:'Step 2: (Optional) Test OpenSearch' is a heading and should be in sentence case.
+_install-and-configure/upgrade-opensearch/rolling-upgrade.md:8:3:OpenSearch.HeadingCapitalization:'Rolling Upgrade' is a heading and should be in sentence case.
+_install-and-configure/install-opensearch/tar.md:73:4:OpenSearch.HeadingCapitalization:'Step 3: (Optional) Test OpenSearch' is a heading and should be in sentence case.
+_install-and-configure/install-opensearch/tar.md:87:5:OpenSearch.HeadingCapitalization:'Option 1: Test your Opensearch settings with security enabled' is a heading and should be in sentence case.
+_ml-commons-plugin/gpu-acceleration.md:257:6:OpenSearch.HeadingCapitalization:'Install Neuron Tools' is a heading and should be in sentence case.
+_ml-commons-plugin/gpu-acceleration.md:262:6:OpenSearch.HeadingCapitalization:'Add Neuron tools your PATH' is a heading and should be in sentence case.
+_ml-commons-plugin/algorithms.md:8:3:OpenSearch.HeadingCapitalization:'Supported Algorithms' is a heading and should be in sentence case.
+_ml-commons-plugin/algorithms.md:201:4:OpenSearch.HeadingCapitalization:'RCFSummarize' is a heading and should be in sentence case.
+_ml-commons-plugin/algorithms.md:218:5:OpenSearch.HeadingCapitalization:'Example: Train and predict' is a heading and should be in sentence case.
+_ml-commons-plugin/algorithms.md:309:5:OpenSearch.HeadingCapitalization:'Example: Execute localization' is a heading and should be in sentence case.
+_ml-commons-plugin/algorithms.md:435:5:OpenSearch.HeadingCapitalization:'Example: Train/Predict with Iris data' is a heading and should be in sentence case.
+_ml-commons-plugin/api.md:312:5:OpenSearch.HeadingCapitalization:'Example: Query all models' is a heading and should be in sentence case.
+_ml-commons-plugin/api.md:324:1:OpenSearch.HeadingCapitalization:'Example: Query models with algorithm ""' is a heading and should be in sentence case.
+_ml-commons-plugin/api.md:966:5:OpenSearch.HeadingCapitalization:'Example: Get all stats' is a heading and should be in sentence case.
+_ml-commons-plugin/api.md:1008:5:OpenSearch.HeadingCapitalization:'Example: Execute localization' is a heading and should be in sentence case.
+_monitoring-your-cluster/pa/dashboards.md:10:3:OpenSearch.HeadingCapitalization:'PerfTop dashboards' is a heading and should be in sentence case.
+_observing-your-data/trace/trace-analytics-jaeger.md:177:5:OpenSearch.HeadingCapitalization:'Step 2: Start the cluster' is a heading and should be in sentence case.
+_observing-your-data/trace/trace-analytics-jaeger.md:190:5:OpenSearch.HeadingCapitalization:'Step 3: Generate sample data' is a heading and should be in sentence case.
+_observing-your-data/notebooks.md:32:5:OpenSearch.HeadingCapitalization:'Step 1: Create a notebook' is a heading and should be in sentence case.
+_observing-your-data/notebooks.md:43:5:OpenSearch.HeadingCapitalization:'Step 2: Add a paragraph' is a heading and should be in sentence case.
+_observing-your-data/ad/index.md:24:4:OpenSearch.HeadingCapitalization:'Step 1: Define a detector' is a heading and should be in sentence case.
+_observing-your-data/ad/index.md:68:4:OpenSearch.HeadingCapitalization:'Step 2: Configure the model' is a heading and should be in sentence case.
+_observing-your-data/ad/index.md:144:4:OpenSearch.HeadingCapitalization:'Step 4: Review and create' is a heading and should be in sentence case.
+_observing-your-data/ad/index.md:153:4:OpenSearch.HeadingCapitalization:'Step 5: Observe the results' is a heading and should be in sentence case.
+_observing-your-data/ad/index.md:194:4:OpenSearch.HeadingCapitalization:'Step 6: Set up alerts' is a heading and should be in sentence case.
+_observing-your-data/ad/index.md:200:4:OpenSearch.HeadingCapitalization:'Step 7: Adjust the model' is a heading and should be in sentence case.
+_observing-your-data/ad/index.md:208:4:OpenSearch.HeadingCapitalization:'Step 8: Manage your detectors' is a heading and should be in sentence case.
+_observing-your-data/log-ingestion.md:9:3:OpenSearch.HeadingCapitalization:'Log Ingestion' is a heading and should be in sentence case.
+_observing-your-data/notifications/api.md:26:6:OpenSearch.HeadingCapitalization:'Sample Request' is a heading and should be in sentence case.
+_observing-your-data/notifications/api.md:32:6:OpenSearch.HeadingCapitalization:'Sample Response' is a heading and should be in sentence case.
+_observing-your-data/notifications/api.md:56:6:OpenSearch.HeadingCapitalization:'Sample Request' is a heading and should be in sentence case.
+_observing-your-data/notifications/api.md:62:6:OpenSearch.HeadingCapitalization:'Sample Response' is a heading and should be in sentence case.
+_observing-your-data/notifications/api.md:139:6:OpenSearch.HeadingCapitalization:'Sample Request' is a heading and should be in sentence case.
+_observing-your-data/notifications/api.md:239:6:OpenSearch.HeadingCapitalization:'Sample Response' is a heading and should be in sentence case.
+_observing-your-data/notifications/api.md:252:6:OpenSearch.HeadingCapitalization:'Sample Request' is a heading and should be in sentence case.
+_observing-your-data/notifications/api.md:258:6:OpenSearch.HeadingCapitalization:'Sample Response' is a heading and should be in sentence case.
+_observing-your-data/notifications/api.md:289:6:OpenSearch.HeadingCapitalization:'Sample Request' is a heading and should be in sentence case.
+_observing-your-data/notifications/api.md:306:6:OpenSearch.HeadingCapitalization:'Sample Response' is a heading and should be in sentence case.
+_observing-your-data/notifications/api.md:319:6:OpenSearch.HeadingCapitalization:'Sample Request' is a heading and should be in sentence case.
+_observing-your-data/notifications/api.md:325:6:OpenSearch.HeadingCapitalization:'Sample Response' is a heading and should be in sentence case.
+_observing-your-data/notifications/api.md:337:6:OpenSearch.HeadingCapitalization:'Sample Request' is a heading and should be in sentence case.
+_observing-your-data/notifications/api.md:343:6:OpenSearch.HeadingCapitalization:'Sample Response' is a heading and should be in sentence case.
+_observing-your-data/notifications/api.md:360:6:OpenSearch.HeadingCapitalization:'Sample Request' is a heading and should be in sentence case.
+_observing-your-data/notifications/api.md:366:6:OpenSearch.HeadingCapitalization:'Sample Response' is a heading and should be in sentence case.
+_observing-your-data/alerting/api.md:29:6:OpenSearch.HeadingCapitalization:'Sample Request' is a heading and should be in sentence case.
+_observing-your-data/alerting/api.md:638:6:OpenSearch.HeadingCapitalization:'Sample Request' is a heading and should be in sentence case.
+_observing-your-data/ad/api.md:501:6:OpenSearch.HeadingCapitalization:'Sample Responses' is a heading and should be in sentence case.
+_observing-your-data/ad/api.md:2712:6:OpenSearch.HeadingCapitalization:'Sample Responses' is a heading and should be in sentence case.
+_observing-your-data/ad/api.md:3043:6:OpenSearch.HeadingCapitalization:'Sample Responses' is a heading and should be in sentence case.
+_observing-your-data/ad/api.md:3072:6:OpenSearch.HeadingCapitalization:'Sample Responses' is a heading and should be in sentence case.
+_query-dsl/analyzers/language-analyzers.md:19:6:OpenSearch.HeadingCapitalization:'Sample Request' is a heading and should be in sentence case.
+_query-dsl/query-dsl/term-vs-full-text.md:27:5:OpenSearch.HeadingCapitalization:'Example: Phrase search' is a heading and should be in sentence case.
+_query-dsl/query-dsl/term-vs-full-text.md:151:5:OpenSearch.HeadingCapitalization:'Example: Exact term search' is a heading and should be in sentence case.
+_query-dsl/aggregations/aggregations.md:74:5:OpenSearch.HeadingCapitalization:'avg' is a heading and should be in sentence case.
+_query-dsl/aggregations/metric-agg.md:27:4:OpenSearch.HeadingCapitalization:'sum, min, max, avg' is a heading and should be in sentence case.
+_query-dsl/aggregations/metric-agg.md:47:6:OpenSearch.HeadingCapitalization:'Sample Response' is a heading and should be in sentence case.
+_query-dsl/aggregations/metric-agg.md:61:4:OpenSearch.HeadingCapitalization:'cardinality' is a heading and should be in sentence case.
+_query-dsl/aggregations/metric-agg.md:145:1:OpenSearch.HeadingCapitalization:'stats,,' is a heading and should be in sentence case.
+_query-dsl/aggregations/metric-agg.md:197:6:OpenSearch.HeadingCapitalization:'Sample Response' is a heading and should be in sentence case.
+_query-dsl/aggregations/metric-agg.md:319:4:OpenSearch.HeadingCapitalization:'percentile,' is a heading and should be in sentence case.
+_query-dsl/aggregations/metric-agg.md:624:6:OpenSearch.HeadingCapitalization:'Sample Response' is a heading and should be in sentence case.
+_query-dsl/aggregations/pipeline-agg.md:118:1:OpenSearch.HeadingCapitalization:',,,' is a heading and should be in sentence case.
+_query-dsl/aggregations/pipeline-agg.md:193:57:OpenSearch.HeadingCapitalization:',' is a heading and should be in sentence case.
+_query-dsl/aggregations/pipeline-agg.md:274:17:OpenSearch.HeadingCapitalization:',' is a heading and should be in sentence case.
+_query-dsl/aggregations/pipeline-agg.md:652:4:OpenSearch.HeadingCapitalization:'derivative' is a heading and should be in sentence case.
+_query-dsl/aggregations/bucket-agg.md:38:6:OpenSearch.HeadingCapitalization:'Sample Response' is a heading and should be in sentence case.
+_query-dsl/aggregations/bucket-agg.md:181:6:OpenSearch.HeadingCapitalization:'Sample Request' is a heading and should be in sentence case.
+_query-dsl/aggregations/bucket-agg.md:205:6:OpenSearch.HeadingCapitalization:'Sample Response' is a heading and should be in sentence case.
+_query-dsl/aggregations/bucket-agg.md:280:4:OpenSearch.HeadingCapitalization:'sampler,' is a heading and should be in sentence case.
+_query-dsl/aggregations/bucket-agg.md:404:21:OpenSearch.HeadingCapitalization:',' is a heading and should be in sentence case.
+_query-dsl/aggregations/bucket-agg.md:586:4:OpenSearch.HeadingCapitalization:'missing' is a heading and should be in sentence case.
+_query-dsl/aggregations/bucket-agg.md:658:4:OpenSearch.HeadingCapitalization:'histogram,' is a heading and should be in sentence case.
+_query-dsl/aggregations/bucket-agg.md:751:1:OpenSearch.HeadingCapitalization:'range,,' is a heading and should be in sentence case.
+_query-dsl/aggregations/bucket-agg.md:929:4:OpenSearch.HeadingCapitalization:'filter, filters' is a heading and should be in sentence case.
+_query-dsl/aggregations/bucket-agg.md:1044:4:OpenSearch.HeadingCapitalization:'global' is a heading and should be in sentence case.
+_query-dsl/aggregations/bucket-agg.md:1093:16:OpenSearch.HeadingCapitalization:',' is a heading and should be in sentence case.
+_query-dsl/aggregations/bucket-agg.md:1393:4:OpenSearch.HeadingCapitalization:'nested,' is a heading and should be in sentence case.
+_search-plugins/knn/settings.md:8:3:OpenSearch.HeadingCapitalization:'k-NN settings' is a heading and should be in sentence case.
+_search-plugins/knn/painless-functions.md:10:3:OpenSearch.HeadingCapitalization:'k-NN Painless Scripting extensions' is a heading and should be in sentence case.
+_search-plugins/knn/index.md:11:3:OpenSearch.HeadingCapitalization:'k-NN' is a heading and should be in sentence case.
+_search-plugins/knn/api.md:9:3:OpenSearch.HeadingCapitalization:'k-NN plugin API' is a heading and should be in sentence case.
+_search-plugins/knn/api.md:177:4:OpenSearch.HeadingCapitalization:'Get Model' is a heading and should be in sentence case.
+_search-plugins/knn/api.md:226:4:OpenSearch.HeadingCapitalization:'Search Model' is a heading and should be in sentence case.
+_search-plugins/knn/api.md:277:4:OpenSearch.HeadingCapitalization:'Delete Model' is a heading and should be in sentence case.
+_search-plugins/knn/api.md:293:4:OpenSearch.HeadingCapitalization:'Train Model' is a heading and should be in sentence case.
+_search-plugins/knn/filter-search-knn.md:10:3:OpenSearch.HeadingCapitalization:'k-NN search with filters' is a heading and should be in sentence case.
+_search-plugins/knn/knn-index.md:9:3:OpenSearch.HeadingCapitalization:'k-NN Index' is a heading and should be in sentence case.
+_search-plugins/knn/knn-index.md:11:15:OpenSearch.HeadingCapitalization:'data type' is a heading and should be in sentence case.
+_search-plugins/knn/knn-index.md:51:4:OpenSearch.HeadingCapitalization:'Method Definitions' is a heading and should be in sentence case.
+_search-plugins/knn/knn-index.md:194:5:OpenSearch.HeadingCapitalization:'Memory Estimation' is a heading and should be in sentence case.
+_search-plugins/searching-data/paginate.md:139:6:OpenSearch.HeadingCapitalization:'Sample Response' is a heading and should be in sentence case.
+_search-plugins/point-in-time-api.md:170:6:OpenSearch.HeadingCapitalization:'Sample Request: Delete all PITs' is a heading and should be in sentence case.
+_search-plugins/sql/ppl/index.md:54:6:OpenSearch.HeadingCapitalization:'Sample Response' is a heading and should be in sentence case.
+_search-plugins/sql/monitoring.md:16:4:OpenSearch.HeadingCapitalization:'Node Stats' is a heading and should be in sentence case.
+_search-plugins/sql/sql/partiql.md:9:3:OpenSearch.HeadingCapitalization:'JSON Support' is a heading and should be in sentence case.
+_search-plugins/sql/sql/complex.md:54:5:OpenSearch.HeadingCapitalization:'Example 1: Inner join' is a heading and should be in sentence case.
+_search-plugins/sql/sql/complex.md:149:5:OpenSearch.HeadingCapitalization:'Example 2: Cross join' is a heading and should be in sentence case.
+_search-plugins/sql/sql/complex.md:185:5:OpenSearch.HeadingCapitalization:'Example 3: Left outer join' is a heading and should be in sentence case.
+_search-plugins/sql/sql/complex.md:214:5:OpenSearch.HeadingCapitalization:'Example 1: Table subquery' is a heading and should be in sentence case.
+_search-plugins/sql/sql/complex.md:358:5:OpenSearch.HeadingCapitalization:'Example 2: From subquery' is a heading and should be in sentence case.
+_search-plugins/sql/sql/basic.md:50:5:OpenSearch.HeadingCapitalization:'Execution Order' is a heading and should be in sentence case.
+_search-plugins/sql/sql/basic.md:232:4:OpenSearch.HeadingCapitalization:'Group By' is a heading and should be in sentence case.
+_search-plugins/sql/sql/basic.md:299:4:OpenSearch.HeadingCapitalization:'Order By' is a heading and should be in sentence case.
+_search-plugins/sql/ppl/functions.md:13:4:OpenSearch.HeadingCapitalization:'dedup' is a heading and should be in sentence case.
+_search-plugins/sql/ppl/functions.md:103:4:OpenSearch.HeadingCapitalization:'eval' is a heading and should be in sentence case.
+_search-plugins/sql/ppl/functions.md:168:4:OpenSearch.HeadingCapitalization:'fields' is a heading and should be in sentence case.
+_search-plugins/sql/ppl/functions.md:214:4:OpenSearch.HeadingCapitalization:'parse' is a heading and should be in sentence case.
+_search-plugins/sql/ppl/functions.md:287:4:OpenSearch.HeadingCapitalization:'rename' is a heading and should be in sentence case.
+_search-plugins/sql/ppl/functions.md:336:4:OpenSearch.HeadingCapitalization:'sort' is a heading and should be in sentence case.
+_search-plugins/sql/ppl/functions.md:425:4:OpenSearch.HeadingCapitalization:'stats' is a heading and should be in sentence case.
+_search-plugins/sql/ppl/functions.md:514:4:OpenSearch.HeadingCapitalization:'where' is a heading and should be in sentence case.
+_search-plugins/sql/ppl/functions.md:541:4:OpenSearch.HeadingCapitalization:'head' is a heading and should be in sentence case.
+_search-plugins/sql/ppl/functions.md:586:4:OpenSearch.HeadingCapitalization:'rare' is a heading and should be in sentence case.
+_search-plugins/sql/ppl/functions.md:633:4:OpenSearch.HeadingCapitalization:'top {#top-command}' is a heading and should be in sentence case.
+_search-plugins/sql/ppl/functions.md:691:4:OpenSearch.HeadingCapitalization:'ad' is a heading and should be in sentence case.
+_search-plugins/sql/ppl/functions.md:695:5:OpenSearch.HeadingCapitalization:'Syntax: Fixed In Time RCF For Time-series Data Command' is a heading and should be in sentence case.
+_search-plugins/sql/ppl/functions.md:707:5:OpenSearch.HeadingCapitalization:'Syntax: Batch RCF for Non-time-series Data Command' is a heading and should be in sentence case.
+_search-plugins/sql/ppl/functions.md:744:4:OpenSearch.HeadingCapitalization:'kmeans' is a heading and should be in sentence case.
+_search-plugins/sql/sql/odbc.md:147:6:OpenSearch.HeadingCapitalization:'Authentication Options' is a heading and should be in sentence case.
+_security/audit-logs/index.md:180:4:OpenSearch.HeadingCapitalization:'(Advanced) Tune the thread pool' is a heading and should be in sentence case.
+_security/authentication-backends/saml.md:138:4:OpenSearch.HeadingCapitalization:'Username and Role attributes' is a heading and should be in sentence case.
+_security/authentication-backends/ldap.md:433:5:OpenSearch.HeadingCapitalization:'(Advanced) Control LDAP user attributes' is a heading and should be in sentence case.
+_security/configuration/tls.md:149:4:OpenSearch.HeadingCapitalization:'(Advanced) Client authentication' is a heading and should be in sentence case.
+_security/configuration/tls.md:172:4:OpenSearch.HeadingCapitalization:'(Advanced) Enabled ciphers and protocols' is a heading and should be in sentence case.
+_security/configuration/tls.md:206:4:OpenSearch.HeadingCapitalization:'(Advanced) Disabling client initiated renegotiation for Java 8' is a heading and should be in sentence case.
+_security/index.md:13:3:OpenSearch.HeadingCapitalization:'About Security in OpenSearch' is a heading and should be in sentence case.
+_security/configuration/configuration.md:8:3:OpenSearch.HeadingCapitalization:'Configuring the Security backend' is a heading and should be in sentence case.
+_security/configuration/configuration.md:205:5:OpenSearch.HeadingCapitalization:'JSON Web Token' is a heading and should be in sentence case.
+_security/access-control/impersonation.md:42:4:OpenSearch.HeadingCapitalization:'Impersonating Users' is a heading and should be in sentence case.
+_security/access-control/field-masking.md:93:4:OpenSearch.HeadingCapitalization:'(Advanced) Pattern-based field masking' is a heading and should be in sentence case.
+_security/access-control/api.md:1422:5:OpenSearch.HeadingCapitalization:'Enable Audit Logs' is a heading and should be in sentence case.
+_security-analytics/usage/alerts.md:16:4:OpenSearch.HeadingCapitalization:'The Alerts graph' is a heading and should be in sentence case.
+_security-analytics/usage/alerts.md:41:4:OpenSearch.HeadingCapitalization:'The Alerts list' is a heading and should be in sentence case.
+_security-analytics/usage/overview.md:8:3:OpenSearch.HeadingCapitalization:'The Overview page' is a heading and should be in sentence case.
+_security-analytics/usage/findings.md:16:4:OpenSearch.HeadingCapitalization:'The Findings graph' is a heading and should be in sentence case.
+_security-analytics/usage/findings.md:42:4:OpenSearch.HeadingCapitalization:'The Findings list' is a heading and should be in sentence case.
+_security-analytics/api-tools/mappings-api.md:12:4:OpenSearch.HeadingCapitalization:'Get Mappings View' is a heading and should be in sentence case.
+_security-analytics/api-tools/mappings-api.md:67:4:OpenSearch.HeadingCapitalization:'Create Mappings' is a heading and should be in sentence case.
+_security-analytics/api-tools/mappings-api.md:98:4:OpenSearch.HeadingCapitalization:'Get Mappings' is a heading and should be in sentence case.
+_security-analytics/api-tools/mappings-api.md:128:4:OpenSearch.HeadingCapitalization:'Update Mappings' is a heading and should be in sentence case.
+_security-analytics/api-tools/alert-finding-api.md:13:4:OpenSearch.HeadingCapitalization:'Get Alerts' is a heading and should be in sentence case.
+_security-analytics/api-tools/alert-finding-api.md:85:4:OpenSearch.HeadingCapitalization:'Acknowledge Alerts' is a heading and should be in sentence case.
+_security-analytics/api-tools/alert-finding-api.md:136:4:OpenSearch.HeadingCapitalization:'Get Findings' is a heading and should be in sentence case.
+_security-analytics/sec-analytics-config/detectors-config.md:12:4:OpenSearch.HeadingCapitalization:'Step 1. Define a detector' is a heading and should be in sentence case.
+_security-analytics/sec-analytics-config/detectors-config.md:46:4:OpenSearch.HeadingCapitalization:'Step 2. Create field mappings' is a heading and should be in sentence case.
+_security-analytics/sec-analytics-config/detectors-config.md:88:4:OpenSearch.HeadingCapitalization:'Step 3. Set up alerts' is a heading and should be in sentence case.
+_security-analytics/security.md:8:3:OpenSearch.HeadingCapitalization:'OpenSearch Security for Security Analytics' is a heading and should be in sentence case.
+_security-analytics/api-tools/rule-api.md:12:4:OpenSearch.HeadingCapitalization:'Create Custom Rule' is a heading and should be in sentence case.
+_security-analytics/api-tools/rule-api.md:121:4:OpenSearch.HeadingCapitalization:'Update Custom Rule (not forced)' is a heading and should be in sentence case.
+_security-analytics/api-tools/rule-api.md:182:4:OpenSearch.HeadingCapitalization:'Update Custom Rule (forced)' is a heading and should be in sentence case.
+_security-analytics/api-tools/rule-api.md:262:4:OpenSearch.HeadingCapitalization:'Search Pre-Packaged Rules' is a heading and should be in sentence case.
+_security-analytics/api-tools/rule-api.md:357:4:OpenSearch.HeadingCapitalization:'Search Custom Rules' is a heading and should be in sentence case.
+_security-analytics/api-tools/rule-api.md:454:4:OpenSearch.HeadingCapitalization:'Delete Custom Rule (not forced)' is a heading and should be in sentence case.
+_security-analytics/api-tools/rule-api.md:485:4:OpenSearch.HeadingCapitalization:'Delete Custom Rule (forced)' is a heading and should be in sentence case.
+_security-analytics/api-tools/detector-api.md:12:4:OpenSearch.HeadingCapitalization:'Create Detector API' is a heading and should be in sentence case.
+_security-analytics/api-tools/detector-api.md:218:4:OpenSearch.HeadingCapitalization:'Update Detector API' is a heading and should be in sentence case.
+_security-analytics/api-tools/detector-api.md:343:4:OpenSearch.HeadingCapitalization:'Delete Detector API' is a heading and should be in sentence case.
+_security-analytics/api-tools/detector-api.md:370:4:OpenSearch.HeadingCapitalization:'Get Detector API' is a heading and should be in sentence case.
+_security-analytics/api-tools/detector-api.md:426:4:OpenSearch.HeadingCapitalization:'Search Detector API' is a heading and should be in sentence case.
+_site/CODE_OF_CONDUCT.md:1:4:OpenSearch.HeadingCapitalization:'Code of Conduct' is a heading and should be in sentence case.
+_site/MAINTAINERS.md:5:4:OpenSearch.HeadingCapitalization:'Current Maintainers' is a heading and should be in sentence case.
+_site/release-notes/opensearch-documentation-release-notes-2.6.0.md:1:3:OpenSearch.HeadingCapitalization:'OpenSearch Documentation Website 2.6.0 Release Notes' is a heading and should be in sentence case.
+_site/release-notes/opensearch-documentation-release-notes-2.4.0.md:1:3:OpenSearch.HeadingCapitalization:'OpenSearch Documentation Website 2.4.0 Release Notes' is a heading and should be in sentence case.
+_site/release-notes/opensearch-documentation-release-notes-2.5.0.md:1:3:OpenSearch.HeadingCapitalization:'OpenSearch Documentation Website 2.5.0 Release Notes' is a heading and should be in sentence case.
+_site/CONTRIBUTING.md:1:3:OpenSearch.HeadingCapitalization:'Contributing Guidelines' is a heading and should be in sentence case.
+_site/FORMATTING_GUIDE.md:1:3:OpenSearch.HeadingCapitalization:'Formatting Guide' is a heading and should be in sentence case.
+_site/STYLE_GUIDE.md:1:3:OpenSearch.HeadingCapitalization:'OpenSearch Project Style Guidelines' is a heading and should be in sentence case.
+_tools/logstash/common-filters.md:12:4:OpenSearch.HeadingCapitalization:'mutate' is a heading and should be in sentence case.
+_tools/logstash/common-filters.md:101:4:OpenSearch.HeadingCapitalization:'grok' is a heading and should be in sentence case.
+_tools/logstash/ship-to-opensearch.md:79:4:OpenSearch.HeadingCapitalization:'Adding different Authentication mechanisms in the Output plugin' is a heading and should be in sentence case.
+_tools/logstash/ship-to-opensearch.md:81:14:OpenSearch.HeadingCapitalization:'to support different authentication mechanisms' is a heading and should be in sentence case.
+_tools/logstash/ship-to-opensearch.md:106:4:OpenSearch.HeadingCapitalization:'Configuration for AWS IAM Authentication' is a heading and should be in sentence case.
+_tools/logstash/ship-to-opensearch.md:128:5:OpenSearch.HeadingCapitalization:'Required Parameters' is a heading and should be in sentence case.
+_tools/logstash/ship-to-opensearch.md:140:5:OpenSearch.HeadingCapitalization:'Optional Parameters' is a heading and should be in sentence case.
+_tools/index.md:66:4:OpenSearch.HeadingCapitalization:'Compatibility Matrices' is a heading and should be in sentence case.
+_tools/index.md:71:5:OpenSearch.HeadingCapitalization:'Compatibility Matrix for Logstash' is a heading and should be in sentence case.
+_tools/index.md:84:5:OpenSearch.HeadingCapitalization:'Compatibility Matrix for Beats' is a heading and should be in sentence case.
+_troubleshoot/openid-connect.md:55:1:OpenSearch.HeadingCapitalization:'"ValidationError: child '' fails"' is a heading and should be in sentence case.
+_tuning-your-cluster/availability-and-recovery/search-backpressure.md:109:4:OpenSearch.HeadingCapitalization:'Search Backpressure Stats API' is a heading and should be in sentence case.
+_tuning-your-cluster/availability-and-recovery/snapshots/sm-api.md:12:3:OpenSearch.HeadingCapitalization:'Snapshot Management API' is a heading and should be in sentence case.
+_tuning-your-cluster/availability-and-recovery/remote.md:77:6:OpenSearch.HeadingCapitalization:'Option 1: Modify' is a heading and should be in sentence case.
+_tuning-your-cluster/cluster.md:49:4:OpenSearch.HeadingCapitalization:'Step 1: Name a cluster' is a heading and should be in sentence case.
+_tuning-your-cluster/cluster.md:149:4:OpenSearch.HeadingCapitalization:'Step 5: Start the cluster' is a heading and should be in sentence case.
+_tuning-your-cluster/cluster.md:182:4:OpenSearch.HeadingCapitalization:'(Advanced) Step 6: Configure shard allocation awareness or forced awareness' is a heading and should be in sentence case.
+_tuning-your-cluster/cluster.md:260:4:OpenSearch.HeadingCapitalization:'(Advanced) Step 7: Set up a hot-warm architecture' is a heading and should be in sentence case.
+breaking-changes.md:23:5:OpenSearch.HeadingCapitalization:'Add OpenSearch Notifications plugins' is a heading and should be in sentence case.
+release-notes/opensearch-documentation-release-notes-2.6.0.md:1:3:OpenSearch.HeadingCapitalization:'OpenSearch Documentation Website 2.6.0 Release Notes' is a heading and should be in sentence case.
+release-notes/opensearch-documentation-release-notes-2.5.0.md:1:3:OpenSearch.HeadingCapitalization:'OpenSearch Documentation Website 2.5.0 Release Notes' is a heading and should be in sentence case.
+release-notes/opensearch-documentation-release-notes-2.4.0.md:1:3:OpenSearch.HeadingCapitalization:'OpenSearch Documentation Website 2.4.0 Release Notes' is a heading and should be in sentence case.

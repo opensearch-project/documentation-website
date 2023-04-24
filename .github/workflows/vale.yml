@@ -1,0 +1,28 @@
+name: Style check
+
+on:
+  #push:
+    #branches:
+      #- main
+  pull_request:
+    #branches:
+      #- main
+    
+  workflow_dispatch:
+
+jobs:
+  style-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@v3
+
+      - name: Run vale
+        uses: errata-ai/vale-action@reviewdog
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        with:
+          fail_on_error: false
+          reporter: github-pr-check
+          #separator: '_'
+          
