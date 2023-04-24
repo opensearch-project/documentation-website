@@ -22,7 +22,7 @@ processor:
 
 ## Configuration
 
-You can use the following parameters to configure histogram buckets and their default values. A histogram displays numerical data by grouping data into buckets. You can use histrogram buckets to view sets of events that are organized by the total event count and aggregate sum for all events. For more detailed information, see (OpenTelemetry Histograms)[https://opentelemetry.io/docs/reference/specification/metrics/data-model/#histogram].
+You can use the following optional parameters to configure histogram buckets and their default values. A histogram displays numerical data by grouping data into buckets. You can use histrogram buckets to view sets of events that are organized by the total event count and aggregate sum for all events. For more detailed information, see (OpenTelemetry Histograms)[https://opentelemetry.io/docs/reference/specification/metrics/data-model/#histogram].
 
 | Parameter | Default value | Description |
 | :---    | :---    | :---    |
