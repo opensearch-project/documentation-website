@@ -12,7 +12,7 @@ The OpenTelemetry (OTel) trace group processor completes missing trace group rel
 
 ## OpenSearch
 
-See the following example `YAML` configuration file for the OTel trace group processor when you connect to an OpenSearch cluster using your username and password:
+See the following example `YAML` configuration file for the `otel_trace_group` processor when you connect to an OpenSearch cluster using your username and password:
 
 ``` YAML
 pipeline:
