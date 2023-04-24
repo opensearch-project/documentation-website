@@ -16,7 +16,7 @@ This source supports the `OTLP/gRPC` protocol.
 
 ## Configuration
 
-You can configure the OTel logs source with the following options. 
+You can configure the `otel_logs_source` source with the following options. 
 
 | Option | Type | Description |
 | :--- | :--- | :--- |
