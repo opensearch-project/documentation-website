@@ -44,7 +44,7 @@ You can configure SSL in the `otel_logs_source` source with the following option
 
 ## Usage
 
-To get started, create a `pipeline.yaml` file. See the following `YAML` file configuration example:
+To get started, create a `pipeline.yaml` file and add `otel_logs_source` as source:
 
 ```
 source:
