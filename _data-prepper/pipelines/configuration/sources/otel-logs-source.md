@@ -6,7 +6,7 @@ grand_parent: Pipelines
 nav_order: 25
 ---
 
-# otel_logs_source
+# OTel logs source
 
 
 `otel_logs_source` is an OpenTelemetry source that follows the [OpenTelemtry Protocol Specification](https://github.com/open-telemetry/oteps/blob/master/text/0035-opentelemetry-protocol.md), receives logs from OpenTelemetry Collector, and receives `ExportLogsServiceRequest` records to process through a Data Prepper pipeline.
@@ -34,7 +34,7 @@ You can configure the `otel_logs_source` source with the following options.
 You can configure SSL in the `otel_logs_source` source with the following options.
 
 | Option | Type | Description |
-| :--- | :--- | :--- | :--- |
+| :--- | :--- | :--- |
 | ssl | Boolean | Enables TLS/SSL. Default value is `true`. |
 | sslKeyCertChainFile | string | Represents the SSL certificate chain file path or AWS S3 path. For example, see the S3 path `s3://<bucketName>/<path>`. Required if `ssl` is set to `true`. There is no default value. |
 | sslKeyFile | string | Represents the SSL key file path or AWS S3 path. For example, see the S3 path: `s3://<bucketName>/<path>`. Required if `ssl` is set to `true`. There is no default value. |
