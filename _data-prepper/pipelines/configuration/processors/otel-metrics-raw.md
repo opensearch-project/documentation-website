@@ -12,7 +12,7 @@ The OTel metrics raw processor serializes a collection of `ExportMetricsServiceR
 
 ## Usage
 
-To get started, you can add the following processor to your `pipeline.yaml` configuration file:
+To get started, add the following processor to your `pipeline.yaml` configuration file:
 
 ``` yaml
 processor:
