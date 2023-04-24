@@ -31,7 +31,7 @@ You can configure the `otel_logs_source` source with the following options.
 
 ### SSL
 
-You can configure SSL in the OTel logs source with the following options.
+You can configure SSL in the `otel_logs_source` source with the following options.
 
 | Option | Type | Description |
 | :--- | :--- | :--- |
