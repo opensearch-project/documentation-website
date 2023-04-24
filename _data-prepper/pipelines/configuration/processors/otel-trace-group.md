@@ -73,7 +73,7 @@ aws_sts_header_overrides:
 The following table describes custom metrics specific to the OTel trace group processor.
 
 | Metric name | Type | Description |
-| ------------- | ---- | -----------| --- | 
+| ------------- | ---- | ----------- |
 | `recordsInMissingTraceGroup` | Counter | The number of ingress records missing trace group fields. | Custom |
 | `recordsOutFixedTraceGroup` | Counter | The number of egress records with successfully completed trace group fields. | Custom |
 | `recordsOutMissingTraceGroup` | Counter | The number of egress records missing trace group fields. | Custom |
