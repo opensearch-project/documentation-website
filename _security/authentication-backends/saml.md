@@ -344,7 +344,7 @@ opensearch_security.saml.extra_storage.cookie_prefix: security_authentication_oi
 opensearch_security.saml.extra_storage.additional_cookies: 3
 ```
 
-Note that reducing the number of additional cookies can cause some of the cookies in use before the change to stop working. We recommend establishing a fixed number of additional cookies and not changing the configuration after that.
+Note that reducing the number of additional cookies can cause some of the cookies that were in use before the change to stop working. We recommend establishing a fixed number of additional cookies and not changing the configuration after that.
 
 If the ID token from the IdP is especially large, OpenSearch may throw a server log authentication error indicating that the HTTP header is too large. In this case, you can increase the value for the `http.max_header_size` setting in the `opensearch.yml` file.
 {: .tip }
