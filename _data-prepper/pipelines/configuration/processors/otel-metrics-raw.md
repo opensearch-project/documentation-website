@@ -8,7 +8,7 @@ nav_order: 72
 
 # OTel metrics raw
 
-The OTel metrics raw processor serializes a collection of `ExportMetricsServiceRequest` sent from the [otel-metrics-source]({{site.url}}{{site.baseurl}}//data-prepper/pipelines/configuration/sources/otel-metrics-source/) into a collection of string records.
+The OTel metrics raw processor serializes a collection of `ExportMetricsServiceRequest` sent from the [OTel metrics source]({{site.url}}{{site.baseurl}}//data-prepper/pipelines/configuration/sources/otel-metrics-source/) into a collection of string records.
 
 ## Usage
 
@@ -18,6 +18,7 @@ To get started, you can add the following processor to your `pipeline.yaml` conf
 processor:
     - otel_metrics_raw_processor:
 ```
+{% include copy.html %}
 
 ## Configuration
 
@@ -32,7 +33,7 @@ The following table describes the different parameters used to configure histogr
 
 ### calculate_histogram_buckets
 
-If `calculate_histogram_buckets` is not set to `false`, the following `JSON` file will be added to every histogram JSON. If `flatten_attributes` is set to `false`, the `JSON` string format of the metrics does not change the attributes field. If `flatten_attributes` is set to `true`, the values in the attributes field are placed in the parent `JSON` object. The default value is `true`. See the following `JSON` example:
+If `calculate_histogram_buckets` is not set to `false`, then the following `JSON` file will be added to every histogram JSON. If `flatten_attributes` is set to `false`, the `JSON` string format of the metrics does not change the attributes field. If `flatten_attributes` is set to `true`, the values in the attributes field are placed in the parent `JSON` object. The default value is `true`. See the following `JSON` example:
 
 ```json
  "buckets": [
@@ -49,7 +50,7 @@ If `calculate_histogram_buckets` is not set to `false`, the following `JSON` fil
   ]
 ```
 
-You can create detailed representations of histogram buckets and their boundaries. You can control this feature by using the following parameters your `pipeline.yaml` file:
+You can create detailed representations of histogram buckets and their boundaries. You can control this feature by using the following parameters in your `pipeline.yaml` file:
 
 ```yaml
   processor:
@@ -59,6 +60,7 @@ You can create detailed representations of histogram buckets and their boundarie
         exponential_histogram_max_allowed_scale: 10
         flatten_attributes: false
 ```
+{% include copy.html %}
 
 Each array element describes one bucket. Each bucket contains the lower boundary, upper boundary, and its value count. This is a specific form of more detailed OpenTelemetry representation that is a part of the `JSON` output created by the following plugin. See the following `JSON` file, which is added to each histogram `JSON` by the OTel metrics raw processor:
 
@@ -108,7 +110,7 @@ If `calculate_exponential_histogram_buckets` is set to `true` (the default setti
     ],
 ```
 
-The following `JSON` file is a more detailed form of the dense OpenTelemetry representation, which consists of negative and positive buckets, a scale parameter, offset, and list of bucket counts. 
+The following `JSON` file is a more detailed form of OpenTelemetry representation, which consists of negative and positive buckets, a scale parameter, offset, and list of bucket counts. 
 
 
 ```json
@@ -132,9 +134,10 @@ The following `JSON` file is a more detailed form of the dense OpenTelemetry rep
 
 The `exponential_histogram_max_allowed_scale` parameter defines the maximum allowed scale for an exponential histogram. If you increase this parameter, you will increase potential memory consumption. See the [OpenTelemetry specifications](https://github.com/open-telemetry/opentelemetry-proto/blob/main/opentelemetry/proto/metrics/v1/metrics.proto) for more information on exponential histograms and their computational complexity.
 
-All exponential histograms that have a scale that is above the configured parameter (by default, a value of `10`) are discarded and logged with an error level. You can check the llog that Data Prepper creates to see the `ERROR` log message.
+All exponential histograms that have a scale that is above the configured parameter (by default, a value of `10`) are discarded and logged with an error level. You can check the log that Data Prepper creates to see the `ERROR` log message.
 
-**Note**: The absolute scale value is used for comparison, so a scale of `-11` that is treated equally to `11` exceeds the configured value of `10` and can be discarded.
+The absolute scale value is used for comparison, so a scale of `-11` that is treated equally to `11` exceeds the configured value of `10` and can be discarded.
+{: .note}
 
 ## Metrics
 
