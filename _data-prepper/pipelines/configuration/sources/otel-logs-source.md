@@ -61,7 +61,7 @@ You can use the following metrics with the `otel_logs_source`.
 | `requestsReceived` | Counter | Measures the total number of requests received by the `otel_logs_source`. |
 | `badRequests` | Counter | Measures the total number of requests that could not be parsed. |
 | `requestsTooLarge` | Counter | Measures the total number of requests that exceed the maximum allowed size. Indicates that the size of the data being written into the buffer is beyond the buffer's maximum capacity. |
-| `internalServerError` | Counter | Measures the total number of requests that are erroneous due to any other reason than `requestTimeouts` or `requestsTooLarge` error. |
+| `internalServerError` | Counter | Measures the total number of requests that are erroneous due to errors other than `requestTimeouts` or `requestsTooLarge`. |
 | `successRequests` | Counter | Measures the total number of requests successfully written to the buffer. |
 | `payloadSize` | Distribution summary | Measures the distribution of all incoming payload sizes. |
 | `requestProcessDuration` | Timer | Measures the duration of request processing. |
