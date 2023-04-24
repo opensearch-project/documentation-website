@@ -1,6 +1,6 @@
 ---
 layout: default
-title: OTel metrics raw
+title: otel_metrics_raw
 parent: Processors
 grand_parent: Pipelines
 nav_order: 72
