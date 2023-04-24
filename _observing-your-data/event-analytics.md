@@ -12,7 +12,7 @@ Event analytics in Observability is where you can use [Piped Processing Language
 
 ## Getting started with event analytics
 
-To get started, choose **Observability** in OpenSearch Dashboards, and then choose **Event analytics**. If you want to start exploring without adding any of your own data, choose **Add samples**, and Dashboards adds sample visualizations you can interact with.
+To get started, choose **Observability** in OpenSearch Dashboards and then choose **Event analytics**. If you want to start exploring without adding any of your own data, choose **Add samples**, and Dashboards adds sample visualizations you can interact with.
 
 ## Building a query
 
