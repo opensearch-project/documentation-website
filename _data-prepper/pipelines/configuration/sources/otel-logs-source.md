@@ -58,7 +58,7 @@ You can use the following metrics with the `otel_logs_source` source.
 | Option | Type | Description |
 | :--- | :--- | :--- | 
 | `requestTimeouts` | Counter | Measures the total number of requests that time out. | 
-| `requestsReceived` | Counter | Measures the total number of requests received by Otel logs source. |
+| `requestsReceived` | Counter | Measures the total number of requests received by OTel logs source. |
 | `badRequests` | Counter | Measures the total number of requests that could not be parsed. |
 | `requestsTooLarge` | Counter | Measures the total number of requests that exceed the maximum allowed size. Indicates the size of the data to be written into the buffer is beyond buffer's maximum capacity. |
 | `internalServerError` | Counter | Measures the total number of requests that are erroneous due to any other reason than requestTimeouts or requestsTooLarge error. |
