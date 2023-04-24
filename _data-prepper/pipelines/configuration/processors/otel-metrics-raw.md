@@ -145,6 +145,6 @@ The following table describes metrics that are common to all processors.
 
 | Metric name | Type | Description |
 | ------------- | ---- | -----------|
-| `recordsIn` | Counter | Metric representing the ingress of records to a pipeline component. |
-| `recordsOut` | Counter | Metric representing the egress of records from a pipeline component. |
-| `timeElapsed` | Timer | Metric representing the time elapsed during execution of a pipeline component. |
+| `recordsIn` | Counter | Metric representing the number of ingress records. |
+| `recordsOut` | Counter | Metric representing the number of egress records. |
+| `timeElapsed` | Timer | Metric representing the time elapsed during execution of records. |
