@@ -74,6 +74,6 @@ The following table describes custom metrics specific to the OTel trace group pr
 
 | Metric name | Type | Description |
 | ------------- | ---- | ----------- |
-| `recordsInMissingTraceGroup` | Counter | The number of ingress records missing trace group fields. | Custom |
-| `recordsOutFixedTraceGroup` | Counter | The number of egress records with successfully completed trace group fields. | Custom |
-| `recordsOutMissingTraceGroup` | Counter | The number of egress records missing trace group fields. | Custom |
+| `recordsInMissingTraceGroup` | Counter | The number of ingress records missing trace group fields. |
+| `recordsOutFixedTraceGroup` | Counter | The number of egress records with successfully completed trace group fields. |
+| `recordsOutMissingTraceGroup` | Counter | The number of egress records missing trace group fields. |
