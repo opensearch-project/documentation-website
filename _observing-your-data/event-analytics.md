@@ -52,7 +52,7 @@ To create a new visualization and add it to a dashboard, follow these steps:
 5. Select **Save** and enter a name for the visualization. To add the visualization to an existing dashboard, choose from the **Custom operational dashboards/application** dropdown menu. 
 6. Select **Save**.
 
-You've created a new visualization that can be added to an existing or new dashboard. To add a PPL query to a dashboard, follow these steps:  
+You've created a new visualization that can be added to a new or existing dashboard. To add a PPL query to a dashboard, follow these steps:  
 
 1. On the main menu, select **Dashboard**.
 2. On the **Dashboards** window, select **Create dashboard**.
