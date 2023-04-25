@@ -7,9 +7,6 @@ nav_order: 5
 
 # Integrating plugins into a dashboard
 
-Introduced 2.7
-{: .label .label-purple }
-
 Observability is a collection of plugins and applications that let you visualize data-driven events by using [Piped Processing Language]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index/) to explore, discover, and query data stored in OpenSearch. Observability provides a unified experience for collecting and monitoring metrics, logs, and traces from common data sources. With data collection and monitoring in one place, you have full-stack, end-to-end observability of your entire infrastructure. 
 
 As of OpenSearch 2.7, you can manage your observability plugins with **Observability Dashboards** or **Dashboard**, instead of the plugins page. The plugins are integrated automatically into Observability Dashboards and Dashboard. This feature provides you:
