@@ -31,7 +31,7 @@ To view a list of installed plugins from the Dashboard app, follow these steps:
 
 ## Adding and removing plugins
 
-To add a plugin to the Dashboard app, follow these steps:
+To add a plugin from the Dashboard app, follow these steps:
 
 1. From the OpenSearch Dashboards main menu, select **Dashboard**.
 2. From the **Dashboards** window, select **Create** > **Dashboard**.
