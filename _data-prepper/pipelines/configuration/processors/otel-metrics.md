@@ -110,7 +110,7 @@ If `calculate_exponential_histogram_buckets` is set to `true` (the default setti
     ],
 ```
 
-The following `JSON` file is a more detailed form of OpenTelemetry representation, which consists of negative and positive buckets, a scale parameter, offset, and list of bucket counts. 
+The following `JSON` file is a more detailed form of OpenTelemetry representation that consists of negative and positive buckets, a scale parameter, an offset, and a list of bucket counts: 
 
 
 ```json
