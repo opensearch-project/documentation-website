@@ -29,7 +29,7 @@ See [OpenSearch security]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/co
 
 ### Amazon OpenSearch Service
 
-When you use [Amazon OpenSearch Service]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sinks/opensearch/#amazon-opensearch-service-domain-security), use the following `pipeline.yaml` file example to configure the `otel_trace_group` processor:
+When you use [Amazon OpenSearch Service]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sinks/opensearch/#amazon-opensearch-service-domain-security), use the following example `pipeline.yaml` file to configure the `otel_trace_group` processor:
 
 ``` YAML
 pipeline:
