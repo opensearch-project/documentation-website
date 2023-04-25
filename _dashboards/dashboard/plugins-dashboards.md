@@ -10,9 +10,7 @@ nav_order: 5
 Introduced 2.7
 {: .label .label-purple }
 
-The default installation of OpenSearch Dashboards includes the Observability plugin, which you can use to visualize data-driven events using Piped Processing Language (PPL) to explore, discover, and query data stored in OpenSearch. The plugin requires OpenSearch 1.2 or later.
-
-The Observability plugin provides a unified experience for collecting and monitoring metrics, logs, and traces from common data sources. Data collection and monitoring in one place enables full-stack, end-to-end observability of your entire infrastructure.
+Observability is collection of plugins and applications that let you visualize data-driven events by using [Piped Processing Language]({{site.url}}{{site.baseurl}}/search-plugins/sql/ppl/index/) to explore, discover, and query data stored in OpenSearch. Observability provides a unified experience for collecting and monitoring metrics, logs, and traces from common data sources. With data collection and monitoring in one place, you have full-stack, end-to-end observability of your entire infrastructure. 
 
 As of OpenSearch 2.7, you can manage your observability plugins with **Observability Dashboards** or **Dashboard**, instead of the plugins page. The plugins are integrated automatically into Observability Dashboards and Dashboard. This feature provides you:
 
@@ -26,7 +24,7 @@ As of OpenSearch 2.7, you can manage your observability plugins with **Observabi
 
 ## Listing plugins
 
-To view a list of your installed observability plugins from a dashboard, follow these steps:
+To view a list of installed plugins from a dashboard, follow these steps:
 
 1. From the OpenSearch Dashboards main menu, select **Dashboard**.
 2. View the list of items and select your plugin. Plugins are categorized automatically as the Observability Dashboard data type, which you can filter to concentrate on just what you want to see.
@@ -38,7 +36,11 @@ To add a plugin, follow these steps:
 1. From the OpenSearch Dashboards main menu, select **Dashboard**.
 2. From the **Dashboards** window, select **Create** > **Observability Dashboard**.
 3. In the **Create operational panel** window, enter a name in the **Name** field, and then select **Create**. The plugin is added to both the Observability Plugins application and the Dashboards application.
-4. To remove the plugin, select .
+
+To remove the plugin, follow these step:
+
+1. From the OpenSearch Dashboards main menu, select **Dashboard**.
+2. 
 
  ## Staying updated about OpenSearch Dashboards plugins
 
