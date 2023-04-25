@@ -8,14 +8,14 @@ nav_order: 30
 
 # Hot shard identification
 
-Hot shard identification Root Cause Analysis (RCA) lets you identify a hot shard within an index. A hot shard is an outlier that consumes more resources than other shards and may lead to poor indexing and search performance. The hot shard identification RCA monitors the following metrics:
+Hot shard identification root cause analysis (RCA) lets you identify a hot shard within an index. A hot shard is an outlier that consumes more resources than other shards and may lead to poor indexing and search performance. The hot shard identification RCA monitors the following metrics:
 
 - CPU utilization
 - Heap allocation rate
 
 Shards may become hot because of the nature of your workload. When you use a `_routing` parameter or a custom document ID, a specific shard or several shards within the cluster receive frequent updates, consuming more CPU and heap resources than other shards.
 
-The hot shard identification RCA compares the CPU utilization and heap allocation rate against their threshold values. If the usage for either metric is greater than the threshold, the shard is considered hot.
+The hot shard identification RCA compares the CPU utilization and heap allocation rates against their threshold values. If the usage for either metric is greater than the threshold, the shard is considered to be _hot_.
 
 For more information about the hot shard identification RCA implementation, see [Hot Shard RCA](https://github.com/opensearch-project/performance-analyzer-rca/blob/main/src/main/java/org/opensearch/performanceanalyzer/rca/store/rca/hotshard/docs/README.md).
 
@@ -91,9 +91,9 @@ HotClusterSummary.HotNodeSummary.number_of_nodes | Integer | The number of nodes
 HotClusterSummary.HotNodeSummary.number_of_unhealthy_nodes | Integer | The number of nodes found to be in an `unhealthy` state.
 HotClusterSummary.HotNodeSummary.HotResourceSummary.resource_type | Object | The type of resource causing the unhealthy state, either "cpu usage" or "heap".
 HotClusterSummary.HotNodeSummary.HotResourceSummary.resource_metric | String | The definition of the resource_type. Either "cpu usage(num of cores)" or "heap alloc rate(heap alloc rate in bytes per second)".
-HotClusterSummary.HotNodeSummary.HotResourceSummary.threshold | Float | The value that determines if a resource is contended.
+HotClusterSummary.HotNodeSummary.HotResourceSummary.threshold | Float | The value that determines whether a resource is contended.
 HotClusterSummary.HotNodeSummary.HotResourceSummary.value | Float | The current value of the resource.
-HotClusterSummary.HotNodeSummary.HotResourceSummary.time_period_seconds | Time | The amount of time a shard was monitored before its state was declared as healthy or unhealthy.
+HotClusterSummary.HotNodeSummary.HotResourceSummary.time_period_seconds | Time | The amount of time that a shard was monitored before its state was declared to be healthy or unhealthy.
 HotClusterSummary.HotNodeSummary.HotResourceSummary.meta_data | String | The metadata associated with the resource_type.
 
 In the preceding example response, `meta_data` is `QRF4rBM7SNCDr1g3KU6HyA index9 0`. The `meta_data` string consists of three fields:
