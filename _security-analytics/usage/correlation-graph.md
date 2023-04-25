@@ -36,11 +36,11 @@ You can drill down in the graph to look at correlations associated with a specif
 
 <img src="{{site.url}}{{site.baseurl}}/images/Security/sec-analytics/corr-drill-dn.png" alt="Zooming in on a specific finding in the graph" width="40%">
 
-After drilling down in the graph, informational cards for each of the findings appear in the right-hand margin of the screen. The selected finding appears first at the top of the cards and the correlated findings are listed below it in order of their correlation relevance, represented by a correlation score. 
-
-You can select one of the correlated findings in the graph to shift the perspective of the correlation relationships. This sends the newly selected finding first to the top of the informational cards and displays the other findings as relative correlations.
+After drilling down in the graph, informational cards for each of the findings appear in the right-hand margin of the screen. The selected finding appears first at the top of the cards and the correlated findings are listed below it in order of their correlation relevance, represented by a correlation score.
 
 <img src="{{site.url}}{{site.baseurl}}/images/Security/sec-analytics/corr-cards.png" alt="Zooming in on a specific finding in the graph" width="30%">
+
+You can select one of the correlated findings in the graph to shift the perspective of the correlation relationships. This sends the newly selected finding first to the top of the informational cards and displays the other findings as relative correlations.
 
 The cards display details about each finding:
 * The severity level of the finding.
