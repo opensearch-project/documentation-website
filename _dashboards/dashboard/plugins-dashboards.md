@@ -12,7 +12,7 @@ Observability is a collection of plugins and applications that let you visualize
 As of OpenSearch 2.7, you can manage your observability plugins with **Observability Dashboards** or **Dashboard**, instead of the plugins page. The plugins are integrated automatically into Observability Dashboards and Dashboard. This feature provides you:
 
 - **Instant access to installed plugins:** Viewing a list of plugins from a dashboard displays all the installed plugins in one place.
-- **Improved efficiency:** With a list of plugins readily available from a dashboard, you can enable, disable, update, or remove them with just a few clicks.
+- **Improved efficiency:** With a list of plugins readily available from a dashboard, you can enable, disable, update, or remove plugins in the OpenSearch Dashboards UI.
 - **Better troubleshooting:** Viewing a list of plugins from a dashboard can help you quickly identify which plugins may be causing a problem.
 - **Enhanced security:** With a list of plugins readily available from a dashboard, you can easily see if any outdated or vulnerable plugins are present and then quickly remove or update them, minimizing or avoiding security risks.
 - **Improved website performance:** Viewing a list of plugins from a dashboard can help you identify any plugins that may be slowing down your website or causing performance issues.
