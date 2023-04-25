@@ -56,6 +56,8 @@ For details on setting up an alert, see [Step 3. Set up alerts]({{site.url}}{{si
 
 Each finding in the list also includes a **Finding ID**. In addition to using the diagonal arrow in **Actions**, you can select the ID to open the **Finding details** pane. An example of **Finding details** is shown in the following image.
 
+<img src="{{site.url}}{{site.baseurl}}/images/Security/findings1.png" alt="Finding details pane" width="60%">
+
 #### Viewing surrounding documents
 
 The **Finding details** pane contains specific information about the finding, including the document that generated the finding. To investigate the series of events that led to the finding or followed the finding, you can select **View surrounding documents** to open the document in the **Discover** panel and view other documents preceding or following it.
