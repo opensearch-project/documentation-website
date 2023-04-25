@@ -137,7 +137,7 @@ The following image shows a date histogram with an interval dropdown list.
 Selecting multiple data sources in the Dev Tools console allows you to work with a broader range of data and gain deeper insights into your code and applications. You can follow these steps:
 
 1. Open `opensearch_dashboards.yml` in the editor of your choice. 
-2. Set `data_source.enabled:` to `true`, as shown in the following example.
+2. Set `data_source.enabled:` to `true`, as shown in the following example:
     
     ```
     # Set the value of this setting to true to enable the experimental multiple data source
