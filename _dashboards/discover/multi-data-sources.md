@@ -10,7 +10,7 @@ nav_order: 20
 The multiple data sources feature is an experimental feature released in OpenSearch 2.4. It can't be used in a production environment. For updates on the feature’s progress or to leave feedback on improving the feature, see the [OpenSearch Forum discussion](https://forum.opensearch.org/t/feedback-experimental-feature-connect-to-external-data-sources/11144).
 {: .warning }
 
- OpenSearch Dashboards allows you to dynamically manage data sources, create index patterns based on those data sources, execute queries against a specific data source, and combine visualizations in one dashboard.
+ OpenSearch Dashboards allows you to dynamically manage data sources, create index patterns based on those data sources, run queries against a specific data source, and combine visualizations in one dashboard.
 
 In this tutorial we provide the steps for enabling the `data_source` setting in Dashboards; adding credentials, data source connections, and index patterns; and combining visualizations in a single dashboard.
 
