@@ -27,7 +27,9 @@ Follow the steps in this section to create a correlation rule.
    * In the **Select index** dropdown list, specify an index or index pattern for the data source. In the **Log type** dropdown list, specify the log type associated with the index.
    * In the **Field** dropdown list, specify a log field. In the **Field value** text box, enter a value for the field.
    * To add more fields to the query, select **Add field**.
-   <img src="{{site.url}}{{site.baseurl}}/images/Security/sec-analytics/c-rule-query1.png" alt="Correlation rule query configuration" width="40%">
+     
+    <img src="{{site.url}}{{site.baseurl}}/images/Security/sec-analytics/c-rule-query1.png" alt="Correlation rule query configuration" width="40%">
+    
 1. After configuring the first query, follow instructions in the previous step to configure a second query. You can select **Add query** at the bottom of the window to add more queries for the rule.
 1. Once the rule is complete, select **Create correlation rule** in the lower-right corner of the window. OpenSearch creates a new rule, the screen returns to the **Correlation rules** window, and the new rule appears in the table of correlation rules.
 
