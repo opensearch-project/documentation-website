@@ -2,7 +2,7 @@
 layout: default
 title: generate
 nav_order: 58
-parent: OpenSearch Benchmark
+has_children: false
 ---
 
 # generate

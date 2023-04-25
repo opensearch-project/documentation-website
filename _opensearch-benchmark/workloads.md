@@ -2,8 +2,7 @@
 layout: default
 title: Workloads
 nav_order: 50
-parent: OpenSearch Benchmark
-has_chilren: true
+has_children: false
 ---
 
 # Workloads

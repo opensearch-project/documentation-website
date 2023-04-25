@@ -111,7 +111,7 @@ docker pull public.ecr.aws/opensearchproject/opensearch-benchmark:latest
 
 Verify that Docker is able to launch the container by using the following command to print help text to the standard output:
 ```bash
-docker run opensearchproject/opensearch-benchmark opensearch-benchmark -h
+docker run opensearchproject/opensearch-benchmark -h
 ```
 {% include copy.html %}
 
@@ -140,8 +140,8 @@ docker run opensearchproject/opensearch-benchmark -h
 ```
 {% include copy.html %}
 
-Alternatively, you can run an interactive pseudo-TTY session with the Docker container and issue commands using standard command-line syntax:
-1. To start a pseudo-TTY session in the container, enter the following command:
+Alternatively, you can run an interactive terminal session with the Docker container and issue commands using standard command-line syntax:
+1. To start a terminal session in the container, enter the following command:
    ```bash
    docker run --entrypoint bash -it opensearchproject/opensearch-benchmark -c /bin/bash
    ```
@@ -151,7 +151,7 @@ Alternatively, you can run an interactive pseudo-TTY session with the Docker con
    opensearch-benchmark -h
    ```
    {% include copy.html %}
-1. When you are done working with the container you end the pseudo-TTY session by entering `exit`.
+1. When you are done working with the container you end the terminal session by entering `exit`.
 
 ## Running your first benchmark in test mode
 
@@ -162,7 +162,10 @@ Example commands in this section use standard command-line syntax: `opensearch-b
 
 Run the following command, replacing `<host-address>` with your OpenSearch cluster's endpoint (for example, `https://192.0.2.3:9200`):
 ```bash
-opensearch-benchmark execute_test --target-hosts <host-address> --pipeline benchmark-only --workload geonames --client-options basic_auth_user:admin,basic_auth_password:admin,verify_certs:false --test-mode
+opensearch-benchmark execute_test --target-hosts <host-address> \
+   --pipeline benchmark-only --workload geonames \
+   --client-options basic_auth_user:admin,basic_auth_password:admin,verify_certs:false \
+   --test-mode
 ```
 {% include copy.html %}
 
@@ -171,11 +174,11 @@ A few arguments are included in the command:
 - `--target-hosts` defines the endpoint of your OpenSearch cluster, including the protocol and port number.
 - `--pipeline` defines the steps OpenSearch Benchmark will perform. Use `benchmark-only` because you are not using OpenSearch Benchmark to provision an OpenSearch cluster.
 - `--workload` specifies the benchmarking workload you want to use. This example uses the [geonames](https://github.com/opensearch-project/opensearch-benchmark-workloads/tree/main/geonames) workload.
-- `--client-options` allows you to define important parameters as a comma-separated list of key-value pairs, which is required if OpenSearch Security is enabled:
+- `--client-options` allows you to define important parameters as a comma-separated list of key-value pairs, which is required if OpenSearch Security is enabled. Omit this option if your target does not have OpenSearch Security enabled.
    - `basic_auth_user` is the user that OpenSearch Benchmark uses to communicate with the OpenSearch REST API.
    - `basic_auth_password` is the password for the specified OpenSearch user.
    - `verify_certs` is set to `false` because the TLS certificates are self-signed and cannot be verified. You can omit this parameter if your OpenSearch cluster certificates are signed by a trusted certificate authority (CA).
-- `--test-mode` is used when you want to validate a benchmark workload. When `--test-mode` is specified, OpenSearch benchmark checks the command for syntax errors and limits each benchmark operation to a single instance. This flag is useful for validating custom workloads and it significantly reduces the time a benchmark takes to complete.
+- `--test-mode` is used when you want to validate a benchmark workload. When `--test-mode` is specified, OpenSearch Benchmark checks the command for syntax errors and limits each benchmark operation to a single instance. This flag is useful for validating custom workloads and it significantly reduces the time a benchmark takes to complete.
 
 After you begin the benchmark, OpenSearch Benchmark will report progress to the standard output in the terminal window. You can see the order of test procedures performed and when they are completed, like in the following example output for the `geonames` benchmark workload that lists the operations sequentially and indicates that all operations were completed successfully:
 <p class="codeblock-label">Example output</p>
@@ -223,6 +226,9 @@ You can review the test procedures and operations for the [geonames](https://git
 When the benchmark is completed, OpenSearch Benchmark will display the results. By default, OpenSearch Benchmark prints the results to the standard output, but you can also use an OpenSearch cluster as a remote metric store by modifying `benchmark.ini`. To learn more about configuring OpenSearch Benchmark, see [Installing and configuring OpenSearch Benchmark]({{site.url}}{{site.baseurl}}/tuning-your-cluster/install-osb/).
 
 The results summary lists various metrics in a table. You can review the summary to see how your OpenSearch cluster performed overall, as well as how it performed individually per operation. For a full explanation of the benchmark results summary, see [NEED-LINK](NEED-LINK).
+
+ADD BELOW: Mention that people care about throughput (operations per second) and latency is how long the operation took to perform. Acknowledge diff between service and latency but defer detailed explanation to another doc.
+From Ian - great example - https://opensearch.slack.com/archives/C0516H8EJ7R/p1681833729961929?thread_ts=1681831451.762219&cid=C0516H8EJ7R
 
 <p class="codeblock-label">Example benchmark summary</p>
 ```

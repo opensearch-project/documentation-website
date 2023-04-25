@@ -2,7 +2,7 @@
 layout: default
 title: Configuring OpenSearch Benchmark
 nav_order: 7
-parent: OpenSearch Benchmark
+has_children: false
 ---
 
 <!--
@@ -45,7 +45,13 @@ OpenSearch Benchmark configuration data is stored in `~/.benchmark/benchmark.ini
 - [defaults](#defaults)
 - [distributions](#distributions)
 
+Note to self - most important section is results_publishing so make that complete, add to the rest over time.
+
 ## meta
+
+| Parameter | Data Type | Desription |
+| :---- | :---- | :---- |
+| config.version | Integer | 
 
 ## system
 

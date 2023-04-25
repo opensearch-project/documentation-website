@@ -2,7 +2,7 @@
 layout: default
 title: compare
 nav_order: 60
-parent: OpenSearch Benchmark
+has_children: false
 ---
 
 # compare

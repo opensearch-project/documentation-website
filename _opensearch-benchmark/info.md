@@ -2,7 +2,7 @@
 layout: default
 title: info
 nav_order: 54
-parent: OpenSearch Benchmark
+has_children: false
 ---
 
 # info

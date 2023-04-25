@@ -1,8 +1,9 @@
 ---
 layout: default
 title: OpenSearch Benchmark
-nav_order: 15
-has_children: true
+nav_order: 1
+has_children: false
+has_toc: false
 ---
 
 # OpenSearch Benchmark

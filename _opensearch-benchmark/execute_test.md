@@ -2,7 +2,7 @@
 layout: default
 title: Running a benchmark
 nav_order: 50
-parent: OpenSearch Benchmark
+has_children: false
 ---
 
 # Running a benchmark

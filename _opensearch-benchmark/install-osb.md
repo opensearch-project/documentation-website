@@ -2,7 +2,7 @@
 layout: default
 title: Installing OpenSearch Benchmark
 nav_order: 5
-parent: OpenSearch Benchmark
+has_children: false
 ---
 
 # Installing OpenSearch Benchmark
@@ -23,6 +23,7 @@ Remember that OpenSearch Benchmark cannot be used to provision OpenSearch nodes 
 When you select a host, you should also think about which workloads you want to run. To see a list of default benchmark workload, visit the [opensearch-benchmark-workloads](https://github.com/opensearch-project/opensearch-benchmark-workloads) repository on GitHub. As a general rule, make sure that the OpenSearch Benchmark host has enough free storage space to store the compressed data and the fully decompressed data corpus once OpenSearch Benchmark is installed.
 
 If you want to benchmark with a default workload, then use the following table to determine the approximate minimum amount of required free space needed by adding the compressed size with the uncompressed size:
+
 | Workload Name | Document Count | Compressed Size | Uncompressed Size |
 | :----: | :----: | :----: | :----: |
 | eventdata | 20,000,000 | 756.0 MB | 15.3 GB |

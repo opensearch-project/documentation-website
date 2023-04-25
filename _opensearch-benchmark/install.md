@@ -2,7 +2,7 @@
 layout: default
 title: install
 nav_order: 64
-parent: OpenSearch Benchmark
+has_children: false
 ---
 
 # install

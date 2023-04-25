@@ -2,7 +2,7 @@
 layout: default
 title: download
 nav_order: 62
-parent: OpenSearch Benchmark
+has_children: false
 ---
 
 # download

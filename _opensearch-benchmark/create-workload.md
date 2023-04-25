@@ -2,7 +2,7 @@
 layout: default
 title: create-workload
 nav_order: 56
-parent: OpenSearch Benchmark
+has_children: false
 ---
 
 # create-workload
