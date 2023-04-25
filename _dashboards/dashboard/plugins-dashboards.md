@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Managing plugins with a dashboard
+title: Intergrating plugins into a dashboard
 parent: Observability
 nav_order: 5
 ---
 
-# Managing plugins with a dashboard
+# Integrating plugins into a dashboard
 
 Introduced 2.7
 {: .label .label-purple }
@@ -24,23 +24,20 @@ As of OpenSearch 2.7, you can manage your observability plugins with **Observabi
 
 ## Listing plugins
 
-To view a list of installed plugins from a dashboard, follow these steps:
+To view a list of installed plugins from the Dashboard app, follow these steps:
 
 1. From the OpenSearch Dashboards main menu, select **Dashboard**.
 2. View the list of items and select your plugin. Plugins are categorized automatically as the Observability Dashboard data type, which you can filter to concentrate on just what you want to see.
 
 ## Adding and removing plugins
 
-To add a plugin, follow these steps:
+To add a plugin to the Dashboard app, follow these steps:
 
 1. From the OpenSearch Dashboards main menu, select **Dashboard**.
-2. From the **Dashboards** window, select **Create** > **Observability Dashboard**.
-3. In the **Create operational panel** window, enter a name in the **Name** field, and then select **Create**. The plugin is added to both the Observability Plugins application and the Dashboards application.
+2. From the **Dashboards** window, select **Create** > **Dashboard**.
+3. In the **Create operational panel** window, enter a name in the **Name** field, and then select **Create**. The plugin is added to both the Observability app and the Dashboard app.
 
-To remove the plugin, follow these step:
-
-1. From the OpenSearch Dashboards main menu, select **Dashboard**.
-2. 
+You can remove a plugin from the Dashboard app by selecting the edit icon under the **Actions** column and then selecting **Delete**.
 
  ## Staying updated about OpenSearch Dashboards plugins
 
