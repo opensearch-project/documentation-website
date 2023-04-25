@@ -22,25 +22,23 @@ As of OpenSearch 2.7, you can manage your observability plugins with **Observabi
 - **Enhanced security:** With a list of plugins readily available from a dashboard, you can easily see if any outdated or vulnerable plugins are present and then quickly remove or update them, minimizing or avoiding security risks.
 - **Improved website performance:** Viewing a list of plugins from a dashboard can help you identify any plugins that may be slowing down your website or causing performance issues.
 
-## Viewing installed plugins
+![Demo of using Dashboard to view a list of observability plugins](https://user-images.githubusercontent.com/105296784/234345611-50beb9a6-6118-449a-b015-b9f9e90b525e.gif)
 
-There are two ways to view installed plugins from a dashboard: with Observability Dashboards application or with Dashboard. To view your installed plugins, follow these steps:
+## Listing plugins
 
-1. From the OpenSearch Dashboards main menu, select **Observability** > **Dashboard**. Alternatively, select **Dashboard**.
+To view a list of your installed observability plugins from a dashboard, follow these steps:
+
+1. From the OpenSearch Dashboards main menu, select **Dashboard**.
 2. View the list of items and select your plugin. Plugins are categorized automatically as the Observability Dashboard data type, which you can filter to concentrate on just what you want to see.
 
-The following image shows a list of plugins viewed in the Observability Dashboard interface.
+## Adding and removing plugins
 
-<insert image>
+To add a plugin, follow these steps:
 
-## Installing and removing plugins
-
-To install plugins using the Observability Dashboards application, follow these steps:
-
-1. From the OpenSearch Dashboards main menu, select **Observability Dashboards**. Alternatively, select **Dashboard**.
+1. From the OpenSearch Dashboards main menu, select **Dashboard**.
 2. From the **Dashboards** window, select **Create** > **Observability Dashboard**.
 3. In the **Create operational panel** window, enter a name in the **Name** field, and then select **Create**. The plugin is added to both the Observability Plugins application and the Dashboards application.
-4. To remove the plugin, select <insert steps>.
+4. To remove the plugin, select .
 
  ## Staying updated about OpenSearch Dashboards plugins
 
