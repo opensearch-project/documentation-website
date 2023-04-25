@@ -59,7 +59,7 @@ plugins.ml_commons.max_ml_task_per_node: 10
 
 ## Set number of ML models per node
 
-Sets the number of ML models that can be loaded on to each ML node. When set to `0`, no ML models can load on any node.
+Sets the number of ML models that can be deployed on to each ML node. When set to `0`, no ML models can deploy on any node.
 
 ### Setting
 
@@ -74,7 +74,7 @@ plugins.ml_commons.max_model_on_node: 10
 
 ## Set sync job intervals 
 
-When returning runtime information with the [profile API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api#profile), ML Commons will run a regular job to sync newly loaded or unloaded models on each node. When set to `0`, ML Commons immediately stops sync up jobs.
+When returning runtime information with the [profile API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api#profile), ML Commons will run a regular job to sync newly deployed or undeployed models on each node. When set to `0`, ML Commons immediately stops sync up jobs.
 
 
 ### Setting
@@ -232,3 +232,17 @@ plugins.ml_commons.model_auto_redeploy.lifetime_retry_times: 3
 - Default value: 3
 - Value range: [0, 100]
 
+## Set auto redeploy success ratio
+
+Sets the ratio of success for the auto redeployment of a model based on the available ML nodes in the cluster. For example, if ML nodes crash inside a cluster, the auto redeploy protocol adds another node or retires a crashed node. If our ratio is `0.7` and 70% of all ML nodes successfully redeploy the model on auto redeploy activation, the redeployment is a success. If the model redeploys on less the 70% of available ML nodes, the auto redeploy retries until the redeployment succeeds or OpenSearch reaches [the maximum number of retries](#set-retires-for-auto-redeploy).
+
+### Setting
+
+```
+plugins.ml_commons.model_auto_redeploy_success_ratio: 0.8
+```
+
+### Values
+
+- Default value: 0.8
+- Value range: [0, 1]
