@@ -26,24 +26,24 @@ The graph displays findings as nodes with colored borders expressing their sever
 
 ## Using the graph
 
-You can control which findings are displayed in the graph by filtering by severity level, log type, and time filter. The time filter controls the findings that appear in the graph by limiting the dates on which the findings were generated and, therefore, the correlations made between them.
-* Use the **Severity** dropdown menu to select which findings appear in the graph by their severity level. The number beside the menu name shows how many severity levels are being shown in the graph.
-* Use the **Log types** dropdown menu to select which log types to show on the graph. The number beside the menu name shows how many log types are being shown in the graph.
-* Select **Reset filters** to return the dropdown menus to their default, showing all items.
-* Use the time filter to set the the date range and show only those findings that were generated within that certain span of time. Select **Refresh** to bring the current number of findings up to date.
+You can control which findings are displayed in the graph by filtering by severity level, log type, and time filter. The time filter controls the findings that appear in the graph by limiting the dates on which the findings were generated.
+* Use the **Severity** dropdown list to select which findings appear in the graph by their severity level. The number beside the list name shows how many severity levels are being shown in the graph.
+* Use the **Log types** dropdown list to select which log types to show in the graph. The number beside the list name shows how many log types are being shown in the graph.
+* Select **Reset filters** to return the dropdown lists to their default, showing all items.
+* Use the time filter to set the the date range and show only those findings that were generated within that time span. Select **Refresh** to bring the current number of findings up to date.
 
 You can drill down in the graph to look at correlations associated with a specific finding by selecting the finding in the graph. The graph then changes to show only the selected finding along with the constellation of findings correlated to it.
 
 <img src="{{site.url}}{{site.baseurl}}/images/Security/sec-analytics/corr-drill-dn.png" alt="Zooming in on a specific finding in the graph" width="40%">
 
-After drilling down in the graph, informational cards for each of the findings appear in the right-hand margin of the screen. The selected finding appears first at the top of the cards and the correlated findings are listed below it in order of their correlation relevance, represented by a correlation score.
+After drilling down in the graph, informational cards for each of the findings appear in the right-hand side of the screen. The selected finding appears first at the top of the cards and the correlated findings are listed below it in order of their correlation relevance, represented by a correlation score.
 
 <img src="{{site.url}}{{site.baseurl}}/images/Security/sec-analytics/corr-cards.png" alt="Zooming in on a specific finding in the graph" width="30%">
 
 You can select one of the correlated findings in the graph to shift the perspective of the correlation relationships. This sends the newly selected finding first to the top of the informational cards and displays the other findings as relative correlations.
 
 The cards display details about each finding:
-* The severity level of the finding.
+* The severity level of the finding: 1, critical; 2, high; 3, medium; 4, low; 5, informational.
 * A correlation score for correlated findings. The score is based on the proximity of relevant findings in the threat scenario defined by the correlation rule. 
 * The detection rule that generated the finding.
 * For correlated findings, the correlation rule used to associate it with the selected finding.

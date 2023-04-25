@@ -22,22 +22,23 @@ Follow the steps in this section to create a correlation rule.
 1. Select **Create correlation rule**. The **Create correlation rule** window opens.
 1. In the **Correlation rule details** field, enter a name for the rule.
 1. In the **Correlation queries** field, specify a data source and select the index field and field values to be used for the query.
-   A minimum of two queries are required for each correlation rule. Having at least two data sources is the basis for making connections between different systems in an infrastructure and identifying correlations. You can also include more than two queries to better define a threat scenario and look for correlations between multiple systems.
+   A minimum of two queries is required for each correlation rule. Having at least two data sources is the basis for making connections between different systems in an infrastructure and identifying correlations. You can also include more than two queries to better define a threat scenario and look for correlations between multiple systems.
    {: .note }
-   * For the data source, use the **Select index** dropdown menu to specify an index or index pattern. Use the **Log type** dropdown menu to specify the log type associated with the index.
-   * For fields, use the **Field** dropdown menu to specify a log's field. In the **Field value** text box, enter a value for the field.
-   * Select **Add field** to add a second field to the query. You can add multiple fields to a single query.
+   * In the **Select index** dropdown list, specify an index or index pattern for the data source. In the **Log type** dropdown list, specify the log type associated with the index.
+   * In the **Field** dropdown list, specify a log field. In the **Field value** text box, enter a value for the field.
+   * To add more fields to the query, select **Add field**.
    <img src="{{site.url}}{{site.baseurl}}/images/Security/sec-analytics/c-rule-query1.png" alt="Correlation rule query configuration" width="40%">
 1. After configuring the first query, follow instructions in the previous step to configure a second query. You can select **Add query** at the bottom of the window to add more queries for the rule.
-1. Once the rule is complete, select **Create correlation rule** in the lower right corner of the window. OpenSearch creates a new rule, the screen returns to the **Correlation rules** window, and the new rule appears in the table of correlation rules.
+1. Once the rule is complete, select **Create correlation rule** in the lower-right corner of the window. OpenSearch creates a new rule, the screen returns to the **Correlation rules** window, and the new rule appears in the table of correlation rules.
+
 
 ## Setting a time window
 
-The Cluster Settings API allows you to set a window of time to focus the correlation of findings. For example, if your time window is three minutes, the system attempts to correlate findings defined in the threat scenario only when they occur within three minutes of one another. By default, the time window is five minutes. For more information about the Cluster Settings API, see [Cluster settings]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/).
+The Cluster Settings API allows you to correlate findings within a set time window. For example, if your time window is three minutes, the system attempts to correlate findings defined in the threat scenario only when they occur within three minutes of one another. By default, the time window is five minutes. For more information about the Cluster Settings API, see [Cluster settings]({{site.url}}{{site.baseurl}}/api-reference/cluster-api/cluster-settings/).
 
 ### Example request
 
-The following PUT call sets the time window.
+The following PUT call sets the time window to two minutes.
 
 ```json
 PUT /_cluster/settings
@@ -49,25 +50,8 @@ PUT /_cluster/settings
 ```
 {% include copy-curl.html %}
 
-### Example response
-
-The response confirms the call was acknowledged and successful.
-
-```json
-{
-  "acknowledged": true,
-  "persistent": {},
-  "transient": {
-    "plugins": {
-      "security_analytics": {
-        "correlation_time_window": "2m"
-      }
-    }
-  }
-}
-```
 
 ## What's next
 
-Following creation of detectors and correlation rules, you can use the correlation graph to observe the correlations between findings from differernt log sources. For information about working with the correlation graph, see [Working with the correlation graph]({{site.url}}{{site.baseurl}}/security-analytics/usage/correlation-graph/). 
+After creating detectors and correlation rules, you can use the correlation graph to observe the correlations between findings from different log sources. For information about working with the correlation graph, see [Working with the correlation graph]({{site.url}}{{site.baseurl}}/security-analytics/usage/correlation-graph/). 
 
