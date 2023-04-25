@@ -6,7 +6,7 @@ grand_parent: Performance Analyzer
 nav_order: 30
 ---
 
-## Hot shard identification
+# Hot shard identification
 
 Hot shard identification Root Cause Analysis (RCA) lets you can identify a hot shard within an index. A hot shard is an outlier that consumes more resources than other shards and may lead to poor indexing and search performance. The hot shard identification RCA monitors the following metrics:
 
@@ -93,7 +93,7 @@ HotClusterSummary.HotNodeSummary.HotResourceSummary.resource_type | Object | The
 HotClusterSummary.HotNodeSummary.HotResourceSummary.resource_metric | String | The definition of the resource_type. Either "cpu usage(num of cores)" or "heap alloc rate(heap alloc rate in bytes per second)".
 HotClusterSummary.HotNodeSummary.HotResourceSummary.threshold | Float | The value that determines if a resource is contended.
 HotClusterSummary.HotNodeSummary.HotResourceSummary.value | Float | The current value of the resource.
-HotClusterSummary.HotNodeSummary.HotResourceSummary.time_period_seconds | Time | The amount of time a shard is monitored before its state was declared as healthy or unhealthy.
+HotClusterSummary.HotNodeSummary.HotResourceSummary.time_period_seconds | Time | The amount of time a shard was monitored before its state was declared as healthy or unhealthy.
 HotClusterSummary.HotNodeSummary.HotResourceSummary.meta_data | String | The metadata associated with the resource_type.
 
 In the preceding example response, `meta_data` is `QRF4rBM7SNCDr1g3KU6HyA index9 0`. The `meta_data` string consists of three fields:
