@@ -188,7 +188,7 @@ To list all the indices, click the search icon under **Table**.
 
 4. Start experimenting with data by dragging the table to the connection area. Choose **Update Now** or **Automatically Update** to populate the table data.
 
-See more detailed instructions in the [GitHub repository](https://github.com/opensearch-project/sql/blob/main/sql-odbc/docs/user/tableau_support.md).
+See more detailed instructions in the [GitHub repository](https://github.com/opensearch-project/sql/blob/1.x/sql-odbc/docs/user/tableau_support.md).
 
 ### Troubleshooting
 
