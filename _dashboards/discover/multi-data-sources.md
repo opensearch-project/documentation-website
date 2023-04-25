@@ -145,7 +145,7 @@ Selecting multiple data sources in the Dev Tools console allows you to work with
     data_source.enabled: true
     ```
 
-3. Connect to OpenSearch Dashboards, and select **Dev Tools** in the menu.
+3. Connect to OpenSearch Dashboards and select **Dev Tools** in the menu.
 5. Enter the following query in the editor pane of the **Console** and then select the play button.
 
     ```json
