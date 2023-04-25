@@ -3,7 +3,7 @@ layout: default
 title: Mutate string
 parent: Processors
 grand_parent: Pipelines
-nav_order: 70
+nav_order: 45
 ---
 
 # Mutate string processors

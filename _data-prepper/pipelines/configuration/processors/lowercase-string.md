@@ -1,13 +1,14 @@
 ---
 layout: default
-title: Lowercase string processor
+title: lowercase_string
 parent: Processors
 grand_parent: Pipelines
-nav_order: 60
+nav_order: 45
 ---
 
 # lowercase_string
 
+## Overview
 
 The `lowercase_string` processor converts a string to its lowercase counterpart and is a [mutate string](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/mutate-string-processors#mutate-string-processors) processor. The following table describes options for configuring the `lowercase_string` processor to convert strings to a lowercase format.
 
