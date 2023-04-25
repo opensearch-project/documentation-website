@@ -12,7 +12,7 @@ The `otel_trace_group` processor completes missing trace-group-related fields in
 
 ## OpenSearch
 
-When you connect to an OpenSearch cluster using your username and password, use the following `pipeline.yaml` file example to configure the `otel_trace_group` processor:
+When you connect to an OpenSearch cluster using your username and password, use the following example `pipeline.yaml` file to configure the `otel_trace_group` processor:
 
 ``` YAML
 pipeline:
