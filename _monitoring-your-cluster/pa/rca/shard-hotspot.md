@@ -13,12 +13,7 @@ Hot shard identification Root Cause Analysis (RCA) lets you can identify a hot s
 - CPU utilization
 - Heap allocation rate
 
-Although the Key Performance Indicator (KPI) that you should monitor depends on your workload, the following common operations cause the indicated resource consumption:
-
-- Bulk requests: High heap allocation rate.
-- Search requests: High CPU utilization
-- Complex queries: High CPU utilization and high heap allocation rate.
-- Document updates: High CPU utilization and high heap allocation rate.
+Shards may become hot because of the nature of your workload. When you use a `_routing` parameter or a custom document ID, a specific shard within the cluster receives frequent updates, consuming more CPU and heap resources than other shards.
 
 The hot shard identification RCA compares the CPU utilization and heap allocation rate against their threshold values. If the usage for either metric is greater than the threshold, the shard is considered hot.
 
