@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Intergrating plugins into a dashboard
+title: Integrating plugins into a dashboard
 parent: Observability
 nav_order: 5
 ---
