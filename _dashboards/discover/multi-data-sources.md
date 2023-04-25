@@ -155,7 +155,7 @@ Selecting multiple data sources in the Dev Tools console allows you to work with
 6. From the **DataSource** dropdown menu, select a data source and then query the source.
 7. Repeat the preceding steps for each data source you want to select.
 
-For an overview of this process, watch this 15-second video.
+For an overview of this process, watch the following 15-second video.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/multidata-dev-tools.gif" alt="Multiple data sources in Dev Tools demo">{: .img-fluid}
 
