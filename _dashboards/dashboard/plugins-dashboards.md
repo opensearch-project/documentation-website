@@ -22,7 +22,7 @@ As of OpenSearch 2.7, you can manage your observability plugins with **Observabi
 
 ![Demo of using Dashboard to view a list of observability plugins](https://user-images.githubusercontent.com/105296784/234345611-50beb9a6-6118-449a-b015-b9f9e90b525e.gif)
 
-## Listing plugins
+## Viewing a list of plugins with the Dashboard app
 
 To view a list of installed plugins from the Dashboard app, follow these steps:
 
