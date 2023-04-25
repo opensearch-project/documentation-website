@@ -2,7 +2,7 @@
 layout: default
 title: Adding multiple data sources
 parent: Exploring data
-nav_order: 5
+nav_order: 20
 ---
 
 # Adding multiple data sources
@@ -10,18 +10,18 @@ nav_order: 5
 The multiple data sources feature is an experimental feature released in OpenSearch 2.4. It can't be used in a production environment. For updates on the feature’s progress or to leave feedback on improving the feature, see the [OpenSearch Forum discussion](https://forum.opensearch.org/t/feedback-experimental-feature-connect-to-external-data-sources/11144).
 {: .warning }
 
-You can add multiple data sources to a single dashboard. OpenSearch Dashboards allows you to dynamically manage data sources, create index patterns based on those data sources, and execute queries against a specific data source and then combine visualizations in one dashboard.
+ OpenSearch Dashboards allows you to dynamically manage data sources, create index patterns based on those data sources, run queries against a specific data source, and combine visualizations in one dashboard.
 
 In this tutorial we provide the steps for enabling the `data_source` setting in Dashboards; adding credentials, data source connections, and index patterns; and combining visualizations in a single dashboard.
 
-## Try it: Exploring the multiple data sources feature in your local environment
+## Enabling the multiple data sources feature
 
 This tutorial uses a preconfigured data source and index pattern, and you aren’t required to configure settings. However, you’ll need to enable the `data_source` setting in the configuration file before before getting started with exploring this feature.
 {: .note }
 
 The multiple data sources feature is experimental and can't be deployed into production. You can try it out with a sample data source and a sample index pattern. Before getting started, you must first edit the YAML configuration. The following section provides the steps for enabling the feature.
 
-## Modifying the multiple data sources settings
+## Modifying the YAML file settings for multiple data sources
 
 Dashboards is configured in the cluster settings, and the multiple data sources feature is disabled by default. To enable it, you need to edit the configuration in `opensearch_dashboards.yml` and then restart the cluster.
 
@@ -131,6 +131,33 @@ To select a time range for the histogram, you can do one of the following:
 The following image shows a date histogram with an interval dropdown list.
 
 <img src="{{site.url}}{{site.baseurl}}/images/multi-data-sources-11.jpg" alt="Histogram user interface">
+
+## Selecting multiple data sources in the Dev Tools console
+
+Selecting multiple data sources in the Dev Tools console allows you to work with a broader range of data and gain deeper insights into your code and applications. You can follow these steps:
+
+1. Open `opensearch_dashboards.yml` in the editor of your choice. 
+2. Set `data_source.enabled:` to `true`, as shown in the following example:
+    
+    ```
+    # Set the value of this setting to true to enable the experimental multiple data source
+    # support feature. Use with caution.
+    data_source.enabled: true
+    ```
+
+3. Connect to OpenSearch Dashboards and select **Dev Tools** in the menu.
+5. Enter the following query in the editor pane of the **Console** and then select the play button:
+
+    ```json
+    GET /_cat/indices
+    ```
+
+6. From the **DataSource** dropdown menu, select a data source and then query the source.
+7. Repeat the preceding steps for each data source you want to select.
+
+For an overview of this process, watch the following 15-second video.
+
+<img src="{{site.url}}{{site.baseurl}}/images/dashboards/multidata-dev-tools.gif" alt="Multiple data sources in Dev Tools demo">{: .img-fluid}
 
 ## Creating data visualizations for a dashboard
 
