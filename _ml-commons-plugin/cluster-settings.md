@@ -187,9 +187,24 @@ plugins.ml_commons.native_memory_threshold: 90
 - Default value: 90
 - Value range: [0, 100]
 
+## Allow custom deployment plans
+
+When enabled, grants users the ability to deploy models to specific ML nodes according to that user's permissions.
+
+### Setting
+
+```
+plugins.ml_commons.allow_custom_deployment_plan: false
+```
+
+### Values
+
+- Default value: false
+- Value range: [false, true]
+
 ## Enable auto redeploy
 
-Automatically redeploys deployed or partially deployed models upon cluster failure. If all ML nodes inside inside a cluster crash, auto model redeployment fails, and the model must be deployed manually.
+Automatically redeploys deployed or partially deployed models upon cluster failure. If all ML nodes inside a cluster crash, the model switches to the `DEPLOYED_FAILED` state, and the model must be deployed manually.
 
 ### Setting
 
@@ -204,7 +219,7 @@ plugins.ml_commons.model_auto_redeploy.enable: false
 
 ## Set retires for auto redeploy
 
-Sets the limit for the number of times a previously deployed model will try and redeploy upon cluster failure.
+Sets the limit for the number of times a deployed or partially deployed model will try and redeploy upon cluster failure.
 
 ### Setting
 
@@ -216,5 +231,4 @@ plugins.ml_commons.model_auto_redeploy.lifetime_retry_times: 3
 
 - Default value: 3
 - Value range: [0, 100]
-
 
