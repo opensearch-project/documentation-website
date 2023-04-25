@@ -60,7 +60,7 @@ You can configure the `otel_trace_group` processor with the following options.
 
 ## Configuration option examples
 
-You can define the configuration option values in the `aws_sts_header_overrides` option. See the following example.
+You can define the configuration option values in the `aws_sts_header_overrides` option. See the following example:
 
 ```
 aws_sts_header_overrides:
