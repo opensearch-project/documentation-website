@@ -38,4 +38,4 @@ You can remove a plugin from the Dashboard app by selecting the edit icon under 
 
  ## Staying updated about OpenSearch Dashboards plugins
 
-The [OpenSearch plugins repository](https://github.com/opensearch-project/opensearch-plugins) on GitHub is a great way to keep track of and contribute to tasks, feature requests, enhancements, and bugs. The OpenSearch Project team welcomes your input.
+The [OpenSearch plugins repository](https://github.com/opensearch-project/opensearch-plugins) on GitHub is a great way to keep track of and contribute to tasks, features, enhancements, and bugs. The OpenSearch Project team welcomes your input.
