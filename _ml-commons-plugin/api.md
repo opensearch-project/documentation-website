@@ -266,7 +266,7 @@ POST /_plugins/_ml/models/_undeploy
 }
 ```
 
-### Response: undeploy all models from specific nodes
+### Response: Undeploy all models from specific nodes
 
 ```json
 {
@@ -279,7 +279,7 @@ POST /_plugins/_ml/models/_undeploy
 }
 ```
 
-### Example: undeploy specific models from all nodes
+### Example: Undeploy specific models from all nodes
 
 ```json
 {
@@ -287,7 +287,7 @@ POST /_plugins/_ml/models/_undeploy
 }
 ```
 
-### Response: undeploy specific models from all nodes
+### Response: Undeploy specific models from all nodes
 
 ```json
 {
@@ -390,7 +390,7 @@ POST /_plugins/_ml/models/_search
 
 ## Delete model
 
-Deletes a model based on the model_id
+Deletes a model based on the `model_id`.
 
 ```json
 DELETE /_plugins/_ml/models/<model_id>
@@ -491,43 +491,6 @@ GET /_plugins/_ml/profile
       }
     },
 ...
-}
-```
-
-### Example: Return auto deploy and node information
-
-When the [auto redeploy]({{site.url}}{{site.baseurl}}/ml-commons-plugin/cluster-settings#enable-auto-redeploy) cluster setting is set to `true`, the profile API returns additional deployment information, including deployment time, retry count, and worker node IDs where the model is deployed.
-
-```json
-{
-  "name": "all-mpnet-base-v2",
-  "algorithm": "TEXT_EMBEDDING",
-  "model_version": "1",
-  "model_format": "TORCH_SCRIPT",
-  "model_state": "DEPLOYED",
-  "model_content_size_in_bytes": 404999545,
-  "model_content_hash_value": "fe72818b76a91e154776e4737b1fb0db255c091e8123117ad8758d9f7be6e594",
-  "model_config": {
-    "model_type": "bert",
-    "embedding_dimension": 768,
-    "framework_type": "SENTENCE_TRANSFORMERS"
-  },
-  "created_time": 1681642820665,
-  "last_updated_time": 1681646576370,
-  "last_registered_time": 1681642837416,
-  "last_deployed_time": 1681646576370,
-  "auto_redeploy_retry_times": 0,
-  "total_chunks": 41,
-  "planning_worker_node_count": 6,
-  "current_worker_node_count": 6,
-  "planning_worker_nodes": [
-    "Liz28BgFTo--u0ZXVtmOaQ",
-    "jPPe_s9vQq-cKgZrn6hN-w",
-    "gN8IFfxdT4mnPdc6WW9ung",
-    "lCUgCEiASWKfRNTYoKo9Ng",
-    "ZCBneXv6SG2VdHQvLAnEUg",
-    "F483VPEbQlaQoEW_F2H-gQ"
-  ]
 }
 ```
 
