@@ -1,17 +1,13 @@
 extends: script
 message: "Do not stack headings. Insert an introductory sentence between headings."
 level: error
-link: https://tengolang.com/
-# The unprocessed file contents.
-#
-# We need this to access heading markup.
+link: https://github.com/opensearch-project/documentation-website/blob/main/STYLE_GUIDE.md#formatting-and-organization
 scope: raw
 script: |
   text := import("text")
   matches := []
-  // Remove all instances of code blocks since we don't want to count
-  // inter-block newlines as a new paragraph.
-  document := text.re_replace("(?s) *(\n```.*?```\n)", scope, "")
+  // Replace code blocks with dummy text to avoid processing comments
+  document := text.re_replace("(?s) *(```.*?```)", scope, "text")
   isHeading := false
   for line in text.split(document, "\n") {
     if text.trim_space(line) != "" {   
@@ -20,7 +16,7 @@ script: |
           start := text.index(scope, line)
           matches = append(matches, {begin: start, end: start + len(line)})
          }
-        isHeading = true // New section; reset count
+        isHeading = true // new section; reset count
       } else {
         isHeading = false
       }
