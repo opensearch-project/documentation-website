@@ -25,11 +25,11 @@ pipeline:
         password: YOUR_PASSWORD_HERE
 ```
 
-See [OpenSearch security]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sinks/opensearch/#amazon-opensearch-service-domain-security) for a more detailed explanation of which OpenSearch credentials and permissions are required and how to configure those credentials for the OTel trace group processor.
+See [OpenSearch security]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sinks/opensearch/#opensearch-cluster-security) for a more detailed explanation of which OpenSearch credentials and permissions are required and how to configure those credentials for the OTel trace group processor.
 
 ### Amazon OpenSearch Service
 
-See the following example `YAML` configuration file for the `otel_trace_group` processor when you use Amazon OpenSearch Service:
+See the following example `YAML` configuration file for the `otel_trace_group` processor when you use [Amazon OpenSearch Service]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sinks/opensearch/#amazon-opensearch-service-domain-security):
 
 ``` YAML
 pipeline:
