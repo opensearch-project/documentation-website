@@ -10,7 +10,7 @@ nav_order: 16
 The correlation engine is an experimental feature released in OpenSearch 2.7. Therefore, we do not recommend using the feature in a production environment at this time. For updates on the progress of correlation engine, see [Security Analytics Correlation Engine](https://github.com/opensearch-project/security-analytics/issues/369) at GitHub. To share ideas and provide feedback, join the [Security Analytics forum](https://forum.opensearch.org/c/plugins/security-analytics/73).
 {: .warning }
 
-Correlation rules allow you to define threat scenarios involving multiple systems in an infrastructure by relating potential events of interest in the logs of individual systems and making connections between their findings. Once the rule contains at least two different log sources and the preferred fields and field values that define an intended threat secenario, the correlation engine can query the indexes specified in the correlation rule and draw any correlations found between the findings.
+Correlation rules allow you to define threat scenarios involving multiple systems in an infrastructure by matching the signatures of threat events occuring in different log types. Once a rule contains at least two different log sources and the preferred fields and field values that define an intended threat secenario, the correlation engine can query the indexes specified in the correlation rule and draw any correlations found between the findings.
 
 
 ## Configuring rules
@@ -37,6 +37,8 @@ The Cluster Settings API allows you to set a window of time to focus the correla
 
 ### Example request
 
+The following PUT call sets the time window.
+
 ```json
 PUT /_cluster/settings
 {
@@ -48,6 +50,8 @@ PUT /_cluster/settings
 {% include copy-curl.html %}
 
 ### Example response
+
+The response confirms the call was acknowledged and successful.
 
 ```json
 {
