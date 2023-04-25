@@ -2,6 +2,7 @@
 layout: default
 title: Dev Tools
 nav_order: 100
+has_children: true
 ---
 
 # Dev Tools
