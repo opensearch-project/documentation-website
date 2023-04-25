@@ -139,7 +139,7 @@ To view the list of installed plugins from the command line, use the following c
 sudo bin/opensearch-dashboards-plugin list
 ```
 
-To view a list of plugins the OpenSearch Dashboards user interface (UI):
+To view a list of plugins in the OpenSearch Dashboards UI:
 
 1. Connect to OpenSearch Dashboards.
 2. Select 
