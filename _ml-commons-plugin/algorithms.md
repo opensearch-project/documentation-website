@@ -655,7 +655,7 @@ To use the metrics correlations algorthim, include the following parameters.
 
 | Parameter | Type | Description | Default Value |
 |---|---|---|---|
-metrics | Integer | A list of metrics within the time series that can be correlated to anomalous behavior | N/A
+metrics | Array | A list of metrics within the time series that can be correlated to anomalous behavior | N/A
 
 ### Input
 
@@ -680,7 +680,7 @@ POST /_plugins/_ml/_execute/METRICS_CORRELATION
 
 In the following example response, each item corresponds to an event discovered in the metrics data. The API returns the following information:
 
-- `event_window`: The event interval
+- `event_window`: The event interval.
 - `event_pattern`: The intensity score over the time window, including the time span and overall severity of the event
 - `suspected_metrics`: The set of metrics involved.
 
