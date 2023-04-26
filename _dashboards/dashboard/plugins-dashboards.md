@@ -17,6 +17,8 @@ As of OpenSearch 2.7, you can manage your observability plugins with **Observabi
 - **Enhanced security:** With a list of plugins readily available from a dashboard, you can easily see if any outdated or vulnerable plugins are present and then quickly remove or update them, minimizing or avoiding security risks.
 - **Improved website performance:** Viewing a list of plugins from a dashboard can help you identify any plugins that may be slowing down your website or causing performance issues.
 
+Get familiar with the basics of managing plugins from the Dashboard app in less than 20 seconds in the following video.
+
 ![Demo of using Dashboard to view a list of observability plugins](https://user-images.githubusercontent.com/105296784/234345611-50beb9a6-6118-449a-b015-b9f9e90b525e.gif)
 
 ## Viewing a list of installed plugins
