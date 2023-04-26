@@ -636,7 +636,7 @@ Convergence metrics are not built into Tribuo's trainers. Therefore, ML Commons 
 The metrics correlation feature is an experimental feature released in OpenSearch 2.7. It can't be used in a production environment. To leave feedback on improving the feature, leave an issue in the [ML Commons repository](https://github.com/opensearch-project/ml-commons).
 {: .warning }
 
-The metrics correlation algorithm finds events in a set of metrics data. The algorithm defines events as a window in time where multiple metrics simultaneously display anomalous behavior. When given a time span and set of metrics, The algorithm correlates the number of events that occurred, when the event occurred, and determines which metrics were involved in each event.
+The metrics correlation algorithm finds events in a set of metrics data. The algorithm defines events as a window in time where multiple metrics simultaneously display anomalous behavior. When given a set of metrics, the algorithm counts the number of events that occurred, when each event occurred, and determines which metrics were involved in each event.
 
 To enable the metrics correlation algorithm, update the following cluster setting:
 
@@ -659,17 +659,17 @@ metrics | Array | A list of metrics within the time series that can be correlate
 
 ### Input
 
-The input to metrics correlation is an M x T array of metrics data, where M is the number of metrics and T is the length of each individual sequence of metric values. 
+The input to metrics correlation is an $M$ x $T$ array of metrics data, where M is the number of metrics and T is the length of each individual sequence of metric values. 
 
 When inputting metrics into the algorthim, assume the following:
 
-1. For each metric, the input sequence has same T length.
-2. Before inputting, all input metrics should have the same corresponding set of timestamps.
-3. The total number of data points are M * T <= 10000.
+1. For each metric, the input sequence has same length $T$.
+2. All input metrics should have the same corresponding set of timestamps.
+3. The total number of data points are $M$ * $T$ <= 10000.
 
 ### Example: Simple metrics correlation
 
-The following example inputs number of metrics (M) as 3, and number of timesteps (T) as 128.
+The following example inputs number of metrics ($M$) as 3, and number of timesteps ($T$) as 128.
 
 ```
 POST /_plugins/_ml/_execute/METRICS_CORRELATION
@@ -678,11 +678,13 @@ POST /_plugins/_ml/_execute/METRICS_CORRELATION
 
 **Response**
 
-In the following example response, each item corresponds to an event discovered in the metrics data. The API returns the following information:
+The API returns the following information:
 
 - `event_window`: The event interval.
-- `event_pattern`: The intensity score over the time window, including the time span and overall severity of the event
+- `event_pattern`: The intensity score over the time window and overall severity of the event.
 - `suspected_metrics`: The set of metrics involved.
+
+In the following example response, each item corresponds to an event discovered in the metrics data. The algorithm finds one  event in the input data of the request, as indicated by the output in `event_pattern` having a length of `1`.  `event_window` shows that the event occurred between time point $t$ = 52 and $t$ = 72. Lastly, the ``suspected_metrics` shows that event involved all three metrics.
 
 ```json
 {
@@ -701,3 +703,5 @@ In the following example response, each item corresponds to an event discovered 
   }
 }
 ```
+
+
