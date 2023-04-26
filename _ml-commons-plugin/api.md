@@ -217,7 +217,7 @@ POST /_plugins/_ml/models/WWQI44MBbzI2oUKAvNUt/_deploy
 }
 ```
 
-## Undeploy a model
+## Undeploying a model
 
 To undeploy a model from memory, use the undeploy operation.
 
