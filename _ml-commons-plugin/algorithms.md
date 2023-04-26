@@ -631,9 +631,9 @@ POST _plugins/_ml/_predict/logistic_regression/SsfQaoIBEoC4g4joZiyD
 
 Convergence metrics are not built into Tribuo's trainers. Therefore, ML Commons cannot indicate the convergence status through the ML Commons API.
 
-## Metrics correlations
+## Metrics correlation
 
-The metrics correlations feature is an experimental feature released in OpenSearch 2.7. It can't be used in a production environment. To leave feedback on improving the feature, leave an issue in the [ML Commons repository](https://github.com/opensearch-project/ml-commons).
+The metrics correlation feature is an experimental feature released in OpenSearch 2.7. It can't be used in a production environment. To leave feedback on improving the feature, leave an issue in the [ML Commons repository](https://github.com/opensearch-project/ml-commons).
 {: .warning }
 
 The metrics correlation algorithm finds events in a set of metrics data. The algorithm defines events as a window in time where multiple metrics simultaneously display anomalous behavior. When given a time span and set of metrics, The algorithm correlates the number of events that occurred, when the event occurred, and determines which metrics were involved in each event.
@@ -651,7 +651,7 @@ PUT /_cluster/settings
 
 ### Parameters
 
-To use the metrics correlations algorthim, include the following parameters.
+To use the metrics correlation algorthim, include the following parameters.
 
 | Parameter | Type | Description | Default Value |
 |---|---|---|---|
