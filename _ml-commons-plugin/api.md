@@ -231,7 +231,7 @@ POST /_plugins/_ml/models/<model_id>/_undeploy
 POST /_plugins/_ml/models/MGqJhYMBbbh0ushjm8p_/_undeploy
 ```
 
-### Response: Undeploy model from all ML nodes
+### Response: Undeploying a model from all ML nodes
 
 ```json
 {
