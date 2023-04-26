@@ -24,7 +24,7 @@ As of OpenSearch 2.7, you can manage your observability plugins with **Observabi
 To view a list of installed plugins from the Dashboard app, follow these steps:
 
 1. From the OpenSearch Dashboards main menu, select **Dashboard**.
-2. View the list of items and select your plugin. Plugins are categorized automatically as the Observability Dashboard data type, which you can filter to concentrate on just what you want to see.
+2. View the list of items and select your plugin. Plugins are categorized automatically as the Observability Dashboard data type, which you can filter in order to concentrate on just what you want to see.
 
 ## Adding and removing plugins
 
