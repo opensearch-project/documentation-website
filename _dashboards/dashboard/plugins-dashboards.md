@@ -32,7 +32,7 @@ To add a plugin from the Dashboard app, follow these steps:
 
 1. From the OpenSearch Dashboards main menu, select **Dashboard**.
 2. In the **Dashboards** window, select **Create** > **Dashboard**.
-3. In the **Create operational panel** window, enter a name in the **Name** field, and then select **Create**. The plugin is added to both the Observability app and the Dashboard app.
+3. In the **Create operational panel** window, enter a name in the **Name** field and then select **Create**. The plugin is added to both the Observability app and the Dashboard app.
 
 You can remove a plugin from the Dashboard app by selecting the edit icon under the **Actions** column and then selecting **Delete**.
 
