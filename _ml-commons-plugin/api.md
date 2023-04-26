@@ -279,7 +279,7 @@ POST /_plugins/_ml/models/_undeploy
 }
 ```
 
-### Example: Undeploy specific models from all nodes
+### Example: Undeploying specific models from all nodes
 
 ```json
 {
