@@ -59,7 +59,7 @@ plugins.ml_commons.max_ml_task_per_node: 10
 
 ## Set number of ML models per node
 
-Sets the number of ML models that can be deployed on to each ML node. When set to `0`, no ML models can deploy on any node.
+Sets the number of ML models that can be deployed to each ML node. When set to `0`, no ML models can deploy on any node.
 
 ### Setting
 
@@ -74,7 +74,7 @@ plugins.ml_commons.max_model_on_node: 10
 
 ## Set sync job intervals 
 
-When returning runtime information with the [profile API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api#profile), ML Commons will run a regular job to sync newly deployed or undeployed models on each node. When set to `0`, ML Commons immediately stops sync up jobs.
+When returning runtime information with the [Profile API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api#profile), ML Commons will run a regular job to sync newly deployed or undeployed models on each node. When set to `0`, ML Commons immediately stops sync-up jobs.
 
 
 ### Setting
@@ -189,7 +189,7 @@ plugins.ml_commons.native_memory_threshold: 90
 
 ## Allow custom deployment plans
 
-When enabled, grants users the ability to deploy models to specific ML nodes according to that user's permissions.
+When enabled, this setting grants users the ability to deploy models to specific ML nodes according to that user's permissions.
 
 ### Setting
 
@@ -204,7 +204,7 @@ plugins.ml_commons.allow_custom_deployment_plan: false
 
 ## Enable auto redeploy
 
-Automatically redeploys deployed or partially deployed models upon cluster failure. If all ML nodes inside a cluster crash, the model switches to the `DEPLOYED_FAILED` state, and the model must be deployed manually.
+This setting automatically redeploys deployed or partially deployed models upon cluster failure. If all ML nodes inside a cluster crash, the model switches to the `DEPLOYED_FAILED` state, and the model must be deployed manually.
 
 ### Setting
 
@@ -219,7 +219,7 @@ plugins.ml_commons.model_auto_redeploy.enable: false
 
 ## Set retires for auto redeploy
 
-Sets the limit for the number of times a deployed or partially deployed model will try and redeploy when ML nodes in a cluster fail or new ML nodes join the cluster.
+This setting sets the limit for the number of times a deployed or partially deployed model will try and redeploy when ML nodes in a cluster fail or new ML nodes join the cluster.
 
 ### Setting
 
@@ -234,7 +234,7 @@ plugins.ml_commons.model_auto_redeploy.lifetime_retry_times: 3
 
 ## Set auto redeploy success ratio
 
-Sets the ratio of success for the auto redeployment of a model based on the available ML nodes in the cluster. For example, if ML nodes crash inside a cluster, the auto redeploy protocol adds another node or retires a crashed node. If our ratio is `0.7` and 70% of all ML nodes successfully redeploy the model on auto redeploy activation, the redeployment is a success. If the model redeploys on less the 70% of available ML nodes, the auto redeploy retries until the redeployment succeeds or OpenSearch reaches [the maximum number of retries](#set-retires-for-auto-redeploy).
+This setting sets the ratio of success for the auto-redeployment of a model based on the available ML nodes in a cluster. For example, if ML nodes crash inside a cluster, the auto redeploy protocol adds another node or retires a crashed node. If the ratio is `0.7` and 70% of all ML nodes successfully redeploy the model on auto-redeploy activation, the redeployment is a success. If the model redeploys on fewer than 70% of available ML nodes, the auto-redeploy retries until the redeployment succeeds or OpenSearch reaches [the maximum number of retries](#set-retires-for-auto-redeploy).
 
 ### Setting
 

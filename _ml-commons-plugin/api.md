@@ -183,23 +183,23 @@ To see the status of your model registration, enter the `task_id` in the [task A
 
 ## Deploy model
 
-The deploy model operation reads the model's chunks from the model index, then creates an instance of the model to cache into memory. This operation requires the `model_id`.
+The deploy model operation reads the model's chunks from the model index and then creates an instance of the model to cache into memory. This operation requires the `model_id`.
 
 ```json
 POST /_plugins/_ml/models/<model_id>/_deploy
 ```
 
-### Example: Deploy into all available ML nodes
+### Example: Deploy to all available ML nodes
 
-In this example request, OpenSearch deploys the model into any available OpenSearch ML node:
+In this example request, OpenSearch deploys the model to any available OpenSearch ML node:
 
 ```json
 POST /_plugins/_ml/models/WWQI44MBbzI2oUKAvNUt/_deploy
 ```
 
-### Example: Deploy into a specific node
+### Example: Deploy to a specific node
 
-If you want to reserve the memory of other ML nodes within your cluster, you can deploy your model into a specific node(s) by specifying the `node_ids` in the request body:
+If you want to reserve the memory of other ML nodes within your cluster, you can deploy your model to a specific node(s) by specifying the `node_ids` in the request body:
 
 ```json
 POST /_plugins/_ml/models/WWQI44MBbzI2oUKAvNUt/_deploy
@@ -219,13 +219,13 @@ POST /_plugins/_ml/models/WWQI44MBbzI2oUKAvNUt/_deploy
 
 ## Undeploying a model
 
-To undeploy a model from memory, use the undeploy operation.
+To undeploy a model from memory, use the undeploy operation:
 
 ```json
 POST /_plugins/_ml/models/<model_id>/_undeploy
 ```
 
-### Example: Undeploy model from all ML nodes
+### Example: Undeploying model from all ML nodes
 
 ```json
 POST /_plugins/_ml/models/MGqJhYMBbbh0ushjm8p_/_undeploy
@@ -254,7 +254,7 @@ POST /_plugins/_ml/models/_undeploy
 ```
 
 
-### Response: Undeploy specific models from specific nodes
+### Response: Undeploying specific models from specific nodes
 
 ```json
 {
