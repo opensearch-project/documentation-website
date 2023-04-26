@@ -219,7 +219,7 @@ plugins.ml_commons.model_auto_redeploy.enable: false
 
 ## Set retires for auto redeploy
 
-Sets the limit for the number of times a deployed or partially deployed model will try and redeploy upon cluster failure.
+Sets the limit for the number of times a deployed or partially deployed model will try and redeploy when ML nodes in a cluster fail or new ML nodes join the cluster.
 
 ### Setting
 
