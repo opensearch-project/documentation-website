@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Trim string processors
+title: trim_string
 parent: Processors
 grand_parent: Pipelines
 nav_order: 120
