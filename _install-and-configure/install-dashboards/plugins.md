@@ -144,7 +144,7 @@ To view a list of plugins in the OpenSearch Dashboards UI:
 1. Connect to OpenSearch Dashboards.
 2. Select 
 
-Viewing the list of plugins from the UI was introduced in OpenSearch Dashboards 2.7. Earlier versions do not include this functionality.
+The ability to view the list of plugins in the UI was introduced in OpenSearch Dashboards 2.7. Earlier versions do not include this functionality.
 {: .note}
 
 ## Remove plugins
