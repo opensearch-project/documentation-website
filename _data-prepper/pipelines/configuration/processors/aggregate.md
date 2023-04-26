@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Aggregate processor
+title: aggregate
 parent: Processors
 grand_parent: Pipelines
 nav_order: 41
