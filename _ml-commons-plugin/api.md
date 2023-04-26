@@ -166,7 +166,7 @@ OpenSearch responds with the `task_id` and task `status`.
 }
 ```
 
-To see the status of your model registation, enter the `task_id` into the [task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api#get-task-information). Use the `model_id` from the task response once the registration is complete. For example:
+To see the status of your model registation, enter the `task_id` in the [task API] ...
 
 ```json
 {
