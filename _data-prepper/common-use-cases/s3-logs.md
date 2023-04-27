@@ -12,7 +12,7 @@ Data Prepper allows you to load logs from [Amazon Simple Storage Service](https:
 
 ## Architecture
 
-Data Prepper supports reading objects from S3 buckets using an [Amazon Simple Queue Service (SQS)](https://aws.amazon.com/sqs/) (Amazon SQS) queue and [Amazon S3 Event Notifications](https://docs.aws.amazon.com/AmazonS3/latest/userguide/NotificationHowTo.html).
+Data Prepper can read objects from S3 buckets using an [Amazon Simple Queue Service (SQS)](https://aws.amazon.com/sqs/) (Amazon SQS) queue and [Amazon S3 Event Notifications](https://docs.aws.amazon.com/AmazonS3/latest/userguide/NotificationHowTo.html).
 
 Data Prepper polls the Amazon SQS queue for S3 event notifications. When Data Prepper receives a notification that an S3 object was created, Data Prepper reads and parses that S3 object.
 
