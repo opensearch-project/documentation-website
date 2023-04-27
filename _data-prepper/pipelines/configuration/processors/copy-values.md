@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Copy values processor
+title: copy_values 
 parent: Processors
 grand_parent: Pipelines
 nav_order: 48
@@ -28,10 +28,8 @@ To get started, create the following `pipeline.yaml` file:
 ```yaml
 pipeline:
   source:
-    file:
-      path: "/full/path/to/logs_json.log"
-      record_type: "event"
-      format: "json"
+    ...
+  ....  
   processor:
     - copy_values:
         entries:
@@ -39,7 +37,6 @@ pipeline:
           to_key: "newMessage"
           overwrite_if_to_key_exists: true
   sink:
-    - stdout:
 ```
 {% include copy.html %}
 

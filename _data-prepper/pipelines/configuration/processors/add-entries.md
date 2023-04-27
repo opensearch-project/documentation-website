@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Add entries processor
+title: add_entries
 parent: Processors
 grand_parent: Pipelines
 nav_order: 40
@@ -28,10 +28,8 @@ To get started, create the following `pipeline.yaml` file:
 ```yaml
 pipeline:
   source:
-    file:
-      path: "/full/path/to/logs_json.log"
-      record_type: "event"
-      format: "json"
+    ...
+  ....  
   processor:
     - add_entries:
         entries:
@@ -39,20 +37,17 @@ pipeline:
           value: 3
           overwrite_if_key_exists: true
   sink:
-    - stdout:
 ```
 {% include copy.html %}
 
 
-Next, create a log file named `logs_json.log` and replace the `path` in the file source of your `pipeline.yaml` file with that filepath. For more information, see [Configuring Data Prepper]({{site.url}}{{site.baseurl}}/data-prepper/getting-started/#2-configuring-data-prepper).
-
-For example, before you run the `add_entries` processor, if the `logs_json.log` file contains the following event record:
+For example, when your source contains the following event record:
 
 ```json
 {"message": "hello"}
 ```
 
-Then when you run the `add_entries` processor using the previous configuration, it adds a new entry `{"newMessage": 3}` to the existing event `{"message": "hello"}` so that the new event contains two entries in the final output:
+And then you run the `add_entries` processor using the example pipeline, it adds a new entry, `{"newMessage": 3}`, to the existing event, `{"message": "hello"}`, so that the new event contains two entries in the final output:
 
 ```json
 {"message": "hello", "newMessage": 3}
