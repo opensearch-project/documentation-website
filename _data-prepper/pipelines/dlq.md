@@ -47,6 +47,8 @@ key_path_prefix | No | String | The `key_prefix` to use in the S3 bucket. Defaul
 region | No | String | The AWS Region of the S3 Bucket. Defaults to `us-east-1`.
 sts_role_arn | No | The STS role the DLQ assumes in order to write to an AWS S3 bucket. Default is `null`, which uses the standard SDK behavior for credentials. To use this option, the S3 bucket must have the `S3:PutObject` permission configured.
 
+When using DLQ with an [opensearch]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/sinks/opensearch/), you can configure the [max_retries]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/sinks/opensearch/#configure-max_retries) option to send failed data to the DLQ when the sink reaches the maximum number of retries.
+
 
 ## Metrics
 
