@@ -1,6 +1,6 @@
 ---
 layout: default
-title: convert_entry_type_type
+title: convert_entry_type
 parent: Processors
 grand_parent: Pipelines
 nav_order: 47
