@@ -684,7 +684,7 @@ The API returns the following information:
 - `event_pattern`: The intensity score over the time window and overall severity of the event.
 - `suspected_metrics`: The set of metrics involved.
 
-In the following example response, each item corresponds to an event discovered in the metrics data. The algorithm finds one  event in the input data of the request, as indicated by the output in `event_pattern` having a length of `1`.  `event_window` shows that the event occurred between time point $t$ = 52 and $t$ = 72. Lastly, the ``suspected_metrics` shows that event involved all three metrics.
+In the following example response, each item corresponds to an event discovered in the metrics data. The algorithm finds one event in the input data of the request, as indicated by the output in `event_pattern` having a length of `1`.  `event_window` shows that the event occurred between time point $t$ = 52 and $t$ = 72. Lastly, the `suspected_metrics` shows that event involved all three metrics.
 
 ```json
 {
