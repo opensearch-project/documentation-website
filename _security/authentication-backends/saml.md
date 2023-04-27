@@ -335,6 +335,20 @@ server.xsrf.allowlist: ["/_opendistro/_security/saml/acs", "/_opendistro/_securi
 To include SAML with other authentication types in the Dashboards sign-in window, see [Configuring sign-in options]({{site.url}}{{site.baseurl}}/security/configuration/multi-auth/).
 {: .note }
 
+#### Session management with additional cookies
+
+To improve session management—especially for users who have multiple roles assigned to them—Dashboards provides an option to split cookie payloads into multiple cookies and then recombine the payloads when receiving them. This can help prevent larger SAML assertions from exceeding size limits for each cookie. The two settings in the following example allow you to set a prefix name for additional cookies and specify the number of them. The default number of additional cookies is three:
+
+```yml
+opensearch_security.saml.extra_storage.cookie_prefix: security_authentication_oidc
+opensearch_security.saml.extra_storage.additional_cookies: 3
+```
+
+Note that reducing the number of additional cookies can cause some of the cookies that were in use before the change to stop working. We recommend establishing a fixed number of additional cookies and not changing the configuration after that.
+
+If the ID token from the IdP is especially large, OpenSearch may throw a server log authentication error indicating that the HTTP header is too large. In this case, you can increase the value for the `http.max_header_size` setting in the `opensearch.yml` file.
+{: .tip }
+
 ### IdP-initiated SSO
 
 To use IdP-initiated SSO, set the Assertion Consumer Service endpoint of your IdP to this:
