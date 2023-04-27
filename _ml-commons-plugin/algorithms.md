@@ -669,7 +669,7 @@ When inputting metrics into the algorthim, assume the following:
 
 ### Example: Simple metrics correlation
 
-The following example inputs number of metrics ($M$) as 3, and number of timesteps ($T$) as 128.
+The following example inputs number of metrics ($M$) as 3 and number of timesteps ($T$) as 128.
 
 ```
 POST /_plugins/_ml/_execute/METRICS_CORRELATION
