@@ -9,7 +9,7 @@ redirect_from:
 
 # Managing OpenSearch Dashboards plugins
 
-OpenSearch Dashboards uses a command line tool called `opensearch-plugin` for managing plugins. This tool allows you to:
+OpenSearch Dashboards provides a command line tool called `opensearch-plugin` for managing plugins. This tool allows you to:
 
 - List installed plugins.
 - Install plugins.
@@ -138,14 +138,6 @@ To view the list of installed plugins from the command line, use the following c
 ```bash
 sudo bin/opensearch-dashboards-plugin list
 ```
-
-To view a list of plugins in the OpenSearch Dashboards UI:
-
-1. Connect to OpenSearch Dashboards.
-2. Select 
-
-The ability to view the list of plugins in the UI was introduced in OpenSearch Dashboards 2.7. Earlier versions do not include this functionality.
-{: .note}
 
 ## Remove plugins
 
