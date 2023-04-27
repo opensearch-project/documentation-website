@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Convert entry type processor
+title: convert_entry_type
 parent: Processors
 grand_parent: Pipelines
 nav_order: 47
@@ -26,16 +26,12 @@ To get started, create the following `pipeline.yaml` file:
 ```yaml
 type-conv-pipeline:
   source:
-    file:
-      path: "/full/path/to/logs_json.log"
-      record_type: "event"
-      format: "json"
+    ...
+  ....  
   processor:
     - convert_entry_type_type:
         key: "response_status"
         type: "integer"
-  sink:
-    - stdout:
 ```
 {% include copy.html %}
 

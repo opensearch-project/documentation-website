@@ -1,7 +1,6 @@
 ---
 layout: default
-title: List to map processor
-parent: Processors
+title: list_to_map 
 grand_parent: Pipelines
 nav_order: 55
 ---

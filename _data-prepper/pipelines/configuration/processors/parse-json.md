@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Parse JSON processor
+title: parse_json 
 parent: Processors
 grand_parent: Pipelines
 nav_order: 80
@@ -28,11 +28,10 @@ To get started, create the following `pipeline.yaml` file:
 ```yaml
 parse-json-pipeline:
   source:
-    stdin:
+    ...
+  ....  
   processor:
     - parse_json:
-  sink:
-    - stdout:
 ```
 
 ### Basic example
@@ -57,12 +56,11 @@ You can use a JSON pointer to parse a selection of the JSON data by specifying t
 ```yaml
 parse-json-pipeline:
   source:
-    stdin:
+    ...
+  ....  
   processor:
     - parse_json:
         pointer: "outer_key/inner_key"
-  sink:
-    - stdout:
 ```
 
 To test the `parse_json` processor with the pointer option, run the pipeline, paste the following line into your console, and then enter `exit` on a new line:

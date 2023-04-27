@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Key value processor
+title: key_value
 parent: Processors
 grand_parent: Pipelines
 nav_order: 54

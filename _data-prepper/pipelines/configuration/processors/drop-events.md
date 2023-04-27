@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Drop events processor
+title: drop_events
 parent: Processors
 grand_parent: Pipelines
 nav_order: 52
