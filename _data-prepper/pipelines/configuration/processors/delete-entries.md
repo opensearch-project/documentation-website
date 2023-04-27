@@ -25,15 +25,12 @@ To get started, create the following `pipeline.yaml` file:
 ```yaml
 pipeline:
   source:
-    file:
-      path: "/full/path/to/logs_json.log"
-      record_type: "event"
-      format: "json"
+    ...
+  ....  
   processor:
     - delete_entries:
         with_keys: ["message"]
   sink:
-    - stdout:
 ```
 {% include copy.html %}
 
