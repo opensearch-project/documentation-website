@@ -11,7 +11,7 @@ Data Prepper is an extendable, configurable, and scalable solution for log inges
 
 The following image shows all of the components used for log analytics with Fluent Bit, Data Prepper, and OpenSearch.
 
-![Log analytics component]({{site.url}}{{site.baseurl}}/images/data-prepper/log-analytics/log-analytics-components.png)
+![Log analytics component]({{site.url}}{{site.baseurl}}/images/data-prepper/log-analytics/log-analytics-components.jpg)
 
 In the application environment, run Fluent Bit. Fluent Bit can be containerized through Kubernetes, Docker, or Amazon Elastic Container Service (Amazon ECS). You can also run Fluent Bit as an agent on Amazon Elastic Compute Cloud (Amazon EC2). Configure the [Fluent Bit http output plugin](https://docs.fluentbit.io/manual/pipeline/outputs/http) to export log data to Data Prepper. Then deploy Data Prepper as an intermediate component and configure it to send the enriched log data to your OpenSearch cluster. From there, use OpenSearch Dashboards to perform more intensive visualization and analysis. 
 
@@ -19,7 +19,7 @@ In the application environment, run Fluent Bit. Fluent Bit can be containerized 
 
 Log analytics pipelines in Data Prepper are extremely customizable. The following image shows a simple pipeline. 
 
-![Log analytics component]({{site.url}}{{site.baseurl}}/images/data-prepper/log-analytics/log-ingestion-fluent-bit-data-prepper.png)
+![Log analytics component]({{site.url}}{{site.baseurl}}/images/data-prepper/log-analytics/log-ingestion-pipeline.jpg)
 
 ### HTTP source
 
