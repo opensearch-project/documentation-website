@@ -7,13 +7,13 @@ nav_order: 13
 
 # Dead-letter queues
 
-Data Prepper pipelines support dead-letter queues (DLQs) to offload failed events and make them accessible for analysis.
+Data Prepper pipelines support dead-letter queues (DLQs) for offloading failed events and making them accessible for analysis.
 
 As of Data Prepper 2.3, only the `s3` source supports DLQs.
 
 ## Configure a DLQ writer
 
-To configure a DLQ writer for the `s3` source, add the following to your pipeline.yaml:
+To configure a DLQ writer for the `s3` source, add the following to your pipeline.yaml file:
 
 ```yaml
   sink:
@@ -31,6 +31,8 @@ The resulting DLQ file outputs as a JSON array of DLQ objects. Any file written 
 ```
 dlq-v${version}-${pipelineName}-${pluginId}-${timestampIso8601}-${uniqueId}
 ```
+The following information is replaced in the name pattern:
+
 
 - `version`: The Data Prepper version.
 - `pipelineName`: The pipeline name indicated in pipeline.yaml.
@@ -42,17 +44,17 @@ DLQ supports the following configuration options.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
-bucket | Yes | String | The bucket name where the DLQ outputs failed records.
-key_path_prefix | No | String | The `key_prefix` to use in the S3 bucket. Defaults to `""`. Supports time value pattern variables such as `/%{yyyy}/%{MM}/%{dd}`, including any variables listed in the [Java DateTimeFormatter](https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html). For example, when using the `/%{yyyy}/%{MM}/%{dd}` pattern, you can set `key_prefix` as `/2023/01/24`.
-region | No | String | The AWS Region of the S3 Bucket. Defaults to `us-east-1`.
+bucket | Yes | String | The name of the bucket into which the DLQ outputs failed records.
+key_path_prefix | No | String | The `key_prefix` used in the S3 bucket. Defaults to `""`. Supports time value pattern variables, such as `/%{yyyy}/%{MM}/%{dd}`, including any variables listed in the [Java DateTimeFormatter](https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html). For example, when using the `/%{yyyy}/%{MM}/%{dd}` pattern, you can set `key_prefix` as `/2023/01/24`.
+region | No | String | The AWS Region of the S3 bucket. Defaults to `us-east-1`.
 sts_role_arn | No | String | The STS role the DLQ assumes in order to write to an AWS S3 bucket. Default is `null`, which uses the standard SDK behavior for credentials. To use this option, the S3 bucket must have the `S3:PutObject` permission configured.
 
-When using DLQ with an opensearch sink, you can configure the [max_retries]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sinks/opensearch/#configure-max_retries) option to send failed data to the DLQ when the sink reaches the maximum number of retries.
+When using DLQ with an OpenSearch sink, you can configure the [max_retries]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sinks/opensearch/#configure-max_retries) option to send failed data to the DLQ when the sink reaches the maximum number of retries.
 
 
 ## Metrics
 
-DLQ supports the following metrics
+DLQ supports the following metrics.
 
 ### Counter
 
@@ -67,15 +69,15 @@ DLQ supports the following metrics
 
 ### Timer
 
-- `dlqS3RequestLatency`: Measures latency when sending each S3 request including retries.
+- `dlqS3RequestLatency`: Measures latency when sending each S3 request, including retries.
 
-## DLQ Objects
+## DLQ objects
 
-DQL supports the following DLQ objects:
+DLQ supports the following DLQ objects:
 
-* `pluginId` : The ID of the plugin where the event sent to the DLQ originated.
-* `pluginName` : The name of the plugin.
+* `pluginId`: The ID of the plugin that originated the event sent to the DLQ.
+* `pluginName`: The name of the plugin.
 * `failedData` : An object that contains the failed object and its options. This object is unique to each plugin.
-* `pipelineName` : The name of the Data Prepper pipeline where the event failed.
-* `timestamp` : The timestamp of the failures in an `ISO8601` format.
+* `pipelineName`: The name of the Data Prepper pipeline in which the event failed.
+* `timestamp`: The timestamp of the failures in an `ISO8601` format.
 

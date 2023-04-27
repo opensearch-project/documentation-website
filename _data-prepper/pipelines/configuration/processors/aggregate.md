@@ -30,8 +30,8 @@ Use the following aggregate actions to determine how the `aggregate` processor p
 The `remove_duplicates` action processes the first event for a group immediately and drops any events that duplicate the first event from the source. For example, when using `identification_keys: ["sourceIp", "destination_ip"]`:
 
 1. The `remove_duplicates` action processes `{ "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "status": 200 }`, the first event in the source.
-2. Data Prepper drops the `{ "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "bytes": 1000 }` event because the `sourceIp` and `destinationIp` matches the first event in the source.
-3. The `remove_duplicates` action processes the next event `{ "sourceIp": "127.0.0.2", "destinationIp": "192.168.0.1", "bytes": 1000 }`. Because the `sourceIp` is different from the first event of the group, Data Prepper creates a new group based on the event.
+2. Data Prepper drops the `{ "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "bytes": 1000 }` event because the `sourceIp` and `destinationIp` match the first event in the source.
+3. The `remove_duplicates` action processes the next event, `{ "sourceIp": "127.0.0.2", "destinationIp": "192.168.0.1", "bytes": 1000 }`. Because the `sourceIp` is different from the first event of the group, Data Prepper creates a new group based on the event.
 
 ### put_all
 
@@ -58,7 +58,7 @@ The `count` event counts events that belong to the same group and generates a ne
 * `start_time_key`: Key used for storing the start time. Default name is `aggr._start_time`.
 * `output_format`: Format of the aggregated event.
      * `otel_metrics`: Default output format. Outputs in OTel metrics SUM type with count as value.
-    * `raw` - Generates a JSON object with `count_key` field with count as value and `start_time_key` field with aggregation start time as value.
+    * `raw` - Generates a JSON object with the `count_key` field as a count value and the `start_time_key` field with aggregation start time as value.
 
 For an example, when using `identification_keys: ["sourceIp", "destination_ip"]`, the `count` action counts and processes the following events:
 
@@ -86,11 +86,11 @@ You can customize the processor with the following configuration options:
 * `record_minmax`: A Boolean value indicating whether the histogram should include the min and max of the values in the aggregation.
 * `buckets`: A list of buckets (values of type `double`) indicating the buckets in the histogram.
 * `output_format`: Format of the aggregated event.
-    * `otel_metrics` - Default output format. Outputs in OTel metrics SUM type with count as value.
-    * `raw` - Generates a JSON object with `count_key` field with count as value and `start_time_key` field with aggregation start time as value.
+    * `otel_metrics`: Default output format. Outputs in OTel metrics SUM type with count as value.
+    * `raw`: Generates a JSON object with `count_key` field with count as value and `start_time_key` field with aggregation start time as value.
 
 
-For an example, when using `identification_keys: ["sourceIp", "destination_ip", "request"]`, `key: latency`, and `buckets: [0.0, 0.25, 0.5]`, the `histogram` action processes the following events:
+For example, when using `identification_keys: ["sourceIp", "destination_ip", "request"]`, `key: latency`, and `buckets: [0.0, 0.25, 0.5]`, the `histogram` action processes the following events:
 
 ```
 { "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "request" : "/index.html", "latency": 0.2 }
@@ -99,7 +99,7 @@ For an example, when using `identification_keys: ["sourceIp", "destination_ip", 
 { "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "request" : "/index.html", "latency": 0.15 }
 ```
 
-Then, the processor creates the following event:
+Then the processor creates the following event:
 
 ```json
 {"max":0.55,"kind":"HISTOGRAM","buckets":[{"min":-3.4028234663852886E38,"max":0.0,"count":0},{"min":0.0,"max":0.25,"count":2},{"min":0.25,"max":0.50,"count":1},{"min":0.50,"max":3.4028234663852886E38,"count":1}],"count":4,"bucketCountsList":[0,2,1,1],"description":"Histogram of latency in the events","sum":1.15,"unit":"seconds","aggregationTemporality":"AGGREGATION_TEMPORALITY_DELTA","min":0.15,"bucketCounts":4,"name":"histogram","startTime":"2022-12-14T06:43:40.848762215Z","explicitBoundsCount":3,"time":"2022-12-14T06:44:04.852564623Z","explicitBounds":[0.0,0.25,0.5],"request":"/index.html","sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "key": "latency"}
@@ -132,11 +132,11 @@ If `when_exceeds` is set to `drop`, all three events are processed.
 
 ### percent_sampler
 
-The `percent_sampler` action controls the number of events aggregated based on a percentage of events. The action drops any events not included the percentage. 
+The `percent_sampler` action controls the number of events aggregated based on a percentage of events. The action drops any events not included in the percentage. 
 
 You can set the percentage of events using the `percent` configuration, which indicates the percentage of events processed during a one second interval (0%--100%).
 
-For example, if percent is set to `50`, the action tries to process the following events in the one second interval:
+For example, if percent is set to `50`, the action tries to process the following events in the one-second interval:
 
 ```
 { "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "bytes": 2500 }

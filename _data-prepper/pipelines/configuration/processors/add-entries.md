@@ -47,7 +47,7 @@ For example, when your source contains the following event record:
 {"message": "hello"}
 ```
 
-And then you run the `add_entries` processor using the example pipeline, it adds a new entry `{"newMessage": 3}` to the existing event `{"message": "hello"}` so that the new event contains two entries in the final output:
+And then you run the `add_entries` processor using the example pipeline, it adds a new entry, `{"newMessage": 3}`, to the existing event, `{"message": "hello"}`, so that the new event contains two entries in the final output:
 
 ```json
 {"message": "hello", "newMessage": 3}
