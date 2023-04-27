@@ -663,7 +663,7 @@ The input to metrics correlation is an $M$ x $T$ array of metrics data, where M 
 
 When inputting metrics into the algorthim, assume the following:
 
-1. For each metric, the input sequence has same length $T$.
+1. For each metric, the input sequence has the same length $T$.
 2. All input metrics should have the same corresponding set of timestamps.
 3. The total number of data points are $M$ * $T$ <= 10000.
 
