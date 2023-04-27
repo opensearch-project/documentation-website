@@ -1,9 +1,0 @@
-extends: sequence
-message: "Don't describe what the document is going to describe ('%[1]s %[2]s %[3]s %[4]s...'). Focus on the value for the user."
-ignorecase: false
-level: suggestion
-tokens:
-  - pattern: The 
-  - pattern: following 
-  - pattern: 'section|page|document'
-  - tag: VBZ|MD

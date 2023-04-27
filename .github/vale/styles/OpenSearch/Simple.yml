@@ -4,9 +4,5 @@ link: https://github.com/opensearch-project/documentation-website/blob/main/TERM
 ignorecase: true
 level: warning
 tokens:
-  - easy
-  - easier
-  - easily
-  - simple
   - simply
   - just
