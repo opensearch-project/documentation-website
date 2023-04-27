@@ -47,9 +47,9 @@ Before Data Prepper can read log data from S3, you need the following prerequisi
 
 ## Getting started
 
-To begin loading logs from S3 with Data Prepper.
+Use the following steps to begin loading logs from S3 with Data Prepper.
 
-1. Create a [SQS standard queue](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/step-create-queue.html) for your S3 event notifications. 
+1. Create an [SQS standard queue](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/step-create-queue.html) for your S3 event notifications. 
 2. Configure [bucket notifications](https://docs.aws.amazon.com/AmazonS3/latest/userguide/ways-to-add-notification-config-to-bucket.html) for SQS. Use the `s3:ObjectCreated:*` event type.
 3. Grant [AWS IAM](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html) permissions to Data Prepper for accessing SQS and S3.
 4. (Recommended) Create an [SQS dead-letter queue](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-dead-letter-queues.html) (DLQ).
@@ -130,7 +130,7 @@ Configure the following options according to your use case:
 
 * `queue_url`: This the SQS queue URL and is always unique to your pipeline.
 * `codec`: The codec determines how to parse the incoming data.
-* `visibility_timeout`: Configure this value to be large enough for Data Prepper to process 10 S3 objects. However, if you make this value too large, messages that fail to process will take at least that long before Data Prepper retries.
+* `visibility_timeout`: Configure this value to be large enough for Data Prepper to process 10 S3 objects. However, if you make this value too large, messages that fail to process will take at least as long as the specified value before Data Prepper retries.
 
 The default values for each option work for the majority of use cases. For all available options for the S3 source, see [`s3`]({{site.url}}{{site.baseurl}}/data-prepper/pipelines/configuration/sources/s3/).
 
