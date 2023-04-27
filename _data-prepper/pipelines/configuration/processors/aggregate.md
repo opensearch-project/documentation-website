@@ -55,7 +55,7 @@ The `count` event counts events that belong to the same group and generates a ne
 
 
  * `count_key`: Key used for storing the count. Default name is `aggr._count`.
-* `start_time_key`: key name to use for storing the start time. Default name is `aggr._start_time`.
+* `start_time_key`: Key used for storing the start time. Default name is `aggr._start_time`.
 * `output_format`: Format of the aggregated event.
      * `otel_metrics`: Default output format. Outputs in OTel metrics SUM type with count as value.
     * `raw` - Generates a JSON object with `count_key` field with count as value and `start_time_key` field with aggregation start time as value.
