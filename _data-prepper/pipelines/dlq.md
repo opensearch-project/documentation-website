@@ -7,13 +7,13 @@ nav_order: 13
 
 # Dead-letter queues
 
-Data Prepper pipelines support dead-letter queues (DLQ) to offload failed events and make them accessible for analysis.
+Data Prepper pipelines support dead-letter queues (DLQs) to offload failed events and make them accessible for analysis.
 
-As of Data Prepper 2.3, one the `s3` source supports DLQs.
+As of Data Prepper 2.3, only the `s3` source supports DLQs.
 
 ## Configure a DLQ writer
 
-To configure a DLQ writer for the `s3` source, add the following to your pipeline.yaml's `sink` configuration:
+To configure a DLQ writer for the `s3` source, add the following to your pipeline.yaml:
 
 ```yaml
   sink:
@@ -42,7 +42,7 @@ DLQ supports the following configuration options.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
-bucket | Yes | String | The bucket name of the DLQ outputs failed records.
+bucket | Yes | String | The bucket name where the DLQ outputs failed records.
 key_path_prefix | No | String | The `key_prefix` to use in the S3 bucket. Defaults to `""`. Supports time value pattern variables such as `/%{yyyy}/%{MM}/%{dd}`, including any variables listed in the [Java DateTimeFormatter](https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html). For example, when using the `/%{yyyy}/%{MM}/%{dd}` pattern, you can set `key_prefix` as `/2023/01/24`.
 region | No | String | The AWS Region of the S3 Bucket. Defaults to `us-east-1`.
 sts_role_arn | No | The STS role the DLQ assumes in order to write to an AWS S3 bucket. Default is `null`, which uses the standard SDK behavior for credentials. To use this option, the S3 bucket must have the `S3:PutObject` permission configured.
@@ -71,7 +71,7 @@ DLQ supports the following metrics
 
 DQL supports the following DLQ objects:
 
-* `pluginId` : The ID of the plugin which resulted in the event being DLQ’ed.
+* `pluginId` : The ID of the plugin where the event sent to the DLQ originated.
 * `pluginName` : The name of the plugin.
 * `failedData` : An object that contains the failed object and it's options. This object is unique to each plugin.
 * `pipelineName` : The name of the Data Prepper pipeline where the event failed.
