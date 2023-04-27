@@ -7,7 +7,7 @@ nav_order: 20
 
 # S3 logs
 
-Data Prepper supports loading logs from [Amazon Simple Storage Service](https://aws.amazon.com/s3/) (Amazon S3), including traditional logs, JSON documents, and CSV logs.
+Data Prepper allows you to load logs from [Amazon Simple Storage Service](https://aws.amazon.com/s3/) (Amazon S3), including traditional logs, JSON documents, and CSV logs.
 
 
 ## Architecture
@@ -95,11 +95,10 @@ If your S3 objects or SQS queues do not use KMS, you can remove the `kms:Decrypt
 
 The are two options for how to handle errors resulting from processing S3 objects.
 
-1. Use an SQS dead-letter queue (DLQ) to track the failure. This is the recommended approach.
-2. Delete the message from SQS. You must manually find the S3 object and correct the error.
+- Use an SQS dead-letter queue (DLQ) to track the failure. This is the recommended approach.
+- Delete the message from SQS. You must manually find the S3 object and correct the error.
 
-Using an SQS dead-letter queue is a built-in feature within SQS. 
-The following diagram depicts the system architecture when using SQS with DLQ.
+The following diagram shows the system architecture when using SQS with DLQ.
 
 <img src="{{site.url}}{{site.baseurl}}/images/data-prepper/s3-source/s3-architecture-dlq.jpg" alt="S3 source architecture with dlq">{: .img-fluid}
 
