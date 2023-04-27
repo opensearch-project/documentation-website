@@ -57,7 +57,7 @@ DLQ supports the following metrics
 ### Counter
 
 - `dlqS3RecordsSuccess`: Measures the number of successful records sent to S3.
-- `dlqS3RecordsFailed`: Measures the number of failed records failed to be sent to S3.
+- `dlqS3RecordsFailed`: Measures the number of records that failed to be sent to S3.
 - `dlqS3RequestSuccess`: Measures the number of successful S3 requests.
 - `dlqS3RequestFailed`: Measures the number of failed S3 requests.
 
@@ -75,7 +75,7 @@ DQL supports the following DLQ objects:
 
 * `pluginId` : The ID of the plugin where the event sent to the DLQ originated.
 * `pluginName` : The name of the plugin.
-* `failedData` : An object that contains the failed object and it's options. This object is unique to each plugin.
+* `failedData` : An object that contains the failed object and its options. This object is unique to each plugin.
 * `pipelineName` : The name of the Data Prepper pipeline where the event failed.
 * `timestamp` : The timestamp of the failures in an `ISO8601` format.
 

@@ -8,7 +8,7 @@ nav_order: 41
 
 # aggregate
 
-The `aggregate` processor groups events based on the values of `identification_keys` provided. Then, the processor performs an action one each group, helping reduce unnecessary log volume and creating aggregated logs overtime. You can use existing actions or create your own custom aggregations using Java code.
+The `aggregate` processor groups events based on the values of `identification_keys`. Then, the processor performs an action on each group, helping reduce unnecessary log volume and creating aggregated logs over time. You can use existing actions or create your own custom aggregations using Java code.
 
 
 ## Configuration
@@ -18,16 +18,16 @@ The following table describes the options you can use to configure the `aggregat
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
 identification_keys | Yes | List | An unordered list by which to group events. Events with the same values as these keys are put into the same group. If an event does not contain one of the `identification_keys`, then the value of that key is considered to be equal to `null`. At least one identification_key is required (for example, `["sourceIp", "destinationIp", "port"]`).
-action | Yes | AggregateAction | The action to be performed for each group. One of the [available aggregate actions](#available-aggregate-actions) must be provided or you can create custom aggregate actions. `remove_duplicates` and `put_all` are the available actions. For more information, see [Creating New Aggregate Actions](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/aggregate-processor#creating-new-aggregate-actions).
+action | Yes | AggregateAction | The action to be performed on each group. One of the [available aggregate actions](#available-aggregate-actions) must be provided, or you can create custom aggregate actions. `remove_duplicates` and `put_all` are the available actions. For more information, see [Creating New Aggregate Actions](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/aggregate-processor#creating-new-aggregate-actions).
 group_duration | No | String | The amount of time that a group should exist before it is concluded automatically. Supports ISO_8601 notation strings ("PT20.345S", "PT15M", etc.) as well as simple notation for seconds (`"60s"`) and milliseconds (`"1500ms"`). Default value is `180s`.
 
 ## Available aggregate actions
 
-Use the following aggregate actions to determine how the `aggregate` processes events in each group.
+Use the following aggregate actions to determine how the `aggregate` processor processes events in each group.
 
 ### remove_duplicates 
 
-The `remove_duplicates` action processes the first event for a group immediately and drops any events from the source that duplicate the first. For example, when using `identification_keys: ["sourceIp", "destination_ip"]`:
+The `remove_duplicates` action processes the first event for a group immediately and drops any events that duplicate the first event from the source. For example, when using `identification_keys: ["sourceIp", "destination_ip"]`:
 
 1. The `remove_duplicates` action processes `{ "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "status": 200 }`, the first event in the source.
 2. Data Prepper drops the `{ "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "bytes": 1000 }` event because the `sourceIp` and `destinationIp` matches the first event in the source.
@@ -35,7 +35,7 @@ The `remove_duplicates` action processes the first event for a group immediately
 
 ### put_all
 
-The `put_all` action combines events belonging to the same group by overwriting existing keys and adding new keys, similar to the Java `Map.putAll`. The action drops all events that make up the combined event.  For example, when using `identification_keys: ["sourceIp", "destination_ip"]`, the `put_all` action processes the following three events:
+The `put_all` action combines events belonging to the same group by overwriting existing keys and adding new keys, similarly to the Java `Map.putAll`. The action drops all events that make up the combined event. For example, when using `identification_keys: ["sourceIp", "destination_ip"]`, the `put_all` action processes the following three events:
 
 ```
 { "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "status": 200 }
@@ -43,7 +43,7 @@ The `put_all` action combines events belonging to the same group by overwriting 
 { "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "http_verb": "GET" }
 ```
 
-Then, the action combines the events into one. The pipeline then uses the following combined event:
+Then the action combines the events into one. The pipeline then uses the following combined event:
 
 ```
 { "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "status": 200, "bytes": 1000, "http_verb": "GET" }
@@ -51,13 +51,13 @@ Then, the action combines the events into one. The pipeline then uses the follow
 
 ### count
 
-The `count` event counts events belong to the same group and generates a new event with values of from the `identification_keys` and the count, which indicates the number of new events. You can customize the processor with the following configuration options:
+The `count` event counts events that belong to the same group and generates a new event with values of the `identification_keys` and the count, which indicates the number of new events. You can customize the processor with the following configuration options:
 
 
- * `count_key`: Key name to use for storing the count. Default name is `aggr._count`.
+ * `count_key`: Key used for storing the count. Default name is `aggr._count`.
 * `start_time_key`: key name to use for storing the start time. Default name is `aggr._start_time`.
 * `output_format`: Format of the aggregated event.
-     * `otel_metrics` - Default output format. Outputs in OTel metrics SUM type with count as value
+     * `otel_metrics`: Default output format. Outputs in OTel metrics SUM type with count as value.
     * `raw` - Generates a JSON object with `count_key` field with count as value and `start_time_key` field with aggregation start time as value.
 
 For an example, when using `identification_keys: ["sourceIp", "destination_ip"]`, the `count` action counts and processes the following events:
@@ -76,14 +76,14 @@ The processor creates the following event:
 
 ### histogram
 
-The `histogram` action aggregates event belonging to the same group and generates a new event with values of the `identification_keys` and histogram of the aggregated events based on a configured `key`. The histogram contains the number of events, sum, buckets, bucket counts, and optionally min and max of the values corresponding to the `key`. The action drops all events that make up the combined event.
+The `histogram` action aggregates events belonging to the same group and generates a new event with values of the `identification_keys` and histogram of the aggregated events based on a configured `key`. The histogram contains the number of events, sum, buckets, bucket counts, and optionally min and max of the values corresponding to the `key`. The action drops all events that make up the combined event.
 
 You can customize the processor with the following configuration options:
 
 * `key`: Name of the field in the events the histogram generates.
-* `generated_key_prefix`: `key_prefix` used by all the fields created in the aggregated event. This allows the user to make sure that the names of the histogram event does not conflict with the field names in the event
-* `units`: Name of the units for the values in the `key`.
-* `record_minmax`: A boolean indicating if the histogram should include the min and max of the values during the aggregation duration.
+* `generated_key_prefix`: `key_prefix` used by all the fields created in the aggregated event. Having a prefix ensures that the names of the histogram event do not conflict with the field names in the event.
+* `units`: The units for the values in the `key`.
+* `record_minmax`: A Boolean value indicating whether the histogram should include the min and max of the values in the aggregation.
 * `buckets`: A list of buckets (values of type `double`) indicating the buckets in the histogram.
 * `output_format`: Format of the aggregated event.
     * `otel_metrics` - Default output format. Outputs in OTel metrics SUM type with count as value.
@@ -107,14 +107,14 @@ Then, the processor creates the following event:
 
 ### rate_limiter
 
-The `rate_limiter` action controls the number of events aggregated per second. By default, `rate_limiter` blocks the `aggregate` processor from running if it receives more events then the configured number allowed. You can overwrite the number events that triggers the `rate_limited` by using the `when_exceeds` configuration option. 
+The `rate_limiter` action controls the number of events aggregated per second. By default, `rate_limiter` blocks the `aggregate` processor from running if it receives more events than the configured number allowed. You can overwrite the number events that triggers the `rate_limited` by using the `when_exceeds` configuration option. 
 
 You can customize the processor with the following configuration options:
 
 * `events_per_second`: The number of events allowed per second.
-* `when_exceeds`: Indicates what action the `rate_limiter` takes when more number of events than the number of events allowed per second are received. Default value is `block`, which blocks the processor from running after max number of events allowed per second is reached until the next second. Alternatively, the `drop` option drops the excess events received in that second.
+* `when_exceeds`: Indicates what action the `rate_limiter` takes when the number of events received is greater than the number of events allowed per second. Default value is `block`, which blocks the processor from running after the maximum number of events allowed per second is reached until the next second. Alternatively, the `drop` option drops the excess events received in that second.
 
-For example, if ``events_per_second` is set to `1` and `when_exceeds` is set to `drop`, the action tries to process the following events when received during the one second time interval:
+For example, if `events_per_second` is set to `1` and `when_exceeds` is set to `drop`, the action tries to process the following events when received during the one second time interval:
 
 ```json
 { "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "status": 200 }
@@ -128,13 +128,13 @@ The following event is processed, but all other events are ignored because the `
 { "sourceIp": "127.0.0.1", "destinationIp": "192.168.0.1", "status": 200 }
 ```
 
-If `when_exceeds` is set to `drop`, all three events process.
+If `when_exceeds` is set to `drop`, all three events are processed.
 
 ### percent_sampler
 
 The `percent_sampler` action controls the number of events aggregated based on a percentage of events. The action drops any events not included the percentage. 
 
-You can set the percentage of events using the `percent` configuration, which indicates the percentage between 0% and 100% of events processed during a one second interval.
+You can set the percentage of events using the `percent` configuration, which indicates the percentage of events processed during a one second interval (0%--100%).
 
 For example, if percent is set to `50`, the action tries to process the following events in the one second interval:
 
