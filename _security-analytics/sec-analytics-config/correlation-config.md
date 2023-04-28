@@ -15,22 +15,20 @@ Correlation rules allow you to define threat scenarios involving multiple system
 
 ## Configuring rules
 
-Follow the steps in this section to create a correlation rule.
+Having at least two data sources in the rule configuration is the basis for making connections between different systems in an infrastructure and identifying correlations. Therefore, a minimum of two queries is required for each correlation rule. However, you can include more than two queries to better define a threat scenario and look for correlations between multiple systems. Follow the steps in this section to create a correlation rule.
 
 1. Begin by selecting **Security Analytics** in the Dashboards home page menu. Then select **Correlation rules** from the Security Analytics menu on the left side of the screen. The **Correlation rules** page is displayed.
    <img src="{{site.url}}{{site.baseurl}}/images/Security/sec-analytics/create-corr-rule.png" alt="The correlation rules page" width="85%">
 1. Select **Create correlation rule**. The **Create correlation rule** window opens.
 1. In the **Correlation rule details** field, enter a name for the rule.
-1. In the **Correlation queries** field, specify a data source and select the index field and field values to be used for the query.
-   A minimum of two queries is required for each correlation rule. Having at least two data sources is the basis for making connections between different systems in an infrastructure and identifying correlations. You can also include more than two queries to better define a threat scenario and look for correlations between multiple systems.
-   {: .note }
-   * In the **Select index** dropdown list, specify an index or index pattern for the data source. In the **Log type** dropdown list, specify the log type associated with the index.
-   * In the **Field** dropdown list, specify a log field. In the **Field value** text box, enter a value for the field.
-   * To add more fields to the query, select **Add field**.
-     
-    <img src="{{site.url}}{{site.baseurl}}/images/Security/sec-analytics/c-rule-query1.png" alt="Correlation rule query configuration" width="40%">
-    
-1. After configuring the first query, follow instructions in the previous step to configure a second query. You can select **Add query** at the bottom of the window to add more queries for the rule.
+   <img src="{{site.url}}{{site.baseurl}}/images/Security/sec-analytics/corr-rule-config1.png" alt="The correlation rule name" width="45%">
+1. The **Correlation queries** field contains two dropdown lists. In the **Select index** dropdown list, specify an index or index pattern for the data source. In the **Log type** dropdown list, specify the log type associated with the index.
+   <img src="{{site.url}}{{site.baseurl}}/images/Security/sec-analytics/corr-rule-config2.png" alt="The correlation rule name" width="45%">
+1. In the **Field** dropdown list, specify a log field. In the **Field value** text box, enter a value for the field.
+   <img src="{{site.url}}{{site.baseurl}}/images/Security/sec-analytics/corr-rule-config3.png" alt="The correlation rule name" width="45%">
+1. To add more fields to the query, select **Add field**.    
+1. After configuring the first query, repeat the previous step to configure a second query. You can select **Add query** at the bottom of the window to add more queries for the rule.
+   <img src="{{site.url}}{{site.baseurl}}/images/Security/sec-analytics/corr-rule-config4.png" alt="A second query for the correlation rule" width="55%">
 1. Once the rule is complete, select **Create correlation rule** in the lower-right corner of the window. OpenSearch creates a new rule, the screen returns to the **Correlation rules** window, and the new rule appears in the table of correlation rules.
 
 

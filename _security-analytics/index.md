@@ -81,5 +81,5 @@ To learn more about defining threat scenarios for correlation rules, see [Creati
 
 ## First steps
 
-To get started with Security Analytics you need to define detectors, ingest log data, generate findings, define correlation rules, and configure alerts. See [Setting up Security Analytics]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/index/) to begin configuring the platform to meet your objectives.
+To get started with Security Analytics, you need to define detectors, ingest log data, generate findings, define correlation rules, and configure alerts. See [Setting up Security Analytics]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/index/) to begin configuring the platform to meet your objectives.
 
