@@ -18,7 +18,9 @@ Correlation rules allow you to define threat scenarios involving multiple system
 Having at least two data sources in the rule configuration is the basis for making connections between different systems in an infrastructure and identifying correlations. Therefore, a minimum of two queries is required for each correlation rule. However, you can include more than two queries to better define a threat scenario and look for correlations between multiple systems. Follow the steps in this section to create a correlation rule.
 
 1. Begin by selecting **Security Analytics** in the Dashboards home page menu. Then select **Correlation rules** from the Security Analytics menu on the left side of the screen. The **Correlation rules** page is displayed.
+   
    <img src="{{site.url}}{{site.baseurl}}/images/Security/sec-analytics/create-corr-rule.png" alt="The correlation rules page" width="85%">
+
 1. Select **Create correlation rule**. The **Create correlation rule** window opens.
 1. In the **Correlation rule details** field, enter a name for the rule.
   
@@ -26,11 +28,11 @@ Having at least two data sources in the rule configuration is the basis for maki
 
 1. The **Correlation queries** field contains two dropdown lists. In the **Select index** dropdown list, specify an index or index pattern for the data source. In the **Log type** dropdown list, specify the log type associated with the index.
   
-   <img src="{{site.url}}{{site.baseurl}}/images/Security/sec-analytics/corr-rule-config2.png" alt="The correlation rule name" width="45%">
+   <img src="{{site.url}}{{site.baseurl}}/images/Security/sec-analytics/corr-rule-config2.png" alt="The data source and log type for the query" width="45%">
   
 1. In the **Field** dropdown list, specify a log field. In the **Field value** text box, enter a value for the field.
   
-   <img src="{{site.url}}{{site.baseurl}}/images/Security/sec-analytics/corr-rule-config3.png" alt="The correlation rule name" width="45%">
+   <img src="{{site.url}}{{site.baseurl}}/images/Security/sec-analytics/corr-rule-config3.png" alt="The field and field value for the query" width="45%">
 
 1. To add more fields to the query, select **Add field**.    
 1. After configuring the first query, repeat the previous step to configure a second query. You can select **Add query** at the bottom of the window to add more queries for the rule.
