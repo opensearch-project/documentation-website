@@ -1,3 +1,0 @@
-_replication-plugin/get-started.md:187:239:OpenSearch.DashSpacing:There should be no spaces around the 'scratch -- you' dash.
-_search-plugins/knn/knn-index.md:182:1:OpenSearch.DashSpacing:There should be no spaces around the 'Note --- for' dash.
-_tuning-your-cluster/replication-plugin/getting-started.md:190:239:OpenSearch.DashSpacing:There should be no spaces around the 'scratch -- you' dash.

@@ -1,5 +1,0 @@
-_dashboards/discover/multi-data-sources.md:22:231:OpenSearch.TheFollowing:Don't describe what the document is going to describe ('The following section provides...'). Focus on the value for the user.
-_install-and-configure/install-opensearch/docker.md:122:216:OpenSearch.TheFollowing:Don't describe what the document is going to describe ('The following section contains...'). Focus on the value for the user.
-_observing-your-data/trace/trace-analytics-jaeger.md:46:1:OpenSearch.TheFollowing:Don't describe what the document is going to describe ('The following section provides...'). Focus on the value for the user.
-_site/release-notes/opensearch-documentation-release-notes-2.4.0.md:3:1:OpenSearch.TheFollowing:Don't describe what the document is going to describe ('The following page provides...'). Focus on the value for the user.
-release-notes/opensearch-documentation-release-notes-2.4.0.md:3:1:OpenSearch.TheFollowing:Don't describe what the document is going to describe ('The following page provides...'). Focus on the value for the user.

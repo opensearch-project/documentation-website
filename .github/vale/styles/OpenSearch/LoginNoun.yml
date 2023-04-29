@@ -4,4 +4,4 @@ level: error
 ignorecase: true
 tokens:
   - tag: NN|JJ
-    pattern: '(?:log in)'
+    pattern: '(?:log in|log-in)'

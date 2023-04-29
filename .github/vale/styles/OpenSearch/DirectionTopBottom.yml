@@ -3,14 +3,14 @@ message: "Use '%s' instead of '%s' for window, page, or pane references to featu
 link: 'https://github.com/opensearch-project/documentation-website/blob/main/TERMS.md'
 level: warning
 ignorecase: true
+action:
+  name: replace
 swap:
-  - 'top left': 'upper left'
-  - 'bottom left': 'lower left'
-  - 'top right': 'upper right'
-  - 'bottom right': 'lower right'
-  - 'top-left': 'upper-left'
-  - 'bottom-left': 'lower-left'
-  - 'top-right': 'upper-right'
-  - 'bottom-right': 'lower-right'
-  - 'top(?:-|\s+)(?!level|to|menu|\d)': upper
-  - 'bottom(?:-|\s+)(?!level|to|\d)': lower
+  - top left: upper left
+  - bottom left: lower left
+  - top right: upper right
+  - bottom right: lower right
+  - top-left: upper-left
+  - bottom-left: lower-left
+  - top-right: upper-right
+  - bottom-right: lower-right

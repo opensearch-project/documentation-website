@@ -1,5 +1,5 @@
 extends: existence
-message: "Use the Oxford comma in '%s'."
+message: "Add an Oxford comma in '%s'."
 scope: sentence
 level: warning
 nonword: true

@@ -7,14 +7,10 @@ Ansible
 Auditbeat
 AWS Cloud
 Cognito
-Compare Search Results
-Dashboard
-Dashboards
 Dashboards Query Language
 Data Prepper
 Debian
 Dev Tools
-Discover
 Docker
 Docker Compose
 Dockerfile
@@ -30,7 +26,6 @@ Fluent Bit
 Fluentd
 Helm
 Hugging Face
-Index State Management
 Inferentia
 IPv4
 IPv6
@@ -74,7 +69,6 @@ Python
 PyTorch
 Querqy
 Query Workbench
-Root Cause Analysis
 RPM Package Manager
 Ruby
 Sigv4 
@@ -83,5 +77,4 @@ Tableau
 TorchScript
 Tribuo
 VisBuilder
-Windows
 Winlogbeat

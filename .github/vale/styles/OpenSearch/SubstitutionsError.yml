@@ -2,6 +2,8 @@ extends: substitution
 message: "Use '%s' instead of '%s'."
 ignorecase: true
 level: error
+action:
+  name: replace
 swap:
   'command-line interface': command line interface
   'data are': data is
@@ -9,7 +11,7 @@ swap:
   'for information on': for information about
   'for more information on': for more information about
   'geo hash': geohash
-  'geo point': geopoing
+  'geo point': geopoint
   'geo shape': geoshape
   'geospacial': geospatial
   'hard code': hardcode
@@ -39,4 +41,4 @@ swap:
   'U.S.': US
   'web page': webpage
   'web site': website
-
+  'user interface \(UI\)': UI

@@ -1,10 +1,12 @@
 [Aa]nonymization
 [Aa]utomapping
+[Aa]utopopulate
 [Bb]ackoff
 [Bb]ackpressure
 [Bb]asemap
 [Bb]igram
 Boolean
+[Cc]allout
 [Cc]odec
 [Cc]omposable
 [Cc]ron
@@ -31,6 +33,7 @@ GeoHex
 [Gg]eospatial
 gibibyte
 [Hh]ashmap
+[Ii]mpactful
 [Ii]ngress
 [Ii]nitializer
 [Ii]nstrumentations?
@@ -44,6 +47,8 @@ mebibyte
 Levenshtein
 [Ll]inestring
 [Ll]ookups?
+[Ll]ossy
+[Ll]owercases?d?
 [Mm]isorder
 [Mm]ultifield
 [Mm]ultiline
@@ -68,11 +73,13 @@ pebibyte
 [Rr]eingest
 [Rr]epo
 [Rr]ollup
+[Rr]unbooks?
 [Ss]erverless
 [Ss]ignificand
 stdout
 [Ss]ubaggregation
 [Ss]ubcalculation
+[Ss]ubcommands?
 [Ss]ubfield
 [Ss]ubquery
 [Ss]ubtag
@@ -90,7 +97,9 @@ tebibyte
 [Uu]ncomment
 [Uu]nigram
 [Uu]nnesting
+[Uu]nrecovered
 [Uu]pdatable
 [Uu]psert
 [Ww]alkthrough
+[Ww]ebpage
 xy

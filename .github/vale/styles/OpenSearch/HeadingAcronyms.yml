@@ -5,5 +5,7 @@ level: error
 ignorecase: false
 scope: heading
 nonword: true
+action:
+  name: remove
 tokens:
   - '\([A-Z]{2,5}\)'

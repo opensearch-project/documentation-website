@@ -4,6 +4,8 @@ link: https://github.com/opensearch-project/documentation-website/blob/main/STYL
 ignorecase: true
 level: warning
 nonword: true
+action:
+  name: replace
 swap:
   '\b(?:eg|e\.g\.)[\s,]': for example or such as
   '\b(?:ie|i\.e\.)[\s,]': that is or specifically

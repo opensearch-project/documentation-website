@@ -2,9 +2,11 @@ extends: substitution
 message: "Use '%s' instead of '%s'."
 ignorecase: true
 level: suggestion
+action:
+  name: replace
 swap:
   'app server': application server
-  'as well as': 'in addition to/and'
+  'as well as': and
   'due to': because of
   'it is recommended': we recommend
   'leverage': use

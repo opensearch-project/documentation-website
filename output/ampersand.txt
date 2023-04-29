@@ -1,5 +1,0 @@
-STYLE_GUIDE.md:273:185:OpenSearch.Ampersand:Don't use an ampersand in place of 'and' in documentation.
-_dashboards/discover/multi-data-sources.md:56:16:OpenSearch.Ampersand:Don't use an ampersand in place of 'and' in documentation.
-_dashboards/discover/multi-data-sources.md:78:15:OpenSearch.Ampersand:Don't use an ampersand in place of 'and' in documentation.
-_observing-your-data/app-analytics.md:28:17:OpenSearch.Ampersand:Don't use an ampersand in place of 'and' in documentation.
-_site/STYLE_GUIDE.md:273:185:OpenSearch.Ampersand:Don't use an ampersand in place of 'and' in documentation.
