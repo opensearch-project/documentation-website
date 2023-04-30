@@ -2,9 +2,7 @@ name: Style check
 
 on:
   pull_request:
-    
-  workflow_dispatch:
-
+ 
 jobs:
   style-job:
     runs-on: ubuntu-latest
