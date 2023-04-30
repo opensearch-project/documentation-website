@@ -1,12 +1,7 @@
 name: Style check
 
 on:
-  #push:
-    #branches:
-      #- main
   pull_request:
-    #branches:
-      #- main
     
   workflow_dispatch:
 
@@ -22,7 +17,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
         with:
-          fail_on_error: false
+          fail_on_error: true
           reporter: github-pr-check
-          #separator: '_'
+          filter_mode: file
           
