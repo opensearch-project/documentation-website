@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Routes
+title: routes
 parent: Processors
 grand_parent: Pipelines
 nav_order: 90
