@@ -44,6 +44,8 @@ This sentence tests periods, colons, and commas.
 
 This sentence tests passive voice.
 
+We are pleased that this sentence tests pleading.
+
 This sentence tests the range 2--5.
 
 This sentence tests repetition of words in the middle of a sentence.

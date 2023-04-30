@@ -44,6 +44,8 @@ This sentence tests periods, colons and commas.
 
 This sentence is tested with passive voice.
 
+Please test this sentence.
+
 This sentence tests the range 2 -- 5.
 
 This sentence tests repetition repetition of words in the middle of a sentence.
