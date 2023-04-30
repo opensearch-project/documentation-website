@@ -2,6 +2,7 @@ name: Style check
 
 on:
   pull_request:
+  workflow_dispatch:
  
 jobs:
   style-job:
@@ -9,12 +10,6 @@ jobs:
     steps:
       - name: Check out
         uses: actions/checkout@v3
-      
-      - name: Get changed files
-        id: files
-        uses: masesgroup/retrieve-changed-files@v2
-        with:
-          format: 'json'
           
       - name: Run Vale
         uses: errata-ai/vale-action@reviewdog
@@ -24,5 +19,4 @@ jobs:
           fail_on_error: true
           reporter: github-pr-check
           filter_mode: file
-          files: '${{  steps.files.outputs.added_modified }}'
-          
+        
