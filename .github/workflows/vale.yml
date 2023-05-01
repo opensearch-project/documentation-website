@@ -16,7 +16,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
         with:
-          fail_on_error: false
           reporter: github-pr-check
           filter_mode: file
         
