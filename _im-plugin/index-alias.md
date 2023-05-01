@@ -63,8 +63,8 @@ You can also create an alias using one of the following requests:
 
 ```json
 PUT <index>/_aliases/<alias name>
-PUT <index>/_aliases/<alias name>
-POST <index>/_alias/<alias name>
+POST <index>/_aliases/<alias name>
+PUT <index>/_alias/<alias name>
 POST <index>/_alias/<alias name>
 ```
 
