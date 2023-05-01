@@ -1,42 +1,33 @@
 ---
 layout: default
-title: Creating and managing alerts and anomalies using data visualizations 
-parent: Exploring data
+title: Creating and managing alerts using OpenSearch Dashboards 
+parent: Alerting
 nav_order: 50
 ---
 
-# Creating and managing alerts and anomalies using data visualizations
+# Creating and managing alerts and anomalies using OpenSearch Dashboards
 Introduced 2.8
 {: .label .label-purple }
 
-OpenSearch Dashboards' alerting and anomaly detection features allow you to localize and address errors, fraud, or potential issues in your system before they become serious problems and to improve the accuracy of your data and analytics.
-
-Alerts and anomalies are closely related, but they serve different purposes. Alerts inform you of issues that require immediate attention, while anomalies help you detect issues that may not yet have triggered an alert. By using both alerts and anomalies in your monitoring system, you can proactively manage and troubleshoot your system. 
-
-In this tutorial, you will learn to perform anomaly detection using the **Discover** application and line chart visualizations with OpenSearch sample data. At the end of this tutorial, you should have a good idea of how to use the Discover application and visualizations to monitor your own data. Common use cases for alerting and anomaly detection include network behavior, application performance, and web application security.
-
-The following video provides a quick overview of the steps performed in this tutorial:
+Alerting in OpenSearch Dashboards allows you create and manage alerts directly from **Dashboard** without having to jump between the Dashboard interface and the alerting plugin page. For more information about the plugin, see [Alerting]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/index/).  
 
 <insert demo from SME>
 
 
-## Getting started
+## Terminology
 
-The following is useful terminology to understand before getting started with this tutorial:
+Get familiar with the alerting terminology used in OpenSearch Dashboards:
 
-- _Anomaly detection_ is a technique used in data analysis to identify patterns or data points that deviate from the norm or expected behavior. It can be performed in real time, near real time, or on a scheduled basis.
-- _Alert_ refers to an event associated with a trigger. When an alert is created, the trigger performs actions, which can include sending a notification.. 
-- _Monitor_ refers to jobs that run on a defined schedule and query OpenSearch indexes.
-- _Trigger_ refers to conditions that generate alerts.
-- _Action_ refers to the information that you want the monitor to send out after being triggered. Actions have a destination, a message subject, and a message body.
-- _Destination_ refers to a reusable location for an action. Supported locations are Slack, email, or custom webhook.
+- An _alert_ refers to an event associated with a trigger. When an alert is created, the trigger performs actions, which can include sending a notification. 
+- A _monitor_ refers to jobs that run on a defined schedule and query OpenSearch indexes.
+- A _trigger_ refers to conditions that generate alerts.
+- An _action_ refers to the information that you want the monitor to send out after being triggered. Actions have a destination, a message subject, and a message body.
+- A _destination_ refers to a reusable location, such as Slack, email, or custom webhook, for an action.
 
-For an overview of the OpenSearch Alerting and Anomaly Detection plugins, see the OpenSearch documentation for [Alerting]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/index/) and [Anomaly Detection]({{site.url}}{{site.baseurl}}/observing-your-data/ad/index/).
-{: .note} 
 
 ## Prerequisites 
 
-This tutorial has the following prerequisites: 
+The alerting in Dashboard feature is available starting with OpenSearch and OpenSearch Dashboards 2.8.  
 
 - You must be running OpenSearch Dashboards before proceeding with the tutorial. 
 - You must be connected to your local OpenSearch Dashboards environment or `https://localhost:5601`. The username and password are `admin`.
