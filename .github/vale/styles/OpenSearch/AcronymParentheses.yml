@@ -59,8 +59,6 @@ exceptions:
   - TB
   - PB
   - US
-  - AWS
-  - CLI
   - PNG
   - JVM
   - N/A
@@ -69,6 +67,5 @@ exceptions:
   - SELECT
   - HAVING
   - SQL
-  - PPL
   - TOC
   - 'NULL'

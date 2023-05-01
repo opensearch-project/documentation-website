@@ -33,6 +33,7 @@ GeoHex
 [Gg]eospatial
 gibibyte
 [Hh]ashmap
+[Hh]ostname
 [Ii]mpactful
 [Ii]ngress
 [Ii]nitializer

@@ -19,6 +19,7 @@ swap:
   'host name': hostname
   'Huggingface': Hugging Face
   'indices': indexes
+  'keystore': key store
   'kmeans': k-means
   'kNN': k-NN
   'machine-learning': machine learning
@@ -34,10 +35,13 @@ swap:
   'screen shot': screenshot
   'sample request': example request
   'sample response': example response
+  'stacktrace': stack trace
   'stand-alone': standalone
+  'timeframe': time frame
   'time series data': time-series data
   'time stamp': timestamp
   'timezone': time zone
+  'truststore': trust store
   'U.S.': US
   'web page': webpage
   'web site': website
