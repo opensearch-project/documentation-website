@@ -24,6 +24,7 @@ In order to train tasks through the API, three inputs are required.
 - Model hyper parameters: Adjust these parameters to make the model train better.  
 - Input data: The data input that trains the ML model, or applies the ML models to predictions. You can input data in two ways, query against your index or use data frame.
 
+
 ## Train model
 
 The train operation trains a model based on a selected algorithm. Training can occur both synchronously and asynchronously.
