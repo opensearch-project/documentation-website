@@ -24,7 +24,7 @@ In order to train tasks through the API, three inputs are required.
 - Model hyper parameters: Adjust these parameters to make the model train better.  
 - Input data: The data input that trains the ML model, or applies the ML models to predictions. You can input data in two ways, query against your index or use data frame.
 
-## Train model
+## Training a model
 
 Training can occur both synchronously and asynchronously.
 
@@ -96,7 +96,7 @@ For asynchronous responses, the API returns the task_id, which can be used to ge
 }
 ```
 
-## Get model information
+## Getting model information
 
 You can retrieve information on your model using the model_id.
 
@@ -115,12 +115,12 @@ The API returns information on the model, the algorithm used, and the content fo
 }
 ```
 
-## Upload a model
+## Registering a model
 
-Use the upload operation to upload a custom model to a model index. ML Commons splits the model into smaller chunks and saves those chunks in the model's index.
+Use the register operation to register a custom model to a model index. ML Commons splits the model into smaller chunks and saves those chunks in the model's index.
 
 ```json
-POST /_plugins/_ml/models/_upload
+POST /_plugins/_ml/models/_register
 ```
 
 ### Request fields
@@ -137,10 +137,10 @@ Field | Data type | Description
 
 ### Example
 
-The following example request uploads version `1.0.0` of an NLP sentence transformation model named `all-MiniLM-L6-v2`.
+The following example request registers a version `1.0.0` of an NLP sentence transformation model named `all-MiniLM-L6-v2`.
 
 ```json
-POST /_plugins/_ml/models/_upload
+POST /_plugins/_ml/models/_register
 {
   "name": "all-MiniLM-L6-v2",
   "version": "1.0.0",
@@ -166,14 +166,14 @@ OpenSearch responds with the `task_id` and task `status`.
 }
 ```
 
-To see the status of your model upload, enter the `task_id` into the [task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api#get-task-information). Use the `model_id` from the task response once the upload is complete. For example:
+To see the status of your model registration, enter the `task_id` in the [task API] ...
 
 ```json
 {
   "model_id" : "WWQI44MBbzI2oUKAvNUt", 
   "task_type" : "UPLOAD_MODEL",
   "function_name" : "TEXT_EMBEDDING",
-  "state" : "COMPLETED",
+  "state" : "REGISTERED",
   "worker_node" : "KzONM8c8T4Od-NoUANQNGg",
   "create_time" : 1665961344003,
   "last_update_time" : 1665961373047,
@@ -181,28 +181,28 @@ To see the status of your model upload, enter the `task_id` into the [task API](
 }
 ```
 
-## Load model
+## Deploying a model
 
-The load model operation reads the model's chunks from the model index, then creates an instance of the model to cache into memory. This operation requires the `model_id`.
+The deploy model operation reads the model's chunks from the model index and then creates an instance of the model to cache into memory. This operation requires the `model_id`.
 
 ```json
-POST /_plugins/_ml/models/<model_id>/_load
+POST /_plugins/_ml/models/<model_id>/_deploy
 ```
 
-### Example: Load into all available ML nodes
+### Example: Deploying to all available ML nodes
 
-In this example request, OpenSearch loads the model into any available OpenSearch ML node:
+In this example request, OpenSearch deploys the model to any available OpenSearch ML node:
 
 ```json
-POST /_plugins/_ml/models/WWQI44MBbzI2oUKAvNUt/_load
+POST /_plugins/_ml/models/WWQI44MBbzI2oUKAvNUt/_deploy
 ```
 
-### Example: Load into a specific node
+### Example: Deploying to a specific node
 
-If you want to reserve the memory of other ML nodes within your cluster, you can load your model into a specific node(s) by specifying the `node_ids` in the request body:
+If you want to reserve the memory of other ML nodes within your cluster, you can deploy your model to a specific node(s) by specifying the `node_ids` in the request body:
 
 ```json
-POST /_plugins/_ml/models/WWQI44MBbzI2oUKAvNUt/_load
+POST /_plugins/_ml/models/WWQI44MBbzI2oUKAvNUt/_deploy
 {
     "node_ids": ["4PLK7KJWReyX0oWKnBA8nA"]
 }
@@ -213,40 +213,40 @@ POST /_plugins/_ml/models/WWQI44MBbzI2oUKAvNUt/_load
 ```json
 {
   "task_id" : "hA8P44MBhyWuIwnfvTKP",
-  "status" : "CREATED"
+  "status" : "DEPLOYING"
 }
 ```
 
-## Unload a model
+## Undeploying a model
 
-To unload a model from memory, use the unload operation.
-
-```json
-POST /_plugins/_ml/models/<model_id>/_unload
-```
-
-### Example: Unload model from all ML nodes
+To undeploy a model from memory, use the undeploy operation:
 
 ```json
-POST /_plugins/_ml/models/MGqJhYMBbbh0ushjm8p_/_unload
+POST /_plugins/_ml/models/<model_id>/_undeploy
 ```
 
-### Response: Unload model from all ML nodes
+### Example: Undeploying model from all ML nodes
+
+```json
+POST /_plugins/_ml/models/MGqJhYMBbbh0ushjm8p_/_undeploy
+```
+
+### Response: Undeploying a model from all ML nodes
 
 ```json
 {
     "s5JwjZRqTY6nOT0EvFwVdA": {
         "stats": {
-            "MGqJhYMBbbh0ushjm8p_": "unloaded"
+            "MGqJhYMBbbh0ushjm8p_": "UNDEPLOYED"
         }
     }
 }
 ```
 
-### Example: Unload specific models from specific nodes
+### Example: Undeploying specific models from specific nodes
 
 ```json
-POST /_plugins/_ml/models/_unload
+POST /_plugins/_ml/models/_undeploy
 {
   "node_ids": ["sv7-3CbwQW-4PiIsDOfLxQ"],
   "model_ids": ["KDo2ZYQB-v9VEDwdjkZ4"]
@@ -254,32 +254,32 @@ POST /_plugins/_ml/models/_unload
 ```
 
 
-### Response:  Unload specific models from specific nodes
+### Response: Undeploying specific models from specific nodes
 
 ```json
 {
   "sv7-3CbwQW-4PiIsDOfLxQ" : {
     "stats" : {
-      "KDo2ZYQB-v9VEDwdjkZ4" : "unloaded"
+      "KDo2ZYQB-v9VEDwdjkZ4" : "UNDEPLOYED"
     }
   }
 }
 ```
 
-### Response: Unload all models from specific nodes
+### Response: Undeploying all models from specific nodes
 
 ```json
 {
   "sv7-3CbwQW-4PiIsDOfLxQ" : {
     "stats" : {
-      "KDo2ZYQB-v9VEDwdjkZ4" : "unloaded",
-      "-8o8ZYQBvrLMaN0vtwzN" : "unloaded"
+      "KDo2ZYQB-v9VEDwdjkZ4" : "UNDEPLOYED",
+      "-8o8ZYQBvrLMaN0vtwzN" : "UNDEPLOYED"
     }
   }
 }
 ```
 
-### Example: Unload specific models from all nodes
+### Example: Undeploying specific models from all nodes
 
 ```json
 {
@@ -287,19 +287,19 @@ POST /_plugins/_ml/models/_unload
 }
 ```
 
-### Response: Unload specific models from all nodes
+### Response: Undeploying specific models from all nodes
 
 ```json
 {
   "sv7-3CbwQW-4PiIsDOfLxQ" : {
     "stats" : {
-      "KDo2ZYQB-v9VEDwdjkZ4" : "unloaded"
+      "KDo2ZYQB-v9VEDwdjkZ4" : "UNDEPLOYED"
     }
   }
 }
 ```
 
-## Search model
+## Searching for a model
 
 Use this command to search models you've already created.
 
@@ -309,7 +309,7 @@ POST /_plugins/_ml/models/_search
 {query}
 ```
 
-### Example: Query all models
+### Example: Querying all models
 
 ```json
 POST /_plugins/_ml/models/_search
@@ -321,7 +321,7 @@ POST /_plugins/_ml/models/_search
 }
 ```
 
-### Example: Query models with algorithm "FIT_RCF"
+### Example: Querying models with algorithm "FIT_RCF"
 
 ```json
 POST /_plugins/_ml/models/_search
@@ -388,9 +388,9 @@ POST /_plugins/_ml/models/_search
   }
 ```
 
-## Delete model
+## Deleting a model
 
-Deletes a model based on the model_id
+Deletes a model based on the `model_id`.
 
 ```json
 DELETE /_plugins/_ml/models/<model_id>
@@ -414,9 +414,9 @@ The API returns the following:
 }
 ```
 
-## Profile
+## Returning model profile information
 
-Returns runtime information on ML tasks and models. This operation can help debug issues with models at runtime.
+The profile operation returns runtime information on ML tasks and models. The profile operation can help debug issues with models at runtime.
 
 
 ```json
@@ -444,7 +444,7 @@ task_ids | string | Returns runtime data for a specific task. You can string tog
 return_all_tasks | boolean | Determines whether or not a request returns all tasks. When set to `false` task profiles are left out of the response.
 return_all_models | boolean | Determines whether or not a profile request returns all models. When set to `false` model profiles are left out of the response.
 
-### Example: Return all tasks and models on a specific node
+### Example: Returning all tasks and models on a specific node
 
 ```json
 GET /_plugins/_ml/profile
@@ -455,7 +455,7 @@ GET /_plugins/_ml/profile
 }
 ```
 
-### Response: Return all tasks and models on a specific node
+### Response: Returning all tasks and models on a specific node
 
 ```json
 {
@@ -473,7 +473,7 @@ GET /_plugins/_ml/profile
     "KzONM8c8T4Od-NoUANQNGg" : { # node id
       "models" : {
         "WWQI44MBbzI2oUKAvNUt" : { # model id
-          "model_state" : "LOADED", # model status
+          "model_state" : "DEPLOYED", # model status
           "predictor" : "org.opensearch.ml.engine.algorithms.text_embedding.TextEmbeddingModel@592814c9",
           "worker_nodes" : [ # routing table
             "KzONM8c8T4Od-NoUANQNGg"
@@ -790,7 +790,7 @@ POST /_plugins/_ml/_train_predict/kmeans
 }
 ```
 
-## Get task information
+## Getting task information
 
 You can retrieve information about a task using the task_id.
 
@@ -814,7 +814,7 @@ The response includes information about the task.
 }
 ```
 
-## Search task
+## Searching for a task
 
 Search tasks based on parameters indicated in the request body.
 
@@ -905,7 +905,7 @@ GET /_plugins/_ml/tasks/_search
 }
 ```
 
-## Delete task
+## Deleting a task
 
 Delete a task based on the task_id.
 
