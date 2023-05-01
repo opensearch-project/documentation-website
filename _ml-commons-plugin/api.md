@@ -24,7 +24,7 @@ In order to train tasks through the API, three inputs are required.
 - Model hyper parameters: Adjust these parameters to make the model train better.  
 - Input data: The data input that trains the ML model, or applies the ML models to predictions. You can input data in two ways, query against your index or use data frame.
 
-## Train model
+## Training a model
 
 Training can occur both synchronously and asynchronously.
 
@@ -96,7 +96,7 @@ For asynchronous responses, the API returns the task_id, which can be used to ge
 }
 ```
 
-## Get model information
+## Getting model information
 
 You can retrieve information on your model using the model_id.
 
@@ -115,9 +115,9 @@ The API returns information on the model, the algorithm used, and the content fo
 }
 ```
 
-## Register a model
+## Registering a model
 
-Use the Register operation to register a custom model to a model index. ML Commons splits the model into smaller chunks and saves those chunks in the model's index.
+Use the register operation to register a custom model to a model index. ML Commons splits the model into smaller chunks and saves those chunks in the model's index.
 
 ```json
 POST /_plugins/_ml/models/_register
@@ -181,7 +181,7 @@ To see the status of your model registration, enter the `task_id` in the [task A
 }
 ```
 
-## Deploy model
+## Deploying a model
 
 The deploy model operation reads the model's chunks from the model index and then creates an instance of the model to cache into memory. This operation requires the `model_id`.
 
@@ -189,7 +189,7 @@ The deploy model operation reads the model's chunks from the model index and the
 POST /_plugins/_ml/models/<model_id>/_deploy
 ```
 
-### Example: Deploy to all available ML nodes
+### Example: Deploying to all available ML nodes
 
 In this example request, OpenSearch deploys the model to any available OpenSearch ML node:
 
@@ -197,7 +197,7 @@ In this example request, OpenSearch deploys the model to any available OpenSearc
 POST /_plugins/_ml/models/WWQI44MBbzI2oUKAvNUt/_deploy
 ```
 
-### Example: Deploy to a specific node
+### Example: Deploying to a specific node
 
 If you want to reserve the memory of other ML nodes within your cluster, you can deploy your model to a specific node(s) by specifying the `node_ids` in the request body:
 
@@ -266,7 +266,7 @@ POST /_plugins/_ml/models/_undeploy
 }
 ```
 
-### Response: Undeploy all models from specific nodes
+### Response: Undeploying all models from specific nodes
 
 ```json
 {
@@ -287,7 +287,7 @@ POST /_plugins/_ml/models/_undeploy
 }
 ```
 
-### Response: Undeploy specific models from all nodes
+### Response: Undeploying specific models from all nodes
 
 ```json
 {
@@ -299,7 +299,7 @@ POST /_plugins/_ml/models/_undeploy
 }
 ```
 
-## Search model
+## Searching for a model
 
 Use this command to search models you've already created.
 
@@ -309,7 +309,7 @@ POST /_plugins/_ml/models/_search
 {query}
 ```
 
-### Example: Query all models
+### Example: Querying all models
 
 ```json
 POST /_plugins/_ml/models/_search
@@ -321,7 +321,7 @@ POST /_plugins/_ml/models/_search
 }
 ```
 
-### Example: Query models with algorithm "FIT_RCF"
+### Example: Querying models with algorithm "FIT_RCF"
 
 ```json
 POST /_plugins/_ml/models/_search
@@ -388,7 +388,7 @@ POST /_plugins/_ml/models/_search
   }
 ```
 
-## Delete model
+## Deleting a model
 
 Deletes a model based on the `model_id`.
 
@@ -414,9 +414,9 @@ The API returns the following:
 }
 ```
 
-## Profile
+## Returning model profile information
 
-Returns runtime information on ML tasks and models. This operation can help debug issues with models at runtime.
+The profile operation returns runtime information on ML tasks and models. The profile operation can help debug issues with models at runtime.
 
 
 ```json
@@ -444,7 +444,7 @@ task_ids | string | Returns runtime data for a specific task. You can string tog
 return_all_tasks | boolean | Determines whether or not a request returns all tasks. When set to `false` task profiles are left out of the response.
 return_all_models | boolean | Determines whether or not a profile request returns all models. When set to `false` model profiles are left out of the response.
 
-### Example: Return all tasks and models on a specific node
+### Example: Returning all tasks and models on a specific node
 
 ```json
 GET /_plugins/_ml/profile
@@ -455,7 +455,7 @@ GET /_plugins/_ml/profile
 }
 ```
 
-### Response: Return all tasks and models on a specific node
+### Response: Returning all tasks and models on a specific node
 
 ```json
 {
@@ -790,7 +790,7 @@ POST /_plugins/_ml/_train_predict/kmeans
 }
 ```
 
-## Get task information
+## Getting task information
 
 You can retrieve information about a task using the task_id.
 
@@ -814,7 +814,7 @@ The response includes information about the task.
 }
 ```
 
-## Search task
+## Searching for a task
 
 Search tasks based on parameters indicated in the request body.
 
@@ -905,7 +905,7 @@ GET /_plugins/_ml/tasks/_search
 }
 ```
 
-## Delete task
+## Deleting a task
 
 Delete a task based on the task_id.
 
