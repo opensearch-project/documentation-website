@@ -51,7 +51,7 @@ Per document monitors allow you to define up to 10 queries to compare the select
 - `is less than`
 - `is less than equal`
 
-You query each trigger using up to 10 tags, adding the tag as a single trigger condition instead of specifying a single query. The Alerting plugin processes the trigger conditions from all queries as a logical OR operation, so if any of the query conditions are met, it triggers an alert. Next, the Alerting plugin tells the Notifications plugin to send the notification to a channel.
+You query each trigger using up to 10 tags, adding the tag as a single trigger condition instead of specifying a single query. The Alerting plugin processes the trigger conditions from all queries as a logical `OR` operation, so if any of the query conditions are met, it triggers an alert. Next, the Alerting plugin tells the Notifications plugin to send the notification to a channel.
 
 The Alerting plugin also creates a list of document findings that contains metadata about which document matches each query. Security analytics can use the document findings data to keep track of and analyze the query data separately from the alert processes.
 
