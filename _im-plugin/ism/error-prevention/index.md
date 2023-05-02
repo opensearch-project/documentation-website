@@ -68,3 +68,29 @@ ISM does not perform a `read_only` action for an index under any of these condit
 ## read_write 
 
 ISM does not perform a `read_write` action for an index if the index is blocked.
+
+
+## close
+
+ISM does not perform a `close` action for an index under any of these conditions:
+
+- The index does not exist.
+- The index name is invalid.
+
+## index_priority
+
+ISM does not perform an `index_priority` action for an index that does not have `read-only-allow-delete` permission.
+
+## snapshot
+
+ISM does not perform a `snapshot` action for an index under any of these conditions:
+
+- The index does not exist.
+- The index name is invalid.
+
+## transition 
+
+ISM does not perform a `transition` action for an index under any of these conditions:
+
+- The index does not exist.
+- The index name is invalid.
