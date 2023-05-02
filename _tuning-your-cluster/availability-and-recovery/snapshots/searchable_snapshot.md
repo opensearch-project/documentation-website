@@ -79,6 +79,5 @@ The following are potential use cases for the searchable snapshots feature:
 The following are known limitations of the searchable snapshots feature:
 
 - Accessing data from a remote repository is slower than local disk reads, so higher latencies on search queries are expected.
-- Data is discarded immediately after being read. Subsequent searches for the same data will have to be downloaded again. This will be addressed in the future by implementing a disk-based cache for storing frequently accessed data.
 - Many remote object stores charge on a per-request basis for retrieval, so users should closely monitor any costs incurred.
 - Searching remote data can impact the performance of other queries running on the same node. We recommend that users provision dedicated nodes with the `search` role for performance-critical applications.
