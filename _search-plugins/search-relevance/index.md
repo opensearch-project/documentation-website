@@ -2,18 +2,22 @@
 layout: default
 title: Search relevance
 nav_order: 55
-has_children: false
+has_children: true
 has_toc: false
 redirect_from:
   - /search-plugins/search-relevance/
 ---
 
-# Compare search results
+# Search relevance
+
+Search relevance evaluates the accuracy of the search results returned by a query. The higher the relevance, the better the search engine. Compare Search Results is the first search relevance feature in OpenSearch. 
+
+## Compare Search Results
 
 Compare Search Results is an experimental feature. For updates on the progress of Compare Search Results and other search relevance features, or if you want to leave feedback that could help improve the feature, join the [discussion on the OpenSearch forum](https://forum.opensearch.org/t/feedback-experimental-feature-compare-search-results/11331).    
 {: .warning}
 
-Compare Search Results is the first search relevance feature in OpenSearch. It lets you compare search results from two queries side by side to determine whether one query produces better results than the other. Using this tool, you can evaluate search quality by experimenting with queries. 
+Compare Search Results in OpenSearch Dashboards lets you compare results from two queries side by side to determine whether one query produces better results than the other. Using this tool, you can evaluate search quality by experimenting with queries. 
 
 For example, you can see how results change when you apply one of the following query changes:
 
