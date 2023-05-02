@@ -13,13 +13,13 @@ The OpenSearch 2.7.0 documentation includes the following additions and updates.
 - Add documentation for Shard Hotspot Identification RCA [#3741](https://github.com/opensearch-project/documentation-website/pull/3741)
 - Add flat object field type [#3714](https://github.com/opensearch-project/documentation-website/pull/3714)
 - Add documentation for dynamic configuration of tenancy in Dashboards [#3694](https://github.com/opensearch-project/documentation-website/pull/3694)
-- [DOC] Add documentation for Dev Tools multidata source integration feature [#3653](https://github.com/opensearch-project/documentation-website/pull/3653)
-- Add filtering data in maps doc. [#3640](https://github.com/opensearch-project/documentation-website/pull/3640)
+- Add documentation for Dev Tools multple data source integration feature [#3653](https://github.com/opensearch-project/documentation-website/pull/3653)
+- Add filtering data in maps doc [#3640](https://github.com/opensearch-project/documentation-website/pull/3640)
 - Add documentation for Searchable Snapshots GA release [#3462](https://github.com/opensearch-project/documentation-website/pull/3462)
 - Add documentation for segment replication GA release [#3461](https://github.com/opensearch-project/documentation-website/pull/3461)
 - Add documentation for IM UI index templates [#3459](https://github.com/opensearch-project/documentation-website/pull/3459)
 - Add documentation for wait_for_completion API [#3458](https://github.com/opensearch-project/documentation-website/pull/3458)
-- [DOC] Add documentation for Dashboard plugin list extension [#3443](https://github.com/opensearch-project/documentation-website/pull/3443)
+- Add documentation for Dashboards plugin list extension [#3443](https://github.com/opensearch-project/documentation-website/pull/3443)
 - Add CAT segment replication API [#2937](https://github.com/opensearch-project/documentation-website/pull/2937)
 
 ## Documentation for 2.7.0 experimental features
