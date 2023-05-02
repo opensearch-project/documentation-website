@@ -68,7 +68,7 @@ sinh | `sinh(number T) -> double` | `SELECT sinh(0.5) FROM my-index LIMIT 1`
 tan | `tan(number T) -> double` | `SELECT tan(0.5) FROM my-index LIMIT 1`
 
 ## Date and time
-Functions marked with * have future PPL implementation on roadmap.
+Functions marked with * are only available in SQL.
 
 Function | Specification | Example
 :--- | :--- | :---
