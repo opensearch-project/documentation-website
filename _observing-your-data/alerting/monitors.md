@@ -42,7 +42,7 @@ Channel | A notification channel to use in an action. See [notifications]({{site
 Introduced 2.0
 {: .label .label-purple }
 
-Per document monitors allow you to define up to 10 queries to compare the selected field with your desired value. You can define a supported field data types using the following operators:
+Per document monitors allow you to define up to 10 queries that compare the selected field with your desired value. You can define supported field data types using the following operators:
 
 - `is` 
 - `is not`
