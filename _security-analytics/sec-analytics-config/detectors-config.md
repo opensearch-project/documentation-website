@@ -77,9 +77,9 @@ While mapping fields, consider the following:
 * The **Detector field name** column lists field names based on all of the prepackaged rules associated with the selected log type.
 * The **Log source field name** column includes a dropdown list for each of the detector fields. Each dropdown list contains field names extracted from the log index.
 * To map a detector field name to a log source field name, use the dropdown arrow to open the list of log source fields and select the log field name from the list. To search for names in the log field list, enter text in the **Select a mapping field** box, as shown in the following image.
-
-<img src="{{site.url}}{{site.baseurl}}/images/Security/log-field.png" alt="Field mapping example for pending mappings" width="60%">
-
+ 
+ <img src="{{site.url}}{{site.baseurl}}/images/Security/log-field.png" alt="Field mapping example for pending mappings" width="60%">
+ 
 * Once the log source field name is selected and mapped to the detector field name, the icon in the **Status** column to the right changes to a green check mark.
 * Make as many matches between field names as possible to complete an accurate mapping for the detector and log source fields.
 
