@@ -22,7 +22,7 @@ Field data type | Description
 [`date`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/date/) | A date value as a formatted string, a long value, or an integer. 
 [`ip`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/ip/) | An IP address in IPv4 or IPv6 format. 
 [Range]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/range/) | `integer_range`, `long_range`,`double_range`, `float_range`, `date_range`,`ip_range`. 
-[Object]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/object/) | `object`, `nested`, `join`.
+[Object]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/object/) | `object`, `nested`, `flat_object`, `join`.
 String | [`keyword`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/keyword/), [`text`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/text/), [`token_count`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/token-count/).
 [Autocomplete]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/autocomplete/) | `completion`, `search_as_you_type`.
 [Geographic]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geographic/) | `geo_point`, `geo_shape`.
