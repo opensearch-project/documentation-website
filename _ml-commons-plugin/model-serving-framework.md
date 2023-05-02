@@ -108,7 +108,7 @@ OpenSearch responds with the `task_id` and task `status`:
 }
 ```
 
-To see the status of your model upload, pass the `task_id` into the [task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api#get-task-information).
+To see the status of your model upload, pass the `task_id` into the [task API]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api#getting-task-information).
 
 ## Load the model
 
