@@ -42,7 +42,16 @@ Channel | A notification channel to use in an action. See [notifications]({{site
 Introduced 2.0
 {: .label .label-purple }
 
-The per query and per bucket monitors can only run a single query with one trigger condition. Per document monitors allow you to combine multiple query trigger conditions by adding a tag to the queries. Then you can add the tag as a single trigger condition instead of specifying a single query. The Alerting plugin processes the trigger conditions from all queries as a logical OR operation, so if any of the query conditions are met, it triggers an alert. Next, the Alerting plugin tells the Notifications plugin to send the notification to a channel.
+Per document monitors allow you to define up to 10 queries that compare the selected field with your desired value. You can define supported field data types using the following operators:
+
+- `is` 
+- `is not`
+- `is greater than`
+- `is greater than equal`
+- `is less than`
+- `is less than equal`
+
+You query each trigger using up to 10 tags, adding the tag as a single trigger condition instead of specifying a single query. The Alerting plugin processes the trigger conditions from all queries as a logical `OR` operation, so if any of the query conditions are met, it triggers an alert. Next, the Alerting plugin tells the Notifications plugin to send the notification to a channel.
 
 The Alerting plugin also creates a list of document findings that contains metadata about which document matches each query. Security analytics can use the document findings data to keep track of and analyze the query data separately from the alert processes.
 
