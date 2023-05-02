@@ -90,7 +90,7 @@ ISM does not perform a `snapshot` action for an index under any of these conditi
 
 ## transition 
 
-ISM does not perform a transition action for an index under any of these conditions:
+ISM does not perform a `transition` action for an index under any of these conditions:
 
 - The index does not exist.
 - The index name is invalid.
