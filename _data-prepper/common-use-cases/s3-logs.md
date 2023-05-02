@@ -171,6 +171,16 @@ We recommend that you have one SQS queue per Data Prepper pipeline. In addition,
 
 If you have multiple pipelines, you must create multiple SQS queues for each pipeline, even if both pipelines use the same S3 bucket.
 
+## Amazon SNS fan out pattern
 
+Often a team needs to have multiple event handlers for an S3 bucket.
+A standard solution here is to use an [Amazon Simple Notification Service](https://docs.aws.amazon.com/sns/latest/dg/welcome.html) (SNS) to SQS [fan out pattern](https://docs.aws.amazon.com/sns/latest/dg/sns-common-scenarios.html).
+In this setup, you will have S3 event notifications go directly to a single SNS topic.
+Then you can subscribe multiple SQS queues to the SNS topic.
 
+In order for this to work with Data Prepper, you must configure [raw message delivery](https://docs.aws.amazon.com/sns/latest/dg/sns-large-payload-raw-message-delivery.html) on the SNS to SQS subscription.
+This configuration allows Data Prepper to parse the incoming data correctly.
+The raw message delivery option is on the connection between SNS and SQS.
+Thus, you can have some SQS queues which do not enable raw message delivery.
+Using Data Prepper will not interfere with those queues.
 
