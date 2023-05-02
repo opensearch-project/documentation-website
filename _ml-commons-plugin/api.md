@@ -24,9 +24,10 @@ In order to train tasks through the API, three inputs are required.
 - Model hyper parameters: Adjust these parameters to make the model train better.  
 - Input data: The data input that trains the ML model, or applies the ML models to predictions. You can input data in two ways, query against your index or use data frame.
 
-## Training a model
 
-Training can occur both synchronously and asynchronously.
+## Train model
+
+The train operation trains a model based on a selected algorithm. Training can occur both synchronously and asynchronously.
 
 ### Request 
 
@@ -414,7 +415,7 @@ The API returns the following:
 }
 ```
 
-## Returning model profile information
+## Profile
 
 The profile operation returns runtime information on ML tasks and models. The profile operation can help debug issues with models at runtime.
 
