@@ -26,7 +26,7 @@ To enable the feature:
 2. Open your local copy of the Dashboards configuration file, `opensearch_dashboards.yml`. If you don't have a copy, get one from GitHub: [`opensearch_dashboards.yml`](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/config/opensearch_dashboards.yml).
 3. Set `data_source.enabled: false` to  `data_source.enabled: true` and save the configuration.
 4. Restart the Dashboards container.
-5. Verify the feature configuration settings were created and configured properly by connecting to Dashboards through [http://localhost:5601](http://localhost:5601/) and viewing the **Stack Management** console. **Data Sources `Experimental`** will appear in the sidebar. Alternatively, you can open on [http://localhost:5601/app/management/opensearch-dashboards/dataSources](http://localhost:5601/app/management/opensearch-dashboards/dataSource).
+5. Verify the configuration settings were created and configured properly by connecting to Dashboards through [http://localhost:5601](http://localhost:5601/) and viewing the **Stack Management** console. **Data Sources** appears in the sidebar. Alternatively, you can open on [http://localhost:5601/app/management/opensearch-dashboards/dataSources](http://localhost:5601/app/management/opensearch-dashboards/dataSource).
 
 ## Creating a data source connection
 
@@ -34,7 +34,7 @@ A data source connection specifies the parameters needed to connect to a data so
 
 To create a new data source connection:
 
-1. Open Dashboards. If you’re not running the security plugin, go to [`http://localhost:5601`](http://localhost:5601/). If you’re running the security plugin, go to [`https://localhost:5601`](https://localhost:5601/) and log in with the username `admin` and password `admin`.
+1. If you’re not running the security plugin, go to [`http://localhost:5601`](http://localhost:5601/). If you’re running the security plugin, go to [`https://localhost:5601`](https://localhost:5601/) and log in with the username `admin` and password `admin`.
 
 1. Under **Management** in the OpenSearch Dashboards main menu, choose **Stack Management**, **Data Sources `Experimental`**, **Data Sources**, and then choose **Create data source connection**, as shown in the following image.
 
@@ -132,25 +132,18 @@ The following image shows a date histogram with an interval dropdown list.
 Selecting multiple data sources in the Dev Tools console allows you to work with a broader range of data and gain deeper insights into your code and applications. You can follow these steps:
 
 1. Open `opensearch_dashboards.yml` in the editor of your choice. 
-2. Set `data_source.enabled:` to `true`, as shown in the following example:
-    
-    ```
-    # Set the value of this setting to true to enable the experimental multiple data source
-    # support feature. Use with caution.
-    data_source.enabled: true
-    ```
-
+2. Set `data_source.enabled:` to `true`.
 3. Connect to OpenSearch Dashboards and select **Dev Tools** in the menu.
-5. Enter the following query in the editor pane of the **Console** and then select the play button:
+4. Enter the following query in the editor pane of the **Console** and then select the play button:
 
     ```json
     GET /_cat/indices
     ```
 
-6. From the **DataSource** dropdown menu, select a data source and then query the source.
-7. Repeat the preceding steps for each data source you want to select.
+5. From the **DataSource** dropdown menu, select a data source and then query the source.
+6. Repeat the preceding steps for each data source you want to select.
 
-For an overview of this process, watch the following 15-second video.
+Watch the following video to see this feature in action.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/multidata-dev-tools.gif" alt="Multiple data sources in Dev Tools demo">{: .img-fluid}
 
@@ -163,7 +156,7 @@ Follow these steps to learn how to create data visualizations for a dashboard:
 3. Select a source. For this tutorial, choose the index pattern `opensearch_dashboards_sample_data_ecommerce`.
 4. Under **Buckets**, choose **Add** > **X-axis**.
 5. In the **Aggregation** field, choose **Date Histogram** and then choose **Update**.
-6. Optional: Choose **Save** and add the file name. This tutorial uses preconfigured data visualizations, so you can't save the file for this tutorial.
+6. Choose **Save** and add the file name. This tutorial uses preconfigured data visualizations, so you can't save the file for this tutorial.
 
 ## Connecting visualizations in a single dashboard
 
@@ -178,16 +171,11 @@ Your dashboard might look like the one in the following image.
 
 <img src="{{site.url}}{{site.baseurl}}/images/multi-data-sources-12.jpg" width=700 alt="Example dashboard using data visualizations from many data sources">
 
-You have now explored the data sources experimental feature. To provide feedback on how this feature can be improved ahead of its release for production use, comment in the [OpenSearch forum](https://forum.opensearch.org/).
 
 ## Understanding feature limitations
 
-The following limitations apply to this experimental feature:
+This feature has the following limitations:
 
 * The multiple data sources feature is supported for index-pattern-based visualizations only.
 * The visualization types Time Series Visual Builder (TSVB), Vega and Vega-Lite, and timeline are not supported.
 * External plugins, such as Gantt chart, and non-visualization plugins, such as the developer console, are not supported.
-
-## Related topics
-
-* [OpenSearch Forum](https://forum.opensearch.org/)
