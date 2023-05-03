@@ -1,0 +1,24 @@
+extends: script
+message: "Do not stack headings. Insert an introductory sentence between headings."
+level: error
+link: https://github.com/opensearch-project/documentation-website/blob/main/STYLE_GUIDE.md#formatting-and-organization
+scope: raw
+script: |
+  text := import("text")
+  matches := []
+  // Replace code blocks with dummy text to avoid processing comments
+  document := text.re_replace("(?s) *(```.*?```)", scope, "text")
+  isHeading := false
+  for line in text.split(document, "\n") {
+    if text.trim_space(line) != "" {   
+      if text.has_prefix(line, "#") {
+        if isHeading == true {
+          start := text.index(scope, line)
+          matches = append(matches, {begin: start, end: start + len(line)})
+         }
+        isHeading = true // new section; reset count
+      } else {
+        isHeading = false
+      }
+    }
+  }  

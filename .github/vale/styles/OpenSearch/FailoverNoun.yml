@@ -1,0 +1,7 @@
+extends: sequence
+message: "Use 'failover' as an adjective or noun instead of '%s'."
+level: error
+ignorecase: true
+tokens:
+  - tag: NN|JJ
+    pattern: '(?:fail over|fail-over)'

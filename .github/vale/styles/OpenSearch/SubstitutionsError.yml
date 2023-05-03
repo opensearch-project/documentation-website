@@ -1,0 +1,48 @@
+extends: substitution
+message: "Use '%s' instead of '%s'."
+ignorecase: true
+level: error
+action:
+  name: replace
+swap:
+  'command-line interface': command line interface
+  'data are': data is
+  'data set': dataset
+  'for information on': for information about
+  'for more information on': for more information about
+  'geo hash': geohash
+  'geo point': geopoint
+  'geo shape': geoshape
+  'geospacial': geospatial
+  'hard code': hardcode
+  'high-performance computing': high performance computing
+  'host name': hostname
+  'Huggingface': Hugging Face
+  'indices': indexes
+  'keystore': key store
+  'kmeans': k-means
+  'kNN': k-NN
+  'machine-learning': machine learning
+  'nonproduction': non-production
+  'postmigration': post-migration
+  'pre-configure': preconfigure
+  'pre-configured': preconfigured
+  'pre-defined': predefined
+  'pre-train': pretrain
+  'pre-trained': pretrained
+  'premigration': pre-migration
+  're-enable': reenable
+  'screen shot': screenshot
+  'sample request': example request
+  'sample response': example response
+  'stacktrace': stack trace
+  'stand-alone': standalone
+  'timeframe': time frame
+  'time series data': time-series data
+  'time stamp': timestamp
+  'timezone': time zone
+  'truststore': trust store
+  'U.S.': US
+  'web page': webpage
+  'web site': website
+  'user interface \(UI\)': UI

@@ -1,0 +1,9 @@
+extends: existence
+message: "Using '%s' is unnecessary. Remove."
+link: https://github.com/opensearch-project/documentation-website/blob/main/TERMS.md
+ignorecase: true
+level: warning
+action:
+  name: remove
+tokens:
+  - 'please'

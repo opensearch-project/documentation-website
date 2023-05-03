@@ -1,0 +1,5 @@
+extends: existence
+message: "Use 'cyber' as a prefix. Remove spaces or hyphens in '%s'."
+level: error
+tokens:
+  - '[Cc]yber[- ]+[a-z]*'
