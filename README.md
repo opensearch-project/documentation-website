@@ -136,7 +136,7 @@ The OpenSearch documentation uses a modified version of the [just-the-docs](http
 
 ## Style linting
 
-We use the [Vale](https://github.com/errata-ai/vale) linter to ensure that the documentation adheres to our [Style Guide](STYLE_GUIDE.md). To install Vale locally, use these steps:
+We use the [Vale](https://github.com/errata-ai/vale) linter to ensure that our documentation adheres to the [OpenSearch Project Style Guidelines](STYLE_GUIDE.md). To install Vale locally, follow these steps:
 
 1. Run `brew install vale`.
 2. Run `vale *` from the documentation site root directory to lint all Markdown files. To lint a specific file, run `vale /path/to/file`.
