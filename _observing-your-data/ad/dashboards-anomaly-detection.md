@@ -1,21 +1,17 @@
 ---
 layout: default
 title: Setting up anomaly detection in Dashboard 
-parent: Alerting
+parent: Anomaly detection
 nav_order: 50
 ---
 
-# CSetting up anaomlay detection in Dashboard
+# Setting up anomaly detection in Dashboard
 Introduced 2.8
 {: .label .label-purple }
 
-Anomaly detection features allow you to localize and address errors, fraud, or potential issues in your system before they become serious problems and to improve the accuracy of your data and analytics.
+OpenSearch Dashboards anomaly detection is a machine learning (ML)-powered feature that finds anomalies in time-series data and surfaces them via dashboard insights <insert screenshot>. The **Dashboard** app allows you to set up anomaly detection from within the app instead of jumping between the app and the [anomaly detection plugin]({{site.url}}{{site.baseurl}}/observing-your-data/ad/index/) page. The Dashboard app gives you one place to:
 
-Alerts and anomalies are closely related, but they serve different purposes. Alerts inform you of issues that require immediate attention, while anomalies help you detect issues that may not yet have triggered an alert. By using both alerts and anomalies in your monitoring system, you can proactively manage and troubleshoot your system. 
-
-In this tutorial, you will learn to perform anomaly detection using the **Discover** application and line chart visualizations with OpenSearch sample data. At the end of this tutorial, you should have a good idea of how to use the Discover application and visualizations to monitor your own data. Common use cases for alerting and anomaly detection include network behavior, application performance, and web application security.
-
-The following video provides a quick overview of the steps performed in this tutorial:
+- 
 
 <insert demo from SME>
 
@@ -25,27 +21,18 @@ The following video provides a quick overview of the steps performed in this tut
 The following is useful terminology to understand before getting started with this tutorial:
 
 - _Anomaly detection_ is a technique used in data analysis to identify patterns or data points that deviate from the norm or expected behavior. It can be performed in real time, near real time, or on a scheduled basis.
-- _Alert_ refers to an event associated with a trigger. When an alert is created, the trigger performs actions, which can include sending a notification.. 
-- _Monitor_ refers to jobs that run on a defined schedule and query OpenSearch indexes.
-- _Trigger_ refers to conditions that generate alerts.
-- _Action_ refers to the information that you want the monitor to send out after being triggered. Actions have a destination, a message subject, and a message body.
-- _Destination_ refers to a reusable location for an action. Supported locations are Slack, email, or custom webhook.
+- _Anomalies_ are data points that deviate unexpectedly from an observed pattern.
 
-For an overview of the OpenSearch Alerting and Anomaly Detection plugins, see the OpenSearch documentation for [Alerting]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/index/) and [Anomaly Detection]({{site.url}}{{site.baseurl}}/observing-your-data/ad/index/).
+For information about the anomaly detection plugin, see [Anomaly Detection]({{site.url}}{{site.baseurl}}/observing-your-data/ad/index/).
 {: .note} 
 
 ## Prerequisites 
 
-This tutorial has the following prerequisites: 
-
-- You must be running OpenSearch Dashboards before proceeding with the tutorial. 
-- You must be connected to your local OpenSearch Dashboards environment or `https://localhost:5601`. The username and password are `admin`.
-- You have basic familiarity with <prereq?>
-- <Other prereq?>
+You must be running OpenSearch and OpenSearch Dashboards 2.8 or later.
 
 ## Configuring admin settings
 
- Access to alerting and anomaly detection using visualizations is controlled by OpenSearch and OpenSearch Dashboards privileges. **Stack Management** is the place where you manage advanced settings. The setting is enabled by default and appears as a feature in the **Stack Management > Advanced Settings > Visualizations** window as shown below. If the setting is disabled, it does not appear in this window. The following image shows the enabled settings in the Advanced Settings window.
+ Access to anomaly detection dashboards and visualizations is controlled by OpenSearch and OpenSearch Dashboards privileges. **Stack Management** is the place where you manage advanced settings. The setting is enabled by default and appears as a feature in the **Stack Management > Advanced Settings > Visualizations** window as shown below. If the setting is disabled, it does not appear in this window. The following image shows the enabled settings in the Advanced Settings window.
 
  <insert UI>
 
@@ -57,18 +44,16 @@ If you are an administrator, you can disable the settings at the cluster level t
 
 ## Creating anomaly detectors
 
-Anomaly detectors identify unusual patterns or outliers in a dataset. Once  you have defined your problem and prepared your data, you can load it into OpenSearch for indexing. In the following steps, you will continue using the sample dataset that you used in the preceding steps.
-
-To create an anomaly detector using the Discover application and OpenSearch sample data and then visualize the anomalies on a dashboard, follow these steps: 
+To create an anomaly detector in the Dashboard app and then visualize the anomalies on a dashboard, follow these steps: 
 
 1. From the OpenSearch Dashboards main menu, select **Discover**.
-1. From the <name> window, select the **<name>** sample dataset. You will see a pre-populated dashboard with line chart visualizations.
-1. Select the ellipsis icon from the **<name>** visualization pane, and then from the **Options** pop-up window, choose **Anomaly Detection** > **Add anomaly detector**.
-1.  Select **Create new detector**.
-1. From the Add anomaly detector window, define the metrics and set thresholds under **Detector details** and **Model features**. To view the visualization within this window, toggle the **Show visualization** button.
-1. _Optional_: Under **Detector details**, select <option> from the dropdown menu to configure the detector details.
-1. _Optional_: Under **Model features**, select <option> from the dropdown menu to configure the evaluation metrics. You can add and delete model features as best suited your use case and data, but you are limited to five model features for that detector.
-1. Select **Create detector**.
+2. From the <name> window, select the **<name>** sample dataset. You will see a pre-populated dashboard with line chart visualizations.
+3. Select the ellipsis icon from the **<name>** visualization pane, and then from the **Options** pop-up window, choose **Anomaly Detection** > **Add anomaly detector**.
+4.  Select **Create new detector**.
+5. From the Add anomaly detector window, define the metrics and set thresholds under **Detector details** and **Model features**. To view the visualization within this window, toggle the **Show visualization** button.
+6. _Optional_: Under **Detector details**, select <option> from the dropdown menu to configure the detector details.
+7. _Optional_: Under **Model features**, select <option> from the dropdown menu to configure the evaluation metrics. You can add and delete model features as best suited your use case and data, but you are limited to five model features for that detector.
+8. Select **Create detector**.
 
 Once you have created a new detector, the detector is added to the visualization, as shown in the following image.  
 
