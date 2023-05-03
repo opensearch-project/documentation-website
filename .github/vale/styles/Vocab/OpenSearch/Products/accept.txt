@@ -1,0 +1,80 @@
+Active Directory
+Adoptium
+Amazon
+Amazon OpenSearch Serverless
+Amazon OpenSearch Service
+Ansible
+Auditbeat
+AWS Cloud
+Cognito
+Dashboards Query Language
+Data Prepper
+Debian
+Dev Tools
+Docker
+Docker Compose
+Dockerfile
+DoS
+Elasticsearch
+GeoJSON
+GitHub
+Gradle
+Grafana
+Faiss
+Filebeat
+Fluent Bit
+Fluentd
+Helm
+Hugging Face
+Inferentia
+IPv4
+IPv6
+Iris
+JavaScript
+Jaeger
+Jaeger HotROD
+Keycloak
+Kerberos
+Kibana
+Kubernetes
+Lambda
+Linux
+Log4j
+Logstash
+Lucene
+macOS
+Metricbeat
+Microsoft Power BI
+Minikube
+Nagios
+Okta
+Open Distro
+OpenID Connect
+OpenSearch
+OpenSearch Dashboards
+OpenSearch Project
+OpenSearch Service
+OpenSSL
+OpenTelemetry
+OpenTelemetry Collector
+OTel
+Packetbeat
+Painless
+Peer Forwarder
+Performance Analyzer
+Piped Processing Language
+Point in Time
+Powershell
+Python
+PyTorch
+Querqy
+Query Workbench
+RPM Package Manager
+Ruby
+Sigv4 
+Simple Schema for Observability
+Tableau
+TorchScript
+Tribuo
+VisBuilder
+Winlogbeat

@@ -1,0 +1,11 @@
+extends: existence
+message: "'%s': Don't define acronyms in headings."
+link: 'https://github.com/opensearch-project/documentation-website/blob/main/STYLE_GUIDE.md#acronyms'
+level: error
+ignorecase: false
+scope: heading
+nonword: true
+action:
+  name: remove
+tokens:
+  - '\([A-Z]{2,5}\)'
