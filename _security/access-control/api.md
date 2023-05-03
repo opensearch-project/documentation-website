@@ -3,6 +3,8 @@ layout: default
 title: API
 parent: Access control
 nav_order: 120
+redirect_from: 
+ - /security-plugin/access-control/api/
 ---
 
 # API
@@ -25,12 +27,14 @@ Just like OpenSearch permissions, you control access to the Security plugin REST
 ```yml
 plugins.security.restapi.roles_enabled: ["<role>", ...]
 ```
+{% include copy.html %}
 
 These roles can now access all APIs. To prevent access to certain APIs:
 
 ```yml
 plugins.security.restapi.endpoints_disabled.<role>.<endpoint>: ["<method>", ...]
 ```
+{% include copy.html %}
 
 Possible values for `endpoint` are:
 
@@ -57,12 +61,14 @@ plugins.security.restapi.roles_enabled: ["all_access", "security_rest_api_access
 plugins.security.restapi.endpoints_disabled.test-role.ROLES: ["PUT", "POST", "DELETE", "PATCH"]
 plugins.security.restapi.endpoints_disabled.test-role.INTERNALUSERS: ["PUT", "POST", "DELETE", "PATCH"]
 ```
+{% include copy.html %}
 
 To use the PUT and PATCH methods for the [configuration APIs](#configuration), add the following line to `opensearch.yml`:
 
 ```yml
 plugins.security.unsupported.restapi.allow_securityconfig_modification: true
 ```
+{% include copy.html %}
 
 
 ## Reserved and hidden resources
@@ -75,6 +81,7 @@ To mark a resource as reserved, add the following flag:
 kibana_user:
   reserved: true
 ```
+{% include copy.html %}
 
 Likewise, you can mark users, role, role mappings, and action groups as hidden. Resources that have this flag set to true are not returned by the REST API and not visible in OpenSearch Dashboards:
 
@@ -82,6 +89,7 @@ Likewise, you can mark users, role, role mappings, and action groups as hidden. 
 kibana_user:
   hidden: true
 ```
+{% include copy.html %}
 
 Hidden resources are automatically reserved.
 
@@ -181,6 +189,7 @@ GET _plugins/_security/api/actiongroups/<action-group>
 ```json
 GET _plugins/_security/api/actiongroups/custom_action_group
 ```
+{% include copy-curl.html %}
 
 #### Example response
 
@@ -1220,6 +1229,7 @@ Before you can execute the operation, you must first add the following line to `
 ```yml
 plugins.security.unsupported.restapi.allow_securityconfig_modification: true
 ```
+{% include copy.html %}
 
 #### Request
 
@@ -1253,6 +1263,7 @@ Before you can use the REST API to configure the allow list, you must first add 
 ```yml
 plugins.security.nodes_dn_dynamic_config_enabled: true
 ```
+{% include copy.html %}
 
 
 ### Get distinguished names
@@ -1594,7 +1605,7 @@ curl -X PATCH -k -i --cert <admin_cert file name> --key <admin_cert_key file nam
 ```
 {% include copy-curl.html %}
 
-The OpenSearch Dashboards Dev tool does not currently support the PATCH method. You can use [curl](https://curl.se/), [Postman](https://www.postman.com/), or another alternative process to update the configuration using this method. To follow the GitHub issue for support of the PATCH method in Dashboards, see [issue #2343](https://github.com/opensearch-project/OpenSearch-Dashboards/issues/2343).
+OpenSearch Dashboards Dev Tools do not currently support the PATCH method. You can use [curl](https://curl.se/), [Postman](https://www.postman.com/), or another alternative process to update the configuration using this method. To follow the GitHub issue for support of the PATCH method in Dashboards, see [issue #2343](https://github.com/opensearch-project/OpenSearch-Dashboards/issues/2343).
 {: .note}
 
 #### Example response
