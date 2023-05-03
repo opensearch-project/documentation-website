@@ -12,7 +12,7 @@ Introduced 2.8
 The **Dashboard** app allows you to set up alerts and display visualizations from within the app instead of jumping between the app and the [alerting plugin]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/index/) page. The Dashboard app gives you one place to:
 
 - Set up, add, and adjust rules and conditions that trigger alerts and notifications.
-- Create visualizations such as line charts to help you quickly see trends and patterns or identify issues.
+- Create visualizations to help you quickly see trends and patterns or identify and address issues.
 - Build dashboards to stay on top of important metrics and data points in real time.
 - Monitor your alerts at-a-glance visuals and share dashboards quickly with team members.  
 
@@ -29,6 +29,7 @@ The following terminology is commonly used with alerting in OpenSearch Dashboard
 - A _trigger_ refers to conditions that generate alerts.
 - An _action_ refers to the information that you want the monitor to send out after being triggered. Actions have a notification channel, a message subject, and a message body.
 - A _notification channel_ refers to a reusable location, such as Slack, email, or custom webhook, for an action.
+- A _panel_ is a visualization that is pinned to the dashboard and, in most cases, selecting a panel takes you to the page where the visualization was created.
 
 ## Prerequisites 
 
@@ -54,7 +55,7 @@ Alerts and anomalies are visualized in line charts on a dashboard. To create an 
 
 1. From the OpenSearch Dashboards main menu, select **Discover**.
 2. From **<window>**, select the **<name>** sample dataset. You will see a pre-populated dashboard with line chart visualizations.
-3. Select the ellipsis icon from the **<name>** visualization pane, and then from the **Options** pop-up window, choose **Alerting** > **Add alerting monitor**.
+3. Select the ellipsis icon from the **<name>** visualization pane, and then from the **Options** flyout, choose **Alerting** > **Add alerting monitor**.
 4. Select **Create new monitor**.
 5. From the **Add alerting monitor** window, define the metrics and set the thresholds under **Monitor details** and **Triggers**.
 6. Under **Monitor details**, select <option> from the dropdown menu.
@@ -72,8 +73,8 @@ You can add existing monitors to a visualization using the Discover application 
 
 1. From the dashboard, select the ellipsis icon on the **<name>**, then **Alerting**.
 2. Select **Associate existing monitor**.
-3. From the **Select monitor to associate** dropdown menu, view the list of existing monitors and then select the desired monitor. In this example, select **<name>**. Note that basic information about the monitor is summarized in the window. To view more comprehensive details, select **View monitor page**, which opens the monitor details from the Alerting plugin page. 
-4. Verify you have selected the appropriate monitor, and then select **Associate monitor**. 
+3. From the **Select monitor to associate** dropdown menu, view the list of existing monitors and then select the desired monitor. In this example, select **<name>**. Note that basic information about the monitor is summarized in the window. To view more comprehensive details, select **View monitor page**, which opens the monitor details from the Alerting plugin page.
+4. Verify you have selected the appropriate monitor, and then select **Associate monitor**.
 
 An existing monitor is now associated to the visualization, as shown in the following image:
 
@@ -93,5 +94,9 @@ Once you have created or associated alerting monitors, you can verify the monito
 
 <insert UI>
 
-## Visualization requirements
+## Limitations
+
+The following are some limitations you might encounter:
+
+- 
 
