@@ -7,7 +7,7 @@ nav_order: 20
 
 # Adding multiple data sources
 
- OpenSearch Dashboards allows you to dynamically manage data sources, create index patterns based on those data sources, run queries against a specific data source, and combine visualizations in one dashboard.
+OpenSearch Dashboards allows you to dynamically manage data sources, create index patterns based on those data sources, run queries against a specific data source, and combine visualizations in one dashboard.
 
 In this tutorial we provide the steps for enabling the `data_source` setting in Dashboards; adding credentials, data source connections, and index patterns; and combining visualizations in a single dashboard.
 
