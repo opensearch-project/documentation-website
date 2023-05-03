@@ -337,10 +337,10 @@ To include SAML with other authentication types in the Dashboards sign-in window
 
 #### Session management with additional cookies
 
-To improve session management—especially for users who have multiple roles assigned to them—Dashboards provides an option to split cookie payloads into multiple cookies and then recombine the payloads when receiving them. This can help prevent larger SAML assertions from exceeding size limits for each cookie. The two settings in the following example allow you to set a prefix name for additional cookies and specify the number of them. The default number of additional cookies is three:
+To improve session management---especially for users who have multiple roles assigned to them---Dashboards provides an option to split cookie payloads into multiple cookies and then recombine the payloads when receiving them. This can help prevent larger SAML assertions from exceeding size limits for each cookie. The two settings in the following example allow you to set a prefix name for additional cookies and specify the number of them. They are added to the `opensearch_dashboards.yml` file. The default number of additional cookies is three:
 
 ```yml
-opensearch_security.saml.extra_storage.cookie_prefix: security_authentication_oidc
+opensearch_security.saml.extra_storage.cookie_prefix: security_authentication_saml
 opensearch_security.saml.extra_storage.additional_cookies: 3
 ```
 
