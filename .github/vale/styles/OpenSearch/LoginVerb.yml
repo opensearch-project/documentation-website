@@ -1,0 +1,7 @@
+extends: sequence
+message: "Use 'log in' as a verb instead of '%s'."
+level: error
+ignorecase: true
+tokens:
+  - tag: VB|VBD|VBG|VBN|VBP|VBZ
+    pattern: '(?:login|log into|log on|log onto)'
