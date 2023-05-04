@@ -1,0 +1,6 @@
+extends: existence
+message: "Resolve lingering merge conflicts."
+nonword: true
+level: error
+tokens:
+  - '<<<<<<< HEAD'

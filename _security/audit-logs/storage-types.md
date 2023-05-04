@@ -7,7 +7,7 @@ nav_order: 135
 
 # Audit log storage types
 
-Audit logs can take up quite a bit of space, so the security plugin offers several options for storage locations.
+Audit logs can take up quite a bit of space, so the Security plugin offers several options for storage locations.
 
 Setting | Description
 :--- | :---
@@ -37,13 +37,13 @@ plugins.security.audit.config.index: <indexname>
 plugins.security.audit.config.type: _doc
 ```
 
-The security plugin uses the OpenSearch REST API to send events, just like any other indexing request. For `plugins.security.audit.config.http_endpoints`, use a comma-separated list of hosts/IP addresses and the REST port (default 9200).
+The Security plugin uses the OpenSearch REST API to send events, just like any other indexing request. For `plugins.security.audit.config.http_endpoints`, use a comma-separated list of hosts/IP addresses and the REST port (default 9200).
 
 ```
 plugins.security.audit.config.http_endpoints: [192.168.178.1:9200,192.168.178.2:9200]
 ```
 
-If you use `external_opensearch` and the remote cluster also uses the security plugin, you must supply some additional parameters for authentication. These parameters depend on which authentication type you configured for the remote cluster.
+If you use `external_opensearch` and the remote cluster also uses the Security plugin, you must supply some additional parameters for authentication. These parameters depend on which authentication type you configured for the remote cluster.
 
 
 ### TLS settings
@@ -105,4 +105,4 @@ plugins.security.audit.config.log4j.logger_name: audit
 plugins.security.audit.config.log4j.level: INFO
 ```
 
-By default, the security plugin uses the logger name `audit` and logs the events on `INFO` level. Audit events are stored in JSON format.
+By default, the Security plugin uses the logger name `audit` and logs the events on `INFO` level. Audit events are stored in JSON format.

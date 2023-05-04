@@ -64,6 +64,8 @@ Whenever possible, use the active voice instead of the passive voice. The passiv
 
 Refer to the reader as _you_ (second person), and refer to the OpenSearch Project as _we_ (first person). If there are multiple authors for a blog post, you can use _we_ to refer to the authors as individuals.
 
+Describe the actions that the user takes, rather than contextualizing from the feature perspective. For example, use phrases such as “With this feature, you can...” or “Use this feature to...” instead of saying a feature *allows*, *enables*, or *lets* the user do something.
+
 For procedures or instructions, ensure that action is taken by the user (“Then you can stop the container...”) rather than the writer (“We also have to stop the container...”). Reserve the first-person plural for speaking as the OpenSearch Project, with recommendations, warnings, or explanations.
 
 In general, use the present tense. Use the future tense only when an event happens later than, not immediately after, the action under discussion.
@@ -270,6 +272,8 @@ We follow a slightly modified version of the _Microsoft Writing Style Guide_ gui
 
 - Words with prefixes are normally closed (no hyphen), whether they are nouns, verbs, adjectives, or adverbs. Note that some industry terms don’t follow this hyphenation guidance. For example, *Command Line Interface* and *high performance computing* aren’t hyphenated, and *machine learning* isn’t hyphenated when used as an adjective. Other terms are hyphenated to improve readability. Examples include *non-production*, *post-migration*, and *pre-migration*.
 
+- In general, comparative or superlative modifiers with “more,” “most,” “less,” or “least” don’t require hyphens. Use one only if it’s needed to avoid ambiguity.
+
 - The ampersand (&) should never be used in a sentence as a replacement for the word and. An exception to this is in acronyms where the ampersand is commonly used, such as in Operations & Maintenance (O&M).
 
 - When using a forward slash between words, do not insert space on either side of the slash. For example, *AI/ML* is correct whereas *AI / ML* is incorrect.
@@ -420,8 +424,6 @@ The following terms may be problematic *in some contexts*. This doesn’t mean t
 |--------------------------|-------------------------------------|
 | blackout                 | service outage, blocked             |
 | demilitarized zone (DMZ) | perimeter network, perimeter zone   |
-| disable                  | You can use *disable* to describe making a feature or command unavailable. Don't use *disable* to refer to users.                                    |
-| enable                   | You can use *enable* to describe making a feature or command available. <br><br> Avoid using *enable* to refer to making something possible for the user. Instead, rewrite to focus on what's important from the user's point of view. For example, “With ABC, you can do XYZ” is a stronger statement than “ABC enables you to XYZ.” Additionally, using a task-based statement is usually more clear than the vague “…enables you to….” |
 | invalid                  | not valid                           |
 | primitive                | Avoid using *primitive* (especially plural *primitives*) as a colloquial way of referring to the basic concepts or elements that are associated with a feature or to the simplest elements in a programming language. For greatest clarity and to avoid sounding unpleasant, replace with *primitive data type* or *primitive type*. |
 | purge                    | Use only in reference to specific programming methods. Otherwise, use *delete*, *clear*, or *remove* instead.                                                |
