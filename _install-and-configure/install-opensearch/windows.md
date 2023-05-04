@@ -63,16 +63,21 @@ An OpenSearch node in its default configuration (with demo certificates and user
          ```bat
          cd \path\to\opensearch-{{site.opensearch_version}}
          ```
+         {% include copy.html %}
+
       1. Run the batch script.
          ```bat
          .\opensearch-windows-install.bat
          ```
+         {% include copy.html %}
 
 1. Open a new command prompt and send requests to the server to verify that OpenSearch is running. Note the use of the `--insecure` flag, which is required because the TLS certificates are self-signed.
    - Send a request to port 9200:
       ```bat
       curl.exe -X GET https://localhost:9200 -u "admin:admin" --insecure
       ```
+      {% include copy.html %}
+
       You should get a response that looks like this:
       ```bat
       {
@@ -81,12 +86,12 @@ An OpenSearch node in its default configuration (with demo certificates and user
          "cluster_uuid" : "7Nqtr0LrQTOveFcBb7Kufw",
          "version" : {
             "distribution" : "opensearch",
-            "number" : "2.4.0",
-            "build_type" : "zip",
-            "build_hash" : "77ef9e304dd6ee95a600720a387a9735bbcf7bc9",
-            "build_date" : "2022-11-05T05:50:15.404072800Z",
+            "number" : <version>,
+            "build_type" : <build-type>,
+            "build_hash" : <build-hash>,
+            "build_date" : <build-date>,
             "build_snapshot" : false,
-            "lucene_version" : "9.4.1",
+            "lucene_version" : <lucene-version>,
             "minimum_wire_compatibility_version" : "7.10.0",
             "minimum_index_compatibility_version" : "7.0.0"
          },
@@ -97,26 +102,27 @@ An OpenSearch node in its default configuration (with demo certificates and user
       ```bat
       curl.exe -X GET https://localhost:9200/_cat/plugins?v -u "admin:admin" --insecure
       ```
+      {% include copy.html %}
 
       The response should look like this:
       ```bat
-      hostname opensearch-alerting                  2.4.0.0
-      hostname opensearch-anomaly-detection         2.4.0.0
-      hostname opensearch-asynchronous-search       2.4.0.0
-      hostname opensearch-cross-cluster-replication 2.4.0.0
-      hostname opensearch-geospatial                2.4.0.0
-      hostname opensearch-index-management          2.4.0.0
-      hostname opensearch-job-scheduler             2.4.0.0
-      hostname opensearch-knn                       2.4.0.0
-      hostname opensearch-ml                        2.4.0.0
-      hostname opensearch-neural-search             2.4.0.0
-      hostname opensearch-notifications             2.4.0.0
-      hostname opensearch-notifications-core        2.4.0.0
-      hostname opensearch-observability             2.4.0.0
-      hostname opensearch-reports-scheduler         2.4.0.0
-      hostname opensearch-security                  2.4.0.0
-      hostname opensearch-security-analytics        2.4.0.0
-      hostname opensearch-sql                       2.4.0.0
+      hostname opensearch-alerting                  {{site.opensearch_version}}
+      hostname opensearch-anomaly-detection         {{site.opensearch_version}}
+      hostname opensearch-asynchronous-search       {{site.opensearch_version}}
+      hostname opensearch-cross-cluster-replication {{site.opensearch_version}}
+      hostname opensearch-geospatial                {{site.opensearch_version}}
+      hostname opensearch-index-management          {{site.opensearch_version}}
+      hostname opensearch-job-scheduler             {{site.opensearch_version}}
+      hostname opensearch-knn                       {{site.opensearch_version}}
+      hostname opensearch-ml                        {{site.opensearch_version}}
+      hostname opensearch-neural-search             {{site.opensearch_version}}
+      hostname opensearch-notifications             {{site.opensearch_version}}
+      hostname opensearch-notifications-core        {{site.opensearch_version}}
+      hostname opensearch-observability             {{site.opensearch_version}}
+      hostname opensearch-reports-scheduler         {{site.opensearch_version}}
+      hostname opensearch-security                  {{site.opensearch_version}}
+      hostname opensearch-security-analytics        {{site.opensearch_version}}
+      hostname opensearch-sql                       {{site.opensearch_version}}
       ```
 
 ### Option 2: Test your OpenSearch settings with security disabled
@@ -127,6 +133,8 @@ An OpenSearch node in its default configuration (with demo certificates and user
    ```yaml
    plugins.security.disabled: true
    ```
+   {% include copy.html %}
+
 1. Save the change and close the file.
 1. Navigate to the top directory of your OpenSearch installation and open the `opensearch-{{site.opensearch_version}}` folder.
 1. Run the default by double-clicking the `opensearch-windows-install.bat` file. This opens a command prompt with an OpenSearch instance running.
@@ -135,6 +143,8 @@ An OpenSearch node in its default configuration (with demo certificates and user
       ```bat
       curl.exe -X GET http://localhost:9200
       ```
+      {% include copy.html %}
+
       You should get a response that looks like this:
       ```bat
       {
@@ -159,26 +169,27 @@ An OpenSearch node in its default configuration (with demo certificates and user
       ```bat
       curl.exe -X GET http://localhost:9200/_cat/plugins?v
       ```
+      {% include copy.html %}
 
       The response should look like this:
       ```bat
-      hostname opensearch-alerting                  2.4.0.0
-      hostname opensearch-anomaly-detection         2.4.0.0
-      hostname opensearch-asynchronous-search       2.4.0.0
-      hostname opensearch-cross-cluster-replication 2.4.0.0
-      hostname opensearch-geospatial                2.4.0.0
-      hostname opensearch-index-management          2.4.0.0
-      hostname opensearch-job-scheduler             2.4.0.0
-      hostname opensearch-knn                       2.4.0.0
-      hostname opensearch-ml                        2.4.0.0
-      hostname opensearch-neural-search             2.4.0.0
-      hostname opensearch-notifications             2.4.0.0
-      hostname opensearch-notifications-core        2.4.0.0
-      hostname opensearch-observability             2.4.0.0
-      hostname opensearch-reports-scheduler         2.4.0.0
-      hostname opensearch-security                  2.4.0.0
-      hostname opensearch-security-analytics        2.4.0.0
-      hostname opensearch-sql                       2.4.0.0
+      hostname opensearch-alerting                  {{site.opensearch_version}}
+      hostname opensearch-anomaly-detection         {{site.opensearch_version}}
+      hostname opensearch-asynchronous-search       {{site.opensearch_version}}
+      hostname opensearch-cross-cluster-replication {{site.opensearch_version}}
+      hostname opensearch-geospatial                {{site.opensearch_version}}
+      hostname opensearch-index-management          {{site.opensearch_version}}
+      hostname opensearch-job-scheduler             {{site.opensearch_version}}
+      hostname opensearch-knn                       {{site.opensearch_version}}
+      hostname opensearch-ml                        {{site.opensearch_version}}
+      hostname opensearch-neural-search             {{site.opensearch_version}}
+      hostname opensearch-notifications             {{site.opensearch_version}}
+      hostname opensearch-notifications-core        {{site.opensearch_version}}
+      hostname opensearch-observability             {{site.opensearch_version}}
+      hostname opensearch-reports-scheduler         {{site.opensearch_version}}
+      hostname opensearch-security                  {{site.opensearch_version}}
+      hostname opensearch-security-analytics        {{site.opensearch_version}}
+      hostname opensearch-sql                       {{site.opensearch_version}}
       ```
 
 To stop OpenSearch, press `Ctrl+C` in Command Prompt or Powershell, or simply close the Command Prompt or Powershell window.
@@ -218,6 +229,8 @@ Before modifying any configuration files, it's always a good idea to save a back
    # be sure to re-enable it. Otherwise you can skip this setting.
    plugins.security.disabled: false
    ```
+   {% include copy.html %}
+
 1. Save your changes and close the file.
 1. Specify initial and maximum JVM heap sizes.
    1.  Open the `opensearch-{{site.opensearch_version}}\config` folder.
@@ -228,6 +241,8 @@ Before modifying any configuration files, it's always a good idea to save a back
     -Xms4g
     -Xmx4g
     ```
+    {% include copy.html %}
+
    1. Save your changes and close the file.
 1. Specify the location of the included JDK. 
     1. In the search box next to **Start** on the taskbar, enter `edit environment variables for your account` or `edit the system environment variables`. To edit the system environment variables, you need admin rights. User environment variables take precedence over system environment variables.

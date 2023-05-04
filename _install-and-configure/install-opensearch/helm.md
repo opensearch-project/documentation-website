@@ -38,18 +38,21 @@ The default Helm chart deploys a three-node cluster. We recommend that you have 
    ```bash
    helm repo add opensearch https://opensearch-project.github.io/helm-charts/
    ```
+   {% include copy.html %}
 
 1. Update the available charts locally from charts repositories:
 
    ```bash
    helm repo update
    ```
+   {% include copy.html %}
 
 1. To search for the OpenSearch-related Helm charts:
 
    ```bash
    helm search repo opensearch
    ```
+   {% include copy.html %}
 
    ```bash
    NAME                            	CHART VERSION	APP VERSION	DESCRIPTION                           
@@ -62,6 +65,7 @@ The default Helm chart deploys a three-node cluster. We recommend that you have 
    ```bash
    helm install my-deployment opensearch/opensearch
    ```
+   {% include copy.html %}
 
 You can also build the `opensearch-1.0.0.tgz` file manually:
 
@@ -70,24 +74,29 @@ You can also build the `opensearch-1.0.0.tgz` file manually:
    ```bash
    cd charts/opensearch
    ```
+   {% include copy.html %}
 
 1. Package the Helm chart:
 
    ```bash
    helm package .
    ```
+   {% include copy.html %}
 
 1. Deploy OpenSearch:
 
    ```bash
    helm install --generate-name opensearch-1.0.0.tgz
    ```
+   {% include copy.html %}
+
    The output shows you the specifications instantiated from the install.
    To customize the deployment, pass in the values that you want to override with a custom YAML file:
 
    ```bash
    helm install --values=customvalues.yaml opensearch-1.0.0.tgz
    ```
+   {% include copy.html %}
 
 #### Sample output
 
@@ -118,6 +127,7 @@ To access the OpenSearch shell:
 ```bash
 $ kubectl exec -it opensearch-cluster-master-0 -- /bin/bash
 ```
+{% include copy.html %}
 
 You can send requests to the pod to verify that OpenSearch is up and running:
 
@@ -129,12 +139,12 @@ $ curl -XGET https://localhost:9200 -u 'admin:admin' --insecure
   "cluster_uuid" : "hP2gq5bPS3SLp8Z7wXm8YQ",
   "version" : {
     "distribution" : "opensearch",
-    "number" : "1.0.0",
-    "build_type" : "tar",
-    "build_hash" : "34550c5b17124ddc59458ef774f6b43a086522e3",
-    "build_date" : "2021-07-02T23:22:21.383695Z",
+    "number" : <version>,
+    "build_type" : <build-type>,
+    "build_hash" : <build-hash>,
+    "build_date" : <build-date>,
     "build_snapshot" : false,
-    "lucene_version" : "8.8.2",
+    "lucene_version" : <lucene-version>,
     "minimum_wire_compatibility_version" : "6.8.0",
     "minimum_index_compatibility_version" : "6.0.0-beta1"
   },
@@ -157,5 +167,6 @@ To delete or uninstall a deployment, run the following command:
 ```bash
 helm delete opensearch-1-1629223146
 ```
+{% include copy.html %}
 
 For steps to install OpenSearch Dashboards, see [Helm to install OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/install/helm/).

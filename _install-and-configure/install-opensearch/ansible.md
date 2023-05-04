@@ -25,12 +25,14 @@ Make sure you have [Ansible](https://www.ansible.com/) and [Java 8](https://www.
    ```bash
    git clone https://github.com/opensearch-project/ansible-playbook
    ```
+   {% include copy.html %}
 
 2. Configure the node properties in the `inventories/opensearch/hosts` file:
 
    ```bash
    ansible_host=<Public IP address> ansible_user=root ip=<Private IP address / 0.0.0.0>
    ```
+   {% include copy.html %}
 
    where:
 
@@ -43,6 +45,7 @@ Make sure you have [Ansible](https://www.ansible.com/) and [Java 8](https://www.
    xms_value: 8
    xmx_value: 8
    ```
+   {% include copy.html %}
 
 Make sure you have direct SSH access into the root user of the target node.
 {: .note }
@@ -54,6 +57,7 @@ Make sure you have direct SSH access into the root user of the target node.
    ```bash
    ansible-playbook -i inventories/opensearch/hosts opensearch.yml --extra-vars "admin_password=Test@123 kibanaserver_password=Test@6789"
    ```
+   {% include copy.html %}
 
    You can set the passwords for reserved users (`admin` and `kibanaserver`) using the `admin_password` and `kibanaserver_password` variables.
 
@@ -64,5 +68,6 @@ Make sure you have direct SSH access into the root user of the target node.
    ```bash
    curl https://localhost:9200 -u 'admin:Test@123' --insecure
    ```
+   {% include copy.html %}
 
    If you bind `ip` to 0.0.0.0, then replace `localhost` with the public IP or the private IP (if it's in the same network).
