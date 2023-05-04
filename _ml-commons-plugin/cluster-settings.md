@@ -39,7 +39,7 @@ plugins.ml_commons.task_dispatch_policy: round_robin
 
 ### Values
 
-- Dafault value: `round_robin`
+- Default value: `round_robin`
 - Value range: `round_robin` or `least_load`
 
 ## Set number of ML tasks per node
