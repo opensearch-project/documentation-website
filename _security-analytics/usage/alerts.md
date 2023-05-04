@@ -2,7 +2,7 @@
 layout: default
 title: Working with alerts
 parent: Using Security Analytics
-nav_order: 46
+nav_order: 45
 ---
 
 # Working with alerts
