@@ -5,7 +5,7 @@ nav_order: 10
 has_children: true
 redirect_from:
   - /opensearch/catapis/
-  - /opensearch/rest-api/cat
+  - /opensearch/rest-api/cat/index/
 ---
 
 # CAT API

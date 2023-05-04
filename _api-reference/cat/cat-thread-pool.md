@@ -4,6 +4,8 @@ title: CAT thread pool
 parent: CAT API
 nav_order: 75
 has_children: false
+redirect_from:
+- /opensearch/rest-api/cat/cat-thread-pool/
 ---
 
 # CAT thread pool
@@ -43,7 +45,7 @@ GET _cat/thread_pool
 
 All CAT thread pool URL parameters are optional.
 
-In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameter:
+In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameters:
 
 Parameter | Type | Description
 :--- | :--- | :---

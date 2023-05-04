@@ -5,6 +5,8 @@ parent: CAT API
 
 nav_order: 70
 has_children: false
+redirect_from:
+- /opensearch/rest-api/cat/cat-tasks/
 ---
 
 # CAT tasks
@@ -30,7 +32,7 @@ GET _cat/tasks
 
 All CAT tasks URL parameters are optional.
 
-In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameter:
+In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameters:
 
 Parameter | Type | Description
 :--- | :--- | :---

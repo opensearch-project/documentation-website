@@ -2,6 +2,8 @@
 layout: default
 title: CAT aliases
 parent: CAT API
+redirect_from:
+- /opensearch/rest-api/cat/cat-aliases/
 
 nav_order: 1
 has_children: false
@@ -11,7 +13,7 @@ has_children: false
 Introduced 1.0
 {: .label .label-purple }
 
-The CAT aliases operation lists the mapping of aliases to indices, plus routing and filtering information.
+The CAT aliases operation lists the mapping of aliases to indexes, plus routing and filtering information.
 
 ## Example
 
