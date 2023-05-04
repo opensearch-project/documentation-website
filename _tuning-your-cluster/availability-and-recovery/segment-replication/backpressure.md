@@ -31,7 +31,6 @@ You can use the segment replication API endpoint to retrieve segment replication
 ```bash
 GET _cat/segment_replication
 ```
-{% include copy-curl.html %}
 
 #### Example response
 
