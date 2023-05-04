@@ -3,23 +3,55 @@ layout: default
 title: add_entries
 parent: Processors
 grand_parent: Pipelines
-nav_order: 45
+nav_order: 40
 ---
 
 # add_entries
 
-## Overview
+The `add_entries` processor adds entries to an event.
 
-The `add_entries` processor adds an entry to the event and is a [mutate event](https://github.com/opensearch-project/data-prepper/tree/main/data-prepper-plugins/mutate-event-processors#mutate-event-processors) processor. The following table describes the options you can use to configure the `add_entries` processor.
+### Configuration
 
-Option | Required | Type | Description
-:--- | :--- | :--- | :---
-entries | Yes | List | List of events to be added. Valid entries are `key`, `value`, and `overwrite_if_key_exists`.
-key | N/A | N/A | Key of the new event to be added.
-value | N/A | N/A | Value of the new entry to be added. Valid data types are strings, booleans, numbers, null, nested objects, and arrays containing the aforementioned data types.
-overwrite_if_key_exists | No | Boolean | If true, the existing value is overwritten if the key already exists within the event. Default value is `false`.
+You can configure the `add_entries` processor with the following options.
 
-<!--- ## Configuration
+| Option | Required | Description |
+| :--- | :--- | :--- |
+| `entries` | Yes | A list of entries to add to an event. |
+| `key` | Yes | The key of the new entry to be added. Some examples of keys include `my_key`, `myKey`, and `object/sub_Key`. |
+| `value` | Yes | The value of the new entry to be added. You can use the following data types: strings, Booleans, numbers, null, nested objects, and arrays. |
+| `overwrite_if_key_exists` | No | When set to `true`, the existing value is overwritten if `key` already exists in the event. The default value is `false`. |
 
-Content will be added to this section.--->
+### Usage
+
+To get started, create the following `pipeline.yaml` file:
+
+```yaml
+pipeline:
+  source:
+    ...
+  ....  
+  processor:
+    - add_entries:
+        entries:
+        - key: "newMessage"
+          value: 3
+          overwrite_if_key_exists: true
+  sink:
+```
+{% include copy.html %}
+
+
+For example, when your source contains the following event record:
+
+```json
+{"message": "hello"}
+```
+
+And then you run the `add_entries` processor using the example pipeline, it adds a new entry, `{"newMessage": 3}`, to the existing event, `{"message": "hello"}`, so that the new event contains two entries in the final output:
+
+```json
+{"message": "hello", "newMessage": 3}
+```
+
+> If `newMessage` already exists, its existing value is overwritten with a value of `3`.
 

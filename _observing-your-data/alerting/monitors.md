@@ -42,7 +42,16 @@ Channel | A notification channel to use in an action. See [notifications]({{site
 Introduced 2.0
 {: .label .label-purple }
 
-The per query and per bucket monitors can only run a single query with one trigger condition. Per document monitors allow you to combine multiple query trigger conditions by adding a tag to the queries. Then you can add the tag as a single trigger condition instead of specifying a single query. The Alerting plugin processes the trigger conditions from all queries as a logical OR operation, so if any of the query conditions are met, it triggers an alert. Next, the Alerting plugin tells the Notifications plugin to send the notification to a channel.
+Per document monitors allow you to define up to 10 queries that compare the selected field with your desired value. You can define supported field data types using the following operators:
+
+- `is` 
+- `is not`
+- `is greater than`
+- `is greater than equal`
+- `is less than`
+- `is less than equal`
+
+You query each trigger using up to 10 tags, adding the tag as a single trigger condition instead of specifying a single query. The Alerting plugin processes the trigger conditions from all queries as a logical `OR` operation, so if any of the query conditions are met, it triggers an alert. Next, the Alerting plugin tells the Notifications plugin to send the notification to a channel.
 
 The Alerting plugin also creates a list of document findings that contains metadata about which document matches each query. Security analytics can use the document findings data to keep track of and analyze the query data separately from the alert processes.
 
@@ -138,7 +147,12 @@ POST _nodes/reload_secure_settings
 1. Specify a name for the monitor.
 1. Choose either **Per query monitor**, **Per bucket monitor**, **Per cluster metrics monitor**, or **Per document monitor**.
 
-Per query monitors run your specified query and then check whether the query's results trigger any alerts. Per bucket monitors let you select which fields to create buckets and categorize your results into those buckets. The Alerting plugin runs each bucket's unique results against a script you define later, so you have finer control over which results should trigger alerts. Each of those buckets can trigger an alert, but query-level monitors can only trigger one alert at a time.
+OpenSearch supports the following types of monitors:
+
+- **Per query monitors** run your specified query and then check whether the query's results trigger any alerts. Per query monitors can only trigger one alert at a time. 
+- **Per bucket monitors** let you create buckets based on selected fields and then categorize your results into those buckets. The Alerting plugin runs each bucket's unique results against a script you define later, so you have finer control over which results should trigger alerts. Furthermore, each bucket can trigger an alert.
+
+The maximum number of monitors you can create is 1,000. You can change the default maximum number of alerts for your cluster by calling the cluster settings API `plugins.alerting.monitor.max_monitors`.
 
 1. Decide how you want to define your query and triggers. You can use any of the following methods: visual editor, query editor, or anomaly detector.
 
@@ -418,7 +432,7 @@ If you don't want to receive notifications for alerts, you don't have to add act
 
 1. Choose **Create**.
 
-After an action sends a message, the content of that message has left the purview of the security plugin. Securing access to the message (e.g. access to the Slack channel) is your responsibility.
+After an action sends a message, the content of that message has left the purview of the Security plugin. Securing access to the message (e.g. access to the Slack channel) is your responsibility.
 
 
 #### Sample message

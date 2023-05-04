@@ -16,5 +16,6 @@ After creating detectors and generating findings, functionality within the sever
 * [Working with detectors]({{site.url}}{{site.baseurl}}/security-analytics/usage/detectors/)
 * [Working with findings]({{site.url}}{{site.baseurl}}/security-analytics/usage/findings/)
 * [Working with rules]({{site.url}}{{site.baseurl}}/security-analytics/usage/rules/)
+* [Working with the correlation graph]({{site.url}}{{site.baseurl}}/security-analytics/usage/correlation-graph/)
 * [Working with alerts]({{site.url}}{{site.baseurl}}/security-analytics/usage/alerts/)
 

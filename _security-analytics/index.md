@@ -19,6 +19,7 @@ As part of the OpenSearch Project, Security Analytics exists in the open source 
 
 If you would like to leave feedback that could help improve Security Analytics, join the discussion on the [OpenSearch forum](https://forum.opensearch.org/c/plugins/security-analytics/73).
 
+
 ## Components and concepts
 
 Security Analytics includes a number of tools and features elemental to its operation. The major components that compose the plugin are summarized in the following sections.
@@ -66,7 +67,19 @@ When defining a detector, you can specify certain conditions that will trigger a
 
 For information on setting up alerts, see [Step 3. Set up alerts]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/detectors-config/#step-3-set-up-alerts) in detector creation documentation. For information on managing alerts on the Alerts window, see [Working with alerts]({{site.url}}{{site.baseurl}}/security-analytics/usage/alerts/).
 
+### Correlation engine
+
+The correlation engine is an experimental feature released in OpenSearch 2.7. Therefore, we do not recommend using the feature in a production environment at this time. For updates on the progress of the correlation engine, see [Security Analytics Correlation Engine](https://github.com/opensearch-project/security-analytics/issues/369) on GitHub. To share ideas and provide feedback, join the [Security Analytics forum](https://forum.opensearch.org/c/plugins/security-analytics/73).
+{: .warning }
+
+The correlation engine gives Security Analytics the ability to compare findings from different log types and draw correlations between them. This facilitates understanding of the relationships between findings from different systems in an infrastructure and increases confidence that an event is meaningful and requires attention.
+
+The correlation engine uses correlation rules to define threat scenarios involving different log types. It can then perform queries on logs to match relevant findings from those different log sources. To depict relationships between events occurring in different logs, a correlation graph provides a visual representation of findings, their connections, and the proximity of those connections. While the correlation rules define what threat scenarios to look for, the graph provides a visualization that helps you identify the relationships between different findings in a chain of security events.
+
+To learn more about defining threat scenarios for correlation rules, see [Creating correlation rules]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/correlation-config/). To learn more about using the correlation graph, see [Working with the correlation graph]({{site.url}}{{site.baseurl}}/security-analytics/usage/correlation-graph/).
+
+
 ## First steps
 
-To get started with Security Analytics you need to define detectors, ingest log data, generate findings, and configure alerts. See [Setting up Security Analytics]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/index/) to begin configuring the platform to meet your objectives.
+To get started with Security Analytics, you need to define detectors, ingest log data, generate findings, define correlation rules, and configure alerts. See [Setting up Security Analytics]({{site.url}}{{site.baseurl}}/security-analytics/sec-analytics-config/index/) to begin configuring the platform to meet your objectives.
 
