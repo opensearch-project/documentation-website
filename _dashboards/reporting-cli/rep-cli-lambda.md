@@ -52,7 +52,10 @@ RUN apt-get update && \
 
 # Copy function code
 WORKDIR ${FUNCTION_DIR}
-RUN npm install @opensearch-project/reporting-cli && npm install aws-lambda-ric
+RUN curl -LJO https://artifacts.opensearch.org/reporting-cli/opensearch-reporting-cli-1.0.0.tgz
+RUN tar -xzf opensearch-reporting-cli-1.0.0.tgz
+RUN mv package/* .
+RUN npm install && npm install aws-lambda-ric
 
 # Build Stage 2: Copy Build Stage 1 files in to Stage 2. Install chrome, then remove chrome to keep the dependencies.
 FROM node:lts-slim
@@ -78,7 +81,7 @@ RUN apt-get update \
 ENTRYPOINT ["/usr/local/bin/npx", "aws-lambda-ric"]
 
 ENV HOME="/tmp"
-CMD [ "/function/node_modules/@opensearch-project/reporting-cli/src/index.handler" ]
+CMD [ "/function/src/index.handler" ]
 
 ```
 
