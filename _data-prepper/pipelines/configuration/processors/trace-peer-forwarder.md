@@ -1,9 +1,9 @@
 ---
 layout: default
-title: Trace peer forwarder processors
+title: trace peer forwarder
 parent: Processors
 grand_parent: Pipelines
-nav_order: 115
+nav_order: 45
 ---
 
 # trace peer forwarder

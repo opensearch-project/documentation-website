@@ -1,18 +1,16 @@
 ---
 layout: default
-title: Service map stateful processor
+title: service_map_stateful
 parent: Processors
 grand_parent: Pipelines
-nav_order: 95
+nav_order: 45
 ---
 
 # service_map_stateful
 
-The `service_map_stateful` processor uses OpenTelemetry data to create a distributed service map for visualization in OpenSearch Dashboards. 
+## Overview
 
-## Configuration
-
-The following table describes the option you can use to configure the `service_map_stateful` processor.
+The `service_map_stateful` processor uses OpenTelemetry data to create a distributed service map for visualization in OpenSearch Dashboards. The following table describes the option you can use to configure the `service_map_stateful` processor.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---

@@ -3,17 +3,14 @@ layout: default
 title: grok
 parent: Processors
 grand_parent: Pipelines
-nav_order: 53
+nav_order: 45
 ---
 
 # grok
 
+## Overview
 
-The `Grok` processor takes unstructured data and utilizes pattern matching to structure and extract important keys. 
-
-## Configuration
-
-The following table describes options you can use with the `Grok` processor to structure your data and make your data easier to query.
+The `Grok` processor takes unstructured data and utilizes pattern matching to structure and extract important keys. The following table describes options you can use with the `Grok` processor to structure your data and make your data easier to query.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
