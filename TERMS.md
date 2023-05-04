@@ -664,6 +664,14 @@ Data that's provided as part of a metric. The time value is assumed to be when t
 
 Avoid using as a verb to refer to an action that precipitates a subsequent action. It is OK to use when referring to a feature name, such as a *trigger function* or *time-triggered architecture*. As a verb, use an alternative, such as *initiate*, *invoke*, *launch*, or *start*.
 
+**turn on, turn off**
+
+Use *turn on* and *turn off* in reference to a toggle to describe switching a setting or mode on or off.
+
+Don't use *choose*, *select*, *clear*, *slide*, *enable*, or *disable* for a toggle.
+
+For making a feature available or unavailable, use *enable*.
+
 ## U 
 
 **UltraWarm**
