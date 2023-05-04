@@ -14,7 +14,7 @@ Use the **Dashboard** app to set up alerts and display visualizations from withi
 - Set up, add, and adjust rules and conditions that trigger alerts and notifications.
 - Create visualizations to help you quickly see trends and patterns or identify and address issues.
 - Build dashboards to stay on top of important metrics and data points in real time.
-- Monitor your alerts at-a-glance visuals and share dashboards quickly with team members.  
+- Monitor your alerts in one place with at-a-glance dashboards. 
 
 Getting started with alerting in Dashboard is straightforward. Watch this video for a quick overview of some of the tasks we'll perform in this tutorial. 
 
@@ -23,10 +23,12 @@ Getting started with alerting in Dashboard is straightforward. Watch this video 
 ## Prerequisites 
 
 - If you don't already have OpenSearch and OpenSearch Dashboards 2.8 or later, [download or upgrade OpenSearch](https://opensearch.org/docs/latest/install-and-configure/install-opensearch/index/) to get started.
-- Understand the visualization requirements.
--   
+- <XYZ>.
+- <XYZ>.  
 
 ## Visualization requirements
+
+Certain options are available for alerting visualizations. Consider the following requirements when building your dashboards and visualizations:
 
 
 
