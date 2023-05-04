@@ -9,9 +9,9 @@ nav_order: 65
 
 If you already have a single sign-on (SSO) solution in place, you might want to use it as an authentication backend.
 
-Most solutions work as a proxy in front of OpenSearch and the security plugin. If proxy authentication succeeds, the proxy adds the (verified) username and its (verified) roles in HTTP header fields. The names of these fields depend on the SSO solution you have in place.
+Most solutions work as a proxy in front of OpenSearch and the Security plugin. If proxy authentication succeeds, the proxy adds the (verified) username and its (verified) roles in HTTP header fields. The names of these fields depend on the SSO solution you have in place.
 
-The security plugin then extracts these HTTP header fields from the request and uses the values to determine the user's permissions.
+The Security plugin then extracts these HTTP header fields from the request and uses the values to determine the user's permissions.
 
 
 ## Enable proxy detection
@@ -42,7 +42,7 @@ Name | Description
 `internalProxies` | A regular expression containing the IP addresses of all trusted proxies. The pattern `.*` trusts all internal proxies.
 `remoteIpHeader` | Name of the HTTP header field that has the hostname chain. Default is `x-forwarded-for`.
 
-To determine whether a request comes from a trusted internal proxy, the security plugin compares the remote address of the HTTP request with the list of configured internal proxies.  If the remote address is not in the list, the plugin treats the request like a client request.
+To determine whether a request comes from a trusted internal proxy, the Security plugin compares the remote address of the HTTP request with the list of configured internal proxies.  If the remote address is not in the list, the plugin treats the request like a client request.
 
 
 ## Enable proxy authentication
@@ -67,13 +67,13 @@ proxy_auth_domain:
 Name | Description
 :--- | :---
 `user_header` | The HTTP header field containing the authenticated username. Default is `x-proxy-user`.
-`roles_header` | The HTTP header field containing the comma-separated list of authenticated role names. The security plugin uses the roles found in this header field as backend roles. Default is `x-proxy-roles`.
+`roles_header` | The HTTP header field containing the comma-separated list of authenticated role names. The Security plugin uses the roles found in this header field as backend roles. Default is `x-proxy-roles`.
 `roles_separator` | The separator for roles. Default is `,`.
 
 
 ## Enable extended proxy authentication
 
-The security plugin has an extended version of the `proxy` type that lets you pass additional user attributes for use with document-level security. Aside from `type: extended-proxy` and `attr_header_prefix`, configuration is identical:
+The Security plugin has an extended version of the `proxy` type that lets you pass additional user attributes for use with document-level security. Aside from `type: extended-proxy` and `attr_header_prefix`, configuration is identical:
 
 ```yml
 proxy_auth_domain:
@@ -168,12 +168,12 @@ enabled: true
 internalProxies: '172.16.0.203' # nginx proxy
 ```
 
-In this case, `nginx.example.com` runs on `172.16.0.203`, so add this IP to the list of internal proxies. Be sure to set `internalProxies` to the minimum number of IP addresses so that the security plugin only accepts requests from trusted IPs.
+In this case, `nginx.example.com` runs on `172.16.0.203`, so add this IP to the list of internal proxies. Be sure to set `internalProxies` to the minimum number of IP addresses so that the Security plugin only accepts requests from trusted IPs.
 
 
 ## OpenSearch Dashboards proxy authentication
 
-To use proxy authentication with OpenSearch Dashboards, the most common configuration is to place the proxy in front of OpenSearch Dashboards and let OpenSearch Dashboards pass the user and role headers to the security plugin.
+To use proxy authentication with OpenSearch Dashboards, the most common configuration is to place the proxy in front of OpenSearch Dashboards and let OpenSearch Dashboards pass the user and role headers to the Security plugin.
 
 In this case, the remote address of the HTTP call is the IP of OpenSearch Dashboards, because it sits directly in front of OpenSearch. Add the IP of OpenSearch Dashboards to the list of internal proxies:
 
@@ -192,7 +192,7 @@ config:
         internalProxies: '<opensearch-dashboards-ip-address>'
 ```
 
-To pass the user and role headers that the authenticating proxy adds from OpenSearch Dashboards to the security plugin, add them to the HTTP header allow list in `opensearch_dashboards.yml`:
+To pass the user and role headers that the authenticating proxy adds from OpenSearch Dashboards to the Security plugin, add them to the HTTP header allow list in `opensearch_dashboards.yml`:
 
 ```yml
 opensearch.requestHeadersAllowlist: ["securitytenant","Authorization","x-forwarded-for","x-proxy-user","x-proxy-roles"]

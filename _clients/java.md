@@ -12,7 +12,31 @@ This getting started guide illustrates how to connect to OpenSearch, index docum
 
 ## Installing the client
 
-To start using the OpenSearch Java client, ensure that you have the following dependencies in your project's `pom.xml` file:
+To start using the OpenSearch Java client, you need to provide a transport. The default `ApacheHttpClient5TransportBuilder` transport comes with the Java client. To use the OpenSearch Java client with the default transport, add it to your `pom.xml` file as a dependency:
+
+```xml
+<dependency>
+  <groupId>org.opensearch.client</groupId>
+  <artifactId>opensearch-java</artifactId>
+  <version>2.4.0</version>
+</dependency>
+```
+{% include copy.html %}
+
+If you're using Gradle, add the following dependencies to your project:
+
+```
+dependencies {
+  implementation 'org.opensearch.client:opensearch-java:2.4.0'
+}
+```
+{% include copy.html %}
+
+You can now start your OpenSearch cluster.
+
+## Installing the client using RestClient Transport
+
+Alternatively, you can create a Java client by using the `RestClient`-based transport. In this case, make sure that you have the following dependencies in your project's `pom.xml` file:
 
 ```xml
 <dependency>
@@ -23,7 +47,7 @@ To start using the OpenSearch Java client, ensure that you have the following de
 <dependency>
   <groupId>org.opensearch.client</groupId>
   <artifactId>opensearch-java</artifactId>
-  <version>2.2.0</version>
+  <version>2.4.0</version>
 </dependency>
 ```
 {% include copy.html %}
@@ -32,8 +56,8 @@ If you're using Gradle, add the following dependencies to your project.
 
 ```
 dependencies {
-    implementation 'org.opensearch.client:opensearch-rest-client: {{site.opensearch_version}}'
-    implementation 'org.opensearch.client:opensearch-java:2.0.0'
+  implementation 'org.opensearch.client:opensearch-rest-client: {{site.opensearch_version}}'
+  implementation 'org.opensearch.client:opensearch-java:2.4.0'
 }
 ```
 {% include copy.html %}
@@ -42,7 +66,7 @@ You can now start your OpenSearch cluster.
 
 ## Security
 
-Before using the REST client in your Java application, you must configure the application's truststore to connect to the security plugin. If you are using self-signed certificates or demo configurations, you can use the following command to create a custom truststore and add in root authority certificates.
+Before using the REST client in your Java application, you must configure the application's truststore to connect to the Security plugin. If you are using self-signed certificates or demo configurations, you can use the following command to create a custom truststore and add in root authority certificates.
 
 If you're using certificates from a trusted Certificate Authority (CA), you don't need to configure the truststore.
 
