@@ -184,7 +184,7 @@ GET _plugins/_security/api/actiongroups/<action-group>
 ```
 {% include copy-curl.html %}
 
-#### Example request
+#### Request
 
 ```json
 GET _plugins/_security/api/actiongroups/custom_action_group
