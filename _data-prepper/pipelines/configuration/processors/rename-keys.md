@@ -1,6 +1,6 @@
 ---
 layout: default
-title: rename_keys
+title: Rename keys processor
 parent: Processors
 grand_parent: Pipelines
 nav_order: 85

@@ -1,14 +1,15 @@
 ---
 layout: default
-title: otel_trace 
+title: OTel trace raw processor
 parent: Processors
 grand_parent: Pipelines
 nav_order: 75
 ---
 
-# otel_trace
+# otel_trace_raw
 
-The `otel_trace` processor completes trace-group-related fields in all incoming Data Prepper span records by state caching the root span information for each `tradeId`. 
+
+The `otel_trace_raw` processor completes trace-group-related fields in all incoming Data Prepper span records by state caching the root span information for each `tradeId`. 
 
 ## Parameters
 
@@ -21,7 +22,7 @@ This processor includes the following parameters.
 
 ## Configuration
 
-The following table describes the options you can use to configure the `otel_trace` processor.
+The following table describes the options you can use to configure the `otel_trace_raw` processor.
 
 Option | Required | Type | Description
 :--- | :--- | :--- | :---
@@ -38,7 +39,7 @@ The following table describes common [Abstract processor](https://github.com/ope
 | `recordsOut` | Counter | Metric representing the egress of records from a pipeline component. |
 | `timeElapsed` | Timer | Metric representing the time elapsed during execution of a pipeline component. |
 
-The `otel_trace` processor includes the following custom metrics:
+The `otel_trace_raw` processor includes the following custom metrics.
 
 * `traceGroupCacheCount`: The number of trace groups in the trace group cache.
 * `spanSetCount`: The number of span sets in the span set collection.

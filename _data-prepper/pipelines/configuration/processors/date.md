@@ -1,6 +1,6 @@
 ---
 layout: default
-title: date
+title: Date
 parent: Processors
 grand_parent: Pipelines
 nav_order: 50

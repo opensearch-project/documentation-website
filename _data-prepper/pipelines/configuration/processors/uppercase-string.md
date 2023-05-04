@@ -1,6 +1,6 @@
 ---
 layout: default
-title: uppercase_string
+title: Uppercase string processor
 parent: Processors
 grand_parent: Pipelines
 nav_order: 125

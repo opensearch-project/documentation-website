@@ -1,6 +1,6 @@
 ---
 layout: default
-title: substitute_string
+title: Substitute string processors
 parent: Processors
 grand_parent: Pipelines
 nav_order: 110

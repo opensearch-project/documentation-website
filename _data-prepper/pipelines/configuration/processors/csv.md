@@ -1,6 +1,6 @@
 ---
 layout: default
-title: csv 
+title: CSV processor
 parent: Processors
 grand_parent: Pipelines
 nav_order: 49

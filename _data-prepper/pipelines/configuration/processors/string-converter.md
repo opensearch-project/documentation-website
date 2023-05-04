@@ -1,6 +1,6 @@
 ---
 layout: default
-title: string_converter
+title: String converter processor
 parent: Processors
 grand_parent: Pipelines
 nav_order: 105

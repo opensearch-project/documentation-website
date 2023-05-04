@@ -1,6 +1,6 @@
 ---
 layout: default
-title: split_string
+title: Split string processor
 parent: Processors
 grand_parent: Pipelines
 nav_order: 100

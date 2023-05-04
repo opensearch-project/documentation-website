@@ -1,6 +1,6 @@
 ---
 layout: default
-title: lowercase_string
+title: Lowercase string processor
 parent: Processors
 grand_parent: Pipelines
 nav_order: 60
