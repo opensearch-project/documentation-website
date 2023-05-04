@@ -1,5 +1,0 @@
-extends: spelling
-message: "%s"
-level: error
-action:
-  name: suggest
