@@ -3,6 +3,8 @@ layout: default
 title: Configuring Data Prepper
 parent: Managing Data Prepper
 nav_order: 5
+redirect_from:
+ - /clients/data-prepper/data-prepper-reference/
 ---
 
 # Configuring Data Prepper
@@ -21,8 +23,8 @@ serverPort | No | Integer | Port number to use for server APIs. Defaults to 4900
 metricRegistries | No | List | Metrics registries for publishing the generated metrics. Currently supports Prometheus and CloudWatch. Defaults to Prometheus.
 metricTags | No | Map | Key-value pairs as common metric tags to metric registries. The maximum number of pairs is three. Note that `serviceName` is a reserved tag key with `DataPrepper` as default tag value. Alternatively, administrators can set this value through the environment variable `DATAPREPPER_SERVICE_NAME`. If `serviceName` is defined in `metricTags`, that value overwrites those set through the above methods.
 authentication | No | Object | Authentication configuration. Valid option is `http_basic` with `username` and `password` properties. If not defined, the server does not perform authentication.
-processorShutdownTimeout | No | Duration | Time given to processors to clear any in-flight data and gracefully shutdown. Default is 30s.
-sinkShutdownTimeout | No | Duration | Time given to sinks to clear any in-flight data and gracefully shutdown. Default is 30s.
+processorShutdownTimeout | No | Duration | Time given to processors to clear any in-flight data and gracefully shut down. Default is 30s.
+sinkShutdownTimeout | No | Duration | Time given to sinks to clear any in-flight data and gracefully shut down. Default is 30s.
 peer_forwarder | No | Object | Peer forwarder configurations. See [Peer forwarder options](#peer-forwarder-options) for more details.
 
 ### Peer forwarder options

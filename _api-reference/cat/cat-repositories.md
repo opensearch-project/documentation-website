@@ -5,6 +5,8 @@ parent: CAT API
 
 nav_order: 52
 has_children: false
+redirect_from:
+ - /opensearch/rest-api/cat/cat-repositories/
 ---
 
 # CAT repositories
