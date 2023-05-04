@@ -19,7 +19,6 @@ The following example demonstrates how to create an index with a non-default num
 
 ```json
 PUT /sample-index1
-
 {
   "settings": {
     "index": {
