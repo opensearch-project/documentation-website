@@ -209,6 +209,7 @@ volumes:
 networks:
   opensearch-net:
 ```
+{% include copy.html %}
 
 If you override `opensearch_dashboards.yml` settings using environment variables in your compose file, use all uppercase letters and replace periods with underscores (for example, for `opensearch.hosts`, use `OPENSEARCH_HOSTS`). This behavior is inconsistent with overriding `opensearch.yml` settings, where the conversion is just a change to the assignment operator (for example, `discovery.type: single-node` in `opensearch.yml` is defined as `discovery.type=single-node` in `docker-compose.yml`).
 {: .note}

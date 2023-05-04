@@ -2,6 +2,8 @@
 layout: default
 title: Low-level Python client
 nav_order: 10
+redirect_from: 
+  - /clients/python/
 ---
 
 # Low-level Python client
