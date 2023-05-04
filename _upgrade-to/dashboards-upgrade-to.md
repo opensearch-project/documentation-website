@@ -23,9 +23,9 @@ Consider exporting all Kibana objects prior to starting the migration. In Kibana
 
    For a full list of OpenSearch Dashboards settings, see [opensearch_dashboards.yml](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/config/opensearch_dashboards.yml){:target='\_blank'}.
 
-1. If your OpenSearch cluster uses the security plugin, preserve and modify the default settings in `opensearch_dashboards.yml`, particularly `opensearch.username` and `opensearch.password`.
+1. If your OpenSearch cluster uses the Security plugin, preserve and modify the default settings in `opensearch_dashboards.yml`, particularly `opensearch.username` and `opensearch.password`.
 
-   If you disabled the security plugin on your OpenSearch cluster, remove or comment out all `opensearch_security` settings. Then run `rm -rf plugins/security-dashboards/` to remove the security plugin.
+   If you disabled the Security plugin on your OpenSearch cluster, remove or comment out all `opensearch_security` settings. Then run `rm -rf plugins/security-dashboards/` to remove the Security plugin.
 
 1. Start OpenSearch Dashboards:
 
