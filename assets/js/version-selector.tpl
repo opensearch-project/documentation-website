@@ -9,7 +9,8 @@ permalink: /assets/js/version-selector.js
 {% assign all_versions = current_array | concat: site.data.versions.all %}
 {% endif %}
 const DOC_VERSIONS = {{ all_versions | jsonify }};
-const DOC_VERSIONS_ARCHIVED = {{ site.data.versions.archived | jsonify }};
+{% assign archived_versions = site.data.versions.archived %}
+const DOC_VERSIONS_ARCHIVED = {{ archived_versions | jsonify }};
 {% if site.data.versions.latest %}
 const DOC_VERSION_LATEST = {{ site.data.versions.latest | jsonify }};
 {% else %}
