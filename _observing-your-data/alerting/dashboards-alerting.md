@@ -67,9 +67,9 @@ Once you have created a new monitor, the monitor is added to the visualization, 
 
 <insert UI>
 
-## Adding an associated monitor
+## Associating monitors
 
-You can add existing monitors to a visualization using the Discover application instead of Stack Management, giving you a single user interface where can add, view, and edit monitors and monitor details. Continuing with the visualization and dashboard in the preceding tutorial, follow these steps to associate an existing monitor to a visualization:
+You can associate existing monitors with a visualization using the Dashboard app instead of the plugin page, giving you a single interface where can add, view, and edit monitors and monitor details. Continuing with the visualization and dashboard in the preceding tutorial, follow these steps to associate an existing monitor to a visualization:
 
 1. From the dashboard, select the ellipsis icon on the **<name>**, then **Alerting**.
 2. Select **Associate existing monitor**.
