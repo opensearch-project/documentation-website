@@ -36,11 +36,11 @@ Perform the following steps to install OpenSearch on Windows.
 Before proceeding with any configuration, you should test your installation of OpenSearch. Otherwise, it can be difficult to determine whether future problems are due to installation issues or custom settings you applied after installation. There are two quick methods for testing OpenSearch at this stage:
 
 1. **(Security enabled)** Apply a generic configuration using the batch script included in the Windows archive. 
-1. **(Security disabled)** Manually disable the security plugin and test the instance before applying your own custom security settings.
+1. **(Security disabled)** Manually disable the Security plugin and test the instance before applying your own custom security settings.
 
 The batch script will apply a generic configuration to your instance of OpenSearch. This configuration defines some environment variables and also applies self-signed TLS certificates. Alternatively, you can choose to configure these yourself.
 
-If you only want to verify that the service is properly configured and you intend to configure security settings yourself, then you may want to disable the security plugin and launch the service without encryption or authentication.
+If you only want to verify that the service is properly configured and you intend to configure security settings yourself, then you may want to disable the Security plugin and launch the service without encryption or authentication.
 
 An OpenSearch node in its default configuration (with demo certificates and users with default passwords) is not suitable for a production environment. If you plan to use the node in a production environment, you should, at a minimum, replace the demo TLS certificates with your own TLS certificates and [update the list of internal users and passwords]({{site.url}}{{site.baseurl}}/security/configuration/yaml). See [Security configuration]({{site.url}}{{site.baseurl}}/security/configuration/index/) for additional guidance to ensure that your nodes are configured according to your security requirements.
 {: .warning}
@@ -123,14 +123,14 @@ An OpenSearch node in its default configuration (with demo certificates and user
 
 1. Open the `opensearch-{{site.opensearch_version}}\config` folder.
 1. Open the `opensearch.yml` file with a text editor.
-1. Add the following line to disable the security plugin:
+1. Add the following line to disable the Security plugin:
    ```yaml
    plugins.security.disabled: true
    ```
 1. Save the change and close the file.
 1. Navigate to the top directory of your OpenSearch installation and open the `opensearch-{{site.opensearch_version}}` folder.
 1. Run the default by double-clicking the `opensearch-windows-install.bat` file. This opens a command prompt with an OpenSearch instance running.
-1. Open a new command prompt and send requests to the server to verify that OpenSearch is running. Because the security plugin has been disabled, you will be sending commands using `HTTP` rather than `HTTPS`.
+1. Open a new command prompt and send requests to the server to verify that OpenSearch is running. Because the Security plugin has been disabled, you will be sending commands using `HTTP` rather than `HTTPS`.
    - Send a request to port 9200:
       ```bat
       curl.exe -X GET http://localhost:9200
@@ -214,7 +214,7 @@ Before modifying any configuration files, it's always a good idea to save a back
    # fail when you try to start the service.
    discovery.type: single-node
 
-   # If you previously disabled the security plugin in opensearch.yml,
+   # If you previously disabled the Security plugin in opensearch.yml,
    # be sure to re-enable it. Otherwise you can skip this setting.
    plugins.security.disabled: false
    ```
@@ -246,4 +246,4 @@ The Performance Analyzer plugin is not available on Windows. All other OpenSearc
 
 - [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuration/)
 - [OpenSearch plugin installation]({{site.url}}{{site.baseurl}}/opensearch/install/plugins/)
-- [About the security plugin]({{site.url}}{{site.baseurl}}/security/index/)
+- [About the Security plugin]({{site.url}}{{site.baseurl}}/security/index/)
