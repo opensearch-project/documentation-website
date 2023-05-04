@@ -11,7 +11,7 @@ Returns details about a snapshot’s state during and after snapshot creation.
 
 To learn about snapshot creation, see [Create snapshot]({{site.url}}{{site.baseurl}}/api-reference/snapshots/create-snapshot).
 
-If you use the security plugin, you must have the `monitor_snapshot`, `create_snapshot`, or `manage cluster` privileges.
+If you use the Security plugin, you must have the `monitor_snapshot`, `create_snapshot`, or `manage cluster` privileges.
 {: .note}
 
 ### Path parameters
