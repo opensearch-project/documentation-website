@@ -2,6 +2,8 @@
 layout: default
 title: Tasks
 nav_order: 85
+redirect_from:
+ - /opensearch/rest-api/tasks/
 ---
 
 # Tasks
@@ -146,7 +148,7 @@ GET /_tasks?nodes=opensearch-node1
 }
 ```
 
-The following request will return detailed information about active search tasks:
+The following request returns detailed information about active search tasks:
 
 **Sample Request**
 

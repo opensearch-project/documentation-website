@@ -4,7 +4,7 @@ title: REST API reference
 nav_order: 1
 has_toc: true
 redirect_from:
-  - /opensearch/rest-api/
+  - /opensearch/rest-api/index/
 ---
 
 # REST API reference

@@ -3,6 +3,8 @@ layout: default
 title: Shrink index
 parent: Index APIs
 nav_order: 50
+redirect_from:
+  - /opensearch/rest-api/index-apis/shrink-index/
 ---
 
 # Shrink index
@@ -32,7 +34,7 @@ POST /<index-name>/_shrink/<target-index>
 PUT /<index-name>/_shrink/<target-index>
 ```
 
-When creating new indices with this operation, remember that OpenSearch indices have the following naming restrictions:
+When creating new indexes with this operation, remember that OpenSearch indexes have the following naming restrictions:
 
 - All letters must be lowercase.
 - Index names can't begin with underscores (`_`) or hyphens (`-`).
