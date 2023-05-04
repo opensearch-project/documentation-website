@@ -198,9 +198,9 @@ time_zone | string | The time zone for the `time_field` field. | "UTC"
 
 For FIT RCF, you can train the model with historical data and store the trained model in your index. The model will be deserialized and predict new data points when using the Predict API. However, the model in the index will not be refreshed with new data, because the model is fixed in time.
 
-## RCFSummarize
+## RCF Summarize
 
-RCFSummarize is a clustering algorithm based on the Clustering Using REpresentatives (CURE) algorithm. Compared to [k-means](#k-means), which uses random iterations to cluster, RCFSummarize uses a hierarchical clustering technique. The algorithm starts, with a set of randomly selected centroids larger than the centroids' ground truth distribution. During iteration, centroid pairs too close to each other automatically merge. Therefore, the number of centroids (`max_k`) converge to a rational number of clusters that fits ground truth, as opposed to a fixed `k` number of clusters.  
+RCF Summarize is a clustering algorithm based on the Clustering Using Representatives (CURE) algorithm. Compared to [k-means](#k-means), which uses random iterations to cluster, RCF Summarize uses a hierarchical clustering technique. The algorithm starts, with a set of randomly selected centroids larger than the centroids' ground truth distribution. During iteration, centroid pairs too close to each other automatically merge. Therefore, the number of centroids (`max_k`) converge to a rational number of clusters that fits ground truth, as opposed to a fixed `k` number of clusters.  
 
 ### Parameters
 
