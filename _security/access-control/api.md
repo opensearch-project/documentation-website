@@ -40,6 +40,7 @@ Possible values for `endpoint` are:
 - INTERNALUSERS
 - CONFIG
 - CACHE
+- LICENSE
 - SYSTEMINFO
 
 Possible values for `method` are:
