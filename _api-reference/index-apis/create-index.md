@@ -3,6 +3,8 @@ layout: default
 title: Create index
 parent: Index APIs
 nav_order: 1
+redirect_from:
+ - /opensearch/rest-api/index-apis/create-index/
 ---
 
 # Create index
@@ -17,7 +19,6 @@ The following example demonstrates how to create an index with a non-default num
 
 ```json
 PUT /sample-index1
-
 {
   "settings": {
     "index": {
@@ -91,7 +92,7 @@ index.hidden | Whether the index should be hidden. Hidden indices are not return
 Setting | Description
 :--- | :---
 index.number_of_replicas | The number of replica shards each primary shard should have. For example, if you have 4 primary shards and set `index.number_of_replicas` to 3, the index has 12 replica shards. Default is 1.
-index.auto_expand_replicas | Whether the cluster should automatically add replica shards based on the number of data nodes. Specify a lower bound and upper limit (for example, 0-9), or `all` for the upper limit. For example, if you have 5 data nodes and set `index.auto_expand_replicas` to 0-3, then the cluster does not autoamtically add another replica shard. However, if you set this value to `0-all` and add 2 more nodes for a total of 7, the cluster will expand to now have 6 replica shards. Default is disabled.
+index.auto_expand_replicas | Whether the cluster should automatically add replica shards based on the number of data nodes. Specify a lower and upper bound (for example, `0-9`). You can use `all` for the upper bound. For example, if you have 5 data nodes and set `index.auto_expand_replicas` to `0-3`, then the cluster does not automatically add another replica shard. However, if you set this value to `0-all` and add 2 more nodes for a total of 7, the cluster will expand to now have 6 replica shards. Default is `false` (disabled).
 index.search.idle.after | Amount of time a shard should wait for a search or get request until it goes idle. Default is `30s`.
 index.refresh_interval | How often the index should refresh, which publishes its most recent changes and makes them available for searching. Can be set to `-1` to disable refreshing. Default is `1s`.
 index.max_result_window | The maximum value of `from` + `size` for searches to the index. `from` is the starting index to search from, and `size` is the amount of results to return. Default: 10000.
