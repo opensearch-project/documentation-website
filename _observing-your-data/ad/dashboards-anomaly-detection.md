@@ -12,19 +12,9 @@ Introduced 2.8
 OpenSearch Dashboards anomaly detection is a machine learning (ML)-powered feature that finds anomalies in time-series data and surfaces them via dashboard insights <insert screenshot>. The **Dashboard** app allows you to set up anomaly detection from within the app instead of jumping between the app and the [anomaly detection plugin]({{site.url}}{{site.baseurl}}/observing-your-data/ad/index/) page. The Dashboard app gives you one place to:
 
 - 
+Getting started with anomaly detection in Dashboard is straightforward. Watch this video for a quick overview of some of the tasks we'll perform in this tutorial.
 
 <insert demo from SME>
-
-
-## Getting started
-
-The following is useful terminology to understand before getting started with this tutorial:
-
-- _Anomaly detection_ is a technique used in data analysis to identify patterns or data points that deviate from the norm or expected behavior. It can be performed in real time, near real time, or on a scheduled basis.
-- _Anomalies_ are data points that deviate unexpectedly from an observed pattern.
-
-For information about the anomaly detection plugin, see [Anomaly Detection]({{site.url}}{{site.baseurl}}/observing-your-data/ad/index/).
-{: .note} 
 
 ## Prerequisites 
 
@@ -32,11 +22,9 @@ You must be running OpenSearch and OpenSearch Dashboards 2.8 or later.
 
 ## Configuring admin settings
 
- Access to anomaly detection dashboards and visualizations is controlled by OpenSearch and OpenSearch Dashboards privileges. **Stack Management** is the place where you manage advanced settings. The setting is enabled by default and appears as a feature in the **Stack Management > Advanced Settings > Visualizations** window as shown below. If the setting is disabled, it does not appear in this window. The following image shows the enabled settings in the Advanced Settings window.
+ Access to anomaly detection dashboards and visualizations is controlled by OpenSearch and OpenSearch Dashboards privileges. **Stack Management** is the place where you manage advanced settings. The setting is enabled by default and appears as a feature in the **Stack Management > Advanced Settings > Visualizations** window.
 
- <insert UI>
-
-If you are an administrator, you can disable the settings at the cluster level through the `dashboards.yml` configuration file, for example:
+If you are an administrator, you can disable the settings at the cluster level through the `opensearch-dashboards.yml` configuration file, for example:
 
 ```bash
 <insert code sample>

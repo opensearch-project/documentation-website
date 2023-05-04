@@ -9,59 +9,59 @@ nav_order: 50
 Introduced 2.8
 {: .label .label-purple }
 
-The **Dashboard** app allows you to set up alerts and display visualizations from within the app instead of jumping between the app and the [alerting plugin]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/index/) page. The Dashboard app gives you one place to:
+Use the **Dashboard** app to set up alerts and display visualizations from within the app instead of jumping between the app and the [alerting plugin]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/index/) page. The Dashboard app gives you one place to:
 
 - Set up, add, and adjust rules and conditions that trigger alerts and notifications.
 - Create visualizations to help you quickly see trends and patterns or identify and address issues.
 - Build dashboards to stay on top of important metrics and data points in real time.
 - Monitor your alerts at-a-glance visuals and share dashboards quickly with team members.  
 
-Getting started with alerting in Dashboard is straightforward. Watch the video to learn more. 
+Getting started with alerting in Dashboard is straightforward. Watch this video for a quick overview of some of the tasks we'll perform in this tutorial. 
 
 <insert demo from SME>
 
-## Terminology
-
-The following terminology is commonly used with alerting in OpenSearch Dashboards:
-
-- An _alert_ refers to an event associated with a trigger. When an alert is created, the trigger performs actions, which can include sending a notification. 
-- A _monitor_ refers to jobs that run on a defined schedule and query OpenSearch indexes.
-- A _trigger_ refers to conditions that generate alerts.
-- An _action_ refers to the information that you want the monitor to send out after being triggered. Actions have a notification channel, a message subject, and a message body.
-- A _notification channel_ refers to a reusable location, such as Slack, email, or custom webhook, for an action.
-- A _panel_ is a visualization that is pinned to the dashboard and, in most cases, selecting a panel takes you to the page where the visualization was created.
-
 ## Prerequisites 
 
-You must be running OpenSearch and OpenSearch Dashboards 2.8 or later.
+- If you don't already have OpenSearch and OpenSearch Dashboards 2.8 or later, [download or upgrade OpenSearch](https://opensearch.org/docs/latest/install-and-configure/install-opensearch/index/) to get started.
+- Understand the visualization requirements.
+-   
+
+## Visualization requirements
+
+
 
 ## Configuring admin settings
 
  Access to alerting dashboards and visualizations is controlled by OpenSearch and OpenSearch Dashboards privileges. You can manage your settings in **Stack Management**. Access is enabled by default and appears as a feature in the **Stack Management > Advanced Settings > Visualizations** window as shown in the following image. If the setting is disabled, it does not appear in this window.
 
- <insert UI>
-
-If you are an administrator, you can disable the settings at the cluster level through the `dashboards.yml` configuration file, for example:
+If you are an administrator, you can disable the settings at the cluster level through the `opensearch-dashboards.yml` configuration file, for example:
 
 ```bash
-<insert code sample>
+<insert code example>
 ```
 
 ## Creating alerting monitors
 
-By default, when you begin to create the alert monitor workflow with the Discover application, you are presented with a menu-driven interface. This interface provides you with a range of options displayed in full screen, pop up, pull down, or drop down. In the interface, you define the metrics to monitor, set thresholds, customize triggers that automate workflows, and generate actions when conditions are met.
+By default, when you begin to create the alert monitor workflow with the Dashboard app, you are presented with a menu-driven interface. This interface provides a range of options, displayed in full screen, pop up, pull down, or drop down, to define the metrics to monitor, set thresholds, customize triggers that automate workflows, and generate actions when conditions are met.
 
-Alerts and anomalies are visualized in line charts on a dashboard. To create an alerting monitor using the Discover application and sample data and to visualize the alerts on a dashboard, follow these steps:  
+To create alerts and display alerting visualizations on a dashboard, follow these steps:  
 
-1. From the OpenSearch Dashboards main menu, select **Discover**.
-2. From **<window>**, select the **<name>** sample dataset. You will see a pre-populated dashboard with line chart visualizations.
-3. Select the ellipsis icon from the **<name>** visualization pane, and then from the **Options** flyout, choose **Alerting** > **Add alerting monitor**.
-4. Select **Create new monitor**.
-5. From the **Add alerting monitor** window, define the metrics and set the thresholds under **Monitor details** and **Triggers**.
-6. Under **Monitor details**, select <option> from the dropdown menu.
-7. Under **Triggers**, select <option> from the dropdown menu, and then specify a name and severity level for the trigger.
-8. In **Notifications**, select <option> from the dropdown menu, and then customize the notification message and select the Notification channel.
-9. Choose **Create monitor**.
+1. Open OpenSearch Dashboards in your web browser. If you are running Dashboards locally, go to `http://localhost:5601/`. 
+2. From the main menu, select **Dashboard**.
+
+
+
+
+
+
+3. From **<window>**, select the **<name>** sample dataset. You will see a pre-populated dashboard with line chart visualizations.
+4. Select the ellipsis icon from the **<name>** visualization pane, and then from the **Options** flyout, choose **Alerting** > **Add alerting monitor**.
+5. Select **Create new monitor**.
+6. From the **Add alerting monitor** window, define the metrics and set the thresholds under **Monitor details** and **Triggers**.
+7. Under **Monitor details**, select <option> from the dropdown menu.
+8. Under **Triggers**, select <option> from the dropdown menu, and then specify a name and severity level for the trigger.
+9.  In **Notifications**, select <option> from the dropdown menu, and then customize the notification message and select the Notification channel.
+10. Choose **Create monitor**.
 
 Once you have created a new monitor, the monitor is added to the visualization, as shown in the following image.  
 
