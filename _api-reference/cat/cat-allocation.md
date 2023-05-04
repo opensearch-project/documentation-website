@@ -4,7 +4,6 @@ title: CAT allocation
 parent: CAT API
 redirect_from:
 - /opensearch/rest-api/cat/cat-allocation/
-
 nav_order: 5
 has_children: false
 ---

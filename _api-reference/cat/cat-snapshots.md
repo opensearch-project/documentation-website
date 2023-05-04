@@ -6,7 +6,7 @@ parent: CAT API
 nav_order: 65
 has_children: false
 redirect_from:
-- /opensearch/rest-api/cat/cat-sapshots/
+- /opensearch/rest-api/cat/cat-snapshots/
 ---
 
 # CAT snapshots
