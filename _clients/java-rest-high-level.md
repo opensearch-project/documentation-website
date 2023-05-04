@@ -27,7 +27,7 @@ You can now start your OpenSearch cluster. The OpenSearch 1.x high-level REST cl
 
 ## Security
 
-Before using the REST client in your Java application, you must configure the application's truststore to connect to the security plugin. If you are using self-signed certificates or demo configurations, you can use the following command to create a custom truststore and add in root authority certificates.
+Before using the REST client in your Java application, you must configure the application's truststore to connect to the Security plugin. If you are using self-signed certificates or demo configurations, you can use the following command to create a custom truststore and add in root authority certificates.
 
 If you're using certificates from a trusted Certificate Authority (CA), you don't need to configure the truststore.
 
