@@ -52,8 +52,18 @@ The following benchmarks were collected with [OpenSearch-benchmark](https://gith
 
 Both test runs were performed on a 10-node (m5.xlarge) cluster with 10 shards and 5 replicas. Each shard was about 3.2GBs in size. The tests were run with the following settings:
 
+<<<<<<< HEAD
 - `indices.recovery.max_bytes_per_sec`: 10gb
 - `indices.recovery.max_concurrent_file_chunks`: 5
+=======
+## Comparing replication benchmarks
+
+During initial benchmarks, segment replication users reported 40% higher throughput than when using document replication with the same cluster setup.
+
+The following benchmarks were collected with [OpenSearch-benchmark](https://github.com/opensearch-project/opensearch-benchmark) using the [`nyc_taxi`](https://github.com/topics/nyc-taxi-dataset) dataset.  
+
+The test run was performed on a 10-node (m5.xlarge) cluster with 10 shards and 5 replicas. Each shard was about 3.2GBs in size.
+>>>>>>> parent of 3eb7a5b9 (Update segment replication backpressure (#3839))
 
 The benchmarking results are listed in the following table.
 
@@ -61,6 +71,7 @@ The benchmarking results are listed in the following table.
     <tr>
         <td></td>
         <td></td>
+<<<<<<< HEAD
         <td>Document Replication</td>
         <td>Segment Replication</td>
         <td>Percent difference</td>
@@ -190,6 +201,156 @@ The benchmarking results are listed in the following table.
         <td></td>
         <td></td>
         <td></td>
+=======
+        <td><b>Document Replication</b></td>
+        <td><b>Segment Replication</b></td>
+        <td><b>Percent difference</b></td>
+    </tr>
+    <tr>
+        <td><b>Test execution time (minutes)</b></td>
+        <td></td>
+        <td>118.00</td>
+        <td>98.00</td>
+        <td>27%</td>
+    </tr>
+    <tr>
+        <td rowspan="3"><b>Index Throughput (number of requests per second)</b></td>
+        <td>p0</td>
+        <td>71917.20</td>
+        <td>105740.70</td>
+        <td>47.03%</td>
+    </tr>
+    <tr>
+        <td>p50</td>
+        <td>77392.90</td>
+        <td>110988.70</td>
+        <td>43.41%</td>
+    </tr>
+    <tr>
+        <td>p100</td>
+        <td>93032.90</td>
+        <td>123131.50</td>
+        <td>32.35%</td>
+    </tr>
+     <tr>
+        <td rowspan="3"><b>Query Throughput (number of requests per second)</b></td>
+        <td>p0</td>
+        <td>1.748</td>
+        <td>1.744</td>
+        <td>-0.23%</td>
+    </tr>
+    <tr>
+        <td>p50</td>
+        <td>1.754</td>
+        <td>1.753</td>
+        <td>0%</td>
+    </tr>
+    <tr>
+        <td>p100</td>
+        <td>1.769</td>
+        <td>1.768</td>
+        <td>-0.06%</td>
+    </tr>
+    <tr>
+        <td rowspan="4"><b>CPU (%)</b></td>
+        <td>p50</td>
+        <td>37.19</td>
+        <td>25.579</td>
+        <td>-31.22%</td>
+    </tr>
+    <tr>
+        <td>p90</td>
+        <td>94.00</td>
+        <td>88.00</td>
+        <td>-6.38%</td>
+    </tr>
+    <tr>
+        <td>p99</td>
+        <td>100</td>
+        <td>100</td>
+        <td>0%</td>
+    </tr>
+    <tr>
+        <td>p100</td>
+        <td>100.00</td>
+        <td>100.00</td>
+        <td>0%</td>
+    </tr>
+    <tr>
+        <td rowspan="4"><b>Memory (%)</b></td>
+        <td>p50</td>
+        <td>30</td>
+        <td>24.241</td>
+        <td>-19.20%</td>
+    </tr>
+    <tr>
+        <td>p90</td>
+        <td>61.00</td>
+        <td>55.00</td>
+        <td>-9.84%</td>
+    </tr>
+    <tr>
+        <td>p99</td>
+        <td>72</td>
+        <td>62</td>
+        <td>-13.89%%</td>
+    </tr>
+    <tr>
+        <td>p100</td>
+        <td>80.00</td>
+        <td>67.00</td>
+        <td>-16.25%</td>
+    </tr>
+    <tr>
+        <td rowspan="4"><b>Index Latency (ms)</b></td>
+        <td>p50</td>
+        <td>803</td>
+        <td>647.90</td>
+        <td>-19.32%</td>
+    </tr>
+    <tr>
+        <td>p90</td>
+        <td>1215.50</td>
+        <td>908.60</td>
+        <td>-25.25%</td>
+    </tr>
+    <tr>
+        <td>p99</td>
+        <td>9738.70</td>
+        <td>1565</td>
+        <td>-83.93%</td>
+    </tr>
+    <tr>
+        <td>p100</td>
+        <td>21559.60</td>
+        <td>2747.70</td>
+        <td>-87.26%</td>
+    </tr>
+    <tr>
+        <td rowspan="4"><b>Query Latency (ms)</b></td>
+        <td>p50</td>
+        <td>36.209</td>
+        <td>37.799</td>
+        <td>4.39%</td>
+    </tr>
+    <tr>
+        <td>p90</td>
+        <td>42.971</td>
+        <td>60.823</td>
+        <td>41.54%</td>
+    </tr>
+    <tr>
+        <td>p99</td>
+        <td>50.604</td>
+        <td>70.072</td>
+        <td>38.47%</td>
+    </tr>
+    <tr>
+        <td>p100</td>
+        <td>52.883</td>
+        <td>73.911</td>
+        <td>39.76%</td>
+>>>>>>> parent of 3eb7a5b9 (Update segment replication backpressure (#3839))
     </tr>
 </table>
 
