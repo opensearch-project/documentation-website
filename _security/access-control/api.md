@@ -1603,7 +1603,7 @@ Using the PATCH method also requires a user to have a security configuration tha
 ```bash
 curl -X PATCH -k -i --cert <admin_cert file name> --key <admin_cert_key file name> <domain>/_opendistro/_security/api/audit -H 'Content-Type: application/json' -d'[{"op":"add","path":"/config/enabled","value":"true"}]'
 ```
-{% include copy-curl.html %}
+{% include copy.html %}
 
 OpenSearch Dashboards Dev Tools do not currently support the PATCH method. You can use [curl](https://curl.se/), [Postman](https://www.postman.com/), or another alternative process to update the configuration using this method. To follow the GitHub issue for support of the PATCH method in Dashboards, see [issue #2343](https://github.com/opensearch-project/OpenSearch-Dashboards/issues/2343).
 {: .note}
