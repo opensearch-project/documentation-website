@@ -300,7 +300,7 @@ Members of the OpenSearch community have built countless plugins for the service
 - [Cross-cluster replication]({{site.url}}{{site.baseurl}}/replication-plugin/index/)
 - [Index State Management]({{site.url}}{{site.baseurl}}/im-plugin/ism/index/)
 - [k-NN]({{site.url}}{{site.baseurl}}/search-plugins/knn/index/)
-- [ML Commons Plugin]({{site.url}}{{site.baseurl}}/ml-commons-plugin/index/)
+- [ML Commons plugin]({{site.url}}{{site.baseurl}}/ml-commons-plugin/index/)
 - [Neural Search]({{site.url}}{{site.baseurl}}/neural-search-plugin/index/)
 - [Notifications]({{site.url}}{{site.baseurl}}/notifications-plugin/index/)
 - [OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/dashboards/index/)

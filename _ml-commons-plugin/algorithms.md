@@ -651,7 +651,7 @@ PUT /_cluster/settings
 
 ### Parameters
 
-To use the metrics correlation algorthim, include the following parameters.
+To use the metrics correlation algorithm, include the following parameters.
 
 | Parameter | Type | Description | Default value |
 |---|---|---|---|
@@ -661,7 +661,7 @@ metrics | Array | A list of metrics within the time series that can be correlate
 
 The metrics correlation input is an $M$ x $T$ array of metrics data, where M is the number of metrics and T is the length of each individual sequence of metric values. 
 
-When inputting metrics into the algorthim, assume the following:
+When inputting metrics into the algorithm, assume the following:
 
 1. For each metric, the input sequence has the same length, $T$.
 2. All input metrics should have the same corresponding set of timestamps.
