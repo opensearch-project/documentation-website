@@ -81,5 +81,5 @@ GET _cat/<operation_name>?h=<header_name_1>,<header_name_2>&v
 
 Typically, for any operation you can find out what headers are available using the `help` parameter, and then use the `h` parameter to limit the output to only the headers that you care about.
 
-If you use the security plugin, make sure you have the appropriate permissions.
+If you use the Security plugin, make sure you have the appropriate permissions.
 {: .note }
