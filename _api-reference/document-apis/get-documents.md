@@ -3,6 +3,8 @@ layout: default
 title: Get document
 parent: Document APIs
 nav_order: 5
+redirect_from: 
+ - /opensearch/rest-api/document-apis/get-documents/
 ---
 
 # Get document
@@ -69,7 +71,7 @@ Field | Description
 _index | The name of the index.
 _id | The document's ID.
 _version | The document's version number. Updated whenever the document changes.
-_seq_no | The sequnce number assigned when the document is indexed.
+_seq_no | The sequence number assigned when the document is indexed.
 primary_term | The primary term assigned when the document is indexed.
 found | Whether the document exists.
 _routing | The shard that the document is routed to. If the document is not routed to a particular shard, this field is omitted.
