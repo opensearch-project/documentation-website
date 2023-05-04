@@ -1418,8 +1418,7 @@ main {
 version-selector {
   z-index: 1;
   font-size: .9rem;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+  margin: 1.5rem 3px;
 
   --normal-bg: linear-gradient(#{lighten($blue-300, 5%)}, #{darken($blue-300, 2%)});
   --hover-bg: linear-gradient(#{lighten($blue-300, 2%)}, #{darken($blue-300, 4%)});
