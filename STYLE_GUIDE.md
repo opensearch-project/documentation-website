@@ -272,6 +272,8 @@ We follow a slightly modified version of the _Microsoft Writing Style Guide_ gui
 
 - Words with prefixes are normally closed (no hyphen), whether they are nouns, verbs, adjectives, or adverbs. Note that some industry terms don’t follow this hyphenation guidance. For example, *Command Line Interface* and *high performance computing* aren’t hyphenated, and *machine learning* isn’t hyphenated when used as an adjective. Other terms are hyphenated to improve readability. Examples include *non-production*, *post-migration*, and *pre-migration*.
 
+- In general, comparative or superlative modifiers with “more,” “most,” “less,” or “least” don’t require hyphens. Use one only if it’s needed to avoid ambiguity.
+
 - The ampersand (&) should never be used in a sentence as a replacement for the word and. An exception to this is in acronyms where the ampersand is commonly used, such as in Operations & Maintenance (O&M).
 
 - When using a forward slash between words, do not insert space on either side of the slash. For example, *AI/ML* is correct whereas *AI / ML* is incorrect.
