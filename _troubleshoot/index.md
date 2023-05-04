@@ -67,7 +67,7 @@ For full documentation about the command, see [cryptsetup(8) — Linux manual pa
 
 If you encounter compatibility issues when attempting to connect Beats to OpenSearch, make sure you're using the Apache 2.0 distribution of Beats, not the default distribution, which uses a proprietary license.
 
-Try this minimal output configuration for using Beats with the security plugin:
+Try this minimal output configuration for using Beats with the Security plugin:
 
 ```yml
 output.elasticsearch:
@@ -91,7 +91,7 @@ setup.ilm.check_exists: false
 
 ## Logstash
 
-If you have trouble connecting Logstash to OpenSearch, try this minimal output configuration, which works with the security plugin:
+If you have trouble connecting Logstash to OpenSearch, try this minimal output configuration, which works with the Security plugin:
 
 ```conf
 output {
@@ -110,7 +110,7 @@ output {
 
 ## Can't update by script when FLS, DLS, or field masking is active
 
-The security plugin blocks the update by script operation (`POST <index>/_update/<id>`) when field-level security, document-level security, or field masking are active. You can still update documents using the standard index operation (`PUT <index>/_doc/<id>`).
+The Security plugin blocks the update by script operation (`POST <index>/_update/<id>`) when field-level security, document-level security, or field masking are active. You can still update documents using the standard index operation (`PUT <index>/_doc/<id>`).
 
 
 ## Illegal reflective access operation in logs

@@ -34,7 +34,7 @@ A data source connection specifies the parameters needed to connect to a data so
 
 To create a new data source connection:
 
-1. Open Dashboards. If you’re not running the security plugin, go to [`http://localhost:5601`](http://localhost:5601/). If you’re running the security plugin, go to [`https://localhost:5601`](https://localhost:5601/) and log in with the username `admin` and password `admin`.
+1. Open Dashboards. If you’re not running the Security plugin, go to [`http://localhost:5601`](http://localhost:5601/). If you’re running the Security plugin, go to [`https://localhost:5601`](https://localhost:5601/) and log in with the username `admin` and password `admin`.
 
 1. Under **Management** in the OpenSearch Dashboards main menu, choose **Stack Management**, **Data Sources `Experimental`**, **Data Sources**, and then choose **Create data source connection**, as shown in the following image.
 
