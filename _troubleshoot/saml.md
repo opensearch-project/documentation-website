@@ -39,7 +39,7 @@ saml:
 
 After a successful login, your IdP sends a SAML response using HTTP POST to OpenSearch Dashboards's "assertion consumer service URL" (ACS).
 
-The endpoint the OpenSearch Dashboards security plugin provides is:
+The endpoint the OpenSearch Dashboards Security plugin provides is:
 
 ```
 /_opendistro/_security/saml/acs
@@ -102,9 +102,9 @@ Inspect the payload of this POST request, and use a tool like [base64decode.org]
 
 ## Check role mapping
 
-The security plugin uses a standard role mapping to map a user or backend role to one or more Security roles.
+The Security plugin uses a standard role mapping to map a user or backend role to one or more Security roles.
 
-For username, the security plugin uses the `NameID` attribute of the SAML response by default. For some IdPs, this attribute does not contain the expected username, but some internal user ID. Check the content of the SAML response to locate the element you want to use as username, and configure it by setting the `subject_key`:
+For username, the Security plugin uses the `NameID` attribute of the SAML response by default. For some IdPs, this attribute does not contain the expected username, but some internal user ID. Check the content of the SAML response to locate the element you want to use as username, and configure it by setting the `subject_key`:
 
 ```yml
 saml:
@@ -133,6 +133,6 @@ saml:
 
 ## Inspect the JWT token
 
-The security plugin trades the SAML response for a more lightweight JSON web token. The username and backend roles in the JWT are ultimately mapped to roles in the security plugin. If there is a problem with the mapping, you can enable the token debug mode using the same setting as [Inspect the SAML response](#inspect-the-saml-response).
+The Security plugin trades the SAML response for a more lightweight JSON web token. The username and backend roles in the JWT are ultimately mapped to roles in the Security plugin. If there is a problem with the mapping, you can enable the token debug mode using the same setting as [Inspect the SAML response](#inspect-the-saml-response).
 
 This setting prints the JWT to the OpenSearch log file so that you can inspect and debug it using a tool like [JWT.io](https://jwt.io/).

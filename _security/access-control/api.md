@@ -7,7 +7,7 @@ nav_order: 120
 
 # API
 
-The security plugin REST API lets you programmatically create and manage users, roles, role mappings, action groups, and tenants.
+The Security plugin REST API lets you programmatically create and manage users, roles, role mappings, action groups, and tenants.
 
 ---
 
@@ -20,7 +20,7 @@ The security plugin REST API lets you programmatically create and manage users, 
 
 ## Access control for the API
 
-Just like OpenSearch permissions, you control access to the security plugin REST API using roles. Specify roles in `opensearch.yml`:
+Just like OpenSearch permissions, you control access to the Security plugin REST API using roles. Specify roles in `opensearch.yml`:
 
 ```yml
 plugins.security.restapi.roles_enabled: ["<role>", ...]
@@ -422,9 +422,9 @@ DELETE _plugins/_security/api/internalusers/<username>
 Introduced 1.0
 {: .label .label-purple }
 
-Creates or replaces the specified user. You must specify either `password` (plain text) or `hash` (the hashed user password). If you specify `password`, the security plugin automatically hashes the password before storing it.
+Creates or replaces the specified user. You must specify either `password` (plain text) or `hash` (the hashed user password). If you specify `password`, the Security plugin automatically hashes the password before storing it.
 
-Note that any role you supply in the `opendistro_security_roles` array must already exist for the security plugin to map the user to that role. To see predefined roles, refer to [the list of predefined roles]({{site.url}}{{site.baseurl}}/security/access-control/users-roles#predefined-roles). For instructions on how to create a role, refer to [creating a role](#create-role).
+Note that any role you supply in the `opendistro_security_roles` array must already exist for the Security plugin to map the user to that role. To see predefined roles, refer to [the list of predefined roles]({{site.url}}{{site.baseurl}}/security/access-control/users-roles#predefined-roles). For instructions on how to create a role, refer to [creating a role](#create-role).
 
 #### Request
 
@@ -1092,7 +1092,7 @@ PATCH _plugins/_security/api/tenants/
 Introduced 1.0
 {: .label .label-purple }
 
-Retrieves the current security plugin configuration in JSON format.
+Retrieves the current Security plugin configuration in JSON format.
 
 #### Request
 
@@ -1364,7 +1364,7 @@ PUT _opendistro/_security/api/ssl/http/reloadcerts
 Introduced 1.0
 {: .label .label-purple }
 
-Flushes the security plugin user, authentication, and authorization cache.
+Flushes the Security plugin user, authentication, and authorization cache.
 
 
 #### Request
@@ -1392,7 +1392,7 @@ DELETE _plugins/_security/api/cache
 Introduced 1.0
 {: .label .label-purple }
 
-Checks to see if the security plugin is up and running. If you operate your cluster behind a load balancer, this operation is useful for determining node health and doesn't require a signed request.
+Checks to see if the Security plugin is up and running. If you operate your cluster behind a load balancer, this operation is useful for determining node health and doesn't require a signed request.
 
 
 #### Request
@@ -1417,7 +1417,7 @@ GET _plugins/_security/health
 
 ## Audit logs
 
-The following API is available for audit logging in the security plugin.
+The following API is available for audit logging in the Security plugin.
 
 ### Enable Audit Logs
 

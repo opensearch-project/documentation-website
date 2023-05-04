@@ -12,7 +12,7 @@ Verifies that a snapshot repository is functional. Verifies the repository on ea
 
 If verification is successful, the verify snapshot repository API returns a list of nodes connected to the snapshot repository. If verification failed, the API returns an error.
 
-If you use the security plugin, you must have the `manage cluster` privilege.
+If you use the Security plugin, you must have the `manage cluster` privilege.
 {: .note}
 
 ### Path parameters

@@ -357,7 +357,7 @@ Snapshots are only forward-compatible by one major version. If you have an old s
 
 ## Security considerations
 
-If you're using the security plugin, snapshots have some additional restrictions:
+If you're using the Security plugin, snapshots have some additional restrictions:
 
 - To perform snapshot and restore operations, users must have the built-in `manage_snapshots` role.
 - You can't restore snapshots that contain global state or the `.opendistro_security` index.
@@ -380,5 +380,5 @@ curl -k --cert ./kirk.pem --key ./kirk-key.pem -XPOST 'https://localhost:9200/_s
 ```
 {% include copy-curl.html %}
 
-We strongly recommend against restoring `.opendistro_security` using an admin certificate because doing so can alter the security posture of the entire cluster. See [A word of caution]({{site.url}}{{site.baseurl}}/security-plugin/configuration/security-admin/#a-word-of-caution) for a recommended process to back up and restore your security plugin configuration.
+We strongly recommend against restoring `.opendistro_security` using an admin certificate because doing so can alter the security posture of the entire cluster. See [A word of caution]({{site.url}}{{site.baseurl}}/security-plugin/configuration/security-admin/#a-word-of-caution) for a recommended process to back up and restore your Security plugin configuration.
 {: .warning}

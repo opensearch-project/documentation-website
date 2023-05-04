@@ -7,7 +7,7 @@ nav_order: 160
 
 # ML Commons cluster settings
 
-To enhance and customize your OpenSearch cluster for machine learning (ML), you can add and modify several configuration settings for the ML commons plugin in your 'opensearch.yml' file.
+To enhance and customize your OpenSearch cluster for machine learning (ML), you can add and modify several configuration settings for the ML Commons plugin in your 'opensearch.yml' file.
 
 
 ## Run tasks and models on ML nodes only

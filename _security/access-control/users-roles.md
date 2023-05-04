@@ -7,7 +7,7 @@ nav_order: 80
 
 # Users and roles
 
-The security plugin includes an internal user database. Use this database in place of or in addition to an external authentication system such as LDAP or Active Directory.
+The Security plugin includes an internal user database. Use this database in place of or in addition to an external authentication system such as LDAP or Active Directory.
 
 Roles are the core way of controlling access to your cluster. Roles contain any combination of cluster-wide permissions, index-specific permissions, document- and field-level security, and tenants. Then you map users to these roles so that users gain those permissions.
 
@@ -30,7 +30,7 @@ You can create users using OpenSearch Dashboards, `internal_users.yml`, or the R
 ### OpenSearch Dashboards
 
 1. Choose **Security**, **Internal Users**, and **Create internal user**.
-1. Provide a username and password. The security plugin automatically hashes the password and stores it in the `.opendistro_security` index.
+1. Provide a username and password. The Security plugin automatically hashes the password and stores it in the `.opendistro_security` index.
 1. If desired, specify user attributes.
 
    Attributes are optional user properties that you can use for variable substitution in index permissions or document-level security.
@@ -99,7 +99,7 @@ See [Create role mapping]({{site.url}}{{site.baseurl}}/security/access-control/a
 
 ## Predefined roles
 
-The security plugin includes several predefined roles that serve as useful defaults.
+The Security plugin includes several predefined roles that serve as useful defaults.
 
 | **Role** | **Description** |
 | :--- | :--- |

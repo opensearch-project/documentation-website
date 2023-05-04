@@ -10,7 +10,7 @@ nav_order: 2
 
 The perform text analysis API analyzes a text string and returns the resulting tokens.
 
-If you use the security plugin, you must have the `manage index` privilege. If you simply want to analyze text, you must have the `manager cluster` privilege.
+If you use the Security plugin, you must have the `manage index` privilege. If you simply want to analyze text, you must have the `manager cluster` privilege.
 {: .note}
 
 ## Path and HTTP methods

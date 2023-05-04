@@ -19,6 +19,6 @@ Replication follows an active-passive model where the follower index (where the 
 
 The replication plugin supports replication of indexes using wildcard pattern matching and provides commands to pause, resume, and stop replication. Once replication starts on an index, it initiates persistent background tasks on all primary shards on the follower cluster, which continuously poll corresponding shards from the leader cluster for updates.
 
-You can use the replication plugin with the security plugin to encrypt cross-cluster traffic with node-to-node encryption and control access to replication activities.
+You can use the replication plugin with the Security plugin to encrypt cross-cluster traffic with node-to-node encryption and control access to replication activities.
 
 To start, see [Get started with cross-cluster replication]({{site.url}}{{site.baseurl}}/replication-plugin/get-started/).

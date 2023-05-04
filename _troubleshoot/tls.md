@@ -6,7 +6,7 @@ nav_order: 15
 
 # TLS troubleshooting
 
-This page includes troubleshooting steps for configuring TLS certificates with the security plugin.
+This page includes troubleshooting steps for configuring TLS certificates with the Security plugin.
 
 
 ---
@@ -43,7 +43,7 @@ openssl x509 -in node1.pem -text -noout
 
 ### Check for special characters and whitespace in DNs
 
-The security plugin uses the [string representation of Distinguished Names (RFC1779)](https://www.ietf.org/rfc/rfc1779.txt) when validating node certificates.
+The Security plugin uses the [string representation of Distinguished Names (RFC1779)](https://www.ietf.org/rfc/rfc1779.txt) when validating node certificates.
 
 If parts of your DN contain special characters (e.g. a comma), make sure you escape it in your configuration:
 
@@ -96,7 +96,7 @@ In this example, the node tries to join the cluster with the IPv4 address of `10
 
 ### Validate certificate chain
 
-TLS certificates are organized in a certificate chain. You can check with `keytool` that the certificate chain is correct by inspecting the owner and the issuer of each certificate. If you used the demo installation script that ships with the security plugin, the chain looks like:
+TLS certificates are organized in a certificate chain. You can check with `keytool` that the certificate chain is correct by inspecting the owner and the issuer of each certificate. If you used the demo installation script that ships with the Security plugin, the chain looks like:
 
 #### Node certificate
 
@@ -193,7 +193,7 @@ ExtendedKeyUsages [
 
 ## TLS versions
 
-The security plugin disables TLS version 1.0 by default; it is outdated, insecure, and vulnerable. If you need to use `TLSv1` and accept the risks, you can enable it in `opensearch.yml`:
+The Security plugin disables TLS version 1.0 by default; it is outdated, insecure, and vulnerable. If you need to use `TLSv1` and accept the risks, you can enable it in `opensearch.yml`:
 
 ```yml
 plugins.security.ssl.http.enabled_protocols:
@@ -215,7 +215,7 @@ That is not an issue, it just limits possible encryption strength.
 To enable AES 256 install 'Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files'
 ```
 
-The security plugin still works and falls back to weaker cipher suites. The plugin also prints out all available cipher suites during startup:
+The Security plugin still works and falls back to weaker cipher suites. The plugin also prints out all available cipher suites during startup:
 
 ```
 [INFO ] sslTransportClientProvider:

@@ -219,7 +219,7 @@ Before modifying any configuration files, it's always a good idea to save a back
    # fail when you try to start the service.
    discovery.type: single-node
 
-   # If you previously disabled the security plugin in opensearch.yml,
+   # If you previously disabled the Security plugin in opensearch.yml,
    # be sure to re-enable it. Otherwise you can skip this setting.
    plugins.security.disabled: false
    ```
@@ -239,7 +239,7 @@ Before modifying any configuration files, it's always a good idea to save a back
 
 ### Configure TLS
 
-TLS certificates provide additional security for your cluster by allowing clients to confirm the identity of hosts and encrypt traffic between the client and host. For more information, refer to [Configure TLS Certificates]({{site.url}}{{site.baseurl}}/security-plugin/configuration/tls/) and [Generate Certificates]({{site.url}}{{site.baseurl}}/security-plugin/configuration/generate-certificates/), which are included in the [Security Plugin]({{site.url}}{{site.baseurl}}/security-plugin/index/) documentation. For work performed in a development environment, self-signed certificates are usually adequate. This section will guide you through the basic steps required to generate your own TLS certificates and apply them to your OpenSearch host.
+TLS certificates provide additional security for your cluster by allowing clients to confirm the identity of hosts and encrypt traffic between the client and host. For more information, refer to [Configure TLS Certificates]({{site.url}}{{site.baseurl}}/security-plugin/configuration/tls/) and [Generate Certificates]({{site.url}}{{site.baseurl}}/security-plugin/configuration/generate-certificates/), which are included in the [Security plugin]({{site.url}}{{site.baseurl}}/security-plugin/index/) documentation. For work performed in a development environment, self-signed certificates are usually adequate. This section will guide you through the basic steps required to generate your own TLS certificates and apply them to your OpenSearch host.
 
 1. Navigate to the directory where the certificates will be stored.
    ```bash
@@ -258,7 +258,7 @@ TLS certificates provide additional security for your cluster by allowing client
    # replace the arguments passed to -subj so they reflect your specific host.
    sudo openssl req -new -x509 -sha256 -key root-ca-key.pem -subj "/C=CA/ST=ONTARIO/L=TORONTO/O=ORG/OU=UNIT/CN=ROOT" -out root-ca.pem -days 730
    ```
-1. Next, create the admin certificate. This certificate is used to gain elevated rights for performing administrative tasks relating to the security plugin.
+1. Next, create the admin certificate. This certificate is used to gain elevated rights for performing administrative tasks relating to the Security plugin.
    ```bash
    # Create a private key for the admin certificate.
    sudo openssl genrsa -out admin-key-temp.pem 2048
@@ -337,7 +337,7 @@ TLS certificates provide additional security for your cluster by allowing client
 
 Users are defined and authenticated by OpenSearch in a variety of ways. One method that does not require additional backend infrastructure is to manually configure users in `internal_users.yml`. See [YAML files]({{site.url}}{{site.baseurl}}/security-plugin/configuration/yaml/) for more information about configuring users. The following steps explain how to remove all demo users except for the `admin` user and how to replace the `admin` default password using a script.
 
-1. Navigate to the security plugins tools directory.
+1. Navigate to the Security plugins tools directory.
    ```bash
    cd /usr/share/opensearch/plugins/opensearch-security/tools
    ```
@@ -462,4 +462,4 @@ sudo apt-get upgrade opensearch=<version>
 - [OpenSearch configuration]({{site.url}}{{site.baseurl}}/install-and-configure/configuration/)
 - [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/)
 - [OpenSearch plugin installation]({{site.url}}{{site.baseurl}}/opensearch/install/plugins/)
-- [About the security plugin]({{site.url}}{{site.baseurl}}/security-plugin/index/)
+- [About the Security plugin]({{site.url}}{{site.baseurl}}/security-plugin/index/)

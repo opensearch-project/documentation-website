@@ -432,7 +432,7 @@ If you don't want to receive notifications for alerts, you don't have to add act
 
 1. Choose **Create**.
 
-After an action sends a message, the content of that message has left the purview of the security plugin. Securing access to the message (e.g. access to the Slack channel) is your responsibility.
+After an action sends a message, the content of that message has left the purview of the Security plugin. Securing access to the message (e.g. access to the Slack channel) is your responsibility.
 
 
 #### Sample message

@@ -147,7 +147,7 @@ You can continue using the top header bar in the default view for custom navigat
 
 ## Sample configuration
 
-The following configuration enables the security plugin and SSL within OpenSearch Dashboards and uses custom branding elements to replace the OpenSearch logo and application title.
+The following configuration enables the Security plugin and SSL within OpenSearch Dashboards and uses custom branding elements to replace the OpenSearch logo and application title.
 
 ```yml
 server.host: "0"

@@ -80,7 +80,7 @@ If your cluster state is red, you can still execute `securityadmin.sh`, but you 
 
 ### Check the security index name
 
-By default, the security plugin uses `.opendistro_security` as the name of the configuration index. If you configured a different index name in `opensearch.yml`, specify it using the `-i` option.
+By default, the Security plugin uses `.opendistro_security` as the name of the configuration index. If you configured a different index name in `opensearch.yml`, specify it using the `-i` option.
 
 
 ## "ERR: DN is not an admin user"

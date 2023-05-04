@@ -280,7 +280,7 @@ services:
 
 ### Sample Docker Compose file for development
 
-If you want to build your own compose file from an example, review the following sample `docker-compose.yml` file. This sample file creates two OpenSearch nodes and one OpenSearch Dashboards node with the security plugin disabled. You can use this sample file as a starting point while reviewing [Configuring basic security settings](#configuring-basic-security-settings).
+If you want to build your own compose file from an example, review the following sample `docker-compose.yml` file. This sample file creates two OpenSearch nodes and one OpenSearch Dashboards node with the Security plugin disabled. You can use this sample file as a starting point while reviewing [Configuring basic security settings](#configuring-basic-security-settings).
 ```yml
 version: '3'
 services:
@@ -295,7 +295,7 @@ services:
       - bootstrap.memory_lock=true # Disable JVM heap memory swapping
       - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" # Set min and max JVM heap sizes to at least 50% of system RAM
       - "DISABLE_INSTALL_DEMO_CONFIG=true" # Prevents execution of bundled demo script which installs demo certificates and security configurations to OpenSearch
-      - "DISABLE_SECURITY_PLUGIN=true" # Disables security plugin
+      - "DISABLE_SECURITY_PLUGIN=true" # Disables Security plugin
     ulimits:
       memlock:
         soft: -1 # Set memlock to unlimited (no soft or hard limit)
@@ -321,7 +321,7 @@ services:
       - bootstrap.memory_lock=true # Disable JVM heap memory swapping
       - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" # Set min and max JVM heap sizes to at least 50% of system RAM
       - "DISABLE_INSTALL_DEMO_CONFIG=true" # Prevents execution of bundled demo script which installs demo certificates and security configurations to OpenSearch
-      - "DISABLE_SECURITY_PLUGIN=true" # Disables security plugin
+      - "DISABLE_SECURITY_PLUGIN=true" # Disables Security plugin
     ulimits:
       memlock:
         soft: -1 # Set memlock to unlimited (no soft or hard limit)
@@ -440,13 +440,13 @@ docker build --tag=opensearch-custom-plugin .
 docker run -p 9200:9200 -p 9600:9600 -v /usr/share/opensearch/data opensearch-custom-plugin
 ```
 
-Alternatively, you might want to remove a plugin from an image before deploying it. This example Dockerfile removes the security plugin:
+Alternatively, you might want to remove a plugin from an image before deploying it. This example Dockerfile removes the Security plugin:
 ```
 FROM opensearchproject/opensearch:latest
 RUN /usr/share/opensearch/bin/opensearch-plugin remove opensearch-security
 ```
 
-You can also use a Dockerfile to pass your own certificates for use with the [Security Plugin]({{site.url}}{{site.baseurl}}/security/):
+You can also use a Dockerfile to pass your own certificates for use with the [Security plugin]({{site.url}}{{site.baseurl}}/security/):
 ```
 FROM opensearchproject/opensearch:latest
 COPY --chown=opensearch:opensearch opensearch.yml /usr/share/opensearch/config/

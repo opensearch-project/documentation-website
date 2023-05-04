@@ -164,4 +164,4 @@ aggregations | Information about the available aggregation types.
 
 ## Required permissions
 
-If you use the security plugin, make sure you have the appropriate permissions: `cluster:monitor/nodes/info`.
+If you use the Security plugin, make sure you have the appropriate permissions: `cluster:monitor/nodes/info`.
