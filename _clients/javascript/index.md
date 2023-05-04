@@ -3,6 +3,8 @@ layout: default
 title: JavaScript client
 has_children: true
 nav_order: 40
+redirect_from:
+  - /clients/javascript/
 ---
 
 # JavaScript client
