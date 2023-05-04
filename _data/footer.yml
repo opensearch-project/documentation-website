@@ -29,9 +29,12 @@ columns:
       -
         title: Testimonials
         url: '/testimonials.html'
-      - 
-        title: 'Trademark and Brand Policy'
-        url: '/trademark-brand-policy.html'
+      -
+        title: 'Brand Guidelines'
+        url: '/brand.html'
+      -
+        title: 'Trademark Usage Policy'
+        url: '/trademark-usage.html'
       -
         title: OpenSearch Disambiguation
         url: '/disambiguation.html'
