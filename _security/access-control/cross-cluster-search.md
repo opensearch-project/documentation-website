@@ -7,7 +7,7 @@ nav_order: 105
 
 # Cross-cluster search
 
-Cross-cluster search is exactly what it sounds like: it lets any node in a cluster execute search requests against other clusters. The security plugin supports cross-cluster search out of the box.
+Cross-cluster search is exactly what it sounds like: it lets any node in a cluster execute search requests against other clusters. The Security plugin supports cross-cluster search out of the box.
 
 ---
 
@@ -22,8 +22,8 @@ Cross-cluster search is exactly what it sounds like: it lets any node in a clust
 
 When accessing a *remote cluster* from a *coordinating cluster* using cross-cluster search:
 
-1. The security plugin authenticates the user on the coordinating cluster.
-1. The security plugin fetches the user's backend roles on the coordinating cluster.
+1. The Security plugin authenticates the user on the coordinating cluster.
+1. The Security plugin fetches the user's backend roles on the coordinating cluster.
 1. The call, including the authenticated user, is forwarded to the remote cluster.
 1. The user's permissions are evaluated on the remote cluster.
 
