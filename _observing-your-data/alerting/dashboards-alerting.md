@@ -1,30 +1,30 @@
 ---
 layout: default
-title: Creating alerts with Dashboard 
+title: Using alerts with Dashboard 
 parent: Alerting
 nav_order: 50
 ---
 
-# Creating alerts with Dashboard
+# Using alerts with Dashboard
 Introduced 2.8
 {: .label .label-purple }
 
-Use the **Dashboard** app to set up alerts and display visualizations from within the app instead of jumping between the app and the [alerting plugin]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/index/) page. The Dashboard app gives you one place to:
+Use **Dashboard** to set up alerts and display visualizations from within the app instead of jumping between the app and the [alerting plugin]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/index/) page. The Dashboard app gives you one place to:
 
 - Set up, add, and adjust rules and conditions that trigger alerts and notifications.
 - Create visualizations to help you quickly see trends and patterns or identify and address issues.
 - Build dashboards to stay on top of important metrics and data points in real time.
 - Monitor your alerts in one place with at-a-glance dashboards. 
 
-Getting started with alerting in Dashboard is straightforward. Watch this video for a quick overview of some of the tasks we'll perform in this tutorial. 
+Getting started with alerting with Dashboard is straightforward. Watch this video for a quick overview of some of the tasks we'll perform in this tutorial.
 
 <insert demo from SME>
 
 ## Prerequisites 
 
-- If you don't already have OpenSearch and OpenSearch Dashboards 2.8 or later, [download or upgrade OpenSearch](https://opensearch.org/docs/latest/install-and-configure/install-opensearch/index/) to get started.
-- <XYZ>.
-- <XYZ>.  
+- If you aren't running OpenSearch and OpenSearch Dashboards 2.8 or later, [download or upgrade OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/) to get started.
+- The Alerting and Notifications Dashboards plugins must be installed. See [Managing OpenSearch Dashboards plugins]({{site.url}}{{site.baseurl}}install-and-configure/install-dashboards/plugins/).
+- 
 
 ## Visualization requirements
 
