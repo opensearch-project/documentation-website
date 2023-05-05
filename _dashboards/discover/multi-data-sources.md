@@ -11,7 +11,7 @@ OpenSearch Dashboards allows you to dynamically manage data sources, create inde
 
 ## Modifying the YAML file settings for multiple data sources
 
-This tutorial uses a preconfigured data source and index pattern, and you aren’t required to configure settings. However, configuration requirements must be addressed to enable the multiple data sources feature, as Dashboards is configured in the cluster settings and the multiple data sources feature is disabled by default. To enable it, you need to edit the configuration file and then restart the cluster.
+This tutorial uses a preconfigured data source and index pattern for which you aren’t required to configure settings. However, you'll need to enable the multiple data sources feature, as it is disabled by default. To enable it, edit the configuration file and then restart the cluster.
 
 To enable multiple data sources:
 
