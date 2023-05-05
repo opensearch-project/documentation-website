@@ -4,6 +4,8 @@ title: Cluster allocation explain
 nav_order: 10
 parent: Cluster APIs
 has_children: false
+redirect_from:
+ - /opensearch/rest-api/cluster-allocation/
 ---
 
 # Cluster allocation explain

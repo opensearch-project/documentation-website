@@ -39,7 +39,7 @@ Stop any nonessential indexing before you begin the upgrade procedure to elimina
 
 ### Reviewing breaking changes
 
-It's important to determine how the new version of OpenSearch will integreate with your environment. Review [Breaking changes]({{site.url}}{{site.baseurl}}/breaking-changes/) before beginning any upgrade procedures to determine whether you will need to make adjustments to your workflow. For example, upstream or downstream components might need to be modified to be compatible with an API change (see meta issue [#2589](https://github.com/opensearch-project/OpenSearch/issues/2589)).
+It's important to determine how the new version of OpenSearch will integrate with your environment. Review [Breaking changes]({{site.url}}{{site.baseurl}}/breaking-changes/) before beginning any upgrade procedures to determine whether you will need to make adjustments to your workflow. For example, upstream or downstream components might need to be modified to be compatible with an API change (see meta issue [#2589](https://github.com/opensearch-project/OpenSearch/issues/2589)).
 
 ### Reviewing the OpenSearch tools compatibility matrices
 

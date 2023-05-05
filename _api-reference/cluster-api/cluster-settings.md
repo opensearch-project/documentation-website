@@ -5,6 +5,7 @@ nav_order: 50
 parent: Cluster APIs
 redirect_from:
   - /api-reference/cluster-settings/
+  - /opensearch/rest-api/cluster-settings/
 ---
 
 # Cluster settings

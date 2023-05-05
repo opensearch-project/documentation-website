@@ -2,6 +2,8 @@
 layout: default
 title: Logs
 nav_order: 60
+redirect_from:
+  - /opensearch/logs/
 ---
 
 # Logs
@@ -89,7 +91,7 @@ There are other ways to change log levels:
 
 OpenSearch has two *slow logs*, logs that help you identify performance issues: the search slow log and the indexing slow log.
 
-These logs rely on thresholds to define what qualifies as a "slow" search or indexing operation. For example, you might decide that a query is slow if it takes more than 15 seconds to complete. Unlike application logs, which you configure for modules, you configure slow logs for indices. By default, both logs are disabled (all thresholds are set to `-1`):
+These logs rely on thresholds to define what qualifies as a "slow" search or indexing operation. For example, you might decide that a query is slow if it takes more than 15 seconds to complete. Unlike application logs, which you configure for modules, you configure slow logs for indexes. By default, both logs are disabled (all thresholds are set to `-1`):
 
 ```json
 GET <some-index>/_settings?include_defaults=true

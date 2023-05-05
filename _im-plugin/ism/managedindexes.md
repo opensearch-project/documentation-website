@@ -1,12 +1,12 @@
 ---
 layout: default
-title: Managed Indices
+title: Managed indexes
 nav_order: 3
 parent: Index State Management
 has_children: false
 ---
 
-# Managed indices
+# Managed indexes
 
 You can change or update a policy using the managed index operations.
 
@@ -58,7 +58,7 @@ The following example shows a managed index policy:
 
 ## Change policy
 
-You can change any managed index policy, but ISM has a few constraints in place to make sure that policy changes don't break indices.
+You can change any managed index policy, but ISM has a few constraints in place to make sure that policy changes don't break indexes.
 
 If an index is stuck in its current state, never proceeding, and you want to update its policy immediately, make sure that the new policy includes the same state---same name, same actions, same order---as the old policy. In this case, even if the policy is in the middle of executing an action, ISM applies the new policy.
 
@@ -66,8 +66,8 @@ If you update the policy without including an identical state, ISM updates the p
 
 To change a policy using OpenSearch Dashboards, do the following:
 
-- Under **Managed indices**, choose the indices that you want to attach the new policy to.
-- To attach the new policy to indices in specific states, choose **Choose state filters**, and then choose those states.
+- Under **Index Management**, choose the indexes that you want to attach the new policy to.
+- To attach the new policy to indexes in specific states, choose **Choose state filters**, and then choose those states.
 - Under **Choose New Policy**, choose the new policy.
-- To start the new policy for indices in the current state, choose **Keep indices in their current state after the policy takes effect**.
+- To start the new policy for indexes in the current state, choose **Keep indices in their current state after the policy takes effect**.
 - To start the new policy in a specific state, choose **Start from a chosen state after changing policies**, and then choose the default start state in your new policy.

@@ -7,6 +7,7 @@ nav_order: 10
 permalink: /query-dsl/compound/bool/
 redirect_from:
   - /opensearch/query-dsl/compound/bool/
+  - /opensearch/query-dsl/bool/
 ---
 
 # Boolean queries
