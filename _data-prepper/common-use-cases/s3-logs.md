@@ -171,16 +171,10 @@ We recommend that you have one SQS queue per Data Prepper pipeline. In addition,
 
 If you have multiple pipelines, you must create multiple SQS queues for each pipeline, even if both pipelines use the same S3 bucket.
 
-## Amazon SNS fan out pattern
+## Amazon SNS fanout pattern
 
-Often a team needs to have multiple event handlers for an S3 bucket.
-A standard solution here is to use an [Amazon Simple Notification Service](https://docs.aws.amazon.com/sns/latest/dg/welcome.html) (SNS) to SQS [fan out pattern](https://docs.aws.amazon.com/sns/latest/dg/sns-common-scenarios.html).
-In this setup, you will have S3 event notifications go directly to a single SNS topic.
-Then you can subscribe multiple SQS queues to the SNS topic.
+To meet the scale of logs produced in S3, some users require multiple SQS queues for their logs. You can use the [Amazon Simple Notification Service](https://docs.aws.amazon.com/sns/latest/dg/welcome.html) (SNS) to route event notifications from S3 to an SQS [fanout pattern](https://docs.aws.amazon.com/sns/latest/dg/sns-common-scenarios.html). Using SNS, all S3 event notifications go directly to a single SNS topic, where you can subscribe to multiple SQS queues.
 
-In order for this to work with Data Prepper, you must configure [raw message delivery](https://docs.aws.amazon.com/sns/latest/dg/sns-large-payload-raw-message-delivery.html) on the SNS to SQS subscription.
-This configuration allows Data Prepper to parse the incoming data correctly.
-The raw message delivery option is on the connection between SNS and SQS.
-Thus, you can have some SQS queues which do not enable raw message delivery.
-Using Data Prepper will not interfere with those queues.
+To make sure that Data Prepper can parse the event from the SNS topic directly, configure [raw message delivery](https://docs.aws.amazon.com/sns/latest/dg/sns-large-payload-raw-message-delivery.html) on the SNS to SQS subscription. If you want Data Prepper to ignore an SQS queue that sends notifications to your SNS topic, do not enable raw message delivery those queues.
+
 
