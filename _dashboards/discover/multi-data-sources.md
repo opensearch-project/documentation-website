@@ -7,26 +7,21 @@ nav_order: 20
 
 # Adding multiple data sources
 
-OpenSearch Dashboards allows you to dynamically manage data sources, create index patterns based on those data sources, run queries against a specific data source, and combine visualizations in one dashboard.
-
-In this tutorial we provide the steps for enabling the `data_source` setting in Dashboards; adding credentials, data source connections, and index patterns; and combining visualizations in a single dashboard.
-
-## Enabling the multiple data sources feature
-
-This tutorial uses a preconfigured data source and index pattern, and you aren’t required to configure settings. However, you’ll need to enable the `data_source` setting in the configuration file before before getting started with exploring this feature.
-{: .note }
+OpenSearch Dashboards allows you to dynamically manage data sources, create index patterns based on those data sources, run queries against a specific data source, and combine visualizations in one dashboard. In this tutorial we provide the steps for enabling the `data_source` setting in Dashboards; adding credentials, data source connections, and index patterns; and combining visualizations in a single dashboard.
 
 ## Modifying the YAML file settings for multiple data sources
 
-Dashboards is configured in the cluster settings, and the multiple data sources feature is disabled by default. To enable it, you need to edit the configuration in `opensearch_dashboards.yml` and then restart the cluster.
+This tutorial uses a preconfigured data source and index pattern, and you aren’t required to configure settings. However, configuration requirements must be addressed to enable the multiple data sources feature, as Dashboards is configured in the cluster settings and the multiple data sources feature is disabled by default. To enable it, you need to edit the configuration file and then restart the cluster.
 
-To enable the feature:
+To enable multiple data sources:
 
-1. Navigate to your Dashboards home directory; for example, in Docker, `/usr/share/opensearch-dashboards`.
-2. Open your local copy of the Dashboards configuration file, `opensearch_dashboards.yml`. If you don't have a copy, get one from GitHub: [`opensearch_dashboards.yml`](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/config/opensearch_dashboards.yml).
-3. Set `data_source.enabled:` to  `true` and save the configuration.
+1. Navigate to your Dashboards home directory, for example, in Docker, `/usr/share/opensearch-dashboards`.
+2. Open your local copy of the Dashboards configuration file, `opensearch_dashboards.yml`. If you don't have a copy, the [YAML file](`https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/config/opensearch_dashboards.yml`) is available on GitHub.
+3. Set `data_source.enabled:` to  `true` and save the YAML file.
 4. Restart the Dashboards container.
-5. Verify the configuration settings were created and configured properly by connecting to Dashboards and viewing the **Stack Management** console. **Data Sources** appears in the sidebar.
+5. Verify the configuration settings were created and configured properly by connecting to Dashboards and viewing the **Stack Management** console. **Data Sources** appears in the sidebar, as shown in the following image.
+
+![Data Sources navigation menu]({{site.url}}{{site.baseurl}}/images/dashboards/data-sources.png)
 
 ## Creating a data source connection
 
@@ -51,8 +46,7 @@ To create a new data source connection:
 
 4. Choose **Create data source connection** to save your settings. The connection is created. The active window returns to the **Data Sources** main page, and the new connection appears in the list of data sources.
 
-    You can also delete the data source connection from this page by selecting the check box to the left of the title and then choosing **Delete 1 connection** to the right of the search bar. Selecting multiple check boxes for multiple connections is also supported.
-    {: .note }
+5. (Optional) Delete a data source connection from this page by selecting the check box to the left of the title and then choosing **Delete 1 connection** to the right of the search bar. Selecting multiple check boxes for multiple connections is supported.
 
 ### Editing and updating a data source connection
 
@@ -64,7 +58,7 @@ When **Username & Password** is the selected authentication method, you can upda
 
 When **AWS SigV4** is the selected authentication method, you can update the credentials by choosing **Update stored AWS credential**. In the pop-up window, enter a new  access key in the first field and a new secret key in the second field. Choose **Update stored AWS credential** in the pop-up window. The new credentials are saved. Choose **Test connection** in the upper-right corner of the screen to confirm that the connection is valid.
 
-To delete the data source connection, choose the red trash can icon in the upper-right corner of the screen.
+To delete the data source connection, choose the red trash can icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/trash-can-red-icon.png" class="inline-icon" alt="red trash can icon"/>{:/}) in the upper-right corner of the screen.
 
 ## Creating an index pattern
 
@@ -89,7 +83,7 @@ To set the time filter:
 3. Change the time field to **Last 7 days** and choose **Refresh**.
 4. To set the start and end times, choose the bar next to the time filter. In the pop-up window, select **Absolute**, **Relative**, or **Now** and then specify the required options.
 
- ### Selecting a time range from the histogram
+### Selecting a time range from the histogram
 
 To select a time range for the histogram, you can do one of the following:
 
