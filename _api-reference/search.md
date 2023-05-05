@@ -2,6 +2,8 @@
 layout: default
 title: Search
 nav_order: 75
+redirect_from:
+  - /opensearch/rest-api/search/
 ---
 
 # Search
@@ -64,7 +66,7 @@ request_cache | Boolean | Specifies whether OpenSearch should use the request ca
 rest_total_hits_as_int | Boolean | Whether to return `hits.total` as an integer. Returns an object otherwise. Default is false.
 routing | String | Value used to route the update by query operation to a specific shard.
 scroll | Time | How long to keep the search context open.
-search_type | String | Whether OpenSearch should use global term and document frequencies when calculating revelance scores. Valid choices are `query_then_fetch` and `dfs_query_then_fetch`. `query_then_fetch` scores documents using local term and document frequencies for the shard. It’s usually faster but less accurate. `dfs_query_then_fetch` scores documents using global term and document frequencies across all shards. It’s usually slower but more accurate. Default is `query_then_fetch`.
+search_type | String | Whether OpenSearch should use global term and document frequencies when calculating relevance scores. Valid choices are `query_then_fetch` and `dfs_query_then_fetch`. `query_then_fetch` scores documents using local term and document frequencies for the shard. It’s usually faster but less accurate. `dfs_query_then_fetch` scores documents using global term and document frequencies across all shards. It’s usually slower but more accurate. Default is `query_then_fetch`.
 seq_no_primary_term | Boolean | Whether to return sequence number and primary term of the last operation of each document hit.
 size | Integer | How many results to include in the response.
 sort | List | A comma-separated list of &lt;field&gt; : &lt;direction&gt; pairs to sort by.
@@ -94,7 +96,7 @@ docvalue_fields | Array of objects | The fields that OpenSearch should return us
 fields | Array | The fields to search for in the request. Specify a format to return results in a certain format, such as date and time.
 explain | String | Whether to return details about how OpenSearch computed the document's score. Default is false.
 from | Integer | The starting index to search from. Default is 0.
-indices_boost | Array of objects | Scores used to boost specified indices' scores. Specify in the format of &lt;index&gt; : &lt;boost-multiplier&gt;
+indices_boost | Array of objects | Values used to boost the score of specified indexes. Specify in the format of &lt;index&gt; : &lt;boost-multiplier&gt;
 min_score | Integer | Specify a score threshold to return only documents above the threshold.
 query | Object | The [DSL query]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/index) to use in the request.
 seq_no_primary_term | Boolean | Whether to return sequence number and primary term of the last operation of each document hit.

@@ -27,7 +27,7 @@ distance_type | enum, such as `EUCLIDEAN`, `COSINE`, or `L1` | The type of measu
 
 ### APIs
 
-* [Train]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#training-a-model)
+* [Train]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#train-model)
 * [Predict]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#predict)
 * [Train and predict]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#train-and-predict)
 
@@ -77,7 +77,7 @@ optimizerType | OptimizerType | The optimizer used in the model. | SIMPLE_SGD
 
 ### APIs
 
-* [Train]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#training-a-model)
+* [Train]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#train-model)
 * [Predict]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#predict)
 
 ### Example
@@ -189,7 +189,7 @@ time_zone | string | The time zone for the `time_field` field. | "UTC"
 
 ### APIs
 
-* [Train]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#training-a-model)
+* [Train]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#train-model)
 * [Predict]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#predict)
 * [Train and predict]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#train-and-predict)
 
@@ -198,9 +198,9 @@ time_zone | string | The time zone for the `time_field` field. | "UTC"
 
 For FIT RCF, you can train the model with historical data and store the trained model in your index. The model will be deserialized and predict new data points when using the Predict API. However, the model in the index will not be refreshed with new data, because the model is fixed in time.
 
-## RCFSummarize
+## RCF Summarize
 
-RCFSummarize is a clustering algorithm based on the Clustering Using REpresentatives (CURE) algorithm. Compared to [k-means](#k-means), which uses random iterations to cluster, RCFSummarize uses a hierarchical clustering technique. The algorithm starts, with a set of randomly selected centroids larger than the centroids' ground truth distribution. During iteration, centroid pairs too close to each other automatically merge. Therefore, the number of centroids (`max_k`) converge to a rational number of clusters that fits ground truth, as opposed to a fixed `k` number of clusters.  
+RCF Summarize is a clustering algorithm based on the Clustering Using Representatives (CURE) algorithm. Compared to [k-means](#k-means), which uses random iterations to cluster, RCF Summarize uses a hierarchical clustering technique. The algorithm starts, with a set of randomly selected centroids larger than the centroids' ground truth distribution. During iteration, centroid pairs too close to each other automatically merge. Therefore, the number of centroids (`max_k`) converge to a rational number of clusters that fits ground truth, as opposed to a fixed `k` number of clusters.  
 
 ### Parameters
 
@@ -211,7 +211,7 @@ RCFSummarize is a clustering algorithm based on the Clustering Using REpresentat
 
 ### APIs
 
-* [Train]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#training-a-model)
+* [Train]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#train-model)
 * [Predict]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#predict)
 * [Train and predict]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#train-and-predict)
 
@@ -429,7 +429,7 @@ A classification algorithm, logistic regression models the probability of a disc
 
 ### APIs
 
-* [Train]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#training-a-model)
+* [Train]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#train-model)
 * [Predict]({{site.url}}{{site.baseurl}}/ml-commons-plugin/api/#predict)
 
 ### Example: Train/Predict with Iris data
@@ -651,7 +651,7 @@ PUT /_cluster/settings
 
 ### Parameters
 
-To use the metrics correlation algorthim, include the following parameters.
+To use the metrics correlation algorithm, include the following parameters.
 
 | Parameter | Type | Description | Default value |
 |---|---|---|---|
@@ -661,7 +661,7 @@ metrics | Array | A list of metrics within the time series that can be correlate
 
 The metrics correlation input is an $M$ x $T$ array of metrics data, where M is the number of metrics and T is the length of each individual sequence of metric values. 
 
-When inputting metrics into the algorthim, assume the following:
+When inputting metrics into the algorithm, assume the following:
 
 1. For each metric, the input sequence has the same length, $T$.
 2. All input metrics should have the same corresponding set of timestamps.

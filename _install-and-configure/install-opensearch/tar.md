@@ -53,6 +53,8 @@ Before launching OpenSearch you should review some [important system settings]({
    ```bash
    sudo swapoff -a
    ```
+   {% include copy.html %}
+
 1. Increase the number of memory maps available to OpenSearch.
    ```bash
    # Edit the sysctl config file
@@ -75,11 +77,11 @@ Before launching OpenSearch you should review some [important system settings]({
 Before proceeding you should test your installation of OpenSearch. Otherwise, it can be difficult to determine whether future problems are due to installation issues or custom settings you applied after installation. There are two quick methods for testing OpenSearch at this stage:
 
 1. **(Security enabled)** Apply a generic configuration using the demo security script included in the tar archive.
-1. **(Security disabled)** Manually disable the security plugin and test the instance before applying your own custom security settings.
+1. **(Security disabled)** Manually disable the Security plugin and test the instance before applying your own custom security settings.
 
 The demo security script will apply a generic configuration to your instance of OpenSearch. This configuration defines some environment variables and also applies self-signed TLS certificates. If you would like to configure these yourself, see [Step 4: Set up OpenSearch in your environment](#step-4-set-up-opensearch-in-your-environment).
 
-If you only want to verify that the service is properly configured and you intend to configure security settings yourself, then you may want to disable the security plugin and launch the service without encryption or authentication.
+If you only want to verify that the service is properly configured and you intend to configure security settings yourself, then you may want to disable the Security plugin and launch the service without encryption or authentication.
 
 An OpenSearch node configured by the demo security script is not suitable for a production environment. If you plan to use the node in a production environment after running `opensearch-tar-install.sh`, you should, at a minimum, replace the demo TLS certificates with your own TLS certificates and [update the list of internal users and passwords]({{site.url}}{{site.baseurl}}/security/configuration/yaml). See [Security configuration]({{site.url}}{{site.baseurl}}/security/configuration/index/) for additional guidance to ensure that your nodes are configured according to your security requirements.
 {: .warning}
@@ -90,15 +92,21 @@ An OpenSearch node configured by the demo security script is not suitable for a 
    ```bash
    cd /path/to/opensearch-{{site.opensearch_version}}
    ```
+   {% include copy.html %}
+
 1. Run the demo security script.
    ```bash
    ./opensearch-tar-install.sh
    ```
+   {% include copy.html %}
+
 1. Open another terminal session and send requests to the server to verify that OpenSearch is running. Note the use of the `--insecure` flag, which is required because the TLS certificates are self-signed.
    - Send a request to port 9200:
       ```bash
       curl -X GET https://localhost:9200 -u 'admin:admin' --insecure
       ```
+      {% include copy.html %}
+
       You should get a response that looks like this:
       ```bash
       {
@@ -107,12 +115,12 @@ An OpenSearch node configured by the demo security script is not suitable for a 
          "cluster_uuid" : "6XNc9m2gTUSIoKDqJit0PA",
          "version" : {
             "distribution" : "opensearch",
-            "number" : "2.1.0",
-            "build_type" : "tar",
-            "build_hash" : "388c80ad94529b1d9aad0a735c4740dce2932a32",
-            "build_date" : "2022-06-30T21:31:04.823801692Z",
+            "number" : <version>,
+            "build_type" : <build-type>,
+            "build_hash" : <build-hash>,
+            "build_date" : <build-date>,
             "build_snapshot" : false,
-            "lucene_version" : "9.2.0",
+            "lucene_version" : <lucene-version>,
             "minimum_wire_compatibility_version" : "7.10.0",
             "minimum_index_compatibility_version" : "7.0.0"
          },
@@ -123,25 +131,26 @@ An OpenSearch node configured by the demo security script is not suitable for a 
       ```bash
       curl -X GET https://localhost:9200/_cat/plugins?v -u 'admin:admin' --insecure
       ```
+      {% include copy.html %}
 
       The response should look like this:
       ```bash
       name     component                            version
-      hostname opensearch-alerting                  2.1.0.0
-      hostname opensearch-anomaly-detection         2.1.0.0
-      hostname opensearch-asynchronous-search       2.1.0.0
-      hostname opensearch-cross-cluster-replication 2.1.0.0
-      hostname opensearch-index-management          2.1.0.0
-      hostname opensearch-job-scheduler             2.1.0.0
-      hostname opensearch-knn                       2.1.0.0
-      hostname opensearch-ml                        2.1.0.0
-      hostname opensearch-notifications             2.1.0.0
-      hostname opensearch-notifications-core        2.1.0.0
-      hostname opensearch-observability             2.1.0.0
-      hostname opensearch-performance-analyzer      2.1.0.0
-      hostname opensearch-reports-scheduler         2.1.0.0
-      hostname opensearch-security                  2.1.0.0
-      hostname opensearch-sql                       2.1.0.0
+      hostname opensearch-alerting                  {{site.opensearch_version}}
+      hostname opensearch-anomaly-detection         {{site.opensearch_version}}
+      hostname opensearch-asynchronous-search       {{site.opensearch_version}}
+      hostname opensearch-cross-cluster-replication {{site.opensearch_version}}
+      hostname opensearch-index-management          {{site.opensearch_version}}
+      hostname opensearch-job-scheduler             {{site.opensearch_version}}
+      hostname opensearch-knn                       {{site.opensearch_version}}
+      hostname opensearch-ml                        {{site.opensearch_version}}
+      hostname opensearch-notifications             {{site.opensearch_version}}
+      hostname opensearch-notifications-core        {{site.opensearch_version}}
+      hostname opensearch-observability             {{site.opensearch_version}}
+      hostname opensearch-performance-analyzer      {{site.opensearch_version}}
+      hostname opensearch-reports-scheduler         {{site.opensearch_version}}
+      hostname opensearch-security                  {{site.opensearch_version}}
+      hostname opensearch-sql                       {{site.opensearch_version}}
       ```
 1. Return to the original terminal session and stop the process by pressing `CTRL + C`.
 
@@ -151,16 +160,22 @@ An OpenSearch node configured by the demo security script is not suitable for a 
    ```bash
    vi /path/to/opensearch-{{site.opensearch_version}}/config/opensearch.yml
    ```
-1. Add the following line to disable the security plugin:
+   {% include copy.html %}
+
+1. Add the following line to disable the Security plugin:
    ```bash
    plugins.security.disabled: true
    ```
+   {% include copy.html %}
+
 1. Save the change and close the file.
-1. Open another terminal session and send requests to the server to verify that OpenSearch is running. Because the security plugin has been disabled, you will be sending commands using `HTTP` rather than `HTTPS`.
+1. Open another terminal session and send requests to the server to verify that OpenSearch is running. Because the Security plugin has been disabled, you will be sending commands using `HTTP` rather than `HTTPS`.
    - Send a request to port 9200.
       ```bash
       curl -X GET http://localhost:9200
       ```
+      {% include copy.html %}
+
       You should get a response that looks like this:
       ```bash
       {
@@ -169,12 +184,12 @@ An OpenSearch node configured by the demo security script is not suitable for a 
          "cluster_uuid" : "6XNc9m2gTUSIoKDqJit0PA",
          "version" : {
             "distribution" : "opensearch",
-            "number" : "2.1.0",
-            "build_type" : "tar",
-            "build_hash" : "388c80ad94529b1d9aad0a735c4740dce2932a32",
-            "build_date" : "2022-06-30T21:31:04.823801692Z",
+            "number" : <version>,
+            "build_type" : <build-type>,
+            "build_hash" : <build-hash>,
+            "build_date" : <build-date>,
             "build_snapshot" : false,
-            "lucene_version" : "9.2.0",
+            "lucene_version" : <lucene-version>,
             "minimum_wire_compatibility_version" : "7.10.0",
             "minimum_index_compatibility_version" : "7.0.0"
          },
@@ -185,25 +200,26 @@ An OpenSearch node configured by the demo security script is not suitable for a 
       ```bash
       curl -X GET http://localhost:9200/_cat/plugins?v
       ```
+      {% include copy.html %}
 
       The response should look like this:
       ```bash
       name     component                            version
-      hostname opensearch-alerting                  2.1.0.0
-      hostname opensearch-anomaly-detection         2.1.0.0
-      hostname opensearch-asynchronous-search       2.1.0.0
-      hostname opensearch-cross-cluster-replication 2.1.0.0
-      hostname opensearch-index-management          2.1.0.0
-      hostname opensearch-job-scheduler             2.1.0.0
-      hostname opensearch-knn                       2.1.0.0
-      hostname opensearch-ml                        2.1.0.0
-      hostname opensearch-notifications             2.1.0.0
-      hostname opensearch-notifications-core        2.1.0.0
-      hostname opensearch-observability             2.1.0.0
-      hostname opensearch-performance-analyzer      2.1.0.0
-      hostname opensearch-reports-scheduler         2.1.0.0
-      hostname opensearch-security                  2.1.0.0
-      hostname opensearch-sql                       2.1.0.0
+      hostname opensearch-alerting                  {{site.opensearch_version}}
+      hostname opensearch-anomaly-detection         {{site.opensearch_version}}
+      hostname opensearch-asynchronous-search       {{site.opensearch_version}}
+      hostname opensearch-cross-cluster-replication {{site.opensearch_version}}
+      hostname opensearch-index-management          {{site.opensearch_version}}
+      hostname opensearch-job-scheduler             {{site.opensearch_version}}
+      hostname opensearch-knn                       {{site.opensearch_version}}
+      hostname opensearch-ml                        {{site.opensearch_version}}
+      hostname opensearch-notifications             {{site.opensearch_version}}
+      hostname opensearch-notifications-core        {{site.opensearch_version}}
+      hostname opensearch-observability             {{site.opensearch_version}}
+      hostname opensearch-performance-analyzer      {{site.opensearch_version}}
+      hostname opensearch-reports-scheduler         {{site.opensearch_version}}
+      hostname opensearch-security                  {{site.opensearch_version}}
+      hostname opensearch-sql                       {{site.opensearch_version}}
       ```
 
 ## Step 4: Set up OpenSearch in your environment
@@ -228,6 +244,8 @@ Before modifying any configuration files, it's always a good idea to save a back
    ```bash
    vi /path/to/opensearch-{{site.opensearch_version}}/config/opensearch.yml
    ```
+   {% include copy.html %}
+
 1. Add the following lines.
    ```bash
    # Bind OpenSearch to the correct network interface. Use 0.0.0.0
@@ -240,36 +258,45 @@ Before modifying any configuration files, it's always a good idea to save a back
    # fail when you try to start the service.
    discovery.type: single-node
 
-   # If you previously disabled the security plugin in opensearch.yml,
+   # If you previously disabled the Security plugin in opensearch.yml,
    # be sure to re-enable it. Otherwise you can skip this setting.
    plugins.security.disabled: false
    ```
+   {% include copy.html %}
+
 1. Save your changes and close the file.
 1. Specify initial and maximum JVM heap sizes.
    1.  Open `jvm.options`.
          ```bash
          vi /path/to/opensearch-{{site.opensearch_version}}/config/jvm.options
          ```
+         {% include copy.html %}
+
    1. Modify the values for initial and maximum heap sizes. As a starting point, you should set these values to half of the available system memory. For dedicated hosts this value can be increased based on your workflow requirements.
       -  As an example, if the host machine has 8 GB of memory then you might want to set the initial and maximum heap sizes to 4 GB:
          ```bash
          -Xms4g
          -Xmx4g
          ```
+         {% include copy.html %}
+
    1. Save your changes and close the file.
 1. Specify the location of the included JDK.
    ```bash
    export OPENSEARCH_JAVA_HOME=/path/to/opensearch-{{site.opensearch_version}}/jdk
    ```
+   {% include copy.html %}
 
 ### Configure TLS
 
-TLS certificates provide additional security for your cluster by allowing clients to confirm the identity of hosts and encrypt traffic between the client and host. For more information, refer to [Configure TLS Certificates]({{site.url}}{{site.baseurl}}/security/configuration/tls/) and [Generate Certificates]({{site.url}}{{site.baseurl}}/security/configuration/generate-certificates/), which are included in the [Security Plugin]({{site.url}}{{site.baseurl}}/security/index/) documentation. For work performed in a development environment, self-signed certificates are usually adequate. This section will guide you through the basic steps required to generate your own TLS certificates and apply them to your OpenSearch host.
+TLS certificates provide additional security for your cluster by allowing clients to confirm the identity of hosts and encrypt traffic between the client and host. For more information, refer to [Configure TLS Certificates]({{site.url}}{{site.baseurl}}/security/configuration/tls/) and [Generate Certificates]({{site.url}}{{site.baseurl}}/security/configuration/generate-certificates/), which are included in the [Security plugin]({{site.url}}{{site.baseurl}}/security/index/) documentation. For work performed in a development environment, self-signed certificates are usually adequate. This section will guide you through the basic steps required to generate your own TLS certificates and apply them to your OpenSearch host.
 
 1. Navigate to the OpenSearch `config` directory. This is where the certificates will be stored.
    ```bash
    cd /path/to/opensearch-{{site.opensearch_version}}/config/
    ```
+   {% include copy.html %}
+
 1. Generate a root certificate. This is what you will use to sign your other certificates.
    ```bash
    # Create a private key for the root certificate
@@ -279,7 +306,7 @@ TLS certificates provide additional security for your cluster by allowing client
    # replace the arguments passed to -subj so they reflect your specific host.
    openssl req -new -x509 -sha256 -key root-ca-key.pem -subj "/C=CA/ST=ONTARIO/L=TORONTO/O=ORG/OU=UNIT/CN=ROOT" -out root-ca.pem -days 730
    ```
-1. Next, create the admin certificate. This certificate is used to gain elevated rights for performing administrative tasks relating to the security plugin.
+1. Next, create the admin certificate. This certificate is used to gain elevated rights for performing administrative tasks relating to the Security plugin.
    ```bash
    # Create a private key for the admin certificate.
    openssl genrsa -out admin-key-temp.pem 2048
@@ -317,6 +344,8 @@ TLS certificates provide additional security for your cluster by allowing client
    ```bash
    rm *temp.pem *csr *ext
    ```
+   {% include copy.html %}
+
 1. Add these certificates to `opensearch.yml` as described in [Generate Certificates]({{site.url}}{{site.baseurl}}/security/configuration/generate-certificates/#add-distinguished-names-to-opensearchyml). Advanced users might also choose to append the settings using a script:
    ```bash
    #! /bin/bash
@@ -342,6 +371,8 @@ TLS certificates provide additional security for your cluster by allowing client
    echo "plugins.security.check_snapshot_restore_write_privileges: true" | sudo tee -a /path/to/opensearch-{{site.opensearch_version}}/config/opensearch.yml
    echo "plugins.security.restapi.roles_enabled: [\"all_access\", \"security_rest_api_access\"]" | sudo tee -a /path/to/opensearch-{{site.opensearch_version}}/config/opensearch.yml
    ```
+   {% include copy.html %}
+
 1. (Optional) Add trust for the self-signed root certificate.
    ```bash
    # Copy the root certificate to the correct directory
@@ -355,10 +386,12 @@ TLS certificates provide additional security for your cluster by allowing client
 
 Users are defined and authenticated by OpenSearch in a variety of ways. One method, which does not require additional backend infrastructure, is to manually configure users in `internal_users.yml`. See [YAML files]({{site.url}}{{site.baseurl}}/security/configuration/yaml/) for more information about configuring users. The following steps explain how to remove all demo users except for the `admin` user and how to replace the `admin` default password using a script.
 
-1. Make the security plugin scripts executable.
+1. Make the Security plugin scripts executable.
    ```bash
    chmod 755 /path/to/opensearch-{{site.opensearch_version}}/plugins/opensearch-security/tools/*.sh
    ```
+   {% include copy.html %}
+
 1. Run `hash.sh` to generate a new password.
    - This script will fail if a path to the JDK has not been defined.
       ```bash
@@ -372,15 +405,21 @@ Users are defined and authenticated by OpenSearch in a variety of ways. One meth
       WARNING: nor OPENSEARCH_JAVA_HOME nor JAVA_HOME is set, will use 
       ./hash.sh: line 35: java: command not found
       ```
+      {% include copy.html %}
+
    - Declare an environment variable when you invoke the script in order to avoid issues:
       ```bash
       OPENSEARCH_JAVA_HOME=/path/to/opensearch-{{site.opensearch_version}}/jdk ./hash.sh
       ```
+      {% include copy.html %}
+
    - Enter the desired password at the prompt and make a note of the output hash.
 1. Open `internal_users.yml`.
    ```bash
    vi /path/to/opensearch-{{site.opensearch_version}}/config/opensearch-security/internal_users.yml
    ```
+   {% include copy.html %}
+
 1. Remove all demo users except for `admin` and replace the hash with the output provided by `hash.sh` in a previous step. The file should look similar to the following example:
    ```bash
    ---
@@ -400,6 +439,7 @@ Users are defined and authenticated by OpenSearch in a variety of ways. One meth
       - "admin"
       description: "Admin user"
    ```
+   {% include copy.html %}
 
 ### Apply changes
 
@@ -466,21 +506,25 @@ The following configuration is only suitable for testing in a non-production env
    ```bash
    sudo adduser --system --shell /bin/bash -U --no-create-home opensearch
    ```
+   {% include copy.html %}
 
 1. Add your user to the `opensearch` user group.
    ```bash
    sudo usermod -aG opensearch $USER
    ```
+   {% include copy.html %}
 
 1. Change the file owner to `opensearch`. Make sure to change the path if your OpenSearch files are in a different directory.
    ```bash
    sudo chown -R opensearch /opt/opensearch/
    ```
+   {% include copy.html %}
 
 1. Create the service file and open it for editing.
    ```bash
    sudo vi /etc/systemd/system/opensearch.service
    ```
+   {% include copy.html %}
 
 1. Enter the following example service configuration. Make sure to change references to the path if your OpenSearch files are in a different directory.
    ```bash
@@ -514,26 +558,31 @@ The following configuration is only suitable for testing in a non-production env
    [Install]
    WantedBy=multi-user.target
    ```
+   {% include copy.html %}
 
 1. Reload `systemd` manager configuration.
    ```bash
    sudo systemctl daemon-reload
    ```
+   {% include copy.html %}
 
 1. Enable the OpenSearch service.
    ```bash
    sudo systemctl enable opensearch.service
    ```
+   {% include copy.html %}
 
 1. Start the OpenSearch service.
    ```bash
    sudo systemctl start opensearch
    ```
+   {% include copy.html %}
 
 1. Verify that the service is running.
    ```bash
    sudo systemctl status opensearch
    ```
+   {% include copy.html %}
 
 ## Related links
 
@@ -541,4 +590,4 @@ The following configuration is only suitable for testing in a non-production env
 - [Configure Performance Analyzer for Tarball Installation]({{site.url}}{{site.baseurl}}/monitoring-plugins/pa/index/#install-performance-analyzer)
 - [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/)
 - [OpenSearch plugin installation]({{site.url}}{{site.baseurl}}/opensearch/install/plugins/)
-- [About the security plugin]({{site.url}}{{site.baseurl}}/security/index/)
+- [About the Security plugin]({{site.url}}{{site.baseurl}}/security/index/)

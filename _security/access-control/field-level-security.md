@@ -98,7 +98,7 @@ See [Create role]({{site.url}}{{site.baseurl}}/security/access-control/api/#crea
 
 ## Interaction with multiple roles
 
-If you map a user to multiple roles, we recommend that those roles use either include *or* exclude statements for each index. The security plugin evaluates field-level security settings using the `AND` operator, so combining include and exclude statements can lead to neither behavior working properly.
+If you map a user to multiple roles, we recommend that those roles use either include *or* exclude statements for each index. The Security plugin evaluates field-level security settings using the `AND` operator, so combining include and exclude statements can lead to neither behavior working properly.
 
 For example, in the `movies` index, if you include `actors`, `title`, and `year` in one role, exclude `actors`, `title`, and `genres` in another role, and then map both roles to the same user, a search result might look like this:
 

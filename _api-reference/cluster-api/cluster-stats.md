@@ -6,6 +6,7 @@ parent: Cluster APIs
 has_children: false
 redirect_from:
   - /api-reference/cluster-stats/
+  - /opensearch/rest-api/cluster-stats/
 ---
 
 # Cluster stats
@@ -481,7 +482,7 @@ indices.analysis | Information about analyzers used in the cluster.
 nodes | Statistics about the nodes in the cluster.
 nodes.count | How many nodes were returned from the request.
 nodes.versions | OpenSearch's version number.
-nodes.os | Information abotu the operating systems used in the nodes.
+nodes.os | Information about the operating systems used in the nodes.
 nodes.process | The processes the returned nodes use.
 nodes.jvm | Statistics about the Java Virtual Machines in use.
 nodes.fs | The nodes' file storage.

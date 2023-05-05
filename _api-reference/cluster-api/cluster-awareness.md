@@ -6,6 +6,7 @@ parent: Cluster APIs
 has_children: false
 redirect_from:
   - /api-reference/cluster-awareness/
+  - /opensearch/rest-api/cluster-awareness/
 ---
 
 # Cluster routing and awareness

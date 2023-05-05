@@ -42,7 +42,7 @@ Name | Description
 
 ## Keystore and truststore files
 
-As an alternative to certificates and private keys in PEM format, you can instead use keystore and truststore files in JKS or PKCS12/PFX format. For the security plugin to operate, you need certificates and private keys.
+As an alternative to certificates and private keys in PEM format, you can instead use keystore and truststore files in JKS or PKCS12/PFX format. For the Security plugin to operate, you need certificates and private keys.
 
 The following settings configure the location and password of your keystore and truststore files. If you want, you can use different keystore and truststore files for the REST and the transport layer.
 
@@ -78,7 +78,7 @@ Name | Description
 
 ## Configuring node certificates
 
-OpenSearch Security needs to identify requests between the nodes in the cluster. It uses node certificates to secure these requests. The simplest way to configure node certificates is to list the Distinguished Names (DNs) of these certificates in `opensearch.yml`. All DNs must be included in `opensearch.yml` on all nodes. Keep in mind that the security plugin supports wildcards and regular expressions:
+OpenSearch Security needs to identify requests between the nodes in the cluster. It uses node certificates to secure these requests. The simplest way to configure node certificates is to list the Distinguished Names (DNs) of these certificates in `opensearch.yml`. All DNs must be included in `opensearch.yml` on all nodes. Keep in mind that the Security plugin supports wildcards and regular expressions:
 
 ```yml
 plugins.security.nodes_dn:
@@ -93,7 +93,7 @@ If your node certificates have an Object ID (OID) identifier in the SAN section,
 
 ## Configuring admin certificates
 
-Admin certificates are regular client certificates that have elevated rights to perform administrative tasks. You need an admin certificate to change the security plugin configuration using [`plugins/opensearch-security/tools/securityadmin.sh`]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/) or the REST API. Admin certificates are configured in `opensearch.yml` by stating their DN(s):
+Admin certificates are regular client certificates that have elevated rights to perform administrative tasks. You need an admin certificate to change the Security plugin configuration using [`plugins/opensearch-security/tools/securityadmin.sh`]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/) or the REST API. Admin certificates are configured in `opensearch.yml` by stating their DN(s):
 
 ```yml
 plugins.security.authcz.admin_dn:
@@ -105,11 +105,11 @@ For security reasons, you can't use wildcards or regular expressions here.
 
 ## (Advanced) OpenSSL
 
-The security plugin supports OpenSSL, but we only recommend it if you use Java 8. If you use Java 11, we recommend the default configuration.
+The Security plugin supports OpenSSL, but we only recommend it if you use Java 8. If you use Java 11, we recommend the default configuration.
 
 To use OpenSSL, you must install OpenSSL, the Apache Portable Runtime, and a Netty version with OpenSSL support matching your platform on all nodes.
 
-If OpenSSL is enabled, but for one reason or another the installation does not work, the security plugin falls back to the Java JCE as the security engine.
+If OpenSSL is enabled, but for one reason or another the installation does not work, the Security plugin falls back to the Java JCE as the security engine.
 
 Name | Description
 :--- | :---
@@ -128,16 +128,16 @@ Name | Description
 
 ## (Advanced) Hostname verification and DNS lookup
 
-In addition to verifying the TLS certificates against the root CA and/or intermediate CA(s), the security plugin can apply additional checks on the transport layer.
+In addition to verifying the TLS certificates against the root CA and/or intermediate CA(s), the Security plugin can apply additional checks on the transport layer.
 
-With `enforce_hostname_verification` enabled, the security plugin verifies that the hostname of the communication partner matches the hostname in the certificate. The hostname is taken from the `subject` or `SAN` entries of your certificate. For example, if the hostname of your node is `node-0.example.com`, then the hostname in the TLS certificate has to be set to `node-0.example.com`, as well. Otherwise, errors are thrown:
+With `enforce_hostname_verification` enabled, the Security plugin verifies that the hostname of the communication partner matches the hostname in the certificate. The hostname is taken from the `subject` or `SAN` entries of your certificate. For example, if the hostname of your node is `node-0.example.com`, then the hostname in the TLS certificate has to be set to `node-0.example.com`, as well. Otherwise, errors are thrown:
 
 ```
 [ERROR][c.a.o.s.s.t.opensearchSecuritySSLNettyTransport] [WX6omJY] SSL Problem No name matching <hostname> found
 [ERROR][c.a.o.s.s.t.opensearchSecuritySSLNettyTransport] [WX6omJY] SSL Problem Received fatal alert: certificate_unknown
 ```
 
-In addition, when `resolve_hostname` is enabled, the security plugin resolves the (verified) hostname against your DNS. If the hostname does not resolve, errors are thrown:
+In addition, when `resolve_hostname` is enabled, the Security plugin resolves the (verified) hostname against your DNS. If the hostname does not resolve, errors are thrown:
 
 
 Name | Description
@@ -148,7 +148,7 @@ Name | Description
 
 ## (Advanced) Client authentication
 
-With TLS client authentication enabled, REST clients can send a TLS certificate with the HTTP request to provide identity information to the security plugin. There are three main usage scenarios for TLS client authentication:
+With TLS client authentication enabled, REST clients can send a TLS certificate with the HTTP request to provide identity information to the Security plugin. There are three main usage scenarios for TLS client authentication:
 
 - Providing an admin certificate when using the REST management API.
 - Configuring roles and permissions based on a client certificate.
@@ -156,9 +156,9 @@ With TLS client authentication enabled, REST clients can send a TLS certificate 
 
 TLS client authentication has three modes:
 
-* `NONE`: The security plugin does not accept TLS client certificates. If one is sent, it is discarded.
-* `OPTIONAL`: The security plugin accepts TLS client certificates if they are sent, but does not require them.
-* `REQUIRE`: The security plugin only accepts REST requests when a valid client TLS certificate is sent.
+* `NONE`: The Security plugin does not accept TLS client certificates. If one is sent, it is discarded.
+* `OPTIONAL`: The Security plugin accepts TLS client certificates if they are sent, but does not require them.
+* `REQUIRE`: The Security plugin only accepts REST requests when a valid client TLS certificate is sent.
 
 For the REST management API, the client authentication modes has to be OPTIONAL at a minimum.
 
@@ -173,7 +173,7 @@ plugins.security.ssl.http.clientauth_mode | The TLS client authentication mode t
 
 You can limit the allowed ciphers and TLS protocols for the REST layer. For example, you can only allow strong ciphers and limit the TLS versions to the most recent ones.
 
-If this setting is not enabled, the ciphers and TLS versions are negotiated between the browser and the security plugin automatically, which in some cases can lead to a weaker cipher suite being used. You can configure the ciphers and protocols using the following settings.
+If this setting is not enabled, the ciphers and TLS versions are negotiated between the browser and the Security plugin automatically, which in some cases can lead to a weaker cipher suite being used. You can configure the ciphers and protocols using the following settings.
 
 Name | Data type | Description
 :--- | :--- | :---
@@ -193,7 +193,7 @@ plugins.security.ssl.http.enabled_protocols:
   - "TLSv1.2"
 ```
 
-Because it is insecure, the security plugin disables `TLSv1` by default. If you need to use `TLSv1` and accept the risks, you can still enable it:
+Because it is insecure, the Security plugin disables `TLSv1` by default. If you need to use `TLSv1` and accept the risks, you can still enable it:
 
 ```yml
 plugins.security.ssl.http.enabled_protocols:
