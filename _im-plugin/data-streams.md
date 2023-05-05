@@ -8,18 +8,18 @@ nav_order: 13
 
 If you're ingesting continuously generated time-series data such as logs, events, and metrics into OpenSearch, you're likely in a scenario where the number of documents grows rapidly and you don't need to update older documents.
 
-A typical workflow to manage time-series data involves multiple steps, such as creating a rollover index alias, defining a write index, and defining common mappings and settings for the backing indices.
+A typical workflow to manage time-series data involves multiple steps, such as creating a rollover index alias, defining a write index, and defining common mappings and settings for the backing indexes.
 
 Data streams simplify this process and enforce a setup that best suits time-series data, such as being designed primarily for append-only data and ensuring that each document has a timestamp field.
 
-A data stream is internally composed of multiple backing indices. Search requests are routed to all the backing indices, while indexing requests are routed to the latest write index. [ISM]({{site.url}}{{site.baseurl}}/im-plugin/ism/index/) policies let you automatically handle index rollovers or deletions.
+A data stream is internally composed of multiple backing indexes. Search requests are routed to all the backing indexes, while indexing requests are routed to the latest write index. [ISM]({{site.url}}{{site.baseurl}}/im-plugin/ism/index/) policies let you automatically handle index rollovers or deletions.
 
 
 ## Get started with data streams
 
 ### Step 1: Create an index template
 
-To create a data stream, you first need to create an index template that configures a set of indices as a data stream. The `data_stream` object indicates that it’s a data stream and not a regular index template. The index pattern matches with the name of the data stream:
+To create a data stream, you first need to create an index template that configures a set of indexes as a data stream. The `data_stream` object indicates that it’s a data stream and not a regular index template. The index pattern matches with the name of the data stream:
 
 ```json
 PUT _index_template/logs-template
@@ -109,7 +109,7 @@ GET _data_stream/logs-nginx
 }
 ```
 
-You can see the name of the timestamp field, the list of the backing indices, and the template that's used to create the data stream. You can also see the health of the data stream, which represents the lowest status of all its backing indices.
+You can see the name of the timestamp field, the list of the backing indexes, and the template that's used to create the data stream. You can also see the health of the data stream, which represents the lowest status of all its backing indexes.
 
 To see more insights about the data stream, use the `_stats` endpoint:
 
@@ -161,7 +161,7 @@ POST logs-redis/_doc
 ### Step 4: Searching a data stream
 
 You can search a data stream just like you search a regular index or an index alias.
-The search operation applies to all of the backing indices (all data present in the stream).
+The search operation applies to all of the backing indexes (all data present in the stream).
 
 ```json
 GET logs-redis/_search
@@ -235,7 +235,7 @@ POST logs-redis/_rollover
 If you now perform a `GET` operation on the `logs-redis` data stream, you see that the generation ID is incremented from 1 to 2.
 
 You can also set up an [Index State Management (ISM) policy]({{site.url}}{{site.baseurl}}/im-plugin/ism/policies/) to automate the rollover process for the data stream.
-The ISM policy is applied to the backing indices at the time of their creation. When you associate a policy to a data stream, it only affects the future backing indices of that data stream.
+The ISM policy is applied to the backing indexes at the time of their creation. When you associate a policy to a data stream, it only affects the future backing indexes of that data stream.
 
 You also don’t need to provide the `rollover_alias` setting, because the ISM policy infers this information from the backing index.
 
@@ -243,7 +243,7 @@ You also don’t need to provide the `rollover_alias` setting, because the ISM p
 
 To manage data streams from OpenSearch Dashboards, open **OpenSearch Dashboards**, choose **Index Management**, select **Indices** or **Policy managed indices**.
 
-You see a toggle switch for data streams that you can use to show or hide indices belonging to a data stream.
+You see a toggle switch for data streams that you can use to show or hide indexes belonging to a data stream.
 
 When you enable this switch, you see a data stream multi-select dropdown menu that you can use for filtering data streams.
 You also see a data stream column that shows you the name of the data stream the index is contained in.
@@ -256,9 +256,9 @@ You can performing visualizations on a data stream just like you would on a regu
 
 ### Step 7: Delete a data stream
 
-The delete operation first deletes the backing indices of a data stream and then deletes the data stream itself.
+The delete operation first deletes the backing indexes of a data stream and then deletes the data stream itself.
 
-To delete a data stream and all of its hidden backing indices:
+To delete a data stream and all of its hidden backing indexes:
 
 ```json
 DELETE _data_stream/<name_of_data_stream>
