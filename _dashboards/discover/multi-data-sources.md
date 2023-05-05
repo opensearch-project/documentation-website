@@ -66,7 +66,7 @@ Index patterns allow you to access the OpenSearch data that you want to explore.
 
 1. In the Dashboards console, choose **Index Patterns** > **Create index pattern**.
 2. Choose **Use external data source connection**.
-3. Start typing in the **Search data sources** field to search for the data source you created earlier and then select the data source and **Next step**.
+3. Start typing in the **Search data sources** field to search for the data source you created earlier, select the data source, and then select **Next step**.
 4. Add an **Index pattern name** to define the index pattern and then choose **Next step**.
 5. Select an option for the **Time field** and then choose **Create index pattern**.
 
