@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Managed Indexes
+title: Managed indexes
 nav_order: 3
 parent: Index State Management
 has_children: false
