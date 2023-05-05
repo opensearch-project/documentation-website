@@ -3,6 +3,8 @@ layout: default
 title: Update document
 parent: Document APIs
 nav_order: 10
+redirect_from: 
+ - /opensearch/rest-api/document-apis/update-document/
 ---
 
 # Update document
@@ -144,7 +146,7 @@ _version | The document's version.
 _result | The result of the delete operation.
 _shards | Detailed information about the cluster's shards.
 total | The total number of shards.
-successful | The number of shards OpenSearch succssfully deleted the document from.
+successful | The number of shards OpenSearch successfully deleted the document from.
 failed | The number of shards OpenSearch failed to delete the document from.
 _seq_no | The sequence number assigned when the document was indexed.
 _primary_term | The primary term assigned when the document was indexed.

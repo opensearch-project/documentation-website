@@ -6,6 +6,7 @@ has_children: false
 redirect_from:
   - /im-plugin/
   - /opensearch/index-data/
+  - /opensearch/rest-api/index-apis/index/
 ---
 
 # Managing indexes
