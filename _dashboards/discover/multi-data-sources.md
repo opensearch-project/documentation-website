@@ -31,7 +31,7 @@ A data source connection specifies the parameters needed to connect to a data so
 
 To create a new data source connection:
 
-1. Go to [`http://localhost:5601`](http://localhost:5601/) log in with the username `admin` and password `admin`. If you’re running the security plugin, go to [`https://localhost:5601`](https://localhost:5601/).
+1. Go to [`http://localhost:5601`](http://localhost:5601/) log in with the username `admin` and password `admin`. If you’re running the Security plugin, go to [`https://localhost:5601`](https://localhost:5601/).
 2. From the OpenSearch Dashboards main menu, select **Stack Management**, **Data Sources**, and then **Create data source connection**.
 3. Add information to each field to configure **Connection Details**, **Endpoint URL**, and **Authentication Method**. 
    
@@ -42,7 +42,7 @@ To create a new data source connection:
    In the **Authentication** window, select an **Authentication Method**. The options are:
     - **No authentication**: No authentication is used to connect to the data source.
     - **Username & Password**: A basic username and password are used to connect to the data source.
-    - **AWS SigV4**: An AWS Signature Version 4 authenticating request is used to connect to the data source. AWS SigV4 requires an access key ID and a secret access key. First specify the **Region**, and then enter the **Access Key** and **Secret Key** for authorization. For information on available Regions for AWS accounts, see [Available Regions](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-available-regions). For more on SigV4 authentication requests, see [Authenticating Requests (AWS Signature Version 4)](https://docs.aws.amazon.com/AmazonS3/latest/API/sig-v4-authenticating-requests.html).
+    - **AWS Sigv4**: An AWS Signature Version 4 authenticating request is used to connect to the data source. AWS Sigv4 requires an access key ID and a secret access key. First specify the **Region**, and then enter the **Access Key** and **Secret Key** for authorization. For information about available Regions for AWS accounts, see [Available Regions](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-available-regions). For more on Sigv4 authentication requests, see [Authenticating Requests (AWS Signature Version 4)](https://docs.aws.amazon.com/AmazonS3/latest/API/sig-v4-authenticating-requests.html).
     
     When you select the authentication method, the applicable fields appear for the selected method. Enter the required details.
 
@@ -60,7 +60,7 @@ To make changes to **Connection Details**, edit one or both of the **Title** and
 
 When **Username & Password** is the selected authentication method, you can update the password by choosing **Update stored password** next to the **Password** field. In the pop-up window, enter a a new password in the first field and then enter it again in the second field to confirm. Select **Update stored password** in the pop-up window. The new password is saved. Select **Test connection** to confirm that the connection is valid.
 
-When **AWS SigV4** is the selected authentication method, you can update the credentials by selecting **Update stored AWS credential**. In the pop-up window, enter a new  access key in the first field and a new secret key in the second field. Select **Update stored AWS credential** in the pop-up window. The new credentials are saved. Select **Test connection** in the upper-right corner of the screen to confirm that the connection is valid.
+When **AWS Sigv4** is the selected authentication method, you can update the credentials by selecting **Update stored AWS credential**. In the pop-up window, enter a new  access key in the first field and a new secret key in the second field. Select **Update stored AWS credential** in the pop-up window. The new credentials are saved. Select **Test connection** in the upper-right corner of the screen to confirm that the connection is valid.
 
 To delete the data source connection, select the trash can icon ({::nomarkdown}<img src="{{site.url}}{{site.baseurl}}/images/dashboards/trash-can-icon.png" class="inline-icon" alt="trash can icon"/>{:/}).
 
