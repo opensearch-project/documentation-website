@@ -4,13 +4,15 @@ title: Asynchronous search security
 nav_order: 2
 parent: Asynchronous search
 has_children: false
+redirect_from:
+ - /search-plugins/async/security/
 ---
 
 # Asynchronous search security
 
 You can use the Security plugin with asynchronous searches to limit non-admin users to specific actions. For example, you might want some users to only be able to submit or delete asynchronous searches, while you might want others to only view the results.
 
-All asynchronous search indices are protected as system indices. Only a super admin user or an admin user with a Transport Layer Security (TLS) certificate can access system indices. For more information, see [System indices]({{site.url}}{{site.baseurl}}/security/configuration/system-indices/).
+All asynchronous search indexes are protected as system indexes. Only a super admin user or an admin user with a Transport Layer Security (TLS) certificate can access system indexes. For more information, see [System indexes]({{site.url}}{{site.baseurl}}/security/configuration/system-indices/).
 
 ## Basic permissions
 
