@@ -7,11 +7,14 @@ nav_order: 5
 
 # Configuring Data Prepper
 
-This is the reference for Data Prepper configuration files (data-prepper-config.yaml). These are general Data Prepper configurations independent from pipelines.
+You can customize your Data Prepper confiuration by editing the `data-prepper-config.yaml` file in your Data Prepper installation. The following configuration options are independent from pipeline configuration options. 
+
 
 ## Data Prepper configuration
 
-Option | Required | Type                                  | Description
+Use the following options to customize your Data Prepper configuration.
+
+| Option | Required | Type  | Description 
 :--- | :--- |:--------------------------------------| :---
 ssl | No | Boolean                               | Indicates whether TLS should be used for server APIs. Defaults to true.
 keyStoreFilePath | No | String                                | Path to a .jks or .p12 keystore file. Required if `ssl` is true.
