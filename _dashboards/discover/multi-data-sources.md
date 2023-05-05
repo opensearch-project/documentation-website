@@ -85,7 +85,7 @@ To set the time filter:
 
 ### Selecting a time range from the histogram
 
-To select a time range for the histogram, you can do one of the following:
+To select a time range for the histogram, you have the following options:
 
 * Select the bar that represents the time range you want to zoom in on.
 * Select the bar and drag to view a specific time range. You must start the selection with the cursor over the background of the chart (the cursor changes to a plus sign when you hover over a valid start point).
@@ -111,7 +111,7 @@ Selecting multiple data sources in the Dev Tools console allows you to work with
 
 ## Creating data visualizations for a dashboard
 
-To create data visualizations for a dashboard, you can do the following:
+To create data visualizations for a dashboard, follow these steps:
 
 1. In the Dashboards console, choose **Visualize** > **Create visualization**.
 2. Select the visualization type. For this tutorial, choose **Line**.
@@ -122,7 +122,7 @@ To create data visualizations for a dashboard, you can do the following:
 
 ## Connecting visualizations in a single dashboard
 
-To connect your visualizations in a single dashboard, you can do the following: 
+To connect your visualizations in a single dashboard, follow these steps: 
 
 1. In the Dashboards console, choose **Dashboard** > **Create dashboard**. 
 2. Choose **Add an existing** and then select the data you want to add.
