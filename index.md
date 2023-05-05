@@ -3,7 +3,6 @@ layout: default
 title: OpenSearch documentation
 nav_order: 1
 has_children: true
-redirect_from: /404.html
 permalink: /
 ---
 
