@@ -4,7 +4,7 @@ title: Document APIs
 has_children: true
 nav_order: 25
 redirect_from:
-  - /opensearch/rest-api/document-apis/
+  - /opensearch/rest-api/document-apis/index/
 ---
 
 # Document APIs
