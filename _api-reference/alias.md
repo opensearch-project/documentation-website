@@ -2,13 +2,15 @@
 layout: default
 title: Alias
 nav_order: 5
+Redirect_from: 
+ - /opensearch/rest-api/alias/
 ---
 
 # Alias
 Introduced 1.0
 {: .label .label-purple }
 
-An alias is a virtual pointer that you can use to reference one or more indices. Creating and updating aliases are atomic operations, so you can reindex your data and point an alias at it without any downtime.
+An alias is a virtual pointer that you can use to reference one or more indexes. Creating and updating aliases are atomic operations, so you can reindex your data and point an alias at it without any downtime.
 
 
 ## Example
