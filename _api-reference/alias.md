@@ -2,7 +2,7 @@
 layout: default
 title: Alias
 nav_order: 5
-Redirect_from: 
+redirect_from: 
  - /opensearch/rest-api/alias/
 ---
 
