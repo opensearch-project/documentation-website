@@ -19,7 +19,7 @@ To enable multiple data sources:
 2. Open your local copy of the Dashboards configuration file, `opensearch_dashboards.yml`. If you don't have a copy, the [YAML file](`https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/config/opensearch_dashboards.yml`) is available on GitHub.
 3. Set `data_source.enabled:` to  `true` and save the YAML file.
 4. Restart the Dashboards container.
-5. Verify the configuration settings were created and configured properly by connecting to Dashboards and viewing the **Stack Management** console. **Data Sources** appears in the sidebar, as shown in the following image.
+5. Verify that the configuration settings were created and configured properly by connecting to Dashboards and viewing the **Stack Management** console. **Data Sources** appears in the sidebar, as shown in the following image.
 
 ![Data Sources navigation menu]({{site.url}}{{site.baseurl}}/images/dashboards/data-sources.png)
 
