@@ -2,7 +2,8 @@
 layout: default
 title: Index document
 parent: Document APIs
-nav_order: 1
+nav_order: 1redirect_from: 
+ - /opensearch/rest-api/document-apis/index-document
 ---
 
 # Index document
@@ -88,7 +89,7 @@ _version | The document's version.
 result | The result of the index operation.
 _shards | Detailed information about the cluster's shards.
 total | The total number of shards.
-successful | The number of shards OpenSearch succssfully added the document to.
+successful | The number of shards OpenSearch successfully added the document to.
 failed | The number of shards OpenSearch failed to added the document to.
 _seq_no | The sequence number assigned when the document was indexed.
 _primary_term | The primary term assigned when the document was indexed.
