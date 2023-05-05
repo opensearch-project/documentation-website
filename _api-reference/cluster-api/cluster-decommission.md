@@ -6,7 +6,7 @@ parent: Cluster APIs
 has_children: false
 redirect_from: 
   - /api-reference/cluster-decommission/
-  - opensearch/rest-api/cluster-decommission/
+  - /opensearch/rest-api/cluster-decommission/
 ---
 
 # Cluster decommission
