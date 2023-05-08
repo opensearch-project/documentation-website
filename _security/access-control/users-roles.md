@@ -3,6 +3,8 @@ layout: default
 title: Users and roles
 parent: Access control
 nav_order: 80
+redirect_from:
+ - /security/access-control/users-roles/
 ---
 
 # Users and roles
@@ -58,7 +60,7 @@ Just like users, you can create roles using OpenSearch Dashboards, `roles.yml`, 
 1. Provide a name for the role.
 1. Add permissions as desired.
 
-   For example, you might give a role no cluster permissions, `read` permissions to two indices, `unlimited` permissions to a third index, and read permissions to the `analysts` tenant.
+   For example, you might give a role no cluster permissions, `read` permissions to two indexes, `unlimited` permissions to a third index, and read permissions to the `analysts` tenant.
 
 1. Choose **Submit**.
 
@@ -130,7 +132,7 @@ The Security plugin includes several predefined roles that serve as useful defau
 | `snapshot_management_read_access` | Grants permissions to view policies but not to create, modify, start, stop, or delete them. |
 | `point_in_time_full_access` | Grants full permissions to all Point in Time operations. |
 | `security_analytics_full_access` | Grants full permissions to all Security Analytics functionality. |
-| `security_analytics_read_access` | Grants permissions to view the various components in Security Analytics, such as detectors, alerts, and findings. It also includes permissions that allow users to search for detectors and rules. This role does not allow a user to perform actions such as modfying or deleting a detector. |
+| `security_analytics_read_access` | Grants permissions to view the various components in Security Analytics, such as detectors, alerts, and findings. It also includes permissions that allow users to search for detectors and rules. This role does not allow a user to perform actions such as modifying or deleting a detector. |
 | `security_analytics_ack_alerts` | Grants permissions to view and acknowledge alerts. |
 
 For more detailed summaries of the permissions for each role, reference their action groups against the descriptions in [Default action groups]({{site.url}}{{site.baseurl}}/security/access-control/default-action-groups/).

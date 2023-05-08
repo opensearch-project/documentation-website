@@ -6,6 +6,7 @@ has_children: true
 has_toc: true
 redirect_from:
   - /clients/logstash/
+  - /clients/logstash/index/
 ---
 
 # Logstash

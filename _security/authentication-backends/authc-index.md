@@ -6,6 +6,7 @@ has_children: true
 has_toc: false
 redirect_from:
   - /security/authentication-backends/
+  - /security-plugin/configuration/concepts/
 ---
 
 # Authentication backends
