@@ -2,9 +2,10 @@ name: Check Links
 on:
   workflow_dispatch:
   schedule:
-    - cron: "30 11 * * *"
+    - cron: "30 11 * * 0"
 jobs:
   check:
+    if: github.repository == ‘opensearch-project/documentation-website’
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
