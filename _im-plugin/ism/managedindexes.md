@@ -8,7 +8,7 @@ has_children: false
 
 # Managed indexes
 
-Change or update policies using a managed index policy, such as the follwing: 
+Change or update policies using a managed index policy, such as the following: 
 
 ```json
 {
