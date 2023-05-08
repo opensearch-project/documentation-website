@@ -13,12 +13,12 @@ Learn how to enable the `data_source` setting in Dashboards; add credentials, da
 
 ## Modifying the YAML file settings for multiple data sources
 
-This tutorial uses a preconfigured data source and index pattern for which you aren’t required to configure settings. However, you have to enable the multiple data sources feature, as it is disabled by default.
+This tutorial uses a preconfigured data source and index pattern for which you aren’t required to configure settings. However, you have to enable the multiple data sources feature because it is disabled by default.
 
 To enable multiple data sources:
 
 1. Navigate to your Dashboards home directory, for example, in Docker, `/usr/share/opensearch-dashboards`.
-2. Open your local copy of the Dashboards configuration file, `opensearch_dashboards.yml`. If you don't have a copy, the [YAML file](`https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/config/opensearch_dashboards.yml`) is available on GitHub.
+2. Open your local copy of the Dashboards configuration file, `opensearch_dashboards.yml`. If you don't have a copy, [`opensearch_dashboards.yml`](https://github.com/opensearch-project/OpenSearch-Dashboards/blob/main/config/opensearch_dashboards.yml) is available on GitHub.
 3. Set `data_source.enabled:` to  `true` and save the YAML file.
 4. Restart the Dashboards container.
 5. Verify that the configuration settings were created and configured properly by connecting to Dashboards and viewing the **Stack Management** console. **Data Sources** appears in the sidebar, as shown in the following image.
@@ -31,18 +31,18 @@ A data source connection specifies the parameters needed to connect to a data so
 
 To create a new data source connection:
 
-1. Go to [`http://localhost:5601`](http://localhost:5601/) log in with the username `admin` and password `admin`. If you’re running the Security plugin, go to [`https://localhost:5601`](https://localhost:5601/).
+1. Go to [`http://localhost:5601`](http://localhost:5601/) and log in with the username `admin` and password `admin`. If you’re running the Security plugin, go to [`https://localhost:5601`](https://localhost:5601/).
 2. From the OpenSearch Dashboards main menu, select **Stack Management**, **Data Sources**, and then **Create data source connection**.
 3. Add information to each field to configure **Connection Details**, **Endpoint URL**, and **Authentication Method**. 
    
    In the **Connection Details** window, enter a title. Entering a description is optional.
 
-   In **Endpoint** window, enter the **Endpoint URL**. For this tutorial, use the URL `http://localhost:5601/app/management/opensearch-dashboards/dataSources`.
+   In the **Endpoint** window, enter the **Endpoint URL**. For this tutorial, use the URL `http://localhost:5601/app/management/opensearch-dashboards/dataSources`.
 
    In the **Authentication** window, select an **Authentication Method**. The options are:
     - **No authentication**: No authentication is used to connect to the data source.
     - **Username & Password**: A basic username and password are used to connect to the data source.
-    - **AWS Sigv4**: An AWS Signature Version 4 authenticating request is used to connect to the data source. AWS Sigv4 requires an access key ID and a secret access key. First specify the **Region**, and then enter the **Access Key** and **Secret Key** for authorization. For information about available Regions for AWS accounts, see [Available Regions](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-available-regions). For more on Sigv4 authentication requests, see [Authenticating Requests (AWS Signature Version 4)](https://docs.aws.amazon.com/AmazonS3/latest/API/sig-v4-authenticating-requests.html).
+    - **AWS Sigv4**: An AWS Signature Version 4 authenticating request is used to connect to the data source. AWS Sigv4 requires an access key and a secret key. First specify the **Region**, and then enter the **Access Key** and **Secret Key** for authorization. For information about available AWS Regions for AWS accounts, see [Available Regions](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-available-regions). For more about Sigv4 authentication requests, see [Authenticating Requests (AWS Signature Version 4)](https://docs.aws.amazon.com/AmazonS3/latest/API/sig-v4-authenticating-requests.html).
     
     When you select the authentication method, the applicable fields appear for the selected method. Enter the required details.
 
@@ -54,9 +54,9 @@ To create a new data source connection:
 
 ### Editing and updating a data source connection
 
-To make changes to the data source connection, select a connection in the list on the **Data Sources** main page. The connection details window opens.
+To make changes to the data source connection, select a connection in the list on the **Data Sources** main page. The **Connection Details** window opens.
 
-To make changes to **Connection Details**, edit one or both of the **Title** and **Description** fields and select **Save changes** in the lower-right corner of the screen. You can also cancel changes here. To change the **Authentication Method**, choose a different authentication method, enter your credentials if applicable, and then select **Save changes** in the lower-right corner of the screen. The changes are saved.
+To make changes to **Connection Details**, edit one or both of the **Title** and **Description** fields and select **Save changes** in the lower-right corner of the screen. You can also cancel changes here. To change the **Authentication Method**, choose a different authentication method, enter your credentials (if applicable), and then select **Save changes** in the lower-right corner of the screen. The changes are saved.
 
 When **Username & Password** is the selected authentication method, you can update the password by choosing **Update stored password** next to the **Password** field. In the pop-up window, enter a a new password in the first field and then enter it again in the second field to confirm. Select **Update stored password** in the pop-up window. The new password is saved. Select **Test connection** to confirm that the connection is valid.
 
@@ -103,12 +103,12 @@ To select a time range for the histogram, choose from the following options:
 
 ## Selecting multiple data sources in the Dev Tools console
 
-Selecting multiple data sources in the Dev Tools console allows you to work with a broader range of data and gain deeper insights into your code and applications. Watch the video to see it in action, and then try it out in the following steps.
+Selecting multiple data sources in the Dev Tools console allows you to work with a broader range of data and gain deeper insight into your code and applications. Watch the video to see it in action, and then try it out in the following steps.
 
 <img src="{{site.url}}{{site.baseurl}}/images/dashboards/multidata-dev-tools.gif" alt="Multiple data sources in Dev Tools demo">{: .img-fluid}
 
 1. Locate your copy of `opensearch_dashboards.yml` and open it in the editor of your choice. 
-2. Set `data_source.enabled:` to `true`.
+2. Set `data_source.enabled` to `true`.
 3. Connect to OpenSearch Dashboards and select **Dev Tools** in the menu.
 4. Enter the following query in the editor pane of the **Console** and then select the play button:
 
