@@ -3,6 +3,8 @@ layout: default
 title: Proxy-based authentication
 parent: Authentication backends
 nav_order: 65
+redirect_from:
+ - /security-plugin/configuration/proxy/
 ---
 
 # Proxy-based authentication

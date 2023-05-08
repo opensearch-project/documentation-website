@@ -5,6 +5,7 @@ parent: Installing OpenSearch
 nav_order: 5
 redirect_from: 
   - /opensearch/install/docker/
+  - /install-and-configure/install-opensearch/docker/
 ---
 
 # Docker

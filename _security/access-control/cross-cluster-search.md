@@ -3,6 +3,8 @@ layout: default
 title: Cross-cluster search
 parent: Access control
 nav_order: 105
+redirect_from:
+ - /security/access-control/cross-cluster-search/
 ---
 
 # Cross-cluster search
