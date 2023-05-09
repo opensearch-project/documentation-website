@@ -162,4 +162,4 @@ You can also pair your aggregations with search queries to narrow down things yo
 
 ## Limitations
 
-Because aggregators are processed using the `double` data type for all values, `long` values 2<sup>53</sup> or greater are approximate.
+Because aggregators are processed using the `double` data type for all values, `long` values of 2<sup>53</sup> and greater are approximate.
