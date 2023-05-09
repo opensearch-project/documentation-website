@@ -9,16 +9,22 @@ nav_order: 50
 Introduced 2.8
 {: .label .label-purple }
 
-Use **Dashboard** to create alerts that identify changes in your data and notify you. Dashboard gives you one place to:
+Use **Dashboard** to create alerts that identify changes in your monitoring data and then notify you. Dashboard gives you one place to:
 
 - Set up, add, and adjust rules and conditions that trigger alerts and notifications.
 - Create visualizations to help you quickly see trends and patterns or identify and address issues.
 - Build intuitive dashboards to stay on top of important metrics and data points in real time.
 - Monitor your alerts in one place with at-a-glance views.
 
-Watch this video for a quick overview of some of the tasks we'll perform in this tutorial.
+In this tutorial you'll learn to:
 
-<insert demo from SME>
+- Create a query-level monitor
+- Create an alerting visualization and dashboard
+- Associate an existing monitor to an alerting visualization 
+
+Watch the video for a short overview.
+
+<insert demo gif>
 
 ## Prerequisites 
 
@@ -43,9 +49,7 @@ Keep in mind the following requirements when creating alerting visualizations:
 
 ## Configuring admin settings
 
- Access to alerting dashboards and visualizations is controlled by OpenSearch and OpenSearch Dashboards privileges. You can manage the settings in **Stack Management**. Access is enabled by default and appears as a feature in the **Stack Management, Advanced Settings, Visualizations** window. If the setting is disabled, it does not appear in this window. 
- 
- If you are an administrator, you can disable the settings at the cluster level through the `opensearch-dashboards.yml` file.
+ You can only access, create, or manage alerts for resources for which you have permissions. Access to alerting dashboards and visualizations is controlled by OpenSearch and OpenSearch Dashboards privileges, and you can manage the settings in **Stack Management**. Access is enabled by default and appears as a feature in the **Stack Management, Advanced Settings, Visualizations** window. If the setting is disabled, it does not appear in this window. The setting is disabled at the cluster level through the `opensearch-dashboards.yml` file.
 
 ## Creating alerting monitors
 
@@ -57,7 +61,7 @@ To create an alerting monitor, follow these steps:
 
 1. Open OpenSearch Dashboards in your web browser. If you are running Dashboards locally, go to `http://localhost:5601/`.
 2. From the main menu, select **Dashboard**.
-3. From **<window>**, select the **<name>** sample dataset. You will see a pre-populated dashboard with line chart visualizations.
+3. From the **<name>** window, select the **<name>** sample dataset. A pre-populated dashboard with line chart visualizations appears.
 4. Select the ellipsis icon from the **<name>** visualization pane, and then from the **Options** flyout, choose **Alerting** > **Add alerting monitor**.
 5. Select **Create new monitor**.
 6. From the **Add alerting monitor** window, define the metrics and set the thresholds under **Monitor details** and **Triggers**.
@@ -72,13 +76,13 @@ Once you have created a new monitor, the monitor is added to the visualization, 
 
 ## Associating monitors
 
-You can associate existing monitors with a visualization using the Dashboard app instead of the plugin page, giving you a single interface where can add, view, and edit monitor data. 
+You can associate existing monitors with a visualization using the Dashboard app instead of the plugin page, giving you a single interface where can add, view, and edit monitor data.
 
 ### Try it
 
-Continuing with the visualization and dashboard created in the preceding tutorial, follow these steps to associate an existing monitor to a visualization:
+Continuing with the alerting visualization and dashboard created in the preceding tutorial, follow these steps to associate an existing monitor with a visualization:
 
-1. From the dashboard, select the ellipsis icon on the **<name>**, then **Alerting**.
+1. From the dashboard window, select the ellipsis icon on the **<name>**, then **Alerting**.
 2. Select **Associate existing monitor**.
 3. From the **Select monitor to associate** dropdown menu, view the list of existing monitors and then select the desired monitor. In this example, select **<name>**. Note that basic information about the monitor is summarized in the window. To view more comprehensive details, select **View monitor page**, which opens the monitor details from the Alerting plugin page.
 4. Verify you have selected the appropriate monitor, and then select **Associate monitor**.
