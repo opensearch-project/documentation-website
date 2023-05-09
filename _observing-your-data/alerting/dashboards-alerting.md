@@ -1,61 +1,62 @@
 ---
 layout: default
-title: Using alerts with Dashboard 
+title: Creating alerting visualizations with Dashboard 
 parent: Alerting
 nav_order: 50
 ---
 
-# Using alerts with Dashboard
+# Creating alerting visualizations with Dashboard
 Introduced 2.8
 {: .label .label-purple }
 
-Use **Dashboard** to set up alerts and display visualizations from within the app instead of jumping between the app and the [alerting plugin]({{site.url}}{{site.baseurl}}/observing-your-data/alerting/index/) page. The Dashboard app gives you one place to:
+Use **Dashboard** to create alerts that identify changes in your data and notify you. Dashboard gives you one place to:
 
 - Set up, add, and adjust rules and conditions that trigger alerts and notifications.
 - Create visualizations to help you quickly see trends and patterns or identify and address issues.
-- Build dashboards to stay on top of important metrics and data points in real time.
-- Monitor your alerts in one place with at-a-glance dashboards. 
+- Build intuitive dashboards to stay on top of important metrics and data points in real time.
+- Monitor your alerts in one place with at-a-glance views.
 
-Getting started with alerting with Dashboard is straightforward. Watch this video for a quick overview of some of the tasks we'll perform in this tutorial.
+Watch this video for a quick overview of some of the tasks we'll perform in this tutorial.
 
 <insert demo from SME>
 
 ## Prerequisites 
 
-- If you aren't running OpenSearch and OpenSearch Dashboards 2.8 or later, [download or upgrade OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/) to get started.
-- The Alerting and Notifications Dashboards plugins must be installed. See [Managing OpenSearch Dashboards plugins]({{site.url}}{{site.baseurl}}install-and-configure/install-dashboards/plugins/).
-- 
+Before getting started, you must have:
 
-## Visualization requirements
+- OpenSearch and OpenSearch Dashboards version 2.8 or later. See [Installing OpenSearch]({{site.url}}{{site.baseurl}}/install-and-configure/install-opensearch/index/).
+- Alerting and Notifications Dashboards plugins installed. See [Managing OpenSearch Dashboards plugins]({{site.url}}{{site.baseurl}}install-and-configure/install-dashboards/plugins/) to get started.
 
-Certain options are available for alerting visualizations. Consider the following requirements when building your dashboards and visualizations:
+## General requirements for alerting visualizations
 
+Alerting visualizations are displayed as time-series charts that give you a snapshot of the alert, alert status, last updated time, and reason for the alert. You can show up to 10 metrics on your chart, and each series can be shown as a line in the chart.
 
+Keep in mind the following requirements when creating alerting visualizations:
+
+- Must be a Vizlib line chart
+- Must contain one Y-axis metric aggregation
+- Must not have non-Y-axis metric aggregation types
+- Must use date histogram aggregation type for the X-axis bucket
+- Must have X-axis on the bottom
+- Must define one X-axis aggregation bucket
+- Must have a valid time-based X-axis
 
 ## Configuring admin settings
 
- Access to alerting dashboards and visualizations is controlled by OpenSearch and OpenSearch Dashboards privileges. You can manage your settings in **Stack Management**. Access is enabled by default and appears as a feature in the **Stack Management > Advanced Settings > Visualizations** window as shown in the following image. If the setting is disabled, it does not appear in this window.
-
-If you are an administrator, you can disable the settings at the cluster level through the `opensearch-dashboards.yml` configuration file, for example:
-
-```bash
-<insert code example>
-```
+ Access to alerting dashboards and visualizations is controlled by OpenSearch and OpenSearch Dashboards privileges. You can manage the settings in **Stack Management**. Access is enabled by default and appears as a feature in the **Stack Management, Advanced Settings, Visualizations** window. If the setting is disabled, it does not appear in this window. 
+ 
+ If you are an administrator, you can disable the settings at the cluster level through the `opensearch-dashboards.yml` file.
 
 ## Creating alerting monitors
 
-By default, when you begin to create the alert monitor workflow with the Dashboard app, you are presented with a menu-driven interface. This interface provides a range of options, displayed in full screen, pop up, pull down, or drop down, to define the metrics to monitor, set thresholds, customize triggers that automate workflows, and generate actions when conditions are met.
+By default, when you begin to create the alert monitor workflow using the Dashboard app, you are presented with a menu-driven interface. This interface provides a range of options, displayed in full screen, pop up, pull down, or drop down, to define the metrics to monitor, set thresholds, customize triggers that automate workflows, and generate actions when conditions are met. At this time, you can create query-level monitors only.
 
-To create alerts and display alerting visualizations on a dashboard, follow these steps:  
+### Try it
 
-1. Open OpenSearch Dashboards in your web browser. If you are running Dashboards locally, go to `http://localhost:5601/`. 
+To create an alerting monitor, follow these steps:  
+
+1. Open OpenSearch Dashboards in your web browser. If you are running Dashboards locally, go to `http://localhost:5601/`.
 2. From the main menu, select **Dashboard**.
-
-
-
-
-
-
 3. From **<window>**, select the **<name>** sample dataset. You will see a pre-populated dashboard with line chart visualizations.
 4. Select the ellipsis icon from the **<name>** visualization pane, and then from the **Options** flyout, choose **Alerting** > **Add alerting monitor**.
 5. Select **Create new monitor**.
@@ -65,13 +66,17 @@ To create alerts and display alerting visualizations on a dashboard, follow thes
 9.  In **Notifications**, select <option> from the dropdown menu, and then customize the notification message and select the Notification channel.
 10. Choose **Create monitor**.
 
-Once you have created a new monitor, the monitor is added to the visualization, as shown in the following image.  
+Once you have created a new monitor, the monitor is added to the visualization, similar to that shown in the following image.  
 
 <insert UI>
 
 ## Associating monitors
 
-You can associate existing monitors with a visualization using the Dashboard app instead of the plugin page, giving you a single interface where can add, view, and edit monitors and monitor details. Continuing with the visualization and dashboard in the preceding tutorial, follow these steps to associate an existing monitor to a visualization:
+You can associate existing monitors with a visualization using the Dashboard app instead of the plugin page, giving you a single interface where can add, view, and edit monitor data. 
+
+### Try it
+
+Continuing with the visualization and dashboard created in the preceding tutorial, follow these steps to associate an existing monitor to a visualization:
 
 1. From the dashboard, select the ellipsis icon on the **<name>**, then **Alerting**.
 2. Select **Associate existing monitor**.
@@ -98,7 +103,7 @@ Once you have created or associated alerting monitors, you can verify the monito
 
 ## Limitations
 
-The following are some limitations you might encounter:
+In addition to the the visualization requirements, the following are some limitations you might encounter:
 
 - 
 
