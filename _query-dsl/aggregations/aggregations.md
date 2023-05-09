@@ -159,3 +159,7 @@ Bucket aggregations produce buckets of documents that you can nest in other aggr
 The inner `aggs` keyword begins a new nested aggregation. The syntax of the parent aggregation and the nested aggregation is the same. Nested aggregations run in the context of the preceding parent aggregations.
 
 You can also pair your aggregations with search queries to narrow down things you’re trying to analyze before aggregating. If you don't add a query, OpenSearch implicitly uses the `match_all` query.
+
+## Limitations
+
+Because aggregators are processed using the `double` data type for all values, `long` values of 2<sup>53</sup> and greater are approximate.
