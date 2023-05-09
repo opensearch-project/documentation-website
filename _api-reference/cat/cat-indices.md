@@ -2,16 +2,17 @@
 layout: default
 title: CAT indices operation
 parent: CAT API
-
 nav_order: 25
 has_children: false
+redirect_from:
+- /opensearch/rest-api/cat/cat-indices/
 ---
 
 # CAT indices
 Introduced 1.0
 {: .label .label-purple }
 
-The CAT indices operation lists information related to indices⁠—how much disk space they are using, how many shards they have, their health status, and so on.
+The CAT indices operation lists information related to indexes, that is, how much disk space they are using, how many shards they have, their health status, and so on.
 
 ## Example
 

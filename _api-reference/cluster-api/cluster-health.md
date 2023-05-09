@@ -4,7 +4,9 @@ title: Cluster health
 nav_order: 40
 parent: Cluster APIs
 has_children: false
-redirect_from: /api-reference/cluster-health/
+redirect_from: 
+ - /api-reference/cluster-health/
+ - /opensearch/rest-api/cluster-health/
 ---
 
 # Cluster health
@@ -101,7 +103,7 @@ The following table lists all response fields.
 |active_primary_shards | Integer |  The number of active primary shards. |
 |active_shards | Integer | The total number of active shards, including primary and replica shards. |
 |relocating_shards | Integer | The number of relocating shards. |
-|initializing_shards | Integer | The number of intializing shards. |
+|initializing_shards | Integer | The number of initializing shards. |
 |unassigned_shards | Integer | The number of unassigned shards. |
 |delayed_unassigned_shards | Integer | The number of delayed unassigned shards. |
 |number_of_pending_tasks | Integer | The number of pending tasks in the cluster. |

@@ -23,9 +23,9 @@ Cross-cluster replication has the following prerequisites:
 
 ## Permissions
 
-Make sure the security plugin is either enabled on both clusters or disabled on both clusters. If you disabled the security plugin, you can skip this section. However, we strongly recommend enabling the security plugin in production scenarios.
+Make sure the Security plugin is either enabled on both clusters or disabled on both clusters. If you disabled the Security plugin, you can skip this section. However, we strongly recommend enabling the Security plugin in production scenarios.
 
-If the security plugin is enabled, make sure that non-admin users are mapped to the appropriate permissions so they can perform replication actions. For index and cluster-level permissions requirements, see [Cross-cluster replication permissions]({{site.url}}{{site.baseurl}}/replication-plugin/permissions/).
+If the Security plugin is enabled, make sure that non-admin users are mapped to the appropriate permissions so they can perform replication actions. For index and cluster-level permissions requirements, see [Cross-cluster replication permissions]({{site.url}}{{site.baseurl}}/replication-plugin/permissions/).
 
 In addition, verify and add the distinguished names (DNs) of each follower cluster node on the leader cluster to allow connections from the followers to the leader.
 
@@ -184,7 +184,7 @@ curl -XPUT -k -H 'Content-Type: application/json' -u 'admin:admin' 'https://loca
 }'
 ```
 
-If the security plugin is disabled, omit the `use_roles` parameter. If it's enabled, however, you must specify the leader and follower cluster roles that OpenSearch will use to authenticate the request. This example uses `all_access` for simplicity, but we recommend creating a replication user on each cluster and [mapping it accordingly]({{site.url}}{{site.baseurl}}/replication-plugin/permissions/#map-the-leader-and-follower-cluster-roles).
+If the Security plugin is disabled, omit the `use_roles` parameter. If it's enabled, however, you must specify the leader and follower cluster roles that OpenSearch will use to authenticate the request. This example uses `all_access` for simplicity, but we recommend creating a replication user on each cluster and [mapping it accordingly]({{site.url}}{{site.baseurl}}/replication-plugin/permissions/#map-the-leader-and-follower-cluster-roles).
 {: .tip }
 
 This command creates an identical read-only index named `follower-01` on the follower cluster that continuously stays updated with changes to the `leader-01` index on the leader cluster. Starting replication creates a follower index from scratch -- you can't convert an existing index to a follower index. 

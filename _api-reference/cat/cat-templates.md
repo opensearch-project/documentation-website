@@ -5,13 +5,15 @@ parent: CAT API
 
 nav_order: 70
 has_children: false
+redirect_from:
+- /opensearch/rest-api/cat/cat-templates/
 ---
 
 # CAT templates
 Introduced 1.0
 {: .label .label-purple }
 
-The CAT Templates operation lists the names, patterns, order numbers, and version numbers of index templates.
+The CAT templates operation lists the names, patterns, order numbers, and version numbers of index templates.
 
 ## Example
 
@@ -38,7 +40,7 @@ GET _cat/templates
 
 All CAT templates URL parameters are optional.
 
-In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameter:
+In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameters:
 
 Parameter | Type | Description
 :--- | :--- | :---

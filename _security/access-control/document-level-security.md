@@ -3,11 +3,13 @@ layout: default
 title: Document-level security
 parent: Access control
 nav_order: 85
+redirect_from:
+ - /security/access-control/document-level-security/
 ---
 
 # Document-level security (DLS)
 
-Document-level security lets you restrict a role to a subset of documents in an index. The easiest way to get started with document- and field-level security is open OpenSearch Dashboards and choose **Security**. Then choose **Roles**, create a new role, and review the **Index permissions** section.
+Document-level security lets you restrict a role to a subset of documents in an index. The easiest way to get started with document- and field-level security is to open OpenSearch Dashboards and choose **Security**. Then choose **Roles**, create a new role, and review the **Index permissions** section.
 
 ![Document- and field-level security screen in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/images/security-dls.png)
 
@@ -163,7 +165,7 @@ PUT _plugins/_security/api/roles/abac
 
 You can perform term-level lookup queries (TLQs) with document-level security (DLS) using either of two modes: adaptive or filter level. The default mode is adaptive, where OpenSearch automatically switches between Lucene-level or filter-level mode depending on whether or not there is a TLQ. DLS queries without TLQs are executed in Lucene-level mode, whereas DLS queries with TLQs are executed in filter-level mode.
 
-By default, the security plugin detects if a DLS query contains a TLQ or not and chooses the appropriate mode automatically at runtime.
+By default, the Security plugin detects if a DLS query contains a TLQ or not and chooses the appropriate mode automatically at runtime.
 
 To learn more about OpenSearch queries, see [Term-level queries]({{site.url}}{{site.baseurl}}/opensearch/query-dsl/term/).
 

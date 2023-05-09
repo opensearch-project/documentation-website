@@ -7,6 +7,7 @@ has_toc: false
 redirect_from: 
   - /clients/data-prepper/index/
   - /data-prepper/
+  - /monitoring-plugins/trace/data-prepper/
 ---
 
 # Data Prepper

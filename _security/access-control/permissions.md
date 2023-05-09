@@ -9,13 +9,13 @@ redirect_from:
 
 # Permissions
 
-Each permission in the security plugin controls access to some action that the OpenSearch cluster can perform, such as indexing a document or checking cluster health.
+Each permission in the Security plugin controls access to some action that the OpenSearch cluster can perform, such as indexing a document or checking cluster health.
 
 Most permissions are self-describing. For example, `cluster:admin/ingest/pipeline/get` lets you retrieve information about ingest pipelines. _In many cases_, a permission correlates to a specific REST API operation, such as `GET _ingest/pipeline`.
 
-Despite this correlation, permissions do **not** directly map to REST API operations. Operations such as `POST _bulk` and `GET _msearch` can access many indices and perform many actions in a single request. Even a simple request, such as `GET _cat/nodes`, performs several actions in order to generate its response.
+Despite this correlation, permissions do **not** directly map to REST API operations. Operations such as `POST _bulk` and `GET _msearch` can access many indexes and perform many actions in a single request. Even a simple request, such as `GET _cat/nodes`, performs several actions in order to generate its response.
 
-In short, controlling access to the REST API is insufficient. Instead, the security plugin controls access to the underlying OpenSearch actions.
+In short, controlling access to the REST API is insufficient. Instead, the Security plugin controls access to the underlying OpenSearch actions.
 
 For example, consider the following `_bulk` request:
 
@@ -43,7 +43,7 @@ These permissions also allow you add, update, or delete documents (e.g. `PUT tes
 
 ## Test permissions
 
-If you want a user to have the absolute minimum set of permissions necessary to perform some function—the [principle of least privilege](https://en.wikipedia.org/wiki/Principle_of_least_privilege)—the best way is to send representative requests to your cluster as a new test user. In the case of a permissions error, the security plugin is very explicit about which permissions are missing. Consider this request and response:
+If you want a user to have the absolute minimum set of permissions necessary to perform some function—the [principle of least privilege](https://en.wikipedia.org/wiki/Principle_of_least_privilege)—the best way is to send representative requests to your cluster as a new test user. In the case of a permissions error, the Security plugin is very explicit about which permissions are missing. Consider this request and response:
 
 ```json
 GET _cat/shards?v
@@ -313,7 +313,7 @@ See [Index templates]({{site.url}}{{site.baseurl}}/im-plugin/index-templates/).
 
 ## Index permissions
 
-These permissions apply to an index or index pattern. You might want a user to have read access to all indices (i.e. `*`), but write access to only a few (e.g. `web-logs` and `product-catalog`).
+These permissions apply to an index or index pattern. You might want a user to have read access to all indexes (that is, `*`), but write access to only a few (for example, `web-logs` and `product-catalog`).
 
 - indices:admin/aliases
 - indices:admin/aliases/exists
@@ -322,11 +322,11 @@ These permissions apply to an index or index pattern. You might want a user to h
 - indices:admin/cache/clear
 - indices:admin/close
 - indices:admin/close*
-- indices:admin/create (create indices)
+- indices:admin/create (create indexes)
 - indices:admin/data_stream/create
 - indices:admin/data_stream/delete
 - indices:admin/data_stream/get
-- indices:admin/delete (delete indices)
+- indices:admin/delete (delete indexes)
 - indices:admin/exists
 - indices:admin/flush
 - indices:admin/flush*
@@ -382,7 +382,7 @@ These permissions apply to an index or index pattern. You might want a user to h
 - indices:data/write/delete (delete documents)
 - indices:data/write/delete/byquery
 - indices:data/write/plugins/replication/changes
-- indices:data/write/index (add documents to existing indices)
+- indices:data/write/index (add documents to existing indexes)
 - indices:data/write/reindex
 - indices:data/write/update
 - indices:data/write/update/byquery
