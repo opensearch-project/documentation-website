@@ -1379,7 +1379,7 @@ GET _plugins/_alerting/monitors/alerts
       "alert_history": [
         {
           "timestamp": 1617314504873,
-          "message": "Example error emssage"
+          "message": "Example error message"
         },
         {
           "timestamp": 1617312543925,
