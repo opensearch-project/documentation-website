@@ -175,6 +175,6 @@ If you have multiple pipelines, you must create multiple SQS queues for each pip
 
 To meet the scale of logs produced in S3, some users require multiple SQS queues for their logs. You can use the [Amazon Simple Notification Service](https://docs.aws.amazon.com/sns/latest/dg/welcome.html) (SNS) to route event notifications from S3 to an SQS [fanout pattern](https://docs.aws.amazon.com/sns/latest/dg/sns-common-scenarios.html). Using SNS, all S3 event notifications go directly to a single SNS topic, where you can subscribe to multiple SQS queues.
 
-To make sure that Data Prepper can parse the event from the SNS topic directly, configure [raw message delivery](https://docs.aws.amazon.com/sns/latest/dg/sns-large-payload-raw-message-delivery.html) on the SNS to SQS subscription. If you want Data Prepper to ignore an SQS queue that sends notifications to your SNS topic, do not enable raw message delivery those queues.
+To make sure that Data Prepper can parse the event from the SNS topic directly, configure [raw message delivery](https://docs.aws.amazon.com/sns/latest/dg/sns-large-payload-raw-message-delivery.html) on the SNS to SQS subscription. Setting this option will not affect other SQS queues which are subscribed to that SNS topic.
 
 
