@@ -27,7 +27,6 @@ OpenSearch Dashboards is the user interface that lets you visualize your OpenSea
 
 ## DevTools and APIs
 
-| Concept | Description | 
+| Concept | Description |
 |---------|-------------|
-| [Dev Tools]({{site.url}}{{site.baseurl}}/dashboards/dev-tools/index-dev/) | Learn about the console and tools used to interact with data. |
-| [API Reference]({{site.url}}{{site.baseurl}}/api-reference/index/) | Integrate new applications with existing software.
+| [Dev Tools]({{site.url}}{{site.baseurl}}/dashboards/dev-tools/index-dev/) | Learn about the main uses of the Dev Tools Console, running queries and API requests, and using integrated tools to inspect data. |
