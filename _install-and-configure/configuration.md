@@ -1,7 +1,9 @@
 ---
 layout: default
 title: Configuring OpenSearch
-nav_order: 10
+nav_order: 4
+has_children: true
+redirect_from:
 ---
 
 # Configuring OpenSearch
