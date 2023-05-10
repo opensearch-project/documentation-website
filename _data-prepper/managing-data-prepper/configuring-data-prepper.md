@@ -52,7 +52,7 @@ aws_cloud_map_query_parameters | No | Map | A map of key-value pairs to filter t
 buffer_size | No | Integer | The maximum number of unchecked records the buffer accepts. Number of unchecked records is the sum of the number of records written into the buffer and the num of in-flight records not yet checked by the Checkpointing API. Default is 512.
 batch_size | No | Integer | The maximum number of records the buffer returns on read. Default is 48.
 aws_region | Conditionally | String | The AWS region to use with ACM, S3 or AWS Cloud Map. Required if `use_acm_certificate_for_ssl` is set to true or `ssl_certificate_file` and `ssl_key_file` is AWS S3 path or `discovery_mode` is set to `aws_cloud_map`.
-drain_timeout | No | Duration | The wait time for the peer forwarder to complete processing data before shutdown. Default is 10s.
+drain_timeout | No | Duration | The wait time for the peer forwarder to complete processing data before shutdown. Default is `10s`.
 
 #### TLS/SSL options for peer forwarder
 
