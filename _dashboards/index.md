@@ -7,7 +7,7 @@ has_children: false
 
 # OpenSearch Dashboards
 
-OpenSearch Dashboards is the user interface that lets you visualize your OpenSearch data and run and scale your OpenSearch clusters. Get started with OpenSearch Dashboards today!
+OpenSearch Dashboards is the user interface that lets you visualize your OpenSearch data, and run and scale your OpenSearch clusters.
 
 ## Getting started
 
