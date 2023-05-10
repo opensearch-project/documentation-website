@@ -2,8 +2,9 @@
 layout: default
 title: Index document
 parent: Document APIs
-nav_order: 1redirect_from: 
- - /opensearch/rest-api/document-apis/index-document
+nav_order: 1
+redirect_from: 
+ - /opensearch/rest-api/document-apis/index-document/
 ---
 
 # Index document

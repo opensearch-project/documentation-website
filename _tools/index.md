@@ -4,7 +4,7 @@ title: Tools
 nav_order: 50
 has_children: false
 redirect_from:
-  - /clients/agents-and-ingestion-tools/
+  - /clients/agents-and-ingestion-tools/index/
 ---
 
 # OpenSearch tools
@@ -103,8 +103,8 @@ Beats versions newer than 7.12.x are not supported by OpenSearch. If you must up
 
 ## OpenSearch CLI
 
-The OpenSearch CLI command line interface (opensearch-cli) lets you manage your OpenSearch cluster from the command line and automate tasks. For more information on OpenSearch CLI, see [OpenSearch CLI]({{site.url}}{{site.baseurl}}/tools/cli/).
+The OpenSearch CLI command line interface (opensearch-cli) lets you manage your OpenSearch cluster from the command line and automate tasks. For more information about OpenSearch CLI, see [OpenSearch CLI]({{site.url}}{{site.baseurl}}/tools/cli/).
 
 ## OpenSearch Kubernetes operator
 
-The OpenSearch Kubernetes (K8s) Operator is an open-source kubernetes operator that helps automate the deployment and provisioning of OpenSearch and OpenSearch Dashboards in a containerized environment. For information on how to use the K8s operator, see [OpenSearch Kubernetes operator]({{site.url}}{{site.baseurl}}/tools/k8s-operator/)
+The OpenSearch Kubernetes (K8s) Operator is an open-source kubernetes operator that helps automate the deployment and provisioning of OpenSearch and OpenSearch Dashboards in a containerized environment. For information about how to use the K8s operator, see [OpenSearch Kubernetes operator]({{site.url}}{{site.baseurl}}/tools/k8s-operator/)
