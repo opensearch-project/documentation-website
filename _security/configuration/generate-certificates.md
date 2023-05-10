@@ -235,7 +235,7 @@ For more information about adding and using these certificates in your own setup
 
 ## Run securityadmin.sh
 
-After configuring your certificates and starting OpenSearch, run `securityadmin.sh` to initialize the security plugin. For information about how to use this script, see [Applying changes to configuration files]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/).
+After configuring your certificates and starting OpenSearch, run `securityadmin.sh` to initialize the Security plugin. For information about how to use this script, see [Applying changes to configuration files]({{site.url}}{{site.baseurl}}/security/configuration/security-admin/).
 
 
 ## OpenSearch Dashboards

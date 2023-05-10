@@ -3,8 +3,10 @@ layout: default
 title: CAT repositories
 parent: CAT API
 
-nav_order: 55
+nav_order: 52
 has_children: false
+redirect_from:
+ - /opensearch/rest-api/cat/cat-repositories/
 ---
 
 # CAT repositories

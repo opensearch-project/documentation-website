@@ -122,4 +122,4 @@ Then information about threads of the selected type is provided.
 
 ## Required permissions
 
-If you use the security plugin, make sure you set the following permissions: `cluster:monitor/nodes/hot_threads`.
+If you use the Security plugin, make sure you set the following permissions: `cluster:monitor/nodes/hot_threads`.

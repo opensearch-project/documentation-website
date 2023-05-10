@@ -3,11 +3,13 @@ layout: default
 title: Users and roles
 parent: Access control
 nav_order: 80
+redirect_from:
+ - /security/access-control/users-roles/
 ---
 
 # Users and roles
 
-The security plugin includes an internal user database. Use this database in place of or in addition to an external authentication system such as LDAP or Active Directory.
+The Security plugin includes an internal user database. Use this database in place of or in addition to an external authentication system such as LDAP or Active Directory.
 
 Roles are the core way of controlling access to your cluster. Roles contain any combination of cluster-wide permissions, index-specific permissions, document- and field-level security, and tenants. Then you map users to these roles so that users gain those permissions.
 
@@ -30,7 +32,7 @@ You can create users using OpenSearch Dashboards, `internal_users.yml`, or the R
 ### OpenSearch Dashboards
 
 1. Choose **Security**, **Internal Users**, and **Create internal user**.
-1. Provide a username and password. The security plugin automatically hashes the password and stores it in the `.opendistro_security` index.
+1. Provide a username and password. The Security plugin automatically hashes the password and stores it in the `.opendistro_security` index.
 1. If desired, specify user attributes.
 
    Attributes are optional user properties that you can use for variable substitution in index permissions or document-level security.
@@ -58,7 +60,7 @@ Just like users, you can create roles using OpenSearch Dashboards, `roles.yml`, 
 1. Provide a name for the role.
 1. Add permissions as desired.
 
-   For example, you might give a role no cluster permissions, `read` permissions to two indices, `unlimited` permissions to a third index, and read permissions to the `analysts` tenant.
+   For example, you might give a role no cluster permissions, `read` permissions to two indexes, `unlimited` permissions to a third index, and read permissions to the `analysts` tenant.
 
 1. Choose **Submit**.
 
@@ -99,7 +101,7 @@ See [Create role mapping]({{site.url}}{{site.baseurl}}/security/access-control/a
 
 ## Predefined roles
 
-The security plugin includes several predefined roles that serve as useful defaults.
+The Security plugin includes several predefined roles that serve as useful defaults.
 
 | **Role** | **Description** |
 | :--- | :--- |
@@ -130,7 +132,7 @@ The security plugin includes several predefined roles that serve as useful defau
 | `snapshot_management_read_access` | Grants permissions to view policies but not to create, modify, start, stop, or delete them. |
 | `point_in_time_full_access` | Grants full permissions to all Point in Time operations. |
 | `security_analytics_full_access` | Grants full permissions to all Security Analytics functionality. |
-| `security_analytics_read_access` | Grants permissions to view the various components in Security Analytics, such as detectors, alerts, and findings. It also includes permissions that allow users to search for detectors and rules. This role does not allow a user to perform actions such as modfying or deleting a detector. |
+| `security_analytics_read_access` | Grants permissions to view the various components in Security Analytics, such as detectors, alerts, and findings. It also includes permissions that allow users to search for detectors and rules. This role does not allow a user to perform actions such as modifying or deleting a detector. |
 | `security_analytics_ack_alerts` | Grants permissions to view and acknowledge alerts. |
 
 For more detailed summaries of the permissions for each role, reference their action groups against the descriptions in [Default action groups]({{site.url}}{{site.baseurl}}/security/access-control/default-action-groups/).

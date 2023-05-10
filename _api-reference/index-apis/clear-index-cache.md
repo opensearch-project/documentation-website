@@ -10,7 +10,7 @@ nav_order: 320
 The clear cache API operation clears the caches of one or more indexes. For data streams, the API clears the caches of the stream’s backing indexes.
 
 
-If you use the security plugin, you must have the `manage index` privileges.
+If you use the Security plugin, you must have the `manage index` privileges.
 {: .note}
 
 ### Path parameters
