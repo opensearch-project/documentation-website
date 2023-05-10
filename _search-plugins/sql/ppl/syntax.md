@@ -4,7 +4,6 @@ title: Syntax
 parent: PPL &ndash; Piped Processing Language
 grand_parent: SQL and PPL
 nav_order: 1
-
 ---
 
 # PPL syntax
