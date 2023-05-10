@@ -52,7 +52,7 @@ layout: table_wrappers
     <div id="main-header"></div>
     <div class="side-bar">
       <div class="site-header">
-        <a href="#" id="menu-button" class="site-button">
+        <a href="/docs/latest/" id="menu-button" class="site-button">
           Documentation <svg viewBox="0 0 24 24" class="icon"><use xlink:href="#svg-grid"></use></svg>
         </a>
       </div>
@@ -100,7 +100,7 @@ layout: table_wrappers
     </div>
     <div class="copy-banner">
       <div class="container">
-        <h1><a href="#">Documentation</a></h1>
+        <h1><a href="/docs/latest/">Documentation</a></h1>
         {% if site.search_enabled != false or site.use_custom_search == true %}
         <div class="search">
           <div class="search-input-wrap">
@@ -203,10 +203,12 @@ layout: table_wrappers
       </div>
       <div class="toc-wrap">
         <div class="sticky-wrap">
-          <div class="toc">
-            {% include toc.html html=content h_min=2 h_max=2 class="toc-list" item_class="toc-item" sanitize=true %}
-          </div>
-          {% include feedback.html %}
+          {% if page.error != true %}
+            <div class="toc">
+              {% include toc.html html=content h_min=2 h_max=2 class="toc-list" item_class="toc-item" sanitize=true %}
+            </div>
+              {% include feedback.html %}
+          {% endif %}
         </div>
       </div>
       {% if site.search_enabled != false %}
