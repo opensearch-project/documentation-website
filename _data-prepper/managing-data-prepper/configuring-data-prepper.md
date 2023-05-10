@@ -21,7 +21,7 @@ keyStoreFilePath | No | String | The path to a .jks or .p12 keystore file. Requi
 keyStorePassword | No | String | The password for keystore. Optional, defaults to empty string.
 privateKeyPassword | No | String | The password for a private key within keystore. Optional, defaults to empty string.
 serverPort | No | Integer | The port number to use for server APIs. Defaults to 4900.
-metricRegistries | No | List | The metrics registries for publishing the generated metrics. Currently supports Prometheus and CloudWatch. Defaults to Prometheus.
+metricRegistries | No | List | The metrics registries for publishing the generated metrics. Currently supports Prometheus and Amazon CloudWatch. Defaults to Prometheus.
 metricTags | No | Map | A map of key-value pairs as common metric tags to metric registries. The maximum number of pairs is three. Note that `serviceName` is a reserved tag key with `DataPrepper` as the default tag value. Alternatively, administrators can set this value through the environment variable `DATAPREPPER_SERVICE_NAME`. If `serviceName` is defined in `metricTags`, that value overwrites those set through the above methods.
 authentication | No | Object | The authentication configuration. Valid option is `http_basic` with `username` and `password` properties. If not defined, the server does not perform authentication.
 processorShutdownTimeout | No | Duration | The time given to processors to clear any in-flight data and gracefully shut down. Default is 30s.
