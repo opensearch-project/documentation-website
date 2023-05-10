@@ -9,7 +9,7 @@ nav_order: 50
 Introduced 2.8
 {: .label .label-purple }
 
-Use **Dashboard** to create alerts that identify changes in your monitoring data and then notify you. Dashboard gives you one place to:
+Use **Dashboard** to create, manage, and take action on your alerts in a single, consolidated view and identify and resolve issues quickly. Dashboard gives you one place to:
 
 - Set up, add, and adjust rules and conditions that trigger alerts and notifications.
 - Create visualizations to help you quickly see trends and patterns or identify and address issues.
@@ -18,7 +18,7 @@ Use **Dashboard** to create alerts that identify changes in your monitoring data
 
 In this tutorial you'll learn to:
 
-- Create a query-level monitor
+- Create a query-level monitor with Dashboard
 - Create an alerting visualization and dashboard
 - Associate an existing monitor to an alerting visualization 
 
@@ -55,20 +55,17 @@ Keep in mind the following requirements when creating alerting visualizations:
 
 By default, when you begin to create the alert monitor workflow using the Dashboard app, you are presented with a menu-driven interface. This interface provides a range of options, displayed in full screen, pop up, pull down, or drop down, to define the metrics to monitor, set thresholds, customize triggers that automate workflows, and generate actions when conditions are met. At this time, you can create query-level monitors only.
 
-### Try it
+#### To create an alerting monitor  
 
-To create an alerting monitor, follow these steps:  
-
-1. Open OpenSearch Dashboards in your web browser. If you are running Dashboards locally, go to `http://localhost:5601/`.
-2. From the main menu, select **Dashboard**.
-3. From the **<name>** window, select the **<name>** sample dataset. A pre-populated dashboard with line chart visualizations appears.
-4. Select the ellipsis icon from the **<name>** visualization pane, and then from the **Options** flyout, choose **Alerting** > **Add alerting monitor**.
-5. Select **Create new monitor**.
-6. From the **Add alerting monitor** window, define the metrics and set the thresholds under **Monitor details** and **Triggers**.
-7. Under **Monitor details**, select <option> from the dropdown menu.
-8. Under **Triggers**, select <option> from the dropdown menu, and then specify a name and severity level for the trigger.
-9.  In **Notifications**, select <option> from the dropdown menu, and then customize the notification message and select the Notification channel.
-10. Choose **Create monitor**.
+1. Choose **Dashboard** from the OpenSearch Dashboards main menu.
+2. Choose the **<name>** sample dataset from the **<name>** window. A pre-populated dashboard with line chart visualizations is displayed.
+3. Select the ellipsis icon from the **<name>** visualization pane, and then from the **Options** flyout, choose **Alerting** > **Add alerting monitor**.
+4. Select **Create new monitor**.
+5. From the **Add alerting monitor** window, define the metrics and set the thresholds under **Monitor details** and **Triggers**.
+6. Under **Monitor details**, select <option> from the dropdown menu.
+7. Under **Triggers**, select <option> from the dropdown menu, and then specify a name and severity level for the trigger.
+8.  In **Notifications**, select <option> from the dropdown menu, and then customize the notification message and select the Notification channel.
+9.  Choose **Create monitor**.
 
 Once you have created a new monitor, the monitor is added to the visualization, similar to that shown in the following image.  
 
