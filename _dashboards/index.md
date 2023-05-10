@@ -19,6 +19,11 @@ OpenSearch Dashboards is the user interface that lets you visualize your OpenSea
 | [Create visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/) | Learn about visualizing data in OpenSearch Dashboards. |
 | [Explore and query data]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/) | Learn how to explore and query data in OpenSearch. |
 
+## Observability
+
+| Concept | Description | 
+|---------|-------------|
+| [Observability in OpenSearch Dashboards]({{site.url}}{{site.baseurl}}//observing-your-data/index/) | Observe, monitor, and secure data and improve performance across tools and workflows. |
 
 ## DevTools and APIs
 
@@ -26,4 +31,3 @@ OpenSearch Dashboards is the user interface that lets you visualize your OpenSea
 |---------|-------------|
 | [Dev Tools]({{site.url}}{{site.baseurl}}/dashboards/dev-tools/index-dev/) | Learn about the console and tools used to interact with data. |
 | [API Reference]({{site.url}}{{site.baseurl}}/api-reference/index/) | Integrate new applications with existing software.
-
