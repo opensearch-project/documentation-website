@@ -3,6 +3,7 @@ layout: default
 title: REST API reference
 nav_order: 1
 has_toc: true
+nav_exclude: true
 redirect_from:
   - /opensearch/rest-api/index/
 ---

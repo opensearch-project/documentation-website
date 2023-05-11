@@ -4,6 +4,7 @@ title: Query DSL, aggregations, and analyzers
 nav_order: 1
 has_children: false
 has_toc: false
+nav_exclude: true
 ---
 
 # Query DSL, aggregations, and analyzers

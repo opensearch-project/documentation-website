@@ -3,6 +3,7 @@ layout: default
 title: Managing indexes
 nav_order: 1
 has_children: false
+nav_exclude: true
 redirect_from:
   - /im-plugin/
   - /opensearch/index-data/

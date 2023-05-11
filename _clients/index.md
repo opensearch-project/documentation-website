@@ -3,6 +3,7 @@ layout: default
 title: Language clients
 nav_order: 1
 has_children: false
+nav_exclude: true
 redirect_from:
   - /clients/
 ---

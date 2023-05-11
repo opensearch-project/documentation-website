@@ -3,6 +3,7 @@ layout: default
 title: OpenSearch Dashboards
 nav_order: 1
 has_children: false
+nav_exclude: true
 ---
 
 # OpenSearch Dashboards
