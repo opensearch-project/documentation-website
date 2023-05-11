@@ -6,9 +6,10 @@ nav_order: 5
 has_children: true
 has_toc: false
 redirect_from:
-  - /search-plugins/sql/ppl
-  - /search-plugins/ppl
-  - /observability-plugin/ppl
+  - /search-plugins/sql/ppl/
+  - /search-plugins/ppl/
+  - /observability-plugin/ppl/
+  - /search-plugins/ppl/index/
 ---
 
 # PPL &ndash; Piped Processing Language
