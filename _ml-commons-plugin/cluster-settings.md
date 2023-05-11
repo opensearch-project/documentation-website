@@ -7,7 +7,7 @@ nav_order: 160
 
 # ML Commons cluster settings
 
-To enhance and customize your OpenSearch cluster for machine learning (ML), you can add and modify several configuration settings for the ML commons plugin in your 'opensearch.yml' file.
+To enhance and customize your OpenSearch cluster for machine learning (ML), you can add and modify several configuration settings for the ML Commons plugin in your 'opensearch.yml' file.
 
 
 ## Run tasks and models on ML nodes only
@@ -39,7 +39,7 @@ plugins.ml_commons.task_dispatch_policy: round_robin
 
 ### Values
 
-- Dafault value: `round_robin`
+- Default value: `round_robin`
 - Value range: `round_robin` or `least_load`
 
 ## Set number of ML tasks per node

@@ -5,6 +5,8 @@ parent: CAT API
 
 nav_order: 60
 has_children: false
+redirect_from:
+- /opensearch/rest-api/cat/cat-shards/
 ---
 
 # CAT shards
@@ -44,7 +46,7 @@ GET _cat/shards
 
 All cat shards URL parameters are optional.
 
-In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameter:
+In addition to the [common URL parameters]({{site.url}}{{site.baseurl}}/api-reference/cat/index), you can specify the following parameters:
 
 Parameter | Type | Description
 :--- | :--- | :---

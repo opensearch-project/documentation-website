@@ -3,6 +3,8 @@ layout: default
 title: Field masking
 parent: Access control
 nav_order: 95
+redirect_from:
+ - /security/access-control/field-masking/
 ---
 
 # Field masking
@@ -73,7 +75,7 @@ See [Create role]({{site.url}}{{site.baseurl}}/security/access-control/api/#crea
 
 ## (Advanced) Use an alternative hash algorithm
 
-By default, the security plugin uses the BLAKE2b algorithm, but you can use any hashing algorithm that your JVM provides. This list typically includes MD5, SHA-1, SHA-384, and SHA-512.
+By default, the Security plugin uses the BLAKE2b algorithm, but you can use any hashing algorithm that your JVM provides. This list typically includes MD5, SHA-1, SHA-384, and SHA-512.
 
 To specify a different algorithm, add it after the masked field:
 

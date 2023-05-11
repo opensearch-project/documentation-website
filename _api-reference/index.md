@@ -5,7 +5,7 @@ nav_order: 1
 has_toc: true
 nav_exclude: true
 redirect_from:
-  - /opensearch/rest-api/
+  - /opensearch/rest-api/index/
 ---
 
 # REST API reference

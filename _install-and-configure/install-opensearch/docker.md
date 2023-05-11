@@ -5,6 +5,7 @@ parent: Installing OpenSearch
 nav_order: 5
 redirect_from: 
   - /opensearch/install/docker/
+  - /install-and-configure/install-opensearch/docker/
 ---
 
 # Docker
@@ -83,6 +84,8 @@ Before continuing, you should verify that Docker is working correctly by deployi
     ```bash
     curl https://localhost:9200 -ku 'admin:admin'
     ```
+    {% include copy.html %}
+
     - You should get a response that looks like this:
       ```bash
       {
@@ -91,12 +94,12 @@ Before continuing, you should verify that Docker is working correctly by deployi
         "cluster_uuid" : "GLAjAG6bTeWErFUy_d-CLw",
         "version" : {
           "distribution" : "opensearch",
-          "number" : "2.3.0",
-          "build_type" : "tar",
-          "build_hash" : "6f6e84ebc54af31a976f53af36a5c69d474a5140",
-          "build_date" : "2022-09-09T00:07:24.896263462Z",
+          "number" : <version>,
+          "build_type" : <build-type>,
+          "build_hash" : <build-hash>,
+          "build_date" : <build-date>,
           "build_snapshot" : false,
-          "lucene_version" : "9.3.0",
+          "lucene_version" : <lucene-version>,
           "minimum_wire_compatibility_version" : "7.10.0",
           "minimum_index_compatibility_version" : "7.0.0"
         },
@@ -113,6 +116,7 @@ Before continuing, you should verify that Docker is working correctly by deployi
     ```bash
     docker stop <containerId>
     ```
+    {% include copy.html %}
 
 Remember that `docker container ls` does not list stopped containers. If you would like to review stopped containers, use `docker container ls -a`. You can remove unneeded containers manually with `docker container rm <containerId_1> <containerId_2> <containerId_3> [...]` (pass all container IDs you wish to stop, separated by spaces), or if you want to remove all stopped containers, you can use the shorter command `docker prune`.
 {: .tip}
@@ -206,6 +210,7 @@ volumes:
 networks:
   opensearch-net:
 ```
+{% include copy.html %}
 
 If you override `opensearch_dashboards.yml` settings using environment variables in your compose file, use all uppercase letters and replace periods with underscores (for example, for `opensearch.hosts`, use `OPENSEARCH_HOSTS`). This behavior is inconsistent with overriding `opensearch.yml` settings, where the conversion is just a change to the assignment operator (for example, `discovery.type: single-node` in `opensearch.yml` is defined as `discovery.type=single-node` in `docker-compose.yml`).
 {: .note}
@@ -214,17 +219,20 @@ From the home directory of your host (containing `docker-compose.yml`), create a
 ```bash
 docker-compose up -d
 ```
+{% include copy.html %}
 
 Verify that the service containers started correctly:
 ```bash
 docker-compose ps
 ```
+{% include copy.html %}
 
 If a container failed to start, you can review the service logs:
 ```bash
 # If you don't pass a service name, docker-compose will show you logs from all of the nodes
 docker-compose logs <serviceName>
 ```
+{% include copy.html %}
 
 Verify access to OpenSearch Dashboards by connecting to http://localhost:5601 from a browser. The default username and password are `admin`. We do not recommend using this configuration on hosts that are accessible from the public internet until you have customized the security configuration of your deployment.
 
@@ -235,6 +243,7 @@ Stop the running containers in your cluster:
 ```bash
 docker-compose down
 ```
+{% include copy.html %}
 
 `docker-compose down` will stop the running containers, but it will not remove the Docker volumes that exist on the host. If you don't care about the contents of these volumes, use the `-v` option to delete all volumes, for example, `docker-compose down -v`.
 {: .tip}
@@ -251,6 +260,7 @@ docker run \
   -v /path/to/custom-opensearch.yml:/usr/share/opensearch/config/opensearch.yml \
   opensearchproject/opensearch:latest
 ```
+{% include copy.html %}
 
 By reviewing each part of the command, you can see that it:
 - Maps ports `9200` and `9600` (`HOST_PORT`:`CONTAINER_PORT`).
@@ -277,10 +287,11 @@ services:
     volumes:
       - ./custom-opensearch_dashboards.yml:/usr/share/opensearch-dashboards/config/opensearch_dashboards.yml
 ```
+{% include copy.html %}
 
 ### Sample Docker Compose file for development
 
-If you want to build your own compose file from an example, review the following sample `docker-compose.yml` file. This sample file creates two OpenSearch nodes and one OpenSearch Dashboards node with the security plugin disabled. You can use this sample file as a starting point while reviewing [Configuring basic security settings](#configuring-basic-security-settings).
+If you want to build your own compose file from an example, review the following sample `docker-compose.yml` file. This sample file creates two OpenSearch nodes and one OpenSearch Dashboards node with the Security plugin disabled. You can use this sample file as a starting point while reviewing [Configuring basic security settings](#configuring-basic-security-settings).
 ```yml
 version: '3'
 services:
@@ -295,7 +306,7 @@ services:
       - bootstrap.memory_lock=true # Disable JVM heap memory swapping
       - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" # Set min and max JVM heap sizes to at least 50% of system RAM
       - "DISABLE_INSTALL_DEMO_CONFIG=true" # Prevents execution of bundled demo script which installs demo certificates and security configurations to OpenSearch
-      - "DISABLE_SECURITY_PLUGIN=true" # Disables security plugin
+      - "DISABLE_SECURITY_PLUGIN=true" # Disables Security plugin
     ulimits:
       memlock:
         soft: -1 # Set memlock to unlimited (no soft or hard limit)
@@ -321,7 +332,7 @@ services:
       - bootstrap.memory_lock=true # Disable JVM heap memory swapping
       - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m" # Set min and max JVM heap sizes to at least 50% of system RAM
       - "DISABLE_INSTALL_DEMO_CONFIG=true" # Prevents execution of bundled demo script which installs demo certificates and security configurations to OpenSearch
-      - "DISABLE_SECURITY_PLUGIN=true" # Disables security plugin
+      - "DISABLE_SECURITY_PLUGIN=true" # Disables Security plugin
     ulimits:
       memlock:
         soft: -1 # Set memlock to unlimited (no soft or hard limit)
@@ -353,6 +364,7 @@ volumes:
 networks:
   opensearch-net:
 ```
+{% include copy.html %}
 
 ### Configuring basic security settings
 
@@ -367,6 +379,7 @@ volumes:
   - ./node1.pem:/usr/share/opensearch/config/node1.pem
   - ./node1-key.pem:/usr/share/opensearch/config/node1-key.pem
 ```
+{% include copy.html %}
 
 When you add TLS certificates to your OpenSearch nodes with Docker Compose volumes, you should also include a custom `opensearch.yml` file that defines those certificates. For example:
 ```yml
@@ -378,6 +391,7 @@ volumes:
   - ./node1-key.pem:/usr/share/opensearch/config/node1-key.pem
   - ./custom-opensearch.yml:/usr/share/opensearch/config/opensearch.yml
 ```
+{% include copy.html %}
 
 Remember that the certificates you specify in your compose file must be the same as the certificates defined in your custom `opensearch.yml` file. You should replace the root, admin, and node certificates with your own. For more information see [Configure TLS certificates]({{site.url}}{{site.baseurl}}/security/configuration/tls).
 ```yml
@@ -390,6 +404,7 @@ plugins.security.ssl.http.pemtrustedcas_filepath: root-ca.pem
 plugins.security.authcz.admin_dn:
   - CN=admin,OU=SSL,O=Test,L=Test,C=DE
 ```
+{% include copy.html %}
 
 After configuring security settings, your custom `opensearch.yml` file might look something like the following example, which adds TLS certificates and the distinguished name (DN) of the admin certificate, defines a few permissions, and enables verbose audit logging:
 ```yml
@@ -414,6 +429,7 @@ cluster.routing.allocation.disk.threshold_enabled: false
 opendistro_security.audit.config.disabled_rest_categories: NONE
 opendistro_security.audit.config.disabled_transport_categories: NONE
 ```
+{% include copy.html %}
 
 For a full list of settings, see [Security]({{site.url}}{{site.baseurl}}/security/configuration/index/).
 
@@ -423,6 +439,7 @@ After replacing the certificates and creating your own internal users, roles, ma
 ```bash
 docker-compose up -d
 ```
+{% include copy.html %}
 
 ### Working with plugins
 
@@ -440,13 +457,14 @@ docker build --tag=opensearch-custom-plugin .
 docker run -p 9200:9200 -p 9600:9600 -v /usr/share/opensearch/data opensearch-custom-plugin
 ```
 
-Alternatively, you might want to remove a plugin from an image before deploying it. This example Dockerfile removes the security plugin:
+Alternatively, you might want to remove a plugin from an image before deploying it. This example Dockerfile removes the Security plugin:
 ```
 FROM opensearchproject/opensearch:latest
 RUN /usr/share/opensearch/bin/opensearch-plugin remove opensearch-security
 ```
+{% include copy.html %}
 
-You can also use a Dockerfile to pass your own certificates for use with the [Security Plugin]({{site.url}}{{site.baseurl}}/security/):
+You can also use a Dockerfile to pass your own certificates for use with the [Security plugin]({{site.url}}{{site.baseurl}}/security/):
 ```
 FROM opensearchproject/opensearch:latest
 COPY --chown=opensearch:opensearch opensearch.yml /usr/share/opensearch/config/
@@ -454,6 +472,7 @@ COPY --chown=opensearch:opensearch my-key-file.pem /usr/share/opensearch/config/
 COPY --chown=opensearch:opensearch my-certificate-chain.pem /usr/share/opensearch/config/
 COPY --chown=opensearch:opensearch my-root-cas.pem /usr/share/opensearch/config/
 ```
+{% include copy.html %}
 
 ## Related links
 
