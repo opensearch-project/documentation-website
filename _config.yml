@@ -122,7 +122,7 @@ just_the_docs:
       name: Machine learning
       nav_fold: true
     tuning-your-cluster:
-      name: Tuning your cluster
+      name: Creating and tuning your cluster
       nav_fold: true 
     monitoring-your-cluster:
       name: Monitoring your cluster

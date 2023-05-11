@@ -1,183 +1,157 @@
 ---
 layout: default
-title: Supported field types
-nav_order: 80
-has_children: true
-has_toc: false
-redirect_from:
-  - /opensearch/supported-field-types/
-  - //opensearch/supported-field-types/index/
+title: Mappings and field types
+nav_order: 1
+redirect_from: 
+  - /opensearch/mappings/
 ---
 
-# Supported field types
+# Mappings and field types
 
-You can specify data types for your fields when creating a mapping. The following table lists all data field types that OpenSearch supports.
+You can define how documents and their fields are stored and indexed by creating a _mapping_. The mapping specifies the list of fields for a document. Every field in the document has a _field type_, which corresponds to the type of data the field contains. For example, you may want to specify that the `year` field should be of type `date`. To learn more, see [Supported field types]({{site.url}}{{site.baseurl}}/field-types/supported-field-types/index/).
 
-Field data type | Description
-:--- | :--- 
-[`alias`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/alias/) | An additional name for an existing field.
-[`binary`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/binary/) |  A binary value in Base64 encoding. 
-[Numeric]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/numeric/) | `byte`, `double`, `float`, `half_float`, `integer`, `long`, `scaled_float`, `short`.
-[`boolean`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/boolean/) | A Boolean value. 
-[`date`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/date/) | A date value as a formatted string, a long value, or an integer. 
-[`ip`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/ip/) | An IP address in IPv4 or IPv6 format. 
-[Range]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/range/) | `integer_range`, `long_range`,`double_range`, `float_range`, `date_range`,`ip_range`. 
-[Object]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/object/) | `object`, `nested`, `flat_object`, `join`.
-String | [`keyword`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/keyword/), [`text`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/text/), [`token_count`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/token-count/).
-[Autocomplete]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/autocomplete/) | `completion`, `search_as_you_type`.
-[Geographic]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/geographic/) | `geo_point`, `geo_shape`.
-[Rank]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/rank/) | `rank_feature`, `rank_features`. 
-[`percolator`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/percolator/) | Specifies to treat this field as a query. 
+If you're just starting to build out your cluster and data, you may not know exactly how your data should be stored. In those cases, you can use dynamic mappings, which tell OpenSearch to dynamically add data and its fields. However, if you know exactly what types your data falls under and want to enforce that standard, then you can use explicit mappings.
 
-## Arrays
+For example, if you want to indicate that `year` should be of type `text` instead of an `integer`, and `age` should be an `integer`, you can do so with explicit mappings. By using dynamic mapping, OpenSearch might interpret both `year` and `age` as integers.
 
-There is no dedicated array field type in OpenSearch. Instead, you can pass an array of values into any field. All values in the array must have the same field type.
+This section provides an example for how to create an index mapping and how to add a document to it that will get ip_range validated.
 
-```json
-PUT testindex1/_doc/1
-{
-  "number": 1 
-}
+#### Table of contents
+1. TOC
+{:toc}
 
-PUT testindex1/_doc/2
-{
-  "number": [1, 2, 3] 
-}
-```
 
-## Multifields
+---
+## Dynamic mapping
 
-Multifields are used to index the same field differently. Strings are often mapped as `text` for full-text queries and `keyword` for exact-value queries.
+When you index a document, OpenSearch adds fields automatically with dynamic mapping. You can also explicitly add fields to an index mapping.
 
-Multifields can be created using the `fields` parameter. For example, you can map a book `title` to be of type `text` and keep a `title.raw` subfield of type `keyword`.
+#### Dynamic mapping types
+
+Type | Description
+:--- | :---
+null | A `null` field can't be indexed or searched. When a field is set to null, OpenSearch behaves as if that field has no values.
+boolean | OpenSearch accepts `true` and `false` as boolean values. An empty string is equal to `false.`
+float | A single-precision 32-bit floating point number.
+double | A double-precision 64-bit floating point number.
+integer | A signed 32-bit number.
+object | Objects are standard JSON objects, which can have fields and mappings of their own. For example, a `movies` object can have additional properties such as `title`, `year`, and `director`.
+array | Arrays in OpenSearch can only store values of one type, such as an array of just integers or strings. Empty arrays are treated as though they are fields with no values.
+text | A string sequence of characters that represent full-text values.
+keyword | A string sequence of structured characters, such as an email address or ZIP code.
+date detection string | Enabled by default, if new string fields match a date's format, then the string is processed as a `date` field. For example, `date: "2012/03/11"` is processed as a date.
+numeric detection string | If disabled, OpenSearch may automatically process numeric values as strings when they should be processed as numbers. When enabled, OpenSearch can process strings into `long`, `integer`, `short`, `byte`, `double`, `float`, `half_float`, `scaled_float`, and `unsigned_long`. Default is disabled.
+
+## Explicit mapping
+
+If you know exactly what your field data types need to be, you can specify them in your request body when creating your index.
 
 ```json
-PUT books
-{
-  "mappings" : {
-    "properties" : {
-      "title" : {
-        "type" : "text",
-        "fields" : {
-          "raw" : {
-            "type" : "keyword"
-          }
-        }
-      }
-    }
-  }
-}
-```
-
-## Null value
-
-Setting a field's value to `null`, an empty array or an array of `null` values makes this field equivalent to an empty field. Therefore, you cannot search for documents that have `null` in this field. 
-
-To make a field searchable for `null` values, you can specify its `null_value` parameter in the index's mappings. Then, all `null` values passed to this field will be replaced with the specified `null_value`.
-
-The `null_value` parameter must be of the same type as the field. For example, if your field is a string, the `null_value` for this field must also be a string.
-{: .note}
-
-### Example
-
-Create a mapping to replace `null` values in the `emergency_phone` field with the string "NONE":
-
-```json
-PUT testindex
+PUT sample-index1
 {
   "mappings": {
     "properties": {
-      "name": {
-        "type": "keyword"
-      },
-      "emergency_phone": {
-        "type": "keyword",
-        "null_value": "NONE" 
+      "year":    { "type" : "text" },
+      "age":     { "type" : "integer" },
+      "director":{ "type" : "text" }
+    }
+  }
+}
+```
+
+### Response
+```json
+{
+    "acknowledged": true,
+    "shards_acknowledged": true,
+    "index": "sample-index1"
+}
+```
+
+To add mappings to an existing index or data stream, you can send a request to the `_mapping` endpoint using the `PUT` or `POST` HTTP method:
+
+```json
+POST sample-index1/_mapping
+{
+  "properties": {
+    "year":    { "type" : "text" },
+    "age":     { "type" : "integer" },
+    "director":{ "type" : "text" }
+  }
+}
+```
+
+You cannot change the mapping of an existing field, you can only modify the field's mapping parameters. 
+{: .note}
+
+---
+## Mapping example usage
+
+The following example shows how to create a mapping to specify that OpenSearch should ignore any documents with malformed IP addresses that do not conform to the [`ip`]({{site.url}}{{site.baseurl}}/opensearch/supported-field-types/ip/) data type. You accomplish this by setting the `ignore_malformed` parameter to `true`.
+
+### Create an index with an `ip` mapping
+
+To create an index, use a PUT request:
+
+```json
+PUT /test-index 
+{
+  "mappings" : {
+    "properties" :  {
+      "ip_address" : {
+        "type" : "ip",
+        "ignore_malformed": true
       }
     }
   }
 }
 ```
 
-Index three documents into testindex. The `emergency_phone` fields of documents 1 and 3 contain `null`, while the `emergency_phone` field of document 2 has an empty array:
+You can add a document that has a malformed IP address to your index:
 
 ```json
-PUT testindex/_doc/1
+PUT /test-index/_doc/1 
 {
-  "name": "Akua Mansa",
-  "emergency_phone": null
+  "ip_address" : "malformed ip address"
 }
 ```
 
+This indexed IP address does not throw an error because `ignore_malformed` is set to true. 
+
+You can query the index using the following request:
+
 ```json
-PUT testindex/_doc/2
-{
-  "name": "Diego Ramirez",
-  "emergency_phone" : []
-}
+GET /test-index/_search
 ```
 
-```json
-PUT testindex/_doc/3 
-{
-  "name": "Jane Doe",
-  "emergency_phone": [null, null]
-}
-```
-
-Search for people who do not have an emergency phone:
-
-```json
-GET testindex/_search
-{
-  "query": {
-    "term": {
-      "emergency_phone": "NONE"
-    }
-  }
-}
-```
-
-The response contains documents 1 and 3 but not document 2 because only explicit `null` values are replaced with the string "NONE":
+The response shows that the `ip_address` field is ignored in the indexed document:
 
 ```json
 {
-  "took" : 1,
-  "timed_out" : false,
-  "_shards" : {
-    "total" : 1,
-    "successful" : 1,
-    "skipped" : 0,
-    "failed" : 0
+  "took": 14,
+  "timed_out": false,
+  "_shards": {
+    "total": 1,
+    "successful": 1,
+    "skipped": 0,
+    "failed": 0
   },
-  "hits" : {
-    "total" : {
-      "value" : 2,
-      "relation" : "eq"
+  "hits": {
+    "total": {
+      "value": 1,
+      "relation": "eq"
     },
-    "max_score" : 0.18232156,
-    "hits" : [
+    "max_score": 1,
+    "hits": [
       {
-        "_index" : "testindex",
-        "_type" : "_doc",
-        "_id" : "1",
-        "_score" : 0.18232156,
-        "_source" : {
-          "name" : "Akua Mansa",
-          "emergency_phone" : null
-        }
-      },
-      {
-        "_index" : "testindex",
-        "_type" : "_doc",
-        "_id" : "3",
-        "_score" : 0.18232156,
-        "_source" : {
-          "name" : "Jane Doe",
-          "emergency_phone" : [
-            null,
-            null
-          ]
+        "_index": "test-index",
+        "_id": "1",
+        "_score": 1,
+        "_ignored": [
+          "ip_address"
+        ],
+        "_source": {
+          "ip_address": "malformed ip address"
         }
       }
     ]
@@ -185,5 +159,60 @@ The response contains documents 1 and 3 but not document 2 because only explicit
 }
 ```
 
-The `_source` field still contains explicit `null` values because it is not affected by the `null_value`.
-{: .note}
+## Get a mapping
+
+To get all mappings for one or more indexes, use the following request:
+
+```json
+GET <index>/_mapping
+```
+
+In the above request, `<index>` may be an index name or a comma-separated list of index names. 
+
+To get all mappings for all indexes, use the following request:
+
+```json
+GET _mapping
+```
+
+To get a mapping for a specific field, provide the index name and the field name:
+
+```json
+GET _mapping/field/<fields>
+GET /<index>/_mapping/field/<fields>
+```
+
+Both `<index>` and `<fields>` can be specified as one value or a comma-separated list.
+
+For example, the following request retrieves the mapping for the `year` and `age` fields in `sample-index1`:
+
+```json
+GET sample-index1/_mapping/field/year,age
+```
+
+The response contains the specified fields:
+
+```json
+{
+  "sample-index1" : {
+    "mappings" : {
+      "year" : {
+        "full_name" : "year",
+        "mapping" : {
+          "year" : {
+            "type" : "text"
+          }
+        }
+      },
+      "age" : {
+        "full_name" : "age",
+        "mapping" : {
+          "age" : {
+            "type" : "integer"
+          }
+        }
+      }
+    }
+  }
+}
+```

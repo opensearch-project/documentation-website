@@ -6,6 +6,7 @@ has_children: true
 permalink: /analyzers/text-analyzers/
 redirect_from: 
   - /opensearch/query-dsl/text-analyzers/
+  - /query-dsl/analyzers/text-analyzers/
 ---
 
 
