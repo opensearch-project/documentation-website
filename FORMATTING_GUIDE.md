@@ -32,6 +32,8 @@ This guide provides an overview of the formatted elements commonly used in the O
 
 When adding a page or a section, make the `nav_order` of the child pages multiples of 10. For example, if you have a parent page `Clients`, make child pages `Java`, `Python`, and `JavaScript` have a `nav_order` of 10, 20, and 30, respectively. Doing so makes inserting additional child pages easier because it does not require you to renumber existing pages.
 
+Each collection must have an `index.md` file that corresponds to the collection's index page. In the `index.md` file's front matter, specify `nav_excluded: true` so that the page does not appear separately under the collection.
+
 ## Buttons
 
 You can use either `copy` or `copy-curl` includes for code snippets. The `copy` include places a **Copy** button on the code snippet, while the `copy-curl` include places both **Copy** and **Copy as cURL** buttons. Use the `copy-curl` include for API requests. If an API request is already in the cURL format, use the `copy` include.
