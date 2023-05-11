@@ -4,6 +4,7 @@ title: Operational panels
 nav_order: 60
 redirect_from:
   - /observing-your-data/operational-panels/
+  - /observability-plugin/operational-panels/
 ---
 
 # Operational panels
