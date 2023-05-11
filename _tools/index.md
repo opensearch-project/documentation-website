@@ -3,6 +3,7 @@ layout: default
 title: Tools
 nav_order: 50
 has_children: false
+nav_exclude: true
 redirect_from:
   - /clients/agents-and-ingestion-tools/
 ---
