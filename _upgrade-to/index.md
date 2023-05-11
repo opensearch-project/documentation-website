@@ -2,6 +2,7 @@
 layout: default
 title: About the migration process
 nav_order: 1
+nav_exclude: true
 redirect_from:
   - /upgrade-to/
 ---
