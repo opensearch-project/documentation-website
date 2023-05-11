@@ -2,6 +2,7 @@
 layout: default
 title: Creating a cluster
 nav_order: 1
+nav_exclude: true
 redirect_from: 
   - /opensearch/cluster/
   - /tuning-your-cluster/cluster/
