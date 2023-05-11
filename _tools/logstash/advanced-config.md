@@ -197,7 +197,7 @@ The user agent is the last part of a log entry that consists of the name of the 
 
 Users might be using a wide range of browsers, devices, and OS's. Doing this manually is hard.
 
-You can't use `grok` patterns because the `grok` pattern only matches the usage in the string as whole and doesn't figure out which browser the visitor used for instance.
+You can't use `grok` patterns because the `grok` pattern only matches the usage in the string as whole and doesn't figure out which browser the visitor used, for instance.
 
 Logstash ships with a file containing regular expressions for this purpose. This makes it really easy to extract user agent information, which you could send to OpenSearch and run aggregations on.
 
@@ -216,7 +216,7 @@ Start Logstash and send an HTTP request.
 
 You can see a field named `ua` with a number of keys including the browser name and version, the OS, and the device.
 
-You could OpenSearch Dashboards to create a pie chart that shows how many visitors are from mobile devices and how many are desktop users. Or, you could get statistics on which browser versions are popular.
+You can use OpenSearch Dashboards to create a pie chart that shows how many visitors are using mobile devices and how many are desktop users. Or, you could get statistics on which browser versions are popular.
 
 ## Enriching geographical data
 
@@ -235,11 +235,11 @@ geoip {
 
 Start Logstash and send an HTTP request.
 
-Within the terminal, you see a new field named `geoip` that contains information such as the timezone, country, continent, city, postal code, and the latitude / longitude pair.
+Within the terminal, you see a new field named `geoip` that contains information such as the time zone, country, continent, city, postal code, and the latitude / longitude pair.
 
 If you only need the country name for instance, include an option named `fields` with an array of the field names that you want the `geoip` plugin to return.
 
-Some of the fields are not always available such as city name and region because translating IP addresses into geographical locations is generally not that accurate. If the `geoip` plugin fails to look up the geographical location, it adds a tag named `geoip_lookup_failure`.
+Some of the fields, such as city name and region, are not always available because translating IP addresses into geographical locations is generally not that accurate. If the `geoip` plugin fails to look up the geographical location, it adds a tag named `geoip_lookup_failure`.
 
 You can use the `geoip` plugin with the OpenSearch output because `location` object within the `geoip` object, is a standard format for representing geospatial data in JSON. This is the same format as OpenSearch uses for its `geo_point` data type.
 
