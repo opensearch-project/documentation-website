@@ -8,13 +8,13 @@ has_toc: false
 
 # Search
 
-OpenSearch provides several features to customize your search use cases and improve search relevance. In OpenSearch, you can:
+OpenSearch provides several features for customizing your search use cases and improving search relevance. In OpenSearch, you can:
 
-- Use [SQL and PPL]({{site.url}}{{site.baseurl}}/search-plugins/sql/) to search data as an alternative to [query domain-specific language (DSL)]({{site.url}}{{site.baseurl}}/query-dsl/).
+- Use [SQL and PPL]({{site.url}}{{site.baseurl}}/search-plugins/sql/) as alternatives to [query domain-specific language (DSL)]({{site.url}}{{site.baseurl}}/query-dsl/) to search data.
 
 - Run resource-intensive queries asynchronously with [asynchronous search]({{site.url}}{{site.baseurl}}/search-plugins/async/).
 
-- Search for k nearest neighbors with [k-NN search]({{site.url}}{{site.baseurl}}/search-plugins/knn/).
+- Search for k-nearest neighbors with [k-NN search]({{site.url}}{{site.baseurl}}/search-plugins/knn/).
 
 - Abstract OpenSearch queries into [search templates]({{site.url}}{{site.baseurl}}/search-plugins/search-template/).
 

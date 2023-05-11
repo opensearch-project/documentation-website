@@ -13,8 +13,8 @@ OpenSearch Dashboards is the user interface that lets you visualize your OpenSea
 
 | Concept | Description | 
 |---------|-------------|
-| [OpenSearch Dashboards Quickstart]({{site.url}}{{site.baseurl}}/dashboards/quickstart-dashboards/) | Learn about the basic concepts and features in OpenSearch Dashboards. |
-| [OpenSearch Playground](https://playground.opensearch.org/app/home#/) | Explore features in OpenSearch Dashboards without installing or downloading anything. |
+| [OpenSearch Dashboards Quickstart]({{site.url}}{{site.baseurl}}/dashboards/quickstart-dashboards/) | Learn about the basic concepts and features of OpenSearch Dashboards. |
+| [OpenSearch Playground](https://playground.opensearch.org/app/home#/) | Explore features in OpenSearch Dashboards without downloading or installing anything. |
 | [Install and configure OpenSearch Dashboards]({{site.url}}{{site.baseurl}}/install-and-configure/install-dashboards/index/) | Get started with OpenSearch Dashboards. | 
 | [Create visualizations]({{site.url}}{{site.baseurl}}/dashboards/visualize/viz-index/) | Learn about visualizing data in OpenSearch Dashboards. |
 | [Explore and query data]({{site.url}}{{site.baseurl}}/dashboards/discover/index-discover/) | Learn how to explore and query data in OpenSearch. |
